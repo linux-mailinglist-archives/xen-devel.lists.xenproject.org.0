@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B3172C4D5
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 14:48:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547135.854375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 317A572C553
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 15:01:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547140.854384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8gxh-0004V8-1P; Mon, 12 Jun 2023 12:47:57 +0000
+	id 1q8hAK-0006xC-4i; Mon, 12 Jun 2023 13:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547135.854375; Mon, 12 Jun 2023 12:47:57 +0000
+Received: by outflank-mailman (output) from mailman id 547140.854384; Mon, 12 Jun 2023 13:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8gxg-0004Rn-UE; Mon, 12 Jun 2023 12:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 547135;
- Mon, 12 Jun 2023 12:47:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q8hAK-0006ul-1x; Mon, 12 Jun 2023 13:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 547140;
+ Mon, 12 Jun 2023 13:00:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oj3S=CA=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1q8gxf-0004Rh-ID
- for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 12:47:55 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59553b6e-091f-11ee-b232-6b7b168915f2;
- Mon, 12 Jun 2023 14:47:54 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4f62b512fe2so5186204e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jun 2023 05:47:54 -0700 (PDT)
+ <SRS0=K0UE=CA=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1q8hAI-0006uf-Rl
+ for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 13:00:58 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 2aed71e8-0921-11ee-8611-37d641c3527e;
+ Mon, 12 Jun 2023 15:00:56 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 007EA1FB;
+ Mon, 12 Jun 2023 06:01:40 -0700 (PDT)
+Received: from C3HXLD123V.arm.com (unknown [10.57.74.78])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 21C893F587;
+ Mon, 12 Jun 2023 06:00:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +42,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59553b6e-091f-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686574074; x=1689166074;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Jlwpx67/GeYfFh9oneqzHY/viw5PwbovhEfwiRyUpJw=;
-        b=RfPaDcf1Rco5b0+NmwJEnIUvhopJD2aQz28B5WpurrO/e15YNvQkZoLr7p/rTgK2t/
-         YmHobqo6nxTTmTKrjcUYAIjeVXMspQvQR9qtdVM/Ngs0wQpAtqdc5ykNk2gnSLgMUMQ+
-         0oGOWj7rIiyWv7irc0WJU11pRzF2RveVZ3YaFSvC35T5LJAw5quA7kYWFZ4MCPspql5E
-         xvSahqB3TAqadS3D0x9rWclOL/+Cv4lq0bw1oa51ShExTfiWRn762MwsKIW5QyLZOxKz
-         Cs6q+fCFF8UEur7IuIURilv28b03TV57e5K07PiL3B89wLF+jZRsghsD5yWEO7PD02s0
-         G99Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686574074; x=1689166074;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Jlwpx67/GeYfFh9oneqzHY/viw5PwbovhEfwiRyUpJw=;
-        b=hun1P9KeC47tbwlrXtoP3alX+lU4hTE658+Sp/4YRqkDo3zdqdEQREuRQWtpR0t0l5
-         Ag7NO5wslA66liMLyx6EJBv0oFKtxF87zPgbrankKFQCX41r2u6qcVMMEi5fc9vs0YUQ
-         zZr/RtieddngGQK1ZNo1MFbNNAr/JYbcRDjxhLOEm6xTxVNUzXmgMH/nO4fMcv/T0ZUV
-         FDnDgrW44BDTyHOvszD9S0TXfClh1mtr2SsxciIASC76QJ/rwzB9kGwqq/9w7NXqtfEI
-         j/mc1zw9vbEGG/VahB9OkgLpwPU3P4fA9N2pQ7yJ0Jy6Am8YrY7/L3jFdoZGHwh9BBqt
-         eXAA==
-X-Gm-Message-State: AC+VfDzXgpiaTk14NJE8/7zff7KY6RbvqrFDa25Ft0BhlnF8Mi2lJSkA
-	eoEqhXKvrA4rDIN439YTAJ8yMlBtBZjspTjLMYp2Bs9D
-X-Google-Smtp-Source: ACHHUZ6IxhJ9aCoNCVnrx9KABZfRHR2+1UYDorMIb5jlNPd2TeI5u671xPgososOTLpD8bxyv4YnOov9wo7OIbkhXao=
-X-Received: by 2002:a19:9101:0:b0:4f6:2b29:b446 with SMTP id
- t1-20020a199101000000b004f62b29b446mr4299156lfd.21.1686574073858; Mon, 12 Jun
- 2023 05:47:53 -0700 (PDT)
+X-Inumbo-ID: 2aed71e8-0921-11ee-8611-37d641c3527e
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] xen/arm: rename guest_cpuinfo in domain_cpuinfo
+Date: Mon, 12 Jun 2023 15:00:46 +0200
+Message-Id: <a7703b52779c39fa64fb3872be873b9d0ca83fc1.1686574689.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 MIME-Version: 1.0
-References: <2dc50b58-a4e4-3e32-1876-94412b14b052@suse.com> <fc7b72ce-2426-4452-bff6-f98b07b5a41c@suse.com>
-In-Reply-To: <fc7b72ce-2426-4452-bff6-f98b07b5a41c@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 12 Jun 2023 08:47:41 -0400
-Message-ID: <CAKf6xptx4hNCZm6T371VJopUS+4=Fvp2Wd1m+16mAH5B0UHKYA@mail.gmail.com>
-Subject: Re: [PATCH 1/5] xen-mfndump: drop dead assignment to "page" from lookup_pte_func()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 12, 2023 at 7:45=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> The variable isn't used past the loop, and its value also isn't
-> meaningful across iterations. Reduce its scope to make this more
-> obvious.
->
-> Coverity ID: 1532310
-> Fixes: ae763e422430 ("tools/misc: introduce xen-mfndump")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Rename the guest_cpuinfo structure to domain_cpuinfo as it is not only
+used for guests but also for dom0 so domain is a more suitable name.
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+While there also rename the create_guest_cpuinfo function to
+create_domain_cpuinfo to be coherent and fix comments accordingly.
 
-Thanks,
-Jason
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+---
+Changes in v2:
+- fix 2 more comments to domain instead of guest (Julien)
+---
+ xen/arch/arm/arm64/vsysreg.c          |  6 ++--
+ xen/arch/arm/cpufeature.c             | 44 +++++++++++++--------------
+ xen/arch/arm/include/asm/cpufeature.h |  2 +-
+ xen/arch/arm/vcpreg.c                 |  2 +-
+ 4 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
+index fe31f7b3827f..b5d54c569b33 100644
+--- a/xen/arch/arm/arm64/vsysreg.c
++++ b/xen/arch/arm/arm64/vsysreg.c
+@@ -76,7 +76,7 @@ TVM_REG(CONTEXTIDR_EL1)
+     case HSR_SYSREG_##reg:                                              \
+     {                                                                   \
+         return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr,   \
+-                                  1, guest_cpuinfo.field.bits[offset]); \
++                                  1, domain_cpuinfo.field.bits[offset]); \
+     }
+ 
+ void do_sysreg(struct cpu_user_regs *regs,
+@@ -300,7 +300,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+ 
+     case HSR_SYSREG_ID_AA64PFR0_EL1:
+     {
+-        register_t guest_reg_value = guest_cpuinfo.pfr64.bits[0];
++        register_t guest_reg_value = domain_cpuinfo.pfr64.bits[0];
+ 
+         if ( is_sve_domain(v->domain) )
+         {
+@@ -336,7 +336,7 @@ void do_sysreg(struct cpu_user_regs *regs,
+          * When the guest has the SVE feature enabled, the whole id_aa64zfr0_el1
+          * needs to be exposed.
+          */
+-        register_t guest_reg_value = guest_cpuinfo.zfr64.bits[0];
++        register_t guest_reg_value = domain_cpuinfo.zfr64.bits[0];
+ 
+         if ( is_sve_domain(v->domain) )
+             guest_reg_value = system_cpuinfo.zfr64.bits[0];
+diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+index b53e1a977601..f43d5cb338d0 100644
+--- a/xen/arch/arm/cpufeature.c
++++ b/xen/arch/arm/cpufeature.c
+@@ -14,7 +14,7 @@
+ 
+ DECLARE_BITMAP(cpu_hwcaps, ARM_NCAPS);
+ 
+-struct cpuinfo_arm __read_mostly guest_cpuinfo;
++struct cpuinfo_arm __read_mostly domain_cpuinfo;
+ 
+ #ifdef CONFIG_ARM_64
+ static bool has_sb_instruction(const struct arm_cpu_capabilities *entry)
+@@ -190,46 +190,46 @@ void identify_cpu(struct cpuinfo_arm *c)
+ 
+ /*
+  * This function is creating a cpuinfo structure with values modified to mask
+- * all cpu features that should not be published to guest.
+- * The created structure is then used to provide ID registers values to guests.
++ * all cpu features that should not be published to domains.
++ * The created structure is then used to provide ID registers values to domains.
+  */
+-static int __init create_guest_cpuinfo(void)
++static int __init create_domain_cpuinfo(void)
+ {
+-    /* Use the sanitized cpuinfo as initial guest cpuinfo */
+-    guest_cpuinfo = system_cpuinfo;
++    /* Use the sanitized cpuinfo as initial domain cpuinfo */
++    domain_cpuinfo = system_cpuinfo;
+ 
+ #ifdef CONFIG_ARM_64
+     /* Hide MPAM support as xen does not support it */
+-    guest_cpuinfo.pfr64.mpam = 0;
+-    guest_cpuinfo.pfr64.mpam_frac = 0;
++    domain_cpuinfo.pfr64.mpam = 0;
++    domain_cpuinfo.pfr64.mpam_frac = 0;
+ 
+     /* Hide SVE by default */
+-    guest_cpuinfo.pfr64.sve = 0;
+-    guest_cpuinfo.zfr64.bits[0] = 0;
++    domain_cpuinfo.pfr64.sve = 0;
++    domain_cpuinfo.zfr64.bits[0] = 0;
+ 
+     /* Hide MTE support as Xen does not support it */
+-    guest_cpuinfo.pfr64.mte = 0;
++    domain_cpuinfo.pfr64.mte = 0;
+ 
+     /* Hide PAC support as Xen does not support it */
+-    guest_cpuinfo.isa64.apa = 0;
+-    guest_cpuinfo.isa64.api = 0;
+-    guest_cpuinfo.isa64.gpa = 0;
+-    guest_cpuinfo.isa64.gpi = 0;
++    domain_cpuinfo.isa64.apa = 0;
++    domain_cpuinfo.isa64.api = 0;
++    domain_cpuinfo.isa64.gpa = 0;
++    domain_cpuinfo.isa64.gpi = 0;
+ #endif
+ 
+     /* Hide AMU support */
+ #ifdef CONFIG_ARM_64
+-    guest_cpuinfo.pfr64.amu = 0;
++    domain_cpuinfo.pfr64.amu = 0;
+ #endif
+-    guest_cpuinfo.pfr32.amu = 0;
++    domain_cpuinfo.pfr32.amu = 0;
+ 
+     /* Hide RAS support as Xen does not support it */
+ #ifdef CONFIG_ARM_64
+-    guest_cpuinfo.pfr64.ras = 0;
+-    guest_cpuinfo.pfr64.ras_frac = 0;
++    domain_cpuinfo.pfr64.ras = 0;
++    domain_cpuinfo.pfr64.ras_frac = 0;
+ #endif
+-    guest_cpuinfo.pfr32.ras = 0;
+-    guest_cpuinfo.pfr32.ras_frac = 0;
++    domain_cpuinfo.pfr32.ras = 0;
++    domain_cpuinfo.pfr32.ras_frac = 0;
+ 
+     return 0;
+ }
+@@ -237,7 +237,7 @@ static int __init create_guest_cpuinfo(void)
+  * This function needs to be run after all smp are started to have
+  * cpuinfo structures for all cores.
+  */
+-__initcall(create_guest_cpuinfo);
++__initcall(create_domain_cpuinfo);
+ 
+ /*
+  * Local variables:
+diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+index 03fe684b4d36..894f278a4a5a 100644
+--- a/xen/arch/arm/include/asm/cpufeature.h
++++ b/xen/arch/arm/include/asm/cpufeature.h
+@@ -461,7 +461,7 @@ static inline void update_system_features(const struct cpuinfo_arm *cpuinfo)
+ extern struct cpuinfo_arm cpu_data[];
+ #define current_cpu_data cpu_data[smp_processor_id()]
+ 
+-extern struct cpuinfo_arm guest_cpuinfo;
++extern struct cpuinfo_arm domain_cpuinfo;
+ 
+ #endif /* __ASSEMBLY__ */
+ 
+diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
+index 4adfc0a68d0e..39aeda9dab62 100644
+--- a/xen/arch/arm/vcpreg.c
++++ b/xen/arch/arm/vcpreg.c
+@@ -169,7 +169,7 @@ TVM_REG32(CONTEXTIDR, CONTEXTIDR_EL1)
+     case HSR_CPREG32(reg):                                          \
+     {                                                               \
+         return handle_ro_read_val(regs, regidx, cp32.read, hsr, 1,  \
+-                                  guest_cpuinfo.field.bits[offset]);\
++                                  domain_cpuinfo.field.bits[offset]);\
+     }
+ 
+ /* helper to define cases for all registers for one CRm value */
+-- 
+2.39.2 (Apple Git-143)
+
 
