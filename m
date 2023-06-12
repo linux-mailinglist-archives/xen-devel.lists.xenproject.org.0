@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1111872B72F
+	by mail.lfdr.de (Postfix) with ESMTPS id 772F672B730
 	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 07:10:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.546820.853864 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.546822.853873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8Znp-0006JV-BU; Mon, 12 Jun 2023 05:09:17 +0000
+	id 1q8ZoH-0006nA-Mn; Mon, 12 Jun 2023 05:09:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 546820.853864; Mon, 12 Jun 2023 05:09:17 +0000
+Received: by outflank-mailman (output) from mailman id 546822.853873; Mon, 12 Jun 2023 05:09:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8Znp-0006Gu-76; Mon, 12 Jun 2023 05:09:17 +0000
-Received: by outflank-mailman (input) for mailman id 546820;
- Mon, 12 Jun 2023 05:09:16 +0000
+	id 1q8ZoH-0006kD-Jr; Mon, 12 Jun 2023 05:09:45 +0000
+Received: by outflank-mailman (input) for mailman id 546822;
+ Mon, 12 Jun 2023 05:09:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lerX=CA=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
- id 1q8Zno-0006Go-0y
- for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 05:09:16 +0000
-Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com
- [2607:f8b0:4864:20::931])
+ id 1q8ZoF-0006Go-Ng
+ for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 05:09:43 +0000
+Received: from mail-vk1-xa2a.google.com (mail-vk1-xa2a.google.com
+ [2607:f8b0:4864:20::a2a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 457373b9-08df-11ee-b232-6b7b168915f2;
- Mon, 12 Jun 2023 07:09:14 +0200 (CEST)
-Received: by mail-ua1-x931.google.com with SMTP id
- a1e0cc1a2514c-784205f0058so1371329241.1
- for <xen-devel@lists.xenproject.org>; Sun, 11 Jun 2023 22:09:13 -0700 (PDT)
+ id 570f4991-08df-11ee-b232-6b7b168915f2;
+ Mon, 12 Jun 2023 07:09:43 +0200 (CEST)
+Received: by mail-vk1-xa2a.google.com with SMTP id
+ 71dfb90a1353d-46288dcacb5so1152265e0c.3
+ for <xen-devel@lists.xenproject.org>; Sun, 11 Jun 2023 22:09:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,45 +40,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 457373b9-08df-11ee-b232-6b7b168915f2
+X-Inumbo-ID: 570f4991-08df-11ee-b232-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686546552; x=1689138552;
+        d=gmail.com; s=20221208; t=1686546582; x=1689138582;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0x3KhOr+yc6kG50ecMt1zrzXqM3qDJzmbWg6PazmtvE=;
-        b=NebBeLAFc7NKiGSo2OLiaezIPD9sAV1TkdfjNpfpp33a2Q7XViST56PjddsU4v6IM7
-         VyRg9JrtRwoEflZefIiI/z9D0xR53ZQnf0k6a5JK3QMvBy9L2ivuVGT/6quI7dHGWQ7l
-         /YcskSZTdmi5XJo4yawWAWx9NQB1jjrwssgLPGlcu3LB8MwCetsa4GiI6ZiSOj1cIFcs
-         VizgS3qJzMqKDME397JagWRlAFVQ1LHbxPZq+zAaUWU0s1L/D2DI3FXU0SEV3Xq+WDxD
-         2BF+oh3J4baiAXaBELwnCdfVopMEA/UYUJ4sULRS3PaHJBJpmoMT04qyUIfovY5cJmFR
-         YDRg==
+        bh=t3wBvLmfF0q6hDuJYQPi1PApNKVHc8G+vpArL126YKI=;
+        b=QQzcKNzgynBJoW9HIlpzyfWYSLtMbm0EZ4S9Dbi9z8NeecuPV9qtySpnnSBT0pNWEY
+         fMxn+B2iM5fprxPVFMf6hXDnj/amTPRKLKyuIy+mi+eEbbIULPyxYpvNvheutg732dXG
+         dIQlc0JoHx/sycxPPuNkEUeNRweO91oO2WggNrKajFl/UFW/j3qMLiXKqwnU2ae79CTg
+         VwTOr9Kk3kM503mRLYzsiyl1twh0ToI74lwtv/OQPcL59dBhwLDTRPJ1j8ZRIkWxcLUX
+         KPBDckUVxI/7N4+a4WVpHMTl50emikiKk4LVJCvkDRr4ixDCzs/G8E/5gZfYc8Gcwx6p
+         cM4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686546552; x=1689138552;
+        d=1e100.net; s=20221208; t=1686546582; x=1689138582;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0x3KhOr+yc6kG50ecMt1zrzXqM3qDJzmbWg6PazmtvE=;
-        b=ICwu/tXxuVgbU/pvKjfqfje6j1E5CX0DIbtxMznEz7JgVR8SN8T6jMYV4GB1LITxVF
-         tRrWhhDEBDi2h+WYQc+0dCvuKW5tEGtGrlfb26oKWHIN5IC8rY0BDJ+ynRCH18UpwOzK
-         8Wxs8nATDDIH84oNdU2xBObDFfD9g/rKzbzm6RxS4xxEqXtD3VcJqJb4eAyI32hZU3Yf
-         gK3ISfK36YpaLRhdn7JGARbjBo3hIKoOT2zYRoba04LMoNzKYJjXh+3pGS7B7BQ8b9M0
-         m0PVQPRozwbdbdU/nnMXaUxFJNovjE6FeYaQScy+Wl38Tq281PA+J6ep9TSPPn80Dmh7
-         aT6A==
-X-Gm-Message-State: AC+VfDz/QXBnQ0q/Kp4/ZAJBoa/8f6QhIRR2EixsKbMjhPAYDPXRg3S9
-	C4uEbni6Y5cx6l9sp6ZUIuL8Lh5D531bBujT64M=
-X-Google-Smtp-Source: ACHHUZ7V/jQjOwSBe0/meTvxkKQ0HiiB8xEEM+06KoPVK8/oLbQtTeLOBH/IsdGBuXeI2dpZEmVoQCCiFLkB2ggrM68=
-X-Received: by 2002:a05:6102:ca:b0:43d:54e9:35fb with SMTP id
- u10-20020a05610200ca00b0043d54e935fbmr2999738vsp.14.1686546552581; Sun, 11
- Jun 2023 22:09:12 -0700 (PDT)
+        bh=t3wBvLmfF0q6hDuJYQPi1PApNKVHc8G+vpArL126YKI=;
+        b=OXEILottPIlkZ6pJU+7Vpg5PzMyjnX6Dewnx3+niXtw1/ifcqUiBvKDi/PWHrbnJ+P
+         pYTZgY40TzZgf+8c53ex3EKX6fmzp/p7C/5jBvESrul9GWVmElcpc0evdN6xEBPdwGLP
+         fJWRXdNUBVwpflZgWQASfcJQD2ja2yAsNjS9HEmtu8DSqgo5D1AUOw4YGcl2JWv23CZ1
+         V4IJ9CuA0yjp6BT2Qw0HuKIUVmJceuLH3ozirmSWo12fpRQbK6tLXsJpF6FoJ4vZTzoP
+         eUdtyE5lHxkFiwq/iyMlLRK3ytqo5YPp9fqu1eyfswmFqkMNoPLEFWvbkMH3SeYO4ktb
+         Pbzw==
+X-Gm-Message-State: AC+VfDxCqExZQjejYHrRt+VbklQ+9loUWg2hrEdwgENkEfibe3RYrisR
+	57ncZwUwBpnaDs9k+WTCHROvImqMXfh5kHmFos8=
+X-Google-Smtp-Source: ACHHUZ7qmL7IKC0Yhg2xV/J4WBFw4eQee+yWxIaLMVRv8kwAZqsCCYaxPuCR1rSMFA4kATxeSGqnWxFBpRvahesZTDU=
+X-Received: by 2002:a1f:5c43:0:b0:45f:ed55:4cca with SMTP id
+ q64-20020a1f5c43000000b0045fed554ccamr3516696vkb.6.1686546582168; Sun, 11 Jun
+ 2023 22:09:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1686080337.git.oleksii.kurochko@gmail.com> <4ad639bed6b8aa6cee34288a7ce154db21d761b5.1686080337.git.oleksii.kurochko@gmail.com>
-In-Reply-To: <4ad639bed6b8aa6cee34288a7ce154db21d761b5.1686080337.git.oleksii.kurochko@gmail.com>
+References: <cover.1686080337.git.oleksii.kurochko@gmail.com> <6a0f3171323f0092b8374f2244182c7e7ca850c0.1686080337.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6a0f3171323f0092b8374f2244182c7e7ca850c0.1686080337.git.oleksii.kurochko@gmail.com>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 12 Jun 2023 15:08:46 +1000
-Message-ID: <CAKmqyKMSf0ZEQbhsDrKN4_6iPf7ZmjiW3cUAwUErbnUN=Wak5w@mail.gmail.com>
-Subject: Re: [PATCH v1 1/8] xen/riscv: make sure that identity mapping isn't
- bigger then page size
+Date: Mon, 12 Jun 2023 15:09:16 +1000
+Message-ID: <CAKmqyKNiw9641zs9-MBdUg48+izvCwqif=V=CvLCXn8jCLp_fw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/8] xen/riscv: add .sbss section to .bss
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
 	Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
@@ -89,6 +88,10 @@ Content-Transfer-Encoding: quoted-printable
 On Wed, Jun 7, 2023 at 5:55=E2=80=AFAM Oleksii Kurochko
 <oleksii.kurochko@gmail.com> wrote:
 >
+> Sometimes variables are located in .sbss section but it won't
+> be mapped after MMU will be enabled.
+> To avoid MMU failures .sbss should be mapped
+>
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 Acked-by: Alistair Francis <alistair.francis@wdc.com>
@@ -96,44 +99,22 @@ Acked-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  xen/arch/riscv/xen.lds.S | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  xen/arch/riscv/xen.lds.S | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
 > diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-> index 878130f313..74afbaab9b 100644
+> index 74afbaab9b..9a2799bab5 100644
 > --- a/xen/arch/riscv/xen.lds.S
 > +++ b/xen/arch/riscv/xen.lds.S
-> @@ -20,6 +20,7 @@ SECTIONS
->      . =3D XEN_VIRT_START;
->      _start =3D .;
->      .text : {
-> +        _idmap_start =3D .;
->          _stext =3D .;            /* Text section */
->          *(.text.header)
->
-> @@ -35,6 +36,7 @@ SECTIONS
->          *(.gnu.warning)
+> @@ -151,7 +151,7 @@ SECTIONS
+>          *(.bss.percpu.read_mostly)
+>          . =3D ALIGN(SMP_CACHE_BYTES);
+>          __per_cpu_data_end =3D .;
+> -        *(.bss .bss.*)
+> +        *(.bss .bss.* .sbss)
 >          . =3D ALIGN(POINTER_ALIGN);
->          _etext =3D .;             /* End of text section */
-> +        _idmap_end =3D .;
+>          __bss_end =3D .;
 >      } :text
->
->      . =3D ALIGN(PAGE_SIZE);
-> @@ -174,3 +176,10 @@ ASSERT(!SIZEOF(.got),      ".got non-empty")
->  ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
->
->  ASSERT(_end - _start <=3D MB(2), "Xen too large for early-boot assumptio=
-ns")
-> +
-> +/*
-> + * We require that Xen is loaded at a page boundary, so this ensures tha=
-t any
-> + * code running on the identity map cannot cross a page boundary.
-> + */
-> +ASSERT(IS_ALIGNED(_idmap_start, PAGE_SIZE), "_idmap_start should be page=
--aligned")
-> +ASSERT(_idmap_end - _idmap_start <=3D PAGE_SIZE, "Identity mapped code i=
-s larger than a page size")
 > --
 > 2.40.1
 >
