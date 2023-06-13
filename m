@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AA8072D599
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 02:12:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547697.855268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7774572D6A7
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 02:57:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547705.855279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8rdx-0007lD-7A; Tue, 13 Jun 2023 00:12:17 +0000
+	id 1q8sKQ-00044V-K1; Tue, 13 Jun 2023 00:56:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547697.855268; Tue, 13 Jun 2023 00:12:17 +0000
+Received: by outflank-mailman (output) from mailman id 547705.855279; Tue, 13 Jun 2023 00:56:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8rdx-0007jW-4Q; Tue, 13 Jun 2023 00:12:17 +0000
-Received: by outflank-mailman (input) for mailman id 547697;
- Tue, 13 Jun 2023 00:12:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OiKB=CB=intel.com=rick.p.edgecombe@srs-se1.protection.inumbo.net>)
- id 1q8rdv-0007jQ-9m
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 00:12:15 +0000
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f08fc573-097e-11ee-b232-6b7b168915f2;
- Tue, 13 Jun 2023 02:12:12 +0200 (CEST)
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 17:12:08 -0700
-Received: from almeisch-mobl1.amr.corp.intel.com (HELO
- rpedgeco-desk4.amr.corp.intel.com) ([10.209.42.242])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 17:12:07 -0700
+	id 1q8sKQ-000419-Fm; Tue, 13 Jun 2023 00:56:10 +0000
+Received: by outflank-mailman (input) for mailman id 547705;
+ Tue, 13 Jun 2023 00:56:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8sKP-00040z-70; Tue, 13 Jun 2023 00:56:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8sKP-0000LA-3d; Tue, 13 Jun 2023 00:56:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8sKO-0003R7-JP; Tue, 13 Jun 2023 00:56:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8sKO-0005c1-Iv; Tue, 13 Jun 2023 00:56:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,211 +42,310 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f08fc573-097e-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686615132; x=1718151132;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=3c77rqX6YUy6Cyz5r8ePlQOYiEkqAYIhDQVjx5oVoZw=;
-  b=g+ZYXoAlr+ngok4F9bueFmrFBdo0jxaex0ZmEZJed+xR1ofr5h0nf485
-   WnWKuNjlAuF6oNqVWVs8tSKc3DS1bD2TMpsyzRsrzzns3ABqZgeTxSpYE
-   QNB7mulmMPh57NMK1WLxrtb/hyAJ9/20uUSy+mMKKw+zDDVnwPRCeiBLX
-   pxHylPw8z3BfYu52D/sNKlYsTFdnRr3zw0ipaQ4ep9DjSqrs7lrLWIaBb
-   lepqbFnNWl7785sGMGIxfisGjct0I2pKOOFNxpQE2T2KFZ1nwX9iWG+JT
-   l2hRaM86KUHcJ300P2QP6N7JdTdAqhiblaMfmLhAtAE0r3VALRPHU+dg7
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10739"; a="361556695"
-X-IronPort-AV: E=Sophos;i="6.00,238,1681196400"; 
-   d="scan'208";a="361556695"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10739"; a="835670972"
-X-IronPort-AV: E=Sophos;i="6.00,238,1681196400"; 
-   d="scan'208";a="835670972"
-From: Rick Edgecombe <rick.p.edgecombe@intel.com>
-To: x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-arch@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>,
-	Andy Lutomirski <luto@kernel.org>,
-	Balbir Singh <bsingharora@gmail.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Cyrill Gorcunov <gorcunov@gmail.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Eugene Syromiatnikov <esyr@redhat.com>,
-	Florian Weimer <fweimer@redhat.com>,
-	"H . J . Lu" <hjl.tools@gmail.com>,
-	Jann Horn <jannh@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kees Cook <keescook@chromium.org>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
-	Nadav Amit <nadav.amit@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Pavel Machek <pavel@ucw.cz>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Weijiang Yang <weijiang.yang@intel.com>,
-	"Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>,
-	John Allen <john.allen@amd.com>,
-	kcc@google.com,
-	eranian@google.com,
-	rppt@kernel.org,
-	jamorris@linux.microsoft.com,
-	dethoma@microsoft.com,
-	akpm@linux-foundation.org,
-	Andrew.Cooper3@citrix.com,
-	christina.schimpe@intel.com,
-	david@redhat.com,
-	debug@rivosinc.com,
-	szabolcs.nagy@arm.com,
-	torvalds@linux-foundation.org,
-	broonie@kernel.org
-Cc: rick.p.edgecombe@intel.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v9 02/42] mm: Move pte/pmd_mkwrite() callers with no VMA to _novma()
-Date: Mon, 12 Jun 2023 17:10:28 -0700
-Message-Id: <20230613001108.3040476-3-rick.p.edgecombe@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230613001108.3040476-1-rick.p.edgecombe@intel.com>
-References: <20230613001108.3040476-1-rick.p.edgecombe@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HTouw4tZQ61HlMAseJuck9VY1odl70327wi0pG/aXXQ=; b=qMmj1rzXWzgAMLSCMh+0F0dWFy
+	fqxdx3MLXOMYSOONaIlh2+wMXuUNDMoXhlA8WrvLPQWvB+OmmZv2bI6t6Gs03WmvfhyOWVLqnBs3D
+	cF3sVDPFgECZuxutzGOD4Nv9QGf2D2KP1pYzRnDVjKTz3E7kFiv5YtIlm5YO/aCThF8I=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181392-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 181392: regressions - trouble: broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-libvirt:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-arndale:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-credit1:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-credit2:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-rtds:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-vhd:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:build-arm64-pvops:kernel-build:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-xl-multivcpu:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-xl-vhd:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-xl-credit1:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-examine:host-install:broken:heisenbug
+    linux-linus:test-armhf-armhf-xl:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-xl-rtds:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-xl-arndale:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-xl-credit2:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-libvirt:host-install(5):broken:heisenbug
+    linux-linus:test-armhf-armhf-libvirt-qcow2:host-install(5):broken:heisenbug
+    linux-linus:test-amd64-amd64-xl-vhd:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=858fd168a95c5b9669aac8db6c14a9aeab446375
+X-Osstest-Versions-That:
+    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 13 Jun 2023 00:56:08 +0000
 
-The x86 Shadow stack feature includes a new type of memory called shadow
-stack. This shadow stack memory has some unusual properties, which requires
-some core mm changes to function properly.
+flight 181392 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181392/
 
-One of these unusual properties is that shadow stack memory is writable,
-but only in limited ways. These limits are applied via a specific PTE
-bit combination. Nevertheless, the memory is writable, and core mm code
-will need to apply the writable permissions in the typical paths that
-call pte_mkwrite(). Future patches will make pte_mkwrite() take a VMA, so
-that the x86 implementation of it can know whether to create regular
-writable memory or shadow stack memory.
+Regressions :-(
 
-But there are a couple of challenges to this. Modifying the signatures of
-each arch pte_mkwrite() implementation would be error prone because some
-are generated with macros and would need to be re-implemented. Also, some
-pte_mkwrite() callers operate on kernel memory without a VMA.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-libvirt        <job status>                 broken
+ test-armhf-armhf-libvirt-qcow2    <job status>                 broken
+ test-armhf-armhf-libvirt-raw    <job status>                 broken
+ test-armhf-armhf-xl             <job status>                 broken
+ test-armhf-armhf-xl-arndale     <job status>                 broken
+ test-armhf-armhf-xl-credit1     <job status>                 broken
+ test-armhf-armhf-xl-credit2     <job status>                 broken
+ test-armhf-armhf-xl-multivcpu    <job status>                 broken
+ test-armhf-armhf-xl-rtds        <job status>                 broken
+ test-armhf-armhf-xl-vhd         <job status>                 broken
+ test-armhf-armhf-xl-credit1   8 xen-boot       fail in 181383 REGR. vs. 180278
+ build-arm64-pvops             6 kernel-build   fail in 181383 REGR. vs. 180278
 
-So this can be done in a three step process. First pte_mkwrite() can be
-renamed to pte_mkwrite_novma() in each arch, with a generic pte_mkwrite()
-added that just calls pte_mkwrite_novma(). Next callers without a VMA can
-be moved to pte_mkwrite_novma(). And lastly, pte_mkwrite() and all callers
-can be changed to take/pass a VMA.
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-raw  5 host-install(5)          broken pass in 181383
+ test-armhf-armhf-xl-multivcpu  5 host-install(5)         broken pass in 181383
+ test-armhf-armhf-xl-vhd       5 host-install(5)          broken pass in 181383
+ test-armhf-armhf-xl-credit1   5 host-install(5)          broken pass in 181383
+ test-armhf-armhf-examine      5 host-install             broken pass in 181387
+ test-armhf-armhf-xl           5 host-install(5)          broken pass in 181387
+ test-armhf-armhf-xl-rtds      5 host-install(5)          broken pass in 181387
+ test-armhf-armhf-xl-arndale   5 host-install(5)          broken pass in 181387
+ test-armhf-armhf-xl-credit2   5 host-install(5)          broken pass in 181387
+ test-armhf-armhf-libvirt      5 host-install(5)          broken pass in 181387
+ test-armhf-armhf-libvirt-qcow2  5 host-install(5)        broken pass in 181387
+ test-amd64-amd64-xl-vhd 21 guest-start/debian.repeat fail in 181383 pass in 181392
 
-Previous patches have done the first step, so next move the callers that
-don't have a VMA to pte_mkwrite_novma(). Also do the same for
-pmd_mkwrite(). This will be ok for the shadow stack feature, as these
-callers are on kernel memory which will not need to be made shadow stack,
-and the other architectures only currently support one type of memory
-in pte_mkwrite()
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-examine      1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-xl           1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)           blocked in 181383 n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)           blocked in 181383 n/a
+ test-armhf-armhf-xl-multivcpu  8 xen-boot           fail in 181383 like 180278
+ test-armhf-armhf-xl-vhd       8 xen-boot            fail in 181383 like 180278
+ test-armhf-armhf-libvirt-raw  8 xen-boot            fail in 181383 like 180278
+ test-armhf-armhf-xl-credit2   8 xen-boot            fail in 181387 like 180278
+ test-armhf-armhf-examine      8 reboot              fail in 181387 like 180278
+ test-armhf-armhf-libvirt      8 xen-boot            fail in 181387 like 180278
+ test-armhf-armhf-xl-arndale   8 xen-boot            fail in 181387 like 180278
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot          fail in 181387 like 180278
+ test-armhf-armhf-xl           8 xen-boot            fail in 181387 like 180278
+ test-armhf-armhf-xl-rtds      8 xen-boot            fail in 181387 like 180278
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
 
-Cc: linux-doc@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-s390@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org
-Cc: linux-arch@vger.kernel.org
-Cc: linux-mm@kvack.org
-Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
----
-Hi Non-x86 Arch’s,
+version targeted for testing:
+ linux                858fd168a95c5b9669aac8db6c14a9aeab446375
+baseline version:
+ linux                6c538e1adbfc696ac4747fb10d63e704344f763d
 
-x86 has a feature that allows for the creation of a special type of
-writable memory (shadow stack) that is only writable in limited specific
-ways. Previously, changes were proposed to core MM code to teach it to
-decide when to create normally writable memory or the special shadow stack
-writable memory, but David Hildenbrand suggested[0] to change
-pXX_mkwrite() to take a VMA, so awareness of shadow stack memory can be
-moved into x86 code. Later Linus suggested a less error-prone way[1] to go
-about this after the first attempt had a bug.
+Last test of basis   180278  2023-04-16 19:41:46 Z   57 days
+Failing since        180281  2023-04-17 06:24:36 Z   56 days  107 attempts
+Testing same since   181383  2023-06-11 22:12:05 Z    1 days    3 attempts
 
-Since pXX_mkwrite() is defined in every arch, it requires some tree-wide
-changes. So that is why you are seeing some patches out of a big x86
-series pop up in your arch mailing list. There is no functional change.
-After this refactor, the shadow stack series goes on to use the arch
-helpers to push arch memory details inside arch/x86 and other arch's
-with upcoming shadow stack features.
+------------------------------------------------------------
+2681 people touched revisions under test,
+not listing them all
 
-Testing was just 0-day build testing.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          broken  
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  broken  
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  broken  
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  broken  
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     broken  
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                broken  
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               broken  
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 broken  
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     broken  
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      broken  
 
-Hopefully that is enough context. Thanks!
 
-[0] https://lore.kernel.org/lkml/0e29a2d0-08d8-bcd6-ff26-4bea0e4037b0@redhat.com/
-[1] https://lore.kernel.org/lkml/CAHk-=wiZjSu7c9sFYZb3q04108stgHff2wfbokGCCgW7riz+8Q@mail.gmail.com/
----
- arch/arm64/mm/trans_pgd.c | 4 ++--
- arch/s390/mm/pageattr.c   | 4 ++--
- arch/x86/xen/mmu_pv.c     | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-index 4ea2eefbc053..a01493f3a06f 100644
---- a/arch/arm64/mm/trans_pgd.c
-+++ b/arch/arm64/mm/trans_pgd.c
-@@ -40,7 +40,7 @@ static void _copy_pte(pte_t *dst_ptep, pte_t *src_ptep, unsigned long addr)
- 		 * read only (code, rodata). Clear the RDONLY bit from
- 		 * the temporary mappings we use during restore.
- 		 */
--		set_pte(dst_ptep, pte_mkwrite(pte));
-+		set_pte(dst_ptep, pte_mkwrite_novma(pte));
- 	} else if (debug_pagealloc_enabled() && !pte_none(pte)) {
- 		/*
- 		 * debug_pagealloc will removed the PTE_VALID bit if
-@@ -53,7 +53,7 @@ static void _copy_pte(pte_t *dst_ptep, pte_t *src_ptep, unsigned long addr)
- 		 */
- 		BUG_ON(!pfn_valid(pte_pfn(pte)));
- 
--		set_pte(dst_ptep, pte_mkpresent(pte_mkwrite(pte)));
-+		set_pte(dst_ptep, pte_mkpresent(pte_mkwrite_novma(pte)));
- 	}
- }
- 
-diff --git a/arch/s390/mm/pageattr.c b/arch/s390/mm/pageattr.c
-index 5ba3bd8a7b12..6931d484d8a7 100644
---- a/arch/s390/mm/pageattr.c
-+++ b/arch/s390/mm/pageattr.c
-@@ -97,7 +97,7 @@ static int walk_pte_level(pmd_t *pmdp, unsigned long addr, unsigned long end,
- 		if (flags & SET_MEMORY_RO)
- 			new = pte_wrprotect(new);
- 		else if (flags & SET_MEMORY_RW)
--			new = pte_mkwrite(pte_mkdirty(new));
-+			new = pte_mkwrite_novma(pte_mkdirty(new));
- 		if (flags & SET_MEMORY_NX)
- 			new = set_pte_bit(new, __pgprot(_PAGE_NOEXEC));
- 		else if (flags & SET_MEMORY_X)
-@@ -155,7 +155,7 @@ static void modify_pmd_page(pmd_t *pmdp, unsigned long addr,
- 	if (flags & SET_MEMORY_RO)
- 		new = pmd_wrprotect(new);
- 	else if (flags & SET_MEMORY_RW)
--		new = pmd_mkwrite(pmd_mkdirty(new));
-+		new = pmd_mkwrite_novma(pmd_mkdirty(new));
- 	if (flags & SET_MEMORY_NX)
- 		new = set_pmd_bit(new, __pgprot(_SEGMENT_ENTRY_NOEXEC));
- 	else if (flags & SET_MEMORY_X)
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index b3b8d289b9ab..63fced067057 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -150,7 +150,7 @@ void make_lowmem_page_readwrite(void *vaddr)
- 	if (pte == NULL)
- 		return;		/* vaddr missing */
- 
--	ptev = pte_mkwrite(*pte);
-+	ptev = pte_mkwrite_novma(*pte);
- 
- 	if (HYPERVISOR_update_va_mapping(address, ptev, 0))
- 		BUG();
--- 
-2.34.1
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-armhf-armhf-libvirt broken
+broken-job test-armhf-armhf-libvirt-qcow2 broken
+broken-job test-armhf-armhf-libvirt-raw broken
+broken-job test-armhf-armhf-xl broken
+broken-job test-armhf-armhf-xl-arndale broken
+broken-job test-armhf-armhf-xl-credit1 broken
+broken-job test-armhf-armhf-xl-credit2 broken
+broken-job test-armhf-armhf-xl-multivcpu broken
+broken-job test-armhf-armhf-xl-rtds broken
+broken-job test-armhf-armhf-xl-vhd broken
+broken-step test-armhf-armhf-examine host-install
+broken-step test-armhf-armhf-xl host-install(5)
+broken-step test-armhf-armhf-xl-rtds host-install(5)
+broken-step test-armhf-armhf-xl-arndale host-install(5)
+broken-step test-armhf-armhf-xl-credit2 host-install(5)
+broken-step test-armhf-armhf-libvirt host-install(5)
+broken-step test-armhf-armhf-libvirt-raw host-install(5)
+broken-step test-armhf-armhf-libvirt-qcow2 host-install(5)
+broken-step test-armhf-armhf-xl-multivcpu host-install(5)
+broken-step test-armhf-armhf-xl-vhd host-install(5)
+broken-step test-armhf-armhf-xl-credit1 host-install(5)
+broken-job test-armhf-armhf-xl-credit1 broken
+broken-job test-armhf-armhf-xl-vhd broken
+broken-job test-armhf-armhf-libvirt-raw broken
+broken-job test-armhf-armhf-xl-multivcpu broken
+
+Not pushing.
+
+(No revision log; it would be 340189 lines long.)
 
