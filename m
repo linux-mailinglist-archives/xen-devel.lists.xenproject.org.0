@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4022972DE64
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 11:57:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547940.855608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A148A72DE74
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 11:57:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547946.855619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q90lE-0000RO-FJ; Tue, 13 Jun 2023 09:56:24 +0000
+	id 1q90mT-0000ys-Pb; Tue, 13 Jun 2023 09:57:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547940.855608; Tue, 13 Jun 2023 09:56:24 +0000
+Received: by outflank-mailman (output) from mailman id 547946.855619; Tue, 13 Jun 2023 09:57:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q90lE-0000PC-Cg; Tue, 13 Jun 2023 09:56:24 +0000
-Received: by outflank-mailman (input) for mailman id 547940;
- Tue, 13 Jun 2023 09:56:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q90mT-0000wI-MW; Tue, 13 Jun 2023 09:57:41 +0000
+Received: by outflank-mailman (input) for mailman id 547946;
+ Tue, 13 Jun 2023 09:57:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tWOB=CB=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1q90lD-0000P6-2B
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 09:56:23 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c69079b-09d0-11ee-b232-6b7b168915f2;
- Tue, 13 Jun 2023 11:56:21 +0200 (CEST)
-Received: from [192.168.1.88] (unknown [176.206.20.8])
- by support.bugseng.com (Postfix) with ESMTPSA id 83DCE4EE073F
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jun 2023 11:56:20 +0200 (CEST)
+ <SRS0=OmyJ=CB=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1q90mS-0000vx-4K
+ for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 09:57:40 +0000
+Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
+ [136.143.184.57]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8efadaa-09d0-11ee-8611-37d641c3527e;
+ Tue, 13 Jun 2023 11:57:37 +0200 (CEST)
+Received: from [10.10.1.82] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1686650248635662.7341150236904;
+ Tue, 13 Jun 2023 02:57:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,239 +40,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c69079b-09d0-11ee-b232-6b7b168915f2
-Content-Type: multipart/alternative;
- boundary="------------sgipg8zKbYjPxXItngEYtImS"
-Message-ID: <c1d32438-fdef-fdc6-d4e9-e09fd13db9a1@bugseng.com>
-Date: Tue, 13 Jun 2023 11:56:19 +0200
+X-Inumbo-ID: b8efadaa-09d0-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1686650250; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CLqpuqOMxuBau6LzXZhXzz08TH22hCNePXZkJJF6RIINbW0GRIrdJRrSZMbJeU8wBTrKoXRTOa17xI9GSUn3yg//u2ir5HOrHH/sgJ8xfyNUbB7+No0ifiQGiBYCQpOmXOkW775gf5DGQkGCNMl/bLeEsjrQr4GUvMemUYnTWCw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1686650250; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=Grkh7aOr++k4yiv8T1gvUmyVxRDs4XUvRZibmnoITVM=; 
+	b=PejGFYTp60fKpWnSaeclhSq8D70iQAGUzd/NwULTpSSF67/4p6pjslPVig5FKboUDVXGRK9kd+eZ0fYrnGIjvzoiY0buWLDUloGcZSwxrS/TPo1NuhRrA8kEOB7VzyuIJ1+WQqDAHJLy5SZAjzXMbUJzeBZwY/EumqNKdJJc7iU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1686650250;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Grkh7aOr++k4yiv8T1gvUmyVxRDs4XUvRZibmnoITVM=;
+	b=uaWKg6l/tKh9mhnEKFfHBFjW++F7xGb4Aqs9LQqJxf/0F4GmUGg+FqM+yTXy506V
+	061bP2KXIPTugyaNFfdzYwmEdUdqKosCEwPfECx4z9KhlD0ftOeubw0gB3y4tHP2fN8
+	8u6snSoQGl/EuYnUZlNdm/iry83CwuQSyVSWKnb0=
+Message-ID: <f5315788-a8c4-e92b-de7b-7eb9f3c0753b@apertussolutions.com>
+Date: Tue, 13 Jun 2023 05:57:27 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [XEN PATCH] xen: fixed violations of MISRA C:2012 Rule 3.1
+Subject: Re: [PATCH 2/5] libxl: drop dead assignments to "ret" from
+ libxl__domain_config_setdefault()
 Content-Language: en-US
-To: xen-devel@lists.xenproject.org
-References: <e139df541183df7c92b3bd73841cf1fb2851e054.1686575613.git.nicola.vetrini@bugseng.com>
- <42cb13a7-3b62-8d48-a1a1-3094a7bd07fa@suse.com>
-From: nicola <nicola.vetrini@bugseng.com>
-In-Reply-To: <42cb13a7-3b62-8d48-a1a1-3094a7bd07fa@suse.com>
-
-This is a multi-part message in MIME format.
---------------sgipg8zKbYjPxXItngEYtImS
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2dc50b58-a4e4-3e32-1876-94412b14b052@suse.com>
+ <5eda17da-7185-9cf6-7e87-70da57aa0ebc@suse.com>
+ <fba4a77a-1d9e-6f7d-9b07-26481e7098c4@apertussolutions.com>
+ <a3c7752e-cd99-d90b-376d-bbc60cf4a967@apertussolutions.com>
+ <10f2d41f-b34f-207e-eb73-d53f31385d8e@suse.com>
+ <70622b39-cf85-49f4-69a7-b8039baa07f4@apertussolutions.com>
+ <f00fde6f-4dcb-45a3-5b6d-5f1704ecacbc@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <f00fde6f-4dcb-45a3-5b6d-5f1704ecacbc@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 13/06/23 10:27, Jan Beulich wrote:
-
-> On 13.06.2023 09:42, Nicola Vetrini wrote:
->> --- a/xen/common/xmalloc_tlsf.c
->> +++ b/xen/common/xmalloc_tlsf.c
->> @@ -140,9 +140,10 @@ static inline void MAPPING_SEARCH(unsigned long *r, int *fl, int *sl)
->>           *fl = flsl(*r) - 1;
->>           *sl = (*r >> (*fl - MAX_LOG2_SLI)) - MAX_SLI;
->>           *fl -= FLI_OFFSET;
->> -        /*if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
->> -         *fl = *sl = 0;
->> -         */
->> +#if 0
->> +        if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
->> +        fl = *sl = 0;
-> You want to get indentation right here, and you don't want to lose
-> the indirection on fl.
-
-Understood.
-
-
->> +#endif
->>           *r &= ~t;
->>       }
->>   }
-> If you split this to 4 patches, leaving the URL proposal in just
-> the cover letter, then I think this one change (with the adjustments)
-> could go in right away. Similarly I expect the arm64/flushtlb.h
-> change could be ack-ed right away by an Arm maintainer.
-Ok. I do not understand what you mean by "leaving the URL proposal in 
-just the cover letter". Which URL?
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
 
 
-I'm sorry, I didn't notice your previous reply. I'm going to address 
-your observations now:
+On 6/13/23 05:40, Jan Beulich wrote:
+> On 13.06.2023 11:21, Daniel P. Smith wrote:
+>> On 6/13/23 02:33, Jan Beulich wrote:
+>>> On 12.06.2023 22:21, Daniel P. Smith wrote:
+>>>> On 6/12/23 15:44, Daniel P. Smith wrote:
+>>>>> On 6/12/23 07:46, Jan Beulich wrote:
+>>>>>> If XSM is disabled, is it really useful to issue the 2nd and 3rd calls
+>>>>>> if the 1st yielded ENOSYS?
+>>>>>
+>>>>> Would you be okay with the calls staying if instead on the first
+>>>>> invocation of any libxl_flask_* method, flask status was checked and
+>>>>> stored in a variable that would then be checked by any subsequent calls
+>>>>> and immediately returned if flask was not enabled?
+>>>
+>>> I'm wary of global variables in shared libraries.
+>>>
+>>
+>> I agree with that sentiment, but I would distinguish global state from a
+>> global variable. I would take the approach of,
+>>
+>> static boot is_flask_enabled(void)
+>> {
+>>       /* 0 unchecked, 1 checked but disabled, 2 enabled */
+>>       static int state = 0;
+>>
+>>       if ( state == 0 )
+>> 	state = check_flask_state(); /* pseudo call for real logic */
+>>
+>>       return (state < 2 ? false : true);
+>> }
+>>
+>> Then all the libxl_flask_* methods would is_flask_enabled(). This would
+>> not expose a global variable that could be manipulated by users of the
+>> library.
+> 
+> Well, I certainly did assume the variable wouldn't be widely exposed.
+> And the library also clearly is far from free of r/w data. But still.
+> 
+> That aspect aside - wouldn't such a basic state determination better
+> belong in libxc then? (There's far less contents in .data / .bss
+> there.)
 
-> Here "propose" is appropriate in the description, as this is something 
-> the patch does not do. Further down, however, you mean to describe 
-> what the patch does, not what an eventual patch might do.
->
-To my knowledge, there is not a standard format to define a project 
-deviation for a certain MISRA rule in Xen right now (this can also be 
-discussed in a separate thread). To clarify, I meant to describe why I 
-wasn't addressing these violations in the patch (they are the vast 
-majority, but they do not have any implication w.r.t. functional safety 
-and can therefore be safely deviated with an appropriate written 
-justification).
+Not opposed at all, so a series with a patch to libxc paired and a new 
+sub-op/sysctl as discussed below would be acceptable?
 
+>>>> Looking closer I realized there is a slight flaw in the logic here. The
+>>>> first call is accomplished via an xsm_op call and then assumes that
+>>>> FLASK is the only XSM that has implemented the xsm hook, xsm_op, and
+>>>> that the result will be an ENOSYS. If someone decides to implement an
+>>>> xsm_op hook for any of the existing XSM modules or introduces a new XSM
+>>>> module that has an xsm_op hook, the return likely would not be ENOSYS. I
+>>>> have often debated if there should be a way to query which XSM module
+>>>> was loaded for instances just like this. The question is what mechanism
+>>>> would be best to do so.
+>>>
+>>> Well, this is what results from abusing ENOSYS. The default case of a
+>>> switch() in a handler shouldn't return that value. Only if the entire
+>>> hypercall is outright unimplemented, returning ENOSYS is appropriate.
+>>> In fact I wonder whether dummy.h's xsm_do_xsm_op() is validly doing so,
+>>> when that function also serves as the fallback for XSM modules
+>>> choosing to not implement any of the op-s (like SILO does).
+>>
+>> I understand your point, but if ENOSYS (Not Implemented) is not correct,
+>> what is the appropriate return value for this module does not support
+>> this op?
+> 
+> You almost say it by the wording you chose: EOPNOTSUPP.
+> 
 
-> Somewhat similarly you don't want to use past tense in the title, as
-> that wants to describe what is being done, rather than describing a
-> patch that has already landed.
+Erg, you are right, not sure why it didn't click. Though I guess what 
+should be used will be moot if the decision is to add an xsm-op subop to 
+dummy to support reporting the current XSM module.
 
-Understood.
+>>> Since in the specific case here it looks like the intention really is
+>>> to carry out Flask-specific operations, a means to check for Flask
+>>> specifically might indeed be appropriate. If not a new sub-op of
+>>> xsm_op, a new sysctl might be another option.
+>>
+>> I am actually split on whether this should be an sub-op of xsm op or if
+>> this should be exposed via hyperfs. I did not consider a sysctl, though
+>> I guess an argument could be constructed for it.
+> 
+> Please don't forget that hypfs, unlike sysctl, is an optional thing,
+> so you can't use it for decision taking (but only for informational
+> purposes).
 
+Good point regarding hypfs, the check mentioned above is expected to 
+always work, thus an optional feature probably is not best.
 
-> and it would avoid the somewhat odd splitting of adjacent comments
-> (which then is at risk of someone later coming forward with a patch
-> re-combining them).
->
-> >/--- a/xen/include/xen/atomic.h/
-> >/+++ b/xen/include/xen/atomic.h/
-> >/@@ -71,7 +71,10 @@ static inline void _atomic_set(atomic_t *v, int i);/
-> >/* Returns the initial value in @v, hence succeeds when the return value/
-> >/* matches that of @old./
-> >/*/
-> >/- * Sample (tries atomic increment of v until the operation succeeds):/
-> >/+ *//
-> >/+/**/
-> >/+ */
-> >/+ * Code sample: Tries atomic increment of v until the operation 
-> succeeds./
-> >/*/
-> >/* while(1)/
-> >/* {/
->
-> Somewhat similarly here: I don't think the inner comment provides
-> much value, and could hence be dropped instead of splitting the comment.
+The next question is, should it be sysctl or xsm-op. I am leaning 
+towards xsm-op because as much as I believe XSM should be consider core 
+to Xen, the XSM logic should remain contained. Adding it to sysctl would 
+mean having to expose XSM state outside of XSM code and would make 
+sysctl logic have to be aware of XSM state query functions.
 
-The rationale behind these modifications was to separate clearly 
-comments and code samples, so that the latter can be easily deviated by 
-tool configurations. I'm ok with the suggestion of removing the nested 
-comments, and otherwise leave the code as is, but i'll probably do this 
-by splitting the patch as you suggested above.
+With that said, if someone wants to make the case for sysctl, I am open 
+to considering it.
 
-Regards,
+v/r,
+dps
 
-   Nicola
-
---------------sgipg8zKbYjPxXItngEYtImS
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <p>On 13/06/23 10:27, Jan Beulich wrote:<br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:42cb13a7-3b62-8d48-a1a1-3094a7bd07fa@suse.com">
-      <pre class="moz-quote-pre" wrap="">On 13.06.2023 09:42, Nicola Vetrini wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">--- a/xen/common/xmalloc_tlsf.c
-+++ b/xen/common/xmalloc_tlsf.c
-@@ -140,9 +140,10 @@ static inline void MAPPING_SEARCH(unsigned long *r, int *fl, int *sl)
-         *fl = flsl(*r) - 1;
-         *sl = (*r &gt;&gt; (*fl - MAX_LOG2_SLI)) - MAX_SLI;
-         *fl -= FLI_OFFSET;
--        /*if ((*fl -= FLI_OFFSET) &lt; 0) // FL will be always &gt;0!
--         *fl = *sl = 0;
--         */
-+#if 0
-+        if ((*fl -= FLI_OFFSET) &lt; 0) // FL will be always &gt;0!
-+        fl = *sl = 0;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-You want to get indentation right here, and you don't want to lose
-the indirection on fl.</pre>
-    </blockquote>
-    <p>Understood.</p>
-    <p><br>
-    </p>
-    <p>
-    </p>
-    <blockquote type="cite"
-      cite="mid:42cb13a7-3b62-8d48-a1a1-3094a7bd07fa@suse.com">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+#endif
-         *r &amp;= ~t;
-     }
- }
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-If you split this to 4 patches, leaving the URL proposal in just
-the cover letter, then I think this one change (with the adjustments)
-could go in right away. Similarly I expect the arm64/flushtlb.h
-change could be ack-ed right away by an Arm maintainer.</pre>
-    </blockquote>
-    Ok. I do not understand what you mean by "leaving the URL proposal
-    in just the cover letter". Which URL?<br>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
-    <p>I'm sorry, I didn't notice your previous reply. I'm going to
-      address your observations now:</p>
-    <pre><blockquote type="cite"><p class="moz-quote-pre" wrap="">Here "propose" is appropriate in the description, as this is something
-the patch does not do. Further down, however, you mean to describe what
-the patch does, not what an eventual patch might do.</p></blockquote></pre>
-    <p>To my knowledge, there is not a standard format to define a
-      project deviation for a certain MISRA rule in Xen right now (this
-      can also be discussed in a separate thread). To clarify, I meant
-      to describe why I wasn't addressing these violations in the patch
-      (they are the vast majority, but they do not have any implication
-      w.r.t. functional safety and can therefore be safely deviated with
-      an appropriate written justification).</p>
-    <p><br>
-    </p>
-    <p>
-    </p>
-    <pre><blockquote type="cite"><pre class="moz-quote-pre" wrap="">Somewhat similarly you don't want to use past tense in the title, as
-that wants to describe what is being done, rather than describing a
-patch that has already landed.</pre></blockquote></pre>
-    <p>Understood.</p>
-    <p>
-    </p>
-    <p><br>
-      <blockquote type="cite">
-        <pre>
-and it would avoid the somewhat odd splitting of adjacent comments
-(which then is at risk of someone later coming forward with a patch
-re-combining them).
-
-&gt;<i> --- a/xen/include/xen/atomic.h</i>
-&gt;<i> +++ b/xen/include/xen/atomic.h</i>
-&gt;<i> @@ -71,7 +71,10 @@ static inline void _atomic_set(atomic_t *v, int i);</i>
-&gt;<i>   * Returns the initial value in @v, hence succeeds when the return value</i>
-&gt;<i>   * matches that of @old.</i>
-&gt;<i>   *</i>
-&gt;<i> - * Sample (tries atomic increment of v until the operation succeeds):</i>
-&gt;<i> + */</i>
-&gt;<i> +/**</i>
-&gt;<i> + *</i>
-&gt;<i> + * Code sample: Tries atomic increment of v until the operation succeeds.</i>
-&gt;<i>   *</i>
-&gt;<i>   *  while(1)</i>
-&gt;<i>   *  {</i>
-
-Somewhat similarly here: I don't think the inner comment provides
-much value, and could hence be dropped instead of splitting the comment.</pre>
-      </blockquote>
-    </p>
-    <p>The rationale behind these modifications was to separate clearly
-      comments and code samples, so that the latter can be easily
-      deviated by tool configurations. I'm ok with the suggestion of
-      removing the nested comments, and otherwise leave the code as is,
-      but i'll probably do this by splitting the patch as you suggested
-      above.</p>
-    <p>Regards,</p>
-    <p>  Nicola<br>
-    </p>
-  </body>
-</html>
-
---------------sgipg8zKbYjPxXItngEYtImS--
 
