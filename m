@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6650272EC46
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 21:48:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548381.856318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B94BB72EC9F
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 22:11:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548387.856329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q99zF-0007iT-1b; Tue, 13 Jun 2023 19:47:29 +0000
+	id 1q9AMP-0002h5-Ui; Tue, 13 Jun 2023 20:11:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548381.856318; Tue, 13 Jun 2023 19:47:29 +0000
+Received: by outflank-mailman (output) from mailman id 548387.856329; Tue, 13 Jun 2023 20:11:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q99zE-0007gM-VD; Tue, 13 Jun 2023 19:47:28 +0000
-Received: by outflank-mailman (input) for mailman id 548381;
- Tue, 13 Jun 2023 19:47:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=272C=CB=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
- id 1q99zD-0007gG-OG
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 19:47:27 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e701161-0a23-11ee-b232-6b7b168915f2;
- Tue, 13 Jun 2023 21:47:26 +0200 (CEST)
-Received: from [192.168.1.98] (unknown [176.206.20.8])
- by support.bugseng.com (Postfix) with ESMTPSA id D4BCD4EE0738;
- Tue, 13 Jun 2023 21:47:23 +0200 (CEST)
+	id 1q9AMP-0002ej-Ry; Tue, 13 Jun 2023 20:11:25 +0000
+Received: by outflank-mailman (input) for mailman id 548387;
+ Tue, 13 Jun 2023 20:11:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9AMN-0002eZ-JT; Tue, 13 Jun 2023 20:11:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9AMN-0003w8-HC; Tue, 13 Jun 2023 20:11:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9AMN-0006e0-4G; Tue, 13 Jun 2023 20:11:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9AMN-0001Lz-3c; Tue, 13 Jun 2023 20:11:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e701161-0a23-11ee-b232-6b7b168915f2
-Message-ID: <fab38a04-20ac-c2bc-7e8f-9ae00524ba6b@bugseng.com>
-Date: Tue, 13 Jun 2023 21:47:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
- Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
-Subject: Re: [PATCH] xen/evtchn: Purge ERROR_EXIT{,_DOM}()
-Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Julien Grall <julien@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20230613162220.3052184-1-andrew.cooper3@citrix.com>
- <d3883a59-acff-198c-a688-ac2546de69a7@xen.org>
- <86f357da-2fe1-7fe4-c061-d30b8e5bcbd3@srcf.net>
-From: Roberto Bagnara <roberto.bagnara@bugseng.com>
-In-Reply-To: <86f357da-2fe1-7fe4-c061-d30b8e5bcbd3@srcf.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1sVWlo06baPWAsamw50hWuQ80RZfHi7un5Qd0L7Giyg=; b=3SuDexJvSPT3IQdnxxl6mtiB2c
+	n+eN8ncRPo+KAJx+RfT+DzCF+S9M/Bq3Sk+2AEk2wNmHM0vNH7KqAXyzVScjle1ZpD78slJcRW7uG
+	LPsYNlK8XQx1loGHf9B/nlvHKk1gVlZs9TGQcCch0+eHz1zXpBtfQTZcDg8YjqmnjkCE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181408-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [seabios test] 181408: regressions - FAIL
+X-Osstest-Failures:
+    seabios:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    seabios=4db444b9a78abf9f6dc981f0e79db749765dc6e8
+X-Osstest-Versions-That:
+    seabios=be7e899350caa7b74d8271a34264c3b4aef25ab0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 13 Jun 2023 20:11:23 +0000
 
-On 13/06/23 19:45, Andrew Cooper wrote:
-> On 13/06/2023 6:39 pm, Julien Grall wrote:
->> Hi,
->>
->> On 13/06/2023 17:22, Andrew Cooper wrote:
->>> These are disliked specifically by MISRA, but they also interfere
->>> with code
->>
->> Please explicitly name the rule.
-> 
-> I can't remember it off the top of my head.
-> 
-> Stefano/Bertrand?
+flight 181408 seabios real [real]
+flight 181411 seabios real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181408/
+http://logs.test-lab.xenproject.org/osstest/logs/181411/
 
-Rule 2.1
+Regressions :-(
 
->>> legibility by hiding control flow.  Expand and drop them.
->>>
->>>    * Rearrange the order of actions to write into rc, then render rc
->>> in the
->>>      gdprintk().
->>>    * Drop redundant "rc = rc" assignments
->>>    * Switch to using %pd for rendering domains
->>>
->>> No functional change.  Resulting binary is identical.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>
->> Reviewed-by: Julien Grall <jgrall@amazon.com>
-> 
-> Thanks.
-> 
->>
->>> base-commit: f29363922c1b41310c3d87fd9a861ffa9db9204a
->>
->> I notice you have a few e-mail contain this tag. This is a pretty
->> useful when reviewing patches. Do you know which tool is creating it?
-> 
-> Plain git, and the capability has been around for years and years but
-> nigh on impossible to search for or find in the manual.  Searching for
-> "base-commit" gets you a tonne of intros of how to rebase.
-> 
-> You want
-> 
-> [format]
->          useAutoBase = "whenAble"
-> 
-> or pass --base=auto to git-format-patch
-> 
-> ~Andrew
-> 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 180681
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180681
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180681
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180681
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180681
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180681
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+
+version targeted for testing:
+ seabios              4db444b9a78abf9f6dc981f0e79db749765dc6e8
+baseline version:
+ seabios              be7e899350caa7b74d8271a34264c3b4aef25ab0
+
+Last test of basis   180681  2023-05-16 11:10:38 Z   28 days
+Testing same since   181408  2023-06-13 15:12:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  José Martínez <xose@google.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 4db444b9a78abf9f6dc981f0e79db749765dc6e8
+Author: José Martínez <xose@google.com>
+Date:   Tue Jun 13 11:01:34 2023 -0400
+
+    Fix high memory zone initialization in CSM mode
+    
+    malloc_high() cannot allocate any memory in CSM mode due to an empty
+    ZoneHigh. SeaBIOS cannot find any disk to boot from because device
+    initialization fails.
+    
+    The bug was introduced in 1.16.1 (commit dc88f9b) when the meaning of
+    BUILD_MAX_HIGHTABLE changed but CSM code was not updated. This patch
+    reverts to the previous behavior by using BUILD_MIN_HIGHTABLE in CSM
+    methods.
+    
+    Signed-off-by: José Martínez <xose@google.com>
 
