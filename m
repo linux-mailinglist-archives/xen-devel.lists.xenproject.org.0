@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE91D72E78D
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 17:45:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548234.856069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 599AB72E7A3
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 17:52:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548241.856078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q96Bo-0002xN-S4; Tue, 13 Jun 2023 15:44:12 +0000
+	id 1q96JF-0004WF-NI; Tue, 13 Jun 2023 15:51:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548234.856069; Tue, 13 Jun 2023 15:44:12 +0000
+Received: by outflank-mailman (output) from mailman id 548241.856078; Tue, 13 Jun 2023 15:51:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q96Bo-0002ug-Nx; Tue, 13 Jun 2023 15:44:12 +0000
-Received: by outflank-mailman (input) for mailman id 548234;
- Tue, 13 Jun 2023 15:44:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q96JF-0004UP-KZ; Tue, 13 Jun 2023 15:51:53 +0000
+Received: by outflank-mailman (input) for mailman id 548241;
+ Tue, 13 Jun 2023 15:51:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ia/t=CB=citrix.com=prvs=5214cf225=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q96Bn-0002ua-TG
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 15:44:11 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2289dcab-0a01-11ee-b232-6b7b168915f2;
- Tue, 13 Jun 2023 17:44:10 +0200 (CEST)
+ id 1q96JE-0004UJ-Bb
+ for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 15:51:52 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 34536c49-0a02-11ee-8611-37d641c3527e;
+ Tue, 13 Jun 2023 17:51:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,76 +36,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2289dcab-0a01-11ee-b232-6b7b168915f2
+X-Inumbo-ID: 34536c49-0a02-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1686671050;
+  d=citrix.com; s=securemail; t=1686671509;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=MXaIcm9LNLLIre10K1LG1BSQeRPlaAhnUNamcV9olYU=;
-  b=FD65DveQKRv3c/Qu8Bp+If9t9co7rznKGgE5SJad0vpUZATUa0apZwJ5
-   VU/FC0u7iBn06msYLYw+B5BOcnfg1ohP2Bd8mkiBR7YbkhHM/eb2wox4I
-   GYWmH4oqmr89bqNpRuS3LNPLSyM3TaUkRVjJ1OlmenHDukh1fSMq1fJ82
-   o=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+   mime-version:in-reply-to;
+  bh=vinrkEBxhJi3lAQy3F5JzVAKRRCOx2wpkGpS81AX3wk=;
+  b=Oz8cj/D+K8tcZHPOp988ZV/mE0Um7c6FN/dDFiO2FYAoKsGYO+wWjMbp
+   RX+fKfuMtTt6BATITJdIO3M9aQSRxProcI/8XmtkMb+Phpt7h1HvaNDHz
+   JtMWfrK5R1s0jl4LRZgvT2Hc7xwt9EoRa2624zOh82VAEXcXg7CSHWg3g
+   U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 115157347
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 111959888
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:r9LbGKmLNExpkcGPqh2ni2ro5gyoJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJKWmvUPqzZZGL1eoonPYq3pEkGvJOByddqHgJvqn1nFSMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5KyaVA8w5ARkPqgV5QSGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- eE6EGA0YkCEvMTs8ZOJcKpvnut+HeC+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQth/B+
- zuboD+lXXn2MvS+xSepzFKSudaIhH/5SY0pJKGa665D1Qj7Kms7V0RNCArTTeOCoky3Xd5FO
- lEX0iUrpKk2skesS7HVXRe1vXqFtR40QMdLHqsx7wTl4rrZ5UOVC3YJShZFacc6r4kmSDoyz
- FiLktj1Qzt1v9W9Vna15rqS6zSoNkA9JHcPfyYeQSMZ4tPop8c4iRenczp4OPfr1JuvQ2i2m
- m3U6nFk3N3/kPLnyY2m32iXuj78oaPvFD8U1D+UXXqKszJQMdvNi5OT1bTL0RpRBN/HHgff5
- iRcxJT2APMmVs/UynHUKAkZNPTwvqvebmWB6bJ6N8N5nwlB7UJPamy5DNtWAE5yevgJdjbyC
- KM4kVMAvcQDVJdGgEIeXm5QNyjJ5fK6fTgdfqqIBueim7AoHON9wAlgZFSLw0fmm1U2nKc0N
- P+zKJj8UytLVfs8nWbmHo/xNIPHIAhknQs/orihlnyaPUe2PibJGd/pznPTBgzG0E90iFqMq
- IsOXyd74x5eTPf/ckHqHX07dDg3wYwALcmu8aR/L7fTSjeK7Ul9U5c9N5t9Id0690mU/8+Ul
- kyAtrhwkQKv3yebeFvbNxiOqtrHBP5CkJ7yBgR0VX7A5pTpSd/HAHs3H3fvQYQayQ==
-IronPort-HdrOrdr: A9a23:0f6mzqPuAxVFw8BcTgWjsMiBIKoaSvp037BK7S1MoH1uA6mlfq
- WV9sjzuiWatN98Yh8dcLO7Scu9qBHnlaKdiLN5VduftWHd01dAR7sSjrcKrQeAJ8X/nNQtr5
- uJccJFeaDN5Y4Rt7eH3OG6eexQv+Vu6MqT9IPjJ+8Gd3ATV0lnhT0JbTqzIwlNayRtI4E2L5
- aY7tovnUvaRZxGBv7LYEXsRoL41qT2qK4=
-X-Talos-CUID: 9a23:obe4QW8Lx/xN7pbfqvOVv1M2IpAcfi3a91GKEm6KMyVqUJLIeHbFrQ==
-X-Talos-MUID: 9a23:HnvAAAhKfw8zVvSR2EMC88MpFct1z5qONn801oxaudiLDhxsGSrNpWHi
+IronPort-Data: A9a23:Wnld06gENheTPvqw3J4DuvziX161ohAKZh0ujC45NGQN5FlHY01je
+ htvX2zTaKzbamOkKt10ad62pEpUvZHcz95mSAdvpH9kQn4b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyq0N8klgZmP6sT4gaFzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQXGBkkS1fbiN7m5+yaZNJn1+cFFMDkadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27B/
+ zuXojWpUkFy2Nq38GOMz3S0vO72libhdKkoDaOVq9lmnwjGroAUIEJPDgbqyRWjsWa8Ud9CL
+ 00f+gI1sLM/skesS7HVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQ5sOcmSDps0
+ UWG9/vrCiZoq6a9Um+G+/GfqjbaESQNNmoDeS8sRBMI+cX+u5o0ig/TT9FlC+i+ididMTjoz
+ iqDtiQWm7QZhslN3KK+lW0rmBr1+MKPFFRsoFyKACT8tFgRiJOZi5KA5mjyxNMHdImlHn7fn
+ VY/kJm9ytgHAsTY/MCSe9nhDI1F9t7cbm2C3wQzR8Z9n9i+0yX9JN4NuVmSMG8sa59ZImGxP
+ Sc/rCsLvPdu0G2Wgbibim5bI+Aj1uDeGNvsTZg4hfIeM8EqJGdrEMyDDHN8PlwBc2B2y8nTw
+ b/BLa6R4Y8yUMyLNgaeSeYHyqMMzSsj327VTp2T5035geTDNSLKEuZZYALmggUFAEWs+l29H
+ zF3bZLi9vmieLemPnm/HXA7cDjm0kTX9bip8pcKJ4Zv0yJtGX07Cu+5/F/SU9UNokihrc+Rp
+ ivVchYBmDLCaYjvdV3ihoZLNOm+Av6SbBsTYUQRALpf8yF7Mdz1sPZBJsZfkHtO3LUL8MOYh
+ sItI62oasmjgByck9jBRfERdLBfSSk=
+IronPort-HdrOrdr: A9a23:noU7Da50gO911nshCAPXwPLXdLJyesId70hD6qkRc3Bom6mj/P
+ xG88516faZslgssQgb6La90cu7IU80hKQV3WB5B97LNmTbUQCTXeJfBOXZslndMhy72ulB1b
+ pxN4hSYeeAamSSVPyKgjVQxexQpeW6zA==
+X-Talos-CUID: =?us-ascii?q?9a23=3AmadUy2vMlwa0BBbILYJN2hcl6IsqQlT06TCILHP?=
+ =?us-ascii?q?oLjhIZoaeGHy2wKprxp8=3D?=
+X-Talos-MUID: 9a23:DYTAKwrpzvS3MephWkUezwg7Pfpu+56vMUsIi7ktgdCaGHFXNyjI2Q==
 X-IronPort-AV: E=Sophos;i="6.00,240,1681185600"; 
-   d="scan'208";a="115157347"
-Date: Tue, 13 Jun 2023 16:43:58 +0100
+   d="scan'208";a="111959888"
+Date: Tue, 13 Jun 2023 16:51:34 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/5] xen-mfndump: drop dead assignment to "page" from
- lookup_pte_func()
-Message-ID: <71f080c4-5e7f-4230-ad18-f1f7fb16c9ef@perard>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
+	<wl@xen.org>, Juergen Gross <jgross@suse.com>, Daniel Smith
+	<dpsmith@apertussolutions.com>
+Subject: Re: [PATCH 2/5] libxl: drop dead assignments to "ret" from
+ libxl__domain_config_setdefault()
+Message-ID: <05729d2e-d503-48e4-a8f3-3d65293f544d@perard>
 References: <2dc50b58-a4e4-3e32-1876-94412b14b052@suse.com>
- <fc7b72ce-2426-4452-bff6-f98b07b5a41c@suse.com>
- <CAKf6xptx4hNCZm6T371VJopUS+4=Fvp2Wd1m+16mAH5B0UHKYA@mail.gmail.com>
+ <5eda17da-7185-9cf6-7e87-70da57aa0ebc@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKf6xptx4hNCZm6T371VJopUS+4=Fvp2Wd1m+16mAH5B0UHKYA@mail.gmail.com>
+In-Reply-To: <5eda17da-7185-9cf6-7e87-70da57aa0ebc@suse.com>
 
-On Mon, Jun 12, 2023 at 08:47:41AM -0400, Jason Andryuk wrote:
-> On Mon, Jun 12, 2023 at 7:45 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >
-> > The variable isn't used past the loop, and its value also isn't
-> > meaningful across iterations. Reduce its scope to make this more
-> > obvious.
-> >
-> > Coverity ID: 1532310
-> > Fixes: ae763e422430 ("tools/misc: introduce xen-mfndump")
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Jun 12, 2023 at 01:46:19PM +0200, Jan Beulich wrote:
+> The variable needs to be properly set only on the error paths.
 > 
-> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+> Coverity ID: 1532311
+> Fixes: ab4440112bec ("xl / libxl: push parsing of SSID and CPU pool ID down to libxl")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
