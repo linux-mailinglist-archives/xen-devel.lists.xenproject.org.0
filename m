@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8BAD72E345
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 14:45:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548152.855938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 291EF72E39C
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 15:02:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548157.855949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q93Oz-0002yK-39; Tue, 13 Jun 2023 12:45:37 +0000
+	id 1q93eE-0005PE-D5; Tue, 13 Jun 2023 13:01:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548152.855938; Tue, 13 Jun 2023 12:45:37 +0000
+Received: by outflank-mailman (output) from mailman id 548157.855949; Tue, 13 Jun 2023 13:01:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q93Oz-0002vG-01; Tue, 13 Jun 2023 12:45:37 +0000
-Received: by outflank-mailman (input) for mailman id 548152;
- Tue, 13 Jun 2023 12:45:35 +0000
+	id 1q93eE-0005Mm-A1; Tue, 13 Jun 2023 13:01:22 +0000
+Received: by outflank-mailman (input) for mailman id 548157;
+ Tue, 13 Jun 2023 13:01:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kK7f=CB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q93Ox-0002vA-PG
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 12:45:35 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0605.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::605])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lBMi=CB=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1q93eC-0005Mg-CM
+ for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 13:01:20 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f8bdb2a-09e8-11ee-8611-37d641c3527e;
- Tue, 13 Jun 2023 14:45:33 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB6846.eurprd04.prod.outlook.com (2603:10a6:803:12f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.46; Tue, 13 Jun
- 2023 12:45:31 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Tue, 13 Jun 2023
- 12:45:30 +0000
+ id 6214112a-09ea-11ee-8611-37d641c3527e;
+ Tue, 13 Jun 2023 15:01:16 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-3f8d2bfed53so3536305e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jun 2023 06:01:16 -0700 (PDT)
+Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ k20-20020a05600c0b5400b003f4266965fbsm14481457wmr.5.2023.06.13.06.01.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jun 2023 06:01:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f8bdb2a-09e8-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=huhgTdSjP7ajmhL11JB6kaIv0hoWQ7q2KRjS62AI1WCghVxWli6Q/cUM8GpPtVTrc1I3rsIl0c8yA7xK7tFD7wzpvMHLsU6/ycf4JPeFOOTJPY0PJGnjfIQf1OEVzHTLXDgiKHP1coo045Mij9WfPlVVTUMKpPAjB4rvf7GfnEhB9r0FqM9SCyW9U2D5vTc1KKJ7TuqokTdBxkgRR4gHUVdqued6xIyY0hCQCJlfLKQL+RdOFnyD4dwpA3oLiDCG2QUy7zw7p0lyBCv92c8B8jp0upVj2/9BfLK+uGLopZL1e5m6d5jK7sIncjgx8iyvTUfAwh4q2rEfneu0tS5Z/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DwPh9ozuKxsTkqXgll8Bs25n4xuoiBrH5vo5FKhInbk=;
- b=mtLpm8KZsyoT/zcnTtvdTG8yZvx5yreEIzZqOH4c7L882LUFOeiGn91T3TKzhlhdYLH1l6fjmKsHeOFrsC7g6tCVvK0oXd4i1lTiWzQi4s/DkbsKeV2NKlk6BodV9zH0e/aDBCLVxT1sBLzPomm0N8WmQUMffIJpS4CyYP9fyZ9gphU2W32IFrED4igyHyMdiJlOkvmi+dibNwt/QU6pUEpJC+VdNayBFt33Mw07x6aOJhL4RFLhqbzXwklcw6T6NlfHpPF3U4oK+NqDeZmZZ4ND9KT8VAFi3utjZUfB9/TDG4lSupmjiZyWbXtvL6reG3imORMddlOBV3YBiWxfhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DwPh9ozuKxsTkqXgll8Bs25n4xuoiBrH5vo5FKhInbk=;
- b=hrq+IbzndU5Q6vRKcWYQ4GVh9Jsxm+3uuqw2kceFwRptm8JbjHt0lPUG9613afkfdpWE4em50fnwX2L7O/rWugksiXy/fJXIPwW359B5RZUMlNRS4PnhP6IvYSnOBsFQFw6gS3nONHnJSvqAuxHiQ+o0aRkgALolZOPr9vgXHc6dHQZujhTgq5ioGIGKi4Y9LFHYeIvmPvbjHd5ktHVU9dbxLX35PuEjKi6405dFl5siMOImroznVIx1poAoFHx39W0V5e0X0iw76gpRDCerWyV8eW+mgfV69oQi02XLDxF4arrqHMvWMsHMFnYjfiGrg4je7hDdMNr2AufjA7gcvA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2ed59d4b-ce6e-9687-81cc-ffd456deec0e@suse.com>
-Date: Tue, 13 Jun 2023 14:45:28 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] iommu/amd-vi: fix checking for Invalidate All support in
- amd_iommu_resume()
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20230613101313.51326-1-roger.pau@citrix.com>
- <1c8bf2cc-4c91-6db6-edf7-81472ee107ba@suse.com>
- <ZIhF5MmSY0oEVm5t@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZIhF5MmSY0oEVm5t@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0001.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 6214112a-09ea-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1686661276; x=1689253276;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fGjYYFzsQDTAkC895W9t9aL/cnv4ByOG6QGyUGinFNQ=;
+        b=gUZIRGvTdIdgMEyYokHeG1YHmAxsuuFzRtBDDnyDYdxtnAvHwKY5i1LuzymrUm+phX
+         IOymocwbS/EEa7ULUmfH7BCzej6SK16fPWsa5dZvpZBSxBTeWOIfmFGFBPrHMYx1RMBV
+         E+rQvosVkIHuJ/7PeJjYvqeYeNj3iSgCF6k5s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686661276; x=1689253276;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fGjYYFzsQDTAkC895W9t9aL/cnv4ByOG6QGyUGinFNQ=;
+        b=W5zIQc/HMwKzAxZ2lZF+xdn9qZLsDFQlprB31KaZKbWwIzS/XI9nT+9xgR7T7Sm4c5
+         1niNZgHpKpW9NipyZZ92eQIH/rffc5JH1B8y1x3zTy48X0KOFJuzcYAc4jfFWeGnLILp
+         xHBKlYCGLfW4aevx8HlyrZQJah109QgKpLKoAqucOr7UDthg6QlKmH3M1im4qWkK2y4O
+         beHcLSEM99EsJAmhv2LVET2Pc95jCFsFo/ckXuC2xDwwB7KvMQgqCHtEjhkD2QsqG4V4
+         9y9g5NwTrFez8BCVAwKIabattOIuJA9dOxl4Qw0BxdM0Wv2P1PZlTIrzVQwmMXSDxz8M
+         lCYQ==
+X-Gm-Message-State: AC+VfDxnW9PA5RN1/fxhR6+sUIaRZT8Zw4nwG8j6K3cUblSdbBeeLuU7
+	7HCiLFl1f/FSHvYEdbtkrD2CtQ==
+X-Google-Smtp-Source: ACHHUZ6ZaPSOAHNkJwq8jbMmEjCT4LuUCtMtWsaK++xVpgmMiL+qIbRmwF2z5ZIt8jMlK8+MOSDYIA==
+X-Received: by 2002:a05:600c:138d:b0:3f8:c9a4:4991 with SMTP id u13-20020a05600c138d00b003f8c9a44991mr1632113wmf.10.1686661276337;
+        Tue, 13 Jun 2023 06:01:16 -0700 (PDT)
+Message-ID: <64886899.050a0220.c0e98.77c8@mx.google.com>
+X-Google-Original-Message-ID: <ZIholxxk8Ty59ZC2@EMEAENGAAD19049.>
+Date: Tue, 13 Jun 2023 14:01:11 +0100
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 4/4] x86/microcode: Prevent attempting updates if
+ DIS_MCU_LOAD is set
+References: <20230605170817.9913-1-alejandro.vallejo@cloud.com>
+ <20230605170817.9913-5-alejandro.vallejo@cloud.com>
+ <adbd3826-dd34-a386-ef3f-e964ebb2e270@citrix.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6846:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20ee07ff-a684-4e92-fa47-08db6c0c123a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	W/H8igbV/ob+8yZ6fhXpIxaiiPZ9VJzMy6wYqUysib690MOYwg+lml0+acgDKXv88YVEiz9oGH1hoJAa4RnT/eczViJQcBWlsyiG0d6F9oqcBAqJLKqmjF7W0mWOhIrBLT6LJ9VTXIHHh1RIl0YTvOCz07mRETmmiO06UOQcDDbUJQHhykaDjsRd6isSnQzvpTyedFnb17Lt1SDs15L6fdXkP3Dn/rsIYFDm3CbtY9r3Jwrwt+jO4wT1la/LybPFM+Bcdp9UCilNW7VtHEOQdriU2zKpC2ApWFUMQE4wIMpDiC6V1cKDy0rWcjvpVMsSe05pUswGfN8odIb7ycUI+cx1cwKeGjhFn0FxaOcb50fkiMEQDVI28Bx7CATIprWv/diSV9N3kyIvxylQpT5F/4MjCrX+HeLXgxcPzGAt7dhR+g5/ypPLE3YSSjPXb947GDpSl7Pk1Y7mBYjQDtElTwWCfZ1xrnTJMhfIi+CKtwMjhr2RyDRQxXpRStyn8gFacPRh5QdVrh+CVb8a68Zq6YHB7+QKe5ZFdeOLVdFZQPdPkivAtagPYtUJXA2a862chSEMfP2zlo0RHJEYTp96knjTHfJ2TtPeGcVc442fMev7OlSU3PMcFfg6ZY7R5yHDx5KPLSlowNm5PT6aiiENBw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(346002)(39860400002)(376002)(136003)(451199021)(36756003)(31696002)(2906002)(86362001)(31686004)(5660300002)(2616005)(186003)(83380400001)(53546011)(6506007)(6512007)(26005)(6486002)(66946007)(66556008)(478600001)(4326008)(316002)(38100700002)(66476007)(41300700001)(6916009)(8676002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGVCbFBaS1kzbFhlM2ladUFPaW9kRmtvVEJnQjhuVUpvclk5QktaMm1uamR5?=
- =?utf-8?B?UGRRcHBiVW0yS2xsMTZXaSt1R1IvVi9nRVNpaUdTVmhPTDZpQ09keWI5NTQ4?=
- =?utf-8?B?K1ptbDE4V3BJMHNMOVhIOCs2RExiQzAzbkoraGpxQlhpSGkxY3l1V0VBWmp2?=
- =?utf-8?B?YU1ldkpMb0hFaVA2cDM2cDQ3cHZpRDh4QnlselhnN0kwYmwzdVJCTlhCOTZM?=
- =?utf-8?B?MEdHbTBGUVh5c1VKZEp0WWhjc3BmOEJqZVphZGlqLzZSSzFub1VHLy84cUVu?=
- =?utf-8?B?SjYyN3QvU0JSMWg2NkFYalNQT29zbXEyNFRRcnIzQWJEQWRsSEFmbyt0VExl?=
- =?utf-8?B?QmdIdHdqNmFxVzMvMGt4enIzNGZZNUxXeGZmckhPNFljT0sxWmFLVkJ1aWg0?=
- =?utf-8?B?WmI2U0pPT2ZDUHg5cVNVRXJTWHpYVUNKTEd5M0R4UnhqbmVHQzUxR3lieUtB?=
- =?utf-8?B?SnIwalF3b2lxdGg4d0RQMDNCMkZjM3NvZlhjUDhTbEczbG9PT2IwNjl5cjdh?=
- =?utf-8?B?WTFrRHNIOWFtamhIWTlNM21mZWR1U3JaeFFqQlJORVZxWjcrTStycmFGVDQ5?=
- =?utf-8?B?c0RuOXFrOVA1L29Nd0NVZkN3RU52UzRSYVZTNmRVT0pFNXVyKzVLMCt1VER4?=
- =?utf-8?B?MFVXNVpUTXRhWTdWc3NHeGZTaVFPdTdOa3MzV29PUmFsZis4bnpNOUpFMWxu?=
- =?utf-8?B?MDdpOTZxQ25MeE0rRGc0eFgzRW1ZbWhPbmpMYzNMR0VzWGQwdWlHWWRsZGpE?=
- =?utf-8?B?bCszVm5YR3hSaGdEcFJFMGJpMzFHNWh6ZnhLVWY2YzUxYkM3cVhUNDZJMVZp?=
- =?utf-8?B?NzlRVm5GV1JsNmY5RjBxa2loZXc4NE5CLy9qYTFuZHJQVElYZXVKUHlmMFhY?=
- =?utf-8?B?YndtVE1GZTVOcFJ3Qk5VYWtUOS9QQXRIbkh2THV0QS9oektFY0tCbDg5Vkl6?=
- =?utf-8?B?WkZpZGkxZnNWRmZrMWsxR0dTeFN4UkRta1pSQlM1dHZDYjlndm5FSVE3RGxF?=
- =?utf-8?B?OW5MY01DM2RqaHc0RG5lVXJkRFlldEZLRjRGTVdGejhGcEdmeFljeW40TVM5?=
- =?utf-8?B?RVdIa3gzcHNrS3l5QkZpbHBLYzc4UjJFbHByQjR3SDdWTWY3cXJJSS9VSnMy?=
- =?utf-8?B?T2l2NTVncllmN0g2ZGV0N2g2cTl5TkMzRnZoc2tEYWp6L2grYzVUTW9FV2FM?=
- =?utf-8?B?dUowUDhhL2d6VWZWdWpLd0FPUkRPNmFEL1l0MTh4Ykhvc3Mxd0FZckMvQVRP?=
- =?utf-8?B?Y1ZpbWhhRTlhcEEwVmdkVDNEVFB4c2xTaDBxZzl2UzZwZ0hSKytHUDh2Zlkx?=
- =?utf-8?B?S1hsdkRjZGxhL1NBNEdPOTZ2L0daQkhZZUdJQmFObkplc3dnaTJsZEROTHZR?=
- =?utf-8?B?eHQ5N09GckVkQmtaWGtKM3F4d052OElMVllRQUIrNlNzekVxTEJ1Y2NhcDJl?=
- =?utf-8?B?T0t5Nkg4S0E1N3NUQXdqc0dwMjI5ZzFlRFk3UVdXS2oyNVNrRlRwdUptanow?=
- =?utf-8?B?aVN3Z0xSY0V5YVRqa01DemZNa0JFanBjbEdoZGMwMXBUL1BHWEs3ckYrZ2ZY?=
- =?utf-8?B?eHBaeVpIQkIxOXY3L3lmazRuYzFESFB2NGh1ODdkSVBONG9iOWppU2VVQ0Za?=
- =?utf-8?B?bGZkUlp1K0IxdzBmYTJkZ3JCbW5UWnN3ZEpET3VFZHAwTS9oNUhYeCtlb2h5?=
- =?utf-8?B?ak1rOTBNaFNaam42NEd5dUNYaU9vUHJDWEw1RjhZc3BERlFoR1AxN1VHclMy?=
- =?utf-8?B?N2RQa3hPdmpCSTRONHV1Q0l3NzhWVTQ4dnpNUXFoc0xNcUNQeWZpTGZCaUw0?=
- =?utf-8?B?enRhU3h6STlrUFFONnRjZ1lwdUp6a2VmYklTRFcydW9ySHpYSitqUnNHRlZR?=
- =?utf-8?B?TjNwM0xGWTRwNXFpb0p3MUlRZGhyak1Vc0ZkcHFJTXdyeVVYcHVZbmt2QXRD?=
- =?utf-8?B?T1FKYVZocEJFclVpTldXS29xSjFlMW12dWI2cksydTdaTVdjcndlUkZiaWlM?=
- =?utf-8?B?c2FuaERHaUh4SnQ5SG1sYXM2QXV1NzlsSWdkYzNYK2p2eTFvc1JERklQY2lO?=
- =?utf-8?B?WktpU0NMWXF4UjVHd3NpTldjTEFBODhDRXU2b01Eb0VJZTlMT2loWkVmeS9Y?=
- =?utf-8?Q?Rt3aVZF9EPw1OObGfHg/jKoZ7?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20ee07ff-a684-4e92-fa47-08db6c0c123a
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2023 12:45:30.5705
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GcTWYeXerYNnbIA1B6XP+NbWeP8SfO/sNxjVvEKfI6kAyLsj8qZw24mvx1Ho3lbOz6rATDIhpqAZE7FCI+Yyxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6846
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <adbd3826-dd34-a386-ef3f-e964ebb2e270@citrix.com>
 
-On 13.06.2023 12:33, Roger Pau Monné wrote:
-> On Tue, Jun 13, 2023 at 12:23:37PM +0200, Jan Beulich wrote:
->> On 13.06.2023 12:13, Roger Pau Monne wrote:
->>> Do not rely on iommu local variable pointing to a valid amd_iommu
->>
->> "Do not rely" sounds like we might, but we choose not to. But we may
->> not rely on this, as the pointer simply isn't valid to deref past
->> the loop. Hence perhaps better "We cannot rely ..." or even "The
->> iommu local variable does not point to ..."?
+On Mon, Jun 12, 2023 at 07:54:00PM +0100, Andrew Cooper wrote:
+> On 05/06/2023 6:08 pm, Alejandro Vallejo wrote:
+> > diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+> > index 4f60d96d98..a4c123118b 100644
+> > --- a/xen/arch/x86/cpu/microcode/core.c
+> > +++ b/xen/arch/x86/cpu/microcode/core.c
+> > @@ -871,6 +885,15 @@ int __init early_microcode_init(unsigned long *module_map,
+> >           * present.
+> >           */
+> >          ucode_ops = intel_ucode_ops;
+> > +
+> > +        /*
+> > +         * In the case where microcode updates are blocked by the
+> > +         * DIS_MCU_LOAD bit we can still read the microcode version even if
+> > +         * we can't change it.
+> > +         */
+> > +        if ( !this_cpu_can_install_update() )
+> > +            ucode_ops = (struct microcode_ops){ .collect_cpu_info =
+> > +                                    intel_ucode_ops.collect_cpu_info };
 > 
-> "Xen cannot rely ..." doesn't modify the sentence too much and could
-> likely be adjusted at commit if you agree?
+> I don't see how this (the logic in this_cpu_can_install_update()) can
+> work, as ...
 > 
-> Otherwise your last suggestion would also be OK by me.
-
-I used that latter one, as being more concise.
-
->>> --- a/xen/drivers/passthrough/amd/iommu_init.c
->>> +++ b/xen/drivers/passthrough/amd/iommu_init.c
->>> @@ -1580,6 +1580,7 @@ void cf_check amd_iommu_crash_shutdown(void)
->>>  void cf_check amd_iommu_resume(void)
->>>  {
->>>      struct amd_iommu *iommu;
->>> +    bool invalidate_all = true;
->>>  
->>>      for_each_amd_iommu ( iommu )
->>>      {
->>> @@ -1589,10 +1590,12 @@ void cf_check amd_iommu_resume(void)
->>>          */
->>>          disable_iommu(iommu);
->>>          enable_iommu(iommu);
->>> +        if ( !iommu->features.flds.ia_sup && invalidate_all )
->>
->> You don't really need the right hand part of the condition, do you?
->>
->> Preferably with the adjustments (which I'd be happy to do while
->> committing, as long as you agree)
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> >          break;
+> >      }
+> >  
+> > @@ -900,6 +923,10 @@ int __init early_microcode_init(unsigned long *module_map,
+> >      if ( ucode_mod.mod_end || ucode_blob.size )
+> >          rc = early_microcode_update_cpu();
+> >  
+> > +    /*
+> > +     * We just updated microcode so we must reload the boot_cpu_data bits
+> > +     * we read before because they might be stale after the updata.
+> > +     */
+> >      early_read_cpuid_7d0();
+> >  
+> >      /*
 > 
-> Wanted to avoid repeatedly setting `invalidate_all = false` if all the
-> IOMMUs on the system don't support Invalidate All.
-> 
-> I don't have a strong opinion, my first (local) version didn't have
-> the right hand side of the condition, but then I realized that setting
-> this for every IOMMU on the system could be wasteful.
+> ... MSR_ARCH_CAPS is read out-of-context down here.
+Seeing how the minimal CPU state is read in early_cpu_init() I'll stash the
+read to MSR_ARCH_CAPS there too. Then it's a matter of reloading
+potentially changing leafs/MSRs after the update, which is a lot clearer
+rather than adding reads/writes ad-hoc elsewhere.
 
-I've dropped that part: We don't care much about that tiny performance
-difference here (and it's unclear whether the extra check actually is
-a win or a loss), and imo the code is more clear with the simpler
-conditional.
-
-Jan
+Alejandro
 
