@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BCFD72E013
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 12:49:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548094.855879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A4272E032
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 12:56:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548099.855889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q91Zm-0004C4-VJ; Tue, 13 Jun 2023 10:48:38 +0000
+	id 1q91gV-0005jP-L1; Tue, 13 Jun 2023 10:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548094.855879; Tue, 13 Jun 2023 10:48:38 +0000
+Received: by outflank-mailman (output) from mailman id 548099.855889; Tue, 13 Jun 2023 10:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q91Zm-00049l-Rv; Tue, 13 Jun 2023 10:48:38 +0000
-Received: by outflank-mailman (input) for mailman id 548094;
- Tue, 13 Jun 2023 10:48:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ia/t=CB=citrix.com=prvs=5214cf225=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q91Zl-00049f-Gw
- for xen-devel@lists.xen.org; Tue, 13 Jun 2023 10:48:37 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7c7dfb6-09d7-11ee-b232-6b7b168915f2;
- Tue, 13 Jun 2023 12:48:35 +0200 (CEST)
+	id 1q91gV-0005hg-I6; Tue, 13 Jun 2023 10:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 548099;
+ Tue, 13 Jun 2023 10:55:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x/hz=CB=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1q91gU-0005ha-2W
+ for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 10:55:34 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d0740ed8-09d8-11ee-8611-37d641c3527e;
+ Tue, 13 Jun 2023 12:55:31 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.5.3 AUTH)
+ with ESMTPSA id L38909z5DAtLgi4
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 13 Jun 2023 12:55:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,88 +41,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7c7dfb6-09d7-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1686653315;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=N1pCnkBOjRcSOfashEDIH6C2FXieQW6qKKMz1KiRC9A=;
-  b=UN4dnO71Uy1pww6oZngeTNzSDRzPBf79l024g1BshAea5Z1d3L4GDkrU
-   voEVQKdqFbMyJ7rnA3oAubALpO2JLN2Lyqx/5hHG9WJV2TDUS1TEtin+N
-   Qlt312aP59IXzdX9zFWEReSUE3iUoJtzGsazEDjfqN1wJKU3UY4sasGZP
-   c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 111915156
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:tFMhs6Llo0roVqR+FE+RmZIlxSXFcZb7ZxGr2PjKsXjdYENShmNWm
- GYaD26EPvbcNjb8f99wa9uzpx5TusPVmIBmSwBlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4AVlPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c4uOW9Kq
- d05dQkwYz+oituT6ojldulF05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TTHJwExxvB+
- zyuE2LRXC48asWzzz6/1nuN3MmIjwSlf709G+jtnhJtqALKnTFCYPEMbnOloOO0kU74WM9aI
- lY8/isopLI1skuxQbHVTxC+5XKJoBMYc95RCPEhrhGAzOzT+QnxLmoLVDlac/Q9qdQ7Azct0
- zehnc7tBDFpmK2YTzSa7Lj8hS2zPyMYK3NEajIFURcC//HnoYc6lBWJScxseIauksf8BTbrh
- jyHsgA5n/AXjNUXzOO//FbOmTXqoYLGJiY84gjHGGio6AV0aaahZoqh81+d6uxPRK6cR0WBv
- XUZ3dCZ7foPAIulkC2LSf8KWrqu4p6tNznRgkVzDoIh3zuo8n+nO4tX5VlWKV1oMYAfcj/oZ
- EvSvwx54J5VNWGtK6htbOqZAtwn16H6Gfz5V/rfaZxFZZ0ZSeOc1HgwPwjKhTmryRVy1/hlY
- v93bPpAE15DMapjkBuXGt4g3JAAyxkb71mNeZDSmkHPPaWlWJKFdVsUGALQPr5ntv/c/1m9H
- 8V3bJXTlUgGOAHqSmyOqNNIcwhXRZQuLcquw/G7YNJvNeaP9IsJL/bKiY0sdIV+90i+vreZp
- yrtMqO0JbeWuJEmFelpQio5AF8XdcwjxU/XxAR1VbpS51AtYJy08IAUfIYtcL8s+YRLlKAkE
- aRUJ5rbU6gfE1wrHgjxi7Gn9OSOkzzx3Gqz09eNOmBjL/aMuSSUkjMbQucf3HZXVXfm3SfPi
- 7ahyhnaUfI+q/dKVa7rhAaU5wrp5xA1wbsiN3Yk1/EPIC0ABqA2cX2u5hL2SulQQSj+Ksyyj
- lnPW0tG+LOU/ufYMrDh3Mi5kmtgKMMmdmIyIoURxeje2fXyloZ7/bJ9bQ==
-IronPort-HdrOrdr: A9a23:7WK/+q6A6TSrVfkmdwPXwMjXdLJyesId70hD6qhwISY6TiW9rb
- HLoB17726QtN9/YhwdcLy7VJVoBEmskqKdgrNhX4tKPjOHhILAFugLhuHfKn/bak7DH4ZmpM
- FdmsNFaeEYY2IUsfrH
-X-Talos-CUID: =?us-ascii?q?9a23=3AND//82oyRnelVNk73eXgzjvmUZkdfHmB7VaNGnK?=
- =?us-ascii?q?1Jk1kcZi/cwGs+Ioxxg=3D=3D?=
-X-Talos-MUID: 9a23:d+hpwAR69T7HBSj9RXSyuxc8Letu556KAWFXt9IUnJejCgN/bmI=
-X-IronPort-AV: E=Sophos;i="6.00,239,1681185600"; 
-   d="scan'208";a="111915156"
-Date: Tue, 13 Jun 2023 11:48:17 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-CC: <xen-devel@lists.xen.org>, Juergen Gross <jgross@suse.com>, Julien Grall
-	<julien@xen.org>, Vincent Guittot <vincent.guittot@linaro.org>,
-	<stratos-dev@op-lists.linaro.org>, Alex =?iso-8859-1?Q?Benn=E9e?=
-	<alex.bennee@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, Erik Schilling
-	<erik.schilling@linaro.org>
-Subject: Re: [PATCH V3.1] libxl: arm: Add grant_usage parameter for virtio
- devices
-Message-ID: <ecf753b0-3ccd-461a-925a-f3bac49dd269@perard>
-References: <0e347b2f4817cc578a5f8e41bf70503ae8cf69e3.1685684586.git.viresh.kumar@linaro.org>
- <7a0afe5aebba4c0b5be43a517dedf41d4e4ddd57.1686636036.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: d0740ed8-09d8-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1686653721; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Q/+qAbJGAeHB72kyFEVHs4asb00k8ZVnaucX8o2BGmFV9a2+lc/WfPZi2rqB3KGLnU
+    0eVDtviyeOnLEBxwNW9XPoYUVRtAu4wUNb8yYBRq/9D/T3s4Q5uFGVBwft/5y6d0pFH/
+    +nTczKCjyfRDN+TL0IoZjv0RmcXgXVdAy+CYHf7Ao9A5Hb9gQ6vGmATmMX0ZBLGxUxw/
+    9CiQ7O5eQbh4A6KVU4bPXZjZ3+teMk1FipqmNHiqLWtADBd6fWQBKSpSm2s+rMBL/nNQ
+    EDcCxG0MvitxJpsnTL07XClteL+YvbC55LCTVPf3A0O6H5ElOq5ftsuWfw1cJdrmh8o0
+    fpUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1686653721;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=sRbirY/RQH93pxT0aGNHNMhIZ9WGkvyruar1mUwhkMU=;
+    b=tTznOkbiFosIHBiv4EVOLafpm8XirhKHuxpQPo7Ar0dnmfXWeRtSh8bDKut6ZDOZwe
+    ABkHqmQf9WRte02Zh/NsRp6zk+IW606oaxzm/M3aLFkhCBh1106jyUK9JBIoye344sez
+    6xuVbPlcVXlvsJ52oueUdvq2jQTJFZOx4nCqxu01eIK+FrEdPYOE5rKUvWOO9M0zuV4B
+    WKXzrvpQLCR7WJwdNWQtkZtqRC9zW/mZ3jw0cruXdFDI8XAxQHGcpHOiZs72kXuYv5rs
+    OJ8qWUVn5rJyv+MdChVl1euXqC55/tBLJl/MMjIF8v/JcCf5zcIE70+rFXNjUWSb+RiB
+    Ji9Q==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1686653721;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=sRbirY/RQH93pxT0aGNHNMhIZ9WGkvyruar1mUwhkMU=;
+    b=AEpAFCVwDuEIQs4x0OtizU2/EQS31oloSjzsCdpem6rK32UAmX//ltoWsTTsojI8Mi
+    tbmTYgmB+vdsFsGNkJHJ8I/Dgp6/RHZ+cUujygaDPHLVYorCPzG4wckBZN+x/3CTquzv
+    m7e9e4ugHmlJhQKFEq3mHt+k489Y91it7r43sSrhNWSmnEm2Ce/QKqTdkIQQYdvxoltu
+    f5q++ay3wZ3MRcipsxn/Hk3sDsPOg/w6yxGbCP43Nl/Zzt7B8fejz/iWdcwik5GezAw/
+    5ERrjf/2Yzn7qV5QYJK/JJm6B6IGJiKhrS/YouR8sJtrhAFwwu2F3DVO2vb5x5xOvO/z
+    nrWg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1686653721;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=sRbirY/RQH93pxT0aGNHNMhIZ9WGkvyruar1mUwhkMU=;
+    b=23op1sipG9Sd40YrDbRHfw6l4EwNT1ibzHXKmq/NwOnjtaXZVYo8ElqousNOPtfqBi
+    MTZEsv/wX4aZ63DshWCg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wrlX7F5stp0W7RR6sn4IXX0XAi33PEsP+tJs+yA=="
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2] tools: fix make rpmball
+Date: Tue, 13 Jun 2023 12:55:13 +0200
+Message-Id: <20230613105513.12949-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <7a0afe5aebba4c0b5be43a517dedf41d4e4ddd57.1686636036.git.viresh.kumar@linaro.org>
 
-On Tue, Jun 13, 2023 at 11:32:16AM +0530, Viresh Kumar wrote:
-> Currently, the grant mapping related device tree properties are added if
-> the backend domain is not Dom0. While Dom0 is privileged and can do
-> foreign mapping for the entire guest memory, it is still desired for
-> Dom0 to access guest's memory via grant mappings and hence map only what
-> is required.
-> 
-> This commit adds the "grant_usage" parameter for virtio devices, which
-> provides better control over the functionality.
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
-> V3->V3.1:
-> - Print "0" or "1" in xenstore instead of "True" or "False" for grant_usage.
+Commit 438c5ffa44e99cceb574c0f9946aacacdedd2952 ("rpmball: Adjust to
+new rpm, do not require --force") attempted to handle stricter
+directory permissions in newer distributions.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+This introduced a few issues:
+- /boot used to be a constant prior commit
+  6475d700055fa952f7671cee982a23de2f5e4a7c ("use BOOT_DIR as xen.gz
+  install location"), since this commit the location has to be
+  referenced via ${BOOT_DIR}
+- it assumed the prefix and the various configurable paths match the
+  glob pattern /*/*/*
 
-Thanks,
+Adjust the code to build a filelist on demand and filter directories
+from an installed filesystem.rpm. This works on a SUSE system, and
+will likely work on a RedHat based system as well.
 
--- 
-Anthony PERARD
+Take the opportunity to replace the usage of $RPM_BUILD_ROOT with
+%buildroot, and use pushd/popd pairs.
+
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+
+v2: remove bogus pushd/popd pair, use pipe as delimiter for s command for consistency
+
+ tools/misc/mkrpm | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
+
+diff --git a/tools/misc/mkrpm b/tools/misc/mkrpm
+index 74f6761bb0..b072144a42 100644
+--- a/tools/misc/mkrpm
++++ b/tools/misc/mkrpm
+@@ -50,20 +50,32 @@ uninstall.
+ %build
+ 
+ %install
+-rm -rf \$RPM_BUILD_ROOT
+-mkdir -p \$RPM_BUILD_ROOT
+-cd %{_xenroot}
+-dist/install.sh \$RPM_BUILD_ROOT/
+-
+-cd \$RPM_BUILD_ROOT
++rm -rf %buildroot
++mkdir -p %buildroot
++pushd %_xenroot
++dist/install.sh %buildroot
++
++rm -f dist/filesystem.txt
++rm -f dist/directories.txt
++rm -f dist/files.txt
++find %buildroot -type d | sed 's|^%buildroot||' | sort > dist/directories.txt
++find %buildroot -type f | sed 's|^%buildroot||' | sort > dist/files.txt
++find %buildroot -type l | sed 's|^%buildroot||' | sort >> dist/files.txt
++if rpm -ql filesystem > dist/filesystem.txt
++then
++  while read
++  do
++    sed -i "s|^\${REPLY}$||" dist/directories.txt
++  done < dist/filesystem.txt
++fi
++sed 's|^|%%dir |' dist/directories.txt >> dist/files.txt
++popd
+ 
+ %clean
+-rm -rf \$RPM_BUILD_ROOT
++rm -rf %buildroot
+ 
+-%files
++%files -f %_xenroot/dist/files.txt
+ %defattr(-,root,root,-)
+-/*/*/*
+-/boot/*
+ 
+ %post
+ EOF
 
