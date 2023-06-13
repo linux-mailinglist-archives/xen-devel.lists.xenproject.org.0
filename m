@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153BA72D9A0
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 08:03:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547787.855368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA3C72D9B6
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 08:13:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547794.855379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8x6t-0005Ur-A1; Tue, 13 Jun 2023 06:02:31 +0000
+	id 1q8xGq-00076S-CC; Tue, 13 Jun 2023 06:12:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547787.855368; Tue, 13 Jun 2023 06:02:31 +0000
+Received: by outflank-mailman (output) from mailman id 547794.855379; Tue, 13 Jun 2023 06:12:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8x6t-0005Sw-6r; Tue, 13 Jun 2023 06:02:31 +0000
-Received: by outflank-mailman (input) for mailman id 547787;
- Tue, 13 Jun 2023 06:02:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ifO4=CB=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1q8x6r-0005Sq-FK
- for xen-devel@lists.xen.org; Tue, 13 Jun 2023 06:02:29 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dd4a43c5-09af-11ee-8611-37d641c3527e;
- Tue, 13 Jun 2023 08:02:24 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-1b3b5a5134dso15458705ad.2
- for <xen-devel@lists.xen.org>; Mon, 12 Jun 2023 23:02:24 -0700 (PDT)
-Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
- 12-20020a170902c20c00b001ac55a5e5eesm509479pll.121.2023.06.12.23.02.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 23:02:21 -0700 (PDT)
+	id 1q8xGq-00073Q-8X; Tue, 13 Jun 2023 06:12:48 +0000
+Received: by outflank-mailman (input) for mailman id 547794;
+ Tue, 13 Jun 2023 06:12:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kK7f=CB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1q8xGo-00073J-JG
+ for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 06:12:46 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20620.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::620])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4fd6a18f-09b1-11ee-b232-6b7b168915f2;
+ Tue, 13 Jun 2023 08:12:45 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS1PR04MB9456.eurprd04.prod.outlook.com (2603:10a6:20b:4d7::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Tue, 13 Jun
+ 2023 06:12:42 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Tue, 13 Jun 2023
+ 06:12:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,287 +47,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd4a43c5-09af-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1686636142; x=1689228142;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7YdFml8fy6tvZ0EvcTMzHrE0zaUCy0jmyJeSKxRsOTw=;
-        b=gH9JMkPBYHB8942wA4p7JZlJBLDeZaraEW4Z/2cezphuubuBj0tMiapMkTOK9FaK6Y
-         sIcYVzXUm5Nd2OZjTCBBxpff3s6D47t4XjWtSVrkAWsvcLmX516kJpLA9wunKijxON0w
-         uVbZcJ75WBMJFYI+2l6ceyi0Cyx5ybp/DpjrE36Vi+7dB8WVOsiky95UThMtV2oxcNR2
-         AXMsKB4TRAC/MRbly1bL66x/FICDQIuAVUJ5kEsSHwFfbC47EPsa8jDyLAlna1Ccvqpz
-         Jaduqhwez40yIJ+FuNHx/jULKGAxlVwXB1j+RfHKEeZPKKiT0KdQfV4cT6LQXDBkwDeg
-         UcBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686636142; x=1689228142;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7YdFml8fy6tvZ0EvcTMzHrE0zaUCy0jmyJeSKxRsOTw=;
-        b=E/7pLzzjEFdoVKAS8aZPJbje42+b9hGFrWddrr1pgnKJMJGORFv3eKC2+d2Vlz+8jX
-         /a2f1WN4EYXzlYCtjbTXzpf7enwpZAIjbBilklH7hsE01tUaJD/0NZKhM9MvydSQImHo
-         eV5Kp8PQER4Xg6gYUeIBRMPNfbHykCKWQjlc6EzizKWSQlpzB/7a+73DifdW2SbNDw6v
-         dv1275uSk+XlkX6xxOqQSXcJzabewc/81GSe8qAtvPg7EQtfmTVh8DG6FoRwMSVbjurv
-         jqUu/A7TMlFa4WVPChAjpqwbxMKjqoPhyFfWBN5Zhll86CrbYgx6z3F4P9eaPwv2rGe5
-         N3sQ==
-X-Gm-Message-State: AC+VfDxYz2qZr1+ih6xmU0EVDR8aNmPA+DLElSSdX9HoIMAARo/+5rkE
-	ckZz6+uYySEOebiCKkGeKUXEJbwlvQoyfn0OkNo=
-X-Google-Smtp-Source: ACHHUZ4XbrtUrKKMYP769wWuW6UsD7nT3qofbQNGvBMvBQgYCrdJWxC5lkqaGpNx5YSwP9aVhlqWWA==
-X-Received: by 2002:a17:902:6b45:b0:1a9:86ca:38cd with SMTP id g5-20020a1709026b4500b001a986ca38cdmr7902426plt.2.1686636142406;
-        Mon, 12 Jun 2023 23:02:22 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: xen-devel@lists.xen.org,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	Erik Schilling <erik.schilling@linaro.org>
-Subject: [PATCH V3.1] libxl: arm: Add grant_usage parameter for virtio devices
-Date: Tue, 13 Jun 2023 11:32:16 +0530
-Message-Id: <7a0afe5aebba4c0b5be43a517dedf41d4e4ddd57.1686636036.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <0e347b2f4817cc578a5f8e41bf70503ae8cf69e3.1685684586.git.viresh.kumar@linaro.org>
-References: <0e347b2f4817cc578a5f8e41bf70503ae8cf69e3.1685684586.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: 4fd6a18f-09b1-11ee-b232-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ArfQFXdnb2+bjiawcT+8PXGeDrQEalFxNGFSm+nEklFHCb1U7ogi6Ll4/nUZk49noFZQhgw7/u4Sq6Qn4B0isH9HmeV0m68EFM0PvEsvhPmCch3U33k36zXgT6xrSJ9ZAWuC6hnloRFLoQ8cNqun/nhQtiF1GjHWISapECsB+jbVNcWZNR/TPxDwyoHt7jNrHNSDGaE5Zw+aWHIWN+1sT3Cfr1okaHOuWr6NaLpyu5YeJTZ48IbP7+GIjo8f5eefoc9RrtZ/ynxcuWt2mNVkIiq6JP7ilDK+ql1cvYaHfADwN99u0HjoD846EmccahOHfweMC1PMTmFGifPFwfja7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EmI1MheBS/083LswXZTMMBBl1EIZuDCFRIBCVvHzQlw=;
+ b=P+Ahk9f2Sz6Jb8ugpRZle2SqSoRzqRjW6L7cS/61FkjAPNcyF/xxPKBCJaQQBJJavHT7ZPlIV6Y37OwImq1tdyktTShNRu4j6nUsgUQFBSnZXlTOE8/FhTyOKUcGfuDCr6c2W0VKqlVwFyK/7OPPDzk+B5TEgC90hQu8pGjyQQge+/Klag6lF660pngfeFLNQym1dmgXprIlXmkFmyN4+bAb3E6QVgzdo9oqFT2X4eA51lRWB4V4ZcEC9HXsHDX7z5riOxOw/MCcO4vWl5xoa2H99dLRHrWg28OKP19cN1iKFw9UhOIMTfTN/ARmK6Ygp2SckphrMMTqzQmah3eryw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EmI1MheBS/083LswXZTMMBBl1EIZuDCFRIBCVvHzQlw=;
+ b=omcrWOYyjoSihaG8OBELUA2BmZCRqL8gnLPuJ7pjIfK73z8CiL5CyJ/OQWGNRtNSE48CqnwO4d5ntANSPPuAv8qQYNb/vn8L48gxLiO4gZrUDlQeGkBYHqNNCt/iIqG1DNaHmhqeSViYNXPN8SwCcGsF/X81iMgslyVx4FtGtXRlzxRQ6Kqm95irtfnYGJ8tSRH5YL1xSmC8GgSfDbc800Qxv9toLYvD1H15E8Ax69DeaPd/j+5D7QgwqKPVPT80hOaH8Kg/3uMRsyK+J1lslVVjoSsXi5HqZmLDHJD4h41EdHBl56DPOGuIF5x9H/tVDmJWrzeTtyXku9KYh+c7Vg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <063c5302-9a84-5f3c-5d19-926d09de5623@suse.com>
+Date: Tue, 13 Jun 2023 08:12:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: minor tidying of identify_cpu()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0262.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS1PR04MB9456:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96cbcb61-407a-4484-dff6-08db6bd53260
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	EXAod6xY0Tmj7QNPxJmbK4lYcwUMb0/a74NYxgzRGHzHrUm6Cu3yyqAGse+wDvM3iKIVkqzePXLJNwuAStCa/z6oZ2KcUBy0DQUjB5hB78TCf8usRKlnB7bq7k5aMLdRlgOFEjeRO9b2hupFkiv1uFeFKIlmEnQkH5GC6OmZ3WYjsOnr1rdmIsfUyYEvybSReFRFp3x7GHHor5nKkw4zhXnRz1p1z1AyupTBMKqIZJy+ur8aLyVnc+jWNKhKVB16RvSYM2XtMRmBuz6FlEtM49qLbemllUh+M/l+lNLtfEvjwK1xVzdQrpEgPOVKcOe6SFBUfxXzsdfDP1fu4wPxU+H2j0k7PsifIEy+TQS65BUE9NmcHkzFD2hhoQcM0BoDZkaFEe7u4fItOk28C5RqTnDDdARC6QXvBphQ+BgAAMrsTawEkgd9f1/IhxZqu8TIdhhe3B6PhlLdwWRDmpCPcEuEGGOnEVM+qkmtU8kNgj9fYQYcqPcWv/7yURXUdcMFAoZVVPh+clbs22yDqI9Hxp97VPm2kYYPAFKfppuN5I7+9WmavQsCyleqIE8ErNPgMu6IzpRDnR+qZ36qJO6tZzG0cIcdD7IP5kZkFgdUi1/ihRUtkHcx6YjrYj7wFL0enQrHz/FzEq/+2NnGsGKXag==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(376002)(346002)(366004)(396003)(136003)(451199021)(54906003)(5660300002)(8676002)(66946007)(66556008)(6916009)(4326008)(8936002)(41300700001)(316002)(31686004)(186003)(2906002)(478600001)(66476007)(6486002)(6506007)(6512007)(26005)(83380400001)(36756003)(86362001)(2616005)(31696002)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RWZ6QUI5MGRmR0ZzQzd5QWJENFYzUEhMYTFQM3JNTjh0WWNNRE5XeW1IL2dJ?=
+ =?utf-8?B?eUlEYjdxNmIzbXhJanRFdnMreUNLdWFoSktwaWxaNUZSUDJFM0c0U2xmNisw?=
+ =?utf-8?B?MTVCZFhobEtBS2dKc2tDKzd5TzlyQmdyZjcwR1hFaEU3cnBvV1V0Q2h5bzho?=
+ =?utf-8?B?M2ROSUFBNnhMek1UeVhFMDZxbWxraVFHaTgwMzRrMFFiVjZDWlkvRkZUOHVM?=
+ =?utf-8?B?VllYbHlNbHlmTGh6eStFdmVmOE95U0pUUWJpNDl6VVNQSEcrcXk0eks5b09V?=
+ =?utf-8?B?SS9EZG1UOVdJZnRlc0daVjhrZ0h3ZVZDbEpEYWdoMkNWWGtEaXZ1OXVpRTdw?=
+ =?utf-8?B?WEgxMkx2VGhEbU1aV1pBelRIM2RvU2Y3R05qK0FBZUdmMEtlY0o4V1poaC90?=
+ =?utf-8?B?YXUrWG0ydlVWdlRaREd2OElUd1FtUlYvZk9qVk1qaU1FZm5YSGVCT1ZjZ0ZI?=
+ =?utf-8?B?L1h6bitnenovT1Zkb3hVTFNYVXo3aXBUeVFvQndNN3JreTQvU0crQmZPRlJW?=
+ =?utf-8?B?WnRIckxkRjVlS3VlMnNLSldMNHg5WFF3UW42YlR4bW5CZStJTnhrYW9sZlRp?=
+ =?utf-8?B?ZU9EenpqU2lUbUFxQXd0WnhqY04zbUV5RXZVWE4vQ1l6UDgzTUdLWElXY0VM?=
+ =?utf-8?B?TW84dHdzQmVmd0VtUVFiL1JLV0RGenMxQ1YrS2JEYXc0S2Q0U05NMUQ0dUtD?=
+ =?utf-8?B?ZjBNVWgyY2wyN0xJd3ZBQlc0Sy9IR21JeEhnSWhJZGFqVFdXaTlCNmR3Z0VM?=
+ =?utf-8?B?UnJGWVJKQnB2NTNUYUJteUhwWEpWdUxHYTRHU0NUdlNEM0Z5cW9VVWlic0xQ?=
+ =?utf-8?B?OFVqK1Fic0hIQWczdzJQR3YyZWxqb2dyc0gvVkZvL0RnRkpiUklLYkh1Mndi?=
+ =?utf-8?B?THpqWlo5T3NyS2FZeTRZQXVVeDFERnBXdEZheW8zVDVGZUo2NUZPWTB3WUwx?=
+ =?utf-8?B?YmlZRkNJeG5iMTZtU3A5QU1VMlpqbFE4UzhUWUgwN3dhbTNTN1JUQzlBYngr?=
+ =?utf-8?B?bitVdG1xL2l2anVQcWNSRTV1MUFEZ1BrL3FtdXpmQU94emQvc01KanZuQ3c4?=
+ =?utf-8?B?WldOQkFXZmRzajJPRUUvekwvdUQ2em5VMlllRVhKTERKV3lPQlV1UUdma0dv?=
+ =?utf-8?B?WGdRbzE3QmFTZytuaVMxdE1ZdGVzSWFZUGV3NHZRMWlRWHhRSkRnblhUVC84?=
+ =?utf-8?B?RWJNNENoN1FvY0ZaOEgvQldSRE5Pa3JudE9aN2o0S05IMW1GeVlaWWlJUjV6?=
+ =?utf-8?B?ejVWOGw0UFVxUGVGeGpDK3IydTJ1VTYzUnUwdS90dWFvVU1hVURRdytYekFw?=
+ =?utf-8?B?OHR4Ym8ya0JmUDh3N1AyVzljSWFWbHRIMjJSNzJ6Z3ByZCtKM2hvUU03dzBO?=
+ =?utf-8?B?QmZNVllRZkZhUEk5N01ldXpPNnpzS1piQzlwbGRpTXM3MEd0ckxybUFadEhO?=
+ =?utf-8?B?MXE3RjQvZ3FLaGpYUmk4RnM0NFk4U3FQVzRPMkZKbEJpUVo1cncxbWVDazNv?=
+ =?utf-8?B?TVhnOU1XQ3ZzT0xoa1ZMVCs5WHRlbXo2bjdNRTJHRUhueUhNempkR1lxT0dy?=
+ =?utf-8?B?SlphaDBLM3hXTENGUTRZVFFPZVpMeW40SnlhckFMeGpYdGxhcm5XcWlBVTZ1?=
+ =?utf-8?B?S2xEOUVzd3JXemFQaTdNS0p0UHlFOHE0b0RvQU1aSDIrVmNLTEtaYnpKcENX?=
+ =?utf-8?B?UmpGL0gwYmRpU0FJNVNMclFKSjVXb2syd21XaElOek9Vdzk2ZmVvSzJveENp?=
+ =?utf-8?B?SkFmMUc2TjhYNTZ3WmdvcVdMTmN2MnZ2VXJzUEV4Rm8ydlBTMjBFbnQzVFgy?=
+ =?utf-8?B?V0Z1VVZuaVBCb0R2UEFJSTVuWFJIZG9kYUxxYmI2QVpZNDJpbk94a0VZSy94?=
+ =?utf-8?B?NXVnK3dqc1huWTQyVzVxVENSTEtkSE9uSVZTWFR1Z28xR1BHeGxTeXAyNXBt?=
+ =?utf-8?B?bHk2bE5VelhOMkQ5eXl6M2R0ZlpyK2VrYlZ2bHVHMjNXUnlTWTJraEYrMXdQ?=
+ =?utf-8?B?TThxc2JTanpUYnVvVVhDS1F3YU9NWVNiK1MyejJTOEJQSkVWN0k5V3ZtbC9h?=
+ =?utf-8?B?NjVyRlRaTWdDT1ZHcnRzcXphWWVXUk45am13N1J3MUQ1MGRpWXVwNXJFVUV5?=
+ =?utf-8?Q?9fa9x7EUrYZyy+yGlZgi3TUnu?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96cbcb61-407a-4484-dff6-08db6bd53260
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2023 06:12:42.2667
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DaSPzYuyd2VxGhoAg4aVNMWPxsVie8Z0Sv010PpbMFUCchvmXujuD9b8yd9/Nar/OC+t14apMYQA6cwAgAVAhg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9456
 
-Currently, the grant mapping related device tree properties are added if
-the backend domain is not Dom0. While Dom0 is privileged and can do
-foreign mapping for the entire guest memory, it is still desired for
-Dom0 to access guest's memory via grant mappings and hence map only what
-is required.
+Fields that generic_identify() sets unconditionally don't need pre-
+setting. (In fact the compiler removes some of those assignments anyway,
+at least in release builds.)
 
-This commit adds the "grant_usage" parameter for virtio devices, which
-provides better control over the functionality.
+With the setting of ->cpuid_level to -1 gone, also drop the respective
+BUG_ON() from default_init().
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V3->V3.1:
-- Print "0" or "1" in xenstore instead of "True" or "False" for grant_usage.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
- docs/man/xl.cfg.5.pod.in             |  8 ++++++++
- tools/golang/xenlight/helpers.gen.go |  6 ++++++
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/libs/light/libxl_arm.c         | 22 +++++++++++++---------
- tools/libs/light/libxl_types.idl     |  1 +
- tools/libs/light/libxl_virtio.c      | 23 +++++++++++++++++++++--
- tools/xl/xl_parse.c                  |  2 ++
- 7 files changed, 52 insertions(+), 11 deletions(-)
-
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 24ac92718288..3a40ac8cb322 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1619,6 +1619,14 @@ hexadecimal format, without the "0x" prefix and all in lower case, like
- Specifies the transport mechanism for the Virtio device, only "mmio" is
- supported for now.
- 
-+=item B<grant_usage=BOOLEAN>
-+
-+If this option is B<true>, the Xen grants are always enabled.
-+If this option is B<false>, the Xen grants are always disabled.
-+
-+If this option is missing, then the default grant setting will be used,
-+i.e. enable grants if backend-domid != 0.
-+
- =back
- 
- =item B<tee="STRING">
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index 0a203d22321f..bf846dca8ec0 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1792,6 +1792,9 @@ func (x *DeviceVirtio) fromC(xc *C.libxl_device_virtio) error {
- x.BackendDomname = C.GoString(xc.backend_domname)
- x.Type = C.GoString(xc._type)
- x.Transport = VirtioTransport(xc.transport)
-+if err := x.GrantUsage.fromC(&xc.grant_usage);err != nil {
-+return fmt.Errorf("converting field GrantUsage: %v", err)
-+}
- x.Devid = Devid(xc.devid)
- x.Irq = uint32(xc.irq)
- x.Base = uint64(xc.base)
-@@ -1809,6 +1812,9 @@ xc.backend_domname = C.CString(x.BackendDomname)}
- if x.Type != "" {
- xc._type = C.CString(x.Type)}
- xc.transport = C.libxl_virtio_transport(x.Transport)
-+if err := x.GrantUsage.toC(&xc.grant_usage); err != nil {
-+return fmt.Errorf("converting field GrantUsage: %v", err)
-+}
- xc.devid = C.libxl_devid(x.Devid)
- xc.irq = C.uint32_t(x.Irq)
- xc.base = C.uint64_t(x.Base)
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index a7c17699f80e..e0c6e91bb0ef 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -683,6 +683,7 @@ BackendDomid Domid
- BackendDomname string
- Type string
- Transport VirtioTransport
-+GrantUsage Defbool
- Devid Devid
- Irq uint32
- Base uint64
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 97c80d7ed0fa..bc2bd9649b95 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -922,7 +922,8 @@ static int make_xen_iommu_node(libxl__gc *gc, void *fdt)
- 
- /* The caller is responsible to complete / close the fdt node */
- static int make_virtio_mmio_node_common(libxl__gc *gc, void *fdt, uint64_t base,
--                                        uint32_t irq, uint32_t backend_domid)
-+                                        uint32_t irq, uint32_t backend_domid,
-+                                        bool grant_usage)
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -114,8 +114,6 @@ bool __init is_forced_cpu_cap(unsigned i
+ static void cf_check default_init(struct cpuinfo_x86 * c)
  {
-     int res;
-     gic_interrupt intr;
-@@ -945,7 +946,7 @@ static int make_virtio_mmio_node_common(libxl__gc *gc, void *fdt, uint64_t base,
-     res = fdt_property(fdt, "dma-coherent", NULL, 0);
-     if (res) return res;
- 
--    if (backend_domid != LIBXL_TOOLSTACK_DOMID) {
-+    if (grant_usage) {
-         uint32_t iommus_prop[2];
- 
-         iommus_prop[0] = cpu_to_fdt32(GUEST_PHANDLE_IOMMU);
-@@ -959,11 +960,12 @@ static int make_virtio_mmio_node_common(libxl__gc *gc, void *fdt, uint64_t base,
+ 	/* Not much we can do here... */
+-	/* Check if at least it has cpuid */
+-	BUG_ON(c->cpuid_level == -1);
+ 	__clear_bit(X86_FEATURE_SEP, c->x86_capability);
  }
  
- static int make_virtio_mmio_node(libxl__gc *gc, void *fdt, uint64_t base,
--                                 uint32_t irq, uint32_t backend_domid)
-+                                 uint32_t irq, uint32_t backend_domid,
-+                                 bool grant_usage)
- {
-     int res;
+@@ -492,15 +490,11 @@ void identify_cpu(struct cpuinfo_x86 *c)
+ 	int i;
  
--    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
-+    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid, grant_usage);
-     if (res) return res;
- 
-     return fdt_end_node(fdt);
-@@ -1019,11 +1021,11 @@ static int make_virtio_mmio_node_gpio(libxl__gc *gc, void *fdt)
- 
- static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
-                                         uint32_t irq, const char *type,
--                                        uint32_t backend_domid)
-+                                        uint32_t backend_domid, bool grant_usage)
- {
-     int res;
- 
--    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
-+    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid, grant_usage);
-     if (res) return res;
- 
-     /* Add device specific nodes */
-@@ -1363,7 +1365,8 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
-                     iommu_needed = true;
- 
-                 FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
--                                           disk->backend_domid) );
-+                                           disk->backend_domid,
-+                                           disk->backend_domid != LIBXL_TOOLSTACK_DOMID) );
-             }
-         }
- 
-@@ -1373,12 +1376,13 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
-             if (virtio->transport != LIBXL_VIRTIO_TRANSPORT_MMIO)
-                 continue;
- 
--            if (virtio->backend_domid != LIBXL_TOOLSTACK_DOMID)
-+            if (libxl_defbool_val(virtio->grant_usage))
-                 iommu_needed = true;
- 
-             FDT( make_virtio_mmio_node_device(gc, fdt, virtio->base,
-                                               virtio->irq, virtio->type,
--                                              virtio->backend_domid) );
-+                                              virtio->backend_domid,
-+                                              libxl_defbool_val(virtio->grant_usage)) );
-         }
- 
-         /*
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index c10292e0d7e3..c5c0d1f91793 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -740,6 +740,7 @@ libxl_device_virtio = Struct("device_virtio", [
-     ("backend_domname", string),
-     ("type", string),
-     ("transport", libxl_virtio_transport),
-+    ("grant_usage", libxl_defbool),
-     ("devid", libxl_devid),
-     # Note that virtio-mmio parameters (irq and base) are for internal
-     # use by libxl and can't be modified.
-diff --git a/tools/libs/light/libxl_virtio.c b/tools/libs/light/libxl_virtio.c
-index f8a78e22d156..e5e321adc5c4 100644
---- a/tools/libs/light/libxl_virtio.c
-+++ b/tools/libs/light/libxl_virtio.c
-@@ -23,8 +23,16 @@ static int libxl__device_virtio_setdefault(libxl__gc *gc, uint32_t domid,
-                                            libxl_device_virtio *virtio,
-                                            bool hotplug)
- {
--    return libxl__resolve_domid(gc, virtio->backend_domname,
--                                &virtio->backend_domid);
-+    int rc;
-+
-+    rc = libxl__resolve_domid(gc, virtio->backend_domname,
-+                              &virtio->backend_domid);
-+    if (rc < 0) return rc;
-+
-+    libxl_defbool_setdefault(&virtio->grant_usage,
-+                             virtio->backend_domid != LIBXL_TOOLSTACK_DOMID);
-+
-+    return 0;
- }
- 
- static int libxl__device_from_virtio(libxl__gc *gc, uint32_t domid,
-@@ -53,6 +61,8 @@ static int libxl__set_xenstore_virtio(libxl__gc *gc, uint32_t domid,
-     flexarray_append_pair(back, "base", GCSPRINTF("%#"PRIx64, virtio->base));
-     flexarray_append_pair(back, "type", GCSPRINTF("%s", virtio->type));
-     flexarray_append_pair(back, "transport", GCSPRINTF("%s", transport));
-+    flexarray_append_pair(back, "grant_usage",
-+                          libxl_defbool_val(virtio->grant_usage) ? "1" : "0");
- 
-     return 0;
- }
-@@ -104,6 +114,15 @@ static int libxl__virtio_from_xenstore(libxl__gc *gc, const char *libxl_path,
-         }
-     }
- 
-+    tmp = NULL;
-+    rc = libxl__xs_read_checked(gc, XBT_NULL,
-+                                GCSPRINTF("%s/grant_usage", be_path), &tmp);
-+    if (rc) goto out;
-+
-+    if (tmp) {
-+        libxl_defbool_set(&virtio->grant_usage, strtoul(tmp, NULL, 0));
-+    }
-+
-     tmp = NULL;
-     rc = libxl__xs_read_checked(gc, XBT_NULL,
- 				GCSPRINTF("%s/type", be_path), &tmp);
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 1f6f47daf4e1..c66b11fd01b2 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1215,6 +1215,8 @@ static int parse_virtio_config(libxl_device_virtio *virtio, char *token)
-     } else if (MATCH_OPTION("transport", token, oparg)) {
-         rc = libxl_virtio_transport_from_string(oparg, &virtio->transport);
-         if (rc) return rc;
-+    } else if (MATCH_OPTION("grant_usage", token, oparg)) {
-+        libxl_defbool_set(&virtio->grant_usage, strtoul(oparg, NULL, 0));
-     } else {
-         fprintf(stderr, "Unknown string \"%s\" in virtio spec\n", token);
-         return -1;
--- 
-2.31.1.272.g89b43f80a514
-
+ 	c->x86_cache_size = -1;
+-	c->x86_vendor = X86_VENDOR_UNKNOWN;
+-	c->cpuid_level = -1;	/* CPUID not detected */
+ 	c->x86_model = c->x86_mask = 0;	/* So far unknown... */
+-	c->x86_vendor_id[0] = '\0'; /* Unset */
+ 	c->x86_model_id[0] = '\0';  /* Unset */
+ 	c->x86_max_cores = 1;
+ 	c->x86_num_siblings = 1;
+ 	c->x86_clflush_size = 0;
+-	c->phys_proc_id = XEN_INVALID_SOCKET_ID;
+ 	c->cpu_core_id = XEN_INVALID_CORE_ID;
+ 	c->compute_unit_id = INVALID_CUID;
+ 	memset(&c->x86_capability, 0, sizeof c->x86_capability);
 
