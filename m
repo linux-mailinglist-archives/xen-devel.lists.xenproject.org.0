@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A317E72EA31
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 19:46:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548363.856289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63DB772EA36
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 19:46:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548368.856300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q985I-0002fZ-54; Tue, 13 Jun 2023 17:45:36 +0000
+	id 1q9861-0003Cs-DN; Tue, 13 Jun 2023 17:46:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548363.856289; Tue, 13 Jun 2023 17:45:36 +0000
+Received: by outflank-mailman (output) from mailman id 548368.856300; Tue, 13 Jun 2023 17:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q985I-0002du-0r; Tue, 13 Jun 2023 17:45:36 +0000
-Received: by outflank-mailman (input) for mailman id 548363;
- Tue, 13 Jun 2023 17:45:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=W4la=CB=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1q985G-0002do-Qb
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 17:45:34 +0000
-Received: from ppsw-30.srv.uis.cam.ac.uk (ppsw-30.srv.uis.cam.ac.uk
- [131.111.8.130]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16b57f8e-0a12-11ee-8611-37d641c3527e;
- Tue, 13 Jun 2023 19:45:30 +0200 (CEST)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:40314)
- by ppsw-30.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
- with esmtps (TLS1.3:TLS_AES_256_GCM_SHA384:256)
- id 1q9850-00BTgd-Ga (Exim 4.96) (return-path <amc96@srcf.net>);
- Tue, 13 Jun 2023 18:45:18 +0100
-Received: from [10.80.67.26] (default-46-102-197-194.interdsl.co.uk
- [46.102.197.194]) (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id C3AEF1FC91;
- Tue, 13 Jun 2023 18:45:17 +0100 (BST)
+	id 1q9861-00039b-A0; Tue, 13 Jun 2023 17:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 548368;
+ Tue, 13 Jun 2023 17:46:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=szI4=CB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1q985z-000373-Fe
+ for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 17:46:19 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 33a7bc06-0a12-11ee-b232-6b7b168915f2;
+ Tue, 13 Jun 2023 19:46:18 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4f649db9b25so7216556e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jun 2023 10:46:18 -0700 (PDT)
+Received: from [192.168.202.197] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ h3-20020a197003000000b004f00189e1dasm1831301lfc.143.2023.06.13.10.46.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jun 2023 10:46:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,76 +45,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16b57f8e-0a12-11ee-8611-37d641c3527e
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <86f357da-2fe1-7fe4-c061-d30b8e5bcbd3@srcf.net>
-Date: Tue, 13 Jun 2023 18:45:16 +0100
+X-Inumbo-ID: 33a7bc06-0a12-11ee-b232-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1686678378; x=1689270378;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=RGfIeKUA8BkoE8fkhjKJI0cd3PZOliJz44DxIItUE3Q=;
+        b=VCUE6sv5JGjU9EGA+xSjOAzyLxrziyB/VD/HngitbH4GTtehc/3IHzskJxcWcO9Ob9
+         lmPbZkM9c0dcwYGTjQ/Ycf4TT+dWb7URNys7EMbhe6r5ZgrfVtV0iRor1uZdRQYTEkDW
+         7ji3KQipF3BATgwYwxdNHdH5mIxhoEy/mNFEim2AX1NztqOOfpWUdtIWgQZvBCrGJaDu
+         xyW7ZA6pRr2kFBzaFuDkG4B3wjX08gw/6GbtBQtl+TDkm/iHtje+HWQUtb4Q67zdUet0
+         878xQbeYVaj/GtfLKeXscjxw4gbAhTTxgR29rKxTAMBW/WtpC0xLGIIue9cdmvC7/aw3
+         Dp5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686678378; x=1689270378;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RGfIeKUA8BkoE8fkhjKJI0cd3PZOliJz44DxIItUE3Q=;
+        b=PqxEljdb6kN+v3vfeqQCa4Jzvi4LrTY2aTM7DDIybDgnUvVWCdgDrwVph/l45opHOX
+         SCSu2YpiRhvb3vB2VWkG24j+6FsYxbarf4IEVAMBLmERCGzO1ByeRvp09iE7I/1aqXab
+         wVv6Muisj1XaA8UwDa5WqDxzsbERsGL535ymmvUUdjmSaWFv7/hj/tS2QbI3SYnMQFSC
+         s8Rwqg/2tq+rVlFzkVJkBhXukjbN/0Ohom5LLYLtAP0cGegB1sLAAq+2IcDwdMPJvADh
+         qniMDoLYs9n72no333vC0JTq56bVH/ysUoyDHF/oGTDwgyboOau/7Vg9qR1FrXrQ2ujI
+         r3qQ==
+X-Gm-Message-State: AC+VfDzTKsZOuZxLpkx7HbIZA4hUHI80Vv5YtrKcIorjYrecRT7znUjz
+	EJO/xFVpazmJq0FzJQj+Umg=
+X-Google-Smtp-Source: ACHHUZ6+u5xiDbTtqtK5t2jP3I0mI9jQWC1adn4tEnBUVTUiVzHqKP/Zhpo0Rt1IFAR0QQh+m7+CnQ==
+X-Received: by 2002:ac2:5b89:0:b0:4f6:d9e:7c3a with SMTP id o9-20020ac25b89000000b004f60d9e7c3amr7866275lfn.47.1686678378007;
+        Tue, 13 Jun 2023 10:46:18 -0700 (PDT)
+Message-ID: <102112e1ed3dce8318aba4d9254f9d02600c71c7.camel@gmail.com>
+Subject: Re: [PATCH v1 3/8] xen/riscv: introduce reset_stack() function
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
+	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Tue, 13 Jun 2023 20:46:16 +0300
+In-Reply-To: <92fab0b8-647a-b9c1-d15b-1217a4420715@suse.com>
+References: <cover.1686080337.git.oleksii.kurochko@gmail.com>
+	 <c01a0c54edcf5ca46a7b2069740d7a81eb6f2330.1686080337.git.oleksii.kurochko@gmail.com>
+	 <92fab0b8-647a-b9c1-d15b-1217a4420715@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] xen/evtchn: Purge ERROR_EXIT{,_DOM}()
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20230613162220.3052184-1-andrew.cooper3@citrix.com>
- <d3883a59-acff-198c-a688-ac2546de69a7@xen.org>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <d3883a59-acff-198c-a688-ac2546de69a7@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 13/06/2023 6:39 pm, Julien Grall wrote:
-> Hi,
->
-> On 13/06/2023 17:22, Andrew Cooper wrote:
->> These are disliked specifically by MISRA, but they also interfere
->> with code
->
-> Please explicitly name the rule.
+On Mon, 2023-06-12 at 09:12 +0200, Jan Beulich wrote:
+> On 06.06.2023 21:55, Oleksii Kurochko wrote:
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> This wants addressing the "Why?" aspect in the description. Is the
+> present
+> code wrong in some perhaps subtle way? Are you meaning to re-use the
+> code?
+I am re-using it after switching from 1:1 world to reset a stack.
 
-I can't remember it off the top of my head.
+> If so, in which way (which is relevant to determine whether the new
+> function may actually continue to live in .text.header)?
+Actually there is no such requirement for reset_stack to live in
+.text.header.
 
-Stefano/Bertrand?
+> > --- a/xen/arch/riscv/riscv64/head.S
+> > +++ b/xen/arch/riscv/riscv64/head.S
+> > @@ -27,8 +27,14 @@ ENTRY(start)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=A0=
+=C2=A0 t3, t3, __SIZEOF_POINTER__
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bltu=C2=A0=C2=A0=C2=A0=
+ t3, t4, .L_clear_bss
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jal=C2=A0=C2=A0=C2=A0=C2=A0=
+ reset_stack
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tail=C2=A0=C2=A0=C2=A0 star=
+t_xen
+> > +
+> > +ENTRY(reset_stack)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 la=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 sp, cpu0_boot_stack
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 li=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 t0, STACK_SIZE
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=A0=
+=C2=A0 sp, sp, t0
+> > =C2=A0
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tail=C2=A0=C2=A0=C2=A0 star=
+t_xen
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret
+> > +
+>=20
 
->
->> legibility by hiding control flow.  Expand and drop them.
->>
->>   * Rearrange the order of actions to write into rc, then render rc
->> in the
->>     gdprintk().
->>   * Drop redundant "rc = rc" assignments
->>   * Switch to using %pd for rendering domains
->>
->> No functional change.  Resulting binary is identical.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+~ Oleksii
 
-Thanks.
-
->
->> base-commit: f29363922c1b41310c3d87fd9a861ffa9db9204a
->
-> I notice you have a few e-mail contain this tag. This is a pretty
-> useful when reviewing patches. Do you know which tool is creating it?
-
-Plain git, and the capability has been around for years and years but
-nigh on impossible to search for or find in the manual.  Searching for
-"base-commit" gets you a tonne of intros of how to rebase.
-
-You want
-
-[format]
-        useAutoBase = "whenAble"
-
-or pass --base=auto to git-format-patch
-
-~Andrew
 
