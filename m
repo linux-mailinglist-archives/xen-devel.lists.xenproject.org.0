@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2368772D836
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 05:46:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547769.855348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E129F72D89B
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jun 2023 06:27:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547780.855358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8uxv-0006jg-7H; Tue, 13 Jun 2023 03:45:07 +0000
+	id 1q8vcZ-0003Cj-Bo; Tue, 13 Jun 2023 04:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547769.855348; Tue, 13 Jun 2023 03:45:07 +0000
+Received: by outflank-mailman (output) from mailman id 547780.855358; Tue, 13 Jun 2023 04:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8uxv-0006gD-3r; Tue, 13 Jun 2023 03:45:07 +0000
-Received: by outflank-mailman (input) for mailman id 547769;
- Tue, 13 Jun 2023 03:45:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k4L1=CB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1q8uxt-0006g7-NF
- for xen-devel@lists.xenproject.org; Tue, 13 Jun 2023 03:45:05 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad06c583-099c-11ee-8611-37d641c3527e;
- Tue, 13 Jun 2023 05:45:02 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 47E8C61EFA;
- Tue, 13 Jun 2023 03:45:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE6EC433EF;
- Tue, 13 Jun 2023 03:44:59 +0000 (UTC)
+	id 1q8vcZ-00039Z-92; Tue, 13 Jun 2023 04:27:07 +0000
+Received: by outflank-mailman (input) for mailman id 547780;
+ Tue, 13 Jun 2023 04:27:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8vcX-00039P-Vx; Tue, 13 Jun 2023 04:27:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8vcX-00041n-U5; Tue, 13 Jun 2023 04:27:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8vcX-0003dS-G2; Tue, 13 Jun 2023 04:27:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8vcX-0004P5-Fa; Tue, 13 Jun 2023 04:27:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,149 +42,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad06c583-099c-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686627900;
-	bh=89/nFy+5LFW+PpOrE1HDauPVrJ/+ML/QHh6I8lgBens=;
-	h=From:To:Cc:Subject:Date:From;
-	b=b8BaTnDPAOZrp4qc2gelsENvkGVRWrS5V+6vcpA85OegQ+03Zh3U7WJa3sc8ZH5Tz
-	 2xFAGEApESMYWhBYcJBskMvS2bxQTXzKsMFmPFqKEPvKVa8fOE6BnU+FAPfolOPPGA
-	 V22BeOCvStagCxiVWgNhDph29+4erKMC8Rm1NXz32Umue+6PxUmy4HHQ8oE/R5oG6h
-	 n/G7v7fIm7Ho50qVcpyvMaZk+R0GPPhrAhnKBg89nP3szwZPXHX2yqS3K8k203limT
-	 ZCKC+L7mSK/RndX+N7SH8Ww57QaABRkBXK2XURgLQ7LKv7eRgc21De68whwRAOEzTR
-	 ZmdpqcqhaCnTw==
-From: Stefano Stabellini <sstabellini@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9AVUXPlo2THRAVhS9a3eN/96NGc83p1hVWcSgUd4ySM=; b=V3KofHLv/bidJ0BpB7dd2I9s/F
+	KSeG0sovS5tvW6Wz4GXLGCWJYwhMEgWvPe5DF0i1R9wQhRwgRknKwZR9Kil+N4LlyF/JGReHvPXsb
+	7ugjEo2oDnVb275fETsoiruzR/BnEdt6+K8zKewicn1LfPeCAS0TG7aGWt/NRuFXZhmo=;
 To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	jbeulich@suse.com,
-	julien@xen.org,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	bertrand.marquis@arm.com,
-	roberto.bagnara@bugseng.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v3] docs/misra: new rules addition
-Date: Mon, 12 Jun 2023 20:44:56 -0700
-Message-Id: <20230613034456.701654-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+Message-ID: <osstest-181396-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 181396: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=128557e3a44d79f0c9360dc88e42c3d0ef728edf
+X-Osstest-Versions-That:
+    xen=b4642c32c4d079916d5607ddda0232aae5e1690e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 13 Jun 2023 04:27:05 +0000
 
-From: Stefano Stabellini <stefano.stabellini@amd.com>
+flight 181396 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181396/
 
-For Dir 1.1, a document describing all implementation-defined behaviour
-(i.e. gcc-specific behavior) will be added to docs/misra, also including
-implementation-specific (gcc-specific) appropriate types for bit-field
-relevant to Rule 6.1.
+Failures and problems with tests :-(
 
-Rule 21.21 is lacking an example on gitlab but the rule is
-straightforward: we don't use stdlib at all in Xen.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 181349
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-Changes in v3:
-- add all signed integer types to the Notes of 6.1
-- clarify 7.2 in the Notes
-- not added: marking "inapplicable" rules, to be a separate patch
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-Changes in v2:
-- drop 5.6
-- specify additional appropriate types for 6.1
----
- docs/misra/rules.rst | 51 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+version targeted for testing:
+ xen                  128557e3a44d79f0c9360dc88e42c3d0ef728edf
+baseline version:
+ xen                  b4642c32c4d079916d5607ddda0232aae5e1690e
 
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index d5a6ee8cb6..f72a49c9c4 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -40,6 +40,12 @@ existing codebase are work-in-progress.
-      - Summary
-      - Notes
- 
-+   * - `Dir 1.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_01_01.c>`_
-+     - Required
-+     - Any implementation-defined behaviour on which the output of the
-+       program depends shall be documented and understood
-+     -
-+
-    * - `Dir 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_02_01.c>`_
-      - Required
-      - All source files shall compile without any compilation errors
-@@ -57,6 +63,13 @@ existing codebase are work-in-progress.
-        header file being included more than once
-      -
- 
-+   * - `Dir 4.11 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_11.c>`_
-+     - Required
-+     - The validity of values passed to library functions shall be checked
-+     - We do not have libraries in Xen (libfdt and others are not
-+       considered libraries from MISRA C point of view as they are
-+       imported in source form)
-+
-    * - `Dir 4.14 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_14.c>`_
-      - Required
-      - The validity of values received from external sources shall be
-@@ -133,6 +146,13 @@ existing codebase are work-in-progress.
-        headers (xen/include/public/) are allowed to retain longer
-        identifiers for backward compatibility.
- 
-+   * - `Rule 6.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_06_01.c>`_
-+     - Required
-+     - Bit-fields shall only be declared with an appropriate type
-+     - In addition to the C99 types, we also consider appropriate types:
-+       unsigned char, unsigned short, unsigned long, unsigned long long,
-+       enum, and all explicitly signed integer types.
-+
-    * - `Rule 6.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_06_02.c>`_
-      - Required
-      - Single-bit named bit fields shall not be of a signed type
-@@ -143,6 +163,32 @@ existing codebase are work-in-progress.
-      - Octal constants shall not be used
-      -
- 
-+   * - `Rule 7.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_02.c>`_
-+     - Required
-+     - A "u" or "U" suffix shall be applied to all integer constants
-+       that are represented in an unsigned type
-+     - The rule asks that any integer literal that is implicitly
-+       unsigned is made explicitly unsigned by using one of the
-+       indicated suffixes.  As an example, on a machine where the int
-+       type is 32-bit wide, 0x77777777 is signed whereas 0x80000000 is
-+       (implicitly) unsigned. In order to comply with the rule, the
-+       latter should be rewritten as either 0x80000000u or 0x80000000U.
-+       Consistency considerations may suggest using the same suffix even
-+       when not required by the rule. For instance, if one has:
-+
-+       Original: f(0x77777777); f(0x80000000);
-+
-+       one might prefer
-+
-+       Solution 1: f(0x77777777U); f(0x80000000U);
-+
-+       over
-+
-+       Solution 2: f(0x77777777); f(0x80000000U);
-+
-+       after having ascertained that "Solution 1" is compatible with the
-+       intended semantics.
-+
-    * - `Rule 7.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_03.c>`_
-      - Required
-      - The lowercase character l shall not be used in a literal suffix
-@@ -314,6 +360,11 @@ existing codebase are work-in-progress.
-        used following a subsequent call to the same function
-      -
- 
-+   * - Rule 21.21
-+     - Required
-+     - The Standard Library function system of <stdlib.h> shall not be used
-+     -
-+
-    * - `Rule 22.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_22_02.c>`_
-      - Mandatory
-      - A block of memory shall only be freed if it was allocated by means of a
--- 
-2.25.1
+Last test of basis   181349  2023-06-09 20:00:24 Z    3 days
+Testing same since   181396  2023-06-12 22:00:25 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+broken-step build-armhf host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 128557e3a44d79f0c9360dc88e42c3d0ef728edf
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Mon Jun 12 11:13:19 2023 +0100
+
+    tools/xenstored: Correct the prototype of domain_max_chk()
+    
+    Some version of GCC will complain because the prototype and the
+    declaration of domain_max_chk() don't match:
+    
+    xenstored_domain.c:1503:6: error: conflicting types for 'domain_max_chk' due to enum/integer mismatch; have '_Bool(const struct connection *, enum accitem,  unsigned int)' [-Werror=enum-int-mismatch]
+     1503 | bool domain_max_chk(const struct connection *conn, enum accitem what,
+          |      ^~~~~~~~~~~~~~
+    In file included from xenstored_domain.c:31:
+    xenstored_domain.h:146:6: note: previous declaration of 'domain_max_chk' with type '_Bool(const struct connection *, unsigned int,  unsigned int)'
+      146 | bool domain_max_chk(const struct connection *conn, unsigned int what,
+          |      ^~~~~~~~~~~~~~
+    
+    Update the prototype to match the declaration.
+    
+    This was spotted by Gitlab CI with the job opensuse-tumbleweed-gcc.
+    
+    Fixes: 685048441e1c ("tools/xenstore: switch quota management to be table based")
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+    Tested-by: Jason Andryuk <jandryuk@gmail.com>
+    Reviewed-by: Juergen Gross <jgross@suse.com>
+
+commit 1a0342507cb4011607673efec13a8f3238ac6aa8
+Author: Juergen Gross <jgross@suse.com>
+Date:   Tue May 30 10:54:13 2023 +0200
+
+    tools/libs/store: make libxenstore independent of utils.h
+    
+    There is no real need for including tools/xenstore/utils.h from
+    libxenstore, as only streq() and ARRAY_SIZE() are obtained via that
+    header.
+    
+    streq() is just !strcmp(), and ARRAY_SIZE() is brought in via
+    xen-tools/common-macros.h.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 0d5dfd2ed60addc1361ae82cbb52378abc912ede
+Author: Juergen Gross <jgross@suse.com>
+Date:   Tue May 30 10:54:12 2023 +0200
+
+    tools/libs/store: use xen_list.h instead of xenstore/list.h
+    
+    Replace the usage of the xenstore private list.h header with the
+    common xen_list.h one.
+    
+    Use the XEN_TAILQ type list, as it allows to directly swap the
+    related macros/functions without having to change the logic.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 84ac67cd1e3df780c413cd7093aa3ad8d508b79a
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Mon Jun 12 15:00:46 2023 +0200
+
+    xen/arm: rename guest_cpuinfo in domain_cpuinfo
+    
+    Rename the guest_cpuinfo structure to domain_cpuinfo as it is not only
+    used for guests but also for dom0 so domain is a more suitable name.
+    
+    While there also rename the create_guest_cpuinfo function to
+    create_domain_cpuinfo to be coherent and fix comments accordingly.
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+(qemu changes not included)
 
