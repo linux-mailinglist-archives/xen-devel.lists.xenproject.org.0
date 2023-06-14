@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FEDF72F9D0
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 11:53:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548660.856701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B213672FA08
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 12:05:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548665.856711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9NBc-0000ds-30; Wed, 14 Jun 2023 09:53:08 +0000
+	id 1q9NMx-0002N9-4G; Wed, 14 Jun 2023 10:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548660.856701; Wed, 14 Jun 2023 09:53:08 +0000
+Received: by outflank-mailman (output) from mailman id 548665.856711; Wed, 14 Jun 2023 10:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9NBc-0000ae-05; Wed, 14 Jun 2023 09:53:08 +0000
-Received: by outflank-mailman (input) for mailman id 548660;
- Wed, 14 Jun 2023 09:53:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lRK2=CC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1q9NBa-0000Ey-Uq
- for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 09:53:06 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42e5d7ca-0a99-11ee-b232-6b7b168915f2;
- Wed, 14 Jun 2023 11:53:06 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4f629ccb8ebso8153263e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jun 2023 02:53:06 -0700 (PDT)
-Received: from [192.168.202.197] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- l12-20020ac2554c000000b004f76a7e9c62sm9346lfk.173.2023.06.14.02.53.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jun 2023 02:53:05 -0700 (PDT)
+	id 1q9NMx-0002Kf-1J; Wed, 14 Jun 2023 10:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 548665;
+ Wed, 14 Jun 2023 10:04:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIEj=CC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1q9NMv-0002KZ-NO
+ for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 10:04:49 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2060f.outbound.protection.outlook.com
+ [2a01:111:f400:7eaf::60f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4881cf9-0a9a-11ee-8611-37d641c3527e;
+ Wed, 14 Jun 2023 12:04:47 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB8569.eurprd04.prod.outlook.com (2603:10a6:20b:434::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 14 Jun
+ 2023 10:04:44 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Wed, 14 Jun 2023
+ 10:04:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +47,285 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42e5d7ca-0a99-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686736386; x=1689328386;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=orKzMoBpUMdeeyr8hpkefDRWm3s2KPw5fPgz93hCHUs=;
-        b=YZ2B+B3wMLFHQChDhCELhZbRvLBtC+a5KmoZdWD7rTaPJfRUM0+Zm8tEjE77BgMB/h
-         7R+hdZ+hsiWhnYPnnBgsGHDG3NsHrL6xEe/+nO5K/Ua3xVpNv8IlOFQo7rlJCXBePdI6
-         xkuzd2fnR8Z7mspiTIshWu9LQ/5YOMS921CF47XziiDy8mUy6AZqz2tQc1uMM9Ysz3Oe
-         C/D5k2A1N0FS4ZAxlo/EpfNNZZbbvHuBqLJMxn+LYQDEY4QU+LJYF26RqNEuWZY7pClp
-         IS7DYcX9gzFhbJ2AXoUfpzaHbn909qIFZGZL93+/JtQI0+YlUKKovGmJJL0MHGnz50ho
-         hjTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686736386; x=1689328386;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=orKzMoBpUMdeeyr8hpkefDRWm3s2KPw5fPgz93hCHUs=;
-        b=dBY1DpQzU5l/NTBQW6d3YZHou0J2ELf93z3Y6i1Uhox/3I7KZvcV9lF9C+nlFKZGs1
-         DYGsgmSAUltEliH9ox/fps9I30p4NRkoIkqfvjnQ1lu0hJ2azKJx8xtWfdvylyMJgjvd
-         F1ILXpByMz0Wi6UqNcTxcN6OoUCO3UkTX+w49YZJ43pS6Idcs5nOho7mOMCz4b+CvaOi
-         gdW9LOmzg0XAClj/JHOJo2cLa3iIAdtLpFreMWQtA0XfpngNnyVBIbLnxQtndBkOIcfi
-         rI/syf8EoRHS8D6pzXxdbmIyKysH1vlHob+ciTDyz/WUYCLkJCGtSYtWCtp2lDlsm7Ri
-         QBWQ==
-X-Gm-Message-State: AC+VfDzBBwzMipnNT9DKLN1yXHT89SFS/tmFUiK8UbEraoIWlFIyR23T
-	ts48bBNHuJsQVsKqwuMPdFA=
-X-Google-Smtp-Source: ACHHUZ6bZW1JA0m22CiOmY09h65F2KsqNnqKxW0l8u+8XB8tLph1H7L9KNzp0dgoQvpPZeAEplXv9w==
-X-Received: by 2002:a19:2d08:0:b0:4f6:2629:6cf3 with SMTP id k8-20020a192d08000000b004f626296cf3mr6190253lfj.46.1686736385637;
-        Wed, 14 Jun 2023 02:53:05 -0700 (PDT)
-Message-ID: <30573cb954cc18f976da8b646a43352445991ee0.camel@gmail.com>
+X-Inumbo-ID: e4881cf9-0a9a-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M6mkw856OVefNB8qX3viFEJqrv7xHkOV+Wr3nR+Lgke40gvhwS0Y8iKblwdAAhm4hkG4Slg2N8NySU+ZMAlVPFkTl92qMzhwgAZHaqaj/riToi5bvdUYcJU4q8W3TVbVdVEnBEeQ3pdXyx164yXWHDp4atHKB12tgBbE5YMaV81L0BrBvXWXWVLFEH+7J8OJxQeG8+H98MyYEEMUpPHeEFKO7vkP9CHZwg/+LT9+iLDfeGcuZTdUZBZuyFNyqE6Sw7HhQWp+LA7gU/MeLPTsQxYmQo8tDXzMycoEEX4rtJrr3QtKS1oUAEBow6YLOR8Uap/1RejreY56CT7FnoNQyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9Gs5SDCLc/imJXrCJIBf58B+16w/IX8Vx3OoprBkPtA=;
+ b=OlF1kZ6I8vvtG5T8P8xxRGSZmGFLlutW6g9o0K/IXZ4ZusimnxItps2LN6snf09CQ+p1bp+1xqntCuV3GOcDKXOI2lnYiJ95q0nivUMbIudHN0tF3vIfst4zO3qy2bJne6pw29kL2naaNJ4wfpFp5BtzWP6S3NJag50pRgQDBFAd5g+dQJLBJI94mKMaj1qhCQH8oQxj5P3367p95TFUv7vjllu3zezAt7jvWpabDnljhajDA27zkYwa1IwLwViM+TL0w5z6wzVZFd+ej2pnOdsujoZW7EqRbbVu9ewteTylrsypH7dHJkshumQgDuWKuTnUNv4hzohE+rqJOGf1Ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Gs5SDCLc/imJXrCJIBf58B+16w/IX8Vx3OoprBkPtA=;
+ b=dfmYQJG1YH4qRXn9Dc/IC1mQ7ercvqh9htqnIAy6xR7/xAJ5JKVft0Kjq1rJtBFwyOSb7wuXxeSE0PpkqGFhEvJnAFavn017BW5fdTsO5K0JE4yo2VQsrQ2dCNLMO2NybM0Q2UR4TH6gAvs6hRA0JYLFUyFxKAQ2A7HynJBlypVADoz9GhHTA6eDX0hgsuRRKQZ+f8biI6QULITI9oYQpYLcO6WQ5EqUzxOt7CVM/YzwCT4dKP8tSt/N8RRBFL1lnwOP1MnTbrs/c+IGST52aGNtzs2RDNaF0bzGFGB9k+xF3tr2c0HOo3quzbVmPB8pPrIyhGd8kHKMqTcTFBP4Cw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <0dd8283f-ad73-8590-3800-0f9a00b4a281@suse.com>
+Date: Wed, 14 Jun 2023 12:04:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
 Subject: Re: [PATCH v1 5/8] xen/riscv: introduce identity mapping
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
-	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Wed, 14 Jun 2023 12:53:04 +0300
-In-Reply-To: <a5e1f7e1-a585-9c3c-00cc-69fda9c6a55c@suse.com>
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
 References: <cover.1686080337.git.oleksii.kurochko@gmail.com>
-	 <32aef31768cd81ffc8c848af6c29cd8510bbbf6d.1686080337.git.oleksii.kurochko@gmail.com>
-	 <4ac462c3-9cb6-f467-2b86-925fb068486d@suse.com>
-	 <a5e1f7e1-a585-9c3c-00cc-69fda9c6a55c@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
+ <32aef31768cd81ffc8c848af6c29cd8510bbbf6d.1686080337.git.oleksii.kurochko@gmail.com>
+ <4ac462c3-9cb6-f467-2b86-925fb068486d@suse.com>
+ <3fa74b20c3516dbeaceada0f8e045d697f926000.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <3fa74b20c3516dbeaceada0f8e045d697f926000.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0233.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b2::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8569:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21236a24-7ad4-4ef6-c2a7-08db6cbec6ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	3y/ZxgOlpDbt6UeueLTn8PydJbwcNDxFdJR7Dbkojf5E0w/BzUuveBiQHmjDw0irLicXDXavClqf2eHzPXuH/4sU363dDiztV62z9N14gBi6TDw4j5gHnUSSXHgXf7LV1U6VFeqy0GRs3bIMLZ6YEbpft6kvB15XsVDQzQ5yWhXaRXQ9fMLLUMl5Us1vhIqWrAqApKpuO0k/IQQJwsqsywldxpCpgz9muPVeUte+y4Xat4xs27FwcoQKtjsYCLNsJZLotd8gV6R8CAgj/gDq5KsBfl5fQyacSULytNg5KQEEHpkIaF633s211ITN8WkpiV+fjikxhYKDf0q9IyRO0CgZUPnWuxBJiyN6bNteaLNlAnFJyL/f9nDCZGGTpi+TEzvBkYlPRlKuukgWwDCb8Ba32SXZ/RYDl/iina8STOfbmJkTiWRw1Eh43ZWX6/wFa5pgbM37Hhj9Ub7FxactZm/ZSmla3fOCQNqcWuEfjoGYCxGbUgTmsLKiL3yQx6XwNKB5mfpkOQ8ifz9oexJwKuV8LMqPGV7vM1vKde11iNFiUoa19nztiA7AbS5uo8HwJbLdAAK2FclIzi8BORuh3FCU7o4tORySP7SVI3Xqzju4q6F/Fxu2jhWD35QIN9a8DB/VMOfY8RoJQz6lTDQb7g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(346002)(366004)(136003)(396003)(39860400002)(451199021)(316002)(41300700001)(54906003)(31686004)(5660300002)(2906002)(8936002)(66946007)(66476007)(6916009)(66556008)(8676002)(478600001)(4326008)(6666004)(6486002)(36756003)(31696002)(38100700002)(2616005)(186003)(86362001)(26005)(53546011)(6506007)(83380400001)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OUl1WVJUSW9SblZqWXptRFpFR0UrRkczanI4elplWGtVWTMrYm9hRmw1TGVa?=
+ =?utf-8?B?d0ZhVll6YXVZZ0dMZHo5VjR6Slk3aHdYODFQVHF3dE1DdGdJN0VaRVo0a0No?=
+ =?utf-8?B?ams1Tlg1aTRsR3UzUy8vdE5ZUGU4SDFmTmJ2SU5Xd29pZTcxVEVrUE4zY0hs?=
+ =?utf-8?B?VG9SN3hzQWd4VklNT0I0ZVZZclZhcWNtRkhDYU5jd1kwZUpUVGhnZnB4OGd6?=
+ =?utf-8?B?UFJVMWVRKy92TmJIcEF3VTI4eTQ5eEgyTExHV3BTVDl1dEtYTlZQVElGRFFJ?=
+ =?utf-8?B?QldZaDUwYlFTTHMvRnVoNE1tVW5LSWh0MjFQR2E1aWlOVzhoZVljRG1vbDgw?=
+ =?utf-8?B?VXd6ZEJlU3Vra09ia2RpNXE0TTBiMndIY3NlQ2J5M1lRQjBGWUdkSE1YM0tw?=
+ =?utf-8?B?a2F5d0s0UUVvdENoUkRFalpETEJGZVk4SDRmNkFISE9Ybjg0blZoTnRlU0c5?=
+ =?utf-8?B?MlpkZUFQaEpOSWpvc01VdVA1TFlncG1Dc2UxeVFTbWpoY2w2Qm9GdEpJUlQy?=
+ =?utf-8?B?VHJjWUFqRGdvSmp5ZkxRaitFMi9QZVZOQmhWRXVTRCsyNFBUY1ZUZmtEYjRW?=
+ =?utf-8?B?bjhCUHNlQ0dlNTRoOERJVWxTWU0rczFYYm1uTGFUVFhNV3poUjZrcHlhUEs5?=
+ =?utf-8?B?Ti9YdXY4cDVvYzZWdVlJRTJleHc3M2NNMkdkQnl1S2xXcEpJdzROdTR2UFN2?=
+ =?utf-8?B?ZU56Q2xOZ3BuWG9jTlF2aS9ZdEpDNGtMLy9hSXd2U1lIdXJValFrZzV3bVFV?=
+ =?utf-8?B?WW55VXZZM3BSUlZmc2kzOHpXY3UxdlFrdnRpZ05selJYdnYvK3RxVzNEMFk1?=
+ =?utf-8?B?TWFjaVlJbjJydE5KMW40SXF6OEt6UVFlR3hMT3JHeENDcEZBZWhmMDI2MVZX?=
+ =?utf-8?B?a1AvbEVHcllyY01GekJKK0F1NStKQWY3bXJNMFE0emV3ZTFEenphWGFOMkdp?=
+ =?utf-8?B?UDVkYXVsMEtDRmVRMExJbVBnTThkcGdWUkdhaXRHdnhvU0c4SEV4L1ZLY2E5?=
+ =?utf-8?B?RkZMZmhsQi9BeWFTNFhlcFB2UmVNL09MbEhJZ1B5dUNFWXBtRkU5TmtMQ3BR?=
+ =?utf-8?B?RHBRMXYzKy9LTlRSMGIzNE96Z0QvLzd1SGRMWjQ4UVd0QWtLRnQ3bVA5SzZC?=
+ =?utf-8?B?THdKYkNWY2lBMnNoZVNtZXpkMUpmcEd6WnZscG5SNkdFdmlNOVAvbXduNnM2?=
+ =?utf-8?B?RVBMWUhzRjVkdC9jWjdHamtyVnRJOU5MYU1ZeCt6TWcxcTJEWUhJdXVSQ1dH?=
+ =?utf-8?B?SS8wUDBmbTFUeGdBY3RhUTlyVVlFd1d0alFEN2NQb0lnUUxiRnlzakpMQmRo?=
+ =?utf-8?B?Zk5kdUhkTGhaeFpycjZLZHFmM3dmaENYZTZJTk5hdTljeDliNTB1TTlCVGNs?=
+ =?utf-8?B?bStsMGFnMjArKzRiTjhQT3JMTUYvOGlhQVVQRjhGRGc3SzM0TFlvanY2dzBa?=
+ =?utf-8?B?YlRxQUFZa1Z2OVJ5OXZJUnduVkdWTC84Rzd5SDhsQjJWMWUrNklLQ2dONmhB?=
+ =?utf-8?B?Q3VmNjRKSGx2RjlFMXdmOGUyYWtJdCsrSzZtT080eVNvRXpBdmpJRUlsSkhZ?=
+ =?utf-8?B?MkNiTXI0Y1h0SmIxSjJvcURWd1VuMXlqeDVWK0pPVS9vSlhQR0ZKWFJualhl?=
+ =?utf-8?B?K3VvL0tobnNiQzMrZ2lNOERpdmNQSkpmZytrZTdZbXl2UFJZNnNVS0Rvdmtt?=
+ =?utf-8?B?TTJHYTNFNWdCaS9NdVY2Q0luMGIxNzA2R2lFN2J1L2VoUktmT25WYUM0a3gz?=
+ =?utf-8?B?SGJYaFRBeEZGWDUxS3I4MU5NaCtuVWFwTitoTG5ucjgvc2ZMV01NUG1BODAz?=
+ =?utf-8?B?eGw1NDBBUEFDOWpZSWJLeUhpSFpIRnFWRHBPUWZ3ZjZzSVA0MGd2ZDMxemNn?=
+ =?utf-8?B?QnFSTHBaTWd1UzZsT1dvQ04wRFNNNlpjNjRxWndNbFZwVFdDamZjVlhVcjVB?=
+ =?utf-8?B?d1J3OS80VzEvcWtNbXYyY2ZZN2MrSmJHR3FXRldsc1Zwb2NoeW5rZHlrZGM4?=
+ =?utf-8?B?T1JtbWdtWWtTdWZLbFBrb3JxaFlyNmVHMXp3SjgwVVZhT1hKekZEUWVvdnJO?=
+ =?utf-8?B?TFJIUktlc3JyYloxQXZva0Z2R2l6dEdqcW5zRmNtNUd1am5oc1ZsK3oxQ0NR?=
+ =?utf-8?Q?reIr+d1g6kGk0qYgIZQYXvEEv?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21236a24-7ad4-4ef6-c2a7-08db6cbec6ac
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 10:04:43.7792
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 01RAUl6Lq71+w5AooJu7IeO9L3UDUxYf1/VDXt1Qq38f4oQ5ifstfKrz6RJOSUjN0u/fj8kR6MLrhaVFSBZGMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8569
 
-On Mon, 2023-06-12 at 16:24 +0200, Jan Beulich wrote:
-> On 12.06.2023 15:48, Jan Beulich wrote:
-> > On 06.06.2023 21:55, Oleksii Kurochko wrote:
-> > > -void __init noreturn noinline enable_mmu()
-> > > +/*
-> > > + * enable_mmu() can't be __init because __init section isn't
-> > > part of identity
-> > > + * mapping so it will cause an issue after MMU will be enabled.
-> > > + */
-> >=20
-> > As hinted at above already - perhaps the identity mapping wants to
-> > be
-> > larger, up to covering the entire Xen image? Since it's temporary
-> > only anyway, you could even consider using a large page (and RWX
-> > permission). You already require no overlap of link and load
-> > addresses,
-> > so at least small page mappings ought to be possible for the entire
-> > image.
->=20
-> To expand on that: Assume a future change on this path results in a
-> call
-> to memcpy() or memset() being introduced by the compiler (and then
-> let's
-> further assume this only occurs for a specific compiler version).
-> Right
-> now such a case would be noticed simply because we don't build those
-> library functions yet. But it'll likely be a perplexing crash once a
-> full
-> hypervisor can be built, the more that exception handlers also aren't
-> mapped.
-It makes sense but for some reason it doesn't crash ( I have a bunch of
-patches to run dom0 ) but as I mentioned in the previous e-mail I agree
-that probably it would be better to map the whole image using 1 Gb page
-table for example.
+On 14.06.2023 11:47, Oleksii wrote:
+> On Mon, 2023-06-12 at 15:48 +0200, Jan Beulich wrote:
+>> On 06.06.2023 21:55, Oleksii Kurochko wrote:
+>>> The way how switch to virtual address was implemented in the
+>>> commit e66003e7be ("xen/riscv: introduce setup_initial_pages")
+>>> wasn't safe enough so identity mapping was introduced and
+>>> used.
+>>
+>> I don't think this is sufficient as a description. You want to make
+>> clear what the "not safe enough" is, and you also want to go into
+>> more detail as to the solution chosen. I'm particularly puzzled that
+>> you map just two singular pages ...
+> I'll update a descrption.
+> 
+> I map two pages as it likely to be enough to switch from 1:1 mapping
 
+I dislike your use of "likely" here: Unless this code is meant to be
+redone anyway, it should just work. Everywhere.
 
->=20
-> > > - mmu_is_enabled:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * Stack should be re-inited as:
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * 1. Right now an address of the stack is r=
-elative to load
-> > > time
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses what will cau=
-se an issue in case of load
-> > > start address
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 isn't equal to linker s=
-tart address.
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * 2. Addresses in stack are all load time r=
-elative which
-> > > can be an
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 issue in case when load=
- start address isn't equal to
-> > > linker
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 start address.
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * We can't return to the caller because the=
- stack was
-> > > reseted
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * and it may have stash some variable on th=
-e stack.
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * Jump to a brand new function as the stack=
- was reseted
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 * id_addrs should be in sync with id mappin=
-g in
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 * setup_initial_pagetables()
-> >=20
-> > What is "id" meant to stand for here? Also if things need keeping
-> > in
-> > sync, then a similar comment should exist on the other side.
->=20
-> I guess it's meant to stand for "identity mapping", but the common
-> use
-> of "id" makes we wonder if the variable wouldn't better be
-> ident_addrs[].
-It would be better. but probably we will remove that variable if we
-agree to map the whole Xen instead of parts. So I'll wait for your
-response before starting to work on new patch series.
+> world. My point is that we need 1:1 mapping only for few instructions
+> which are located in start() [ in .text.header section ]:
+> 
+>         li      t0, XEN_VIRT_START
+>         la      t1, start
+>         sub     t1, t1, t0
+> 
+>         /* Calculate proper VA after jump from 1:1 mapping */
+>         la      t0, .L_primary_switched
+>         sub     t0, t0, t1
+> 
+>         /* Jump from 1:1 mapping world */
+>         jr      t0
+> 
+> And it is needed to map 1:1 cpu0_boot_stack to not to fault when
+> executing epilog of enable_mmu() function as it accesses a value on the
+> stack:
+>     ffffffffc00001b0:       6422                    ld      s0,8(sp)
+>     ffffffffc00001b2:       0141                    addi    sp,sp,16
+>     ffffffffc00001b4:       8082                    ret
+> 
+>>
+>>> @@ -35,8 +40,10 @@ static unsigned long phys_offset;
+>>>   *
+>>>   * It might be needed one more page table in case when Xen load
+>>> address
+>>>   * isn't 2 MB aligned.
+>>> + *
+>>> + * 3 additional page tables are needed for identity mapping.
+>>>   */
+>>> -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
+>>> +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1 + 3)
+>>
+>> What is this 3 coming from? It feels like the value should (again)
+>> somehow depend on CONFIG_PAGING_LEVELS.
+> 3 is too much in the current case. It should be 2 more.
+> 
+> The linker address is 0xFFFFFFFC00000000 thereby mapping the linker to
+> load addresses
+> we need 3 pages ( with the condition that the size of Xen won't be
+> larger than 2 MB ) and 1 page if the case when Xen load address isn't
+> 2MV aligned.
+> 
+> We need 2 more page tables because Xen is loaded to address 0x80200000
+> by OpenSBI and the load address isn't equal to the linker address so we
+> need additional 2 pages as the L2 table we already allocated when
+> mapping the linker to load addresses.
+> 
+> And it looks like 2 is enough for Sv48, Sv57 as L4, L3 and L2
+> pagetables will be already allocated during mapping the linker to load
+> addresses.
 
-Thanks a lot.
+I agree the root table will be there. But depending on load address, I
+don't think you can rely on any other tables to be re-usable from the
+Xen mappings you already have. So my gut feeling would be
 
-~ Oleksii
+#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
+
+>>> @@ -232,22 +242,27 @@ void __init setup_initial_pagetables(void)
+>>>                            linker_start,
+>>>                            linker_end,
+>>>                            load_start);
+>>> +
+>>> +    if ( linker_start == load_start )
+>>> +        return;
+>>> +
+>>> +    setup_initial_mapping(&mmu_desc,
+>>> +                          load_start,
+>>> +                          load_start + PAGE_SIZE,
+>>> +                          load_start);
+>>> +
+>>> +    setup_initial_mapping(&mmu_desc,
+>>> +                          (unsigned long)cpu0_boot_stack,
+>>> +                          (unsigned long)cpu0_boot_stack +
+>>> PAGE_SIZE,
+>>
+>> Shouldn't this be STACK_SIZE (and then also be prepared for
+>> STACK_SIZE > PAGE_SIZE)?
+> Yes, it will be better to use STACK_SIZE but for 1:1 mapping it will be
+> enough PAGE_SIZE as I mentioned above this only need for epilogue of
+> enable_mmu() function.
+
+But then it should still be the correct page of the stack that you
+map (the top one aiui).
+
+>>> -void __init noreturn noinline enable_mmu()
+>>> +/*
+>>> + * enable_mmu() can't be __init because __init section isn't part
+>>> of identity
+>>> + * mapping so it will cause an issue after MMU will be enabled.
+>>> + */
+>>
+>> As hinted at above already - perhaps the identity mapping wants to be
+>> larger, up to covering the entire Xen image? Since it's temporary
+>> only anyway, you could even consider using a large page (and RWX
+>> permission). You already require no overlap of link and load
+>> addresses,
+>> so at least small page mappings ought to be possible for the entire
+>> image.
+> It makes sense and started to thought about that after I applied the
+> patch for Dom0 running... I think we can map 1 GB page which will cover
+> the whole Xen image. Also in that case we haven't to allocate 2 more
+> page tables.
+
+But you then need to be careful about not mapping space accesses to
+which may have side effects (i.e. non-RAM, which might be MMIO or
+holes). Otherwise speculative execution might cause surprises,
+unless such is excluded by other guarantees (of which I don't know).
+
+>>> --- a/xen/arch/riscv/riscv64/head.S
+>>> +++ b/xen/arch/riscv/riscv64/head.S
+>>> @@ -31,6 +31,36 @@ ENTRY(start)
+>>>  
+>>>          jal     calc_phys_offset
+>>>  
+>>> +        jal     setup_initial_pagetables
+>>> +
+>>> +        jal     enable_mmu
+>>> +
+>>> +        /*
+>>> +         * Calculate physical offset
+>>> +         *
+>>> +         * We can't re-use a value in phys_offset variable here as
+>>> +         * phys_offset is located in .bss and this section isn't
+>>> +         * 1:1 mapped and an access to it will cause MMU fault
+>>> +         */
+>>> +        li      t0, XEN_VIRT_START
+>>> +        la      t1, start
+>>> +        sub     t1, t1, t0
+>>
+>> If I'm not mistaken this calculates start - XEN_VIRT_START, and ...
+>>
+>>> +        /* Calculate proper VA after jump from 1:1 mapping */
+>>> +        la      t0, .L_primary_switched
+>>> +        sub     t0, t0, t1
+>>
+>> ... then this .L_primary_switched - (start - XEN_VIRT_START). Which
+>> can
+>> also be expressed as (.L_primary_switched - start) + XEN_VIRT_START,
+>> the first part of which gas ought to be able to resolve for you. But
+>> upon experimenting a little it looks like it can't. (I had thought of
+>> something along the lines of
+>>
+>>         li      t0, .L_primary_switched - start
+>>         li      t1, XEN_VIRT_START
+>>         add     t0, t0, t1
+>>
+>> or even
+>>
+>>         li      t1, XEN_VIRT_START
+>>         add     t0, t1, %pcrel_lo(.L_primary_switched - start)
+>>
+>> .)
+> Calculation of ".L_primary_switched - start" might be an issue for gcc.
+> I tried to do something similar and recieved or "Error: can't resolve
+> .L_primary_switched - start" or "Error: illegal operands `li
+> t0,.L_primary_switched-start'"
+
+Matches the results of my experiments. If I can find time, I may want
+to look into why exactly gas is rejecting such.
+
+Jan
 
