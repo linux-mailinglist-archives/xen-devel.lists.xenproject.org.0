@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8189472F9CD
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 11:52:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548652.856690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FEDF72F9D0
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 11:53:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548660.856701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9NAf-0008P1-L5; Wed, 14 Jun 2023 09:52:09 +0000
+	id 1q9NBc-0000ds-30; Wed, 14 Jun 2023 09:53:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548652.856690; Wed, 14 Jun 2023 09:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 548660.856701; Wed, 14 Jun 2023 09:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9NAf-0008NE-IL; Wed, 14 Jun 2023 09:52:09 +0000
-Received: by outflank-mailman (input) for mailman id 548652;
- Wed, 14 Jun 2023 09:52:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dIEj=CC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q9NAe-0008Hm-Hr
- for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 09:52:08 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on060c.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::60c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f39d96f-0a99-11ee-8611-37d641c3527e;
- Wed, 14 Jun 2023 11:52:06 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9678.eurprd04.prod.outlook.com (2603:10a6:102:23c::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.41; Wed, 14 Jun
- 2023 09:52:03 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Wed, 14 Jun 2023
- 09:52:03 +0000
+	id 1q9NBc-0000ae-05; Wed, 14 Jun 2023 09:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 548660;
+ Wed, 14 Jun 2023 09:53:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lRK2=CC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1q9NBa-0000Ey-Uq
+ for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 09:53:06 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 42e5d7ca-0a99-11ee-b232-6b7b168915f2;
+ Wed, 14 Jun 2023 11:53:06 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-4f629ccb8ebso8153263e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jun 2023 02:53:06 -0700 (PDT)
+Received: from [192.168.202.197] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ l12-20020ac2554c000000b004f76a7e9c62sm9346lfk.173.2023.06.14.02.53.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Jun 2023 02:53:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,124 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f39d96f-0a99-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fY/uEuNp93tAcB0oZEYxiML7pO48uNenoCpm9kjIKspAjJy9Huy1h19jHcqlDVrRWGgCOoDSg2ZjATq4heP0An43hfCZW0k7en55QHsWuI2kLjoXkYF9aUp7Q4NUVNd76DfwlVcJnDlkCyd62O/t7qOoYdfCkRDppCqmy80aho2wcx1LsK6rac3UQ92AQ96q0Rb3AUeBgMpcZZRpRfL1/1NcA1NhNNA/agkBnvnEwuMbGz0ciVPB580To7zRcvrR2v4G53S9UztWqj3I+GATyrqneZdGqvaKcsjxUYECxaMh+iGoFGsg+4Ux2LqEnc9TbmR3Ga/bMFEHGBHLvLe1tA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=emQ64Lv88G/BXXTzejJVzE/hH+/6Uqek0GKlq2M4ZaU=;
- b=DSeYLkFw/JtisFXjHTbbgvGhqejAd6VC0gRL+jF8zt5jrETnCknFcHAAsg5BS7ihxMs1rtAQ7Hf+yHMAi6eVEjSn9KS7HNHF+om4u/BlUABIQtwUKYiGRmAPa0uxT06ukN8aOIBgCgA23v7X64b7XgjFbkU7WptkHXLufEy5bGr3LyYpLWLoPAhjVE8xLdEoyjx+bQ4+c29adSl3QcJrJtN/hQByo42bJtZBk53T9LRS0S8OK/2XxNDwICWxhXohpmXYh6aCxAJxSdmr6Zg7OTmc4WJnEzSoSSpZngBoPwfddD3nnuftE42mrWnqsX6It7c5cERrlQfyIDFq7SDoDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=emQ64Lv88G/BXXTzejJVzE/hH+/6Uqek0GKlq2M4ZaU=;
- b=gMd91jtYFcGdAVycMs5l0LWN1mNLzyf1b96lvEVi8rAdV2SNaizktXjCCTQazhimFwNJvEQrOq2/CZGE4bPHAQDistDUj/oefmqwGRinaniY98x1Do9+hFuqXTI8J5b5qu8g1hfuKjGd/XwXPJsdIGIvZOPJLIyDthKKBrj/VH4DJVnAEj0NqfBxSr+KgJ5yYiSwdnoBkRi9bvHgeHn76hICFvR9zJfd15RnIyB8s4cVMlQAMfXDudAukHKA/qbpo5uFP9lN3f3bzyl+quaHJDag0/Cqz6nPbFE9SecleP35+3PZU8TgtLHSFXjNWJkh31ICAkGCLRN6WOQtLSV6eg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <16aa7c82-7cab-8129-f995-3097990ab147@suse.com>
-Date: Wed, 14 Jun 2023 11:52:01 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] xen/arm: Remove stray semicolon at
- VREG_REG_HELPERS/TLB_HELPER* callers
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20230614094144.9533-1-michal.orzel@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230614094144.9533-1-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0003.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::22) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 42e5d7ca-0a99-11ee-b232-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1686736386; x=1689328386;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=orKzMoBpUMdeeyr8hpkefDRWm3s2KPw5fPgz93hCHUs=;
+        b=YZ2B+B3wMLFHQChDhCELhZbRvLBtC+a5KmoZdWD7rTaPJfRUM0+Zm8tEjE77BgMB/h
+         7R+hdZ+hsiWhnYPnnBgsGHDG3NsHrL6xEe/+nO5K/Ua3xVpNv8IlOFQo7rlJCXBePdI6
+         xkuzd2fnR8Z7mspiTIshWu9LQ/5YOMS921CF47XziiDy8mUy6AZqz2tQc1uMM9Ysz3Oe
+         C/D5k2A1N0FS4ZAxlo/EpfNNZZbbvHuBqLJMxn+LYQDEY4QU+LJYF26RqNEuWZY7pClp
+         IS7DYcX9gzFhbJ2AXoUfpzaHbn909qIFZGZL93+/JtQI0+YlUKKovGmJJL0MHGnz50ho
+         hjTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686736386; x=1689328386;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=orKzMoBpUMdeeyr8hpkefDRWm3s2KPw5fPgz93hCHUs=;
+        b=dBY1DpQzU5l/NTBQW6d3YZHou0J2ELf93z3Y6i1Uhox/3I7KZvcV9lF9C+nlFKZGs1
+         DYGsgmSAUltEliH9ox/fps9I30p4NRkoIkqfvjnQ1lu0hJ2azKJx8xtWfdvylyMJgjvd
+         F1ILXpByMz0Wi6UqNcTxcN6OoUCO3UkTX+w49YZJ43pS6Idcs5nOho7mOMCz4b+CvaOi
+         gdW9LOmzg0XAClj/JHOJo2cLa3iIAdtLpFreMWQtA0XfpngNnyVBIbLnxQtndBkOIcfi
+         rI/syf8EoRHS8D6pzXxdbmIyKysH1vlHob+ciTDyz/WUYCLkJCGtSYtWCtp2lDlsm7Ri
+         QBWQ==
+X-Gm-Message-State: AC+VfDzBBwzMipnNT9DKLN1yXHT89SFS/tmFUiK8UbEraoIWlFIyR23T
+	ts48bBNHuJsQVsKqwuMPdFA=
+X-Google-Smtp-Source: ACHHUZ6bZW1JA0m22CiOmY09h65F2KsqNnqKxW0l8u+8XB8tLph1H7L9KNzp0dgoQvpPZeAEplXv9w==
+X-Received: by 2002:a19:2d08:0:b0:4f6:2629:6cf3 with SMTP id k8-20020a192d08000000b004f626296cf3mr6190253lfj.46.1686736385637;
+        Wed, 14 Jun 2023 02:53:05 -0700 (PDT)
+Message-ID: <30573cb954cc18f976da8b646a43352445991ee0.camel@gmail.com>
+Subject: Re: [PATCH v1 5/8] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
+	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 14 Jun 2023 12:53:04 +0300
+In-Reply-To: <a5e1f7e1-a585-9c3c-00cc-69fda9c6a55c@suse.com>
+References: <cover.1686080337.git.oleksii.kurochko@gmail.com>
+	 <32aef31768cd81ffc8c848af6c29cd8510bbbf6d.1686080337.git.oleksii.kurochko@gmail.com>
+	 <4ac462c3-9cb6-f467-2b86-925fb068486d@suse.com>
+	 <a5e1f7e1-a585-9c3c-00cc-69fda9c6a55c@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9678:EE_
-X-MS-Office365-Filtering-Correlation-Id: 797a9109-397e-41dc-9c7f-08db6cbd0191
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	JsSA4jQiMcHkMHHrjFMMGnvJSptuiC99+5XSexk5CNzYVE4dCZIZTqpFGWS7+DsbbbFm2+oURbapZDkAQm318q2+4cOUjiRT1UW2+JJ0xjuyfegmZED/VoQ0MRComxB8CpSSBbjeDOL29wjyPTFFCz4r2fothDUyvGGwk939dkTCHm1hJTHaynAmd3ddoeZ4DW6ii/hJ9fOrTXB6Nz78mBrs+HfGsjQTab8DS1POmQCd4TBBzTSz5CCS6ZpgjMaHDJnqG7IP9d2yDprgKw6yiVHa0ABboKs9FXAJbUVWSl9XyZnjvzk4Lm6fgJbUOetDeGbgOMvxTPQJxNA9PYzLGAHhZYKGM5fuS7LAwgLWQ2f5aWdVSf8lAXkdb36AeNLUlnXCEwZZIKowRnc864iQ85KyXDAu+gIhxJ4NVovj9kknTSd8gXpm20/dkPNKFb+XiPp/zbTd4ZCVp7m4fSpxr8SWIhg+695u0QzQC/LfJg5bjhXltupgAELfb5POqF6plVjYql90sp4yrazjdtp1FlRKgiXmdv6t6m2NwauTWJJkuiCpDkejWBaH/V3QuHipi7QLo2MN/h8CiMyz7LJi2oTm5Uw/wplPmX5yquUO3p7xpEccUJrEXeIaOIUijcOF
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199021)(38100700002)(5660300002)(31686004)(8676002)(8936002)(4744005)(2906002)(41300700001)(316002)(66946007)(66476007)(66556008)(4326008)(6916009)(31696002)(54906003)(478600001)(2616005)(53546011)(186003)(966005)(6506007)(26005)(6512007)(86362001)(36756003)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dkUyRVNMTCsrQ2drYk85enlEUEdMVmtpNkwvZi9VUFBrWXZWUC9SRmtWZGhE?=
- =?utf-8?B?czNDTUFBdjlaYlpueUZhYytaYzRWVTdEaWtSakVEU0piaXdWdGZHMGxLOTZm?=
- =?utf-8?B?N0wybHg3QmFKRnNKVkRKRFFJZXo0Smw3bThsZTBEeWdmUWlNcmlVNFYvSUh5?=
- =?utf-8?B?dm9rVXdnMERWcWFVNFJlOGxscUF0a1IzQU9Vd3pRTytyKzZ4Nk9FVDVnM082?=
- =?utf-8?B?ZGdXZ2FBWHBaYXhLc25VdmcxMlNEeTNnUE51R1dtSEFqSTJQWVVCS2pmODFM?=
- =?utf-8?B?Uk5CUytoZFBFKzZmcUFPbmFwN1VBTG1rMThkTlJ3aXhMZmE3bVBFVkJsNkZS?=
- =?utf-8?B?Nk93aTZxZTF5ejVicmlIQlhiNzloeEt2TVVtRmdEWmM5WENFQjI5cEtzOGR1?=
- =?utf-8?B?MnFsbm13V29BWkliZU5Qb0lBVXpWa0hUQTRKK2t1Y3EwemgxaTQxUGl2TmRv?=
- =?utf-8?B?c25iOXp4clB5azZ2dkpnNG01YUF2M3FnNVo3RFR4WGpRemN6Zy9henduVDJ0?=
- =?utf-8?B?WU1SK05xWTMrSzZhalVzNjJ0SHVTR1k4K0tONVlHclRISmloQzJ4U1Z3WVla?=
- =?utf-8?B?S3NwKzlYZGplcG1vbkxwaUJJKy9BbFd2TnFLYUNWcjJ1YkZWMHVqLzczVEl2?=
- =?utf-8?B?azIraXJDZkM2dkVHcjlOU2g2OXpkSEZxTmlqL3h0UUZPaExYaSt4dGpsU1dO?=
- =?utf-8?B?Y0dZWHB2ZitQdGp3VlJYczd2Y2pRQS9IRmpxYjNIUTlYNnU1Zm1LaGJUa0xZ?=
- =?utf-8?B?NnRwYjZGcXYyQ1lWUzlpMXlObzJqUFlnRHZkVGp2QUhUTDZJbXBWSk4vR0o4?=
- =?utf-8?B?bHRpKytwR2RoMVc5VWd1OWlPR3JMUDdSZ28zTC9tSGdIeUg2MUlYYTlrL2hD?=
- =?utf-8?B?RUkrSThPRFpGcFQzYlJpSHBYMHkzOHlDVGRrS3ptdlh3RVhHbnpoY2xMOHdT?=
- =?utf-8?B?dWhBWnZpTGhDaDdVWTZsbUZLVnhNOGlWZCt4ajNqUkNHaWtqMmRvU2l4UlpR?=
- =?utf-8?B?ZDIrbFBtYmk1cVdXcU5kU0V1R3UxZllHaGg1WnJaU0cyTFo0aHoxU091c3ox?=
- =?utf-8?B?Y2p4RmxjckNEbWdYZzBXNlN6M3k3cit5cDJBTlN1NnlCTnh1OWRVNEh5U2xC?=
- =?utf-8?B?akhUeEtYSEVaY21qZXczU2Zhdk5Qbys1NEc1N0Fna2ZWb3lvbjc1RjFraDJD?=
- =?utf-8?B?STVkL2Z6Uk9TVUo0ZTUwVVRuL1JvOTFlRHZzOTltR24vMklrU3pNRjhRRmhV?=
- =?utf-8?B?U2dUWVFybHFDZXZ5WlRncm5Ea3JJRzhOdlRHRVNWOGtYZlArLytja3BnZDlm?=
- =?utf-8?B?RFlUREpyaDBrWmJ2MDVBYklzY3hJTVVrUFBTN095RVo1bzNiUmpkb2NQRGto?=
- =?utf-8?B?a3V2REYwZXBrNHBCMkdiaG9hT05tcmlpaG5iekc3c2ZVR2ZYUDJULzdkS0Nr?=
- =?utf-8?B?WFJQQjRXUFRlQTQzd3pTMXRwa1YwSkhHenlneGIzY1czS2VETDBVdzBibkNC?=
- =?utf-8?B?SjV1RjhQMVlmTWtIUXgrK2lvNHd3N3E0YnZ0L25uc1lNRFdRNFRpNU5MTlRi?=
- =?utf-8?B?NHNFVTVvY1FseVVMZzYyWEVJN0tPZ3BJbDZXZm5QR3pyYkpkNjhwSWNzSzFX?=
- =?utf-8?B?S2FmdzZENGY3N2NqU241NEU2WjJYbEhSdnY5SjM1MHMvaWdHMVg3TnRhK2dI?=
- =?utf-8?B?bjdKRmVLeHhENllnb1g2c2R6R2JFQVdZdWkrNkhMSVovejdkUC82TlhyNkd3?=
- =?utf-8?B?QzloNmsxR2RpQm9KVG4yanlZb0dNZU5qMitwdnBmOW5HVXBVRlRBclcwZjRJ?=
- =?utf-8?B?aVIvTjJuWlMrSlAvOEpkaFQ1Tk1DVHB0MEZiV2R1RU4wOGlIcVFhOVM2K1RI?=
- =?utf-8?B?RUhDWkJFRXNUQmFxT0h6VUJyQVBWdXlrdURUNWFsdGxrK3Jabi8yMEdwM1JT?=
- =?utf-8?B?MVFhYXlLN0JNNHQzTzNNSHduTTcrT0hzMEtIT0tLajZqdG5rdVZ3b2trODdC?=
- =?utf-8?B?cHJZSldpSTlad1ZRVGZsc2pKbTBabFYxRTVPc2tBWmhGekNKR3ZtUk13eEZp?=
- =?utf-8?B?UXJtZzRuVTFtNDcvZFF6aHJvMzZIUEI2NnJYUyt5L01ZRk1VdHFNdnJub2JN?=
- =?utf-8?Q?iqNylZp4T3KuE9etHPLv0yVqD?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 797a9109-397e-41dc-9c7f-08db6cbd0191
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 09:52:03.7298
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5gwjJdqQrU/7mWvPxqW7H05tKvRRb3eu0WMV4LObhYIytTWloqhHp44tAuFrc2rhScXSkz9vJdHJAQ9qrvOE5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9678
 
-On 14.06.2023 11:41, Michal Orzel wrote:
-> This is inconsistent with the rest of the code where macros are used
-> to define functions, as it results in an empty declaration (i.e.
-> semicolon with nothing before it) after function definition. This is also
-> not allowed by C99.
-> 
-> Take the opportunity to undefine TLB_HELPER* macros after last use.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> ---
-> Discussion:
-> https://lore.kernel.org/xen-devel/17C59D5C-795E-4591-A7C9-A4C5179BF373@arm.com/
-> 
-> Other empty declarations appear at callers of TYPE_SAFE and Linux module
-> macros like EXPORT_SYMBOL for which we need some sort of agreement.
+On Mon, 2023-06-12 at 16:24 +0200, Jan Beulich wrote:
+> On 12.06.2023 15:48, Jan Beulich wrote:
+> > On 06.06.2023 21:55, Oleksii Kurochko wrote:
+> > > -void __init noreturn noinline enable_mmu()
+> > > +/*
+> > > + * enable_mmu() can't be __init because __init section isn't
+> > > part of identity
+> > > + * mapping so it will cause an issue after MMU will be enabled.
+> > > + */
+> >=20
+> > As hinted at above already - perhaps the identity mapping wants to
+> > be
+> > larger, up to covering the entire Xen image? Since it's temporary
+> > only anyway, you could even consider using a large page (and RWX
+> > permission). You already require no overlap of link and load
+> > addresses,
+> > so at least small page mappings ought to be possible for the entire
+> > image.
+>=20
+> To expand on that: Assume a future change on this path results in a
+> call
+> to memcpy() or memset() being introduced by the compiler (and then
+> let's
+> further assume this only occurs for a specific compiler version).
+> Right
+> now such a case would be noticed simply because we don't build those
+> library functions yet. But it'll likely be a perplexing crash once a
+> full
+> hypervisor can be built, the more that exception handlers also aren't
+> mapped.
+It makes sense but for some reason it doesn't crash ( I have a bunch of
+patches to run dom0 ) but as I mentioned in the previous e-mail I agree
+that probably it would be better to map the whole image using 1 Gb page
+table for example.
 
-As said elsewhere, I think we should finally get rid of EXPORT_SYMBOL().
 
-For TYPE_SAFE() I think some re-arrangement of the macros can address
-the Misra concern.
+>=20
+> > > - mmu_is_enabled:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * Stack should be re-inited as:
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * 1. Right now an address of the stack is r=
+elative to load
+> > > time
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses what will cau=
+se an issue in case of load
+> > > start address
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 isn't equal to linker s=
+tart address.
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * 2. Addresses in stack are all load time r=
+elative which
+> > > can be an
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 issue in case when load=
+ start address isn't equal to
+> > > linker
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 start address.
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * We can't return to the caller because the=
+ stack was
+> > > reseted
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * and it may have stash some variable on th=
+e stack.
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0 * Jump to a brand new function as the stack=
+ was reseted
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0 * id_addrs should be in sync with id mappin=
+g in
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0 * setup_initial_pagetables()
+> >=20
+> > What is "id" meant to stand for here? Also if things need keeping
+> > in
+> > sync, then a similar comment should exist on the other side.
+>=20
+> I guess it's meant to stand for "identity mapping", but the common
+> use
+> of "id" makes we wonder if the variable wouldn't better be
+> ident_addrs[].
+It would be better. but probably we will remove that variable if we
+agree to map the whole Xen instead of parts. So I'll wait for your
+response before starting to work on new patch series.
 
-Jan
+Thanks a lot.
+
+~ Oleksii
 
