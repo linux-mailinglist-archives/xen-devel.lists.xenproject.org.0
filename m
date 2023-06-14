@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC5B72FFBD
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 15:15:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548760.856885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF72172FFD9
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 15:21:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548765.856895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9QLW-0003PL-D3; Wed, 14 Jun 2023 13:15:34 +0000
+	id 1q9QQW-0004p4-Vt; Wed, 14 Jun 2023 13:20:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548760.856885; Wed, 14 Jun 2023 13:15:34 +0000
+Received: by outflank-mailman (output) from mailman id 548765.856895; Wed, 14 Jun 2023 13:20:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9QLW-0003MV-9f; Wed, 14 Jun 2023 13:15:34 +0000
-Received: by outflank-mailman (input) for mailman id 548760;
- Wed, 14 Jun 2023 13:15:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=I5d0=CC=kernel.org=rppt@srs-se1.protection.inumbo.net>)
- id 1q9QLU-0003MP-W6
- for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 13:15:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8929798c-0ab5-11ee-b232-6b7b168915f2;
- Wed, 14 Jun 2023 15:15:31 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id ACBE360BBD;
- Wed, 14 Jun 2023 13:15:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B649EC433C8;
- Wed, 14 Jun 2023 13:15:21 +0000 (UTC)
+	id 1q9QQW-0004nM-S0; Wed, 14 Jun 2023 13:20:44 +0000
+Received: by outflank-mailman (input) for mailman id 548765;
+ Wed, 14 Jun 2023 13:20:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=H/qP=CC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1q9QQV-0004nD-Kf
+ for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 13:20:43 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 419f75eb-0ab6-11ee-8611-37d641c3527e;
+ Wed, 14 Jun 2023 15:20:39 +0200 (CEST)
+Received: from [192.168.1.88] (unknown [176.206.20.8])
+ by support.bugseng.com (Postfix) with ESMTPSA id E77CC4EE0738;
+ Wed, 14 Jun 2023 15:20:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,322 +39,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8929798c-0ab5-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686748529;
-	bh=whQ+zlV1WEzxZw+ZGXxEweg4a4vDfMR6e71uQQs2gbo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s7xjkClpsrRd0CoRixHJBi4/Lfdbz8nogYKdzoqL6s3eJxDRQCWNMpgdb4AbXv9CR
-	 Z4Mkv0qvYVy9SJkW/jvAS0ZxXx1CQYkEeu3NCrKciopGG9Und4903naocQqXFUMtl6
-	 yPzbCW2LZ6ezDI/wxoH54Yg/kLOj2i69KWH8UiwI6sF7DiK4/NkKP6rV9un/0W0Doj
-	 RAgFJvLRKzVNYh4fJ9vtLInAHMLllXQVH7t+igJKjaaprbiWJJRoGHFINHYZo43mnv
-	 pbyGvMKi8Ho+27G5xW4j/fp1MwG565nU3rISYKnonGcF9dec/Rj6LEhrskTSlZT6VS
-	 kmQL4fPtrwc2A==
-Date: Wed, 14 Jun 2023 16:14:50 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	Hugh Dickins <hughd@google.com>,
-	David Hildenbrand <david@redhat.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>
-Subject: Re: [PATCH v4 02/34] s390: Use _pt_s390_gaddr for gmap address
- tracking
-Message-ID: <20230614131450.GA52412@kernel.org>
-References: <20230612210423.18611-1-vishal.moola@gmail.com>
- <20230612210423.18611-3-vishal.moola@gmail.com>
+X-Inumbo-ID: 419f75eb-0ab6-11ee-8611-37d641c3527e
+Message-ID: <a143e693-b7d0-ebdc-e1d8-b8ce44f6f676@bugseng.com>
+Date: Wed, 14 Jun 2023 15:20:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230612210423.18611-3-vishal.moola@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [XEN PATCH] xen: fixed violations of MISRA C:2012 Rule 3.1
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+References: <e139df541183df7c92b3bd73841cf1fb2851e054.1686575613.git.nicola.vetrini@bugseng.com>
+ <42cb13a7-3b62-8d48-a1a1-3094a7bd07fa@suse.com>
+ <f3fc1848-68ca-37a1-add2-e100b4773190@xen.org>
+From: nicola <nicola.vetrini@bugseng.com>
+In-Reply-To: <f3fc1848-68ca-37a1-add2-e100b4773190@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 12, 2023 at 02:03:51PM -0700, Vishal Moola (Oracle) wrote:
-> s390 uses page->index to keep track of page tables for the guest address
-> space. In an attempt to consolidate the usage of page fields in s390,
-> replace _pt_pad_2 with _pt_s390_gaddr to replace page->index in gmap.
-> 
-> This will help with the splitting of struct ptdesc from struct page, as
-> well as allow s390 to use _pt_frag_refcount for fragmented page table
-> tracking.
-> 
-> Since page->_pt_s390_gaddr aliases with mapping, ensure its set to NULL
-> before freeing the pages as well.
 
-I'm looking at the final result and unless I've missed something, setting
-of _pt_s390_gaddr to 0 is always followed by pagetable_free().
-Can't we have pagetable_free() take care of zeroing _pt_s390_gaddr?
-I think patch 16 ("s390: Convert various gmap functions to use ptdescs")
-would be the right place for that.
+On 13/06/23 11:44, Julien Grall wrote:
+> Hi,
+>
+> On 13/06/2023 09:27, Jan Beulich wrote:
+>> On 13.06.2023 09:42, Nicola Vetrini wrote:
+>>> The xen sources contain several violations of Rule 3.1 from MISRA 
+>>> C:2012,
+>>> whose headline states:
+>>> "The character sequences '/*' and '//' shall not be used within a 
+>>> comment".
+>>>
+>>> Most of the violations are due to the presence of links to webpages 
+>>> within
+>>> C-style comment blocks, such as:
+>>>
+>>> xen/arch/arm/include/asm/smccc.h:37.1-41.3
+>>> /*
+>>>   * This file provides common defines for ARM SMC Calling Convention as
+>>>   * specified in
+>>>   * 
+>>> http://infocenter.arm.com/help/topic/com.arm.doc.den0028a/index.html
+>>>   */
+>>>
+>>> In this case, we propose to deviate all of these occurrences with a
+>>> project deviation to be captured by a tool configuration.
+>>>
+>>> There are, however, a few other violations that do not fall under this
+>>> category, namely:
+>>>
+>>> 1. in file "xen/arch/arm/include/asm/arm64/flushtlb.h" we propose to
+>>> avoid the usage of a nested comment;
+>>> 2. in file "xen/common/xmalloc_tlsf.c" we propose to substitute the
+>>> commented-out if statement with a "#if 0 .. #endif;
+>>> 3. in file "xen/include/xen/atomic.h" and
+>>> "xen/drivers/passthrough/arm/smmu-v3.c" we propose to split the C-style
+>>> comment containing the nested comment into two doxygen comments, 
+>>> clearly
+>>> identifying the second as a code sample. This can then be captured 
+>>> with a
+>>> project deviation by a tool configuration.
+>>>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> ---
+>>> Changes:
+>>> - Resending the patch with the right maintainers in CC.
+>>
+>> But without otherwise addressing comments already given, afaics. One 
+>> more
+>> remark:
+>>
+>>> --- a/xen/common/xmalloc_tlsf.c
+>>> +++ b/xen/common/xmalloc_tlsf.c
+>>> @@ -140,9 +140,10 @@ static inline void MAPPING_SEARCH(unsigned long 
+>>> *r, int *fl, int *sl)
+>>>           *fl = flsl(*r) - 1;
+>>>           *sl = (*r >> (*fl - MAX_LOG2_SLI)) - MAX_SLI;
+>>>           *fl -= FLI_OFFSET;
+>>> -        /*if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
+>>> -         *fl = *sl = 0;
+>>> -         */
+>>> +#if 0
+>>> +        if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
+>>> +        fl = *sl = 0;
+>>
+>> You want to get indentation right here, and you don't want to lose
+>> the indirection on fl.
+>>
+>>> +#endif
+>>>           *r &= ~t;
+>>>       }
+>>>   }
+>>
+>> If you split this to 4 patches, leaving the URL proposal in just
+>> the cover letter, then I think this one change (with the adjustments)
+>> could go in right away. Similarly I expect the arm64/flushtlb.h
+>> change could be ack-ed right away by an Arm maintainer.
+>
+> I actually dislike the proposal. In this case, the code is meant to 
+> look like assembly code. I would replace the // with ;. Also, I would 
+> like to keep the comment style in sync in arm32/flushtlb.h. So can 
+> this be updated as well?
+>
+> Cheers,
+>
+Hi, Julien.
 
-Otherwise:
+I'm not authorized to send patches about files in the arm32 tree, but 
+surely the patch can be easily replicated in any place where it makes 
+sense for consistency.
 
-Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
- 
-> This also reverts commit 7e25de77bc5ea ("s390/mm: use pmd_pgtable_page()
-> helper in __gmap_segment_gaddr()") which had s390 use
-> pmd_pgtable_page() to get a gmap page table, as pmd_pgtable_page()
-> should be used for more generic process page tables.
-> 
-> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
-> ---
->  arch/s390/mm/gmap.c      | 56 +++++++++++++++++++++++++++-------------
->  include/linux/mm_types.h |  2 +-
->  2 files changed, 39 insertions(+), 19 deletions(-)
-> 
-> diff --git a/arch/s390/mm/gmap.c b/arch/s390/mm/gmap.c
-> index dc90d1eb0d55..81c683426b49 100644
-> --- a/arch/s390/mm/gmap.c
-> +++ b/arch/s390/mm/gmap.c
-> @@ -70,7 +70,7 @@ static struct gmap *gmap_alloc(unsigned long limit)
->  	page = alloc_pages(GFP_KERNEL_ACCOUNT, CRST_ALLOC_ORDER);
->  	if (!page)
->  		goto out_free;
-> -	page->index = 0;
-> +	page->_pt_s390_gaddr = 0;
->  	list_add(&page->lru, &gmap->crst_list);
->  	table = page_to_virt(page);
->  	crst_table_init(table, etype);
-> @@ -187,16 +187,20 @@ static void gmap_free(struct gmap *gmap)
->  	if (!(gmap_is_shadow(gmap) && gmap->removed))
->  		gmap_flush_tlb(gmap);
->  	/* Free all segment & region tables. */
-> -	list_for_each_entry_safe(page, next, &gmap->crst_list, lru)
-> +	list_for_each_entry_safe(page, next, &gmap->crst_list, lru) {
-> +		page->_pt_s390_gaddr = 0;
->  		__free_pages(page, CRST_ALLOC_ORDER);
-> +	}
->  	gmap_radix_tree_free(&gmap->guest_to_host);
->  	gmap_radix_tree_free(&gmap->host_to_guest);
->  
->  	/* Free additional data for a shadow gmap */
->  	if (gmap_is_shadow(gmap)) {
->  		/* Free all page tables. */
-> -		list_for_each_entry_safe(page, next, &gmap->pt_list, lru)
-> +		list_for_each_entry_safe(page, next, &gmap->pt_list, lru) {
-> +			page->_pt_s390_gaddr = 0;
->  			page_table_free_pgste(page);
-> +		}
->  		gmap_rmap_radix_tree_free(&gmap->host_to_rmap);
->  		/* Release reference to the parent */
->  		gmap_put(gmap->parent);
-> @@ -318,12 +322,14 @@ static int gmap_alloc_table(struct gmap *gmap, unsigned long *table,
->  		list_add(&page->lru, &gmap->crst_list);
->  		*table = __pa(new) | _REGION_ENTRY_LENGTH |
->  			(*table & _REGION_ENTRY_TYPE_MASK);
-> -		page->index = gaddr;
-> +		page->_pt_s390_gaddr = gaddr;
->  		page = NULL;
->  	}
->  	spin_unlock(&gmap->guest_table_lock);
-> -	if (page)
-> +	if (page) {
-> +		page->_pt_s390_gaddr = 0;
->  		__free_pages(page, CRST_ALLOC_ORDER);
-> +	}
->  	return 0;
->  }
->  
-> @@ -336,12 +342,14 @@ static int gmap_alloc_table(struct gmap *gmap, unsigned long *table,
->  static unsigned long __gmap_segment_gaddr(unsigned long *entry)
->  {
->  	struct page *page;
-> -	unsigned long offset;
-> +	unsigned long offset, mask;
->  
->  	offset = (unsigned long) entry / sizeof(unsigned long);
->  	offset = (offset & (PTRS_PER_PMD - 1)) * PMD_SIZE;
-> -	page = pmd_pgtable_page((pmd_t *) entry);
-> -	return page->index + offset;
-> +	mask = ~(PTRS_PER_PMD * sizeof(pmd_t) - 1);
-> +	page = virt_to_page((void *)((unsigned long) entry & mask));
-> +
-> +	return page->_pt_s390_gaddr + offset;
->  }
->  
->  /**
-> @@ -1351,6 +1359,7 @@ static void gmap_unshadow_pgt(struct gmap *sg, unsigned long raddr)
->  	/* Free page table */
->  	page = phys_to_page(pgt);
->  	list_del(&page->lru);
-> +	page->_pt_s390_gaddr = 0;
->  	page_table_free_pgste(page);
->  }
->  
-> @@ -1379,6 +1388,7 @@ static void __gmap_unshadow_sgt(struct gmap *sg, unsigned long raddr,
->  		/* Free page table */
->  		page = phys_to_page(pgt);
->  		list_del(&page->lru);
-> +		page->_pt_s390_gaddr = 0;
->  		page_table_free_pgste(page);
->  	}
->  }
-> @@ -1409,6 +1419,7 @@ static void gmap_unshadow_sgt(struct gmap *sg, unsigned long raddr)
->  	/* Free segment table */
->  	page = phys_to_page(sgt);
->  	list_del(&page->lru);
-> +	page->_pt_s390_gaddr = 0;
->  	__free_pages(page, CRST_ALLOC_ORDER);
->  }
->  
-> @@ -1437,6 +1448,7 @@ static void __gmap_unshadow_r3t(struct gmap *sg, unsigned long raddr,
->  		/* Free segment table */
->  		page = phys_to_page(sgt);
->  		list_del(&page->lru);
-> +		page->_pt_s390_gaddr = 0;
->  		__free_pages(page, CRST_ALLOC_ORDER);
->  	}
->  }
-> @@ -1467,6 +1479,7 @@ static void gmap_unshadow_r3t(struct gmap *sg, unsigned long raddr)
->  	/* Free region 3 table */
->  	page = phys_to_page(r3t);
->  	list_del(&page->lru);
-> +	page->_pt_s390_gaddr = 0;
->  	__free_pages(page, CRST_ALLOC_ORDER);
->  }
->  
-> @@ -1495,6 +1508,7 @@ static void __gmap_unshadow_r2t(struct gmap *sg, unsigned long raddr,
->  		/* Free region 3 table */
->  		page = phys_to_page(r3t);
->  		list_del(&page->lru);
-> +		page->_pt_s390_gaddr = 0;
->  		__free_pages(page, CRST_ALLOC_ORDER);
->  	}
->  }
-> @@ -1525,6 +1539,7 @@ static void gmap_unshadow_r2t(struct gmap *sg, unsigned long raddr)
->  	/* Free region 2 table */
->  	page = phys_to_page(r2t);
->  	list_del(&page->lru);
-> +	page->_pt_s390_gaddr = 0;
->  	__free_pages(page, CRST_ALLOC_ORDER);
->  }
->  
-> @@ -1557,6 +1572,7 @@ static void __gmap_unshadow_r1t(struct gmap *sg, unsigned long raddr,
->  		/* Free region 2 table */
->  		page = phys_to_page(r2t);
->  		list_del(&page->lru);
-> +		page->_pt_s390_gaddr = 0;
->  		__free_pages(page, CRST_ALLOC_ORDER);
->  	}
->  }
-> @@ -1762,9 +1778,9 @@ int gmap_shadow_r2t(struct gmap *sg, unsigned long saddr, unsigned long r2t,
->  	page = alloc_pages(GFP_KERNEL_ACCOUNT, CRST_ALLOC_ORDER);
->  	if (!page)
->  		return -ENOMEM;
-> -	page->index = r2t & _REGION_ENTRY_ORIGIN;
-> +	page->_pt_s390_gaddr = r2t & _REGION_ENTRY_ORIGIN;
->  	if (fake)
-> -		page->index |= GMAP_SHADOW_FAKE_TABLE;
-> +		page->_pt_s390_gaddr |= GMAP_SHADOW_FAKE_TABLE;
->  	s_r2t = page_to_phys(page);
->  	/* Install shadow region second table */
->  	spin_lock(&sg->guest_table_lock);
-> @@ -1814,6 +1830,7 @@ int gmap_shadow_r2t(struct gmap *sg, unsigned long saddr, unsigned long r2t,
->  	return rc;
->  out_free:
->  	spin_unlock(&sg->guest_table_lock);
-> +	page->_pt_s390_gaddr = 0;
->  	__free_pages(page, CRST_ALLOC_ORDER);
->  	return rc;
->  }
-> @@ -1846,9 +1863,9 @@ int gmap_shadow_r3t(struct gmap *sg, unsigned long saddr, unsigned long r3t,
->  	page = alloc_pages(GFP_KERNEL_ACCOUNT, CRST_ALLOC_ORDER);
->  	if (!page)
->  		return -ENOMEM;
-> -	page->index = r3t & _REGION_ENTRY_ORIGIN;
-> +	page->_pt_s390_gaddr = r3t & _REGION_ENTRY_ORIGIN;
->  	if (fake)
-> -		page->index |= GMAP_SHADOW_FAKE_TABLE;
-> +		page->_pt_s390_gaddr |= GMAP_SHADOW_FAKE_TABLE;
->  	s_r3t = page_to_phys(page);
->  	/* Install shadow region second table */
->  	spin_lock(&sg->guest_table_lock);
-> @@ -1898,6 +1915,7 @@ int gmap_shadow_r3t(struct gmap *sg, unsigned long saddr, unsigned long r3t,
->  	return rc;
->  out_free:
->  	spin_unlock(&sg->guest_table_lock);
-> +	page->_pt_s390_gaddr = 0;
->  	__free_pages(page, CRST_ALLOC_ORDER);
->  	return rc;
->  }
-> @@ -1930,9 +1948,9 @@ int gmap_shadow_sgt(struct gmap *sg, unsigned long saddr, unsigned long sgt,
->  	page = alloc_pages(GFP_KERNEL_ACCOUNT, CRST_ALLOC_ORDER);
->  	if (!page)
->  		return -ENOMEM;
-> -	page->index = sgt & _REGION_ENTRY_ORIGIN;
-> +	page->_pt_s390_gaddr = sgt & _REGION_ENTRY_ORIGIN;
->  	if (fake)
-> -		page->index |= GMAP_SHADOW_FAKE_TABLE;
-> +		page->_pt_s390_gaddr |= GMAP_SHADOW_FAKE_TABLE;
->  	s_sgt = page_to_phys(page);
->  	/* Install shadow region second table */
->  	spin_lock(&sg->guest_table_lock);
-> @@ -1982,6 +2000,7 @@ int gmap_shadow_sgt(struct gmap *sg, unsigned long saddr, unsigned long sgt,
->  	return rc;
->  out_free:
->  	spin_unlock(&sg->guest_table_lock);
-> +	page->_pt_s390_gaddr = 0;
->  	__free_pages(page, CRST_ALLOC_ORDER);
->  	return rc;
->  }
-> @@ -2014,9 +2033,9 @@ int gmap_shadow_pgt_lookup(struct gmap *sg, unsigned long saddr,
->  	if (table && !(*table & _SEGMENT_ENTRY_INVALID)) {
->  		/* Shadow page tables are full pages (pte+pgste) */
->  		page = pfn_to_page(*table >> PAGE_SHIFT);
-> -		*pgt = page->index & ~GMAP_SHADOW_FAKE_TABLE;
-> +		*pgt = page->_pt_s390_gaddr & ~GMAP_SHADOW_FAKE_TABLE;
->  		*dat_protection = !!(*table & _SEGMENT_ENTRY_PROTECT);
-> -		*fake = !!(page->index & GMAP_SHADOW_FAKE_TABLE);
-> +		*fake = !!(page->_pt_s390_gaddr & GMAP_SHADOW_FAKE_TABLE);
->  		rc = 0;
->  	} else  {
->  		rc = -EAGAIN;
-> @@ -2054,9 +2073,9 @@ int gmap_shadow_pgt(struct gmap *sg, unsigned long saddr, unsigned long pgt,
->  	page = page_table_alloc_pgste(sg->mm);
->  	if (!page)
->  		return -ENOMEM;
-> -	page->index = pgt & _SEGMENT_ENTRY_ORIGIN;
-> +	page->_pt_s390_gaddr = pgt & _SEGMENT_ENTRY_ORIGIN;
->  	if (fake)
-> -		page->index |= GMAP_SHADOW_FAKE_TABLE;
-> +		page->_pt_s390_gaddr |= GMAP_SHADOW_FAKE_TABLE;
->  	s_pgt = page_to_phys(page);
->  	/* Install shadow page table */
->  	spin_lock(&sg->guest_table_lock);
-> @@ -2101,6 +2120,7 @@ int gmap_shadow_pgt(struct gmap *sg, unsigned long saddr, unsigned long pgt,
->  	return rc;
->  out_free:
->  	spin_unlock(&sg->guest_table_lock);
-> +	page->_pt_s390_gaddr = 0;
->  	page_table_free_pgste(page);
->  	return rc;
->  
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 306a3d1a0fa6..6161fe1ae5b8 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -144,7 +144,7 @@ struct page {
->  		struct {	/* Page table pages */
->  			unsigned long _pt_pad_1;	/* compound_head */
->  			pgtable_t pmd_huge_pte; /* protected by page->ptl */
-> -			unsigned long _pt_pad_2;	/* mapping */
-> +			unsigned long _pt_s390_gaddr;	/* mapping */
->  			union {
->  				struct mm_struct *pt_mm; /* x86 pgds only */
->  				atomic_t pt_frag_refcount; /* powerpc */
-> -- 
-> 2.40.1
-> 
-> 
+Regards,
 
--- 
-Sincerely yours,
-Mike.
+   Nicola
+
 
