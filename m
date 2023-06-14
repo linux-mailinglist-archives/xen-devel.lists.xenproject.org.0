@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BF87303C2
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 17:24:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.549008.857315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57CB0730432
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 17:52:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.549014.857328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9SM3-0006cZ-RJ; Wed, 14 Jun 2023 15:24:15 +0000
+	id 1q9Sm4-0001gJ-QN; Wed, 14 Jun 2023 15:51:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 549008.857315; Wed, 14 Jun 2023 15:24:15 +0000
+Received: by outflank-mailman (output) from mailman id 549014.857328; Wed, 14 Jun 2023 15:51:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9SM3-0006Zy-NZ; Wed, 14 Jun 2023 15:24:15 +0000
-Received: by outflank-mailman (input) for mailman id 549008;
- Wed, 14 Jun 2023 15:24:14 +0000
+	id 1q9Sm4-0001eZ-N5; Wed, 14 Jun 2023 15:51:08 +0000
+Received: by outflank-mailman (input) for mailman id 549014;
+ Wed, 14 Jun 2023 15:51:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=I5d0=CC=kernel.org=rppt@srs-se1.protection.inumbo.net>)
- id 1q9SM2-0006Zs-4s
- for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 15:24:14 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ (envelope-from <SRS0=dIEj=CC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1q9Sm3-0001eT-JE
+ for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 15:51:07 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20624.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::624])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8393e24a-0ac7-11ee-b232-6b7b168915f2;
- Wed, 14 Jun 2023 17:24:12 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6D872643A9;
- Wed, 14 Jun 2023 15:24:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EFE1C433C0;
- Wed, 14 Jun 2023 15:24:03 +0000 (UTC)
+ id 455f099f-0acb-11ee-b232-6b7b168915f2;
+ Wed, 14 Jun 2023 17:51:05 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8868.eurprd04.prod.outlook.com (2603:10a6:20b:42f::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.46; Wed, 14 Jun
+ 2023 15:51:03 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Wed, 14 Jun 2023
+ 15:51:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,209 +47,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8393e24a-0ac7-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686756250;
-	bh=DYUjdElx66wwW56gbS6Oam3+Ri1YVeFJgUO5WJxkfRA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=F2VfAIa6x+BTq6Vf7GKpNIQ4VRxhW1RinP9K8UayobTe9Tk8E5+Sq7cmwZZRn0d1y
-	 26CB8picqZJFxo5+mLk+dJnultBctEPc1n6TEIPPARJJzXHv+f/Pgy45b2HV/isl3Y
-	 gb/2jcktaHSMftse5jDK8hl+l0HD7oQErPJyL7pw0t1TXRYQmrQl+fKIONYs1PTSvS
-	 z8NvkUUtJo2edNsOz3fzHHy16sEmRifJKVrKC5RW3D9o58C7GKLfTiOHZj9zfeqH0l
-	 Z6HqMiy17H4r/WPjR88En22k7c9F1SxwlZ7LkQb5J7xPFN1zqBm3yUfunH4M/rparU
-	 rulVeBuEQZAuA==
-Date: Wed, 14 Jun 2023 18:23:33 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	Hugh Dickins <hughd@google.com>
-Subject: Re: [PATCH v4 34/34] mm: Remove pgtable_{pmd, pte}_page_{ctor,
- dtor}() wrappers
-Message-ID: <20230614152333.GG52412@kernel.org>
-References: <20230612210423.18611-1-vishal.moola@gmail.com>
- <20230612210423.18611-35-vishal.moola@gmail.com>
+X-Inumbo-ID: 455f099f-0acb-11ee-b232-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gC0YdSkOOExGXKq2kXY8pspk8hVYJWZffVKNnCAfWrubhlulcpXLFwH0Lerzwy1mokLe6wdgQvsEGH7T64PdK59FWmjIEdhn291rpqP3XdraSNd1UB3MLK/XNLOmuTlUmbyx+FyOgke/Qp5ILjPPqUW5uckPWeMev3XNCid54A0I7FwjWB/ddyCtRI7O+F3vt2Bqt4PbfP5bqw/agXU4vHr31wX7gi9TiSfzFSLxNIDAIG6E6Bqt/XT+Fu/PNbwKtm/o2T/rSwjsV+VZp3wN8SEX8hmXoP3XFXBxQ+XzgCCsAVLb/FpA0UDfRC6CE6oJniHh8OIpxxOgfSUWpfcjJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BeHIlHKmwY1bKrJgC9kiwaBmKl6aT+BO47L1/JIGvL0=;
+ b=VmJp2FyDvASyk+w2QvdPjwisVyHqMFH7ATFUjgZi2SrC7fT9c93sEmwfC8VbhbUifsFKI5DvT1SVlxP1fyfxau0ym6n/feBMrMKXoyaS5npv7jbTAasjT7ogoeRjd1Eiq2wP5J7PKEkFu8CG2dmwLrcbjXwdUJlSMFF5NGlPBfKeeDbEJEWzJtWWQqi2nCb/RmrHh+BgUoMAZyloRMsx8sBVcaI6A9ogxZMHtME3BItmJ6pFPSnK7WCi2zlexAYe7/B/hQt1Y0XSNPsjLUxhx6wIlVFh9oeHlittuqNjIHRuFJfJU9Xbjvud7ehv9vSXyzkh2krL/EJ7Bow8TChHkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BeHIlHKmwY1bKrJgC9kiwaBmKl6aT+BO47L1/JIGvL0=;
+ b=NFspO1bE/KfS5VTWUrGMGc6pEI0hu3NfmAhe8yp3LW83EVqWaXCf40MCtN6cdJzgADty0pcvwvti3pKkMusNK2PDqPO+LIv+C7ekZ/7h33iu6IrgDw7yrdXidP96x3U2QDm+TqJz+jiAGVoNO5yMKnTeYJhi1yrHseoqUxWf9uUVG3MEkNZZzBA9Ci+mC671XIr26b88tOZQLolfvmU3l5ZbmQGhZAwgRW8p8XLTfYtWOMSRj/AgZnca6YAIbRn4LdFw7R6gRYT1Ab60GXnddUi4JaCfHfBALl06WsgzgOIueVXV/tOuNrVlGp+87uCDYdp/buJd0iCmG+g5Pe+riA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e04c4cc2-21b4-d508-94d2-5fb786df37b7@suse.com>
+Date: Wed, 14 Jun 2023 17:51:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v3 2/4] xen: Add files needed for minimal ppc64le build
+Content-Language: en-US
+To: Shawn Anastasio <shawn@anastas.io>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1686667191.git.shawn@anastas.io>
+ <d45855963671225b5e20cb0f26da1e7ec64427f2.1686667191.git.shawn@anastas.io>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <d45855963671225b5e20cb0f26da1e7ec64427f2.1686667191.git.shawn@anastas.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0208.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230612210423.18611-35-vishal.moola@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47d166ac-bf68-4ef2-e5ed-08db6cef27c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4lXhRH2j7b18z3m5mP0YTAHlwV3EjCdcbMONhsEpnCjnxxYMVkHEBZ2oNGdpjKURCvAtoEQnpyccKG+bwfO83z0vIjg8zvD7GMp4fqJacur7AbALCjnHzouJ3+UUdufNLajEwl1ohPM/CmBPwoCqL+fWS6QK4/yMoQrAJMUO3Z+D+NWY/hk+M//+iN/gLH7EC1Q6c1626U/Tc0LaBoEXWVUTxHJm92Ai9sFP59DbBaONyIiSdedqHiaylZUHlVXk+qzGjRaER2UN3htExl8GvOX02xByZ3Yo4qPjhIeMt5bwlPtw0adnXxYT+jbP4bHYi5pMY37CYlB9b32BDq8YLmVgVKybZs6anm/7XCDbjF5BrZNSIIvoNmhlTBmrAbPS4W8SY746Et7pS/J2f1FzreQ9eGEoctbqyI1crCUQFqPOs1HGy2rF8Is2BZZb0ZggYA7yBgUHqtKFRWUhZc0ad/VQcMA9If54BPpLY7NYJTAh/sCY5OXG8ZFTgpagP9I2Xk/ltesmU+t3IeV9QmxVmDOg7Kig4hcRdHe1ZtKbex9a4jJHVnClUxGLVsVCjBQdzbBp0Bm25YFEeW9FvTl+LCoVSQHeCJaaMD5n90c9l7uP2/XIPdtmadnVX3PYWy0CcOx9repF1hkWO5hiuNqIrQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(136003)(366004)(396003)(376002)(451199021)(54906003)(5660300002)(66556008)(4326008)(8676002)(41300700001)(8936002)(6916009)(66946007)(2616005)(478600001)(66476007)(316002)(38100700002)(186003)(26005)(83380400001)(6486002)(6506007)(6512007)(53546011)(31696002)(86362001)(2906002)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RFpYUE5XQXhzTGwvY1VSdWVGc0luTWI0WlM4ZmwrMVVNdXlsVHIxeFpEbkdQ?=
+ =?utf-8?B?K3hYQWF2VGlXRXpUNTVQMzg1dUlIaVhKKy81aEhCRnd2Z052SVlzN2Vzb3hG?=
+ =?utf-8?B?NE1SZlg3TWYrR3gwNFYvdXpaUzJtU01xSmpENHpTWVVHZEZQSGNrMGZaZlg2?=
+ =?utf-8?B?RjFUVmZIV1FOWFlhRGNTWDQ3Q0NIaVo1UU1mdzYwelU4Y1cvSlRQYmQzT2dq?=
+ =?utf-8?B?ZUJZejQyUHJJSVkrNGhUbVJIcThFVW5ZdUcrSUR3MWNtZzZobm9LWG5YVHdY?=
+ =?utf-8?B?bEJXM29YQkpIbU50bCtReExBUnE2RGRCU284NEhteTI4QUtSWGVPTDdLYTZO?=
+ =?utf-8?B?UHZ6QUcyR3duUEZRZ3lGSFdFNGZjeXNDb2ovaFdJMzBWVjkxQ2wrQUM3WXl2?=
+ =?utf-8?B?cEJYS2dwK2Rta3VKeXk0LzFibVZXVFNic25yTU9STzFwY05yMWI0dzJEWE9h?=
+ =?utf-8?B?Q2Z5aTdmZmxkQ1FzNklUd1NHeEl1VFJ6R3NWanczWE5xVzVGYURSbG1QTmF0?=
+ =?utf-8?B?RFQ3Z2I3STRObU9wQnl6QnpmZC95Tk9sWFF5YlRhMGpqdEhRaFUxYTBiUFBs?=
+ =?utf-8?B?VUlWenM4T2haRm1KOFI3b2VCblcxWW42ZkZCSWNyczJRS0xORms2Nk0rbXFY?=
+ =?utf-8?B?bUVlS3FsNjNrWlo2R3BhRElrRHdKYlpIQ3g5YUxmbkhjL3dhdGJhemtHaXAw?=
+ =?utf-8?B?T0hmNGRLd3pYVzlseTNhZENMKzFCdmFRSWswMzZ3VUlZQ0tOczEwNDV3cmg0?=
+ =?utf-8?B?bE9vQ1VvaWRmSHBxK1hqOExQUUlRbTE5RU0yVGpLajg3eWdnSjc4bHJzalZ3?=
+ =?utf-8?B?TXdkalpMMExwL0NkMC80T2xPZS9jQWZOelhwcEtoMVhkTjI1ZlF2cFY5T1FY?=
+ =?utf-8?B?MU9ad3lnRU9vaU5EZmdqYjhqVVJEZEEvN2ZnN0UrRXVqL1NTMTFlckhlQ0hP?=
+ =?utf-8?B?QW5lSU1QaVFYYzdPQmk4RmJjWFFrdTZFWWhtS2NYVkg4SDhEdVQwZ1N2TytX?=
+ =?utf-8?B?cjZmK3FVbGtMcTZORjBkbGtCQUNlV2t5WUJ1WFR6ZHhaWWR5c0hXdkNzSVBE?=
+ =?utf-8?B?ejNObFo5QnowZkVMTnJKejhmUmxQZGF5aVJaOGtZTXVsVnc0NnJ0THhrUFg1?=
+ =?utf-8?B?eG85WmlROWFKVWd0azRVR2Izd2tHNFNaVzBLMlBQQkFBbms0WlpDYTUwNkdv?=
+ =?utf-8?B?cUZEUkxKSXNwbFZNTlNBaTI3bnBSNS9QdXpkczczUmJGbTJLc21jVnJJSkV4?=
+ =?utf-8?B?OFNyU2ZwdG5FdHFaQkdxSWx6YU5HeTU0ZTFqSFJ1MnpBMlpuZjFmbVRlT0Nq?=
+ =?utf-8?B?U1p2d2VPZ2xKNGVhN1JiVkRQSnhIc0cvUlNOdFNBMkxDQ0JTdksxWlA3MVBS?=
+ =?utf-8?B?b1NhakhweGJSY2lQVzAyaUtyeTNRSk5WRWJMdWhXVTc2bGhzMEQ1bzgrY3Fr?=
+ =?utf-8?B?dDRjZHZwL1lKZVZsek4xOTFxaW5CRjFDZjRROWtNSEY2WTVSb1c0dmpubVJk?=
+ =?utf-8?B?U1RQaUxCOFJNQ3E5d1JTaTZpV2o1a1dTTDArSzlMZFRyVFREbDJjYnZOMnh2?=
+ =?utf-8?B?MkpPcERmTVN1R0xPU1pWZHRwN1ExU0tHaE9wTVJ4MUkyUmtEeW9UOUNoTmRt?=
+ =?utf-8?B?azQyd3VoWE1zMWI3bkpRTGp4cEc2c2RJdGMvcW8vUEQzcWZCOXAwSElzZ21G?=
+ =?utf-8?B?V2FqMlJDT2kwSXdDVTByMmdwZlZWTUNieEFRNGJldHphUmtpOGVNcjBwTHdM?=
+ =?utf-8?B?RlQrKzQ5KzlJN0JRaE5ySlhtQXJQMjZNR0c1bUlSd29XcmtCdGEyNityU0Ru?=
+ =?utf-8?B?TmpGaWNSalp6ZXVPQWgwQitOQk5kL1VNTDNISGVNU2diY1lYaFpWSndKalE3?=
+ =?utf-8?B?TEdxY0dqUWY4dzd0WVBDZ2ptUmNocDVyTGF4VFd4UVB3c3J3SHkraVcxR292?=
+ =?utf-8?B?enVtditRQ3pFQ3RIMTJyK0VoWnF2NlZJdWphcmw2bFJ3U2JoVmRoaTkzQ0lE?=
+ =?utf-8?B?d0tIUHJOL3M2eDNNWktndTRVbVlBaENlS1d6WUdXb3cwQ2lMQTJrUmxTTmlh?=
+ =?utf-8?B?VFlwQXBnYm1FMDJzMEtRQzdRbVpFSHdKY0NmdHhqWit6cmlxZ0J6U3BzNk1X?=
+ =?utf-8?Q?mU+nGiRJsCVKaLBkMBwRv9T+6?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47d166ac-bf68-4ef2-e5ed-08db6cef27c8
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 15:51:02.5029
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jvKlCkDoH5NkvuEyKQyL2pnRkpePoanbMSdfte6HcQgMBy3l+kVGVeARJGbpPxpvkOG5+pcrzmJ2gH4hB0dTdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8868
 
-On Mon, Jun 12, 2023 at 02:04:23PM -0700, Vishal Moola (Oracle) wrote:
-> These functions are no longer necessary. Remove them and cleanup
-> Documentation referencing them.
-> 
-> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+On 13.06.2023 16:50, Shawn Anastasio wrote:
+> --- /dev/null
+> +++ b/xen/arch/ppc/Makefile
+> @@ -0,0 +1,16 @@
+> +obj-$(CONFIG_PPC64) += ppc64/
+> +
+> +$(TARGET): $(TARGET)-syms
+> +	cp -f $< $@
+> +
+> +$(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+> +	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) -o $@
+> +	$(NM) -pa --format=sysv $(@D)/$(@F) \
+> +		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+> +		>$(@D)/$(@F).map
 
-I've found one stale reference in riscv:
+Elsewhere we recently switched these uses of $(@D)/$(@F) to just $@.
+Please can you do so here as well?
 
-$ git grep -n pgtable_pmd_page_ctor
-arch/riscv/mm/init.c:440:       BUG_ON(!vaddr || !pgtable_pmd_page_ctor(virt_to_page(vaddr)));
+> --- /dev/null
+> +++ b/xen/arch/ppc/arch.mk
+> @@ -0,0 +1,11 @@
+> +########################################
+> +# Power-specific definitions
+> +
+> +ppc-march-$(CONFIG_POWER_ISA_2_07B) := power8
+> +ppc-march-$(CONFIG_POWER_ISA_3_00) := power9
+> +
+> +CFLAGS += -mcpu=$(ppc-march-y) -mstrict-align -mcmodel=large -mabi=elfv2 -mno-altivec -mno-vsx
 
-Otherwise
+Wouldn't it make sense to also pass -mlittle here, such that a tool
+chain defaulting to big-endian can still be used?
 
-Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
+> --- /dev/null
+> +++ b/xen/arch/ppc/ppc64/head.S
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +
+> +.section .text.header, "ax", %progbits
+> +
+> +ENTRY(start)
+> +    /*
+> +     * Depending on how we were booted, the CPU could be running in either
+> +     * Little Endian or Big Endian mode. The following trampoline from Linux
+> +     * cleverly uses an instruction that encodes to a NOP if the CPU's
+> +     * endianness matches the assumption of the assembler (LE, in our case)
+> +     * or a branch to code that performs the endian switch in the other case.
+> +     */
+> +    tdi 0, 0, 0x48    /* Reverse endian of b . + 8          */
+> +    b $ + 44          /* Skip trampoline if endian is good  */
 
+If I get this right, $ and . are interchangable on Power? If not,
+then all is fine and there likely is a reason to use . in the
+comment but $ in the code. But if so, it would be nice if both
+could match, and I guess with other architectures in mind . would
+be preferable.
 
-> ---
->  Documentation/mm/split_page_table_lock.rst    | 12 +++++------
->  .../zh_CN/mm/split_page_table_lock.rst        | 14 ++++++-------
->  include/linux/mm.h                            | 20 -------------------
->  3 files changed, 13 insertions(+), 33 deletions(-)
-> 
-> diff --git a/Documentation/mm/split_page_table_lock.rst b/Documentation/mm/split_page_table_lock.rst
-> index 50ee0dfc95be..4bffec728340 100644
-> --- a/Documentation/mm/split_page_table_lock.rst
-> +++ b/Documentation/mm/split_page_table_lock.rst
-> @@ -53,7 +53,7 @@ Support of split page table lock by an architecture
->  ===================================================
->  
->  There's no need in special enabling of PTE split page table lock: everything
-> -required is done by pgtable_pte_page_ctor() and pgtable_pte_page_dtor(), which
-> +required is done by pagetable_pte_ctor() and pagetable_pte_dtor(), which
->  must be called on PTE table allocation / freeing.
->  
->  Make sure the architecture doesn't use slab allocator for page table
-> @@ -63,8 +63,8 @@ This field shares storage with page->ptl.
->  PMD split lock only makes sense if you have more than two page table
->  levels.
->  
-> -PMD split lock enabling requires pgtable_pmd_page_ctor() call on PMD table
-> -allocation and pgtable_pmd_page_dtor() on freeing.
-> +PMD split lock enabling requires pagetable_pmd_ctor() call on PMD table
-> +allocation and pagetable_pmd_dtor() on freeing.
->  
->  Allocation usually happens in pmd_alloc_one(), freeing in pmd_free() and
->  pmd_free_tlb(), but make sure you cover all PMD table allocation / freeing
-> @@ -72,7 +72,7 @@ paths: i.e X86_PAE preallocate few PMDs on pgd_alloc().
->  
->  With everything in place you can set CONFIG_ARCH_ENABLE_SPLIT_PMD_PTLOCK.
->  
-> -NOTE: pgtable_pte_page_ctor() and pgtable_pmd_page_ctor() can fail -- it must
-> +NOTE: pagetable_pte_ctor() and pagetable_pmd_ctor() can fail -- it must
->  be handled properly.
->  
->  page->ptl
-> @@ -92,7 +92,7 @@ trick:
->     split lock with enabled DEBUG_SPINLOCK or DEBUG_LOCK_ALLOC, but costs
->     one more cache line for indirect access;
->  
-> -The spinlock_t allocated in pgtable_pte_page_ctor() for PTE table and in
-> -pgtable_pmd_page_ctor() for PMD table.
-> +The spinlock_t allocated in pagetable_pte_ctor() for PTE table and in
-> +pagetable_pmd_ctor() for PMD table.
->  
->  Please, never access page->ptl directly -- use appropriate helper.
-> diff --git a/Documentation/translations/zh_CN/mm/split_page_table_lock.rst b/Documentation/translations/zh_CN/mm/split_page_table_lock.rst
-> index 4fb7aa666037..a2c288670a24 100644
-> --- a/Documentation/translations/zh_CN/mm/split_page_table_lock.rst
-> +++ b/Documentation/translations/zh_CN/mm/split_page_table_lock.rst
-> @@ -56,16 +56,16 @@ Hugetlb特定的辅助函数:
->  架构对分页表锁的支持
->  ====================
->  
-> -没有必要特别启用PTE分页表锁：所有需要的东西都由pgtable_pte_page_ctor()
-> -和pgtable_pte_page_dtor()完成，它们必须在PTE表分配/释放时被调用。
-> +没有必要特别启用PTE分页表锁：所有需要的东西都由pagetable_pte_ctor()
-> +和pagetable_pte_dtor()完成，它们必须在PTE表分配/释放时被调用。
->  
->  确保架构不使用slab分配器来分配页表：slab使用page->slab_cache来分配其页
->  面。这个区域与page->ptl共享存储。
->  
->  PMD分页锁只有在你有两个以上的页表级别时才有意义。
->  
-> -启用PMD分页锁需要在PMD表分配时调用pgtable_pmd_page_ctor()，在释放时调
-> -用pgtable_pmd_page_dtor()。
-> +启用PMD分页锁需要在PMD表分配时调用pagetable_pmd_ctor()，在释放时调
-> +用pagetable_pmd_dtor()。
->  
->  分配通常发生在pmd_alloc_one()中，释放发生在pmd_free()和pmd_free_tlb()
->  中，但要确保覆盖所有的PMD表分配/释放路径：即X86_PAE在pgd_alloc()中预先
-> @@ -73,7 +73,7 @@ PMD分页锁只有在你有两个以上的页表级别时才有意义。
->  
->  一切就绪后，你可以设置CONFIG_ARCH_ENABLE_SPLIT_PMD_PTLOCK。
->  
-> -注意：pgtable_pte_page_ctor()和pgtable_pmd_page_ctor()可能失败--必
-> +注意：pagetable_pte_ctor()和pagetable_pmd_ctor()可能失败--必
->  须正确处理。
->  
->  page->ptl
-> @@ -90,7 +90,7 @@ page->ptl用于访问分割页表锁，其中'page'是包含该表的页面struc
->     的指针并动态分配它。这允许在启用DEBUG_SPINLOCK或DEBUG_LOCK_ALLOC的
->     情况下使用分页锁，但由于间接访问而多花了一个缓存行。
->  
-> -PTE表的spinlock_t分配在pgtable_pte_page_ctor()中，PMD表的spinlock_t
-> -分配在pgtable_pmd_page_ctor()中。
-> +PTE表的spinlock_t分配在pagetable_pte_ctor()中，PMD表的spinlock_t
-> +分配在pagetable_pmd_ctor()中。
->  
->  请不要直接访问page->ptl - -使用适当的辅助函数。
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index dc211c43610b..6d83483cf186 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2897,11 +2897,6 @@ static inline bool pagetable_pte_ctor(struct ptdesc *ptdesc)
->  	return true;
->  }
->  
-> -static inline bool pgtable_pte_page_ctor(struct page *page)
-> -{
-> -	return pagetable_pte_ctor(page_ptdesc(page));
-> -}
-> -
->  static inline void pagetable_pte_dtor(struct ptdesc *ptdesc)
->  {
->  	struct folio *folio = ptdesc_folio(ptdesc);
-> @@ -2911,11 +2906,6 @@ static inline void pagetable_pte_dtor(struct ptdesc *ptdesc)
->  	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
->  }
->  
-> -static inline void pgtable_pte_page_dtor(struct page *page)
-> -{
-> -	pagetable_pte_dtor(page_ptdesc(page));
-> -}
-> -
->  #define pte_offset_map_lock(mm, pmd, address, ptlp)	\
->  ({							\
->  	spinlock_t *__ptl = pte_lockptr(mm, pmd);	\
-> @@ -3006,11 +2996,6 @@ static inline bool pagetable_pmd_ctor(struct ptdesc *ptdesc)
->  	return true;
->  }
->  
-> -static inline bool pgtable_pmd_page_ctor(struct page *page)
-> -{
-> -	return pagetable_pmd_ctor(page_ptdesc(page));
-> -}
-> -
->  static inline void pagetable_pmd_dtor(struct ptdesc *ptdesc)
->  {
->  	struct folio *folio = ptdesc_folio(ptdesc);
-> @@ -3020,11 +3005,6 @@ static inline void pagetable_pmd_dtor(struct ptdesc *ptdesc)
->  	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
->  }
->  
-> -static inline void pgtable_pmd_page_dtor(struct page *page)
-> -{
-> -	pagetable_pmd_dtor(page_ptdesc(page));
-> -}
-> -
->  /*
->   * No scalability reason to split PUD locks yet, but follow the same pattern
->   * as the PMD locks to make it easier if we decide to.  The VM should not be
-> -- 
-> 2.40.1
-> 
-> 
+> --- /dev/null
+> +++ b/xen/arch/ppc/xen.lds.S
+> @@ -0,0 +1,173 @@
+> +#include <xen/xen.lds.h>
+> +
+> +#undef ENTRY
+> +#undef ALIGN
+> +
+> +OUTPUT_ARCH(powerpc:common64)
+> +ENTRY(start)
+> +
+> +PHDRS
+> +{
+> +    text PT_LOAD ;
+> +#if defined(BUILD_ID)
+> +    note PT_NOTE ;
+> +#endif
+> +}
+> +
+> +/**
+> + * OF's base load address is 0x400000 (XEN_VIRT_START).
+> + * By defining sections this way, we can keep our virtual address base at 0x400000
+> + * while keeping the physical base at 0x0.
+> + *
+> + * Without this, OF incorrectly loads .text at 0x400000 + 0x400000 = 0x800000.
+> + * Taken from x86/xen.lds.S
+> + */
+> +#ifdef CONFIG_LD_IS_GNU
+> +# define DECL_SECTION(x) x : AT(ADDR(#x) - XEN_VIRT_START)
+> +#else
+> +# define DECL_SECTION(x) x : AT(ADDR(x) - XEN_VIRT_START)
+> +#endif
+> +
+> +SECTIONS
+> +{
+> +    . = XEN_VIRT_START;
+> +
+> +    DECL_SECTION(.text) {
+> +        _stext = .;            /* Text section */
+> +        *(.text.header)
+> +
+> +        *(.text.cold)
+> +        *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+> +
+> +        *(.text)
+> +#ifdef CONFIG_CC_SPLIT_SECTIONS
+> +        *(.text.*)
+> +#endif
+> +
+> +        *(.fixup)
+> +        *(.gnu.warning)
+> +        . = ALIGN(POINTER_ALIGN);
+> +        _etext = .;             /* End of text section */
+> +    } :text
+> +
+> +    . = ALIGN(PAGE_SIZE);
+> +    DECL_SECTION(.rodata) {
+> +        _srodata = .;          /* Read-only data */
+> +        *(.rodata)
+> +        *(.rodata.*)
+> +        *(.data.rel.ro)
+> +        *(.data.rel.ro.*)
+> +
+> +        VPCI_ARRAY
+> +
+> +        . = ALIGN(POINTER_ALIGN);
+> +        _erodata = .;        /* End of read-only data */
+> +    } :text
+> +
+> +    #if defined(BUILD_ID)
+> +    . = ALIGN(4);
+> +    DECL_SECTION(.note.gnu.build-id) {
+> +        __note_gnu_build_id_start = .;
+> +        *(.note.gnu.build-id)
+> +        __note_gnu_build_id_end = .;
+> +    } :note :text
+> +    #endif
+> +    _erodata = .;                /* End of read-only data */
+> +
+> +    . = ALIGN(PAGE_SIZE);
+> +    DECL_SECTION(.data.ro_after_init) {
+> +        __ro_after_init_start = .;
+> +        *(.data.ro_after_init)
+> +        . = ALIGN(PAGE_SIZE);
+> +        __ro_after_init_end = .;
+> +    } : text
+> +
+> +    DECL_SECTION(.data.read_mostly) {
+> +        *(.data.read_mostly)
+> +    } :text
+> +
+> +    . = ALIGN(PAGE_SIZE);
+> +    DECL_SECTION(.data) {                    /* Data */
+> +        *(.data.page_aligned)
+> +        . = ALIGN(8);
+> +        __start_schedulers_array = .;
+> +        *(.data.schedulers)
+> +        __end_schedulers_array = .;
+> +
+> +        HYPFS_PARAM
+> +
+> +        *(.data .data.*)
+> +        CONSTRUCTORS
+> +    } :text
+> +
+> +    . = ALIGN(PAGE_SIZE);             /* Init code and data */
+> +    __init_begin = .;
+> +    DECL_SECTION(.init.text) {
+> +        _sinittext = .;
+> +        *(.init.text)
+> +        _einittext = .;
+> +        . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
+> +    } :text
+> +
+> +    . = ALIGN(PAGE_SIZE);
+> +    DECL_SECTION(.init.data) {
+> +        *(.init.rodata)
+> +        *(.init.rodata.*)
+> +
+> +        . = ALIGN(POINTER_ALIGN);
+> +        __setup_start = .;
+> +        *(.init.setup)
+> +        __setup_end = .;
+> +
+> +        __initcall_start = .;
+> +        *(.initcallpresmp.init)
+> +        __presmp_initcall_end = .;
+> +        *(.initcall1.init)
+> +        __initcall_end = .;
+> +
+> +        LOCK_PROFILE_DATA
+> +
+> +        *(.init.data)
+> +        *(.init.data.rel)
+> +        *(.init.data.rel.*)
+> +
+> +        . = ALIGN(8);
+> +        __ctors_start = .;
+> +        *(.ctors)
+> +        *(.init_array)
+> +        *(SORT(.init_array.*))
+> +        __ctors_end = .;
+> +    } :text
+> +    . = ALIGN(POINTER_ALIGN);
+> +    __init_end = .;
 
--- 
-Sincerely yours,
-Mike.
+Up to here I think I agree with all uses of ALIGN(), but ...
+
+> +    DECL_SECTION(.bss) {                     /* BSS */
+> +        __bss_start = .;
+> +        *(.bss.stack_aligned)
+> +        . = ALIGN(PAGE_SIZE);
+> +        *(.bss.page_aligned)
+
+... the one between the two .bss parts looks unmotivated. Within
+a section definition ALIGN() typically only makes sense when followed
+by a label definition, like ...
+
+> +        . = ALIGN(PAGE_SIZE);
+> +        __per_cpu_start = .;
+
+... here.
+
+> +        *(.bss.percpu.page_aligned)
+> +        *(.bss.percpu)
+> +        . = ALIGN(SMP_CACHE_BYTES);
+
+This one is an exception, as it is intended to separate the read-mostly
+part such that there's no shared cache line.
+
+Jan
+
+> +        *(.bss.percpu.read_mostly)
+> +        . = ALIGN(SMP_CACHE_BYTES);
+> +        __per_cpu_data_end = .;
+> +        *(.bss .bss.*)
+> +        . = ALIGN(POINTER_ALIGN);
+> +        __bss_end = .;
+> +    } :text
+> +    _end = . ;
+> +
+> +    /* Section for the device tree blob (if any). */
+> +    DECL_SECTION(.dtb) { *(.dtb) } :text
+> +
+> +    DWARF2_DEBUG_SECTIONS
+> +
+> +    DISCARD_SECTIONS
+> +
+> +    STABS_DEBUG_SECTIONS
+> +
+> +    ELF_DETAILS_SECTIONS
+> +}
+
 
