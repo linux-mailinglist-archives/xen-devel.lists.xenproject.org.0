@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE1073029F
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 17:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548916.857144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4CB47302C1
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 17:04:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548921.857154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9Rya-0002f8-6l; Wed, 14 Jun 2023 15:00:00 +0000
+	id 1q9S2c-000477-Lx; Wed, 14 Jun 2023 15:04:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548916.857144; Wed, 14 Jun 2023 15:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 548921.857154; Wed, 14 Jun 2023 15:04:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9Rya-0002ci-3q; Wed, 14 Jun 2023 15:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 548916;
- Wed, 14 Jun 2023 14:59:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q9S2c-00044h-JG; Wed, 14 Jun 2023 15:04:10 +0000
+Received: by outflank-mailman (input) for mailman id 548921;
+ Wed, 14 Jun 2023 15:04:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I5d0=CC=kernel.org=rppt@srs-se1.protection.inumbo.net>)
- id 1q9RyY-0002cc-Ly
- for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 14:59:58 +0000
+ id 1q9S2b-00044Z-DX
+ for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 15:04:09 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 200161cd-0ac4-11ee-b232-6b7b168915f2;
- Wed, 14 Jun 2023 16:59:57 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b51475dc-0ac4-11ee-8611-37d641c3527e;
+ Wed, 14 Jun 2023 17:04:07 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE70D63CDA;
- Wed, 14 Jun 2023 14:59:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD37C433C8;
- Wed, 14 Jun 2023 14:59:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F175B60B85;
+ Wed, 14 Jun 2023 15:04:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B074C433C9;
+ Wed, 14 Jun 2023 15:03:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +44,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 200161cd-0ac4-11ee-b232-6b7b168915f2
+X-Inumbo-ID: b51475dc-0ac4-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686754795;
-	bh=Snf0vvy1ZfRMDrG2QV2GY/XXoVVQULhRbHTUN6/ozYs=;
+	s=k20201202; t=1686755045;
+	bh=9A+PDe1vPCUMDrQYdu5z8EQPSeOjm0q+6tl+clXFAfM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Yb6roLWgU1FpArbgMhm3suW779Jdabd7l+H7dMd2zBGyrh0BOeY5wtdMql6biURZl
-	 v4iwBz/HuCXVMtg61KO5mBWTrhq69oDtUrOThilHfsnE8uTE2ZygL8lFanhWvJUrqE
-	 vMcJQ9egXs+J1/HmerJQneWZPIb7WwKm6eCArSImVwb+BZcAaye0RccD/lcNjLTILt
-	 TGcYSdafz5ds7jjw5qQKCC3YeIHWy3SRi7PvyD5uV8jIRQEF+KcbULtCXAQiLGBilE
-	 AxzTGwTNCf+5ligff90SIYQR5ysfy1RO+UiN0WBtTnV4rm3ThxZVJb9CHZkUcTgAgY
-	 VSYQ3btc5Uccg==
-Date: Wed, 14 Jun 2023 17:59:17 +0300
+	b=j5Ugc1koC28gH2KkEPLkPoTIPNK11ApEJ+qx3mv6eyx57zInMns1iK9e2ZeYWZtaS
+	 d6VTROxAYi4QnXIkn3k8NB95BIGVtq/48gNq3/0I/WMA49BRIKydm5cPzbMITNJFuZ
+	 ukIwVNbIGFF0ylO7WubZ38JabSGFDmsGB/tgUH9+2GD4DtHbeAr300i11RRFVklrjO
+	 zXwlgRZnQv07KKoC7y7mb9Y81PZOH2N9ueNVcmIy2/IhSmwSzwFpOrdGsiFw0fBA3k
+	 Xwkm0A1j+e4mOhYVoVB8lslu0VNwTEUQ6zk7ZxZcwqL0ZAjNIDJH5uFFjVn0dxTv++
+	 vvViLh1xvoRTQ==
+Date: Wed, 14 Jun 2023 18:03:27 +0300
 From: Mike Rapoport <rppt@kernel.org>
 To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -68,213 +68,97 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
 	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
 	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	Hugh Dickins <hughd@google.com>
-Subject: Re: [PATCH v4 19/34] pgalloc: Convert various functions to use
- ptdescs
-Message-ID: <20230614145917.GR52412@kernel.org>
+	Hugh Dickins <hughd@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v4 20/34] arm: Convert various functions to use ptdescs
+Message-ID: <20230614150327.GS52412@kernel.org>
 References: <20230612210423.18611-1-vishal.moola@gmail.com>
- <20230612210423.18611-20-vishal.moola@gmail.com>
+ <20230612210423.18611-21-vishal.moola@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230612210423.18611-20-vishal.moola@gmail.com>
+In-Reply-To: <20230612210423.18611-21-vishal.moola@gmail.com>
 
-On Mon, Jun 12, 2023 at 02:04:08PM -0700, Vishal Moola (Oracle) wrote:
+On Mon, Jun 12, 2023 at 02:04:09PM -0700, Vishal Moola (Oracle) wrote:
 > As part of the conversions to replace pgtable constructor/destructors with
 > ptdesc equivalents, convert various page table functions to use ptdescs.
 > 
-> Some of the functions use the *get*page*() helper functions. Convert
-> these to use pagetable_alloc() and ptdesc_address() instead to help
+> late_alloc() also uses the __get_free_pages() helper function. Convert
+> this to use pagetable_alloc() and ptdesc_address() instead to help
 > standardize page tables further.
 > 
 > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+
+Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
+
+One comment below.
+
 > ---
->  include/asm-generic/pgalloc.h | 62 +++++++++++++++++++++--------------
->  1 file changed, 37 insertions(+), 25 deletions(-)
+>  arch/arm/include/asm/tlb.h | 12 +++++++-----
+>  arch/arm/mm/mmu.c          |  6 +++---
+>  2 files changed, 10 insertions(+), 8 deletions(-)
 > 
-> diff --git a/include/asm-generic/pgalloc.h b/include/asm-generic/pgalloc.h
-> index a7cf825befae..3fd6ce79e654 100644
-> --- a/include/asm-generic/pgalloc.h
-> +++ b/include/asm-generic/pgalloc.h
-> @@ -18,7 +18,11 @@
->   */
->  static inline pte_t *__pte_alloc_one_kernel(struct mm_struct *mm)
+> diff --git a/arch/arm/include/asm/tlb.h b/arch/arm/include/asm/tlb.h
+> index b8cbe03ad260..f40d06ad5d2a 100644
+> --- a/arch/arm/include/asm/tlb.h
+> +++ b/arch/arm/include/asm/tlb.h
+> @@ -39,7 +39,9 @@ static inline void __tlb_remove_table(void *_table)
+>  static inline void
+>  __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pte, unsigned long addr)
 >  {
-> -	return (pte_t *)__get_free_page(GFP_PGTABLE_KERNEL);
-> +	struct ptdesc *ptdesc = pagetable_alloc(GFP_PGTABLE_KERNEL, 0);
-> +
-> +	if (!ptdesc)
-> +		return NULL;
-> +	return ptdesc_address(ptdesc);
->  }
->  
->  #ifndef __HAVE_ARCH_PTE_ALLOC_ONE_KERNEL
-> @@ -41,7 +45,7 @@ static inline pte_t *pte_alloc_one_kernel(struct mm_struct *mm)
->   */
->  static inline void pte_free_kernel(struct mm_struct *mm, pte_t *pte)
->  {
-> -	free_page((unsigned long)pte);
-> +	pagetable_free(virt_to_ptdesc(pte));
->  }
->  
->  /**
-> @@ -49,7 +53,7 @@ static inline void pte_free_kernel(struct mm_struct *mm, pte_t *pte)
->   * @mm: the mm_struct of the current context
->   * @gfp: GFP flags to use for the allocation
->   *
-> - * Allocates a page and runs the pgtable_pte_page_ctor().
-> + * Allocates a ptdesc and runs the pagetable_pte_ctor().
-
-Allocates memory for page table and ptdesc
-
->   *
->   * This function is intended for architectures that need
->   * anything beyond simple page allocation or must have custom GFP flags.
-
-The Return: description here should be fixed up
-
-> @@ -58,17 +62,17 @@ static inline void pte_free_kernel(struct mm_struct *mm, pte_t *pte)
->   */
->  static inline pgtable_t __pte_alloc_one(struct mm_struct *mm, gfp_t gfp)
->  {
-> -	struct page *pte;
-> +	struct ptdesc *ptdesc;
->  
-> -	pte = alloc_page(gfp);
-> -	if (!pte)
-> +	ptdesc = pagetable_alloc(gfp, 0);
-> +	if (!ptdesc)
->  		return NULL;
-> -	if (!pgtable_pte_page_ctor(pte)) {
-> -		__free_page(pte);
-> +	if (!pagetable_pte_ctor(ptdesc)) {
-> +		pagetable_free(ptdesc);
->  		return NULL;
->  	}
->  
-> -	return pte;
-> +	return ptdesc_page(ptdesc);
->  }
->  
->  #ifndef __HAVE_ARCH_PTE_ALLOC_ONE
-> @@ -76,7 +80,7 @@ static inline pgtable_t __pte_alloc_one(struct mm_struct *mm, gfp_t gfp)
->   * pte_alloc_one - allocate a page for PTE-level user page table
->   * @mm: the mm_struct of the current context
->   *
-> - * Allocates a page and runs the pgtable_pte_page_ctor().
-> + * Allocates a ptdesc and runs the pagetable_pte_ctor().
-
-Allocates memory for page table and ptdesc
-
->   *
->   * Return: `struct page` initialized as page table or %NULL on error
-
-Return: ptdesc ...
-
->   */
-> @@ -98,8 +102,10 @@ static inline pgtable_t pte_alloc_one(struct mm_struct *mm)
->   */
->  static inline void pte_free(struct mm_struct *mm, struct page *pte_page)
->  {
-> -	pgtable_pte_page_dtor(pte_page);
-> -	__free_page(pte_page);
-> +	struct ptdesc *ptdesc = page_ptdesc(pte_page);
+> -	pgtable_pte_page_dtor(pte);
+> +	struct ptdesc *ptdesc = page_ptdesc(pte);
 > +
 > +	pagetable_pte_dtor(ptdesc);
-> +	pagetable_free(ptdesc);
->  }
 >  
->  
-> @@ -110,7 +116,7 @@ static inline void pte_free(struct mm_struct *mm, struct page *pte_page)
->   * pmd_alloc_one - allocate a page for PMD-level page table
->   * @mm: the mm_struct of the current context
->   *
-> - * Allocates a page and runs the pgtable_pmd_page_ctor().
-> + * Allocates a ptdesc and runs the pagetable_pmd_ctor().
-
-Allocate memory for page table and ptdesc
-
->   * Allocations use %GFP_PGTABLE_USER in user context and
->   * %GFP_PGTABLE_KERNEL in kernel context.
->   *
-> @@ -118,28 +124,30 @@ static inline void pte_free(struct mm_struct *mm, struct page *pte_page)
->   */
->  static inline pmd_t *pmd_alloc_one(struct mm_struct *mm, unsigned long addr)
->  {
-> -	struct page *page;
-> +	struct ptdesc *ptdesc;
->  	gfp_t gfp = GFP_PGTABLE_USER;
->  
->  	if (mm == &init_mm)
->  		gfp = GFP_PGTABLE_KERNEL;
-> -	page = alloc_page(gfp);
-> -	if (!page)
-> +	ptdesc = pagetable_alloc(gfp, 0);
-> +	if (!ptdesc)
->  		return NULL;
-> -	if (!pgtable_pmd_page_ctor(page)) {
-> -		__free_page(page);
-> +	if (!pagetable_pmd_ctor(ptdesc)) {
-> +		pagetable_free(ptdesc);
->  		return NULL;
->  	}
-> -	return (pmd_t *)page_address(page);
-> +	return ptdesc_address(ptdesc);
->  }
+>  #ifndef CONFIG_ARM_LPAE
+>  	/*
+> @@ -50,17 +52,17 @@ __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pte, unsigned long addr)
+>  	__tlb_adjust_range(tlb, addr - PAGE_SIZE, 2 * PAGE_SIZE);
 >  #endif
 >  
->  #ifndef __HAVE_ARCH_PMD_FREE
->  static inline void pmd_free(struct mm_struct *mm, pmd_t *pmd)
+> -	tlb_remove_table(tlb, pte);
+> +	tlb_remove_ptdesc(tlb, ptdesc);
+>  }
+>  
+>  static inline void
+>  __pmd_free_tlb(struct mmu_gather *tlb, pmd_t *pmdp, unsigned long addr)
 >  {
-> +	struct ptdesc *ptdesc = virt_to_ptdesc(pmd);
-> +
->  	BUG_ON((unsigned long)pmd & (PAGE_SIZE-1));
-> -	pgtable_pmd_page_dtor(virt_to_page(pmd));
-> -	free_page((unsigned long)pmd);
+>  #ifdef CONFIG_ARM_LPAE
+> -	struct page *page = virt_to_page(pmdp);
+> +	struct ptdesc *ptdesc = virt_to_ptdesc(pmdp);
+>  
+> -	pgtable_pmd_page_dtor(page);
+> -	tlb_remove_table(tlb, page);
 > +	pagetable_pmd_dtor(ptdesc);
-> +	pagetable_free(ptdesc);
->  }
+> +	tlb_remove_ptdesc(tlb, ptdesc);
 >  #endif
+>  }
 >  
-> @@ -149,11 +157,15 @@ static inline void pmd_free(struct mm_struct *mm, pmd_t *pmd)
+> diff --git a/arch/arm/mm/mmu.c b/arch/arm/mm/mmu.c
+> index 22292cf3381c..294518fd0240 100644
+> --- a/arch/arm/mm/mmu.c
+> +++ b/arch/arm/mm/mmu.c
+> @@ -737,11 +737,11 @@ static void __init *early_alloc(unsigned long sz)
 >  
->  static inline pud_t *__pud_alloc_one(struct mm_struct *mm, unsigned long addr)
+>  static void *__init late_alloc(unsigned long sz)
 >  {
-> -	gfp_t gfp = GFP_PGTABLE_USER;
-> +	gfp_t gfp = GFP_PGTABLE_USER | __GFP_ZERO;
+> -	void *ptr = (void *)__get_free_pages(GFP_PGTABLE_KERNEL, get_order(sz));
+> +	void *ptdesc = pagetable_alloc(GFP_PGTABLE_KERNEL, get_order(sz));
+>  
+> -	if (!ptr || !pgtable_pte_page_ctor(virt_to_page(ptr)))
+> +	if (!ptdesc || !pagetable_pte_ctor(ptdesc))
+>  		BUG();
+> -	return ptr;
+> +	return ptdesc;
 
-GFP_PGTABLE_USER already contains __GFP_ZERO
+should be
 
-> +	struct ptdesc *ptdesc;
->  
->  	if (mm == &init_mm)
->  		gfp = GFP_PGTABLE_KERNEL;
-> -	return (pud_t *)get_zeroed_page(gfp);
-> +	ptdesc = pagetable_alloc(gfp, 0);
-> +	if (!ptdesc)
-> +		return NULL;
-> +	return ptdesc_address(ptdesc);
+	return  ptdesc_to_virt(ptdesc);
+
 >  }
 >  
->  #ifndef __HAVE_ARCH_PUD_ALLOC_ONE
-> @@ -175,7 +187,7 @@ static inline pud_t *pud_alloc_one(struct mm_struct *mm, unsigned long addr)
->  static inline void __pud_free(struct mm_struct *mm, pud_t *pud)
->  {
->  	BUG_ON((unsigned long)pud & (PAGE_SIZE-1));
-> -	free_page((unsigned long)pud);
-> +	pagetable_free(virt_to_ptdesc(pud));
->  }
->  
->  #ifndef __HAVE_ARCH_PUD_FREE
-> @@ -190,7 +202,7 @@ static inline void pud_free(struct mm_struct *mm, pud_t *pud)
->  #ifndef __HAVE_ARCH_PGD_FREE
->  static inline void pgd_free(struct mm_struct *mm, pgd_t *pgd)
->  {
-> -	free_page((unsigned long)pgd);
-> +	pagetable_free(virt_to_ptdesc(pgd));
->  }
->  #endif
->  
+>  static pte_t * __init arm_pte_alloc(pmd_t *pmd, unsigned long addr,
 > -- 
 > 2.40.1
 > 
