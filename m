@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF72172FFD9
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 15:21:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.548765.856895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DB6772FFE7
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jun 2023 15:22:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.548772.856904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9QQW-0004p4-Vt; Wed, 14 Jun 2023 13:20:44 +0000
+	id 1q9QS5-0005N7-9Z; Wed, 14 Jun 2023 13:22:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 548765.856895; Wed, 14 Jun 2023 13:20:44 +0000
+Received: by outflank-mailman (output) from mailman id 548772.856904; Wed, 14 Jun 2023 13:22:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9QQW-0004nM-S0; Wed, 14 Jun 2023 13:20:44 +0000
-Received: by outflank-mailman (input) for mailman id 548765;
- Wed, 14 Jun 2023 13:20:43 +0000
+	id 1q9QS5-0005Kt-6Q; Wed, 14 Jun 2023 13:22:21 +0000
+Received: by outflank-mailman (input) for mailman id 548772;
+ Wed, 14 Jun 2023 13:22:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H/qP=CC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1q9QQV-0004nD-Kf
- for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 13:20:43 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=I5d0=CC=kernel.org=rppt@srs-se1.protection.inumbo.net>)
+ id 1q9QS4-0005Kj-4N
+ for xen-devel@lists.xenproject.org; Wed, 14 Jun 2023 13:22:20 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 419f75eb-0ab6-11ee-8611-37d641c3527e;
- Wed, 14 Jun 2023 15:20:39 +0200 (CEST)
-Received: from [192.168.1.88] (unknown [176.206.20.8])
- by support.bugseng.com (Postfix) with ESMTPSA id E77CC4EE0738;
- Wed, 14 Jun 2023 15:20:37 +0200 (CEST)
+ id 7b2494c4-0ab6-11ee-8611-37d641c3527e;
+ Wed, 14 Jun 2023 15:22:17 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A19786175C;
+ Wed, 14 Jun 2023 13:22:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D64C433C0;
+ Wed, 14 Jun 2023 13:22:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +45,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 419f75eb-0ab6-11ee-8611-37d641c3527e
-Message-ID: <a143e693-b7d0-ebdc-e1d8-b8ce44f6f676@bugseng.com>
-Date: Wed, 14 Jun 2023 15:20:36 +0200
+X-Inumbo-ID: 7b2494c4-0ab6-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686748935;
+	bh=0vqssVcI3AzSm6ZYzSMTFzLW0LK2ArpvNNFnyd0jDMg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PwXP+1XbNJMc5dDtJjP8fRUbMVOfgYZkiV/CSEiQO+53OUw1mxkM7TNacSN2UVnvq
+	 Mwxs/DwA39lzTfMai8ygKMhnw/8A5txEm5g+274q1AspzudJm5ujeZxuL5SlxzV7kr
+	 XEeamoxRIjx3hqKKprCq30b101V9LmtVD7C/YrzqjcfWDUt0IERYcZ+YUZAUB1qm6M
+	 qU2wy/k+HKKhrQ/qrF2cNssBn4aoQYbJEpcB5m9Vm0+PGaXZfYQhkb0YSbhsS/HNdF
+	 f2cI0J/nTygASR5eUp+uYZzIW/J3GUH1QtysQDebu/WsZ8JxpIwHAuYB2k8FX53JGd
+	 49yjsQPz5+zOQ==
+Date: Wed, 14 Jun 2023 16:21:37 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
+	Hugh Dickins <hughd@google.com>,
+	David Hildenbrand <david@redhat.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Subject: Re: [PATCH v4 03/34] s390: Use pt_frag_refcount for pagetables
+Message-ID: <20230614132137.GB52412@kernel.org>
+References: <20230612210423.18611-1-vishal.moola@gmail.com>
+ <20230612210423.18611-4-vishal.moola@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [XEN PATCH] xen: fixed violations of MISRA C:2012 Rule 3.1
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-References: <e139df541183df7c92b3bd73841cf1fb2851e054.1686575613.git.nicola.vetrini@bugseng.com>
- <42cb13a7-3b62-8d48-a1a1-3094a7bd07fa@suse.com>
- <f3fc1848-68ca-37a1-add2-e100b4773190@xen.org>
-From: nicola <nicola.vetrini@bugseng.com>
-In-Reply-To: <f3fc1848-68ca-37a1-add2-e100b4773190@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230612210423.18611-4-vishal.moola@gmail.com>
 
+On Mon, Jun 12, 2023 at 02:03:52PM -0700, Vishal Moola (Oracle) wrote:
+> s390 currently uses _refcount to identify fragmented page tables.
+> The page table struct already has a member pt_frag_refcount used by
+> powerpc, so have s390 use that instead of the _refcount field as well.
+> This improves the safety for _refcount and the page table tracking.
+> 
+> This also allows us to simplify the tracking since we can once again use
+> the lower byte of pt_frag_refcount instead of the upper byte of _refcount.
+> 
+> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
 
-On 13/06/23 11:44, Julien Grall wrote:
-> Hi,
->
-> On 13/06/2023 09:27, Jan Beulich wrote:
->> On 13.06.2023 09:42, Nicola Vetrini wrote:
->>> The xen sources contain several violations of Rule 3.1 from MISRA 
->>> C:2012,
->>> whose headline states:
->>> "The character sequences '/*' and '//' shall not be used within a 
->>> comment".
->>>
->>> Most of the violations are due to the presence of links to webpages 
->>> within
->>> C-style comment blocks, such as:
->>>
->>> xen/arch/arm/include/asm/smccc.h:37.1-41.3
->>> /*
->>>   * This file provides common defines for ARM SMC Calling Convention as
->>>   * specified in
->>>   * 
->>> http://infocenter.arm.com/help/topic/com.arm.doc.den0028a/index.html
->>>   */
->>>
->>> In this case, we propose to deviate all of these occurrences with a
->>> project deviation to be captured by a tool configuration.
->>>
->>> There are, however, a few other violations that do not fall under this
->>> category, namely:
->>>
->>> 1. in file "xen/arch/arm/include/asm/arm64/flushtlb.h" we propose to
->>> avoid the usage of a nested comment;
->>> 2. in file "xen/common/xmalloc_tlsf.c" we propose to substitute the
->>> commented-out if statement with a "#if 0 .. #endif;
->>> 3. in file "xen/include/xen/atomic.h" and
->>> "xen/drivers/passthrough/arm/smmu-v3.c" we propose to split the C-style
->>> comment containing the nested comment into two doxygen comments, 
->>> clearly
->>> identifying the second as a code sample. This can then be captured 
->>> with a
->>> project deviation by a tool configuration.
->>>
->>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>> ---
->>> Changes:
->>> - Resending the patch with the right maintainers in CC.
->>
->> But without otherwise addressing comments already given, afaics. One 
->> more
->> remark:
->>
->>> --- a/xen/common/xmalloc_tlsf.c
->>> +++ b/xen/common/xmalloc_tlsf.c
->>> @@ -140,9 +140,10 @@ static inline void MAPPING_SEARCH(unsigned long 
->>> *r, int *fl, int *sl)
->>>           *fl = flsl(*r) - 1;
->>>           *sl = (*r >> (*fl - MAX_LOG2_SLI)) - MAX_SLI;
->>>           *fl -= FLI_OFFSET;
->>> -        /*if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
->>> -         *fl = *sl = 0;
->>> -         */
->>> +#if 0
->>> +        if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
->>> +        fl = *sl = 0;
->>
->> You want to get indentation right here, and you don't want to lose
->> the indirection on fl.
->>
->>> +#endif
->>>           *r &= ~t;
->>>       }
->>>   }
->>
->> If you split this to 4 patches, leaving the URL proposal in just
->> the cover letter, then I think this one change (with the adjustments)
->> could go in right away. Similarly I expect the arm64/flushtlb.h
->> change could be ack-ed right away by an Arm maintainer.
->
-> I actually dislike the proposal. In this case, the code is meant to 
-> look like assembly code. I would replace the // with ;. Also, I would 
-> like to keep the comment style in sync in arm32/flushtlb.h. So can 
-> this be updated as well?
->
-> Cheers,
->
-Hi, Julien.
+One nit below, otherwise
 
-I'm not authorized to send patches about files in the arm32 tree, but 
-surely the patch can be easily replicated in any place where it makes 
-sense for consistency.
+Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
 
-Regards,
+> ---
+>  arch/s390/mm/pgalloc.c | 38 +++++++++++++++-----------------------
+>  1 file changed, 15 insertions(+), 23 deletions(-)
+> 
+> diff --git a/arch/s390/mm/pgalloc.c b/arch/s390/mm/pgalloc.c
+> index 66ab68db9842..6b99932abc66 100644
+> --- a/arch/s390/mm/pgalloc.c
+> +++ b/arch/s390/mm/pgalloc.c
+> @@ -182,20 +182,17 @@ void page_table_free_pgste(struct page *page)
+>   * As follows from the above, no unallocated or fully allocated parent
+>   * pages are contained in mm_context_t::pgtable_list.
+>   *
+> - * The upper byte (bits 24-31) of the parent page _refcount is used
+> + * The lower byte (bits 0-7) of the parent page pt_frag_refcount is used
+>   * for tracking contained 2KB-pgtables and has the following format:
+>   *
+>   *   PP  AA
+> - * 01234567    upper byte (bits 24-31) of struct page::_refcount
+> + * 01234567    upper byte (bits 0-7) of struct page::pt_frag_refcount
 
-   Nicola
+Nit:              lower
 
+>   *   ||  ||
+>   *   ||  |+--- upper 2KB-pgtable is allocated
+>   *   ||  +---- lower 2KB-pgtable is allocated
+>   *   |+------- upper 2KB-pgtable is pending for removal
+>   *   +-------- lower 2KB-pgtable is pending for removal
+>   *
+> - * (See commit 620b4e903179 ("s390: use _refcount for pgtables") on why
+> - * using _refcount is possible).
+> - *
+>   * When 2KB-pgtable is allocated the corresponding AA bit is set to 1.
+>   * The parent page is either:
+>   *   - added to mm_context_t::pgtable_list in case the second half of the
+> @@ -243,11 +240,12 @@ unsigned long *page_table_alloc(struct mm_struct *mm)
+>  		if (!list_empty(&mm->context.pgtable_list)) {
+>  			page = list_first_entry(&mm->context.pgtable_list,
+>  						struct page, lru);
+> -			mask = atomic_read(&page->_refcount) >> 24;
+> +			mask = atomic_read(&page->pt_frag_refcount);
+>  			/*
+>  			 * The pending removal bits must also be checked.
+>  			 * Failure to do so might lead to an impossible
+> -			 * value of (i.e 0x13 or 0x23) written to _refcount.
+> +			 * value of (i.e 0x13 or 0x23) written to
+> +			 * pt_frag_refcount.
+>  			 * Such values violate the assumption that pending and
+>  			 * allocation bits are mutually exclusive, and the rest
+>  			 * of the code unrails as result. That could lead to
+> @@ -259,8 +257,8 @@ unsigned long *page_table_alloc(struct mm_struct *mm)
+>  				bit = mask & 1;		/* =1 -> second 2K */
+>  				if (bit)
+>  					table += PTRS_PER_PTE;
+> -				atomic_xor_bits(&page->_refcount,
+> -							0x01U << (bit + 24));
+> +				atomic_xor_bits(&page->pt_frag_refcount,
+> +							0x01U << bit);
+>  				list_del(&page->lru);
+>  			}
+>  		}
+> @@ -281,12 +279,12 @@ unsigned long *page_table_alloc(struct mm_struct *mm)
+>  	table = (unsigned long *) page_to_virt(page);
+>  	if (mm_alloc_pgste(mm)) {
+>  		/* Return 4K page table with PGSTEs */
+> -		atomic_xor_bits(&page->_refcount, 0x03U << 24);
+> +		atomic_xor_bits(&page->pt_frag_refcount, 0x03U);
+>  		memset64((u64 *)table, _PAGE_INVALID, PTRS_PER_PTE);
+>  		memset64((u64 *)table + PTRS_PER_PTE, 0, PTRS_PER_PTE);
+>  	} else {
+>  		/* Return the first 2K fragment of the page */
+> -		atomic_xor_bits(&page->_refcount, 0x01U << 24);
+> +		atomic_xor_bits(&page->pt_frag_refcount, 0x01U);
+>  		memset64((u64 *)table, _PAGE_INVALID, 2 * PTRS_PER_PTE);
+>  		spin_lock_bh(&mm->context.lock);
+>  		list_add(&page->lru, &mm->context.pgtable_list);
+> @@ -323,22 +321,19 @@ void page_table_free(struct mm_struct *mm, unsigned long *table)
+>  		 * will happen outside of the critical section from this
+>  		 * function or from __tlb_remove_table()
+>  		 */
+> -		mask = atomic_xor_bits(&page->_refcount, 0x11U << (bit + 24));
+> -		mask >>= 24;
+> +		mask = atomic_xor_bits(&page->pt_frag_refcount, 0x11U << bit);
+>  		if (mask & 0x03U)
+>  			list_add(&page->lru, &mm->context.pgtable_list);
+>  		else
+>  			list_del(&page->lru);
+>  		spin_unlock_bh(&mm->context.lock);
+> -		mask = atomic_xor_bits(&page->_refcount, 0x10U << (bit + 24));
+> -		mask >>= 24;
+> +		mask = atomic_xor_bits(&page->pt_frag_refcount, 0x10U << bit);
+>  		if (mask != 0x00U)
+>  			return;
+>  		half = 0x01U << bit;
+>  	} else {
+>  		half = 0x03U;
+> -		mask = atomic_xor_bits(&page->_refcount, 0x03U << 24);
+> -		mask >>= 24;
+> +		mask = atomic_xor_bits(&page->pt_frag_refcount, 0x03U);
+>  	}
+>  
+>  	page_table_release_check(page, table, half, mask);
+> @@ -368,8 +363,7 @@ void page_table_free_rcu(struct mmu_gather *tlb, unsigned long *table,
+>  	 * outside of the critical section from __tlb_remove_table() or from
+>  	 * page_table_free()
+>  	 */
+> -	mask = atomic_xor_bits(&page->_refcount, 0x11U << (bit + 24));
+> -	mask >>= 24;
+> +	mask = atomic_xor_bits(&page->pt_frag_refcount, 0x11U << bit);
+>  	if (mask & 0x03U)
+>  		list_add_tail(&page->lru, &mm->context.pgtable_list);
+>  	else
+> @@ -391,14 +385,12 @@ void __tlb_remove_table(void *_table)
+>  		return;
+>  	case 0x01U:	/* lower 2K of a 4K page table */
+>  	case 0x02U:	/* higher 2K of a 4K page table */
+> -		mask = atomic_xor_bits(&page->_refcount, mask << (4 + 24));
+> -		mask >>= 24;
+> +		mask = atomic_xor_bits(&page->pt_frag_refcount, mask << 4);
+>  		if (mask != 0x00U)
+>  			return;
+>  		break;
+>  	case 0x03U:	/* 4K page table with pgstes */
+> -		mask = atomic_xor_bits(&page->_refcount, 0x03U << 24);
+> -		mask >>= 24;
+> +		mask = atomic_xor_bits(&page->pt_frag_refcount, 0x03U);
+>  		break;
+>  	}
+>  
+> -- 
+> 2.40.1
+> 
+> 
+
+-- 
+Sincerely yours,
+Mike.
 
