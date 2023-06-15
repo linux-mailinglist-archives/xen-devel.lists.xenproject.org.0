@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 297C7731B61
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 16:29:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.549633.858265 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67428731B76
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 16:37:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.549638.858275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9nyF-0008En-Ip; Thu, 15 Jun 2023 14:29:07 +0000
+	id 1q9o5O-0001HI-C0; Thu, 15 Jun 2023 14:36:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 549633.858265; Thu, 15 Jun 2023 14:29:07 +0000
+Received: by outflank-mailman (output) from mailman id 549638.858275; Thu, 15 Jun 2023 14:36:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9nyF-0008BV-FU; Thu, 15 Jun 2023 14:29:07 +0000
-Received: by outflank-mailman (input) for mailman id 549633;
- Thu, 15 Jun 2023 14:29:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tInE=CD=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q9nyE-0008BP-0J
- for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 14:29:06 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2061d.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::61d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f9ff3fd7-0b88-11ee-8611-37d641c3527e;
- Thu, 15 Jun 2023 16:29:03 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB7942.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.37; Thu, 15 Jun
- 2023 14:29:01 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Thu, 15 Jun 2023
- 14:29:01 +0000
+	id 1q9o5O-0001Ei-85; Thu, 15 Jun 2023 14:36:30 +0000
+Received: by outflank-mailman (input) for mailman id 549638;
+ Thu, 15 Jun 2023 14:36:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eT11=CD=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1q9o5M-0001Ec-Vi
+ for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 14:36:29 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 027d3d52-0b8a-11ee-b232-6b7b168915f2;
+ Thu, 15 Jun 2023 16:36:27 +0200 (CEST)
+Received: from delta.bugseng.com (unknown [151.35.56.171])
+ by support.bugseng.com (Postfix) with ESMTPSA id 8E98C4EE0738;
+ Thu, 15 Jun 2023 16:36:24 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,193 +39,505 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9ff3fd7-0b88-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lqhpgNxHS+jwEBdK6PSxp1iGBj/brM/tgy6n/GWpdpulJ1v+hKVApxgbbs1OzDAk1UThoH88Xm07Bp6MzBBYmqUJuok/aGJxcNvO5dZcbWRuBC5zLQ71pA0iO1vNz4CPdNUPiq+jWiFH1cSbv0FZo6CQPDoHutSfqg8YzNZVd1b0SLLPVsT3ChT60AKAMjjYxFow0BbN+TiWQbfjysFoAZq6Gd+gMivzH3WD1WQDu1RvBh5kXhr8d3n5gwbeLSehq63VXqej6CSpq9qZmi2uUwnOx6rBxQqGU3UT0/TNVx6F22baczXONWzOn8EKwclKRw67b2VQ80g27g3L24Nb/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mcpi16jFW5svy6wcXcRTb4Pq7ldv2xnKYnlaTHJbYrg=;
- b=DCE2l81wgo7yqAknsqJLlg10wYGK33HDFbvFQDxYeOPN3FN6RePOVhs/wboQsFS36pOTbLrrbOZkh54HOtXJSt9JFW1Itp4dszm7rEU1bE4IviNstbAJibVwlfHo5Y+An4Yo8IVbZuEr3iPJEtccsLcf/cmQ2jWReKnrMJJs3Fg3bu6SI89pRfSBOCLrN2+L0y11vkgv9ar4X3kfIDhcF4L0vEO9k5vJBA0xGX79Dn3mUztSTZnVt84AI8WoVRRByB2yiTthn6DaB+6xpEaZVDlXvPqP3vkg30se43XRzc2IpDFAdZ/evRtVr92w0N+jfE9xqkhuqEb/PpmbSqeurQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mcpi16jFW5svy6wcXcRTb4Pq7ldv2xnKYnlaTHJbYrg=;
- b=Kn7R+U8GO8RGp+3Cvx1l7YhePk1nVIxkGbnoejf/wkjLlY5QiRl6Gd7YLrS3XKTUx4X1M7g8py0xeOm9ri4qXp/B49xhnAtJAY9cc3Sp8Ri2AuxpdKx9pe0TizDlO6rWcQ6IwFgu3pX+yC+Ov7BuHelSzAhatbbzRkvrtnmbZMjD53orwDYUtkCl3V2ZYCCR21evEI4/s3rfrMQlqD2mm6+qI3HDOHnKRxUsFAW8HCwS4/qFkQstbqAdQRVRjqD4aR6yLPiaTSJTjeHJCiU7FBBi975NgQc/rI7aBWlM83iWzd1lHh/nX5k6C4uuGLMcRZIogOP/pdDAPik0zg2NRQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7d00571e-7f04-3cf1-dafe-05d811318e92@suse.com>
-Date: Thu, 15 Jun 2023 16:28:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v4 04/15] xen/sysctl: Nest cpufreq scaling options
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20230614180253.89958-1-jandryuk@gmail.com>
- <20230614180253.89958-5-jandryuk@gmail.com>
- <194760c8-31fe-d0f7-828f-b8a637884989@suse.com>
- <CAKf6xpvoD2vVDzFU-VzXVTN1td0j-tN_VB7Z4z7ZfMwCWh+Tjg@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAKf6xpvoD2vVDzFU-VzXVTN1td0j-tN_VB7Z4z7ZfMwCWh+Tjg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0172.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 027d3d52-0b8a-11ee-b232-6b7b168915f2
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Roberto Bagnara <roberto.bagnara@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH] docs/misra: document the C dialect and translation toolchain assumptions.
+Date: Thu, 15 Jun 2023 16:35:53 +0200
+Message-Id: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7942:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80dc4d2a-f08e-4f14-b296-08db6dacdcf2
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Vnl7kxHFnEKgIREUg58mjLgGEiII+iV3JctOUvvglLTfPLFOegkmRygzTtQ+HMARN0OWbWXfMEQd1ndLKC6u996o/rMk/ri+lzertb/W3Rr+EfMzb8IYFNyUhsRDDXPOV14qmo55MKDmMkuVlvEqKMiK9UhXuaWuHaWGcoMAKugw2lJOL3lE+ihZeYkNNBrpBA4yDr31zULAtlIscCdpf8mwozvN9UJfT1eyJjdI1ALbrUXf5qxTZgQUOKtFigKIeLvYFq7NvH6sMgGhZ6g3YEj5/Wc0Oiu/PEC7QXbHuGwGNLBkDCM0IRKSgFQYkrKvnByZMOSs5Dl0DBXoFCm5DzCZ2UhBjv2xiTPpA88r4FSqLCf5IZDO7oCp02JqPqDAl3ERjaX5Avd2PC51V/3njOGY9sRQiARxjtbyQzbU1zTZzFjzS8O0PG1lTC8GRHZEYcXJ09w+c0ePT6Fr+/nyMC6E3zMQQdEXXPbi07E+wYD2sm4+F7s2raArNByYppphRv+d02hJQGldCdx9G5UW8sq2CybDDMhtmTcztCgz27r0ZGDkwYVJDE5ysXDF5ypWr1sHLmBFnjfP8F4o+QSEjx7PywG2aA4AU68MNS7SqzIq9bT1f+be4GtrHf2sqM4QRe/NKu8kMmwgUmsuJGmB/Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(346002)(396003)(376002)(136003)(39860400002)(451199021)(83380400001)(31686004)(4326008)(5660300002)(54906003)(36756003)(316002)(53546011)(8676002)(8936002)(86362001)(66476007)(26005)(6512007)(6506007)(41300700001)(2906002)(31696002)(38100700002)(66556008)(6916009)(66946007)(2616005)(478600001)(186003)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RUc1ckhtZTFuVTU5MXBESGhOWDhlcUg1eEtXU2FORUtzdDZxNXU2TlFuRWRC?=
- =?utf-8?B?WG1qUmJZbmozMENsNWdoZWhhYW9tYVI1QkVBOExsOXZuUjFkeTQxdE9iL1Jp?=
- =?utf-8?B?TnM4a2FtZlVLTDNZUklhaHNDSnFLYm1wWk9qMk1iZDhNUGhTNkE3YS9zTHJH?=
- =?utf-8?B?dDlCQlZDZ1RjMXhJSm5ad2Y1ZXNTWllPYkJoRy81aWxCZS9LZmZtYXBKOWlH?=
- =?utf-8?B?SnV6NjZTOVhnazFiVEp3QndqNDR4WThBYUxianRYbUJHYkhXTXdBdEczVU1I?=
- =?utf-8?B?cnEwdjVrSDBGNmpXY0VMWGVEYmN5UWVUR3BrZkQ3ZVd0R1VEM21vTXNXMCti?=
- =?utf-8?B?T1hwdGozeEhwejg1dm5Zb3Y1MWp1L0hVbzRSNkxZMnNXYzdGVXo5OU9ORFZ1?=
- =?utf-8?B?NmYyZll0ZDdwWVRHbEsySGlNSVNxRUtmYmYwWWZRM25RMXZ2NC9sWVpzaG5C?=
- =?utf-8?B?d0N2S1VlelNNaENWTnFZa1JmVE5ZaVZadjQ5bnNGcGlJMWkyWmppR2lyVVNz?=
- =?utf-8?B?S3FkOTlBdFFOQTA3TXJWYlBFMTIrcVZWN2NZQ1JDMEJhdVIxQUNENUtVT1JC?=
- =?utf-8?B?dHRiNFF3eThrK3Rkd2xOUG9pRHdrT1F4bmlMUTA3SVpKMThES2FaNmVTcDlG?=
- =?utf-8?B?TkRZUHF6T3FGQm92S3BaR0NBVktJZ3pXSTBzS1BrZWJZanV6Ym1WaWR2NkdX?=
- =?utf-8?B?SUQ5QmpwN1pId2V4ZTFWSWZaeGt3WGZFUzI2VHJHQURxaEhvWUVrZzE3TjBY?=
- =?utf-8?B?eGVEVzB4MG04dzJtVmVrZVh4VlRsQzFLb2lkRWcxSURvMVF6S2ZzUUF5SHZ2?=
- =?utf-8?B?WG0rY01pbkJZTE1iK2xwRzZ2aVJmZkFNbThnSUM2K3BsbmIwS0RGd056NVFX?=
- =?utf-8?B?K2dXWWcyR0ZJTVlqakVBWGFBQnVOWXQ5dm5rcjlNNEpWWkhPeDV2RjBwaFp1?=
- =?utf-8?B?WTZndUhiODlQK0d3VFV5ZzNDVDgxNjd5ZmFldENFVFRDZG5uTXFMQ3o5L0hU?=
- =?utf-8?B?SGNJeE0yUUlLT2lObm9TSFpJRjNPREYwblZ1dUIxb2RINUZzRkw3c1dhT2dJ?=
- =?utf-8?B?c2I3RUozbEN1Z3UzY1JjWk0yVUg4T0pQNGpGenhmS0pPM1o1NTB1SnB5K010?=
- =?utf-8?B?cUdBY0JoMVdTSThxR0tTdnVVZ0tRM1E3eGVVNkdESmRtem9EZlo5Y2xvMVBn?=
- =?utf-8?B?S0lSWnNvczVhWEt5ZjMzTnBsNHhYVmcxV2NYRDhJNXlPWitoVndUc21WL2xk?=
- =?utf-8?B?NEFxaU9UY3RDS3lIdkd4anExZVJ3dGpSL0lIaXdRaWZUelZQaklKanEyMWhI?=
- =?utf-8?B?UVJ6R1ltdGJramgvUVppOWg2d052V1F3Tkc0Q1NjdHU4NU9OQXVSTlQ5UU9n?=
- =?utf-8?B?bkpXcFg3dGE2Tk1hTm1TSzNzQ3VDTEFad3ZJcmd6WHowdXIxYmY1VGx6dFhj?=
- =?utf-8?B?T0ZTcVlPZlNNRnFhYm1oZHcvdnlocE9OVGtZcW1XVTV5NGxObVJpbjZIT2pq?=
- =?utf-8?B?WSt2V0ZQbnljSDNPbTRyVGtURE51TDJLS1gyRElicFM5MEZ3QTFVYTE1Sms3?=
- =?utf-8?B?SUFCTUxFejQ5ajR1MEF4aVJmZUVVeTgxLzZKWllwdFRnUDZMZS84TXU2YzJ4?=
- =?utf-8?B?SjNJSGtnR3lCaGlYem1rK0EzOTNGUGNZenFCVUlWYVVKYi94L09JNG1NNm1K?=
- =?utf-8?B?MnRNcUhUUFZvYWI0VndsWjhTcFBsRWN5ZHRqTGRWYXFBNnZ4d0JqRjNDcXZK?=
- =?utf-8?B?dWJOeDVTSXQ1SnBha2dzUVRlZHV1L1VFc0lpSGFtVG8vVXdYOHpSS2d3NjFm?=
- =?utf-8?B?YmQzVlBWb3E1M0NLYU1aT2NpbVBLQnM5RW9wMi9Ga3Z1YWsxL2gybzgzMXcr?=
- =?utf-8?B?QlU0M1RDc3d5cnpxN2NRRTRSMmFSMVVrWXZ1NThpVGgzZUdyVEY0S2tMTlFC?=
- =?utf-8?B?ZUVGRFpqNmM2WmoyNEhTa2lwYUFiWlVHR242Q2txUitUZERrNHFaNXVBbzcx?=
- =?utf-8?B?OWVrdWMyaTNMYWk4Qkh4TU05a0ZNNUNOMjlzOEVFMXZMZDgwZ1M2WTF2UEkw?=
- =?utf-8?B?ekViUmVBWUJKNW9RNnByNWUzRnhpRzRuOVV1MmY0ZkdubG1wcU9FbmpoNTRl?=
- =?utf-8?Q?/Qc4OdgQBE72wnJx1/J6C7AHM?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80dc4d2a-f08e-4f14-b296-08db6dacdcf2
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 14:29:01.5053
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f+RsdJjgyncmbCkmvchVLAA95HfVkRirffMobtg9jGyej3uYvtwMi8SlVpiyL+rbJcocYDReLMvtFVWUwqlPTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7942
+Content-Transfer-Encoding: 8bit
 
-On 15.06.2023 16:07, Jason Andryuk wrote:
-> On Thu, Jun 15, 2023 at 9:29 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 14.06.2023 20:02, Jason Andryuk wrote:
->>> --- a/tools/include/xenctrl.h
->>> +++ b/tools/include/xenctrl.h
->>> @@ -1909,16 +1909,20 @@ struct xc_get_cpufreq_para {
->>>      uint32_t cpuinfo_cur_freq;
->>>      uint32_t cpuinfo_max_freq;
->>>      uint32_t cpuinfo_min_freq;
->>> -    uint32_t scaling_cur_freq;
->>> -
->>> -    char scaling_governor[CPUFREQ_NAME_LEN];
->>> -    uint32_t scaling_max_freq;
->>> -    uint32_t scaling_min_freq;
->>> -
->>> -    /* for specific governor */
->>>      union {
->>> -        xc_userspace_t userspace;
->>> -        xc_ondemand_t ondemand;
->>> +        struct {
->>> +            uint32_t scaling_cur_freq;
->>> +
->>> +            char scaling_governor[CPUFREQ_NAME_LEN];
->>> +            uint32_t scaling_max_freq;
->>> +            uint32_t scaling_min_freq;
->>> +
->>> +            /* for specific governor */
->>> +            union {
->>> +                xc_userspace_t userspace;
->>> +                xc_ondemand_t ondemand;
->>> +            } u;
->>> +        } s;
->>>      } u;
->>
->> There's no comment in the header that this needs to mirror the sysctl
->> struct. Does it really need changing?
-> 
-> Since this matched the other structure, I kept them in sync.  The
-> cppc/hwp data needs to be represented somehow, and it gets introduced
-> in the same way for both later.  If this doesn't get the new nested
-> struct, then maybe fields could be placed into the single union.  That
-> would grow the overall struct and have unused fields for hwp.
+This document specifies the C language dialect used by Xen and
+the assumptions Xen makes on the translation toolchain.
 
-I guess I need to leave this to the maintainers then. Still ...
+Signed-off-by: Roberto Bagnara <roberto.bagnara@bugseng.com>
+---
+ docs/misra/C-language-toolchain.rst | 465 ++++++++++++++++++++++++++++
+ 1 file changed, 465 insertions(+)
+ create mode 100644 docs/misra/C-language-toolchain.rst
 
->>> --- a/tools/libs/ctrl/xc_pm.c
->>> +++ b/tools/libs/ctrl/xc_pm.c
->>> @@ -265,15 +265,10 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
->>>          user_para->cpuinfo_cur_freq = sys_para->cpuinfo_cur_freq;
->>>          user_para->cpuinfo_max_freq = sys_para->cpuinfo_max_freq;
->>>          user_para->cpuinfo_min_freq = sys_para->cpuinfo_min_freq;
->>> -        user_para->scaling_cur_freq = sys_para->scaling_cur_freq;
->>> -        user_para->scaling_max_freq = sys_para->scaling_max_freq;
->>> -        user_para->scaling_min_freq = sys_para->scaling_min_freq;
->>>          user_para->turbo_enabled    = sys_para->turbo_enabled;
->>>
->>>          memcpy(user_para->scaling_driver,
->>>                  sys_para->scaling_driver, CPUFREQ_NAME_LEN);
->>> -        memcpy(user_para->scaling_governor,
->>> -                sys_para->scaling_governor, CPUFREQ_NAME_LEN);
->>
->> Did you really mean to remove the copying of these 4 entities, rather
->> than simply change the way the fields are accessed?
-> 
-> Yes, it was intentional.
-> 
-> The immediate following lines are:
->         /* copy to user_para no matter what cpufreq governor */
->         BUILD_BUG_ON(sizeof(((struct xc_get_cpufreq_para *)0)->u) !=
->              sizeof(((struct xen_get_cpufreq_para *)0)->u));
-> 
->         memcpy(&user_para->u, &sys_para->u, sizeof(sys_para->u));
+diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+new file mode 100644
+index 0000000000..013cef071c
+--- /dev/null
++++ b/docs/misra/C-language-toolchain.rst
+@@ -0,0 +1,465 @@
++=============================================
++C Dialect and Translation Assumptions for Xen
++=============================================
++
++This document specifies the C language dialect used by Xen and
++the assumptions Xen makes on the translation toolchain.
++It covers, in particular:
++
++1. the used language extensions;
++2. the translation limits that the translation toolchains must be able
++   to accommodate;
++3. the implementation-defined behaviors upon which Xen may depend.
++
++All points are of course relevant for portability.  In addition,
++programming in C is impossible without a detailed knowledge of the
++implementation-defined behaviors.  For this reason, it is recommended
++that Xen developers have familiarity with this document and the
++documentation referenced therein.
++
++This document needs maintenance and adaptation in the following
++circumstances:
++
++- whenever the compiler is changed or updated;
++- whenever the use of a certain language extension is added or removed;
++- whenever code modifications cause exceeding the stated translation limits.
++
++
++Applicable C Language Standard
++______________________________
++
++Xen is written in C99 with extensions.  The relevant ISO standard is
++
++    *ISO/IEC 9899:1999/Cor 3:2007*: Programming Languages - C,
++    Technical Corrigendum 3.
++    ISO/IEC, Geneva, Switzerland, 2007.
++
++
++Reference Documentation
++_______________________
++
++The following documents are referred to in the sequel:
++
++GCC_MANUAL:
++  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc.pdf
++CPP_MANUAL:
++  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/cpp.pdf
++ARM64_ABI_MANUAL:
++  https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs64/aapcs64.rst
++X86_64_ABI_MANUAL:
++  https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build
++ARM64_LIBC_MANUAL:
++  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
++X86_64_LIBC_MANUAL:
++  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
++
++
++C Language Extensions
++_____________________
++
++
++The following table lists the extensions currently used in Xen.
++The table columns are as follows:
++
++   Extension
++      a terse description of the extension;
++   Architectures
++      a set of Xen architectures making use of the extension;
++   References
++      when available, references to the documentation explaining
++      the syntax and semantics of (each instance of) the extension.
++
++
++.. list-table::
++   :widths: 30 15 55
++   :header-rows: 1
++
++   * - Extension
++     - Architectures
++     - References
++
++   * - Non-standard tokens
++     - ARM64, X86_64
++     - _Static_assert:
++          see Section "2.1 C Language" of GCC_MANUAL.
++       asm, __asm__:
++          see Sections "6.48 Alternate Keywords" and "6.47 How to Use Inline Assembly Language in C Code" of GCC_MANUAL.
++       __volatile__:
++          see Sections "6.48 Alternate Keywords" and "6.47.2.1 Volatile" of GCC_MANUAL.
++       __const__, __inline__, __inline:
++          see Section "6.48 Alternate Keywords" of GCC_MANUAL.
++       typeof, __typeof__:
++          see Section "6.7 Referring to a Type with typeof" of GCC_MANUAL.
++       __alignof__, __alignof:
++          see Sections "6.48 Alternate Keywords" and "6.44 Determining the Alignment of Functions, Types or Variables" of GCC_MANUAL.
++       __attribute__:
++          see Section "6.39 Attribute Syntax" of GCC_MANUAL.
++       __builtin_types_compatible_p:
++          see Section "6.59 Other Built-in Functions Provided by GCC" of GCC_MANUAL.
++       __builtin_va_arg:
++          non-documented GCC extension.
++       __builtin_offsetof:
++          see Section "6.53 Support for offsetof" of GCC_MANUAL.
++       __signed__:
++          non-documented GCC extension.
++
++   * - Empty initialization list
++     - ARM64, X86_64
++     - Non-documented GCC extension.
++
++   * - Arithmetic operator on void type
++     - ARM64, X86_64
++     - See Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL."
++
++   * - GNU statement expression
++     - ARM64, X86_64
++     - See Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
++
++   * - Structure or union definition with no members
++     - ARM64, X86_64
++     - See Section "6.19 Structures with No Members" of GCC_MANUAL.
++
++   * - Zero size array type
++     - ARM64, X86_64
++     - See Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
++
++   * - Binary conditional expression
++     - ARM64, X86_64
++     - See Section "6.8 Conditionals with Omitted Operands" of GCC_MANUAL.
++
++   * - 'Case' label with upper/lower values
++     - ARM64, X86_64
++     - See Section "6.30 Case Ranges" of GCC_MANUAL.
++
++   * - Unnamed field that is not a bit-field
++     - ARM64, X86_64
++     - See Section "6.63 Unnamed Structure and Union Fields" of GCC_MANUAL.
++
++   * - Empty declaration
++     - ARM64, X86_64
++     - Non-documented GCC extension.
++
++   * - Incomplete enum declaration
++     - ARM64
++     - Non-documented GCC extension.
++
++   * - Implicit conversion from a pointer to an incompatible pointer
++     - ARM64, X86_64
++     - Non-documented GCC extension.
++
++   * - Pointer to a function is converted to a pointer to an object or a pointer to an object is converted to a pointer to a function
++     - X86_64
++     - Non-documented GCC extension.
++
++   * - Ill-formed source detected by the parser
++     - ARM64, X86_64
++     - token pasting of ',' and __VA_ARGS__ is a GNU extension:
++          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
++       must specify at least one argument for '...' parameter of variadic macro:
++          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
++       void function should not return void expression:
++          see the documentation for -Wreturn-type in Section "3.8 Options to Request or Suppress Warnings" of GCC_MANUAL.
++       use of GNU statement expression extension from macro expansion:
++          see Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
++       invalid application of sizeof to a void type:
++          see Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL.
++       redeclaration of already-defined enum is a GNU extension:
++          see Section "6.49 Incomplete enum Types" of GCC_MANUAL.
++       static function is used in an inline function with external linkage:
++          non-documented GCC extension.
++       struct may not be nested in a struct due to flexible array member:
++          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
++       struct may not be used as an array element due to flexible array member:
++          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
++       ISO C restricts enumerator values to the range of int:
++          non-documented GCC extension.
++
++   * - Unspecified escape sequence is encountered in a character constant or a string literal token
++     - X86_64
++     - \\m:
++          non-documented GCC extension.
++
++   * - Non-standard type
++     - X86_64
++     - See Section "6.9 128-bit Integers" of GCC_MANUAL.
++
++
++Translation Limits
++__________________
++
++The following table lists the translation limits that a toolchain has
++to satisfy in order to translate Xen.  The numbers given are a
++compromise: on the one hand, many modern compilers have very generous
++limits (in several cases, the only limitation is the amount of
++available memory); on the other hand we prefer setting limits that are
++not too high, because compilers do not have any obligation of
++diagnosing when a limit has been exceeded, and not too low, so as to
++avoid frequently updating this document.  In the table, only the
++limits that go beyond the minima specified by the relevant C Standard
++are listed.
++
++The table columns are as follows:
++
++   Limit
++      a terse description of the translation limit;
++   Architectures
++      a set relevant of Xen architectures;
++   Threshold
++      a value that the Xen project does not wish to exceed for that limit
++      (this is typically below, often much below what the translation
++      toolchain supports);
++   References
++      when available, references to the documentation providing evidence
++      that the translation toolchain honors the threshold (and more).
++
++.. list-table::
++   :widths: 30 15 10 45
++   :header-rows: 1
++
++   * - Limit
++     - Architectures
++     - Threshold
++     - References
++
++   * - Size of an object
++     - ARM64, X86_64
++     - 8388608
++     - The maximum size of an object is defined in the MAX_SIZE macro, and for a 32 bit architecture is 8MB.
++       The maximum size for an array is defined in the PTRDIFF_MAX and in a 32 bit architecture is 2^30-1.
++       See occurrences of these macros in GCC_MANUAL.
++
++   * - Characters in one logical source line
++     - ARM64
++     - 5000
++     - See Section "11.2 Implementation limits" of CPP_MANUAL.
++
++   * - Characters in one logical source line
++     - X86_64
++     - 12000
++     - See Section "11.2 Implementation limits" of CPP_MANUAL.
++
++   * - Nesting levels for #include files
++     - ARM64
++     - 24
++     - See Section "11.2 Implementation limits" of CPP_MANUAL.
++
++   * - Nesting levels for #include files
++     - X86_64
++     - 32
++     - See Section "11.2 Implementation limits" of CPP_MANUAL.
++
++   * - case labels for a switch statement (excluding those for any nested switch statements)
++     - X86_64
++     - 1500
++     - See Section "4.12 Statements" of GCC_MANUAL.
++
++   * - Number of significant initial characters in an external identifier
++     - ARM64, X86_64
++     - 63
++     - See Section "4.3 Identifiers" of GCC_MANUAL.
++
++
++Implementation-Defined Behaviors
++________________________________
++
++The following table lists the C language implementation-defined behaviors
++relevant for MISRA C:2012 Dir 1.1 upon which Xen may possibly depend.
++
++The table columns are as follows:
++
++   I.-D.B.
++      a terse description of the implementation-defined behavior;
++   Architectures
++      a set relevant of Xen architectures;
++   Value(s)
++      for i.-d.b.'s with values, the values allowed;
++   References
++      when available, references to the documentation providing details
++      about how the i.-d.b. is resolved by the translation toolchain.
++
++.. list-table::
++   :widths: 30 15 10 45
++   :header-rows: 1
++
++   * - I.-D.B.
++     - Architectures
++     - Value(s)
++     - References
++
++   * - Allowable bit-field types other than _Bool, signed int, and unsigned int
++     - ARM64, X86_64
++     - All explicitly signed integer types, all unsigned integer types,
++       and enumerations.
++     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields".
++
++   * - #pragma preprocessing directive that is documented as causing translation failure or some other form of undefined behavior is encountered
++     - ARM64, X86_64
++     - pack, GCC visibility
++     - #pragma pack:
++          see Section "6.62.11 Structure-Layout Pragmas" of GCC_MANUAL.
++       #pragma GCC visibility:
++          see Section "6.62.14 Visibility Pragmas" of GCC_MANUAL.
++
++   * - The number of bits in a byte
++     - ARM64
++     - 8
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
++
++   * - The number of bits in a byte
++     - X86_64
++     - 8
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - Whether signed integer types are represented using sign and magnitude, two's complement, or one's complement, and whether the extraordinary value is a trap representation or an ordinary value
++     - ARM64, X86_64
++     - Two's complement
++     - See Section "4.5 Integers" of GCC_MANUAL.
++
++   * - Any extended integer types that exist in the implementation
++     - X86_64
++     - __uint128_t
++     - See Section "6.9 128-bit Integers" of GCC_MANUAL.
++
++   * - The number, order, and encoding of bytes in any object
++     - ARM64
++     -
++     - See Section "4.15 Architecture" of GCC_MANUAL and Chapter 5 "Data types and alignment" of ARM64_ABI_MANUAL.
++
++   * - The number, order, and encoding of bytes in any object
++     - X86_64
++     -
++     - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - Whether a bit-field can straddle a storage-unit boundary
++     - ARM64
++     -
++     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields of GCC_MANUAL and Section "8.1.8 Bit-fields" of ARM64_ABI_MANUAL.
++
++   * - Whether a bit-field can straddle a storage-unit boundary
++     - X86_64
++     -
++     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - The order of allocation of bit-fields within a unit
++     - ARM64
++     -
++     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields of GCC_MANUAL and Section "8.1.8 Bit-fields" of ARM64_ABI_MANUAL.
++
++   * - The order of allocation of bit-fields within a unit
++     - X86_64
++     -
++     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - What constitutes an access to an object that has volatile-qualified type
++     - ARM64, X86_64
++     -
++     - See Section "4.10 Qualifiers" of GCC_MANUAL.
++
++   * - The values or expressions assigned to the macros specified in the headers <float.h>, <limits.h>, and <stdint.h>
++     - ARM64
++     -
++     - See Section "4.15 Architecture" of GCC_MANUAL and Chapter 5 "Data types and alignment" of ARM64_ABI_MANUAL.
++
++   * - The values or expressions assigned to the macros specified in the headers <float.h>, <limits.h>, and <stdint.h>
++     - X86_64
++     -
++     - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - Character not in the basic source character set is encountered in a source file, except in an identifier, a character constant, a string literal, a header name, a comment, or a preprocessing token that is never converted to a token
++     - ARM64
++     - UTF-8
++     - See Section "1.1 Character sets" of CPP_MANUAL.
++       We assume the locale is not restricting any UTF-8 characters being part of the source character set.
++
++   * - The value of a char object into which has been stored any character other than a member of the basic execution character set
++     - ARM64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
++
++   * - The value of a char object into which has been stored any character other than a member of the basic execution character set
++     - X86_64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - The value of an integer character constant containing more than one character or containing a character or escape sequence that does not map to a single-byte execution character
++     - ARM64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
++
++   * - The value of an integer character constant containing more than one character or containing a character or escape sequence that does not map to a single-byte execution character
++     - X86_64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
++
++   * - The mapping of members of the source character set
++     - ARM64, X86_64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and the documentation for -finput-charset=charset in the same manual.
++
++   * - The members of the source and execution character sets, except as explicitly specified in the Standard
++     - ARM64, X86_64
++     - UTF-8
++     - See Section "4.4 Characters" of GCC_MANUAL
++
++   * - The values of the members of the execution character set
++     - ARM64, X86_64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and the documentation for -fexec-charset=charset in the same manual.
++
++   * - How a diagnostic is identified
++     - ARM64, X86_64
++     -
++     - See Section "4.1 Translation" of GCC_MANUAL.
++
++   * - The termination status returned to the host environment by the abort, exit, or _Exit function
++     - ARM64
++     -
++     - See "Section 25.7 Program Termination" of ARM64_LIBC_MANUAL.
++
++   * - The termination status returned to the host environment by the abort, exit, or _Exit function
++     - X86_64
++     -
++     - See "Section 25.7 Program Termination" of X86_64_LIBC_MANUAL.
++
++   * - The places that are searched for an included < > delimited header, and how the places are specified or the header is identified
++     - ARM64, X86_64
++     -
++     - See Chapter "2 Header Files" of CPP_MANUAL.
++
++   * - How the named source file is searched for in an included " " delimited header
++     - ARM64, X86_64
++     -
++     - See Chapter "2 Header Files" of CPP_MANUAL.
++
++   * - How sequences in both forms of header names are mapped to headers or external source file names
++     - ARM64, X86_64
++     -
++     - See Chapter "2 Header Files" of CPP_MANUAL.
++
++   * - Whether the # operator inserts a \ character before the \ character that begins a universal character name in a character constant or string literal
++     - ARM64, X86_64
++     -
++     - See Section "3.4 Stringizing" of CPP_MANUAL.
++
++   * - The current locale used to convert a wide string literal into corresponding wide character codes
++     - ARM64, X86_64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
++
++   * - The value of a string literal containing a multibyte character or escape sequence not represented in the execution character set
++     - X86_64
++     -
++     - See Section "4.4 Characters" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
++
++   * - The behavior on each recognized #pragma directive
++     - ARM64, X86_64
++     - pack, GCC visibility
++     - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "7 Pragmas" of CPP_MANUAL.
++
++   * - The method by which preprocessing tokens (possibly resulting from macro expansion) in a #include directive are combined into a header name
++     - X86_64
++     -
++     - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
++
++
++END OF DOCUMENT.
+-- 
+2.34.1
 
-... this suggests that some matching is intended, yet it's not clear
-to me why then the hole struct-s aren't assumed to be matching / made
-match.
-
-> And this memcpy copies all the moved entities.
-
-Right, I should have gone to the source instead of going just from
-patch context, sorry.
-
-> I suppose the comment could change to "...no matter which cpufreq driver".
-
-Yeah, well, it really would be driver/governor then, I guess.
-
-Jan
 
