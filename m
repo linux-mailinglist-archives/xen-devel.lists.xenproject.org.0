@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F957321F2
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 23:54:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.549937.858764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF2F73239A
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 01:27:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.549946.858777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9utb-0003co-NM; Thu, 15 Jun 2023 21:52:47 +0000
+	id 1q9wMF-0004Za-K0; Thu, 15 Jun 2023 23:26:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 549937.858764; Thu, 15 Jun 2023 21:52:47 +0000
+Received: by outflank-mailman (output) from mailman id 549946.858777; Thu, 15 Jun 2023 23:26:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9utb-0003Zt-Js; Thu, 15 Jun 2023 21:52:47 +0000
-Received: by outflank-mailman (input) for mailman id 549937;
- Thu, 15 Jun 2023 21:52:46 +0000
+	id 1q9wMF-0004WF-HI; Thu, 15 Jun 2023 23:26:27 +0000
+Received: by outflank-mailman (input) for mailman id 549946;
+ Thu, 15 Jun 2023 23:26:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o8uq=CD=gmail.com=yshxxsjt715@srs-se1.protection.inumbo.net>)
- id 1q9uta-0003Zi-AU
- for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 21:52:46 +0000
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [2607:f8b0:4864:20::729])
+ <SRS0=vZfe=CD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1q9wME-0004W9-PB
+ for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 23:26:26 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2fe4b96-0bc6-11ee-8611-37d641c3527e;
- Thu, 15 Jun 2023 23:52:42 +0200 (CEST)
-Received: by mail-qk1-x729.google.com with SMTP id
- af79cd13be357-7621b9d84a2so10523285a.1; 
- Thu, 15 Jun 2023 14:52:41 -0700 (PDT)
+ id 09cdacf9-0bd4-11ee-8611-37d641c3527e;
+ Fri, 16 Jun 2023 01:26:23 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8D21161507;
+ Thu, 15 Jun 2023 23:26:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951A3C433C8;
+ Thu, 15 Jun 2023 23:26:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,683 +44,591 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2fe4b96-0bc6-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686865960; x=1689457960;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=xHDXtAmCULNcgatJP9gmhjw7CxfvMj5rLRSN1vS20fM=;
-        b=i9eM0KDveV7vPz6hNJuWxmHwjZ7J1rqzFtsyNzWLL2HCubDpH9vBkR9TN4luhDT6b6
-         vHBFNGnH/fG3MV7hW5mzP+wf8PggP0aR23hOxh3cP5MXXh3EtWfyBjitxJAJEUvNTVRE
-         rmqJ2nrpcRDIm9apubWLM3Xr3++QNUrSbfr9WuV95tqPu02OdVam3HnGHzReRRtfwHiZ
-         2PnsM3fARanno2+kFGuy5yahA7YADukWZeM3cGRumgzM9Dr9zcnQ+EFem1zleYMIt1Ht
-         xuAjRDbvRKLr/cmjXQxg1wrJ19FhOFe19P3RRymzhPWq028KOIgERmGtax/r+LTf+Wts
-         xesg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686865960; x=1689457960;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xHDXtAmCULNcgatJP9gmhjw7CxfvMj5rLRSN1vS20fM=;
-        b=kXawJlIGnA5Vr/1fV7fDDcnfV19Gk0uVF3sTnLZaBhiV7CaZBxTy7ZuvYNQ4wHwHdQ
-         lAHjmAWfCgEqSW10cn8MI75AK4oHtW8EJnVIx7K7t1PEbSAcNhgjKCAcquCG/w1h2woK
-         v9ziT+1UXHQuramYd5AXYRutYeMRZ+dHIco1zmCVtyuVLKs61+L9VzvF64bea2f3O15A
-         uBG3zO+KgVWe8MVUda/PmC/zIrsZnPok1LDk7vFM0QMMKPeJNuzkIAb5OAYVMhmifnDB
-         7DUdqoNOWnVU/D2lOxHrOfFgHREgwkkx9k8IebuxE7ZFHGkEdUKRjuEkGYlOq1iSh1me
-         FLHg==
-X-Gm-Message-State: AC+VfDwQ3xAojer71x0Zae4U/kbdWrZ8nkGhTB+OW7lDjUhaaBX4dBCQ
-	LNXU7uaaQzArCGZy2SIqQC9zcETRlPZJ8r4yCanTeuU5
-X-Google-Smtp-Source: ACHHUZ663ww8zC1A6pHvPUt1VTkLb5wm0wigPDtDCdXhk0HVLVcVEfLgzKJMCAIXSrd/2N0vIw6E10S8Whr7mWRDA2Y=
-X-Received: by 2002:a05:620a:1b98:b0:75b:23a1:8e5e with SMTP id
- dv24-20020a05620a1b9800b0075b23a18e5emr18918392qkb.47.1686865959735; Thu, 15
- Jun 2023 14:52:39 -0700 (PDT)
+X-Inumbo-ID: 09cdacf9-0bd4-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686871580;
+	bh=6f4Yp4TNdxplNvT5S26a9uVV+H4+sAV1aCvrAP+5/7k=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=AWNh7dG+Tgd9ylFviyvsZimbS2gSY2olBJ49nQjr+ljat3thn5Vug0WY407VhKoAP
+	 sMAc+f4j7qBVTL5h5IyhfZuiXQvTq85Hc3/cI9lWCcOgO28FbvzWI/hnG7AsPPhxJN
+	 rwLTsz4MkhKyjiLsMQvrEZ8ff9KbnLXVpwv42MLt3HGXpgOlxC+/CHFA95jj/eChnT
+	 yx/jVkKpMhvPdHl/mVgVfToNwgfRQhVUofKR9ahiIaETZhJqrzRfBHghtg7iJWSkOm
+	 1k/JteYyfpdLIWbBDmlHyxB1LP0+Bbn4fDPp1rjY/hu7RpR5GnMCQhXuq4d5GYELod
+	 9SNMcn13u9aUA==
+Date: Thu, 15 Jun 2023 16:26:18 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Roberto Bagnara <roberto.bagnara@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH] docs/misra: document the C dialect and translation
+ toolchain assumptions.
+In-Reply-To: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
+References: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <CALqm=ddiMwWvdYMgyCtaKMocUEkEJyTgSQup9wJiXm4PrcDuVw@mail.gmail.com>
- <alpine.DEB.2.22.394.2306081537590.3803068@ubuntu-linux-20-04-desktop>
- <e729d60e-b290-dec3-e35b-65c24ffbfda6@xen.org> <CALqm=ddc3BhqRQmPDjnZ3TeMEXPTMUDfj7JCSj0QEDxnMaKLvw@mail.gmail.com>
- <78899eac-9de8-3626-8f40-98f993984f95@xen.org> <CALqm=dfrudbnsy7RdP9GdSmyO2m9JN=8mKD7wQvz2WBv6afJhQ@mail.gmail.com>
- <CALqm=de+zGitK2ofX=gExMX1mVUbN1S45fMtf5a9iBR-WBZpcw@mail.gmail.com>
- <CALqm=dcn02oe=nrL_SEo+y5aTJX8SD3OB3fccFyEwPch6fLfDg@mail.gmail.com>
- <CALqm=deNDzc83QEAUqTE5iKb7g106V_k_F6AEJc19R=W-0TDsw@mail.gmail.com> <e3f54279-db7a-973c-e792-712dc2b19eb7@xen.org>
-In-Reply-To: <e3f54279-db7a-973c-e792-712dc2b19eb7@xen.org>
-From: Jiatong Shen <yshxxsjt715@gmail.com>
-Date: Fri, 16 Jun 2023 05:52:28 +0800
-Message-ID: <CALqm=dfE=Ni0gzs8F692DmXzBs-EbqCs7sXenBt0qOGV=iyj0g@mail.gmail.com>
-Subject: Re: Asking for help to debug xen efi on Kunpeng machine
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-users@lists.xenproject.org, 
-	xen-devel@lists.xenproject.org, bertrand.marquis@arm.com
-Content-Type: multipart/mixed; boundary="000000000000514e2605fe32169e"
+Content-Type: text/plain; charset=US-ASCII
 
---000000000000514e2605fe32169e
-Content-Type: multipart/alternative; boundary="000000000000514e2305fe32169c"
+On Thu, 15 Jun 2023, Roberto Bagnara wrote:
+> This document specifies the C language dialect used by Xen and
+> the assumptions Xen makes on the translation toolchain.
+> 
+> Signed-off-by: Roberto Bagnara <roberto.bagnara@bugseng.com>
 
---000000000000514e2305fe32169c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks Roberto for the amazing work of research and archaeology.
 
-Hello Julien,
-
-    Thank you for your answer! Adding console=3Dhvc0 indeed provides kernel
-output serial console. Looking at the log message,
-I found dom0 kernel failed to initialize a lot of device drivers (network
-cards, raid cards, etc).
-
-   Is it related to iommu? I remember iommu is not enabled during the xen
-kernel booting stage.
-
-Thank you again for the help and looking forward to your reply.
-
-Best Regards,
-Jiatong Shen
-
-On Fri, Jun 16, 2023 at 4:52=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
-:
-
-> Hi,
->
-> On 13/06/2023 02:07, Jiatong Shen wrote:
-> > Hello Stefano and Julien,
-> >
-> >     Could you provide more insights for debugging? I tried to connect t=
-o
-> > serial console through ipmitool sol activate and enabled ACPI, I do see
-> > some logs but the machine is still stuck. BMC video screen is still not
-> > responsive and black out.
->
-> Looking at your command line, you want to use console=3Dhvc0 on the dom0
-> command line. Hopefully, this will enable more logs from the kernel and
-> give you an idea where it may be stuck.
->
-> Cheers,
->
-> --
-> Julien Grall
->
+I have a few comments below, mostly to clarify the description of some
+of the less documented GCC extensions, for the purpose of having all
+community members be able to understand what they can and cannot use.
 
 
---=20
+> ---
+>  docs/misra/C-language-toolchain.rst | 465 ++++++++++++++++++++++++++++
+>  1 file changed, 465 insertions(+)
+>  create mode 100644 docs/misra/C-language-toolchain.rst
+> 
+> diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+> new file mode 100644
+> index 0000000000..013cef071c
+> --- /dev/null
+> +++ b/docs/misra/C-language-toolchain.rst
+> @@ -0,0 +1,465 @@
+> +=============================================
+> +C Dialect and Translation Assumptions for Xen
+> +=============================================
+> +
+> +This document specifies the C language dialect used by Xen and
+> +the assumptions Xen makes on the translation toolchain.
+> +It covers, in particular:
+> +
+> +1. the used language extensions;
+> +2. the translation limits that the translation toolchains must be able
+> +   to accommodate;
+> +3. the implementation-defined behaviors upon which Xen may depend.
+> +
+> +All points are of course relevant for portability.  In addition,
+> +programming in C is impossible without a detailed knowledge of the
+> +implementation-defined behaviors.  For this reason, it is recommended
+> +that Xen developers have familiarity with this document and the
+> +documentation referenced therein.
+> +
+> +This document needs maintenance and adaptation in the following
+> +circumstances:
+> +
+> +- whenever the compiler is changed or updated;
+> +- whenever the use of a certain language extension is added or removed;
+> +- whenever code modifications cause exceeding the stated translation limits.
+> +
+> +
+> +Applicable C Language Standard
+> +______________________________
+> +
+> +Xen is written in C99 with extensions.  The relevant ISO standard is
+> +
+> +    *ISO/IEC 9899:1999/Cor 3:2007*: Programming Languages - C,
+> +    Technical Corrigendum 3.
+> +    ISO/IEC, Geneva, Switzerland, 2007.
+> +
+> +
+> +Reference Documentation
+> +_______________________
+> +
+> +The following documents are referred to in the sequel:
+> +
+> +GCC_MANUAL:
+> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc.pdf
+> +CPP_MANUAL:
+> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/cpp.pdf
+> +ARM64_ABI_MANUAL:
+> +  https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs64/aapcs64.rst
+> +X86_64_ABI_MANUAL:
+> +  https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build
+> +ARM64_LIBC_MANUAL:
+> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
+> +X86_64_LIBC_MANUAL:
+> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
+> +
+> +
+> +C Language Extensions
+> +_____________________
+> +
+> +
+> +The following table lists the extensions currently used in Xen.
+> +The table columns are as follows:
+> +
+> +   Extension
+> +      a terse description of the extension;
+> +   Architectures
+> +      a set of Xen architectures making use of the extension;
+> +   References
+> +      when available, references to the documentation explaining
+> +      the syntax and semantics of (each instance of) the extension.
+> +
+> +
+> +.. list-table::
+> +   :widths: 30 15 55
+> +   :header-rows: 1
+> +
+> +   * - Extension
+> +     - Architectures
+> +     - References
+> +
+> +   * - Non-standard tokens
+> +     - ARM64, X86_64
+> +     - _Static_assert:
+> +          see Section "2.1 C Language" of GCC_MANUAL.
+> +       asm, __asm__:
+> +          see Sections "6.48 Alternate Keywords" and "6.47 How to Use Inline Assembly Language in C Code" of GCC_MANUAL.
+> +       __volatile__:
+> +          see Sections "6.48 Alternate Keywords" and "6.47.2.1 Volatile" of GCC_MANUAL.
+> +       __const__, __inline__, __inline:
+> +          see Section "6.48 Alternate Keywords" of GCC_MANUAL.
+> +       typeof, __typeof__:
+> +          see Section "6.7 Referring to a Type with typeof" of GCC_MANUAL.
+> +       __alignof__, __alignof:
+> +          see Sections "6.48 Alternate Keywords" and "6.44 Determining the Alignment of Functions, Types or Variables" of GCC_MANUAL.
+> +       __attribute__:
+> +          see Section "6.39 Attribute Syntax" of GCC_MANUAL.
+> +       __builtin_types_compatible_p:
+> +          see Section "6.59 Other Built-in Functions Provided by GCC" of GCC_MANUAL.
+> +       __builtin_va_arg:
+> +          non-documented GCC extension.
+> +       __builtin_offsetof:
+> +          see Section "6.53 Support for offsetof" of GCC_MANUAL.
+> +       __signed__:
+> +          non-documented GCC extension.
+> +
+> +   * - Empty initialization list
+> +     - ARM64, X86_64
+> +     - Non-documented GCC extension.
+> +
+> +   * - Arithmetic operator on void type
+> +     - ARM64, X86_64
+> +     - See Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL."
+> +
+> +   * - GNU statement expression
 
-Best Regards,
+"GNU statement expression" is not very clear, at least for me. I would
+call it "Statements and Declarations in Expressions".
 
-Jiatong Shen
 
---000000000000514e2305fe32169c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> +     - ARM64, X86_64
+> +     - See Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
+> +
+> +   * - Structure or union definition with no members
+> +     - ARM64, X86_64
+> +     - See Section "6.19 Structures with No Members" of GCC_MANUAL.
+> +
+> +   * - Zero size array type
+> +     - ARM64, X86_64
+> +     - See Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
+> +
+> +   * - Binary conditional expression
+> +     - ARM64, X86_64
+> +     - See Section "6.8 Conditionals with Omitted Operands" of GCC_MANUAL.
+> +
+> +   * - 'Case' label with upper/lower values
+> +     - ARM64, X86_64
+> +     - See Section "6.30 Case Ranges" of GCC_MANUAL.
+> +
+> +   * - Unnamed field that is not a bit-field
+> +     - ARM64, X86_64
+> +     - See Section "6.63 Unnamed Structure and Union Fields" of GCC_MANUAL.
+> +
+> +   * - Empty declaration
+> +     - ARM64, X86_64
+> +     - Non-documented GCC extension.
 
-<div dir=3D"ltr"><div>Hello Julien,</div><div><br></div>=C2=A0 =C2=A0 Thank=
- you for your answer! Adding console=3Dhvc0 indeed provides kernel output s=
-erial console. Looking at the log message,<br><div>I found dom0 kernel fail=
-ed to initialize a lot of device drivers (network cards, raid cards, etc).<=
-/div><div><br></div><div>=C2=A0 =C2=A0Is it related to iommu? I remember io=
-mmu is not enabled during the xen kernel booting stage.=C2=A0</div><div><br=
-></div><div>Thank you again for the help and looking forward to your reply.=
-</div><div><br></div><div>Best Regards,</div><div>Jiatong Shen</div></div><=
-br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri,=
- Jun 16, 2023 at 4:52=E2=80=AFAM Julien Grall &lt;<a href=3D"mailto:julien@=
-xen.org">julien@xen.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">Hi,<br>
-<br>
-On 13/06/2023 02:07, Jiatong Shen wrote:<br>
-&gt; Hello Stefano and Julien,<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Could you provide more insights for debugging? I tr=
-ied to connect to<br>
-&gt; serial console through ipmitool sol activate and enabled ACPI, I do se=
-e<br>
-&gt; some logs but the machine is still stuck. BMC video screen is still no=
-t<br>
-&gt; responsive and black out.<br>
-<br>
-Looking at your command line, you want to use console=3Dhvc0 on the dom0 <b=
-r>
-command line. Hopefully, this will enable more logs from the kernel and <br=
->
-give you an idea where it may be stuck.<br>
-<br>
-Cheers,<br>
-<br>
--- <br>
-Julien Grall<br>
-</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
-iv dir=3D"ltr"><br><div>Best Regards,</div><div><br></div><div>Jiatong Shen=
-</div></div></div>
+For the non-documented GCC extensions, would it be possible to add a
+very brief example or a couple of words in the "References" sections?
+Otherwise I think people might not understand what we are talking about.
 
---000000000000514e2305fe32169c--
---000000000000514e2605fe32169e
-Content-Type: application/octet-stream; name="dom0-kernel.log"
-Content-Disposition: attachment; filename="dom0-kernel.log"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lixod66h0>
-X-Attachment-Id: f_lixod66h0
+For instance in this case I would say:
 
-KFhFTikgKioqIFNlcmlhbCBpbnB1dCB0byBET00wICh0eXBlICdDVFJMLWEnIHRocmVlIHRpbWVz
-IHRvIHN3aXRjaCBpbnB1dCkNCihYRU4pIHNqdC10ZXN0OiBzZXJpYWwgZW5kYm9vdCANCihYRU4p
-IHNqdC10ZXN0OiB4c20gc2V0IHN5c3RlbSBhY3RpdmUgDQooWEVOKSBzanQtdGVzdDogZG9tYWlu
-IHVucGF1c2UgYnkgc3lzdGVtY29udHJvbGxlciANCihYRU4pIHNqdC10ZXN0OiB1bnBhdXNlIGRv
-bWFpbnN3aXRjaCBzdGFjayBhbmQganVtcCANCihYRU4pIEZyZWVkIDM4MGtCIGluaXQgbWVtb3J5
-Lg0KKFhFTikgc2p0LXRlc3Q6IG1vZGlmeSB4ZW4gbWFwcGluZ3MgDQooWEVOKSBzanQtdGVzdDog
-c3RhcnR1cCBjcHUgaWRsZSBsb29wIA0KKFhFTikgZDB2MDogdkdJQ0Q6IFJBWiBvbiByZXNlcnZl
-ZCByZWdpc3RlciBvZmZzZXQgMHgwMDAwMGMNCihYRU4pIGQwdjA6IHZHSUNEOiB1bmhhbmRsZWQg
-d29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNUSVZFUjQNCihYRU4pIGQwdjA6IHZH
-SUNEOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNUSVZFUjgN
-CihYRU4pIGQwdjA6IHZHSUNEOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZm
-IHRvIElDQUNUSVZFUjEyDQooWEVOKSBkMHYwOiB2R0lDRDogdW5oYW5kbGVkIHdvcmQgd3JpdGUg
-MHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElWRVIxNg0KKFhFTikgZDB2MDogdkdJQ0Q6IHVuaGFu
-ZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMjANCihYRU4pIGQw
-djA6IHZHSUNEOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNU
-SVZFUjI0DQooWEVOKSBkMHYwOiB2R0lDRDogdW5oYW5kbGVkIHdvcmQgd3JpdGUgMHgwMDAwMDBm
-ZmZmZmZmZiB0byBJQ0FDVElWRVIyOA0KKFhFTikgZDB2MDogdkdJQ0Q6IHVuaGFuZGxlZCB3b3Jk
-IHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMzINCihYRU4pIGQwdjA6IHZHSUNE
-OiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNUSVZFUjM2DQoo
-WEVOKSBkMHYwOiB2R0lDRDogdW5oYW5kbGVkIHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0
-byBJQ0FDVElWRVI0MA0KKFhFTikgZDB2MDogdkdJQ0Q6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSNDQNCihYRU4pIGQwdjA6IHZHSUNEOiB1bmhhbmRs
-ZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNUSVZFUjQ4DQooWEVOKSBkMHYw
-OiB2R0lDRDogdW5oYW5kbGVkIHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElW
-RVI1Mg0KKFhFTikgZDB2MDogdkdJQ0Q6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZm
-ZmZmZmYgdG8gSUNBQ1RJVkVSNTYNCihYRU4pIGQwdjA6IHZHSUNEOiB1bmhhbmRsZWQgd29yZCB3
-cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNUSVZFUjYwDQooWEVOKSBkMHYwOiB2R0lDRDog
-dW5oYW5kbGVkIHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElWRVI2NA0KKFhF
-TikgZDB2MDogdkdJQ0Q6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8g
-SUNBQ1RJVkVSNjgNCihYRU4pIGQwdjA6IHZHSUNEOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAw
-MDAwMGZmZmZmZmZmIHRvIElDQUNUSVZFUjcyDQooWEVOKSBkMHYwOiB2R0lDRDogdW5oYW5kbGVk
-IHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElWRVI3Ng0KKFhFTikgZDB2MDog
-dkdJQ0Q6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVS
-ODANCihYRU4pIGQwdjA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAw
-ZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTogdkdJQ1I6IFNHSTogdW5oYW5kbGVk
-IHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElWRVIwDQooWEVOKSBkMHYyOiB2
-R0lDUjogU0dJOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElDQUNU
-SVZFUjANCihYRU4pIGQwdjM6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAw
-MDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NDogdkdJQ1I6IFNHSTogdW5oYW5k
-bGVkIHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElWRVIwDQooWEVOKSBkMHY1
-OiB2R0lDUjogU0dJOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRvIElD
-QUNUSVZFUjANCihYRU4pIGQwdjY6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NzogdkdJQ1I6IFNHSTogdW5o
-YW5kbGVkIHdvcmQgd3JpdGUgMHgwMDAwMDBmZmZmZmZmZiB0byBJQ0FDVElWRVIwDQooWEVOKSBk
-MHY4OiB2R0lDUjogU0dJOiB1bmhhbmRsZWQgd29yZCB3cml0ZSAweDAwMDAwMGZmZmZmZmZmIHRv
-IElDQUNUSVZFUjANCihYRU4pIGQwdjk6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRl
-IDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTA6IHZHSUNSOiBTR0k6
-IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhF
-TikgZDB2MTE6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZm
-ZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTI6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3Jk
-IHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTM6IHZHSUNS
-OiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVS
-MA0KKFhFTikgZDB2MTQ6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAw
-ZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTU6IHZHSUNSOiBTR0k6IHVuaGFuZGxl
-ZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTY6
-IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNB
-Q1RJVkVSMA0KKFhFTikgZDB2MTc6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MTg6IHZHSUNSOiBTR0k6IHVu
-aGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikg
-ZDB2MTk6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYg
-dG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MjA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdy
-aXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MjE6IHZHSUNSOiBT
-R0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0K
-KFhFTikgZDB2MjI6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZm
-ZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MjM6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3
-b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MjQ6IHZH
-SUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJ
-VkVSMA0KKFhFTikgZDB2MjU6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAw
-MDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MjY6IHZHSUNSOiBTR0k6IHVuaGFu
-ZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2
-Mjc6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8g
-SUNBQ1RJVkVSMA0KKFhFTikgZDB2Mjg6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRl
-IDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Mjk6IHZHSUNSOiBTR0k6
-IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhF
-TikgZDB2MzA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZm
-ZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MzE6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3Jk
-IHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MzI6IHZHSUNS
-OiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVS
-MA0KKFhFTikgZDB2MzM6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAw
-ZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MzQ6IHZHSUNSOiBTR0k6IHVuaGFuZGxl
-ZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2MzU6
-IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNB
-Q1RJVkVSMA0KKFhFTikgZDB2MzY6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Mzc6IHZHSUNSOiBTR0k6IHVu
-aGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikg
-ZDB2Mzg6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYg
-dG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Mzk6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdy
-aXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NDA6IHZHSUNSOiBT
-R0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0K
-KFhFTikgZDB2NDE6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZm
-ZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NDI6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3
-b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NDM6IHZH
-SUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJ
-VkVSMA0KKFhFTikgZDB2NDQ6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAw
-MDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NDU6IHZHSUNSOiBTR0k6IHVuaGFu
-ZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2
-NDY6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8g
-SUNBQ1RJVkVSMA0KKFhFTikgZDB2NDc6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRl
-IDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NDg6IHZHSUNSOiBTR0k6
-IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhF
-TikgZDB2NDk6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZm
-ZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3Jk
-IHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTE6IHZHSUNS
-OiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVS
-MA0KKFhFTikgZDB2NTI6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAw
-ZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTM6IHZHSUNSOiBTR0k6IHVuaGFuZGxl
-ZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTQ6
-IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNB
-Q1RJVkVSMA0KKFhFTikgZDB2NTU6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTY6IHZHSUNSOiBTR0k6IHVu
-aGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikg
-ZDB2NTc6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYg
-dG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTg6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdy
-aXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NTk6IHZHSUNSOiBT
-R0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0K
-KFhFTikgZDB2NjA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZm
-ZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NjE6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3
-b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NjI6IHZH
-SUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJ
-VkVSMA0KKFhFTikgZDB2NjM6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAw
-MDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NjQ6IHZHSUNSOiBTR0k6IHVuaGFu
-ZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2
-NjU6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8g
-SUNBQ1RJVkVSMA0KKFhFTikgZDB2NjY6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRl
-IDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Njc6IHZHSUNSOiBTR0k6
-IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhF
-TikgZDB2Njg6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZm
-ZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Njk6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3Jk
-IHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NzA6IHZHSUNS
-OiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVS
-MA0KKFhFTikgZDB2NzE6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAw
-ZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NzI6IHZHSUNSOiBTR0k6IHVuaGFuZGxl
-ZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NzM6
-IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNB
-Q1RJVkVSMA0KKFhFTikgZDB2NzQ6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2NzU6IHZHSUNSOiBTR0k6IHVu
-aGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikg
-ZDB2NzY6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYg
-dG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Nzc6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdy
-aXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2Nzg6IHZHSUNSOiBT
-R0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0K
-KFhFTikgZDB2Nzk6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZm
-ZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2ODA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3
-b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2ODE6IHZH
-SUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJ
-VkVSMA0KKFhFTikgZDB2ODI6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAw
-MDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2ODM6IHZHSUNSOiBTR0k6IHVuaGFu
-ZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2
-ODQ6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8g
-SUNBQ1RJVkVSMA0KKFhFTikgZDB2ODU6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRl
-IDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2ODY6IHZHSUNSOiBTR0k6
-IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhF
-TikgZDB2ODc6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZm
-ZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2ODg6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3Jk
-IHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2ODk6IHZHSUNS
-OiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVS
-MA0KKFhFTikgZDB2OTA6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAw
-ZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2OTE6IHZHSUNSOiBTR0k6IHVuaGFuZGxl
-ZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2OTI6
-IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNB
-Q1RJVkVSMA0KKFhFTikgZDB2OTM6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4
-MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikgZDB2OTQ6IHZHSUNSOiBTR0k6IHVu
-aGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYgdG8gSUNBQ1RJVkVSMA0KKFhFTikg
-ZDB2OTU6IHZHSUNSOiBTR0k6IHVuaGFuZGxlZCB3b3JkIHdyaXRlIDB4MDAwMDAwZmZmZmZmZmYg
-dG8gSUNBQ1RJVkVSMA0KWyAgICAwLjc1MDA0NF0gcGNpIDAwMDA6MDA6MDAuMDogRmFpbGVkIHRv
-IGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc1MDE5
-OF0gcGNpIDAwMDA6MDA6MDQuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9N
-U0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc1MDMyOV0gcGNpIDAwMDA6MDA6MDguMDogRmFpbGVk
-IHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc1
-MDQ2MV0gcGNpIDAwMDA6MDA6MGMuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1T
-SS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc1MDU5NF0gcGNpIDAwMDA6MDA6MTAuMDogRmFp
-bGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAw
-Ljc1MDcyMV0gcGNpIDAwMDA6MDA6MTEuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9y
-IE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc1MDg0NF0gcGNpIDAwMDA6MDA6MTIuMDog
-RmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAg
-ICAwLjc1NDYwNF0gcGNpIDAwMDA6MDE6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdo
-IG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc1ODE4MF0gcGNpIDAwMDA6MDE6MDAu
-MTogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0K
-WyAgICAwLjc2MTcwOF0gcGNpIDAwMDA6MDI6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJv
-dWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc2NTAwNV0gcGNpIDAwMDA6MDI6
-MDAuMTogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWls
-IQ0KWyAgICAwLjc2NTI5OV0gcGNpIDAwMDA6MDM6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0
-aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc2ODczOV0gcGNpIDAwMDA6
-MDQ6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBm
-YWlsIQ0KWyAgICAwLjc3MjAxOF0gcGNpIDAwMDA6MDQ6MDAuMTogRmFpbGVkIHRvIGFkZCAtIHBh
-c3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3MjMyNl0gcGNpIDAw
-MDA6MDU6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdo
-dCBmYWlsIQ0KWyAgICAwLjc3MjU4MV0gcGNpIDAwMDA6MDY6MDAuMDogRmFpbGVkIHRvIGFkZCAt
-IHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3MzcyNl0gcGNp
-IDAwMDA6N2I6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBt
-aWdodCBmYWlsIQ0KWyAgICAwLjc3NDY2Nl0gcGNpIDAwMDA6N2E6MDAuMDogRmFpbGVkIHRvIGFk
-ZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3NDc0Ml0g
-cGNpIDAwMDA6N2E6MDEuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0kt
-WCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3NDgxMF0gcGNpIDAwMDA6N2E6MDIuMDogRmFpbGVkIHRv
-IGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3NTc3
-MF0gcGNpIDAwMDA6Nzg6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9N
-U0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3NTg5MF0gcGNpIDAwMDA6Nzg6MDEuMDogRmFpbGVk
-IHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1TSS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3
-NjEyNl0gcGNpIDAwMDA6Nzk6MDAuMDogRmFpbGVkIHRvIGFkZCAtIHBhc3N0aHJvdWdoIG9yIE1T
-SS9NU0ktWCBtaWdodCBmYWlsIQ0KWyAgICAwLjc3NzAyM10gQUNQSTogSU9SVDogW0Zpcm13YXJl
-IEJ1Z106IFttYXAgKF9fX19wdHJ2YWxfX19fKV0gY29uZmxpY3RpbmcgbWFwcGluZyBmb3IgaW5w
-dXQgSUQgMHg3YzAwDQpbICAgIDAuNzc3MDMxXSBBQ1BJOiBJT1JUOiBbRmlybXdhcmUgQnVnXTog
-YXBwbHlpbmcgd29ya2Fyb3VuZC4NClsgICAgMC43NzcwNjddIHBjaSAwMDAwOjdjOjAwLjA6IEZh
-aWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAg
-MC43NzcyMjRdIHBjaSAwMDAwOjdkOjAwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBv
-ciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43NzczMjNdIHBjaSAwMDAwOjdkOjAwLjE6
-IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsg
-ICAgMC43Nzc0MjFdIHBjaSAwMDAwOjdkOjAwLjI6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3Vn
-aCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43Nzc1MTZdIHBjaSAwMDAwOjdkOjAw
-LjM6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCEN
-ClsgICAgMC43Nzg1NzldIHBjaSAwMDAwOjc0OjAwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhy
-b3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43Nzg2ODFdIHBjaSAwMDAwOjc0
-OjAxLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFp
-bCENClsgICAgMC43Nzg3ODVdIHBjaSAwMDAwOjc0OjAyLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNz
-dGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43Nzg4NjVdIHBjaSAwMDAw
-Ojc0OjAzLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQg
-ZmFpbCENClsgICAgMC43Nzg5NzZdIHBjaSAwMDAwOjc0OjA0LjA6IEZhaWxlZCB0byBhZGQgLSBw
-YXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43NzkxOTJdIHBjaSAw
-MDAwOjc1OjAwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWln
-aHQgZmFpbCENClsgICAgMC43Nzk0MDRdIHBjaSAwMDAwOjc2OjAwLjA6IEZhaWxlZCB0byBhZGQg
-LSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43ODA1MzVdIHBj
-aSAwMDAwOjgwOjAwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVgg
-bWlnaHQgZmFpbCENClsgICAgMC43ODA2NzZdIHBjaSAwMDAwOjgwOjA0LjA6IEZhaWxlZCB0byBh
-ZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43ODA4MjFd
-IHBjaSAwMDAwOjgwOjEwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJ
-LVggbWlnaHQgZmFpbCENClsgICAgMC43ODQ1ODFdIHBjaSAwMDAwOjgxOjAwLjA6IEZhaWxlZCB0
-byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43ODgx
-NjRdIHBjaSAwMDAwOjgxOjAwLjE6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kv
-TVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43OTE3MjVdIHBjaSAwMDAwOjgyOjAwLjA6IEZhaWxl
-ZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43
-OTUwMzhdIHBjaSAwMDAwOjgyOjAwLjE6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBN
-U0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43OTYxNzhdIHBjaSAwMDAwOmJiOjAwLjA6IEZh
-aWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAg
-MC43OTcxNDZdIHBjaSAwMDAwOmJhOjAwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBv
-ciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43OTcyMzFdIHBjaSAwMDAwOmJhOjAxLjA6
-IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsg
-ICAgMC43OTczMTddIHBjaSAwMDAwOmJhOjAyLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3Vn
-aCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43OTgzMzhdIHBjaSAwMDAwOmI4OjAw
-LjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCEN
-ClsgICAgMC43OTg0NjZdIHBjaSAwMDAwOmI4OjAxLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhy
-b3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFpbCENClsgICAgMC43OTg2ODRdIHBjaSAwMDAwOmI5
-OjAwLjA6IEZhaWxlZCB0byBhZGQgLSBwYXNzdGhyb3VnaCBvciBNU0kvTVNJLVggbWlnaHQgZmFp
-bCENClsgICAgMC43OTk2MDRdIEFDUEk6IElPUlQ6IFtGaXJtd2FyZSBCdWddOiBbbWFwIChfX19f
-cHRydmFsX19fXyldIGNvbmZsaWN0aW5nIG1hcHBpbmcgZm9yIGlucHV0IElEIDB4YmMwMA0KWyAg
-ICAwLjc5OTYxMV0gQUNQSTogSU9SVDogW0Zpcm13YXJlIEJ1Z106IGFwcGx5aW5nIHdvcmthcm91
-bmQuDQpbICAgIDAuNzk5NjY3XSBwY2kgMDAwMDpiYzowMC4wOiBGYWlsZWQgdG8gYWRkIC0gcGFz
-c3Rocm91Z2ggb3IgTVNJL01TSS1YIG1pZ2h0IGZhaWwhDQpbICAgIDAuODAwNzMyXSBwY2kgMDAw
-MDpiNDowMC4wOiBGYWlsZWQgdG8gYWRkIC0gcGFzc3Rocm91Z2ggb3IgTVNJL01TSS1YIG1pZ2h0
-IGZhaWwhDQpbICAgIDAuODAwODQyXSBwY2kgMDAwMDpiNDowMS4wOiBGYWlsZWQgdG8gYWRkIC0g
-cGFzc3Rocm91Z2ggb3IgTVNJL01TSS1YIG1pZ2h0IGZhaWwhDQpbICAgIDAuODAwOTU1XSBwY2kg
-MDAwMDpiNDowMi4wOiBGYWlsZWQgdG8gYWRkIC0gcGFzc3Rocm91Z2ggb3IgTVNJL01TSS1YIG1p
-Z2h0IGZhaWwhDQpbICAgIDAuODAxMDM1XSBwY2kgMDAwMDpiNDowMy4wOiBGYWlsZWQgdG8gYWRk
-IC0gcGFzc3Rocm91Z2ggb3IgTVNJL01TSS1YIG1pZ2h0IGZhaWwhDQpbICAgIDAuODAxMTMzXSBw
-Y2kgMDAwMDpiNDowNC4wOiBGYWlsZWQgdG8gYWRkIC0gcGFzc3Rocm91Z2ggb3IgTVNJL01TSS1Y
-IG1pZ2h0IGZhaWwhDQpbICAgIDAuODAxMzU5XSBwY2kgMDAwMDpiNTowMC4wOiBGYWlsZWQgdG8g
-YWRkIC0gcGFzc3Rocm91Z2ggb3IgTVNJL01TSS1YIG1pZ2h0IGZhaWwhDQpbICAgIDAuODAxNTQ5
-XSBwY2kgMDAwMDpiNjowMC4wOiBGYWlsZWQgdG8gYWRkIC0gcGFzc3Rocm91Z2ggb3IgTVNJL01T
-SS1YIG1pZ2h0IGZhaWwhDQpbICAgIDEuMjUzNTE4XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kw
-MTUyOjAwOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjUzNjk2
-XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjAxOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1n
-ZW4gaXJxZG9tYWluDQpbICAgIDEuMjUzNzg1XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUy
-OjAyOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjUzODU5XSBI
-aXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjAzOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4g
-aXJxZG9tYWluDQpbICAgIDEuMjUzOTM1XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjA0
-OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0MDA3XSBIaXNp
-bGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjA1OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJx
-ZG9tYWluDQpbICAgIDEuMjU0MDc0XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjA4OiBG
-YWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0MTQzXSBIaXNpbGlj
-b24gTUJJR0VOLVYyIEhJU0kwMTUyOjA5OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9t
-YWluDQpbICAgIDEuMjU0MjEzXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjBhOiBGYWls
-ZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0MjgxXSBIaXNpbGljb24g
-TUJJR0VOLVYyIEhJU0kwMTUyOjBiOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWlu
-DQpbICAgIDEuMjU0MzUwXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjBjOiBGYWlsZWQg
-dG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0NDE5XSBIaXNpbGljb24gTUJJ
-R0VOLVYyIEhJU0kwMTUyOjBkOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpb
-ICAgIDEuMjU0NDg5XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjBlOiBGYWlsZWQgdG8g
-Y3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0NTU3XSBIaXNpbGljb24gTUJJR0VO
-LVYyIEhJU0kwMTUyOjBmOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAg
-IDEuMjU0NjI1XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjEwOiBGYWlsZWQgdG8gY3Jl
-YXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0NjkzXSBIaXNpbGljb24gTUJJR0VOLVYy
-IEhJU0kwMTUyOjExOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEu
-MjU0NzYxXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjEyOiBGYWlsZWQgdG8gY3JlYXRl
-IG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0ODI5XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJ
-U0kwMTUyOjEzOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0
-ODk4XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjE2OiBGYWlsZWQgdG8gY3JlYXRlIG1i
-aS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU0OTY1XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kw
-MTUyOjE3OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1MDMy
-XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjE4OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1n
-ZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1MTAxXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUy
-OjE5OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1MTcxXSBI
-aXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjFhOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4g
-aXJxZG9tYWluDQpbICAgIDEuMjU1MjM4XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjFi
-OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1MzE2XSBIaXNp
-bGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjFjOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJx
-ZG9tYWluDQpbICAgIDEuMjU1MzkzXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjFkOiBG
-YWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1NDYzXSBIaXNpbGlj
-b24gTUJJR0VOLVYyIEhJU0kwMTUyOjFlOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9t
-YWluDQpbICAgIDEuMjU1NTMxXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjFmOiBGYWls
-ZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1NTkwXSBIaXNpbGljb24g
-TUJJR0VOLVYyIEhJU0kwMTUyOjIwOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWlu
-DQpbICAgIDEuMjU1NjQ5XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjIxOiBGYWlsZWQg
-dG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1NzEyXSBIaXNpbGljb24gTUJJ
-R0VOLVYyIEhJU0kwMTUyOjI0OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpb
-ICAgIDEuMjU1Nzc3XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjI1OiBGYWlsZWQgdG8g
-Y3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1ODQ0XSBIaXNpbGljb24gTUJJR0VO
-LVYyIEhJU0kwMTUyOjI2OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAg
-IDEuMjU1OTExXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjI3OiBGYWlsZWQgdG8gY3Jl
-YXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU1OTc2XSBIaXNpbGljb24gTUJJR0VOLVYy
-IEhJU0kwMTUyOjI4OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEu
-MjU2MDQyXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjI5OiBGYWlsZWQgdG8gY3JlYXRl
-IG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2MTEwXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJ
-U0kwMTUyOjJhOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2
-MTc3XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjJiOiBGYWlsZWQgdG8gY3JlYXRlIG1i
-aS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2MjQzXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kw
-MTUyOjJjOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2MzAx
-XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjJkOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1n
-ZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2MzYwXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUy
-OjJlOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2NDE5XSBI
-aXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjJmOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4g
-aXJxZG9tYWluDQpbICAgIDEuMjU2NDc5XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjMy
-OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2NTQwXSBIaXNp
-bGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjMzOiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJx
-ZG9tYWluDQpbICAgIDEuMjU2NjAwXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjM0OiBG
-YWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2Njg1XSBIaXNpbGlj
-b24gTUJJR0VOLVYyIEhJU0kwMTUyOjM1OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9t
-YWluDQpbICAgIDEuMjU2NzU2XSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjM2OiBGYWls
-ZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU2ODI1XSBIaXNpbGljb24g
-TUJJR0VOLVYyIEhJU0kwMTUyOjM3OiBGYWlsZWQgdG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWlu
-DQpbICAgIDEuMjU2ODkzXSBIaXNpbGljb24gTUJJR0VOLVYyIEhJU0kwMTUyOjM4OiBGYWlsZWQg
-dG8gY3JlYXRlIG1iaS1nZW4gaXJxZG9tYWluDQpbICAgIDEuMjU5MTA4XSBBQ1BJOiBJT1JUOiBb
-RmlybXdhcmUgQnVnXTogW21hcCAoX19fX3B0cnZhbF9fX18pXSBjb25mbGljdGluZyBtYXBwaW5n
-IGZvciBpbnB1dCBJRCAweDdjMDANClsgICAgMS4yNTkxMThdIEFDUEk6IElPUlQ6IFtGaXJtd2Fy
-ZSBCdWddOiBhcHBseWluZyB3b3JrYXJvdW5kLg0KWyAgICAxLjI1OTE2Nl0gQUNQSTogSU9SVDog
-W0Zpcm13YXJlIEJ1Z106IFttYXAgKF9fX19wdHJ2YWxfX19fKV0gY29uZmxpY3RpbmcgbWFwcGlu
-ZyBmb3IgaW5wdXQgSUQgMHhiYzAwDQpbICAgIDEuMjU5MTg4XSBBQ1BJOiBJT1JUOiBbRmlybXdh
-cmUgQnVnXTogYXBwbHlpbmcgd29ya2Fyb3VuZC4NClsgICAgMS4yNTkzMTNdIEFDUEk6IElPUlQ6
-IFtGaXJtd2FyZSBCdWddOiBbbWFwIChfX19fcHRydmFsX19fXyldIGNvbmZsaWN0aW5nIG1hcHBp
-bmcgZm9yIGlucHV0IElEIDB4N2MwMA0KWyAgICAxLjI1OTMyMF0gQUNQSTogSU9SVDogW0Zpcm13
-YXJlIEJ1Z106IGFwcGx5aW5nIHdvcmthcm91bmQuDQpbICAgIDEuMjU5MzUwXSBBQ1BJOiBJT1JU
-OiBbRmlybXdhcmUgQnVnXTogW21hcCAoX19fX3B0cnZhbF9fX18pXSBjb25mbGljdGluZyBtYXBw
-aW5nIGZvciBpbnB1dCBJRCAweGJjMDANClsgICAgMS4yNTkzNTddIEFDUEk6IElPUlQ6IFtGaXJt
-d2FyZSBCdWddOiBhcHBseWluZyB3b3JrYXJvdW5kLg0KWyAgICAxLjM0NTg5NV0gaW50ZWdyaXR5
-OiBDb3VsZG4ndCBnZXQgc2l6ZTogMHg4MDAwMDAwMDAwMDAwMDAzDQpbICAgIDEuMzQ1OTAzXSBp
-bnRlZ3JpdHk6IE1PRFNJR046IENvdWxkbid0IGdldCBVRUZJIGRiIGxpc3QNClsgICAgMS4zNDU5
-MDldIGludGVncml0eTogQ291bGRuJ3QgZ2V0IHNpemU6IDB4ODAwMDAwMDAwMDAwMDAwMw0KWyAg
-ICAxLjM1NDM3NF0gQUNQSTogSU9SVDogW0Zpcm13YXJlIEJ1Z106IFttYXAgKF9fX19wdHJ2YWxf
-X19fKV0gY29uZmxpY3RpbmcgbWFwcGluZyBmb3IgaW5wdXQgSUQgMHg3YzAwDQpbICAgIDEuMzU0
-Mzg2XSBBQ1BJOiBJT1JUOiBbRmlybXdhcmUgQnVnXTogYXBwbHlpbmcgd29ya2Fyb3VuZC4NClsg
-ICAgMS4zNjAzODJdIEFDUEk6IElPUlQ6IFtGaXJtd2FyZSBCdWddOiBbbWFwIChfX19fcHRydmFs
-X19fXyldIGNvbmZsaWN0aW5nIG1hcHBpbmcgZm9yIGlucHV0IElEIDB4YmMwMA0KWyAgICAxLjM2
-MDM5M10gQUNQSTogSU9SVDogW0Zpcm13YXJlIEJ1Z106IGFwcGx5aW5nIHdvcmthcm91bmQuDQpb
-ICAgIDEuODc4NzQzXSBobnMzIDAwMDA6N2Q6MDAuMDogZmFpbGVkIHRvIHF1ZXJ5IHZlcnNpb24g
-YW5kIGNhcGFiaWxpdGllcywgcmV0ID0gLTUyDQpbICAgIDEuODkxMTQxXSB7MX1bSGFyZHdhcmUg
-RXJyb3JdOiBIYXJkd2FyZSBlcnJvciBmcm9tIEFQRUkgR2VuZXJpYyBIYXJkd2FyZSBFcnJvciBT
-b3VyY2U6IDMNClsgICAgMS44OTExNjRdIHsxfVtIYXJkd2FyZSBFcnJvcl06IGV2ZW50IHNldmVy
-aXR5OiByZWNvdmVyYWJsZQ0KWyAgICAxLjg5MTE3MF0gezF9W0hhcmR3YXJlIEVycm9yXTogIEVy
-cm9yIDAsIHR5cGU6IHJlY292ZXJhYmxlDQpbICAgIDEuODkxMTc1XSB7MX1bSGFyZHdhcmUgRXJy
-b3JdOiAgIHNlY3Rpb25fdHlwZTogUENJZSBlcnJvcg0KWyAgICAxLjg5MTE4MF0gezF9W0hhcmR3
-YXJlIEVycm9yXTogICB2ZXJzaW9uOiA0LjANClsgICAgMS44OTExODRdIHsxfVtIYXJkd2FyZSBF
-cnJvcl06ICAgY29tbWFuZDogMHgwMDA2LCBzdGF0dXM6IDB4MDAxMA0KWyAgICAxLjg5MTE4OV0g
-ezF9W0hhcmR3YXJlIEVycm9yXTogICBkZXZpY2VfaWQ6IDAwMDA6N2Q6MDAuMw0KWyAgICAxLjg5
-MTE5M10gezF9W0hhcmR3YXJlIEVycm9yXTogICBzbG90OiAwDQpbICAgIDEuODkxMTk3XSB7MX1b
-SGFyZHdhcmUgRXJyb3JdOiAgIHNlY29uZGFyeV9idXM6IDB4MDANClsgICAgMS44OTEyMDFdIHsx
-fVtIYXJkd2FyZSBFcnJvcl06ICAgdmVuZG9yX2lkOiAweDE5ZTUsIGRldmljZV9pZDogMHhhMjIx
-DQpbICAgIDEuODkxMjA2XSB7MX1bSGFyZHdhcmUgRXJyb3JdOiAgIGNsYXNzX2NvZGU6IDAyMDAw
-MA0KWyAgICAxLjg5MTIyMV0gezJ9W0hhcmR3YXJlIEVycm9yXTogSGFyZHdhcmUgZXJyb3IgZnJv
-bSBBUEVJIEdlbmVyaWMgSGFyZHdhcmUgRXJyb3IgU291cmNlOiAyDQpbICAgIDEuODkxMjI3XSB7
-Mn1bSGFyZHdhcmUgRXJyb3JdOiBldmVudCBzZXZlcml0eTogcmVjb3ZlcmFibGUNClsgICAgMS44
-OTEyMzJdIHsyfVtIYXJkd2FyZSBFcnJvcl06ICBFcnJvciAwLCB0eXBlOiByZWNvdmVyYWJsZQ0K
-WyAgICAxLjg5MTIzN10gezJ9W0hhcmR3YXJlIEVycm9yXTogICBzZWN0aW9uX3R5cGU6IFBDSWUg
-ZXJyb3INClsgICAgMS44OTEyNDFdIHsyfVtIYXJkd2FyZSBFcnJvcl06ICAgdmVyc2lvbjogNC4w
-DQpbICAgIDEuODkxMjQ1XSB7Mn1bSGFyZHdhcmUgRXJyb3JdOiAgIGNvbW1hbmQ6IDB4MDAwNiwg
-c3RhdHVzOiAweDAwMTANClsgICAgMS44OTEyNTBdIHsyfVtIYXJkd2FyZSBFcnJvcl06ICAgZGV2
-aWNlX2lkOiAwMDAwOjdkOjAwLjINClsgICAgMS44OTEyNTVdIHsyfVtIYXJkd2FyZSBFcnJvcl06
-ICAgc2xvdDogMA0KWyAgICAxLjg5MTI1OF0gezJ9W0hhcmR3YXJlIEVycm9yXTogICBzZWNvbmRh
-cnlfYnVzOiAweDAwDQpbICAgIDEuODkxMjYzXSB7Mn1bSGFyZHdhcmUgRXJyb3JdOiAgIHZlbmRv
-cl9pZDogMHgxOWU1LCBkZXZpY2VfaWQ6IDB4YTIyMg0KWyAgICAxLjg5MTI2N10gezJ9W0hhcmR3
-YXJlIEVycm9yXTogICBjbGFzc19jb2RlOiAwMjAwMDANClsgICAgMS44OTEzMjJdIHBjaSAwMDAw
-OjdkOjAwLjM6IEFFUjogYWVyX3N0YXR1czogMHgwMDQwMDAwMCwgYWVyX21hc2s6IDB4MDAwMDAw
-MDANClsgICAgMS44OTEzMjldIHBjaSAwMDAwOjdkOjAwLjM6ICAgIFsyMl0gVW5jb3JySW50RXJy
-ICAgICAgICAgIA0KWyAgICAxLjg5MTMzNV0gcGNpIDAwMDA6N2Q6MDAuMzogQUVSOiBhZXJfbGF5
-ZXI9VHJhbnNhY3Rpb24gTGF5ZXIsIGFlcl9hZ2VudD1SZWNlaXZlciBJRA0KWyAgICAxLjg5MTM0
-MV0gcGNpIDAwMDA6N2Q6MDAuMzogQUVSOiBhZXJfdW5jb3Jfc2V2ZXJpdHk6IDB4MDAwMDAwMDAN
-ClsgICAgMS45NDU2ODldIG9oY2ktcGNpIDAwMDA6N2E6MDAuMDogT0hDSSBVbnJlY292ZXJhYmxl
-IEVycm9yLCBkaXNhYmxlZA0KWyAgICAxLjk0NTcwMl0gb2hjaS1wY2kgMDAwMDo3YTowMC4wOiBI
-QyBkaWVkOyBjbGVhbmluZyB1cA0KWyAgICAyLjUyMzQ1NF0gaXJxIDI4OiBub2JvZHkgY2FyZWQg
-KHRyeSBib290aW5nIHdpdGggdGhlICJpcnFwb2xsIiBvcHRpb24pDQpbICAgIDIuNTIzNTQ0XSBo
-YW5kbGVyczoNClsgICAgMi41MjM1NDldIFs8KF9fX19wdHJ2YWxfX19fKT5dIHBjaWVfcG1lX2ly
-cQ0KWyAgICAyLjUyMzU1NV0gWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lycSB0aHJlYWRlZCBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXNyDQpbICAgIDIuNTIzNTg2XSBbPChfX19fcHRydmFs
-X19fXyk+XSBwY2llX3BtZV9pcnENClsgICAgMi41MjM1OTFdIFs8KF9fX19wdHJ2YWxfX19fKT5d
-IGFlcl9pcnEgdGhyZWFkZWQgWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lzcg0KWyAgICAyLjUy
-MzU5OV0gWzwoX19fX3B0cnZhbF9fX18pPl0gcGNpZV9wbWVfaXJxDQpbICAgIDIuNTIzNjA0XSBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXJxIHRocmVhZGVkIFs8KF9fX19wdHJ2YWxfX19fKT5d
-IGFlcl9pc3INClsgICAgMi41MjM2MTJdIFs8KF9fX19wdHJ2YWxfX19fKT5dIHBjaWVfcG1lX2ly
-cQ0KWyAgICAyLjUyMzYxN10gWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lycSB0aHJlYWRlZCBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXNyDQpbICAgIDIuNTIzNjI1XSBbPChfX19fcHRydmFs
-X19fXyk+XSBwY2llX3BtZV9pcnENClsgICAgMi41MjM2MzBdIFs8KF9fX19wdHJ2YWxfX19fKT5d
-IGFlcl9pcnEgdGhyZWFkZWQgWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lzcg0KWyAgICAyLjUy
-MzYzOF0gWzwoX19fX3B0cnZhbF9fX18pPl0gcGNpZV9wbWVfaXJxDQpbICAgIDIuNTIzNjQzXSBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXJxIHRocmVhZGVkIFs8KF9fX19wdHJ2YWxfX19fKT5d
-IGFlcl9pc3INClsgICAgMi41MjM2NTFdIFs8KF9fX19wdHJ2YWxfX19fKT5dIHBjaWVfcG1lX2ly
-cQ0KWyAgICAyLjUyMzY1Nl0gWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lycSB0aHJlYWRlZCBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXNyDQpbICAgIDIuNTIzNjY0XSBbPChfX19fcHRydmFs
-X19fXyk+XSBwY2llX3BtZV9pcnENClsgICAgMi41MjM2NjldIFs8KF9fX19wdHJ2YWxfX19fKT5d
-IGFlcl9pcnEgdGhyZWFkZWQgWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lzcg0KWyAgICAyLjUy
-MzY3N10gWzwoX19fX3B0cnZhbF9fX18pPl0gcGNpZV9wbWVfaXJxDQpbICAgIDIuNTIzNjgyXSBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXJxIHRocmVhZGVkIFs8KF9fX19wdHJ2YWxfX19fKT5d
-IGFlcl9pc3INClsgICAgMi41MjM2OTBdIFs8KF9fX19wdHJ2YWxfX19fKT5dIHBjaWVfcG1lX2ly
-cQ0KWyAgICAyLjUyMzY5NV0gWzwoX19fX3B0cnZhbF9fX18pPl0gYWVyX2lycSB0aHJlYWRlZCBb
-PChfX19fcHRydmFsX19fXyk+XSBhZXJfaXNyDQpbICAgIDIuNTIzNzA2XSBbPChfX19fcHRydmFs
-X19fXyk+XSB1c2JfaGNkX2lycSBbdXNiY29yZV0NClsgICAgMi41MjM3MTNdIFs8KF9fX19wdHJ2
-YWxfX19fKT5dIHVzYl9oY2RfaXJxIFt1c2Jjb3JlXQ0KWyAgICAyLjUyMzcyMF0gWzwoX19fX3B0
-cnZhbF9fX18pPl0gdXNiX2hjZF9pcnEgW3VzYmNvcmVdDQpbICAgIDIuNTIzNzI2XSBbPChfX19f
-cHRydmFsX19fXyk+XSBhaGNpX3NpbmdsZV9sZXZlbF9pcnFfaW50ciBbbGliYWhjaV0NClsgICAg
-Mi41MjM3MzVdIFs8KF9fX19wdHJ2YWxfX19fKT5dIHVzYl9oY2RfaXJxIFt1c2Jjb3JlXQ0KWyAg
-ICAyLjUyMzc0MV0gWzwoX19fX3B0cnZhbF9fX18pPl0gYWhjaV9zaW5nbGVfbGV2ZWxfaXJxX2lu
-dHIgW2xpYmFoY2ldDQpbICAgIDIuNTIzNzQ5XSBbPChfX19fcHRydmFsX19fXyk+XSB1c2JfaGNk
-X2lycSBbdXNiY29yZV0NClsgICAgMi41MjM3NTRdIERpc2FibGluZyBJUlEgIzI4DQpbICAgIDIu
-NTI1ODQ1XSBobnMzIDAwMDA6N2Q6MDAuMDogaW5pdCBhZV9kZXYgZXJyb3IsIHJldCA9IC01Mg0K
-WyAgIDIzLjgyNDYzM10gcmN1OiBJTkZPOiByY3Vfc2NoZWQgc2VsZi1kZXRlY3RlZCBzdGFsbCBv
-biBDUFUNClsgICAyMy44MjQ2OTNdIHJjdTogCTAtLi4uLjogKDUyNTAgdGlja3MgdGhpcyBHUCkg
-aWRsZT04ZWEvMS8weDQwMDAwMDAwMDAwMDAwMDIgc29mdGlycT0xNTMvMTUzIGZxcz0yNjI1IA0K
-WyAgIDQ4LjAyMDYzNV0gd2F0Y2hkb2c6IEJVRzogc29mdCBsb2NrdXAgLSBDUFUjMCBzdHVjayBm
-b3IgMjJzISBba3dvcmtlci8wOjY6NzEzXQ0KWyAgIDYyLjY2NTAzOF0gbHBmYyAwMDAwOjAxOjAw
-LjA6IDA6MzAyNiBNYWlsYm94IGZhaWxlZCAsIG1ieENtZCB4OWIgR0VUX0ZVTkNUSU9OX0NPTkZJ
-RywgbWJ4U3RhdHVzIHgwDQpbICAgNjIuNjY1MzU3XSBvaGNpLXBjaSAwMDAwOjdhOjAwLjA6IGlu
-aXQgMDAwMDo3YTowMC4wIGZhaWwsIC0xMDgNClsgICA2Mi42NjU2ODRdIFVuYWJsZSB0byBoYW5k
-bGUga2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhdCB2aXJ0dWFsIGFkZHJlc3MgMDAw
-MDAwMDAwMDAwMDBjMA0KWyAgIDYyLjY2NTY5M10gTWVtIGFib3J0IGluZm86DQpbICAgNjIuNjY1
-NzAxXSAgIEVTUiA9IDB4OTYwMDAwMDQNClsgICA2Mi42NjU3MDVdICAgRUMgPSAweDI1OiBEQUJU
-IChjdXJyZW50IEVMKSwgSUwgPSAzMiBiaXRzDQpbICAgNjIuNjY1NzEwXSAgIFNFVCA9IDAsIEZu
-ViA9IDANClsgICA2Mi42NjU3MTRdICAgRUEgPSAwLCBTMVBUVyA9IDANClsgICA2Mi42NjU3MTdd
-IERhdGEgYWJvcnQgaW5mbzoNClsgICA2Mi42NjU3MjBdICAgSVNWID0gMCwgSVNTID0gMHgwMDAw
-MDAwNA0KWyAgIDYyLjY2NTcyNF0gICBDTSA9IDAsIFduUiA9IDANClsgICA2Mi42NjU3MjhdIFsw
-MDAwMDAwMDAwMDAwMGMwXSB1c2VyIGFkZHJlc3MgYnV0IGFjdGl2ZV9tbSBpcyBzd2FwcGVyDQpb
-ICAgNjIuNjY1NzM2XSBJbnRlcm5hbCBlcnJvcjogT29wczogOTYwMDAwMDQgWyMxXSBTTVANClsg
-ICA2Mi42NjU3NDJdIE1vZHVsZXMgbGlua2VkIGluOiBscGZjKCspIG9oY2lfcGNpKCspIG52bWV0
-X2ZjIG52bWV0IG52bWVfZmMgbnZtZV9mYWJyaWNzIGhpc2lfc2FzX3YzX2h3KCspIG52bWVfY29y
-ZSBoaXNpX3Nhc19tYWluIGxpYnNhcyBobnMzKCspIGFoY2kgeGhjaV9wY2kgdDEwX3BpIG1seDVf
-Y29yZSgrKSBsaWJhaGNpIHNjc2lfdHJhbnNwb3J0X3NhcyBjcmNfdDEwZGlmIHhoY2lfaGNkIGhj
-bGdlIG9oY2lfaGNkIGVoY2lfcGNpIGNyY3QxMGRpZl9nZW5lcmljIGVoY2lfaGNkIGhuYWUzIGNy
-Y3QxMGRpZl9jZSBtZGlvX2RldnJlcyBsaWJhdGEgbWVnYXJhaWRfc2FzKCspIG9mX21kaW8gc2Nz
-aV90cmFuc3BvcnRfZmMgdXNiY29yZSBmaXhlZF9waHkgbGlicGh5IHNjc2lfbW9kIG1seGZ3IHVz
-Yl9jb21tb24gcHRwIGNvbmZpZ2ZzIHBwc19jb3JlIGNyY3QxMGRpZl9jb21tb24gaTJjX2Rlc2ln
-bndhcmVfcGxhdGZvcm0gaTJjX2Rlc2lnbndhcmVfY29yZQ0KWyAgIDYyLjY2NTgxNl0gQ1BVOiAw
-IFBJRDogNzA5IENvbW06IGt3b3JrZXIvMDo1IFRhaW50ZWQ6IEcgICAgICAgICAgICAgTCAgICA1
-LjEwLjAtMjMtYXJtNjQgIzEgRGViaWFuIDUuMTAuMTc5LTENClsgICA2Mi42NjU4MzZdIFdvcmtx
-dWV1ZTogZXZlbnRzIGhjZF9kaWVkX3dvcmsgW3VzYmNvcmVdDQpbICAgNjIuNjY1ODQzXSBwc3Rh
-dGU6IDIwYzAwMDA1IChuekN2IGRhaWYgK1BBTiArVUFPIC1UQ08gQlRZUEU9LS0pDQpbICAgNjIu
-NjY1ODUxXSBwYyA6IGtvYmplY3RfdWV2ZW50X2VudisweDU0LzB4NmIwDQpbICAgNjIuNjY1ODU4
-XSBsciA6IGhjZF9kaWVkX3dvcmsrMHgyYy8weDQwIFt1c2Jjb3JlXQ0KWyAgIDYyLjY2NTg2M10g
-c3AgOiBmZmZmODAwMDFiMTdiZDEwDQpbICAgNjIuNjY1ODY2XSB4Mjk6IGZmZmY4MDAwMWIxN2Jk
-MTAgeDI4OiAwMDAwMDAwMDAwMDAwMDAwIA0KWyAgIDYyLjY2NTg3Ml0geDI3OiBmZmZmMDA4MDQ3
-ZGI3ZmM4IHgyNjogZmZmZjAwNmZiZmNlZmM0MCANClsgICA2Mi42NjU4NzhdIHgyNTogMDAwMDAw
-MDAwMDAwMDAwMCB4MjQ6IGZmZmYwMDQxMGIzZTQ5MTggDQpbICAgNjIuNjY1ODgzXSB4MjM6IGZm
-ZmY4MDAwMDhkMGEyNTggeDIyOiBmZmZmODAwMDEwYzBkMDkwIA0KWyAgIDYyLjY2NTg4OV0geDIx
-OiAwMDAwMDAwMDAwMDAwMDA1IHgyMDogMDAwMDAwMDAwMDAwMDBhMCANClsgICA2Mi42NjU4OTRd
-IHgxOTogZmZmZjAwNDEwYjNlNDkxMCB4MTg6IDAwMDAwMDAwMDAwMDAwMDAgDQpbICAgNjIuNjY1
-ODk5XSB4MTc6IDAwMDAwMDAwZjMyMjY2ZmMgeDE2OiAwMDAwMDAwMGRlYWRiZWVmIA0KWyAgIDYy
-LjY2NTkwNF0geDE1OiAwMDAwMDAwMDAwMDAwMDA0IHgxNDogZmZmZjAwODA0MDAwNDYxMCANClsg
-ICA2Mi42NjU5MTBdIHgxMzogMDAwMDAwMDAwMDAwMDAwMCB4MTI6IGZmZmYwMDQxMDA0M2JjYjgg
-DQpbICAgNjIuNjY1OTE1XSB4MTE6IGZmZmYwMDQxMDA0M2JiNTAgeDEwOiAwMDAwMDAwMDAwMDAw
-YjAwIA0KWyAgIDYyLjY2NTkyMF0geDkgOiBmZmZmODAwMDEwMGI2ZTMwIHg4IDogZmVmZWZlZmVm
-ZWZlZmVmZiANClsgICA2Mi42NjU5MjVdIHg3IDogMDAwMDAwMDAwMDAwMDAxOCB4NiA6IGZmZmYw
-MDQxMTQ4Njk1NmMgDQpbICAgNjIuNjY1OTMxXSB4NSA6IDAwMDA3Mzc0NmU2NTc2NjUgeDQgOiAw
-MDAwMDAwMDAwMDAwMGEwIA0KWyAgIDYyLjY2NTkzNl0geDMgOiBkZWFkMDAwMDAwMDAwMTIyIHgy
-IDogZmZmZjgwMDAwOGQwYTI1OCANClsgICA2Mi42NjU5NDFdIHgxIDogMDAwMDAwMDAwMDAwMDAw
-NSB4MCA6IGZmZmY4MDAwMTBkYTc5MzggDQpbICAgNjIuNjY1OTQ3XSBDYWxsIHRyYWNlOg0KWyAg
-IDYyLjY2NTk1MV0gIGtvYmplY3RfdWV2ZW50X2VudisweDU0LzB4NmIwDQpbICAgNjIuNjY1OTU3
-XSAgaGNkX2RpZWRfd29yaysweDJjLzB4NDAgW3VzYmNvcmVdDQpbICAgNjIuNjY1OTYzXSAgcHJv
-Y2Vzc19vbmVfd29yaysweDFkMC8weDRkMA0KWyAgIDYyLjY2NTk2OF0gIHdvcmtlcl90aHJlYWQr
-MHgxODAvMHg1NDANClsgICA2Mi42NjU5NzJdICBrdGhyZWFkKzB4MTJjLzB4MTMwDQpbICAgNjIu
-NjY1OTc3XSAgcmV0X2Zyb21fZm9yaysweDEwLzB4MzQNClsgICA2Mi42NjU5ODJdIENvZGU6IGFh
-MTQwM2U0IDE0MDAwMDAzIGY5NDAwYzg0IGI0MDAyYTI0IChmOTQwMTA5MykgDQpbICAgNjIuNjY1
-OTg5XSAtLS1bIGVuZCB0cmFjZSA1ODYyNzY3NDBhM2M1ZWMwIF0tLS0NClsgICA2Mi42NjYwNDJd
-IGxwZmMgMDAwMDowMTowMC4wOiAwOjE0MTIgRmFpbGVkIHRvIHNldCB1cCBkcml2ZXIgcmVzb3Vy
-Y2UuDQpbICAgNjIuNjY2MTgyXSBvaGNpLXBjaSAwMDAwOmJhOjAwLjA6IE9IQ0kgUENJIGhvc3Qg
-Y29udHJvbGxlcg0KWyAgIDYyLjY2NjIwMV0gb2hjaS1wY2kgMDAwMDpiYTowMC4wOiBuZXcgVVNC
-IGJ1cyByZWdpc3RlcmVkLCBhc3NpZ25lZCBidXMgbnVtYmVyIDcNClsgICA2Mi42NjYyMTFdIGxw
-ZmM6IHByb2JlIG9mIDAwMDA6MDE6MDAuMCBmYWlsZWQgd2l0aCBlcnJvciAtMTINClsgICA2Mi42
-NjYyNTVdIG9oY2ktcGNpIDAwMDA6YmE6MDAuMDogaXJxIDI4LCBpbyBtZW0gMHgyMDAyMGMxMDAw
-MDANClsgICA2Mi42NjYyODNdIGxwZmMgMDAwMDowMTowMC4xOiBBZGRpbmcgdG8gaW9tbXUgZ3Jv
-dXAgMjcNClsgICA2Mi42Njc2OTVdIGhpc2lfc2FzX3YzX2h3OiBwcm9iZSBvZiAwMDAwOjc0OjAy
-LjAgZmFpbGVkIHdpdGggZXJyb3IgLTINClsgICA2Mi42Njc3NzZdIGhpc2lfc2FzX3YzX2h3IDAw
-MDA6NzQ6MDQuMDogQWRkaW5nIHRvIGlvbW11IGdyb3VwIDMyDQpbICAgNjIuNzI1NzA1XSBvaGNp
-LXBjaSAwMDAwOmJhOjAwLjA6IE9IQ0kgVW5yZWNvdmVyYWJsZSBFcnJvciwgZGlzYWJsZWQNClsg
-ICA2Mi43MjU3MTRdIG9oY2ktcGNpIDAwMDA6YmE6MDAuMDogSEMgZGllZDsgY2xlYW5pbmcgdXAN
-ClsgICA2Mi43Mjg3NTBdIG9oY2ktcGNpIDAwMDA6YmE6MDAuMDogVVNCIGJ1cyA3IGRlcmVnaXN0
-ZXJlZA0KWyAgIDYyLjcyODc3MV0gb2hjaS1wY2kgMDAwMDpiYTowMC4wOiBpbml0IDAwMDA6YmE6
-MDAuMCBmYWlsLCAtMTA4DQpbICAgNjIuNzI4ODE5XSBvaGNpLXBjaTogcHJvYmUgb2YgMDAwMDpi
-YTowMC4wIGZhaWxlZCB3aXRoIGVycm9yIC0xMDgNClsgICA2Mi44ODg2NTJdIG1seDVfY29yZSAw
-MDAwOjAyOjAwLjA6IHdhaXRfZnVuYzoxMDY4OihwaWQgMTUpOiBFTkFCTEVfSENBKDB4MTA0KSB0
-aW1lb3V0LiBXaWxsIGNhdXNlIGEgbGVhayBvZiBhIGNvbW1hbmQgcmVzb3VyY2UNClsgICA2Mi44
-ODg2NjhdIG1seDVfY29yZSAwMDAwOjAyOjAwLjA6IG1seDVfZnVuY3Rpb25fc2V0dXA6OTg1Oihw
-aWQgMTUpOiBlbmFibGUgaGNhIGZhaWxlZA0KWyAgIDYyLjkwNjg3N10gbWx4NV9jb3JlIDAwMDA6
-MDI6MDAuMDogaW5pdF9vbmU6MTM3MzoocGlkIDE1KTogbWx4NV9sb2FkX29uZSBmYWlsZWQgd2l0
-aCBlcnJvciBjb2RlIC0xMTANClsgICA2Mi45MDcwOTRdIG1seDVfY29yZTogcHJvYmUgb2YgMDAw
-MDowMjowMC4wIGZhaWxlZCB3aXRoIGVycm9yIC0xMTANClsgICA2Mi45MDcxODVdIG1seDVfY29y
-ZSAwMDAwOjAyOjAwLjE6IEFkZGluZyB0byBpb21tdSBncm91cCAzMw0KWyAgIDY5LjU1MjY0NV0g
-bWVnYXJhaWRfc2FzIDAwMDA6MDM6MDAuMDogSW5pdCBjbWQgcmV0dXJuIHN0YXR1cyBGQUlMRUQg
-Zm9yIFNDU0kgaG9zdCAwDQpbICAgODQuMjI4NjQwXSBtZWdhcmFpZF9zYXMgMDAwMDowMzowMC4w
-OiBXYWl0aW5nIGZvciBGVyB0byBjb21lIHRvIHJlYWR5IHN0YXRlDQoNCg0KDQpHYXZlIHVwIHdh
-aXRpbmcgZm9yIHN1c3BlbmQvcmVzdW1lIGRldmljZQ0KR2F2ZSB1cCB3YWl0aW5nIGZvciByb290
-IGZpbGUgc3lzdGVtIGRldmljZS4gIENvbW1vbiBwcm9ibGVtczoNCiAtIEJvb3QgYXJncyAoY2F0
-IC9wcm9jL2NtZGxpbmUpDQogICAtIENoZWNrIHJvb3RkZWxheT0gKGRpZCB0aGUgc3lzdGVtIHdh
-aXQgbG9uZyBlbm91Z2g/KQ0KIC0gTWlzc2luZyBtb2R1bGVzIChjYXQgL3Byb2MvbW9kdWxlczsg
-bHMgL2RldikNCkFMRVJUISAgVVVJRD01ZWJjMjNhZi1jMmUyLTRhYzMtYjMwOC0zZTgyZWM3ODZj
-MDQgZG9lcyBub3QgZXhpc3QuICBEcm9wcGluZyB0byBhIHNoZWxsIQ0KDQoNCkJ1c3lCb3ggdjEu
-MzAuMSAoRGViaWFuIDE6MS4zMC4xLTYrYjMpIGJ1aWx0LWluIHNoZWxsIChhc2gpDQpFbnRlciAn
-aGVscCcgZm9yIGEgbGlzdCBvZiBidWlsdC1pbiBjb21tYW5kcy4NCg0KKGluaXRyYW1mcykgDQoo
-aW5pdHJhbWZzKSANCihpbml0cmFtZnMpIA0KKGluaXRyYW1mcykgDQooaW5pdHJhbWZzKSBscw0K
-YmluICAgICAgZGV2ICAgICAgaW5pdCAgICAgcHJvYyAgICAgcnVuICAgICAgc2NyaXB0cyAgdG1w
-ICAgICAgdmFyDQpjb25mICAgICBldGMgICAgICBsaWIgICAgICByb290ICAgICBzYmluICAgICBz
-eXMgICAgICB1c3INCihpbml0cmFtZnMpIFsgIDE5MS42Njg2MzddIG1lZ2FyYWlkX3NhcyAwMDAw
-OjAzOjAwLjA6IEZXIG5vdyBpbiBSZWFkeSBzdGF0ZQ0KWyAgMTkxLjY2ODY2Nl0gbWVnYXJhaWRf
-c2FzIDAwMDA6MDM6MDAuMDogUGVyZm9ybWFuY2UgbW9kZSA6TGF0ZW5jeQ0KWyAgMTkxLjY2ODY3
-Ml0gbWVnYXJhaWRfc2FzIDAwMDA6MDM6MDAuMDogRlcgc3VwcG9ydHMgc3luYyBjYWNoZQk6IFll
-cw0KWyAgMTkxLjY2ODY4MV0gbWVnYXJhaWRfc2FzIDAwMDA6MDM6MDAuMDogbWVnYXNhc19kaXNh
-YmxlX2ludHJfZnVzaW9uIGlzIGNhbGxlZCBvdXRib3VuZF9pbnRyX21hc2s6MHg0MDAwMDAwOQ0K
-DQooaW5pdHJhbWZzKSANCihpbml0cmFtZnMpIA0KKGluaXRyYW1mcykgbHMgL3N5cy9jbGFzcy9i
-bG9jay8NCihpbml0cmFtZnMpIFsgIDIwNS42OTY2NDZdIG1lZ2FyYWlkX3NhcyAwMDAwOjAzOjAw
-LjA6IEluaXQgY21kIHJldHVybiBzdGF0dXMgRkFJTEVEIGZvciBTQ1NJIGhvc3QgMA0KWyAgMjA1
-Ljc3NjQxNF0gbWVnYXJhaWRfc2FzIDAwMDA6MDM6MDAuMDogRmFpbGVkIGZyb20gbWVnYXNhc19p
-bml0X2Z3IDY0NjcNCg==
---000000000000514e2605fe32169e--
+An empty declaration is a semicolon with nothing before it.
+Non-documented GCC extension.
+
+
+> +   * - Incomplete enum declaration
+> +     - ARM64
+> +     - Non-documented GCC extension.
+
+Is this 6.49 of the GCC manual perhaps?
+
+
+> +   * - Implicit conversion from a pointer to an incompatible pointer
+> +     - ARM64, X86_64
+> +     - Non-documented GCC extension.
+
+Is this related to -Wincompatible-pointer-types?
+
+
+> +   * - Pointer to a function is converted to a pointer to an object or a pointer to an object is converted to a pointer to a function
+> +     - X86_64
+> +     - Non-documented GCC extension.
+
+Is this J.5.7 of n1570?
+https://www.iso-9899.info/n1570.html
+
+Or maybe we should link https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83584
+
+
+> +   * - Ill-formed source detected by the parser
+
+As we are documenting compiler extensions that we are using, I am a bit
+confused by the name of this category of compiler extensions, and the
+reason why they are bundled together. After all, they are all separate
+compiler extensions? Should each of them have their own row?
+
+
+> +     - ARM64, X86_64
+> +     - token pasting of ',' and __VA_ARGS__ is a GNU extension:
+> +          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
+> +       must specify at least one argument for '...' parameter of variadic macro:
+> +          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
+> +       void function should not return void expression:
+
+I understand that GCC does a poor job at documenting several of these
+extensions. In fact a few of them are not even documented at all.
+However, if they are extensions, they should be described for what they
+do, not for the rule they violate. What do you think?
+
+For example, in this case maybe we should say "void function can return
+a void expression" ?
+
+
+> +          see the documentation for -Wreturn-type in Section "3.8 Options to Request or Suppress Warnings" of GCC_MANUAL.
+> +       use of GNU statement expression extension from macro expansion:
+> +          see Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
+> +       invalid application of sizeof to a void type:
+> +          see Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL.
+> +       redeclaration of already-defined enum is a GNU extension:
+> +          see Section "6.49 Incomplete enum Types" of GCC_MANUAL.
+> +       static function is used in an inline function with external linkage:
+> +          non-documented GCC extension.
+
+I am not sure if I follow about this one. Did you mean "static is used
+in an inline function with external linkage" ?
+
+
+> +       struct may not be nested in a struct due to flexible array member:
+> +          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
+> +       struct may not be used as an array element due to flexible array member:
+> +          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
+> +       ISO C restricts enumerator values to the range of int:
+> +          non-documented GCC extension.
+
+Should we call it instead "enumerator values can be larger than int" ?
+
+
+> +
+> +   * - Unspecified escape sequence is encountered in a character constant or a string literal token
+> +     - X86_64
+> +     - \\m:
+> +          non-documented GCC extension.
+
+Are you saying that we are using \m and \m is not allowed by the C
+standard?
+
+
+> +   * - Non-standard type
+
+Should we call it "128-bit Integers" ?
+
+
+> +     - X86_64
+> +     - See Section "6.9 128-bit Integers" of GCC_MANUAL.
+
+
+
+
+> +Translation Limits
+> +__________________
+> +
+> +The following table lists the translation limits that a toolchain has
+> +to satisfy in order to translate Xen.  The numbers given are a
+> +compromise: on the one hand, many modern compilers have very generous
+> +limits (in several cases, the only limitation is the amount of
+> +available memory); on the other hand we prefer setting limits that are
+> +not too high, because compilers do not have any obligation of
+> +diagnosing when a limit has been exceeded, and not too low, so as to
+> +avoid frequently updating this document.  In the table, only the
+> +limits that go beyond the minima specified by the relevant C Standard
+> +are listed.
+> +
+> +The table columns are as follows:
+> +
+> +   Limit
+> +      a terse description of the translation limit;
+> +   Architectures
+> +      a set relevant of Xen architectures;
+> +   Threshold
+> +      a value that the Xen project does not wish to exceed for that limit
+> +      (this is typically below, often much below what the translation
+> +      toolchain supports);
+> +   References
+> +      when available, references to the documentation providing evidence
+> +      that the translation toolchain honors the threshold (and more).
+> +
+> +.. list-table::
+> +   :widths: 30 15 10 45
+> +   :header-rows: 1
+> +
+> +   * - Limit
+> +     - Architectures
+> +     - Threshold
+> +     - References
+> +
+> +   * - Size of an object
+> +     - ARM64, X86_64
+> +     - 8388608
+> +     - The maximum size of an object is defined in the MAX_SIZE macro, and for a 32 bit architecture is 8MB.
+> +       The maximum size for an array is defined in the PTRDIFF_MAX and in a 32 bit architecture is 2^30-1.
+> +       See occurrences of these macros in GCC_MANUAL.
+> +
+> +   * - Characters in one logical source line
+> +     - ARM64
+> +     - 5000
+> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
+> +
+> +   * - Characters in one logical source line
+> +     - X86_64
+> +     - 12000
+> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
+> +
+> +   * - Nesting levels for #include files
+> +     - ARM64
+> +     - 24
+> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
+> +
+> +   * - Nesting levels for #include files
+> +     - X86_64
+> +     - 32
+> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
+> +
+> +   * - case labels for a switch statement (excluding those for any nested switch statements)
+> +     - X86_64
+> +     - 1500
+> +     - See Section "4.12 Statements" of GCC_MANUAL.
+> +
+> +   * - Number of significant initial characters in an external identifier
+> +     - ARM64, X86_64
+> +     - 63
+> +     - See Section "4.3 Identifiers" of GCC_MANUAL.
+> +
+> +
+> +Implementation-Defined Behaviors
+> +________________________________
+> +
+> +The following table lists the C language implementation-defined behaviors
+> +relevant for MISRA C:2012 Dir 1.1 upon which Xen may possibly depend.
+> +
+> +The table columns are as follows:
+> +
+> +   I.-D.B.
+> +      a terse description of the implementation-defined behavior;
+> +   Architectures
+> +      a set relevant of Xen architectures;
+> +   Value(s)
+> +      for i.-d.b.'s with values, the values allowed;
+> +   References
+> +      when available, references to the documentation providing details
+> +      about how the i.-d.b. is resolved by the translation toolchain.
+> +
+> +.. list-table::
+> +   :widths: 30 15 10 45
+> +   :header-rows: 1
+> +
+> +   * - I.-D.B.
+> +     - Architectures
+> +     - Value(s)
+> +     - References
+> +
+> +   * - Allowable bit-field types other than _Bool, signed int, and unsigned int
+> +     - ARM64, X86_64
+> +     - All explicitly signed integer types, all unsigned integer types,
+> +       and enumerations.
+> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields".
+> +
+> +   * - #pragma preprocessing directive that is documented as causing translation failure or some other form of undefined behavior is encountered
+> +     - ARM64, X86_64
+> +     - pack, GCC visibility
+> +     - #pragma pack:
+> +          see Section "6.62.11 Structure-Layout Pragmas" of GCC_MANUAL.
+> +       #pragma GCC visibility:
+> +          see Section "6.62.14 Visibility Pragmas" of GCC_MANUAL.
+> +
+> +   * - The number of bits in a byte
+> +     - ARM64
+> +     - 8
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
+> +
+> +   * - The number of bits in a byte
+> +     - X86_64
+> +     - 8
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - Whether signed integer types are represented using sign and magnitude, two's complement, or one's complement, and whether the extraordinary value is a trap representation or an ordinary value
+> +     - ARM64, X86_64
+> +     - Two's complement
+> +     - See Section "4.5 Integers" of GCC_MANUAL.
+> +
+> +   * - Any extended integer types that exist in the implementation
+> +     - X86_64
+> +     - __uint128_t
+> +     - See Section "6.9 128-bit Integers" of GCC_MANUAL.
+> +
+> +   * - The number, order, and encoding of bytes in any object
+> +     - ARM64
+> +     -
+> +     - See Section "4.15 Architecture" of GCC_MANUAL and Chapter 5 "Data types and alignment" of ARM64_ABI_MANUAL.
+> +
+> +   * - The number, order, and encoding of bytes in any object
+> +     - X86_64
+> +     -
+> +     - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - Whether a bit-field can straddle a storage-unit boundary
+> +     - ARM64
+> +     -
+> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields of GCC_MANUAL and Section "8.1.8 Bit-fields" of ARM64_ABI_MANUAL.
+> +
+> +   * - Whether a bit-field can straddle a storage-unit boundary
+> +     - X86_64
+> +     -
+> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - The order of allocation of bit-fields within a unit
+> +     - ARM64
+> +     -
+> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields of GCC_MANUAL and Section "8.1.8 Bit-fields" of ARM64_ABI_MANUAL.
+> +
+> +   * - The order of allocation of bit-fields within a unit
+> +     - X86_64
+> +     -
+> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - What constitutes an access to an object that has volatile-qualified type
+> +     - ARM64, X86_64
+> +     -
+> +     - See Section "4.10 Qualifiers" of GCC_MANUAL.
+> +
+> +   * - The values or expressions assigned to the macros specified in the headers <float.h>, <limits.h>, and <stdint.h>
+> +     - ARM64
+> +     -
+> +     - See Section "4.15 Architecture" of GCC_MANUAL and Chapter 5 "Data types and alignment" of ARM64_ABI_MANUAL.
+> +
+> +   * - The values or expressions assigned to the macros specified in the headers <float.h>, <limits.h>, and <stdint.h>
+> +     - X86_64
+> +     -
+> +     - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - Character not in the basic source character set is encountered in a source file, except in an identifier, a character constant, a string literal, a header name, a comment, or a preprocessing token that is never converted to a token
+> +     - ARM64
+> +     - UTF-8
+> +     - See Section "1.1 Character sets" of CPP_MANUAL.
+> +       We assume the locale is not restricting any UTF-8 characters being part of the source character set.
+> +
+> +   * - The value of a char object into which has been stored any character other than a member of the basic execution character set
+> +     - ARM64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
+> +
+> +   * - The value of a char object into which has been stored any character other than a member of the basic execution character set
+> +     - X86_64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - The value of an integer character constant containing more than one character or containing a character or escape sequence that does not map to a single-byte execution character
+> +     - ARM64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
+> +
+> +   * - The value of an integer character constant containing more than one character or containing a character or escape sequence that does not map to a single-byte execution character
+> +     - X86_64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
+> +
+> +   * - The mapping of members of the source character set
+> +     - ARM64, X86_64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and the documentation for -finput-charset=charset in the same manual.
+> +
+> +   * - The members of the source and execution character sets, except as explicitly specified in the Standard
+> +     - ARM64, X86_64
+> +     - UTF-8
+> +     - See Section "4.4 Characters" of GCC_MANUAL
+> +
+> +   * - The values of the members of the execution character set
+> +     - ARM64, X86_64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and the documentation for -fexec-charset=charset in the same manual.
+> +
+> +   * - How a diagnostic is identified
+> +     - ARM64, X86_64
+> +     -
+> +     - See Section "4.1 Translation" of GCC_MANUAL.
+> +
+> +   * - The termination status returned to the host environment by the abort, exit, or _Exit function
+> +     - ARM64
+> +     -
+> +     - See "Section 25.7 Program Termination" of ARM64_LIBC_MANUAL.
+> +
+> +   * - The termination status returned to the host environment by the abort, exit, or _Exit function
+> +     - X86_64
+> +     -
+> +     - See "Section 25.7 Program Termination" of X86_64_LIBC_MANUAL.
+> +
+> +   * - The places that are searched for an included < > delimited header, and how the places are specified or the header is identified
+> +     - ARM64, X86_64
+> +     -
+> +     - See Chapter "2 Header Files" of CPP_MANUAL.
+> +
+> +   * - How the named source file is searched for in an included " " delimited header
+> +     - ARM64, X86_64
+> +     -
+> +     - See Chapter "2 Header Files" of CPP_MANUAL.
+> +
+> +   * - How sequences in both forms of header names are mapped to headers or external source file names
+> +     - ARM64, X86_64
+> +     -
+> +     - See Chapter "2 Header Files" of CPP_MANUAL.
+> +
+> +   * - Whether the # operator inserts a \ character before the \ character that begins a universal character name in a character constant or string literal
+> +     - ARM64, X86_64
+> +     -
+> +     - See Section "3.4 Stringizing" of CPP_MANUAL.
+> +
+> +   * - The current locale used to convert a wide string literal into corresponding wide character codes
+> +     - ARM64, X86_64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
+> +
+> +   * - The value of a string literal containing a multibyte character or escape sequence not represented in the execution character set
+> +     - X86_64
+> +     -
+> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
+> +
+> +   * - The behavior on each recognized #pragma directive
+> +     - ARM64, X86_64
+> +     - pack, GCC visibility
+> +     - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "7 Pragmas" of CPP_MANUAL.
+> +
+> +   * - The method by which preprocessing tokens (possibly resulting from macro expansion) in a #include directive are combined into a header name
+> +     - X86_64
+> +     -
+> +     - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
+> +
+> +
+> +END OF DOCUMENT.
+
+END OF DOCUMENT is unnecessary
+
+> -- 
+> 2.34.1
+> 
 
