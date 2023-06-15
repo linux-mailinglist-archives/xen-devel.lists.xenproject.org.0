@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5AF731439
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 11:40:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.549498.858064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2EF731503
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 12:15:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.549503.858075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9jSf-00035W-Bv; Thu, 15 Jun 2023 09:40:13 +0000
+	id 1q9k0T-0006kI-1U; Thu, 15 Jun 2023 10:15:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 549498.858064; Thu, 15 Jun 2023 09:40:13 +0000
+Received: by outflank-mailman (output) from mailman id 549503.858075; Thu, 15 Jun 2023 10:15:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9jSf-00033r-8r; Thu, 15 Jun 2023 09:40:13 +0000
-Received: by outflank-mailman (input) for mailman id 549498;
- Thu, 15 Jun 2023 09:40:12 +0000
+	id 1q9k0S-0006hz-Tj; Thu, 15 Jun 2023 10:15:08 +0000
+Received: by outflank-mailman (input) for mailman id 549503;
+ Thu, 15 Jun 2023 10:15:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1q9jSd-00033j-VD
- for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 09:40:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9k0R-0006gn-Kc; Thu, 15 Jun 2023 10:15:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1q9jSd-0007wx-H2; Thu, 15 Jun 2023 09:40:11 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1q9jSd-0002pp-9s; Thu, 15 Jun 2023 09:40:11 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9k0R-0000Kl-IQ; Thu, 15 Jun 2023 10:15:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9k0R-0004qW-36; Thu, 15 Jun 2023 10:15:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9k0R-0002Hi-1n; Thu, 15 Jun 2023 10:15:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,77 +42,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Ce2Hf9V6ob4s+vYtijmG/3zPfNoIQPCs7FVQBuC5w8o=; b=wg4TCXbU7FS+kOqBKTvKsSEGwP
-	bOfxTInlar31q1iqOM755ALUdNIm0X3cIPRXqvNCDRkUlsVcj6xrh1etNA7tTYsqzWTYOSXybYhz7
-	NT+ylGDAjEcOUp9a0WZpbO9SF8X1MC3sqBJC/YnyPygFbD7uH0mUaCkxBb4nyJlOiGk0=;
-Message-ID: <bd8911e1-a896-120b-e2f1-add33524bc1f@xen.org>
-Date: Thu, 15 Jun 2023 10:40:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GoAc7gpUaN8kzGyVCvn0/WRavzTZEiSF4nMb8NI5x9Q=; b=5/r3DmT1NhzGBNpHjSElOjO2bB
+	YTxUiDi6jB29mRyalSWobPNqrx3GUadheFoGHM9gfQTUKeirDsBcBqsYzjnsn7IMck+eyesUpFJRJ
+	5GqWgZVKzr6vTF4h5F5He/7OpeU2kkz2pEjuLpV0i9fJnk9Z7tpS7cLWzYS9+orsuSEo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181438-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [XEN v8 1/5] xen/arm: p2m: Use the pa_range_info table to support
- ARM_32 and ARM_64
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel
- <michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230602120754.23817-1-ayan.kumar.halder@amd.com>
- <20230602120754.23817-2-ayan.kumar.halder@amd.com>
- <c48d763b-4b58-69f1-4cce-2f9855aa8ee0@amd.com>
- <35d0fd4a-4afe-6203-183b-d0a1f2f5d5ba@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <35d0fd4a-4afe-6203-183b-d0a1f2f5d5ba@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 181438: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-localmigrate/x10:fail:heisenbug
+X-Osstest-Versions-This:
+    ovmf=ea55bd8f66eeca5f4e80c3679bcf1b1007286b8a
+X-Osstest-Versions-That:
+    ovmf=aad98d915abe5ba092e318913028ed47937a9447
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Jun 2023 10:15:07 +0000
 
-Hi Ayan,
+flight 181438 ovmf real [real]
+flight 181441 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181438/
+http://logs.test-lab.xenproject.org/osstest/logs/181441/
 
-On 15/06/2023 10:29, Ayan Kumar Halder wrote:
-> 
-> On 15/06/2023 09:05, Michal Orzel wrote:
->> Hi Ayan,
-> Hi Michal,
->>
->> On 02/06/2023 14:07, Ayan Kumar Halder wrote:
->>>
->>> Restructure the code so that one can use pa_range_info[] table for both
->>> ARM_32 as well as ARM_64.
->> I grepped for ARM_{32,64} in our code base and could not find any use 
->> in source files except for things
->> introduced by this commit. While I'm ok with it in a commit message I 
->> think for consistency we should be
->> using arm32/arm64 in the code.
-> 
-> AFAIU, arm32/arm64 refers to the Architecture. ARM_32/ARM_64 refers to 
-> the configuration.
-> 
-> If you see the original code (xen/arch/arm/include/asm/p2m.h, 
-> xen/arch/arm/p2m.c)
-> 
-> ARM_32/ARM_64 has been used.
-> 
-> Thus, I used ARM_32/ARM_64 in this commit. Let me know if it makes sense.
-> The rest of your comments look sane to me.
-In text, we commonly don't use the name of the config. Instead we use 
-the name of the architecture (i.e. arm32/arm64) because this is a strict 
-correspondence.
+Failures :-/ but no regressions.
 
-I agree with Michal, about using arm32/arm64 rather than ARM_32/ARM_64 
-in the comments at least to stay consistent with the rest of the code.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 18 guest-localmigrate/x10 fail pass in 181441-retest
 
-Assuming there is no other changes required in this patch (I haven't 
-looked at it yet), then I am happy to handle this request on commit if 
-you are OK with it.
+version targeted for testing:
+ ovmf                 ea55bd8f66eeca5f4e80c3679bcf1b1007286b8a
+baseline version:
+ ovmf                 aad98d915abe5ba092e318913028ed47937a9447
 
-Cheers,
+Last test of basis   181429  2023-06-14 15:14:02 Z    0 days
+Testing same since   181438  2023-06-15 05:42:42 Z    0 days    1 attempts
 
--- 
-Julien Grall
+------------------------------------------------------------
+People who touched revisions under test:
+  Tuan Phan <tphan@ventanamicro.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   aad98d915a..ea55bd8f66  ea55bd8f66eeca5f4e80c3679bcf1b1007286b8a -> xen-tested-master
 
