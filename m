@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AF2F73239A
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 01:27:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.549946.858777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1E317323B9
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 01:37:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.549951.858788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9wMF-0004Za-K0; Thu, 15 Jun 2023 23:26:27 +0000
+	id 1q9wWA-00067W-K6; Thu, 15 Jun 2023 23:36:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 549946.858777; Thu, 15 Jun 2023 23:26:27 +0000
+Received: by outflank-mailman (output) from mailman id 549951.858788; Thu, 15 Jun 2023 23:36:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9wMF-0004WF-HI; Thu, 15 Jun 2023 23:26:27 +0000
-Received: by outflank-mailman (input) for mailman id 549946;
- Thu, 15 Jun 2023 23:26:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vZfe=CD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1q9wME-0004W9-PB
- for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 23:26:26 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09cdacf9-0bd4-11ee-8611-37d641c3527e;
- Fri, 16 Jun 2023 01:26:23 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8D21161507;
- Thu, 15 Jun 2023 23:26:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951A3C433C8;
- Thu, 15 Jun 2023 23:26:19 +0000 (UTC)
+	id 1q9wWA-00064Q-G9; Thu, 15 Jun 2023 23:36:42 +0000
+Received: by outflank-mailman (input) for mailman id 549951;
+ Thu, 15 Jun 2023 23:36:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9wW8-00064G-T6; Thu, 15 Jun 2023 23:36:40 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9wW8-0002DH-P4; Thu, 15 Jun 2023 23:36:40 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9wW8-00047Z-4n; Thu, 15 Jun 2023 23:36:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q9wW8-0006RR-4E; Thu, 15 Jun 2023 23:36:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,591 +42,464 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09cdacf9-0bd4-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686871580;
-	bh=6f4Yp4TNdxplNvT5S26a9uVV+H4+sAV1aCvrAP+5/7k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AWNh7dG+Tgd9ylFviyvsZimbS2gSY2olBJ49nQjr+ljat3thn5Vug0WY407VhKoAP
-	 sMAc+f4j7qBVTL5h5IyhfZuiXQvTq85Hc3/cI9lWCcOgO28FbvzWI/hnG7AsPPhxJN
-	 rwLTsz4MkhKyjiLsMQvrEZ8ff9KbnLXVpwv42MLt3HGXpgOlxC+/CHFA95jj/eChnT
-	 yx/jVkKpMhvPdHl/mVgVfToNwgfRQhVUofKR9ahiIaETZhJqrzRfBHghtg7iJWSkOm
-	 1k/JteYyfpdLIWbBDmlHyxB1LP0+Bbn4fDPp1rjY/hu7RpR5GnMCQhXuq4d5GYELod
-	 9SNMcn13u9aUA==
-Date: Thu, 15 Jun 2023 16:26:18 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Roberto Bagnara <roberto.bagnara@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH] docs/misra: document the C dialect and translation
- toolchain assumptions.
-In-Reply-To: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
-References: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LErlprRtppWe0oi9wH82+/1+ssmbYX/mxqkjsfKrr00=; b=M7FPrHm+WxQQXGhhWsg6w5KIpc
+	tv4rx+yJOTkIOFaKYaIwoAKFP51Y1puXXsiHZ3MwJXhVcvbcJosEHYioJ+QwbDn/1V60i2PixYcMF
+	F2Cgraj480qCWWBfKpL8j49wqiVX4G2xnnTfYZkmH7ujL0Cxs4m7s47mtbpbWbAzxKko=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181446-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [qemu-mainline test] 181446: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-amd64-xsm:xen-build:fail:regression
+    qemu-mainline:build-arm64:xen-build:fail:regression
+    qemu-mainline:build-arm64-xsm:xen-build:fail:regression
+    qemu-mainline:build-amd64:xen-build:fail:regression
+    qemu-mainline:build-i386:xen-build:fail:regression
+    qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-armhf:xen-build:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    qemuu=7efd65423ab22e6f5890ca08ae40c84d6660242f
+X-Osstest-Versions-That:
+    qemuu=6972ef1440a9d685482d78672620a7482f2bd09a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Jun 2023 23:36:40 +0000
 
-On Thu, 15 Jun 2023, Roberto Bagnara wrote:
-> This document specifies the C language dialect used by Xen and
-> the assumptions Xen makes on the translation toolchain.
-> 
-> Signed-off-by: Roberto Bagnara <roberto.bagnara@bugseng.com>
+flight 181446 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181446/
 
-Thanks Roberto for the amazing work of research and archaeology.
+Regressions :-(
 
-I have a few comments below, mostly to clarify the description of some
-of the less documented GCC extensions, for the purpose of having all
-community members be able to understand what they can and cannot use.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 180691
+ build-arm64                   6 xen-build                fail REGR. vs. 180691
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 180691
+ build-amd64                   6 xen-build                fail REGR. vs. 180691
+ build-i386                    6 xen-build                fail REGR. vs. 180691
+ build-i386-xsm                6 xen-build                fail REGR. vs. 180691
+ build-armhf                   6 xen-build                fail REGR. vs. 180691
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-vhd        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+
+version targeted for testing:
+ qemuu                7efd65423ab22e6f5890ca08ae40c84d6660242f
+baseline version:
+ qemuu                6972ef1440a9d685482d78672620a7482f2bd09a
+
+Last test of basis   180691  2023-05-17 10:45:22 Z   29 days
+Failing since        180699  2023-05-18 07:21:24 Z   28 days  105 attempts
+Testing same since   181419  2023-06-14 05:08:14 Z    1 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Afonso Bordado <afonsobordado@gmail.com>
+  Akihiko Odaki <akihiko.odaki@daynix.com>
+  Akihiro Suda <akihiro.suda.cz@hco.ntt.co.jp>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexander Graf <graf@amazon.com>
+  Alexander Ivanov <alexander.ivanov@virtuozzo.com>
+  Alistair Francis <alistair.francis@wdc.com>
+  Anastasia Belova <abelova@astralinux.ru>
+  Andrea Bolognani <abologna@redhat.com>
+  Andreas Schwab <schwab@suse.de>
+  Andrew Jeffery <andrew@aj.id.au>
+  Ani Sinha <ani@anisinha.ca>
+  Ani Sinha <anisinha@redhat.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Anton Johansson <anjo@rev.ng>
+  Antonio Caggiano <quic_acaggian@quicinc.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
+  Bernhard Beschow <shentey@gmail.com>
+  Bin Meng <bin.meng@windriver.com>
+  Brian Cain <bcain@quicinc.com>
+  Brice Goglin <Brice.Goglin@inria.fr>
+  Camilla Conte <cconte@redhat.com>
+  Carlos Santos <casantos@redhat.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Chuck Zmudzinski <brchuckz@aol.com>
+  Cindy Lu <lulu@redhat.com>
+  Clément Chigot <chigot@adacore.com>
+  Corey Minyard <cminyard@mvista.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Cédric Le Goater <clg@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Henrique Barboza <dbarboza@ventanamicro.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniil Kovalev <dkovalev@compiler-toolchain-for.me>
+  David Hildenbrand <david@redhat.com>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Emanuele Giuseppe Esposito <eesposit@redhat.com>
+  Enze Li <lienze@kylinos.cn>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Eric DeVolder <eric.devolder@oracle.com>
+  Erico Nunes <ernunes@redhat.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Fabiano Rosas <farosas@suse.de>
+  Fan Ni <fan.ni@samsung.com>
+  Fiona Ebner <f.ebner@proxmox.com>
+  Francesco Cagnin <fcagnin@quarkslab.com>
+  Francisco Iglesias <frasse.iglesias@gmail.com>
+  Frederic Barrat <fbarrat@linux.ibm.com>
+  Gavin Shan <gshan@redhat.com>
+  Gregory Price <gourry.memverge@gmail.com>
+  Gregory Price <gregory.price@memverge.com>
+  Hanna Czenczek <hreitz@redhat.com>
+  Hao Zeng <zenghao@kylinos.cn>
+  Hawkins Jiawei <yin31149@gmail.com>
+  Himanshu Chauhan <hchauhan@ventanamicro.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Ira Weiny <ira.weiny@intel.com>
+  Ivan Klokov <ivan.klokov@syntacore.com>
+  Jagannathan Raman <jag.raman@oracle.com>
+  Jason Wang <jasowang@redhat.com>
+  Jean-Louis Dupond <jean-louis@dupond.be>
+  Jean-Philippe Brucker <jean-philippe@linaro.org>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Joao Martins <joao.m.martins@oracle.com>
+  John Snow <jsnow@redhat.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Juan Quintela <quintela@redhat.com>
+  Junqiang Wang <wangjunqiang@iscas.ac.cn>
+  Kevin Wolf <kwolf@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Lei Yang <leiyang@redhat.com>
+  Leonardo Bras <leobras@redhat.com>
+  Maksim Davydov <davydov-max@yandex-team.ru>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+  Marco Liebel <quic_mliebel@quicinc.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
+  Mattias Nissler <mnissler@rivosinc.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Fritz <antischmock@googlemail.com>
+  Mayuresh Chitale <mchitale@ventanamicro.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Michal Privoznik <mprivozn@redhat.com>
+  Milan Zamazal <mzamazal@redhat.com>
+  Mostafa Saleh <smostafa@google.com>
+  Nicholas Piggin <npiggin@gmail.com>
+  Nicolas Saenz Julienne <nsaenz@amazon.com>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Niklas Cassel <niklas.cassel@wdc.com>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Patrick Venture <venture@google.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  qianfan Zhao <qianfanguijin@163.com>
+  Raghu H <raghuhack78@gmail.com>
+  Rene Engel <ReneEngel80@emailn.de>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard Purdie <richard.purdie@linuxfoundation.org>
+  Ricky Zhou <ricky@rzhou.org>
+  Ryan Wendland <wendland@live.com.au>
+  Sebastian Ott <sebott@redhat.com>
+  Sergio Lopez <slp@redhat.com>
+  Sid Manning <sidneym@quicinc.com>
+  Song Gao <gaosong@loongson.cn>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Steve Sistare <steven.sistare@oracle.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+  Taylor Simpson <tsimpson@quicinc.com>
+  Thomas Huth <thuth@redhat.com>
+  Thomas Weißschuh <thomas@t-8ch.de>
+  timothee.cocault@gmail.com <timothee.cocault@gmail.com>
+  Timothée Cocault <timothee.cocault@gmail.com>
+  Tommy Wu <tommy.wu@sifive.com>
+  Vikram Garhwal <vikram.garhwal@amd.com>
+  Viktor Prutyanov <viktor@daynix.com>
+  Vitaly Cheptsov <cheptsov@ispras.ru>
+  Vivek Kasireddy <vivek.kasireddy@intel.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Weiwei Li <liweiwei@iscas.ac.cn>
+  Xiao Wang <xiao.w.wang@intel.com>
+  Xinyu Li <lixinyu20s@ict.ac.cn>
+  Yin Wang <yin.wang@intel.com>
+  Zeng Hao <zenghao@kylinos.cn>
+  Zhenyu Zhang <zhenyzha@redhat.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Zhuojia Shen <chaosdefinition@hotmail.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  fail    
+ build-armhf                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          blocked 
+ test-amd64-coresched-amd64-xl                                blocked 
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-pvhv2-amd                                blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-xl-credit1                                  blocked 
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  blocked 
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-pvhv2-intel                              blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                blocked 
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        blocked 
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   blocked 
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-xl-rtds                                     blocked 
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   blocked 
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       blocked 
 
 
-> ---
->  docs/misra/C-language-toolchain.rst | 465 ++++++++++++++++++++++++++++
->  1 file changed, 465 insertions(+)
->  create mode 100644 docs/misra/C-language-toolchain.rst
-> 
-> diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
-> new file mode 100644
-> index 0000000000..013cef071c
-> --- /dev/null
-> +++ b/docs/misra/C-language-toolchain.rst
-> @@ -0,0 +1,465 @@
-> +=============================================
-> +C Dialect and Translation Assumptions for Xen
-> +=============================================
-> +
-> +This document specifies the C language dialect used by Xen and
-> +the assumptions Xen makes on the translation toolchain.
-> +It covers, in particular:
-> +
-> +1. the used language extensions;
-> +2. the translation limits that the translation toolchains must be able
-> +   to accommodate;
-> +3. the implementation-defined behaviors upon which Xen may depend.
-> +
-> +All points are of course relevant for portability.  In addition,
-> +programming in C is impossible without a detailed knowledge of the
-> +implementation-defined behaviors.  For this reason, it is recommended
-> +that Xen developers have familiarity with this document and the
-> +documentation referenced therein.
-> +
-> +This document needs maintenance and adaptation in the following
-> +circumstances:
-> +
-> +- whenever the compiler is changed or updated;
-> +- whenever the use of a certain language extension is added or removed;
-> +- whenever code modifications cause exceeding the stated translation limits.
-> +
-> +
-> +Applicable C Language Standard
-> +______________________________
-> +
-> +Xen is written in C99 with extensions.  The relevant ISO standard is
-> +
-> +    *ISO/IEC 9899:1999/Cor 3:2007*: Programming Languages - C,
-> +    Technical Corrigendum 3.
-> +    ISO/IEC, Geneva, Switzerland, 2007.
-> +
-> +
-> +Reference Documentation
-> +_______________________
-> +
-> +The following documents are referred to in the sequel:
-> +
-> +GCC_MANUAL:
-> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc.pdf
-> +CPP_MANUAL:
-> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/cpp.pdf
-> +ARM64_ABI_MANUAL:
-> +  https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs64/aapcs64.rst
-> +X86_64_ABI_MANUAL:
-> +  https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build
-> +ARM64_LIBC_MANUAL:
-> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
-> +X86_64_LIBC_MANUAL:
-> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
-> +
-> +
-> +C Language Extensions
-> +_____________________
-> +
-> +
-> +The following table lists the extensions currently used in Xen.
-> +The table columns are as follows:
-> +
-> +   Extension
-> +      a terse description of the extension;
-> +   Architectures
-> +      a set of Xen architectures making use of the extension;
-> +   References
-> +      when available, references to the documentation explaining
-> +      the syntax and semantics of (each instance of) the extension.
-> +
-> +
-> +.. list-table::
-> +   :widths: 30 15 55
-> +   :header-rows: 1
-> +
-> +   * - Extension
-> +     - Architectures
-> +     - References
-> +
-> +   * - Non-standard tokens
-> +     - ARM64, X86_64
-> +     - _Static_assert:
-> +          see Section "2.1 C Language" of GCC_MANUAL.
-> +       asm, __asm__:
-> +          see Sections "6.48 Alternate Keywords" and "6.47 How to Use Inline Assembly Language in C Code" of GCC_MANUAL.
-> +       __volatile__:
-> +          see Sections "6.48 Alternate Keywords" and "6.47.2.1 Volatile" of GCC_MANUAL.
-> +       __const__, __inline__, __inline:
-> +          see Section "6.48 Alternate Keywords" of GCC_MANUAL.
-> +       typeof, __typeof__:
-> +          see Section "6.7 Referring to a Type with typeof" of GCC_MANUAL.
-> +       __alignof__, __alignof:
-> +          see Sections "6.48 Alternate Keywords" and "6.44 Determining the Alignment of Functions, Types or Variables" of GCC_MANUAL.
-> +       __attribute__:
-> +          see Section "6.39 Attribute Syntax" of GCC_MANUAL.
-> +       __builtin_types_compatible_p:
-> +          see Section "6.59 Other Built-in Functions Provided by GCC" of GCC_MANUAL.
-> +       __builtin_va_arg:
-> +          non-documented GCC extension.
-> +       __builtin_offsetof:
-> +          see Section "6.53 Support for offsetof" of GCC_MANUAL.
-> +       __signed__:
-> +          non-documented GCC extension.
-> +
-> +   * - Empty initialization list
-> +     - ARM64, X86_64
-> +     - Non-documented GCC extension.
-> +
-> +   * - Arithmetic operator on void type
-> +     - ARM64, X86_64
-> +     - See Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL."
-> +
-> +   * - GNU statement expression
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-"GNU statement expression" is not very clear, at least for me. I would
-call it "Statements and Declarations in Expressions".
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> +     - ARM64, X86_64
-> +     - See Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
-> +
-> +   * - Structure or union definition with no members
-> +     - ARM64, X86_64
-> +     - See Section "6.19 Structures with No Members" of GCC_MANUAL.
-> +
-> +   * - Zero size array type
-> +     - ARM64, X86_64
-> +     - See Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
-> +
-> +   * - Binary conditional expression
-> +     - ARM64, X86_64
-> +     - See Section "6.8 Conditionals with Omitted Operands" of GCC_MANUAL.
-> +
-> +   * - 'Case' label with upper/lower values
-> +     - ARM64, X86_64
-> +     - See Section "6.30 Case Ranges" of GCC_MANUAL.
-> +
-> +   * - Unnamed field that is not a bit-field
-> +     - ARM64, X86_64
-> +     - See Section "6.63 Unnamed Structure and Union Fields" of GCC_MANUAL.
-> +
-> +   * - Empty declaration
-> +     - ARM64, X86_64
-> +     - Non-documented GCC extension.
+Not pushing.
 
-For the non-documented GCC extensions, would it be possible to add a
-very brief example or a couple of words in the "References" sections?
-Otherwise I think people might not understand what we are talking about.
-
-For instance in this case I would say:
-
-An empty declaration is a semicolon with nothing before it.
-Non-documented GCC extension.
-
-
-> +   * - Incomplete enum declaration
-> +     - ARM64
-> +     - Non-documented GCC extension.
-
-Is this 6.49 of the GCC manual perhaps?
-
-
-> +   * - Implicit conversion from a pointer to an incompatible pointer
-> +     - ARM64, X86_64
-> +     - Non-documented GCC extension.
-
-Is this related to -Wincompatible-pointer-types?
-
-
-> +   * - Pointer to a function is converted to a pointer to an object or a pointer to an object is converted to a pointer to a function
-> +     - X86_64
-> +     - Non-documented GCC extension.
-
-Is this J.5.7 of n1570?
-https://www.iso-9899.info/n1570.html
-
-Or maybe we should link https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83584
-
-
-> +   * - Ill-formed source detected by the parser
-
-As we are documenting compiler extensions that we are using, I am a bit
-confused by the name of this category of compiler extensions, and the
-reason why they are bundled together. After all, they are all separate
-compiler extensions? Should each of them have their own row?
-
-
-> +     - ARM64, X86_64
-> +     - token pasting of ',' and __VA_ARGS__ is a GNU extension:
-> +          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
-> +       must specify at least one argument for '...' parameter of variadic macro:
-> +          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
-> +       void function should not return void expression:
-
-I understand that GCC does a poor job at documenting several of these
-extensions. In fact a few of them are not even documented at all.
-However, if they are extensions, they should be described for what they
-do, not for the rule they violate. What do you think?
-
-For example, in this case maybe we should say "void function can return
-a void expression" ?
-
-
-> +          see the documentation for -Wreturn-type in Section "3.8 Options to Request or Suppress Warnings" of GCC_MANUAL.
-> +       use of GNU statement expression extension from macro expansion:
-> +          see Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
-> +       invalid application of sizeof to a void type:
-> +          see Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL.
-> +       redeclaration of already-defined enum is a GNU extension:
-> +          see Section "6.49 Incomplete enum Types" of GCC_MANUAL.
-> +       static function is used in an inline function with external linkage:
-> +          non-documented GCC extension.
-
-I am not sure if I follow about this one. Did you mean "static is used
-in an inline function with external linkage" ?
-
-
-> +       struct may not be nested in a struct due to flexible array member:
-> +          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
-> +       struct may not be used as an array element due to flexible array member:
-> +          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
-> +       ISO C restricts enumerator values to the range of int:
-> +          non-documented GCC extension.
-
-Should we call it instead "enumerator values can be larger than int" ?
-
-
-> +
-> +   * - Unspecified escape sequence is encountered in a character constant or a string literal token
-> +     - X86_64
-> +     - \\m:
-> +          non-documented GCC extension.
-
-Are you saying that we are using \m and \m is not allowed by the C
-standard?
-
-
-> +   * - Non-standard type
-
-Should we call it "128-bit Integers" ?
-
-
-> +     - X86_64
-> +     - See Section "6.9 128-bit Integers" of GCC_MANUAL.
-
-
-
-
-> +Translation Limits
-> +__________________
-> +
-> +The following table lists the translation limits that a toolchain has
-> +to satisfy in order to translate Xen.  The numbers given are a
-> +compromise: on the one hand, many modern compilers have very generous
-> +limits (in several cases, the only limitation is the amount of
-> +available memory); on the other hand we prefer setting limits that are
-> +not too high, because compilers do not have any obligation of
-> +diagnosing when a limit has been exceeded, and not too low, so as to
-> +avoid frequently updating this document.  In the table, only the
-> +limits that go beyond the minima specified by the relevant C Standard
-> +are listed.
-> +
-> +The table columns are as follows:
-> +
-> +   Limit
-> +      a terse description of the translation limit;
-> +   Architectures
-> +      a set relevant of Xen architectures;
-> +   Threshold
-> +      a value that the Xen project does not wish to exceed for that limit
-> +      (this is typically below, often much below what the translation
-> +      toolchain supports);
-> +   References
-> +      when available, references to the documentation providing evidence
-> +      that the translation toolchain honors the threshold (and more).
-> +
-> +.. list-table::
-> +   :widths: 30 15 10 45
-> +   :header-rows: 1
-> +
-> +   * - Limit
-> +     - Architectures
-> +     - Threshold
-> +     - References
-> +
-> +   * - Size of an object
-> +     - ARM64, X86_64
-> +     - 8388608
-> +     - The maximum size of an object is defined in the MAX_SIZE macro, and for a 32 bit architecture is 8MB.
-> +       The maximum size for an array is defined in the PTRDIFF_MAX and in a 32 bit architecture is 2^30-1.
-> +       See occurrences of these macros in GCC_MANUAL.
-> +
-> +   * - Characters in one logical source line
-> +     - ARM64
-> +     - 5000
-> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
-> +
-> +   * - Characters in one logical source line
-> +     - X86_64
-> +     - 12000
-> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
-> +
-> +   * - Nesting levels for #include files
-> +     - ARM64
-> +     - 24
-> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
-> +
-> +   * - Nesting levels for #include files
-> +     - X86_64
-> +     - 32
-> +     - See Section "11.2 Implementation limits" of CPP_MANUAL.
-> +
-> +   * - case labels for a switch statement (excluding those for any nested switch statements)
-> +     - X86_64
-> +     - 1500
-> +     - See Section "4.12 Statements" of GCC_MANUAL.
-> +
-> +   * - Number of significant initial characters in an external identifier
-> +     - ARM64, X86_64
-> +     - 63
-> +     - See Section "4.3 Identifiers" of GCC_MANUAL.
-> +
-> +
-> +Implementation-Defined Behaviors
-> +________________________________
-> +
-> +The following table lists the C language implementation-defined behaviors
-> +relevant for MISRA C:2012 Dir 1.1 upon which Xen may possibly depend.
-> +
-> +The table columns are as follows:
-> +
-> +   I.-D.B.
-> +      a terse description of the implementation-defined behavior;
-> +   Architectures
-> +      a set relevant of Xen architectures;
-> +   Value(s)
-> +      for i.-d.b.'s with values, the values allowed;
-> +   References
-> +      when available, references to the documentation providing details
-> +      about how the i.-d.b. is resolved by the translation toolchain.
-> +
-> +.. list-table::
-> +   :widths: 30 15 10 45
-> +   :header-rows: 1
-> +
-> +   * - I.-D.B.
-> +     - Architectures
-> +     - Value(s)
-> +     - References
-> +
-> +   * - Allowable bit-field types other than _Bool, signed int, and unsigned int
-> +     - ARM64, X86_64
-> +     - All explicitly signed integer types, all unsigned integer types,
-> +       and enumerations.
-> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields".
-> +
-> +   * - #pragma preprocessing directive that is documented as causing translation failure or some other form of undefined behavior is encountered
-> +     - ARM64, X86_64
-> +     - pack, GCC visibility
-> +     - #pragma pack:
-> +          see Section "6.62.11 Structure-Layout Pragmas" of GCC_MANUAL.
-> +       #pragma GCC visibility:
-> +          see Section "6.62.14 Visibility Pragmas" of GCC_MANUAL.
-> +
-> +   * - The number of bits in a byte
-> +     - ARM64
-> +     - 8
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
-> +
-> +   * - The number of bits in a byte
-> +     - X86_64
-> +     - 8
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - Whether signed integer types are represented using sign and magnitude, two's complement, or one's complement, and whether the extraordinary value is a trap representation or an ordinary value
-> +     - ARM64, X86_64
-> +     - Two's complement
-> +     - See Section "4.5 Integers" of GCC_MANUAL.
-> +
-> +   * - Any extended integer types that exist in the implementation
-> +     - X86_64
-> +     - __uint128_t
-> +     - See Section "6.9 128-bit Integers" of GCC_MANUAL.
-> +
-> +   * - The number, order, and encoding of bytes in any object
-> +     - ARM64
-> +     -
-> +     - See Section "4.15 Architecture" of GCC_MANUAL and Chapter 5 "Data types and alignment" of ARM64_ABI_MANUAL.
-> +
-> +   * - The number, order, and encoding of bytes in any object
-> +     - X86_64
-> +     -
-> +     - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - Whether a bit-field can straddle a storage-unit boundary
-> +     - ARM64
-> +     -
-> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields of GCC_MANUAL and Section "8.1.8 Bit-fields" of ARM64_ABI_MANUAL.
-> +
-> +   * - Whether a bit-field can straddle a storage-unit boundary
-> +     - X86_64
-> +     -
-> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - The order of allocation of bit-fields within a unit
-> +     - ARM64
-> +     -
-> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields of GCC_MANUAL and Section "8.1.8 Bit-fields" of ARM64_ABI_MANUAL.
-> +
-> +   * - The order of allocation of bit-fields within a unit
-> +     - X86_64
-> +     -
-> +     - See Section "4.9 Structures, Unions, Enumerations, and Bit-Fields" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - What constitutes an access to an object that has volatile-qualified type
-> +     - ARM64, X86_64
-> +     -
-> +     - See Section "4.10 Qualifiers" of GCC_MANUAL.
-> +
-> +   * - The values or expressions assigned to the macros specified in the headers <float.h>, <limits.h>, and <stdint.h>
-> +     - ARM64
-> +     -
-> +     - See Section "4.15 Architecture" of GCC_MANUAL and Chapter 5 "Data types and alignment" of ARM64_ABI_MANUAL.
-> +
-> +   * - The values or expressions assigned to the macros specified in the headers <float.h>, <limits.h>, and <stdint.h>
-> +     - X86_64
-> +     -
-> +     - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - Character not in the basic source character set is encountered in a source file, except in an identifier, a character constant, a string literal, a header name, a comment, or a preprocessing token that is never converted to a token
-> +     - ARM64
-> +     - UTF-8
-> +     - See Section "1.1 Character sets" of CPP_MANUAL.
-> +       We assume the locale is not restricting any UTF-8 characters being part of the source character set.
-> +
-> +   * - The value of a char object into which has been stored any character other than a member of the basic execution character set
-> +     - ARM64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
-> +
-> +   * - The value of a char object into which has been stored any character other than a member of the basic execution character set
-> +     - X86_64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - The value of an integer character constant containing more than one character or containing a character or escape sequence that does not map to a single-byte execution character
-> +     - ARM64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "8.1 Data types" of ARM64_ABI_MANUAL.
-> +
-> +   * - The value of an integer character constant containing more than one character or containing a character or escape sequence that does not map to a single-byte execution character
-> +     - X86_64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
-> +
-> +   * - The mapping of members of the source character set
-> +     - ARM64, X86_64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and the documentation for -finput-charset=charset in the same manual.
-> +
-> +   * - The members of the source and execution character sets, except as explicitly specified in the Standard
-> +     - ARM64, X86_64
-> +     - UTF-8
-> +     - See Section "4.4 Characters" of GCC_MANUAL
-> +
-> +   * - The values of the members of the execution character set
-> +     - ARM64, X86_64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and the documentation for -fexec-charset=charset in the same manual.
-> +
-> +   * - How a diagnostic is identified
-> +     - ARM64, X86_64
-> +     -
-> +     - See Section "4.1 Translation" of GCC_MANUAL.
-> +
-> +   * - The termination status returned to the host environment by the abort, exit, or _Exit function
-> +     - ARM64
-> +     -
-> +     - See "Section 25.7 Program Termination" of ARM64_LIBC_MANUAL.
-> +
-> +   * - The termination status returned to the host environment by the abort, exit, or _Exit function
-> +     - X86_64
-> +     -
-> +     - See "Section 25.7 Program Termination" of X86_64_LIBC_MANUAL.
-> +
-> +   * - The places that are searched for an included < > delimited header, and how the places are specified or the header is identified
-> +     - ARM64, X86_64
-> +     -
-> +     - See Chapter "2 Header Files" of CPP_MANUAL.
-> +
-> +   * - How the named source file is searched for in an included " " delimited header
-> +     - ARM64, X86_64
-> +     -
-> +     - See Chapter "2 Header Files" of CPP_MANUAL.
-> +
-> +   * - How sequences in both forms of header names are mapped to headers or external source file names
-> +     - ARM64, X86_64
-> +     -
-> +     - See Chapter "2 Header Files" of CPP_MANUAL.
-> +
-> +   * - Whether the # operator inserts a \ character before the \ character that begins a universal character name in a character constant or string literal
-> +     - ARM64, X86_64
-> +     -
-> +     - See Section "3.4 Stringizing" of CPP_MANUAL.
-> +
-> +   * - The current locale used to convert a wide string literal into corresponding wide character codes
-> +     - ARM64, X86_64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
-> +
-> +   * - The value of a string literal containing a multibyte character or escape sequence not represented in the execution character set
-> +     - X86_64
-> +     -
-> +     - See Section "4.4 Characters" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
-> +
-> +   * - The behavior on each recognized #pragma directive
-> +     - ARM64, X86_64
-> +     - pack, GCC visibility
-> +     - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "7 Pragmas" of CPP_MANUAL.
-> +
-> +   * - The method by which preprocessing tokens (possibly resulting from macro expansion) in a #include directive are combined into a header name
-> +     - X86_64
-> +     -
-> +     - See Section "4.13 Preprocessing Directives" of GCC_MANUAL and Section "11.1 Implementation-defined behavior" of CPP_MANUAL.
-> +
-> +
-> +END OF DOCUMENT.
-
-END OF DOCUMENT is unnecessary
-
-> -- 
-> 2.34.1
-> 
+(No revision log; it would be 18679 lines long.)
 
