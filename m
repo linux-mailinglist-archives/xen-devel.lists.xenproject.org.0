@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A14B7320F0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 22:32:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.549834.858606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E85B47320F3
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jun 2023 22:36:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.549839.858616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9tdk-0004BH-Ap; Thu, 15 Jun 2023 20:32:20 +0000
+	id 1q9thN-0004n4-RO; Thu, 15 Jun 2023 20:36:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 549834.858606; Thu, 15 Jun 2023 20:32:20 +0000
+Received: by outflank-mailman (output) from mailman id 549839.858616; Thu, 15 Jun 2023 20:36:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q9tdk-00049S-88; Thu, 15 Jun 2023 20:32:20 +0000
-Received: by outflank-mailman (input) for mailman id 549834;
- Thu, 15 Jun 2023 20:32:18 +0000
+	id 1q9thN-0004ka-OS; Thu, 15 Jun 2023 20:36:05 +0000
+Received: by outflank-mailman (input) for mailman id 549839;
+ Thu, 15 Jun 2023 20:36:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1q9tdi-00049M-RX
- for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 20:32:18 +0000
+ (envelope-from <julien@xen.org>) id 1q9thM-0004kU-1J
+ for xen-devel@lists.xenproject.org; Thu, 15 Jun 2023 20:36:04 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1q9tdi-0006eF-9F; Thu, 15 Jun 2023 20:32:18 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
+ id 1q9thJ-0006im-Sl; Thu, 15 Jun 2023 20:36:01 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
  helo=[192.168.16.225]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1q9tdi-0001sY-30; Thu, 15 Jun 2023 20:32:18 +0000
+ id 1q9thJ-0002AW-Ms; Thu, 15 Jun 2023 20:36:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,38 +42,45 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Wb2NhWzZSQflX6T+cSu+q5jc8XXyDiUYqPsS9FXt3Sg=; b=yRhHo78/uAjOn4BESGmq6nKp95
-	aG9qWAzPQ/PJLLHj6k7MA7P1MsCupS4GuYduHM/9PV41vBpGMyHpSUpD1YcLFMey247zXIumbtMSu
-	6SKj2mVTGGw7oWSbJS5eGg49V9db+Qw+I5qyLpQ+4AZIQVkjWOfbnywxezX0uEvN3qiA=;
-Message-ID: <e7ffc49f-721a-7397-63bb-465f4c98a4b8@xen.org>
-Date: Thu, 15 Jun 2023 21:32:15 +0100
+	bh=VmVT8gk0RY6hks+BhxH5eIwo8duHiKpnpc0sAjSGDQM=; b=dOrHR7Q6fveIlieGTKN8lOvMKl
+	g7nz3rq1Gu6mL45a4XhBUOFTlRrzXmlWqwZoPa236VC2ZRTsjfH/svx0/b7LqD1MsYcYvdP7eXV+A
+	caQZApdkeXqh5e4dTVJyUy05vFPbjq5JqrDGrkMrAV8Hd5wREhx6q+OMR1gxoyLH/N1Y=;
+Message-ID: <e9df0abf-a417-0575-7f90-4a40034f8f25@xen.org>
+Date: Thu, 15 Jun 2023 21:35:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [XEN v8 1/5] xen/arm: p2m: Use the pa_range_info table to support
- ARM_32 and ARM_64
+Subject: Re: [PATCH] xen/arm: Remove stray semicolon at
+ VREG_REG_HELPERS/TLB_HELPER* callers
 Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230602120754.23817-1-ayan.kumar.halder@amd.com>
- <20230602120754.23817-2-ayan.kumar.halder@amd.com>
- <c48d763b-4b58-69f1-4cce-2f9855aa8ee0@amd.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230614094144.9533-1-michal.orzel@amd.com>
+ <alpine.DEB.2.22.394.2306141645190.897208@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <c48d763b-4b58-69f1-4cce-2f9855aa8ee0@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2306141645190.897208@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Michal,
+Hi,
 
-I notice you posted some comments but didn't add a Acked-by/Reviewed-by. 
-Can you indicate if you are happy with the patch so long your comments 
-are addressed?
+On 15/06/2023 00:46, Stefano Stabellini wrote:
+> On Wed, 14 Jun 2023, Michal Orzel wrote:
+>> This is inconsistent with the rest of the code where macros are used
+>> to define functions, as it results in an empty declaration (i.e.
+>> semicolon with nothing before it) after function definition. This is also
+>> not allowed by C99.
+>>
+>> Take the opportunity to undefine TLB_HELPER* macros after last use.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-If so, are you OK if I deal with them on commit?
+I have committed the patch.
 
 Cheers,
 
