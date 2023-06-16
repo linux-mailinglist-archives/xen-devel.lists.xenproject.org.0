@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6ED1733B8B
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 23:29:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550526.859643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8D55733C7B
+	for <lists+xen-devel@lfdr.de>; Sat, 17 Jun 2023 00:37:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.550557.859653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qAH08-0006S9-I1; Fri, 16 Jun 2023 21:29:00 +0000
+	id 1qAI3A-0005Uf-SP; Fri, 16 Jun 2023 22:36:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550526.859643; Fri, 16 Jun 2023 21:29:00 +0000
+Received: by outflank-mailman (output) from mailman id 550557.859653; Fri, 16 Jun 2023 22:36:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qAH08-0006QG-Ez; Fri, 16 Jun 2023 21:29:00 +0000
-Received: by outflank-mailman (input) for mailman id 550526;
- Fri, 16 Jun 2023 21:28:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S5g9=CE=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
- id 1qAH07-0006QA-1B
- for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 21:28:59 +0000
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [2607:f8b0:4864:20::112e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc3fc554-0c8c-11ee-8611-37d641c3527e;
- Fri, 16 Jun 2023 23:28:56 +0200 (CEST)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-570808d8ddeso4712807b3.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 Jun 2023 14:28:56 -0700 (PDT)
+	id 1qAI3A-0005So-PT; Fri, 16 Jun 2023 22:36:12 +0000
+Received: by outflank-mailman (input) for mailman id 550557;
+ Fri, 16 Jun 2023 22:36:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qAI39-0005Se-DP; Fri, 16 Jun 2023 22:36:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qAI39-0001V4-Al; Fri, 16 Jun 2023 22:36:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qAI38-0003yC-QV; Fri, 16 Jun 2023 22:36:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qAI38-0004SZ-Pv; Fri, 16 Jun 2023 22:36:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,222 +42,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc3fc554-0c8c-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686950935; x=1689542935;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=S8f4Qp7cwj4O2kdf7qLqLnrTRkxhB0m+8FmgrZaxSBc=;
-        b=kDqKbU7P9edSk/BgMH9xSstpKqVCZCkotk48bdhsv9CQedo7tgzNx594G7ZL6GQuxg
-         jA1o2JPcz0QDYMp8Gk7IfVIBu/Qb0pO39azZ5F7HLfZC1IgCGAp3b3idtV3rR/BwTQDN
-         x0xETay6eu3ghZcxBbeBHYOXCm+0UdQ18fM+kmxKxAuiYRqF/zWkw4LlfaXk/Ol9POup
-         f5e5C/WGoi8jmqXjJwP7rx3T/q8TLMKNW53qsepy7E0u9eKRuHWvS7CgQ60QFJLvcMrS
-         P+YDUzuxecN+sqBu1rA+X9cuH9CB9q1H/97ksOSagJnc4ZVXc8JgbNn89oLF/7saT6Tn
-         z99g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686950935; x=1689542935;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=S8f4Qp7cwj4O2kdf7qLqLnrTRkxhB0m+8FmgrZaxSBc=;
-        b=UJJoQCtLIjJFIx5N8/VZ5shLV8gkjl7QCLUDcb9RnSyI6Lpq818j1WHg01DCP6F5A/
-         iEifRhrEjjE/gKcJ9wC/lgiEr/nl0y+mSsiaNDhqQUytBF9LCErEGVVJ0QJYG7foVHdf
-         4X+whREhlyl/mDHuG1HNWPrvwcOJMitFRTtkfHYFW2CMKxn7Z84Lyv+HkOvNHvXGqe8F
-         xQGIT4pQh2mbRAk6PsO8ZZ/YmgaV+Q1/r2KgV66bl4or7z5d9npYtZ4NartJBwXBJCsw
-         UBzMwOUP04t0EEuXgyEPGSHO5pHr0mmIgDqkazUBCCl7dSatJCKrcIkyN311hYSLrV5H
-         IPpw==
-X-Gm-Message-State: AC+VfDxY52ieEYZTjZHxHawiy67cvZ+plE076EKLxs5E6yN5xtHYShuR
-	tN4I18laMPyGHSfA4tWjEsOB15zdKEMYfTjqbf0=
-X-Google-Smtp-Source: ACHHUZ7/iv7DGmrSbI7dWoycmh8dvViREYGBrKV5KnrTS1VkZy/HhcudLLxyAMIf5U1P44XX8eoY39CR0V8jmRNeXMA=
-X-Received: by 2002:a81:6c02:0:b0:56c:f684:b4f0 with SMTP id
- h2-20020a816c02000000b0056cf684b4f0mr2990065ywc.27.1686950935072; Fri, 16 Jun
- 2023 14:28:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230612210423.18611-1-vishal.moola@gmail.com>
- <20230612210423.18611-5-vishal.moola@gmail.com> <fd63179-6ad6-fd86-79d6-2833c91111f8@google.com>
-In-Reply-To: <fd63179-6ad6-fd86-79d6-2833c91111f8@google.com>
-From: Vishal Moola <vishal.moola@gmail.com>
-Date: Fri, 16 Jun 2023 14:28:44 -0700
-Message-ID: <CAOzc2pwhoF=XNCoe-+w2Z5MRoRJGvTfSr56HV00OGitEBMtPcw@mail.gmail.com>
-Subject: Re: [PATCH v4 04/34] pgtable: Create struct ptdesc
-To: Hugh Dickins <hughd@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Matthew Wilcox <willy@infradead.org>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Heiko Carstens <hca@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, linux-mm@kvack.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org, 
-	linux-hexagon@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
-	linux-openrisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, xen-devel@lists.xenproject.org, 
-	kvm@vger.kernel.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tILvi8ckjifLSWciRl7GxihbNqaKTIQfLHakYmCKF00=; b=APcs4fCtbobGkY5rXiSloFPLOt
+	1rgh4hSTBy9x7Kdhuhp+5F/EGr/9wRjoxhgsGZJV7mN88il+70AooDOD8ZNQWXw0pLPGuaGIbSmwp
+	IcxgaLW4FwSz17VYO449acEOSAzS0Vv6AVcoMUEfawPC2UO0siN0TufEU2AQVCMFjyN0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181470-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 181470: regressions - trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-build-prep:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=7a25a1501ca941c3e01b0c4e624ace05417f1587
+X-Osstest-Versions-That:
+    xen=e533438e3d28158602dce051b032811bdd26377d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 16 Jun 2023 22:36:10 +0000
 
-On Thu, Jun 15, 2023 at 12:57=E2=80=AFAM Hugh Dickins <hughd@google.com> wr=
-ote:
->
-> On Mon, 12 Jun 2023, Vishal Moola (Oracle) wrote:
->
-> > Currently, page table information is stored within struct page. As part
-> > of simplifying struct page, create struct ptdesc for page table
-> > information.
-> >
-> > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
->
-> Vishal, as I think you have already guessed, your ptdesc series and
-> my pte_free_defer() "mm: free retracted page table by RCU" series are
-> on a collision course.
->
-> Probably just trivial collisions in most architectures, which either
-> of us can easily adjust to the other; powerpc likely to be more awkward,
-> but fairly easily resolved; s390 quite a problem.
->
-> I've so far been unable to post a v2 of my series (and powerpc and s390
-> were stupidly wrong in the v1), because a good s390 patch is not yet
-> decided - Gerald Schaefer and I are currently working on that, on the
-> s390 list (I took off most Ccs until we are settled and I can post v2).
->
-> As you have no doubt found yourself, s390 has sophisticated handling of
-> free half-pages already, and I need to add rcu_head usage in there too:
-> it's tricky to squeeze it all in, and ptdesc does not appear to help us
-> in any way (though mostly it's just changing some field names, okay).
->
-> If ptdesc were actually allowing a flexible structure which architectures
-> could add into, that would (in some future) be nice; but of course at
-> present it's still fitting it all into one struct page, and mandating
-> new restrictions which just make an architecture's job harder.
+flight 181470 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181470/
 
-A goal of ptdescs is to make architecture's jobs simpler and standardized.
-Unfortunately, ptdescs are nowhere near isolated from struct page yet.
-This version of struct ptdesc contains the exact number of fields architect=
-ures
-need right now, just reorganized to be located next to each other. It *prob=
-ably*
-shouldn't make an architectures job harder, aside from discouraging their u=
-se
-of yet even more members of struct page.
+Regressions :-(
 
-> Some notes on problematic fields below FYI.
->
-> > ---
-> >  include/linux/pgtable.h | 51 +++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 51 insertions(+)
-> >
-> > diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> > index c5a51481bbb9..330de96ebfd6 100644
-> > --- a/include/linux/pgtable.h
-> > +++ b/include/linux/pgtable.h
-> > @@ -975,6 +975,57 @@ static inline void ptep_modify_prot_commit(struct =
-vm_area_struct *vma,
-> >  #endif /* __HAVE_ARCH_PTEP_MODIFY_PROT_TRANSACTION */
-> >  #endif /* CONFIG_MMU */
-> >
-> > +
-> > +/**
-> > + * struct ptdesc - Memory descriptor for page tables.
-> > + * @__page_flags: Same as page flags. Unused for page tables.
-> > + * @pt_list: List of used page tables. Used for s390 and x86.
-> > + * @_pt_pad_1: Padding that aliases with page's compound head.
-> > + * @pmd_huge_pte: Protected by ptdesc->ptl, used for THPs.
-> > + * @_pt_s390_gaddr: Aliases with page's mapping. Used for s390 gmap on=
-ly.
-> > + * @pt_mm: Used for x86 pgds.
-> > + * @pt_frag_refcount: For fragmented page table tracking. Powerpc and =
-s390 only.
-> > + * @ptl: Lock for the page table.
-> > + *
-> > + * This struct overlays struct page for now. Do not modify without a g=
-ood
-> > + * understanding of the issues.
-> > + */
-> > +struct ptdesc {
-> > +     unsigned long __page_flags;
-> > +
-> > +     union {
-> > +             struct list_head pt_list;
->
-> I shall be needing struct rcu_head rcu_head (or pt_rcu_head or whatever,
-> if you prefer) in this union too.  Sharing the lru or pt_list with rcu_he=
-ad
-> is what's difficult to get right and efficient on s390 - and if ptdesc ga=
-ve
-> us an independent rcu_head for each page table, that would be a blessing!
-> but sadly not, it still has to squeeze into a struct page.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   5 host-build-prep          fail REGR. vs. 181467
 
-I can add a pt_rcu_head along with a comment to deter aliasing issues :)
-Independent rcu_heads aren't coming any time soon though :(
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-> > +             struct {
-> > +                     unsigned long _pt_pad_1;
-> > +                     pgtable_t pmd_huge_pte;
-> > +             };
-> > +     };
-> > +     unsigned long _pt_s390_gaddr;
-> > +
-> > +     union {
-> > +             struct mm_struct *pt_mm;
-> > +             atomic_t pt_frag_refcount;
->
-> Whether s390 will want pt_mm is not yet decided: I want to use it,
-> Gerald prefers to go without it; but if we do end up using it,
-> then pt_frag_refcount is a luxury we would have to give up.
+version targeted for testing:
+ xen                  7a25a1501ca941c3e01b0c4e624ace05417f1587
+baseline version:
+ xen                  e533438e3d28158602dce051b032811bdd26377d
 
-I don't like the use of pt_mm for s390 either. s390 uses space equivalent
-to all five words allocated in the page table struct (albeit in various pla=
-ces
-of struct page). Using extra space (especially allocated for unrelated
-reasons) just because it exists makes things more complicated and
-confusing, and s390 is already confusing enough as a result of that.
+Last test of basis   181467  2023-06-16 18:00:24 Z    0 days
+Testing same since   181470  2023-06-16 21:08:31 Z    0 days    1 attempts
 
-If having access to pt_mm is necessary I can drop the
-pt_frag_refcount patch, but I'd rather avoid it.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+  Julien Grall <jgrall@amazon.com>
+  Stefano Stabellini <sstabellini@kernel.org>
 
-> s390 does very well already with its _refcount tricks, and I'd expect
-> powerpc's simpler but more wasteful implementation to work as well
-> with _refcount too - I know that a few years back, powerpc did misuse
-> _refcount (it did not allow for speculative accesses, thought it had
-> sole ownership of that field); but s390 copes well with that, and I
-> expect powerpc can do so too, without the luxury of pt_frag_refcount.
->
-> But I've no desire to undo powerpc's use of pt_frag_refcount:
-> just warning that we may want to undo any use of it in s390.
->
-> I thought I had more issues to mention, probably Gerald will
-> remind me of a whole new unexplored dimension! gmap perhaps.
->
-> Hugh
->
-> > +     };
-> > +
-> > +#if ALLOC_SPLIT_PTLOCKS
-> > +     spinlock_t *ptl;
-> > +#else
-> > +     spinlock_t ptl;
-> > +#endif
-> > +};
-> > +
-> > +#define TABLE_MATCH(pg, pt)                                          \
-> > +     static_assert(offsetof(struct page, pg) =3D=3D offsetof(struct pt=
-desc, pt))
-> > +TABLE_MATCH(flags, __page_flags);
-> > +TABLE_MATCH(compound_head, pt_list);
-> > +TABLE_MATCH(compound_head, _pt_pad_1);
-> > +TABLE_MATCH(pmd_huge_pte, pmd_huge_pte);
-> > +TABLE_MATCH(mapping, _pt_s390_gaddr);
-> > +TABLE_MATCH(pt_mm, pt_mm);
-> > +TABLE_MATCH(ptl, ptl);
-> > +#undef TABLE_MATCH
-> > +static_assert(sizeof(struct ptdesc) <=3D sizeof(struct page));
-> > +
-> >  /*
-> >   * No-op macros that just return the current protection value. Defined=
- here
-> >   * because these macros can be used even if CONFIG_MMU is not defined.
-> > --
-> > 2.40.1
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+
+Not pushing.
+
+------------------------------------------------------------
+commit 7a25a1501ca941c3e01b0c4e624ace05417f1587
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Fri Jun 2 13:07:54 2023 +0100
+
+    xen/arm: p2m: Enable support for 32bit IPA for ARM_32
+    
+    Refer ARM DDI 0406C.d ID040418, B3-1345,
+    
+    "A stage 2 translation with an input address range of 31-34 bits can
+    start the translation either:
+    
+    - With a first-level lookup, accessing a first-level translation
+      table with 2-16 entries.
+    
+    - With a second-level lookup, accessing a set of concatenated
+      second-level translation tables"
+    
+    Thus, for 32 bit IPA, there will be no concatenated root level tables.
+    So, the root-order is 0.
+    
+    Also, Refer ARM DDI 0406C.d ID040418, B3-1348
+    "Determining the required first lookup level for stage 2 translations
+    
+    For a stage 2 translation, the output address range from the stage 1
+    translations determines the required input address range for the stage 2
+    translation. The permitted values of VTCR.SL0 are:
+    0b00 Stage 2 translation lookup must start at the second level.
+    0b01 Stage 2 translation lookup must start at the first level.
+    
+    VTCR.T0SZ must indicate the required input address range. The size of
+    the input address region is 2^(32-T0SZ) bytes."
+    
+    Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = 0 when the size of
+    input address region is 2^32 bytes.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 7c72147baa221cb49da80498bb0360c4d24a759f
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Fri Jun 2 13:07:53 2023 +0100
+
+    xen/arm: Restrict zeroeth_table_offset for ARM_64
+    
+    When 32 bit physical addresses are used (ie PHYS_ADDR_T_32=y),
+    "va >> ZEROETH_SHIFT" causes an overflow.
+    Also, there is no zeroeth level page table on Arm32.
+    
+    Also took the opportunity to clean up dump_pt_walk(). One could use
+    DECLARE_OFFSETS() macro instead of declaring an array of page table
+    offsets.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit c3aabf7bd20eefa2c0fa297e53e087126ed9a06a
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Fri Jun 2 13:07:52 2023 +0100
+
+    xen/arm: guest_walk: LPAE specific bits should be enclosed within "ifndef CONFIG_PHYS_ADDR_T_32"
+    
+    As the previous patch introduces CONFIG_PHYS_ADDR_T_32 to support 32 bit
+    physical addresses, the code specific to "Large Physical Address Extension"
+    (ie LPAE) should be enclosed within "ifndef CONFIG_PHYS_ADDR_T_32".
+    
+    Refer xen/arch/arm/include/asm/short-desc.h, "short_desc_l1_supersec_t"
+    unsigned int extbase1:4;    /* Extended base address, PA[35:32] */
+    unsigned int extbase2:4;    /* Extended base address, PA[39:36] */
+    
+    Thus, extbase1 and extbase2 are not valid when 32 bit physical addresses
+    are supported.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit b6733ed0cb1d3a8c030cd46c93fce46a65255c35
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Fri Jun 2 13:07:51 2023 +0100
+
+    xen/arm: Introduce choice to enable 64/32 bit physical addressing
+    
+    Some Arm based hardware platforms which does not support LPAE
+    (eg Cortex-R52), uses 32 bit physical addresses.
+    Also, users may choose to use 32 bits to represent physical addresses
+    for optimization.
+    
+    To support the above use cases, we have introduced arch independent
+    config to choose if the physical address can be represented using
+    32 bits (PHYS_ADDR_T_32) or 64 bits (!PHYS_ADDR_T_32).
+    For now only ARM_32 provides support to enable 32 bit physical
+    addressing.
+    
+    When PHYS_ADDR_T_32 is defined, PADDR_BITS is set to 32. Note that we
+    use "unsigned long" (not "uint32_t") to denote the datatype of physical
+    address. This is done to avoid using a cast each time PAGE_* macros are
+    used on paddr_t. For eg PAGE_SIZE is defined as unsigned long. Thus,
+    each time PAGE_SIZE is used with paddr_t, the result will be
+    "unsigned long".
+    On 32-bit architecture, "unsigned long" is 32-bit wide. Thus, it can be
+    used to denote physical address.
+    
+    When PHYS_ADDR_T_32 is not defined for ARM_32, PADDR_BITS is set to 40.
+    For ARM_64, PADDR_BITS is set to 48.
+    The last two are same as the current configuration used today on Xen.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 6d44fb48bd19c140f8601b645ea2a92895ce4ca9
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Fri Jun 2 13:07:50 2023 +0100
+
+    xen/arm: p2m: Use the pa_range_info table to support arm32 and arm64
+    
+    Restructure the code so that one can use pa_range_info[] table for both
+    arm32 as well as arm64.
+    
+    Also, removed the hardcoding for P2M_ROOT_ORDER and P2M_ROOT_LEVEL as
+    p2m_root_order can be obtained from the pa_range_info[].root_order and
+    p2m_root_level can be obtained from pa_range_info[].sl0.
+    
+    Refer ARM DDI 0406C.d ID040418, B3-1345,
+    "Use of concatenated first-level translation tables
+    
+    ...However, a 40-bit input address range with a translation granularity of 4KB
+    requires a total of 28 bits of address resolution. Therefore, a stage 2
+    translation that supports a 40-bit input address range requires two concatenated
+    first-level translation tables,..."
+    
+    Thus, root-order is 1 for 40-bit IPA on arm32.
+    
+    Refer ARM DDI 0406C.d ID040418, B3-1348,
+    
+    "Determining the required first lookup level for stage 2 translations
+    
+    For a stage 2 translation, the output address range from the stage 1
+    translations determines the required input address range for the stage 2
+    translation. The permitted values of VTCR.SL0 are:
+    
+    0b00 Stage 2 translation lookup must start at the second level.
+    0b01 Stage 2 translation lookup must start at the first level.
+    
+    VTCR.T0SZ must indicate the required input address range. The size of the input
+    address region is 2^(32-T0SZ) bytes."
+    
+    Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = -8 when the size of input
+    address region is 2^40 bytes.
+    
+    Thus, pa_range_info[].t0sz = 1 (VTCR.S) | 8 (VTCR.T0SZ) ie 11000b which is 24.
+    
+    VTCR.T0SZ, is bits [5:0] for arm64.
+    VTCR.T0SZ is bits [3:0] and S(sign extension), bit[4] for arm32.
+    
+    For this, we have used struct bitfields to convert pa_range_info[].t0sz to its
+    arm32 variant.
+    
+    pa_range_info[] is indexed by ID_AA64MMFR0_EL1.PARange which is present in Arm64
+    only. This is the reason we do not specify the indices for arm32. Also, we
+    duplicated the entry "{ 40,      24/*24*/,  1,          1 }" between arm64 and
+    arm32. This is done to avoid introducing extra #if-defs.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    [julien: Tweak some comments and one check]
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
