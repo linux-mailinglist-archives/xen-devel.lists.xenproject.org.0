@@ -2,40 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 926747327F1
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 08:54:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550003.858857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD958732806
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 08:56:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.550008.858866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qA3Kz-0001q1-PL; Fri, 16 Jun 2023 06:53:37 +0000
+	id 1qA3N7-0002Oo-64; Fri, 16 Jun 2023 06:55:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550003.858857; Fri, 16 Jun 2023 06:53:37 +0000
+Received: by outflank-mailman (output) from mailman id 550008.858866; Fri, 16 Jun 2023 06:55:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qA3Kz-0001n0-Md; Fri, 16 Jun 2023 06:53:37 +0000
-Received: by outflank-mailman (input) for mailman id 550003;
- Fri, 16 Jun 2023 06:53:36 +0000
+	id 1qA3N7-0002N7-2T; Fri, 16 Jun 2023 06:55:49 +0000
+Received: by outflank-mailman (input) for mailman id 550008;
+ Fri, 16 Jun 2023 06:55:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vb2W=CE=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qA3Ky-0001mu-KD
- for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 06:53:36 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20626.outbound.protection.outlook.com
- [2a01:111:f400:7d00::626])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3ynE=CE=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1qA3N5-0002N1-FA
+ for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 06:55:47 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0627.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::627])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8348be34-0c12-11ee-b232-6b7b168915f2;
- Fri, 16 Jun 2023 08:53:35 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU2PR04MB8840.eurprd04.prod.outlook.com (2603:10a6:10:2e3::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ id d1319409-0c12-11ee-b232-6b7b168915f2;
+ Fri, 16 Jun 2023 08:55:45 +0200 (CEST)
+Received: from DUZPR01CA0133.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4bc::28) by DU0PR08MB10359.eurprd08.prod.outlook.com
+ (2603:10a6:10:416::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.29; Fri, 16 Jun
- 2023 06:53:31 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Fri, 16 Jun 2023
- 06:53:31 +0000
+ 2023 06:55:42 +0000
+Received: from DBAEUR03FT005.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:4bc:cafe::f2) by DUZPR01CA0133.outlook.office365.com
+ (2603:10a6:10:4bc::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.29 via Frontend
+ Transport; Fri, 16 Jun 2023 06:55:42 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT005.mail.protection.outlook.com (100.127.142.81) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6521.13 via Frontend Transport; Fri, 16 Jun 2023 06:55:41 +0000
+Received: ("Tessian outbound e13c2446394c:v136");
+ Fri, 16 Jun 2023 06:55:41 +0000
+Received: from 7a5ed9365d59.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 5E799520-6507-45E6-88E2-C597F591228C.1; 
+ Fri, 16 Jun 2023 06:55:36 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7a5ed9365d59.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 16 Jun 2023 06:55:36 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by AS8PR08MB9598.eurprd08.prod.outlook.com (2603:10a6:20b:61a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.29; Fri, 16 Jun
+ 2023 06:55:34 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::5e17:39a6:eec7:c482]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::5e17:39a6:eec7:c482%4]) with mapi id 15.20.6500.029; Fri, 16 Jun 2023
+ 06:55:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,234 +72,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8348be34-0c12-11ee-b232-6b7b168915f2
+X-Inumbo-ID: d1319409-0c12-11ee-b232-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fXgNCGCw7cgZgp/vYzeRfsXQDIRSVG4XAafGv3kJCvQ=;
+ b=G1SJz26S7HFtOZXeeGPqvQJXY5FZkvV7RYxlsjj3naTGdUm7b6D1Caom1BUTmkTzafgQiplGzQnlhyf+/fBqsNcGpA2BWkg6CldReukf5ftWWZ0NGQkDI4/u/acZ6jGh99XMgldHIQs3AfVfl+bOtLH4GByDbzbXdZUIG6TJd5A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 055f5c3854a653dd
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ETnXwClJlySsaJ/UnF+V+tjr7n7/tC9IwP7tSgRZVNXu1IhnVp6RWDeFvaKCw8N5ySFRSGIZYXB9qbz6dIutay/rCl4nrcsv6TsmaZfc5/H8u5HSWi1R89bw/NcnGGmcfY3EvPuxJC1vxPrrNdgbKhu2GCNwOIKSfgn1PQEruG73CQRIvA8SG5/mmbBKziXnRWqWJAVZkDHpYdQm9cmGsHrsNj8uQW9WJgE447EY11gusVhrIB+FDr0gDpVKdSl8amiHiTIdFAVE1+0UsYLZXnr6oNppIlnAiVNfex4ufFQPGFYGotI3j9inrNuuJeyyqsN+UOTi6Tg5g4IUBO84vQ==
+ b=Ey2I2kaGcyH/5Ix4n7w+/fA2yupOrBIkIjmdHDjUfQKSdKpDs+pHAkHf9gMkAVUpzo/bIZQMZUoyg9IHgQpPZ4D/ZjMo1MGPpm20dp+/7ic+4Ni/UeL5HlOy9X9tMJNaAp8R5pgEoWhv4q+Cf0EwHbkL7beoLH9Zs5iXVv8iw+Y9a+oWlj1vM6tlONLYNEPehXduOgVuEuJjXSM/LsSdXyNoHT6RKNrmXL3O0PhuMLSHCHaWIQOXoZNle9MTi0zluQ9qAOpXfQ2Z+UK4S+XBEx6oPbk7AageL2iz9byVTTVCcfVZJiwijpp5LJojGpC02BnZkUtF1xenWips4KR37Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TVo+TBSYQf/729ZD3ntmDIto7uHW/kHofae0lkEKJvg=;
- b=hE1mM2gb1Gow4Xl0KSBGVeOk3wap9X//UgstQ5Yjoom2BuS3MwYC83jAMLTwtdLKh+iKvY87GLBSjBzygm8JU3cgRl1xhvhrync2A+DTO6KYKekLGJNjJWT23K3csiLov3Ir0Fk2+hr89RAbrnfj+JwqcLTmbQPL0fvp8IHPb4wxPpDKnKNfvK6Y4Gif3DPJV2gV2IBouJQ0SnPxqx0Ie04paIKbC9+/kc57tDOKr10/6n79mnkEn/AFMKo67Nx2A4QXtcP31DIald9PXx3CTzA2ZDgSdxhUhfuYBWjAKg6kL7tyGVSr+3Kw51uAxTt0zdHYdlh0ztuJ8ONfjEDVUg==
+ bh=fXgNCGCw7cgZgp/vYzeRfsXQDIRSVG4XAafGv3kJCvQ=;
+ b=iexpvMOUK00eKIwCFPg/LajoQg3AEYcnU3p6ZiEXG9T2WsHe2dSvbMUaAntmiQnDWLwoHhlsV2JzS/gMx+NqTHSY1kRFan+Mesrj5gKLQNPYetjUuLeDzhLLLlY5MbHGNEj0BNqDk6zozkT6jv5WEki3zbU8d6QdAcG9vte747uunQBBl1PXS+XOL8l90pPLfjgZ2uNNFG/I5AkO7wuMKBmhgOvOLPazN6qsq/ZRxwmhZVz5+r5JJRsrxfRpjbQrQgr0rQy9vjKlj6X36Qt5A2XbFxN6xHiSTTrO8dNmPFE8S8zvpY7mfhD8BbeNRFoyTH1xzflG5GItRe87p2UX8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TVo+TBSYQf/729ZD3ntmDIto7uHW/kHofae0lkEKJvg=;
- b=ABuKTWWwsx9VNuTDrsLbWJdBLHrGhLykpWfCsEZqci2wJ4velAeNs3yq8nFKLVpLWJCAd46nCVd+zMZDCTsW4xHbUxTE/eENSaN2QHVEAjBMklXXitdrqFwLv7NWLfhHNBGFnzguAHLUixWjh/ROuq0CWJwBcYKVRbi37hGqoQO4rWxbcUvdp69Y4UWK4DNoSY4aC1eH5XCCrvjmV7XXg51iM5wM+MCXKUQaBUMCLA3YlssM0UTJeTay62LC1lF0X5C9P9szac9lz8PFPPure7+UPwdfYPDzft1vrl3wKgZrnL8dzKnEfRCq4XC55NLFEVyDgLdYexFDN3MGBy/89w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7eaadcb4-8580-b240-4451-5a98c66ebe5a@suse.com>
-Date: Fri, 16 Jun 2023 08:53:29 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [XEN PATCH] docs/misra: document the C dialect and translation
- toolchain assumptions.
+ bh=fXgNCGCw7cgZgp/vYzeRfsXQDIRSVG4XAafGv3kJCvQ=;
+ b=G1SJz26S7HFtOZXeeGPqvQJXY5FZkvV7RYxlsjj3naTGdUm7b6D1Caom1BUTmkTzafgQiplGzQnlhyf+/fBqsNcGpA2BWkg6CldReukf5ftWWZ0NGQkDI4/u/acZ6jGh99XMgldHIQs3AfVfl+bOtLH4GByDbzbXdZUIG6TJd5A=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+	<jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"roger.pau@citrix.com" <roger.pau@citrix.com>, "roberto.bagnara@bugseng.com"
+	<roberto.bagnara@bugseng.com>, Stefano Stabellini
+	<stefano.stabellini@amd.com>, Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v5] docs/misra: new rules addition
+Thread-Topic: [PATCH v5] docs/misra: new rules addition
+Thread-Index: AQHZn88VmRmLP0MYHEWbK1HWPOziPK+M/22A
+Date: Fri, 16 Jun 2023 06:55:34 +0000
+Message-ID: <F165BEBD-E246-4A6B-AB19-0293A12AC755@arm.com>
+References: <20230615211922.1328972-1-sstabellini@kernel.org>
+In-Reply-To: <20230615211922.1328972-1-sstabellini@kernel.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>
-References: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
- <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0106.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8840:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20a9ffe7-214b-44ab-eacb-08db6e36657b
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.600.7)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3784:EE_|AS8PR08MB9598:EE_|DBAEUR03FT005:EE_|DU0PR08MB10359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3012a05e-c639-4f83-c1cf-08db6e36b365
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ u0lE5wLW6kz2OqEOqwPvleWpiGLfImXkhAqNHGbQ67wXxZuOICzoD761fKu7KfOfeKOJWS6QQtjdfj50FCuSNucjBxn7KEKuxOHb+Obi7ErddPVhCa2hOq07AAAhD+FEaS9hvU1o92NQZUOS7i6rfHRmsPWJR6StHdsWp5XZukFUKg7oRRw/vm85CBh2h8CXF+94xg9odRa2b4qXtja0BvL/px5YiiiX8mdsrTp8SnHlKNUmc+ffeRFhbsdMVY8X6RUsAkSZrnZyo/YYVmI9CMcYBCJiTnzNEqMOb3+KmvSYmAAh1POCcZXdptO9EBmNLR7NrqpUM4ESnUOaxsVqrrs5XjKLKYqzgg4nguUcDLN2MmpEJwd0CdeQ2FFH+itOX6NptowkKJ2JgKbOCL+M0+uxoXo4d2ZI+auEjfJdd4wBSjJ8Dk3/rhviPwG5vdUI24rfdhSTkFLqTn5KHpRpWazYmrUrMolh7hc5rkGTol+DrNiA20pdgYTaAOJEfXuc5XYWuL2dP6AAEaLRSSs7F2RvZ6Zp4b7SwPl/ZXF+yJMSJ4r72QWER00N9kP+8769rWh4rAy1cXL/pHG5ImM0CUYtiFVNAlE9j7POFErLgK4/tlqPuUvPnFo3s9Cy5AR5ztw07mSK3FvFen/8ZVAaYoz8aE+h7XpXmO7DcB97Ng9qr2GHxAWlrygIguNT6Rlv
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(366004)(376002)(136003)(39860400002)(451199021)(2906002)(91956017)(64756008)(41300700001)(5660300002)(33656002)(8676002)(8936002)(316002)(4326008)(76116006)(66446008)(66476007)(66556008)(66946007)(6916009)(36756003)(83380400001)(2616005)(71200400001)(6512007)(186003)(53546011)(6506007)(38100700002)(38070700005)(86362001)(122000001)(478600001)(54906003)(6486002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <673385E157A9DD42875A90BB7BB031BE@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9598
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT005.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	9cfadb08-8039-4dad-3310-08db6e36aed1
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	lfhqi8IypwaowM48WHwGEPuPikAvbt9mgGpyETAgmpBBDzKGiLeznrsmAYJ3yNOGEXpQa4Rmx6xghsvu7HHeggKiWmVI/OnR7pWC5FXrrYM+GL7KrQy/4J2Ige9ZhQ7SP86mYVg+Q5U/zVFbWZss/DvE5NrviuEOItoM3QnXcbfGzx+iTpXrKdWnzivbwGf26yV2mF1cB1zYeFYSUr5wdk5wFYypb7euTfDDDJmc9+hfo8ui2ZFelJVXQTIcNSE96t57gt30DhIujyzcjojpIbiNUdMrmD64mbl5InWqQ1YWkAhu98QA/mMeaeBfmzRmS7b6VyYe4tAOQyy4IYD73f5JJQa1y0P/pvlAQz4o/vCrVNDHUSRufhYAbiTBa7q08ylRcYFrjsZxUFfe58haoKQiFFAhzlB7b1VHo5uIQ+NNxYwLDHwd9WQCxDJ3OI5/qHO5om+tat2NXnoId9VLt/uv8lX5URhwZVDNuwtBV7KWdQ3sdMa4oO9BSxQKy6sxXVRXuEM7zmqh+nd9O36+BSwWF6jNvVWSSYn2Q71BiC9X6aMgzG7KyNiM++ZO69W/bQe3F72Yy7p+k70u3UJtTF7Um4r1SnlggO95snTxq6BCXbJKe+wPfmw0j9fIE9zN4yFddreImtG+x0BCNqhWXe34+1YUao0oP6Yo0hgXuZM=
+	ZoGmi6W3mFk8SkCRywUw+pW/sm+PUimPyNZuP4C1PyCrxMukuXTCyNPGlGpmMl0t+FUIpI5Nnj8QpoQlfxc8vdxvtkU3/MMByZTo7LZ1/J+nreYRGwIZy+ccDwuUgNJh1zzHUXKK3GKl7XgQ2AjxyhEAc1dVhUIi2VQDdosfqKVMdP2Wp0LNGBMAE/uH8WIP0/THRuWDU8dMRpIMIs+AAiUAD0tFcVGzMu4nctJ/EgxN0gNvOTv+//2FzKl27uE6Qmrn0fdN4WHWE44veR5HuLdmyWHs0V1TlI7F8xnHcZbzUbwOktvoB5bW5MKJn5sW5vvmHm5l5suc6OkiTQmp4xh2j0wBOSbb7ygvEqQdCOC82dXuDxRG7BtP9ygpddTUA8dGwq5iXUlHaLHfYYT5Cx2c32uTrITgd5Hh99mOF8MS0RS7TVxsL9cj1qm75hWYhz0oOFAev6No2q5Q3zi6ltB2IbUPW0wwffI+Im9zZxeylNS6HG3nGtBI3J1mDWyYSMRjOPJ0G3iGGtaZxoL9QF05+cNYS4MuFwyvu8HShFmcL0MkLumwPffE9kZBPuYh2DI4E8q3qYHnz/Ri3aIRVsQi+pcueZpLIA6k+r3j/OI9fuF+/2JgyM5LBhce8v4APUK9qrS5XQZF4MCTPKqYj+yQGMvY8ifrNJZxUaDDPhRvKR1mbF6O013xsbqqzXkDpcd2M39x7GwD7OoXtJtyfYfdkR7gjMx6/WtJOA4uaocHxYQCmzDrefteZVS385pfA5sg4VOL2xzrM0FeoB9kwA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(39860400002)(136003)(346002)(376002)(366004)(451199021)(31686004)(8676002)(8936002)(2906002)(5660300002)(38100700002)(41300700001)(66946007)(66556008)(66476007)(4326008)(83380400001)(2616005)(36756003)(186003)(54906003)(110136005)(53546011)(26005)(6506007)(6512007)(478600001)(6486002)(966005)(316002)(86362001)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUN4elpFaGppUHpRbEE5ZTVqdFoxVUJ5M2g2aHlrMmZXQjNmYzNOcGFwcTBn?=
- =?utf-8?B?b0U4TlRoNFRnbDM1UE1OYjhKdDRCbnRMa0FoRC8vaEJ1OEh1TkJuc1lEaUJH?=
- =?utf-8?B?ejJWSGhoMkRYYzJaZ2tMdzNPM2wxNjZXQnMraUpMK0gycEpYZk9GTWhjTk0r?=
- =?utf-8?B?UFZscEtjRG1wbVRFZDg5cURqSUN4VktKclRNY2hDUHRhQ1J2MGxtdzFZUUtM?=
- =?utf-8?B?Sk5Udm00akUrRThYZVQ3R0NQM29RSmZVbUplb2N4NUQ5bXpxNTlnVGF2amN1?=
- =?utf-8?B?eXdsS1BNM3lQTDFZeG1nTWF4ajF2MGEzcUx3KzgrL05vODhDZjBlNnRLMXcw?=
- =?utf-8?B?RTBvNzFIVVc1dXFudWV4Z1FiREZsOXNkaVQ3d0NlTHlkTVg3bzFVRnpkWVov?=
- =?utf-8?B?S3BZVDRsbDZEU2tJeEd5alM0dHUwcXdHWElDZ2l4TnRldGRQOGMvTjZOK2tW?=
- =?utf-8?B?dTNWZFRuK2FMTUp5TjhudmpGQkxGNHNqemdjenFNam9JdnV6ak9Wbkp5WFcv?=
- =?utf-8?B?dWJobmJEMXRTcERHVHpMS1p6S0Uya1ZQcHFhVGI0S053ZlBKMzU1L3lRcEJ0?=
- =?utf-8?B?SlRUZjQ0cnFzcEhOZkZBcHAvZlFlQncyU1UwUXZteU9KQ1ErNWVpOEQ4UDhi?=
- =?utf-8?B?MEtrNFZvRnBjcU5FMEtURk1zVFRRTnlhM1lhZjhWWXRoK0QrUWwzK05DWmJS?=
- =?utf-8?B?Q0Rqa3N1K3UveGdQUUJyWjdrbEU0aXNwQmwxcytWZ3N0cXB3UTgxV3BKYVdH?=
- =?utf-8?B?cWE0ZDZtRmx6MjZiMmhmN05tMlo5REQ4ZDBJVk4yWFJoM3FVVHh0WDhEZHJI?=
- =?utf-8?B?WlhYNFJWR3I2VUdxQjhHeldFT0JvdFNrMitrd0JESktnUy9maTYrWW9xVDdq?=
- =?utf-8?B?bWl0ZDYxVGFDdFFBb1BKTkhhN1lCa2NWbnNDZUVXN3lsRGVTQkd0dzZFdkV3?=
- =?utf-8?B?TkszQTdseE5jWEZiK2VSL0ZrM3VEbUNnRDFnRFZJOEcrUFd6MVR1Q0JsZnJQ?=
- =?utf-8?B?ZWRLeUhwRTh3bFRYSlBXWTRuRUFYWVNIRVhPSU1JdUVZTEdmYzN3aXZBdSt0?=
- =?utf-8?B?WWpRVnlOOU5FV2NkWnFVeFVCNmNod2lvMUNPR2VOL0dRSjZ6dmRMSmhsU3RS?=
- =?utf-8?B?TWJSNklTOVJNZWI0UldYM2hvdGdja1dWL3pBd0M4UGhXbXNJMVg1QnQxb2h3?=
- =?utf-8?B?V0xpTi90MHJhQ2lSbEFCRVI1cUZjSjV4a1IreDVnWXdINm9oeFE5cHRwdzJa?=
- =?utf-8?B?aEJiOGlrMGZTOXhybFV6MGlrVVdRN3V3WjZKV090M1lUWTRGU2E1cFZPZlNS?=
- =?utf-8?B?V1FnV1k2SjVsZWZDK1BuWTRQNGJLRlJPYmtGbERuZUJJcythVmV2cDdXTFpp?=
- =?utf-8?B?ZzczcmVUVUtGU3NIOGR6U2R6OXJoNDcvSllwSkdOakFEYVNCNkUxLzdKMzF5?=
- =?utf-8?B?SGl2ak5YK1NxSzQzS1hFclc5MXhGTVBqQ1FnMlI4b3d4Y09CbVJFKzJkWUx6?=
- =?utf-8?B?cWZzeXFjNWNpYm1PdXAwMDgwTWc3QTFjZHUwY25sdE1ydi9mektQa2Rhd2N1?=
- =?utf-8?B?RkdkTFh3YjREL1IxaUNkY3A0ZkRWVU9zM2tEOHhRZ1VFUzRGWG83VkhHelg1?=
- =?utf-8?B?UVhFdXA1UTlEQ0FFTWthbzRwcnkyRE1Jb2tmRjRDTENScndyTzhlSVFIN2p6?=
- =?utf-8?B?WTYrQjRnU2VPZEFxeWZmNVBaRmRNV0Z2ZzR4VGVITnZEdG45QWRvRGRzR1p4?=
- =?utf-8?B?WHhEMG90RHFCZ1RnUWxzczhoenFiTzcrdlVPQmNJU043Yy82ejREa0pjK2tQ?=
- =?utf-8?B?ZzZBMnBUaW1CQWcyWi9lb2J0Q2FRc0dqM2NyMlcwMi9zeWY4cmFjNkhEbWh4?=
- =?utf-8?B?Y3NyZ0xtdndJVUUxTTNrbC9ROVFrbE12aEdITlNzNUI5RkVyR09tcUJQeTJr?=
- =?utf-8?B?VVJKNkh1d0lWVGVGcGVybmxyZUQ5Y3Y1RGEwVXZYazJCelFQZkxvRTkwZU9h?=
- =?utf-8?B?cVozTmRhdUFQa29SVVIzVkE2dEFVTTJVSlllWTJOVVBsYm9jWWxmUmVCVDcw?=
- =?utf-8?B?RWYzRXNGM05YZVpyaE9KVjY0SkJ0L2pSSHFqdjdCZ09POHAxNkNURnhrZHZl?=
- =?utf-8?Q?iFzeIxRrxkYRXZr+Qo/FFk5oP?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20a9ffe7-214b-44ab-eacb-08db6e36657b
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 06:53:31.4137
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199021)(40470700004)(46966006)(36840700001)(40480700001)(478600001)(86362001)(6486002)(316002)(40460700003)(82310400005)(41300700001)(83380400001)(47076005)(36860700001)(70586007)(70206006)(4326008)(81166007)(5660300002)(6862004)(8676002)(8936002)(33656002)(356005)(2906002)(82740400003)(53546011)(186003)(54906003)(6512007)(6506007)(26005)(2616005)(36756003)(336012);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 06:55:41.9980
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: go0KFGjAPd4mxkofHzpIooWN0oV+xoDW8Yn/krL9Pqqyuq5snwsiU4a0aT9/55xcI2vJfTdOBEpPKv4ApLzFMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8840
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3012a05e-c639-4f83-c1cf-08db6e36b365
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT005.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB10359
 
-On 16.06.2023 01:26, Stefano Stabellini wrote:
-> On Thu, 15 Jun 2023, Roberto Bagnara wrote:
-> I have a few comments below, mostly to clarify the description of some
-> of the less documented GCC extensions, for the purpose of having all
-> community members be able to understand what they can and cannot use.
+Hi Stefano,
 
-What do you mean by "can and cannot use"? Is this document intended to
-forbid the use of any extensions we may not currently use, or we use
-but which aren't enumerated here?
+> On 15 Jun 2023, at 23:19, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
+>=20
+> For Dir 1.1, a document describing all implementation-defined behaviour
+> (i.e. gcc-specific behavior) will be added to docs/misra, also including
+> implementation-specific (gcc-specific) appropriate types for bit-field
+> relevant to Rule 6.1.
+>=20
+> Rule 21.21 is lacking an example on gitlab but the rule is
+> straightforward: we don't use stdlib at all in Xen.
+>=20
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-One of the reasons that kept me from replying to this submission is
-that the full purpose of this new doc isn't stated in the description.
-Which in turn leaves open whether certain items actually need to be
-here (see e.g. the libc related remark below). Another is that it's
-hard to tell how to convince oneself of this being an exhaustive
-enumeration. One extension we use extensively yet iirc is missing here
-is omission of the middle operand of the ternary operator.
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
->> --- /dev/null
->> +++ b/docs/misra/C-language-toolchain.rst
->> @@ -0,0 +1,465 @@
->> +=============================================
->> +C Dialect and Translation Assumptions for Xen
->> +=============================================
->> +
->> +This document specifies the C language dialect used by Xen and
->> +the assumptions Xen makes on the translation toolchain.
->> +It covers, in particular:
->> +
->> +1. the used language extensions;
->> +2. the translation limits that the translation toolchains must be able
->> +   to accommodate;
->> +3. the implementation-defined behaviors upon which Xen may depend.
->> +
->> +All points are of course relevant for portability.  In addition,
->> +programming in C is impossible without a detailed knowledge of the
->> +implementation-defined behaviors.  For this reason, it is recommended
->> +that Xen developers have familiarity with this document and the
->> +documentation referenced therein.
->> +
->> +This document needs maintenance and adaptation in the following
->> +circumstances:
->> +
->> +- whenever the compiler is changed or updated;
->> +- whenever the use of a certain language extension is added or removed;
->> +- whenever code modifications cause exceeding the stated translation limits.
->> +
->> +
->> +Applicable C Language Standard
->> +______________________________
->> +
->> +Xen is written in C99 with extensions.  The relevant ISO standard is
->> +
->> +    *ISO/IEC 9899:1999/Cor 3:2007*: Programming Languages - C,
->> +    Technical Corrigendum 3.
->> +    ISO/IEC, Geneva, Switzerland, 2007.
->> +
->> +
->> +Reference Documentation
->> +_______________________
->> +
->> +The following documents are referred to in the sequel:
->> +
->> +GCC_MANUAL:
->> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc.pdf
->> +CPP_MANUAL:
->> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/cpp.pdf
+Cheers
+Bertrand
 
-Why 12.1 when meanwhile there's 12.3 and 13.1?
+> ---
+> Changes in v5:
+> - clarify suggested approach to Rule 7.2
+> - add link for 21.21
+>=20
+> Changes in v4:
+> - improve wording of the note in 6.1
+>=20
+> Changes in v3:
+> - add all signed integer types to the Notes of 6.1
+> - clarify 7.2 in the Notes
+> - not added: marking "inapplicable" rules, to be a separate patch
+>=20
+> Changes in v2:
+> - drop 5.6
+> - specify additional appropriate types for 6.1
+>=20
+> iii
+> ---
+> docs/misra/rules.rst | 50 ++++++++++++++++++++++++++++++++++++++++++++
+> 1 file changed, 50 insertions(+)
+>=20
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index d5a6ee8cb6..a88c284e7d 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -40,6 +40,12 @@ existing codebase are work-in-progress.
+>      - Summary
+>      - Notes
+>=20
+> +   * - `Dir 1.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
+uite/-/blob/master/D_01_01.c>`_
+> +     - Required
+> +     - Any implementation-defined behaviour on which the output of the
+> +       program depends shall be documented and understood
+> +     -
+> +
+>    * - `Dir 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Su=
+ite/-/blob/master/D_02_01.c>`_
+>      - Required
+>      - All source files shall compile without any compilation errors
+> @@ -57,6 +63,13 @@ existing codebase are work-in-progress.
+>        header file being included more than once
+>      -
+>=20
+> +   * - `Dir 4.11 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-=
+Suite/-/blob/master/D_04_11.c>`_
+> +     - Required
+> +     - The validity of values passed to library functions shall be check=
+ed
+> +     - We do not have libraries in Xen (libfdt and others are not
+> +       considered libraries from MISRA C point of view as they are
+> +       imported in source form)
+> +
+>    * - `Dir 4.14 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
+uite/-/blob/master/D_04_14.c>`_
+>      - Required
+>      - The validity of values received from external sources shall be
+> @@ -133,6 +146,12 @@ existing codebase are work-in-progress.
+>        headers (xen/include/public/) are allowed to retain longer
+>        identifiers for backward compatibility.
+>=20
+> +   * - `Rule 6.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-=
+Suite/-/blob/master/R_06_01.c>`_
+> +     - Required
+> +     - Bit-fields shall only be declared with an appropriate type
+> +     - In addition to the C99 types, we also consider appropriate types
+> +       enum and all explicitly signed / unsigned integer types.
+> +
+>    * - `Rule 6.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
+uite/-/blob/master/R_06_02.c>`_
+>      - Required
+>      - Single-bit named bit fields shall not be of a signed type
+> @@ -143,6 +162,32 @@ existing codebase are work-in-progress.
+>      - Octal constants shall not be used
+>      -
+>=20
+> +   * - `Rule 7.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-=
+Suite/-/blob/master/R_07_02.c>`_
+> +     - Required
+> +     - A "u" or "U" suffix shall be applied to all integer constants
+> +       that are represented in an unsigned type
+> +     - The rule asks that any integer literal that is implicitly
+> +       unsigned is made explicitly unsigned by using one of the
+> +       indicated suffixes.  As an example, on a machine where the int
+> +       type is 32-bit wide, 0x77777777 is signed whereas 0x80000000 is
+> +       (implicitly) unsigned. In order to comply with the rule, the
+> +       latter should be rewritten as either 0x80000000u or 0x80000000U.
+> +       Consistency considerations may suggest using the same suffix even
+> +       when not required by the rule. For instance, if one has:
+> +
+> +       Original: f(0x77777777); f(0x80000000);
+> +
+> +       one should do
+> +
+> +       Solution 1: f(0x77777777U); f(0x80000000U);
+> +
+> +       over
+> +
+> +       Solution 2: f(0x77777777); f(0x80000000U);
+> +
+> +       after having ascertained that "Solution 1" is compatible with the
+> +       intended semantics.
+> +
+>    * - `Rule 7.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
+uite/-/blob/master/R_07_03.c>`_
+>      - Required
+>      - The lowercase character l shall not be used in a literal suffix
+> @@ -314,6 +359,11 @@ existing codebase are work-in-progress.
+>        used following a subsequent call to the same function
+>      -
+>=20
+> +   * - `Rule 21.21 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Exampl=
+e-Suite/>`_
+> +     - Required
+> +     - The Standard Library function system of <stdlib.h> shall not be u=
+sed
+> +     -
+> +
+>    * - `Rule 22.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-=
+Suite/-/blob/master/R_22_02.c>`_
+>      - Mandatory
+>      - A block of memory shall only be freed if it was allocated by means=
+ of a
+> --=20
+> 2.25.1
+>=20
 
->> +ARM64_ABI_MANUAL:
->> +  https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs64/aapcs64.rst
->> +X86_64_ABI_MANUAL:
->> +  https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build
->> +ARM64_LIBC_MANUAL:
->> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
->> +X86_64_LIBC_MANUAL:
->> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
-
-How is libc relevant to the hypervisor?
-
->> +   * - Empty declaration
->> +     - ARM64, X86_64
->> +     - Non-documented GCC extension.
-> 
-> For the non-documented GCC extensions, would it be possible to add a
-> very brief example or a couple of words in the "References" sections?
-> Otherwise I think people might not understand what we are talking about.
-> 
-> For instance in this case I would say:
-> 
-> An empty declaration is a semicolon with nothing before it.
-> Non-documented GCC extension.
-
-Which then could be confused with empty statements. I think in a document
-like this language needs to be very precise, to avoid ambiguities and
-confusion as much as possible. (Iirc from going over this doc yesterday
-this applies elsewhere as well.)
-
->> +   * - Ill-formed source detected by the parser
-> 
-> As we are documenting compiler extensions that we are using, I am a bit
-> confused by the name of this category of compiler extensions, and the
-> reason why they are bundled together. After all, they are all separate
-> compiler extensions? Should each of them have their own row?
-
-+1
-
->> +
->> +   * - Unspecified escape sequence is encountered in a character constant or a string literal token
->> +     - X86_64
->> +     - \\m:
->> +          non-documented GCC extension.
-> 
-> Are you saying that we are using \m and \m is not allowed by the C
-> standard?
-
-This exists in the __ASSEMBLY__ part of a header, and I had previously
-commented on Roberto's diagnosis (possibly derived from Eclair's) here.
-As per that I don't think the item should be here, but I'm of course
-open to be shown that my understanding of translation phases is wrong.
-
->> +   * - Non-standard type
-> 
-> Should we call it "128-bit Integers" ?
-
-Or better more generally "Extended integer types" (or something along
-these lines, i.e. as these are called in the spec)?
-
-Jan
 
