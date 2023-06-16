@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA5D7328AB
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 09:20:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550025.858897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99493732920
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 09:45:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.550032.858907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qA3js-0006Dk-IV; Fri, 16 Jun 2023 07:19:20 +0000
+	id 1qA492-0001H6-LJ; Fri, 16 Jun 2023 07:45:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550025.858897; Fri, 16 Jun 2023 07:19:20 +0000
+Received: by outflank-mailman (output) from mailman id 550032.858907; Fri, 16 Jun 2023 07:45:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qA3js-0006Ag-Ed; Fri, 16 Jun 2023 07:19:20 +0000
-Received: by outflank-mailman (input) for mailman id 550025;
- Fri, 16 Jun 2023 07:19:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vb2W=CE=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qA3jr-0006Aa-2G
- for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 07:19:19 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061b.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1ac155d0-0c16-11ee-b232-6b7b168915f2;
- Fri, 16 Jun 2023 09:19:17 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8916.eurprd04.prod.outlook.com (2603:10a6:20b:42f::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.29; Fri, 16 Jun
- 2023 07:19:15 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6455.039; Fri, 16 Jun 2023
- 07:19:14 +0000
+	id 1qA492-0001DP-IC; Fri, 16 Jun 2023 07:45:20 +0000
+Received: by outflank-mailman (input) for mailman id 550032;
+ Fri, 16 Jun 2023 07:45:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=twrt=CE=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1qA491-0001DJ-Gx
+ for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 07:45:19 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbf5973f-0c19-11ee-8611-37d641c3527e;
+ Fri, 16 Jun 2023 09:45:16 +0200 (CEST)
+Received: from [192.168.1.143] (unknown [151.57.159.155])
+ by support.bugseng.com (Postfix) with ESMTPSA id 826FB4EE0738;
+ Fri, 16 Jun 2023 09:45:14 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,189 +39,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ac155d0-0c16-11ee-b232-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QO/kaLyifzNhBvQCUdlOCfIOEoBZznPZmzHQF/YPaO44n1552TpLIMKl4dVr4n/bt+KN1zkJgJ1JTFE9gw8O/VF37Kq/ebQTlMtQ6F9irfG5WSmuPzG0UfuaE2HMnIMoBwYLCMEsQPIWVS1hTG86BF4rVaWsPAUpxOVlyEqgG9T/On80PfNfv8pOvVVzSmwdw6xBztCSO+u7nZNpDoVa34DU26bCaJ4GplodyxUg1vdHNJWI16mDTbNmnXYh7a4zgTIoy8ximS1RVTdh9XEYEcZn2YNFPRydHyDYLhGzl8ivRDSgZLtr26ZNnzf0k4Soddc4Kcdi+nyXLkcVWGTzyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p9GTJ1kuzPSWUrtDGYm9JyTBeMTLVQJg9R+4uoGTD1c=;
- b=PubUqC4aHlK5NyVfg29+aGfYXzm0UKhNB05haOmTw57R7ggIJW8BLUn0Kbv5uloa138vHq7qpojOiejQQilBI+UrhzP9kp4krXS3YfRCpFGvkGX5crVg6Tcn9mIvfdE/C1Y4p8KxaPevWwiK1ykj2DQzeAlcp16Mq2HqbeeItZR39hey+WMlFITLbyvj6BoRcwV6FAb7FJ/DLXivDI38BVxb5HzxJD4WWXXMuPdzelmuZkZQPFG2RMMAe41c6PVZdeN/UlLVHLc+uqpqs0CkOp8NDMXxnr1n42YBP0yrSo+JnFO8yHJAnvIBQOVJ5BU67Jh9ZV4Kbt+7Yiuh8uPzEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p9GTJ1kuzPSWUrtDGYm9JyTBeMTLVQJg9R+4uoGTD1c=;
- b=z8wssizdxPaFqihsg+WamUT16ZiPCHnFyC1AWAmWp/4ndq3gbRG27L6y0OAM0xYsUU5MfLCg5fQKxTSUc12tZzwEgYJEuws9Skpq/eaRozfuAIytcxKCP4dFpXKGvIxbLzKJSuaTbDSeT+ABVbZKQw5PoL3IYPDkGRXMMwqZ0cdEVUaDLTIUtn0SowHlfTJgwZWxzfrQypOdsZzNJnK7ShLTKb/slUsZM1/sjRr3li4/h/DFy/fOf5Iqd6VIGviWU0wffxkRifK0qRQETrgigcfNztPepvI5GlCQT3MBduOAfjbYhSubnBvDLWll7B6X9kW7Sj0A5/tjZUBka4OV7g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3fc32674-af28-2a04-4eb8-059364a6a6fb@suse.com>
-Date: Fri, 16 Jun 2023 09:19:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: Refactoring of a possibly unsafe pattern for variable
- initialization via function calls
+X-Inumbo-ID: bbf5973f-0c19-11ee-8611-37d641c3527e
+Message-ID: <47325b0b-2ccc-6485-da59-2c0a367c2bf0@bugseng.com>
+Date: Fri, 16 Jun 2023 09:45:12 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
+ Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
+Subject: Re: [XEN PATCH] docs/misra: document the C dialect and translation
+ toolchain assumptions.
 Content-Language: en-US
-To: nicola <nicola.vetrini@bugseng.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <d0eed387-0f96-f7c4-0e66-f5109eac2e9c@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <d0eed387-0f96-f7c4-0e66-f5109eac2e9c@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
+ Wei Liu <wl@xen.org>
+References: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
+ <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
+ <7eaadcb4-8580-b240-4451-5a98c66ebe5a@suse.com>
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+In-Reply-To: <7eaadcb4-8580-b240-4451-5a98c66ebe5a@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0120.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8916:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49e99047-741d-41bb-4139-08db6e39fd6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	eRfqsorGixNzLJXHBOGoX36RFVfhN5ygfcmSgoUPyvmbVlGHtf8GZdfx79eO06O0AZ1BcBvVFQ8JhDK1E1zA8pa/KKJ3/WG11LfNM6mtIaumJhEQ6Hmt8S+hszvCs2R/BQhigZe7eePX3iFxIvL78XSTCEMA6YrOOtM+wv94GOKiq0KouqC9ggmo16U8hL44hIkILBOHJ+U630yOyAZNhgAjfhAxybFFnd/4/xU22zT0aYLAO4KMTjUFW9Xx9w3FAhURSUy7quEjMYCsx1g/D8ilIew3XSChY5o4oIyVx05bEgI9dNfJpQM7a5QMCCAziwBeSqpu9sc+hNu0DDeUbn9YN8t8lJyAsnFFIlg92mNXlPTIPaf+tJKv9wunaoPP58P6hdNF+25RlTyhy0R6XX5awwAuc2BG/KCGOY1wymeI/9S/LDIQvVi8tK6/O0U+d2WTKMBKYrPy+N0CNyGGUSYRJozFGIuRJp9Dsl9XHOe8ZM4h5vpxj//iWOE4/tCYIbIRE3PaDWZsg0YacHLFCWLYmHHCa2ks3IGNJaekpWSGTsqzj39pDP4B1ZQEHQppQL47CEhEQuudJtbND27/7UcWlFb6qJw0c+2yWcN6o6wcmHQFPclFBleiIwznnIYEw2CJMTkn1nH3nAPGKT8EKw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(396003)(136003)(366004)(376002)(39860400002)(451199021)(31686004)(86362001)(31696002)(38100700002)(8936002)(8676002)(5660300002)(316002)(41300700001)(6916009)(4326008)(66556008)(66946007)(66476007)(54906003)(83380400001)(2616005)(186003)(36756003)(478600001)(26005)(53546011)(6512007)(6506007)(2906002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YWtmbVViNFV5UXVYUGsyY3A2Vy9xZzlnMjVMdlVtZ3dOTDl0RjZuR3NmWlBI?=
- =?utf-8?B?SE5UY2JvekdaNnM2RXlDam42M292YkJDNUFleVgrWmlybGFYNnhUYVZ1dklY?=
- =?utf-8?B?c3VuN00ycysyWFRUSmtlZTJaMkI5K2I3ZmVjZHpEcWszamxnM1BNV0I0OWxn?=
- =?utf-8?B?MG0vN29VOEEyenNkZEdUamlITFlTekI2SVBKcDBlM1cwSThkbWc1VDdMQk1o?=
- =?utf-8?B?V1NlSGV4WU9YWmJhLzBEZ2V4cGRaaml6QTZtSkRPeDN5c1ZNT1Q4M292VmpU?=
- =?utf-8?B?WVpBQjJvZkQ3c3RsMU40VUdMd0l5dDBHV0hjaFZCTW9TMXpCdjhkVjZ4dXJY?=
- =?utf-8?B?SUhkV1JyN0pGb2Z6OExCd05POVVjUmh1clB5a1lPQ2syTFl0aDliSFVlK3VK?=
- =?utf-8?B?WUIvWVUwV2FRbGxmMDlTa0YwWSt1L3A5VkwwSU5sbDVDSUdzRWwwOVppVDd1?=
- =?utf-8?B?SzBQZnBqS2RxNHFpZkpuZVhNMGtONXNzeVVOS3AzZFY2ODlQenV0cExSVVli?=
- =?utf-8?B?eXlQeGtJeWhzbG1ob2ZEbURuQXVDcVdLV0FqblJtNXJ0SkNMa1k0WTRNZXVx?=
- =?utf-8?B?N2pXVDV0a3lZTkpMck02OUgxOG1odlU5aHNLVkxkci9Sdmk5SFZrTTF5dTQy?=
- =?utf-8?B?T1ZsUzFzRjZwS0xnK05RK2V2Q2hiYktmcVVpQk5vemYra0VpSGRsNy8vdHJp?=
- =?utf-8?B?MDNrNDFkS3BVNXo1aDQvdXRaU0FPUFBZaHhvcHkvb1gxRlZweExYaTJGWWRC?=
- =?utf-8?B?YjFQbTk1VGgrQTJjU1FXUmJJY29TZjYxSG5vcDFsajJCaFVscmM2bVVuc05S?=
- =?utf-8?B?R3lYUDZ6YXB4SzlrYmJKaWFtOWR5UHlVU0lSTlduN1FUSloxR1lOZ2JhZFl0?=
- =?utf-8?B?YVMwOURLR2JFRDRDWlcwclBXSzdXWVVQTW10UEYwNEVSZlZNaGNsdW5pMHkx?=
- =?utf-8?B?dHhtWHV5UTRFdGNjZXlCanNNcnJLTU5jU2l3RlhlK1BxSDRocUUwOU5EV3Rv?=
- =?utf-8?B?eGdXbmpRWHNZTmxPY09XQ0ZqaGh1SHdxOFZhWmFTYVpzZEZKUlVrUUZraGZZ?=
- =?utf-8?B?UDdFeFF0RXIxOXc5d1d2dzVYZDdOYVZLR2FwNSs4anVQdk42SWY3Slh5SGIz?=
- =?utf-8?B?bFZyNmlFQjhZMnMzcXBpdFZNYTJmRnhzTE9sb2pndk9wVVJBSDZYQW1ORXVZ?=
- =?utf-8?B?WjRxQTQ0SHBxQ0tsdmdTbWE3Rm9rWHF2UXo5NlMwRnhRTTZCa2VKRWxSL2ty?=
- =?utf-8?B?TmpTREdMYVNranp2ZkFIamVPZ3pRRDFwbVV1KzRwaDZrN2ZBRzZHdSsxUC9P?=
- =?utf-8?B?aTRDRDk2WmpRY2pWZktYY0haY25panhTRWdVNjU2VFFwdDhTY1hHYmhFaUhh?=
- =?utf-8?B?b1hTZjZoWlVoM0hKaGJQYzJwUnJ3Q2N5dzZhSmsyc0xkK2NaZThOOWE0YUI4?=
- =?utf-8?B?SyttNGZrbUwzcWxzOEhQY2dsaDdNQkRnTEEyRE8rcHBHaWlBeWNCa3NVQnFz?=
- =?utf-8?B?Vk40blNqQk1OSm1yaTR4aEpVcnAzdlpQeXpYcHg5eTRjTHlnU0pIYkV6LytU?=
- =?utf-8?B?M3h1NjZDUWJONlE0MmlMY3Zza0ZzZU5EZlZ3SlgwOWFPREpIQ00vQ1JEamN2?=
- =?utf-8?B?ZXBRQUdxc3VzWXBZZCt3M0lreUhIUldaeDFmZWFnaXBvQXgvZngzelRMTjIv?=
- =?utf-8?B?c0xoaGE1ejFmSzBabFdtdVA4VG53RGNJSnRsbzZLTWhDZkJFMWNRYk1Hc3E0?=
- =?utf-8?B?M3B4YVVzRHAyOFNVdVpJT3ZDUmVWYmY0Nk5ncWlqRDBXTVFZY25LaFhkSTAw?=
- =?utf-8?B?REM3aW8xOHRtVFUvbTcxcXc2dlBKWWx6cFNwcVZWOG02QWpDQkJ0WGU5T3RM?=
- =?utf-8?B?aW16OWlzU09mNjd6aFNTdWd0Tmc2T3doUVJOakhUcUNGUFFzaGlheSs5VU5R?=
- =?utf-8?B?SWdTNjlFNnZUc25VVnd3aEpjaU03b0Rtc01iWWIrV1dxOGk5eDhxUlQ3aEN4?=
- =?utf-8?B?VGRobFFjOWZGYURMeCs3RldxTDZyMmVubDBQS1FtQTVIRUYzS3paM1hEWWd0?=
- =?utf-8?B?bHhKRWtZMzdPS28yOVNST2pwUUN4ZWlManJwOTBGN3dhd092Wm53elU0eWdn?=
- =?utf-8?Q?pXUIHV/NGDvs/HRs28fHTAILz?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49e99047-741d-41bb-4139-08db6e39fd6c
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 07:19:14.8316
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nyEUDih17gEcYGTXvEDd9J1XOEyySOH2GQACKn95jBj28yXGeUUNn20wWYsxGX+i7v5LlbcnnGOAcozbMoBrmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8916
 
-On 15.06.2023 18:39, nicola wrote:
-> while investigating possible patches regarding Mandatory Rule 9.1, I
-> found the following pattern, that is likely to results in a lot possible
-> positives from many (all) static analysis tools for this rule.
+On 16/06/23 08:53, Jan Beulich wrote:
+> On 16.06.2023 01:26, Stefano Stabellini wrote:
+>> On Thu, 15 Jun 2023, Roberto Bagnara wrote:
+>> I have a few comments below, mostly to clarify the description of some
+>> of the less documented GCC extensions, for the purpose of having all
+>> community members be able to understand what they can and cannot use.
 > 
-> This is the current status (taken from `xen/common/device_tree.c:135')
+> What do you mean by "can and cannot use"? Is this document intended to
+> forbid the use of any extensions we may not currently use, or we use
+> but which aren't enumerated here?
 > 
-> 
-> const struct dt_property *dt_find_property(const struct dt_device_node *np,
->                                             const char *name, u32 *lenp)
-> {
->      const struct dt_property *pp;
-> 
->      if ( !np )
->          return NULL;
-> 
->      for ( pp = np->properties; pp; pp = pp->next )
->      {
->          if ( dt_prop_cmp(pp->name, name) == 0 )
->          {
->              if ( lenp )
->                  *lenp = pp->length;
->              break;
->          }
->      }
-> 
->      return pp;
-> }
-> 
-> 
-> 
-> 
-> It's very hard to detect that the pointee is always written whenever a 
-> non-NULL pointer for `lenp' is supplied, and it can safely be read in 
-> the callee, so a sound analysis will err on the cautious side.
+> One of the reasons that kept me from replying to this submission is
+> that the full purpose of this new doc isn't stated in the description.
 
-I'm having trouble seeing why this is hard to recognize: The loop can
-only be exited two ways: pp == NULL or with *lenp written.
+My full purpose was to give the community a starting point for the
+discussion on the assumptions the project makes on the programming
+language and the translation toolchains that are intended to be used
+now or in the future.  As far as I know, no documentation is currently
+provided on these topics, so I believe the document fills a gap and
+I hope it is good enough as a starting point.
 
-For rule 9.1 I'd rather expect the scanning tool (and often the compiler)
-to get into trouble with the NULL return value case, and *lenp not being
-written yet apparently consumed in the caller. Then, however, ...
+> Which in turn leaves open whether certain items actually need to be
+> here (see e.g. the libc related remark below).
 
-> My proposal, in a future patch, is to refactor these kinds of functions 
-> as follows:
-> 
-> 
-> const struct dt_property *dt_find_property(const struct dt_device_node *np,
->                                             const char *name, u32 *lenp)
-> {
->      u32 len = 0;
->      const struct dt_property *pp;
-> 
->      if ( !np )
->          return NULL;
+Because the analyzed build used to included some of the tools, which in turn
+relied on libc for program termination.  Once confirmation is given
+that the analyzed build is now what is intended, all references to
+libc can be removed.
 
-... this path would be a problem as well.
+> Another is that it's
+> hard to tell how to convince oneself of this being an exhaustive
+> enumeration. One extension we use extensively yet iirc is missing here
+> is omission of the middle operand of the ternary operator.
 
->      for ( pp = np->properties; pp; pp = pp->next )
->      {
->          if ( dt_prop_cmp(pp->name, name) == 0 )
->          {
->              len = pp->length;
->              break;
->          }
->      }
-> 
->      if ( lenp )
->          *lenp = len;
->      return pp;
-> }
-> 
-> 
-> The advantage here is that we can easily argue that `*lenp' is always
-> initialized by the function (if not NULL) and inform the tool about
-> this, which is a safer API and also resolves almost all subsequent
-> "don't know"s about further uses of the variables involved (e.g. `lenp').
+Not sure I understand: do you mean something different from the following
+entry in the document?
 
-The disadvantage is that in a more complex case and with the function
-e.g. being static, the initializer of "len" may prevent compiler /
-tools from spotting cases where the variable would (otherwise) truly
-(and wrongly) remain uninitialized (and that fact propagating up the
-call chain, through - in this example - whatever variable's address
-the caller passed for "lenp"). IOW - I don't think a common pattern
-can be agreed upon up front for cases like this one.
+    * - Binary conditional expression
+      - ARM64, X86_64
+      - See Section "6.8 Conditionals with Omitted Operands" of GCC_MANUAL.
 
-Jan
+
+>>> +Reference Documentation
+>>> +_______________________
+>>> +
+>>> +The following documents are referred to in the sequel:
+>>> +
+>>> +GCC_MANUAL:
+>>> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc.pdf
+>>> +CPP_MANUAL:
+>>> +  https://gcc.gnu.org/onlinedocs/gcc-12.1.0/cpp.pdf
+> 
+> Why 12.1 when meanwhile there's 12.3 and 13.1?
+
+For no special reason: as I said, my purpose is only to provide
+a starting point for discussion and customization of the
+assumptions.
+
+>>> +ARM64_ABI_MANUAL:
+>>> +  https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs64/aapcs64.rst
+>>> +X86_64_ABI_MANUAL:
+>>> +  https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build
+>>> +ARM64_LIBC_MANUAL:
+>>> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
+>>> +X86_64_LIBC_MANUAL:
+>>> +  https://www.gnu.org/software/libc/manual/pdf/libc.pdf
+> 
+> How is libc relevant to the hypervisor?
+
+See above.
+
+>>> +   * - Empty declaration
+>>> +     - ARM64, X86_64
+>>> +     - Non-documented GCC extension.
+>>
+>> For the non-documented GCC extensions, would it be possible to add a
+>> very brief example or a couple of words in the "References" sections?
+>> Otherwise I think people might not understand what we are talking about.
+>>
+>> For instance in this case I would say:
+>>
+>> An empty declaration is a semicolon with nothing before it.
+>> Non-documented GCC extension.
+> 
+> Which then could be confused with empty statements. I think in a document
+> like this language needs to be very precise, to avoid ambiguities and
+> confusion as much as possible. (Iirc from going over this doc yesterday
+> this applies elsewhere as well.)
+
+OK.
+
+>>> +   * - Ill-formed source detected by the parser
+>>
+>> As we are documenting compiler extensions that we are using, I am a bit
+>> confused by the name of this category of compiler extensions, and the
+>> reason why they are bundled together. After all, they are all separate
+>> compiler extensions? Should each of them have their own row?
+> 
+> +1
+
+OK.
+
+>>> +
+>>> +   * - Unspecified escape sequence is encountered in a character constant or a string literal token
+>>> +     - X86_64
+>>> +     - \\m:
+>>> +          non-documented GCC extension.
+>>
+>> Are you saying that we are using \m and \m is not allowed by the C
+>> standard?
+> 
+> This exists in the __ASSEMBLY__ part of a header, and I had previously
+> commented on Roberto's diagnosis (possibly derived from Eclair's) here.
+> As per that I don't think the item should be here, but I'm of course
+> open to be shown that my understanding of translation phases is wrong.
+
+I was not convinced by your explanation but, as I think I have said already,
+I am not the one to be convinced.  In the specific case, independently
+from __ASSEMBLY__ or any other considerations, that thing reaches the C
+preprocessor and, to the best of my knowledge, the C preprocessor documentation
+does not say how that would be handled.  I have spent a lot of time in the
+past 10 years on the study of functional-safety standards, and what I
+am providing is a honest opinion on what I believe is compliant
+and what is not.  But I may be wrong of course: if you or anyone else feels
+like they would not have any problems in arguing a different position
+from mine in front of an assessor, then please go for it, but please
+do not ask me to go beyond my judgment.
+
+>>> +   * - Non-standard type
+>>
+>> Should we call it "128-bit Integers" ?
+> 
+> Or better more generally "Extended integer types" (or something along
+> these lines, i.e. as these are called in the spec)?
+
+OK, "Extended integer types" is indeed a good summary of item 1 of
+C99 Section "J.3.5 Integers", which is
+"Any extended integer types that exist in the implementation (6.2.5)."
+
 
