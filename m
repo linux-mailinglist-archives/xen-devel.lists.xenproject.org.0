@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62554733B3C
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 22:56:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550490.859603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A78FB733B44
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 23:00:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.550503.859613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qAGUj-0000yT-95; Fri, 16 Jun 2023 20:56:33 +0000
+	id 1qAGYF-0002ez-Of; Fri, 16 Jun 2023 21:00:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550490.859603; Fri, 16 Jun 2023 20:56:33 +0000
+Received: by outflank-mailman (output) from mailman id 550503.859613; Fri, 16 Jun 2023 21:00:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qAGUj-0000wH-6C; Fri, 16 Jun 2023 20:56:33 +0000
-Received: by outflank-mailman (input) for mailman id 550490;
- Fri, 16 Jun 2023 20:56:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qAGYF-0002cf-Lx; Fri, 16 Jun 2023 21:00:11 +0000
+Received: by outflank-mailman (input) for mailman id 550503;
+ Fri, 16 Jun 2023 21:00:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BlCr=CE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qAGUh-0000O6-ID
- for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 20:56:31 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 439bf9c8-0c88-11ee-8611-37d641c3527e;
- Fri, 16 Jun 2023 22:56:29 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0ACF561E6C;
- Fri, 16 Jun 2023 20:56:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468D8C433CA;
- Fri, 16 Jun 2023 20:56:26 +0000 (UTC)
+ <SRS0=+r/i=CE=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qAGYE-0002cX-M8
+ for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 21:00:10 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c701471a-0c88-11ee-b232-6b7b168915f2;
+ Fri, 16 Jun 2023 23:00:09 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C9B568285C05;
+ Fri, 16 Jun 2023 16:00:07 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 1utSEkyUjJ_I; Fri, 16 Jun 2023 16:00:07 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 2C80D8285C06;
+ Fri, 16 Jun 2023 16:00:07 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id pGhnUdfLgj3o; Fri, 16 Jun 2023 16:00:07 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 9F3088285C05;
+ Fri, 16 Jun 2023 16:00:06 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +51,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 439bf9c8-0c88-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686948987;
-	bh=pNn82ZJ4l459ty5FYwSOj3mE/lmX9lliJjdv+6TfJjM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tGgf+hVAEKEozBQ1Y/MJHU3tc00F9ohhUoOpEMJg84m6XKgep5M6hds3OKQIeoI+0
-	 fATCKxJyeqbnPF0ZZEJHIFgEt5hrldh8+w8TtUfUcKGR37EZ2VPhFug8VnTXWjEWVZ
-	 aApjRbWaAFl5QDwMM8vjOSjKT2Jd4Nss/lr66LM/trHQLefgGgF43IvAbfeFAIfLam
-	 neuzg57R2EwdVBCJvGmNmie0k3Dcybo/5AtCmPAJSggC5udjG4mhS1gCTaOPsb7Wr6
-	 EynYtTlcwotvwX06sOfDXqCi+HQhls6b673bnDlYQpGFPtUAavWtXtEbPPqGF8Ja0i
-	 XyTtcNTmKEaYA==
-Date: Fri, 16 Jun 2023 13:56:24 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Refactoring of a possibly unsafe pattern for variable initialization
- via function calls
-In-Reply-To: <4522eead-bcc3-a735-3293-54ec457e83eb@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2306161354070.897208@ubuntu-linux-20-04-desktop>
-References: <d0eed387-0f96-f7c4-0e66-f5109eac2e9c@bugseng.com> <3fc32674-af28-2a04-4eb8-059364a6a6fb@suse.com> <4522eead-bcc3-a735-3293-54ec457e83eb@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: c701471a-0c88-11ee-b232-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 2C80D8285C06
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1686949207; bh=WFizKFAV1in+JqdRWVC3E2rzpnR0lUPm3su5qyNdtUc=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=d7DxUlP6wBciRwkj/9ZJ+lwfpGJAwviPv29Hdf336bLzcbL8Uyj/0sjNNtZanLrWX
+	 y+x3P8A/7gG7gMlb4ThrhTnIifbQzydEgTsqO90s9u0jSXseS8yR4JG6QH2rL1uQZO
+	 NU4X413CJlxQvwlwG8mukHRTCol/3avX8kyPRSno=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <40546404-5b24-297b-4892-59b7ec731375@raptorengineering.com>
+Date: Fri, 16 Jun 2023 16:00:05 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v4 2/4] xen: Add files needed for minimal ppc64le build
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <cover.1686936278.git.sanastasio@raptorengineering.com>
+ <97a72e26edafb1d7b3a583755f015d04066c1e53.1686936278.git.sanastasio@raptorengineering.com>
+ <33c8e11f-c561-3dcf-e08f-0ea19b34f89e@citrix.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <33c8e11f-c561-3dcf-e08f-0ea19b34f89e@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 16 Jun 2023, Nicola Vetrini wrote:
-> On 16/06/23 09:19, Jan Beulich wrote:
-> > On 15.06.2023 18:39, nicola wrote:
-> > > while investigating possible patches regarding Mandatory Rule 9.1, I
-> > > found the following pattern, that is likely to results in a lot possible
-> > > positives from many (all) static analysis tools for this rule.
-> > > 
-> > > This is the current status (taken from `xen/common/device_tree.c:135')
-> > > 
-> > > 
-> > > const struct dt_property *dt_find_property(const struct dt_device_node
-> > > *np,
-> > >                                              const char *name, u32 *lenp)
-> > > {
-> > >       const struct dt_property *pp;
-> > > 
-> > >       if ( !np )
-> > >           return NULL;
-> > > 
-> > >       for ( pp = np->properties; pp; pp = pp->next )
-> > >       {
-> > >           if ( dt_prop_cmp(pp->name, name) == 0 )
-> > >           {
-> > >               if ( lenp )
-> > >                   *lenp = pp->length;
-> > >               break;
-> > >           }
-> > >       }
-> > > 
-> > >       return pp;
-> > > }
-> > > 
-> > > 
-> > > 
-> > > 
-> > > It's very hard to detect that the pointee is always written whenever a
-> > > non-NULL pointer for `lenp' is supplied, and it can safely be read in
-> > > the callee, so a sound analysis will err on the cautious side.
-> > 
-> > I'm having trouble seeing why this is hard to recognize: The loop can
-> > only be exited two ways: pp == NULL or with *lenp written.
-> > 
-> > For rule 9.1 I'd rather expect the scanning tool (and often the compiler)
-> > to get into trouble with the NULL return value case, and *lenp not being
-> > written yet apparently consumed in the caller. Then, however, ...
-> 
-> 
-> You're right, I made a mistake, thank you for finding it.
-> I meant to write on `*lenp' in all execution paths.
-> Please, take a look at this revised version:
-> 
-> 
-> const struct dt_property *dt_find_property(const struct dt_device_node *np,
->                                            const char *name, u32 *lenp)
-> {
->     u32 len = 0;
->     const struct dt_property *pp = NULL;
-> 
->     if ( np )
->     {
->         for ( pp = np->properties; pp; pp = pp->next )
->         {
->             if ( dt_prop_cmp(pp->name, name) == 0 )
->             {
->                 len = pp->length;
->                 break;
->             }
->         }
->     }
-> 
->     if ( lenp )
->         *lenp = len;
->     return pp;
-> }
+On 6/16/23 3:27 PM, Andrew Cooper wrote:
+> Sorry, I also meant to ask.=C2=A0 How prevalent is Big Endian in practi=
+ce in
+> the Power world?
 
-Nesting more will make the code less readable and also cause other code
-quality metrics to deteriorate (cyclomatic complexity).
+Modern systems support operating in either endianness, but historically
+most operating systems targeted Big Endian-only, and some older systems
+didn't support Little Endian at all.
 
-Would the below work?
+These days Little Endian is more prevalent (at least in the Open Source
+world), and many Linux distributions only target LE. Despite this though,
+most firmware on Power systems still operates in Big Endian mode
+exclusively,
+so it's the responsibility of the kernel to handle the switch to LE at
+its entrypoint.
+
+The FW being BE also needs to be considered whenever the kernel calls
+into firmware, since it's the responsibility of the kernel to switch to B=
+E
+before making the call, and also to switch itself back to LE after the FW
+routine returns. Typically it's just handled by sprinkling this trampolin=
+e
+(via a macro) at all of the entry/return points.
+
+> It's another area (like 4k pages) where I expect there to be plenty of
+> fun to be had with the codebase.
+
+Hopefully the choice to run in Little Endian mode will reduce the number
+of pain points encountered.
+
+Also it's worth mentioning that both 4k and 64k pages are supported,
+though 64k is probably the more common choice.
+
+> ~Andrew
+
+Thanks,
+Shawn
 
 
-const struct dt_property *dt_find_property(const struct dt_device_node *np,
-                                           const char *name, u32 *lenp)
-{
-    u32 len = 0;
-    const struct dt_property *pp = NULL;
 
-    if ( !np )
-        return NULL
-
-    for ( pp = np->properties; pp; pp = pp->next )
-    {
-        if ( dt_prop_cmp(pp->name, name) == 0 )
-        {
-            len = pp->length;
-            break;
-        }
-    }
-
-    if ( lenp )
-        *lenp = len;
-    return pp;
-}
 
 
