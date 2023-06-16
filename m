@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23627733205
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 15:19:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550209.859177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F49733364
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 16:20:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.550257.859237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qA9Ll-0007Qz-Jy; Fri, 16 Jun 2023 13:18:49 +0000
+	id 1qAAIH-0008RX-NR; Fri, 16 Jun 2023 14:19:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550209.859177; Fri, 16 Jun 2023 13:18:49 +0000
+Received: by outflank-mailman (output) from mailman id 550257.859237; Fri, 16 Jun 2023 14:19:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qA9Ll-0007OP-Gx; Fri, 16 Jun 2023 13:18:49 +0000
-Received: by outflank-mailman (input) for mailman id 550209;
- Fri, 16 Jun 2023 13:18:47 +0000
+	id 1qAAIH-0008Po-KN; Fri, 16 Jun 2023 14:19:17 +0000
+Received: by outflank-mailman (input) for mailman id 550257;
+ Fri, 16 Jun 2023 14:19:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a4sU=CE=citrix.com=prvs=524b4a1dd=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qA9Lj-0007OH-NW
- for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 13:18:47 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 515ba184-0c48-11ee-8611-37d641c3527e;
- Fri, 16 Jun 2023 15:18:45 +0200 (CEST)
-Received: from mail-co1nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.169])
+ <SRS0=uwsx=CE=citrix.com=prvs=524b7acb3=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qAAIF-0008Pi-KI
+ for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 14:19:16 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c2034d75-0c50-11ee-8611-37d641c3527e;
+ Fri, 16 Jun 2023 16:19:10 +0200 (CEST)
+Received: from mail-dm6nam12lp2173.outbound.protection.outlook.com (HELO
+ NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.173])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 16 Jun 2023 09:18:43 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by CH0PR03MB6115.namprd03.prod.outlook.com (2603:10b6:610:ba::10)
+ 16 Jun 2023 10:19:01 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by SJ2PR03MB7110.namprd03.prod.outlook.com (2603:10b6:a03:4fd::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25; Fri, 16 Jun
- 2023 13:18:38 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd96:913a:c06c:d606]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd96:913a:c06c:d606%4]) with mapi id 15.20.6500.029; Fri, 16 Jun 2023
- 13:18:40 +0000
+ 2023 14:18:53 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::ab2a:a298:bacb:db47]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::ab2a:a298:bacb:db47%2]) with mapi id 15.20.6477.037; Fri, 16 Jun 2023
+ 14:18:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,276 +49,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 515ba184-0c48-11ee-8611-37d641c3527e
+X-Inumbo-ID: c2034d75-0c50-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1686921525;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=KMf5cVuF96ffd/apERITuQaD0hNdIodJm8Gckp5Z804=;
-  b=f8XQKbgnvFlH9f2254ny3APNmmhUwmnmHYeTdhkgIsTUH1TiHSyMtiCk
-   w169/joitmpI/3PVCgMgutNYWKa9XEaYUfNcn7Vxd+0Dk0SCkqEuoHRCr
-   /6eKfFhJpzhU66EJvttA59SFxIxEWq0uXc9xdBmVLsc3mcP4Fc8ZQvctG
-   w=;
-X-IronPort-RemoteIP: 104.47.56.169
-X-IronPort-MID: 112952670
+  d=citrix.com; s=securemail; t=1686925150;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=LoGNBidYuDMD601mu4KlZfZlBuYRVPKeoHr4p2pQcMQ=;
+  b=bc3zIY6cw8TCRvbZVVkonPsOv7SljbWXgiLg0bZ3kYRwdTZ5LuHuNErN
+   MSfztoUs8mMXIXM0o7yru3JKfXgdATfZLqCZBvWAk9YsHuGyXj3kCGGZ1
+   Ozj6E+oVpB0H9FFXkTN1nM4A2/VEeXdKUJQtpNcf1X5/NwrgIg91sRl/T
+   8=;
+X-IronPort-RemoteIP: 104.47.59.173
+X-IronPort-MID: 115617747
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:EoxT7aIjfcFYOkfCFE+R/JQlxSXFcZb7ZxGr2PjKsXjdYENShGYEz
- zcWCz2OPf/fM2rweY8gaNni808Dv5SAyd5rTABlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4AVgPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5GKkBv2
- NEWBAtXLT6qn+fp8Iqpe8Bj05FLwMnDZOvzu1lG5BSAVLMNZsmGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dppTGNnWSd05C0WDbRUvWMSd9YgQCzo
- WXe8n6iKhobKMae2XyO9XfEaurnxHqhCd9ISuLgnhJsqEOB+Dw3DTswbFayjsG8sg2OX9cBK
- 1NBr0LCqoB3riRHVOLVXRe1vXqFtR40QMdLHqsx7wTl4rXQyxaUAC4DVDEpQMwrsoo6SCIn0
- neNnsj1Hnp/vbuNU3Wf+7yI6zSoNkAowXQqYCYFSU4O5IDlqYRq1xbXFI89Qeiyk8H/Hiz2z
- 3aSti8iir4PjMkNkaKm4VTAhDHqrZ/MJuIo2jjqsquexlsRTOaYi0aAsDA3Md4owF6lc2S8
-IronPort-HdrOrdr: A9a23:o0sGIKhnMfeIbnoiS+6WhmEZenBQX0513DAbv31ZSRFFG/FwyP
- rCoB1L73XJYWgqM03IwerwQJVpQRvnlaKdkrNhRotKPTOW8VdAQ7sSibcKrwePJ8S6zJ8l6U
- 4CSdk3NDSTNykcsS+S2mDRf7kdKZu8gcaVbIzlvhRQpHRRGsRdBnBCe2Sm+yNNJTVuNN4cLt
- 6x98BHrz2vdTA8dcKgHEQIWODFupniiI/mSQRuPW9s1CC+yReTrJLqGRmR2RkTFxlVx605zG
- TDmwvloo2+rvCAzAPG3WO71eUapDKh8KoOOCW/sLlaFtzesHfoWG2nYczDgNkBmpDh1L/tqq
- iOn/5vBbUw15qbRBDOnfKk4Xic7N9p0Q6o9bbQuwqeneXpAD09EMZPnoRfb1/Q7Fchpsh11O
- ZR03uerIc/N2K1oM3R3am7a/hRrDvAnVMy1eoIy3BPW4oXb7Fc6YQZ4UNOCZ8FWCb38pouHu
- ViBNzVoK8+SyLtU1nJ+m10hNC8VHU6GRmLBkAEp8yOyjBT2HR01VERysATlmoJsJg9V55H7e
- LZNbkArsA4cuYGKaZmQOsRS8q+DWLABRrKLWKJOFziULoKPnrcwqSHk4ndJNvaCKDg4KFC6a
- gpCmkoylLaU3ied/Gz4A==
-X-Talos-CUID: 9a23:LHOYSm4Zu8AsnVkRtNssxWU1O+0IfFHmljT+Cle9VlZRWoy8RgrF
-X-Talos-MUID: 9a23:TB6rRwY+2bpHGuBTqS3S1BVnEuFR7q2BMEU10qUCvpeEKnkl
+IronPort-Data: A9a23:dWlR26NXcxTNA+LvrR2DlsFynXyQoLVcMsEvi/4bfWQNrUpz0mNRm
+ mAfXTyCM/qDZDTweNwlaYTjp00G7ZfTyYRrTwto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tG5wJmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0sBIXmBQ7
+ eIbEioQNTvYoO24zpieS+Y506zPLOGzVG8ekldJ6GiDSNoDH9XESaiM4sJE1jAtgMwIBezZe
+ 8cSdTtoalLHfgFLPVAUTpk5mY9EhFGmK2Ee9A3T+PtxujeIpOBy+OGF3N79YNuFSN8Thk+Fj
+ mnH4374ElcRM9n3JT+tqyvx2LaQwn+kMG4UPJG69+dVgXu5+nEeKUNJcX+csKmhlHfrDrqzL
+ GRRoELCt5Ma9kamU938VB2Qu2Ofs1gXXN84O/037kSBx7TZ5y6dB3MYVXhRZdo+rsg0SDc2k
+ FiTkLvBGjhHoLCTD3WH+d+pQSiaPCEUKSoOYHECRA5cud37+ths1VTIU8ppF7OzgpvtAzbsz
+ juWrS84wbIOkcoM0Kb99lfC696xmqX0oscOzl2/dgqYAslROOZJu6TABYDn0Mt9
+IronPort-HdrOrdr: A9a23:QXxIsatbw9+q6qCiGmxalEVM7skDVNV00zEX/kB9WHVpm62j5q
+ WTdZEgv3LJYVkqNE3I9eruBED4ewK6yXcX2/hyAV7BZmnbUQKTRelfBO3ZrQEIcBeOldK1u5
+ 0AT0FIMqyVMbErt63HCdGDYqwdKQO8gdiVbDrlvhFQpN1RGtpdBtlCe3um+iIffng+OaYE
+X-Talos-CUID: 9a23:K1y1+WDLJPMaDDf6Ew9Yq08KAt4mSGfAl1yLBEC2B0xMSbLAHA==
+X-Talos-MUID: 9a23:ZXlirQTboZD5elAwRXTAhjB7C8ZOyZizBWFTzrEinNjULTJJbmI=
 X-IronPort-AV: E=Sophos;i="6.00,247,1681185600"; 
-   d="scan'208";a="112952670"
+   d="scan'208";a="115617747"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P4BAmnTQaxCB8VDX/4+HImxiqHMOTP5wjm48dBfB2gE8oauR8m51M6EMo02B3Z1N4RIU/SBY9zgFyYGgko2+ERXnuEFSXlm+gD0pgORE137JJEczaNbRlBg7vFnPGxl/Z0Ao8kdPqEKyQHL1lk5AeiauDWKHIPlNBIRijMJtOB9UKNQYZa7nil8S/cNdWtcqP8yIWXciFYsb6/KveGrK3/c+47ISiEGKrpgA8sqgZNhoytk4Ky73Hl9ZMH/VCPGP6jujHBbzaQmqAeH9ql+rBMl0AknCOnhXB4gS5BLyqXQgOH3m0OBRLfIJeKFqLfGCAtwDSYYeKzUanCiTJFzqEQ==
+ b=ZbrP6HmwpssHW8K0ghbY64Fz5iVMcN58ugSnGbg0b6cq66WgoW86oZ0SBvCJomgBetjY4/ZfunLkZYUaQEcqWvMkcH56EM3sFZWpHxwTnbCDkqXCzMs0Pl1eY8yvXcvBUhJWPW10XY/2PIaSfNz17aF9V05Zv2vkg6e2MeAKA0FovYZ601LKo/fP+OyL3UEAsxTeMFbO+d9Hrj5yrfGIlyqA4m7lvX9Ja1zr0ksVwyhSE9T1q3FPL0dOTi4XHhjZh/oLcDNGMjIUo1CT4jtZg/Ukg+OTBdGPBvsqcCDJI84CIyRHa86fqjXjTT03HVTh6WPgzlbEvrIRM6PzQeFfwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wFYFyFViGCwaP3dT/4/Ri8jfi/Lu/yIX3HIVH9bAINI=;
- b=eLZ7wF0e+i1cUM0TZ8cCkyvTPTq9L/qWcycKmwG65pp1miTSFP2YN8ZMfwTa9ySQOS7ui/P7sr46/7qVXA47pyhk2hAX1bNEvYv6WZYJDpFw4AWrMgk1UgFg6Z+j4ZZXeH+0Q6TIncD5s6Z6Hd4j2XlcC4oWmykM+AqqNTKJ0i8fcDXrYphe+hUSMlHcGnnHjvJKsa/lMX/RK/qGB3MaOk7fDhHfEWm2zTjH1XTrR6mUEbcAwXl+8qlLQbdgilykLy9f1G8w96Nfoue/TgOVhvtkC+2uJOdC7uHBZ/r/Nzv0KWUruwyqEKE03PFmuRSF5c8LsN8d7eUT2rI+fyax2g==
+ bh=ZMRs5HB8KDONtHqFdLtM9HLt+kXNH5MONu4AiB7pklo=;
+ b=di2pCADf5Y1PCzNv3PHbAXrtDAWIi+8I6Zmcfp/kNIOynJbmH2TBBVNcRN2cUWvwNQSBpOXufz3VVPWRlK0z37hR6P6etMdwEplhesbBwcYKX5ebICssOPsvQ3ZCHj2uUFuPiqdQB8XO/9mWein+tFZx2eQIhUtq1JZxB1/KnKernwy7M0K2kNYiuBKlN4n7QsE24dcgzgx3NHba/99D7Cz9hcPWCa45lI5qEpCxG0ju85BJJxWDbQorfA/eQLDkYt3mjjHOvIaV+iK4c1yEVSiL+/natFsxzPdUIIrsBPadJrj4cCMyMzkiqqefj1xhQne9t3OBfSienX4Na2i0xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wFYFyFViGCwaP3dT/4/Ri8jfi/Lu/yIX3HIVH9bAINI=;
- b=GDRYgPCkuyrbkG3E5vWYopNC2KnQlamRl/Lnp3JqvJ6ayT9WFY+khkLaKH1xKaNIbNJDfxyV8kz8CL1wQTPcQ7016bMfm6dALWmezA4Bz/8hHAofXjOE6B5eRhrvF9xN4nfDLNx9O4+bzWz2I0hr5wwneaXHGzcU79+8TxaLvaE=
+ bh=ZMRs5HB8KDONtHqFdLtM9HLt+kXNH5MONu4AiB7pklo=;
+ b=M1Oq6iAsWE2FxJyMrnmFZQ5mD12kZTLm+/9iTPd7yBeeuz2h/wrdVPw53m5qfg6wEJiz45ke9X1ZWagvCOdFZ2au8jdGnTOxsf4nMQBAWKqHIa8JIjopswIcZizLH/VJR0Fk49TjkFQ5iYQuXcXUmg6iULLGiTrcV7goOe/jbi4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <eeaa4784-e213-901e-f91c-1b3f2fa40d7c@citrix.com>
-Date: Fri, 16 Jun 2023 14:18:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v3 4/4] x86/cpu-policy: Derive RSBA/RRSBA for guest
- policies
-Content-Language: en-GB
+Date: Fri, 16 Jun 2023 16:18:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230612161306.2739572-1-andrew.cooper3@citrix.com>
- <20230612161306.2739572-5-andrew.cooper3@citrix.com>
- <82ee7908-4597-433c-0aca-8c0ad22fff13@suse.com>
- <386058fe-e9a8-d0e1-c3a0-3f15a4585bd5@citrix.com>
- <cf30658c-daa9-7e4a-11e2-c56e4513fd8a@suse.com>
- <8a44c577-07e4-fbc4-d402-efa581042079@citrix.com>
- <35ac1ede-73ed-c748-9eae-06b156145274@suse.com>
- <50fe5a44-2e26-461b-1676-abae665816e6@citrix.com>
- <39f2eed7-4a28-5c98-6e10-2171d630d198@suse.com>
-In-Reply-To: <39f2eed7-4a28-5c98-6e10-2171d630d198@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 2/2] x86/vPIT: account for "counter stopped" time
+Message-ID: <ZIxvSUurSPCHV9+1@MacBook-Air-de-Roger.local>
+References: <eaac83a2-8254-76b4-9bab-411e1e323851@suse.com>
+ <7b69e322-bc37-a1bd-444d-b2cbe1d76b39@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO3P265CA0014.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::19) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+In-Reply-To: <7b69e322-bc37-a1bd-444d-b2cbe1d76b39@suse.com>
+X-ClientProxiedBy: LO4P123CA0102.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::17) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|CH0PR03MB6115:EE_
-X-MS-Office365-Filtering-Correlation-Id: a36753d3-7dfc-4288-9374-08db6e6c3322
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ2PR03MB7110:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a6423a0-b16b-46dd-9088-08db6e749e86
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	HSiqcHvahL/mONSJZ/UdURrOjz2HOoetaGgucLgk8qY23dsijNjXq/70+2fiwLAq9/sH1jZJCfBcOR7Fo4+rKJDCpF2FjYqYd09cfBoiouCvwEC4kpAqrUdwnsRdUmDYHeeRFS30oCPfdGjpo4t/UudwPArYhFgkQ70tH4xnyFZW3mRWUonFQXW/OoVJi9j9fWpWXWvgFr4AhQhS/1SZoI6KWRBBmya1L3dA7iwkq01/ylLEPKDovVZs2ObWo1YQSasIpXiFaoSQr6nE6HsqHtK31CX5Qpmn6hJ6qFJBP0rUOCEeEoYK9v9PTr8BPnZPBMHAC0uxqYxctlza6v/nEj79oHjXr00307RQLHWw/XO+AABEg/gAuoFszCboBGTrNkNkDWI55hGHjVJPVoDRAUm35lv/4REuUAptYqgMIrXJmzzPAZgrbq29TTZ6IvoZN4kWM60Tj4uOEo2w4dhlYVpRMvk+HkxJnWU6R/r5oZMuKnnLaN0xJUXJRPCxJAK5jVJLlLRkt+3Sp1t7vKtB0Yg1MaEwMpTYIEL50/fHGY7X0X4S/CRdDDy0s6oQwNY8eZC4kt/AOG+ft89qUOWwF/3u1xFKXWiy9Imous9OKx5xZ1Y2Wmd7ZmJuUEzKu9jyA/IzPA1yjbN5dyGk8aO26g==
+	UqwCo+htZ98HnbOyihT7CNF1xvukzDG982INaklMKnu+r3Zh1IBaKqjzQgF1Urg1HR5hZi+7pOy8C2DrtdU4tHW6mUZv8RHgoTljWZhXRat2PIK0/piEtXuwgZtQJs2HQJInK8DzwDGkIDCGYhwjG3Cg2YY21f4CDnfUL54LEcNgEMdFup8OEbVqk7yHwTXQxRgW9xHxjHtE+dgVW9Odr+Td5F5mljnLBCz7d1zduYFztWZ+eEvrSO+uplDMGjUwW+e2YzFktTIRX1r8ljtcd4/e3V5Pm1xCtS4R06cSVpJ/P6VIVUek66kEAH1oNmqS0SuABRHVAaXI6Rxq/n/lFdZ7ui/Tp/VqQS/zJmE1pAnjua1W696MZqRT9f44eE63r2LhDN+dwcm3vn/mq8qtsD5IQN/sViENOSR+uaBmk2XgXqe8xGpCSTNQX7OE01uhRuEVS4LUrd/tawWBOsFBzErMXQLN3CeZAm6cqzkNTPpdi6UcMiYqFsmH+dVIUgODWbZKLh0zfH+ceJDcITpjljtRsW2Yf/DeQIdxMQqkjm+4lUHokaRli/7rK1tBELdcuCTtwurwfJSK7arxbJaF/FO4gogsZ+CeVgHEWlb2Tff2q9oj1BVFHBUOwvoX5tKqQmgIVMc/RBjFEo8Qqse5LA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(396003)(136003)(346002)(39860400002)(451199021)(31696002)(4326008)(86362001)(2906002)(316002)(66476007)(6916009)(66556008)(66946007)(41300700001)(5660300002)(31686004)(8676002)(8936002)(54906003)(38100700002)(508600001)(6486002)(6666004)(82960400001)(83380400001)(186003)(6506007)(53546011)(26005)(36756003)(2616005)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(366004)(346002)(136003)(376002)(451199021)(54906003)(41300700001)(86362001)(66556008)(66946007)(316002)(6486002)(6916009)(8676002)(8936002)(6666004)(66476007)(4326008)(85182001)(66899021)(508600001)(6512007)(9686003)(5660300002)(966005)(26005)(83380400001)(6506007)(2906002)(15650500001)(186003)(82960400001)(38100700002)(67856001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3JObzNpUHZJanFzSkhkUVYzQy8yajUxZXVEcGN0dHJJRjRaNmJUY1pBbkpR?=
- =?utf-8?B?WVpzV2c3azFuYUpOOFNsVmowRm1WRzVOUzdPTU9QUjRmOXd0MmJWOVdJNUc5?=
- =?utf-8?B?UlhjZUtGS2l1VENzNVh4WGsyUHBMdktEUVdJOWcrUjN0bFpwYWpZUjl2T1J4?=
- =?utf-8?B?WVkxakdPL2w1QWRUT2lUVml1NG9TZzBJemRyZVk5OER0ZXdKUHRYdFd2aXdr?=
- =?utf-8?B?R2NkL3hvSWM3SGpzNlU2RStZS3RJbFJRMVczTEhnaWZYdjU3azVsT2IrYXAw?=
- =?utf-8?B?eFBkR0o1dCtSZFZMTEZneTVsMXgyWi9SZWJYRXB1YkFIZ3JNdTJyYitsSDRH?=
- =?utf-8?B?Q0J0MHNyQUgyMVJOK2lKWnpkWkVDbVRYZUVjMHh5Yk9yaTFCMGdQR2g4UEtx?=
- =?utf-8?B?UjVmdkhLRm5sTmpBZVV1Kys4b1pzNmhvWFNNM0ZZcGZibnordUhWRWo0MUVK?=
- =?utf-8?B?RUJiYU5EVDgwL0JqbTEzQUJTeElsQ1l1R2J3cm1nREY1UVlVTEREbWhiTDlG?=
- =?utf-8?B?czdCOXp4Sy9nSVlJdDlrRThzUVdWSGxaRXZHSlVzSEROU0owaUtUY1VVU04z?=
- =?utf-8?B?RTlwOXBjNUlZNmgvT0VKbnpFMzZHZllydlZVa3AwdnpBNFZKWlV4VkhHMURM?=
- =?utf-8?B?TjNHVVZKWlBlUDlWMWY4cSt6OUR5eVhEUEVSaGJ4RzVjQTlGSWI2VE5XTTNz?=
- =?utf-8?B?TU9DOVY5ZnpVSXd3bW9RTGdLNXYzOVd1WG1WQUVSK2wxcHhrVjllN00xQVJC?=
- =?utf-8?B?SHBNOXZCTUdNSktVOGpka3pSeFpqZmhXNzJyYWkxdnh5YWw0UzBmLzNJejRt?=
- =?utf-8?B?aURWY2ROOGxEcjIrRmNybkpIMGZLeFp1U3JZaWxOd2NuY0VDa1Rsc1pFRkgx?=
- =?utf-8?B?RHZ6Y1J5TkwrNndrNjFRMmJObmU0ZlcwZ2drdUFlcWdGMVlBT0RxbU5EM2Yx?=
- =?utf-8?B?d3JESm13SWhNVlpDcnBXMUsrNnlkT0pqeXlIUlJPaEkyaEU0cnhXbHlna0dj?=
- =?utf-8?B?elJFeW9KTHdxRUpJUHNQS2lRdnQ0VTR0SzdIRlgrczk5MnNoMkcveWh2ZXh1?=
- =?utf-8?B?ellrL056N3Y5ZzRmbVBEeTgyTjM1ejlnWjNqSi9GeEZpcTRJSy9ZdVFpQkc5?=
- =?utf-8?B?em9hUXhPbUFqWlRBK09rMWFDYnE3T2xYRjVIbUFTb3lRN04vRUM2QVNhN2hW?=
- =?utf-8?B?SjNCTityd1Bzei80dzZLWUxQT0theHpuMW5kZGNRUWJzaWM0N1k2ZHlPWXRi?=
- =?utf-8?B?VXMvQVlYbVFuNUxxM0xBeFAydHAyN3dLRllsVmtXS1pxa0FOcUxGMGJEVDA1?=
- =?utf-8?B?SjVNd3ZiYTBpUjdCL05oQVJKbkFBU2lObktlc1JtdnJMYy91WDl0bDhQbUFI?=
- =?utf-8?B?SkZKdU04WFRScGlvdFVFbU1ENW1Hd3BLK2NncmNCZHJtZzQyOHlLQlI0MmEy?=
- =?utf-8?B?aW9HbnhxMjdWRWxYRTRmNG5QSHo3VkpuR3YvVjlaM2xaS1duVisyQUIyYmVo?=
- =?utf-8?B?S21TTUx4ZG5CZmNMODd0eE5oUERyN3hIc2dZU1ZocHBhMk02aFp4WmRoZmRh?=
- =?utf-8?B?MTZHblQ0czVFUHgwbVhGNGFYMndUc3VxbHV4NUV0S01ZT3kxNGhkSkVSejl3?=
- =?utf-8?B?amhlb1pWWVZydi9kSjZkQ2pHemJNTDJYbzlxdktwUDdxR3NkSExFSjdyRlpR?=
- =?utf-8?B?cm9XSGJFOHhUbHMxakRDSmFJb0dnSEVIY1ZnWUpUSDN1djVoNmJDQ3VvT0Fs?=
- =?utf-8?B?T1M0UU1MekhqNzdraTNRQWJYdzM0YmgxeFVCc21ROU9hTzBqcnFJOE14dEJR?=
- =?utf-8?B?MS9pb1hBREJqR1AzbkZibC9ySStmNWpXRTZrZHk2WFl3SGtJMzVGbEhrZWFx?=
- =?utf-8?B?MFR3WjNielNZa01nMGh3VDdCUkNyOEJEa1F3QXIrVDRCYlVVOWc1OFJMTnJN?=
- =?utf-8?B?NkZpMzRsRmdVTEN0SE1YeVpBMWNOL1cwZGduMzN2OWtKcFVMelorZnBGMHZn?=
- =?utf-8?B?UUZkN1pLM1MrVlNSdkpRYWVseGFxVUZZcjRsVy9zVHd2QXNRNkZQelNUVzlC?=
- =?utf-8?B?ZjRYVEJWK0hkMXhGSVByWTI1MUZqUlo2YmtIdU00NnA5REcvLzZrNFpNUlFr?=
- =?utf-8?B?WXB4WnRDNEEycUNKc3dvWDVYdmpRTWluSll2dEVTQWZJTTEyanExbXBLQmoy?=
- =?utf-8?B?emc9PQ==?=
+	=?utf-8?B?eEdTSk1kUnZoZlQzUkcvY21HaTRKRlNka0FUMTdJQ2JzR1NOSXRTbThDNDNP?=
+ =?utf-8?B?UHJsUDg3d1JpdTd3NS96eWFkMk5mRUl5dFBGaFg3RGZ4VXBVMnZqblZDTHdR?=
+ =?utf-8?B?MnVwODZTWmZEaC9MY3poNVhUT29VNTM5MlhYRGl1NlFObVA3Z2MvdHl6ZmZS?=
+ =?utf-8?B?d3B3T05BRVhhNDdDUGwvU1VmWkJrUXVzb2Y3bkQ1QTlPTENZVlo0ZE5SSVJ4?=
+ =?utf-8?B?UnpvbExhSWZvZGo4Vk5YUXcrdmo1QXd2Rk5jMkJEQmJ2MGhqVk13VEFIeUhy?=
+ =?utf-8?B?L2VhLzN2SDZUbVQ2SnJJMVRtSDJxZStaM05VQ3FUb2FGSTVTSjl6U3FmUi9I?=
+ =?utf-8?B?aHloR2JUUnd5SC9rY2Q5Vk43QWFZd0ppK3J4V1hDdXM4UVFObTZSYlh4WjdQ?=
+ =?utf-8?B?TTEwcC9YazF0aWlvTlZUNWtXcDc2eG9pb05rT0lDM0JpL1hMVlBrQnBFS3Bh?=
+ =?utf-8?B?ajFQMzUvZndrYmliWWVnUXVzYnZkamZIWTd0cU1GaTNWempFbnJiRHlqVXpX?=
+ =?utf-8?B?WGdiVHRMMHZuaXVOS2V4QTYvK2ZObjU5YjJMZ1FYbVgrQTU3MGRhaXdRNzJ5?=
+ =?utf-8?B?RU5HcU1uN0dwZnFOWHJRY2dKbUVRWFpnejQ2N2l4YmNRaldIc0JXODc5UVRP?=
+ =?utf-8?B?VW5kVDBpRG9EQjlJZDhtbmYwbUdWUmtEaDNTTGc4SzArYi92NDF2N1hzMW1U?=
+ =?utf-8?B?Wm5pMVBhWDdpdVc0bmI5UmJaWjRPNFpTeVdYUmNtSmZzWFhta1dCMit3MnY3?=
+ =?utf-8?B?cVEybisvU2lXL2dCb3lsRHhLTmc4a1dXUXF0N25DbHpucE44elJkeUlqYmtk?=
+ =?utf-8?B?bjhZdWpDc0I5ZXBrUXdtdHIwYzBRQ3ZpbW5lRGdSWE5SajhoMFM1azJJYkZ3?=
+ =?utf-8?B?ODJXVG1kaHJWQUdUb3FmOGpqbW1Gcyt2M09BVkxlNmxjK254N0dCYzJ0VVUx?=
+ =?utf-8?B?SzZ6MHBRUlpvMWZYYWtuSjZqdUpKZUxUK21rYmpCME9DWGZ4YWtlWXVIcE5V?=
+ =?utf-8?B?aGpVU2Q5TmMyblJvRStRUk9VK2JRankwaVlTSXdmbFgrdFBjUFZoUDIvWFUw?=
+ =?utf-8?B?YXQ3aFp1Z2RYS1Y1dS9RUFRac05wakR1SEFTSFU5cHU3WHlOdWJZL1RPVGtp?=
+ =?utf-8?B?WXorTXRRZ1J2R2dJZzVwTnhUK0R1ZW5SbGlQeWRiblU4bjZyTTd5bEJvOXpH?=
+ =?utf-8?B?ZENscElGM00wYXN4dnFubXJ1blJzRU5Ob1VOVmJTclZMUGpma1BiUUlRSWh6?=
+ =?utf-8?B?V0xGclAwaXlMS2VzeWFSUy8wdFBSRUJVeklGRDN3UlNIOTBMdlQyb3RUOFFl?=
+ =?utf-8?B?eTdhcCtZNmdCbkd3K2FTeldvUEtiY2UzS0QyNzJQRHBveGIvdzhGSlNVMld1?=
+ =?utf-8?B?dUZVTGNnOVhyMTU5YWdEMm13cG1vclJFdkVRL3c5MHZ4Y3hHZlkwbFIxNkMv?=
+ =?utf-8?B?aUE1bk5RYXlwR0lRc21iSFEyU09aalVqYmxabkR2Z3hXUmxqQnQzRUtxUXFI?=
+ =?utf-8?B?dStlVk4zY1lQQ3Y2TFNKYVdDMDcrSys2QThlTVpENVVNUHJJZHBwNHJsWmxN?=
+ =?utf-8?B?cjZnRjFaVVVuZ201N3ZTMjkvNkxwcVJaSnpLRFNMNzk0ZlU5Mld6d2NVUDla?=
+ =?utf-8?B?M1JPUjFFZXUxVjExMzc5aU9aRWNUMm5xL0xqV0lET2dMckdMWTNkUkl1bWJn?=
+ =?utf-8?B?RE5tR1VNQ2hFK3NvcGVSNkljYW5OU1BzRldHUGlNVGtNN2VCMWZCV3hvLzA0?=
+ =?utf-8?B?ejJUTWhrNWkzVHM0MnpHcEVrbCtEdU9HRDAzelJybEhtZHRuRk1rRmdIRUVs?=
+ =?utf-8?B?VVpBcVFibzJPV2o3YVNlamMxRUN4MXYveUh6ZGhZUFR6OHZiOGxVSnEyN2Ra?=
+ =?utf-8?B?bE5ITmhWdmRIdzRUelRIRER2UHA5NWJFR3BnL05iZUc1NVZLRFJqd2xZQzJu?=
+ =?utf-8?B?Q3RtTzFrTHJMSndKWkFVemErRlh4VUZWa3VPR3BzcTdiWlVubllyOGVFbTdF?=
+ =?utf-8?B?Yk0yNTVhTitMdHJyV0FxUkJFNnNnbHVmWUtlZVRkbDJNdlVtdC82eDg4VkdD?=
+ =?utf-8?B?VnF5N1U0RGxEYUtxQlpTbCtSOWFua3ZWL1luRkZ0azhPZ05JQStja3hjM0Jz?=
+ =?utf-8?B?d3R2N3M4UjBCVi9MdGlmeHNXQ1E4OFF4SmdPWmduQkpWVmk4RGJIenVnWSsw?=
+ =?utf-8?B?NFE9PQ==?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	Ntzo3YixxAyKRli/Moza63rmfctumCqV5+HdvgSsEviikMMvpivvbkUgxj95uwqXz62X4v1XYrAkTjUk6kKrFMmSelzMyzRiA2ksDeZm+l829rNDf1CVaoly7JA1RIlSDS4YwtXjVN5HyxDC6LkpSw+4iRDI65MYV+L/S34Vk6UjR09CXhzIqEELlKrDY+gCUWkBBARgvNNDX2srCZGuks82K4+N+UKm6YQXKanKmDxh7btRFdFA5Q5T+16A1QzXeeYcCcz3FxYjhziXYY2Xsk3tyrl/46gQotuNZaXSZYb77YReQRN122hbul1MLZXXoTofJE7e/AUIa7uYwxzAUaVeJDahzg0SXYJ/ez552FwngIu0xK8uVwCpImYI+PzzLvYcN004uv2fezrVLf7mxGapjRE+Qt1k+tRG0qL3+Kzj+J62TMEciHMlPvnfAU2q3f+5kzpd8wftn0TQoobIdJyFrk9NACnwPEoYV3NPfbdQrkVT2RL65ZU2oqblNEJTuKEXSDU7cabvssAePyuWCzfrVR/sVakfqwWvj0xD4ECcQqSOMBKMhfjldj/J9H7J2WcKye1SMqR9tZgUvhRYCxtYxNTJcWlaMwhr7tbiiBOQLB4WCcMVPzbc8igaMAIt0xX5UtHSfbXxLubWdWaRbjFUv4RjWf5528Lam/U1T3JWdA27crbTGM8vCk8G5pzZwPfqU42J5a1zg5eieN3ZpxEjymKC4DVAgpBQrT7giBDDPbZatwdsPOEHf2gWbcAKS0QT0Y5R0K/scZVmpC1eqpxmfkjojqiKC8snVDrGHDbnvGB+mdA1MyRxCo0HJ+HR
+	VrKE2TC+cJQNelUeol3l32auTgoe0q3QIknHkqB5O7GJ5Cs7ccVw5Ohy7QA5PUjZikhvrC0FLDFO3dysYW3iJu9JJ1S6zW+0BnXfRagjr36D2VCDPKTDHhPfABmu0nRSFI5BI2Jiz7Su8b2dqTJBxCQksHdgGwoNzrEiKteTaExjKyCuRHe7B6uu1eHNl8qq2mk3L2BIQ5AXt4KRSmvznfYxvdI58QzsD0NbaTGU/VEPT1r0doE5jvruSiTzMpObcThO75R4M++Yl/bPhIaIAivk6Q7WdG1FCO/vnOW4zbwmfQiCHpKQGEgec/JwvJmgYAl3VGtZFlepsAriCRImEIa4AvA6fST3w8tOsfKrWE9CX38POd9ZnqihbjhC+FX3Uo0FlA+32IMCfwmKUtXh4SfvoMEJCcUTx3qclV7xW7OwV5/BMsXu8IOpEL5Thdd6zP4H95Ng1HwiS7LP7em3YcWZ9+J8L+9MB5P5uKvdmBWmrJ8BiWCwU+9ZchkFmxWB/u3l3AltJlc815BlLGLMceQDDr0Q6xcYwF1jfRGGbo2k9dFUumvHXNy15aOP2fyMowmi10IevL+Mlx5u25qkiEW93aHANeW0AvpY/joW0x7z1BV+kemwdnD3EgDXMOKBqM1apa+V7etaKdUkVItlBVlJ4qOfSHz7IFKVr3Tsdo+cM147HNQZ/Nk15009k8+mEV/lpUaPLE2nklO2cubSuHDuSgelz5cJ1pe4jfstt5RwAJecplLgnksGJkmesdAOUTD9lvmFeb8ee7y0obonAN4HHXoVS8qSh7uq61vHYBiRQ3lfeX86WTbL2bRGmd57
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a36753d3-7dfc-4288-9374-08db6e6c3322
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a6423a0-b16b-46dd-9088-08db6e749e86
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 13:18:39.9769
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 14:18:56.1342
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8wqD8Dg//NQGNhY2hBE6j87ewpxGitS8tm6eYk+E+1TSNezoGxsMCCeWKz6LilVkqu33AVq4dZorjPqh6py2qakEzNieEZl2nbkr336sRr0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6115
+X-MS-Exchange-CrossTenant-UserPrincipalName: AfQgBqrr8nEMzHPGQZtWrAOCQbnKoiu1imCdwke1nDDZgJmdxVkTFylVRvyWyuYAOozkQcvtO6KYxSqKoFNfrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7110
 
-On 16/06/2023 1:12 pm, Jan Beulich wrote:
-> On 15.06.2023 20:17, Andrew Cooper wrote:
->> On 15/06/2023 1:13 pm, Jan Beulich wrote:
->>> On 15.06.2023 12:41, Andrew Cooper wrote:
->>>> On 15/06/2023 9:30 am, Jan Beulich wrote:
->>>>> On 14.06.2023 20:12, Andrew Cooper wrote:
->>>>>> On 13/06/2023 10:59 am, Jan Beulich wrote:
->>>>>>> On 12.06.2023 18:13, Andrew Cooper wrote:
->>>>>>>> The RSBA bit, "RSB Alternative", means that the RSB may use alternative
->>>>>>>> predictors when empty.  From a practical point of view, this mean "Retpoline
->>>>>>>> not safe".
->>>>>>>>
->>>>>>>> Enhanced IBRS (officially IBRS_ALL in Intel's docs, previously IBRS_ATT) is a
->>>>>>>> statement that IBRS is implemented in hardware (as opposed to the form
->>>>>>>> retrofitted to existing CPUs in microcode).
->>>>>>>>
->>>>>>>> The RRSBA bit, "Restricted-RSBA", is a combination of RSBA, and the eIBRS
->>>>>>>> property that predictions are tagged with the mode in which they were learnt.
->>>>>>>> Therefore, it means "when eIBRS is active, the RSB may fall back to
->>>>>>>> alternative predictors but restricted to the current prediction mode".  As
->>>>>>>> such, it's stronger statement than RSBA, but still means "Retpoline not safe".
->>>>>>>>
->>>>>>>> CPUs are not expected to enumerate both RSBA and RRSBA.
->>>>>>>>
->>>>>>>> Add feature dependencies for EIBRS and RRSBA.  While technically they're not
->>>>>>>> linked, absolutely nothing good can come of letting the guest see RRSBA
->>>>>>>> without EIBRS.  Nor a guest seeing EIBRS without IBRSB.  Furthermore, we use
->>>>>>>> this dependency to simplify the max derivation logic.
->>>>>>>>
->>>>>>>> The max policies gets RSBA and RRSBA unconditionally set (with the EIBRS
->>>>>>>> dependency maybe hiding RRSBA).  We can run any VM, even if it has been told
->>>>>>>> "somewhere you might run, Retpoline isn't safe".
->>>>>>>>
->>>>>>>> The default policies are more complicated.  A guest shouldn't see both bits,
->>>>>>>> but it needs to see one if the current host suffers from any form of RSBA, and
->>>>>>>> which bit it needs to see depends on whether eIBRS is visible or not.
->>>>>>>> Therefore, the calculation must be performed after sanitise_featureset().
->>>>>>>>
->>>>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>>>> ---
->>>>>>>> CC: Jan Beulich <JBeulich@suse.com>
->>>>>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>>>>>> CC: Wei Liu <wl@xen.org>
->>>>>>>>
->>>>>>>> v3:
->>>>>>>>  * Minor commit message adjustment.
->>>>>>>>  * Drop changes to recalculate_cpuid_policy().  Deferred to a later series.
->>>>>>> With this dropped, with the title not saying "max/default", and with
->>>>>>> the description also not mentioning "live" policies at all, I don't
->>>>>>> think this patch is self-consistent (meaning in particular: leaving
->>>>>>> aside the fact that there's no way right now to requests e.g. both
->>>>>>> RSBA and RRSBA for a guest; aiui it is possible for Dom0).
->>>>>>>
->>>>>>> As you may imagine I'm also curious why you decided to drop this.
->>>>>> Because when I tried doing levelling in Xapi, I remembered why I did it
->>>>>> the way I did in v1, and why the v2 way was wrong.
->>>>>>
->>>>>> Xen cannot safely edit what the toolstack provides, so must not. 
->>>>> And this is the part I don't understand: Why can't we correct the
->>>>> (EIBRS,RSBA,RRSBA) tuple to a combination that is "legal"? At least
->>>>> as long as ...
->>>>>
->>>>>> Instead, failing the set_policy() call is an option, and is what we want
->>>>>> to do longterm,
->>>>> ... we aren't there.
->>>>>
->>>>>> but also happens to be wrong too in this case. An admin
->>>>>> may know that a VM isn't using retpoline, and may need to migrate it
->>>>>> anyway for a number of reasons, so any safety checks need to be in the
->>>>>> toolstack, and need to be overrideable with something like --force.
->>>>> Possibly leading to an inconsistent policy exposed to a guest? I
->>>>> guess this may be the only option when we can't really resolve an
->>>>> ambiguity, but that isn't the case here, is it?
->>>> Wrong.  Xen does not have any knowledge of other hosts the VM might
->>>> migrate to.
->>>>
->>>> So while Xen can spot problem combinations *on this host*, which way to
->>>> correct the problem combination depends on where the VM might migrate to.
->>> I actually view this as two different levels: With a flawed policy, the
->>> guest is liable to not work correctly at all. No point thinking about
->>> it being able to migrate. With a fixed up policy it may fail to migrate,
->>> but it'll at least work otherwise.
->> If you get RSBA and/or RRSBA wrong, nothing is going to malfunction in
->> the guest, even if you migrate it.
->>
->> The consequence of getting RSBA and/or RRSBA wrong is the guest *might*
->> think retpoline is safe to use, and *might* end up vulnerable to
->> speculative attacks on this or other hardware.
-> Isn't that some sort of "malfunction"?
+On Thu, Jun 15, 2023 at 04:56:22PM +0200, Jan Beulich wrote:
+> For an approach like that used in "x86: detect PIT aliasing on ports
+> other than 0x4[0-3]" [1] to work, channel 2 may not (appear to) continue
+> counting when "gate" is low. Record the time when "gate" goes low, and
+> adjust pit_get_{count,out}() accordingly. Additionally for most of the
+> modes a rising edge of "gate" doesn't mean just "resume counting", but
+> "initiate counting", i.e. specifically the reloading of the counter with
+> its init value.
+> 
+> No special handling for state save/load: See the comment near the end of
+> pit_load().
+> 
+> [1] https://lists.xen.org/archives/html/xen-devel/2023-05/msg00898.html
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Perhaps, there's a difference between "it will likely crash hard" and
-"you won't notice the difference".
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
->
->> And the admin might know that they overrode the default settings and
->> forced the use of some other protection mechanism, so the guest is in
->> fact safe despite having wrong RSBA/RRSBA settings.
-> But then the guest would also be safe with adjusted settings, wouldn't it?
+Albeit I have one request below I would like you to considerate.
 
-It doesn't mean the guest is going to tolerate having features change
-underfoot.
+> ---
+> TBD: "gate" can only ever be low for chan2 (with "x86/vPIT: check/bound
+>      values loaded from state save record" [2] in place), so in
+>      principle we could get away without a new pair of arrays, but just
+>      two individual fields. At the expense of more special casing in
+>      code.
 
->
->> I don't know how to put it any more plainly.  Xen *does not* have the
->> information necessary to make a safety judgement in this matter.  Only
->> the toolstack (as a proxy for the admin) has the necessary information.
-> I'm not looking at it as Xen making things safe by adjusting bogus
-> settings. I'm merely looking at it as not letting a guest run that way.
-> For the safety aspect I agree it needs a wider view than Xen has.
->
-> Anyway, I don't think either of us is going to convince the other of
-> there being only one way of looking at things vs there being at least
-> two possible ways, so in order to allow things to progress
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+One bit I'm missing is how is the gate for timers 0 and 1 is accessed.
+Is such line simply not accessible?
 
-Thankyou.
+My i8254 spec doesn't mention this, and the (kind of random) copy of
+the ICH7 Spec I'm looking at also doesn't mention enable bits for
+timers 0 and 1 being available.  I assume those are always enabled?
 
-To be clear, we are planning to put checks in place.  We definitely
-don't want the admin to end up in this corner case accidentally.
+> 
+> TBD: Should we deal with other aspects of "gate low" in pit_get_out()
+>      here as well, right away? I was hoping to get away without ...
+>      (Note how the two functions also disagree in their placement of the
+>      "default" labels, even if that's largely benign when taking into
+>      account that modes 6 and 7 are transformed to 2 and 3 respectively
+>      by pit_load(). A difference would occur only before the guest first
+>      sets the mode, as pit_reset() sets it to 7.)
 
-~Andrew
+I wouldn't, but as mentioned before I would also avoid touching the
+PIT much unless it's fixing an issue that's reproducible.  I think the
+chances of us messing up while modifying the code is high due to the
+lack of testing.
+
+> 
+> Other observations:
+> - Loading of new counts occurs too early in some of the modes (2/3: at
+>   end of current sequence or when gate goes high; 1/5: only when gate
+>   goes high).
+> - BCD counting doesn't appear to be properly supported either (at least
+>   that's mentioned in the public header).
+> 
+> [2] https://lists.xen.org/archives/html/xen-devel/2023-05/msg00887.html
+> ---
+> v2: In pit_load_count() also set count_stop_time from count_load_time
+>     (in case the counter is stopped). Correct spelling in comments.
+>     Correct calculations in pit_get_{count,out}().
+> 
+> --- a/xen/arch/x86/emul-i8254.c
+> +++ b/xen/arch/x86/emul-i8254.c
+> @@ -65,7 +65,10 @@ static int pit_get_count(PITState *pit,
+>  
+>      ASSERT(spin_is_locked(&pit->lock));
+>  
+> -    d = muldiv64(get_guest_time(v) - pit->count_load_time[channel],
+> +    d = pit->hw.channels[channel].gate || (c->mode & 3) == 1
+> +        ? get_guest_time(v)
+> +        : pit->count_stop_time[channel];
+> +    d = muldiv64(d - pit->count_load_time[channel] - pit->stopped_time[channel],
+>                   PIT_FREQ, SYSTEM_TIME_HZ);
+>  
+>      switch ( c->mode )
+> @@ -110,6 +113,10 @@ static void pit_load_count(PITState *pit
+>          pit->count_load_time[channel] = 0;
+>      else
+>          pit->count_load_time[channel] = get_guest_time(v);
+> +
+> +    pit->count_stop_time[channel] = pit->count_load_time[channel];
+> +    pit->stopped_time[channel] = 0;
+> +
+>      s->count = val;
+>      period = DIV_ROUND(val * SYSTEM_TIME_HZ, PIT_FREQ);
+>  
+> @@ -148,7 +155,10 @@ static int pit_get_out(PITState *pit, in
+>  
+>      ASSERT(spin_is_locked(&pit->lock));
+>  
+> -    d = muldiv64(get_guest_time(v) - pit->count_load_time[channel], 
+> +    d = pit->hw.channels[channel].gate || (s->mode & 3) == 1
+> +        ? get_guest_time(v)
+> +        : pit->count_stop_time[channel];
+> +    d = muldiv64(d - pit->count_load_time[channel] - pit->stopped_time[channel],
+>                   PIT_FREQ, SYSTEM_TIME_HZ);
+
+The above logic is repeated here and in pit_get_count(), maybe could
+be abstracted into a common helper to keep both in sync? (get_counter())
+
+Thanks, Roger.
 
