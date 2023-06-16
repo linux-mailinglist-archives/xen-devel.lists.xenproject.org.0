@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1184B733507
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 17:37:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550295.859286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C74D733532
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jun 2023 17:54:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.550302.859296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qABW1-00028r-Iu; Fri, 16 Jun 2023 15:37:33 +0000
+	id 1qABm3-0004YC-UF; Fri, 16 Jun 2023 15:54:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550295.859286; Fri, 16 Jun 2023 15:37:33 +0000
+Received: by outflank-mailman (output) from mailman id 550302.859296; Fri, 16 Jun 2023 15:54:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qABW1-00026H-GD; Fri, 16 Jun 2023 15:37:33 +0000
-Received: by outflank-mailman (input) for mailman id 550295;
- Fri, 16 Jun 2023 15:37:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r2CY=CE=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1qABVz-00026B-Pc
- for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 15:37:31 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [85.215.255.22]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b36ee070-0c5b-11ee-8611-37d641c3527e;
- Fri, 16 Jun 2023 17:37:29 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.6.0 AUTH)
- with ESMTPSA id y5401az5GFbO8gI
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 16 Jun 2023 17:37:24 +0200 (CEST)
+	id 1qABm3-0004W2-RZ; Fri, 16 Jun 2023 15:54:07 +0000
+Received: by outflank-mailman (input) for mailman id 550302;
+ Fri, 16 Jun 2023 15:54:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=twrt=CE=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1qABm1-0004Vw-SF
+ for xen-devel@lists.xenproject.org; Fri, 16 Jun 2023 15:54:05 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 04d43ccd-0c5e-11ee-b232-6b7b168915f2;
+ Fri, 16 Jun 2023 17:54:04 +0200 (CEST)
+Received: from [192.168.1.143] (unknown [151.35.105.218])
+ by support.bugseng.com (Postfix) with ESMTPSA id 20F854EE073A;
+ Fri, 16 Jun 2023 17:54:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,106 +39,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b36ee070-0c5b-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1686929844; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=hXlGPjikASoOWrPlfxxrGJYRcCW0YHoJA2CJH5kNikcUujKNjWTGy5dDTHGwuILaxD
-    Jm5BlUs0tvmh61zuvjiZF/y1i8qMaM20hyn0LhVl8zcA/mo9KTEvyPrZXwMIyGAoMWEs
-    erPZTYbM58/t5nlzL8A655mZuK+dzvCEGtJwyOY9MGWC+Q302C4ov1ZYu7PHAkba55i0
-    HgfY9l5XJ0FpyOv5jN7wIRJvSY9m3dOCNjW1nroar2xXbY+ZjTVr/amaFZvPLyMbqWlY
-    XnKtXY+pmhD59+9JVPAvsn/qTpssuzituitk6RqU7lZFpIN3Bz2GTQ36niOHB3poWYW+
-    kKQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1686929844;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=TOVhKHcZds+z64/Mll4qxdSnkrdEf3civ2YHnUTTv8o=;
-    b=As/c1Ee+N+2i5GSowXKaLTJIDmBrOHtHpxBl10sY+FWhPAP25C2EaX2EnKi4d5u23+
-    nQugGqmQlQT1cI3PuaDdrkdjoy+OE68az1AJx9FK3Q80P59aZyYkVwAKwuW1vAF3BR4J
-    lW/KZokJs5q4bqkFDfmDEWADnWuZH1LVrJ2KQGjZk1j1moY4gDdLZqT/l8vP/KP1pj7L
-    XWecXlfG9JchjxpI/bdCwWqcdNKPWhYoi8yUYartmD8bEvNIY2FBppezfnrSrubeKDFs
-    kRwA3c2DvxD3cEEto362FqqE6rVB1MuxQRB5RAT2ugZjj+z8kkvSmAGeGWST6hdaD5/h
-    NROw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1686929844;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=TOVhKHcZds+z64/Mll4qxdSnkrdEf3civ2YHnUTTv8o=;
-    b=dADoSyZbHHOtf7LO/1DP5V98s4iN3FFG8ri9X7MAyFE5tYv192jLEhI+zb57F1BBCG
-    XCQxUJi84bN18TZhlB49ds2ZQKB1Sr/XJY2EJk6fgypKMFB+VnRpatE8SrS8vT53kUZ3
-    4tDbBvzCKebt/i5bjvUEDsitL1mVDSZfFE5muys/FSZftU4uKfvbrdZHVklOnkIdj5N1
-    WGWKwKotJ0G44uehleF8nS+9xMK5b3idgo62S9Rjaf4gURD30a+nmUg8LFEI5+2cflkJ
-    9/NW7Fim5c5lDu4IXHn5oApK6cRu5jbFyObmOKF20Ork6Z3KUPZyvQ48GPmVBWFfNRkA
-    GsKw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1686929844;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=TOVhKHcZds+z64/Mll4qxdSnkrdEf3civ2YHnUTTv8o=;
-    b=ep7KPPYUY1YmJp/1sibf4kO54bBwxQlOs2ZQ+qhnChX3Uhzv8Gu7RKRtgsc7ft442y
-    SC0s7MBmsa57kTVUB7AQ==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5AB2Ibh3sRFQAfajHZ8Hr2i7N1ImBUHmXWy0PQg=="
-Date: Fri, 16 Jun 2023 17:37:17 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, Juergen
- Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>
-Subject: Re: xentrace buffer size, maxcpus and online cpus
-Message-ID: <20230616173717.3f264151.olaf@aepfle.de>
-In-Reply-To: <CA+zSX=Y6yrkA0RM0FAM7Cjv2f-UP8FvMUsoRXbMAxP+fNNC79g@mail.gmail.com>
-References: <20230530095859.60a3e4ea.olaf@aepfle.de>
-	<578d341d-0c54-de64-73e7-1dfc7e5d7584@suse.com>
-	<20230530220613.4c4da5cc.olaf@aepfle.de>
-	<1b99e58d-338c-02af-eeab-00d691337d00@suse.com>
-	<20230616134708.6b3c6964.olaf@aepfle.de>
-	<b50a8e23-f3fc-bdb9-5a76-780d2a4a7aa3@suse.com>
-	<CA+zSX=Y6yrkA0RM0FAM7Cjv2f-UP8FvMUsoRXbMAxP+fNNC79g@mail.gmail.com>
-X-Mailer: Claws Mail 20230601T090920.68bc28c0 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: 04d43ccd-0c5e-11ee-b232-6b7b168915f2
+Message-ID: <3499c107-ea0d-3a74-4278-86879a9d80e7@bugseng.com>
+Date: Fri, 16 Jun 2023 17:54:02 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Ezg3xPca+1bliHFynUjPX5R";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
+ Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
+Subject: Re: [XEN PATCH] docs/misra: document the C dialect and translation
+ toolchain assumptions.
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+References: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
+ <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
---Sig_/Ezg3xPca+1bliHFynUjPX5R
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On 16/06/23 01:26, Stefano Stabellini wrote:
+> On Thu, 15 Jun 2023, Roberto Bagnara wrote:
+>> This document specifies the C language dialect used by Xen and
+>> the assumptions Xen makes on the translation toolchain.
+>>
+>> Signed-off-by: Roberto Bagnara <roberto.bagnara@bugseng.com>
+> 
+> Thanks Roberto for the amazing work of research and archaeology.
+> 
+> I have a few comments below, mostly to clarify the description of some
+> of the less documented GCC extensions, for the purpose of having all
+> community members be able to understand what they can and cannot use.
+>> +   * - Arithmetic operator on void type
+>> +     - ARM64, X86_64
+>> +     - See Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL."
+>> +
+>> +   * - GNU statement expression
+> 
+> "GNU statement expression" is not very clear, at least for me. I would
+> call it "Statements and Declarations in Expressions".
 
-Fri, 16 Jun 2023 15:22:24 +0100 George Dunlap <george.dunlap@cloud.com>:
+Agreed.
 
-> I agree; the clear implication is that with smt=3D0, you might have
-> num_online_cpus() return 4, but cpuids that look like {1, 3, 5, 7}; so you
-> need the trace buffer array to be of size 8.
+>> +   * - Empty declaration
+>> +     - ARM64, X86_64
+>> +     - Non-documented GCC extension.
+> 
+> For the non-documented GCC extensions, would it be possible to add a
+> very brief example or a couple of words in the "References" sections?
+> Otherwise I think people might not understand what we are talking about.
 
-I see. Apparently some remapping is required to map a cpuid to an index
-into the trace buffer metadata.
+Ok.
 
+>> +   * - Incomplete enum declaration
+>> +     - ARM64
+>> +     - Non-documented GCC extension.
+> 
+> Is this 6.49 of the GCC manual perhaps?
 
-Olaf
+Indeed, on a second reading, I think that section covers also the case
+of an enum declaration that is never completed in the course of the
+translation unit.
 
---Sig_/Ezg3xPca+1bliHFynUjPX5R
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+>> +   * - Implicit conversion from a pointer to an incompatible pointer
+>> +     - ARM64, X86_64
+>> +     - Non-documented GCC extension.
+> 
+> Is this related to -Wincompatible-pointer-types?
 
------BEGIN PGP SIGNATURE-----
+In my opinion, this does not specify what the result of the
+conversion is.
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmSMga0ACgkQ86SN7mm1
-DoApeA/5AWhL4IlRtXTVrf8ffrYm3pGQ10gFf0+moTq5sxjaSEdtY4FyvPGGOcPd
-Bmw3Dmbte9xPOe9PXxr5vuvBo8MBI0E1LFo4zhIDlTRDT0wQkZwA4eynq0E40OVR
-D5Ccz0LYINluE9dquIqKU6K0LZ1R5BEQ6cjhhKrsFuujNNDW+C2if0waj1ICPOsg
-o+ZX5JKkOWIwud5B+YJ7i9ZJh7UF3LhM8l26WEOUdx5mvN1oNzOOl/nvq5H4JLnm
-xwSqeUupFHhDFg+/1V4+QgBIAZLF9YwLPrAtTbnraJtQwkPGX8tEE0+uQU6pddZU
-xJcc2Pl7b1UG2kpSxkT3avhOHtxrWa/nVXdKyFnRilkmzOXvddSAnezTYGruT2wF
-2wxl10oKVdZMQRnplqaPpCFpdhbBuTHUXbY1rd625+K4dRidaTpVSjJ4OpnlWauH
-5vxqH5Ho1TkV0DqDvbdEVUUF4QujbnMOLh2l+W2ePy2OuVojBOdV44rC4cXCBevx
-f2RvFco/X/Q0Q0K4CDgcPSEJgxkAW/LvCDSwmy6bmM9d9DwCEVftOWGNEcXKlkL9
-YwBTLhXpzjmFbBSEPACdpFKRRIuKIcG30vVoRNd0Z0T9a6cJEoaeo78gECiz4yIn
-Bw2Zj4YVrU7qAJYdXmfH11mIrBrAz1OxJ1akWu4sSl/wdEinZZQ=
-=3XJg
------END PGP SIGNATURE-----
+>> +   * - Pointer to a function is converted to a pointer to an object or a pointer to an object is converted to a pointer to a function
+>> +     - X86_64
+>> +     - Non-documented GCC extension.
+> 
+> Is this J.5.7 of n1570?
+> https://www.iso-9899.info/n1570.html
 
---Sig_/Ezg3xPca+1bliHFynUjPX5R--
+This says that function pointer casts are a common extension.
+What we need here is documentation for GCC that assures us
+that the extension is implemented and what its semantics is.
+
+> Or maybe we should link https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83584
+
+My opinion is that this might not be accepted by an assessor:
+if I was an assessor, I would not accept it.
+
+>> +   * - Ill-formed source detected by the parser
+> 
+> As we are documenting compiler extensions that we are using, I am a bit
+> confused by the name of this category of compiler extensions, and the
+> reason why they are bundled together. After all, they are all separate
+> compiler extensions? Should each of them have their own row?
+
+Agreed.
+
+>> +     - ARM64, X86_64
+>> +     - token pasting of ',' and __VA_ARGS__ is a GNU extension:
+>> +          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
+>> +       must specify at least one argument for '...' parameter of variadic macro:
+>> +          see Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
+>> +       void function should not return void expression:
+> 
+> I understand that GCC does a poor job at documenting several of these
+> extensions. In fact a few of them are not even documented at all.
+> However, if they are extensions, they should be described for what they
+> do, not for the rule they violate. What do you think?
+
+The point is that we don't know what they do.  We might make observations,
+and our observations might substantiate what we believe they do.
+But this would not allow us to generalize them.
+
+> For example, in this case maybe we should say "void function can return
+> a void expression" ?
+
+We can certainly say that, but this might not convince an assessor.
+One possibility would be to submit patches to the GCC manual and see
+whether they are accepted.
+
+>> +          see the documentation for -Wreturn-type in Section "3.8 Options to Request or Suppress Warnings" of GCC_MANUAL.
+>> +       use of GNU statement expression extension from macro expansion:
+>> +          see Section "6.1 Statements and Declarations in Expressions" of GCC_MANUAL.
+>> +       invalid application of sizeof to a void type:
+>> +          see Section "6.24 Arithmetic on void- and Function-Pointers" of GCC_MANUAL.
+>> +       redeclaration of already-defined enum is a GNU extension:
+>> +          see Section "6.49 Incomplete enum Types" of GCC_MANUAL.
+>> +       static function is used in an inline function with external linkage:
+>> +          non-documented GCC extension.
+> 
+> I am not sure if I follow about this one. Did you mean "static is used
+> in an inline function with external linkage" ?
+
+An inline function with external linkage can be inlined everywhere.
+If that calls a static functions, which is not available everywhere,
+the behavior is not defined.
+
+>> +       struct may not be nested in a struct due to flexible array member:
+>> +          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
+>> +       struct may not be used as an array element due to flexible array member:
+>> +          see Section "6.18 Arrays of Length Zero" of GCC_MANUAL.
+>> +       ISO C restricts enumerator values to the range of int:
+>> +          non-documented GCC extension.
+> 
+> Should we call it instead "enumerator values can be larger than int" ?
+
+Yes, I have rephrased that entry.
+
+>> +   * - Unspecified escape sequence is encountered in a character constant or a string literal token
+>> +     - X86_64
+>> +     - \\m:
+>> +          non-documented GCC extension.
+> 
+> Are you saying that we are using \m and \m is not allowed by the C
+> standard?
+
+The C standard does not specify that escape sequence, so what is
+done with it, in particular by the preprocessor, is not specified.
+
+>> +   * - Non-standard type
+> 
+> Should we call it "128-bit Integers" ?
+
+I have rephrased this as suggested by Jan.
+
+Thanks for your review.  I will submit a revised patch
+on Monday.
+Kind regards,
+
+     Roberto
 
