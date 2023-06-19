@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16238735CA1
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 19:01:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551248.860739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D4E735CED
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 19:18:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551283.860752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBIFt-0004xy-MH; Mon, 19 Jun 2023 17:01:29 +0000
+	id 1qBIVh-0000Kh-1v; Mon, 19 Jun 2023 17:17:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551248.860739; Mon, 19 Jun 2023 17:01:29 +0000
+Received: by outflank-mailman (output) from mailman id 551283.860752; Mon, 19 Jun 2023 17:17:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBIFt-0004rI-Hd; Mon, 19 Jun 2023 17:01:29 +0000
-Received: by outflank-mailman (input) for mailman id 551248;
- Mon, 19 Jun 2023 17:01:28 +0000
+	id 1qBIVg-0000HO-VL; Mon, 19 Jun 2023 17:17:48 +0000
+Received: by outflank-mailman (input) for mailman id 551283;
+ Mon, 19 Jun 2023 17:17:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qBIFs-0004l9-3o
- for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 17:01:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBIVf-0000HE-VN; Mon, 19 Jun 2023 17:17:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qBIFr-0002fd-Sj; Mon, 19 Jun 2023 17:01:27 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qBIFr-00079R-LM; Mon, 19 Jun 2023 17:01:27 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBIVf-00036h-JV; Mon, 19 Jun 2023 17:17:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBIVf-0003Xp-87; Mon, 19 Jun 2023 17:17:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBIVf-0000bJ-7j; Mon, 19 Jun 2023 17:17:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,217 +42,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=kb0w434WqcCO6B2fvVViD2fzwzZIeQ5lguZBKStXu+g=; b=VA76lUbCPBM1ZD3fyiyCAAzR6x
-	skIaKc9psvsiUMVqfbXfeup2ya+mrvIvlBSgtWTgq45muJruisir4eP51MLSeq5neKLkuNdAsxWAg
-	rKj2HQErZCoPdkRJq0BHzI5xwuqxS2rSMzVZ2b2uUzFzlIhUe3RurhounxKXjpUI27hU=;
-From: Julien Grall <julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=IAX1Tp5lYwmhKYaCKj4j9V39ssjP8TDlAciXiOmYYVU=; b=1sjgucBVMFHLPKpsAqoKipgJVI
+	FokRbDZmVVEBv3j4QPOfPr/1BI451r/SWueVV0gG1VHoe1ikn7L4ZE/D5fjW/USLDmsyNX3YPpcT5
+	6NarBs4KC3GtUUX4j51dbi0PU1M8QTN5HC1te/EwFIKl02V0/LAeftvziDE9Wyb/GPlU=;
 To: xen-devel@lists.xenproject.org
-Cc: Luca.Fancellu@arm.com,
-	michal.orzel@amd.com,
-	Henry.Wang@arm.com,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 7/7] xen/arm32: head: Widen the use of the temporary mapping
-Date: Mon, 19 Jun 2023 18:01:15 +0100
-Message-Id: <20230619170115.81398-8-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230619170115.81398-1-julien@xen.org>
-References: <20230619170115.81398-1-julien@xen.org>
-MIME-Version: 1.0
+Message-ID: <osstest-181504-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 181504: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a17fd0feb6b6bbe82550f43d70654d894ed377ec
+X-Osstest-Versions-That:
+    xen=7a25a1501ca941c3e01b0c4e624ace05417f1587
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 19 Jun 2023 17:17:47 +0000
 
-From: Julien Grall <jgrall@amazon.com>
+flight 181504 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181504/
 
-At the moment, the temporary mapping is only used when the virtual
-runtime region of Xen is clashing with the physical region.
+Failures and problems with tests :-(
 
-In follow-up patches, we will rework how secondary CPU bring-up works
-and it will be convenient to use the fixmap area for accessing
-the root page-table (it is per-cpu).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 181476
 
-Rework the code to use temporary mapping when the Xen physical address
-is not overlapping with the temporary mapping.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-This also has the advantage to simplify the logic to identity map
-Xen.
+version targeted for testing:
+ xen                  a17fd0feb6b6bbe82550f43d70654d894ed377ec
+baseline version:
+ xen                  7a25a1501ca941c3e01b0c4e624ace05417f1587
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-Reviewed-by: Henry Wang <Henry.Wang@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Last test of basis   181476  2023-06-17 04:00:28 Z    2 days
+Testing same since   181504  2023-06-19 11:00:26 Z    0 days    1 attempts
 
-----
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
 
-This patch was originally part of [1] but it was reverted due to
-Xen not booting on the Arndale. The first patch of this series
-is fixing it (confirmed by booting on the Arndale). So I am including
-this patch. Also all the tags but the tested-by have been kept
-because the code has not changed. Happy to drop any if there are
-any concerns.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-[1] https://lore.kernel.org/xen-devel/20230416143211.72227-1-julien@xen.org/
 
-Changelog from the previous series:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-    Changes in v6:
-        - Add Henry's reviewed-by and tested-by tag
-        - Add Michal's reviewed-by
-        - Add newline in remove_identity_mapping for clarity
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-    Changes in v5:
-        - Fix typo in a comment
-        - No need to link boot_{second, third}_id again if we need to
-          create a temporary area.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-    Changes in v3:
-        - Resolve conflicts after switching from "ldr rX, <label>" to
-          "mov_w rX, <label>" in a previous patch
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-    Changes in v2:
-        - Patch added
----
- xen/arch/arm/arm32/head.S | 86 ++++++++-------------------------------
- 1 file changed, 16 insertions(+), 70 deletions(-)
+broken-job build-armhf broken
+broken-step build-armhf host-install(4)
 
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index b942e7e54d08..d70e856ab7dd 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -459,7 +459,6 @@ ENDPROC(cpu_init)
- create_page_tables:
-         /* Prepare the page-tables for mapping Xen */
-         mov_w r0, XEN_VIRT_START
--        create_table_entry boot_pgtable, boot_second, r0, 1
-         create_table_entry boot_second, boot_third, r0, 2
- 
-         /* Setup boot_third: */
-@@ -479,70 +478,37 @@ create_page_tables:
-         cmp   r1, #(XEN_PT_LPAE_ENTRIES<<3) /* 512*8-byte entries per page */
-         blo   1b
- 
--        /*
--         * If Xen is loaded at exactly XEN_VIRT_START then we don't
--         * need an additional 1:1 mapping, the virtual mapping will
--         * suffice.
--         */
--        cmp   r9, #XEN_VIRT_START
--        moveq pc, lr
--
-         /*
-          * Setup the 1:1 mapping so we can turn the MMU on. Note that
-          * only the first page of Xen will be part of the 1:1 mapping.
--         *
--         * In all the cases, we will link boot_third_id. So create the
--         * mapping in advance.
-          */
-+        create_table_entry boot_pgtable, boot_second_id, r9, 1
-+        create_table_entry boot_second_id, boot_third_id, r9, 2
-         create_mapping_entry boot_third_id, r9, r9
- 
-         /*
--         * Find the first slot used. If the slot is not XEN_FIRST_SLOT,
--         * then the 1:1 mapping will use its own set of page-tables from
--         * the second level.
-+         * Find the first slot used. If the slot is not the same
-+         * as TEMPORARY_AREA_FIRST_SLOT, then we will want to switch
-+         * to the temporary mapping before jumping to the runtime
-+         * virtual mapping.
-          */
-         get_table_slot r1, r9, 1     /* r1 := first slot */
--        cmp   r1, #XEN_FIRST_SLOT
--        beq   1f
--        create_table_entry boot_pgtable, boot_second_id, r9, 1
--        b     link_from_second_id
--
--1:
--        /*
--         * Find the second slot used. If the slot is XEN_SECOND_SLOT, then the
--         * 1:1 mapping will use its own set of page-tables from the
--         * third level.
--         */
--        get_table_slot r1, r9, 2     /* r1 := second slot */
--        cmp   r1, #XEN_SECOND_SLOT
--        beq   virtphys_clash
--        create_table_entry boot_second, boot_third_id, r9, 2
--        b     link_from_third_id
-+        cmp   r1, #TEMPORARY_AREA_FIRST_SLOT
-+        bne   use_temporary_mapping
- 
--link_from_second_id:
--        create_table_entry boot_second_id, boot_third_id, r9, 2
--link_from_third_id:
--        /* Good news, we are not clashing with Xen virtual mapping */
-+        mov_w r0, XEN_VIRT_START
-+        create_table_entry boot_pgtable, boot_second, r0, 1
-         mov   r12, #0                /* r12 := temporary mapping not created */
-         mov   pc, lr
- 
--virtphys_clash:
-+use_temporary_mapping:
-         /*
--         * The identity map clashes with boot_third. Link boot_first_id and
--         * map Xen to a temporary mapping. See switch_to_runtime_mapping
--         * for more details.
-+         * The identity mapping is not using the first slot
-+         * TEMPORARY_AREA_FIRST_SLOT. Create a temporary mapping.
-+         * See switch_to_runtime_mapping for more details.
-          */
--        PRINT("- Virt and Phys addresses clash  -\r\n")
-         PRINT("- Create temporary mapping -\r\n")
- 
--        /*
--         * This will override the link to boot_second in XEN_FIRST_SLOT.
--         * The page-tables are not live yet. So no need to use
--         * break-before-make.
--         */
--        create_table_entry boot_pgtable, boot_second_id, r9, 1
--        create_table_entry boot_second_id, boot_third_id, r9, 2
--
-         /* Map boot_second (cover Xen mappings) to the temporary 1st slot */
-         mov_w r0, TEMPORARY_XEN_VIRT_START
-         create_table_entry boot_pgtable, boot_second, r0, 1
-@@ -680,33 +646,13 @@ remove_identity_mapping:
-         /* r2:r3 := invalid page-table entry */
-         mov   r2, #0x0
-         mov   r3, #0x0
--        /*
--         * Find the first slot used. Remove the entry for the first
--         * table if the slot is not XEN_FIRST_SLOT.
--         */
-+
-+        /* Find the first slot used and remove it */
-         get_table_slot r1, r9, 1     /* r1 := first slot */
--        cmp   r1, #XEN_FIRST_SLOT
--        beq   1f
--        /* It is not in slot 0, remove the entry */
-         mov_w r0, boot_pgtable       /* r0 := root table */
-         lsl   r1, r1, #3             /* r1 := Slot offset */
-         strd  r2, r3, [r0, r1]
--        b     identity_mapping_removed
--
--1:
--        /*
--         * Find the second slot used. Remove the entry for the first
--         * table if the slot is not XEN_SECOND_SLOT.
--         */
--        get_table_slot r1, r9, 2     /* r1 := second slot */
--        cmp   r1, #XEN_SECOND_SLOT
--        beq   identity_mapping_removed
--        /* It is not in slot 1, remove the entry */
--        mov_w r0, boot_second        /* r0 := second table */
--        lsl   r1, r1, #3             /* r1 := Slot offset */
--        strd  r2, r3, [r0, r1]
- 
--identity_mapping_removed:
-         flush_xen_tlb_local r0
-         mov   pc, lr
- ENDPROC(remove_identity_mapping)
--- 
-2.40.1
+Not pushing.
 
+------------------------------------------------------------
+commit a17fd0feb6b6bbe82550f43d70654d894ed377ec
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Mon Jun 19 10:09:32 2023 +0100
+
+    automation: Disable QEMU build with Clang older than 10.0
+    
+    Since QEMU commit 74a1b256d775 ("configure: Bump minimum Clang version
+    to 10.0"), or QEMU v8.0, Clang 10.0 is now the minimum to build QEMU.
+    
+    QEMU 8.0 fails to build on Ubuntu Bionic.
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
