@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73979735107
+	by mail.lfdr.de (Postfix) with ESMTPS id 8359F735108
 	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 11:56:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.550919.860143 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.550921.860152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBBcf-0006X4-Mp; Mon, 19 Jun 2023 09:56:33 +0000
+	id 1qBBcm-0006nZ-TK; Mon, 19 Jun 2023 09:56:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 550919.860143; Mon, 19 Jun 2023 09:56:33 +0000
+Received: by outflank-mailman (output) from mailman id 550921.860152; Mon, 19 Jun 2023 09:56:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBBcf-0006Ub-JL; Mon, 19 Jun 2023 09:56:33 +0000
-Received: by outflank-mailman (input) for mailman id 550919;
- Mon, 19 Jun 2023 09:56:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBBcm-0006lu-QJ; Mon, 19 Jun 2023 09:56:40 +0000
+Received: by outflank-mailman (input) for mailman id 550921;
+ Mon, 19 Jun 2023 09:56:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4BTp=CH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qBBce-0006UR-6d
- for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 09:56:32 +0000
+ id 1qBBcm-0006ke-6J
+ for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 09:56:40 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90673fba-0e87-11ee-b234-6b7b168915f2;
- Mon, 19 Jun 2023 11:56:30 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9514e56d-0e87-11ee-8611-37d641c3527e;
+ Mon, 19 Jun 2023 11:56:38 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [151.44.138.43])
- by support.bugseng.com (Postfix) with ESMTPSA id 9AC0C4EE0741;
- Mon, 19 Jun 2023 11:56:26 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id A2DAF4EE0C8D;
+ Mon, 19 Jun 2023 11:56:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90673fba-0e87-11ee-b234-6b7b168915f2
+X-Inumbo-ID: 9514e56d-0e87-11ee-8611-37d641c3527e
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: michal.orzel@amd.com,
@@ -50,65 +50,72 @@ Cc: michal.orzel@amd.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Rahul Singh <rahul.singh@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 0/3] fix violations of MISRA C:2012 Rule 3.1
-Date: Mon, 19 Jun 2023 11:56:10 +0200
-Message-Id: <cover.1687167502.git.nicola.vetrini@bugseng.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH v2 1/3] xen/arch/arm: fix violations of MISRA C:2012 Rule 3.1
+Date: Mon, 19 Jun 2023 11:56:11 +0200
+Message-Id: <e2b7f377d1467833d9ae2cd897c962561e54fb02.1687167502.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1687167502.git.nicola.vetrini@bugseng.com>
+References: <cover.1687167502.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+In the files `xen/arch/arm/include/asm/arm(32|64)/flushtlb.h' there are a
+few occurrences of nested '//' character sequences inside C-style comment
+blocks, which violate Rule 3.1. The patch aims to resolve those by removing
+the nested comments.
 
-This patch series is about the violations present in the Xen sources of
-Rule 3.1 from MISRA C:2012, whose headline states:
-"The character sequences '/*' and '//' shall not be used within a comment".
-
-In the context of the effort to bring xen into compliance w.r.t.
-MISRA C:2012, and Rule 3.1 being already approved for the project (as
-evidenced by `docs/misra/rules.rst'), these violations need to be fixed.
-
-Most of the violations are due to the presence of links to webpages within
-C-style comment blocks, such as:
-
-xen/arch/arm/include/asm/smccc.h:37.1-41.3
-/*
- * This file provides common defines for ARM SMC Calling Convention as
- * specified in
- * http://infocenter.arm.com/help/topic/com.arm.doc.den0028a/index.html
-*/
-
-In this case, I propose to deviate all of these occurrences with a
-project deviation to be captured by a tool configuration
-(not included in any patch from this series).
-
-There are, however, a few other violations that do not fall under this
-category, which are the focus of the following set of patches. They either:
-
-1. remove the nested '//' character sequence within a block comment;
-2. remove the surrounding comment.
-
-Thanks,
-  Nicola
-
-Nicola Vetrini (3):
-  xen/arch/arm: fix violations of MISRA C:2012 Rule 3.1
-  xen/drivers/passthrough/arm/smmu-v3.c: fix violations of MISRA C:2012
-    Rule 3.1
-  xen: fix violations of MISRA C:2012 Rule 3.1
-
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com
+---
+Changes:
+- Resending the patch with the right maintainers in CC.
+Changes in V2:
+- Split the patch into a series and reworked the fix.
+- Apply the fix to the arm32 `flushtlb.h' file, for consistency
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
  xen/arch/arm/include/asm/arm32/flushtlb.h | 8 ++++----
  xen/arch/arm/include/asm/arm64/flushtlb.h | 8 ++++----
- xen/common/xmalloc_tlsf.c                 | 3 ---
- xen/drivers/passthrough/arm/smmu-v3.c     | 4 ++--
- xen/include/xen/atomic.h                  | 2 +-
- 5 files changed, 11 insertions(+), 14 deletions(-)
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
+diff --git a/xen/arch/arm/include/asm/arm32/flushtlb.h b/xen/arch/arm/include/asm/arm32/flushtlb.h
+index 22ee3b317b..bcbeac590b 100644
+--- a/xen/arch/arm/include/asm/arm32/flushtlb.h
++++ b/xen/arch/arm/include/asm/arm32/flushtlb.h
+@@ -4,10 +4,10 @@
+ /*
+  * Every invalidation operation use the following patterns:
+  *
+- * DSB ISHST        // Ensure prior page-tables updates have completed
+- * TLBI...          // Invalidate the TLB
+- * DSB ISH          // Ensure the TLB invalidation has completed
+- * ISB              // See explanation below
++ * DSB ISHST        Ensure prior page-tables updates have completed
++ * TLBI...          Invalidate the TLB
++ * DSB ISH          Ensure the TLB invalidation has completed
++ * ISB              See explanation below
+  *
+  * For Xen page-tables the ISB will discard any instructions fetched
+  * from the old mappings.
+diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
+index 56c6fc763b..6066a2d703 100644
+--- a/xen/arch/arm/include/asm/arm64/flushtlb.h
++++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
+@@ -4,10 +4,10 @@
+ /*
+  * Every invalidation operation use the following patterns:
+  *
+- * DSB ISHST        // Ensure prior page-tables updates have completed
+- * TLBI...          // Invalidate the TLB
+- * DSB ISH          // Ensure the TLB invalidation has completed
+- * ISB              // See explanation below
++ * DSB ISHST        Ensure prior page-tables updates have completed
++ * TLBI...          Invalidate the TLB
++ * DSB ISH          Ensure the TLB invalidation has completed
++ * ISB              See explanation below
+  *
+  * ARM64_WORKAROUND_REPEAT_TLBI:
+  * Modification of the translation table for a virtual address might lead to
 -- 
 2.34.1
 
