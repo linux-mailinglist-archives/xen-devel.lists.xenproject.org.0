@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DDA5735CA2
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 19:01:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551242.860683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20BB2735C9B
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 19:01:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551243.860693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBIFm-0003SU-Lk; Mon, 19 Jun 2023 17:01:22 +0000
+	id 1qBIFn-0003h8-TT; Mon, 19 Jun 2023 17:01:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551242.860683; Mon, 19 Jun 2023 17:01:22 +0000
+Received: by outflank-mailman (output) from mailman id 551243.860693; Mon, 19 Jun 2023 17:01:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBIFm-0003PP-Ik; Mon, 19 Jun 2023 17:01:22 +0000
-Received: by outflank-mailman (input) for mailman id 551242;
- Mon, 19 Jun 2023 17:01:20 +0000
+	id 1qBIFn-0003fD-Pf; Mon, 19 Jun 2023 17:01:23 +0000
+Received: by outflank-mailman (input) for mailman id 551243;
+ Mon, 19 Jun 2023 17:01:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qBIFk-0003Kd-Ox
- for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 17:01:20 +0000
+ (envelope-from <julien@xen.org>) id 1qBIFl-0003PJ-SG
+ for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 17:01:21 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qBIFk-0002e2-Am; Mon, 19 Jun 2023 17:01:20 +0000
+ id 1qBIFl-0002e8-I0; Mon, 19 Jun 2023 17:01:21 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qBIFk-00079R-1n; Mon, 19 Jun 2023 17:01:20 +0000
+ id 1qBIFl-00079R-AP; Mon, 19 Jun 2023 17:01:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=f0Msc+xsVYLFDQx2YMgcMthu7/P+yNsRuDofE8DHCTI=; b=2hI+1r6bez1izKN5mYzfSlrs/9
-	m1HXM0JjawBY4PuhMeUvfOEFjgIIFJuYB1O57140gBQ0NU3z58+ibu68aAopE3zL7Jx2Uid1hxPBw
-	h9N824YNpqhoNfnbNMN3dKj29TSlSGl0PxoJKS6dg0rIBgtM00UPuDwdtvxcW1VpFalk=;
+	bh=XCDJIqgFhmZ0JxJIz/CX3QdAY7V9+R7dcjMnAbPAVAE=; b=b7G86f2/m0YHDlxFFdfMktxZJS
+	FuYmVBB/wK3s2CWthe5OwcpPFpnf6QsPtkDVNK5eW7hAjBWdSCsMq6Tpt/6tLCKvbGYW8eKB2rB1D
+	2ivqbwODXI6tEjaLVcaRFhYXb//cySMhPkad7kRm3RFV8TX2sUd+U0GrOHqYw8bJKg/o=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Luca.Fancellu@arm.com,
@@ -56,9 +56,9 @@ Cc: Luca.Fancellu@arm.com,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 1/7] xen/arm32: head: Add missing isb in setup_fixmap()
-Date: Mon, 19 Jun 2023 18:01:09 +0100
-Message-Id: <20230619170115.81398-2-julien@xen.org>
+Subject: [PATCH 2/7] xen/arm32: head: Add mising isb in switch_to_runtime_mapping()
+Date: Mon, 19 Jun 2023 18:01:10 +0100
+Message-Id: <20230619170115.81398-3-julien@xen.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230619170115.81398-1-julien@xen.org>
 References: <20230619170115.81398-1-julien@xen.org>
@@ -75,33 +75,33 @@ maintenance operations being executed by the processor. Instruction
 fetches or accesses caused by a hardware translation table access are
 not explicit accesses."
 
-In setup_fixmap(), we write the fixmap area and may be used soon after,
-for instance, to write to the UART. IOW, there could be hardware
-translation table access. So we need to ensure the 'dsb' has completed
-before continuing. Therefore add an 'isb'.
+The function switch_to_runtime_mapping() is responsible to map the
+Xen at its runtime address if we were using the temporary area before
+jumping returning using a runtime address. So we need to ensure the
+'dsb' has completed before continuing. Therefore add an 'isb'.
 
-Fixes: e79999e587d7 ("xen/arm32: head: Remove 1:1 mapping as soon as it is not used")
+Fixes: fbd9b5fb4c26 ("xen/arm32: head: Remove restriction where to load Xen")
 Signed-off-by: Julien Grall <jgrall@amazon.com>
 ---
  xen/arch/arm/arm32/head.S | 5 +++++
  1 file changed, 5 insertions(+)
 
 diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index f9f7be9588b1..6ca3329138e3 100644
+index 6ca3329138e3..b942e7e54d08 100644
 --- a/xen/arch/arm/arm32/head.S
 +++ b/xen/arch/arm/arm32/head.S
-@@ -751,6 +751,11 @@ setup_fixmap:
-         create_table_entry boot_second, xen_fixmap, r0, 2
-         /* Ensure any page table updates made above have occurred. */
-         dsb   nshst
+@@ -656,6 +656,11 @@ switch_to_runtime_mapping:
+ 
+         /* Ensure any page table updates are visible before continuing */
+         dsb   nsh
 +        /*
-+         * The fixmap area will be used soon after. So ensure no hardware
-+         * translation happens before the dsb completes.
++         * The function will return on the runtime mapping. So we want
++         * to prevent instruction fetch before the dsb completes.
 +         */
 +        isb
  
+ ready_to_switch:
          mov   pc, lr
- ENDPROC(setup_fixmap)
 -- 
 2.40.1
 
