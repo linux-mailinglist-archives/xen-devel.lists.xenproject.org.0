@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55328735C9A
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 19:01:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551246.860723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F7EF735C9C
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 19:01:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551247.860734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBIFq-0004UO-S2; Mon, 19 Jun 2023 17:01:26 +0000
+	id 1qBIFt-0004pw-6Z; Mon, 19 Jun 2023 17:01:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551246.860723; Mon, 19 Jun 2023 17:01:26 +0000
+Received: by outflank-mailman (output) from mailman id 551247.860734; Mon, 19 Jun 2023 17:01:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBIFq-0004OP-MP; Mon, 19 Jun 2023 17:01:26 +0000
-Received: by outflank-mailman (input) for mailman id 551246;
- Mon, 19 Jun 2023 17:01:25 +0000
+	id 1qBIFt-0004mO-0n; Mon, 19 Jun 2023 17:01:29 +0000
+Received: by outflank-mailman (input) for mailman id 551247;
+ Mon, 19 Jun 2023 17:01:27 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qBIFp-0004BY-MQ
- for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 17:01:25 +0000
+ (envelope-from <julien@xen.org>) id 1qBIFq-0004Y6-U7
+ for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 17:01:26 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qBIFp-0002f7-BR; Mon, 19 Jun 2023 17:01:25 +0000
+ id 1qBIFq-0002fP-K2; Mon, 19 Jun 2023 17:01:26 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qBIFp-00079R-43; Mon, 19 Jun 2023 17:01:25 +0000
+ id 1qBIFq-00079R-Ci; Mon, 19 Jun 2023 17:01:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=o/7iDTA3VqOW8+2Qi5rctGMLXOWeKouoykuCMLKWUGo=; b=M7jvehIVVy5FSRF3uLpCQZAzMO
-	jQXxwm8KyBvQYsD/lands5Nz8cBJSki4dsg+nVmUrSnArcRS7I7K+YAu5ylo+ONaewS57xD/6v+/R
-	zSISTdQCHGljRm5pfUXH9LYgteEjrMCoXo+nuxB5Q6L8fJZk2mHj6rf0xmdqwUGyouVE=;
+	bh=Z5DRZNZmlBW9wLWM72auv5rCsE+gqkJPzk13KavQHZY=; b=hQHBgzPEL0IUqiiOdL9ZuROF+w
+	e7n3xPToVnbSWxPv6sFGuKZ+s2VRKe6FV4sUneSINgB41LKNdnLdvMCDEHUOklzonZfgp6qYRsD4W
+	yaVwyHS/OLAxjTd0Rf8OEUzA+GKkLFfZ55t3wbdENLRKVh2Fu6pPsCfElVwHCWyghOdo=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Luca.Fancellu@arm.com,
@@ -56,9 +56,9 @@ Cc: Luca.Fancellu@arm.com,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 5/7] xen/arm: pmap: Add missing ISB in arch_pmap_map()
-Date: Mon, 19 Jun 2023 18:01:13 +0100
-Message-Id: <20230619170115.81398-6-julien@xen.org>
+Subject: [PATCH 6/7] xen/arm: mm: Add missing ISB in xen_pt_update()
+Date: Mon, 19 Jun 2023 18:01:14 +0100
+Message-Id: <20230619170115.81398-7-julien@xen.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230619170115.81398-1-julien@xen.org>
 References: <20230619170115.81398-1-julien@xen.org>
@@ -78,32 +78,64 @@ not explicit accesses."
 Note that second sentence is not part of the newer Armv8 spec. But the
 interpretation is not much different.
 
-As the entry created by arch_pmap_map() will be used soon after
-pmap_map() returns, we want to ensure the DSB in write_pte() has
-completed. So add an ISB.
+The updated entry will not be used until xen_pt_update() completes.
+So rather than adding the ISB after write_pte() in create_xen_table()
+and xen_pt-update_entry(), add it in xen_pt_update().
 
-Fixes: 4f17357b52f6 ("xen/arm: add Persistent Map (PMAP) infrastructure")
+Also document the reasoning of the deferral after each write_pte() calls.
+
+Fixes: 07d11f63d03e ("xen/arm: mm: Avoid flushing the TLBs when mapping are inserted")
 Signed-off-by: Julien Grall <jgrall@amazon.com>
 ---
- xen/arch/arm/include/asm/pmap.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ xen/arch/arm/mm.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/xen/arch/arm/include/asm/pmap.h b/xen/arch/arm/include/asm/pmap.h
-index e094d13dd282..bca3381796f3 100644
---- a/xen/arch/arm/include/asm/pmap.h
-+++ b/xen/arch/arm/include/asm/pmap.h
-@@ -15,6 +15,11 @@ static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
-     pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index e460249736c3..84e652799dd2 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -779,6 +779,11 @@ static int create_xen_table(lpae_t *entry)
+     pte = mfn_to_xen_entry(mfn, MT_NORMAL);
      pte.pt.table = 1;
      write_pte(entry, pte);
 +    /*
-+     * The new entry will be used very soon after arch_pmap_map() returns.
-+     * So ensure the DSB in write_pte() has completed before continuing.
++     * No ISB here. It is deferred to xen_pt_update() as the new table
++     * will not be used for hardware translation table access as part of
++     * the mapping update.
 +     */
-+    isb();
- }
  
- static inline void arch_pmap_unmap(unsigned int slot)
+     return 0;
+ }
+@@ -1017,6 +1022,10 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+     }
+ 
+     write_pte(entry, pte);
++    /*
++     * No ISB or TLB flush here. They are deferred to xen_pt_update()
++     * as the entry will not be used as part of the mapping update.
++     */
+ 
+     rc = 0;
+ 
+@@ -1196,6 +1205,9 @@ static int xen_pt_update(unsigned long virt,
+     /*
+      * The TLBs flush can be safely skipped when a mapping is inserted
+      * as we don't allow mapping replacement (see xen_pt_check_entry()).
++     * Although we still need an ISB to ensure any DSB in
++     * write_pte() will complete because the mapping may be used soon
++     * after.
+      *
+      * For all the other cases, the TLBs will be flushed unconditionally
+      * even if the mapping has failed. This is because we may have
+@@ -1204,6 +1216,8 @@ static int xen_pt_update(unsigned long virt,
+      */
+     if ( !((flags & _PAGE_PRESENT) && !mfn_eq(mfn, INVALID_MFN)) )
+         flush_xen_tlb_range_va(virt, PAGE_SIZE * nr_mfns);
++    else
++        isb();
+ 
+     spin_unlock(&xen_pt_lock);
+ 
 -- 
 2.40.1
 
