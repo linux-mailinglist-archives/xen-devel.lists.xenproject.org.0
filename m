@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25572735B81
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 17:49:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551183.860573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E322735B82
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 17:50:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551190.860583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBH8F-00066m-Nh; Mon, 19 Jun 2023 15:49:31 +0000
+	id 1qBH8o-0007K3-6D; Mon, 19 Jun 2023 15:50:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551183.860573; Mon, 19 Jun 2023 15:49:31 +0000
+Received: by outflank-mailman (output) from mailman id 551190.860583; Mon, 19 Jun 2023 15:50:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBH8F-00063d-Jd; Mon, 19 Jun 2023 15:49:31 +0000
-Received: by outflank-mailman (input) for mailman id 551183;
- Mon, 19 Jun 2023 15:49:29 +0000
+	id 1qBH8o-0007HO-2G; Mon, 19 Jun 2023 15:50:06 +0000
+Received: by outflank-mailman (input) for mailman id 551190;
+ Mon, 19 Jun 2023 15:50:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/FHF=CH=citrix.com=prvs=5274193ea=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qBH8D-00063X-MV
- for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 15:49:29 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de60ca8f-0eb8-11ee-b234-6b7b168915f2;
- Mon, 19 Jun 2023 17:49:28 +0200 (CEST)
-Received: from mail-dm6nam12lp2174.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.174])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 19 Jun 2023 11:49:22 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by SJ0PR03MB6875.namprd03.prod.outlook.com (2603:10b6:a03:43a::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.35; Mon, 19 Jun
- 2023 15:49:19 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd96:913a:c06c:d606]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd96:913a:c06c:d606%4]) with mapi id 15.20.6500.036; Mon, 19 Jun 2023
- 15:49:18 +0000
+ <SRS0=Mm0T=CH=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qBH8m-00063X-Mz
+ for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 15:50:04 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f32072b2-0eb8-11ee-b234-6b7b168915f2;
+ Mon, 19 Jun 2023 17:50:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 7FEB08285453;
+ Mon, 19 Jun 2023 10:50:00 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id ObautJSbPPCA; Mon, 19 Jun 2023 10:49:59 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 1A0698285493;
+ Mon, 19 Jun 2023 10:49:59 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id ox8DoC9g7tUs; Mon, 19 Jun 2023 10:49:58 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 7B8C78285453;
+ Mon, 19 Jun 2023 10:49:58 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,171 +51,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de60ca8f-0eb8-11ee-b234-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1687189767;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=vaUsiIPpBTuUERNVDR3RTu4VMJaKQmmz5xIP2EGeXeA=;
-  b=WDL1eR+v+4Y5C+Z1fEkWA2h10rxYSp0wgCnPiS0DnQbOiOtZpkP//QQU
-   EjY47huGRppuIVCMXQ6YlLKo/aAKBhocJLcmSslMLyHYCdoPCTFXgL3NL
-   sCQ45Q26e1dLPAWWltWATxkwRbaZzf9R7LZD0ecIWRazlXO0upSFkb9gb
-   U=;
-X-IronPort-RemoteIP: 104.47.59.174
-X-IronPort-MID: 112092400
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:ttypxKh+nI2n3IBvnQZmSPP0X161oBEKZh0ujC45NGQN5FlHY01je
- htvXGuAP67ZZGr1co1/b47j8hxX75/dyN5iGVFu+SxjHnkb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsx+qyq0N8klgZmP6sT4gaPzyN94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQ9JAE8cTLdptmL662+Rs83hcQxBuD0adZ3VnFIlVk1DN4AaLWaGeDmwIEd2z09wMdTAfzZe
- swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilEgluGybLI5efTTLSlRtm+eq
- njL4CLSBRYCOcbE4TGE7mitlqnEmiaTtIc6TeTirq8w3AXLroAVIABITxydqui7tn/9d8BAd
- WkL3SsF7pFnoSRHSfG4BXVUukWstxoRWdNWH/c9rh+Ezq7Z4QGxDWwDUzIHY9sj3OcmSDpv2
- lKXktfBAT10rKbTWX+b7q2Trz65JW4SN2BqTS0OQBYB4tLjiJoulR+JRdFmeIaqivXlFDe2x
- CqFxBXSnJ0WhM8Pkqm+o1bOhmv2ooCTF1FpoALKQmii8wV1Ipa/YJCl4kTa6vAGK5uFSl6Gv
- z4PnM32AP0yMKxhXRelGI0ldIxFLd7eWNEAqTaDx6Ucygk=
-IronPort-HdrOrdr: A9a23:VjlRGKCTKjK3E/blHelc55DYdb4zR+YMi2TDt3oddfU1SL39qy
- nKpp4mPHDP5wr5NEtPpTniAtjkfZq/z+8X3WB5B97LMDUO3lHIEGgL1+DfKlbbak/DH4BmtZ
- uICJIOb+EZDTJB/LrHCAvTKade/DFQmprY+9s3zB1WPHBXg7kL1XYeNu4CeHcGPjWvA/ACZe
- Ohz/sCnRWMU1INYP+2A3EUNtKz2uEixPrdEGY77wdM0nj0sQ+V
-X-Talos-CUID: =?us-ascii?q?9a23=3ANTC2DWgr4CDLBbtUYoKaxlND3TJuV3Hs/WjyfW6?=
- =?us-ascii?q?DNE12TbGzElyQ6olNjJ87?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AjJ2KmgwWoNx8QF28FSeJQutFWXeaqLnwEgcrmoQ?=
- =?us-ascii?q?Eh/jHGT5vZRKCqzWcAbZyfw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.00,255,1681185600"; 
-   d="scan'208";a="112092400"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KOSYUDduUOwqn5og6xDEa0wr1Rv0DGkWw6sEfRroWRzd0pGBVng3r6huW+65PXlc2y2P3JOniqBxr66juz8OUtcDEhvt07k/Ss1WicMy3v3ICI+Tsne24KQcPTl5T85D0qmpN7W4X/iAU+zjwKEhwrhHU/QEYcQupE14AwtBkFNofGznmTsF47LG8zhmQYbiKYGV1vqaQpSJjzlftcQpdm6Cl8mjQg1US2EljCHr5u6rdRGkVUjgM5NQAVq1aseAjxBHiqMjg50XOM88+tacvQBdo56RgSTr1vqJjjuBxFuGWw1JTC+s5eEJ52A3Q30tnM0TFoyMivsyE4yX0K9IcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vqtCDYgTW/xJh+ikwyl+SdsfE/UoAGzAUd3m/7Zw1BQ=;
- b=VsTNQCdrSH0xqbymdN+9/PURqSyfGenv2mvwM+msaieLlU7MlSChR3EYHBBc/EmVGzQ/rKDSyCISic9zgUHQe4XnRB6IU/8KPoErmhz9wcgQmwN6t+jMv0eMcLtViqpU1MyCu1yQyB3rKpMnNKsr5PPbETVnos9WItgsZgfQgMGkrsR9S8TJKj6aZPJaXfssVsFN0QBtVr28ye8VWKTWvAT9g6YPZidc5UDzIv4mOICcHUiNsvXiQN9yAxhBlWLx8Oy/ZyswepHQ3wXTwCwUtAzn+vHyHKSlNJWf3Zbp6xQKvddnO+52QxAc+jkZ1rnFykROziZXOV4Pg5wBsrZXWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: f32072b2-0eb8-11ee-b234-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 1A0698285493
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vqtCDYgTW/xJh+ikwyl+SdsfE/UoAGzAUd3m/7Zw1BQ=;
- b=MPihYEwwlCVzmn1xAxW2Iw5PV/CPCR4iGt08Bxi4D87sPAcYyw6PRL9EnV35cVp4BB/tXcZ24XK5vEC7ebn6Pxhs4KEeMbpzhRhfpSzHClOYPuEEXAqv0MPdJHVbuxvVX10m9kv62ilcbYJ9pyBBI1HLv7jZTw/ve3xZZCcKwqA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <b3543c89-9df5-53dd-2b11-aff83211187f@citrix.com>
-Date: Mon, 19 Jun 2023 16:49:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v3 1/5] x86/microcode: Allow reading microcode revision
- even if it can't be updated
-Content-Language: en-GB
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230615154834.959-1-alejandro.vallejo@cloud.com>
- <20230615154834.959-2-alejandro.vallejo@cloud.com>
-In-Reply-To: <20230615154834.959-2-alejandro.vallejo@cloud.com>
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1687189799; bh=M8DSWQuc3DFCtwdfwz7/fLkKlEOedphds4EbsLPPV6c=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=FcnNGAh+XWu0aIECIC1cB7Dh1HoOLax77qkIvjQpgq7oPGh3bVDiTLjLQ79zGjVo+
+	 3SUyisZTmp1vahs5bu6mEh9d3/DH2X1hZ6OkpptV6DthcrLPFbr/LUXpFkgQrEkdcF
+	 MinkDzyaLrqzP3FIgvGyTQ3/+mWc2piy8KyZDAHM=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <85e5d7ca-e6e1-3802-22ac-5728a03fd86d@raptorengineering.com>
+Date: Mon, 19 Jun 2023 10:49:57 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v4 2/4] xen: Add files needed for minimal ppc64le build
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <cover.1686936278.git.sanastasio@raptorengineering.com>
+ <97a72e26edafb1d7b3a583755f015d04066c1e53.1686936278.git.sanastasio@raptorengineering.com>
+ <8383dd1a-064c-17c9-bb7f-4509518b9b42@citrix.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <8383dd1a-064c-17c9-bb7f-4509518b9b42@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0252.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::18) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|SJ0PR03MB6875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ac3ecd3-e57b-42cd-a505-08db70dcbdc0
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	22t9rbN62UCyhInrRDpbHSUY8Rb037TEQ1Prk4TaH7/+bKk1LjAcpzjtQF4g5YxeRjYxc9xDmFFB5q4FnDVfE44KJmbForpOcbwRuzQ1yGCPNDSrKqTUuSouHlZ+EZRElHzBb5ZV5DjsKQGx1KvdMzwW3jN2YYRz85184Ishsgt6cjhP7CASzAqsMuXYW4aWfH6NEWtzshoNMazvt6ahUK/hyoAFhPXCPEJ4elwx0kWA3j6Gj5tcJZFB4v4FudX3EaYDigfxqvJYsAHH7ZGoXxHeWEU3wJtDdPxfGzGxGqnoNPQRp2Z7Y3Q3udZNpSERYi/ncXVLFHRBbsahRJWf79Wb1yGJM9G6DVAzj8npKlKZV25ayNPp6h6g2J7kFyBgvAXRLsLrOMkUa+BDy7M1Dp5imXjjfkJuT1AyQ2de0WDpzbRozlobmGSv65o4AurILtRoJycSeUmqTp+K+GEFzid7NIsquoBCH2tWxAPmox8mbFQl+HtZiFJCt74p6TO24LVnAxC5Nkq35MNOK5lubzV/8/697ZF9chvFmPBhaIlTrjhF5B6FAVMvuUUI6IE5OfdcBh+TL7Tv7FSC7yA+mW3UjekdvyI7hJH6/iLKoR/BkydTo+yl0vB4uDg1ESZK/4y7a+HbMG3lJFT+NI0ErQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(346002)(39860400002)(136003)(366004)(451199021)(31696002)(478600001)(2906002)(4744005)(54906003)(6666004)(6486002)(2616005)(110136005)(86362001)(36756003)(26005)(186003)(6506007)(6512007)(53546011)(8676002)(66476007)(66556008)(8936002)(66946007)(5660300002)(38100700002)(316002)(4326008)(83380400001)(31686004)(82960400001)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VnNhOGFnTURmRGZSZVpjTnFPQkxyaGFuRTcxTnVROWxucGJYKzRsSHljRGdG?=
- =?utf-8?B?WlUxRlYxVjFXUkFxRCs3VzZrL2lQNno4dzNSVmxXckZtUkFhOWxCN2FOMGJj?=
- =?utf-8?B?MGVIRlYycEdzeDNuZ0xlTC9tTVpwbUNOTUZmVk81blRWNkx6endYa3B6ZElh?=
- =?utf-8?B?L0JTWmt5SG5xb1VZV3hWV2JvYXU0NlowdEFhWTNxbHZFd1liUU1RZzNiSW5J?=
- =?utf-8?B?a3lqOVoybEZ6dnJrdEV5K3NGNCtPdkdjdEkzTzJWbmVOVXVNYXNUSnpnemFV?=
- =?utf-8?B?RG1XOFQ4dGhVS0xCVWdnRjNxcjVCQTJ2eUthellzcUduVThtL0RmUEtnMDk1?=
- =?utf-8?B?ZWVidjk2b1A4bXNXVEcwU3FoUmh6WHFFSE5JcWVxM3k2azArUjhzZ2VJQmNX?=
- =?utf-8?B?b2I2WmNoVytsTHZCMzRTcVVENmVnbDNtWVNuRlpYNHNkOU9KN0JKTUZCUmxk?=
- =?utf-8?B?SW95blkxa3JveFREZSswTk9oUzNPUGxma2JWVTluc1l3am9xTytyQ2dPajFG?=
- =?utf-8?B?WUp2QUtReVVhUFB4Vk13N1luYWluS1dJbG9kMElCRE9YSUUvL2UxSXZ2di9N?=
- =?utf-8?B?YnQ5RlBuUnEzNTV6ZFh6Vmh6ZXNFYitwYi9naDBqeDZycm1JRVJSc3ErSE9y?=
- =?utf-8?B?WUp2SDgvbEEvWStHaXVFY2YvRkpoaGVZUDdrenBLbURjNTR3T2V5Y3pXQncz?=
- =?utf-8?B?Q2ltcGR5MzhpZ29Va0JGRzJzRkF4YTVjN2g5WFY2djRWL2hFRlR1Nmp0Vito?=
- =?utf-8?B?STVvbW1BdW03SlR3bFZhMHllY3hydy8ySTRLbk1KeU41TldadThackNFa0s0?=
- =?utf-8?B?L3plYVptMTE1aHlQUGI1V1JYUFhkKzFJb0xyQ05RUi9rUi82SUs5VnZXeWxr?=
- =?utf-8?B?V2lnaTlCL2ZVaW1HZncyNitjUTJpUW9La0tjemhtbjFHdUVjQnFLM3RibjA4?=
- =?utf-8?B?YWxpYkoxd3dUcERCZkwxS25UWXpZT3RFTmdha1RLUzgwME04LzlUeENwVE9E?=
- =?utf-8?B?K0JGTXFwRzkzRXhKSkQ5YlBuNHB5MVNkSDB3NHpNS1hZaFhtQ3RZRTRXN3J5?=
- =?utf-8?B?V3d3NTd1WmY5cEVoTzUwOFFGMlF2TE5HcFY2SlpCN0RXNGhyM2k1aUhCM3pT?=
- =?utf-8?B?QjBLTWc1U090Z2FlbGY4ckpIN3JHZWJWVHVvQjBXR25KWjR3cW5rOGtJUERo?=
- =?utf-8?B?L09BdjlRY3F6VStIUXNjWmhWczhEOUhxSjJKTWY0WDV5cUs5SkZzOGNNdC9y?=
- =?utf-8?B?dVQ1MlhQUzMxd2kwd0tmcml3NFdXSDJSS0MwSFpxN2d4UWx0K3hPY2wvK1pq?=
- =?utf-8?B?Smp6QmVEVndiT2pBamhIaVhtbkhQWnJxd3A1aWNCVGg0TFVtZXlsRGVsa25K?=
- =?utf-8?B?bWl5K2pCQ1hWa2JTL29HekxHSU8zTVVkMTZCTVBtdW5nKzYvb1lvUWxRbldx?=
- =?utf-8?B?SVpPRGpHUWtScFBFK0cwRjhEVnRYSktZMHNjYjNFYURRNHBXdXRKdnVjczhH?=
- =?utf-8?B?Q1M4OVVXZ3VmUThRaXd1ZUNsSk9DYXRDL3hNSUlBSVVqUk55N0hFMTdyaGhQ?=
- =?utf-8?B?ZTJwcVFpRU5QS3l1OS9tc2xpSjR0WDNuYlp1Qkk3b3FNYXdlbjdUUVBsSEgr?=
- =?utf-8?B?a3FGV2hSaUtSYms4a3I0QXFucUUwalJRZEl6RGZ2b2Z4Qi9laDdnU3VvRFJG?=
- =?utf-8?B?SmhINGZpM2YzeDVqQjlLNjFEM0M0VEZaeFJmVVJxOC9aSyswTncxMzhDT1gx?=
- =?utf-8?B?Snk3MFRhK0RrVysrR1VlaFA5bHVvZXpXeDk0RXY5QWUzUFFMRzV0ZVFEVXhr?=
- =?utf-8?B?dmtvL3JkWVZQVnRydGhKclFBMjNyVTlhdEp5NXdYUXBBeHYwd0dhWHQ0a2s0?=
- =?utf-8?B?ZTFvNThBYmtOMklrOVkyMEI2cWtFSUxON1lJTXRNM3RFS0p4N245ZjNCK3da?=
- =?utf-8?B?NHFtb3J1YkxWM0lib2hmdG5mVm11czNUbEpyT3RqQXhBL3JCTUxLVElmREQx?=
- =?utf-8?B?MnVpNDZIYWNSMGpYNGplZ05lUG4vS1NqdCtTU3JiQnovMmt1em1YS0xDWlVK?=
- =?utf-8?B?Z1RZdmF5TzNDSk9PSzhRL1hMYTVKcHZrK1NJNTN4Zm9ENXN3TFNqYTh4UjJ6?=
- =?utf-8?B?L3ROVnlHQ1haSnZkaGNqTFpKakx6RC95TUY4RHRIejJNK1F6UmFWK1FsRWM2?=
- =?utf-8?B?QlE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	wiT4UeLuCzafk57CQPdvINliuj9BDju9tOiDXTy+DqPJmXXI/TfgPEN9OCAdYg2j6KPonfwOmx6ZfzTKtYdMRaw6mzwH5DEpwg29xhBZj+2hKYzW3+KPSWa53lwR9oma6s3y9pTmUUBITMcmkkkg35Pbwtv78z68nIR4TDISiOT980ACZA3WFTtb7rNW1JkwJ76yFn+adr3qaIYAYDPHIWeTvJUn+BA/rP4cb29i8nwHE55H3jkcJGLTwYw3RUUpg9jL6dP2ULv3CkKocwpJMGN1WJFr2pl1Ub6NNwOwaqAR4U6ZKeTeLDAMcNeauShjXIjLLzFBdgnE75jnTBvvsVfAEN6LOUPYlI+7CCIf41mGJCtxkTFJp4XiAMhbIv4DGiBmAhIHiwZRms/HDnPYGelily1dVREBzQfbQKb8Wrp/ITUSDs/58vv5+jQ07SXTQlnRNF8foLUMTp/Q6fhxxmkJeuW6SiYnnWKhuiN85gYm0VXFPrQNVhZS/GtiswOuv7U9XOQVo+BcjeW6oFX7kxGMeL4l+MaqWMiOHrXAtoTTVO2otOvlA2KrK7oMDsNoiZSrEuO6lMvKPWqCUsampT0H3lk6dUaInkS22DWgvkGb3tJ3Y819ShqhrX3BYt7OaBs+V2p5PJ1ifOhegEx0uOS14MrZs2XDXmSR4UanB/DhgCT3fWaAFHeH7fE1YTYvTYXYHRGaFI5JnLAHNz4Bo+sCqovTPT71EtyXZsUbMTqXKhwR4lQPXBajrQ2BCNVHJmtWrHGpxLAZ46W7HuhSJFwCfSrnt+70r6M4LszpvdP1vIsoJCJAqdoObkjPf2l8W2OJh1W2PjCmhFN5JLMLuZt+a9LV70BQ4qZ2XOVYYcI=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ac3ecd3-e57b-42cd-a505-08db70dcbdc0
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2023 15:49:18.4883
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FDkIeoS8yHYFKY/6EBm0jBufjWYPkQSHvfWnLDgQgp8viXR+Ztde33BNtSaZiSVzWIh+hyybQeFnm65jslGYL1dNCwftA+nqKQq98OpIyiw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6875
 
-On 15/06/2023 4:48 pm, Alejandro Vallejo wrote:
-> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-> index e65af4b82e..df7e1df870 100644
-> --- a/xen/arch/x86/cpu/microcode/core.c
-> +++ b/xen/arch/x86/cpu/microcode/core.c
-> @@ -750,11 +750,12 @@ __initcall(microcode_init);
-> @@ -860,6 +861,9 @@ int __init early_microcode_init(unsigned long *module_map,
->          break;
->      }
->  
-> +    if ( ucode_ops.collect_cpu_info )
-> +        ucode_ops.collect_cpu_info();
-> +
+On 6/16/23 3:24 PM, Andrew Cooper wrote:
+> On 16/06/2023 6:48 pm, Shawn Anastasio wrote:
+>> Add the build system changes required to build for ppc64le (POWER8+).
+>> As of now the resulting image simply boots to an infinite loop.
+>>
+>> $ make XEN_TARGET_ARCH=ppc64 -C xen openpower_defconfig
+>> $ make XEN_TARGET_ARCH=ppc64 SUBSYSTEMS=xen -C xen build
+> 
+> I think the first of these isn't needed, given the config ARCH_DEFCONFIG
+> default.  I'd suggest dropping it.
 
-I still think this wants to be the other side of "ucode loading fully
-unavailable", just below.
+It seems like the build system expects an `$(ARCH)_defconfig` present if
+you don't manually specify a defconfig target. I see riscv64 has a
+tiny64_defconfig and a riscv64_defconfig that are idential, probably for
+this same reason. Would you like me to take the same approach of
+duplicating openpower_defconfig to ppc64_defconfig?
 
-I'm confident it will result in easier-to-follow logic.
+> On the second, what is the SUBSYSTEMS=xen?  It's not needed given the
+> stripped down build system, but I don't see why we'd ever be compiling
+> Xen with some kind of subsystem configuration for something else.
 
-~Andrew
+This was a remnant of the old head.o-only TARGET build command that I
+got from the initial riscv commit. You're correct that it's unnecessary
+now and I'll drop it from the commit message.
 
->      if ( !ucode_ops.apply_microcode )
->      {
->          printk(XENLOG_WARNING "Microcode loading not available\n");
+>> diff --git a/config/ppc64.mk b/config/ppc64.mk
+>> new file mode 100644
+>> index 0000000000..597f0668c3
+>> --- /dev/null
+>> +++ b/config/ppc64.mk
+>> @@ -0,0 +1,5 @@
+>> +CONFIG_PPC := y
+>> +CONFIG_PPC64 := y
+>> +CONFIG_PPC_$(XEN_OS) := y
+> 
+> I know you're copying the existing architectures, but I'm pretty certain
+> these $(XEN_OS) expressions are pretty bogus.  The userspace stuff in
+> tools/ may need to know the host OS it's being built for, but Xen really
+> doesn't.
+> 
+> I'm pretty sure it will compile with this dropped, so please do.  I'll
+> see about patching it out of the other architectures.
+
+Sure, I'll drop this in v5.
+
+>> diff --git a/xen/arch/ppc/Kconfig b/xen/arch/ppc/Kconfig
+>> new file mode 100644
+>> index 0000000000..a0a70adef4
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/Kconfig
+>> @@ -0,0 +1,42 @@
+>> +config PPC
+>> +	def_bool y
+>> +
+>> +config PPC64
+>> +	def_bool y
+>> +	select 64BIT
+>> +
+>> +config ARCH_DEFCONFIG
+>> +	string
+>> +	default "arch/ppc/configs/openpower_defconfig"
+>> +
+>> +menu "Architecture Features"
+>> +
+>> +source "arch/Kconfig"
+>> +
+>> +endmenu
+>> +
+>> +menu "ISA Selection"
+>> +
+>> +choice
+>> +	prompt "Base ISA"
+>> +	default POWER_ISA_2_07B if PPC64
+>> +	help
+>> +	  This selects the base ISA version that Xen will target.
+>> +
+>> +config POWER_ISA_2_07B
+>> +	bool "Power ISA 2.07B"
+>> +	help
+>> +	  Target version 2.07B of the Power ISA (POWER8)
+>> +
+>> +config POWER_ISA_3_00
+>> +	bool "Power ISA 3.00"
+>> +	help
+>> +	  Target version 3.00 of the Power ISA (POWER9)
+> 
+> For both of these, it will be helpful for anyone who isn't as
+> PPC-knowledgeable if the POWER8/9 was in the title too, seeing as
+> they're the most common name.
+> 
+> But as I'm a noob here too, how different are Power8 and 9?  Given they
+> share a head.S, they're presumably not too disjoint in terms of ISA.
 >
+> While being able to target a specific CPU is something we're trying to
+> retrofit to Xen, by default we do expect it to run on as broad a set of
+> systems as possible.
+
+They're not that different, and a kernel built for POWER8 should just
+work on POWER9. The intent was to specify a baseline feature set that
+guards whether, i.e., POWER9/ISA3.0-only features should be built.
+
+> If that's not feasible, then fine, but if it is, it ought to be the
+> default.  Which might be as simple as saying "or later" somewhere in
+> this text, or might be a giant can of worms that I shouldn't open...
+
+Originally the help text for the two ISA config options ended in a "+"
+but that was deemed ambiguous. Would adding "or later" to the help text
+for the two options clarify it sufficiently?
+
+>> diff --git a/xen/arch/ppc/include/asm/page-bits.h b/xen/arch/ppc/include/asm/page-bits.h
+>> new file mode 100644
+>> index 0000000000..4c01bf9716
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/include/asm/page-bits.h
+>> @@ -0,0 +1,7 @@
+>> +#ifndef __PPC_PAGE_BITS_H__
+>> +#define __PPC_PAGE_BITS_H__
+>> +
+>> +#define PAGE_SHIFT              16 /* 64 KiB Pages */
+>> +#define PADDR_BITS              48
+> 
+> Is 64k the minimum granularity?  Or is 4k an option?
+
+Both 4K and 64K are supported by the hardware.
+
+> I ask because Xen has some very short sighted ABIs which we're still
+> working on removing.  There are still quite a few expectations of
+> PAGE_SHIFT being 12.
+> 
+> To be clear, we're looking to fix all of these ABIs, but I suspect it
+> will be an easier lift to begin with at 4k.  (Or perhaps the right thing
+> is to double down and just get them fixed.)
+
+Interesting. Given this I'm inclined to go with 4k just to reduce pain
+points during initial bring up, though supporting 64k would definitely
+be desirable going forward.
+
+>> +
+>> +#endif /* __PPC_PAGE_BITS_H__ */
+>> diff --git a/xen/arch/ppc/ppc64/Makefile b/xen/arch/ppc/ppc64/Makefile
+>> new file mode 100644
+>> index 0000000000..3340058c08
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/ppc64/Makefile
+>> @@ -0,0 +1 @@
+>> +obj-y += head.o
+>> diff --git a/xen/arch/ppc/ppc64/asm-offsets.c b/xen/arch/ppc/ppc64/asm-offsets.c
+>> new file mode 100644
+>> index 0000000000..e69de29bb2
+>> diff --git a/xen/arch/ppc/ppc64/head.S b/xen/arch/ppc/ppc64/head.S
+>> new file mode 100644
+>> index 0000000000..0b289c713a
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/ppc64/head.S
+>> @@ -0,0 +1,27 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +
+>> +.section .text.header, "ax", %progbits
+>> +
+>> +ENTRY(start)
+>> +    /*
+>> +     * Depending on how we were booted, the CPU could be running in either
+>> +     * Little Endian or Big Endian mode. The following trampoline from Linux
+>> +     * cleverly uses an instruction that encodes to a NOP if the CPU's
+>> +     * endianness matches the assumption of the assembler (LE, in our case)
+>> +     * or a branch to code that performs the endian switch in the other case.
+>> +     */
+>> +    tdi 0, 0, 0x48    /* Reverse endian of b . + 8          */
+>> +    b . + 44          /* Skip trampoline if endian is good  */
+>> +    .long 0xa600607d  /* mfmsr r11                          */
+>> +    .long 0x01006b69  /* xori r11,r11,1                     */
+>> +    .long 0x00004039  /* li r10,0                           */
+>> +    .long 0x6401417d  /* mtmsrd r10,1                       */
+>> +    .long 0x05009f42  /* bcl 20,31,$+4                      */
+>> +    .long 0xa602487d  /* mflr r10                           */
+>> +    .long 0x14004a39  /* addi r10,r10,20                    */
+>> +    .long 0xa6035a7d  /* mtsrr0 r10                         */
+>> +    .long 0xa6037b7d  /* mtsrr1 r11                         */
+>> +    .long 0x2400004c  /* rfid                               */
+>> +
+>> +    /* Now that the endianness is confirmed, continue */
+>> +1:  b 1b
+> 
+> .size start, . - start
+> .type start, %function
+> 
+> Lets get the ELF metadata right from the start.
+
+Good point. Following the example in the Power ELFv2 ABI
+specification [1] for function type annotation, I'll place
+
+.type start, @function
+
+in the ENTRY macro. It's not clear what the difference between %function
+and @function are in this context (my toolchain seems to accept both and
+produce the same ELF metadata), but the latter is more idiomatic in
+Power assembly. The same goes for its placement before the entrypoint
+vs. after the last instruction.
+
+As for the size annotation, I'll follow Julien's suggestion and
+introduce an END macro.
+
+>> diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
+>> new file mode 100644
+>> index 0000000000..a72e519c6a
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/xen.lds.S
+>> @@ -0,0 +1,172 @@
+>> <snip>
+>> +    DISCARD_SECTIONS
+>> +
+>> +    STABS_DEBUG_SECTIONS
+>> +
+>> +    ELF_DETAILS_SECTIONS
+>> +}
+> 
+> In the other architectures, we now assert that sections such as .got are
+> empty, because we've had enough bugs in the past.
+> 
+> I'd recommend doing the same from the outset for all the dynamic
+> relocation sections, unless you're expecting to have to support them?
+
+No plans on supporting dynamic relocation (for now), so I can go ahead
+and add these assertions.
+
+> ~Andrew
+
+Thanks,
+Shawn
+
+[1] Page 77 https://wiki.raptorcs.com/w/images/7/70/Leabi-20170510.pdf
 
