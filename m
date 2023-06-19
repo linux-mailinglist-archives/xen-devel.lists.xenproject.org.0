@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ABE77358B4
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 15:35:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551089.860412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD057358B3
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jun 2023 15:35:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551090.860418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBF1x-0000yz-Ms; Mon, 19 Jun 2023 13:34:53 +0000
+	id 1qBF1x-00013f-Vp; Mon, 19 Jun 2023 13:34:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551089.860412; Mon, 19 Jun 2023 13:34:53 +0000
+Received: by outflank-mailman (output) from mailman id 551090.860418; Mon, 19 Jun 2023 13:34:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBF1x-0000wR-JQ; Mon, 19 Jun 2023 13:34:53 +0000
-Received: by outflank-mailman (input) for mailman id 551089;
- Mon, 19 Jun 2023 13:34:52 +0000
+	id 1qBF1x-0000yo-Ri; Mon, 19 Jun 2023 13:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 551090;
+ Mon, 19 Jun 2023 13:34:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AnRR=CH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qBF1w-0000wG-DY
- for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 13:34:52 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ id 1qBF1x-0000wG-1x
+ for xen-devel@lists.xenproject.org; Mon, 19 Jun 2023 13:34:53 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1152fa1f-0ea6-11ee-b234-6b7b168915f2;
+ id 11b0e6fa-0ea6-11ee-b234-6b7b168915f2;
  Mon, 19 Jun 2023 15:34:51 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4f86e6e4038so1415838e87.0
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2b45d7ec066so34793361fa.0
  for <xen-devel@lists.xenproject.org>; Mon, 19 Jun 2023 06:34:51 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- f26-20020a2e9e9a000000b002adb0164258sm5222236ljk.112.2023.06.19.06.34.49
+ f26-20020a2e9e9a000000b002adb0164258sm5222236ljk.112.2023.06.19.06.34.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 06:34:49 -0700 (PDT)
+ Mon, 19 Jun 2023 06:34:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1152fa1f-0ea6-11ee-b234-6b7b168915f2
+X-Inumbo-ID: 11b0e6fa-0ea6-11ee-b234-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687181690; x=1689773690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Eu7fO1ZtUkyuZKkIlVGX4BqB+SbgpnWwL0oPy3HvOJ8=;
-        b=BBhxKxmFj7+/dNMThwgIPQRUQMStVa6T9t14QMQa8S3fEd/0VBKShcoiYDIWOUvs25
-         KKwPBS8CvFIqs4vMLHIaUS2bFZlGlPN5tfRqLf3h6TjjbdPp0Hf+M+nbockLqC93nc1v
-         WS4Ghdvrja/79d4cNxyKc4Pt4WwbP2SHTdH+X2VrPWxjMWjaWrBrHFLyB5tp9zLwP9io
-         ZabgztGuwI1UqwZYCLrZNNmtmCPm6C9B4XM2ZqeXo/GKtvchM/FJGGoailErj/IIC1nF
-         cagvuEE2z7Jk0QLhH9LjUw0HLVWCOoWIkXpbdDHyyU096ThyYofmD6FhNKzpWWl/CLGL
-         vRXQ==
+        d=gmail.com; s=20221208; t=1687181691; x=1689773691;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3lTrFI+N+q0Z5lbRmcu+HhnZnUn+lm1yJaD6BC834Oo=;
+        b=V73menrMYIejLyOrY48lNf15BBv6m0sFtGu05lv7xJUI9BovrZW3KBh3AXwwgYyp7m
+         LF2/ABbl+gVyRBfa03FG8X2pqxrKdc3XV/rtrrlbHAxnjyNPfFqv8IF8k1d22U/UMXRX
+         OH4NnH6aaQ3/OFH39xPWN/UFjWiHcpu5Q6OS18kryhEb9HX4HAKw3biGZFUaiLZHuJED
+         mOn0/2UUXAyvMOKfDsx8iIux8/MKWw1MDQAtDRufwTS3l2fOTX0hlcGx4tu2RBBDU2KG
+         Q+xw6LlSnJ7NrNWAA4hvHPwqpauBrBFcfqYA5hEHxgH/PbfyB54xxqW9uRrEJfxYhoYc
+         27QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687181690; x=1689773690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Eu7fO1ZtUkyuZKkIlVGX4BqB+SbgpnWwL0oPy3HvOJ8=;
-        b=cL7fu9FhVFMshvM+8Mz144wad/6oaSG/DluKHmUYZ3w/SaREx5TEhQvKUNMvynCKtA
-         WZ/nxcaeZGwS5dPQcKZAzmZNQGzU8W72DJRT+Gwj2Rp9zRjU615thfMM2JqJJRAdiIUh
-         9fPoAOWnU7oI3+6+KyYLYHmLJwu+/Bv2K590zmHmBZzPdMeLBBIgYeUj4ZoZwjl91t/t
-         BCHPq0mGhWvlDQI+TshpdK48HVIAiPUVubeSlX3ZFAk/RtB2uf5JLv7VXXRMK30TaMQa
-         xYFJp9Os733YUXUzEicyg3a79V6DO2XmpE3rvxulvoYuXjUQltBSjeyNi6Qvzw3PEqZL
-         MPtw==
-X-Gm-Message-State: AC+VfDzOtAvhBnaVABozoi2QPUt6J2DYC+shzM5PDnQZKzp6sG+SCjSA
-	LGSC6qPxz5u//8nNID/AQCBNbqvqTmA=
-X-Google-Smtp-Source: ACHHUZ5Xzd4NAKdGmb/+KnbZkBkIY4xf2wPnLW/slaGUuoI2okbCFqQF6E/wzR2FKjjl2VK+fFVzjQ==
-X-Received: by 2002:a05:6512:1308:b0:4eb:4258:bf62 with SMTP id x8-20020a056512130800b004eb4258bf62mr5704548lfu.8.1687181690275;
+        d=1e100.net; s=20221208; t=1687181691; x=1689773691;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3lTrFI+N+q0Z5lbRmcu+HhnZnUn+lm1yJaD6BC834Oo=;
+        b=Q6xfkO2C7F1cmzgqwOsy3jYQBGLUBsbf302E5sy/2Qef/FoEdloQS6n8oYBdv9hN8C
+         oP/9TJA2AdmlyRUhzAXeLeLOpSHob8CB9wcjeINRprSNTqG6WXjuHMthqqSsWHKVA4Fq
+         9wvoCDhgiWcSZtqeF7YqDLeA7SfUy7W5SkPC4FgEJYh8llraiTUvFBF2MOT8W7/IqjFc
+         iuKvmLjwMubO+3xLn+bS8JO3BJ2HGhRKZp+R1hSXue2qkEgnpUy1wO3c7ImraTLvC02S
+         /8v3wZccO7cBJlC3bD/vBM2fXUpWA0HyEo/PcLfiqYhYU2rm2pnk/s3jgpqSv8tx4Sdy
+         Uyrw==
+X-Gm-Message-State: AC+VfDxaQCaqieBI4rSU4V7mha5ojQTWKLDRVT2kA+jiDEhdHz4X11qk
+	ChKL+/Bqefw+6imfNz0RHgxqgdgfJn0=
+X-Google-Smtp-Source: ACHHUZ4saqFSwNocDKLrVOYoNs2j5ihKl8gUgN/mzpc2AX/eZeCOxZXiZser47imprkK9HrWIZfi1Q==
+X-Received: by 2002:a2e:9d1a:0:b0:2b4:7d45:7654 with SMTP id t26-20020a2e9d1a000000b002b47d457654mr671204lji.21.1687181690991;
         Mon, 19 Jun 2023 06:34:50 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -82,78 +83,43 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v2 0/6] xen/riscv: introduce identity mapping
-Date: Mon, 19 Jun 2023 16:34:41 +0300
-Message-Id: <cover.1687178053.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 1/6] xen/riscv: add .sbss section to .bss
+Date: Mon, 19 Jun 2023 16:34:42 +0300
+Message-Id: <47f3fbdb6b808a4cad8491a607cf035491093655.1687178053.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <cover.1687178053.git.oleksii.kurochko@gmail.com>
+References: <cover.1687178053.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch series introduces things necessary to implement identity mapping:
-  1. Make identity mapping for the entire Xen.
-  2. Enable MMU.
-  3. Jump to the virtual address world
-  4. Remove identity mapping.
+Sometimes variables are located in .sbss section but it won't
+be mapped after MMU will be enabled.
+To avoid MMU failures .sbss should be mapped
 
-Also current patch series introduces the calculation of physical offset before
-MMU is enabled as access to physical offset will be calculated wrong after
-MMU will be enabled because access to phys_off variable is PC-relative and
-in the case when linker address != load address, it will cause MMU fault.
-
-One more thing that was done is:
-  * Added SPDX tags.
-  * move extern of cpu0_boot_stack to a header.
-
-The reason for this patch series can be found here:
-https://lore.kernel.org/xen-devel/4e336121-fc0c-b007-bf7b-430352563d55@citrix.com/
-
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Acked-by: Alistair Francis <alistair.francis@wdc.com>
 ---
 Changes in V2:
- - update the patch series message.
- - drop patches from the previous version of the patch series:
-   * xen/riscv: add __ASSEMBLY__ guards". ( merged )
-   * xen/riscv: make sure that identity mapping isn't bigger then page size
-     ( entire Xen is 1:1 mapped so there is no need for the checks from the patch )
- - add .sbss.* and put it befor .bss* .
- - move out reset_stack() to .text section.
- - add '__ro_after_init' for phys_offset variable.
- - add '__init' for calc_phys_offset().
- - declaring variable phys_off as non static as it will be used in head.S.
- - update definition of PGTBL_INITIAL_COUNT and the comment above.
- - code style fixes.
- - remove id_addrs array becase entire Xen is mapped.
- - reverse condition for cycle inside remove_identity_mapping().
- - fix page table walk in remove_identity_mapping().
- - save hart_id and dtb_addr before call MMU related C functions
- - use phys_offset variable instead of doing calcultations to get phys offset
-   in head.S file. ( it can be easily done as entire Xen is 1:1 mapped now )
- - declare enable_muu() as __init.
- - Update SPDX tags.
- - Add Review-By/Suggested-By for some patches.
- - code style fixes.
+  - add .sbss.*.
+  - move .sbss* ahead of .bss*.
+  - add Acked-by: Alistair Francis <alistair.francis@wdc.com>
+---
+ xen/arch/riscv/xen.lds.S | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Oleksii Kurochko (6):
-  xen/riscv: add .sbss section to .bss
-  xen/riscv: introduce reset_stack() function
-  xen/riscv: introduce function for physical offset calculation
-  xen/riscv: introduce identity mapping
-  xen/riscv: add SPDX tags
-  xen/riscv: move extern of cpu0_boot_stack to header
-
- xen/arch/riscv/include/asm/config.h       |   2 +
- xen/arch/riscv/include/asm/current.h      |   2 +
- xen/arch/riscv/include/asm/early_printk.h |   2 +
- xen/arch/riscv/include/asm/mm.h           |   9 +-
- xen/arch/riscv/include/asm/page-bits.h    |   2 +
- xen/arch/riscv/include/asm/page.h         |   2 +
- xen/arch/riscv/include/asm/traps.h        |   2 +
- xen/arch/riscv/include/asm/types.h        |   2 +
- xen/arch/riscv/mm.c                       | 104 +++++++++++++---------
- xen/arch/riscv/riscv64/head.S             |  46 +++++++++-
- xen/arch/riscv/setup.c                    |  16 +---
- xen/arch/riscv/xen.lds.S                  |   2 +-
- 12 files changed, 136 insertions(+), 55 deletions(-)
-
+diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
+index 878130f313..9064852173 100644
+--- a/xen/arch/riscv/xen.lds.S
++++ b/xen/arch/riscv/xen.lds.S
+@@ -149,7 +149,7 @@ SECTIONS
+         *(.bss.percpu.read_mostly)
+         . = ALIGN(SMP_CACHE_BYTES);
+         __per_cpu_data_end = .;
+-        *(.bss .bss.*)
++        *(.sbss .sbss.* .bss .bss.*)
+         . = ALIGN(POINTER_ALIGN);
+         __bss_end = .;
+     } :text
 -- 
 2.40.1
 
