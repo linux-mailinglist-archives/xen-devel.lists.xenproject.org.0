@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1616E73763D
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 22:43:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552300.862299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB598737641
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 22:43:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552302.862310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBiBx-0004UW-RX; Tue, 20 Jun 2023 20:43:09 +0000
+	id 1qBiCV-0004zB-4e; Tue, 20 Jun 2023 20:43:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552300.862299; Tue, 20 Jun 2023 20:43:09 +0000
+Received: by outflank-mailman (output) from mailman id 552302.862310; Tue, 20 Jun 2023 20:43:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBiBx-0004S6-Oq; Tue, 20 Jun 2023 20:43:09 +0000
-Received: by outflank-mailman (input) for mailman id 552300;
- Tue, 20 Jun 2023 20:43:08 +0000
+	id 1qBiCV-0004xb-0n; Tue, 20 Jun 2023 20:43:43 +0000
+Received: by outflank-mailman (input) for mailman id 552302;
+ Tue, 20 Jun 2023 20:43:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qBiBw-0004Ry-0z
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 20:43:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBiCT-0004vz-K3; Tue, 20 Jun 2023 20:43:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qBiBv-0001E5-M3; Tue, 20 Jun 2023 20:43:07 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qBiBv-0000Uy-GR; Tue, 20 Jun 2023 20:43:07 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBiCT-0001Ei-IR; Tue, 20 Jun 2023 20:43:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBiCT-0001QE-4w; Tue, 20 Jun 2023 20:43:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBiCT-0003zz-4V; Tue, 20 Jun 2023 20:43:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +42,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=2Op3H5WbMMTM5OAklT3iX2adeeCirnVUYb/WDfuyTNU=; b=wIfu8MDUTyRudspIY6LJGw3I43
-	lQAxDnRhmNg+EnnIOkphnXIQw8q6BzmyaZHCyEAxCqhagHcnmaPgW5Mb4TIrrA05Eeo9MWv5bwtdm
-	QHbAJdL4BTaKx/oLlkE24BOgp7Pe6Z0nqtEMoCkJj3cMiHgvTnr2WKbfB12Gk2ZdQfHY=;
-Message-ID: <3b7f584e-700e-4598-f36e-51a96140323e@xen.org>
-Date: Tue, 20 Jun 2023 21:43:05 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PEv1n9ABL14QKryT12mWyH4IOut29TxlNW0u0IT+2+8=; b=vJN2jYu+/MqCmlA/CBcew8cqqQ
+	xWIWG+Ey0iprUw6L44qEyvNb5KtHfQ5VCotElilgbtkueC2wp/sC99+Cp2d6X0VT0SScmWKIvw7bR
+	R39F7PFw9DdLxGaEsVApGpMzug7rIysPoNpKsk9sgCrfYRq7Tousc3XCYgdSRJD0JTvo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181523-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.1
-Subject: Re: [PATCH v1] xen/arm: arm32: Add support to identify the Cortex-R52
- processor
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230620151736.3720850-1-ayan.kumar.halder@amd.com>
- <d92e26fb-86d4-1681-0d10-be6c2e2cc846@xen.org>
- <d7701ff7-4cee-800a-69c9-deb8560804d3@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d7701ff7-4cee-800a-69c9-deb8560804d3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 181523: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=42473bae2394b6602372ab8b83a9ca294b1e40f4
+X-Osstest-Versions-That:
+    xen=7a25a1501ca941c3e01b0c4e624ace05417f1587
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 20 Jun 2023 20:43:41 +0000
 
-Hi Ayan,
+flight 181523 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181523/
 
-On 20/06/2023 19:28, Ayan Kumar Halder wrote:
-> 
-> On 20/06/2023 17:41, Julien Grall wrote:
->> Hi,
-> Hi Julien,
->>
->> On 20/06/2023 16:17, Ayan Kumar Halder wrote:
->>> Add a special configuration (CONFIG_AARCH32_V8R) to setup the Cortex-R52
->>> specifics.
->>>
->>> Cortex-R52 is an Arm-V8R AArch32 processor.
->>>
->>> Refer ARM DDI 0487I.a ID081822, G8-9647, G8.2.112 MIDR,
->>> bits[31:24] = 0x41 , Arm Ltd
->>> bits[23:20] = Implementation defined
->>> bits[19:16] = 0xf , Arch features are individually identified
->>> bits[15:4] = Implementation defined
->>> bits[3:0] = Implementation defined
->>>
->>> Thus, the processor id is 0x410f0000 and the processor id mask is
->>> 0xff0f0000
->>>
->>> Also, there is no special initialization required for R52.
->>
->> Are you saying that Xen upstream + this patch will boot on Cortex-R52?
-> 
-> This patch will help for earlyboot of Xen. With this patch, cpu_init() 
-> will work on Cortex-R52.
-> 
-> There will be changes required for the MPU configuration, but that will 
-> be sent after Penny's patch serie "[PATCH v2 00/41] xen/arm: Add 
-> Armv8-R64 MPU support to Xen - Part#1" is upstreamed.
-> 
-> My aim is to extract the non-dependent changes and send them for review.
+Failures and problems with tests :-(
 
-I can review the patch. But I am not willing to merge it as it gives the 
-false impression that Xen would boot on Cortex-R52.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 181476
 
-In fact, I think this patch should only be merged once we have all the 
-MPU merged.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-IMHO, patches are independent are rework (e.g. code split...) that would 
-help the MPU.
+version targeted for testing:
+ xen                  42473bae2394b6602372ab8b83a9ca294b1e40f4
+baseline version:
+ xen                  7a25a1501ca941c3e01b0c4e624ace05417f1587
 
-Cheers,
+Last test of basis   181476  2023-06-17 04:00:28 Z    3 days
+Failing since        181504  2023-06-19 11:00:26 Z    1 days    4 attempts
+Testing same since   181514  2023-06-20 03:03:46 Z    0 days    2 attempts
 
--- 
-Julien Grall
+------------------------------------------------------------
+People who touched revisions under test:
+  Alistair Francis <alistair.francis@wdc.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+broken-step build-armhf host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 42473bae2394b6602372ab8b83a9ca294b1e40f4
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:27 2023 +0200
+
+    xen/arm: pl011: Add SBSA UART device-tree support
+    
+    We already have all the bits necessary in PL011 driver to support SBSA
+    UART thanks to commit 032ea8c736d10f02672863c6e369338f948f7ed8 that
+    enabled it for ACPI. Plumb in the remaining part for device-tree boot:
+     - add arm,sbsa-uart compatible to pl011_dt_match (no need for a separate
+       struct and DT_DEVICE_START as SBSA is a subset of PL011),
+     - from pl011_dt_uart_init(), check for SBSA UART compatible to determine
+       the UART type in use.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+
+commit 47e3941d2eee347e9c41b311d19048c41e1b33e3
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:26 2023 +0200
+
+    xen/arm: pl011: Use correct accessors
+    
+    At the moment, we use 32-bit only accessors (i.e. readl/writel) to match
+    the SBSA v2.x requirement. This should not be the default case for normal
+    PL011 where accesses shall be 8/16-bit (max register size is 16-bit).
+    There are however implementations of this UART that can only handle 32-bit
+    MMIO. This is advertised by dt property "reg-io-width" set to 4.
+    
+    Introduce new struct pl011 member mmio32 and replace pl011_{read/write}
+    macros with static inline helpers that use 32-bit or 16-bit accessors
+    (largest-common not to end up using different ones depending on the actual
+    register size) according to mmio32 value. By default this property is set
+    to false, unless:
+     - reg-io-width is specified with value 4,
+     - SBSA UART is in use.
+    
+    For now, no changes done for ACPI due to lack of testing possibilities
+    (i.e. current behavior maintained resulting in 32-bit accesses).
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 4fa2272458114b5e4872f835b803909333d5ccd4
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:25 2023 +0200
+
+    xen/arm: debug-pl011: Add support for 32-bit only MMIO
+    
+    There are implementations of PL011 that can only handle 32-bit accesses
+    as oppose to the normal behavior where accesses are 8/16-bit wide. This
+    is usually advertised by setting a dt property 'reg-io-width' to 4.
+    
+    Introduce CONFIG_EARLY_UART_PL011_MMIO32 Kconfig option to be able to
+    enable the use of 32-bit only accessors in PL011 early printk code.
+    Define macros PL011_{STRH,STRB,LDRH} to distinguish accessors for normal
+    case from 32-bit MMIO one and use them in arm32/arm64 pl011 early printk
+    code.
+    
+    Update documentation accordingly.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 655d0798d29b7ac490444b2daf9bffa16d41e822
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:24 2023 +0200
+
+    xen/arm: debug-pl011: Use correct accessors
+    
+    Although most PL011 UARTs can cope with 32-bit accesses, some of the old
+    legacy ones might not. PL011 registers are 8/16-bit wide and this shall
+    be perceived as the normal behavior.
+    
+    Modify early printk pl011 code for arm32/arm64 to use the correct
+    accessors depending on the register size (refer ARM DDI 0183G, Table 3.1).
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 314a54c1c2805883f50582c40308554a102fdb8a
+Author: Stefano Stabellini <stefano.stabellini@amd.com>
+Date:   Thu Jun 15 14:27:16 2023 -0700
+
+    xen/misra: add rules 1.4 and 2.1
+    
+    Also add a comment at the top of the file to say rules.rst could be
+    changed.
+    
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+
+commit d95f436c7dc6ccee68e1b77a3b01476ef41add55
+Author: Stefano Stabellini <stefano.stabellini@amd.com>
+Date:   Thu Jun 15 14:19:22 2023 -0700
+
+    docs/misra: new rules addition
+    
+    For Dir 1.1, a document describing all implementation-defined behaviour
+    (i.e. gcc-specific behavior) will be added to docs/misra, also including
+    implementation-specific (gcc-specific) appropriate types for bit-field
+    relevant to Rule 6.1.
+    
+    Rule 21.21 is lacking an example on gitlab but the rule is
+    straightforward: we don't use stdlib at all in Xen.
+    
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+commit 43e863a02d81f5fff32763b23d2a39f041f7e62b
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Jun 16 17:28:21 2023 +0100
+
+    x86/boot: Clean up early error asm
+    
+    The asm forming early error handling is a mix of local and non-local symbols,
+    and has some pointless comments.  Drop the "# Error message" comments,
+    tweaking the style on modified lines, and make the symbols local.
+    
+    However, leave behind one real symbol so this logic disassembles nicely
+    without merging in to acpi_boot_init(), which is the thing that happens to be
+    immediately prior in my build.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 3a07da55e63d110851c36b0dae32a5dcf00c54b9
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Jun 19 15:47:37 2023 +0200
+
+    xen/riscv: introduce reset_stack() function
+    
+    The reason for reset_stack() introduction is that stack should be
+    reset twice:
+    1. Before jumping to C world at the start of _start() function.
+    2. After jumping from 1:1 mapping world.
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+
+commit 652ccd1f4afa56b15cb4863d545deac7d1effb30
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Jun 19 15:47:23 2023 +0200
+
+    xen/riscv: add .sbss section to .bss
+    
+    Sometimes variables are located in .sbss section but it won't
+    be mapped after MMU will be enabled.
+    To avoid MMU failures .sbss should be mapped
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Acked-by: Alistair Francis <alistair.francis@wdc.com>
+
+commit c6df21062beb9a9bc29a3a2ffb652e0bfa185c3a
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Mon Jun 19 15:47:05 2023 +0200
+
+    Config.mk: update OVMF to edk2-stable202305
+    
+    Update to OVMF's latest stable tag.
+    
+    This is been prompt by trying to build Xen on Debian Bookworm,
+    where edk2-stable202108 doesn't build. Also, it's been too long since
+    the last update.
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 82b28deb25f37e8422b14493a2efa2852638206d
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Jun 19 15:46:03 2023 +0200
+
+    iommu/vtd: fix address translation for leaf entries
+    
+    Fix two issues related to leaf address lookups in VT-d:
+    
+    * When translating an address that falls inside of a superpage in the
+      IOMMU page tables the fetching of the PTE value wasn't masking of the
+      contiguous related data, which caused the returned data to be
+      corrupt as it would contain bits that the caller would interpret as
+      part of the address.
+    
+    * When the requested leaf address wasn't mapped by a superpage the
+      returned value wouldn't have any of the low 12 bits set, thus missing
+      the permission bits expected by the caller.
+    
+    Take the opportunity to also adjust the function comment to note that
+    when returning the full PTE the bits above PADDR_BITS are removed.
+    
+    Fixes: c71e55501a61 ('VT-d: have callers specify the target level for page table walks')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit ea613d2367ac9dca3875997034e8f4aff74ab635
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jun 19 15:45:07 2023 +0200
+
+    SUPPORT.md: write down restriction of 32-bit tool stacks
+    
+    Let's try to avoid giving the impression that 32-bit tool stacks are as
+    capable as 64-bit ones.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit a17fd0feb6b6bbe82550f43d70654d894ed377ec
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Mon Jun 19 10:09:32 2023 +0100
+
+    automation: Disable QEMU build with Clang older than 10.0
+    
+    Since QEMU commit 74a1b256d775 ("configure: Bump minimum Clang version
+    to 10.0"), or QEMU v8.0, Clang 10.0 is now the minimum to build QEMU.
+    
+    QEMU 8.0 fails to build on Ubuntu Bionic.
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
