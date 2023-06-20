@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71A0D73693B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 12:27:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551528.861123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D466E736A31
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 13:01:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551535.861143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBYZT-0002rp-U1; Tue, 20 Jun 2023 10:26:47 +0000
+	id 1qBZ71-00087w-KO; Tue, 20 Jun 2023 11:01:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551528.861123; Tue, 20 Jun 2023 10:26:47 +0000
+Received: by outflank-mailman (output) from mailman id 551535.861143; Tue, 20 Jun 2023 11:01:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBYZT-0002pk-QS; Tue, 20 Jun 2023 10:26:47 +0000
-Received: by outflank-mailman (input) for mailman id 551528;
- Tue, 20 Jun 2023 10:26:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBZ71-00085z-Gp; Tue, 20 Jun 2023 11:01:27 +0000
+Received: by outflank-mailman (input) for mailman id 551535;
+ Tue, 20 Jun 2023 10:35:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FRxy=CI=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
- id 1qBYZS-0002pZ-LH
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 10:26:46 +0000
+ <SRS0=ovpU=CI=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qBYhh-0004Ou-BS
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 10:35:17 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f4b62a46-0f54-11ee-b234-6b7b168915f2;
- Tue, 20 Jun 2023 12:26:45 +0200 (CEST)
-Received: from [192.168.1.143] (unknown [151.46.142.235])
- by support.bugseng.com (Postfix) with ESMTPSA id 092CB4EE0737;
- Tue, 20 Jun 2023 12:26:43 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 24a4a4f1-0f56-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 12:35:15 +0200 (CEST)
+Received: from beta.bugseng.com (93-40-74-174.ip37.fastwebnet.it
+ [93.40.74.174])
+ by support.bugseng.com (Postfix) with ESMTPSA id 6730C4EE0737;
+ Tue, 20 Jun 2023 12:35:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,185 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4b62a46-0f54-11ee-b234-6b7b168915f2
-Message-ID: <54c680d7-fa81-4940-6a0c-37d9c1a8d120@bugseng.com>
-Date: Tue, 20 Jun 2023 12:26:43 +0200
+X-Inumbo-ID: 24a4a4f1-0f56-11ee-8611-37d641c3527e
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Gianluca Luparini <gianluca.luparini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Paul Durrant <paul@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
+	Ayan Kumar <ayan.kumar.halder@amd.com>
+Subject: [XEN PATCH 00/13] xen: fixed violations of MISRA C:2012 Rule 7.2
+Date: Tue, 20 Jun 2023 12:34:52 +0200
+Message-Id: <cover.1687250177.git.gianluca.luparini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
- Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
-Subject: Re: [XEN PATCH] docs/misra: document the C dialect and translation
- toolchain assumptions.
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-References: <db6e7432f92657c1386a475895c3b334e1c53693.1686839154.git.roberto.bagnara@bugseng.com>
- <alpine.DEB.2.22.394.2306151444310.897208@ubuntu-linux-20-04-desktop>
- <3499c107-ea0d-3a74-4278-86879a9d80e7@bugseng.com>
- <alpine.DEB.2.22.394.2306161317340.897208@ubuntu-linux-20-04-desktop>
-From: Roberto Bagnara <roberto.bagnara@bugseng.com>
-In-Reply-To: <alpine.DEB.2.22.394.2306161317340.897208@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/06/23 22:43, Stefano Stabellini wrote:
-> On Fri, 16 Jun 2023, Roberto Bagnara wrote:
->>>> +   * - Implicit conversion from a pointer to an incompatible pointer
->>>> +     - ARM64, X86_64
->>>> +     - Non-documented GCC extension.
->>>
->>> Is this related to -Wincompatible-pointer-types?
->>
->> In my opinion, this does not specify what the result of the
->> conversion is.
-> 
-> Fair enough. However, if -Wincompatible-pointer-types and "Implicit
-> conversion from a pointer to an incompatible pointer" are related, it
-> would add -Wincompatible-pointer-types as extra info about it. See also
-> below.
-> 
-> 
->>>> +   * - Pointer to a function is converted to a pointer to an object or a
->>>> pointer to an object is converted to a pointer to a function
->>>> +     - X86_64
->>>> +     - Non-documented GCC extension.
->>>
->>> Is this J.5.7 of n1570?
->>> https://www.iso-9899.info/n1570.html
->>
->> This says that function pointer casts are a common extension.
->> What we need here is documentation for GCC that assures us
->> that the extension is implemented and what its semantics is.
->>
->>> Or maybe we should link https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83584
->>
->> My opinion is that this might not be accepted by an assessor:
->> if I was an assessor, I would not accept it.
-> 
-> I understand your point and I think it is valid. My observation was
-> that it is better to provide as much information for these undocumented
-> extensions as we can. Not necessarily to help with an assessors, but for
-> a new engineer working on this project, reading this document and
-> understanding what can be done.
-> 
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83584 might not be an
-> official documentation of the extension but it is better than no
-> documentation at all. Even better might be a code example.
-> 
-> I am not saying we should document ourselves what GCC failed to
-> document. I am only saying we should add enough description to
-> understand what we are talking about.
-> 
-> For instance, I read "Pointer to a function is converted to a pointer to
-> an object or a pointer to an object is converted to a pointer to a
-> function" and I have an idea about what this is but I am not really
-> sure. I googled the sentence and found information on Stackoverflow. I
-> think it is better to link
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83584 or a couple of
-> sentences from it, although it might not be official.
-> 
-> 
->>>> +   * - Ill-formed source detected by the parser
->>>
->>> As we are documenting compiler extensions that we are using, I am a bit
->>> confused by the name of this category of compiler extensions, and the
->>> reason why they are bundled together. After all, they are all separate
->>> compiler extensions? Should each of them have their own row?
->>
->> Agreed.
->>
->>>> +     - ARM64, X86_64
->>>> +     - token pasting of ',' and __VA_ARGS__ is a GNU extension:
->>>> +          see Section "6.21 Macros with a Variable Number of Arguments"
->>>> of GCC_MANUAL.
->>>> +       must specify at least one argument for '...' parameter of variadic
->>>> macro:
->>>> +          see Section "6.21 Macros with a Variable Number of Arguments"
->>>> of GCC_MANUAL.
->>>> +       void function should not return void expression:
->>>
->>> I understand that GCC does a poor job at documenting several of these
->>> extensions. In fact a few of them are not even documented at all.
->>> However, if they are extensions, they should be described for what they
->>> do, not for the rule they violate. What do you think?
->>
->> The point is that we don't know what they do.  We might make observations,
->> and our observations might substantiate what we believe they do.
->> But this would not allow us to generalize them.
->>
->>> For example, in this case maybe we should say "void function can return
->>> a void expression" ?
->>
->> We can certainly say that, but this might not convince an assessor.
->> One possibility would be to submit patches to the GCC manual and see
->> whether they are accepted.
-> 
-> I think we have two different target audiences for this document. One
-> target is an assessors, and I understand that extra unofficial
-> information might not help there.
-> 
-> However another target is the community. This document should help the
-> Xen community write better code, not just the assessors raise red flags.
-> Right? It should help us have better compiler compatibility, and making
-> sure that we are clear about the C dialect we use. Actually, I think
-> this document could be of great help. Do you agree?
-> 
->  From that point of view "void function should not return void
-> expression" is not understandable. At least I don't understand it.
-> 
-> A different approach would be to say:
-> 
-> - this is a MISRA C violation or compiler warning/error
-> - it is not C99 compliant
-> - it is not documented behavior by GCC
-> 
-> Not try to describe what the extension is at all, and instead focus on
-> what the MISRA C violation or compiler warning is.
-> 
-> I think it is OK to go down that route, but in that case we need to
-> reorganize the document so that:
-> - all documented extensions are referred to as extensions
-> - all undocumented extensions are referred to by the warning they
->    trigger
-> 
-> I think that we would be OK but honestly I prefer the current approach
-> and we just need to add a few extra words to better explain what the
-> undocumented extensions are. Not to replace the GCC manual but simply
-> because otherwise we are not understanding each other (at least I am not
-> understanding.)
-> 
-> 
->>>> +          see the documentation for -Wreturn-type in Section "3.8 Options
->>>> to Request or Suppress Warnings" of GCC_MANUAL.
->>>> +       use of GNU statement expression extension from macro expansion:
->>>> +          see Section "6.1 Statements and Declarations in Expressions" of
->>>> GCC_MANUAL.
->>>> +       invalid application of sizeof to a void type:
->>>> +          see Section "6.24 Arithmetic on void- and Function-Pointers" of
->>>> GCC_MANUAL.
->>>> +       redeclaration of already-defined enum is a GNU extension:
->>>> +          see Section "6.49 Incomplete enum Types" of GCC_MANUAL.
->>>> +       static function is used in an inline function with external
->>>> linkage:
->>>> +          non-documented GCC extension.
->>>
->>> I am not sure if I follow about this one. Did you mean "static is used
->>> in an inline function with external linkage" ?
->>
->> An inline function with external linkage can be inlined everywhere.
->> If that calls a static functions, which is not available everywhere,
->> the behavior is not defined.
-> 
-> Got it. Can we add this sentence you wrote to the doc?
+From: Gianluca Luparini <gianluca.luparini@bugseng.com>
 
-Hi Stefano.
+The xen sources contains violations of MISRA C:2012 Rule 7.2 whose headline 
+states:
+"A "u" or "U" suffix shall be applied to all integer constants that are 
+represented in an unsigned type".
 
-I think all the feedback received has been taken into account.
-I will send a revised patch soon.
-Kind regards,
+These violations are caused by the missing "u" or "U" suffix in unsigned 
+integer constants, such as:
 
-    Roberto
+xen/arch/x86/hvm/hypercall.c:132.17-132.26
+if ( (eax & 0x80000000) && is_viridian_domain(currd) )
+
+The patches in this series achieve compliance for MISRA C:2012 Rule 7.2
+by adding the "U" suffix to explicitly state when an integer constant is
+represented in an unsigned type.
+
+Some changes are proposed for homogeneity in order to keep the code as
+unambiguous as possible.
+
+
+Gianluca Luparini (13):
+  xen/x86: fixed violations of MISRA C:2012 Rule 7.2
+  AMD/IOMMU: fixed violations of MISRA C:2012 Rule 7.2
+  xen/x86: fixed violations of MISRA C:2012 Rule 7.2
+  xen/arm: fixed violations of MISRA C:2012 Rule 7.2
+  xen/common: fixed violations of MISRA C:2012 Rule 7.2
+  xen/efi: fixed violations of MISRA C:2012 Rule 7.2
+  xen/x86: fixed violations of MISRA C:2012 Rule 7.2
+  xen/pci: fixed violations of MISRA C:2012 Rule 7.2
+  xen/public: fixed violations of MISRA C:2012 Rule 7.2
+  xen/x86: fixed violations of MISRA C:2012 Rule 7.2
+  xen/vpci: fixed violations of MISRA C:2012 Rule 7.2
+  xen/x86: fixed violations of MISRA C:2012 Rule 7.2
+  xen: fixed violations of MISRA C:2012 Rule 7.2
+
+ xen/arch/arm/domain_build.c                  |   2 +-
+ xen/arch/arm/efi/efi-boot.h                  |   2 +-
+ xen/arch/arm/gic-v2.c                        |   6 +-
+ xen/arch/arm/include/asm/arm64/brk.h         |   2 +-
+ xen/arch/arm/include/asm/arm64/efibind.h     |  10 +-
+ xen/arch/arm/include/asm/arm64/insn.h        |  16 +-
+ xen/arch/arm/include/asm/vreg.h              |   2 +-
+ xen/arch/arm/kernel.c                        |   2 +-
+ xen/arch/arm/traps.c                         |   4 +-
+ xen/arch/arm/vgic-v2.c                       |   2 +-
+ xen/arch/x86/acpi/cpufreq/powernow.c         |  14 +-
+ xen/arch/x86/apic.c                          |   2 +-
+ xen/arch/x86/cpu-policy.c                    |   8 +-
+ xen/arch/x86/cpu/mcheck/mce-apei.c           |   8 +-
+ xen/arch/x86/cpu/vpmu_intel.c                |   4 +-
+ xen/arch/x86/cpuid.c                         |   8 +-
+ xen/arch/x86/efi/efi-boot.h                  |   6 +-
+ xen/arch/x86/hvm/hypercall.c                 |   2 +-
+ xen/arch/x86/hvm/irq.c                       |   2 +-
+ xen/arch/x86/hvm/pmtimer.c                   |   4 +-
+ xen/arch/x86/hvm/stdvga.c                    |  66 +++---
+ xen/arch/x86/hvm/svm/asid.c                  |   2 +-
+ xen/arch/x86/hvm/svm/svm.c                   |   8 +-
+ xen/arch/x86/hvm/viridian/viridian.c         |   2 +-
+ xen/arch/x86/hvm/vlapic.c                    |   6 +-
+ xen/arch/x86/hvm/vmx/vmcs.c                  |   6 +-
+ xen/arch/x86/hvm/vmx/vvmx.c                  |  12 +-
+ xen/arch/x86/include/asm/apicdef.h           |   2 +-
+ xen/arch/x86/include/asm/config.h            |   2 +-
+ xen/arch/x86/include/asm/guest/hyperv-tlfs.h |  28 +--
+ xen/arch/x86/include/asm/hpet.h              |   2 +-
+ xen/arch/x86/include/asm/hvm/trace.h         |   4 +-
+ xen/arch/x86/include/asm/hvm/vioapic.h       |   2 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h      |   6 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h       |  32 +--
+ xen/arch/x86/include/asm/msi.h               |   2 +-
+ xen/arch/x86/include/asm/msr-index.h         | 204 +++++++++----------
+ xen/arch/x86/include/asm/pci.h               |   8 +-
+ xen/arch/x86/include/asm/x86-defns.h         |  24 +--
+ xen/arch/x86/include/asm/x86_64/efibind.h    |  10 +-
+ xen/arch/x86/monitor.c                       |   6 +-
+ xen/arch/x86/percpu.c                        |   2 +-
+ xen/arch/x86/psr.c                           |   2 +-
+ xen/arch/x86/spec_ctrl.c                     |   8 +-
+ xen/arch/x86/x86_64/acpi_mmcfg.c             |   2 +-
+ xen/arch/x86/x86_64/pci.c                    |   2 +-
+ xen/arch/x86/x86_emulate/x86_emulate.h       |   2 +-
+ xen/common/device_tree.c                     |   4 +-
+ xen/common/efi/boot.c                        |   8 +-
+ xen/common/efi/runtime.c                     |   2 +-
+ xen/common/gunzip.c                          |   2 +-
+ xen/common/xmalloc_tlsf.c                    |   2 +-
+ xen/drivers/char/ehci-dbgp.c                 |   4 +-
+ xen/drivers/passthrough/amd/iommu-defs.h     | 122 +++++------
+ xen/drivers/passthrough/pci.c                |   4 +-
+ xen/drivers/vpci/msi.c                       |   2 +-
+ xen/drivers/vpci/msix.c                      |   2 +-
+ xen/drivers/vpci/vpci.c                      |   6 +-
+ xen/include/acpi/cpufreq/processor_perf.h    |   2 +-
+ xen/include/efi/efiapi.h                     |  10 +-
+ xen/include/efi/efidef.h                     |   2 +-
+ xen/include/efi/efiprot.h                    |  22 +-
+ xen/include/public/arch-arm/smccc.h          |   8 +-
+ xen/include/public/arch-x86/xen-x86_64.h     |   8 +-
+ xen/include/public/io/ring.h                 |  10 +-
+ xen/include/public/memory.h                  |   2 +-
+ xen/include/public/sysctl.h                  |   4 +-
+ xen/include/xen/bitops.h                     |  10 +-
+ xen/include/xen/cper.h                       |  34 ++--
+ xen/include/xen/libfdt/fdt.h                 |   2 +-
+ xen/include/xen/libfdt/libfdt.h              |   2 +-
+ xen/lib/muldiv64.c                           |   2 +-
+ xen/lib/x86/cpuid.c                          |   8 +-
+ xen/lib/x86/policy.c                         |   2 +-
+ 74 files changed, 422 insertions(+), 422 deletions(-)
+
+-- 
+2.41.0
 
 
