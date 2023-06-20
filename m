@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 872DC737429
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 20:29:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552232.862190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DADE73747B
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 20:42:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552237.862199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBg6F-0001cX-Ii; Tue, 20 Jun 2023 18:29:07 +0000
+	id 1qBgIZ-00042Q-MK; Tue, 20 Jun 2023 18:41:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552232.862190; Tue, 20 Jun 2023 18:29:07 +0000
+Received: by outflank-mailman (output) from mailman id 552237.862199; Tue, 20 Jun 2023 18:41:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBg6F-0001aO-Fc; Tue, 20 Jun 2023 18:29:07 +0000
-Received: by outflank-mailman (input) for mailman id 552232;
- Tue, 20 Jun 2023 18:29:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBgIZ-00040D-JN; Tue, 20 Jun 2023 18:41:51 +0000
+Received: by outflank-mailman (input) for mailman id 552237;
+ Tue, 20 Jun 2023 18:41:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DaFZ=CI=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qBg6D-0001aI-RS
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 18:29:06 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [2a01:111:f400:7eae::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55538cc6-0f98-11ee-b234-6b7b168915f2;
- Tue, 20 Jun 2023 20:29:04 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by SA1PR12MB7037.namprd12.prod.outlook.com (2603:10b6:806:24c::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25; Tue, 20 Jun
- 2023 18:29:00 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6500.036; Tue, 20 Jun 2023
- 18:29:00 +0000
+ <SRS0=JeBQ=CI=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qBgIY-000407-Cj
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 18:41:50 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1cd75a11-0f9a-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 20:41:48 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5147e40bbbbso5315232a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 11:41:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,190 +40,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55538cc6-0f98-11ee-b234-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IjL8m6FAhVhybR9MP2n/maU9RhTAtTKr04Lkqj/hV18d4RBxwjpRHva6BP0m+tQeJy+q4ZdOzQVO2Mlnsspw2Qiy+MgQjL1e9Y6t1IMNEHkt5KcEtkxY0tseZ61guPhgtO7vmC8c81n4nap+W8ueAQ12AqVF9KLgP75u0Rs4zXrGHozLyJ3xj5JnLJ8vOeyqD9W/AKwqU+uBSHqYdE5SOtAl+aA+66iBMwgpjump9CT8vAUf9G/+EAfEEBLwpG7MF2v0heFhRtrw8dYWp3zWiduxLhQTQQ/gKFRhjSfmiSwqWUgLmr0V5a4LNt0E0EscEw5qLXXHrxzofFRZVFWaVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Um1Q1Vanm/D1QbI7wp0XIu2hJX7VGk0raR4T4yWZFsI=;
- b=ZhlOcL8d0+DysBiTikokFYFzzbs0zlT/N2qU4s3b+JUEPMwasv/moOESx9mfw+GYj72CvI+gfBpKk6e5tyF+OmrAEWThpK3uJc1xyQXYPgSzqt5A9ZHWxno1WM8iqwZoBZy1fF2QeiGO3o8hghn55y1bjTqTX0eyR97uZTCDJ2hEtLf9D7u5DoWgHPiqpbAOAOeRPTUabY+rrpk3Fkcavj4oTbndqdeDpMAh4DJgKzmYvgBu9KfqAe9vfE3krWELtpPKQ+Y8wSr9L7/X4yElhMoEFKlg1/Gf08vXLhX0J0Fum05xbHR/MMnWU1P/SA0xuTP7yJjs+w+Jmbl9N9kcPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Um1Q1Vanm/D1QbI7wp0XIu2hJX7VGk0raR4T4yWZFsI=;
- b=aj6Q83OmPGoacTPRbNrwwB9ZzlpVdv6ytv5pQZOUaxad1HRj6ATEgbmxKxsxE5UDd9/RzlT4IoNtYS6sWJ3VW3zOMp9GbUGl3w/NCZgjddc2/XqxS2zNauRTmmX8vbBY9E4Ft4Zz+Y2Qbda2OMHj8tA7C9E5Xy2no5NXw7mAZzk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <d7701ff7-4cee-800a-69c9-deb8560804d3@amd.com>
-Date: Tue, 20 Jun 2023 19:28:54 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.11.0
-Subject: Re: [PATCH v1] xen/arm: arm32: Add support to identify the Cortex-R52
- processor
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230620151736.3720850-1-ayan.kumar.halder@amd.com>
- <d92e26fb-86d4-1681-0d10-be6c2e2cc846@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <d92e26fb-86d4-1681-0d10-be6c2e2cc846@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0390.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::17) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 1cd75a11-0f9a-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1687286507; x=1689878507;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5XcJUV/tZVqUo1gtYZWsvIKi4zb6TKYlHQGAMgLV6Fw=;
+        b=naOIwvgVKO7lFsQdokp8kwk69MuTWfU9BxNn4h8Aoq6JYAmZudb3TDyAnwKUap4hQA
+         idMynxYHI2VOd7CaWbBz56bLxDE86mMvKo8XTJKzH6uRObl0y8aFFdTmS27Drz6Mj+tU
+         pTdpvl6HEkjzKl58oQvHroQmNH0wicNoEjbhjZJYgedJBcasjPIeZ50/T6E0g8y5sxdD
+         35au0TnPeVuM7iCTaMWAaaxv7p4aw3wOMfcCm2y0j7aNBKNUBwqIPC5nZ6u2aA9cgDqC
+         ZG0UAVreMbiKsRkb6okh/yA4EN1HFBBuVkPmW7o0QW6V3+xtLPtsTc97cnwsL0BvMEy+
+         x5zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687286507; x=1689878507;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=5XcJUV/tZVqUo1gtYZWsvIKi4zb6TKYlHQGAMgLV6Fw=;
+        b=TrEphAEmn3lh11rLZ2dwW3r+i8PBylbOMuDl+1lFRML/G8GP0X4X1tlTJeP6hnMRMJ
+         cO+JcWOi/9fMuYwyj2iBVzpDTHewAmdBhKboHFBf1KMLR4aIIpHV03XW7KmTCJ6t7cHf
+         dcGcjMZX3WXOBXPUn8mT4seGE4Ixlzy5ANRtO8td51qzpRNHaDuEJappRa/m2uakOr0P
+         3ggY/zZeRZzpA5iySVM0c5uoaN9ute8VLue7CZCRKbAytJxDcxyzIM+T1kOIN4RdFj6V
+         HSaqlwS9p04yy2fX3KHWb7gTazi78OYH/T+Enf7T6Uww6TQds7lQhFJ15o9n7VGElZIr
+         fjLg==
+X-Gm-Message-State: AC+VfDxnoEQQ34WU/SDDngbr6Uh5/rWvo80LlAZ+AbzylH7N9rhHV2kB
+	59WANEb7IW4wUTOMTyQckVn5q75AYsskaPyoP4U=
+X-Google-Smtp-Source: ACHHUZ4+Biab0J9STP9Kj4Y6sBS5jk9YT2wDBfib/F8LG9a14Z504l3MrMl3+lsTkUi0K9WkaF73ZivxrLJVOrQYIbs=
+X-Received: by 2002:aa7:d78d:0:b0:51a:4557:2caf with SMTP id
+ s13-20020aa7d78d000000b0051a45572cafmr5561008edq.34.1687286507195; Tue, 20
+ Jun 2023 11:41:47 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SA1PR12MB7037:EE_
-X-MS-Office365-Filtering-Correlation-Id: e82f65a8-fcd9-4566-d84c-08db71bc3745
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	l2elAZ6WVdqn0/lZh5u78nMfeWwYT3UKVxzmRbQYMisy4mgZj8Z7xMOw0jErwWnytIm7imcnarQnetR24x2IU9BRX+m+RkvcuauzHBwHZHLUFT4g2WgO+Cbz1SGjnAGRbU0AEQLoot+ya3j5r3EpzmZhNY9Aeuqvi5UWKMYk2ts5x9CTo+NCpBi9V4gPN/++u+sMTxBLqqy5x6Jrb4pq5EcL6zTVtDdDIYnPvyls41IOqXyxzcVahJ6ibYFSO7rkt0Xb4tmTtVHo0cLFjl3GCCePDdl7k/avQBMyBHdG8yLGsqpvc2BWECf26wDwAmz82CeQqFu3bhhX2+2cgs9roUGxEepw4MjtgqOUHLc5z88wPf0zR0BcJ7NChWGUsJQ5w3o34qbrXthQ9kSZg+CKnuChxneQBh7jALxipCJt0HM1y2juwHGnTzn5vj6/VfzdT54VbEbEwhshmn2QaS4/Y8Oe562aqZAHZLG7tm9Y9Z1FB2HCkaE5jjLr+/Dug8RxzEo2dTcMEbx7cAvvN2ptEZHIaViscl7Kyzk0lg0OT+HwPfffIsZp/dKEwqlhmAcnT+A/EZxk/YM0/X3SYNBJegFj20OaWvcIIt2Yq8EwEEN1gS7aY9wT5KzUAKoCCcqnZZjGKT10Vkuv02MQmSXHsw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(39860400002)(346002)(136003)(376002)(451199021)(38100700002)(110136005)(31686004)(41300700001)(31696002)(6666004)(66556008)(66946007)(8676002)(316002)(6486002)(8936002)(66476007)(4326008)(36756003)(2906002)(53546011)(478600001)(6512007)(26005)(5660300002)(6506007)(186003)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dGRzYUZINy9pMkhoSXZQdUVrRlpOTWtaZ2tWR3NrS0RQSjFGaDRXZ0hSQVU1?=
- =?utf-8?B?SVV4UVViZi9wYmNFQ0o3eVNyOE52S0xsc3AwYjU1Q3R5YTlBTzduTnRwT3p2?=
- =?utf-8?B?WUk4dnVhK0dxNFIzWE1Gckw5dC9nUUZLektLTUticVRJZlVLUm9aK2Z0cFhz?=
- =?utf-8?B?c1lLbW8rSms0SVVUN01wNFo2dmVjNldCbEZQTElheDJpUHdMRFZIU00vRERI?=
- =?utf-8?B?L2RxY25vcFQ2S0orcThOcVRLaHdrMnBuNkJVZzBTUTJTL3NOdXhvLzNXWGFM?=
- =?utf-8?B?eWNpazk0bU1mN0JuNWFWSkZvVEo2S2RMaG5mK1JQdlR4YWp0VjNJc2hjN0F1?=
- =?utf-8?B?N0dkRTVTWnlFaXB1YmlDSVpDYVp5ZDFIb3R4cTNYQ1BLLzFCZlN1MGFCRmRp?=
- =?utf-8?B?Y0E1QzhlTXVjbVJrcmdvVTdFbk52c2R6dG53TDJvMjVCN2hBdGtqWjhleE41?=
- =?utf-8?B?cjY2SDRqVy9LV0I1anJzb0JtYTlFemcwVldYWm5Hb2pDZmF1Rzc1R1BDT2dV?=
- =?utf-8?B?ZkxySnlLUGJtTVp4dFRzaThjeHB2WEVTTXB3QU4zYU5kVFUxV0J2aEJ3WXA3?=
- =?utf-8?B?d3VJWVRZUVZUTkFueWxqcmw0SXRkb2dVNjEwWGhrUFBjc1krSG50N3JmclFl?=
- =?utf-8?B?U0FUeUFQK2k5WloxdUpCOEoxZmFsVVBIOEh0ZHBIbTRvbzh3aXBoSTkrNEpH?=
- =?utf-8?B?OHJYamlYR1BVeG5LL0tJRVl4VUFocHcwemlkZUs2Ykh6a2FTV0Y1T3dUTHE4?=
- =?utf-8?B?bnkvRmdQQzNEa3g3cENUZm9ENzcvNjBuVFBLWEs1OUJCUHZZZjJBSmxNLzhG?=
- =?utf-8?B?YWtyMUhGYkNxSmExaXNWcy9lczg1aE5hSFBkMzY2czBFaEZjdmpsTlNtWTMy?=
- =?utf-8?B?Z3JMelZFbjdZeC94R0o0MVpUYk9lUk9jL1hQTkNzQ1FIbmVqMUpoeXNyTEhq?=
- =?utf-8?B?OVlNL2gzYldkTlBzYmhEYmRvbUIxRFNoOWxoUXNwcE5oWmZWYVNzTHNoUTBm?=
- =?utf-8?B?STNrQXlHMStnWGhNT1NwWDNSblBuMkhrRXh1c0JQNktEU3p1dXl4L3RjaVAw?=
- =?utf-8?B?SnRRbUlKWTFTRUVrWXdXWmJ4RTFFTERSMnd5MHlaUXBDUDBKNXF3bEFZeVNv?=
- =?utf-8?B?NUh1KzYvNUQ2d2xQVk5DekJUcVNoaGFuaGtCMmYrMllFQW1WZ1ErVFdSMVdo?=
- =?utf-8?B?ZGNGWDF2enJlSHR2NEM3S3ROK3pDc2NwSDlndGZIUmxQN28wdTYwSEQyTlYx?=
- =?utf-8?B?THZZOHNLQVFFWXhHMjh1ZlNZWEplMmlRRmdkU1JSMFUyeWZOMWtjSG4rWTBL?=
- =?utf-8?B?SXhkUHdIbW0yZS9YUzhkUnduRjJXek8wL1R2Sm9vVDVCOFVpQ3BWcStpdEVs?=
- =?utf-8?B?RFJUYjM3TzZOL2J6czd0S3pDeHMxNnlaSnZkdHZlS3dGd1BDRmlUYjJRWDRW?=
- =?utf-8?B?VUFXakNnSy9SbldWMlhVbllKei9RQU1CMEY4WlE2Q3gwblQ4RUtaS0lGakRL?=
- =?utf-8?B?YTE2QTFvU05iRmxWdVJJaUY3Vlg5T1Q1ckZkM042cTUwYjA5U2FLV3ZSZUFB?=
- =?utf-8?B?a1NwSmYyenZpczRuQjE0TmtIZFpXYVhaYWk4VlhTTGVKczBNeWJtaG1sWFJy?=
- =?utf-8?B?UUFFZzJ0eGUyWDNZTk1DbFlYRmlrRjV6bUlDN2RjVTRSMFdoREhveG1QTUpp?=
- =?utf-8?B?QUFMZEIzaGhKVW5RNlRjS3ovN052cnBCUTR0d1ExZlZHcTkzRjZBN2dlRWcv?=
- =?utf-8?B?c0JDZHJ4cG1hMGNwNUlnc2hVZEUvSS9ZYVNLdUk3bktVdFN4VnFNMCtBUmxi?=
- =?utf-8?B?bGdZeFZqWXpnZnN3dkxGbjBiYnFPbnF1WHlxNit3QXJQQVpqdC9jRkFMUWFr?=
- =?utf-8?B?MnVJY3EwZ09VdUplN1AzamtHVnhic3RoQXB2aExxa1dxQUlncUJ2MUh1THAr?=
- =?utf-8?B?NnZ2WENLNnVzNExCLy83RjZ6elRySzhTT0FmQnRZd1hqVzI5dmx6dXpRRkVr?=
- =?utf-8?B?dW1qRGtFK0lleHFBT0dXRUgzaUNMNHpGUEhWcGczNi9UdzU2dEM3TnZ1SjNU?=
- =?utf-8?B?OVhSMGY5djh5K3UwODF2WGh6SGJzcCt6MDRVN2svMEJaVFl3UlpyOTBmWGx3?=
- =?utf-8?Q?ET9MuVRbPkaX9Moa4tGBqzaM3?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e82f65a8-fcd9-4566-d84c-08db71bc3745
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2023 18:28:59.9822
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fRQf84j61TGy8vyfUV59RR74kooamRG01jSL1QAQ0l1lAGydjEiOnT0ttNPABVCpnGJNcQIlxQolKISVtzZNcg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7037
+References: <20230614180253.89958-1-jandryuk@gmail.com> <20230614180253.89958-10-jandryuk@gmail.com>
+ <791bf505-7335-d16d-617d-ec19dc637ea6@suse.com>
+In-Reply-To: <791bf505-7335-d16d-617d-ec19dc637ea6@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 20 Jun 2023 14:41:35 -0400
+Message-ID: <CAKf6xpvQD+6D76kfFvACkZ7H7=NbY-khxJeTEAGU3dDPwoji-Q@mail.gmail.com>
+Subject: Re: [PATCH v4 09/15] cpufreq: Export HWP parameters to userspace as CPPC
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 20/06/2023 17:41, Julien Grall wrote:
-> Hi,
-Hi Julien,
+On Mon, Jun 19, 2023 at 10:24=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
 >
-> On 20/06/2023 16:17, Ayan Kumar Halder wrote:
->> Add a special configuration (CONFIG_AARCH32_V8R) to setup the Cortex-R52
->> specifics.
->>
->> Cortex-R52 is an Arm-V8R AArch32 processor.
->>
->> Refer ARM DDI 0487I.a ID081822, G8-9647, G8.2.112 MIDR,
->> bits[31:24] = 0x41 , Arm Ltd
->> bits[23:20] = Implementation defined
->> bits[19:16] = 0xf , Arch features are individually identified
->> bits[15:4] = Implementation defined
->> bits[3:0] = Implementation defined
->>
->> Thus, the processor id is 0x410f0000 and the processor id mask is
->> 0xff0f0000
->>
->> Also, there is no special initialization required for R52.
+> On 14.06.2023 20:02, Jason Andryuk wrote:
+> > --- a/xen/arch/x86/acpi/cpufreq/hwp.c
+> > +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
+> > @@ -537,6 +537,29 @@ static const struct cpufreq_driver __initconstrel =
+hwp_cpufreq_driver =3D
+> >      .update =3D hwp_cpufreq_update,
+> >  };
+> >
+> > +int get_hwp_para(const unsigned int cpu,
+> > +                 struct xen_cppc_para *cppc_para)
+> > +{
+> > +    const struct hwp_drv_data *data =3D per_cpu(hwp_drv_data, cpu);
+> > +
+> > +    if ( data =3D=3D NULL )
+> > +        return -EINVAL;
 >
-> Are you saying that Xen upstream + this patch will boot on Cortex-R52?
+> Maybe better -ENODATA in this case?
 
-This patch will help for earlyboot of Xen. With this patch, cpu_init() 
-will work on Cortex-R52.
+Sounds good.
 
-There will be changes required for the MPU configuration, but that will 
-be sent after Penny's patch serie "[PATCH v2 00/41] xen/arm: Add 
-Armv8-R64 MPU support to Xen - Part#1" is upstreamed.
-
-My aim is to extract the non-dependent changes and send them for review.
-
+> > --- a/xen/drivers/acpi/pmstat.c
+> > +++ b/xen/drivers/acpi/pmstat.c
+> > @@ -251,48 +251,54 @@ static int get_cpufreq_para(struct xen_sysctl_pm_=
+op *op)
+> >      else
+> >          strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME=
+_LEN);
+> >
+> > -    if ( !(scaling_available_governors =3D
+> > -           xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
+> > -        return -ENOMEM;
+> > -    if ( (ret =3D read_scaling_available_governors(
+> > -                    scaling_available_governors,
+> > -                    gov_num * CPUFREQ_NAME_LEN * sizeof(char))) )
+> > +    if ( !strncasecmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER,
+> > +                      CPUFREQ_NAME_LEN) )
 >
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->>   xen/arch/arm/Kconfig         |  7 +++++++
->>   xen/arch/arm/arm32/Makefile  |  1 +
->>   xen/arch/arm/arm32/proc-v8.S | 32 ++++++++++++++++++++++++++++++++
->>   3 files changed, 40 insertions(+)
->>   create mode 100644 xen/arch/arm/arm32/proc-v8.S
->>
->> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->> index 61e581b8c2..c45753a2dd 100644
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -3,6 +3,13 @@ config ARM_32
->>       depends on "$(ARCH)" = "arm32"
->>       select ARCH_MAP_DOMAIN_PAGE
->>   +config AARCH32_V8R
->> +    bool "AArch32 Arm V8R Support (UNSUPPORTED)" if UNSUPPORTED
->> +    def_bool n
->> +    depends on ARM_32
->> +    help
->> +      This option enables Armv8-R profile for AArch32.
->> +
->>   config ARM_64
->>       def_bool y
->>       depends on !ARM_32
->> diff --git a/xen/arch/arm/arm32/Makefile b/xen/arch/arm/arm32/Makefile
->> index 520fb42054..2ab808a7a8 100644
->> --- a/xen/arch/arm/arm32/Makefile
->> +++ b/xen/arch/arm/arm32/Makefile
->> @@ -8,6 +8,7 @@ obj-y += head.o
->>   obj-y += insn.o
->>   obj-$(CONFIG_LIVEPATCH) += livepatch.o
->>   obj-y += proc-v7.o proc-caxx.o
->> +obj-$(CONFIG_AARCH32_V8R) += proc-v8.o
->>   obj-y += smpboot.o
->>   obj-y += traps.o
->>   obj-y += vfp.o
->> diff --git a/xen/arch/arm/arm32/proc-v8.S b/xen/arch/arm/arm32/proc-v8.S
->> new file mode 100644
->> index 0000000000..c5a566b165
->> --- /dev/null
->> +++ b/xen/arch/arm/arm32/proc-v8.S
->
-> Below you say the file will contain v8r specific initialization. So 
-> please rename it to proc-v8r.S.
+> Mind me asking why you think case-insensitive compare is appropriate here=
+?
 
-Ack.
+I'll change to strncmp().  All the other string comparisons on
+pmstat.c are strncasecmp, so I followed that pattern.
 
-- Ayan
+> > +        ret =3D get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para)=
+;
+> > +    else
+> >      {
+> > +        if ( !(scaling_available_governors =3D
+> > +               xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
+> > +            return -ENOMEM;
+> > +        if ( (ret =3D read_scaling_available_governors(
+> > +                        scaling_available_governors,
+> > +                        gov_num * CPUFREQ_NAME_LEN * sizeof(char))) )
+>
+> I realize you only re-indent this, but since you need to touch it anyway,
+> may I suggest to also switch to siezof(*scaling_available_governors)?
 
+How about dropping sizeof(*scaling_available_governors)?  This length ...
+
+> > +        {
+> > +            xfree(scaling_available_governors);
+> > +            return ret;
+> > +        }
+> > +        ret =3D copy_to_guest(op->u.get_para.scaling_available_governo=
+rs,
+> > +                    scaling_available_governors, gov_num * CPUFREQ_NAM=
+E_LEN);
 >
-> Cheers,
+> Similarly here: Please adjust indentation while you touch this code.
+
+... should match here, but this second one lacks the "* sizeof($foo)".
+They are strings, so multiplying by sizeof() is unusual.
+
+FTAOD, you want the indenting as:
+        ret =3D copy_to_guest(op->u.get_para.scaling_available_governors,
+                            scaling_available_governors,
+                            gov_num * CPUFREQ_NAME_LEN);
+?
+
+> >          xfree(scaling_available_governors);
+> > -        return ret;
+> > -    }
+> > -    ret =3D copy_to_guest(op->u.get_para.scaling_available_governors,
+> > -                scaling_available_governors, gov_num * CPUFREQ_NAME_LE=
+N);
+> > -    xfree(scaling_available_governors);
+> > -    if ( ret )
+> > -        return ret;
+> > +        if ( ret )
+> > +            return ret;
+> >
+> > -    op->u.get_para.u.s.scaling_cur_freq =3D policy->cur;
+> > -    op->u.get_para.u.s.scaling_max_freq =3D policy->max;
+> > -    op->u.get_para.u.s.scaling_min_freq =3D policy->min;
+> > +        op->u.get_para.u.s.scaling_cur_freq =3D policy->cur;
+> > +        op->u.get_para.u.s.scaling_max_freq =3D policy->max;
+> > +        op->u.get_para.u.s.scaling_min_freq =3D policy->min;
+> >
+> > -    if ( policy->governor->name[0] )
+> > -        strlcpy(op->u.get_para.u.s.scaling_governor,
+> > -            policy->governor->name, CPUFREQ_NAME_LEN);
+> > -    else
+> > -        strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
+> > -                CPUFREQ_NAME_LEN);
+> > +        if ( policy->governor->name[0] )
+> > +            strlcpy(op->u.get_para.u.s.scaling_governor,
+> > +                policy->governor->name, CPUFREQ_NAME_LEN);
+> > +        else
+> > +            strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
+> > +                    CPUFREQ_NAME_LEN);
+> >
+> > -    /* governor specific para */
+> > -    if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
+> > -                      "userspace", CPUFREQ_NAME_LEN) )
+> > -    {
+> > -        op->u.get_para.u.s.u.userspace.scaling_setspeed =3D policy->cu=
+r;
+> > -    }
+> > +        /* governor specific para */
+> > +        if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
+> > +                          "userspace", CPUFREQ_NAME_LEN) )
+> > +        {
+> > +            op->u.get_para.u.s.u.userspace.scaling_setspeed =3D policy=
+->cur;
+> > +        }
 >
+> Would also be nice if you could get rid of the unnecessary braces here
+> at this occasion.
+
+Sure
+
+> > --- a/xen/include/acpi/cpufreq/cpufreq.h
+> > +++ b/xen/include/acpi/cpufreq/cpufreq.h
+> > @@ -248,5 +248,7 @@ void intel_feature_detect(struct cpufreq_policy *po=
+licy);
+> >
+> >  extern bool __initdata opt_cpufreq_hwp;
+> >  int hwp_cmdline_parse(const char *s);
+> > +int get_hwp_para(const unsigned int cpu,
+>
+> I think we generally avoid const when it's not a pointed-to type. It's
+> not useful at all in a declaration.
+
+Ok
+
+> > --- a/xen/include/public/sysctl.h
+> > +++ b/xen/include/public/sysctl.h
+> > @@ -296,6 +296,61 @@ struct xen_ondemand {
+> >      uint32_t up_threshold;
+> >  };
+> >
+> > +struct xen_cppc_para {
+> > +    /* OUT */
+> > +    /* activity_window supported if 1 */
+> > +#define XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW  (1 << 0)
+>
+> I think 1 isn't very helpful, looking forward. Perhaps better "set" or
+> "flag set"?
+
+"set" works for me.
+
+> > +    uint32_t features; /* bit flags for features */
+> > +    /*
+> > +     * See Intel SDM: HWP Performance Range and Dynamic Capabilities
+> > +     *
+> > +     * These four are 0-255 hardware-provided values.  They "continuou=
+s,
+> > +     * abstract unit-less, performance" values.  smaller numbers are s=
+lower
+> > +     * and larger ones are faster.
+> > +     */
+> > +    uint32_t lowest;
+> > +    uint32_t lowest_nonlinear; /* most_efficient */
+>
+> Why non_linear in the external interface when internally you use
+> most_efficient (merely put in the comment here)?
+>
+> > +    uint32_t nominal; /* guaranteed */
+>
+> Similar question for the name choice here.
+
+There is a naming mismatch between the HWP fields and the CPPC fields.
+The commit message includes:
+The HWP most_efficient is mapped to CPPC lowest_nonlinear, and guaranteed i=
+s
+mapped to nominal.  CPPC has a guaranteed that is optional while nominal
+is required.  ACPI spec says "If this register is not implemented, OSPM
+assumes guaranteed performance is always equal to nominal performance."
+
+So the comments were to help with the mapping.  Should I prefix the
+comments like "HWP: most_efficient"?
+
+> > +    uint32_t highest;
+> > +    /*
+> > +     * See Intel SDM: IA32_HWP_REQUEST MSR (Address: 774H Logical Proc=
+essor
+> > +     * Scope)
+> > +     *
+> > +     * These are all hints, and the processor may deviate outside of t=
+hem.
+> > +     * Values below are 0-255.
+> > +     *
+> > +     * minimum and maximum can be set to the above hardware values to =
+constrain
+> > +     * operation.  The full range 0-255 is accepted and will be clippe=
+d by
+> > +     * hardware.
+> > +     */
+> > +    uint32_t minimum;
+> > +    uint32_t maximum;
+> > +    /*
+> > +     * Set an explicit performance hint, disabling hardware selection.
+> > +     * 0 lets the hardware decide.
+> > +     */
+> > +    uint32_t desired;
+>
+> "Set" kind of conflicts with all fields being marked as OUT above. I thin=
+k
+> the word can simply be dropped?
+
+Sounds good.
+
+Thanks,
+Jason
 
