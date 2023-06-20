@@ -2,32 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 579C3736A37
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 13:03:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551623.861282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACEB5736A8F
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 13:11:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551667.861293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBZ8x-0007OC-Rc; Tue, 20 Jun 2023 11:03:27 +0000
+	id 1qBZGY-0000kO-Jj; Tue, 20 Jun 2023 11:11:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551623.861282; Tue, 20 Jun 2023 11:03:27 +0000
+Received: by outflank-mailman (output) from mailman id 551667.861293; Tue, 20 Jun 2023 11:11:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBZ8x-0007MB-Ox; Tue, 20 Jun 2023 11:03:27 +0000
-Received: by outflank-mailman (input) for mailman id 551623;
- Tue, 20 Jun 2023 11:03:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qBZ8w-0007LQ-Pm
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 11:03:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qBZ8v-0003OI-Up; Tue, 20 Jun 2023 11:03:25 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=[192.168.9.99])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qBZ8v-0002xJ-Ol; Tue, 20 Jun 2023 11:03:25 +0000
+	id 1qBZGY-0000iG-Gv; Tue, 20 Jun 2023 11:11:18 +0000
+Received: by outflank-mailman (input) for mailman id 551667;
+ Tue, 20 Jun 2023 11:11:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2irc=CI=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1qBZGX-0000iA-04
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 11:11:17 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20624.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::624])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2b25ab4e-0f5b-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 13:11:14 +0200 (CEST)
+Received: from DU2PR04CA0194.eurprd04.prod.outlook.com (2603:10a6:10:28d::19)
+ by AS8PR08MB7719.eurprd08.prod.outlook.com (2603:10a6:20b:524::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 20 Jun
+ 2023 11:11:12 +0000
+Received: from DBAEUR03FT013.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:28d:cafe::2d) by DU2PR04CA0194.outlook.office365.com
+ (2603:10a6:10:28d::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37 via Frontend
+ Transport; Tue, 20 Jun 2023 11:11:09 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT013.mail.protection.outlook.com (100.127.142.222) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6521.21 via Frontend Transport; Tue, 20 Jun 2023 11:11:10 +0000
+Received: ("Tessian outbound 3a01b65b5aad:v136");
+ Tue, 20 Jun 2023 11:11:10 +0000
+Received: from 906226a6946b.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 99332828-B569-4D7C-8B87-F414D483E04F.1; 
+ Tue, 20 Jun 2023 11:10:59 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 906226a6946b.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 20 Jun 2023 11:10:59 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by AM7PR08MB5429.eurprd08.prod.outlook.com (2603:10a6:20b:107::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 20 Jun
+ 2023 11:10:57 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::ed0b:5730:a1f9:577b]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::ed0b:5730:a1f9:577b%5]) with mapi id 15.20.6500.036; Tue, 20 Jun 2023
+ 11:10:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,286 +72,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mxHkokiF16o+DZNSN88oAS/ECGmB+43Snnz369s7gWI=; b=bJ3gyrb5bDrRzInqgeLHe5X4bT
-	X3hkRFuUjmBlyXWvttZNls/D5I/2AJdGnqP8lFpuhkafqvJWkIag9sEfKmeHtDG+891cbe2DtDcsS
-	TtgKL9zpvgwQKRjpk0dG1Nb55HayvntbY+9G5iQFzFrtWPSr0dgpnjaayAYZQp3wneCc=;
-Message-ID: <16a4ff65-93ff-49fd-d3d3-215fd407b249@xen.org>
-Date: Tue, 20 Jun 2023 12:03:23 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [XEN PATCH 04/13] xen/arm: fixed violations of MISRA C:2012 Rule
- 7.2
+X-Inumbo-ID: 2b25ab4e-0f5b-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xxI3ahc9f6N1b1z/2T3j1kAQUzLL0OmOAOwewfY/PVw=;
+ b=JVmneOBG3DcAY1iIu2M+IehGVfWGxR520FFDB4XxKGi5LChbiKhbSu53K5k8A4ovmDh5RGpvnhOyfvkyzQ3yQBzglCk6oIx4iladldWodWpkh45Xxy/PSpRq+NSDvk+aTWBqbsVuzugisKtsWlOGWS07bkd+jomQN4+MQi1aWLA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d92611e5bd06db46
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MQR5c0EUy8aaJP5RxA9Ex7yx0t0F3BYiND6djq47lW1TywUALlBXn6koauj27FsWtfegihaRIG4SpfdPBiWfBri8Rfu5HPeRM8qIP4IoCFUJ+jQOug8YC/hhvb549kj+qFQpuNBe0fLSbcEmDAU8gz63tOozlVPuBvcrNasXbxAHgQTeqsVUyWa7C9tUO3Q/hEhLL6T7ZNJeT+8agrspbLBdHppV580T5QM+7DoQMZ9nLclL0NiewEsMZxQQAqEqNk15CfLojjd4WUdR52gVcI8CDb96xwN2OmOJpXAOqDfPYNWj0an/7YHyLlHQbTzlGTjWw35bkwswJ0VoMDhe0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xxI3ahc9f6N1b1z/2T3j1kAQUzLL0OmOAOwewfY/PVw=;
+ b=AbWsqJM6hKIlQZt5tuGINxnNc//uvBJvBXe21UjP4RaRrR/YzK6h8w3dORm4NXr7O1a2fbu/58yqVYxUYbdz3mLyAs9s1p8SJaqfIitzC2OWF8gZlKUvhBaEa5QksGFEbCgLAbPphbpE5YJPpFaj71spCtlTuXs2ttjdjUrurv8Fx2SlTHpxhZUJI/jWoafFCwsfWIbFL72PQwg59LSp1CvsRM+yi1+AY4RpGMN81Ppb+ThnLVlIMY3IWv+mY9r/9MzeGmSkLjeX4yAs8jQ/+gUMi2q0dBWwqUfZe111eBmwlkEnpMNeMMpuwgIc9KxXHsZ07CBJEVGSAlW9IKEV/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xxI3ahc9f6N1b1z/2T3j1kAQUzLL0OmOAOwewfY/PVw=;
+ b=JVmneOBG3DcAY1iIu2M+IehGVfWGxR520FFDB4XxKGi5LChbiKhbSu53K5k8A4ovmDh5RGpvnhOyfvkyzQ3yQBzglCk6oIx4iladldWodWpkh45Xxy/PSpRq+NSDvk+aTWBqbsVuzugisKtsWlOGWS07bkd+jomQN4+MQi1aWLA=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, "michal.orzel@amd.com"
+	<michal.orzel@amd.com>, Henry Wang <Henry.Wang@arm.com>, Julien Grall
+	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 1/7] xen/arm32: head: Add missing isb in setup_fixmap()
+Thread-Topic: [PATCH 1/7] xen/arm32: head: Add missing isb in setup_fixmap()
+Thread-Index: AQHZos+4j3GmbsysAEGR9uy2Puvqtq+TihkA
+Date: Tue, 20 Jun 2023 11:10:57 +0000
+Message-ID: <AE0D190A-CC77-491F-9C78-0C0F432BCB39@arm.com>
+References: <20230619170115.81398-1-julien@xen.org>
+ <20230619170115.81398-2-julien@xen.org>
+In-Reply-To: <20230619170115.81398-2-julien@xen.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Gianluca Luparini
- <gianluca.luparini@bugseng.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
- Ayan Kumar <ayan.kumar.halder@amd.com>
-References: <cover.1687250177.git.gianluca.luparini@bugseng.com>
- <4d27e872f889f4080af42cc1ff2591ac56834e21.1687250177.git.gianluca.luparini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <4d27e872f889f4080af42cc1ff2591ac56834e21.1687250177.git.gianluca.luparini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.600.7)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3749:EE_|AM7PR08MB5429:EE_|DBAEUR03FT013:EE_|AS8PR08MB7719:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc05702c-5bbc-4d0f-4266-08db717f0dc5
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ yzhfcKcH4B1L/hhhQvziXPe0sgHAIgHX3GwVH43WHLx/jk48xmxMv57oznmZ6dVEGfQKK+8zFlCGksk+Ys+dqMQw0ZG/doqBwJUfgR7NJhtqzNCBhJS75+KVpbWMhiAqWBarlxsgSU9TJVUt94grskgAlED9hk3taJwDUHLT0nYxY8wep/bJg1NwiOTGuif4uKJhKEOXhiiky1mQqP5OZlhkVaM38AB5o1LXzD9Xd99doEWSs7JKiKRWdPhdMbjaDNxs9GvuRkxdmq2ItlFgntrT49JbsYwKjs4tmU3mUweBiIgevlYxt8yGRTF02f2nOovNTWWO2FMjuro23F0hkzX9Sg0MQJa+G8+3Ei9D3x9ZfsU9JyJYv96UGvncIdRJxEsjUR4FsBEngsyr1DjoHLOF7GHR4moSP1rIfyHI4ZYJ3Zel1fQs7b9oxXT6ShUvXMKvEfxsVNYJATj8h4igYVxuDiKdrmaiFNURN94nJbVm5weUMA7f10wjur5ZWKItD2/gBcI6y8bsNPAFfXgfK1bqcOfhC4j1GfVXtwAg+ujeXxWd3rWRNlKG82ukRdLhfyHxnO6tlDtrnjNtmJEDK56rId1yq7bl9gA8lcoPfpkSVGLtmBJ1oYoJr+oXQaX5X+8NLJqQzYStPcULOn9Skg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(136003)(346002)(366004)(39860400002)(451199021)(8936002)(41300700001)(8676002)(478600001)(38100700002)(122000001)(71200400001)(2616005)(83380400001)(6512007)(26005)(186003)(6506007)(53546011)(6486002)(54906003)(38070700005)(86362001)(36756003)(316002)(4326008)(91956017)(33656002)(64756008)(66556008)(66476007)(66946007)(6916009)(76116006)(66446008)(4744005)(2906002)(5660300002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <353F1607D144CE439570566F1CBB8666@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5429
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT013.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	a89cb615-dea4-4b6d-7abf-08db717f0596
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	DfWKRfg0eeIQGQgeg1ErpWBen+8Vo6JBdsQ7jAW165SACIWCDnjWgR4Q8bIS9HY6SZ5C4vpZytQliv/f+fHX+cYBYavs/acQEZs9o3sezUzb3HIvtV+VUZZLTc0pSnOGLePdaER6mAt0tZ7wAl+RBn6KmjjrfgreeEQUlJoUy7QRVpVj2DhcGWa3DklWZWGXH62GYo/jzWo7zjFTv8R5JSWqL0gr4V4s64R9oVRUHhyeZ5PM+pnqW1QQ172DuQAyi/csXNe62SCR0lQwIcil+isv7B2yXBoyx3f4IUHKIe0WBalUodVkbJv3Scjqe8TnirYBq6yrSLiXMhLEwxZKfdRr/JyT3WxDrxnobmTyO2ZkfEcV8ifZj6oFxyv1ac/XyXmfmgEcmgaSw0riTYTpqNHpC5t5kD1rKU7+UzjMZYkMF40H8wjIUHt6xFsJPzCE/oTIVF3iGDySO9bM5oGemWzD0FV6VEOrxq0muwwuP94hveIbsMRvK6AzmBekeU1oqklogR+u9gyrDQFgtyWc7uqyCGW/vtytoUTt0I56nlhN30iCRTfbBlySiG4CojZNg9VUR33Hz6seG7nQw5UV5x/eD01vjlfb04zDVbazNZIcIde21YiAbykJQctnFARsHPmA9yZSL/l+FJAdvhaOZ5Xl2ODwfvZhYcFsYAMcSo6RCIDNIp6Gxqes+4QvIR3DCyvTSvBJRVHp2BMY6zhr8OnstTrvDO+9QYLzqdz8plhBONC63kRg5cGp+VVwpmpB
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199021)(46966006)(36840700001)(40470700004)(82310400005)(6862004)(5660300002)(40480700001)(86362001)(36860700001)(2616005)(8676002)(40460700003)(8936002)(26005)(6506007)(54906003)(6512007)(107886003)(186003)(6486002)(33656002)(53546011)(4744005)(478600001)(2906002)(81166007)(356005)(82740400003)(83380400001)(47076005)(336012)(316002)(4326008)(70206006)(70586007)(36756003)(41300700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2023 11:11:10.8717
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc05702c-5bbc-4d0f-4266-08db717f0dc5
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT013.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7719
 
-Hi,
 
-On 20/06/2023 11:34, Simone Ballarin wrote:
-> From: Gianluca Luparini <gianluca.luparini@bugseng.com>
 
-Is this person the original author of this patch? If so...
-
-> 
-> The xen sources contains violations of MISRA C:2012 Rule 7.2 whose headline states:
-> "A "u" or "U" suffix shall be applied to all integer constants that are represented in an unsigned type".
-> 
-> I propose to use "U" as a suffix to explicitly state when an integer constant is represented in an unsigned type.
-> For homogeneity, I also added the "U" suffix in some cases that the tool didn't report as violations.
-
-OOI, why would the tool not report all of them? And how did you decide 
-when to add them?
-
-> 
-
-... the signed-off is missing here.
-
-> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-
-Yours should still be kept as you are sending the patch.
-
+> On 19 Jun 2023, at 18:01, Julien Grall <julien@xen.org> wrote:
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> Per the Arm Arm (ARM DDI 0406C.d A3.8.3):
+>=20
+> "The DMB and DSB memory barriers affect reads and writes to the memory
+> system generated by load/store instructions and data or unified cache
+> maintenance operations being executed by the processor. Instruction
+> fetches or accesses caused by a hardware translation table access are
+> not explicit accesses."
+>=20
+> In setup_fixmap(), we write the fixmap area and may be used soon after,
+> for instance, to write to the UART. IOW, there could be hardware
+> translation table access. So we need to ensure the 'dsb' has completed
+> before continuing. Therefore add an 'isb'.
+>=20
+> Fixes: e79999e587d7 ("xen/arm32: head: Remove 1:1 mapping as soon as it i=
+s not used")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > ---
->   xen/arch/arm/domain_build.c              |  2 +-
->   xen/arch/arm/efi/efi-boot.h              |  2 +-
->   xen/arch/arm/gic-v2.c                    |  6 +++---
->   xen/arch/arm/include/asm/arm64/brk.h     |  2 +-
->   xen/arch/arm/include/asm/arm64/efibind.h | 10 +++++-----
->   xen/arch/arm/include/asm/arm64/insn.h    | 16 ++++++++--------
->   xen/arch/arm/include/asm/vreg.h          |  2 +-
->   xen/arch/arm/kernel.c                    |  2 +-
->   xen/arch/arm/traps.c                     |  4 ++--
->   xen/arch/arm/vgic-v2.c                   |  2 +-
->   xen/include/public/arch-arm/smccc.h      |  8 ++++----
->   11 files changed, 28 insertions(+), 28 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index d0d6be922d..78261352a6 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -3752,7 +3752,7 @@ static int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
->            *...
->            */
->           regs->r0 = 0; /* SBZ */
 
-Above, you said you want to be consistent when you use U. So I was 
-expecting this would be 0U. Is this an oversight? If not, can you 
-outline in which case 'U' can be ignored?
+Hi Julien,
 
-> -        regs->r1 = 0xffffffff; /* We use DTB therefore no machine id */
-> +        regs->r1 = 0xffffffffU; /* We use DTB therefore no machine id */
->           regs->r2 = kinfo->dtb_paddr;
->       }
->   #ifdef CONFIG_ARM_64
-> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index bb64925d70..585332647d 100644
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -46,7 +46,7 @@ static int get_module_file_index(const char *name, unsigned int name_len);
->   static void PrintMessage(const CHAR16 *s);
->   
->   #define DEVICE_TREE_GUID \
-> -{0xb1b621d5, 0xf19c, 0x41a5, {0x83, 0x0b, 0xd9, 0x15, 0x2c, 0x69, 0xaa, 0xe0}}
-> +{0xb1b621d5U, 0xf19cU, 0x41a5U, {0x83U, 0x0bU, 0xd9U, 0x15U, 0x2cU, 0x69U, 0xaaU, 0xe0U}}
->   
->   static struct file __initdata dtbfile;
->   static void __initdata *fdt;
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index 6476ff4230..191c89b01b 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -386,9 +386,9 @@ static void gicv2_cpu_init(void)
->       /* The first 32 interrupts (PPI and SGI) are banked per-cpu, so
->        * even though they are controlled with GICD registers, they must
->        * be set up here with the other per-cpu state. */
-> -    writel_gicd(0xffffffff, GICD_ICACTIVER); /* Diactivate PPIs and SGIs */
-> -    writel_gicd(0xffff0000, GICD_ICENABLER); /* Disable all PPI */
-> -    writel_gicd(0x0000ffff, GICD_ISENABLER); /* Enable all SGI */
-> +    writel_gicd(0xffffffffU, GICD_ICACTIVER); /* Diactivate PPIs and SGIs */
+Yeah makes sense!
 
-Can you take the opportunity to fix the typo s/Diactivate/De-activate/?
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
 
-> +    writel_gicd(0xffff0000U, GICD_ICENABLER); /* Disable all PPI */
-> +    writel_gicd(0x0000ffffU, GICD_ISENABLER); /* Enable all SGI */
->   
->       /* Set SGI priorities */
->       for ( i = 0; i < 16; i += 4 )
-> diff --git a/xen/arch/arm/include/asm/arm64/brk.h b/xen/arch/arm/include/asm/arm64/brk.h
-> index 04442c4b9f..3af153a053 100644
-> --- a/xen/arch/arm/include/asm/arm64/brk.h
-> +++ b/xen/arch/arm/include/asm/arm64/brk.h
-> @@ -21,7 +21,7 @@
->    * BRK instruction encoding
->    * The #imm16 value should be placed at bits[20:5] within BRK ins
->    */
-> -#define AARCH64_BREAK_MON 0xd4200000
-> +#define AARCH64_BREAK_MON 0xd4200000U
->   
->   /*
->    * BRK instruction for provoking a fault on purpose
-> diff --git a/xen/arch/arm/include/asm/arm64/efibind.h b/xen/arch/arm/include/asm/arm64/efibind.h
-> index 8b43bb8495..0e890b666d 100644
-> --- a/xen/arch/arm/include/asm/arm64/efibind.h
-> +++ b/xen/arch/arm/include/asm/arm64/efibind.h
-> @@ -22,12 +22,12 @@ Revision History
->   #pragma pack()
->   #endif
->   
-> -#define EFIERR(a)           (0x8000000000000000 | a)
-> -#define EFI_ERROR_MASK      0x8000000000000000
-> -#define EFIERR_OEM(a)       (0xc000000000000000 | a)
-> +#define EFIERR(a)           (0x8000000000000000U | a)
-> +#define EFI_ERROR_MASK      0x8000000000000000U
-> +#define EFIERR_OEM(a)       (0xc000000000000000U | a)
->   
-> -#define BAD_POINTER         0xFBFBFBFBFBFBFBFB
-> -#define MAX_ADDRESS         0xFFFFFFFFFFFFFFFF
-> +#define BAD_POINTER         0xFBFBFBFBFBFBFBFBU
-> +#define MAX_ADDRESS         0xFFFFFFFFFFFFFFFFU
->   
->   #define EFI_STUB_ERROR      MAX_ADDRESS
->   
-> diff --git a/xen/arch/arm/include/asm/arm64/insn.h b/xen/arch/arm/include/asm/arm64/insn.h
-> index 4e0d364d41..b522b07bf5 100644
-> --- a/xen/arch/arm/include/asm/arm64/insn.h
-> +++ b/xen/arch/arm/include/asm/arm64/insn.h
-> @@ -60,14 +60,14 @@ static always_inline bool aarch64_insn_is_##abbr(u32 code) \
->   static always_inline u32 aarch64_insn_get_##abbr##_value(void) \
->   { return (val); }
->   
-> -__AARCH64_INSN_FUNCS(b,		0xFC000000, 0x14000000)
-> -__AARCH64_INSN_FUNCS(bl,	0xFC000000, 0x94000000)
-> -__AARCH64_INSN_FUNCS(cbz,	0x7F000000, 0x34000000)
-> -__AARCH64_INSN_FUNCS(cbnz,	0x7F000000, 0x35000000)
-> -__AARCH64_INSN_FUNCS(tbz,	0x7F000000, 0x36000000)
-> -__AARCH64_INSN_FUNCS(tbnz,	0x7F000000, 0x37000000)
-> -__AARCH64_INSN_FUNCS(bcond,	0xFF000010, 0x54000000)
-> -__AARCH64_INSN_FUNCS(hint,	0xFFFFF01F, 0xD503201F)
-> +__AARCH64_INSN_FUNCS(b,		0xFC000000U, 0x14000000)
-
-I am guessing you are only adding the U when the top bit is '1' so it 
-could be misinterpreted. But really, we should use 'U' everywhere a 
-value is meant to be interpreted as an unsigned value as this is easier 
-to apply for a contributor.
-
-In any case, I think your approach should be outline in the commit 
-message because I would consider your approach not homogenous as this is 
-claimed in the commit message.
-
-> +__AARCH64_INSN_FUNCS(bl,	0xFC000000U, 0x94000000U)
-> +__AARCH64_INSN_FUNCS(cbz,	0x7F000000U, 0x34000000)
-> +__AARCH64_INSN_FUNCS(cbnz,	0x7F000000U, 0x35000000)
-> +__AARCH64_INSN_FUNCS(tbz,	0x7F000000U, 0x36000000)
-> +__AARCH64_INSN_FUNCS(tbnz,	0x7F000000U, 0x37000000)
-> +__AARCH64_INSN_FUNCS(bcond,	0xFF000010U, 0x54000000)
-> +__AARCH64_INSN_FUNCS(hint,	0xFFFFF01FU, 0xD503201FU)
->   
->   bool aarch64_insn_is_branch_imm(u32 insn);
->   
-> diff --git a/xen/arch/arm/include/asm/vreg.h b/xen/arch/arm/include/asm/vreg.h
-> index bf945eebbd..387ce76e7e 100644
-> --- a/xen/arch/arm/include/asm/vreg.h
-> +++ b/xen/arch/arm/include/asm/vreg.h
-> @@ -56,7 +56,7 @@ static inline bool vreg_emulate_cp64(struct cpu_user_regs *regs, union hsr hsr,
->   
->       if ( ret && cp64.read )
->       {
-> -        set_user_reg(regs, cp64.reg1, x & 0xffffffff);
-> +        set_user_reg(regs, cp64.reg1, x & 0xffffffffU);
->           set_user_reg(regs, cp64.reg2, x >> 32);
->       }
->   
-> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-> index ca5318515e..508c54824d 100644
-> --- a/xen/arch/arm/kernel.c
-> +++ b/xen/arch/arm/kernel.c
-> @@ -39,7 +39,7 @@ struct minimal_dtb_header {
->       /* There are other fields but we don't use them yet. */
->   };
->   
-> -#define DTB_MAGIC 0xd00dfeed
-> +#define DTB_MAGIC 0xd00dfeedU
->   
->   /**
->    * copy_from_paddr - copy data from a physical address
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index ef5c6a8195..def92fafae 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -398,7 +398,7 @@ static vaddr_t exception_handler32(vaddr_t offset)
->       register_t sctlr = READ_SYSREG(SCTLR_EL1);
->   
->       if ( sctlr & SCTLR_A32_EL1_V )
-> -        return 0xffff0000 + offset;
-> +        return 0xffff0000U + offset;
->       else /* always have security exceptions */
->           return READ_SYSREG(VBAR_EL1) + offset;
->   }
-> @@ -809,7 +809,7 @@ static void show_registers_32(const struct cpu_user_regs *regs,
->   #ifdef CONFIG_ARM_64
->                  (uint32_t)(ctxt->far >> 32),
->                  ctxt->ifsr32_el2,
-> -               (uint32_t)(ctxt->far & 0xffffffff),
-> +               (uint32_t)(ctxt->far & 0xffffffffU),
->                  ctxt->esr_el1
->   #else
->                  ctxt->ifar, ctxt->ifsr, ctxt->dfar, ctxt->dfsr
-> diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
-> index 0b083c33e6..35363fee09 100644
-> --- a/xen/arch/arm/vgic-v2.c
-> +++ b/xen/arch/arm/vgic-v2.c
-> @@ -306,7 +306,7 @@ static int vgic_v2_distr_mmio_read(struct vcpu *v, mmio_info_t *info,
->       case VREG32(GICD_SGIR):
->           if ( dabt.size != DABT_WORD ) goto bad_width;
->           /* Write only -- read unknown */
-> -        *r = 0xdeadbeef;
-> +        *r = 0xdeadbeefU;
->           return 1;
->   
->       case VRANGE32(0xF04, 0xF0C):
-> diff --git a/xen/include/public/arch-arm/smccc.h b/xen/include/public/arch-arm/smccc.h
-> index 802d800aad..8553f2f39e 100644
-> --- a/xen/include/public/arch-arm/smccc.h
-> +++ b/xen/include/public/arch-arm/smccc.h
-> @@ -26,16 +26,16 @@
->   #define XEN_SMCCC_MINOR_REVISION 1
->   
->   /* Hypervisor Service UID. Randomly generated with uuidgen. */
-> -#define XEN_SMCCC_UID XEN_DEFINE_UUID(0xa71812dc, 0xc698, 0x4369, 0x9acf, \
-> -                                      0x79, 0xd1, 0x8d, 0xde, 0xe6, 0x67)
-> +#define XEN_SMCCC_UID XEN_DEFINE_UUID(0xa71812dcU, 0xc698U, 0x4369U, 0x9acfU, \
-> +                                      0x79U, 0xd1U, 0x8dU, 0xdeU, 0xe6U, 0x67U)
->   
->   /* Standard Service Service Call version. */
->   #define SSSC_SMCCC_MAJOR_REVISION 0
->   #define SSSC_SMCCC_MINOR_REVISION 1
->   
->   /* Standard Service Call UID. Randomly generated with uuidgen. */
-> -#define SSSC_SMCCC_UID XEN_DEFINE_UUID(0xf863386f, 0x4b39, 0x4cbd, 0x9220,\
-> -                                       0xce, 0x16, 0x41, 0xe5, 0x9f, 0x6f)
-> +#define SSSC_SMCCC_UID XEN_DEFINE_UUID(0xf863386fU, 0x4b39U, 0x4cbdU, 0x9220U,\
-> +                                       0xceU, 0x16U, 0x41U, 0xe5U, 0x9fU, 0x6fU)
->   
->   #endif /* __XEN_PUBLIC_ARCH_ARM_SMCCC_H__ */
->   
-
-Cheers,
--- 
-Julien Grall
 
