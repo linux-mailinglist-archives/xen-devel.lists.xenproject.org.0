@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999C673727D
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:16:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551977.861780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 202F3737289
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:17:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551985.861790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBexZ-0004tR-IY; Tue, 20 Jun 2023 17:16:05 +0000
+	id 1qBeyi-0005Sq-VW; Tue, 20 Jun 2023 17:17:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551977.861780; Tue, 20 Jun 2023 17:16:05 +0000
+Received: by outflank-mailman (output) from mailman id 551985.861790; Tue, 20 Jun 2023 17:17:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBexZ-0004qa-ET; Tue, 20 Jun 2023 17:16:05 +0000
-Received: by outflank-mailman (input) for mailman id 551977;
- Tue, 20 Jun 2023 17:16:04 +0000
+	id 1qBeyi-0005QW-Se; Tue, 20 Jun 2023 17:17:16 +0000
+Received: by outflank-mailman (input) for mailman id 551985;
+ Tue, 20 Jun 2023 17:17:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/wkg=CI=gmail.com=jupham125@srs-se1.protection.inumbo.net>)
- id 1qBexY-0004qU-52
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:16:04 +0000
-Received: from mail-vs1-xe32.google.com (mail-vs1-xe32.google.com
- [2607:f8b0:4864:20::e32])
+ id 1qBeyi-0005QM-4b
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:17:16 +0000
+Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
+ [2607:f8b0:4864:20::b2f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 213a4d11-0f8e-11ee-8611-37d641c3527e;
- Tue, 20 Jun 2023 19:16:01 +0200 (CEST)
-Received: by mail-vs1-xe32.google.com with SMTP id
- ada2fe7eead31-44096f01658so1710473137.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 10:16:01 -0700 (PDT)
+ id 4c120d33-0f8e-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 19:17:13 +0200 (CEST)
+Received: by mail-yb1-xb2f.google.com with SMTP id
+ 3f1490d57ef6-bd5f20508f2so4829318276.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 10:17:13 -0700 (PDT)
 Received: from joel-Precision-7920-Tower.. ([24.53.71.1])
  by smtp.gmail.com with ESMTPSA id
- f81-20020a25cf54000000b00bcc0f2e4f05sm461938ybg.59.2023.06.20.10.15.59
+ f81-20020a25cf54000000b00bcc0f2e4f05sm461938ybg.59.2023.06.20.10.17.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jun 2023 10:15:59 -0700 (PDT)
+ Tue, 20 Jun 2023 10:17:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +45,657 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 213a4d11-0f8e-11ee-8611-37d641c3527e
+X-Inumbo-ID: 4c120d33-0f8e-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687281360; x=1689873360;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=H9e69r/0hBb1Pz3HX6FalfGvqxFEmextEqSYdmN4rrc=;
-        b=opB/iZoLem7H+PnWqBq9b24YYfHf8TdHx4A7YYNBeH8BAX+AyBdC+diJqSkYVlYWCM
-         L8UESBpinQJbo2x6cB/aKyEWk/77fT46nkf2LT6YDJGyfg9PTbZYS+GWYWRzz1fGreX2
-         ETmQU2Wl1PZRcLwrHMrgtVTTgcbaXJ+pTwlvcknUeOB56rr9cc6byBfs7USxnm7/ZM8p
-         VdsYjZjhvb48aIvBoK718J5RHrtrTH7G717W4pg7voGH0z7/IBBjeie4FgviVsV380XW
-         fqGEk4rhKzI90wVKBJvY9j0okHqsBWhk9mnpECgF/YcpehCVpPw4iIeXFid2Qr1Bog7T
-         Dr1A==
+        d=gmail.com; s=20221208; t=1687281432; x=1689873432;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ukzGpEENG0RlgItA22pHLWRfkG/TIG2MuZvDy/EWEFU=;
+        b=Ui3x4e2d1x7msUonmnEtV2oZD/YnB5TKiukjofsjZMyaIwsa94EELiqp60Boh7w1Pd
+         liSVUEjzvbLj7tNmPLSnwXvkE984RpJyNnkXgYJZxhasBdPPGttj7ZGEV4y39soxZp9c
+         N4ZfA42vod69hfNmN9IJ1UuqF00rTRL9LirV/KUu30KsvxUra2WpOikuQNaTy6FXa0jV
+         nKpdECVzHl/hIa3mN1mFGSpHgP0PQFsMh30tOsQBMSO9WejSZNk1cKAFk3FzuDiNVIOd
+         AaJ0V/WtfyIMRW0c+vwlTxx3oFUinCAo0Uwq+c2hlryeCvv7la++wJp5beXgaNJc1scy
+         Jopw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687281360; x=1689873360;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=H9e69r/0hBb1Pz3HX6FalfGvqxFEmextEqSYdmN4rrc=;
-        b=ePgXgb7Lan4Ey4sDLGtbfnqEYKmIzshLEfo34/qr4XeCSABGdupngtTWWneXGkI4Gp
-         MF5iN4jjkKO6P/28Yjhfql3siF+BEm175a96m6JupEO8hyKVB/KrBjHnfo66Lk5fXAut
-         tz4iAtgy+MkwMdVNcOjZl0kD6sA8L6kJm/oRz1en7kf57LlwfvJ1BLEqyTGHpOxeLoMZ
-         7kS6m2JR5awdndJKR/4FNwldQOjutMHWQSobt8v6GAy33IA14k60JEKczWlYem2qkW4D
-         NPxvwnWicvhQ2UnIEn9zZHYt3vDHMHfRkzlDDpECZI0GHfoSTwWBfMa4gPKH3ZE5hLj6
-         2DFQ==
-X-Gm-Message-State: AC+VfDy6tBqtJx1jOhs2++BrSIIG/OT5oaQdyBEJUPa0FMghiPY63VDM
-	/yJl4ZuKgoZSih/dNt8M1bt3BTLpWKUDsQ==
-X-Google-Smtp-Source: ACHHUZ7k+DApySytYCVci6XOU4BEoW3Jyn/QKZ38Dvl8xeVkMr0zudjtZCM/keeVEaA8jpTr9z8uKw==
-X-Received: by 2002:a67:e282:0:b0:43f:5781:59c with SMTP id g2-20020a67e282000000b0043f5781059cmr5595232vsf.9.1687281360268;
-        Tue, 20 Jun 2023 10:16:00 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1687281432; x=1689873432;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ukzGpEENG0RlgItA22pHLWRfkG/TIG2MuZvDy/EWEFU=;
+        b=KQiCI/HFAq1BTHOH2Jb157hnKkgSjfLMRpVl8Hludy2nCWRLkBxYdG8wQX4Enmc4kZ
+         sJaWgionB+iqfo8hBR1OcYh9V95j0ushUrJz2sKD3sf3yTmV0/UW4M+nnHHSuXfFVZ7l
+         jl6mqFtAHrdN+XmB3ysQ6LJbbiEtPxCqlSrXHsE0uRPhDSEyLygTkdDElRwD9hv3rUuT
+         R11ajEFJsgdd5clerzerlIDfzIzyKtpBM4A6DeFhBRsLMjlPFqvgvKkoXOszNapkgRYb
+         V4++5REnIorYVj38+HcvFEBJALNbmKh29VgfJb1caIoS4Enenditz0KqLKIBlK8q3RR3
+         jEDA==
+X-Gm-Message-State: AC+VfDwwPsMGEhj7GwmB2uNYvazuOucxwyqLyNmV8TWj75tsjzEukYS/
+	7Q9//S7Klqg7rYkJIiQnoC+WMKlePjRr+g==
+X-Google-Smtp-Source: ACHHUZ7sEKIwUdOwq8v0ZiXEvcWcwlhyvF7IGBk2nsbUQnRGQM9cgKjioeDKihYNY1gaGXgxfzYrGQ==
+X-Received: by 2002:a25:b195:0:b0:b8e:cb88:1b69 with SMTP id h21-20020a25b195000000b00b8ecb881b69mr10005548ybj.34.1687281431908;
+        Tue, 20 Jun 2023 10:17:11 -0700 (PDT)
 From: Joel Upham <jupham125@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Joel Upham <jupham125@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 00/12] Q35 Support
-Date: Tue, 20 Jun 2023 13:15:40 -0400
-Message-Id: <cover.1687215890.git.jupham125@gmail.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 01/12] libacpi: new DSDT ACPI table for Q35
+Date: Tue, 20 Jun 2023 13:15:41 -0400
+Message-Id: <b8b4f8807a6f7f6b5097369ff12b9c7203aa7624.1687215890.git.jupham125@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1687215890.git.jupham125@gmail.com>
+References: <cover.1687215890.git.jupham125@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Q35 support using Qemu's device emulation.  I based the patches from 2017
-found on the mailing list here:
-https://lists.xenproject.org/archives/html/xen-devel/2018-03/msg01176.html
+This patch adds the DSDT table for Q35 (new tools/libacpi/dsdt_q35.asl
+file). There are not many differences with dsdt.asl (for i440) at the
+moment, namely:
 
-I have been using a version of these patches on Xen 4.16 with Qemu
-version 4.1 for over 6 months.  The guest VMs are very stable, and PCIe
-PT is working as was designed (all of the PCIe devices are on the root
-PCIe device).  I have successfully passed through GPUs, NICs, etc. I was
-asked by those in the community to attempt to once again upstream the
-patches.  I have them working with Seabios and OVMF (patches are needed
-to OVMF which I will be sending to the mailing list).  I will be sending
-my Qemu patches to their mailing list in hopes of getting everything
-upstreamed. The Qemu patches allow for the xenvbd to properly unplug the
-AHCI SATA device, and all xen pv windows drivers work as intended.
+- BDF location of LPC Controller
+- Minor changes related to FDC detection
+- Addition of _OSC method to inform OSPM about PCIe features supported
 
-I used the original author of the patches to get a majority of this to work:
-Alexey Gerasimenko.  I fixed the patches to be in line with the upstream
-Qemu and Xen versions.  Any original issues may still exist; however, I
-am sure in time they can be improved. If the code doesn't exist then they
-can't be actively looked at by the community.
+As we are still using 4 PCI router links and their corresponding
+device/register addresses are same (offset 0x60), no need to change PCI
+routing descriptions.
 
-I am not an expert on the Q35 chipset or PCIe technology.  This is my
-first patch to this mailing list. I realized that my first patch was not
-properly formatted into a series, so this is the full series version.
+Also, ACPI hotplug is still used to control passed through device hot
+(un)plug (as it was for i440).
 
+Signed-off-by: Alexey Gerasimenko <x1917x@xxxxxxxxx>
 Signed-off-by: Joel Upham <jupham125@gmail.com>
-Joel Upham (12):
-  libacpi: new DSDT ACPI table for Q35
-  Makefile: build and use new DSDT table for Q35
-  hvmloader: add function to query an emulated machine type (i440/Q35)
-  hvmloader: add ACPI enabling for Q35
-  hvmloader: add Q35 DSDT table loading
-  hvmloader: add basic Q35 support
-  hvmloader: allocate MMCONFIG area in the MMIO hole + minor code
-    refactoring
-  libxl: Q35 support (new option device_model_machine)
-  libacpi: build ACPI MCFG table if requested
-  hvmloader: use libacpi to build MCFG table
-  docs: provide description for device_model_machine option
-  libxl_dm: handle the new 6 port ahci controller
-
- docs/man/xl.cfg.5.pod.in             |  27 ++
- tools/firmware/hvmloader/Makefile    |   2 +-
- tools/firmware/hvmloader/config.h    |   6 +
- tools/firmware/hvmloader/hvmloader.c |  13 +-
- tools/firmware/hvmloader/ovmf.c      |   5 +
- tools/firmware/hvmloader/pci.c       | 285 +++++++++----
- tools/firmware/hvmloader/pci_regs.h  |   6 +
- tools/firmware/hvmloader/seabios.c   |   5 +
- tools/firmware/hvmloader/util.c      | 130 +++++-
- tools/firmware/hvmloader/util.h      |  10 +
- tools/libacpi/Makefile               |  10 +-
- tools/libacpi/acpi2_0.h              |  21 +
- tools/libacpi/build.c                |  43 ++
- tools/libacpi/dsdt_q35.asl           | 578 +++++++++++++++++++++++++++
- tools/libacpi/libacpi.h              |   4 +
- tools/libs/light/libxl_dm.c          |  60 ++-
- tools/libs/light/libxl_types.idl     |   8 +
- tools/xl/xl_parse.c                  |  14 +
- 18 files changed, 1119 insertions(+), 108 deletions(-)
+---
+ tools/libacpi/dsdt_q35.asl | 578 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 578 insertions(+)
  create mode 100644 tools/libacpi/dsdt_q35.asl
 
-Qemu changes in bound to their mailing list:
-  pc/xen: Xen Q35 support: provide IRQ handling for PCI devices
-  pc/q35: Apply PCI bus BSEL property for Xen PCI device hotplug
-  q35/acpi/xen: Provide ACPI PCI hotplug interface for Xen on Q35
-  q35/xen: Add Xen platform device support for Q35
-  q35: Fix incorrect values for PCIEXBAR masks
-  xen/pt: XenHostPCIDevice: provide functions for PCI Capabilities and
-    PCIe Extended Capabilities enumeration
-  xen/pt: avoid reading PCIe device type and cap version multiple times
-  xen/pt: determine the legacy/PCIe mode for a passed through device
-  xen/pt: Xen PCIe passthrough support for Q35: bypass PCIe topology
-    check
-  xen/pt: add support for PCIe Extended Capabilities and larger config
-    space
-  xen/pt: handle PCIe Extended Capabilities Next register
-  xen/pt: allow to hide PCIe Extended Capabilities
-  xen/pt: add Vendor-specific PCIe Extended Capability descriptor and
-    sizing
-  xen/pt: add fixed-size PCIe Extended Capabilities descriptors
-  xen/pt: add AER PCIe Extended Capability descriptor and sizing
-  xen/pt: add descriptors and size calculation for
-    RCLD/ACS/PMUX/DPA/MCAST/TPH/DPC PCIe Extended Capabilities
-  xen/pt: add Resizable BAR PCIe Extended Capability descriptor and
-    sizing
-  xen/pt: add VC/VC9/MFVC PCIe Extended Capabilities descriptors and
-    sizing
-  xen/pt: Fake capability id
-  xen platform: unplug ahci object
-  pc/q35: setup q35 for xen
-  qdev-monitor/pt: bypass root device check
-  s3 support: enabling s3 with q35
-
- hw/acpi/ich9.c                |   22 +-
- hw/acpi/pcihp.c               |    6 +-
- hw/core/machine.c             |   19 +
- hw/i386/pc_piix.c             |    3 +-
- hw/i386/pc_q35.c              |   39 +-
- hw/i386/xen/xen-hvm.c         |    7 +-
- hw/i386/xen/xen_platform.c    |   19 +-
- hw/isa/lpc_ich9.c             |   53 +-
- hw/isa/piix3.c                |    2 +-
- hw/pci-host/q35.c             |   28 +-
- hw/pci/pci.c                  |   17 +
- hw/xen/xen-host-pci-device.c  |  106 +++-
- hw/xen/xen-host-pci-device.h  |    6 +-
- hw/xen/xen_pt.c               |   49 +-
- hw/xen/xen_pt.h               |   18 +-
- hw/xen/xen_pt_config_init.c   | 1103 ++++++++++++++++++++++++++++++---
- include/hw/acpi/pcihp.h       |    2 +
- include/hw/boards.h           |    1 +
- include/hw/i386/pc.h          |    3 +
- include/hw/pci-host/q35.h     |    4 +-
- include/hw/pci/pci.h          |    3 +
- include/hw/southbridge/ich9.h |    1 +
- include/hw/xen/xen.h          |    4 +-
- qemu-options.hx               |    1 +
- softmmu/qdev-monitor.c        |    4 +-
- stubs/xen-hw-stub.c           |    4 +-
- 26 files changed, 1394 insertions(+), 130 deletions(-)
-
+diff --git a/tools/libacpi/dsdt_q35.asl b/tools/libacpi/dsdt_q35.asl
+new file mode 100644
+index 0000000000..1ec32a8010
+--- /dev/null
++++ b/tools/libacpi/dsdt_q35.asl
+@@ -0,0 +1,578 @@
++/******************************************************************************
++ * DSDT for Xen with Qemu device model (for Q35 machine)
++ *
++ * Copyright (c) 2004, Intel Corporation.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as published
++ * by the Free Software Foundation; version 2.1 only. with the special
++ * exception on linking described in file LICENSE.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
++ */
++
++DefinitionBlock ("DSDT.aml", "DSDT", 2, "Xen", "HVM", 0)
++{
++    Name (\PMBS, 0x0C00)
++    Name (\PMLN, 0x08)
++    Name (\IOB1, 0x00)
++    Name (\IOL1, 0x00)
++    Name (\APCB, 0xFEC00000)
++    Name (\APCL, 0x00010000)
++    Name (\PUID, 0x00)
++
++
++    Scope (\_SB)
++    {
++
++        /* Fix HCT test for 0x400 pci memory:
++         * - need to report low 640 MB mem as motherboard resource
++         */
++       Device(MEM0)
++       {
++           Name(_HID, EISAID("PNP0C02"))
++           Name(_CRS, ResourceTemplate() {
++               QWordMemory(
++                    ResourceConsumer, PosDecode, MinFixed,
++                    MaxFixed, Cacheable, ReadWrite,
++                    0x00000000,
++                    0x00000000,
++                    0x0009ffff,
++                    0x00000000,
++                    0x000a0000)
++           })
++       }
++
++       Device (PCI0)
++       {
++           Name (_HID, EisaId ("PNP0A08"))
++           Name(_CID, EisaId("PNP0A03"))
++           Name (_UID, 0x00)
++           Name (_ADR, 0x00)
++           Name (_BBN, 0x00)
++
++           /* _OSC, modified from ASL sample in ACPI spec */
++           Name(SUPP, 0) /* PCI _OSC Support Field value */
++           Name(CTRL, 0) /* PCI _OSC Control Field value */
++           Method(_OSC, 4) {
++               /* Create DWORD-addressable fields from the Capabilities Buffer */
++               CreateDWordField(Arg3, 0, CDW1)
++
++               /* Switch by UUID.
++                * Only PCI Host Bridge Device capabilities UUID used for now
++                */
++               If (LEqual(Arg0, ToUUID("33DB4D5B-1FF7-401C-9657-7441C03DD766"))) {
++                   /* Create DWORD-addressable fields from the Capabilities Buffer */
++                   CreateDWordField(Arg3, 4, CDW2)
++                   CreateDWordField(Arg3, 8, CDW3)
++
++                   /* Save Capabilities DWORD2 & 3 */
++                   Store(CDW2, SUPP)
++                   Store(CDW3, CTRL)
++
++                   /* Validate Revision DWORD */
++                   If (LNotEqual(Arg1, One)) {
++                       /* Unknown revision */
++                       /* Support and Control DWORDs will be returned anyway */
++                       Or(CDW1, 0x08, CDW1)
++                   }
++
++                   /* Control field bits are:
++                    * bit 0    PCI Express Native Hot Plug control
++                    * bit 1    SHPC Native Hot Plug control
++                    * bit 2    PCI Express Native Power Management Events control
++                    * bit 3    PCI Express Advanced Error Reporting control
++                    * bit 4    PCI Express Capability Structure control
++                    */
++
++                   /* Always allow native PME, AER (no dependencies)
++                    * Never allow SHPC (no SHPC controller in this system)
++                    * Do not allow PCIe Capability Structure control for now
++                    * Also, ACPI hotplug is used for now instead of PCIe
++                    * Native Hot Plug
++                    */
++                   And(CTRL, 0x0C, CTRL)
++
++                   If (LNotEqual(CDW3, CTRL)) {
++                       /* Some of Capabilities bits were masked */
++                       Or(CDW1, 0x10, CDW1)
++                   }
++                   /* Update DWORD3 in the buffer */
++                   Store(CTRL, CDW3)
++               } Else {
++                   Or(CDW1, 4, CDW1) /* Unrecognized UUID */
++               }
++               Return (Arg3)
++           }
++           /* end of _OSC */
++
++
++           /* Make cirrues VGA S3 suspend/resume work in Windows XP/2003 */
++           Device (VGA)
++           {
++               Name (_ADR, 0x00020000)
++
++               Method (_S1D, 0, NotSerialized)
++               {
++                   Return (0x00)
++               }
++               Method (_S2D, 0, NotSerialized)
++               {
++                   Return (0x00)
++               }
++               Method (_S3D, 0, NotSerialized)
++               {
++                   Return (0x00)
++               }
++           }
++
++           Method (_CRS, 0, NotSerialized)
++           {
++               Store (ResourceTemplate ()
++               {
++                   /* bus number is from 0 - 255*/
++                   WordBusNumber(
++                        ResourceProducer, MinFixed, MaxFixed, SubDecode,
++                        0x0000,
++                        0x0000,
++                        0x00FF,
++                        0x0000,
++                        0x0100)
++                    IO (Decode16, 0x0CF8, 0x0CF8, 0x01, 0x08)
++                    WordIO(
++                        ResourceProducer, MinFixed, MaxFixed, PosDecode,
++                        EntireRange,
++                        0x0000,
++                        0x0000,
++                        0x0CF7,
++                        0x0000,
++                        0x0CF8)
++                    WordIO(
++                        ResourceProducer, MinFixed, MaxFixed, PosDecode,
++                        EntireRange,
++                        0x0000,
++                        0x0D00,
++                        0xFFFF,
++                        0x0000,
++                        0xF300)
++
++                    /* reserve memory for pci devices */
++                    DWordMemory(
++                        ResourceProducer, PosDecode, MinFixed, MaxFixed,
++                        WriteCombining, ReadWrite,
++                        0x00000000,
++                        0x000A0000,
++                        0x000BFFFF,
++                        0x00000000,
++                        0x00020000)
++
++                    DWordMemory(
++                        ResourceProducer, PosDecode, MinFixed, MaxFixed,
++                        NonCacheable, ReadWrite,
++                        0x00000000,
++                        0xF0000000,
++                        0xF4FFFFFF,
++                        0x00000000,
++                        0x05000000,
++                        ,, _Y01)
++
++                    QWordMemory (
++                        ResourceProducer, PosDecode, MinFixed, MaxFixed,
++                        NonCacheable, ReadWrite,
++                        0x0000000000000000,
++                        0x0000000FFFFFFFF0,
++                        0x0000000FFFFFFFFF,
++                        0x0000000000000000,
++                        0x0000000000000010,
++                        ,, _Y02)
++
++                }, Local1)
++
++                CreateDWordField(Local1, \_SB.PCI0._CRS._Y01._MIN, MMIN)
++                CreateDWordField(Local1, \_SB.PCI0._CRS._Y01._MAX, MMAX)
++                CreateDWordField(Local1, \_SB.PCI0._CRS._Y01._LEN, MLEN)
++
++                Store(\_SB.PMIN, MMIN)
++                Store(\_SB.PLEN, MLEN)
++                Add(MMIN, MLEN, MMAX)
++                Subtract(MMAX, One, MMAX)
++
++                /*
++                 * WinXP / Win2K3 blue-screen for operations on 64-bit values.
++                 * Therefore we need to split the 64-bit calculations needed
++                 * here, but different iasl versions evaluate name references
++                 * to integers differently:
++                 * Year (approximate)          2006    2008    2012
++                 * \_SB.PCI0._CRS._Y02         zero   valid   valid
++                 * \_SB.PCI0._CRS._Y02._MIN   valid   valid    huge
++                 */
++                If(LEqual(Zero, \_SB.PCI0._CRS._Y02)) {
++                    Subtract(\_SB.PCI0._CRS._Y02._MIN, 14, Local0)
++                } Else {
++                    Store(\_SB.PCI0._CRS._Y02, Local0)
++                }
++                CreateDWordField(Local1, Add(Local0, 14), MINL)
++                CreateDWordField(Local1, Add(Local0, 18), MINH)
++                CreateDWordField(Local1, Add(Local0, 22), MAXL)
++                CreateDWordField(Local1, Add(Local0, 26), MAXH)
++                CreateDWordField(Local1, Add(Local0, 38), LENL)
++                CreateDWordField(Local1, Add(Local0, 42), LENH)
++
++                Store(\_SB.LMIN, MINL)
++                Store(\_SB.HMIN, MINH)
++                Store(\_SB.LLEN, LENL)
++                Store(\_SB.HLEN, LENH)
++                Add(MINL, LENL, MAXL)
++                Add(MINH, LENH, MAXH)
++                If(LLess(MAXL, MINL)) {
++                    Add(MAXH, One, MAXH)
++                }
++                If(LOr(MINH, LENL)) {
++                    If(LEqual(MAXL, 0)) {
++                        Subtract(MAXH, One, MAXH)
++                    }
++                    Subtract(MAXL, One, MAXL)
++                }
++
++                Return (Local1)
++            }
++
++            Device(HPET) {
++                Name(_HID,  EISAID("PNP0103"))
++                Name(_UID, 0)
++                Method (_STA, 0, NotSerialized) {
++                    If(LEqual(\_SB.HPET, 0)) {
++                        Return(0x00)
++                    } Else {
++                        Return(0x0F)
++                    }
++                }
++                Name(_CRS, ResourceTemplate() {
++                    DWordMemory(
++                        ResourceConsumer, PosDecode, MinFixed, MaxFixed,
++                        NonCacheable, ReadWrite,
++                        0x00000000,
++                        0xFED00000,
++                        0xFED003FF,
++                        0x00000000,
++                        0x00000400 /* 1K memory: FED00000 - FED003FF */
++                    )
++                })
++            }
++
++
++            /****************************************************************
++             * LPC ISA bridge
++             ****************************************************************/
++
++            Device (ISA)
++            {
++                Name (_ADR, 0x001f0000) /* device 31, fn 0 */
++
++                /* PCI Interrupt Routing Register 1 - PIRQA..PIRQD */
++                OperationRegion(PIRQ, PCI_Config, 0x60, 0x4)
++                Scope(\) {
++                    Field (\_SB.PCI0.ISA.PIRQ, ByteAcc, NoLock, Preserve) {
++                        PIRA, 8,
++                        PIRB, 8,
++                        PIRC, 8,
++                        PIRD, 8
++                    }
++                }
++                /*
++                   PCI Interrupt Routing Register 2 (PIRQE..PIRQH) cannot be
++                   used because of existing Xen IRQ limitations (4 PCI links
++                   only)
++                */
++
++                /* LPC_I/O: I/O Decode Ranges Register */
++                OperationRegion(LPCD, PCI_Config, 0x80, 0x2)
++                Field(LPCD, AnyAcc, NoLock, Preserve) {
++                    COMA,   3,
++                        ,   1,
++                    COMB,   3,
++
++                    Offset(0x01),
++                    LPTD,   2,
++                        ,   2,
++                    FDCD,   2
++                }
++
++                /* LPC_EN: LPC I/F Enables Register */
++                OperationRegion(LPCE, PCI_Config, 0x82, 0x2)
++                Field(LPCE, AnyAcc, NoLock, Preserve) {
++                    CAEN,   1,
++                    CBEN,   1,
++                    LPEN,   1,
++                    FDEN,   1
++                }
++
++                Device (SYSR)
++                {
++                    Name (_HID, EisaId ("PNP0C02"))
++                    Name (_UID, 0x01)
++                    Name (CRS, ResourceTemplate ()
++                    {
++                        /* TODO: list hidden resources */
++                        IO (Decode16, 0x0010, 0x0010, 0x00, 0x10)
++                        IO (Decode16, 0x0022, 0x0022, 0x00, 0x0C)
++                        IO (Decode16, 0x0030, 0x0030, 0x00, 0x10)
++                        IO (Decode16, 0x0044, 0x0044, 0x00, 0x1C)
++                        IO (Decode16, 0x0062, 0x0062, 0x00, 0x02)
++                        IO (Decode16, 0x0065, 0x0065, 0x00, 0x0B)
++                        IO (Decode16, 0x0072, 0x0072, 0x00, 0x0E)
++                        IO (Decode16, 0x0080, 0x0080, 0x00, 0x01)
++                        IO (Decode16, 0x0084, 0x0084, 0x00, 0x03)
++                        IO (Decode16, 0x0088, 0x0088, 0x00, 0x01)
++                        IO (Decode16, 0x008C, 0x008C, 0x00, 0x03)
++                        IO (Decode16, 0x0090, 0x0090, 0x00, 0x10)
++                        IO (Decode16, 0x00A2, 0x00A2, 0x00, 0x1C)
++                        IO (Decode16, 0x00E0, 0x00E0, 0x00, 0x10)
++                        IO (Decode16, 0x08A0, 0x08A0, 0x00, 0x04)
++                        IO (Decode16, 0x0CC0, 0x0CC0, 0x00, 0x10)
++                        IO (Decode16, 0x04D0, 0x04D0, 0x00, 0x02)
++                    })
++                    Method (_CRS, 0, NotSerialized)
++                    {
++                        Return (CRS)
++                    }
++                }
++
++                Device (PIC)
++                {
++                    Name (_HID, EisaId ("PNP0000"))
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        IO (Decode16, 0x0020, 0x0020, 0x01, 0x02)
++                        IO (Decode16, 0x00A0, 0x00A0, 0x01, 0x02)
++                        IRQNoFlags () {2}
++                    })
++                }
++
++                Device (DMA0)
++                {
++                    Name (_HID, EisaId ("PNP0200"))
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        DMA (Compatibility, BusMaster, Transfer8) {4}
++                        IO (Decode16, 0x0000, 0x0000, 0x00, 0x10)
++                        IO (Decode16, 0x0081, 0x0081, 0x00, 0x03)
++                        IO (Decode16, 0x0087, 0x0087, 0x00, 0x01)
++                        IO (Decode16, 0x0089, 0x0089, 0x00, 0x03)
++                        IO (Decode16, 0x008F, 0x008F, 0x00, 0x01)
++                        IO (Decode16, 0x00C0, 0x00C0, 0x00, 0x20)
++                        IO (Decode16, 0x0480, 0x0480, 0x00, 0x10)
++                    })
++                }
++
++                Device (TMR)
++                {
++                    Name (_HID, EisaId ("PNP0100"))
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        IO (Decode16, 0x0040, 0x0040, 0x00, 0x04)
++                        IRQNoFlags () {0}
++                    })
++                }
++
++                Device (RTC)
++                {
++                    Name (_HID, EisaId ("PNP0B00"))
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        IO (Decode16, 0x0070, 0x0070, 0x00, 0x02)
++                        IRQNoFlags () {8}
++                    })
++                }
++
++                Device (SPKR)
++                {
++                    Name (_HID, EisaId ("PNP0800"))
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        IO (Decode16, 0x0061, 0x0061, 0x00, 0x01)
++                    })
++                }
++
++                Device (PS2M)
++                {
++                    Name (_HID, EisaId ("PNP0F13"))
++                    Name (_CID, 0x130FD041)
++                    Method (_STA, 0, NotSerialized)
++                    {
++                        Return (0x0F)
++                    }
++
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        IRQNoFlags () {12}
++                    })
++                }
++
++                Device (PS2K)
++                {
++                    Name (_HID, EisaId ("PNP0303"))
++                    Name (_CID, 0x0B03D041)
++                    Method (_STA, 0, NotSerialized)
++                    {
++                        Return (0x0F)
++                    }
++
++                    Name (_CRS, ResourceTemplate ()
++                    {
++                        IO (Decode16, 0x0060, 0x0060, 0x00, 0x01)
++                        IO (Decode16, 0x0064, 0x0064, 0x00, 0x01)
++                        IRQNoFlags () {1}
++                    })
++                }
++
++                Device(FDC0)
++                {
++                    Name(_HID, EisaId("PNP0700"))
++                    Method(_STA, 0, NotSerialized)
++                    {
++                        Store(FDEN, Local0)
++                        If (LEqual(Local0, 0)) {
++                            Return (0x00)
++                        } Else {
++                            Return (0x0F)
++                        }
++                   }
++
++                   Name(_CRS, ResourceTemplate()
++                   {
++                       IO(Decode16, 0x03F2, 0x03F2, 0x00, 0x04)
++                       IO(Decode16, 0x03F7, 0x03F7, 0x00, 0x01)
++                       IRQNoFlags() { 6 }
++                       DMA(Compatibility, NotBusMaster, Transfer8) { 2 }
++                   })
++                }
++
++                Device (UAR1)
++                {
++                    Name (_HID, EisaId ("PNP0501"))
++                    Name (_UID, 0x01)
++                    Method (_STA, 0, NotSerialized)
++                    {
++                        If(LEqual(\_SB.UAR1, 0)) {
++                            Return(0x00)
++                        } Else {
++                            Return(0x0F)
++                        }
++                    }
++
++                    Name (_CRS, ResourceTemplate()
++                    {
++                        IO (Decode16, 0x03F8, 0x03F8, 8, 8)
++                        IRQNoFlags () {4}
++                    })
++                }
++
++                Device (UAR2)
++                {
++                    Name (_HID, EisaId ("PNP0501"))
++                    Name (_UID, 0x02)
++                    Method (_STA, 0, NotSerialized)
++                    {
++                        If(LEqual(\_SB.UAR2, 0)) {
++                            Return(0x00)
++                        } Else {
++                            Return(0x0F)
++                        }
++                    }
++
++                    Name (_CRS, ResourceTemplate()
++                    {
++                        IO (Decode16, 0x02F8, 0x02F8, 8, 8)
++                        IRQNoFlags () {3}
++                    })
++                }
++
++                Device (LTP1)
++                {
++                    Name (_HID, EisaId ("PNP0400"))
++                    Name (_UID, 0x02)
++                    Method (_STA, 0, NotSerialized)
++                    {
++                        If(LEqual(\_SB.LTP1, 0)) {
++                            Return(0x00)
++                        } Else {
++                            Return(0x0F)
++                        }
++                    }
++
++                    Name (_CRS, ResourceTemplate()
++                    {
++                        IO (Decode16, 0x0378, 0x0378, 0x08, 0x08)
++                        IRQNoFlags () {7}
++                    })
++                }
++
++                Device(VGID) {
++                    Name(_HID, EisaId ("XEN0000"))
++                    Name(_UID, 0x00)
++                    Name(_CID, "VM_Gen_Counter")
++                    Name(_DDN, "VM_Gen_Counter")
++                    Method(_STA, 0, NotSerialized)
++                    {
++                        If(LEqual(\_SB.VGIA, 0x00000000)) {
++                            Return(0x00)
++                        } Else {
++                            Return(0x0F)
++                        }
++                    }
++                    Name(PKG, Package ()
++                    {
++                        0x00000000,
++                        0x00000000
++                    })
++                    Method(ADDR, 0, NotSerialized)
++                    {
++                        Store(\_SB.VGIA, Index(PKG, 0))
++                        Return(PKG)
++                    }
++                }
++
++                /* EHCI Controller 0:1d.0 */
++
++                Device (EHC1)
++                {
++	            Name(_ADR, 0x001d0000)
++
++	            /* Power Resources for Wake */
++	            Name(_PRW, Package() { 13, 4 })
++
++	            /* Highest D state in S3 state */
++	            Name(_S3D, 2)
++
++	            /* Highest D state in S4 state */
++	            Name(_S4D, 2)
++
++	            Device (HUB7)
++	            {
++		        Name(_ADR, 0x00000000)
++
++		        Device(PRT1) { Name(_ADR, 1) }	/* USB Port 0 */
++		        Device(PRT2) { Name(_ADR, 2) }	/* USB Port 1 */
++		        Device(PRT3) { Name(_ADR, 3) }	/* USB Port 2 */
++		        Device(PRT4) { Name(_ADR, 4) }	/* USB Port 3 */
++	            }
++                }
++            }
++        }
++    }
++    /* _S3 and _S4 are in separate SSDTs */
++    Name (\_S5, Package (0x04) {
++        0x00,  /* PM1a_CNT.SLP_TYP */
++        0x00,  /* PM1b_CNT.SLP_TYP */
++        0x00,  /* reserved */
++        0x00   /* reserved */
++    })
++    Name(PICD, 0)
++    Method(_PIC, 1) {
++        Store(Arg0, PICD)
++    }
++}
 -- 
 2.34.1
 
