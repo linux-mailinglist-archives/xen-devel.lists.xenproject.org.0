@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DADE73747B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 20:42:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552237.862199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE568737506
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 21:25:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552245.862209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBgIZ-00042Q-MK; Tue, 20 Jun 2023 18:41:51 +0000
+	id 1qBgxz-0008Tm-Se; Tue, 20 Jun 2023 19:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552237.862199; Tue, 20 Jun 2023 18:41:51 +0000
+Received: by outflank-mailman (output) from mailman id 552245.862209; Tue, 20 Jun 2023 19:24:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBgIZ-00040D-JN; Tue, 20 Jun 2023 18:41:51 +0000
-Received: by outflank-mailman (input) for mailman id 552237;
- Tue, 20 Jun 2023 18:41:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JeBQ=CI=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qBgIY-000407-Cj
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 18:41:50 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cd75a11-0f9a-11ee-8611-37d641c3527e;
- Tue, 20 Jun 2023 20:41:48 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5147e40bbbbso5315232a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 11:41:48 -0700 (PDT)
+	id 1qBgxz-0008SC-Op; Tue, 20 Jun 2023 19:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 552245;
+ Tue, 20 Jun 2023 19:24:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBgxy-0008S2-Ur; Tue, 20 Jun 2023 19:24:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBgxy-0007jy-MK; Tue, 20 Jun 2023 19:24:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBgxy-0007W9-9v; Tue, 20 Jun 2023 19:24:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBgxy-0000qt-9U; Tue, 20 Jun 2023 19:24:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,277 +42,360 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cd75a11-0f9a-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687286507; x=1689878507;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5XcJUV/tZVqUo1gtYZWsvIKi4zb6TKYlHQGAMgLV6Fw=;
-        b=naOIwvgVKO7lFsQdokp8kwk69MuTWfU9BxNn4h8Aoq6JYAmZudb3TDyAnwKUap4hQA
-         idMynxYHI2VOd7CaWbBz56bLxDE86mMvKo8XTJKzH6uRObl0y8aFFdTmS27Drz6Mj+tU
-         pTdpvl6HEkjzKl58oQvHroQmNH0wicNoEjbhjZJYgedJBcasjPIeZ50/T6E0g8y5sxdD
-         35au0TnPeVuM7iCTaMWAaaxv7p4aw3wOMfcCm2y0j7aNBKNUBwqIPC5nZ6u2aA9cgDqC
-         ZG0UAVreMbiKsRkb6okh/yA4EN1HFBBuVkPmW7o0QW6V3+xtLPtsTc97cnwsL0BvMEy+
-         x5zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687286507; x=1689878507;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5XcJUV/tZVqUo1gtYZWsvIKi4zb6TKYlHQGAMgLV6Fw=;
-        b=TrEphAEmn3lh11rLZ2dwW3r+i8PBylbOMuDl+1lFRML/G8GP0X4X1tlTJeP6hnMRMJ
-         cO+JcWOi/9fMuYwyj2iBVzpDTHewAmdBhKboHFBf1KMLR4aIIpHV03XW7KmTCJ6t7cHf
-         dcGcjMZX3WXOBXPUn8mT4seGE4Ixlzy5ANRtO8td51qzpRNHaDuEJappRa/m2uakOr0P
-         3ggY/zZeRZzpA5iySVM0c5uoaN9ute8VLue7CZCRKbAytJxDcxyzIM+T1kOIN4RdFj6V
-         HSaqlwS9p04yy2fX3KHWb7gTazi78OYH/T+Enf7T6Uww6TQds7lQhFJ15o9n7VGElZIr
-         fjLg==
-X-Gm-Message-State: AC+VfDxnoEQQ34WU/SDDngbr6Uh5/rWvo80LlAZ+AbzylH7N9rhHV2kB
-	59WANEb7IW4wUTOMTyQckVn5q75AYsskaPyoP4U=
-X-Google-Smtp-Source: ACHHUZ4+Biab0J9STP9Kj4Y6sBS5jk9YT2wDBfib/F8LG9a14Z504l3MrMl3+lsTkUi0K9WkaF73ZivxrLJVOrQYIbs=
-X-Received: by 2002:aa7:d78d:0:b0:51a:4557:2caf with SMTP id
- s13-20020aa7d78d000000b0051a45572cafmr5561008edq.34.1687286507195; Tue, 20
- Jun 2023 11:41:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230614180253.89958-1-jandryuk@gmail.com> <20230614180253.89958-10-jandryuk@gmail.com>
- <791bf505-7335-d16d-617d-ec19dc637ea6@suse.com>
-In-Reply-To: <791bf505-7335-d16d-617d-ec19dc637ea6@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 20 Jun 2023 14:41:35 -0400
-Message-ID: <CAKf6xpvQD+6D76kfFvACkZ7H7=NbY-khxJeTEAGU3dDPwoji-Q@mail.gmail.com>
-Subject: Re: [PATCH v4 09/15] cpufreq: Export HWP parameters to userspace as CPPC
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=IoRKzQ9Qw2gDiUI86pQmzCmil21orC75hdW8Ayrbn28=; b=qea1SbtT8l6zVVxCbCdi8zOqFL
+	Z/ZGn3tjhc62mFDU5xaoUNxpYzarAQqKLUuUiOUZTacSlatvagNvRZXL3BnQP3nitR+/0bJCeN/1y
+	J1hIzvywvraQ3XCkbZhXanPvY1wEWqjbsUAdRptqqbPKFOAq1eLZr5ToVblSLcLZQICg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181515-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-5.4 test] 181515: trouble: blocked/broken/fail/pass
+X-Osstest-Failures:
+    linux-5.4:build-armhf:<job status>:broken:regression
+    linux-5.4:build-armhf:host-install(4):broken:regression
+    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:heisenbug
+    linux-5.4:test-amd64-i386-pair:xen-install/src_host:fail:heisenbug
+    linux-5.4:test-amd64-i386-pair:xen-install/dst_host:fail:heisenbug
+    linux-5.4:test-amd64-i386-freebsd10-amd64:xen-install:fail:heisenbug
+    linux-5.4:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    linux=61a2f83e4762ee0c766f86944e612305f5888bcb
+X-Osstest-Versions-That:
+    linux=f568a20f058fa1e37069cff4aac4187c1650a0e9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 20 Jun 2023 19:24:38 +0000
 
-On Mon, Jun 19, 2023 at 10:24=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 14.06.2023 20:02, Jason Andryuk wrote:
-> > --- a/xen/arch/x86/acpi/cpufreq/hwp.c
-> > +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
-> > @@ -537,6 +537,29 @@ static const struct cpufreq_driver __initconstrel =
-hwp_cpufreq_driver =3D
-> >      .update =3D hwp_cpufreq_update,
-> >  };
-> >
-> > +int get_hwp_para(const unsigned int cpu,
-> > +                 struct xen_cppc_para *cppc_para)
-> > +{
-> > +    const struct hwp_drv_data *data =3D per_cpu(hwp_drv_data, cpu);
-> > +
-> > +    if ( data =3D=3D NULL )
-> > +        return -EINVAL;
->
-> Maybe better -ENODATA in this case?
+flight 181515 linux-5.4 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181515/
 
-Sounds good.
+Failures and problems with tests :-(
 
-> > --- a/xen/drivers/acpi/pmstat.c
-> > +++ b/xen/drivers/acpi/pmstat.c
-> > @@ -251,48 +251,54 @@ static int get_cpufreq_para(struct xen_sysctl_pm_=
-op *op)
-> >      else
-> >          strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME=
-_LEN);
-> >
-> > -    if ( !(scaling_available_governors =3D
-> > -           xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
-> > -        return -ENOMEM;
-> > -    if ( (ret =3D read_scaling_available_governors(
-> > -                    scaling_available_governors,
-> > -                    gov_num * CPUFREQ_NAME_LEN * sizeof(char))) )
-> > +    if ( !strncasecmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER,
-> > +                      CPUFREQ_NAME_LEN) )
->
-> Mind me asking why you think case-insensitive compare is appropriate here=
-?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 181363
 
-I'll change to strncmp().  All the other string comparisons on
-pmstat.c are strncasecmp, so I followed that pattern.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-qemuu-rhel6hvm-amd 7 xen-install fail in 181508 pass in 181515
+ test-amd64-i386-pair         10 xen-install/src_host       fail pass in 181508
+ test-amd64-i386-pair         11 xen-install/dst_host       fail pass in 181508
+ test-amd64-i386-freebsd10-amd64  7 xen-install             fail pass in 181508
 
-> > +        ret =3D get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para)=
-;
-> > +    else
-> >      {
-> > +        if ( !(scaling_available_governors =3D
-> > +               xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
-> > +            return -ENOMEM;
-> > +        if ( (ret =3D read_scaling_available_governors(
-> > +                        scaling_available_governors,
-> > +                        gov_num * CPUFREQ_NAME_LEN * sizeof(char))) )
->
-> I realize you only re-indent this, but since you need to touch it anyway,
-> may I suggest to also switch to siezof(*scaling_available_governors)?
+Tests which did not succeed, but are not blocking:
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 181363
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 181363
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 181363
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 181363
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 181363
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 181363
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 181363
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 181363
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 181363
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd       3 hosts-allocate           starved in 181508 n/a
 
-How about dropping sizeof(*scaling_available_governors)?  This length ...
+version targeted for testing:
+ linux                61a2f83e4762ee0c766f86944e612305f5888bcb
+baseline version:
+ linux                f568a20f058fa1e37069cff4aac4187c1650a0e9
 
-> > +        {
-> > +            xfree(scaling_available_governors);
-> > +            return ret;
-> > +        }
-> > +        ret =3D copy_to_guest(op->u.get_para.scaling_available_governo=
-rs,
-> > +                    scaling_available_governors, gov_num * CPUFREQ_NAM=
-E_LEN);
->
-> Similarly here: Please adjust indentation while you touch this code.
+Last test of basis   181363  2023-06-10 15:39:59 Z   10 days
+Testing same since   181425  2023-06-14 10:50:49 Z    6 days   11 attempts
 
-... should match here, but this second one lacks the "* sizeof($foo)".
-They are strings, so multiplying by sizeof() is unusual.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ai Chao <aichao@kylinos.cn>
+  Alan Stern <stern@rowland.harvard.edu>
+  Alex Deucher <alexander.deucher@amd.com>
+  Alexander Sverdlin <alexander.sverdlin@siemens.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+  Ben Hutchings <ben@decadent.org.uk>
+  Chia-I Wu <olvaffe@gmail.com>
+  Chris Paterson (CIP) <chris.paterson2@renesas.com>
+  David Jander <david@protonic.nl>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  Dmitry Torokhov <dmitry.torokhov@gmail.com>
+  Eric Dumazet <edumazet@google.com>
+  Fedor Pchelkin <pchelkin@ispras.ru>
+  Florian Westphal <fw@strlen.de>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Guenter Roeck <linux@roeck-us.net>
+  Gustavo A. R. Silva <gustavo@embeddedor.com>
+  Hangyu Hua <hbh25y@gmail.com>
+  Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+  Ilya Dryomov <idryomov@gmail.com>
+  Ismael Ferreras Morezuelas <swyterzone@gmail.com>
+  JaimeLiao <jaimeliao.tw@gmail.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jamal Hadi Salim <jhs@mojatatu.com>
+  Jens Axboe <axboe@kernel.dk>
+  Jiri Slaby (SUSE) <jirislaby@kernel.org>
+  Jon Hunter <jonathanh@nvidia.com>
+  Josef Bacik <josef@toxicpanda.com>
+  Jozsef Kadlecsik <kadlec@netfilter.org>
+  Kuniyuki Iwashima <kuniyu@amazon.com>
+  Linus Walleij <linus.walleij@linaro.org>
+  Linux Kernel Functional Testing <lkft@linaro.org>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Marc Kleine-Budde <mkl@pengutronix.de>
+  Mark Brown <broonie@kernel.org>
+  Martin Hundebøll <martin@geanix.com>
+  Maxime Ripard <maxime@cerno.tech>
+  Michael Chan <michael.chan@broadcom.com>
+  Min Li <lm0963hack@gmail.com>
+  Miquel Raynal <miquel.raynal@bootlin.com>
+  Oleksij Rempel <o.rempel@pengutronix.de>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Paulo Alcantara (SUSE) <pc@cjr.nz>
+  Paulo Alcantara <pc@cjr.nz>
+  Qingfang DENG <qingfang.deng@siflower.com.cn>
+  Randy Dunlap <rdunlap@infradead.org>
+  RenHai <kean0048@gmail.com>
+  Rishabh Bhatnagar <risbhat@amazon.com>
+  Ruihan Li <lrh2000@pku.edu.cn>
+  Sasha Levin <sashal@kernel.org>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Simon Wunderlich <sw@simonwunderlich.de>
+  Somnath Kotur <somnath.kotur@broadcom.com>
+  Stefan Ghinea <stefan.ghinea@windriver.com>
+  Stephan Gerhold <stephan@gerhold.net>
+  Steve French <stfrench@microsoft.com>
+  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
+  Sungwoo Kim <iam@sung-woo.kim>
+  Sven Eckelmann <sven@narfation.org>
+  Takashi Iwai <tiwai@suse.de>
+  Tejun Heo <tj@kernel.org>
+  Theodore Ts'o <tytso@mit.edu>
+  Tijs Van Buggenhout <tijs.van.buggenhout@axsguard.com>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Ville Syrjälä <ville.syrjala@linux.intel.com>
+  Vladislav Efanov <VEfanov@ispras.ru>
+  Wolfram Sang <wsa@kernel.org>
+  Xiubo Li <xiubli@redhat.com>
+  Ying Hsu <yinghsu@chromium.org>
+  YouChing Lin <ycllin@mxic.com.tw>
+  Zixuan Fu <r33s3n6@gmail.com>
 
-FTAOD, you want the indenting as:
-        ret =3D copy_to_guest(op->u.get_para.scaling_available_governors,
-                            scaling_available_governors,
-                            gov_num * CPUFREQ_NAME_LEN);
-?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  broken  
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     blocked 
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       pass    
 
-> >          xfree(scaling_available_governors);
-> > -        return ret;
-> > -    }
-> > -    ret =3D copy_to_guest(op->u.get_para.scaling_available_governors,
-> > -                scaling_available_governors, gov_num * CPUFREQ_NAME_LE=
-N);
-> > -    xfree(scaling_available_governors);
-> > -    if ( ret )
-> > -        return ret;
-> > +        if ( ret )
-> > +            return ret;
-> >
-> > -    op->u.get_para.u.s.scaling_cur_freq =3D policy->cur;
-> > -    op->u.get_para.u.s.scaling_max_freq =3D policy->max;
-> > -    op->u.get_para.u.s.scaling_min_freq =3D policy->min;
-> > +        op->u.get_para.u.s.scaling_cur_freq =3D policy->cur;
-> > +        op->u.get_para.u.s.scaling_max_freq =3D policy->max;
-> > +        op->u.get_para.u.s.scaling_min_freq =3D policy->min;
-> >
-> > -    if ( policy->governor->name[0] )
-> > -        strlcpy(op->u.get_para.u.s.scaling_governor,
-> > -            policy->governor->name, CPUFREQ_NAME_LEN);
-> > -    else
-> > -        strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
-> > -                CPUFREQ_NAME_LEN);
-> > +        if ( policy->governor->name[0] )
-> > +            strlcpy(op->u.get_para.u.s.scaling_governor,
-> > +                policy->governor->name, CPUFREQ_NAME_LEN);
-> > +        else
-> > +            strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
-> > +                    CPUFREQ_NAME_LEN);
-> >
-> > -    /* governor specific para */
-> > -    if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
-> > -                      "userspace", CPUFREQ_NAME_LEN) )
-> > -    {
-> > -        op->u.get_para.u.s.u.userspace.scaling_setspeed =3D policy->cu=
-r;
-> > -    }
-> > +        /* governor specific para */
-> > +        if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
-> > +                          "userspace", CPUFREQ_NAME_LEN) )
-> > +        {
-> > +            op->u.get_para.u.s.u.userspace.scaling_setspeed =3D policy=
-->cur;
-> > +        }
->
-> Would also be nice if you could get rid of the unnecessary braces here
-> at this occasion.
 
-Sure
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> > --- a/xen/include/acpi/cpufreq/cpufreq.h
-> > +++ b/xen/include/acpi/cpufreq/cpufreq.h
-> > @@ -248,5 +248,7 @@ void intel_feature_detect(struct cpufreq_policy *po=
-licy);
-> >
-> >  extern bool __initdata opt_cpufreq_hwp;
-> >  int hwp_cmdline_parse(const char *s);
-> > +int get_hwp_para(const unsigned int cpu,
->
-> I think we generally avoid const when it's not a pointed-to type. It's
-> not useful at all in a declaration.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Ok
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> > --- a/xen/include/public/sysctl.h
-> > +++ b/xen/include/public/sysctl.h
-> > @@ -296,6 +296,61 @@ struct xen_ondemand {
-> >      uint32_t up_threshold;
-> >  };
-> >
-> > +struct xen_cppc_para {
-> > +    /* OUT */
-> > +    /* activity_window supported if 1 */
-> > +#define XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW  (1 << 0)
->
-> I think 1 isn't very helpful, looking forward. Perhaps better "set" or
-> "flag set"?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-"set" works for me.
+broken-job build-armhf broken
+broken-step build-armhf host-install(4)
+broken-job build-armhf broken
 
-> > +    uint32_t features; /* bit flags for features */
-> > +    /*
-> > +     * See Intel SDM: HWP Performance Range and Dynamic Capabilities
-> > +     *
-> > +     * These four are 0-255 hardware-provided values.  They "continuou=
-s,
-> > +     * abstract unit-less, performance" values.  smaller numbers are s=
-lower
-> > +     * and larger ones are faster.
-> > +     */
-> > +    uint32_t lowest;
-> > +    uint32_t lowest_nonlinear; /* most_efficient */
->
-> Why non_linear in the external interface when internally you use
-> most_efficient (merely put in the comment here)?
->
-> > +    uint32_t nominal; /* guaranteed */
->
-> Similar question for the name choice here.
+Not pushing.
 
-There is a naming mismatch between the HWP fields and the CPPC fields.
-The commit message includes:
-The HWP most_efficient is mapped to CPPC lowest_nonlinear, and guaranteed i=
-s
-mapped to nominal.  CPPC has a guaranteed that is optional while nominal
-is required.  ACPI spec says "If this register is not implemented, OSPM
-assumes guaranteed performance is always equal to nominal performance."
-
-So the comments were to help with the mapping.  Should I prefix the
-comments like "HWP: most_efficient"?
-
-> > +    uint32_t highest;
-> > +    /*
-> > +     * See Intel SDM: IA32_HWP_REQUEST MSR (Address: 774H Logical Proc=
-essor
-> > +     * Scope)
-> > +     *
-> > +     * These are all hints, and the processor may deviate outside of t=
-hem.
-> > +     * Values below are 0-255.
-> > +     *
-> > +     * minimum and maximum can be set to the above hardware values to =
-constrain
-> > +     * operation.  The full range 0-255 is accepted and will be clippe=
-d by
-> > +     * hardware.
-> > +     */
-> > +    uint32_t minimum;
-> > +    uint32_t maximum;
-> > +    /*
-> > +     * Set an explicit performance hint, disabling hardware selection.
-> > +     * 0 lets the hardware decide.
-> > +     */
-> > +    uint32_t desired;
->
-> "Set" kind of conflicts with all fields being marked as OUT above. I thin=
-k
-> the word can simply be dropped?
-
-Sounds good.
-
-Thanks,
-Jason
+(No revision log; it would be 1380 lines long.)
 
