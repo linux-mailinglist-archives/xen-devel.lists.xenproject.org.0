@@ -2,59 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C8C73735B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:57:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552177.862110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FA4473735D
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:58:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552190.862121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBfbw-0002Jn-6Z; Tue, 20 Jun 2023 17:57:48 +0000
+	id 1qBfcr-00034D-K3; Tue, 20 Jun 2023 17:58:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552177.862110; Tue, 20 Jun 2023 17:57:48 +0000
+Received: by outflank-mailman (output) from mailman id 552190.862121; Tue, 20 Jun 2023 17:58:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBfbw-0002HG-2X; Tue, 20 Jun 2023 17:57:48 +0000
-Received: by outflank-mailman (input) for mailman id 552177;
- Tue, 20 Jun 2023 17:57:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBfcr-000319-GE; Tue, 20 Jun 2023 17:58:45 +0000
+Received: by outflank-mailman (input) for mailman id 552190;
+ Tue, 20 Jun 2023 17:58:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=epHQ=CI=intel.com=dongwon.kim@srs-se1.protection.inumbo.net>)
- id 1qBfbt-0001tF-OI
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:57:46 +0000
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f325bdc9-0f93-11ee-b234-6b7b168915f2;
- Tue, 20 Jun 2023 19:57:42 +0200 (CEST)
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2023 10:57:40 -0700
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by fmsmga004.fm.intel.com with ESMTP; 20 Jun 2023 10:57:40 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Tue, 20 Jun 2023 10:57:39 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Tue, 20 Jun 2023 10:57:39 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23 via Frontend Transport; Tue, 20 Jun 2023 10:57:39 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.47) by
- edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.23; Tue, 20 Jun 2023 10:57:39 -0700
-Received: from PH8PR11MB6879.namprd11.prod.outlook.com (2603:10b6:510:229::22)
- by DM6PR11MB4609.namprd11.prod.outlook.com (2603:10b6:5:28f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.21; Tue, 20 Jun
- 2023 17:57:36 +0000
-Received: from PH8PR11MB6879.namprd11.prod.outlook.com
- ([fe80::b33c:de68:eacf:e9c4]) by PH8PR11MB6879.namprd11.prod.outlook.com
- ([fe80::b33c:de68:eacf:e9c4%3]) with mapi id 15.20.6500.036; Tue, 20 Jun 2023
- 17:57:36 +0000
+ <SRS0=Qnc8=CI=citrix.com=prvs=5286b1552=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qBfcq-00030v-2g
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:58:44 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 16048270-0f94-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 19:58:41 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,201 +36,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f325bdc9-0f93-11ee-b234-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1687283862; x=1718819862;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=zfhxFR+u9DXtsylv8N1rbQmLpUbuDP/eX/s4PpmdRrY=;
-  b=PBMJRBILezagtbRilkL3UbSpBmNDhARkSPkx0QncGW6KI+JdbjHlEZyu
-   i+rbzCRk1PxvIX4a0rZPj9hiJukkdWOO0/ppa5Ikyhn1RcIIySYRgq4x0
-   FnC4WEGcwssrUNTbXwrtRLud31+PgM+8s7NirmdYNmC7vbtspmvsOr+bJ
-   yEe7jbEC/tBst8X3YaddCj0EAE2WogsZb51Qb10rDVQiELBca6dL6i234
-   CAhqB6AZLYkDANnAspdXAWmCSvOBDmHP/hB1M4LI9ANAC3p2wzv2ZsnQY
-   WtfnCz6YRrpPobXnFE0HNYY5FDkZfVyvMTyXhXNYerf+/astYJI0hxtvQ
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="357433891"
-X-IronPort-AV: E=Sophos;i="6.00,257,1681196400"; 
-   d="scan'208";a="357433891"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="784175624"
-X-IronPort-AV: E=Sophos;i="6.00,257,1681196400"; 
-   d="scan'208";a="784175624"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=obvy90PGtClivngwXVZNUS1TIF40NhnkGbwTmgsKsl14K8jgMe4cRqJiZkYTGXaeToX2fKNxJu0oF2EGW7B1sO2grJHWWWxtr+qVQ+fxV8icgx55pQ9tenjhVcm+S5XRd9a076AFcocgUHstdQYC7QkFQkdelybpymJCh7WfiaiKfxxSSN6K9FaRn8erpR5q8YyzmcovcYAeFbyiR1imL9IU4pFA0rbFuDzb6JTl0o14rxw5HKc2njf29tchbdrfdNRM5oF3ShB9DRuGEMycyYt4JPCcUtn925BQrXAMY8elDBPdhnI10HQvWRadb4/5kc7JrMCrJ1IBPS3c5exMtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OlA7FfOuzu0kwMR4LXeLlfNWat6nZWOtwSG4jxrJlwE=;
- b=lBEYe0rPwp5VC/C6Psw9+ScalE9/EM/+gJAFogS39l7Vn0mX0GV4uswrqBRHQxf+6KYCeYESrMoYFZ80b+1Vkv5+12nwLcyDzCJJiZHZP8p1uUCLul2NDhBSP9DKp9Ph6SF2PCS2t8WKbjoNoqqtNKGDHuu65wAou7hMBBNvV9H25SaN5DXTJKKX9xZ4S7CIhhq0ijXwU0+Nd7tLCeWb/WQH5O17EvLUocEi6j4vGVy7TEnaW0UPVRvVYBYiKL0JDmxJ6UPg0X+UgMGOFns9t3+mlNhYFmeu5c6H+FzquMYTl/Dr+zz25BEOVndNInXTEcfEV80nch5R7zkzdwulMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Message-ID: <3aa645b0-ca8d-f292-fb60-46d3e35ace14@intel.com>
-Date: Tue, 20 Jun 2023 10:57:33 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [QEMU PATCH 1/1] virtgpu: do not destroy resources when guest
- suspend
-Content-Language: en-US
-To: Robert Beckett <bob.beckett@collabora.com>, Gerd Hoffmann
-	<kraxel@redhat.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-CC: =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@gmail.com>, "Damien
- Hedde" <damien.hedde@greensocs.com>, "Michael S . Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Dr . David Alan
- Gilbert" <dgilbert@redhat.com>, "qemu-devel@nongnu.org"
-	<qemu-devel@nongnu.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "Deucher, Alexander"
-	<Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou
-	<burzalodowa@gmail.com>, "Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang,
- Julia" <Julia.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
-References: <20230608025655.1674357-1-Jiqian.Chen@amd.com>
- <20230608025655.1674357-2-Jiqian.Chen@amd.com>
- <CAJ+F1CKjTW7zycr2xAW0x+d_7CEy+LxWur2Tqp2dvsb=PoJ5Dw@mail.gmail.com>
- <q2rpqbg5b4bqxb7oayclzgbf5fplofm3dmxgmpmskjf4mcfzpn@peeiuxwkqxbb>
- <BL1PR12MB58491E2E13F959365AA3F594E75CA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <lgan3p6wqmxht5fpduh5nvg3f5m5n636k7zrrealnu2lilghhh@qlbvgu3l4apw>
- <2164ff79-aa09-d959-cc61-c7a2a21db5e3@collabora.com>
-From: "Kim, Dongwon" <dongwon.kim@intel.com>
-In-Reply-To: <2164ff79-aa09-d959-cc61-c7a2a21db5e3@collabora.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR13CA0092.namprd13.prod.outlook.com
- (2603:10b6:a03:2c5::7) To PH8PR11MB6879.namprd11.prod.outlook.com
- (2603:10b6:510:229::22)
+X-Inumbo-ID: 16048270-0f94-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1687283921;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=R1S3QB8hL1l2bG8BaIFgqjepsm8Ot1LOvm8engXmJtI=;
+  b=YKyIQog78DjjPuU4w2Hbp838UCDPPZ50Hn9wPonCIU1dJkrvedKfoUm1
+   3ji5oJcSuuyApTRrWNibaitlDarMvGM0OcEMcYs8owXskU81GepRhYRGb
+   Y85CYJqKS9lPVNF2t+/hyxJSizdMhRUwigXhOYp1hS2/2asO4kCl/6nml
+   M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 113529525
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:VfaQh6KSWgjf0KyQFE+RNpUlxSXFcZb7ZxGr2PjKsXjdYENS3mMFm
+ zMdCmmAOf/bamamKdBzPozipBwEu5/QzN5qSFFlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4AZmPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5YUGUSy
+ NxHLgktf0ymp+aQmLO1btRV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJ4IxBfF/
+ D+uE2LRHC0iEY2E0ji+4F3z29ThgwHUSZIDG+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAfVSJIYtEisM4wRBQp2
+ 0WPktevAiZg2JWKTVqN+7HSqim9UQAXMGsDaCksXQYDpd75r+kbsBXLSdpyFb+vuff8Ezrw3
+ jOioTA3gvMYistj/6+250zdijSg4J3AVBco5x7/V3igqAh+YeaYi5eAsAaBq6wadcDAEwfH5
+ SJf8ySD0AwQJb7ckHCwYLoLJZG4u9OlNBuEgFBLIqB0olxB5EWfkZBsDCBWfRk5bZxUI2WwO
+ yc/qisKusYNYSLCgbtfJtvoVp90lfWI+cHNDKi8UzZYXnRmmOZrFglKbFXY4W3imVNEfUoXa
+ cbCKpbE4Zr35M1aINuKqwQ1i+VDKtgWnz+7eHwC503PPUCiTHCUU6wZF1CFc/o06qiJyC2Mr
+ YYAbprblkUPDbGgCsUyzWL1BQpXRZTcLcqsw/G7i8bZelY2cI3fI6K5LUwdl3xNwP0Oy7agE
+ oCVUU5E0lvv7UAr2i3TAk2PnIjHBM4lxVpiZHxEALpd8yR7CWpZxPtFJsRfkHhO3LAL8MOYu
+ NFfKpnaXqQRFGWvFvZ0RcCVkbGOvS+D3WqmVxdJqhBkF3K8b2QlIuPZQzY=
+IronPort-HdrOrdr: A9a23:oQB9KqkfZy5GXlpuc99rRQ36SdbpDfIf3DAbv31ZSRFFG/Fwwf
+ re5cjztCWE7Qr4Ohkb8+xoXZPsfZqyz/JICOUqUotKPzOW2ldATrsD0WK4+UyHJ8SWzIc0vp
+ uIFZIRNDSaNykYsS+V2miF+3lL+qj+zEgF792uq0uE7GtRGsZd0zs=
+X-Talos-CUID: 9a23:r6iqpWH2TjIaw+ljqmJIpUpIJ+B6dET93Sv1A0ueUWdnbICsHAo=
+X-Talos-MUID: 9a23:18jn6Asr1MwpS6lPMc2nmg1aEZZz+KaVGm9SzK4opeurJDxhNGLI
+X-IronPort-AV: E=Sophos;i="6.00,257,1681185600"; 
+   d="scan'208";a="113529525"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH] xen/decompress: Drop bool_t and use bool instead
+Date: Tue, 20 Jun 2023 18:58:35 +0100
+Message-ID: <20230620175835.3908246-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB6879:EE_|DM6PR11MB4609:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfdf4b58-790b-4a10-051c-08db71b7d465
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YEL0wTHAHmaET/pjqboXbYlOcYvAPzd/bT3LvDl2OupFnHiq1l5A39Wd49DyUsOUtjWS1SViN5Hp9hb9YUoLRC80t5CZMxwKAdkTth0awgdhTxY0civ2F+M1sCS+lwOr4Lg2AuSPHdrwmxqoY8usCSQUNobgtHdNT3ec6hjSZ2ml9S0GQoIpHUpJbeH+suEeMIxALm6Bk6TxUQ2UuK1+ONQAt2X+5tMGdzzWi6Z8P3JT9L1bUvEcEs89AR83L4fWaNtsogp1b5Z3zEqexRJtlVYgm1+z7NDrr6EMvgaAc5MDW/HOCKdC6Lt3UToubUaF+cZXws3uOKl/RTXi/dvrw75I0VOU8Co+iAYfv5j/2fcx1s/iZK+RpPj2Ys0/BcTKnFAW7VPFDiN6koVNyHxCSbjgyBdA90dNubxFeahfIxWcHt8QxWCBoR/tliT8pD5XMjawdAH58eWU+7EGIm3gLsbdeqZ8alDXDUozqFWE4qLRny5XwTsDNroN1kZgSSsNkRH85nMGJmXkAHFljP3MnSA3pNMHLkpnV97se1Z2kMXTJYQTdPwDfpSZLa1V1tz+IcPP5mGKAYgspcxaahU65scZc1mu1WnkntUHQPbR4FWUKHhhnCqFw8X1WLvB6Naxza1cnM8qfRrUrdVyBCWh8A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB6879.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(376002)(346002)(366004)(39860400002)(451199021)(31686004)(53546011)(36756003)(5660300002)(7416002)(66476007)(8936002)(8676002)(41300700001)(86362001)(66556008)(38100700002)(316002)(31696002)(82960400001)(4326008)(66946007)(6486002)(6512007)(26005)(6506007)(186003)(2616005)(15650500001)(2906002)(478600001)(110136005)(54906003)(83380400001)(6666004)(43740500002)(45980500001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzVxZmkzbG85QURiTGFpemUwTXByUjZ4M1lOd0hycVZuQ25pZ2NYVUtMd0JX?=
- =?utf-8?B?bjc4UGxYNzlYaWx3anVBMFh4TWxUODF6ajAybk5COXIyanN5S2FUM0tpOG9G?=
- =?utf-8?B?QnlDSlgvYlAyQ1haWHdPRUw5QUxQTVBvR1lMWUFYRnJqUk1xMGxHUlQ1UW1q?=
- =?utf-8?B?R2pWcmdJYUhLTTBYYVZFVDhaRi9Ob0VlaExsc0lmYU56TVNnVEg5dG1FSkRK?=
- =?utf-8?B?eTdYcmtJaFlScSswWFVpN1Z5cURCNFMxWm9ZRHIvendxTlVHSU1WQVlkeXlO?=
- =?utf-8?B?S28ySGJ3aXFjRXVjVVpOTG5uK0VlZ1hmL0hoUk9DNzFvQk56bWVwaDJBUFNE?=
- =?utf-8?B?M0lPQ3F4bUxRYVNNeEhqVUtvQ2x6Y04wK09CMVY3OHEvczQ5clljNjl2UzV2?=
- =?utf-8?B?bmRIcFQ5ajEzT0R4OEdLSU4rdjQ1cVVHTVVUWlJBaWxIU1pKeG1tWDRMMW1G?=
- =?utf-8?B?WHB2MjhDemRNU2p6bGpML1VoUGVRcEFZMlJOV0pEdklmb0I5eVhRWlRveTFy?=
- =?utf-8?B?WFYzTE9aTHBDdEVHdHhGdFJQRnRYenUxRkdMbHhMSXpJMHV3SDZHM0cwSC9l?=
- =?utf-8?B?N05TR1ZTZVpFaDBlYmVleVNsOVNqSGs2V093Y3RRcHhFb3ExK28yY0RhU2hz?=
- =?utf-8?B?NEkzUGdaSk9hdE9EU05vWnkzaFQ5eDl5RzdFZ2lTSHRVTGVSUDZVQS9rL0ZK?=
- =?utf-8?B?YU94MkNKL2lzMlZzWG1qTmFhTmlMTWdIRTFPSmlWdzgxRnQ0ek9lS09NNUs2?=
- =?utf-8?B?NGc1clkzcitMSmM3RG9yWWN0dExHWlUvVFYrcUpnb1pFOFRJL0tLSWxTSVNU?=
- =?utf-8?B?cXNJeVltcFZsMDYrb0lXdTR4WkUvRkxWUU1mRGpMbXlsbWdaczJ3cG1XREVK?=
- =?utf-8?B?MHM3RTNXcDdJRHdTSUlnUEVOK1hGMGpqT1g0ZC9QbnZTd1FMcFJqQmQ0anNC?=
- =?utf-8?B?aUpaSUJoSVExbUNlTmREZytWeHdyVWpabHhyQk0rNisxcFBIY1hpSWIzWTBV?=
- =?utf-8?B?VG81U0FRSTZ4dkVMUm1VTncrWkFMVXBZYkN0MmZtU0VjVkhLSFdQcEhRd2pK?=
- =?utf-8?B?NzIzeDRDcGRjQzl2bUJ4WlVILzBvNEJ3MExRc01xSExYYWhzcU1OT3JHamRn?=
- =?utf-8?B?TzgwZHkrMzJJaDFlMDVGd0dVcVhKem9WK3pNT0JtOG4rZS9DR1NIV1pEWHY0?=
- =?utf-8?B?YXMxaXRMSHJLVDBOZGZEY1BFaFZyNVpSZkxXRlFmcGZYb0xHZzFmeHE4SzAv?=
- =?utf-8?B?U0dwdTJ4cXBpeDBVOGpvdjRzUFBPdlhwWGNCRlNETHpJd1YrbFkxZnpwaG1N?=
- =?utf-8?B?QWF0UDR0cU4vZ1FET2RQMDkwQVl1K1g2enBBbEJ4Myt4L2dXN0d5WHFkVmpF?=
- =?utf-8?B?RjdsbjhJLzhuVWloWHhNNGgxV0RKQkJKclZYVjdZMHhsR3ZoY0ZLVHFaNFJ3?=
- =?utf-8?B?U0RreXh3Y3dpa05taFF6WnZIemlYbFU3SUpINmh1UTJNdGJQcjZsK1FUVUIy?=
- =?utf-8?B?bTJabmxwUEZ0YjRlSEJlcUthbVpUbzByU3d2Y0pkUjB1L25nMW9ZQ2ZYY0JM?=
- =?utf-8?B?U1krNERCOXJRWGhkYkVEZFhNOXdKQlBPcWtwaGlHZ2UxbW1IT3czM2VXVXlp?=
- =?utf-8?B?MnB6eENlbzFqYk56M2p0MlZXR3VZSEoyTnVvcjZHZ2ZDYmFwM09BRFB0VGpz?=
- =?utf-8?B?VjRNNStCZHJWbkpIOTU1bmtkQUhqWVJuMHVzd1hjSnlTVWplZWVFU2l6ZkVE?=
- =?utf-8?B?dDRqYWNrUVJ0VG5obXhqNUVwdW15UDMxSUxRNXVYNjV6dlpYdTQzYUtQRTJx?=
- =?utf-8?B?MTdxRmpjZVRKanBEYXFWS3VZakpWeDBzK1p2eEFYQ0N5MURlNkVVeXdsOUZp?=
- =?utf-8?B?S2JXMlNuVWVtMEp6MU9QWG5QT2ZUVnBVQTdzbTlRbEZFRVdia2RKVlk1NkV4?=
- =?utf-8?B?U2s5QmRaZ3ZQOGlBT3ZOd1ZweTlTclF5SjhpU0FmZkViYnl3TG9JN0VIOXhh?=
- =?utf-8?B?Z3JvTVVycG5TM1FwZkk1dit1dDhaQVdTYTVvNnJhcCsvZFRHbkp3c24vLzZD?=
- =?utf-8?B?dVFSVVpRWW82Z1c1eXd6dDQ1bC9yUjlqSVVhaHJ0YklJRUNGYm9ja21aQlRi?=
- =?utf-8?Q?C+CZjGw9kVqjJSTa2ecO0IFVO?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfdf4b58-790b-4a10-051c-08db71b7d465
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB6879.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2023 17:57:36.0958
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LjRti/PPa4tk5iWuRYtpUbLwlQQIDtVPlgkMYYAgAdlg5YYNMoc61PrqfDB1FMQ+9pEoA5QuBxt+Ej99TMeiPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4609
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+In particular, the libxg wrapper for unxz.c uses char for bool_t which is a
+major antipattern.  Luckily the code doesn't suffer from truncated values.
 
-I just came across this discussion regarding s3/s4 support in virtio-gpu 
-driver and QEMU.
+No functional change.
 
-We saw similar problem a while ago (QEMU deletes all objects upon 
-suspension) and
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+ .../libs/guest/xg_dom_decompress_unsafe_xz.c  |  1 -
+ xen/common/unxz.c                             |  2 +-
+ xen/common/xz/dec_bcj.c                       |  6 +++---
+ xen/common/xz/dec_lzma2.c                     | 20 +++++++++----------
+ xen/common/xz/dec_stream.c                    |  8 ++++----
+ xen/common/xz/lzma2.h                         |  2 +-
+ xen/common/xz/private.h                       |  2 +-
+ 7 files changed, 20 insertions(+), 21 deletions(-)
 
-came up with an experimental solution that is basically making 
-virtio-gpu driver to do object creation
+diff --git a/tools/libs/guest/xg_dom_decompress_unsafe_xz.c b/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
+index fc4819874111..80eed912dd68 100644
+--- a/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
++++ b/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
+@@ -11,7 +11,6 @@
+ // TODO
+ #define XZ_DEC_X86
+ 
+-typedef char bool_t;
+ typedef uint8_t u8;
+ typedef uint16_t u16;
+ typedef uint32_t u32;
+diff --git a/xen/common/unxz.c b/xen/common/unxz.c
+index 17aead0adfe6..9586a4e5c94f 100644
+--- a/xen/common/unxz.c
++++ b/xen/common/unxz.c
+@@ -166,7 +166,7 @@ int __init unxz(unsigned char *in, unsigned int in_size,
+ 	struct xz_buf b;
+ 	struct xz_dec *s;
+ 	enum xz_ret ret;
+-	bool_t must_free_in = false;
++	bool must_free_in = false;
+ 
+ 	xz_crc32_init();
+ 
+diff --git a/xen/common/xz/dec_bcj.c b/xen/common/xz/dec_bcj.c
+index bfa498587ab8..bdc59770f8a6 100644
+--- a/xen/common/xz/dec_bcj.c
++++ b/xen/common/xz/dec_bcj.c
+@@ -35,7 +35,7 @@ struct xz_dec_bcj {
+ 	enum xz_ret ret;
+ 
+ 	/* True if we are operating in single-call mode. */
+-	bool_t single_call;
++	bool single_call;
+ 
+ 	/*
+ 	 * Absolute position relative to the beginning of the uncompressed
+@@ -87,7 +87,7 @@ static inline int __init bcj_x86_test_msbyte(uint8_t b)
+ 
+ static size_t __init bcj_x86(struct xz_dec_bcj *s, uint8_t *buf, size_t size)
+ {
+-	static const bool_t mask_to_allowed_status[8]
++	static const bool mask_to_allowed_status[8]
+ 		= { true, true, true, false, true, false, false, false };
+ 
+ 	static const uint8_t mask_to_bit_num[8] = { 0, 1, 2, 2, 3, 3, 3, 3 };
+@@ -524,7 +524,7 @@ XZ_EXTERN enum xz_ret __init xz_dec_bcj_run(struct xz_dec_bcj *s,
+ 	return s->ret;
+ }
+ 
+-XZ_EXTERN struct xz_dec_bcj *__init xz_dec_bcj_create(bool_t single_call)
++XZ_EXTERN struct xz_dec_bcj *__init xz_dec_bcj_create(bool single_call)
+ {
+ 	struct xz_dec_bcj *s = malloc(sizeof(*s));
+ 	if (s != NULL)
+diff --git a/xen/common/xz/dec_lzma2.c b/xen/common/xz/dec_lzma2.c
+index f80d8309f4c3..71359fab9f60 100644
+--- a/xen/common/xz/dec_lzma2.c
++++ b/xen/common/xz/dec_lzma2.c
+@@ -241,13 +241,13 @@ struct lzma2_dec {
+ 	 * True if dictionary reset is needed. This is false before
+ 	 * the first chunk (LZMA or uncompressed).
+ 	 */
+-	bool_t need_dict_reset;
++	bool need_dict_reset;
+ 
+ 	/*
+ 	 * True if new LZMA properties are needed. This is false
+ 	 * before the first LZMA chunk.
+ 	 */
+-	bool_t need_props;
++	bool need_props;
+ };
+ 
+ struct xz_dec_lzma2 {
+@@ -306,7 +306,7 @@ static void __init dict_limit(struct dictionary *dict, size_t out_max)
+ }
+ 
+ /* Return true if at least one byte can be written into the dictionary. */
+-static inline bool_t __init dict_has_space(const struct dictionary *dict)
++static inline bool __init dict_has_space(const struct dictionary *dict)
+ {
+ 	return dict->pos < dict->limit;
+ }
+@@ -343,7 +343,7 @@ static inline void __init dict_put(struct dictionary *dict, uint8_t byte)
+  * invalid, false is returned. On success, true is returned and *len is
+  * updated to indicate how many bytes were left to be repeated.
+  */
+-static bool_t __init dict_repeat(struct dictionary *dict, uint32_t *len, uint32_t dist)
++static bool __init dict_repeat(struct dictionary *dict, uint32_t *len, uint32_t dist)
+ {
+ 	size_t back;
+ 	uint32_t left;
+@@ -463,7 +463,7 @@ static void __init rc_reset(struct rc_dec *rc)
+  * Read the first five initial bytes into rc->code if they haven't been
+  * read already. (Yes, the first byte gets completely ignored.)
+  */
+-static bool_t __init rc_read_init(struct rc_dec *rc, struct xz_buf *b)
++static bool __init rc_read_init(struct rc_dec *rc, struct xz_buf *b)
+ {
+ 	while (rc->init_bytes_left > 0) {
+ 		if (b->in_pos == b->in_size)
+@@ -477,7 +477,7 @@ static bool_t __init rc_read_init(struct rc_dec *rc, struct xz_buf *b)
+ }
+ 
+ /* Return true if there may not be enough input for the next decoding loop. */
+-static inline bool_t __init rc_limit_exceeded(const struct rc_dec *rc)
++static inline bool __init rc_limit_exceeded(const struct rc_dec *rc)
+ {
+ 	return rc->in_pos > rc->in_limit;
+ }
+@@ -486,7 +486,7 @@ static inline bool_t __init rc_limit_exceeded(const struct rc_dec *rc)
+  * Return true if it is possible (from point of view of range decoder) that
+  * we have reached the end of the LZMA chunk.
+  */
+-static inline bool_t __init rc_is_finished(const struct rc_dec *rc)
++static inline bool __init rc_is_finished(const struct rc_dec *rc)
+ {
+ 	return rc->code == 0;
+ }
+@@ -736,7 +736,7 @@ static void __init lzma_rep_match(struct xz_dec_lzma2 *s, uint32_t pos_state)
+ }
+ 
+ /* LZMA decoder core */
+-static bool_t __init lzma_main(struct xz_dec_lzma2 *s)
++static bool __init lzma_main(struct xz_dec_lzma2 *s)
+ {
+ 	uint32_t pos_state;
+ 
+@@ -814,7 +814,7 @@ static void __init lzma_reset(struct xz_dec_lzma2 *s)
+  * from the decoded lp and pb values. On success, the LZMA decoder state is
+  * reset and true is returned.
+  */
+-static bool_t __init lzma_props(struct xz_dec_lzma2 *s, uint8_t props)
++static bool __init lzma_props(struct xz_dec_lzma2 *s, uint8_t props)
+ {
+ 	if (props > (4 * 5 + 4) * 9 + 8)
+ 		return false;
+@@ -861,7 +861,7 @@ static bool_t __init lzma_props(struct xz_dec_lzma2 *s, uint8_t props)
+  * function. We decode a few bytes from the temporary buffer so that we can
+  * continue decoding from the caller-supplied input buffer again.
+  */
+-static bool_t __init lzma2_lzma(struct xz_dec_lzma2 *s, struct xz_buf *b)
++static bool __init lzma2_lzma(struct xz_dec_lzma2 *s, struct xz_buf *b)
+ {
+ 	size_t in_avail;
+ 	uint32_t tmp;
+diff --git a/xen/common/xz/dec_stream.c b/xen/common/xz/dec_stream.c
+index b91d8362c19c..caea4f2596a1 100644
+--- a/xen/common/xz/dec_stream.c
++++ b/xen/common/xz/dec_stream.c
+@@ -55,7 +55,7 @@ struct xz_dec {
+ 	 * True if the next call to xz_dec_run() is allowed to return
+ 	 * XZ_BUF_ERROR.
+ 	 */
+-	bool_t allow_buf_error;
++	bool allow_buf_error;
+ 
+ 	/* Information stored in Block Header */
+ 	struct {
+@@ -132,7 +132,7 @@ struct xz_dec {
+ 
+ #ifdef XZ_DEC_BCJ
+ 	struct xz_dec_bcj *bcj;
+-	bool_t bcj_active;
++	bool bcj_active;
+ #endif
+ };
+ 
+@@ -154,7 +154,7 @@ static const uint8_t check_sizes[16] = {
+  * to copy into s->temp.buf. Return true once s->temp.pos has reached
+  * s->temp.size.
+  */
+-static bool_t __init fill_temp(struct xz_dec *s, struct xz_buf *b)
++static bool __init fill_temp(struct xz_dec *s, struct xz_buf *b)
+ {
+ 	size_t copy_size = min_t(size_t,
+ 			b->in_size - b->in_pos, s->temp.size - s->temp.pos);
+@@ -367,7 +367,7 @@ static enum xz_ret __init crc32_validate(struct xz_dec *s, struct xz_buf *b)
+  * Skip over the Check field when the Check ID is not supported.
+  * Returns true once the whole Check field has been skipped over.
+  */
+-static bool_t __init check_skip(struct xz_dec *s, struct xz_buf *b)
++static bool __init check_skip(struct xz_dec *s, struct xz_buf *b)
+ {
+ 	while (s->pos < check_sizes[s->check_type]) {
+ 		if (b->in_pos == b->in_size)
+diff --git a/xen/common/xz/lzma2.h b/xen/common/xz/lzma2.h
+index e0ef42e880a0..06a7edb4d720 100644
+--- a/xen/common/xz/lzma2.h
++++ b/xen/common/xz/lzma2.h
+@@ -90,7 +90,7 @@ static inline void __init lzma_state_short_rep(enum lzma_state *state)
+ }
+ 
+ /* Test if the previous symbol was a literal. */
+-static inline bool_t __init lzma_state_is_literal(enum lzma_state state)
++static inline bool __init lzma_state_is_literal(enum lzma_state state)
+ {
+ 	return state < LIT_STATES;
+ }
+diff --git a/xen/common/xz/private.h b/xen/common/xz/private.h
+index 511343fcc234..e6814250e84f 100644
+--- a/xen/common/xz/private.h
++++ b/xen/common/xz/private.h
+@@ -237,7 +237,7 @@ XZ_EXTERN void xz_dec_lzma2_end(struct xz_dec_lzma2 *s);
+  * Allocate memory for BCJ decoders. xz_dec_bcj_reset() must be used before
+  * calling xz_dec_bcj_run().
+  */
+-XZ_EXTERN struct xz_dec_bcj *xz_dec_bcj_create(bool_t single_call);
++XZ_EXTERN struct xz_dec_bcj *xz_dec_bcj_create(bool single_call);
+ 
+ /*
+  * Decode the Filter ID of a BCJ filter. This implementation doesn't
+-- 
+2.30.2
 
-for all existing resources once VM is resumed so that he QEMU recreate them.
-
-This method has worked pretty well on our case. I submitted patches for 
-this to dri-devel a while ago.
-
-[RFC PATCH 0/2] drm/virtio:virtio-gpu driver freeze-and-restore 
-implementation (lists.freedesktop.org) 
-<https://lists.freedesktop.org/archives/dri-devel/2022-September/373892.html>
-
-This is kernel driver only solution. Nothing has to be changed in QEMU.
-
-Jiqian and other reviewers, can you check this old solution we suggested 
-as well?
-
-On 6/20/2023 5:26 AM, Robert Beckett wrote:
-
->
-> On 20/06/2023 10:41, Gerd Hoffmann wrote:
->>    Hi,
->>
->>>> The guest driver should be able to restore resources after resume.
->>> Thank you for your suggestion!
->>> As far as I know, resources are created on host side and guest has 
->>> no backup, if resources are destroyed, guest can't restore them.
->>> Or do you mean guest driver need to send commands to re-create 
->>> resources after resume?
->> The later.  The guest driver knows which resources it has created,
->> it can restore them after suspend.
->
->
-> Are you sure that this is viable?
->
-> How would you propose that a guest kernel could reproduce a resource, 
-> including pixel data upload during a resume?
->
-> The kernel would not have any of the pixel data to transfer to host. 
-> This is normally achieved by guest apps calling GL calls and mesa 
-> asking the kernel to create the textures with the given data (often 
-> read from a file).
-> If your suggestion is to get the userland application to do it, that 
-> would entirely break how suspend/resume is meant to happen. It should 
-> be transparent to userland applications for the most part.
->
-> Could you explain how you anticipate the guest being able to reproduce 
-> the resources please?
->
->
->>
->>> If so, I have some questions. Can guest re-create resources by using
->>> object(virtio_vpu_object) or others? Can the new resources replace the
->>> destroyed resources to continue the suspended display tasks after
->>> resume?
->> Any display scanout information will be gone too, the guest driver needs
->> re-create this too (after re-creating the resources).
->>
->> take care,
->>    Gerd
->>
->
 
