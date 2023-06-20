@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108AC7372E5
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:29:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552108.862040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7438A737326
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:47:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552161.862079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBfAa-00037k-Tc; Tue, 20 Jun 2023 17:29:32 +0000
+	id 1qBfQi-0008Id-LY; Tue, 20 Jun 2023 17:46:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552108.862040; Tue, 20 Jun 2023 17:29:32 +0000
+Received: by outflank-mailman (output) from mailman id 552161.862079; Tue, 20 Jun 2023 17:46:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBfAa-00036A-OL; Tue, 20 Jun 2023 17:29:32 +0000
-Received: by outflank-mailman (input) for mailman id 552108;
- Tue, 20 Jun 2023 17:29:30 +0000
+	id 1qBfQi-0008Fq-I3; Tue, 20 Jun 2023 17:46:12 +0000
+Received: by outflank-mailman (input) for mailman id 552161;
+ Tue, 20 Jun 2023 17:46:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/wkg=CI=gmail.com=jupham125@srs-se1.protection.inumbo.net>)
- id 1qBf7k-0005Q4-62
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:26:36 +0000
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [2607:f8b0:4864:20::112a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9aff712f-0f8f-11ee-b234-6b7b168915f2;
- Tue, 20 Jun 2023 19:26:35 +0200 (CEST)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-5702415be17so42877067b3.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 10:26:35 -0700 (PDT)
-Received: from joel-Precision-7920-Tower.. ([24.53.71.1])
- by smtp.gmail.com with ESMTPSA id
- e65-20020a0dc244000000b0056cffe97a11sm604604ywd.13.2023.06.20.10.26.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jun 2023 10:26:34 -0700 (PDT)
+ <SRS0=Qnc8=CI=citrix.com=prvs=5286b1552=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qBfQg-0008Fk-UV
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:46:11 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5537f468-0f92-11ee-b234-6b7b168915f2;
+ Tue, 20 Jun 2023 19:46:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +36,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9aff712f-0f8f-11ee-b234-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687281994; x=1689873994;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UQQT2DevBFB3oDkqTww+bCq8Z+NcubvcMEbZ9kPn1/I=;
-        b=fstv2AOOVoUWAQIuOJ3m6gjiU4cTxA4w47YkcRP1Rz7FBW/kBHuRMpLSFwMaTEe5b1
-         BlytFKX3BaEwTZKAkeW11PgTa8oze9Czt/+yknEl/OEBfvwDwXn7SW3PG/2w8PqeoPvm
-         av8TBcXKkS0ciL2D5leUNWfuF+rTprm3u/HkWbPk/mwfGv0uVvN2t3ZSUpWiiVE5OWrW
-         icnEMAZo2HF7BoErM6qix14wzc9gUbIHbkcx4ZwzBkJIr1KsPb4CDkdR5gy+OyiVn6w8
-         Gh4q7qXxcQBsSJwTex+JKFslShnCOfxKn4FB052N1hJQvrzjk8BGqRy3FVkARemL4CKt
-         I4yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687281994; x=1689873994;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UQQT2DevBFB3oDkqTww+bCq8Z+NcubvcMEbZ9kPn1/I=;
-        b=CaaQBfduo8Mdv4SF19E/xLVyqjOukwcQd7Hl5riK1Hy/O8obsn81d2MrfGi+owudN1
-         bWcOJ/GBSF5N4st0kGUaRKOI6tfa5ZJOov5o4SIC/bMWhxmlb7Jm/E9oyBfNAA08UMJL
-         O5951wN/1592u2ZGVefm0Er52Wkg8IMxO/9ezKtc+Qit7jvAysl2EaiCWyKyVy3NyHoq
-         fd0H/Su8x+cRbPAPP5NPFLXOhdEkjD6doezhfntu/gHuO3cGNmdyTPPYhNCSX15f2Tfv
-         3oIEBZDe08DDhzzNIm8dXsamOyNBNC7ix0qpKpvw5pVm+VcArl6qv8vYiw8wbH9YC+qe
-         Ri2A==
-X-Gm-Message-State: AC+VfDyFPjIlbW20NCdBJoMUKLr3eguiPLS3aYHE1UoqnCoykIt/OD8k
-	/BdnJwpMposu53SJnXu2Me0=
-X-Google-Smtp-Source: ACHHUZ5TvogazAaiBwei1eL5eky/5rmlzL7gOMXYPR2q+pv034XN8iCHLrs6IQjYOJgREMAVTq8NZw==
-X-Received: by 2002:a0d:ea01:0:b0:56c:e5a3:3e1b with SMTP id t1-20020a0dea01000000b0056ce5a33e1bmr12551422ywe.22.1687281994508;
-        Tue, 20 Jun 2023 10:26:34 -0700 (PDT)
-From: Joel Upham <jupham125@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: Joel Upham <jupham125@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH v1 20/23] xen platform: unplug ahci object
-Date: Tue, 20 Jun 2023 13:24:54 -0400
-Message-Id: <9b8183903cbf20db4e2f0dafda9e0ed271a86a8e.1687278381.git.jupham125@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1687278381.git.jupham125@gmail.com>
-References: <cover.1687278381.git.jupham125@gmail.com>
+X-Inumbo-ID: 5537f468-0f92-11ee-b234-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1687283167;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=rGnvM14ixfWPA7glURMM/F1hOUiXveqgD8w1TAFs4DI=;
+  b=AyJk/65X4gV99IxoYa+pnLBDbvcEq1ljq+fkwzH9HD3PmE/DWZ4eKw9v
+   SuuJLUu/55SnkQrD8ZXuZdSZqh2n8+o6wmwxMjhGi9tRtXAXlf8u2mGUV
+   spP1DcG8wi/QRq+6iRrO6y3K0t/0LwJJOLrU/YpkNxObVNBKbkgm0hJJu
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 112833466
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:O2A/Z6wc0iIfSE8Z5ol6t+c2xirEfRIJ4+MujC+fZmUNrF6WrkVSy
+ mVJDW2ObPnZa2X9c9h3PYmw8UoDusCExoVgGVQ4rSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw/zF8EsHUMja4mtC5QRgP6gT5jcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KWpx9
+ tggFQ1QUiiGosuzzIP8du9lutt2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
+ ZBAL2MyMlKZOUYn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwMxBbD/
+ T6YoQwVBDlHG4Gx6GqV2Uj1odbMoRr7WKQwFZ2Ro6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
+ 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0efBdDuk74wGl0bfP7kCSAW1sZiFFQMwrsokxXzNC6
+ 7OSt4q3X3o16uTTEC/DsO7O9lteJBT5M0cJWiwgdTY4vuXbpaQaix7+CeplGZKq24id9S7L/
+ 9yakMQvr+xN3ZFRh//hpAuvbyGE/caQEFNsjunDdif8t14iOtb4D2C9wQKDhcusOrp1WbVoU
+ JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XC3273k5JbVdoMiAyS3W8wWir+RRfnY
+ VXIpSRa74JJMX2hYMdfOtzhVJ17nPWwRYm5CJg4i+aihLArKWdrGwk0PyatM53FyhBwwcnTx
+ 7/GGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvuqWPTlnyaPU6lTCfNE98taQLeBt3VGYvY+G05B
+ f4DbZrVo/ieOcWiChTqHXk7dwFWdyRrW86nwyGVH8baSjdb9KgaI6e56dscl0ZNxsy5Ss+gE
+ qmBZ3Jl
+IronPort-HdrOrdr: A9a23:ZhdMOqAVWYwBO5/lHemW55DYdb4zR+YMi2TDgXoBLiC9Ffbo9P
+ xG/c566faasl0ssR0b8+xoW5PgfZq/z/FICNIqTNOftWDd0QOVxedZgLcKqAePJ8SRzIJgPQ
+ gLSdkZNDVdZ2IK7/oTQWODYrMd/OU=
+X-Talos-CUID: 9a23:MdlciG8J0+skREz0Qh+Vv0UrGeQdT0CA8E/VBma9BVcudLucdUDFrQ==
+X-Talos-MUID: 9a23:DcpC+wYyG+cUfeBT6hCxqhAyJOxSuoOXC3w0kZUgmcikHHkl
+X-IronPort-AV: E=Sophos;i="6.00,257,1681185600"; 
+   d="scan'208";a="112833466"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/vpmu: Simplify is_pmc_quirk
+Date: Tue, 20 Jun 2023 18:45:56 +0100
+Message-ID: <20230620174556.3898824-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-This will unplug the ahci device when the Xen driver calls for an unplug.
-This has been tested to work in linux and Windows guests.
-When q35 is detected, we will remove the ahci controller
-with the hard disks.  In the libxl config, cdrom devices
-are put on a seperate ahci controller. This allows for 6 cdrom
-devices to be added, and 6 qemu hard disks.
+This should be static, and there's no need for a separate (non-init, even)
+function to perform a simple equality test.  Drop the is_ prefix which is
+gramatically questionable, and make it __ro_after_init.
 
+Leave a TODO, because the behaviour is definitely wrong to be applied to ~all
+modern Intel CPUs, and has been raised on xen-devel previously without
+conclusion.
 
-Signed-off-by: Joel Upham <jupham125@gmail.com>
+No functional change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- hw/i386/xen/xen_platform.c | 19 ++++++++++++++++++-
- hw/pci/pci.c               | 17 +++++++++++++++++
- include/hw/pci/pci.h       |  3 +++
- 3 files changed, 38 insertions(+), 1 deletion(-)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/cpu/vpmu_intel.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/hw/i386/xen/xen_platform.c b/hw/i386/xen/xen_platform.c
-index 57f1d742c1..0375337222 100644
---- a/hw/i386/xen/xen_platform.c
-+++ b/hw/i386/xen/xen_platform.c
-@@ -34,6 +34,7 @@
- #include "sysemu/block-backend.h"
- #include "qemu/error-report.h"
- #include "qemu/module.h"
-+#include "include/hw/i386/pc.h"
- #include "qom/object.h"
+diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+index 35e350578b84..0291481da22e 100644
+--- a/xen/arch/x86/cpu/vpmu_intel.c
++++ b/xen/arch/x86/cpu/vpmu_intel.c
+@@ -91,22 +91,14 @@ static const unsigned int regs_off =
+  * 1 (or another value != 0) into it.
+  * There exist no errata and the real cause of this behaviour is unknown.
+  */
+-bool_t __read_mostly is_pmc_quirk;
+-
+-static void check_pmc_quirk(void)
+-{
+-    if ( current_cpu_data.x86 == 6 )
+-        is_pmc_quirk = 1;
+-    else
+-        is_pmc_quirk = 0;    
+-}
++static bool __ro_after_init pmc_quirk;
  
- #ifdef CONFIG_XEN
-@@ -223,6 +224,12 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, void *opaque)
-         if (flags & UNPLUG_NVME_DISKS) {
-             object_unparent(OBJECT(d));
-         }
-+        break;
-+
-+    case PCI_CLASS_STORAGE_SATA:
-+	if (!aux) {
-+            object_unparent(OBJECT(d));
-+        }
- 
-     default:
-         break;
-@@ -231,7 +238,17 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, void *opaque)
- 
- static void pci_unplug_disks(PCIBus *bus, uint32_t flags)
+ static void handle_pmc_quirk(u64 msr_content)
  {
--    pci_for_each_device(bus, 0, unplug_disks, &flags);
-+    PCIBus *q35 = find_q35();
-+    if (q35) {
-+        /* When q35 is detected, we will remove the ahci controller
-+	 * with the hard disks.  In the libxl config, cdrom devices
-+	 * are put on a seperate ahci controller. This allows for 6 cdrom
-+	 * devices to be added, and 6 qemu hard disks.
-+	 */
-+        pci_function_for_one_bus(bus, unplug_disks, &flags);
-+    } else {
-+        pci_for_each_device(bus, 0, unplug_disks, &flags);
-+    }
- }
+     int i;
+     u64 val;
  
- static void platform_fixed_ioport_writew(void *opaque, uint32_t addr, uint32_t val)
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index 1cc7c89036..8eac3d751a 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -1815,6 +1815,23 @@ void pci_for_each_device_reverse(PCIBus *bus, int bus_num,
-     }
- }
+-    if ( !is_pmc_quirk )
++    if ( !pmc_quirk )
+         return;
  
-+void pci_function_for_one_bus(PCIBus *bus,
-+                          void (*fn)(PCIBus *b, PCIDevice *d, void *opaque),
-+                          void *opaque)
-+{
-+    bus = pci_find_bus_nr(bus, 0);
+     val = msr_content;
+@@ -791,8 +783,9 @@ static int cf_check core2_vpmu_do_interrupt(struct cpu_user_regs *regs)
+     rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, msr_content);
+     if ( msr_content )
+     {
+-        if ( is_pmc_quirk )
++        if ( pmc_quirk )
+             handle_pmc_quirk(msr_content);
 +
-+    if (bus) {
-+        PCIDevice *d;
-+
-+        d = bus->devices[PCI_DEVFN(4,0)];
-+        if (d) {
-+            fn(bus, d, opaque);
-+            return;
-+        }
-+    }
-+}
-+
- void pci_for_each_device_under_bus(PCIBus *bus,
-                                    pci_bus_dev_fn fn, void *opaque)
- {
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index e6d0574a29..c53e21082a 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -343,6 +343,9 @@ void pci_for_each_device_under_bus(PCIBus *bus,
- void pci_for_each_device_under_bus_reverse(PCIBus *bus,
-                                            pci_bus_dev_fn fn,
-                                            void *opaque);
-+void pci_function_for_one_bus(PCIBus *bus,
-+                         void (*fn)(PCIBus *bus, PCIDevice *d, void *opaque),
-+                         void *opaque);
- void pci_for_each_bus_depth_first(PCIBus *bus, pci_bus_ret_fn begin,
-                                   pci_bus_fn end, void *parent_state);
- PCIDevice *pci_get_function_0(PCIDevice *pci_dev);
+         core2_vpmu_cxt->global_status |= msr_content;
+         msr_content &= ~global_ovf_ctrl_mask;
+         wrmsrl(MSR_CORE_PERF_GLOBAL_OVF_CTRL, msr_content);
+@@ -967,7 +960,8 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
+               sizeof(uint64_t) * fixed_pmc_cnt +
+               sizeof(struct xen_pmu_cntr_pair) * arch_pmc_cnt;
+ 
+-    check_pmc_quirk();
++    /* TODO: This is surely wrong. */
++    pmc_quirk = current_cpu_data.x86 == 6;
+ 
+     if ( sizeof(struct xen_pmu_data) + sizeof(uint64_t) * fixed_pmc_cnt +
+          sizeof(struct xen_pmu_cntr_pair) * arch_pmc_cnt > PAGE_SIZE )
 -- 
-2.34.1
+2.30.2
 
 
