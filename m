@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA4473735D
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:58:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552190.862121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC3273735F
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:59:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552192.862130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBfcr-00034D-K3; Tue, 20 Jun 2023 17:58:45 +0000
+	id 1qBfdE-0003We-SK; Tue, 20 Jun 2023 17:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552190.862121; Tue, 20 Jun 2023 17:58:45 +0000
+Received: by outflank-mailman (output) from mailman id 552192.862130; Tue, 20 Jun 2023 17:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBfcr-000319-GE; Tue, 20 Jun 2023 17:58:45 +0000
-Received: by outflank-mailman (input) for mailman id 552190;
- Tue, 20 Jun 2023 17:58:44 +0000
+	id 1qBfdE-0003Uw-OB; Tue, 20 Jun 2023 17:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 552192;
+ Tue, 20 Jun 2023 17:59:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qnc8=CI=citrix.com=prvs=5286b1552=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qBfcq-00030v-2g
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:58:44 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16048270-0f94-11ee-8611-37d641c3527e;
- Tue, 20 Jun 2023 19:58:41 +0200 (CEST)
+ <SRS0=d+k+=CI=casper.srs.infradead.org=BATV+288f744f4c934e53f325+7240+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qBfdD-00030v-Ee
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:59:07 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 22d269ce-0f94-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 19:59:04 +0200 (CEST)
+Received: from [2001:8b0:10b:5:f26b:798c:7de3:5106]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qBfd2-00DNGy-1q; Tue, 20 Jun 2023 17:58:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,301 +41,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16048270-0f94-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1687283921;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=R1S3QB8hL1l2bG8BaIFgqjepsm8Ot1LOvm8engXmJtI=;
-  b=YKyIQog78DjjPuU4w2Hbp838UCDPPZ50Hn9wPonCIU1dJkrvedKfoUm1
-   3ji5oJcSuuyApTRrWNibaitlDarMvGM0OcEMcYs8owXskU81GepRhYRGb
-   Y85CYJqKS9lPVNF2t+/hyxJSizdMhRUwigXhOYp1hS2/2asO4kCl/6nml
-   M=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 113529525
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:VfaQh6KSWgjf0KyQFE+RNpUlxSXFcZb7ZxGr2PjKsXjdYENS3mMFm
- zMdCmmAOf/bamamKdBzPozipBwEu5/QzN5qSFFlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4AZmPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5YUGUSy
- NxHLgktf0ymp+aQmLO1btRV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJ4IxBfF/
- D+uE2LRHC0iEY2E0ji+4F3z29ThgwHUSZIDG+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAfVSJIYtEisM4wRBQp2
- 0WPktevAiZg2JWKTVqN+7HSqim9UQAXMGsDaCksXQYDpd75r+kbsBXLSdpyFb+vuff8Ezrw3
- jOioTA3gvMYistj/6+250zdijSg4J3AVBco5x7/V3igqAh+YeaYi5eAsAaBq6wadcDAEwfH5
- SJf8ySD0AwQJb7ckHCwYLoLJZG4u9OlNBuEgFBLIqB0olxB5EWfkZBsDCBWfRk5bZxUI2WwO
- yc/qisKusYNYSLCgbtfJtvoVp90lfWI+cHNDKi8UzZYXnRmmOZrFglKbFXY4W3imVNEfUoXa
- cbCKpbE4Zr35M1aINuKqwQ1i+VDKtgWnz+7eHwC503PPUCiTHCUU6wZF1CFc/o06qiJyC2Mr
- YYAbprblkUPDbGgCsUyzWL1BQpXRZTcLcqsw/G7i8bZelY2cI3fI6K5LUwdl3xNwP0Oy7agE
- oCVUU5E0lvv7UAr2i3TAk2PnIjHBM4lxVpiZHxEALpd8yR7CWpZxPtFJsRfkHhO3LAL8MOYu
- NFfKpnaXqQRFGWvFvZ0RcCVkbGOvS+D3WqmVxdJqhBkF3K8b2QlIuPZQzY=
-IronPort-HdrOrdr: A9a23:oQB9KqkfZy5GXlpuc99rRQ36SdbpDfIf3DAbv31ZSRFFG/Fwwf
- re5cjztCWE7Qr4Ohkb8+xoXZPsfZqyz/JICOUqUotKPzOW2ldATrsD0WK4+UyHJ8SWzIc0vp
- uIFZIRNDSaNykYsS+V2miF+3lL+qj+zEgF792uq0uE7GtRGsZd0zs=
-X-Talos-CUID: 9a23:r6iqpWH2TjIaw+ljqmJIpUpIJ+B6dET93Sv1A0ueUWdnbICsHAo=
-X-Talos-MUID: 9a23:18jn6Asr1MwpS6lPMc2nmg1aEZZz+KaVGm9SzK4opeurJDxhNGLI
-X-IronPort-AV: E=Sophos;i="6.00,257,1681185600"; 
-   d="scan'208";a="113529525"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH] xen/decompress: Drop bool_t and use bool instead
-Date: Tue, 20 Jun 2023 18:58:35 +0100
-Message-ID: <20230620175835.3908246-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 22d269ce-0f94-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=P0rw6j/526CasCXlDjY88i1DcnH89PB7+0min8yStY8=; b=ZpLlOTsOcbygS6lck1zF0UH1KD
+	7SjmlMugZb9keYTZLWbAHAqdyc2E862zUAcmk3+QRKEnmpQeVatOJ8mhnaG5Gt2x2Yn0M02uue5Th
+	eIHFDzbUgdBN8bZy+AlB5tNskU5tWsvKjVrcqflIRVmYovUwlOYGVk8iWCDVZdI6x6nKfuPcy8ep3
+	rrM8p+0rswr4dpkm2UyLJegesLxB1x/us6NAXpNBKo8LF71YJ2L0tGViZHEM0p/Vu/04l11PjnKmE
+	1WU0SlNUj2AQ1/iIqNm/l/GYS8+eGQNUScPm+d8vW1rsc2DPjhPDkpIUXhHTG+KbkhsVX2cqNlVdY
+	TspDN2Tw==;
+Message-ID: <20076888f6bdf06a65aafc5cf954260965d45b97.camel@infradead.org>
+Subject: [PATCH] hw/xen: Clarify (lack of) error handling in
+ transaction_commit()
+From: David Woodhouse <dwmw2@infradead.org>
+To: Peter Maydell <peter.maydell@linaro.org>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Paul Durrant
+	 <paul@xen.org>, Joao Martins <joao.m.martins@oracle.com>, Ankur Arora
+	 <ankur.a.arora@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	vikram.garhwal@amd.com, Anthony Perard <anthony.perard@citrix.com>, 
+	xen-devel@lists.xenproject.org, Juan Quintela <quintela@redhat.com>, "Dr .
+	David Alan Gilbert"
+	 <dgilbert@redhat.com>
+Date: Tue, 20 Jun 2023 18:58:55 +0100
+In-Reply-To: <CAFEAcA--FqeioUdPb9sr5fEy3q0H0swcp+rbGxoNbhgMkYdC+A@mail.gmail.com>
+References: <20230307182707.2298618-1-dwmw2@infradead.org>
+	 <20230307182707.2298618-6-dwmw2@infradead.org>
+	 <CAFEAcA9gzJGMqsEY5TuNmb74RskgUTMW+XcqGV53n3SsKyVVXg@mail.gmail.com>
+	 <CAFEAcA9aFv5c4S=Pyf3dMU-v9FnNJqWTQ7ZbiDQLTjh8Qou71g@mail.gmail.com>
+	 <CAFEAcA--FqeioUdPb9sr5fEy3q0H0swcp+rbGxoNbhgMkYdC+A@mail.gmail.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-WKeoCu8f39FjIHVazDdn"
+User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-WKeoCu8f39FjIHVazDdn
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-In particular, the libxg wrapper for unxz.c uses char for bool_t which is a
-major antipattern.  Luckily the code doesn't suffer from truncated values.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-No functional change.
+Coverity was unhappy (CID 1508359) because we didn't check the return of
+init_walk_op() in transaction_commit(), despite doing so at every other
+call site.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Strictly speaking, this is a false positive since it can never fail. It
+only fails for invalid user input (transaction ID or path), and both of
+those are hard-coded to known sane values in this invocation.
+
+But Coverity doesn't know that, and neither does the casual reader of the
+code.
+
+Returning an error here would be weird, since the transaction *is*
+committed by this point; all the walk_op is doing is firing watches on
+the newly-committed changed nodes. So make it a g_assert(!ret), since
+it really should never happen.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
----
- .../libs/guest/xg_dom_decompress_unsafe_xz.c  |  1 -
- xen/common/unxz.c                             |  2 +-
- xen/common/xz/dec_bcj.c                       |  6 +++---
- xen/common/xz/dec_lzma2.c                     | 20 +++++++++----------
- xen/common/xz/dec_stream.c                    |  8 ++++----
- xen/common/xz/lzma2.h                         |  2 +-
- xen/common/xz/private.h                       |  2 +-
- 7 files changed, 20 insertions(+), 21 deletions(-)
+ hw/i386/kvm/xenstore_impl.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/tools/libs/guest/xg_dom_decompress_unsafe_xz.c b/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
-index fc4819874111..80eed912dd68 100644
---- a/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
-+++ b/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
-@@ -11,7 +11,6 @@
- // TODO
- #define XZ_DEC_X86
- 
--typedef char bool_t;
- typedef uint8_t u8;
- typedef uint16_t u16;
- typedef uint32_t u32;
-diff --git a/xen/common/unxz.c b/xen/common/unxz.c
-index 17aead0adfe6..9586a4e5c94f 100644
---- a/xen/common/unxz.c
-+++ b/xen/common/unxz.c
-@@ -166,7 +166,7 @@ int __init unxz(unsigned char *in, unsigned int in_size,
- 	struct xz_buf b;
- 	struct xz_dec *s;
- 	enum xz_ret ret;
--	bool_t must_free_in = false;
-+	bool must_free_in = false;
- 
- 	xz_crc32_init();
- 
-diff --git a/xen/common/xz/dec_bcj.c b/xen/common/xz/dec_bcj.c
-index bfa498587ab8..bdc59770f8a6 100644
---- a/xen/common/xz/dec_bcj.c
-+++ b/xen/common/xz/dec_bcj.c
-@@ -35,7 +35,7 @@ struct xz_dec_bcj {
- 	enum xz_ret ret;
- 
- 	/* True if we are operating in single-call mode. */
--	bool_t single_call;
-+	bool single_call;
- 
- 	/*
- 	 * Absolute position relative to the beginning of the uncompressed
-@@ -87,7 +87,7 @@ static inline int __init bcj_x86_test_msbyte(uint8_t b)
- 
- static size_t __init bcj_x86(struct xz_dec_bcj *s, uint8_t *buf, size_t size)
+diff --git a/hw/i386/kvm/xenstore_impl.c b/hw/i386/kvm/xenstore_impl.c
+index 305fe75519..d9732b567e 100644
+--- a/hw/i386/kvm/xenstore_impl.c
++++ b/hw/i386/kvm/xenstore_impl.c
+@@ -1022,6 +1022,7 @@ static int transaction_commit(XenstoreImplState *s, X=
+sTransaction *tx)
  {
--	static const bool_t mask_to_allowed_status[8]
-+	static const bool mask_to_allowed_status[8]
- 		= { true, true, true, false, true, false, false, false };
- 
- 	static const uint8_t mask_to_bit_num[8] = { 0, 1, 2, 2, 3, 3, 3, 3 };
-@@ -524,7 +524,7 @@ XZ_EXTERN enum xz_ret __init xz_dec_bcj_run(struct xz_dec_bcj *s,
- 	return s->ret;
- }
- 
--XZ_EXTERN struct xz_dec_bcj *__init xz_dec_bcj_create(bool_t single_call)
-+XZ_EXTERN struct xz_dec_bcj *__init xz_dec_bcj_create(bool single_call)
- {
- 	struct xz_dec_bcj *s = malloc(sizeof(*s));
- 	if (s != NULL)
-diff --git a/xen/common/xz/dec_lzma2.c b/xen/common/xz/dec_lzma2.c
-index f80d8309f4c3..71359fab9f60 100644
---- a/xen/common/xz/dec_lzma2.c
-+++ b/xen/common/xz/dec_lzma2.c
-@@ -241,13 +241,13 @@ struct lzma2_dec {
- 	 * True if dictionary reset is needed. This is false before
- 	 * the first chunk (LZMA or uncompressed).
- 	 */
--	bool_t need_dict_reset;
-+	bool need_dict_reset;
- 
- 	/*
- 	 * True if new LZMA properties are needed. This is false
- 	 * before the first LZMA chunk.
- 	 */
--	bool_t need_props;
-+	bool need_props;
- };
- 
- struct xz_dec_lzma2 {
-@@ -306,7 +306,7 @@ static void __init dict_limit(struct dictionary *dict, size_t out_max)
- }
- 
- /* Return true if at least one byte can be written into the dictionary. */
--static inline bool_t __init dict_has_space(const struct dictionary *dict)
-+static inline bool __init dict_has_space(const struct dictionary *dict)
- {
- 	return dict->pos < dict->limit;
- }
-@@ -343,7 +343,7 @@ static inline void __init dict_put(struct dictionary *dict, uint8_t byte)
-  * invalid, false is returned. On success, true is returned and *len is
-  * updated to indicate how many bytes were left to be repeated.
-  */
--static bool_t __init dict_repeat(struct dictionary *dict, uint32_t *len, uint32_t dist)
-+static bool __init dict_repeat(struct dictionary *dict, uint32_t *len, uint32_t dist)
- {
- 	size_t back;
- 	uint32_t left;
-@@ -463,7 +463,7 @@ static void __init rc_reset(struct rc_dec *rc)
-  * Read the first five initial bytes into rc->code if they haven't been
-  * read already. (Yes, the first byte gets completely ignored.)
-  */
--static bool_t __init rc_read_init(struct rc_dec *rc, struct xz_buf *b)
-+static bool __init rc_read_init(struct rc_dec *rc, struct xz_buf *b)
- {
- 	while (rc->init_bytes_left > 0) {
- 		if (b->in_pos == b->in_size)
-@@ -477,7 +477,7 @@ static bool_t __init rc_read_init(struct rc_dec *rc, struct xz_buf *b)
- }
- 
- /* Return true if there may not be enough input for the next decoding loop. */
--static inline bool_t __init rc_limit_exceeded(const struct rc_dec *rc)
-+static inline bool __init rc_limit_exceeded(const struct rc_dec *rc)
- {
- 	return rc->in_pos > rc->in_limit;
- }
-@@ -486,7 +486,7 @@ static inline bool_t __init rc_limit_exceeded(const struct rc_dec *rc)
-  * Return true if it is possible (from point of view of range decoder) that
-  * we have reached the end of the LZMA chunk.
-  */
--static inline bool_t __init rc_is_finished(const struct rc_dec *rc)
-+static inline bool __init rc_is_finished(const struct rc_dec *rc)
- {
- 	return rc->code == 0;
- }
-@@ -736,7 +736,7 @@ static void __init lzma_rep_match(struct xz_dec_lzma2 *s, uint32_t pos_state)
- }
- 
- /* LZMA decoder core */
--static bool_t __init lzma_main(struct xz_dec_lzma2 *s)
-+static bool __init lzma_main(struct xz_dec_lzma2 *s)
- {
- 	uint32_t pos_state;
- 
-@@ -814,7 +814,7 @@ static void __init lzma_reset(struct xz_dec_lzma2 *s)
-  * from the decoded lp and pb values. On success, the LZMA decoder state is
-  * reset and true is returned.
-  */
--static bool_t __init lzma_props(struct xz_dec_lzma2 *s, uint8_t props)
-+static bool __init lzma_props(struct xz_dec_lzma2 *s, uint8_t props)
- {
- 	if (props > (4 * 5 + 4) * 9 + 8)
- 		return false;
-@@ -861,7 +861,7 @@ static bool_t __init lzma_props(struct xz_dec_lzma2 *s, uint8_t props)
-  * function. We decode a few bytes from the temporary buffer so that we can
-  * continue decoding from the caller-supplied input buffer again.
-  */
--static bool_t __init lzma2_lzma(struct xz_dec_lzma2 *s, struct xz_buf *b)
-+static bool __init lzma2_lzma(struct xz_dec_lzma2 *s, struct xz_buf *b)
- {
- 	size_t in_avail;
- 	uint32_t tmp;
-diff --git a/xen/common/xz/dec_stream.c b/xen/common/xz/dec_stream.c
-index b91d8362c19c..caea4f2596a1 100644
---- a/xen/common/xz/dec_stream.c
-+++ b/xen/common/xz/dec_stream.c
-@@ -55,7 +55,7 @@ struct xz_dec {
- 	 * True if the next call to xz_dec_run() is allowed to return
- 	 * XZ_BUF_ERROR.
- 	 */
--	bool_t allow_buf_error;
-+	bool allow_buf_error;
- 
- 	/* Information stored in Block Header */
- 	struct {
-@@ -132,7 +132,7 @@ struct xz_dec {
- 
- #ifdef XZ_DEC_BCJ
- 	struct xz_dec_bcj *bcj;
--	bool_t bcj_active;
-+	bool bcj_active;
- #endif
- };
- 
-@@ -154,7 +154,7 @@ static const uint8_t check_sizes[16] = {
-  * to copy into s->temp.buf. Return true once s->temp.pos has reached
-  * s->temp.size.
-  */
--static bool_t __init fill_temp(struct xz_dec *s, struct xz_buf *b)
-+static bool __init fill_temp(struct xz_dec *s, struct xz_buf *b)
- {
- 	size_t copy_size = min_t(size_t,
- 			b->in_size - b->in_pos, s->temp.size - s->temp.pos);
-@@ -367,7 +367,7 @@ static enum xz_ret __init crc32_validate(struct xz_dec *s, struct xz_buf *b)
-  * Skip over the Check field when the Check ID is not supported.
-  * Returns true once the whole Check field has been skipped over.
-  */
--static bool_t __init check_skip(struct xz_dec *s, struct xz_buf *b)
-+static bool __init check_skip(struct xz_dec *s, struct xz_buf *b)
- {
- 	while (s->pos < check_sizes[s->check_type]) {
- 		if (b->in_pos == b->in_size)
-diff --git a/xen/common/xz/lzma2.h b/xen/common/xz/lzma2.h
-index e0ef42e880a0..06a7edb4d720 100644
---- a/xen/common/xz/lzma2.h
-+++ b/xen/common/xz/lzma2.h
-@@ -90,7 +90,7 @@ static inline void __init lzma_state_short_rep(enum lzma_state *state)
- }
- 
- /* Test if the previous symbol was a literal. */
--static inline bool_t __init lzma_state_is_literal(enum lzma_state state)
-+static inline bool __init lzma_state_is_literal(enum lzma_state state)
- {
- 	return state < LIT_STATES;
- }
-diff --git a/xen/common/xz/private.h b/xen/common/xz/private.h
-index 511343fcc234..e6814250e84f 100644
---- a/xen/common/xz/private.h
-+++ b/xen/common/xz/private.h
-@@ -237,7 +237,7 @@ XZ_EXTERN void xz_dec_lzma2_end(struct xz_dec_lzma2 *s);
-  * Allocate memory for BCJ decoders. xz_dec_bcj_reset() must be used before
-  * calling xz_dec_bcj_run().
-  */
--XZ_EXTERN struct xz_dec_bcj *xz_dec_bcj_create(bool_t single_call);
-+XZ_EXTERN struct xz_dec_bcj *xz_dec_bcj_create(bool single_call);
- 
- /*
-  * Decode the Filter ID of a BCJ filter. This implementation doesn't
--- 
-2.30.2
+     struct walk_op op;
+     XsNode **n;
++    int ret;
+=20
+     if (s->root_tx !=3D tx->base_tx) {
+         return EAGAIN;
+@@ -1032,7 +1033,16 @@ static int transaction_commit(XenstoreImplState *s, =
+XsTransaction *tx)
+     s->root_tx =3D tx->tx_id;
+     s->nr_nodes =3D tx->nr_nodes;
+=20
+-    init_walk_op(s, &op, XBT_NULL, tx->dom_id, "/", &n);
++    ret =3D init_walk_op(s, &op, XBT_NULL, tx->dom_id, "/", &n);
++    /*
++     * There are two reasons why init_walk_op() may fail: an invalid tx_id=
+,
++     * or an invalid path. We pass XBT_NULL and "/", and it cannot fail.
++     * If it does, the world is broken. And returning 'ret' would be weird
++     * because the transaction *was* committed, and all this tree walk is
++     * trying to do is fire the resulting watches on newly-committed nodes=
+.
++     */
++    g_assert(!ret);
++
+     op.deleted_in_tx =3D false;
+     op.mutating =3D true;
+=20
+--=20
+2.34.1
 
+
+
+--=-WKeoCu8f39FjIHVazDdn
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwNjIwMTc1ODU1WjAvBgkqhkiG9w0BCQQxIgQgUT3s50st
+D218f4UKFIcbdotqYYTun5QfCaqnDlvhwmQwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCN/iWAXvf4QDoAPjP4HyoJ4mqdkXUBep7V
+ZfpDyACLs9LArJmnJyRQw8YD5PXsbv7pmOvMaoLCopnU1+TyKN+14JZ/D9dVHG1eG2PrSLy1Xa5n
+BsxDTV7PaLF1nCwYGQBqtLEGw0f3K1ah1ufenaCdBjyG8zhAR8YP+OoLgKbu+NzDd1uNvNeD/i8b
+BiYARWvJWAvSeE74PBr6EfXulReDUw+prmvFqi7nMkv6r6mp5+Yfu4QhxID88mn8VNiOuwkQHopG
+Sb3Y8Q1KJOGHVIFeAAx6t1B08WPL8M0BoAMYlX4yFdpc9LfzG4Dj0jJb33KqlyR3sF5l9T0akhbn
+TLAp+Dt7PcI0jD4EJ28nccvJV/QXEjC2jRhah9VWaQv85UYhoG1SAEKYY5p8Pl9vhj7/8h2Mmndu
+Kb2/G1rE1yk8piJz58SftSY02R6VrtboGk0Hzo/sQcEVto11Hweax7ubJsZojmqWDE5MuYESZgNy
+b+l+gAHHPIsANCZLMBfsN3GorBYwuwoM8w+4ODaJwFjgV3LMW6KCNEeYPfOsj1ECzVT/SJLl37nS
+AEbH7p2HxyMJL7OI757AFQ1Z+xWmh8B5aDDBZ1xtyQTq0Ph+jUaz7AqVwewbM1C6uyTNa0DBtBf8
+UjOM2Ek2x8XGEmBPs710+dWfnTTka3m2nqtlJrAFNAAAAAAAAA==
+
+
+--=-WKeoCu8f39FjIHVazDdn--
 
