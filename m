@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6CA2736A2D
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EAE1736A29
 	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 13:01:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551551.861207 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.551553.861214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBZ75-0000tg-Bu; Tue, 20 Jun 2023 11:01:31 +0000
+	id 1qBZ75-00018C-Ty; Tue, 20 Jun 2023 11:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551551.861207; Tue, 20 Jun 2023 11:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 551553.861214; Tue, 20 Jun 2023 11:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBZ74-0000mI-Qz; Tue, 20 Jun 2023 11:01:30 +0000
-Received: by outflank-mailman (input) for mailman id 551551;
- Tue, 20 Jun 2023 10:35:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBZ75-0000tY-Dt; Tue, 20 Jun 2023 11:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 551553;
+ Tue, 20 Jun 2023 10:35:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ovpU=CI=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qBYhx-0004Pq-7R
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 10:35:33 +0000
+ id 1qBYhz-0004Ou-8Q
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 10:35:35 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ef2b969-0f56-11ee-b234-6b7b168915f2;
- Tue, 20 Jun 2023 12:35:32 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2fa244a0-0f56-11ee-8611-37d641c3527e;
+ Tue, 20 Jun 2023 12:35:33 +0200 (CEST)
 Received: from beta.bugseng.com (93-40-74-174.ip37.fastwebnet.it
  [93.40.74.174])
- by support.bugseng.com (Postfix) with ESMTPSA id DC6234EE0752;
- Tue, 20 Jun 2023 12:35:30 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 8BB184EE0754;
+ Tue, 20 Jun 2023 12:35:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,22 +40,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ef2b969-0f56-11ee-b234-6b7b168915f2
+X-Inumbo-ID: 2fa244a0-0f56-11ee-8611-37d641c3527e
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Gianluca Luparini <gianluca.luparini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
 	Ayan Kumar <ayan.kumar.halder@amd.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH 08/13] xen/pci: fixed violations of MISRA C:2012 Rule 7.2
-Date: Tue, 20 Jun 2023 12:35:00 +0200
-Message-Id: <3d1a98c8070d4e502402356dd65153dcc813edef.1687250177.git.gianluca.luparini@bugseng.com>
+Subject: [XEN PATCH 09/13] xen/public: fixed violations of MISRA C:2012 Rule 7.2
+Date: Tue, 20 Jun 2023 12:35:01 +0200
+Message-Id: <2214598125081ccfb324555288bee0340f8b1024.1687250177.git.gianluca.luparini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1687250177.git.gianluca.luparini@bugseng.com>
 References: <cover.1687250177.git.gianluca.luparini@bugseng.com>
@@ -72,24 +70,30 @@ For homogeneity, I also added the "U" suffix in some cases that the tool didn't 
 
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 ---
- xen/drivers/passthrough/pci.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/include/public/io/ring.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 07d1986d33..95846e84f2 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -990,8 +990,8 @@ bool_t __init pci_device_detect(u16 seg, u8 bus, u8 dev, u8 func)
+diff --git a/xen/include/public/io/ring.h b/xen/include/public/io/ring.h
+index 025939278b..6a6deeee8f 100644
+--- a/xen/include/public/io/ring.h
++++ b/xen/include/public/io/ring.h
+@@ -36,11 +36,11 @@
+ typedef unsigned int RING_IDX;
  
-     vendor = pci_conf_read32(PCI_SBDF(seg, bus, dev, func), PCI_VENDOR_ID);
-     /* some broken boards return 0 or ~0 if a slot is empty: */
--    if ( (vendor == 0xffffffff) || (vendor == 0x00000000) ||
--         (vendor == 0x0000ffff) || (vendor == 0xffff0000) )
-+    if ( (vendor == 0xffffffffU) || (vendor == 0x00000000U) ||
-+         (vendor == 0x0000ffffU) || (vendor == 0xffff0000U) )
-         return 0;
-     return 1;
- }
+ /* Round a 32-bit unsigned constant down to the nearest power of two. */
+-#define __RD2(_x)  (((_x) & 0x00000002) ? 0x2                  : ((_x) & 0x1))
+-#define __RD4(_x)  (((_x) & 0x0000000c) ? __RD2((_x)>>2)<<2    : __RD2(_x))
+-#define __RD8(_x)  (((_x) & 0x000000f0) ? __RD4((_x)>>4)<<4    : __RD4(_x))
+-#define __RD16(_x) (((_x) & 0x0000ff00) ? __RD8((_x)>>8)<<8    : __RD8(_x))
+-#define __RD32(_x) (((_x) & 0xffff0000) ? __RD16((_x)>>16)<<16 : __RD16(_x))
++#define __RD2(_x)  (((_x) & 0x00000002U) ? 0x2                  : ((_x) & 0x1))
++#define __RD4(_x)  (((_x) & 0x0000000cU) ? __RD2((_x)>>2)<<2    : __RD2(_x))
++#define __RD8(_x)  (((_x) & 0x000000f0U) ? __RD4((_x)>>4)<<4    : __RD4(_x))
++#define __RD16(_x) (((_x) & 0x0000ff00U) ? __RD8((_x)>>8)<<8    : __RD8(_x))
++#define __RD32(_x) (((_x) & 0xffff0000U) ? __RD16((_x)>>16)<<16 : __RD16(_x))
+ 
+ /*
+  * Calculate size of a shared ring, given the total available space for the
 -- 
 2.41.0
 
