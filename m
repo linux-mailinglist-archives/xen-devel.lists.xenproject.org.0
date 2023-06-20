@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C3D1737294
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:17:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.551993.861859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB35737293
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jun 2023 19:17:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.551995.861866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBeyw-0007TP-EU; Tue, 20 Jun 2023 17:17:30 +0000
+	id 1qBeyw-0007Xv-Vi; Tue, 20 Jun 2023 17:17:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 551993.861859; Tue, 20 Jun 2023 17:17:30 +0000
+Received: by outflank-mailman (output) from mailman id 551995.861866; Tue, 20 Jun 2023 17:17:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBeyw-0007O5-9p; Tue, 20 Jun 2023 17:17:30 +0000
-Received: by outflank-mailman (input) for mailman id 551993;
- Tue, 20 Jun 2023 17:17:28 +0000
+	id 1qBeyw-0007Td-Ma; Tue, 20 Jun 2023 17:17:30 +0000
+Received: by outflank-mailman (input) for mailman id 551995;
+ Tue, 20 Jun 2023 17:17:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/wkg=CI=gmail.com=jupham125@srs-se1.protection.inumbo.net>)
- id 1qBeyt-0005iB-UQ
- for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:17:27 +0000
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [2607:f8b0:4864:20::1129])
+ id 1qBeyv-0005iB-98
+ for xen-devel@lists.xenproject.org; Tue, 20 Jun 2023 17:17:29 +0000
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [2607:f8b0:4864:20::b2b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 542214f4-0f8e-11ee-b234-6b7b168915f2;
- Tue, 20 Jun 2023 19:17:27 +0200 (CEST)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-570114e1feaso57381267b3.3
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 10:17:27 -0700 (PDT)
+ id 5507f960-0f8e-11ee-b234-6b7b168915f2;
+ Tue, 20 Jun 2023 19:17:28 +0200 (CEST)
+Received: by mail-yb1-xb2b.google.com with SMTP id
+ 3f1490d57ef6-be49e41a3d6so3677356276.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jun 2023 10:17:28 -0700 (PDT)
 Received: from joel-Precision-7920-Tower.. ([24.53.71.1])
  by smtp.gmail.com with ESMTPSA id
- f81-20020a25cf54000000b00bcc0f2e4f05sm461938ybg.59.2023.06.20.10.17.25
+ f81-20020a25cf54000000b00bcc0f2e4f05sm461938ybg.59.2023.06.20.10.17.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jun 2023 10:17:25 -0700 (PDT)
+ Tue, 20 Jun 2023 10:17:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +45,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 542214f4-0f8e-11ee-b234-6b7b168915f2
+X-Inumbo-ID: 5507f960-0f8e-11ee-b234-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687281446; x=1689873446;
+        d=gmail.com; s=20221208; t=1687281447; x=1689873447;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W6n7UkNFBYZK+AuffqP9HBzXa1ya+3d/QBUvXRQbFCI=;
-        b=r5JhHlD7JEcSljp6bqBMH7Os3GLHWYE2c3zb4auizeHvepM/3G3Xlf2oKW2nlVEHYH
-         5e81JK507vpiQX0d/WdDxIwV0mceFriEJJCP0c+pQwfk3Ca0k1fbw5/oMTtIWn5mm6R5
-         UVcaXE+9VELaWqgVPFwXixRbepznblrbBprO1OZxluVWBzdbJN8UKFt1osvLmy4Qa6aG
-         4IU2jUes4S9CGjo2fz+GfpVkBkqQAdCHon0kRXn7XgpEBdIU+BLMUUfgT1jR/XmZpzt4
-         uDyyL1Y872Qxw9Kb7n3/T9u1TIfjbZpfeA88V5yxoQMQA2A6cE5BGa8Cn6YYd6/gRYEH
-         WnhA==
+        bh=euxQjj1nka42h3IgnfVDkR/WuQVbd1+OBbuouObQPZw=;
+        b=ULINpF4cSUf3E0vswpH5QAioshxNpdrmsaQInoUb8RunfkwL889I8OvlIM6qjWZCk4
+         uxiDLykMuYl0naI1OGQNjyxFVfeQp0u9H1iPwZtbnWD2pX3538vZsErT3Dk3Tp9pH+7L
+         FAjy9doJWjWE9uzJVcS9FI5byrLrI0tVlqwr8Li+iM8t4S7aHz925xtqyz7Jx9ECpwtw
+         FexVqL6CDjTeADqsEE2H4t00aYSyDfWyahSmsy+rbU939psvTHIqO1x4AZ3jM5nXfIPE
+         uCq2I+i8KDo503efp04bp6AiiRaVXs7cvdJwZ5FBO3aTg3y77vtQfke+tj6WIhSUwOyi
+         1ujw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687281446; x=1689873446;
+        d=1e100.net; s=20221208; t=1687281447; x=1689873447;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=W6n7UkNFBYZK+AuffqP9HBzXa1ya+3d/QBUvXRQbFCI=;
-        b=bagvDyyiCK0gmC2JSgoPvy3P0JSrwRGS6Q8xmepqw5m/J4h/edeCqfoWYd9N9sYZei
-         zVkgC4FmQ73wbzaer0nx/k75GiqpKL75xZLcaZixQjbyPFGFHMIU043bnV6eKrJxU7DG
-         yVHWVvUJmaiSJkzGURYj4/On4r6enDmxt3G8V6o4kVJ74Ny5CX2oGr9j506SwD29LEZE
-         i87xPtZg5jY1k4A9j3xgLEt0jEVX7QoOFxYtv1vLr2Z38VCHdbKz7bvsRktBc0Gf20rY
-         /Z7INp2iAFQJf9vIvuP1ngX5OEFs/WEXhsAarrcG0c2AqeVDjvOS5B7mJxSN7VvJ/HBr
-         tK8Q==
-X-Gm-Message-State: AC+VfDyKS/cVb2KTb1fFWSO4wq1S4LSkJgVUKLQCQEjdBgPOEDfZLgA0
-	Ixv6Jk4h/R4C+2HBobewxOiW8MO+isGCrQ==
-X-Google-Smtp-Source: ACHHUZ68QC9oB49thILBTGeZaENYOVn48+DUMt+IbjZtfNSwljGZxv+Qb3iD0g2PT+etPmH1FI2Wow==
-X-Received: by 2002:a25:8046:0:b0:bc4:5a65:1a4f with SMTP id a6-20020a258046000000b00bc45a651a4fmr10790263ybn.5.1687281445775;
-        Tue, 20 Jun 2023 10:17:25 -0700 (PDT)
+        bh=euxQjj1nka42h3IgnfVDkR/WuQVbd1+OBbuouObQPZw=;
+        b=lma+31c3vFuN7Hzuo5WA6bloFNnQRh8U41SjonSPx98vLoW2bgRlP1Kg7K3dbU2DSV
+         h5cTIvVecn2eZsP/DS9AVVxcJ6XbamWZ6R7dDJP0dzAjfTR7R4cAGC0L5aLHo9cxS04T
+         aqRkEU6LhdahCzn5clOqqFB1IjBPUHgziHn1gcg+92lBeUjdQJqA4bZ2e2n7U/BVPMz/
+         UYaHaOihQuYOQPpuH9Zbwk+4Fri4Jsz45dQnLtjocjjNIaeWnOLzcbdMsXztsqGJhAUK
+         3RLtWGT4ttskH5Fm0OIUS6U5j7df3ZPxxALYyITlqBII8yhSuGti6jEUjrJjJnufcRz7
+         aZUA==
+X-Gm-Message-State: AC+VfDwiTfdZ/x25PNRQQAKSEfrenjLgyM37uDcdaOy6u27RrVbBaYZr
+	6WRuoD5wo3pEMvvuT0puuG2gzQ0508xrqg==
+X-Google-Smtp-Source: ACHHUZ5EB8KP3P9ZxnevN/zJy70NatbVfjPaFOUdV6sEz7ptY4/9L8nrO3fKDKVEOiFJsfGBavnyxg==
+X-Received: by 2002:a25:3620:0:b0:bc9:716d:19bf with SMTP id d32-20020a253620000000b00bc9716d19bfmr7782477yba.14.1687281447274;
+        Tue, 20 Jun 2023 10:17:27 -0700 (PDT)
 From: Joel Upham <jupham125@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Joel Upham <jupham125@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 08/12] libxl: Q35 support (new option device_model_machine)
-Date: Tue, 20 Jun 2023 13:15:48 -0400
-Message-Id: <2aaf3c01bb1e43384fa5e5e0c4583d586f0a1bfe.1687215890.git.jupham125@gmail.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 09/12] libacpi: build ACPI MCFG table if requested
+Date: Tue, 20 Jun 2023 13:15:49 -0400
+Message-Id: <906595ebdc789e88715289ce48d306ae72e69fe1.1687215890.git.jupham125@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1687215890.git.jupham125@gmail.com>
 References: <cover.1687215890.git.jupham125@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Provide a new domain config option to select the emulated machine type,
-device_model_machine. It has following possible values:
-- "i440" - i440 emulation (default)
-- "q35" - emulate a Q35 machine. By default, the storage interface is AHCI.
+This adds construct_mcfg() function to libacpi which allows to build MCFG
+table for a given mmconfig_addr/mmconfig_len pair if the ACPI_HAS_MCFG
+flag was specified in acpi_config struct.
 
-Note that omitting device_model_machine parameter means i440 system
-by default, so the default behavior doesn't change for existing domain
-config files.
-
-Setting device_model_machine to "q35" sends '-machine q35,accel=xen'
-argument to QEMU. Unlike i440, there no separate machine type
-to enable/disable Xen platform device, it is controlled via a machine
-property only. See 'libxl: Xen Platform device support for Q35' patch for
-a detailed description.
+The maximum bus number is calculated from mmconfig_len using
+MCFG_SIZE_TO_NUM_BUSES macro (1MByte of MMIO space per bus).
 
 Signed-off-by: Alexey Gerasimenko <x1917x@xxxxxxxxx>
 Signed-off-by: Joel Upham <jupham125@gmail.com>
 ---
- tools/libs/light/libxl_dm.c      | 20 ++++++++++++++------
- tools/libs/light/libxl_types.idl |  8 ++++++++
- tools/xl/xl_parse.c              | 14 ++++++++++++++
- 3 files changed, 36 insertions(+), 6 deletions(-)
+ tools/libacpi/acpi2_0.h | 21 ++++++++++++++++++++
+ tools/libacpi/build.c   | 43 +++++++++++++++++++++++++++++++++++++++++
+ tools/libacpi/libacpi.h |  4 ++++
+ 3 files changed, 68 insertions(+)
 
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index fc264a3a13..17bc2113e1 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -1809,13 +1809,21 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
-             flexarray_append(dm_args, b_info->extra_pv[i]);
-         break;
-     case LIBXL_DOMAIN_TYPE_HVM:
--        if (!libxl_defbool_val(b_info->u.hvm.xen_platform_pci)) {
--            /* Switching here to the machine "pc" which does not add
--             * the xen-platform device instead of the default "xenfv" machine.
--             */
--            machinearg = libxl__strdup(gc, "pc,accel=xen,suppress-vmdesc=on");
-+        if (b_info->device_model_machine == LIBXL_DEVICE_MODEL_MACHINE_Q35) {
-+            if (!libxl_defbool_val(b_info->u.hvm.xen_platform_pci)) {
-+                machinearg = libxl__sprintf(gc, "q35,accel=xen");
-+            } else {
-+                machinearg = libxl__sprintf(gc, "q35,accel=xen,xen-platform-dev=on");
-+            }
-         } else {
--            machinearg = libxl__strdup(gc, "xenfv,suppress-vmdesc=on");
-+            if (!libxl_defbool_val(b_info->u.hvm.xen_platform_pci)) {
-+                /* Switching here to the machine "pc" which does not add
-+                 * the xen-platform device instead of the default "xenfv" machine.
-+                 */
-+                machinearg = libxl__strdup(gc, "pc,accel=xen,suppress-vmdesc=on");
-+            } else {
-+                machinearg = libxl__strdup(gc, "xenfv,suppress-vmdesc=on");
-+            }
-         }
-         if (b_info->u.hvm.mmio_hole_memkb) {
-             uint64_t max_ram_below_4g = (1ULL << 32) -
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index c10292e0d7..b1aadae877 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -108,6 +108,13 @@ libxl_device_model_version = Enumeration("device_model_version", [
-     (2, "QEMU_XEN"),             # Upstream based qemu-xen device model
-     ])
- 
-+libxl_device_model_machine = Enumeration("device_model_machine", [
-+    (0, "UNKNOWN"),
-+    (1, "I440"),
-+    (2, "Q35"),
-+    ])
+diff --git a/tools/libacpi/acpi2_0.h b/tools/libacpi/acpi2_0.h
+index 6dfa939a8c..02b0cf1098 100644
+--- a/tools/libacpi/acpi2_0.h
++++ b/tools/libacpi/acpi2_0.h
+@@ -442,6 +442,24 @@ struct acpi_20_slit {
+     uint64_t localities;
+     uint8_t entry[0];
+ };
++/*
++ * PCI Express Memory Mapped Configuration Description Table
++ */
++struct mcfg_range_entry {
++    uint64_t base_address;
++    uint16_t pci_segment;
++    uint8_t  start_pci_bus_num;
++    uint8_t  end_pci_bus_num;
++    uint32_t reserved;
++};
 +
++struct acpi_mcfg {
++    struct acpi_header header;
++    uint8_t reserved[8];
++    struct mcfg_range_entry entries[1];
++};
 +
- libxl_console_type = Enumeration("console_type", [
-     (0, "UNKNOWN"),
-     (1, "SERIAL"),
-@@ -575,6 +582,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     ("device_model_ssidref", uint32),
-     ("device_model_ssid_label", string),
-     ("device_model_user", string),
-+    ("device_model_machine", libxl_device_model_machine),
++#define MCFG_SIZE_TO_NUM_BUSES(size)  ((size) >> 20)
  
-     # extra parameters pass directly to qemu, NULL terminated
-     ("extra",            libxl_string_list),
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 1f6f47daf4..e6fb7a409a 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2689,6 +2689,20 @@ skip_usbdev:
-     if (!xlu_cfg_get_long (config, "stubdomain_memory", &l, 0))
-         b_info->stubdomain_memkb = l * 1024;
+ /*
+  * Table Signatures.
+@@ -458,6 +476,8 @@ struct acpi_20_slit {
+ #define ACPI_2_0_WAET_SIGNATURE ASCII32('W','A','E','T')
+ #define ACPI_2_0_SRAT_SIGNATURE ASCII32('S','R','A','T')
+ #define ACPI_2_0_SLIT_SIGNATURE ASCII32('S','L','I','T')
++#define ACPI_MCFG_SIGNATURE     ASCII32('M','C','F','G')
++
  
-+    if (!xlu_cfg_get_string (config, "device_model_machine", &buf, 0)) {
-+        if (!strcmp(buf, "i440")) {
-+            b_info->device_model_machine = LIBXL_DEVICE_MODEL_MACHINE_I440;
-+        } else if (!strcmp(buf, "q35")) {
-+            b_info->device_model_machine = LIBXL_DEVICE_MODEL_MACHINE_Q35;
-+        } else {
-+            fprintf(stderr,
-+                    "Unknown device_model_machine \"%s\" specified\n", buf);
-+            exit(1);
-+        }
-+    } else {
-+        b_info->device_model_machine = LIBXL_DEVICE_MODEL_MACHINE_UNKNOWN;
+ /*
+  * Table revision numbers.
+@@ -473,6 +493,7 @@ struct acpi_20_slit {
+ #define ACPI_1_0_FADT_REVISION 0x01
+ #define ACPI_2_0_SRAT_REVISION 0x01
+ #define ACPI_2_0_SLIT_REVISION 0x01
++#define ACPI_1_0_MCFG_REVISION 0x01
+ 
+ #pragma pack ()
+ 
+diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
+index 2f29863db1..fc029d18bf 100644
+--- a/tools/libacpi/build.c
++++ b/tools/libacpi/build.c
+@@ -295,6 +295,37 @@ static struct acpi_20_slit *construct_slit(struct acpi_ctxt *ctxt,
+     return slit;
+ }
+ 
++static struct acpi_mcfg *construct_mcfg(struct acpi_ctxt *ctxt,
++                                        const struct acpi_config *config)
++{
++    struct acpi_mcfg *mcfg;
++
++    /* Warning: this code expects that we have only one PCI segment */
++    mcfg = ctxt->mem_ops.alloc(ctxt, sizeof(*mcfg), 16);
++    if (!mcfg)
++        return NULL;
++
++    memset(mcfg, 0, sizeof(*mcfg));
++    mcfg->header.signature    = ACPI_MCFG_SIGNATURE;
++    mcfg->header.revision     = ACPI_1_0_MCFG_REVISION;
++    fixed_strcpy(mcfg->header.oem_id, ACPI_OEM_ID);
++    fixed_strcpy(mcfg->header.oem_table_id, ACPI_OEM_TABLE_ID);
++    mcfg->header.oem_revision = ACPI_OEM_REVISION;
++    mcfg->header.creator_id   = ACPI_CREATOR_ID;
++    mcfg->header.creator_revision = ACPI_CREATOR_REVISION;
++    mcfg->header.length = sizeof(*mcfg);
++
++    mcfg->entries[0].base_address = config->mmconfig_addr;
++    mcfg->entries[0].pci_segment = 0;
++    mcfg->entries[0].start_pci_bus_num = 0;
++    mcfg->entries[0].end_pci_bus_num =
++        MCFG_SIZE_TO_NUM_BUSES(config->mmconfig_len) - 1;
++
++    set_checksum(mcfg, offsetof(struct acpi_header, checksum), sizeof(*mcfg));
++
++    return mcfg;;
++}
++
+ static int construct_passthrough_tables(struct acpi_ctxt *ctxt,
+                                         unsigned long *table_ptrs,
+                                         int nr_tables,
+@@ -342,6 +373,7 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
+     struct acpi_20_hpet *hpet;
+     struct acpi_20_waet *waet;
+     struct acpi_20_tcpa *tcpa;
++    struct acpi_mcfg *mcfg;
+     struct acpi_20_tpm2 *tpm2;
+     unsigned char *ssdt;
+     void *lasa;
+@@ -402,6 +434,17 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
+         memcpy(ssdt, ssdt_laptop_slate, sizeof(ssdt_laptop_slate));
+         table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
+     }
++
++    /* MCFG */
++    if ( config->table_flags & ACPI_HAS_MCFG )
++    {
++        mcfg = construct_mcfg(ctxt, config);
++        if (!mcfg)
++            return -1;
++
++        table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, mcfg);
 +    }
 +
- #define parse_extra_args(type)                                            \
-     e = xlu_cfg_get_list_as_string_list(config, "device_model_args"#type, \
-                                     &b_info->extra##type, 0);            \
+     /* TPM and its SSDT. */
+     if ( config->table_flags & ACPI_HAS_TPM )
+     {
+diff --git a/tools/libacpi/libacpi.h b/tools/libacpi/libacpi.h
+index deda39e5db..b4d3116ca5 100644
+--- a/tools/libacpi/libacpi.h
++++ b/tools/libacpi/libacpi.h
+@@ -27,6 +27,7 @@
+ #define ACPI_HAS_8042              (1<<13)
+ #define ACPI_HAS_CMOS_RTC          (1<<14)
+ #define ACPI_HAS_SSDT_LAPTOP_SLATE (1<<15)
++#define ACPI_HAS_MCFG              (1<<16)
+ 
+ struct xen_vmemrange;
+ struct acpi_numa {
+@@ -89,6 +90,9 @@ struct acpi_config {
+     uint32_t ioapic_base_address;
+     uint16_t pci_isa_irq_mask;
+     uint8_t ioapic_id;
++
++    uint64_t mmconfig_addr;
++    uint32_t mmconfig_len;
+ };
+ 
+ int acpi_build_tables(struct acpi_ctxt *ctxt, struct acpi_config *config);
 -- 
 2.34.1
 
