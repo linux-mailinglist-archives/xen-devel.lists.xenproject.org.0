@@ -2,58 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E43738A3C
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 17:58:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552791.863129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1E57386F3
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 16:27:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552793.863060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qC0Di-0002Ke-So; Wed, 21 Jun 2023 15:58:10 +0000
+	id 1qBymi-0006X1-Lp; Wed, 21 Jun 2023 14:26:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552791.863129; Wed, 21 Jun 2023 15:58:10 +0000
+Received: by outflank-mailman (output) from mailman id 552793.863060; Wed, 21 Jun 2023 14:26:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qC0Di-0002It-Pn; Wed, 21 Jun 2023 15:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 552791;
- Wed, 21 Jun 2023 13:43:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBymi-0006VM-Is; Wed, 21 Jun 2023 14:26:12 +0000
+Received: by outflank-mailman (input) for mailman id 552793;
+ Wed, 21 Jun 2023 14:26:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pkmq=CJ=samsung.com=j.granados@srs-se1.protection.inumbo.net>)
- id 1qBy7q-0002aw-5a
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 13:43:58 +0000
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a9a4ffcd-1039-11ee-b236-6b7b168915f2;
- Wed, 21 Jun 2023 15:43:55 +0200 (CEST)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20230621134353euoutp02d57583f1260e1c228507969bf2dd64df~qsHaHGgl22310523105euoutp02y;
- Wed, 21 Jun 2023 13:43:53 +0000 (GMT)
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20230621134353eucas1p1dcc5fd6f5a9f46b250ca7cb322bfcb62~qsHZwC8jc0795907959eucas1p1j;
- Wed, 21 Jun 2023 13:43:53 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 7F.CE.42423.89EF2946; Wed, 21
- Jun 2023 14:43:52 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20230621134351eucas1p2f16d6185751b35072bbf7492517dd17b~qsHYhPi3_0645106451eucas1p2x;
- Wed, 21 Jun 2023 13:43:51 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20230621134351eusmtrp12ede84df94c73be5d139021f7caaec4e~qsHYfbU5Z3178131781eusmtrp1O;
- Wed, 21 Jun 2023 13:43:51 +0000 (GMT)
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id B0.8C.10549.79EF2946; Wed, 21
- Jun 2023 14:43:51 +0100 (BST)
-Received: from CAMSVWEXC02.scsc.local (unknown [106.1.227.72]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20230621134351eusmtip295329994762b412f6d02a3f47b794c24~qsHX0_Bhu0221102211eusmtip2V;
- Wed, 21 Jun 2023 13:43:51 +0000 (GMT)
-Received: from localhost (106.210.248.248) by CAMSVWEXC02.scsc.local
- (2002:6a01:e348::6a01:e348) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 21 Jun 2023 14:43:50 +0100
+ <SRS0=HqSO=CJ=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qBymh-0006VG-2y
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 14:26:11 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8cea1a46-103f-11ee-8611-37d641c3527e;
+ Wed, 21 Jun 2023 16:26:03 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-31121494630so6889624f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 07:26:03 -0700 (PDT)
+Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ h4-20020a1ccc04000000b003f8d0308616sm5140975wmb.32.2023.06.21.07.26.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jun 2023 07:26:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,343 +45,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9a4ffcd-1039-11ee-b236-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20230621134353euoutp02d57583f1260e1c228507969bf2dd64df~qsHaHGgl22310523105euoutp02y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1687355033;
-	bh=SetH/myydi6dk+ldkx72EVQztsegim0VSf5FSMMJW28=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=PTZBv1Kz5BEVObNa7leJ/yxGfQakTivesF5jb6tBj4a7mw0z2DwCV8KG/lz6Htp2A
-	 zjthU/P8T1sIWZ42nVHC5ArvGqiQK48scKj0Re/P/DwFQFC0M/FPQnfLTFYC/Ucswv
-	 L2oK3I/5AOGeZQ+wBCu+TIiCshDxA9TJNwfHFkfQ=
-X-AuditID: cbfec7f2-a51ff7000002a5b7-2b-6492fe98f38e
-Date: Wed, 21 Jun 2023 15:43:48 +0200
-From: Joel Granados <j.granados@samsung.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-CC: <mcgrof@kernel.org>, Russell King <linux@armlinux.org.uk>, Catalin
-	Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Michael
-	Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>, Vasily
-	Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Andy Lutomirski
-	<luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, Herbert Xu
-	<herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, Russ
-	Weight <russell.h.weight@intel.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Phillip Potter <phil@philpotter.co.uk>,
-	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, Corey
-	Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>, "Jason A.
- Donenfeld" <Jason@zx2c4.com>, Joonas Lahtinen
-	<joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
-	<airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "K. Y. Srinivasan"
-	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
-	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Jason Gunthorpe
-	<jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Benjamin Herrenschmidt
-	<benh@kernel.crashing.org>, Song Liu <song@kernel.org>, Robin Holt
-	<robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>, David Ahern
-	<dsahern@kernel.org>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Sudip Mukherjee
-	<sudipm.mukherjee@gmail.com>, Mark Rutland <mark.rutland@arm.com>, "James
- E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen"
-	<martin.petersen@oracle.com>, Doug Gilbert <dgilbert@interlog.com>, Jiri
-	Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, Stefano
-	Stabellini <sstabellini@kernel.org>, Alexander Viro
-	<viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Benjamin
-	LaHaise <bcrl@kvack.org>, David Howells <dhowells@redhat.com>, Jan Harkes
-	<jaharkes@cs.cmu.edu>, <coda@cs.cmu.edu>, Trond Myklebust
-	<trond.myklebust@hammerspace.com>, Anna Schumaker <anna@kernel.org>, Chuck
-	Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, Jan Kara
-	<jack@suse.cz>, Anton Altaparmakov <anton@tuxera.com>, Mark Fasheh
-	<mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, Joseph Qi
-	<joseph.qi@linux.alibaba.com>, Kees Cook <keescook@chromium.org>, Iurii
-	Zaikin <yzaikin@google.com>, Eric Biggers <ebiggers@kernel.org>, "Darrick J.
- Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
-	Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Balbir
-	Singh <bsingharora@gmail.com>, Eric Biederman <ebiederm@xmission.com>,
-	"Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, Anil S Keshavamurthy
-	<anil.s.keshavamurthy@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, Petr Mladek <pmladek@suse.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Juri Lelli
-	<juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, John
-	Stultz <jstultz@google.com>, Steven Rostedt <rostedt@goodmis.org>, Andrew
-	Morton <akpm@linux-foundation.org>, Mike Kravetz <mike.kravetz@oracle.com>,
-	Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi
-	<naoya.horiguchi@nec.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Joerg Reuter <jreuter@yaina.de>, Ralf Baechle <ralf@linux-mips.org>, Pablo
-	Neira Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>, Roopa Prabhu <roopa@nvidia.com>, Nikolay
-	Aleksandrov <razor@blackwall.org>, Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal
-	<miquel.raynal@bootlin.com>, Steffen Klassert
-	<steffen.klassert@secunet.com>, Matthieu Baerts
-	<matthieu.baerts@tessares.net>, Mat Martineau <martineau@kernel.org>, Simon
-	Horman <horms@verge.net.au>, Julian Anastasov <ja@ssi.bg>, Remi
-	Denis-Courmont <courmisch@gmail.com>, Santosh Shilimkar
-	<santosh.shilimkar@oracle.com>, Marc Dionne <marc.dionne@auristor.com>, Neil
-	Horman <nhorman@tuxdriver.com>, Marcelo Ricardo Leitner
-	<marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Karsten Graul
-	<kgraul@linux.ibm.com>, Wenjia Zhang <wenjia@linux.ibm.com>, Jan Karcher
-	<jaka@linux.ibm.com>, Jon Maloy <jmaloy@redhat.com>, Ying Xue
-	<ying.xue@windriver.com>, Martin Schiller <ms@dev.tdt.de>, John Johansen
-	<john.johansen@canonical.com>, Paul Moore <paul@paul-moore.com>, James
-	Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Jarkko
-	Sakkinen <jarkko@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>, Christian Borntraeger
-	<borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, "H. Peter
- Anvin" <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Mike Travis
-	<mike.travis@hpe.com>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Amir Goldstein <amir73il@gmail.com>, Matthew Bobrowski <repnop@google.com>,
-	John Fastabend <john.fastabend@gmail.com>, Martin KaFai Lau
-	<martin.lau@linux.dev>, Yonghong Song <yhs@fb.com>, KP Singh
-	<kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>, Hao Luo
-	<haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>, Waiman Long
-	<longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>, John Ogness
-	<john.ogness@linutronix.de>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Daniel
-	Bristot de Oliveira <bristot@redhat.com>, Valentin Schneider
-	<vschneid@redhat.com>, Andy Lutomirski <luto@amacapital.net>, Will Drewry
-	<wad@chromium.org>, Stephen Boyd <sboyd@kernel.org>, Miaohe Lin
-	<linmiaohe@huawei.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-ia64@vger.kernel.org>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-s390@vger.kernel.org>,
-	<linux-crypto@vger.kernel.org>, <openipmi-developer@lists.sourceforge.net>,
-	<intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-hyperv@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
-	<linux-raid@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<linux-scsi@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
-	<linux-fsdevel@vger.kernel.org>, <linux-aio@kvack.org>,
-	<linux-cachefs@redhat.com>, <codalist@telemann.coda.cs.cmu.edu>,
-	<linux-mm@kvack.org>, <linux-nfs@vger.kernel.org>,
-	<linux-ntfs-dev@lists.sourceforge.net>, <ocfs2-devel@oss.oracle.com>,
-	<fsverity@lists.linux.dev>, <linux-xfs@vger.kernel.org>,
-	<bpf@vger.kernel.org>, <kexec@lists.infradead.org>,
-	<linux-trace-kernel@vger.kernel.org>, <linux-hams@vger.kernel.org>,
-	<netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
-	<bridge@lists.linux-foundation.org>, <dccp@vger.kernel.org>,
-	<linux-wpan@vger.kernel.org>, <mptcp@lists.linux.dev>,
-	<lvs-devel@vger.kernel.org>, <rds-devel@oss.oracle.com>,
-	<linux-afs@lists.infradead.org>, <linux-sctp@vger.kernel.org>,
-	<tipc-discussion@lists.sourceforge.net>, <linux-x25@vger.kernel.org>,
-	<apparmor@lists.ubuntu.com>, <linux-security-module@vger.kernel.org>,
-	<keyrings@vger.kernel.org>
-Subject: Re: [PATCH 09/11] sysctl: Remove the end element in sysctl table
- arrays
-Message-ID: <20230621134348.rcdzl7fi7yq2uj6h@localhost>
+X-Inumbo-ID: 8cea1a46-103f-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1687357562; x=1689949562;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=w6Edw0GL+U2LPG5hpy7jxAqIEhtl61bvPSZjd1II0WU=;
+        b=QVTMEOIPTu0cVTLXlBnS0vxLJ6if+yWh4SW9rprAoec7HWp5GAWUjQ1tXBKJAS1g9M
+         l8ucMOMYAkXoDb+OBkG7ZzIbwhprVcY7H15ozRckQPtTz2+64SaEyEOey+cdjD9NVxMA
+         qlXfA/7khQWjcyGRcyajTn4zV437aBIa+tQWo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687357562; x=1689949562;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w6Edw0GL+U2LPG5hpy7jxAqIEhtl61bvPSZjd1II0WU=;
+        b=RIUexAFVix6Y5Rv32dxxJ3KySEFp1xIoSoIyRs2R/eF69e8qcfeVoMyPCKlzZycyY4
+         1sHWev1/gHaeJ67SrruPX/HVwcHHDWh+V5Ver4olWO0lNShvhIy29GIBrOCd8QdRqWjs
+         4lO62aApFFq3+jsQan9+DDSosGN79TkG62e3XpUx/ErRAv81BQJ3x4HRgUbxFy8h3qNs
+         LYhW2AezYqk/99MZxtzhlFlugHeRoE5aMdB3htz+yK4kO4vMXud31M+ukT20j8R00Fdn
+         hN40Zw+uHuqPV0Zp7acDPnrKDpoGmCHQX4gqkXrCZNcICZ+Y+QDX+leAKQ5Vrj9ngk41
+         pseg==
+X-Gm-Message-State: AC+VfDz/Z4TFlNWOPQMcfv6JQCty99d0tUOC/c8gGXfVi2iylW60/3zB
+	kWAPdo02U2KeMJ2jWuc/55LnLA==
+X-Google-Smtp-Source: ACHHUZ7SVzK41w7Io+gb7VFwTQGb8NbBdpMGSXQyVHfbHAT74LJ66HY9HSe7y5J3dlcWVWzhMSmJIQ==
+X-Received: by 2002:a05:6000:11d2:b0:30f:c473:dfd0 with SMTP id i18-20020a05600011d200b0030fc473dfd0mr12014271wrx.12.1687357562291;
+        Wed, 21 Jun 2023 07:26:02 -0700 (PDT)
+Message-ID: <64930879.1c0a0220.28719.ce38@mx.google.com>
+X-Google-Original-Message-ID: <ZJMId84msEQEdq9o@EMEAENGAAD19049.>
+Date: Wed, 21 Jun 2023 15:25:59 +0100
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] mm/pdx: Add comments throughout the codebase for pdx
+References: <20230615162741.2008-1-alejandro.vallejo@cloud.com>
+ <984e13ef-a73e-126c-0bf8-58bee9beb7b2@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="nwcq3i6cyedok5cv"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <878rcd2by5.fsf@intel.com>
-X-Originating-IP: [106.210.248.248]
-X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
-	CAMSVWEXC02.scsc.local (2002:6a01:e348::6a01:e348)
-X-Brightmail-Tracker: H4sIAAAAAAAAA2WTa1ATZxSG59tddkM0do1Yv8HbCFItAi0dW45t6Vir7eroTMsPW53xEmVB
-	WxKUiEV7SyUUBNSAg5GgyCVGI1cxRC4DakAQUISKAl4KQrCKmqhAFFEocbF1pv+e77zve+Y9
-	Pz4RKdWI3EWbFdv4CIUszIMWU+aawcu+B4eTg9/v6v8YLKoAKL97g4KY0hEK+gdvMNBXXUvD
-	/aonCA7du8iA3ZCIQH/hNgGO3DYCyvNtBLwsjSVhxJxEwt3C2FHfZTUFleoiBLZdQxT0aIpJ
-	uGKdAC0Ddhryy2KIUa+agZ6aLgZ2d43QYI9eC006hwtEZxfQYKk9w0BC7zSILh5AcODkFEjT
-	nCIgTRtNQPKgBkHnVXfIajMTcKj9A7AdngaDhhMM1DU6KMgvyCZgV8lxAi70x9BgbjmCoCKT
-	AKPhGQODe8dBavzoFvuBNAJ2Pz1KgabeHx7r6xm4dvoWASlJj2h4FGdzgaazDS4Qe6QMwR3L
-	HgoSWktouLnfQEHZixIGLCkVCHLyVKOF+7rJhTKu48FListNz0XclWvNJHe9a4Dk0nN/4nSq
-	PTSXpmqmuIzq5dzzQW/OZGwnuITqXpLraQ7iKhwZFFequ8Vw5rNeXEZR5NcfrhZ/GsyHbd7O
-	R7z32XrxpiRNJbXlkm9UbPclFxVqmR2PXEWYnY+Hqp8R8UgskrLHES7ub3ZxClK2H+HcjpWC
-	0IdwfayKfJ3I6e6jBOEYwvrhFOJfl6midkwpRvi8toZ2RijWC3cmJRJOplkffPnBzVer3Fhf
-	nNdmdXEGSPbPBTi2qBo5hUlsEFZnxTHxSCSSsAG4u1PpHEvYibgu1Uo5mWSjsLVRTzktJDsV
-	HxsWOdGVnYOtdbRQ1BO3VmaP8S+43nSdELh9PO6ysQIvxqlHTUjgSbi31sQIPA037E98dQpm
-	9yN8ZvgRIzxyEDb8PjC26ROsbrGOJT7HF7LO084SmJ2A2x5OFGpOwMlmLSmMJTjuD6ngfgfn
-	/PWA0iBP3RuH6d44TPffYcLYB2eUP6H/N56HDZn3SYEDcX6+ncpAzAk0hY9UykN5pb+C/9FP
-	KZMrIxWhfhvD5UVo9KM2DNc+KUGHex/7WRAhQhY0ezTcVZjThNwpRbiC93CTTC9KDpZKgmU7
-	dvIR4esiIsN4pQVNFVEeUyTzAus2StlQ2Tb+B57fwke8VgmRq7uKSPuifGj9ouDxm1Yc3Fr/
-	bdRHcxVGPEs7XPp369anxPS3lwWuuOJXaBIb63fGdK7URoUWTpborp4zFthC3FxXnXSsCuyd
-	+ZXWS5l3Z69D913P6dA5x2UNIy+q2IL2RL3dpyUtkdznmeDVkl5itVYOWY5NbZ6foOduuvGJ
-	6gxdzaR1M5bmoZyfrSHfz1vzrKMqvtKb3L5sZPIi8z35N9qkDQuzQ4LHOcb73G57y3vHb6cq
-	/AMe7mtdc6bo3AY/a4B6YJGvfndHufTdGdyWkJnixnBjmbygYOlFz8cDv95d0ihd7GaeKw4J
-	eq7vtK27akyan7ng/J61q+NM8udfWiVVZTuXn7DPGvKglJtk/t5khFL2D92Tjv8jBQAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA2WTe0xTVxzHc+69va3GujtEvSIzrLJsQyiWh/4YymbcsrvNxM0EzXCiHdwp
-	QVrWApkaHUKrUMRhEygrpgJaHPbBQ0DFwUxlIHNB5aniHBYUeaNQHGLbtXbLTPbPyed8z/f7
-	ze+c5PBwr1quDy9BksLKJOK9AnI+cd3Rcj9I41DHr86f9YGq60MkXOspxeBkhZEES/pauGk2
-	IHg2V4TD5ce9BCgvOQm4VF3DgcPNxRywq5u5MD3bywWVo4aAyQwlDsaawxj02y0kTFU6XEtT
-	CwkjV58iuGZ0+dr7u0jQDB0m4OTQ71yYKDuG4J56kAvOPwYxOHPtAQYzxtsYXDaPY2C/dBSH
-	qQeDHHDWncDhdMkMDo8rjyI4eUNBgL0nh4RGRTWCxkITCeMZcwQ8zKvFoWNgIXTaJkgw1ysx
-	V1TBBdPPL3B42GzlQrbVSUJdrutWE5mxcFM7w4HM0xUkdF9gwNLyCxdGdOcQ5Az7QmatDUFB
-	1VIoyjuPwcAPVg4UaTIx0Pdmc6CzbJKEsx0VCNSzeeiDXxHT0fkZ80x5nGD+HLUTjFFndEnd
-	t3Bm7rkaMXetNpwZb2tFjM54gNGm55JMUfotgilu2sTY7rRhzPPZAKam/A7G5DQN459HxwjX
-	yaSpKazfHqk8Zb1guwhChKIIEIaERQhFoWt3vBcSLgiOWhfP7k1IY2XBUbuEexrmfsOTrwd9
-	p5lyonTU7q9C83g0FUYb+qcIN3tRekSnGyI9ui9dNd3F8fAi+kW3ilSh+S7PE0TXmBTIs6lF
-	9HThDHK7COotuu/EMczNJBVI3xi9h7vZmwqiTbcHOO4ATrVF0IqxTtJ9sIjaQitKs7gqxOPx
-	qbV0f5/cU2rA6Jz6updhPvU63frjwMvxcCqNftQwhrn9OLWcPuvguXEe9TY90Ep6Bl1J9zSe
-	/ocP0lP2RygPLdK+UqR9pUj7X5FHDqBvO4b+L6+iy0pGcA+vp83mCaIYcc8hbzZVnrQ7SS4S
-	ysVJ8lTJbmGcNKkauf5MXfPs+YtIN/xEaEEYD1mQvytprTTcRD6ERCphBd78N6rV8V78ePG+
-	/axMulOWupeVW1C46xFP4D6L46SuDyhJ2SlaszpcFLYmYnV4xJpQwVL+J8lZYi9qtziFTWTZ
-	ZFb2bw7jzfNJx14rj+b39kWHUfmOwWfLtqZtKGyK2bbxHWnDzMXEzE11On/O05KqRCx0eeQB
-	ZXP9l2Oxm6vaskb2ZSyMexRZNmPSKg853/dTHrlq74oZ1dbtutUbW5zNDRgwtK/aMCeub7d2
-	bKwONvM+1G1eqf0mkPatXcCUSFZsbeHXLo61Zx+q2h83zbdEPezeVZ4xaFI1bHkQ/ldfiGVs
-	27vOj5fs32LjHLm7zP/rLzhj7UFXZj/1zzhlL8hv/Oin7G8XKy/c//7UxX1nkjQamyC49Yq+
-	QFauN43qo1dszxO9GT/Sn39wSUJRaWxkSaC5O+as/fHWxEnbAi8/UbI5IumrxDv6hNwd00Jm
-	SEDI94hFAbhMLv4bHgGuKMgEAAA=
-X-CMS-MailID: 20230621134351eucas1p2f16d6185751b35072bbf7492517dd17b
-X-Msg-Generator: CA
-X-RootMTR: 20230621094824eucas1p2b6adfbd3f15ff3665674917f419b25d3
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20230621094824eucas1p2b6adfbd3f15ff3665674917f419b25d3
-References: <20230621091000.424843-1-j.granados@samsung.com>
-	<CGME20230621094824eucas1p2b6adfbd3f15ff3665674917f419b25d3@eucas1p2.samsung.com>
-	<20230621094817.433842-1-j.granados@samsung.com> <87o7l92hg8.fsf@intel.com>
-	<20230621130614.s36w4u7dzmb5d5p3@localhost> <878rcd2by5.fsf@intel.com>
+In-Reply-To: <984e13ef-a73e-126c-0bf8-58bee9beb7b2@suse.com>
 
---nwcq3i6cyedok5cv
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, Jun 19, 2023 at 05:30:20PM +0200, Jan Beulich wrote:
+> > + * ma_{top,bottom}_mask is simply a shifted pfn_{top,pdx_bottom}_mask where the
+> > + * bottom one shifts in 1s rather than 0s.
+> > + */
+> 
+> Nit: That 2nd bottom variable is ma_va_bottom_mask.
+Sure
 
-On Wed, Jun 21, 2023 at 04:15:46PM +0300, Jani Nikula wrote:
-> On Wed, 21 Jun 2023, Joel Granados <j.granados@samsung.com> wrote:
-> > On Wed, Jun 21, 2023 at 02:16:55PM +0300, Jani Nikula wrote:
-> >> On Wed, 21 Jun 2023, Joel Granados <j.granados@samsung.com> wrote:
-> >> > Remove the empty end element from all the arrays that are passed to =
-the
-> >> > register sysctl calls. In some files this means reducing the explicit
-> >> > array size by one. Also make sure that we are using the size in
-> >> > ctl_table_header instead of evaluating the .procname element.
-> >>=20
-> >> Where's the harm in removing the end elements driver by driver? This is
-> >> an unwieldy patch to handle.
-> >
-> > I totally agree. Its a big one!!! but I'm concerned of breaking bisecti=
-bility:
-> > * I could for example separate all the removes into separate commits and
-> >   then have a final commit that removes the check for the empty element.
-> >   But this will leave the tree in a state where the for loop will have
-> >   undefined behavior when it looks for the empty end element. It might
-> >   or might not work (probably not :) until the final commit where I fix
-> >   that.
-> >
-> > * I could also change the logic that looks for the final element,
-> >   commit that first and then remove the empty element one commit per
-> >   driver after that. But then for all the arrays that still have an
-> >   empty element, there would again be undefined behavior as it would
-> >   think that the last element is valid (when it is really the sentinel).
-> >
-> > Any ideas on how to get around these?
->=20
-> First add size to the register calls, and allow the last one to be
-> sentinel but do not require the sentinel.
->=20
-> Start removing sentinels, adjusting the size passed in.
-This is a great idea! and I think I don't even have to adjust the size
-because if I change the logic to stop on the sentinel or the size; so when
-the sentinel is there, it will stop before the size. And when the
-sentinel is not there, it will stop on the correct size.
+> 
+> > @@ -57,9 +99,25 @@ uint64_t __init pdx_init_mask(uint64_t base_addr)
+> >                           (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
+> >  }
+> >  
+> > -u64 __init pdx_region_mask(u64 base, u64 len)
+> > +uint64_t __init pdx_region_mask(uint64_t base, uint64_t len)
+> >  {
+> > -    return fill_mask(base ^ (base + len - 1));
+> > +    uint64_t last = base + len - 1;
+> > +    /*
+> > +     * The only bit that matters in base^last is the MSB. There are 2 cases.
+> > +     *
+> > +     * case msb(base) < msb(last):
+> > +     *     then fill_mask(base^last) == fill_mask(last). This is non
+> > +     *     compressible.
+> > +     * case msb(base) == msb(last):
+> > +     *     This means that there _may_ be a sequence of compressible zeroes
+> > +     *     for all addresses between `base` and `last` iff `base` has enough
+> > +     *     trailing zeroes. That is, it's compressible when
+> > +     *     fill_mask(base^last) < fill_mask(last)
+> > +     *
+> > +     * The resulting mask is effectively the moving bits between `base` and
+> > +     * `last`
+> > +     */
+> > +    return fill_mask(base ^ last);
+> >  }
+> 
+> I don't see a need for you to actually change the code here. You can
+> as well introduce "last" as shorthand just for the comment.
+I thought as you did initially and wrote it as such. In the end it felt
+wrong to have an explanation in terms of a token not present in the code.
+Furthermore, explaining what the shorthand is in the comment takes more
+space than introducing `last` in the code itself.
 
-There might be issues with indirection calls. And there might also be
-lots of places where I need to adjust a for loop (as dan has pointed
-out) but its worth a try for V2.
+```
+   uint64_t last = base + len - 1;
+  /*
+   * The only bit that matters in base^last is the MSB. There are 2 cases.
+```
+                              vs
+```
+  /*
+   * Let `last = base + len -1` out of convenience.
+   * The only bit that matters in base^last is the MSB. There are 2 cases.
+```
 
-Best
->=20
-> Once enough sentinels have been removed, add warning if the final entry
-> is a sentinel.
->=20
-> Never really remove the check? (But surely you can rework the logic to
-> not count the number of elements up front, only while iterating.)
->=20
->=20
-> BR,
-> Jani.
->=20
-> >>=20
-> >> > diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915=
-/i915_perf.c
-> >> > index f43950219ffc..e4d7372afb10 100644
-> >> > --- a/drivers/gpu/drm/i915/i915_perf.c
-> >> > +++ b/drivers/gpu/drm/i915/i915_perf.c
-> >> > @@ -4884,24 +4884,23 @@ int i915_perf_remove_config_ioctl(struct drm=
-_device *dev, void *data,
-> >> > =20
-> >> >  static struct ctl_table oa_table[] =3D {
-> >> >  	{
-> >> > -	 .procname =3D "perf_stream_paranoid",
-> >> > -	 .data =3D &i915_perf_stream_paranoid,
-> >> > -	 .maxlen =3D sizeof(i915_perf_stream_paranoid),
-> >> > -	 .mode =3D 0644,
-> >> > -	 .proc_handler =3D proc_dointvec_minmax,
-> >> > -	 .extra1 =3D SYSCTL_ZERO,
-> >> > -	 .extra2 =3D SYSCTL_ONE,
-> >> > -	 },
-> >> > +		.procname =3D "perf_stream_paranoid",
-> >> > +		.data =3D &i915_perf_stream_paranoid,
-> >> > +		.maxlen =3D sizeof(i915_perf_stream_paranoid),
-> >> > +		.mode =3D 0644,
-> >> > +		.proc_handler =3D proc_dointvec_minmax,
-> >> > +		.extra1 =3D SYSCTL_ZERO,
-> >> > +		.extra2 =3D SYSCTL_ONE,
-> >> > +	},
-> >> >  	{
-> >> > -	 .procname =3D "oa_max_sample_rate",
-> >> > -	 .data =3D &i915_oa_max_sample_rate,
-> >> > -	 .maxlen =3D sizeof(i915_oa_max_sample_rate),
-> >> > -	 .mode =3D 0644,
-> >> > -	 .proc_handler =3D proc_dointvec_minmax,
-> >> > -	 .extra1 =3D SYSCTL_ZERO,
-> >> > -	 .extra2 =3D &oa_sample_rate_hard_limit,
-> >> > -	 },
-> >> > -	{}
-> >> > +		.procname =3D "oa_max_sample_rate",
-> >> > +		.data =3D &i915_oa_max_sample_rate,
-> >> > +		.maxlen =3D sizeof(i915_oa_max_sample_rate),
-> >> > +		.mode =3D 0644,
-> >> > +		.proc_handler =3D proc_dointvec_minmax,
-> >> > +		.extra1 =3D SYSCTL_ZERO,
-> >> > +		.extra2 =3D &oa_sample_rate_hard_limit,
-> >> > +	}
-> >> >  };
-> >>=20
-> >> The existing indentation is off, but fixing it doesn't really belong in
-> >> this patch.
-> >
-> > Agreed. But I actually was trying to fix something that checkpatch
-> > flagged. I'll change these back (which will cause this patch to be
-> > flagged).
-> >
-> > An alternative solution would be to fix the indentation as part of the
-> > preparation patches. Tell me what you think.
-> >
-> > Thx
-> >
-> >>=20
-> >> BR,
-> >> Jani.
-> >>=20
-> >>=20
-> >> --=20
-> >> Jani Nikula, Intel Open Source Graphics Center
->=20
-> --=20
-> Jani Nikula, Intel Open Source Graphics Center
+TL;DR: I didn't factor out `last` due to aesthetics (I'd rather not touch
+the code in this patch, in fact), but it seems warranted in order to reduce
+the impedance mismatch between this big-ish comment and the call it
+describes. I'll post v2 without that adjustment in case I managed to
+convince you. Otherwise feel free to adjust it on commit.
 
---=20
+> What I dislike in your way of putting it is the use of fill_mask(last) when
+> such a call never occurs in code. Starting from the first sentence,
+> can't you explain things just in terms of said MSB
+I see. I can refer to the MSBs instead. Works equally well.
 
-Joel Granados
+e.g:
+  fill_mask(base^last) == fill_mask(last)
+                 |
+                 V
+  msb(fill_mask(base^last)) == msb(last)
 
---nwcq3i6cyedok5cv
-Content-Type: application/pgp-signature; name="signature.asc"
+> (where the two cases are "set" and "clear")?
+I'm not sure I understand what you mean here.
 
------BEGIN PGP SIGNATURE-----
+> 
+> > --- a/xen/include/xen/mm.h
+> > +++ b/xen/include/xen/mm.h
+> > @@ -31,6 +31,22 @@
+> >   *   (i.e. all devices assigned to) a guest share a single DMA address space
+> >   *   and, by default, Xen will ensure dfn == pfn.
+> >   *
+> > + * pdx: Page InDeX
+> > + *   Indices into the frame table holding the per-page's book-keeping
+> > + *   metadata. A compression scheme is used and there's a non-identity
+> > + *   mapping between valid(mfn) <-> valid(pdx) See the comments in pdx.c
+> > + *   for an in-depth explanation of that mapping.
+> 
+> The mapping may very well be (and on x86 typically is) an identity
+> one. IOW you want to describe not only the compression case, but also
+> the "no compression possible" one.
+Point taken. I'll rephrase it slightly as "possibly non-identity" and
+explicitly state the "no compression is possible" case.
 
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmSS/pIACgkQupfNUreW
-QU8FZgv+NJjIGObr29DU3w9gC84AcnW6dJTp9wHS00NxSXpo+c714JQ2xV0z8i/m
-wZbyBR21D/CkjJCTL0pwjCh1xi+PdMHmpB9mDlQSxEg6i+fJXBb7GvWvkOfNagP8
-Z2t/NzP/RPP+/BjBP3QOGNyQWgZ4Jl6lMvzlt0aJlHMx7/QD7PRgnNN3KYiFzB+I
-FTf5QLbTT85TSPPoGBQCzF6Ych5vKNmIzRZxD2o1zPJFftGIcYOfYOC7vX/1tuOa
-1l2+maHSi22uTAHFL3XKvcQBxuLeBCoAIgYOGeO0B+wApLgDVUdHb3PPMw74sOuD
-RtgKG6gEgO937g+zKo5xP6M5iLH8xYavJRYPNGH5FBfL7DDROXI6t9tjBpvpUbPS
-VQDducT3r8p7hbIhb+3MnRgJri1yF7SjRZF6iewJ9G3Rd7o8PlcLC3aTZLvilO9j
-4YYKID1bOqsI9tcLY5oeM6HROqdmLhzFQQlzZCCz4Y/1XVO7ZKpJHP97wqBETkbq
-DRVhBHDj
-=lxdq
------END PGP SIGNATURE-----
+> 
+> PDXes also aren't just indexes to the frame table, but also to the
+> direct mapping.
+I had something to that effect earlier on, but I removed it because it
+doesn't seem to be the case on ARM. There's a directmap_base_pdx global
+that states the first pdx to be mapped on the directmap.
 
---nwcq3i6cyedok5cv--
+> 
+> > + * maddr: Machine Address
+> > + *   The physical address that corresponds to an mfn
+> > + *
+> > + * vaddr: Xen Virtual Address
+> > + *   A virtual address of memory accesible to Xen. It is typically either
+> > + *   an address into the direct map or to Xen's own code/data. The direct
+> > + *   map implements several compression tricks to save memory, so an offset
+> > + *   into it does _not_ necessarily correspond to an maddr due to pdx
+> > + *   compression.
+> 
+> We need to be careful here: If I'm not mistaken at least Arm uses vaddr
+> also for guest addresses. In fact I'm not sure vaddr (and perhaps even
+> maddr) need explaining here
+I'd like to have at least maddr. It's sufficiently project-specific to be
+otherwise confusing to find unexplained elsewhere. i.e: In other bare-metal
+projects that would be a paddr instead.
+
+vaddr might be trying too hard to boil the ocean as far as definitions go.
+I can get rid of it.
+
+> the more that nothing in this header uses either term.
+True. But it should be somewhere and this is the main memory-management
+header, where the frame number definitions are. In general, things that
+change together ought to stay together.
+
+> > + * ## PDX compression
+> > + *
+> > + * This is a technique to avoid wasting memory on machines known to have
+> > + * split their machine address space in two big discontinuous and highly
+> > + * disjoint chunks.
+> 
+> Why two? There can be any number, and in fact on the system I originally
+> had data from for reference (when first writing this code) iirc there
+> were 8 nodes, each with a chunk of memory far away from the other chunks.
+> The compression scheme used merely requires that some "inner" bits are
+> unused (always zero) in all of those ranges.
+Well, our implementation only supports two and I didn't see any obvious
+hints about intending to increasing that number. I see where you're coming
+from, though. I can make it more general so it's not outdated if the
+pfn_to_pdx()/pdx_to_pfn() pair ever increases in scope to do several holes.
+
+Out of curiosity (and for posterity's sake), what was/is that system?
+
+> 
+> > + * In its uncompressed form the frame table must have book-keeping metadata
+> > + * structures for every page between [0, max_mfn) (whether they exist or
+> 
+> s/they exist/there is RAM/ ?
+They exist is ambiguous, true. Rewrote it as "they are backed by RAM"
+
+> 
+> > + * not), and a similar condition exists for the direct map. We know some
+> > + * architectures, however, that have some sparsity in their address space,
+> > + * leading to a lot of wastage in the form of unused frame table entries.
+> 
+> Hmm, "architectures" suggests e.g. Arm might have such, but x86 won't.
+> Perhaps "systems", "designs", or "system designs"?
+I like `systems` better. Sure.
+
+> 
+> > @@ -13,22 +69,77 @@ extern unsigned long pfn_top_mask, ma_top_mask;
+> >                           (sizeof(*frame_table) & -sizeof(*frame_table)))
+> >  extern unsigned long pdx_group_valid[];
+> >  
+> > -extern uint64_t pdx_init_mask(u64 base_addr);
+> > -extern u64 pdx_region_mask(u64 base, u64 len);
+> > +/**
+> > + * Calculates a mask covering "moving" bits of all addresses of a region
+> > + *
+> > + * e.g:
+> > + *       base=0x1B00000000
+> > + *   len+base=0x1B0008200;
+> > + *
+> > + *   ought to return 0x00000FFFFF;
+> > + *
+> > + * @param base Base address of the region
+> > + * @param len  Size in octets of the region
+> > + * @return Mask of moving bits at the bottom of all the region addresses
+> > + */
+> 
+> This looks to be a copy-and-paste of pdx_region_mask()'s comment, when
+> the function has neither a "base" parameter, nor a and one at all.
+Oops. A victim of incompatible rebases. I extracted these comments from an
+ongoing patch series I'm working on. I'll (try to) write an actual comment
+for it.
+
+> 
+> > +uint64_t pdx_init_mask(u64 base_addr);
+> 
+> No u64 -> uint64_t here?
+> 
+> > -extern void set_pdx_range(unsigned long smfn, unsigned long emfn);
+> > +/**
+> > + * Calculates a mask covering "moving" bits of all addresses of a region
+> > + *
+> > + * e.g:
+> > + *       base=0x1B00000000
+> > + *   len+base=0x1B0008200;
+> > + *
+> > + *   ought to return 0x00000FFFFF;
+> 
+> I think it would help if you actually said how the return value actually
+> derives. The term "moving" may be understood differently be different
+> people, and hence such an explanation actually would also clarify what
+> "moving" means.
+Hmmm, I'd rather not explicitly state the XOR here though. I'm adding a
+couple more lines explaining things in terms of the i-th bit of the mask
+and all the region addresses. Ideally this comment ought to explain the
+intuition, while the comment in pdx.c explains the implementation.
+
+> 
+> I also thing there's a 0 missing in the len+base value, without which
+> the result would be quite a bit different.
+Indeed.
+
+> > +/**
+> > + * Mark range between smfn and emfn is allocatable in the frame table
+> > + *
+> > + * @param smfn Start mfn
+> > + * @param emfn End mfn
+> > + */
+> > +void set_pdx_range(unsigned long smfn, unsigned long emfn);
+> 
+> This could do with mathematically expressing the range in the comment,
+> such that (in|ex)clusiveness of, in particular, emfn is clarified.
+Good point. Sure.
+
+
+> > +/**
+> > + * Invoked to determine if an mfn maps to a legal pdx
+> 
+> I wouldn't use "pdx" here, but refer to frame_table[] instead.
+I can rewrite it as something along those lines, sure.
+
+> 
+> > + * In order for it to be legal it must pass bounds, grouping and
+> > + * compression sanity checks.
+> > + *
+> > + * @param smfn Start mfn
+> > + * @param emfn End mfn
+> > + * @return True iff all checks pass
+> > + */
+> >  bool __mfn_valid(unsigned long mfn);
+> 
+> Comment again mentions inapplicable parameters.
+Ack.
+
+> 
+> > @@ -38,7 +149,16 @@ static inline unsigned long pdx_to_pfn(unsigned long pdx)
+> >  #define mfn_to_pdx(mfn) pfn_to_pdx(mfn_x(mfn))
+> >  #define pdx_to_mfn(pdx) _mfn(pdx_to_pfn(pdx))
+> >  
+> > -extern void pfn_pdx_hole_setup(unsigned long);
+> > +/**
+> > + * Initializes global variables with information about the compressible
+> > + * range of the current memory regions.
+> > + *
+> > + * @param mask This mask is the biggest pdx_mask of every region in the
+> > + *             system ORed with all base addresses of every region in the
+> > + *             system. The result is a mask where every sequence of zeroes
+> > + *             surrounded by ones is compressible.
+> > + */
+> > +void pfn_pdx_hole_setup(unsigned long mask);
+> 
+> With the function returning void, I find "The result" problematic. How about
+> "This results in ..."?
+Sounds better. Sure.
+
+> 
+> Btw, "surrounded by ones" isn't really necessary. We could compress shorter
+> sequences of zeros, so this may want re-wording a little to be as precise
+> as possible.
+> 
+> Jan
+Fair. I'll tweak the definition.
+
+Alejandro
 
