@@ -2,40 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2099F73890C
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 17:28:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552818.863100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1A3573892B
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 17:30:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552822.863110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBzkH-0006Ap-0u; Wed, 21 Jun 2023 15:27:45 +0000
+	id 1qBzml-0007ZY-Dh; Wed, 21 Jun 2023 15:30:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552818.863100; Wed, 21 Jun 2023 15:27:44 +0000
+Received: by outflank-mailman (output) from mailman id 552822.863110; Wed, 21 Jun 2023 15:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBzkG-00067t-U7; Wed, 21 Jun 2023 15:27:44 +0000
-Received: by outflank-mailman (input) for mailman id 552818;
- Wed, 21 Jun 2023 15:27:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RZUy=CJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qBzkF-00067n-JP
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 15:27:43 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20607.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2823a1e1-1048-11ee-8611-37d641c3527e;
- Wed, 21 Jun 2023 17:27:39 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBBPR04MB7900.eurprd04.prod.outlook.com (2603:10a6:10:1e8::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Wed, 21 Jun
- 2023 15:27:37 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6500.036; Wed, 21 Jun 2023
- 15:27:37 +0000
+	id 1qBzml-0007X5-AN; Wed, 21 Jun 2023 15:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 552822;
+ Wed, 21 Jun 2023 15:30:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Pkmq=CJ=samsung.com=j.granados@srs-se1.protection.inumbo.net>)
+ id 1qBzmj-0007Wu-16
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 15:30:17 +0000
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83a89c77-1048-11ee-b236-6b7b168915f2;
+ Wed, 21 Jun 2023 17:30:14 +0200 (CEST)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20230621153011euoutp01192645862d3e0a543891af4b47de94a9~qtkOS32Qw0899308993euoutp01Q;
+ Wed, 21 Jun 2023 15:30:11 +0000 (GMT)
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20230621153011eucas1p2787595ff5b934c65ea1727b5d5deb74f~qtkN_c_kP1922119221eucas1p26;
+ Wed, 21 Jun 2023 15:30:11 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 3D.E0.11320.38713946; Wed, 21
+ Jun 2023 16:30:11 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20230621153010eucas1p25fabdc546fa653beb103f6f68f4da531~qtkNVQ-cl3128231282eucas1p2P;
+ Wed, 21 Jun 2023 15:30:10 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20230621153010eusmtrp230e48834a7a1b40e208c6136e69457d4~qtkNTp7dV2052520525eusmtrp2q;
+ Wed, 21 Jun 2023 15:30:10 +0000 (GMT)
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 53.6C.10549.28713946; Wed, 21
+ Jun 2023 16:30:10 +0100 (BST)
+Received: from CAMSVWEXC02.scsc.local (unknown [106.1.227.72]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20230621153010eusmtip231fdedfd7d7cff792547031f714e18c9~qtkM_OVY70222902229eusmtip2f;
+ Wed, 21 Jun 2023 15:30:10 +0000 (GMT)
+Received: from localhost (106.210.248.248) by CAMSVWEXC02.scsc.local
+ (2002:6a01:e348::6a01:e348) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 21 Jun 2023 16:30:09 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,170 +65,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2823a1e1-1048-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PQN9Vr0zFvd7aJYtrZPLLK3wwa9cUgqpnxcKXSYKhuJ7Mlb7xN2jEq98YhQXDRv3xYqefs0UdN7rxge/TBhvHUFYrqPhbXsZimh35gKTzR4LxbAe7LAWWXCFfEDDLXkcrQRJNInlpgPYHUt//m54k/zwPYSXIlGgutYmposZsjcywE0J+4GQy5jJwq4aD6gl2gBpD6ZJgzsZA5/3XFltow0gL51JG85lh1n2wzAjLra9m/dCH7rdQlMkiCmJ1aroJJhK1p68RGJWdDewLmj92iQz2ggOHjN0iJ4eH/G5Kbo8zSNk6ePkVjNRxuaVqEwA0xR3nECUV16LySnf/5qXXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cY5YGSielma6L4kluSLfNYfLGtEZqe6VTMMwv8D4USY=;
- b=MBNt6EfU0QPoehkgYQ5lMr6J9V+fm9t9rhxfESplXtDgtvBBVPhIMj3CGyB2LTeGkNei6xE/21ajtR4SApvsUncc9MsN4e1r5qM4C5Z9yARsWDQ0VOySn9OOO9IHxVCXqEBpk2gdYK4/l8Axpko+wsoQg5+T9wTYVX51YVRyJ0FFKPTRucR/hxxHLy47Ly3dbD1bcISYQBvqqvCFM9UECySJsJNmNl2hMQpWGmvJJn9XL9o3jokmnkvsbvGLKyB7pdC2X6qykUJXD4mh1j4a61MOmDhXG3O1UCcUawb3W4aJydnbs7tBr/9IvPqKbK3TSA4XQE9Fjz+nkaOelnlkyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cY5YGSielma6L4kluSLfNYfLGtEZqe6VTMMwv8D4USY=;
- b=nLw9aB62kV5QRqpqsXx+qxB72VQv5mpUCnhi0HWM/D3STxALz7LxZn2RfqTR+W0l7VsGhGx+rQ8iIfMzaJF4WUOTJP29Tefk2FvDH0QyQO1a+gN5gFTTuiY1kg8EUlKSoq5UQVl/6KAyR4kgWORwipoiCFCRaRNeacdYqHi+8fwDh78JSd3ntatUfHEX2qwaO7Dgv4zDniEIZOVJQGzlva8m2NsoeH3efx+YlRnCSQK6lHinFHaYmo1SXB6lHeVtBysy9mrqmFrqvZiXJ2y+vfSXDhjD7JPcxa6qGkR9jnDeyx13vN8ljyNc/yLyBsl4588Ug+yAUuz+Y1Lr+wlpxg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2de3a187-5fb4-d06d-a411-a1ee69b73dfc@suse.com>
-Date: Wed, 21 Jun 2023 17:27:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v4 12/15] xen: Add SET_CPUFREQ_HWP xen_sysctl_pm_op
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-References: <20230614180253.89958-1-jandryuk@gmail.com>
- <20230614180253.89958-13-jandryuk@gmail.com>
- <0b53687e-e781-7c01-34e9-e41cd14967c7@suse.com>
- <CAKf6xputOYsrr5u+8rKZtbBuzL2GhaW_5c77VCmZ5fne_hZVyw@mail.gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAKf6xputOYsrr5u+8rKZtbBuzL2GhaW_5c77VCmZ5fne_hZVyw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0108.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 83a89c77-1048-11ee-b236-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20230621153011euoutp01192645862d3e0a543891af4b47de94a9~qtkOS32Qw0899308993euoutp01Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1687361411;
+	bh=4dY3siBIy5sZCkWLAJsADYQ9gjCB2XGjCqHI/EnrzWw=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=pGdGnasdyQVz6DZY4mANhkND5Xrt681cqBfJfy97xUPZInu3VuYDlHeCfy1G2/D4c
+	 18D/HuBWkadD4OUgQpv80ELCjEHDj40bQ2D16FPNPCKO+6rUNXV2/eSnsXtYqBWKtu
+	 F5+bvWY/pNIsls2QPTAqoHMPbQjcqWCwFBMbgLgY=
+X-AuditID: cbfec7f4-97dff70000022c38-1a-6493178345d8
+Date: Wed, 21 Jun 2023 17:30:08 +0200
+From: Joel Granados <j.granados@samsung.com>
+To: Petr Mladek <pmladek@suse.com>
+CC: <mcgrof@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar
+	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, Theodore Ts'o
+	<tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Juergen
+	Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>, Jan Kara <jack@suse.cz>, Kees Cook
+	<keescook@chromium.org>, Iurii Zaikin <yzaikin@google.com>, Alexei
+	Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii
+	Nakryiko <andrii@kernel.org>, Balbir Singh <bsingharora@gmail.com>, Eric
+	Biederman <ebiederm@xmission.com>, "Naveen N. Rao"
+	<naveen.n.rao@linux.ibm.com>, Anil S Keshavamurthy
+	<anil.s.keshavamurthy@intel.com>, "David S. Miller" <davem@davemloft.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>, Peter Zijlstra
+	<peterz@infradead.org>, Will Deacon <will@kernel.org>, Sergey Senozhatsky
+	<senozhatsky@chromium.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent
+	Guittot <vincent.guittot@linaro.org>, Steven Rostedt <rostedt@goodmis.org>,
+	Andrew Morton <akpm@linux-foundation.org>, Mike Kravetz
+	<mike.kravetz@oracle.com>, Muchun Song <muchun.song@linux.dev>, Naoya
+	Horiguchi <naoya.horiguchi@nec.com>, "Matthew Wilcox (Oracle)"
+	<willy@infradead.org>, David Howells <dhowells@redhat.com>, Jarkko Sakkinen
+	<jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, James Morris
+	<jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, "H. Peter Anvin"
+	<hpa@zytor.com>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Amir
+	Goldstein <amir73il@gmail.com>, John Fastabend <john.fastabend@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yhs@fb.com>, KP Singh <kpsingh@kernel.org>, Stanislav
+	Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>, Jiri Olsa
+	<jolsa@kernel.org>, Waiman Long <longman@redhat.com>, Boqun Feng
+	<boqun.feng@gmail.com>, John Ogness <john.ogness@linutronix.de>, Dietmar
+	Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel
+	Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>, Andy Lutomirski
+	<luto@amacapital.net>, Will Drewry <wad@chromium.org>, Mark Rutland
+	<mark.rutland@arm.com>, Miaohe Lin <linmiaohe@huawei.com>,
+	<linux-kernel@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+	<linux-aio@kvack.org>, <linux-fsdevel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <bpf@vger.kernel.org>, <kexec@lists.infradead.org>,
+	<linux-trace-kernel@vger.kernel.org>, <keyrings@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH 08/11] sysctl: Add size to register_sysctl_init
+Message-ID: <20230621153008.lpxi5gh6fzvammg5@localhost>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBBPR04MB7900:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35330318-3058-4b10-6e90-08db726c0af4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+WE8yZW6EbDa5z3sK1LWCOGjS2l0be2wMrdu2bW/BAubtPW8lAkRpQpXTmWcNAgn9FNQNZ3olJa8gnOfknvQ5260auGbfCFRapBMEjq9tDgXPVVErrBSh9BQsyXAwWIGUdkC1PzZ8t2nqCBZzGZIDR0AUHotGuy6lVM4SBRaHFOTiloVTTuM9EvoKSySAirfNr03U/F20uPhoY2mTJj6TIgbqDtqXl8brEURday7h+T3bhaAJ/BzyfsoEOSFK4bPYSfHOGIcPc+L8PAOElPramxbLEY2q5mbnCUd/IQtxjc0upigQjbz95KDnl2FZaCBU2j6/1WToiOpTGyBN/M2B70YFUAicnqAv18SaPBCg/mAHCaobUBlr+zIQPzahaafv1OXsAjYE3pyn0wsWLc+lixGP390nQ6mTmHW5NDPAAAovr4KpfXoPisff9fsd69PtTMRpQv9mxG1s+twre8/iNCa23mqKUDZpGs8RsilobWCz54ekN9oNmSv4UqzLJtBAmr7JWi+/BgPFBF5rljbHOcvp465arpBBbmm8i/yxPiVMzyin/BEDhGqILsF7CopsBhJY4OwY+/0sOAZbY+PjZ1gHmWg1cts4vfymx1B3Tfz50irpXmoQC2aApDgQ20zUffCNSBVqb4lbLbDZ0h1gw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(396003)(366004)(136003)(346002)(39860400002)(451199021)(6666004)(6486002)(478600001)(6512007)(186003)(83380400001)(26005)(2616005)(53546011)(38100700002)(36756003)(86362001)(31696002)(6506007)(2906002)(8936002)(8676002)(5660300002)(31686004)(316002)(4326008)(66476007)(66556008)(6916009)(41300700001)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUZtdVZNL3plbnRiRUQ1YjlpTWJGdHlKOHJyVytTQVNqRVk2dTJoWTFMVjJy?=
- =?utf-8?B?bkJIS1hJUk5yZW1QZkJ2d1cwR0pmeDVmS2F6ekUvc3JPQllRMmpPTDk4SU9p?=
- =?utf-8?B?YlFoNWc5Sm45VkEwam1PczNrdlBtalgxV0ZqbW5sclFXc2hXcFV0ZndpSEMv?=
- =?utf-8?B?dFE3YUh5Q0JYOE9uWnNFRWptUC83TjNkaEg5azU2b1c5NHp1S3ZqS2daMUlE?=
- =?utf-8?B?Ymc4RldjTkd1REE2T0FraFc1aWMzc28zR2s2UFFkZ2RnNzgrVUFHcGJmNi9C?=
- =?utf-8?B?SWZSdjRJRTd4alViM2llVTRkUG5HOTFPOWxFNHU0d2huZkpaa0FvbXNET1B0?=
- =?utf-8?B?MzNPNXZXTjNRUnROWSt3RG9FbHgxQWNmNmVOMlQ0Mm1LcUsyeGhxSklGM0pl?=
- =?utf-8?B?bVQxYjZ6c0F2dlNaeUorR3k3ZloxMEZMTmZZV25ROUx5RGR1VkxPQ09FZTVD?=
- =?utf-8?B?RFlhbk5iUU50VVlwejh6MlRZSHR3NjRIQWV2TDg3TE5YZFFSanBwampoNGM4?=
- =?utf-8?B?Z1o3TUduZ0hlYUpvWi9nU1pNM3NhcGZlQ1RtQVdraXQzcFY1QytKYkx5TXcy?=
- =?utf-8?B?dmNFVjRWL2dZS0c3RTNLMWFGQm1ZRytkUklhVklScWxtbjdpZmNmeDdyR0lU?=
- =?utf-8?B?ZUpUajh2dEZia0RsTVRWVWlBQ3A0Q1dJTzk4UmI1YTZobUtmbElMcGkwb1Ay?=
- =?utf-8?B?Wjc4b0lUcGtZOFpYTFBoMk15SzZ2WlZ3ZTRXRC9qa1oyVlZ1YjhuM1cvNHM5?=
- =?utf-8?B?cktoR3o1eWtkOVl0UFgzeXFjUjRpVk1ZYTNmSVl5MVdzZTE1QldDTUZtOVRu?=
- =?utf-8?B?b2IrdW01MXF6djFsM3ZLeDI3ckFaNFl6WjhUWkJVWlpWanRYdG4xZUJLMlFO?=
- =?utf-8?B?c0JaVVVFUVIvbldhK21ORllwenkwTTFPL0lYdjdIQ3hsMHlWUm9ENTJwSUV6?=
- =?utf-8?B?Y0dlZWVwdWtNcDEycXpoN3hKUFNrQjFSZVM5K24vV0FjZWppTEVhenRncFd4?=
- =?utf-8?B?RDQ2YzdBd1pFd2thbjhRc1BNMUNFV3VtcThidUFUaDV5aDhQZzNYZjJGWTMv?=
- =?utf-8?B?UVVKYTlkNjloRFUvc2tjdWdwQnh2WFp3RktrMFNJZExDSjhMVlFCV2FjSC84?=
- =?utf-8?B?V0pvMWFoWWliUnhRMDJScVhHMjdsVzJmTElGc28zZVlSRUtMZGFqZmRURzBt?=
- =?utf-8?B?NE9BTTYyY1FjMFFzdVFhdU5zWGd3aUo5RFcxMElRSllrYTNiS2dicUhxeWtL?=
- =?utf-8?B?TXJjRkZyV1pMK0l0cHNMZjBIUDVyS0dOZGE4cklwK2NTQTlkRHZmcDlnTEg2?=
- =?utf-8?B?ODg2VmtLNkFxZlhNYVN3Y0hGM2ZveUhvMTJiSFJjZE9uRnhxNzA2OXBDMnRY?=
- =?utf-8?B?T3h0aGU5dnZNQy80SytuT3RyeExIeldDeDBBaWgyQ0YzWW4wWThQSEFPWlRB?=
- =?utf-8?B?eVhlNC9jVENDZHJ5Uko5QW5hWHFFc3E5Ly8rZVUvcmZUNzVCdkRpRGxZU0Ni?=
- =?utf-8?B?OFFWRVQ1ZHNmSW1xN3RFdm83eUZVQjlFOXhvL0tlRHdSbWxNVVNyZEl2WUM3?=
- =?utf-8?B?a0h1bjlJUy9obmNJZlI4YzMwdVZ6eDNieEVmSXRDaTNzQXRocDdwWlFRdlpG?=
- =?utf-8?B?VlFWMHF2T1pzcktvYkF3SmthU3lzNE9FS0s4YlF0dWRvb3VZZEhZRmZXZFJH?=
- =?utf-8?B?N3dYKzhCYUpIODJ2L21la1ZwV21xNHNkRG1IUFJDZkdoQXNTMHVOazdPNmZs?=
- =?utf-8?B?TVdpUU11NUN6RHJCUXp3TzAzcGEwaUxnejk5UkJDbHllY0JBZ2x0VUNjVU8x?=
- =?utf-8?B?OVFpK2RUWm9xN29mb0J5SE00SmtMbXFLbHVVQzFwblNmRlY2R0hjWlBlZEtx?=
- =?utf-8?B?WW1haTliejNZQXozNEdEckpnajJGMkR0aVByU3Qzb0RXYVdUREtEZnNNU0NS?=
- =?utf-8?B?WmttK3p0MHREVm9sazh1djJncDVxZzd3QUZ5WFZYWWp4encwK0JpSm9QRFRY?=
- =?utf-8?B?UmJ5UysyWEdjRnBEeElIV0FuK2NmY1BTelN4S1NyRjZrQjlLNFVVbXpTU0RE?=
- =?utf-8?B?TE5oKy8rSWFacmwydlNxOHpkOHBpSUcyMWVCRENwMlh0NFp2WHVOdVRiK3BS?=
- =?utf-8?Q?1y5lB/kllZzVNTcdPNkFTWGY/?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35330318-3058-4b10-6e90-08db726c0af4
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 15:27:37.0088
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gqyrg98WWFaFoQaMFRcLUHDoo8O8JHM44WhjGEEUcgoBr6UFZVLOhdvROSG7rh0+IlNob/BBrimiOu/ylUCXMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7900
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="6xqmlcamfjbvcfp2"
+Content-Disposition: inline
+In-Reply-To: <ZJLgzo1GuykDV8fd@alley>
+X-Originating-IP: [106.210.248.248]
+X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
+	CAMSVWEXC02.scsc.local (2002:6a01:e348::6a01:e348)
+X-Brightmail-Tracker: H4sIAAAAAAAAA2WTfVBUVRjG59x79t4Fg67gyBEtbTEnP0CxtNfS1NS6QTOVzTTlVEayifGh
+	syt+N8GyJpIoLAi1LAGufC6CIOywLK66Mi6oJKAIiksIqCCIinytjLuxXpyc6b/f+7zvM+d5
+	/jhi2kMt9hZvidgulUUEhUkYV6y/YPvbN8YrKXhRkX4SaIoLGagv0iEYGUujwdjdimHQ1spC
+	nL0MQ2FZNAVPTtoZeFJtYaD3/ACCxs4mBlJ7ojFoei6z4LDeo0CbNUxD98kDCDRXlBj6FWMY
+	7iSU0+DQK1mI0RYzYLacYSGlxAvSUmMoUNkSELQ3eYPmxmLoT58BtpwCFoqKtRQoKvIo0F/L
+	QFCdrKbBeuQohsu/h4Px0hAF5bcUDNwzxVNwcCQbQ3KKAkHV6VoMVys1DLQVOkTw6FAHA9XF
+	dRguXajBoDsRJYLs5gYKCg/mi6Al4Q6CpP67CLS5c+DxmS+h8WwmBTmG2xgaos8i0CU/Y2F0
+	bEwErapUDJb4sxQ4OodEYIptp6BxtBeDseQYs+ozfmT/Ycz/0/cM84V/FSI+LaoB82X5Nyj+
+	VrYB8Ykx/SxvUFtZXmm6yfKZpZH8deM3vLL6gYg/lTeP11b1UHxcSyPNlxYcZD5/a4Pr8mBp
+	2JYdUtnCD35wDfkj/wTeluK1K6HyCB2FTnnGIRcx4d4hw9XZVBxyFXtweYgM1wxNDIOIPDyX
+	hpxXHtwTRMx9s184OowVIuEoF5GG9mJGGMaPRhuPT2zKEYlPP0Y7LZh7kxhHzayTGW4BudJ3
+	67k+hZOQ+xlW2mmguZGppOJuPeNceHJryOmYLpGT3bh3SZaijxZ4Mqn9sws7meZ2kQF7+XhY
+	8ThPJ7l2sVN2GX+rpFKITTgf0mzSMgL/Qi6W3XzejXBNr5CneoNIWKwllsF6SmBPct9Sxgo8
+	gzgMGROGJETO2B+xwqBDJCd6aMLxPlFe65pwrCZ5ChVyJiKcO2l5MFkI6k5U+lRakN1I7G8e
+	wvUcomvrwwnIR/1SNfVL1dT/VRPkBSTTOMD8T55PcrJ6aYFXkKKihzgTsQXISxopD98slS+O
+	kO70kweFyyMjNvtt2hpeisa/7CW7ZbAC5d5/7GdGlBiZ0exxc8dJXT3yxhFbI6SSKW6vlaqC
+	PdyCg3bvkcq2bpRFhknlZjRdjCVebvNX1G7y4DYHbZeGSqXbpLIXW0rs4h1F4fSlXr4Fr7fN
+	7PfX6QPUc+a+nWH6KnBfyEC/adaOutCpIZ3f7haNBVTVHFXP4vlDuz62KrlQ6/pQv7jFa1KW
+	jvgeNyQF7rFMCZt7o1w1Oa9+UlWRgmQ1rz4n8xl0aGxblgwb4390hLZkiRN9JL2Syour8k/L
+	O/xrP1pf96zTMe3nda7GAxrbyuZHo1PdVesUryb9tGF/yeH2p/uGTlWgnckfWi/+avb/Yqj4
+	Dcfeo/mrl9UNuOQs977Z1Clb1N65t7XEBSxrv5uvWKDnvs5N0GbcDbl2vSDAPrPGEPhpbLRn
+	om8Jyly5UNm2cUn8na7b09K//8T9fPdV0Xvd+aZyW2zwsh6dSILlIUH+82iZPOhfCl1C+y0F
+	AAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA2WTe0xTdxTH97v39t7iQtYBkzse2VanY6jFUtCDU6N7xGume2TJEuec66Rp
+	QdpiC0y3mWHLNmAykYfEUnnYgVDKowgIFCthnR1BozBEEBAFBQqI4zWo5bFCs8xk/31+n9/v
+	e87JLzls3KOK8mFHyGJECpkwikuuIloWrfc2qrzTwzepWl8BbbmBhFtlJQhmHdk4mIa7CZi2
+	d1OQvFhFgKHqJAZTFYskTFmsJIz+NomgbeA2CVm2kwRobdcpWOodwkCX/zcOwxU/IdDeTCBg
+	XOUg4FFqNQ5LNQkUqHXlJDRZr1Jw1ugN2VlqDNLsqQju3/YBbVcwjJ/3A3uhnoKych0Gqtoi
+	DGracxFYMjQ49J7OJOD6z1IwtcxgUN2jImHInIJB0mwBARlnVQgarjQT8Ge9loR7hiUW/HWq
+	nwRL+Q0CWq79QUBJaTwLCu60YmBIKmZBZ+ojBOnjgwh0F9fBxNVPoK0xD4PCugcEtJ5sRFCS
+	sUDBnMPBgu60LAKsKY0YLA3MsMCceB+DtrlRAkzGC+TOD5nZH34hmL6xBYIx5BgQkx3fSjBV
+	xV0Y01NQh5gz6nGKqdP0UkyC+S7F5FXGMh2m/UyC5TGLuVQUyOgabBiT3NmGM5X6JPKjgM94
+	2xTy2BjRqxK5MmY79wAfgnn8MOAFh4Tx+IItB7cGh3KDdmwLF0VFxIkUQTu+5EmS5t+NzvA+
+	Vtg4yIpHRs9k5MamOSF0v6mWtcwenAJE35jEXd6PNk7fZrnYk57vSCaT0SrnmwlEF40+IVyH
+	akQXdGtWEgRnLW2aa6KWmeRsoG+O9ax4Lw6XHsntxZcDOGdmNT0yNrBy4cl5h76ifrjSwp2z
+	hc5XjeGuMe4huuTXIJd/kW4+95BYZpwTR+vSh5zMdrIvfXGRvazdnH2N9dnINeka+o5ZR7r4
+	BD21MIhSkafmmUqaZypp/qvk0oF056IN+59eTxfmj+Iu3k6XlT0h8hClR16iWKVULFXyeUqh
+	VBkrE/MOy6WVyLkyNdfsl2pRzsgErwlhbNSEXncm+ytKbiEfQiaXibhe7v6VaeEe7uHC49+I
+	FPJDitgokbIJhTp/8Qzu89JhuXP/ZDGH+Js3hfJDNodtCg3bLOB6u++JThR6cMTCGNERkSha
+	pPg3h7HdfOKxTw3CAIGgzCywRAX1hXzb7dij3vD9gb6a+bZ15q4GA5K+HZ5+4Csqx99XrA54
+	v/NHv+OSo1841AnfRTx/hKWTHT20K1cv0UbqfZWRdGLNwMQay1DipMGnwbZ7+Nh71zwVjfyt
+	2w6uvSD4/aH1soxurvDeL+brnu7sWL9oTfp4Mjfw6V11qST65deqgyrdix/bT2y5+kFA3Grb
+	6aQXBPveMGJ7DX6jLRulQ/2UNbCzWTtVHZVV8yAg1/F1d++ty4n72m35o9dT9p5nlUbOnxte
+	NS3fcTMgz1db1NX+ZktL3Nx0psTex8Hf+vy5TP9du8Pt+eJq40zniLhKb8bq6msrFtpnuYRS
+	IuQH4gql8B/pJ17rxwQAAA==
+X-CMS-MailID: 20230621153010eucas1p25fabdc546fa653beb103f6f68f4da531
+X-Msg-Generator: CA
+X-RootMTR: 20230621091037eucas1p188e11d8064526a5a0549217d5a419647
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20230621091037eucas1p188e11d8064526a5a0549217d5a419647
+References: <20230621091000.424843-1-j.granados@samsung.com>
+	<CGME20230621091037eucas1p188e11d8064526a5a0549217d5a419647@eucas1p1.samsung.com>
+	<20230621091000.424843-9-j.granados@samsung.com> <ZJLgzo1GuykDV8fd@alley>
 
-(re-adding xen-devel@)
+--6xqmlcamfjbvcfp2
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 21.06.2023 16:16, Jason Andryuk wrote:
-> On Mon, Jun 19, 2023 at 10:47 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 14.06.2023 20:02, Jason Andryuk wrote:
->>> +    if ( !(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW) &&
->>> +         set_cppc->activity_window )
->>> +        return -EINVAL;
-> 
-> There were a few aspects intended to be checked, but I have failed to
-> implement them all properly and consistently.  The 32bit fields of the
-> CPPC interface are larger than the 8 bit HWP fields (10 bits for
-> activity window).  So the first aspect was supposed to ensure all
-> those out-of-range bits are 0.
-> 
-> The second aspect, which wasn't implemented properly, was that fields
-> would be 0 unless the corresponding bit was set in set_params.
-> 
-> The third aspect was to fail if a field was specified but hardware
-> support isn't available.  That is now only activity window.
-> 
-> Do aspects #1 and #2 sound appropriate?  We can discuss #3 below.
+On Wed, Jun 21, 2023 at 01:36:46PM +0200, Petr Mladek wrote:
+> On Wed 2023-06-21 11:09:57, Joel Granados wrote:
+> > In order to remove the end element from the ctl_table struct arrays, we
+> > explicitly define the size when registering the targes. We add a size
+> > argument to the register_sysctl_init call and pass an ARRAY_SIZE for all
+> > the callers.
+>=20
+> This does not explain the motivatin why the end element is removed.
+I also see that the cover letter also lacks this. Let me clarify in my
+V2.
 
-Personally I'd prefer if inapplicable fields weren't checked, unless we
-expect re-use of those fields with a different way of indicating that
-the field holds an applicable value. But my primary desire is for
-checking to be as consistent as possible.
+>=20
+> I agree with Jiri that saving 9k is a questionable gain. According to
+> the cover letter it saved 0,00%. It is because it saved 9k with allyes
+> config which produces huge kernel. IMHO, the 9k might be interesting
+> only for a tiny kernel. But I guess that it would safe much less
+> bytes there.
+I put the 9K as a upper bound kind of value. To get an idea of exactly
+how much we are talking about. A lower bound with tiny config and sysctl
+enabled is a good idea to give a range.
 
->> Feels like I have wondered before what good this check does. I'm
->> inclined to suggest to ...
-> 
-> This check was supposed to enforce #2.
-> 
->>> +    if ( set_cppc->activity_window & ~XEN_SYSCTL_CPPC_ACT_WINDOW_MASK )
->>> +        return -EINVAL;
->>
->> ... fold the two relevant checks, omitting the middle one:
->>
->>     if ( (set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW) &&
->>          (!feature_hwp_activity_window ||
->>           (set_cppc->activity_window & ~XEN_SYSCTL_CPPC_ACT_WINDOW_MASK))
->>         return -EINVAL;
->>
->> Yet I'm also a little worried about the feature check, requiring the
->> caller to first figure out whether that feature is available. Would
->> it be an alternative to make such "best effort", preferably with
->> some indication that this aspect of the request was not carried out?
-> 
-> Yes, it would be nice to try and apply on a "best effort" basis as
-> it's only activity window which may not be supported.
-> 
-> The SDM says, "Processors may support a subset of IA32_HWP_REQUEST
-> fields as indicated by CPUID. Reads of non-supported fields will
-> return 0. Writes to non-supported fields are ignored."
-> 
-> I'll have to test this, but potentially we just let the writes go
-> through?  If the user checks xenpm, they will see that the activity
-> window isn't supported?  Hmmm, I don't have a machine without activity
-> window support, so I can't test it.  Skylake introduced HWP, but my
-> skylake test system supports activity window.
-> 
-> Or do you want to make xen_set_cppc_para have an in/out and return the
-> applied features?
+>=20
+> And the code with the added ARRAY_SIZE() parameter looks worse than befor=
+e.
+This might not even be an issue in V2. After analysing Greg's feedback,
+these might just go away.
+>=20
+> > diff --git a/kernel/printk/sysctl.c b/kernel/printk/sysctl.c
+> > index c228343eeb97..28f37b86414e 100644
+> > --- a/kernel/printk/sysctl.c
+> > +++ b/kernel/printk/sysctl.c
+> > @@ -81,5 +81,6 @@ static struct ctl_table printk_sysctls[] =3D {
+> > =20
+> >  void __init printk_sysctl_init(void)
+> >  {
+> > -	register_sysctl_init("kernel", printk_sysctls);
+> > +	register_sysctl_init("kernel", printk_sysctls,
+> > +			     ARRAY_SIZE(printk_sysctls));
+> >  }
+>=20
+> Is register_sysctl_init() still ready to handle the last empty element,
+nope, after all the patch set, this functionality would be gone.
 
-Yes, that was what I meant with "indication of some sort". You could
-e.g. simply clear the respective control bit in the request (and then
-arrange for it to be copied back).
+> please? I am not in Cc on the related patches.
+Not sure what happened there. Should I just add you for the next batch?
 
-Jan
+>=20
+> Best Regards,
+> Petr
+
+Thx for the feedback
+
+Best
+--=20
+
+Joel Granados
+
+--6xqmlcamfjbvcfp2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmSTF34ACgkQupfNUreW
+QU8CgQv/WDyYibe7/IonBVPexXNQGTVuyKh61uOYtHRK+2k13K3RLUk48Z0C+Q5+
+vfTq/uCCkVwy/eYrMqn1RFGRzZ2NY6UkXXd7X6g8UVGLIiTCl2TEA235HjpPCxuh
+/RcNXUoYsrzVCc6s4XtIScbySNGho9BtuXw1vInVQy08FiO21l2apZYCWtOqRzdA
+GFUepViYRcMqGClksHNZKDND+JZWRjB1sqPr5UfLVo89RxrSGbDqZFP2DCU3ehNx
+vbSg+kcYu3PBOZQuhA9Eu4h1ErwKlk6PQJhJ04lpMwJU3eSR8+t6A/9iKE305ufv
+lulowZS/J4q8c+8IDMZR/g9Ire50DzZ0MzEENUn43oqh7EVc+C5XgG28Gxyb7P+l
+aXq/uiZNg8e1cD54e+l01DjFU8aEVz1KN3YE4NF2VW/EDUyiOJU3a+mkBSPSIt7C
+MSeQHeJvDOffcGjCWsyGwiiplObWKHl4WApjE/sA0UtkNFCc0178hmKbFf9ayZvv
+J2+uWQKH
+=taMy
+-----END PGP SIGNATURE-----
+
+--6xqmlcamfjbvcfp2--
 
