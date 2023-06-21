@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4C9738787
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 16:47:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552797.863069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B7D738838
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 16:59:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552804.863080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBz6m-0000Zv-Ax; Wed, 21 Jun 2023 14:46:56 +0000
+	id 1qBzHy-000264-DJ; Wed, 21 Jun 2023 14:58:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552797.863069; Wed, 21 Jun 2023 14:46:56 +0000
+Received: by outflank-mailman (output) from mailman id 552804.863080; Wed, 21 Jun 2023 14:58:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBz6m-0000X5-89; Wed, 21 Jun 2023 14:46:56 +0000
-Received: by outflank-mailman (input) for mailman id 552797;
- Wed, 21 Jun 2023 14:46:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qBz6k-0000Wv-RY; Wed, 21 Jun 2023 14:46:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qBz6k-0001Uw-CL; Wed, 21 Jun 2023 14:46:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qBz6j-0005WR-Vs; Wed, 21 Jun 2023 14:46:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qBz6j-0004KM-VR; Wed, 21 Jun 2023 14:46:53 +0000
+	id 1qBzHy-00022m-AQ; Wed, 21 Jun 2023 14:58:30 +0000
+Received: by outflank-mailman (input) for mailman id 552804;
+ Wed, 21 Jun 2023 14:58:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VkdJ=CJ=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1qBzHw-00022g-Hk
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 14:58:28 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 132fda72-1044-11ee-8611-37d641c3527e;
+ Wed, 21 Jun 2023 16:58:26 +0200 (CEST)
+Received: from [192.168.1.143] (unknown [151.46.220.87])
+ by support.bugseng.com (Postfix) with ESMTPSA id DC3CC4EE0737;
+ Wed, 21 Jun 2023 16:58:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +39,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=y+hSyiKgrHuNwQd29Xq3/wFOxUjTZKJNpLGp/3NWTiQ=; b=NTGEJUNPXepfF78+J+YP2npZR7
-	N4H5WtfmXxcO3wMIIeIYi2Q7Vr/n6hX9K8PXEUHDWBn1W+I8FKCdxvl+us+a1p+JM4y1SiV4mJpBE
-	goz+scCl/l161WbeMmYHqTJGapOjriz/WL+/bn+eKuOWFwaKo1P/07y7IrzvIQkK7PnM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181536-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 132fda72-1044-11ee-8611-37d641c3527e
+Message-ID: <a2840389-1868-84fa-0ef4-bb278164119b@bugseng.com>
+Date: Wed, 21 Jun 2023 16:58:22 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 181536: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=fcd71642df9a3a5932a2db116acc6fe23458d8f5
-X-Osstest-Versions-That:
-    ovmf=4a0642ad27bfb566835ae86aedae0e18f9735cc2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 21 Jun 2023 14:46:53 +0000
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
+ Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
+Subject: Re: [XEN PATCH v2] docs/misra: document the C dialect and translation
+ toolchain assumptions.
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: roger.pau@citrix.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <b3f85e78bc1d044e6ed97eab28ee61548a353da1.1687261909.git.roberto.bagnara@bugseng.com>
+ <9a03d5d3-71d5-e3ed-235c-554931fa485a@suse.com>
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+In-Reply-To: <9a03d5d3-71d5-e3ed-235c-554931fa485a@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 181536 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181536/
+On 20/06/23 17:05, Jan Beulich wrote:
+> On 20.06.2023 14:10, Roberto Bagnara wrote:
+>> +   * - Token pasting of ',' and __VA_ARGS__
+>> +     - ARM64, X86_64
+>> +     - See Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
+>> +
+>> +   * - No arguments for '...' parameter of variadic macro
+>> +     - ARM64, X86_64
+>> +     - See Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
+> 
+> Seeing these I think you want to also mention our extensive use of
+> the pre-C99 way of variadic macros, which also includes pasting of
+> ',' with something.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 fcd71642df9a3a5932a2db116acc6fe23458d8f5
-baseline version:
- ovmf                 4a0642ad27bfb566835ae86aedae0e18f9735cc2
+Good catch.  Added
 
-Last test of basis   181531  2023-06-21 03:42:36 Z    0 days
-Testing same since   181536  2023-06-21 11:12:23 Z    0 days    1 attempts
+    * - Named variadic macro arguments
+      - ARM64, X86_64
+      - See Section "6.21 Macros with a Variable Number of Arguments" of GCC_MANUAL.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Ray Ni <ray.ni@intel.com>
+Thanks,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   4a0642ad27..fcd71642df  fcd71642df9a3a5932a2db116acc6fe23458d8f5 -> xen-tested-master
+    Roberto
 
