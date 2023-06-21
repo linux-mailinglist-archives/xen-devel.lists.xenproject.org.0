@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38708737D31
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 10:17:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552530.862660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393A4737D3F
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 10:24:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552535.862670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBt1z-0007G1-JN; Wed, 21 Jun 2023 08:17:35 +0000
+	id 1qBt81-0000Hq-8d; Wed, 21 Jun 2023 08:23:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552530.862660; Wed, 21 Jun 2023 08:17:35 +0000
+Received: by outflank-mailman (output) from mailman id 552535.862670; Wed, 21 Jun 2023 08:23:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBt1z-0007Cg-GN; Wed, 21 Jun 2023 08:17:35 +0000
-Received: by outflank-mailman (input) for mailman id 552530;
- Wed, 21 Jun 2023 08:17:33 +0000
+	id 1qBt81-0000Fg-4Q; Wed, 21 Jun 2023 08:23:49 +0000
+Received: by outflank-mailman (input) for mailman id 552535;
+ Wed, 21 Jun 2023 08:23:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RZUy=CJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qBt1x-0007Ca-IL
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 08:17:33 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2081.outbound.protection.outlook.com [40.107.7.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ii2n=CJ=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qBt7y-0000Fa-QT
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 08:23:46 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1134b8c5-100c-11ee-8611-37d641c3527e;
- Wed, 21 Jun 2023 10:17:31 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB8PR04MB6777.eurprd04.prod.outlook.com (2603:10a6:10:11f::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Wed, 21 Jun
- 2023 08:17:01 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6500.036; Wed, 21 Jun 2023
- 08:17:01 +0000
+ id ef75bded-100c-11ee-8611-37d641c3527e;
+ Wed, 21 Jun 2023 10:23:44 +0200 (CEST)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
+ by support.bugseng.com (Postfix) with ESMTPSA id 03B954EE0741
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 10:23:44 +0200 (CEST)
+Received: by mail-vs1-f46.google.com with SMTP id
+ ada2fe7eead31-440ad8ea514so1146450137.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 01:23:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,128 +43,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1134b8c5-100c-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ciy/qG3g2HBLdfu3J2tZqhN7b/+V4Ju6+C+DULrJ+ZOPLwxpFHYTNQ67HFmiKyNyRU7GEK9MxQx1GHoc3sw2lmfzfY50RLs+DH1ObXkATqDoSNfQ5dPUcI01TRAkwUbvm46Sn4kHShyUWWSpA81ocrfoiPbKtwL4timnJwWF1I9P69YZXpNWVBg5ReSX3eGAIPqMUH4XKxEoKCm09iEh/C8DI+RFMHRWcpU6l4JqxHFNTiBikPOXlJe+LIJEqjJHKuBq35csneF+2MgTMTpEpCKYy+SHepVW8+4PsH53Dk0CZFBONpbzO2LWJAGSStwc5GsLLqzSMIZsWNrbc++giQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UIzyyTURzen0PkVEXGjSLwPKXMg3Z2ai+0daJky0H2k=;
- b=Y7QBY7FDo626nKCwSh3AexM1WfEqwyOAXRLNxG5mn9RmrIN1d3EstRSIPKyHmnXBIulr2HHEl4HkTsFpGYTAH79Uis9BTs5xNnhoLKTRv5ezicAlCY72ZkMcgBJfbr7R20wGGGe3tdzjj2wpPeyiw9zfjwM98weEn4FrkBPAPw+3LPygtEZioguRuwOQKFauTkCVDpv+JILqjpzVQZ6OJGTVSovLYtGLm5rBPtKwaukL1hlNWsQ+DYV6grEjSqZ5rWk1P1xXQgoJxXL4tdz5zKBc628lxxtzbJXP+d7Q02OzzSE6uSR9oczS8EsMnnPVY6gOrOdU1pPdinbVm5cOtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UIzyyTURzen0PkVEXGjSLwPKXMg3Z2ai+0daJky0H2k=;
- b=JyWppJHhpprvTkP8DOC2Mc4eQmBzVbo3KU7pEFrZcUw8S0gTN8T+SBwOJdvyboAxWVzJl+uk0sbMi9drxur6iXvjyKjLXSSHkoaLNEdW0NGQcdSWaNkKk4CyoVtuLmaCLTHOnFb/qAIDT0XjFM5/PiPpu7gBbeMIVsW6cLrsXVadY9QKZJVcB68HHe8pofs+7/ZObMsim5mpgAZOcbHhk8WeHc6AAG2mnVprte8KJnFA8vN02vt5mR37DRZ6sEHTJ0AbGlnqdSlUPTgQRg1ftF1LuZyCPNyt6/7OC43NwTHjcTSzEsPg8YKhoH64o2qnEkfV7MInGvh0yMPsuu8WwA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8c76c3c3-f839-ef03-4011-e223ff6fc938@suse.com>
-Date: Wed, 21 Jun 2023 10:16:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] x86/vpmu: Simplify is_pmc_quirk
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230620174556.3898824-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230620174556.3898824-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0109.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: ef75bded-100c-11ee-8611-37d641c3527e
+X-Gm-Message-State: AC+VfDxcUIUthqr/VnQHEKeadtWLQVyDM4WljfQX1215KEpa+a4a45wv
+	jW+hQeWkuSBPJOee6Iu6Fursxnvwub5ZGWsSeR0=
+X-Google-Smtp-Source: ACHHUZ4Qdos8w0VtMhZVyXu1zOF/k3b+oTGSXOgBqM5/UGFphu5EE/CbShaPQIBlDNTG6ShP116nJVNWQlM9gw3LVzM=
+X-Received: by 2002:a67:db87:0:b0:440:c0dd:e7f7 with SMTP id
+ f7-20020a67db87000000b00440c0dde7f7mr3169988vsk.4.1687335822711; Wed, 21 Jun
+ 2023 01:23:42 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB8PR04MB6777:EE_
-X-MS-Office365-Filtering-Correlation-Id: d33cc900-4711-4b67-f52c-08db722fe3d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SGgJoFr95gwTvx8xI0SA+914iVJKvpO1Uj/U6y8fBn2MsBtFBBE+6Ij/EO61KHhER4/syu2ezKCV+HUvP9CS1K022T1qo7PCj8DtffikLOcttgVpjp9t48Kgz79ra6Juj0U5YkTNUhWsQBc4OmbeKrmN0pzOojjWql7JZtg3INyu1xnbtOIwJx3OoraFd40IjVzSd5s1GDgw+fhdiwxvrKxOWZByUTr35mVgGDs8xcIGVSDvDpvtCm7OC6waworPMbTH3L3R8irG9qXDmwnqRG1YLzFCTiBlhxRohDjC44Uc4GGaAdAUaRYZwwE+PGVSuf+lnDRsNDZ44c0Rupm5BneSgdcOLX/MEDlvktmMZy/LS2BVmMXqVswjMBZJ65UPayrIXyj3RyXu6raT+1+Ose6+8AyaBWoB3fV9YRG2qb3ArRM5Czqt5zx65c3uwOfXi3+oOnKfEQPSvrZbeqnIIrTu6Ei/imHMwIXDmX19HE00ydM9NB3M/ur2Pmu9TGzDcPjTRIjVM95wlCx4XhbqupMdTQq202PbZ3PnyGB39PJElxWoWXTWRahU/FHiO8VBf1AjJM3X88f2Z0J4O/adc3qFNyY0JA9isvVAoHm2I4kFXEfkdR+0soEFSaFJMz3qDc1qjZzwIW2WZg2XVckNbg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(39860400002)(396003)(346002)(376002)(136003)(451199021)(66946007)(66476007)(66556008)(4326008)(6916009)(2616005)(186003)(38100700002)(86362001)(31696002)(53546011)(6512007)(26005)(6506007)(6486002)(83380400001)(36756003)(478600001)(54906003)(31686004)(5660300002)(41300700001)(8936002)(8676002)(2906002)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dGU0cXZaelE4aDcxV2l4TmVpYTVGTHB2R3dyT2hJKzFCM0F3dUkxa2JGNzBD?=
- =?utf-8?B?dUgrY0V0R2tLejVaWUtwUjhpN09XbkxoSmUvWTBOQlFHRDdqa0FQVVJLbWtn?=
- =?utf-8?B?WmV2OHE0a2pzZ1AzU25LK1VZbzBPazZoZXd1aW8xRUlCSWhrckQrcXVBL1NT?=
- =?utf-8?B?cGF2SHQzbUdYOVN2Q2JXdnBwR3dtWTRkeVpzeFcwSXpkRmZLdDlxOWNNVUlw?=
- =?utf-8?B?eER0Uk1RWGcrLzAveXNOc1FUZFZPLy9zN1VPUG8xWFVQRzQwVnpmendWNHJ5?=
- =?utf-8?B?WlhtNEJDZHFUOWh3cFJrNk1CbU9IQkY1aTBVejBDY1lnYjczdmJ2eWlYV1JI?=
- =?utf-8?B?dUY1b1o5NEFKbTluVjV5MzlQN1FkdGcwMmdERXZvTTFBc1R5bXZpcUk3eUlU?=
- =?utf-8?B?OG9tOGV5K0tuazNvcHJ0aGFqV2VtNml5b1ZXQkkrYU1DM21JN0hadEplTnJG?=
- =?utf-8?B?TmRDUGs4ZnE5MSsvR2dKZC9wbzk4OHlJWXVMekk3ZDJZcW04eUZaUW1rRUZ5?=
- =?utf-8?B?TkhZaDk5bVZoV1IyeDFESkcwcWVjcVR1QjZ2SGo1ZG5haG1IS3BraXIraUxN?=
- =?utf-8?B?dU1uVXpmQlhnVmxXUWFOZXlEZkFUOVNiRjRMa0FBbzJ5aS9HM1FydW5OclVO?=
- =?utf-8?B?MVJtMFhuWCtod2xXUlZocFNaY1A4aURCZ1h1SmprWWlrZ3RQSURhd2YyczZh?=
- =?utf-8?B?RVNnZVJRMDM4Y2p2enppMlZqNVQ3UzM1SGhBSFdlWTZHVjZqa2dDKzZnMVVl?=
- =?utf-8?B?OExiSisyNzFqSmhPeGcwbS9SdVQwMHZSU1diRlpHd2ZLYklWTWF4S3V2bzFH?=
- =?utf-8?B?TnhWamdpc0dlUFM0UnhJR1dQWWpnNjY0SHVJTGlmRWlpdVVNSDZQV3BqbDdD?=
- =?utf-8?B?MEl6L3pVTCszdno1cEZWQ0ZiRHJSZzlEZk5vczR0cGUwN0xpSnB4SXRuTW5H?=
- =?utf-8?B?TmpBRVBpYThQZ203bGNnNnRYT1Jpa0EvckJuQ1ZkZ3c3L3VxZW9hM0xMUDJS?=
- =?utf-8?B?aWN6VjE4cVlzQ2NHZURTTGxBWVloc254cVphaU40NitOUUJhTUhLYXlmWWI3?=
- =?utf-8?B?UDBOdmZ2TStXNjBzYm5GRENYUGtIcVIxRXRJODZhclBOb1NpbnNBaGNYR3BW?=
- =?utf-8?B?YmlPTlo2dklkNDBUZmphRzB6QkR1dDNxSEdYOEJrMXVkMDZkUS9DWXhxSjV4?=
- =?utf-8?B?MlNJSGs4ckZENGRIQzF0Y1BRZ2x6S3lIajJUSUQ5cVFPR0RROHdQL1BuUHIx?=
- =?utf-8?B?Y0NGTjRLNXBySlNWMXlmeTBKbkh6Rk5OWmUwY0NkRlBMcndHNzExTkE2c251?=
- =?utf-8?B?OFQ0OVNzdkZCSG81TXFNMkFDT2d6eWZTbUx0MytCTEFtSitnOWxBbHdiOFpt?=
- =?utf-8?B?Yzd0R1RIb1gwN1RnUzVocjcxRi93K3hBY1BDaVdzNmRBeTJKZ0hFSUE0ei9n?=
- =?utf-8?B?dThSTjVqbDZVRzF6S3pzRXVWVXFKYXpXSmtHaGp3N28ycnBHYTlyYkhrTGh2?=
- =?utf-8?B?VlNYekJrN3hVUUgzbzJHaEkyVnFhbWR1cVRJMkVmQkd3Z0ZSa0NSQm56QzBW?=
- =?utf-8?B?REdhNjJnd2FLc3d4RktuLzRZZ1dhWXM5bUNhMlFES0x4K0xOUU1EOWp0VGVa?=
- =?utf-8?B?M0J5ejViRTEwZG4zMzEyWjR0bmhHQmlFRTY1ekdHbUgybHNnQmtJZFdVVnlm?=
- =?utf-8?B?ZzRiMU01VEhhNG5JdG5VVmY0ZUxqMXRSK3RzNjRTdThKaTVYSlRFOTFRZDBn?=
- =?utf-8?B?S3dVNjlRd3JTWTM2MXBhQzRCWTQ1Y0xWd1h2SWZPK2p0cEZ3anhPNlRNWm9z?=
- =?utf-8?B?QkF0WHVOaXcrd1R5WnBENFZhNnA1bFJ1Qk13cWdSZFEzcDRMb1pzVDZpL2I5?=
- =?utf-8?B?dG54ZFEraHRIeVhEbkJ0MnBoNFZGY05KcnhVY0xEUitDM3pzTVZza3NYYXdh?=
- =?utf-8?B?OFJDMnlZbCtyUGp1V2labVVEbTh5T3lsMFdKYWQ4K2dzcWlVWk9MbGRoNVgw?=
- =?utf-8?B?citlSzNSejFxaFBabTJRc3BJZHJrUjBYaXIrWStlMXJuYkpjNkhpalI1WmNp?=
- =?utf-8?B?bzV5UjE5dTZiWWVOMzZCUHVBejlVWDgvRGZkMFlxSXJuc2dkdW1JejI1dEM5?=
- =?utf-8?Q?c3ERoQDOu1gud8TBWnRWkDixK?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d33cc900-4711-4b67-f52c-08db722fe3d6
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 08:17:01.6140
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y03gauWt3PNNOMksp2MYFSt9B23A6gaVugJt1V/7gr496K5a1+NE9ntI/XoHo+4jnoJOsZTW/46lobajEllhjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6777
+References: <cover.1687250177.git.gianluca.luparini@bugseng.com>
+ <8aff4bc56b29372345e828462766d803b8c9b710.1687250177.git.gianluca.luparini@bugseng.com>
+ <e737bdd5-e00d-ccfa-8d40-2e6cf846ed84@suse.com>
+In-Reply-To: <e737bdd5-e00d-ccfa-8d40-2e6cf846ed84@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Date: Wed, 21 Jun 2023 10:23:31 +0200
+X-Gmail-Original-Message-ID: <CAFHJcJt8HXcKMabwiWaqCVWC2q316_1ugj79Hvk-Aue6ASOa1Q@mail.gmail.com>
+Message-ID: <CAFHJcJt8HXcKMabwiWaqCVWC2q316_1ugj79Hvk-Aue6ASOa1Q@mail.gmail.com>
+Subject: Re: [XEN PATCH 05/13] xen/common: fixed violations of MISRA C:2012
+ Rule 7.2
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Gianluca Luparini <gianluca.luparini@bugseng.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
+	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>, Ayan Kumar <ayan.kumar.halder@amd.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000054623505fe9f7c33"
 
-On 20.06.2023 19:45, Andrew Cooper wrote:
-> This should be static, and there's no need for a separate (non-init, even)
-> function to perform a simple equality test.  Drop the is_ prefix which is
-> gramatically questionable, and make it __ro_after_init.
-> 
-> Leave a TODO, because the behaviour is definitely wrong to be applied to ~all
-> modern Intel CPUs, and has been raised on xen-devel previously without
-> conclusion.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--00000000000054623505fe9f7c33
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one request:
+Il giorno mar 20 giu 2023 alle ore 14:43 Jan Beulich <jbeulich@suse.com> ha
+scritto:
 
-> @@ -967,7 +960,8 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
->                sizeof(uint64_t) * fixed_pmc_cnt +
->                sizeof(struct xen_pmu_cntr_pair) * arch_pmc_cnt;
->  
-> -    check_pmc_quirk();
-> +    /* TODO: This is surely wrong. */
-> +    pmc_quirk = current_cpu_data.x86 == 6;
+> On 20.06.2023 12:34, Simone Ballarin wrote:
+> > From: Gianluca Luparini <gianluca.luparini@bugseng.com>
+> >
+> > The xen sources contains violations of MISRA C:2012 Rule 7.2 whose
+> headline states:
+> > "A "u" or "U" suffix shall be applied to all integer constants that are
+> represented in an unsigned type".
+> >
+> > I propose to use "U" as a suffix to explicitly state when an integer
+> constant is represented in an unsigned type.
+> >
+> > Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> > ---
+> >  xen/common/device_tree.c        | 4 ++--
+> >  xen/include/xen/libfdt/fdt.h    | 2 +-
+> >  xen/include/xen/libfdt/libfdt.h | 2 +-
+> >  3 files changed, 4 insertions(+), 4 deletions(-)
+>
+> I think me and a few other people being on Cc here is attributed to the
+> (misleading) title. The set of touched files fully maps to "DEVICE TREE"
+> in ./MAINTAINERS afaict, which the prefix in the title would then also
+> be nice to express.
+>
 
-In the description you say "~all modern Intel CPUs", which suggests it might
-be correct for old enough ones. Would you mind weakening the comment to
-"This surely isn't universally correct" or some such?
+Yes, my bad. I will fix the commit name.
 
-Jan
+
+> That said I'm not sure whether libfdt code actually wants touching this
+> way.
+>
+Yes, you are right. libfdt is out of scope. I will remove the changes in it.
+
+>
+> Jan
+>
+
+
+-- 
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com
+<http://bugseng.com>)
+
+--00000000000054623505fe9f7c33
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"></div><br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">Il giorno mar 20 giu 2023 alle ore 14:43 =
+Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D"_blank">jbeu=
+lich@suse.com</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
+padding-left:1ex">On 20.06.2023 12:34, Simone Ballarin wrote:<br>
+&gt; From: Gianluca Luparini &lt;<a href=3D"mailto:gianluca.luparini@bugsen=
+g.com" target=3D"_blank">gianluca.luparini@bugseng.com</a>&gt;<br>
+&gt; <br>
+&gt; The xen sources contains violations of MISRA C:2012 Rule 7.2 whose hea=
+dline states:<br>
+&gt; &quot;A &quot;u&quot; or &quot;U&quot; suffix shall be applied to all =
+integer constants that are represented in an unsigned type&quot;.<br>
+&gt; <br>
+&gt; I propose to use &quot;U&quot; as a suffix to explicitly state when an=
+ integer constant is represented in an unsigned type.<br>
+&gt; <br>
+&gt; Signed-off-by: Simone Ballarin &lt;<a href=3D"mailto:simone.ballarin@b=
+ugseng.com" target=3D"_blank">simone.ballarin@bugseng.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 xen/common/device_tree.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 | 4 ++--<br>
+&gt;=C2=A0 xen/include/xen/libfdt/fdt.h=C2=A0 =C2=A0 | 2 +-<br>
+&gt;=C2=A0 xen/include/xen/libfdt/libfdt.h | 2 +-<br>
+&gt;=C2=A0 3 files changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+I think me and a few other people being on Cc here is attributed to the<br>
+(misleading) title. The set of touched files fully maps to &quot;DEVICE TRE=
+E&quot;<br>
+in ./MAINTAINERS afaict, which the prefix in the title would then also<br>
+be nice to express.<br></blockquote><div>=C2=A0</div><div>Yes, my bad. I wi=
+ll fix the commit name. <br></div><div><br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex">
+<br>
+That said I&#39;m not sure whether libfdt code actually wants touching this=
+<br>
+way.<br></blockquote><div>Yes, you are right. libfdt is out of scope. I wil=
+l remove the changes in it.<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">
+<br>
+Jan<br>
+</blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signature_pre=
+fix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"l=
+tr">Simone Ballarin, M.Sc.<br><br><div>Field Application Engineer, BUGSENG =
+(<a href=3D"http://bugseng.com" target=3D"_blank">https://bugseng.com</a>)<=
+/div></div></div></div>
+
+--00000000000054623505fe9f7c33--
 
