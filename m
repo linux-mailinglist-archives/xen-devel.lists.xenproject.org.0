@@ -2,29 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D117738895
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 17:15:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552811.863089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2099F73890C
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 17:28:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552818.863100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBzXw-0004YE-Py; Wed, 21 Jun 2023 15:15:00 +0000
+	id 1qBzkH-0006Ap-0u; Wed, 21 Jun 2023 15:27:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552811.863089; Wed, 21 Jun 2023 15:15:00 +0000
+Received: by outflank-mailman (output) from mailman id 552818.863100; Wed, 21 Jun 2023 15:27:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBzXw-0004Va-Lc; Wed, 21 Jun 2023 15:15:00 +0000
-Received: by outflank-mailman (input) for mailman id 552811;
- Wed, 21 Jun 2023 15:14:59 +0000
+	id 1qBzkG-00067t-U7; Wed, 21 Jun 2023 15:27:44 +0000
+Received: by outflank-mailman (input) for mailman id 552818;
+ Wed, 21 Jun 2023 15:27:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ko9A=CJ=citrix.com=prvs=5295f18c9=Per.Bilse@srs-se1.protection.inumbo.net>)
- id 1qBzXu-0004VU-Mq
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 15:14:59 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6025031d-1046-11ee-8611-37d641c3527e;
- Wed, 21 Jun 2023 17:14:55 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RZUy=CJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qBzkF-00067n-JP
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 15:27:43 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20607.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::607])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2823a1e1-1048-11ee-8611-37d641c3527e;
+ Wed, 21 Jun 2023 17:27:39 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DBBPR04MB7900.eurprd04.prod.outlook.com (2603:10a6:10:1e8::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Wed, 21 Jun
+ 2023 15:27:37 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6500.036; Wed, 21 Jun 2023
+ 15:27:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,277 +47,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6025031d-1046-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1687360495;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ROv8WH2KRHqBNrcnRL0RAQ0km5kswdguMzERRm4vfNw=;
-  b=XaSG/Mm3YwZdHvwUIifTirIHZufhfbKafto6qxvVEX0STxJy8/tvXiuW
-   mA2Rg8dKcxc3NqR8hI1A7aNSyBZDfnavax3zuBwOCBn+Mx3Mjsd4okcLr
-   BDEqkeENGkLCzrtKNqLLiw1v0rNFBDbmU49jbwvzs6epDWFpPm+u4GHcv
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 113660268
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:aDB4vqi1/1j5JWqKC+7BuswvX161JBcKZh0ujC45NGQN5FlHY01je
- htvCj2POfuIYDP9KY8iPtuz9hxQ7JfWytVqSARqpSw3F38b9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsx+qyq0N8klgZmP6sT4gWHzyJ94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tRBEx0WPkGgmdvug6OZdrZr14clF8rSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XSzBC7niUobE6y2PS0BZwwP7mN9+9ltmiHJwOwBjA/
- DyWl4j/Ki9GNda162aiy2ixu8PpogXWQ4wjRKLto5aGh3XMnzdOWXX6T2CTpeSljWa9VshZJ
- khS/TAhxYAu+0i7Zt38WQCkunmCvw5aV9c4O+g77g6K4rDZ7waQGi4PSTspQNY+nMYyRDEsh
- hmFkrvBCTVxvfuVQHSG+7G8qTK0JDhTLGkeaCtCRgwAi/Hz8N8bjR/VSNtnVqmvgbXdGSn56
- yKbsC8kwb4UiKYj1aqh+kvcqymxvZWPRQkwji3MRX6s5A59YI+jZqSr5ELd4PIGK5yWJnGGu
- HUHgMGY4Po5EYCWlCeNTeMOG5mk//+AdjbbhDZHG5gn6iTo+HO5e41UyC9xKV0vMcsefzLtJ
- kjJtmt59JJVeXenc6JzS4awENgxi7jtE8z/UfLZZcYIZYJ+HDJr5wk3OxTWhTq01hFxz+dmY
- 8zznduQ4WgyUJ9K12rnZPkkifw65BxhwjKQQ6v49kHyuVaBX0J5WYvpIXPXMLBmtvPb+VWPm
- zpMH5DUkksCCYUSdgGSqNdOdg5ScBDXELis86Rqmvi/zh2K8Y3LI9vY2vsfdoNshMy5fc+Yr
- yjmCie0JLcS7EAryDlmiVg5MtsDpb4l8RoG0dUEZD5EIUQLb4e197s4fJAqZ7Qh/+EL5acqH
- 6ZfK5vYX6QVGm6vF9EhgX7V9tYKSfhWrVjWY3rNjMYXIvaMuDAlCve7J1CypUHi/wK8tNcko
- q3I6+8oacNreuiWN+6PMKjH5wro7RAgdBdaAxOgzi97JB+9r+CH6kXZ0pcKHi37AUWfmmTCi
- 1rNWn/1Z4Dl+ucIzTUAvojcx6/BLge0NhMy87XzhVpuCRTnww==
-IronPort-HdrOrdr: A9a23:ibGbUa26i8UKI4C2b4tlOgqjBLYkLtp133Aq2lEZdPUCSL39qy
- nOppQmPHDP4wr5NEtLpTniAsi9qBHnmqKdurNhWItKNTOO0FdASrsO0WKI+VPd8kPFmtK0es
- 1bAs9D4HGbNykYsS5aijPIceod/A==
-X-Talos-CUID: 9a23:22AFNG6/ZGIL1jsO6tssrXU5AZB0UWPklDTBAXPnDjcqToaWcArF
-X-Talos-MUID: 9a23:B5E0hQrfUJbC4MiGGc0ezw8+Nc1CwfiJMVoQrLkghO+pLiJBayjI2Q==
-X-IronPort-AV: E=Sophos;i="6.00,260,1681185600"; 
-   d="scan'208";a="113660268"
-From: Per Bilse <per.bilse@citrix.com>
-To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "maintainer:X86 ARCHITECTURE (32-BIT AND
- 64-BIT)" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Juergen Gross
-	<jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, "Oleksandr
- Tyshchenko" <oleksandr_tyshchenko@epam.com>, "open list:X86 ENTRY CODE"
-	<linux-kernel@vger.kernel.org>, "moderated list:XEN HYPERVISOR INTERFACE"
-	<xen-devel@lists.xenproject.org>
-CC: Per Bilse <per.bilse@citrix.com>
-Subject: [PATCH] Updates to Xen hypercall preemption
-Date: Wed, 21 Jun 2023 15:14:42 +0000
-Message-ID: <20230621151442.2152425-1-per.bilse@citrix.com>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
+X-Inumbo-ID: 2823a1e1-1048-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PQN9Vr0zFvd7aJYtrZPLLK3wwa9cUgqpnxcKXSYKhuJ7Mlb7xN2jEq98YhQXDRv3xYqefs0UdN7rxge/TBhvHUFYrqPhbXsZimh35gKTzR4LxbAe7LAWWXCFfEDDLXkcrQRJNInlpgPYHUt//m54k/zwPYSXIlGgutYmposZsjcywE0J+4GQy5jJwq4aD6gl2gBpD6ZJgzsZA5/3XFltow0gL51JG85lh1n2wzAjLra9m/dCH7rdQlMkiCmJ1aroJJhK1p68RGJWdDewLmj92iQz2ggOHjN0iJ4eH/G5Kbo8zSNk6ePkVjNRxuaVqEwA0xR3nECUV16LySnf/5qXXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cY5YGSielma6L4kluSLfNYfLGtEZqe6VTMMwv8D4USY=;
+ b=MBNt6EfU0QPoehkgYQ5lMr6J9V+fm9t9rhxfESplXtDgtvBBVPhIMj3CGyB2LTeGkNei6xE/21ajtR4SApvsUncc9MsN4e1r5qM4C5Z9yARsWDQ0VOySn9OOO9IHxVCXqEBpk2gdYK4/l8Axpko+wsoQg5+T9wTYVX51YVRyJ0FFKPTRucR/hxxHLy47Ly3dbD1bcISYQBvqqvCFM9UECySJsJNmNl2hMQpWGmvJJn9XL9o3jokmnkvsbvGLKyB7pdC2X6qykUJXD4mh1j4a61MOmDhXG3O1UCcUawb3W4aJydnbs7tBr/9IvPqKbK3TSA4XQE9Fjz+nkaOelnlkyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cY5YGSielma6L4kluSLfNYfLGtEZqe6VTMMwv8D4USY=;
+ b=nLw9aB62kV5QRqpqsXx+qxB72VQv5mpUCnhi0HWM/D3STxALz7LxZn2RfqTR+W0l7VsGhGx+rQ8iIfMzaJF4WUOTJP29Tefk2FvDH0QyQO1a+gN5gFTTuiY1kg8EUlKSoq5UQVl/6KAyR4kgWORwipoiCFCRaRNeacdYqHi+8fwDh78JSd3ntatUfHEX2qwaO7Dgv4zDniEIZOVJQGzlva8m2NsoeH3efx+YlRnCSQK6lHinFHaYmo1SXB6lHeVtBysy9mrqmFrqvZiXJ2y+vfSXDhjD7JPcxa6qGkR9jnDeyx13vN8ljyNc/yLyBsl4588Ug+yAUuz+Y1Lr+wlpxg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <2de3a187-5fb4-d06d-a411-a1ee69b73dfc@suse.com>
+Date: Wed, 21 Jun 2023 17:27:34 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v4 12/15] xen: Add SET_CPUFREQ_HWP xen_sysctl_pm_op
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>
+References: <20230614180253.89958-1-jandryuk@gmail.com>
+ <20230614180253.89958-13-jandryuk@gmail.com>
+ <0b53687e-e781-7c01-34e9-e41cd14967c7@suse.com>
+ <CAKf6xputOYsrr5u+8rKZtbBuzL2GhaW_5c77VCmZ5fne_hZVyw@mail.gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <CAKf6xputOYsrr5u+8rKZtbBuzL2GhaW_5c77VCmZ5fne_hZVyw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-ClientProxiedBy: FR2P281CA0108.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBBPR04MB7900:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35330318-3058-4b10-6e90-08db726c0af4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	+WE8yZW6EbDa5z3sK1LWCOGjS2l0be2wMrdu2bW/BAubtPW8lAkRpQpXTmWcNAgn9FNQNZ3olJa8gnOfknvQ5260auGbfCFRapBMEjq9tDgXPVVErrBSh9BQsyXAwWIGUdkC1PzZ8t2nqCBZzGZIDR0AUHotGuy6lVM4SBRaHFOTiloVTTuM9EvoKSySAirfNr03U/F20uPhoY2mTJj6TIgbqDtqXl8brEURday7h+T3bhaAJ/BzyfsoEOSFK4bPYSfHOGIcPc+L8PAOElPramxbLEY2q5mbnCUd/IQtxjc0upigQjbz95KDnl2FZaCBU2j6/1WToiOpTGyBN/M2B70YFUAicnqAv18SaPBCg/mAHCaobUBlr+zIQPzahaafv1OXsAjYE3pyn0wsWLc+lixGP390nQ6mTmHW5NDPAAAovr4KpfXoPisff9fsd69PtTMRpQv9mxG1s+twre8/iNCa23mqKUDZpGs8RsilobWCz54ekN9oNmSv4UqzLJtBAmr7JWi+/BgPFBF5rljbHOcvp465arpBBbmm8i/yxPiVMzyin/BEDhGqILsF7CopsBhJY4OwY+/0sOAZbY+PjZ1gHmWg1cts4vfymx1B3Tfz50irpXmoQC2aApDgQ20zUffCNSBVqb4lbLbDZ0h1gw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(396003)(366004)(136003)(346002)(39860400002)(451199021)(6666004)(6486002)(478600001)(6512007)(186003)(83380400001)(26005)(2616005)(53546011)(38100700002)(36756003)(86362001)(31696002)(6506007)(2906002)(8936002)(8676002)(5660300002)(31686004)(316002)(4326008)(66476007)(66556008)(6916009)(41300700001)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TUZtdVZNL3plbnRiRUQ1YjlpTWJGdHlKOHJyVytTQVNqRVk2dTJoWTFMVjJy?=
+ =?utf-8?B?bkJIS1hJUk5yZW1QZkJ2d1cwR0pmeDVmS2F6ekUvc3JPQllRMmpPTDk4SU9p?=
+ =?utf-8?B?YlFoNWc5Sm45VkEwam1PczNrdlBtalgxV0ZqbW5sclFXc2hXcFV0ZndpSEMv?=
+ =?utf-8?B?dFE3YUh5Q0JYOE9uWnNFRWptUC83TjNkaEg5azU2b1c5NHp1S3ZqS2daMUlE?=
+ =?utf-8?B?Ymc4RldjTkd1REE2T0FraFc1aWMzc28zR2s2UFFkZ2RnNzgrVUFHcGJmNi9C?=
+ =?utf-8?B?SWZSdjRJRTd4alViM2llVTRkUG5HOTFPOWxFNHU0d2huZkpaa0FvbXNET1B0?=
+ =?utf-8?B?MzNPNXZXTjNRUnROWSt3RG9FbHgxQWNmNmVOMlQ0Mm1LcUsyeGhxSklGM0pl?=
+ =?utf-8?B?bVQxYjZ6c0F2dlNaeUorR3k3ZloxMEZMTmZZV25ROUx5RGR1VkxPQ09FZTVD?=
+ =?utf-8?B?RFlhbk5iUU50VVlwejh6MlRZSHR3NjRIQWV2TDg3TE5YZFFSanBwampoNGM4?=
+ =?utf-8?B?Z1o3TUduZ0hlYUpvWi9nU1pNM3NhcGZlQ1RtQVdraXQzcFY1QytKYkx5TXcy?=
+ =?utf-8?B?dmNFVjRWL2dZS0c3RTNLMWFGQm1ZRytkUklhVklScWxtbjdpZmNmeDdyR0lU?=
+ =?utf-8?B?ZUpUajh2dEZia0RsTVRWVWlBQ3A0Q1dJTzk4UmI1YTZobUtmbElMcGkwb1Ay?=
+ =?utf-8?B?Wjc4b0lUcGtZOFpYTFBoMk15SzZ2WlZ3ZTRXRC9qa1oyVlZ1YjhuM1cvNHM5?=
+ =?utf-8?B?cktoR3o1eWtkOVl0UFgzeXFjUjRpVk1ZYTNmSVl5MVdzZTE1QldDTUZtOVRu?=
+ =?utf-8?B?b2IrdW01MXF6djFsM3ZLeDI3ckFaNFl6WjhUWkJVWlpWanRYdG4xZUJLMlFO?=
+ =?utf-8?B?c0JaVVVFUVIvbldhK21ORllwenkwTTFPL0lYdjdIQ3hsMHlWUm9ENTJwSUV6?=
+ =?utf-8?B?Y0dlZWVwdWtNcDEycXpoN3hKUFNrQjFSZVM5K24vV0FjZWppTEVhenRncFd4?=
+ =?utf-8?B?RDQ2YzdBd1pFd2thbjhRc1BNMUNFV3VtcThidUFUaDV5aDhQZzNYZjJGWTMv?=
+ =?utf-8?B?UVVKYTlkNjloRFUvc2tjdWdwQnh2WFp3RktrMFNJZExDSjhMVlFCV2FjSC84?=
+ =?utf-8?B?V0pvMWFoWWliUnhRMDJScVhHMjdsVzJmTElGc28zZVlSRUtMZGFqZmRURzBt?=
+ =?utf-8?B?NE9BTTYyY1FjMFFzdVFhdU5zWGd3aUo5RFcxMElRSllrYTNiS2dicUhxeWtL?=
+ =?utf-8?B?TXJjRkZyV1pMK0l0cHNMZjBIUDVyS0dOZGE4cklwK2NTQTlkRHZmcDlnTEg2?=
+ =?utf-8?B?ODg2VmtLNkFxZlhNYVN3Y0hGM2ZveUhvMTJiSFJjZE9uRnhxNzA2OXBDMnRY?=
+ =?utf-8?B?T3h0aGU5dnZNQy80SytuT3RyeExIeldDeDBBaWgyQ0YzWW4wWThQSEFPWlRB?=
+ =?utf-8?B?eVhlNC9jVENDZHJ5Uko5QW5hWHFFc3E5Ly8rZVUvcmZUNzVCdkRpRGxZU0Ni?=
+ =?utf-8?B?OFFWRVQ1ZHNmSW1xN3RFdm83eUZVQjlFOXhvL0tlRHdSbWxNVVNyZEl2WUM3?=
+ =?utf-8?B?a0h1bjlJUy9obmNJZlI4YzMwdVZ6eDNieEVmSXRDaTNzQXRocDdwWlFRdlpG?=
+ =?utf-8?B?VlFWMHF2T1pzcktvYkF3SmthU3lzNE9FS0s4YlF0dWRvb3VZZEhZRmZXZFJH?=
+ =?utf-8?B?N3dYKzhCYUpIODJ2L21la1ZwV21xNHNkRG1IUFJDZkdoQXNTMHVOazdPNmZs?=
+ =?utf-8?B?TVdpUU11NUN6RHJCUXp3TzAzcGEwaUxnejk5UkJDbHllY0JBZ2x0VUNjVU8x?=
+ =?utf-8?B?OVFpK2RUWm9xN29mb0J5SE00SmtMbXFLbHVVQzFwblNmRlY2R0hjWlBlZEtx?=
+ =?utf-8?B?WW1haTliejNZQXozNEdEckpnajJGMkR0aVByU3Qzb0RXYVdUREtEZnNNU0NS?=
+ =?utf-8?B?WmttK3p0MHREVm9sazh1djJncDVxZzd3QUZ5WFZYWWp4encwK0JpSm9QRFRY?=
+ =?utf-8?B?UmJ5UysyWEdjRnBEeElIV0FuK2NmY1BTelN4S1NyRjZrQjlLNFVVbXpTU0RE?=
+ =?utf-8?B?TE5oKy8rSWFacmwydlNxOHpkOHBpSUcyMWVCRENwMlh0NFp2WHVOdVRiK3BS?=
+ =?utf-8?Q?1y5lB/kllZzVNTcdPNkFTWGY/?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35330318-3058-4b10-6e90-08db726c0af4
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 15:27:37.0088
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gqyrg98WWFaFoQaMFRcLUHDoo8O8JHM44WhjGEEUcgoBr6UFZVLOhdvROSG7rh0+IlNob/BBrimiOu/ylUCXMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7900
 
-Some Xen hypercalls issued by dom0 guests may run for many 10s of
-seconds, potentially causing watchdog timeouts and other problems.
-It's rare for this to happen, but it does in extreme circumstances,
-for instance when shutting down VMs with very large memory allocations
-(> 0.5 - 1TB).  These hypercalls are preemptible, but the fixes in the
-kernel to ensure preemption have fallen into a state of disrepair, and
-are currently ineffective.  This patch brings things up to date by way of:
+(re-adding xen-devel@)
 
-1) Update general feature selection from XEN_PV to XEN_DOM0.
-The issue is unique to dom0 Xen guests, but isn't unique to PV dom0s,
-and will occur in future PVH dom0s.  XEN_DOM0 depends on either PV or PVH,
-as well as the appropriate details for dom0.
+On 21.06.2023 16:16, Jason Andryuk wrote:
+> On Mon, Jun 19, 2023 at 10:47 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 14.06.2023 20:02, Jason Andryuk wrote:
+>>> +    if ( !(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW) &&
+>>> +         set_cppc->activity_window )
+>>> +        return -EINVAL;
+> 
+> There were a few aspects intended to be checked, but I have failed to
+> implement them all properly and consistently.  The 32bit fields of the
+> CPPC interface are larger than the 8 bit HWP fields (10 bits for
+> activity window).  So the first aspect was supposed to ensure all
+> those out-of-range bits are 0.
+> 
+> The second aspect, which wasn't implemented properly, was that fields
+> would be 0 unless the corresponding bit was set in set_params.
+> 
+> The third aspect was to fail if a field was specified but hardware
+> support isn't available.  That is now only activity window.
+> 
+> Do aspects #1 and #2 sound appropriate?  We can discuss #3 below.
 
-2) Update specific feature selection from !PREEMPTION to !PREEMPT.
-The following table shows the relationship between different preemption
-features and their indicators/selectors (Y = "=Y", N = "is not set",
-. = absent):
+Personally I'd prefer if inapplicable fields weren't checked, unless we
+expect re-use of those fields with a different way of indicating that
+the field holds an applicable value. But my primary desire is for
+checking to be as consistent as possible.
 
-                            | np-s | np-d | vp-s | vp-d | fp-s | fp-d
-    CONFIG_PREEMPT_DYNAMIC      N      Y      N      Y      N      Y
-         CONFIG_PREEMPTION      .      Y      .      Y      Y      Y
-            CONFIG_PREEMPT      N      N      N      N      Y      Y
-  CONFIG_PREEMPT_VOLUNTARY      N      N      Y      Y      N      N
-       CONFIG_PREEMPT_NONE      Y      Y      N      N      N      N
+>> Feels like I have wondered before what good this check does. I'm
+>> inclined to suggest to ...
+> 
+> This check was supposed to enforce #2.
+> 
+>>> +    if ( set_cppc->activity_window & ~XEN_SYSCTL_CPPC_ACT_WINDOW_MASK )
+>>> +        return -EINVAL;
+>>
+>> ... fold the two relevant checks, omitting the middle one:
+>>
+>>     if ( (set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW) &&
+>>          (!feature_hwp_activity_window ||
+>>           (set_cppc->activity_window & ~XEN_SYSCTL_CPPC_ACT_WINDOW_MASK))
+>>         return -EINVAL;
+>>
+>> Yet I'm also a little worried about the feature check, requiring the
+>> caller to first figure out whether that feature is available. Would
+>> it be an alternative to make such "best effort", preferably with
+>> some indication that this aspect of the request was not carried out?
+> 
+> Yes, it would be nice to try and apply on a "best effort" basis as
+> it's only activity window which may not be supported.
+> 
+> The SDM says, "Processors may support a subset of IA32_HWP_REQUEST
+> fields as indicated by CPUID. Reads of non-supported fields will
+> return 0. Writes to non-supported fields are ignored."
+> 
+> I'll have to test this, but potentially we just let the writes go
+> through?  If the user checks xenpm, they will see that the activity
+> window isn't supported?  Hmmm, I don't have a machine without activity
+> window support, so I can't test it.  Skylake introduced HWP, but my
+> skylake test system supports activity window.
+> 
+> Or do you want to make xen_set_cppc_para have an in/out and return the
+> applied features?
 
-Unless PREEMPT is set, we need to enable the fixes.
+Yes, that was what I meant with "indication of some sort". You could
+e.g. simply clear the respective control bit in the request (and then
+arrange for it to be copied back).
 
-3) Update flag access from __this_cpu_XXX() to raw_cpu_XXX().
-The long-running hypercalls are flagged by way of a per-cpu variable
-which is set before and cleared after the relevant calls.  This elicits
-a warning "BUG: using __this_cpu_write() in preemptible [00000000] code",
-but xen_pv_evtchn_do_upcall() deals specifically with this.  For
-consistency, flag testing is also updated, and the code is simplified
-and tidied accordingly.
-
-4) Update irqentry_exit_cond_resched() to raw_irqentry_exit_cond_resched().
-The code will call irqentry_exit_cond_resched() if the flag (as noted
-above) is set, but the dynamic preemption feature will livepatch that
-function to a no-op unless full preemption is selected.  The code is
-therefore updated to call raw_irqentry_exit_cond_resched().
-
-Signed-off-by: Per Bilse <per.bilse@citrix.com>
----
- arch/x86/entry/common.c | 34 +++++++++++++---------------------
- drivers/xen/privcmd.c   | 12 ++++++------
- include/xen/xen-ops.h   | 14 +++++++-------
- 3 files changed, 26 insertions(+), 34 deletions(-)
-
-diff --git a/arch/x86/entry/common.c b/arch/x86/entry/common.c
-index 6c2826417b33..19e8609a7a5a 100644
---- a/arch/x86/entry/common.c
-+++ b/arch/x86/entry/common.c
-@@ -20,7 +20,7 @@
- #include <linux/syscalls.h>
- #include <linux/uaccess.h>
- 
--#ifdef CONFIG_XEN_PV
-+#ifdef CONFIG_XEN_DOM0
- #include <xen/xen-ops.h>
- #include <xen/events.h>
- #endif
-@@ -252,17 +252,17 @@ SYSCALL_DEFINE0(ni_syscall)
- 	return -ENOSYS;
- }
- 
--#ifdef CONFIG_XEN_PV
--#ifndef CONFIG_PREEMPTION
-+#ifdef CONFIG_XEN_DOM0
-+#ifndef CONFIG_PREEMPT
- /*
-  * Some hypercalls issued by the toolstack can take many 10s of
-  * seconds. Allow tasks running hypercalls via the privcmd driver to
-  * be voluntarily preempted even if full kernel preemption is
-  * disabled.
-  *
-- * Such preemptible hypercalls are bracketed by
-- * xen_preemptible_hcall_begin() and xen_preemptible_hcall_end()
-- * calls.
-+ * Such preemptible hypercalls are flagged by
-+ * xen_preemptible_hcall_set(true/false), and status is
-+ * returned by xen_preemptible_hcall_get().
-  */
- DEFINE_PER_CPU(bool, xen_in_preemptible_hcall);
- EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
-@@ -271,21 +271,15 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
-  * In case of scheduling the flag must be cleared and restored after
-  * returning from schedule as the task might move to a different CPU.
-  */
--static __always_inline bool get_and_clear_inhcall(void)
-+static __always_inline bool get_and_unset_hcall(void)
- {
--	bool inhcall = __this_cpu_read(xen_in_preemptible_hcall);
-+	bool inhcall = xen_preemptible_hcall_get();
- 
--	__this_cpu_write(xen_in_preemptible_hcall, false);
-+	xen_preemptible_hcall_set(false);
- 	return inhcall;
- }
--
--static __always_inline void restore_inhcall(bool inhcall)
--{
--	__this_cpu_write(xen_in_preemptible_hcall, inhcall);
--}
- #else
--static __always_inline bool get_and_clear_inhcall(void) { return false; }
--static __always_inline void restore_inhcall(bool inhcall) { }
-+static __always_inline bool get_and_unset_hcall(void) { return false; }
- #endif
- 
- static void __xen_pv_evtchn_do_upcall(struct pt_regs *regs)
-@@ -302,16 +296,14 @@ static void __xen_pv_evtchn_do_upcall(struct pt_regs *regs)
- __visible noinstr void xen_pv_evtchn_do_upcall(struct pt_regs *regs)
- {
- 	irqentry_state_t state = irqentry_enter(regs);
--	bool inhcall;
- 
- 	instrumentation_begin();
- 	run_sysvec_on_irqstack_cond(__xen_pv_evtchn_do_upcall, regs);
- 
--	inhcall = get_and_clear_inhcall();
--	if (inhcall && !WARN_ON_ONCE(state.exit_rcu)) {
--		irqentry_exit_cond_resched();
-+	if (get_and_unset_hcall() && !WARN_ON_ONCE(state.exit_rcu)) {
-+		raw_irqentry_exit_cond_resched();
- 		instrumentation_end();
--		restore_inhcall(inhcall);
-+		xen_preemptible_hcall_set(true);
- 	} else {
- 		instrumentation_end();
- 		irqentry_exit(regs, state);
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index e2f580e30a86..78c91227d2a5 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -77,12 +77,12 @@ static long privcmd_ioctl_hypercall(struct file *file, void __user *udata)
- 	if (copy_from_user(&hypercall, udata, sizeof(hypercall)))
- 		return -EFAULT;
- 
--	xen_preemptible_hcall_begin();
-+	xen_preemptible_hcall_set(true);
- 	ret = privcmd_call(hypercall.op,
- 			   hypercall.arg[0], hypercall.arg[1],
- 			   hypercall.arg[2], hypercall.arg[3],
- 			   hypercall.arg[4]);
--	xen_preemptible_hcall_end();
-+	xen_preemptible_hcall_set(false);
- 
- 	return ret;
- }
-@@ -688,9 +688,9 @@ static long privcmd_ioctl_dm_op(struct file *file, void __user *udata)
- 		xbufs[i].size = kbufs[i].size;
- 	}
- 
--	xen_preemptible_hcall_begin();
-+	xen_preemptible_hcall_set(true);
- 	rc = HYPERVISOR_dm_op(kdata.dom, kdata.num, xbufs);
--	xen_preemptible_hcall_end();
-+	xen_preemptible_hcall_set(false);
- 
- out:
- 	unlock_pages(pages, pinned);
-@@ -790,9 +790,9 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
- 	xdata.nr_frames = kdata.num;
- 	set_xen_guest_handle(xdata.frame_list, pfns);
- 
--	xen_preemptible_hcall_begin();
-+	xen_preemptible_hcall_set(true);
- 	rc = HYPERVISOR_memory_op(XENMEM_acquire_resource, &xdata);
--	xen_preemptible_hcall_end();
-+	xen_preemptible_hcall_set(false);
- 
- 	if (rc)
- 		goto out;
-diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
-index 47f11bec5e90..c5b06405f355 100644
---- a/include/xen/xen-ops.h
-+++ b/include/xen/xen-ops.h
-@@ -194,24 +194,24 @@ bool xen_running_on_version_or_later(unsigned int major, unsigned int minor);
- void xen_efi_runtime_setup(void);
- 
- 
--#if defined(CONFIG_XEN_PV) && !defined(CONFIG_PREEMPTION)
-+#if defined(CONFIG_XEN_DOM0) && !defined(CONFIG_PREEMPT)
- 
- DECLARE_PER_CPU(bool, xen_in_preemptible_hcall);
- 
--static inline void xen_preemptible_hcall_begin(void)
-+static inline void xen_preemptible_hcall_set(bool status)
- {
--	__this_cpu_write(xen_in_preemptible_hcall, true);
-+	raw_cpu_write(xen_in_preemptible_hcall, status);
- }
- 
--static inline void xen_preemptible_hcall_end(void)
-+static inline bool xen_preemptible_hcall_get(void)
- {
--	__this_cpu_write(xen_in_preemptible_hcall, false);
-+	return raw_cpu_read(xen_in_preemptible_hcall);
- }
- 
- #else
- 
--static inline void xen_preemptible_hcall_begin(void) { }
--static inline void xen_preemptible_hcall_end(void) { }
-+static inline void xen_preemptible_hcall_set(bool status) { }
-+static inline bool xen_preemptible_hcall_get(void) { return false; }
- 
- #endif /* CONFIG_XEN_PV && !CONFIG_PREEMPTION */
- 
--- 
-2.31.1
-
+Jan
 
