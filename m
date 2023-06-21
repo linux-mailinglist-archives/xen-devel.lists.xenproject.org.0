@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF4F3738BA2
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 18:39:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553001.863301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5866738BBB
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 18:41:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553007.863311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qC0rf-0008Dc-HC; Wed, 21 Jun 2023 16:39:27 +0000
+	id 1qC0tA-0001Fw-TH; Wed, 21 Jun 2023 16:41:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553001.863301; Wed, 21 Jun 2023 16:39:27 +0000
+Received: by outflank-mailman (output) from mailman id 553007.863311; Wed, 21 Jun 2023 16:41:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qC0rf-0008B6-Dp; Wed, 21 Jun 2023 16:39:27 +0000
-Received: by outflank-mailman (input) for mailman id 553001;
- Wed, 21 Jun 2023 16:39:26 +0000
+	id 1qC0tA-0001DT-Pa; Wed, 21 Jun 2023 16:41:00 +0000
+Received: by outflank-mailman (input) for mailman id 553007;
+ Wed, 21 Jun 2023 16:40:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YJad=CJ=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1qC0re-00084P-Aa
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 16:39:26 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lY41=CJ=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1qC0t8-0001DE-Mn
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 16:40:59 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2db4c203-1052-11ee-8611-37d641c3527e;
- Wed, 21 Jun 2023 18:39:24 +0200 (CEST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-155-yYGTWd02M9S6HE0sRb2wPQ-1; Wed, 21 Jun 2023 12:39:21 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-3f9b8e0896aso10373785e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 09:39:21 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c70b:9c00:7978:3030:9d9a:1aef?
- (p200300cbc70b9c00797830309d9a1aef.dip0.t-ipconnect.de.
- [2003:cb:c70b:9c00:7978:3030:9d9a:1aef])
- by smtp.gmail.com with ESMTPSA id
- i15-20020a5d558f000000b0030647d1f34bsm5017228wrv.1.2023.06.21.09.39.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jun 2023 09:39:19 -0700 (PDT)
+ id 6485235f-1052-11ee-8611-37d641c3527e;
+ Wed, 21 Jun 2023 18:40:56 +0200 (CEST)
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qC0sq-00HaPO-2N; Wed, 21 Jun 2023 16:40:40 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 55932300274;
+ Wed, 21 Jun 2023 18:40:38 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 3DB482130B3BB; Wed, 21 Jun 2023 18:40:38 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,83 +50,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2db4c203-1052-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687365563;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KVdFXpPjlqJPMZZKnR2LLT9rdM+KJEhF4WJQ7uIo7nU=;
-	b=QUt4h8AiWF2RVdYXIH6cN6AF8ivwSJz3rgkvwt4Nu+3ndMSocVybLD96ynwX78ED7fKdUc
-	wWwpED1J0G8Qog5dzNV+iR/2qT75oP3qrPB26mvWVGQvCX81+20+iPXXIz1I2F4pI1yIN0
-	D4exGhwaYiOMidbGohMlNFDDUbOdvJU=
-X-MC-Unique: yYGTWd02M9S6HE0sRb2wPQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687365560; x=1689957560;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KVdFXpPjlqJPMZZKnR2LLT9rdM+KJEhF4WJQ7uIo7nU=;
-        b=YDykgoZ9ZcQ/atmKhAEWYM8X8kt5CaSUla0Czig12AF2V0h09eKx6pA0V3ywENKGzj
-         D0yFGDx/NuPGo6+yPfExdX/HqrP4DqkUe1KVpRFjfvin2kOd4ilZnZZYJB89Gd5Ve3cJ
-         b5HfLQGf868p7yHt4XFDQ1c0bIzTFO+/jQX7Q9Rf6eByr8/Tl8wvalwltbpRlSIK2nd4
-         hxPMZv58O31j/GkpJrFm0AGpBLQZnm9TxVT7FFFD/eo0az/Zq3FwB7wOjwWM5tTOrpor
-         4S+C5KRxWIyFUgakBdAWCweLl+z380PyE47+01vo7X/Ue6EYv25AeN90ijrebscgKyAa
-         bjKQ==
-X-Gm-Message-State: AC+VfDwpQHuH1pcSNDQPc8Sd8dQUBPwUxlYhG0GZ4F4iHVyj5gBqmbuB
-	sCl/zrX+nr63m+JgAm7Z+TIzx2zjrNld/XgDFaeFKeGqvyyJVt3BCGSdUKRO4MfHiZRYjFE1en6
-	zGSXhw7sIVnwu1wgBnP2zzAOPOxo=
-X-Received: by 2002:a7b:ca54:0:b0:3f9:b552:411a with SMTP id m20-20020a7bca54000000b003f9b552411amr5427635wml.37.1687365560788;
-        Wed, 21 Jun 2023 09:39:20 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4GSgto16JJNYZ2WJ0ZyfCBtJqHKd0lHiSEosjndJQ2v2PTuWkp4Ke7AdNvEObPczZZk7pGDA==
-X-Received: by 2002:a7b:ca54:0:b0:3f9:b552:411a with SMTP id m20-20020a7bca54000000b003f9b552411amr5427608wml.37.1687365560432;
-        Wed, 21 Jun 2023 09:39:20 -0700 (PDT)
-Message-ID: <b13cbcd2-9963-e904-9870-15e911a9fe6e@redhat.com>
-Date: Wed, 21 Jun 2023 18:39:18 +0200
+X-Inumbo-ID: 6485235f-1052-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=q8ZpFd9zhJ6vbE7RC8xwAURukdS6rBx4YiofuzrByd8=; b=mpUuWq+T2KEHGEgVKWj10ELKCz
+	RJDgr2Qe8zmvnwKiugBusbRYyOc5Ln+Cd9vXiQ20G/U57IC9UXEI0htlLw3JOs+bChUIkR15xEqx4
+	RHFQqKdXb2TnlCdi7o+5jABPENEBlQ4yjhqXjzpH2B8LtnV3QNYMkvLiUvh3YbrKUBGVQzlPhlTHu
+	GQt8CdgE5hfCutdqilwWM4+tDzV3FdCMiOXl97eXC8ORKD3M4zcdsJKzo7/TAZ1DVIzbZ7AWUUQxM
+	rFvOleEU91DCsYoLwnQlv6RxRUI268mIHeMP9aIs7EDbiIgyROsIgXIVQklKLkOHSiMJlq6qxEPg0
+	zDf1a9fQ==;
+Date: Wed, 21 Jun 2023 18:40:38 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Per Bilse <per.bilse@citrix.com>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	"open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Updates to Xen hypercall preemption
+Message-ID: <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
+References: <20230621151442.2152425-1-per.bilse@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v1 1/1] Q35 Support
-To: Joel Upham <jupham125@gmail.com>
-Cc: Ani Sinha <anisinha@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>, Igor Mammedov <imammedo@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
- <philmd@linaro.org>, Richard Henderson <richard.henderson@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Yanan Wang <wangyanan55@huawei.com>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- qemu-devel@nongnu.org
-References: <cover.1687127946.git.jupham125@gmail.com>
- <272947b9494f00bb4ad3e27c050e99f8b61905b3.1687127946.git.jupham125@gmail.com>
- <02b6a8a8-2da7-2864-0c0e-5ed81a560355@redhat.com>
- <CADPhr0kMXxj1SUQggcNQeXY4wSbLNN1-Amqxo3uGVeBMSJmn-g@mail.gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <CADPhr0kMXxj1SUQggcNQeXY4wSbLNN1-Amqxo3uGVeBMSJmn-g@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230621151442.2152425-1-per.bilse@citrix.com>
 
-On 21.06.23 18:35, Joel Upham wrote:
-> Sorry, this was sent in error when I did the git send-email for the 
-> folder. This was before I broke each patch down (after looking at the 
-> Qemu submission guidance). This is my first time sending a patch in this 
-> way, so thanks for the understanding. This patch can be ignored, as they 
-> are all covered elsewhere.
+On Wed, Jun 21, 2023 at 03:14:42PM +0000, Per Bilse wrote:
+> Some Xen hypercalls issued by dom0 guests may run for many 10s of
+> seconds, potentially causing watchdog timeouts and other problems.
+> It's rare for this to happen, but it does in extreme circumstances,
+> for instance when shutting down VMs with very large memory allocations
+> (> 0.5 - 1TB).  These hypercalls are preemptible, but the fixes in the
+> kernel to ensure preemption have fallen into a state of disrepair, and
+> are currently ineffective.  This patch brings things up to date by way of:
 
-We've all been there (messing with git send-email), no need to feel bad :)
+I don't understand it -- fundamentally, how can linux schedule when the
+guest isn't even running? Hypercall transfers control to the
+host/hypervisor and leaves the guest suspended.
 
--- 
-Cheers,
+> 1) Update general feature selection from XEN_PV to XEN_DOM0.
+> The issue is unique to dom0 Xen guests, but isn't unique to PV dom0s,
+> and will occur in future PVH dom0s.  XEN_DOM0 depends on either PV or PVH,
+> as well as the appropriate details for dom0.
+> 
+> 2) Update specific feature selection from !PREEMPTION to !PREEMPT.
+> The following table shows the relationship between different preemption
+> features and their indicators/selectors (Y = "=Y", N = "is not set",
+> . = absent):
+> 
+>                             | np-s | np-d | vp-s | vp-d | fp-s | fp-d
+>     CONFIG_PREEMPT_DYNAMIC      N      Y      N      Y      N      Y
+>          CONFIG_PREEMPTION      .      Y      .      Y      Y      Y
+>             CONFIG_PREEMPT      N      N      N      N      Y      Y
+>   CONFIG_PREEMPT_VOLUNTARY      N      N      Y      Y      N      N
+>        CONFIG_PREEMPT_NONE      Y      Y      N      N      N      N
+> 
+> Unless PREEMPT is set, we need to enable the fixes.
+> 
+> 3) Update flag access from __this_cpu_XXX() to raw_cpu_XXX().
+> The long-running hypercalls are flagged by way of a per-cpu variable
+> which is set before and cleared after the relevant calls.  This elicits
+> a warning "BUG: using __this_cpu_write() in preemptible [00000000] code",
+> but xen_pv_evtchn_do_upcall() deals specifically with this.  For
+> consistency, flag testing is also updated, and the code is simplified
+> and tidied accordingly.
 
-David / dhildenb
+This makes no sense; the race that warning warns about is:
+
+	CPU0			CPU1
+	per-cpu write
+	<preempt-out>
+				<preempt-in>
+				do-hypercall
+
+So you wrote the value on CPU0, got migrated to CPU1 because you had
+preemptioned enabled, and then continue with the percpu value of CPU1
+because that's where you're at now.
+
+Simply making the warning go away doesn't help, CPU1 does hypercall
+while store was on CPU0.
+
+> 4) Update irqentry_exit_cond_resched() to raw_irqentry_exit_cond_resched().
+> The code will call irqentry_exit_cond_resched() if the flag (as noted
+> above) is set, but the dynamic preemption feature will livepatch that
+> function to a no-op unless full preemption is selected.  The code is
+> therefore updated to call raw_irqentry_exit_cond_resched().
+
+That, again meeds more explanation. Why do you want this if not
+preemptible?
+
+You're doing 4 things, that should be 4 patches. Also, please give more
+clues for how this is supposed to work at all.
+
 
 
