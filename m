@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 502D0738258
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 13:37:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552669.862869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD24A738259
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 13:38:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552674.862879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBw8t-0004fS-P9; Wed, 21 Jun 2023 11:36:55 +0000
+	id 1qBwAD-0005Bj-2P; Wed, 21 Jun 2023 11:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552669.862869; Wed, 21 Jun 2023 11:36:55 +0000
+Received: by outflank-mailman (output) from mailman id 552674.862879; Wed, 21 Jun 2023 11:38:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBw8t-0004dJ-M9; Wed, 21 Jun 2023 11:36:55 +0000
-Received: by outflank-mailman (input) for mailman id 552669;
- Wed, 21 Jun 2023 11:36:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qBwAC-00059Z-Ve; Wed, 21 Jun 2023 11:38:16 +0000
+Received: by outflank-mailman (input) for mailman id 552674;
+ Wed, 21 Jun 2023 11:38:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7SS0=CJ=suse.com=pmladek@srs-se1.protection.inumbo.net>)
- id 1qBw8r-0004dD-No
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 11:36:53 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eab4d02c-1027-11ee-b236-6b7b168915f2;
- Wed, 21 Jun 2023 13:36:52 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id C87691FDE8;
- Wed, 21 Jun 2023 11:36:51 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.201.202])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 144972C141;
- Wed, 21 Jun 2023 11:36:46 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBwAA-00059I-Rh; Wed, 21 Jun 2023 11:38:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBwAA-0005Vr-Kw; Wed, 21 Jun 2023 11:38:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBwAA-0002ud-BA; Wed, 21 Jun 2023 11:38:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBwAA-00077n-AR; Wed, 21 Jun 2023 11:38:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,121 +42,367 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eab4d02c-1027-11ee-b236-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687347411; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/FQApQPgb/S6VB9crvo39szrL+RZ0B9Iq9K2WpGCiTo=;
-	b=iwyLnEK1VeUWv/tmm/Nm6Cx5NbYxgFmj0mH+P5/gDg9l9WiFHQ1aqfL3EEa87DHfpr/aUI
-	PhCVJRawNs68LlACkkSmFEImXna0QGgLP5xUaED+wkuZFJn4wrg4DCWfOxgJw3/ea1pY1O
-	C9tLa1Flx054EBbIvKK/ApG8ncbzfFo=
-Date: Wed, 21 Jun 2023 13:36:46 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Joel Granados <j.granados@samsung.com>
-Cc: mcgrof@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Theodore Ts'o <tytso@mit.edu>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Benjamin LaHaise <bcrl@kvack.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>, Jan Kara <jack@suse.cz>,
-	Kees Cook <keescook@chromium.org>,
-	Iurii Zaikin <yzaikin@google.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Balbir Singh <bsingharora@gmail.com>,
-	Eric Biederman <ebiederm@xmission.com>,
-	"Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
-	Anil S Keshavamurthy <anil.s.keshavamurthy@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Naoya Horiguchi <naoya.horiguchi@nec.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yhs@fb.com>, KP Singh <kpsingh@kernel.org>,
-	Stanislav Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>, Waiman Long <longman@redhat.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>, Mark Rutland <mark.rutland@arm.com>,
-	Miaohe Lin <linmiaohe@huawei.com>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-aio@kvack.org,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	bpf@vger.kernel.org, kexec@lists.infradead.org,
-	linux-trace-kernel@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH 08/11] sysctl: Add size to register_sysctl_init
-Message-ID: <ZJLgzo1GuykDV8fd@alley>
-References: <20230621091000.424843-1-j.granados@samsung.com>
- <CGME20230621091037eucas1p188e11d8064526a5a0549217d5a419647@eucas1p1.samsung.com>
- <20230621091000.424843-9-j.granados@samsung.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Kn3G7jNmSSnGiqyiLE+Hr9J4GbfOnagq+2HJMYHtwFg=; b=X2uVxBdrOg6oGmMdV3xx/8jb0D
+	tKlBAaLO5OlvjVttiUWMfBFIxXP9dWM0acCiZBVa9vmXT8ExbGiObKS2UCk1vSSSQVtv3Ou5wHD2L
+	kqHKMkFWnB+Tt/6Jabz0BidFjqLf3WdgLD3EZx9RsebindvRBLuCeuWZcqbwOGgoJjWM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181532-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230621091000.424843-9-j.granados@samsung.com>
+Subject: [xen-unstable-smoke test] 181532: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a6120e3fc8fd90f3ed638c6f7a573bfb534af154
+X-Osstest-Versions-That:
+    xen=7a25a1501ca941c3e01b0c4e624ace05417f1587
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 21 Jun 2023 11:38:14 +0000
 
-On Wed 2023-06-21 11:09:57, Joel Granados wrote:
-> In order to remove the end element from the ctl_table struct arrays, we
-> explicitly define the size when registering the targes. We add a size
-> argument to the register_sysctl_init call and pass an ARRAY_SIZE for all
-> the callers.
+flight 181532 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181532/
 
-This does not explain the motivatin why the end element is removed.
+Failures and problems with tests :-(
 
-I agree with Jiri that saving 9k is a questionable gain. According to
-the cover letter it saved 0,00%. It is because it saved 9k with allyes
-config which produces huge kernel. IMHO, the 9k might be interesting
-only for a tiny kernel. But I guess that it would safe much less
-bytes there.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 181476
 
-And the code with the added ARRAY_SIZE() parameter looks worse than before.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-> diff --git a/kernel/printk/sysctl.c b/kernel/printk/sysctl.c
-> index c228343eeb97..28f37b86414e 100644
-> --- a/kernel/printk/sysctl.c
-> +++ b/kernel/printk/sysctl.c
-> @@ -81,5 +81,6 @@ static struct ctl_table printk_sysctls[] = {
->  
->  void __init printk_sysctl_init(void)
->  {
-> -	register_sysctl_init("kernel", printk_sysctls);
-> +	register_sysctl_init("kernel", printk_sysctls,
-> +			     ARRAY_SIZE(printk_sysctls));
->  }
+version targeted for testing:
+ xen                  a6120e3fc8fd90f3ed638c6f7a573bfb534af154
+baseline version:
+ xen                  7a25a1501ca941c3e01b0c4e624ace05417f1587
 
-Is register_sysctl_init() still ready to handle the last empty element,
-please? I am not in Cc on the related patches.
+Last test of basis   181476  2023-06-17 04:00:28 Z    4 days
+Failing since        181504  2023-06-19 11:00:26 Z    2 days    6 attempts
+Testing same since   181527  2023-06-20 21:00:31 Z    0 days    2 attempts
 
-Best Regards,
-Petr
+------------------------------------------------------------
+People who touched revisions under test:
+  Alistair Francis <alistair.francis@wdc.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+broken-step build-armhf host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit a6120e3fc8fd90f3ed638c6f7a573bfb534af154
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed May 10 20:21:12 2023 +0100
+
+    x86: Use printk_once() instead of opencoding it
+    
+    Technically our helper post-dates all of these examples, but it's good cleanup
+    nevertheless.  None of these examples should be using fully locked
+    test_and_set_bool() in the first place.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit e5ba5165cae654f4bb5023b74008f57b5649979d
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 13 17:06:47 2023 +0100
+
+    xen/evtchn: Purge ERROR_EXIT{,_DOM}()
+    
+    These interfere with code legibility by hiding control flow.  Expand and drop
+    them.
+    
+     * Rearrange the order of actions to write into rc, then render rc in the
+       gdprintk().
+     * Drop redundant "rc = rc" assignments
+     * Switch to using %pd for rendering domains
+    
+    As a side effect, this fixes several violations of MISRA rule 2.1 (dead code -
+    the while() following a goto).
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit 42473bae2394b6602372ab8b83a9ca294b1e40f4
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:27 2023 +0200
+
+    xen/arm: pl011: Add SBSA UART device-tree support
+    
+    We already have all the bits necessary in PL011 driver to support SBSA
+    UART thanks to commit 032ea8c736d10f02672863c6e369338f948f7ed8 that
+    enabled it for ACPI. Plumb in the remaining part for device-tree boot:
+     - add arm,sbsa-uart compatible to pl011_dt_match (no need for a separate
+       struct and DT_DEVICE_START as SBSA is a subset of PL011),
+     - from pl011_dt_uart_init(), check for SBSA UART compatible to determine
+       the UART type in use.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+
+commit 47e3941d2eee347e9c41b311d19048c41e1b33e3
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:26 2023 +0200
+
+    xen/arm: pl011: Use correct accessors
+    
+    At the moment, we use 32-bit only accessors (i.e. readl/writel) to match
+    the SBSA v2.x requirement. This should not be the default case for normal
+    PL011 where accesses shall be 8/16-bit (max register size is 16-bit).
+    There are however implementations of this UART that can only handle 32-bit
+    MMIO. This is advertised by dt property "reg-io-width" set to 4.
+    
+    Introduce new struct pl011 member mmio32 and replace pl011_{read/write}
+    macros with static inline helpers that use 32-bit or 16-bit accessors
+    (largest-common not to end up using different ones depending on the actual
+    register size) according to mmio32 value. By default this property is set
+    to false, unless:
+     - reg-io-width is specified with value 4,
+     - SBSA UART is in use.
+    
+    For now, no changes done for ACPI due to lack of testing possibilities
+    (i.e. current behavior maintained resulting in 32-bit accesses).
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 4fa2272458114b5e4872f835b803909333d5ccd4
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:25 2023 +0200
+
+    xen/arm: debug-pl011: Add support for 32-bit only MMIO
+    
+    There are implementations of PL011 that can only handle 32-bit accesses
+    as oppose to the normal behavior where accesses are 8/16-bit wide. This
+    is usually advertised by setting a dt property 'reg-io-width' to 4.
+    
+    Introduce CONFIG_EARLY_UART_PL011_MMIO32 Kconfig option to be able to
+    enable the use of 32-bit only accessors in PL011 early printk code.
+    Define macros PL011_{STRH,STRB,LDRH} to distinguish accessors for normal
+    case from 32-bit MMIO one and use them in arm32/arm64 pl011 early printk
+    code.
+    
+    Update documentation accordingly.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 655d0798d29b7ac490444b2daf9bffa16d41e822
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Wed Jun 7 11:27:24 2023 +0200
+
+    xen/arm: debug-pl011: Use correct accessors
+    
+    Although most PL011 UARTs can cope with 32-bit accesses, some of the old
+    legacy ones might not. PL011 registers are 8/16-bit wide and this shall
+    be perceived as the normal behavior.
+    
+    Modify early printk pl011 code for arm32/arm64 to use the correct
+    accessors depending on the register size (refer ARM DDI 0183G, Table 3.1).
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Tested-by: Henry Wang <Henry.Wang@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 314a54c1c2805883f50582c40308554a102fdb8a
+Author: Stefano Stabellini <stefano.stabellini@amd.com>
+Date:   Thu Jun 15 14:27:16 2023 -0700
+
+    xen/misra: add rules 1.4 and 2.1
+    
+    Also add a comment at the top of the file to say rules.rst could be
+    changed.
+    
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+
+commit d95f436c7dc6ccee68e1b77a3b01476ef41add55
+Author: Stefano Stabellini <stefano.stabellini@amd.com>
+Date:   Thu Jun 15 14:19:22 2023 -0700
+
+    docs/misra: new rules addition
+    
+    For Dir 1.1, a document describing all implementation-defined behaviour
+    (i.e. gcc-specific behavior) will be added to docs/misra, also including
+    implementation-specific (gcc-specific) appropriate types for bit-field
+    relevant to Rule 6.1.
+    
+    Rule 21.21 is lacking an example on gitlab but the rule is
+    straightforward: we don't use stdlib at all in Xen.
+    
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+commit 43e863a02d81f5fff32763b23d2a39f041f7e62b
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Jun 16 17:28:21 2023 +0100
+
+    x86/boot: Clean up early error asm
+    
+    The asm forming early error handling is a mix of local and non-local symbols,
+    and has some pointless comments.  Drop the "# Error message" comments,
+    tweaking the style on modified lines, and make the symbols local.
+    
+    However, leave behind one real symbol so this logic disassembles nicely
+    without merging in to acpi_boot_init(), which is the thing that happens to be
+    immediately prior in my build.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 3a07da55e63d110851c36b0dae32a5dcf00c54b9
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Jun 19 15:47:37 2023 +0200
+
+    xen/riscv: introduce reset_stack() function
+    
+    The reason for reset_stack() introduction is that stack should be
+    reset twice:
+    1. Before jumping to C world at the start of _start() function.
+    2. After jumping from 1:1 mapping world.
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+
+commit 652ccd1f4afa56b15cb4863d545deac7d1effb30
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Jun 19 15:47:23 2023 +0200
+
+    xen/riscv: add .sbss section to .bss
+    
+    Sometimes variables are located in .sbss section but it won't
+    be mapped after MMU will be enabled.
+    To avoid MMU failures .sbss should be mapped
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Acked-by: Alistair Francis <alistair.francis@wdc.com>
+
+commit c6df21062beb9a9bc29a3a2ffb652e0bfa185c3a
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Mon Jun 19 15:47:05 2023 +0200
+
+    Config.mk: update OVMF to edk2-stable202305
+    
+    Update to OVMF's latest stable tag.
+    
+    This is been prompt by trying to build Xen on Debian Bookworm,
+    where edk2-stable202108 doesn't build. Also, it's been too long since
+    the last update.
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 82b28deb25f37e8422b14493a2efa2852638206d
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Jun 19 15:46:03 2023 +0200
+
+    iommu/vtd: fix address translation for leaf entries
+    
+    Fix two issues related to leaf address lookups in VT-d:
+    
+    * When translating an address that falls inside of a superpage in the
+      IOMMU page tables the fetching of the PTE value wasn't masking of the
+      contiguous related data, which caused the returned data to be
+      corrupt as it would contain bits that the caller would interpret as
+      part of the address.
+    
+    * When the requested leaf address wasn't mapped by a superpage the
+      returned value wouldn't have any of the low 12 bits set, thus missing
+      the permission bits expected by the caller.
+    
+    Take the opportunity to also adjust the function comment to note that
+    when returning the full PTE the bits above PADDR_BITS are removed.
+    
+    Fixes: c71e55501a61 ('VT-d: have callers specify the target level for page table walks')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit ea613d2367ac9dca3875997034e8f4aff74ab635
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jun 19 15:45:07 2023 +0200
+
+    SUPPORT.md: write down restriction of 32-bit tool stacks
+    
+    Let's try to avoid giving the impression that 32-bit tool stacks are as
+    capable as 64-bit ones.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit a17fd0feb6b6bbe82550f43d70654d894ed377ec
+Author: Anthony PERARD <anthony.perard@citrix.com>
+Date:   Mon Jun 19 10:09:32 2023 +0100
+
+    automation: Disable QEMU build with Clang older than 10.0
+    
+    Since QEMU commit 74a1b256d775 ("configure: Bump minimum Clang version
+    to 10.0"), or QEMU v8.0, Clang 10.0 is now the minimum to build QEMU.
+    
+    QEMU 8.0 fails to build on Ubuntu Bionic.
+    
+    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
