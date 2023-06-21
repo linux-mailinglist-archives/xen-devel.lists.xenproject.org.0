@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248727384B7
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 15:18:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552667.862982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE15C738294
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 14:06:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552697.862910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBxj3-0003Gp-ER; Wed, 21 Jun 2023 13:18:21 +0000
+	id 1qBwbO-0001QD-2a; Wed, 21 Jun 2023 12:06:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552667.862982; Wed, 21 Jun 2023 13:18:21 +0000
+Received: by outflank-mailman (output) from mailman id 552697.862910; Wed, 21 Jun 2023 12:06:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBxj3-000393-AZ; Wed, 21 Jun 2023 13:18:21 +0000
-Received: by outflank-mailman (input) for mailman id 552667;
- Wed, 21 Jun 2023 11:18:07 +0000
+	id 1qBwbN-0001O9-VU; Wed, 21 Jun 2023 12:06:21 +0000
+Received: by outflank-mailman (input) for mailman id 552697;
+ Wed, 21 Jun 2023 12:06:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wbwx=CJ=intel.com=jani.nikula@srs-se1.protection.inumbo.net>)
- id 1qBvqh-0002kk-IW
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 11:18:07 +0000
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RZUy=CJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qBwbM-0001O3-DW
+ for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 12:06:20 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2062c.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48e64795-1025-11ee-b236-6b7b168915f2;
- Wed, 21 Jun 2023 13:18:03 +0200 (CEST)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 04:17:58 -0700
-Received: from unknown (HELO localhost) ([10.237.66.162])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 04:16:58 -0700
+ id 07ad3a1d-102c-11ee-b236-6b7b168915f2;
+ Wed, 21 Jun 2023 14:06:19 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DU0PR04MB9695.eurprd04.prod.outlook.com (2603:10a6:10:321::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Wed, 21 Jun
+ 2023 12:06:17 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6500.036; Wed, 21 Jun 2023
+ 12:06:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,218 +47,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48e64795-1025-11ee-b236-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1687346283; x=1718882283;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=bNOOeYVCQ7poh+/POpUoy8h5Fc7oKKTV5NlBm31y8T8=;
-  b=GTQMkg8yX3GS3BRzRBAU2xElsglEmpsLkyU5ksXXmULCIOKAAofkjgaQ
-   Y+nH9SiSMCXNlCx6bdBjiP7E0+RNmAMdG/rqazsvqQpIpwHeq3qI1eW2D
-   evn145J5ihxK1X9F6KqmEiazfvO3lK6gqQ3h1CzhDdXGYbIQd4MxtX6zE
-   6hjllkiWX9/Dxh1WNudiKJ/HmM0Ol/B4/r2b9JSc2NtLKfk2ZHzre7tGQ
-   laYAaKrdoxMVqmVnlv18Y38ON1FDxhVg22KuFpp+cY14+TTyKEsk9msNu
-   So+azKPMkYdA6Pvdc1EXvEGL88on9jKt/CqRZmMZtofZUx89pEFQi4VqU
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="339758042"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400"; 
-   d="scan'208";a="339758042"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="664623042"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400"; 
-   d="scan'208";a="664623042"
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Joel Granados <j.granados@samsung.com>, mcgrof@kernel.org, Russell King
- <linux@armlinux.org.uk>, Catalin
-	Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Michael
-	Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>, Vasily
-	Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Andy Lutomirski
- <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- Russ
-	Weight <russell.h.weight@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Phillip Potter <phil@philpotter.co.uk>,
- Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, Corey
-	Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>, "Jason A.
- Donenfeld" <Jason@zx2c4.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei
-	Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Song Liu <song@kernel.org>, Robin Holt
- <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>, David Ahern
- <dsahern@kernel.org>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Sudip Mukherjee
- <sudipm.mukherjee@gmail.com>, Mark Rutland <mark.rutland@arm.com>, "James
- E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen"
- <martin.petersen@oracle.com>, Doug Gilbert <dgilbert@interlog.com>, Jiri
-	Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, Stefano
-	Stabellini <sstabellini@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Benjamin
-	LaHaise <bcrl@kvack.org>, David Howells <dhowells@redhat.com>, Jan Harkes
- <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, Trond Myklebust
- <trond.myklebust@hammerspace.com>, Anna Schumaker <anna@kernel.org>, Chuck
-	Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, Jan Kara
- <jack@suse.cz>, Anton Altaparmakov <anton@tuxera.com>, Mark Fasheh
- <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, Joseph Qi
- <joseph.qi@linux.alibaba.com>, Kees Cook <keescook@chromium.org>, Iurii
-	Zaikin <yzaikin@google.com>, Eric Biggers <ebiggers@kernel.org>, "Darrick
- J.
- Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
-	Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Balbir
-	Singh <bsingharora@gmail.com>, Eric Biederman <ebiederm@xmission.com>,
- "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, Anil S Keshavamurthy
- <anil.s.keshavamurthy@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Petr Mladek <pmladek@suse.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- John
-	Stultz <jstultz@google.com>, Steven Rostedt <rostedt@goodmis.org>, Andrew
-	Morton <akpm@linux-foundation.org>, Mike Kravetz <mike.kravetz@oracle.com>,
- Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi
- <naoya.horiguchi@nec.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Joerg Reuter <jreuter@yaina.de>, Ralf Baechle
- <ralf@linux-mips.org>, Pablo
-	Neira Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>,
- Florian Westphal <fw@strlen.de>, Roopa Prabhu <roopa@nvidia.com>, Nikolay
-	Aleksandrov <razor@blackwall.org>, Alexander Aring <alex.aring@gmail.com>,
- Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal
- <miquel.raynal@bootlin.com>, Steffen Klassert
- <steffen.klassert@secunet.com>, Matthieu Baerts
- <matthieu.baerts@tessares.net>, Mat Martineau <martineau@kernel.org>,
- Simon
-	Horman <horms@verge.net.au>, Julian Anastasov <ja@ssi.bg>, Remi
-	Denis-Courmont <courmisch@gmail.com>, Santosh Shilimkar
- <santosh.shilimkar@oracle.com>, Marc Dionne <marc.dionne@auristor.com>,
- Neil
-	Horman <nhorman@tuxdriver.com>, Marcelo Ricardo Leitner
- <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Karsten
- Graul <kgraul@linux.ibm.com>, Wenjia Zhang <wenjia@linux.ibm.com>, Jan
- Karcher <jaka@linux.ibm.com>, Jon Maloy <jmaloy@redhat.com>, Ying Xue
- <ying.xue@windriver.com>, Martin Schiller <ms@dev.tdt.de>, John Johansen
- <john.johansen@canonical.com>, Paul Moore <paul@paul-moore.com>, James
-	Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Jarkko
-	Sakkinen <jarkko@kernel.org>
-Cc: Joel Granados <j.granados@samsung.com>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
- <svens@linux.ibm.com>, "H. Peter Anvin" <hpa@zytor.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Mike Travis <mike.travis@hpe.com>, Oleksandr
- Tyshchenko <oleksandr_tyshchenko@epam.com>, Amir Goldstein
- <amir73il@gmail.com>, Matthew Bobrowski <repnop@google.com>, John
- Fastabend <john.fastabend@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Yonghong Song <yhs@fb.com>, KP Singh
- <kpsingh@kernel.org>, Stanislav
-	Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>, Jiri Olsa
- <jolsa@kernel.org>, Waiman Long <longman@redhat.com>, Boqun Feng
- <boqun.feng@gmail.com>, John Ogness <john.ogness@linutronix.de>, Dietmar
-	Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel
-	Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>,
- Valentin Schneider <vschneid@redhat.com>, Andy Lutomirski
- <luto@amacapital.net>, Will Drewry <wad@chromium.org>, Stephen Boyd
- <sboyd@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-ia64@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-crypto@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-raid@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
- linux-aio@kvack.org, linux-cachefs@redhat.com, codalist@coda.cs.cmu.edu,
- linux-mm@kvack.org, linux-nfs@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, ocfs2-devel@oss.oracle.com,
- fsverity@lists.linux.dev, linux-xfs@vger.kernel.org, bpf@vger.kernel.org,
- kexec@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-hams@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, bridge@lists.linux-foundation.org,
- dccp@vger.kernel.org, linux-wpan@vger.kernel.org, mptcp@lists.linux.dev,
- lvs-devel@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-afs@lists.infradead.org, linux-sctp@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-x25@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- keyrings@vger.kernel.org
-Subject: Re: [PATCH 09/11] sysctl: Remove the end element in sysctl table
- arrays
-In-Reply-To: <20230621094817.433842-1-j.granados@samsung.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230621091000.424843-1-j.granados@samsung.com>
- <CGME20230621094824eucas1p2b6adfbd3f15ff3665674917f419b25d3@eucas1p2.samsung.com>
- <20230621094817.433842-1-j.granados@samsung.com>
-Date: Wed, 21 Jun 2023 14:16:55 +0300
-Message-ID: <87o7l92hg8.fsf@intel.com>
+X-Inumbo-ID: 07ad3a1d-102c-11ee-b236-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eEZb47cg5Mn5wkYIUpKrHUs5Ydvz3MHOxF2/RKZmoT0XsMC/OR3gkPI7a0x8HY2xj1vhW769et7N1vEuSapCtiIA89Qtuy1INKUFexjRw2bpICPCKWeaG135xiL2GaO1FUt2NjddNv/Dw6olF6otMIDSxMEBGYujRlOBX20lJSicMXW9OnXkCbpsm3wQeG2hlcNIEsF8CjG9b4D37dO2M8MS+RzGydgp0XaFxNAdKYZynBYfNBDh4U25tCsBOOVgGUtlhWhyrfYDVd2F7vn4YSSenHPkm/4AVOBgOEgCdPdvuUBTmHA+LzQGf5JCo9+HSZO/j485OZJjFzxgk6GDfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HzDCKPXt3E150ts+tNMv5iwq+ySNu/Tkpv8Q+i81QZ0=;
+ b=Duo/o7anLYllYXK9JsyCOOMnafY7pkU2flIw5BrxWiFpgBYEd4Np+qjVxn+ITb2qSC7dselXdiHaMZPlXtm9tXFZXdPbhUM7kVh9xE/LDHXd105qlRCe/Jtj+yao2tBFq7DCktMWjoJqhXmwZ7yjSKOG3NQP6OIroLlY3/XoXLtMeWfGWqMRgEt60YWDbV0a3kGqYxaPwP63jCfWaZZSp46tzfu9njOXQhwDqiNsipceKfi9ksZQzjgTRlk3nK+Ti/q+gv3+g7NUOPu65RfX2dFRtbz/Rv1vvLvu/6UMmjtU8YopjO4GQb3N2DbOOeo32Isfmyn8QR+ArlLiGakSdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HzDCKPXt3E150ts+tNMv5iwq+ySNu/Tkpv8Q+i81QZ0=;
+ b=I5wW4xT6AhMP7KqNVlbVVxUO95tLGyU1icZoP3dBiJAa6zg0bcOXhdC/m/dirvSqPn3jZZgMXLGd6+2ol2nwLrMwUrmhYQUg/qCVkdjqLhtsSbfAQ356bfbCCsQfX2U76wMg8Zl3e+KOV92NGR0iL7AnFPWix8S6inULRvI4jCS6ak4DdF4yWkcMRzf4CgNjK/MC3qg2CZfz1qpzlzM/ceblLpjOOm5Uc7mfaDaQQUkWQHg123fFYmIX7VMkgQYpbvOOnEYTXNkUzkxZ8X/A4ac92qdiQkVnERiQ+c1Gag1P/Q1lZtdVVNRa0EWA6OMFf900G9GWNd22UyhoCKTQIQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f368e425-157f-ea1c-2123-be8a374c328d@suse.com>
+Date: Wed, 21 Jun 2023 14:06:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v7 10/12] vpci: add initial support for virtual PCI bus
+ topology
+Content-Language: en-US
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20230613103159.524763-1-volodymyr_babchuk@epam.com>
+ <20230613103159.524763-11-volodymyr_babchuk@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230613103159.524763-11-volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0159.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b3::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9695:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4de9c5d-f30e-443e-d609-08db724feaad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	cpD7pd4cbNb9F/s7BugitajmdrSUWmgKgvxJAw2xyDFUWye+/TO00S/lSr9kmqbAhJIQ9mpmfoiW2ddoMUMBn8F1+/Kgc4Vcm80glozgngyvUlv5UmY5NIqPUhkQ2gkW9hzZaUNYyTcr0QDxppKoHAvV8Ae0IjnE+JPdB1eZ5u/pAc78bVo5Q8bFGnjhRXJtZJk2uYR0lv+iF3V5dNqvQIodaiYPpjH3h7Aa964Zj4U6+9mBomjkG4ZUjC2dXsN7xMxKny3PHAqDvgsS+28jEuKugOQCYMggxU38o5rxMGzU3ZYukU0K7sbhnLqbFWjsAtQhWhCCD0mqD1B3wtxPmikRZ2XJitp8nMukoYAdf1s/DMum1IHzl+ehUw69ry3JneFXnpga5b3CI1u/Aht3Dqn3ZGeeDMlz+i5qhp+GT9jcY42ujmb2Q86XG5zLnmS2gCwgcHNN0BWm/6UztZ/wnKNA9nfMkVezI1KKTOMmeAWbuG4ulwHd+f3HIgs8Ly11pIh02+YYV6OeGJWBCJz9d//NPuJ5HRL2wv8gPK4InSuUumHA+hLqpcNNMae9DdsS4b6YFadnd46AtTmv4W/crDbo4QUopa9DTdQxi25r+4LN2Lc1Ku8Mbgg2dVuk0LTRa8utPxr5a+JkKyasmygqyA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(366004)(396003)(376002)(136003)(39860400002)(451199021)(5660300002)(31686004)(8936002)(8676002)(6916009)(4326008)(66946007)(66476007)(66556008)(316002)(2906002)(54906003)(41300700001)(6486002)(478600001)(6666004)(26005)(53546011)(186003)(36756003)(83380400001)(2616005)(6512007)(6506007)(38100700002)(86362001)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dG15TVZ5cXBrSHFYcGk5a0Rqa1lyR1M0OVVYUmY3UVVUTnhNUGxmMytlTkRL?=
+ =?utf-8?B?WDJiREhGZ1hqRkJPUnE1OVlnMFk3WmRCbVZrQS9XVXdxRHpKNHNMLzd2TWJw?=
+ =?utf-8?B?MTdUendHSW9NNXNZdEJaczdzUE10S2ZLTlVlSldhdFBFdFVEZ2RPTVNVUkxj?=
+ =?utf-8?B?UFpXQnBPSXRDeTBWcXExbG9pMWt3eGVQa2NxYXJ4U1lYb1YveEdkTkpUZTR5?=
+ =?utf-8?B?cWNGN1ZFamZENUJpSFBjQ0lUL3NZV2p4Z01GeGdtVkdkTU83TU1CVVAzS1VR?=
+ =?utf-8?B?dDBQUCtLMmdkdDJ0WHJzTmhPb2d3SlYwQWZHbGMvTHluTGpibDJPU2wwSzZl?=
+ =?utf-8?B?b3d2cElZbWt2Tjd3bnZtVnpvMFpjL056b1daZXo2N0xIWnNwVytsSW1mcjM2?=
+ =?utf-8?B?TXJJV0NuT3QyTEtEaEdJdjh2enJSaHlGVUhvSkFQVkZ0RVYrb2cwVDlPditx?=
+ =?utf-8?B?WUhDMGpvc0dFVGhBYXl1L2ZWTGZ4TldkM0JMdTZGUzR0UUs1R2IzTTVFd3pB?=
+ =?utf-8?B?MThNaTMyK01CQkxWRndxM005bHppUk0ybDlyVXhKWk1KOS9wOFFPMFZhY3Fr?=
+ =?utf-8?B?QXVnOGl5dU5iUWQ0MFpaQkJ5Zm5lZHM4VSsrZk5NS3laR1BOQTN6WTBpTjJh?=
+ =?utf-8?B?ZmFrK2xCT01qaFZDdjNHUWJFZ2Z4V0tVUkJUdDY0RUp4TXRtV1dSUU1GZUJT?=
+ =?utf-8?B?N2k2QjY3cElhRmpRaHMyQW9FMkk2NWc1RWNyUHJwd0V2cHZ4RmVSYXdCM3Nv?=
+ =?utf-8?B?amkxcnowdVZVMytJR1pxNmlOdGQreXNocnJPVkRRcE5mZlF5WjVUL0NCM2Nv?=
+ =?utf-8?B?eGtvNk5KNDZPKzhRbWhtUy8zVnNVSEhSSXdoeVBTdmpidG1YVWErcVUrdGNC?=
+ =?utf-8?B?MTZXOUxNaHJUWEVyeXJTd1k2Zk1MczdkMTNPTzdGRjhTR0x6aDV6ZzRmVERT?=
+ =?utf-8?B?OFlESjJxbU9sS0VtcFhRcUs3SmlxdmhwZ2xFWkR1a1QwNzBydDJwU0phYmZW?=
+ =?utf-8?B?T0ptOWkwRnJET1ZFU3huMWVxTk1FUXdWVzZIQXAxakZKOFZDa1FJQTgvUmN1?=
+ =?utf-8?B?MldjMkl2TFFMMVRjQzZPWXpZZ3VqdW1MUlUzTEwyejdzUUZFUVZRYWNHZkdC?=
+ =?utf-8?B?L05EVTREY01TV3ZxdHVYbHR0QmlGSnk0QXgzU2Npamt6bGgyTnY0bGkzS2tC?=
+ =?utf-8?B?dFdUQWcvYnc4eU1rcUxrZmM2NVZ1TThrWERHdGtzRWhCa3kyYXkvaHg1eEpZ?=
+ =?utf-8?B?STU3VFVtTkRhRzNqdlU5RnYzMDJtRlU1V25FQ0lIaWdmU01MV3M1UHNOS2ZP?=
+ =?utf-8?B?SEkrL3h4QUlRSlhIMDgyNmF2ZmFSYWlyWStWTEpJa1lLR0xYRlZuSERoOWNQ?=
+ =?utf-8?B?VlN1RmhSRjVIL2cxNkxQeFZ2cE5abk1YcjY2VW1KKzhuQXZIVUF4akF4djE0?=
+ =?utf-8?B?amlZLzl6aFgwOVBEMmxzNW1LU3E3YkxXMlViV2liWXN1bmE0YnlETjlpMnVD?=
+ =?utf-8?B?OWgvMjlrVVE5YktQalArMDhzRTFRZW95SFpkanJNTEg0b2JRdkRJZm10Z0NQ?=
+ =?utf-8?B?NnBoZ2RhYTBjZXNmTWtCTHIwd3NUKzBEVXhYU0pQK2czREIwZW4wVGhDQVN5?=
+ =?utf-8?B?NEROYnh2NlczcVZ4VnpseSt4ejQwV0ljS2ZRajRDMWc2NjZvRWpqZThuVU5t?=
+ =?utf-8?B?bTNGSWdqM29KRnJJRjdYSjlBUllqM2JaTkdUT08rWWd1a0wrN2t3bnRrQXM5?=
+ =?utf-8?B?SG1FeUJpVDhnaWFWaC9Neitia1pDT2pXU2lpTDFsSnBTSE1tL0QvcnZhb0hD?=
+ =?utf-8?B?Wm1nNGcxanBsaUEreTNzdmxjZ0ZmUGNQSzhGS0d0UjdYT2tQMzJaV2hBMS9S?=
+ =?utf-8?B?Kzg3T2ZSVVJqTTZLVm1Tanh5dERVU2tWSmxJeWJRZ0V0eC9VQmt6RXdodUxu?=
+ =?utf-8?B?Vk5CNWdaSFRvVytXRUlXUkpTdllaaE8yTk9uYyt1S28wTGR5N3BOdTZNVjhP?=
+ =?utf-8?B?dGtNVnVLZW0reWtXelBWVEVWQW80Q0FBaXRNN0hLZ3daRVNFUi9VTU50R1d5?=
+ =?utf-8?B?ZnIwd1FnN0pjd3J6UTI2TDlkSWtvTHZyRy9rZ01wV2cvK2tYUGpSazNlTllO?=
+ =?utf-8?Q?v4XItrp/JCiJ7dIfzc4xhzL/B?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4de9c5d-f30e-443e-d609-08db724feaad
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 12:06:17.0069
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oDHARe2s5+mErQvfObvxFlMkTVKpcLr4XQLMoEnMyTbLXs8/suuPreV07Cnz2X7u33aT5ZEq92tBx7eL2mXg/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9695
 
-On Wed, 21 Jun 2023, Joel Granados <j.granados@samsung.com> wrote:
-> Remove the empty end element from all the arrays that are passed to the
-> register sysctl calls. In some files this means reducing the explicit
-> array size by one. Also make sure that we are using the size in
-> ctl_table_header instead of evaluating the .procname element.
-
-Where's the harm in removing the end elements driver by driver? This is
-an unwieldy patch to handle.
-
-> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-> index f43950219ffc..e4d7372afb10 100644
-> --- a/drivers/gpu/drm/i915/i915_perf.c
-> +++ b/drivers/gpu/drm/i915/i915_perf.c
-> @@ -4884,24 +4884,23 @@ int i915_perf_remove_config_ioctl(struct drm_device *dev, void *data,
+On 13.06.2023 12:32, Volodymyr Babchuk wrote:
+> @@ -121,6 +124,62 @@ int vpci_add_handlers(struct pci_dev *pdev)
+>  }
 >  
->  static struct ctl_table oa_table[] = {
->  	{
-> -	 .procname = "perf_stream_paranoid",
-> -	 .data = &i915_perf_stream_paranoid,
-> -	 .maxlen = sizeof(i915_perf_stream_paranoid),
-> -	 .mode = 0644,
-> -	 .proc_handler = proc_dointvec_minmax,
-> -	 .extra1 = SYSCTL_ZERO,
-> -	 .extra2 = SYSCTL_ONE,
-> -	 },
-> +		.procname = "perf_stream_paranoid",
-> +		.data = &i915_perf_stream_paranoid,
-> +		.maxlen = sizeof(i915_perf_stream_paranoid),
-> +		.mode = 0644,
-> +		.proc_handler = proc_dointvec_minmax,
-> +		.extra1 = SYSCTL_ZERO,
-> +		.extra2 = SYSCTL_ONE,
-> +	},
->  	{
-> -	 .procname = "oa_max_sample_rate",
-> -	 .data = &i915_oa_max_sample_rate,
-> -	 .maxlen = sizeof(i915_oa_max_sample_rate),
-> -	 .mode = 0644,
-> -	 .proc_handler = proc_dointvec_minmax,
-> -	 .extra1 = SYSCTL_ZERO,
-> -	 .extra2 = &oa_sample_rate_hard_limit,
-> -	 },
-> -	{}
-> +		.procname = "oa_max_sample_rate",
-> +		.data = &i915_oa_max_sample_rate,
-> +		.maxlen = sizeof(i915_oa_max_sample_rate),
-> +		.mode = 0644,
-> +		.proc_handler = proc_dointvec_minmax,
-> +		.extra1 = SYSCTL_ZERO,
-> +		.extra2 = &oa_sample_rate_hard_limit,
-> +	}
->  };
+>  #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +static int add_virtual_device(struct pci_dev *pdev)
+> +{
+> +    struct domain *d = pdev->domain;
+> +    pci_sbdf_t sbdf = { 0 };
+> +    unsigned long new_dev_number;
+> +
+> +    if ( is_hardware_domain(d) )
+> +        return 0;
+> +
+> +    ASSERT(pcidevs_locked());
+> +
+> +    /*
+> +     * Each PCI bus supports 32 devices/slots at max or up to 256 when
+> +     * there are multi-function ones which are not yet supported.
+> +     */
+> +    if ( pdev->info.is_extfn )
+> +    {
+> +        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
+> +                 &pdev->sbdf);
+> +        return -EOPNOTSUPP;
+> +    }
+> +
+> +    new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
+> +                                         VPCI_MAX_VIRT_DEV);
+> +    if ( new_dev_number >= VPCI_MAX_VIRT_DEV )
+> +        return -ENOSPC;
+> +
+> +    __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
 
-The existing indentation is off, but fixing it doesn't really belong in
-this patch.
+Since the find-and-set can't easily be atomic, the lock used here (
+asserted to be held above) needs to be the same as ...
 
-BR,
-Jani.
+> +    /*
+> +     * Both segment and bus number are 0:
+> +     *  - we emulate a single host bridge for the guest, e.g. segment 0
+> +     *  - with bus 0 the virtual devices are seen as embedded
+> +     *    endpoints behind the root complex
+> +     *
+> +     * TODO: add support for multi-function devices.
+> +     */
+> +    sbdf.devfn = PCI_DEVFN(new_dev_number, 0);
+> +    pdev->vpci->guest_sbdf = sbdf;
+> +
+> +    return 0;
+> +
+> +}
+> +
+> +static void vpci_remove_virtual_device(const struct pci_dev *pdev)
+> +{
+> +    write_lock(&pdev->domain->vpci_rwlock);
+> +    if ( pdev->vpci )
+> +    {
+> +        __clear_bit(pdev->vpci->guest_sbdf.dev,
+> +                    &pdev->domain->vpci_dev_assigned_map);
+> +        pdev->vpci->guest_sbdf.sbdf = ~0;
+> +    }
+> +    write_unlock(&pdev->domain->vpci_rwlock);
 
+... the one used here.
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Jan
 
