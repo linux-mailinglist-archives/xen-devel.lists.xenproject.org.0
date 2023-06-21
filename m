@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE33737FB3
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 12:48:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.552643.862830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B88F737FB8
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jun 2023 12:52:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.552650.862840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBvNi-00062j-GY; Wed, 21 Jun 2023 10:48:10 +0000
+	id 1qBvRS-0007XY-4P; Wed, 21 Jun 2023 10:52:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 552643.862830; Wed, 21 Jun 2023 10:48:10 +0000
+Received: by outflank-mailman (output) from mailman id 552650.862840; Wed, 21 Jun 2023 10:52:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qBvNi-0005zs-Cl; Wed, 21 Jun 2023 10:48:10 +0000
-Received: by outflank-mailman (input) for mailman id 552643;
- Wed, 21 Jun 2023 10:48:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zRYQ=CJ=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1qBvNh-0005zm-92
- for xen-devel@lists.xenproject.org; Wed, 21 Jun 2023 10:48:09 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1af7cb27-1021-11ee-b236-6b7b168915f2;
- Wed, 21 Jun 2023 12:48:07 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DADB161501;
- Wed, 21 Jun 2023 10:48:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D79BC433C8;
- Wed, 21 Jun 2023 10:48:04 +0000 (UTC)
+	id 1qBvRS-0007Uq-0t; Wed, 21 Jun 2023 10:52:02 +0000
+Received: by outflank-mailman (input) for mailman id 552650;
+ Wed, 21 Jun 2023 10:52:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBvRQ-0007Ug-Jw; Wed, 21 Jun 2023 10:52:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBvRQ-0004Sg-7P; Wed, 21 Jun 2023 10:52:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBvRP-0000KZ-V2; Wed, 21 Jun 2023 10:52:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qBvRP-0002ue-UX; Wed, 21 Jun 2023 10:51:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1af7cb27-1021-11ee-b236-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1687344485;
-	bh=vQW8SpknqhfYsLd//ycoQUF1XEoKmVOh7WQXK7qiNdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T3axtBl09Uj+gGhVy84WdPlv59/aPeu632cEchdYe8a/k5iJl0+IXsbF+vopEWDYq
-	 NwenFITRTKDLMCVF8CzPXY6p9Hti1Q2TT7eK4GXO8pT0fRmZYBTPxe1ckDw7AxLZe2
-	 wT9Wmou6gxTC0sVGsza4KPz7hQ7x6JjyXWzC0NK4=
-Date: Wed, 21 Jun 2023 12:47:58 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Joel Granados <j.granados@samsung.com>
-Cc: mcgrof@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Theodore Ts'o <tytso@mit.edu>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Benjamin LaHaise <bcrl@kvack.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>, Jan Kara <jack@suse.cz>,
-	Kees Cook <keescook@chromium.org>,
-	Iurii Zaikin <yzaikin@google.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Balbir Singh <bsingharora@gmail.com>,
-	Eric Biederman <ebiederm@xmission.com>,
-	"Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
-	Anil S Keshavamurthy <anil.s.keshavamurthy@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>, Petr Mladek <pmladek@suse.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Naoya Horiguchi <naoya.horiguchi@nec.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yhs@fb.com>, KP Singh <kpsingh@kernel.org>,
-	Stanislav Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>, Waiman Long <longman@redhat.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>, Mark Rutland <mark.rutland@arm.com>,
-	Miaohe Lin <linmiaohe@huawei.com>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-aio@kvack.org,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	bpf@vger.kernel.org, kexec@lists.infradead.org,
-	linux-trace-kernel@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH 08/11] sysctl: Add size to register_sysctl_init
-Message-ID: <2023062150-outbound-quiet-2609@gregkh>
-References: <20230621091000.424843-1-j.granados@samsung.com>
- <CGME20230621091037eucas1p188e11d8064526a5a0549217d5a419647@eucas1p1.samsung.com>
- <20230621091000.424843-9-j.granados@samsung.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Qw0euqqTlxNp3MvGlIS4vC08bJ1g7jBHK8CxnAdF+WE=; b=ZqR4OTvE5668KlohninVNMwDxY
+	0lr3aP5y5o9xLcyYG7OKYvYXDluLNsjfMaatFPO2nN4fVe9/Fj9vw9J2kssDAooxdxQYgZVXeS8qR
+	bFhA9KCsRfNOtl/UJy1qSqbRCjP9ENyfAKv8Z/0W3Qo10bvz3ip35N/BXqiX61zO1ux4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181531-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230621091000.424843-9-j.granados@samsung.com>
+Subject: [ovmf test] 181531: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=4a0642ad27bfb566835ae86aedae0e18f9735cc2
+X-Osstest-Versions-That:
+    ovmf=ea55bd8f66eeca5f4e80c3679bcf1b1007286b8a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 21 Jun 2023 10:51:59 +0000
 
-On Wed, Jun 21, 2023 at 11:09:57AM +0200, Joel Granados wrote:
->  static int __init random_sysctls_init(void)
->  {
-> -	register_sysctl_init("kernel/random", random_table);
-> +	register_sysctl_init("kernel/random", random_table,
-> +			     ARRAY_SIZE(random_table));
+flight 181531 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181531/
 
-As mentioned before, why not just do:
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 4a0642ad27bfb566835ae86aedae0e18f9735cc2
+baseline version:
+ ovmf                 ea55bd8f66eeca5f4e80c3679bcf1b1007286b8a
 
-#define register_sysctl_init(string, table)	\
-	__register_sysctl_init(string, table, ARRAY_SIZE(table);
+Last test of basis   181438  2023-06-15 05:42:42 Z    6 days
+Testing same since   181531  2023-06-21 03:42:36 Z    0 days    1 attempts
 
-or something like that?
+------------------------------------------------------------
+People who touched revisions under test:
+  Jian J Wang <jian.j.wang@intel.com>
 
-That way no callers need to change AND you prevent the size from ever
-being incorrect?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-thanks,
 
-greg k-h
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ea55bd8f66..4a0642ad27  4a0642ad27bfb566835ae86aedae0e18f9735cc2 -> xen-tested-master
 
