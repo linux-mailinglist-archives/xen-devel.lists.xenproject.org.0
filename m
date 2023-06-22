@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9512A73A247
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 15:55:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553584.864224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7B973A246
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 15:55:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553587.864235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKmW-0008A8-Tk; Thu, 22 Jun 2023 13:55:28 +0000
+	id 1qCKmh-0008Si-Am; Thu, 22 Jun 2023 13:55:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553584.864224; Thu, 22 Jun 2023 13:55:28 +0000
+Received: by outflank-mailman (output) from mailman id 553587.864235; Thu, 22 Jun 2023 13:55:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKmW-000873-QL; Thu, 22 Jun 2023 13:55:28 +0000
-Received: by outflank-mailman (input) for mailman id 553584;
- Thu, 22 Jun 2023 13:55:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qCKmh-0008PQ-7R; Thu, 22 Jun 2023 13:55:39 +0000
+Received: by outflank-mailman (input) for mailman id 553587;
+ Thu, 22 Jun 2023 13:55:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CGH2=CK=arm.com=peter.hoyes@srs-se1.protection.inumbo.net>)
- id 1qCKmV-00086x-RT
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 13:55:27 +0000
+ id 1qCKmg-0008ON-4d
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 13:55:38 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6f4a5419-1104-11ee-b237-6b7b168915f2;
- Thu, 22 Jun 2023 15:55:24 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 76713b0c-1104-11ee-8611-37d641c3527e;
+ Thu, 22 Jun 2023 15:55:36 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 661F9C14;
- Thu, 22 Jun 2023 06:56:07 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 69B61C14;
+ Thu, 22 Jun 2023 06:56:19 -0700 (PDT)
 Received: from e125920.cambridge.arm.com (unknown [10.1.199.64])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7BB5A3F663;
- Thu, 22 Jun 2023 06:55:22 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 651983F663;
+ Thu, 22 Jun 2023 06:55:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f4a5419-1104-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 76713b0c-1104-11ee-8611-37d641c3527e
 From: Peter Hoyes <peter.hoyes@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -50,114 +50,196 @@ Cc: bertrand.marquis@arm.com,
 	luca.fancellu@arm.com,
 	Peter Hoyes <Peter.Hoyes@arm.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 1/2] tools/console: Add escape argument to configure escape character
-Date: Thu, 22 Jun 2023 14:55:02 +0100
-Message-Id: <20230622135503.409150-1-peter.hoyes@arm.com>
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2 2/2] xl: Add escape character argument to xl console
+Date: Thu, 22 Jun 2023 14:55:03 +0100
+Message-Id: <20230622135503.409150-2-peter.hoyes@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230622135503.409150-1-peter.hoyes@arm.com>
+References: <20230622135503.409150-1-peter.hoyes@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Peter Hoyes <Peter.Hoyes@arm.com>
 
-Dom0 may be accessed via telnet, meaning the default escape character
-(which is the same as telnet's) cannot be directly used to exit the
-console. It would be helpful to make the escape character customizable
-in such use cases.
+Add -e argument to xl console and pass to new escape_character argument
+of libxl_console_exec.
 
-Add --escape argument to console tool for this purpose.
+In libxl_console_exec, there are currently two call sites to execl,
+which uses varargs, in order to support optionally passing
+'start-notify-fd' to the console client. In order to support passing
+the 'escape' argument optionally too, refactor to instead have a single
+call site to execv, which has the same behavior but takes an array of
+arguments.
 
-Create parse_escape_character static function to convert a character
-string (which may include a '^' modifier) into an ANSI integer.
-
-Add argument to getopt options, parse escape character and pass value
-to console_loop.
-
-If --escape is not specified, it falls back to the existing behavior
-using DEFAULT_ESCAPE_SEQUENCE.
+If -e is not specified, --escape is not passed to the console client and
+the existing value (^]) is used as a default.
 
 Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
 ---
- tools/console/client/main.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ tools/include/libxl.h            |  8 ++++++--
+ tools/libs/light/libxl_console.c | 30 ++++++++++++++++++++++--------
+ tools/xl/xl_cmdtable.c           |  3 ++-
+ tools/xl/xl_console.c            | 10 +++++++---
+ tools/xl/xl_vmcontrol.c          |  2 +-
+ 5 files changed, 38 insertions(+), 15 deletions(-)
 
-diff --git a/tools/console/client/main.c b/tools/console/client/main.c
-index 6775006488..fb7cfb04b5 100644
---- a/tools/console/client/main.c
-+++ b/tools/console/client/main.c
-@@ -42,7 +42,7 @@
- #include <xenstore.h>
- #include "xenctrl.h"
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index cac641a7eb..c513c39483 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -1958,7 +1958,8 @@ int libxl_vncviewer_exec(libxl_ctx *ctx, uint32_t domid, int autopass);
+  * the caller that it has connected to the guest console.
+  */
+ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+-                       libxl_console_type type, int notify_fd);
++                       libxl_console_type type, int notify_fd,
++                       char* escape_character);
+ /* libxl_primary_console_exec finds the domid and console number
+  * corresponding to the primary console of the given vm, then calls
+  * libxl_console_exec with the right arguments (domid might be different
+@@ -1968,9 +1969,12 @@ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+  * guests using pygrub.
+  * If notify_fd is not -1, xenconsole will write 0x00 to it to nofity
+  * the caller that it has connected to the guest console.
++ * If escape_character is not NULL, the provided value is used to exit
++ * the guest console.
+  */
+ int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm,
+-                               int notify_fd);
++                               int notify_fd,
++                               char* escape_character);
  
--#define ESCAPE_CHARACTER 0x1d
-+#define DEFAULT_ESCAPE_CHARACTER 0x1d
+ #if defined(LIBXL_API_VERSION) && LIBXL_API_VERSION < 0x040800
  
- static volatile sig_atomic_t received_signal = 0;
- static char lockfile[sizeof (XEN_LOCK_DIR "/xenconsole.") + 8] = { 0 };
-@@ -77,6 +77,7 @@ static void usage(const char *program) {
- 	       "  -n, --num N      use console number N\n"
- 	       "  --type TYPE      console type. must be 'pv', 'serial' or 'vuart'\n"
- 	       "  --start-notify-fd N file descriptor used to notify parent\n"
-+	       "  --escape E       escape sequence to exit console\n"
- 	       , program);
+diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_console.c
+index f497be141b..0b7293fe71 100644
+--- a/tools/libs/light/libxl_console.c
++++ b/tools/libs/light/libxl_console.c
+@@ -52,7 +52,8 @@ out:
  }
  
-@@ -174,7 +175,7 @@ static void restore_term(int fd, struct termios *old)
- }
- 
- static int console_loop(int fd, struct xs_handle *xs, char *pty_path,
--		        bool interactive)
-+			bool interactive, char escape_character)
+ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+-                       libxl_console_type type, int notify_fd)
++                       libxl_console_type type, int notify_fd,
++                       char* escape_character)
  {
- 	int ret, xs_fd = xs_fileno(xs), max_fd = -1;
+     GC_INIT(ctx);
+     char *p = GCSPRINTF("%s/xenconsole", libxl__private_bindir_path());
+@@ -75,15 +76,26 @@ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+         goto out;
+     }
  
-@@ -215,7 +216,7 @@ static int console_loop(int fd, struct xs_handle *xs, char *pty_path,
- 			char msg[60];
++    char *args[] = {
++        p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
++        NULL, NULL, NULL, NULL, // start-notify-fd, escape
++        NULL, // list terminator - do not use
++    };
++    char **args_extra = args + 6;
++
+     if (notify_fd != -1) {
+         notify_fd_s = GCSPRINTF("%d", notify_fd);
+-        execl(p, p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
+-              "--start-notify-fd", notify_fd_s, (void *)NULL);
+-    } else {
+-        execl(p, p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
+-              (void *)NULL);
++        *args_extra++ = "--start-notify-fd";
++        *args_extra++ = notify_fd_s;
+     }
  
- 			len = read(STDIN_FILENO, msg, sizeof(msg));
--			if (len == 1 && msg[0] == ESCAPE_CHARACTER) {
-+			if (len == 1 && msg[0] == escape_character) {
- 				return 0;
- 			} 
++    if (escape_character) {
++        *args_extra++ = "--escape";
++        *args_extra++ = escape_character;
++    }
++
++    execv(p, args);
++
+ out:
+     GC_FREE;
+     return ERROR_FAIL;
+@@ -156,7 +168,8 @@ out:
+     return rc;
+ }
  
-@@ -335,6 +336,7 @@ int main(int argc, char **argv)
- 		{ "help",    0, 0, 'h' },
- 		{ "start-notify-fd", 1, 0, 's' },
- 		{ "interactive", 0, 0, 'i' },
-+		{ "escape",  1, 0, 'e' },
- 		{ 0 },
+-int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd)
++int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd,
++                               char* escape_character)
+ {
+     uint32_t domid;
+     int cons_num;
+@@ -165,7 +178,8 @@ int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd)
  
- 	};
-@@ -345,6 +347,7 @@ int main(int argc, char **argv)
- 	console_type type = CONSOLE_INVAL;
- 	bool interactive = 0;
- 	const char *console_names = "serial, pv, vuart";
-+	char escape_character = DEFAULT_ESCAPE_CHARACTER;
+     rc = libxl__primary_console_find(ctx, domid_vm, &domid, &cons_num, &type);
+     if ( rc ) return rc;
+-    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd);
++    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd,
++                              escape_character);
+ }
  
- 	while((ch = getopt_long(argc, argv, sopt, lopt, &opt_ind)) != -1) {
- 		switch(ch) {
-@@ -375,6 +378,12 @@ int main(int argc, char **argv)
- 		case 'i':
- 			interactive = 1;
- 			break;
-+		case 'e':
-+			if (optarg[0] == '^')
-+				escape_character = optarg[1] & 0x1f;
-+			else
-+				escape_character = optarg[0];
-+			break;
- 		default:
- 			fprintf(stderr, "Invalid argument\n");
- 			fprintf(stderr, "Try `%s --help' for more information.\n", 
-@@ -493,7 +502,7 @@ int main(int argc, char **argv)
- 		close(start_notify_fd);
- 	}
+ int libxl_primary_console_get_tty(libxl_ctx *ctx, uint32_t domid_vm,
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index ccf4d83584..67604e9536 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -141,7 +141,8 @@ const struct cmd_spec cmd_table[] = {
+       "Attach to domain's console",
+       "[options] <Domain>\n"
+       "-t <type>       console type, pv , serial or vuart\n"
+-      "-n <number>     console number"
++      "-n <number>     console number\n"
++      "-e <escape>     escape character"
+     },
+     { "vncviewer",
+       &main_vncviewer, 0, 0,
+diff --git a/tools/xl/xl_console.c b/tools/xl/xl_console.c
+index b27f9e0136..5633c6f6f7 100644
+--- a/tools/xl/xl_console.c
++++ b/tools/xl/xl_console.c
+@@ -28,8 +28,9 @@ int main_console(int argc, char **argv)
+     int opt = 0, num = 0;
+     libxl_console_type type = 0;
+     const char *console_names = "pv, serial, vuart";
++    char* escape_character = NULL;
  
--	console_loop(spty, xs, path, interactive);
-+	console_loop(spty, xs, path, interactive, escape_character);
+-    SWITCH_FOREACH_OPT(opt, "n:t:", NULL, "console", 1) {
++    SWITCH_FOREACH_OPT(opt, "n:t:e:", NULL, "console", 1) {
+     case 't':
+         if (!strcmp(optarg, "pv"))
+             type = LIBXL_CONSOLE_TYPE_PV;
+@@ -45,13 +46,16 @@ int main_console(int argc, char **argv)
+     case 'n':
+         num = atoi(optarg);
+         break;
++    case 'e':
++        escape_character = optarg;
++        break;
+     }
  
- 	free(path);
- 	free(dom_path);
+     domid = find_domain(argv[optind]);
+     if (!type)
+-        libxl_primary_console_exec(ctx, domid, -1);
++        libxl_primary_console_exec(ctx, domid, -1, escape_character);
+     else
+-        libxl_console_exec(ctx, domid, num, type, -1);
++        libxl_console_exec(ctx, domid, num, type, -1, escape_character);
+     fprintf(stderr, "Unable to attach console\n");
+     return EXIT_FAILURE;
+ }
+diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+index 5518c78dc6..03971927e9 100644
+--- a/tools/xl/xl_vmcontrol.c
++++ b/tools/xl/xl_vmcontrol.c
+@@ -643,7 +643,7 @@ static void autoconnect_console(libxl_ctx *ctx_ignored,
+     postfork();
+ 
+     sleep(1);
+-    libxl_primary_console_exec(ctx, bldomid, notify_fd);
++    libxl_primary_console_exec(ctx, bldomid, notify_fd, NULL);
+     /* Do not return. xl continued in child process */
+     perror("xl: unable to exec console client");
+     _exit(1);
 -- 
 2.34.1
 
