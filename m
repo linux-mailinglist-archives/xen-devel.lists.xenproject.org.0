@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E110739A07
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 10:38:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553394.863914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 526F3739A4F
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 10:43:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553399.863924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCFpJ-0001fO-GS; Thu, 22 Jun 2023 08:38:01 +0000
+	id 1qCFtu-00037P-31; Thu, 22 Jun 2023 08:42:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553394.863914; Thu, 22 Jun 2023 08:38:01 +0000
+Received: by outflank-mailman (output) from mailman id 553399.863924; Thu, 22 Jun 2023 08:42:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCFpJ-0001dV-DH; Thu, 22 Jun 2023 08:38:01 +0000
-Received: by outflank-mailman (input) for mailman id 553394;
- Thu, 22 Jun 2023 08:38:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qCFtt-00035b-VU; Thu, 22 Jun 2023 08:42:45 +0000
+Received: by outflank-mailman (input) for mailman id 553399;
+ Thu, 22 Jun 2023 08:42:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qCFpI-0001dN-9k
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 08:38:00 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qCFpH-0001yH-KP; Thu, 22 Jun 2023 08:37:59 +0000
-Received: from [54.239.6.188] (helo=[192.168.27.222])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qCFpH-0004gP-DK; Thu, 22 Jun 2023 08:37:59 +0000
+ (envelope-from <SRS0=WLfn=CK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qCFts-00035V-5l
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 08:42:44 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf9cb40b-10d8-11ee-8611-37d641c3527e;
+ Thu, 22 Jun 2023 10:42:41 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM8PR04MB7362.eurprd04.prod.outlook.com (2603:10a6:20b:1c5::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 22 Jun
+ 2023 08:42:38 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6521.024; Thu, 22 Jun 2023
+ 08:42:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,232 +47,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=aSIZC7fXTVp1FNDIMZr5I8P6AS6dstociPqWM1ufVqs=; b=Kmycd7JN9LQJXCZbQXm10+Qato
-	4hm91GMEUSjjWHp2LTI63bONywlX1M7ycKQBH8XKBspKHYW2wZe6Zz012MYhcITjec9j53pZFplfJ
-	T1PKR7wiC4eejYwLc3t6AnjW0Z+d2LsCMtkhkGybaAdkRPiShDJSdOULtRhO15i41l8I=;
-Message-ID: <7a48c49e-2998-9e34-45ef-a1c3431fbffe@xen.org>
-Date: Thu, 22 Jun 2023 09:37:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [XEN PATCH] xen/arm: fixed violations of MISRA C:2012 R8.3 on
- parameter names.
+X-Inumbo-ID: bf9cb40b-10d8-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WHzcTsWZ+FbuA+ulL7DmUrmXM8KfiKH+hJ3xLGK7z2Au1fvtW+00ASKdZZlaJahdI4oSn4+AXatjkaCDFT/GdYtv/me+9O8C7Sx0FY2IDD8MtNDPjydB1K+xkQLwy04BOIC5zNu2YTCjizNijIpkT9gwAfmyufr/3Rq2ZGfmRo//JNiBT3AAINKg79BvLqnZG1UNflr0ln54p0+Fyk//EAiwt1eH/6G/tPz0+qGQfDqXiBrZc8qzmVG8umh2SA/Je8vt7hCGIah75f1c/gisL2mjZYINygqxtgx9++gbIUyMv2RkTpGqXchy/WXoGXVzERklnPiotGJMepQJlyCh6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ya5OBKa4U4pXsz1gQtJ+XEYBNA4mQKe7sGf8wtHMzhs=;
+ b=EzsEzyaBrV1yx8yf1Rtx+r4qYSLXVD5XxvxF6HO7kuslAHAyTMeys4RmwaDBL8PcpABotMvw6u52azkcMU8eKN09mZ0sKupxvNc6VeGwZTJBZpXAQDoE0CYpf+mqlnqcU9W/DXHRFhM5t3SGdceE0EiHzjEtwv+/fMgcw9G8Cmbw0UQGgw2FiKMroLFk1SMiKOIJ7XtaMf6FxZStexAcDZbw/uTpFIDz/aIK2XC6vFXk+JWf7Utlb443Plx38wFWwrZVjOp+zRwlUttLRgJS5jdpf/pdC2+KsOQRriEc5s5VRmihYS5V6Md2rfuMICd8TokKMOMEPQ4IedcWFDgNhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ya5OBKa4U4pXsz1gQtJ+XEYBNA4mQKe7sGf8wtHMzhs=;
+ b=myHJS5NkZhE0WF6vt9eE/jIUyvHKCbpQsxkZcjzGKFJZIo4uQtkPqJq8cPRKdX10rf4gqSdcwIGieYtiwYLA1h1sIAEIvTeW3e6YlGPrJ2CNO8QJBLops1vJ0cYbKN55ajetzOMaBQtUvUFVojH79axKNshe9kfL7uIx7IamDz9Y/5JjXAq0rIBjHJM4Eu65DzZWqGHvRYQkmXD+9dBlNDY8sDftHYkqJxQHT1ziju5OuWK8a/IKaDVgkGSAenqSz4CjXsCCgMMJ41gyF1WnetGJgwkwfwQsPEFghizJzxZgtum6YSYPLQutYQec0oNZkXyjQO2yv+oCX2ELZ2MOTw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <da182694-a43b-c811-5124-deabd0f8f657@suse.com>
+Date: Thu, 22 Jun 2023 10:42:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 2/2] xen/types: Rework stdint vs __{u,s}$N types
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-References: <cb0bbd89e169484ccd22da44bbcace56d5497c3e.1687420119.git.federico.serafini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <cb0bbd89e169484ccd22da44bbcace56d5497c3e.1687420119.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230621211200.4132989-1-andrew.cooper3@citrix.com>
+ <20230621211200.4132989-3-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230621211200.4132989-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0018.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::28)
+ To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM8PR04MB7362:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e4b681d-b245-416a-854b-08db72fca220
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Qbw+0zqw6msTlz1IcEWJR0nhzNIgFemFVXc0lmiVOVpaa1WpRixMaRtdFCvQbfD1qZkSxKG6Jq2Nu1GAJwP4LGIHJM63LAX1sZO02jjyFG6GqN2m7ZKzOmvhEgmzJYAF2ZRQeXxgMgSsMBRaeOXTtjrOVAP+57xfelGQ70B3jDHL3DA2l4MvabLLOiE9wfO0NDxWs8qdG2e1SNp5SxCDgNe6/ieGhM55W7dAhCvps8l+Ny6nb2lkHTrDMZwJ/R/EbwWpwrS6DmvSpnT6jBiPt729l8wTcDNfLSI0ahAWmWmT23PSZ1btZkL6wNDfZeDihdwdDy6cc+ypLDw9a2/bW1eUTW+AKub3TG98/+1TcX6elyW9qSgTOvNp9m/Yra8JevEhEuDSl30MZe3MfCNjvc5QoBcErR0wXrpxgYIEfadWOPf/NYexclWMgi4nLKOgsVW5DBYAF8BDn/VmWHLO3d15B3sxsFezLmV8q7xqGTUgH2W+Avmvo3vWlu2I+Mjzgzuzt5dOYtNauwE4DYSLAYfHQ+BHqCnaGfh+wWcvzgQlvTu2+N62DTre7AWvs0P3YJON30JwAlsbNvrTtmv0HQCi9Dx62/+Oc7kc5I2869CDbTGmhfmr1wCdgHVqi0ZUH36I3qgpFVzHPXsFWrziAg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(39860400002)(136003)(346002)(376002)(396003)(451199021)(86362001)(38100700002)(316002)(4326008)(66556008)(66476007)(66946007)(6916009)(41300700001)(8676002)(5660300002)(31696002)(8936002)(2906002)(7416002)(186003)(26005)(6512007)(6506007)(36756003)(83380400001)(53546011)(2616005)(31686004)(54906003)(478600001)(6486002)(6666004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?clpzbTFCUjlqVnhnQUVKckgxMnJWdGFBbGNLZ3lrcmZZUS9Ecm9VRjdIMFox?=
+ =?utf-8?B?aFV1VTNhVXFKN1lGQTJ5L1JpQU5xOWZGRGZzMHJjRmRXOVBESUI3Mm9xRnNJ?=
+ =?utf-8?B?Y3B0Y051bDcvUThocHlFRE1Ja0Y4Vk1CUFYzRUJtcEFpNVVoTndMVGV5OUgz?=
+ =?utf-8?B?c2FKK3NDWi9ncVlZdzMxOVpmOVpqSUdINGVMbnJuRFdybEFCUzM1OVlxN21B?=
+ =?utf-8?B?YVR0aVZ2N1drRUVUV3JnVW8wWjRQL1podVdySDZCdXc5Qk50bUhGZ0tBTm5j?=
+ =?utf-8?B?STZBb1NMd3MxYStMZHdFWWtlUzhwNGhnNm1xUEUzYjRDZE9ha3l0MUVXZmJi?=
+ =?utf-8?B?L2VKZTFSQVdoNWlSZXA5Ym5kWHZVOFJWbXpUYlVINllCRHJDRFh5eTVLRG1Q?=
+ =?utf-8?B?UmNaQXRZNUFRR2IweUtZSFlwa2FzN3NkYWh0MS9TMCtkZHBOelpMenUyODlj?=
+ =?utf-8?B?QmlqWndDbEFEUThoN1ZGajdhbGd2YkFqeFQzeUt3aUhyc1ZvTm1EVmkwMGxx?=
+ =?utf-8?B?YXRKN3dSSm5oN0dtdWwwa2g2MU9JQW9PejlvczB6SWtKc3ozTW1UZFE5THNu?=
+ =?utf-8?B?SVFSWTFnRHJhZHh2UjRDWXJkUXBXNnVFak01NEJjOUkxektlY1dXdU42WWNK?=
+ =?utf-8?B?bTJMTEtPMjZoL3h6S1VQZ2FHWGxXOHFlMGVUYjE2R1RJTjl2OUlaVkJGUnBj?=
+ =?utf-8?B?YTJ0bmxqOXF0NW1aTE9WbTdEWFZjWTh3UlgwVEQ1S3RGQ0d5dXBZSjBONllK?=
+ =?utf-8?B?YTZXckwyQjFvWXNNMXhLNVpoVWVNUUUzdmpTdE93cFNHOHpmSDRMcG9lT3Uz?=
+ =?utf-8?B?Y2tuU0tnWjlwbTN5cFR6NDh5enZURjJ4RHBYMGFDbFRtbDlJTHRzNzZTanZu?=
+ =?utf-8?B?SThEamNkaDdMZXhHd0xma2hlT21HekxBc0FvUWxqK2hiZXhWZGNoaFJVQXdw?=
+ =?utf-8?B?Yjd6Q0p5RXljbWJLRWlhaUxVOE5YV1lpNXFoV0N3bHVsYVh0OFFaVCthSFJ3?=
+ =?utf-8?B?VUp2ck56b2N5dDY4bE8wRlJ5UkdaM2c0SVV3ZU8yZ2ZOZmloMEgwcHFYNjZu?=
+ =?utf-8?B?SXZGLzh6MlVDejhrNmcxMDFSYzRTNlhrSFlnU2xvZGJ4T2V6emhXeW1ndGJv?=
+ =?utf-8?B?OWphN0l5YTBwNmY2QlNWTWpEY25pcjdYMm03clU5bldsN2ljbjNGWXJJa2VM?=
+ =?utf-8?B?bXRGeHFFMEZjWFIrWVJNcUtKL1RlNEhWQzRmUWZWZFNmekV1QitBK1d3RVgy?=
+ =?utf-8?B?T0hsRDRNL1pzZ1dSSHA3R0J3SW1Edk9tUUxCWklLVVArVUtLTlFmZ084MkdH?=
+ =?utf-8?B?K2xkSHhUU01seFk3NldBYnEzbVlib013MVgvcUo3MUdQYUN3MlVoVW9PbmNu?=
+ =?utf-8?B?VTA2NlFrZnlua2I0Mk9aSmRCUS9qUGxhWms0eFVTNXZocm5kNUs0NTRLeTAw?=
+ =?utf-8?B?T21wV0pTemk1eUpMVCt6N082NVZJUFJCcW4yTGxscXo1MVlLb3NXVE1FSUt3?=
+ =?utf-8?B?d283d1NSalZFZ2o4M0YrLytIUU4rQ0hEa1kraFBpcStCMjh4cjRpWGt2WmhK?=
+ =?utf-8?B?cjRhdVhZdDhnTGxWY2lKeTVxVm5iTmxvM2lvSkM5QytzSXlXcGhUQXlzY3Y0?=
+ =?utf-8?B?QkVuTU5hSW5zMzlUTkUxOE5nUDRUcDlYN3QxdlhoM1VWeTJ5bnFKUXJOZWVC?=
+ =?utf-8?B?RWJnRHpBOVNGdWN0cERENm9CRHorbEUvZFYzeDdCZlUwV0JKNzlCdUE3Ukhw?=
+ =?utf-8?B?ZVBWWEJzN29IeUZycmNXVkg0aVFtYis0d0JaZTViQ0ZycE5aN2lHZXFJd2lS?=
+ =?utf-8?B?K2FHaXc4amhNUWIwcUI3Z1l6eFoxVW03QkxsNW9qb2dtWVVMQk9sVmdDME5E?=
+ =?utf-8?B?ZXVKVis3MWdxVC9ORkhqWStQMG9COWNmQXNrdkltenNJZmpFc211VEJaaVFM?=
+ =?utf-8?B?RlBnU0ZFMWIxLzQ5SHFCb3kvaVBvM2hmTHpmVmhLQUdIUU0rUDNhQVVGR1Vl?=
+ =?utf-8?B?QThWR0ZWK1Q2VVI3b01UVzRsZllBcDNCdzRFdUFydHd0UGVnMGZoVEpCYmRL?=
+ =?utf-8?B?OUZnMklWRksrbDVwdUVaMy9iVDlNUWt0TXNPZFlHbG9ZcDhsYVVDcTlTM1d4?=
+ =?utf-8?Q?pYlFQwuTd/VJf9I16tTte8Aw8?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e4b681d-b245-416a-854b-08db72fca220
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 08:42:38.1745
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uBej7eeVSEwLiKg6aaefCB67+JcxrJsebQ3SED/EX/vLzsA1iedRdb2TpyVa02Y572GoCM6F6gFzaXdzhSqolw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7362
 
-Hi,
+On 21.06.2023 23:12, Andrew Cooper wrote:
+> A different option would be to sort out the stdint types ahead of including
+> <asm/types.h>, which can either be done by introducing a <asm/stdint.h> or
+> upping the minimum compiler version for x86; a task which is massively
+> overdue.
 
-On 22/06/2023 09:13, Federico Serafini wrote:
-> To comply with Rule 8.3 ("All declarations of an object or function
-> shall use the same names and type qualifiers") change the parameter
-> names of function declarations to be consistent with the names used
-> in the corresponding function definitions. >
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> ---
->   xen/arch/arm/include/asm/event.h        | 2 +-
->   xen/arch/arm/include/asm/fixmap.h       | 2 +-
->   xen/arch/arm/include/asm/gic.h          | 2 +-
->   xen/arch/arm/include/asm/gic_v3_its.h   | 5 +++--
->   xen/arch/arm/include/asm/grant_table.h  | 6 +++---
->   xen/arch/arm/include/asm/guest_access.h | 4 ++--
->   xen/arch/arm/include/asm/irq.h          | 2 +-
->   xen/arch/arm/include/asm/mm.h           | 2 +-
->   xen/arch/arm/include/asm/regs.h         | 2 +-
->   xen/arch/arm/include/asm/vgic.h         | 4 ++--
->   10 files changed, 16 insertions(+), 15 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/event.h b/xen/arch/arm/include/asm/event.h
-> index b14c166ad6..fa54ef8869 100644
-> --- a/xen/arch/arm/include/asm/event.h
-> +++ b/xen/arch/arm/include/asm/event.h
-> @@ -3,7 +3,7 @@
->   
->   #include <asm/domain.h>
->   
-> -void vcpu_kick(struct vcpu *v);
-> +void vcpu_kick(struct vcpu *vcpu);
-With this change we know have inconsistency in the arguments naming 
-within the header. It is more common to denote a vCPU with 'v' so I 
-would rather prefer if we modify the function definition in a patch before.
+As per my patch moving in this same direction, I strongly think this is
+the direction we want to take. (I don't see a reason to introduce
+asm/stdint.h for this - the logic you put in x86'es asm/types.h can
+well be put in xen/types.h as well, suitably limited by a slightly more
+involved #if than you have it now.)
 
->   void vcpu_mark_events_pending(struct vcpu *v);
->   void vcpu_update_evtchn_irq(struct vcpu *v);
->   void vcpu_block_unless_event_pending(struct vcpu *v);
-> diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
-> index d0c9a52c8c..734eb9b1d4 100644
-> --- a/xen/arch/arm/include/asm/fixmap.h
-> +++ b/xen/arch/arm/include/asm/fixmap.h
-> @@ -30,7 +30,7 @@
->   extern lpae_t xen_fixmap[XEN_PT_LPAE_ENTRIES];
->   
->   /* Map a page in a fixmap entry */
-> -extern void set_fixmap(unsigned int map, mfn_t mfn, unsigned int attributes);
-> +extern void set_fixmap(unsigned int map, mfn_t mfn, unsigned int flags);
->   /* Remove a mapping from a fixmap entry */
->   extern void clear_fixmap(unsigned int map);
->   
-> diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.h
-> index 76e3fa5dc4..f1ef347edc 100644
-> --- a/xen/arch/arm/include/asm/gic.h
-> +++ b/xen/arch/arm/include/asm/gic.h
-> @@ -257,7 +257,7 @@ int gic_remove_irq_from_guest(struct domain *d, unsigned int virq,
->   extern void gic_clear_pending_irqs(struct vcpu *v);
->   
->   extern void init_maintenance_interrupt(void);
-> -extern void gic_raise_guest_irq(struct vcpu *v, unsigned int irq,
-> +extern void gic_raise_guest_irq(struct vcpu *v, unsigned int virtual_irq,
->           unsigned int priority);
->   extern void gic_raise_inflight_irq(struct vcpu *v, unsigned int virtual_irq);
->   
-> diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/asm/gic_v3_its.h
-> index fae3f6ecef..c24d4752d0 100644
-> --- a/xen/arch/arm/include/asm/gic_v3_its.h
-> +++ b/xen/arch/arm/include/asm/gic_v3_its.h
-> @@ -190,8 +190,9 @@ struct pending_irq *gicv3_its_get_event_pending_irq(struct domain *d,
->                                                       uint32_t eventid);
->   int gicv3_remove_guest_event(struct domain *d, paddr_t vdoorbell_address,
->                                        uint32_t vdevid, uint32_t eventid);
-> -struct pending_irq *gicv3_assign_guest_event(struct domain *d, paddr_t doorbell,
-> -                                             uint32_t devid, uint32_t eventid,
-> +struct pending_irq *gicv3_assign_guest_event(struct domain *d,
-> +                                             paddr_t vdoorbell_address,
-> +                                             uint32_t vdevid, uint32_t eventid,
->                                                uint32_t virt_lpi);
->   void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
->                                    uint32_t virt_lpi);
-> diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
-> index e13dfeefa5..bd4eea2317 100644
-> --- a/xen/arch/arm/include/asm/grant_table.h
-> +++ b/xen/arch/arm/include/asm/grant_table.h
-> @@ -36,10 +36,10 @@ static inline bool gnttab_release_host_mappings(const struct domain *d)
->       return true;
->   }
->   
-> -int create_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
-> +int create_grant_host_mapping(unsigned long addr, mfn_t frame,
->                                 unsigned int flags, unsigned int cache_flags);
-> -int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
-> -                               unsigned long new_gpaddr, unsigned int flags);
-> +int replace_grant_host_mapping(unsigned long addr, mfn_t mfn,
-> +                               unsigned long new_addr, unsigned int flags);
+Personally I think using "mode" attributes for the fallbacks would be
+the more widely compatible way, but I'm not going to object to your
+approach avoiding them. It would feel more safe though if without using
+that attribute the fallback wasn't tied to __INT8_TYPE__ being defined
+(but instead directly to being on very old gcc).
 
-I know you are focusing to use the same parameter names as the 
-definitions. However, with the new name it is not clear anymore what 
-type of address is expected.
+As to upping the minimal gcc version for x86: While I'm pretty sure I'm
+considered the hindering factor here, I continue to think that my
+"blocking" request isn't unreasonable at all: We want to establish
+clear criteria, by which we can then also go in the future. And we want
+to make clear what, if any, baseline requirements are acceptable to put
+up beyond consideration of just binutils and compilers (basic utilities,
+make, perl, python, etc).
 
- From my understanding, the interface is expecting a guest physical 
-address. So I think we should stick with 'gpaddr'.
-
-Also, I think there is another problem with this interface because a 
-guest (and even host) address can be bigger than an 'unsigned long' on 
-arm32. Anyway, this is something that could be dealt outside of this series.
-
->   
->   /*
->    * The region used by Xen on the memory will never be mapped in DOM0
-> diff --git a/xen/arch/arm/include/asm/guest_access.h b/xen/arch/arm/include/asm/guest_access.h
-> index 4421e43611..c37cf7d871 100644
-> --- a/xen/arch/arm/include/asm/guest_access.h
-> +++ b/xen/arch/arm/include/asm/guest_access.h
-> @@ -12,11 +12,11 @@ unsigned long raw_clear_guest(void *to, unsigned int len);
->   
->   /* Copy data to guest physical address, then clean the region. */
->   unsigned long copy_to_guest_phys_flush_dcache(struct domain *d,
-> -                                              paddr_t phys,
-> +                                              paddr_t gpa,
->                                                 void *buf,
->                                                 unsigned int len);
->   
-> -int access_guest_memory_by_ipa(struct domain *d, paddr_t ipa, void *buf,
-> +int access_guest_memory_by_ipa(struct domain *d, paddr_t gpa, void *buf,
->                                  uint32_t size, bool is_write);
-
-The function namem suggests there would be a parameter called 'ipa'. But 
-you are renaming it to 'gpa'. In this case, we should either renaming 
-the parameter in the definition or the function name.
-
-I am slightly leaning towards the latter because we don't tend to use 
-'ipa' very much in Xen (even though this is the Arm official terminology).
-
->   
->   #define __raw_copy_to_guest raw_copy_to_guest
-> diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
-> index 11bc85d111..105b33b37d 100644
-> --- a/xen/arch/arm/include/asm/irq.h
-> +++ b/xen/arch/arm/include/asm/irq.h
-> @@ -76,7 +76,7 @@ void init_IRQ(void);
->   
->   int route_irq_to_guest(struct domain *d, unsigned int virq,
->                          unsigned int irq, const char *devname);
-> -int release_guest_irq(struct domain *d, unsigned int irq);
-> +int release_guest_irq(struct domain *d, unsigned int virq);
->   
->   void arch_move_irqs(struct vcpu *v);
->   
-> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-> index 4262165ce2..d78f7a183a 100644
-> --- a/xen/arch/arm/include/asm/mm.h
-> +++ b/xen/arch/arm/include/asm/mm.h
-> @@ -225,7 +225,7 @@ extern void setup_directmap_mappings(unsigned long base_mfn, unsigned long nr_mf
->   /* Map a frame table to cover physical addresses ps through pe */
->   extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
->   /* map a physical range in virtual memory */
-> -void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int attributes);
-> +void __iomem *ioremap_attr(paddr_t pa, size_t len, unsigned int attributes)
-All the ioremap_* prototypes were consistent before this change. I have 
-a slight preference if we stick we 'start' and therefore rename the 
-parameter in the definition. But I would be ok with 'pa' so long all the 
-other ioremap_* prototypes are updated accordingly.
-
->   
->   static inline void __iomem *ioremap_nocache(paddr_t start, size_t len)
->   {
-> diff --git a/xen/arch/arm/include/asm/regs.h b/xen/arch/arm/include/asm/regs.h
-> index 0693a68131..ef34b38aa1 100644
-> --- a/xen/arch/arm/include/asm/regs.h
-> +++ b/xen/arch/arm/include/asm/regs.h
-> @@ -58,7 +58,7 @@ static inline bool guest_mode(const struct cpu_user_regs *r)
->   }
->   
->   register_t get_user_reg(struct cpu_user_regs *regs, int reg);
-> -void set_user_reg(struct cpu_user_regs *regs, int reg, register_t val);
-> +void set_user_reg(struct cpu_user_regs *regs, int reg, register_t value);
->   
->   #endif
->   
-> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
-> index 328fd46d1b..aa9f49409e 100644
-> --- a/xen/arch/arm/include/asm/vgic.h
-> +++ b/xen/arch/arm/include/asm/vgic.h
-> @@ -355,8 +355,8 @@ bool vgic_evtchn_irq_pending(struct vcpu *v);
->   int domain_vgic_register(struct domain *d, int *mmio_count);
->   int domain_vgic_init(struct domain *d, unsigned int nr_spis);
->   void domain_vgic_free(struct domain *d);
-> -int vcpu_vgic_init(struct vcpu *vcpu);
-> -int vcpu_vgic_free(struct vcpu *vcpu);
-> +int vcpu_vgic_init(struct vcpu *v);
-> +int vcpu_vgic_free(struct vcpu *v);
->   
->   void vgic_inject_irq(struct domain *d, struct vcpu *v, unsigned int virq,
->                        bool level);
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
