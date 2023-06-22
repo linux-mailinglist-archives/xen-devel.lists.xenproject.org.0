@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626427396CE
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 07:24:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553270.863733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47A1B7396EE
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 07:41:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553277.863744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCCmZ-0005xC-Ld; Thu, 22 Jun 2023 05:22:59 +0000
+	id 1qCD3m-0008TM-8O; Thu, 22 Jun 2023 05:40:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553270.863733; Thu, 22 Jun 2023 05:22:59 +0000
+Received: by outflank-mailman (output) from mailman id 553277.863744; Thu, 22 Jun 2023 05:40:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCCmZ-0005vS-Ia; Thu, 22 Jun 2023 05:22:59 +0000
-Received: by outflank-mailman (input) for mailman id 553270;
- Thu, 22 Jun 2023 05:22:57 +0000
+	id 1qCD3m-0008RL-4c; Thu, 22 Jun 2023 05:40:46 +0000
+Received: by outflank-mailman (input) for mailman id 553277;
+ Thu, 22 Jun 2023 05:40:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v4C0=CK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qCCmX-0005vM-AK
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 05:22:57 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=GgAu=CK=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1qCD3k-0008RF-VC
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 05:40:45 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7b4749b-10bc-11ee-b237-6b7b168915f2;
- Thu, 22 Jun 2023 07:22:55 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0F0592278A;
- Thu, 22 Jun 2023 05:22:55 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 758351346D;
- Thu, 22 Jun 2023 05:22:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wwvCGq7ak2QvOAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 22 Jun 2023 05:22:54 +0000
+ id 53d641d7-10bf-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 07:40:43 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f4b2bc1565so9104066e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 22:40:43 -0700 (PDT)
+Received: from [127.0.0.1] (dynamic-077-191-235-040.77.191.pool.telefonica.de.
+ [77.191.235.40]) by smtp.gmail.com with ESMTPSA id
+ d22-20020a1c7316000000b003f80946116dsm17773724wmb.45.2023.06.21.22.40.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Jun 2023 22:40:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,229 +45,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7b4749b-10bc-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687411375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7oFg/oYyAIplKu/dLMHi2+rFZpdPpCxpAB8nl5OU3Jk=;
-	b=k9PYmy3Koexfwi0bOkFkBMSsYQLK96W7GOqxCuUTGP3IMWfMgMUGkGIK7T+MWBWJaPubi8
-	IyAF/gubA3KRvqZ8uYrQ+bCdNjDkEwre3fsN4x4H5Pkbc4eiLpew/tneTh5JxWfWxS9bdo
-	UIiRxS4Z8f1RzZZBe0rhtLb/p0E82r4=
-Message-ID: <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
-Date: Thu, 22 Jun 2023 07:22:53 +0200
+X-Inumbo-ID: 53d641d7-10bf-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1687412442; x=1690004442;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z5xLOgxc5yMmFB/xqkfPkgAUKFtQLoPEIBnqwRG9wrE=;
+        b=jYm+kmGqKaSQjS88IKrNZ+9qWwZb4bzsJzZE5oCs8oJ5udAJqOKgvF4np3iAz35QlO
+         opBvnyjViyJaO1Jae0oL5TCzc9oieIbUCytZUMTdC7Mk4FPfPBAyetS08ZFB94dsyK8q
+         IIAi9NPtf3BMvq2X/eiOhb3RGW6vkt4vdHDlbzomGPDEEzb40pgNWwvxYlWFl/up77ip
+         zssrlwrl1fRVcHpERrVb4f/O7zH3YX4f4vfSiZi7bgNQ+TjQZfZs1Ew+5pEQrMqeV3qk
+         nprdgpvFwuFRXdAE2Nx/aJbSuGUJfgKpd4dRCpU2+1jmRQx2AObP5n4nnm2R+fhavt78
+         6A2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687412442; x=1690004442;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=z5xLOgxc5yMmFB/xqkfPkgAUKFtQLoPEIBnqwRG9wrE=;
+        b=M6m/VGqLmSkeBgDB5m8YHYUabDn0mxz7LwKMRZ5x2DbywETWOdtNRr+3VZJcHSkTQJ
+         /G4zsJTWwtmYIRUe+LXLTZNcPxBeCq8R9QRGtOOBE6thdpNxKmKD1/+G8laFYKPmpoUZ
+         58BP+3IC1N68n3K0+Fa0ud8fRwx2hCmvhZ0wssHyoI0++fcf0OqoJRUoMeyDQ4Hgf3w0
+         3fNSF3nZaTdX2/Pr2GesqKN4OntOlsxjmf+k3U4aSwNJ4HboekKlSc++uC+DgmBkpiQh
+         V10GotNYzW3YzKW/AxcgcieSHTyN6767DoY8piFLVbMmTDwOfTLUBUFkoKJX2586QwgV
+         qFsA==
+X-Gm-Message-State: AC+VfDzUgTFERLhXHqFLMkXskcc1LtpZPRnBhZua2RAgF7QLY9yjQ7U3
+	X1kKo/d+yfkhos+nwtw78o4=
+X-Google-Smtp-Source: ACHHUZ5gW7KeklYhgZOV3gDoeY9HwOEt6afLaSv7fml+weuZZE2JHhoRm1bGUB6n/dPmb4JnYQam3g==
+X-Received: by 2002:a19:9151:0:b0:4f8:6b82:56c4 with SMTP id y17-20020a199151000000b004f86b8256c4mr7278192lfj.33.1687412441768;
+        Wed, 21 Jun 2023 22:40:41 -0700 (PDT)
+Date: Thu, 22 Jun 2023 05:40:36 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: qemu-devel@nongnu.org, Joel Upham <jupham125@gmail.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 20/23] xen platform: unplug ahci object
+In-Reply-To: <9b8183903cbf20db4e2f0dafda9e0ed271a86a8e.1687278381.git.jupham125@gmail.com>
+References: <cover.1687278381.git.jupham125@gmail.com> <9b8183903cbf20db4e2f0dafda9e0ed271a86a8e.1687278381.git.jupham125@gmail.com>
+Message-ID: <CB4239A2-8502-406A-A594-3065C0D3B104@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Peter Zijlstra <peterz@infradead.org>, Per Bilse <Per.Bilse@citrix.com>
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-In-Reply-To: <20230621200409.GC4253@hirez.programming.kicks-ass.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------oecT0HYsRhwt2FFO05EITBNU"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------oecT0HYsRhwt2FFO05EITBNU
-Content-Type: multipart/mixed; boundary="------------oqu74iZ2pULV0PqV8grkLn3Y";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>, Per Bilse <Per.Bilse@citrix.com>
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Message-ID: <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
-In-Reply-To: <20230621200409.GC4253@hirez.programming.kicks-ass.net>
-
---------------oqu74iZ2pULV0PqV8grkLn3Y
-Content-Type: multipart/mixed; boundary="------------3gp31eH3eMANbxQoI20vnwCw"
-
---------------3gp31eH3eMANbxQoI20vnwCw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjEuMDYuMjMgMjI6MDQsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBXZWQsIEp1
-biAyMSwgMjAyMyBhdCAwNzoxOToyMVBNICswMDAwLCBQZXIgQmlsc2Ugd3JvdGU6DQo+PiBP
-biA2LzIxLzIwMjMgNTo0MCBQTSwgUGV0ZXIgWmlqbHN0cmEgd3JvdGU6DQo+Pj4gSSBkb24n
-dCB1bmRlcnN0YW5kIGl0IC0tIGZ1bmRhbWVudGFsbHksIGhvdyBjYW4gbGludXggc2NoZWR1
-bGUgd2hlbiB0aGUNCj4+PiBndWVzdCBpc24ndCBldmVuIHJ1bm5pbmc/IEh5cGVyY2FsbCB0
-cmFuc2ZlcnMgY29udHJvbCB0byB0aGUNCj4+PiBob3N0L2h5cGVydmlzb3IgYW5kIGxlYXZl
-cyB0aGUgZ3Vlc3Qgc3VzcGVuZGVkLg0KPj4NCj4+IEhpIFBldGVyLCBhcyBub3RlZCBpbiBl
-YXJsaWVyIG5vdGUgdG8gQW5keSwgdGhpcyBpcyBlc3NlbnRpYWxseSBleGlzdGluZw0KPj4g
-Y29kZSB0aGF0IG90aGVyIGNvbW1pdHMgaGF2ZSByZW5kZXJlZCBpbmVmZmVjdGl2ZSBvdmVy
-IHRpbWUuICBIZW5jZSwNCj4+IHRoZSBmaW5lciBkZXRhaWxzIG9mIGhvdyBvciB3aHkgaXQg
-d29ya3MgaGF2ZW4ndCBjaGFuZ2VkIHNpbmNlIGl0IHdhcw0KPj4gZmlyc3QgaW50cm9kdWNl
-ZC4NCj4gDQo+IFRoYXQgZG9lc24ndCBtZWFuIHlvdSBkb24ndCBoYXZlIHRvIGV4cGxhaW4g
-aG93IHN0dWZmIHdvcmtzLg0KPiANCj4+PiBUaGlzIG1ha2VzIG5vIHNlbnNlOyB0aGUgcmFj
-ZSB0aGF0IHdhcm5pbmcgd2FybnMgYWJvdXQgaXM6DQo+Pj4NCj4+PiAJQ1BVMAkJCUNQVTEN
-Cj4+PiAJcGVyLWNwdSB3cml0ZQ0KPj4+IAk8cHJlZW1wdC1vdXQ+DQo+Pj4gCQkJCTxwcmVl
-bXB0LWluPg0KPj4+IAkJCQlkby1oeXBlcmNhbGwNCj4+Pg0KPj4+IFNvIHlvdSB3cm90ZSB0
-aGUgdmFsdWUgb24gQ1BVMCwgZ290IG1pZ3JhdGVkIHRvIENQVTEgYmVjYXVzZSB5b3UgaGFk
-DQo+Pj4gcHJlZW1wdGlvbmVkIGVuYWJsZWQsIGFuZCB0aGVuIGNvbnRpbnVlIHdpdGggdGhl
-IHBlcmNwdSB2YWx1ZSBvZiBDUFUxDQo+Pj4gYmVjYXVzZSB0aGF0J3Mgd2hlcmUgeW91J3Jl
-IGF0IG5vdy4NCj4+DQo+PiBUaGlzIGlzc3VlIHdhcyByYWlzZWQgaW50ZXJuYWxseSwgYW5k
-IGl0IHdhcyBub3RlZCB0aGF0IHRoZSBvbmx5IHdheQ0KPj4gZm9yIHRoZSBwcmVlbXB0aWJs
-ZSBjb2RlIHRvIHN3aXRjaCB0YXNrIGlzIHZpYSBhbiBpbnRlcnJ1cHQgdGhhdCBnb2VzDQo+
-PiB0aHJvdWdoIHhlbl9wdl9ldnRjaG5fZG9fdXBjYWxsKCksIHdoaWNoIGhhbmRsZXMgdGhp
-cy4gIEknbSBoYXBweSB0bw0KPj4gY2hlY2sgd2l0aCBteSBzb3VyY2VzLCBidXQgaXQncyBo
-b2xpZGF5IHNlYXNvbiByaWdodCBub3cuDQo+IA0KPiBUaGVuIGl0IHNob3VsZCBoYXZlIGFs
-bCBzb3J0cyBvZiBjb21tZW50cyBvbiBhbmQgYSBjb21wcmVoZW5zaXZlDQo+IGNoYW5nZWxv
-Zy4NCj4gDQo+Pj4+IDQpIFVwZGF0ZSBpcnFlbnRyeV9leGl0X2NvbmRfcmVzY2hlZCgpIHRv
-IHJhd19pcnFlbnRyeV9leGl0X2NvbmRfcmVzY2hlZCgpLg0KPj4+PiBUaGUgY29kZSB3aWxs
-IGNhbGwgaXJxZW50cnlfZXhpdF9jb25kX3Jlc2NoZWQoKSBpZiB0aGUgZmxhZyAoYXMgbm90
-ZWQNCj4+Pj4gYWJvdmUpIGlzIHNldCwgYnV0IHRoZSBkeW5hbWljIHByZWVtcHRpb24gZmVh
-dHVyZSB3aWxsIGxpdmVwYXRjaCB0aGF0DQo+Pj4+IGZ1bmN0aW9uIHRvIGEgbm8tb3AgdW5s
-ZXNzIGZ1bGwgcHJlZW1wdGlvbiBpcyBzZWxlY3RlZC4gIFRoZSBjb2RlIGlzDQo+Pj4+IHRo
-ZXJlZm9yZSB1cGRhdGVkIHRvIGNhbGwgcmF3X2lycWVudHJ5X2V4aXRfY29uZF9yZXNjaGVk
-KCkuDQo+Pj4NCj4+PiBUaGF0LCBhZ2FpbiBtZWVkcyBtb3JlIGV4cGxhbmF0aW9uLiBXaHkg
-ZG8geW91IHdhbnQgdGhpcyBpZiBub3QNCj4+PiBwcmVlbXB0aWJsZT8NCj4+DQo+PiBJJ20g
-bm90IHF1aXRlIHN1cmUgd2hhdCB5b3UgbWVhbiBoZXJlLiAgRHluYW1pYyBwcmVlbXB0aW9u
-DQo+PiB3aWxsIGxpdmVwYXRjaCBpcnFlbnRyeV9leGl0X2NvbmRfcmVzY2hlZCgpIHRvIGJl
-IGEgbm8tb3AsIHdoaWxlDQo+PiByYXdfaXJxZW50cnlfZXhpdF9jb25kX3Jlc2NoZWQoKSBy
-ZW1haW5zIGZ1bmN0aW9uYWwuICBUaGlzIHdhcw0KPj4gaW50cm9kdWNlZCBpbiBjb21taXQg
-NDYyNGExNGY0ZGFhIGxhc3QgeWVhciB3aGljaCB3YXMgc2FpZCB0byBmaXgNCj4+IHRoZSBw
-cm9ibGVtLCBidXQgZG9lc24ndC4gIFlvdSBtYXkgcmVtZW1iZXIsIGl0IHdhcyBzaWduZWQg
-b2ZmIGJ5DQo+PiB5b3Vyc2VsZiBhbmQgTWFyayBSdXRsYW5kLg0KPiANCj4gSSBkb24ndCBz
-ZWUgdGhlIHJlbGF0aW9uOyB3aGF0IHlvdSdyZSBkb2luZyBpcyBtYWtpbmcgZHluYW1pYyBw
-cmVlbXB0DQo+IHRoYXQncyBub3QgY29uZmlndXJlZCBmb3IgZnVsbCBwcmVlbXB0IGRvIHBy
-ZWVtcHRpb24uIFRoYXQncyB3ZWlyZCwgYW5kDQo+IGFnYWluIG5vIGNvbW1lbnRzLg0KPiAN
-Cj4gSSdtIHdpdGggQW5keSBpbiB0aGF0IHNpbXBseSBmb3JjaW5nIGZ1bGwgcHJlZW1wdGlv
-biB3b3VsZCBtYWtlIGZhciBtb3JlDQo+IHNlbnNlIC0tIGJ1dCBJJ20gc3RpbGwgbWlzc2lu
-ZyBzb21ldGhpbmcgZnVuZGFtZW50YWwsIHNlZSBiZWxvdy4NCj4gDQo+Pj4gWW91J3JlIGRv
-aW5nIDQgdGhpbmdzLCB0aGF0IHNob3VsZCBiZSA0IHBhdGNoZXMuIEFsc28sIHBsZWFzZSBn
-aXZlIG1vcmUNCj4+PiBjbHVlcyBmb3IgaG93IHRoaXMgaXMgc3VwcG9zZWQgdG8gd29yayBh
-dCBhbGwuDQo+Pg0KPj4gSSByZXNwZWN0ZnVsbHkgaGF2ZSB0byBkaXNhZ3JlZSB3aXRoIHRo
-YXQuICBUaGUgZml4ZXMgaGVyZSBhcmUgdmVyeQ0KPj4gY2xvc2VseSByZWxhdGVkLCBhbmQg
-d2UncmUgbm90IGludHJvZHVjaW5nIGFueXRoaW5nIG5ldywgd2UncmUgbWVyZWx5DQo+PiBy
-ZS1lbmFibGluZyBjb2RlIHdoaWNoIGhhcyBiZWVuIHJlbmRlcmVkIGluZWZmZWN0aXZlIGR1
-ZSB0byBvdmVyc2lnaHRzDQo+PiBpbiBjb21taXRzIG1hZGUgYWZ0ZXIgdGhlIGNvZGUgd2Fz
-IGZpcnN0IGludHJvZHVjZWQuICBIb3cgdGhlIGNvZGUgaXMNCj4+IHN1cHBvc2VkIHRvIHdv
-cmsgaGFzbid0IGNoYW5nZWQsIGFuZCBpcyBiZXlvbmQgdGhlIHNjb3BlIG9mIHRoZXNlIGZp
-eGVzOw0KPj4gSSdtIHN1cmUgaXQgbXVzdCBoYXZlIGJlZW4gZGlzY3Vzc2VkIGF0IGdyZWF0
-IGxlbmd0aCBhdCB0aGUgdGltZSAoY29tbWl0DQo+PiBmZGZkODExZGRkZTMpLg0KPiANCj4g
-WW91IGRpZG4ndCBldmVuIHNvIG11Y2ggYXMgcmVmZXJlbmNlIHRoYXQgY29tbWl0LCBub3Ig
-cHJvdmlkZSBhbnkgb3RoZXINCj4gZXhwbGFuYXRpb24uIEFuZCBoYXZpbmcgbm93IHJlYWQg
-dGhhdCBjb21taXQsIEknbSBub3QgbXVjaCBlbmxpZ2h0ZW5kLg0KPiANCj4gKkhPVyogY2Fu
-IGEgaHlwZXJjYWxsLCBzb21ldGhpbmcgdGhhdCBleGl0cyB0aGUgR3Vlc3QgYW5kIGhhcyB0
-aGUNCj4gSG9zdC9IeXBlcnZpc29yIHJ1biBnZXQgcHJlZW1wdGVkIGluIHRoZSBHdWVzdCAt
-LSB0aGF0IGlzbid0IHJ1bm5pbmcuDQo+IA0KPiBPciBhcmUgeW91IGNhbGxpbmcgYXBwbGVz
-IHBlYXJzPw0KDQpUaGUgaHlwZXJjYWxscyB3ZSBhcmUgdGFsa2luZyBvZiBhcmUgc3luY2hy
-b25vdXMgb25lcy4gVGhleSBhcmUgcnVubmluZw0KaW4gdGhlIGNvbnRleHQgb2YgdGhlIHZj
-cHUgZG9pbmcgdGhlIGNhbGwgKGxpa2UgYSBzeXNjYWxsIGZyb20gdXNlcmxhbmQgaXMNCnJ1
-bm5pbmcgaW4gdGhlIHByb2Nlc3MgY29udGV4dCkuDQoNClRoZSBoeXBlcnZpc29yIHdpbGwg
-cmV0dXJuIHRvIGd1ZXN0IGNvbnRleHQgZnJvbSB0aW1lIHRvIHRpbWUgYnkgbW9kaWZ5aW5n
-DQp0aGUgcmVnaXN0ZXJzIHN1Y2ggdGhhdCB0aGUgZ3Vlc3Qgd2lsbCBkbyB0aGUgaHlwZXJj
-YWxsIGFnYWluIHdpdGggZGlmZmVyZW50DQppbnB1dCB2YWx1ZXMgZm9yIHRoZSBoeXBlcnZp
-c29yLCByZXN1bHRpbmcgaW4gYSBwcm9wZXIgY29udGludWF0aW9uIG9mIHRoZQ0KaHlwZXJj
-YWxsIHByb2Nlc3NpbmcuDQoNCkl0IGlzIGFuIGF3ZnVsIGludGVyZmFjZSBhbmQgSSBhZ3Jl
-ZSB0aGF0IHN3aXRjaGluZyB0byBmdWxsIHByZWVtcHRpb24gaW4NCmRvbTAgc2VlbXMgdG8g
-YmUgdGhlIHJvdXRlIHdoaWNoIHdlIHNob3VsZCB0cnkgdG8gdGFrZS4gVGhlIGRvd25zaWRl
-IHdvdWxkDQpiZSB0aGF0IHNvbWUgd29ya2xvYWRzIG1pZ2h0IHNlZSB3b3JzZSBwZXJmb3Jt
-YW5jZSBkdWUgdG8gYmFja2VuZCBJL08NCmhhbmRsaW5nIG1pZ2h0IGdldCBwcmVlbXB0ZWQu
-DQoNCkp1c3QgdGhpbmtpbmcgLSBjYW4gZnVsbCBwcmVlbXB0aW9uIGJlIGVuYWJsZWQgcGVy
-IHByb2Nlc3M/DQoNCg0KSnVlcmdlbg0K
---------------3gp31eH3eMANbxQoI20vnwCw
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
 
---------------3gp31eH3eMANbxQoI20vnwCw--
+Am 20=2E Juni 2023 17:24:54 UTC schrieb Joel Upham <jupham125@gmail=2Ecom>=
+:
+>This will unplug the ahci device when the Xen driver calls for an unplug=
+=2E
+>This has been tested to work in linux and Windows guests=2E
+>When q35 is detected, we will remove the ahci controller
+>with the hard disks=2E  In the libxl config, cdrom devices
+>are put on a seperate ahci controller=2E This allows for 6 cdrom
+>devices to be added, and 6 qemu hard disks=2E
 
---------------oqu74iZ2pULV0PqV8grkLn3Y--
+Does this also work with KVM Xen emulation? If so, the QEMU manual should =
+be updated accordingly in this patch since it explicitly rules out Q35 due =
+to missing AHCI unplug: https://gitlab=2Ecom/qemu-project/qemu/-/blob/stabl=
+e-8=2E0/docs/system/i386/xen=2Erst?plain=3D1&ref_type=3Dheads#L51
 
---------------oecT0HYsRhwt2FFO05EITBNU
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Best regards,
+Bernhard
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmST2q4FAwAAAAAACgkQsN6d1ii/Ey/A
-JQf/ePzalWyngzTPEu55x8mVEDQtNwP94zQn5HO0JG9LRXt10cZp/7DL6n+TXPFRIdt3BKp5u9jE
-eyFV7bnui61LRR0SHmy12FhFfiKHCD43zaiHys6/L+cnkoV8wqLDZlC5GAUol6OT5auQ4+fD6NZ6
-QVIrlpCQ54Eok9LkOpVXqe/3oA6/YOJx/92YpGp/YYi1yhy7v6F9NrT4Pb0fgAbT/xuP1kyBg6AE
-STsrSS1kIRj3UXFJpB9zMbHvrGqc+JKJQhshiuoNNN8fNI5efozHlb2xKP5E2NuqMdpOmDxf5tJK
-oZuRbmBPmYTFUbPmxoKVWAgCGHLnP/83ax7BjlhceQ==
-=56Y0
------END PGP SIGNATURE-----
-
---------------oecT0HYsRhwt2FFO05EITBNU--
+>
+>
+>Signed-off-by: Joel Upham <jupham125@gmail=2Ecom>
+>---
+> hw/i386/xen/xen_platform=2Ec | 19 ++++++++++++++++++-
+> hw/pci/pci=2Ec               | 17 +++++++++++++++++
+> include/hw/pci/pci=2Eh       |  3 +++
+> 3 files changed, 38 insertions(+), 1 deletion(-)
+>
+>diff --git a/hw/i386/xen/xen_platform=2Ec b/hw/i386/xen/xen_platform=2Ec
+>index 57f1d742c1=2E=2E0375337222 100644
+>--- a/hw/i386/xen/xen_platform=2Ec
+>+++ b/hw/i386/xen/xen_platform=2Ec
+>@@ -34,6 +34,7 @@
+> #include "sysemu/block-backend=2Eh"
+> #include "qemu/error-report=2Eh"
+> #include "qemu/module=2Eh"
+>+#include "include/hw/i386/pc=2Eh"
+> #include "qom/object=2Eh"
+>=20
+> #ifdef CONFIG_XEN
+>@@ -223,6 +224,12 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, vo=
+id *opaque)
+>         if (flags & UNPLUG_NVME_DISKS) {
+>             object_unparent(OBJECT(d));
+>         }
+>+        break;
+>+
+>+    case PCI_CLASS_STORAGE_SATA:
+>+	if (!aux) {
+>+            object_unparent(OBJECT(d));
+>+        }
+>=20
+>     default:
+>         break;
+>@@ -231,7 +238,17 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, vo=
+id *opaque)
+>=20
+> static void pci_unplug_disks(PCIBus *bus, uint32_t flags)
+> {
+>-    pci_for_each_device(bus, 0, unplug_disks, &flags);
+>+    PCIBus *q35 =3D find_q35();
+>+    if (q35) {
+>+        /* When q35 is detected, we will remove the ahci controller
+>+	 * with the hard disks=2E  In the libxl config, cdrom devices
+>+	 * are put on a seperate ahci controller=2E This allows for 6 cdrom
+>+	 * devices to be added, and 6 qemu hard disks=2E
+>+	 */
+>+        pci_function_for_one_bus(bus, unplug_disks, &flags);
+>+    } else {
+>+        pci_for_each_device(bus, 0, unplug_disks, &flags);
+>+    }
+> }
+>=20
+> static void platform_fixed_ioport_writew(void *opaque, uint32_t addr, ui=
+nt32_t val)
+>diff --git a/hw/pci/pci=2Ec b/hw/pci/pci=2Ec
+>index 1cc7c89036=2E=2E8eac3d751a 100644
+>--- a/hw/pci/pci=2Ec
+>+++ b/hw/pci/pci=2Ec
+>@@ -1815,6 +1815,23 @@ void pci_for_each_device_reverse(PCIBus *bus, int =
+bus_num,
+>     }
+> }
+>=20
+>+void pci_function_for_one_bus(PCIBus *bus,
+>+                          void (*fn)(PCIBus *b, PCIDevice *d, void *opaq=
+ue),
+>+                          void *opaque)
+>+{
+>+    bus =3D pci_find_bus_nr(bus, 0);
+>+
+>+    if (bus) {
+>+        PCIDevice *d;
+>+
+>+        d =3D bus->devices[PCI_DEVFN(4,0)];
+>+        if (d) {
+>+            fn(bus, d, opaque);
+>+            return;
+>+        }
+>+    }
+>+}
+>+
+> void pci_for_each_device_under_bus(PCIBus *bus,
+>                                    pci_bus_dev_fn fn, void *opaque)
+> {
+>diff --git a/include/hw/pci/pci=2Eh b/include/hw/pci/pci=2Eh
+>index e6d0574a29=2E=2Ec53e21082a 100644
+>--- a/include/hw/pci/pci=2Eh
+>+++ b/include/hw/pci/pci=2Eh
+>@@ -343,6 +343,9 @@ void pci_for_each_device_under_bus(PCIBus *bus,
+> void pci_for_each_device_under_bus_reverse(PCIBus *bus,
+>                                            pci_bus_dev_fn fn,
+>                                            void *opaque);
+>+void pci_function_for_one_bus(PCIBus *bus,
+>+                         void (*fn)(PCIBus *bus, PCIDevice *d, void *opa=
+que),
+>+                         void *opaque);
+> void pci_for_each_bus_depth_first(PCIBus *bus, pci_bus_ret_fn begin,
+>                                   pci_bus_fn end, void *parent_state);
+> PCIDevice *pci_get_function_0(PCIDevice *pci_dev);
 
