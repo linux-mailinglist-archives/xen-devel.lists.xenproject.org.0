@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E32D8739E95
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 12:34:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553498.864084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50E6B739EB7
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 12:44:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553504.864094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCHdA-0006Be-2e; Thu, 22 Jun 2023 10:33:36 +0000
+	id 1qCHnX-0007le-42; Thu, 22 Jun 2023 10:44:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553498.864084; Thu, 22 Jun 2023 10:33:36 +0000
+Received: by outflank-mailman (output) from mailman id 553504.864094; Thu, 22 Jun 2023 10:44:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCHd9-00069C-Vs; Thu, 22 Jun 2023 10:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 553498;
- Thu, 22 Jun 2023 10:33:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qCHnX-0007jj-19; Thu, 22 Jun 2023 10:44:19 +0000
+Received: by outflank-mailman (input) for mailman id 553504;
+ Thu, 22 Jun 2023 10:44:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v4C0=CK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qCHd8-000696-Pv
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 10:33:34 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cd82f34-10e8-11ee-b237-6b7b168915f2;
- Thu, 22 Jun 2023 12:33:33 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2B975204B7;
- Thu, 22 Jun 2023 10:33:33 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 81F2D13905;
- Thu, 22 Jun 2023 10:33:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BITeHXwjlGRoPwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 22 Jun 2023 10:33:32 +0000
+ (envelope-from <julien@xen.org>) id 1qCHnV-0007jd-Fl
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 10:44:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qCHnT-00059I-80; Thu, 22 Jun 2023 10:44:15 +0000
+Received: from [54.239.6.188] (helo=[192.168.27.222])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qCHnT-0001QS-1g; Thu, 22 Jun 2023 10:44:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,211 +39,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cd82f34-10e8-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687430013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CofsqLgPabcXZOSG3gQpCRSy3P1GKa+zXZpgVoYz+EM=;
-	b=ftpuJMVdqy+rMaMdu28Hk0aLt2+HNEKSWJZnKJ0XYKxQ2SKc94aWr6ht0w791y1XsIlZ37
-	cARmZukF0eHSm32d8y3V4BOK68dYLgLgIe4RFZbEMuYfO4Y1XSWY/QJ+zuhTALM1pAF5F2
-	qZ4oXPt57XTNkMLalCtFCgG7Smv/DS0=
-Message-ID: <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
-Date: Thu, 22 Jun 2023 12:33:31 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xv7O+LVYjCdeUXAun5cb7QmCeY6WRzfn1Y2fMQuYuvU=; b=Gm9/4QXgl809fB637evUr4Ahu7
+	IajnzVA7NtTgZy/3ZbrYnlq0z+/oqIdhCq2x0bIen4XWI5rgEIGmHKxVxHEDGQwjiPKT0HX5Uu9oj
+	uiFXvSzz0ndY7NzgiJQiAbRjVO1kLlNHMcGAwmMl12hZ0uhTdsxjPrjkkvyWHmenXbfQ=;
+Message-ID: <558e68c4-1a2d-5a9e-4070-5b894e14a3f4@xen.org>
+Date: Thu, 22 Jun 2023 11:44:12 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH 06/22] x86: map/unmap pages in restore_all_guests
 Content-Language: en-US
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
- <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
- <20230622082607.GD4253@hirez.programming.kicks-ass.net>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-In-Reply-To: <20230622082607.GD4253@hirez.programming.kicks-ass.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------HI0UtWftXQcOs3IvkcaEqPQm"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------HI0UtWftXQcOs3IvkcaEqPQm
-Content-Type: multipart/mixed; boundary="------------s093lcKUAHQfI0hjA16TzzFn";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Message-ID: <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
- <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
- <20230622082607.GD4253@hirez.programming.kicks-ass.net>
-In-Reply-To: <20230622082607.GD4253@hirez.programming.kicks-ass.net>
-
---------------s093lcKUAHQfI0hjA16TzzFn
-Content-Type: multipart/mixed; boundary="------------fypZpVFiPcuZxNwNlCNDLzTm"
-
---------------fypZpVFiPcuZxNwNlCNDLzTm
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org
+References: <20221216114853.8227-1-julien@xen.org>
+ <20221216114853.8227-7-julien@xen.org>
+ <478e04bc-6ff7-de01-dfb9-55d579228152@suse.com>
+ <f84d30cb-e743-60f8-a496-603323b79f37@xen.org>
+ <01584e11-36ca-7836-85ad-bba9351af46e@suse.com>
+ <a99a8246-bc80-07b9-dacc-f117ace37027@xen.org>
+ <aa2c8649-4acd-bcf4-d547-e3609bb1a0a2@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <aa2c8649-4acd-bcf4-d547-e3609bb1a0a2@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMjIuMDYuMjMgMTA6MjYsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBUaHUsIEp1
-biAyMiwgMjAyMyBhdCAwNzoyMjo1M0FNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-PiANCj4+IFRoZSBoeXBlcmNhbGxzIHdlIGFyZSB0YWxraW5nIG9mIGFyZSBzeW5jaHJvbm91
-cyBvbmVzLiBUaGV5IGFyZSBydW5uaW5nDQo+PiBpbiB0aGUgY29udGV4dCBvZiB0aGUgdmNw
-dSBkb2luZyB0aGUgY2FsbCAobGlrZSBhIHN5c2NhbGwgZnJvbSB1c2VybGFuZCBpcw0KPj4g
-cnVubmluZyBpbiB0aGUgcHJvY2VzcyBjb250ZXh0KS4NCj4gDQo+IChzbyB0aW1lIGFjdHVh
-bGx5IHBhc3NlcyBmcm9tIHRoZSBndWVzdCdzIHBvdj8pDQoNCkNvcnJlY3QuDQoNCj4gDQo+
-PiBUaGUgaHlwZXJ2aXNvciB3aWxsIHJldHVybiB0byBndWVzdCBjb250ZXh0IGZyb20gdGlt
-ZSB0byB0aW1lIGJ5IG1vZGlmeWluZw0KPj4gdGhlIHJlZ2lzdGVycyBzdWNoIHRoYXQgdGhl
-IGd1ZXN0IHdpbGwgZG8gdGhlIGh5cGVyY2FsbCBhZ2FpbiB3aXRoIGRpZmZlcmVudA0KPj4g
-aW5wdXQgdmFsdWVzIGZvciB0aGUgaHlwZXJ2aXNvciwgcmVzdWx0aW5nIGluIGEgcHJvcGVy
-IGNvbnRpbnVhdGlvbiBvZiB0aGUNCj4+IGh5cGVyY2FsbCBwcm9jZXNzaW5nLg0KPiANCj4g
-RWVldXcuLiB0aGF0J3MgcHJldHR5IHRlcnJpYmxlLiBBbmQgY2hhbmdpbmcgdGhpcyBpc24n
-dCBpbiB0aGUgY2FyZHMsDQo+IGxpa2UgYXQgYWxsPw0KDQpJbiB0aGUgbG9uZyBydW4gdGhp
-cyBzaG91bGQgYmUgcG9zc2libGUsIGJ1dCBub3QgZm9yIGFscmVhZHkgZXhpc3RpbmcgWGVu
-DQp2ZXJzaW9ucy4NCg0KPiANCj4gVGhhdCBpcywgd2h5IGlzbid0IHRoaXMgd2hvbGUgdGhp
-bmcgd3JpdHRlbiBsaWtlOg0KPiANCj4gCWZvciAoOzspIHsNCj4gCQlyZXQgPSBoeXBlcmNh
-bGwoZm9vKTsNCj4gCQlpZiAocmV0ID09IC1FQUdBSU4pIHsNCj4gCQkJY29uZF9yZXNjaGVk
-KCk7DQo+IAkJCWNvbnRpbnVlOw0KPiAJCX0NCj4gCQlicmVhazsNCj4gCX0NCg0KVGhlIGh5
-cGVydmlzb3IgZG9lc24ndCByZXR1cm4gLUVBR0FJTiBmb3IgaHlzdGVyaWNhbCByZWFzb25z
-Lg0KDQpUaGlzIHdvdWxkIGJlIG9uZSBvZiB0aGUgb3B0aW9ucyB0byBjaGFuZ2UgdGhlIGlu
-dGVyZmFjZS4gT1RPSCB0aGVyZSBhcmUgY2FzZXMNCndoZXJlIGFscmVhZHkgZXhpc3Rpbmcg
-aHlwZXJjYWxscyBuZWVkIHRvIGJlIG1vZGlmaWVkIGluIHRoZSBoeXBlcnZpc29yIHRvIGRv
-DQpwcmVlbXB0aW9uIGluIHRoZSBtaWRkbGUgZHVlIHRvIGUuZy4gc2VjdXJpdHkgcmVhc29u
-cyAoYXZvaWRpbmcgY3B1IGhvZ2dpbmcgaW4NCnNwZWNpYWwgY2FzZXMpLg0KDQpBZGRpdGlv
-bmFsbHkgc29tZSBvZiB0aGUgaHlwZXJjYWxscyBiZWluZyBzdWJqZWN0IHRvIHByZWVtcHRp
-b24gYXJlIGFsbG93ZWQgaW4NCnVucHJpdmlsZWdlZCBndWVzdHMsIHRvby4gVGhvc2UgYXJl
-IG1vc3RseSBoeXBlcmNhbGxzIGFsbG93ZWQgZm9yIFBWIGd1ZXN0cw0Kb25seSwgYnV0IHNv
-bWUgYXJlIHVzYWJsZSBieSBhbGwgZ3Vlc3RzLg0KDQo+IA0KPj4gSXQgaXMgYW4gYXdmdWwg
-aW50ZXJmYWNlIGFuZCBJIGFncmVlIHRoYXQgc3dpdGNoaW5nIHRvIGZ1bGwgcHJlZW1wdGlv
-biBpbg0KPj4gZG9tMCBzZWVtcyB0byBiZSB0aGUgcm91dGUgd2hpY2ggd2Ugc2hvdWxkIHRy
-eSB0byB0YWtlLg0KPiANCj4gV2VsbCwgSSB3b3VsZCB2ZXJ5IHN0cm9uZ2x5IHN1Z2dlc3Qg
-dGhlIHJvdXRlIHRvIHRha2UgaXMgdG8gc2NyYXAgdGhlDQo+IHdob2xlIHRoaW5nIGFuZCBp
-bnZlc3QgaW4gZG9pbmcgc29tZXRoaW5nIHNhbmVyIHNvIHdlIGRvbid0IGhhdmUgdG8ganVt
-cA0KPiB0aHJvdWdoIGhvb3BzIGxpa2UgdGhpcy4NCj4gDQo+IFRoaXMgaXMgcXVpdGUgcG9z
-c2libHkgdGhlIHdvcnN0IHBvc3NpYmxlIGludGVyZmFjZSBmb3IgdGhpcyBYZW4gY291bGQN
-Cj4gaGF2ZSBjb21lIHVwIHdpdGggLS0gYXdhcmRzIG1hdGVyaWFsIGZvciBzdXJlLg0KDQpZ
-ZXMuDQoNCj4gDQo+PiBUaGUgZG93bnNpZGUgd291bGQgYmUgdGhhdCBzb21lIHdvcmtsb2Fk
-cyBtaWdodCBzZWUgd29yc2UgcGVyZm9ybWFuY2UNCj4+IGR1ZSB0byBiYWNrZW5kIEkvTyBo
-YW5kbGluZyBtaWdodCBnZXQgcHJlZW1wdGVkLg0KPiANCj4gSXMgdGhhdCBhbiBhY3R1YWwg
-Y29uY2Vybj8gTWFyayB0aGlzIGEgbGVnYXh5IGludGVmYWNlIGFuZCBhbnlib2R5IHdobw0K
-PiB3YW50cyB0byBnZXQgYXdheSBmcm9tIGl0IHVwZGF0ZXMuDQoNCkl0IGlzbid0IHRoYXQg
-ZWFzeS4gU2VlIGFib3ZlLg0KDQo+IA0KPj4gSnVzdCB0aGlua2luZyAtIGNhbiBmdWxsIHBy
-ZWVtcHRpb24gYmUgZW5hYmxlZCBwZXIgcHJvY2Vzcz8NCj4gDQo+IE5vcGUsIHRoYXQncyBh
-IHN5c3RlbSB3aWRlIHRoaW5nLiBQcmVlbXB0aW9uIGlzIHNvbWV0aGluZyB0aGF0J3MgZHJp
-dmVuDQo+IGJ5IHRoZSByZXF1aXJlbWVudHMgb2YgdGhlIHRhc2tzIHRoYXQgcHJlZW1wdCwg
-bm90IHNvbWV0aGluZyBieSB0aGUNCj4gdGFza3MgdGhhdCBnZXQgcHJlZW1wdGVkLg0KDQpE
-ZXBlbmRzLiBJZiBhIHRhc2sgaW4gYSBub24tcHJlZW1wdCBzeXN0ZW0gY291bGQgc3dpdGNo
-IGl0c2VsZiB0byBiZQ0KcHJlZW1wdGFibGUsIHdlIGNvdWxkIGRvIHNvIGFyb3VuZCBoeXBl
-cmNhbGxzIHdpdGhvdXQgY29tcHJvbWlzaW5nIHRoZQ0KZ2VuZXJhbCBwcmVlbXB0aW9uIHNl
-dHRpbmcuIERpc2FibGluZyBwcmVlbXB0aW9uIGluIGEgcHJlZW1wdGFibGUgc3lzdGVtDQpz
-aG91bGQgY29udGludWUgdG8gYmUgcG9zc2libGUgZm9yIHNob3J0IGNvZGUgcGF0aHMgb25s
-eSwgb2YgY291cnNlLg0KDQo+IEFuZHkncyBpZGVhIG9mIGhhdmluZyB0aGF0IHRoaW5nIGlu
-dGVyY2VwdGVkIGFzIGFuIGV4Y2VwdGlvbiAoRVhUQUJMRQ0KPiBsaWtlKSBhbmQgcmVsb2Nh
-dGluZyB0aGUgSVAgdG8gYSBwbGFjZSB0aGF0IGRvZXMgY29uZF9yZXNjaGVkKCkgYmVmb3Jl
-DQo+IGdvaW5nIGJhY2sgaXMgYW4gb3B0aW9uLi4gZ3Jvc3MsIGJ1dCBwb3NzaWJseSBiZXR0
-ZXIsIGR1bm5vLg0KPiANCj4gUXVpdGUgdGhlIG1lc3MgaW5kZWVkIDovDQoNClllYWguDQoN
-Cg0KSnVlcmdlbg0K
---------------fypZpVFiPcuZxNwNlCNDLzTm
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi Jan,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Sorry for the late reply.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+On 13/01/2023 09:22, Jan Beulich wrote:
+> On 13.01.2023 00:20, Julien Grall wrote:
+>> On 04/01/2023 10:27, Jan Beulich wrote:
+>>> On 23.12.2022 13:22, Julien Grall wrote:
+>>>> On 22/12/2022 11:12, Jan Beulich wrote:
+>>>>> On 16.12.2022 12:48, Julien Grall wrote:
+>>>>>> --- a/xen/arch/x86/x86_64/entry.S
+>>>>>> +++ b/xen/arch/x86/x86_64/entry.S
+>>>>>> @@ -165,7 +165,24 @@ restore_all_guest:
+>>>>>>             and   %rsi, %rdi
+>>>>>>             and   %r9, %rsi
+>>>>>>             add   %rcx, %rdi
+>>>>>> -        add   %rcx, %rsi
+>>>>>> +
+>>>>>> +         /*
+>>>>>> +          * Without a direct map, we have to map first before copying. We only
+>>>>>> +          * need to map the guest root table but not the per-CPU root_pgt,
+>>>>>> +          * because the latter is still a xenheap page.
+>>>>>> +          */
+>>>>>> +        pushq %r9
+>>>>>> +        pushq %rdx
+>>>>>> +        pushq %rax
+>>>>>> +        pushq %rdi
+>>>>>> +        mov   %rsi, %rdi
+>>>>>> +        shr   $PAGE_SHIFT, %rdi
+>>>>>> +        callq map_domain_page
+>>>>>> +        mov   %rax, %rsi
+>>>>>> +        popq  %rdi
+>>>>>> +        /* Stash the pointer for unmapping later. */
+>>>>>> +        pushq %rax
+>>>>>> +
+>>>>>>             mov   $ROOT_PAGETABLE_FIRST_XEN_SLOT, %ecx
+>>>>>>             mov   root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rsi), %r8
+>>>>>>             mov   %r8, root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rdi)
+>>>>>> @@ -177,6 +194,14 @@ restore_all_guest:
+>>>>>>             sub   $(ROOT_PAGETABLE_FIRST_XEN_SLOT - \
+>>>>>>                     ROOT_PAGETABLE_LAST_XEN_SLOT - 1) * 8, %rdi
+>>>>>>             rep movsq
+>>>>>> +
+>>>>>> +        /* Unmap the page. */
+>>>>>> +        popq  %rdi
+>>>>>> +        callq unmap_domain_page
+>>>>>> +        popq  %rax
+>>>>>> +        popq  %rdx
+>>>>>> +        popq  %r9
+>>>>>
+>>>>> While the PUSH/POP are part of what I dislike here, I think this wants
+>>>>> doing differently: Establish a mapping when putting in place a new guest
+>>>>> page table, and use the pointer here. This could be a new per-domain
+>>>>> mapping, to limit its visibility.
+>>>>
+>>>> I have looked at a per-domain approach and this looks way more complex
+>>>> than the few concise lines here (not mentioning the extra amount of
+>>>> memory).
+>>>
+>>> Yes, I do understand that would be a more intrusive change.
+>>
+>> I could be persuaded to look at a more intrusive change if there are a
+>> good reason to do it. To me, at the moment, it mostly seem a matter of
+>> taste.
+>>
+>> So what would we gain from a perdomain mapping?
+> 
+> Rather than mapping/unmapping once per hypervisor entry/exit, we'd
+> map just once per context switch. Plus we'd save ugly/fragile assembly
+> code (apart from the push/pop I also dislike C functions being called
+> from assembly which aren't really meant to be called this way: While
+> these two may indeed be unlikely to ever change, any such change comes
+> with the risk of the assembly callers being missed - the compiler
+> won't tell you that e.g. argument types/count don't match parameters
+> anymore).
 
---------------fypZpVFiPcuZxNwNlCNDLzTm--
+I think I have managed to write what you suggested. I would like to 
+share to get early feedback before resending the series.
 
---------------s093lcKUAHQfI0hjA16TzzFn--
+There are also a couple of TODOs (XXX) in place where I am not sure if 
+this is correct.
 
---------------HI0UtWftXQcOs3IvkcaEqPQm
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+diff --git a/xen/arch/x86/include/asm/config.h 
+b/xen/arch/x86/include/asm/config.h
+index fbc4bb3416bd..320ddb9e1e77 100644
+--- a/xen/arch/x86/include/asm/config.h
++++ b/xen/arch/x86/include/asm/config.h
+@@ -202,7 +202,7 @@ extern unsigned char boot_edid_info[128];
+  /* Slot 260: per-domain mappings (including map cache). */
+  #define PERDOMAIN_VIRT_START    (PML4_ADDR(260))
+  #define PERDOMAIN_SLOT_MBYTES   (PML4_ENTRY_BYTES >> (20 + 
+PAGETABLE_ORDER))
+-#define PERDOMAIN_SLOTS         3
++#define PERDOMAIN_SLOTS         4
+  #define PERDOMAIN_VIRT_SLOT(s)  (PERDOMAIN_VIRT_START + (s) * \
+                                   (PERDOMAIN_SLOT_MBYTES << 20))
+  /* Slot 4: mirror of per-domain mappings (for compat xlat area 
+accesses). */
+@@ -316,6 +316,16 @@ extern unsigned long xen_phys_start;
+  #define ARG_XLAT_START(v)        \
+      (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
 
------BEGIN PGP SIGNATURE-----
++/* CR3 shadow mapping area. The fourth per-domain-mapping sub-area */
++#define SHADOW_CR3_VIRT_START   PERDOMAIN_VIRT_SLOT(3)
++#define SHADOW_CR3_ENTRIES      MAX_VIRT_CPUS
++#define SHADOW_CR3_VIRT_END     (SHADOW_CR3_VIRT_START +    \
++                                 (MAX_VIRT_CPUS * PAGE_SIZE))
++
++/* The address of a particular VCPU's c3 */
++#define SHADOW_CR3_VCPU_VIRT_START(v) \
++    (SHADOW_CR3_VIRT_START + ((v)->vcpu_id * PAGE_SIZE))
++
+  #define ELFSIZE 64
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSUI3wFAwAAAAAACgkQsN6d1ii/Ey8P
-zQf+Jt7rJKZ8Ph+Az2fHWgGV5OOyTxc3Ec6WvJjnQXBSubGVrTvWdDhNu+b0C9NzFyz11AWWxao4
-1RqN8n5TVbdQqRCQ1W+VM/pSHuDa67Lug+H+TOOqP03n7ikdOKIHwE/08dLHryPjLHShlWBBvJex
-HGHcfqkJVFe1KEXxUjdNJhbOqw8K6CpnmWlSDMo1zZjDf/0laXecA8zlEvF9kAauTyGuATtVgD1E
-R+U1VUjs8B0EU4S4cCPRsoidF7pbB7ou+9ghzUAIeBPqtWlvyayxK+oMlDMvnRR7YRIz56/O7xm6
-7KWZcHrvdhVx03RG6rRP8NBKo21kUKire/hJUiR9bQ==
-=jsnE
------END PGP SIGNATURE-----
+  #define ARCH_CRASH_SAVE_VMCOREINFO
+diff --git a/xen/arch/x86/include/asm/domain.h 
+b/xen/arch/x86/include/asm/domain.h
+index c2d9fc333be5..d5989224f4a3 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -273,6 +273,7 @@ struct time_scale {
+  struct pv_domain
+  {
+      l1_pgentry_t **gdt_ldt_l1tab;
++    l1_pgentry_t **shadow_cr3_l1tab;
 
---------------HI0UtWftXQcOs3IvkcaEqPQm--
+      atomic_t nr_l4_pages;
+
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 9741d28cbc96..b64ee1ca47f6 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -509,6 +509,13 @@ void share_xen_page_with_guest(struct page_info 
+*page, struct domain *d,
+      spin_unlock(&d->page_alloc_lock);
+  }
+
++#define shadow_cr3_idx(v) \
++    ((v)->vcpu_id >> PAGETABLE_ORDER)
++
++#define pv_shadow_cr3_pte(v) \
++    ((v)->domain->arch.pv.shadow_cr3_l1tab[shadow_cr3_idx(v)] + \
++     ((v)->vcpu_id & (L1_PAGETABLE_ENTRIES - 1)))
++
+  void make_cr3(struct vcpu *v, mfn_t mfn)
+  {
+      struct domain *d = v->domain;
+@@ -516,6 +523,18 @@ void make_cr3(struct vcpu *v, mfn_t mfn)
+      v->arch.cr3 = mfn_x(mfn) << PAGE_SHIFT;
+      if ( is_pv_domain(d) && d->arch.pv.pcid )
+          v->arch.cr3 |= get_pcid_bits(v, false);
++
++    /* Update the CR3 mapping */
++    if ( is_pv_domain(d) )
++    {
++        l1_pgentry_t *pte = pv_shadow_cr3_pte(v);
++
++        /* XXX Do we need to call get page first? */
++        l1e_write(pte, l1e_from_mfn(mfn, __PAGE_HYPERVISOR_RW));
++        /* XXX Can the flush be reduced to the page? */
++        /* XXX Do we always call with current? */
++        flush_tlb_local();
++    }
+  }
+
+  void write_ptbase(struct vcpu *v)
+diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+index 5c92812dc67a..064645ccc261 100644
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -288,6 +288,19 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
+                                1U << GDT_LDT_VCPU_SHIFT);
+  }
+
++static int pv_create_shadow_cr3_l1tab(struct vcpu *v)
++{
++    return create_perdomain_mapping(v->domain, 
+SHADOW_CR3_VCPU_VIRT_START(v),
++                                    1, v->domain->arch.pv.shadow_cr3_l1tab,
++                                    NULL);
++}
++
++static void pv_destroy_shadow_cr3_l1tab(struct vcpu *v)
++
++{
++    destroy_perdomain_mapping(v->domain, SHADOW_CR3_VCPU_VIRT_START(v), 1);
++}
++
+  void pv_vcpu_destroy(struct vcpu *v)
+  {
+      if ( is_pv_32bit_vcpu(v) )
+@@ -297,6 +310,7 @@ void pv_vcpu_destroy(struct vcpu *v)
+      }
+
+      pv_destroy_gdt_ldt_l1tab(v);
++    pv_destroy_shadow_cr3_l1tab(v);
+      XFREE(v->arch.pv.trap_ctxt);
+  }
+
+@@ -311,6 +325,10 @@ int pv_vcpu_initialise(struct vcpu *v)
+      if ( rc )
+          return rc;
+
++    rc = pv_create_shadow_cr3_l1tab(v);
++    if ( rc )
++        goto done;
++
+      BUILD_BUG_ON(X86_NR_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
+                   PAGE_SIZE);
+      v->arch.pv.trap_ctxt = xzalloc_array(struct trap_info, 
+X86_NR_VECTORS);
+@@ -346,10 +364,12 @@ void pv_domain_destroy(struct domain *d)
+
+      destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+                                GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
++    destroy_perdomain_mapping(d, SHADOW_CR3_VIRT_START, 
+SHADOW_CR3_ENTRIES);
+
+      XFREE(d->arch.pv.cpuidmasks);
+
+      FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
++    FREE_XENHEAP_PAGE(d->arch.pv.shadow_cr3_l1tab);
+  }
+
+  void noreturn cf_check continue_pv_domain(void);
+@@ -371,6 +391,12 @@ int pv_domain_initialise(struct domain *d)
+          goto fail;
+      clear_page(d->arch.pv.gdt_ldt_l1tab);
+
++    d->arch.pv.shadow_cr3_l1tab =
++        alloc_xenheap_pages(0, MEMF_node(domain_to_node(d)));
++    if ( !d->arch.pv.shadow_cr3_l1tab )
++        goto fail;
++    clear_page(d->arch.pv.shadow_cr3_l1tab);
++
+      if ( levelling_caps & ~LCAP_faulting &&
+           (d->arch.pv.cpuidmasks = xmemdup(&cpuidmask_defaults)) == NULL )
+          goto fail;
+@@ -381,6 +407,11 @@ int pv_domain_initialise(struct domain *d)
+      if ( rc )
+          goto fail;
+
++    rc = create_perdomain_mapping(d, SHADOW_CR3_VIRT_START,
++                                  SHADOW_CR3_ENTRIES, NULL, NULL);
++    if ( rc )
++        goto fail;
++
+      d->arch.ctxt_switch = &pv_csw;
+
+      d->arch.pv.xpti = is_hardware_domain(d) ? opt_xpti_hwdom : 
+opt_xpti_domu;
+diff --git a/xen/arch/x86/x86_64/asm-offsets.c 
+b/xen/arch/x86/x86_64/asm-offsets.c
+index 287dac101ad4..ed486607bf15 100644
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -51,6 +51,7 @@ void __dummy__(void)
+      OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
+      BLANK();
+
++    OFFSET(VCPU_id, struct vcpu, vcpu_id);
+      OFFSET(VCPU_processor, struct vcpu, processor);
+      OFFSET(VCPU_domain, struct vcpu, domain);
+      OFFSET(VCPU_vcpu_info, struct vcpu, vcpu_info);
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index 8b77d7113bbf..678876a32177 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -165,7 +165,16 @@ restore_all_guest:
+          and   %rsi, %rdi
+          and   %r9, %rsi
+          add   %rcx, %rdi
++
++        /*
++         * The address in the vCPU cr3 is always mapped in the shadow
++         * cr3 virt area.
++         */
++        mov   VCPU_id(%rbx), %rsi
++        shl   $PAGE_SHIFT, %rsi
++        movabs $SHADOW_CR3_VIRT_START, %rcx
+          add   %rcx, %rsi
++
+          mov   $ROOT_PAGETABLE_FIRST_XEN_SLOT, %ecx
+          mov   root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rsi), %r8
+          mov   %r8, root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rdi)
+> 
+> Jan
+
+-- 
+Julien Grall
 
