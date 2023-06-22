@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D69273A1F2
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 15:37:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553580.864214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9512A73A247
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 15:55:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553584.864224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKVG-0005hO-Dm; Thu, 22 Jun 2023 13:37:38 +0000
+	id 1qCKmW-0008A8-Tk; Thu, 22 Jun 2023 13:55:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553580.864214; Thu, 22 Jun 2023 13:37:38 +0000
+Received: by outflank-mailman (output) from mailman id 553584.864224; Thu, 22 Jun 2023 13:55:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKVG-0005fj-B7; Thu, 22 Jun 2023 13:37:38 +0000
-Received: by outflank-mailman (input) for mailman id 553580;
- Thu, 22 Jun 2023 13:37:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qCKmW-000873-QL; Thu, 22 Jun 2023 13:55:28 +0000
+Received: by outflank-mailman (input) for mailman id 553584;
+ Thu, 22 Jun 2023 13:55:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VOAB=CK=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qCKVF-0005fb-Jn
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 13:37:37 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f23f4335-1101-11ee-8611-37d641c3527e;
- Thu, 22 Jun 2023 15:37:35 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-3f9b4bf99c2so40990315e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jun 2023 06:37:35 -0700 (PDT)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- w21-20020a1cf615000000b003f8126bcf34sm18765151wmc.48.2023.06.22.06.37.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 06:37:34 -0700 (PDT)
+ <SRS0=CGH2=CK=arm.com=peter.hoyes@srs-se1.protection.inumbo.net>)
+ id 1qCKmV-00086x-RT
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 13:55:27 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6f4a5419-1104-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 15:55:24 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 661F9C14;
+ Thu, 22 Jun 2023 06:56:07 -0700 (PDT)
+Received: from e125920.cambridge.arm.com (unknown [10.1.199.64])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7BB5A3F663;
+ Thu, 22 Jun 2023 06:55:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,75 +42,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f23f4335-1101-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1687441055; x=1690033055;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HKtNqEa7eNDf4aw7mZRTRzS9lwyviaBYqS0V4KP7yeg=;
-        b=iqt/u6MA3IQsK8oaozcKOC3JAGTVaYF04eW6LATQQIR2cPMgW2Qt5vJ/2JQ5pYEf3Q
-         9Lw2vjB25DAj3HcOu+avbVZ9fTsSVfoVyE4PXaqMtVBybjptugLLeGVCR+L8QJu7jSv7
-         1GCdLynf1oz7vZaTh1bBRwcrcwJ3cy5DfI5Fc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687441055; x=1690033055;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HKtNqEa7eNDf4aw7mZRTRzS9lwyviaBYqS0V4KP7yeg=;
-        b=CEIhCn+4zKyu2FVm70HxTvy7css6xs21qUDXzpajXKq3TvEKrnWgWSvL4EgvMV7sZs
-         F3Bl0ghRei1Q2kiJKXceYTxbE96bVYmiabrXWLIJnm1xMHoR+js0G2pEjRHHX/d2U2s6
-         9LCXBI1GxUK8lNSG14giX0gIRlq6qfxfQ9uRvTiZe9MzobVmZi5YjVn+mERoTsXPplXB
-         U6xxFIMZMCdZal7NiuxQuQBtYeRuBjC5lMUnf/r6N+OANG7MW8f2YzXbMkNYYOlW8NXG
-         tS2jOuA5rb1epsorGGC1pRF3j+aIvUWnHgMSc3XO2WBdmR3khxDGgRMIyrsYRkOBHr/O
-         98sg==
-X-Gm-Message-State: AC+VfDzfl6TGX+uvA+DkEnHiS1QLxDOJ5mKqWN5e3TsyuaopUBP9gohB
-	s/au6GssmQqdhKM2KaurrvOg9g==
-X-Google-Smtp-Source: ACHHUZ6J0BARQhNefgfBP1bTCrXLtba0bc07rPR7z2IuKbWfZgqyQLSzxeKkV17Z+aY+aGJ6swBNkg==
-X-Received: by 2002:a7b:cbcd:0:b0:3fa:74bf:f028 with SMTP id n13-20020a7bcbcd000000b003fa74bff028mr1083655wmi.0.1687441054818;
-        Thu, 22 Jun 2023 06:37:34 -0700 (PDT)
-Message-ID: <64944e9e.1c0a0220.2e6f8.2c96@mx.google.com>
-X-Google-Original-Message-ID: <ZJROnY516v37buzC@EMEAENGAAD19049.>
-Date: Thu, 22 Jun 2023 14:37:33 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] mm/pdx: Add comments throughout the codebase for pdx
-References: <20230615162741.2008-1-alejandro.vallejo@cloud.com>
- <984e13ef-a73e-126c-0bf8-58bee9beb7b2@suse.com>
- <64930879.1c0a0220.28719.ce38@mx.google.com>
- <692b3db7-dfe8-8ed7-71e5-b29dcbba7f1c@suse.com>
- <649440e5.050a0220.708ad.038d@mx.google.com>
- <81f00083-0170-9189-19c7-c8385f7173cd@suse.com>
+X-Inumbo-ID: 6f4a5419-1104-11ee-b237-6b7b168915f2
+From: Peter Hoyes <peter.hoyes@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	luca.fancellu@arm.com,
+	Peter Hoyes <Peter.Hoyes@arm.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 1/2] tools/console: Add escape argument to configure escape character
+Date: Thu, 22 Jun 2023 14:55:02 +0100
+Message-Id: <20230622135503.409150-1-peter.hoyes@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <81f00083-0170-9189-19c7-c8385f7173cd@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 22, 2023 at 03:28:14PM +0200, Jan Beulich wrote:
-> > Unless I'm missing some non-obvious piece of the puzzle, I'd say that for a
-> > truly general compressor we'd need some kind of loop over the hole mask.
-> 
-> Well, further compression might be possible that way, yes, but that's
-> entirely orthogonal to the number of discontiguous regions we're
-> talking about. Consider
-> 
-> 0x0000100000000000-0x00001000ffffffff
-> 0x0000200000000000-0x00002000ffffffff
-> 0x0000300000000000-0x00003000ffffffff
-> 0x0000400000000000-0x00004000ffffffff
-> 
-> The reference system's arrangement was slightly more complex (first and
-> foremost because of the memory below 4G that node 0 had), but came close
-> to the above conceptually.
-> 
-> Jan
-Ah, I now see what you mean. A single hole can compress several regions if
-they are all share sequences of zeroes. Fair point. I'll reflect that in that
-paragraph.
+From: Peter Hoyes <Peter.Hoyes@arm.com>
 
-Alejandro
+Dom0 may be accessed via telnet, meaning the default escape character
+(which is the same as telnet's) cannot be directly used to exit the
+console. It would be helpful to make the escape character customizable
+in such use cases.
+
+Add --escape argument to console tool for this purpose.
+
+Create parse_escape_character static function to convert a character
+string (which may include a '^' modifier) into an ANSI integer.
+
+Add argument to getopt options, parse escape character and pass value
+to console_loop.
+
+If --escape is not specified, it falls back to the existing behavior
+using DEFAULT_ESCAPE_SEQUENCE.
+
+Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
+---
+ tools/console/client/main.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/tools/console/client/main.c b/tools/console/client/main.c
+index 6775006488..fb7cfb04b5 100644
+--- a/tools/console/client/main.c
++++ b/tools/console/client/main.c
+@@ -42,7 +42,7 @@
+ #include <xenstore.h>
+ #include "xenctrl.h"
+ 
+-#define ESCAPE_CHARACTER 0x1d
++#define DEFAULT_ESCAPE_CHARACTER 0x1d
+ 
+ static volatile sig_atomic_t received_signal = 0;
+ static char lockfile[sizeof (XEN_LOCK_DIR "/xenconsole.") + 8] = { 0 };
+@@ -77,6 +77,7 @@ static void usage(const char *program) {
+ 	       "  -n, --num N      use console number N\n"
+ 	       "  --type TYPE      console type. must be 'pv', 'serial' or 'vuart'\n"
+ 	       "  --start-notify-fd N file descriptor used to notify parent\n"
++	       "  --escape E       escape sequence to exit console\n"
+ 	       , program);
+ }
+ 
+@@ -174,7 +175,7 @@ static void restore_term(int fd, struct termios *old)
+ }
+ 
+ static int console_loop(int fd, struct xs_handle *xs, char *pty_path,
+-		        bool interactive)
++			bool interactive, char escape_character)
+ {
+ 	int ret, xs_fd = xs_fileno(xs), max_fd = -1;
+ 
+@@ -215,7 +216,7 @@ static int console_loop(int fd, struct xs_handle *xs, char *pty_path,
+ 			char msg[60];
+ 
+ 			len = read(STDIN_FILENO, msg, sizeof(msg));
+-			if (len == 1 && msg[0] == ESCAPE_CHARACTER) {
++			if (len == 1 && msg[0] == escape_character) {
+ 				return 0;
+ 			} 
+ 
+@@ -335,6 +336,7 @@ int main(int argc, char **argv)
+ 		{ "help",    0, 0, 'h' },
+ 		{ "start-notify-fd", 1, 0, 's' },
+ 		{ "interactive", 0, 0, 'i' },
++		{ "escape",  1, 0, 'e' },
+ 		{ 0 },
+ 
+ 	};
+@@ -345,6 +347,7 @@ int main(int argc, char **argv)
+ 	console_type type = CONSOLE_INVAL;
+ 	bool interactive = 0;
+ 	const char *console_names = "serial, pv, vuart";
++	char escape_character = DEFAULT_ESCAPE_CHARACTER;
+ 
+ 	while((ch = getopt_long(argc, argv, sopt, lopt, &opt_ind)) != -1) {
+ 		switch(ch) {
+@@ -375,6 +378,12 @@ int main(int argc, char **argv)
+ 		case 'i':
+ 			interactive = 1;
+ 			break;
++		case 'e':
++			if (optarg[0] == '^')
++				escape_character = optarg[1] & 0x1f;
++			else
++				escape_character = optarg[0];
++			break;
+ 		default:
+ 			fprintf(stderr, "Invalid argument\n");
+ 			fprintf(stderr, "Try `%s --help' for more information.\n", 
+@@ -493,7 +502,7 @@ int main(int argc, char **argv)
+ 		close(start_notify_fd);
+ 	}
+ 
+-	console_loop(spty, xs, path, interactive);
++	console_loop(spty, xs, path, interactive, escape_character);
+ 
+ 	free(path);
+ 	free(dom_path);
+-- 
+2.34.1
+
 
