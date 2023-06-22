@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF81973A0B8
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 14:18:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553518.864114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E76D73A115
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 14:39:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553523.864124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCJFU-0000lY-0b; Thu, 22 Jun 2023 12:17:16 +0000
+	id 1qCJad-0003Eu-Ot; Thu, 22 Jun 2023 12:39:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553518.864114; Thu, 22 Jun 2023 12:17:15 +0000
+Received: by outflank-mailman (output) from mailman id 553523.864124; Thu, 22 Jun 2023 12:39:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCJFT-0000jQ-Tj; Thu, 22 Jun 2023 12:17:15 +0000
-Received: by outflank-mailman (input) for mailman id 553518;
- Thu, 22 Jun 2023 12:17:15 +0000
+	id 1qCJad-0003Ct-M1; Thu, 22 Jun 2023 12:39:07 +0000
+Received: by outflank-mailman (input) for mailman id 553523;
+ Thu, 22 Jun 2023 12:39:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v4C0=CK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qCJFT-0000jJ-6I
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 12:17:15 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VOAB=CK=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qCJab-0003Cn-Q1
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 12:39:05 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b4d20715-10f6-11ee-8611-37d641c3527e;
- Thu, 22 Jun 2023 14:17:07 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5F9FE22B75;
- Thu, 22 Jun 2023 12:17:07 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA4E413905;
- Thu, 22 Jun 2023 12:17:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id xxyRM8I7lGTeZQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 22 Jun 2023 12:17:06 +0000
+ id c4b06a8e-10f9-11ee-8611-37d641c3527e;
+ Thu, 22 Jun 2023 14:39:03 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-3f9bece8e19so22385525e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jun 2023 05:39:02 -0700 (PDT)
+Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ k37-20020a05600c1ca500b003f9b3829269sm2602180wms.2.2023.06.22.05.39.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 05:39:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,192 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4d20715-10f6-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687436227; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqsOz0ZUUPar+Aeqqn/vg5vN/i1kZj6Y/y/QQi+nP+k=;
-	b=jFXs34WrC5j0dG6j5lAnXMgQdyC3TUHYJrRQt4jAJeQ1sd27uUaTRJTCYDx6z5V0EGPnQt
-	5NzhZqRhHZkZHfaz3FfdnYnR66lSQeyCZJArfjp7Aj3C1LKxyVE1NvWXke6VrV1EoKIWBJ
-	RHKaNtI2Lrl3nAoeRifhSXI0sfzbPmE=
-Message-ID: <5484a739-5dc9-ab14-3bcf-3ba6c36542af@suse.com>
-Date: Thu, 22 Jun 2023 14:17:05 +0200
+X-Inumbo-ID: c4b06a8e-10f9-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1687437542; x=1690029542;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=n5HL61NbRzkQwJPyPEEZstRpgUECb6lGMy/OYqG0tEQ=;
+        b=XYMvo0ERsoIPEh16KJlzxH4tG3nlKHJOStMW9OwGaPyEiF2UJ48WQyq6WCyOMNaEjX
+         R2Dbdql21ocL+NbxGzi3SgJOQ/WbKHXHsbQkQPi1t3YeyljR4/fSshxGuM1qBF9wlV3v
+         nClLue4cxC7+3syJu0GoXHX7CZ0t+jaUTfefY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687437542; x=1690029542;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n5HL61NbRzkQwJPyPEEZstRpgUECb6lGMy/OYqG0tEQ=;
+        b=EmXBxaNvaES4d1cK8ttW3FYKLNESMDbPqbySIyziYNmijEuv+0vex/PLRj49My0NhL
+         V/STpuGk+bnABjd8uD18LXEExWc6lmr7vycsN0zCIbLSbl86adOsh8ARm4ybJluOrldP
+         t7HhveNFKOMo8ivdypFVW2SQho0ZB4FjZwT2TNckvRs8yMrDM8XFvnnsTEfgczJ7oErg
+         vtMLtU/tXhfEA2vm6eF66CC0ICdfh3WjWb4+qB6vtkrfqJ8Aaa2xJgXFa3bD7vsn6lDq
+         x83+2KeiuHOYxKlWKdfeSR4jnQiZvZlsF3QVXNvZlLxHWW00EhWejaOapvJ3emjc0o2C
+         pe9A==
+X-Gm-Message-State: AC+VfDxN4o41C0znZrwz/Wn6LNFBemWCXVTLYkEf+ikyDwPnRFOUoAWJ
+	Fr4RdCznI7HsfVMiCEX/Y7OOhg==
+X-Google-Smtp-Source: ACHHUZ6JnIjjbM4GScQYP2igBun7zgaV/ht7sPAVxEFdmbh/tckw/4yPKiNQWW1zgnp/s/qwvxUuDg==
+X-Received: by 2002:a05:600c:3645:b0:3f9:255e:ee3b with SMTP id y5-20020a05600c364500b003f9255eee3bmr14124828wmq.30.1687437542314;
+        Thu, 22 Jun 2023 05:39:02 -0700 (PDT)
+Message-ID: <649440e5.050a0220.708ad.038d@mx.google.com>
+X-Google-Original-Message-ID: <ZJRA5DqySsZFo9tu@EMEAENGAAD19049.>
+Date: Thu, 22 Jun 2023 13:39:00 +0100
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] mm/pdx: Add comments throughout the codebase for pdx
+References: <20230615162741.2008-1-alejandro.vallejo@cloud.com>
+ <984e13ef-a73e-126c-0bf8-58bee9beb7b2@suse.com>
+ <64930879.1c0a0220.28719.ce38@mx.google.com>
+ <692b3db7-dfe8-8ed7-71e5-b29dcbba7f1c@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-Content-Language: en-US
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
- <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
- <20230622082607.GD4253@hirez.programming.kicks-ass.net>
- <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
- <20230622111552.GI4253@hirez.programming.kicks-ass.net>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230622111552.GI4253@hirez.programming.kicks-ass.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------PK0vDO0RRRTH0WlSOU9WiVzN"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <692b3db7-dfe8-8ed7-71e5-b29dcbba7f1c@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------PK0vDO0RRRTH0WlSOU9WiVzN
-Content-Type: multipart/mixed; boundary="------------0TQKO60zEo7bFW9BBB40VRyf";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Message-ID: <5484a739-5dc9-ab14-3bcf-3ba6c36542af@suse.com>
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
- <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
- <20230622082607.GD4253@hirez.programming.kicks-ass.net>
- <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
- <20230622111552.GI4253@hirez.programming.kicks-ass.net>
-In-Reply-To: <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+On Thu, Jun 22, 2023 at 11:15:17AM +0200, Jan Beulich wrote:
+> >>> --- a/xen/include/xen/mm.h
+> >>> +++ b/xen/include/xen/mm.h
+> >>> @@ -31,6 +31,22 @@
+> >>>   *   (i.e. all devices assigned to) a guest share a single DMA address space
+> >>>   *   and, by default, Xen will ensure dfn == pfn.
+> >>>   *
+> >>> + * pdx: Page InDeX
+> >>> + *   Indices into the frame table holding the per-page's book-keeping
+> >>> + *   metadata. A compression scheme is used and there's a non-identity
+> >>> + *   mapping between valid(mfn) <-> valid(pdx) See the comments in pdx.c
+> >>> + *   for an in-depth explanation of that mapping.
+> >>
+> >> The mapping may very well be (and on x86 typically is) an identity
+> >> one. IOW you want to describe not only the compression case, but also
+> >> the "no compression possible" one.
+> > Point taken. I'll rephrase it slightly as "possibly non-identity" and
+> > explicitly state the "no compression is possible" case.
+> > 
+> >>
+> >> PDXes also aren't just indexes to the frame table, but also to the
+> >> direct mapping.
+> > I had something to that effect earlier on, but I removed it because it
+> > doesn't seem to be the case on ARM. There's a directmap_base_pdx global
+> > that states the first pdx to be mapped on the directmap.
+> 
+> Which would merely make it a biased index. I very much hope they
+> eliminate holes (and not just unused leading space) from the directmap
+> as well.
+Yes, the directmap offset is still just a shifted pdx (albeit biased, as
+you said), so the holes are naturally removed. Regardless, having to
+explain a port-specific quirk in the main mm header seems like too much, so
+I sticked with the common denominator: "A pdx is the frame table index of a
+valid entry", and that holds for every port.
 
---------------0TQKO60zEo7bFW9BBB40VRyf
-Content-Type: multipart/mixed; boundary="------------yjVdNd1aSIrIRK1Yn0XnEKrk"
+> >>> + * This is a technique to avoid wasting memory on machines known to have
+> >>> + * split their machine address space in two big discontinuous and highly
+> >>> + * disjoint chunks.
+> >>
+> >> Why two? There can be any number, and in fact on the system I originally
+> >> had data from for reference (when first writing this code) iirc there
+> >> were 8 nodes, each with a chunk of memory far away from the other chunks.
+> >> The compression scheme used merely requires that some "inner" bits are
+> >> unused (always zero) in all of those ranges.
+> > Well, our implementation only supports two and I didn't see any obvious
+> > hints about intending to increasing that number.
+> 
+> Where are you taking that "supports two" from? When I first wrote this code,
+> it was tested against a system with 8 (maybe it was 4, but certainly more
+> than 2) discontiguous regions (not counting the hole below 4G).
+You can have any number, but there's a single contiguous bit slice being
+removed, as far as I can see. The adaptor functions in
+xen/include/xen/pdx.h perform a single shift.
 
---------------yjVdNd1aSIrIRK1Yn0XnEKrk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+    static inline unsigned long pfn_to_pdx(unsigned long pfn)
+    {
+        return (pfn & pfn_pdx_bottom_mask) |
+               ((pfn & pfn_top_mask) >> pfn_pdx_hole_shift);
+    }
 
-T24gMjIuMDYuMjMgMTM6MTUsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBUaHUsIEp1
-biAyMiwgMjAyMyBhdCAxMjozMzozMVBNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-Pj4gT24gMjIuMDYuMjMgMTA6MjYsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiANCj4+Pj4g
-VGhlIGRvd25zaWRlIHdvdWxkIGJlIHRoYXQgc29tZSB3b3JrbG9hZHMgbWlnaHQgc2VlIHdv
-cnNlIHBlcmZvcm1hbmNlDQo+Pj4+IGR1ZSB0byBiYWNrZW5kIEkvTyBoYW5kbGluZyBtaWdo
-dCBnZXQgcHJlZW1wdGVkLg0KPj4+DQo+Pj4gSXMgdGhhdCBhbiBhY3R1YWwgY29uY2Vybj8g
-TWFyayB0aGlzIGEgbGVnYXh5IGludGVmYWNlIGFuZCBhbnlib2R5IHdobw0KPj4+IHdhbnRz
-IHRvIGdldCBhd2F5IGZyb20gaXQgdXBkYXRlcy4NCj4+DQo+PiBJdCBpc24ndCB0aGF0IGVh
-c3kuIFNlZSBhYm92ZS4NCj4gDQo+IFdlbGwsIHRoZSBvbGQgc3R1ZmYgZ2V0cyB0byB1c2Ug
-ZnVsbCBwcmVlbXB0aW9uIG9uIERvbTAsIHRoZW4gdGhlIG5ldw0KPiBzdHVmZiBnZXRzIG1v
-cmUgc2hpbnkgb3B0aW9ucy4NCg0KWWVhaCwgYnV0IHdoYXQgYWJvdXQgdGhlIGh5cGVyY2Fs
-bHMgZnJvbSBub24tZG9tMCBzeXN0ZW1zIG5lZWRpbmcgdGhlIHNhbWUNCmhhbmRsaW5nPyBU
-aGlzIHdvdWxkIHJlcXVpcmUgdG8gcnVuIGFsbCBndWVzdHMgd2hpY2ggYXJlIHVzaW5nIGh5
-cGVyY2FsbHMNCmZ1bGx5IHByZWVtcHRpdmUuDQoNCj4gDQo+Pj4+IEp1c3QgdGhpbmtpbmcg
-LSBjYW4gZnVsbCBwcmVlbXB0aW9uIGJlIGVuYWJsZWQgcGVyIHByb2Nlc3M/DQo+Pj4NCj4+
-PiBOb3BlLCB0aGF0J3MgYSBzeXN0ZW0gd2lkZSB0aGluZy4gUHJlZW1wdGlvbiBpcyBzb21l
-dGhpbmcgdGhhdCdzIGRyaXZlbg0KPj4+IGJ5IHRoZSByZXF1aXJlbWVudHMgb2YgdGhlIHRh
-c2tzIHRoYXQgcHJlZW1wdCwgbm90IHNvbWV0aGluZyBieSB0aGUNCj4+PiB0YXNrcyB0aGF0
-IGdldCBwcmVlbXB0ZWQuDQo+Pg0KPj4gRGVwZW5kcy4gSWYgYSB0YXNrIGluIGEgbm9uLXBy
-ZWVtcHQgc3lzdGVtIGNvdWxkIHN3aXRjaCBpdHNlbGYgdG8gYmUNCj4+IHByZWVtcHRhYmxl
-LCB3ZSBjb3VsZCBkbyBzbyBhcm91bmQgaHlwZXJjYWxscyB3aXRob3V0IGNvbXByb21pc2lu
-ZyB0aGUNCj4+IGdlbmVyYWwgcHJlZW1wdGlvbiBzZXR0aW5nLiBEaXNhYmxpbmcgcHJlZW1w
-dGlvbiBpbiBhIHByZWVtcHRhYmxlIHN5c3RlbQ0KPj4gc2hvdWxkIGNvbnRpbnVlIHRvIGJl
-IHBvc3NpYmxlIGZvciBzaG9ydCBjb2RlIHBhdGhzIG9ubHksIG9mIGNvdXJzZS4NCj4gDQo+
-IFNvIHNvbWV0aGluZyBhbG9uZyB0aG9zZSBsaW5lcyB3YXMgc3VnZ2VzdGVkIGVsc2V3aGVy
-ZSwgYW5kIEknbSBzdGlsbA0KPiBub3QgZW50aXJlbHkgc3VyZSBob3cgSSBmZWVsIGFib3V0
-IGl0LCBidXQgbG9vayBoZXJlOg0KPiANCj4gICAgaHR0cHM6Ly9sa21sLmtlcm5lbC5vcmcv
-ci8yMDIzMDQwMzA1MjIzMy4xODgwNTY3LTEtYW5rdXIuYS5hcm9yYUBvcmFjbGUuY29tDQo+
-IA0KPiBTcGVjaWZpY2FsbHkgcGF0Y2hlcyA3IGFuZCA4LiBJdCBpcyB2ZXJ5IGNsb3NlIHNv
-IHRoYXQgeW91IGN1cnJlbnRseQ0KPiBkby93YW50LiBUaG9zZSBwYXRjaGVzIGFyZSBtYW55
-IG1vb25zIG9sZCBhbmQgaSd2ZSBub3Qgc2VlbiBhbiB1cGRhdGUgb24NCj4gdGhlbSwgc28g
-SSd2ZSBubyBpZGVhIHdoZXJlIHRoZXkgYXJlLg0KPiANCj4gSXQgc29sdmVzIGEgc2ltaWxh
-ciBwcm9ibGVtIGV4Y2VwdCBpdCBpcyAncmVwIHN0cmluZycgaW5zdHJ1Y3Rpb25zDQo+IHRo
-YXQncyBiZWluZyBpbnRlcnJ1cHRlZC4NCg0KUmlnaHQuIEknbGwgcGluZyBBbmt1ci4NCg0K
-DQpKdWVyZ2VuDQo=
---------------yjVdNd1aSIrIRK1Yn0XnEKrk
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+    static inline unsigned long pdx_to_pfn(unsigned long pdx)
+    {
+        return (pdx & pfn_pdx_bottom_mask) |
+               ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
+    }
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Unless I'm missing some non-obvious piece of the puzzle, I'd say that for a
+truly general compressor we'd need some kind of loop over the hole mask.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> > Out of curiosity (and for posterity's sake), what was/is that system?
+> 
+> I'm not sure I'm permitted to mention that. I'm pretty sure I carefully
+> avoided mentioning the partner of ours back at the time.
+Fair enough.
 
---------------yjVdNd1aSIrIRK1Yn0XnEKrk--
-
---------------0TQKO60zEo7bFW9BBB40VRyf--
-
---------------PK0vDO0RRRTH0WlSOU9WiVzN
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSUO8EFAwAAAAAACgkQsN6d1ii/Ey9c
-Bwf+LKk00R9TWDPdBVz/78ddnQ9KJX3R4vASOFPZ/174/UmM1TKHmmAo7/92tYwuKPmsSEdysEBQ
-1DrRSKUAymbP7MHn6vVNpjrcFb/xujdt19Q0NTNApCGKydfrWSUpkNdggEHAqJOvOX9jtYFFT4lk
-RisW2QQiEozYdG+vn9jQ7zejPB9NnaBEhE8+imHWxvRDEpWvrekDg96p0NwWK2a1YhYjPpSshWcR
-yjsFqI6S3pLxt7GHgQ4eQLW1kfHh2LG6prja9DrQz3eqAtQOAAHalD7Cx8P0nJ6ZZ3oX8d/+tP5f
-T9VFJO69dabOC2tXuO/9ZK41o5NKK3VJVr8mR8D+3A==
-=4uJs
------END PGP SIGNATURE-----
-
---------------PK0vDO0RRRTH0WlSOU9WiVzN--
+Alejandro
 
