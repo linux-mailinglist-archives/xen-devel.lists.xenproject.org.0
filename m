@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E6B739EB7
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 12:44:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553504.864094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9338739F56
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 13:17:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553510.864104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCHnX-0007le-42; Thu, 22 Jun 2023 10:44:19 +0000
+	id 1qCIIQ-0002qQ-Fz; Thu, 22 Jun 2023 11:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553504.864094; Thu, 22 Jun 2023 10:44:19 +0000
+Received: by outflank-mailman (output) from mailman id 553510.864104; Thu, 22 Jun 2023 11:16:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCHnX-0007jj-19; Thu, 22 Jun 2023 10:44:19 +0000
-Received: by outflank-mailman (input) for mailman id 553504;
- Thu, 22 Jun 2023 10:44:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qCHnV-0007jd-Fl
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 10:44:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qCHnT-00059I-80; Thu, 22 Jun 2023 10:44:15 +0000
-Received: from [54.239.6.188] (helo=[192.168.27.222])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qCHnT-0001QS-1g; Thu, 22 Jun 2023 10:44:15 +0000
+	id 1qCIIQ-0002nk-Be; Thu, 22 Jun 2023 11:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 553510;
+ Thu, 22 Jun 2023 11:16:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=waO+=CK=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1qCIIN-0002ne-CG
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 11:16:12 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2f350ecd-10ee-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 13:16:07 +0200 (CEST)
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qCII7-001ARB-0R; Thu, 22 Jun 2023 11:15:55 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id E8A73300137;
+ Thu, 22 Jun 2023 13:15:52 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id CB762241BF9B6; Thu, 22 Jun 2023 13:15:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,324 +50,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=xv7O+LVYjCdeUXAun5cb7QmCeY6WRzfn1Y2fMQuYuvU=; b=Gm9/4QXgl809fB637evUr4Ahu7
-	IajnzVA7NtTgZy/3ZbrYnlq0z+/oqIdhCq2x0bIen4XWI5rgEIGmHKxVxHEDGQwjiPKT0HX5Uu9oj
-	uiFXvSzz0ndY7NzgiJQiAbRjVO1kLlNHMcGAwmMl12hZ0uhTdsxjPrjkkvyWHmenXbfQ=;
-Message-ID: <558e68c4-1a2d-5a9e-4070-5b894e14a3f4@xen.org>
-Date: Thu, 22 Jun 2023 11:44:12 +0100
+X-Inumbo-ID: 2f350ecd-10ee-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=0Cbef4n6vE+HAJoLMq2Y/8WwGP0ekiPLuwwxxjpzqoc=; b=hwo7dOex3aQbN6n7P2bWblAVf2
+	J1nfVEJY/K9oVk0rH0ZeuXY79n1SILio804dj27F3FjXQRjkEh/OJcU1NQdmMW6LvHfuWEAJ2w0S5
+	zP6diLuTL2gZKHfkRXtTq9taqznetzaVFPnu3xQFgaWyjojXgFgOiNZ/gxpM62IGcQv4DfXdipEYz
+	N/plPXfhZ0OpI4FO9Xzyu9f9EB4d5tuu2o1tvpBEGC0k8vtMSRwPgxuugg58jDs770YWvtEGpdX8P
+	QN0qfPkYs8fbMOmHtJIeWuFsciVzqisYV9ndPj1s43YxHJcxAbnxaFmKUTAM8hmFi0/i2OcnyrkAy
+	3sK+/uBw==;
+Date: Thu, 22 Jun 2023 13:15:52 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	"open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Updates to Xen hypercall preemption
+Message-ID: <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+References: <20230621151442.2152425-1-per.bilse@citrix.com>
+ <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
+ <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
+ <20230621200409.GC4253@hirez.programming.kicks-ass.net>
+ <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
+ <20230622082607.GD4253@hirez.programming.kicks-ass.net>
+ <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH 06/22] x86: map/unmap pages in restore_all_guests
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-7-julien@xen.org>
- <478e04bc-6ff7-de01-dfb9-55d579228152@suse.com>
- <f84d30cb-e743-60f8-a496-603323b79f37@xen.org>
- <01584e11-36ca-7836-85ad-bba9351af46e@suse.com>
- <a99a8246-bc80-07b9-dacc-f117ace37027@xen.org>
- <aa2c8649-4acd-bcf4-d547-e3609bb1a0a2@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <aa2c8649-4acd-bcf4-d547-e3609bb1a0a2@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
 
-Hi Jan,
+On Thu, Jun 22, 2023 at 12:33:31PM +0200, Juergen Gross wrote:
+> On 22.06.23 10:26, Peter Zijlstra wrote:
 
-Sorry for the late reply.
+> > > The downside would be that some workloads might see worse performance
+> > > due to backend I/O handling might get preempted.
+> >=20
+> > Is that an actual concern? Mark this a legaxy inteface and anybody who
+> > wants to get away from it updates.
+>=20
+> It isn't that easy. See above.
 
-On 13/01/2023 09:22, Jan Beulich wrote:
-> On 13.01.2023 00:20, Julien Grall wrote:
->> On 04/01/2023 10:27, Jan Beulich wrote:
->>> On 23.12.2022 13:22, Julien Grall wrote:
->>>> On 22/12/2022 11:12, Jan Beulich wrote:
->>>>> On 16.12.2022 12:48, Julien Grall wrote:
->>>>>> --- a/xen/arch/x86/x86_64/entry.S
->>>>>> +++ b/xen/arch/x86/x86_64/entry.S
->>>>>> @@ -165,7 +165,24 @@ restore_all_guest:
->>>>>>             and   %rsi, %rdi
->>>>>>             and   %r9, %rsi
->>>>>>             add   %rcx, %rdi
->>>>>> -        add   %rcx, %rsi
->>>>>> +
->>>>>> +         /*
->>>>>> +          * Without a direct map, we have to map first before copying. We only
->>>>>> +          * need to map the guest root table but not the per-CPU root_pgt,
->>>>>> +          * because the latter is still a xenheap page.
->>>>>> +          */
->>>>>> +        pushq %r9
->>>>>> +        pushq %rdx
->>>>>> +        pushq %rax
->>>>>> +        pushq %rdi
->>>>>> +        mov   %rsi, %rdi
->>>>>> +        shr   $PAGE_SHIFT, %rdi
->>>>>> +        callq map_domain_page
->>>>>> +        mov   %rax, %rsi
->>>>>> +        popq  %rdi
->>>>>> +        /* Stash the pointer for unmapping later. */
->>>>>> +        pushq %rax
->>>>>> +
->>>>>>             mov   $ROOT_PAGETABLE_FIRST_XEN_SLOT, %ecx
->>>>>>             mov   root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rsi), %r8
->>>>>>             mov   %r8, root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rdi)
->>>>>> @@ -177,6 +194,14 @@ restore_all_guest:
->>>>>>             sub   $(ROOT_PAGETABLE_FIRST_XEN_SLOT - \
->>>>>>                     ROOT_PAGETABLE_LAST_XEN_SLOT - 1) * 8, %rdi
->>>>>>             rep movsq
->>>>>> +
->>>>>> +        /* Unmap the page. */
->>>>>> +        popq  %rdi
->>>>>> +        callq unmap_domain_page
->>>>>> +        popq  %rax
->>>>>> +        popq  %rdx
->>>>>> +        popq  %r9
->>>>>
->>>>> While the PUSH/POP are part of what I dislike here, I think this wants
->>>>> doing differently: Establish a mapping when putting in place a new guest
->>>>> page table, and use the pointer here. This could be a new per-domain
->>>>> mapping, to limit its visibility.
->>>>
->>>> I have looked at a per-domain approach and this looks way more complex
->>>> than the few concise lines here (not mentioning the extra amount of
->>>> memory).
->>>
->>> Yes, I do understand that would be a more intrusive change.
->>
->> I could be persuaded to look at a more intrusive change if there are a
->> good reason to do it. To me, at the moment, it mostly seem a matter of
->> taste.
->>
->> So what would we gain from a perdomain mapping?
-> 
-> Rather than mapping/unmapping once per hypervisor entry/exit, we'd
-> map just once per context switch. Plus we'd save ugly/fragile assembly
-> code (apart from the push/pop I also dislike C functions being called
-> from assembly which aren't really meant to be called this way: While
-> these two may indeed be unlikely to ever change, any such change comes
-> with the risk of the assembly callers being missed - the compiler
-> won't tell you that e.g. argument types/count don't match parameters
-> anymore).
+Well, the old stuff gets to use full preemption on Dom0, then the new
+stuff gets more shiny options.
 
-I think I have managed to write what you suggested. I would like to 
-share to get early feedback before resending the series.
+> > > Just thinking - can full preemption be enabled per process?
+> >=20
+> > Nope, that's a system wide thing. Preemption is something that's driven
+> > by the requirements of the tasks that preempt, not something by the
+> > tasks that get preempted.
+>=20
+> Depends. If a task in a non-preempt system could switch itself to be
+> preemptable, we could do so around hypercalls without compromising the
+> general preemption setting. Disabling preemption in a preemptable system
+> should continue to be possible for short code paths only, of course.
 
-There are also a couple of TODOs (XXX) in place where I am not sure if 
-this is correct.
+So something along those lines was suggested elsewhere, and I'm still
+not entirely sure how I feel about it, but look here:
 
-diff --git a/xen/arch/x86/include/asm/config.h 
-b/xen/arch/x86/include/asm/config.h
-index fbc4bb3416bd..320ddb9e1e77 100644
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -202,7 +202,7 @@ extern unsigned char boot_edid_info[128];
-  /* Slot 260: per-domain mappings (including map cache). */
-  #define PERDOMAIN_VIRT_START    (PML4_ADDR(260))
-  #define PERDOMAIN_SLOT_MBYTES   (PML4_ENTRY_BYTES >> (20 + 
-PAGETABLE_ORDER))
--#define PERDOMAIN_SLOTS         3
-+#define PERDOMAIN_SLOTS         4
-  #define PERDOMAIN_VIRT_SLOT(s)  (PERDOMAIN_VIRT_START + (s) * \
-                                   (PERDOMAIN_SLOT_MBYTES << 20))
-  /* Slot 4: mirror of per-domain mappings (for compat xlat area 
-accesses). */
-@@ -316,6 +316,16 @@ extern unsigned long xen_phys_start;
-  #define ARG_XLAT_START(v)        \
-      (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
+  https://lkml.kernel.org/r/20230403052233.1880567-1-ankur.a.arora@oracle.c=
+om
 
-+/* CR3 shadow mapping area. The fourth per-domain-mapping sub-area */
-+#define SHADOW_CR3_VIRT_START   PERDOMAIN_VIRT_SLOT(3)
-+#define SHADOW_CR3_ENTRIES      MAX_VIRT_CPUS
-+#define SHADOW_CR3_VIRT_END     (SHADOW_CR3_VIRT_START +    \
-+                                 (MAX_VIRT_CPUS * PAGE_SIZE))
-+
-+/* The address of a particular VCPU's c3 */
-+#define SHADOW_CR3_VCPU_VIRT_START(v) \
-+    (SHADOW_CR3_VIRT_START + ((v)->vcpu_id * PAGE_SIZE))
-+
-  #define ELFSIZE 64
+Specifically patches 7 and 8. It is very close so that you currently
+do/want. Those patches are many moons old and i've not seen an update on
+them, so I've no idea where they are.
 
-  #define ARCH_CRASH_SAVE_VMCOREINFO
-diff --git a/xen/arch/x86/include/asm/domain.h 
-b/xen/arch/x86/include/asm/domain.h
-index c2d9fc333be5..d5989224f4a3 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -273,6 +273,7 @@ struct time_scale {
-  struct pv_domain
-  {
-      l1_pgentry_t **gdt_ldt_l1tab;
-+    l1_pgentry_t **shadow_cr3_l1tab;
-
-      atomic_t nr_l4_pages;
-
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 9741d28cbc96..b64ee1ca47f6 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -509,6 +509,13 @@ void share_xen_page_with_guest(struct page_info 
-*page, struct domain *d,
-      spin_unlock(&d->page_alloc_lock);
-  }
-
-+#define shadow_cr3_idx(v) \
-+    ((v)->vcpu_id >> PAGETABLE_ORDER)
-+
-+#define pv_shadow_cr3_pte(v) \
-+    ((v)->domain->arch.pv.shadow_cr3_l1tab[shadow_cr3_idx(v)] + \
-+     ((v)->vcpu_id & (L1_PAGETABLE_ENTRIES - 1)))
-+
-  void make_cr3(struct vcpu *v, mfn_t mfn)
-  {
-      struct domain *d = v->domain;
-@@ -516,6 +523,18 @@ void make_cr3(struct vcpu *v, mfn_t mfn)
-      v->arch.cr3 = mfn_x(mfn) << PAGE_SHIFT;
-      if ( is_pv_domain(d) && d->arch.pv.pcid )
-          v->arch.cr3 |= get_pcid_bits(v, false);
-+
-+    /* Update the CR3 mapping */
-+    if ( is_pv_domain(d) )
-+    {
-+        l1_pgentry_t *pte = pv_shadow_cr3_pte(v);
-+
-+        /* XXX Do we need to call get page first? */
-+        l1e_write(pte, l1e_from_mfn(mfn, __PAGE_HYPERVISOR_RW));
-+        /* XXX Can the flush be reduced to the page? */
-+        /* XXX Do we always call with current? */
-+        flush_tlb_local();
-+    }
-  }
-
-  void write_ptbase(struct vcpu *v)
-diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index 5c92812dc67a..064645ccc261 100644
---- a/xen/arch/x86/pv/domain.c
-+++ b/xen/arch/x86/pv/domain.c
-@@ -288,6 +288,19 @@ static void pv_destroy_gdt_ldt_l1tab(struct vcpu *v)
-                                1U << GDT_LDT_VCPU_SHIFT);
-  }
-
-+static int pv_create_shadow_cr3_l1tab(struct vcpu *v)
-+{
-+    return create_perdomain_mapping(v->domain, 
-SHADOW_CR3_VCPU_VIRT_START(v),
-+                                    1, v->domain->arch.pv.shadow_cr3_l1tab,
-+                                    NULL);
-+}
-+
-+static void pv_destroy_shadow_cr3_l1tab(struct vcpu *v)
-+
-+{
-+    destroy_perdomain_mapping(v->domain, SHADOW_CR3_VCPU_VIRT_START(v), 1);
-+}
-+
-  void pv_vcpu_destroy(struct vcpu *v)
-  {
-      if ( is_pv_32bit_vcpu(v) )
-@@ -297,6 +310,7 @@ void pv_vcpu_destroy(struct vcpu *v)
-      }
-
-      pv_destroy_gdt_ldt_l1tab(v);
-+    pv_destroy_shadow_cr3_l1tab(v);
-      XFREE(v->arch.pv.trap_ctxt);
-  }
-
-@@ -311,6 +325,10 @@ int pv_vcpu_initialise(struct vcpu *v)
-      if ( rc )
-          return rc;
-
-+    rc = pv_create_shadow_cr3_l1tab(v);
-+    if ( rc )
-+        goto done;
-+
-      BUILD_BUG_ON(X86_NR_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
-                   PAGE_SIZE);
-      v->arch.pv.trap_ctxt = xzalloc_array(struct trap_info, 
-X86_NR_VECTORS);
-@@ -346,10 +364,12 @@ void pv_domain_destroy(struct domain *d)
-
-      destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
-                                GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
-+    destroy_perdomain_mapping(d, SHADOW_CR3_VIRT_START, 
-SHADOW_CR3_ENTRIES);
-
-      XFREE(d->arch.pv.cpuidmasks);
-
-      FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
-+    FREE_XENHEAP_PAGE(d->arch.pv.shadow_cr3_l1tab);
-  }
-
-  void noreturn cf_check continue_pv_domain(void);
-@@ -371,6 +391,12 @@ int pv_domain_initialise(struct domain *d)
-          goto fail;
-      clear_page(d->arch.pv.gdt_ldt_l1tab);
-
-+    d->arch.pv.shadow_cr3_l1tab =
-+        alloc_xenheap_pages(0, MEMF_node(domain_to_node(d)));
-+    if ( !d->arch.pv.shadow_cr3_l1tab )
-+        goto fail;
-+    clear_page(d->arch.pv.shadow_cr3_l1tab);
-+
-      if ( levelling_caps & ~LCAP_faulting &&
-           (d->arch.pv.cpuidmasks = xmemdup(&cpuidmask_defaults)) == NULL )
-          goto fail;
-@@ -381,6 +407,11 @@ int pv_domain_initialise(struct domain *d)
-      if ( rc )
-          goto fail;
-
-+    rc = create_perdomain_mapping(d, SHADOW_CR3_VIRT_START,
-+                                  SHADOW_CR3_ENTRIES, NULL, NULL);
-+    if ( rc )
-+        goto fail;
-+
-      d->arch.ctxt_switch = &pv_csw;
-
-      d->arch.pv.xpti = is_hardware_domain(d) ? opt_xpti_hwdom : 
-opt_xpti_domu;
-diff --git a/xen/arch/x86/x86_64/asm-offsets.c 
-b/xen/arch/x86/x86_64/asm-offsets.c
-index 287dac101ad4..ed486607bf15 100644
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -51,6 +51,7 @@ void __dummy__(void)
-      OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
-      BLANK();
-
-+    OFFSET(VCPU_id, struct vcpu, vcpu_id);
-      OFFSET(VCPU_processor, struct vcpu, processor);
-      OFFSET(VCPU_domain, struct vcpu, domain);
-      OFFSET(VCPU_vcpu_info, struct vcpu, vcpu_info);
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 8b77d7113bbf..678876a32177 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -165,7 +165,16 @@ restore_all_guest:
-          and   %rsi, %rdi
-          and   %r9, %rsi
-          add   %rcx, %rdi
-+
-+        /*
-+         * The address in the vCPU cr3 is always mapped in the shadow
-+         * cr3 virt area.
-+         */
-+        mov   VCPU_id(%rbx), %rsi
-+        shl   $PAGE_SHIFT, %rsi
-+        movabs $SHADOW_CR3_VIRT_START, %rcx
-          add   %rcx, %rsi
-+
-          mov   $ROOT_PAGETABLE_FIRST_XEN_SLOT, %ecx
-          mov   root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rsi), %r8
-          mov   %r8, root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rdi)
-> 
-> Jan
-
--- 
-Julien Grall
+It solves a similar problem except it is 'rep string' instructions
+that's being interrupted.
 
