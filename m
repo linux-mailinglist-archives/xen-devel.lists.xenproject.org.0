@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9338739F56
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 13:17:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553510.864104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF81973A0B8
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 14:18:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553518.864114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCIIQ-0002qQ-Fz; Thu, 22 Jun 2023 11:16:14 +0000
+	id 1qCJFU-0000lY-0b; Thu, 22 Jun 2023 12:17:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553510.864104; Thu, 22 Jun 2023 11:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 553518.864114; Thu, 22 Jun 2023 12:17:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCIIQ-0002nk-Be; Thu, 22 Jun 2023 11:16:14 +0000
-Received: by outflank-mailman (input) for mailman id 553510;
- Thu, 22 Jun 2023 11:16:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=waO+=CK=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1qCIIN-0002ne-CG
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 11:16:12 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f350ecd-10ee-11ee-b237-6b7b168915f2;
- Thu, 22 Jun 2023 13:16:07 +0200 (CEST)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qCII7-001ARB-0R; Thu, 22 Jun 2023 11:15:55 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
+	id 1qCJFT-0000jQ-Tj; Thu, 22 Jun 2023 12:17:15 +0000
+Received: by outflank-mailman (input) for mailman id 553518;
+ Thu, 22 Jun 2023 12:17:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=v4C0=CK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qCJFT-0000jJ-6I
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 12:17:15 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4d20715-10f6-11ee-8611-37d641c3527e;
+ Thu, 22 Jun 2023 14:17:07 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id E8A73300137;
- Thu, 22 Jun 2023 13:15:52 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id CB762241BF9B6; Thu, 22 Jun 2023 13:15:52 +0200 (CEST)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5F9FE22B75;
+ Thu, 22 Jun 2023 12:17:07 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA4E413905;
+ Thu, 22 Jun 2023 12:17:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id xxyRM8I7lGTeZQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 22 Jun 2023 12:17:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,32 +51,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f350ecd-10ee-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=0Cbef4n6vE+HAJoLMq2Y/8WwGP0ekiPLuwwxxjpzqoc=; b=hwo7dOex3aQbN6n7P2bWblAVf2
-	J1nfVEJY/K9oVk0rH0ZeuXY79n1SILio804dj27F3FjXQRjkEh/OJcU1NQdmMW6LvHfuWEAJ2w0S5
-	zP6diLuTL2gZKHfkRXtTq9taqznetzaVFPnu3xQFgaWyjojXgFgOiNZ/gxpM62IGcQv4DfXdipEYz
-	N/plPXfhZ0OpI4FO9Xzyu9f9EB4d5tuu2o1tvpBEGC0k8vtMSRwPgxuugg58jDs770YWvtEGpdX8P
-	QN0qfPkYs8fbMOmHtJIeWuFsciVzqisYV9ndPj1s43YxHJcxAbnxaFmKUTAM8hmFi0/i2OcnyrkAy
-	3sK+/uBw==;
-Date: Thu, 22 Jun 2023 13:15:52 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	"open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
-	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: b4d20715-10f6-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1687436227; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VqsOz0ZUUPar+Aeqqn/vg5vN/i1kZj6Y/y/QQi+nP+k=;
+	b=jFXs34WrC5j0dG6j5lAnXMgQdyC3TUHYJrRQt4jAJeQ1sd27uUaTRJTCYDx6z5V0EGPnQt
+	5NzhZqRhHZkZHfaz3FfdnYnR66lSQeyCZJArfjp7Aj3C1LKxyVE1NvWXke6VrV1EoKIWBJ
+	RHKaNtI2Lrl3nAoeRifhSXI0sfzbPmE=
+Message-ID: <5484a739-5dc9-ab14-3bcf-3ba6c36542af@suse.com>
+Date: Thu, 22 Jun 2023 14:17:05 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Subject: Re: [PATCH] Updates to Xen hypercall preemption
-Message-ID: <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
+ "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
 References: <20230621151442.2152425-1-per.bilse@citrix.com>
  <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
  <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
@@ -83,47 +84,159 @@ References: <20230621151442.2152425-1-per.bilse@citrix.com>
  <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
  <20230622082607.GD4253@hirez.programming.kicks-ass.net>
  <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+ <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------PK0vDO0RRRTH0WlSOU9WiVzN"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------PK0vDO0RRRTH0WlSOU9WiVzN
+Content-Type: multipart/mixed; boundary="------------0TQKO60zEo7bFW9BBB40VRyf";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Per Bilse <Per.Bilse@citrix.com>, Andy Lutomirski <luto@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "open list:X86 ENTRY CODE" <linux-kernel@vger.kernel.org>,
+ "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Message-ID: <5484a739-5dc9-ab14-3bcf-3ba6c36542af@suse.com>
+Subject: Re: [PATCH] Updates to Xen hypercall preemption
+References: <20230621151442.2152425-1-per.bilse@citrix.com>
+ <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
+ <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
+ <20230621200409.GC4253@hirez.programming.kicks-ass.net>
+ <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
+ <20230622082607.GD4253@hirez.programming.kicks-ass.net>
+ <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
+ <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+In-Reply-To: <20230622111552.GI4253@hirez.programming.kicks-ass.net>
+
+--------------0TQKO60zEo7bFW9BBB40VRyf
+Content-Type: multipart/mixed; boundary="------------yjVdNd1aSIrIRK1Yn0XnEKrk"
+
+--------------yjVdNd1aSIrIRK1Yn0XnEKrk
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMjIuMDYuMjMgMTM6MTUsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBUaHUsIEp1
+biAyMiwgMjAyMyBhdCAxMjozMzozMVBNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4gT24gMjIuMDYuMjMgMTA6MjYsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiANCj4+Pj4g
+VGhlIGRvd25zaWRlIHdvdWxkIGJlIHRoYXQgc29tZSB3b3JrbG9hZHMgbWlnaHQgc2VlIHdv
+cnNlIHBlcmZvcm1hbmNlDQo+Pj4+IGR1ZSB0byBiYWNrZW5kIEkvTyBoYW5kbGluZyBtaWdo
+dCBnZXQgcHJlZW1wdGVkLg0KPj4+DQo+Pj4gSXMgdGhhdCBhbiBhY3R1YWwgY29uY2Vybj8g
+TWFyayB0aGlzIGEgbGVnYXh5IGludGVmYWNlIGFuZCBhbnlib2R5IHdobw0KPj4+IHdhbnRz
+IHRvIGdldCBhd2F5IGZyb20gaXQgdXBkYXRlcy4NCj4+DQo+PiBJdCBpc24ndCB0aGF0IGVh
+c3kuIFNlZSBhYm92ZS4NCj4gDQo+IFdlbGwsIHRoZSBvbGQgc3R1ZmYgZ2V0cyB0byB1c2Ug
+ZnVsbCBwcmVlbXB0aW9uIG9uIERvbTAsIHRoZW4gdGhlIG5ldw0KPiBzdHVmZiBnZXRzIG1v
+cmUgc2hpbnkgb3B0aW9ucy4NCg0KWWVhaCwgYnV0IHdoYXQgYWJvdXQgdGhlIGh5cGVyY2Fs
+bHMgZnJvbSBub24tZG9tMCBzeXN0ZW1zIG5lZWRpbmcgdGhlIHNhbWUNCmhhbmRsaW5nPyBU
+aGlzIHdvdWxkIHJlcXVpcmUgdG8gcnVuIGFsbCBndWVzdHMgd2hpY2ggYXJlIHVzaW5nIGh5
+cGVyY2FsbHMNCmZ1bGx5IHByZWVtcHRpdmUuDQoNCj4gDQo+Pj4+IEp1c3QgdGhpbmtpbmcg
+LSBjYW4gZnVsbCBwcmVlbXB0aW9uIGJlIGVuYWJsZWQgcGVyIHByb2Nlc3M/DQo+Pj4NCj4+
+PiBOb3BlLCB0aGF0J3MgYSBzeXN0ZW0gd2lkZSB0aGluZy4gUHJlZW1wdGlvbiBpcyBzb21l
+dGhpbmcgdGhhdCdzIGRyaXZlbg0KPj4+IGJ5IHRoZSByZXF1aXJlbWVudHMgb2YgdGhlIHRh
+c2tzIHRoYXQgcHJlZW1wdCwgbm90IHNvbWV0aGluZyBieSB0aGUNCj4+PiB0YXNrcyB0aGF0
+IGdldCBwcmVlbXB0ZWQuDQo+Pg0KPj4gRGVwZW5kcy4gSWYgYSB0YXNrIGluIGEgbm9uLXBy
+ZWVtcHQgc3lzdGVtIGNvdWxkIHN3aXRjaCBpdHNlbGYgdG8gYmUNCj4+IHByZWVtcHRhYmxl
+LCB3ZSBjb3VsZCBkbyBzbyBhcm91bmQgaHlwZXJjYWxscyB3aXRob3V0IGNvbXByb21pc2lu
+ZyB0aGUNCj4+IGdlbmVyYWwgcHJlZW1wdGlvbiBzZXR0aW5nLiBEaXNhYmxpbmcgcHJlZW1w
+dGlvbiBpbiBhIHByZWVtcHRhYmxlIHN5c3RlbQ0KPj4gc2hvdWxkIGNvbnRpbnVlIHRvIGJl
+IHBvc3NpYmxlIGZvciBzaG9ydCBjb2RlIHBhdGhzIG9ubHksIG9mIGNvdXJzZS4NCj4gDQo+
+IFNvIHNvbWV0aGluZyBhbG9uZyB0aG9zZSBsaW5lcyB3YXMgc3VnZ2VzdGVkIGVsc2V3aGVy
+ZSwgYW5kIEknbSBzdGlsbA0KPiBub3QgZW50aXJlbHkgc3VyZSBob3cgSSBmZWVsIGFib3V0
+IGl0LCBidXQgbG9vayBoZXJlOg0KPiANCj4gICAgaHR0cHM6Ly9sa21sLmtlcm5lbC5vcmcv
+ci8yMDIzMDQwMzA1MjIzMy4xODgwNTY3LTEtYW5rdXIuYS5hcm9yYUBvcmFjbGUuY29tDQo+
+IA0KPiBTcGVjaWZpY2FsbHkgcGF0Y2hlcyA3IGFuZCA4LiBJdCBpcyB2ZXJ5IGNsb3NlIHNv
+IHRoYXQgeW91IGN1cnJlbnRseQ0KPiBkby93YW50LiBUaG9zZSBwYXRjaGVzIGFyZSBtYW55
+IG1vb25zIG9sZCBhbmQgaSd2ZSBub3Qgc2VlbiBhbiB1cGRhdGUgb24NCj4gdGhlbSwgc28g
+SSd2ZSBubyBpZGVhIHdoZXJlIHRoZXkgYXJlLg0KPiANCj4gSXQgc29sdmVzIGEgc2ltaWxh
+ciBwcm9ibGVtIGV4Y2VwdCBpdCBpcyAncmVwIHN0cmluZycgaW5zdHJ1Y3Rpb25zDQo+IHRo
+YXQncyBiZWluZyBpbnRlcnJ1cHRlZC4NCg0KUmlnaHQuIEknbGwgcGluZyBBbmt1ci4NCg0K
+DQpKdWVyZ2VuDQo=
+--------------yjVdNd1aSIrIRK1Yn0XnEKrk
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
 
-On Thu, Jun 22, 2023 at 12:33:31PM +0200, Juergen Gross wrote:
-> On 22.06.23 10:26, Peter Zijlstra wrote:
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-> > > The downside would be that some workloads might see worse performance
-> > > due to backend I/O handling might get preempted.
-> >=20
-> > Is that an actual concern? Mark this a legaxy inteface and anybody who
-> > wants to get away from it updates.
->=20
-> It isn't that easy. See above.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Well, the old stuff gets to use full preemption on Dom0, then the new
-stuff gets more shiny options.
+--------------yjVdNd1aSIrIRK1Yn0XnEKrk--
 
-> > > Just thinking - can full preemption be enabled per process?
-> >=20
-> > Nope, that's a system wide thing. Preemption is something that's driven
-> > by the requirements of the tasks that preempt, not something by the
-> > tasks that get preempted.
->=20
-> Depends. If a task in a non-preempt system could switch itself to be
-> preemptable, we could do so around hypercalls without compromising the
-> general preemption setting. Disabling preemption in a preemptable system
-> should continue to be possible for short code paths only, of course.
+--------------0TQKO60zEo7bFW9BBB40VRyf--
 
-So something along those lines was suggested elsewhere, and I'm still
-not entirely sure how I feel about it, but look here:
+--------------PK0vDO0RRRTH0WlSOU9WiVzN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-  https://lkml.kernel.org/r/20230403052233.1880567-1-ankur.a.arora@oracle.c=
-om
+-----BEGIN PGP SIGNATURE-----
 
-Specifically patches 7 and 8. It is very close so that you currently
-do/want. Those patches are many moons old and i've not seen an update on
-them, so I've no idea where they are.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSUO8EFAwAAAAAACgkQsN6d1ii/Ey9c
+Bwf+LKk00R9TWDPdBVz/78ddnQ9KJX3R4vASOFPZ/174/UmM1TKHmmAo7/92tYwuKPmsSEdysEBQ
+1DrRSKUAymbP7MHn6vVNpjrcFb/xujdt19Q0NTNApCGKydfrWSUpkNdggEHAqJOvOX9jtYFFT4lk
+RisW2QQiEozYdG+vn9jQ7zejPB9NnaBEhE8+imHWxvRDEpWvrekDg96p0NwWK2a1YhYjPpSshWcR
+yjsFqI6S3pLxt7GHgQ4eQLW1kfHh2LG6prja9DrQz3eqAtQOAAHalD7Cx8P0nJ6ZZ3oX8d/+tP5f
+T9VFJO69dabOC2tXuO/9ZK41o5NKK3VJVr8mR8D+3A==
+=4uJs
+-----END PGP SIGNATURE-----
 
-It solves a similar problem except it is 'rep string' instructions
-that's being interrupted.
+--------------PK0vDO0RRRTH0WlSOU9WiVzN--
 
