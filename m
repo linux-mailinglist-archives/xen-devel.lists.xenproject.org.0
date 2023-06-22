@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2710473965B
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 06:23:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553258.863713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938BE739662
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 06:25:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553264.863724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCBpV-00075o-1K; Thu, 22 Jun 2023 04:21:57 +0000
+	id 1qCBso-0007g0-G0; Thu, 22 Jun 2023 04:25:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553258.863713; Thu, 22 Jun 2023 04:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 553264.863724; Thu, 22 Jun 2023 04:25:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCBpU-00073m-Ub; Thu, 22 Jun 2023 04:21:56 +0000
-Received: by outflank-mailman (input) for mailman id 553258;
- Thu, 22 Jun 2023 04:21:55 +0000
+	id 1qCBso-0007dp-By; Thu, 22 Jun 2023 04:25:22 +0000
+Received: by outflank-mailman (input) for mailman id 553264;
+ Thu, 22 Jun 2023 04:25:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6A2R=CK=gmail.com=jirislaby@srs-se1.protection.inumbo.net>)
- id 1qCBpT-00073d-8M
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 04:21:55 +0000
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50cd5e74-10b4-11ee-b237-6b7b168915f2;
- Thu, 22 Jun 2023 06:21:53 +0200 (CEST)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-311394406d0so4220834f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 21:21:53 -0700 (PDT)
-Received: from [192.168.1.58] (185-219-167-24-static.vivo.cz. [185.219.167.24])
+ id 1qCBsn-0007dj-0y
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 04:25:21 +0000
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cc08ec9d-10b4-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 06:25:19 +0200 (CEST)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-4f87592ecaeso5520903e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jun 2023 21:25:19 -0700 (PDT)
+Received: from ?IPV6:2a0b:e7c0:0:107::aaaa:59? ([2a0b:e7c0:0:107::aaaa:59])
  by smtp.gmail.com with ESMTPSA id
- j10-20020a5d604a000000b0031272fced4dsm5942680wrt.52.2023.06.21.21.21.49
+ y7-20020a1c4b07000000b003f17848673fsm6553494wma.27.2023.06.21.21.25.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jun 2023 21:21:51 -0700 (PDT)
+ Wed, 21 Jun 2023 21:25:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50cd5e74-10b4-11ee-b237-6b7b168915f2
+X-Inumbo-ID: cc08ec9d-10b4-11ee-b237-6b7b168915f2
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687407713; x=1689999713;
+        d=1e100.net; s=20221208; t=1687407919; x=1689999919;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2ECnfbr1yMldiaqGJ4AwBQXH8Qu2uEGTBBXNGiQr9KY=;
-        b=UheQtAB2b2u42Ax2LhmteLdivPLRPUiikgmqNO2xoEhmcqAmIVXOw0PuIp6m9M3rUd
-         E3h8IpDxrvYi7lEPOpXSWL3wmDlcs0+CX499h1mC7SzHuwN6Kmv/ZGEYRPNgnkl72NgW
-         aUxSRJmLbao7ztXl+/32DWMvOsqxrprufLcbeRXkeZceHssRLlrM3qXGk1WE/Lxb7Akb
-         hKdSbQ0U9WzNYAjBxWAOhWpjlHvQxikYT1hK6nLGD6mY8xxCctAVhupyeVuCYMSpP8/N
-         ArhmiYQfOZ3UKv7bgCAvHqDouyBNzLUivPFasmCnqo7GCg99AbQS8zzO7WG2PkFk0aWm
-         9BBQ==
-X-Gm-Message-State: AC+VfDyfg2VXM1ZmH8zn307gjtbU90+b8vVPMmcILCYISnrH5Ow/z+6o
-	59Lkfr62a8Rv7BJsNNai+2Q=
-X-Google-Smtp-Source: ACHHUZ6noBUR8iTvT8VR1EETx/SJbcA6a56KL+Jlcz/+OUxvfjHqkrQVqSA29+PLsepDYKMNhlEycQ==
-X-Received: by 2002:a05:6000:10ce:b0:312:9eb6:33da with SMTP id b14-20020a05600010ce00b003129eb633damr17577wrx.20.1687407712404;
-        Wed, 21 Jun 2023 21:21:52 -0700 (PDT)
-Message-ID: <fc37eccc-b9b3-d888-6b57-78cd61986a11@kernel.org>
-Date: Thu, 22 Jun 2023 06:21:48 +0200
+        bh=A5vC2aRsA2WDjAiqv/C0BR7ctU6hTo76uwUZaC8vGUs=;
+        b=Yi8rHVOzf2rQQpLloKzuJ3iZzscTQus3+5cgb/ywYFaWFSOraizR3/5LSzDEuwoHnO
+         d/ZPTeHMfPJzfDIwrjiwZzkdKvHaGjN2KdaZ3IW1BUDmfbcxgzlqdf67LfOUNWnoNHMC
+         XDjJOE6/vLrbPy+82ZJTcbfqXF/6sLuc7/CUYUBc0sEFAJgfJB1m6zf7zFjMDmjvDcRn
+         d0ZaCsfyvE/IbU818dgnySj8kdT5ShSWaEBRmd6+rqErwtZ67BsrK3FDHpQ1ZfzePuNS
+         QdxMBFqLVniQM1JTfsq/TMQVNpSdb0IEeakLaHQzPsrZmAziz51GusRWyDhJc4Syl024
+         Tz0Q==
+X-Gm-Message-State: AC+VfDzaDrY9irFe/clJg5UJd6FGkn21ufYFw7sQyLSU1NR0cZSPIzIF
+	gUcXDSzYMODF9HmToUHrPhs=
+X-Google-Smtp-Source: ACHHUZ6mLLpZ2jzgBbisqW8BsQ34AJIZtXtyRLGlK/Pv18m3vLOsDnG3vORq9yee5CR+W4060ihrFA==
+X-Received: by 2002:a05:6512:313c:b0:4f9:566f:1aab with SMTP id p28-20020a056512313c00b004f9566f1aabmr3597524lfd.29.1687407919067;
+        Wed, 21 Jun 2023 21:25:19 -0700 (PDT)
+Message-ID: <68038b83-3221-e351-909c-7f2722b612df@kernel.org>
+Date: Thu, 22 Jun 2023 06:25:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
 Subject: Re: [PATCH 08/11] sysctl: Add size to register_sysctl_init
 Content-Language: en-US
-To: Joel Granados <j.granados@samsung.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Joel Granados <j.granados@samsung.com>
 Cc: mcgrof@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
  Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
  Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Juergen Gross <jgross@suse.com>, Stefano Stabellini
  <sstabellini@kernel.org>, Benjamin LaHaise <bcrl@kvack.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -122,30 +122,36 @@ Cc: mcgrof@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
 References: <20230621091000.424843-1-j.granados@samsung.com>
  <CGME20230621091037eucas1p188e11d8064526a5a0549217d5a419647@eucas1p1.samsung.com>
  <20230621091000.424843-9-j.granados@samsung.com>
- <2023062150-outbound-quiet-2609@gregkh>
- <20230621131552.pqsordxcjmiopciq@localhost>
+ <36fae2b0-4cd2-58b5-cc12-9abdd5ce235b@kernel.org>
+ <20230621131147.c3jegl4hgjplcrpu@localhost>
 From: Jiri Slaby <jirislaby@kernel.org>
-In-Reply-To: <20230621131552.pqsordxcjmiopciq@localhost>
+In-Reply-To: <20230621131147.c3jegl4hgjplcrpu@localhost>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 21. 06. 23, 15:15, Joel Granados wrote:
-> On Wed, Jun 21, 2023 at 12:47:58PM +0200, Greg Kroah-Hartman wrote:
->> On Wed, Jun 21, 2023 at 11:09:57AM +0200, Joel Granados wrote:
->>>   static int __init random_sysctls_init(void)
->>>   {
->>> -	register_sysctl_init("kernel/random", random_table);
->>> +	register_sysctl_init("kernel/random", random_table,
->>> +			     ARRAY_SIZE(random_table));
+On 21. 06. 23, 15:11, Joel Granados wrote:
+> On Wed, Jun 21, 2023 at 11:56:03AM +0200, Jiri Slaby wrote:
+>> On 21. 06. 23, 11:09, Joel Granados wrote:
+>>> In order to remove the end element from the ctl_table struct arrays, we
+>>> explicitly define the size when registering the targes. We add a size
+>>> argument to the register_sysctl_init call and pass an ARRAY_SIZE for all
+>>> the callers.
 >>
->> As mentioned before, why not just do:
->>
->> #define register_sysctl_init(string, table)	\
->> 	__register_sysctl_init(string, table, ARRAY_SIZE(table);
-> Answered you in the original mail where you suggested it.
+>> Hi, I am missing here (or in 00/00) _why_ you are doing that. Is it by a
+> Not sure what happened. I used the kernels get_maintainers.pl script
+> together with git-send-email. These are my settings:
+> 
+> "
+> tocmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --m --nol --nor"
+> cccmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --l --r --nom"
+> "
+> 
+> Could it be that there is an error in MAINTAINERS?
 
-I am curious what that was, do you have a link?
+Sorry, I don't see what you are asking about. I was asking about 
+motivation behind the series. That is a must in commit logs.
 
+thanks,
 -- 
 js
 suse labs
