@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3146673A3C2
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 16:55:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553651.864333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E037973A41A
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 17:01:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553661.864344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCLiF-0003De-3F; Thu, 22 Jun 2023 14:55:07 +0000
+	id 1qCLoU-00054s-Mp; Thu, 22 Jun 2023 15:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553651.864333; Thu, 22 Jun 2023 14:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 553661.864344; Thu, 22 Jun 2023 15:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCLiF-0003B8-03; Thu, 22 Jun 2023 14:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 553651;
- Thu, 22 Jun 2023 14:55:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qCLoU-00052x-Jk; Thu, 22 Jun 2023 15:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 553661;
+ Thu, 22 Jun 2023 15:01:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VOAB=CK=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qCLiD-0003Ac-Oh
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 14:55:05 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4b75eee-110c-11ee-8611-37d641c3527e;
- Thu, 22 Jun 2023 16:55:03 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3113da5260dso4619898f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jun 2023 07:55:03 -0700 (PDT)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- x6-20020adff0c6000000b00307972e46fasm7176745wro.107.2023.06.22.07.55.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 07:55:02 -0700 (PDT)
+ <SRS0=yL9z=CK=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qCLoS-00052r-JB
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 15:01:32 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aadc6c0f-110d-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 17:01:30 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 84FE2828522F;
+ Thu, 22 Jun 2023 10:01:28 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id V0tCcT_M1YKN; Thu, 22 Jun 2023 10:01:27 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 8712A828595B;
+ Thu, 22 Jun 2023 10:01:27 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id gXV4KVHAOc46; Thu, 22 Jun 2023 10:01:27 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 0F9D2828522F;
+ Thu, 22 Jun 2023 10:01:26 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +51,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4b75eee-110c-11ee-8611-37d641c3527e
+X-Inumbo-ID: aadc6c0f-110d-11ee-b237-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 8712A828595B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1687445703; x=1690037703;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=W0PvRvJuXYYDOGVMKLYrWYciz2JzwrVh7OWM4cuePak=;
-        b=b90pedEHaeD0yA2PV5GqBtD0KZxPO9lL3VmkBNxXUf/Sz3Kh5pRN4DMhuRffGcFHV+
-         MsMEmf+G3iJjHD/5sr+gU3Cj4RzAIRMfPEHS6woOXNwkYku47EhDTm1F8ggx9I9xTmrs
-         +YFehJ6kcJZxVLCsyBw1qR3w+aKrIzN2Dv9kg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687445703; x=1690037703;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W0PvRvJuXYYDOGVMKLYrWYciz2JzwrVh7OWM4cuePak=;
-        b=cTl+pXvN0NlZdy7sX0PupEYMbz00oCs8khSVt7OLWce0nPP5Y7pBO73kQYLTWwXefq
-         qXJjmTECTXNj/tiZA3c6H+36UhIMuqeUC91xcrvVPOSmb3NYRnKwxS1tL1PxzRYU/GJQ
-         r7r6wi5l4/DpZS2Fj98gshXjAYoFSFzqbNS87ei09lcncgYg/Isfyvq8/sTAfd45CAEM
-         CWxzDLpUs/XIXThqOIY0NrW+ryzD7vZ8gFQ+ELZOzB2zjciwZiCAboQ7zzC8grpAu5Bk
-         XAHJ3U81dG9EK+UsGQvrIP8d8mizrLqTAp2eXiDjsPwD5DJzBrBHfxuSP+W38dZWFNba
-         HUoA==
-X-Gm-Message-State: AC+VfDyIR21/IWEvbnjqu+XM8+4LUsCYmwMoOuKttrpSFk5f91u2czG4
-	GswBCrHPX5K3Ixb8JX6vdSR3/g==
-X-Google-Smtp-Source: ACHHUZ52Xbys/ea53A8oHYEAW6vHsCK5Xtc2rSQN7xUZEv73RfvMFqmODJbkPr4/8eXAc11E6/q/uQ==
-X-Received: by 2002:adf:ffc3:0:b0:30f:c3ec:e78f with SMTP id x3-20020adfffc3000000b0030fc3ece78fmr1898524wrs.21.1687445702949;
-        Thu, 22 Jun 2023 07:55:02 -0700 (PDT)
-Message-ID: <649460c6.df0a0220.f4bf6.4717@mx.google.com>
-X-Google-Original-Message-ID: <ZJRgxD64ela7E7pL@EMEAENGAAD19049.>
-Date: Thu, 22 Jun 2023 15:55:00 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 4/5] x86: Read MSR_ARCH_CAPS immediately after
- early_microcode_init()
-References: <20230615154834.959-1-alejandro.vallejo@cloud.com>
- <20230615154834.959-5-alejandro.vallejo@cloud.com>
- <e0b2bd19-8b77-50f2-2759-065529b89c84@suse.com>
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1687446087; bh=Y9A7M+/J3y7ZwyShecMfpHdNzK//yoeonPj7SAgm/Z8=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=eLEJuk15anOo7rSBPq9NfG31ye6nbTFD0HwQ1ZFOYBgPKLVYIbjI0j1Kx2ZyOibCR
+	 C4pfdSVjH6O4JQ7ODeGbUYbb0YcA0gtE177eoxX10rsI0Eb13uOzwh9fEuMJSGjY7W
+	 Nh0byIYqgzLcXoLzTRxJkuVPbwJlWiFXh4jNJLxI=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <1cfc72ee-4920-6b03-0654-85e9108edcdd@raptorengineering.com>
+Date: Thu, 22 Jun 2023 10:01:26 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e0b2bd19-8b77-50f2-2759-065529b89c84@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 3/4] xen/ppc: Implement early serial printk on pseries
+To: Jan Beulich <jbeulich@suse.com>
+Cc: tpearson@raptorengineering.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1687366665.git.sanastasio@raptorengineering.com>
+ <259298cdadf7cf1eba08cd35c636e9aca9e2182a.1687366665.git.sanastasio@raptorengineering.com>
+ <692e2955-a85d-3c6c-7730-962956f6ebf6@citrix.com>
+ <8ac54b2e-b074-18eb-38bf-1041a8109d7b@raptorengineering.com>
+ <ec8a7bfa-025a-5f40-f4f2-a8969e8ccf55@suse.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <ec8a7bfa-025a-5f40-f4f2-a8969e8ccf55@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 19, 2023 at 05:57:14PM +0200, Jan Beulich wrote:
-> > +     * We might have exposed MSR_ARCH_CAPS after the microcode update.
+On 6/22/23 3:03 AM, Jan Beulich wrote:
+> On 21.06.2023 20:21, Shawn Anastasio wrote:
+>> On 6/21/23 12:54 PM, Andrew Cooper wrote:
+>>> Given:
+>>>
+>>> #define r0  0
+>>>
+>>> do the assemblers really not understand register names?  That seems mad.
+>>
+>> Yeah as surprising as it is, ppc64 assemblers don't handle register
+>> names by default. I think at some point a flag was added to GAS (and
+>> probably llvm? will have to check) to define them for you, but I'm not
+>> sure which version introduced the flag.
 > 
-> I'm struggling a little with this sentence, but not being a native speaker
-> it may be me, not the sentence. I would perhaps have said "MSR_ARCH_CAPS
-> may have appeared with the microcode update."
-Sure, works for me.
+> Isn't it that you simply need to prefix them with %? That looks to be
+> working for me without any special options in PPC code I maintain for
+> an entirely different purpose.
 
-> I also wonder whether you wouldn't want to insert "e.g.", since iirc with
-> the next patch tsx_init() isn't going to be the only user anymore.
-tsx_init() is the only user, as far as I have seen. DIS_MCU_LOAD is checked
-before the update, using the cached data read in early_cpu_init()
+Yes, this is the approach I'll go with. Originally I wanted to preserve
+the non-prefixed syntax, but I discovered that the required flag
+(-mregnames) is not supported by llvm.
 
-> 
-> > +     */
-> > +    if ( boot_cpu_data.cpuid_level >= 7 )
-> > +        boot_cpu_data.x86_capability[FEATURESET_7d0]
-> > +            = cpuid_count_edx(7, 0);
-> 
-> I take it we assume the maximum CPUID level won't go from below 7 to 7
-> or higher with the ucode update?
-Do you mean from >=7 to <7 instead? Otherwise it just works and I don't
-undertand the concern.
-
-If so, that's an impossibly unlikely case and the current code does not try
-to clean up in that case.
-
-> 
-> > --- a/xen/arch/x86/tsx.c
-> > +++ b/xen/arch/x86/tsx.c
-> > @@ -39,9 +39,9 @@ void tsx_init(void)
-> >      static bool __read_mostly once;
-> >  
-> >      /*
-> > -     * This function is first called between microcode being loaded, and CPUID
-> > -     * being scanned generally.  Read into boot_cpu_data.x86_capability[] for
-> > -     * the cpu_has_* bits we care about using here.
-> > +     * This function is first called between microcode being loaded, and
-> > +     * CPUID being scanned generally. early_microcode_init() has already
-> > +     * prepared the feature bits needed here after the microcode update.
-> 
-> Is this true in all cases? early_microcode_init() may have bailed
-> early, so I think you need to further transform early_microcode_init()
-> (and as a personal request of mine preferably without goto).
-> 
 > Jan
-The series is eventually correct because MSR_ARCH_CAPS are also collected
-in early_cpu_init(). Alas, that's not the case here. You're right. I'll
-move the early MSR_ARCH_CAPS read to this patch as well.
 
-Alejandro
+Thanks,
+Shawn
 
