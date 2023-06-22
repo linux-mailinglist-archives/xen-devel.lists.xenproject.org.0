@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 952AC73A1D1
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 15:20:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553563.864184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 625E473A1D7
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 15:28:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553570.864194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKDt-00028c-ED; Thu, 22 Jun 2023 13:19:41 +0000
+	id 1qCKMI-0003g2-B5; Thu, 22 Jun 2023 13:28:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553563.864184; Thu, 22 Jun 2023 13:19:41 +0000
+Received: by outflank-mailman (output) from mailman id 553570.864194; Thu, 22 Jun 2023 13:28:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKDt-00025f-A4; Thu, 22 Jun 2023 13:19:41 +0000
-Received: by outflank-mailman (input) for mailman id 553563;
- Thu, 22 Jun 2023 13:19:39 +0000
+	id 1qCKMI-0003d9-7o; Thu, 22 Jun 2023 13:28:22 +0000
+Received: by outflank-mailman (input) for mailman id 553570;
+ Thu, 22 Jun 2023 13:28:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WLfn=CK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qCKDr-00025Z-Hh
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 13:19:39 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20624.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::624])
+ id 1qCKMH-0003d3-5K
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 13:28:21 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061a.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::61a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f5d3cad-10ff-11ee-b237-6b7b168915f2;
- Thu, 22 Jun 2023 15:19:38 +0200 (CEST)
+ id a731e9ad-1100-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 15:28:20 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB8PR04MB7177.eurprd04.prod.outlook.com (2603:10a6:10:127::23)
+ by DUZPR04MB9783.eurprd04.prod.outlook.com (2603:10a6:10:4b0::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 22 Jun
- 2023 13:19:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
+ 2023 13:28:17 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6521.024; Thu, 22 Jun 2023
- 13:19:31 +0000
+ 13:28:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,289 +47,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f5d3cad-10ff-11ee-b237-6b7b168915f2
+X-Inumbo-ID: a731e9ad-1100-11ee-b237-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B/BpWqR41rYyxHzPH9Z8g1+Ui8UMhQz6C/niHp6kC/gw5ot1KsZkyVntg+TWkSc1LnF6uJd4ztl4sitT0f9If2pxLEHUVowGh1ivMbQ0EYGemmUYBEb1iZOSvbOyTNmtA5a0IgBKPjAgmvB2Y9sY2nDY35ipdgx9R3+DwVxU0GIhf8lIT3Bffpfn4vBV57kaUAAY7zffI4t918dzrSgz6pmRWJ10P1QeRKs/AkY9/y/X/v+F/Ae33/oeSIDA9iL62ilPODv8Sll7d312FBt/3zPrmLSVWah5b7vywrw58dF/9VZIMl9J9oVCdPciPlMtggwImrjk8Gm6o2x3hLymbA==
+ b=W+b0cvvydixY+w7TvouFoJxUoYH6tXTUhpTOUdoHwiO6V7+FYQyeite0pVy0FGVA27BsfrkRTHWQDt8i/yQO7h9oTdd9V97O40gQjvnrFZEM1If01B6oF4vkfcWMr60NR+i3mjLTlXPijwUHKC7xdTo5eBmLWeKjnjCmudGblVwP5vfnrD7JRI1eiUTT45qVaSlTVhe2jlFt0Co9h0O7PLXpxUXFYbYVBwgtXzvyNpJ9n21XUNoS7YpFhTFL5fXQN3XwNHT4VmwwL0tV6bje4A7nlK3ZY5aZB3dWpHnI4AU2NZWMqoMj8fx43csl1z9NTj8WdD/qGRwVGkAGxoMezg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bd7aG8ZGXgK1OUG11VQ7OIcr8ukgAMz6xuXur6f61ME=;
- b=bxUJ9ObQsYzP79BjpC/tyHad7ax9kiWW0g/Qs8dP3XW6KzxghXQPVTX5u4XJU/imI4VpFqcThhEgwmG2duw5R7MRE6JCnvCP/MGdmCBplrJ3hAIkIq3I5653HmxZhe5+QvLfxpYvMani33HOsRdu0YTZIybg5Ow0tR+5fhCncslcyR8f5RTgUWzMFPhe3hFfDmCDqkCLm+cQ+tXhFyMbnvGBnjzhBebxCDspyBMeaRE/p3sIDy8spIxxwXCqApnV8atjPajtZTnujvnDKOIZiuh2WFiIs/Umtcu+ow2E61/dtr/VR1fjj0lIfRkF7NSnHzb6d4ilszl/tlLrGKXVZA==
+ bh=692S3r+mqE6hNQI/RE0P7FIlwajyYHYijfj1K8vRx8I=;
+ b=Ej9tL4nMM2KJ+TBTDKDs1EcfsxvHyDnyC92ddz9Ug9muqkVnL4P0i55D8Vn1u3Bcl1Vh2Bqvb/jqHFDccAAn7LlJXzSk738vtwobZ9iCsmlytsYCEFSkiJlrubdUMhmH/mXPzsXHyQZT9DKoCm56Ev/cMRt3i2LxGY5zxgKXm3ZSGT6RkLUq2BtupSLH2ncaQ7BHsmps7gCOdCpuprVEbM8trL/UyOAfLOzhBNKcn1ezDboYRSS2ylO4JEkT76WhXsU5QzWhGREuGeLd21q36CjzLZ56Y0TdWr9GsUt6sJF/ZsghPl7uDpckF2DkfFvfQHqoNKiZudrCNq7FNvGn8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bd7aG8ZGXgK1OUG11VQ7OIcr8ukgAMz6xuXur6f61ME=;
- b=5mPCfzRlyZSdpq3MryS0dbqFavAOMcKHao8xIA8JpzFldLHms+weUsefFPUwi2je0AwMXBxlnL9NAJOMBErRds9IY2JJGnOGp5SCS/PcMo0OPlVXOXl21hWLh+bNws8iG+lyS+tC1oKRiJgurbDsNnhrzoSMD7P5Jgcm9Jm55RLYisI4ExKo8xmhHuVyFE8TQxNh5x6Jg9dxRgsIUIspTCL02euwFioUyWSZgizQM8CHESiY/85QeNQSp+T4Gsa0CrFQOspp8FgBTpHf9EXXnLDKoqKW9bRYIkyz4+IevYo4VSBjl3trADkiFOmNHyqWqoMoDCi0xIDWX9LTQEkfFQ==
+ bh=692S3r+mqE6hNQI/RE0P7FIlwajyYHYijfj1K8vRx8I=;
+ b=xEIeMKzqPq39jv2ONbswgndyG/Lg3mGhWOYGsnALlFnqfIlqWC9VcHMClqpcnaivjif+BQGfm0r2KnvlXOqKTiPvufAymm9HKb3z4YzaBkUNFQiSGy6l1uxiBuxQiZrG2t0lj4bxoVYXNbY5iogw87yUbAqh1f46KxIKkTNOzmsZO75W7n9blqrQZsoR4frFIGCvii5HKufrLAHjZz1AGhTlq8q9G5T2nuvfgPc7pMXwICPtLfCHW5lHsHkaUZ2aIMxjjmw95IWTHQKP8j1UGn2XunkU2NeH0Wd349lhqFX6GqUxvMi0zZ5DnxgX9eFmlU0Tbt9CdIA0pwzCh2EJGg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <be6e2799-dd7b-ccba-4901-1e4e10a7f292@suse.com>
-Date: Thu, 22 Jun 2023 15:19:28 +0200
+Message-ID: <81f00083-0170-9189-19c7-c8385f7173cd@suse.com>
+Date: Thu, 22 Jun 2023 15:28:14 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH 06/22] x86: map/unmap pages in restore_all_guests
+Subject: Re: [PATCH] mm/pdx: Add comments throughout the codebase for pdx
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-7-julien@xen.org>
- <478e04bc-6ff7-de01-dfb9-55d579228152@suse.com>
- <f84d30cb-e743-60f8-a496-603323b79f37@xen.org>
- <01584e11-36ca-7836-85ad-bba9351af46e@suse.com>
- <a99a8246-bc80-07b9-dacc-f117ace37027@xen.org>
- <aa2c8649-4acd-bcf4-d547-e3609bb1a0a2@suse.com>
- <558e68c4-1a2d-5a9e-4070-5b894e14a3f4@xen.org>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230615162741.2008-1-alejandro.vallejo@cloud.com>
+ <984e13ef-a73e-126c-0bf8-58bee9beb7b2@suse.com>
+ <64930879.1c0a0220.28719.ce38@mx.google.com>
+ <692b3db7-dfe8-8ed7-71e5-b29dcbba7f1c@suse.com>
+ <649440e5.050a0220.708ad.038d@mx.google.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <558e68c4-1a2d-5a9e-4070-5b894e14a3f4@xen.org>
+In-Reply-To: <649440e5.050a0220.708ad.038d@mx.google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0204.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a5::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0163.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB8PR04MB7177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1270af17-7233-4cde-235c-08db73235045
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DUZPR04MB9783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 078c33d8-2f4d-4407-aa67-08db732489b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	j4n3ySAZ7VmQ6QNfIA5L8+0Sp/aarfNMVfhGGh3WsDRCSWoumroTE/o83StnXdnpqBp57S+Hc/+a/voGCzGEj6B7PG6M2LaM/2Lzwr9iZnzZHIgIVN7MRh/4SgVZnEUwvYPXmijJmCdZAHNM2hxhNlimqbswhg4bBeoqtlYz2w+4KGeZAMfYUt3YeSOENbQBEM8/+xKg3JFVQfPyCGV8zYO+ZTgLNWUh9yJxjF9bMwu77OLtEyOVcUnaINxnbZeCijuzMjEl+9tmJsbgpckIc8BBcHhVqyp5NGC9CjuOuWFrGkLh+aid2kfpVGgY3GG3X7toSD25h1YBxq3oiH3D5M4QWpiExscHUImUBDxfsrsba+ATC8S9ojVODdGrymr/MCH2Zza4enZsE60t7ELoMTYrym+HqMfyrLL4mC5IZgT1GjBI8yJZ+/o/lOn7RqSmdVAVAYzG6FtFsI7q+itkr6hM3kYU+Z5xeutHUVOvjM9ZIwB3xQ0vMe8v/47nXGabrwmHhjzrhPd1c1y/NFPqx6w3yYIWZhmeoOdTrHGoOLxUQxZqKO5HqsFSIH72wWuXPfFR3WwPWX+Uz98ElHcQdJb7wsy6zVw04E9oLguLWu0hXgv3JdW2efWWHSOj/rFDFIDArNWhwxv1Ojs9zDgy4DeNNsXDKqgxKo6OBD9Ttdw=
+	LprkdRi4OMXnRgax7TfBDgiIaBd1AztUDFFr0zejkOYvKD2vxmxa3q/CmB2cCvwaPhmjGrlzmihAQRx1L+CscnurY112GQOgJUfvTrSt2BlNEXlFBndxA58amwP3D8ztGj/CFItEHClSLs7WDMWJhn3NH0PrSpQDnUJ6cduknTY7VDD90mC1LZQZHEWniSrFh5dP7S7p1jZih+Q/E+Y6hrOjngLIVAwRxyr9+ISlOXHyIyNmyDpbz0LZbRO8BRUNbMUUf0KTn3s7PDrIe3/9RaWDe7C52geg50+g9fwl45WX1dXgzxogJl5af/2z2mlzYFVg05xSgyYz9/gRqjoD2c0kgIGDhy8+BWFDhBueDnxWcLSdRC/GogOgCCPqF/7gdlk9H5vL3yJfknJ6Xp9KqXPpxTPFOnCAajPASN2TrWJdQOCHkjjGGjwK2Zpmuad9CDztYzXmnTUp+XKnGrm6ayBm9ArGMmPPnxudKzzBG3L9snCBk/mq2e8g5sC0NdyAD4x8NyJ7ZM7+exGbycrjvjeaB5FcO+jjSihSlsGrSG8ODDgFuLJmtXyosw545E175N0cnd365W+7uqurMmKTGz2Dl0Iq1rBp3UVcZA5+YLwbsbaUiamCA814Cg7kYqhThPKdwI9DY3tmtEhjffw2jA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(136003)(376002)(366004)(396003)(451199021)(8936002)(5660300002)(8676002)(31686004)(41300700001)(316002)(2906002)(6666004)(6916009)(4326008)(66476007)(66556008)(54906003)(478600001)(6486002)(66946007)(31696002)(86362001)(53546011)(38100700002)(36756003)(2616005)(186003)(6512007)(83380400001)(26005)(6506007)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(346002)(376002)(136003)(39860400002)(396003)(451199021)(53546011)(186003)(26005)(6512007)(6506007)(31686004)(478600001)(2906002)(86362001)(31696002)(41300700001)(8936002)(8676002)(2616005)(36756003)(38100700002)(54906003)(6916009)(4326008)(316002)(6486002)(6666004)(5660300002)(66476007)(83380400001)(66946007)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MTNOQ0pncm1raWpVOG9SbnViQ1h4Q2ViWWFORFY2WUNjb2FEcnJzTG02VHAv?=
- =?utf-8?B?TG12WW4zMmJXeWxZMDVHcmozZ2hxbjJQNktFMzAxWm9VanNrN3p0SzlLQjR5?=
- =?utf-8?B?blNDcGNCcmVkaks5SGxaOE1MZGJ3Z2lTbXNHaUtIeWg3RExON0cyVjhDbUt2?=
- =?utf-8?B?ZHF2VmI3c1RUMStCRzFxd1p2OTFJVVZLcHcrZFJ4RUVxRXlTOE1Qekw2SHFS?=
- =?utf-8?B?YzM5V2w5cEpPM29SZDl3SlF5b2VRakxCUUxSTHVhRlpYeFdhMUNxRjFBNGNT?=
- =?utf-8?B?bk5KNE45N3kyUnRKSjJJZk5OdW5SOEpVRE9oMWJUditvdGtvMjJzLzQzRkZU?=
- =?utf-8?B?UkdROEN2OHA1TTV6TXlKbUdoTTJvZnZhYkdEYmh4VW4zZXUrcnRBSHFDdUJy?=
- =?utf-8?B?d2ZMNkJxWHdRdEc0QWkxRjZMcXhQUUlETldPT1RVcEYycGpYM0lOLzA4YzJ3?=
- =?utf-8?B?TzdGUUxMOGJrd1VrR1VyQmZCTUR1b1Rwa3MwcThRaG90QUluTVhPVVBJYnJa?=
- =?utf-8?B?UFhaOW9MSWh1aTBqOFM0ay9obTBmQ0VKQ1pyQmh6Um4wZWh0TXhzSlhYTlZF?=
- =?utf-8?B?YjdJdCsyUmk1R2VEbC9SNUY0L2ptSDV3TnRuTFcrV0J3bjRyNFhrajBOaDlx?=
- =?utf-8?B?SUVQTk5JdEpLdlBFUElWQVpPT05ZY0kyQXREYnRhY1ZkcDIwSU1CWG1pNTZ0?=
- =?utf-8?B?L1oyYmdsOSszd0ZWbVN4ZUJDcmJKU3dBdTZtc0lxRTRXSW5Xb2NOcGRwRFlZ?=
- =?utf-8?B?VjVVY3lMblB6OXpRdjRNWklsQXRHMmpwOEJlRUd1eVBEM3FRMlM4dWhBOEVw?=
- =?utf-8?B?V09oa3FVanVRZUxaWE1LNnVRZU5xMmZHSEh3c04yRS9BdVpFRWx2MWFQY0ZC?=
- =?utf-8?B?UURxUm9nU29tcDV6UVYzS2FuTWVienBKZHljTUt6RTFOdWRvMithQUFpeTdy?=
- =?utf-8?B?RmpmT0hzQkxtQ3FxOEpIa3hQM1JwTmVkekdFaXdVZm1KeFJ6TGI4ajZoNElw?=
- =?utf-8?B?MEJybC92MEs3Vm9RdGQ2aXBESTVZdllVTGx0MEEzRFFJSzN5d013ZmR3TXoy?=
- =?utf-8?B?aWxCWTllN0pBYzNRZU9nc0dHNnZVWEpNTWVWam03UGFyZ1VOakM2VkZ2M25B?=
- =?utf-8?B?ZGxaYjNKTXI0MDZHY1RJYksxRWl1allLUGhrS1M1MVg2MVVnR0grNHlWeW02?=
- =?utf-8?B?Q3BPTnUvb1JiYUNJalZRREhyZUtpMTV0Ujh0bmVpcWRUMS9hUXRXQTA1STlO?=
- =?utf-8?B?emJhZS85cWpaOGE3RUVBYzF6MExhaW44RUdvZVprWmduZHN3WWVjbDNickVT?=
- =?utf-8?B?U01Cc2gyeDhyemNEQ2pNZkxuaTlOc00zVEcrdUJXNmgwczVFc1VXUE9GU0N1?=
- =?utf-8?B?amg5a3I1TlNUNVZSWHhFS1EyY25zbGd4eCsrN3V4UEZNdmxSWTJrclVMZUpi?=
- =?utf-8?B?dktKaUNXT3RLdVVISFA4WnNaS2daeW5vbjA1MmZJUlNRMStyYy9Qb3dRZ3BK?=
- =?utf-8?B?OU1ySVdaM09zanNmNTNFM2tXZDVXcS9TY3JJL2JYVG41WEhOUm5sdGk2QUhi?=
- =?utf-8?B?Sy9lcEpFY2Y0S2c2eEhnTGp0L3ZWYWdUai9MazdTaHgvTldDWGpodHlQQlA3?=
- =?utf-8?B?NUdraktyME9TRHY0QkJWOGlHVmNMTDQ4SDV0TTVBOTdGL0g0MEtHUFNOK3RI?=
- =?utf-8?B?dmRqSTh0RTcyQmdPN1pIc0NmYXRXWU1obEs3T2hBQ0lEWmtqai84bko4bjVU?=
- =?utf-8?B?VUl3MGczRFV0MGEvV0ZRajZYcUFJQUFWekJpUlI2eG1CUUwyU29TWGxiSDRO?=
- =?utf-8?B?aFhqQ3F1REtXeHZyUEgvdUVHM3N4SG1ZU29UNzk4eW5QKzlJOFBJUnlPc1Vi?=
- =?utf-8?B?M0Q4TjllYUYrTTN2bnl5T3YveG9kZ3lySHoyZHM3dVZqZ3Q0enMrekxqUUZ2?=
- =?utf-8?B?azg0b05NS2NML2VJNXY3WXdPYmVXVi9JUXVQSnNaQW4vRDJuTTlYU2k5MmZx?=
- =?utf-8?B?VmphUDBBT2V0NG5VdkJYRTg2ejEwQ0tmZEIyZHdzM0pKNHA2aDRtU3VrQmJw?=
- =?utf-8?B?TUpINEVUd1d2b3VQM2oxcjBXc3FRYlNSREhML0ExQnZOcEhQY2tDQk81Y3Zz?=
- =?utf-8?Q?3bnl1N56ZrvCZgIxAStANndeu?=
+	=?utf-8?B?RFZDNzc0bW5GVEd4TVNodGJldlFVL0Q2QjFQOTRmUDIydHh2MVIzUFErZHZX?=
+ =?utf-8?B?d1JaVHQ0OTFmUm1MTnlPa0cvaWpzN1RUMlV2QkNqTzFCb1VzcS8vcUZ4NnRE?=
+ =?utf-8?B?YnZmdXhBNlFKT3RLSGVDZ3ZSUXNnMHhtSVQ3S0xHWWtFVUVtRVFHb2V1aEVW?=
+ =?utf-8?B?ODRtVlgrMzdMSmRhdzFlcStsSE40eTJ0ajltcXl3Y3kxbUIySUdXU2pHWjNO?=
+ =?utf-8?B?WGU1WmxsTWlhVmhDYmVtcGF2akdsWm1OM2lrTG9DZTZoN244MXJwY00xVVdP?=
+ =?utf-8?B?a0ZvMjJHY2k0c3V3Ujk3K3pqZGEwVkttbFNZR1JDS2FuL2tMUVR6Q2F2SnBP?=
+ =?utf-8?B?TzBHUjZIaTY4WUxvaWZ6bGVkWE03L1VZVVlBaTUxY2g2dXFsVTJocmRkTVpw?=
+ =?utf-8?B?RHRMaDZ1cEJpWXFoSnlha1A1WW1yall1ZGh5cG0rNlN3Sk8rS0t6cnhZczg3?=
+ =?utf-8?B?U2pEejdORG5UZ2orZ3JlVk1YWjdLaUlRUCtRZEV5bnFNdUoybTRRUW5LQ3VX?=
+ =?utf-8?B?dlVuR3VSdnJ1d2lBVVIvbjl4VzJFVGgvcUhja2ZkMG5zaWJ5UzduSi92a2hR?=
+ =?utf-8?B?a093SWxLUDFJTk1XdjBnajhpaW9QODgydTQ3ZU1wQ0twa1hsM0xvMmpSNlNw?=
+ =?utf-8?B?ZmVWRGxycWUzVkd2SXF4UkI1VWIwSE5pNitXNzFHQ21PU25UKzk5Ny9YVys1?=
+ =?utf-8?B?aTIvTENGems4b2pRRmdxNUU3akhMS1ViaDl5Zk4yeDNJNStBazZ2TlhreDRh?=
+ =?utf-8?B?YlhwbGR0aUI4UytpeWFUY3ZucGo4ZzZnSTYrOWR3QzlhZDZZOFRpb0dZamVy?=
+ =?utf-8?B?Uzc0Y1FKUzVkTURyQVhxVVgwaEZMMy9xMW5QV3RUaTNPZnQvZEc3c2FsTkxV?=
+ =?utf-8?B?MjR3YnFHVzk2WGlDamNxbTZnMlJDOTVwaDZRSit0bmI4NmpzM3M2T2NsV1A4?=
+ =?utf-8?B?VWlEaUpnQ0FLMUZrK21IditONTdKWEQ3Y3kzZnBNeVVxcUNSZmVVRWRXMVlU?=
+ =?utf-8?B?VHJyRnRlSWVueit1aW5YSnRPZVNZNFpVMDg4d3JQaUt6Z0R5S0lpeU1FZjNQ?=
+ =?utf-8?B?KzNqbHZjVEQ3ZzVOb1BIN0xkMmt0M2lPek1tZlVlbGVmSGt5Ymg3b3hVYXZN?=
+ =?utf-8?B?SmxMWFlaZnNCQkNqSUd1T2EwNW1mSktUbmwrYm96eGVGMzkyeDhpSXYrWUNK?=
+ =?utf-8?B?UTh3VmhIZmpxVXFabzVWYjV2S2dtZ25hYWZXWGdNL0dzaDRkbWg4Q0wrRHpz?=
+ =?utf-8?B?TEg5MkJCY2xwZHUzZ212eEVBK0JPRlZZZTRjUXk2UFdTanZMdGU4bWpsNlRP?=
+ =?utf-8?B?cGFENDJJNDEvMjNjYkNQM0Fkb1dWOS94Nm53M0hLeGt2T0lBaXN4N2plRG5N?=
+ =?utf-8?B?M0V6TGVWK0ZQOHhrMzJvQzJjTDh4akYrUVR5QnBzazRlMFVGbHNRVEtPUERO?=
+ =?utf-8?B?T3lxY2VYcm02RVgvdnNGbmsxUktMSXJ6WWZSay8yM0NJazBKWUdaSThJWGw4?=
+ =?utf-8?B?eHd5MnVzV204dGlhNUJmM2tUUlJwa2tnTm9DSzRJaFg2NGZwY3EwK1A2elVJ?=
+ =?utf-8?B?UVdOcGd2QXc5eDJmWkIwNDJPa21rMVhsaGVwdzhBRTVMakRkU2MwYWpya0J6?=
+ =?utf-8?B?VDhKRzVVY3VDZWM3S3JxbE9lYUd5QjFwOGh6aEFFNjlDL0kvWUpCTStFbm9k?=
+ =?utf-8?B?akYvcmgvcXh4NXZEZ0VRVFRpQzJMbC9wVFluRFFIdHhOQUhSekhUWCsvVDdk?=
+ =?utf-8?B?TmkvdEhCWUxkTkRzNWtiNlBpVGFpQ0FtcU41WXZxL1htSnZjakxBdzRlMUFt?=
+ =?utf-8?B?Z2h0NVMxZWRBK01HWkMra01TTjh1YWNKQ0U2c2UyMmdZSHp0NjRsWklCZVV1?=
+ =?utf-8?B?MnRNcUFDZlRNY1ozcjZSYWdHUmt2S2lvS3Bsa24xY1VVNENOSHI1OWVqUWgx?=
+ =?utf-8?B?TWR6bU5DNk5ENFh1aUpoQXlJcWx0b1hlR0prK0RqNkFOYVAvbTlWSVkzdkpV?=
+ =?utf-8?B?M3JBVkE0ZVlCc2RMUHRwb2VXOUc0SjVUQ25FVG1PazJkOFN4QUZEeFk2Uk5B?=
+ =?utf-8?B?Qi8xT1VJZllOOFFyRFdNNW4vTGZIUllvUjNzdXN4VVNKdDF2V3FyVitVaVc2?=
+ =?utf-8?Q?hdIMWbogT6B5Ia2UezdUEKLOe?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1270af17-7233-4cde-235c-08db73235045
+X-MS-Exchange-CrossTenant-Network-Message-Id: 078c33d8-2f4d-4407-aa67-08db732489b4
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 13:19:31.4156
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 13:28:17.0677
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k2Bpx1eG+h0nrHMqTMj/FTCMIROVWAF/ZdojKotCUYBcyzmUISglMwg2CxtzA9yvinr0tv7u186y7UF0sfpiYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7177
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4nbx43GFzye4Idt4YTNJMKE3m06nVB3N1iianYFBJJiDTo8Zlp8yo0Zof7xTpOPbqdn/Trx5o2OPVfF8tLKWyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9783
 
-On 22.06.2023 12:44, Julien Grall wrote:
-> On 13/01/2023 09:22, Jan Beulich wrote:
->> On 13.01.2023 00:20, Julien Grall wrote:
->>> On 04/01/2023 10:27, Jan Beulich wrote:
->>>> On 23.12.2022 13:22, Julien Grall wrote:
->>>>> On 22/12/2022 11:12, Jan Beulich wrote:
->>>>>> On 16.12.2022 12:48, Julien Grall wrote:
->>>>>>> --- a/xen/arch/x86/x86_64/entry.S
->>>>>>> +++ b/xen/arch/x86/x86_64/entry.S
->>>>>>> @@ -165,7 +165,24 @@ restore_all_guest:
->>>>>>>             and   %rsi, %rdi
->>>>>>>             and   %r9, %rsi
->>>>>>>             add   %rcx, %rdi
->>>>>>> -        add   %rcx, %rsi
->>>>>>> +
->>>>>>> +         /*
->>>>>>> +          * Without a direct map, we have to map first before copying. We only
->>>>>>> +          * need to map the guest root table but not the per-CPU root_pgt,
->>>>>>> +          * because the latter is still a xenheap page.
->>>>>>> +          */
->>>>>>> +        pushq %r9
->>>>>>> +        pushq %rdx
->>>>>>> +        pushq %rax
->>>>>>> +        pushq %rdi
->>>>>>> +        mov   %rsi, %rdi
->>>>>>> +        shr   $PAGE_SHIFT, %rdi
->>>>>>> +        callq map_domain_page
->>>>>>> +        mov   %rax, %rsi
->>>>>>> +        popq  %rdi
->>>>>>> +        /* Stash the pointer for unmapping later. */
->>>>>>> +        pushq %rax
->>>>>>> +
->>>>>>>             mov   $ROOT_PAGETABLE_FIRST_XEN_SLOT, %ecx
->>>>>>>             mov   root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rsi), %r8
->>>>>>>             mov   %r8, root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rdi)
->>>>>>> @@ -177,6 +194,14 @@ restore_all_guest:
->>>>>>>             sub   $(ROOT_PAGETABLE_FIRST_XEN_SLOT - \
->>>>>>>                     ROOT_PAGETABLE_LAST_XEN_SLOT - 1) * 8, %rdi
->>>>>>>             rep movsq
->>>>>>> +
->>>>>>> +        /* Unmap the page. */
->>>>>>> +        popq  %rdi
->>>>>>> +        callq unmap_domain_page
->>>>>>> +        popq  %rax
->>>>>>> +        popq  %rdx
->>>>>>> +        popq  %r9
->>>>>>
->>>>>> While the PUSH/POP are part of what I dislike here, I think this wants
->>>>>> doing differently: Establish a mapping when putting in place a new guest
->>>>>> page table, and use the pointer here. This could be a new per-domain
->>>>>> mapping, to limit its visibility.
->>>>>
->>>>> I have looked at a per-domain approach and this looks way more complex
->>>>> than the few concise lines here (not mentioning the extra amount of
->>>>> memory).
+On 22.06.2023 14:39, Alejandro Vallejo wrote:
+> On Thu, Jun 22, 2023 at 11:15:17AM +0200, Jan Beulich wrote:
+>>>>> + * This is a technique to avoid wasting memory on machines known to have
+>>>>> + * split their machine address space in two big discontinuous and highly
+>>>>> + * disjoint chunks.
 >>>>
->>>> Yes, I do understand that would be a more intrusive change.
->>>
->>> I could be persuaded to look at a more intrusive change if there are a
->>> good reason to do it. To me, at the moment, it mostly seem a matter of
->>> taste.
->>>
->>> So what would we gain from a perdomain mapping?
+>>>> Why two? There can be any number, and in fact on the system I originally
+>>>> had data from for reference (when first writing this code) iirc there
+>>>> were 8 nodes, each with a chunk of memory far away from the other chunks.
+>>>> The compression scheme used merely requires that some "inner" bits are
+>>>> unused (always zero) in all of those ranges.
+>>> Well, our implementation only supports two and I didn't see any obvious
+>>> hints about intending to increasing that number.
 >>
->> Rather than mapping/unmapping once per hypervisor entry/exit, we'd
->> map just once per context switch. Plus we'd save ugly/fragile assembly
->> code (apart from the push/pop I also dislike C functions being called
->> from assembly which aren't really meant to be called this way: While
->> these two may indeed be unlikely to ever change, any such change comes
->> with the risk of the assembly callers being missed - the compiler
->> won't tell you that e.g. argument types/count don't match parameters
->> anymore).
+>> Where are you taking that "supports two" from? When I first wrote this code,
+>> it was tested against a system with 8 (maybe it was 4, but certainly more
+>> than 2) discontiguous regions (not counting the hole below 4G).
+> You can have any number, but there's a single contiguous bit slice being
+> removed, as far as I can see. The adaptor functions in
+> xen/include/xen/pdx.h perform a single shift.
 > 
-> I think I have managed to write what you suggested. I would like to 
-> share to get early feedback before resending the series.
+>     static inline unsigned long pfn_to_pdx(unsigned long pfn)
+>     {
+>         return (pfn & pfn_pdx_bottom_mask) |
+>                ((pfn & pfn_top_mask) >> pfn_pdx_hole_shift);
+>     }
 > 
-> There are also a couple of TODOs (XXX) in place where I am not sure if 
-> this is correct.
-
-Sure, some comments below. But note that this isn't a full review. One
-remark up front: The CR3 part of the names isn't matching what you map,
-as it's not the register but the page thar it points to. I'd suggest
-"rootpt" (or "root_pt") as the respective part of the names instead.
-
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -509,6 +509,13 @@ void share_xen_page_with_guest(struct page_info 
-> *page, struct domain *d,
->       spin_unlock(&d->page_alloc_lock);
->   }
+>     static inline unsigned long pdx_to_pfn(unsigned long pdx)
+>     {
+>         return (pdx & pfn_pdx_bottom_mask) |
+>                ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
+>     }
 > 
-> +#define shadow_cr3_idx(v) \
-> +    ((v)->vcpu_id >> PAGETABLE_ORDER)
-> +
-> +#define pv_shadow_cr3_pte(v) \
-> +    ((v)->domain->arch.pv.shadow_cr3_l1tab[shadow_cr3_idx(v)] + \
-> +     ((v)->vcpu_id & (L1_PAGETABLE_ENTRIES - 1)))
-> +
->   void make_cr3(struct vcpu *v, mfn_t mfn)
->   {
->       struct domain *d = v->domain;
-> @@ -516,6 +523,18 @@ void make_cr3(struct vcpu *v, mfn_t mfn)
->       v->arch.cr3 = mfn_x(mfn) << PAGE_SHIFT;
->       if ( is_pv_domain(d) && d->arch.pv.pcid )
->           v->arch.cr3 |= get_pcid_bits(v, false);
-> +
-> +    /* Update the CR3 mapping */
-> +    if ( is_pv_domain(d) )
-> +    {
-> +        l1_pgentry_t *pte = pv_shadow_cr3_pte(v);
-> +
-> +        /* XXX Do we need to call get page first? */
+> Unless I'm missing some non-obvious piece of the puzzle, I'd say that for a
+> truly general compressor we'd need some kind of loop over the hole mask.
 
-I don't think so. You piggy-back on the reference obtained when the
-page address is stored in v->arch.cr3. What you need to be sure of
-though is that there can't be a stale mapping left once that value is
-replaced. I think the place here is the one central one, but this
-will want double checking.
+Well, further compression might be possible that way, yes, but that's
+entirely orthogonal to the number of discontiguous regions we're
+talking about. Consider
 
-> +        l1e_write(pte, l1e_from_mfn(mfn, __PAGE_HYPERVISOR_RW));
-> +        /* XXX Can the flush be reduced to the page? */
+0x0000100000000000-0x00001000ffffffff
+0x0000200000000000-0x00002000ffffffff
+0x0000300000000000-0x00003000ffffffff
+0x0000400000000000-0x00004000ffffffff
 
-I think so; any reason you think more needs flushing? I'd rather
-raise the question whether any flushing is needed at all. Before
-this mapping can come into use, there necessarily is a CR3 write.
-See also below.
-
-> +        /* XXX Do we always call with current? */
-
-I don't think we do. See e.g. arch_set_info_guest() or some of the
-calls here from shadow code. However, I think when v != current, it
-is always the case that v is paused. In which case no flushing would
-be needed at all then, only when v == current.
-
-Another question is whether this is the best place to make the
-mapping. On one hand it is true that the way you do it, the mapping
-isn't even re-written on each context switch. Otoh having it in
-write_ptbase() may be the more natural (easier to prove as correct,
-and that no dangling mappings can be left) place. For example then
-you'll know that v == current in all cases (avoiding the other code
-paths, examples of which I gave above). Plus explicit flushing can
-be omitted, as switch_cr3_cr4() will always flush all non-global
-mappings.
-
-> +        flush_tlb_local();
-> +    }
->   }
-> 
->   void write_ptbase(struct vcpu *v)
->[...]
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -165,7 +165,16 @@ restore_all_guest:
->           and   %rsi, %rdi
->           and   %r9, %rsi
->           add   %rcx, %rdi
-> +
-> +        /*
-> +         * The address in the vCPU cr3 is always mapped in the shadow
-> +         * cr3 virt area.
-> +         */
-> +        mov   VCPU_id(%rbx), %rsi
-
-The field is 32 bits, so you need to use %esi here.
-
-> +        shl   $PAGE_SHIFT, %rsi
-
-I wonder whether these two wouldn't sensibly be combined to
-
-        imul   $PAGE_SIZE, VCPU_id(%rbx), %esi
-
-as the result is guaranteed to fit in 32 bits.
-
-A final remark, with no good place to attach it to: The code path above
-is bypassed when xpti is off for the domain. You may want to avoid all
-of the setup (and mapping) in that case. This, btw, could be done quite
-naturally if - as outlined above as an alternative - the mapping
-occurred in write_ptbase(): The function already distinguishes the two
-cases.
+The reference system's arrangement was slightly more complex (first and
+foremost because of the memory below 4G that node 0 had), but came close
+to the above conceptually.
 
 Jan
 
