@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F8773A29D
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 16:03:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.553612.864264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F9373A2A4
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jun 2023 16:08:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.553616.864273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKta-000318-Lz; Thu, 22 Jun 2023 14:02:46 +0000
+	id 1qCKyY-0003gM-71; Thu, 22 Jun 2023 14:07:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 553612.864264; Thu, 22 Jun 2023 14:02:46 +0000
+Received: by outflank-mailman (output) from mailman id 553616.864273; Thu, 22 Jun 2023 14:07:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCKta-0002yM-Ij; Thu, 22 Jun 2023 14:02:46 +0000
-Received: by outflank-mailman (input) for mailman id 553612;
- Thu, 22 Jun 2023 14:02:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VOAB=CK=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qCKtZ-0002yE-I9
- for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 14:02:45 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 750039d9-1105-11ee-8611-37d641c3527e;
- Thu, 22 Jun 2023 16:02:43 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-3f9b4a71623so38526345e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jun 2023 07:02:43 -0700 (PDT)
-Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f20-20020a7bcd14000000b003f7f2a1484csm7836764wmj.5.2023.06.22.07.02.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 07:02:41 -0700 (PDT)
+	id 1qCKyY-0003dp-4D; Thu, 22 Jun 2023 14:07:54 +0000
+Received: by outflank-mailman (input) for mailman id 553616;
+ Thu, 22 Jun 2023 14:07:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WLfn=CK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qCKyW-0003df-9F
+ for xen-devel@lists.xenproject.org; Thu, 22 Jun 2023 14:07:52 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20628.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::628])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c6553e2-1106-11ee-b237-6b7b168915f2;
+ Thu, 22 Jun 2023 16:07:51 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAWPR04MB9815.eurprd04.prod.outlook.com (2603:10a6:102:381::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
+ 2023 14:07:48 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6521.024; Thu, 22 Jun 2023
+ 14:07:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,382 +47,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 750039d9-1105-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1687442562; x=1690034562;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YpLFuadE1Tji+ZRr40/2UDaxu9mY/3/yOY5AA4QxcqU=;
-        b=JFz76u/4j709JsQU+Qg5rXN6fW5GNW763CzTnruXzgDnz9gUq49s07A1Bte8dfw9A8
-         VyOm9tXIpmkf8lIltzxjwiXW7STHPGALc045lUQfW794VGYNN7LOcSljv/HkJ5PZFIFJ
-         wZG32jqTFkX4+lnrvTiY3onrSfdbzVdBVrqy0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687442562; x=1690034562;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YpLFuadE1Tji+ZRr40/2UDaxu9mY/3/yOY5AA4QxcqU=;
-        b=g9AWPzqfF6gvmjK+s4D24knqDz4bGPnPQ9Ven0EfOAVUjhJkArTSV69uzeevtf21v7
-         uA/gAkvu8ezdgdzWBGT24xqmjbFCc3iuX6CsRAxFxVpGF8arJopIPYKc3LRmL11J9SZ8
-         q/AdyzS5+2MPiyfe9qle4J3QGJl8heta0csh9PFc0sMnX9nau5F9JV36Ad9osYTKqZ8r
-         ZGU9jJlqq+xwHYJc0xrZBo0UUmeoc9SZl11SODFxsB0Lp0+enumMUI47rCyrYDUplH5V
-         PXqChCIUttvMSpZkLyPSZYjlNMKoq4kSCi0Jfw28Vbjbh0f5WL1BOkOCttWhkLhEpn1m
-         gFOg==
-X-Gm-Message-State: AC+VfDxM0s8ea6/iihebRuQueIPyy32mAhkH1+yZI0wMmHEcKqf/dJXP
-	1X98jc4E5GAl59ewLlEqH3gtU32x1wbn/F1N6HY=
-X-Google-Smtp-Source: ACHHUZ4q0HbugizOqAUK8bv35FZEKXbgMOn+iBKR+Tqu0qucEs2TRx2HlO3TuRLLKgr1scwJdkPf8Q==
-X-Received: by 2002:a1c:f310:0:b0:3f8:f382:8e1f with SMTP id q16-20020a1cf310000000b003f8f3828e1fmr1485674wmq.24.1687442562045;
-        Thu, 22 Jun 2023 07:02:42 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2] mm/pdx: Add comments throughout the codebase for pdx
-Date: Thu, 22 Jun 2023 15:02:37 +0100
-Message-Id: <20230622140237.8996-1-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 2c6553e2-1106-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=haEcsdA7MqwhYbJUCTP0w19kKnnosStkcDxdzpUpmyKaH6yh3NJvxkv16A9tpOo0RquqiZ/V5nJVwKpTCbl/MNk6SUojxK6F6O0q2X9sW/oiv1apAAeoV7/mpkJtbDIx1NBbZ3OUBgD6o0zB0f4KdDhfV+Fjq/bLtBtonEEZLWLdh8ean7l7kSPYaTnaJ71IQ0Y2NrJb9O7d08bUcG77jaYzLaAu3Nx5Ewd7VpFEFobstdq3LnnYPb6rcioe029CnlXZs8oAwyYm2qE3s9SyUQCu9UoTbPhTtpJHMDOXcwU2f97zkMGcy6e28zIQFenYB2VGKCKlNO4Alo2NmkxAJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2gSL1txpX0lFBT1N9PYJXbgqpEj4i8eshcd5Rqeqfow=;
+ b=hS3On+Mzsz2AhvWbp99iU5avEi8IAxdgktkwS+V64CVjfSgwc8uJ8lMH0NRTp5D9PZoArfOvq9KHRE64jlJGW9QsoImSToK3ySEGNnB8UAGaG2rRNtz7uwOXWztPvxMq/yox1NiOmxBIadzNCYquiiOpUQAx8V6cufmior9yWC/L2toYUjX2tSXw9MmiQXC8B7DwE1drY8NsM9oV+6GjdLsdF0q5ubZLmVPbJJTojhfXQ2FSrWMWNcdNFI9EFTyvAmZs/E9rX7CXlYn5OB/p34qULH3NRWHPb+6YR6GdguCOReAzqHQf/yIVzTkcMbM+LZQ3gD7odSAnfIGKQmnPSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2gSL1txpX0lFBT1N9PYJXbgqpEj4i8eshcd5Rqeqfow=;
+ b=1YJpqGRAd2tYnsNSH3ns84SqS0MsSjGTytrckySKMjZNahmiiY8Jsmlaf1Wu6BLufQFtf9EgRm+fqqbU06HLL8ioDS1p0xxgoIC3xDtkfJ5oZeP8nIyUz2Mv03kykQzy26DpbYzs3GhCWI29fmH+mLE0A5+NGuDHqMVBm+AL7f2igxR6TpYUTK59nFpybFaXLy6HlZ+kLrE70xsp48aEvO2sNgrPQBZAhQ/xzYQU3OLXqmMccz6TPR+6k3nxUqPR25We0g2VRCdBWJhaD1l07bNPJSTdJTkbeiF0wrja3CsbmBXprrLNSLG7EMXqxxPV9T7snwnud40UPbP+Q8KnAA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <7205472d-041c-d369-861e-08ccb6be9400@suse.com>
+Date: Thu, 22 Jun 2023 16:07:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 1/2] tools/console: Add escape argument to configure
+ escape character
+Content-Language: en-US
+To: Peter Hoyes <peter.hoyes@arm.com>
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com, luca.fancellu@arm.com,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20230622135503.409150-1-peter.hoyes@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230622135503.409150-1-peter.hoyes@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0137.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAWPR04MB9815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25a44281-c0ae-4c8d-074d-08db732a0e93
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	OgPQLyh0kWWA213rJf7P5YoaOIGT4Nge98utaDo+3TA3IN8XItZJ3C/b6EtaxUKT65CpxbKJZafyp3M/fEjO6XuqE+wkTa95Xr7LYrkpZ+9qCu7BO59kRpjkjjbJXr2lbxZ74FtzvLOUped0XuiGZsqA3qLPsmCvnvplSFUGf2kFsQNqH3tSbSEIO3yjJXfYWq1nCHhHPV3iNb+xD0mr3nwKe2MZoSkDdOFIU18TLHpuyegSwthhwLaoeUZrtx2EB/REFdaA2enx8iBT68jRF06SS74pbmcMFS/yQyLjsnTx2sujp8/Eeow49x3hFkUCZ5bdbG9OydXtTZCeDfeGZRKF/QhdcwThAn3SRWefkRmAIwzLW2IEzv/VmzI/rBkr+e6yfH0XxG1ZyzW39k0Mc0OY5X8z/B9hTQ6WJGrIzNuLTN+kNQhnNfsURLsS1HbVCfSZ1H6SSSSyAHj5Ge0i6wP7F58ShitlTSzlVbV4uJ+n1h0+npJkKeAHS19hfP7l/TGbbMdLsWgL1usObelMFYa/CDCwDIWYYhXPhCSPKWU18PogSdcYW/8GxCIEkD3ejnTjYC0g6oxTv0Ls3B+mne20Rb5iQnJ2YnBg6fTaM+F2O94m8oRVYJiO+bAouF79JnwMUPLfzlDG9LJGmbcBsA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(136003)(396003)(39860400002)(366004)(376002)(451199021)(8676002)(8936002)(6666004)(6486002)(316002)(186003)(36756003)(26005)(66476007)(6512007)(41300700001)(6506007)(478600001)(53546011)(6916009)(4326008)(54906003)(66946007)(66556008)(83380400001)(2906002)(86362001)(38100700002)(2616005)(5660300002)(31686004)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?am85ZkdqWEJWZ0I2WjFWWFV5T2p5T3lrdHBNbUZNMDlLa2FqcDZHVWtQTXBZ?=
+ =?utf-8?B?UWY4YUQ4YzJuNzNyV3JmSENKbVhYaVhrOVU3QkozRXVJMzdJOUJrRFVTb3h6?=
+ =?utf-8?B?eEluUllaZmVvOGlsMkFJVnV3MlZ5VjUrblIxU290MytmcVlOTHB0YSswS2Zx?=
+ =?utf-8?B?QnpJcms2Z0NySjFKalI1OFhPbE5NVDlPdmdIZHhNNGt4U1NVU1AyVXU0ckNp?=
+ =?utf-8?B?YTl1RmYyS2p0YnY1WndUZEVURHlWaDZlcnVicHVtTm9DdGN6M1RKZUJnWUxE?=
+ =?utf-8?B?R3ErWEhQVWJBWHFlVFdJU3E0UURpWERLK3g4Rmh1eDlKczBNRmQ1d3ZmaU5J?=
+ =?utf-8?B?UU9hL09VM1FodG94U3N6QnZ6SEhvYndxRmVGOE5rbTM2NE1RV0dOSjNZeEd1?=
+ =?utf-8?B?K2FYWGNEN2NFVW9WRVhKVUVWRjg3Z2pYS3luZVMvTWVZZnpPUnIvREIxVFJW?=
+ =?utf-8?B?ZXc3NzJJTE02SGFrWXR4aWlXdjdKWEtXWmZPUlF1Z1BWNEtucVR0NW91d0x5?=
+ =?utf-8?B?Zkd0K20wQzBENE93b0EyYTNHbmlaTGZHSGhIdEE0QTF1SGo2T3RRVWc2S1RS?=
+ =?utf-8?B?YVYvNGYrTTRWTGErRWNINGluZ0JNSHZiZGRYL0N2K0pGYjlLUFVTc2Z1M0c3?=
+ =?utf-8?B?RVhCcVRLUE5ZWDRnZDNIQmYwUE9LZzFQM1gxZ2RiMS9KcVIxWCtMN1R3ZGlE?=
+ =?utf-8?B?Nk9PVm9oQ3E5aVZaa0s1dFIyOGhqNTMxY0xzcEpHNjN6M1lNV0Y0TUFLN09I?=
+ =?utf-8?B?ZkRUSkhlUGZqcGk3SnFHbDdEbmk0dmdGU3gyL3JpNWZaUTVVcFcrdjZjdTVN?=
+ =?utf-8?B?WllOODlLTWE3a2tkN09RMmlRWmJOcG1FZFdCSjUrRnl5SEZEUWs3QVFGSEd3?=
+ =?utf-8?B?MlAzRTFabjF6YnJYUWVQYUFpNVh0dElIbTlya2ZNSjVSVnpDTDJMbkVGcEFo?=
+ =?utf-8?B?bnB6YmU1VGk5eTRXRC9QZG9TOTQrZ3VYTFNLcjBmNitnRi9pVzRRQXlSc2dE?=
+ =?utf-8?B?anh3TzZBYmJ0L2dRcUpzWUt6U3ArWkZFdGZ2WmZBMUVpOE1aNm1Sd0o3UlFE?=
+ =?utf-8?B?b1ZDYnVlYVhrMEFjRUl3ZW9tdGJyS24zZnIyVXZ5c09mbnIzc0NGQXR1VGhm?=
+ =?utf-8?B?eHB1YkgyaFA0cVNKYnhWTkpwaTd1aENUTTdlNWo5YXI2Rnl0U0R5TjNmRnVo?=
+ =?utf-8?B?NnJvaVFzaW5wSlJSUHRRQ1l1WVBORzdIL3BqV2MzMFgzbS9rSTJxUEdpQzA1?=
+ =?utf-8?B?czFIY05FRFRFczRYNE5BaGVyb29YM215b1VMUVIzOFFIZnRLMUZYb1dsTldE?=
+ =?utf-8?B?QmMveWtxRmFIY1VTNk5jeUlkY2dEODBWc0trRXNONGhpOGI1Y3Y2bnI4azZN?=
+ =?utf-8?B?SWZGVjdsa3hhenFWVUx0c2I4MytpSXJaMlBncURrR1B5ekZoV3ZkRk1YSkhO?=
+ =?utf-8?B?bjdJVGlFbzJ3MlJ4ZmQzWkxjWGhrbTBrM1Q4Q3FkTTZRM1dDZ3BVdEpYMXpr?=
+ =?utf-8?B?VkhxbUtTWTlBMGx2QkxYQTRERS93aDlDaEdVVllacTFGUUI2dmpydFVBdXM1?=
+ =?utf-8?B?SFBoWDJnUjBFc0hDbzBHcFpDdmRUcjE0ck5EdTJOVjBMOGUvYlBHWXptU1B3?=
+ =?utf-8?B?WkR5bzc3WG43bk4rODliRkQ4eTBweUxLTStjK1lhZkU2RHF4Vy9qZVM3OWlD?=
+ =?utf-8?B?eEM2citJN1ZObzV6K0pGdG1IRHplWXlZMklCWm91eVVLTzI4WTZqd3g3YmtS?=
+ =?utf-8?B?K3p5YVJzVlN0TmNoTTVENnFsc2dMM0xuNTcyOXB3MlJtek1CK1l0QWplenk0?=
+ =?utf-8?B?SUNxNDMvMkZ5WDlYcWtBbHR6VkJUdGd3N29GWWQrZWF5WVdFNG1mWnFuU2d0?=
+ =?utf-8?B?SnZnT3oydkJIdldMWXdMVktrTFF6U0FPeU9QU3c4dlNsTW1vNHlSV1g0eU8v?=
+ =?utf-8?B?aGtQRzlMbGNESjdSdWpoL29kMlJJdUI2bEpINzc1RlJzczVIZTVJeFM0dFFT?=
+ =?utf-8?B?cld0TkFxTHorcTR6Tkc0VjZLcW05K3NCNk04eFBpNG5RaDBUMW5LRHk1S0pV?=
+ =?utf-8?B?USs3U3E5MU1WemQwUFd2a0sxYlpYMUJvdURRZVFpSnI4WVM4ejdXS3RjYk1R?=
+ =?utf-8?Q?RX39skPii26haodB3Ta3e+nPH?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25a44281-c0ae-4c8d-074d-08db732a0e93
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 14:07:47.5943
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sinFZKRWLn2A6CH8mu0axFzNJHFW4TBwuhrYf6+8mQN8iUUyz4eHAXV/VCyr30Eadyi0Sw2RYHWeRTpuGhlrGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9815
 
-Document the behaviour of the pdx machinery in Xen. Some logic is fairly
-opaque and hard to follow without it being documented anywhere. This
-explains the rationale behind compression and its relationship to
-frametable indexing and directmap management.
+On 22.06.2023 15:55, Peter Hoyes wrote:
+> From: Peter Hoyes <Peter.Hoyes@arm.com>
+> 
+> Dom0 may be accessed via telnet, meaning the default escape character
+> (which is the same as telnet's) cannot be directly used to exit the
+> console. It would be helpful to make the escape character customizable
+> in such use cases.
+> 
+> Add --escape argument to console tool for this purpose.
+> 
+> Create parse_escape_character static function to convert a character
+> string (which may include a '^' modifier) into an ANSI integer.
+> 
+> Add argument to getopt options, parse escape character and pass value
+> to console_loop.
+> 
+> If --escape is not specified, it falls back to the existing behavior
+> using DEFAULT_ESCAPE_SEQUENCE.
+> 
+> Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
+> ---
+>  tools/console/client/main.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
 
-While modifying the file:
-  * Convert u64 -> uint64_t
-  * Remove extern keyword from function prototypes
+Short of a cover letter, replying here: What has changed from v1? This
+then may or may not explain why Luca's R-b aren't here and in patch 2
+(anymore).
 
-No functional change.
-
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
-v2:
-  * [pdx.h] Moved pdx_init_mask() after pdx_region_mask() so comments are
-            more self-documenting
-
-  (Jan feedback)
-  * [pdx.c] Rewrote ma_bottom_mask as ma_va_bottom in comment.
-  * [pdx.c] Rewrote comment in pdx_region_mask() to explain in terms of
-            msb() rather than fill_mask().
-  * [mm.h] Made it explicit that the compression scheme might still yield
-           an identity mapping between mfn and pdx.
-  * [mm.h] Removed vaddr definition in mm.h
-  * [pdx.h] Refine definition of compression so it's clear it can apply to
-            many regions
-  * [pdx.h] s/they exist/they are backed by RAM/
-  * [pdx.h] Improved comment in pdx_region_mask()
-  * [pdx.h] Corrected mistaken comment in pdx_init_mask()
-  * [pdx.h] Added mathematical interval in comment for set_pdx_range()
-  * [pdx.h] Rewrote __mfn_valid() to refer to the frame table rather than
-            a pdx
----
- xen/common/pdx.c      |  67 +++++++++++++++++++--
- xen/include/xen/mm.h  |  10 +++
- xen/include/xen/pdx.h | 137 ++++++++++++++++++++++++++++++++++++++++--
- 3 files changed, 206 insertions(+), 8 deletions(-)
-
-diff --git a/xen/common/pdx.c b/xen/common/pdx.c
-index c91875fabe..27cdb49e17 100644
---- a/xen/common/pdx.c
-+++ b/xen/common/pdx.c
-@@ -20,13 +20,56 @@
- #include <xen/bitops.h>
- #include <xen/nospec.h>
- 
--/* Parameters for PFN/MADDR compression. */
-+/*
-+ * Diagram to make sense of the following variables. The masks and shifts
-+ * are done on mfn values in order to convert to/from pdx:
-+ *
-+ *                      pfn_hole_mask
-+ *                      pfn_pdx_hole_shift (mask bitsize)
-+ *                      |
-+ *                 |---------|
-+ *                 |         |
-+ *                 V         V
-+ *         --------------------------
-+ *         |HHHHHHH|000000000|LLLLLL| <--- mfn
-+ *         --------------------------
-+ *         ^       ^         ^      ^
-+ *         |       |         |------|
-+ *         |       |             |
-+ *         |       |             pfn_pdx_bottom_mask
-+ *         |       |
-+ *         |-------|
-+ *             |
-+ *             pfn_top_mask
-+ *
-+ * ma_{top,va_bottom}_mask is simply a shifted pfn_{top,pdx_bottom}_mask,
-+ * where ma_top_mask has zeroes shifted in while ma_va_bottom_mask has
-+ * ones.
-+ */
-+
-+/** Maximum (non-inclusive) usable pdx */
- unsigned long __read_mostly max_pdx;
-+
-+/** Mask for the lower non-compressible bits of an mfn */
- unsigned long __read_mostly pfn_pdx_bottom_mask = ~0UL;
-+
-+/** Mask for the lower non-compressible bits of an maddr or vaddr */
- unsigned long __read_mostly ma_va_bottom_mask = ~0UL;
-+
-+/** Mask for the higher non-compressible bits of an mfn */
- unsigned long __read_mostly pfn_top_mask = 0;
-+
-+/** Mask for the higher non-compressible bits of an maddr or vaddr */
- unsigned long __read_mostly ma_top_mask = 0;
-+
-+/**
-+ * Mask for a pdx compression bit slice.
-+ *
-+ *  Invariant: valid(mfn) implies (mfn & pfn_hole_mask) == 0
-+ */
- unsigned long __read_mostly pfn_hole_mask = 0;
-+
-+/** Number of bits of the "compressible" bit slice of an mfn */
- unsigned int __read_mostly pfn_pdx_hole_shift = 0;
- 
- unsigned long __read_mostly pdx_group_valid[BITS_TO_LONGS(
-@@ -42,7 +85,7 @@ bool __mfn_valid(unsigned long mfn)
- }
- 
- /* Sets all bits from the most-significant 1-bit down to the LSB */
--static u64 __init fill_mask(u64 mask)
-+static uint64_t __init fill_mask(uint64_t mask)
- {
-     while (mask & (mask + 1))
-         mask |= mask + 1;
-@@ -57,9 +100,25 @@ uint64_t __init pdx_init_mask(uint64_t base_addr)
-                          (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
- }
- 
--u64 __init pdx_region_mask(u64 base, u64 len)
-+uint64_t __init pdx_region_mask(uint64_t base, uint64_t len)
- {
--    return fill_mask(base ^ (base + len - 1));
-+    uint64_t last = base + len - 1;
-+    /*
-+     * The only bit that matters in base^last is the MSB. There are 2 cases.
-+     *
-+     * case msb(base) < msb(last):
-+     *     then msb(fill_mask(base^last)) == msb(last). This is non
-+     *     compressible.
-+     * case msb(base) == msb(last):
-+     *     This means that there _may_ be a sequence of compressible zeroes
-+     *     for all addresses between `base` and `last` iff `base` has enough
-+     *     trailing zeroes. That is, it's compressible when
-+     *     msb(fill_mask(base^last)) < msb(last)
-+     *
-+     * The resulting mask is effectively the moving bits between `base` and
-+     * `last`.
-+     */
-+    return fill_mask(base ^ last);
- }
- 
- void set_pdx_range(unsigned long smfn, unsigned long emfn)
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index b0dc3ba9c9..7e4b190357 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -31,6 +31,16 @@
-  *   (i.e. all devices assigned to) a guest share a single DMA address space
-  *   and, by default, Xen will ensure dfn == pfn.
-  *
-+ * pdx: Page InDeX
-+ *   Indices into the frame table holding the per-page's book-keeping
-+ *   metadata. A compression scheme is used and there's a possibly non
-+ *   identity mapping between valid(mfn) <-> valid(pdx). In particular, the
-+ *   mapping happens to be identity when the ranges are not compressible.
-+ *   See the comments in pdx.c for an in-depth explanation of that mapping.
-+ *
-+ * maddr: Machine Address
-+ *   The physical address that corresponds to an mfn
-+ *
-  * WARNING: Some of these terms have changed over time while others have been
-  * used inconsistently, meaning that a lot of existing code does not match the
-  * definitions above.  New code should use these terms as described here, and
-diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
-index 9fcfb0ce52..b3ff2aad09 100644
---- a/xen/include/xen/pdx.h
-+++ b/xen/include/xen/pdx.h
-@@ -1,6 +1,67 @@
- #ifndef __XEN_PDX_H__
- #define __XEN_PDX_H__
- 
-+/*
-+ * PDX (Page inDeX)
-+ *
-+ * This file deals with optimisations pertaining frame table indexing,
-+ * A pdx is an index into the frame table. However, having an identity
-+ * relationship between mfn and pdx could waste copious amounts of memory
-+ * in empty frame table entries. There are some techniques to bring memory
-+ * wastage down.
-+ *
-+ * ## PDX grouping
-+ *
-+ * The frame table may have some sparsity even on systems where the memory
-+ * banks are tightly packed. This is due to system quirks (like the PCI
-+ * hole) which might introduce several GiB of unused page frame numbers
-+ * that uselessly waste memory in the frame table. PDX grouping addresses
-+ * this by keeping a bitmap of the ranges in the frame table containing
-+ * invalid entries and not allocating backing memory for them.
-+ *
-+ * ## PDX compression
-+ *
-+ * This is a technique to avoid wasting memory on machines known to have
-+ * split their machine address space in several big discontinuous and highly
-+ * disjoint chunks.
-+ *
-+ * In its uncompressed form the frame table must have book-keeping metadata
-+ * structures for every page between [0, max_mfn) (whether they are backed
-+ * by RAM or not), and a similar condition exists for the direct map. We
-+ * know some systems, however, that have some sparsity in their address
-+ * space, leading to a lot of wastage in the form of unused frame table
-+ * entries.
-+ *
-+ * This is where compression becomes useful. The idea is to note that if
-+ * you have several big chunks of memory sufficiently far apart you can
-+ * ignore the middle part of the address because it will always contain
-+ * zeroes as long as the base address is sufficiently well aligned and the
-+ * length of the region is much smaller than the base address.
-+ *
-+ * i.e:
-+ *   Consider 2 regions of memory. One starts at 0 while the other starts
-+ *   at offset 2^off_h. Furthermore, let's assume both regions are smaller
-+ *   than 2^off_l. This means that all addresses between [2^off_l, 2^off_h)
-+ *   are invalid and we can assume them to be zero on all valid addresses.
-+ *
-+ *                 off_h     off_l
-+ *                 |         |
-+ *                 V         V
-+ *         --------------------------
-+ *         |HHHHHHH|000000000|LLLLLL| <--- mfn
-+ *         --------------------------
-+ *           ^ |
-+ *           | | (de)compression by adding/removing "useless" zeroes
-+ *           | V
-+ *         ---------------
-+ *         |HHHHHHHLLLLLL| <--- pdx
-+ *         ---------------
-+ *
-+ * This scheme also holds for multiple regions, where HHHHHHH acts as
-+ * the region identifier and LLLLLL fully contains the span of every
-+ * region involved. Consider the following 3 regions.
-+ */
-+
- #ifdef CONFIG_HAS_PDX
- 
- extern unsigned long max_pdx;
-@@ -13,22 +74,81 @@ extern unsigned long pfn_top_mask, ma_top_mask;
-                          (sizeof(*frame_table) & -sizeof(*frame_table)))
- extern unsigned long pdx_group_valid[];
- 
--extern uint64_t pdx_init_mask(u64 base_addr);
--extern u64 pdx_region_mask(u64 base, u64 len);
-+/**
-+ * Calculates a mask covering "moving" bits of all addresses of a region
-+ *
-+ * The i-th bit of the mask must be set if there's 2 different addresses
-+ * in the region that have different j-th bits. where j >= i.
-+ *
-+ * e.g:
-+ *       base=0x1B00000000
-+ *   len+base=0x1B00082000
-+ *
-+ *   ought to return 0x00000FFFFF, which implies that every bit position
-+ *   with a zero in the mask remains unchanged in every address of the
-+ *   region.
-+ *
-+ * @param base Base address of the region
-+ * @param len  Size in octets of the region
-+ * @return Mask of moving bits at the bottom of all the region addresses
-+ */
-+uint64_t pdx_region_mask(uint64_t base, uint64_t len);
- 
--extern void set_pdx_range(unsigned long smfn, unsigned long emfn);
-+/**
-+ * Creates a basic pdx mask
-+ *
-+ * This mask is used to determine non-compressible bits. No address in the
-+ * system shall have compressible bits covered by this initial mask.
-+ *
-+ * It's the larger of:
-+ *   - A mask of MAX_ORDER + PAGESHIFT 1s
-+ *   - base_addr rounded up to the nearest `2^n - 1`
-+ *
-+ * @param base_addr Address of the first maddr in the system
-+ * @return An integer of the form 2^n - 1
-+ */
-+uint64_t pdx_init_mask(uint64_t base_addr);
-+
-+/**
-+ * Mark [smfn, emfn) as allocatable in the frame table
-+ *
-+ * @param smfn Start mfn
-+ * @param emfn End mfn
-+ */
-+void set_pdx_range(unsigned long smfn, unsigned long emfn);
- 
- #define page_to_pdx(pg)  ((pg) - frame_table)
- #define pdx_to_page(pdx) gcc11_wrap(frame_table + (pdx))
- 
-+/**
-+ * Invoked to determine if an mfn has an associated valid frame table entry
-+ *
-+ * In order for it to be legal it must pass bounds, grouping and
-+ * compression sanity checks.
-+ *
-+ * @param mfn To-be-checked mfn
-+ * @return True iff all checks pass
-+ */
- bool __mfn_valid(unsigned long mfn);
- 
-+/**
-+ * Map pfn to its corresponding pdx
-+ *
-+ * @param pfn Frame number
-+ * @return Obtained pdx after compressing the pfn
-+ */
- static inline unsigned long pfn_to_pdx(unsigned long pfn)
- {
-     return (pfn & pfn_pdx_bottom_mask) |
-            ((pfn & pfn_top_mask) >> pfn_pdx_hole_shift);
- }
- 
-+/**
-+ * Map a pdx to its corresponding pfn
-+ *
-+ * @param pdx Page index
-+ * @return Obtained pfn after decompressing the pdx
-+ */
- static inline unsigned long pdx_to_pfn(unsigned long pdx)
- {
-     return (pdx & pfn_pdx_bottom_mask) |
-@@ -38,7 +158,16 @@ static inline unsigned long pdx_to_pfn(unsigned long pdx)
- #define mfn_to_pdx(mfn) pfn_to_pdx(mfn_x(mfn))
- #define pdx_to_mfn(pdx) _mfn(pdx_to_pfn(pdx))
- 
--extern void pfn_pdx_hole_setup(unsigned long);
-+/**
-+ * Initializes global variables with information about the compressible
-+ * range of the current memory regions.
-+ *
-+ * @param mask This mask is the biggest pdx_mask of every region in the
-+ *             system ORed with all base addresses of every region in the
-+ *             system. This results in a mask where every zero in a bit
-+ *             position marks a potentially compressible bit.
-+ */
-+void pfn_pdx_hole_setup(unsigned long mask);
- 
- #endif /* HAS_PDX */
- #endif /* __XEN_PDX_H__ */
--- 
-2.34.1
-
+Jan
 
