@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B26473B0F7
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jun 2023 08:55:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554236.865319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAE373B13F
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jun 2023 09:22:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554243.865329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCahG-0000AR-CG; Fri, 23 Jun 2023 06:55:06 +0000
+	id 1qCb6w-0003cS-9v; Fri, 23 Jun 2023 07:21:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554236.865319; Fri, 23 Jun 2023 06:55:06 +0000
+Received: by outflank-mailman (output) from mailman id 554243.865329; Fri, 23 Jun 2023 07:21:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qCahG-00008X-8Q; Fri, 23 Jun 2023 06:55:06 +0000
-Received: by outflank-mailman (input) for mailman id 554236;
- Fri, 23 Jun 2023 06:55:05 +0000
+	id 1qCb6w-0003aJ-75; Fri, 23 Jun 2023 07:21:38 +0000
+Received: by outflank-mailman (input) for mailman id 554243;
+ Fri, 23 Jun 2023 07:21:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4arX=CL=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qCahE-00008M-Sa
- for xen-devel@lists.xenproject.org; Fri, 23 Jun 2023 06:55:04 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O1Yh=CL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qCb6u-0003aD-J4
+ for xen-devel@lists.xenproject.org; Fri, 23 Jun 2023 07:21:36 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0629.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e04f4137-1192-11ee-b237-6b7b168915f2;
- Fri, 23 Jun 2023 08:55:02 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.163.242.22])
- by support.bugseng.com (Postfix) with ESMTPSA id 3FE4D4EE0737;
- Fri, 23 Jun 2023 08:55:00 +0200 (CEST)
+ id 959dad5a-1196-11ee-b237-6b7b168915f2;
+ Fri, 23 Jun 2023 09:21:35 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DU2PR04MB9113.eurprd04.prod.outlook.com (2603:10a6:10:2f4::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Fri, 23 Jun
+ 2023 07:21:33 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6521.024; Fri, 23 Jun 2023
+ 07:21:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,447 +47,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e04f4137-1192-11ee-b237-6b7b168915f2
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN PATCH v2] xen/arm: fix violations of MISRA C:2012 R8.3 on parameter names.
-Date: Fri, 23 Jun 2023 08:54:49 +0200
-Message-Id: <11c50030015014ff1a80dca849a4262133b2707a.1687502320.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 959dad5a-1196-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=crttS2Gd+FK2wgIjysEDa4GRj8kYN/TDvrTapI2nUvuR7VqLG6+j8ThUfHedGDgaRudtkcjuq4xi2o1Zk56ywRJw7F9uWVdu0cCAsXn1gGKqVKz71XcHtuYLz+Dhi1mIComZSzhqyYCNlrWxg9OOLyv7H6qKYjXPEdzzzMeB16TXWaE9f3JAvpMokujhGOA64Cs/69/scBpbL+q7AiPfX2XwBkWqeJQjBnwK2Hi5U25yMXIntpT/oVCaIGg7EP2Ej2k4uIqrc8QDzaUYa9x9BJmPkD/ujyC1L4yzd7rFh2bA2yt0yN3Yh/XJrI8aMykt8sWs9MWIrXlLzhp21bPJ9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qjLDupfVjULKpMwZUwyeJwVzkBbpwSa3UNCGEG8SP9w=;
+ b=KyGqIqV5xiN3EW8WLylxIqcOcymSML2rcq5yEiTKerU4DvGu17cm+du0ywj0C5nOvYaWRxhqbtoFgwNmF4Cc4tI3LzTXL22WWMDj8avX4qvIykcedayPwfn5/nfhuM2kIF422LPzOucUoqv70tzvYhtA4odx7DmeRGZ1UK3D7tXl7DuprZ+5ptGtd1kA2Awn+HPbe/90XJHWoZjbrvrACo7TsrCzU7O6ClTbThGsiwzOEFK+gIRc5v7wi6imDnmwLdpmGHAyQBRScObeP3rsqnn/du85m6VPmSeX49w+aEC4KpTI0Tsl1TiOWy/H+PtVdL0OWQMqoAJamTPIuvdzpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qjLDupfVjULKpMwZUwyeJwVzkBbpwSa3UNCGEG8SP9w=;
+ b=Wu5X9lZmyixujSJFyE5aWU3uICmbExrRYo0mtKP26ACW4E0rWMgv6jE581zNQPNkVACquR50E9eo/zZHFfc7dSeNSLih2JNP0RP95qv0zgTOh500S+05VVtIPAWFlYFxjt4KXtK9YhtFOxNMlQDwQ1A8+qSu4rmVsb+lBDjhltF+E85M41j2HLk4I4DHkcxMAwk5ttAyzvOsn3rTxQvZUVgUIBCiMbKDIw9/sv7g5b7HxsuxxeVUu4LLTAqtrIH25rsa+NmqQz4KtpGk/D/0BvcsLcnC83xtzU22+eyCqtzfaEwWP5ufX3b/GLZ+b4hBDUzS+OSpDUZ86z3ME/HVSA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <b815713b-3860-df53-1d57-fbcd30f12764@suse.com>
+Date: Fri, 23 Jun 2023 09:21:22 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 2/3] xen/ppc: Implement early serial printk on pseries
+Content-Language: en-US
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1687466822.git.sanastasio@raptorengineering.com>
+ <bac07ac781e8901f558fedb7d2943bda4bb700d4.1687466822.git.sanastasio@raptorengineering.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <bac07ac781e8901f558fedb7d2943bda4bb700d4.1687466822.git.sanastasio@raptorengineering.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0062.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::23) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB9113:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce8c1e2d-788c-4de8-b591-08db73ba73c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	v83X1X474W7v6j5h328Yc4/mtGXLxLsoNYDm04+EbNV0b4wxkYSmNFKut7s9QDNTkqmeYnVKZ9v+rC9UdfP5PL8UDdoybUDaxcVuTpSgfMhG+JcJvWl+B0AUVDCQy2N26nHZok9L1QW9MdljiuRilnl136wIuK1Y2+yZYSJnHW74/h/cqZ+BJ+wRs2vSZ7Qcp/1E9V31ZEq6M8DLFWQvdZO+NjyZ13kkPtNsI+ydJ7gvKMDTop4KurKCmmuESemNlhETQYIQ9ly+C5SNBuAC75HIIpKV0a+w+tcQr9XBoLaxzLfPGqRFWCJJI3UyyyHU+FAEbsSvmn/0e0IDzazb3FbLV0WaTbQlz+ryj32IVowLx2qoxkwF8hW+dHr8BumsA56LhOPIpAng08ZXG5HLLEfS1MW1S81V9NcbVuqdsTWWrbHY9RJFf0dnecYpby9ZLV4QXg939cloxO3izb1IbethW+Q/cmp4KkZ/fZ2axdh3gfQGSCQ216w3dSGMVWHMNy+jrZNvwKLU5kt0ezzti23Qt93R5b0s3Rdx6qYsdKuXPbjVW6UBPzt+3Us580IJ1cDhMtSY4b9/8LALVEOUPVPtRd4hHMz6EExjky8oj+BEHYKGaHgk7m8NG0E/KTlgbjtV5KTFAXrLoaGh3SxqsA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(136003)(366004)(346002)(39860400002)(396003)(451199021)(31686004)(83380400001)(41300700001)(8676002)(8936002)(316002)(2616005)(186003)(38100700002)(6506007)(53546011)(6512007)(26005)(6486002)(6666004)(54906003)(478600001)(36756003)(31696002)(86362001)(4326008)(66946007)(66556008)(66476007)(6916009)(2906002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R1EwUk9YZ2dla2p6YWlQTjVBVUhMa0RKYzNjZms4R3N6elp3WjREOWIyQnVs?=
+ =?utf-8?B?b2wrTXd4WGFHcVRBWGxLMnh5KzBSMnA0ZFZpMFpYeFFQUjlXZFI4c0FHdGF6?=
+ =?utf-8?B?YzNXSjR5aHI5eWh5ajZRbmpvVU1hRXFUMEY1SDgvcmJRSXRVT1ZOTmsyZW1I?=
+ =?utf-8?B?NTB5eXBBSlBaTTE5c0NOWkFvUjJCZklybzl0R1BadmdPb3Z4SGtrY1V3R2Va?=
+ =?utf-8?B?OExLWUFtMFJDUnlMZGJJbjA1TjVyMElWT2h1a21mK29ldWxraFFZZFBiZDV4?=
+ =?utf-8?B?a3UyNzBNUVlJV2pDSHRjWXNpWTlRNEJoc3NWSm44OUdYcXJEek00T2lZdXJH?=
+ =?utf-8?B?VHliWmpIYkRrR1B6a1lXQVlWeEY2YzdXd01sTjY2cUNZaENpbTd5em5iSDUy?=
+ =?utf-8?B?aUJVSEgya3dRZlBqNUg2ai9XNG1RaDdCZ25rbGRFaDgzalFHeEJCWWI0bm45?=
+ =?utf-8?B?WUJBRlVDUStWQ25nMFIxS3JxUEpwbHd0WjVYYmo3MnYwc2NNWkdFOEdpdU5E?=
+ =?utf-8?B?azFKREp0RlRSYld6ZEV2anRXUnovSldsVEdxUTJYZUFpWCtkS0djU25VZlM5?=
+ =?utf-8?B?WGh5TFV4bVQwL0dDenJiWmVLRVpkN3ZWWXJsMWJ1Y2ZiY0ZQb0xYdXZLQ0wv?=
+ =?utf-8?B?bzBpWGU3OFhkbmwxVmlZMUNLNWlsbG9IR3htUENTWTk5RkJuMDVTejZEQ3R0?=
+ =?utf-8?B?WjhDT3JEMXRFeUV2eFYvelVzZlpMSEh1akxQcmNiTkxTYStDK09VcjNsckJ3?=
+ =?utf-8?B?UkFRa0xUSWd0bW4xT3EvWjBmQWIxYUpDOVVwVXM3dCswcndZUGVDazZkZDBG?=
+ =?utf-8?B?R1pYdmJ3MXF5MkNPQTN2QVZwUy9rTHdkdVVkcWtTTjNjM0dHRXBKcXptRW5t?=
+ =?utf-8?B?T096Z0pCVStKdTZYUk1JejZMWmpVU2s1Wk5rZ0VxYkNrMkpIRDFhZnV0aEtk?=
+ =?utf-8?B?R1dZWGRSaEczYXl3cmxwRGRBeVBSTUpxa20wcmlNempGL3JOYnFLcngzYjd6?=
+ =?utf-8?B?cDJHM2pZdm5zK0FrT0tBL1ZsdnF3RnphajdqRktHR0R4R25uSkNPZGhUZy9r?=
+ =?utf-8?B?d3lHRlV4UnZqaDNyR2FuZFhZSVo3Z3dmdEN0VzY0SU91WjFzL0JDNWhDNlo3?=
+ =?utf-8?B?emtLOFZLSVhIemJJVVhXRkFmcU1TQ29JdFBFRGduQVRwNjY1SUJPL1Q5VEF1?=
+ =?utf-8?B?aXVPdjhOZko2Y3IyblQrQWdCLzB6Y1NZRU5KNnY2cXgyaXhvOHBVbVQ2aUZp?=
+ =?utf-8?B?UXkrYnd4d0dkRmVBT016TTZ0dnU2ckdCSCtZU2xHU0JUUWlJYjBCNmhQS0U5?=
+ =?utf-8?B?dkJ5NW00bkZEamFNYjE3RXZSQnoyQnN5QU9jTHhtbmxaVC9oaHY5dlJTckRr?=
+ =?utf-8?B?OTFLWnNmQm5IdkF4N2xtU3REb0lkLytvYVZxWkNXYVZCd21HbGttUDhtZ2N1?=
+ =?utf-8?B?NFM1Q1lMTzZLUEVDQjY2b0xNaUVxZXhSKzBlOC9uNUQwMHdoVGhyVDZoc0Jv?=
+ =?utf-8?B?SUxibjE4WExGay9PSlcydUdXUUh2Qkh3YVFvOFJvM0wydnJDY0RPNkdFb3A4?=
+ =?utf-8?B?VjFNZHlYMmVRc2RqSVA0VGFLMDEvMG9UZy90Q0ptMlJJRTJTU3lXQ1p3M1Nm?=
+ =?utf-8?B?QTdQNVgzZmVjZlFWY1o0b0luall6a1BveHRXTFVCeDlFZGpDSGNoN0lBaUlt?=
+ =?utf-8?B?SUFRcU1nYTZWMUtVYWVsWXdrR1YyOXIyYlg0L1Z6cUV3RDM1NUdIMEY3WXdK?=
+ =?utf-8?B?bHRSRStSWjFUbERwaGVvRGJJTTcxNGpkYi9RQkwraXdTekUxOHhLTDFyejBq?=
+ =?utf-8?B?amM1SXl3eHNtcERhbzgzWWlnR25jZTd6cFB1SjJqQlEvOWlLaklPemhyNUUr?=
+ =?utf-8?B?cnhnQjR5MXZwdGQyakZDUkNDVTQ1Z2ZJUXhqTkxtT2wyUzEwbTVFdDlWbFJK?=
+ =?utf-8?B?OHRrdnNOWEVMdWZnNXREYlB5WndJSTVMb2RscHkwU3FUbkRnNHdoTVk5ZjZU?=
+ =?utf-8?B?bEwzbHQxT3ZJL1YxMFhUS0h4WWZMRTVHYXdlV0tmSmMzMnUwNzdPNVFkVTk2?=
+ =?utf-8?B?YjhsYkpMTW80Z1hrSjJGRHh6dkhnOFFORzFoS0hUTm8wYmRZUjFnLzFXT3ZV?=
+ =?utf-8?Q?GqJM6AOpY3xnLcogKR3nlQ9Nj?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce8c1e2d-788c-4de8-b591-08db73ba73c2
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2023 07:21:24.7868
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NJ3APBcu2YSM/eDin7onOz3AbNEoO/vczjnUPY/KUOxSjkLGcqRZWOpjUXd9zJviehCdJmHu4rtNswA20Vj+gg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9113
 
-To comply with Rule 8.3 ("All declarations of an object or function
-shall use the same names and type qualifiers") change the parameter
-names in order to have function declarations consistent with the
-corresponding definitions.
+On 22.06.2023 22:57, Shawn Anastasio wrote:
+> On typical Power VMs (e.g. QEMU's -M pseries), a variety of services
+> including an early serial console are provided by Open Firmware.
+> Implement the required interfaces to call into Open Firmware and write
+> to the serial console.
+> 
+> Since Open Firmware runs in 32-bit Big Endian mode and Xen runs in
+> 64-bit Little Endian mode, a thunk is required to save/restore
+> any potentially-clobbered registers as well as to perform the
+> required endianness switch. Thankfully, linux already has such
+> a routine, which was imported into ppc64/of-call.S.
+> 
+> Support for bare metal (PowerNV) will be implemented in a future
+> patch.
+> 
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-Change the function identifier 'access_guest_memory_by_ipa' to
-'access_guest_memory_by_gpa' in accordance with modifications on its
-formal parameters: 'gpa' is used more frequently than 'ipa' and is
-therefore preferable.
+Just two minor remarks; I can't really review most of this for
+lack of knowledge.
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v2:
-  - adapted parameter names in function definitions to the names used
-    in function declarations when the context requires it;
-  - reflected changes to the function identifier in order to maintain
-    consistency with modifications on parameter names;
-  - extended changes to definitions under xen/arch/arm/vgic.
----
- xen/arch/arm/domain.c                   | 10 +++++-----
- xen/arch/arm/guest_walk.c               |  6 +++---
- xen/arch/arm/guestcopy.c                |  2 +-
- xen/arch/arm/include/asm/fixmap.h       |  2 +-
- xen/arch/arm/include/asm/gic.h          |  2 +-
- xen/arch/arm/include/asm/gic_v3_its.h   |  5 +++--
- xen/arch/arm/include/asm/grant_table.h  |  4 ++--
- xen/arch/arm/include/asm/guest_access.h |  4 ++--
- xen/arch/arm/include/asm/irq.h          |  2 +-
- xen/arch/arm/include/asm/regs.h         |  2 +-
- xen/arch/arm/include/asm/vgic.h         |  4 ++--
- xen/arch/arm/mm.c                       | 10 +++++-----
- xen/arch/arm/tee/optee.c                | 10 +++++-----
- xen/arch/arm/vgic-v3-its.c              | 16 ++++++++--------
- xen/arch/arm/vgic/vgic-init.c           | 12 ++++++------
- 15 files changed, 46 insertions(+), 45 deletions(-)
+> --- a/xen/arch/ppc/Makefile
+> +++ b/xen/arch/ppc/Makefile
+> @@ -1,4 +1,6 @@
+>  obj-$(CONFIG_PPC64) += ppc64/
+> +obj-y += boot-of.init.o
+> +obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+>  obj-y += setup.o
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index add9929b79..8c18e92079 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -1155,15 +1155,15 @@ void vcpu_block_unless_event_pending(struct vcpu *v)
-         vcpu_unblock(current);
- }
- 
--void vcpu_kick(struct vcpu *vcpu)
-+void vcpu_kick(struct vcpu *v)
- {
--    bool running = vcpu->is_running;
-+    bool running = v->is_running;
- 
--    vcpu_unblock(vcpu);
--    if ( running && vcpu != current )
-+    vcpu_unblock(v);
-+    if ( running && v != current )
-     {
-         perfc_incr(vcpu_kick);
--        smp_send_event_check_mask(cpumask_of(vcpu->processor));
-+        smp_send_event_check_mask(cpumask_of(v->processor));
-     }
- }
- 
-diff --git a/xen/arch/arm/guest_walk.c b/xen/arch/arm/guest_walk.c
-index c80a0ce55b..d99b411f3b 100644
---- a/xen/arch/arm/guest_walk.c
-+++ b/xen/arch/arm/guest_walk.c
-@@ -85,7 +85,7 @@ static bool guest_walk_sd(const struct vcpu *v,
-     paddr |= (gva & mask) >> 18;
- 
-     /* Access the guest's memory to read only one PTE. */
--    ret = access_guest_memory_by_ipa(d, paddr, &pte, sizeof(short_desc_t), false);
-+    ret = access_guest_memory_by_gpa(d, paddr, &pte, sizeof(short_desc_t), false);
-     if ( ret )
-         return false;
- 
-@@ -110,7 +110,7 @@ static bool guest_walk_sd(const struct vcpu *v,
-         paddr = ((paddr_t)pte.walk.base << 10) | ((gva & mask) >> 10);
- 
-         /* Access the guest's memory to read only one PTE. */
--        ret = access_guest_memory_by_ipa(d, paddr, &pte, sizeof(short_desc_t), false);
-+        ret = access_guest_memory_by_gpa(d, paddr, &pte, sizeof(short_desc_t), false);
-         if ( ret )
-             return false;
- 
-@@ -481,7 +481,7 @@ static bool guest_walk_ld(const struct vcpu *v,
-         paddr |= LPAE_TABLE_INDEX_GS(grainsizes[gran], level, gva) << 3;
- 
-         /* Access the guest's memory to read only one PTE. */
--        ret = access_guest_memory_by_ipa(d, paddr, &pte, sizeof(lpae_t), false);
-+        ret = access_guest_memory_by_gpa(d, paddr, &pte, sizeof(lpae_t), false);
-         if ( ret )
-             return false;
- 
-diff --git a/xen/arch/arm/guestcopy.c b/xen/arch/arm/guestcopy.c
-index 225fd343dd..6716b03561 100644
---- a/xen/arch/arm/guestcopy.c
-+++ b/xen/arch/arm/guestcopy.c
-@@ -142,7 +142,7 @@ unsigned long copy_to_guest_phys_flush_dcache(struct domain *d,
-                       COPY_to_guest | COPY_ipa | COPY_flush_dcache);
- }
- 
--int access_guest_memory_by_ipa(struct domain *d, paddr_t gpa, void *buf,
-+int access_guest_memory_by_gpa(struct domain *d, paddr_t gpa, void *buf,
-                                uint32_t size, bool is_write)
- {
-     unsigned long left;
-diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
-index d0c9a52c8c..734eb9b1d4 100644
---- a/xen/arch/arm/include/asm/fixmap.h
-+++ b/xen/arch/arm/include/asm/fixmap.h
-@@ -30,7 +30,7 @@
- extern lpae_t xen_fixmap[XEN_PT_LPAE_ENTRIES];
- 
- /* Map a page in a fixmap entry */
--extern void set_fixmap(unsigned int map, mfn_t mfn, unsigned int attributes);
-+extern void set_fixmap(unsigned int map, mfn_t mfn, unsigned int flags);
- /* Remove a mapping from a fixmap entry */
- extern void clear_fixmap(unsigned int map);
- 
-diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.h
-index 76e3fa5dc4..f1ef347edc 100644
---- a/xen/arch/arm/include/asm/gic.h
-+++ b/xen/arch/arm/include/asm/gic.h
-@@ -257,7 +257,7 @@ int gic_remove_irq_from_guest(struct domain *d, unsigned int virq,
- extern void gic_clear_pending_irqs(struct vcpu *v);
- 
- extern void init_maintenance_interrupt(void);
--extern void gic_raise_guest_irq(struct vcpu *v, unsigned int irq,
-+extern void gic_raise_guest_irq(struct vcpu *v, unsigned int virtual_irq,
-         unsigned int priority);
- extern void gic_raise_inflight_irq(struct vcpu *v, unsigned int virtual_irq);
- 
-diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/asm/gic_v3_its.h
-index fae3f6ecef..c24d4752d0 100644
---- a/xen/arch/arm/include/asm/gic_v3_its.h
-+++ b/xen/arch/arm/include/asm/gic_v3_its.h
-@@ -190,8 +190,9 @@ struct pending_irq *gicv3_its_get_event_pending_irq(struct domain *d,
-                                                     uint32_t eventid);
- int gicv3_remove_guest_event(struct domain *d, paddr_t vdoorbell_address,
-                                      uint32_t vdevid, uint32_t eventid);
--struct pending_irq *gicv3_assign_guest_event(struct domain *d, paddr_t doorbell,
--                                             uint32_t devid, uint32_t eventid,
-+struct pending_irq *gicv3_assign_guest_event(struct domain *d,
-+                                             paddr_t vdoorbell_address,
-+                                             uint32_t vdevid, uint32_t eventid,
-                                              uint32_t virt_lpi);
- void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
-                                  uint32_t virt_lpi);
-diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
-index e13dfeefa5..c2b0dbc806 100644
---- a/xen/arch/arm/include/asm/grant_table.h
-+++ b/xen/arch/arm/include/asm/grant_table.h
-@@ -36,10 +36,10 @@ static inline bool gnttab_release_host_mappings(const struct domain *d)
-     return true;
- }
- 
--int create_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
-+int create_grant_host_mapping(unsigned long gpaddr, mfn_t frame,
-                               unsigned int flags, unsigned int cache_flags);
- int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
--                               unsigned long new_gpaddr, unsigned int flags);
-+                               unsigned long new_addr, unsigned int flags);
- 
- /*
-  * The region used by Xen on the memory will never be mapped in DOM0
-diff --git a/xen/arch/arm/include/asm/guest_access.h b/xen/arch/arm/include/asm/guest_access.h
-index 4421e43611..18c88b70d7 100644
---- a/xen/arch/arm/include/asm/guest_access.h
-+++ b/xen/arch/arm/include/asm/guest_access.h
-@@ -12,11 +12,11 @@ unsigned long raw_clear_guest(void *to, unsigned int len);
- 
- /* Copy data to guest physical address, then clean the region. */
- unsigned long copy_to_guest_phys_flush_dcache(struct domain *d,
--                                              paddr_t phys,
-+                                              paddr_t gpa,
-                                               void *buf,
-                                               unsigned int len);
- 
--int access_guest_memory_by_ipa(struct domain *d, paddr_t ipa, void *buf,
-+int access_guest_memory_by_gpa(struct domain *d, paddr_t gpa, void *buf,
-                                uint32_t size, bool is_write);
- 
- #define __raw_copy_to_guest raw_copy_to_guest
-diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
-index 11bc85d111..105b33b37d 100644
---- a/xen/arch/arm/include/asm/irq.h
-+++ b/xen/arch/arm/include/asm/irq.h
-@@ -76,7 +76,7 @@ void init_IRQ(void);
- 
- int route_irq_to_guest(struct domain *d, unsigned int virq,
-                        unsigned int irq, const char *devname);
--int release_guest_irq(struct domain *d, unsigned int irq);
-+int release_guest_irq(struct domain *d, unsigned int virq);
- 
- void arch_move_irqs(struct vcpu *v);
- 
-diff --git a/xen/arch/arm/include/asm/regs.h b/xen/arch/arm/include/asm/regs.h
-index 0693a68131..ef34b38aa1 100644
---- a/xen/arch/arm/include/asm/regs.h
-+++ b/xen/arch/arm/include/asm/regs.h
-@@ -58,7 +58,7 @@ static inline bool guest_mode(const struct cpu_user_regs *r)
- }
- 
- register_t get_user_reg(struct cpu_user_regs *regs, int reg);
--void set_user_reg(struct cpu_user_regs *regs, int reg, register_t val);
-+void set_user_reg(struct cpu_user_regs *regs, int reg, register_t value);
- 
- #endif
- 
-diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
-index 328fd46d1b..aa9f49409e 100644
---- a/xen/arch/arm/include/asm/vgic.h
-+++ b/xen/arch/arm/include/asm/vgic.h
-@@ -355,8 +355,8 @@ bool vgic_evtchn_irq_pending(struct vcpu *v);
- int domain_vgic_register(struct domain *d, int *mmio_count);
- int domain_vgic_init(struct domain *d, unsigned int nr_spis);
- void domain_vgic_free(struct domain *d);
--int vcpu_vgic_init(struct vcpu *vcpu);
--int vcpu_vgic_free(struct vcpu *vcpu);
-+int vcpu_vgic_init(struct vcpu *v);
-+int vcpu_vgic_free(struct vcpu *v);
- 
- void vgic_inject_irq(struct domain *d, struct vcpu *v, unsigned int virq,
-                      bool level);
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index e460249736..2e9860a754 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -736,10 +736,10 @@ void *__init arch_vmap_virt_end(void)
-  * This function should only be used to remap device address ranges
-  * TODO: add a check to verify this assumption
-  */
--void *ioremap_attr(paddr_t pa, size_t len, unsigned int attributes)
-+void *ioremap_attr(paddr_t start, size_t len, unsigned int attributes)
- {
--    mfn_t mfn = _mfn(PFN_DOWN(pa));
--    unsigned int offs = pa & (PAGE_SIZE - 1);
-+    mfn_t mfn = _mfn(PFN_DOWN(start));
-+    unsigned int offs = start & (PAGE_SIZE - 1);
-     unsigned int nr = PFN_UP(offs + len);
-     void *ptr = __vmap(&mfn, nr, 1, 1, attributes, VMAP_DEFAULT);
- 
-@@ -1579,7 +1579,7 @@ void put_page_type(struct page_info *page)
-     return;
- }
- 
--int create_grant_host_mapping(unsigned long addr, mfn_t frame,
-+int create_grant_host_mapping(unsigned long gpaddr, mfn_t frame,
-                               unsigned int flags, unsigned int cache_flags)
- {
-     int rc;
-@@ -1591,7 +1591,7 @@ int create_grant_host_mapping(unsigned long addr, mfn_t frame,
-     if ( flags & GNTMAP_readonly )
-         t = p2m_grant_map_ro;
- 
--    rc = guest_physmap_add_entry(current->domain, gaddr_to_gfn(addr),
-+    rc = guest_physmap_add_entry(current->domain, gaddr_to_gfn(gpaddr),
-                                  frame, 0, t);
- 
-     if ( rc )
-diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-index 9cb9f16d43..301d205a36 100644
---- a/xen/arch/arm/tee/optee.c
-+++ b/xen/arch/arm/tee/optee.c
-@@ -951,7 +951,7 @@ static bool copy_std_request(struct cpu_user_regs *regs,
- 
-     map_xen_arg(call);
- 
--    if ( access_guest_memory_by_ipa(current->domain, call->guest_arg_ipa,
-+    if ( access_guest_memory_by_gpa(current->domain, call->guest_arg_ipa,
-                                     call->xen_arg,
-                                     OPTEE_MSG_NONCONTIG_PAGE_SIZE, false) )
-     {
-@@ -1106,7 +1106,7 @@ static int handle_rpc_return(struct optee_domain *ctx,
- 
-         shm_rpc->xen_arg = __map_domain_page(shm_rpc->xen_arg_pg);
- 
--        if ( access_guest_memory_by_ipa(current->domain,
-+        if ( access_guest_memory_by_gpa(current->domain,
-                         gfn_to_gaddr(shm_rpc->gfn),
-                         shm_rpc->xen_arg,
-                         OPTEE_MSG_GET_ARG_SIZE(shm_rpc->xen_arg->num_params),
-@@ -1329,7 +1329,7 @@ static bool issue_rpc_cmd_free(struct optee_domain *ctx,
-     shm_rpc->xen_arg->params[0].u.value.a = call->rpc_buffer_type;
-     shm_rpc->xen_arg->params[0].u.value.b = cookie;
- 
--    if ( access_guest_memory_by_ipa(current->domain,
-+    if ( access_guest_memory_by_gpa(current->domain,
-                                     gfn_to_gaddr(shm_rpc->gfn),
-                                     shm_rpc->xen_arg,
-                                     OPTEE_MSG_GET_ARG_SIZE(1),
-@@ -1462,7 +1462,7 @@ static void handle_rpc_cmd(struct optee_domain *ctx, struct cpu_user_regs *regs,
-     shm_rpc->xen_arg = __map_domain_page(shm_rpc->xen_arg_pg);
- 
-     /* First, copy only header to read number of arguments */
--    if ( access_guest_memory_by_ipa(current->domain,
-+    if ( access_guest_memory_by_gpa(current->domain,
-                                     gfn_to_gaddr(shm_rpc->gfn),
-                                     shm_rpc->xen_arg,
-                                     sizeof(struct optee_msg_arg),
-@@ -1480,7 +1480,7 @@ static void handle_rpc_cmd(struct optee_domain *ctx, struct cpu_user_regs *regs,
-     }
- 
-     /* Read the whole command structure */
--    if ( access_guest_memory_by_ipa(current->domain, gfn_to_gaddr(shm_rpc->gfn),
-+    if ( access_guest_memory_by_gpa(current->domain, gfn_to_gaddr(shm_rpc->gfn),
-                                     shm_rpc->xen_arg, arg_size, false) )
-     {
-         shm_rpc->xen_arg->ret = TEEC_ERROR_GENERIC;
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index 299b384250..05429030b5 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -121,7 +121,7 @@ static int its_set_collection(struct virt_its *its, uint16_t collid,
-     if ( collid >= its->max_collections )
-         return -ENOENT;
- 
--    return access_guest_memory_by_ipa(its->d,
-+    return access_guest_memory_by_gpa(its->d,
-                                       addr + collid * sizeof(coll_table_entry_t),
-                                       &vcpu_id, sizeof(vcpu_id), true);
- }
-@@ -139,7 +139,7 @@ static struct vcpu *get_vcpu_from_collection(struct virt_its *its,
-     if ( collid >= its->max_collections )
-         return NULL;
- 
--    ret = access_guest_memory_by_ipa(its->d,
-+    ret = access_guest_memory_by_gpa(its->d,
-                                      addr + collid * sizeof(coll_table_entry_t),
-                                      &vcpu_id, sizeof(coll_table_entry_t), false);
-     if ( ret )
-@@ -161,7 +161,7 @@ static int its_set_itt_address(struct virt_its *its, uint32_t devid,
-     if ( devid >= its->max_devices )
-         return -ENOENT;
- 
--    return access_guest_memory_by_ipa(its->d,
-+    return access_guest_memory_by_gpa(its->d,
-                                       addr + devid * sizeof(dev_table_entry_t),
-                                       &itt_entry, sizeof(itt_entry), true);
- }
-@@ -179,7 +179,7 @@ static int its_get_itt(struct virt_its *its, uint32_t devid,
-     if ( devid >= its->max_devices )
-         return -EINVAL;
- 
--    return access_guest_memory_by_ipa(its->d,
-+    return access_guest_memory_by_gpa(its->d,
-                                       addr + devid * sizeof(dev_table_entry_t),
-                                       itt, sizeof(*itt), false);
- }
-@@ -226,7 +226,7 @@ static bool read_itte(struct virt_its *its, uint32_t devid, uint32_t evid,
-     if ( addr == INVALID_PADDR )
-         return false;
- 
--    if ( access_guest_memory_by_ipa(its->d, addr, &itte, sizeof(itte), false) )
-+    if ( access_guest_memory_by_gpa(its->d, addr, &itte, sizeof(itte), false) )
-         return false;
- 
-     vcpu = get_vcpu_from_collection(its, itte.collection);
-@@ -260,7 +260,7 @@ static bool write_itte(struct virt_its *its, uint32_t devid,
-     itte.collection = collid;
-     itte.vlpi = vlpi;
- 
--    if ( access_guest_memory_by_ipa(its->d, addr, &itte, sizeof(itte), true) )
-+    if ( access_guest_memory_by_gpa(its->d, addr, &itte, sizeof(itte), true) )
-         return false;
- 
-     return true;
-@@ -405,7 +405,7 @@ static int update_lpi_property(struct domain *d, struct pending_irq *p)
- 
-     addr = d->arch.vgic.rdist_propbase & GENMASK(51, 12);
- 
--    ret = access_guest_memory_by_ipa(d, addr + p->irq - LPI_OFFSET,
-+    ret = access_guest_memory_by_gpa(d, addr + p->irq - LPI_OFFSET,
-                                      &property, sizeof(property), false);
-     if ( ret )
-         return ret;
-@@ -910,7 +910,7 @@ static int vgic_its_handle_cmds(struct domain *d, struct virt_its *its)
-     {
-         int ret;
- 
--        ret = access_guest_memory_by_ipa(d, addr + its->creadr,
-+        ret = access_guest_memory_by_gpa(d, addr + its->creadr,
-                                          command, sizeof(command), false);
-         if ( ret )
-             return ret;
-diff --git a/xen/arch/arm/vgic/vgic-init.c b/xen/arch/arm/vgic/vgic-init.c
-index ea739d081e..76b85ea823 100644
---- a/xen/arch/arm/vgic/vgic-init.c
-+++ b/xen/arch/arm/vgic/vgic-init.c
-@@ -196,16 +196,16 @@ int domain_vgic_init(struct domain *d, unsigned int nr_spis)
-  * vcpu_vgic_init() - Register VCPU-specific KVM iodevs
-  * was: kvm_vgic_vcpu_init()
-  * Xen: adding vgic_vx_enable() call
-- * @vcpu: pointer to the VCPU being created and initialized
-+ * @v: pointer to the VCPU being created and initialized
-  */
--int vcpu_vgic_init(struct vcpu *vcpu)
-+int vcpu_vgic_init(struct vcpu *v)
- {
-     int ret = 0;
- 
--    vgic_vcpu_early_init(vcpu);
-+    vgic_vcpu_early_init(v);
- 
-     if ( gic_hw_version() == GIC_V2 )
--        vgic_v2_enable(vcpu);
-+        vgic_v2_enable(v);
-     else
-         ret = -ENXIO;
- 
-@@ -239,9 +239,9 @@ void domain_vgic_free(struct domain *d)
-     dist->nr_spis = 0;
- }
- 
--int vcpu_vgic_free(struct vcpu *vcpu)
-+int vcpu_vgic_free(struct vcpu *v)
- {
--    struct vgic_cpu *vgic_cpu = &vcpu->arch.vgic;
-+    struct vgic_cpu *vgic_cpu = &v->arch.vgic;
- 
-     INIT_LIST_HEAD(&vgic_cpu->ap_list_head);
- 
--- 
-2.34.1
+While you've followed Julien's earlier comment partly, I think,
+sorting still isn't alphabetical. If you mean ppc64/ to
+explicitly be first, you will want to introduce a separating
+blank line.
 
+> --- /dev/null
+> +++ b/xen/arch/ppc/ppc64/of-call.S
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Adapted from Linux's arch/powerpc/kernel/entry_64.S, with the
+> + * following copyright notice:
+> + *
+> + *  PowerPC version
+> + *    Copyright (C) 1995-1996 Gary Thomas (gdt@linuxppc.org)
+> + *  Rewritten by Cort Dougan (cort@cs.nmt.edu) for PReP
+> + *    Copyright (C) 1996 Cort Dougan <cort@cs.nmt.edu>
+> + *  Adapted for Power Macintosh by Paul Mackerras.
+> + *  Low-level exception handlers and MMU support
+> + *  rewritten by Paul Mackerras.
+> + *    Copyright (C) 1996 Paul Mackerras.
+> + *  MPC8xx modifications Copyright (C) 1997 Dan Malek (dmalek@jlc.net).
+> + */
+> +
+> +#include <asm/asm-offsets.h>
+> +#include <asm/asm-defns.h>
+> +#include <asm/msr.h>
+> +
+> +/* size of minimum stack frame that can hold an entire cpu_user_regs struct */
+> +#define STACK_SWITCH_FRAME_SIZE (UREGS_sizeof + STACK_FRAME_OVERHEAD)
+> +
+> +    .section .init.text, "ax", @progbits
+> +
+> +ENTRY(enter_of)
+> +    mflr %r0
+> +    std %r0, 16(%r1)
+> +    stdu %r1,-STACK_SWITCH_FRAME_SIZE(%r1) /* Save SP and create stack space */
+> +
+> +    /*
+> +     * Because PROM is running in 32b mode, it clobbers the high order half
+> +     * of all registers that it saves.  We therefore save those registers
+> +     * PROM might touch to the stack.  (%r0, %r3-%r13 are caller saved)
+> +     */
+> +    SAVE_GPR(2, %r1)
+> +    SAVE_GPR(13, %r1)
+> +    SAVE_NVGPRS(%r1)
+> +    mfcr %r10
+> +    mfmsr %r11
+> +    std %r10, UREGS_cr(%r1)
+> +    std %r11, UREGS_msr(%r1)
+> +
+> +    /* Put PROM address in SRR0 */
+> +    mtsrr0 %r4
+> +
+> +    /* Setup our trampoline return addr in LR */
+> +    bcl 20, 31,.+4
+> +0:  mflr %r4
+> +    addi %r4, %r4,(1f - 0b)
+> +    mtlr %r4
+> +
+> +    /* Prepare a 32-bit mode big endian MSR */
+> +    LOAD_IMM64(%r12, MSR_SF | MSR_LE)
+> +    andc %r11, %r11, %r12
+> +    mtsrr1 %r11
+> +    rfid
+
+I think readability would improve if you reserved a minimum number
+of characters (6?) for the mnemonics, padding with blanks when
+they're shorter. (This, if you'd be willing to switch, would then
+also apply to patch 1, iirc.)
+
+Jan
 
