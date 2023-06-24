@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F364B73CAEC
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Jun 2023 14:32:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554570.865834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1B573CB07
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Jun 2023 15:26:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554576.865842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qD2QA-0005qQ-Bb; Sat, 24 Jun 2023 12:31:18 +0000
+	id 1qD3Gz-0002oD-8p; Sat, 24 Jun 2023 13:25:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554570.865834; Sat, 24 Jun 2023 12:31:18 +0000
+Received: by outflank-mailman (output) from mailman id 554576.865842; Sat, 24 Jun 2023 13:25:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qD2QA-0005n5-8q; Sat, 24 Jun 2023 12:31:18 +0000
-Received: by outflank-mailman (input) for mailman id 554570;
- Sat, 24 Jun 2023 12:31:16 +0000
+	id 1qD3Gz-0002lQ-64; Sat, 24 Jun 2023 13:25:53 +0000
+Received: by outflank-mailman (input) for mailman id 554576;
+ Sat, 24 Jun 2023 13:25:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FdeE=CM=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1qD2Q8-0005mz-BF
- for xen-devel@lists.xenproject.org; Sat, 24 Jun 2023 12:31:16 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00f26661-128b-11ee-8611-37d641c3527e;
- Sat, 24 Jun 2023 14:31:13 +0200 (CEST)
+ id 1qD3Gx-0002lI-0b
+ for xen-devel@lists.xenproject.org; Sat, 24 Jun 2023 13:25:51 +0000
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0666eba-1292-11ee-8611-37d641c3527e;
+ Sat, 24 Jun 2023 15:25:47 +0200 (CEST)
 Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id A37F05C0145
- for <xen-devel@lists.xenproject.org>; Sat, 24 Jun 2023 08:31:11 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Sat, 24 Jun 2023 08:31:11 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id B774B5C00C7
+ for <xen-devel@lists.xenproject.org>; Sat, 24 Jun 2023 09:25:45 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Sat, 24 Jun 2023 09:25:45 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Sat, 24 Jun 2023 08:31:10 -0400 (EDT)
+ <xen-devel@lists.xenproject.org>; Sat, 24 Jun 2023 09:25:44 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00f26661-128b-11ee-8611-37d641c3527e
+X-Inumbo-ID: a0666eba-1292-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:content-type:content-type:date:date
 	:from:from:in-reply-to:message-id:mime-version:reply-to:sender
-	:subject:subject:to:to; s=fm2; t=1687609871; x=1687696271; bh=a9
-	+CJ3I1oF8IDQX27l8UN+9p7kTef6heTr8vWNeVq1s=; b=J8PQsndl+ohU75VZZR
-	AD2tSyhCpjse3rPBN3/CO6bkfzVPlh25l8beXw6Pg2df4OKO4YWP0yyOigYOTjuM
-	MCGwy45a0xRcDYkaBOZmhI7ULFtrqxEE8tdqe076PZHcmiYueXT6xd9f5kLv2t2/
-	Y/7CCwyGKTiwp/Ihhl7aNGhCIXpjDkNeuEsUbTnzWyBvI+epaJde0GA4RQIEqPqe
-	m6cU303rEjTqZYRPCs2JSTHgamPZyM+oJD+48NWLHgxUiussfT1E57akiN+nMd11
-	D15jDkc9RI1xCVu+OMFhCdjaDbUIfERGOGPXiNvSNVjVRHduFX9C3DzXZ/n/Dnmt
-	SK5Q==
+	:subject:subject:to:to; s=fm2; t=1687613145; x=1687699545; bh=kQ
+	X8yLjTccw2AZEGYbcqPTuV979FZSJJ3OWM0j5r/lI=; b=X2cXithaTJAFlwFOzh
+	D6P9BD0PJFxk+HxJ5YaBZ/T74snayOtxApcygddXqKh9og6svkH69YpMg74hRGEf
+	6azarwyA11FyvgHeYDR9pa+m55MbqK7Lx6h9Rp6r9zfkMUGNRp+4C1e5J1Yl7s50
+	u+x04jmm7z/LXKNoGXzdgpXNYiZXwjYBW7xHuw9/Hn7X4UWqiahtHy24qDgJXMKw
+	jgkVwIZH6ZwCa6UkfcwfIu8dOm1MdduyKGLACppMxhyW1z/kmkANRieqXl7+fudZ
+	pxb3IxnhyBnOQ+pv9oTta4ClGv/be9jjCnebxuS5XPKB+tsPkP5Ep7AQGp9NKTjg
+	7mJQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:message-id
 	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
 	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1687609871; x=1687696271; bh=a9+CJ3I1oF8IDQX27l8UN+9p7kTef6heTr8
-	vWNeVq1s=; b=APxa1WV1U2PwLNxllLuFjQeHQg3vNTru9306lm6XEMsjMI3dUU6
-	MMbEZeVnPGI+ewvxWzEH//pbK6OM5zKf+dPgaH7kc+dl/ufNhZkBV7DJDXYWhUy0
-	ss7fyey1lpc0UrYg2po2oW5xNuvL3Od/Tu5VQptkIy95AADqcALy5lPBasL0sLNg
-	pXRFfvh7jRCUwmhmwbWawvE7auHod6qxJBdSuAZOPSqCgUtxiThB0hk+ETnQc4tA
-	MgBVohG0tkBi2lwYIRwhtRui4F+/V62DNx1U32kUe6KqoHySo8YYLzMKoi78gvUR
-	3z5Qgi7j9/JDc2AIxBrjcooliBBhqMHl12Q==
-X-ME-Sender: <xms:D-KWZDzrfbIgDoV3YH7fCPLw7Xrd1fsZQWGEO6tqIGtVsVLnGF1BgQ>
-    <xme:D-KWZLQsO0z3s1XLXQBJJdp09fCAalhfb6uiZyUFbhH0cBY6kP_iqIbFRho8AM1uX
-    zke6JU_KVLdew>
-X-ME-Received: <xmr:D-KWZNUYrOQVlzVhmPF5izQAGTezm4ThJcMTuG6u4f5OHXI3r2ifZcBfJ_Qh>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeegjedgheefucetufdoteggodetrfdotf
+	1687613145; x=1687699545; bh=kQX8yLjTccw2AZEGYbcqPTuV979FZSJJ3OW
+	M0j5r/lI=; b=PYetgrsDmr+F2dM55D8zRCrDUhM5vcW8BWYKqX8eB9+aCw6bDen
+	AT6MiguHyxsKa6bBO1ean1qvCZENgO5eh78ovkEHG10HjnaA7q48R3TRS2bmazX0
+	Jsbdtsn9BodaH3wdiUcG785bv8QPfm0F/5HQH3wawUF5JqkY8nJ3sIBP7rNn3ig6
+	uJfgPSOHGGR9sN/BL7J5y83tv3mOZC5I8WjiqDZdOXm+8hP1uMqzI5mBTYTmna4/
+	DnSq1sTclvlm1v6x1VBamagUzUWbfBxm6mrlp5IKn6ajy8swnCdu0ngbTA4KeGpP
+	GyoHu+sUPvyQ5fyVqYr/si/8xTFOcE5QN8g==
+X-ME-Sender: <xms:2e6WZOZ-g1w8B8XwP8tPV1yhDfBsm4ZbmeAhv8Bqm6-BnIKJymWOPA>
+    <xme:2e6WZBbI_T_vBYwmjld7_cV9NsdYU01KKYwWy3E1EZaJoVDy6zvSHdAtWhQmFsuZi
+    TNSG-92PDv9XA>
+X-ME-Received: <xmr:2e6WZI9NesBfLKKuy7XPiLgpaPNW95th0D1NT1ZsBQTTbQLapB6SqPOJVPSq>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeegjedgieegucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
     dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
@@ -80,141 +80,111 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeegjedgheefucetufdoteggod
     feefgfduueegfefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
     hfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
     mh
-X-ME-Proxy: <xmx:D-KWZNhc1dpx_crKbLspe5IIwPgQ5Z8OxlUjwj3MNlu01JeaA6rQOw>
-    <xmx:D-KWZFBcpgEWd4it29wedctTbLnBCccT-Dw1E4iMc2IDdw7G9l4afg>
-    <xmx:D-KWZGLKayX3pZik2Cz65Ldv5FK4J-78ohvcWqz1F7Iqj7WN3_cmYA>
-    <xmx:D-KWZIMBUgcVMhxKxUtDkC_xRkya2sgGeex5hND2OxzCR6SqRUoBNA>
+X-ME-Proxy: <xmx:2e6WZArseJyRZVYNNcqFMVEhTDyvlzlqXJJ_YCaZ9TsgQkKif5xbfw>
+    <xmx:2e6WZJpACcWe6XJPp5w0hzQjA-uOf27WGUo7boK2yEl6Q-NfEh7UWQ>
+    <xmx:2e6WZOR52c9D9dutHKplyiCnhbc3DNOLT1na1TvYN9hs8r-LgyD7pg>
+    <xmx:2e6WZG2gUlYzjc50v8qz1cqVfNJe_BQYlWuZf2afqjxQygtpIgpoLg>
 Feedback-ID: i1568416f:Fastmail
-Date: Sat, 24 Jun 2023 14:31:08 +0200
+Date: Sat, 24 Jun 2023 15:25:42 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Design session notes: Reducing the number of pages always mapped in
- Xen: Next steps
-Message-ID: <ZJbiDH+YFj4guPQX@mail-itl>
+Subject: Design session notes: Committers workflow: move to Gitlab
+Message-ID: <ZJbu1iIDVTqqnwNa@mail-itl>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="c5JYt985RF5O5saf"
+	protocol="application/pgp-signature"; boundary="BDNRKQAo++Xe7qV/"
 Content-Disposition: inline
 
 
---c5JYt985RF5O5saf
+--BDNRKQAo++Xe7qV/
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Jun 2023 14:31:08 +0200
+Date: Sat, 24 Jun 2023 15:25:42 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Design session notes: Reducing the number of pages always mapped in
- Xen: Next steps
+Subject: Design session notes: Committers workflow: move to Gitlab
 
-Hi,=20
+Stefano: 2min summary: gitlab as CI infrastucture, not as code hosting, tic=
+kets etc;
+  we have several improvements for gitlab CI, including tests on hw
+  there are a bunch of build jobs, and also some run tests, most on qemu, b=
+ut some on hw
+  I'd like to give commiters and other notable community members a way to t=
+rigger a pipeline - it's as easy as git push to your repository
+Julien: everyone can push, how it's prioritized?
+Stefano: unfortunately we don't have prioritized, but increasing capacity i=
+s easy
+  everyone can have a personal repo on gitlab
+  but also: it would be nice to gate push to staging by gitlab pipeline
+Marek: isn't the purpose of staging to be a pre-test master copy?
+George: staging is fast-forward branch, cannot be rewind
+Stefano: goal is to not allow bad commits even in staging
+  committers would push to somewhere on gitlab and that only then it would =
+go to staging on xenbits
+  later: use merge request workflow:
+  1. push to personal branch, open MR (git push -o ...)
+  2. if pipeline passes, it can be merged to staging fast-forward
+  3.=20
 
-Here is what I managed to capture, unfortunately some parts slipped by
-me.
+Julien: maybe let osstest pull from gitlab?
+Stefano: staging on xenbits is useful for legacy reasons
+Marek: I have a script to push and pull stuff around in reaction to webhooks
+Andrew: there is also stuff on github - FreeBSD testing, coverity testing, =
+codeql code analyzer; generally github actions are nice
+  it would be good to collect that state into common place (gitlab) too
+Bertrand: can osstest be trigerred from gitlab?
+George: the goal is to slowly move out of osstest into gitlab
+Jan: I'm concerned about few things, for example conflicting merge requests
+Bertrand: auto-rebase bot?
+Julien: may introduce issues
+Stefano: adding more capacity also reduces risk of such conflicts (smaller =
+time window);
+  two MR options:
+  - merge commit
+  - cherry-pick (rebase?)
+Juline: when Jan is pushing, I'd like to know that when I'm pushing, to pot=
+entially adjust
+George: maybe another bot that watches for MRs and see if they conflict to =
+notify early (while pipeline is still running)?
+Stefano: this can be another gitlab job
+  and also, we can have a fast-fail job - if it fails, it stops the whole p=
+ipeline (earlier notifications, save resources)
+Andrew: there are some non-deterministic errors, but also, there is a lot o=
+f noise (error messages that are harmless, basically bugs in the test)
+Jan: to recap: first push to gitlab staging, then osstest, and only then to=
+ master; this increases delay
+Andrew: security team must have a way to bypass public CI loop, but do test=
+ing in private first (private gitlab pipelines)
+  but also, maintainers of runners implicitly will have access to that - th=
+is needs to be documented - like require them to be on pre-disclosure list
+Jan: what about stable trees?
+Stefano: most are okay with gitlab
+Andrew: no, recent container change broke all stable trees :/
+Stefano: we need George to cleanup permissions on gitlab - a lot of "Owner"s
+Marek: what about removing osstests already covered by gitlab?
+Andrew: that's stage 2
 
-Julien: remove directmap, avoid speculative reading it
-  series sent 6 months ago - enough to remove directmap, but not perfect
-  resolving virtual adresses requires mapping/unmapping page tables - signi=
-ficant perf hit
-Andrew: a lot of attacks read direct from directmap
-  end goal "address space isolation" - no sensitive info mapped into xen
-  directmap is not only place, but the large part of the problem
-  single heap semi-rely on directmap
-Bertrand: you don't know heap size for a guest up front, maybe can be speci=
-fied manually?
-Jan: why would that help?
-Bertrand: no need to extend heap at guest runtime
-Andrew: reduce number of translation (virt <-> phys) by using better data s=
-tructures
-  even getting address space isolation just for HVM guests will be huge imp=
-rovement
-Jan: zap the directmap when switching to HVM, and reinstantiate when switch=
-ing to PV?
-Andrew: just not have it mapped; some things needs to be mapped, like vcpu
-  structure but not sensitive info, on fast path skip speculative mitigatio=
-ns,
-  but when hitting slow path (page fault), apply speculative migitations an=
-d restore directmap;
-  this makes fast path faster and slow path slower
-Roger: what about auto eIBRS?
-Andrew: it helps only in newer hardware, there is still older hardware
-  even with retblead, the fast path with address space isolation would rema=
-in fast;
-  it's also about future-proofing, many new bugs will not require HV changes
-George: the slow path would still require adjustments/mitigations, likely
-Julien: map specific pages individually, not whole directmap, keep common x=
-enheap mapped
-Andrew: address space isolation helps also with non-speculative attacks, an=
-d also per-guest heaps would further isolate sensitive data
-Julien: the problem with page found approach is finding all the places and =
-data that is safe and needed for fast paths
-Andrew: implement faulting and then profile, then see whether common hits a=
-re safe to keep mapped, but if not try to rearrange algorithms/data structu=
-res
-Bertrand: adjust how Xen is linked, isolate fast path areas from slow path =
-areas to be able to switch them on/off fast
-Andrew: struct vcpu and struct domain is a dumping ground for everything, s=
-ome parts will need moving too
-  for example: register data for own vcpus - probably safe, but for differe=
-nt vcpu of the same guest probably not safe, vcpu for different guest defin=
-itely not
-Bertrand: risk moving the problem somewhere else? the problem of defining w=
-hat is safe
-Andrew: you can identify when it's in the fast path
-Jan: besides registers and guest own memory, is there anything else secret?
-Andrew: we have more luck than Linux, because for example Xen has no in-Xen=
- crypto libraries;
-  but also, for example you can figure code paths by looking at stacks
-  not much more secret data
-Bertrand: if we try to unmap guest-specific data (Jan's idea), don't we sol=
-ve the problem more efficient way?
-Andrew: it's risky
-  per-vcpu mapping is easy for HVM, but not for PV, because top level page
-  table is chosen by the PV kernel, and Linux does sometimes run multiple v=
-cpus
-  using the same page tables -> no per-vcpu mapping
-George: close to time limit, lets go to conclusions
-Julien: figure out next steps, what to do with the series from 6 months ago
-  remove directmap
-  make virt<->mfn mapping easy to use
-Jan: this feels like going too far, if we only need to remove few secret da=
-ta
-Julien: directmap is about whole guest memory
-Daniel Smith(?): what is the overlap with SEV
-Andrew: doesn't really overlap with encrypted VMs
-  both Intel and AMD encrypted VMs assume hypervisor may have a mapping of =
-encrypted pages
-  if directmap is present, you have still cache timing attacks, removing di=
-rectmap helps with that
-Bertrand: also benefits from safety POV - limits the scope for evaluation
-Andrew: accidental out of bounds write will be a page fault - easier to not=
-ice
-Jan: on demand mapping of xenheap, that means 4k mappings of everything; ca=
-n we do better, to preserve superpages?
-Julien: few other structures to consider
-Andew: EPT page tables are not sensitive, MSR permissions also not, because=
- guest vcpu can recover them anyway
-Jan: that data actually can be sensitive, but you can't do anything about it
 
 --=20
 Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---c5JYt985RF5O5saf
+--BDNRKQAo++Xe7qV/
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmSW4gwACgkQ24/THMrX
-1yxABwf+MUyCFs8EhmnkVnKUYTgxdUDME+If5bp4j3zt5jOUsGJRDnZRpz2jz1Gc
-d4dS7cGgJVOBbjKR1WWBN52zpBMN0PGFsp24QyLTFJ9D8PCgVFwRmDvxYLSS8/x4
-x9GRXubBN9hBHDUM2L6hoUNUDhfDWpm1GHPymwowz3q4WabIWCpZmxmkN41rUTmU
-T4SCF7k7StgQVoR+vh8W16HP/N1J5Y+nkHkgDO/EYQAZPJuweK0CdP7In7a88xej
-Aap4yh8gP+91KRycmeIcM/eWAVvCeC+87++DNYfvvcHK5pMMr9ltJg+tvS52CxmZ
-k2H+0/9SRMabn2yozV3QvWTF/nTQBQ==
-=aEqc
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmSW7tYACgkQ24/THMrX
+1yzHqwf/TzbW+bc1f8o9UJtAVoKYtnl39zXGiM6H1B1vd+CJ7JGY7QMInD7CbO6g
+QryKmLViXMlYPQun9KBBVcpW8lp0psfBsXJ/nG+2/rrEu3xzHuOwtlHxEdkoufXT
+L81aYL5NgpVbwvv4w2WWpbj7tnIONKnluExDuhY8jp7yV069xJrJgwc8nJLhvQC9
+mKUMp1m+da8RIcLnsu34Y3PTBaktZKMiJI1C3I26JE+3wQ6bt3cpKv8nWxgH6RGy
++EQ0zlQsrXDvWXjiZzTm+2tFVcti2xrTzGbyjDfQm07G45JZt+IwPTvbMZ5LHWiM
+EvhG+F0zFaduiCMiQFBdZMI6y16pZQ==
+=xucd
 -----END PGP SIGNATURE-----
 
---c5JYt985RF5O5saf--
+--BDNRKQAo++Xe7qV/--
 
