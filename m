@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F123C73CB8F
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Jun 2023 17:21:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554623.865900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB14273CBF9
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Jun 2023 19:13:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554627.865910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qD53J-0008OD-Fy; Sat, 24 Jun 2023 15:19:53 +0000
+	id 1qD6o0-0004GC-Fu; Sat, 24 Jun 2023 17:12:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554623.865900; Sat, 24 Jun 2023 15:19:53 +0000
+Received: by outflank-mailman (output) from mailman id 554627.865910; Sat, 24 Jun 2023 17:12:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qD53J-0008MY-D2; Sat, 24 Jun 2023 15:19:53 +0000
-Received: by outflank-mailman (input) for mailman id 554623;
- Sat, 24 Jun 2023 15:19:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qD6o0-0004EW-D9; Sat, 24 Jun 2023 17:12:12 +0000
+Received: by outflank-mailman (input) for mailman id 554627;
+ Sat, 24 Jun 2023 17:12:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZLqj=CM=kernel.org=luto@srs-se1.protection.inumbo.net>)
- id 1qD53I-0008MS-09
- for xen-devel@lists.xenproject.org; Sat, 24 Jun 2023 15:19:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8eaadb47-12a2-11ee-8611-37d641c3527e;
- Sat, 24 Jun 2023 17:19:49 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8144E60A05;
- Sat, 24 Jun 2023 15:19:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDF4C433C9;
- Sat, 24 Jun 2023 15:19:46 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailauth.nyi.internal (Postfix) with ESMTP id 1E6CC27C0054;
- Sat, 24 Jun 2023 11:19:45 -0400 (EDT)
-Received: from imap48 ([10.202.2.98])
- by compute3.internal (MEProxy); Sat, 24 Jun 2023 11:19:45 -0400
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 6343231A0063; Sat, 24 Jun 2023 11:19:43 -0400 (EDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qD6ny-0004EM-Ij; Sat, 24 Jun 2023 17:12:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qD6ny-0006HY-4G; Sat, 24 Jun 2023 17:12:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qD6nx-0005Jd-Jd; Sat, 24 Jun 2023 17:12:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qD6nx-0000xZ-JC; Sat, 24 Jun 2023 17:12:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,173 +42,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8eaadb47-12a2-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687619986;
-	bh=2NqCQaBRiYu07umaA1vjuK56Y6YrWpIX5Q20gxZ9Q9I=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject:From;
-	b=QBqIkrTMKVkiA5tDFcd4Gy3M8U4SxhGk1L+JhqXVlzM+wu+kHEXZuhF2moV1DwEwZ
-	 Zw6Z+WVHZVJiMaHGUNdlMJwOaQdxDnaZGCN8cUyMA3xaBgbi7rxbKSHJ3sdx7tuVmD
-	 mQmeW3ZTGbrDJM5fwPo0+9FEZBShNu3MBB+LDg92mH6QWm+9scdsNQeaDu8Jj4E1GZ
-	 1p4nO8d3g4RdZhbJ9nX01gk4WBDrWuEYx2LDxHhfLeXhNsBrQ7ZkN0CAYrvMtYbMv5
-	 LC2W9bPSVCb3KRTbh1jshMmbxCv5bWrol7TpRgpqLJH0SByOeqbxVpKocCWJGN6LVG
-	 ZWK/Nv4N53ReA==
-X-ME-Sender: <xms:jwmXZGPMWUGrKFs2_RuSGVZhgeWevlHpWpgCUANBQPHRgccNuGnfjA>
-    <xme:jwmXZE8UFw5xwAwo1nRfExn-iH3x1uEsdhFTwc1T0ZPhSbz_5moesN_KqHSrzsIO-
-    rd-MaTiqx096sgMUFg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeegjedgkeeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
-    ugihucfnuhhtohhmihhrshhkihdfuceolhhuthhosehkvghrnhgvlhdrohhrgheqnecugg
-    ftrfgrthhtvghrnhepvdfhuedvtdfhudffhfekkefftefghfeltdelgeffteehueegjeff
-    udehgfetiefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
-    homheprghnugihodhmvghsmhhtphgruhhthhhpvghrshhonhgrlhhithihqdduudeiudek
-    heeifedvqddvieefudeiiedtkedqlhhuthhopeepkhgvrhhnvghlrdhorhhgsehlihhnuh
-    igrdhluhhtohdruhhs
-X-ME-Proxy: <xmx:jwmXZNT3Ru7zPP7CniFO4KzMfGDKogviTYJan-8vEEpucz4NOgmCdg>
-    <xmx:jwmXZGtpM8thJxgVuzpae6_CxZiPBAOuWcm6SdvQfTqUdhcdrhWzrw>
-    <xmx:jwmXZOfIgeoExx9LQWJT7Q5JD3WVhmITkEBPfrddYjuBTi01hsW0LA>
-    <xmx:kQmXZPVimMczhxhHKNjfHzUWniJoobk9fVQfmjuti9FE1l84BFCKkg>
-Feedback-ID: ieff94742:Fastmail
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-499-gf27bbf33e2-fm-20230619.001-gf27bbf33
-Mime-Version: 1.0
-Message-Id: <8306ce41-e551-4983-9c63-2e804f22ec61@app.fastmail.com>
-In-Reply-To: <7c56f418-e0f3-7c16-a3f7-0ae8bd12bbf0@suse.com>
-References: <20230621151442.2152425-1-per.bilse@citrix.com>
- <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
- <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
- <20230621200409.GC4253@hirez.programming.kicks-ass.net>
- <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
- <20230622082607.GD4253@hirez.programming.kicks-ass.net>
- <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
- <8a5b8e4a-d238-4f35-b4c7-fb9e34650a14@app.fastmail.com>
- <7c56f418-e0f3-7c16-a3f7-0ae8bd12bbf0@suse.com>
-Date: Sat, 24 Jun 2023 08:19:23 -0700
-From: "Andy Lutomirski" <luto@kernel.org>
-To: "Juergen Gross" <jgross@suse.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>
-Cc: "Per Bilse" <Per.Bilse@citrix.com>,
- "Thomas Gleixner" <tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>,
- "the arch/x86 maintainers" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>,
- "Stefano Stabellini" <sstabellini@kernel.org>,
- "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>,
- "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] Updates to Xen hypercall preemption
-Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ruDoNtWMNNSbU9gBvBSbP9I7lvGmjM/nhGSzcLwuX5Q=; b=23gIhXkzAK/cI2pcjgTFvuGM+D
+	VLS7RTORcYDrPv8HFV4CVI8s5GUhWIxDvv0dgo37eMIFd10qTUW6DLq6bsH0mOoqPnMKeIitwBEFX
+	fy60BB4aGZcRpnVZI73Kma0Btyftj6K3gk4fae599bbBzUktM4eppAcSBtZMcN7Qli1k=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181573-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 181573: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=a92b7d26c743b9dc06d520f863d624e94978a1d9
+X-Osstest-Versions-That:
+    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 24 Jun 2023 17:12:09 +0000
 
-On Thu, Jun 22, 2023, at 10:20 AM, Juergen Gross wrote:
-> On 22.06.23 18:39, Andy Lutomirski wrote:
->> On Thu, Jun 22, 2023, at 3:33 AM, Juergen Gross wrote:
->>> On 22.06.23 10:26, Peter Zijlstra wrote:
->>>> On Thu, Jun 22, 2023 at 07:22:53AM +0200, Juergen Gross wrote:
->>>>
->>>>> The hypercalls we are talking of are synchronous ones. They are running
->>>>> in the context of the vcpu doing the call (like a syscall from userland is
->>>>> running in the process context).
->>>>
->>>> (so time actually passes from the guest's pov?)
->>>
->>> Correct.
->>>
->>>>
->>>>> The hypervisor will return to guest context from time to time by modifying
->>>>> the registers such that the guest will do the hypercall again with different
->>>>> input values for the hypervisor, resulting in a proper continuation of the
->>>>> hypercall processing.
->>>>
->>>> Eeeuw.. that's pretty terrible. And changing this isn't in the cards,
->>>> like at all?
->>>
->>> In the long run this should be possible, but not for already existing Xen
->>> versions.
->>>
->>>>
->>>> That is, why isn't this whole thing written like:
->>>>
->>>> 	for (;;) {
->>>> 		ret = hypercall(foo);
->>>> 		if (ret == -EAGAIN) {
->>>> 			cond_resched();
->>>> 			continue;
->>>> 		}
->>>> 		break;
->>>> 	}
->>>
->>> The hypervisor doesn't return -EAGAIN for hysterical reasons.
->>>
->>> This would be one of the options to change the interface. OTOH there are cases
->>> where already existing hypercalls need to be modified in the hypervisor to do
->>> preemption in the middle due to e.g. security reasons (avoiding cpu hogging in
->>> special cases).
->>>
->>> Additionally some of the hypercalls being subject to preemption are allowed in
->>> unprivileged guests, too. Those are mostly hypercalls allowed for PV guests
->>> only, but some are usable by all guests.
->>>
->>>>
->>>>> It is an awful interface and I agree that switching to full preemption in
->>>>> dom0 seems to be the route which we should try to take.
->>>>
->>>> Well, I would very strongly suggest the route to take is to scrap the
->>>> whole thing and invest in doing something saner so we don't have to jump
->>>> through hoops like this.
->>>>
->>>> This is quite possibly the worst possible interface for this Xen could
->>>> have come up with -- awards material for sure.
->>>
->>> Yes.
->>>
->>>>
->>>>> The downside would be that some workloads might see worse performance
->>>>> due to backend I/O handling might get preempted.
->>>>
->>>> Is that an actual concern? Mark this a legaxy inteface and anybody who
->>>> wants to get away from it updates.
->>>
->>> It isn't that easy. See above.
->>>
->>>>
->>>>> Just thinking - can full preemption be enabled per process?
->>>>
->>>> Nope, that's a system wide thing. Preemption is something that's driven
->>>> by the requirements of the tasks that preempt, not something by the
->>>> tasks that get preempted.
->>>
->>> Depends. If a task in a non-preempt system could switch itself to be
->>> preemptable, we could do so around hypercalls without compromising the
->>> general preemption setting. Disabling preemption in a preemptable system
->>> should continue to be possible for short code paths only, of course.
->>>
->>>> Andy's idea of having that thing intercepted as an exception (EXTABLE
->>>> like) and relocating the IP to a place that does cond_resched() before
->>>> going back is an option.. gross, but possibly better, dunno.
->>>>
->>>> Quite the mess indeed :/
->>>
->>> Yeah.
->> 
->> Having one implementation of interrupt handlers that schedule when they interrupt kernel code (the normal full preempt path) is one thing.  Having two of them (full preempt and super-special-Xen) is IMO quite a bit worse.  Especially since no one tests the latter very well.
->> 
->> Having a horrible Xen-specific extable-like thingy seems honestly rather less bad.  It could even have a little self-contained test that runs at boot, I bet.
->> 
->> But I'll bite on the performance impact issue.  What, exactly, is wrong with full preemption?  Full preemption has two sources of overhead, I think.  One is a bit of bookkeeping.  The other is the overhead inherent in actually rescheduling -- context switch cost, losing things from cache, etc.
->> 
->> The bookkeeping part should have quite low overhead.  The scheduling part sounds like it might just need some scheduler tuning if it's really a problem.
->> 
->> In any case, for backend IO, full preemption sounds like it should be a win, not a loss.  If I'm asking dom0 to do backend IO for me, I don't want it delayed because dom0 was busy doing something else boring.  IO is faster when the latency between requesting it and actually submitting it to hardware is lower.
->
-> Maybe. I was assuming that full preemption would result in more context
-> switches, especially in case many guests are hammering dom0 with I/Os.
-> This means that more time is spent with switching instead of doing real
-> work, resulting in dom0 being at 100% cpu faster with doing less work.
+flight 181573 linux-linus real [real]
+flight 181579 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181573/
+http://logs.test-lab.xenproject.org/osstest/logs/181579/
 
-It ought to just result in context switches happening a bit earlier when the scheduler decides it wants one.  When a non-fully-preemptible kernel gets an interrupt and need_resched gets set, it will still schedule as soon as it hits a cond_resched() or a return to usermode or anything else that explicitly allows scheduling.
+Regressions :-(
 
-If you're hammering dom0 with IO and it's getting swamped by context switches, the problem is the code handling the IO (too many threads or something), not the preemption.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-examine      8 reboot                       fail  like 180278
+ test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
+ test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                a92b7d26c743b9dc06d520f863d624e94978a1d9
+baseline version:
+ linux                6c538e1adbfc696ac4747fb10d63e704344f763d
+
+Last test of basis   180278  2023-04-16 19:41:46 Z   68 days
+Failing since        180281  2023-04-17 06:24:36 Z   68 days  128 attempts
+Testing same since   181573  2023-06-24 02:11:10 Z    0 days    1 attempts
+
+------------------------------------------------------------
+2770 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 354325 lines long.)
 
