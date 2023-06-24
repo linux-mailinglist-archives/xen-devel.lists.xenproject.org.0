@@ -2,33 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E15B973CB77
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Jun 2023 16:55:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554590.865874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F123C73CB8F
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Jun 2023 17:21:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554623.865900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qD4ee-0004gU-2i; Sat, 24 Jun 2023 14:54:24 +0000
+	id 1qD53J-0008OD-Fy; Sat, 24 Jun 2023 15:19:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554590.865874; Sat, 24 Jun 2023 14:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 554623.865900; Sat, 24 Jun 2023 15:19:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qD4ed-0004d9-Vj; Sat, 24 Jun 2023 14:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 554590;
- Sat, 24 Jun 2023 14:54:22 +0000
+	id 1qD53J-0008MY-D2; Sat, 24 Jun 2023 15:19:53 +0000
+Received: by outflank-mailman (input) for mailman id 554623;
+ Sat, 24 Jun 2023 15:19:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4T8M=CM=gmail.com=yshxxsjt715@srs-se1.protection.inumbo.net>)
- id 1qD4ec-0004cy-6Y
- for xen-devel@lists.xenproject.org; Sat, 24 Jun 2023 14:54:22 +0000
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [2607:f8b0:4864:20::1129])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZLqj=CM=kernel.org=luto@srs-se1.protection.inumbo.net>)
+ id 1qD53I-0008MS-09
+ for xen-devel@lists.xenproject.org; Sat, 24 Jun 2023 15:19:52 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb600a57-129e-11ee-8611-37d641c3527e;
- Sat, 24 Jun 2023 16:54:18 +0200 (CEST)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-56ff9cc91b4so16659287b3.0; 
- Sat, 24 Jun 2023 07:54:13 -0700 (PDT)
+ id 8eaadb47-12a2-11ee-8611-37d641c3527e;
+ Sat, 24 Jun 2023 17:19:49 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8144E60A05;
+ Sat, 24 Jun 2023 15:19:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDF4C433C9;
+ Sat, 24 Jun 2023 15:19:46 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailauth.nyi.internal (Postfix) with ESMTP id 1E6CC27C0054;
+ Sat, 24 Jun 2023 11:19:45 -0400 (EDT)
+Received: from imap48 ([10.202.2.98])
+ by compute3.internal (MEProxy); Sat, 24 Jun 2023 11:19:45 -0400
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 6343231A0063; Sat, 24 Jun 2023 11:19:43 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,182 +52,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb600a57-129e-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687618452; x=1690210452;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ve5c/XjiFN9IjAHvrJUqy7C78NTNJD/ufGwlceBYROE=;
-        b=bR/YtHXL0OVgiPuZuB1bKRlm/wn5UC6Kzaga4iDkxCyDmyJ7cOA8Wdlzx4PR/Kd7DS
-         LbB6S2Rs2mzAEuFtRVSJBSrZPriEP7po/s2/VpAKFkPw2vCR3JJMkO5PnSusXI/WqL3L
-         Cv+B4/Cd4ne62PgurJoypC5lOcQS7kITEsF8RiklORn/FbzlxK3eed9g1OpvXJulp0VW
-         qlK+SlTRlvNe5xmWCxKDENRvxlcZe3pphjYlWzlJs4k2m74MQxH/YMKTmTI01cOUIc9L
-         qFS4JvTgZGaMXEB4Ex1P4GAg1OUvqg/mmz9cp3a2anpzldeSLzaEzT33TfAk64fivW/z
-         r9SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687618452; x=1690210452;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ve5c/XjiFN9IjAHvrJUqy7C78NTNJD/ufGwlceBYROE=;
-        b=RvnOVe9ZWL1MYiHM6eNY0DsDUb8nsXHG54Q0NoEwgm0K5+NTA03PD1NXR68ktQQY/e
-         49h7bBlgmsybGu+vdc7CskefONW/f6taqV60QEwdm7K/BsAXS3C8T4sqPq8NrwxttaeB
-         KABjclwB1en6WdONlm/Pfq+X1By6nsGFs1VPS+uUXJUVR0KoG3iAtc8qb9JB/Tz881ii
-         lB29lYHDEVO5FAT9WjLRmcE502gSjNN6DouO4QKx/UQ8x4vtf+uyKiI4A+151cm/QrRX
-         oQ+pNSo8Mj0dpou/FXvJ/nIRQ/PUmV7yZ6r63rhLuXoiVQ7CdDlHG42kwA1p2/EzKvV0
-         vuMQ==
-X-Gm-Message-State: AC+VfDxFnmSPg4iJhnS5BKm9elecSff+uXs4OfMAaiwhRhjh/q2d9fj/
-	Yx9trXg0+DJ+lgrD57gTwnN0nF3qkT556pu4DJg=
-X-Google-Smtp-Source: ACHHUZ4C82ZdQBcUPr3jcGpx6HFMgmOOyDUrekM1bdzk+rC2zJZW6eKzmbZs8MvL84QrbnoorQWQc9tbgq6M+zPBbZY=
-X-Received: by 2002:a81:8007:0:b0:56d:40da:1fc2 with SMTP id
- q7-20020a818007000000b0056d40da1fc2mr26921176ywf.50.1687618452231; Sat, 24
- Jun 2023 07:54:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <CALqm=ddiMwWvdYMgyCtaKMocUEkEJyTgSQup9wJiXm4PrcDuVw@mail.gmail.com>
- <alpine.DEB.2.22.394.2306081537590.3803068@ubuntu-linux-20-04-desktop>
- <e729d60e-b290-dec3-e35b-65c24ffbfda6@xen.org> <CALqm=ddc3BhqRQmPDjnZ3TeMEXPTMUDfj7JCSj0QEDxnMaKLvw@mail.gmail.com>
- <78899eac-9de8-3626-8f40-98f993984f95@xen.org> <CALqm=dfrudbnsy7RdP9GdSmyO2m9JN=8mKD7wQvz2WBv6afJhQ@mail.gmail.com>
- <CALqm=de+zGitK2ofX=gExMX1mVUbN1S45fMtf5a9iBR-WBZpcw@mail.gmail.com>
- <CALqm=dcn02oe=nrL_SEo+y5aTJX8SD3OB3fccFyEwPch6fLfDg@mail.gmail.com>
- <CALqm=deNDzc83QEAUqTE5iKb7g106V_k_F6AEJc19R=W-0TDsw@mail.gmail.com>
- <e3f54279-db7a-973c-e792-712dc2b19eb7@xen.org> <CALqm=dfE=Ni0gzs8F692DmXzBs-EbqCs7sXenBt0qOGV=iyj0g@mail.gmail.com>
- <ebdfe8a6-7aee-a553-907e-e788c3b3df33@xen.org> <CALqm=ddPaaF8PG=ycb0u0iGHR+=35SV9taSo7Q-0FqH9QeMiEA@mail.gmail.com>
- <1ef5a5a6-01ea-4f3f-c05f-7dfd204a1861@xen.org>
-In-Reply-To: <1ef5a5a6-01ea-4f3f-c05f-7dfd204a1861@xen.org>
-From: Jiatong Shen <yshxxsjt715@gmail.com>
-Date: Sat, 24 Jun 2023 22:54:01 +0800
-Message-ID: <CALqm=dd494P-BWCiemXJYgE4QbZ09MfE_bmae75LqGQcV=PiXA@mail.gmail.com>
-Subject: Re: Asking for help to debug xen efi on Kunpeng machine
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-users@lists.xenproject.org, 
-	xen-devel@lists.xenproject.org, bertrand.marquis@arm.com
-Content-Type: multipart/alternative; boundary="0000000000005c98de05fee14a37"
+X-Inumbo-ID: 8eaadb47-12a2-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687619986;
+	bh=2NqCQaBRiYu07umaA1vjuK56Y6YrWpIX5Q20gxZ9Q9I=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject:From;
+	b=QBqIkrTMKVkiA5tDFcd4Gy3M8U4SxhGk1L+JhqXVlzM+wu+kHEXZuhF2moV1DwEwZ
+	 Zw6Z+WVHZVJiMaHGUNdlMJwOaQdxDnaZGCN8cUyMA3xaBgbi7rxbKSHJ3sdx7tuVmD
+	 mQmeW3ZTGbrDJM5fwPo0+9FEZBShNu3MBB+LDg92mH6QWm+9scdsNQeaDu8Jj4E1GZ
+	 1p4nO8d3g4RdZhbJ9nX01gk4WBDrWuEYx2LDxHhfLeXhNsBrQ7ZkN0CAYrvMtYbMv5
+	 LC2W9bPSVCb3KRTbh1jshMmbxCv5bWrol7TpRgpqLJH0SByOeqbxVpKocCWJGN6LVG
+	 ZWK/Nv4N53ReA==
+X-ME-Sender: <xms:jwmXZGPMWUGrKFs2_RuSGVZhgeWevlHpWpgCUANBQPHRgccNuGnfjA>
+    <xme:jwmXZE8UFw5xwAwo1nRfExn-iH3x1uEsdhFTwc1T0ZPhSbz_5moesN_KqHSrzsIO-
+    rd-MaTiqx096sgMUFg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeegjedgkeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
+    ugihucfnuhhtohhmihhrshhkihdfuceolhhuthhosehkvghrnhgvlhdrohhrgheqnecugg
+    ftrfgrthhtvghrnhepvdfhuedvtdfhudffhfekkefftefghfeltdelgeffteehueegjeff
+    udehgfetiefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+    homheprghnugihodhmvghsmhhtphgruhhthhhpvghrshhonhgrlhhithihqdduudeiudek
+    heeifedvqddvieefudeiiedtkedqlhhuthhopeepkhgvrhhnvghlrdhorhhgsehlihhnuh
+    igrdhluhhtohdruhhs
+X-ME-Proxy: <xmx:jwmXZNT3Ru7zPP7CniFO4KzMfGDKogviTYJan-8vEEpucz4NOgmCdg>
+    <xmx:jwmXZGtpM8thJxgVuzpae6_CxZiPBAOuWcm6SdvQfTqUdhcdrhWzrw>
+    <xmx:jwmXZOfIgeoExx9LQWJT7Q5JD3WVhmITkEBPfrddYjuBTi01hsW0LA>
+    <xmx:kQmXZPVimMczhxhHKNjfHzUWniJoobk9fVQfmjuti9FE1l84BFCKkg>
+Feedback-ID: ieff94742:Fastmail
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-499-gf27bbf33e2-fm-20230619.001-gf27bbf33
+Mime-Version: 1.0
+Message-Id: <8306ce41-e551-4983-9c63-2e804f22ec61@app.fastmail.com>
+In-Reply-To: <7c56f418-e0f3-7c16-a3f7-0ae8bd12bbf0@suse.com>
+References: <20230621151442.2152425-1-per.bilse@citrix.com>
+ <20230621164038.GM2053369@hirez.programming.kicks-ass.net>
+ <6523f3e2-8dfc-c2dd-6d14-9e0c3ac93cc8@citrix.com>
+ <20230621200409.GC4253@hirez.programming.kicks-ass.net>
+ <a8cd2788-a695-964a-3311-dbecb669bb72@suse.com>
+ <20230622082607.GD4253@hirez.programming.kicks-ass.net>
+ <4d29bfe0-975a-c97f-3e79-5b77d95d3494@suse.com>
+ <8a5b8e4a-d238-4f35-b4c7-fb9e34650a14@app.fastmail.com>
+ <7c56f418-e0f3-7c16-a3f7-0ae8bd12bbf0@suse.com>
+Date: Sat, 24 Jun 2023 08:19:23 -0700
+From: "Andy Lutomirski" <luto@kernel.org>
+To: "Juergen Gross" <jgross@suse.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>
+Cc: "Per Bilse" <Per.Bilse@citrix.com>,
+ "Thomas Gleixner" <tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>,
+ "the arch/x86 maintainers" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "Stefano Stabellini" <sstabellini@kernel.org>,
+ "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>,
+ "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
+ "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Updates to Xen hypercall preemption
+Content-Type: text/plain
 
---0000000000005c98de05fee14a37
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello Julien,
-
-   Thank you very much for your reply. Can you teach me how to find the
-relationship between MBI-gen and devices?
-I am not sure how to find out the mbi-gen backed devices..
-
-Best Regards,
-Jiatong Shen
-
-On Sat, Jun 24, 2023 at 4:24=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
-
-> Hi,
+On Thu, Jun 22, 2023, at 10:20 AM, Juergen Gross wrote:
+> On 22.06.23 18:39, Andy Lutomirski wrote:
+>> On Thu, Jun 22, 2023, at 3:33 AM, Juergen Gross wrote:
+>>> On 22.06.23 10:26, Peter Zijlstra wrote:
+>>>> On Thu, Jun 22, 2023 at 07:22:53AM +0200, Juergen Gross wrote:
+>>>>
+>>>>> The hypercalls we are talking of are synchronous ones. They are running
+>>>>> in the context of the vcpu doing the call (like a syscall from userland is
+>>>>> running in the process context).
+>>>>
+>>>> (so time actually passes from the guest's pov?)
+>>>
+>>> Correct.
+>>>
+>>>>
+>>>>> The hypervisor will return to guest context from time to time by modifying
+>>>>> the registers such that the guest will do the hypercall again with different
+>>>>> input values for the hypervisor, resulting in a proper continuation of the
+>>>>> hypercall processing.
+>>>>
+>>>> Eeeuw.. that's pretty terrible. And changing this isn't in the cards,
+>>>> like at all?
+>>>
+>>> In the long run this should be possible, but not for already existing Xen
+>>> versions.
+>>>
+>>>>
+>>>> That is, why isn't this whole thing written like:
+>>>>
+>>>> 	for (;;) {
+>>>> 		ret = hypercall(foo);
+>>>> 		if (ret == -EAGAIN) {
+>>>> 			cond_resched();
+>>>> 			continue;
+>>>> 		}
+>>>> 		break;
+>>>> 	}
+>>>
+>>> The hypervisor doesn't return -EAGAIN for hysterical reasons.
+>>>
+>>> This would be one of the options to change the interface. OTOH there are cases
+>>> where already existing hypercalls need to be modified in the hypervisor to do
+>>> preemption in the middle due to e.g. security reasons (avoiding cpu hogging in
+>>> special cases).
+>>>
+>>> Additionally some of the hypercalls being subject to preemption are allowed in
+>>> unprivileged guests, too. Those are mostly hypercalls allowed for PV guests
+>>> only, but some are usable by all guests.
+>>>
+>>>>
+>>>>> It is an awful interface and I agree that switching to full preemption in
+>>>>> dom0 seems to be the route which we should try to take.
+>>>>
+>>>> Well, I would very strongly suggest the route to take is to scrap the
+>>>> whole thing and invest in doing something saner so we don't have to jump
+>>>> through hoops like this.
+>>>>
+>>>> This is quite possibly the worst possible interface for this Xen could
+>>>> have come up with -- awards material for sure.
+>>>
+>>> Yes.
+>>>
+>>>>
+>>>>> The downside would be that some workloads might see worse performance
+>>>>> due to backend I/O handling might get preempted.
+>>>>
+>>>> Is that an actual concern? Mark this a legaxy inteface and anybody who
+>>>> wants to get away from it updates.
+>>>
+>>> It isn't that easy. See above.
+>>>
+>>>>
+>>>>> Just thinking - can full preemption be enabled per process?
+>>>>
+>>>> Nope, that's a system wide thing. Preemption is something that's driven
+>>>> by the requirements of the tasks that preempt, not something by the
+>>>> tasks that get preempted.
+>>>
+>>> Depends. If a task in a non-preempt system could switch itself to be
+>>> preemptable, we could do so around hypercalls without compromising the
+>>> general preemption setting. Disabling preemption in a preemptable system
+>>> should continue to be possible for short code paths only, of course.
+>>>
+>>>> Andy's idea of having that thing intercepted as an exception (EXTABLE
+>>>> like) and relocating the IP to a place that does cond_resched() before
+>>>> going back is an option.. gross, but possibly better, dunno.
+>>>>
+>>>> Quite the mess indeed :/
+>>>
+>>> Yeah.
+>> 
+>> Having one implementation of interrupt handlers that schedule when they interrupt kernel code (the normal full preempt path) is one thing.  Having two of them (full preempt and super-special-Xen) is IMO quite a bit worse.  Especially since no one tests the latter very well.
+>> 
+>> Having a horrible Xen-specific extable-like thingy seems honestly rather less bad.  It could even have a little self-contained test that runs at boot, I bet.
+>> 
+>> But I'll bite on the performance impact issue.  What, exactly, is wrong with full preemption?  Full preemption has two sources of overhead, I think.  One is a bit of bookkeeping.  The other is the overhead inherent in actually rescheduling -- context switch cost, losing things from cache, etc.
+>> 
+>> The bookkeeping part should have quite low overhead.  The scheduling part sounds like it might just need some scheduler tuning if it's really a problem.
+>> 
+>> In any case, for backend IO, full preemption sounds like it should be a win, not a loss.  If I'm asking dom0 to do backend IO for me, I don't want it delayed because dom0 was busy doing something else boring.  IO is faster when the latency between requesting it and actually submitting it to hardware is lower.
 >
-> On 20/06/2023 08:09, Jiatong Shen wrote:
-> > Hello Julien,
-> >
-> >     Sorry for the delay.. I obtained the full xen log and attached it i=
-n
-> the
-> > mail. Please take a look when you are available. Thank you very much
->
-> Thanks for sharing the logs. The following lines are interesting:
->
-> [    1.081905] Hisilicon MBIGEN-V2 HISI0152:00: Failed to create mbi-gen
-> irqdomain
-> [    1.082107] Hisilicon MBIGEN-V2 HISI0152:01: Failed to create mbi-gen
-> irqdomain
-> [    1.082204] Hisilicon MBIGEN-V2 HISI0152:02: Failed to create mbi-gen
-> irqdomain
-> [    1.082294] Hisilicon MBIGEN-V2 HISI0152:03: Failed to create mbi-gen
-> irqdomain
-> [    1.082381] Hisilicon MBIGEN-V2 HISI0152:04: Failed to create mbi-gen
-> irqdomain
-> [    1.082466] Hisilicon MBIGEN-V2 HISI0152:05: Failed to create mbi-gen
-> irqdomain
->
-> Looking at a Hisilicon Device-Tree, this is an interrupt controller
-> behind the GICv3 ITS. You will need to rebuild Xen with CONFIG_HAS_ITS=3D=
-y.
->
-> Also, can you confirm which devices are behind the MBI-Gen? If this is
-> only PCI devices, then you are probably fine to give the controllers to
-> dom0. But for PCI passthrough, you will most likely need to implement it
-> a driver in Xen.
->
-> Cheers,
->
-> --
-> Julien Grall
->
+> Maybe. I was assuming that full preemption would result in more context
+> switches, especially in case many guests are hammering dom0 with I/Os.
+> This means that more time is spent with switching instead of doing real
+> work, resulting in dom0 being at 100% cpu faster with doing less work.
 
+It ought to just result in context switches happening a bit earlier when the scheduler decides it wants one.  When a non-fully-preemptible kernel gets an interrupt and need_resched gets set, it will still schedule as soon as it hits a cond_resched() or a return to usermode or anything else that explicitly allows scheduling.
 
---=20
-
-Best Regards,
-
-Jiatong Shen
-
---0000000000005c98de05fee14a37
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello Julien,<div><br></div><div>=C2=A0 =C2=A0Thank you ve=
-ry much for your reply. Can you teach me how to find the relationship betwe=
-en MBI-gen and devices?=C2=A0</div><div>I am not sure how to find out the m=
-bi-gen backed devices..</div><div><br></div><div>Best Regards,</div><div>Ji=
-atong Shen</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Sat, Jun 24, 2023 at 4:24=E2=80=AFPM Julien Grall &lt;<a=
- href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt; wrote:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-On 20/06/2023 08:09, Jiatong Shen wrote:<br>
-&gt; Hello Julien,<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Sorry for the delay.. I obtained the full xen log a=
-nd attached it in the<br>
-&gt; mail. Please take a look when you are available. Thank you very much<b=
-r>
-<br>
-Thanks for sharing the logs. The following lines are interesting:<br>
-<br>
-[=C2=A0 =C2=A0 1.081905] Hisilicon MBIGEN-V2 HISI0152:00: Failed to create =
-mbi-gen <br>
-irqdomain<br>
-[=C2=A0 =C2=A0 1.082107] Hisilicon MBIGEN-V2 HISI0152:01: Failed to create =
-mbi-gen <br>
-irqdomain<br>
-[=C2=A0 =C2=A0 1.082204] Hisilicon MBIGEN-V2 HISI0152:02: Failed to create =
-mbi-gen <br>
-irqdomain<br>
-[=C2=A0 =C2=A0 1.082294] Hisilicon MBIGEN-V2 HISI0152:03: Failed to create =
-mbi-gen <br>
-irqdomain<br>
-[=C2=A0 =C2=A0 1.082381] Hisilicon MBIGEN-V2 HISI0152:04: Failed to create =
-mbi-gen <br>
-irqdomain<br>
-[=C2=A0 =C2=A0 1.082466] Hisilicon MBIGEN-V2 HISI0152:05: Failed to create =
-mbi-gen <br>
-irqdomain<br>
-<br>
-Looking at a Hisilicon Device-Tree, this is an interrupt controller <br>
-behind the GICv3 ITS. You will need to rebuild Xen with CONFIG_HAS_ITS=3Dy.=
-<br>
-<br>
-Also, can you confirm which devices are behind the MBI-Gen? If this is <br>
-only PCI devices, then you are probably fine to give the controllers to <br=
->
-dom0. But for PCI passthrough, you will most likely need to implement it <b=
-r>
-a driver in Xen.<br>
-<br>
-Cheers,<br>
-<br>
--- <br>
-Julien Grall<br>
-</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
-iv dir=3D"ltr"><br><div>Best Regards,</div><div><br></div><div>Jiatong Shen=
-</div></div></div>
-
---0000000000005c98de05fee14a37--
+If you're hammering dom0 with IO and it's getting swamped by context switches, the problem is the code handling the IO (too many threads or something), not the preemption.
 
