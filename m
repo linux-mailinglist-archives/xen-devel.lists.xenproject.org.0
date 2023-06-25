@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F73173D116
-	for <lists+xen-devel@lfdr.de>; Sun, 25 Jun 2023 14:51:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554787.866189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE67E73D117
+	for <lists+xen-devel@lfdr.de>; Sun, 25 Jun 2023 14:56:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554791.866200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDPD7-0001Zf-1L; Sun, 25 Jun 2023 12:51:21 +0000
+	id 1qDPHz-0002Cd-Kl; Sun, 25 Jun 2023 12:56:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554787.866189; Sun, 25 Jun 2023 12:51:21 +0000
+Received: by outflank-mailman (output) from mailman id 554791.866200; Sun, 25 Jun 2023 12:56:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDPD6-0001Xp-Uv; Sun, 25 Jun 2023 12:51:20 +0000
-Received: by outflank-mailman (input) for mailman id 554787;
- Sun, 25 Jun 2023 12:51:20 +0000
+	id 1qDPHz-00029v-Gu; Sun, 25 Jun 2023 12:56:23 +0000
+Received: by outflank-mailman (input) for mailman id 554791;
+ Sun, 25 Jun 2023 12:56:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qDPD6-0001Xj-14
- for xen-devel@lists.xenproject.org; Sun, 25 Jun 2023 12:51:20 +0000
+ (envelope-from <julien@xen.org>) id 1qDPHy-00029p-8A
+ for xen-devel@lists.xenproject.org; Sun, 25 Jun 2023 12:56:22 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qDPD5-0000FO-B9; Sun, 25 Jun 2023 12:51:19 +0000
+ id 1qDPHx-0000LY-4Q; Sun, 25 Jun 2023 12:56:21 +0000
 Received: from [193.85.242.128] (helo=[192.168.148.103])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qDPD5-0003Fd-4P; Sun, 25 Jun 2023 12:51:19 +0000
+ id 1qDPHw-0003Us-UM; Sun, 25 Jun 2023 12:56:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +42,58 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=KtE45Rv0HLGq1YREgWC6PbahnrPzxCmGsfdb+w/5bJc=; b=iLhwkNZjbtA9Mw/nfcazjGcBsY
-	VKiSqajxna/Dy2JQ+FSqxSaAYzNztb2R0e8enu5CT+hDpm2z7c8ZxOLlmRagrInTcuKoopmO5pfH+
-	HopsxNiQNdy92TCb/NN/zDRtkoAIBMMbUViT400o4K2ECEZSNzMZvmBdEP80x5hof8Y4=;
-Message-ID: <a5ef5d8d-5dd1-a535-77ec-458e1559a083@xen.org>
-Date: Sun, 25 Jun 2023 13:51:15 +0100
+	bh=i2+K8s8xu/B9L7bB3ZnTifYLY1TrUM/wM998Nw8O3uE=; b=qmpxBv2/sORuxFh6DGMqiVN/2f
+	ehZTuyKUqUZMQ+/izx5pV34uIxs4t4emFHgD32hvFEzzEP3BS0dKtDv6xtQ0SopZ1HKD/VYFJz7U7
+	bohouh6dDDgYD1c+ZLfA60ZwME0jc3DW079z5g+HOq9/dIKmGSE5BTR1qvRTIqpldf1A=;
+Message-ID: <5f0b5a38-710f-f820-1dc7-345ae16047ad@xen.org>
+Date: Sun, 25 Jun 2023 13:56:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v1 1/2] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig
- option
+Subject: Re: [PATCH v4 0/7] SMMU handling for PCIe Passthrough on ARM
 Content-Language: en-US
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
  xen-devel@lists.xenproject.org
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Artem Mygaiev <artem_mygaiev@epam.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>
-References: <20230620152924.23622-1-stewart.hildebrand@amd.com>
+ Rahul Singh <rahul.singh@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20230607030220.22698-1-stewart.hildebrand@amd.com>
+ <1f5aa53c-a9ed-41c3-2a4d-38538912cdd5@xen.org>
+ <4b08b38e-3beb-6b72-83fb-6dd8c8702718@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230620152924.23622-1-stewart.hildebrand@amd.com>
+In-Reply-To: <4b08b38e-3beb-6b72-83fb-6dd8c8702718@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 20/06/2023 16:29, Stewart Hildebrand wrote:
-> From: Rahul Singh <rahul.singh@arm.com>
+On 15/06/2023 22:05, Stewart Hildebrand wrote:
+> On 6/7/23 03:19, Julien Grall wrote:
+>> On 07/06/2023 04:02, Stewart Hildebrand wrote:
+>>> This series introduces SMMU handling for PCIe passthrough on ARM. These patches
+>>> are independent from (and don't depend on) the vPCI reference counting/locking
+>>> work in progress, and should be able to be upstreamed independently.
+>>
+>> Can you clarify how this code was tested? Does this require code not yet
+>> upstreamed?
 > 
-> Setting CONFIG_PCI_PASSTHROUGH=y will enable PCI passthrough on ARM, even though
-> the feature is not yet complete in the current upstream codebase. The purpose of
-> this is to make it easier to enable the necessary configs (HAS_PCI, HAS_VPCI) for
-> testing and development of PCI passthrough on ARM.
+> I'm testing the series standalone (+ config changes) by using a PCI device in dom0, and also in combination with the vPCI series [3] [4] for passthrough to a domU.
 > 
-> Since PCI passthrough on ARM is still work in progress at this time, make it
-> depend on UNSUPPORTED.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
-> (cherry picked from commit 9a08f1f7ce28ec619640ba9ce11018bf443e9a0e from the
->   downstream branch [1])
-> 
-> Changes from downstream to v1:
-> * depends on ARM_64 (Stefano)
-> * Don't select HAS_VPCI_GUEST_SUPPORT since this config option is not currently
->    used in the upstream codebase. This will want to be re-added here once the
->    vpci series [2] is merged.
-> * Don't select ARM_SMMU_V3 since this option can already be selected
->    independently. While PCI passthrough on ARM depends on an SMMU, it does not
->    depend on a particular version or variant of an SMMU.
-> * Don't select HAS_ITS since this option can already be selected independently.
->    HAS_ITS may want to be added here once the MSI series [1] is merged.
-> * Don't select LATE_HWDOM since this option is unrelated to PCI passthrough.
-> 
-> [1] https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc/-/commits/poc/pci-passthrough
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2023-06/msg00863.html
-> ---
->   xen/arch/arm/Kconfig | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 61e581b8c2b0..3d22cd26a68c 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -184,6 +184,15 @@ config STATIC_SHM
->   	help
->   	  This option enables statically shared memory on a dom0less system.
->   
-> +config PCI_PASSTHROUGH
-> +	bool "PCI passthrough on ARM (UNSUPPORTED)" if UNSUPPORTED
+> Here are some more details on the test cases I'm using.
 
-The series is already under an Arm category. So I would drop "ARM" here.
+Thanks that's helpful! One comment about the first test case.
 
-NIT: Also, I think it should be EXPERT rather than UNSUPPORTED. I view 
-the former as in more "experimental" than the latter.
+> 
+> 
+> 1. Using the PCI device in dom0 with the pci-passthrough=yes arg. In this case a couple of additional config changes [1] [2] are needed to select CONFIG_HAS_PCI=y, CONFIG_HAS_VPCI=y, and make has_vpci() return true. Aside from this series itself and the config changes, nothing else not-yet-upstreamed is required for this test case. It is on my TODO list to upstream these config changes, which I think will be useful on their own, not necessarily as part of any other series.
 
-> +	depends on ARM_64
-> +	select HAS_PCI
-> +	select HAS_VPCI
-> +	default n
-> +	help
-> +	  PCI device passthrough on ARM (UNSUPPORTED)
-
-Same.
-
-> +
->   endmenu
->   
->   menu "ARM errata workaround via the alternative framework"
+I find a bit confusing that the IOMMU support for dom0 is gated behind 
+'pci-passthrough'. I was expecting that the iommu would also be properly 
+configured for PCI if we using 'iommu=yes'.
 
 Cheers,
 
