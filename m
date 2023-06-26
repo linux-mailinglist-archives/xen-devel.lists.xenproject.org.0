@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B727073E022
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 15:05:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555493.867294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB3673E03B
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 15:10:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555498.867304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDlu9-0004nS-Nu; Mon, 26 Jun 2023 13:05:17 +0000
+	id 1qDlzJ-0006FU-BK; Mon, 26 Jun 2023 13:10:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555493.867294; Mon, 26 Jun 2023 13:05:17 +0000
+Received: by outflank-mailman (output) from mailman id 555498.867304; Mon, 26 Jun 2023 13:10:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDlu9-0004ke-KX; Mon, 26 Jun 2023 13:05:17 +0000
-Received: by outflank-mailman (input) for mailman id 555493;
- Mon, 26 Jun 2023 13:05:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qDlzJ-0006CZ-8C; Mon, 26 Jun 2023 13:10:37 +0000
+Received: by outflank-mailman (input) for mailman id 555498;
+ Mon, 26 Jun 2023 13:10:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ib7E=CO=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qDlu7-0004kY-SA
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 13:05:15 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 168ede52-1422-11ee-8611-37d641c3527e;
- Mon, 26 Jun 2023 15:05:13 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2A3B221864;
- Mon, 26 Jun 2023 13:05:13 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C27B513483;
- Mon, 26 Jun 2023 13:05:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mKnRLQiNmWT3WwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 26 Jun 2023 13:05:12 +0000
+ (envelope-from <julien@xen.org>) id 1qDlzH-0006CT-QW
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 13:10:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qDlzG-0001d4-QZ; Mon, 26 Jun 2023 13:10:34 +0000
+Received: from [193.85.242.128] (helo=[192.168.148.103])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qDlzG-0002QC-Kc; Mon, 26 Jun 2023 13:10:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,241 +39,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 168ede52-1422-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687784713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+g/GMqyOz9lm9pTM8+oSAfP3jml3Motfjlaje+sFNS8=;
-	b=Fy8ZOWM5Ds+zQ9FLCw0RR4SEDSoe2XZ+bQSV3K+huO+mXgko+vlqmZaFpRaCO7KE/Nm6lZ
-	zpQoZ1FjaqZ6vhu+MsmG/Jxhjvsnko1H1PWcWPkUMoFrxvmKoLSUqm2wIU0Z0MrWkeUeRX
-	L+8uGc7Wv0IMxOLO0ZsVDd0+jefjQH0=
-Message-ID: <d3d135ae-b726-d019-9690-9f71c421e4f5@suse.com>
-Date: Mon, 26 Jun 2023 15:05:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=G4eWSyMvDC+09Qyd6/bjrGtcvaBOXYbn/TNk/q6T63I=; b=mK0yt+vjmnvM2YPtHbfS+hRojN
+	uMvxflsAFY1d+xOa37hkvRnyI00TLfBfRZTowbSq/ZkxCHh4UofaV6GsF481ETWp8EaNx+F6KpTkC
+	o0omTPk8+CbYx0bMaDiCs5KS+HQ9P6O9/vSWkoHFvxCirmTP4V9+cq5FJq+jjjNDpw4Q=;
+Message-ID: <a1cea404-329b-1516-bc7c-1f9d427751a4@xen.org>
+Date: Mon, 26 Jun 2023 14:10:32 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH 10/11] tools/xenstore: drop use of tdb
 Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jan Beulich <JBeulich@suse.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, stable@vger.kernel.org
-References: <20230624205624.1817-1-demi@invisiblethingslab.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3] xen: speed up grant-table reclaim
-In-Reply-To: <20230624205624.1817-1-demi@invisiblethingslab.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------mHeC0WOb7yJmfde0byhVaLMj"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mHeC0WOb7yJmfde0byhVaLMj
-Content-Type: multipart/mixed; boundary="------------ebp0q1YcSwFAPG6JD0b6JUuK";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jan Beulich <JBeulich@suse.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, stable@vger.kernel.org
-Message-ID: <d3d135ae-b726-d019-9690-9f71c421e4f5@suse.com>
-Subject: Re: [PATCH v3] xen: speed up grant-table reclaim
-References: <20230624205624.1817-1-demi@invisiblethingslab.com>
-In-Reply-To: <20230624205624.1817-1-demi@invisiblethingslab.com>
-
---------------ebp0q1YcSwFAPG6JD0b6JUuK
-Content-Type: multipart/mixed; boundary="------------mIrZ7XrDfqM0HIVUtnWjfwgm"
-
---------------mIrZ7XrDfqM0HIVUtnWjfwgm
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230530091333.7678-1-jgross@suse.com>
+ <20230530091333.7678-11-jgross@suse.com>
+ <a9aaf2df-f3c6-71a5-426d-096d9aaf0545@xen.org>
+ <2bfc737a-53c5-ef13-835e-97933a57f414@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <2bfc737a-53c5-ef13-835e-97933a57f414@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMjQuMDYuMjMgMjI6NTYsIERlbWkgTWFyaWUgT2Jlbm91ciB3cm90ZToNCj4gV2hlbiBh
-IGdyYW50IGVudHJ5IGlzIHN0aWxsIGluIHVzZSBieSB0aGUgcmVtb3RlIGRvbWFpbiwgTGlu
-dXggbXVzdCBwdXQNCj4gaXQgb24gYSBkZWZlcnJlZCBsaXN0LiAgTm9ybWFsbHksIHRoaXMg
-bGlzdCBpcyB2ZXJ5IHNob3J0LCBiZWNhdXNlDQo+IHRoZSBQViBuZXR3b3JrIGFuZCBibG9j
-ayBwcm90b2NvbHMgZXhwZWN0IHRoZSBiYWNrZW5kIHRvIHVubWFwIHRoZSBncmFudA0KPiBm
-aXJzdC4gIEhvd2V2ZXIsIFF1YmVzIE9TJ3MgR1VJIHByb3RvY29sIGlzIHN1YmplY3QgdG8g
-dGhlIGNvbnN0cmFpbnRzDQo+IG9mIHRoZSBYIFdpbmRvdyBTeXN0ZW0sIGFuZCBhcyBzdWNo
-IHdpbmRzIHVwIHdpdGggdGhlIGZyb250ZW5kIHVubWFwcGluZw0KPiB0aGUgd2luZG93IGZp
-cnN0LiAgQXMgYSByZXN1bHQsIHRoZSBsaXN0IGNhbiBncm93IHZlcnkgbGFyZ2UsIHJlc3Vs
-dGluZw0KPiBpbiBhIG1hc3NpdmUgbWVtb3J5IGxlYWsgYW5kIGV2ZW50dWFsIFZNIGZyZWV6
-ZS4NCj4gDQo+IFRvIHBhcnRpYWxseSBzb2x2ZSB0aGlzIHByb2JsZW0sIG1ha2UgdGhlIG51
-bWJlciBvZiBlbnRyaWVzIHRoYXQgdGhlIFZNDQo+IHdpbGwgYXR0ZW1wdCB0byBmcmVlIGF0
-IGVhY2ggaXRlcmF0aW9uIHR1bmFibGUuICBUaGUgZGVmYXVsdCBpcyBzdGlsbA0KPiAxMCwg
-YnV0IGl0IGNhbiBiZSBvdmVycmlkZGVuIGF0IGNvbXBpbGUtdGltZSAodmlhIEtjb25maWcp
-LCBib290LXRpbWUNCj4gKHZpYSBhIGtlcm5lbCBjb21tYW5kLWxpbmUgb3B0aW9uKSwgb3Ig
-cnVudGltZSAodmlhIHN5c2ZzKS4NCg0KVXNpbmcgS2NvbmZpZyBoYXMgYmVlbiBkcm9wcGVk
-Lg0KDQo+IA0KPiBUaGlzIGlzIENjOiBzdGFibGUgYmVjYXVzZSAod2hlbiBjb21iaW5lZCB3
-aXRoIGFwcHJvcHJpYXRlIHVzZXJzcGFjZQ0KPiBjaGFuZ2VzKSBpdCBmaXhlcyBhIHNldmVy
-ZSBwZXJmb3JtYW5jZSBhbmQgc3RhYmlsaXR5IHByb2JsZW0gZm9yIFF1YmVzDQo+IE9TIHVz
-ZXJzLg0KPiANCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1i
-eTogRGVtaSBNYXJpZSBPYmVub3VyIDxkZW1pQGludmlzaWJsZXRoaW5nc2xhYi5jb20+DQo+
-IC0tLQ0KPiAgIGRyaXZlcnMveGVuL2dyYW50LXRhYmxlLmMgfCA0MCArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLS0tLS0tLS0tLS0NCj4gICAyIGZpbGVzIGNoYW5nZWQsIDQxIGlu
-c2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMveGVuL2dyYW50LXRhYmxlLmMgYi9kcml2ZXJzL3hlbi9ncmFudC10YWJsZS5jDQo+IGlu
-ZGV4IGUxZWM3MjVjMjgxOWQ0ZDVkZWRlMDYzZWIwMGQ4NmE2ZDUyOTQ0YzAuLmZhNjY2YWE2
-YWJjM2U3ODZkZGRjOTRmODk1NjQxNTA1ZWMwYjIzZDggMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
-cnMveGVuL2dyYW50LXRhYmxlLmMNCj4gKysrIGIvZHJpdmVycy94ZW4vZ3JhbnQtdGFibGUu
-Yw0KPiBAQCAtNDk4LDE0ICs0OTgsMjAgQEAgc3RhdGljIExJU1RfSEVBRChkZWZlcnJlZF9s
-aXN0KTsNCj4gICBzdGF0aWMgdm9pZCBnbnR0YWJfaGFuZGxlX2RlZmVycmVkKHN0cnVjdCB0
-aW1lcl9saXN0ICopOw0KPiAgIHN0YXRpYyBERUZJTkVfVElNRVIoZGVmZXJyZWRfdGltZXIs
-IGdudHRhYl9oYW5kbGVfZGVmZXJyZWQpOw0KPiAgIA0KPiArc3RhdGljIGF0b21pYzY0X3Qg
-ZGVmZXJyZWRfY291bnQ7DQo+ICtzdGF0aWMgYXRvbWljNjRfdCBsZWFrZWRfY291bnQ7DQo+
-ICtzdGF0aWMgdW5zaWduZWQgaW50IGZyZWVfcGVyX2l0ZXJhdGlvbiA9IDEwOw0KPiArDQo+
-ICAgc3RhdGljIHZvaWQgZ250dGFiX2hhbmRsZV9kZWZlcnJlZChzdHJ1Y3QgdGltZXJfbGlz
-dCAqdW51c2VkKQ0KPiAgIHsNCj4gLQl1bnNpZ25lZCBpbnQgbnIgPSAxMDsNCj4gKwl1bnNp
-Z25lZCBpbnQgbnIgPSBSRUFEX09OQ0UoZnJlZV9wZXJfaXRlcmF0aW9uKTsNCj4gKwljb25z
-dCBib29sIGlnbm9yZV9saW1pdCA9IG5yID09IDA7DQo+ICAgCXN0cnVjdCBkZWZlcnJlZF9l
-bnRyeSAqZmlyc3QgPSBOVUxMOw0KPiAgIAl1bnNpZ25lZCBsb25nIGZsYWdzOw0KPiArCXNp
-emVfdCBmcmVlZCA9IDA7DQo+ICAgDQo+ICAgCXNwaW5fbG9ja19pcnFzYXZlKCZnbnR0YWJf
-bGlzdF9sb2NrLCBmbGFncyk7DQo+IC0Jd2hpbGUgKG5yLS0pIHsNCj4gKwl3aGlsZSAoKGln
-bm9yZV9saW1pdCB8fCBuci0tKSAmJiAhbGlzdF9lbXB0eSgmZGVmZXJyZWRfbGlzdCkpIHsN
-Cj4gICAJCXN0cnVjdCBkZWZlcnJlZF9lbnRyeSAqZW50cnkNCj4gICAJCQk9IGxpc3RfZmly
-c3RfZW50cnkoJmRlZmVycmVkX2xpc3QsDQo+ICAgCQkJCQkgICBzdHJ1Y3QgZGVmZXJyZWRf
-ZW50cnksIGxpc3QpOw0KPiBAQCAtNTE1LDEwICs1MjEsMTMgQEAgc3RhdGljIHZvaWQgZ250
-dGFiX2hhbmRsZV9kZWZlcnJlZChzdHJ1Y3QgdGltZXJfbGlzdCAqdW51c2VkKQ0KPiAgIAkJ
-bGlzdF9kZWwoJmVudHJ5LT5saXN0KTsNCj4gICAJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUo
-JmdudHRhYl9saXN0X2xvY2ssIGZsYWdzKTsNCj4gICAJCWlmIChfZ250dGFiX2VuZF9mb3Jl
-aWduX2FjY2Vzc19yZWYoZW50cnktPnJlZikpIHsNCj4gKwkJCXVpbnQ2NF90IHJldCA9IGF0
-b21pYzY0X3N1Yl9yZXR1cm4oMSwgJmRlZmVycmVkX2NvdW50KTsNCg0KVXNlIGF0b21pYzY0
-X2RlY19yZXR1cm4oKT8NCg0KUGxlYXNlIGFkZCBhbiBlbXB0eSBsaW5lIGhlcmUuDQoNCj4g
-ICAJCQlwdXRfZnJlZV9lbnRyeShlbnRyeS0+cmVmKTsNCj4gLQkJCXByX2RlYnVnKCJmcmVl
-aW5nIGcuZS4gJSN4IChwZm4gJSNseClcbiIsDQo+IC0JCQkJIGVudHJ5LT5yZWYsIHBhZ2Vf
-dG9fcGZuKGVudHJ5LT5wYWdlKSk7DQo+ICsJCQlwcl9kZWJ1ZygiZnJlZWluZyBnLmUuICUj
-eCAocGZuICUjbHgpLCAlbGx1IHJlbWFpbmluZ1xuIiwNCj4gKwkJCQkgZW50cnktPnJlZiwg
-cGFnZV90b19wZm4oZW50cnktPnBhZ2UpLA0KPiArCQkJCSAodW5zaWduZWQgbG9uZyBsb25n
-KXJldCk7DQo+ICAgCQkJcHV0X3BhZ2UoZW50cnktPnBhZ2UpOw0KPiArCQkJZnJlZWQrKzsN
-Cj4gICAJCQlrZnJlZShlbnRyeSk7DQo+ICAgCQkJZW50cnkgPSBOVUxMOw0KPiAgIAkJfSBl
-bHNlIHsNCj4gQEAgLTUzMCwyMSArNTM5LDIyIEBAIHN0YXRpYyB2b2lkIGdudHRhYl9oYW5k
-bGVfZGVmZXJyZWQoc3RydWN0IHRpbWVyX2xpc3QgKnVudXNlZCkNCj4gICAJCXNwaW5fbG9j
-a19pcnFzYXZlKCZnbnR0YWJfbGlzdF9sb2NrLCBmbGFncyk7DQo+ICAgCQlpZiAoZW50cnkp
-DQo+ICAgCQkJbGlzdF9hZGRfdGFpbCgmZW50cnktPmxpc3QsICZkZWZlcnJlZF9saXN0KTsN
-Cj4gLQkJZWxzZSBpZiAobGlzdF9lbXB0eSgmZGVmZXJyZWRfbGlzdCkpDQo+IC0JCQlicmVh
-azsNCj4gICAJfQ0KPiAtCWlmICghbGlzdF9lbXB0eSgmZGVmZXJyZWRfbGlzdCkgJiYgIXRp
-bWVyX3BlbmRpbmcoJmRlZmVycmVkX3RpbWVyKSkgew0KPiArCWlmIChsaXN0X2VtcHR5KCZk
-ZWZlcnJlZF9saXN0KSkNCj4gKwkJV0FSTl9PTihhdG9taWM2NF9yZWFkKCZkZWZlcnJlZF9j
-b3VudCkpOw0KPiArCWVsc2UgaWYgKCF0aW1lcl9wZW5kaW5nKCZkZWZlcnJlZF90aW1lcikp
-IHsNCj4gICAJCWRlZmVycmVkX3RpbWVyLmV4cGlyZXMgPSBqaWZmaWVzICsgSFo7DQo+ICAg
-CQlhZGRfdGltZXIoJmRlZmVycmVkX3RpbWVyKTsNCj4gICAJfQ0KPiAgIAlzcGluX3VubG9j
-a19pcnFyZXN0b3JlKCZnbnR0YWJfbGlzdF9sb2NrLCBmbGFncyk7DQo+ICsJcHJfZGVidWco
-IkZyZWVkICV6dSByZWZlcmVuY2VzIiwgZnJlZWQpOw0KPiAgIH0NCj4gICANCj4gICBzdGF0
-aWMgdm9pZCBnbnR0YWJfYWRkX2RlZmVycmVkKGdyYW50X3JlZl90IHJlZiwgc3RydWN0IHBh
-Z2UgKnBhZ2UpDQo+ICAgew0KPiAgIAlzdHJ1Y3QgZGVmZXJyZWRfZW50cnkgKmVudHJ5Ow0K
-PiAgIAlnZnBfdCBnZnAgPSAoaW5fYXRvbWljKCkgfHwgaXJxc19kaXNhYmxlZCgpKSA/IEdG
-UF9BVE9NSUMgOiBHRlBfS0VSTkVMOw0KPiAtCWNvbnN0IGNoYXIgKndoYXQgPSBLRVJOX1dB
-Uk5JTkcgImxlYWtpbmciOw0KPiArCXVpbnQ2NF90IGxlYWtlZCwgZGVmZXJyZWQ7DQo+ICAg
-DQo+ICAgCWVudHJ5ID0ga21hbGxvYyhzaXplb2YoKmVudHJ5KSwgZ2ZwKTsNCj4gICAJaWYg
-KCFwYWdlKSB7DQo+IEBAIC01NjcsMTIgKzU3NywyMCBAQCBzdGF0aWMgdm9pZCBnbnR0YWJf
-YWRkX2RlZmVycmVkKGdyYW50X3JlZl90IHJlZiwgc3RydWN0IHBhZ2UgKnBhZ2UpDQo+ICAg
-CQkJYWRkX3RpbWVyKCZkZWZlcnJlZF90aW1lcik7DQo+ICAgCQl9DQo+ICAgCQlzcGluX3Vu
-bG9ja19pcnFyZXN0b3JlKCZnbnR0YWJfbGlzdF9sb2NrLCBmbGFncyk7DQo+IC0JCXdoYXQg
-PSBLRVJOX0RFQlVHICJkZWZlcnJpbmciOw0KPiArCQlkZWZlcnJlZCA9IGF0b21pYzY0X2Fk
-ZF9yZXR1cm4oMSwgJmRlZmVycmVkX2NvdW50KTsNCg0KVXNlIGF0b21pYzY0X2luY19yZXR1
-cm4oKSAoc2FtZSBiZWxvdyk/DQoNCj4gKwkJbGVha2VkID0gYXRvbWljNjRfcmVhZCgmbGVh
-a2VkX2NvdW50KTsNCj4gKwkJcHJfZGVidWcoImRlZmVycmluZyBnLmUuICUjeCAocGZuICUj
-bHgpICh0b3RhbCBkZWZlcnJlZCAlbGx1LCB0b3RhbCBsZWFrZWQgJWxsdSlcbiIsDQo+ICsJ
-CQkgcmVmLCBwYWdlID8gcGFnZV90b19wZm4ocGFnZSkgOiAtMSwgZGVmZXJyZWQsIGxlYWtl
-ZCk7DQo+ICsJfSBlbHNlIHsNCj4gKwkJZGVmZXJyZWQgPSBhdG9taWM2NF9yZWFkKCZkZWZl
-cnJlZF9jb3VudCk7DQo+ICsJCWxlYWtlZCA9IGF0b21pYzY0X2FkZF9yZXR1cm4oMSwgJmxl
-YWtlZF9jb3VudCk7DQo+ICsJCXByX3dhcm4oImxlYWtpbmcgZy5lLiAlI3ggKHBmbiAlI2x4
-KSAodG90YWwgZGVmZXJyZWQgJWxsdSwgdG90YWwgbGVha2VkICVsbHUpXG4iLA0KPiArCQkJ
-cmVmLCBwYWdlID8gcGFnZV90b19wZm4ocGFnZSkgOiAtMSwgZGVmZXJyZWQsIGxlYWtlZCk7
-DQo+ICAgCX0NCj4gLQlwcmludGsoIiVzIGcuZS4gJSN4IChwZm4gJSNseClcbiIsDQo+IC0J
-ICAgICAgIHdoYXQsIHJlZiwgcGFnZSA/IHBhZ2VfdG9fcGZuKHBhZ2UpIDogLTEpOw0KPiAg
-IH0NCj4gICANCj4gK21vZHVsZV9wYXJhbShmcmVlX3Blcl9pdGVyYXRpb24sIHVpbnQsIDA2
-MDApOw0KPiArDQoNCkFzIHNhaWQgZm9yIHYyIGFscmVhZHk6IHBsZWFzZSBtb3ZlIHRoaXMg
-Y2xvc2VyIHRvIHRoZSByZWxhdGVkIHZhcmlhYmxlDQpkZWZpbml0aW9uLg0KDQo+ICAgaW50
-IGdudHRhYl90cnlfZW5kX2ZvcmVpZ25fYWNjZXNzKGdyYW50X3JlZl90IHJlZikNCj4gICB7
-DQo+ICAgCWludCByZXQgPSBfZ250dGFiX2VuZF9mb3JlaWduX2FjY2Vzc19yZWYocmVmKTsN
-Cg0KDQpKdWVyZ2VuDQo=
---------------mIrZ7XrDfqM0HIVUtnWjfwgm
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi Juergen,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 26/06/2023 12:06, Juergen Gross wrote:
+> On 19.06.23 20:22, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> I haven't looked at the code in details yet. But I have a few 
+>> questions regarding the commit message/
+>>
+>> On 30/05/2023 10:13, Juergen Gross wrote:
+>>> Today all Xenstore nodes are stored in a TDB data base. This data base
+>>> has several disadvantages:
+>>>
+>>> - it is using a fixed sized hash table, resulting in high memory
+>>>    overhead for small installations with only very few VMs, and a rather
+>>>    large performance hit for systems with lots of VMs due to many
+>>>    collisions
+>>
+>> Can you provide some concrete numbers and a setup in mind? This would 
+>> help if someone in the future says that they see the inverse and we 
+>> need to rework the logic.
+> 
+> The hash table size today is 7919 entries. This means that e.g. in case
+> of a simple desktop use case with 2 or 3 VMs probably far less than 10%
+> of the entries will be used (assuming roughly 100 nodes per VM). OTOH a
+> setup on a large server with 500 VMs would result in heavy conflicts in
+> the hash list with 5-10 nodes per hash table entry.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Thanks! Can this be written down in the commit message?
 
---------------mIrZ7XrDfqM0HIVUtnWjfwgm--
+>>> So drop using TDB and store the nodes directly in memory making them
+>>> easily accessible. Use a hash-based lookup mechanism for fast lookup
+>>> of nodes by their full path.
+>>>
+>>> For now only replace TDB keeping the current access functions.
+>>
+>> Do you plan to have the rest of the work upstreamed for 4.18? Also, if 
+>> for some reasons, only this work will be merged. Will this have an 
+>> impact on Xenstored memory usage/performance?
+> 
+> Memory usage should go down, especially after deleting lots of entries
+> (AFAIK TDB will never free the unused memory again, it will just keep it
+> for the future).
+> 
+> Memory fragmentation might go up, though.
+> 
+> Performance might be better, too, as there is no need to realloc() the
+> memory when adding nodes.
 
---------------ebp0q1YcSwFAPG6JD0b6JUuK--
+What you write seems to be quite hypothetical so far. Given there this 
+is not gated by an #ifdef, I think it would be good to have a good idea 
+of the impact to have only the partial rework.
 
---------------mHeC0WOb7yJmfde0byhVaLMj
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Cheers,
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSZjQgFAwAAAAAACgkQsN6d1ii/Ey9n
-rwgAl9aj+/RACmJfgKRH3lah4xrX0a2jqW1I4fOkGIUknEQkHfyVIyjip3+AJCcIw9XRVbx8aDqt
-U22ktQekf6n0tVwAy2SKbxgzSqyvoYWrcBjpkeb3GtsMRDGtU5GJKgImFcCKDEB+PFPMdGiUisMv
-nQx8CC7fHcb6JvI6Slw5cwZAjMPvSOQ1iD0zKRKCcvHp/r6SuQbhIhWIK5myLKljSpkJGBYkGd5U
-eubdCk9pX733hzXRKkIyTqHkbKzvvVgjoYyfAN2pvLZrrr4LiyJ9nAeNOrm6VgxDxZDjzRrNXvej
-/Dkr1wzQQC31oOChMHt+r7lQRH95Hy6+EoZFtvDHlg==
-=hjdC
------END PGP SIGNATURE-----
-
---------------mHeC0WOb7yJmfde0byhVaLMj--
+-- 
+Julien Grall
 
