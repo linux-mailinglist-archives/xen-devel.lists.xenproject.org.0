@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CADD73E774
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 20:15:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555628.867520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30D873E7AA
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 20:17:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555632.867531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDqjq-0005xz-6y; Mon, 26 Jun 2023 18:14:58 +0000
+	id 1qDqm3-0006YL-LB; Mon, 26 Jun 2023 18:17:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555628.867520; Mon, 26 Jun 2023 18:14:58 +0000
+Received: by outflank-mailman (output) from mailman id 555632.867531; Mon, 26 Jun 2023 18:17:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDqjq-0005vh-4G; Mon, 26 Jun 2023 18:14:58 +0000
-Received: by outflank-mailman (input) for mailman id 555628;
- Mon, 26 Jun 2023 18:14:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qDqm3-0006Vn-HW; Mon, 26 Jun 2023 18:17:15 +0000
+Received: by outflank-mailman (input) for mailman id 555632;
+ Mon, 26 Jun 2023 18:17:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=X2wr=CO=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qDqjo-0005vZ-56
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 18:14:56 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20610.outbound.protection.outlook.com
- [2a01:111:f400:7eab::610])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57f1e880-144d-11ee-8611-37d641c3527e;
- Mon, 26 Jun 2023 20:14:53 +0200 (CEST)
-Received: from MW4PR04CA0386.namprd04.prod.outlook.com (2603:10b6:303:81::31)
- by PH7PR12MB5735.namprd12.prod.outlook.com (2603:10b6:510:1e2::16)
+ id 1qDqm2-0006Vg-4O
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 18:17:14 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061c.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::61c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab4fc033-144d-11ee-b237-6b7b168915f2;
+ Mon, 26 Jun 2023 20:17:12 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MN0PR12MB6246.namprd12.prod.outlook.com (2603:10b6:208:3c2::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Mon, 26 Jun
- 2023 18:14:49 +0000
-Received: from CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:81:cafe::82) by MW4PR04CA0386.outlook.office365.com
- (2603:10b6:303:81::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.33 via Frontend
- Transport; Mon, 26 Jun 2023 18:14:48 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT015.mail.protection.outlook.com (10.13.175.130) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 18:14:48 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
- 2023 13:14:47 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
- 2023 13:14:47 -0500
-Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via
- Frontend Transport; Mon, 26 Jun 2023 13:14:46 -0500
+ 2023 18:17:07 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6521.026; Mon, 26 Jun 2023
+ 18:17:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,93 +47,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57f1e880-144d-11ee-8611-37d641c3527e
+X-Inumbo-ID: ab4fc033-144d-11ee-b237-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nPms2fW+NGjL8xmVhSmiK5ykPeQHyTYjxpzm5yziXrMoZW8UZlY/5xD5NvJDA38uTAuEZPymFQK3RN58veFjG4Qv+sm8ZGrXgGbVgKY98YJ2Q4E1DQ1xZLBs64l94C08mMRL/kZGNI0go+dfjS+MElMixmmY3fjDXq/RbOQi+EFXfIW+h5DT9QPWsOqWLrIiNIWa9FmvXIlxmGp4gvdLZU7wfRlhetPYw0k5MbCwZwnGbFVMI2h+pEh5S4JFyZYVsKLmQ8OylXKfuH7All96hNzjyLa/rgPHTITNwBBhGIOYtxaNsRkZAQRDWlA2Su+D265XDUY0jk/58TmM4mm4Gw==
+ b=gwk2IyBnTKtpf5qDF7Rg5Rpmi8IwwDjsGLaTCH2xzR1aJTvk5mMzwLDWlC9xtDf7X4CwKF8o5SkbZcbo48Y1tcCUVnpxJ7QZZJSWaYeIT8Az50Oqs+Du49XN4qJN3nZg63xJ6CHPSB6yfHVQxu6OGx+0GLJqKtMxPuqkjYv0yflcOhH6XM45kQYtOfE9Vvx6tgirqmWzO/PtdsjfNplpDPleB7ATHpmHgH6xnL0GFeYkfWqKnBZU8FGo7VZavukpTWsCZb3kyqp3wqskXIrMXkYwUAnJrFUUmwy+fHNrxpSnuH9y1dm3sVHemSn765JSVDOTSnCs6HN74RWRe0u9fA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V6yihoa+/80SBfUX8wWhjluFGN6I/haOtnxcY6AQwwc=;
- b=BS6iKZVR+BO/4DWLJlapv2cWrnAq6NBiOLaCraZym+rqjg+Fk1qXQOKc9jePCL850M49jER027IYS58yc1kPJuAi+T6pwq0ZgjUaCv5cZ7sMFPSjCVgsCRyaS4yY6FmOktWSwq21VPQ+S35XFV2oozSCWgDuAeD+QaQaFIPucGzPzuHba+EJlTHyfrwwPFc1m6nUA8pmLxH5TD4h/2c0W8r3gjDqDAcZ9HHneiuwK/eohuGx9p7wbV4N2M5uOvUL9GRIfL5IJ1BKb6r8L4kku6LICa+cGHsojf7MtvMurYGIu1Sve67IZe6uak7E057GHQwFst3b+3zF32eIG8qYlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=oeHXLEtbheAf+jFSN86qIDwoxCZcTUTBwyQiWyrKNnI=;
+ b=It5d2T3i0OwubxPz4kS1Tpm2B1hOcQCSCv1aNa3i3WjCTFWbip9K40GsBHLIzbHl0p8Qnw3fEzPKtdpJFS1753At+j3Rf6oWK4KphtMHloQTEI3tavSrCV3tzFtDzs2TMjPtMXToB8UXdrP4tXTC2z9JT6QDdd1KGq4v8S4p9p2RkMzRWU0ejse0/W8l12zdoMTNJS8ZLOBSm4duE7wkZa5Hf5GEykVFlREfDkhn44HPZlpFrQNvg9XjdbgbcSANthal9SuMvtK3exjGh2AVjCud9zLlxD1ftUjDk/wTfs0mzY8/+6WmF+GALU/Uxq07RCe8RfyzsjPb4pLp4cN2Bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V6yihoa+/80SBfUX8wWhjluFGN6I/haOtnxcY6AQwwc=;
- b=WG/k700E8BBMv1oO3db6F4HZ9NeoBnIyy7FEFjpkHJFqTXWo2QsPxuDQh8+GwV1nnLOOz6qWhQuWfkXKREg0hX70pF/OUavSmP2Qk84gQFAslRHGepuSaoqGhN1/eMHemz54QZ+VOBpXxQkSOpgAPA3rMDngzxHs5VebdoBVOHw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>
-Subject: [XEN v2] xen/arm: arm32: Allow Xen to boot on unidentified CPUs
-Date: Mon, 26 Jun 2023 19:14:44 +0100
-Message-ID: <20230626181444.2305769-1-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=oeHXLEtbheAf+jFSN86qIDwoxCZcTUTBwyQiWyrKNnI=;
+ b=eES5qDzQ048BbeFru90VewRopXvaCkwp03ygtVfXwcHtkhybjX82oU7LLgs81H4u0J7eFhrDrVoOd9XOYyqIagbBYusZv2wNYgUCj0uBImDhBnbxTW1yrQXI+DiYxoC2Sr2N9YWskCzQx0KiSISb0f+Gy95fJoOwL4ybcMCWozI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <90c0f648-9413-74a2-0f65-c250106dfbcc@amd.com>
+Date: Mon, 26 Jun 2023 19:17:00 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v1] xen/arm: arm32: Add support to identify the Cortex-R52
+ processor
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20230620151736.3720850-1-ayan.kumar.halder@amd.com>
+ <d92e26fb-86d4-1681-0d10-be6c2e2cc846@xen.org>
+ <d7701ff7-4cee-800a-69c9-deb8560804d3@amd.com>
+ <3b7f584e-700e-4598-f36e-51a96140323e@xen.org>
+ <bdaa74a7-8707-62a0-fcc9-24f80772a104@amd.com>
+ <030fc5e8-8293-2306-06eb-9275c2a2c9e5@xen.org>
+ <c7ca9356-ffd7-8fdf-3a69-5267f2957815@amd.com>
+ <2fbf6885-5bb8-4b49-522d-eb265349d4b7@xen.org>
+ <75008370-7141-757c-0768-14b654724f07@amd.com>
+ <ba33a5ea-aa6c-2b93-b10f-28a89cd402c4@xen.org>
+ <b0f1a006-7be6-2df8-8859-e9d7927a35c9@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <b0f1a006-7be6-2df8-8859-e9d7927a35c9@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PR3P193CA0054.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:102:51::29) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT015:EE_|PH7PR12MB5735:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b6239a9-18dc-4a91-2395-08db76713a5f
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MN0PR12MB6246:EE_
+X-MS-Office365-Filtering-Correlation-Id: 220f1f77-6f9d-489d-3867-08db76718d08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	n8Tza29vAMltl/hYUw7uY9T4fgG1WmMzatdgVyXM3sFLR+K9CzQeZ7Ub83sGMEQ9byyfJLFquZE+bhoiK1zF1rVyZDoR+4kMHOIB98kNXHM+epegL2SMH5ci30+0lqzfnh34W52KYl8uEkOehl+0cD86bugjeyi4kp1VGiSHaLyduhvXNMbEZI83rO5IKHHo6VvveZ9f8SiqLYuMSd42iNR3uXM74lH+1gPdaX+q4CNymQCdkn4oaQvXj15t11Oof5mD8YIGzRrB1QsM+eIZ7QmiI03a6cMt4S73XxM7p127Gv+tE9LONYIh3hJtYyA6u3izWcm4h23vhJ/9icd8SWWp9Ov6Mx3+7q3iJ1T3KXfQ6ceQ15ic4jW5ZWIzZVjCeR0SG19H1Kbtfpp9pNTw+tEJizxTFyiEaJ6seM0Wjm3WV4cITDH0xWY10i9Lrjf54+dTrbEqxyiyZGThj5zgt5BP2SXaMLDOHqcniA0YzF1h0vI6Y421xlpuSAYl/1JcEhzyOL2hpEJyVLefSs9TvJgpwJHu4uACLU6su8w5Lvg/MXpVLjK6iv7xPwBnREkPUB62mwLf9T/1Vda06P6Ltg393iPDCJg01gtObZ43EHF5PqcxvQfsWeZsrYzd3wa1sEUowILY+Rtm0g1GurILN4vZEaeyHs0gRP7qBZFK6ZYykNiugthg/OWDGbvvm1Jm2jRI4exlok/5ketgKcnXt7tLWjMHEAuGPYjbOsfv/Jafz18n8yBDHlKGUo+yUV3Denn6cmXOtWS5EfdV/voFpg==
+	SttnXFh90Tsg7Rlh8i7lch9L2RiDfMi5ByI3fhbOWOFo4c8lXUcgyxG60dwF545M7d5iG/KnbQXzfl9pjzysgQgEZBQ+wC2tx/ShD9mWVW+Eea+tLKa1Mn7OiFBmOsGs34mlJ9W3KAT8Waw8xHKU8SYAOiX0emMzfpKtn1bkZZMAB3RePC/Q2ulhyQsAdChAaOHqK1A4OpLBJD+e7fKEDLdoPgs/Covp+lNv725uP0DSGMGjD4L1W/IzXCy9OVB3/CipjUG3E+mZe9+CutuRlse+3knKOwsltZBx0YTBq/oGWfgkGNpBxbfmeCUZ8U2pCuxQ9xOKzq4a51v6P4N0RS5AGVeeivsHrqgCXy/3g9iGMA3CC1pHSN8nH6S0YpSrEQITdjU84Rwxai+lOuSrn8sbNHddoVZwkS4L9u/VpOfTXdv3r6Keum0+l8bU0ist/usQivV9u30tDWI6v3BWJkL2nmlkhjKUPrxTeqbYqfq0lzg7IBj4JB/Hq5xwZvXL9AAcmLbTzaVyLCG1LYAD8aLsfuW6wsYZEjeODpGCGYDpVXQNdgj4jK7xA9Hw01/fw19X9bOEhzjZqtZZtPTDY8LuX3Qh1rIpvxZu5lnFles90JGr7+oDpjJAzxwfxBcZcrbOxtAuDaLSzOvEPs9Ddg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199021)(40470700004)(36840700001)(46966006)(2906002)(4744005)(186003)(82310400005)(2616005)(82740400003)(83380400001)(81166007)(1076003)(26005)(47076005)(336012)(426003)(356005)(36860700001)(40480700001)(40460700003)(41300700001)(54906003)(86362001)(478600001)(316002)(36756003)(4326008)(70206006)(103116003)(6916009)(70586007)(5660300002)(8676002)(8936002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(451199021)(8676002)(8936002)(66476007)(66556008)(66946007)(316002)(6512007)(4326008)(6506007)(26005)(186003)(53546011)(6486002)(478600001)(110136005)(2616005)(41300700001)(6666004)(2906002)(5660300002)(38100700002)(36756003)(31696002)(31686004)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VTNZUXlwM0xreC93dnRjUVJBUVV2SllKanF1eWY0QlBuczhLTkExM0FmZFll?=
+ =?utf-8?B?d0ZwNjBEYk9GS0JBb0tjc2pmbkl0a0RGa25hc2VHdzJjcXFBQm5zaVVmaVo1?=
+ =?utf-8?B?ajFPQlhsWE9wNTNzNThiVCt0ZmVwREx4OTZJMTh0MjRsTzN3WlNqN2pLcDRE?=
+ =?utf-8?B?ajlIeVFNdGl1VWl0SXA3eVBWbjZmZFBHcmJFNEVUa1lRRUZ5cFdFQmduL2Jt?=
+ =?utf-8?B?MzVlUWExU092TFhwYnZSZUx0NThmNnBMMHFIMXNnLy9hUFBhNTlXVG9vMG11?=
+ =?utf-8?B?eExaMURWU3JBb21NZjB5R0JWSWJjbFk0d0swNlUycDdjR3hpRWVsTXAzTktt?=
+ =?utf-8?B?ejdVUDlPNGlqbElLMUVmV2paSmdPanp1cU1oN2VyOWU2M2tPenlkVThkbEdj?=
+ =?utf-8?B?dDg2SFl0Ukl4V2pweVhFODlEdzRwckg4bkJFWlFVUlg0NjdKZmdUdHRvZERh?=
+ =?utf-8?B?RUl4UzY3c2V3dlY0Wk9pL21KOGZkS1VGbTJzRWF6VFBoWEo4bThLN3JSTFdt?=
+ =?utf-8?B?ZkFtMW9JWDh1cU1Pc1JzNHhsNFc5REdWMjNFVURXWkNQWnlTRmluOWZjREpL?=
+ =?utf-8?B?aUtKSU8xdjg2cUtTQm1HMzFPWFR2ZDg5NkVmMXBEcFhCL2w4TExrSWpCSE9J?=
+ =?utf-8?B?S3B2WUxhb1lPNlFrMVBFdDBYcTJlOUU5MWMyR3hzckY2ZVZ0K1dGYVZaUi9I?=
+ =?utf-8?B?aVBUY3Bkb091VWkwTGU5TWc2VzU5S2NIMXNFVmpOeDk3dHBzWnRDRjRaL1dn?=
+ =?utf-8?B?cktvc1JmUEZ0OXF2QnJMdVlrR0JLdk9UYWw2aTVicFRqTWE5aUhpVHdDWElK?=
+ =?utf-8?B?NVc4blZTYktRZ0UyWmMxZGQ4dElaV280cnZBZUl1T0xLamxmZUxHZjJ2b1I1?=
+ =?utf-8?B?ZGtMU2Z6RDI2alhyTkFUdlk0bXcvckE3ZjRTRmZUL3ZDUm9IYzh2MkpJOWtj?=
+ =?utf-8?B?aTN1ekRyTk5BUTNFVG13RHR6cWQ4Mnp5RXdvU0phZUNxaTc3d2tBeVhaWDkw?=
+ =?utf-8?B?ZUx5ZzFmSFZCQ3JkK3g0dUlKUlJSeXhWeVJBS01pN2xpUXNyK1hGNkNBeENy?=
+ =?utf-8?B?UzlJKzEwL3BQbFFGdTVNeU5mOHBLRWYyTnRxOWYyM1QyR3BBcTVLU3FKSi9N?=
+ =?utf-8?B?ejVvSDBscVdxVVdkZXVOVSt4a1F1TGtaYytzalBSaEZDM2FUZ3paZUlZTDI2?=
+ =?utf-8?B?amtSWmdxcm04L1hlUFEzM2xGYyswcTh3RUlUOFJPc2ZBNGUyRmxmQUFUNVJy?=
+ =?utf-8?B?VExIM3NBQ1A2clh6YmlEenZJbHJCWXJiSDlrRnI3cXVXM0Jid1UwSHhHbExV?=
+ =?utf-8?B?bVVENUozWmlUd0lhcEVxb3VFY2FrTFIxem85ME9GbGVIOTkybko4bC93cVlB?=
+ =?utf-8?B?NWVacWdOMHc5d0pKcERNTjNtaW83NFluc28zYTJVTmdjZWthbGl1bmlncWg3?=
+ =?utf-8?B?NzhHd3lmRC9EcGtzNFJSQzhnZHJ0Y28zanNQeitINDJYYVJLREc5Nkh3Njda?=
+ =?utf-8?B?ZFVQTFRYMTVNcmxQUDlOTDB3NU42WklFZ2p1RCtTbVRrSjROUys3djg3SVpl?=
+ =?utf-8?B?dnYxN05VNGcwcmFjbkpVVkt3T0tlZlZlWFVrcXh3YU9TTzQzV3pIcHUzL3V5?=
+ =?utf-8?B?b0N3S1VKb0xET0VOVDQ3TGNmQnVmTjlTWjVCMkN2dmQ1aEVURm1UeGN3ek1t?=
+ =?utf-8?B?VDFuQitEWWV6Y2pmVHRHSno2dXFpQSthL2ZKTjhuVzlmYmxhallKT3ljbXZa?=
+ =?utf-8?B?Ky9INHp6MkRjVHkwemczK2NPaTFXOHNkRGxXUGo4QmhhZXU5UW10WTVvdmNT?=
+ =?utf-8?B?VFE0cGJkZEVjZGpiZ1pJaktyRTFyNkN0NEpwVFNQM0NMMllzMCs3R2o4RjBY?=
+ =?utf-8?B?RW00ZmdEQjQ0aktUWE9HOHJwLzM2aVk5cllINDJyK0x1OExHbW9ia2Jxenpv?=
+ =?utf-8?B?Mnp5ek9YY1JieEhyMlBoV1pXanZnVjJMeXRxSVlPN1VpbG9MVzBwN0h3NW9O?=
+ =?utf-8?B?RVQrajZOZlptU3JVWDkrOHNxeXJWcnhvN1ArZk5FU0pVNkxxRnoxWlpTSUJn?=
+ =?utf-8?B?M1NIOUpUK2d4RElvd0hRRFpON0JnWndsTUFrQ2VkOE4rNU1kZ09iOVBUaGdH?=
+ =?utf-8?Q?/S3F9jok5/DwYRrfCncVW2Zwd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 18:14:48.4034
+X-MS-Exchange-CrossTenant-Network-Message-Id: 220f1f77-6f9d-489d-3867-08db76718d08
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 18:17:07.5203
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b6239a9-18dc-4a91-2395-08db76713a5f
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5735
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LdNPWaD0EID+MX/7ANcjTWNMANA4AmXFzpduRA1kdFMWIsVTxaDb0uG+dxwSgTeY0NWZ2CY++xN1J5Wuo3Preg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6246
 
-Currently if the processor id is not identified (ie it is missing in proc-v7.S)
-, then Xen boot fails quite early.
-We have removed this restriction as for some CPUs (eg Cortex-R52), there isn't
-any special initialization required.
 
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
-Changes from -
+On 24/06/2023 08:04, Julien Grall wrote:
+> Hi,
+Hi Julien,
+>
+> On 23/06/2023 22:26, Julien Grall wrote:
+>>> --- a/xen/arch/arm/arm32/head.S
+>>> +++ b/xen/arch/arm/arm32/head.S
+>>> @@ -322,7 +322,7 @@ cpu_init:
+>>>           PRINT("- Setting up control registers -\r\n")
+>>>
+>>>           mov   r5, lr                       /* r5 := return address */
+>>> -
+>>> +#ifndef CONFIG_ARM_NO_PROC_INIT
+>>>           /* Get processor specific proc info into r1 */
+>>>           bl    __lookup_processor_type
+>>>           teq   r1, #0
+>>> @@ -337,7 +337,7 @@ cpu_init:
+>>>           ldr   r1, [r1, #PROCINFO_cpu_init]  /* r1 := vaddr(init 
+>>> func) */
+>>>           adr   lr, cpu_init_done             /* Save return address */
+>>>           add   pc, r1, r10                   /* Call paddr(init 
+>>> func) */
+>>> -
+>>> +#endif
+>>
+>> I think it would be best if you just #ifdef the fail below. So if the 
+>> config selected, then you will still be able to have a Xen that can 
+>> boot Cortex-A15 or a core that don't need _init.
+>>
+>> Note that for now, we should only select this new config for Armv8-R 
+>> because there are some work to confirm it would be safe for us to 
+>> boot Xen 32-bit Arm on any CPUs. I vaguely remember that we were 
+>> making some assumptions on the cache type in the past. But maybe we 
+>> other check in place to check such assumption.
+>>
+>> If this can be confirm (I am not ask you to do it, but you can) then 
+>> we could even get rid of the #ifdef.
+>
+> I had a look through the code. We have a check in the 32-bit version 
+> of setup_mm() for the instruction cache type. So I think it would be 
+> OK to relax the check in head.S.
+>
+> Bertrand, Stefano, what do you think?
 
-v1 - "[PATCH v1] xen/arm: arm32: Add support to identify the Cortex-R52 processor"
-No need to add R52 proc id and empty stubs as there is no cpu initialization
-required.
+As per discussion, I have sent "[XEN v2] xen/arm: arm32: Allow Xen to 
+boot on unidentified CPUs" with the comment addressed.
 
- xen/arch/arm/arm32/head.S | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Ayan
 
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index f9f7be9588..3e88178552 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -324,7 +324,7 @@ cpu_init:
-         PRINT("- Missing processor info: ")
-         print_reg r4
-         PRINT(" -\r\n")
--        b     fail
-+        b     cpu_init_done
- 1:
-         /* Jump to cpu_init */
-         ldr   r1, [r1, #PROCINFO_cpu_init]  /* r1 := vaddr(init func) */
--- 
-2.25.1
-
+>
+> Cheers,
+>
 
