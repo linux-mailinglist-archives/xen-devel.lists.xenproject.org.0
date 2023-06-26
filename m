@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30D873E7AA
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 20:17:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555632.867531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B517D73EA86
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 20:52:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555638.867541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDqm3-0006YL-LB; Mon, 26 Jun 2023 18:17:15 +0000
+	id 1qDrK1-0002ap-D8; Mon, 26 Jun 2023 18:52:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555632.867531; Mon, 26 Jun 2023 18:17:15 +0000
+Received: by outflank-mailman (output) from mailman id 555638.867541; Mon, 26 Jun 2023 18:52:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDqm3-0006Vn-HW; Mon, 26 Jun 2023 18:17:15 +0000
-Received: by outflank-mailman (input) for mailman id 555632;
- Mon, 26 Jun 2023 18:17:14 +0000
+	id 1qDrK1-0002Yz-AJ; Mon, 26 Jun 2023 18:52:21 +0000
+Received: by outflank-mailman (input) for mailman id 555638;
+ Mon, 26 Jun 2023 18:52:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X2wr=CO=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qDqm2-0006Vg-4O
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 18:17:14 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2061c.outbound.protection.outlook.com
- [2a01:111:f400:7e88::61c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab4fc033-144d-11ee-b237-6b7b168915f2;
- Mon, 26 Jun 2023 20:17:12 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by MN0PR12MB6246.namprd12.prod.outlook.com (2603:10b6:208:3c2::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Mon, 26 Jun
- 2023 18:17:07 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6521.026; Mon, 26 Jun 2023
- 18:17:07 +0000
+ <SRS0=xEDn=CO=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1qDrK0-0002Yt-JZ
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 18:52:20 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92ca4255-1452-11ee-b237-6b7b168915f2;
+ Mon, 26 Jun 2023 20:52:18 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 2518A3200971;
+ Mon, 26 Jun 2023 14:52:16 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Mon, 26 Jun 2023 14:52:16 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Jun 2023 14:52:12 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,163 +43,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab4fc033-144d-11ee-b237-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gwk2IyBnTKtpf5qDF7Rg5Rpmi8IwwDjsGLaTCH2xzR1aJTvk5mMzwLDWlC9xtDf7X4CwKF8o5SkbZcbo48Y1tcCUVnpxJ7QZZJSWaYeIT8Az50Oqs+Du49XN4qJN3nZg63xJ6CHPSB6yfHVQxu6OGx+0GLJqKtMxPuqkjYv0yflcOhH6XM45kQYtOfE9Vvx6tgirqmWzO/PtdsjfNplpDPleB7ATHpmHgH6xnL0GFeYkfWqKnBZU8FGo7VZavukpTWsCZb3kyqp3wqskXIrMXkYwUAnJrFUUmwy+fHNrxpSnuH9y1dm3sVHemSn765JSVDOTSnCs6HN74RWRe0u9fA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oeHXLEtbheAf+jFSN86qIDwoxCZcTUTBwyQiWyrKNnI=;
- b=It5d2T3i0OwubxPz4kS1Tpm2B1hOcQCSCv1aNa3i3WjCTFWbip9K40GsBHLIzbHl0p8Qnw3fEzPKtdpJFS1753At+j3Rf6oWK4KphtMHloQTEI3tavSrCV3tzFtDzs2TMjPtMXToB8UXdrP4tXTC2z9JT6QDdd1KGq4v8S4p9p2RkMzRWU0ejse0/W8l12zdoMTNJS8ZLOBSm4duE7wkZa5Hf5GEykVFlREfDkhn44HPZlpFrQNvg9XjdbgbcSANthal9SuMvtK3exjGh2AVjCud9zLlxD1ftUjDk/wTfs0mzY8/+6WmF+GALU/Uxq07RCe8RfyzsjPb4pLp4cN2Bw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oeHXLEtbheAf+jFSN86qIDwoxCZcTUTBwyQiWyrKNnI=;
- b=eES5qDzQ048BbeFru90VewRopXvaCkwp03ygtVfXwcHtkhybjX82oU7LLgs81H4u0J7eFhrDrVoOd9XOYyqIagbBYusZv2wNYgUCj0uBImDhBnbxTW1yrQXI+DiYxoC2Sr2N9YWskCzQx0KiSISb0f+Gy95fJoOwL4ybcMCWozI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <90c0f648-9413-74a2-0f65-c250106dfbcc@amd.com>
-Date: Mon, 26 Jun 2023 19:17:00 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v1] xen/arm: arm32: Add support to identify the Cortex-R52
- processor
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230620151736.3720850-1-ayan.kumar.halder@amd.com>
- <d92e26fb-86d4-1681-0d10-be6c2e2cc846@xen.org>
- <d7701ff7-4cee-800a-69c9-deb8560804d3@amd.com>
- <3b7f584e-700e-4598-f36e-51a96140323e@xen.org>
- <bdaa74a7-8707-62a0-fcc9-24f80772a104@amd.com>
- <030fc5e8-8293-2306-06eb-9275c2a2c9e5@xen.org>
- <c7ca9356-ffd7-8fdf-3a69-5267f2957815@amd.com>
- <2fbf6885-5bb8-4b49-522d-eb265349d4b7@xen.org>
- <75008370-7141-757c-0768-14b654724f07@amd.com>
- <ba33a5ea-aa6c-2b93-b10f-28a89cd402c4@xen.org>
- <b0f1a006-7be6-2df8-8859-e9d7927a35c9@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <b0f1a006-7be6-2df8-8859-e9d7927a35c9@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PR3P193CA0054.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:102:51::29) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 92ca4255-1452-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1687805535; x=1687891935; bh=tXZ71alGKxL1L2Jgq+exPzmNgEqTh8KcN/R
+	gEzPenow=; b=QwxvAEh8S0ZzI5xsg4rAW9vX8hxms6JsPkjW0+wmE88/jDCBuqS
+	egXM9YZvyQUsCmGpKZJpoLZhG3GCOkF/xhP4gZJ3yMS23ZYLl1GJgYq4qqPKsVEE
+	RUX0xOyOL9Slj2qYakeioVJhOB5s1FSGihdEFoSOWokdcQqR4oj8dervcig48X1a
+	HpY5jtKoAEJMUoXf/f4VpZUp34VASQ/0uuFSDWH575zHrLNejJhr/fiPrbY3IdV3
+	K7dLUw4tAQnf04fLNvuNpaYRh2Y3PNqVYwBUm4+yfThXIRJzmxEbtx5/HIg1vpJB
+	1nhxnbFUytI59bVxaXJjU3puunaJVesZaJQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1687805535; x=1687891935; bh=tXZ71alGKxL1L
+	2Jgq+exPzmNgEqTh8KcN/RgEzPenow=; b=isrsh9ANDFueHW4C1Avpa9gTWxDPf
+	9H5O79Mukjga/LFXeK1i5oKYpRgiRgzAtlMbHwyV7Nwsk9CRwUSu/5vQc2Ujs0E/
+	FwxTSMb6T9jSSIWD+7WT9wV5rG/AqvaFVVC+ujCXcWj0oO+YKJI/uCbfMOrE6ugV
+	zeIOrBbbr17m3KMMNSft1GsZLW7FL19TsRLjE+jS2LS7Kz8Ypr0ZfXgOWrqDDDX4
+	x1WmCOikTOfcmlXupKfjs6AAeRiPQXN4bfQPTGXkPZSwIXez6++mr8vbJFEg08BP
+	vlXyzkLGBlbPbxe8XOMoQXNERge4SntIN3axJYiYzvfGfOJcYWsaE41jw==
+X-ME-Sender: <xms:X96ZZGWuYe711ypUcBvJ-cNMzsbW4TCrG3yfvGPUSwgW9g5NCndC8Q>
+    <xme:X96ZZCkbWOU-murSxxA_9AwIVddYjTNOfZINDEs3eZn2IMCnraJwrXEgAQEAd-DKt
+    g48fFpic3ZJSQ>
+X-ME-Received: <xmr:X96ZZKa-Fl5JwwCSeLM322ps3xb3dycr6pEMW1H5lq5J5E0Z2dEq-c7_OD4t>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeehfedguddviecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
+    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
+    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:X96ZZNW843gTtcCJ6Igy3kGTVVxHXWyZISKfRNJalI7DaXtrDtLzjg>
+    <xmx:X96ZZAmJPhtdxJdKCcNEi_T9sU8hQ-b4x4CBsu4wqEDoq9ie185Myw>
+    <xmx:X96ZZCcL8WsFdALCVFvNKPvV1DBFCBGK8jSxky4fcloyJ1eQHKBT0Q>
+    <xmx:X96ZZBDNk1nE4fy1m01Fa2cy4yvV7KvAPYA8eOmCrNfKWjLQQJr20A>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 26 Jun 2023 20:52:08 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
+	wei.chen@arm.com, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/2] tools: Fix ifdef for aarch64 that should include
+ also arm
+Message-ID: <ZJneWcpdfxIc5KUo@mail-itl>
+References: <20230608135913.560413-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MN0PR12MB6246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 220f1f77-6f9d-489d-3867-08db76718d08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SttnXFh90Tsg7Rlh8i7lch9L2RiDfMi5ByI3fhbOWOFo4c8lXUcgyxG60dwF545M7d5iG/KnbQXzfl9pjzysgQgEZBQ+wC2tx/ShD9mWVW+Eea+tLKa1Mn7OiFBmOsGs34mlJ9W3KAT8Waw8xHKU8SYAOiX0emMzfpKtn1bkZZMAB3RePC/Q2ulhyQsAdChAaOHqK1A4OpLBJD+e7fKEDLdoPgs/Covp+lNv725uP0DSGMGjD4L1W/IzXCy9OVB3/CipjUG3E+mZe9+CutuRlse+3knKOwsltZBx0YTBq/oGWfgkGNpBxbfmeCUZ8U2pCuxQ9xOKzq4a51v6P4N0RS5AGVeeivsHrqgCXy/3g9iGMA3CC1pHSN8nH6S0YpSrEQITdjU84Rwxai+lOuSrn8sbNHddoVZwkS4L9u/VpOfTXdv3r6Keum0+l8bU0ist/usQivV9u30tDWI6v3BWJkL2nmlkhjKUPrxTeqbYqfq0lzg7IBj4JB/Hq5xwZvXL9AAcmLbTzaVyLCG1LYAD8aLsfuW6wsYZEjeODpGCGYDpVXQNdgj4jK7xA9Hw01/fw19X9bOEhzjZqtZZtPTDY8LuX3Qh1rIpvxZu5lnFles90JGr7+oDpjJAzxwfxBcZcrbOxtAuDaLSzOvEPs9Ddg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(451199021)(8676002)(8936002)(66476007)(66556008)(66946007)(316002)(6512007)(4326008)(6506007)(26005)(186003)(53546011)(6486002)(478600001)(110136005)(2616005)(41300700001)(6666004)(2906002)(5660300002)(38100700002)(36756003)(31696002)(31686004)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VTNZUXlwM0xreC93dnRjUVJBUVV2SllKanF1eWY0QlBuczhLTkExM0FmZFll?=
- =?utf-8?B?d0ZwNjBEYk9GS0JBb0tjc2pmbkl0a0RGa25hc2VHdzJjcXFBQm5zaVVmaVo1?=
- =?utf-8?B?ajFPQlhsWE9wNTNzNThiVCt0ZmVwREx4OTZJMTh0MjRsTzN3WlNqN2pLcDRE?=
- =?utf-8?B?ajlIeVFNdGl1VWl0SXA3eVBWbjZmZFBHcmJFNEVUa1lRRUZ5cFdFQmduL2Jt?=
- =?utf-8?B?MzVlUWExU092TFhwYnZSZUx0NThmNnBMMHFIMXNnLy9hUFBhNTlXVG9vMG11?=
- =?utf-8?B?eExaMURWU3JBb21NZjB5R0JWSWJjbFk0d0swNlUycDdjR3hpRWVsTXAzTktt?=
- =?utf-8?B?ejdVUDlPNGlqbElLMUVmV2paSmdPanp1cU1oN2VyOWU2M2tPenlkVThkbEdj?=
- =?utf-8?B?dDg2SFl0Ukl4V2pweVhFODlEdzRwckg4bkJFWlFVUlg0NjdKZmdUdHRvZERh?=
- =?utf-8?B?RUl4UzY3c2V3dlY0Wk9pL21KOGZkS1VGbTJzRWF6VFBoWEo4bThLN3JSTFdt?=
- =?utf-8?B?ZkFtMW9JWDh1cU1Pc1JzNHhsNFc5REdWMjNFVURXWkNQWnlTRmluOWZjREpL?=
- =?utf-8?B?aUtKSU8xdjg2cUtTQm1HMzFPWFR2ZDg5NkVmMXBEcFhCL2w4TExrSWpCSE9J?=
- =?utf-8?B?S3B2WUxhb1lPNlFrMVBFdDBYcTJlOUU5MWMyR3hzckY2ZVZ0K1dGYVZaUi9I?=
- =?utf-8?B?aVBUY3Bkb091VWkwTGU5TWc2VzU5S2NIMXNFVmpOeDk3dHBzWnRDRjRaL1dn?=
- =?utf-8?B?cktvc1JmUEZ0OXF2QnJMdVlrR0JLdk9UYWw2aTVicFRqTWE5aUhpVHdDWElK?=
- =?utf-8?B?NVc4blZTYktRZ0UyWmMxZGQ4dElaV280cnZBZUl1T0xLamxmZUxHZjJ2b1I1?=
- =?utf-8?B?ZGtMU2Z6RDI2alhyTkFUdlk0bXcvckE3ZjRTRmZUL3ZDUm9IYzh2MkpJOWtj?=
- =?utf-8?B?aTN1ekRyTk5BUTNFVG13RHR6cWQ4Mnp5RXdvU0phZUNxaTc3d2tBeVhaWDkw?=
- =?utf-8?B?ZUx5ZzFmSFZCQ3JkK3g0dUlKUlJSeXhWeVJBS01pN2xpUXNyK1hGNkNBeENy?=
- =?utf-8?B?UzlJKzEwL3BQbFFGdTVNeU5mOHBLRWYyTnRxOWYyM1QyR3BBcTVLU3FKSi9N?=
- =?utf-8?B?ejVvSDBscVdxVVdkZXVOVSt4a1F1TGtaYytzalBSaEZDM2FUZ3paZUlZTDI2?=
- =?utf-8?B?amtSWmdxcm04L1hlUFEzM2xGYyswcTh3RUlUOFJPc2ZBNGUyRmxmQUFUNVJy?=
- =?utf-8?B?VExIM3NBQ1A2clh6YmlEenZJbHJCWXJiSDlrRnI3cXVXM0Jid1UwSHhHbExV?=
- =?utf-8?B?bVVENUozWmlUd0lhcEVxb3VFY2FrTFIxem85ME9GbGVIOTkybko4bC93cVlB?=
- =?utf-8?B?NWVacWdOMHc5d0pKcERNTjNtaW83NFluc28zYTJVTmdjZWthbGl1bmlncWg3?=
- =?utf-8?B?NzhHd3lmRC9EcGtzNFJSQzhnZHJ0Y28zanNQeitINDJYYVJLREc5Nkh3Njda?=
- =?utf-8?B?ZFVQTFRYMTVNcmxQUDlOTDB3NU42WklFZ2p1RCtTbVRrSjROUys3djg3SVpl?=
- =?utf-8?B?dnYxN05VNGcwcmFjbkpVVkt3T0tlZlZlWFVrcXh3YU9TTzQzV3pIcHUzL3V5?=
- =?utf-8?B?b0N3S1VKb0xET0VOVDQ3TGNmQnVmTjlTWjVCMkN2dmQ1aEVURm1UeGN3ek1t?=
- =?utf-8?B?VDFuQitEWWV6Y2pmVHRHSno2dXFpQSthL2ZKTjhuVzlmYmxhallKT3ljbXZa?=
- =?utf-8?B?Ky9INHp6MkRjVHkwemczK2NPaTFXOHNkRGxXUGo4QmhhZXU5UW10WTVvdmNT?=
- =?utf-8?B?VFE0cGJkZEVjZGpiZ1pJaktyRTFyNkN0NEpwVFNQM0NMMllzMCs3R2o4RjBY?=
- =?utf-8?B?RW00ZmdEQjQ0aktUWE9HOHJwLzM2aVk5cllINDJyK0x1OExHbW9ia2Jxenpv?=
- =?utf-8?B?Mnp5ek9YY1JieEhyMlBoV1pXanZnVjJMeXRxSVlPN1VpbG9MVzBwN0h3NW9O?=
- =?utf-8?B?RVQrajZOZlptU3JVWDkrOHNxeXJWcnhvN1ArZk5FU0pVNkxxRnoxWlpTSUJn?=
- =?utf-8?B?M1NIOUpUK2d4RElvd0hRRFpON0JnWndsTUFrQ2VkOE4rNU1kZ09iOVBUaGdH?=
- =?utf-8?Q?/S3F9jok5/DwYRrfCncVW2Zwd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 220f1f77-6f9d-489d-3867-08db76718d08
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 18:17:07.5203
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LdNPWaD0EID+MX/7ANcjTWNMANA4AmXFzpduRA1kdFMWIsVTxaDb0uG+dxwSgTeY0NWZ2CY++xN1J5Wuo3Preg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6246
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="9mYewJK/SwC36Ru1"
+Content-Disposition: inline
+In-Reply-To: <20230608135913.560413-1-luca.fancellu@arm.com>
 
 
-On 24/06/2023 08:04, Julien Grall wrote:
-> Hi,
-Hi Julien,
->
-> On 23/06/2023 22:26, Julien Grall wrote:
->>> --- a/xen/arch/arm/arm32/head.S
->>> +++ b/xen/arch/arm/arm32/head.S
->>> @@ -322,7 +322,7 @@ cpu_init:
->>>           PRINT("- Setting up control registers -\r\n")
->>>
->>>           mov   r5, lr                       /* r5 := return address */
->>> -
->>> +#ifndef CONFIG_ARM_NO_PROC_INIT
->>>           /* Get processor specific proc info into r1 */
->>>           bl    __lookup_processor_type
->>>           teq   r1, #0
->>> @@ -337,7 +337,7 @@ cpu_init:
->>>           ldr   r1, [r1, #PROCINFO_cpu_init]  /* r1 := vaddr(init 
->>> func) */
->>>           adr   lr, cpu_init_done             /* Save return address */
->>>           add   pc, r1, r10                   /* Call paddr(init 
->>> func) */
->>> -
->>> +#endif
->>
->> I think it would be best if you just #ifdef the fail below. So if the 
->> config selected, then you will still be able to have a Xen that can 
->> boot Cortex-A15 or a core that don't need _init.
->>
->> Note that for now, we should only select this new config for Armv8-R 
->> because there are some work to confirm it would be safe for us to 
->> boot Xen 32-bit Arm on any CPUs. I vaguely remember that we were 
->> making some assumptions on the cache type in the past. But maybe we 
->> other check in place to check such assumption.
->>
->> If this can be confirm (I am not ask you to do it, but you can) then 
->> we could even get rid of the #ifdef.
->
-> I had a look through the code. We have a check in the 32-bit version 
-> of setup_mm() for the instruction cache type. So I think it would be 
-> OK to relax the check in head.S.
->
-> Bertrand, Stefano, what do you think?
+--9mYewJK/SwC36Ru1
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Jun 2023 20:52:08 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
+	wei.chen@arm.com, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/2] tools: Fix ifdef for aarch64 that should include
+ also arm
 
-As per discussion, I have sent "[XEN v2] xen/arm: arm32: Allow Xen to 
-boot on unidentified CPUs" with the comment addressed.
+On Thu, Jun 08, 2023 at 02:59:12PM +0100, Luca Fancellu wrote:
+> Commit 56a7aaa16bfe introduced some SVE related code that is protected by
+> '#if defined(__aarch64__)', the issue is that this doesn't take into
+> consideration when the toolstack is compiled for an arm32 Dom0 running on
+> an arm64 platform, it should be able to create SVE enabled guests but with
+> the current code it's not.
+>=20
+> So fix the issue by compiling the code when the toolstack is compiled for
+> both arm32 and arm64.
+>=20
+> Fixes: 56a7aaa16bfe ("tools: add physinfo arch_capabilities handling for =
+Arm")
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-- Ayan
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
->
-> Cheers,
->
+> ---
+>  tools/include/xen-tools/arm-arch-capabilities.h | 2 +-
+>  tools/python/xen/lowlevel/xc/xc.c               | 2 +-
+>  tools/xl/xl_info.c                              | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/tools/include/xen-tools/arm-arch-capabilities.h b/tools/incl=
+ude/xen-tools/arm-arch-capabilities.h
+> index 3849e897925d..4aa4c6c34a99 100644
+> --- a/tools/include/xen-tools/arm-arch-capabilities.h
+> +++ b/tools/include/xen-tools/arm-arch-capabilities.h
+> @@ -14,7 +14,7 @@
+>  static inline
+>  unsigned int arch_capabilities_arm_sve(unsigned int arch_capabilities)
+>  {
+> -#if defined(__aarch64__)
+> +#if defined(__arm__) || defined(__aarch64__)
+>      unsigned int sve_vl =3D MASK_EXTR(arch_capabilities,
+>                                      XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
+> =20
+> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
+l/xc/xc.c
+> index 491e88977fd3..e14e223ec903 100644
+> --- a/tools/python/xen/lowlevel/xc/xc.c
+> +++ b/tools/python/xen/lowlevel/xc/xc.c
+> @@ -911,7 +911,7 @@ static PyObject *pyxc_physinfo(XcObject *self)
+>                             "hw_caps",          cpu_cap,
+>                             "virt_caps",        virt_caps);
+> =20
+> -#if defined(__aarch64__)
+> +#if defined(__arm__) || defined(__aarch64__)
+>      if ( objret ) {
+>          unsigned int sve_vl_bits;
+>          PyObject *py_arm_sve_vl;
+> diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+> index ddc42f96b979..72e87eac46d1 100644
+> --- a/tools/xl/xl_info.c
+> +++ b/tools/xl/xl_info.c
+> @@ -226,7 +226,7 @@ static void output_physinfo(void)
+>          );
+> =20
+>      /* Print arm SVE vector length only on ARM platforms */
+> -#if defined(__aarch64__)
+> +#if defined(__arm__) || defined(__aarch64__)
+>      maybe_printf("arm_sve_vector_length  : %u\n",
+>           arch_capabilities_arm_sve(info.arch_capabilities)
+>          );
+> --=20
+> 2.34.1
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--9mYewJK/SwC36Ru1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmSZ3lkACgkQ24/THMrX
+1yyydQf/dNiLi0dAXMus45Pad29fbPOuTQg7bnA3ey7iygLbPsCPARcWtFsVh/N9
+fANneqbx0B3JvBB/DBYs0Dnw8Ey6nCoV80sGdugm3nZxoHlZzPnGMXicUa5q8IGv
+A/Tghj4VkzNvG2zJf1nkOfA2zKzui69hdkd7KthT+XOT6ztFpLaKcwzXWS/O4XXS
+K68I5rmh0L9YumVBgFpHDlrmo8J2Ko/yBaUfnEVcAFQ4nLXKdD924ioBoufYDf+P
+hFPqcceQpyjGwKjZcZkp3h2KsiB0sQkvwvWI7YIT4sRBYP90zdQ6QLMmz8XToN8d
+pIqS/sdpNz7nskJ32s3qifLAr0HiEg==
+=nMW+
+-----END PGP SIGNATURE-----
+
+--9mYewJK/SwC36Ru1--
 
