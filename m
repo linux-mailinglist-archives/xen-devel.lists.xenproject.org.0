@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24CAC73D692
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:41:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555106.866905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C83AA73D66F
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:39:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555016.866604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd5w-00061I-3B; Mon, 26 Jun 2023 03:40:52 +0000
+	id 1qDd4u-0006tX-JQ; Mon, 26 Jun 2023 03:39:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555106.866905; Mon, 26 Jun 2023 03:40:51 +0000
+Received: by outflank-mailman (output) from mailman id 555016.866604; Mon, 26 Jun 2023 03:39:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd5u-0005es-RO; Mon, 26 Jun 2023 03:40:50 +0000
-Received: by outflank-mailman (input) for mailman id 555106;
- Mon, 26 Jun 2023 03:40:47 +0000
+	id 1qDd4u-0006jm-6W; Mon, 26 Jun 2023 03:39:48 +0000
+Received: by outflank-mailman (input) for mailman id 555016;
+ Mon, 26 Jun 2023 03:39:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=24BZ=CO=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qDd2L-0000HH-IC
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:37:09 +0000
+ id 1qDd2O-0000HH-Mx
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:37:12 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id b9a4e930-13d2-11ee-8611-37d641c3527e;
- Mon, 26 Jun 2023 05:37:07 +0200 (CEST)
+ id bb901191-13d2-11ee-8611-37d641c3527e;
+ Mon, 26 Jun 2023 05:37:10 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1BF951FB;
- Sun, 25 Jun 2023 20:37:51 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 417381FB;
+ Sun, 25 Jun 2023 20:37:54 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 745663F64C;
- Sun, 25 Jun 2023 20:37:04 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8CDF73F64C;
+ Sun, 25 Jun 2023 20:37:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9a4e930-13d2-11ee-8611-37d641c3527e
+X-Inumbo-ID: bb901191-13d2-11ee-8611-37d641c3527e
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Penny Zheng <Penny.Zheng@arm.com>,
@@ -53,161 +53,118 @@ Cc: Penny Zheng <Penny.Zheng@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>,
 	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v3 38/52] xen/mpu: map domain page in MPU system
-Date: Mon, 26 Jun 2023 11:34:29 +0800
-Message-Id: <20230626033443.2943270-39-Penny.Zheng@arm.com>
+Subject: [PATCH v3 39/52] xen/mpu: support free_init_memory in MPU system
+Date: Mon, 26 Jun 2023 11:34:30 +0800
+Message-Id: <20230626033443.2943270-40-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In MPU system, we implement map_domain_page()/unmap_domain_page()
-through mapping the domain page with a transient MPU region on demand.
+This commit refines free_init_memory() to make it support in MPU system.
+
+We are supporting modify_xen_mappings() in MPU system too, and it is
+responsible for modifying memory permission of a existing MPU memory region.
+Currently, we only support modifying a *WHOLE* MPU memory region,
+part-region modification is not supported, as in worst case, it will
+leave three fragments behind.
+
+In MPU system, we map init text and init data section, each with a MPU memory
+region. So we shall destroy it seperately in free_init_memory().
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 ---
 v3:
-- new patch
+- As MMU and MPU could share a lot of codes, we made the changes in
+original function free_init_memory() in mm.c
 ---
- xen/arch/arm/Makefile             |  4 ++
- xen/arch/arm/include/asm/mpu/mm.h |  1 +
- xen/arch/arm/mpu/domain_page.c    | 68 +++++++++++++++++++++++++++++++
- xen/arch/arm/mpu/mm.c             | 17 ++++++++
- 4 files changed, 90 insertions(+)
- create mode 100644 xen/arch/arm/mpu/domain_page.c
+ xen/arch/arm/mm.c     | 14 +++++++++++++-
+ xen/arch/arm/mpu/mm.c | 33 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 45 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 5f6ee817ad..feb49640a0 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -17,7 +17,11 @@ obj-y += device.o
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
- obj-y += domain_build.init.o
-+ifneq ($(CONFIG_HAS_MPU),y)
- obj-$(CONFIG_ARCH_MAP_DOMAIN_PAGE) += domain_page.o
-+else
-+obj-$(CONFIG_ARCH_MAP_DOMAIN_PAGE) += mpu/domain_page.o
-+endif
- obj-y += domctl.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += efi/
-diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-index 452fe20c5f..a83519ad13 100644
---- a/xen/arch/arm/include/asm/mpu/mm.h
-+++ b/xen/arch/arm/include/asm/mpu/mm.h
-@@ -10,6 +10,7 @@ extern void setup_staticheap_mappings(void);
- extern uint8_t is_mm_range_mapped(paddr_t pa, paddr_t len);
- extern void *map_mm_range(paddr_t pa, size_t len, unsigned int attributes);
- extern void unmap_mm_range(paddr_t pa);
-+extern bool is_mm_range_mapped_transient(paddr_t pa, paddr_t len);
- 
- #endif /* __ARCH_ARM_MM_MPU__ */
- 
-diff --git a/xen/arch/arm/mpu/domain_page.c b/xen/arch/arm/mpu/domain_page.c
-new file mode 100644
-index 0000000000..da408bb9e0
---- /dev/null
-+++ b/xen/arch/arm/mpu/domain_page.c
-@@ -0,0 +1,68 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#include <xen/mm.h>
-+#include <asm/arm64/mpu.h>
-+
-+/* Override macros from asm/mm.h to make them work with mfn_t */
-+#undef mfn_to_virt
-+#define mfn_to_virt(mfn) __mfn_to_virt(mfn_x(mfn))
-+
-+void *map_domain_page_global(mfn_t mfn)
-+{
-+    /* TODO: map shared domain page globally */
-+    printk(XENLOG_ERR
-+           "mpu: mapping shared domain page not SUPPORTED right now!\n");
-+    return NULL;
-+}
-+
-+void unmap_domain_page_global(const void *va)
-+{
-+    /* TODO: map shared domain page globally */
-+    printk(XENLOG_ERR
-+           "mpu: mapping shared domain page not SUPPORTED right now!\n");
-+    return;
-+}
-+
-+/* Map a page of domain memory */
-+void *map_domain_page(mfn_t mfn)
-+{
-+    uint8_t idx;
-+    paddr_t pa = mfn_to_maddr(mfn);
-+
-+    idx = is_mm_range_mapped(pa, PAGE_SIZE);
-+    if ( idx != INVALID_REGION_IDX )
-+        /* Already mapped */
-+        return mfn_to_virt(mfn);
-+    else
-+        /*
-+         * Map it temporarily with a transient MPU region.
-+         * And it is caller's responsibity to unmap it
-+         * through unmap_domain_page.
-+         */
-+        return map_mm_range(pa, PAGE_SIZE, PAGE_HYPERVISOR_RW);
-+}
-+
-+/* Release a mapping taken with map_domain_page() */
-+void unmap_domain_page(const void *va)
-+{
-+    paddr_t pa = (paddr_t)(unsigned long)(va);
-+
-+    /* Only unmap transient page */
-+    if ( is_mm_range_mapped_transient(pa, PAGE_SIZE) )
-+        unmap_mm_range(pa);
-+}
-+
-+mfn_t domain_page_map_to_mfn(const void *ptr)
-+{
-+    printk(XENLOG_ERR
-+           "mpu: domain_page_map_to_mfn() not SUPPORTED right now!\n");
-+    return INVALID_MFN;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 21276d6de9..b2419f0603 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -809,6 +809,23 @@ void iounmap(void __iomem *va)
-     unmap_mm_range(virt_to_maddr(va));
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 247d17cfa1..ba4ae74e18 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -177,7 +177,12 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int flags)
+     ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+     ASSERT(IS_ALIGNED(e, PAGE_SIZE));
+     ASSERT(s <= e);
++#ifndef CONFIG_HAS_MPU
+     return xen_pt_update(s, INVALID_MFN, (e - s) >> PAGE_SHIFT, flags);
++#else
++    return xen_mpumap_update(virt_to_maddr((void *)s),
++                             virt_to_maddr((void *)e), flags);
++#endif
  }
  
-+bool is_mm_range_mapped_transient(paddr_t pa, paddr_t len)
-+{
-+    uint8_t idx;
+ /* Release all __init and __initdata ranges to be reused */
+@@ -212,10 +217,17 @@ void free_init_memory(void)
+     for ( i = 0; i < nr; i++ )
+         *(p + i) = insn;
+ 
++    /* Remove init text section */
+     rc = destroy_xen_mappings((unsigned long)__init_begin,
++                              (unsigned long)inittext_end);
++    if ( rc )
++        panic("Unable to remove the init text section (rc = %d)\n", rc);
 +
-+    idx = is_mm_range_mapped(pa, len);
-+    if ( idx != INVALID_REGION_IDX )
++    /* Remove init data section */
++    rc = destroy_xen_mappings((unsigned long)inittext_end,
+                               (unsigned long)__init_end);
+     if ( rc )
+-        panic("Unable to remove the init section (rc = %d)\n", rc);
++        panic("Unable to remove the init data section (rc = %d)\n", rc);
+ 
+     if ( !xen_is_using_staticheap() )
+     {
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index b2419f0603..79d1c10d05 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -496,8 +496,39 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+     if ( (rc < 0) || (rc == MPUMAP_REGION_OVERLAP) )
+         return -EINVAL;
+ 
++    /* We are updating the permission. */
++    if ( (flags & _PAGE_PRESENT) && (rc == MPUMAP_REGION_FOUND ||
++                                     rc == MPUMAP_REGION_INCLUSIVE) )
 +    {
-+        pr_t *region;
++        /*
++         * Currently, we only support modifying a *WHOLE* MPU memory region,
++         * part-region modification is not supported, as in worst case, it will
++         * leave three fragments behind.
++         * part-region modification will be introduced only when actual usage
++         * come
++         */
++        if ( rc == MPUMAP_REGION_INCLUSIVE )
++        {
++            region_printk("mpu: part-region modification is not supported\n");
++            return -EINVAL;
++        }
 +
-+        region = &xen_mpumap[idx];
-+        if ( region_is_transient(region) )
-+            return true;
++        /* We don't allow changing memory attributes. */
++        if (xen_mpumap[idx].prlar.reg.ai != PAGE_AI_MASK(flags) )
++        {
++            region_printk("Modifying memory attributes is not allowed (0x%x -> 0x%x).\n",
++                          xen_mpumap[idx].prlar.reg.ai, PAGE_AI_MASK(flags));
++            return -EINVAL;
++        }
++
++        /* Set new permission */
++        xen_mpumap[idx].prbar.reg.ap = PAGE_AP_MASK(flags);
++        xen_mpumap[idx].prbar.reg.xn = PAGE_XN_MASK(flags);
++
++        write_protection_region((const pr_t*)(&xen_mpumap[idx]), idx);
 +    }
-+
-+    return false;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
+     /* We are inserting a mapping => Create new region. */
+-    if ( flags & _PAGE_PRESENT )
++    else if ( flags & _PAGE_PRESENT )
+     {
+         if ( rc != MPUMAP_REGION_FAILED )
+             return -EINVAL;
 -- 
 2.25.1
 
