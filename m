@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A7373D672
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:40:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555024.866630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32D373D68E
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:40:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555086.866849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd4z-0007m4-4t; Mon, 26 Jun 2023 03:39:53 +0000
+	id 1qDd5l-0003HH-6U; Mon, 26 Jun 2023 03:40:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555024.866630; Mon, 26 Jun 2023 03:39:52 +0000
+Received: by outflank-mailman (output) from mailman id 555086.866849; Mon, 26 Jun 2023 03:40:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd4x-0007Qy-NW; Mon, 26 Jun 2023 03:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 555024;
- Mon, 26 Jun 2023 03:39:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qDd5j-0002Yk-VC; Mon, 26 Jun 2023 03:40:39 +0000
+Received: by outflank-mailman (input) for mailman id 555086;
+ Mon, 26 Jun 2023 03:40:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=24BZ=CO=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qDd1k-0000HH-NE
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:36:32 +0000
+ id 1qDd1m-0007ej-DR
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:36:34 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id a36624b4-13d2-11ee-8611-37d641c3527e;
- Mon, 26 Jun 2023 05:36:30 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id a5415410-13d2-11ee-b237-6b7b168915f2;
+ Mon, 26 Jun 2023 05:36:33 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C80F51FB;
- Sun, 25 Jun 2023 20:37:13 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E0A9C1FB;
+ Sun, 25 Jun 2023 20:37:16 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2C3F73F64C;
- Sun, 25 Jun 2023 20:36:26 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 44BE13F64C;
+ Sun, 25 Jun 2023 20:36:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a36624b4-13d2-11ee-8611-37d641c3527e
+X-Inumbo-ID: a5415410-13d2-11ee-b237-6b7b168915f2
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Penny Zheng <Penny.Zheng@arm.com>,
@@ -53,144 +53,169 @@ Cc: Penny Zheng <Penny.Zheng@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>,
 	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v3 26/52] xen/mpu: map early uart when earlyprintk on
-Date: Mon, 26 Jun 2023 11:34:17 +0800
-Message-Id: <20230626033443.2943270-27-Penny.Zheng@arm.com>
+Subject: [PATCH v3 27/52] xen/mpu: introduce setup_mm_mappings
+Date: Mon, 26 Jun 2023 11:34:18 +0800
+Message-Id: <20230626033443.2943270-28-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We map the early UART with a hardcoded MPU memory region at
-slot(#REGION_DEVICE_SEL), right after Xen image binary.
+Function setup_pagetables is responsible for boot-time pagetable setup
+in MMU system at C world.
+In MPU system, as we have already built up start-of-day Xen MPU memory
+region mapping in assembly boot-time, here we only need to do a few
+memory management data initializtion, including reading the number of
+maximum MPU regions supported by the EL2 MPU, and setting the according
+bitfield for regions enabled in assembly boot-time, in bitmap xen_mpumap_mask.
+This bitmap xen_mpumap_mask is responsible for recording the usage of EL2 MPU
+memory regions.
 
-CONFIG_EARLY_UART_SIZE is introduced, to let user provide physical size of
-early UART. It is necessary in MPU system.
-We also check whether user-defined EARLY_UART_SIZE is aligned to PAGE_SIZE,
-or we may map more than necessary in MPU system.
+In order to keep only one codeflow in arm/setup.c, setup_mm_mappings
+, with a more generic name, is introduced to replace setup_pagetables.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 ---
 v3:
-- map the early UART with a hardcoded MPU memory region
-- error when uart size doesn't align with PAGE_SIZE
+- introduce bitmap xen_mpumap_mask for dynamic allocation on MPU regions
 ---
- xen/arch/arm/Kconfig.debug              |  7 +++++++
- xen/arch/arm/arm64/mpu/head.S           | 25 +++++++++++++++++++++++++
- xen/arch/arm/include/asm/arm64/mpu.h    |  8 ++++++++
- xen/arch/arm/include/asm/early_printk.h |  8 ++++++++
- 4 files changed, 48 insertions(+)
+ xen/arch/arm/include/asm/arm64/mpu.h     |  1 +
+ xen/arch/arm/include/asm/arm64/sysregs.h |  3 +++
+ xen/arch/arm/include/asm/mm.h            |  4 ++--
+ xen/arch/arm/mmu/mm.c                    |  7 +++++-
+ xen/arch/arm/mpu/mm.c                    | 30 ++++++++++++++++++++++++
+ xen/arch/arm/setup.c                     |  2 +-
+ 6 files changed, 43 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
-index eec860e88e..a3b0cb9daa 100644
---- a/xen/arch/arm/Kconfig.debug
-+++ b/xen/arch/arm/Kconfig.debug
-@@ -239,6 +239,13 @@ config EARLY_UART_BASE_ADDRESS
- 	default 0x1c020000 if EARLY_PRINTK_XGENE_STORM
- 	default 0xff000000 if EARLY_PRINTK_ZYNQMP
+diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+index 6ec2c10b14..407fec66c9 100644
+--- a/xen/arch/arm/include/asm/arm64/mpu.h
++++ b/xen/arch/arm/include/asm/arm64/mpu.h
+@@ -19,6 +19,7 @@
+  * or it needs adjustment.
+  */
+ #define REGION_UART_SEL            0x07
++#define MPUIR_REGION_MASK          ((_AC(1, UL) << 8) - 1)
  
-+config EARLY_UART_SIZE
-+       depends on EARLY_PRINTK
-+       depends on HAS_MPU
-+       hex "Early printk, physical size of debug UART"
-+       range 0x0 0xffffffff if ARM_32
-+       default 0x10000 if EARLY_PRINTK_FASTMODEL
+ #ifndef __ASSEMBLY__
+ 
+diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+index c41d805fde..a249a660a8 100644
+--- a/xen/arch/arm/include/asm/arm64/sysregs.h
++++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+@@ -474,6 +474,9 @@
+ /* MPU Protection Region Selection Register encode */
+ #define PRSELR_EL2  S3_4_C6_C2_1
+ 
++/* MPU Type registers encode */
++#define MPUIR_EL2   S3_4_C0_C0_4
 +
- config EARLY_UART_PL011_BAUD_RATE
- 	depends on EARLY_UART_PL011
- 	int "Early printk UART baud rate for pl011"
-diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/head.S
-index 3cfce126d5..147a01e977 100644
---- a/xen/arch/arm/arm64/mpu/head.S
-+++ b/xen/arch/arm/arm64/mpu/head.S
-@@ -18,6 +18,7 @@
+ #endif
+ 
+ /* Access to system registers */
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index 5d890a6a45..eb520b49e3 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -201,8 +201,8 @@ extern unsigned long total_pages;
+ 
+ extern uint64_t init_mm;
+ 
+-/* Boot-time pagetable setup */
+-extern void setup_pagetables(unsigned long boot_phys_offset);
++/* Boot-time memory mapping setup */
++extern void setup_mm_mappings(unsigned long boot_phys_offset);
+ /* Map FDT in boot pagetable */
+ extern void *early_fdt_map(paddr_t fdt_paddr);
+ /* Remove early mappings */
+diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
+index 43c19fa914..d7d5bf7287 100644
+--- a/xen/arch/arm/mmu/mm.c
++++ b/xen/arch/arm/mmu/mm.c
+@@ -398,7 +398,7 @@ static void clear_table(void *table)
+ 
+ /* Boot-time pagetable setup.
+  * Changes here may need matching changes in head.S */
+-void __init setup_pagetables(unsigned long boot_phys_offset)
++static void __init setup_pagetables(unsigned long boot_phys_offset)
+ {
+     uint64_t ttbr;
+     lpae_t pte, *p;
+@@ -470,6 +470,11 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
+ #endif
+ }
+ 
++void setup_mm_mappings(unsigned long boot_phys_offset)
++{
++    setup_pagetables(boot_phys_offset);
++}
++
+ static void clear_boot_pagetables(void)
+ {
+     /*
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index fb6bb721b1..e06a6e5810 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -20,6 +20,7 @@
   */
  
+ #include <xen/init.h>
++#include <xen/mm.h>
+ #include <xen/page-size.h>
  #include <asm/arm64/mpu.h>
-+#include <asm/early_printk.h>
- #include <asm/page.h>
  
- /*
-@@ -29,8 +30,10 @@
- #define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
- #define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
- #define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
-+#define REGION_DEVICE_PRBAR     0x22    /* SH=10 AP=00 XN=10 */
+@@ -27,6 +28,35 @@
+ pr_t __aligned(PAGE_SIZE) __section(".data.page_aligned")
+      xen_mpumap[ARM_MAX_MPU_MEMORY_REGIONS];
  
- #define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
-+#define REGION_DEVICE_PRLAR     0x09    /* NS=0 ATTR=100 EN=1 */
- 
- /*
-  * Macro to round up the section address to be PAGE_SIZE aligned
-@@ -216,6 +219,28 @@ ENTRY(enable_boot_mm)
-         ret
- ENDPROC(enable_boot_mm)
- 
++/* Maximum number of supported MPU memory regions by the EL2 MPU. */
++uint8_t __ro_after_init max_xen_mpumap;
++
 +/*
-+ * Map the early UART with a dedicated MPU memory region at
-+ * slot(#REGION_DEVICE_SEL), right after Xen image binary.
-+ *
-+ * Clobbers x0 - x6
-+ *
++ * Bitmap xen_mpumap_mask is to record the usage of EL2 MPU memory regions.
++ * Bit 0 represents MPU memory region 0, bit 1 represents MPU memory
++ * region 1, ..., and so on.
++ * If a MPU memory region gets enabled, set the according bit to 1.
 + */
-+ENTRY(setup_early_uart)
++static DECLARE_BITMAP(xen_mpumap_mask, ARM_MAX_MPU_MEMORY_REGIONS);
++
++void __init setup_mm_mappings(unsigned long boot_phys_offset)
++{
++    unsigned int nr_regions = REGION_UART_SEL, i = 0;
++
++    /*
++     * MPUIR_EL2.Region[0:7] identifies the number of regions supported by
++     * the EL2 MPU.
++     */
++    max_xen_mpumap = (uint8_t)(READ_SYSREG(MPUIR_EL2) & MPUIR_REGION_MASK);
++
++    /* Set the bitfield for regions enabled in assembly boot-time. */
 +#ifdef CONFIG_EARLY_PRINTK
-+    mov   x0, #REGION_UART_SEL
-+
-+    /* Xen early UART section. */
-+    ldr   x1, =CONFIG_EARLY_UART_BASE_ADDRESS
-+    ldr   x2, =(CONFIG_EARLY_UART_BASE_ADDRESS + CONFIG_EARLY_UART_SIZE)
-+    prepare_xen_region x0, x1, x2, x3, x4, x5, x6, attr_prbar=REGION_DEVICE_PRBAR, attr_prlar=REGION_DEVICE_PRLAR
-+
-+    /* Ensure any MPU memory mapping table updates made above have occurred. */
-+    dsb   nshst
-+    ret
++    nr_regions = REGION_UART_SEL + 1;
 +#endif
-+ENDPROC(setup_early_uart)
++    for ( ; i < nr_regions; i++ )
++        set_bit(i, xen_mpumap_mask);
++}
 +
  /*
   * Local variables:
-  * mode: ASM
-diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
-index 0c479086f4..6ec2c10b14 100644
---- a/xen/arch/arm/include/asm/arm64/mpu.h
-+++ b/xen/arch/arm/include/asm/arm64/mpu.h
-@@ -12,6 +12,14 @@
-  */
- #define ARM_MAX_MPU_MEMORY_REGIONS 255
+  * mode: C
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 6f8dd98d6b..f42b53d17b 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -781,7 +781,7 @@ void __init start_xen(unsigned long boot_phys_offset,
+     /* Initialize traps early allow us to get backtrace when an error occurred */
+     init_traps();
  
-+/*
-+ * REGION_UART_SEL defines MPU region selector value for early UART, when
-+ * earlyuart printk is enabled.
-+ * #REGION_DEVICE_SEL shall be compliant with what describes in xen.lds.S,
-+ * or it needs adjustment.
-+ */
-+#define REGION_UART_SEL            0x07
-+
- #ifndef __ASSEMBLY__
+-    setup_pagetables(boot_phys_offset);
++    setup_mm_mappings(boot_phys_offset);
  
- /* Protection Region Base Address Register */
-diff --git a/xen/arch/arm/include/asm/early_printk.h b/xen/arch/arm/include/asm/early_printk.h
-index ec5bcc343c..445a3fb7de 100644
---- a/xen/arch/arm/include/asm/early_printk.h
-+++ b/xen/arch/arm/include/asm/early_printk.h
-@@ -23,6 +23,14 @@
-  */
- #define EARLY_UART_VIRTUAL_ADDRESS CONFIG_EARLY_UART_BASE_ADDRESS
+     smp_clear_cpu_maps();
  
-+/*
-+ * User-defined EARLY_UART_SIZE must be aligned to a PAGE_SIZE, or
-+ * we may map more than necessary in MPU system.
-+ */
-+#if (EARLY_UART_SIZE % PAGE_SIZE) != 0
-+#error "EARLY_UART_SIZE must be aligned to PAGE_SIZE"
-+#endif
-+
- #else
- 
- /* need to add the uart address offset in page to the fixmap address */
 -- 
 2.25.1
 
