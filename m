@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC48B73D65A
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:35:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.554967.866484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E09673D662
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:35:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.554969.866494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd0n-0001Le-IK; Mon, 26 Jun 2023 03:35:33 +0000
+	id 1qDd0r-0001qP-2G; Mon, 26 Jun 2023 03:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 554967.866484; Mon, 26 Jun 2023 03:35:33 +0000
+Received: by outflank-mailman (output) from mailman id 554969.866494; Mon, 26 Jun 2023 03:35:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd0n-0001Fx-BD; Mon, 26 Jun 2023 03:35:33 +0000
-Received: by outflank-mailman (input) for mailman id 554967;
- Mon, 26 Jun 2023 03:35:30 +0000
+	id 1qDd0q-0001nU-Rj; Mon, 26 Jun 2023 03:35:36 +0000
+Received: by outflank-mailman (input) for mailman id 554969;
+ Mon, 26 Jun 2023 03:35:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=24BZ=CO=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qDd0k-0000HH-Rx
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:35:30 +0000
+ id 1qDd0o-0000HH-Pq
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:35:34 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 7eab5472-13d2-11ee-8611-37d641c3527e;
- Mon, 26 Jun 2023 05:35:28 +0200 (CEST)
+ id 8089362d-13d2-11ee-8611-37d641c3527e;
+ Mon, 26 Jun 2023 05:35:31 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 16C011FB;
- Sun, 25 Jun 2023 20:36:12 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4CB0E1FB;
+ Sun, 25 Jun 2023 20:36:15 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AD90A3F64C;
- Sun, 25 Jun 2023 20:35:25 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 87DEE3F64C;
+ Sun, 25 Jun 2023 20:35:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7eab5472-13d2-11ee-8611-37d641c3527e
+X-Inumbo-ID: 8089362d-13d2-11ee-8611-37d641c3527e
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Wei Chen <wei.chen@arm.com>,
@@ -52,9 +52,9 @@ Cc: Wei Chen <wei.chen@arm.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v3 07/52] xen/arm64: prepare for moving MMU related code from head.S
-Date: Mon, 26 Jun 2023 11:33:58 +0800
-Message-Id: <20230626033443.2943270-8-Penny.Zheng@arm.com>
+Subject: [PATCH v3 08/52] xen/arm64: move MMU related code from head.S to mmu/head.S
+Date: Mon, 26 Jun 2023 11:33:59 +0800
+Message-Id: <20230626033443.2943270-9-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
@@ -63,116 +63,1093 @@ Content-Transfer-Encoding: 8bit
 
 From: Wei Chen <wei.chen@arm.com>
 
-We want to reuse head.S for MPU systems, but there are some
-code are implemented for MMU systems only. We will move such
-code to another MMU specific file. But before that we will
-do some indentations fix in this patch to make them be easier
-for reviewing:
-1. Fix the indentations of code comments.
-2. Fix the indentations for .text.header section.
-3. Rename puts() to asm_puts() for global export
+There are lots of MMU specific code in head.S. This code will not
+be used in MPU systems. If we use #ifdef to gate them, the code
+will become messy and hard to maintain. So we move MMU related
+code to mmu/head.S, and keep common code still in head.S. We also
+add .text.idmap in mmu/head.S to make all code in this new file
+are still in identity map page but will be linked after head.S.
+
+As "fail" in head.S is very simple and this name is too easy to
+be conflicted, so duplicate it in mmu/head.S instead of exporting
+it.
+
+And some assembly macros that will be shared by MMU and MPU later,
+we move them to macros.h.
+
+Rename enable_boot_mmu()/enable_runtime_mmu() to a more generic name
+enable_boot_mm()/enable_runtime_mm(), in order to make them common interfaces
+to be used for both MMU and later MPU system.
 
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 ---
 v1 -> v2:
-1. New patch.
+1. Move macros to macros.h
+2. Remove the indention modification
+3. Duplicate "fail" instead of exporting it.
 ---
 v3:
-1. fix commit message
-2. Rename puts() to asm_puts() for global export
+- Rename enable_boot_mmu()/enable_runtime_mmu() to a more generic name
+enable_boot_mm()/enable_runtime_mm()
 ---
- xen/arch/arm/arm64/head.S | 42 +++++++++++++++++++--------------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
+ xen/arch/arm/arm64/Makefile             |   3 +
+ xen/arch/arm/arm64/head.S               | 469 +-----------------------
+ xen/arch/arm/arm64/mmu/head.S           | 453 +++++++++++++++++++++++
+ xen/arch/arm/include/asm/arm64/macros.h |  51 +++
+ 4 files changed, 509 insertions(+), 467 deletions(-)
+ create mode 100644 xen/arch/arm/arm64/mmu/head.S
 
+diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
+index 54ad55c75c..0c4b177be9 100644
+--- a/xen/arch/arm/arm64/Makefile
++++ b/xen/arch/arm/arm64/Makefile
+@@ -8,6 +8,9 @@ obj-y += domctl.o
+ obj-y += domain.o
+ obj-y += entry.o
+ obj-y += head.o
++ifeq ($(CONFIG_HAS_MMU),y)
++obj-y += mmu/head.o
++endif
+ obj-y += insn.o
+ obj-$(CONFIG_LIVEPATCH) += livepatch.o
+ obj-y += mm.o
 diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 4dfbe0bc6f..66347eedcc 100644
+index 66347eedcc..e63886b037 100644
 --- a/xen/arch/arm/arm64/head.S
 +++ b/xen/arch/arm/arm64/head.S
-@@ -94,7 +94,7 @@
- #define PRINT(_s)          \
-         mov   x3, lr ;     \
-         adr   x0, 98f ;    \
--        bl    puts    ;    \
-+        bl    asm_puts ;   \
-         mov   lr, x3 ;     \
-         RODATA_STR(98, _s)
+@@ -28,17 +28,6 @@
+ #include <asm/arm64/efibind.h>
+ #endif
  
-@@ -136,22 +136,22 @@
-         add \xb, \xb, x20
- .endm
+-#define PT_PT     0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
+-#define PT_MEM    0xf7d /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=0 P=1 */
+-#define PT_MEM_L3 0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
+-#define PT_DEV    0xe71 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=0 P=1 */
+-#define PT_DEV_L3 0xe73 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=1 P=1 */
+-
+-/* Convenience defines to get slot used by Xen mapping. */
+-#define XEN_ZEROETH_SLOT    zeroeth_table_offset(XEN_VIRT_START)
+-#define XEN_FIRST_SLOT      first_table_offset(XEN_VIRT_START)
+-#define XEN_SECOND_SLOT     second_table_offset(XEN_VIRT_START)
+-
+ #define __HEAD_FLAG_PAGE_SIZE   ((PAGE_SHIFT - 10) / 2)
  
--        .section .text.header, "ax", %progbits
--        /*.aarch64*/
-+.section .text.header, "ax", %progbits
-+/*.aarch64*/
+ #define __HEAD_FLAG_PHYS_BASE   1
+@@ -85,57 +74,6 @@
+  *  x30 - lr
+  */
  
--        /*
--         * Kernel startup entry point.
--         * ---------------------------
--         *
--         * The requirements are:
--         *   MMU = off, D-cache = off, I-cache = on or off,
--         *   x0 = physical address to the FDT blob.
--         *
--         * This must be the very first address in the loaded image.
--         * It should be linked at XEN_VIRT_START, and loaded at any
--         * 4K-aligned address.  All of text+data+bss must fit in 2MB,
--         * or the initial pagetable code below will need adjustment.
--         */
-+/*
-+ * Kernel startup entry point.
-+ * ---------------------------
-+ *
-+ * The requirements are:
-+ *   MMU = off, D-cache = off, I-cache = on or off,
-+ *   x0 = physical address to the FDT blob.
-+ *
-+ * This must be the very first address in the loaded image.
-+ * It should be linked at XEN_VIRT_START, and loaded at any
-+ * 4K-aligned address.  All of text+data+bss must fit in 2MB,
-+ * or the initial pagetable code below will need adjustment.
-+ */
+-#ifdef CONFIG_EARLY_PRINTK
+-/*
+- * Macro to print a string to the UART, if there is one.
+- *
+- * Clobbers x0 - x3
+- */
+-#define PRINT(_s)          \
+-        mov   x3, lr ;     \
+-        adr   x0, 98f ;    \
+-        bl    asm_puts ;   \
+-        mov   lr, x3 ;     \
+-        RODATA_STR(98, _s)
+-
+-/*
+- * Macro to print the value of register \xb
+- *
+- * Clobbers x0 - x4
+- */
+-.macro print_reg xb
+-        mov   x0, \xb
+-        mov   x4, lr
+-        bl    putn
+-        mov   lr, x4
+-.endm
+-
+-#else /* CONFIG_EARLY_PRINTK */
+-#define PRINT(s)
+-
+-.macro print_reg xb
+-.endm
+-
+-#endif /* !CONFIG_EARLY_PRINTK */
+-
+-/*
+- * Pseudo-op for PC relative adr <reg>, <symbol> where <symbol> is
+- * within the range +/- 4GB of the PC.
+- *
+- * @dst: destination register (64 bit wide)
+- * @sym: name of the symbol
+- */
+-.macro  adr_l, dst, sym
+-        adrp \dst, \sym
+-        add  \dst, \dst, :lo12:\sym
+-.endm
+-
+-/* Load the physical address of a symbol into xb */
+-.macro load_paddr xb, sym
+-        ldr \xb, =\sym
+-        add \xb, \xb, x20
+-.endm
+-
+ .section .text.header, "ax", %progbits
+ /*.aarch64*/
  
- GLOBAL(start)
-         /*
-@@ -520,7 +520,7 @@ ENDPROC(cpu_init)
-  * Macro to create a mapping entry in \tbl to \phys. Only mapping in 3rd
-  * level table (i.e page granularity) is supported.
-  *
-- * ptbl:     table symbol where the entry will be created
-+ * ptbl:    table symbol where the entry will be created
-  * virt:    virtual address
-  * phys:    physical address (should be page aligned)
-  * tmp1:    scratch register
-@@ -928,15 +928,15 @@ ENDPROC(init_uart)
-  * x0: Nul-terminated string to print.
-  * x23: Early UART base address
-  * Clobbers x0-x1 */
--puts:
-+ENTRY(asm_puts)
-         early_uart_ready x23, 1
-         ldrb  w1, [x0], #1           /* Load next char */
-         cbz   w1, 1f                 /* Exit on nul */
-         early_uart_transmit x23, w1
--        b     puts
-+        b     asm_puts
- 1:
+@@ -317,7 +255,7 @@ real_start_efi:
+ 
+         /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+         ldr   lr, =primary_switched
+-        b     enable_boot_mmu
++        b     enable_boot_mm
+ 
+ primary_switched:
+         bl    setup_fixmap
+@@ -367,7 +305,7 @@ GLOBAL(init_secondary)
+ 
+         /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+         ldr   lr, =secondary_switched
+-        b     enable_runtime_mmu
++        b     enable_runtime_mm
+ 
+ secondary_switched:
+ #ifdef CONFIG_EARLY_PRINTK
+@@ -475,364 +413,6 @@ cpu_init:
          ret
--ENDPROC(puts)
-+ENDPROC(asm_puts)
+ ENDPROC(cpu_init)
  
+-/*
+- * Macro to find the slot number at a given page-table level
+- *
+- * slot:     slot computed
+- * virt:     virtual address
+- * lvl:      page-table level
+- */
+-.macro get_table_slot, slot, virt, lvl
+-        ubfx  \slot, \virt, #XEN_PT_LEVEL_SHIFT(\lvl), #XEN_PT_LPAE_SHIFT
+-.endm
+-
+-/*
+- * Macro to create a page table entry in \ptbl to \tbl
+- *
+- * ptbl:    table symbol where the entry will be created
+- * tbl:     table symbol to point to
+- * virt:    virtual address
+- * lvl:     page-table level
+- * tmp1:    scratch register
+- * tmp2:    scratch register
+- * tmp3:    scratch register
+- *
+- * Preserves \virt
+- * Clobbers \tmp1, \tmp2, \tmp3
+- *
+- * Also use x20 for the phys offset.
+- *
+- * Note that all parameters using registers should be distinct.
+- */
+-.macro create_table_entry, ptbl, tbl, virt, lvl, tmp1, tmp2, tmp3
+-        get_table_slot \tmp1, \virt, \lvl   /* \tmp1 := slot in \tlb */
+-
+-        load_paddr \tmp2, \tbl
+-        mov   \tmp3, #PT_PT                 /* \tmp3 := right for linear PT */
+-        orr   \tmp3, \tmp3, \tmp2           /*          + \tlb paddr */
+-
+-        adr_l \tmp2, \ptbl
+-
+-        str   \tmp3, [\tmp2, \tmp1, lsl #3]
+-.endm
+-
+-/*
+- * Macro to create a mapping entry in \tbl to \phys. Only mapping in 3rd
+- * level table (i.e page granularity) is supported.
+- *
+- * ptbl:    table symbol where the entry will be created
+- * virt:    virtual address
+- * phys:    physical address (should be page aligned)
+- * tmp1:    scratch register
+- * tmp2:    scratch register
+- * tmp3:    scratch register
+- * type:    mapping type. If not specified it will be normal memory (PT_MEM_L3)
+- *
+- * Preserves \virt, \phys
+- * Clobbers \tmp1, \tmp2, \tmp3
+- *
+- * Note that all parameters using registers should be distinct.
+- */
+-.macro create_mapping_entry, ptbl, virt, phys, tmp1, tmp2, tmp3, type=PT_MEM_L3
+-        and   \tmp3, \phys, #THIRD_MASK     /* \tmp3 := PAGE_ALIGNED(phys) */
+-
+-        get_table_slot \tmp1, \virt, 3      /* \tmp1 := slot in \tlb */
+-
+-        mov   \tmp2, #\type                 /* \tmp2 := right for section PT */
+-        orr   \tmp2, \tmp2, \tmp3           /*          + PAGE_ALIGNED(phys) */
+-
+-        adr_l \tmp3, \ptbl
+-
+-        str   \tmp2, [\tmp3, \tmp1, lsl #3]
+-.endm
+-
+-/*
+- * Rebuild the boot pagetable's first-level entries. The structure
+- * is described in mm.c.
+- *
+- * After the CPU enables paging it will add the fixmap mapping
+- * to these page tables, however this may clash with the 1:1
+- * mapping. So each CPU must rebuild the page tables here with
+- * the 1:1 in place.
+- *
+- * Inputs:
+- *   x19: paddr(start)
+- *   x20: phys offset
+- *
+- * Clobbers x0 - x4
+- */
+-create_page_tables:
+-        /* Prepare the page-tables for mapping Xen */
+-        ldr   x0, =XEN_VIRT_START
+-        create_table_entry boot_pgtable, boot_first, x0, 0, x1, x2, x3
+-        create_table_entry boot_first, boot_second, x0, 1, x1, x2, x3
+-        create_table_entry boot_second, boot_third, x0, 2, x1, x2, x3
+-
+-        /* Map Xen */
+-        adr_l x4, boot_third
+-
+-        lsr   x2, x19, #THIRD_SHIFT  /* Base address for 4K mapping */
+-        lsl   x2, x2, #THIRD_SHIFT
+-        mov   x3, #PT_MEM_L3         /* x2 := Section map */
+-        orr   x2, x2, x3
+-
+-        /* ... map of vaddr(start) in boot_third */
+-        mov   x1, xzr
+-1:      str   x2, [x4, x1]           /* Map vaddr(start) */
+-        add   x2, x2, #PAGE_SIZE     /* Next page */
+-        add   x1, x1, #8             /* Next slot */
+-        cmp   x1, #(XEN_PT_LPAE_ENTRIES<<3) /* 512 entries per page */
+-        b.lt  1b
+-
+-        /*
+-         * If Xen is loaded at exactly XEN_VIRT_START then we don't
+-         * need an additional 1:1 mapping, the virtual mapping will
+-         * suffice.
+-         */
+-        ldr   x0, =XEN_VIRT_START
+-        cmp   x19, x0
+-        bne   1f
+-        ret
+-1:
+-        /*
+-         * Setup the 1:1 mapping so we can turn the MMU on. Note that
+-         * only the first page of Xen will be part of the 1:1 mapping.
+-         */
+-
+-        /*
+-         * Find the zeroeth slot used. If the slot is not
+-         * XEN_ZEROETH_SLOT, then the 1:1 mapping will use its own set of
+-         * page-tables from the first level.
+-         */
+-        get_table_slot x0, x19, 0       /* x0 := zeroeth slot */
+-        cmp   x0, #XEN_ZEROETH_SLOT
+-        beq   1f
+-        create_table_entry boot_pgtable, boot_first_id, x19, 0, x0, x1, x2
+-        b     link_from_first_id
+-
+-1:
+-        /*
+-         * Find the first slot used. If the slot is not XEN_FIRST_SLOT,
+-         * then the 1:1 mapping will use its own set of page-tables from
+-         * the second level.
+-         */
+-        get_table_slot x0, x19, 1      /* x0 := first slot */
+-        cmp   x0, #XEN_FIRST_SLOT
+-        beq   1f
+-        create_table_entry boot_first, boot_second_id, x19, 1, x0, x1, x2
+-        b     link_from_second_id
+-
+-1:
+-        /*
+-         * Find the second slot used. If the slot is XEN_SECOND_SLOT, then the
+-         * 1:1 mapping will use its own set of page-tables from the
+-         * third level. For slot XEN_SECOND_SLOT, Xen is not yet able to handle
+-         * it.
+-         */
+-        get_table_slot x0, x19, 2     /* x0 := second slot */
+-        cmp   x0, #XEN_SECOND_SLOT
+-        beq   virtphys_clash
+-        create_table_entry boot_second, boot_third_id, x19, 2, x0, x1, x2
+-        b     link_from_third_id
+-
+-link_from_first_id:
+-        create_table_entry boot_first_id, boot_second_id, x19, 1, x0, x1, x2
+-link_from_second_id:
+-        create_table_entry boot_second_id, boot_third_id, x19, 2, x0, x1, x2
+-link_from_third_id:
+-        create_mapping_entry boot_third_id, x19, x19, x0, x1, x2
+-        ret
+-
+-virtphys_clash:
+-        /* Identity map clashes with boot_third, which we cannot handle yet */
+-        PRINT("- Unable to build boot page tables - virt and phys addresses clash. -\r\n")
+-        b     fail
+-ENDPROC(create_page_tables)
+-
+-/*
+- * Turn on the Data Cache and the MMU. The function will return on the 1:1
+- * mapping. In other word, the caller is responsible to switch to the runtime
+- * mapping.
+- *
+- * Inputs:
+- *   x0 : Physical address of the page tables.
+- *
+- * Clobbers x0 - x4
+- */
+-enable_mmu:
+-        mov   x4, x0
+-        PRINT("- Turning on paging -\r\n")
+-
+-        /*
+-         * The state of the TLBs is unknown before turning on the MMU.
+-         * Flush them to avoid stale one.
+-         */
+-        tlbi  alle2                  /* Flush hypervisor TLBs */
+-        dsb   nsh
+-
+-        /* Write Xen's PT's paddr into TTBR0_EL2 */
+-        msr   TTBR0_EL2, x4
+-        isb
+-
+-        mrs   x0, SCTLR_EL2
+-        orr   x0, x0, #SCTLR_Axx_ELx_M  /* Enable MMU */
+-        orr   x0, x0, #SCTLR_Axx_ELx_C  /* Enable D-cache */
+-        dsb   sy                     /* Flush PTE writes and finish reads */
+-        msr   SCTLR_EL2, x0          /* now paging is enabled */
+-        isb                          /* Now, flush the icache */
+-        ret
+-ENDPROC(enable_mmu)
+-
+-/*
+- * Turn on the Data Cache and the MMU. The function will return
+- * to the virtual address provided in LR (e.g. the runtime mapping).
+- *
+- * Inputs:
+- *   lr : Virtual address to return to.
+- *
+- * Clobbers x0 - x5
+- */
+-enable_runtime_mmu:
+-        mov   x5, lr
+-
+-        load_paddr x0, init_ttbr
+-        ldr   x0, [x0]
+-
+-        bl    enable_mmu
+-        mov   lr, x5
+-
+-        /* return to secondary_switched */
+-        ret
+-ENDPROC(enable_runtime_mmu)
+-
+-/*
+- * Turn on the Data Cache and the MMU. The function will return
+- * to the virtual address provided in LR (e.g. the runtime mapping).
+- *
+- * Inputs:
+- *   lr : Virtual address to return to.
+- *
+- * Clobbers x0 - x5
+- */
+-enable_boot_mmu:
+-        mov   x5, lr
+-
+-        bl    create_page_tables
+-        load_paddr x0, boot_pgtable
+-
+-        bl    enable_mmu
+-        mov   lr, x5
+-
+-        /*
+-         * The MMU is turned on and we are in the 1:1 mapping. Switch
+-         * to the runtime mapping.
+-         */
+-        ldr   x0, =1f
+-        br    x0
+-1:
+-        /*
+-         * The 1:1 map may clash with other parts of the Xen virtual memory
+-         * layout. As it is not used anymore, remove it completely to
+-         * avoid having to worry about replacing existing mapping
+-         * afterwards. Function will return to primary_switched.
+-         */
+-        b     remove_identity_mapping
+-
+-        /*
+-         * Here might not be reached, as "ret" in remove_identity_mapping
+-         * will use the return address in LR in advance. But keep ret here
+-         * might be more safe if "ret" in remove_identity_mapping is removed
+-         * in future.
+-         */
+-        ret
+-ENDPROC(enable_boot_mmu)
+-
+-/*
+- * Remove the 1:1 map from the page-tables. It is not easy to keep track
+- * where the 1:1 map was mapped, so we will look for the top-level entry
+- * exclusive to the 1:1 map and remove it.
+- *
+- * Inputs:
+- *   x19: paddr(start)
+- *
+- * Clobbers x0 - x1
+- */
+-remove_identity_mapping:
+-        /*
+-         * Find the zeroeth slot used. Remove the entry from zeroeth
+-         * table if the slot is not XEN_ZEROETH_SLOT.
+-         */
+-        get_table_slot x1, x19, 0       /* x1 := zeroeth slot */
+-        cmp   x1, #XEN_ZEROETH_SLOT
+-        beq   1f
+-        /* It is not in slot XEN_ZEROETH_SLOT, remove the entry. */
+-        ldr   x0, =boot_pgtable         /* x0 := root table */
+-        str   xzr, [x0, x1, lsl #3]
+-        b     identity_mapping_removed
+-
+-1:
+-        /*
+-         * Find the first slot used. Remove the entry for the first
+-         * table if the slot is not XEN_FIRST_SLOT.
+-         */
+-        get_table_slot x1, x19, 1       /* x1 := first slot */
+-        cmp   x1, #XEN_FIRST_SLOT
+-        beq   1f
+-        /* It is not in slot XEN_FIRST_SLOT, remove the entry. */
+-        ldr   x0, =boot_first           /* x0 := first table */
+-        str   xzr, [x0, x1, lsl #3]
+-        b     identity_mapping_removed
+-
+-1:
+-        /*
+-         * Find the second slot used. Remove the entry for the first
+-         * table if the slot is not XEN_SECOND_SLOT.
+-         */
+-        get_table_slot x1, x19, 2       /* x1 := second slot */
+-        cmp   x1, #XEN_SECOND_SLOT
+-        beq   identity_mapping_removed
+-        /* It is not in slot 1, remove the entry */
+-        ldr   x0, =boot_second          /* x0 := second table */
+-        str   xzr, [x0, x1, lsl #3]
+-
+-identity_mapping_removed:
+-        /* See asm/arm64/flushtlb.h for the explanation of the sequence. */
+-        dsb   nshst
+-        tlbi  alle2
+-        dsb   nsh
+-        isb
+-
+-        ret
+-ENDPROC(remove_identity_mapping)
+-
+-/*
+- * Map the UART in the fixmap (when earlyprintk is used) and hook the
+- * fixmap table in the page tables.
+- *
+- * The fixmap cannot be mapped in create_page_tables because it may
+- * clash with the 1:1 mapping.
+- *
+- * Inputs:
+- *   x20: Physical offset
+- *   x23: Early UART base physical address
+- *
+- * Clobbers x0 - x3
+- */
+-setup_fixmap:
+-#ifdef CONFIG_EARLY_PRINTK
+-        /* Add UART to the fixmap table */
+-        ldr   x0, =EARLY_UART_VIRTUAL_ADDRESS
+-        create_mapping_entry xen_fixmap, x0, x23, x1, x2, x3, type=PT_DEV_L3
+-#endif
+-        /* Map fixmap into boot_second */
+-        ldr   x0, =FIXMAP_ADDR(0)
+-        create_table_entry boot_second, xen_fixmap, x0, 2, x1, x2, x3
+-        /* Ensure any page table updates made above have occurred. */
+-        dsb   nshst
+-
+-        ret
+-ENDPROC(setup_fixmap)
+-
  /*
-  * Print a 64-bit number in hex.
-@@ -966,7 +966,7 @@ hex:    .ascii "0123456789abcdef"
+  * Setup the initial stack and jump to the C world
+  *
+@@ -861,51 +441,6 @@ fail:   PRINT("- Boot failed -\r\n")
+         b     1b
+ ENDPROC(fail)
  
- ENTRY(early_puts)
- init_uart:
--puts:
-+asm_puts:
- putn:   ret
+-/*
+- * Switch TTBR
+- *
+- * x0    ttbr
+- */
+-ENTRY(switch_ttbr_id)
+-        /* 1) Ensure any previous read/write have completed */
+-        dsb    ish
+-        isb
+-
+-        /* 2) Turn off MMU */
+-        mrs    x1, SCTLR_EL2
+-        bic    x1, x1, #SCTLR_Axx_ELx_M
+-        msr    SCTLR_EL2, x1
+-        isb
+-
+-        /*
+-         * 3) Flush the TLBs.
+-         * See asm/arm64/flushtlb.h for the explanation of the sequence.
+-         */
+-        dsb   nshst
+-        tlbi  alle2
+-        dsb   nsh
+-        isb
+-
+-        /* 4) Update the TTBR */
+-        msr   TTBR0_EL2, x0
+-        isb
+-
+-        /*
+-         * 5) Flush I-cache
+-         * This should not be necessary but it is kept for safety.
+-         */
+-        ic     iallu
+-        isb
+-
+-        /* 6) Turn on the MMU */
+-        mrs   x1, SCTLR_EL2
+-        orr   x1, x1, #SCTLR_Axx_ELx_M  /* Enable MMU */
+-        msr   SCTLR_EL2, x1
+-        isb
+-
+-        ret
+-ENDPROC(switch_ttbr_id)
+-
+ #ifdef CONFIG_EARLY_PRINTK
+ /*
+  * Initialize the UART. Should only be called on the boot CPU.
+diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+new file mode 100644
+index 0000000000..2b209fc3ce
+--- /dev/null
++++ b/xen/arch/arm/arm64/mmu/head.S
+@@ -0,0 +1,453 @@
++/*
++ * xen/arch/arm/mmu/head.S
++ *
++ * Start-of-day code for an ARMv8.
++ *
++ * Ian Campbell <ian.campbell@citrix.com>
++ * Copyright (c) 2012 Citrix Systems.
++ *
++ * Based on ARMv7-A head.S by
++ * Tim Deegan <tim@xen.org>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#include <asm/page.h>
++#include <asm/early_printk.h>
++
++#define PT_PT     0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
++#define PT_MEM    0xf7d /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=0 P=1 */
++#define PT_MEM_L3 0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
++#define PT_DEV    0xe71 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=0 P=1 */
++#define PT_DEV_L3 0xe73 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=1 P=1 */
++
++/* Convenience defines to get slot used by Xen mapping. */
++#define XEN_ZEROETH_SLOT    zeroeth_table_offset(XEN_VIRT_START)
++#define XEN_FIRST_SLOT      first_table_offset(XEN_VIRT_START)
++#define XEN_SECOND_SLOT     second_table_offset(XEN_VIRT_START)
++
++/*
++ * Macro to find the slot number at a given page-table level
++ *
++ * slot:     slot computed
++ * virt:     virtual address
++ * lvl:      page-table level
++ */
++.macro get_table_slot, slot, virt, lvl
++        ubfx  \slot, \virt, #XEN_PT_LEVEL_SHIFT(\lvl), #XEN_PT_LPAE_SHIFT
++.endm
++
++/*
++ * Macro to create a page table entry in \ptbl to \tbl
++ *
++ * ptbl:    table symbol where the entry will be created
++ * tbl:     table symbol to point to
++ * virt:    virtual address
++ * lvl:     page-table level
++ * tmp1:    scratch register
++ * tmp2:    scratch register
++ * tmp3:    scratch register
++ *
++ * Preserves \virt
++ * Clobbers \tmp1, \tmp2, \tmp3
++ *
++ * Also use x20 for the phys offset.
++ *
++ * Note that all parameters using registers should be distinct.
++ */
++.macro create_table_entry, ptbl, tbl, virt, lvl, tmp1, tmp2, tmp3
++        get_table_slot \tmp1, \virt, \lvl   /* \tmp1 := slot in \tlb */
++
++        load_paddr \tmp2, \tbl
++        mov   \tmp3, #PT_PT                 /* \tmp3 := right for linear PT */
++        orr   \tmp3, \tmp3, \tmp2           /*          + \tlb paddr */
++
++        adr_l \tmp2, \ptbl
++
++        str   \tmp3, [\tmp2, \tmp1, lsl #3]
++.endm
++
++/*
++ * Macro to create a mapping entry in \tbl to \phys. Only mapping in 3rd
++ * level table (i.e page granularity) is supported.
++ *
++ * ptbl:    table symbol where the entry will be created
++ * virt:    virtual address
++ * phys:    physical address (should be page aligned)
++ * tmp1:    scratch register
++ * tmp2:    scratch register
++ * tmp3:    scratch register
++ * type:    mapping type. If not specified it will be normal memory (PT_MEM_L3)
++ *
++ * Preserves \virt, \phys
++ * Clobbers \tmp1, \tmp2, \tmp3
++ *
++ * Note that all parameters using registers should be distinct.
++ */
++.macro create_mapping_entry, ptbl, virt, phys, tmp1, tmp2, tmp3, type=PT_MEM_L3
++        and   \tmp3, \phys, #THIRD_MASK     /* \tmp3 := PAGE_ALIGNED(phys) */
++
++        get_table_slot \tmp1, \virt, 3      /* \tmp1 := slot in \tlb */
++
++        mov   \tmp2, #\type                 /* \tmp2 := right for section PT */
++        orr   \tmp2, \tmp2, \tmp3           /*          + PAGE_ALIGNED(phys) */
++
++        adr_l \tmp3, \ptbl
++
++        str   \tmp2, [\tmp3, \tmp1, lsl #3]
++.endm
++
++.section .text.idmap, "ax", %progbits
++
++/*
++ * Rebuild the boot pagetable's first-level entries. The structure
++ * is described in mm.c.
++ *
++ * After the CPU enables paging it will add the fixmap mapping
++ * to these page tables, however this may clash with the 1:1
++ * mapping. So each CPU must rebuild the page tables here with
++ * the 1:1 in place.
++ *
++ * Inputs:
++ *   x19: paddr(start)
++ *   x20: phys offset
++ *
++ * Clobbers x0 - x4
++ */
++create_page_tables:
++        /* Prepare the page-tables for mapping Xen */
++        ldr   x0, =XEN_VIRT_START
++        create_table_entry boot_pgtable, boot_first, x0, 0, x1, x2, x3
++        create_table_entry boot_first, boot_second, x0, 1, x1, x2, x3
++        create_table_entry boot_second, boot_third, x0, 2, x1, x2, x3
++
++        /* Map Xen */
++        adr_l x4, boot_third
++
++        lsr   x2, x19, #THIRD_SHIFT  /* Base address for 4K mapping */
++        lsl   x2, x2, #THIRD_SHIFT
++        mov   x3, #PT_MEM_L3         /* x2 := Section map */
++        orr   x2, x2, x3
++
++        /* ... map of vaddr(start) in boot_third */
++        mov   x1, xzr
++1:      str   x2, [x4, x1]           /* Map vaddr(start) */
++        add   x2, x2, #PAGE_SIZE     /* Next page */
++        add   x1, x1, #8             /* Next slot */
++        cmp   x1, #(XEN_PT_LPAE_ENTRIES<<3) /* 512 entries per page */
++        b.lt  1b
++
++        /*
++         * If Xen is loaded at exactly XEN_VIRT_START then we don't
++         * need an additional 1:1 mapping, the virtual mapping will
++         * suffice.
++         */
++        ldr   x0, =XEN_VIRT_START
++        cmp   x19, x0
++        bne   1f
++        ret
++1:
++        /*
++         * Setup the 1:1 mapping so we can turn the MMU on. Note that
++         * only the first page of Xen will be part of the 1:1 mapping.
++         */
++
++        /*
++         * Find the zeroeth slot used. If the slot is not
++         * XEN_ZEROETH_SLOT, then the 1:1 mapping will use its own set of
++         * page-tables from the first level.
++         */
++        get_table_slot x0, x19, 0       /* x0 := zeroeth slot */
++        cmp   x0, #XEN_ZEROETH_SLOT
++        beq   1f
++        create_table_entry boot_pgtable, boot_first_id, x19, 0, x0, x1, x2
++        b     link_from_first_id
++
++1:
++        /*
++         * Find the first slot used. If the slot is not XEN_FIRST_SLOT,
++         * then the 1:1 mapping will use its own set of page-tables from
++         * the second level.
++         */
++        get_table_slot x0, x19, 1      /* x0 := first slot */
++        cmp   x0, #XEN_FIRST_SLOT
++        beq   1f
++        create_table_entry boot_first, boot_second_id, x19, 1, x0, x1, x2
++        b     link_from_second_id
++
++1:
++        /*
++         * Find the second slot used. If the slot is XEN_SECOND_SLOT, then the
++         * 1:1 mapping will use its own set of page-tables from the
++         * third level. For slot XEN_SECOND_SLOT, Xen is not yet able to handle
++         * it.
++         */
++        get_table_slot x0, x19, 2     /* x0 := second slot */
++        cmp   x0, #XEN_SECOND_SLOT
++        beq   virtphys_clash
++        create_table_entry boot_second, boot_third_id, x19, 2, x0, x1, x2
++        b     link_from_third_id
++
++link_from_first_id:
++        create_table_entry boot_first_id, boot_second_id, x19, 1, x0, x1, x2
++link_from_second_id:
++        create_table_entry boot_second_id, boot_third_id, x19, 2, x0, x1, x2
++link_from_third_id:
++        create_mapping_entry boot_third_id, x19, x19, x0, x1, x2
++        ret
++
++virtphys_clash:
++        /* Identity map clashes with boot_third, which we cannot handle yet */
++        PRINT("- Unable to build boot page tables - virt and phys addresses clash. -\r\n")
++        b     fail
++ENDPROC(create_page_tables)
++
++/*
++ * Turn on the Data Cache and the MMU. The function will return on the 1:1
++ * mapping. In other word, the caller is responsible to switch to the runtime
++ * mapping.
++ *
++ * Inputs:
++ *   x0 : Physical address of the page tables.
++ *
++ * Clobbers x0 - x4
++ */
++enable_mmu:
++        mov   x4, x0
++        PRINT("- Turning on paging -\r\n")
++
++        /*
++         * The state of the TLBs is unknown before turning on the MMU.
++         * Flush them to avoid stale one.
++         */
++        tlbi  alle2                  /* Flush hypervisor TLBs */
++        dsb   nsh
++
++        /* Write Xen's PT's paddr into TTBR0_EL2 */
++        msr   TTBR0_EL2, x4
++        isb
++
++        mrs   x0, SCTLR_EL2
++        orr   x0, x0, #SCTLR_Axx_ELx_M  /* Enable MMU */
++        orr   x0, x0, #SCTLR_Axx_ELx_C  /* Enable D-cache */
++        dsb   sy                     /* Flush PTE writes and finish reads */
++        msr   SCTLR_EL2, x0          /* now paging is enabled */
++        isb                          /* Now, flush the icache */
++        ret
++ENDPROC(enable_mmu)
++
++/*
++ * Turn on the Data Cache and the MMU. The function will return
++ * to the virtual address provided in LR (e.g. the runtime mapping).
++ *
++ * Inputs:
++ *   lr : Virtual address to return to.
++ *
++ * Clobbers x0 - x5
++ */
++ENTRY(enable_runtime_mm)
++        /* save return address */
++        mov   x5, lr
++
++        load_paddr x0, init_ttbr
++        ldr   x0, [x0]
++        bl    enable_mmu
++        mov   lr, x5
++
++        /* return to secondary_switched */
++        ret
++ENDPROC(enable_runtime_mm)
++
++/*
++ * Turn on the Data Cache and the MMU. The function will return
++ * to the virtual address provided in LR (e.g. the runtime mapping).
++ *
++ * Inputs:
++ *   lr : Virtual address to return to.
++ *
++ * Clobbers x0 - x5
++ */
++ENTRY(enable_boot_mm)
++        /* save return address */
++        mov   x5, lr
++
++        bl    create_page_tables
++        load_paddr x0, boot_pgtable
++        bl    enable_mmu
++        mov   lr, x5
++
++        /*
++         * The MMU is turned on and we are in the 1:1 mapping. Switch
++         * to the runtime mapping.
++         */
++        ldr   x0, =1f
++        br    x0
++1:
++        /*
++         * The 1:1 map may clash with other parts of the Xen virtual memory
++         * layout. As it is not used anymore, remove it completely to
++         * avoid having to worry about replacing existing mapping
++         * afterwards. Function will return to primary_switched.
++         */
++        b     remove_identity_mapping
++
++        /*
++         * Here might not be reached, as "ret" in remove_identity_mapping
++         * will use the return address in LR in advance. But keep ret here
++         * might be more safe if "ret" in remove_identity_mapping is removed
++         * in future.
++         */
++        ret
++ENDPROC(enable_boot_mm)
++
++/*
++ * Remove the 1:1 map from the page-tables. It is not easy to keep track
++ * where the 1:1 map was mapped, so we will look for the top-level entry
++ * exclusive to the 1:1 map and remove it.
++ *
++ * Inputs:
++ *   x19: paddr(start)
++ *
++ * Clobbers x0 - x1
++ */
++remove_identity_mapping:
++        /*
++         * Find the zeroeth slot used. Remove the entry from zeroeth
++         * table if the slot is not XEN_ZEROETH_SLOT.
++         */
++        get_table_slot x1, x19, 0       /* x1 := zeroeth slot */
++        cmp   x1, #XEN_ZEROETH_SLOT
++        beq   1f
++        /* It is not in slot XEN_ZEROETH_SLOT, remove the entry. */
++        ldr   x0, =boot_pgtable         /* x0 := root table */
++        str   xzr, [x0, x1, lsl #3]
++        b     identity_mapping_removed
++
++1:
++        /*
++         * Find the first slot used. Remove the entry for the first
++         * table if the slot is not XEN_FIRST_SLOT.
++         */
++        get_table_slot x1, x19, 1       /* x1 := first slot */
++        cmp   x1, #XEN_FIRST_SLOT
++        beq   1f
++        /* It is not in slot XEN_FIRST_SLOT, remove the entry. */
++        ldr   x0, =boot_first           /* x0 := first table */
++        str   xzr, [x0, x1, lsl #3]
++        b     identity_mapping_removed
++
++1:
++        /*
++         * Find the second slot used. Remove the entry for the first
++         * table if the slot is not XEN_SECOND_SLOT.
++         */
++        get_table_slot x1, x19, 2       /* x1 := second slot */
++        cmp   x1, #XEN_SECOND_SLOT
++        beq   identity_mapping_removed
++        /* It is not in slot 1, remove the entry */
++        ldr   x0, =boot_second          /* x0 := second table */
++        str   xzr, [x0, x1, lsl #3]
++
++identity_mapping_removed:
++        /* See asm/arm64/flushtlb.h for the explanation of the sequence. */
++        dsb   nshst
++        tlbi  alle2
++        dsb   nsh
++        isb
++
++        ret
++ENDPROC(remove_identity_mapping)
++
++/*
++ * Map the UART in the fixmap (when earlyprintk is used) and hook the
++ * fixmap table in the page tables.
++ *
++ * The fixmap cannot be mapped in create_page_tables because it may
++ * clash with the 1:1 mapping.
++ *
++ * Inputs:
++ *   x20: Physical offset
++ *   x23: Early UART base physical address
++ *
++ * Clobbers x0 - x3
++ */
++ENTRY(setup_fixmap)
++#ifdef CONFIG_EARLY_PRINTK
++        /* Add UART to the fixmap table */
++        ldr   x0, =EARLY_UART_VIRTUAL_ADDRESS
++        create_mapping_entry xen_fixmap, x0, x23, x1, x2, x3, type=PT_DEV_L3
++#endif
++        /* Map fixmap into boot_second */
++        ldr   x0, =FIXMAP_ADDR(0)
++        create_table_entry boot_second, xen_fixmap, x0, 2, x1, x2, x3
++        /* Ensure any page table updates made above have occurred. */
++        dsb   nshst
++
++        ret
++ENDPROC(setup_fixmap)
++
++/* Fail-stop */
++fail:   PRINT("- Boot failed -\r\n")
++1:      wfe
++        b     1b
++ENDPROC(fail)
++
++/*
++ * Switch TTBR
++ *
++ * x0    ttbr
++ */
++ENTRY(switch_ttbr_id)
++        /* 1) Ensure any previous read/write have completed */
++        dsb    ish
++        isb
++
++        /* 2) Turn off MMU */
++        mrs    x1, SCTLR_EL2
++        bic    x1, x1, #SCTLR_Axx_ELx_M
++        msr    SCTLR_EL2, x1
++        isb
++
++        /*
++         * 3) Flush the TLBs.
++         * See asm/arm64/flushtlb.h for the explanation of the sequence.
++         */
++        dsb   nshst
++        tlbi  alle2
++        dsb   nsh
++        isb
++
++        /* 4) Update the TTBR */
++        msr   TTBR0_EL2, x0
++        isb
++
++        /*
++         * 5) Flush I-cache
++         * This should not be necessary but it is kept for safety.
++         */
++        ic     iallu
++        isb
++
++        /* 6) Turn on the MMU */
++        mrs   x1, SCTLR_EL2
++        orr   x1, x1, #SCTLR_Axx_ELx_M  /* Enable MMU */
++        msr   SCTLR_EL2, x1
++        isb
++
++        ret
++ENDPROC(switch_ttbr_id)
++
++/*
++ * Local variables:
++ * mode: ASM
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/arm/include/asm/arm64/macros.h b/xen/arch/arm/include/asm/arm64/macros.h
+index 140e223b4c..2116e48b7c 100644
+--- a/xen/arch/arm/include/asm/arm64/macros.h
++++ b/xen/arch/arm/include/asm/arm64/macros.h
+@@ -32,6 +32,57 @@
+         hint    #22
+     .endm
  
- #endif /* !CONFIG_EARLY_PRINTK */
++#ifdef CONFIG_EARLY_PRINTK
++/*
++ * Macro to print a string to the UART, if there is one.
++ *
++ * Clobbers x0 - x3
++ */
++#define PRINT(_s)          \
++        mov   x3, lr ;     \
++        adr   x0, 98f ;    \
++        bl    asm_puts ;   \
++        mov   lr, x3 ;     \
++        RODATA_STR(98, _s)
++
++/*
++ * Macro to print the value of register \xb
++ *
++ * Clobbers x0 - x4
++ */
++.macro print_reg xb
++        mov   x0, \xb
++        mov   x4, lr
++        bl    putn
++        mov   lr, x4
++.endm
++
++#else /* CONFIG_EARLY_PRINTK */
++#define PRINT(s)
++
++.macro print_reg xb
++.endm
++
++#endif /* !CONFIG_EARLY_PRINTK */
++
++/*
++ * Pseudo-op for PC relative adr <reg>, <symbol> where <symbol> is
++ * within the range +/- 4GB of the PC.
++ *
++ * @dst: destination register (64 bit wide)
++ * @sym: name of the symbol
++ */
++.macro  adr_l, dst, sym
++        adrp \dst, \sym
++        add  \dst, \dst, :lo12:\sym
++.endm
++
++/* Load the physical address of a symbol into xb */
++.macro load_paddr xb, sym
++        ldr \xb, =\sym
++        add \xb, \xb, x20
++.endm
++
+ /*
+  * Register aliases.
+  */
 -- 
 2.25.1
 
