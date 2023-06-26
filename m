@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C58573D68D
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:40:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555090.866866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 080BF73D673
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 05:40:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555018.866618 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd5o-000459-Ci; Mon, 26 Jun 2023 03:40:44 +0000
+	id 1qDd4x-0007Rc-Dv; Mon, 26 Jun 2023 03:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555090.866866; Mon, 26 Jun 2023 03:40:43 +0000
+Received: by outflank-mailman (output) from mailman id 555018.866618; Mon, 26 Jun 2023 03:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDd5n-0003fE-B3; Mon, 26 Jun 2023 03:40:43 +0000
-Received: by outflank-mailman (input) for mailman id 555090;
- Mon, 26 Jun 2023 03:40:37 +0000
+	id 1qDd4w-00079C-ES; Mon, 26 Jun 2023 03:39:50 +0000
+Received: by outflank-mailman (input) for mailman id 555018;
+ Mon, 26 Jun 2023 03:39:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=24BZ=CO=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qDd0w-0000HH-M8
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:35:42 +0000
+ id 1qDd0z-0000HH-H9
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 03:35:45 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 85cf78f1-13d2-11ee-8611-37d641c3527e;
- Mon, 26 Jun 2023 05:35:40 +0200 (CEST)
+ id 87bbbe50-13d2-11ee-8611-37d641c3527e;
+ Mon, 26 Jun 2023 05:35:43 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 256A01FB;
- Sun, 25 Jun 2023 20:36:24 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 617721FB;
+ Sun, 25 Jun 2023 20:36:27 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7DE363F64C;
- Sun, 25 Jun 2023 20:35:37 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 96D703F64C;
+ Sun, 25 Jun 2023 20:35:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85cf78f1-13d2-11ee-8611-37d641c3527e
+X-Inumbo-ID: 87bbbe50-13d2-11ee-8611-37d641c3527e
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Penny Zheng <Penny.Zheng@arm.com>,
@@ -53,127 +53,93 @@ Cc: Penny Zheng <Penny.Zheng@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>,
 	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v3 11/52] xen/arm: mmu: fold FIXMAP into MMU system
-Date: Mon, 26 Jun 2023 11:34:02 +0800
-Message-Id: <20230626033443.2943270-12-Penny.Zheng@arm.com>
+Subject: [PATCH v3 12/52] xen/mmu: extract early uart mapping from setup_fixmap
+Date: Mon, 26 Jun 2023 11:34:03 +0800
+Message-Id: <20230626033443.2943270-13-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FIXMAP in MMU system is used to do special-purpose 4K mapping, like
-mapping early UART, temporarily mapping source codes for copy and paste
-(copy_from_paddr), etc.
+Original setup_fixmap is actually doing two seperate tasks, one is enabling
+the early UART when earlyprintk on, and the other is to set up the fixmap
+even when earlyprintk is not configured.
 
-As FIXMAP feature is highly dependent on virtual address translation, we
-introduce a new Kconfig CONFIG_HAS_FIXMAP to wrap all releated codes, then
-we fold it into MMU system.
-Since PMAP relies on FIXMAP, so we fold it too into MMU system.
-
-Under !CONFIG_HAS_FIXMAP, we provide empty stubbers for not breaking
-compilation.
+To be more dedicated and precise, the old function shall be split into two
+functions, setup_early_uart and new setup_fixmap.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 ---
-v1 -> v2
+v3:
 - new patch
 ---
-v3:
-- fold CONFIG_HAS_FIXMAP into CONFIG_HAS_MMU
-- change CONFIG_HAS_FIXMAP to an Arm-specific Kconfig
----
- xen/arch/arm/Kconfig              |  7 ++++++-
- xen/arch/arm/include/asm/fixmap.h | 31 ++++++++++++++++++++++++++++---
- 2 files changed, 34 insertions(+), 4 deletions(-)
+ xen/arch/arm/arm64/head.S     |  3 +++
+ xen/arch/arm/arm64/mmu/head.S | 24 +++++++++++++++++-------
+ 2 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index fb77392b82..22b28b8ba2 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -15,7 +15,6 @@ config ARM
- 	select HAS_DEVICE_TREE
- 	select HAS_PASSTHROUGH
- 	select HAS_PDX
--	select HAS_PMAP
- 	select IOMMU_FORCE_PT_SHARE
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index e63886b037..55a4cfe69e 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -258,7 +258,10 @@ real_start_efi:
+         b     enable_boot_mm
  
- config ARCH_DEFCONFIG
-@@ -63,11 +62,17 @@ source "arch/Kconfig"
- config HAS_MMU
- 	bool "Memory Management Unit support in a VMSA system"
- 	default y
-+	select HAS_PMAP
- 	help
- 	  In a VMSA system, a Memory Management Unit (MMU) provides fine-grained control of
- 	  a memory system through a set of virtual to physical address mappings and associated memory
- 	  properties held in memory-mapped tables known as translation tables.
- 
-+config HAS_FIXMAP
-+	bool "Provide special-purpose 4K mapping slots in a VMSA"
-+	depends on HAS_MMU
-+	default y
-+
- config ACPI
- 	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on ARM_64
-diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
-index d0c9a52c8c..1b5b62866b 100644
---- a/xen/arch/arm/include/asm/fixmap.h
-+++ b/xen/arch/arm/include/asm/fixmap.h
-@@ -4,9 +4,6 @@
- #ifndef __ASM_FIXMAP_H
- #define __ASM_FIXMAP_H
- 
--#include <xen/acpi.h>
--#include <xen/pmap.h>
--
- /* Fixmap slots */
- #define FIXMAP_CONSOLE  0  /* The primary UART */
- #define FIXMAP_MISC     1  /* Ephemeral mappings of hardware */
-@@ -22,6 +19,11 @@
- 
- #ifndef __ASSEMBLY__
- 
+ primary_switched:
++        bl    setup_early_uart
 +#ifdef CONFIG_HAS_FIXMAP
-+
-+#include <xen/acpi.h>
-+#include <xen/pmap.h>
-+
+         bl    setup_fixmap
++#endif
+ #ifdef CONFIG_EARLY_PRINTK
+         /* Use a virtual address to access the UART. */
+         ldr   x23, =EARLY_UART_VIRTUAL_ADDRESS
+diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+index 2b209fc3ce..295596aca1 100644
+--- a/xen/arch/arm/arm64/mmu/head.S
++++ b/xen/arch/arm/arm64/mmu/head.S
+@@ -367,24 +367,34 @@ identity_mapping_removed:
+ ENDPROC(remove_identity_mapping)
+ 
  /*
-  * Direct access to xen_fixmap[] should only happen when {set,
-  * clear}_fixmap() is unusable (e.g. where we would end up to
-@@ -43,6 +45,29 @@ static inline unsigned int virt_to_fix(vaddr_t vaddr)
-     return ((vaddr - FIXADDR_START) >> PAGE_SHIFT);
- }
- 
-+#else /* !CONFIG_HAS_FIXMAP */
+- * Map the UART in the fixmap (when earlyprintk is used) and hook the
+- * fixmap table in the page tables.
+- *
+- * The fixmap cannot be mapped in create_page_tables because it may
+- * clash with the 1:1 mapping.
++ * Map the UART in the fixmap (when earlyprintk is used)
+  *
+  * Inputs:
+- *   x20: Physical offset
+  *   x23: Early UART base physical address
+  *
+  * Clobbers x0 - x3
+  */
+-ENTRY(setup_fixmap)
++ENTRY(setup_early_uart)
+ #ifdef CONFIG_EARLY_PRINTK
+         /* Add UART to the fixmap table */
+         ldr   x0, =EARLY_UART_VIRTUAL_ADDRESS
+         create_mapping_entry xen_fixmap, x0, x23, x1, x2, x3, type=PT_DEV_L3
++        /* Ensure any page table updates made above have occurred. */
++        dsb   nshst
 +
-+#include <xen/mm-frame.h>
-+#include <xen/errno.h>
++        ret
+ #endif
++ENDPROC(setup_early_uart)
 +
-+static inline void set_fixmap(unsigned int map, mfn_t mfn,
-+                              unsigned int attributes)
-+{
-+    ASSERT_UNREACHABLE();
-+}
-+
-+static inline void clear_fixmap(unsigned int map)
-+{
-+    ASSERT_UNREACHABLE();
-+}
-+
-+static inline unsigned int virt_to_fix(vaddr_t vaddr)
-+{
-+    ASSERT_UNREACHABLE();
-+    return -EINVAL;
-+}
-+#endif /* !CONFIG_HAS_FIXMAP */
-+
- #endif /* __ASSEMBLY__ */
- 
- #endif /* __ASM_FIXMAP_H */
++/*
++ * Map the fixmap table in the page tables.
++ *
++ * The fixmap cannot be mapped in create_page_tables because it may
++ * clash with the 1:1 mapping.
++ *
++ * Clobbers x0 - x3
++ */
++ENTRY(setup_fixmap)
+         /* Map fixmap into boot_second */
+         ldr   x0, =FIXMAP_ADDR(0)
+         create_table_entry boot_second, xen_fixmap, x0, 2, x1, x2, x3
 -- 
 2.25.1
 
