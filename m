@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFC9473DD6A
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 13:25:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555433.867194 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C64473DD79
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jun 2023 13:29:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555439.867203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDkLF-0005wa-VU; Mon, 26 Jun 2023 11:25:09 +0000
+	id 1qDkP3-0006bA-Hv; Mon, 26 Jun 2023 11:29:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555433.867194; Mon, 26 Jun 2023 11:25:09 +0000
+Received: by outflank-mailman (output) from mailman id 555439.867203; Mon, 26 Jun 2023 11:29:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qDkLF-0005uv-Rh; Mon, 26 Jun 2023 11:25:09 +0000
-Received: by outflank-mailman (input) for mailman id 555433;
- Mon, 26 Jun 2023 11:25:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qDkP3-0006YY-Er; Mon, 26 Jun 2023 11:29:05 +0000
+Received: by outflank-mailman (input) for mailman id 555439;
+ Mon, 26 Jun 2023 11:29:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tM71=CO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1qDkLE-0005uo-Oc
- for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 11:25:08 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2061d.outbound.protection.outlook.com
- [2a01:111:f400:7eb2::61d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19c53b7f-1414-11ee-b237-6b7b168915f2;
- Mon, 26 Jun 2023 13:25:06 +0200 (CEST)
-Received: from MW4PR04CA0059.namprd04.prod.outlook.com (2603:10b6:303:6a::34)
- by SJ0PR12MB6902.namprd12.prod.outlook.com (2603:10b6:a03:484::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Mon, 26 Jun
- 2023 11:25:03 +0000
-Received: from CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::70) by MW4PR04CA0059.outlook.office365.com
- (2603:10b6:303:6a::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.33 via Frontend
- Transport; Mon, 26 Jun 2023 11:25:03 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT050.mail.protection.outlook.com (10.13.174.79) with Microsoft SMTP
+ id 1qDkP2-0006YS-4e
+ for xen-devel@lists.xenproject.org; Mon, 26 Jun 2023 11:29:04 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20605.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::605])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5531582-1414-11ee-8611-37d641c3527e;
+ Mon, 26 Jun 2023 13:29:01 +0200 (CEST)
+Received: from MWH0EPF00056D12.namprd21.prod.outlook.com
+ (2603:10b6:30f:fff2:0:1:0:15) by BL0PR12MB5508.namprd12.prod.outlook.com
+ (2603:10b6:208:1c1::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Mon, 26 Jun
+ 2023 11:28:57 +0000
+Received: from CO1NAM11FT094.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::200) by MWH0EPF00056D12.outlook.office365.com
+ (2603:1036:d20::b) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.11 via Frontend
+ Transport; Mon, 26 Jun 2023 11:28:57 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT094.mail.protection.outlook.com (10.13.174.161) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 11:25:02 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 11:28:56 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
- 2023 06:25:01 -0500
+ 2023 06:28:55 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Mon, 26 Jun
+ 2023 04:28:55 -0700
 Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Mon, 26 Jun 2023 06:25:00 -0500
+ Transport; Mon, 26 Jun 2023 06:28:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,100 +63,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19c53b7f-1414-11ee-b237-6b7b168915f2
+X-Inumbo-ID: a5531582-1414-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KoIlPHRpi6+aa3LbiXjXlSK0dc0qxd9OGAM88iYl5piptuhgJaqSW4BRz9WaghqqFHf20eqsrHXuh/bumPiKr9LUXTiwmGjPQE0O0W4OFyBWQJ3R9VLuEP5/taIfLOeaAN0XGFVLlYrOAGiOvHl7jvaewahr3j3Z1jTGTxWoXnAJrcZIjmQOscYGTfKC15K3Acnvxcpm6kjibMbC8XvVuMPhor2XYUCb4C7iobrMVTMsR48fYamN99cF0o1lq6fe4LzIpI+zjULKeiWTLtMVL1faZolJgO2e0gqBzn3YcAW5mHzkMQvMx/S8gUK1d5AkOnQ/Xc1k1LZkDWe0+/JOrQ==
+ b=iM/9Dk9tacIyyO7UQqCmn8vy6C4nDxM019ic/EiBgthiQ3ZG6T4NbXwoiWrY+8+Xs/ABhxHoDQdGU8GRXGeOXMy2SvhsUunxaLv8dB3bpzaPH9umFiEoP7iq+g5KYAt4ruaE5Gw9n7d5SbsefdbdqPbkxsNUmEhZlLRcdrjZ7NC2Dqh/z6FXBeTHTcIHykwJEMTun5yZAH7Z4IlOUoFgKZpRFO3dKhjQVASgexm3clf8WC2Ve3T2pTcQoI3oONCTUEW8wSXZCxzOUCMoZy16GZUvdxb8aSBtr47+LsGtJQtyMWZ1VAsFLNjG7nvRqMGMwJtoHrT+Sm7ztAKUe9XWkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=75PuDGlVf5/qnqFXq4vjtQDZbcDiFxmbyDYQh2ee2Bk=;
- b=OvLlZYf2J/cWXLi+o8KI2fEROhOtlIfIIrtedVIptIY5qSPYbs6gBgD1wg4wR9I0iEg4Y1hcTBmMMgjZiduUVy+cB//uakd67qwzBkpj/mBHaGEeEdFSG9qWXIJEA24WEiWdUpenAmDB0IyBpp0bYEP9IJD8+Jxp2GVIdhCoYozGWDgijCVi8R5KHGNiKaEN07e6qKuxvwyA4mYc86z/Grx5K4ATt2e9BIcUtfp8gHd0Zw12Flx4Nh5xFWIZkyFCyvhfHLAdKOOG6ikfNDcYWvDoepLyAwXwpRCE3kG8cmkvGYr148o2y8LodyWky8IQFzquP9bm4+Cv6mED2gjLsw==
+ bh=fEMjlyfz11+zfZvWX2Op5i4BQP+/ppJsce2J3bHhaAg=;
+ b=Ia8MsjMMS2V3EuhWACYB/9jt44raUcDAbiCz8gyO3/AK14SgO4D/pVWQuv5V06o09M2185uiCRiQxC2paWo4CfdzI++VVbfRYW/VMr5wcVqlI2fxSq1sbyoZ8uLUo2azzr7obqL3ZMO9uLDTHEV0Yg5T32ztKe0LQ3gDU1IT4qlX//FErEIrgJie8mhxVN8AdQ0HM0n9wpdVETLZmaOOQqSrL431bsnoR6ruxd5CNp5iQ2T7hiXYxsR9MqodaxpWSX5PvXXgZrONa9+Hb3zgoxXG6hPLNxe7SGlrXKr2QDnw8GsjHcDQ1ndXDzBAxmaQy/9xCTIgkMrR8ycYHbddOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=75PuDGlVf5/qnqFXq4vjtQDZbcDiFxmbyDYQh2ee2Bk=;
- b=qrg8k1S+3IgZaY79GlI6HT4CHC7x7c4T96dzp9sTZS4lIuIAkTkJlm4k1bMf80tqJsCg43uEFd4P/Q5PEBDaQnMphb4kRcFVc1C9oLXdiqcDevqM8uMQlKc87+WvSACJrCzbvuZVzM6BXD5eHgWgTXZPxXrBpWY3OsqATGwP9J4=
+ bh=fEMjlyfz11+zfZvWX2Op5i4BQP+/ppJsce2J3bHhaAg=;
+ b=I+rdDOac5m6536r/8fDMMpkMf2JwnOLB71egrSRsIj9wqWcUxsTIVq1aWUyiwANPl7e/J8L0DlkySghKgDbvpZLpCTxDAyG1TO8AJ3ZKq4fxnCI5QiXggQIJiLu7jf8nXgGTzvBxaiH1Gz6ys4NakOsEIMjnBvaSHtLSgFqI+4U=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <e54f278b-8305-e278-6669-04857f50f38f@amd.com>
-Date: Mon, 26 Jun 2023 13:24:59 +0200
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <38f33ede-0d55-bd47-412a-eccb3d4618f2@amd.com>
+Date: Mon, 26 Jun 2023 13:28:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH 1/9] xen/arm: Check Xen size when linking
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: <Luca.Fancellu@arm.com>, <Henry.Wang@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230625204907.57291-1-julien@xen.org>
- <20230625204907.57291-2-julien@xen.org>
+Subject: Re: [PATCH 2/9] xen/arm64: head: Don't map too much in boot_third
 Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: <Luca.Fancellu@arm.com>, <Henry.Wang@arm.com>, Julien Grall
+	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20230625204907.57291-1-julien@xen.org>
+ <20230625204907.57291-3-julien@xen.org>
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230625204907.57291-2-julien@xen.org>
+In-Reply-To: <20230625204907.57291-3-julien@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT050:EE_|SJ0PR12MB6902:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68fc914a-d445-4207-3e1e-08db7637fc10
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT094:EE_|BL0PR12MB5508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60a8d4e3-ce33-41e0-fb9b-08db76388766
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	B8k2RD1NXC1HINRvQanimq6IiOlzUZVYL7IUyQOzES/lWEhyJrhTb+nd972QO+MOQhlBLMJ4A3TSxAXMOkIffpyHD9MfRuzrXgq1r5+CIoVK1xObTQYAWryM6HHeWSItkhBbC9QhxrDwF/sadAUD5bZPh5rRd66pfX75YzpQWUJuvfhOZ50eoarFsUwZ9C8q54bYN4lLmDJkC5wqP/F3FNFr04/hpmyLiwnw76Tp8zsavNoSvey/HGrr3+WssgMpk1GmXr5At+ArBKgSQuOIlzoxlP94cLyqqHCvHVU16xK0ZyeK/m1wP0FPSfouUkj7GMoD/R/3kmNmHgJnHH7t+/HVTHI2ZY8meSIaiN0vrd1dN+75WemR9j/0i9SyVGfkpHYarlKsO+cLokOed58EWc4T6ZdLXlaSE6pW0BmO7f+UFIV32lAlNsOVRTpMS9KbToFzpMpz3510B1B5T+CaJswLdp3O3DzVt+PIrEx0OJXtJQxp/uF/2nxceZUQndqDk1Eub5bbJpkfoY7VgZ40kZk8ZwSY0Rf0vTCNBoKkgjrePFEcuLg0PeIIovmSmAkeuBVMgCuxs4TI4DrY6LhWRzLS7OvjxPk2/hPk60mD0fnUUank7N6SoRtfG042InWpAKyHGM42S5LH2tBqNf/nivB4STAskJnXs+K8y2e1U/L9BODBTIACjeGPacZHXrM2ra1Opit+sHaw1bE0TYUluxR/BNiFULdA1XQgbN+t4WONx+paY8TqBRiY3u+TMVl6Kd2G9OKUM6Zo4gyqmxXHhNKf67CReiIDv0BsVnVn3CrTYg77wEpZk/16Ty51bwQz
+	Yy2RoZi0V777hwMkPz5mwkiSMFJipExkIE6LyYt1J+/uMXB/xO8Rl0qS+xLeW8dS1Et1dIGwDxC9m5xFT22NNVJqD4wQtoLkwTXKs273BUN2xh8CcTtwnAEMTfQLRIHcpBZsw5JUMn9Wj+anSoaQRanqKxMITLQWFTpYq+ABTh466AFiMy16AIDfSoQz8DbqYLVdrzI+YTvAEp5Ie98sorrjmY5BXaihA/BWOaWlbzNapSrQan0tRosdvnfRllcCyuVsQB0ZEGSMpjipHoauGxyDaF07I3vS7cNAPFt2QNj6G+4+rLdoDmgesvdoYvh+qJaQesJtiq2uIhdynwEDIfTSDY0A2iRtu46+IPWZbFZAuRBYxkctxHRszjR0xWzMR+vaGlxCEY9XKNwpkPf6+x/iBQZFiX2lusyfGDy1BMcIf7YjykdXNPFgcbupneR0GwQGIqLF5UDawp9ghYx7YnsKogk5NNrsWmU4zfWjpAH2LOubTbv+g2vTYUh/Mmq7TL2LnYI4BdVjHe9IizOtrR1HewARXvIAj+AXk7+TByTypo6oioe9CT1iQtBgEWGA/0fobXq6pjXNmOnU0PJXM6aG7GtszFVV9Jgyavjw2KXG0mYNztwZU+axBOlZsNsJjNATlAiGflVm1fi+xJPbKFu6X51KvfxanbOW9qfwEgMVA3u2v/LV8fN3lZiNIouuOzyXgCyjRydlFTRTul4IPTfiKfbRWN4dSJKAhNFpJmQpPFiu3khXKRwfJUIFASU/WyxMzRk6RR0Gu6xUmPw1ZfpsAq0jfNS7JhbDnsb/KNXJKqAVX15rT5xes+tTQfIx
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199021)(36840700001)(46966006)(40470700004)(44832011)(31686004)(5660300002)(70586007)(70206006)(4326008)(478600001)(36756003)(316002)(8676002)(8936002)(2906002)(40460700003)(40480700001)(36860700001)(110136005)(54906003)(16576012)(31696002)(86362001)(41300700001)(82310400005)(53546011)(336012)(426003)(26005)(47076005)(186003)(356005)(82740400003)(2616005)(83380400001)(81166007)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199021)(40470700004)(36840700001)(46966006)(31686004)(82310400005)(36860700001)(40460700003)(36756003)(356005)(5660300002)(44832011)(70206006)(86362001)(8936002)(8676002)(41300700001)(4326008)(81166007)(316002)(31696002)(40480700001)(82740400003)(70586007)(47076005)(53546011)(186003)(26005)(2906002)(2616005)(478600001)(6666004)(54906003)(426003)(110136005)(83380400001)(336012)(16576012)(43740500002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 11:25:02.5540
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 11:28:56.3257
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68fc914a-d445-4207-3e1e-08db7637fc10
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60a8d4e3-ce33-41e0-fb9b-08db76388766
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT094.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6902
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5508
 
 
 
-On 25/06/2023 22:48, Julien Grall wrote:
+On 25/06/2023 22:49, Julien Grall wrote:
 > 
 > 
-> The linker will happily link Xen if it is bigger than what we can handle
-> (e.g 2MB). This will result to unexpected failure after boot.
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> This unexpected failure can be prevented by forbidding linking if Xen is
-> bigger than the area we reversed.
-s/reversed/reserved
+> At the moment, we are mapping the size of the reserved area for Xen
+> (i.e. 2MB) even if the binary is smaller. We don't exactly know what's
+> after Xen, so it is not a good idea to map more than necessary for a
+> couple of reasons:
+>     * We would need to use break-before-make if the extra PTE needs to
+>       be updated to point to another region
+>     * The extra area mapped may be mapped again by Xen with different
+>       memory attribute. This would result to attribue mismatch.
+s/attribue/attribute
 
 > 
-> Signed-off-by: Julien Grall <julien@xen.org>
+> Therefore, rework the logic in create_page_tables() to map only what's
+> necessary. To simplify the logic, we also want to make sure _end
+> is page-aligned. So align the symbol in the linker and add an assert
+> to catch any change.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > ---
->  xen/arch/arm/xen.lds.S | 1 +
->  1 file changed, 1 insertion(+)
+>  xen/arch/arm/arm64/head.S | 15 ++++++++++++++-
+>  xen/arch/arm/xen.lds.S    |  3 +++
+>  2 files changed, 17 insertions(+), 1 deletion(-)
 > 
+> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> index f37133cf7ccd..66bc85d4c39e 100644
+> --- a/xen/arch/arm/arm64/head.S
+> +++ b/xen/arch/arm/arm64/head.S
+> @@ -572,6 +572,19 @@ create_page_tables:
+>          create_table_entry boot_first, boot_second, x0, 1, x1, x2, x3
+>          create_table_entry boot_second, boot_third, x0, 2, x1, x2, x3
+> 
+> +        /*
+> +         * Find the size of Xen in pages and multiply by the size of a
+> +         * PTE. This will then be compared in the mapping loop below.
+> +         *
+> +         * Note the multiplication is just to avoid using an extra
+> +         * register/instruction per iteration.
+> +         */
+> +        ldr   x0, =_start            /* x0 := vaddr(_start) */
+x0 is already set to vaddr of _start by the first instruction of create_page_tables
+and is preserved by create_table_entry. You could just reuse it instead of re-loading.
+
+> +        ldr   x1, =_end              /* x1 := vaddr(_end) */
+> +        sub   x0, x1, x0             /* x0 := effective size of Xen */
+> +        lsr   x0, x0, #PAGE_SHIFT    /* x0 := Number of pages for Xen */
+> +        lsl   x0, x0, #3             /* x0 := Number of pages * PTE size */
+> +
+>          /* Map Xen */
+>          adr_l x4, boot_third
+> 
+> @@ -585,7 +598,7 @@ create_page_tables:
+>  1:      str   x2, [x4, x1]           /* Map vaddr(start) */
+>          add   x2, x2, #PAGE_SIZE     /* Next page */
+>          add   x1, x1, #8             /* Next slot */
+> -        cmp   x1, #(XEN_PT_LPAE_ENTRIES<<3) /* 512 entries per page */
+> +        cmp   x1, x0                 /* Loop until we map all of Xen */
+>          b.lt  1b
+> 
+>          /*
 > diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-> index be58c2c39514..c5d8c6201423 100644
+> index c5d8c6201423..c4627cea7482 100644
 > --- a/xen/arch/arm/xen.lds.S
 > +++ b/xen/arch/arm/xen.lds.S
-> @@ -241,3 +241,4 @@ ASSERT(IS_ALIGNED(__init_begin,     4), "__init_begin is misaligned")
+> @@ -212,6 +212,7 @@ SECTIONS
+>         . = ALIGN(POINTER_ALIGN);
+>         __bss_end = .;
+>    } :text
+> +  . = ALIGN(PAGE_SIZE);
+>    _end = . ;
+> 
+>    /* Section for the device tree blob (if any). */
+> @@ -241,4 +242,6 @@ ASSERT(IS_ALIGNED(__init_begin,     4), "__init_begin is misaligned")
 >  ASSERT(IS_ALIGNED(__init_end,       4), "__init_end is misaligned")
 >  ASSERT(IS_ALIGNED(__bss_start,      POINTER_ALIGN), "__bss_start is misaligned")
 >  ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
-> +ASSERT((_end - start) <= XEN_VIRT_SIZE, "Xen is too big")
-Would it be possible to use _start so that we can have a consolidated way of calculating xen size
-across arch linker scripts and C code? It makes it easier for grepping.
+> +/* To simplify the logic in head.S, we want to _end to be page aligned */
+> +ASSERT(IS_ALIGNED(_end,            PAGE_SIZE), "_end is not page aligned")
+one more space if you want to align PAGE_SIZE to POINTER_ALIGN
 
-All in all,
+All in all:
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
 ~Michal
+
 
