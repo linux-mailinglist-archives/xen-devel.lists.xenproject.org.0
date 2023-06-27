@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D48F273F554
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 09:19:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555880.868041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91ACC73F55A
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 09:20:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555882.868051 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE2yx-0001x1-4m; Tue, 27 Jun 2023 07:19:23 +0000
+	id 1qE2zW-0002RK-DN; Tue, 27 Jun 2023 07:19:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555880.868041; Tue, 27 Jun 2023 07:19:23 +0000
+Received: by outflank-mailman (output) from mailman id 555882.868051; Tue, 27 Jun 2023 07:19:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE2yx-0001vM-1h; Tue, 27 Jun 2023 07:19:23 +0000
-Received: by outflank-mailman (input) for mailman id 555880;
- Tue, 27 Jun 2023 07:19:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qE2zW-0002Pe-9g; Tue, 27 Jun 2023 07:19:58 +0000
+Received: by outflank-mailman (input) for mailman id 555882;
+ Tue, 27 Jun 2023 07:19:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EZfr=CP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qE2yv-0001vG-R3
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 07:19:21 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eeee87c3-14ba-11ee-b237-6b7b168915f2;
- Tue, 27 Jun 2023 09:19:20 +0200 (CEST)
+ id 1qE2zU-0002PT-AH
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 07:19:56 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0332284d-14bb-11ee-8611-37d641c3527e;
+ Tue, 27 Jun 2023 09:19:54 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C23372189A;
- Tue, 27 Jun 2023 07:19:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E1BDD211DE;
+ Tue, 27 Jun 2023 07:19:53 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5169813462;
- Tue, 27 Jun 2023 07:19:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8186813462;
+ Tue, 27 Jun 2023 07:19:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WJkJEneNmmSRFwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 27 Jun 2023 07:19:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ig8UHpmNmmTnFwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 27 Jun 2023 07:19:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,22 +51,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eeee87c3-14ba-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 0332284d-14bb-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687850359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1687850393; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=G3g7htCxdgEvSH+pTCW3FzUe9616RS2fbsWoWAYrlfY=;
-	b=U1MOxVHypBt9Lvwl7oTOS01VK+i7hdVXohdsVIuuP4dYD0wJoZQyRpVBY/NXrxJEY960Q8
-	nudzeniP3GjRY8eDoFnb42R+zDTTODlYBMHJDJmAUAUGtMwzFAtWSdNooZYrXD3jU/K69t
-	6+184yh/YMbD5aqTrqtzPOdb1hND8po=
-Message-ID: <660606b7-7c11-1c7a-fda4-2fdaf4d2a389@suse.com>
-Date: Tue, 27 Jun 2023 09:19:18 +0200
+	bh=RF7xwYhJXKfHTpIm6OPtmWD8/BjyWG9MJjiitg4CML4=;
+	b=Fa1iQLQt0hsyoIBEWMYYF3kOoMoR7MTndsSuvNCn0mk8f+yXU+mSj7x6OJXFbp52ZgquLK
+	v2ZbL8RoUBUTGEzHkcMuzRpjB8JZMjiDCGEjGCI+BfhbC4E6rSYolRSol9jrus3+MBiw9I
+	ez7FkC1BDOBXaYNqtZeru+VU8fZ0ZRM=
+Message-ID: <25602998-d4d5-fec9-043e-c8959dd82602@suse.com>
+Date: Tue, 27 Jun 2023 09:19:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH 2/3] x86: always initialize xen-swiotlb when xen-pcifront
- is enabling
+Subject: Re: [PATCH 3/3] swiotlb: unexport is_swiotlb_active
 Content-Language: en-US
 To: Christoph Hellwig <hch@lst.de>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -76,16 +75,16 @@ To: Christoph Hellwig <hch@lst.de>,
 Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
  linux-kernel@vger.kernel.org
 References: <20230612142542.111581-1-hch@lst.de>
- <20230612142542.111581-3-hch@lst.de>
+ <20230612142542.111581-4-hch@lst.de>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230612142542.111581-3-hch@lst.de>
+In-Reply-To: <20230612142542.111581-4-hch@lst.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------2Byll301BjgQI0ew3m6OU7AA"
+ boundary="------------ZXX0M06KtxYsXVfyv8cZf6yL"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------2Byll301BjgQI0ew3m6OU7AA
-Content-Type: multipart/mixed; boundary="------------kmYXaQytq7rdmI1XKD81L4KN";
+--------------ZXX0M06KtxYsXVfyv8cZf6yL
+Content-Type: multipart/mixed; boundary="------------uPEf70P1cgirWsAdSRzG8gim";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Christoph Hellwig <hch@lst.de>,
@@ -95,29 +94,25 @@ To: Christoph Hellwig <hch@lst.de>,
  x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
 Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Message-ID: <660606b7-7c11-1c7a-fda4-2fdaf4d2a389@suse.com>
-Subject: Re: [PATCH 2/3] x86: always initialize xen-swiotlb when xen-pcifront
- is enabling
+Message-ID: <25602998-d4d5-fec9-043e-c8959dd82602@suse.com>
+Subject: Re: [PATCH 3/3] swiotlb: unexport is_swiotlb_active
 References: <20230612142542.111581-1-hch@lst.de>
- <20230612142542.111581-3-hch@lst.de>
-In-Reply-To: <20230612142542.111581-3-hch@lst.de>
+ <20230612142542.111581-4-hch@lst.de>
+In-Reply-To: <20230612142542.111581-4-hch@lst.de>
 
---------------kmYXaQytq7rdmI1XKD81L4KN
-Content-Type: multipart/mixed; boundary="------------yqCPSwCHUiEVidWgiTnDUMPX"
+--------------uPEf70P1cgirWsAdSRzG8gim
+Content-Type: multipart/mixed; boundary="------------qDwZMH5oRYG1ME31VoABVgq9"
 
---------------yqCPSwCHUiEVidWgiTnDUMPX
+--------------qDwZMH5oRYG1ME31VoABVgq9
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTIuMDYuMjMgMTY6MjUsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBSZW1vdmUg
-dGhlIGRhbmdlcm91cyBsYXRlIGluaXRpYWxpemF0aW9uIG9mIHhlbi1zd2lvdGxiIGluDQo+
-IHBjaV94ZW5fc3dpb3RsYl9pbml0X2xhdGUgYW5kIGluc3RlYWQganVzdCBhbHdheXMgaW5p
-dGlhbGl6ZQ0KPiB4ZW4tc3dpb3RsYiBpbiB0aGUgYm9vdCBjb2RlIGlmIENPTkZJR19YRU5f
-UENJREVWX0ZST05URU5EIGlzDQo+IGVuYWJsZWQgYW5kIFhlbiBQViBQQ0kgaXMgcG9zc2li
-bGUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
-ZT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0K
-DQpKdWVyZ2VuDQoNCg==
---------------yqCPSwCHUiEVidWgiTnDUMPX
+T24gMTIuMDYuMjMgMTY6MjUsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBEcml2ZXJz
+IGhhdmUgbm8gYnVzaW5lc3MgbG9va2luZyBhdCBkbWEtbWFwcGluZyBvciBzd2lvdGxiIGlu
+dGVybmFscy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hA
+bHN0LmRlPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
+Pg0KDQoNCkp1ZXJnZW4NCg0K
+--------------qDwZMH5oRYG1ME31VoABVgq9
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -175,25 +170,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------yqCPSwCHUiEVidWgiTnDUMPX--
+--------------qDwZMH5oRYG1ME31VoABVgq9--
 
---------------kmYXaQytq7rdmI1XKD81L4KN--
+--------------uPEf70P1cgirWsAdSRzG8gim--
 
---------------2Byll301BjgQI0ew3m6OU7AA
+--------------ZXX0M06KtxYsXVfyv8cZf6yL
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSajXYFAwAAAAAACgkQsN6d1ii/Ey/M
-ygf+IT5x8RaVgj+bU1Rsp3wrLmcD2TQgg0E2u/QCIT/3CjVRucuqbkKkc+ETB6GZ86wU7/RjZuwy
-MzqSk73Ea6hDXwd7lCuMPfXiKLwLYFcwkaaN4MF9KwKDL47yb2tTA0k8Wyx01fOsiF94GeUFIjFS
-E3+sB+viEtO/v4cH+Uhmit5cxyne7moq3yJfYs15tXvLL3C7NmHrSf0m7ucc3sULYWk2R/mWGWIo
-7ZUuupWU8JY4EpdoHYe2EXaa3P9b9T1s7O2KfE1ThdYD8LZAvmWGUGfwvPPJRfIlVW0TERv2s0f3
-KuX3WnvldoEr3zQwVt+GG7bG0KM+d1zAHFh2eq4+fQ==
-=NUwE
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSajZgFAwAAAAAACgkQsN6d1ii/Ey9U
+LAf7B6HozsAptLSzGaI6ZMH0yPcRviKRdiwiXMKQ8E7yy1kDoIlmKAWDJLmmrA5KNRkejILXWMDB
+30+QYNkUOCGb237vlOn73DAmnwLdH6dd7clOusGZMASfSDaJQjofKIiDl8kHuHLMvjEgUbvDnj8f
+rHtzNvHuqFdnCVmZleFm8bjap205m3qhCmLwiU62oW4xossyQZOBgUOXC26r50CICECxaZboU4Cr
+MIHIRQyLS6mdxDlcR15N7yhMQ4mu1Vha/5ldVdVCp+il1ZOftByu/5zVsyZ14FV/HV/JtRJRYoiP
+yaQ84GHwlepd9KngFiXxsY+g1Xrw5hGDHVzii+iLlw==
+=XVnJ
 -----END PGP SIGNATURE-----
 
---------------2Byll301BjgQI0ew3m6OU7AA--
+--------------ZXX0M06KtxYsXVfyv8cZf6yL--
 
