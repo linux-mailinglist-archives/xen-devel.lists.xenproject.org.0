@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A1F473FC00
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 14:29:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556147.868429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB48D73FC21
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 14:43:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556153.868439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE7p8-00043E-Ky; Tue, 27 Jun 2023 12:29:34 +0000
+	id 1qE82O-0006Xl-QV; Tue, 27 Jun 2023 12:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556147.868429; Tue, 27 Jun 2023 12:29:34 +0000
+Received: by outflank-mailman (output) from mailman id 556153.868439; Tue, 27 Jun 2023 12:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE7p8-00040Y-IL; Tue, 27 Jun 2023 12:29:34 +0000
-Received: by outflank-mailman (input) for mailman id 556147;
- Tue, 27 Jun 2023 12:29:33 +0000
+	id 1qE82O-0006VQ-Nv; Tue, 27 Jun 2023 12:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 556153;
+ Tue, 27 Jun 2023 12:43:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ih4C=CP=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1qE7p6-00040A-Qt
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 12:29:33 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42a1fb4b-14e6-11ee-b237-6b7b168915f2;
- Tue, 27 Jun 2023 14:29:30 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 1AE23320085B;
- Tue, 27 Jun 2023 08:29:27 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 27 Jun 2023 08:29:27 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Jun 2023 08:29:25 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9jY1=CP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1qE82M-0006VK-Mu
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 12:43:14 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d88e55d-14e8-11ee-b237-6b7b168915f2;
+ Tue, 27 Jun 2023 14:43:12 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-991c786369cso268351066b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jun 2023 05:43:12 -0700 (PDT)
+Received: from [192.168.69.115] ([176.187.199.204])
+ by smtp.gmail.com with ESMTPSA id
+ kg1-20020a17090776e100b0098e2eaec395sm3430672ejc.130.2023.06.27.05.43.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jun 2023 05:43:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,119 +45,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42a1fb4b-14e6-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1687868966; x=1687955366; bh=b3QbE2TbZMM3ES0XZnBpe6sWnX5ijMeOyft
-	7pcZLwwA=; b=fLkn4smWzqD2FIl1ZoPhjdJu/1iMUUg8psRiiwufcFWcNOJsb7o
-	xQCS9z1VCzFF77WqirfXd2hw77EEzPgNF/+vaRA/y7j1g3o4R8CRU+DF1ms7Gnyt
-	6YidyLXYxDkUGprpiSI0/Lq6amw9sLm8xwETdNtVTAyscpHvHnjqsB7VKEBBeTcf
-	xqdwtDi6Mc/fEhnRA0lVBF3HeM8zGoALWpLidtjezn/yc7qeikb4E0dSpMBGUmLB
-	Ax75YP/KtlvfR2gYlEZvJoUhW0vo9Uvp/Y8a16bJalrGQu8+O0Vf0/t2ZfRhzsYl
-	DyWOXoyuY4DUTTZ1JW0/GY3OsuTNVK4r9WQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1687868966; x=1687955366; bh=b3QbE2TbZMM3E
-	S0XZnBpe6sWnX5ijMeOyft7pcZLwwA=; b=RB89iHxcmA4J9vrBRChu1Iu2h2jVU
-	Nzk5rsOwgOK55NaFV9exeMROMon3WctKMoke5JDnvDqQIN7nC6H9uJLSLHqIaWLL
-	gt/5/t1pWg5YttpLrmRnRlR1JsO6w99ASObExpzlMIJoD83qJw12ZsjZvGrZCu8w
-	KIiLj4bnzdsobLxWfvCFc2E3JBNNiVGIaQEamE14rykij1RrVADteInF7a4k14q9
-	5upSG3thFNqZ5MERNXd8cLzIzpcQHc03VNdOZ2SPNx9nHLf1UhSsx3xZZZsA98hT
-	XslSf05lJIDKMbMWqG1YsWJ8TimERXbAlilxGCTOr/oHElZYVejnSp0LA==
-X-ME-Sender: <xms:JtaaZNmmXGr9_bghRPU4JLXpsz6TvfAGx3JKHsP-XcStXryQ-fc9VQ>
-    <xme:JtaaZI0cXM10mY4SibFlXhB1glk2gipaQYZnp1mCHmF7HnIcyUn4BLxleVR4JQ9tO
-    RRPblnm6P-LTw>
-X-ME-Received: <xmr:JtaaZDouO8GQqmFl4YVfMTp1illR2Oq6qfHX2SK5htqaxF2rtnYhFj8ndyyPQrA8e9ldl4Dgv-Ph3S9GWa4Sm-HbxLgGw01oEdo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrtddtgdduudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:JtaaZNk2FqCZAzLAQHyrkM77CrZMzx-87qyO_TH6eIPufRtZBrm9xg>
-    <xmx:JtaaZL0UDBkgSA_-Ifgtjqs1xxgSpmoSc_eHNui71x85FNhUci-_qw>
-    <xmx:JtaaZMs-6Qmd-EcITrO1yDOK9fE5f5hPeGMoQ5GSiagT_7yaxM-aIg>
-    <xmx:JtaaZGRolba6R6j3y7D4KxwJk30R5bsQQlMLVjtTsDjaw0gn90uD3Q>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 27 Jun 2023 14:29:21 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
-	wei.chen@arm.com, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/2] tools/python: Fix memory leak on error path
-Message-ID: <ZJrWImht4GZXvLCv@mail-itl>
-References: <20230608135913.560413-1-luca.fancellu@arm.com>
- <20230608135913.560413-2-luca.fancellu@arm.com>
- <ZJnT8rdnMT5lrR0A@mail-itl>
+X-Inumbo-ID: 2d88e55d-14e8-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1687869792; x=1690461792;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=oiGMShFqsK5vy0r+ZoVprgd+7ONOa51b6TZq+l7w8nA=;
+        b=N9jYqZxdR661UImV0f2eqz9etcpnHRQWFJOWqbKzx+pPrr0rGpTyRrmz5XuUcm1Jel
+         baeVg/QwQJBCIEde+fmbP7LG4Izl1AuD0EKT+rEyp5sfJSH192El68xs7rbT6+K4WH9y
+         IfQhrB0iGU5wf9XPYsYmDFUbqjvN0yAjtDAbR5RKLJJX7UPC2owKWr4ScVk8mulj3v1M
+         rUlnRkKpW+k6Vp3tBKcP/u8zcAy+nchDJTbp1UFf/jwRX/gpGEnEqqlo9lImfk5IYIgt
+         /E/zRUzGds4zgAE/1m6/1FiPOwoCYKzmruujyCiOPEFDktm5hG65u6lqnFuN24x3EXwg
+         3F0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687869792; x=1690461792;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oiGMShFqsK5vy0r+ZoVprgd+7ONOa51b6TZq+l7w8nA=;
+        b=jTQP+gMPS9tsgcb8P+2xkWlByONWSBfdKshRB3aG5HhWGr5a1Q4hdovXbbiKnI5mtw
+         NzLMX57h9+6JjVgBt+r2Q8QYo8WmU5KWNC/frnTpmRw9hpqzEoZB9pmZpM4eGPb89TD6
+         5hZGfwwNAjay8cNkMW0A3pcVgka8uAdPWpgWJnuMwOTPiPDDsWW9ea8uk3d5Y3FvDaWY
+         46WjNd3Iwi/jWSLefyfKlf5dgMWaF929t5C0QSfe9oKxozLjn3P2dtSUGk3faGTTSS9w
+         gk2RdGJWkH6F6dzx1vlfO86EUlOyEC26g5gLKpXr8rNR7sUWCmGTS7Po1hDHEnompSHk
+         xEDA==
+X-Gm-Message-State: AC+VfDwlUkkavl0W5KzkBdQAlu/0umcg30YY2vrNY3mBiVQoTMkSlapq
+	/hLqYImsoOVdyrv7XelXPOPF4g==
+X-Google-Smtp-Source: ACHHUZ6zoAvKTmIUPl7vS48VUGVb/8NUBU9FbZNA+3XvIM6YbbuEMppTKmcZbeQKq+uiXwT/1/ecVw==
+X-Received: by 2002:a17:907:c0a:b0:96f:d345:d0f7 with SMTP id ga10-20020a1709070c0a00b0096fd345d0f7mr28092609ejc.62.1687869792013;
+        Tue, 27 Jun 2023 05:43:12 -0700 (PDT)
+Message-ID: <9d54d187-dd61-9d48-01bc-d0d6a44d119e@linaro.org>
+Date: Tue, 27 Jun 2023 14:43:08 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="HCBT5xK9kEbVAaTE"
-Content-Disposition: inline
-In-Reply-To: <ZJnT8rdnMT5lrR0A@mail-itl>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 15/16] accel: Rename 'cpu_state' -> 'cs'
+Content-Language: en-US
+To: qemu-devel@nongnu.org
+Cc: kvm@vger.kernel.org, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Roman Bolshakov <rbolshakov@ddn.com>, qemu-arm@nongnu.org,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Alexander Graf <agraf@csgraf.de>, xen-devel@lists.xenproject.org,
+ Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Yanan Wang <wangyanan55@huawei.com>, Paul Durrant <paul@xen.org>,
+ Reinoud Zandijk <reinoud@netbsd.org>, Eduardo Habkost <eduardo@habkost.net>,
+ Cameron Esfahani <dirty@apple.com>, Paolo Bonzini <pbonzini@redhat.com>
+References: <20230624174121.11508-1-philmd@linaro.org>
+ <20230624174121.11508-16-philmd@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <20230624174121.11508-16-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 24/6/23 19:41, Philippe Mathieu-Daudé wrote:
+> Most of the codebase uses 'CPUState *cpu' or 'CPUState *cs'.
+> While 'cpu_state' is kind of explicit, it makes the code
+> harder to review. Simply rename as 'cs'.
+> 
+> Acked-by: Richard Henderson <richard.henderson@linaro.org>
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>   target/i386/hvf/x86hvf.h |  18 +-
+>   target/i386/hvf/x86hvf.c | 372 +++++++++++++++++++--------------------
+>   2 files changed, 195 insertions(+), 195 deletions(-)
 
---HCBT5xK9kEbVAaTE
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Jun 2023 14:29:21 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
-	wei.chen@arm.com, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/2] tools/python: Fix memory leak on error path
+Per IRC chat:
+Tested-by: Peter Maydell <peter.maydell@linaro.org>
 
-On Mon, Jun 26, 2023 at 08:07:46PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Thu, Jun 08, 2023 at 02:59:13PM +0100, Luca Fancellu wrote:
-> > Commit 56a7aaa16bfe introduced a memory leak on the error path for a
-> > Py_BuildValue built object that on some newly introduced error path
-> > has not the correct reference count handling, fix that by decrementing
-> > the refcount in these path.
-> >=20
-> > Fixes: 56a7aaa16bfe ("tools: add physinfo arch_capabilities handling fo=
-r Arm")
-> > Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->=20
-> Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.co=
-m>
-
-Oh, and BTW, in relation to the discussion on the summit about
-committing process, the buggy version was committed without my ack,
-after waiting for my review for about two weeks.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---HCBT5xK9kEbVAaTE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmSa1iIACgkQ24/THMrX
-1yywKwgAmGMxw8NWWMccoY/8B6zKn4KQjcAFz36tqYPbUTz0yGTaHbOE6UmJiLm+
-gyVOta/sp1WWGSpJtnpT2ZMJaM9UTHqhv6Yy2FqQbv5OAem3iNVFY2ufUGSOMW6F
-IoVe20nN1c+1m9J4pgSDUcRvPBtIVv4ugEsn0aCDtDG/sRqeiIxuFsZvXp/7e+x9
-Ii+wCN+ti8L8IVU6jY2mVWdjIzPP8V2FU9qc5yx/Lww6D0mESUG6XoI+20Xobimt
-8iwOmmVcr5/ZQwshCuVPWv+1lEPlKCm1eGTPT4fxKMAQV1q0omttETb9yv0Ll55M
-r5u0cXVfKfcX9Tj3oW7wIT/giVZdoQ==
-=b2eV
------END PGP SIGNATURE-----
-
---HCBT5xK9kEbVAaTE--
 
