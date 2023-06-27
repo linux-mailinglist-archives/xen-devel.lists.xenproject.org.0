@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91ACC73F55A
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 09:20:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555882.868051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBB0D73F5D3
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 09:35:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.555888.868062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE2zW-0002RK-DN; Tue, 27 Jun 2023 07:19:58 +0000
+	id 1qE3EI-00053F-NL; Tue, 27 Jun 2023 07:35:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555882.868051; Tue, 27 Jun 2023 07:19:58 +0000
+Received: by outflank-mailman (output) from mailman id 555888.868062; Tue, 27 Jun 2023 07:35:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE2zW-0002Pe-9g; Tue, 27 Jun 2023 07:19:58 +0000
-Received: by outflank-mailman (input) for mailman id 555882;
- Tue, 27 Jun 2023 07:19:56 +0000
+	id 1qE3EI-0004zu-Jr; Tue, 27 Jun 2023 07:35:14 +0000
+Received: by outflank-mailman (input) for mailman id 555888;
+ Tue, 27 Jun 2023 07:35:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EZfr=CP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qE2zU-0002PT-AH
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 07:19:56 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EECo=CP=bounce.vates.fr=bounce-md_30504962.649a912d.v1-609155a8b5504464ad2be0f722b1f101@srs-se1.protection.inumbo.net>)
+ id 1qE3EH-0004zo-17
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 07:35:13 +0000
+Received: from mail136-22.atl41.mandrillapp.com
+ (mail136-22.atl41.mandrillapp.com [198.2.136.22])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0332284d-14bb-11ee-8611-37d641c3527e;
- Tue, 27 Jun 2023 09:19:54 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E1BDD211DE;
- Tue, 27 Jun 2023 07:19:53 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8186813462;
- Tue, 27 Jun 2023 07:19:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Ig8UHpmNmmTnFwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 27 Jun 2023 07:19:53 +0000
+ id 24e7ec05-14bd-11ee-8611-37d641c3527e;
+ Tue, 27 Jun 2023 09:35:10 +0200 (CEST)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-22.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4QqxM117HNzFCWYbg
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jun 2023 07:35:09 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 609155a8b5504464ad2be0f722b1f101; Tue, 27 Jun 2023 07:35:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,144 +43,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0332284d-14bb-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1687850393; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RF7xwYhJXKfHTpIm6OPtmWD8/BjyWG9MJjiitg4CML4=;
-	b=Fa1iQLQt0hsyoIBEWMYYF3kOoMoR7MTndsSuvNCn0mk8f+yXU+mSj7x6OJXFbp52ZgquLK
-	v2ZbL8RoUBUTGEzHkcMuzRpjB8JZMjiDCGEjGCI+BfhbC4E6rSYolRSol9jrus3+MBiw9I
-	ez7FkC1BDOBXaYNqtZeru+VU8fZ0ZRM=
-Message-ID: <25602998-d4d5-fec9-043e-c8959dd82602@suse.com>
-Date: Tue, 27 Jun 2023 09:19:52 +0200
+X-Inumbo-ID: 24e7ec05-14bd-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
+	s=mandrill; t=1687851309; x=1688111809; i=yann.dirson@vates.fr;
+	bh=OkqwrC9aV5kjEbZ5lyL+O0Q6loF+qbwkSSkhYCoatTM=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=hb4zEaAGkSJ3AuGf7mxP93XCdrHiWEcDVfdXsUgtHSSlrIdhQPNrUwq/W0gPTeUOZ
+	 UI9ZR3/x7ciWjmX3FoimhsoYwP5O43/G1c6qGU+PA5I4vk3uLEo/HKescuqCkWxx8u
+	 HgsGfCuzF78vr5QitC/VBEQoZvdMnoIfDKbHP1yY=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1687851309; h=From : 
+ Subject : Message-Id : To : Cc : References : In-Reply-To : Date : 
+ MIME-Version : Content-Type : Content-Transfer-Encoding : From : 
+ Subject : Date : X-Mandrill-User : List-Unsubscribe; 
+ bh=OkqwrC9aV5kjEbZ5lyL+O0Q6loF+qbwkSSkhYCoatTM=; 
+ b=ZvtNXDmwc3RmE0xaV+VGGkKsIJdRh4d41HDIHrocV+U1pTqjE8iPgOAIT3NCJRAKOjWA7x
+ PNdc9UfJ6TFfVMtuL0AgIDwMt+cD3PqK5bM2J2gieSLkfxDg4QxR86FUz4yvCTz8SILUQASr
+ 1si4hLp+OoxgEaGb9XgNmSO7Omj3c=
+From: Yann Dirson <yann.dirson@vates.fr>
+Subject: =?utf-8?Q?Re:=20[PATCH=201/1]=20doc:=20clarify=20intended=20usage=20of=20~/control/=20xentore=20path?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 39f1d088-dab6-450b-998d-f0ee110bfa80
+X-Bm-Transport-Timestamp: 1687851306505
+Message-Id: <046475ca-a940-d9c6-9913-26bf7fe3ca25@vates.fr>
+To: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20230531103427.1551719-1-yann.dirson@vates.fr> <20230531103427.1551719-2-yann.dirson@vates.fr> <d28b77ef-f6c8-e95c-c484-4025c6f51eb7@xen.org> <ede5628d-31c2-9637-df60-209d0c9107d8@suse.com>
+In-Reply-To: <ede5628d-31c2-9637-df60-209d0c9107d8@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.609155a8b5504464ad2be0f722b1f101?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20230627:md
+Date: Tue, 27 Jun 2023 07:35:09 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 3/3] swiotlb: unexport is_swiotlb_active
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20230612142542.111581-1-hch@lst.de>
- <20230612142542.111581-4-hch@lst.de>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230612142542.111581-4-hch@lst.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ZXX0M06KtxYsXVfyv8cZf6yL"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ZXX0M06KtxYsXVfyv8cZf6yL
-Content-Type: multipart/mixed; boundary="------------uPEf70P1cgirWsAdSRzG8gim";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Christoph Hellwig <hch@lst.de>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Message-ID: <25602998-d4d5-fec9-043e-c8959dd82602@suse.com>
-Subject: Re: [PATCH 3/3] swiotlb: unexport is_swiotlb_active
-References: <20230612142542.111581-1-hch@lst.de>
- <20230612142542.111581-4-hch@lst.de>
-In-Reply-To: <20230612142542.111581-4-hch@lst.de>
+As discussed in Xen Summit, we likely don't want to merge it as is after 
+all, but rather acknowledge that XAPI has taken the opposite route and 
+allow the toolstack to give ownership of ~/control (or at least write 
+permission?) to the guest -- maybe also recommending not to do that.
 
---------------uPEf70P1cgirWsAdSRzG8gim
-Content-Type: multipart/mixed; boundary="------------qDwZMH5oRYG1ME31VoABVgq9"
+Would that sound OK to everyone?
 
---------------qDwZMH5oRYG1ME31VoABVgq9
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 6/27/23 09:04, Juergen Gross wrote:
+> On 24.06.23 16:07, Julien Grall wrote:
+>> Hi Yann,
+>>
+>> Adding Juergen.
+>>
+>> On 31/05/2023 11:35, Yann Dirson wrote:
+>>> Signed-off-by: Yann Dirson <yann.dirson@vates.fr>
+>>
+>> Reviewed-by: Julien Grall <jgrall@amazon.com>
+> 
+> Reviewed-by: Juergen Gross <jgross@suse.com>
+> 
+> 
+> Juergen
+> 
 
-T24gMTIuMDYuMjMgMTY6MjUsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBEcml2ZXJz
-IGhhdmUgbm8gYnVzaW5lc3MgbG9va2luZyBhdCBkbWEtbWFwcGluZyBvciBzd2lvdGxiIGlu
-dGVybmFscy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hA
-bHN0LmRlPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
-Pg0KDQoNCkp1ZXJnZW4NCg0K
---------------qDwZMH5oRYG1ME31VoABVgq9
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+-- 
+Yann Dirson | Vates Platform Developer
+XCP-ng & Xen Orchestra - Vates solutions
+w: vates.tech | xcp-ng.org | xen-orchestra.com
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Yann Dirson | Vates Platform Developer
 
---------------qDwZMH5oRYG1ME31VoABVgq9--
-
---------------uPEf70P1cgirWsAdSRzG8gim--
-
---------------ZXX0M06KtxYsXVfyv8cZf6yL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSajZgFAwAAAAAACgkQsN6d1ii/Ey9U
-LAf7B6HozsAptLSzGaI6ZMH0yPcRviKRdiwiXMKQ8E7yy1kDoIlmKAWDJLmmrA5KNRkejILXWMDB
-30+QYNkUOCGb237vlOn73DAmnwLdH6dd7clOusGZMASfSDaJQjofKIiDl8kHuHLMvjEgUbvDnj8f
-rHtzNvHuqFdnCVmZleFm8bjap205m3qhCmLwiU62oW4xossyQZOBgUOXC26r50CICECxaZboU4Cr
-MIHIRQyLS6mdxDlcR15N7yhMQ4mu1Vha/5ldVdVCp+il1ZOftByu/5zVsyZ14FV/HV/JtRJRYoiP
-yaQ84GHwlepd9KngFiXxsY+g1Xrw5hGDHVzii+iLlw==
-=XVnJ
------END PGP SIGNATURE-----
-
---------------ZXX0M06KtxYsXVfyv8cZf6yL--
+XCP-ng & Xen Orchestra - Vates solutions
+web: https://vates.tech
 
