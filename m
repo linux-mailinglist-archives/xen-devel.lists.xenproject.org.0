@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00AD7401FC
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 19:19:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556205.868540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77A8474020E
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 19:21:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556210.868550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qECKp-0005hJ-07; Tue, 27 Jun 2023 17:18:35 +0000
+	id 1qECNm-00077b-DZ; Tue, 27 Jun 2023 17:21:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556205.868540; Tue, 27 Jun 2023 17:18:34 +0000
+Received: by outflank-mailman (output) from mailman id 556210.868550; Tue, 27 Jun 2023 17:21:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qECKo-0005f4-TS; Tue, 27 Jun 2023 17:18:34 +0000
-Received: by outflank-mailman (input) for mailman id 556205;
- Tue, 27 Jun 2023 17:18:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qECNm-000757-AG; Tue, 27 Jun 2023 17:21:38 +0000
+Received: by outflank-mailman (input) for mailman id 556210;
+ Tue, 27 Jun 2023 17:21:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rRYj=CP=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
- id 1qECKn-0005ey-7S
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 17:18:33 +0000
-Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a214372b-150e-11ee-8611-37d641c3527e;
- Tue, 27 Jun 2023 19:18:29 +0200 (CEST)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id CAE6D8C3F3;
- Tue, 27 Jun 2023 19:18:27 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1qECNl-00074z-2F
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 17:21:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qECNj-0000FW-V1; Tue, 27 Jun 2023 17:21:35 +0000
+Received: from ip-185-104-136-31.ptr.icomera.net ([185.104.136.31]
+ helo=[192.168.2.131]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qECNj-0000Gk-LV; Tue, 27 Jun 2023 17:21:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +39,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a214372b-150e-11ee-8611-37d641c3527e
-Authentication-Results: mail.tesarici.cz; dmarc=fail (p=none dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
-	t=1687886308; bh=6gFDNhhGJv90UdgxcbzryDH6ZG6dLvIYFXDAuTPtvSU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=bySKOQZltr9ohomUzM2aa5V74hK2GS3Z0zDb44uDmzzs/QvDRuAyvfkpp/sqmUsbo
-	 TYNOTc/GZ87znxp5/6S40uTgA1tFep572/XZFIr4a0dvnpFyyemllCPFmTL8ejWTBR
-	 jtihWMAS44zGXF3GRLhcBphwoEtpIHavdX+JxLcjBcAgrze60nJp9hzy2wm/xMLv2W
-	 f3DxfaFhc3IY3NIsJPaGj3Z1shXXSEaD9AOnCOuEnsKIDh9ZxDEfwP+mpg5g+evpr2
-	 SvnstvX48os/E5D1n8oEawxiBdrFV1sIno0QU0c2fjDy6lmqnnEG5s2xs8if27cr6c
-	 HuelAtwFx36+A==
-Date: Tue, 27 Jun 2023 19:18:26 +0200
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: unexport swiotlb_active v2
-Message-ID: <20230627191826.41aba02e@meshulam.tesarici.cz>
-In-Reply-To: <20230619091941.GA17034@lst.de>
-References: <20230612142542.111581-1-hch@lst.de>
-	<20230619091941.GA17034@lst.de>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-suse-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=0JtjPygEMgH67KBCAB/ahS1Nf4A3HVPZj0xHyEJdLLs=; b=AvTPm9SZi5uq3wXvcQIJIu065O
+	Jdekbr6xtLV2iSXyLXDg0kRlLxgHtH7cUy51idFBsr0ij6mSoJ7mwJTThLBO/xgMSaCv5Mzf0cpr5
+	iPz+1fBc2x2WjWdBd2a662IaXZr8JKiQU4z6onw74zDG8m7sZF2sYOlDJbd+ngNQMKbg=;
+Message-ID: <0e086551-eb0c-743b-5daa-9576c219e041@xen.org>
+Date: Tue, 27 Jun 2023 18:21:30 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH 2/2] tools/python: Fix memory leak on error path
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Luca Fancellu <luca.fancellu@arm.com>
+Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
+ wei.chen@arm.com, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20230608135913.560413-1-luca.fancellu@arm.com>
+ <20230608135913.560413-2-luca.fancellu@arm.com> <ZJnT8rdnMT5lrR0A@mail-itl>
+ <ZJrWImht4GZXvLCv@mail-itl>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ZJrWImht4GZXvLCv@mail-itl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Jun 2023 11:19:41 +0200
-Christoph Hellwig <hch@lst.de> wrote:
+Hi Marek,
 
-> Any comments?  I'd really like to finish this off this merge window..
+On 27/06/2023 13:29, Marek Marczykowski-Górecki wrote:
+> On Mon, Jun 26, 2023 at 08:07:46PM +0200, Marek Marczykowski-Górecki wrote:
+>> On Thu, Jun 08, 2023 at 02:59:13PM +0100, Luca Fancellu wrote:
+>>> Commit 56a7aaa16bfe introduced a memory leak on the error path for a
+>>> Py_BuildValue built object that on some newly introduced error path
+>>> has not the correct reference count handling, fix that by decrementing
+>>> the refcount in these path.
+>>>
+>>> Fixes: 56a7aaa16bfe ("tools: add physinfo arch_capabilities handling for Arm")
+>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> 
+> Oh, and BTW, in relation to the discussion on the summit about
+> committing process, the buggy version was committed without my ack,
+> after waiting for my review for about two weeks.
 
-Let me second this request. My dynamic SWIOTLB patch series also has a
-dependence on this.
+I was the committer for the series. In this case, this was not a case of 
+committing because I thought the patch was uncontroversial. Instead, 
+this was a lack of my side to properly check the acks on the patch. 
+Sorry for that.
 
-Petr T
+In general, as I mentioned during the design session, I don't commit 
+with missing acks without explicitly saying so on the mailing list and 
+this is often after consulting with others on IRC.
+
+On a similar topic. So far, checking the ack is a manual process for me. 
+So this is not entirely an error-free process (in particular for patch 
+requiring multiple maintainers acks). I would love to have a script that 
+could tell me if a patch is fully approved and/or what acks are missing.
+
+Cheers,
+
+-- 
+Julien Grall
 
