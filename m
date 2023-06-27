@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AD6E73F988
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 12:00:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.555969.868217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B8D73FACF
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 13:12:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556075.868319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE5Ug-0002BU-Qe; Tue, 27 Jun 2023 10:00:18 +0000
+	id 1qE6bV-0007U3-2G; Tue, 27 Jun 2023 11:11:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 555969.868217; Tue, 27 Jun 2023 10:00:18 +0000
+Received: by outflank-mailman (output) from mailman id 556075.868319; Tue, 27 Jun 2023 11:11:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE5Ug-0001xm-HJ; Tue, 27 Jun 2023 10:00:18 +0000
-Received: by outflank-mailman (input) for mailman id 555969;
- Tue, 27 Jun 2023 09:57:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X8So=CP=huaweicloud.com=petrtesarik@srs-se1.protection.inumbo.net>)
- id 1qE5Rr-00008W-OU
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 09:57:23 +0000
-Received: from frasgout11.his.huawei.com (unknown [14.137.139.23])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02515b5f-14d1-11ee-8611-37d641c3527e;
- Tue, 27 Jun 2023 11:57:21 +0200 (CEST)
-Received: from mail02.huawei.com (unknown [172.18.147.228])
- by frasgout11.his.huawei.com (SkyGuard) with ESMTP id 4Qr0Gb1LKNz9v7Hc
- for <xen-devel@lists.xenproject.org>; Tue, 27 Jun 2023 17:46:31 +0800 (CST)
-Received: from A2101119013HW2.china.huawei.com (unknown [10.45.153.185])
- by APP1 (Coremail) with SMTP id LxC2BwBnwdzesZpknnvHAw--.39096S9;
- Tue, 27 Jun 2023 10:56:53 +0100 (CET)
+	id 1qE6bU-0007RQ-VT; Tue, 27 Jun 2023 11:11:24 +0000
+Received: by outflank-mailman (input) for mailman id 556075;
+ Tue, 27 Jun 2023 11:11:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=l5D/=CP=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1qE6bT-00078S-TB
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 11:11:23 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 59cac562-14db-11ee-b237-6b7b168915f2;
+ Tue, 27 Jun 2023 13:11:23 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4f9fdb0ef35so4089192e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jun 2023 04:11:23 -0700 (PDT)
+Received: from [127.0.0.1] ([90.187.110.129]) by smtp.gmail.com with ESMTPSA id
+ m21-20020a7bcb95000000b003faabd8fcb8sm4411668wmi.46.2023.06.27.04.11.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jun 2023 04:11:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,170 +44,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02515b5f-14d1-11ee-8611-37d641c3527e
-From: Petr Tesarik <petrtesarik@huaweicloud.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kees Cook <keescook@chromium.org>,
-	Saravana Kannan <saravanak@google.com>,
-	xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR ARM),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM PORT),
-	linux-kernel@vger.kernel.org (open list),
-	linux-mips@vger.kernel.org (open list:MIPS),
-	iommu@lists.linux.dev (open list:XEN SWIOTLB SUBSYSTEM)
-Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	petr@tesarici.cz
-Subject: [PATCH v3 7/7] swiotlb: search the software IO TLB only if a device makes use of it
-Date: Tue, 27 Jun 2023 11:54:29 +0200
-Message-Id: <34b9a218e9a152dd53eb0d4b0a819c6de987c8c1.1687859323.git.petr.tesarik.ext@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1687859323.git.petr.tesarik.ext@huawei.com>
-References: <cover.1687859323.git.petr.tesarik.ext@huawei.com>
+X-Inumbo-ID: 59cac562-14db-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1687864283; x=1690456283;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CuduRVloJOVw7jW4g3I3eFfyX2ilk9akjT9KLl191qk=;
+        b=TDoACJzckX9CCQtr3x+2iKY1Wpf9JPbZr9Tmac61Yrls/8jq1PEuy/0e16W9lYfBKt
+         CX5uC1mt/uFzHpuLVDMX+61rxme4sPuE0PAaqkupSSyHq8aB9MClZQozkwR7L5EGQWEy
+         Lbcr+F6YnU2wYx59+jPuZ3eXVie2PXbUGFqCRhU/xSPmq1lSAOpAlAgnVtE/DeH70WAU
+         /xZGKCB9ZoLyyTdaKN/r8RwdrnBXuWjsXO1E0D5MHjNGYFjz1E4MIzxHi7PLFTd+tnQ8
+         iiHhNj44gPCUuQhFqEMr6iuOnpfzFDMq+/BRXnNnHFXgYCWTOxhKQrl9Haq8lcEdTA6s
+         hypg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687864283; x=1690456283;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CuduRVloJOVw7jW4g3I3eFfyX2ilk9akjT9KLl191qk=;
+        b=GB0bK3I8A9Bcbr3Hk6hdXYm0+MTNSPFU6QJ1aC66h3C/V1ef8cv1vUUwp0H2HvvpFr
+         9HA5zKJryMOAOp4kpPpZ7av2RPhdf1dj8bYNoyOId89XF0wsuGjRmoljBrp/qVzQJFJd
+         geYTjSQCfa5omRKBP/Q1YvPw6lQNynZn3U8zMB7pVzSSqLSE3dbBXQPGh8VFBOzo8YUm
+         w0uqgOQGNLB+5A0xx0ow7EKpACtE5oYc36pd3h2GCv3EgAJH12IVSyktL+JJefyIS408
+         0TSJteuszKs68wbgJHKVWAkURoaPQjZZmqzbSnN3EUh6oCfxY5h1govaOUgSGVFk6fOy
+         kj7g==
+X-Gm-Message-State: AC+VfDwnqgrE8pKf1FDVKE95j5KdGLBNgeAwtm1uI9nuqEkp4/S6xfD+
+	ciY+sTsrLGdijH9GJ/keGws=
+X-Google-Smtp-Source: ACHHUZ7J5RrJuR4cS5VYw9/2DPvrBv3doY3V0OY17oqYQcbyWh46th0VA2CJ3pt7g/atF7ipiMo3Fg==
+X-Received: by 2002:a05:6512:2090:b0:4fb:893a:d322 with SMTP id t16-20020a056512209000b004fb893ad322mr428099lfr.68.1687864282417;
+        Tue, 27 Jun 2023 04:11:22 -0700 (PDT)
+Date: Tue, 27 Jun 2023 10:12:50 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Olaf Hering <olaf@aepfle.de>, John Snow <jsnow@redhat.com>
+CC: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
+In-Reply-To: <c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com>
+References: <20210317070046.17860-1-olaf@aepfle.de> <4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com> <20210325121219.7b5daf76.olaf@aepfle.de> <dae251e1-f808-708e-902c-05cfcbbea9cf@redhat.com> <20230509225818.GA16290@aepfle.de> <20230626231901.5b5d11c1.olaf@aepfle.de> <c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com>
+Message-ID: <5DB37FA5-41DF-4ED6-8C8A-CDDD6F276F42@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:LxC2BwBnwdzesZpknnvHAw--.39096S9
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF15Ww18ZF1fWr1UtFW7XFb_yoWrXF1DpF
-	9xAFZ8KayDXr97Cr97CF4UZ3Wagw4vkw43CryagrnYkr1DJwnYqFyDKrWYv3s5Ar47ZFW7
-	Xryj939Ykw17Xr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUml14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_
-	Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x
-	IIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_
-	Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8c
-	xan2IY04v7MxkF7I0Ew4C26cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
-	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
-	8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_
-	Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r
-	1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4U
-	JbIYCTnIWIevJa73UjIFyTuYvjfU1WlkDUUUU
-X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
-X-CFilter-Loop: Reflected
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Petr Tesarik <petr.tesarik.ext@huawei.com>
 
-Skip searching the software IO TLB if a device has never used it, making
-sure these devices are not affected by the introduction of multiple IO TLB
-memory pools.
 
-Additional memory barrier is required to ensure that the new value of the
-flag is visible to other CPUs after mapping a new bounce buffer. For
-efficiency, the flag check should be inlined, and then the memory barrier
-must be moved to is_swiotlb_buffer(). However, it can replace the existing
-barrier in swiotlb_find_pool(), because all callers use is_swiotlb_buffer()
-first to verify that the buffer address belongs to the software IO TLB.
+Am 27=2E Juni 2023 07:11:33 UTC schrieb Paolo Bonzini <pbonzini@redhat=2Ec=
+om>:
+>On 6/26/23 23:19, Olaf Hering wrote:
+>> I need advice on how to debug this=2E
+>>=20
+>> One thing that stands out is uhci_irq()=2E
+>> It reads a u16 from the USBSTS register=2E
+>>=20
+>> On the qemu side, this read is served from bmdma_read=2E Since the read
+>> size is 2, the result is ~0, and uhci_irq() turns the controller off=2E
+>> In other words, memory_region_ops_read from addr=3D0xc102 is served fro=
+m "piix-bmdma"
+>>=20
+>> If the pci_set_word calls in piix_ide_reset are skipped, the read is
+>> served from uhci_port_write=2E This is the expected behavior=2E
+>> In other words, memory_region_ops_read from addr=3D0xc102 is served fro=
+m "uhci"=2E
+>
+>I think what's happening is that
+>
+>    pci_set_byte(pci_conf + 0x20, 0x01);  /* BMIBA: 20-23h */
+>
+>is setting the BAR to 0xC100, therefore overlapping the UHCI device's reg=
+ion=2E  In principle this line shouldn't be necessary at all though; it's e=
+nough to clear the COMMAND register=2E
 
-Signed-off-by: Petr Tesarik <petr.tesarik.ext@huawei.com>
----
- include/linux/device.h  |  2 ++
- include/linux/swiotlb.h |  6 +++++-
- kernel/dma/swiotlb.c    | 14 ++++++--------
- 3 files changed, 13 insertions(+), 9 deletions(-)
+Interesting=2E The BAR is a 32 bit register whose default value is 0x00000=
+001=2E I think what's supposed to happen here is a pci_set_long() rather th=
+an a pci_set_byte()=2E
 
-diff --git a/include/linux/device.h b/include/linux/device.h
-index a1ee4c5924b8..d4b35925a6d1 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -512,6 +512,7 @@ struct device_physical_location {
-  * @dma_io_tlb_mem: Software IO TLB allocator.  Not for driver use.
-  * @dma_io_tlb_pools:	List of transient swiotlb memory pools.
-  * @dma_io_tlb_lock:	Protects changes to the list of active pools.
-+ * @dma_uses_io_tlb: %true if device has used the software IO TLB.
-  * @archdata:	For arch-specific additions.
-  * @of_node:	Associated device tree node.
-  * @fwnode:	Associated device node supplied by platform firmware.
-@@ -619,6 +620,7 @@ struct device {
- 	struct io_tlb_mem *dma_io_tlb_mem;
- 	struct list_head dma_io_tlb_pools;
- 	spinlock_t dma_io_tlb_lock;
-+	bool dma_uses_io_tlb;
- #endif
- 	/* arch specific additions */
- 	struct dev_archdata	archdata;
-diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-index ae402890ba41..eb30b5c624f1 100644
---- a/include/linux/swiotlb.h
-+++ b/include/linux/swiotlb.h
-@@ -148,7 +148,11 @@ struct io_tlb_pool *swiotlb_find_pool(struct device *dev, phys_addr_t paddr);
-  */
- static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
- {
--	return dev->dma_io_tlb_mem &&
-+	/* Pairs with smp_wmb() in swiotlb_find_slots() and
-+	 * swiotlb_dyn_alloc(), which modify the RCU lists.
-+	 */
-+	smp_rmb();
-+	return dev->dma_uses_io_tlb &&
- 		!!swiotlb_find_pool(dev, paddr);
- }
- 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 7661a6402e80..26ab9ed2921b 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -701,7 +701,7 @@ static void swiotlb_dyn_alloc(struct work_struct *work)
- 
- 	add_mem_pool(mem, pool);
- 
--	/* Pairs with smp_rmb() in swiotlb_find_pool(). */
-+	/* Pairs with smp_rmb() in is_swiotlb_buffer(). */
- 	smp_wmb();
- }
- 
-@@ -729,6 +729,7 @@ void swiotlb_dev_init(struct device *dev)
- 	dev->dma_io_tlb_mem = &io_tlb_default_mem;
- 	INIT_LIST_HEAD(&dev->dma_io_tlb_pools);
- 	spin_lock_init(&dev->dma_io_tlb_lock);
-+	dev->dma_uses_io_tlb = false;
- }
- 
- /**
-@@ -746,11 +747,6 @@ struct io_tlb_pool *swiotlb_find_pool(struct device *dev, phys_addr_t paddr)
- 	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
- 	struct io_tlb_pool *pool;
- 
--	/* Pairs with smp_wmb() in swiotlb_find_slots() and
--	 * swiotlb_dyn_alloc(), which modify the RCU lists.
--	 */
--	smp_rmb();
--
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(pool, &mem->pools, node) {
- 		if (paddr >= pool->start && paddr < pool->end)
-@@ -1125,9 +1121,11 @@ static int swiotlb_find_slots(struct device *dev, phys_addr_t orig_addr,
- 	list_add_rcu(&pool->node, &dev->dma_io_tlb_pools);
- 	spin_unlock_irqrestore(&dev->dma_io_tlb_lock, flags);
- 
--	/* Pairs with smp_rmb() in swiotlb_find_pool(). */
--	smp_wmb();
- found:
-+	dev->dma_uses_io_tlb = true;
-+	/* Pairs with smp_rmb() in is_swiotlb_buffer() */
-+	smp_wmb();
-+
- 	*retpool = pool;
- 	return index;
- }
--- 
-2.25.1
+Bits 4=2E=2E15 represent the BAR address, and pci_set_byte() only clears b=
+its 4=2E=2E7, leaving bits 8=2E=2E15 unchanged=2E Perhaps this causes the B=
+AR to be moved into the UHCI region? Does changing the call to pci_set_long=
+() fix the problem?
 
+Best regards,
+Bernhard
+
+>
+>Can you check the value of the COMMAND register (pci_conf + 0x04, 16 bits=
+, little endian)?  Something might be causing the register to be set back t=
+o a nonzero value, therefore re-enabling the I/O at the address that overla=
+ps the UHCI device=2E
+>
+>Paolo
+>
+>
 
