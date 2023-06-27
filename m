@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81B8D73FACF
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 13:12:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556075.868319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 981CF73FA12
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 12:22:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556017.868244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE6bV-0007U3-2G; Tue, 27 Jun 2023 11:11:25 +0000
+	id 1qE5pA-0007ho-50; Tue, 27 Jun 2023 10:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556075.868319; Tue, 27 Jun 2023 11:11:25 +0000
+Received: by outflank-mailman (output) from mailman id 556017.868244; Tue, 27 Jun 2023 10:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qE6bU-0007RQ-VT; Tue, 27 Jun 2023 11:11:24 +0000
-Received: by outflank-mailman (input) for mailman id 556075;
- Tue, 27 Jun 2023 11:11:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qE5pA-0007g8-25; Tue, 27 Jun 2023 10:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 556017;
+ Tue, 27 Jun 2023 10:21:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l5D/=CP=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1qE6bT-00078S-TB
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 11:11:23 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59cac562-14db-11ee-b237-6b7b168915f2;
- Tue, 27 Jun 2023 13:11:23 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4f9fdb0ef35so4089192e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 27 Jun 2023 04:11:23 -0700 (PDT)
-Received: from [127.0.0.1] ([90.187.110.129]) by smtp.gmail.com with ESMTPSA id
- m21-20020a7bcb95000000b003faabd8fcb8sm4411668wmi.46.2023.06.27.04.11.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jun 2023 04:11:21 -0700 (PDT)
+ (envelope-from <SRS0=f9WP=CP=tibco.com=etorok@srs-se1.protection.inumbo.net>)
+ id 1qE5p8-0007g2-4Q
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 10:21:26 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d7d8bfd-14d4-11ee-8611-37d641c3527e;
+ Tue, 27 Jun 2023 12:21:23 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-9923833737eso28796966b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jun 2023 03:21:23 -0700 (PDT)
+Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ qc5-20020a170906d8a500b00992076f4a01sm886503ejb.190.2023.06.27.03.21.22
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 27 Jun 2023 03:21:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,97 +46,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59cac562-14db-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 5d7d8bfd-14d4-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687864283; x=1690456283;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CuduRVloJOVw7jW4g3I3eFfyX2ilk9akjT9KLl191qk=;
-        b=TDoACJzckX9CCQtr3x+2iKY1Wpf9JPbZr9Tmac61Yrls/8jq1PEuy/0e16W9lYfBKt
-         CX5uC1mt/uFzHpuLVDMX+61rxme4sPuE0PAaqkupSSyHq8aB9MClZQozkwR7L5EGQWEy
-         Lbcr+F6YnU2wYx59+jPuZ3eXVie2PXbUGFqCRhU/xSPmq1lSAOpAlAgnVtE/DeH70WAU
-         /xZGKCB9ZoLyyTdaKN/r8RwdrnBXuWjsXO1E0D5MHjNGYFjz1E4MIzxHi7PLFTd+tnQ8
-         iiHhNj44gPCUuQhFqEMr6iuOnpfzFDMq+/BRXnNnHFXgYCWTOxhKQrl9Haq8lcEdTA6s
-         hypg==
+        d=cloud.com; s=cloud; t=1687861283; x=1690453283;
+        h=to:date:message-id:subject:mime-version:content-transfer-encoding
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ndZA4BPfU+FceQpEgeBH1Ewx7zzZ5krG3I7Wjsxllfs=;
+        b=g7k2fbDb0Qe7mLPMaYfdyx/4szgF1sf6wzNvv7Xal4j0YksmAfezKFedM7m1tbpDeD
+         cNZvD7UjnGvh+UlgBGaSm6sDQdawnqSszeIZMsBvywRr/6+neEse5/gKsGflI+G0jRx4
+         NJSpOlBVTdGHi2JupINXFqcoVivw8tkyhGHkQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687864283; x=1690456283;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CuduRVloJOVw7jW4g3I3eFfyX2ilk9akjT9KLl191qk=;
-        b=GB0bK3I8A9Bcbr3Hk6hdXYm0+MTNSPFU6QJ1aC66h3C/V1ef8cv1vUUwp0H2HvvpFr
-         9HA5zKJryMOAOp4kpPpZ7av2RPhdf1dj8bYNoyOId89XF0wsuGjRmoljBrp/qVzQJFJd
-         geYTjSQCfa5omRKBP/Q1YvPw6lQNynZn3U8zMB7pVzSSqLSE3dbBXQPGh8VFBOzo8YUm
-         w0uqgOQGNLB+5A0xx0ow7EKpACtE5oYc36pd3h2GCv3EgAJH12IVSyktL+JJefyIS408
-         0TSJteuszKs68wbgJHKVWAkURoaPQjZZmqzbSnN3EUh6oCfxY5h1govaOUgSGVFk6fOy
-         kj7g==
-X-Gm-Message-State: AC+VfDwnqgrE8pKf1FDVKE95j5KdGLBNgeAwtm1uI9nuqEkp4/S6xfD+
-	ciY+sTsrLGdijH9GJ/keGws=
-X-Google-Smtp-Source: ACHHUZ7J5RrJuR4cS5VYw9/2DPvrBv3doY3V0OY17oqYQcbyWh46th0VA2CJ3pt7g/atF7ipiMo3Fg==
-X-Received: by 2002:a05:6512:2090:b0:4fb:893a:d322 with SMTP id t16-20020a056512209000b004fb893ad322mr428099lfr.68.1687864282417;
-        Tue, 27 Jun 2023 04:11:22 -0700 (PDT)
-Date: Tue, 27 Jun 2023 10:12:50 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Olaf Hering <olaf@aepfle.de>, John Snow <jsnow@redhat.com>
-CC: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
-In-Reply-To: <c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com>
-References: <20210317070046.17860-1-olaf@aepfle.de> <4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com> <20210325121219.7b5daf76.olaf@aepfle.de> <dae251e1-f808-708e-902c-05cfcbbea9cf@redhat.com> <20230509225818.GA16290@aepfle.de> <20230626231901.5b5d11c1.olaf@aepfle.de> <c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com>
-Message-ID: <5DB37FA5-41DF-4ED6-8C8A-CDDD6F276F42@gmail.com>
-MIME-Version: 1.0
+        d=1e100.net; s=20221208; t=1687861283; x=1690453283;
+        h=to:date:message-id:subject:mime-version:content-transfer-encoding
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ndZA4BPfU+FceQpEgeBH1Ewx7zzZ5krG3I7Wjsxllfs=;
+        b=iY/3o1EEpDmTLaK5q3OYxXFrSGkj/F4yXmy+7O8zQ9JK6ehHAPCIdibQ9P2mvjKlbu
+         8fdsc6FHmVSGHlh6wD7Yg9px8xKDkDgHMZQYypWK8T2DONMBIH9gbDWeByeHcuMfiXUu
+         u7hZRTxmgNTzUGz4bxsnQpkmvd7AZpt39OGnqTCAoA/Q2RW0bTDVv+EhGjjdirYrJEtu
+         3a0cJprZo/ynqJEMILksKQV0lTHgA205afRbC1w+f/2VP9ahyBchS0bTGNQnajmYsx17
+         FQ69LUA1x6aVkbqhzVxbEE4G8a5dRb4N24ML2NOV4r+rJTebN/9gR7eV9XX08v+1aRrM
+         llMQ==
+X-Gm-Message-State: AC+VfDzUF/G/sHNPElyXZi/AflpYQmB2Hc8ZpzKTRN0/CmK3+SFhvEDG
+	BwOHwa0ZYrF1I30yCajjGE+ti37o+3UHPznAAp5zlg==
+X-Google-Smtp-Source: ACHHUZ6ZO00rIEj4uMJZXoLntLDy/u8Yf6osfBxv70CGfniC3ETBOITyV0WWJx/ze2KNQql554BJIw==
+X-Received: by 2002:a17:907:7884:b0:98e:23d3:bf47 with SMTP id ku4-20020a170907788400b0098e23d3bf47mr6028164ejc.36.1687861282927;
+        Tue, 27 Jun 2023 03:21:22 -0700 (PDT)
+From: Edwin Torok <edwin.torok@cloud.com>
 Content-Type: text/plain;
- charset=utf-8
+	charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.600.7\))
+Subject: xen summit 2023 design session: Using only stable interfaces for
+ (o)xenstored
+Message-Id: <C94DAB91-C664-43CC-A84B-E0AEB3381FE4@cloud.com>
+Date: Tue, 27 Jun 2023 11:21:12 +0100
+To: Xen-devel <xen-devel@lists.xenproject.org>
+X-Mailer: Apple Mail (2.3731.600.7)
+
+Background: =
+https://design-sessions.xenproject.org/uid/discussion/disc_MEXyUIXV6clI8n1=
+kgzQ9/view
+
+Possible solutions:
+Andrew Cooper: use get domain info list instead of querying domains =
+one-by-one to reduce number of hypercalls, even though Alejandro's patch =
+makes the get_domainfo lookups O(1).
+To avoid a hypercall a shared read-only memory page between Xen and =
+Dom0, containing a bitmap of domain existence and shutdown state.
+We have 32k domains max and this fits into a small number of 4K pages.
+Hypervisor can update it using atomic set/clear-bit, Dom0 will memcpy =
+and then check for differences
+Bernhardt/Andrew: discussion about efficiency and find first bit set, =
+XOR. A *lot* more efficient than using hypercalls anyway
+Edwin: do I have to implement that for various architectures?
+Andrew Cooper: already implemented for all arches. Some architectures =
+can only do atomic updates on natural register width (RISC-V), but that =
+is already handled
+Edwin: how would the stable interface look like? Memory layout =
+definition in the header and ..?
+Andrew Cooper: use acquire_resource with a new resource type, already =
+have stable xen libs for resource mapping
+
+Christopher Clarke/Daniel Smith (virtually from chatroom): alternatives =
+to bitmap, how is it indexed?
+Andrew Coooper: indexed by domid, we only have 32k
+Marcus Granado: what if we want to increase that?
+Andrew Coooper: 16-bit domid is baked into so many ABIs that if we want =
+to increase that then this API won't be the blocker. No need to worry =
+about more than 32k domids.
+Christopher Clark: how about using an Argo ring
+Andrew Cooper: Xen must NOT block when delivering the notification and =
+notification delivery cannot be lossy, cannot afford to drop events: =
+toolstacks/xenstored critically rely on this information.
+Christopher Clark: bip buffers: =
+https://www.codeproject.com/Articles/3479/The-Bip-Buffer-The-Circular-Buff=
+er-with-a-Twist as possible solution to avoid running out of space
+Andrew Cooper: bitmap also avoids having to take the domctl lock and =
+reduce background idle CPU usage
+Edwin: on that topic: we should also fix xcp-rrdd so it doesn't shell =
+out to xenpm every 5s to collect statistics...
+Andrew Cooper: should be possible to use libxenctrl directly for that
+Edwin Torok: there are other interfacs that would need to be stabilized =
+(see xenopsd), but lets start small and fix just this one for now, which =
+will result in an immediate improvement for (o)xenstored since this was =
+the final blocker to getting off stable interfaces (there is one other =
+usage, but that already has a patch posted/solution)
+
+Edwin Torok: how about release cadence? Doesn't necessarily have to go =
+into immediately next Xen release, but don't know in which phase the =
+release is in right now
+Andrew Cooper: probably about 6 weeks time to get into next release
 
 
-
-Am 27=2E Juni 2023 07:11:33 UTC schrieb Paolo Bonzini <pbonzini@redhat=2Ec=
-om>:
->On 6/26/23 23:19, Olaf Hering wrote:
->> I need advice on how to debug this=2E
->>=20
->> One thing that stands out is uhci_irq()=2E
->> It reads a u16 from the USBSTS register=2E
->>=20
->> On the qemu side, this read is served from bmdma_read=2E Since the read
->> size is 2, the result is ~0, and uhci_irq() turns the controller off=2E
->> In other words, memory_region_ops_read from addr=3D0xc102 is served fro=
-m "piix-bmdma"
->>=20
->> If the pci_set_word calls in piix_ide_reset are skipped, the read is
->> served from uhci_port_write=2E This is the expected behavior=2E
->> In other words, memory_region_ops_read from addr=3D0xc102 is served fro=
-m "uhci"=2E
->
->I think what's happening is that
->
->    pci_set_byte(pci_conf + 0x20, 0x01);  /* BMIBA: 20-23h */
->
->is setting the BAR to 0xC100, therefore overlapping the UHCI device's reg=
-ion=2E  In principle this line shouldn't be necessary at all though; it's e=
-nough to clear the COMMAND register=2E
-
-Interesting=2E The BAR is a 32 bit register whose default value is 0x00000=
-001=2E I think what's supposed to happen here is a pci_set_long() rather th=
-an a pci_set_byte()=2E
-
-Bits 4=2E=2E15 represent the BAR address, and pci_set_byte() only clears b=
-its 4=2E=2E7, leaving bits 8=2E=2E15 unchanged=2E Perhaps this causes the B=
-AR to be moved into the UHCI region? Does changing the call to pci_set_long=
-() fix the problem?
-
-Best regards,
-Bernhard
-
->
->Can you check the value of the COMMAND register (pci_conf + 0x04, 16 bits=
-, little endian)?  Something might be causing the register to be set back t=
-o a nonzero value, therefore re-enabling the I/O at the address that overla=
-ps the UHCI device=2E
->
->Paolo
->
->
 
