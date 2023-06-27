@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A8474020E
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 19:21:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556210.868550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 869FB740212
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jun 2023 19:22:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556213.868560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qECNm-00077b-DZ; Tue, 27 Jun 2023 17:21:38 +0000
+	id 1qECOf-0007dc-Nn; Tue, 27 Jun 2023 17:22:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556210.868550; Tue, 27 Jun 2023 17:21:38 +0000
+Received: by outflank-mailman (output) from mailman id 556213.868560; Tue, 27 Jun 2023 17:22:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qECNm-000757-AG; Tue, 27 Jun 2023 17:21:38 +0000
-Received: by outflank-mailman (input) for mailman id 556210;
- Tue, 27 Jun 2023 17:21:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qECNl-00074z-2F
- for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 17:21:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qECNj-0000FW-V1; Tue, 27 Jun 2023 17:21:35 +0000
-Received: from ip-185-104-136-31.ptr.icomera.net ([185.104.136.31]
- helo=[192.168.2.131]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qECNj-0000Gk-LV; Tue, 27 Jun 2023 17:21:35 +0000
+	id 1qECOf-0007ab-JV; Tue, 27 Jun 2023 17:22:33 +0000
+Received: by outflank-mailman (input) for mailman id 556213;
+ Tue, 27 Jun 2023 17:22:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pdS8=CP=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1qECOd-0007Yr-LJ
+ for xen-devel@lists.xenproject.org; Tue, 27 Jun 2023 17:22:31 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 305150d5-150f-11ee-b237-6b7b168915f2;
+ Tue, 27 Jun 2023 19:22:29 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 9A9DA320094F;
+ Tue, 27 Jun 2023 13:22:25 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Tue, 27 Jun 2023 13:22:26 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Jun 2023 13:22:24 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +43,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=0JtjPygEMgH67KBCAB/ahS1Nf4A3HVPZj0xHyEJdLLs=; b=AvTPm9SZi5uq3wXvcQIJIu065O
-	Jdekbr6xtLV2iSXyLXDg0kRlLxgHtH7cUy51idFBsr0ij6mSoJ7mwJTThLBO/xgMSaCv5Mzf0cpr5
-	iPz+1fBc2x2WjWdBd2a662IaXZr8JKiQU4z6onw74zDG8m7sZF2sYOlDJbd+ngNQMKbg=;
-Message-ID: <0e086551-eb0c-743b-5daa-9576c219e041@xen.org>
-Date: Tue, 27 Jun 2023 18:21:30 +0100
+X-Inumbo-ID: 305150d5-150f-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1687886545; x=1687972945; bh=UGy1h7/yBoCL+NGQDbYT9sVoQM4JXCJ8XYZ
+	vW+aIHhY=; b=FN5HL4LiZK8BnmJSMpE/4/zQ5W/C8nfSKvARuC3qSq5gs0uzq2Z
+	oKV9lxM4Qc2b1v+0NeVUYTnghdAEqs4CVyQGuB1jdf+0VZaCdduxQhZ4Gx6gVyvX
+	nrZMzI5jwpenVLXlL7rUiKFvAE3hOZ3RRdGvt6ncXLcovTcTjHSKRz2LKL9P2/7T
+	7Xr8a9WA5fCeh3SZXwtC9NJUZTWdosp13qA+USMGIQrEuPVUfnxhqD7kPzIBSFKT
+	Pwuo/LrPxNLs84OiTDhQRE/oeqC/EmebfB9/3fiLV+gT/fdk6wb49Q2+Xz1z4EmL
+	kXE5p+sowB/15dDvqJOSWAkqoAfhZt8xwzQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1687886545; x=1687972945; bh=UGy1h7/yBoCL+
+	NGQDbYT9sVoQM4JXCJ8XYZvW+aIHhY=; b=RshzrOgydTM6POsx2gvl8qpFBzQY+
+	hfLxI4ngsrp2Yak8y0oehjzX17FaEp0rjXapJyK7rBuKeZTOM9SwLz4gxv4iLT+R
+	KCusRoBW2iXI72N3ec7O9LHmTFBMMfe44SwyRdhE604wBjlB/IsCq6hXXRGke+Lz
+	120dVvdIXTG5kE2F/+B3HFIgC6MWg7B1ziCvfaH/Uz/wawVnGI0MDyS3xqKSFdkR
+	fZz3tKU2JVa6GRV9jN82ECheBGOUOW8XhcmNh2SWTIH2A098spvle6YVeTQRS/sP
+	S2pQng0onjmgm2fdJic5bxsVEgTWttdIhw0z5sZ3NQIG6SAxXIOP9K8Eg==
+X-ME-Sender: <xms:0BqbZNWPtl-wKXZaPjE4XUHeZ242oq4VUzPEvCYHEeEuy1aQiZKaRg>
+    <xme:0BqbZNm3Rlwc-z13_al9lae6Fy8Or6tHvdaSRPPdqTwNXmE2Rt_AJ8OoR7IsMVdM8
+    qSQnu2ERAeBzc8>
+X-ME-Received: <xmr:0BqbZJaVtXTex6eRhKx5jBdthxmtvhutulvaS0YjQaVRKiS7lsqGbVxkW9ak-PFUpucBlgD051m48jPwTd8_2nGZVvTul2bapyoaUUDnlQE-QMd5Uw0g6PYvC_0Zv-ef>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrtddtgdeilecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcuofgr
+    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmqeenucggtffrrghtthgvrhhnpedvfeegkedvkefgffegkefhieejtdffkeeh
+    hfelheefjeeutefgleeggfdtveeileenucevlhhushhtvghrufhiiigvpedtnecurfgrrh
+    grmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggs
+    rdgtohhm
+X-ME-Proxy: <xmx:0BqbZAXh4BTNSx8-fzHghPNpT61SOp_hrw5whh7nPGZdJhBVbpj0-w>
+    <xmx:0BqbZHkRyvBow9XrbrvMgjrw9gwhv3vlfQ-als92-4W1XPyJ4mquaQ>
+    <xmx:0BqbZNfCLpxQBVHWFO7_4bmnfkSA_4OWbQrb97BtCqMcCjBd9giElw>
+    <xmx:0RqbZFaUa3I26k-x-M1RNsSxFhR3V2fTY9PF-hnkzAxNKm226puxrQ>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] xen: speed up grant-table reclaim
+Date: Tue, 27 Jun 2023 13:22:14 -0400
+Message-ID: <20230627172216.1359-1-demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH 2/2] tools/python: Fix memory leak on error path
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
- wei.chen@arm.com, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20230608135913.560413-1-luca.fancellu@arm.com>
- <20230608135913.560413-2-luca.fancellu@arm.com> <ZJnT8rdnMT5lrR0A@mail-itl>
- <ZJrWImht4GZXvLCv@mail-itl>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZJrWImht4GZXvLCv@mail-itl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Marek,
+When a grant entry is still in use by the remote domain, Linux must put
+it on a deferred list.  Normally, this list is very short, because
+the PV network and block protocols expect the backend to unmap the grant
+first.  However, Qubes OS's GUI protocol is subject to the constraints
+of the X Window System, and as such winds up with the frontend unmapping
+the window first.  As a result, the list can grow very large, resulting
+in a massive memory leak and eventual VM freeze.
 
-On 27/06/2023 13:29, Marek Marczykowski-Górecki wrote:
-> On Mon, Jun 26, 2023 at 08:07:46PM +0200, Marek Marczykowski-Górecki wrote:
->> On Thu, Jun 08, 2023 at 02:59:13PM +0100, Luca Fancellu wrote:
->>> Commit 56a7aaa16bfe introduced a memory leak on the error path for a
->>> Py_BuildValue built object that on some newly introduced error path
->>> has not the correct reference count handling, fix that by decrementing
->>> the refcount in these path.
->>>
->>> Fixes: 56a7aaa16bfe ("tools: add physinfo arch_capabilities handling for Arm")
->>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>
->> Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> 
-> Oh, and BTW, in relation to the discussion on the summit about
-> committing process, the buggy version was committed without my ack,
-> after waiting for my review for about two weeks.
+To partially solve this problem, make the number of entries that the VM
+will attempt to free at each iteration tunable.  The default is still
+10, but it can be overridden at compile-time (via Kconfig), boot-time
+(via a kernel command-line option), or runtime (via sysfs).
 
-I was the committer for the series. In this case, this was not a case of 
-committing because I thought the patch was uncontroversial. Instead, 
-this was a lack of my side to properly check the acks on the patch. 
-Sorry for that.
+This is Cc: stable because (when combined with appropriate userspace
+changes) it fixes a severe performance and stability problem for Qubes
+OS users.
 
-In general, as I mentioned during the design session, I don't commit 
-with missing acks without explicitly saying so on the mailing list and 
-this is often after consulting with others on IRC.
+Cc: stable@vger.kernel.org
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+ drivers/xen/grant-table.c | 40 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
 
-On a similar topic. So far, checking the ack is a manual process for me. 
-So this is not entirely an error-free process (in particular for patch 
-requiring multiple maintainers acks). I would love to have a script that 
-could tell me if a patch is fully approved and/or what acks are missing.
+Changes since v2:
+- use atomic_inc_return(x) and atomic_dec_return(x) instead of
+  atomic_add_return(1, x) and atomic_sub_return(1, x) respectively.
+- move module_param macro closer to the definition of
+  free_per_iteration.
+- add blank line between declarations and statements.
 
-Cheers,
+Changes since v1:
+- drop setting default via Kconfig
 
+diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+index e1ec725c2819d4d5dede063eb00d86a6d52944c0..f13c3b76ad1eb7110e2a2981e9fa4e504174e431 100644
+--- a/drivers/xen/grant-table.c
++++ b/drivers/xen/grant-table.c
+@@ -498,14 +498,21 @@ static LIST_HEAD(deferred_list);
+ static void gnttab_handle_deferred(struct timer_list *);
+ static DEFINE_TIMER(deferred_timer, gnttab_handle_deferred);
+ 
++static atomic64_t deferred_count;
++static atomic64_t leaked_count;
++static unsigned int free_per_iteration = 10;
++module_param(free_per_iteration, uint, 0600);
++
+ static void gnttab_handle_deferred(struct timer_list *unused)
+ {
+-	unsigned int nr = 10;
++	unsigned int nr = READ_ONCE(free_per_iteration);
++	const bool ignore_limit = nr == 0;
+ 	struct deferred_entry *first = NULL;
+ 	unsigned long flags;
++	size_t freed = 0;
+ 
+ 	spin_lock_irqsave(&gnttab_list_lock, flags);
+-	while (nr--) {
++	while ((ignore_limit || nr--) && !list_empty(&deferred_list)) {
+ 		struct deferred_entry *entry
+ 			= list_first_entry(&deferred_list,
+ 					   struct deferred_entry, list);
+@@ -515,10 +522,14 @@ static void gnttab_handle_deferred(struct timer_list *unused)
+ 		list_del(&entry->list);
+ 		spin_unlock_irqrestore(&gnttab_list_lock, flags);
+ 		if (_gnttab_end_foreign_access_ref(entry->ref)) {
++			uint64_t ret = atomic64_dec_return(&deferred_count);
++
+ 			put_free_entry(entry->ref);
+-			pr_debug("freeing g.e. %#x (pfn %#lx)\n",
+-				 entry->ref, page_to_pfn(entry->page));
++			pr_debug("freeing g.e. %#x (pfn %#lx), %llu remaining\n",
++				 entry->ref, page_to_pfn(entry->page),
++				 (unsigned long long)ret);
+ 			put_page(entry->page);
++			freed++;
+ 			kfree(entry);
+ 			entry = NULL;
+ 		} else {
+@@ -530,21 +541,22 @@ static void gnttab_handle_deferred(struct timer_list *unused)
+ 		spin_lock_irqsave(&gnttab_list_lock, flags);
+ 		if (entry)
+ 			list_add_tail(&entry->list, &deferred_list);
+-		else if (list_empty(&deferred_list))
+-			break;
+ 	}
+-	if (!list_empty(&deferred_list) && !timer_pending(&deferred_timer)) {
++	if (list_empty(&deferred_list))
++		WARN_ON(atomic64_read(&deferred_count));
++	else if (!timer_pending(&deferred_timer)) {
+ 		deferred_timer.expires = jiffies + HZ;
+ 		add_timer(&deferred_timer);
+ 	}
+ 	spin_unlock_irqrestore(&gnttab_list_lock, flags);
++	pr_debug("Freed %zu references", freed);
+ }
+ 
+ static void gnttab_add_deferred(grant_ref_t ref, struct page *page)
+ {
+ 	struct deferred_entry *entry;
+ 	gfp_t gfp = (in_atomic() || irqs_disabled()) ? GFP_ATOMIC : GFP_KERNEL;
+-	const char *what = KERN_WARNING "leaking";
++	uint64_t leaked, deferred;
+ 
+ 	entry = kmalloc(sizeof(*entry), gfp);
+ 	if (!page) {
+@@ -567,10 +579,16 @@ static void gnttab_add_deferred(grant_ref_t ref, struct page *page)
+ 			add_timer(&deferred_timer);
+ 		}
+ 		spin_unlock_irqrestore(&gnttab_list_lock, flags);
+-		what = KERN_DEBUG "deferring";
++		deferred = atomic64_inc_return(&deferred_count);
++		leaked = atomic64_read(&leaked_count);
++		pr_debug("deferring g.e. %#x (pfn %#lx) (total deferred %llu, total leaked %llu)\n",
++			 ref, page ? page_to_pfn(page) : -1, deferred, leaked);
++	} else {
++		deferred = atomic64_read(&deferred_count);
++		leaked = atomic64_inc_return(&leaked_count);
++		pr_warn("leaking g.e. %#x (pfn %#lx) (total deferred %llu, total leaked %llu)\n",
++			ref, page ? page_to_pfn(page) : -1, deferred, leaked);
+ 	}
+-	printk("%s g.e. %#x (pfn %#lx)\n",
+-	       what, ref, page ? page_to_pfn(page) : -1);
+ }
+ 
+ int gnttab_try_end_foreign_access(grant_ref_t ref)
 -- 
-Julien Grall
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
