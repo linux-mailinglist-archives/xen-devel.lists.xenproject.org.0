@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B1CB7409C7
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 09:42:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556335.868780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 513E1740A31
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 10:00:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556343.868790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEPnv-0002Pq-NV; Wed, 28 Jun 2023 07:41:31 +0000
+	id 1qEQ5w-0005Js-JU; Wed, 28 Jun 2023 08:00:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556335.868780; Wed, 28 Jun 2023 07:41:31 +0000
+Received: by outflank-mailman (output) from mailman id 556343.868790; Wed, 28 Jun 2023 08:00:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEPnv-0002NU-Km; Wed, 28 Jun 2023 07:41:31 +0000
-Received: by outflank-mailman (input) for mailman id 556335;
- Wed, 28 Jun 2023 07:41:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qEQ5w-0005Gi-GM; Wed, 28 Jun 2023 08:00:08 +0000
+Received: by outflank-mailman (input) for mailman id 556343;
+ Wed, 28 Jun 2023 08:00:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eIKH=CQ=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1qEPnt-0002NO-Ho
- for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 07:41:29 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3015fd41-1587-11ee-b237-6b7b168915f2;
- Wed, 28 Jun 2023 09:41:27 +0200 (CEST)
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-gnqE8qFxMz-gRsOfKocUdg-1; Wed, 28 Jun 2023 03:41:22 -0400
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-4edbdd8268bso4851652e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Jun 2023 00:41:22 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c715:ef00:fa40:f6df:a68d:a0e4?
- (p200300cbc715ef00fa40f6dfa68da0e4.dip0.t-ipconnect.de.
- [2003:cb:c715:ef00:fa40:f6df:a68d:a0e4])
- by smtp.gmail.com with ESMTPSA id
- hn10-20020a05600ca38a00b003fba586100fsm3970092wmb.6.2023.06.28.00.41.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Jun 2023 00:41:20 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1qEQ5v-0005B5-Gg
+ for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 08:00:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qEQ5p-0003qO-Uv; Wed, 28 Jun 2023 08:00:01 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qEQ5p-00036C-Oo; Wed, 28 Jun 2023 08:00:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,135 +39,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3015fd41-1587-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687938086;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SH32jNlN6Jqg7DPKFWcTzn8QudVshhtxY6DizRJx1h4=;
-	b=Fz4IIN84tOBJ9RZKWNlH8ThOWFhnJfLbuwsl2Xfo5krBuqLiY7URpNFluNvdsrcjRRJ0eU
-	stIKMPRgvt9x3w7Cm8O0r94bt6tT7e47xkdehSPo7poIxHuSreTOwN3e+xzeGUXrDeDapc
-	JGnab5Xig7oS0pi/voMx65AXIp1Us7s=
-X-MC-Unique: gnqE8qFxMz-gRsOfKocUdg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687938081; x=1690530081;
-        h=content-transfer-encoding:in-reply-to:subject:organization:from
-         :content-language:references:cc:to:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SH32jNlN6Jqg7DPKFWcTzn8QudVshhtxY6DizRJx1h4=;
-        b=W6RC6wYdEgExBBrzWVWDhukd1ie1/kUltjsFvIITHRJuQyNb2cO5NZOs5ix/ggnlFC
-         3C9oeg/BJLH3xJqgK7NfyIqImNeunX0fJTx6VnzBtGf7qdocHMT8bqGffjq6rXqU5h5P
-         TEBUgUyAsqZYE5nU7bgxX/piCmN4Qc8eN3K6bOyHg6RsUAEzSov+OjoqVZNpx8AnEIN2
-         D2+fLrvPoDVnM5zy6R8S2VLV7wQZScrh50tSJr97h7dVSs2zGbQ3l4bv9XRXe/OOSx9g
-         6g8ZrcShlhNbap7OQzJBZQ+qiWycQLYFtCBuge02IZvWw3gzJu1fu63S3EkX1umSbzKi
-         ao/Q==
-X-Gm-Message-State: AC+VfDyySJj+7i0Mx9P5T0y20e23pjUvNsTiQUErSbQM0RT4bxhnxr1C
-	NxH1fpapdgZ5EyXQCfEqITo1ERnwfc/Alx7OP5Piagi7/zhruYVKfHOw+lpBLg4FTrnOKHsgNX5
-	4dIJ/UwtQTjLBTeeV8ekGs4Nf8Rs=
-X-Received: by 2002:a05:6512:10cb:b0:4fb:9341:9921 with SMTP id k11-20020a05651210cb00b004fb93419921mr540056lfg.52.1687938081198;
-        Wed, 28 Jun 2023 00:41:21 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ4/LL8Q6ptsPVewMKWY4urM5AzIoWSMnfr2lL0PypvevicnXRpVgfkYzOOBDpLnug9qgwbQPw==
-X-Received: by 2002:a05:6512:10cb:b0:4fb:9341:9921 with SMTP id k11-20020a05651210cb00b004fb93419921mr540021lfg.52.1687938080672;
-        Wed, 28 Jun 2023 00:41:20 -0700 (PDT)
-Message-ID: <26282cb8-b6b0-f3a0-e82d-b4fec45c5f72@redhat.com>
-Date: Wed, 28 Jun 2023 09:41:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ClC5iu+u0VGA1ueq3ddoeIRNzAgKMsPeRDZz94Z3TXM=; b=mN9Law+Rsqn6yXI+6YwdzLv0Sn
+	TI3vy2XoSg7M2PNx+ZxMlPFlT8ScfAzJIeDYbuRYjSCaOJKQaXOmXSurqJXbz2vb0ifkFFgxd6FH5
+	lrZ/DM3arbBW+9vYylYUQy/tAbdEeI1KDLPy0URODmZE6qubcl24+fMRwcOAHmDlBuy8=;
+Message-ID: <c8ad27d1-a14d-b897-7557-a4770344734d@xen.org>
+Date: Wed, 28 Jun 2023 08:59:59 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-To: Hugh Dickins <hughd@google.com>
-Cc: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
- loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Dinh Nguyen <dinguyen@kernel.org>, Jonas Bonn <jonas@southpole.se>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- "David S. Miller" <davem@davemloft.net>, Richard Weinberger
- <richard@nod.at>, Yoshinori Sato <ysato@users.sourceforge.jp>,
- Dave Hansen <dave.hansen@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Christophe Leroy <christophe.leroy@csgroup.eu>
-References: <20230627031431.29653-1-vishal.moola@gmail.com>
- <e8992eee-4140-427e-bacb-9449f346318@google.com>
- <ac1c162c-07d8-6084-44ca-a2c1a4183df2@redhat.com>
- <90e643ca-de72-2f4c-f4fe-35e06e1a9277@google.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-Subject: Re: [PATCH v6 00/33] Split ptdesc from struct page
-In-Reply-To: <90e643ca-de72-2f4c-f4fe-35e06e1a9277@google.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 15/52] xen: make VMAP only support in MMU system
 Content-Language: en-US
+To: Penny Zheng <penny.zheng@arm.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org
+References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+ <20230626033443.2943270-16-Penny.Zheng@arm.com>
+ <654c9925-565a-80d4-5e93-129f6f0f691a@suse.com>
+ <7d3ff868-60a4-1eab-0b9b-f6ca649cfdeb@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <7d3ff868-60a4-1eab-0b9b-f6ca649cfdeb@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.06.23 22:13, Hugh Dickins wrote:
-> On Tue, 27 Jun 2023, David Hildenbrand wrote:
->> On 27.06.23 06:44, Hugh Dickins wrote:
->>> On Mon, 26 Jun 2023, Vishal Moola (Oracle) wrote:
->>>
->>>> The MM subsystem is trying to shrink struct page. This patchset
->>>> introduces a memory descriptor for page table tracking - struct ptdesc.
->>> ...
->>>>    39 files changed, 686 insertions(+), 455 deletions(-)
->>>
->>> I don't see the point of this patchset: to me it is just obfuscation of
->>> the present-day tight relationship between page table and struct page.
->>>
->>> Matthew already explained:
->>>
->>>> The intent is to get ptdescs to be dynamically allocated at some point
->>>> in the ~2-3 years out future when we have finished the folio project ...
->>>
->>> So in a kindly mood, I'd say that this patchset is ahead of its time.
->>> But I can certainly adapt to it, if everyone else sees some point to it.
+Hi,
+
+On 28/06/2023 06:38, Penny Zheng wrote:
+> On 2023/6/26 14:00, Jan Beulich wrote:
+>> On 26.06.2023 05:34, Penny Zheng wrote:
+>>> --- a/xen/common/vmap.c
+>>> +++ b/xen/common/vmap.c
+>>> @@ -331,4 +331,11 @@ void vfree(void *va)
+>>>       while ( (pg = page_list_remove_head(&pg_list)) != NULL )
+>>>           free_domheap_page(pg);
+>>>   }
+>>> +
+>>> +void iounmap(void __iomem *va)
+>>> +{
+>>> +    unsigned long addr = (unsigned long)(void __force *)va;
+>>> +
+>>> +    vunmap((void *)(addr & PAGE_MASK));
+>>> +}
 >>
->> I share your thoughts, that code churn which will help eventually in the far,
->> far future (not wanting to sound too pessimistic, but it's not going to be
->> there tomorrow ;) ).
->>
->> However, if it's just the same as the other conversions we already did (e.g.,
->> struct slab), then I guess there is no reason to stop now -- the obfuscation
->> already happened.
->>
->> ... or is there a difference regarding this conversion and the previous ones?
+>> Why does this move here?
 > 
-> I was aware of the struct slab thing, didn't see much point there myself
-> either; but it was welcomed by Vlastimil, and barely affected outside of
-> slab allocators, so I had no reason to object.
-> 
-> You think that if a little unnecessary churn (a *lot* of churn if you
-> include folios, which did save some repeated calls to compound_head())
-> has already occurred, that's a good precedent for allowing more and more?
+> ioremap/iounmap is using vmap, at least in ARM. So for this more
+> generic interface, I was intending to implement it on MPU system.
+> In commit "[PATCH v3 19/52] xen/arm: switch to use ioremap_xxx in common 
+> file", I'm trying to replace all direct vmap interface with ioremap_xxx 
+> in common files.
 
-Well, if you phrase it like that ... no, I'm not in favor of unnecessary 
-churn at all. Yes, folios were/are a lot of churn (IMHO not unnecessary, 
-though).
+While the implementation of ioremap() is based on vmap(), the intended 
+usage is not the same. ioremap() is for MMIO regions while vmap() is for 
+RAM.
 
-I'm not a friend of these "overlays"; it all only really makes sense to 
-me once we actually allocate the descriptors dynamically. Maybe some of 
-the existing/ongoing conversions were different (that's why I was asking 
-for the difference, as you said the "struct slab" thing was well received).
+So I don't think this is correct to replace vmap() with ioremap().
 
-If they are primarily only unnecessary churn for now (and unclear 
-when/how it will become useful), I share your opinion.
-
--- 
 Cheers,
-
-David / dhildenb
-
+-- 
+Julien Grall
 
