@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54ACA741055
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 13:47:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556458.869009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 431CF74109E
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 14:00:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556462.869020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qETdd-0005jB-Lk; Wed, 28 Jun 2023 11:47:09 +0000
+	id 1qETpF-0007Ir-ND; Wed, 28 Jun 2023 11:59:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556458.869009; Wed, 28 Jun 2023 11:47:09 +0000
+Received: by outflank-mailman (output) from mailman id 556462.869020; Wed, 28 Jun 2023 11:59:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qETdd-0005hA-J1; Wed, 28 Jun 2023 11:47:09 +0000
-Received: by outflank-mailman (input) for mailman id 556458;
- Wed, 28 Jun 2023 11:47:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qETpF-0007G5-KL; Wed, 28 Jun 2023 11:59:09 +0000
+Received: by outflank-mailman (input) for mailman id 556462;
+ Wed, 28 Jun 2023 11:59:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x1O/=CQ=tibco.com=msyms@srs-se1.protection.inumbo.net>)
- id 1qETdc-0005h4-5g
- for Xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 11:47:08 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 819fa3e5-15a9-11ee-b237-6b7b168915f2;
- Wed, 28 Jun 2023 13:47:06 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-313f3cd6bb4so3008465f8f.3
- for <Xen-devel@lists.xenproject.org>; Wed, 28 Jun 2023 04:47:06 -0700 (PDT)
+ (envelope-from <SRS0=dEAO=CQ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1qETpD-0007Fx-Ay
+ for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 11:59:07 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2c835b76-15ab-11ee-8611-37d641c3527e;
+ Wed, 28 Jun 2023 13:59:02 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-313f58d6652so3120155f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Jun 2023 04:59:03 -0700 (PDT)
+Received: from [192.168.69.115] ([176.187.207.229])
+ by smtp.gmail.com with ESMTPSA id
+ t5-20020a05600001c500b00313f7b077fesm6513263wrx.59.2023.06.28.04.59.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Jun 2023 04:59:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,139 +45,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 819fa3e5-15a9-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 2c835b76-15ab-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1687952825; x=1690544825;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=KXKvCSRn4IGfPiX72SJZB7Wvzl+FXtJmx6qtdvnVfTw=;
-        b=cIGRIuPrBlL2mxMNXQF8QuOIFSJJF9p9J0z2v9mrJGZIoIA2iLf171OllyRB7pjren
-         i2tWKDzKibcYruX2uMfXepKA4TKZ/H7AOb9xOq9Tm5WtxiyZEIQBizEwuddkmVcdPIw1
-         q8Sre+36OZu0Ha3QkrwSc7oxH1oh+YV7KvsXs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687952825; x=1690544825;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+        d=linaro.org; s=google; t=1687953542; x=1690545542;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KXKvCSRn4IGfPiX72SJZB7Wvzl+FXtJmx6qtdvnVfTw=;
-        b=SzCRhgxNQh9iVZanV9zBiIjATdYtCmt0EbQb9V/P2JRhwZKEVCZwBMBosqq7UAddjy
-         IFg0ax/dv7oTQ7eUg7cphUpaDZ9a4XQ6dm68iipy3eifc9a8zHInw2bgLCpVnETbXm33
-         DlXd3BRbcDvpdE/LnhiluBQ5owueAeP4ubkCkE6ArmCMGaUuO8SQYeqmZgv697VGAn8g
-         PZIDlnNBCCs2y/JbpcgWhwLN9DznQfezcrdGtEV5URMqih/oKkDlJyPufQ3hbnCMRs1I
-         +dvr9hPBr0J8u0s3ZdjTTR7YTHNe9A/TE/m3d4m4IAq/5tZoYcr4OgDp4tIm59X1a5+S
-         1x0w==
-X-Gm-Message-State: ABy/qLZjdOjFFyGm9HyOPwHkqH8qnfBmR92XJmuC7HxaY4TBtFJP9N5/
-	ZI5VQWtzruQmGG1VmmC/tsHfWBesO+6pbJdEG58pldRmCJEJRHQmr04=
-X-Google-Smtp-Source: APBJJlEFPxY2G6KaVf9f3vJyuVOcz2rELDiwmgbPOUcg/Xmnrrx3U/k785GvptxDkcbdvs4tkqLvvGU7M8Vifxb3w80=
-X-Received: by 2002:adf:dece:0:b0:314:11ea:480d with SMTP id
- i14-20020adfdece000000b0031411ea480dmr22367wrn.9.1687952825600; Wed, 28 Jun
- 2023 04:47:05 -0700 (PDT)
+        bh=XAnNOBqj7/aZOLa/iEWVdgiwRfPn+uBhlnTFYDZDHtw=;
+        b=XE7Vi2wrCeeILyk3U/eN0QEw2vyalWxVrmJf4lD0tUb7oMCiVJf8wS7IHVCfWF1ljm
+         UcYgRcV+vj/TBd9upybrGu2ZGnWQcYk115AdgEaWs35KGlrLBhcqG0BEhTcU7YjZck4e
+         hZnPymWrPJt5bpB6buQ8HEi1nwHGrrdsvvsmSmYanpPr8vBk4Iw+l38CFXHwaRUuBcEw
+         oO5si+rS6KwqffIjHKgUWwn6ziExQo+Lxfh6bCrhbutF0UwXkHqNHNbT49sTTF/BwM5b
+         xVXU+6JUZHdDPEpQFm8vio/70Zk337UqTeAm/3QQDEKOChBQNaN3tDnqXgvim7JECTXh
+         ovwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687953542; x=1690545542;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XAnNOBqj7/aZOLa/iEWVdgiwRfPn+uBhlnTFYDZDHtw=;
+        b=ceGpitmQWmV6lMTsGNaKIsAMF+sZtIZzlFx+iAaX84rEM47C4WX0w0p+7HYKmvx9Ph
+         CDUjb6YKn6Vft2pSDn82sVsMfwG5oLxTc3jBlCoegrDWqXYtq1vB/nimBGC42MwPLJr8
+         wNUE9qGREB5sOa/TSyZE0PQQackXzokcBHK9koaFlZ3/KQeeHhHJvurtTOovGyx2dVzz
+         UtX0XuHosLjHVP1oAvCSir9XY/bcfGLsm0YolhbCNBr37IrtfKz5YucGp5RpnzTk0ZmO
+         iFlH9xAn1mq72Gy7Au2ZOeiNn1LUL9ol4PM/R7Xf0RhM2OmkMuIAYvp3EWFmKcGzEyaQ
+         V1ng==
+X-Gm-Message-State: AC+VfDxKaXPuxhsgpkKIVU12z4DtfJGQAiIBwMgsCwUCkxBYVzYvMnCB
+	4pcMPyFGttSIKOiXX9ueCGGhLQ==
+X-Google-Smtp-Source: ACHHUZ5EJieVTJ0ylfA8kzbRNwsOjUJqO0iacg3Gk1TjS5ordwDft3hLui2kj4QeSRA9jXw9Lp4yWQ==
+X-Received: by 2002:a05:6000:1b81:b0:313:f957:fc0c with SMTP id r1-20020a0560001b8100b00313f957fc0cmr5011317wru.47.1687953542430;
+        Wed, 28 Jun 2023 04:59:02 -0700 (PDT)
+Message-ID: <19821e47-0ea0-ca79-2c1c-3f663c9921f7@linaro.org>
+Date: Wed, 28 Jun 2023 13:58:58 +0200
 MIME-Version: 1.0
-From: Mark Syms <mark.syms@cloud.com>
-Date: Wed, 28 Jun 2023 12:46:54 +0100
-Message-ID: <CAPYKksV4irKUiSnazFGA2bwhx=DYUORr-=h3OpcG7jS_n-Wr6w@mail.gmail.com>
-Subject: Xen Summit 2023: Design Session Notes: SMAPIv3
-To: Xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 00/16] accel: Share CPUState accel context
+ (HAX/NVMM/WHPX/HVF)
+Content-Language: en-US
+To: qemu-devel@nongnu.org
+Cc: kvm@vger.kernel.org, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Roman Bolshakov <rbolshakov@ddn.com>, qemu-arm@nongnu.org,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Alexander Graf <agraf@csgraf.de>, xen-devel@lists.xenproject.org,
+ Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Yanan Wang <wangyanan55@huawei.com>, Paul Durrant <paul@xen.org>,
+ Reinoud Zandijk <reinoud@netbsd.org>, Eduardo Habkost <eduardo@habkost.net>,
+ Cameron Esfahani <dirty@apple.com>, Paolo Bonzini <pbonzini@redhat.com>
+References: <20230624174121.11508-1-philmd@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <20230624174121.11508-1-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Slides used for scene setting -
-https://github.com/xapi-project/xen-api/discussions/5080.
+On 24/6/23 19:41, Philippe Mathieu-Daudé wrote:
 
-Example code in Github -
-https://github.com/xapi-project/xen-api/tree/master/ocaml/xapi-storage/python/examples
+> Philippe Mathieu-Daudé (16):
+>    MAINTAINERS: Update Roman Bolshakov email address
+>    accel: Document generic accelerator headers
+>    accel: Remove unused hThread variable on TCG/WHPX
+>    accel: Fix a leak on Windows HAX
+>    accel: Destroy HAX vCPU threads once done
+>    accel: Rename 'hax_vcpu' as 'accel' in CPUState
+>    accel: Rename HAX 'struct hax_vcpu_state' -> AccelCPUState
+>    accel: Move HAX hThread to accelerator context
+>    accel: Remove NVMM unreachable error path
+>    accel: Rename NVMM 'struct qemu_vcpu' -> AccelCPUState
+>    accel: Inline NVMM get_qemu_vcpu()
+>    accel: Remove WHPX unreachable error path
+>    accel: Rename WHPX 'struct whpx_vcpu' -> AccelCPUState
+>    accel: Inline WHPX get_whpx_vcpu()
+>    accel: Rename 'cpu_state' -> 'cs'
+>    accel: Rename HVF 'struct hvf_vcpu_state' -> AccelCPUState
 
-Notes taken in the session
-------------------------------------
-
-Since scene setting slides were written SMAPIv3 has actually been
-converted to python3 (pending merges etc)
-
-How would you like SMAPIv3 evolve in future?
-
- - Gaps compared to other SR types:
-
-     - Storage Migration (no implementation on either side, XenServer
-keen on implementing this)
-
-     - Change block tracking (start of an API definition exists for this)
-
-Potential future thoughts to move the traditional LVM and FC SMAPIv1
-SRs to SMAPIv3 SRs to resolve technical debt, would need storage
-migration support.
-
-Could other toolstacks (e.g. xl, libvirt) use SMAPIv3?
-
- - They're just python scripts, so nothing to prevent it, but the
-current XenServer team has no particular experience with other
-toolstacks - happy to assist, but would need someone else to lead.
-
-Documentation - does it need improvement / is it clear, feedback invited.
-
-Code for a plugin is very simple (e.g. example is 130 lines, a lot of
-which is boilerplate)
-
-Cycle for a disk attached to a VM is:
-
-  open
-
-  attach
-
-  activate
-
-  deactivate
-
-  detach
-
-  close
-
-open/close are start and end of use of volume overall (VM activation lifecycle)
-
-During live migration you may do e.g. migrating from H1 to H2:
-
-H2: attach
-
-H1: deactivate
-
-H2: activate
-
-H1: detach
-
-The idea being activate/deactivate is in the critical region where the
-VM is paused so should be as quick as possible, longer tasks can go in
-attach/detach.
-
-Multiple volume URIs can be returned to give multiple ways for a
-consumer to access the volume
-
-Q: Is there a way to expose SMAPIv3 SRs in a way for backup, e.g. for
-incremental backup etc?
-
-The change block tracking (CBT) functionality is relevant here, to
-allow for a way of identifying what needs backing up etc.
-
-- Could we use nbd as a universal way of exposing things?
-
-Endpoints are implementation specific, so would need the SRs to
-implement it, or something else to access another method and re-expose
-it.
-
-Storage motion support may also give more possibilities here as it'll
-be a general API update, would be good to include other required
-capabilities as part of this work, e.g. any new `implementation`s
-required.
-
-(Hoping to avoid breaking changes in API)
-
-Vates have done an implementation of a zfs SR using SMAPIv3
-(https://github.com/xcp-ng/xcp-ng-xapi-storage/pull/11), would be good
-to review and see if it identifies any required API improvements etc.
-
-Existing implementations don't implement `copy`, which would ideally
-support an offloaded copy operation where the backend storage device /
-mechanism can do the work. Needs toolstack work to plumb through and
-handle cases where different SRs are in use that can't offload copy
-between them etc.
-
-Thanks to everyone who attended and contributed.
-
-Mark.
+Series queued.
 
