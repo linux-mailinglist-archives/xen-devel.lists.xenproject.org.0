@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD977740FED
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 13:18:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556430.868960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A0C8741009
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 13:28:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556434.868970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qETB7-0008OW-EL; Wed, 28 Jun 2023 11:17:41 +0000
+	id 1qETKt-0001TB-93; Wed, 28 Jun 2023 11:27:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556430.868960; Wed, 28 Jun 2023 11:17:41 +0000
+Received: by outflank-mailman (output) from mailman id 556434.868970; Wed, 28 Jun 2023 11:27:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qETB7-0008Lh-Al; Wed, 28 Jun 2023 11:17:41 +0000
-Received: by outflank-mailman (input) for mailman id 556430;
- Wed, 28 Jun 2023 11:17:39 +0000
+	id 1qETKt-0001Qt-4f; Wed, 28 Jun 2023 11:27:47 +0000
+Received: by outflank-mailman (input) for mailman id 556434;
+ Wed, 28 Jun 2023 11:27:45 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qETB5-0008Lb-Fo
- for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 11:17:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qETKr-0001Qj-9S; Wed, 28 Jun 2023 11:27:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qETB4-0000XM-TB; Wed, 28 Jun 2023 11:17:38 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=[192.168.5.86])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qETB4-0003kt-Kn; Wed, 28 Jun 2023 11:17:38 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qETKr-0000hY-33; Wed, 28 Jun 2023 11:27:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qETKq-0008Pi-HW; Wed, 28 Jun 2023 11:27:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qETKq-00055B-Gs; Wed, 28 Jun 2023 11:27:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,168 +42,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=XHo7IpfHntvuyKmeo7WzPgL1gmmtsZasO50OjKEBY8Y=; b=DmTOI/9MxtoIE4nOZWk4PUtO43
-	sbmQ0sKYmiHcvS99sYC+YWQtxmpW5si2NUvOj/o5vi87q8pQnzdIc814+LM5gFO1kcKVG5vgvjelV
-	8ry+n9IQ7zZ69evijZvJnh8Em5v0HbCp5GsFggYy13adBESvXNkEQ3HDZe85n/VUMeno=;
-Message-ID: <39a5a729-0099-67e4-bf4a-c65ae99a4619@xen.org>
-Date: Wed, 28 Jun 2023 12:17:36 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 24/52] xen/mpu: build up start-of-day Xen MPU memory
- region map
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, Penny Zheng <Penny.Zheng@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-25-Penny.Zheng@arm.com>
- <778688ab-8fd4-2b06-e644-b5a013bb56f7@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <778688ab-8fd4-2b06-e644-b5a013bb56f7@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=bVnnv1PMlDnyVO8p0sKxRMztrXUMgIBigHtRiSvdLZU=; b=FnR2hte4GZKbsuNL4aPoswRqj+
+	F3JdZVRSXtzZ8RvHLAJzwxK49kPIZUyg6pGkk6CUFBKzXsVvOSO2uxImBqYaaPeNCrsXpxAlAeXJ1
+	fEE9MsZRQwviXdpcF5OwbxYpKWRXfHgZM/PmQpB9uiN5mSEN3vh3ZjFud+H+RDGJ9NNg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181619-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 181619: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:debian-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:debian-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:debian-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:leak-check/check:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
+    linux-linus:build-arm64-pvops:kernel-build:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:debian-install:fail:allowable
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=98be618ad03010b1173fc3c35f6cbb4447ee2b07
+X-Osstest-Versions-That:
+    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 28 Jun 2023 11:27:44 +0000
 
-Hi,
+flight 181619 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181619/
 
-On 28/06/2023 11:55, Ayan Kumar Halder wrote:
-> On 26/06/2023 04:34, Penny Zheng wrote:
->> CAUTION: This message has originated from an External Source. Please 
->> use proper judgment and caution when opening attachments, clicking 
->> links, or responding to this email.
->>
->>
->> The start-of-day Xen MPU memory region layout shall be like
->> as follows:
->>
->> xen_mpumap[0] : Xen text
->> xen_mpumap[1] : Xen read-only data
->> xen_mpumap[2] : Xen read-only after init data
->> xen_mpumap[3] : Xen read-write data
->> xen_mpumap[4] : Xen BSS
->> xen_mpumap[5] : Xen init text
->> xen_mpumap[6] : Xen init data
->>
->> The layout shall be compliant with what we describe in xen.lds.S,
->> or the codes need adjustment.
->>
->> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->> Signed-off-by: Wei Chen <wei.chen@arm.com>
->> ---
->> v3:
->> - cache maintanence for safety when modifying MPU memory mapping table
->> - Hardcode index for all data/text sections
->> - To make sure that alternative instructions are included, use 
->> "_einitext"
->> as the start of the "Init data" section.
->> ---
-> < snip>
->> +/*
->> + * Static start-of-day Xen EL2 MPU memory region layout:
->> + *
->> + *     xen_mpumap[0] : Xen text
->> + *     xen_mpumap[1] : Xen read-only data
->> + *     xen_mpumap[2] : Xen read-only after init data
->> + *     xen_mpumap[3] : Xen read-write data
->> + *     xen_mpumap[4] : Xen BSS
->> + *     xen_mpumap[5] : Xen init text
->> + *     xen_mpumap[6] : Xen init data
->> + *
->> + * Clobbers x0 - x6
->> + *
->> + * It shall be compliant with what describes in xen.lds.S, or the below
->> + * codes need adjustment.
->> + */
->> +ENTRY(prepare_early_mappings)
->> +    /* x0: region sel */
->> +    mov   x0, xzr
->> +    /* Xen text section. */
->> +    load_paddr x1, _stext
->> +    load_paddr x2, _etext
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6, 
->> attr_prbar=REGION_TEXT_PRBAR
->> +
->> +    add   x0, x0, #1
->> +    /* Xen read-only data section. */
->> +    load_paddr x1, _srodata
->> +    load_paddr x2, _erodata
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6, 
->> attr_prbar=REGION_RO_PRBAR
->> +
->> +    add   x0, x0, #1
->> +    /* Xen read-only after init data section. */
->> +    load_paddr x1, __ro_after_init_start
->> +    load_paddr x2, __ro_after_init_end
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6
->> +
->> +    add   x0, x0, #1
->> +    /* Xen read-write data section. */
->> +    load_paddr x1, __ro_after_init_end
->> +    load_paddr x2, __init_begin
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6
->> +
->> +    add   x0, x0, #1
->> +    /* Xen BSS section. */
->> +    load_paddr x1, __bss_start
->> +    load_paddr x2, __bss_end
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6
->> +
->> +    add   x0, x0, #1
->> +    /* Xen init text section. */
->> +    load_paddr x1, _sinittext
->> +    load_paddr x2, _einittext
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6, 
->> attr_prbar=REGION_TEXT_PRBAR
->> +
->> +    add   x0, x0, #1
->> +    /* Xen init data section. */
->> +    /*
->> +     * Even though we are not using alternative instructions in MPU yet,
->> +     * we want to use "_einitext" for the start of the "Init data" 
->> section
->> +     * to make sure they are included.
->> +     */
->> +    load_paddr x1, _einittext
->> +    roundup_section x1
->> +    load_paddr x2, __init_end
->> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6
->> +
->> +    /* Ensure any MPU memory mapping table updates made above have 
->> occurred. */
->> +    dsb   nshst
->> +    ret
->> +ENDPROC(prepare_early_mappings)
-> 
-> Any reason why this is in assembly ?
+Regressions :-(
 
-I am not Penny. But from my understanding, in your approach, you will 
-require to disable to switch the disable the MPU for using the new 
-sections. While I agree...
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-qemuu-nested-amd 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-ws16-amd64 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 180278
+ test-amd64-amd64-xl          11 leak-check/basis(11)     fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-xl-xsm      11 leak-check/basis(11)     fail REGR. vs. 180278
+ test-amd64-amd64-xl-credit2  11 leak-check/basis(11)     fail REGR. vs. 180278
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-freebsd11-amd64 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-xl-multivcpu 12 debian-install          fail REGR. vs. 180278
+ test-amd64-amd64-xl-pvhv2-amd 12 debian-install          fail REGR. vs. 180278
+ test-amd64-amd64-xl-credit1  12 debian-install           fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 180278
+ test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 180278
+ test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 180278
+ test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 180278
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 180278
+ test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 180278
+ test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 180278
+ test-amd64-coresched-amd64-xl 25 leak-check/check        fail REGR. vs. 180278
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 180278
+ test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 180278
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 180278
 
-> 
-> We have implemented it in C 
-> https://github.com/Xilinx/xen/blob/d1258f1cefe406a3f91237b8106746c089864651/xen/arch/arm_mpu/mm_mpu.c#L941 , so that it can be common between R82 and R52.
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     12 debian-install           fail REGR. vs. 180278
 
-... this means you can share the code. It also means:
-   * You can't protect Xen properly from the start
-   * You need to flush the cache (not great for performance)
-   * You need to be more cautious as the MPU will be disabled for a 
-short period of time.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-examine      8 reboot                       fail  like 180278
+ test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
+ test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
 
-In fact looking at your switch code in setup_protection_regions(), I am 
-not convinced you can disable the MPU in C and then call 
-set_boot_mpumap(). I think the enable/disable would need to be moved in 
-the assembly function. There are potentially more issues.
+version targeted for testing:
+ linux                98be618ad03010b1173fc3c35f6cbb4447ee2b07
+baseline version:
+ linux                6c538e1adbfc696ac4747fb10d63e704344f763d
 
-So overall, I am not convinced of the C/common approach.
+Last test of basis   180278  2023-04-16 19:41:46 Z   72 days
+Failing since        180281  2023-04-17 06:24:36 Z   72 days  138 attempts
+Testing same since   181619  2023-06-28 02:01:09 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+2901 people touched revisions under test,
+not listing them all
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                fail    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 394231 lines long.)
 
