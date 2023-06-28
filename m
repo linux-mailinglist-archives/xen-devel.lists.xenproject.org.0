@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DACB7417E7
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 20:21:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556540.869138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 450317417F6
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jun 2023 20:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556544.869148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEZmy-0001rC-8j; Wed, 28 Jun 2023 18:21:12 +0000
+	id 1qEZpF-0002Pb-LQ; Wed, 28 Jun 2023 18:23:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556540.869138; Wed, 28 Jun 2023 18:21:12 +0000
+Received: by outflank-mailman (output) from mailman id 556544.869148; Wed, 28 Jun 2023 18:23:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEZmy-0001p7-64; Wed, 28 Jun 2023 18:21:12 +0000
-Received: by outflank-mailman (input) for mailman id 556540;
- Wed, 28 Jun 2023 18:21:10 +0000
+	id 1qEZpF-0002NM-IJ; Wed, 28 Jun 2023 18:23:33 +0000
+Received: by outflank-mailman (input) for mailman id 556544;
+ Wed, 28 Jun 2023 18:23:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qEZmw-0001p0-Sm
- for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 18:21:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qEZpD-0002NC-P8; Wed, 28 Jun 2023 18:23:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qEZmw-0002Mf-E6; Wed, 28 Jun 2023 18:21:10 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=[192.168.5.86])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qEZmw-00028E-7P; Wed, 28 Jun 2023 18:21:10 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qEZpD-0002Ox-OG; Wed, 28 Jun 2023 18:23:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qEZpD-0004nw-4w; Wed, 28 Jun 2023 18:23:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qEZpD-00048p-4V; Wed, 28 Jun 2023 18:23:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,132 +42,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=+Zs9yRBNCddJvP+k19wSb3/I107ANE3RZ69wTMI1k68=; b=CKx6Xrn7+yxoW7MdMmJvDoOdud
-	twf+cLpYKcGWHgnR0YLlslexQ59h3COflk0xQes3RpJheo7iaVdrwsbRV+PkpBK7pEikzHHlIbFPQ
-	50/HcrrM30xZMHwDyfHXRTLXI+oUW60C3r1u3sAOQo6KOEjyTB7ykDE4Bo+yG3HW7H4I=;
-Message-ID: <7877f5af-12e2-808c-b2a2-fa0e302a00c3@xen.org>
-Date: Wed, 28 Jun 2023 19:21:07 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+glZRiXcXF7mk3ZIHkyge2tXCZe5MP0MaEjqOWNNDm0=; b=gJUCO1I6ySYyROkz7dGXmAsIPs
+	/qWcE6HA0BVpPU8kvqxL2BJk6QiriR1zCrKq7i6iaaqX7TcfqYT5pNxsW3oVstNOh5lLNYHmH7gu3
+	PSroTUMdo0cgtG1uDUw7UxlYvR+yo172ycEZtM2RzVgvGMbrxpQmxMXX89Yc0UswkDc4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181627-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH 2/9] xen/arm64: head: Don't map too much in boot_third
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Luca.Fancellu@arm.com, Henry.Wang@arm.com,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230625204907.57291-1-julien@xen.org>
- <20230625204907.57291-3-julien@xen.org>
- <38f33ede-0d55-bd47-412a-eccb3d4618f2@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <38f33ede-0d55-bd47-412a-eccb3d4618f2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 181627: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6c32a08e2b7e6d796081ed84c84ad682bcc4b3a6
+X-Osstest-Versions-That:
+    xen=5c84f1f636981dab5341e84aaba8d4dd00bbc2cb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 28 Jun 2023 18:23:31 +0000
 
-Hi,
+flight 181627 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181627/
 
-On 26/06/2023 12:28, Michal Orzel wrote:
-> On 25/06/2023 22:49, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
->>
->> At the moment, we are mapping the size of the reserved area for Xen
->> (i.e. 2MB) even if the binary is smaller. We don't exactly know what's
->> after Xen, so it is not a good idea to map more than necessary for a
->> couple of reasons:
->>      * We would need to use break-before-make if the extra PTE needs to
->>        be updated to point to another region
->>      * The extra area mapped may be mapped again by Xen with different
->>        memory attribute. This would result to attribue mismatch.
-> s/attribue/attribute
-> 
->>
->> Therefore, rework the logic in create_page_tables() to map only what's
->> necessary. To simplify the logic, we also want to make sure _end
->> is page-aligned. So align the symbol in the linker and add an assert
->> to catch any change.
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->> ---
->>   xen/arch/arm/arm64/head.S | 15 ++++++++++++++-
->>   xen/arch/arm/xen.lds.S    |  3 +++
->>   2 files changed, 17 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
->> index f37133cf7ccd..66bc85d4c39e 100644
->> --- a/xen/arch/arm/arm64/head.S
->> +++ b/xen/arch/arm/arm64/head.S
->> @@ -572,6 +572,19 @@ create_page_tables:
->>           create_table_entry boot_first, boot_second, x0, 1, x1, x2, x3
->>           create_table_entry boot_second, boot_third, x0, 2, x1, x2, x3
->>
->> +        /*
->> +         * Find the size of Xen in pages and multiply by the size of a
->> +         * PTE. This will then be compared in the mapping loop below.
->> +         *
->> +         * Note the multiplication is just to avoid using an extra
->> +         * register/instruction per iteration.
->> +         */
->> +        ldr   x0, =_start            /* x0 := vaddr(_start) */
-> x0 is already set to vaddr of _start by the first instruction of create_page_tables
-> and is preserved by create_table_entry. You could just reuse it instead of re-loading.
+Regressions :-(
 
-I agree that the load is technically redundant. However, I find this 
-approach easier to read (you don't have to remember that _start equals 
-XEN_VIRT_START).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 181547
 
-> 
->> +        ldr   x1, =_end              /* x1 := vaddr(_end) */
->> +        sub   x0, x1, x0             /* x0 := effective size of Xen */
->> +        lsr   x0, x0, #PAGE_SHIFT    /* x0 := Number of pages for Xen */
->> +        lsl   x0, x0, #3             /* x0 := Number of pages * PTE size */
->> +
->>           /* Map Xen */
->>           adr_l x4, boot_third
->>
->> @@ -585,7 +598,7 @@ create_page_tables:
->>   1:      str   x2, [x4, x1]           /* Map vaddr(start) */
->>           add   x2, x2, #PAGE_SIZE     /* Next page */
->>           add   x1, x1, #8             /* Next slot */
->> -        cmp   x1, #(XEN_PT_LPAE_ENTRIES<<3) /* 512 entries per page */
->> +        cmp   x1, x0                 /* Loop until we map all of Xen */
->>           b.lt  1b
->>
->>           /*
->> diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
->> index c5d8c6201423..c4627cea7482 100644
->> --- a/xen/arch/arm/xen.lds.S
->> +++ b/xen/arch/arm/xen.lds.S
->> @@ -212,6 +212,7 @@ SECTIONS
->>          . = ALIGN(POINTER_ALIGN);
->>          __bss_end = .;
->>     } :text
->> +  . = ALIGN(PAGE_SIZE);
->>     _end = . ;
->>
->>     /* Section for the device tree blob (if any). */
->> @@ -241,4 +242,6 @@ ASSERT(IS_ALIGNED(__init_begin,     4), "__init_begin is misaligned")
->>   ASSERT(IS_ALIGNED(__init_end,       4), "__init_end is misaligned")
->>   ASSERT(IS_ALIGNED(__bss_start,      POINTER_ALIGN), "__bss_start is misaligned")
->>   ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
->> +/* To simplify the logic in head.S, we want to _end to be page aligned */
->> +ASSERT(IS_ALIGNED(_end,            PAGE_SIZE), "_end is not page aligned")
-> one more space if you want to align PAGE_SIZE to POINTER_ALIGN
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-I have updated in my tree.
+version targeted for testing:
+ xen                  6c32a08e2b7e6d796081ed84c84ad682bcc4b3a6
+baseline version:
+ xen                  5c84f1f636981dab5341e84aaba8d4dd00bbc2cb
 
-> 
-> All in all:
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Last test of basis   181547  2023-06-22 03:02:21 Z    6 days
+Testing same since   181627  2023-06-28 16:00:25 Z    0 days    1 attempts
 
-Thanks!
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
 
-Cheers,
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 6c32a08e2b7e6d796081ed84c84ad682bcc4b3a6
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jun 20 17:36:19 2023 +0100
+
+    x86/vpmu: Simplify is_pmc_quirk
+    
+    This should be static, and there's no need for a separate (non-init, even)
+    function to perform a simple equality test.  Drop the is_ prefix which is
+    gramatically questionable, and make it __ro_after_init.
+    
+    Leave a TODO, because the behaviour is definitely wrong to be applied to all
+    modern Intel CPUs.  The question has been raised on xen-devel previously
+    without conclusion.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
