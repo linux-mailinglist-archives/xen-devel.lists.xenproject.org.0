@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C05741BE6
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 00:46:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556613.869279 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 786DB741C1A
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 01:01:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556617.869291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEduO-0000lO-L0; Wed, 28 Jun 2023 22:45:08 +0000
+	id 1qEe9P-0003Et-W2; Wed, 28 Jun 2023 23:00:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556613.869279; Wed, 28 Jun 2023 22:45:08 +0000
+Received: by outflank-mailman (output) from mailman id 556617.869291; Wed, 28 Jun 2023 23:00:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEduO-0000id-IL; Wed, 28 Jun 2023 22:45:08 +0000
-Received: by outflank-mailman (input) for mailman id 556613;
- Wed, 28 Jun 2023 22:45:07 +0000
+	id 1qEe9P-0003BZ-SR; Wed, 28 Jun 2023 23:00:39 +0000
+Received: by outflank-mailman (input) for mailman id 556617;
+ Wed, 28 Jun 2023 23:00:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bzH+=CQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qEduN-0000h0-6U
- for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 22:45:07 +0000
+ id 1qEe9O-0003BT-Ri
+ for xen-devel@lists.xenproject.org; Wed, 28 Jun 2023 23:00:38 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b814295-1605-11ee-8611-37d641c3527e;
- Thu, 29 Jun 2023 00:45:03 +0200 (CEST)
+ id 97636320-1607-11ee-8611-37d641c3527e;
+ Thu, 29 Jun 2023 01:00:36 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5AA8361489;
- Wed, 28 Jun 2023 22:45:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02690C433CA;
- Wed, 28 Jun 2023 22:45:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1BF0D61485;
+ Wed, 28 Jun 2023 23:00:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93ABAC433C8;
+ Wed, 28 Jun 2023 23:00:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,121 +44,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b814295-1605-11ee-8611-37d641c3527e
+X-Inumbo-ID: 97636320-1607-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687992302;
-	bh=6whENEwABsMRkExAukDa7ytNyweNg9fMwkbBSEHMAuM=;
+	s=k20201202; t=1687993234;
+	bh=4NxMM46wx4n80Ir9D1FNLVnF1fmV4ZnNhWSbFqmSnmg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fMelqwfNHbxTlb2I4Ii1sRzj6OZhpkhb+9U+XXgE8/kqhK4fWHr8VeEHVfautvm1y
-	 jPjtLEA/DEiKxk4IMSWY7ExinF41R3AU/RROgVLOwh1sTGkE619Pz2ZDepV6hLvmrb
-	 eLrSmuA+w+55kJtPAh/HXHYCuOL6yy4f8hvHJxOUc+5W7urHp0qVLpRxzwOKgnKTzF
-	 MXdcNlydoBJgHHL6+fDzloAnNCbQffl6U+BJSCHTTSqsZREQuob5Bl+V6K+E/aNArt
-	 ySeuoC6lk8jZY26MQbcgScA5/A7WFW0+0kbHd33dG56qFJaUNUgho3V3iv3+aRwCw4
-	 74rik8Mn+ZEig==
-Date: Wed, 28 Jun 2023 15:44:59 -0700 (PDT)
+	b=oyrCEqRAPSmL4f9qj3gpXLzTPcEdW0Z2OJFaHEjStlntNKfYcoqiO+aAdh2ugt+U7
+	 94mj2FkJXqD/hkqonu2b7M01WXoclYlXdlCCjRrhT3F+I7aa3kElhqgN8lBIxn9f3G
+	 CM7kIJ91sWwd3x0+upkP1IgusLvNIotsabwRwgykT9PBtCKS+OTCjVV8zmHVlV/CCF
+	 Z3YQdK7MSWAOkPa1M+UQJiC/pEEVsRXltrd4EpKiVU8vXUTcAywzCX26V6sdLbEe/1
+	 BxTkOSulceMu4Svq9/jHBWxMKOLlna9jp/QdX21/oAsm3PQt1G29NsSl+lcNhrFuje
+	 ZxRtpFz3SvLUQ==
+Date: Wed, 28 Jun 2023 16:00:32 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-cc: xen-devel@lists.xenproject.org, 
-    Timothy Pearson <tpearson@raptorengineering.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 3/3] automation: Add smoke test for ppc64le
-In-Reply-To: <f53737937af74dd9844bff07b5886121070a9d28.1687466822.git.sanastasio@raptorengineering.com>
-Message-ID: <alpine.DEB.2.22.394.2306281544380.3936094@ubuntu-linux-20-04-desktop>
-References: <cover.1687466822.git.sanastasio@raptorengineering.com> <f53737937af74dd9844bff07b5886121070a9d28.1687466822.git.sanastasio@raptorengineering.com>
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com
+Subject: Re: [XEN v2] xen/arm: arm32: Allow Xen to boot on unidentified
+ CPUs
+In-Reply-To: <20230626181444.2305769-1-ayan.kumar.halder@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2306281600250.3936094@ubuntu-linux-20-04-desktop>
+References: <20230626181444.2305769-1-ayan.kumar.halder@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 22 Jun 2023, Shawn Anastasio wrote:
-> Add an initial smoke test that boots xen on a ppc64/pseries machine and
-> checks for a magic string. Based on the riscv smoke test.
+On Mon, 26 Jun 2023, Ayan Kumar Halder wrote:
+> Currently if the processor id is not identified (ie it is missing in proc-v7.S)
+> , then Xen boot fails quite early.
+> We have removed this restriction as for some CPUs (eg Cortex-R52), there isn't
+> any special initialization required.
 > 
-> Eventually the powernv9 (POWER9 bare metal) machine type will want to be
-> tested as well, but for now we only boot on pseries.
-> 
-> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  automation/gitlab-ci/test.yaml           | 20 ++++++++++++++++++
->  automation/scripts/qemu-smoke-ppc64le.sh | 27 ++++++++++++++++++++++++
->  2 files changed, 47 insertions(+)
->  create mode 100755 automation/scripts/qemu-smoke-ppc64le.sh
+> Changes from -
 > 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index d5cb238b0a..45e8ddb7a3 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -71,6 +71,19 @@
->    tags:
->      - x86_64
->  
-> +.qemu-ppc64le:
-> +  extends: .test-jobs-common
-> +  variables:
-> +    CONTAINER: debian:bullseye-ppc64le
-> +    LOGFILE: qemu-smoke-ppc64le.log
-> +  artifacts:
-> +    paths:
-> +      - smoke.serial
-> +      - '*.log'
-> +    when: always
-> +  tags:
-> +    - x86_64
-> +
->  .xilinx-arm64:
->    extends: .test-jobs-common
->    variables:
-> @@ -444,3 +457,10 @@ qemu-smoke-riscv64-gcc:
->      - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
->    needs:
->      - archlinux-current-gcc-riscv64-debug
-> +
-> +qemu-smoke-ppc64le-pseries-gcc:
-> +  extends: .qemu-ppc64le
-> +  script:
-> +    - ./automation/scripts/qemu-smoke-ppc64le.sh pseries-5.2 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - debian-bullseye-gcc-ppc64le-debug
-> diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
-> new file mode 100755
-> index 0000000000..eb55221221
-> --- /dev/null
-> +++ b/automation/scripts/qemu-smoke-ppc64le.sh
-> @@ -0,0 +1,27 @@
-> +#!/bin/bash
-> +
-> +set -ex
-> +
-> +# machine type from first arg passed directly to qemu -M
-> +machine=$1
-> +
-> +# Run the test
-> +rm -f smoke.serial
-> +set +e
-> +
-> +touch smoke.serial
-> +
-> +timeout -k 1 20 \
-> +qemu-system-ppc64 \
-> +    -M $machine \
-> +    -m 2g \
-> +    -smp 1 \
-> +    -vga none \
-> +    -monitor none \
-> +    -nographic \
-> +    -serial file:smoke.serial \
-> +    -kernel binaries/xen
-> +
-> +set -e
-> +(grep -q "Hello, ppc64le!" smoke.serial) || exit 1
-> +exit 0
+> v1 - "[PATCH v1] xen/arm: arm32: Add support to identify the Cortex-R52 processor"
+> No need to add R52 proc id and empty stubs as there is no cpu initialization
+> required.
+> 
+>  xen/arch/arm/arm32/head.S | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+> index f9f7be9588..3e88178552 100644
+> --- a/xen/arch/arm/arm32/head.S
+> +++ b/xen/arch/arm/arm32/head.S
+> @@ -324,7 +324,7 @@ cpu_init:
+>          PRINT("- Missing processor info: ")
+>          print_reg r4
+>          PRINT(" -\r\n")
+> -        b     fail
+> +        b     cpu_init_done
+>  1:
+>          /* Jump to cpu_init */
+>          ldr   r1, [r1, #PROCINFO_cpu_init]  /* r1 := vaddr(init func) */
 > -- 
-> 2.30.2
+> 2.25.1
+> 
 > 
 
