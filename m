@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FA374299C
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 17:27:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556912.869817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C867429C7
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 17:37:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556928.869834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEtY3-0001aW-Ak; Thu, 29 Jun 2023 15:27:07 +0000
+	id 1qEthc-0004eo-3v; Thu, 29 Jun 2023 15:37:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556912.869817; Thu, 29 Jun 2023 15:27:07 +0000
+Received: by outflank-mailman (output) from mailman id 556928.869834; Thu, 29 Jun 2023 15:37:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEtY3-0001S4-30; Thu, 29 Jun 2023 15:27:07 +0000
-Received: by outflank-mailman (input) for mailman id 556912;
- Thu, 29 Jun 2023 15:27:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qEthc-0004cM-0u; Thu, 29 Jun 2023 15:37:00 +0000
+Received: by outflank-mailman (input) for mailman id 556928;
+ Thu, 29 Jun 2023 15:36:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4caF=CR=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qEtY1-0000oy-7c
- for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 15:27:05 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 65180cfa-1691-11ee-8611-37d641c3527e;
- Thu, 29 Jun 2023 17:27:01 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-992b66e5affso74265466b.3
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jun 2023 08:27:01 -0700 (PDT)
-Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v11-20020a170906564b00b00992c4103cb5sm307727ejr.129.2023.06.29.08.27.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jun 2023 08:27:00 -0700 (PDT)
+ id 1qEtha-0004cG-UN
+ for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 15:36:58 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c87c60d9-1692-11ee-b237-6b7b168915f2;
+ Thu, 29 Jun 2023 17:36:58 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2b69ed7d050so12822111fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jun 2023 08:36:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +40,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65180cfa-1691-11ee-8611-37d641c3527e
+X-Inumbo-ID: c87c60d9-1692-11ee-b237-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1688052421; x=1690644421;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=G67gLa/o7/WHSN6dkAdpT425Jo9Uwtlq2X27eVNLdd8=;
-        b=CnuuXj8PwDbeJspOFZNReQGrG/5s3fsRN7gJ8gusWs3LgYeWxowuGqE01VqqK5Pomk
-         sPDbREl9Ktby9eErAH6DkCaGTcAdNwLLjVXDjMWlwAe7BSXKXC/+BjB/XMhqFHGzRkl/
-         //AbV59CxqU+scRdZkcKJdWsinQzgpf/YlXvU=
+        d=cloud.com; s=cloud; t=1688053017; x=1690645017;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=dof83Fv4i0vfWq58FQd3aWC+Ttb5ONZ/LOADV8F3Ncg=;
+        b=WmMYhmaHNqL0IrwnhJ9ygyPf2RrTMZdzd/xNIu6dV2sUBUQhL8mFUZHxUaFOHlvRgs
+         4lcoxgXUoLNwfLFnhm1ndyy5FbkO1X727wEyvkxll4F/driiqPYJsVdgt5gSYNDfWn09
+         vTSB/T/8vfRPF0mWLnY6Hw5GZ3Ex/NkfvyRBg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688052421; x=1690644421;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=G67gLa/o7/WHSN6dkAdpT425Jo9Uwtlq2X27eVNLdd8=;
-        b=WGxKl0XHULH0/PIa6QRBp8LdZ0UPhCD7maR7mSuJpWDpGOmvCWrBkr1/7kjrsKE1Bf
-         h6L7pIlmVnAgFGD5pj4lQmOPMzGgeZZSTg0Gn8j07TFAo3w9DTqZMB7fMfsdKnoi2OfT
-         ZP1Ep4ylcJotxUHEfqcJGB0Btt14vmg3Gt3Bx5rMc1ria/wOjFtVhDzpkihhwB5DCeob
-         LpdjLjDVsy3W4yxfoUQTnNLy6hLboMZ8Ptv/s5e3pnKHH38QEBlj7L38tBRRjzZYyxYp
-         PFP2lhD9wtr1d/x+C9DFRzydJuAKlPqfTJvBwtJ4JjoIJVP72NQoqEmWZR0Gko0/TOba
-         1YKQ==
-X-Gm-Message-State: AC+VfDxbn4ZMflPsYoOOJTwgh6zFZ7tcIwO4E3USsuGXaUSefWUFQG1b
-	KMY7SkUJBURpAn3u4AjsWkXz3wXsxBxUIjaoJkY=
-X-Google-Smtp-Source: ACHHUZ4KnEuLzL96joYK2MZR6qliLnOJDmS5URTcsPK4LfoteX6IGLCdTBNlEyaIivECeI2GcUeDzQ==
-X-Received: by 2002:a17:906:9381:b0:98e:37fe:691b with SMTP id l1-20020a170906938100b0098e37fe691bmr10225842ejx.34.1688052421260;
-        Thu, 29 Jun 2023 08:27:01 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v5 4/4] x86/microcode: Disable microcode update handler if DIS_MCU_UPDATE is set
-Date: Thu, 29 Jun 2023 16:26:56 +0100
-Message-Id: <20230629152656.12655-5-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230629152656.12655-1-alejandro.vallejo@cloud.com>
-References: <20230629152656.12655-1-alejandro.vallejo@cloud.com>
+        d=1e100.net; s=20221208; t=1688053017; x=1690645017;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dof83Fv4i0vfWq58FQd3aWC+Ttb5ONZ/LOADV8F3Ncg=;
+        b=GbIm4tcK06olE7Lf5k57OKTTiE8l4JocfmbSgH/zrFG0PkT1m9cCkTEkSV4dk28F2M
+         Bi61Zi7n0QvIOTClMUoOkHbxCzrJKBeYUHJZzd0Zum0QO+CIFAVG975KVh57BPRDFOJx
+         KK4FXko1HqrRf5q7tDfgJs+ANsYv1/UCeaD5bFXOepSiD3V1mMOkn4A4xvB7Eo6F3HGX
+         DrAj9TZMrbDyiNgk5VQSThbKFPBYOREbNaVCaeO7GLwlrwcDdDHSV3hmQhEWowg6VGTv
+         qTb0onj908pM5tQzkKzkOGRksott9EB6AFGFV1aHynt2+vDGWH1lVqu0JTwClS5VhrYl
+         zOdw==
+X-Gm-Message-State: ABy/qLbTEK5t138gWQ9GKkiVa0f07h4A5Qej5aQE6PxrqaNXQX7iJAzT
+	qNan6IerGC3bkd60pZFn5ZBrTTc8tt+O3zFwzv6WUn7iQg+QfsxOVG8=
+X-Google-Smtp-Source: APBJJlGqj85X+kf66Ke3SZ9XUCVOCXRWiKkvNrahDeeSlp1FNaGrrtJomGmG5liZbNdFD20+cj5sd483LB2pu/U1jFA=
+X-Received: by 2002:a05:6512:2815:b0:4fb:893e:8ffc with SMTP id
+ cf21-20020a056512281500b004fb893e8ffcmr301167lfb.17.1688053017359; Thu, 29
+ Jun 2023 08:36:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20230629121713.1211-1-alejandro.vallejo@cloud.com>
+In-Reply-To: <20230629121713.1211-1-alejandro.vallejo@cloud.com>
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Date: Thu, 29 Jun 2023 16:36:46 +0100
+Message-ID: <CAFi36o3oX+YQxrpCU8S-zT8Y-fSKjZg9TZs=28_pZdww9LpQ5w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/3] Introduce a REQUIRE_NX Kconfig option
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000764f6805ff4678d3"
 
-If IA32_MSR_MCU_CONTROL exists then it's possible a CPU may be unable to
-perform microcode updates. This is controlled through the DIS_MCU_LOAD bit
-and is intended for baremetal clouds where the owner may not trust the
-tenant to choose the microcode version in use. If we notice that bit being
-set then simply disable the "apply_microcode" handler so we can't even try
-to perform update (as it's known to be silently dropped).
+--000000000000764f6805ff4678d3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-While at it, remove the Intel family check, as microcode loading is
-supported on every Intel 64 CPU.
+On Thu, Jun 29, 2023 at 1:17=E2=80=AFPM Alejandro Vallejo <
+alejandro.vallejo@cloud.com> wrote:
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
-v5:
-  * Removed __init on declaration
-  * Minor style fix (2 spaces rather than 1 after "return")
----
- xen/arch/x86/cpu/microcode/core.c     | 10 +++++++---
- xen/arch/x86/cpu/microcode/intel.c    | 13 +++++++++++++
- xen/arch/x86/cpu/microcode/private.h  |  7 +++++++
- xen/arch/x86/include/asm/cpufeature.h |  1 +
- xen/arch/x86/include/asm/msr-index.h  |  5 +++++
- 5 files changed, 33 insertions(+), 3 deletions(-)
+> v3:
+>   * Fixed a Gitlab CI breakage on older toolchains (patch 1)
+>   * Removed XD_DISABLE override logic from cpu/intel.c
+>   * Various style fixes to patch 2 (from Andrew's feedback)
+>
+> This option hardens Xen by forcing it to write secure (NX-enhanced) PTEs
+> regardless of the runtime NX feature bit in boot_cpu_data. This prevents =
+an
+> attacker with partial write support from affecting Xen's PTE generation
+> logic by overriding the NX feature flag. The patch asserts support for th=
+e
+> NX bit in PTEs at boot time and if so short-circuits the cpu_has_nx macro
+> to 1.
+>
+> Alejandro Vallejo (3):
+>   tools: Add __AC() macro to common-macros.h
+>   x86/boot: Clear XD_DISABLE from the early boot path
+>   x86: Add Kconfig option to require NX bit support
+>
+>  tools/include/xen-tools/common-macros.h |  3 ++
+>  tools/libs/light/libxl_internal.h       |  2 -
+>  tools/tests/x86_emulator/x86-emulate.h  |  3 --
+>  xen/arch/x86/Kconfig                    | 16 +++++++
+>  xen/arch/x86/boot/head.S                | 62 ++++++++++++++++++++++---
+>  xen/arch/x86/boot/trampoline.S          |  3 +-
+>  xen/arch/x86/cpu/intel.c                | 16 +++----
+>  xen/arch/x86/efi/efi-boot.h             |  9 ++++
+>  xen/arch/x86/include/asm/cpufeature.h   |  3 +-
+>  xen/arch/x86/include/asm/msr-index.h    |  2 +-
+>  xen/arch/x86/include/asm/x86-vendors.h  |  6 +--
+>  11 files changed, 98 insertions(+), 27 deletions(-)
+>
+> --
+> 2.34.1
+>
+> Adding CCs here because I forgot to run the add_maintainers.pl script
+before sending. Ugh...
 
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 98a5aebfe3..982b278c9e 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -847,17 +847,21 @@ int __init early_microcode_init(unsigned long *module_map,
- {
-     const struct cpuinfo_x86 *c = &boot_cpu_data;
-     int rc = 0;
-+    bool can_load = false;
- 
-     switch ( c->x86_vendor )
-     {
-     case X86_VENDOR_AMD:
-         if ( c->x86 >= 0x10 )
-+        {
-             ucode_ops = amd_ucode_ops;
-+            can_load = true;
-+        }
-         break;
- 
-     case X86_VENDOR_INTEL:
--        if ( c->x86 >= 6 )
--            ucode_ops = intel_ucode_ops;
-+        ucode_ops = intel_ucode_ops;
-+        can_load = intel_can_load_microcode();
-         break;
-     }
- 
-@@ -874,7 +878,7 @@ int __init early_microcode_init(unsigned long *module_map,
-      * mean that they will not accept microcode updates. We take the hint
-      * and ignore the microcode interface in that case.
-      */
--    if ( this_cpu(cpu_sig).rev == ~0 )
-+    if ( this_cpu(cpu_sig).rev == ~0 || !can_load )
-     {
-         printk(XENLOG_WARNING "Microcode loading disabled\n");
-         ucode_ops.apply_microcode = NULL;
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index 8d4d6574aa..060c529a6e 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -385,6 +385,19 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-     return patch;
- }
- 
-+bool __init intel_can_load_microcode(void)
-+{
-+    uint64_t mcu_ctrl;
-+
-+    if ( !cpu_has_mcu_ctrl )
-+        return true;
-+
-+    rdmsrl(MSR_MCU_CONTROL, mcu_ctrl);
-+
-+    /* If DIS_MCU_LOAD is set applying microcode updates won't work */
-+    return !(mcu_ctrl & MCU_CONTROL_DIS_MCU_LOAD);
-+}
-+
- const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
-     .cpu_request_microcode            = cpu_request_microcode,
-     .collect_cpu_info                 = collect_cpu_info,
-diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
-index 626aeb4d08..d80787205a 100644
---- a/xen/arch/x86/cpu/microcode/private.h
-+++ b/xen/arch/x86/cpu/microcode/private.h
-@@ -60,6 +60,13 @@ struct microcode_ops {
-         const struct microcode_patch *new, const struct microcode_patch *old);
- };
- 
-+/**
-+ * Checks whether we can perform microcode updates on this Intel system
-+ *
-+ * @return True iff the microcode update facilities are enabled
-+ */
-+bool intel_can_load_microcode(void);
-+
- extern const struct microcode_ops amd_ucode_ops, intel_ucode_ops;
- 
- #endif /* ASM_X86_MICROCODE_PRIVATE_H */
-diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index e2cb8f3cc7..608bc4dce0 100644
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -192,6 +192,7 @@ static inline bool boot_cpu_has(unsigned int feat)
- #define cpu_has_if_pschange_mc_no boot_cpu_has(X86_FEATURE_IF_PSCHANGE_MC_NO)
- #define cpu_has_tsx_ctrl        boot_cpu_has(X86_FEATURE_TSX_CTRL)
- #define cpu_has_taa_no          boot_cpu_has(X86_FEATURE_TAA_NO)
-+#define cpu_has_mcu_ctrl        boot_cpu_has(X86_FEATURE_MCU_CTRL)
- #define cpu_has_fb_clear        boot_cpu_has(X86_FEATURE_FB_CLEAR)
- #define cpu_has_rrsba           boot_cpu_has(X86_FEATURE_RRSBA)
- 
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 2749e433d2..5c1350b5f9 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -165,6 +165,11 @@
- #define  PASID_PASID_MASK                   0x000fffff
- #define  PASID_VALID                        (_AC(1, ULL) << 31)
- 
-+#define MSR_MCU_CONTROL                     0x00001406
-+#define  MCU_CONTROL_LOCK                   (_AC(1, ULL) <<  0)
-+#define  MCU_CONTROL_DIS_MCU_LOAD           (_AC(1, ULL) <<  1)
-+#define  MCU_CONTROL_EN_SMM_BYPASS          (_AC(1, ULL) <<  2)
-+
- #define MSR_UARCH_MISC_CTRL                 0x00001b01
- #define  UARCH_CTRL_DOITM                   (_AC(1, ULL) <<  0)
- 
--- 
-2.34.1
+Alejandro
 
+--000000000000764f6805ff4678d3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">On Thu, Jun 29, 2023 at 1:17=E2=80=AFPM A=
+lejandro Vallejo &lt;<a href=3D"mailto:alejandro.vallejo@cloud.com">alejand=
+ro.vallejo@cloud.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">v3:<br>
+=C2=A0 * Fixed a Gitlab CI breakage on older toolchains (patch 1)<br>
+=C2=A0 * Removed XD_DISABLE override logic from cpu/intel.c<br>
+=C2=A0 * Various style fixes to patch 2 (from Andrew&#39;s feedback)<br>
+<br>
+This option hardens Xen by forcing it to write secure (NX-enhanced) PTEs<br=
+>
+regardless of the runtime NX feature bit in boot_cpu_data. This prevents an=
+<br>
+attacker with partial write support from affecting Xen&#39;s PTE generation=
+<br>
+logic by overriding the NX feature flag. The patch asserts support for the<=
+br>
+NX bit in PTEs at boot time and if so short-circuits the cpu_has_nx macro<b=
+r>
+to 1.<br>
+<br>
+Alejandro Vallejo (3):<br>
+=C2=A0 tools: Add __AC() macro to common-macros.h<br>
+=C2=A0 x86/boot: Clear XD_DISABLE from the early boot path<br>
+=C2=A0 x86: Add Kconfig option to require NX bit support<br>
+<br>
+=C2=A0tools/include/xen-tools/common-macros.h |=C2=A0 3 ++<br>
+=C2=A0tools/libs/light/libxl_internal.h=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 2=
+ -<br>
+=C2=A0tools/tests/x86_emulator/x86-emulate.h=C2=A0 |=C2=A0 3 --<br>
+=C2=A0xen/arch/x86/Kconfig=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 | 16 +++++++<br>
+=C2=A0xen/arch/x86/boot/head.S=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 | 62 ++++++++++++++++++++++---<br>
+=C2=A0xen/arch/x86/boot/trampoline.S=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
+=A0 3 +-<br>
+=C2=A0xen/arch/x86/cpu/intel.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 | 16 +++----<br>
+=C2=A0xen/arch/x86/efi/efi-boot.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0|=C2=A0 9 ++++<br>
+=C2=A0xen/arch/x86/include/asm/cpufeature.h=C2=A0 =C2=A0|=C2=A0 3 +-<br>
+=C2=A0xen/arch/x86/include/asm/msr-index.h=C2=A0 =C2=A0 |=C2=A0 2 +-<br>
+=C2=A0xen/arch/x86/include/asm/x86-vendors.h=C2=A0 |=C2=A0 6 +--<br>
+=C2=A011 files changed, 98 insertions(+), 27 deletions(-)<br>
+<br>
+-- <br>
+2.34.1<br>
+<br></blockquote>Adding CCs here because I forgot to run the <a href=3D"htt=
+p://add_maintainers.pl">add_maintainers.pl</a> script<br>before sending. Ug=
+h...<br><div><br></div><div>Alejandro=C2=A0</div></div></div>
+
+--000000000000764f6805ff4678d3--
 
