@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F316742533
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 13:56:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556801.869574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E965674258D
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 14:17:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556809.869584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEqFU-0001zX-Ts; Thu, 29 Jun 2023 11:55:44 +0000
+	id 1qEqaQ-0004ai-Qi; Thu, 29 Jun 2023 12:17:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556801.869574; Thu, 29 Jun 2023 11:55:44 +0000
+Received: by outflank-mailman (output) from mailman id 556809.869584; Thu, 29 Jun 2023 12:17:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEqFU-0001x6-QK; Thu, 29 Jun 2023 11:55:44 +0000
-Received: by outflank-mailman (input) for mailman id 556801;
- Thu, 29 Jun 2023 11:55:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qEqFT-0001x0-Iq
- for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 11:55:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qEqFT-0002bO-2Y; Thu, 29 Jun 2023 11:55:43 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234] helo=[192.168.2.72])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qEqFS-00066g-Rr; Thu, 29 Jun 2023 11:55:42 +0000
+	id 1qEqaQ-0004Yd-Ng; Thu, 29 Jun 2023 12:17:22 +0000
+Received: by outflank-mailman (input) for mailman id 556809;
+ Thu, 29 Jun 2023 12:17:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4caF=CR=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qEqaP-0004YX-PX
+ for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 12:17:21 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e56952b5-1676-11ee-b237-6b7b168915f2;
+ Thu, 29 Jun 2023 14:17:20 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-98377c5d53eso73692266b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jun 2023 05:17:20 -0700 (PDT)
+Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ c15-20020a170906528f00b0098866a94f14sm6773841ejm.125.2023.06.29.05.17.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Jun 2023 05:17:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,135 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=QFkItA5zsvqGCS/6CoT3bFE1TKWbIyh6eXaJtu/ufD8=; b=Y0ggWk8h+0kwm6osHQVs0Z3q+g
-	D/2AJzt8KzkiVf7JUPKaXH+KV5O7oJgYTQkIO3QbFkD/8ncMOC2mdnaHmHpZh99AmjOH2/Lf4deY9
-	1jCfh4rB0O2IrzRekyoDyunv85XK176mEVZhtZg+uFCCZC6BScm0Sxr9TE5aY+f/Y2cU=;
-Message-ID: <6a06868f-beea-13c3-5d18-23930c7dd971@xen.org>
-Date: Thu, 29 Jun 2023 12:55:40 +0100
+X-Inumbo-ID: e56952b5-1676-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1688041040; x=1690633040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7B6K7Uvi8FFL++kLjnQI0eF2jsyd8bW5W+dYQU6booM=;
+        b=ATPudzCeyZXToN9Jbfciu+XmAGqZp7gcg3yfulRB+fkAbliujipMa2B1Ap6V8pMO5D
+         uIR2ny8ShOqwj4xWwLUUZRWvNbByftom5QkWIREsaRu4RcHHbLx+P9F3bhXmfcfUtI80
+         fh5ekKHNQFlvbKmtJvbvapZ0xKnfD0E6HBpNc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688041040; x=1690633040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7B6K7Uvi8FFL++kLjnQI0eF2jsyd8bW5W+dYQU6booM=;
+        b=blC44XsHs7jP2mHR9LdH9bkTljbAUBRucUAqTAq+pFsNVeGILSQ29B0o/Ul5YFdZgi
+         aWhxpLjp3bfz+2cWuwoAHndqA7Q7/CIuzcw4DYOs4Tpopb6nyuNbUICzFTKCoI9sk4gu
+         Xeze+uBRd5tMNKuVm2LOtQxcKfYacq731iMAy9DKRX2fbGbsCCdv7tdRptjf95iuArU3
+         4GuqRgZZV3tPSccrvAzDZl6Bw2SCa6pRWydLm6N6J8tJa9PE5dyYu4PvFJFqUnDJG31/
+         k8oqS8KxZ7h1vzp03SzCYqRSLnHX/ATe6V17e63TSmsv9iss/xWNf3kxTSiUZjrhZCHN
+         QkRA==
+X-Gm-Message-State: AC+VfDwal0oS8hnp7yCFZDG9dqBwkTy3SgjW7jbpVapXy6RHTTGFX1lZ
+	oihx/XGpOGzb2iDdApRkgdXbS/+N0s60lLyTbVw=
+X-Google-Smtp-Source: ACHHUZ6wnctV4jAa8vvQdEo5GjSvpAD7Khq3vm25VZLJnArJkcbG8stcoDpiOq1pMnVDBs36Gmjjsw==
+X-Received: by 2002:a17:907:a01:b0:973:d1ce:dbe8 with SMTP id bb1-20020a1709070a0100b00973d1cedbe8mr31376448ejc.46.1688041039954;
+        Thu, 29 Jun 2023 05:17:19 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH v3 0/3] Introduce a REQUIRE_NX Kconfig option
+Date: Thu, 29 Jun 2023 13:17:10 +0100
+Message-Id: <20230629121713.1211-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 24/52] xen/mpu: build up start-of-day Xen MPU memory
- region map
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, Penny Zheng <Penny.Zheng@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-25-Penny.Zheng@arm.com>
- <778688ab-8fd4-2b06-e644-b5a013bb56f7@amd.com>
- <39a5a729-0099-67e4-bf4a-c65ae99a4619@xen.org>
- <37e2856b-038e-6a3a-a6ff-c518dfeda552@amd.com>
- <f849b3cc-f9c1-131a-f6c1-5be27911ec6e@xen.org>
- <301e2e02-f2ab-5538-d426-52a02a7f35b5@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <301e2e02-f2ab-5538-d426-52a02a7f35b5@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Ayan,
+v3:
+  * Fixed a Gitlab CI breakage on older toolchains (patch 1)
+  * Removed XD_DISABLE override logic from cpu/intel.c
+  * Various style fixes to patch 2 (from Andrew's feedback)
 
-On 29/06/2023 12:21, Ayan Kumar Halder wrote:
-> 
-> On 28/06/2023 14:42, Julien Grall wrote:
->> What's the guarantee that the compiler will not generate any 
->> instructions that could generate an alignment fault?
-> 
-> I thought by writing in assembly, we tell the compiler what instructions 
-> to generate. For eg
-> 
-> ENTRY(set_boot_mpumap)
->      push {r4}
->      mov   r2, #0               /* table index */
-> 1:  ldr   r3, [r1], #4         /* r3: prbar */
->      ldr   r4, [r1], #12        /* r4: prlar */
->      write_pr r2, r3, r4
->      add   r2, r2, #1           /* table index ++ */
->      cmp   r2, r0
->      blt  1b
->      pop {r4}
->      ret
-> ENDPROC(set_boot_mpumap)
-> 
-> I ask the compiler to use ldr (and not ldrb) instructions.
-> 
-> May be I am missing something very obvious here.
+This option hardens Xen by forcing it to write secure (NX-enhanced) PTEs
+regardless of the runtime NX feature bit in boot_cpu_data. This prevents an
+attacker with partial write support from affecting Xen's PTE generation
+logic by overriding the NX feature flag. The patch asserts support for the
+NX bit in PTEs at boot time and if so short-circuits the cpu_has_nx macro
+to 1.
 
-The problem is not the assembly code. The problem is the C code. You wrote:
+Alejandro Vallejo (3):
+  tools: Add __AC() macro to common-macros.h
+  x86/boot: Clear XD_DISABLE from the early boot path
+  x86: Add Kconfig option to require NX bit support
 
-     /*
-      * Since it is the MPU protection region which holds the XEN kernel 
-that
-      * needs updating.
-      * The whole MPU system must be disabled for the update.
-      */
-     disable_mpu();
-
-     /*
-      * Set new MPU memory region configuration.
-      * To avoid the mismatch between nr_xen_mpumap and nr_xen_mpumap
-      * after the relocation of some MPU regions later, here
-      * next_xen_mpumap_index is used.
-      * To avoid unexpected unaligment access fault during MPU disabled,
-      * set_boot_mpumap shall be written in assembly code.
-      */
-     set_boot_mpumap(next_xen_mpumap_index, (pr_t *)boot_mpumap);
-
-     enable_mpu();
-
-You can't guarantee what assembly instructions the compiler will use for 
-any of this code. So if you are concerned about unaligned access when 
-the MPU is disabled, then you should never return to C (even 
-temporarily) while the MPU is off.
-
->>
->> Furthermore, from my understanding, at least on Armv8-A, there are 
->> caching problem because you will need to save some registers (for the 
->> call to set_boot_mpumap()) on the stack with cache disabled. This 
->> means the cache will be bypassed. But you may then restore the 
->> registers with the cache enabled (the compiler could decide that it is 
->> not necessary to read the stack before hand). So you could read the 
->> wrong data if there is a stale cacheline.
-> 
-> Yes, this makes some sense. So will the following make it correct :-
-
-I am confused. In a previous answer, I voiced my concerned with trying 
-to replace the full MPU table. So it is not clear to me why you are 
-asking me if the following work. Do you still want to do it? If so, why?
-
-> 
-> 1. Execute 'dmb' before invoking enable_mpu(). This will ensure that the 
-> registers are strictly restored in set_boot_mpumap() before the HSCTLR 
-> is read.
-
-I am afraid I don't know how the DMB will enforce that. Can you clarify?
-
-> 
-> We do have 'dsb sy' before modifying HSCTLR (ie enabling cache), but may 
-> be we want to be stricter.
-> 
-> 2. Invalidate the D cache after "mcr   CP32(r0, HSCTLR)" and then dsb 
-> (to ensure d cache is invalidated), isb (flush the instruction cache as 
-> MPU is enabled), ret.
-
-I might be missing something here. The ISB instruction will not flush 
-the instruction cache, it will flush the pipeline instead and guarantee 
-that previous instructions will complete before continuing.
-
-But overall, the easiest solution is to disable the MPU, update the MPU 
-tables, and then re-enable the MPU all in assembly (i.e. no jump back to 
-C even temporarily).
-
-So you control the accesses and can limit (if not remove) any write to 
-the memory whilst the cache is disabled.
-
-Cheers,
+ tools/include/xen-tools/common-macros.h |  3 ++
+ tools/libs/light/libxl_internal.h       |  2 -
+ tools/tests/x86_emulator/x86-emulate.h  |  3 --
+ xen/arch/x86/Kconfig                    | 16 +++++++
+ xen/arch/x86/boot/head.S                | 62 ++++++++++++++++++++++---
+ xen/arch/x86/boot/trampoline.S          |  3 +-
+ xen/arch/x86/cpu/intel.c                | 16 +++----
+ xen/arch/x86/efi/efi-boot.h             |  9 ++++
+ xen/arch/x86/include/asm/cpufeature.h   |  3 +-
+ xen/arch/x86/include/asm/msr-index.h    |  2 +-
+ xen/arch/x86/include/asm/x86-vendors.h  |  6 +--
+ 11 files changed, 98 insertions(+), 27 deletions(-)
 
 -- 
-Julien Grall
+2.34.1
+
 
