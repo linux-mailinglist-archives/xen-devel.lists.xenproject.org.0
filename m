@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99C0F74258F
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 14:17:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556812.869615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D7C574258B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 14:17:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556810.869595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEqaT-0005KS-LD; Thu, 29 Jun 2023 12:17:25 +0000
+	id 1qEqaS-0004pn-4E; Thu, 29 Jun 2023 12:17:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556812.869615; Thu, 29 Jun 2023 12:17:25 +0000
+Received: by outflank-mailman (output) from mailman id 556810.869595; Thu, 29 Jun 2023 12:17:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEqaT-0005Hf-FE; Thu, 29 Jun 2023 12:17:25 +0000
-Received: by outflank-mailman (input) for mailman id 556812;
- Thu, 29 Jun 2023 12:17:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qEqaR-0004nZ-Uy; Thu, 29 Jun 2023 12:17:23 +0000
+Received: by outflank-mailman (input) for mailman id 556810;
+ Thu, 29 Jun 2023 12:17:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4caF=CR=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qEqaR-0004fh-UE
+ id 1qEqaR-0004YX-3q
  for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 12:17:23 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5ed28f2-1676-11ee-8611-37d641c3527e;
- Thu, 29 Jun 2023 14:17:21 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-9928abc11deso79611466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jun 2023 05:17:21 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e682b8bf-1676-11ee-b237-6b7b168915f2;
+ Thu, 29 Jun 2023 14:17:22 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2b69dcf45faso9122041fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jun 2023 05:17:22 -0700 (PDT)
 Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
  c15-20020a170906528f00b0098866a94f14sm6773841ejm.125.2023.06.29.05.17.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jun 2023 05:17:20 -0700 (PDT)
+ Thu, 29 Jun 2023 05:17:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5ed28f2-1676-11ee-8611-37d641c3527e
+X-Inumbo-ID: e682b8bf-1676-11ee-b237-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1688041041; x=1690633041;
+        d=cloud.com; s=cloud; t=1688041042; x=1690633042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BzrdtU96n40B5f0Aax6fU5SmE6wgwpYc6Is6WaPAmEM=;
-        b=OOTdQp+tu60q/YhuncmY1njlApzM15wUPRmmmUqJDfUajOpmtHLuzEkxAEwHxPm0DW
-         +mhO17ZOeKKY5jGRbxPKJG4459IIrdDlxaQ++dFLHApuQxWI4MMtj+nQv9nXLpdeb+aN
-         eTPUAPau5WGYZke0OjfRq8vS4eWIpn9TwgZ6s=
+        bh=AwoSGHZ6G/LeRP+DnNBp+JZLKpijyisI8If2qVcjwrc=;
+        b=Ia4ITNouGr/++Gx6M+9NGp0ngRn7MtuhyusZFQ4XadNipiwPDJQBkJiELTTqgN8IcX
+         mPHYQfOmNpPZClLWHSPN3sxB7dBok2rtPI04xB9hDSgr17gp74uMc77BYv/Hem+xCdhc
+         ZOH7mpQsvrspEWFeyXm59GYIJUfLybK3YlQyQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688041041; x=1690633041;
+        d=1e100.net; s=20221208; t=1688041042; x=1690633042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BzrdtU96n40B5f0Aax6fU5SmE6wgwpYc6Is6WaPAmEM=;
-        b=e+L9O3tXJoaXVfGMcIT+CV5QQ/neD7dXT98zGD8UHwb63V8ULpcFbDj+SOrHUrsoKD
-         dYxW+cwZKHzAFALkea+/sQbxL6SJDePFsAL/65eHS36TnXQ/3r1dA7/ds0kbLSmA0P6j
-         FAk/Eg4A722r7mvNlXsUDcZe48Qg0lkaDBDg4TpzUGjcUoKHrTwttvM747IMGrM4tGuf
-         C1bTPIy1pODUnQyfHtbJdRGWYVIjCq3xiOjXOPf+upbcPnBo5QaD+Dwh3UaXcvCWzClc
-         r45guyd1Sqdj/YK/eesLkNHygBiOV3CugVRoQfSWSJHJG8hPooOVpBD5DEwwkL10lcmF
-         4YUA==
-X-Gm-Message-State: AC+VfDwrjmZjBnj9zleNcKBgn3UkcCQcvbZAwUvtLEA4+TFB1pxhpYsX
-	clpuW5x+yHvb1nfnAtnCgtbBHS7Sz00Na4hvSIA=
-X-Google-Smtp-Source: ACHHUZ62hBOMhM4lRAjuzlrmK0IRmL5f342eqkwqJpAYDOw14d0gjM7ODQtbH6WX+mlGfa1OOwRkKQ==
-X-Received: by 2002:a17:907:9309:b0:97e:aace:b6bc with SMTP id bu9-20020a170907930900b0097eaaceb6bcmr32766075ejc.53.1688041040890;
-        Thu, 29 Jun 2023 05:17:20 -0700 (PDT)
+        bh=AwoSGHZ6G/LeRP+DnNBp+JZLKpijyisI8If2qVcjwrc=;
+        b=NnXJrddrJpab+hjc8THqHwEJ76Z2kvI/SfAhuz+5YKGDdHreiddw63YhmFMie7PvHP
+         NpzxYrSfGS0+1lcNAONf2/uyQeljdbdTBbGv9loD56d5fp4sgbIr/i7SGj7uF/iY19IX
+         yL93eazGEdj2cIpUyG7W7hf+mJDsHhbeq7fG9y+ZwkpoigSA3tUmPu2LVvAkcyMvUh8U
+         FZqN2EvJISvtSrDKp5QtMtZpPk1oCxHzZhvw4rBFMgN23W5RoTsROajoD06bTObVrxJk
+         ae+70lvrGLmMRU3CXwvYTfcmKUf/Xx1aqxZfV3aJjsjs6mNwlFWVkjjDCYvvy7qoBYUI
+         Xvjw==
+X-Gm-Message-State: AC+VfDyfYGMu49gmPSAWp6+fT9QzBMtyA0OcPlyiJGyIgvMTh/WM74SW
+	WQtjg8cxtN4W0+QSHex44AOgnSJnpXWqK5IM5TI=
+X-Google-Smtp-Source: ACHHUZ7Qy2E1RcNZwrCIWWDSTKZ38OFttujIjZVQ29ixBB9Ln4MMKEOzYfhj+NCZOIJe35HOloca7g==
+X-Received: by 2002:a2e:a1c9:0:b0:2b6:a841:e690 with SMTP id c9-20020a2ea1c9000000b002b6a841e690mr7399366ljm.42.1688041041753;
+        Thu, 29 Jun 2023 05:17:21 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Subject: [PATCH v3 2/3] x86/boot: Clear XD_DISABLE from the early boot path
-Date: Thu, 29 Jun 2023 13:17:12 +0100
-Message-Id: <20230629121713.1211-3-alejandro.vallejo@cloud.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v3 3/3] x86: Add Kconfig option to require NX bit support
+Date: Thu, 29 Jun 2023 13:17:13 +0100
+Message-Id: <20230629121713.1211-4-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230629121713.1211-1-alejandro.vallejo@cloud.com>
 References: <20230629121713.1211-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Intel CPUs have a bit in MSR_IA32_MISC_ENABLE that may prevent the NX bit
-from being advertised. Clear it unconditionally if we can't find the NX
-feature right away on boot.
+This option hardens Xen by forcing it to write secure (NX-enhanced) PTEs
+regardless of the runtime NX feature bit in boot_cpu_data. This prevents an
+attacker with partial write support from affecting Xen's PTE generation
+logic by overriding the NX feature flag. The patch asserts support for the
+NX bit in PTEs at boot time and if so short-circuits the cpu_has_nx macro
+to 1.
 
-The conditions for the MSR being read on early boot are (in this order):
+It has the nice benefit of replacing many instances of runtime checks with
+folded constants. This has several knock-on effects that improve codegen,
+saving 2.5KiB off the text section.
 
-* Long Mode is supported
-* NX isn't advertised
-* The vendor is Intel
-
-The order of checks has been chosen carefully so a virtualized Xen on a
-hypervisor that doesn't emulate that MSR (but supports NX) doesn't triple
-fault trying to access the non-existing MSR.
-
-With that done, we can remove the XD_DISABLE checks in the intel-specific
-init path (as they are already done in early assembly). Keep a printk to
-highlight the fact that NX was forcefully enabled.
+The config option defaults to OFF for compatibility with previous
+behaviour.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-v3:
-  * In head.S: s/has_nx/got_nx and s/nx_bit/nx
-  * Style changes in assembly instructions (spaces + width modifiers)
-  * Big comment in head.S replaced
-  * Jump directly to .Lno_nx if NX not found and XD_DISABLE not present
-  * Restored rdmsrl (previously refactored into rdmsr_safe() in v2) and
-    removed XD_DISABLE clearing in C (as it's now done in head.S).
-  * Moved printk in intel.c to highlight the XD_DISABLE override even when
-    done in head.S
----
- xen/arch/x86/boot/head.S               | 49 ++++++++++++++++++++++----
- xen/arch/x86/cpu/intel.c               | 16 ++++-----
- xen/arch/x86/include/asm/msr-index.h   |  2 +-
- xen/arch/x86/include/asm/x86-vendors.h |  6 ++--
- 4 files changed, 53 insertions(+), 20 deletions(-)
+ xen/arch/x86/Kconfig                  | 16 ++++++++++++++++
+ xen/arch/x86/boot/head.S              | 15 ++++++++++++++-
+ xen/arch/x86/boot/trampoline.S        |  3 ++-
+ xen/arch/x86/efi/efi-boot.h           |  9 +++++++++
+ xen/arch/x86/include/asm/cpufeature.h |  3 ++-
+ 5 files changed, 43 insertions(+), 3 deletions(-)
 
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 406445a358..92f3a627da 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -307,6 +307,22 @@ config MEM_SHARING
+ 	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on HVM
+ 
++config REQUIRE_NX
++	bool "Require NX (No eXecute) support"
++	help
++	  No-eXecute (also called XD "eXecute Disable" and DEP "Data
++	  Execution Prevention") is a security feature designed originally
++	  to combat buffer overflow attacks by marking regions of memory
++	  which the CPU must not interpret as instructions.
++
++	  The NX feature exists in every 64bit CPU except for some very
++	  early Pentium 4 Prescott machines.
++
++	  Enabling this option will improve Xen's security by removing
++	  cases where Xen could be tricked into thinking that the feature
++	  was unavailable. However, if enabled, Xen will no longer boot on
++	  any CPU which is lacking NX support.
++
+ endmenu
+ 
+ source "common/Kconfig"
 diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 9fbd602ea5..0e02c28f37 100644
+index 0e02c28f37..2e62d07f43 100644
 --- a/xen/arch/x86/boot/head.S
 +++ b/xen/arch/x86/boot/head.S
-@@ -652,16 +652,53 @@ trampoline_setup:
-         cpuid
- 1:      mov     %edx, CPUINFO_FEATURE_OFFSET(X86_FEATURE_LM) + sym_esi(boot_cpu_data)
+@@ -123,6 +123,7 @@ multiboot2_header:
+ .Lbad_ldr_nih: .asciz "ERR: EFI ImageHandle is not provided by bootloader!"
+ .Lbad_efi_msg: .asciz "ERR: EFI IA-32 platforms are not supported!"
+ .Lbag_alg_msg: .asciz "ERR: Xen must be loaded at a 2Mb boundary!"
++.Lno_nx_msg:   .asciz "ERR: Not an NX-capable CPU!"
  
--        /* Check for NX. Adjust EFER setting if available. */
--        bt      $cpufeat_bit(X86_FEATURE_NX), %edx
--        jnc     1f
--        orb     $EFER_NXE >> 8, 1 + sym_esi(trampoline_efer)
--1:
--
-         /* Check for availability of long mode. */
+         .section .init.data, "aw", @progbits
+         .align 4
+@@ -153,6 +154,11 @@ early_error: /* Here to improve the disassembly. */
+ .Lnot_aligned:
+         add     $sym_offs(.Lbag_alg_msg), %esi
+         jmp     .Lget_vtb
++#ifdef CONFIG_REQUIRE_NX
++.Lno_nx:
++        add     $sym_offs(.Lno_nx_msg), %esi
++        jmp     .Lget_vtb
++#endif
+ .Lmb2_no_st:
+         /*
+          * Here we are on EFI platform. vga_text_buffer was zapped earlier
+@@ -656,7 +662,12 @@ trampoline_setup:
          bt      $cpufeat_bit(X86_FEATURE_LM),%edx
          jnc     .Lbad_cpu
  
-+        /* Check for NX */
-+        bt      $cpufeat_bit(X86_FEATURE_NX), %edx
-+        jc     .Lgot_nx
-+
+-        /* Check for NX */
 +        /*
-+         * NX appears to be unsupported, but it might be hidden.
-+         *
-+         * The feature is part of the AMD64 spec, but the very first Intel
-+         * 64bit CPUs lacked the feature, and thereafter there was a
-+         * firmware knob to disable the feature. Undo the disable if
-+         * possible.
-+         *
-+         * All 64bit Intel CPUs support this MSR. If virtualised, expect
-+         * the hypervisor to either emulate the MSR or give us NX.
++         * Check for NX
++         *   - If Xen was compiled requiring it simply assert it's
++         *     supported. The trampoline already has the right constant.
++         *   - Otherwise, update the trampoline EFER mask accordingly.
 +         */
-+        xor     %eax, %eax
-+        cpuid
-+        cmp     $X86_VENDOR_INTEL_EBX, %ebx
-+        jnz     .Lno_nx
-+        cmp     $X86_VENDOR_INTEL_EDX, %edx
-+        jnz     .Lno_nx
-+        cmp     $X86_VENDOR_INTEL_ECX, %ecx
-+        jnz     .Lno_nx
-+
-+        /* Clear the XD_DISABLE bit */
-+        mov    $MSR_IA32_MISC_ENABLE, %ecx
-+        rdmsr
-+        btr     $2, %edx
-+        jnc     .Lno_nx
-+        wrmsr
-+        orb     $MSR_IA32_MISC_ENABLE_XD_DISABLE >> 32, 4 + sym_esi(trampoline_misc_enable_off)
-+
-+        /* Check again for NX */
-+        mov     $0x80000001, %eax
-+        cpuid
-+        bt      $cpufeat_bit(X86_FEATURE_NX), %edx
-+        jnc     .Lno_nx
-+
-+.Lgot_nx:
-+        /* Adjust EFER given that NX is present */
-+        orb     $EFER_NXE >> 8, 1 + sym_esi(trampoline_efer)
-+.Lno_nx:
-+
+         bt      $cpufeat_bit(X86_FEATURE_NX), %edx
+         jc     .Lgot_nx
+ 
+@@ -695,9 +706,11 @@ trampoline_setup:
+         jnc     .Lno_nx
+ 
+ .Lgot_nx:
++#ifndef CONFIG_REQUIRE_NX
+         /* Adjust EFER given that NX is present */
+         orb     $EFER_NXE >> 8, 1 + sym_esi(trampoline_efer)
+ .Lno_nx:
++#endif
+ 
          /* Stash TSC to calculate a good approximation of time-since-boot */
          rdtsc
-         mov     %eax,     sym_esi(boot_tsc_stamp)
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 168cd58f36..b2443b6831 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -304,24 +304,20 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
- 	if (c->x86 == 15 && c->x86_cache_alignment == 64)
- 		c->x86_cache_alignment = 128;
+diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
+index c6005fa33d..b8ab0ffdcb 100644
+--- a/xen/arch/x86/boot/trampoline.S
++++ b/xen/arch/x86/boot/trampoline.S
+@@ -147,7 +147,8 @@ GLOBAL(trampoline_misc_enable_off)
  
-+	if (bootsym(trampoline_misc_enable_off) &
-+	    MSR_IA32_MISC_ENABLE_XD_DISABLE)
-+		printk(KERN_INFO
-+		       "re-enabled NX (Execute Disable) protection\n");
+ /* EFER OR-mask for boot paths.  SCE conditional on PV support, NX added when available. */
+ GLOBAL(trampoline_efer)
+-        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV))
++        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV)) | \
++                (EFER_NXE * IS_ENABLED(CONFIG_REQUIRE_NX))
+ 
+ GLOBAL(trampoline_xen_phys_start)
+         .long   0
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index c94e53d139..84700559bb 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -751,6 +751,15 @@ static void __init efi_arch_cpu(void)
+     {
+         caps[FEATURESET_e1d] = cpuid_edx(0x80000001);
+ 
++        /*
++         * This check purposefully doesn't use cpu_has_nx because
++         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
++         * with CONFIG_REQUIRE_NX
++         */
++        if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
++             !boot_cpu_has(X86_FEATURE_NX) )
++            blexit(L"This Xen build requires NX bit support.");
 +
- 	/* Unmask CPUID levels and NX if masked: */
- 	rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+         if ( cpu_has_nx )
+             trampoline_efer |= EFER_NXE;
+     }
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index e2cb8f3cc7..64e1dad225 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -91,7 +91,8 @@ static inline bool boot_cpu_has(unsigned int feat)
+ #define cpu_has_hypervisor      boot_cpu_has(X86_FEATURE_HYPERVISOR)
  
--	disable = misc_enable & (MSR_IA32_MISC_ENABLE_LIMIT_CPUID |
--				 MSR_IA32_MISC_ENABLE_XD_DISABLE);
-+	disable = misc_enable & MSR_IA32_MISC_ENABLE_LIMIT_CPUID;
- 	if (disable) {
- 		wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable & ~disable);
- 		bootsym(trampoline_misc_enable_off) |= disable;
--		bootsym(trampoline_efer) |= EFER_NXE;
--	}
--
--	if (disable & MSR_IA32_MISC_ENABLE_LIMIT_CPUID)
- 		printk(KERN_INFO "revised cpuid level: %d\n",
- 		       cpuid_eax(0));
--	if (disable & MSR_IA32_MISC_ENABLE_XD_DISABLE) {
--		write_efer(read_efer() | EFER_NXE);
--		printk(KERN_INFO
--		       "re-enabled NX (Execute Disable) protection\n");
- 	}
- 
- 	/* CPUID workaround for Intel 0F33/0F34 CPU */
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 2749e433d2..4f861c0bb4 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -502,7 +502,7 @@
- #define MSR_IA32_MISC_ENABLE_MONITOR_ENABLE (1<<18)
- #define MSR_IA32_MISC_ENABLE_LIMIT_CPUID  (1<<22)
- #define MSR_IA32_MISC_ENABLE_XTPR_DISABLE (1<<23)
--#define MSR_IA32_MISC_ENABLE_XD_DISABLE	(1ULL << 34)
-+#define MSR_IA32_MISC_ENABLE_XD_DISABLE   (_AC(1, ULL) << 34)
- 
- #define MSR_IA32_TSC_DEADLINE		0x000006E0
- #define MSR_IA32_ENERGY_PERF_BIAS	0x000001b0
-diff --git a/xen/arch/x86/include/asm/x86-vendors.h b/xen/arch/x86/include/asm/x86-vendors.h
-index 0a37024cbd..9191da26d7 100644
---- a/xen/arch/x86/include/asm/x86-vendors.h
-+++ b/xen/arch/x86/include/asm/x86-vendors.h
-@@ -12,9 +12,9 @@
- #define X86_VENDOR_UNKNOWN 0
- 
- #define X86_VENDOR_INTEL (1 << 0)
--#define X86_VENDOR_INTEL_EBX 0x756e6547U /* "GenuineIntel" */
--#define X86_VENDOR_INTEL_ECX 0x6c65746eU
--#define X86_VENDOR_INTEL_EDX 0x49656e69U
-+#define X86_VENDOR_INTEL_EBX _AC(0x756e6547, U) /* "GenuineIntel" */
-+#define X86_VENDOR_INTEL_ECX _AC(0x6c65746e, U)
-+#define X86_VENDOR_INTEL_EDX _AC(0x49656e69, U)
- 
- #define X86_VENDOR_AMD (1 << 1)
- #define X86_VENDOR_AMD_EBX 0x68747541U /* "AuthenticAMD" */
+ /* CPUID level 0x80000001.edx */
+-#define cpu_has_nx              boot_cpu_has(X86_FEATURE_NX)
++#define cpu_has_nx              (IS_ENABLED(CONFIG_REQUIRE_NX) || \
++                                 boot_cpu_has(X86_FEATURE_NX))
+ #define cpu_has_page1gb         boot_cpu_has(X86_FEATURE_PAGE1GB)
+ #define cpu_has_rdtscp          boot_cpu_has(X86_FEATURE_RDTSCP)
+ #define cpu_has_3dnow_ext       boot_cpu_has(X86_FEATURE_3DNOWEXT)
 -- 
 2.34.1
 
