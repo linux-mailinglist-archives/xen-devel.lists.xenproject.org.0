@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5369A7429E4
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 17:47:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.556934.869843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7824B7429E3
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 17:47:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.556935.869854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEtr4-0006Cl-2V; Thu, 29 Jun 2023 15:46:46 +0000
+	id 1qEtr9-0006S8-At; Thu, 29 Jun 2023 15:46:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 556934.869843; Thu, 29 Jun 2023 15:46:46 +0000
+Received: by outflank-mailman (output) from mailman id 556935.869854; Thu, 29 Jun 2023 15:46:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qEtr3-0006AX-WD; Thu, 29 Jun 2023 15:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 556934;
- Thu, 29 Jun 2023 15:46:43 +0000
+	id 1qEtr9-0006Pq-7Z; Thu, 29 Jun 2023 15:46:51 +0000
+Received: by outflank-mailman (input) for mailman id 556935;
+ Thu, 29 Jun 2023 15:46:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=In7u=CR=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1qEtr1-0006AR-RJ
- for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 15:46:43 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 236fdc9e-1694-11ee-8611-37d641c3527e;
- Thu, 29 Jun 2023 17:46:40 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6866DC14;
- Thu, 29 Jun 2023 08:47:23 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 769FB3F64C;
- Thu, 29 Jun 2023 08:46:38 -0700 (PDT)
+ <SRS0=4caF=CR=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qEtr7-0006AR-Qv
+ for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 15:46:49 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 282067ab-1694-11ee-8611-37d641c3527e;
+ Thu, 29 Jun 2023 17:46:48 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-3fbc0981755so5162085e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jun 2023 08:46:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,204 +40,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 236fdc9e-1694-11ee-8611-37d641c3527e
-From: Rahul Singh <rahul.singh@arm.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: rahul.singh@arm.com,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Samuel Holland <samuel@sholland.org>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Jane Malalane <jane.malalane@citrix.com>
-Subject: [PATCH v2] xen/evtchn: Introduce new IOCTL to bind static evtchn
-Date: Thu, 29 Jun 2023 16:46:18 +0100
-Message-Id: <764d561e3aecb7e63e8601dc50aaef9fc40834e4.1688051342.git.rahul.singh@arm.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 282067ab-1694-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1688053607; x=1690645607;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=qcptGNYXouZ6DvI4j4ewjdDkrCqSPX19A4IN3FJBXl8=;
+        b=YfY/9x6/Ta6bmAXA/kUn47fyY++rIUVif6tw5sHHAGul4+wy/GghxsfrmttFtxwVUi
+         3ar0hUb4UCfLoQuooGY+sRTdr0faysFpkAwfA/I8V1MyfUqzhX9HjA0KQBcfYCNE4Pei
+         k15Mh6JIzJTWgh/SQjLubm5kHx0Qw6ViBC01E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688053607; x=1690645607;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qcptGNYXouZ6DvI4j4ewjdDkrCqSPX19A4IN3FJBXl8=;
+        b=NcVJyWGRdTv+jNCsCfQYgcPue1A+mQxq0RUYwpgTw4U781brj0J9ZFxSpO5iCFdVZE
+         6vUj20A7POK5RoHaj0ZWlDUdre0qGXSti6isXgBhT2tVIvT1H6dIgCggoDAUN2cPbAkx
+         jWi6ChDHBN3bdaGbUpYSmvKkEmBpgd6yXB3x0Klz+5ZIWQa8u1RIZ4MD5Jdgg4zQF17R
+         eyOslPCNPmFrQFOYjmyD8gzdP62wjU/ph7VKc9EesnOukZzvmMuBK8PtPd+LLizecdZB
+         nilEFAPI0BNe74q/fPmLGCydVV6afc2QsLdTwVMAC7Gkw4QosmBydd8KkIBiCJitVNvk
+         WRAQ==
+X-Gm-Message-State: AC+VfDyKYfbFPe5xQd+XGWuEdRAxOHgszTpfgO7YI2Duiw2thJRAPTqv
+	+vUDsE4CaHs1fBDhW7V2t0YtWu6TW2prVykM041GjPaD6sNlqc+n
+X-Google-Smtp-Source: ACHHUZ5+SRckBx33Rfc1gFu90iDK1UxCOlYPwBm0poWH2pPQ/B03yNEU+k46ES6ii48CYNSO/oZYpmwRsCQq+gb7x1I=
+X-Received: by 2002:a7b:c392:0:b0:3fa:8fb1:50fe with SMTP id
+ s18-20020a7bc392000000b003fa8fb150femr10869666wmj.15.1688053607327; Thu, 29
+ Jun 2023 08:46:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230629121713.1211-1-alejandro.vallejo@cloud.com> <20230629121713.1211-2-alejandro.vallejo@cloud.com>
+In-Reply-To: <20230629121713.1211-2-alejandro.vallejo@cloud.com>
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Date: Thu, 29 Jun 2023 16:46:37 +0100
+Message-ID: <CAFi36o11vYv4ghCq5+gNg7uPYW-kk1oTT8k5MrnUU6Pwf9tYuw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] tools: Add __AC() macro to common-macros.h
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000a07fe605ff469b68"
 
-Xen 4.17 supports the creation of static evtchns. To allow user space
-application to bind static evtchns introduce new ioctl
-"IOCTL_EVTCHN_BIND_STATIC". Existing IOCTL doing more than binding
-that’s why we need to introduce the new IOCTL to only bind the static
-event channels.
+--000000000000a07fe605ff469b68
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Also, static evtchns to be available for use during the lifetime of the
-guest. When the application exits, __unbind_from_irq() ends up being
-called from release() file operations because of that static evtchns
-are getting closed. To avoid closing the static event channel, add the
-new bool variable "is_static" in "struct irq_info" to mark the event
-channel static when creating the event channel to avoid closing the
-static evtchn.
+On Thu, Jun 29, 2023 at 1:17=E2=80=AFPM Alejandro Vallejo <
+alejandro.vallejo@cloud.com> wrote:
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
----
-v2:
- * Use bool in place u8 to define is_static variable.
- * Avoid closing the static evtchns in error path.
----
- drivers/xen/events/events_base.c |  7 +++++--
- drivers/xen/evtchn.c             | 30 ++++++++++++++++++++++--------
- include/uapi/xen/evtchn.h        |  9 +++++++++
- include/xen/events.h             |  2 +-
- 4 files changed, 37 insertions(+), 11 deletions(-)
+> Currently libxl and the x86-emulator tests carry their own versions. Fact=
+or
+> those out into the common macros header so every library can make use of
+> it. This is required so the following patch can add this macro to a heade=
+r
+> used both in Xen and tools/libs.
+>
+> No functional change.
+>
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+>  tools/include/xen-tools/common-macros.h | 3 +++
+>  tools/libs/light/libxl_internal.h       | 2 --
+>  tools/tests/x86_emulator/x86-emulate.h  | 3 ---
+>  3 files changed, 3 insertions(+), 5 deletions(-)
+>
+> diff --git a/tools/include/xen-tools/common-macros.h
+> b/tools/include/xen-tools/common-macros.h
+> index 168691be0e..6d7de1bc0a 100644
+> --- a/tools/include/xen-tools/common-macros.h
+> +++ b/tools/include/xen-tools/common-macros.h
+> @@ -84,4 +84,7 @@
+>      (type *)((char *)mptr__ - offsetof(type, member));  \
+>  })
+>
+> +#define __AC(X,Y)   (X##Y)
+> +#define _AC(X,Y)    __AC(X,Y)
+> +
+>  #endif /* __XEN_TOOLS_COMMON_MACROS__ */
+> diff --git a/tools/libs/light/libxl_internal.h
+> b/tools/libs/light/libxl_internal.h
+> index 61f4fe1dec..1cf3d400bf 100644
+> --- a/tools/libs/light/libxl_internal.h
+> +++ b/tools/libs/light/libxl_internal.h
+> @@ -125,8 +125,6 @@
+>  #define PVSHIM_CMDLINE "pv-shim console=3Dxen,pv"
+>
+>  /* Size macros. */
+> -#define __AC(X,Y)   (X##Y)
+> -#define _AC(X,Y)    __AC(X,Y)
+>  #define MB(_mb)     (_AC(_mb, ULL) << 20)
+>  #define GB(_gb)     (_AC(_gb, ULL) << 30)
+>
+> diff --git a/tools/tests/x86_emulator/x86-emulate.h
+> b/tools/tests/x86_emulator/x86-emulate.h
+> index aa1ed75ec8..350d1a0abf 100644
+> --- a/tools/tests/x86_emulator/x86-emulate.h
+> +++ b/tools/tests/x86_emulator/x86-emulate.h
+> @@ -59,9 +59,6 @@
+>
+>  #define cf_check /* No Control Flow Integriy checking */
+>
+> -#define AC_(n,t) (n##t)
+> -#define _AC(n,t) AC_(n,t)
+> -
+>  #ifdef __GCC_ASM_FLAG_OUTPUTS__
+>  # define ASM_FLAG_OUT(yes, no) yes
+>  #else
+> --
+> 2.34.1
+>
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index c7715f8bd452..5d3b5c7cfe64 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -112,6 +112,7 @@ struct irq_info {
- 	unsigned int irq_epoch; /* If eoi_cpu valid: irq_epoch of event */
- 	u64 eoi_time;           /* Time in jiffies when to EOI. */
- 	raw_spinlock_t lock;
-+	bool is_static;           /* Is event channel static */
- 
- 	union {
- 		unsigned short virq;
-@@ -982,7 +983,8 @@ static void __unbind_from_irq(unsigned int irq)
- 		unsigned int cpu = cpu_from_irq(irq);
- 		struct xenbus_device *dev;
- 
--		xen_evtchn_close(evtchn);
-+		if (!info->is_static)
-+			xen_evtchn_close(evtchn);
- 
- 		switch (type_from_irq(irq)) {
- 		case IRQT_VIRQ:
-@@ -1574,7 +1576,7 @@ int xen_set_irq_priority(unsigned irq, unsigned priority)
- }
- EXPORT_SYMBOL_GPL(xen_set_irq_priority);
- 
--int evtchn_make_refcounted(evtchn_port_t evtchn)
-+int evtchn_make_refcounted(evtchn_port_t evtchn, bool is_static)
- {
- 	int irq = get_evtchn_to_irq(evtchn);
- 	struct irq_info *info;
-@@ -1590,6 +1592,7 @@ int evtchn_make_refcounted(evtchn_port_t evtchn)
- 	WARN_ON(info->refcnt != -1);
- 
- 	info->refcnt = 1;
-+	info->is_static = is_static;
- 
- 	return 0;
- }
-diff --git a/drivers/xen/evtchn.c b/drivers/xen/evtchn.c
-index c99415a70051..e6d2303478b2 100644
---- a/drivers/xen/evtchn.c
-+++ b/drivers/xen/evtchn.c
-@@ -366,7 +366,8 @@ static int evtchn_resize_ring(struct per_user_data *u)
- 	return 0;
- }
- 
--static int evtchn_bind_to_user(struct per_user_data *u, evtchn_port_t port)
-+static int evtchn_bind_to_user(struct per_user_data *u, evtchn_port_t port,
-+			bool is_static)
- {
- 	struct user_evtchn *evtchn;
- 	struct evtchn_close close;
-@@ -402,14 +403,16 @@ static int evtchn_bind_to_user(struct per_user_data *u, evtchn_port_t port)
- 	if (rc < 0)
- 		goto err;
- 
--	rc = evtchn_make_refcounted(port);
-+	rc = evtchn_make_refcounted(port, is_static);
- 	return rc;
- 
- err:
- 	/* bind failed, should close the port now */
--	close.port = port;
--	if (HYPERVISOR_event_channel_op(EVTCHNOP_close, &close) != 0)
--		BUG();
-+	if (!is_static) {
-+		close.port = port;
-+		if (HYPERVISOR_event_channel_op(EVTCHNOP_close, &close) != 0)
-+			BUG();
-+	}
- 	del_evtchn(u, evtchn);
- 	return rc;
- }
-@@ -456,7 +459,7 @@ static long evtchn_ioctl(struct file *file,
- 		if (rc != 0)
- 			break;
- 
--		rc = evtchn_bind_to_user(u, bind_virq.port);
-+		rc = evtchn_bind_to_user(u, bind_virq.port, false);
- 		if (rc == 0)
- 			rc = bind_virq.port;
- 		break;
-@@ -482,7 +485,7 @@ static long evtchn_ioctl(struct file *file,
- 		if (rc != 0)
- 			break;
- 
--		rc = evtchn_bind_to_user(u, bind_interdomain.local_port);
-+		rc = evtchn_bind_to_user(u, bind_interdomain.local_port, false);
- 		if (rc == 0)
- 			rc = bind_interdomain.local_port;
- 		break;
-@@ -507,7 +510,7 @@ static long evtchn_ioctl(struct file *file,
- 		if (rc != 0)
- 			break;
- 
--		rc = evtchn_bind_to_user(u, alloc_unbound.port);
-+		rc = evtchn_bind_to_user(u, alloc_unbound.port, false);
- 		if (rc == 0)
- 			rc = alloc_unbound.port;
- 		break;
-@@ -536,6 +539,17 @@ static long evtchn_ioctl(struct file *file,
- 		break;
- 	}
- 
-+	case IOCTL_EVTCHN_BIND_STATIC: {
-+		struct ioctl_evtchn_bind bind;
-+
-+		rc = -EFAULT;
-+		if (copy_from_user(&bind, uarg, sizeof(bind)))
-+			break;
-+
-+		rc = evtchn_bind_to_user(u, bind.port, true);
-+		break;
-+	}
-+
- 	case IOCTL_EVTCHN_NOTIFY: {
- 		struct ioctl_evtchn_notify notify;
- 		struct user_evtchn *evtchn;
-diff --git a/include/uapi/xen/evtchn.h b/include/uapi/xen/evtchn.h
-index 7fbf732f168f..aef2b75f3413 100644
---- a/include/uapi/xen/evtchn.h
-+++ b/include/uapi/xen/evtchn.h
-@@ -101,4 +101,13 @@ struct ioctl_evtchn_restrict_domid {
- 	domid_t domid;
- };
- 
-+/*
-+ * Bind statically allocated @port.
-+ */
-+#define IOCTL_EVTCHN_BIND_STATIC			\
-+	_IOC(_IOC_NONE, 'E', 7, sizeof(struct ioctl_evtchn_bind))
-+struct ioctl_evtchn_bind {
-+	unsigned int port;
-+};
-+
- #endif /* __LINUX_PUBLIC_EVTCHN_H__ */
-diff --git a/include/xen/events.h b/include/xen/events.h
-index ac1281c5ead6..377ad7e391e8 100644
---- a/include/xen/events.h
-+++ b/include/xen/events.h
-@@ -69,7 +69,7 @@ int xen_set_irq_priority(unsigned irq, unsigned priority);
- /*
-  * Allow extra references to event channels exposed to userspace by evtchn
-  */
--int evtchn_make_refcounted(evtchn_port_t evtchn);
-+int evtchn_make_refcounted(evtchn_port_t evtchn, bool is_static);
- int evtchn_get(evtchn_port_t evtchn);
- void evtchn_put(evtchn_port_t evtchn);
- 
+@mantainers
 
-base-commit: 3a8a670eeeaa40d87bd38a587438952741980c18
--- 
-2.25.1
+--000000000000a07fe605ff469b68
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div dir=3D"ltr">On Thu, Jun 29, 2023 at 1:17=E2=80=AFPM A=
+lejandro Vallejo &lt;<a href=3D"mailto:alejandro.vallejo@cloud.com">alejand=
+ro.vallejo@cloud.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">Currently libxl and the x86-=
+emulator tests carry their own versions. Factor<br>
+those out into the common macros header so every library can make use of<br=
+>
+it. This is required so the following patch can add this macro to a header<=
+br>
+used both in Xen and tools/libs.<br>
+<br>
+No functional change.<br>
+<br>
+Signed-off-by: Alejandro Vallejo &lt;<a href=3D"mailto:alejandro.vallejo@cl=
+oud.com" target=3D"_blank">alejandro.vallejo@cloud.com</a>&gt;<br>
+---<br>
+=C2=A0tools/include/xen-tools/common-macros.h | 3 +++<br>
+=C2=A0tools/libs/light/libxl_internal.h=C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 --<br=
+>
+=C2=A0tools/tests/x86_emulator/x86-emulate.h=C2=A0 | 3 ---<br>
+=C2=A03 files changed, 3 insertions(+), 5 deletions(-)<br>
+<br>
+diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-to=
+ols/common-macros.h<br>
+index 168691be0e..6d7de1bc0a 100644<br>
+--- a/tools/include/xen-tools/common-macros.h<br>
++++ b/tools/include/xen-tools/common-macros.h<br>
+@@ -84,4 +84,7 @@<br>
+=C2=A0 =C2=A0 =C2=A0(type *)((char *)mptr__ - offsetof(type, member));=C2=
+=A0 \<br>
+=C2=A0})<br>
+<br>
++#define __AC(X,Y)=C2=A0 =C2=A0(X##Y)<br>
++#define _AC(X,Y)=C2=A0 =C2=A0 __AC(X,Y)<br>
++<br>
+=C2=A0#endif /* __XEN_TOOLS_COMMON_MACROS__ */<br>
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_int=
+ernal.h<br>
+index 61f4fe1dec..1cf3d400bf 100644<br>
+--- a/tools/libs/light/libxl_internal.h<br>
++++ b/tools/libs/light/libxl_internal.h<br>
+@@ -125,8 +125,6 @@<br>
+=C2=A0#define PVSHIM_CMDLINE &quot;pv-shim console=3Dxen,pv&quot;<br>
+<br>
+=C2=A0/* Size macros. */<br>
+-#define __AC(X,Y)=C2=A0 =C2=A0(X##Y)<br>
+-#define _AC(X,Y)=C2=A0 =C2=A0 __AC(X,Y)<br>
+=C2=A0#define MB(_mb)=C2=A0 =C2=A0 =C2=A0(_AC(_mb, ULL) &lt;&lt; 20)<br>
+=C2=A0#define GB(_gb)=C2=A0 =C2=A0 =C2=A0(_AC(_gb, ULL) &lt;&lt; 30)<br>
+<br>
+diff --git a/tools/tests/x86_emulator/x86-emulate.h b/tools/tests/x86_emula=
+tor/x86-emulate.h<br>
+index aa1ed75ec8..350d1a0abf 100644<br>
+--- a/tools/tests/x86_emulator/x86-emulate.h<br>
++++ b/tools/tests/x86_emulator/x86-emulate.h<br>
+@@ -59,9 +59,6 @@<br>
+<br>
+=C2=A0#define cf_check /* No Control Flow Integriy checking */<br>
+<br>
+-#define AC_(n,t) (n##t)<br>
+-#define _AC(n,t) AC_(n,t)<br>
+-<br>
+=C2=A0#ifdef __GCC_ASM_FLAG_OUTPUTS__<br>
+=C2=A0# define ASM_FLAG_OUT(yes, no) yes<br>
+=C2=A0#else<br>
+-- <br>
+2.34.1<br></blockquote><div><br></div><div><a class=3D"gmail_plusreply" id=
+=3D"plusReplyChip-0">@mantainers</a>=C2=A0</div></div></div>
+
+--000000000000a07fe605ff469b68--
 
