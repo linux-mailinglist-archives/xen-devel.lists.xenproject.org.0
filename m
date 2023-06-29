@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F7D37430D3
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 00:59:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557205.870350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8DC67430D4
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 01:03:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557211.870361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF0bP-0001EV-Rf; Thu, 29 Jun 2023 22:59:03 +0000
+	id 1qF0fV-0002k1-Dx; Thu, 29 Jun 2023 23:03:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557205.870350; Thu, 29 Jun 2023 22:59:03 +0000
+Received: by outflank-mailman (output) from mailman id 557211.870361; Thu, 29 Jun 2023 23:03:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF0bP-0001Da-OW; Thu, 29 Jun 2023 22:59:03 +0000
-Received: by outflank-mailman (input) for mailman id 557205;
- Thu, 29 Jun 2023 22:59:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qF0bO-0001DQ-Kw; Thu, 29 Jun 2023 22:59:02 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qF0bO-0001zA-5l; Thu, 29 Jun 2023 22:59:02 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qF0bN-0003ra-O6; Thu, 29 Jun 2023 22:59:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qF0bN-0000R1-Ng; Thu, 29 Jun 2023 22:59:01 +0000
+	id 1qF0fV-0002hp-8W; Thu, 29 Jun 2023 23:03:17 +0000
+Received: by outflank-mailman (input) for mailman id 557211;
+ Thu, 29 Jun 2023 23:03:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XWGL=CR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qF0fT-0002hj-Ry
+ for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 23:03:15 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1f5020c2-16d1-11ee-8611-37d641c3527e;
+ Fri, 30 Jun 2023 01:03:13 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DD00061635;
+ Thu, 29 Jun 2023 23:03:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62378C433C0;
+ Thu, 29 Jun 2023 23:03:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AuyPoE3EyNYldeXuMw8id9f/FyX5gi2ajQaEv4Y57Vo=; b=Ta6o3kp2V2Li7yMvs3Ce0Ch6aF
-	EKUOTqLVGkpTpsUjPZcaOiGmZifyz4oZhn+bRcS8Jp91bdqQXX8g3g7NyNlXTgcoeQUFsLgnL5P2A
-	vZxo+HxLm0hEpBmBG+uiCDW9Yp+NQ0KmwbPcNCvWFbL8aTknt4IfmYTbipIQUSC7ocTo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181643-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1f5020c2-16d1-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688079791;
+	bh=7kJ2H8hhfmIt4v0p5Dt7LXPajHpuCt+iJnYbZNQYHQo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dyvEw4QKppmRQufunL6f6ympU2Fd8mpuxOwHWtG5um/dstJiVX3FuhpHisbH0P23T
+	 EshykUUEXidlirCGPOdApTi7xlQC8lJMG3lXV+oLYjc6vhZXqVTTbbcjRvTAbpuAvD
+	 yVdzA7XcoHX+jdcRFTSNI4LSZtTjZ/rCU9L3pPHbMtXQdjDitzmPHkiux+t2cvWDBO
+	 7a6WFB5vRn80P0ubmpQ7AeCmrRGiGSr9+wrAfhU/YQfpMFhmjvgXWD7y015JgNwvsx
+	 N9igUgHv+4993Ib43rKxRJ9rQvQzXNsHRkh3XgD/F030zyob1VapBPQRdbUCVSzh3q
+	 NiIyYVoHa9VyA==
+Date: Thu, 29 Jun 2023 16:03:09 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Henry Wang <Henry.Wang@arm.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: vgic: Add missing 'U' in VGIC_ICFG_MASK for
+ shifted constant
+In-Reply-To: <20230629221800.1478182-1-Henry.Wang@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2306291603010.3936094@ubuntu-linux-20-04-desktop>
+References: <20230629221800.1478182-1-Henry.Wang@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 181643: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=2a6da58442ded2b6199f0ff15f5d8a85ab923d85
-X-Osstest-Versions-That:
-    xen=5b9c96a808efdc004a876c03c2ea0bd0c5358812
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 29 Jun 2023 22:59:01 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 181643 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181643/
+On Fri, 30 Jun 2023, Henry Wang wrote:
+> With UBSAN on some arm64 platforms, e.g. FVP_Base_RevC-2xAEMvA, the
+> following splat will be printed while Dom0 is booting:
+> ```
+> (XEN) ==================================================================
+> (XEN) UBSAN: Undefined behaviour in arch/arm/vgic.c:372:15
+> (XEN) left shift of 1 by 31 places cannot be represented in type 'int'
+> (XEN) Xen WARN at common/ubsan/ubsan.c:172
+> (XEN) ----[ Xen-4.18-unstable  arm64  debug=y ubsan=y  Not tainted ]----
+> ```
+> 
+> This is because there is a device node in the device tree with 0xf
+> as the interrupts property. Example of the device tree node is shown
+> below:
+> ```
+> ethernet@202000000 {
+>     compatible = "smsc,lan91c111";
+>     reg = <0x2 0x2000000 0x10000>;
+>     interrupts = <0xf>;
+> };
+> ```
+> and this value is passed to vgic_get_virq_type() as "index" then "intr"
+> in VGIC_ICFG_MASK.
+> 
+> Add the missing 'U' in VGIC_ICFG_MASK as a fix, and this should also
+> addressing MISRA Rule 7.2:
+> 
+>     A "u" or "U" suffix shall be applied to all integer constants that
+>     are represented in an unsigned type
+> 
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  2a6da58442ded2b6199f0ff15f5d8a85ab923d85
-baseline version:
- xen                  5b9c96a808efdc004a876c03c2ea0bd0c5358812
-
-Last test of basis   181634  2023-06-28 23:06:35 Z    0 days
-Testing same since   181643  2023-06-29 20:01:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Henry Wang <Henry.Wang@arm.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-  Michal Orzel <michal.orzel@amd.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5b9c96a808..2a6da58442  2a6da58442ded2b6199f0ff15f5d8a85ab923d85 -> smoke
+> ---
+> This patch should be based on top of Julien's series
+> "xen/arm: Enable UBSAN support" to test.
+> ---
+>  xen/arch/arm/vgic.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+> index c61c68870c..97d6f61066 100644
+> --- a/xen/arch/arm/vgic.c
+> +++ b/xen/arch/arm/vgic.c
+> @@ -358,7 +358,7 @@ void vgic_disable_irqs(struct vcpu *v, uint32_t r, int n)
+>      }
+>  }
+>  
+> -#define VGIC_ICFG_MASK(intr) (1 << ((2 * ((intr) % 16)) + 1))
+> +#define VGIC_ICFG_MASK(intr) (1U << ((2 * ((intr) % 16)) + 1))
+>  
+>  /* The function should be called with the rank lock taken */
+>  static inline unsigned int vgic_get_virq_type(struct vcpu *v, int n, int index)
+> -- 
+> 2.25.1
+> 
 
