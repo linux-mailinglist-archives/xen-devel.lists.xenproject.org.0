@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BCC742D72
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 21:28:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557041.870043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72045742D79
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jun 2023 21:32:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557047.870055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qExJh-0005uU-CO; Thu, 29 Jun 2023 19:28:33 +0000
+	id 1qExMu-0007Pa-Uv; Thu, 29 Jun 2023 19:31:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557041.870043; Thu, 29 Jun 2023 19:28:33 +0000
+Received: by outflank-mailman (output) from mailman id 557047.870055; Thu, 29 Jun 2023 19:31:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qExJh-0005rI-9P; Thu, 29 Jun 2023 19:28:33 +0000
-Received: by outflank-mailman (input) for mailman id 557041;
- Thu, 29 Jun 2023 19:28:31 +0000
+	id 1qExMu-0007MH-S1; Thu, 29 Jun 2023 19:31:52 +0000
+Received: by outflank-mailman (input) for mailman id 557047;
+ Thu, 29 Jun 2023 19:31:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XWGL=CR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qExJf-0005r8-L0
- for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 19:28:31 +0000
+ id 1qExMt-0007MB-Vk
+ for xen-devel@lists.xenproject.org; Thu, 29 Jun 2023 19:31:52 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 204b86c4-16b3-11ee-b237-6b7b168915f2;
- Thu, 29 Jun 2023 21:28:30 +0200 (CEST)
+ id 97ce6702-16b3-11ee-b237-6b7b168915f2;
+ Thu, 29 Jun 2023 21:31:50 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C8FF9615E4;
- Thu, 29 Jun 2023 19:28:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB24C433C8;
- Thu, 29 Jun 2023 19:28:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3ABF161610;
+ Thu, 29 Jun 2023 19:31:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33CB2C433CA;
+ Thu, 29 Jun 2023 19:31:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,18 +45,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 204b86c4-16b3-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 97ce6702-16b3-11ee-b237-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688066908;
-	bh=y75zKNp5x6Lev92nyp9/8o9TrsayY4sKwA0624HqfSs=;
+	s=k20201202; t=1688067108;
+	bh=hayMPSBchzf8OR9c976DDb/IethORAmVTFVc/X8j/7M=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NhYdxHG/Ix9kY3v9vilsjhf07+9P1lPSklQDlyYj6kklR/QkIACKjYRqxeP76NutC
-	 gkG0nPYcm4SbJidjw/nm+BMFj8DUqevmpY9VMmcJT2fFjdFuAC1SWgRwN4tGBjx4oD
-	 y4JP8HwP0g6eD5kdlabeI7Rnd/YVflcGOM1BOxdfrhU5SI1pnbUWp4CoabVqDUghiW
-	 zJ0buqS5GWs3q5n4rgfyG8jnGqoW4yFW7JfD2fb9/ZBZBX6N4QvE730yrbGcOd5jOP
-	 7fiiFBCv1RL42Ah664U8oQ0O/UA2ogkZL7dXV8s2EZjKJhyHTHVwqZJwBfdENzD22f
-	 i4r6yyjA24mNA==
-Date: Thu, 29 Jun 2023 12:28:25 -0700 (PDT)
+	b=AKvNCiGMFfzD39DcaqhzgGeFyX2nVooVoK++7argSRehDw6MEKg1wlzk5ckkjI585
+	 phZj9FIGCDkv1zCGl1MWnpokI0pnjQb9JkOJCXwSte1h74DueN0YxloffadxtNXciv
+	 cBS14wCT0px9Aohs70ktXjKF6GTMnChqMFVPKLEiMMh7B1PAxGbtF/WcTl8RINUXlg
+	 jtrlTbwORi8b5D1+EWBLhi/Ent7IEe6SjaUlujnALntxmOsASAMeBUS6n3x4ZkAMSv
+	 YyGzY3q1QF1QdqdGjEgYhVCNJ4h8ZIfSE8U4HsWII4pte8xZUPenw9H2mpXzNupfIC
+	 9T4e6+7r43hKg==
+Date: Thu, 29 Jun 2023 12:31:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Federico Serafini <federico.serafini@bugseng.com>
@@ -67,204 +67,475 @@ cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
     Michal Orzel <michal.orzel@amd.com>, 
     Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
     Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: Re: [XEN PATCH 3/5] x86/vlapic: change parameter names in function
- definitions
-In-Reply-To: <ef87958a9296abbee362f81bd8dcd4de3c286a45.1688049495.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2306291226490.3936094@ubuntu-linux-20-04-desktop>
-References: <cover.1688049494.git.federico.serafini@bugseng.com> <ef87958a9296abbee362f81bd8dcd4de3c286a45.1688049495.git.federico.serafini@bugseng.com>
+Subject: Re: [XEN PATCH 4/5] x86/x86_emulate: change parameter name from 's'
+ to 'state'
+In-Reply-To: <8c8bc96b96a1111a4651f970f506d304809ea40d.1688049495.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2306291230500.3936094@ubuntu-linux-20-04-desktop>
+References: <cover.1688049494.git.federico.serafini@bugseng.com> <8c8bc96b96a1111a4651f970f506d304809ea40d.1688049495.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 29 Jun 2023, Federico Serafini wrote:
-> Change parameter names in guest_wrmsr_x2apic() and
-> guest_wrmsr_apic_base() definitions in order to:
-> 1) keep consistency with parameter names used in guest_* function
+> Change parameter name from 's' to 'state' in function definitions in
+> order to:
+> 1) keep consistency with the parameter names used in the corresponding
 >    declarations;
-> 2) fix violations of MISRA C:2012 Rule 8.3.
+> 2) keep consistency with parameter names used within x86_emulate.h;
+> 3) fix violations of MISRA C:2012 Rule 8.3.
 > 
 > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+You could use x86emul: as tag in the title. I'll let Jan choose the tag
+he prefers.
 
-One minor comment below
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/arch/x86/hvm/vlapic.c | 56 +++++++++++++++++++--------------------
->  1 file changed, 28 insertions(+), 28 deletions(-)
+>  xen/arch/x86/x86_emulate/blk.c      | 38 ++++++++++----------
+>  xen/arch/x86/x86_emulate/util-xen.c | 46 ++++++++++++------------
+>  xen/arch/x86/x86_emulate/util.c     | 54 ++++++++++++++---------------
+>  3 files changed, 69 insertions(+), 69 deletions(-)
 > 
-> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-> index 785d5d88d9..5e0e12a1d7 100644
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -959,7 +959,7 @@ int vlapic_apicv_write(struct vcpu *v, unsigned int offset)
->      return X86EMUL_OKAY;
->  }
->  
-> -int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t msr_content)
-> +int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t val)
+> diff --git a/xen/arch/x86/x86_emulate/blk.c b/xen/arch/x86/x86_emulate/blk.c
+> index e790f4f900..23eeb00db2 100644
+> --- a/xen/arch/x86/x86_emulate/blk.c
+> +++ b/xen/arch/x86/x86_emulate/blk.c
+> @@ -22,12 +22,12 @@ int x86_emul_blk(
+>      void *data,
+>      unsigned int bytes,
+>      uint32_t *eflags,
+> -    struct x86_emulate_state *s,
+> +    struct x86_emulate_state *state,
+>      struct x86_emulate_ctxt *ctxt)
 >  {
->      struct vlapic *vlapic = vcpu_vlapic(v);
->      uint32_t offset = (msr - MSR_X2APIC_FIRST) << 4;
-> @@ -973,38 +973,38 @@ int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t msr_content)
->      switch ( offset )
+>      int rc = X86EMUL_OKAY;
+>  
+> -    switch ( s->blk )
+> +    switch ( state->blk )
 >      {
->      case APIC_TASKPRI:
-> -        if ( msr_content & ~APIC_TPRI_MASK )
-> +        if ( val & ~APIC_TPRI_MASK )
->              return X86EMUL_EXCEPTION;
->          break;
+>          bool zf;
+>  #ifndef X86EMUL_NO_FPU
+> @@ -72,13 +72,13 @@ int x86_emul_blk(
+>      case blk_fld:
+>          ASSERT(!data);
 >  
->      case APIC_SPIV:
-> -        if ( msr_content & ~(APIC_VECTOR_MASK | APIC_SPIV_APIC_ENABLED |
-> -                             APIC_SPIV_FOCUS_DISABLED |
-> -                             (VLAPIC_VERSION & APIC_LVR_DIRECTED_EOI
-> -                              ? APIC_SPIV_DIRECTED_EOI : 0)) )
-> +        if ( val & ~(APIC_VECTOR_MASK | APIC_SPIV_APIC_ENABLED |
-> +                     APIC_SPIV_FOCUS_DISABLED |
-> +                     (VLAPIC_VERSION & APIC_LVR_DIRECTED_EOI
-> +                      ? APIC_SPIV_DIRECTED_EOI : 0)) )
->              return X86EMUL_EXCEPTION;
->          break;
->  
->      case APIC_LVTT:
-> -        if ( msr_content & ~(LVT_MASK | APIC_TIMER_MODE_MASK) )
-> +        if ( val & ~(LVT_MASK | APIC_TIMER_MODE_MASK) )
->              return X86EMUL_EXCEPTION;
->          break;
->  
->      case APIC_LVTTHMR:
->      case APIC_LVTPC:
->      case APIC_CMCI:
-> -        if ( msr_content & ~(LVT_MASK | APIC_MODE_MASK) )
-> +        if ( val & ~(LVT_MASK | APIC_MODE_MASK) )
->              return X86EMUL_EXCEPTION;
->          break;
->  
->      case APIC_LVT0:
->      case APIC_LVT1:
-> -        if ( msr_content & ~LINT_MASK )
-> +        if ( val & ~LINT_MASK )
->              return X86EMUL_EXCEPTION;
->          break;
->  
->      case APIC_LVTERR:
-> -        if ( msr_content & ~LVT_MASK )
-> +        if ( val & ~LVT_MASK )
->              return X86EMUL_EXCEPTION;
->          break;
->  
-> @@ -1012,35 +1012,35 @@ int guest_wrmsr_x2apic(struct vcpu *v, uint32_t msr, uint64_t msr_content)
->          break;
->  
->      case APIC_TDCR:
-> -        if ( msr_content & ~APIC_TDR_DIV_MASK )
-> +        if ( val & ~APIC_TDR_DIV_MASK )
->              return X86EMUL_EXCEPTION;
->          break;
->  
->      case APIC_ICR:
-> -        if ( (uint32_t)msr_content & ~(APIC_VECTOR_MASK | APIC_MODE_MASK |
-> +        if ( (uint32_t)val & ~(APIC_VECTOR_MASK | APIC_MODE_MASK |
->                                         APIC_DEST_MASK | APIC_INT_ASSERT |
->                                         APIC_INT_LEVELTRIG | APIC_SHORT_MASK) )
-
-code style: the alignment here should be fixed, it can be done on commit
-
-
-
->              return X86EMUL_EXCEPTION;
-> -        vlapic_set_reg(vlapic, APIC_ICR2, msr_content >> 32);
-> +        vlapic_set_reg(vlapic, APIC_ICR2, val >> 32);
->          break;
->  
->      case APIC_SELF_IPI:
-> -        if ( msr_content & ~APIC_VECTOR_MASK )
-> +        if ( val & ~APIC_VECTOR_MASK )
->              return X86EMUL_EXCEPTION;
->          offset = APIC_ICR;
-> -        msr_content = APIC_DEST_SELF | (msr_content & APIC_VECTOR_MASK);
-> +        val = APIC_DEST_SELF | (val & APIC_VECTOR_MASK);
->          break;
->  
->      case APIC_EOI:
->      case APIC_ESR:
-> -        if ( msr_content )
-> +        if ( val )
+> -        /* s->rex_prefix carries CR0.PE && !EFLAGS.VM setting */
+> +        /* state->rex_prefix carries CR0.PE && !EFLAGS.VM setting */
+>          switch ( bytes )
 >          {
->      default:
->              return X86EMUL_EXCEPTION;
->          }
+>          case sizeof(fpstate.env): /* 32-bit FLDENV */
+>          case sizeof(fpstate):     /* 32-bit FRSTOR */
+>              memcpy(&fpstate.env, ptr, sizeof(fpstate.env));
+> -            if ( !s->rex_prefix )
+> +            if ( !state->rex_prefix )
+>              {
+>                  /* Convert 32-bit real/vm86 to 32-bit prot format. */
+>                  unsigned int fip = fpstate.env.mode.real.fip_lo +
+> @@ -109,7 +109,7 @@ int x86_emul_blk(
+>              fpstate.env.fsw = env->fsw;
+>              fpstate.env.ftw = env->ftw;
+>  
+> -            if ( s->rex_prefix )
+> +            if ( state->rex_prefix )
+>              {
+>                  /* Convert 16-bit prot to 32-bit prot format. */
+>                  fpstate.env.mode.prot.fip = env->mode.prot.fip;
+> @@ -165,12 +165,12 @@ int x86_emul_blk(
+>          else
+>              asm ( "fnstenv %0" : "+m" (fpstate.env) );
+>  
+> -        /* s->rex_prefix carries CR0.PE && !EFLAGS.VM setting */
+> +        /* state->rex_prefix carries CR0.PE && !EFLAGS.VM setting */
+>          switch ( bytes )
+>          {
+>          case sizeof(fpstate.env): /* 32-bit FNSTENV */
+>          case sizeof(fpstate):     /* 32-bit FNSAVE */
+> -            if ( !s->rex_prefix )
+> +            if ( !state->rex_prefix )
+>              {
+>                  /* Convert 32-bit prot to 32-bit real/vm86 format. */
+>                  unsigned int fip = fpstate.env.mode.prot.fip +
+> @@ -195,7 +195,7 @@ int x86_emul_blk(
+>  
+>          case sizeof(struct x87_env16):                        /* 16-bit FNSTENV */
+>          case sizeof(struct x87_env16) + sizeof(fpstate.freg): /* 16-bit FNSAVE */
+> -            if ( s->rex_prefix )
+> +            if ( state->rex_prefix )
+>              {
+>                  /* Convert 32-bit prot to 16-bit prot format. */
+>                  struct x87_env16 *env = ptr;
+> @@ -254,11 +254,11 @@ int x86_emul_blk(
+>  
+>          ASSERT(!data);
+>          ASSERT(bytes == sizeof(*fxsr));
+> -        ASSERT(s->op_bytes <= bytes);
+> +        ASSERT(state->op_bytes <= bytes);
+>  
+> -        if ( s->op_bytes < sizeof(*fxsr) )
+> +        if ( state->op_bytes < sizeof(*fxsr) )
+>          {
+> -            if ( s->rex_prefix & REX_W )
+> +            if ( state->rex_prefix & REX_W )
+>              {
+>                  /*
+>                   * The only way to force fxsaveq on a wide range of gas
+> @@ -278,13 +278,13 @@ int x86_emul_blk(
+>           * data FXRSTOR may actually consume in some way: Copy only the
+>           * defined portion, and zero the rest.
+>           */
+> -        memcpy(fxsr, ptr, min(s->op_bytes,
+> +        memcpy(fxsr, ptr, min(state->op_bytes,
+>                                (unsigned int)offsetof(struct x86_fxsr, rsvd)));
+>          memset(fxsr->rsvd, 0, sizeof(*fxsr) - offsetof(struct x86_fxsr, rsvd));
+>  
+>          generate_exception_if(fxsr->mxcsr & ~mxcsr_mask, X86_EXC_GP, 0);
+>  
+> -        if ( s->rex_prefix & REX_W )
+> +        if ( state->rex_prefix & REX_W )
+>          {
+>              /* See above for why operand/constraints are this way. */
+>              asm volatile ( ".byte 0x48; fxrstor (%1)"
+> @@ -301,15 +301,15 @@ int x86_emul_blk(
+>  
+>          ASSERT(!data);
+>          ASSERT(bytes == sizeof(*fxsr));
+> -        ASSERT(s->op_bytes <= bytes);
+> +        ASSERT(state->op_bytes <= bytes);
+>  
+> -        if ( s->op_bytes < sizeof(*fxsr) )
+> +        if ( state->op_bytes < sizeof(*fxsr) )
+>              /* Don't chance consuming uninitialized data. */
+> -            memset(fxsr, 0, s->op_bytes);
+> +            memset(fxsr, 0, state->op_bytes);
+>          else
+>              fxsr = ptr;
+>  
+> -        if ( s->rex_prefix & REX_W )
+> +        if ( state->rex_prefix & REX_W )
+>          {
+>              /* See above for why operand/constraints are this way. */
+>              asm volatile ( ".byte 0x48; fxsave (%1)"
+> @@ -318,8 +318,8 @@ int x86_emul_blk(
+>          else
+>              asm volatile ( "fxsave %0" : "=m" (*fxsr) );
+>  
+> -        if ( fxsr != ptr ) /* i.e. s->op_bytes < sizeof(*fxsr) */
+> -            memcpy(ptr, fxsr, s->op_bytes);
+> +        if ( fxsr != ptr ) /* i.e. state->op_bytes < sizeof(*fxsr) */
+> +            memcpy(ptr, fxsr, state->op_bytes);
+>          break;
 >      }
 >  
-> -    vlapic_reg_write(v, array_index_nospec(offset, PAGE_SIZE), msr_content);
-> +    vlapic_reg_write(v, array_index_nospec(offset, PAGE_SIZE), val);
+> diff --git a/xen/arch/x86/x86_emulate/util-xen.c b/xen/arch/x86/x86_emulate/util-xen.c
+> index 5e90818010..b36acbe1b0 100644
+> --- a/xen/arch/x86/x86_emulate/util-xen.c
+> +++ b/xen/arch/x86/x86_emulate/util-xen.c
+> @@ -14,26 +14,26 @@
+>  #include <asm/xstate.h>
 >  
->      return X86EMUL_OKAY;
->  }
-> @@ -1070,7 +1070,7 @@ static void set_x2apic_id(struct vlapic *vlapic)
->      vlapic_set_reg(vlapic, APIC_LDR, ldr);
->  }
->  
-> -int guest_wrmsr_apic_base(struct vcpu *v, uint64_t value)
-> +int guest_wrmsr_apic_base(struct vcpu *v, uint64_t val)
+>  #ifndef NDEBUG
+> -void x86_emulate_free_state(struct x86_emulate_state *s)
+> +void x86_emulate_free_state(struct x86_emulate_state *state)
 >  {
->      const struct cpu_policy *cp = v->domain->arch.cpu_policy;
->      struct vlapic *vlapic = vcpu_vlapic(v);
-> @@ -1079,8 +1079,8 @@ int guest_wrmsr_apic_base(struct vcpu *v, uint64_t value)
->          return X86EMUL_EXCEPTION;
+> -    check_state(s);
+> -    s->caller = NULL;
+> +    check_state(state);
+> +    state->caller = NULL;
+>  }
+>  #endif
 >  
->      /* Attempting to set reserved bits? */
-> -    if ( value & ~(APIC_BASE_ADDR_MASK | APIC_BASE_ENABLE | APIC_BASE_BSP |
-> -                   (cp->basic.x2apic ? APIC_BASE_EXTD : 0)) )
-> +    if ( val & ~(APIC_BASE_ADDR_MASK | APIC_BASE_ENABLE | APIC_BASE_BSP |
-> +                 (cp->basic.x2apic ? APIC_BASE_EXTD : 0)) )
->          return X86EMUL_EXCEPTION;
+> -unsigned int x86_insn_opsize(const struct x86_emulate_state *s)
+> +unsigned int x86_insn_opsize(const struct x86_emulate_state *state)
+>  {
+> -    check_state(s);
+> +    check_state(state);
 >  
->      /*
-> @@ -1118,21 +1118,21 @@ int guest_wrmsr_apic_base(struct vcpu *v, uint64_t value)
->       * fault will be far more obvious to debug than a malfunctioning MMIO
->       * window.
->       */
-> -    if ( ((value & (APIC_BASE_EXTD | APIC_BASE_ENABLE)) == APIC_BASE_ENABLE) &&
-> -         ((value & APIC_BASE_ADDR_MASK) != APIC_DEFAULT_PHYS_BASE) )
-> +    if ( ((val & (APIC_BASE_EXTD | APIC_BASE_ENABLE)) == APIC_BASE_ENABLE) &&
-> +         ((val & APIC_BASE_ADDR_MASK) != APIC_DEFAULT_PHYS_BASE) )
+> -    return s->op_bytes << 3;
+> +    return state->op_bytes << 3;
+>  }
+>  
+> -int x86_insn_modrm(const struct x86_emulate_state *s,
+> +int x86_insn_modrm(const struct x86_emulate_state *state,
+>                     unsigned int *rm, unsigned int *reg)
+>  {
+> -    check_state(s);
+> +    check_state(state);
+>  
+> -    if ( unlikely(s->modrm_mod > 3) )
+> +    if ( unlikely(state->modrm_mod > 3) )
 >      {
->          printk(XENLOG_G_INFO
->                 "%pv tried to move the APIC MMIO window: val 0x%08"PRIx64"\n",
-> -               v, value);
-> +               v, val);
->          return X86EMUL_EXCEPTION;
+>          if ( rm )
+>              *rm = ~0U;
+> @@ -43,24 +43,24 @@ int x86_insn_modrm(const struct x86_emulate_state *s,
 >      }
 >  
-> -    if ( (vlapic->hw.apic_base_msr ^ value) & APIC_BASE_ENABLE )
-> +    if ( (vlapic->hw.apic_base_msr ^ val) & APIC_BASE_ENABLE )
->      {
-> -        if ( unlikely(value & APIC_BASE_EXTD) )
-> +        if ( unlikely(val & APIC_BASE_EXTD) )
->              return X86EMUL_EXCEPTION;
+>      if ( rm )
+> -        *rm = s->modrm_rm;
+> +        *rm = state->modrm_rm;
+>      if ( reg )
+> -        *reg = s->modrm_reg;
+> +        *reg = state->modrm_reg;
 >  
-> -        if ( value & APIC_BASE_ENABLE )
-> +        if ( val & APIC_BASE_ENABLE )
+> -    return s->modrm_mod;
+> +    return state->modrm_mod;
+>  }
+>  
+> -unsigned long x86_insn_operand_ea(const struct x86_emulate_state *s,
+> +unsigned long x86_insn_operand_ea(const struct x86_emulate_state *state,
+>                                    enum x86_segment *seg)
+>  {
+> -    *seg = s->ea.type == OP_MEM ? s->ea.mem.seg : x86_seg_none;
+> +    *seg = state->ea.type == OP_MEM ? state->ea.mem.seg : x86_seg_none;
+>  
+> -    check_state(s);
+> +    check_state(state);
+>  
+> -    return s->ea.mem.off;
+> +    return state->ea.mem.off;
+>  }
+>  
+> -bool cf_check x86_insn_is_portio(const struct x86_emulate_state *s,
+> +bool cf_check x86_insn_is_portio(const struct x86_emulate_state *state,
+>                                   const struct x86_emulate_ctxt *ctxt)
+>  {
+>      switch ( ctxt->opcode )
+> @@ -74,7 +74,7 @@ bool cf_check x86_insn_is_portio(const struct x86_emulate_state *s,
+>      return false;
+>  }
+>  
+> -bool cf_check x86_insn_is_cr_access(const struct x86_emulate_state *s,
+> +bool cf_check x86_insn_is_cr_access(const struct x86_emulate_state *state,
+>                                      const struct x86_emulate_ctxt *ctxt)
+>  {
+>      switch ( ctxt->opcode )
+> @@ -82,7 +82,7 @@ bool cf_check x86_insn_is_cr_access(const struct x86_emulate_state *s,
+>          unsigned int ext;
+>  
+>      case X86EMUL_OPC(0x0f, 0x01):
+> -        if ( x86_insn_modrm(s, NULL, &ext) >= 0
+> +        if ( x86_insn_modrm(state, NULL, &ext) >= 0
+>               && (ext & 5) == 4 ) /* SMSW / LMSW */
+>              return true;
+>          break;
+> @@ -96,17 +96,17 @@ bool cf_check x86_insn_is_cr_access(const struct x86_emulate_state *s,
+>      return false;
+>  }
+>  
+> -unsigned long x86_insn_immediate(const struct x86_emulate_state *s,
+> +unsigned long x86_insn_immediate(const struct x86_emulate_state *state,
+>                                   unsigned int nr)
+>  {
+> -    check_state(s);
+> +    check_state(state);
+>  
+>      switch ( nr )
+>      {
+>      case 0:
+> -        return s->imm1;
+> +        return state->imm1;
+>      case 1:
+> -        return s->imm2;
+> +        return state->imm2;
+>      }
+>  
+>      return 0;
+> diff --git a/xen/arch/x86/x86_emulate/util.c b/xen/arch/x86/x86_emulate/util.c
+> index 4becd054c2..34daa8467f 100644
+> --- a/xen/arch/x86/x86_emulate/util.c
+> +++ b/xen/arch/x86/x86_emulate/util.c
+> @@ -8,12 +8,12 @@
+>  
+>  #include "private.h"
+>  
+> -unsigned int x86_insn_length(const struct x86_emulate_state *s,
+> +unsigned int x86_insn_length(const struct x86_emulate_state *state,
+>                               const struct x86_emulate_ctxt *ctxt)
+>  {
+> -    check_state(s);
+> +    check_state(state);
+>  
+> -    return s->ip - ctxt->regs->r(ip);
+> +    return state->ip - ctxt->regs->r(ip);
+>  }
+>  
+>  /*
+> @@ -22,13 +22,13 @@ unsigned int x86_insn_length(const struct x86_emulate_state *s,
+>   * memory operand (like POP), but it does not mean e.g. segment selector
+>   * loads, where the descriptor table access is considered an implicit one.
+>   */
+> -bool cf_check x86_insn_is_mem_access(const struct x86_emulate_state *s,
+> +bool cf_check x86_insn_is_mem_access(const struct x86_emulate_state *state,
+>                                       const struct x86_emulate_ctxt *ctxt)
+>  {
+> -    if ( mode_64bit() && s->not_64bit )
+> +    if ( mode_64bit() && state->not_64bit )
+>          return false;
+>  
+> -    if ( s->ea.type == OP_MEM )
+> +    if ( state->ea.type == OP_MEM )
+>      {
+>          switch ( ctxt->opcode )
 >          {
->              vlapic_reset(vlapic);
->              vlapic->hw.disabled &= ~VLAPIC_HW_DISABLED;
-> @@ -1144,11 +1144,11 @@ int guest_wrmsr_apic_base(struct vcpu *v, uint64_t value)
->              pt_may_unmask_irq(vlapic_domain(vlapic), NULL);
+> @@ -49,13 +49,13 @@ bool cf_check x86_insn_is_mem_access(const struct x86_emulate_state *s,
+>              return false;
+>  
+>          case X86EMUL_OPC(0x0f, 0x01):
+> -            return (s->modrm_reg & 7) != 7; /* INVLPG */
+> +            return (state->modrm_reg & 7) != 7; /* INVLPG */
+>  
+>          case X86EMUL_OPC(0x0f, 0xae):
+> -            return (s->modrm_reg & 7) != 7; /* CLFLUSH */
+> +            return (state->modrm_reg & 7) != 7; /* CLFLUSH */
+>  
+>          case X86EMUL_OPC_66(0x0f, 0xae):
+> -            return (s->modrm_reg & 7) < 6; /* CLWB, CLFLUSHOPT */
+> +            return (state->modrm_reg & 7) < 6; /* CLWB, CLFLUSHOPT */
 >          }
+>  
+>          return true;
+> @@ -91,7 +91,7 @@ bool cf_check x86_insn_is_mem_access(const struct x86_emulate_state *s,
+>          return true;
+>  
+>      case 0xff:
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 2: /* CALL (near, indirect) */
+>          case 6: /* PUSH r/m */
+> @@ -101,7 +101,7 @@ bool cf_check x86_insn_is_mem_access(const struct x86_emulate_state *s,
+>  
+>      case X86EMUL_OPC(0x0f, 0x01):
+>          /* Cover CLZERO. */
+> -        return (s->modrm_rm & 7) == 4 && (s->modrm_reg & 7) == 7;
+> +        return (state->modrm_rm & 7) == 4 && (state->modrm_reg & 7) == 7;
 >      }
-> -    else if ( ((vlapic->hw.apic_base_msr ^ value) & APIC_BASE_EXTD) &&
-> +    else if ( ((vlapic->hw.apic_base_msr ^ val) & APIC_BASE_EXTD) &&
->                unlikely(!vlapic_xapic_mode(vlapic)) )
->          return X86EMUL_EXCEPTION;
 >  
-> -    vlapic->hw.apic_base_msr = value;
-> +    vlapic->hw.apic_base_msr = val;
->      memset(&vlapic->loaded, 0, sizeof(vlapic->loaded));
+>      return false;
+> @@ -114,17 +114,17 @@ bool cf_check x86_insn_is_mem_access(const struct x86_emulate_state *s,
+>   * loads, where the (possible) descriptor table write is considered an
+>   * implicit access.
+>   */
+> -bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+> +bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *state,
+>                                      const struct x86_emulate_ctxt *ctxt)
+>  {
+> -    if ( mode_64bit() && s->not_64bit )
+> +    if ( mode_64bit() && state->not_64bit )
+>          return false;
 >  
->      if ( vlapic_x2apic_mode(vlapic) )
+> -    switch ( s->desc & DstMask )
+> +    switch ( state->desc & DstMask )
+>      {
+>      case DstMem:
+>          /* The SrcMem check is to cover {,V}MASKMOV{Q,DQU}. */
+> -        return s->modrm_mod != 3 || (s->desc & SrcMask) == SrcMem;
+> +        return state->modrm_mod != 3 || (state->desc & SrcMask) == SrcMem;
+>  
+>      case DstBitBase:
+>      case DstImplicit:
+> @@ -147,13 +147,13 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>               X86EMUL_OPC_EVEX_F3(0x0f38, 0x25): /* VPMOVS* */
+>          case X86EMUL_OPC_EVEX_F3(0x0f38, 0x30) ...
+>               X86EMUL_OPC_EVEX_F3(0x0f38, 0x35): /* VPMOV{D,Q,W}* */
+> -            return s->modrm_mod != 3;
+> +            return state->modrm_mod != 3;
+>          }
+>  
+>          return false;
+>      }
+>  
+> -    if ( s->modrm_mod == 3 )
+> +    if ( state->modrm_mod == 3 )
+>      {
+>          switch ( ctxt->opcode )
+>          {
+> @@ -161,7 +161,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>              break;
+>  
+>          case X86EMUL_OPC(0x0f, 0x01): /* CLZERO is the odd one. */
+> -            return (s->modrm_rm & 7) == 4 && (s->modrm_reg & 7) == 7;
+> +            return (state->modrm_rm & 7) == 4 && (state->modrm_reg & 7) == 7;
+>  
+>          default:
+>              return false;
+> @@ -192,7 +192,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          return true;
+>  
+>      case 0xd9:
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 2: /* FST m32fp */
+>          case 3: /* FSTP m32fp */
+> @@ -203,7 +203,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case 0xdb:
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 1: /* FISTTP m32i */
+>          case 2: /* FIST m32i */
+> @@ -214,7 +214,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case 0xdd:
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 1: /* FISTTP m64i */
+>          case 2: /* FST m64fp */
+> @@ -226,7 +226,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case 0xdf:
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 1: /* FISTTP m16i */
+>          case 2: /* FIST m16i */
+> @@ -238,7 +238,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case 0xff:
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 2: /* CALL (near, indirect) */
+>          case 3: /* CALL (far, indirect) */
+> @@ -248,7 +248,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case X86EMUL_OPC(0x0f, 0x01):
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 0: /* SGDT */
+>          case 1: /* SIDT */
+> @@ -258,7 +258,7 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case X86EMUL_OPC(0x0f, 0xae):
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 0: /* FXSAVE */
+>          /* case 3: STMXCSR - handled above */
+> @@ -269,10 +269,10 @@ bool cf_check x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>          break;
+>  
+>      case X86EMUL_OPC(0x0f, 0xba):
+> -        return (s->modrm_reg & 7) > 4; /* BTS / BTR / BTC */
+> +        return (state->modrm_reg & 7) > 4; /* BTS / BTR / BTC */
+>  
+>      case X86EMUL_OPC(0x0f, 0xc7):
+> -        switch ( s->modrm_reg & 7 )
+> +        switch ( state->modrm_reg & 7 )
+>          {
+>          case 1: /* CMPXCHG{8,16}B */
+>          case 4: /* XSAVEC */
 > -- 
 > 2.34.1
 > 
