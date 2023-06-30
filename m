@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5B4E743AB8
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 13:22:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557429.870770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C386A743AE1
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 13:33:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557435.870778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFCD8-0006w7-Po; Fri, 30 Jun 2023 11:22:46 +0000
+	id 1qFCN6-0008V6-Mx; Fri, 30 Jun 2023 11:33:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557429.870770; Fri, 30 Jun 2023 11:22:46 +0000
+Received: by outflank-mailman (output) from mailman id 557435.870778; Fri, 30 Jun 2023 11:33:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFCD8-0006sm-Lu; Fri, 30 Jun 2023 11:22:46 +0000
-Received: by outflank-mailman (input) for mailman id 557429;
- Fri, 30 Jun 2023 11:22:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qFCN6-0008T6-JI; Fri, 30 Jun 2023 11:33:04 +0000
+Received: by outflank-mailman (input) for mailman id 557435;
+ Fri, 30 Jun 2023 11:33:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qFCD6-0006sQ-VT
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 11:22:44 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qFCD6-0004BE-Gy; Fri, 30 Jun 2023 11:22:44 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qFCD6-0006at-C8; Fri, 30 Jun 2023 11:22:44 +0000
+ (envelope-from <SRS0=M6/y=CS=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1qFCN4-0008T0-P8
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 11:33:02 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [81.169.146.161]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de52788a-1739-11ee-b237-6b7b168915f2;
+ Fri, 30 Jun 2023 13:33:00 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.6.0 AUTH)
+ with ESMTPSA id y5401az5UBWpyNP
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 30 Jun 2023 13:32:51 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,163 +41,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=i5+siVdUMaMN3uC7wzYRy1VJomOUA3yLJi4QLGgee6k=; b=NpOWn3U/I/Q1nQuxsAvusKHkNC
-	/Cmt4yr9scciQJlDA/Hd1GgFIh1gmrm29ug8cHBLkFKzJawXwHsG4sOiAIs1ERYnN2P8PpCjws0F7
-	d4G/7p0WMJLUvTwmGSJXG0702JETqXvIK+UbFPNyXDOQnGCP5iTI14yzunxsRwKwqzJ8=;
-Message-ID: <baed1eac-0f9a-a85a-d4cc-feef772870db@xen.org>
-Date: Fri, 30 Jun 2023 12:22:42 +0100
+X-Inumbo-ID: de52788a-1739-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1688124771; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=cRcjtAI/VOG4+GoSH9C6eYFR+KTj/0suAWOkzfHgw1F7QpXsrqGMdD/SpNzFmO5wso
+    mvWJRlxXMDh9Ae09lMsj1cDB3o3R9pXdC06gQPl8IwfVmrA1pKTe8wrMuUfiRpagfBSG
+    euMRvIw4YfxaWcJkRnqSlLzs365RGN8mD3k71YLEyAplZKe7GNxCmDwQJDwKbwrn9N4f
+    AjAN6Zu8qUOcGF07MmpZ4swbZTMIkp33cVHLP2xUS6Y+gJCvgqsjzqrSgw9ArLDViyX7
+    ga9xDpIYqhBhAlFEfPQvNom0Uflmt6ZaIhGSl7uftKn2QBWS2sGEImb81CTBcN1hvXhH
+    Vmlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1688124771;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=/gk7lMpgzNECZCi+/gCLLwKmUN3PQkb6jMH9TC2m/MQ=;
+    b=a7+sFiEgWoGvMgdiSq+qGYdiqYp2/RLHA6/cJM/4muZ5zWLijBe8ASnOPp4ii2uIjV
+    sayusVaiYLrdFOb4P+mmzOJmO0MvC+iNHhY3pMbMuHnNpryw+cvDBFlb2OWVEj+WThCQ
+    m7mwTaWKc/0gQYZ4o62NXUI477OnhE+7KlsV/t4m/CN9NTOnok33avX6P6OoWdQE/JgT
+    6rdHmZ2zgbSnszNBQziljCN4k1o1/+tKeO+eNkAVaKmMgc2PlJ4qpqn+yvvBxxlj89UY
+    0XxNoFJfoZ1XvWuYFlmaNn9GI8OkiSfKzNyzlmuc7Hdi30xKhH1eaM/UhgsPNJMeUGmY
+    0L+A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1688124771;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=/gk7lMpgzNECZCi+/gCLLwKmUN3PQkb6jMH9TC2m/MQ=;
+    b=fYBN01q30vZeqh2Frh9iN/k7steP4RJ2Az4vC1H/ZAFrn6NrnnpBDKy1UY8IQYYAZ3
+    z6YbnP5TsXsS+MujV478r/Dj6D7LXM+zikAjmQnWM+fReZCXHKVo0Rg2hFuS+wUD/fnw
+    KjoEB9WSj9NgNgnCr9ryWbm8oRoZI0yv85nooLUwOqmmm/+x3DAyGmwcnhomgiYzDbli
+    wksRGExpHZTv2ld5iDbVYukb0+Yja40kBzp/uzJtxQKt0RdtSD5d1EeGe4MYq12skQlQ
+    AdVLvNap7x9Zc9C22KzzjTmEbprXUyNWE3CdjX+1Vh5MWuqimfUSY2g1fDFoUQg8UR/Q
+    gc+A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1688124771;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=/gk7lMpgzNECZCi+/gCLLwKmUN3PQkb6jMH9TC2m/MQ=;
+    b=hEf6aYcS9lS1cIrxjvszx8GUI7WptFij09TxonfrZJm/Xt6yRBByhoEi2TfJpIKat5
+    3LgbSlsr96ERdDYZbbDA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR4VReIOE3s+xIC8HZ8TOtjelmE6SkKgUS6xMby0Q=="
+Date: Fri, 30 Jun 2023 13:32:42 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, John Snow
+ <jsnow@redhat.com>, xen-devel@lists.xenproject.org, Stefano Stabellini
+ <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
+Message-ID: <20230630133242.58e6d9ed.olaf@aepfle.de>
+In-Reply-To: <367317C5-DB65-40EF-B45B-97E0E802A994@gmail.com>
+References: <20210317070046.17860-1-olaf@aepfle.de>
+	<4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com>
+	<20210325121219.7b5daf76.olaf@aepfle.de>
+	<dae251e1-f808-708e-902c-05cfcbbea9cf@redhat.com>
+	<20230509225818.GA16290@aepfle.de>
+	<20230626231901.5b5d11c1.olaf@aepfle.de>
+	<c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com>
+	<5DB37FA5-41DF-4ED6-8C8A-CDDD6F276F42@gmail.com>
+	<20230627140740.2736f6e8.olaf@aepfle.de>
+	<4F5609FD-4A89-4450-89E2-3311CC5A9317@gmail.com>
+	<20230630092921.392b302d.olaf@aepfle.de>
+	<367317C5-DB65-40EF-B45B-97E0E802A994@gmail.com>
+X-Mailer: Claws Mail 20230601T090920.68bc28c0 hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 31/52] xen/mpu: make early_fdt_map support in MPU
- systems
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, Penny Zheng <penny.zheng@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-32-Penny.Zheng@arm.com>
- <c2a779e5-51a9-f0c8-4c00-a568ff4bde83@amd.com>
- <a381b1b0-d18a-8fea-56a4-d88c65bd3cea@arm.com>
- <9530f9f8-795b-783a-bc74-e30a3c5c2fd3@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <9530f9f8-795b-783a-bc74-e30a3c5c2fd3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/WOYyKbs1pq2/gEoXAojnkkq";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
+
+--Sig_/WOYyKbs1pq2/gEoXAojnkkq
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Fri, 30 Jun 2023 08:05:29 +0000 Bernhard Beschow <shentey@gmail.com>:
+
+> Yes. Have a look for piix3/piix4 here: https://www.intel.com/design/archi=
+ves/chipsets/440/index.htm
+
+This is hidden behind a login or whatever.
+
+I should be able to come up with a commit message without hardware specs be=
+ing available.
 
 
+Olaf
 
-On 30/06/2023 11:49, Ayan Kumar Halder wrote:
-> 
-> On 30/06/2023 05:07, Penny Zheng wrote:
->> Hi,
-> Hi Penny,
->>
->>
->> On 2023/6/30 01:22, Ayan Kumar Halder wrote:
->>>
->>> On 26/06/2023 04:34, Penny Zheng wrote:
->>>> CAUTION: This message has originated from an External Source. Please 
->>>> use proper judgment and caution when opening attachments, clicking 
->>>> links, or responding to this email.
->>>>
->>>>
->>>> In MPU system, MPU memory region is always mapped PAGE_ALIGN, so in 
->>>> order to
->>>> not access unexpected memory area, dtb section in xen.lds.S should 
->>>> be made
->>>> page-aligned too.
->>>> We add . = ALIGN(PAGE_SIZE); in the head of dtb section to make it 
->>>> happen.
->>>>
->>>> In this commit, we map early FDT with a transient MPU memory region, as
->>>> it will be relocated into heap and unmapped at the end of boot.
->>>>
->>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
->>>> ---
->>>> v3:
->>>> - map the first 2MB. Check the size and then re-map with an extra 
->>>> 2MB if needed
->>>> ---
->>>>   xen/arch/arm/include/asm/arm64/mpu.h |  3 ++-
->>>>   xen/arch/arm/include/asm/page.h      |  5 +++++
->>>>   xen/arch/arm/mm.c                    | 26 ++++++++++++++++++++------
->>>>   xen/arch/arm/mpu/mm.c                |  1 +
->>>>   xen/arch/arm/xen.lds.S               |  5 ++++-
->>>>   5 files changed, 32 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h 
->>>> b/xen/arch/arm/include/asm/arm64/mpu.h
->>>> index a6b07bab02..715ea69884 100644
->>>> --- a/xen/arch/arm/include/asm/arm64/mpu.h
->>>> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
->>>> @@ -72,7 +72,8 @@ typedef union {
->>>>           unsigned long ns:1;     /* Not-Secure */
->>>>           unsigned long res:1;    /* Reserved 0 by hardware */
->>>>           unsigned long limit:42; /* Limit Address */
->>>> -        unsigned long pad:16;
->>>> +        unsigned long pad:15;
->>>> +        unsigned long tran:1;   /* Transient region */
->>>>       } reg;
->>>>       uint64_t bits;
->>>>   } prlar_t;
->>>> diff --git a/xen/arch/arm/include/asm/page.h 
->>>> b/xen/arch/arm/include/asm/page.h
->>>> index 85ecd5e4de..a434e2205a 100644
->>>> --- a/xen/arch/arm/include/asm/page.h
->>>> +++ b/xen/arch/arm/include/asm/page.h
->>>> @@ -97,19 +97,24 @@
->>>>    * [3:4] Execute Never
->>>>    * [5:6] Access Permission
->>>>    * [7]   Region Present
->>>> + * [8]   Transient Region, e.g. MPU memory region is temproraily
->>>> + *                              mapped for a short time
->>>>    */
->>>>   #define _PAGE_AI_BIT            0
->>>>   #define _PAGE_XN_BIT            3
->>>>   #define _PAGE_AP_BIT            5
->>>>   #define _PAGE_PRESENT_BIT       7
->>>> +#define _PAGE_TRANSIENT_BIT     8
->>> I don't think this is related to MPU. At least when I look at the bit 
->>> representation of PRBAR_EL1/2,
->>
->> This set of _PAGE_xxx flags aren't compliant with PRBAR_EL1/2 register 
->> map.
->> It is a flag passed to function map_pages_to_xen() to indicate memory
->> attributes and permission.
-> 
-> But aren't you writing these flags to PRBAR_EL1/EL2 when you call 
-> xen_mpumap_update_entry().
-> 
-> In the below snippet of xen_mpumap_update_entry(), IIUC, you are writing 
-> these flags.
-> 
->          xen_mpumap[idx].prbar.reg.ap = PAGE_AP_MASK(flags);
->          xen_mpumap[idx].prbar.reg.xn = PAGE_XN_MASK(flags);
-> 
->          write_protection_region((const pr_t*)(&xen_mpumap[idx]), idx);
-> 
-> Please clarify here.
-> 
-> In this case, I don't prefer mixing hardware specific bits with software 
-> only representation for these reasons :-
-> 
-> 1. It makes it confusing and hard to differentiate the hardware specific 
-> attrbutes from software only.
+--Sig_/WOYyKbs1pq2/gEoXAojnkkq
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
-Penny's approach matches what we are doing in the MMU code. We want to 
-have a way for the caller to pass just set of flags and let the callee 
-to decide what to do with them.
+-----BEGIN PGP SIGNATURE-----
 
-This may be flags converted for HW fields or just used by the logic.
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmSevVoACgkQ86SN7mm1
+DoAoiA/+Nac1y4FAslYKcs5MbXKeAht0YipykhnZnjEs5GFr1xmFi8cKvrPrzyaB
+EYjjXoosax8+YJJM/GDKaXyHx68piIf5YdMvA8Zdkp4mQ+HuAZIQa0zit9ONA+gS
+WHs154Zf/RqcQMVDjf74GcptgPP2YOmc/MPbZ6UV3GhXD+irdu8bqBnBeNqOV69q
+w/irUkAV/tBym8DHacToeoD0KB7c/aGq/6SJHlDSCYcWJElG0midU5E5dMPzNEGz
++w97vAZ6LHcM0NVfa/lwUiXEntM6rDpPNwTyCP2todWEfUZsT+Jn8s8q+H8R6r/O
+5FIXltIRH/fl5TEIJsYYEyWYWM4cMxhcVGuTJSeNI0mjxMgqg1OMrg25YgZUNKFK
+qmALpYbLZkcLPzIG9YMFwEwAUTdU3zVCinTmuhfTUQc/SStu1I6j7UfVSmSZaScx
+sOEWkXzRlr5MbUt/HZ8NTjI2FA+WW3CF428nNFdz1Un+l7Ftq61wkDzsfJ6G6Rqj
+xQPe9W98WmaORotynCq+itxUHEzJVFXgG92Lf6/zihB4bqGZes/LXT7NiLRUUUq0
+73EOEMZ4fQuxHhsuC0M/S3UeF9I43ONbgAwksZSBOQZY8q6hnTGH5vSvzf8igd0Q
+swEhq8zVVLlvihWAHLqx2Ck8LZO8CIFRzBz/0hAHHzCJBC0QQYU=
+=8PAh
+-----END PGP SIGNATURE-----
 
-If you disagree with this approach, then can you propose a different way 
-that we can discuss?
-
-> 
-> 2.  Also, refer xen/arch/arm/include/asm/arm64/mpu.h, typedef union 
-> prbar_t {} :-
-> 
-> typedef union {
->      struct __packed {
->          unsigned long xn:2;       /* Execute-Never */
->          unsigned long ap:2;       /* Acess Permission */
->          unsigned long sh:2;       /* Sharebility */
->          unsigned long base:42;    /* Base Address */
->          unsigned long pad:12;
->          unsigned long p2m_type:4; /* Ignore by hardware. Used to store 
-> p2m types.*/
-You are right, the top bits are RES0 (not ignored like on ARMv8-A). So 
-we can't use to store the p2m_type.
-
-Cheers,
-
--- 
-Julien Grall
+--Sig_/WOYyKbs1pq2/gEoXAojnkkq--
 
