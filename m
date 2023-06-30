@@ -2,56 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BC0374356D
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 08:58:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557280.870488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4A9743577
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 09:02:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557284.870499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF85Q-0005l5-Jt; Fri, 30 Jun 2023 06:58:32 +0000
+	id 1qF89S-0007GA-4Q; Fri, 30 Jun 2023 07:02:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557280.870488; Fri, 30 Jun 2023 06:58:32 +0000
+Received: by outflank-mailman (output) from mailman id 557284.870499; Fri, 30 Jun 2023 07:02:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF85Q-0005iQ-Gi; Fri, 30 Jun 2023 06:58:32 +0000
-Received: by outflank-mailman (input) for mailman id 557280;
- Fri, 30 Jun 2023 06:58:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qF89S-0007De-1f; Fri, 30 Jun 2023 07:02:42 +0000
+Received: by outflank-mailman (input) for mailman id 557284;
+ Fri, 30 Jun 2023 07:02:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z+UV=CS=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1qF85P-0005iK-BM
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 06:58:31 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060c.outbound.protection.outlook.com
- [2a01:111:f400:7e89::60c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 847b59e4-1713-11ee-b237-6b7b168915f2;
- Fri, 30 Jun 2023 08:58:30 +0200 (CEST)
-Received: from DS7PR07CA0007.namprd07.prod.outlook.com (2603:10b6:5:3af::25)
- by DS0PR12MB7533.namprd12.prod.outlook.com (2603:10b6:8:132::19) with
+ <SRS0=DkL4=CS=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1qF89Q-0007DY-Mp
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 07:02:40 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20625.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::625])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 166818ff-1714-11ee-8611-37d641c3527e;
+ Fri, 30 Jun 2023 09:02:37 +0200 (CEST)
+Received: from DM6PR10CA0023.namprd10.prod.outlook.com (2603:10b6:5:60::36) by
+ SN7PR12MB7980.namprd12.prod.outlook.com (2603:10b6:806:341::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.19; Fri, 30 Jun
- 2023 06:58:25 +0000
-Received: from DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3af:cafe::1) by DS7PR07CA0007.outlook.office365.com
- (2603:10b6:5:3af::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Fri, 30 Jun
+ 2023 07:02:31 +0000
+Received: from DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:60:cafe::a3) by DM6PR10CA0023.outlook.office365.com
+ (2603:10b6:5:60::36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.22 via Frontend
- Transport; Fri, 30 Jun 2023 06:58:25 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT026.mail.protection.outlook.com (10.13.172.161) with Microsoft SMTP
+ Transport; Fri, 30 Jun 2023 07:02:30 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT009.mail.protection.outlook.com (10.13.173.20) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.49 via Frontend Transport; Fri, 30 Jun 2023 06:58:25 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6500.47 via Frontend Transport; Fri, 30 Jun 2023 07:02:30 +0000
+Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 30 Jun
- 2023 01:58:25 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 30 Jun
- 2023 01:58:24 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Fri, 30 Jun 2023 01:58:23 -0500
+ 2023 02:02:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,106 +56,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 847b59e4-1713-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 166818ff-1714-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XrMVDzUuwDe64R6EPbLA2qVjv3p+KkGSLSxgCrBS/FcDf6ZpfySMVo31p9kAybVwtatgOmAixS8rbQra2cBZS8AhCJwzaeTE4O4sY3vjfCepuqP44Cpejk1UXIzkeU+/n1X86Fmn0YwOkKTv+so7oCUF6m02k+TLYXEzglqYKjIY6PSfqpIHApcrXXzS1bJr7n0dAMT4s+FIjbRRK/9+pRcl5qtxAoAv0rKPzf6z+Airakh7k0hMDs4Y/sl6HBjCU6mTEFyQcB+VSVk4QblLTCCjoVlQhl7rydmyv/udm573hclsy28SOoBINwSWdwdqXLNOaht+srpuHNgK2lw9QA==
+ b=LfS8eiG6A0Fc8Kglxwdq1j5nPSJaI54XPL7WpVhd+v9baktWU7MCoMJFkCkvYMRP2puc4ix0FIbBzNWmGabx9yitoCBhU7P4FVL7A2s07T0Zmdz7HZ5Q3P1lXHXL1Qvv6Z+2TPVE6vNlYmGZdg3fu7alYIKDQvHVYS7dDaUxRT2Tu1uy11U46BlmuGo0URHFKl9XXPxR7HCMuuAH/OTr5Cphlr3IYTOyHw5eXWYRASmQY4+rdJVhbV6uOgGLjzNU16cUAs2m4K/3NrXlYYoU4S0AiMtyTLIKFrncOlRYnk1BmSvGWmTuwuE9VXyuyvDoDJUMdEp7flcn2g321USVbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8dSf91cpV2ZlfMYs0xZvmcR8oOgsfgItiRHBCj0n0RQ=;
- b=BFCqPfELOaTjb9tdTAr3OAHVWmEHm5cZXZu8dtpfP2FKeRbaE3CnMzIO5LaXoPlJVHKXVm6HeSVh7OvK3WnZYz3RFI/eaU1XB9r5BWMLLhgsMY3SgxH/68IwcWMIPJI+1s+5GFsbir4NdAJfsX6dhKZrj3zWsYgTxgysKqhvvM7OXzkWPvlY6uNMZm5O9D65F40PQ6e1yRXJXMcT0HtYyEvLEH/oeIbfScV1aeS8c8k4bm7vqm5phM/eH/3CZFIbXGYzChb77tfPoXoRvqd63c9MuDgNLsRqkdJKNE8aTbyPa1v37XSr8TViqOezSKbdMfF3XD5ZgUbWA4YVnZ3gzg==
+ bh=bh/tfwlmMHLATsr7SpyJya/fhOiP5HoWlhyHVvGtA8g=;
+ b=PzwcrpVumvzQCYdbBw7Rn11Av7ryB1LKV428ck4x/MOKqrthQzmYZ3mzTUMO301bhBCVwcPLPvUvXBKyHYPdtO/8xnsW8QeOfiOAAKlDoUhiwh8mIwOU+3lkia75mJ/YYEKK5uPSnSwN0rZWNs4TzaBTj3R86EUIWEjZYOxFTWQn6DmuOX4sREdFpbSNXxtTkG7HRJFc2hbZBq+Jn888lztUvulm/Gd0ngAa+wO0yzP4GnuNAXt77Sqr1acSfFMrt5UrMZf1WfgGlc/Iv6sS/PXfmrZwfR8V1brU0IG+cAV1dB3f7GDyP6HA0/nJ8awkTD0mcIjMlQL5L7ejbCx/eA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8dSf91cpV2ZlfMYs0xZvmcR8oOgsfgItiRHBCj0n0RQ=;
- b=DLPppAWklsPTjsxaCnPf810E1AnM3RxFfoPHvZ3IV07xVgJJ4o2YeYpnaL71KkEO4HwMTYBNd3nqLJsAsaLeBFrVY4d8nfvDxOjlkalpZtwDl+mjOzoD6rUlSHytpmC9sQ8ws/BzEFg8LlxSs7tMAMpgxn/a9tYBYDI5LXVxBN0=
+ bh=bh/tfwlmMHLATsr7SpyJya/fhOiP5HoWlhyHVvGtA8g=;
+ b=cEZXSqU/VX/fYtFiRjtFiZxiVZEgpyAZp1sxAExdexUzhAL6mMOpzfVse0iPbLl2yxfqxY9vabde+cEMR4I5uoH45mHbW/+LMp0HtWTlTvdRCkk2PNbXg570pqrUlDiAPgl7aWUBNF7t/FLAFhwzzzHneyoKscJD+Zm5rDsxEpw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <1bbde5ea-9cb2-4aac-fe36-66b7cfddd00a@amd.com>
-Date: Fri, 30 Jun 2023 08:58:23 +0200
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Jiqian Chen <Jiqian.Chen@amd.com>
+To: Gerd Hoffmann <kraxel@redhat.com>, =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?=
+	<marcandre.lureau@gmail.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+	"Stefano Stabellini" <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Dr . David Alan
+ Gilbert" <dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>,
+	<qemu-devel@nongnu.org>, <xen-devel@lists.xenproject.org>
+CC: Alex Deucher <Alexander.Deucher@amd.com>, Christian Koenig
+	<Christian.Koenig@amd.com>, Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Xenia Ragiadakou <burzalodowa@gmail.com>, Honglei Huang
+	<Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>, Huang Rui
+	<Ray.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: [QEMU PATCH v2 0/1] S3 support
+Date: Fri, 30 Jun 2023 15:00:15 +0800
+Message-ID: <20230630070016.841459-1-Jiqian.Chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [v2 4/4] xen/arm: Allow the user to build Xen with UBSAN
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: <Luca.Fancellu@arm.com>, <Henry.Wang@arm.com>, Julien Grall
-	<jgrall@amazon.com>
-References: <20230629201129.12934-1-julien@xen.org>
- <20230629201129.12934-5-julien@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230629201129.12934-5-julien@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT026:EE_|DS0PR12MB7533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 886da3f4-27b2-4efc-a17f-08db793766b1
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT009:EE_|SN7PR12MB7980:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d0ec17d-537e-4f9c-ba96-08db7937f8e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	PE+9HYRbBTcu4v+ivZpSMmpMqO+UR5t/sGwleIpTAFebc0f5EYdQEA4lvscTQLQ8haJcUeICpAFw0aHJpvBw1UkA7mBGWsoIvRaXnRCJSwwRm6NJ7daDx7SNJlamTjWRc53FjEQHtRvPklXvld34sk6+qEJqw9cRYpvutlmDo1WkVOBbEAfZWEAeAuLv2gjreH9q3D244zuPIvfcaF8Hh6v/PGXsgImDDi/TTwDCuSqA45He8yJHytL9t12lWZ/WP2xSHAqeXZg8Vfm+BiaguVRrVh/cgExfZV9fyD5r/z/EzXVuGJkHWmt+XOQ4fp/CssBsfsXK5QQt8Dk4huyLLebhlrkHRAO2lMaMyGo+Cd2V5cRc62dxsdZEwdNwSgF4xfj5YvXSJlW9LesLxg/QU00NCdZhmcVJSsc1BVhzzqz+79LX06AEFf2qFOmG3uMEqcxexAeniu3rPVqBxXliWD44ceRYrUabJJIH8vmZP8Ma2WLsMGL2MjBYioUgXof4Zgqz81gc1LELPRjF8wf7+MxZC/X7Se8bXyvlV00TBWs+oYzooArz1sxfZAO9PL6SZp83DoQxtyO/jAfrjgn8VH0GhM4fLsT8XlAw1ZGQHZuMe5bfRUHmxjcZb8ggM9MA7imIhPzvvgS7Wqyd0C/G24lerX0QUYM/By2lOYKymk+i0/SAqqKf4b8KUlyPyldk5BwxSAYISKheA8A0993MfVS0v5bkRJt0UptJLmFyNWYaUYUip+VfjOL0w4Ys1XY2GeS52QK8o+FRIjS/wJNWW/WwCoNNuXhxkwmCnwMPxrbFDFs7lKCC5PuxBjXbCa6f
+	bIKoUZGJOnz/SVBiKCeG2/kG5XS5yH6JVgZ4dZjOFGrgAHDJoZfoqjpYGSZquufYLOagLJlf+VuSddhCqXXH7EyEz9p1KCytiTYh0P6nT08RW9mEDvCv/W35xfdckI1GPGdEOspmxvrJOBsW42GBGPjjZr4QXjE/6FUzRXFV+W0lH0yMdJg4h+Jb/e4tMraxyCqjE6JNCy72O5ZADk0TqrxmiR7DpOxjHAqC/q39sefXmkpAS7IH7VaiclKT7lNtJcC8U87OgdHbTc1nwDjO/MrfkjQBeauxF8hfTOUyhRQTEVatg4hGxxZ6PnVB196dpy5Tph70f9iUK6F97/mr1rBqATpCBPVUI1TJzOWW0TEgeGJSs/VPdrBtHZDxqO6fABpnI4812cJ4QrN2DoELkOig7iyCbbEarpXBg92sWoiCqn+EM88BS1saHkXmqvf0shhlr3IXmHCkTQwlXVGiIyjnx7XTn5N8F+RXZAMk91+Bgu4Ydu50jU6eympgxFgIhyDupvs4Tm0OFG6uFEfBuQ6uzBg41OTkMHwWzwzyGzPFkB3hOy/FTxmMUXPgTO6SRzYjYzc6eeU6gYifX1d5l8WST9ahtM6CcgiSQSqiOrr1Byv60UySghYM1aOAdPukQCnCOulGoArFDTTPSJPC38zFSmMIXxgiru5T8RkcDq5uooOZ0WK5KM2tYJL3fJ34a0YnnIkhn4Yr1d5ewWZe1fPSHDQuOzcytUXEEJe2ARrcNOXJD7GCaVkn9Vn/543Uyh0ESShxDWRLki7VwMS9dQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199021)(46966006)(40470700004)(36840700001)(53546011)(186003)(26005)(426003)(83380400001)(336012)(47076005)(40480700001)(40460700003)(2616005)(36860700001)(5660300002)(110136005)(16576012)(54906003)(44832011)(478600001)(316002)(4326008)(70586007)(70206006)(8676002)(82310400005)(41300700001)(8936002)(31686004)(31696002)(86362001)(82740400003)(36756003)(2906002)(356005)(81166007)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(36756003)(82310400005)(36860700001)(966005)(47076005)(336012)(83380400001)(478600001)(26005)(54906003)(2616005)(426003)(110136005)(7696005)(186003)(2906002)(16526019)(1076003)(356005)(86362001)(7416002)(316002)(5660300002)(921005)(70206006)(82740400003)(40460700003)(81166007)(40480700001)(70586007)(8676002)(41300700001)(4326008)(8936002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 06:58:25.5355
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 07:02:30.8308
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 886da3f4-27b2-4efc-a17f-08db793766b1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d0ec17d-537e-4f9c-ba96-08db7937f8e6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7533
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7980
 
+v2:
 
+Hi all,
 
-On 29/06/2023 22:11, Julien Grall wrote:
-> 
-> 
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> UBSAN has been enabled a few years ago on x86 but was never
-> enabled on Arm because the final binary is bigger than 2MB (
-> the maximum we can currently handled).
-> 
-> With the recent rework, it is now possible to grow Xen over 2MB.
-> So there is no more roadblock to enable Xen other than increasing
-> the reserved area.
-> 
-> On my setup, for arm32, the final binaray was very close to 4MB.
-> Furthermore, one may want to enable UBSAN and GCOV which would put
-> the binary well-over 4MB (both features require for some space).
-> Therefore, increase the size to 8MB which should us some margin.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> ---
-> 
-> The drawback with this approach is that we are adding 6 new
-> page-table (3 for boot and 3 for runtime) that are statically
-> allocated. So the final Xen binary will be 24KB bigger when
-> neither UBSAN nor GCOV.
-> 
-> If this is not considered acceptable, then we could make the
-> size of configurable in the Kconfig and decide it based on the
-> features enabled.
-> 
->     Changes in v2:
->         - Fix typoes
->         - Add Michal's reviewed-by tag
-I cannot see one, so:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Thanks to Marc-André Lureau, Robert Beckett and Gerd Hoffmann for
+their advice and guidance. V2 makes below changes:
 
-~Michal
+* Change VIRTIO_CPU_CMD_STATUS_FREEZING to 0x0400 (<0x1000)
+* Add virtio_gpu_device_unrealize to destroy resources to solve
+  potential memory leak problem. This also needs hot-plug support.
+* Add a new feature flag VIRTIO_GPU_F_FREEZING, so that guest and
+  host can negotiate whenever freezing is supported or not.
+
+Best regards,
+Jiqian Chen.
+
+v1:
+
+link: https://lore.kernel.org/qemu-devel/20230608025655.1674357-1-Jiqian.Chen@amd.com/
+
+Hi all,
+
+I am working to implement virtgpu S3 function on Xen.
+
+Currently on Xen, if we start a guest who enables virtgpu, and then
+run "echo mem > /sys/power/state" to suspend guest. And run
+"sudo xl trigger <guest id> s3resume" to resume guest. We can find that
+the guest kernel comes back, but the display doesn't. It just shown a
+black screen.
+
+Through reading codes, I founded that when guest was during suspending,
+it called into Qemu to call virtio_gpu_gl_reset. In virtio_gpu_gl_reset,
+it destroyed all resources and reset renderer. This made the display
+gone after guest resumed.
+
+I think we should keep resources or prevent they being destroyed when
+guest is suspending. So, I add a new status named freezing to virtgpu,
+and add a new ctrl message VIRTIO_GPU_CMD_STATUS_FREEZING to get
+notification from guest. If freezing is set to true, and then Qemu will
+realize that guest is suspending, it will not destroy resources and will
+not reset renderer. If freezing is set to false, Qemu will do its origin
+actions, and has no other impaction.
+
+And now, display can come back and applications can continue their
+status after guest resumes.
+
+Jiqian Chen (1):
+  virtgpu: do not destroy resources when guest suspend
+
+ hw/display/virtio-gpu-base.c                |  3 ++
+ hw/display/virtio-gpu-gl.c                  |  9 +++-
+ hw/display/virtio-gpu-virgl.c               |  7 +++
+ hw/display/virtio-gpu.c                     | 52 ++++++++++++++++++++-
+ hw/virtio/virtio.c                          |  3 ++
+ include/hw/virtio/virtio-gpu.h              |  6 +++
+ include/standard-headers/linux/virtio_gpu.h | 15 ++++++
+ 7 files changed, 92 insertions(+), 3 deletions(-)
+
+-- 
+2.34.1
 
 
