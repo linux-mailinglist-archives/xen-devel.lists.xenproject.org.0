@@ -2,34 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B8C7435C7
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 09:30:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557304.870539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71F217435D7
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 09:36:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557310.870549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF8ZW-0003BG-4T; Fri, 30 Jun 2023 07:29:38 +0000
+	id 1qF8fJ-0004eB-Pi; Fri, 30 Jun 2023 07:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557304.870539; Fri, 30 Jun 2023 07:29:38 +0000
+Received: by outflank-mailman (output) from mailman id 557310.870549; Fri, 30 Jun 2023 07:35:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF8ZW-00038j-1g; Fri, 30 Jun 2023 07:29:38 +0000
-Received: by outflank-mailman (input) for mailman id 557304;
- Fri, 30 Jun 2023 07:29:37 +0000
+	id 1qF8fJ-0004bH-M8; Fri, 30 Jun 2023 07:35:37 +0000
+Received: by outflank-mailman (input) for mailman id 557310;
+ Fri, 30 Jun 2023 07:35:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=M6/y=CS=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1qF8ZU-00038d-VF
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 07:29:37 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.52]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc7a3ba4-1717-11ee-b237-6b7b168915f2;
- Fri, 30 Jun 2023 09:29:35 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.6.0 AUTH)
- with ESMTPSA id y5401az5U7TNwzD
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 30 Jun 2023 09:29:23 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DkL4=CS=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1qF8fH-0004bB-RT
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 07:35:35 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20630.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b24af53b-1718-11ee-b237-6b7b168915f2;
+ Fri, 30 Jun 2023 09:35:34 +0200 (CEST)
+Received: from SJ0PR13CA0091.namprd13.prod.outlook.com (2603:10b6:a03:2c5::6)
+ by PH0PR12MB5608.namprd12.prod.outlook.com (2603:10b6:510:143::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Fri, 30 Jun
+ 2023 07:35:29 +0000
+Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:2c5:cafe::f2) by SJ0PR13CA0091.outlook.office365.com
+ (2603:10b6:a03:2c5::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.19 via Frontend
+ Transport; Fri, 30 Jun 2023 07:35:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.49 via Frontend Transport; Fri, 30 Jun 2023 07:35:28 +0000
+Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 30 Jun
+ 2023 02:35:06 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,115 +56,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc7a3ba4-1717-11ee-b237-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1688110164; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Gu8Bi3ERzgErl5CIxwZj9d+pFxVMRa5swwyCIoniKJ/yaLfJy/Ao27iDKRE0Qvb6cK
-    hGfLakMGWgySPEVEV7LlInl3NiJlSFZj3vMWk1cSPmc642baxMZ9DCEsmuUBGpQpJNF/
-    4psrzxdE9jNGgKkN9LKC3HvPOGPntlr+6jlnD/QGOaulrVrMWe7LnXiazbo7y015ok2I
-    3wcoo2Ry6hJ4NYMQo/8uNFefqob+CtkSelNrxsKkv/xFpgdNhA2LNoVR6vXqnhwgideg
-    amX9nMPxl2jMuazy2jPhpjdK/8gfP1WlJRoCUT3FR8YyjzC5VTrD14QZGdTmn+x0tHaq
-    XuMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1688110164;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=SbrWWD8/bSxrp1AiIlQ8m9gLXWJfqf48i1MGfG4Pems=;
-    b=WWoZxFlgXeI2qVE0i4jTGEa35VJ37LB9M0euaNabdwLLeR5lUB9D1rJdOq0Z6i9Mja
-    3N5FNqP9IOPZYwQByc2d6DS+qMSa+ZLgT6Ce34OTkSW61wptEZ4XK9AFIj4bKTjjxj4o
-    N9ZX9+fR7+VD4isUlaIMFMeUFGdBPpkWV0u5QW8Dgz6k/2gtJhFa5x+13gqEvF+ugLcj
-    mdxihfmoO17d2C268jr1Ph0AWQsR6EGfWS3EK8ccNy0Ggna/PQQuLvqPFVGygxJsQ3oR
-    R6GWFcpRNJ6dIYBbopZDCLoinbEHaCFDsei+z/GQgPOocKfQP9rOQdrbEjT24xaPTgiy
-    IvWQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1688110164;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=SbrWWD8/bSxrp1AiIlQ8m9gLXWJfqf48i1MGfG4Pems=;
-    b=JCbb3yVKpkntRc6Rxtb20t3e2+oX00vK//Lx4s27CTuXm+fPo7KGeWN+A8/8UxD0+t
-    UkLa7i73Y5Buw5tb9rmhOkP845X2gyzrPKEaq9Jz+MUR/a4P8PYWTm3Z5rS9Jh18fybp
-    lXmel6TGrcxGRLQ6nITdJtkJf8nQ0HHmXzBo5961RxVApGfQN445mN7tBK5rzExo121j
-    0Qpg5GgZWoqewrU6q+VLACXzBeTyU3JQ6YM7tVse/gZnqapAES6Yp8m1gs/22sIpleS6
-    5WwSdkOuCY5ghCMhOaEuT/3Vbn3BHRLgYUNbyau2UcbVJvk+zEgss3i8MijVONDFfGEe
-    xhZw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1688110164;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=SbrWWD8/bSxrp1AiIlQ8m9gLXWJfqf48i1MGfG4Pems=;
-    b=oP9xFqEZ7LmsltzPogNWnsdJ7Ll5YyTRl9m6DYBBgwohFe6R3RotJK//dBcnwbE/op
-    rVkAOAdmYPov8wrg+KCw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXWiuRyeUQh3GC6w0BTiV2X9kN/WAr0rdTE7oY1qJzPNA=="
-Date: Fri, 30 Jun 2023 09:29:21 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, John Snow
- <jsnow@redhat.com>, xen-devel@lists.xenproject.org, Stefano Stabellini
- <sstabellini@kernel.org>
-Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
-Message-ID: <20230630092921.392b302d.olaf@aepfle.de>
-In-Reply-To: <4F5609FD-4A89-4450-89E2-3311CC5A9317@gmail.com>
-References: <20210317070046.17860-1-olaf@aepfle.de>
-	<4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com>
-	<20210325121219.7b5daf76.olaf@aepfle.de>
-	<dae251e1-f808-708e-902c-05cfcbbea9cf@redhat.com>
-	<20230509225818.GA16290@aepfle.de>
-	<20230626231901.5b5d11c1.olaf@aepfle.de>
-	<c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com>
-	<5DB37FA5-41DF-4ED6-8C8A-CDDD6F276F42@gmail.com>
-	<20230627140740.2736f6e8.olaf@aepfle.de>
-	<4F5609FD-4A89-4450-89E2-3311CC5A9317@gmail.com>
-X-Mailer: Claws Mail 20230601T090920.68bc28c0 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: b24af53b-1718-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cneF23IVAdXfKmAmAv9PwWatV/3B9/f7DAwd01REfVoVPQK4DViuq6WiPfwl3lzy0w0upukoNW1zBGNgMDmDBElLNruAvTU6DdfQxAHTLqB2Z0Fgd4venTYOd/QkFXjCL+Yvb/Xk3uPhWHtXEku0pq8TdP7QIOtGsC8YHiu5p8iHnkZIZ9TtEeo80oNWECe/3lh58vZiIhNPZRutEiT8jdwycu2gKYLyi7vPQ3AfPwANv5TnRgc2eSJcECHZH0SvAF48emojfVJCd2+ubvwRS6sBJlMOQqvMWneEfwSrxs72WCI84CGqObegvK9B2oNOJGhYrVuXPK7OsqNgWOe+dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XTc0Y1rrXNKRDWpAUmQ3mpunEfzfO3YtM3nY3zDW1Cc=;
+ b=n1X2JH7Q/wvFss2csN0Axj4T2KYWBrUNJVYqS2dFvv5EwpD5OGUz9VHJxpdJei8x8lNSLE91PinHKM+efpN9nEOnjlVb35sbb8pn3WW0jBtQaroyBa64hSG/+Hhr4+rOO3LIBUrAjUAz3sRRiYe4IX+Wn9oC/DZXCacYmzn6Slr+LsUBD1pIDI5bg6lgtlsm10NELx3EupuzTfXBFnxOhy6bYp0tCCd1TkApARw3PDHbUSdncwIF/cQhErycRiLEU00+U4pf70AwxCzZAtXmiltBtCBRgWA3q7Z9+2KeLYNOXF8rVwO4BXEbeMB6FkGEZBy6trIiTsIOhTh0mBClWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XTc0Y1rrXNKRDWpAUmQ3mpunEfzfO3YtM3nY3zDW1Cc=;
+ b=xuxJbHr9sHweyAEKcBsTC2ZC3jwsfz5SWhn5I836Mgub23P2AOfeI/+GX46ExLmbyFOzFGJHjQ3uBl3qBC7KwxbscASqrVeek+wtzvEVP1GE+dPoAGHJifR5QbWtZM/GHD+kG0/VjRAKFLARsMTiXY6ywOghzS8xuk8WmdkoAyE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Jiqian Chen <Jiqian.Chen@amd.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@gmail.com>, "Gurchetan
+ Singh" <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, "Juergen
+ Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Robert Beckett <bob.beckett@collabora.com>,
+	<virtualization@lists.linux-foundation.org>, <linux-kernel@vger.kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>
+CC: Alex Deucher <Alexander.Deucher@amd.com>, Christian Koenig
+	<Christian.Koenig@amd.com>, Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Xenia Ragiadakou <burzalodowa@gmail.com>, Honglei Huang
+	<Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>, Huang Rui
+	<Ray.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: [LINUX KERNEL PATCH v2 0/1] add S3 support for virtgpu
+Date: Fri, 30 Jun 2023 15:34:47 +0800
+Message-ID: <20230630073448.842767-1-Jiqian.Chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/lmjCe4VHwkOw+v56guoEpxw";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT046:EE_|PH0PR12MB5608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76283c84-3296-4f38-acc4-08db793c93f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mwvPJCcQY3+WAvQ7nycHHaVlzPPpRbzUeaeMw2Deo9W3vPdRN5Ieau3j5g96HsdoYhQR14U1gZvfj0GJSUpPtmJPkD0RKxHJICTc2EErHvi2/RZmW4gBtzkiGJeBpwHyvKjL3BpCJHwOrLFigFCwflBOzuJTGgoFN8znnKSW0aH/FaqkvUukMIsQmIKcCzP3PsVqlKYXY6b59mYhnzJYZwT9QINB6E6YYcYfSVcRnX6KkTL/JTFHNsEWXnfGgP7WG5bHXhFpzue0/xsWv2MKJkb5O2VBmQJqKwtQdKuc6bw1SCwMZ9jbo9p1cn0TUVhcjmlKVI7hm2E9VHt5NEj0lTs5NJ9WCNDtM+9hN4bhJEfLVF7RqYhHFpNsjatMvJvXdP33Hy7tMyVgScdaD4Htwlz5KbisOa283SU4/Q9PW/jVZtbL01zhx5rqpMjtHhEREs6yHfpaOkzSYyrkCYxLSlyBBWnbwgtjLlGUjEQO/y91HpTupERI+dIdnPyeheJWz03rwLqJ5vsTu2QnSFerlHCer70stwsBCPdHlcxSr0eELR8ySsxkG/vlgz9WD5bSzX5/qSyWah9LV6KefAcBy9jFG+/e33kRuBX8IcVzrnkWc3x6SJKyRH4C7pvwFsxGl53BkDynOsTGbPO1OQ0dSwC2SjBqv4VBDP37hOV9PaHd14XONXODnSSCI1gJQpwhYku7sjL/v3+J+x0ioPO4hFGVVsh4UkX2ZIkK+JyuzPVxo6W05VS2XL1llYj6QI2h84ZqJlw6WSo8tHY1fCFXtta7xi577ewm0vQzjlPOHBsqKl6SiVv99ht+aQPWXC96
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199021)(46966006)(40470700004)(36840700001)(26005)(2906002)(86362001)(356005)(82310400005)(7696005)(6666004)(83380400001)(81166007)(2616005)(921005)(186003)(336012)(16526019)(426003)(47076005)(82740400003)(40460700003)(54906003)(966005)(110136005)(41300700001)(36860700001)(40480700001)(4326008)(478600001)(36756003)(70586007)(316002)(70206006)(7416002)(1076003)(5660300002)(8936002)(8676002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 07:35:28.9066
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76283c84-3296-4f38-acc4-08db793c93f6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5608
 
---Sig_/lmjCe4VHwkOw+v56guoEpxw
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+v2:
 
-Wed, 28 Jun 2023 09:27:16 +0000 Bernhard Beschow <shentey@gmail.com>:
+Hi all,
 
-> Would you mind sending a patch fixing the BMIBA register to be reset as 3=
-2 bit?
+Thanks to Marc-André Lureau, Robert Beckett and Gerd Hoffmann for
+their advice and guidance. V2 makes below changes:
 
-Will do so next week.
+* Change VIRTIO_CPU_CMD_STATUS_FREEZING to 0x0400 (<0x1000)
+* Add a new feature flag VIRTIO_GPU_F_FREEZING, so that guest and
+  host can negotiate whenever freezing is supported or not.
 
-Are the specs for this chipset available, does this address really need
-to be accessed in quantities of u32, or is perhaps u16 required? I guess
-for this specific bug pci_set_word may work as well.
+V2 of Qemu patch https://lore.kernel.org/qemu-devel/20230630070016.841459-1-Jiqian.Chen@amd.com/T/#t
 
-Either way, commit e6a71ae327a388723182a504bb253777ec36869b was wrong.
-Does the comment added in this commit mean, the quantity is really u32?
+Best regards,
+Jiqian Chen.
 
+v1:
 
-Olaf
+link: https://lore.kernel.org/lkml/20230608063857.1677973-1-Jiqian.Chen@amd.com/
 
---Sig_/lmjCe4VHwkOw+v56guoEpxw
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+Hi all,
 
------BEGIN PGP SIGNATURE-----
+I am working to implement virtgpu S3 function on Xen.
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmSehFEACgkQ86SN7mm1
-DoCf0Q/+PAzoc0MsFKTaoPSLnN5nLei3muaIWh8tFlvsvcEIuAr0TK35+NMCwRKg
-carcbr5ImHOTemPQg7hFEqdujUOVKO6GbqBN3B4awq7nCCKJKbWg5qU4u3Zw45KQ
-NO16omwctt7p5FLhJIIX1Um8QNUPiZqjrbOgIo+ZLgxrdT8r5mMitBY2E4jpSdp7
-wyzbXN3h3CiEf8D9jVx/dHorAadvRMI5hEPpRGErIkptwezUohF8h5rg4LGL1/HS
-EtMa7Tj0PFkSHYMy6UkOok5IeMH5lP1fw+1M/0ZsKK/z4WtTvNz2/03vL9WG20E7
-H/2LrX2CTDRUCotUABR+GyaYoTnqYlgkLhql4JfOah1ASkOwXNyaZLrQXKhqxVUc
-TFa79mFelfB3fo5npaD9DaIR6y1v73PaSXJ6yEb1GL+prZfRVSnBeo7rh5Q/KPh+
-VGncAwj1flxKLpgj+LmQjsjU7C3rENbvA0qVxIspWqKnRcAHwWndDnimrj2H7Jwq
-/bksP3Xehmdhe7w385496aD794c9zZTIqWHwyGfzNkGefExXfFuuZt6hHQs61AIv
-YdUwCm6Q2m2FpnuZnNhmXZoDd/274ucoN5TAMB57WeQr+MR0ATtXOMifhhRbYuvK
-N0yGPQC5i7MrOTUsuc0CIw7k6oSaePRMWFdVQ45iyJw8u4cqp4U=
-=teFy
------END PGP SIGNATURE-----
+Currently on Xen, if we start a guest who enables virtgpu, and then
+run "echo mem > /sys/power/state" to suspend guest. And run
+"sudo xl trigger <guest id> s3resume" to resume guest. We can find that
+the guest kernel comes back, but the display doesn't. It just shows a
+black screen.
 
---Sig_/lmjCe4VHwkOw+v56guoEpxw--
+In response to the above phenomenon, I have found two problems.
+
+First, if we move mouse on the black screen, guest kernel still sends a
+cursor request to Qemu, but Qemu doesn't response. Because when guest
+is suspending, it calls device_suspend, and then call into Qemu to call
+virtio_reset->__virtio_queue_reset. In __virtio_queue_reset, it clears
+all virtqueue information on Qemu end. So, after guest resumes, Qemu
+can't get message from virtqueue.
+
+Second, the reason why display can't come back is that when guest is
+suspending, it calls into Qemu to call virtio_reset->virtio_gpu_gl_reset.
+In virtio_gpu_gl_reset, it destroys all resources and resets renderer,
+which are used for display. So after guest resumes, the display can't
+come back to the status when guest is suspended.
+
+This patch initializes virtqueue when guest is resuming to solve first
+problem. And it notifies Qemu that guest is suspending to prevent Qemu
+destroying resources, this is to solve second problem. And then, I can
+bring the display back, and everything continues their actions after
+guest resumes.
+
+Modifications on Qemu end is:
+https://lore.kernel.org/qemu-devel/20230608025655.1674357-2-Jiqian.Chen@amd.com/
+
+Jiqian Chen (1):
+  virtgpu: init vq during resume and notify qemu guest status
+
+ drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.c     | 37 ++++++++++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_drv.h     |  4 +++
+ drivers/gpu/drm/virtio/virtgpu_kms.c     | 36 +++++++++++++++++------
+ drivers/gpu/drm/virtio/virtgpu_vq.c      | 15 ++++++++++
+ include/uapi/linux/virtio_gpu.h          | 15 ++++++++++
+ 6 files changed, 99 insertions(+), 9 deletions(-)
+
+-- 
+2.34.1
+
 
