@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4337435E3
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 09:37:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557329.870589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41D24743608
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 09:44:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557336.870598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF8gW-0006n4-0F; Fri, 30 Jun 2023 07:36:52 +0000
+	id 1qF8nA-0008MQ-Lg; Fri, 30 Jun 2023 07:43:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557329.870589; Fri, 30 Jun 2023 07:36:51 +0000
+Received: by outflank-mailman (output) from mailman id 557336.870598; Fri, 30 Jun 2023 07:43:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qF8gV-0006kh-TX; Fri, 30 Jun 2023 07:36:51 +0000
-Received: by outflank-mailman (input) for mailman id 557329;
- Fri, 30 Jun 2023 07:36:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qF8nA-0008KQ-IF; Fri, 30 Jun 2023 07:43:44 +0000
+Received: by outflank-mailman (input) for mailman id 557336;
+ Fri, 30 Jun 2023 07:43:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dg0j=CS=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qF8gV-0006MG-1A
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 07:36:51 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df2489ca-1718-11ee-8611-37d641c3527e;
- Fri, 30 Jun 2023 09:36:48 +0200 (CEST)
-Received: from [172.20.10.2] (unknown [37.163.156.142])
- by support.bugseng.com (Postfix) with ESMTPSA id CFA1A4EE0737;
- Fri, 30 Jun 2023 09:36:44 +0200 (CEST)
+ <SRS0=DkL4=CS=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1qF8n9-0008KK-In
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 07:43:43 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20617.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::617])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d53305ff-1719-11ee-b237-6b7b168915f2;
+ Fri, 30 Jun 2023 09:43:42 +0200 (CEST)
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
+ by IA1PR12MB6233.namprd12.prod.outlook.com (2603:10b6:208:3e7::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Fri, 30 Jun
+ 2023 07:43:38 +0000
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::4ef5:2244:743b:9989]) by BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::4ef5:2244:743b:9989%4]) with mapi id 15.20.6521.023; Fri, 30 Jun 2023
+ 07:43:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,109 +47,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df2489ca-1718-11ee-8611-37d641c3527e
-Message-ID: <5ded390f-137a-0604-c78b-4521e1daccc6@bugseng.com>
-Date: Fri, 30 Jun 2023 09:36:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [XEN PATCH 5/5] x86: make parameter names of function
- declarations consistent
+X-Inumbo-ID: d53305ff-1719-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FLsl1gBfRsD/5YtfE4EmlKB7GzsjTooqE7TqVD7kSDwaVJA3B16WJZsj5FkBjvHBnWDERfbpNyvjjJwjrXF5uUcUj7TeGGl7Wipt476UGGJvbQJrpHCghmw/na+4UllbdcjV6H3X/xuqeqOI2Iwrb2reAObvYlVQZ/T3+D6Nh+rI6uyOmOafrfNEA+rJfxI2taCjkdLIV7LBLSB7WexZkkGjZyHggA2bF9jGloLiIrPNoffifuHiBIHiBIyilYKfVq98wgd2tXuUsRyir0gGVOdJWZiSXXZpn9ZcJ8bbKP+/ncx5SUgcZcMLaEjNn8PjWGE3/q3eqLFNxDrVZ/1CxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cwekAohhQ/d149vmOGBSxkHtg/kQ2EDgO2zuwStEuQ0=;
+ b=GzGPcuWFK83eI+jo8F+m4XldsX14tW+97C4qIXRKKRkH3p28CJM7fIu3zIeY+nSRCBWDQMLQJRfGhd/3C/f9MzZRkH3+gDlZIR/tKpyzYe6BylqjEvN0Aw3NJHL0Qzb+Fz21zQiCHRjfC9W/anmxfHjta8alSgANeiyitGrEjIW3PWQ2MrHktMApEkGlPuAwxOp1kGVf4CcPP/syOdkvfOz7/zjomWqajNYFtmjrfFQByH7gMjES4kn3BaIFZiTn9tuaCzSssylxYXkJ/3UYjcbT5cZDRp75nUW7ozy1cXMg3ERiqxE/KOX9TcjCL+DtEqzkIrPXdJt1ZWaYdtM08Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cwekAohhQ/d149vmOGBSxkHtg/kQ2EDgO2zuwStEuQ0=;
+ b=q7aVGLF6AFxulJ2Hiij7N0OcPC0edIIskGFr4BYfQELASK0D7vV36ihnStNYDSM/C9wJGW91nmdl9UQu5JV7GXC4RjHlqFYPHWBkSwRLz9dgL/SmaFt1Y3q8D/0gWFhXwYbCxLiaV+ITNQVzOvzHvz+nzcqKMlimqyp/3cOgZq0=
+From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+	=?utf-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>, Gurchetan
+ Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Juergen
+ Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
+	<roger.pau@citrix.com>, Robert Beckett <bob.beckett@collabora.com>,
+	"virtualization@lists.linux-foundation.org"
+	<virtualization@lists.linux-foundation.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+	<Christian.Koenig@amd.com>, "Hildebrand, Stewart"
+	<Stewart.Hildebrand@amd.com>, Xenia Ragiadakou <burzalodowa@gmail.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia"
+	<Julia.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Chen, Jiqian"
+	<Jiqian.Chen@amd.com>
+Subject: Re: [LINUX KERNEL PATCH v2 0/1] add S3 support for virtgpu
+Thread-Topic: [LINUX KERNEL PATCH v2 0/1] add S3 support for virtgpu
+Thread-Index: AQHZqyVzGB+OORTmhkSScAPReBq7D6+jfGOA
+Date: Fri, 30 Jun 2023 07:43:38 +0000
+Message-ID:
+ <BL1PR12MB5849C88BE41A4AB34522FE86E72AA@BL1PR12MB5849.namprd12.prod.outlook.com>
+References: <20230630073448.842767-1-Jiqian.Chen@amd.com>
+In-Reply-To: <20230630073448.842767-1-Jiqian.Chen@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-References: <cover.1688049494.git.federico.serafini@bugseng.com>
- <5ee57d7bcd79daa0314f182ecb73e1eb6d8ecc03.1688049495.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2306291236580.3936094@ubuntu-linux-20-04-desktop>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <alpine.DEB.2.22.394.2306291236580.3936094@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-imapappendstamp: MN2PR12MB3037.namprd12.prod.outlook.com
+ (15.20.6544.003)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|IA1PR12MB6233:EE_
+x-ms-office365-filtering-correlation-id: bf35a828-f881-4940-9b0f-08db793db777
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ FhCxXjPrny9CziiQ8wS9xscuZrD/n8HsH5ICIYdK+hrrDYay2vC1bbciSqr9b8ZhwTH7x/Mf3wtiVEJxm7XRViEvhFgRK7qs8TeSUX+ZE9AcLVdhPyBoILZFbYBDqmU5rGuhi2YYwzObtANE8eGjQfwArJJJEl3iOYsDK9/xUNcbIgB3OXHYj808ebtvgOoH7FYByYyo8W7F8hI2RDMZcQQyJtmUzok8vpDIZRcvarDLi6zyKL8eIzolUGKvbp1ZWWGrVmOtpW1zzKflpqyrNBgIID2FXrvhfBTSvQrzInhNdC4oB8yPmDnqXQykTAwdqhRZa9AsLR2T0f8mm7Wrn3MF5UujUOy3ENJWf2Rs2EBg9izzIitQzwSHSd6NTOW2vxIOzOv+B7oVIhd3n/LFEQtcg6LY8KYN2n9vf6f7R7LPAoRv77zZfD8IxTxhnQNmCk0XFSKVEN2LSEqWTOkKS3ZMIoly/5uXeN0kjKgHrNvUvDGB3srnyebqFm+VDUILx0iAwXMcybu1QETWXO0UioF7wbCz4EQ1mQ0TgpOoDv6XkwXOXebWtwipPKirX3hIbwHI/0DSdE/GbA//EedYagIXObD02TqLKKT4gmzE9rdgoasXq6duny/y1x8QpCjS8v7Q9VCnIwFM3T989t8wVrqo3H/8N0ZUALKEOkwnHaY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(366004)(376002)(39860400002)(396003)(451199021)(2906002)(186003)(54906003)(55016003)(38070700005)(966005)(4326008)(316002)(8676002)(33656002)(478600001)(110136005)(7416002)(7696005)(921005)(122000001)(38100700002)(71200400001)(8936002)(66476007)(9686003)(5660300002)(41300700001)(66946007)(66556008)(66446008)(83380400001)(76116006)(64756008)(52536014)(53546011)(6506007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?TmEwaEllME95bml0T0JXVzZLeFM2UW1IRnBwSEVtUE1GTEl0VDNoUlpoL0Mz?=
+ =?utf-8?B?aFFLME5DMEFYNDFqZ1pyd3pseUI5RGRhc3J4MUNMR0x5anNaOGZrK2NXRnFv?=
+ =?utf-8?B?VHZaaGxRaHpDeW1NWUIzWEFSZjFHUDF5Y1VrVGFIV0MrZTFlcHV5djJ1MEVZ?=
+ =?utf-8?B?V3hqTkxhYXcvYWk0Wk43bG05ajRnNzhSRGlmd3FVUXF0dWw4N2ZXRS94L3Jx?=
+ =?utf-8?B?QXdQdjZRdkhyODN6S0ErQjlob1dnTmVVNVVNdlRqSXNScldnRFdUdHpFYW5q?=
+ =?utf-8?B?Sk1iZUJYQTVmU0NYZUNIeURsdFNUOE1GbmRQUVo5c1N1K2czZzB3QlJmS3Y5?=
+ =?utf-8?B?aEJWdUV1SzJ4cE0rMUkreVBBMlc2Q3NKRmZmdG1UZ2E1Y2NOZXM0L0hvc0Uz?=
+ =?utf-8?B?ZENZbjNPQk1NQlRCeUR0UytLRjJjUS9yN1lFZWptQ0FCdEkyRHQ1elRxYldM?=
+ =?utf-8?B?Qk5oTWtlQ3A0b3MwZWtDeWU4VnVZa1E1ek5teTZ5ckI1Z3NlS0U3alkxL2Nr?=
+ =?utf-8?B?REdVV3V3aWduUzBGa3NZN3lEYTcrSC90WWpVRjlTbXZqZkVCWkRvMEhCVjdm?=
+ =?utf-8?B?SmVJS2lHZUNxK1NISko1RE1Oekg1NFpkYzc3S01lQUdFdldnWTkydkVQQnF4?=
+ =?utf-8?B?RVd3MXhCaTQ2ZHFnTmU0OVJoTjBvRTIyblUrMjZKMWxRNytMQ045Y1NvSkl3?=
+ =?utf-8?B?aytrZGJJc2NBRUFiNnpnQWsvOW5BOTYrR3d6bHhrRTYvN2srVExsWFNPVG1G?=
+ =?utf-8?B?SEw5T3REWGEybTZwa0pRMUJaSnp0YjlkM25CYWhHUTN0Sm9NZ0EvWk5oZmdu?=
+ =?utf-8?B?WnVRUGZFQW5qenFnSC9ZU1VoZFJ2Z04xcGx1bFBrUmVHVXBtVE5JQzFVSlla?=
+ =?utf-8?B?Y2hkVlVmYWtzU2JTM2pvMGMzZFdLQkg3akZYQkFZRVMyNTlXRmtJamdnd1Ry?=
+ =?utf-8?B?OHlOUDFsQWdLa0xaeXdqVzI4WlM5Z1V0RmlIanUwT0xlY1NiQityM2tWS3pV?=
+ =?utf-8?B?RVExcDMyNzQ1dHlUSGQ4clRVZFI0cFdBbTBvNW9IQUxYNThFeW45dG9pMitE?=
+ =?utf-8?B?VFBmdEFjbWRIVDh1c3U3Tlc0UHh5YUlkTmhuWUxCdk1MYjQ0N1VtOGpVYTZr?=
+ =?utf-8?B?U2x5VFJ3eFJBaVMyNUNWV0lpbkFKYUNOMFhkbzNybVA2dHcwZ0MwSXlOS1lh?=
+ =?utf-8?B?YzZkS294U041cE53TklMS05KUjFkbVJBcGFQRnNBMjhXUlkxYTVlQnhubXRG?=
+ =?utf-8?B?QVhWRjJIZTZVQnpRVHZMODNDQmo4NW53Rzk4ejJ0UGIwd2lYak1sbFM2d0dx?=
+ =?utf-8?B?dTNSK29CUGJPL2NiMHhadUo1eXJycGpxeHoydXlFcnRXNVJhMzJNazQ1SnNx?=
+ =?utf-8?B?WjRPbVBpT3VTNEVxeG1pQlNNa2NQUTIvTFZQMnh5Y3JkZWIxQWFKQmp2YjFy?=
+ =?utf-8?B?azNWdUlQczZ4NG9mUk9sQ0JDNWRTajNYY3M5S01rTXVkV2x5dEQ3U1NML25h?=
+ =?utf-8?B?dWdicXhKYzJxdWhUK2FjRlBNRnROQ1c0aTJ2QkcrL3FrSUIxVzAxaW9UOVlI?=
+ =?utf-8?B?VHJYQThFQXNicFFqRDdIa1podVgyV1UyMFp0N1ZRRTlrTEh6VUNXTlh2VURj?=
+ =?utf-8?B?SUI0d2RSZ2hnenBUSks3Nk45MEZkOGlpaUYycllLNU1BV044d0ZpenZRTHpZ?=
+ =?utf-8?B?T0J5alRwQmU0ektEMjhrbGFLaW5BYjlydzdudnlGcGVRbDdLUWdodStFMUJU?=
+ =?utf-8?B?YVEvcmxrSG1BT2g0amxRSjBlaHZXK2x4UzZ6bkJGVnpiOWxib01ta0RLdzc2?=
+ =?utf-8?B?NFBKU2xnTGpONWtza3BNY1I1cjF0c2xRVEl2WTBWZzNZNDh3MnNRY2puS01W?=
+ =?utf-8?B?WTR3aHY2Z0RMTWtBQWplKzBmNmpSc2FibC95OEh4SCsybGtNakx3RVoybFpY?=
+ =?utf-8?B?UE4vRGU2Q1JRUjJSRjNVWkNVUk5jZjZiQ2t0VVJYU2JSUSswN0dsdVFGOU1a?=
+ =?utf-8?B?Z0ZVUXBUMURNa2ExY2VhWkhmVVBQeEZNa1FjMys1U1MzM2dZSFB6RlRJMmZ4?=
+ =?utf-8?B?ZkQ2VUhMR3Y3OEFlRzVvanloK1h4WDFjTy9rUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <5CCE5699A73DCA4585881E8F4245D2F5@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf35a828-f881-4940-9b0f-08db793db777
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2023 07:43:38.0216
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: APvwVzgqnYygo5u6Gs3zOqNk6IZ9nTFFMCRWp7ZsyUrA2VFmkBtgG/ZzrG3zeHGH6cdQyZm/v4CkZhq13NxkCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6233
 
-Hello Stefano,
-
-On 29/06/23 21:47, Stefano Stabellini wrote:
-> On Thu, 29 Jun 2023, Federico Serafini wrote:
->> Change the parameter names of function declarations to be consistent
->> with the names used in the corresponding function definitions
->> so as to fix violations of MISRA C:2012 Rule 8.3.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->>   
->> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
->> index d07fcb2bc9..24bf409d8f 100644
->> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
->> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
->> @@ -656,10 +656,10 @@ bool vmx_msr_is_intercepted(struct vmx_msr_bitmap *msr_bitmap,
->>                               unsigned int msr, bool is_write) __nonnull(1);
->>   void virtual_vmcs_enter(const struct vcpu *);
->>   void virtual_vmcs_exit(const struct vcpu *);
->> -u64 virtual_vmcs_vmread(const struct vcpu *, u32 encoding);
->> +u64 virtual_vmcs_vmread(const struct vcpu *, u32 vmcs_encoding);
-> 
-> Shouldn't the first parameter be "v" to match the definition?
-> 
-> Or is that a different MISRA C rule?
-
-This is a violation of MISRA C:2012 Rule 8.2:
-"function types shall be in prototype form with named parameters".
-However, I can propose a new patch version to fix it as well.
-
->>   enum vmx_insn_errno virtual_vmcs_vmread_safe(const struct vcpu *v,
->>                                                u32 vmcs_encoding, u64 *val);
->> -void virtual_vmcs_vmwrite(const struct vcpu *, u32 encoding, u64 val);
->> +void virtual_vmcs_vmwrite(const struct vcpu *, u32 vmcs_encoding, u64 val);
-> 
-> same here
-> 
-> 
->>   enum vmx_insn_errno virtual_vmcs_vmwrite_safe(const struct vcpu *v,
->>                                                 u32 vmcs_encoding, u64 val);
->>   
->> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vvmx.h b/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
->> index dc9db69258..1e4bbc0d78 100644
->> --- a/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
->> +++ b/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
->> @@ -144,9 +144,9 @@ enum vvmcs_encoding_type {
->>       VVMCS_TYPE_HSTATE,
->>   };
->>   
->> -u64 get_vvmcs_virtual(void *vvmcs, u32 encoding);
->> +u64 get_vvmcs_virtual(void *vvmcs, u32 vmcs_encoding);
-> 
-> This one should return uint64_t to match the definition. Or is that a
-> different MISRA C rule?
-
-This is a violation of the same rule (8.3) but the focus of this patch 
-series was intended to be on be only on parameter names.
-I can propose a new version of the patch to also address the additional 
-violations discussed.
-
->>   u64 get_vvmcs_real(const struct vcpu *, u32 encoding);
->> -void set_vvmcs_virtual(void *vvmcs, u32 encoding, u64 val);
->> +void set_vvmcs_virtual(void *vvmcs, u32 vmcs_encoding, u64 val);
-> 
-> This one should be:
-> void set_vvmcs_virtual(void *vvmcs, uint32_t vmcs_encoding, uint64_t val)
-> 
-> Other than these, everything else checks out
-
-Regards
-
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+SGkgYWxsLA0KDQpWMiBwYXRjaCBvZiBrZXJuZWwgaXMgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
+bGttbC8yMDIzMDYzMDA3MzQ0OC44NDI3NjctMS1KaXFpYW4uQ2hlbkBhbWQuY29tL1QvI3QuDQoN
+Ck9uIDIwMjMvNi8zMCAxNTozNCwgSmlxaWFuIENoZW4gd3JvdGU6DQo+IHYyOg0KPiANCj4gSGkg
+YWxsLA0KPiANCj4gVGhhbmtzIHRvIE1hcmMtQW5kcsOpIEx1cmVhdSwgUm9iZXJ0IEJlY2tldHQg
+YW5kIEdlcmQgSG9mZm1hbm4gZm9yDQo+IHRoZWlyIGFkdmljZSBhbmQgZ3VpZGFuY2UuIFYyIG1h
+a2VzIGJlbG93IGNoYW5nZXM6DQo+IA0KPiAqIENoYW5nZSBWSVJUSU9fQ1BVX0NNRF9TVEFUVVNf
+RlJFRVpJTkcgdG8gMHgwNDAwICg8MHgxMDAwKQ0KPiAqIEFkZCBhIG5ldyBmZWF0dXJlIGZsYWcg
+VklSVElPX0dQVV9GX0ZSRUVaSU5HLCBzbyB0aGF0IGd1ZXN0IGFuZA0KPiAgIGhvc3QgY2FuIG5l
+Z290aWF0ZSB3aGVuZXZlciBmcmVlemluZyBpcyBzdXBwb3J0ZWQgb3Igbm90Lg0KPiANCj4gVjIg
+b2YgUWVtdSBwYXRjaCBodHRwczovL2xvcmUua2VybmVsLm9yZy9xZW11LWRldmVsLzIwMjMwNjMw
+MDcwMDE2Ljg0MTQ1OS0xLUppcWlhbi5DaGVuQGFtZC5jb20vVC8jdA0KPiANCj4gQmVzdCByZWdh
+cmRzLA0KPiBKaXFpYW4gQ2hlbi4NCj4gDQo+IHYxOg0KPiANCj4gbGluazogaHR0cHM6Ly9sb3Jl
+Lmtlcm5lbC5vcmcvbGttbC8yMDIzMDYwODA2Mzg1Ny4xNjc3OTczLTEtSmlxaWFuLkNoZW5AYW1k
+LmNvbS8NCj4gDQo+IEhpIGFsbCwNCj4gDQo+IEkgYW0gd29ya2luZyB0byBpbXBsZW1lbnQgdmly
+dGdwdSBTMyBmdW5jdGlvbiBvbiBYZW4uDQo+IA0KPiBDdXJyZW50bHkgb24gWGVuLCBpZiB3ZSBz
+dGFydCBhIGd1ZXN0IHdobyBlbmFibGVzIHZpcnRncHUsIGFuZCB0aGVuDQo+IHJ1biAiZWNobyBt
+ZW0gPiAvc3lzL3Bvd2VyL3N0YXRlIiB0byBzdXNwZW5kIGd1ZXN0LiBBbmQgcnVuDQo+ICJzdWRv
+IHhsIHRyaWdnZXIgPGd1ZXN0IGlkPiBzM3Jlc3VtZSIgdG8gcmVzdW1lIGd1ZXN0LiBXZSBjYW4g
+ZmluZCB0aGF0DQo+IHRoZSBndWVzdCBrZXJuZWwgY29tZXMgYmFjaywgYnV0IHRoZSBkaXNwbGF5
+IGRvZXNuJ3QuIEl0IGp1c3Qgc2hvd3MgYQ0KPiBibGFjayBzY3JlZW4uDQo+IA0KPiBJbiByZXNw
+b25zZSB0byB0aGUgYWJvdmUgcGhlbm9tZW5vbiwgSSBoYXZlIGZvdW5kIHR3byBwcm9ibGVtcy4N
+Cj4gDQo+IEZpcnN0LCBpZiB3ZSBtb3ZlIG1vdXNlIG9uIHRoZSBibGFjayBzY3JlZW4sIGd1ZXN0
+IGtlcm5lbCBzdGlsbCBzZW5kcyBhDQo+IGN1cnNvciByZXF1ZXN0IHRvIFFlbXUsIGJ1dCBRZW11
+IGRvZXNuJ3QgcmVzcG9uc2UuIEJlY2F1c2Ugd2hlbiBndWVzdA0KPiBpcyBzdXNwZW5kaW5nLCBp
+dCBjYWxscyBkZXZpY2Vfc3VzcGVuZCwgYW5kIHRoZW4gY2FsbCBpbnRvIFFlbXUgdG8gY2FsbA0K
+PiB2aXJ0aW9fcmVzZXQtPl9fdmlydGlvX3F1ZXVlX3Jlc2V0LiBJbiBfX3ZpcnRpb19xdWV1ZV9y
+ZXNldCwgaXQgY2xlYXJzDQo+IGFsbCB2aXJ0cXVldWUgaW5mb3JtYXRpb24gb24gUWVtdSBlbmQu
+IFNvLCBhZnRlciBndWVzdCByZXN1bWVzLCBRZW11DQo+IGNhbid0IGdldCBtZXNzYWdlIGZyb20g
+dmlydHF1ZXVlLg0KPiANCj4gU2Vjb25kLCB0aGUgcmVhc29uIHdoeSBkaXNwbGF5IGNhbid0IGNv
+bWUgYmFjayBpcyB0aGF0IHdoZW4gZ3Vlc3QgaXMNCj4gc3VzcGVuZGluZywgaXQgY2FsbHMgaW50
+byBRZW11IHRvIGNhbGwgdmlydGlvX3Jlc2V0LT52aXJ0aW9fZ3B1X2dsX3Jlc2V0Lg0KPiBJbiB2
+aXJ0aW9fZ3B1X2dsX3Jlc2V0LCBpdCBkZXN0cm95cyBhbGwgcmVzb3VyY2VzIGFuZCByZXNldHMg
+cmVuZGVyZXIsDQo+IHdoaWNoIGFyZSB1c2VkIGZvciBkaXNwbGF5LiBTbyBhZnRlciBndWVzdCBy
+ZXN1bWVzLCB0aGUgZGlzcGxheSBjYW4ndA0KPiBjb21lIGJhY2sgdG8gdGhlIHN0YXR1cyB3aGVu
+IGd1ZXN0IGlzIHN1c3BlbmRlZC4NCj4gDQo+IFRoaXMgcGF0Y2ggaW5pdGlhbGl6ZXMgdmlydHF1
+ZXVlIHdoZW4gZ3Vlc3QgaXMgcmVzdW1pbmcgdG8gc29sdmUgZmlyc3QNCj4gcHJvYmxlbS4gQW5k
+IGl0IG5vdGlmaWVzIFFlbXUgdGhhdCBndWVzdCBpcyBzdXNwZW5kaW5nIHRvIHByZXZlbnQgUWVt
+dQ0KPiBkZXN0cm95aW5nIHJlc291cmNlcywgdGhpcyBpcyB0byBzb2x2ZSBzZWNvbmQgcHJvYmxl
+bS4gQW5kIHRoZW4sIEkgY2FuDQo+IGJyaW5nIHRoZSBkaXNwbGF5IGJhY2ssIGFuZCBldmVyeXRo
+aW5nIGNvbnRpbnVlcyB0aGVpciBhY3Rpb25zIGFmdGVyDQo+IGd1ZXN0IHJlc3VtZXMuDQo+IA0K
+PiBNb2RpZmljYXRpb25zIG9uIFFlbXUgZW5kIGlzOg0KPiBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9xZW11LWRldmVsLzIwMjMwNjA4MDI1NjU1LjE2NzQzNTctMi1KaXFpYW4uQ2hlbkBhbWQuY29t
+Lw0KPiANCj4gSmlxaWFuIENoZW4gKDEpOg0KPiAgIHZpcnRncHU6IGluaXQgdnEgZHVyaW5nIHJl
+c3VtZSBhbmQgbm90aWZ5IHFlbXUgZ3Vlc3Qgc3RhdHVzDQo+IA0KPiAgZHJpdmVycy9ncHUvZHJt
+L3ZpcnRpby92aXJ0Z3B1X2RlYnVnZnMuYyB8ICAxICsNCj4gIGRyaXZlcnMvZ3B1L2RybS92aXJ0
+aW8vdmlydGdwdV9kcnYuYyAgICAgfCAzNyArKysrKysrKysrKysrKysrKysrKysrKysNCj4gIGRy
+aXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9kcnYuaCAgICAgfCAgNCArKysNCj4gIGRyaXZl
+cnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9rbXMuYyAgICAgfCAzNiArKysrKysrKysrKysrKysr
+Ky0tLS0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X3ZxLmMgICAgICB8IDE1
+ICsrKysrKysrKysNCj4gIGluY2x1ZGUvdWFwaS9saW51eC92aXJ0aW9fZ3B1LmggICAgICAgICAg
+fCAxNSArKysrKysrKysrDQo+ICA2IGZpbGVzIGNoYW5nZWQsIDk5IGluc2VydGlvbnMoKyksIDkg
+ZGVsZXRpb25zKC0pDQo+IA0KDQotLSANCkJlc3QgcmVnYXJkcywNCkppcWlhbiBDaGVuLg0K
 
