@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA55743AEF
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC31743AF0
 	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 13:38:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557445.870800 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.557444.870788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFCRv-00011D-KV; Fri, 30 Jun 2023 11:38:03 +0000
+	id 1qFCRs-0000k3-AO; Fri, 30 Jun 2023 11:38:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557445.870800; Fri, 30 Jun 2023 11:38:03 +0000
+Received: by outflank-mailman (output) from mailman id 557444.870788; Fri, 30 Jun 2023 11:38:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFCRv-0000xk-G6; Fri, 30 Jun 2023 11:38:03 +0000
-Received: by outflank-mailman (input) for mailman id 557445;
- Fri, 30 Jun 2023 11:38:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qFCRs-0000i3-7Z; Fri, 30 Jun 2023 11:38:00 +0000
+Received: by outflank-mailman (input) for mailman id 557444;
+ Fri, 30 Jun 2023 11:37:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SFwN=CS=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1qFCRt-0000x3-QF
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 11:38:01 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8f7082c9-173a-11ee-8611-37d641c3527e;
- Fri, 30 Jun 2023 13:37:57 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-51dd1e5a621so2159893a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 30 Jun 2023 04:37:57 -0700 (PDT)
+ id 1qFCRr-0000hx-93
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 11:37:59 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8fa7ec36-173a-11ee-b237-6b7b168915f2;
+ Fri, 30 Jun 2023 13:37:58 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-51d9865b8a2so1868799a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Jun 2023 04:37:58 -0700 (PDT)
 Received: from georged-x-u.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- n3-20020aa7db43000000b0051a4361f3efsm6617282edt.61.2023.06.30.04.37.56
+ n3-20020aa7db43000000b0051a4361f3efsm6617282edt.61.2023.06.30.04.37.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Jun 2023 04:37:56 -0700 (PDT)
+ Fri, 30 Jun 2023 04:37:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,251 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f7082c9-173a-11ee-8611-37d641c3527e
+X-Inumbo-ID: 8fa7ec36-173a-11ee-b237-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1688125077; x=1690717077;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EzfbA4Kdd0x8KFR4T495Xa5yXrnJZrQ99E6PRchMhBw=;
-        b=lFXKLv+hcMvfvoLg5cHDFxlG5tnvGD/RlzSlzD0W+h4FbPUE8Mu+GzaOJF3C01f4bX
-         QXlAzNPPUUZsUtfL+SpnzxQbNJIX4d1QunVkZ7Hh20eJB8k0OEP5XI+6qCN9VRaZrJs7
-         RteZkGKajtPZJ5rWgIF68Y1RBzIOQoIX10leI=
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z/LI/Muc6+gIT2fOpPCQSPl2WmUiu9rE0EERxsNn5vo=;
+        b=dbBHYQkFwC0IIWY+SBc5LEVBR3N2espN106dMOISx2H2lApD2e7eXgd08IfHk1YFTf
+         PPB1IhBmTpmZXws8eDXxl6alPDV2XnL3Ua2hbMwC9S9bMMv5Paxn2fLy2Coqdpb2wdKD
+         G90xMshqS13xecjZ8X/siU+mpxhrqC0r7pbJ8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20221208; t=1688125077; x=1690717077;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EzfbA4Kdd0x8KFR4T495Xa5yXrnJZrQ99E6PRchMhBw=;
-        b=ig2TsjDnXPtrjx1tGLerbvi43qWYxLsavD0mckkvRmgWHrDX1tEfQ0n3yFh0mCjXxQ
-         dimMO7GfauNIF9yqmXIksPC7aAJOq11EUrKw7wdX+LWsWlkZY5t6yflvT7U0FaOu55ZT
-         iB/WCfRgwaWQ2+KCDG12MRjHCOJ4neQK2hNwreehkcJaYvU+TaYMbmNWe61+GtXmJUsm
-         seOm6V0yg19lGB+/86Afu5e+Efin9iACN3Pn9cMIiPjsoBfJyHUkH2biNbQb4mQaPzuD
-         Mvt2ypq9nfglljdZ+ZjI7bWh9g6mG9Fg7kl2C45Kriit/EFKhn4ij5C9SZq441DBi0VH
-         dnJQ==
-X-Gm-Message-State: ABy/qLZ7HnpRZU+2jZotL1c7fqLvZEQU4c8XdlrZ/761EchGBVWc7Q+N
-	amxJ7B7TicYcY9L5QrPgPaWBYcuQCauxwHRzD3E=
-X-Google-Smtp-Source: APBJJlEthxwdgsaPnFeQqyuXpWvb+tdiYNDwi9AKIi2JIbfpn4WFZMAuSWpJgJsGmbLcJWQ7S6/IVA==
-X-Received: by 2002:aa7:db48:0:b0:51b:fa0a:dc37 with SMTP id n8-20020aa7db48000000b0051bfa0adc37mr1684133edt.10.1688125077133;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=z/LI/Muc6+gIT2fOpPCQSPl2WmUiu9rE0EERxsNn5vo=;
+        b=HmZfoUY5MOW07N3sVwPlQpzMEuOuJuVEo3y2hSYsaoeJf1C/ghA2JVOnvchFT88D1j
+         +dCfLs7OeTEqNaeER8OyjUIfMQOvPBjQHl4IibN/0mdZ0uvqRB4lNqtkjhUWz8jX4NdV
+         m5GQzCZbszHtcUauzJusiUFkUi198+U3qgEUgI3ZErT6poUcD+YSCRTt78LZ+A9TdBZO
+         ilyR7dwy6YrCXhBjSCEVvJUX1f0eRpUBnlvAKt4/7gLV2rBXWcHcRqyXgcuHKgq/rlaR
+         wihGwQOaUChLmnLQ6fPC+WoOvOwAVa3FqfS6hPjgJWWYftzhth4A6/wctge2WcVsEQRr
+         ryTg==
+X-Gm-Message-State: ABy/qLaO60Dosvn+HB8GXwlMeT+Hg7WHKalCUw1y/nKLBlF9f5qWXW6I
+	x9i7nsfTK4Uou2UYXDU9oer+O4ninePhMF/V5v8=
+X-Google-Smtp-Source: APBJJlETAWgc5qUwa2MgtETqTA3OYLt3JAiz6zG+yZUBLPKT/zRcArDNSt1DV8D7+GqZaAwA0x1yVA==
+X-Received: by 2002:a05:6402:34e:b0:51d:9883:afdf with SMTP id r14-20020a056402034e00b0051d9883afdfmr1450546edw.12.1688125077484;
         Fri, 30 Jun 2023 04:37:57 -0700 (PDT)
 From: George Dunlap <george.dunlap@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: George Dunlap <george.dunlap@cloud.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 1/2] credit: Limit load balancing to once per millisecond
-Date: Fri, 30 Jun 2023 12:37:55 +0100
-Message-Id: <20230630113756.672607-1-george.dunlap@cloud.com>
+	Dario Faggioli <dfaggioli@suse.com>
+Subject: [PATCH 2/2] credit: Don't steal vcpus which have yielded
+Date: Fri, 30 Jun 2023 12:37:56 +0100
+Message-Id: <20230630113756.672607-2-george.dunlap@cloud.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230630113756.672607-1-george.dunlap@cloud.com>
+References: <20230630113756.672607-1-george.dunlap@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The credit scheduler tries as hard as it can to ensure that it always
-runs scheduling units with positive credit (PRI_TS_UNDER) before
-running those with negative credit (PRI_TS_OVER).  If the next
-runnable scheduling unit is of priority OVER, it will always run the
-load balancer, which will scour the system looking for another
-scheduling unit of the UNDER priority.
+On large systems with many vcpus yielding due to spinlock priority
+inversion, it's not uncommon for a vcpu to yield its timeslice, only
+to be immediately stolen by another pcpu looking for higher-priority
+work.
 
-Unfortunately, as the number of cores on a system has grown, the cost
-of the work-stealing algorithm has dramatically increased; a recent
-trace on a system with 128 cores showed this taking over 50
-microseconds.
+To prevent this:
 
-Add a parameter, load_balance_ratelimit, to limit the frequency of
-load balance operations on a given pcpu.  Default this to 1
-millisecond.
+* Keep the YIELD flag until a vcpu is removed from a runqueue
 
-Invert the load balancing conditional to make it more clear, and line
-up more closely with the comment above it.
+* When looking for work to steal, skip vcpus which have yielded
 
-Overall it might be cleaner to have the last_load_balance checking
-happen inside csched_load_balance(), but that would require either
-passing both now and spc into the function, or looking them up again;
-both of which seemed to be worse than simply checking and setting the
-values before calling it.
-
-Without this patch, on a system with a vcpu:pcpu ratio of 2:1, running
-Windows guests (which will end up calling YIELD during spinlock
-contention), this patch increased performance significantly.
+NB that this does mean that sometimes a VM is inserted into an empty
+runqueue; handle that case.
 
 Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 ---
 CC: Dario Faggioli <dfaggioli@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
 ---
- docs/misc/xen-command-line.pandoc |  6 +++++
- xen/common/sched/credit.c         | 40 ++++++++++++++++++++++++++-----
- xen/include/public/sysctl.h       |  6 +++++
- 3 files changed, 46 insertions(+), 6 deletions(-)
+ xen/common/sched/credit.c | 34 +++++++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 4060ebdc5d..369557020f 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1856,6 +1856,12 @@ By default, Xen will use the INVPCID instruction for TLB management if
- it is available.  This option can be used to cause Xen to fall back to
- older mechanisms, which are generally slower.
- 
-+### load-balance-ratelimit
-+> `= <integer>`
-+
-+The minimum interval between load balancing events on a given pcpu.
-+At the moment only credit honors this parameter.
-+
- ### noirqbalance (x86)
- > `= <boolean>`
- 
 diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
-index f2cd3d9da3..b8bdfd5f6a 100644
+index b8bdfd5f6a..7754e9b3a0 100644
 --- a/xen/common/sched/credit.c
 +++ b/xen/common/sched/credit.c
-@@ -50,6 +50,8 @@
- #define CSCHED_TICKS_PER_TSLICE     3
- /* Default timeslice: 30ms */
- #define CSCHED_DEFAULT_TSLICE_MS    30
-+/* Default load balancing ratelimit: 1ms */
-+#define CSCHED_DEFAULT_LOAD_BALANCE_RATELIMIT_US 1000
- #define CSCHED_CREDITS_PER_MSEC     10
- /* Never set a timer shorter than this value. */
- #define CSCHED_MIN_TIMER            XEN_SYSCTL_SCHED_RATELIMIT_MIN
-@@ -153,6 +155,7 @@ struct csched_pcpu {
+@@ -296,14 +296,10 @@ __runq_insert(struct csched_unit *svc)
+      * runnable unit if we can.  The next runq_sort will bring it forward
+      * within 30ms if the queue too long. */
+     if ( test_bit(CSCHED_FLAG_UNIT_YIELD, &svc->flags)
+-         && __runq_elem(iter)->pri > CSCHED_PRI_IDLE )
+-    {
++         && __runq_elem(iter)->pri > CSCHED_PRI_IDLE
++         && iter->next != runq)
+         iter=iter->next;
  
-     unsigned int idle_bias;
-     unsigned int nr_runnable;
-+    s_time_t last_load_balance;
- 
-     unsigned int tick;
-     struct timer ticker;
-@@ -218,7 +221,7 @@ struct csched_private {
- 
-     /* Period of master and tick in milliseconds */
-     unsigned int tick_period_us, ticks_per_tslice;
--    s_time_t ratelimit, tslice, unit_migr_delay;
-+    s_time_t ratelimit, tslice, unit_migr_delay, load_balance_ratelimit;
- 
-     struct list_head active_sdom;
-     uint32_t weight;
-@@ -612,6 +615,8 @@ init_pdata(struct csched_private *prv, struct csched_pcpu *spc, int cpu)
-     BUG_ON(!is_idle_unit(curr_on_cpu(cpu)));
-     cpumask_set_cpu(cpu, prv->idlers);
-     spc->nr_runnable = 0;
-+
-+    spc->last_load_balance = NOW();
+-        /* Some sanity checks */
+-        BUG_ON(iter == runq);
+-    }
+-
+     list_add_tail(&svc->runq_elem, iter);
  }
  
- static void cf_check
-@@ -1267,7 +1272,8 @@ csched_sys_cntl(const struct scheduler *ops,
-                  && (params->ratelimit_us > XEN_SYSCTL_SCHED_RATELIMIT_MAX
-                      || params->ratelimit_us < XEN_SYSCTL_SCHED_RATELIMIT_MIN))
-              || MICROSECS(params->ratelimit_us) > MILLISECS(params->tslice_ms)
--             || params->vcpu_migr_delay_us > XEN_SYSCTL_CSCHED_MGR_DLY_MAX_US )
-+             || params->vcpu_migr_delay_us > XEN_SYSCTL_CSCHED_MGR_DLY_MAX_US
-+             || params->load_balance_ratelimit_us > XEN_SYSCTL_CSCHED_LB_RATE_MAX_US)
-                 goto out;
- 
-         spin_lock_irqsave(&prv->lock, flags);
-@@ -1278,6 +1284,7 @@ csched_sys_cntl(const struct scheduler *ops,
-             printk(XENLOG_INFO "Disabling context switch rate limiting\n");
-         prv->ratelimit = MICROSECS(params->ratelimit_us);
-         prv->unit_migr_delay = MICROSECS(params->vcpu_migr_delay_us);
-+        prv->load_balance_ratelimit = MICROSECS(params->load_balance_ratelimit_us);
-         spin_unlock_irqrestore(&prv->lock, flags);
- 
-         /* FALLTHRU */
-@@ -1285,6 +1292,7 @@ csched_sys_cntl(const struct scheduler *ops,
-         params->tslice_ms = prv->tslice / MILLISECS(1);
-         params->ratelimit_us = prv->ratelimit / MICROSECS(1);
-         params->vcpu_migr_delay_us = prv->unit_migr_delay / MICROSECS(1);
-+        params->load_balance_ratelimit_us = prv->load_balance_ratelimit / MICROSECS(1);
-         rc = 0;
-         break;
-     }
-@@ -1676,9 +1684,17 @@ csched_runq_steal(int peer_cpu, int cpu, int pri, int balance_step)
-     return NULL;
- }
- 
-+/*
-+ * Minimum delay, in microseconds, between load balance operations.
-+ * This prevents spending too much time doing load balancing, particularly
-+ * when the system has a high number of YIELDs due to spinlock priority inversion.
-+ */
-+static unsigned int __read_mostly load_balance_ratelimit_us = CSCHED_DEFAULT_LOAD_BALANCE_RATELIMIT_US;
-+integer_param("load-balance-ratelimit", load_balance_ratelimit_us);
-+
- static struct csched_unit *
- csched_load_balance(struct csched_private *prv, int cpu,
--    struct csched_unit *snext, bool *stolen)
-+                    struct csched_unit *snext, bool *stolen)
+@@ -319,6 +315,11 @@ __runq_remove(struct csched_unit *svc)
  {
-     const struct cpupool *c = get_sched_res(cpu)->cpupool;
-     struct csched_unit *speer;
-@@ -1963,10 +1979,12 @@ static void cf_check csched_schedule(
-          * urgent work... If not, csched_load_balance() will return snext, but
-          * already removed from the runq.
-          */
--        if ( snext->pri > CSCHED_PRI_TS_OVER )
--            __runq_remove(snext);
--        else
-+        if ( snext->pri <= CSCHED_PRI_TS_OVER
-+             && now - spc->last_load_balance > prv->load_balance_ratelimit) {
-+            spc->last_load_balance = now;
-             snext = csched_load_balance(prv, sched_cpu, snext, &migrated);
-+        } else
-+            __runq_remove(snext);
+     BUG_ON( !__unit_on_runq(svc) );
+     list_del_init(&svc->runq_elem);
++
++    /*
++     * Clear YIELD flag when scheduling back in
++     */
++    clear_bit(CSCHED_FLAG_UNIT_YIELD, &svc->flags);
+ }
  
-     } while ( !unit_runnable_state(snext->unit) );
+ static inline void
+@@ -1638,6 +1639,13 @@ csched_runq_steal(int peer_cpu, int cpu, int pri, int balance_step)
+         if ( speer->pri <= pri )
+             break;
  
-@@ -2181,6 +2199,14 @@ csched_global_init(void)
-                XEN_SYSCTL_CSCHED_MGR_DLY_MAX_US, vcpu_migration_delay_us);
++        /*
++         * Don't steal a UNIT which has yielded; it's waiting for a
++         * reason
++         */
++        if (test_bit(CSCHED_FLAG_UNIT_YIELD, &speer->flags))
++            continue;
++
+         /* Is this UNIT runnable on our PCPU? */
+         unit = speer->unit;
+         BUG_ON( is_idle_unit(unit) );
+@@ -1955,11 +1963,6 @@ static void cf_check csched_schedule(
+         dec_nr_runnable(sched_cpu);
      }
  
-+    if ( load_balance_ratelimit_us > XEN_SYSCTL_CSCHED_LB_RATE_MAX_US )
-+    {
-+        load_balance_ratelimit_us = CSCHED_DEFAULT_LOAD_BALANCE_RATELIMIT_US;
-+        printk("WARNING: load-balance-ratelimit outside of valid range [0,%d]us.\n"
-+               "Resetting to default: %u\n",
-+               XEN_SYSCTL_CSCHED_LB_RATE_MAX_US, load_balance_ratelimit_us);
-+    }
-+
-     return 0;
- }
+-    /*
+-     * Clear YIELD flag before scheduling out
+-     */
+-    clear_bit(CSCHED_FLAG_UNIT_YIELD, &scurr->flags);
+-
+     do {
+         snext = __runq_elem(runq->next);
  
-@@ -2223,6 +2249,8 @@ csched_init(struct scheduler *ops)
- 
-     prv->unit_migr_delay = MICROSECS(vcpu_migration_delay_us);
- 
-+    prv->load_balance_ratelimit = MICROSECS(load_balance_ratelimit_us);
-+
-     return 0;
- }
- 
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index 9d06e92d0f..48f7f57037 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -641,6 +641,12 @@ struct xen_sysctl_credit_schedule {
-     */
- #define XEN_SYSCTL_CSCHED_MGR_DLY_MAX_US (100 * 1000)
-     uint32_t vcpu_migr_delay_us;
-+    /*
-+     * Minimum delay, in microseconds, between load balance
-+     * operations; max 1 second.
-+     */
-+#define XEN_SYSCTL_CSCHED_LB_RATE_MAX_US (1000000)
-+    uint32_t load_balance_ratelimit_us;
- };
- 
- struct xen_sysctl_credit2_schedule {
+@@ -1974,10 +1977,11 @@ static void cf_check csched_schedule(
+         /*
+          * SMP Load balance:
+          *
+-         * If the next highest priority local runnable UNIT has already eaten
+-         * through its credits, look on other PCPUs to see if we have more
+-         * urgent work... If not, csched_load_balance() will return snext, but
+-         * already removed from the runq.
++         * If the next highest priority local runnable UNIT has
++         * already eaten through its credits (and we're below the
++         * balancing ratelimit), look on other PCPUs to see if we have
++         * more urgent work... If we don't, csched_load_balance() will
++         * return snext, but already removed from the runq.
+          */
+         if ( snext->pri <= CSCHED_PRI_TS_OVER
+              && now - spc->last_load_balance > prv->load_balance_ratelimit) {
 -- 
 2.25.1
 
