@@ -2,40 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F151743F99
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 18:19:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557574.871049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E59743F98
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 18:19:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557580.871058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFGon-0006kv-I4; Fri, 30 Jun 2023 16:17:57 +0000
+	id 1qFGpR-0007IK-UO; Fri, 30 Jun 2023 16:18:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557574.871049; Fri, 30 Jun 2023 16:17:57 +0000
+Received: by outflank-mailman (output) from mailman id 557580.871058; Fri, 30 Jun 2023 16:18:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFGon-0006iG-Dp; Fri, 30 Jun 2023 16:17:57 +0000
-Received: by outflank-mailman (input) for mailman id 557574;
- Fri, 30 Jun 2023 16:17:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qFGpR-0007FH-RH; Fri, 30 Jun 2023 16:18:37 +0000
+Received: by outflank-mailman (input) for mailman id 557580;
+ Fri, 30 Jun 2023 16:18:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9zhT=CS=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qFGol-0006iA-Jo
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 16:17:55 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe5a::620])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8817be0-1761-11ee-b237-6b7b168915f2;
- Fri, 30 Jun 2023 18:17:53 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by IA1PR12MB6164.namprd12.prod.outlook.com (2603:10b6:208:3e8::8)
+ <SRS0=w8ty=CS=intel.com=dongwon.kim@srs-se1.protection.inumbo.net>)
+ id 1qFGpQ-00077E-SA
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 16:18:37 +0000
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c10e8b43-1761-11ee-8611-37d641c3527e;
+ Fri, 30 Jun 2023 18:18:33 +0200 (CEST)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2023 09:18:30 -0700
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga006.fm.intel.com with ESMTP; 30 Jun 2023 09:18:24 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Fri, 30 Jun 2023 09:18:23 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Fri, 30 Jun 2023 09:18:23 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.169)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.27; Fri, 30 Jun 2023 09:18:23 -0700
+Received: from PH8PR11MB6879.namprd11.prod.outlook.com (2603:10b6:510:229::22)
+ by SN7PR11MB6874.namprd11.prod.outlook.com (2603:10b6:806:2a5::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.21; Fri, 30 Jun
- 2023 16:17:46 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6521.026; Fri, 30 Jun 2023
- 16:17:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.19; Fri, 30 Jun
+ 2023 16:18:21 +0000
+Received: from PH8PR11MB6879.namprd11.prod.outlook.com
+ ([fe80::b33c:de68:eacf:e9c4]) by PH8PR11MB6879.namprd11.prod.outlook.com
+ ([fe80::b33c:de68:eacf:e9c4%3]) with mapi id 15.20.6544.019; Fri, 30 Jun 2023
+ 16:18:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,285 +62,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8817be0-1761-11ee-b237-6b7b168915f2
+X-Inumbo-ID: c10e8b43-1761-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688141913; x=1719677913;
+  h=message-id:date:subject:to:references:from:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=1RoFsUtIl4m4Jy2z09xkPKdoCxdBiU5Y3E1w8N8qHFo=;
+  b=U75d2S6othUn8w2eCO7i/kPU+70u7xZU4I5NCFqjKbl+iIadb6vXFqyP
+   WYOX047Jh/4IOAMWLnyw3zIzfCcWNA10D9f05CrabjHhX/YiaGZl+G9QZ
+   tlAwCX/SLMjVrlcsnlPWoYNFFMM6v8ks0a5jEiYR4NXcTxWczSzgGcVYQ
+   LX/nAL/LkDfvYNiooC0txHx7A0X8X8dGhpJjZ+H7u9QXkcc0XRCoyxpzC
+   f3WeGkb6g8WZWi/MbOfMgvckzJGetf1mSYQ9ENCOdTKlfLCUJB2CURXIC
+   25hCnuhAIkgVtCc46nysv9g4WwwaO3+3u4NqsB0B8ne0FW4xohlm7fAix
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="428476228"
+X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; 
+   d="scan'208";a="428476228"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="964450424"
+X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; 
+   d="scan'208";a="964450424"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OheQWw/kBo7HZhb2f7Zuv32/7WBe+E9JLttDm+S2VtUV/EsJsRDuFUn5jBUe12a/xvqZDjqW6bKkVVydZIQyBF96CY2axRDVE5/gHJsH4TWdnuGt0POx6qcVQe1handJ9dlD4/KhdzWR0Pi2BdpMaZviUFmnJ/evHtauFnNDLcXhAxb7awvjHwjSNkqdIVDgrG4QM/zsNt3+P20BEWDezwobK5sa61aenf7D9sOry9AdU3Hyxr/6eEdjLLN8374FtHJvDNAOqjVaaGm30fIrfHxrwIw4PZEbZ7Qc/34gNT1bXWdHApUNMujjJ6Cy1UR6s5U8JbBqkkiaUDTzJWgcRg==
+ b=GigzMC/zOZ35bD1LyH9K5lpUgdoI7VDgvpQnGs4GLWRJiVP2TLwhGqW/euGhDxzuizpLGgnNTm/H1AyY6+KihT/n7bZkb48afkIspctTPUAMvUEpwtzberJq4Y3S0j6bRZ3dpCl7tZiHGo94gV/JEOFiY6LpKslcW2b+BNV3LlKksGP5J7xHoxiKSGbb/XrX9DduBVfIVr4AzqmhhFUxD2Ik4A00KgCRV8K1KsfqLYukvvtgRYORjp5e3LHeKdP1PEPtBgGwz+OwhlFTs+ZtNMUXFnwtMxro4tOTeNv5Ml9EwCWLVHqKhuRqkSknOpH/O4yyhIwdDNg5rejeyfLlUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Zl0UD3FnudfbqzvIErZ+q4HM/QgWnzSHeR8+X51gzY=;
- b=m+Gq4n9LAQC5J7KZNciOi5aRCbITgHQu/4zP40PjgsA5xM/KX2Jy88REzR8ZuqnilPMrEHdeYdKC8RlAU6jfJz4FSCm6RQZ/r7GfOgh1yJ5jCC8D5Fq+NM4G5yLG3DcpXn9+Mc5ZxAddyDj1fjLpgwPFjzYsGsUX1X7XatHcVh5xNE2H8LjaojjVNcB5jy1Ia7OzndxWcxT4zLFcP0I4/Obt513cuXwG0co6cme6++JD0Wf4qfnqRbUEQ/H0+njJcB/Q+UhbEOWgMML0iZlk5pyUu1sZ9c8/r8G7g3crUu4YUXfHsFlNWH1IlrzscPXW59L2n+dGI9doe1YlLkLiSg==
+ bh=IoBdhZV6z1gwbFKh2TDZZVIIHq2xn2PQGFAiSTDlYiM=;
+ b=lqUgMfYhccZn3IyAm76cnWqIYV5//6WrDTMqO5DYGVcM5t8wINzUgLLl4jeNhHcwAXhK6L0Vlqwwgeiy6M+kZcBe1lh7v0yLUlXakaDe5//GNBmhbOA6pzagAfDKxJJV8uec8r7OH4wFisM3sJ3GmSBOmoEQoYDs6QWIHx0nhSmBuo2Wv7VTDxSIhkBn64Agq5HtVro4WrMh1wPfkM88ef2LftqlitYSGOdHA0vncqUZz0XjfDrLeqZhpMBcQTdINdmBLgT2LZ1QuZ0PQe1sC2u2vXrrFZjBbLYf3U/J9uyI0DDs3ZTXCareCCWnUi/O3F8HuwHbwPaNjn2WsGx0gw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Zl0UD3FnudfbqzvIErZ+q4HM/QgWnzSHeR8+X51gzY=;
- b=ZLE8vDGjyxYA15+Pz+LVrF7FON9/lsj+CVMekHeLUyZq2SG+b0Q0PMn/kEgkfI840iAiCEzw1mH7BkjLr5pLXcHIQHORXrUGkECoTLUamSlqt0pUJEFtWfEmPfYfng+MKWbkZ/S58/AgZMJceXiHzxk+FuRp9GdKxksUC4s/720=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <87564d07-391b-7dfa-e28f-e13d73e67811@amd.com>
-Date: Fri, 30 Jun 2023 17:17:38 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 34/52] xen/mpu: destroy an existing entry in Xen MPU
- memory mapping table
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-35-Penny.Zheng@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20230626033443.2943270-35-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P123CA0096.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::11) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Message-ID: <5edb57f9-4c11-270b-a9de-c176ec1875fd@intel.com>
+Date: Fri, 30 Jun 2023 09:18:18 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [QEMU PATCH 1/1] virtgpu: do not destroy resources when guest
+ suspend
+Content-Language: en-US
+To: <xen-devel@lists.xenproject.org>
+References: <20230608025655.1674357-1-Jiqian.Chen@amd.com>
+ <20230608025655.1674357-2-Jiqian.Chen@amd.com>
+ <980355eb-0241-2690-8ba4-3f136dd8555a@intel.com>
+ <BL1PR12MB584957276B8CD25F6E35DD61E72AA@BL1PR12MB5849.namprd12.prod.outlook.com>
+From: "Kim, Dongwon" <dongwon.kim@intel.com>
+In-Reply-To: <BL1PR12MB584957276B8CD25F6E35DD61E72AA@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR10CA0003.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::8) To PH8PR11MB6879.namprd11.prod.outlook.com
+ (2603:10b6:510:229::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|IA1PR12MB6164:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a64372e-e275-4471-770e-08db79858a64
+X-MS-TrafficTypeDiagnostic: PH8PR11MB6879:EE_|SN7PR11MB6874:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5616823d-fe5d-4928-9e93-08db79859ed9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rgW4DIloezK9+Y/8MAeu0tnAfFdNiZTKKvIt+tpC0ke/BaB0UDtAqmp5IR7AAmWo5ADVMuFKK/mY8ApqLV4La1JXdbLiWoUp5nPwR6/0MNaUy5xoIYn2vGisnE/ZOUuPgpZiQNrDp8KLA3UVweVLL49b7BjlMy3JpVO1rYzK257SgU2FkMKc6G6Nzgp8xjGl1C82UIurHEwDfBoJngBqEo82yOV1y2xQI41ZupMRwuAIzRr7+2KDAQ6TJYxWIB9bMTxdgc6td1qby8NNfYHwDtyQIy4JIXJ5Xo4z6d9iCgR5nHZVeJDU0kJNcjhG0rV7XbMl9ERBuR8MBrcAQ9jrnCwqMDAbclR8DmrEla2s+rPbG+RC4YRL0ZaxtXBV+DpoXL8W5IntpX/DLIPoEA0dM6TqZ3ruu4ySjYl1cmWQCgS2eVS5G1sQkP3DVOlk/tF7RWnydoWpeVXaFTuxSIsK7MPHsSW9676HqsSIJSES6Sx2F+0gc+D+xiRjQ9wjeLgqf2LaXysWhWrkR0pZqliIl1AII9nib/47yyGBwMV/1jpzknhWHCCUEjdSiIsH6ULfS5meWBtQl1DnDF/JhKzkWEP4wp9WWDgYuxvqDGL1sw8Zel9yAu760FSFSw6IaiR0fcN4oqrnrAfNnk9yxD9qiA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(376002)(136003)(366004)(39860400002)(451199021)(26005)(4326008)(66476007)(66556008)(8936002)(6506007)(36756003)(2616005)(478600001)(54906003)(2906002)(6666004)(83380400001)(186003)(6486002)(53546011)(66946007)(316002)(31696002)(38100700002)(5660300002)(8676002)(41300700001)(31686004)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: y/q2XJBiUe4cQWP4ObAFpsx6jNdqQIruMKZcKpln2rBzZ1lGArgSDE8qxHQPob+7KWKXCwbA5lgexqeZPWblACa3hwR/KH8LiMN6d1OkTU0Yk0aKYGB49r9aVyi5c7NnVfI4HT4/eoYp+qzborrzi3A+++EIvnFaC7AipR+iXG2381BoEmbFOG5AL5n5rBqCp5l6lSS0vQHf5TMWw0c080/E2J3m6hnVcR7c1KPV/OeJWiWJBRSy7ZgEnMqHHA/Fbn8qTnVwtwBangqTgxy9aLew29w8ZidLTP8kFKgxC/exdWocfX0dRoMy9nrczBhE/wizO+Ga5J4UN5l3m9GC8VXBGObx1Ma9JQUpk5WAhVQFORdx/8Q843/ILFPw7EN1ZeV/fwPm1Mxi7DfCMTLrBziZ3QSnP4eEmL+Okbs7Vw2IRGVVFnzZw7Aqx43OJ0iLc7LedW27K9DRf+0j22BaEjTW57jafe8lyDqUnJvyI03b3M5zFTU5nKqEdvuxnQRDy0Ajd3igDoElKpAB3vSeU8yV6NjWHBP/Kdy/VTAx4gnHbNmrP0IpliTzV9X2pwt8GhYUh00CFjr9PpKeJXr+ANSjKS2A67m5REzAOkLUKHjHNqUcnm4fFxOfX5H4TfUo06N65E8nV6zp0Bryn+Njug==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB6879.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(136003)(366004)(376002)(396003)(451199021)(83380400001)(15650500001)(2616005)(2906002)(38100700002)(82960400001)(36756003)(8936002)(8676002)(5660300002)(86362001)(31686004)(6512007)(41300700001)(66946007)(66556008)(66476007)(6916009)(6666004)(316002)(6486002)(478600001)(186003)(31696002)(53546011)(6506007)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dFFuQVNqN2RLejdySjNZSys2RG4rTk8yWnhkU1hZd2hnUzFlbXl0S2ljYjcz?=
- =?utf-8?B?YUtXNG41NTZRTFdmNElGQm1kL0FOT2NIR096THpqV2pCN0dzUnljc2FOT3lM?=
- =?utf-8?B?MXZYMVJoc0N0OXlkWlAwTWpMOTJCaWtBQXV5YjEyWkpOOFJLSHJMSVp5S1R0?=
- =?utf-8?B?R1Fwb1ZzQzhBMXhTYkE3QVJPaSttVnJCRGoyZ2hla0tRRmxpeFF0d01PNUZP?=
- =?utf-8?B?WnpTSWpZYyt4ajBISXJXMDB4MFR4MjhLMUN3Q3FyOUhrN3FzWGtQcW5rOEND?=
- =?utf-8?B?Z205WTEzOW1qTDM2NGQwSm1HMzlEcVhmaU5Dd1FTWDBBaHo3dGZ1SmtnZWdP?=
- =?utf-8?B?eFl1WUI4M240L0wwNHcyN0JvenRFMXRMMU9RZkF2cFhSL2VCVHIvVVd0V0p6?=
- =?utf-8?B?d2FLQ3Z2YzFQenVrU3U5VlhNWHcvZk1BVzJjeEhkTUtoSE5yRjZnS0o2MFNo?=
- =?utf-8?B?K0d1a2wwQzNpS2hrbWQ5SzF2Z0d4THRXVXE2T2poc2l4RVNTQy9OeGpxTEZQ?=
- =?utf-8?B?NzFZV0taUmxlbm1URXdmclFkOGEwbUFNd0NzZGl4Y0EyeHFkTDBobHZrd3pW?=
- =?utf-8?B?cGRuQkJyTjk3ZTJDL0FReE00UG41SXFOVHpEaWJUdGxoMDBMWWdhS0NvVkZU?=
- =?utf-8?B?cVNmSVZQSXJ4Q1MrZkVpLytXeW1xSmd5NE42ZWxFUXJTRFdFUjY5aGhuSEh6?=
- =?utf-8?B?cnloWjRkRWdBM0NZT0k0UHlJc1hvY09aTFVSaGVKaUdIOGtpaGFLUDNDdEFj?=
- =?utf-8?B?ZmNaUlVad2JFUE8vT0ZjaEcwdzR5RzUvTmc0MFhsN1FpUE1NQUJWQWhEY3Vv?=
- =?utf-8?B?d2dsTUo5Sk5xanNXbTJZRVk3cEwrR0FNUTRDellDY3VrcmpiR0lmK0tUbFZm?=
- =?utf-8?B?N2RYZTB6Zm9sZU0yUFdVQitFUUNTYWhRM3R5Q1VPTlZtNFRLYXpTVFVsakxk?=
- =?utf-8?B?QTR3SUVUYWZNTVdSdFNieGM1UnRrcDlRemZ1WHpJanZNbHRVbzQ3djBJQU5z?=
- =?utf-8?B?WkJrQUNwMnh2a2pHa1dCMHFObk5DS0pTR3lobE9OZVBVeDNjNlhycjR6dER0?=
- =?utf-8?B?bVV5SnVWcTgzcEZ4OHRoU1ZNS0JhYW9UZDZYaXQwU01PdjFyekdQOEQ5UFND?=
- =?utf-8?B?bldMVmRKVTUwelFuTUc5SW1JekNGN3p4RitvdEl2dUVlTG1OUzNOY0FkN2s1?=
- =?utf-8?B?M2VMSlJ3dlo3S1VrdVF4UVJzN0V2VXhyTzM3L1J2dWJjcHNhbUNjVkx0dXNk?=
- =?utf-8?B?dEZuZkhhK2tiMk42SjNqOUFKeXV2bUw3Qjl4TyttUkJrRlJGY0dtQnRqcVp3?=
- =?utf-8?B?QlFNTzMwVUFFV0l2akVlYWl3ZDM1ZmNtVXZSc2NOVEZWVHFkVklxUXBVdks0?=
- =?utf-8?B?RFlYMVR4WUJzd2o1SXU1Z0owNElpbzFRMm5LbEJOOVdwUjIrdnlSOTVBVm1i?=
- =?utf-8?B?SXN4M3hnbHQ0NHZlblhUOTlWVldjeDVEcFNvcUtJb0NlcUd0dGQveStlWDNC?=
- =?utf-8?B?V1RvQzk2b0dXZysxTEJBaG9xTG1lY09WZHRyU2pOQTlrTzJFT09qVFdYRmRz?=
- =?utf-8?B?Q0diZVltczQvQ1RDRkk2Wk9ZbVM4YnBsaWlpNnJIRDFSbkQxQ0dMSDFwd1ls?=
- =?utf-8?B?emZFTjJDeXowcHRmbDdvb0hUN2FsSkpjVm1LR28zelJZL0hYY1FCSVpkY1h5?=
- =?utf-8?B?V2dvWUl5eG1VVHBQVTlOUXpYWXZPdVkvRWtoVDduTkxZUVFPQ3dmVzJBbEdv?=
- =?utf-8?B?SlVIYWJiY0UrL09yZTMyMUJZbzQrUFpwTkJQdWZGNGxQdlJiZHNvR3FQdGdU?=
- =?utf-8?B?RUorNzdKTHhmT3MwQzltRWZ2MXVTcUc3ei9jTGIzMXRhL3Voalc3TVJxcjMr?=
- =?utf-8?B?TldRRU0wR3JsNDBoS1VQdmNDRXZ6VDhFcC83QUNPeC85VE9xSFBDTHE3YjFS?=
- =?utf-8?B?TmlzOFZyVGtLa3Q2RjE4cGRDc1pOdFArdDQ1Z0ZoYWVmRFZYYkFGcVhBbEp0?=
- =?utf-8?B?aTI0Z2ZITE5rUXNjSGZSTTVvYTc0aGdzbFhOc1ZoM1U5aHdXYS9rVlFOWDRB?=
- =?utf-8?B?cThyeWRIY1JVVWVqWFYxY1piNG5HK2dDcUhQdmxxaE1jR2NuRHRidTFEWFJG?=
- =?utf-8?Q?TXtypdRWFdvtF0HYQdKsDUeLI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a64372e-e275-4471-770e-08db79858a64
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkNZRml5aitBa2Q4YW9JNjl6amdsbVErTHFqUW4rV2lYVDBlUHVpVFc5em9y?=
+ =?utf-8?B?bTRBVkVibTRPWGRUUHBnRm8waWJpY01pSDYyMEJjamI4MzVsKytYZzc5WFU1?=
+ =?utf-8?B?VkZ3cUJ2cG9KM1JwbmdtUjRnc0VHSGFndm92czNmYnhpcUt4S1dnamZPY1gz?=
+ =?utf-8?B?L3NnNko0RDNmc3QzZC9JL2Q1ZkJUVTFScmdJUFVJTS83TFBRUk9EVC9NbU90?=
+ =?utf-8?B?cDRJZWFDMERwelhhTE8zdkdidHkvYTVrT2YxUXhqVmJkV1RuNVNWM1dvMjJF?=
+ =?utf-8?B?c0tLNGk2TmJMY0FWK3JhYUllVlJUdFFGYmpwaDE3MmJZS2pNOHVvb3Q2VVZV?=
+ =?utf-8?B?c05IUjNBN3BobzVlU2ZyYmJFaTlTZVBjRUlJTUtRTHVaV25zSHNZa1haNjRU?=
+ =?utf-8?B?SVM1alBLNWY1clhDbGN2Wm8xTTZ5bFZqOEVlc3RIVGZaZTZtTnZBM3Raa3Mz?=
+ =?utf-8?B?YXdGeDVnS2VnN0pmRWptV0k4eFNkR2NRZnRwUHRxQ2JDeGxiSG15ZGlkOGJi?=
+ =?utf-8?B?b0ZmalF0ODk1NGhyeG05TU81TW5lUVh5MkJlRis4ZDlPbFEwampnVWpVcS8v?=
+ =?utf-8?B?R0JNSUpzVkk5STVmN0t2RW83TmNURWFXSFptcGplWEhMWGNEdmVvSis5RjFt?=
+ =?utf-8?B?TE9kWDJ1azFNM2hrVXJzR0VLT2RWemZ0K3VMdHFpaVBMVlJ4eTZUTmN4YzhE?=
+ =?utf-8?B?Y2lWSlNxWCtvdERuTCtWa3lvL3BZMEt4dlJJUGp2citFTW1aVmZFUTdrV3Yv?=
+ =?utf-8?B?MzMxN3dVTERwemtYSFc2Q1hCV2FsTnFxVG9Ub0kxZ0Y3WjhPM3loNnFMaU1i?=
+ =?utf-8?B?aDZSb0dFQldWK1dzSmFFNFJMRzZGZ1Z5R1dYOVF0Vnd4NkxoY0tvYWlpMDFB?=
+ =?utf-8?B?bHA2cS9QN3FtRmllUEpwUTRseG11dU9LNXRzdUgySlplaGVRWE5XeURyNWNv?=
+ =?utf-8?B?U25VQVd4THU1UGtnVGEvQm10bDR6MFVza1BKVk82UUd6dlZ2aEcwSzRhUTZm?=
+ =?utf-8?B?N3JRNE5nMEZQZWg2WC9IYTdlSkQxTjYybk1YeDdVcHp0ZzFUakJUWlZnL3pt?=
+ =?utf-8?B?TWVrNDBEcmlnQWNJdEsxSG1yNHhsTk5Rcno0S3NmV09uM1VMUGFlK0NQRlRr?=
+ =?utf-8?B?ZTRnQjhOcWJmSERjalRmY3ZIVmw4NnVLOGp6UkpLejF5TEtjdU1JV1lGOXpq?=
+ =?utf-8?B?QUpRWTI1cngxU3pPOGRjcEpVWVNCRkhZTUdTeHY3YnFkQWpIZEJFOUxYa01v?=
+ =?utf-8?B?ZndvUkhBSTArOFZYZEd2c3RmSlN5cVl2eVZRdDVuWkRkd0dnREtBZlMrU0Qr?=
+ =?utf-8?B?bzNKazl3YitDK29TVGlEUk1YSndjakVnZ3pkVHVaZGNsdjNEMnZEcCtIVlJ6?=
+ =?utf-8?B?U3pBNk95c0tvTXF1ZU13R0tMaTgvdjB1T1lkQTRsMmpwcWZQNko0WDFHd0dt?=
+ =?utf-8?B?aDhQQjRxRHhsZC9LaDl6RlpsYkVIem9CWk8zY3kvR0UzTW1BWU5Cc25oS1Z0?=
+ =?utf-8?B?S2FmWUE5N09jTVY3T1V1a2pDOUlGaFlJSWNWdHB4aHc0Q2l1bDcyR1lsYXdL?=
+ =?utf-8?B?S1gyYXh0VGM2V2ZmYkVlYTNLeXB1eWJSREpyeER2d0JSajc2Vy9JZ3BVbDdx?=
+ =?utf-8?B?RmlvMmUyTHQwS0J0ZmZ6eCt1eStFb0p4RGdKYk5obTBVS094ZzBiMnBHMGxM?=
+ =?utf-8?B?SXJTUUVROUJWV1Q5Q0ZoYXF6TEVwVkZBNjAxTis5bW1IeFBpK3lDeFFwQzNP?=
+ =?utf-8?B?WnBPNGpsakxSZmdMUHUvVjVWWlpIRlF2MU5yVzJDQVJ4ZmdnalRCOU13Wkx2?=
+ =?utf-8?B?WDArOFFiUW96bFJGSEs3MVY5Y0JGOFFoSDVsUGpTeGZyQVRFY1hxdUV0N2Rk?=
+ =?utf-8?B?b2FOTG94c2V3NkNjRWg1YXg1Q1I1dk43YUc4akkvWDNtMjI5bEJHS1B5YkJp?=
+ =?utf-8?B?aVBabktXYXFIOFRNcVcwSldBaG1FTmxMV0VtOWNXSXA2ZzZlZFdlYkl4ckx6?=
+ =?utf-8?B?aVZDMjFNM2NzYmlzYjhZT1AxTUN4NDJNNVRaWUtNMm9DY3l3bW02dGp3RGdP?=
+ =?utf-8?B?a0tieXYvR0VxVTVvS3dpckVna3NSQ05tNXVkbmJyTUdJclV4bW9nOFdGakxR?=
+ =?utf-8?Q?5HjqD6JFSHvR+EKkUoZHvgx6H?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5616823d-fe5d-4928-9e93-08db79859ed9
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB6879.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 16:17:46.4079
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 16:18:20.7514
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: souSrwuFd2spUU/WhFWgHiC2upG/DgqArAurx9gQOMt/yuDGTBc7NtVzKxgn5MIXNuiELG3K4OEVxQFItEldgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6164
+X-MS-Exchange-CrossTenant-UserPrincipalName: KmDNSZp/65GlUuo5nBo4CPwOUXvWnfIoGfFFdmekkhe/F7bXb3XSJ+ETgolU2kb7pOWAAhwrt29kVybam+SHmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6874
+X-OriginatorOrg: intel.com
 
+Hi,
 
-On 26/06/2023 04:34, Penny Zheng wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
+On 6/30/2023 12:14 AM, Chen, Jiqian wrote:
+> Hi Dongwon,
 >
->
-> This commit expands xen_mpumap_update/xen_mpumap_update_entry to include
-> destroying an existing entry.
->
-> We define a new helper "control_xen_mpumap_region_from_index" to enable/disable
-> the MPU region based on index. If region is within [0, 31], we could quickly
-> disable the MPU region through PRENR_EL2 which provides direct access to the
-> PRLAR_EL2.EN bits of EL2 MPU regions.
->
-> Rignt now, we only support destroying a *WHOLE* MPU memory region,
-> part-region removing is not supported, as in worst case, it will
-> leave two fragments behind.
->
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> ---
-> v3:
-> - make pr_get_base()/pr_get_limit() static inline
-> - need an isb to ensure register write visible before zeroing the entry
-> ---
->   xen/arch/arm/include/asm/arm64/mpu.h     |  2 +
->   xen/arch/arm/include/asm/arm64/sysregs.h |  3 +
->   xen/arch/arm/mm.c                        |  5 ++
->   xen/arch/arm/mpu/mm.c                    | 74 ++++++++++++++++++++++++
->   4 files changed, 84 insertions(+)
->
-> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
-> index 715ea69884..aee7947223 100644
-> --- a/xen/arch/arm/include/asm/arm64/mpu.h
-> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
-> @@ -25,6 +25,8 @@
->   #define REGION_UART_SEL            0x07
->   #define MPUIR_REGION_MASK          ((_AC(1, UL) << 8) - 1)
->
-> +#define MPU_PRENR_BITS             32
+> On 2023/6/30 00:53, Kim, Dongwon wrote:
+>> This method - letting QEMU not remove resources would work on S3 case but with S4, the QEMU would lose all the resources anyway as the process will be terminated. So objects restoring was only option for us as
+> My patch is for S3 function on Xen. I haven't tried S4 before, I will try S4 later.
 
-This is common to R52 and R82.
+I understand s3 is your priority but this code path will be executed for 
+s4 as well, so I think we should make sure s4 is covered as well.
 
-Thus, you can put it in the common file (may be 
-xen/arch/arm/include/asm/mpu/mm.h)
-
-> +
->   /* Access permission attributes. */
->   /* Read/Write at EL2, No Access at EL1/EL0. */
->   #define AP_RW_EL2 0x0
-> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
-> index c8a679afdd..96c025053b 100644
-> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
-> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
-> @@ -509,6 +509,9 @@
->   /* MPU Type registers encode */
->   #define MPUIR_EL2   S3_4_C0_C0_4
->
-> +/* MPU Protection Region Enable Register encode */
-> +#define PRENR_EL2   S3_4_C6_C1_1
-> +
->   #endif
->
->   /* Access to system registers */
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 8625066256..247d17cfa1 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -164,7 +164,12 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->       ASSERT(IS_ALIGNED(s, PAGE_SIZE));
->       ASSERT(IS_ALIGNED(e, PAGE_SIZE));
->       ASSERT(s <= e);
-> +#ifndef CONFIG_HAS_MPU
->       return xen_pt_update(s, INVALID_MFN, (e - s) >> PAGE_SHIFT, 0);
-> +#else
-> +    return xen_mpumap_update(virt_to_maddr((void *)s),
-> +                             virt_to_maddr((void *)e), 0);
-> +#endif
->   }
-
-Refer my comment in previous patch.
-
-You can have two implementations of this function 1) 
-xen/arch/arm/mmu/mm.c 2) xen/arch/arm/mpu/mm.h
-
->
->   int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int flags)
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 0a65b58dc4..a40055ae5e 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -425,6 +425,59 @@ static int mpumap_contain_region(pr_t *table, uint8_t nr_regions,
->       return MPUMAP_REGION_FAILED;
->   }
->
-> +/* Disable or enable EL2 MPU memory region at index #index */
-> +static void control_mpu_region_from_index(uint8_t index, bool enable)
-> +{
-> +    pr_t region;
-> +
-> +    read_protection_region(&region, index);
-> +    if ( !region_is_valid(&region) ^ enable )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "mpu: MPU memory region[%u] is already %s\n", index,
-> +               enable ? "enabled" : "disabled");
-> +        return;
-> +    }
-> +
-> +    /*
-> +     * ARM64v8R provides PRENR_EL2 to have direct access to the
-> +     * PRLAR_EL2.EN bits of EL2 MPU regions from 0 to 31.
-> +     */
-> +    if ( index < MPU_PRENR_BITS )
-> +    {
-> +        uint64_t orig, after;
-> +
-> +        orig = READ_SYSREG(PRENR_EL2);
-> +        if ( enable )
-> +            /* Set respective bit */
-> +            after = orig | (1UL << index);
-> +        else
-> +            /* Clear respective bit */
-> +            after = orig & (~(1UL << index));
-> +        WRITE_SYSREG(after, PRENR_EL2);
-> +    }
-> +    else
-> +    {
-> +        region.prlar.reg.en = enable ? 1 : 0;
-> +        write_protection_region((const pr_t*)&region, index);
-> +    }
-> +    /* Ensure the write before zeroing the entry */
-dsb(); /* to ensure write completes */
-> +    isb();
-> +
-> +    /* Update according bitfield in xen_mpumap_mask */
-> +    spin_lock(&xen_mpumap_alloc_lock);
-> +
-> +    if ( enable )
-> +        set_bit(index, xen_mpumap_mask);
-> +    else
-> +    {
-> +        clear_bit(index, xen_mpumap_mask);
-> +        memset(&xen_mpumap[index], 0, sizeof(pr_t));
-> +    }
-> +
-> +    spin_unlock(&xen_mpumap_alloc_lock);
-> +}
-> +
->   /*
->    * Update an entry in Xen MPU memory region mapping table(xen_mpumap) at
->    * the index @idx.
-> @@ -461,6 +514,27 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
->
->           write_protection_region((const pr_t*)(&xen_mpumap[idx]), idx);
->       }
-> +    else
-> +    {
-> +        /*
-> +         * Currently, we only support destroying a *WHOLE* MPU memory region,
-> +         * part-region removing is not supported, as in worst case, it will
-> +         * leave two fragments behind.
-> +         * part-region removing will be introduced only when actual usage
-> +         * comes.
-> +         */
-> +        if ( rc == MPUMAP_REGION_INCLUSIVE )
-> +        {
-> +            region_printk("mpu: part-region removing is not supported\n");
-> +            return -EINVAL;
-> +        }
-> +
-> +        /* We are removing the region */
-> +        if ( rc != MPUMAP_REGION_FOUND )
-> +            return -EINVAL;
-> +
-> +        control_mpu_region_from_index(idx, false);
-> +    }
->
->       return 0;
->   }
-> --
-> 2.25.1
->
->
-- Ayan
+>> in [RFC PATCH 2/2] drm/virtio: restore virtio_gpu_objects upon suspend and resume (lists.freedesktop.org) <https://lists.freedesktop.org/archives/dri-devel/2022-September/373894.html>
+>>
+>> But I only considered and tested cases with scanout blob resources, so this may not cover other resource types...
+> I tried your patch, but I can't success to resume guest and guest crashed.
+Hmm, probably due to some difference in the setting. Are you using blob 
+guest scanout (sharing display by sharing scatter-gather list of the 
+buffer for zero copy)? We may have to debug it little bit. Anyway, the 
+patch I shared is based on "recovery" instead of forcing QEMU to keep 
+the resources. I think this is only way to cover both S3 and S4. Why 
+don't we have some time to look into this path as well?
+>> On 6/7/2023 7:56 PM, Jiqian Chen wrote:
+>>> After suspending and resuming guest VM, you will get
+>>> a black screen, and the display can't come back.
+>>>
+>>> This is because when guest did suspending, it called
+>>> into qemu to call virtio_gpu_gl_reset. In function
+>>> virtio_gpu_gl_reset, it destroyed resources and reset
+>>> renderer, which were used for display. As a result,
+>>> guest's screen can't come back to the time when it was
+>>> suspended and only showed black.
+>>>
+>>> So, this patch adds a new ctrl message
+>>> VIRTIO_GPU_CMD_STATUS_FREEZING to get notification from
+>>> guest. If guest is during suspending, it sets freezing
+>>> status of virtgpu to true, this will prevent destroying
+>>> resources and resetting renderer when guest calls into
+>>> virtio_gpu_gl_reset. If guest is during resuming, it sets
+>>> freezing to false, and then virtio_gpu_gl_reset will keep
+>>> its origin actions and has no other impaction.
+>>>
+>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>> ---
+>>>    hw/display/virtio-gpu-gl.c                  |  9 ++++++-
+>>>    hw/display/virtio-gpu-virgl.c               |  3 +++
+>>>    hw/display/virtio-gpu.c                     | 26 +++++++++++++++++++--
+>>>    include/hw/virtio/virtio-gpu.h              |  3 +++
+>>>    include/standard-headers/linux/virtio_gpu.h |  9 +++++++
+>>>    5 files changed, 47 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/hw/display/virtio-gpu-gl.c b/hw/display/virtio-gpu-gl.c
+>>> index e06be60dfb..e11ad233eb 100644
+>>> --- a/hw/display/virtio-gpu-gl.c
+>>> +++ b/hw/display/virtio-gpu-gl.c
+>>> @@ -100,7 +100,14 @@ static void virtio_gpu_gl_reset(VirtIODevice *vdev)
+>>>         */
+>>>        if (gl->renderer_inited && !gl->renderer_reset) {
+>>>            virtio_gpu_virgl_reset_scanout(g);
+>>> -        gl->renderer_reset = true;
+>>> +        /*
+>>> +         * If guest is suspending, we shouldn't reset renderer,
+>>> +         * otherwise, the display can't come back to the time when
+>>> +         * it was suspended after guest resumed.
+>>> +         */
+>>> +        if (!g->freezing) {
+>>> +            gl->renderer_reset = true;
+>>> +        }
+>>>        }
+>>>    }
+>>>    diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+>>> index 73cb92c8d5..183ec92d53 100644
+>>> --- a/hw/display/virtio-gpu-virgl.c
+>>> +++ b/hw/display/virtio-gpu-virgl.c
+>>> @@ -464,6 +464,9 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>>>        case VIRTIO_GPU_CMD_GET_EDID:
+>>>            virtio_gpu_get_edid(g, cmd);
+>>>            break;
+>>> +    case VIRTIO_GPU_CMD_STATUS_FREEZING:
+>>> +        virtio_gpu_cmd_status_freezing(g, cmd);
+>>> +        break;
+>>>        default:
+>>>            cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>>>            break;
+>>> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+>>> index 5e15c79b94..8f235d7848 100644
+>>> --- a/hw/display/virtio-gpu.c
+>>> +++ b/hw/display/virtio-gpu.c
+>>> @@ -373,6 +373,16 @@ static void virtio_gpu_resource_create_blob(VirtIOGPU *g,
+>>>        QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+>>>    }
+>>>    +void virtio_gpu_cmd_status_freezing(VirtIOGPU *g,
+>>> +                         struct virtio_gpu_ctrl_command *cmd)
+>>> +{
+>>> +    struct virtio_gpu_status_freezing sf;
+>>> +
+>>> +    VIRTIO_GPU_FILL_CMD(sf);
+>>> +    virtio_gpu_bswap_32(&sf, sizeof(sf));
+>>> +    g->freezing = sf.freezing;
+>>> +}
+>>> +
+>>>    static void virtio_gpu_disable_scanout(VirtIOGPU *g, int scanout_id)
+>>>    {
+>>>        struct virtio_gpu_scanout *scanout = &g->parent_obj.scanout[scanout_id];
+>>> @@ -986,6 +996,9 @@ void virtio_gpu_simple_process_cmd(VirtIOGPU *g,
+>>>        case VIRTIO_GPU_CMD_RESOURCE_DETACH_BACKING:
+>>>            virtio_gpu_resource_detach_backing(g, cmd);
+>>>            break;
+>>> +    case VIRTIO_GPU_CMD_STATUS_FREEZING:
+>>> +        virtio_gpu_cmd_status_freezing(g, cmd);
+>>> +        break;
+>>>        default:
+>>>            cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>>>            break;
+>>> @@ -1344,6 +1357,8 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+>>>        QTAILQ_INIT(&g->reslist);
+>>>        QTAILQ_INIT(&g->cmdq);
+>>>        QTAILQ_INIT(&g->fenceq);
+>>> +
+>>> +    g->freezing = false;
+>>>    }
+>>>      void virtio_gpu_reset(VirtIODevice *vdev)
+>>> @@ -1352,8 +1367,15 @@ void virtio_gpu_reset(VirtIODevice *vdev)
+>>>        struct virtio_gpu_simple_resource *res, *tmp;
+>>>        struct virtio_gpu_ctrl_command *cmd;
+>>>    -    QTAILQ_FOREACH_SAFE(res, &g->reslist, next, tmp) {
+>>> -        virtio_gpu_resource_destroy(g, res);
+>>> +    /*
+>>> +     * If guest is suspending, we shouldn't destroy resources,
+>>> +     * otherwise, the display can't come back to the time when
+>>> +     * it was suspended after guest resumed.
+>>> +     */
+>>> +    if (!g->freezing) {
+>>> +        QTAILQ_FOREACH_SAFE(res, &g->reslist, next, tmp) {
+>>> +            virtio_gpu_resource_destroy(g, res);
+>>> +        }
+>>>        }
+>>>          while (!QTAILQ_EMPTY(&g->cmdq)) {
+>>> diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
+>>> index 2e28507efe..c21c2990fb 100644
+>>> --- a/include/hw/virtio/virtio-gpu.h
+>>> +++ b/include/hw/virtio/virtio-gpu.h
+>>> @@ -173,6 +173,7 @@ struct VirtIOGPU {
+>>>          uint64_t hostmem;
+>>>    +    bool freezing;
+>>>        bool processing_cmdq;
+>>>        QEMUTimer *fence_poll;
+>>>        QEMUTimer *print_stats;
+>>> @@ -284,5 +285,7 @@ void virtio_gpu_virgl_reset_scanout(VirtIOGPU *g);
+>>>    void virtio_gpu_virgl_reset(VirtIOGPU *g);
+>>>    int virtio_gpu_virgl_init(VirtIOGPU *g);
+>>>    int virtio_gpu_virgl_get_num_capsets(VirtIOGPU *g);
+>>> +void virtio_gpu_cmd_status_freezing(VirtIOGPU *g,
+>>> +                         struct virtio_gpu_ctrl_command *cmd);
+>>>      #endif
+>>> diff --git a/include/standard-headers/linux/virtio_gpu.h b/include/standard-headers/linux/virtio_gpu.h
+>>> index 2da48d3d4c..aefffbd751 100644
+>>> --- a/include/standard-headers/linux/virtio_gpu.h
+>>> +++ b/include/standard-headers/linux/virtio_gpu.h
+>>> @@ -116,6 +116,9 @@ enum virtio_gpu_ctrl_type {
+>>>        VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID,
+>>>        VIRTIO_GPU_RESP_ERR_INVALID_CONTEXT_ID,
+>>>        VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER,
+>>> +
+>>> +    /* status */
+>>> +    VIRTIO_GPU_CMD_STATUS_FREEZING = 0x1300,
+>>>    };
+>>>      enum virtio_gpu_shm_id {
+>>> @@ -453,4 +456,10 @@ struct virtio_gpu_resource_unmap_blob {
+>>>        uint32_t padding;
+>>>    };
+>>>    +/* VIRTIO_GPU_CMD_STATUS_FREEZING */
+>>> +struct virtio_gpu_status_freezing {
+>>> +    struct virtio_gpu_ctrl_hdr hdr;
+>>> +    __u32 freezing;
+>>> +};
+>>> +
+>>>    #endif
 
