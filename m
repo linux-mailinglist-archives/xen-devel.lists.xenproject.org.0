@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6847437F6
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 11:13:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557383.870689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAD0C743812
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Jun 2023 11:19:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557391.870699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFAB1-0006LN-9b; Fri, 30 Jun 2023 09:12:27 +0000
+	id 1qFAHh-00076D-7c; Fri, 30 Jun 2023 09:19:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557383.870689; Fri, 30 Jun 2023 09:12:27 +0000
+Received: by outflank-mailman (output) from mailman id 557391.870699; Fri, 30 Jun 2023 09:19:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFAB1-0006JK-6e; Fri, 30 Jun 2023 09:12:27 +0000
-Received: by outflank-mailman (input) for mailman id 557383;
- Fri, 30 Jun 2023 09:12:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HA9x=CS=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1qFAAz-0006JC-Eg
- for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 09:12:25 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 382ebb0c-1726-11ee-b237-6b7b168915f2;
- Fri, 30 Jun 2023 11:12:22 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9453BC14;
- Fri, 30 Jun 2023 02:13:04 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 006003F73F;
- Fri, 30 Jun 2023 02:12:18 -0700 (PDT)
+	id 1qFAHh-00073k-3E; Fri, 30 Jun 2023 09:19:21 +0000
+Received: by outflank-mailman (input) for mailman id 557391;
+ Fri, 30 Jun 2023 09:19:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qFAHf-00073e-MH
+ for xen-devel@lists.xenproject.org; Fri, 30 Jun 2023 09:19:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qFAHc-0001N6-FW; Fri, 30 Jun 2023 09:19:16 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qFAHc-0001MS-6D; Fri, 30 Jun 2023 09:19:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,869 +39,880 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 382ebb0c-1726-11ee-b237-6b7b168915f2
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Henry Wang <Henry.Wang@arm.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [RFC PATCH] xen/arm: Rebranding dom0less feature
-Date: Fri, 30 Jun 2023 10:12:10 +0100
-Message-Id: <20230630091210.3742121-1-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Fe0FYoWwZb4anSw2h75aJ/LmZEdQGDOpAxJyPjyIAOs=; b=mcVh6dN6KErVLEc4DvFIA9gAOw
+	iI1uP/eyfgCYJcKN+x2/PpufobzoNlluaIyiE7/MuuB4FcC9Dc8VFNWsCyQmjd92nhzLztc3IJD0V
+	pG+P59rgwssHLgwFhWhtQR0ar5WHK6RzeCWvlG6OdJs843bKLgZ+GZuKJemRWqMIpnK0=;
+Message-ID: <8f908259-2924-37cb-9987-f9488f9af1aa@xen.org>
+Date: Fri, 30 Jun 2023 10:19:13 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
+Content-Language: en-US
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Henry Wang <Henry.Wang@arm.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20230630091210.3742121-1-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230630091210.3742121-1-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The "dom0less" feature was intended to be the feature where a domU
-domain could be launched without the control domain (Dom0)
-intervention, however the name seems to suggest that Dom0 cannot
-be part of the configuration, while instead it's a possible use case.
+(+ Christopher and Daniel)
 
-To avoid that, rename the "dom0less" configuration with the name
-"hyperlaunch", that is less misleading.
+On 30/06/2023 10:12, Luca Fancellu wrote:
+> The "dom0less" feature was intended to be the feature where a domU
+> domain could be launched without the control domain (Dom0)
+> intervention, however the name seems to suggest that Dom0 cannot
+> be part of the configuration, while instead it's a possible use case.
+> 
+> To avoid that, rename the "dom0less" configuration with the name
+> "hyperlaunch", that is less misleading.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> This is an RFC to get the feeling of the community about the name
+> change, for now it's everything in one patch just to see how it
+> will look like, if there is interest on proceeding into it, I can
+> split in more commit.
+> Please note that I've left intentionally "dom0less" into the
+> docs/design/ and CHANGELOG.md
+> ---
+> ---
+>   .gitignore                                    |  2 +-
+>   CHANGELOG.md                                  |  2 +
+>   SUPPORT.md                                    |  8 +-
+>   automation/gitlab-ci/test.yaml                | 88 +++++++++----------
+>   ...m32.sh => qemu-smoke-hyperlaunch-arm32.sh} |  0
+>   ...m64.sh => qemu-smoke-hyperlaunch-arm64.sh} |  2 +-
+>   ...arm64.sh => qemu-xtf-hyperlaunch-arm64.sh} |  0
+>   ...4.sh => xilinx-smoke-hyperlaunch-arm64.sh} |  2 +-
+>   docs/INDEX                                    |  2 +-
+>   .../{dom0less.pandoc => hyperlaunch.pandoc}   | 33 +++----
+>   docs/misc/arm/device-tree/booting.txt         |  4 +-
+>   docs/misc/efi.pandoc                          | 14 +--
+>   docs/misc/xen-command-line.pandoc             |  2 +-
+>   docs/misc/xenstore-ring.txt                   |  6 +-
+>   tools/helpers/Makefile                        | 20 ++---
+>   ...t-dom0less.c => init-hyperlaunch-guests.c} |  4 +-
+>   xen/arch/arm/Kconfig                          |  4 +-
+>   xen/arch/arm/domain_build.c                   | 18 ++--
+>   xen/arch/arm/efi/efi-boot.h                   |  9 +-
+>   xen/arch/arm/include/asm/kernel.h             | 32 +++----
+>   xen/arch/arm/setup.c                          |  8 +-
+>   21 files changed, 132 insertions(+), 128 deletions(-)
+>   rename automation/scripts/{qemu-smoke-dom0less-arm32.sh => qemu-smoke-hyperlaunch-arm32.sh} (100%)
+>   rename automation/scripts/{qemu-smoke-dom0less-arm64.sh => qemu-smoke-hyperlaunch-arm64.sh} (99%)
+>   rename automation/scripts/{qemu-xtf-dom0less-arm64.sh => qemu-xtf-hyperlaunch-arm64.sh} (100%)
+>   rename automation/scripts/{xilinx-smoke-dom0less-arm64.sh => xilinx-smoke-hyperlaunch-arm64.sh} (98%)
+>   rename docs/features/{dom0less.pandoc => hyperlaunch.pandoc} (84%)
+>   rename tools/helpers/{init-dom0less.c => init-hyperlaunch-guests.c} (98%)
+> 
+> diff --git a/.gitignore b/.gitignore
+> index c1b73b096893..c9d569247079 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -167,7 +167,7 @@ tools/flask/utils/flask-loadpolicy
+>   tools/flask/utils/flask-setenforce
+>   tools/flask/utils/flask-set-bool
+>   tools/flask/utils/flask-label-pci
+> -tools/helpers/init-dom0less
+> +tools/helpers/init-hyperlaunch-guests
+>   tools/helpers/init-xenstore-domain
+>   tools/helpers/xen-init-dom0
+>   tools/hotplug/common/hotplugpath.sh
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 7d7e0590f8c6..cf01e004b017 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>      known user doesn't use it properly, leading to in-guest breakage.
+>    - The "dom0" option is now supported on Arm and "sve=" sub-option can be used
+>      to enable dom0 guest to use SVE/SVE2 instructions.
+> + - The "dom0less" feature, currently supported only on arm, is renamed to
+> +   "hyperlaunch".
+>   
+>   ### Added
+>    - On x86, support for features new in Intel Sapphire Rapids CPUs:
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 35a6249e03b2..fe500652828c 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -342,7 +342,7 @@ Allow sharing of identical pages between guests
+>   
+>   ### Static Memory Sharing
+>   
+> -Allow to statically set up shared memory on dom0less system,
+> +Allow to statically set up shared memory on hyperlaunch system,
+>   enabling domains to do shm-based communication
+>   
+>       Status, ARM: Tech Preview
+> @@ -945,20 +945,20 @@ OVMF firmware implements the UEFI boot protocol.
+>   
+>       Status, qemu-xen: Supported
+>   
+> -## Dom0less
+> +## Hyperlaunch
+>   
+>   Guest creation from the hypervisor at boot without Dom0 intervention.
+>   
+>       Status, ARM: Supported
+>   
+> -Memory of dom0less DomUs is not scrubbed at boot when bootscrub=on or
+> +Memory of hyperlaunch DomUs is not scrubbed at boot when bootscrub=on or
+>   bootscrub=off are passed as Xen command line parameters. (Memory should
+>   be scrubbed with bootscrub=idle.) No XSAs will be issues due to
+>   unscrubbed memory.
+>   
+>   ## Static Event Channel
+>   
+> -Allow to setup the static event channel on dom0less system, enabling domains
+> +Allow to setup the static event channel on hyperlaunch system, enabling domains
+>   to send/receive notifications.
+>   
+>       Status, ARM: Tech Preview
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index d5cb238b0ad8..d309c784b643 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -136,18 +136,18 @@ build-each-commit-gcc:
+>     tags:
+>       - x86_64
+>   
+> -xilinx-smoke-dom0less-arm64-gcc:
+> +xilinx-smoke-hyperlaunch-arm64-gcc:
+>     extends: .xilinx-arm64
+>     script:
+> -    - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-arm64
+>   
+> -xilinx-smoke-dom0less-arm64-gcc-gem-passthrough:
+> +xilinx-smoke-hyperlaunch-arm64-gcc-gem-passthrough:
+>     extends: .xilinx-arm64
+>     script:
+> -    - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh gem-passthrough 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh gem-passthrough 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-arm64
+> @@ -234,98 +234,98 @@ qemu-smoke-dom0-arm64-gcc-debug:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-debug-arm64
+>   
+> -qemu-smoke-dom0less-arm64-gcc:
+> +qemu-smoke-hyperlaunch-arm64-gcc:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-arm64
+>   
+> -qemu-smoke-dom0less-arm64-gcc-debug:
+> +qemu-smoke-hyperlaunch-arm64-gcc-debug:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-debug-arm64
+>   
+> -qemu-smoke-dom0less-arm64-gcc-staticmem:
+> +qemu-smoke-hyperlaunch-arm64-gcc-staticmem:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-arm64-staticmem
+>   
+> -qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+> +qemu-smoke-hyperlaunch-arm64-gcc-debug-staticmem:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-debug-arm64-staticmem
+>   
+> -qemu-smoke-dom0less-arm64-gcc-staticheap:
+> +qemu-smoke-hyperlaunch-arm64-gcc-staticheap:
+>    extends: .qemu-arm64
+>    script:
+> -   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+> +   - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+>    needs:
+>      - *arm64-test-needs
+>      - alpine-3.12-gcc-arm64
+>   
+> -qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+> +qemu-smoke-hyperlaunch-arm64-gcc-debug-staticheap:
+>    extends: .qemu-arm64
+>    script:
+> -   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+> +   - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+>    needs:
+>      - *arm64-test-needs
+>      - alpine-3.12-gcc-debug-arm64
+>   
+> -qemu-smoke-dom0less-arm64-gcc-static-shared-mem:
+> +qemu-smoke-hyperlaunch-arm64-gcc-static-shared-mem:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-arm64-static-shared-mem
+>   
+> -qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
+> +qemu-smoke-hyperlaunch-arm64-gcc-debug-static-shared-mem:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-debug-arm64-static-shared-mem
+>   
+> -qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
+> +qemu-smoke-hyperlaunch-arm64-gcc-boot-cpupools:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-arm64-boot-cpupools
+>   
+> -qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
+> +qemu-smoke-hyperlaunch-arm64-gcc-debug-boot-cpupools:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm64-test-needs
+>       - alpine-3.12-gcc-debug-arm64-boot-cpupools
+>   
+> -qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+> +qemu-xtf-hyperlaunch-arm64-gcc-hyp-xen-version:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-xtf-hyperlaunch-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - alpine-3.12-gcc-arm64
+>       - qemu-system-aarch64-6.0.0-arm64-export
+>   
+> -qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
+> +qemu-xtf-hyperlaunch-arm64-gcc-debug-hyp-xen-version:
+>     extends: .qemu-arm64
+>     script:
+> -    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-xtf-hyperlaunch-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - alpine-3.12-gcc-debug-arm64
+>       - qemu-system-aarch64-6.0.0-arm64-export
+> @@ -338,66 +338,66 @@ qemu-smoke-dom0-arm32-gcc:
+>       - *arm32-test-needs
+>       - yocto-qemuarm
+>   
+> -qemu-smoke-dom0less-arm32-gcc:
+> +qemu-smoke-hyperlaunch-arm32-gcc:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32
+>   
+> -qemu-smoke-dom0less-arm32-gcc-debug:
+> +qemu-smoke-hyperlaunch-arm32-gcc-debug:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32-debug
+>   
+> -qemu-smoke-dom0less-arm32-gcc-staticmem:
+> +qemu-smoke-hyperlaunch-arm32-gcc-staticmem:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32-staticmem
+>   
+> -qemu-smoke-dom0less-arm32-gcc-debug-staticmem:
+> +qemu-smoke-hyperlaunch-arm32-gcc-debug-staticmem:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32-debug-staticmem
+>   
+> -qemu-smoke-dom0less-arm32-gcc-gzip:
+> +qemu-smoke-hyperlaunch-arm32-gcc-gzip:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh gzip 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32
+>   
+> -qemu-smoke-dom0less-arm32-gcc-debug-gzip:
+> +qemu-smoke-hyperlaunch-arm32-gcc-debug-gzip:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh gzip 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32-debug
+>   
+> -qemu-smoke-dom0less-arm32-gcc-without-dom0:
+> +qemu-smoke-hyperlaunch-arm32-gcc-without-dom0:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32
+>   
+> -qemu-smoke-dom0less-arm32-gcc-debug-without-dom0:
+> +qemu-smoke-hyperlaunch-arm32-gcc-debug-without-dom0:
+>     extends: .qemu-arm32
+>     script:
+> -    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
+> +    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
+>     needs:
+>       - *arm32-test-needs
+>       - debian-unstable-gcc-arm32-debug
+> diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-hyperlaunch-arm32.sh
+> similarity index 100%
+> rename from automation/scripts/qemu-smoke-dom0less-arm32.sh
+> rename to automation/scripts/qemu-smoke-hyperlaunch-arm32.sh
+> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-hyperlaunch-arm64.sh
+> similarity index 99%
+> rename from automation/scripts/qemu-smoke-dom0less-arm64.sh
+> rename to automation/scripts/qemu-smoke-hyperlaunch-arm64.sh
+> index 75f575424a4e..db22cfaa1fd6 100755
+> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> +++ b/automation/scripts/qemu-smoke-hyperlaunch-arm64.sh
+> @@ -113,7 +113,7 @@ echo "#!/bin/bash
+>   export LD_LIBRARY_PATH=/usr/local/lib
+>   bash /etc/init.d/xencommons start
+>   
+> -/usr/local/lib/xen/bin/init-dom0less
+> +/usr/local/lib/xen/bin/init-hyperlaunch-guests
+>   
+>   brctl addbr xenbr0
+>   brctl addif xenbr0 eth0
+> diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-hyperlaunch-arm64.sh
+> similarity index 100%
+> rename from automation/scripts/qemu-xtf-dom0less-arm64.sh
+> rename to automation/scripts/qemu-xtf-hyperlaunch-arm64.sh
+> diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh
+> similarity index 98%
+> rename from automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> rename to automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh
+> index 075305241c8d..35b60720fe08 100755
+> --- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> +++ b/automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh
+> @@ -73,7 +73,7 @@ echo "#!/bin/bash
+>   export LD_LIBRARY_PATH=/usr/local/lib
+>   bash /etc/init.d/xencommons start
+>   
+> -/usr/local/lib/xen/bin/init-dom0less
+> +/usr/local/lib/xen/bin/init-hyperlaunch-guests
+>   
+>   ${dom0_check}
+>   " > etc/local.d/xen.start
+> diff --git a/docs/INDEX b/docs/INDEX
+> index e673edd75c31..ed3d2e6198ec 100644
+> --- a/docs/INDEX
+> +++ b/docs/INDEX
+> @@ -25,4 +25,4 @@ misc/arm/early-printk		Enabling early printk on ARM
+>   misc/arm/passthrough		Passthrough a device described in the Device Tree to a guest
+>   misc/arm/device-tree/booting	Device tree bindings to boot Xen
+>   misc/arm/device-tree/passthrough	Device tree binding to passthrough a device
+> -features/dom0less.markdown	Boot multiple domains from Xen in parallel
+> +features/hyperlaunch.markdown	Boot multiple domains from Xen in parallel
+> diff --git a/docs/features/dom0less.pandoc b/docs/features/hyperlaunch.pandoc
+> similarity index 84%
+> rename from docs/features/dom0less.pandoc
+> rename to docs/features/hyperlaunch.pandoc
+> index 725afa055838..a62d534696e3 100644
+> --- a/docs/features/dom0less.pandoc
+> +++ b/docs/features/hyperlaunch.pandoc
+> @@ -1,7 +1,7 @@
+> -Dom0less
+> -========
+> +Hyperlaunch
+> +===========
+>   
+> -"Dom0less" is a set of Xen features that enable the deployment of a Xen
+> +"Hyperlaunch" is a set of Xen features that enable the deployment of a Xen
+>   system without an control domain (often referred to as "dom0"). Each
+>   feature can be used independently from the others, unless otherwise
+>   stated.
+> @@ -93,26 +93,26 @@ See docs/misc/arm/device-tree/booting.txt for more information.
+>   PV Drivers
+>   ----------
+>   
+> -It is possible to use PV drivers with dom0less guests with some
+> +It is possible to use PV drivers with hyperlaunch started guests with some
+>   restrictions:
+>   
+> -- dom0less domUs that want to use PV drivers support should have the
+> +- hyperlaunch started domUs that want to use PV drivers support should have the
+>     "xen,enhanced" property set under their device tree nodes (see
+>     docs/misc/arm/device-tree/booting.txt)
+>   - a dom0 must be present (or another domain with enough privileges to
+>     run the toolstack)
+> -- after dom0 is booted, the utility "init-dom0less" must be run
+> -- do not run "init-dom0less" while creating other guests with xl
+> +- after dom0 is booted, the utility "init-hyperlaunch-guests" must be run
+> +- do not run "init-hyperlaunch-guests" while creating other guests with xl
+>   
+> -After the execution of init-dom0less, it is possible to use "xl" to
+> -hotplug PV drivers to dom0less guests. E.g. xl network-attach domU.
+> +After the execution of init-hyperlaunch-guests, it is possible to use "xl" to
+> +hotplug PV drivers to hyperlaunch started guests. E.g. xl network-attach domU.
+>   
+>   The implementation works as follows:
+> -- Xen allocates the xenstore event channel for each dom0less domU that
+> -  has the "xen,enhanced" property, and sets HVM_PARAM_STORE_EVTCHN
+> +- Xen allocates the xenstore event channel for each hyperlaunch started domU
+> +  that has the "xen,enhanced" property, and sets HVM_PARAM_STORE_EVTCHN
+>   - Xen does *not* allocate the xenstore page and sets HVM_PARAM_STORE_PFN
+>     to ~0ULL (invalid)
+> -- Dom0less domU kernels check that HVM_PARAM_STORE_PFN is set to invalid
+> +- Hyperlaunch started domU kernels check that HVM_PARAM_STORE_PFN is set to invalid
+>       - Old kernels will continue without xenstore support (Note: some old
+>         buggy kernels might crash because they don't check the validity of
+>         HVM_PARAM_STORE_PFN before using it! Disable "xen,enhanced" in
+> @@ -120,7 +120,7 @@ The implementation works as follows:
+>       - New kernels will wait for a notification on the xenstore event
+>         channel (HVM_PARAM_STORE_EVTCHN) before continuing with the
+>         initialization
+> -- Once dom0 is booted, init-dom0less is executed:
+> +- Once dom0 is booted, init-hyperlaunch-guests is executed:
+>       - it allocates the xenstore shared page and sets HVM_PARAM_STORE_PFN
+>       - it calls xs_introduce_domain
+>   - Xenstored notices the new domain, initializes interfaces as usual, and
+> @@ -159,12 +159,13 @@ Notes
+>   -----
+>   
+>   - 'xl console' command will not attach to the domain's console in case
+> -  of dom0less. DomU are domains created by Xen (similar to Dom0) and
+> -  therefore they are all managed by Xen and some of the commands may not work.
+> +  of hyperlaunch started guests. DomU are domains created by Xen (similar to
+> +  Dom0) and therefore they are all managed by Xen and some of the commands may
+> +  not work.
+>   
+>     A user is allowed to configure the key sequence to switch input.
+>     Pressing the Xen "conswitch" (Ctrl-A by default) three times
+> -  switches input in case of dom0less mode.
+> +  switches input in case of hyperlaunch mode.
+>   
+>   - Domains created by Xen will have no name at boot. Domain-0 has a name
+>     thanks to the helper xen-init-dom0 called at boot by the initscript.
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index bbd955e9c2f6..10ec1910a75a 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -572,8 +572,8 @@ Static Shared Memory
+>   ====================
+>   
+>   The static shared memory device tree nodes allow users to statically set up
+> -shared memory on dom0less system, enabling domains to do shm-based
+> -communication.
+> +shared memory on Hyperlaunch started guests system, enabling domains to do
+> +shm-based communication.
+>   
+>   - compatible
+>   
+> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+> index 11c1ac334600..d15cb87b49d1 100644
+> --- a/docs/misc/efi.pandoc
+> +++ b/docs/misc/efi.pandoc
+> @@ -194,12 +194,12 @@ chosen {
+>   	};
+>   }
+>   
+> -## UEFI boot and dom0less on ARM
+> +## UEFI boot and Hyperlaunch on ARM
+>   
+> -Dom0less feature is supported by ARM and it is possible to use it when Xen is
+> +Hyperlaunch feature is supported by ARM and it is possible to use it when Xen is
+>   started as an EFI application.
+>   The way to specify the domU domains is by Device Tree as specified in the
+> -[dom0less](dom0less.html) documentation page under the "Device Tree
+> +[Hyperlaunch](hyperlaunch.html) documentation page under the "Device Tree
+>   configuration" section, but instead of declaring the reg property in the boot
+>   module, the user must specify the "xen,uefi-binary" property containing the name
+>   of the binary file that has to be loaded in memory.
+> @@ -236,7 +236,7 @@ domU1 {
+>   These are the different ways to boot a Xen system from UEFI:
+>   
+>    - Boot Xen and Dom0 (minimum required)
+> - - Boot Xen and DomU(s) (true dom0less, only on ARM)
+> + - Boot Xen and DomU(s) (only on ARM)
+>    - Boot Xen, Dom0 and DomU(s) (only on ARM)
+>   
+>   ### Boot Xen and Dom0
+> @@ -247,7 +247,7 @@ example above.
+>   ### Boot Xen and DomU(s)
+>   
+>   This configuration needs the domU domain(s) specified in the /chosen node,
+> -examples of how to do that are provided by the documentation about dom0less
+> +examples of how to do that are provided by the documentation about Hyperlaunch
+>   and the example above shows how to use the "xen,uefi-binary" property to use the
+>   UEFI stub for module loading.
+>   When adding DomU modules to device tree, also add the property
+> @@ -258,7 +258,7 @@ can specify the Xen boot arguments in the configuration file with the "options="
+>   keyword or in the device tree with the "xen,xen-bootargs" property, but be
+>   aware that the Xen configuration file value has a precedence over the DT value.
+>   
+> -Example 1 of how to boot a true dom0less configuration:
+> +Example 1 of how to boot an Hyperlaunch configuration with only domU(s):
+>   
+>   Xen configuration file: skipped.
+>   
+> @@ -301,7 +301,7 @@ chosen {
+>   };
+>   ```
+>   
+> -Example 2 of how to boot a true dom0less configuration:
+> +Example 2 of how to boot an Hyperlaunch configuration with only domU(s):
+>   
+>   Xen configuration file:
+>   
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 4060ebdc5d76..35d7c9821963 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1156,7 +1156,7 @@ to use the default.
+>   > Default : `true`
+>   
+>   Flag to enable or disable support for extended regions for Dom0 and
+> -Dom0less DomUs.
+> +Hyperlaunch started DomUs.
+>   
+>   Extended regions are ranges of unused address space exposed to the guest
+>   as "safe to use" for special memory mappings. Disable if your board
+> diff --git a/docs/misc/xenstore-ring.txt b/docs/misc/xenstore-ring.txt
+> index dbc7335e24b8..f84dedd8016e 100644
+> --- a/docs/misc/xenstore-ring.txt
+> +++ b/docs/misc/xenstore-ring.txt
+> @@ -115,9 +115,9 @@ and reconnect is in progress") and signalling the event channel.
+>   The guest must now ignore all fields except the Connection state and
+>   wait for it to be set to 0 ("Ring is connected").
+>   
+> -In certain circumstances (e.g. dom0less guests with PV drivers support)
+> -it is possible for the guest to find the Connection state already set to
+> -1 by someone else during xenstore initialization. In that case, like in
+> +In certain circumstances (e.g. Hyperlaunch started guests with PV drivers
+> +support) it is possible for the guest to find the Connection state already set
+> +to 1 by someone else during xenstore initialization. In that case, like in
+>   the previous case, the guest must ignore all fields except the
+>   Connection state and wait for it to be set to 0 before proceeding.
+>   
+> diff --git a/tools/helpers/Makefile b/tools/helpers/Makefile
+> index 09590eb5b6f0..332ab47da318 100644
+> --- a/tools/helpers/Makefile
+> +++ b/tools/helpers/Makefile
+> @@ -11,7 +11,7 @@ ifeq ($(CONFIG_X86),y)
+>   TARGETS += init-xenstore-domain
+>   endif
+>   ifeq ($(CONFIG_ARM),y)
+> -TARGETS += init-dom0less
+> +TARGETS += init-hyperlaunch-guests
+>   endif
+>   endif
+>   
+> @@ -31,13 +31,13 @@ $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += $(CFLAGS_libxenlight)
+>   $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += -include $(XEN_ROOT)/tools/config.h
+>   init-xenstore-domain: LDLIBS += $(call xenlibs-ldlibs,toollog store ctrl guest light)
+>   
+> -INIT_DOM0LESS_OBJS = init-dom0less.o init-dom-json.o
+> -$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxentoollog)
+> -$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenstore)
+> -$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenlight)
+> -$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenctrl)
+> -$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenevtchn)
+> -init-dom0less: LDLIBS += $(call xenlibs-ldlibs,ctrl evtchn toollog store light guest foreignmemory)
+> +INIT_HYPERLAUNCH_OBJS = init-hyperlaunch-guests.o init-dom-json.o
+> +$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxentoollog)
+> +$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenstore)
+> +$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenlight)
+> +$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenctrl)
+> +$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenevtchn)
+> +init-hyperlaunch-guests: LDLIBS += $(call xenlibs-ldlibs,ctrl evtchn toollog store light guest foreignmemory)
+>   
+>   .PHONY: all
+>   all: $(TARGETS)
+> @@ -48,8 +48,8 @@ xen-init-dom0: $(XEN_INIT_DOM0_OBJS)
+>   init-xenstore-domain: $(INIT_XENSTORE_DOMAIN_OBJS)
+>   	$(CC) $(LDFLAGS) -o $@ $(INIT_XENSTORE_DOMAIN_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
+>   
+> -init-dom0less: $(INIT_DOM0LESS_OBJS)
+> -	$(CC) $(LDFLAGS) -o $@ $(INIT_DOM0LESS_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
+> +init-hyperlaunch-guests: $(INIT_HYPERLAUNCH_OBJS)
+> +	$(CC) $(LDFLAGS) -o $@ $(INIT_HYPERLAUNCH_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
+>   
+>   .PHONY: install
+>   install: all
+> diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-hyperlaunch-guests.c
+> similarity index 98%
+> rename from tools/helpers/init-dom0less.c
+> rename to tools/helpers/init-hyperlaunch-guests.c
+> index fee93459c4b9..c786a5fd37b2 100644
+> --- a/tools/helpers/init-dom0less.c
+> +++ b/tools/helpers/init-hyperlaunch-guests.c
+> @@ -129,7 +129,7 @@ static int create_xenstore(struct xs_handle *xsh,
+>       rc = snprintf(id_str, STR_MAX_LENGTH, "%u", domid);
+>       if (rc < 0 || rc >= STR_MAX_LENGTH)
+>           return rc;
+> -    rc = snprintf(dom_name_str, STR_MAX_LENGTH, "dom0less-%u", domid);
+> +    rc = snprintf(dom_name_str, STR_MAX_LENGTH, "hyperlaunch-%u", domid);
+>       if (rc < 0 || rc >= STR_MAX_LENGTH)
+>           return rc;
+>       rc = snprintf(uuid_str, STR_MAX_LENGTH, LIBXL_UUID_FMT, LIBXL_UUID_BYTES(uuid));
+> @@ -232,7 +232,7 @@ static int init_domain(struct xs_handle *xsh,
+>       int rc;
+>       struct xenstore_domain_interface *intf;
+>   
+> -    printf("Init dom0less domain: %u\n", info->domid);
+> +    printf("Init hyperlaunch domain: %u\n", info->domid);
+>   
+>       rc = xc_hvm_param_get(xch, info->domid, HVM_PARAM_STORE_EVTCHN,
+>                             &xenstore_evtchn);
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 61e581b8c2b0..c5cb8f28011a 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -179,10 +179,10 @@ config TEE
+>   source "arch/arm/tee/Kconfig"
+>   
+>   config STATIC_SHM
+> -	bool "Statically shared memory on a dom0less system" if UNSUPPORTED
+> +	bool "Statically shared memory on an Hyperlaunch system" if UNSUPPORTED
+>   	depends on STATIC_MEMORY
+>   	help
+> -	  This option enables statically shared memory on a dom0less system.
+> +	  This option enables statically shared memory on an Hyperlaunch system.
+>   
+>   endmenu
+>   
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index d0d6be922db1..897e1f2de39e 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -42,7 +42,7 @@ integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
+>   
+>   /*
+>    * If true, the extended regions support is enabled for dom0 and
+> - * dom0less domUs.
+> + * Hyperlaunch started domUs.
+>    */
+>   static bool __initdata opt_ext_regions = true;
+>   boolean_param("ext_regions", opt_ext_regions);
+> @@ -3347,7 +3347,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>               goto err;
+>       }
+>   
+> -    if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
+> +    if ( kinfo->hyperlaunch_feature & HYPERLAUNCH_ENHANCED_NO_XS )
+>       {
+>           ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
+>           if ( ret )
+> @@ -3810,7 +3810,7 @@ static int __init construct_domU(struct domain *d,
+>                                    const struct dt_device_node *node)
+>   {
+>       struct kernel_info kinfo = {};
+> -    const char *dom0less_enhanced;
+> +    const char *hyperlaunch_enhanced;
+>       int rc;
+>       u64 mem;
+>       u32 p2m_mem_mb;
+> @@ -3841,18 +3841,18 @@ static int __init construct_domU(struct domain *d,
+>   
+>       kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+>   
+> -    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+> +    rc = dt_property_read_string(node, "xen,enhanced", &hyperlaunch_enhanced);
+>       if ( rc == -EILSEQ ||
+>            rc == -ENODATA ||
+> -         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+> +         (rc == 0 && !strcmp(hyperlaunch_enhanced, "enabled")) )
+>       {
+>           if ( hardware_domain )
+> -            kinfo.dom0less_feature = DOM0LESS_ENHANCED;
+> +            kinfo.hyperlaunch_feature = HYPERLAUNCH_ENHANCED;
+>           else
+>               panic("At the moment, Xenstore support requires dom0 to be present\n");
+>       }
+> -    else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
+> -        kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
+> +    else if ( rc == 0 && !strcmp(hyperlaunch_enhanced, "no-xenstore") )
+> +        kinfo.hyperlaunch_feature = HYPERLAUNCH_ENHANCED_NO_XS;
+>   
+>       if ( vcpu_create(d, 0) == NULL )
+>           return -ENOMEM;
+> @@ -3902,7 +3902,7 @@ static int __init construct_domU(struct domain *d,
+>       if ( rc < 0 )
+>           return rc;
+>   
+> -    if ( kinfo.dom0less_feature & DOM0LESS_XENSTORE )
+> +    if ( kinfo.hyperlaunch_feature & HYPERLAUNCH_XENSTORE )
+>       {
+>           ASSERT(hardware_domain);
+>           rc = alloc_xenstore_evtchn(d);
+> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+> index bb64925d708c..cccf90817279 100644
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -807,9 +807,9 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
+>    * in the DT.
+>    * Returns number of multiboot,module found or negative number on error.
+>    */
+> -static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_image,
+> -                                              EFI_FILE_HANDLE *dir_handle,
+> -                                              int domain_node)
+> +static int __init
+> +handle_hyperlaunch_domain_node(const EFI_LOADED_IMAGE *loaded_image,
+> +                               EFI_FILE_HANDLE *dir_handle, int domain_node)
+>   {
+>       int module_node, addr_cells, size_cells, len;
+>       const struct fdt_property *prop;
+> @@ -879,7 +879,8 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
+>           if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
+>           {
+>               /* Found a node with compatible xen,domain; handle this node. */
+> -            ret = handle_dom0less_domain_node(loaded_image, &dir_handle, node);
+> +            ret = handle_hyperlaunch_domain_node(loaded_image, &dir_handle,
+> +                                                 node);
+>               if ( ret < 0 )
+>                   return ERROR_DT_MODULE_DOMU;
+>           }
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 4617cdc83bac..042e250e172a 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -10,23 +10,23 @@
+>   #include <asm/setup.h>
+>   
+>   /*
+> - * List of possible features for dom0less domUs
+> + * List of possible features for Hyperlaunch started domUs
+>    *
+> - * DOM0LESS_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All the
+> - *                          default features (excluding Xenstore) will be
+> - *                          available. Note that an OS *must* not rely on the
+> - *                          availability of Xen features if this is not set.
+> - * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. This feature
+> - *                          can't be enabled without the
+> - *                          DOM0LESS_ENHANCED_NO_XS.
+> - * DOM0LESS_ENHANCED:       Notify the OS it is running on top of Xen. All the
+> - *                          default features (including Xenstore) will be
+> - *                          available. Note that an OS *must* not rely on the
+> - *                          availability of Xen features if this is not set.
+> + * HYPERLAUNCH_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All
+> + *                             the default features (excluding Xenstore) will be
+> + *                             available. Note that an OS *must* not rely on the
+> + *                             availability of Xen features if this is not set.
+> + * HYPERLAUNCH_XENSTORE:       Xenstore will be enabled for the VM. This feature
+> + *                             can't be enabled without the
+> + *                             HYPERLAUNCH_ENHANCED_NO_XS.
+> + * HYPERLAUNCH_ENHANCED:       Notify the OS it is running on top of Xen. All
+> + *                             the default features (including Xenstore) will be
+> + *                             available. Note that an OS *must* not rely on the
+> + *                             availability of Xen features if this is not set.
+>    */
+> -#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
+> -#define DOM0LESS_XENSTORE        BIT(1, U)
+> -#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
+> +#define HYPERLAUNCH_ENHANCED_NO_XS  BIT(0, U)
+> +#define HYPERLAUNCH_XENSTORE        BIT(1, U)
+> +#define HYPERLAUNCH_ENHANCED        (HYPERLAUNCH_ENHANCED_NO_XS | HYPERLAUNCH_XENSTORE)
+>   
+>   struct kernel_info {
+>   #ifdef CONFIG_ARM_64
+> @@ -57,7 +57,7 @@ struct kernel_info {
+>       bool vpl011;
+>   
+>       /* Enable/Disable PV drivers interfaces */
+> -    uint16_t dom0less_feature;
+> +    uint16_t hyperlaunch_feature;
+>   
+>       /* GIC phandle */
+>       uint32_t phandle_gic;
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index bbf72b69aae6..955c6b9e2e9e 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -1041,7 +1041,7 @@ static void __init setup_mm(void)
+>   }
+>   #endif
+>   
+> -static bool __init is_dom0less_mode(void)
+> +static bool __init is_hyperlaunch_mode(void)
+>   {
+>       struct bootmodules *mods = &bootinfo.modules;
+>       struct bootmodule *mod;
+> @@ -1068,7 +1068,7 @@ static bool __init is_dom0less_mode(void)
+>   
+>       /*
+>        * If there is no dom0 kernel but at least one domU, then we are in
+> -     * dom0less mode
+> +     * Hyperlaunch mode
+>        */
+>       return ( !dom0found && domUfound );
+>   }
+> @@ -1242,10 +1242,10 @@ void __init start_xen(unsigned long boot_phys_offset,
+>       enable_cpu_features();
+>   
+>       /* Create initial domain 0. */
+> -    if ( !is_dom0less_mode() )
+> +    if ( !is_hyperlaunch_mode() )
+>           create_dom0();
+>       else
+> -        printk(XENLOG_INFO "Xen dom0less mode detected\n");
+> +        printk(XENLOG_INFO "Xen Hyperlaunch mode detected\n");
+>   
+>       if ( acpi_disabled )
+>       {
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-This is an RFC to get the feeling of the community about the name
-change, for now it's everything in one patch just to see how it
-will look like, if there is interest on proceeding into it, I can
-split in more commit.
-Please note that I've left intentionally "dom0less" into the
-docs/design/ and CHANGELOG.md
----
----
- .gitignore                                    |  2 +-
- CHANGELOG.md                                  |  2 +
- SUPPORT.md                                    |  8 +-
- automation/gitlab-ci/test.yaml                | 88 +++++++++----------
- ...m32.sh => qemu-smoke-hyperlaunch-arm32.sh} |  0
- ...m64.sh => qemu-smoke-hyperlaunch-arm64.sh} |  2 +-
- ...arm64.sh => qemu-xtf-hyperlaunch-arm64.sh} |  0
- ...4.sh => xilinx-smoke-hyperlaunch-arm64.sh} |  2 +-
- docs/INDEX                                    |  2 +-
- .../{dom0less.pandoc => hyperlaunch.pandoc}   | 33 +++----
- docs/misc/arm/device-tree/booting.txt         |  4 +-
- docs/misc/efi.pandoc                          | 14 +--
- docs/misc/xen-command-line.pandoc             |  2 +-
- docs/misc/xenstore-ring.txt                   |  6 +-
- tools/helpers/Makefile                        | 20 ++---
- ...t-dom0less.c => init-hyperlaunch-guests.c} |  4 +-
- xen/arch/arm/Kconfig                          |  4 +-
- xen/arch/arm/domain_build.c                   | 18 ++--
- xen/arch/arm/efi/efi-boot.h                   |  9 +-
- xen/arch/arm/include/asm/kernel.h             | 32 +++----
- xen/arch/arm/setup.c                          |  8 +-
- 21 files changed, 132 insertions(+), 128 deletions(-)
- rename automation/scripts/{qemu-smoke-dom0less-arm32.sh => qemu-smoke-hyperlaunch-arm32.sh} (100%)
- rename automation/scripts/{qemu-smoke-dom0less-arm64.sh => qemu-smoke-hyperlaunch-arm64.sh} (99%)
- rename automation/scripts/{qemu-xtf-dom0less-arm64.sh => qemu-xtf-hyperlaunch-arm64.sh} (100%)
- rename automation/scripts/{xilinx-smoke-dom0less-arm64.sh => xilinx-smoke-hyperlaunch-arm64.sh} (98%)
- rename docs/features/{dom0less.pandoc => hyperlaunch.pandoc} (84%)
- rename tools/helpers/{init-dom0less.c => init-hyperlaunch-guests.c} (98%)
-
-diff --git a/.gitignore b/.gitignore
-index c1b73b096893..c9d569247079 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -167,7 +167,7 @@ tools/flask/utils/flask-loadpolicy
- tools/flask/utils/flask-setenforce
- tools/flask/utils/flask-set-bool
- tools/flask/utils/flask-label-pci
--tools/helpers/init-dom0less
-+tools/helpers/init-hyperlaunch-guests
- tools/helpers/init-xenstore-domain
- tools/helpers/xen-init-dom0
- tools/hotplug/common/hotplugpath.sh
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 7d7e0590f8c6..cf01e004b017 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-    known user doesn't use it properly, leading to in-guest breakage.
-  - The "dom0" option is now supported on Arm and "sve=" sub-option can be used
-    to enable dom0 guest to use SVE/SVE2 instructions.
-+ - The "dom0less" feature, currently supported only on arm, is renamed to
-+   "hyperlaunch".
- 
- ### Added
-  - On x86, support for features new in Intel Sapphire Rapids CPUs:
-diff --git a/SUPPORT.md b/SUPPORT.md
-index 35a6249e03b2..fe500652828c 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -342,7 +342,7 @@ Allow sharing of identical pages between guests
- 
- ### Static Memory Sharing
- 
--Allow to statically set up shared memory on dom0less system,
-+Allow to statically set up shared memory on hyperlaunch system,
- enabling domains to do shm-based communication
- 
-     Status, ARM: Tech Preview
-@@ -945,20 +945,20 @@ OVMF firmware implements the UEFI boot protocol.
- 
-     Status, qemu-xen: Supported
- 
--## Dom0less
-+## Hyperlaunch
- 
- Guest creation from the hypervisor at boot without Dom0 intervention.
- 
-     Status, ARM: Supported
- 
--Memory of dom0less DomUs is not scrubbed at boot when bootscrub=on or
-+Memory of hyperlaunch DomUs is not scrubbed at boot when bootscrub=on or
- bootscrub=off are passed as Xen command line parameters. (Memory should
- be scrubbed with bootscrub=idle.) No XSAs will be issues due to
- unscrubbed memory.
- 
- ## Static Event Channel
- 
--Allow to setup the static event channel on dom0less system, enabling domains
-+Allow to setup the static event channel on hyperlaunch system, enabling domains
- to send/receive notifications.
- 
-     Status, ARM: Tech Preview
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index d5cb238b0ad8..d309c784b643 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -136,18 +136,18 @@ build-each-commit-gcc:
-   tags:
-     - x86_64
- 
--xilinx-smoke-dom0less-arm64-gcc:
-+xilinx-smoke-hyperlaunch-arm64-gcc:
-   extends: .xilinx-arm64
-   script:
--    - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-arm64
- 
--xilinx-smoke-dom0less-arm64-gcc-gem-passthrough:
-+xilinx-smoke-hyperlaunch-arm64-gcc-gem-passthrough:
-   extends: .xilinx-arm64
-   script:
--    - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh gem-passthrough 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh gem-passthrough 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-arm64
-@@ -234,98 +234,98 @@ qemu-smoke-dom0-arm64-gcc-debug:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-debug-arm64
- 
--qemu-smoke-dom0less-arm64-gcc:
-+qemu-smoke-hyperlaunch-arm64-gcc:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-arm64
- 
--qemu-smoke-dom0less-arm64-gcc-debug:
-+qemu-smoke-hyperlaunch-arm64-gcc-debug:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-debug-arm64
- 
--qemu-smoke-dom0less-arm64-gcc-staticmem:
-+qemu-smoke-hyperlaunch-arm64-gcc-staticmem:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-arm64-staticmem
- 
--qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
-+qemu-smoke-hyperlaunch-arm64-gcc-debug-staticmem:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-debug-arm64-staticmem
- 
--qemu-smoke-dom0less-arm64-gcc-staticheap:
-+qemu-smoke-hyperlaunch-arm64-gcc-staticheap:
-  extends: .qemu-arm64
-  script:
--   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
-+   - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
-  needs:
-    - *arm64-test-needs
-    - alpine-3.12-gcc-arm64
- 
--qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
-+qemu-smoke-hyperlaunch-arm64-gcc-debug-staticheap:
-  extends: .qemu-arm64
-  script:
--   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
-+   - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
-  needs:
-    - *arm64-test-needs
-    - alpine-3.12-gcc-debug-arm64
- 
--qemu-smoke-dom0less-arm64-gcc-static-shared-mem:
-+qemu-smoke-hyperlaunch-arm64-gcc-static-shared-mem:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-arm64-static-shared-mem
- 
--qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
-+qemu-smoke-hyperlaunch-arm64-gcc-debug-static-shared-mem:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-debug-arm64-static-shared-mem
- 
--qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
-+qemu-smoke-hyperlaunch-arm64-gcc-boot-cpupools:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-arm64-boot-cpupools
- 
--qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
-+qemu-smoke-hyperlaunch-arm64-gcc-debug-boot-cpupools:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm64-test-needs
-     - alpine-3.12-gcc-debug-arm64-boot-cpupools
- 
--qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
-+qemu-xtf-hyperlaunch-arm64-gcc-hyp-xen-version:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-xtf-hyperlaunch-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
-   needs:
-     - alpine-3.12-gcc-arm64
-     - qemu-system-aarch64-6.0.0-arm64-export
- 
--qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
-+qemu-xtf-hyperlaunch-arm64-gcc-debug-hyp-xen-version:
-   extends: .qemu-arm64
-   script:
--    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-xtf-hyperlaunch-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
-   needs:
-     - alpine-3.12-gcc-debug-arm64
-     - qemu-system-aarch64-6.0.0-arm64-export
-@@ -338,66 +338,66 @@ qemu-smoke-dom0-arm32-gcc:
-     - *arm32-test-needs
-     - yocto-qemuarm
- 
--qemu-smoke-dom0less-arm32-gcc:
-+qemu-smoke-hyperlaunch-arm32-gcc:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32
- 
--qemu-smoke-dom0less-arm32-gcc-debug:
-+qemu-smoke-hyperlaunch-arm32-gcc-debug:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32-debug
- 
--qemu-smoke-dom0less-arm32-gcc-staticmem:
-+qemu-smoke-hyperlaunch-arm32-gcc-staticmem:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32-staticmem
- 
--qemu-smoke-dom0less-arm32-gcc-debug-staticmem:
-+qemu-smoke-hyperlaunch-arm32-gcc-debug-staticmem:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32-debug-staticmem
- 
--qemu-smoke-dom0less-arm32-gcc-gzip:
-+qemu-smoke-hyperlaunch-arm32-gcc-gzip:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh gzip 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32
- 
--qemu-smoke-dom0less-arm32-gcc-debug-gzip:
-+qemu-smoke-hyperlaunch-arm32-gcc-debug-gzip:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh gzip 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32-debug
- 
--qemu-smoke-dom0less-arm32-gcc-without-dom0:
-+qemu-smoke-hyperlaunch-arm32-gcc-without-dom0:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32
- 
--qemu-smoke-dom0less-arm32-gcc-debug-without-dom0:
-+qemu-smoke-hyperlaunch-arm32-gcc-debug-without-dom0:
-   extends: .qemu-arm32
-   script:
--    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-smoke-hyperlaunch-arm32.sh without-dom0 2>&1 | tee ${LOGFILE}
-   needs:
-     - *arm32-test-needs
-     - debian-unstable-gcc-arm32-debug
-diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-hyperlaunch-arm32.sh
-similarity index 100%
-rename from automation/scripts/qemu-smoke-dom0less-arm32.sh
-rename to automation/scripts/qemu-smoke-hyperlaunch-arm32.sh
-diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-hyperlaunch-arm64.sh
-similarity index 99%
-rename from automation/scripts/qemu-smoke-dom0less-arm64.sh
-rename to automation/scripts/qemu-smoke-hyperlaunch-arm64.sh
-index 75f575424a4e..db22cfaa1fd6 100755
---- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
-+++ b/automation/scripts/qemu-smoke-hyperlaunch-arm64.sh
-@@ -113,7 +113,7 @@ echo "#!/bin/bash
- export LD_LIBRARY_PATH=/usr/local/lib
- bash /etc/init.d/xencommons start
- 
--/usr/local/lib/xen/bin/init-dom0less
-+/usr/local/lib/xen/bin/init-hyperlaunch-guests
- 
- brctl addbr xenbr0
- brctl addif xenbr0 eth0
-diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-hyperlaunch-arm64.sh
-similarity index 100%
-rename from automation/scripts/qemu-xtf-dom0less-arm64.sh
-rename to automation/scripts/qemu-xtf-hyperlaunch-arm64.sh
-diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh
-similarity index 98%
-rename from automation/scripts/xilinx-smoke-dom0less-arm64.sh
-rename to automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh
-index 075305241c8d..35b60720fe08 100755
---- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-+++ b/automation/scripts/xilinx-smoke-hyperlaunch-arm64.sh
-@@ -73,7 +73,7 @@ echo "#!/bin/bash
- export LD_LIBRARY_PATH=/usr/local/lib
- bash /etc/init.d/xencommons start
- 
--/usr/local/lib/xen/bin/init-dom0less
-+/usr/local/lib/xen/bin/init-hyperlaunch-guests
- 
- ${dom0_check}
- " > etc/local.d/xen.start
-diff --git a/docs/INDEX b/docs/INDEX
-index e673edd75c31..ed3d2e6198ec 100644
---- a/docs/INDEX
-+++ b/docs/INDEX
-@@ -25,4 +25,4 @@ misc/arm/early-printk		Enabling early printk on ARM
- misc/arm/passthrough		Passthrough a device described in the Device Tree to a guest
- misc/arm/device-tree/booting	Device tree bindings to boot Xen
- misc/arm/device-tree/passthrough	Device tree binding to passthrough a device
--features/dom0less.markdown	Boot multiple domains from Xen in parallel
-+features/hyperlaunch.markdown	Boot multiple domains from Xen in parallel
-diff --git a/docs/features/dom0less.pandoc b/docs/features/hyperlaunch.pandoc
-similarity index 84%
-rename from docs/features/dom0less.pandoc
-rename to docs/features/hyperlaunch.pandoc
-index 725afa055838..a62d534696e3 100644
---- a/docs/features/dom0less.pandoc
-+++ b/docs/features/hyperlaunch.pandoc
-@@ -1,7 +1,7 @@
--Dom0less
--========
-+Hyperlaunch
-+===========
- 
--"Dom0less" is a set of Xen features that enable the deployment of a Xen
-+"Hyperlaunch" is a set of Xen features that enable the deployment of a Xen
- system without an control domain (often referred to as "dom0"). Each
- feature can be used independently from the others, unless otherwise
- stated.
-@@ -93,26 +93,26 @@ See docs/misc/arm/device-tree/booting.txt for more information.
- PV Drivers
- ----------
- 
--It is possible to use PV drivers with dom0less guests with some
-+It is possible to use PV drivers with hyperlaunch started guests with some
- restrictions:
- 
--- dom0less domUs that want to use PV drivers support should have the
-+- hyperlaunch started domUs that want to use PV drivers support should have the
-   "xen,enhanced" property set under their device tree nodes (see
-   docs/misc/arm/device-tree/booting.txt)
- - a dom0 must be present (or another domain with enough privileges to
-   run the toolstack)
--- after dom0 is booted, the utility "init-dom0less" must be run
--- do not run "init-dom0less" while creating other guests with xl
-+- after dom0 is booted, the utility "init-hyperlaunch-guests" must be run
-+- do not run "init-hyperlaunch-guests" while creating other guests with xl
- 
--After the execution of init-dom0less, it is possible to use "xl" to
--hotplug PV drivers to dom0less guests. E.g. xl network-attach domU.
-+After the execution of init-hyperlaunch-guests, it is possible to use "xl" to
-+hotplug PV drivers to hyperlaunch started guests. E.g. xl network-attach domU.
- 
- The implementation works as follows:
--- Xen allocates the xenstore event channel for each dom0less domU that
--  has the "xen,enhanced" property, and sets HVM_PARAM_STORE_EVTCHN
-+- Xen allocates the xenstore event channel for each hyperlaunch started domU
-+  that has the "xen,enhanced" property, and sets HVM_PARAM_STORE_EVTCHN
- - Xen does *not* allocate the xenstore page and sets HVM_PARAM_STORE_PFN
-   to ~0ULL (invalid)
--- Dom0less domU kernels check that HVM_PARAM_STORE_PFN is set to invalid
-+- Hyperlaunch started domU kernels check that HVM_PARAM_STORE_PFN is set to invalid
-     - Old kernels will continue without xenstore support (Note: some old
-       buggy kernels might crash because they don't check the validity of
-       HVM_PARAM_STORE_PFN before using it! Disable "xen,enhanced" in
-@@ -120,7 +120,7 @@ The implementation works as follows:
-     - New kernels will wait for a notification on the xenstore event
-       channel (HVM_PARAM_STORE_EVTCHN) before continuing with the
-       initialization
--- Once dom0 is booted, init-dom0less is executed:
-+- Once dom0 is booted, init-hyperlaunch-guests is executed:
-     - it allocates the xenstore shared page and sets HVM_PARAM_STORE_PFN
-     - it calls xs_introduce_domain
- - Xenstored notices the new domain, initializes interfaces as usual, and
-@@ -159,12 +159,13 @@ Notes
- -----
- 
- - 'xl console' command will not attach to the domain's console in case
--  of dom0less. DomU are domains created by Xen (similar to Dom0) and
--  therefore they are all managed by Xen and some of the commands may not work.
-+  of hyperlaunch started guests. DomU are domains created by Xen (similar to
-+  Dom0) and therefore they are all managed by Xen and some of the commands may
-+  not work.
- 
-   A user is allowed to configure the key sequence to switch input.
-   Pressing the Xen "conswitch" (Ctrl-A by default) three times
--  switches input in case of dom0less mode.
-+  switches input in case of hyperlaunch mode.
- 
- - Domains created by Xen will have no name at boot. Domain-0 has a name
-   thanks to the helper xen-init-dom0 called at boot by the initscript.
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index bbd955e9c2f6..10ec1910a75a 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -572,8 +572,8 @@ Static Shared Memory
- ====================
- 
- The static shared memory device tree nodes allow users to statically set up
--shared memory on dom0less system, enabling domains to do shm-based
--communication.
-+shared memory on Hyperlaunch started guests system, enabling domains to do
-+shm-based communication.
- 
- - compatible
- 
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index 11c1ac334600..d15cb87b49d1 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -194,12 +194,12 @@ chosen {
- 	};
- }
- 
--## UEFI boot and dom0less on ARM
-+## UEFI boot and Hyperlaunch on ARM
- 
--Dom0less feature is supported by ARM and it is possible to use it when Xen is
-+Hyperlaunch feature is supported by ARM and it is possible to use it when Xen is
- started as an EFI application.
- The way to specify the domU domains is by Device Tree as specified in the
--[dom0less](dom0less.html) documentation page under the "Device Tree
-+[Hyperlaunch](hyperlaunch.html) documentation page under the "Device Tree
- configuration" section, but instead of declaring the reg property in the boot
- module, the user must specify the "xen,uefi-binary" property containing the name
- of the binary file that has to be loaded in memory.
-@@ -236,7 +236,7 @@ domU1 {
- These are the different ways to boot a Xen system from UEFI:
- 
-  - Boot Xen and Dom0 (minimum required)
-- - Boot Xen and DomU(s) (true dom0less, only on ARM)
-+ - Boot Xen and DomU(s) (only on ARM)
-  - Boot Xen, Dom0 and DomU(s) (only on ARM)
- 
- ### Boot Xen and Dom0
-@@ -247,7 +247,7 @@ example above.
- ### Boot Xen and DomU(s)
- 
- This configuration needs the domU domain(s) specified in the /chosen node,
--examples of how to do that are provided by the documentation about dom0less
-+examples of how to do that are provided by the documentation about Hyperlaunch
- and the example above shows how to use the "xen,uefi-binary" property to use the
- UEFI stub for module loading.
- When adding DomU modules to device tree, also add the property
-@@ -258,7 +258,7 @@ can specify the Xen boot arguments in the configuration file with the "options="
- keyword or in the device tree with the "xen,xen-bootargs" property, but be
- aware that the Xen configuration file value has a precedence over the DT value.
- 
--Example 1 of how to boot a true dom0less configuration:
-+Example 1 of how to boot an Hyperlaunch configuration with only domU(s):
- 
- Xen configuration file: skipped.
- 
-@@ -301,7 +301,7 @@ chosen {
- };
- ```
- 
--Example 2 of how to boot a true dom0less configuration:
-+Example 2 of how to boot an Hyperlaunch configuration with only domU(s):
- 
- Xen configuration file:
- 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 4060ebdc5d76..35d7c9821963 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1156,7 +1156,7 @@ to use the default.
- > Default : `true`
- 
- Flag to enable or disable support for extended regions for Dom0 and
--Dom0less DomUs.
-+Hyperlaunch started DomUs.
- 
- Extended regions are ranges of unused address space exposed to the guest
- as "safe to use" for special memory mappings. Disable if your board
-diff --git a/docs/misc/xenstore-ring.txt b/docs/misc/xenstore-ring.txt
-index dbc7335e24b8..f84dedd8016e 100644
---- a/docs/misc/xenstore-ring.txt
-+++ b/docs/misc/xenstore-ring.txt
-@@ -115,9 +115,9 @@ and reconnect is in progress") and signalling the event channel.
- The guest must now ignore all fields except the Connection state and
- wait for it to be set to 0 ("Ring is connected").
- 
--In certain circumstances (e.g. dom0less guests with PV drivers support)
--it is possible for the guest to find the Connection state already set to
--1 by someone else during xenstore initialization. In that case, like in
-+In certain circumstances (e.g. Hyperlaunch started guests with PV drivers
-+support) it is possible for the guest to find the Connection state already set
-+to 1 by someone else during xenstore initialization. In that case, like in
- the previous case, the guest must ignore all fields except the
- Connection state and wait for it to be set to 0 before proceeding.
- 
-diff --git a/tools/helpers/Makefile b/tools/helpers/Makefile
-index 09590eb5b6f0..332ab47da318 100644
---- a/tools/helpers/Makefile
-+++ b/tools/helpers/Makefile
-@@ -11,7 +11,7 @@ ifeq ($(CONFIG_X86),y)
- TARGETS += init-xenstore-domain
- endif
- ifeq ($(CONFIG_ARM),y)
--TARGETS += init-dom0less
-+TARGETS += init-hyperlaunch-guests
- endif
- endif
- 
-@@ -31,13 +31,13 @@ $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += $(CFLAGS_libxenlight)
- $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += -include $(XEN_ROOT)/tools/config.h
- init-xenstore-domain: LDLIBS += $(call xenlibs-ldlibs,toollog store ctrl guest light)
- 
--INIT_DOM0LESS_OBJS = init-dom0less.o init-dom-json.o
--$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxentoollog)
--$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenstore)
--$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenlight)
--$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenctrl)
--$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenevtchn)
--init-dom0less: LDLIBS += $(call xenlibs-ldlibs,ctrl evtchn toollog store light guest foreignmemory)
-+INIT_HYPERLAUNCH_OBJS = init-hyperlaunch-guests.o init-dom-json.o
-+$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxentoollog)
-+$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenstore)
-+$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenlight)
-+$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenctrl)
-+$(INIT_HYPERLAUNCH_OBJS): CFLAGS += $(CFLAGS_libxenevtchn)
-+init-hyperlaunch-guests: LDLIBS += $(call xenlibs-ldlibs,ctrl evtchn toollog store light guest foreignmemory)
- 
- .PHONY: all
- all: $(TARGETS)
-@@ -48,8 +48,8 @@ xen-init-dom0: $(XEN_INIT_DOM0_OBJS)
- init-xenstore-domain: $(INIT_XENSTORE_DOMAIN_OBJS)
- 	$(CC) $(LDFLAGS) -o $@ $(INIT_XENSTORE_DOMAIN_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
- 
--init-dom0less: $(INIT_DOM0LESS_OBJS)
--	$(CC) $(LDFLAGS) -o $@ $(INIT_DOM0LESS_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
-+init-hyperlaunch-guests: $(INIT_HYPERLAUNCH_OBJS)
-+	$(CC) $(LDFLAGS) -o $@ $(INIT_HYPERLAUNCH_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
- 
- .PHONY: install
- install: all
-diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-hyperlaunch-guests.c
-similarity index 98%
-rename from tools/helpers/init-dom0less.c
-rename to tools/helpers/init-hyperlaunch-guests.c
-index fee93459c4b9..c786a5fd37b2 100644
---- a/tools/helpers/init-dom0less.c
-+++ b/tools/helpers/init-hyperlaunch-guests.c
-@@ -129,7 +129,7 @@ static int create_xenstore(struct xs_handle *xsh,
-     rc = snprintf(id_str, STR_MAX_LENGTH, "%u", domid);
-     if (rc < 0 || rc >= STR_MAX_LENGTH)
-         return rc;
--    rc = snprintf(dom_name_str, STR_MAX_LENGTH, "dom0less-%u", domid);
-+    rc = snprintf(dom_name_str, STR_MAX_LENGTH, "hyperlaunch-%u", domid);
-     if (rc < 0 || rc >= STR_MAX_LENGTH)
-         return rc;
-     rc = snprintf(uuid_str, STR_MAX_LENGTH, LIBXL_UUID_FMT, LIBXL_UUID_BYTES(uuid));
-@@ -232,7 +232,7 @@ static int init_domain(struct xs_handle *xsh,
-     int rc;
-     struct xenstore_domain_interface *intf;
- 
--    printf("Init dom0less domain: %u\n", info->domid);
-+    printf("Init hyperlaunch domain: %u\n", info->domid);
- 
-     rc = xc_hvm_param_get(xch, info->domid, HVM_PARAM_STORE_EVTCHN,
-                           &xenstore_evtchn);
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 61e581b8c2b0..c5cb8f28011a 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -179,10 +179,10 @@ config TEE
- source "arch/arm/tee/Kconfig"
- 
- config STATIC_SHM
--	bool "Statically shared memory on a dom0less system" if UNSUPPORTED
-+	bool "Statically shared memory on an Hyperlaunch system" if UNSUPPORTED
- 	depends on STATIC_MEMORY
- 	help
--	  This option enables statically shared memory on a dom0less system.
-+	  This option enables statically shared memory on an Hyperlaunch system.
- 
- endmenu
- 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index d0d6be922db1..897e1f2de39e 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -42,7 +42,7 @@ integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
- 
- /*
-  * If true, the extended regions support is enabled for dom0 and
-- * dom0less domUs.
-+ * Hyperlaunch started domUs.
-  */
- static bool __initdata opt_ext_regions = true;
- boolean_param("ext_regions", opt_ext_regions);
-@@ -3347,7 +3347,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-             goto err;
-     }
- 
--    if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
-+    if ( kinfo->hyperlaunch_feature & HYPERLAUNCH_ENHANCED_NO_XS )
-     {
-         ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
-         if ( ret )
-@@ -3810,7 +3810,7 @@ static int __init construct_domU(struct domain *d,
-                                  const struct dt_device_node *node)
- {
-     struct kernel_info kinfo = {};
--    const char *dom0less_enhanced;
-+    const char *hyperlaunch_enhanced;
-     int rc;
-     u64 mem;
-     u32 p2m_mem_mb;
-@@ -3841,18 +3841,18 @@ static int __init construct_domU(struct domain *d,
- 
-     kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
- 
--    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
-+    rc = dt_property_read_string(node, "xen,enhanced", &hyperlaunch_enhanced);
-     if ( rc == -EILSEQ ||
-          rc == -ENODATA ||
--         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
-+         (rc == 0 && !strcmp(hyperlaunch_enhanced, "enabled")) )
-     {
-         if ( hardware_domain )
--            kinfo.dom0less_feature = DOM0LESS_ENHANCED;
-+            kinfo.hyperlaunch_feature = HYPERLAUNCH_ENHANCED;
-         else
-             panic("At the moment, Xenstore support requires dom0 to be present\n");
-     }
--    else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
--        kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
-+    else if ( rc == 0 && !strcmp(hyperlaunch_enhanced, "no-xenstore") )
-+        kinfo.hyperlaunch_feature = HYPERLAUNCH_ENHANCED_NO_XS;
- 
-     if ( vcpu_create(d, 0) == NULL )
-         return -ENOMEM;
-@@ -3902,7 +3902,7 @@ static int __init construct_domU(struct domain *d,
-     if ( rc < 0 )
-         return rc;
- 
--    if ( kinfo.dom0less_feature & DOM0LESS_XENSTORE )
-+    if ( kinfo.hyperlaunch_feature & HYPERLAUNCH_XENSTORE )
-     {
-         ASSERT(hardware_domain);
-         rc = alloc_xenstore_evtchn(d);
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index bb64925d708c..cccf90817279 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -807,9 +807,9 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
-  * in the DT.
-  * Returns number of multiboot,module found or negative number on error.
-  */
--static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_image,
--                                              EFI_FILE_HANDLE *dir_handle,
--                                              int domain_node)
-+static int __init
-+handle_hyperlaunch_domain_node(const EFI_LOADED_IMAGE *loaded_image,
-+                               EFI_FILE_HANDLE *dir_handle, int domain_node)
- {
-     int module_node, addr_cells, size_cells, len;
-     const struct fdt_property *prop;
-@@ -879,7 +879,8 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
-         if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
-         {
-             /* Found a node with compatible xen,domain; handle this node. */
--            ret = handle_dom0less_domain_node(loaded_image, &dir_handle, node);
-+            ret = handle_hyperlaunch_domain_node(loaded_image, &dir_handle,
-+                                                 node);
-             if ( ret < 0 )
-                 return ERROR_DT_MODULE_DOMU;
-         }
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index 4617cdc83bac..042e250e172a 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -10,23 +10,23 @@
- #include <asm/setup.h>
- 
- /*
-- * List of possible features for dom0less domUs
-+ * List of possible features for Hyperlaunch started domUs
-  *
-- * DOM0LESS_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All the
-- *                          default features (excluding Xenstore) will be
-- *                          available. Note that an OS *must* not rely on the
-- *                          availability of Xen features if this is not set.
-- * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. This feature
-- *                          can't be enabled without the
-- *                          DOM0LESS_ENHANCED_NO_XS.
-- * DOM0LESS_ENHANCED:       Notify the OS it is running on top of Xen. All the
-- *                          default features (including Xenstore) will be
-- *                          available. Note that an OS *must* not rely on the
-- *                          availability of Xen features if this is not set.
-+ * HYPERLAUNCH_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All
-+ *                             the default features (excluding Xenstore) will be
-+ *                             available. Note that an OS *must* not rely on the
-+ *                             availability of Xen features if this is not set.
-+ * HYPERLAUNCH_XENSTORE:       Xenstore will be enabled for the VM. This feature
-+ *                             can't be enabled without the
-+ *                             HYPERLAUNCH_ENHANCED_NO_XS.
-+ * HYPERLAUNCH_ENHANCED:       Notify the OS it is running on top of Xen. All
-+ *                             the default features (including Xenstore) will be
-+ *                             available. Note that an OS *must* not rely on the
-+ *                             availability of Xen features if this is not set.
-  */
--#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
--#define DOM0LESS_XENSTORE        BIT(1, U)
--#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
-+#define HYPERLAUNCH_ENHANCED_NO_XS  BIT(0, U)
-+#define HYPERLAUNCH_XENSTORE        BIT(1, U)
-+#define HYPERLAUNCH_ENHANCED        (HYPERLAUNCH_ENHANCED_NO_XS | HYPERLAUNCH_XENSTORE)
- 
- struct kernel_info {
- #ifdef CONFIG_ARM_64
-@@ -57,7 +57,7 @@ struct kernel_info {
-     bool vpl011;
- 
-     /* Enable/Disable PV drivers interfaces */
--    uint16_t dom0less_feature;
-+    uint16_t hyperlaunch_feature;
- 
-     /* GIC phandle */
-     uint32_t phandle_gic;
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index bbf72b69aae6..955c6b9e2e9e 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -1041,7 +1041,7 @@ static void __init setup_mm(void)
- }
- #endif
- 
--static bool __init is_dom0less_mode(void)
-+static bool __init is_hyperlaunch_mode(void)
- {
-     struct bootmodules *mods = &bootinfo.modules;
-     struct bootmodule *mod;
-@@ -1068,7 +1068,7 @@ static bool __init is_dom0less_mode(void)
- 
-     /*
-      * If there is no dom0 kernel but at least one domU, then we are in
--     * dom0less mode
-+     * Hyperlaunch mode
-      */
-     return ( !dom0found && domUfound );
- }
-@@ -1242,10 +1242,10 @@ void __init start_xen(unsigned long boot_phys_offset,
-     enable_cpu_features();
- 
-     /* Create initial domain 0. */
--    if ( !is_dom0less_mode() )
-+    if ( !is_hyperlaunch_mode() )
-         create_dom0();
-     else
--        printk(XENLOG_INFO "Xen dom0less mode detected\n");
-+        printk(XENLOG_INFO "Xen Hyperlaunch mode detected\n");
- 
-     if ( acpi_disabled )
-     {
 -- 
-2.34.1
-
+Julien Grall
 
