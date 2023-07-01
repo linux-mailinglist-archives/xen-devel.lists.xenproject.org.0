@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936F8744822
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Jul 2023 11:09:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557834.871519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BAFA74484F
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Jul 2023 11:54:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557838.871529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFWaE-0008O9-PY; Sat, 01 Jul 2023 09:07:58 +0000
+	id 1qFXIF-0005ZP-0U; Sat, 01 Jul 2023 09:53:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557834.871519; Sat, 01 Jul 2023 09:07:58 +0000
+Received: by outflank-mailman (output) from mailman id 557838.871529; Sat, 01 Jul 2023 09:53:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFWaE-0008Lo-M4; Sat, 01 Jul 2023 09:07:58 +0000
-Received: by outflank-mailman (input) for mailman id 557834;
- Sat, 01 Jul 2023 09:07:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qFXIE-0005Xj-Tl; Sat, 01 Jul 2023 09:53:26 +0000
+Received: by outflank-mailman (input) for mailman id 557838;
+ Sat, 01 Jul 2023 09:53:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XVz2=CT=gmail.com=persaur@srs-se1.protection.inumbo.net>)
- id 1qFWaC-0008Lg-TS
- for xen-devel@lists.xenproject.org; Sat, 01 Jul 2023 09:07:56 +0000
-Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
- [2607:f8b0:4864:20::d31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c35dc7f8-17ee-11ee-b237-6b7b168915f2;
- Sat, 01 Jul 2023 11:07:55 +0200 (CEST)
-Received: by mail-io1-xd31.google.com with SMTP id
- ca18e2360f4ac-7835c92c373so66351839f.0
- for <xen-devel@lists.xenproject.org>; Sat, 01 Jul 2023 02:07:54 -0700 (PDT)
-Received: from smtpclient.apple ([87.249.134.26])
- by smtp.gmail.com with ESMTPSA id
- eh4-20020a056638298400b00426eea9f398sm3190051jab.134.2023.07.01.02.07.52
+ (envelope-from <SRS0=idbm=CT=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1qFXID-0005Xd-NI
+ for xen-devel@lists.xenproject.org; Sat, 01 Jul 2023 09:53:25 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1df6f974-17f5-11ee-8611-37d641c3527e;
+ Sat, 01 Jul 2023 11:53:23 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-51d9bf5411aso2849494a12.2
+ for <xen-devel@lists.xenproject.org>; Sat, 01 Jul 2023 02:53:23 -0700 (PDT)
+Received: from [127.0.0.1] (dynamic-089-012-173-083.89.12.pool.telefonica.de.
+ [89.12.173.83]) by smtp.gmail.com with ESMTPSA id
+ v9-20020aa7cd49000000b005187a42b44fsm7606875edw.58.2023.07.01.02.53.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Jul 2023 02:07:53 -0700 (PDT)
+ Sat, 01 Jul 2023 02:53:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,151 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c35dc7f8-17ee-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 1df6f974-17f5-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688202474; x=1690794474;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2WIn68E2vval0WhdulTmqLoUBV2XXLtEL49qn7WzQQ8=;
-        b=JAbxYHYQHSo7S0Eb/Qx26DGEoUP+NBx5aj9kcE2KCoXFHohUwcE93VxSn6lZaz5RRJ
-         AyYqBngN59MeMUl625KQ00EmEZa7e4fp6sVUIvUAQnGd283Rw8QViLzZuzZYKG6maTuy
-         XOVEJk8Fj+RJa4g1uOvXzCkBvl4CGhQSJk2LuK8DO74QporRbo9kfguBtUSRdtp6vvgW
-         MIQsXJEI+kvAKcjgiWxliX8uzF1yYH/nZP2BGiF5gVCTITtri4XqR1nxa9bOwerMCMwO
-         y01jMcAGad0jdcGVRcohEmWDNuYnIUU6+0z78xZk11SeuQo1GUy0ciQPahScbKQJt+Dz
-         mO2w==
+        d=gmail.com; s=20221208; t=1688205203; x=1690797203;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U6qzh5zT5TRYd5Sip4g9abjelR/5v1OLZh8dWj8GBAE=;
+        b=g1lntXpKHUXhdYIGb1g2NFGLAg9i2q1sGxEt/vbVZeLtWuht/fvm9vwV1MLjKUwjkU
+         oBauakppnvcoYODDuxCIFDW27tsbkAmV97KExEJ+esKI9lF0NATFWtezMBCCNDDlwLLS
+         uxWFI19OAoe8qiLMwJeTqSnkpi8JvTrAXTtN5Wez5YTPfIArk8mIm/F1S4SngQLnG2DU
+         HBThsEgZCVfXdPnf00KvUAYFQG2kX0p/T5O+vC1t3jjiSjsDhLEKKZ4hFnwrUOhhaH8b
+         O2AZns8c6R5KXJIvqnEfC5tTTupGkpy8hJ1iWkxzQ//Y/RuyaV+JheQxKwn+2WL1126u
+         9yoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688202474; x=1690794474;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20221208; t=1688205203; x=1690797203;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=2WIn68E2vval0WhdulTmqLoUBV2XXLtEL49qn7WzQQ8=;
-        b=Zn/+gm+/xVlvapzhPgex1Xo/9OW+4qH0sZJqAUnhrl/m7ATdKp8338PBLomKYT1fOZ
-         PDBe/qVxbeGOakGMWyVZiGle4BCJRivt05cylxuupgIsAONS2uXK41UGPhThkm7sZQt9
-         v5d0eQT3JUFSlOqbGQmo2W/CMPNQ/bnPAVdt9VkRnqCEUbQropQKfoLAQLvvUJUWrEEY
-         VGVIMcJKotvvmcs2xmVahYUcNgph1iILXgqAHwtFrMU14ctGv54W6h2hyQpLw1t2ODZX
-         0kZ8G7LtxI5NMtF5y1ZbzAOK44QSnOJnf5lT3C8zYEwiW9zpXrMZUMP6dViR79XbDQEA
-         nqDw==
-X-Gm-Message-State: AC+VfDxKaVTS8YqlH6B74+fP0wGJzk3/DZI7auh6SqtB6/eqLtXZv/My
-	vt94X6TX2CfN2Ou55oTe5ZA=
-X-Google-Smtp-Source: ACHHUZ6FgkLFVHEymiyx3HTQ1q+w+/eZPl3RiaL5/0E6R1BBXxADuY90PlZRMkDZXt18oLnCh+7eUw==
-X-Received: by 2002:a05:6e02:c68:b0:342:558c:d88e with SMTP id f8-20020a056e020c6800b00342558cd88emr6329062ilj.11.1688202473581;
-        Sat, 01 Jul 2023 02:07:53 -0700 (PDT)
-Content-Type: multipart/alternative; boundary=Apple-Mail-1F9216F4-6F5A-4AFF-85F5-BE841D0E68EE
-Content-Transfer-Encoding: 7bit
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
-Date: Sat, 1 Jul 2023 05:07:41 -0400
-Message-Id: <B954806C-5D31-483C-964B-17F1EFDB20BD@gmail.com>
-References: <20230630091210.3742121-1-luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, Wei.Chen@arm.com,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>,
- Community Manager <community.manager@xenproject.org>,
- Doug Goldstein <cardoe@cardoe.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Daniel DeGraaf <dgdegra@tycho.nsa.gov>, openxt@googlegroups.com,
- =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
- =?utf-8?Q?Piotr_Kr=C3=B3l?= <piotr.krol@3mdeb.com>
-In-Reply-To: <20230630091210.3742121-1-luca.fancellu@arm.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-X-Mailer: iPad Mail (20F75)
-
-
---Apple-Mail-1F9216F4-6F5A-4AFF-85F5-BE841D0E68EE
+        bh=U6qzh5zT5TRYd5Sip4g9abjelR/5v1OLZh8dWj8GBAE=;
+        b=gd1T4CQcl18AHqR10qM0gtZHMrTN3pg1TXc01htETFenTp19OsL2Cc8yi6cT7AE4pX
+         DpfUGfkrc//t4L56C32s9773q0MqEEXs1CJtwDcp1MVZjeDRPziY6ZOlsLeNGTnsN1ES
+         1d9O49ayIaDedUw2fybvWTE1qXk3S5GB4wap/osBiAl94BoQlgbgs/9LdUbO+xtG5vx0
+         kj06ghd+e4NKyXrMlO5sLrRuOzsxSeKH9LlPqohNRtxTqbyKp3XdCH407n8IhgEkB6OY
+         poyBR2xPgRMC52fyCAzB4YTafSX22XZGAeCYH/yl2OeE2PDh3wcULXq5NmzSEn7LCg7A
+         PKJQ==
+X-Gm-Message-State: AC+VfDyRcaHA7egay8FBkI0HmtHj+JY+SDvNY1EDSNjxeYoDn2tjcnaF
+	zTRZFra/C3TIyvQ3AWq/FPMvqUBG71k=
+X-Google-Smtp-Source: APBJJlHaXRaHawJGh8EcQEbPNbdz3SpEWVXwBe9z3waKnvOCHY7coyJ32yStWcR97XEgIaTVX5NGgQ==
+X-Received: by 2002:a17:906:b7c8:b0:984:bd75:6a3 with SMTP id fy8-20020a170906b7c800b00984bd7506a3mr3527933ejb.58.1688205202474;
+        Sat, 01 Jul 2023 02:53:22 -0700 (PDT)
+Date: Sat, 01 Jul 2023 09:53:12 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+CC: Olaf Hering <olaf@aepfle.de>, qemu-devel <qemu-devel@nongnu.org>,
+ John Snow <jsnow@redhat.com>,
+ "open list:X86" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
+In-Reply-To: <CABgObfamZEHv0W3B6kPXGTiT1f2G__S=Bi1-_PYeSomsiVFaFg@mail.gmail.com>
+References: <20210317070046.17860-1-olaf@aepfle.de> <4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com> <20210325121219.7b5daf76.olaf@aepfle.de> <dae251e1-f808-708e-902c-05cfcbbea9cf@redhat.com> <20230509225818.GA16290@aepfle.de> <20230626231901.5b5d11c1.olaf@aepfle.de> <c939b695-2b68-085a-0f19-108ecdcc1a05@redhat.com> <5DB37FA5-41DF-4ED6-8C8A-CDDD6F276F42@gmail.com> <20230627140740.2736f6e8.olaf@aepfle.de> <4F5609FD-4A89-4450-89E2-3311CC5A9317@gmail.com> <CABgObfamZEHv0W3B6kPXGTiT1f2G__S=Bi1-_PYeSomsiVFaFg@mail.gmail.com>
+Message-ID: <3987B0DB-46F2-49F1-AEA5-B88BC61A633F@gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain;
-	charset=utf-8
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Luca,
 
-On Jun 30, 2023, at 05:12, Luca Fancellu <luca.fancellu@arm.com> wrote:
->=20
-> =EF=BB=BFThe "dom0less" feature was intended to be the feature where a dom=
-U
-> domain could be launched without the control domain (Dom0)
-> intervention, however the name seems to suggest that Dom0 cannot
-> be part of the configuration, while instead it's a possible use case.
 
-Thanks for your interest in Xen boot integrity. Please see the 2018 domB RFC=
+Am 30=2E Juni 2023 08:48:02 UTC schrieb Paolo Bonzini <pbonzini@redhat=2Ec=
+om>:
+>Il mer 28 giu 2023, 13:28 Bernhard Beschow <shentey@gmail=2Ecom> ha scrit=
+to:
+>
+>>
+>>
+>> Am 27=2E Juni 2023 12:07:40 UTC schrieb Olaf Hering <olaf@aepfle=2Ede>:
+>> >Tue, 27 Jun 2023 10:12:50 +0000 Bernhard Beschow <shentey@gmail=2Ecom>=
 :
-https://lists.xenproject.org/archives/html/xen-devel/2018-06/msg01306.html
+>> >
+>> >> The BAR is a 32 bit register whose default value is 0x00000001=2E I =
+think
+>> what's supposed to happen here is a pci_set_long() rather than a
+>> pci_set_byte()=2E
+>> >
+>> >Indeed, the u32 at that address changes from c121 to c101 with the
+>> current code=2E
+>>
+>> Neat! Would you mind sending a patch fixing the BMIBA register to be re=
+set
+>> as 32 bit?
+>>
+>
+>I think we should also check why writing the command register is not
+>disabling the BAR as well=2E
 
-At Xen Summit 2018 (Nanjing) and Xen Summit 2019 (Chicago), OpenXT contribut=
-ors made a case to Xen-on-Arm contributors for the architectural unification=
- of incumbent dom0less (Arm) and the domB (x86) proposal for improving Xen b=
-oot integrity.
+So IIUC the BMIBA register is managed internally by QEMU's PCI code and we=
+ shouldn't have to mess with the register at all=2E We should actually remo=
+ve the explicit reset of BMIBA, correct?
 
-> To avoid that, rename the "dom0less" configuration with the name
-> "hyperlaunch", that is less misleading.
+I've tried debugging the PCI code when working on the VIA IDE controller t=
+o understand it better=2E But despite QEMU being compiled with --enable-deb=
+ug it seemd to be compiled with -O2 still, making debugging quite hard=2E I=
+'m not sure if any compile flags leak into my build environment though=2E
 
-2018-2022 work on Xen launch integrity, thanks to Apertus and Star Lab:=20
-https://wiki.xenproject.org/wiki/Hyperlaunch
-https://www.theregister.com/2022/12/16/xen_4_17_hyperlaunch/
-
-2023 Hyperlaunch design session last week, thanks to Apertus and AMD:
-https://lists.xenproject.org/archives/html/xen-devel/2023-06/msg01870.html
-
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-
-If Arm is now ready to invest engineering resources into new Xen launch inte=
-grity features for security and safety-critical use cases, that is exciting n=
-ews, 5 years into the on-again-off-again bootstrapped Hyperlaunch project! T=
-he roadmap would benefit from new funding.
-
-Would you like to attend the next Xen working group call for Hyperlaunch?
-
-Rich=
-
---Apple-Mail-1F9216F4-6F5A-4AFF-85F5-BE841D0E68EE
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">Hi L=
-uca,</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">On Jun 30, 2023, at 05=
-:12, Luca Fancellu &lt;luca.fancellu@arm.com&gt; wrote:</div><div dir=3D"ltr=
-"><blockquote type=3D"cite"><br></blockquote></div><blockquote type=3D"cite"=
-><div dir=3D"ltr">=EF=BB=BF<span>The "dom0less" feature was intended to be t=
-he feature where a domU</span><br><span>domain could be launched without the=
- control domain (Dom0)</span><br><span>intervention, however the name seems t=
-o suggest that Dom0 cannot</span><br><span>be part of the configuration, whi=
-le instead it's a possible use case.</span><br></div></blockquote><div><br><=
-/div><div>Thanks for your interest in Xen boot integrity. Please see the 201=
-8 domB RFC:</div><div><a href=3D"https://lists.xenproject.org/archives/html/=
-xen-devel/2018-06/msg01306.html">https://lists.xenproject.org/archives/html/=
-xen-devel/2018-06/msg01306.html</a></div><div><br></div><div><div>At Xen Sum=
-mit 2018 (Nanjing) and Xen Summit 2019 (Chicago), OpenXT contributors made a=
- case to Xen-on-Arm contributors for the architectural unification of incumb=
-ent dom0less (Arm) and the domB (x86) proposal for improving Xen boot integr=
-ity.</div><div><br></div></div><blockquote type=3D"cite"><div dir=3D"ltr"><s=
-pan></span><span>To avoid that, rename the "dom0less" configuration with the=
- name</span><br><span>"hyperlaunch", that is less misleading.</span><br></di=
-v></blockquote><div><br></div><div>2018-2022 work on Xen launch integrity, t=
-hanks to Apertus and Star Lab:&nbsp;</div><div><a href=3D"https://wiki.xenpr=
-oject.org/wiki/Hyperlaunch">https://wiki.xenproject.org/wiki/Hyperlaunch</a>=
-</div><div><a href=3D"https://www.theregister.com/2022/12/16/xen_4_17_hyperl=
-aunch/">https://www.theregister.com/2022/12/16/xen_4_17_hyperlaunch/</a></di=
-v><div><br></div><div>2023 Hyperlaunch design session last week, thanks to A=
-pertus and AMD:</div><div><a href=3D"https://lists.xenproject.org/archives/h=
-tml/xen-devel/2023-06/msg01870.html">https://lists.xenproject.org/archives/h=
-tml/xen-devel/2023-06/msg01870.html</a></div><div><br></div><blockquote type=
-=3D"cite"><div dir=3D"ltr"><span></span><span>Signed-off-by: Luca Fancellu &=
-lt;luca.fancellu@arm.com&gt;</span><br></div></blockquote><div><br></div>If A=
-rm is now ready to invest engineering resources into new Xen launch integrit=
-y features for security and safety-critical use cases, that is exciting news=
-, 5 years into the on-again-off-again bootstrapped Hyperlaunch project! The r=
-oadmap would benefit from new funding.<div><br></div><div>Would you like to a=
-ttend the next Xen working group call for Hyperlaunch?<div><br></div><div>Ri=
-ch</div></div></body></html>=
-
---Apple-Mail-1F9216F4-6F5A-4AFF-85F5-BE841D0E68EE--
+Best regards,
+Bernhard=20
+>
+>Paolo
+>
+>
+>> Best regards,
+>> Bernhard
+>> >
+>> >Olaf
+>>
+>>
 
