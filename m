@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07B8474459A
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Jul 2023 02:32:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.557669.871250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71357744599
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Jul 2023 02:32:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.557672.871275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFOWk-0000ZU-Lt; Sat, 01 Jul 2023 00:31:50 +0000
+	id 1qFOWn-0001A7-RH; Sat, 01 Jul 2023 00:31:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 557669.871250; Sat, 01 Jul 2023 00:31:50 +0000
+Received: by outflank-mailman (output) from mailman id 557672.871275; Sat, 01 Jul 2023 00:31:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qFOWk-0000Wj-IH; Sat, 01 Jul 2023 00:31:50 +0000
-Received: by outflank-mailman (input) for mailman id 557669;
- Sat, 01 Jul 2023 00:31:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qFOWn-00017y-Mu; Sat, 01 Jul 2023 00:31:53 +0000
+Received: by outflank-mailman (input) for mailman id 557672;
+ Sat, 01 Jul 2023 00:31:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ypVN=CT=gmail.com=christopher.w.clark.io@srs-se1.protection.inumbo.net>)
- id 1qFOWj-0007yB-4e
- for xen-devel@lists.xenproject.org; Sat, 01 Jul 2023 00:31:49 +0000
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [2607:f8b0:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a9c2fbe6-17a6-11ee-b237-6b7b168915f2;
- Sat, 01 Jul 2023 02:31:48 +0200 (CEST)
-Received: by mail-pf1-x436.google.com with SMTP id
- d2e1a72fcca58-666ecf9a081so1885991b3a.2
- for <xen-devel@lists.xenproject.org>; Fri, 30 Jun 2023 17:31:48 -0700 (PDT)
+ id 1qFOWl-0007yM-CS
+ for xen-devel@lists.xenproject.org; Sat, 01 Jul 2023 00:31:51 +0000
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [2607:f8b0:4864:20::731])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa5d7fcc-17a6-11ee-8611-37d641c3527e;
+ Sat, 01 Jul 2023 02:31:49 +0200 (CEST)
+Received: by mail-qk1-x731.google.com with SMTP id
+ af79cd13be357-76728ae3162so224236785a.3
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Jun 2023 17:31:49 -0700 (PDT)
 Received: from cog-dev.home ([70.103.208.83]) by smtp.gmail.com with ESMTPSA id
- s68-20020a632c47000000b0055b61cd99a1sm1824296pgs.81.2023.06.30.17.31.45
+ s68-20020a632c47000000b0055b61cd99a1sm1824296pgs.81.2023.06.30.17.31.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 30 Jun 2023 17:31:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -43,36 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: a9c2fbe6-17a6-11ee-b237-6b7b168915f2
+X-Inumbo-ID: aa5d7fcc-17a6-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688171506; x=1690763506;
+        d=gmail.com; s=20221208; t=1688171507; x=1690763507;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/bZBd6eRTKkd5JZ++Hy2rgV0U3swA0RaaPb02+sFNEo=;
-        b=MTxzrGAITsLT46i4OhAoywi7PDozDmK8q/T2F09c3zFbuT2Y6eKs24RxEJO8+Kay4q
-         jzAoyn0OCFx9AzDmriIAAn1h7oGp8to6nRjh5QqLvOXlA6AxT9iukyh/tuGKczv/pOcB
-         RSQpcQguU7OWMAB1w2lNbdBWlPfejpXiFctURmffmSFX1P4XbhBij44g0d9HLgafSgBs
-         h1mVKbeQbjXDv8ABL2W7VKqtbspGQabdM+E4yJOCx/QM5RNaKMd8Wqg+Jg/v70fGASUg
-         GPXdgxQeS8nud8TZGue1Z66u7qh+el26tdF24UEaRrr8g9yq/UchAr0Ilt7Cz2Nqbf0y
-         gcAw==
+        bh=tNP8VdblK4Rt8e2FoRKT44HjkzeP53PPJ4jpSpNQaUw=;
+        b=dZsj6vciSfnMLCMaU0cMPpVzsvTf2cA6H5rK4dqitVEHa7PIl9bqnNbVX3YCmArVSD
+         IMEXc7JXp9i0n/PGdZX9qMeKuVaEdqi1JfQcIbGoD4A3Tg/fYHZ5qWS5LnG8xrnN8FH1
+         Qri/PoGiBRsUxe8lInpy/Y3tNDsK+N/06FDCG77bszgiEqbDDNt1ISOCF7hrbk0zEJZF
+         u3xEDplqMMf5QyYIZXM+igxM68XL6fyrQU/HlA+q/V8iig/rjo8PHvxFVZnmdcg9lZsV
+         5KpUfri4831gj2h32ooplKW5XrDdfAHBoQV/NLL9yEaAH4ZJQQM+UxajHNgk+edO/lhN
+         CM9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688171506; x=1690763506;
+        d=1e100.net; s=20221208; t=1688171507; x=1690763507;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=/bZBd6eRTKkd5JZ++Hy2rgV0U3swA0RaaPb02+sFNEo=;
-        b=NYhfJ/Zrx8ez3SXhyFF4S/kE1hf1GZ9GLtlBrKT8PYQqX8q4wL1nVYAqsAPifrfoD8
-         lYLTTLeGSDMTxaOCbMpMe6qQuC6Bhd4vHkLCyx9cuqUt2mraiGReZ+Txzy4XoT3uBU7B
-         o8us4suwoe3U8hn4aKhnda0qydRdVCRMk1vt2Ms07rqseIc+EjJJjo8S4AZBypXNvTni
-         N7HoclEWxojtlLiyyV12oSeNydzSZzEQyyjl4rV4DbDPxXKBb058YDGMi4lUxB6JMnEH
-         ndi28fMuivx0gd+414bRzK2IuleSV+QzjvlDE3eTiXJanaDeONoVjDQSbo02HoL3mDT3
-         4SmA==
-X-Gm-Message-State: ABy/qLbyufxNuorruzQAws8xnK2Aq5qgzW68g53fEh+v+3duuRJnhZAB
-	qYuekxw022N2TUD16DI5OXd1UfVjNew=
-X-Google-Smtp-Source: APBJJlFBq6b+oL8y3j9HKkjC37NmJlsGa0wteQeagNzkCv7VOsuYvWWt9UFRAHuwAgSrK9WgXeiGbA==
-X-Received: by 2002:a05:6a00:18a4:b0:680:40b2:5419 with SMTP id x36-20020a056a0018a400b0068040b25419mr6592110pfh.4.1688171506475;
-        Fri, 30 Jun 2023 17:31:46 -0700 (PDT)
+        bh=tNP8VdblK4Rt8e2FoRKT44HjkzeP53PPJ4jpSpNQaUw=;
+        b=OzBtmcktinPgWc4XhtkaIz/SXeaJ6nzCQuxZxTc2JMoAV2ZcCRLdjcX+gt+dJcGZKY
+         A6IzBRT5MOmL5RBHqkdqyRD4PR4clvF+tD583EyrF+YdyOfAUuylU1Cg3BQEIi4g1SjI
+         OvuG/96KKedmGW08c1W8twytVnn3Z4IZpNGIGldqXFu1T6hQHnrUL8gQZDRU6aAH+w1h
+         uDrAevlVcDerI55VGHvTwEQ640xI9B1QjbD8QQoEVSJ/XhKgBFcr4RHmGZRggjQyyNA4
+         Y9f0KegaY0Pgq1kn560TCPt0rE2xrEWFotxKeIJf2QUS4dpbS74EmzR33hdzSKUHaHUP
+         RpKg==
+X-Gm-Message-State: ABy/qLawIMHRzXLb3UaViZv69lx9jqBV9Ddkd89tCgnFNahEBlioCNmd
+	uhRiyZjbQweGuNo9EAqK8cFOjEtlfxw=
+X-Google-Smtp-Source: APBJJlHXadhO0zI3fny7/VsDSq54jA5+/G/AaPurjt0vF6Vo+E7TEPOAcjmOGo6hXLaSNWVGV0iNyg==
+X-Received: by 2002:a05:620a:29d2:b0:767:3999:5277 with SMTP id s18-20020a05620a29d200b0076739995277mr5531547qkp.70.1688171507611;
+        Fri, 30 Jun 2023 17:31:47 -0700 (PDT)
 Sender: Christopher Clark <christopher.w.clark.io@gmail.com>
 From: Christopher Clark <christopher.w.clark@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -88,313 +88,377 @@ Cc: Daniel Smith <dpsmith@apertussolutions.com>,
 	Luca Fancellu <luca.fancellu@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Rich Persaud <persaur@gmail.com>
-Subject: [PATCH 05/11] xsm: switch XSM init to boot info structures
-Date: Fri, 30 Jun 2023 17:31:26 -0700
-Message-Id: <20230701003132.2210306-6-christopher.w.clark@gmail.com>
+Subject: [PATCH 06/11] x86 setup, microcode: switch to the new bootinfo structures
+Date: Fri, 30 Jun 2023 17:31:27 -0700
+Message-Id: <20230701003132.2210306-7-christopher.w.clark@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230701003132.2210306-1-christopher.w.clark@gmail.com>
 References: <20230701003132.2210306-1-christopher.w.clark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Change the XSM implementation to use the boot info structure instead of
-the multiboot module_map.
+Next step in incremental work towards adding a non-multiboot internal
+representation of boot modules, converting the fields being accessed for
+the startup calculations.
 
-Drops a dependency on CONFIG_MULTIBOOT, so boot module logic is now
-used whenever the DEVICE_TREE specific logic (for Arm) is not, with the
-bootinfo header conditionally included to ensure no change on Arm.
+Move the per-module scan logic into a dedicated function from the
+iteration loop and set the BOOTMOD_UCODE module type when microcode is found.
 
-Adds a multiboot header inclusion into guest/xen/pvh-boot.c
-since it is no longer provided via transitive inclusion and the source
-in that file uses multiboot structures.
+Completes the conversion from the module_map bitmap in x86 setup so it
+can be removed, along with the temporary bootstrap_map multiboot wrapper
+since the last code that uses it is removed in this change.
 
 Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-Changes since v1:
-- derived from patches 2 and 3
-- added pvh-boot.c multiboot header inclusion
-- conditional inclusion of bootinfo.h to avoid breaking Arm
+changes since v1:
+- an incremental subset of patch 3
+- added the drop of the temporary bootstrap map
 ---
- xen/arch/x86/guest/xen/pvh-boot.c |  1 +
- xen/arch/x86/setup.c              |  2 +-
- xen/include/xsm/xsm.h             | 28 +++++++--------
- xen/xsm/xsm_core.c                | 47 +++++++++++++++---------
- xen/xsm/xsm_policy.c              | 59 ++++++++++++++++---------------
- 5 files changed, 77 insertions(+), 60 deletions(-)
+ xen/arch/x86/cpu/microcode/core.c    | 148 +++++++++++++++------------
+ xen/arch/x86/include/asm/boot.h      |  13 ---
+ xen/arch/x86/include/asm/microcode.h |   7 +-
+ xen/arch/x86/setup.c                 |   8 +-
+ 4 files changed, 89 insertions(+), 87 deletions(-)
 
-diff --git a/xen/arch/x86/guest/xen/pvh-boot.c b/xen/arch/x86/guest/xen/pvh-boot.c
-index 9cbe87b61b..1ed04d035c 100644
---- a/xen/arch/x86/guest/xen/pvh-boot.c
-+++ b/xen/arch/x86/guest/xen/pvh-boot.c
-@@ -9,6 +9,7 @@
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/mm.h>
-+#include <xen/multiboot.h>
- 
- #include <asm/e820.h>
- #include <asm/guest.h>
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index f9b04daebd..a616ccc0a8 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1835,7 +1835,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-     mmio_ro_ranges = rangeset_new(NULL, "r/o mmio ranges",
-                                   RANGESETF_prettyprint_hex);
- 
--    xsm_multiboot_init(module_map, mbi);
-+    xsm_bootmodule_init(boot_info);
- 
-     /*
-      * IOMMU-related ACPI table parsing may require some of the system domains
-diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-index 8dad03fd3d..d409c30be6 100644
---- a/xen/include/xsm/xsm.h
-+++ b/xen/include/xsm/xsm.h
-@@ -16,8 +16,10 @@
- #define __XSM_H__
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index e720a89167..c674ccf88c 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -22,12 +22,12 @@
+  */
  
  #include <xen/alternative-call.h>
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+# include <xen/bootinfo.h>
-+#endif
- #include <xen/sched.h>
++#include <xen/bootinfo.h>
+ #include <xen/cpu.h>
+ #include <xen/earlycpio.h>
+ #include <xen/err.h>
+ #include <xen/guest_access.h>
+ #include <xen/init.h>
 -#include <xen/multiboot.h>
- 
- /* policy magic number (defined by XSM_MAGIC) */
- typedef uint32_t xsm_magic_t;
-@@ -776,15 +778,14 @@ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
- 
- #endif /* XSM_NO_WRAPPERS */
- 
--#ifdef CONFIG_MULTIBOOT
--int xsm_multiboot_init(
--    unsigned long *module_map, const multiboot_info_t *mbi);
--int xsm_multiboot_policy_init(
--    unsigned long *module_map, const multiboot_info_t *mbi,
--    void **policy_buffer, size_t *policy_size);
--#endif
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+int xsm_bootmodule_init(const struct boot_info *info);
-+int xsm_bootmodule_policy_init(
-+    const struct boot_info *info, const unsigned char **policy_buffer,
-+    size_t *policy_size);
-+
-+#else
- 
--#ifdef CONFIG_HAS_DEVICE_TREE
- /*
-  * Initialize XSM
-  *
-@@ -826,15 +827,14 @@ static const inline struct xsm_ops *silo_init(void)
- 
- #include <xsm/dummy.h>
- 
--#ifdef CONFIG_MULTIBOOT
--static inline int xsm_multiboot_init (
--    unsigned long *module_map, const multiboot_info_t *mbi)
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+static inline int xsm_bootmodule_init(const struct boot_info *info)
- {
-     return 0;
- }
--#endif
- 
--#ifdef CONFIG_HAS_DEVICE_TREE
-+#else
-+
- static inline int xsm_dt_init(void)
- {
-     return 0;
-diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-index eaa028109b..301ae4dc8b 100644
---- a/xen/xsm/xsm_core.c
-+++ b/xen/xsm/xsm_core.c
-@@ -10,8 +10,12 @@
-  *  as published by the Free Software Foundation.
-  */
- 
--#include <xen/init.h>
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+# include <xen/bootinfo.h>
-+#endif
- #include <xen/errno.h>
-+#include <xen/hypercall.h>
-+#include <xen/init.h>
- #include <xen/lib.h>
  #include <xen/param.h>
- 
-@@ -138,26 +142,35 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
-     return 0;
- }
- 
--#ifdef CONFIG_MULTIBOOT
--int __init xsm_multiboot_init(
--    unsigned long *module_map, const multiboot_info_t *mbi)
-+/*
-+ * ifdef'ing this against multiboot is no longer valid as the boot module
-+ * is agnostic and it will be possible to dropped the ifndef should Arm
-+ * adopt boot info
-+ */
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+int __init xsm_bootmodule_init(const struct boot_info *bootinfo)
- {
-     int ret = 0;
--    void *policy_buffer = NULL;
-+    const unsigned char *policy_buffer = NULL;
-     size_t policy_size = 0;
- 
-     printk("XSM Framework v" XSM_FRAMEWORK_VERSION " initialized\n");
- 
-     if ( XSM_MAGIC )
-     {
--        ret = xsm_multiboot_policy_init(module_map, mbi, &policy_buffer,
--                                        &policy_size);
--        if ( ret )
--        {
--            bootstrap_map(NULL);
--            printk(XENLOG_ERR "Error %d initializing XSM policy\n", ret);
--            return -EINVAL;
--        }
-+        int ret = xsm_bootmodule_policy_init(bootinfo, &policy_buffer,
-+                                             &policy_size);
-+        bootstrap_map(NULL);
-+
-+        if ( ret == -ENOENT )
-+            /*
-+             * The XSM module needs a policy file but one was not located.
-+             * Report as a warning and continue as the XSM module may late
-+             * load a policy file.
-+             */
-+            printk(XENLOG_WARNING "xsm: starting without a policy loaded!\n");
-+        else if ( ret )
-+            panic("Error %d initializing XSM policy\n", ret);
-     }
- 
-     ret = xsm_core_init(policy_buffer, policy_size);
-@@ -165,9 +178,9 @@ int __init xsm_multiboot_init(
- 
-     return 0;
- }
--#endif
- 
--#ifdef CONFIG_HAS_DEVICE_TREE
-+#else
-+
- int __init xsm_dt_init(void)
- {
-     int ret = 0;
-@@ -215,9 +228,9 @@ bool __init has_xsm_magic(paddr_t start)
- 
-     return false;
- }
--#endif
-+#endif /* CONFIG_HAS_DEVICE_TREE */
- 
--#endif
-+#endif /* CONFIG_XSM */
- 
- long do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
- {
-diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
-index c6df8c6e06..f1970c8964 100644
---- a/xen/xsm/xsm_policy.c
-+++ b/xen/xsm/xsm_policy.c
-@@ -18,62 +18,65 @@
-  *
+ #include <xen/spinlock.h>
+ #include <xen/stop_machine.h>
+@@ -57,7 +57,6 @@
   */
+ #define MICROCODE_UPDATE_TIMEOUT_US 1000000
  
--#include <xsm/xsm.h>
--#ifdef CONFIG_MULTIBOOT
--#include <asm/boot.h>
--#include <xen/multiboot.h>
--#include <asm/setup.h>
--#endif
- #include <xen/bitops.h>
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+# include <xen/bootinfo.h>
-+#endif
-+#include <xsm/xsm.h>
- #ifdef CONFIG_HAS_DEVICE_TREE
--# include <asm/setup.h>
- # include <xen/device_tree.h>
-+#else
-+#include <asm/boot.h>
- #endif
+-static module_t __initdata ucode_mod;
+ static signed int __initdata ucode_mod_idx;
+ static bool_t __initdata ucode_mod_forced;
+ static unsigned int nr_cores;
+@@ -150,75 +149,109 @@ static int __init cf_check parse_ucode(const char *s)
+ }
+ custom_param("ucode", parse_ucode);
  
--#ifdef CONFIG_MULTIBOOT
--int __init xsm_multiboot_policy_init(
--    unsigned long *module_map, const multiboot_info_t *mbi,
--    void **policy_buffer, size_t *policy_size)
-+#include <asm/setup.h>
+-void __init microcode_scan_module(
+-    unsigned long *module_map,
+-    const multiboot_info_t *mbi)
++#define MICROCODE_MODULE_MATCH 1
++#define MICROCODE_MODULE_NONMATCH 0
 +
-+#ifndef CONFIG_HAS_DEVICE_TREE
-+int __init xsm_bootmodule_policy_init(
-+    const struct boot_info *bootinfo, const unsigned char **policy_buffer,
-+    size_t *policy_size)
++static int __init microcode_check_module(struct boot_module *mod)
  {
--    int i;
 -    module_t *mod = (module_t *)__va(mbi->mods_addr);
--    int rc = 0;
-+    unsigned long i;
-+    int rc = -ENOENT;
-     u32 *_policy_start;
-     unsigned long _policy_len;
+     uint64_t *_blob_start;
+     unsigned long _blob_size;
+-    struct cpio_data cd;
++    struct cpio_data cd = { NULL, 0 };
+     long offset;
+     const char *p = NULL;
+-    int i;
+-
+-    ucode_blob.size = 0;
+-    if ( !ucode_scan )
+-        return;
+ 
+     if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
+         p = "kernel/x86/microcode/AuthenticAMD.bin";
+     else if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
+         p = "kernel/x86/microcode/GenuineIntel.bin";
+     else
++        return -EFAULT;
++
++    _blob_start = bootstrap_map(mod);
++    _blob_size = mod->size;
++    if ( !_blob_start )
++    {
++        printk("Could not map multiboot module (0x%lx) (size: %ld)\n",
++               mod->start, _blob_size);
++        /* Non-fatal error, so just say no match */
++        return MICROCODE_MODULE_NONMATCH;
++    }
++
++    cd = find_cpio_data(p, _blob_start, _blob_size, &offset /* ignore */);
++
++    if ( cd.data )
++    {
++        ucode_blob.size = cd.size;
++        ucode_blob.data = cd.data;
++
++        mod->bootmod_type = BOOTMOD_UCODE;
++        return MICROCODE_MODULE_MATCH;
++    }
++
++    bootstrap_map(NULL);
++
++    return MICROCODE_MODULE_NONMATCH;
++}
++
++void __init microcode_scan_module(struct boot_info *bootinfo)
++{
++    int i;
++
++    if ( !ucode_scan )
+         return;
  
 -    /*
--     * Try all modules and see whichever could be the binary policy.
--     * Adjust module_map for the module that is the binary policy.
+-     * Try all modules and see whichever could be the microcode blob.
 -     */
--    for ( i = mbi->mods_count-1; i >= 1; i-- )
--    {
--        if ( !test_bit(i, module_map) )
--            continue;
-+#ifdef CONFIG_XSM_FLASK_POLICY
-+    /* Initially set to builtin policy, overriden if boot module is found. */
-+    *policy_buffer = xsm_flask_init_policy;
-+    *policy_size = xsm_flask_init_policy_size;
-+    rc = 0;
-+#endif
- 
--        _policy_start = bootstrap_map_multiboot(mod + i);
--        _policy_len   = mod[i].mod_end;
+-    for ( i = 1 /* Ignore dom0 kernel */; i < mbi->mods_count; i++ )
 +    i = bootmodule_index(bootinfo, BOOTMOD_UNKNOWN, 0);
 +    while ( i < bootinfo->nr_mods )
-+    {
-+        _policy_start = bootstrap_map(&bootinfo->mods[i]);
-+        _policy_len   = bootinfo->mods[i].size;
+     {
+-        if ( !test_bit(i, module_map) )
+-            continue;
++        int ret = microcode_check_module(&bootinfo->mods[i]);
  
-         if ( (xsm_magic_t)(*_policy_start) == XSM_MAGIC )
+-        _blob_start = bootstrap_map_multiboot(&mod[i]);
+-        _blob_size = mod[i].mod_end;
+-        if ( !_blob_start )
++        switch ( ret )
          {
--            *policy_buffer = _policy_start;
-+            *policy_buffer = (unsigned char *)_policy_start;
-             *policy_size = _policy_len;
- 
-             printk("Policy len %#lx, start at %p.\n",
-                    _policy_len,_policy_start);
- 
--            __clear_bit(i, module_map);
-+            bootinfo->mods[i].bootmod_type = BOOTMOD_XSM;
-+            rc = 0;
-             break;
- 
+-            printk("Could not map multiboot module #%d (size: %ld)\n",
+-                   i, _blob_size);
++        case MICROCODE_MODULE_MATCH:
++            return;
++        case MICROCODE_MODULE_NONMATCH:
++            i = bootmodule_index(bootinfo, BOOTMOD_UNKNOWN, ++i);
+             continue;
++        default:
++            printk("%s: (err: %d) unable to check microcode\n",
++                   __func__, ret);
++            return;
          }
- 
-         bootstrap_map(NULL);
-+        i = bootmodule_index(bootinfo, BOOTMOD_UNKNOWN, ++i);
+-        cd.data = NULL;
+-        cd.size = 0;
+-        cd = find_cpio_data(p, _blob_start, _blob_size, &offset /* ignore */);
+-        if ( cd.data )
+-        {
+-            ucode_blob.size = cd.size;
+-            ucode_blob.data = cd.data;
+-            break;
+-        }
+-        bootstrap_map(NULL);
      }
+ }
  
+-static void __init microcode_grab_module(
+-    unsigned long *module_map,
+-    const multiboot_info_t *mbi)
++static void __init microcode_grab_module(struct boot_info *bootinfo)
+ {
+-    module_t *mod = (module_t *)__va(mbi->mods_addr);
++    ucode_blob.size = 0;
+ 
+     if ( ucode_mod_idx < 0 )
+-        ucode_mod_idx += mbi->mods_count;
+-    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= mbi->mods_count ||
+-         !__test_and_clear_bit(ucode_mod_idx, module_map) )
+-        goto scan;
+-    ucode_mod = mod[ucode_mod_idx];
+-scan:
++        ucode_mod_idx += bootinfo->nr_mods;
++    if ( ucode_mod_idx >= 0 &&  ucode_mod_idx <= bootinfo->nr_mods &&
++         bootinfo->mods[ucode_mod_idx].bootmod_type == BOOTMOD_UNKNOWN )
++    {
++        int ret = microcode_check_module(&bootinfo->mods[ucode_mod_idx]);
++
++        switch ( ret )
++        {
++        case MICROCODE_MODULE_MATCH:
++            return;
++        case MICROCODE_MODULE_NONMATCH:
++            break;
++        default:
++            printk("%s: (err: %d) unable to check microcode\n",
++                   __func__, ret);
++            return;
++        }
++    }
++
+     if ( ucode_scan )
+-        microcode_scan_module(module_map, mbi);
++        microcode_scan_module(bootinfo);
+ }
+ 
++/* Undefining as they are not needed anymore */
++#undef MICROCODE_MODULE_MATCH
++#undef MICROCODE_MODULE_NONMATCH
++
+ static struct microcode_ops __ro_after_init ucode_ops;
+ 
+ static DEFINE_SPINLOCK(microcode_mutex);
+@@ -737,11 +770,6 @@ static int __init cf_check microcode_init(void)
+         ucode_blob.size = 0;
+         ucode_blob.data = NULL;
+     }
+-    else if ( ucode_mod.mod_end )
+-    {
+-        bootstrap_map(NULL);
+-        ucode_mod.mod_end = 0;
+-    }
+ 
+     return 0;
+ }
+@@ -785,19 +813,15 @@ static int __init early_update_cache(const void *data, size_t len)
      return rc;
  }
--#endif
  
--#ifdef CONFIG_HAS_DEVICE_TREE
-+#else
-+
- int __init xsm_dt_policy_init(void **policy_buffer, size_t *policy_size)
+-int __init microcode_init_cache(unsigned long *module_map,
+-                                const struct multiboot_info *mbi)
++int __init microcode_init_cache(struct boot_info *bootinfo)
  {
-     struct bootmodule *mod = boot_module_find_by_kind(BOOTMOD_XSM);
+     int rc = 0;
+ 
+     if ( ucode_scan )
+         /* Need to rescan the modules because they might have been relocated */
+-        microcode_scan_module(module_map, mbi);
++        microcode_scan_module(bootinfo);
+ 
+-    if ( ucode_mod.mod_end )
+-        rc = early_update_cache(bootstrap_map_multiboot(&ucode_mod),
+-                                ucode_mod.mod_end);
+-    else if ( ucode_blob.size )
++    if ( ucode_blob.size )
+         rc = early_update_cache(ucode_blob.data, ucode_blob.size);
+ 
+     return rc;
+@@ -815,11 +839,6 @@ static int __init early_microcode_update_cpu(void)
+         len = ucode_blob.size;
+         data = ucode_blob.data;
+     }
+-    else if ( ucode_mod.mod_end )
+-    {
+-        len = ucode_mod.mod_end;
+-        data = bootstrap_map_multiboot(&ucode_mod);
+-    }
+ 
+     if ( !data )
+         return -ENOMEM;
+@@ -838,8 +857,7 @@ static int __init early_microcode_update_cpu(void)
+     return microcode_update_cpu(patch);
+ }
+ 
+-int __init early_microcode_init(unsigned long *module_map,
+-                                const struct multiboot_info *mbi)
++int __init early_microcode_init(struct boot_info *bootinfo)
+ {
+     const struct cpuinfo_x86 *c = &boot_cpu_data;
+     int rc = 0;
+@@ -863,11 +881,11 @@ int __init early_microcode_init(unsigned long *module_map,
+         return -ENODEV;
+     }
+ 
+-    microcode_grab_module(module_map, mbi);
++    microcode_grab_module(bootinfo);
+ 
+     ucode_ops.collect_cpu_info();
+ 
+-    if ( ucode_mod.mod_end || ucode_blob.size )
++    if ( ucode_blob.size )
+         rc = early_microcode_update_cpu();
+ 
+     return rc;
+diff --git a/xen/arch/x86/include/asm/boot.h b/xen/arch/x86/include/asm/boot.h
+index bcf4f2e2e3..e51fd32280 100644
+--- a/xen/arch/x86/include/asm/boot.h
++++ b/xen/arch/x86/include/asm/boot.h
+@@ -6,19 +6,6 @@
+ 
+ #include <asm/setup.h>
+ 
+-static inline void *bootstrap_map_multiboot(const module_t *mod)
+-{
+-    struct boot_module bm;
+-
+-    if ( !mod )
+-        return bootstrap_map(NULL);
+-
+-    bm.start = mod->mod_start << PAGE_SHIFT;
+-    bm.size = mod->mod_end;
+-
+-    return bootstrap_map(&bm);
+-}
+-
+ static inline unsigned long bootmodule_index(
+     const struct boot_info *info, bootmod_type_t bootmod_type,
+     unsigned long start)
+diff --git a/xen/arch/x86/include/asm/microcode.h b/xen/arch/x86/include/asm/microcode.h
+index 62ce3418f7..803fbbb270 100644
+--- a/xen/arch/x86/include/asm/microcode.h
++++ b/xen/arch/x86/include/asm/microcode.h
+@@ -1,6 +1,7 @@
+ #ifndef ASM_X86__MICROCODE_H
+ #define ASM_X86__MICROCODE_H
+ 
++#include <xen/bootinfo.h>
+ #include <xen/types.h>
+ #include <xen/percpu.h>
+ 
+@@ -23,10 +24,8 @@ DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
+ 
+ void microcode_set_module(unsigned int idx);
+ int microcode_update(XEN_GUEST_HANDLE(const_void), unsigned long len);
+-int early_microcode_init(unsigned long *module_map,
+-                         const struct multiboot_info *mbi);
+-int microcode_init_cache(unsigned long *module_map,
+-                         const struct multiboot_info *mbi);
++int early_microcode_init(struct boot_info *bootinfo);
++int microcode_init_cache(struct boot_info *bootinfo);
+ int microcode_update_one(void);
+ 
+ #endif /* ASM_X86__MICROCODE_H */
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index a616ccc0a8..50a1a124b0 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1023,7 +1023,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+     unsigned int initrdidx, num_parked = 0;
+     multiboot_info_t *mbi;
+     module_t *mod;
+-    unsigned long nr_pages, raw_max_page, module_map[1];
++    unsigned long nr_pages, raw_max_page;
+     int i, j, e820_warn = 0, bytes = 0;
+     unsigned long eb_start, eb_end;
+     bool acpi_boot_table_init_done = false, relocated = false;
+@@ -1190,8 +1190,6 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+     }
+ 
+     /* Dom0 kernel is the first boot module */
+-    bitmap_fill(module_map, mbi->mods_count);
+-    __clear_bit(0, module_map); /* Dom0 kernel is always first */
+     boot_info->mods[0].bootmod_type = BOOTMOD_KERNEL;
+ 
+     if ( pvh_boot )
+@@ -1371,7 +1369,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+      * TODO: load ucode earlier once multiboot modules become accessible
+      * at an earlier stage.
+      */
+-    early_microcode_init(module_map, mbi);
++    early_microcode_init(boot_info);
+ 
+     if ( xen_phys_start )
+     {
+@@ -1906,7 +1904,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+ 
+     timer_init();
+ 
+-    microcode_init_cache(module_map, mbi); /* Needs xmalloc() */
++    microcode_init_cache(boot_info); /* Needs xmalloc() */
+ 
+     tsx_init(); /* Needs microcode.  May change HLE/RTM feature bits. */
+ 
 -- 
 2.25.1
 
