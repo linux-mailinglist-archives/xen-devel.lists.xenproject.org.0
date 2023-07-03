@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40151745B59
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Jul 2023 13:40:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558063.871859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D07A8745B5A
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Jul 2023 13:40:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558069.871869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGHuV-0003gl-5S; Mon, 03 Jul 2023 11:40:03 +0000
+	id 1qGHvB-0004nU-E9; Mon, 03 Jul 2023 11:40:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558063.871859; Mon, 03 Jul 2023 11:40:03 +0000
+Received: by outflank-mailman (output) from mailman id 558069.871869; Mon, 03 Jul 2023 11:40:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGHuU-0003dn-WD; Mon, 03 Jul 2023 11:40:03 +0000
-Received: by outflank-mailman (input) for mailman id 558063;
- Mon, 03 Jul 2023 11:40:01 +0000
+	id 1qGHvB-0004lb-BJ; Mon, 03 Jul 2023 11:40:45 +0000
+Received: by outflank-mailman (input) for mailman id 558069;
+ Mon, 03 Jul 2023 11:40:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j+Cz=CV=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1qGHuT-0003Ml-Jz
- for xen-devel@lists.xenproject.org; Mon, 03 Jul 2023 11:40:01 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56d65f0b-1996-11ee-8611-37d641c3527e;
- Mon, 03 Jul 2023 13:39:58 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f95bf5c493so6460803e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 03 Jul 2023 04:39:58 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fMaW=CV=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qGHv9-0003Ml-4t
+ for xen-devel@lists.xenproject.org; Mon, 03 Jul 2023 11:40:43 +0000
+Received: from sender3-of-o59.zoho.com (sender3-of-o59.zoho.com
+ [136.143.184.59]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6f5ad728-1996-11ee-8611-37d641c3527e;
+ Mon, 03 Jul 2023 13:40:41 +0200 (CEST)
+Received: from [10.10.1.94] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1688384419951877.2414136011109;
+ Mon, 3 Jul 2023 04:40:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,261 +40,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56d65f0b-1996-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1688384398; x=1690976398;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=TaTthgEGqQq8CQcmAUHWGWYwkOxiznWgrpiEPOH7chE=;
-        b=EhDDhJOBpdxVKCGdk4YRvkujlGjbvTUd/WpQk0gmbQlBRDCWp4Pr0Z5bOrOUvkEZa0
-         UwwMFf2mrWpjGIu/YIJwAeo3g/zRFqY9sXaNewK+GVhczVInKU9ZH2SKcRDyyR94w0qL
-         I4FYUt2jbrI/20eGzaAl9x6P643MqoYRV6Vmg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688384398; x=1690976398;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TaTthgEGqQq8CQcmAUHWGWYwkOxiznWgrpiEPOH7chE=;
-        b=NLOM+pUKYgYwMYTG/HKLjPi+74dX1M3LfTCYVfHgzpBu9ci7c+wmu6a4KxMoVnMeie
-         mHR6lvyrKXSyFBmF3OXfZN38lOAV7Ft2JDukBMHiZ9+DTcJ3u6jmQPgpwLmiZa0dwY2W
-         RCLxg018r1pry4w8K9FN62UNJYzGv6movYcCO7unvCycA/3KTOc99moqvDpy0Fg8txZs
-         s3KB7ihfm2Q5nUSaBp3eFGRNrtUF5PK2SXxbzwstYtPTtJYPk++InA4vNOonBm36i5PM
-         Tf5tjQfwvvnBxwUgOvx7aDJhdKOyMa8gqOc7m3VlKxIV30EpKasO4bFz9Mgplmh4bhei
-         PeWQ==
-X-Gm-Message-State: ABy/qLZsVdFcNT0yzXtf5h6Ie0TqbitV4lsEaAW4hpE4os+FRLRgPBCX
-	yyMaU19GrNtNKjqOqaxKt2uLz9VmuRj5OSh/pCMiCw==
-X-Google-Smtp-Source: APBJJlEizCxNim1c+KNIlGWUnM/Ni6hYyaMt0ttcO19uFhl3/fFEiKYrKwDwm3Xsa9B7PZY+L1qyuWg6OSr9zxUcJKo=
-X-Received: by 2002:a05:6512:3612:b0:4f8:70f8:d424 with SMTP id
- f18-20020a056512361200b004f870f8d424mr5795647lfs.65.1688384398270; Mon, 03
- Jul 2023 04:39:58 -0700 (PDT)
+X-Inumbo-ID: 6f5ad728-1996-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1688384421; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cFwMk09dzT0vneG+8ZDsuOP5KlklzW8WBklDCPI9LDe9pmEO0rnzSYoVc898fazVnVeZ+CzJpFLPGg7e0dTKhKkEUTjjYRWesITp1lr+kHQzEQXbx+WHJVYrcESiPJMZJgHDglkxMRXHbx6+c+yeZyG8TTeOdT2OIPN1ftLKYaI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1688384421; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=DTgl9jwz2fepBYFxfxTiktRfHIC/YIshbjxQzz/ZFwI=; 
+	b=W9bHqGrTmPXFERq5RL7GA50MY/wWilHzQadzyqos5hpAeoJKivzzP0pOMrpyKOirvqUqRInEXRd5rEd8p9x64WFy2hrDvZOybIHzuoijC7mU7s2LpPz0I9Ce+mV0+gbTqpbNyRTPwS42GEuCPy9Prnjqx9EqfJ6T0U3EJ4YDTYI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1688384421;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=DTgl9jwz2fepBYFxfxTiktRfHIC/YIshbjxQzz/ZFwI=;
+	b=c/pyy6Jry6KoSOCX2t4w/VsxJRTT5+RPvTt76HB56mg3QyfCCX8Z+ClqJXcBvjuq
+	2LPwEnA0g1askOAiNLAyNYqKOMnzeGR2hsOUeKiHxcB/NxszM/azFAUUpZ1VAJ+MUgp
+	XwibBRYpTmEeNJk6IZwl8NiJe1TZcXk7t02yQ/G8=
+Message-ID: <0c113f33-4410-aa75-84b7-c3ca860688f9@apertussolutions.com>
+Date: Mon, 3 Jul 2023 07:40:17 -0400
 MIME-Version: 1.0
-References: <20230630113756.672607-1-george.dunlap@cloud.com> <42d6cf5e-03ab-a55b-a4d5-54bd063f793d@xen.org>
-In-Reply-To: <42d6cf5e-03ab-a55b-a4d5-54bd063f793d@xen.org>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 3 Jul 2023 12:39:47 +0100
-Message-ID: <CA+zSX=bVtNBUpEW1rFuXZAh-mPXXmLKEOwE1e3igSo5RdV+qYw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] credit: Limit load balancing to once per millisecond
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: multipart/alternative; boundary="0000000000004db69f05ff93a0c7"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>
+References: <20230630091210.3742121-1-luca.fancellu@arm.com>
+ <6060dd00-5d9c-3804-4b9d-154b9b9dca49@citrix.com>
+ <31FE51E0-0336-4756-8B30-6FE77DE10932@arm.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <31FE51E0-0336-4756-8B30-6FE77DE10932@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
---0000000000004db69f05ff93a0c7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 7/1/23 11:13, Luca Fancellu wrote:
+> 
+> 
+>> On 1 Jul 2023, at 08:53, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>
+>> On 30/06/2023 10:12 am, Luca Fancellu wrote:
+>>> The "dom0less" feature was intended to be the feature where a domU
+>>> domain could be launched without the control domain (Dom0)
+>>> intervention, however the name seems to suggest that Dom0 cannot
+>>> be part of the configuration, while instead it's a possible use case.
+>>>
+>>> To avoid that, rename the "dom0less" configuration with the name
+>>> "hyperlaunch", that is less misleading.
+>>>
+>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> ---
+>>> This is an RFC to get the feeling of the community about the name
+>>> change, for now it's everything in one patch just to see how it
+>>> will look like, if there is interest on proceeding into it, I can
+>>> split in more commit.
+>>
+>> Have you discussed this with Dan and Chris at all?  You haven't even
+>> CC'd them.
+> 
+> No, this rename idea started from a chat during the summit, anyway Julien
+> promptly add them to the CC, because I forgot.
 
-On Fri, Jun 30, 2023 at 6:48=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
+No worries and thank you for considering and taking the time to do this 
+RFC. It is greatly appreciated that there is a strong willingness to 
+have dom0less and hyperlaunch merged.
 
-> Hi George,
->
-> On 30/06/2023 12:37, George Dunlap wrote:
-> > The credit scheduler tries as hard as it can to ensure that it always
-> > runs scheduling units with positive credit (PRI_TS_UNDER) before
-> > running those with negative credit (PRI_TS_OVER).  If the next
-> > runnable scheduling unit is of priority OVER, it will always run the
-> > load balancer, which will scour the system looking for another
-> > scheduling unit of the UNDER priority.
-> >
-> > Unfortunately, as the number of cores on a system has grown, the cost
-> > of the work-stealing algorithm has dramatically increased; a recent
-> > trace on a system with 128 cores showed this taking over 50
-> > microseconds.
-> >
-> > Add a parameter, load_balance_ratelimit, to limit the frequency of
-> > load balance operations on a given pcpu.  Default this to 1
-> > millisecond.
-> >
-> > Invert the load balancing conditional to make it more clear, and line
-> > up more closely with the comment above it.
-> >
-> > Overall it might be cleaner to have the last_load_balance checking
-> > happen inside csched_load_balance(), but that would require either
-> > passing both now and spc into the function, or looking them up again;
-> > both of which seemed to be worse than simply checking and setting the
-> > values before calling it.
-> >
-> > Without this patch, on a system with a vcpu:pcpu ratio of 2:1, running
-> > Windows guests (which will end up calling YIELD during spinlock
-> > contention), this patch increased performance significantly.
->
-> I don't understand this sentence. Did you intende to write
->
-> "Without this patch, ..., the performance are significantly worse"?
->
+>>
+>> While there is a lot of end-goal in common between the dom0less and
+>> hyperlaunch, and that the name dom0less is deeply misleading,
+>> hyperlaunch is specifically not this.
+> 
+> Yes Hyperlaunch is more than this, however as I said, with this RFC I would like
+> to ear opinions, @Daniel @Christopher could it be a proper name for the dom0less
+> feature?
 
-Hmm, yes this was bad editing.  The first clause was written when I was
-expecting to include actual numbers; but when I looked at the internal
-numbers I had available, they weren't easy to summarize.  The revised
-sentence should have simply been:
+As Andy has alluded, hyperlaunch is meant to provide a flexible means to 
+handle domain construction at boot to meet a wide range of possible use 
+cases. One of those use cases is dom0less, so yes, ultimately what 
+dom0less does today will be achievable under hyperlaunch. Our intended 
+approach to align the two implementations is one that is meant to be 
+minimally disruptive, since dom0less is considered a supported 
+(SUPPORT.md) capability. As mentioned, we are greatly appreciative to 
+the openness to adopt the name, but a big concern I personally have is 
+the confusion it could cause a general user. A blanket rename would end 
+up with two documents in the docs tree that provide two different 
+explanations of hyperlaunch and two different device tree definitions. 
+So I think a more measured approach should be considered here.
 
-"On a system with a vcpu:pcpu ratio of 2:1, running Windows guests (which
-will end up calling YIELD during spinlock contention), this patch increased
-performance significantly."
+> If this patch makes things more difficult for the Hyperlunch serie, I’m ok to drop it,
+> my only aim was just to find a less misleading name for the feature.
 
+What I would like to suggest as a good first step would be an update to 
+the dom0less document. Provide a note at the beginning that points to 
+the hyperlaunch design doc as a more general approach that will 
+eventually subsume dom0less. This would provide a gentler transition for 
+exist users of dom0less.
 
+If it is not too much, I would also ask, please have a look at the 
+design for boot modules in the series Christopher just posted. The 
+design pulls from the work done by dom0less and expanded upon it. I 
+major step into merging the two capabilities will be to have a common 
+set of structures. Once those are in place, we can move to a common 
+device tree representation, and at that point we would be fairly close, 
+if not at the point of a formal merger of between the two.
 
-> > --- a/docs/misc/xen-command-line.pandoc
-> > +++ b/docs/misc/xen-command-line.pandoc
-> > @@ -1856,6 +1856,12 @@ By default, Xen will use the INVPCID instruction
-> for TLB management if
-> >   it is available.  This option can be used to cause Xen to fall back t=
-o
-> >   older mechanisms, which are generally slower.
-> >
-> > +### load-balance-ratelimit
-> > +> `=3D <integer>`
-> > +
-> > +The minimum interval between load balancing events on a given pcpu.
-> > +At the moment only credit honors this parameter.
->
-> I would suggest to mention the default value. So a reader don't have to
-> look up in the code to find out.
->
-> Also, AFAICT, there is max value. I would mention it here too.
->
+Thank you and please let me know what you think!
 
-Ack
+v/r,
+dps
 
-
-> > +/*
-> > + * Minimum delay, in microseconds, between load balance operations.
-> > + * This prevents spending too much time doing load balancing,
-> particularly
-> > + * when the system has a high number of YIELDs due to spinlock priorit=
-y
-> inversion.
-> > + */
-> > +static unsigned int __read_mostly load_balance_ratelimit_us =3D
-> CSCHED_DEFAULT_LOAD_BALANCE_RATELIMIT_US;
->
-> AFAICT, load_balance_ratelimit_us is not updated after boot. So
-> shouldn't the attribute be __ro_after_init?
->
-
-Ack
-
-
-> +#define XEN_SYSCTL_CSCHED_LB_RATE_MAX_US (1000000)
-> > +    uint32_t load_balance_ratelimit_us;
->
-> Shouldn't this change bump the sysctl interface version?
->
-
-Er, yes.
-
-v2 on its way.
-
- -George
-
---0000000000004db69f05ff93a0c7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 30, 2023 at 6:48=E2=80=AF=
-PM Julien Grall &lt;<a href=3D"mailto:julien@xen.org" target=3D"_blank">jul=
-ien@xen.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">Hi George,<br>
-<br>
-On 30/06/2023 12:37, George Dunlap wrote:<br>
-&gt; The credit scheduler tries as hard as it can to ensure that it always<=
-br>
-&gt; runs scheduling units with positive credit (PRI_TS_UNDER) before<br>
-&gt; running those with negative credit (PRI_TS_OVER).=C2=A0 If the next<br=
->
-&gt; runnable scheduling unit is of priority OVER, it will always run the<b=
-r>
-&gt; load balancer, which will scour the system looking for another<br>
-&gt; scheduling unit of the UNDER priority.<br>
-&gt; <br>
-&gt; Unfortunately, as the number of cores on a system has grown, the cost<=
-br>
-&gt; of the work-stealing algorithm has dramatically increased; a recent<br=
->
-&gt; trace on a system with 128 cores showed this taking over 50<br>
-&gt; microseconds.<br>
-&gt; <br>
-&gt; Add a parameter, load_balance_ratelimit, to limit the frequency of<br>
-&gt; load balance operations on a given pcpu.=C2=A0 Default this to 1<br>
-&gt; millisecond.<br>
-&gt; <br>
-&gt; Invert the load balancing conditional to make it more clear, and line<=
-br>
-&gt; up more closely with the comment above it.<br>
-&gt; <br>
-&gt; Overall it might be cleaner to have the last_load_balance checking<br>
-&gt; happen inside csched_load_balance(), but that would require either<br>
-&gt; passing both now and spc into the function, or looking them up again;<=
-br>
-&gt; both of which seemed to be worse than simply checking and setting the<=
-br>
-&gt; values before calling it.<br>
-&gt; <br>
-&gt; Without this patch, on a system with a vcpu:pcpu ratio of 2:1, running=
-<br>
-&gt; Windows guests (which will end up calling YIELD during spinlock<br>
-&gt; contention), this patch increased performance significantly.<br>
-<br>
-I don&#39;t understand this sentence. Did you intende to write<br>
-<br>
-&quot;Without this patch, ..., the performance are significantly worse&quot=
-;?<br></blockquote><div><br></div><div>Hmm, yes this was bad editing.=C2=A0=
- The first clause was written when I was expecting to include actual number=
-s; but when I looked at the internal numbers I had available, they weren&#3=
-9;t easy to summarize.=C2=A0 The revised sentence should have simply been:<=
-/div><div><br></div><div>&quot;On a system with a vcpu:pcpu ratio of 2:1, r=
-unning Windows guests (which will end up calling YIELD during spinlock cont=
-ention), this patch increased performance significantly.&quot;</div><div><b=
-r></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; --- a/docs/misc/xen-command-line.pandoc<br>
-&gt; +++ b/docs/misc/xen-command-line.pandoc<br>
-&gt; @@ -1856,6 +1856,12 @@ By default, Xen will use the INVPCID instructio=
-n for TLB management if<br>
-&gt;=C2=A0 =C2=A0it is available.=C2=A0 This option can be used to cause Xe=
-n to fall back to<br>
-&gt;=C2=A0 =C2=A0older mechanisms, which are generally slower.<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +### load-balance-ratelimit<br>
-&gt; +&gt; `=3D &lt;integer&gt;`<br>
-&gt; +<br>
-&gt; +The minimum interval between load balancing events on a given pcpu.<b=
-r>
-&gt; +At the moment only credit honors this parameter.<br>
-<br>
-I would suggest to mention the default value. So a reader don&#39;t have to=
- <br>
-look up in the code to find out.<br>
-<br>
-Also, AFAICT, there is max value. I would mention it here too.<br></blockqu=
-ote><div><br></div><div>Ack</div><div>=C2=A0</div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">
-&gt; +/*<br>
-&gt; + * Minimum delay, in microseconds, between load balance operations.<b=
-r>
-&gt; + * This prevents spending too much time doing load balancing, particu=
-larly<br>
-&gt; + * when the system has a high number of YIELDs due to spinlock priori=
-ty inversion.<br>
-&gt; + */<br>
-&gt; +static unsigned int __read_mostly load_balance_ratelimit_us =3D CSCHE=
-D_DEFAULT_LOAD_BALANCE_RATELIMIT_US;<br>
-<br>
-AFAICT, load_balance_ratelimit_us is not updated after boot. So <br>
-shouldn&#39;t the attribute be __ro_after_init?<br></blockquote><div><br></=
-div><div>Ack</div><div><br></div><div><br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">
-&gt; +#define XEN_SYSCTL_CSCHED_LB_RATE_MAX_US (1000000)<br>
-&gt; +=C2=A0 =C2=A0 uint32_t load_balance_ratelimit_us;<br>
-<br>
-Shouldn&#39;t this change bump the sysctl interface version?<br></blockquot=
-e><div><br></div><div>Er, yes.</div><div><br></div><div>v2 on its way.</div=
-><div><br></div><div>=C2=A0-George</div></div></div>
-
---0000000000004db69f05ff93a0c7--
+> Cheers,
+> Luca
+> 
+>>
+>> ~Andrew
+> 
 
