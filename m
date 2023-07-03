@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74416746386
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Jul 2023 21:49:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558139.871977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5781746488
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Jul 2023 22:56:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558145.871987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGPY8-00081R-R9; Mon, 03 Jul 2023 19:49:28 +0000
+	id 1qGQZY-0006rr-IE; Mon, 03 Jul 2023 20:55:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558139.871977; Mon, 03 Jul 2023 19:49:28 +0000
+Received: by outflank-mailman (output) from mailman id 558145.871987; Mon, 03 Jul 2023 20:55:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGPY8-0007yx-OF; Mon, 03 Jul 2023 19:49:28 +0000
-Received: by outflank-mailman (input) for mailman id 558139;
- Mon, 03 Jul 2023 19:49:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGPY7-0007yn-3s; Mon, 03 Jul 2023 19:49:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGPY6-0001Ek-R2; Mon, 03 Jul 2023 19:49:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGPY6-00026V-B3; Mon, 03 Jul 2023 19:49:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qGPY6-00082S-Ac; Mon, 03 Jul 2023 19:49:26 +0000
+	id 1qGQZY-0006q2-Ev; Mon, 03 Jul 2023 20:55:00 +0000
+Received: by outflank-mailman (input) for mailman id 558145;
+ Mon, 03 Jul 2023 20:54:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sOBy=CV=gmail.com=pairspace@srs-se1.protection.inumbo.net>)
+ id 1qGQZW-0006pd-Mp
+ for xen-devel@lists.xenproject.org; Mon, 03 Jul 2023 20:54:58 +0000
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [2607:f8b0:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc140d6f-19e3-11ee-8611-37d641c3527e;
+ Mon, 03 Jul 2023 22:54:54 +0200 (CEST)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3a04e5baffcso3751235b6e.3
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Jul 2023 13:54:54 -0700 (PDT)
+Received: from smtpclient.apple ([37.19.200.149])
+ by smtp.gmail.com with ESMTPSA id
+ bi5-20020a056808188500b003a1ae2d2638sm4219671oib.7.2023.07.03.13.54.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Jul 2023 13:54:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,359 +45,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=a8bNWrKle78e0CaxbzGMEe30rcVSRUzBE6715Gz368Q=; b=JTiidgByLArD8yjrk4HKShdpBk
-	cMHvlKEI2f7wV44aP9bbh+qXq6DrpfLVPvwiKSjoMiJmtI4jT4C1asOLIuZHwl4pH760C8Zkt99vd
-	Os0i/bquQnAdntxNAgExFS/BDReeewfbShcbHQH1LKyM64LMqyLwgsm56VM0ME6nALAs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181686-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [linux-linus test] 181686: regressions - trouble: broken/fail/pass
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-vhd:<job status>:broken:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:leak-check/basis(11):fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:leak-check/basis(11):fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:leak-check/basis(11):fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:debian-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:debian-install:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:leak-check/basis(11):fail:regression
-    linux-linus:test-amd64-amd64-xl:debian-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:leak-check/basis/dst_host(19):fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:build-arm64-pvops:kernel-build:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:leak-check/basis(11):fail:regression
-    linux-linus:test-amd64-amd64-freebsd11-amd64:freebsd-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:debian-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:debian-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:debian-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:windows-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:host-install(5):broken:heisenbug
-    linux-linus:test-amd64-amd64-libvirt-qcow2:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-credit2:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-libvirt:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-credit1:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-freebsd11-amd64:leak-check/basis(11):fail:heisenbug
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-multivcpu:debian-install:fail:heisenbug
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-rtds:debian-install:fail:allowable
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=a901a3568fd26ca9c4a82d8bc5ed5b3ed844d451
-X-Osstest-Versions-That:
-    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 03 Jul 2023 19:49:26 +0000
-
-flight 181686 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181686/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-vhd         <job status>                 broken
- test-amd64-amd64-qemuu-nested-amd 11 leak-check/basis(11) fail REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 11 leak-check/basis(11) fail REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 180278
- test-amd64-amd64-pygrub      11 leak-check/basis(11)     fail REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 180278
- test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 180278
- test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 180278
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 180278
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 180278
- test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 180278
- test-amd64-amd64-libvirt     12 debian-install           fail REGR. vs. 180278
- test-amd64-amd64-xl-credit1  12 debian-install           fail REGR. vs. 180278
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 180278
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 180278
- test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 180278
- test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 180278
- test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 180278
- test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 180278
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 180278
- test-arm64-arm64-xl-vhd      13 guest-start              fail REGR. vs. 180278
- test-arm64-arm64-libvirt-raw 13 guest-start              fail REGR. vs. 180278
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 180278
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 180278
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 11 leak-check/basis(11) fail in 181682 REGR. vs. 180278
- test-amd64-amd64-xl          12 debian-install fail in 181682 REGR. vs. 180278
- test-amd64-amd64-libvirt-pair 19 leak-check/basis/dst_host(19) fail in 181682 REGR. vs. 180278
- test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail in 181682 REGR. vs. 180278
- build-arm64-pvops             6 kernel-build   fail in 181682 REGR. vs. 180278
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 11 leak-check/basis(11) fail in 181684 REGR. vs. 180278
- test-amd64-amd64-freebsd11-amd64 12 freebsd-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-xsm      12 debian-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-pvhv2-amd 12 debian-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-multivcpu 14 guest-start   fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-credit2  12 debian-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-vhd       8 xen-boot       fail in 181684 REGR. vs. 180278
- test-amd64-amd64-libvirt-qcow2 12 debian-di-install fail in 181684 REGR. vs. 180278
- test-amd64-amd64-xl-qemut-ws16-amd64 12 windows-install fail in 181684 REGR. vs. 180278
-
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-vhd       5 host-install(5)          broken pass in 181684
- test-amd64-amd64-libvirt-qcow2 11 leak-check/basis(11) fail in 181682 pass in 181684
- test-amd64-amd64-xl-pvhv2-amd 11 leak-check/basis(11) fail in 181682 pass in 181684
- test-amd64-amd64-xl-credit2 11 leak-check/basis(11) fail in 181682 pass in 181684
- test-amd64-amd64-libvirt 11 leak-check/basis(11) fail in 181682 pass in 181686
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 11 leak-check/basis(11) fail in 181682 pass in 181686
- test-amd64-amd64-pygrub       8 xen-boot         fail in 181684 pass in 181686
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 8 xen-boot fail in 181684 pass in 181686
- test-amd64-amd64-xl-credit1 11 leak-check/basis(11) fail in 181684 pass in 181686
- test-amd64-amd64-xl-qemut-debianhvm-amd64 8 xen-boot fail in 181684 pass in 181686
- test-amd64-amd64-xl-rtds      8 xen-boot         fail in 181684 pass in 181686
- test-amd64-amd64-qemuu-nested-amd  8 xen-boot    fail in 181684 pass in 181686
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail in 181684 pass in 181686
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host fail in 181684 pass in 181686
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot   fail pass in 181682
- test-amd64-amd64-xl          11 leak-check/basis(11)       fail pass in 181682
- test-amd64-amd64-xl-qemut-debianhvm-amd64 11 leak-check/basis(11) fail pass in 181682
- test-amd64-coresched-amd64-xl  8 xen-boot                  fail pass in 181682
- test-amd64-amd64-xl-qemut-ws16-amd64 11 leak-check/basis(11) fail pass in 181684
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail pass in 181684
- test-amd64-amd64-libvirt-qcow2  8 xen-boot                 fail pass in 181684
- test-amd64-amd64-xl-xsm       8 xen-boot                   fail pass in 181684
- test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                  fail pass in 181684
- test-amd64-amd64-xl-credit2   8 xen-boot                   fail pass in 181684
- test-amd64-amd64-xl-qemuu-ovmf-amd64 11 leak-check/basis(11) fail pass in 181684
- test-amd64-amd64-freebsd11-amd64 11 leak-check/basis(11)   fail pass in 181684
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail pass in 181684
- test-amd64-amd64-xl-multivcpu 12 debian-install            fail pass in 181684
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host         fail pass in 181684
-
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     12 debian-install           fail REGR. vs. 180278
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm       1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-xl           1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-examine      1 build-check(1)           blocked in 181682 n/a
- test-arm64-arm64-xl-credit1   1 build-check(1)           blocked in 181682 n/a
- test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
- test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
- test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
- test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
- test-armhf-armhf-examine      8 reboot                       fail  like 180278
- test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
- test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
- test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
- test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
- test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                a901a3568fd26ca9c4a82d8bc5ed5b3ed844d451
-baseline version:
- linux                6c538e1adbfc696ac4747fb10d63e704344f763d
-
-Last test of basis   180278  2023-04-16 19:41:46 Z   78 days
-Failing since        180281  2023-04-17 06:24:36 Z   77 days  151 attempts
-Testing same since   181682  2023-07-02 19:42:58 Z    1 days    3 attempts
-
-------------------------------------------------------------
-3562 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      broken  
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
+X-Inumbo-ID: dc140d6f-19e3-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1688417693; x=1691009693;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RCbYV9OYll7/BSeuQPWCb5VB0AODorr/L/dKrHXMxBo=;
+        b=KvyiQaJGJuxei8mlgbVL3xmpT/3hB51D4Biveo8Y2ILXzYXE4sMB/IejdFnEbskoVq
+         T0xFsB45yq2dAfCCAE9IvC2NC28XsyYw19YDRaj9poC9bQv59LIN3FJxXaOakmyy7A4g
+         0G1h935BB64aCrTUiNJq0jATI+WTO0NcIC/eHaN2tqNzC0h8Czjxk87cDINcX7//rfbE
+         kwQmyaF6e/cPDkbbDvkCpcJWJQzRYtotNJOmlva5eA5J29Te9m7PFBRJ4c/exzblsh4i
+         OlGKGadvTjYVCcwjvOTim3n+TtQPfBC+S7A2II/ylpRpC7xKy3yj3FJyuomq8025RbKW
+         gV+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688417693; x=1691009693;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RCbYV9OYll7/BSeuQPWCb5VB0AODorr/L/dKrHXMxBo=;
+        b=HgL06hh4GXZ88Q8hHzvVUU91jvh4gynBKuPRpN7HTa5BRHeAeo+OAV5t6CZ9d/oZqF
+         a5Kh7wjbW/yQf+MqOkIvbZD3oZGvi6EAltwGeqUDzOaYSFM97J12ZkPkSGHJZkIE5dra
+         tQ8p1YQVMetFeJGhAHsRfiU7z4ZLd3834LWyQ2dguj1ROCXWUXeXd/ZToHXzKAHvgaLh
+         duBIciMKBAalHskT8EnDkZ6FmHtbxwLr0rQUDF/nmPJMpQ04v0PW0W83SBCgHe9mCP0H
+         pPrDlk6Y04lXnuQ33//SaWagJBV+SS5xO3bxb4UJCea8z/jwLjGfGZB27hpg6g/MvKpM
+         1B/Q==
+X-Gm-Message-State: AC+VfDwIvZnmur4WHa7JRTEDRs/J5iu7XK5GCGURkoj3GZlMNnFtvxZt
+	p5gpYZwX67ppRUq5O5yj/KY=
+X-Google-Smtp-Source: ACHHUZ4TYuQerqjI+UQq0Oy5ny1hAlVQJoSkzLtwefRxwRQcHOV6O/WXlhGjet9++7yben+jyawQVw==
+X-Received: by 2002:a54:4414:0:b0:3a3:6f53:e0f6 with SMTP id k20-20020a544414000000b003a36f53e0f6mr10055795oiw.45.1688417692977;
+        Mon, 03 Jul 2023 13:54:52 -0700 (PDT)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: P S <pairspace@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
+Date: Mon, 3 Jul 2023 16:54:40 -0400
+Message-Id: <234199F8-DBB1-42B6-9A4C-8800EEF60997@gmail.com>
+References: <8601CDD7-87F7-4FD0-A6E6-BAEAB12E7956@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Henry Wang <Henry.Wang@arm.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+In-Reply-To: <8601CDD7-87F7-4FD0-A6E6-BAEAB12E7956@arm.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+X-Mailer: iPad Mail (20F75)
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> On Jul 3, 2023, at 15:45, Luca Fancellu <luca.fancellu@arm.com> wrote:
+>=20
+> =EF=BB=BF
+>=20
+>> On 3 Jul 2023, at 18:48, Stefano Stabellini <sstabellini@kernel.org> wrot=
+e:
+>>=20
+>>> On Mon, 3 Jul 2023, Daniel P. Smith wrote:
+>>> On 7/1/23 11:13, Luca Fancellu wrote:
+>>>>> On 1 Jul 2023, at 08:53, Andrew Cooper <andrew.cooper3@citrix.com> wro=
+te:
+>>>>>=20
+>>>>> On 30/06/2023 10:12 am, Luca Fancellu wrote:
+>>>>>> The "dom0less" feature was intended to be the feature where a domU
+>>>>>> domain could be launched without the control domain (Dom0)
+>>>>>> intervention, however the name seems to suggest that Dom0 cannot
+>>>>>> be part of the configuration, while instead it's a possible use case.=
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+>>>>>>=20
+>>>>>> To avoid that, rename the "dom0less" configuration with the name
+>>>>>> "hyperlaunch", that is less misleading.
+>>>>>>=20
+>>>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>>>> ---
+>>>>>> This is an RFC to get the feeling of the community about the name
+>>>>>> change, for now it's everything in one patch just to see how it
+>>>>>> will look like, if there is interest on proceeding into it, I can
+>>>>>> split in more commit.
+>>>>>=20
+>>>>> Have you discussed this with Dan and Chris at all?  You haven't even
+>>>>> CC'd them.
+>>>>=20
+>>>> No, this rename idea started from a chat during the summit, anyway Juli=
+en
+>>>> promptly add them to the CC, because I forgot.
+>>>=20
+>>> No worries and thank you for considering and taking the time to do this R=
+FC.
+>>> It is greatly appreciated that there is a strong willingness to have dom=
+0less
+>>> and hyperlaunch merged.
+>>>=20
+>>>>>=20
+>>>>> While there is a lot of end-goal in common between the dom0less and
+>>>>> hyperlaunch, and that the name dom0less is deeply misleading,
+>>>>> hyperlaunch is specifically not this.
+>>>>=20
+>>>> Yes Hyperlaunch is more than this, however as I said, with this RFC I w=
+ould
+>>>> like
+>>>> to ear opinions, @Daniel @Christopher could it be a proper name for the=
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>>>> dom0less
+>>>> feature?
+>>>=20
+>>> As Andy has alluded, hyperlaunch is meant to provide a flexible means to=
 
-broken-job test-amd64-amd64-xl-vhd broken
-broken-step test-amd64-amd64-xl-vhd host-install(5)
+>>> handle domain construction at boot to meet a wide range of possible use c=
+ases.
+>>> One of those use cases is dom0less, so yes, ultimately what dom0less doe=
+s
+>>> today will be achievable under hyperlaunch. Our intended approach to ali=
+gn the
+>>> two implementations is one that is meant to be minimally disruptive, sin=
+ce
+>>> dom0less is considered a supported (SUPPORT.md) capability. As mentioned=
+, we
+>>> are greatly appreciative to the openness to adopt the name,
+>>=20
+>> Thanks Daniel!
+>>=20
+>>=20
+>>> but a big concern
+>>> I personally have is the confusion it could cause a general user. A blan=
+ket
+>>> rename would end up with two documents in the docs tree that provide two=
 
-Not pushing.
+>>> different explanations of hyperlaunch and two different device tree
+>>> definitions. So I think a more measured approach should be considered he=
+re.
+>>>=20
+>>>> If this patch makes things more difficult for the Hyperlunch serie, I=E2=
+=80=99m ok
+>>>> to drop it,
+>>>> my only aim was just to find a less misleading name for the feature.
+>>>=20
+>>> What I would like to suggest as a good first step would be an update to t=
+he
+>>> dom0less document. Provide a note at the beginning that points to the
+>>> hyperlaunch design doc as a more general approach that will eventually s=
+ubsume
+>>> dom0less. This would provide a gentler transition for exist users of dom=
+0less.
+>>>=20
+>>> If it is not too much, I would also ask, please have a look at the desig=
+n for
+>>> boot modules in the series Christopher just posted. The design pulls fro=
+m the
+>>> work done by dom0less and expanded upon it. I major step into merging th=
+e two
+>>> capabilities will be to have a common set of structures. Once those are i=
+n
+>>> place, we can move to a common device tree representation, and at that p=
+oint
+>>> we would be fairly close, if not at the point of a formal merger of betw=
+een
+>>> the two.
+>>=20
+>> At the moment we have a concrete problem with explaining dom0less and
+>> hyperlaunch to potential new users. Using two different names for a
+>> similar feature on arm and x86 causes confusion. It is hurting Xen as a
+>> solution. Personally I already had to switch to use the word
+>> "hyperlaunch" for everything in my users-facing presentations.
+>>=20
+>> At the summit, we discussed that it would be a good idea to use a single
+>> name to refer to both features on arm and x86. Given that "dom0less"
+>> causes additional issues because it makes people think that there is no
+>> Dom0, the suggestion was to use "hyperlaunch" to refer to both features.
+>>=20
+>> We don't need to 100% align the two implementations and data structures.
+>> This is not for engineers that are going to look at the specifications
+>> and improve them. This is for users/customers of Xen that are trying to
+>> understand what the hypervisor enables them to do. We need to be able to
+>> show users architecture slides with the same name and explanation on
+>> both ARM and x86.
+>>=20
+>> I am sure that Daniel and Christopher remember, but for the others on
+>> this email thread, the name "hyperlaunch" was born exactly to be that:
+>> the one name to cover both features on ARM and x86 even if they have a
+>> different implementation. Appended an old email for reference.
+>>=20
+>> Also I agree with Daniel that we need to be careful about the two docs
+>> under docs/. I think he is right we need to add a paragraph explaining
+>> the history and a pointer to the other document. Something like:
+>>=20
+>> "Dom0less is the name that was used when initially introducing the
+>> feature on ARM. Then, the "dom0less" name was retired in favor of
+>> "hyperlaunch" to avoid confusion (a Dom0 might still be present) and to
+>> align with x86 (where a similar feature was called hyperlaunch from the
+>> start)."
+>=20
+> I=E2=80=99m fully ok to add a section like this pointing to the Hyperlaunc=
+h design.
 
-(No revision log; it would be 574059 lines long.)
+_If_ this text is added, please include links/references to the Hyperlaunch w=
+iki page and Hyperlaunch design docs.
+
+> @Daniel and @Christopher would it be ok for you or the changes in the seri=
+e
+> are going to be problematic for your future work? In the end it=E2=80=99s j=
+ust a mechanical
+> rename, so I guess we just need to agree on naming conventions.
+
+Please see the history of trademark litigation about the use of symbolic nam=
+es to reference similar-but-different artifacts.  It is much easier to use t=
+he same name to refer to entirely different objects. Historically, confusion=
+ arises when a name is used in similar contexts.
+
+There is also versioning.  Could we refer to dom0less as "Hyperlaunch Versio=
+n -1"?=20
+
+How about renaming dom0less to "Hyperlaunch Lite"?
+
+Rich
+
+> Cheers,
+> Luca
+>=20
+>>=20
+>>=20
+>> ---
+>>=20
+>> Subject: [RFP] Overarching name for dom0less and DomB
+>>=20
+>> Greetings,
+>>=20
+>> At the DeviceTree/DomB meeting it was proposed that a new, larger
+>> overarching name under which DomB and dom0less would be covered. There
+>> was a general openness to the idea. As such, since Christopher and
+>> myself are in the midst of finalizing the design document for DomB we
+>> felt it might be better to see if a name could be selected which we
+>> could use in the design doc in lieu of DomB. As always naming things is
+>> hard, but after some brainstorming we believe we have arrived at a
+>> decent name, =CE=BCLaunch (micro-Launch or uLaunch).
+>>=20
+>> ---
+>>=20
+>> =CE=BCLaunch became hyperlaunch few days after, and the rest was history :=
+-)
+>=20
+>=20
 
