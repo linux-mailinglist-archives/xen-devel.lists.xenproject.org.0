@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB03B746ED4
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 12:38:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558240.872147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7DEB746EE3
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 12:39:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558246.872157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGdPA-0003px-9F; Tue, 04 Jul 2023 10:37:08 +0000
+	id 1qGdRf-0004Sn-N6; Tue, 04 Jul 2023 10:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558240.872147; Tue, 04 Jul 2023 10:37:08 +0000
+Received: by outflank-mailman (output) from mailman id 558246.872157; Tue, 04 Jul 2023 10:39:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGdPA-0003nw-4S; Tue, 04 Jul 2023 10:37:08 +0000
-Received: by outflank-mailman (input) for mailman id 558240;
- Tue, 04 Jul 2023 10:37:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gy6C=CW=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qGdP8-0003nq-1r
- for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 10:37:06 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20602.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::602])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b61b1842-1a56-11ee-8611-37d641c3527e;
- Tue, 04 Jul 2023 12:37:03 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by PH7PR12MB8015.namprd12.prod.outlook.com (2603:10b6:510:26a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
- 2023 10:36:57 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
- 10:36:57 +0000
+	id 1qGdRf-0004Qn-Jg; Tue, 04 Jul 2023 10:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 558246;
+ Tue, 04 Jul 2023 10:39:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KXt5=CW=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qGdRe-0004Qh-Up
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 10:39:42 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 154b7789-1a57-11ee-b237-6b7b168915f2;
+ Tue, 04 Jul 2023 12:39:41 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6402B204D8;
+ Tue,  4 Jul 2023 10:39:41 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B0541346D;
+ Tue,  4 Jul 2023 10:39:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id jF/6CO32o2QEdQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 04 Jul 2023 10:39:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,230 +51,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b61b1842-1a56-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YV/ULC8jdRav2Z/oiP2bCUuzmVFplGVxOLROBKw880zctX5NjsbUou/j+9gml0E0hCK4fjQdt51PcLoaXrrwK13iFgADQWDWLeaUTsM9X1KzyAJHzIMFWHSTmN3W6ZLPaMyR72jJYE5wTGliiI/gfuN+xGJ0TqZGRrzwoQ7SiyZQKrBogqGWnTk9ejXDca0vy/lX4Ids27r4h3VLV/IpQ+DYNF0Tr62MkoDQn87akI0yt/ql6D4BVmOCdKUpdEGDa0er7zYHzWGlriOAdEIl+p7h4lG2eChciptSFL6H6MGuPYC6DZZfsNuDHE5T3IsmBVQtE4TUCqOelk9HdfNnEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PJUjuyEd1TRdKKm1b4FR9xxd+vZ5JueFE4Et58xUmqs=;
- b=KO2EHMN4+p6ou6ixrO/7ShOmkHKmk83tlC9uUz6gJKdaLiWCD/21hK7rGYU+CjX6z18pFQQledpWOg8eYeSYUUS40smowrKwwS76AEvGL9aaiGWleL81+QxXmnUVY6WPZ/aG9O6H+rPiZHMO798Rrd0t3Bgj6i4dvQNLWttHnc4d1bfeaLJdYxg061EC/kG+eIGbTDlizIAY6TeGck2PiF51PyCiDHwbIFt6FVg+HGFVbgzyDFOW/QtyHm2XC2a2KowYMbEWEHum/TVyQiT0XIzRqR6ZH3cdp3d9e7YEOZ8V6j+/Z17FCa1oARUgY8IbUArx3YUSP6miXwkYNsMwkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PJUjuyEd1TRdKKm1b4FR9xxd+vZ5JueFE4Et58xUmqs=;
- b=ECTbz6dR+/qsrqBThMeoivFiUnKwHyrFp867EqfPRPYO2jkVuS+5tO34EL4N8UfJjKutmLAQaIY5c/kTSYvllCN4ZXSC3g2H+RMIOIfIepD5I7RMP/ri1RxuW4iBwRkjXotR7y+lYa2W1AvcEQEiX0XPwmxmUwVOBbK3dt7Oa24=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <cb7e3d34-bbb8-e5df-f87b-0fcac4b65378@amd.com>
-Date: Tue, 4 Jul 2023 11:36:51 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 03/52] xen/arm: add an option to define Xen start
- address for Armv8-R
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-4-Penny.Zheng@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20230626033443.2943270-4-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0191.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:311::19) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 154b7789-1a57-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1688467181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ufUyszN3FOTy1keSsZFTm+VxsQdbtQ8iR1hztEdTO+U=;
+	b=pA9V4VHpYj7BS1DxBVycwdaAXi++0qHtjb0hgEmEQotmgbu0x7nT0crDnrltGWSWHHWbGe
+	6f/CEBJ1Vkq2Q9UghaMYK5MylCKZpKUGPQjwn+9t+LBm7ceWUGs/5eT7MtsZ1Xt7/gQd3A
+	nCmjQnCt6xATm+NwX0RuhLGnLIlw/rA=
+Message-ID: <e5eda26f-9a31-dc3a-d97f-33d2efa20efa@suse.com>
+Date: Tue, 4 Jul 2023 12:39:40 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|PH7PR12MB8015:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a612fa2-c3dc-44ad-4725-08db7c7a9737
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	UH+QxOw97lKT1oXpCfTK+NosbhFF0Ms+e90DeSrSt3DqJJO2WCDATTJEnuS9RdHsG8ngC7IxIy2wSSB41JUbdWv5suBpf0gG+5oZWFfaVL9/NVGjcdfbXZx1CwlarP3go4eIpbI0OkUH0b1Z3oIkIOv3t9pQNMbxwZok1SnY5O5H5HVsi0m5mJcalEqtcIwTa9NeXWwV9R76UGJCn/+jMxwFOFocGScnC/1Jdq8mE7pqT1B+oLY0CT4QHHKG9z0NhO1/26KsAYoQp8GQpXlmBemfBuCh7WwKMxlZrdHmz202hXBzwxYzw49wz3JmAGMl3ZIfcW+UfNSvj99w8GWAw69gFtrXAyX+nbIgujLzhk46CT1U9iorx4jmKrph0ESs0BoN9Fd6ecWndNb5DRintrlLHWN6grTqMvvWfy4txxNaKtpzFm/obugt8wvbd8R3A6MKWmlxhErXpH/Uug1kTOFn1FVqJMBa9kjvOEFj3F7Kk0KN5n5QbuQEXjr4Ldlr18ldpFdcgHoMzlqAOz6XztyAagSidKC9de7HPVe/RJY2JGpl0xa5f4IZKNeBlrwALD7u+XoYfN2JSTpuzf7NjmURW6YNVSjjsgUZ7WLCLRUd3h4L97i3VhNMQ/M5i/4+DtelwgaFYumrxn0JdzSASA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(136003)(346002)(39860400002)(366004)(451199021)(6666004)(38100700002)(2906002)(6486002)(54906003)(8936002)(8676002)(36756003)(41300700001)(5660300002)(478600001)(31696002)(66946007)(66556008)(66476007)(53546011)(186003)(6506007)(26005)(6512007)(4326008)(316002)(31686004)(2616005)(966005)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RDVlTzFRc1BjcHhrenhpaDFVa2tFRURsdVh1Y1hoL3NnVEpWNjVnOTBxUjR0?=
- =?utf-8?B?ZENMcmEzbUh6bDAyR2lkWG9Rc0wrelNzaUZWZDlmckJrd2U2VkJabVQ3ZWFt?=
- =?utf-8?B?Wkh6RU9oWTdJakxXVFdzTktjb0toNjE0Mi9sREtEdkVFRFZobURDYzg0cS9j?=
- =?utf-8?B?aXVMbm1RRTNtaUhEREdURDd1NXFJd09kcjNML0c5bG1IVTVPdzQ3SXVJN1dF?=
- =?utf-8?B?TWh6OXcydmM4Z3VndGI4djZ3dW1VVmwvQ2w2dEpMQkN2UGNOOGVabDdpSDBt?=
- =?utf-8?B?SU5JemtqQ1V5aU5JL3FZQUJHNjNPOVRGanYzME05K2VmMXQrMHFoR1AwRVNC?=
- =?utf-8?B?TGdBNXBYV0hqOS81TTN6K21kWDhWZFo4Q092OHBuY3lGV0FOREo1VmdUcFYr?=
- =?utf-8?B?QnFRUUIvSG1hdUp5bFk4TXpOM3VCcTYwTCtUSzlMRFZORENOV1QvNG1JK2p0?=
- =?utf-8?B?NU9sRk1nN21NUlU0V1d6WGJaZ3BtUW0vL3dHb3ZDN0pxazV3bVpjVytEMUZF?=
- =?utf-8?B?djg5emJvZmx0SGJlYnpIRWtFTHA4QTdqWEx5ZERkTDVrTkVUMWZmS2lCZGxq?=
- =?utf-8?B?bGQveUFWaWx1ZUNvVVRUV0FEOCtTOW9EZ2lXd20xeUg4b1VzQjZNYjJDU016?=
- =?utf-8?B?b3dlQytIZWV0T2tPRGRsNk9VR3dxWVRVeWg0N3kxOWh5YjRzSEZOa0RZb3hu?=
- =?utf-8?B?KzIvaGtKN01KbThUWFZBaXpiL0FSU3lwUHI2Q2RiN1dTUFNZeFZpaUppRzM5?=
- =?utf-8?B?UDhRZDBQTUdRN1k5WmFvaFZMczJKYnFodkl4TUFreTVpUnNrbCtVSlc1eWpC?=
- =?utf-8?B?cG9zUWQzUDlGRTNrclcvcnZXRjllWFhob2tJZnRNSU8vT2dyRG1pOWoxNVhU?=
- =?utf-8?B?YTVUL1IvZUZ3RU55UWZPRkNNWXhId1o3a015OHRxU3YwdXdNcTFvSGQxdks5?=
- =?utf-8?B?Qnh4eXg4UFM3ajNibGVGOHF2Q3hpVUNRR3ZMR2pMdUNKdFZkWS9IYXhHWG1Q?=
- =?utf-8?B?aWYyaDBZcTBldDdTM2xxMjVPNDE5cG9kRGladmw0dE5pSVlZak01RlBVSGJS?=
- =?utf-8?B?dFQzc0NnMTRjNU5DdkV2Z2V3em9zeGZ3S2pFSDBxYjdjV0VHcTZLKzQxV2x5?=
- =?utf-8?B?eHlJYWtSb2ZYaEhkdGlBUTdZRmw2aTJmYWZqaVdIUWVMS2dRTEVJK2hnNWJZ?=
- =?utf-8?B?aEkwMjkvVHNIZVUrOWppMCsxYjZmaUhIL3hzRVcyUmxYSzhFVFlTaGFLNWl6?=
- =?utf-8?B?c01NM1Ztc0lCS3ppVkdmY1Rnc3NHZzd2UUg1ejBBNlBieDZwNEVZVGpydGRU?=
- =?utf-8?B?Y21LdFhhQVRMNzR1SmZiSXZvaGpJVkZaMC9TZ2x4OWJqV1JtTk1IZFdxRlpP?=
- =?utf-8?B?dWxkRG8vMDhFQVd1bE5zOVdhRUtWTldQdkU1WUtzK3lxdTdXMzJqM2pjUGN2?=
- =?utf-8?B?cFFvMS9Sc2tDZFFCYXZrVGtudGh1SThFQzgvcHYvRURwc0V0TEhpVjU4T2Vu?=
- =?utf-8?B?SmVKc2hkSzFoVWU2TnNwck85bGk0MGJKeWNCcWV6b05Fd0dBUSs1WjRYZG1x?=
- =?utf-8?B?R0lxMnZBMFphMGFvU2ZQRlh0TmdFSmlGM0Q0VytSNlQ5ZXFBdnZuaUhEaGhB?=
- =?utf-8?B?QUw2UzZxbFEyZFZTemxJOXFlY2tNdDNneFpnWUFScXVEc24rd01senVlV2xV?=
- =?utf-8?B?NTFNQ0xEMlN6ODNZcUFoNWxDZVB5TWJNK1hmcFhpOENjVGtRbm9BU1B3eW1X?=
- =?utf-8?B?SUswbDFlblZxRCt4bHB0SlJzZzlyb2RPRDhRWGZhVElXODRxaUg5d3pvaWw5?=
- =?utf-8?B?R3pRVTMzY283OXB6UXRkT1NsUEM0WitkWTYveE80elk3ekYydHhXUE5oYUpI?=
- =?utf-8?B?eVU0UEZuM29jaGRQUFZNdm9seGw2V0NjT1JEUThzOEYvVjB4SzN1TGFtMGNl?=
- =?utf-8?B?OHBWVHJPVDV5QWE0bTJLSllqVmRPcXUrU1BvTmFodkY2OEx5cWwvUmJYZlpW?=
- =?utf-8?B?c24wa2YxYjdrS011d05Zd2FySGJ6ZU5pM28wQ0RaS1Y1ckVhNlVjNHIwMi9J?=
- =?utf-8?B?eU5MTS9mNGVHUmNpOUR0bGd4MCtSZGUrc3ZwWnYrZ3RYQUJvWFp1SXZadWZ5?=
- =?utf-8?Q?0fcnfQrs5wX/XS4yUirmPRamp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a612fa2-c3dc-44ad-4725-08db7c7a9737
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 10:36:56.9204
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OnTkVpegT3v/8yG1SZ34GxwAKvBqXcTV0aaPLcUe170xX/4rRzVkipoemdQxp5ZbFQqhj2H8mCLiRcL9hmV5Mg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8015
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Petr Pavlu <petr.pavlu@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ vikram.garhwal@amd.com
+References: <20230621131214.9398-1-petr.pavlu@suse.com>
+ <20230621131214.9398-3-petr.pavlu@suse.com>
+ <15e31609-6c45-7372-76ee-0adf7a64fe88@epam.com>
+ <alpine.DEB.2.22.394.2306281745010.3936094@ubuntu-linux-20-04-desktop>
+ <b21398eb-2fb2-4fca-dd90-d2c81d8df1c4@epam.com>
+ <alpine.DEB.2.22.394.2306291502150.3936094@ubuntu-linux-20-04-desktop>
+ <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
+In-Reply-To: <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------xX4qTw8UY8621tTesaaATWaa"
 
-Hi Penny,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------xX4qTw8UY8621tTesaaATWaa
+Content-Type: multipart/mixed; boundary="------------gidE6FoEsgf7uP6gzz4RP2TS";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Petr Pavlu <petr.pavlu@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ vikram.garhwal@amd.com
+Message-ID: <e5eda26f-9a31-dc3a-d97f-33d2efa20efa@suse.com>
+Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
+References: <20230621131214.9398-1-petr.pavlu@suse.com>
+ <20230621131214.9398-3-petr.pavlu@suse.com>
+ <15e31609-6c45-7372-76ee-0adf7a64fe88@epam.com>
+ <alpine.DEB.2.22.394.2306281745010.3936094@ubuntu-linux-20-04-desktop>
+ <b21398eb-2fb2-4fca-dd90-d2c81d8df1c4@epam.com>
+ <alpine.DEB.2.22.394.2306291502150.3936094@ubuntu-linux-20-04-desktop>
+ <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
+In-Reply-To: <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
 
-On 26/06/2023 04:33, Penny Zheng wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
->
->
-> From: Wei Chen <wei.chen@arm.com>
->
-> On Armv8-A, Xen has a fixed virtual start address (link address
-> too) for all Armv8-A platforms. In an MMU based system, Xen can
-> map its loaded address to this virtual start address. So, on
-> Armv8-A platforms, the Xen start address does not need to be
-> configurable. But on Armv8-R platforms, there is no MMU to map
-> loaded address to a fixed virtual address and different platforms
-> will have very different address space layout. So Xen cannot use
-> a fixed physical address on MPU based system and need to have it
-> configurable.
->
-> In this patch we introduce one Kconfig option for users to define
-> the default Xen start address for Armv8-R. Users can enter the
-> address in config time, or select the tailored platform config
-> file from arch/arm/configs.
->
-> And as we introduced Armv8-R to Xen, that means the existed Arm64
-> MMU based platforms should not be listed in Armv8-R platform
-> list, so we add !HAS_MPU dependency for these platforms.
->
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
-> v1 -> v2:
-> 1. Remove the platform header fvp_baser.h.
-> 2. Remove the default start address for fvp_baser64.
-> 3. Remove the description of default address from commit log.
-> 4. Change HAS_MPU to ARM_V8R for Xen start address dependency.
->     No matter Arm-v8r board has MPU or not, it always need to
->     specify the start address.
-> ---
-> v3:
-> 1. Remove unrelated change of "CONFIG_FVP_BASER"
-> 2. Change ARM_V8R to HAS_MPU for Xen start address dependency
-> ---
->   xen/arch/arm/Kconfig           | 8 ++++++++
->   xen/arch/arm/platforms/Kconfig | 8 +++++---
->   2 files changed, 13 insertions(+), 3 deletions(-)
->
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 70fdc2ba63..ff17345cdb 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -181,6 +181,14 @@ config TEE
->            This option enables generic TEE mediators support. It allows guests
->            to access real TEE via one of TEE mediators implemented in XEN.
->
-> +config XEN_START_ADDRESS
-> +       hex "Xen start address: keep default to use platform defined address"
-> +       default 0
-> +       depends on HAS_MPU
-> +       help
-> +         This option allows to set the customized address at which Xen will be
-> +         linked on MPU systems. This address must be aligned to a page size.
-> +
->   source "arch/arm/tee/Kconfig"
->
->   config STATIC_SHM
-> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
-> index c93a6b2756..75af48b5f9 100644
-> --- a/xen/arch/arm/platforms/Kconfig
-> +++ b/xen/arch/arm/platforms/Kconfig
-> @@ -1,6 +1,7 @@
->   choice
->          prompt "Platform Support"
->          default ALL_PLAT
-> +       default NO_PLAT if HAS_MPU
+--------------gidE6FoEsgf7uP6gzz4RP2TS
+Content-Type: multipart/mixed; boundary="------------L2wHyOVyIZUNYvNlG5ywcrPl"
 
-I am a bit concerned about this as we will be introducing R52 specific 
-platform in xen/arch/arm/platforms/
+--------------L2wHyOVyIZUNYvNlG5ywcrPl
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-(For eg 
-https://github.com/Xilinx/xen/blob/xlnx_rebase_4.17/xen/arch/arm_mpu/platforms/amd-versal-net.c 
-)
+T24gMDQuMDcuMjMgMDk6NDgsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIFRodSwg
+SnVuIDI5LCAyMDIzIGF0IDAzOjQ0OjA0UE0gLTA3MDAsIFN0ZWZhbm8gU3RhYmVsbGluaSB3
+cm90ZToNCj4+IE9uIFRodSwgMjkgSnVuIDIwMjMsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdy
+b3RlOg0KPj4+IE9uIDI5LjA2LjIzIDA0OjAwLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6
+DQo+Pj4+IEkgdGhpbmsgd2UgbmVlZCB0byBhZGQgYSBzZWNvbmQgd2F5PyBJdCBjb3VsZCBi
+ZSBhbnl0aGluZyB0aGF0IGNhbiBoZWxwDQo+Pj4+IHVzIGRpc3Rpbmd1aXNoIGJldHdlZW4g
+YSBub24tZ3JhbnRzLWNhcGFibGUgdmlydGlvIGJhY2tlbmQgYW5kIGENCj4+Pj4gZ3JhbnRz
+LWNhcGFibGUgdmlydGlvIGJhY2tlbmQsIHN1Y2ggYXM6DQo+Pj4+IC0gYSBzdHJpbmcgb24g
+eGVuc3RvcmUNCj4+Pj4gLSBhIHhlbiBwYXJhbQ0KPj4+PiAtIGEgc3BlY2lhbCBQQ0kgY29u
+ZmlndXJhdGlvbiByZWdpc3RlciB2YWx1ZQ0KPj4+PiAtIHNvbWV0aGluZyBpbiB0aGUgQUNQ
+SSB0YWJsZXMNCj4+Pj4gLSB0aGUgUUVNVSBtYWNoaW5lIHR5cGUNCj4+Pg0KPj4+DQo+Pj4g
+WWVzLCBJIHJlbWVtYmVyIHRoZXJlIHdhcyBhIGRpc2N1c3Npb24gcmVnYXJkaW5nIHRoYXQu
+IFRoZSBwb2ludCBpcyB0bw0KPj4+IGNob29zZSBhIHNvbHV0aW9uIHRvIGJlIGZ1bmN0aW9u
+YWwgZm9yIGJvdGggUFYgYW5kIEhWTSAqYW5kKiB0byBiZSBhYmxlDQo+Pj4gdG8gc3VwcG9y
+dCBhIGhvdHBsdWcuIElJUkMsIHRoZSB4ZW5zdG9yZSBjb3VsZCBiZSBhIHBvc3NpYmxlIGNh
+bmRpZGF0ZS4NCj4+DQo+PiB4ZW5zdG9yZSB3b3VsZCBiZSBhbW9uZyB0aGUgZWFzaWVzdCB0
+byBtYWtlIHdvcmsuIFRoZSBvbmx5IGRvd25zaWRlIGlzDQo+PiB0aGUgZGVwZW5kZW5jeSBv
+biB4ZW5zdG9yZSB3aGljaCBvdGhlcndpc2UgdmlydGlvK2dyYW50cyBkb2Vzbid0IGhhdmUu
+DQo+IA0KPiBJIHdvdWxkIGF2b2lkIGludHJvZHVjaW5nIGEgZGVwZW5kZW5jeSBvbiB4ZW5z
+dG9yZSwgaWYgbm90aGluZyBlbHNlIHdlDQo+IGtub3cgaXQncyBhIHBlcmZvcm1hbmNlIGJv
+dHRsZW5lY2suDQo+IA0KPiBXZSB3b3VsZCBhbHNvIG5lZWQgdG8gbWFwIHRoZSB2aXJ0aW8g
+ZGV2aWNlIHRvcG9sb2d5IGludG8geGVuc3RvcmUsIHNvDQo+IHRoYXQgd2UgY2FuIHBhc3Mg
+ZGlmZmVyZW50IG9wdGlvbnMgZm9yIGVhY2ggZGV2aWNlLg0KDQpUaGlzIGFzcGVjdCAoZGlm
+ZmVyZW50IG9wdGlvbnMpIGlzIGltcG9ydGFudC4gSG93IGRvIHlvdSB3YW50IHRvIHBhc3Mg
+dmlydGlvDQpkZXZpY2UgY29uZmlndXJhdGlvbiBwYXJhbWV0ZXJzIGZyb20gZG9tMCB0byB0
+aGUgdmlydGlvIGJhY2tlbmQgZG9tYWluPyBZb3UNCnByb2JhYmx5IG5lZWQgc29tZXRoaW5n
+IGxpa2UgWGVuc3RvcmUgKGEgdmlydGlvIGJhc2VkIGFsdGVybmF0aXZlIGxpa2UgdmlydGlv
+ZnMNCndvdWxkIHdvcmssIHRvbykgZm9yIHRoYXQgcHVycG9zZS4NCg0KTWFwcGluZyB0aGUg
+dG9wb2xvZ3kgc2hvdWxkIGJlIHJhdGhlciBlYXN5IHZpYSB0aGUgUENJLUlkLCBlLmcuOg0K
+DQovbG9jYWwvZG9tYWluLzQyL2RldmljZS92aXJ0aW8vMDAwMDowMDoxYy4wL2JhY2tlbmQN
+Cg0KPiANCj4+IFZpa3JhbSBpcyB3b3JraW5nIG9uIHZpcnRpbyB3aXRoIGdyYW50cyBzdXBw
+b3J0IGluIFFFTVUgYXMgd2Ugc3BlYWsuDQo+PiBNYXliZSB3ZSBjb3VsZCBmaW5kIGEgd2F5
+IHRvIGFkZCBhIGZsYWcgaW4gUUVNVSBzbyB0aGF0IHdlIGNhbiBkZXRlY3QgYXQNCj4+IHJ1
+bnRpbWUgaWYgYSBnaXZlbiB2aXJ0aW8gZGV2aWNlIHN1cHBvcnQgZ3JhbnRzIG9yIG5vdC4N
+Cj4gDQo+IElzbid0IHRoZXJlIGEgd2F5IGZvciB0aGUgZGV2aWNlIHRvIGV4cG9zZSBjYXBh
+YmlsaXRpZXMgYWxyZWFkeT8gIEZvcg0KPiBleGFtcGxlIGhvdyBkb2VzIGEgdmlydGlvLWJs
+ayBiYWNrZW5kIGV4cG9zZSBzdXBwb3J0IGZvciBpbmRpcmVjdA0KPiBkZXNjcmlwdG9ycz8N
+Cg0KVGhvc2UgY2FwYWJpbGl0aWVzIGFyZSBkZWZpbmVkIGluIHRoZSB2aXJ0aW8gc3BlYyBb
+MV0uIEFkZGluZyB0aGUgYmFja2VuZA0KZG9taWQgd291bGQgYmUgcG9zc2libGUsIGJ1dCBp
+dCBwcm9iYWJseSB3b3VsZG4ndCBiZSB0aGF0IGVhc3kgKHJlcXVpcmVzDQpjaGFuZ2luZyB0
+aGUgdmlydGlvIHNwZWMgYnkgZWl0aGVyIGV4cGFuZGluZyBhbiBleGlzdGluZyBjb25maWcg
+YXJlYSBvciBieQ0KYWRkaW5nIGEgbmV3IG9uZSkuIEknbSBub3Qgc3VyZSBoYW5kbGluZyBp
+biB0aGUgc3BlY2lmaWMgZnJvbnRlbmRzIGlzDQpnZW5lcmljIGVub3VnaCBmb3IgYmVpbmcg
+YWJsZSB0byBoYXZlIGEgY2VudHJhbCBwbGFjZSB3aGVyZSB0aGUgYmFja2VuZA0KZG9taWQg
+Y291bGQgYmUgcmV0cmlldmVkLCB3aXRob3V0IHJlcXVpcmluZyBhbnkgY2hhbmdlIG9mIHRo
+ZSBmcm9udGVuZHMuDQoNCg0KSnVlcmdlbg0KDQpbMV06IGh0dHA6Ly9kb2NzLm9hc2lzLW9w
+ZW4ub3JnL3ZpcnRpby92aXJ0aW8vdjEuMi92aXJ0aW8tdjEuMi5odG1sDQo=
+--------------L2wHyOVyIZUNYvNlG5ywcrPl
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Thus, we will have to remove this line at that time.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Can you remove this line, please if it does not cause any issue ?
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-- Ayan
+--------------L2wHyOVyIZUNYvNlG5ywcrPl--
 
->          ---help---
->          Choose which hardware platform to enable in Xen.
->
-> @@ -8,13 +9,14 @@ choice
->
->   config ALL_PLAT
->          bool "All Platforms"
-> +       depends on !HAS_MPU
->          ---help---
->          Enable support for all available hardware platforms. It doesn't
->          automatically select any of the related drivers.
->
->   config QEMU
->          bool "QEMU aarch virt machine support"
-> -       depends on ARM_64
-> +       depends on ARM_64 && !HAS_MPU
->          select GICV3
->          select HAS_PL011
->          ---help---
-> @@ -23,7 +25,7 @@ config QEMU
->
->   config RCAR3
->          bool "Renesas RCar3 support"
-> -       depends on ARM_64
-> +       depends on ARM_64 && !HAS_MPU
->          select HAS_SCIF
->          select IPMMU_VMSA
->          ---help---
-> @@ -31,7 +33,7 @@ config RCAR3
->
->   config MPSOC
->          bool "Xilinx Ultrascale+ MPSoC support"
-> -       depends on ARM_64
-> +       depends on ARM_64 && !HAS_MPU
->          select HAS_CADENCE_UART
->          select ARM_SMMU
->          ---help---
-> --
-> 2.25.1
->
->
+--------------gidE6FoEsgf7uP6gzz4RP2TS--
+
+--------------xX4qTw8UY8621tTesaaATWaa
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSj9uwFAwAAAAAACgkQsN6d1ii/Ey+9
+yggAm/nnfzU+zzUQjNzpq4jgN4FPFkr5ki16LnPe/evdn7hmqs8k/+VXrXCW+2xyXD+VoDibBl9Q
+pckoziwZFXP4jomvW+oR17HpmibmQ96nXtiRGJvH5oRB1Pul82aEy2PbbkeM357nts2i6IYtR86W
+xJalTzeCBRept1bMjYgxyPZmdbGAskeYquTug5wOG2wr9TJRZ3YZohauH3kfKQfnuuqdhbgHYQiu
+wexNRngYZHoIH9uHcb2cQnlP4z3Tfhr4ClcIcabczqxKv4qLTD3lrUmRhIUHAVdJjWJQhLoIr/py
+A9prgAkJHf5ibJvV4HLe5bNAlri8zB+8gHqmtZibxQ==
+=ZF9q
+-----END PGP SIGNATURE-----
+
+--------------xX4qTw8UY8621tTesaaATWaa--
 
