@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D486746E4A
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 12:10:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558226.872127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1481B746E7A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 12:23:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558234.872137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGcyu-0008FP-S8; Tue, 04 Jul 2023 10:10:00 +0000
+	id 1qGdBt-0002GW-3u; Tue, 04 Jul 2023 10:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558226.872127; Tue, 04 Jul 2023 10:10:00 +0000
+Received: by outflank-mailman (output) from mailman id 558234.872137; Tue, 04 Jul 2023 10:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGcyu-0008Cz-Ov; Tue, 04 Jul 2023 10:10:00 +0000
-Received: by outflank-mailman (input) for mailman id 558226;
- Tue, 04 Jul 2023 10:09:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGcyt-0008Cp-DB; Tue, 04 Jul 2023 10:09:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGcys-00045z-TK; Tue, 04 Jul 2023 10:09:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGcys-0004Kj-9P; Tue, 04 Jul 2023 10:09:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qGcys-0003Ko-8e; Tue, 04 Jul 2023 10:09:58 +0000
+	id 1qGdBt-0002E6-11; Tue, 04 Jul 2023 10:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 558234;
+ Tue, 04 Jul 2023 10:23:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mVoD=CW=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qGdBr-0002E0-6O
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 10:23:23 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cc7e85a5-1a54-11ee-b237-6b7b168915f2;
+ Tue, 04 Jul 2023 12:23:21 +0200 (CEST)
+Received: from Dell.bugseng.com (unknown [37.160.75.228])
+ by support.bugseng.com (Postfix) with ESMTPSA id 23B094EE0738;
+ Tue,  4 Jul 2023 12:23:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,298 +39,549 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=iFavC+EK0FWsP1lHjixVXV0AnCfurkX9T1P4MvyFKVA=; b=AH287s9x/45tGmaMPbrnaDPe7w
-	TWLgjIU8tuMgJaIbOFsfpGsbGdDQxjxeJy8NQTEOTjDRoVaM8LqIdaKg5c7v2+98pk0Q5zT1pVmbF
-	vJzQQXwwKE3Zl8j9fTTjvmFsGFcHuTj0OAhp/PNom2suYlo4fYWO+43geXVvAa2dzjfo=;
+X-Inumbo-ID: cc7e85a5-1a54-11ee-b237-6b7b168915f2
+From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181689-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [XEN PATCH v2] x86: make function declarations consistent with definitions
+Date: Tue,  4 Jul 2023 12:23:03 +0200
+Message-Id: <1b2d5be30c0e4f335e59dce6e7c001cb0805d702.1688465215.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable test] 181689: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable:test-amd64-i386-xl:xen-install:fail:heisenbug
-    xen-unstable:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f51e5d8eae8ece77a949571f39ee49904f3129aa
-X-Osstest-Versions-That:
-    xen=f51e5d8eae8ece77a949571f39ee49904f3129aa
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 Jul 2023 10:09:58 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 181689 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181689/
+Change mechanically the parameter names and types of function
+declarations to be consistent with the ones used in the corresponding
+definitions so as to fix violations of MISRA C:2012 Rule 8.3 ("All
+declarations of an object or function shall use the same names and type
+qualifiers") and MISRA C:2012 Rule 8.2 ("Function types shall be in
+prototype form with named parameters").
 
-Failures :-/ but no regressions.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+Changes in v2:
+  - fixed violations of Rule 8.2;
+  - fixed violations of Rule 8.3 not only for parameter names but
+    also for types.
+---
+ xen/arch/x86/cpu/mcheck/mce.h           |  2 +-
+ xen/arch/x86/cpu/mcheck/x86_mca.h       |  2 +-
+ xen/arch/x86/hvm/rtc.c                  |  2 +-
+ xen/arch/x86/hvm/svm/nestedhvm.h        |  2 +-
+ xen/arch/x86/hvm/vioapic.c              |  2 +-
+ xen/arch/x86/include/asm/genapic.h      |  2 +-
+ xen/arch/x86/include/asm/guest_pt.h     |  2 +-
+ xen/arch/x86/include/asm/hap.h          |  2 +-
+ xen/arch/x86/include/asm/hvm/io.h       |  2 +-
+ xen/arch/x86/include/asm/hvm/monitor.h  |  2 +-
+ xen/arch/x86/include/asm/hvm/svm/vmcb.h |  2 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  4 ++--
+ xen/arch/x86/include/asm/hvm/vmx/vvmx.h | 16 +++++++-------
+ xen/arch/x86/include/asm/io_apic.h      |  2 +-
+ xen/arch/x86/include/asm/irq.h          |  6 ++---
+ xen/arch/x86/include/asm/mem_access.h   |  2 +-
+ xen/arch/x86/include/asm/mpspec.h       |  2 +-
+ xen/arch/x86/include/asm/msi.h          |  4 ++--
+ xen/arch/x86/include/asm/p2m.h          |  8 +++----
+ xen/arch/x86/include/asm/paging.h       |  2 +-
+ xen/arch/x86/include/asm/psr.h          |  2 +-
+ xen/arch/x86/include/asm/setup.h        |  2 +-
+ xen/arch/x86/include/asm/uaccess.h      |  6 ++---
+ xen/arch/x86/include/asm/xstate.h       |  2 +-
+ xen/include/xen/lib/x86/cpu-policy.h    | 29 +++++++++++++------------
+ 25 files changed, 55 insertions(+), 54 deletions(-)
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail in 181683 pass in 181689
- test-amd64-i386-xl            7 xen-install                fail pass in 181683
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start             fail pass in 181683
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 181683
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181683
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 181683
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 181683
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181683
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 181683
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 181683
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 181683
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181683
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 181683
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 181683
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 181683
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 181683
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  f51e5d8eae8ece77a949571f39ee49904f3129aa
-baseline version:
- xen                  f51e5d8eae8ece77a949571f39ee49904f3129aa
-
-Last test of basis   181689  2023-07-04 01:53:28 Z    0 days
-Testing same since                          (not found)         0 attempts
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           fail    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Published tested tree is already up to date.
+diff --git a/xen/arch/x86/cpu/mcheck/mce.h b/xen/arch/x86/cpu/mcheck/mce.h
+index bea08bdc74..72d8dbc471 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.h
++++ b/xen/arch/x86/cpu/mcheck/mce.h
+@@ -44,7 +44,7 @@ extern uint8_t cmci_apic_vector;
+ extern bool lmce_support;
+ 
+ /* Init functions */
+-enum mcheck_type amd_mcheck_init(struct cpuinfo_x86 *c);
++enum mcheck_type amd_mcheck_init(struct cpuinfo_x86 *ci);
+ enum mcheck_type intel_mcheck_init(struct cpuinfo_x86 *c, bool bsp);
+ 
+ void amd_nonfatal_mcheck_init(struct cpuinfo_x86 *c);
+diff --git a/xen/arch/x86/cpu/mcheck/x86_mca.h b/xen/arch/x86/cpu/mcheck/x86_mca.h
+index 18116737af..36b6127a37 100644
+--- a/xen/arch/x86/cpu/mcheck/x86_mca.h
++++ b/xen/arch/x86/cpu/mcheck/x86_mca.h
+@@ -113,7 +113,7 @@ static inline int mcabanks_test(int bit, struct mca_banks* banks)
+     return test_bit(bit, banks->bank_map);
+ }
+ 
+-struct mca_banks *mcabanks_alloc(unsigned int nr);
++struct mca_banks *mcabanks_alloc(unsigned int nr_mce_banks);
+ void mcabanks_free(struct mca_banks *banks);
+ extern struct mca_banks *mca_allbanks;
+ 
+diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
+index c1ab6c7d58..ebb259586a 100644
+--- a/xen/arch/x86/hvm/rtc.c
++++ b/xen/arch/x86/hvm/rtc.c
+@@ -59,7 +59,7 @@ enum rtc_mode {
+ static void rtc_copy_date(RTCState *s);
+ static void rtc_set_time(RTCState *s);
+ static inline int from_bcd(RTCState *s, int a);
+-static inline int convert_hour(RTCState *s, int hour);
++static inline int convert_hour(RTCState *s, int raw);
+ 
+ static void rtc_update_irq(RTCState *s)
+ {
+diff --git a/xen/arch/x86/hvm/svm/nestedhvm.h b/xen/arch/x86/hvm/svm/nestedhvm.h
+index 43245e13de..eb9c416307 100644
+--- a/xen/arch/x86/hvm/svm/nestedhvm.h
++++ b/xen/arch/x86/hvm/svm/nestedhvm.h
+@@ -42,7 +42,7 @@ int cf_check nsvm_vcpu_initialise(struct vcpu *v);
+ int cf_check nsvm_vcpu_reset(struct vcpu *v);
+ int nsvm_vcpu_vmrun(struct vcpu *v, struct cpu_user_regs *regs);
+ int cf_check nsvm_vcpu_vmexit_event(struct vcpu *v,
+-                                    const struct x86_event *event);
++                                    const struct x86_event *trap);
+ uint64_t cf_check nsvm_vcpu_hostcr3(struct vcpu *v);
+ bool cf_check nsvm_vmcb_guest_intercepts_event(
+     struct vcpu *v, unsigned int vector, int errcode);
+diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+index 41e3c4d5e4..4e40d3609a 100644
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -43,7 +43,7 @@
+ /* HACK: Route IRQ0 only to VCPU0 to prevent time jumps. */
+ #define IRQ0_SPECIAL_ROUTING 1
+ 
+-static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int irq);
++static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin);
+ 
+ static struct hvm_vioapic *addr_vioapic(const struct domain *d,
+                                         unsigned long addr)
+diff --git a/xen/arch/x86/include/asm/genapic.h b/xen/arch/x86/include/asm/genapic.h
+index beeaddf19d..970df8ffe0 100644
+--- a/xen/arch/x86/include/asm/genapic.h
++++ b/xen/arch/x86/include/asm/genapic.h
+@@ -43,7 +43,7 @@ void cf_check send_IPI_self_legacy(uint8_t vector);
+ 
+ void cf_check init_apic_ldr_flat(void);
+ unsigned int cf_check cpu_mask_to_apicid_flat(const cpumask_t *cpumask);
+-void cf_check send_IPI_mask_flat(const cpumask_t *mask, int vector);
++void cf_check send_IPI_mask_flat(const cpumask_t *cpumask, int vector);
+ const cpumask_t *cf_check vector_allocation_cpumask_flat(int cpu);
+ #define GENAPIC_FLAT \
+ 	.int_delivery_mode = dest_LowestPrio, \
+diff --git a/xen/arch/x86/include/asm/guest_pt.h b/xen/arch/x86/include/asm/guest_pt.h
+index bde7588342..f616357107 100644
+--- a/xen/arch/x86/include/asm/guest_pt.h
++++ b/xen/arch/x86/include/asm/guest_pt.h
+@@ -422,7 +422,7 @@ static inline unsigned int guest_walk_to_page_order(const walk_t *gw)
+ 
+ bool
+ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+-                  unsigned long va, walk_t *gw, uint32_t pfec,
++                  unsigned long va, walk_t *gw, uint32_t walk,
+                   gfn_t top_gfn, mfn_t top_mfn, void *top_map);
+ 
+ /* Pretty-print the contents of a guest-walk */
+diff --git a/xen/arch/x86/include/asm/hap.h b/xen/arch/x86/include/asm/hap.h
+index 9d12327b12..05e124ad57 100644
+--- a/xen/arch/x86/include/asm/hap.h
++++ b/xen/arch/x86/include/asm/hap.h
+@@ -30,7 +30,7 @@ void  hap_vcpu_init(struct vcpu *v);
+ int   hap_track_dirty_vram(struct domain *d,
+                            unsigned long begin_pfn,
+                            unsigned int nr_frames,
+-                           XEN_GUEST_HANDLE(void) dirty_bitmap);
++                           XEN_GUEST_HANDLE(void) guest_dirty_bitmap);
+ 
+ extern const struct paging_mode *hap_paging_get_mode(struct vcpu *);
+ int hap_set_allocation(struct domain *d, unsigned int pages, bool *preempted);
+diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
+index 8df33eb6cc..cad082f020 100644
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -90,7 +90,7 @@ bool handle_mmio_with_translation(unsigned long gla, unsigned long gpfn,
+                                   struct npfec);
+ bool handle_pio(uint16_t port, unsigned int size, int dir);
+ void hvm_interrupt_post(struct vcpu *v, int vector, int type);
+-void hvm_dpci_eoi(struct domain *d, unsigned int guest_irq);
++void hvm_dpci_eoi(struct domain *d, unsigned int guest_gsi);
+ void msix_write_completion(struct vcpu *);
+ 
+ #ifdef CONFIG_HVM
+diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/include/asm/hvm/monitor.h
+index 5276b0af08..02021be47b 100644
+--- a/xen/arch/x86/include/asm/hvm/monitor.h
++++ b/xen/arch/x86/include/asm/hvm/monitor.h
+@@ -25,7 +25,7 @@ bool hvm_monitor_cr(unsigned int index, unsigned long value,
+                     unsigned long old);
+ #define hvm_monitor_crX(cr, new, old) \
+                         hvm_monitor_cr(VM_EVENT_X86_##cr, new, old)
+-bool hvm_monitor_msr(unsigned int msr, uint64_t value, uint64_t old_value);
++bool hvm_monitor_msr(unsigned int msr, uint64_t new_value, uint64_t old_value);
+ void hvm_monitor_descriptor_access(uint64_t exit_info,
+                                    uint64_t vmx_exit_qualification,
+                                    uint8_t descriptor, bool is_write);
+diff --git a/xen/arch/x86/include/asm/hvm/svm/vmcb.h b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
+index a1a8a7fd25..91221ff4e2 100644
+--- a/xen/arch/x86/include/asm/hvm/svm/vmcb.h
++++ b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
+@@ -607,7 +607,7 @@ void setup_vmcb_dump(void);
+ #define MSR_INTERCEPT_READ    1
+ #define MSR_INTERCEPT_WRITE   2
+ #define MSR_INTERCEPT_RW      (MSR_INTERCEPT_WRITE | MSR_INTERCEPT_READ)
+-void svm_intercept_msr(struct vcpu *v, uint32_t msr, int enable);
++void svm_intercept_msr(struct vcpu *v, uint32_t msr, int flags);
+ #define svm_disable_intercept_for_msr(v, msr) svm_intercept_msr((v), (msr), MSR_INTERCEPT_NONE)
+ #define svm_enable_intercept_for_msr(v, msr) svm_intercept_msr((v), (msr), MSR_INTERCEPT_RW)
+ 
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index d07fcb2bc9..20ef8e3137 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -656,10 +656,10 @@ bool vmx_msr_is_intercepted(struct vmx_msr_bitmap *msr_bitmap,
+                             unsigned int msr, bool is_write) __nonnull(1);
+ void virtual_vmcs_enter(const struct vcpu *);
+ void virtual_vmcs_exit(const struct vcpu *);
+-u64 virtual_vmcs_vmread(const struct vcpu *, u32 encoding);
++u64 virtual_vmcs_vmread(const struct vcpu *v, u32 vmcs_encoding);
+ enum vmx_insn_errno virtual_vmcs_vmread_safe(const struct vcpu *v,
+                                              u32 vmcs_encoding, u64 *val);
+-void virtual_vmcs_vmwrite(const struct vcpu *, u32 encoding, u64 val);
++void virtual_vmcs_vmwrite(const struct vcpu *v, u32 vmcs_encoding, u64 val);
+ enum vmx_insn_errno virtual_vmcs_vmwrite_safe(const struct vcpu *v,
+                                               u32 vmcs_encoding, u64 val);
+ 
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vvmx.h b/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
+index dc9db69258..715e509bc2 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
+@@ -144,15 +144,15 @@ enum vvmcs_encoding_type {
+     VVMCS_TYPE_HSTATE,
+ };
+ 
+-u64 get_vvmcs_virtual(void *vvmcs, u32 encoding);
+-u64 get_vvmcs_real(const struct vcpu *, u32 encoding);
+-void set_vvmcs_virtual(void *vvmcs, u32 encoding, u64 val);
+-void set_vvmcs_real(const struct vcpu *, u32 encoding, u64 val);
++uint64_t get_vvmcs_virtual(void *vvmcs, uint32_t vmcs_encoding);
++u64 get_vvmcs_real(const struct vcpu *v, u32 encoding);
++void set_vvmcs_virtual(void *vvmcs, uint32_t vmcs_encoding, uint64_t val);
++void set_vvmcs_real(const struct vcpu *v, u32 encoding, u64 val);
+ enum vmx_insn_errno get_vvmcs_virtual_safe(void *vvmcs, u32 encoding, u64 *val);
+-enum vmx_insn_errno get_vvmcs_real_safe(const struct vcpu *, u32 encoding,
++enum vmx_insn_errno get_vvmcs_real_safe(const struct vcpu *v, u32 encoding,
+                                         u64 *val);
+ enum vmx_insn_errno set_vvmcs_virtual_safe(void *vvmcs, u32 encoding, u64 val);
+-enum vmx_insn_errno set_vvmcs_real_safe(const struct vcpu *, u32 encoding,
++enum vmx_insn_errno set_vvmcs_real_safe(const struct vcpu *v, u32 encoding,
+                                         u64 val);
+ 
+ #define get_vvmcs(vcpu, encoding) \
+@@ -180,9 +180,9 @@ int nvmx_handle_vmx_insn(struct cpu_user_regs *regs, unsigned int exit_reason);
+ int nvmx_msr_read_intercept(unsigned int msr,
+                                 u64 *msr_content);
+ 
+-void nvmx_update_exec_control(struct vcpu *v, u32 value);
++void nvmx_update_exec_control(struct vcpu *v, u32 host_cntrl);
+ void nvmx_update_secondary_exec_control(struct vcpu *v,
+-                                        unsigned long value);
++                                        unsigned long host_cntrl);
+ void nvmx_update_exception_bitmap(struct vcpu *v, unsigned long value);
+ void nvmx_switch_guest(void);
+ void nvmx_idtv_handling(void);
+diff --git a/xen/arch/x86/include/asm/io_apic.h b/xen/arch/x86/include/asm/io_apic.h
+index ef0878b09e..9b22448ef0 100644
+--- a/xen/arch/x86/include/asm/io_apic.h
++++ b/xen/arch/x86/include/asm/io_apic.h
+@@ -207,6 +207,6 @@ extern int restore_IO_APIC_setup(struct IO_APIC_route_entry **ioapic_entries,
+ unsigned highest_gsi(void);
+ 
+ int ioapic_guest_read( unsigned long physbase, unsigned int reg, u32 *pval);
+-int ioapic_guest_write(unsigned long physbase, unsigned int reg, u32 pval);
++int ioapic_guest_write(unsigned long physbase, unsigned int reg, u32 val);
+ 
+ #endif
+diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+index 424b0e1af8..f49388a47f 100644
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -112,7 +112,7 @@ void cf_check enable_8259A_irq(struct irq_desc *);
+ int i8259A_irq_pending(unsigned int irq);
+ void mask_8259A(void);
+ void unmask_8259A(void);
+-void init_8259A(int aeoi);
++void init_8259A(int auto_eoi);
+ void make_8259A_irq(unsigned int irq);
+ bool bogus_8259A_irq(unsigned int irq);
+ int i8259A_suspend(void);
+@@ -141,7 +141,7 @@ struct arch_pirq {
+ #define pirq_dpci(pirq) ((pirq) ? &(pirq)->arch.hvm.dpci : NULL)
+ #define dpci_pirq(pd) container_of(pd, struct pirq, arch.hvm.dpci)
+ 
+-int pirq_shared(struct domain *d , int irq);
++int pirq_shared(struct domain *d , int pirq);
+ 
+ int map_domain_pirq(struct domain *d, int pirq, int irq, int type,
+                            void *data);
+@@ -149,7 +149,7 @@ int unmap_domain_pirq(struct domain *d, int pirq);
+ int get_free_pirq(struct domain *d, int type);
+ int get_free_pirqs(struct domain *, unsigned int nr);
+ void free_domain_pirqs(struct domain *d);
+-int map_domain_emuirq_pirq(struct domain *d, int pirq, int irq);
++int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq);
+ int unmap_domain_pirq_emuirq(struct domain *d, int pirq);
+ 
+ /* Reset irq affinities to match the given CPU mask. */
+diff --git a/xen/arch/x86/include/asm/mem_access.h b/xen/arch/x86/include/asm/mem_access.h
+index 8957e1181c..1a52a10322 100644
+--- a/xen/arch/x86/include/asm/mem_access.h
++++ b/xen/arch/x86/include/asm/mem_access.h
+@@ -39,7 +39,7 @@ int p2m_set_suppress_ve(struct domain *d, gfn_t gfn, bool suppress_ve,
+ 
+ struct xen_hvm_altp2m_suppress_ve_multi;
+ int p2m_set_suppress_ve_multi(struct domain *d,
+-                              struct xen_hvm_altp2m_suppress_ve_multi *suppress_ve);
++                              struct xen_hvm_altp2m_suppress_ve_multi *sve);
+ 
+ int p2m_get_suppress_ve(struct domain *d, gfn_t gfn, bool *suppress_ve,
+                         unsigned int altp2m_idx);
+diff --git a/xen/arch/x86/include/asm/mpspec.h b/xen/arch/x86/include/asm/mpspec.h
+index 1246eece0b..cf8b360259 100644
+--- a/xen/arch/x86/include/asm/mpspec.h
++++ b/xen/arch/x86/include/asm/mpspec.h
+@@ -26,7 +26,7 @@ extern void mp_register_lapic_address (u64 address);
+ extern void mp_register_ioapic (u8 id, u32 address, u32 gsi_base);
+ extern void mp_override_legacy_irq (u8 bus_irq, u8 polarity, u8 trigger, u32 gsi);
+ extern void mp_config_acpi_legacy_irqs (void);
+-extern int mp_register_gsi (u32 gsi, int edge_level, int active_high_low);
++extern int mp_register_gsi (u32 gsi, int triggering, int polarity);
+ #endif /* CONFIG_ACPI */
+ 
+ #define PHYSID_ARRAY_SIZE	BITS_TO_LONGS(MAX_APICS)
+diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
+index a53ade95c9..687df5942a 100644
+--- a/xen/arch/x86/include/asm/msi.h
++++ b/xen/arch/x86/include/asm/msi.h
+@@ -82,7 +82,7 @@ struct hw_interrupt_type;
+ struct msi_desc;
+ /* Helper functions */
+ extern int pci_enable_msi(struct msi_info *msi, struct msi_desc **desc);
+-extern void pci_disable_msi(struct msi_desc *desc);
++extern void pci_disable_msi(struct msi_desc *msi_desc);
+ extern int pci_prepare_msix(u16 seg, u8 bus, u8 devfn, bool off);
+ extern void pci_cleanup_msi(struct pci_dev *pdev);
+ extern int setup_msi_irq(struct irq_desc *, struct msi_desc *);
+@@ -220,7 +220,7 @@ struct arch_msix {
+ };
+ 
+ void early_msi_init(void);
+-void msi_compose_msg(unsigned vector, const cpumask_t *mask,
++void msi_compose_msg(unsigned vector, const cpumask_t *cpu_mask,
+                      struct msi_msg *msg);
+ void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable);
+ void cf_check mask_msi_irq(struct irq_desc *);
+diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
+index 40545f5fa8..67bd3201bc 100644
+--- a/xen/arch/x86/include/asm/p2m.h
++++ b/xen/arch/x86/include/asm/p2m.h
+@@ -632,7 +632,7 @@ void p2m_change_type_range(struct domain *d,
+                            p2m_type_t ot, p2m_type_t nt);
+ 
+ /* Compare-exchange the type of a single p2m entry */
+-int p2m_change_type_one(struct domain *d, unsigned long gfn,
++int p2m_change_type_one(struct domain *d, unsigned long gfn_l,
+                         p2m_type_t ot, p2m_type_t nt);
+ 
+ /* Synchronously change the p2m type for a range of gfns */
+@@ -661,9 +661,9 @@ int set_identity_p2m_entry(struct domain *d, unsigned long gfn,
+                            p2m_access_t p2ma, unsigned int flag);
+ int clear_identity_p2m_entry(struct domain *d, unsigned long gfn);
+ /* HVM-only callers can use these directly: */
+-int p2m_add_identity_entry(struct domain *d, unsigned long gfn,
++int p2m_add_identity_entry(struct domain *d, unsigned long gfn_l,
+                            p2m_access_t p2ma, unsigned int flag);
+-int p2m_remove_identity_entry(struct domain *d, unsigned long gfn);
++int p2m_remove_identity_entry(struct domain *d, unsigned long gfn_l);
+ 
+ /* 
+  * Populate-on-demand
+@@ -924,7 +924,7 @@ int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
+                                 p2m_type_t p2mt, p2m_access_t p2ma);
+ 
+ /* Set a specific p2m view visibility */
+-int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int idx,
++int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m_idx,
+                                    uint8_t visible);
+ #else /* !CONFIG_HVM */
+ struct p2m_domain *p2m_get_altp2m(struct vcpu *v);
+diff --git a/xen/arch/x86/include/asm/paging.h b/xen/arch/x86/include/asm/paging.h
+index 403243bfbd..a72a8d63ce 100644
+--- a/xen/arch/x86/include/asm/paging.h
++++ b/xen/arch/x86/include/asm/paging.h
+@@ -246,7 +246,7 @@ paging_fault(unsigned long va, struct cpu_user_regs *regs)
+ }
+ 
+ /* Handle invlpg requests on vcpus. */
+-void paging_invlpg(struct vcpu *v, unsigned long va);
++void paging_invlpg(struct vcpu *v, unsigned long linear);
+ 
+ /*
+  * Translate a guest virtual address to the frame number that the
+diff --git a/xen/arch/x86/include/asm/psr.h b/xen/arch/x86/include/asm/psr.h
+index c2257da7fc..8ecb7a0eea 100644
+--- a/xen/arch/x86/include/asm/psr.h
++++ b/xen/arch/x86/include/asm/psr.h
+@@ -81,7 +81,7 @@ int psr_get_info(unsigned int socket, enum psr_type type,
+ int psr_get_val(struct domain *d, unsigned int socket,
+                 uint32_t *val, enum psr_type type);
+ int psr_set_val(struct domain *d, unsigned int socket,
+-                uint64_t val, enum psr_type type);
++                uint64_t new_val, enum psr_type type);
+ 
+ void psr_domain_init(struct domain *d);
+ void psr_domain_free(struct domain *d);
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index ae0dd3915a..29ccacfd7f 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -33,7 +33,7 @@ static inline void vesa_init(void) {};
+ 
+ int construct_dom0(
+     struct domain *d,
+-    const module_t *kernel, unsigned long kernel_headroom,
++    const module_t *image, unsigned long image_headroom,
+     module_t *initrd,
+     char *cmdline);
+ void setup_io_bitmap(struct domain *d);
+diff --git a/xen/arch/x86/include/asm/uaccess.h b/xen/arch/x86/include/asm/uaccess.h
+index 684fccd95c..7443519d5b 100644
+--- a/xen/arch/x86/include/asm/uaccess.h
++++ b/xen/arch/x86/include/asm/uaccess.h
+@@ -10,10 +10,10 @@
+ #include <asm/x86_64/uaccess.h>
+ 
+ unsigned int copy_to_guest_pv(void __user *to, const void *from,
+-                              unsigned int len);
+-unsigned int clear_guest_pv(void __user *to, unsigned int len);
++                              unsigned int n);
++unsigned int clear_guest_pv(void __user *to, unsigned int n);
+ unsigned int copy_from_guest_pv(void *to, const void __user *from,
+-                                unsigned int len);
++                                unsigned int n);
+ 
+ /* Handles exceptions in both to and from, but doesn't do access_ok */
+ unsigned int copy_to_guest_ll(void __user*to, const void *from, unsigned int n);
+diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
+index 7ab0bdde89..4fb4312192 100644
+--- a/xen/arch/x86/include/asm/xstate.h
++++ b/xen/arch/x86/include/asm/xstate.h
+@@ -87,7 +87,7 @@ struct xstate_bndcsr {
+ };
+ 
+ /* extended state operations */
+-bool __must_check set_xcr0(u64 xfeatures);
++bool __must_check set_xcr0(u64 val);
+ uint64_t get_xcr0(void);
+ void set_msr_xss(u64 xss);
+ uint64_t get_msr_xss(void);
+diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+index 6d5e9edd26..bab3eecda6 100644
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -451,23 +451,24 @@ typedef xen_msr_entry_t msr_entry_buffer_t[];
+  * Serialise the CPUID leaves of a cpu_policy object into an array of cpuid
+  * leaves.
+  *
+- * @param policy     The cpu_policy to serialise.
+- * @param leaves     The array of leaves to serialise into.
+- * @param nr_entries The number of entries in 'leaves'.
++ * @param p            The cpu_policy to serialise.
++ * @param leaves       The array of leaves to serialise into.
++ * @param nr_entries_p The number of entries in 'leaves'.
+  * @returns -errno
+  *
+  * Writes at most CPUID_MAX_SERIALISED_LEAVES.  May fail with -ENOBUFS if the
+  * leaves array is too short.  On success, nr_entries is updated with the
+  * actual number of leaves written.
+  */
+-int x86_cpuid_copy_to_buffer(const struct cpu_policy *policy,
+-                             cpuid_leaf_buffer_t leaves, uint32_t *nr_entries);
++int x86_cpuid_copy_to_buffer(const struct cpu_policy *p,
++                             cpuid_leaf_buffer_t leaves,
++                             uint32_t *nr_entries_p);
+ 
+ /**
+  * Unserialise the CPUID leaves of a cpu_policy object into an array of cpuid
+  * leaves.
+  *
+- * @param policy      The cpu_policy to unserialise into.
++ * @param p           The cpu_policy to unserialise into.
+  * @param leaves      The array of leaves to unserialise from.
+  * @param nr_entries  The number of entries in 'leaves'.
+  * @param err_leaf    Optional hint for error diagnostics.
+@@ -481,7 +482,7 @@ int x86_cpuid_copy_to_buffer(const struct cpu_policy *policy,
+  * No content validation of in-range leaves is performed.  Synthesised data is
+  * recalculated.
+  */
+-int x86_cpuid_copy_from_buffer(struct cpu_policy *policy,
++int x86_cpuid_copy_from_buffer(struct cpu_policy *p,
+                                const cpuid_leaf_buffer_t leaves,
+                                uint32_t nr_entries, uint32_t *err_leaf,
+                                uint32_t *err_subleaf);
+@@ -489,22 +490,22 @@ int x86_cpuid_copy_from_buffer(struct cpu_policy *policy,
+ /**
+  * Serialise the MSRs of a cpu_policy object into an array.
+  *
+- * @param policy     The cpu_policy to serialise.
+- * @param msrs       The array of msrs to serialise into.
+- * @param nr_entries The number of entries in 'msrs'.
++ * @param p            The cpu_policy to serialise.
++ * @param msrs         The array of msrs to serialise into.
++ * @param nr_entries_p The number of entries in 'msrs'.
+  * @returns -errno
+  *
+  * Writes at most MSR_MAX_SERIALISED_ENTRIES.  May fail with -ENOBUFS if the
+  * buffer array is too short.  On success, nr_entries is updated with the
+  * actual number of msrs written.
+  */
+-int x86_msr_copy_to_buffer(const struct cpu_policy *policy,
+-                           msr_entry_buffer_t msrs, uint32_t *nr_entries);
++int x86_msr_copy_to_buffer(const struct cpu_policy *p,
++                           msr_entry_buffer_t msrs, uint32_t *nr_entries_p);
+ 
+ /**
+  * Unserialise the MSRs of a cpu_policy object from an array of msrs.
+  *
+- * @param policy     The cpu_policy object to unserialise into.
++ * @param p          The cpu_policy object to unserialise into.
+  * @param msrs       The array of msrs to unserialise from.
+  * @param nr_entries The number of entries in 'msrs'.
+  * @param err_msr    Optional hint for error diagnostics.
+@@ -518,7 +519,7 @@ int x86_msr_copy_to_buffer(const struct cpu_policy *policy,
+  *
+  * No content validation is performed on the data stored in the policy object.
+  */
+-int x86_msr_copy_from_buffer(struct cpu_policy *policy,
++int x86_msr_copy_from_buffer(struct cpu_policy *p,
+                              const msr_entry_buffer_t msrs, uint32_t nr_entries,
+                              uint32_t *err_msr);
+ 
+-- 
+2.34.1
 
 
