@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A717479B4
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 23:54:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558731.873084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A48B747A0E
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 00:13:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558737.873094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGnyH-0005J0-3L; Tue, 04 Jul 2023 21:54:05 +0000
+	id 1qGoGE-0007tQ-Kd; Tue, 04 Jul 2023 22:12:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558731.873084; Tue, 04 Jul 2023 21:54:05 +0000
+Received: by outflank-mailman (output) from mailman id 558737.873094; Tue, 04 Jul 2023 22:12:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGnyH-0005Fz-0R; Tue, 04 Jul 2023 21:54:05 +0000
-Received: by outflank-mailman (input) for mailman id 558731;
- Tue, 04 Jul 2023 21:54:03 +0000
+	id 1qGoGE-0007qQ-HI; Tue, 04 Jul 2023 22:12:38 +0000
+Received: by outflank-mailman (input) for mailman id 558737;
+ Tue, 04 Jul 2023 22:12:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qGnyF-0005Ft-Ng
- for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 21:54:03 +0000
+ (envelope-from <julien@xen.org>) id 1qGoGC-0007qI-UU
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 22:12:36 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qGnyF-00041k-4w; Tue, 04 Jul 2023 21:54:03 +0000
+ id 1qGoGC-0004Zj-AR; Tue, 04 Jul 2023 22:12:36 +0000
 Received: from 54-240-197-234.amazon.com ([54.240.197.234] helo=[192.168.9.70])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qGnyE-0007sv-VT; Tue, 04 Jul 2023 21:54:03 +0000
+ id 1qGoGC-0000Q9-3o; Tue, 04 Jul 2023 22:12:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,366 +42,176 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=uqqWERl+3py7lBkgztSNuyc4I9voSLciyyk0zf9QtZM=; b=wqP/GM+vVWgzLOnCD/ZVdbeiVZ
-	Pc1itbPrQyMgmCv0SKjY6mr9QEP1ZyeXHIGp/XxwpPp9kCUBoiYzWtNeqn6W3q2JDaKK6lPBsm51x
-	ZzbQ68xC4q2A2v21pE3QUyGihxLX515VGSqZa7Y6jRFIPdmqCeZR/Ksmwy0ny7raYylU=;
-Message-ID: <ee493a26-234c-876e-e19f-3708c13cb484@xen.org>
-Date: Tue, 4 Jul 2023 22:54:00 +0100
+	bh=p0QJp4Pxt/xIl8/popR1R9Tv9brAC1FHRxiDUoUOtjo=; b=Nldab+1u2NWvoKW4dS1NN2O1HA
+	7igDjsYJy6m4XapmB6q1PDXqBl6rnCGvixBb7u6dZ5c2BmojzVnZuhUNG6xYG0evW5kuEkESREd9o
+	bMDGyUwafp5yl2YFrIlzTO7K/b/4RXvukqM83DPtv/jjMqApmJGNF/4LP+VBye4cuJ/0=;
+Message-ID: <1be18c29-511e-27eb-0970-adaa1c74ce82@xen.org>
+Date: Tue, 4 Jul 2023 23:12:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 10/52] xen/arm: Move MMU related definitions from
- config.h to mmu/layout.h
+Subject: Re: [PATCH v3 11/52] xen/arm: mmu: fold FIXMAP into MMU system
 Content-Language: en-US
 To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
 References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-11-Penny.Zheng@arm.com>
+ <20230626033443.2943270-12-Penny.Zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230626033443.2943270-11-Penny.Zheng@arm.com>
+In-Reply-To: <20230626033443.2943270-12-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Penny,
+Hi,
 
 On 26/06/2023 04:34, Penny Zheng wrote:
-> From: Wei Chen <wei.chen@arm.com>
+> FIXMAP in MMU system is used to do special-purpose 4K mapping, like
+> mapping early UART, temporarily mapping source codes for copy and paste
+> (copy_from_paddr), etc.
 > 
-> Xen defines some global configuration macros for Arm in config.h.
-> We still want to use it for MMU systems, but there are some address
-
-Did you mean MPU?
-
-> layout related definitions that are defined for MMU systems only.
-> These definitions could not be used by MPU systems, but adding
-> ifdefery with CONFIG_HAS_MPU to gate these definitions will result
-> in a messy and hard-to-read/maintain code.
+> As FIXMAP feature is highly dependent on virtual address translation, we
+> introduce a new Kconfig CONFIG_HAS_FIXMAP to wrap all releated codes, then
+> we fold it into MMU system.
+> Since PMAP relies on FIXMAP, so we fold it too into MMU system.
 > 
-> So we keep some common definitions still in config.h, but move MMU
-> related definitions to a new file - mmu/layout.h to avoid spreading
-> "#ifdef" everywhere.
+> Under !CONFIG_HAS_FIXMAP, we provide empty stubbers for not breaking
+> compilation.
 
-Just to ease the review, can you add some details which one are 
-considered common?
-
-Also, this patch will need to be rebased on top of the latest staging.
+Looking at the end result, I can't find any use of set_fixmap() in the 
+common code. So I am not sure this is warrant to provide any stubs (see 
+above).
 
 > 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
-> v1 -> v2:
-> 1. Remove duplicated FIXMAP definitions from config_mmu.h
+> v1 -> v2
+> - new patch
 > ---
 > v3:
-> 1. name the new header layout.h
+> - fold CONFIG_HAS_FIXMAP into CONFIG_HAS_MMU
+> - change CONFIG_HAS_FIXMAP to an Arm-specific Kconfig
 > ---
->   xen/arch/arm/include/asm/config.h     | 127 +----------------------
->   xen/arch/arm/include/asm/mmu/layout.h | 141 ++++++++++++++++++++++++++
->   2 files changed, 143 insertions(+), 125 deletions(-)
->   create mode 100644 xen/arch/arm/include/asm/mmu/layout.h
+>   xen/arch/arm/Kconfig              |  7 ++++++-
+>   xen/arch/arm/include/asm/fixmap.h | 31 ++++++++++++++++++++++++++++---
+>   2 files changed, 34 insertions(+), 4 deletions(-)
 > 
-> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
-> index 30f4665ba9..204b3dec13 100644
-> --- a/xen/arch/arm/include/asm/config.h
-> +++ b/xen/arch/arm/include/asm/config.h
-> @@ -71,131 +71,8 @@
->   #include <xen/const.h>
->   #include <xen/page-size.h>
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index fb77392b82..22b28b8ba2 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -15,7 +15,6 @@ config ARM
+>   	select HAS_DEVICE_TREE
+>   	select HAS_PASSTHROUGH
+>   	select HAS_PDX
+> -	select HAS_PMAP
+>   	select IOMMU_FORCE_PT_SHARE
 >   
-> -/*
-> - * ARM32 layout:
-> - *   0  -   2M   Unmapped
-> - *   2M -   4M   Xen text, data, bss
-> - *   4M -   6M   Fixmap: special-purpose 4K mapping slots
-> - *   6M -  10M   Early boot mapping of FDT
-> - *   10M - 12M   Livepatch vmap (if compiled in)
-> - *
-> - *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
-> - * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
-> - *                    space
-> - *
-> - *   1G -   2G   Xenheap: always-mapped memory
-> - *   2G -   4G   Domheap: on-demand-mapped
-> - *
-> - * ARM64 layout:
-> - * 0x0000000000000000 - 0x000001ffffffffff (2TB, L0 slots [0..3])
-> - *
-> - *  Reserved to identity map Xen
-> - *
-> - * 0x0000020000000000 - 0x0000027fffffffff (512GB, L0 slot [4])
-> - *  (Relative offsets)
-> - *   0  -   2M   Unmapped
-> - *   2M -   4M   Xen text, data, bss
-> - *   4M -   6M   Fixmap: special-purpose 4K mapping slots
-> - *   6M -  10M   Early boot mapping of FDT
-> - *  10M -  12M   Livepatch vmap (if compiled in)
-> - *
-> - *   1G -   2G   VMAP: ioremap and early_ioremap
-> - *
-> - *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
-> - *
-> - * 0x0000028000000000 - 0x00007fffffffffff (125TB, L0 slots [5..255])
-> - *  Unused
-> - *
-> - * 0x0000800000000000 - 0x000084ffffffffff (5TB, L0 slots [256..265])
-> - *  1:1 mapping of RAM
-> - *
-> - * 0x0000850000000000 - 0x0000ffffffffffff (123TB, L0 slots [266..511])
-> - *  Unused
-> - */
-> -
-> -#ifdef CONFIG_ARM_32
-> -#define XEN_VIRT_START          _AT(vaddr_t, MB(2))
-> -#else
-> -
-> -#define SLOT0_ENTRY_BITS  39
-> -#define SLOT0(slot) (_AT(vaddr_t,slot) << SLOT0_ENTRY_BITS)
-> -#define SLOT0_ENTRY_SIZE  SLOT0(1)
-> -
-> -#define XEN_VIRT_START          (SLOT0(4) + _AT(vaddr_t, MB(2)))
-> -#endif
-> -
-> -#define XEN_VIRT_SIZE           _AT(vaddr_t, MB(2))
-> -
-> -#define FIXMAP_VIRT_START       (XEN_VIRT_START + XEN_VIRT_SIZE)
-> -#define FIXMAP_VIRT_SIZE        _AT(vaddr_t, MB(2))
-> -
-> -#define FIXMAP_ADDR(n)          (FIXMAP_VIRT_START + (n) * PAGE_SIZE)
-> -
-> -#define BOOT_FDT_VIRT_START     (FIXMAP_VIRT_START + FIXMAP_VIRT_SIZE)
-> -#define BOOT_FDT_VIRT_SIZE      _AT(vaddr_t, MB(4))
-> -
-> -#ifdef CONFIG_LIVEPATCH
-> -#define LIVEPATCH_VMAP_START    (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
-> -#define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
-> -#endif
-> -
-> -#define HYPERVISOR_VIRT_START  XEN_VIRT_START
-> -
-> -#ifdef CONFIG_ARM_32
-> -
-> -#define CONFIG_SEPARATE_XENHEAP 1
-> -
-> -#define FRAMETABLE_VIRT_START  _AT(vaddr_t, MB(32))
-> -#define FRAMETABLE_SIZE        MB(128-32)
-> -#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
-> -
-> -#define VMAP_VIRT_START        _AT(vaddr_t, MB(256))
-> -#define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
-> -
-> -#define XENHEAP_VIRT_START     _AT(vaddr_t, GB(1))
-> -#define XENHEAP_VIRT_SIZE      _AT(vaddr_t, GB(1))
-> -
-> -#define DOMHEAP_VIRT_START     _AT(vaddr_t, GB(2))
-> -#define DOMHEAP_VIRT_SIZE      _AT(vaddr_t, GB(2))
-> -
-> -#define DOMHEAP_ENTRIES        1024  /* 1024 2MB mapping slots */
-> -
-> -/* Number of domheap pagetable pages required at the second level (2MB mappings) */
-> -#define DOMHEAP_SECOND_PAGES (DOMHEAP_VIRT_SIZE >> FIRST_SHIFT)
-> -
-> -/*
-> - * The temporary area is overlapping with the domheap area. This may
-> - * be used to create an alias of the first slot containing Xen mappings
-> - * when turning on/off the MMU.
-> - */
-> -#define TEMPORARY_AREA_FIRST_SLOT    (first_table_offset(DOMHEAP_VIRT_START))
-> -
-> -/* Calculate the address in the temporary area */
-> -#define TEMPORARY_AREA_ADDR(addr)                           \
-> -     (((addr) & ~XEN_PT_LEVEL_MASK(1)) |                    \
-> -      (TEMPORARY_AREA_FIRST_SLOT << XEN_PT_LEVEL_SHIFT(1)))
-> -
-> -#define TEMPORARY_XEN_VIRT_START    TEMPORARY_AREA_ADDR(XEN_VIRT_START)
-> -
-> -#else /* ARM_64 */
-> -
-> -#define IDENTITY_MAPPING_AREA_NR_L0  4
-> -
-> -#define VMAP_VIRT_START  (SLOT0(4) + GB(1))
-> -#define VMAP_VIRT_SIZE   GB(1)
-> -
-> -#define FRAMETABLE_VIRT_START  (SLOT0(4) + GB(32))
-> -#define FRAMETABLE_SIZE        GB(32)
-> -#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
-> -
-> -#define DIRECTMAP_VIRT_START   SLOT0(256)
-> -#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (266 - 256))
-> -#define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
-> -
-> -#define XENHEAP_VIRT_START     directmap_virt_start
-> -
-> -#define HYPERVISOR_VIRT_END    DIRECTMAP_VIRT_END
-> -
-> +#ifndef CONFIG_HAS_MPU
-
-We are not going to introduce HAS_MPU yet in Xen. So can you use 
-CONFIG_HAS_MMU?
-
-Also, I would add:
-
-#else
-# error "Unknown memory management layout"
-#endif
-
-> +#include <asm/mmu/layout.h>
->   #endif
+>   config ARCH_DEFCONFIG
+> @@ -63,11 +62,17 @@ source "arch/Kconfig"
+>   config HAS_MMU
+>   	bool "Memory Management Unit support in a VMSA system"
+>   	default y
+> +	select HAS_PMAP
+>   	help
+>   	  In a VMSA system, a Memory Management Unit (MMU) provides fine-grained control of
+>   	  a memory system through a set of virtual to physical address mappings and associated memory
+>   	  properties held in memory-mapped tables known as translation tables.
 >   
->   #define NR_hypercalls 64
-> diff --git a/xen/arch/arm/include/asm/mmu/layout.h b/xen/arch/arm/include/asm/mmu/layout.h
-> new file mode 100644
-> index 0000000000..8deda6b84d
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/mmu/layout.h
-> @@ -0,0 +1,141 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
+> +config HAS_FIXMAP
+> +	bool "Provide special-purpose 4K mapping slots in a VMSA"
 
-GPL-2.0 is deprecated and should not be used for new file. This should 
-instead be GPL-2.0-only
+
+Regardless what I wrote above, I don't think a developer should be able 
+to disable HAS_FIXMAP when the HAS_MMU is used. So the 3 lines should be 
+replaced with:
+
+def_bool HAS_MMU
+
+> +	depends on HAS_MMU
+> +	default y
+> +
+>   config ACPI
+>   	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
+>   	depends on ARM_64
+> diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
+> index d0c9a52c8c..1b5b62866b 100644
+> --- a/xen/arch/arm/include/asm/fixmap.h
+> +++ b/xen/arch/arm/include/asm/fixmap.h
+> @@ -4,9 +4,6 @@
+>   #ifndef __ASM_FIXMAP_H
+>   #define __ASM_FIXMAP_H
+>   
+> -#include <xen/acpi.h>
+> -#include <xen/pmap.h>
+> -
+>   /* Fixmap slots */
+>   #define FIXMAP_CONSOLE  0  /* The primary UART */
+>   #define FIXMAP_MISC     1  /* Ephemeral mappings of hardware */
+> @@ -22,6 +19,11 @@
+>   
+>   #ifndef __ASSEMBLY__
+>   
+> +#ifdef CONFIG_HAS_FIXMAP
+> +
+> +#include <xen/acpi.h>
+> +#include <xen/pmap.h>
+> +
+>   /*
+>    * Direct access to xen_fixmap[] should only happen when {set,
+>    * clear}_fixmap() is unusable (e.g. where we would end up to
+> @@ -43,6 +45,29 @@ static inline unsigned int virt_to_fix(vaddr_t vaddr)
+>       return ((vaddr - FIXADDR_START) >> PAGE_SHIFT);
+>   }
+>   
+> +#else /* !CONFIG_HAS_FIXMAP */
+> +
+> +#include <xen/mm-frame.h>
+> +#include <xen/errno.h>
+
+I think they should be included outside of #ifdef.
 
 > +
-> +#ifndef __ARM_MMU_LAYOUT_H__
-> +#define __ARM_MMU_LAYOUT_H__
+> +static inline void set_fixmap(unsigned int map, mfn_t mfn,
+> +                              unsigned int attributes)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +}
+
+If there is an interest to have a stub, then I think we should be using 
+BUG() because if this gets call, then it would likely crash right after 
+when the user tries to access it.
+
 > +
-> +/*
-> + * ARM32 layout:
-> + *   0  -   2M   Unmapped
-> + *   2M -   4M   Xen text, data, bss
-> + *   4M -   6M   Fixmap: special-purpose 4K mapping slots
-> + *   6M -  10M   Early boot mapping of FDT
-> + *   10M - 12M   Livepatch vmap (if compiled in)
-> + *
-> + *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
-> + * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
-> + *                    space
-> + *
-> + *   1G -   2G   Xenheap: always-mapped memory
-> + *   2G -   4G   Domheap: on-demand-mapped
-> + *
-> + * ARM64 layout:
-> + * 0x0000000000000000 - 0x000001ffffffffff (2TB, L0 slots [0..3])
-> + *
-> + *  Reserved to identity map Xen
-> + *
-> + * 0x0000020000000000 - 0x0000027fffffffff (512GB, L0 slot [4])
-> + *  (Relative offsets)
-> + *   0  -   2M   Unmapped
-> + *   2M -   4M   Xen text, data, bss
-> + *   4M -   6M   Fixmap: special-purpose 4K mapping slots
-> + *   6M -  10M   Early boot mapping of FDT
-> + *  10M -  12M   Livepatch vmap (if compiled in)
-> + *
-> + *   1G -   2G   VMAP: ioremap and early_ioremap
-> + *
-> + *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
-> + *
-> + * 0x0000028000000000 - 0x00007fffffffffff (125TB, L0 slots [5..255])
-> + *  Unused
-> + *
-> + * 0x0000800000000000 - 0x000084ffffffffff (5TB, L0 slots [256..265])
-> + *  1:1 mapping of RAM
-> + *
-> + * 0x0000850000000000 - 0x0000ffffffffffff (123TB, L0 slots [266..511])
-> + *  Unused
-> + */
+> +static inline void clear_fixmap(unsigned int map)
+> +{
+> +    ASSERT_UNREACHABLE();
+
+This one might be OK with ASSERT_UNREACHABLE(). Yet, it might be best to 
+use BUG() as nobody should use it.
+
+> +}
 > +
-> +#ifdef CONFIG_ARM_32
-> +#define XEN_VIRT_START          _AT(vaddr_t, MB(2))
-> +#else
+> +static inline unsigned int virt_to_fix(vaddr_t vaddr)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return -EINVAL;
+
+This is a bit of a random value. This may or may not be mapped. And 
+therefore any user of the return may or may not crash.
+
+Overall, it feels like we are trying to just please the compiler by 
+writing bogus stubs. It is going to be hard to get them correct. So it 
+would be better if we have no use of the 3 helpers in the common code.
+
+
+> +}
+> +#endif /* !CONFIG_HAS_FIXMAP */
 > +
-> +#define SLOT0_ENTRY_BITS  39
-> +#define SLOT0(slot) (_AT(vaddr_t,slot) << SLOT0_ENTRY_BITS)
-> +#define SLOT0_ENTRY_SIZE  SLOT0(1)
-> +
-> +#define XEN_VIRT_START          (SLOT0(4) + _AT(vaddr_t, MB(2)))
-> +#endif
-> +
-> +#define XEN_VIRT_SIZE           _AT(vaddr_t, MB(2))
-> +
-> +#define FIXMAP_VIRT_START       (XEN_VIRT_START + XEN_VIRT_SIZE)
-> +#define FIXMAP_VIRT_SIZE        _AT(vaddr_t, MB(2))
-> +
-> +#define FIXMAP_ADDR(n)          (FIXMAP_VIRT_START + (n) * PAGE_SIZE)
-> +
-> +#define BOOT_FDT_VIRT_START     (FIXMAP_VIRT_START + FIXMAP_VIRT_SIZE)
-> +#define BOOT_FDT_VIRT_SIZE      _AT(vaddr_t, MB(4))
-> +
-> +#ifdef CONFIG_LIVEPATCH
-> +#define LIVEPATCH_VMAP_START    (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
-> +#define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
-> +#endif
-> +
-> +#define HYPERVISOR_VIRT_START  XEN_VIRT_START
-> +
-> +#ifdef CONFIG_ARM_32
-> +
-> +#define CONFIG_SEPARATE_XENHEAP 1
-> +
-> +#define FRAMETABLE_VIRT_START  _AT(vaddr_t, MB(32))
-> +#define FRAMETABLE_SIZE        MB(128-32)
-> +#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
-> +
-> +#define VMAP_VIRT_START        _AT(vaddr_t, MB(256))
-> +#define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
-> +
-> +#define XENHEAP_VIRT_START     _AT(vaddr_t, GB(1))
-> +#define XENHEAP_VIRT_SIZE      _AT(vaddr_t, GB(1))
-> +
-> +#define DOMHEAP_VIRT_START     _AT(vaddr_t, GB(2))
-> +#define DOMHEAP_VIRT_SIZE      _AT(vaddr_t, GB(2))
-> +
-> +#define DOMHEAP_ENTRIES        1024  /* 1024 2MB mapping slots */
-> +
-> +/* Number of domheap pagetable pages required at the second level (2MB mappings) */
-> +#define DOMHEAP_SECOND_PAGES (DOMHEAP_VIRT_SIZE >> FIRST_SHIFT)
-> +
-> +/*
-> + * The temporary area is overlapping with the domheap area. This may
-> + * be used to create an alias of the first slot containing Xen mappings
-> + * when turning on/off the MMU.
-> + */
-> +#define TEMPORARY_AREA_FIRST_SLOT    (first_table_offset(DOMHEAP_VIRT_START))
-> +
-> +/* Calculate the address in the temporary area */
-> +#define TEMPORARY_AREA_ADDR(addr)                           \
-> +     (((addr) & ~XEN_PT_LEVEL_MASK(1)) |                    \
-> +      (TEMPORARY_AREA_FIRST_SLOT << XEN_PT_LEVEL_SHIFT(1)))
-> +
-> +#define TEMPORARY_XEN_VIRT_START    TEMPORARY_AREA_ADDR(XEN_VIRT_START)
-> +
-> +#else /* ARM_64 */
-> +
-> +#define IDENTITY_MAPPING_AREA_NR_L0  4
-> +
-> +#define VMAP_VIRT_START  (SLOT0(4) + GB(1))
-> +#define VMAP_VIRT_SIZE   GB(1)
-> +
-> +#define FRAMETABLE_VIRT_START  (SLOT0(4) + GB(32))
-> +#define FRAMETABLE_SIZE        GB(32)
-> +#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
-> +
-> +#define DIRECTMAP_VIRT_START   SLOT0(256)
-> +#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (266 - 256))
-> +#define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
-> +
-> +#define XENHEAP_VIRT_START     directmap_virt_start
-> +
-> +#define HYPERVISOR_VIRT_END    DIRECTMAP_VIRT_END
-> +
-> +#endif
-> +
-> +#endif /* __ARM_MMU_LAYOUT_H__ */
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
+>   #endif /* __ASSEMBLY__ */
+>   
+>   #endif /* __ASM_FIXMAP_H */
 
 Cheers,
 
