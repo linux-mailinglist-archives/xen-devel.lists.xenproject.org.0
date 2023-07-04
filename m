@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEB6D746DA3
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 11:35:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558194.872068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD8D746DBC
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 11:37:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558200.872076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGcRQ-0001od-VP; Tue, 04 Jul 2023 09:35:24 +0000
+	id 1qGcTk-0002Pc-Dw; Tue, 04 Jul 2023 09:37:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558194.872068; Tue, 04 Jul 2023 09:35:24 +0000
+Received: by outflank-mailman (output) from mailman id 558200.872076; Tue, 04 Jul 2023 09:37:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGcRQ-0001ln-RS; Tue, 04 Jul 2023 09:35:24 +0000
-Received: by outflank-mailman (input) for mailman id 558194;
- Tue, 04 Jul 2023 09:35:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qGcRP-0001lf-Lg
- for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 09:35:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qGcRO-0003Fv-8L; Tue, 04 Jul 2023 09:35:22 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qGcRO-0003v9-0j; Tue, 04 Jul 2023 09:35:22 +0000
+	id 1qGcTk-0002NM-BD; Tue, 04 Jul 2023 09:37:48 +0000
+Received: by outflank-mailman (input) for mailman id 558200;
+ Tue, 04 Jul 2023 09:37:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=U3Yz=CW=citrix.com=prvs=5427c2329=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qGcTi-0002NG-ND
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 09:37:46 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6cafa7d8-1a4e-11ee-b237-6b7b168915f2;
+ Tue, 04 Jul 2023 11:37:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,394 +36,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RysJKHX805si3y8duGvxE6FJG8/oDUeDZbBQ5KU+Eyg=; b=vptPXrl9TfUUghBuv8/BcgVsmJ
-	G9h+D3vrjZ1yD0CuBQ3rqAdKZgUvmS8iH5acZtqpCieBYkvcbpp0qBcQBhibFURj+U+FFvZ8Agizs
-	5aX/uhpC1QULMNxmRGJapIURMGj/kNpEPytrYi9/swQ0ASVC4LbsFS12a5RFeeYmG8+w=;
-Message-ID: <855fd25d-07bb-0b08-4c25-75e652c142a6@xen.org>
-Date: Tue, 4 Jul 2023 10:35:19 +0100
+X-Inumbo-ID: 6cafa7d8-1a4e-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1688463464;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=/0yM5i/MfkpAusvz4raS8zb7nUWfMXgPEhK7n7D3RcY=;
+  b=AHPO4DecT9oG/gaTwaYXtu40/XH2+2s9ddnW8SJVWG05Et/LZflvZ8RJ
+   K8mGRpStnImHM0tG0ISTTY/XA9+pTXTD1UenMu7oi5XYxKoU85R1EVEhW
+   2lklnSveEoIfnLmsfrAzFik5rxsems7xVd+Ob6pmErItZoSKOIkmlDSpG
+   w=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 115110777
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:eV13K6rt8pNipSmBiEi2M4foXN9eBmIAZRIvgKrLsJaIsI4StFCzt
+ garIBnTOqyCMTDyfYp1PoXi8BkD65HcyoAwTgI4rSo3HiwU9ZuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GpwUmAWP6gR5weBzyVNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAC4qcg/biO2M+auEFONc2sY/dfKoYLpK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
+ jufoj2gWk5Fa7RzzxK7132Tq7+VkxnVAr4fD6Wo+KNRoQyckzl75Bo+CgLg/KjRZlSFc9BVJ
+ lEQ+yEuhbMv70HtRd74NzWhrXuZ+xIRRddUO+s97g6L1+zT+QnxLngJSHtNZcIrsOcyRCc2z
+ RmZktXxHzttvbaJD3WH+d+8pCu/IyEPIUceZCUPSk0O5NyLnW0opkuRFJA5Svfz14CrX2iqm
+ FhmsRTSmZ0NqtIUj6q0x2nevGymlsTLUlcOpVnuCzfNAhxCWGK1W2C5wQGFvaYcct/EHwnpU
+ GsswJbHsr1XZX2ZvGnUGbhWQun0jxqQGGeE6WODCaXN4NhEF5SLWYlLqA9zK05yWirvUW+4O
+ RSD0e+9CXI6AZdLUUOUS9jrYyjS5fK8fekJr9iNBja0XrB/dRWc4AZlblOK0mbmnSAEyP9va
+ cvDIJz1UypGWMyLKQZaoM9EgNcWKt0WnzuPFfgXMTz6uVZhWJJlYehcawbfBgzIxKiFvB/U4
+ 75i2ziikn1ivBnFSnCPq+Y7dAlaRUXX8Liq86S7gMbfeFs5cIzgYteNqY4cl3tNxPsFzruRp
+ i7hASe1CjPX3BX6FOlDUVg7AJuHYHq1hStT0fAEVbpw50UeXA==
+IronPort-HdrOrdr: A9a23:TwgqKaj8SvSygiAvUawlSS/6C3BQXtwji2hC6mlwRA09TySZ//
+ rBoB0+726RtN93YgBGpTngAtjkfZqyz/NICOUqUYtKGTOW3ldAT7sSj7cKoQeBJ8SWzIc0vs
+ 1dmupFeb7N5DBB/L/HCWKDcurIruPpzJyV
+X-Talos-CUID: 9a23:jOj4Om+dqaFWS7ed3quVv1AzBt99fXLn9W7vfUWIVWR1EYbWFWbFrQ==
+X-Talos-MUID: 9a23:yNPueQaJ6zCK0eBTiRrjuxwybslSzf6SBVsVgZtbgOjVOnkl
+X-IronPort-AV: E=Sophos;i="6.01,180,1684814400"; 
+   d="scan'208";a="115110777"
+Date: Tue, 4 Jul 2023 10:37:38 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>, <qemu-devel@nongnu.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: QEMU assert (was: [xen-unstable test] 181558: regressions - FAIL)
+Message-ID: <947da45d-f336-4034-bf51-fb190420506b@perard>
+References: <osstest-181558-mainreport@xen.org>
+ <ZJwoK50FcnTSfFZ8@MacBook-Air-de-Roger.local>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v4 4/7] iommu/arm: Introduce iommu_add_dt_pci_sideband_ids
- API
-Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
- <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Rahul Singh <rahul.singh@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20230607030220.22698-1-stewart.hildebrand@amd.com>
- <20230607030220.22698-5-stewart.hildebrand@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230607030220.22698-5-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZJwoK50FcnTSfFZ8@MacBook-Air-de-Roger.local>
 
-Hi,
-
-On 07/06/2023 04:02, Stewart Hildebrand wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On Wed, Jun 28, 2023 at 02:31:39PM +0200, Roger Pau Monné wrote:
+> On Fri, Jun 23, 2023 at 03:04:21PM +0000, osstest service owner wrote:
+> > flight 181558 xen-unstable real [real]
+> > http://logs.test-lab.xenproject.org/osstest/logs/181558/
+> > 
+> > Regressions :-(
+> > 
+> > Tests which did not succeed and are blocking,
+> > including tests which could not be run:
+> >  test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 181545
 > 
-> The main purpose of this patch is to add a way to register PCI device
-> (which is behind the IOMMU) using the generic PCI-IOMMU DT bindings [1]
-> before assigning that device to a domain.
+> The test failing here is hitting the assert in qemu_cond_signal() as
+> called by worker_thread():
 > 
-> This behaves similarly to the existing iommu_add_dt_device API, except it
-> handles PCI devices, and it is to be invoked from the add_device hook in the
-> SMMU driver.
+> #0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:50
+> #1  0x00007ffff740b535 in __GI_abort () at abort.c:79
+> #2  0x00007ffff740b40f in __assert_fail_base (fmt=0x7ffff756cef0 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n", assertion=0x55555614abcb "cond->initialized",
+>     file=0x55555614ab88 "../qemu-xen-dir-remote/util/qemu-thread-posix.c", line=198, function=<optimized out>) at assert.c:92
+> #3  0x00007ffff74191a2 in __GI___assert_fail (assertion=0x55555614abcb "cond->initialized", file=0x55555614ab88 "../qemu-xen-dir-remote/util/qemu-thread-posix.c", line=198,
+>     function=0x55555614ad80 <__PRETTY_FUNCTION__.17104> "qemu_cond_signal") at assert.c:101
+> #4  0x0000555555f1c8d2 in qemu_cond_signal (cond=0x7fffb800db30) at ../qemu-xen-dir-remote/util/qemu-thread-posix.c:198
+> #5  0x0000555555f36973 in worker_thread (opaque=0x7fffb800dab0) at ../qemu-xen-dir-remote/util/thread-pool.c:129
+> #6  0x0000555555f1d1d2 in qemu_thread_start (args=0x7fffb8000b20) at ../qemu-xen-dir-remote/util/qemu-thread-posix.c:505
+> #7  0x00007ffff75b0fa3 in start_thread (arg=<optimized out>) at pthread_create.c:486
+> #8  0x00007ffff74e206f in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
 > 
-> The function of_map_id to translate an ID through a downstream mapping
-
-You called the function dt_map_id in Xen.
-
-> (which is also suitable for mapping Requester ID) was borrowed from Linux
-> (v5.10-rc6) and updated according to the Xen code base.
+> I've been trying to figure out how it can get in such state, but so
+> far I had no luck.  I'm not a QEMU expert, so it's probably better if
+> someone else could handle this.
 > 
-> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
+> In the failures I've seen, and the reproduction I have, the assert
+> triggers in the QEMU dom0 instance responsible for locally-attaching
+> the disk to dom0 in order to run pygrub.
 > 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> ---
-> v3->v4:
-> * wrap #include <asm/acpi.h> and if ( acpi_disabled ) in #ifdef CONFIG_ACPI
-> * fix Michal's remarks about style, parenthesis, and print formats
-> * remove !ops->dt_xlate check since it is already in iommu_dt_xlate helper
-> * rename s/iommu_dt_pci_map_id/dt_map_id/ because it is generic, not specific
->    to iommu
-> * update commit description
+> This is also with QEMU 7.2, as testing with upstream QEMU is blocked
+> ATM, so there's a chance it has already been fixed upstream.
 > 
-> v2->v3:
-> * new patch title (was: iommu/arm: Introduce iommu_add_dt_pci_device API)
-> * renamed function
->    from: iommu_add_dt_pci_device
->    to: iommu_add_dt_pci_sideband_ids
-> * removed stale ops->add_device check
-> * iommu.h: add empty stub iommu_add_dt_pci_sideband_ids for !HAS_DEVICE_TREE
-> * iommu.h: add iommu_add_pci_sideband_ids helper
-> * iommu.h: don't wrap prototype in #ifdef CONFIG_HAS_PCI
-> * s/iommu_fwspec_free(pci_to_dev(pdev))/iommu_fwspec_free(dev)/
-> 
-> v1->v2:
-> * remove extra devfn parameter since pdev fully describes the device
-> * remove ops->add_device() call from iommu_add_dt_pci_device(). Instead, rely on
->    the existing iommu call in iommu_add_device().
-> * move the ops->add_device and ops->dt_xlate checks earlier
-> 
-> downstream->v1:
-> * rebase
-> * add const qualifier to struct dt_device_node *np arg in dt_map_id()
-> * add const qualifier to struct dt_device_node *np declaration in iommu_add_pci_device()
-> * use stdint.h types instead of u8/u32/etc...
-> * rename functions:
->    s/dt_iommu_xlate/iommu_dt_xlate/
->    s/dt_map_id/iommu_dt_pci_map_id/
->    s/iommu_add_pci_device/iommu_add_dt_pci_device/
-> * add device_is_protected check in iommu_add_dt_pci_device
-> * wrap prototypes in CONFIG_HAS_PCI
-> 
-> (cherry picked from commit 734e3bf6ee77e7947667ab8fa96c25b349c2e1da from
->   the downstream branch poc/pci-passthrough from
->   https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc.git)
-> ---
->   xen/drivers/passthrough/device_tree.c | 134 ++++++++++++++++++++++++++
->   xen/include/xen/device_tree.h         |  25 +++++
->   xen/include/xen/iommu.h               |  22 ++++-
->   3 files changed, 180 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> index ff9e66ebf92a..bd0aed5df651 100644
-> --- a/xen/drivers/passthrough/device_tree.c
-> +++ b/xen/drivers/passthrough/device_tree.c
-> @@ -154,6 +154,140 @@ static int iommu_dt_xlate(struct device *dev,
->       return ops->dt_xlate(dev, iommu_spec);
->   }
->   
-> +#ifdef CONFIG_HAS_PCI
+> Thanks, Roger.
 
-The code below doesn't seem to be specific to PCI.
+So, I've run a test with the latest QEMU and I can still reproduce the
+issue. The test also fails with QEMU 7.1.0.
 
-> +int dt_map_id(const struct dt_device_node *np, uint32_t id,
-> +              const char *map_name, const char *map_mask_name,
-> +              struct dt_device_node **target, uint32_t *id_out)
-
-AFAICT, this function can also be used outside of the IOMMU code. So 
-shouldn't this be implemented in common/device_tree.c?
-
-
-> +{
-> +    uint32_t map_mask, masked_id, map_len;
-> +    const __be32 *map = NULL;
-> +
-> +    if ( !np || !map_name || (!target && !id_out) )
-> +        return -EINVAL;
-> +
-> +    map = dt_get_property(np, map_name, &map_len);
-> +    if ( !map )
-> +    {
-> +        if ( target )
-> +            return -ENODEV;
-> +
-> +        /* Otherwise, no map implies no translation */
-> +        *id_out = id;
-> +        return 0;
-> +    }
-> +
-> +    if ( !map_len || (map_len % (4 * sizeof(*map))) )
-> +    {
-> +        printk(XENLOG_ERR "%s: Error: Bad %s length: %u\n", np->full_name,
-> +               map_name, map_len);
-
-I think it would be helpful if you add the function name in the error 
-message.
-
-> +        return -EINVAL;
-> +    }
-> +
-> +    /* The default is to select all bits. */
-> +    map_mask = 0xffffffff;
-
-Please add a U. That said, I would switch to GENMASK(31, 0) so it is 
-easier to check the value.
-
-> +
-> +    /*
-> +     * Can be overridden by "{iommu,msi}-map-mask" property.
-> +     * If df_property_read_u32() fails, the default is used.
-
-s/df/dt/
-
-> +     */
-> +    if ( map_mask_name )
-> +        dt_property_read_u32(np, map_mask_name, &map_mask);
-> +
-> +    masked_id = map_mask & id;
-> +    for ( ; (int)map_len > 0; map_len -= 4 * sizeof(*map), map += 4 )
-
-Why do you cast map_len to 'int'?
-
-> +    {
-> +        struct dt_device_node *phandle_node;
-> +        uint32_t id_base = be32_to_cpup(map + 0);
-> +        uint32_t phandle = be32_to_cpup(map + 1);
-> +        uint32_t out_base = be32_to_cpup(map + 2);
-> +        uint32_t id_len = be32_to_cpup(map + 3);
-> +
-> +        if ( id_base & ~map_mask )
-> +        {
-> +            printk(XENLOG_ERR "%s: Invalid %s translation - %s-mask (0x%"PRIx32") ignores id-base (0x%"PRIx32")\n",
-> +                   np->full_name, map_name, map_name, map_mask, id_base);
-
-Same here about adding the function name.
-
-> +            return -EFAULT;
-> +        }
-> +
-> +        if ( (masked_id < id_base) || (masked_id >= (id_base + id_len)) )
-> +            continue;
-> +
-> +        phandle_node = dt_find_node_by_phandle(phandle);
-> +        if ( !phandle_node )
-> +            return -ENODEV;
-> +
-> +        if ( target )
-> +        {
-> +            if ( !*target )
-> +                *target = phandle_node;
-> +
-> +            if ( *target != phandle_node )
-> +                continue;
-> +        }
-> +
-> +        if ( id_out )
-> +            *id_out = masked_id - id_base + out_base;
-> +
-> +        printk(XENLOG_DEBUG "%s: %s, using mask %08"PRIx32", id-base: %08"PRIx32", out-base: %08"PRIx32", length: %08"PRIx32", id: %08"PRIx32" -> %08"PRIx32"\n",
-
-How about using dprintk()?
-
-> +               np->full_name, map_name, map_mask, id_base, out_base, id_len, id,
-> +               masked_id - id_base + out_base);
-> +        return 0;
-> +    }
-> +
-> +    printk(XENLOG_ERR "%s: no %s translation for id 0x%"PRIx32" on %s\n",
-> +           np->full_name, map_name, id, (target && *target) ? (*target)->full_name : NULL);
-
-Same here about adding the function name.
-
-> +
-> +    /*
-> +     * NOTE: Linux bypasses translation without returning an error here,
-> +     * but should we behave in the same way on Xen? Restrict for now.
-> +     */
-
-Can you outline why we would want to bypass the translation?
-
-> +    return -EFAULT;
-> +}
-> +
-> +int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-> +{
-> +    const struct iommu_ops *ops = iommu_get_ops();
-> +    struct dt_phandle_args iommu_spec = { .args_count = 1 };
-> +    struct device *dev = pci_to_dev(pdev);
-> +    const struct dt_device_node *np;
-> +    int rc = NO_IOMMU;
-
-AFAICT, the initial value will never be read. So is it necessary?
-
-> +
-> +    if ( !iommu_enabled )
-> +        return NO_IOMMU;
-> +
-> +    if ( !ops )
-> +        return -EINVAL;
-> +
-> +    if ( device_is_protected(dev) )
-> +        return 0;
-
-These two lines are a bit odd to read because you would think that if 
-the device is protected, then you want to continue translation. So can 
-you add a comment explaining what this check means?
-
-> +
-> +    if ( dev_iommu_fwspec_get(dev) )
-> +        return -EEXIST;
-> +
-> +    np = pci_find_host_bridge_node(pdev);
-> +    if ( !np )
-> +        return -ENODEV;
-> +
-> +    /*
-> +     * According to the Documentation/devicetree/bindings/pci/pci-iommu.txt
-> +     * from Linux.
-> +     */
-> +    rc = dt_map_id(np, PCI_BDF(pdev->bus, pdev->devfn), "iommu-map",
-> +                   "iommu-map-mask", &iommu_spec.np, iommu_spec.args);
-> +    if ( rc )
-> +        return (rc == -ENODEV) ? NO_IOMMU : rc;
-> +
-> +    rc = iommu_dt_xlate(dev, &iommu_spec);
-> +    if ( rc < 0 )
-> +    {
-> +        iommu_fwspec_free(dev);
-> +        return -EINVAL;
-> +    }
-> +
-> +    return rc;
-> +}
-> +#endif /* CONFIG_HAS_PCI */
-> +
->   int iommu_add_dt_device(struct dt_device_node *np)
->   {
->       const struct iommu_ops *ops = iommu_get_ops();
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index c2f315140560..8385cd538a58 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -892,6 +892,31 @@ int dt_count_phandle_with_args(const struct dt_device_node *np,
->    */
->   int dt_get_pci_domain_nr(struct dt_device_node *node);
->   
-> +#ifdef CONFIG_HAS_PCI
-
-In Xen, we don't usually add #ifdef for prototype only.
-
-> +/**
-> + * dt_map_id - Translate an ID through a downstream mapping.
-> + * @np: root complex device node.
-> + * @id: device ID to map.
-> + * @map_name: property name of the map to use.
-> + * @map_mask_name: optional property name of the mask to use.
-> + * @target: optional pointer to a target device node.
-> + * @id_out: optional pointer to receive the translated ID.
-> + *
-> + * Given a device ID, look up the appropriate implementation-defined
-> + * platform ID and/or the target device which receives transactions on that
-> + * ID, as per the "iommu-map" and "msi-map" bindings. Either of @target or
-> + * @id_out may be NULL if only the other is required. If @target points to
-> + * a non-NULL device node pointer, only entries targeting that node will be
-> + * matched; if it points to a NULL value, it will receive the device node of
-> + * the first matching target phandle, with a reference held.
-> + *
-> + * Return: 0 on success or a standard error code on failure.
-> + */
-> +int dt_map_id(const struct dt_device_node *np, uint32_t id,
-> +              const char *map_name, const char *map_mask_name,
-> +              struct dt_device_node **target, uint32_t *id_out);
-> +#endif /* CONFIG_HAS_PCI */
-> +
->   struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
->   
->   #ifdef CONFIG_DEVICE_TREE_DEBUG
-> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> index 405db59971c5..3cac177840f7 100644
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -26,6 +26,9 @@
->   #include <xen/spinlock.h>
->   #include <public/domctl.h>
->   #include <public/hvm/ioreq.h>
-> +#ifdef CONFIG_ACPI
-> +#include <asm/acpi.h>
-> +#endif
->   #include <asm/device.h>
->   
->   TYPE_SAFE(uint64_t, dfn);
-> @@ -219,7 +222,8 @@ int iommu_dt_domain_init(struct domain *d);
->   int iommu_release_dt_devices(struct domain *d);
->   
->   /*
-> - * Helper to add master device to the IOMMU using generic IOMMU DT bindings.
-> + * Helpers to add master device to the IOMMU using generic (PCI-)IOMMU
-> + * DT bindings.
->    *
->    * Return values:
->    *  0 : device is protected by an IOMMU
-> @@ -228,12 +232,28 @@ int iommu_release_dt_devices(struct domain *d);
->    *      (IOMMU is not enabled/present or device is not connected to it).
->    */
->   int iommu_add_dt_device(struct dt_device_node *np);
-> +int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev);
->   
->   int iommu_do_dt_domctl(struct xen_domctl *, struct domain *,
->                          XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
->   
-> +#else /* !HAS_DEVICE_TREE */
-> +static inline int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-> +{
-> +    return 0;
-Shouldn't this return an error because we wouldn't be able to add the 
-Device?
-
-> +}
->   #endif /* HAS_DEVICE_TREE */
->   
-> +static inline int iommu_add_pci_sideband_ids(struct pci_dev *pdev)
-> +{
-> +    int ret = 0;
-
-Same here.
-
-> +#ifdef CONFIG_ACPI
-> +    if ( acpi_disabled )
-> +#endif
-> +        ret = iommu_add_dt_pci_sideband_ids(pdev);
-> +    return ret;
-> +}
-> +
->   struct page_info;
->   
->   /*
+But, QEMU 7.0 seems to pass the test, even with a start-stop loop of 200
+iteration. So I'll try to find out if something change in that range.
+Or try to find out why would the thread pool be not initialised
+properly.
 
 Cheers,
 
 -- 
-Julien Grall
+Anthony PERARD
 
