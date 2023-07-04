@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1442E747815
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 19:58:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558602.872846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7512A747843
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 20:25:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558606.872857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGkHi-0002U8-7W; Tue, 04 Jul 2023 17:57:54 +0000
+	id 1qGkgs-0005uO-89; Tue, 04 Jul 2023 18:23:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558602.872846; Tue, 04 Jul 2023 17:57:54 +0000
+Received: by outflank-mailman (output) from mailman id 558606.872857; Tue, 04 Jul 2023 18:23:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGkHi-0002Rw-4m; Tue, 04 Jul 2023 17:57:54 +0000
-Received: by outflank-mailman (input) for mailman id 558602;
- Tue, 04 Jul 2023 17:57:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1/Zo=CW=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
- id 1qGkHg-0002Rq-G8
- for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 17:57:52 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4aff86c3-1a94-11ee-b237-6b7b168915f2;
- Tue, 04 Jul 2023 19:57:51 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-51d9695ec29so5676780a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 04 Jul 2023 10:57:51 -0700 (PDT)
+	id 1qGkgs-0005s9-5P; Tue, 04 Jul 2023 18:23:54 +0000
+Received: by outflank-mailman (input) for mailman id 558606;
+ Tue, 04 Jul 2023 18:23:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qGkgq-0005s0-6d
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 18:23:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qGkgp-0007XI-EN; Tue, 04 Jul 2023 18:23:51 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234] helo=[192.168.9.70])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qGkgp-0007hD-8X; Tue, 04 Jul 2023 18:23:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,70 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4aff86c3-1a94-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688493471; x=1691085471;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=1I+xLxqpcwpQEj1PAi8T1l+y6v0OvsrHvpN+d3/7Ah8=;
-        b=zEhlq1uOikgZZPpqfSX3RUp/JLFryJ5j12vPixlTa9VlCrBGZgWrvX3+NGHyYf0xy9
-         ok17VW4ZSRvwogXoy7HZwGx1gEQHwGudp2NqNbbLIpZ6SRhlWjCWSnMjbwfJZeWeln9J
-         drFJg7fuJmvBA5B9i8QHpO0oKzwtTuRPA3p8jGjid8tEsrcIILyS65UGhRemr8WayNML
-         hMCRnEgkvtv+PEYQqiQxHmxwDC373pXS0XCJAxmrwn0AwMvV2H57nauIhR+hrZ7dU/+8
-         /dbfQsQJq95GO6NDGZaNkDdVkMepJlDoltLKBs5AENv/t1moDYB0dr58jyMoOVGUgTKO
-         AD1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688493471; x=1691085471;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1I+xLxqpcwpQEj1PAi8T1l+y6v0OvsrHvpN+d3/7Ah8=;
-        b=Emi3dcpDo4phzFomNRky32CaWm4BvWzKNLsSAjAmPnQIukggiI91Biagt159pqJVhv
-         eQwaQzmCC2NRu6FKDTqrcwDKtJTbV6XN8/4jxG6nZA/uwoTygTeq3H3gvSGadG3qzhiY
-         iao47dTkkkK90CiPlC5r28MfIl5atxEfkZpTLgUSdsFElSQVWFGRMGXT3Uug2fBwPLkh
-         sLHPLXcEfDO3fgdxFLMpGM4BwHk1KZ1jXfoyigOkrv2El3BPBl6oks6OyYTM8joy6wlw
-         lPm9D+aRPWepfiBn70i7oRbHjrEMTJkGGBWsXh+Oau5D+AhfR+51nf80Md0In/Errc6L
-         Vr3g==
-X-Gm-Message-State: ABy/qLbwX91YoxP0nS/QKzMnvyfaTkAGtgXiUZJzxgjtYOTFjaCfj+Lb
-	3SMtOqS3Ysu8Ye1PHvy4u6UON3wMw7xxtoi4ISQOyQ==
-X-Google-Smtp-Source: APBJJlGcs7caUQUsTleNGcLmtaux9I042ZlS9fWvoL40hBRfqnl4dt2f/GMcXSQ3ze27JqjnGyfbPHY71TEney6NKtc=
-X-Received: by 2002:a05:6402:1253:b0:51e:126a:403a with SMTP id
- l19-20020a056402125300b0051e126a403amr3572849edw.13.1688493470741; Tue, 04
- Jul 2023 10:57:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Y0aX9g9aRpkUunebuDtkqLKcZeL4ngk737CZD7anojM=; b=FjigqDh/aLpa7QZHDOzCPgAWfS
+	en5IARejf30YixT+hJHQqHsdglObinxBNedEnvWolaEu+6S4BC2EZfV5lRGXTRmIECtTPlItha9xe
+	dW/XU9hvDVlXboz4BgD47+sHAC8qNqfkN3t7EnrW5tGCheWdoDJxdV6kfr3764lUrIbs=;
+Message-ID: <0b332497-ae42-1356-67d5-1a46ace11b01@xen.org>
+Date: Tue, 4 Jul 2023 19:23:49 +0100
 MIME-Version: 1.0
-References: <20230704171819.42564-1-anthony.perard@citrix.com>
-In-Reply-To: <20230704171819.42564-1-anthony.perard@citrix.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Tue, 4 Jul 2023 18:57:39 +0100
-Message-ID: <CAFEAcA_okj_rH3RR_a7BrOsxxEWBQGa7bGDXK1OrwCD9izVaDg@mail.gmail.com>
-Subject: Re: [PATCH] xen-block: Avoid leaks on new error path
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, 
-	xen-devel@lists.xenproject.org, qemu-block@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH] xen/arm: grant-table: Correct the prototype of the arch
+ helpers
+Content-Language: en-US
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Luca Fancellu <Luca.Fancellu@arm.com>,
+ "michal.orzel@amd.com" <michal.orzel@amd.com>,
+ Henry Wang <Henry.Wang@arm.com>, Julien Grall <jgrall@amazon.com>,
+ "federico.serafini@bugseng.com" <federico.serafini@bugseng.com>
+References: <20230629210150.69525-1-julien@xen.org>
+ <B186E9AD-1DBE-41B2-ADE9-850F1ACC4078@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <B186E9AD-1DBE-41B2-ADE9-850F1ACC4078@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 4 Jul 2023 at 18:19, Anthony PERARD <anthony.perard@citrix.com> wrote:
->
-> From: Anthony PERARD <anthony.perard@citrix.com>
->
-> Commit 189829399070 ("xen-block: Use specific blockdev driver")
-> introduced a new error path, without taking care of allocated
-> resources.
->
-> So only allocate the qdicts after the error check, and free both
-> `filename` and `driver` when we are about to return and thus taking
-> care of both success and error path.
->
-> Coverity only spotted the leak of qdicts (*_layer variables).
->
-> Reported-by: Peter Maydell <peter.maydell@linaro.org>
-> Fixes: Coverity CID 1508722, 1398649
-> Fixes: 189829399070 ("xen-block: Use specific blockdev driver")
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Hi Bertrand,
 
-Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+On 04/07/2023 15:35, Bertrand Marquis wrote:
+>> On 29 Jun 2023, at 23:01, Julien Grall <julien@xen.org> wrote:
+>>
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> Both the stub and the x86 prototypes for replace_grant_host_mapping()
+>> and create_grant_host_mapping() will define the first parameter (and
+>> third for the former) as uint64_t. Yet Arm will define it as
+>> 'unsigned long'.
+>>
+>> While there are no differences for 64-bit, for 32-bit it means
+>> that the address should be truncated as 32-bit guest could support
+>> up to 40-bit addresses.
+>>
+>> So replace 'unsigned long' with 'uint64_t' for the first parameter
+>> (and third parameter for replace_grant_host_mapping()).
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-thanks
--- PMM
+Thanks. It is now committed.
+
+Cheers,
+
+-- 
+Julien Grall
 
