@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 315E7747078
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 14:08:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558303.872266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A8E74707E
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 14:11:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558309.872276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGeot-0002VA-Gl; Tue, 04 Jul 2023 12:07:47 +0000
+	id 1qGes0-0003yr-1U; Tue, 04 Jul 2023 12:11:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558303.872266; Tue, 04 Jul 2023 12:07:47 +0000
+Received: by outflank-mailman (output) from mailman id 558309.872276; Tue, 04 Jul 2023 12:11:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGeot-0002ST-DT; Tue, 04 Jul 2023 12:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 558303;
- Tue, 04 Jul 2023 12:07:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qGerz-0003xC-Uq; Tue, 04 Jul 2023 12:10:59 +0000
+Received: by outflank-mailman (input) for mailman id 558309;
+ Tue, 04 Jul 2023 12:10:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=D/z2=CW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qGeos-0002SN-6a
- for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 12:07:46 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0612.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::612])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6165f03a-1a63-11ee-b237-6b7b168915f2;
- Tue, 04 Jul 2023 14:07:43 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AS8PR04MB9125.eurprd04.prod.outlook.com (2603:10a6:20b:448::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
- 2023 12:07:41 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
- 12:07:41 +0000
+ (envelope-from <julien@xen.org>) id 1qGery-0003x3-0j
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 12:10:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qGerx-000753-KF; Tue, 04 Jul 2023 12:10:57 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qGerx-0002Fd-EX; Tue, 04 Jul 2023 12:10:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,133 +39,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6165f03a-1a63-11ee-b237-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZrrvMp8y5SpqvHziuIW8e9ZrRLRoPHom9s4xk/YBEWs5km3UcyJl2+ATa3wHMDcFTZAITQUN/Puk2Hym1myA47RkbI1qlJeQl5JajTLr1K32LTwIy2lMkIhrnU8X8hHBzmnnTVPRJAWEH1WSLYnF803m29ypzYRkJKHZuxy7iEP609mVXGuFStLUIlOmrYv1gdaDHuvI1tCuySB3vpNAOOlqT8VkJMu0vhZJkXPvUgy2V1oHRPKzbpo/IpfT6dTIZl3kKmv0/wLg2WOPqe7bZPIvKwO9cuj5vU7X4bz48n3z7Lwfcg6GeZe43jpdy0N6LSfCT0uX9WI1OwnAeO9DhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0qz0Ee1j86xIJGrzBSV/HnDcjBMkJZpToooyiz0wtQo=;
- b=DVngeMZbVrKSyMViuzQnRx9P74YGDgVoD0e4WyFZ+SHHjgXUGaPUwM2CjwdsIxMFmnJ+9OcqJ1qMlexrripPSeWhhIj4RfEf4D0mZ/wEf1mgRJWTtyb5vPqdYDqOY9NqJ4F2SNKhcEg56veqYxL1txGSU06xm9wN3EKY8Wrlgvh6PAyyqiyxfEFO9HZCRSOlR9QygWiNgoxfjtk8LQx6ymf6PDd+ELU1dsumgsoBjR1ybBceJt/RL7LcVIoaCGWDjhCSAd0WrP7nXZmYTGJTuUyyobkh6emU9rM0+TchMZIOmp1GuWpIzqHm57+j/vzOFvlkCrFn6ntToZWsuFE3yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0qz0Ee1j86xIJGrzBSV/HnDcjBMkJZpToooyiz0wtQo=;
- b=YxbPP+LdQ6/ON3uSNCIdxSwVFbnHjyTo3+bVqgHQlmyqnxDwLYzQIjmIqadeW8DywPvHysSC4lhWGtTII/+6fN/VhjG0FgLwg/Iypka1hooYi/18+jWQJfYYWdE/ttWY90lQVMaIICIyx6htYLdjLyhHt/rqJ0QHH4fISIh82mRgg/wkHAOv6Yx5drlzTH/nLAfld07ngETiAtNkZqEEhBQW6VDj76HgNIJiwFvS1tqEgsGPFEnmO8sDmz9lk7tl2Hghm4Kn9AHeVmmaRTRPfTa9hDvQHGBwRd6ihSysSymga43ca+VQUHynRl7JyGxqWsxnINcizoQeUfLi62zIwQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c11f1c6a-795d-2245-0571-ea956f7881d2@suse.com>
-Date: Tue, 4 Jul 2023 14:07:47 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v3] xen: speed up grant-table reclaim
-Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- stable@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-References: <20230627172216.1359-1-demi@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230627172216.1359-1-demi@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0201.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ad::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=0+NlS8i1p9v08aRSXry7rnarwsmM8IY/lH+nDOMKUf4=; b=B2AMI7eXQ3/t0m2C78bS0eOo5y
+	z+Uhmlftz8XGYQeyRvIN2hJit8x3qYxTcti/d3QB5iyQ3wyYTf2jzZfIMMT6kXsVKqV6WUNdpsPSz
+	oUwlDK7ugaWc9NaSAMbTqYmBom0YwDeGY6xmD39KHxVADDTRPTv3HzbvowpL/wzfJZiw=;
+Message-ID: <f6bed109-f6da-fd0b-bd5b-077a57a04563@xen.org>
+Date: Tue, 4 Jul 2023 13:10:55 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB9125:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82306e69-13bf-497c-52ee-08db7c874448
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NJzCE91NMvGnE5tj1xskNk7hGUDCCs9Lj5Mgcts+SYrLABUIs92x9ouBMI+Vcg2y/ePSlzCZPjW+xAloFEbhvj17+51o77JvjlXIwLYLIUGnWgx2RmQHiVzO+S+VvtUCblF0XhhZbbYjN/t/53IRPnAHG9hOPT4Cujv+gMrf83Kes9bPU21en6LAt7oEr1DwWEL/PeWbVv3iMpBL2f9VtpF+JTR4CEHZRCMeqg0N8cSySgl6TBapCyA4qkoevkGG9m4SbR0PUM9LNsZyfb15wbvXxy3i50iXDNfuzBo32YK2qsW2boi+jjBJhybMWAtOmM2akdY2K8ltYnD7foZ/HZM2qalQKz3ykyhW2z8D3wUpbaFnuZ1sqy4qHtXs0rC9NGUq/p3UFPAZIlyqyX0ecn7eBluaYbIuA4twGDfcC2sLH4yyuLU+caCm94q9fu/Z8jxfv+QFRgdwvaZBV+GoAqyrrhKjxcU5YXRTZzf9cK0Pum/JqDKDvA2/tzYe24zB3kItgrA5DjWcXvltEJdPM37vzeDsgGBW1gJ9sLeXisx8Nzl4jXr+sjs7eC1seq37KbhZflPUIvUUk0p9Uy005Fa89xujH0JRWbUnw4LZOTchxBVTgdRlL57ZA1iInKqliRS8qBlm7NmDhJDvKaSwQQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(39860400002)(396003)(376002)(136003)(346002)(451199021)(2906002)(41300700001)(8676002)(5660300002)(8936002)(36756003)(31696002)(86362001)(186003)(2616005)(26005)(478600001)(6512007)(6506007)(31686004)(6486002)(53546011)(316002)(66476007)(6916009)(4326008)(66556008)(66946007)(54906003)(38100700002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVF3ZTdQcFdmb2JhQWRpRmtSVWx2ejA3aDZCUWZhVjdIeEorZWU1WEs0cEhX?=
- =?utf-8?B?K09seGc1NjNIdFFyL3FjZFZPeEE2dHNac2VJODBWV2dYaEZqeC9DMkk1UDI0?=
- =?utf-8?B?UjJycnE3U0xhOWJyTWVtWkVSdnlON0ZIVHBDWi94YWY1WVU2cFYwUkdjcXp4?=
- =?utf-8?B?SWQ0WGZnSXpzaEZwMlJoVlB1YTVuWmtRS0x5bVZDSnlsbWh4UzFqOVRqVk5N?=
- =?utf-8?B?VHRQWHVZeExoWDNzSkNqd1hkYS8yNnFOR2lkSXRhN1JzYWliVWxrTVpzOWVw?=
- =?utf-8?B?TjZBcFQrWjhYbUNZLzcxUDk2NTRmRERlNER2N3BzOGI5YnFpdFlNTFJCYkZY?=
- =?utf-8?B?KzdLTXVQR0NONzI3RjdzeDNDNkI3Uks0S3ROdVRlWU5saHc1aFNmSDRvbnJv?=
- =?utf-8?B?QjBlRENrVTBCUDBhZW04QlFHT09zSlVkdllSU2tidlpMVzRCN1M5SzhmTEsy?=
- =?utf-8?B?dUo1bk5JVkRqVHJyQnZhSjhlZnRrRW94bHJxYkREOHlXY1EyNW1XQnNDU3Qv?=
- =?utf-8?B?OFFuNHBhYmdCRW9oM2QvZGtJRHErdEVuQVQzeWNqbkNFWkNaZGl0Z1FzeFo1?=
- =?utf-8?B?OUpYdEQrZEhoWjF3VGcrZ2JRWFUwSVlnRXdKRnQrY3F0NGo1NWNIOEcvMlN0?=
- =?utf-8?B?VmpFcGp1dDByM1BXbkpSc1hKVlFHMldtSWlqa2xTTzVWQWJwNUR1ZXpwT3Zk?=
- =?utf-8?B?ZFRNUFhTa0hNTGl1cXFLMDREOW1yTDRQQkV3RjR0MUl5Y0paeUV3YmNHZkVU?=
- =?utf-8?B?ejEvTE1NV0h5U3YrQlUyUjR3RjFZWTRmeGxpUm9LazNWWGZYRHdPTFlsWUY0?=
- =?utf-8?B?T3h3SUZlMTJSaUZFN2RpYUpXVmRGcEdubksxVlE2c2tiY3drRXYrdXQvZzNn?=
- =?utf-8?B?L1dEWTFJc2dDVThZTmRycWdsayt2Yno1Zkh1UGwrZzQ1VnY5RnBsZDVhaDcr?=
- =?utf-8?B?VzE1TUxJRUNadDhJSVorRlYxeldwYzUrRXljRkJPRFlDT0FReEcweFVkeFNP?=
- =?utf-8?B?bW5KRmNSc1E4S2RhektSUnpXeW1QWWtQcFBGeTNEbWg5OVV2anFvSjFGcmVL?=
- =?utf-8?B?Z3k4K3cxYlFOREd2SGVoSmF5NjZPaUgvelJVK0Qxemc0NnJ0OG53aS8xSm83?=
- =?utf-8?B?SFRLZFZ5TUlVVXc3NzdDTzVOcXdLT3B6dVBKNWJMYXFyNk0wMlJVK0VNb244?=
- =?utf-8?B?anV4b1pZcmw1UmlsQ0dCZ0xyRkloWmFGeGE2QVFnRHBRL1A1cEExSjgvRWNS?=
- =?utf-8?B?QUlkaWo5V1pVTG9CNFVzM05Oa2swaVNaQ3BzRmN2RFBocDRvZ0Rtak9PZFpR?=
- =?utf-8?B?bmxQRHVkb29YMWJFTkhlQW9iYytYdHNaNE9SR0xFRUcwYmM4dEdMaGFpK3hH?=
- =?utf-8?B?c21BaWV5M1JhR2xOdlFWNktscmpMZXdTcHZRTmdQVXhaazBLcnh2Ym1CMFBC?=
- =?utf-8?B?ck44bHJGTFRpTFUzRXpTeStQZEZOTWdZTzdxeVdOVCtOeDh1VTh1dnBzRXZu?=
- =?utf-8?B?Yk1PcHc4d3FPL1RwMkE0YTdScWpKY3RyWm1wd3lBSDlvMmFrOXk0cUwrYTFM?=
- =?utf-8?B?bUpCNWV0KzlhdEpSTmoxMURrZlhzdHNDd3dMZkMvRkhUZHRMMmxDenlFSjg5?=
- =?utf-8?B?MmZnZzBrZXordGpwTTlxWEZBSWtmSTI5WG9UYWI4WU5iaklCQS9VUUhKQzVK?=
- =?utf-8?B?YmVKai9QcmVaYlZHZHZEdmJEOUY4aU5iZWlUM0ZpRnZQdlRna2pQZks2MXF2?=
- =?utf-8?B?M0tYcnVqZk1BYm9GRjFIelNhaVdRcFluYnpHUUpXN0lBMWxnUElnTTdYcHdu?=
- =?utf-8?B?dDBlcE1WVHMzTkk5VkZpRm5IWGRKUk5iNnFpei9YU205QUY2NkxHT0lHV0xD?=
- =?utf-8?B?eEE3Y0dqdWdMQUlSMTJQbmdUdllKeklQdldIU0EvbkhCbFpQTzhzUklmRUVC?=
- =?utf-8?B?ckdxeEtJUWorMngwTTIzajNncGVKSExLd3ZZekxRaUpUZGc5ejRIKzFtdFdy?=
- =?utf-8?B?VWE2ZnRlcHRqOUdiYkJFUFAwMHdQOVcwU2VEYVVERkU2b3Q1WmtGMkdCSzJj?=
- =?utf-8?B?V211anlKVUh6VFdERGNOK2x6ZHZkUU1lbTZLUERZakRzY0VMMmZKL2doWGFm?=
- =?utf-8?Q?Y4UDppws+b2EZdIeiDXu2l4ez?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82306e69-13bf-497c-52ee-08db7c874448
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 12:07:41.2205
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xJV62KrS4qg4GuebwqjRxegd+w56YZImDg1btei5ax5owMe51Z0IbOm899TNSXfnfl4jHauTs/W9VdIc0x2ebw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9125
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 03/52] xen/arm: add an option to define Xen start
+ address for Armv8-R
+Content-Language: en-US
+To: Ayan Kumar Halder <ayankuma@amd.com>, Penny Zheng <Penny.Zheng@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+ <20230626033443.2943270-4-Penny.Zheng@arm.com>
+ <cb7e3d34-bbb8-e5df-f87b-0fcac4b65378@amd.com>
+ <77c64929-514a-ea67-cf8b-176c895ff971@xen.org>
+ <682fdfab-b755-e580-7688-3dc0c0e3779e@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <682fdfab-b755-e580-7688-3dc0c0e3779e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 27.06.2023 19:22, Demi Marie Obenour wrote:
-> When a grant entry is still in use by the remote domain, Linux must put
-> it on a deferred list.  Normally, this list is very short, because
-> the PV network and block protocols expect the backend to unmap the grant
-> first.  However, Qubes OS's GUI protocol is subject to the constraints
-> of the X Window System, and as such winds up with the frontend unmapping
-> the window first.  As a result, the list can grow very large, resulting
-> in a massive memory leak and eventual VM freeze.
-> 
-> To partially solve this problem, make the number of entries that the VM
-> will attempt to free at each iteration tunable.  The default is still
-> 10, but it can be overridden at compile-time (via Kconfig), boot-time
-> (via a kernel command-line option), or runtime (via sysfs).
-> 
-> This is Cc: stable because (when combined with appropriate userspace
-> changes) it fixes a severe performance and stability problem for Qubes
-> OS users.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 
-Why am I _still_ - after two earlier private questions to the same
-effect - on the To: list of this submission? Please can you respect
-other people's time and interests and properly follow patch
-submission rules, applying common sense when (like has been the
-case in the past for Linux) those rules result in overly broad sets
-of people.
 
-Jan
+On 04/07/2023 13:02, Ayan Kumar Halder wrote:
+> 
+> On 04/07/2023 12:47, Julien Grall wrote:
+>>
+>>
+>> On 04/07/2023 11:36, Ayan Kumar Halder wrote:
+>>> Hi Penny,
+>>
+>> Hi Ayan,
+> Hi Julien,
+>>
+>>> On 26/06/2023 04:33, Penny Zheng wrote:
+>>>> CAUTION: This message has originated from an External Source. Please 
+>>>> use proper judgment and caution when opening attachments, clicking 
+>>>> links, or responding to this email.
+>>>>
+>>>>
+>>>> From: Wei Chen <wei.chen@arm.com>
+>>>>
+>>>> On Armv8-A, Xen has a fixed virtual start address (link address
+>>>> too) for all Armv8-A platforms. In an MMU based system, Xen can
+>>>> map its loaded address to this virtual start address. So, on
+>>>> Armv8-A platforms, the Xen start address does not need to be
+>>>> configurable. But on Armv8-R platforms, there is no MMU to map
+>>>> loaded address to a fixed virtual address and different platforms
+>>>> will have very different address space layout. So Xen cannot use
+>>>> a fixed physical address on MPU based system and need to have it
+>>>> configurable.
+>>>>
+>>>> In this patch we introduce one Kconfig option for users to define
+>>>> the default Xen start address for Armv8-R. Users can enter the
+>>>> address in config time, or select the tailored platform config
+>>>> file from arch/arm/configs.
+>>>>
+>>>> And as we introduced Armv8-R to Xen, that means the existed Arm64
+>>>> MMU based platforms should not be listed in Armv8-R platform
+>>>> list, so we add !HAS_MPU dependency for these platforms.
+>>>>
+>>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>>> ---
+>>>> v1 -> v2:
+>>>> 1. Remove the platform header fvp_baser.h.
+>>>> 2. Remove the default start address for fvp_baser64.
+>>>> 3. Remove the description of default address from commit log.
+>>>> 4. Change HAS_MPU to ARM_V8R for Xen start address dependency.
+>>>>     No matter Arm-v8r board has MPU or not, it always need to
+>>>>     specify the start address.
+>>>> ---
+>>>> v3:
+>>>> 1. Remove unrelated change of "CONFIG_FVP_BASER"
+>>>> 2. Change ARM_V8R to HAS_MPU for Xen start address dependency
+>>>> ---
+>>>>   xen/arch/arm/Kconfig           | 8 ++++++++
+>>>>   xen/arch/arm/platforms/Kconfig | 8 +++++---
+>>>>   2 files changed, 13 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>>> index 70fdc2ba63..ff17345cdb 100644
+>>>> --- a/xen/arch/arm/Kconfig
+>>>> +++ b/xen/arch/arm/Kconfig
+>>>> @@ -181,6 +181,14 @@ config TEE
+>>>>            This option enables generic TEE mediators support. It 
+>>>> allows guests
+>>>>            to access real TEE via one of TEE mediators implemented 
+>>>> in XEN.
+>>>>
+>>>> +config XEN_START_ADDRESS
+>>>> +       hex "Xen start address: keep default to use platform defined 
+>>>> address"
+>>>> +       default 0
+>>>> +       depends on HAS_MPU
+>>>> +       help
+>>>> +         This option allows to set the customized address at which 
+>>>> Xen will be
+>>>> +         linked on MPU systems. This address must be aligned to a 
+>>>> page size.
+>>>> +
+>>>>   source "arch/arm/tee/Kconfig"
+>>>>
+>>>>   config STATIC_SHM
+>>>> diff --git a/xen/arch/arm/platforms/Kconfig 
+>>>> b/xen/arch/arm/platforms/Kconfig
+>>>> index c93a6b2756..75af48b5f9 100644
+>>>> --- a/xen/arch/arm/platforms/Kconfig
+>>>> +++ b/xen/arch/arm/platforms/Kconfig
+>>>> @@ -1,6 +1,7 @@
+>>>>   choice
+>>>>          prompt "Platform Support"
+>>>>          default ALL_PLAT
+>>>> +       default NO_PLAT if HAS_MPU
+>>>
+>>> I am a bit concerned about this as we will be introducing R52 
+>>> specific platform in xen/arch/arm/platforms/
+>>>
+>>> (For eg 
+>>> https://github.com/Xilinx/xen/blob/xlnx_rebase_4.17/xen/arch/arm_mpu/platforms/amd-versal-net.c )
+>>>
+>>> Thus, we will have to remove this line at that time.
+>>>
+>>> Can you remove this line, please if it does not cause any issue ?
+>>
+>> From my understanding of the discussion at Xen Summit, most of the 
+>> platform specific code would be moved to something similar to 
+>> bootwrapper.
+> 
+> Yes, but I think bootwrappers are now deprecated.
+
+They are still used on FVP to boot without UEFI/U-boot.
+
+> 
+> At least 
+> git://git.kernel.org/pub/scm/linux/kernel/git/cmarinas/boot-wrapper-aarch64.git does not seem to be active and https://github.com/artagnon/boot-wrapper-aarch64 looks archived.
+I expect bootwrappers to be fairly stable. So I am not entirely 
+surprised that it is not "active".
+
+> 
+>>
+>> So do you still actually need to have code in Xen for setting up the 
+>> timer?
+> 
+> I think we can ignore it for now.
+> 
+> Just for information, we are using the platform specific code to achieve 
+> the following :-
+> 
+> 1. Set up the timer and CNTFRQ
+> 
+> 2. Set up the secondary boot address and start the secondary cores.
+
+This sounds like code that could be added in bootwrapper (or similar). 
+So Xen (or any other OS/kernel) can share the logic and can rely on 
+spin-table/PSCI for SMP bring-up.
+
+Cheers,
+
+-- 
+Julien Grall
 
