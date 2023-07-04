@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E677479A7
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 23:41:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558721.873064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A05CF7479AE
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Jul 2023 23:47:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558727.873074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGnlS-0003Dt-Kt; Tue, 04 Jul 2023 21:40:50 +0000
+	id 1qGnr3-0003pJ-Au; Tue, 04 Jul 2023 21:46:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558721.873064; Tue, 04 Jul 2023 21:40:50 +0000
+Received: by outflank-mailman (output) from mailman id 558727.873074; Tue, 04 Jul 2023 21:46:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGnlS-0003AY-I9; Tue, 04 Jul 2023 21:40:50 +0000
-Received: by outflank-mailman (input) for mailman id 558721;
- Tue, 04 Jul 2023 21:40:49 +0000
+	id 1qGnr3-0003mz-84; Tue, 04 Jul 2023 21:46:37 +0000
+Received: by outflank-mailman (input) for mailman id 558727;
+ Tue, 04 Jul 2023 21:46:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGnlQ-0003AO-V0; Tue, 04 Jul 2023 21:40:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qGnr1-0003mt-HV
+ for xen-devel@lists.xenproject.org; Tue, 04 Jul 2023 21:46:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGnlQ-0003oS-LW; Tue, 04 Jul 2023 21:40:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGnlQ-0003ux-5t; Tue, 04 Jul 2023 21:40:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qGnlQ-00088p-5N; Tue, 04 Jul 2023 21:40:48 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qGnr0-0003uY-TO; Tue, 04 Jul 2023 21:46:34 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234] helo=[192.168.9.70])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qGnr0-0007mb-M2; Tue, 04 Jul 2023 21:46:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +39,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Ysn3Cjrw+1NG6RRA+rRjkneOmvZtzx/IjLNC5zgvEt8=; b=JyG5bDKCDsKi2Gq0+SNvaLzuAk
-	Xvn91g0b9wMV4uEb7JKaWlTTyDp+UGeSuC1PSaEusTHgmVeS3o2fQ5e1SvXSfquN8oTBGiqCGdEQF
-	/Zd4LRxNvO2Q9Usizuv3jaGAIIrmJae1rAZPdCF7Uf2g6CN1i2kPntKlD6Vcmm0eVD1g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181697-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=mgq6h4XSKoOlq0FL4kJcBME6t+7iXrA3rBtUkkKjczA=; b=LPBclirkZn67y/OCBgx5r75FoH
+	8fh+gzdEtYjIoDzFi3kVn4MpX1A4Ay5igd/puhuZSnvVoqFvWDzJ1HVFcBipHH70o0cBvkOnwHxV2
+	OPShaL82g0E1NBqQkZbRQv+Y3Hdxfq+WQl248Yb3fNQkuc34GctwxcK+9xQqjmgdCsbw=;
+Message-ID: <39187006-6220-4b76-ada4-9e5be72b60fe@xen.org>
+Date: Tue, 4 Jul 2023 22:46:32 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 181697: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=abb1522832bb2ef340a56681d486dce51d2f9971
-X-Osstest-Versions-That:
-    xen=6e06d229d538ea51b92dc189546c522f5e903511
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 Jul 2023 21:40:48 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 08/52] xen/arm64: move MMU related code from head.S to
+ mmu/head.S
+Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+ <20230626033443.2943270-9-Penny.Zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230626033443.2943270-9-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 181697 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181697/
+Hi Penny,
 
-Failures :-/ but no regressions.
+On 26/06/2023 04:33, Penny Zheng wrote:
+> From: Wei Chen <wei.chen@arm.com>
+> 
+> There are lots of MMU specific code in head.S. This code will not
+> be used in MPU systems. If we use #ifdef to gate them, the code
+> will become messy and hard to maintain. So we move MMU related
+> code to mmu/head.S, and keep common code still in head.S. We also
+> add .text.idmap in mmu/head.S to make all code in this new file
+> are still in identity map page but will be linked after head.S.
+> 
+> As "fail" in head.S is very simple and this name is too easy to
+> be conflicted, so duplicate it in mmu/head.S instead of exporting
+> it.
+> 
+> And some assembly macros that will be shared by MMU and MPU later,
+> we move them to macros.h.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+Aren't those macros already shared between head.S and mmu/head.S?
 
-version targeted for testing:
- xen                  abb1522832bb2ef340a56681d486dce51d2f9971
-baseline version:
- xen                  6e06d229d538ea51b92dc189546c522f5e903511
+> 
+> Rename enable_boot_mmu()/enable_runtime_mmu() to a more generic name
+> enable_boot_mm()/enable_runtime_mm(), in order to make them common interfaces
+> to be used for both MMU and later MPU system.
 
-Last test of basis   181694  2023-07-04 11:03:36 Z    0 days
-Testing same since   181697  2023-07-04 19:01:56 Z    0 days    1 attempts
+As mentionned in an earlier patch, I would prefer if the name was 
+correct from the beginning. So this patch will be merely code movement.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Henry Wang <Henry.Wang@arm.com>
-  Julien Grall <jgrall@amazon.com>
-  Stefano Stabellini <sstabellini@kernel.org>
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I think this will need a rebase on top of the recent changes in head.S.
 
+> diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
+> index 54ad55c75c..0c4b177be9 100644
+> --- a/xen/arch/arm/arm64/Makefile
+> +++ b/xen/arch/arm/arm64/Makefile
+> @@ -8,6 +8,9 @@ obj-y += domctl.o
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+[...]
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> -/*
+> - * Macro to print the value of register \xb
+> - *
+> - * Clobbers x0 - x4
+> - */
+> -.macro print_reg xb
+> -        mov   x0, \xb
+> -        mov   x4, lr
+> -        bl    putn
+> -        mov   lr, x4
+> -.endm
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I can't find any use of print_reg() in mmu/head.S. So is it necessary to 
+move right now?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+[...]
 
+> diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+> new file mode 100644
+> index 0000000000..2b209fc3ce
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/mmu/head.S
+> @@ -0,0 +1,453 @@
+> +/*
+> + * xen/arch/arm/mmu/head.S
+> + *
+> + * Start-of-day code for an ARMv8.
+> + *
+> + * Ian Campbell <ian.campbell@citrix.com>
+> + * Copyright (c) 2012 Citrix Systems.
+> + *
+> + * Based on ARMv7-A head.S by
+> + * Tim Deegan <tim@xen.org>
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
 
-Pushing revision :
+For new file (even split code), please use the SPDX tag. In this case, 
+the following line should be added at the top of the file:
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   6e06d229d5..abb1522832  abb1522832bb2ef340a56681d486dce51d2f9971 -> smoke
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+
+Cheers,
+
+-- 
+Julien Grall
 
