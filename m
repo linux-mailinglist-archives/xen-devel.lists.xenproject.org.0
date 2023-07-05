@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEDB0748804
+	by mail.lfdr.de (Postfix) with ESMTPS id 006DE748805
 	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 17:27:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559317.874287 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.559319.874297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH4Pf-0004Gx-V7; Wed, 05 Jul 2023 15:27:27 +0000
+	id 1qH4Ph-0004bs-IJ; Wed, 05 Jul 2023 15:27:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559317.874287; Wed, 05 Jul 2023 15:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 559319.874297; Wed, 05 Jul 2023 15:27:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH4Pf-0004E6-Nb; Wed, 05 Jul 2023 15:27:27 +0000
-Received: by outflank-mailman (input) for mailman id 559317;
- Wed, 05 Jul 2023 15:27:25 +0000
+	id 1qH4Ph-0004VM-CN; Wed, 05 Jul 2023 15:27:29 +0000
+Received: by outflank-mailman (input) for mailman id 559319;
+ Wed, 05 Jul 2023 15:27:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yX3c=CX=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qH4Pd-0001jW-MY
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 15:27:25 +0000
+ id 1qH4Pe-0001jW-KZ
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 15:27:26 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70dc1d4e-1b48-11ee-8611-37d641c3527e;
- Wed, 05 Jul 2023 17:27:24 +0200 (CEST)
+ id 7164c290-1b48-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 17:27:25 +0200 (CEST)
 Received: from beta.bugseng.com (unknown [37.163.248.64])
- by support.bugseng.com (Postfix) with ESMTPSA id CFD1E4EE0C9B;
- Wed,  5 Jul 2023 17:27:22 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 1E4744EE0C9D;
+ Wed,  5 Jul 2023 17:27:24 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,26 +39,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70dc1d4e-1b48-11ee-8611-37d641c3527e
+X-Inumbo-ID: 7164c290-1b48-11ee-8611-37d641c3527e
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Gianluca Luparini <gianluca.luparini@bugseng.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
 	Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH v2 10/13] x86/monitor: fix violations of MISRA C:2012 Rule 7.2
-Date: Wed,  5 Jul 2023 17:26:32 +0200
-Message-Id: <8fd5ef2ace63cfd86e94aafb533a139f2a7d0f96.1688559115.git.gianluca.luparini@bugseng.com>
+Subject: [XEN PATCH v2 11/13] xen/vpci: fix violations of MISRA C:2012 Rule 7.2
+Date: Wed,  5 Jul 2023 17:26:33 +0200
+Message-Id: <4b4fad089f8fc85db19b33524ea6b14b1aef7cbb.1688559115.git.gianluca.luparini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1688559115.git.gianluca.luparini@bugseng.com>
 References: <cover.1688559115.git.gianluca.luparini@bugseng.com>
@@ -82,37 +76,71 @@ Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes in v2:
-- change commit title to make it unique
+- minor change to commit title
 - change commit message
 ---
- xen/arch/x86/monitor.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ xen/drivers/vpci/msi.c  | 2 +-
+ xen/drivers/vpci/msix.c | 2 +-
+ xen/drivers/vpci/vpci.c | 6 +++---
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
-index d4857faf8a..dc336c239a 100644
---- a/xen/arch/x86/monitor.c
-+++ b/xen/arch/x86/monitor.c
-@@ -48,17 +48,17 @@ static unsigned long *monitor_bitmap_for_msr(const struct domain *d, u32 *msr)
+diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+index 8f2b59e61a..7908a5dac6 100644
+--- a/xen/drivers/vpci/msi.c
++++ b/xen/drivers/vpci/msi.c
+@@ -124,7 +124,7 @@ static void cf_check address_hi_write(
+     struct vpci_msi *msi = data;
  
-     switch ( *msr )
-     {
--    case 0 ... 0x1fff:
-+    case 0 ... 0x1fffU:
-         BUILD_BUG_ON(sizeof(d->arch.monitor.msr_bitmap->low) * 8 <= 0x1fff);
-         return d->arch.monitor.msr_bitmap->low;
+     /* Clear and update high part. */
+-    msi->address &= 0xffffffff;
++    msi->address &= 0xffffffffU;
+     msi->address |= (uint64_t)val << 32;
  
--    case 0x40000000 ... 0x40001fff:
-+    case 0x40000000U ... 0x40001fffU:
-         BUILD_BUG_ON(
-             sizeof(d->arch.monitor.msr_bitmap->hypervisor) * 8 <= 0x1fff);
-         *msr &= 0x1fff;
-         return d->arch.monitor.msr_bitmap->hypervisor;
+     update_msi(pdev, msi);
+diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+index 25bde77586..d440ffcd81 100644
+--- a/xen/drivers/vpci/msix.c
++++ b/xen/drivers/vpci/msix.c
+@@ -531,7 +531,7 @@ static int cf_check msix_write(
  
--    case 0xc0000000 ... 0xc0001fff:
-+    case 0xc0000000U ... 0xc0001fffU:
-         BUILD_BUG_ON(sizeof(d->arch.monitor.msr_bitmap->high) * 8 <= 0x1fff);
-         *msr &= 0x1fff;
-         return d->arch.monitor.msr_bitmap->high;
+     case PCI_MSIX_ENTRY_UPPER_ADDR_OFFSET:
+         entry->updated = true;
+-        entry->addr &= 0xffffffff;
++        entry->addr &= 0xffffffffU;
+         entry->addr |= (uint64_t)data << 32;
+         break;
+ 
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index d73fa76302..3bec9a4153 100644
+--- a/xen/drivers/vpci/vpci.c
++++ b/xen/drivers/vpci/vpci.c
+@@ -319,7 +319,7 @@ static void vpci_write_hw(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+ static uint32_t merge_result(uint32_t data, uint32_t new, unsigned int size,
+                              unsigned int offset)
+ {
+-    uint32_t mask = 0xffffffff >> (32 - 8 * size);
++    uint32_t mask = 0xffffffffU >> (32 - 8 * size);
+ 
+     return (data & ~(mask << (offset * 8))) | ((new & mask) << (offset * 8));
+ }
+@@ -402,7 +402,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+         data = merge_result(data, tmp_data, size - data_offset, data_offset);
+     }
+ 
+-    return data & (0xffffffff >> (32 - 8 * size));
++    return data & (0xffffffffU >> (32 - 8 * size));
+ }
+ 
+ /*
+@@ -427,7 +427,7 @@ static void vpci_write_helper(const struct pci_dev *pdev,
+         data = merge_result(val, data, size, offset);
+     }
+ 
+-    r->write(pdev, r->offset, data & (0xffffffff >> (32 - 8 * r->size)),
++    r->write(pdev, r->offset, data & (0xffffffffU >> (32 - 8 * r->size)),
+              r->private);
+ }
+ 
 -- 
 2.41.0
 
