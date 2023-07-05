@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 669E47487FA
+	by mail.lfdr.de (Postfix) with ESMTPS id 782BC7487FB
 	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 17:27:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559310.874247 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.559313.874263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH4Pb-0002yw-4K; Wed, 05 Jul 2023 15:27:23 +0000
+	id 1qH4Pc-0003Qj-V9; Wed, 05 Jul 2023 15:27:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559310.874247; Wed, 05 Jul 2023 15:27:23 +0000
+Received: by outflank-mailman (output) from mailman id 559313.874263; Wed, 05 Jul 2023 15:27:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH4Pa-0002p2-Sn; Wed, 05 Jul 2023 15:27:22 +0000
-Received: by outflank-mailman (input) for mailman id 559310;
- Wed, 05 Jul 2023 15:27:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qH4Pc-0003KV-Nh; Wed, 05 Jul 2023 15:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 559313;
+ Wed, 05 Jul 2023 15:27:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yX3c=CX=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qH4PY-0001UO-U5
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 15:27:20 +0000
+ id 1qH4Pa-0001jW-OY
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 15:27:22 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e568660-1b48-11ee-b237-6b7b168915f2;
- Wed, 05 Jul 2023 17:27:19 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ef988ec-1b48-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 17:27:21 +0200 (CEST)
 Received: from beta.bugseng.com (unknown [37.163.248.64])
- by support.bugseng.com (Postfix) with ESMTPSA id F1CB24EE0C91;
- Wed,  5 Jul 2023 17:27:18 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id C4E454EE073E;
+ Wed,  5 Jul 2023 17:27:19 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,20 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e568660-1b48-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 6ef988ec-1b48-11ee-8611-37d641c3527e
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Gianluca Luparini <gianluca.luparini@bugseng.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
 	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
 	Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH v2 06/13] xen/efi: fix violations of MISRA C:2012 Rule 7.2
-Date: Wed,  5 Jul 2023 17:26:28 +0200
-Message-Id: <9a791b84be74d7ca575eb94e070aae7294d95bbf.1688559115.git.gianluca.luparini@bugseng.com>
+Subject: [XEN PATCH v2 07/13] x86/vmx: fix violations of MISRA C:2012 Rule 7.2
+Date: Wed,  5 Jul 2023 17:26:29 +0200
+Message-Id: <f30ef7c2cda2516d9ef07bb79e5da5513cd90c6c.1688559115.git.gianluca.luparini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1688559115.git.gianluca.luparini@bugseng.com>
 References: <cover.1688559115.git.gianluca.luparini@bugseng.com>
@@ -77,47 +82,212 @@ Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
 Changes in v2:
 - minor change to commit title
 - change commit message
-- remove changes in 'efibind.h', 'efiapi.h', 'efidef.h' and 'efiprot.h'
+- remove unnecessary changes in 'vpmu_intel.c' and 'vmx.h'
+- add 'ULL' suffix in 'vpmu_intel.c'
+- add zero-padding to constants in 'vmx.h'
+- add missing 'U' in 'vmx.h'
 ---
- xen/common/efi/boot.c    | 8 ++++----
- xen/common/efi/runtime.c | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ xen/arch/x86/cpu/vpmu_intel.c           |  2 +-
+ xen/arch/x86/hvm/vmx/vmcs.c             |  6 ++---
+ xen/arch/x86/hvm/vmx/vvmx.c             | 12 ++++-----
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  6 ++---
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h  | 34 ++++++++++++-------------
+ 5 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index c5850c26af..28a57fe434 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -34,13 +34,13 @@
- #define EFI_REVISION(major, minor) (((major) << 16) | (minor))
+diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+index bda5d511ac..890c279310 100644
+--- a/xen/arch/x86/cpu/vpmu_intel.c
++++ b/xen/arch/x86/cpu/vpmu_intel.c
+@@ -946,7 +946,7 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
+     fixed_counters_mask = ~((1ull << core2_get_bitwidth_fix_count()) - 1);
+     global_ctrl_mask = ~((((1ULL << fixed_pmc_cnt) - 1) << 32) |
+                          ((1ULL << arch_pmc_cnt) - 1));
+-    global_ovf_ctrl_mask = ~(0xC000000000000000 |
++    global_ovf_ctrl_mask = ~(0xC000000000000000ULL |
+                              (((1ULL << fixed_pmc_cnt) - 1) << 32) |
+                              ((1ULL << arch_pmc_cnt) - 1));
+     if ( version > 2 )
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index b209563625..d5a2b847a9 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -911,7 +911,7 @@ void vmx_clear_msr_intercept(struct vcpu *v, unsigned int msr,
+         if ( type & VMX_MSR_W )
+             clear_bit(msr, msr_bitmap->write_low);
+     }
+-    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
++    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+     {
+         msr &= 0x1fff;
+         if ( type & VMX_MSR_R )
+@@ -939,7 +939,7 @@ void vmx_set_msr_intercept(struct vcpu *v, unsigned int msr,
+         if ( type & VMX_MSR_W )
+             set_bit(msr, msr_bitmap->write_low);
+     }
+-    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
++    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+     {
+         msr &= 0x1fff;
+         if ( type & VMX_MSR_R )
+@@ -957,7 +957,7 @@ bool vmx_msr_is_intercepted(struct vmx_msr_bitmap *msr_bitmap,
+     if ( msr <= 0x1fff )
+         return test_bit(msr, is_write ? msr_bitmap->write_low
+                                       : msr_bitmap->read_low);
+-    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
++    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+         return test_bit(msr & 0x1fff, is_write ? msr_bitmap->write_high
+                                                : msr_bitmap->read_high);
+     else
+diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+index 1034534c97..f59de0f124 100644
+--- a/xen/arch/x86/hvm/vmx/vvmx.c
++++ b/xen/arch/x86/hvm/vmx/vvmx.c
+@@ -257,14 +257,14 @@ uint64_t get_vvmcs_virtual(void *vvmcs, uint32_t vmcs_encoding)
  
- #define SMBIOS3_TABLE_GUID \
--  { 0xf2fd1544, 0x9794, 0x4a2c, {0x99, 0x2e, 0xe5, 0xbb, 0xcf, 0x20, 0xe3, 0x94} }
-+  { 0xf2fd1544U, 0x9794U, 0x4a2cU, {0x99U, 0x2eU, 0xe5U, 0xbbU, 0xcfU, 0x20U, 0xe3U, 0x94U} }
- #define SHIM_LOCK_PROTOCOL_GUID \
--  { 0x605dab50, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23} }
-+  { 0x605dab50U, 0xe046U, 0x4300U, {0xabU, 0xb6U, 0x3dU, 0xd8U, 0x10U, 0xddU, 0x8bU, 0x23U} }
- #define APPLE_PROPERTIES_PROTOCOL_GUID \
--  { 0x91bd12fe, 0xf6c3, 0x44fb, { 0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x3a, 0xe0} }
-+  { 0x91bd12feU, 0xf6c3U, 0x44fbU, { 0xa5U, 0xb7U, 0x51U, 0x22U, 0xabU, 0x30U, 0x3aU, 0xe0U} }
- #define EFI_SYSTEM_RESOURCE_TABLE_GUID    \
--  { 0xb122a263, 0x3661, 0x4f68, {0x99, 0x29, 0x78, 0xf8, 0xb0, 0xd6, 0x21, 0x80} }
-+  { 0xb122a263U, 0x3661U, 0x4f68U, {0x99U, 0x29U, 0x78U, 0xf8U, 0xb0U, 0xd6U, 0x21U, 0x80U} }
- #define EFI_SYSTEM_RESOURCE_TABLE_FIRMWARE_RESOURCE_VERSION 1
+     switch ( enc.width ) {
+     case VVMCS_WIDTH_16:
+-        res &= 0xffff;
++        res &= 0xffffU;
+         break;
+    case VVMCS_WIDTH_64:
+         if ( enc.access_type )
+             res >>= 32;
+         break;
+     case VVMCS_WIDTH_32:
+-        res &= 0xffffffff;
++        res &= 0xffffffffU;
+         break;
+     case VVMCS_WIDTH_NATURAL:
+     default:
+@@ -311,19 +311,19 @@ void set_vvmcs_virtual(void *vvmcs, uint32_t vmcs_encoding, uint64_t val)
  
- typedef struct {
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index 13b0975866..5cb7504c96 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -698,7 +698,7 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
- #ifndef COMPAT
-     op->status = status;
- #else
--    op->status = (status & 0x3fffffff) | ((status >> 32) & 0xc0000000);
-+    op->status = (status & 0x3fffffffU) | ((status >> 32) & 0xc0000000U);
+     switch ( enc.width ) {
+     case VVMCS_WIDTH_16:
+-        res = val & 0xffff;
++        res = val & 0xffffU;
+         break;
+     case VVMCS_WIDTH_64:
+         if ( enc.access_type )
+         {
+-            res &= 0xffffffff;
++            res &= 0xffffffffU;
+             res |= val << 32;
+         }
+         else
+             res = val;
+         break;
+     case VVMCS_WIDTH_32:
+-        res = val & 0xffffffff;
++        res = val & 0xffffffffU;
+         break;
+     case VVMCS_WIDTH_NATURAL:
+     default:
+@@ -2307,7 +2307,7 @@ int nvmx_msr_read_intercept(unsigned int msr, u64 *msr_content)
+         break;
+     case MSR_IA32_VMX_CR0_FIXED1:
+         /* allow 0-settings for all bits */
+-        data = 0xffffffff;
++        data = 0xffffffffU;
+         break;
+     case MSR_IA32_VMX_CR4_FIXED0:
+         /* VMXE bit must be 1 in VMX operation */
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index d07fcb2bc9..4acf3970f5 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -207,7 +207,7 @@ void vmx_vmcs_reload(struct vcpu *v);
+ #define CPU_BASED_ACTIVATE_MSR_BITMAP         0x10000000
+ #define CPU_BASED_MONITOR_EXITING             0x20000000
+ #define CPU_BASED_PAUSE_EXITING               0x40000000
+-#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000
++#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000U
+ extern u32 vmx_cpu_based_exec_control;
+ 
+ #define PIN_BASED_EXT_INTR_MASK         0x00000001
+@@ -257,7 +257,7 @@ extern u32 vmx_vmentry_control;
+ #define SECONDARY_EXEC_XSAVES                   0x00100000
+ #define SECONDARY_EXEC_TSC_SCALING              0x02000000
+ #define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
+-#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
++#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000U
+ extern u32 vmx_secondary_exec_control;
+ 
+ #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
+@@ -346,7 +346,7 @@ extern u64 vmx_ept_vpid_cap;
+ #define cpu_has_vmx_notify_vm_exiting \
+     (vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
+ 
+-#define VMCS_RID_TYPE_MASK              0x80000000
++#define VMCS_RID_TYPE_MASK              0x80000000U
+ 
+ /* GUEST_INTERRUPTIBILITY_INFO flags. */
+ #define VMX_INTR_SHADOW_STI             0x00000001
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+index 36c108d879..6642688e1d 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+@@ -136,7 +136,7 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
+ /*
+  * Exit Reasons
+  */
+-#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000
++#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000U
+ #define VMX_EXIT_REASONS_BUS_LOCK       (1u << 26)
+ 
+ #define EXIT_REASON_EXCEPTION_NMI       0
+@@ -208,12 +208,12 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
+  * Note INTR_INFO_NMI_UNBLOCKED_BY_IRET is also used with Exit Qualification
+  * field for EPT violations, PML full and SPP-related event vmexits.
+  */
+-#define INTR_INFO_VECTOR_MASK           0xff            /* 7:0 */
+-#define INTR_INFO_INTR_TYPE_MASK        0x700           /* 10:8 */
+-#define INTR_INFO_DELIVER_CODE_MASK     0x800           /* 11 */
+-#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x1000          /* 12 */
+-#define INTR_INFO_VALID_MASK            0x80000000      /* 31 */
+-#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000
++#define INTR_INFO_VECTOR_MASK           0x000000ffU      /* 7:0 */
++#define INTR_INFO_INTR_TYPE_MASK        0x00000700U      /* 10:8 */
++#define INTR_INFO_DELIVER_CODE_MASK     0x00000800U      /* 11 */
++#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x00001000U      /* 12 */
++#define INTR_INFO_VALID_MASK            0x80000000U      /* 31 */
++#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000U
+ 
+ /*
+  * Exit Qualifications for NOTIFY VM EXIT
+@@ -246,15 +246,15 @@ typedef union cr_access_qual {
+ /*
+  * Access Rights
+  */
+-#define X86_SEG_AR_SEG_TYPE     0xf        /* 3:0, segment type */
+-#define X86_SEG_AR_DESC_TYPE    (1u << 4)  /* 4, descriptor type */
+-#define X86_SEG_AR_DPL          0x60       /* 6:5, descriptor privilege level */
+-#define X86_SEG_AR_SEG_PRESENT  (1u << 7)  /* 7, segment present */
+-#define X86_SEG_AR_AVL          (1u << 12) /* 12, available for system software */
+-#define X86_SEG_AR_CS_LM_ACTIVE (1u << 13) /* 13, long mode active (CS only) */
+-#define X86_SEG_AR_DEF_OP_SIZE  (1u << 14) /* 14, default operation size */
+-#define X86_SEG_AR_GRANULARITY  (1u << 15) /* 15, granularity */
+-#define X86_SEG_AR_SEG_UNUSABLE (1u << 16) /* 16, segment unusable */
++#define X86_SEG_AR_SEG_TYPE     0xfU       /* 3:0, segment type */
++#define X86_SEG_AR_DESC_TYPE    (1U << 4)  /* 4, descriptor type */
++#define X86_SEG_AR_DPL          0x60U      /* 6:5, descriptor privilege level */
++#define X86_SEG_AR_SEG_PRESENT  (1U << 7)  /* 7, segment present */
++#define X86_SEG_AR_AVL          (1U << 12) /* 12, available for system software */
++#define X86_SEG_AR_CS_LM_ACTIVE (1U << 13) /* 13, long mode active (CS only) */
++#define X86_SEG_AR_DEF_OP_SIZE  (1U << 14) /* 14, default operation size */
++#define X86_SEG_AR_GRANULARITY  (1U << 15) /* 15, granularity */
++#define X86_SEG_AR_SEG_UNUSABLE (1U << 16) /* 16, segment unusable */
+ 
+ #define VMCALL_OPCODE   ".byte 0x0f,0x01,0xc1\n"
+ #define VMCLEAR_OPCODE  ".byte 0x66,0x0f,0xc7\n"        /* reg/opcode: /6 */
+@@ -606,7 +606,7 @@ static inline void vmx_pi_hooks_assign(struct domain *d) {}
+ static inline void vmx_pi_hooks_deassign(struct domain *d) {}
  #endif
  
-     return rc;
+-#define APIC_INVALID_DEST           0xffffffff
++#define APIC_INVALID_DEST           0xffffffffU
+ 
+ /* EPT violation qualifications definitions */
+ typedef union ept_qual {
 -- 
 2.41.0
 
