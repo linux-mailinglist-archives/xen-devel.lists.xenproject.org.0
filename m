@@ -2,78 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E30174805F
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:03:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558860.873318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22D8574808A
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:14:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558864.873328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyQE-0000Tn-BV; Wed, 05 Jul 2023 09:03:38 +0000
+	id 1qGyZu-0001yJ-8o; Wed, 05 Jul 2023 09:13:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558860.873318; Wed, 05 Jul 2023 09:03:38 +0000
+Received: by outflank-mailman (output) from mailman id 558864.873328; Wed, 05 Jul 2023 09:13:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyQE-0000RA-8O; Wed, 05 Jul 2023 09:03:38 +0000
-Received: by outflank-mailman (input) for mailman id 558860;
- Wed, 05 Jul 2023 09:03:36 +0000
+	id 1qGyZu-0001vu-5C; Wed, 05 Jul 2023 09:13:38 +0000
+Received: by outflank-mailman (input) for mailman id 558864;
+ Wed, 05 Jul 2023 09:13:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TfY/=CX=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qGyQC-0000R4-Dq
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:03:36 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0623.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::623])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIgq=CX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qGyZs-0001vo-SB
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:13:36 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2054.outbound.protection.outlook.com [40.107.13.54])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d1d54b8b-1b12-11ee-8611-37d641c3527e;
- Wed, 05 Jul 2023 11:03:33 +0200 (CEST)
-Received: from AM6PR05CA0028.eurprd05.prod.outlook.com (2603:10a6:20b:2e::41)
- by PAXPR08MB6477.eurprd08.prod.outlook.com (2603:10a6:102:12d::18)
+ id 37bb9380-1b14-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 11:13:34 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB7508.eurprd04.prod.outlook.com (2603:10a6:20b:283::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Wed, 5 Jul
- 2023 09:03:31 +0000
-Received: from AM7EUR03FT031.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:2e:cafe::79) by AM6PR05CA0028.outlook.office365.com
- (2603:10a6:20b:2e::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
- Transport; Wed, 5 Jul 2023 09:03:31 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT031.mail.protection.outlook.com (100.127.140.84) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6565.23 via Frontend Transport; Wed, 5 Jul 2023 09:03:30 +0000
-Received: ("Tessian outbound c63645f235c1:v142");
- Wed, 05 Jul 2023 09:03:30 +0000
-Received: from 38f707b2579c.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 3A65B337-F8B1-4BD8-8C9E-A965FEF15041.1; 
- Wed, 05 Jul 2023 09:03:23 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 38f707b2579c.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 05 Jul 2023 09:03:23 +0000
-Received: from DB6PR0301CA0079.eurprd03.prod.outlook.com (2603:10a6:6:30::26)
- by DBBPR08MB6217.eurprd08.prod.outlook.com (2603:10a6:10:201::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Wed, 5 Jul
- 2023 09:03:19 +0000
-Received: from DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:30:cafe::15) by DB6PR0301CA0079.outlook.office365.com
- (2603:10a6:6:30::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
- Transport; Wed, 5 Jul 2023 09:03:19 +0000
-Received: from nebula.arm.com (40.67.248.234) by
- DBAEUR03FT028.mail.protection.outlook.com (100.127.142.236) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6565.18 via Frontend Transport; Wed, 5 Jul 2023 09:03:19 +0000
-Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX03.Arm.com
- (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 5 Jul
- 2023 09:03:18 +0000
-Received: from [10.169.188.49] (10.169.188.49) by mail.arm.com (10.251.24.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27 via Frontend
- Transport; Wed, 5 Jul 2023 09:03:16 +0000
+ 2023 09:13:05 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Wed, 5 Jul 2023
+ 09:13:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -85,217 +46,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1d54b8b-1b12-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BEbyc0mJr7qR8OXQc2PSISr0q3slBBd/4Umzp6DkF9A=;
- b=eCQqLIee/fGeJiJt+YnC7hhDBHx2f86BtG6DHQZQRl4tKXve+3D3Fs6MA8zWmvDNh4KKmg9Na5K6hCfCI9+sp8DpykHNZLCOnJcx5GtwnPUocY/hpTiqUE9R0AwoFMTs3oPxy3WDj1XU470LvZZnZWanLm/pTl9VqlzEHCouEto=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: da6fc12ba7ce0ab4
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 37bb9380-1b14-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eGZt+Kns/HH6zktBFi07GcyceL4AWPeMtxVYgmZulYmxDxu/oML6L47m1b6N3NyAQ5jTLOOaL4ppMsga9k7sPNnbCmTBgIB2PHDBXVxcMknvevbv/LVHHzTHx6Ut62WT97VIb/pFiO3K0bkymbs6n9jtSQj7Yo/DwM9rLDt/0yktjP3rgca0MDoGT+pBH1Dnos0dwxaGlE62odED/N+81NZRHr/+bXpdQu/nWq/qfwMtBnzR3pFbEeJA3CarFs1Dn0MQitd2FEADOO2r+DYqGwZEO4p9tDXopSz3ku6ATzlQIQcjDypHE2a1YDCHdMPxQZsozDSsKBevHWtBKQQzyQ==
+ b=BrHmlSK/zm0oG6NGBSpgVwSAVumzhhDefHD0n6SHm669mhalEMDI7ehNSVMb3XwB9dVM0nOtKozzLdhHqFsqKdz2ZQJJLfz5xLru6eTCdUsxIjqVNFQbwJm5SGTtiAyXOkU6Pr1eilPkbRYk1cHfBJOa9bkpaMsiwxpWBxyLXzBnUODXutLlZK5drf0f1GeIjjEV65LKNCALnoJWm6LZxP3Cp7oE+/6NAcDGIf5zJga6BttHfOjop3S/XyGHPNsDSPTQz8pChO29AucLVMdMeO12dJ91dSqIiRChhY/cIzOiZDTXchPTOdz/X8+RsB4Vsq2+aMTFD9rmDHxTlYanxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BEbyc0mJr7qR8OXQc2PSISr0q3slBBd/4Umzp6DkF9A=;
- b=g9qDHKWCeH4xRwBNJYH5zW2rG8gPREIW/P6FxomODA6Tprg23eK9v9260nKZ0EZCSAr4AqcOMf/iHqZ6hUkyPtVnMvmbYClZVajTxjm/1rPCvzKOXlSQZBB3nYFIyuwSbaMlAFjJ11a3/qwqjpG2U7d/ErZ0AvKkA5a0aPv5YXbonnLKAhIBC57ym5xTlYlDJtzvdM6tdfNBM02sDzmQ9+dl/JTNlM0ymxRpzOjOlo+xKkNI/LO8AzL0p3XxjXA61brVZ6qMO4CJ3prfN//UOAwki7JTsbqKX2BjPwcZmLrbDXCrJ/HD2o6dydftLBqdtZTmjfcsJc2HMEYbprpYfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 40.67.248.234) smtp.rcpttodomain=xen.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ bh=FBxPdtL2k+f4qliEAI+mXmeIC4RVSonltR3JhEIQmbE=;
+ b=IvALZep3JIw/jAkR0Qz3BuWo5RLYyfB2j1he4Lpk/CLE2Efs9Ce+aFhJ5dZ5mdhf+LHcoiL3OcB2x7mOU1fYdWTHAiPMuVeflYHrS05c6f2ok6gHCfRVOMtYotfR0opugJoJqE/gyfzUrnH+PG97WDaiV9phHVPcez+qMPhEs/6ojNn8YUPNoQipOAPxkcbVkCWPEWzfNMQk1knm4+3bYROnIZYPZdY9kY3M2NXVkN9zq2MkVY0FWoi8ViH9mzuiHE+cV1JpKvd6u/A3C69xAJxs+O0KNze5y29+IZwHneDFWCDXmyvrz3gxGjCRtptcSH3xK722e73y6nWMymTcrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BEbyc0mJr7qR8OXQc2PSISr0q3slBBd/4Umzp6DkF9A=;
- b=eCQqLIee/fGeJiJt+YnC7hhDBHx2f86BtG6DHQZQRl4tKXve+3D3Fs6MA8zWmvDNh4KKmg9Na5K6hCfCI9+sp8DpykHNZLCOnJcx5GtwnPUocY/hpTiqUE9R0AwoFMTs3oPxy3WDj1XU470LvZZnZWanLm/pTl9VqlzEHCouEto=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
- smtp.mailfrom=arm.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=40.67.248.234; helo=nebula.arm.com; pr=C
-Message-ID: <02df8ce2-fa68-614b-87ce-82bb5b60d2a1@arm.com>
-Date: Wed, 5 Jul 2023 17:03:14 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 12/52] xen/mmu: extract early uart mapping from
- setup_fixmap
+ bh=FBxPdtL2k+f4qliEAI+mXmeIC4RVSonltR3JhEIQmbE=;
+ b=QGd5jHpDVi74WaZckM58tjHfF7CaFB240WQNbnfjgyktP4DPWuXoDcpEXdz25xJ8Vqb8ftulXl6By9oG0yzgag3UKdAYayxtbGsXdVg0iW6RbZxdnb/gXXtptvXDKExTY/DPbyktCc7iQYKutbrJso1cjiwra18k7lgQwzFo8kxRJyyMOWElkmbvRxgY8yuab+PABUD5x/96damGVV56gg7MGvuiUpQvA6W+4haHjMwUGMBEmFoySfEI9+NmsOyfnFcaDQt8Pdn2RBOeAlsMfsEDAHVzsYrKfn3E1oszuristvnZVDa4tsazrKksp5sqwgdyZGqZPE/YhSrgQ57hyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <a964cffa-fb42-b0e0-e60a-1044d8794193@suse.com>
+Date: Wed, 5 Jul 2023 11:13:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v7 01/12] vpci: introduce per-domain lock to protect vpci
+ structure
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Wei Chen <wei.chen@arm.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-13-Penny.Zheng@arm.com>
- <78862bb8-fd7f-5a51-a7ae-3c5b5998ed80@xen.org>
-From: Penny Zheng <penny.zheng@arm.com>
-In-Reply-To: <78862bb8-fd7f-5a51-a7ae-3c5b5998ed80@xen.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
+References: <20230613103159.524763-1-volodymyr_babchuk@epam.com>
+ <20230613103159.524763-2-volodymyr_babchuk@epam.com>
+ <ZIyOCan//39V3bdy@MacBook-Air-de-Roger.local> <87352kpj04.fsf@epam.com>
+ <ZJQDGOrP1I3hR5Jj@MacBook-Air-de-Roger.local> <87ilbfnqmo.fsf@epam.com>
+ <ZJVc77SwvyKOEdnJ@MacBook-Air-de-Roger.local> <87wmzfmltd.fsf@epam.com>
+ <ab79bcb6-6fc8-c68f-65bf-16ce7316c3ae@suse.com>
+ <ZKUw2MPBhOSgG-Eg@MacBook-Air-de-Roger.local>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZKUw2MPBhOSgG-Eg@MacBook-Air-de-Roger.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	DBAEUR03FT028:EE_|DBBPR08MB6217:EE_|AM7EUR03FT031:EE_|PAXPR08MB6477:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c74c5ed-805f-4d35-3578-08db7d36b413
-x-checkrecipientrouted: true
-NoDisclaimer: true
+X-ClientProxiedBy: FR3P281CA0086.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB7508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a0e63a4-a52b-49f5-95b7-08db7d380a6e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- c82Omk+HmS2gGyIOnwEandcbiJY+dKnq68qZjqAC4wYrMY4tpyUIjMjxA0tt4c0PmFBp30ElK5m5u8Q5GaIES6Teae4lSbatN57UiUp8QXfNxYs8W7mjQR1fgMiTDsjNSSTjzIWuHs3CcYIm3Iub66WAl8bWKKfVvCFa7GbhieZodtpjiGNasl9IpYMSwRmiSGoG6LG83XKtGoBDstQnYPXGF8NfpiVicZnz3VDoC9yy/P3AmHrXatxzY8493g+b1CaImRAmAK8f2fm3bK8z3lDgOMGmZjloZwr5JolJclNBSWNmqMrV7XoRAerjH+k4oziRmhFzVbhS1pr30eo4ZEDGOeT7sy3QxjYdOwTplbqLS6lOK/V9DY1RDuNxeIdT5VLx0tC8+BJo1mMnf2ruXHkrzVIqv3Rkj7weC1Dbhb9F41sJ0NHJvN94AcOuk4oWKhYOsf0xL4IuzObgfYMJf3TKGaNwb55a9Mllv7hISqV8zWPRbiwXEL0vpbIkIiuEb66zdA8yB6hnpIScVRULJR0V9UY2s7Z/FEY7X9CgTjvubYrlpCI+W/dWTbbl0L0Dl715wOjbRj1elbvRTjR8TgFd0MafrOfmvKeWaqdB8rzNnjr4bqWegizSPEet07iw6SKcNjIzYBRz3dcf6D0pvkgN2d7+EbzkUWhAEXiBnkiTIDVbB4pP2wLBZ4Jtbz9SiLwaXu4ElHaTVEoem/x3/NLi1t10Ns1Ye8kwpR2BHn0P3gCUyV9kF+llakc6XyOgc+mfZGnNnyW5IyX74zg//z4jYd7D5FxHMnTWDNB/5aE/5OVJ1UEj6rlYxLruXFTe+CdE2Xr4ReCj54SereaRyQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(41300700001)(2906002)(5660300002)(40460700003)(44832011)(8936002)(8676002)(82310400005)(36756003)(40480700001)(31696002)(86362001)(31686004)(2616005)(82740400003)(426003)(336012)(478600001)(186003)(53546011)(26005)(70586007)(4326008)(70206006)(36860700001)(316002)(110136005)(83380400001)(356005)(54906003)(16576012)(47076005)(81166007)(3940600001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6217
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT031.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	ef962ad9-a18f-4f59-f31b-08db7d36ad65
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	oyKy0XPx2jgAIasQRw1Iw0Wv76uXNR8/Mlnqdq1BOsoVdJ2S+iZSlfVzF2Kf+MUDSm1Fwu57traJMIn5lWtPb3xUk4WjIPXd0Bv08dEqlWekl5Ga9r/6oWYrZhYwVZ13e+v7AJkrTLIxqrv/DDU/nkEOVKSBuWLe2d4K9VAA0cTi1oVpNuTd5YGr9/MsfDSiarxMVdSxRqawIg0HnO0k06FhrL97v28UduXzDU3AFC83UiI9Uvdid30MND3LgSObQNVfo4qy95trH2n4vYFWkmYE74XuP0NYK2cF2GS8DmdBgXnQwkMi39qpdCI15kYpa/kob7xPBo6rNkGNBkBdKmkxKv6KNOxRaHYRNjsua7dpmgRKijLGqaCUMctru3YIBaIDKpZDk/u1fBRKmwzu4mjkgQTUgoz6BWwvDLl7cf/ANZIvRu2vnYBcGMBNg+phCNYAHN5ToJWmhsoNv/eqV2XxH8B+ayUw3PLAMJFGP0bbszEgdLfABgqmMgnSNAVUJ7osWXzMDw30m8dPWMsL4b1uJlcZGp9MrrpA8huqWnbdkTdwgOR79mu6aQVljycpm1cFUnJJiUQbyjI/mCesfEQnUEYA3dH1aFCgaJsN+vSF1YzBegKA2hiUZlrFZUDpdqABTbzJPtRmcw7TQwi5eExdbGL5MQR7h1MdYbxpajvscQfzusxVpddOykTt4CQBaI4pwiVk8hJTDV5VRIB0BLPHUM4IQ8q0U3n+xgmZ0cwCa9mMWTXetOg5hx191oMyRI+xvO1I2o6Ut6IWqeedXjosbm/7tRPl1YB7POxYYgzWUK/Mn2T/okyF9Z5nhi7U
+	b4svr/RmGRc9jLzxDOnN6Sv597cLV0eGCI+qohoP03YDsgh83bGGl9CfUcXlwI9gHrkCoBo4hNEH5mkNXr+/b3HjOynj+x2t++wwz+qM/OJiJneYNCHI1pMx1PG85TYWTznI9ZjYImdiepukMK+QiCVsLsZFlhZGNmMuH8jvrUje25ySvyTTsTsUu+lDp8+e6Kn4Kf0oylfc+SqFa62MLRdL24So9x3p3scVmunPlmxzyDC6VfC1hFMCetpdsBr9/kU4c/KFr1ZFO+NEvK6b6SPTcqw6puqOR3H5goYasVlaZkLDJZYRuzfG5nNJOX4Z7mdFMSymJGnN4OQgJ8vye8FEDB03b6ZbsURJXRltCpoMpU64oXL/XNBMLJsgbgwUCdtj6Gdalc1JrlnYd0VDrwBUmFS38lkxyEmtqTXKryV7/xjchu2ZgakLU672GIyuupovJB8ov9+P89rCw+Y9sTBBmz2P8mdZF9Qds8iqkwuFOsjbhY45Sc4gZtZ156MjNrKiuVObJYK7DiY1QZZcz7HOFULQ0eeuAi8cgoX2jpbNHOBqH/qxW8eacd+SOuSQE0mVaLb0WTLNkwlsjFzG58gWYfGCnhkXycSdrR3NIy3jNKCNFtlNdwuvPIxhOAAd0PzVGCbtCC0RIAmafqBiOA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(376002)(136003)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(54906003)(16576012)(26005)(44832011)(186003)(53546011)(86362001)(8676002)(31696002)(2906002)(8936002)(110136005)(36756003)(31686004)(5660300002)(41300700001)(40460700003)(478600001)(81166007)(4326008)(40480700001)(82740400003)(70586007)(70206006)(2616005)(47076005)(336012)(82310400005)(83380400001)(36860700001)(316002)(426003)(3940600001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 09:03:30.5295
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(376002)(346002)(366004)(136003)(396003)(451199021)(316002)(8936002)(83380400001)(8676002)(54906003)(38100700002)(41300700001)(66556008)(4326008)(6916009)(66476007)(66946007)(36756003)(186003)(26005)(6512007)(6486002)(86362001)(31696002)(7416002)(5660300002)(478600001)(6506007)(2906002)(31686004)(2616005)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MDFUbUl1V0J2Y0NBeWlnTktMWk5tM2EvTXVub1NuRzRYQTNSaUdmalNsVW4x?=
+ =?utf-8?B?SmhycmNsU1V1Y0NmY3pFNHg4b3FLaCtjN2w4QUF1WXdxRHhUTVMrVkdYVzlI?=
+ =?utf-8?B?R21oaUlwZDI4ZVE1djZQMndLVkJ3Si9sK0FBelJGa21YL3BCOVZYOXdGbG5i?=
+ =?utf-8?B?aUsyVjJTdEsvZzZWdUJ2T2wzUHFwT0g1bjNCZFlaek0wTEczZEYxbnpON0Yw?=
+ =?utf-8?B?Qm9GRmNOL0poTU1veDVCMDhNVnYrdk4rRVk2ZVJCMHZ0SlpmQ2JzWkNUckVB?=
+ =?utf-8?B?TCtOUGFLVEIvM2M3YjhhZmpPaVo3VVZHckxIeGZvR0l0VmJVdkhkMmcyVXVY?=
+ =?utf-8?B?QWhOell0YzVrSDEyd1hJTjg2WGN1QXlQV3hkbUdrN29FaHNmclNRRUF5Q0tl?=
+ =?utf-8?B?aUxNbmRhVWNxUzkwaGgyZFFWRlVxbm5Bc3pLY3BQUlpKTGNLd0ltRlM2OWxX?=
+ =?utf-8?B?b3NMTTJmRzRYRDNsNlJkK2pKM1pJM2NTYk9jb25XS1RvUVpuL3FydGxuMmJw?=
+ =?utf-8?B?WmwzMHdsKzZBbHpEaElwdlplV2M5QkNFTVV3eCtvTUZlR2hUUGFQZExCa05w?=
+ =?utf-8?B?aUxaZ2cwSFlhODF5WWNrM3o0TDhsY3VBRDFKN3lIb3AwRzRLc0hjUFNWSi91?=
+ =?utf-8?B?R1ZwZEZnMVBGcGx0U0JFK2dXcXlHbHU0bVovNGRtdmdLaEgvL0g1N0FtNnpy?=
+ =?utf-8?B?MWpRcnhmbm10UjlPWDI5aExqQUp4RDhRUGlOTVZxVHhGUDFadnhBcU52Lys2?=
+ =?utf-8?B?bkJlQlFhcFdnZmV3TFhXQXZ2cE1CU2tkMWxvSDE4dlB4UkpNeUl3VytrWGND?=
+ =?utf-8?B?ZDJ4RC9ZbWdRcHlGTnp3YXNVNmV2YUJQaUJPRy85NzRXeWptYmxNaTRoRHo2?=
+ =?utf-8?B?VUdONDZDSnRXLzhGSldNZERpRlg4aDZSa1FrSHdhZXVsYVpXWlRrQmxTdHg4?=
+ =?utf-8?B?WjV4RW8rTHgrZHhDQ3JNTHI5Q2tEQ0hYdWZsMEh1cEtzYmxwci9sN09YcGdh?=
+ =?utf-8?B?M1Uxa2tPYVpzV2FKNVBRb2hEMFZyY2xDUmdPVGZEOEJkb0JUUnpZU0d3cGhK?=
+ =?utf-8?B?WXU2Y2x5ZVVnNVBuT2kwekZvdjFNTXlVUldhemhyVW5BMmNPTmZJSERVeVQ5?=
+ =?utf-8?B?MlVad3BEWGYxa3o2SXR6QUR1RXJsSFFlbXd3UHB1cVlkMkhSOHNpUkorcnM5?=
+ =?utf-8?B?SzBTS21EYW9lNVpDclc1ZDVpeS8rWFMvVVFlR0ZTcXRhNWtiMjhHR3lSbXg5?=
+ =?utf-8?B?UVdjS3lEZDVHR1RTYTBSYkQwZEJ0ZDhZd2tmWE9xTnRTbVdueXBoT0RsMGlY?=
+ =?utf-8?B?UzJ3N3BFMmY2ekV2SzJnTU5SeW9ZKzJ6THkvZERWb2FUNGdRWUY0YXBtVGNS?=
+ =?utf-8?B?cjhuQ1I3UFh5enlVVGd6T3dvSWtjdElJczhBdkVmRGZXejhjSHUxUUVCSHJN?=
+ =?utf-8?B?N3gvaGo1eWZIb3lMM3VrVjQ2T01YNVRoL2FjdGtwazhWdTNiYTF2U3hSR0Uw?=
+ =?utf-8?B?WEg3bW9LRXZJWUtvTForVGQzTXRYc1c3N0hJcUd5VVZPaU5JYXpFRVZhM3BB?=
+ =?utf-8?B?RWtnQ3UxWEljRVRLSzU2R1c3Y0pXRnNOTHVyNkNteTZvVFdNV0FMMi80cUdh?=
+ =?utf-8?B?bmI0dVYzZS9lYXc5dU54cDdudUVaS0x4RjVxS1p0ajM3YjFGV1orTnV1RUtC?=
+ =?utf-8?B?czV1ekNHZ0NTNm9vYjQwS1pZYlJ6SzlHZ0txR3RvNVFON1U0YXp5OTYxaTdw?=
+ =?utf-8?B?cXdZMkRwaXBLYVllbmRYZEp3TGdEWmdOVDlUM1JxbVQ5OHE0bVRtS1pYUlND?=
+ =?utf-8?B?Q1VnSzd5QzNvenEwYXVkelp3cjlxNGp4dStQdmFnK2tHWUpzWDAzdW16Snp4?=
+ =?utf-8?B?VTlkQTRtZ1N0MUp6MU1KWEVVVnByVUlCa0c4Z2t4aHRSNFdVK2hFRU4wWnc0?=
+ =?utf-8?B?ZVNZbzJMNHp6bGJkOGdZV2p2SFFJakg2RnlvRmdXdnlIQXN6eEhxWUxzUTdx?=
+ =?utf-8?B?VWpHUUpOSzZhVEtiUE5hRDhZZ2FPSGZ2MnVjZXg3czRMY1ZSSWlYMFNJdVdT?=
+ =?utf-8?B?UTNRb2pDQW5PaTc1dUNBK01kKzRhNUh1UVZ6YUtUQmpxQlMwZW9qcEdrc1JQ?=
+ =?utf-8?Q?TW2lBFV2puQoEF4xaDvITQmAp?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a0e63a4-a52b-49f5-95b7-08db7d380a6e
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 09:13:05.0745
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c74c5ed-805f-4d35-3578-08db7d36b413
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT031.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6477
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lr23Ccx7ixmFS/NvrvCdEwVnICoHvtQihNi3JsHNH1LQFZMPIzQAAMpuZyq6NSrnYmlBH4C4rIXghDNQCMTw8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7508
 
-Hi Julien
-
-On 2023/7/5 06:25, Julien Grall wrote:
-> Hi Penny,
-> 
-> Title: You want to clarify that this change is arm64 only. So:
-> 
-> xen/arm64: mmu: ...
-> 
-> On 26/06/2023 04:34, Penny Zheng wrote:
->> Original setup_fixmap is actually doing two seperate tasks, one is 
->> enabling
->> the early UART when earlyprintk on, and the other is to set up the fixmap
->> even when earlyprintk is not configured.
+On 05.07.2023 10:59, Roger Pau Monné wrote:
+> On Wed, Jul 05, 2023 at 09:11:10AM +0200, Jan Beulich wrote:
+>> On 04.07.2023 23:03, Volodymyr Babchuk wrote:
+>>> I am currently implementing your proposal (along with Jan's
+>>> suggestions), but I am facing ABBA deadlock with IOMMU's
+>>> reassign_device() call, which has this piece of code:
+>>>
+>>>         list_move(&pdev->domain_list, &target->pdev_list);
+>>>
+>>> My immediate change was:
+>>>
+>>>         write_lock(&pdev->domain->pci_lock);
+>>>         list_del(&pdev->domain_list);
+>>>         write_unlock(&pdev->domain->pci_lock);
+>>>
+>>>         write_lock(&target->pci_lock);
+>>>         list_add(&pdev->domain_list, &target->pdev_list);
+>>>         write_unlock(&target->pci_lock);
+>>>
+>>> But this will not work because reassign_device is called from
+>>> pci_release_devices() which iterates over d->pdev_list, so we need to
+>>> take a d->pci_lock early.
+>>>
+>>> Any suggestions on how to fix this? My idea is to remove a device from a
+>>> list one at time:
+>>>
+>>> int pci_release_devices(struct domain *d)
+>>> {
+>>>     struct pci_dev *pdev;
+>>>     u8 bus, devfn;
+>>>     int ret;
+>>>
+>>>     pcidevs_lock();
+>>>     write_lock(&d->pci_lock);
+>>>     ret = arch_pci_clean_pirqs(d);
+>>>     if ( ret )
+>>>     {
+>>>         pcidevs_unlock();
+>>>         write_unlock(&d->pci_lock);
+>>>         return ret;
+>>>     }
+>>>
+>>>     while ( !list_empty(&d->pdev_list) )
+>>>     {
+>>>         pdev = list_entry(&d->pdev_list, struct pci_dev, domain_list);
+>>>         bus = pdev->bus;
+>>>         devfn = pdev->devfn;
+>>>         list_del(&pdev->domain_list);
+>>>         write_unlock(&d->pci_lock);
+>>>         ret = deassign_device(d, pdev->seg, bus, devfn) ?: ret;
+>>>         write_lock(&d->pci_lock);
 >>
->> To be more dedicated and precise, the old function shall be split into 
->> two
->> functions, setup_early_uart and new setup_fixmap.
-> While some of the split before would be warrant even without the MPU 
-> support. This one is not because there is limited point to have 3 lines 
-> function. So I think you want to justify based on what you plan to do 
-> with the MPU code.
-> 
-> That said, I don't think we need to introduce setup_fixmap. See below.
-> 
-> 
+>> I think it needs doing almost like this, but with two more tweaks and
+>> no list_del() right here (first and foremost to avoid needing to
+>> figure whether removing early isn't going to subtly break anything;
+>> see below for an error case that would end up with changed behavior):
 >>
->> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->> Signed-off-by: Wei Chen <wei.chen@arm.com>
->> ---
->> v3:
->> - new patch
->> ---
->>   xen/arch/arm/arm64/head.S     |  3 +++
->>   xen/arch/arm/arm64/mmu/head.S | 24 +++++++++++++++++-------
->>   2 files changed, 20 insertions(+), 7 deletions(-)
+>>     while ( !list_empty(&d->pdev_list) )
+>>     {
+>>         const struct pci_dev *pdev = list_first_entry(&d->pdev_list, struct pci_dev, domain_list);
+>>         uint16_t seg = pdev->seg;
+>>         uint8_t bus = pdev->bus;
+>>         uint8_t devfn = pdev->devfn;
 >>
->> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
->> index e63886b037..55a4cfe69e 100644
->> --- a/xen/arch/arm/arm64/head.S
->> +++ b/xen/arch/arm/arm64/head.S
->> @@ -258,7 +258,10 @@ real_start_efi:
->>           b     enable_boot_mm
->>   primary_switched:
->> +        bl    setup_early_uart
->> +#ifdef CONFIG_HAS_FIXMAP
->>           bl    setup_fixmap
->> +#endif
->>   #ifdef CONFIG_EARLY_PRINTK
->>           /* Use a virtual address to access the UART. */
->>           ldr   x23, =EARLY_UART_VIRTUAL_ADDRESS
->> diff --git a/xen/arch/arm/arm64/mmu/head.S 
->> b/xen/arch/arm/arm64/mmu/head.S
->> index 2b209fc3ce..295596aca1 100644
->> --- a/xen/arch/arm/arm64/mmu/head.S
->> +++ b/xen/arch/arm/arm64/mmu/head.S
->> @@ -367,24 +367,34 @@ identity_mapping_removed:
->>   ENDPROC(remove_identity_mapping)
->>   /*
->> - * Map the UART in the fixmap (when earlyprintk is used) and hook the
->> - * fixmap table in the page tables.
->> - *
->> - * The fixmap cannot be mapped in create_page_tables because it may
->> - * clash with the 1:1 mapping.
+>>         write_unlock(&d->pci_lock);
 > 
-> Since commit 9d267c049d92 ("xen/arm64: Rework the memory layout"), there 
-> is no chance that the fixmap will clash with the 1:1 mapping. So rather 
-> than introducing a new function, I would move the creation of the fixmap 
-> in create_pagetables().
+> I think you need to remove the device from the pdev_list before
+> dropping the lock, or else release could race with other operations.
 > 
+> That's unlikely, but still if the lock is dropped and the routine
+> needs to operate on the device it is better remove such device from
+> the domain so other operations cannot get a reference to it.
+> 
+> Otherwise you could modify reassign_device() implementations so they
+> require the caller to hold the source->pci_lock when calling the
+> routine, but that's ugly because the lock would need to be dropped in
+> order to reassign the device from source to target domains.
+> 
+> Another option would be to move the whole d->pdev_list to a local
+> variable (so that d->pdev_list would be empty) and then iterate over
+> it without the d->pci_lock.  On failure you would take the lock and
+> add the failing device back into d->pdev_list.
 
-Understood. I'll move the creation of the fixmap in create_pagetables().
+Conceptually I like this last variant, but like the individual list_del()
+it requires auditing code for no dependency on the device still being on
+that list. In fact deassign_device()'s use of pci_get_pdev() does. The
+function would then need changing to have struct pci_dev * passed in.
+Yet who knows where else there are uses of pci_get_pdev() lurking.
 
-> This would avoid the #ifdef CONFIG_HAS_FIXMAP in head.S.
-> 
->> + * Map the UART in the fixmap (when earlyprintk is used)
->>    *
->>    * Inputs:
->> - *   x20: Physical offset
->>    *   x23: Early UART base physical address
->>    *
->>    * Clobbers x0 - x3
->>    */
->> -ENTRY(setup_fixmap)
->> +ENTRY(setup_early_uart)
->>   #ifdef CONFIG_EARLY_PRINTK
->>           /* Add UART to the fixmap table */
->>           ldr   x0, =EARLY_UART_VIRTUAL_ADDRESS
->>           create_mapping_entry xen_fixmap, x0, x23, x1, x2, x3, 
->> type=PT_DEV_L3
->> +        /* Ensure any page table updates made above have occurred. */
->> +        dsb   nshst
->> +
->> +        ret
-> 
-> The 'ret' needs to be outside of the '#ifdef' block. But, in this case, 
-> I would prefer if we don't call setup_early_uart() when 
-> !CONFIG_EARLY_PRINTK in head.S
-> 
-
-okay. I'll move the #ifdef to the caller in head.S.
-
->>   #endif
->> +ENDPROC(setup_early_uart)
->> +
->> +/*
->> + * Map the fixmap table in the page tables.
->> + *
->> + * The fixmap cannot be mapped in create_page_tables because it may
->> + * clash with the 1:1 mapping.
->> + *
->> + * Clobbers x0 - x3
->> + */
->> +ENTRY(setup_fixmap)
->>           /* Map fixmap into boot_second */
->>           ldr   x0, =FIXMAP_ADDR(0)
->>           create_table_entry boot_second, xen_fixmap, x0, 2, x1, x2, x3
-> 
-> Cheeers,
-> 
+Jan
 
