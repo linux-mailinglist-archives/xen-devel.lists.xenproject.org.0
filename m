@@ -2,78 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9866747D81
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 08:52:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558809.873229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DCC747E01
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 09:12:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558814.873238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGwN6-0007Mj-G8; Wed, 05 Jul 2023 06:52:16 +0000
+	id 1qGwg1-0001QG-2a; Wed, 05 Jul 2023 07:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558809.873229; Wed, 05 Jul 2023 06:52:16 +0000
+Received: by outflank-mailman (output) from mailman id 558814.873238; Wed, 05 Jul 2023 07:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGwN6-0007JO-DA; Wed, 05 Jul 2023 06:52:16 +0000
-Received: by outflank-mailman (input) for mailman id 558809;
- Wed, 05 Jul 2023 06:52:15 +0000
+	id 1qGwg0-0001OZ-Vo; Wed, 05 Jul 2023 07:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 558814;
+ Wed, 05 Jul 2023 07:11:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TfY/=CX=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qGwN4-0007JI-Sq
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 06:52:15 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20612.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::612])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dIgq=CX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qGwg0-0001OT-0H
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 07:11:48 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2058.outbound.protection.outlook.com [40.107.7.58])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 778b8513-1b00-11ee-8611-37d641c3527e;
- Wed, 05 Jul 2023 08:52:11 +0200 (CEST)
-Received: from AM6P194CA0084.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:8f::25)
- by GV2PR08MB9208.eurprd08.prod.outlook.com (2603:10a6:150:dc::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ id 30fda8f6-1b03-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 09:11:41 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AS8PR04MB7607.eurprd04.prod.outlook.com (2603:10a6:20b:294::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Wed, 5 Jul
- 2023 06:52:08 +0000
-Received: from AM7EUR03FT033.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:8f:cafe::6a) by AM6P194CA0084.outlook.office365.com
- (2603:10a6:209:8f::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
- Transport; Wed, 5 Jul 2023 06:52:08 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT033.mail.protection.outlook.com (100.127.140.129) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6565.23 via Frontend Transport; Wed, 5 Jul 2023 06:52:07 +0000
-Received: ("Tessian outbound b11b8bb4dfe8:v142");
- Wed, 05 Jul 2023 06:52:07 +0000
-Received: from 931af8c77eb2.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 70E3CBB5-F95C-4EF7-8E48-F653BF855F63.1; 
- Wed, 05 Jul 2023 06:52:00 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 931af8c77eb2.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 05 Jul 2023 06:52:00 +0000
-Received: from AM0PR10CA0105.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:e6::22)
- by AS8PR08MB8325.eurprd08.prod.outlook.com (2603:10a6:20b:536::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Wed, 5 Jul
- 2023 06:51:55 +0000
-Received: from AM7EUR03FT040.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:208:e6:cafe::26) by AM0PR10CA0105.outlook.office365.com
- (2603:10a6:208:e6::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
- Transport; Wed, 5 Jul 2023 06:51:55 +0000
-Received: from nebula.arm.com (40.67.248.234) by
- AM7EUR03FT040.mail.protection.outlook.com (100.127.140.128) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6565.23 via Frontend Transport; Wed, 5 Jul 2023 06:51:54 +0000
-Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX03.Arm.com
- (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 5 Jul
- 2023 06:51:52 +0000
-Received: from [10.169.172.87] (10.169.172.87) by mail.arm.com (10.251.24.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27 via Frontend
- Transport; Wed, 5 Jul 2023 06:51:50 +0000
+ 2023 07:11:13 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Wed, 5 Jul 2023
+ 07:11:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -85,488 +46,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 778b8513-1b00-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ksZUMpbt/rL2MzQhztFmxteoi+WCZfgBRkRjHg2eXA=;
- b=SbMFZmlYiPO4T8ViE7DOuJvt2f67XsIxFQ/QELQTiTlpJFDuMZBLVlGBJ2VorIcEO9doDXzN2ZRrKX9iIPWk6juDInX4hdleIvhhypkqn2yrk3zLWfUaxaNYn5DzoVhoCNS5QopqOQjI1Ud8StG63VRebDhib6Sw1wzsBx+4pzM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 14237d68830cfb8b
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 30fda8f6-1b03-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RkSoNPq0KfpKyNLaxtotTRzxevACTjLtsf2x796QVxAMOXY1lG2I/o/qgV6tL1rN9aZnBB56r2w8BRJUTP/vZf34KxA8kGibfyO1G3FwhiBDSpl/FLOLGgvSMBUTooPH5UwHzZM/tZSZki+J3jxyCkuGIzdxpUKLHJ9Gfk3Nstn7lkcSNT4LxahLRICyxDKtJnRoRvy+jz5SCJfkoHxHd3p3qVmwM6fdkh58sZxHTFIMiKtdXyDpAtJduHUvrkIplROn339YUi+71zF3qVEyjdMMSwscpGIxg1L8gUMMcxi1GrBIvEW8cMSlrPOqocOlXSOF6lfzlByyetPwfVcvqA==
+ b=mMeWZ27UYPf02Jvg6cjvMS9Gw/MsKy34gwmLqe1H/1/mtCt1KiUapERlUru94A4hM9MazFR9TRFZgNoU5mhdSgSVDAOrtY2J0xjxCgFc4J6vWvpHh+gKZOswrZ4QCl/RUwT/dvWfY3/g717MebHEj7nse/MY9lK3Co0ts7zsKs614ng8aMFhQZOGgUlLW7chjinpl7GA3VS9d3EcjwCW0quIWodrm7Gr/WBVpwy9dn4kZqpEROO+VaBMBzr+aQzo1gBgVzC0KSefUUv8nCJkVGQltP0DD07tOuSf51OgYPwwNkZiIVk0wpitafYTgpy0IhHmNLg+Spyd62HJmnlnHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ksZUMpbt/rL2MzQhztFmxteoi+WCZfgBRkRjHg2eXA=;
- b=XWRpGWgs7Dk2e1sy90YJGIAlFmEINn9p7or9b1ML5no9CCguc98/LxjCODe1EUY1O4cFRFB7TbAJjCWFQaH6BpxbxfpaQmFPFEVZxvgcIMLSdu8lNziebxCBSlyT8QjgS2L7HrXt2fvk8ZnM3xqOXcnTsux+k28v4dqUtQHQc+BMy8HsA0uTlSJMR27GC11NcGLXn9F1bJwVDI6JspBWcxIzDLnvP29cmDOgJmZxDXxdYCq96EqVRUaf6mdwdhD5idLc8pslX3PM8N2SEkzkunYAlJ5IW5iF+BW6Ioc5qyQ22j6I2ie3tIzsW24d03XSK/HdKDXoqNjjb5UDTduKlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 40.67.248.234) smtp.rcpttodomain=xen.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ bh=nuLVbEZtZ1EHxumkqm6EimDsQRKWUXczzKwW109ITuY=;
+ b=dYjW2bb6h3HQFEGM08FdtAlQnwJVrKGnNKL5ylB2xEy+UGINeb48/UzTVW6qephe/KynZWA07pTWVKhFKIJUHNNzdnK7gGLTRFMKInLkRAlqnHw8G/VfDdeE/HlmRrTTA2QUiAU5jUdix/vcx3L2A6X5p2LlyvNb9mA3HrZPXStVvlOLE+QQpnnqNg55AjKRi4vLbnHtwYwjqHOY/buEnfpgzs9Nf3txWaXW26gOUdp/6ffrldXI1D7SPkBJGZPS8g90/4LECtJOUsiAY/0CtZxamfcYpPQjd7IjFx72t+eC0JzUWTKG4UDDpYIE4GG52naxLRfnH21xeO5fjn9rvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ksZUMpbt/rL2MzQhztFmxteoi+WCZfgBRkRjHg2eXA=;
- b=SbMFZmlYiPO4T8ViE7DOuJvt2f67XsIxFQ/QELQTiTlpJFDuMZBLVlGBJ2VorIcEO9doDXzN2ZRrKX9iIPWk6juDInX4hdleIvhhypkqn2yrk3zLWfUaxaNYn5DzoVhoCNS5QopqOQjI1Ud8StG63VRebDhib6Sw1wzsBx+4pzM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
- smtp.mailfrom=arm.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=40.67.248.234; helo=nebula.arm.com; pr=C
-Message-ID: <02cc1edb-1f69-7fd3-a057-e5b04d2e14f4@arm.com>
-Date: Wed, 5 Jul 2023 14:51:47 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 10/52] xen/arm: Move MMU related definitions from
- config.h to mmu/layout.h
+ bh=nuLVbEZtZ1EHxumkqm6EimDsQRKWUXczzKwW109ITuY=;
+ b=16X4xcj/u/TjqqnNCGXWA93PRKmVmImiE9imRbjydi1axSJX4qyrgq4SlMZmkcphAwmTOi7zTo0oWF8F7Iu9vomtFLu3f8EEQRKNoEqFOIXSXs2tGZ5GpAouqYW34esQFNt14TNnwikMztwf2g8VI+1Qh3DmHMPb175XOFptTh+g2lTIBIZSRDMngIKwYgdFCEiCF46vw7KxB1NVdk2yoD51WhnYUX0rosUf6GAJwu+BNLBfp8drqVPA9GIUno8HuIzUtzyy/7It/p9/8p57nXsu25eV+PluzIv2Ad1Lk+puKtUSpQuLgbUWzpa7XbAkPViJ6ps1Laxlexu8HztcEQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <ab79bcb6-6fc8-c68f-65bf-16ce7316c3ae@suse.com>
+Date: Wed, 5 Jul 2023 09:11:10 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v7 01/12] vpci: introduce per-domain lock to protect vpci
+ structure
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
- <20230626033443.2943270-11-Penny.Zheng@arm.com>
- <ee493a26-234c-876e-e19f-3708c13cb484@xen.org>
-From: Penny Zheng <penny.zheng@arm.com>
-In-Reply-To: <ee493a26-234c-876e-e19f-3708c13cb484@xen.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	AM7EUR03FT040:EE_|AS8PR08MB8325:EE_|AM7EUR03FT033:EE_|GV2PR08MB9208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dbba41c-af27-4504-1d7d-08db7d2459ad
-x-checkrecipientrouted: true
-NoDisclaimer: true
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20230613103159.524763-1-volodymyr_babchuk@epam.com>
+ <20230613103159.524763-2-volodymyr_babchuk@epam.com>
+ <ZIyOCan//39V3bdy@MacBook-Air-de-Roger.local> <87352kpj04.fsf@epam.com>
+ <ZJQDGOrP1I3hR5Jj@MacBook-Air-de-Roger.local> <87ilbfnqmo.fsf@epam.com>
+ <ZJVc77SwvyKOEdnJ@MacBook-Air-de-Roger.local> <87wmzfmltd.fsf@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <87wmzfmltd.fsf@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0112.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB7607:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a8e17fe-30ac-4e06-6fba-08db7d270440
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- lyBiXVJgYJ7P1cYeP/NzqoZD5d99333CUZdQ626DFrAgYXpSsm9U/cZqXqrbaH7J36XSzOTYk2LFw8Wc+feIJUtYAPZszRwxOSEB3FFCCXVxbHxQnTRvMPZMv0UoT4jysTn6eAsOxroTTK4xizmKt4OT9Bt9IYdxccGsIVADJDfSYyNHw4D57VniStRlxTlCYJhiv7ByXU8G7aR0gIXzPwfUFDpxkZpKMES1pK3VLmAZUxXCZKOPUuBlntnsyhObnX4SVvil61Q+u0jcgkHYjWnsgCT1iTltR5ANSjeNLjfSd4TganX7hsaYXg6w8t+0Qhc4MDx6MZrHOQCRU62S7/xn8kOd+guTE11AizuE5+aM/KODsq0asgieztqUJoI6DjmQ4V0HBMZlqLUQ30PvMD5qSwUoi8niggBh5FBT69xjqhBN4IvIpPY6Wfnprw79hiUPZL7IHWJb3he30INVzRyYB8+viBuLjrTVdzqOEevkhaHkgI+oeSONwPUnjM+x41zI9J/pa5RN3sTtIVroYq2/tDiM+7Db8ICKsaRZVbdJvy1K7WnK6C7E0y8M6scSjejqE0+rphxlUIp5UNw9T73csPBP5YFFUupcw/gmb5yCFeaArSBOLivCHxyNK0l/O3+tY0P1GZ899OY22ZpxD8FPrGgYMCpPt7rAZf+H9BSuOpSmnchRuFzOtND96DCgch8NrOJOuDhsUaUCRbWMwi5mH6rohvpPYUIHcUEUhK3ZJiC3vsvFR8NljvXDavk+lPuZtIlSZcph94w5Rd86cQp3W0Ssjfc4gnXOFXOfrgzwsGEBFRUg7JkUVyTlCBdaixfeaGXSKHMvWy3IzVJzBA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(8936002)(5660300002)(8676002)(31696002)(40480700001)(86362001)(36860700001)(2616005)(40460700003)(426003)(47076005)(356005)(83380400001)(81166007)(82740400003)(41300700001)(70586007)(36756003)(70206006)(16576012)(4326008)(316002)(186003)(336012)(26005)(54906003)(6666004)(110136005)(53546011)(478600001)(30864003)(82310400005)(31686004)(44832011)(2906002)(3940600001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8325
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT033.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d98afef1-b9c4-404b-21ca-08db7d2451d8
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	21QLku9TrV2wkcLcrsMT/AJ+20ewFWiSTsbJHtlSyTrZQiJj5V4bsAJ/TYFF/8VfluBpz3ZmJ/N/F5pfpamVoCPLrfb75RLc6oGF7Rz578JwRnos2syrz1/HtRdDIEdX5Pz2Ff5NAx5gwN5B0Xs9a2x2Vyey7ao4vO+HtEmNC31bHfHMSD8I4YTnXs0NjybSRY0Ll65QNDSggf3343p6iSX5oJ1kq06lU4fWSVCUjB9A+TEkNiwVqNMESoCJVvLrzM9s7IJuLmZfKofwMosqPdONT0rQUIUwpCVjxilwEQSXzKfLC0Aud19+0L+95hBYSFlHa+nXbR1aUqCtqeQjOn6u78gq+X+jCmL9PJoeWVqKh+16uTdJzLo04Yn0oXu2PqsQkyEIVMl2MtwGTDsYgxK7zQ8l81cxT9YJIB3i0xtj4taSV3buW5XDa7Ur6/WRinq/b0XPUGaJ011iZBQUbcACp39Z8poFGKhla6uJ5Vy1fTW8EWIivFw6xjjYj6kgkWVxcwG/tjqUTvOG2HHZZZoCTp39+sxGg1fgnRzLKfEL+bjrbImiBn337jkKJuZ0Qh+zVgc1xUZaMt10AxHvQsUOhkE6ruAgrYTj+63U90TT8mqMM14z6oUuq3SUqWnIl9LN1QjQXAaSqlkgfuWJerdzp5n/ah4H2WCfNCX3JlE2dwZRkq3Dy7CBR+9TKK8qixjYDOTIY9DY+R1qfYmI60dckBsfYF5QU5bio6ZpxJQoti4THfAehsq3pEyIjP666iPqFKjXDoRWqPSZWlyFEu5G3WZ92piVZ74e6sEsXaP4KGp3+Hl+hXG8kcvHJ2Fu
+	fJzxbh1AIhMPuymkWF203UGI6Vr2hmt0Q+Apc9nubamyD+D52JhSweadw2MhLDuWqoGgRS5FIhAk9eUz5S5djejB/7vnMHPLCJ8F9nhX+CWwSGvnuVcyqixfHcsFRWlLjwjNU/MUrgGFDhN1Mt9wJ3gPLyJkJGJUftFg/tOFwrZi4tkARffVFEYhln8kdUoiyqcelFKzCGPdOMPEssn/IMFZRIboq5/hOB/R8s2MOdObXgCaO6OwkBiMAORI+EPvmTWNz1H9xWqbML5vejLOgoyjSaxogOoBuI16D0nazfU7+WpiYDOUt+uveJxVxHZz/37F6YXOZ5egx5sHtorAm4nhFvK5MIw7e5TiYzKydP4I6uFHxPE9Fq4KlYMZIjCq2CmbtGvc17ARmRecYoqO2L2LAsArPIa2xqjPlXYbpW6kw7SBD/fSHxX54Hnr63hAlQUAVjVuwmcx3BAYsJwOxChsgrVVs/lNt0sbF/lZ1sbb3yNjm4Hsk2JkpGZIr6iIuY2u/kDv/eDLyR7JNu8l87HZbMHahy8Ame0Gky4ik7w8c4gf+ov0DcjGI8u6EFFkvz6XSYc5N3Rk5TkqGcE8acfspJ8QC4+eiJvnWPnzjQbpW9eiekKsENr+s9EVzaCpmGcyxn7KDlwYDDp0QZ+ilw==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199021)(40470700004)(36840700001)(46966006)(107886003)(26005)(478600001)(82740400003)(31686004)(6666004)(86362001)(31696002)(2616005)(186003)(81166007)(16576012)(54906003)(4326008)(70586007)(36860700001)(110136005)(83380400001)(336012)(426003)(53546011)(70206006)(316002)(47076005)(5660300002)(8936002)(44832011)(40460700003)(30864003)(41300700001)(2906002)(40480700001)(8676002)(36756003)(82310400005)(3940600001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 06:52:07.9088
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(376002)(136003)(396003)(346002)(39860400002)(451199021)(478600001)(54906003)(5660300002)(7416002)(8676002)(36756003)(8936002)(86362001)(2906002)(66556008)(38100700002)(66476007)(66946007)(6916009)(4326008)(31696002)(316002)(41300700001)(83380400001)(26005)(53546011)(31686004)(6506007)(2616005)(186003)(6512007)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aGxtaGNjYkc3NGhEYitDRTJvb0UxSTBuNDc0N2dzRTAyMVVCbUtGclNIQVVO?=
+ =?utf-8?B?Qm1xYVVEem5XWDVzYUVCb0xia0YxTFVDYzZpblpGVy9VVkxXK2tWNFhibzd5?=
+ =?utf-8?B?Vmh6em44RUltVHVuQWdNeEM3Zk5ZZThYVVIwd293S0hEWU9TY0pDbkhMc1BM?=
+ =?utf-8?B?U200d2lPaTJGUHBnWVRseks3MUpKbFQ0VlBJb2RoRzdaNnlMejhnaldwWTZK?=
+ =?utf-8?B?ZVptNE12UDFYWENRbHBFSjFwZk85QlRKK0FEZUNhRXJjVE5yR0lvUWVXbWVo?=
+ =?utf-8?B?bGU1TUIzbGNLOUI2VVdxTU9FZEpINmljYWJZOXBCc2dwUmdHbHZMOE1jdCtU?=
+ =?utf-8?B?VmZyUW5takorcnEwUlEwNnJqd2lnUmRLT1NUaGFPcmdhOHpsb2w0OW9NUWdG?=
+ =?utf-8?B?VHJGTkllVlJmQTAwNGJ0bEcrTFZNZGVHNi8wUzJKaHcwRnNqNUZhVWtaMGdr?=
+ =?utf-8?B?aGcwS3ZGcEF0WndjdGg1QU5xZHl6OGI4MDVnRUp0VCtva1lTUHd1djg4Zkd5?=
+ =?utf-8?B?UUVvR284Uk5hcUxVell6R1M3YllGT3F5bGVCR2lnWGlpRXNBY29jSU8vc1Na?=
+ =?utf-8?B?UFE1ZEI1UE5wTVBuclozbkN6ZnZvTkNoeE1PbzhOMGtla2Z0K3VhOGltWng4?=
+ =?utf-8?B?c2VlVVg5QkFmcTVmbUVLcmJaMHZXV2dsNXRxNUVaaldRNzVQa2hyaUNSS3Vv?=
+ =?utf-8?B?OFpOMzJVa2c2Wi9VbnE5cHBrN2tDRzQzdFRRRzVqZS91cHRPNUVnaFlLWHUx?=
+ =?utf-8?B?WEUzbi94NDNzc0ZPajUzVkI2K3V0SzJwRWJIWGhiQWxxdGh3UHFwTGZiRXhR?=
+ =?utf-8?B?b3l5Tnltb1JmbXRRN3F2QTJnY1ZVOGZjYjd1SjBXaUdnNkl3MmRoWlQ5MUpi?=
+ =?utf-8?B?NFZGdjFFYUpsVi9TUW5NZ1NyWnlsVkEvOTg3M2JPNXhEZU1IdUFpK20rRGtU?=
+ =?utf-8?B?N3ljQ3lsRjBldUVsTHFUNnhJMWZNNkVvWkJwcEV2Z1ZXN0o1Q0Z2WjJNNFN0?=
+ =?utf-8?B?M0JzQkplcFQ4dnNyZU5XTEsxT2RybDBXdnMwQUgvcDcvd0RYS25QdXJFOWd2?=
+ =?utf-8?B?Y3NqT2xlbzFFOHM1SUpTS3ovcTZqOFRjZUU5UDBMNGRCSUtOaFdjaDNUVkg4?=
+ =?utf-8?B?empxME9JTTV3VlI3VSs3L1Z2NGZkNzZMMWJSenBPOWl6Q3VIcndkZ0cxdm1x?=
+ =?utf-8?B?MllMeG9PRjkwbEJzYXhYTHFwZ0NhODNvTzd2MTdTT1BUNFlZSHgwNjU5L1FY?=
+ =?utf-8?B?YkJOSXl0eDk2L0loSytiWDVGRXl1MC9hTFViejh3dnZzQWdsd0NrS3p3d3RJ?=
+ =?utf-8?B?RTI4aEJOSHVieFB4UFhzU0p4bnlyNUZaZFlPakRZM2pSQlF2dEIydWNBMTJ5?=
+ =?utf-8?B?R3ZuVzRkNnUxcC9TOWZoQ0JRUkxMQ3h1S3ZmZUE0QUQwTVpVU3QveVcwUzFJ?=
+ =?utf-8?B?amZWU28va3ZQa0o1RlFuRzZubEhFNG14cFJnNThuclpGN3dKMjR0Q25NZWRD?=
+ =?utf-8?B?RjhYTDU3NlIweDExalJQNnhPZ3NVellWdzZKUC95b3dGVUgzMWl3SXRLRnhj?=
+ =?utf-8?B?TmNwN0tjSFlhQm90U0RUWXZxMVJrOUI2QlgvUm10YUNLVVBEMjdIOXFzemEx?=
+ =?utf-8?B?bzErU01kY3dTSTRjd0FXczlnTDcvd1AvY0ZIZFJjQ2doN0loSzc3YUh3Vzc0?=
+ =?utf-8?B?ZUJZNFM1N1VXSlQzQVBCdElMa1hDWkpZejlaVEozVmhMRElLU2VaYWR0d1JC?=
+ =?utf-8?B?NHVOWG16enJMNTlpK1d1SDJHOXFXNmhTR2Y0aGZWSFpZREtOYzRoUjBUT1M1?=
+ =?utf-8?B?ajJFRklkdGc4cnA2MWVwNDEwTzFBdmkwb1hTNm9LK3ZLRllQcWxGMnpTQi9r?=
+ =?utf-8?B?NTFWS1hQanFCaUU0VDN1WDYrYVFOQytPWitEV3lNVkxkZGdVRGhqa3ZjK0Vi?=
+ =?utf-8?B?Y1VlYU1TWTJQZjNQbGFUMHdOUWp0M2wzZHc1NFZyMGZESmxCTlFHQjZEMjdV?=
+ =?utf-8?B?N0VQNXc4bk9tc0NaZ0xkSkFEcTFqSkc2SSs3aTF4TTB6Um5GZkdWS0FzWlFJ?=
+ =?utf-8?B?ek42bnZkS2FCelI1V2dVMUdZNE93ZllwV1UrNXNQU3BEWmp4a01xa2dYM3Iv?=
+ =?utf-8?Q?RPKJ4aLuB12O5bCUKXRu1f7oW?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a8e17fe-30ac-4e06-6fba-08db7d270440
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 07:11:13.3566
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dbba41c-af27-4504-1d7d-08db7d2459ad
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT033.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB9208
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VCBelxgdfCpwStF+K+g+3vmUp2tl9+3s8C70E9jsPcDuJ7OyQsKJEWY3Mv81ji/Utst3FRBquJ85PALw/TAeZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7607
 
-Hi Julien
-
-On 2023/7/5 05:54, Julien Grall wrote:
-> Hi Penny,
+On 04.07.2023 23:03, Volodymyr Babchuk wrote:
+> I am currently implementing your proposal (along with Jan's
+> suggestions), but I am facing ABBA deadlock with IOMMU's
+> reassign_device() call, which has this piece of code:
 > 
-> On 26/06/2023 04:34, Penny Zheng wrote:
->> From: Wei Chen <wei.chen@arm.com>
->>
->> Xen defines some global configuration macros for Arm in config.h.
->> We still want to use it for MMU systems, but there are some address
+>         list_move(&pdev->domain_list, &target->pdev_list);
 > 
-> Did you mean MPU?
+> My immediate change was:
 > 
-
-yes, typo
-
->> layout related definitions that are defined for MMU systems only.
->> These definitions could not be used by MPU systems, but adding
->> ifdefery with CONFIG_HAS_MPU to gate these definitions will result
->> in a messy and hard-to-read/maintain code.
->>
->> So we keep some common definitions still in config.h, but move MMU
->> related definitions to a new file - mmu/layout.h to avoid spreading
->> "#ifdef" everywhere.
+>         write_lock(&pdev->domain->pci_lock);
+>         list_del(&pdev->domain_list);
+>         write_unlock(&pdev->domain->pci_lock);
 > 
-> Just to ease the review, can you add some details which one are 
-> considered common?
+>         write_lock(&target->pci_lock);
+>         list_add(&pdev->domain_list, &target->pdev_list);
+>         write_unlock(&target->pci_lock);
 > 
-
-Sure,
-IMO， the only part left in common is as follows:
-```
-#ifdef CONFIG_ARM_64
-
-#define FRAMETABLE_SIZE        GB(32)
-#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
-
-#endif
-```
-I couldn't figure a proper way to remove the limit for MPU system.
-
-when calculating variable "pdx_group_valid", which is defined as
-```
-unsigned long __read_mostly pdx_group_valid[BITS_TO_LONGS(
-     (FRAMETABLE_NR + PDX_GROUP_COUNT - 1)/PDX_GROUP_COUNT)] = {[0] = 1}
-'''
-
-It relies on FRAMETABLE_NR to limit array length. If we are trying to
-get rid of the limit for the MPU, it may bring a lot of changes in pdx 
-common codes, like, variable "pdx_group_valid" needs to be allocated in 
-runtime, according actual frametable size, at least for MPU case.
-
-
-> Also, this patch will need to be rebased on top of the latest staging.
-
-sure,
-
+> But this will not work because reassign_device is called from
+> pci_release_devices() which iterates over d->pdev_list, so we need to
+> take a d->pci_lock early.
 > 
->>
->> Signed-off-by: Wei Chen <wei.chen@arm.com>
->> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->> ---
->> v1 -> v2:
->> 1. Remove duplicated FIXMAP definitions from config_mmu.h
->> ---
->> v3:
->> 1. name the new header layout.h
->> ---
->>   xen/arch/arm/include/asm/config.h     | 127 +----------------------
->>   xen/arch/arm/include/asm/mmu/layout.h | 141 ++++++++++++++++++++++++++
->>   2 files changed, 143 insertions(+), 125 deletions(-)
->>   create mode 100644 xen/arch/arm/include/asm/mmu/layout.h
->>
->> diff --git a/xen/arch/arm/include/asm/config.h 
->> b/xen/arch/arm/include/asm/config.h
->> index 30f4665ba9..204b3dec13 100644
->> --- a/xen/arch/arm/include/asm/config.h
->> +++ b/xen/arch/arm/include/asm/config.h
->> @@ -71,131 +71,8 @@
->>   #include <xen/const.h>
->>   #include <xen/page-size.h>
->> -/*
->> - * ARM32 layout:
->> - *   0  -   2M   Unmapped
->> - *   2M -   4M   Xen text, data, bss
->> - *   4M -   6M   Fixmap: special-purpose 4K mapping slots
->> - *   6M -  10M   Early boot mapping of FDT
->> - *   10M - 12M   Livepatch vmap (if compiled in)
->> - *
->> - *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
->> - * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual 
->> address
->> - *                    space
->> - *
->> - *   1G -   2G   Xenheap: always-mapped memory
->> - *   2G -   4G   Domheap: on-demand-mapped
->> - *
->> - * ARM64 layout:
->> - * 0x0000000000000000 - 0x000001ffffffffff (2TB, L0 slots [0..3])
->> - *
->> - *  Reserved to identity map Xen
->> - *
->> - * 0x0000020000000000 - 0x0000027fffffffff (512GB, L0 slot [4])
->> - *  (Relative offsets)
->> - *   0  -   2M   Unmapped
->> - *   2M -   4M   Xen text, data, bss
->> - *   4M -   6M   Fixmap: special-purpose 4K mapping slots
->> - *   6M -  10M   Early boot mapping of FDT
->> - *  10M -  12M   Livepatch vmap (if compiled in)
->> - *
->> - *   1G -   2G   VMAP: ioremap and early_ioremap
->> - *
->> - *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
->> - *
->> - * 0x0000028000000000 - 0x00007fffffffffff (125TB, L0 slots [5..255])
->> - *  Unused
->> - *
->> - * 0x0000800000000000 - 0x000084ffffffffff (5TB, L0 slots [256..265])
->> - *  1:1 mapping of RAM
->> - *
->> - * 0x0000850000000000 - 0x0000ffffffffffff (123TB, L0 slots [266..511])
->> - *  Unused
->> - */
->> -
->> -#ifdef CONFIG_ARM_32
->> -#define XEN_VIRT_START          _AT(vaddr_t, MB(2))
->> -#else
->> -
->> -#define SLOT0_ENTRY_BITS  39
->> -#define SLOT0(slot) (_AT(vaddr_t,slot) << SLOT0_ENTRY_BITS)
->> -#define SLOT0_ENTRY_SIZE  SLOT0(1)
->> -
->> -#define XEN_VIRT_START          (SLOT0(4) + _AT(vaddr_t, MB(2)))
->> -#endif
->> -
->> -#define XEN_VIRT_SIZE           _AT(vaddr_t, MB(2))
->> -
->> -#define FIXMAP_VIRT_START       (XEN_VIRT_START + XEN_VIRT_SIZE)
->> -#define FIXMAP_VIRT_SIZE        _AT(vaddr_t, MB(2))
->> -
->> -#define FIXMAP_ADDR(n)          (FIXMAP_VIRT_START + (n) * PAGE_SIZE)
->> -
->> -#define BOOT_FDT_VIRT_START     (FIXMAP_VIRT_START + FIXMAP_VIRT_SIZE)
->> -#define BOOT_FDT_VIRT_SIZE      _AT(vaddr_t, MB(4))
->> -
->> -#ifdef CONFIG_LIVEPATCH
->> -#define LIVEPATCH_VMAP_START    (BOOT_FDT_VIRT_START + 
->> BOOT_FDT_VIRT_SIZE)
->> -#define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
->> -#endif
->> -
->> -#define HYPERVISOR_VIRT_START  XEN_VIRT_START
->> -
->> -#ifdef CONFIG_ARM_32
->> -
->> -#define CONFIG_SEPARATE_XENHEAP 1
->> -
->> -#define FRAMETABLE_VIRT_START  _AT(vaddr_t, MB(32))
->> -#define FRAMETABLE_SIZE        MB(128-32)
->> -#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
->> -
->> -#define VMAP_VIRT_START        _AT(vaddr_t, MB(256))
->> -#define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
->> -
->> -#define XENHEAP_VIRT_START     _AT(vaddr_t, GB(1))
->> -#define XENHEAP_VIRT_SIZE      _AT(vaddr_t, GB(1))
->> -
->> -#define DOMHEAP_VIRT_START     _AT(vaddr_t, GB(2))
->> -#define DOMHEAP_VIRT_SIZE      _AT(vaddr_t, GB(2))
->> -
->> -#define DOMHEAP_ENTRIES        1024  /* 1024 2MB mapping slots */
->> -
->> -/* Number of domheap pagetable pages required at the second level 
->> (2MB mappings) */
->> -#define DOMHEAP_SECOND_PAGES (DOMHEAP_VIRT_SIZE >> FIRST_SHIFT)
->> -
->> -/*
->> - * The temporary area is overlapping with the domheap area. This may
->> - * be used to create an alias of the first slot containing Xen mappings
->> - * when turning on/off the MMU.
->> - */
->> -#define TEMPORARY_AREA_FIRST_SLOT    
->> (first_table_offset(DOMHEAP_VIRT_START))
->> -
->> -/* Calculate the address in the temporary area */
->> -#define TEMPORARY_AREA_ADDR(addr)                           \
->> -     (((addr) & ~XEN_PT_LEVEL_MASK(1)) |                    \
->> -      (TEMPORARY_AREA_FIRST_SLOT << XEN_PT_LEVEL_SHIFT(1)))
->> -
->> -#define TEMPORARY_XEN_VIRT_START    TEMPORARY_AREA_ADDR(XEN_VIRT_START)
->> -
->> -#else /* ARM_64 */
->> -
->> -#define IDENTITY_MAPPING_AREA_NR_L0  4
->> -
->> -#define VMAP_VIRT_START  (SLOT0(4) + GB(1))
->> -#define VMAP_VIRT_SIZE   GB(1)
->> -
->> -#define FRAMETABLE_VIRT_START  (SLOT0(4) + GB(32))
->> -#define FRAMETABLE_SIZE        GB(32)
->> -#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
->> -
->> -#define DIRECTMAP_VIRT_START   SLOT0(256)
->> -#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (266 - 256))
->> -#define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE 
->> - 1)
->> -
->> -#define XENHEAP_VIRT_START     directmap_virt_start
->> -
->> -#define HYPERVISOR_VIRT_END    DIRECTMAP_VIRT_END
->> -
->> +#ifndef CONFIG_HAS_MPU
+> Any suggestions on how to fix this? My idea is to remove a device from a
+> list one at time:
 > 
-> We are not going to introduce HAS_MPU yet in Xen. So can you use 
-> CONFIG_HAS_MMU?
+> int pci_release_devices(struct domain *d)
+> {
+>     struct pci_dev *pdev;
+>     u8 bus, devfn;
+>     int ret;
 > 
-> Also, I would add:
+>     pcidevs_lock();
+>     write_lock(&d->pci_lock);
+>     ret = arch_pci_clean_pirqs(d);
+>     if ( ret )
+>     {
+>         pcidevs_unlock();
+>         write_unlock(&d->pci_lock);
+>         return ret;
+>     }
 > 
-> #else
-> # error "Unknown memory management layout"
-> #endif
-> 
+>     while ( !list_empty(&d->pdev_list) )
+>     {
+>         pdev = list_entry(&d->pdev_list, struct pci_dev, domain_list);
+>         bus = pdev->bus;
+>         devfn = pdev->devfn;
+>         list_del(&pdev->domain_list);
+>         write_unlock(&d->pci_lock);
+>         ret = deassign_device(d, pdev->seg, bus, devfn) ?: ret;
+>         write_lock(&d->pci_lock);
 
-Sure, will do.
+I think it needs doing almost like this, but with two more tweaks and
+no list_del() right here (first and foremost to avoid needing to
+figure whether removing early isn't going to subtly break anything;
+see below for an error case that would end up with changed behavior):
 
->> +#include <asm/mmu/layout.h>
->>   #endif
->>   #define NR_hypercalls 64
->> diff --git a/xen/arch/arm/include/asm/mmu/layout.h 
->> b/xen/arch/arm/include/asm/mmu/layout.h
->> new file mode 100644
->> index 0000000000..8deda6b84d
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/mmu/layout.h
->> @@ -0,0 +1,141 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
-> 
-> GPL-2.0 is deprecated and should not be used for new file. This should 
-> instead be GPL-2.0-only
-> 
+    while ( !list_empty(&d->pdev_list) )
+    {
+        const struct pci_dev *pdev = list_first_entry(&d->pdev_list, struct pci_dev, domain_list);
+        uint16_t seg = pdev->seg;
+        uint8_t bus = pdev->bus;
+        uint8_t devfn = pdev->devfn;
 
-understood.
+        write_unlock(&d->pci_lock);
+        ret = deassign_device(d, seg, bus, devfn) ?: ret;
+        write_lock(&d->pci_lock);
+    }
 
->> +
->> +#ifndef __ARM_MMU_LAYOUT_H__
->> +#define __ARM_MMU_LAYOUT_H__
->> +
->> +/*
->> + * ARM32 layout:
->> + *   0  -   2M   Unmapped
->> + *   2M -   4M   Xen text, data, bss
->> + *   4M -   6M   Fixmap: special-purpose 4K mapping slots
->> + *   6M -  10M   Early boot mapping of FDT
->> + *   10M - 12M   Livepatch vmap (if compiled in)
->> + *
->> + *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
->> + * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual 
->> address
->> + *                    space
->> + *
->> + *   1G -   2G   Xenheap: always-mapped memory
->> + *   2G -   4G   Domheap: on-demand-mapped
->> + *
->> + * ARM64 layout:
->> + * 0x0000000000000000 - 0x000001ffffffffff (2TB, L0 slots [0..3])
->> + *
->> + *  Reserved to identity map Xen
->> + *
->> + * 0x0000020000000000 - 0x0000027fffffffff (512GB, L0 slot [4])
->> + *  (Relative offsets)
->> + *   0  -   2M   Unmapped
->> + *   2M -   4M   Xen text, data, bss
->> + *   4M -   6M   Fixmap: special-purpose 4K mapping slots
->> + *   6M -  10M   Early boot mapping of FDT
->> + *  10M -  12M   Livepatch vmap (if compiled in)
->> + *
->> + *   1G -   2G   VMAP: ioremap and early_ioremap
->> + *
->> + *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
->> + *
->> + * 0x0000028000000000 - 0x00007fffffffffff (125TB, L0 slots [5..255])
->> + *  Unused
->> + *
->> + * 0x0000800000000000 - 0x000084ffffffffff (5TB, L0 slots [256..265])
->> + *  1:1 mapping of RAM
->> + *
->> + * 0x0000850000000000 - 0x0000ffffffffffff (123TB, L0 slots [266..511])
->> + *  Unused
->> + */
->> +
->> +#ifdef CONFIG_ARM_32
->> +#define XEN_VIRT_START          _AT(vaddr_t, MB(2))
->> +#else
->> +
->> +#define SLOT0_ENTRY_BITS  39
->> +#define SLOT0(slot) (_AT(vaddr_t,slot) << SLOT0_ENTRY_BITS)
->> +#define SLOT0_ENTRY_SIZE  SLOT0(1)
->> +
->> +#define XEN_VIRT_START          (SLOT0(4) + _AT(vaddr_t, MB(2)))
->> +#endif
->> +
->> +#define XEN_VIRT_SIZE           _AT(vaddr_t, MB(2))
->> +
->> +#define FIXMAP_VIRT_START       (XEN_VIRT_START + XEN_VIRT_SIZE)
->> +#define FIXMAP_VIRT_SIZE        _AT(vaddr_t, MB(2))
->> +
->> +#define FIXMAP_ADDR(n)          (FIXMAP_VIRT_START + (n) * PAGE_SIZE)
->> +
->> +#define BOOT_FDT_VIRT_START     (FIXMAP_VIRT_START + FIXMAP_VIRT_SIZE)
->> +#define BOOT_FDT_VIRT_SIZE      _AT(vaddr_t, MB(4))
->> +
->> +#ifdef CONFIG_LIVEPATCH
->> +#define LIVEPATCH_VMAP_START    (BOOT_FDT_VIRT_START + 
->> BOOT_FDT_VIRT_SIZE)
->> +#define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
->> +#endif
->> +
->> +#define HYPERVISOR_VIRT_START  XEN_VIRT_START
->> +
->> +#ifdef CONFIG_ARM_32
->> +
->> +#define CONFIG_SEPARATE_XENHEAP 1
->> +
->> +#define FRAMETABLE_VIRT_START  _AT(vaddr_t, MB(32))
->> +#define FRAMETABLE_SIZE        MB(128-32)
->> +#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
->> +
->> +#define VMAP_VIRT_START        _AT(vaddr_t, MB(256))
->> +#define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
->> +
->> +#define XENHEAP_VIRT_START     _AT(vaddr_t, GB(1))
->> +#define XENHEAP_VIRT_SIZE      _AT(vaddr_t, GB(1))
->> +
->> +#define DOMHEAP_VIRT_START     _AT(vaddr_t, GB(2))
->> +#define DOMHEAP_VIRT_SIZE      _AT(vaddr_t, GB(2))
->> +
->> +#define DOMHEAP_ENTRIES        1024  /* 1024 2MB mapping slots */
->> +
->> +/* Number of domheap pagetable pages required at the second level 
->> (2MB mappings) */
->> +#define DOMHEAP_SECOND_PAGES (DOMHEAP_VIRT_SIZE >> FIRST_SHIFT)
->> +
->> +/*
->> + * The temporary area is overlapping with the domheap area. This may
->> + * be used to create an alias of the first slot containing Xen mappings
->> + * when turning on/off the MMU.
->> + */
->> +#define TEMPORARY_AREA_FIRST_SLOT    
->> (first_table_offset(DOMHEAP_VIRT_START))
->> +
->> +/* Calculate the address in the temporary area */
->> +#define TEMPORARY_AREA_ADDR(addr)                           \
->> +     (((addr) & ~XEN_PT_LEVEL_MASK(1)) |                    \
->> +      (TEMPORARY_AREA_FIRST_SLOT << XEN_PT_LEVEL_SHIFT(1)))
->> +
->> +#define TEMPORARY_XEN_VIRT_START    TEMPORARY_AREA_ADDR(XEN_VIRT_START)
->> +
->> +#else /* ARM_64 */
->> +
->> +#define IDENTITY_MAPPING_AREA_NR_L0  4
->> +
->> +#define VMAP_VIRT_START  (SLOT0(4) + GB(1))
->> +#define VMAP_VIRT_SIZE   GB(1)
->> +
->> +#define FRAMETABLE_VIRT_START  (SLOT0(4) + GB(32))
->> +#define FRAMETABLE_SIZE        GB(32)
->> +#define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
->> +
->> +#define DIRECTMAP_VIRT_START   SLOT0(256)
->> +#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (266 - 256))
->> +#define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE 
->> - 1)
->> +
->> +#define XENHEAP_VIRT_START     directmap_virt_start
->> +
->> +#define HYPERVISOR_VIRT_END    DIRECTMAP_VIRT_END
->> +
->> +#endif
->> +
->> +#endif /* __ARM_MMU_LAYOUT_H__ */
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
-> 
-> Cheers,
-> 
+One caveat though: The original list_for_each_entry_safe() guarantees
+the loop to complete; your use of list_del() would guarantee that too,
+but then the device wouldn't be on the list anymore if deassign_device()
+failed. Therefore I guess you will need another local list where you
+(temporarily) put all the devices which deassign_device() left on the
+list, and which you would then move back to d->pdev_list after the loop
+has finished. (Whether it is sufficient to inspect the list head to
+determine whether the pdev is still on the list needs careful checking.)
+
+Jan
 
