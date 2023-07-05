@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0177487FD
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 17:27:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559314.874268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEDB0748804
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 17:27:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559317.874287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH4Pd-0003Xb-Ee; Wed, 05 Jul 2023 15:27:25 +0000
+	id 1qH4Pf-0004Gx-V7; Wed, 05 Jul 2023 15:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559314.874268; Wed, 05 Jul 2023 15:27:25 +0000
+Received: by outflank-mailman (output) from mailman id 559317.874287; Wed, 05 Jul 2023 15:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH4Pd-0003RD-57; Wed, 05 Jul 2023 15:27:25 +0000
-Received: by outflank-mailman (input) for mailman id 559314;
- Wed, 05 Jul 2023 15:27:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qH4Pf-0004E6-Nb; Wed, 05 Jul 2023 15:27:27 +0000
+Received: by outflank-mailman (input) for mailman id 559317;
+ Wed, 05 Jul 2023 15:27:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yX3c=CX=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qH4Pb-0001UO-CH
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 15:27:23 +0000
+ id 1qH4Pd-0001jW-MY
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 15:27:25 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 701f4b6e-1b48-11ee-b237-6b7b168915f2;
- Wed, 05 Jul 2023 17:27:22 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 70dc1d4e-1b48-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 17:27:24 +0200 (CEST)
 Received: from beta.bugseng.com (unknown [37.163.248.64])
- by support.bugseng.com (Postfix) with ESMTPSA id EA41A4EE0C99;
- Wed,  5 Jul 2023 17:27:21 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id CFD1E4EE0C9B;
+ Wed,  5 Jul 2023 17:27:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,20 +39,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 701f4b6e-1b48-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 70dc1d4e-1b48-11ee-8611-37d641c3527e
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Gianluca Luparini <gianluca.luparini@bugseng.com>,
-	Juergen Gross <jgross@suse.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
 	Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH v2 09/13] xen/public: fix violations of MISRA C:2012 Rule 7.2
-Date: Wed,  5 Jul 2023 17:26:31 +0200
-Message-Id: <9e0d463e2fc09193a742fc7a64a331855705a4fb.1688559115.git.gianluca.luparini@bugseng.com>
+Subject: [XEN PATCH v2 10/13] x86/monitor: fix violations of MISRA C:2012 Rule 7.2
+Date: Wed,  5 Jul 2023 17:26:32 +0200
+Message-Id: <8fd5ef2ace63cfd86e94aafb533a139f2a7d0f96.1688559115.git.gianluca.luparini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1688559115.git.gianluca.luparini@bugseng.com>
 References: <cover.1688559115.git.gianluca.luparini@bugseng.com>
@@ -73,36 +79,40 @@ uniformity.
 
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes in v2:
-- minor change to commit title
+- change commit title to make it unique
 - change commit message
-- correct macros code style
 ---
- xen/include/public/io/ring.h | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ xen/arch/x86/monitor.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/xen/include/public/io/ring.h b/xen/include/public/io/ring.h
-index 025939278b..0cae4367be 100644
---- a/xen/include/public/io/ring.h
-+++ b/xen/include/public/io/ring.h
-@@ -36,11 +36,11 @@
- typedef unsigned int RING_IDX;
+diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+index d4857faf8a..dc336c239a 100644
+--- a/xen/arch/x86/monitor.c
++++ b/xen/arch/x86/monitor.c
+@@ -48,17 +48,17 @@ static unsigned long *monitor_bitmap_for_msr(const struct domain *d, u32 *msr)
  
- /* Round a 32-bit unsigned constant down to the nearest power of two. */
--#define __RD2(_x)  (((_x) & 0x00000002) ? 0x2                  : ((_x) & 0x1))
--#define __RD4(_x)  (((_x) & 0x0000000c) ? __RD2((_x)>>2)<<2    : __RD2(_x))
--#define __RD8(_x)  (((_x) & 0x000000f0) ? __RD4((_x)>>4)<<4    : __RD4(_x))
--#define __RD16(_x) (((_x) & 0x0000ff00) ? __RD8((_x)>>8)<<8    : __RD8(_x))
--#define __RD32(_x) (((_x) & 0xffff0000) ? __RD16((_x)>>16)<<16 : __RD16(_x))
-+#define __RD2(x)  (((x) & 0x00000002U) ? 0x2                     : ((x) & 0x1))
-+#define __RD4(x)  (((x) & 0x0000000cU) ? __RD2((x) >> 2) << 2    : __RD2(x))
-+#define __RD8(x)  (((x) & 0x000000f0U) ? __RD4((x) >> 4) << 4    : __RD4(x))
-+#define __RD16(x) (((x) & 0x0000ff00U) ? __RD8((x) >> 8) << 8    : __RD8(x))
-+#define __RD32(x) (((x) & 0xffff0000U) ? __RD16((x) >> 16) << 16 : __RD16(x))
+     switch ( *msr )
+     {
+-    case 0 ... 0x1fff:
++    case 0 ... 0x1fffU:
+         BUILD_BUG_ON(sizeof(d->arch.monitor.msr_bitmap->low) * 8 <= 0x1fff);
+         return d->arch.monitor.msr_bitmap->low;
  
- /*
-  * Calculate size of a shared ring, given the total available space for the
+-    case 0x40000000 ... 0x40001fff:
++    case 0x40000000U ... 0x40001fffU:
+         BUILD_BUG_ON(
+             sizeof(d->arch.monitor.msr_bitmap->hypervisor) * 8 <= 0x1fff);
+         *msr &= 0x1fff;
+         return d->arch.monitor.msr_bitmap->hypervisor;
+ 
+-    case 0xc0000000 ... 0xc0001fff:
++    case 0xc0000000U ... 0xc0001fffU:
+         BUILD_BUG_ON(sizeof(d->arch.monitor.msr_bitmap->high) * 8 <= 0x1fff);
+         *msr &= 0x1fff;
+         return d->arch.monitor.msr_bitmap->high;
 -- 
 2.41.0
 
