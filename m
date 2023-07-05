@@ -2,65 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5387C74846E
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 14:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559177.873917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51AC87484B4
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 15:13:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559181.873928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH1zw-0005Wj-GS; Wed, 05 Jul 2023 12:52:44 +0000
+	id 1qH2Jb-00082S-2t; Wed, 05 Jul 2023 13:13:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559177.873917; Wed, 05 Jul 2023 12:52:44 +0000
+Received: by outflank-mailman (output) from mailman id 559181.873928; Wed, 05 Jul 2023 13:13:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH1zw-0005UY-Df; Wed, 05 Jul 2023 12:52:44 +0000
-Received: by outflank-mailman (input) for mailman id 559177;
- Wed, 05 Jul 2023 12:52:42 +0000
+	id 1qH2Ja-00080M-Vu; Wed, 05 Jul 2023 13:13:02 +0000
+Received: by outflank-mailman (input) for mailman id 559181;
+ Wed, 05 Jul 2023 13:13:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cLSs=CX=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1qH1zu-0005UQ-6m
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 12:52:42 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on060e.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::60e])
+ <SRS0=Ax/R=CX=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qH2Ja-00080G-AM
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 13:13:02 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3920fac-1b32-11ee-b237-6b7b168915f2;
- Wed, 05 Jul 2023 14:52:41 +0200 (CEST)
-Received: from AM6P191CA0043.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::20)
- by DB3PR08MB9086.eurprd08.prod.outlook.com (2603:10a6:10:430::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Wed, 5 Jul
- 2023 12:52:37 +0000
-Received: from AM7EUR03FT023.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:7f:cafe::34) by AM6P191CA0043.outlook.office365.com
- (2603:10a6:209:7f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
- Transport; Wed, 5 Jul 2023 12:52:37 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT023.mail.protection.outlook.com (100.127.140.73) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6565.24 via Frontend Transport; Wed, 5 Jul 2023 12:52:37 +0000
-Received: ("Tessian outbound 546d04a74417:v142");
- Wed, 05 Jul 2023 12:52:37 +0000
-Received: from ed63330c8289.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 3910A205-1919-4859-83A0-F1F41B4BEB0A.1; 
- Wed, 05 Jul 2023 12:51:38 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ed63330c8289.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 05 Jul 2023 12:51:38 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Wed, 5 Jul
- 2023 12:51:37 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::8f61:5b01:4db1:8363]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::8f61:5b01:4db1:8363%6]) with mapi id 15.20.6565.016; Wed, 5 Jul 2023
- 12:51:37 +0000
+ id aa87936c-1b35-11ee-b237-6b7b168915f2;
+ Wed, 05 Jul 2023 15:13:00 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-99357737980so425395566b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 06:13:00 -0700 (PDT)
+Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ bu2-20020a170906a14200b009829dc0f2a0sm14489665ejb.111.2023.07.05.06.12.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Jul 2023 06:12:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,143 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3920fac-1b32-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oj1W+bkzJHz01I0MRE3nVj2CGpAeYUaqX+hFXrc6Eug=;
- b=Ily2BCQV36u0SqMvrcgySVG3/H2SgL7THOWj5EsTkGSA+eZDzcS+n2MtN/HxP2GONoSvAyMlOJYXWNoBQVjGX759ubPFOdfMqd83J6mo42h2sY9ktlfqAVHBl0cq2HqUUMeK9STZs0kwIUMALM2+cfp8PUzHd2GV4sAqI4vV4b0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 923ca02a12a65704
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GhZyVQl7VZpIf9mQsC1neuD17za21HHng246E4iQO+5YnkmiMwIk1NgA5pIc0y9I5REYCANhNgNQpCMhgLg+nt2bwZL2Tzh1Z5qKLs3wX2rRLy+0l1KympivbCFRngCpJYIlzQE+0ubbr7bQW7VEuDb1YUzR8ELoe1PNneat9z0V+M/aa8OQP4eD5zYuT3eprlKzkEcXtbd3BwzKgGfEr9p9pEFHD+oiq/3dp0A8ZJVCX8sY3WCKssNcJgJEoC9XkPDyvFzrC8RBioP6yynih6zQnwH67V5oMJDXxdCE+YW3b2iK6F0vl8XAuSfnY2hmP4dNO6fZ4BdVzqwkf87jTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oj1W+bkzJHz01I0MRE3nVj2CGpAeYUaqX+hFXrc6Eug=;
- b=nvIQdd0KzhO0LYD96rYDYEObHeP2ECb527Zw96yXan4nTag0OCHjIkQW/c/V4zHOVvbtORwOb39xO8ISeJmROlmwT/c3UoLXUo1Ntl2aRZCEu8YGFORqj60q9ldw9QsnxVtbaD9waEiRgPcwJpDQPxciPqKE+jbr8PBMt7R/JWRiDGmwX2wae7kmPp+HYIdNhr0sBkWq9PTUDxSLPXHsgtAkw9fcKednpYhGM0HQB1+Lss1/qR2hSpJAior9K9NjmmDUpp2mO6XhNPk8L/5szdT963bgOWfMl9FWd3lmDeSZdfEA1nxttpzH4KQlF6Q2aK890F1hufZIpeI+x3Tdhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oj1W+bkzJHz01I0MRE3nVj2CGpAeYUaqX+hFXrc6Eug=;
- b=Ily2BCQV36u0SqMvrcgySVG3/H2SgL7THOWj5EsTkGSA+eZDzcS+n2MtN/HxP2GONoSvAyMlOJYXWNoBQVjGX759ubPFOdfMqd83J6mo42h2sY9ktlfqAVHBl0cq2HqUUMeK9STZs0kwIUMALM2+cfp8PUzHd2GV4sAqI4vV4b0=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+X-Inumbo-ID: aa87936c-1b35-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1688562780; x=1691154780;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TY199SDQDe/xSpHLWKJswILQ0On+ma3T5edE7oPEr20=;
+        b=GUhh5S2vZNItlczwPmcZzOWV1m+EQjGJmoqOGCe3d8Whm344G17eYnkbaU7oY4p5no
+         lEPubtGaAyVckFRc2ciqE85rjUQflh8uHjXJEsAG+kttU2TB3U1h8fRM2kHLtxskqvGZ
+         Sq0/lKjpy9A+02vn14CS/q3YGqMoJPjpRyYG0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688562780; x=1691154780;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TY199SDQDe/xSpHLWKJswILQ0On+ma3T5edE7oPEr20=;
+        b=ZOQNmYfSF9RJsGPcpWJtKcp1yGb3M4fILmc2yLy71Mqis/Q9wNwh32LzrEJdZp2cvr
+         auFDImGKZXfT0BuABpkVZHBTu0GP+hueJLUoWOdtNcjP5FTxRugSfu0WdnI75w2wapa7
+         c2eQ2aEALKyBwfDj2LjJ/EIs2Ign1S8vEJlK0ZnYAXJQNVp5xljY3lMIyp5MVSKfVASG
+         5t+B3akjKsG2gTQm/W3Y00VD4oDLK26MITK5tJby3MeksEFZLZBnJTRVhKoCS2JqOGGF
+         ii7TBig81ND1kcP9rJrhgApMRhA84F1cQ0m7oZzdN0IBxFN4siy9qvbC0+7aezSQvmaQ
+         76Eg==
+X-Gm-Message-State: ABy/qLbg4WNno+0MqGNCwpnNNA7mVI9YDEug/JIJXq0H7RPOkJmcJdk5
+	nWZZ2ncth7jXQsqh5r+l8iddDQ==
+X-Google-Smtp-Source: APBJJlFzs5tkCN9yKqz4UrRDVhkU1qJ7han4QMFDjCZdPK3iSa+j19VZj4gW24/ADDI5i90aV+f+tg==
+X-Received: by 2002:a17:906:5fd1:b0:975:942e:81e7 with SMTP id k17-20020a1709065fd100b00975942e81e7mr11808499ejv.37.1688562780063;
+        Wed, 05 Jul 2023 06:13:00 -0700 (PDT)
+Message-ID: <64a56c5b.170a0220.c33b5.793c@mx.google.com>
+X-Google-Original-Message-ID: <ZKVsWhLTlxojSwaM@EMEAENGAAD19049.>
+Date: Wed, 5 Jul 2023 14:12:58 +0100
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>, Luca Fancellu <Luca.Fancellu@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Henry Wang <Henry.Wang@arm.com>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, Penny Zheng
-	<Penny.Zheng@arm.com>, Wei Chen <Wei.Chen@arm.com>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen/arm: Kconfig: ACPI should depend on UEFI
-Thread-Topic: [PATCH] xen/arm: Kconfig: ACPI should depend on UEFI
-Thread-Index: AQHZrzemFhjMGQXcTkKAEu+0mA/HSq+rE0UAgAAM0ACAAABNAA==
-Date: Wed, 5 Jul 2023 12:51:37 +0000
-Message-ID: <A6830B87-B202-42BE-A2E5-095B197F6678@arm.com>
-References: <20230705115534.26004-1-julien@xen.org>
- <2761ae84-113d-c230-ad50-e9cfb0ae434b@suse.com>
- <3C9C10E5-D5E0-4B4E-935D-80832BB795C4@arm.com>
-In-Reply-To: <3C9C10E5-D5E0-4B4E-935D-80832BB795C4@arm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|DB9PR08MB6588:EE_|AM7EUR03FT023:EE_|DB3PR08MB9086:EE_
-X-MS-Office365-Filtering-Correlation-Id: 588e6456-437b-4541-47df-08db7d56b5d6
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 5llzmBfHfoilQK5lMXpaTPnnReHnYkvmvBsf+P3odQQLPOKvLfhWJBtJbLyxkeni4RNb8yhoBpYbZVRh5N9gyLolenKzUuXDfjFNeKZXAQ48dLqR2KJwDEVsdqI3glo8KY50Yy+akvMdrzuFkSSYxWTqq4o1yCYtPVlJeHxkxMuUlhEYZZ+pzu2TTiv7mxqIvZk9vxh37U60h9ueHfs2HeIgXDZjSeLUSgzLZQqGVk0+SRAbdSg2d6VckftgiWWyrdSqpvSTQgSPMisyIwBOcpVFa85JLNzshZ2FtwFes1oC+rb2nVVROuv9rXjAC8jGVN0twBBuSyAzSNfvOK05y6uII4d2E2fpaDosZQ2yeXqhB9CbbNhFj14kl9skjZXyNz2NYg1iQtfQQlpv26ntTJn2X4fCr64FBP3aPaAl+EtJnbeaoLxvOKzyg7AA3oIpe1ab4zaXyyf5XwL2tWAUrdI5QDfngYbdYgL9BIwZst1DiRbk+Aao6pfRGx1ozy1dpWaY1FM1EXR4K3lP2ucwIIH66r8HQiYH16WqbAfxFNZZTFPgrZuJki+WFzhj+TTEh6pZiddfun7m+w6kc+WV4x8eGlY6IgG+tIsB8bSfcFSxwgrOUd//uhgZKltEAmTl0bNw4fM4r0BHba2Cm0HicA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(451199021)(36756003)(4744005)(38070700005)(86362001)(33656002)(2906002)(5660300002)(6512007)(186003)(6506007)(53546011)(91956017)(54906003)(6486002)(122000001)(66556008)(66476007)(66446008)(64756008)(6916009)(4326008)(38100700002)(316002)(2616005)(66946007)(76116006)(478600001)(71200400001)(8936002)(8676002)(41300700001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <A5DCBE915CEF1C4780923C40F3DD6C48@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v5 3/4] x86: Read MSR_ARCH_CAPS immediately after
+ early_microcode_init()
+References: <20230629152656.12655-1-alejandro.vallejo@cloud.com>
+ <20230629152656.12655-4-alejandro.vallejo@cloud.com>
+ <0dafce38-e572-3675-7f5f-a44a097abf09@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6588
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT023.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	6e0202b2-03ff-4f75-38ed-08db7d5691e8
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gZmDGsC3jnYSaC27LvzfbnKag59RkdhoAkVeu+RE4TMzGonllWqdWio4JaHWekf5p7uEQ1lbk6os4M2Rky78XCaAQUpaD95KVJXzf1iJSOfxQ6+tIJx2s2vMe2qxthc2iPSYuXZ1LXiIQ0iJ/6YAJcZpXYqCuPMuGSskM9ldB3STf8gZLQr64KqIZMUmovQ4un+D9jlAEDE410vtnQJvQOW0ManqEYiBrRClDe7P1KyvlpSLQ/KbYCneyHbeFZHzdHnMxxE2abUTjGkAuvgbLxF2YSS180AhpTPussrGDuV3riVTA/yhXo3KVWClMVnqKJtGKkR8Sempx9HBXXoobx/Uo//mpQ9AEm/OCdvetE7eGBXbpYqNDjNY8+RYJJkPQrxQIZOxLCHja0k3nqH1T6ndxMHCuXR5EV20JK1eDvH48Jc0iqva0GmavR4eJyBSvJfis4aklKNkwFbn3hSdJq2ZTfzCgz2kERwvJVPJl5957Kh9HMtAhQkggOoc76wYmJjcUZ92+98VrtzNrgCvnp0su3+0Ccr4VdcikDlVi4/E63p93dlZa0QPKcaF31IkxFB/WJBeRvL+Azba0jCv+yWta6ULAVMtVQnX+TEzr+JzNiLBygHPH0v/1hwcy4qzfsLfoHfk7BNPHPYfClOupr3ynioq1t26l2jZzENlO1R9EAe5eFPjrIAZlaHGl8e9icmU5U50wM+DrgLHNPtLygEPWy4IgoaEML9DSv+llZQ0el2ZaUcA0eZEN7STIQff
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(376002)(39860400002)(136003)(451199021)(40470700004)(36840700001)(46966006)(4744005)(2906002)(41300700001)(40460700003)(6486002)(82310400005)(81166007)(356005)(82740400003)(2616005)(6512007)(47076005)(336012)(53546011)(6506007)(26005)(186003)(36860700001)(40480700001)(54906003)(86362001)(478600001)(33656002)(4326008)(70206006)(316002)(70586007)(5660300002)(8676002)(36756003)(8936002)(6862004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 12:52:37.3654
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 588e6456-437b-4541-47df-08db7d56b5d6
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT023.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR08MB9086
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0dafce38-e572-3675-7f5f-a44a097abf09@suse.com>
 
+On Wed, Jul 05, 2023 at 12:43:27PM +0200, Jan Beulich wrote:
+> On 29.06.2023 17:26, Alejandro Vallejo wrote:
+> > @@ -324,9 +324,10 @@ void __init early_cpu_init(void)
+> >  	case X86_VENDOR_SHANGHAI: this_cpu = &shanghai_cpu_dev; break;
+> >  	case X86_VENDOR_HYGON:    this_cpu = &hygon_cpu_dev;    break;
+> >  	default:
+> > -		printk(XENLOG_ERR
+> > -		       "Unrecognised or unsupported CPU vendor '%.12s'\n",
+> > -		       c->x86_vendor_id);
+> > +		if (verbose)
+> > +			printk(XENLOG_ERR
+> > +			       "Unrecognised or unsupported CPU vendor '%.12s'\n",
+> > +			       c->x86_vendor_id);
+> 
+> Just as a remark:
+> 
+> 	if (!verbose)
+> 		break;
+> 
+> would have been less of a delta and keeping all lines within the 80
+> chars limit.
+Very true, that looks nicer.
 
+> > @@ -340,10 +341,11 @@ void __init early_cpu_init(void)
+> >  	c->x86_capability[FEATURESET_1d] = edx;
+> >  	c->x86_capability[FEATURESET_1c] = ecx;
+> >  
+> > -	printk(XENLOG_INFO
+> > -	       "CPU Vendor: %s, Family %u (%#x), Model %u (%#x), Stepping %u (raw %08x)\n",
+> > -	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
+> > -	       c->x86_model, c->x86_model, c->x86_mask, eax);
+> > +	if (verbose)
+> > +		printk(XENLOG_INFO
+> > +		       "CPU Vendor: %s, Family %u (%#x), Model %u (%#x), Stepping %u (raw %08x)\n",
+> > +		       x86_cpuid_vendor_to_str(boot_cpu_data->x86_vendor), c->x86, c->x86,
+> > +		       c->x86_model, c->x86_model, c->x86_mask, eax);
+> 
+> Since rearrangement to limit line length isn't really possible here,
+> the last two lines need re-flowing to stay within limits.
+I assumed they could could share the length of the printk string. I don't
+mind either way.
 
-> On 5 Jul 2023, at 14:50, Bertrand Marquis <bertrand.marquis@arm.com> wrot=
-e:
->=20
-> Hi Jan,
->=20
->> On 5 Jul 2023, at 14:04, Jan Beulich <jbeulich@suse.com> wrote:
->>=20
->> On 05.07.2023 13:55, Julien Grall wrote:
->>> --- a/xen/arch/arm/Kconfig
->>> +++ b/xen/arch/arm/Kconfig
->>> @@ -63,11 +63,11 @@ source "arch/Kconfig"
->>>=20
->>> config ACPI
->>> bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPP=
-ORTED)" if UNSUPPORTED
->>> - depends on ARM_64
->>> + depends on ARM_64 && ARM_EFI
->>=20
->> Wouldn't it make sense to drop the ARM_64 dependency then? It's now
->> redundant, and it seems quite likely that if EFI was ever support
->> for 32-bit, ACPI could then be supported there as well.
->=20
-> I think we need to keep it.
-> If we add one day EFI support on arm32, we will probably not add ACPI sup=
-port anyway.
+> 
+> > --- a/xen/arch/x86/cpu/microcode/core.c
+> > +++ b/xen/arch/x86/cpu/microcode/core.c
+> > @@ -886,5 +886,11 @@ int __init early_microcode_init(unsigned long *module_map,
+> >      if ( ucode_mod.mod_end || ucode_blob.size )
+> >          rc = early_microcode_update_cpu();
+> >  
+> > +    /*
+> > +     * MSR_ARCH_CAPS may have appeared after the microcode update. Reload
+> > +     * boot_cpu_data if so because they are needed in tsx_init().
+> > +     */
+> > +    early_cpu_init(false);
+> 
+> I think the comment would better talk of ARCH_CAPS as an example of what
+> may newly appear with a ucode update.
+I just started writing a paragraph stating that it's unlikely anything else
+will just appear, but thinking it through you're definitely right. A new
+MSR_NEW_SPEC_MITIGATIONS might very well appear.
 
-Sorry Julien I answered Jan before seeing your mail but I said the same :-)
+Something along this lines would be better?
+```
+          * Microcode updates may change CPUID or MSRs. We need to reload
+          * the early subset boot_cpu_data before continuing. Notably tsx_init()
+          * needs an up to date MSR_ARCH_CAPS.
+```
 
-Cheers
-Bertrand
+> 
+> With at least the middle item taken care of (which I'd be happy to
+> do while committing)
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Jan
+Thanks. I'm happy with all 3 changes being done on commit.
 
->=20
-> Cheers
-> Bertrand
->=20
->>=20
->> Jan
-
-
+Alejandro
 
