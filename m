@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF766748101
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:35:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558897.873494 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0512F748104
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:35:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558898.873502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyvF-0001o0-AN; Wed, 05 Jul 2023 09:35:41 +0000
+	id 1qGyvH-0002NB-9d; Wed, 05 Jul 2023 09:35:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558897.873494; Wed, 05 Jul 2023 09:35:41 +0000
+Received: by outflank-mailman (output) from mailman id 558898.873502; Wed, 05 Jul 2023 09:35:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyvE-0001fe-TD; Wed, 05 Jul 2023 09:35:40 +0000
-Received: by outflank-mailman (input) for mailman id 558897;
- Wed, 05 Jul 2023 09:35:39 +0000
+	id 1qGyvG-0002GF-PF; Wed, 05 Jul 2023 09:35:42 +0000
+Received: by outflank-mailman (input) for mailman id 558898;
+ Wed, 05 Jul 2023 09:35:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hy0b=CX=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1qGyvD-0006bq-IQ
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:35:39 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ id 1qGyvE-0006bq-KV
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:35:40 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d117840-1b17-11ee-b237-6b7b168915f2;
- Wed, 05 Jul 2023 11:35:38 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b63e5f94f1so6622001fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 02:35:38 -0700 (PDT)
+ id 4dc097f4-1b17-11ee-b237-6b7b168915f2;
+ Wed, 05 Jul 2023 11:35:39 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4fb73ba3b5dso10463065e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 02:35:39 -0700 (PDT)
 Received: from rayden.urgonet (h-46-59-78-111.A175.priv.bahnhof.se.
  [46.59.78.111]) by smtp.gmail.com with ESMTPSA id
- q22-20020a2e84d6000000b002b6d8cfb6d2sm2910625ljh.140.2023.07.05.02.35.36
+ q22-20020a2e84d6000000b002b6d8cfb6d2sm2910625ljh.140.2023.07.05.02.35.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Jul 2023 02:35:37 -0700 (PDT)
+ Wed, 05 Jul 2023 02:35:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d117840-1b17-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 4dc097f4-1b17-11ee-b237-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688549738; x=1691141738;
+        d=linaro.org; s=google; t=1688549739; x=1691141739;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sWua/aGnhgeAUqYKtQ1Lf4Q/vc2pnAQzQP1lQqZFLOs=;
-        b=t2lANbONfVCUPmioMdbT5ugJNIAtFeNHJLUO0BudbmZENdOHcp6cnWKOZNcWSPSe44
-         FyH6gNeEgGbD5gYkrf282Wg5SQ5hNOMS7IkqvNPTKzitGaF1FnFzBik7MwpbCDVMWTkm
-         mt04bNyxh3zxd6HrUNl1iLEAsu71tPIseuxgrVU+6rDKUjgZNiRAP+HO25O1IMGiCmrC
-         PsRFLeqQrfOc+4DGK1AuRDHqPLhHSaN+gT8z77/HTSEJAH8ZGIWkcIhKDGYz+MNzw+My
-         Sj5Ms0hiSkVmlG3wdoToYh/vGgHh/0xZe22M9yMH1r1Mzz2APH2IfI+v0ctxQUcW0ym5
-         Sigg==
+        bh=aYbk+SQ1clAFmK5go+uqkAk7DJv+x5ZhyiBn1d+JtnA=;
+        b=RYuKrG+nyp98x2XlR4g1pqGU6cthc/eD2x5DpsJORp1UZ4nEIW8PHICrRlP2vFM4nX
+         t6tVw4TQseuueu2mcA/Ngy0bkB6nPJY1sHXrAKxNGrX6w5A3y3Adigd1rWlESmb1OTGr
+         DhBa8eBoSJKIW7Q0WVBCrHFLrqXUVZG/bt8t3X1rxdGn9jswUa+B9O7LcAPQAo0VO797
+         6C1nb+sMFIzkHTyzv78LqyNkRhzUB7ap8UHSBwchTLQUKyZCUx2i7jN7zInJlHUk8TaP
+         6o0Jian0GRFem6itEKUG9cRtW2JYMVSV/GLBbFfPdlplxdERyZq6w7Tmb/dXdZmtHlOA
+         B3PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688549738; x=1691141738;
+        d=1e100.net; s=20221208; t=1688549739; x=1691141739;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sWua/aGnhgeAUqYKtQ1Lf4Q/vc2pnAQzQP1lQqZFLOs=;
-        b=hlO8TwgEOjX7giNOouqHY1KEq6rJlAuy+ZKAC2a6jCUN9mlADzFD0WQRfu8uZIzlp1
-         08Fk85+BN3vRcvyGi+t7oWmJiUK6tmyTZVDhY7wr2FZDgDg3eJyILwvqFaO/BRRdBrC2
-         7N52+qP3+7YsQgCLfhfjbOU13waoHKj/q0NaOGkY7Aq5MFWdQ7GxaBfYxNbDpi4eN3mL
-         s+MZdz+0NW1EwJK9Rji3qcLUd91P5r5VjZeh2e1XiB+1lyNIkgmA2/XYu+JT3qynhyuF
-         IpIDFNqaX+mLhI1QcGzKghLiwPCeehmvXEiPP7UIIFRn5/Wub6RKfzSL/bxE8IGjK0DY
-         auXw==
-X-Gm-Message-State: ABy/qLb+8S6ntcrih1XzZ/S6kfWGLmDcx66eeCmFSd47OwbDtlSflKdh
-	CBdf8TY9FaYmEMn+K5CzlxeaxlYigR9U7/IJTZ8=
-X-Google-Smtp-Source: APBJJlGIsl0hv181Iy7TeYWQi9ltmrfQxnPlGaqu1gvAxtnhqtpqsv2Zkq7ZEC1I47eH29T1HbLyXA==
-X-Received: by 2002:a2e:3c04:0:b0:2b6:b849:c893 with SMTP id j4-20020a2e3c04000000b002b6b849c893mr578326lja.26.1688549738005;
-        Wed, 05 Jul 2023 02:35:38 -0700 (PDT)
+        bh=aYbk+SQ1clAFmK5go+uqkAk7DJv+x5ZhyiBn1d+JtnA=;
+        b=crE1OOkPxeuUHUOoxoIFJ3C68/NRLzQFN7RVwi34cRZ/utc3RC2s2aJAzJe5Ek/age
+         VhsvlKo4PuDCPViUMKmEhLBR8dlWm2AOsQdHCu/9n32aDPn5eTQyfCGhpxDAS15bETbG
+         PKa+nodOXRi1qGat12hl6mrCj0JuTrosp1NvI1jZiA1juRiMcAd9aULil2PmWTdEMAVr
+         U0r03IurlNUHDQuYkJEd+w6c9Ebbtf6OBnTKwedBGBhpKAGVZESz+EcrkR2pUTTOpzNf
+         ICSi+msYSaV8q5FyrRllXH25Bwc+5J9OcCnYSalrf4gUc/Wvyk6y40fmxNDhj5S/bzk3
+         fFFg==
+X-Gm-Message-State: ABy/qLbrkr2gLNJHnllNJo9TiHAmUOr9nztiRU+UYlJCKHgnXPKTdvZE
+	nlZK/MPchiRvoDtASYccnrI9JCY9paC2f6nzeNA=
+X-Google-Smtp-Source: APBJJlFEsmI9XieucKFevLoCAa5Lqvq6pcooF4RgPlcFUBGQuDcdyXtmjQu7OcvFUzrfWZsUidy+BQ==
+X-Received: by 2002:a2e:3611:0:b0:2b6:fa8d:ff91 with SMTP id d17-20020a2e3611000000b002b6fa8dff91mr2738414lja.3.1688549739097;
+        Wed, 05 Jul 2023 02:35:39 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -89,115 +89,394 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Jens Wiklander <jens.wiklander@linaro.org>,
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [XEN PATCH v9 19/24] xen/arm: ffa: add support to reclaim shared memory
-Date: Wed,  5 Jul 2023 11:34:28 +0200
-Message-Id: <20230705093433.2514898-20-jens.wiklander@linaro.org>
+Subject: [XEN PATCH v9 20/24] xen/arm: ffa: support sharing large memory ranges
+Date: Wed,  5 Jul 2023 11:34:29 +0200
+Message-Id: <20230705093433.2514898-21-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230705093433.2514898-1-jens.wiklander@linaro.org>
 References: <20230705093433.2514898-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds support to reclaim memory previously shared with FFA_MEM_SHARE.
+Adds support for sharing large memory ranges transmitted in fragments
+using FFA_MEM_FRAG_TX.
 
-A memory region that doesn't need to be shared any longer can be
-reclaimed with FFA_MEM_RECLAIM once the SP doesn't use it any longer.
-This is checked by the SPMC and not in control of the mediator.
+The implementation is the bare minimum to be able to communicate with
+OP-TEE running as an SPMC at S-EL1.
 
 Adds a check that the SP supports the needed FF-A feature
-FFA_MEM_RECLAIM.
+FFA_MEM_FRAG_TX.
 
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/arch/arm/tee/ffa.c | 53 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ xen/arch/arm/tee/ffa.c | 253 ++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 240 insertions(+), 13 deletions(-)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index f3eb84a8e9b7..c623c51168b9 100644
+index c623c51168b9..ac23b9edc74c 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -538,6 +538,12 @@ static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
+@@ -359,6 +359,8 @@ struct ffa_ctx {
+      */
+     uint16_t create_signal_count;
+     bool rx_is_free;
++    /* Currently used fragment states, struct mem_frag_state */
++    struct list_head frag_list;
+     /* Used shared memory objects, struct ffa_shm_mem */
+     struct list_head shm_list;
+     /* Number of allocated shared memory object */
+@@ -375,6 +377,18 @@ struct ffa_shm_mem {
+     struct page_info *pages[];
+ };
+ 
++struct mem_frag_state {
++    struct list_head list;
++    struct ffa_shm_mem *shm;
++    uint32_t range_count;
++    unsigned int current_page_idx;
++    unsigned int frag_offset;
++    unsigned int range_offset;
++    const uint8_t *buf;
++    unsigned int buf_size;
++    struct ffa_address_range range;
++};
++
+ /* Negotiated FF-A version to use with the SPMC */
+ static uint32_t __ro_after_init ffa_version;
+ 
+@@ -538,6 +552,36 @@ static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
      }
  }
  
-+static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi,
-+                               uint32_t flags)
++static int32_t ffa_mem_frag_tx(uint64_t handle, uint32_t frag_len,
++                               uint16_t sender_id)
 +{
-+    return ffa_simple_call(FFA_MEM_RECLAIM, handle_lo, handle_hi, flags, 0);
++    struct arm_smccc_1_2_regs arg = {
++        .a0 = FFA_MEM_FRAG_TX,
++        .a1 = handle & UINT32_MAX,
++        .a2 = handle >> 32,
++        .a3 = frag_len,
++        .a4 = (uint32_t)sender_id << 16,
++    };
++    struct arm_smccc_1_2_regs resp;
++
++    arm_smccc_1_2_smc(&arg, &resp);
++
++    switch ( resp.a0 )
++    {
++    case FFA_ERROR:
++        if ( resp.a2 )
++            return resp.a2;
++        else
++            return FFA_RET_NOT_SUPPORTED;
++    case FFA_SUCCESS_32:
++        return FFA_RET_OK;
++    case FFA_MEM_FRAG_RX:
++        return resp.a3;
++    default:
++            return FFA_RET_NOT_SUPPORTED;
++    }
 +}
 +
- static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-                                       uint8_t msg)
+ static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi,
+                                uint32_t flags)
  {
-@@ -1278,6 +1284,43 @@ out_set_ret:
-             set_regs_error(regs, ret);
+@@ -627,6 +671,14 @@ static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
+     set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
  }
  
-+static int handle_mem_reclaim(uint64_t handle, uint32_t flags)
++static void set_regs_frag_rx(struct cpu_user_regs *regs, uint32_t handle_lo,
++                             uint32_t handle_hi, uint32_t frag_offset,
++                             uint16_t sender_id)
++{
++    set_regs(regs, FFA_MEM_FRAG_RX, handle_lo, handle_hi, frag_offset,
++             (uint32_t)sender_id << 16, 0, 0, 0);
++}
++
+ static void handle_version(struct cpu_user_regs *regs)
+ {
+     struct domain *d = current->domain;
+@@ -999,6 +1051,8 @@ static int share_shm(struct ffa_shm_mem *shm)
+     paddr_t last_pa;
+     unsigned int n;
+     paddr_t pa;
++    bool first;
++    int ret;
+ 
+     ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
+     ASSERT(shm->page_count);
+@@ -1034,13 +1088,23 @@ static int share_shm(struct ffa_shm_mem *shm)
+ 
+     tot_len = ADDR_RANGE_OFFSET(descr->mem_access_count, region_count,
+                                 region_descr->address_range_count);
+-    if ( tot_len > max_frag_len )
+-        return FFA_RET_NOT_SUPPORTED;
+ 
++    /*
++     * Sharing memory with secure world may have to be done with multiple
++     * calls depending on how many address ranges will be needed. If we're
++     * sharing physically contiguous memory we will only need one range but
++     * we will also need to deal with the worst case where all physical
++     * pages are non-contiguous. For the first batch of address ranges we
++     * call ffa_mem_share() and for all that follows ffa_mem_frag_tx().
++     *
++     * We use frag_len to keep track of how far into the transmit buffer we
++     * have gone.
++     */
+     addr_range = region_descr->address_range_array;
+     frag_len = ADDR_RANGE_OFFSET(descr->mem_access_count, region_count, 1);
+     last_pa = page_to_maddr(shm->pages[0]);
+     init_range(addr_range, last_pa);
++    first = true;
+     for ( n = 1; n < shm->page_count; last_pa = pa, n++ )
+     {
+         pa = page_to_maddr(shm->pages[n]);
+@@ -1050,12 +1114,34 @@ static int share_shm(struct ffa_shm_mem *shm)
+             continue;
+         }
+ 
+-        frag_len += sizeof(*addr_range);
+-        addr_range++;
++        if ( frag_len == max_frag_len )
++        {
++            if ( first )
++            {
++                ret = ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
++                first = false;
++            }
++            else
++            {
++                ret = ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id);
++            }
++            if ( ret <= 0 )
++                return ret;
++            frag_len = sizeof(*addr_range);
++            addr_range = buf;
++        }
++        else
++        {
++            frag_len += sizeof(*addr_range);
++            addr_range++;
++        }
+         init_range(addr_range, pa);
+     }
+ 
+-    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
++    if ( first )
++        return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
++    else
++        return ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id);
+ }
+ 
+ static int read_mem_transaction(uint32_t ffa_vers, const void *buf, size_t blen,
+@@ -1132,8 +1218,53 @@ static int read_mem_transaction(uint32_t ffa_vers, const void *buf, size_t blen,
+     return 0;
+ }
+ 
++static int add_mem_share_frag(struct mem_frag_state *s, unsigned int offs,
++                              unsigned int frag_len)
++{
++    struct domain *d = current->domain;
++    unsigned int o = offs;
++    unsigned int l;
++    int ret;
++
++    if ( frag_len < o )
++        return FFA_RET_INVALID_PARAMETERS;
++
++    /* Fill up the first struct ffa_address_range */
++    l = min_t(unsigned int, frag_len - o, sizeof(s->range) - s->range_offset);
++    memcpy((uint8_t *)&s->range + s->range_offset, s->buf + o, l);
++    s->range_offset += l;
++    o += l;
++    if ( s->range_offset != sizeof(s->range) )
++        goto out;
++    s->range_offset = 0;
++
++    while ( true )
++    {
++        ret = get_shm_pages(d, s->shm, &s->range, 1, s->current_page_idx,
++                            &s->current_page_idx);
++        if ( ret )
++            return ret;
++        if ( s->range_count == 1 )
++            return 0;
++        s->range_count--;
++        if ( frag_len - o < sizeof(s->range) )
++            break;
++        memcpy(&s->range, s->buf + o, sizeof(s->range));
++        o += sizeof(s->range);
++    }
++
++    /* Collect any remaining bytes for the next struct ffa_address_range */
++    s->range_offset = frag_len - o;
++    memcpy(&s->range, s->buf + o, frag_len - o);
++out:
++    s->frag_offset += frag_len;
++
++    return s->frag_offset;
++}
++
+ static void handle_mem_share(struct cpu_user_regs *regs)
+ {
++    static uint64_t next_handle = FFA_HANDLE_HYP_FLAG;
+     uint32_t tot_len = get_user_reg(regs, 1);
+     uint32_t frag_len = get_user_reg(regs, 2);
+     uint64_t addr = get_user_reg(regs, 3);
+@@ -1168,13 +1299,6 @@ static void handle_mem_share(struct cpu_user_regs *regs)
+         goto out_set_ret;
+     }
+ 
+-    /* We currently only support a single fragment */
+-    if ( frag_len != tot_len )
+-    {
+-        ret = FFA_RET_NOT_SUPPORTED;
+-        goto out_set_ret;
+-    }
+-
+     spin_lock(&ctx->lock);
+ 
+     if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
+@@ -1240,6 +1364,36 @@ static void handle_mem_share(struct cpu_user_regs *regs)
+     shm->sender_id = trans.sender_id;
+     shm->ep_id = read_atomic(&mem_access->access_perm.endpoint_id);
+ 
++    if ( frag_len != tot_len )
++    {
++        struct mem_frag_state *s = xzalloc(struct mem_frag_state);
++
++        if ( !s )
++        {
++            ret = FFA_RET_NO_MEMORY;
++            goto out;
++        }
++        s->shm = shm;
++        s->range_count = range_count;
++        s->buf = ctx->tx;
++        s->buf_size = FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE;
++        ret = add_mem_share_frag(s, sizeof(*region_descr)  + region_offs,
++                                 frag_len);
++        if ( ret <= 0 )
++        {
++            xfree(s);
++            if ( ret < 0 )
++                goto out;
++        }
++        else
++        {
++            shm->handle = next_handle++;
++            uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
++            list_add_tail(&s->list, &ctx->frag_list);
++        }
++        goto out_unlock;
++    }
++
+     /*
+      * Check that the Composite memory region descriptor fits.
+      */
+@@ -1278,7 +1432,75 @@ out_unlock:
+     spin_unlock(&ctx->lock);
+ 
+ out_set_ret:
+-    if ( ret == 0)
++    if ( ret > 0 )
++            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, trans.sender_id);
++    else if ( ret == 0)
++            set_regs_success(regs, handle_lo, handle_hi);
++    else
++            set_regs_error(regs, ret);
++}
++
++static struct mem_frag_state *find_frag_state(struct ffa_ctx *ctx,
++                                              uint64_t handle)
++{
++    struct mem_frag_state *s;
++
++    list_for_each_entry(s, &ctx->frag_list, list)
++        if ( s->shm->handle == handle )
++            return s;
++
++    return NULL;
++}
++
++static void handle_mem_frag_tx(struct cpu_user_regs *regs)
 +{
 +    struct domain *d = current->domain;
 +    struct ffa_ctx *ctx = d->arch.tee;
-+    struct ffa_shm_mem *shm;
-+    register_t handle_hi;
-+    register_t handle_lo;
++    uint32_t frag_len = get_user_reg(regs, 3);
++    uint32_t handle_lo = get_user_reg(regs, 1);
++    uint32_t handle_hi = get_user_reg(regs, 2);
++    uint64_t handle = regpair_to_uint64(handle_hi, handle_lo);
++    struct mem_frag_state *s;
++    uint16_t sender_id = 0;
 +    int ret;
 +
 +    spin_lock(&ctx->lock);
-+    list_for_each_entry(shm, &ctx->shm_list, list)
++    s = find_frag_state(ctx, handle);
++    if ( !s )
 +    {
-+        if ( shm->handle == handle )
-+            goto found_it;
-+    }
-+    shm = NULL;
-+    ret = FFA_RET_INVALID_PARAMETERS;
-+    goto out;
-+found_it:
-+
-+    uint64_to_regpair(&handle_hi, &handle_lo, handle);
-+    ret = ffa_mem_reclaim(handle_lo, handle_hi, flags);
-+    if ( ret )
-+    {
-+        shm = NULL;
++        ret = FFA_RET_INVALID_PARAMETERS;
 +        goto out;
 +    }
++    sender_id = s->shm->sender_id;
 +
-+    list_del(&shm->list);
++    if ( frag_len > s->buf_size )
++    {
++        ret = FFA_RET_INVALID_PARAMETERS;
++        goto out_free_s;
++    }
 +
++    ret = add_mem_share_frag(s, 0, frag_len);
++    if ( ret < 0 )
++        goto out_free_s;
++
++    /* Note that share_shm() uses our tx buffer */
++    spin_lock(&ffa_tx_buffer_lock);
++    ret = share_shm(s->shm);
++    spin_unlock(&ffa_tx_buffer_lock);
++    if ( ret < 0 )
++        goto out_free_s;
++    list_add_tail(&s->shm->list, &ctx->shm_list);
++out_free_s:
++    if ( ret < 0 )
++        free_ffa_shm_mem(ctx, s->shm);
++    list_del(&s->list);
++    xfree(s);
 +out:
-+    free_ffa_shm_mem(ctx, shm);
 +    spin_unlock(&ctx->lock);
 +
-+    return ret;
-+}
-+
- static bool ffa_handle_call(struct cpu_user_regs *regs)
- {
-     uint32_t fid = get_user_reg(regs, 0);
-@@ -1339,6 +1382,15 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-     case FFA_MEM_SHARE_64:
-         handle_mem_share(regs);
++    if ( ret > 0 )
++            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, sender_id);
++    else if ( ret == 0)
+             set_regs_success(regs, handle_lo, handle_hi);
+     else
+             set_regs_error(regs, ret);
+@@ -1391,6 +1613,9 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+         else
+             set_regs_success(regs, 0, 0);
          return true;
-+    case FFA_MEM_RECLAIM:
-+        e = handle_mem_reclaim(regpair_to_uint64(get_user_reg(regs, 2),
-+                                                 get_user_reg(regs, 1)),
-+                               get_user_reg(regs, 3));
-+        if ( e )
-+            set_regs_error(regs, e);
-+        else
-+            set_regs_success(regs, 0, 0);
++    case FFA_MEM_FRAG_TX:
++        handle_mem_frag_tx(regs);
 +        return true;
  
      default:
          gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-@@ -1573,6 +1625,7 @@ static bool ffa_probe(void)
+@@ -1432,6 +1657,7 @@ static int ffa_domain_init(struct domain *d)
+     }
+     ctx->create_signal_count = n;
+ 
++    INIT_LIST_HEAD(&ctx->frag_list);
+     INIT_LIST_HEAD(&ctx->shm_list);
+ 
+     return 0;
+@@ -1625,6 +1851,7 @@ static bool ffa_probe(void)
           !check_mandatory_feature(FFA_MEM_SHARE_64) ||
           !check_mandatory_feature(FFA_RXTX_UNMAP) ||
           !check_mandatory_feature(FFA_MEM_SHARE_32) ||
-+         !check_mandatory_feature(FFA_MEM_RECLAIM) ||
++         !check_mandatory_feature(FFA_MEM_FRAG_TX) ||
+          !check_mandatory_feature(FFA_MEM_RECLAIM) ||
           !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
          return false;
- 
 -- 
 2.34.1
 
