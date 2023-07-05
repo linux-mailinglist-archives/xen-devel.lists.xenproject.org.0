@@ -2,46 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1990A748902
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 18:12:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559414.874368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F05D74891C
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 18:20:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559418.874378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH57F-00008p-Kv; Wed, 05 Jul 2023 16:12:29 +0000
+	id 1qH5F4-0001eg-DF; Wed, 05 Jul 2023 16:20:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559414.874368; Wed, 05 Jul 2023 16:12:29 +0000
+Received: by outflank-mailman (output) from mailman id 559418.874378; Wed, 05 Jul 2023 16:20:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH57F-00005d-IA; Wed, 05 Jul 2023 16:12:29 +0000
-Received: by outflank-mailman (input) for mailman id 559414;
- Wed, 05 Jul 2023 16:12:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qH5F4-0001c9-A3; Wed, 05 Jul 2023 16:20:34 +0000
+Received: by outflank-mailman (input) for mailman id 559418;
+ Wed, 05 Jul 2023 16:20:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Sl8t=CX=suse.cz=jack@srs-se1.protection.inumbo.net>)
- id 1qH57E-00005T-DD
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 16:12:28 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb92eaad-1b4e-11ee-b237-6b7b168915f2;
- Wed, 05 Jul 2023 18:12:26 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CB46921E20;
- Wed,  5 Jul 2023 16:12:25 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A8D5D134F3;
- Wed,  5 Jul 2023 16:12:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id p7ssKWmWpWRbQAAAMHmgww
- (envelope-from <jack@suse.cz>); Wed, 05 Jul 2023 16:12:25 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 1C3A6A0707; Wed,  5 Jul 2023 18:12:25 +0200 (CEST)
+ (envelope-from <SRS0=j+zt=CX=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
+ id 1qH5F2-0001c3-GT
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 16:20:32 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dbadb072-1b4f-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 18:20:29 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-314319c0d3eso4580687f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 09:20:29 -0700 (PDT)
+Received: from [192.168.2.1] (82-64-138-184.subs.proxad.net. [82.64.138.184])
+ by smtp.googlemail.com with ESMTPSA id
+ b7-20020a5d45c7000000b003141a3c4353sm16771546wrs.30.2023.07.05.09.20.28
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Jul 2023 09:20:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,101 +46,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb92eaad-1b4e-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1688573545; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=laJnl7HhQK/Tv/PqzUYoidR/wXDE+WAIJVPIFf2lcfQ=;
-	b=pVxtRSYxDum30xk4c2JQyuaRHFNvjqGI5pa+1l9TjK2H7ROMjo7EdIGdDlzQXwaIwGyi0D
-	MYHnvgKqRst/eyFC+Okrc961iU1V/Mr8qyrvjiZzwHXWReUpWSrhSFOpe79t3kyTfJeQAV
-	Hf2p1cnNnsYhDEREwuHH1JI7foWXj1M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1688573545;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=laJnl7HhQK/Tv/PqzUYoidR/wXDE+WAIJVPIFf2lcfQ=;
-	b=6GnGLv2MGHnmlspZbI9IPcwZjE0UgNGbJUyuJME/ujhWk8XPp6xGrnnDrvfBxv6bSto5fw
-	0j8hz2dNTzGg/WAQ==
-Date: Wed, 5 Jul 2023 18:12:25 +0200
-From: Jan Kara <jack@suse.cz>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Jan Kara <jack@suse.cz>, linux-block@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@infradead.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Anna Schumaker <anna@kernel.org>, Chao Yu <chao@kernel.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Kleikamp <shaggy@kernel.org>, David Sterba <dsterba@suse.com>,
-	dm-devel@redhat.com, drbd-dev@lists.linbit.com,
-	Gao Xiang <xiang@kernel.org>, Jack Wang <jinpu.wang@ionos.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	jfs-discussion@lists.sourceforge.net,
-	Joern Engel <joern@lazybastard.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
-	linux-bcache@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
-	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-pm@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
-	ocfs2-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Song Liu <song@kernel.org>, Sven Schnelle <svens@linux.ibm.com>,
-	target-devel@vger.kernel.org, Ted Tso <tytso@mit.edu>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 01/32] block: Provide blkdev_get_handle_* functions
-Message-ID: <20230705161225.cwig5a3mo6oz7lew@quack3>
-References: <20230629165206.383-1-jack@suse.cz>
- <20230704122224.16257-1-jack@suse.cz>
- <bb91e76b-0bd8-a949-f8b9-868f919ebcb9@acm.org>
+X-Inumbo-ID: dbadb072-1b4f-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rabbit-lu.20221208.gappssmtp.com; s=20221208; t=1688574029; x=1691166029;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vd4i6GUUWzkaWI2I6bKoQby3/uL88g/Mw2tctfykYVw=;
+        b=O4/uPLeCiWqIHF0VcAesp4tlOvsBwmXccPeOVP4JOAdfQ/KXn6MWLLh/xIUwNWUQBN
+         yQ2Z7SqNqC0klPovJZBeXw1xo3FOyb0BntNF32wduhUhH/3MHSkxB0C+JQ3MJ1/VoeF4
+         w6OkmVE/JI/JZ7ytdAZiX4AOXPTn68GMLbbfJ9GCcqkZIj5bcv1ulbNUUanJN6XNHbOZ
+         Fo/Qeh5dyp+tvjBsDby48rqSTIwjKH9lAGBdXU8fGCpcmRhbr+gSkyKR/cdhrSVgRcxS
+         9pqiUYndTQXP5kHrHH5O/gq0h+06cpul1toqF+eUdpxMVZdLqIAOvKnvcyyuRd7iqHPp
+         eagA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688574029; x=1691166029;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vd4i6GUUWzkaWI2I6bKoQby3/uL88g/Mw2tctfykYVw=;
+        b=aSYQFcn6h56QtFuohKaT8R5oAY902IM36wo7ycQoGBhoOPqFgKWq8fvudzro/Zh1Jz
+         6d1Ra4mEbipquR6nAKqIrPXP9+eBIt2cXIKOj+hW7nqRElKUpZRxZp1zIUD46Gs5mQ+Z
+         FC8qZFfAlzQpHQNPztMyNCtgPEFhWN+sAQSl6BlLWkb1bH2l0NrkJORJ7pV+6u+vHEZ0
+         NnZilsDBm/y12M0obxg6rs30ccgDpS7SdjwaFkh96K8PJPgFmZBxVNd7DbGq1pO0hqKt
+         vYm9XaQJmx6L27hFqYRV04LObLdCWg8vYIy205XPV6rLVcMuUciO7R8oi/ocYTpzaVGI
+         /szg==
+X-Gm-Message-State: ABy/qLboZxm4iWzu6XjbnMTlSvllux893ms0e7PjfzJ44bh2ASQDK6zp
+	Vuqe8m2g4ZQPhuImY0WcE7qxOy918zrgscitlt0=
+X-Google-Smtp-Source: APBJJlHm4SZb8p+/IS7vEBor1JWImZTOAoeaHOGi4govHlWtAG19wye+FVFQWDCthm918+G8UL3yiA==
+X-Received: by 2002:adf:fc08:0:b0:314:824:378c with SMTP id i8-20020adffc08000000b003140824378cmr14058993wrr.20.1688574028779;
+        Wed, 05 Jul 2023 09:20:28 -0700 (PDT)
+Message-ID: <4ee01a0f-063e-ef93-ac24-da387d5b3438@rabbit.lu>
+Date: Wed, 5 Jul 2023 18:20:25 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bb91e76b-0bd8-a949-f8b9-868f919ebcb9@acm.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: Detecting whether dom0 is in a VM
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org
+References: <CA+zSX=Y4MwsDSd9oSG1NQyt==YAw9SeRdh=eJxTUhhOx57ihWg@mail.gmail.com>
+From: zithro <slack@rabbit.lu>
+In-Reply-To: <CA+zSX=Y4MwsDSd9oSG1NQyt==YAw9SeRdh=eJxTUhhOx57ihWg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue 04-07-23 07:06:26, Bart Van Assche wrote:
-> On 7/4/23 05:21, Jan Kara wrote:
-> > +struct bdev_handle {
-> > +	struct block_device *bdev;
-> > +	void *holder;
-> > +};
+On 05 Jul 2023 17:51, George Dunlap wrote:
+> Hey all,
 > 
-> Please explain in the patch description why a holder pointer is introduced
-> in struct bdev_handle and how it relates to the bd_holder pointer in struct
-> block_device. Is one of the purposes of this patch series perhaps to add
-> support for multiple holders per block device?
+> The following systemd issue was brought to my attention:
+> 
+> https://github.com/systemd/systemd/issues/28113
+> 
+> I think basically, they want `systemd-detect-virt` return the following
+> values:
+> 
+> Xen on hardware, from a dom0:  `none`
+> Xen on hardware, from a domU: `xen`
+> Xen in a VM, from a dom0: (ideally the virtualization type, or `vm-other`
+> if not)
+> Xen in a VM, from a domU: `xen`
+> 
+> Is there a reliable set of tests which would work across all dom0 guest
+> types / architectures?  If not, can we expose the information somehow?
+> 
+>   -George
+> 
 
-No. The reason for adding holder to struct bdev_handle is that it is an
-argument blkdev_put() needs. Currently, every user of blkdev_put() has to
-remember what it has passed as 'holder' to blkdev_get_by_*() call and pass
-that to blkdev_put(). With struct bdev_handle this will happen
-automatically. This is already explained in the changelog of this patch:
+Small follow-up, I did some more tests (AMD platforms).
+systemd-detect-virt (sdv) is using "/sys/class/dmi/id/sys_vendor".
 
-"Create struct bdev_handle that contains all parameters that need to be
-passed to blkdev_put()..."
+On both "baremetal" dom0s, sdv is reporting the platform manufacturer 
+("MSI" or "Micro-Star International Co., Ltd." on my systems).
 
-If it was only about holder, the intrusive patches would not be warranted
-but as the description also says:
+On a nested dom0, sdv is reporting "xen" :
+   root@xen-nested:~# SYSTEMD_LOG_LEVEL=debug systemd-detect-virt
+   Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+   Found container virtualization none.
+   Virtualization Xen found in DMI (/sys/class/dmi/id/sys_vendor)
+   Found VM virtualization xen
+   xen
 
-"This will eventually allow us to pass one more argument to blkdev_put()
-without too much hassle."
+PS: my host "xen-nested" is not masking CPUID leaves in cfg file.
 
-Because we will additionaly need to propagate the 'mode' argument used at
-open to blkdev_put().
+So I'm wondering, isn't that path enough for correct detection ?
+I mean, if "/sys/class/dmi/id/sys_vendor" reports Xen (or KVM, or any 
+other known hypervisor), it's nested, otherwise it's on hardware ?
 
-								Honza
-
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Is that really mandatory to use CPUID leaves ?
 
