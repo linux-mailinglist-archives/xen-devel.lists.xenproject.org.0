@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6D517480C0
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:24:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558868.873338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 910B57480C2
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:25:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558876.873348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyjx-0003UA-7W; Wed, 05 Jul 2023 09:24:01 +0000
+	id 1qGylW-00047c-KP; Wed, 05 Jul 2023 09:25:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558868.873338; Wed, 05 Jul 2023 09:24:01 +0000
+Received: by outflank-mailman (output) from mailman id 558876.873348; Wed, 05 Jul 2023 09:25:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyjx-0003RS-3N; Wed, 05 Jul 2023 09:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 558868;
- Wed, 05 Jul 2023 09:23:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qGylW-00045D-HC; Wed, 05 Jul 2023 09:25:38 +0000
+Received: by outflank-mailman (input) for mailman id 558876;
+ Wed, 05 Jul 2023 09:25:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGyjv-0003RH-9U; Wed, 05 Jul 2023 09:23:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGyju-00031G-RL; Wed, 05 Jul 2023 09:23:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qGyju-0002ZU-CX; Wed, 05 Jul 2023 09:23:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qGyju-0008GY-C3; Wed, 05 Jul 2023 09:23:58 +0000
+ (envelope-from <SRS0=rv0Z=CX=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1qGylU-000452-LB
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:25:36 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e490d042-1b15-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 11:25:33 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4f95bf5c493so9784305e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 02:25:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +40,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=exywVMH/icvPrwaShkCnFrcbfV9XfIRnLwe+U4JtkpI=; b=fpV+gYIPr7hm0XxIdCF00T+AEH
-	9znLnNy4730APPXygKaFtlDH3NifDVQJLm1hAnwGv06RWi8RvHofiHaShVXHjwAL0ZvvdI7NCuD7b
-	LhKYLB6PSpTR8lyQdZapxHfEXKcDH8zfJ6DIrXDf83mSA0RDiTdFT0VPPLbWrUx1jhLY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181701-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e490d042-1b15-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1688549133; x=1691141133;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=0pJd0CkwnAImw3NilWU6OnypmhAU7YxkyhGF94aLpIE=;
+        b=bwvZVb0GHtSzc+R9WMXphYf3E1H9MtpRux2UdqEc7qnLxbyAayr7P8f0DR0sGzhiGQ
+         IlCS7+Ixns8vb+PG/ISsqXPUMl1QSd3T0lkbW4S+TmQuS/CoIN2UiUWIfSfq+AIu3kSz
+         U0fF2Kq/5yKrOazrHv1OU3R/Y5NwsGID0X874=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688549133; x=1691141133;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0pJd0CkwnAImw3NilWU6OnypmhAU7YxkyhGF94aLpIE=;
+        b=K0zk8etgcMU2hgtHdzQja/hSysIOqMYe67iW78YCvGTIXSp10uAJl0AMOBs8qB3ToR
+         7SwEnuKnv+kSG2bxdidB2SoqldjLBEFrop3Yr58rY7g2tXWdgRwPZdA97peIzif0nTCV
+         OvabFAukdOXkQYAaMifLvC+c5GDsiHnUxRQp2//SVxeedcJk3RqrwjRkmOHv7aejlWbh
+         nYxQuAggBcPemqOAfRD3AQWvLN8HgHrStJ/RtQm/lbnNef7JnSzCoofvjG7sgouLohMr
+         L6Z01Lwo+iZiOF/iYCq0O8S5RZYXHmDodwZWjbv9T3BHcuLYRagQjVBQ07SkoEcVyFLw
+         DaqA==
+X-Gm-Message-State: ABy/qLZoR6RDCUdckpe0U6qT9WBPoglAiZNiW185fK2kECrIv5BwaAvj
+	q1eLtEsDgM2co9a4H4lXrERDXVNgphezLXLqXBH+Cg==
+X-Google-Smtp-Source: APBJJlF0J9mgg+iEe3+37ZZZKVPR9DjI6BJWb33J02eTDuwnjmrQUMZj1+/1VxR8NxjIt9PlzlcvyNYRNIyk8qT4iH8=
+X-Received: by 2002:a05:6512:3a83:b0:4f9:92c7:4026 with SMTP id
+ q3-20020a0565123a8300b004f992c74026mr13582462lfu.1.1688549133271; Wed, 05 Jul
+ 2023 02:25:33 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 181701: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=5c02dbd0e0adbe6100128345328999876fc78d00
-X-Osstest-Versions-That:
-    xen=12314be5749ecbb338d42ad10df059def6fc259a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 05 Jul 2023 09:23:58 +0000
+References: <20230630113756.672607-1-george.dunlap@cloud.com> <b046ddf8-d70b-e2db-f996-32e6a7164cd8@citrix.com>
+In-Reply-To: <b046ddf8-d70b-e2db-f996-32e6a7164cd8@citrix.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Wed, 5 Jul 2023 10:25:22 +0100
+Message-ID: <CA+zSX=bqf4QspF=ZW+rWwkfNp3u4xYjzDipsJX9_j2CpdtdhLg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] credit: Limit load balancing to once per millisecond
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Content-Type: multipart/alternative; boundary="0000000000004654a305ffb9fb06"
 
-flight 181701 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181701/
+--0000000000004654a305ffb9fb06
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Failures :-/ but no regressions.
+On Tue, Jul 4, 2023 at 6:34=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
+.com>
+wrote:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> On 30/06/2023 12:37 pm, George Dunlap wrote:
+> >
+> >  docs/misc/xen-command-line.pandoc |  6 +++++
+> >  xen/common/sched/credit.c         | 40 ++++++++++++++++++++++++++-----
+> >  xen/include/public/sysctl.h       |  6 +++++
+>
+> Given this filelist, why the sysctl change?
+>
+> There's no logic to drive this parameter in the xc/libxl param get/set.
+>
+> The only two in-tree users I can see are xenpm, along with an
+> unconditional print to stderr saying it's deprecated and to use xl, and x=
+l.
+>
 
-version targeted for testing:
- xen                  5c02dbd0e0adbe6100128345328999876fc78d00
-baseline version:
- xen                  12314be5749ecbb338d42ad10df059def6fc259a
-
-Last test of basis   181698  2023-07-04 22:01:54 Z    0 days
-Testing same since   181701  2023-07-05 07:01:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Julien Grall <jgrall@amazon.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Yes.  I think unless someone objects then, I'll drop the sysctl interface
+from this patch, and add it in a follow-up patch (perhaps at a later date,
+depending on how much time I have this week).
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > diff --git a/docs/misc/xen-command-line.pandoc
+> b/docs/misc/xen-command-line.pandoc
+> > index 4060ebdc5d..369557020f 100644
+> > --- a/docs/misc/xen-command-line.pandoc
+> > +++ b/docs/misc/xen-command-line.pandoc
+> > @@ -1856,6 +1856,12 @@ By default, Xen will use the INVPCID instruction
+> for TLB management if
+> >  it is available.  This option can be used to cause Xen to fall back to
+> >  older mechanisms, which are generally slower.
+> >
+> > +### load-balance-ratelimit
+> > +> `=3D <integer>`
+> > +
+> > +The minimum interval between load balancing events on a given pcpu.
+> > +At the moment only credit honors this parameter.
+>
+> So this is intended to be a global scheduler parameter?
+>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Yes; nearly every scheduler does load balancing, and so any scheduler may
+need this sort of limitation at some point.  It doesn't make sense to have
+separate, nearly identical parameters for each scheduler.  At some point
+this should probably be implemented for credit2, although perhaps with a
+different default.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Ack on the two style comments.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ -George
 
+--0000000000004654a305ffb9fb06
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Pushing revision :
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jul 4, 2023 at 6:34=E2=80=AFP=
+M Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" target=3D"=
+_blank">andrew.cooper3@citrix.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">On 30/06/2023 12:37 pm, George Dunlap wrot=
+e:<br>
+&gt;<br>
+&gt;=C2=A0 docs/misc/xen-command-line.pandoc |=C2=A0 6 +++++<br>
+&gt;=C2=A0 xen/common/sched/credit.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 40 =
+++++++++++++++++++++++++++-----<br>
+&gt;=C2=A0 xen/include/public/sysctl.h=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 6 =
++++++<br>
+<br>
+Given this filelist, why the sysctl change?<br>
+<br>
+There&#39;s no logic to drive this parameter in the xc/libxl param get/set.=
+<br>
+<br>
+The only two in-tree users I can see are xenpm, along with an<br>
+unconditional print to stderr saying it&#39;s deprecated and to use xl, and=
+ xl.<br></blockquote><div><br></div><div>Yes.=C2=A0 I think unless someone =
+objects then, I&#39;ll drop the sysctl interface from this patch, and add i=
+t in a follow-up patch (perhaps at a later date, depending on how much time=
+ I have this week).</div><div>=C2=A0</div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">&gt; diff --git a/docs/misc/xen-command-line.pandoc b/docs=
+/misc/xen-command-line.pandoc<br>
+&gt; index 4060ebdc5d..369557020f 100644<br>
+&gt; --- a/docs/misc/xen-command-line.pandoc<br>
+&gt; +++ b/docs/misc/xen-command-line.pandoc<br>
+&gt; @@ -1856,6 +1856,12 @@ By default, Xen will use the INVPCID instructio=
+n for TLB management if<br>
+&gt;=C2=A0 it is available.=C2=A0 This option can be used to cause Xen to f=
+all back to<br>
+&gt;=C2=A0 older mechanisms, which are generally slower.<br>
+&gt;=C2=A0 <br>
+&gt; +### load-balance-ratelimit<br>
+&gt; +&gt; `=3D &lt;integer&gt;`<br>
+&gt; +<br>
+&gt; +The minimum interval between load balancing events on a given pcpu.<b=
+r>
+&gt; +At the moment only credit honors this parameter.<br>
+<br>
+So this is intended to be a global scheduler parameter?<br></blockquote><di=
+v><br></div><div>Yes; nearly every scheduler does load balancing, and so an=
+y scheduler may need this sort of limitation at some point.=C2=A0 It doesn&=
+#39;t make sense to have separate, nearly identical parameters for each sch=
+eduler.=C2=A0 At some point this should probably be implemented for credit2=
+, although perhaps with a different default.</div><div>=C2=A0</div><div>Ack=
+ on the two style comments.</div><div><br></div><div>=C2=A0-George</div></d=
+iv></div>
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   12314be574..5c02dbd0e0  5c02dbd0e0adbe6100128345328999876fc78d00 -> smoke
+--0000000000004654a305ffb9fb06--
 
