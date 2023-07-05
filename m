@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26931748599
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 16:01:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559201.873978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05DE74859E
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 16:02:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559205.873987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH33n-0007Ep-Hl; Wed, 05 Jul 2023 14:00:47 +0000
+	id 1qH34q-0007kc-Q3; Wed, 05 Jul 2023 14:01:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559201.873978; Wed, 05 Jul 2023 14:00:47 +0000
+Received: by outflank-mailman (output) from mailman id 559205.873987; Wed, 05 Jul 2023 14:01:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qH33n-0007Cy-E8; Wed, 05 Jul 2023 14:00:47 +0000
-Received: by outflank-mailman (input) for mailman id 559201;
- Wed, 05 Jul 2023 14:00:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qH34q-0007iq-ND; Wed, 05 Jul 2023 14:01:52 +0000
+Received: by outflank-mailman (input) for mailman id 559205;
+ Wed, 05 Jul 2023 14:01:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=asTv=CX=citrix.com=prvs=543a7ddba=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qH33m-0007Cs-IZ
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 14:00:46 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 546ea13c-1b3c-11ee-8611-37d641c3527e;
- Wed, 05 Jul 2023 16:00:43 +0200 (CEST)
-Received: from mail-bn7nam10lp2109.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.109])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 05 Jul 2023 10:00:41 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by DM6PR03MB5337.namprd03.prod.outlook.com (2603:10b6:5:229::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=gl5h=CX=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qH34p-0007hY-Ko
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 14:01:51 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20631.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ba43835-1b3c-11ee-b237-6b7b168915f2;
+ Wed, 05 Jul 2023 16:01:49 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MW4PR12MB5604.namprd12.prod.outlook.com (2603:10b6:303:18d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Wed, 5 Jul
- 2023 14:00:38 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd96:913a:c06c:d606]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd96:913a:c06c:d606%4]) with mapi id 15.20.6565.016; Wed, 5 Jul 2023
- 14:00:38 +0000
+ 2023 14:01:46 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6544.024; Wed, 5 Jul 2023
+ 14:01:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,155 +47,378 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 546ea13c-1b3c-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1688565643;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=R2jF+Fk+1av2peT0OTKrWYAC9FnMUH30qKEkY/xy79Q=;
-  b=ZCIrVZb3pFm4iipjVAeqy0uJelhn4sXLkJfDk+Zn4odaSbwCA6ZlSPbY
-   mmCa2MpY+XDup1fF9+V6xd1znMXWY7meucAJQN/2eAeJulhobOPRyRCYJ
-   7LyEW2iklDn6aI/dYHOFpxqMr5RLV5wIQIV1+194YjsSFeHDE8rbZocuu
-   I=;
-X-IronPort-RemoteIP: 104.47.70.109
-X-IronPort-MID: 115650006
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:l6YoR6ztKWoAaPqVd4d6t+f3xyrEfRIJ4+MujC+fZmUNrF6WrkVUm
- GoZW2yGPvaKMzSmKYhxbYm0oB4BsJPQnNA3SARq+SAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw/zF8EoHUMja4mtC5QRhPa0T5jcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KTtJ1
- s0/FBInVCi4ifOT+PGqTs5Krf12eaEHPKtH0p1h5RfwKK9+BLrlHODN79Ie2yosjMdTG/qYf
- 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvDCVlVQguFTuGIO9ltiibMNZhEuH4
- EnB+Hz0GEoyP92D0zuVtHmrg4cjmAuiAd9MSeXgrqACbFu7wGMRSyc7a3iBhbqArECAYddwC
- UAaw397xUQ13AnxJjXnZDWxpHOGtxgQQd0WDeQ+7AyPzYLf5wGECi4PSTspQMwrsoo6SCIn0
- neNnsj1Hnp/vbuNU3Wf+7yI6zSoNkA9L2UPeCsFRgst+MT4rcc4iRenZslnOL64iJvyAz6Y/
- tyRhC03hrFWh8hU0ay+pAjDm2j1/smPSRMp7ALKWG7j9hl+eIOue42v7x7c8OpEK4GaCFKGu
- RDohvSj0QzHNrnV/ATlfQnHNOjBCyqtWNEEvWNSIg==
-IronPort-HdrOrdr: A9a23:39wCrK9+u3PvU53XeWFuk+AVI+orL9Y04lQ7vn2ZKSY5TiX4rb
- HKoB1/73XJYVkqN03I9ervBEDiewK/yXcW2+ks1N6ZNWGLhILBFupfBODZsl7d8kPFl9K01c
- 1bAtJD4N+bNykGsS74ijPIb+rJ2LO8gcSVbX+19QYUceltAZsQiDtRO0KgPWBdYhJJPpY9HI
- r03Ls9m9LxEU5nCPhSHxM+LpH+m+E=
-X-Talos-CUID: 9a23:01aUuWESM68T+/KQqmI9820lPfwHWEfl93nBBnf7GGJObpasHAo=
-X-Talos-MUID: =?us-ascii?q?9a23=3ANiqH5QxjLPKVcv+6NEoWZP1k99WaqKKhCgM3vKs?=
- =?us-ascii?q?lge3HDAp+BQ2Yoxa7TLZyfw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.01,183,1684814400"; 
-   d="scan'208";a="115650006"
+X-Inumbo-ID: 7ba43835-1b3c-11ee-b237-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DThuuqUeHZNXUA+vbQU8sDTl0kcwft4/JpZ6No2w6v6L6rxgGfRPrCkugPeR2Gk1bm25XPxJSi91VEHGoJO5TawKJ+FWMUZKsTKiz9pQ01ufm/H+2LTVXAG+58YERyCvLYfHYuC/88BwVyaJx1Ntdj/eFRHbJOH4A0tkwmrDMAteJy+bJ/KLuycDK8m7hXsVfHnTdi48cDqZ1gC9IcPQERE2zDKBt5OmrDplu0gA6OfLsm5IeyjxEYizAhdYErQhjhnTQ7nWJWOGNa9N1a12QuDxc0XKzc0BmHZiA5fY/lu0cJ124hds7yMHMFADwA9CDXU7H6aiE56RUrAlYCGL3g==
+ b=UJQXhN6KvalqVqKRocGPGV0bHkzrsOjRiDPQC5IJUCR/4tOL01cEM1aHo9yY1kb2FSUokTqq6EnKS3axad/NAwSCjo2ZuDflLNX+N6DHubkpiH2g49qKxaFVgaS0NvCvTFGLEqeCE6t38ZAYWHzDpobS8U5CbepVewVx/UdsldRsUsBsadmMBTWUsrMj3gajY1ltgdlR3CkIZdUDIiA5muZ6ff4Azi9Z+EAYuDrTlyIjyduK+ZbeGAKWqLSwpRVWyxeRqTGYWk6+yRD1BlP0tKOYY2a3nAt5Q6LI1a5lF7od9oPYtjN5tVon98FvZTUkS2pgw6vaMPo2f3ilwEm4tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R2jF+Fk+1av2peT0OTKrWYAC9FnMUH30qKEkY/xy79Q=;
- b=Nr/d8vXblj/EaNFIDAEOnVSlgtm59z1uXHXYH8o1oGkSJjcsUFrRAMZu/4aitH0oFZ1tT49wQ3M2yYpgWNMgWZRQQinbGtHa9usO6pDpOXtyIH49rHVZMMQ8UOv9ThaBTELd3AZ5UduF6yyIIq310QnGX1RuXOW7hX5LiJ9M9ef8FMvTnNUFg+ZUR7BZ/ae4vuBEETB0wVPL++GFuUSSySXXHNrpMZPzbkQYdSTZKMd1c9c0sbcqiJereJniUSo0ubuUUxn6weQj3ZmYIrLVmLk4F4hnw3ePiZ7r5C1WTIDj2yweYYAihGDw3l/1G/zEaKjP6PiViTK3a2AQcJFl4Q==
+ bh=xnV1Oz20FfKAim9cI+eKjVqxL+7UpJ7EFksK3UnlPaA=;
+ b=ThvmnrmE6OIDjqrIUEq/n1iHJr0tebVlVLJCYY1gQ3+Wuk50kRagpd6wuSB80OhIj7AAW6MbD7nz1XYaqHZ/7ryfXg4X9qzYH8bLk18nXce4LR7NkiPQ6XXKpdUcvuvc5jvIvQ7D6fx4Gfx+8WIv81Rbkn+tsqxfdnoBjGuRwQlM83cEQJ4XYZhHPwBmr0ocjGPG6J2j16T4GrXQ3sBnrTrWZRFAWLuuEe70tSa+du4hmX7OziUlwZuLKlYXam6/Kaq7qerPmApuQZZSoNvk/fozfbUH277zr3vRLMBj2k+rUxD/FRdF7N0pmuVrZu3wc7zzCUuTEYqnh11DVXlU7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R2jF+Fk+1av2peT0OTKrWYAC9FnMUH30qKEkY/xy79Q=;
- b=JuMi/mTQxv5C20G4G0TqUkwPoHK6UL+GcC49YLD+B1cLlkT9EQvhFr2jv5QK+BtuF1ZL10gp9NBWKf/MjQWR3aMj6D5i44e6n8dczx1Q9pJ1mnSfauYY+BrpTpo9jZp8r5pDTHutlgujqk3GMb60WL6C7XoLcwiwVGDz8Zbkmns=
+ bh=xnV1Oz20FfKAim9cI+eKjVqxL+7UpJ7EFksK3UnlPaA=;
+ b=GIjCQPhPJwFa0gbuKTA0Sm0pEsfBMzfxhfIUpwZIhSIBRl0K1KF4My7yb8CcrYn0NF69D1kJDXrZivKnhVxNw2J9Lz5J83YOTZFVocxWxWEsYi4k+tzb1jH3wtmH7sPWhqHTgJTy0maLkyBzvxUIhIvWRjIILcaubD9pm0rXP00=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <9c46b711-cbc8-7de0-4136-7815a02ca169@citrix.com>
-Date: Wed, 5 Jul 2023 15:00:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v5 1/4] x86/microcode: Allow reading microcode revision
- even if it can't be updated
-Content-Language: en-GB
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230629152656.12655-1-alejandro.vallejo@cloud.com>
- <20230629152656.12655-2-alejandro.vallejo@cloud.com>
-In-Reply-To: <20230629152656.12655-2-alejandro.vallejo@cloud.com>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <60afd920-6fdb-5403-e096-57f86e4ed35e@amd.com>
+Date: Wed, 5 Jul 2023 15:01:39 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 36/52] xen/mpu: implememt ioremap_xxx in MPU
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
+References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+ <20230626033443.2943270-37-Penny.Zheng@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <20230626033443.2943270-37-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0292.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:38f::18) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-ClientProxiedBy: LO4P123CA0192.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::17) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|DM6PR03MB5337:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64067151-c2b2-4f00-4126-08db7d6035d4
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW4PR12MB5604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 381acf25-5b73-48b9-b3ac-08db7d605e55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	wiIu0KUKd/WrCk5rr3t+gTapbTLHQMAzKR+BDkGKNaf+ZSFel9BPQasE9EOoK32JIczVoO7rAis3a7xKUKe902SL88o+vxjZh+zmu+UkyroHcnjdEzLHvkUDqChCeXvDBerVlN6OHVv1Z0W/IduE0mzpWOktNbs7Ri3Tae6LU28MkRiI75fWIQLc6ubN0i51FJOW9DouU4O4WpNjbH5hye79VceQ6nEnxMMOrtozl4PYeF4zefFmYzvwyG/oQXf4XX+CpeD8nZcX9nZXOGaAiDYyUzpRO53FN5kYiC45heAQ7AYSMIsQTK56/bzmYcE7+82i4LC/SjYhX0CG+ZduY3qYmS1afMmXU+1hTw7zWp66ZvG4b/mu94p/N8JCn5/PPC94CAuNT4Q+38DWMZdgEJxu8icF6NOvYl11CGg5A19KBfiCCIpQ7Uhk9lgjLRcyLZAvxLRz6NJsM6ps8VKqS+XQ4Ez/dosA7sYXpWdDp2oHet4ffIHAiK1DOJo6ShIvj1nL2PNVsieOlzjw57hrSqwxZPoG0Vn+nKlHmfJM+HaDpHYFKYIW44G2RfKSCr8mDfofPaXS7V8udHYQfuEgY8HN/1/wsk99+CR9jkWI+Ka2rahiZBWVqfQzJMC2XvxBpLLf5wDZ3H/1XQHN9Tqwmg==
+	fvyEJldpMY/NONDyGPdTLwQkoHKbfnkMLwo1ZHqZQHjCJZIv/kwMPx9CEwfo+BsoNMVplbxfNnIBVuUtDdxdEhFvfh5Z5FKXEM6EEQTZ6oZjsAHXEnJvEuBOGcjZX3o77k04tzq03GbUE71hmZjyJo+nvdKpT/eak3wYPPSEIe5NdeHDpIqwSfaNszUrXRr31Yj+eEpV58xdU0G25kNy29vxGDYb/YtQEyOFzVPT876T1MO/CGO4m0s+/lgN6bylQrWTGec3UdzTt2AHmx+nHupvrW9RtxQi4wB5FWyDtTh9i/FR309VonoSaI0vZTHQ0UNj5eVzTTB+J4qY4vbcEHaYsGEL1czQ7KToYff+VMacVOIEmr0gDTvALf5cQ46OB34UjrhG6wbbdRnr69VH2AuHmmeblgkzniCBCMuRco9e9DVsZu8nLvw2SfqXvdKvpCIgdrjsCODaauX3BwFxJJDHFB8aFkAwua3lphxsHc67X3q7xFmipQQlNGAAid1ke1oZKYU7kHzn8hjHqXjSAyuVHXjUG8YVilt/nmIV22eaOq36+iKykmwrmuxoNQ611CwPJE+7m7AZBAysiLtbAyi7bYeBomM05FQo5X8LtSfPUgkuGkXrqWD2cyweqgA/jEVdQb8pDLEzBlJ1q8PdjT8JUjpdMFn/QuiAj6yukM0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(366004)(396003)(39860400002)(346002)(451199021)(82960400001)(110136005)(54906003)(6486002)(478600001)(6666004)(41300700001)(8936002)(8676002)(38100700002)(66946007)(66556008)(66476007)(4326008)(316002)(2616005)(186003)(83380400001)(6512007)(53546011)(6506007)(26005)(86362001)(31696002)(5660300002)(2906002)(4744005)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(396003)(39860400002)(136003)(366004)(451199021)(2616005)(54906003)(6666004)(6512007)(6486002)(478600001)(53546011)(186003)(6506007)(26005)(2906002)(8936002)(5660300002)(41300700001)(8676002)(4326008)(66556008)(66476007)(316002)(66946007)(38100700002)(31696002)(36756003)(83380400001)(31686004)(66899021)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SHZsa3cxSGl0eXQ1bTlQRVcwTENIc1lHMkIvSUY0bHRhMWQ3bFN5RGVyUHU5?=
- =?utf-8?B?ZEVtVnAzaUwyek5FY0tOK3h0SWhqQXNtZUNTby9xZ1BYWHZIVE0zeldXQUtw?=
- =?utf-8?B?THExM2VDb25STnVic1lORTFKeEpWZDMvTVhvYjNYRHpTWXQzZGhha25mejR2?=
- =?utf-8?B?emhMT2VoYmZMdW9LYTQ4UktmVGFMbHpQdG01Y1NrUGU1MjFzY0pnZVFiOEd2?=
- =?utf-8?B?U3NEZjFHd3R4OGhqNW40OE5kWGU2bWJ6VFlvSnJjNjBMZGJ0bkllaTJoNDhk?=
- =?utf-8?B?aU05UjZtY3RMeERTTmNwTWM4SnB3V1FQU3l1MEZEOVN6cUpMa1FZUXlyV0Ny?=
- =?utf-8?B?aVlManl1YWVzZnlMekdqbmw5ZlplTXp0L1YvOGZGNlVGM0xLTWwzc3lXYVYv?=
- =?utf-8?B?OXU2elhHY0Y0b1J3bTQxRk5Ca3FkOVdwRDAyTEI1bFdFNk5VZXRYeWd2bGVD?=
- =?utf-8?B?b0dXRFRXQklVS3RiQ01TeUl5NkhacXBBMDZWYmF1dmxlTFFDNHU4STZORkwr?=
- =?utf-8?B?UkorUkliMTNXSlRabXRmOFdCTEpzNUEyajZyWHN0VENJOTgvZG1BRW1IY0w5?=
- =?utf-8?B?cGRqSDU4bDFINkR0YkN5M1U0d0cyaklKZ2g2cC9yRGRCVmZna0FINjJ2aklj?=
- =?utf-8?B?TlJPbHV1TU5CNzVwQlNST2lEekwzU1o4bkNUdDNINGVwZ2hKRGxVUUNKVUxR?=
- =?utf-8?B?aVVya2tlKzRXMW9lbUxpSHNFMnRLTnJsTXhGWlRqOURWVjh1TDN1Y0Q5eWlh?=
- =?utf-8?B?M0Q4alV0UTZYWXlNNEh6TXZ6WlQ2MnI5NHZCWFBrM1FMVG1yZk9GTXk3VTd6?=
- =?utf-8?B?RXNjYzREYnFqYWRLSG5md0N5TTlvTFhQdGFEdHhKWW5GdzkrN29mdHBDR1VW?=
- =?utf-8?B?VUorYW1rUGh0VUtyQnhlUkhibldhMWVqSERjMXZ6bDV6ZW1mVGZlVVo4eFNI?=
- =?utf-8?B?NHFBNjZvNkpLVkI1TSt6bFBHazhvNW81ZXFuWHB2d1EzYzRwV0NVUVpuVElV?=
- =?utf-8?B?U2JpZUs2TTZjeDJzeVZWYktRNzhUWHZMRVZHYUVsOHZOZGs3dkxxWmYrZGRs?=
- =?utf-8?B?dllUU050cHpGRUkrR0FDZUY1NDUxOWxSWmVkZjNHdnh1UDlJZ0diQ0poVm9F?=
- =?utf-8?B?cDFSLzJYS3dHd3NNQ0UwdnZOUHJzWUtTQnQ0d0IxWVI2RHZYQ1BmMjNBRTFz?=
- =?utf-8?B?VXhnK3k4WnpKTFlKN0REb29ONEp0VFMvKzc5ZWN0VjRya2xEZU9Qb3lveWcv?=
- =?utf-8?B?RS90N3g0Z2tHU3ZkTzhTTFNSb3RuUllXM0xtdDlHL001QlBoV3RubnppYzVH?=
- =?utf-8?B?bENaS25zN2NxbVR6M0R2SHBDSi8xQ1JJeDJIOEtrVno5cEMzaG5kWHBJY09R?=
- =?utf-8?B?V3hjRS96TFk0US9ZYUFvZVJlQUYraVZIOGU2MDgwMngxcmNmZks1ekFMY2xr?=
- =?utf-8?B?L2hDa3k3S1NsK2QvQ0NFaTRyZnZKdW8zZ1BDcDVwUkptWkRmdzR3UHJZWDUw?=
- =?utf-8?B?YnI0L2dsUDVPMWJ3VFBJK3RLSVFlS2k2Z05iVTB4ZGdudDdJZGhiYm9EbHZX?=
- =?utf-8?B?SXlZNjFFZ3NEUEpsa0pXbEpZSVFzSzR3OXJLU2VZNmplbHZud0UrNnhNaFBk?=
- =?utf-8?B?OFpqU0hPM3BFV00rQlluM2RYTUsvZkp5KzhzYml3TFgvZERjc0RDQ0szNDN1?=
- =?utf-8?B?TitzZFgrNTl0STZuaVc1TkhsZXFtMkM5RTdySU9jREVqbTVuOUdEbVB2SGl4?=
- =?utf-8?B?OEZJcEhsVWJleXI1bmpOSkI4Um1jTlRLUU5XZER5ZlZiK1hmY3dpVnpMakhX?=
- =?utf-8?B?bThUaGtpNFdsQXoxQ0VTdmJuekswc1gxUjVPbFNFdUZDTGR0R3hwQ0JuWDFj?=
- =?utf-8?B?RUVzdllvc2lVeHB6RlNjYnFFaWxza25UbUw2ZnNBTVBoWnI1WUx1YUhQcTJn?=
- =?utf-8?B?czZIZ2ZFWXFkTjd6M0dqbHRGUmRaTW5uMmZOTFd1RmJyckhvWS9maG1zMzd3?=
- =?utf-8?B?L0pBM1psM1kzYmtud3EwYnNleXIrMWZjMUZkTVQvbU11Mlo3T2ZNNGlza05E?=
- =?utf-8?B?eTc5MGhLenozM0h0YVFva1Vxc0tjUENaczcwaXhpSjQrNVVBNHF2TGxDMkFT?=
- =?utf-8?B?SmpGUDIxdHBCOTVIbVRhRnJULzc4SHlyRW9ObEx4Vkg5WEhrUDJsek9LdDBM?=
- =?utf-8?B?eGc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	GTosB0vmR+AjkVoLjSktuFUonSicuu6BFhDRHd7NtKEd+51XxwHmTn31xV3XOAG+BB4lhGBcxccO/3JB4COYEiihZBRmLlqB5FfST+azm1EDQ6HeaA4fUxB6oxSwdcmyqqFtzcHU/HpRiMbP5EzsNSa4kjf090CySWuAbNjB/RZqzzNvz2hKFIoTrmEZl1CRYeMPyblqaSClCnWDzR87hepk8uU5EOoTQr+x/FSA2ShEWSOksMALi9h3SmpCEVoywiwdmmiBmDya3AGAwLW6QBHreVRuBsnsG6saHFpItVqBEo5buNf/ipXZXVAigz/JWHkthuAV2eC6Juc7hrcGphiqedKSfHBcahMuVXyhKiCyq/rPivqfU0pv5mmWDIq4UyzQ/VZcZYdZbzrB0UIvQb81J93RI1c2Q/3tetbHAz/N2ejEtzcIviGgq7up96+nlo3ACsMoeQRZFnQDErTMfuv+jhg+2Y5YF1Qu3XomtDwzJmhi4QHkuipRaHfmQbbEizT6LpL0roP0DrkqRJZ7nruCmON8ZaAti0rqCMOoIV3/yOFQiuYTTN7TZ8gzaukKz80WNlawx+mqkJHFRSbxnrQGtuICejCs7iFF0xYODQm6YgQNFhT/NmHihNce1Oi2zNWJdMZILPAB5EbmFbgQFD7Uh/BONtR4fRX+sxU5BnRhsEcDCe1/NdVSHIKZ5hi7PCnZOagruDpPRm7ksKn63Nj+N3h+v+Zd2YyKpWcR2NLSTM0h+WQeUFNJ5tZWVJhBieJ+N2QgsCITyyFluUeR3INiOjpucbtWRWRKJ4lhuRyNgqDLGqolrNUMtbjX/esFCS5AANooOb+6myWdSCUkqWLcrktcuh80r2nskXtw/2s=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64067151-c2b2-4f00-4126-08db7d6035d4
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+	=?utf-8?B?bTJINWdvRXQ1NU1sVG5QV0NtTFNQYUhMQW5xY2M3V2FidzRjR0QzQkY5MEtt?=
+ =?utf-8?B?a2ZieTVGc0x3bTZzSE52RGZ1SkplaGJNTGVnK1hBV1ZSQk96emc1allrR0ZK?=
+ =?utf-8?B?dFhqVkMrSUZKTjU1L3BVeENTZC95U0ppVDZhb1czUUkxSHY0TlphV1V2K3BD?=
+ =?utf-8?B?ay9qZjJoWWZrek5JNTV5THltT0tPa3J6Nlc5Uk56UHFGWFd1bGYyMFhWSmEy?=
+ =?utf-8?B?ekVmU1Q1U1BmazRXZWlyMXk2NUhJVzkwUGFpTjJqbGJxZVpqdGpaM2s2R0lH?=
+ =?utf-8?B?TU5oQkhtVkMrdkJnVHd1TDlVMEhxMy8yQXZHKytVUU1LK0Z0NmwyN1h1OFo2?=
+ =?utf-8?B?QjZJUlU5QjVLVEJKR2lJNHU0eWUvWnlvWUJZQWpTSjdqSXZlcDBHMkI5SG50?=
+ =?utf-8?B?eVRkZWRZVG9VNUN2eHVmeFZkVFRQMzg1Z08yaUFxWVVhcTU4TFBnd045ajk0?=
+ =?utf-8?B?MEh2VGpDcDRWb3A2QkZSTjEvN2N4ZWhQZ3MvK0xia3BVMm1mdTQ3TlV6djdr?=
+ =?utf-8?B?eXczQmptalRCa3pEcldUU1krdElxenV4bEJHanM1a1p6ZWtHRkhvMmhZaWRL?=
+ =?utf-8?B?NDRQcUtzbUVvdEk0NXpFN3B2NWtJTSs0ZVMwUU5OdmhlSVlrUVQrYVZlZWNx?=
+ =?utf-8?B?VkNuMW1EWGdOSW8zdk9ETEVKV1dCeHdaOVFCZFltcXVsV1VqNkZrNjZFL1dj?=
+ =?utf-8?B?Uk5Oa21lZ243OGw2MjRSd1RDSzhwMVBsRll0YmI4V3FmalFPdy9hTzJnQTJF?=
+ =?utf-8?B?SjUrclluTmhDYW9TVEZUYUE3RjE2VDl5NWdHVzZ6LzFRUUpHdXZyKzFTWlJ3?=
+ =?utf-8?B?YUFJRmZyWEhMbnd6L1RKbDJ2MVQxOFo2clRIaVgzM3RaTXVCQ2ZBWHRLZ3Fl?=
+ =?utf-8?B?c295MUFON0hwVTE0TG5MT2VXV1RzUGFqM3ZYNTV0cVZ4NDArcDJpcHBPVk5L?=
+ =?utf-8?B?Yi9kMTVtbmhUS015dmI1TnhPWitnRnYvcnFyOWE3UkpYTThqVEp5NllaTlll?=
+ =?utf-8?B?TCs3REE0Q3VpczZtUlptZjM3aDg1QWhzeG1YQTlZNktrR3Y5b0h4ZnZycW1n?=
+ =?utf-8?B?SnRDUVRJd1J1TjlSa2IwSXhCN3pUY3RmQ1lmS1E4dWUyVE5UczFFZW9YNzFu?=
+ =?utf-8?B?dWlOaFMrV0RocXNRMmVTT0RDbjJEcW96RkFGOXpQV3pXZnU4VXBNaWRrdHp1?=
+ =?utf-8?B?a1loKzIxNEZQN1pvSkFpKy9wZEJxODBkWDhRd2FyanYwN3JlOWtyMi94ekUw?=
+ =?utf-8?B?MWRacFRVSHBjNHJ1VHI4S0ljM1ptNmkwT2EzN1N1emx3Z2xxUFNNMktuUjNs?=
+ =?utf-8?B?dE41SmNEWEg5UC9HbFBjZVY1Yzd2dDhQZEZGZG9iZHdJMUprcXBOaVpyb1dh?=
+ =?utf-8?B?ZS9KR291NG1kaDBLQjFOMjM0NU5FTFhWV2hiajhDcDZmSndZNnNXMWhDWXRO?=
+ =?utf-8?B?VXJPSTJyeGNXYVEvdVdzOVRhQlI3YWIweTQrTW9JbmE5T2N6aEUyY0YxaU9N?=
+ =?utf-8?B?VHRDeGhiekF5VUt6TFJ3dit2SXF0bjYrOUx4aWM4eDcrVmRnUnRnN3pLMndx?=
+ =?utf-8?B?SC9XZndLUTBhbG12SVVGTjloMk13Y1c5MmJucDM2VDJUZVkzWEZiTmVzQUZN?=
+ =?utf-8?B?REk1TnRIeFIrZGlyNDZZbUFQMVQ3WmRxMkhEdUJOOERuQ203bkFwaWplM3VZ?=
+ =?utf-8?B?VkVGelFyaVRzbWkxSy9tQ0ZaYjc1K0pwcFhza2plM1p1S1EybUhmTUMxbGZN?=
+ =?utf-8?B?VlBNODlFbVU5S1JrUTZ4YkJWYWd3ejRuejZ3cWNaeUVUeGtxQVR1aUhhaVVX?=
+ =?utf-8?B?UEo1cnVaNVMzaVJqT0tJOEI2dTJSandYWTJBbmhDNmZPOW5CUER0cGUxZkVo?=
+ =?utf-8?B?czAyNTF3M1NJODhvZm1vU1hTUmVzZzBEMldaWWQ0UllUS2wzQTk3S3grSHdk?=
+ =?utf-8?B?WCtBTWRUc21hcjIxMTZSRlFzdXJSWDh5Z2ZUaEcxSHlad3M0NmVTend4akgz?=
+ =?utf-8?B?UWd3RndTUDdSSktYNGx5OGw4cWo1VjRVemJTaXF4dnVVaUNpdjRMMGZlTURM?=
+ =?utf-8?B?VU8xRUxmS1FnZUNSbTZWSSs3VVppaHBqdzArenlLcDhMRHNuOEJVTzlsL3dz?=
+ =?utf-8?Q?xRwhExJpmW0+Yn2p/7SzFJK03?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 381acf25-5b73-48b9-b3ac-08db7d605e55
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 14:00:37.9683
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 14:01:45.8421
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TRxeez01K4Z7qX7HvjRJSVLL6L6MjGyx7tttBeseiQhcBw5ZnMRYBCRH2BzIksKyDvIppdWQJBpLCLZbxuLaAUYKjHZNV+eWw805BZQNrvI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5337
+X-MS-Exchange-CrossTenant-UserPrincipalName: mUdIq9W0MDOKnE3STecwM82MXIk0zF5iClXtp22gGmvN673wrtRHcvKSO+abA3VyTJ/U5G/ocsH3FhsrCxtgbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5604
 
-On 29/06/2023 4:26 pm, Alejandro Vallejo wrote:
-> microcode_update_one() currently assumes all microcode handlers are set or
-> none are. That won't be the case in a future patch, as apply_microcode()
-> may not be set while the others are. Hence, this patch allows reading the
-> microcode revision even if updating it is unavailable.
+Hi Penny,
+
+On 26/06/2023 04:34, Penny Zheng wrote:
+> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
 >
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>
+> A set of function ioremap_xxx are designed to map deivce memory or
+> remap part of memory temporarily for short-time special purpose, like
+> using ioremap_wc to temporarily remap guest kernel non-cacheable, for
+> copying it to guest memory.
+>
+> As virtual translation is not supported in MPU, and we always follow the
+> rule of "map in demand" in MPU, we implement MPU version of ioremap_xxx,
+> through mapping the memory with a transient MPU memory region.
+>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+> v3:
+> - adapt to the new rule of "map in demand"
+> ---
+>   xen/arch/arm/include/asm/arm64/mpu.h |   4 +
+>   xen/arch/arm/include/asm/mm.h        |   6 +
+>   xen/arch/arm/mpu/mm.c                | 185 +++++++++++++++++++++++++++
+>   3 files changed, 195 insertions(+)
+>
+> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+> index aee7947223..c5e69f239a 100644
+> --- a/xen/arch/arm/include/asm/arm64/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+> @@ -121,6 +121,10 @@ static inline bool region_is_valid(pr_t *pr)
+>       return pr->prlar.reg.en;
+>   }
+>
+> +static inline bool region_is_transient(pr_t *pr)
+> +{
+> +    return pr->prlar.reg.tran;
+> +}
+>   #endif /* __ASSEMBLY__ */
+>
+>   #endif /* __ARM64_MPU_H__ */
+> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+> index cffbf8a595..0352182d99 100644
+> --- a/xen/arch/arm/include/asm/mm.h
+> +++ b/xen/arch/arm/include/asm/mm.h
+> @@ -227,6 +227,7 @@ void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int attributes);
+>   extern int map_staticmem_pages_to_xen(paddr_t start, paddr_t end);
+>   extern int unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end);
+>
+> +#ifndef CONFIG_HAS_MPU
+>   static inline void __iomem *ioremap_nocache(paddr_t start, size_t len)
+>   {
+>       return ioremap_attr(start, len, PAGE_HYPERVISOR_NOCACHE);
+> @@ -241,6 +242,11 @@ static inline void __iomem *ioremap_wc(paddr_t start, size_t len)
+>   {
+>       return ioremap_attr(start, len, PAGE_HYPERVISOR_WC);
+>   }
+> +#else
+> +extern void __iomem *ioremap_nocache(paddr_t start, size_t len);
+> +extern void __iomem *ioremap_cache(paddr_t start, size_t len);
+> +extern void __iomem *ioremap_wc(paddr_t start, size_t len);
+> +#endif
+>
+>   /* XXX -- account for base */
+>   #define mfn_valid(mfn)        ({                                              \
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index 9d5c1da39c..3bb1a5c7c4 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -624,6 +624,191 @@ int __init unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+>       return xen_mpumap_update(start, end, 0);
+>   }
+>
+> +/*
+> + * Check whether memory range [pa, pa + len) is mapped in Xen MPU
+> + * memory mapping table xen_mpumap.
+> + *
+> + * If it is mapped, the associated index will be returned.
+> + * If it is not mapped, INVALID_REGION_IDX will be returned.
+> + */
+> +static uint8_t is_mm_range_mapped(paddr_t pa, paddr_t len)
+> +{
+> +    int rc;
+> +    uint8_t idx;
+> +
+> +    rc = mpumap_contain_region(xen_mpumap, max_xen_mpumap, pa, pa + len - 1,
+> +                               &idx);
+> +    if ( (rc == MPUMAP_REGION_FOUND) || (rc == MPUMAP_REGION_INCLUSIVE) )
+> +        return idx;
+> +
+> +    if ( rc == MPUMAP_REGION_OVERLAP )
+> +         panic("mpu: can not deal with overlapped MPU memory region\n");
+> +    /* Not mapped */
+> +    return INVALID_REGION_IDX;
+> +}
+> +
+> +static bool is_mm_attr_match(pr_t *region, unsigned int attributes)
+> +{
+> +    if ( region->prbar.reg.ap != PAGE_AP_MASK(attributes) )
+> +    {
+> +        printk(XENLOG_WARNING "region permission is not matched (0x%x -> 0x%x)\n",
+> +               region->prbar.reg.ap, PAGE_AP_MASK(attributes));
+> +        return false;
+> +    }
+> +
+> +    if ( region->prbar.reg.xn != PAGE_XN_MASK(attributes) )
+> +    {
+> +        printk(XENLOG_WARNING "region execution permission is not matched (0x%x -> 0x%x)\n",
+> +               region->prbar.reg.xn, PAGE_XN_MASK(attributes));
+> +        return false;
+> +    }
+> +
+> +    if ( region->prlar.reg.ai != PAGE_AI_MASK(attributes) )
+> +    {
+> +        printk(XENLOG_WARNING "region memory attributes is not matched (0x%x -> 0x%x)\n",
+> +               region->prlar.reg.ai, PAGE_AI_MASK(attributes));
+> +        return false;
+> +    }
+> +
+> +    return true;
+> +}
+> +
+> +/*
+> + * Check whether memory range [pa, pa + len) is mapped with memory
+> + * attributes #attr in Xen MPU memory mapping table xen_mpumap.
+> + *
+> + * If it is mapped but with different memory attributes, Errno -EINVAL
+> + * will be returned.
+> + * If it is not mapped at all, Errno -ENOENT will be returned.
+> + */
+> +static int is_mm_range_mapped_with_attr(paddr_t pa, paddr_t len,
+> +                                        unsigned int attr)
+> +{
+> +    uint8_t idx;
+> +
+> +    idx = is_mm_range_mapped(pa, len);
+> +    if ( idx != INVALID_REGION_IDX )
+> +    {
+> +        pr_t *region;
+> +
+> +        region = &xen_mpumap[idx];
+> +        if ( !is_mm_attr_match(region, attr) )
+> +            return -EINVAL;
+> +
+> +        return 0;
+> +    }
+> +
+> +    return -ENOENT;
+> +}
+> +
+> +/*
+> + * map_mm_range shall work with unmap_mm_range to map a chunk
+> + * of memory with a transient MPU memory region for a period of short time.
+> + */
+> +static void *map_mm_range(paddr_t pa, size_t len, unsigned int attributes)
+> +{
+> +    if ( xen_mpumap_update(pa, pa + len, attributes | _PAGE_TRANSIENT) )
+> +        printk(XENLOG_ERR "Failed to map_mm_range 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+> +               pa, pa + len);
+Don't you want to return NULL or something from here ?
+> +
+> +    return maddr_to_virt(pa);
+> +}
+> +
+> +static void unmap_mm_range(paddr_t pa)
+> +{
+> +    uint8_t idx;
+> +
+> +    /*
+> +     * The mapping size in map_mm_range is at least PAGE_SIZE.
+> +     * Find the MPU memory region mapped through map_mm_range, and associated
+> +     * idx will be returned.
+> +     */
+> +    idx = is_mm_range_mapped(pa, PAGE_SIZE);
+> +    if ( idx == INVALID_REGION_IDX )
+> +    {
+> +        printk(XENLOG_ERR "Failed to unmap_mm_range MPU memory region at 0x%"PRIpaddr"\n",
+> +               pa);
+> +        return;
+> +    }
+> +
+> +    if ( !region_is_transient(&xen_mpumap[idx]) )
+> +    {
+> +        printk(XENLOG_WARNING "Failed to unmap MPU memory region at 0x%"PRIpaddr"\n, as it is not transient\n",
+> +               pa);
+> +        return;
+> +    }
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Does this mean you only allow unmapping of transient memory ?
+
+So, is the non transient memory always expected to be mapped throughout 
+the lifetime of the system ?
+
+> +
+> +    /* Disable MPU memory region and clear the according entry in xen_mpumap */
+> +    control_mpu_region_from_index(idx, false);
+> +}
+> +
+> +/*
+> + * It works with "iounmap" as a pair to temporarily map a chunk of memory
+> + * with a transient MPU memory region, for short-time special accessing.
+> + */
+> +void *ioremap_attr(paddr_t pa, size_t len, unsigned int attributes)
+> +{
+> +    return map_mm_range(round_pgdown(pa), round_pgup(len), attributes);
+> +}
+> +
+> +/* ioremap_nocache is normally used to map device memory */
+> +void __iomem *ioremap_nocache(paddr_t start, size_t len)
+> +{
+> +    int rc;
+
+For this function and others (ioremap_xxx()), don't we need to check if 
+the memory is transient ?
+
+- Ayan
+
+> +
+> +    /* Check whether it is already mapped as device memory */
+> +    rc = is_mm_range_mapped_with_attr(start, len, PAGE_HYPERVISOR_NOCACHE);
+> +    if ( rc == -ENOENT )
+> +        return ioremap_attr(start, len, PAGE_HYPERVISOR_NOCACHE);
+> +    else if ( rc != 0 )
+> +        return NULL;
+> +
+> +    /* Already mapped */
+> +    return maddr_to_virt(start);
+> +}
+> +
+> +/*
+> + * ioremap_cache which is working with iounmap as a pair, is normally used to
+> + * map a chunck of cacheable memory temporarily for short-time special purpose.
+> + */
+> +void __iomem *ioremap_cache(paddr_t start, size_t len)
+> +{
+> +    int rc;
+> +
+> +    rc = is_mm_range_mapped_with_attr(start, len, PAGE_HYPERVISOR);
+> +    if ( rc == -ENOENT )
+> +        return ioremap_attr(start, len, PAGE_HYPERVISOR);
+> +    else if ( rc != 0 )
+> +        return NULL;
+> +
+> +    /* Already mapped */
+> +    return maddr_to_virt(start);
+> +}
+> +
+> +/*
+> + * ioremap_wc which is working with iounmap as a pair, is normally used to
+> + * map a chunck of non-cacheable memory temporarily for short-time special
+> + * purpose.
+> + */
+> +void __iomem *ioremap_wc(paddr_t start, size_t len)
+> +{
+> +    int rc;
+> +
+> +    rc = is_mm_range_mapped_with_attr(start, len, PAGE_HYPERVISOR_WC);
+> +    if ( rc == -ENOENT )
+> +        ioremap_attr(start, len, PAGE_HYPERVISOR_WC);
+> +    else if ( rc != 0 )
+> +        return NULL;
+> +
+> +    /* Already mapped */
+> +    return maddr_to_virt(start);
+> +}
+> +
+> +void iounmap(void __iomem *va)
+> +{
+> +    unmap_mm_range(virt_to_maddr(va));
+> +}
+> +
+>   /*
+>    * Local variables:
+>    * mode: C
+> --
+> 2.25.1
+>
+>
 
