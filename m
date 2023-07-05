@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E04F748106
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:35:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.558901.873522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942E2748123
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 11:39:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.558941.873564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyvK-0003UP-QS; Wed, 05 Jul 2023 09:35:46 +0000
+	id 1qGyyv-00080L-4v; Wed, 05 Jul 2023 09:39:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 558901.873522; Wed, 05 Jul 2023 09:35:46 +0000
+Received: by outflank-mailman (output) from mailman id 558941.873564; Wed, 05 Jul 2023 09:39:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGyvK-0003Nu-H1; Wed, 05 Jul 2023 09:35:46 +0000
-Received: by outflank-mailman (input) for mailman id 558901;
- Wed, 05 Jul 2023 09:35:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qGyyu-0007um-US; Wed, 05 Jul 2023 09:39:28 +0000
+Received: by outflank-mailman (input) for mailman id 558941;
+ Wed, 05 Jul 2023 09:39:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hy0b=CX=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1qGyvH-0006bq-Jy
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:35:43 +0000
+ id 1qGyvK-0005bC-Il
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 09:35:46 +0000
 Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
  [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4fbbcc8e-1b17-11ee-b237-6b7b168915f2;
- Wed, 05 Jul 2023 11:35:43 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 50754205-1b17-11ee-8611-37d641c3527e;
+ Wed, 05 Jul 2023 11:35:44 +0200 (CEST)
 Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2b6afc1ceffso106242191fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 02:35:43 -0700 (PDT)
+ 38308e7fff4ca-2b69923a715so99588901fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Jul 2023 02:35:44 -0700 (PDT)
 Received: from rayden.urgonet (h-46-59-78-111.A175.priv.bahnhof.se.
  [46.59.78.111]) by smtp.gmail.com with ESMTPSA id
- q22-20020a2e84d6000000b002b6d8cfb6d2sm2910625ljh.140.2023.07.05.02.35.41
+ q22-20020a2e84d6000000b002b6d8cfb6d2sm2910625ljh.140.2023.07.05.02.35.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Jul 2023 02:35:41 -0700 (PDT)
+ Wed, 05 Jul 2023 02:35:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fbbcc8e-1b17-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 50754205-1b17-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688549742; x=1691141742;
+        d=linaro.org; s=google; t=1688549743; x=1691141743;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7qJzaSd0HvmBntjUGVzcYap0wvkw2yCzYdORcW1H2Eg=;
-        b=ipq/A2Hi2yQUmOcd+UZDrLei6lggYX4sIgnIVHJKc77vrX5poi1Yzzassr7SKrPsnm
-         OyhOSngsjtiuR81fAvKtsl1tVmmxfFVuGBBRFSbys7HttK9RFwmoncVPBCK8JHR1vZmU
-         SojLhvTT7T2PVQ4kUGa8QlVqc4guEqO3hIjyMVKKnLftmS0f1zn931MCTMzcCepRBDHA
-         mwr9GCscYEZA1iumyDG2vffm1NeyA4SMcOZ6QiSLwwC+w2acvCt7D1m0V5mQsqMqyQjf
-         Y/4h5UQ8Am8erHTFAt2LXWK2+VFTyoC5a9OjipK3wd/EMG3p5YtCc3zkitATsYMuhJei
-         Mr9g==
+        bh=6R/D9gUszluJweN/TK1ixSj9VXkkPD7CMOFZ9iBZSkU=;
+        b=LobW9+25cTLWzcRstSuR690/dlXuCVYMwbPjIEHTenZ/2nRyXeKwA/h4JAzHRUzD3s
+         FmhvlBe2Q1EO5fMOb9VnD+mG9ZME87aqU7YDwVJjHbbHjeiROCCDnsooeVOOfxpDtZ5j
+         9ioX15OCbqKNZaAm3a6tIgDXGvCY8M7lUzMzv24y8iQgoIWQh+utR6FxUgrajknE4/6L
+         nt47aOLygXEI1KDw0FvuIviN0CZ9nZcBRDTnCAw4YdW3FSaQbWsLsjsgc0Id+7afCimr
+         t5Hbe/fTj8Eq0eBBQOqjXDyhwxnqSUUpH/18drtvjaNhf1gf+SeH6o9m6mgpxDoz800U
+         Mb+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688549742; x=1691141742;
+        d=1e100.net; s=20221208; t=1688549743; x=1691141743;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7qJzaSd0HvmBntjUGVzcYap0wvkw2yCzYdORcW1H2Eg=;
-        b=aOEmrC6xX6kFEP9iO21Yv8iDGLrRG0DAgpcfdb/e8U07LdAKjP+zk0XB/dA2XZio3K
-         G+VibI0jQvUFCvpoULLObfAUFKKQh7ZN2gFeG8bP1FSmU+UerqIop7WqzHqOuPmeVG8e
-         V1sHwGUwKmXaXO+UctXFrGyOsrYv5MVJ7k/V6VuUvpGYX1crwvGPBzuhkQH9tN+OiCet
-         iIDKrcn0f3RrKWfbBvmxM96Ha91d9R5jtUuphiH+e3qNBWedpNP0ARJwb6WywJYFohnr
-         8hKQmAQ9O/Ls+x+dZQY670EqmkRm23Crcga8NSIdoNAKmAeM9GefE3MCE1GuM2bXcR9o
-         jejQ==
-X-Gm-Message-State: ABy/qLaz5n0d9Kt/CEaVSs6SKBWUlR5cEGf80NDPuGbwIfmgL6sDrBOV
-	zh/oUtfDmwjSi6I8W/zxzZcJ49mz+g0Ey3KtL1E=
-X-Google-Smtp-Source: APBJJlHUJBWSzdcUQruJ6Mrl2LWhLifbL4Yl9LecwWQlfhdSBsxllBSZTar7jy7JAcWGb/JRz/hnQA==
-X-Received: by 2002:a2e:3515:0:b0:2b6:d89e:74e2 with SMTP id z21-20020a2e3515000000b002b6d89e74e2mr8243482ljz.7.1688549742487;
-        Wed, 05 Jul 2023 02:35:42 -0700 (PDT)
+        bh=6R/D9gUszluJweN/TK1ixSj9VXkkPD7CMOFZ9iBZSkU=;
+        b=kBvK1h/qtMtdpc5bvxLS/YZPinocxhmd7WOWccix/AYZvko+u2BeeIKOzgeJt5OwpS
+         gl//dTUc8VSyXWzyrVn9whDzMGJ95krEkdSeBkECQvIGjy9cjG2QAKLJRCZfHJq6KMDw
+         KHR7M/vCyBdj3l5OGwBobItpk8eLNcDGiKeZ/We3T/Ym6sJ+tBEQjew6e0G/v41RMpK4
+         CQMOP5MMruBCnThurt1G/yPL/UINcJbtA8GKSPZP4rzw5WsJXbypZk5hsC+Fla40vQwg
+         UVm5L6Xn2NgRTyHFfNPZGrkBbEWNidjhWzBICmJlNxz6q2NnBz1sxcXZOpjgoF65SwYz
+         BYWw==
+X-Gm-Message-State: ABy/qLZ7bJflmzWfdxTH0l0ZJ8SLyiOKJR02yH0V6g5/f6IWPAxlg6pX
+	TsP0/47L68kPluvboSGcNbu9vzlvZ/8uPdU4LXY=
+X-Google-Smtp-Source: APBJJlG/ZBCtB2DwyEpGctwoEHXQfYDNb0BZg67xTGH4UHtUtorEKgA7D8goMZYyEGY7vBlTlkf+Gg==
+X-Received: by 2002:a2e:888e:0:b0:2b6:bb21:8d74 with SMTP id k14-20020a2e888e000000b002b6bb218d74mr13048468lji.1.1688549743794;
+        Wed, 05 Jul 2023 02:35:43 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -87,73 +87,76 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Marc Bonnici <marc.bonnici@arm.com>,
 	Achin Gupta <achin.gupta@arm.com>,
 	Jens Wiklander <jens.wiklander@linaro.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Henry Wang <Henry.Wang@arm.com>
-Subject: [XEN PATCH v9 23/24] tools: add Arm FF-A mediator
-Date: Wed,  5 Jul 2023 11:34:32 +0200
-Message-Id: <20230705093433.2514898-24-jens.wiklander@linaro.org>
+Subject: [XEN PATCH v9 24/24] docs: add Arm FF-A mediator
+Date: Wed,  5 Jul 2023 11:34:33 +0200
+Message-Id: <20230705093433.2514898-25-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230705093433.2514898-1-jens.wiklander@linaro.org>
 References: <20230705093433.2514898-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds a new "ffa" value to the Enumeration "tee_type" to indicate if a
-guest is trusted to use FF-A.
+Describes a FF-A version 1.1 [1] mediator to communicate with a Secure
+Partition in secure world.
 
+[1] https://developer.arm.com/documentation/den0077/latest
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Reviewed-by: Henry Wang <Henry.Wang@arm.com>
 ---
- tools/include/libxl.h            | 5 +++++
- tools/libs/light/libxl_arm.c     | 3 +++
- tools/libs/light/libxl_types.idl | 3 ++-
- 3 files changed, 10 insertions(+), 1 deletion(-)
+ SUPPORT.md               |  9 +++++++++
+ docs/man/xl.cfg.5.pod.in | 15 +++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index cac641a7eba2..bf1a49e5d687 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -283,6 +283,11 @@
-  */
- #define LIBXL_HAVE_BUILDINFO_ARCH_ARM_TEE 1
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 35a6249e03b2..fe512762cee7 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -840,6 +840,15 @@ that covers the DMA of the device to be passed through.
  
-+/*
-+ * arch_arm.tee field in libxl_domain_build_info has ffa value.
-+ */
-+#define LIBXL_HAVE_BUILDINFO_ARCH_ARM_TEE_FFA 1
+ No support for QEMU backends in a 16K or 64K domain.
+ 
++### ARM: Firmware Framework for Arm A-profile (FF-A) Mediator
 +
- /*
-  * libxl_domain_build_info has the arch_arm.sve_vl field.
-  */
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 35f76dfc21e4..e155c68989aa 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -207,6 +207,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-     case LIBXL_TEE_TYPE_OPTEE:
-         config->arch.tee_type = XEN_DOMCTL_CONFIG_TEE_OPTEE;
-         break;
-+    case LIBXL_TEE_TYPE_FFA:
-+        config->arch.tee_type = XEN_DOMCTL_CONFIG_TEE_FFA;
-+        break;
-     default:
-         LOG(ERROR, "Unknown TEE type %d",
-             d_config->b_info.tee);
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 9e48bb772646..65600e17429e 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -520,7 +520,8 @@ libxl_gic_version = Enumeration("gic_version", [
++    Status, Arm64: Tech Preview
++
++There are still some code paths where a vCPU may hog a pCPU longer than
++necessary. The FF-A mediator is not yet implemented for Arm32. Part of the
++FF-A specification is not supported, see the top comment in
++xen/arch/arm/tee/ffa.c for limitations.
++
+ ### ARM: Guest Device Tree support
  
- libxl_tee_type = Enumeration("tee_type", [
-     (0, "none"),
--    (1, "optee")
-+    (1, "optee"),
-+    (2, "ffa"),
-     ], init_val = "LIBXL_TEE_TYPE_NONE")
+     Status: Supported
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 3979be2a590a..911c3619ce32 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -1648,6 +1648,21 @@ in OP-TEE.
  
- libxl_sve_type = Enumeration("sve_type", [
+ This feature is a B<technology preview>.
+ 
++=item B<ffa>
++
++B<Arm only.> Allow a guest to communicate via FF-A with Secure Partitions
++(SP), default false.
++
++Currently only a small subset of the FF-A specification is supported. Just
++enough to communicate with OP-TEE. In general only direct messaging and
++sharing memory with one SP. More advanced use cases where memory might be
++shared or donated to multiple SPs are not supported.
++
++See L<https://developer.arm.com/documentation/den0077/latest> for more
++information about FF-A.
++
++This feature is a B<technology preview>.
++
+ =back
+ 
+ =back
 -- 
 2.34.1
 
