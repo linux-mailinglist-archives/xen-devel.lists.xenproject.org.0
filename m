@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D29B8748252
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 12:41:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559052.873738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F8F74825C
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Jul 2023 12:43:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559056.873747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGzwP-0007gf-PR; Wed, 05 Jul 2023 10:40:57 +0000
+	id 1qGzyo-0008Fo-4j; Wed, 05 Jul 2023 10:43:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559052.873738; Wed, 05 Jul 2023 10:40:57 +0000
+Received: by outflank-mailman (output) from mailman id 559056.873747; Wed, 05 Jul 2023 10:43:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qGzwP-0007ef-MN; Wed, 05 Jul 2023 10:40:57 +0000
-Received: by outflank-mailman (input) for mailman id 559052;
- Wed, 05 Jul 2023 10:40:55 +0000
+	id 1qGzyo-0008EM-22; Wed, 05 Jul 2023 10:43:26 +0000
+Received: by outflank-mailman (input) for mailman id 559056;
+ Wed, 05 Jul 2023 10:43:24 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qGzwN-0007eZ-Kw
- for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 10:40:55 +0000
+ (envelope-from <julien@xen.org>) id 1qGzym-0008Dx-1D
+ for xen-devel@lists.xenproject.org; Wed, 05 Jul 2023 10:43:24 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qGzwN-00054D-3m; Wed, 05 Jul 2023 10:40:55 +0000
+ id 1qGzyl-00056S-Lt; Wed, 05 Jul 2023 10:43:23 +0000
 Received: from [15.248.3.5] (helo=[10.24.67.21])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qGzwM-0000w5-U1; Wed, 05 Jul 2023 10:40:55 +0000
+ id 1qGzyl-0000zE-Gt; Wed, 05 Jul 2023 10:43:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +42,92 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YCuZM3j36LKscsvZbyWgzojDDQZP1lgWsD/23JEmPD4=; b=NBwdeMBxzJi9N5WLTiivrM55Kn
-	hjgRFUZFTezTkMePEixcJGVg/sRbkNYBM/v36nR14e2xoAmZzxZc5UNQrQ/D+s/7NxYgdMPZobIPa
-	wU7MeeZpd6MCJQ3gsE0kL7/O01wzKxxdh8K8aKGjP1p/j2uAuTie7w4q06RLY4CgdeIY=;
-Message-ID: <bab83c9f-dda8-460c-40ee-c2e0b95f20fd@xen.org>
-Date: Wed, 5 Jul 2023 11:40:52 +0100
+	bh=gc7KcbLyyY64bpEe5vbHn6NHmmmDoyv+thNynPBDSD8=; b=FGRJ/z1c8y05CDQeeXNRz10J+c
+	4duVc2jNSPpet3TlNcYeaj30rZJkH4hkVF+5Mh5OyGANrQcgXgfXLgu8moTJs4R1eJccAo1538IM3
+	+sa8qc0SIvb3Kx9ciGB9WethQUb1Ji7I3ai295LvDDCMp7PyIcST1AjHcsJO3ZpqPh3I=;
+Message-ID: <3e01a7bb-73ff-9363-29e3-e4882cd03e37@xen.org>
+Date: Wed, 5 Jul 2023 11:43:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 00/52] xen/arm: Add Armv8-R64 MPU support to Xen -
- Part#1
+Subject: Re: [PATCH v3 08/52] xen/arm64: move MMU related code from head.S to
+ mmu/head.S
 Content-Language: en-US
 To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+ <20230626033443.2943270-9-Penny.Zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+In-Reply-To: <20230626033443.2943270-9-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Penny,
 
-On 26/06/2023 04:33, Penny Zheng wrote:
-> So sorry for the long long wait before v3 serie, since I got sidetracked to
-> a new high priority internal project for quite a time.
-> 
-> The Armv8-R architecture profile was designed to support use cases
-> that have a high sensitivity to deterministic execution. (e.g.
-> Fuel Injection, Brake control, Drive trains, Motor control etc)
-> 
-> Arm announced Armv8-R in 2013, it is the latest generation Arm
-> architecture targeted at the Real-time profile. It introduces
-> virtualization at the highest security level while retaining the
-> Protected Memory System Architecture (PMSA) based on a Memory
-> Protection Unit (MPU). In 2020, Arm announced Cortex-R82,
-> which is the first Arm 64-bit Cortex-R processor based on Armv8-R64.
-> The latest Armv8-R64 document can be found [1]. And the features of
-> Armv8-R64 architecture:
->    - An exception model that is compatible with the Armv8-A model
->    - Virtualization with support for guest operating systems
->    - PMSA virtualization using MPUs In EL2.
->    - Adds support for the 64-bit A64 instruction set.
->    - Supports up to 48-bit physical addressing.
->    - Supports three Exception Levels (ELs)
->          - Secure EL2 - The Highest Privilege
->          - Secure EL1 - RichOS (MMU) or RTOS (MPU)
->          - Secure EL0 - Application Workloads
->   - Supports only a single Security state - Secure.
->   - MPU in EL1 & EL2 is configurable, MMU in EL1 is configurable.
-> 
-> These patch series are implementing the Armv8-R64 MPU support
-> for Xen, which are based on the discussion of
-> "Proposal for Porting Xen to Armv8-R64 - DraftC" [2].
-> 
-> We will implement the Armv8-R64 and MPU support in three stages:
-> 1. Support to boot MMU domains on Armv8-R64 Xen.
-> 2. Support to boot MPU domains on Armv8-R64 Xen.
-> 3. SMP and other advanced features of Xen support on Armv8-R64.
-> 
-> For having a overall undestanding for reviewers about MPU framework on Xen,
-> we have introduced a large patch serie here, including 52 commits. At this
-> stage, we could successfully boot a linux guest on FVP_BaseR_AEMv8R
-> model[3].
-> 
-> We will split these patches to several parts, this series is the
-> part#1, v1 is in [4], the full PoC can be found in [5]. More software for
-> Armv8-R64 can be found in [6];
-> 
-> [1] https://developer.arm.com/documentation/ddi0600/latest
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2022-05/msg00643.html
-> [3] https://developer.arm.com/tools-and-software/simulation-models/fixed-virtual-platforms/arm-ecosystem-models
-> [4] https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg00289.html
-> [5] https://gitlab.com/xen-project/people/weic/xen/-/tree/integration/mpu_v3
+One more remark.
 
-The first few patches in this tree seems to be different compare to this 
-series. Can you provide a tree with all the patches from this series 
-applied?
+On 26/06/2023 04:33, Penny Zheng wrote:
+> From: Wei Chen <wei.chen@arm.com>
+> 
+> There are lots of MMU specific code in head.S. This code will not
+> be used in MPU systems. If we use #ifdef to gate them, the code
+> will become messy and hard to maintain. So we move MMU related
+> code to mmu/head.S, and keep common code still in head.S. We also
+> add .text.idmap in mmu/head.S to make all code in this new file
+> are still in identity map page but will be linked after head.S.
+> 
+> As "fail" in head.S is very simple and this name is too easy to
+> be conflicted, so duplicate it in mmu/head.S instead of exporting
+> it.
+> 
+> And some assembly macros that will be shared by MMU and MPU later,
+> we move them to macros.h.
+> 
+> Rename enable_boot_mmu()/enable_runtime_mmu() to a more generic name
+> enable_boot_mm()/enable_runtime_mm(), in order to make them common interfaces
+> to be used for both MMU and later MPU system.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> ---
+> v1 -> v2:
+> 1. Move macros to macros.h
+> 2. Remove the indention modification
+> 3. Duplicate "fail" instead of exporting it.
+> ---
+> v3:
+> - Rename enable_boot_mmu()/enable_runtime_mmu() to a more generic name
+> enable_boot_mm()/enable_runtime_mm()
+> ---
+>   xen/arch/arm/arm64/Makefile             |   3 +
+>   xen/arch/arm/arm64/head.S               | 469 +-----------------------
+>   xen/arch/arm/arm64/mmu/head.S           | 453 +++++++++++++++++++++++
+>   xen/arch/arm/include/asm/arm64/macros.h |  51 +++
+>   4 files changed, 509 insertions(+), 467 deletions(-)
+>   create mode 100644 xen/arch/arm/arm64/mmu/head.S
+> 
+> diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
+> index 54ad55c75c..0c4b177be9 100644
+> --- a/xen/arch/arm/arm64/Makefile
+> +++ b/xen/arch/arm/arm64/Makefile
+> @@ -8,6 +8,9 @@ obj-y += domctl.o
+>   obj-y += domain.o
+>   obj-y += entry.o
+>   obj-y += head.o
+> +ifeq ($(CONFIG_HAS_MMU),y)
+> +obj-y += mmu/head.o
+> +endif
+
+You could use obj-$(CONFIG_HAS_MMU) += mmu/head.o.
+
+But in this case, I would rather prefer if we match how other 
+subdirectory are added. I.e. on the parent's directory Makefile you add:
+
+obj-$(CONFIG_MMU) += mmu/
+
+And in the directory you add a Makefile which list the files to compile.
 
 Cheers,
 
