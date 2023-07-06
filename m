@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F07E74A143
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 17:39:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559912.875348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA91774A14E
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 17:43:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559919.875359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHR4X-00033M-E3; Thu, 06 Jul 2023 15:39:09 +0000
+	id 1qHR8l-0004Z8-1m; Thu, 06 Jul 2023 15:43:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559912.875348; Thu, 06 Jul 2023 15:39:09 +0000
+Received: by outflank-mailman (output) from mailman id 559919.875359; Thu, 06 Jul 2023 15:43:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHR4X-000313-9F; Thu, 06 Jul 2023 15:39:09 +0000
-Received: by outflank-mailman (input) for mailman id 559912;
- Thu, 06 Jul 2023 15:39:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qHR8k-0004Vn-Uo; Thu, 06 Jul 2023 15:43:30 +0000
+Received: by outflank-mailman (input) for mailman id 559919;
+ Thu, 06 Jul 2023 15:43:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=73gZ=CY=bombadil.srs.infradead.org=BATV+3c95f280863011604c0c+7256+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1qHR4V-00030x-8X
- for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 15:39:07 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d2c2118-1c13-11ee-b237-6b7b168915f2;
- Thu, 06 Jul 2023 17:39:06 +0200 (CEST)
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qHR44-0021w3-0C; Thu, 06 Jul 2023 15:38:40 +0000
+ <SRS0=OuuY=CY=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qHR8k-0004Vh-6w
+ for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 15:43:30 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d815800e-1c13-11ee-8611-37d641c3527e;
+ Thu, 06 Jul 2023 17:43:26 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 731E68285452;
+ Thu,  6 Jul 2023 10:43:24 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id IYMxrxYsk_aE; Thu,  6 Jul 2023 10:43:23 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 845E08285514;
+ Thu,  6 Jul 2023 10:43:23 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id F-Xbx5_Cs6bE; Thu,  6 Jul 2023 10:43:23 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 1A8928285452;
+ Thu,  6 Jul 2023 10:43:23 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +51,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d2c2118-1c13-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=YwAEpZO7Vu5hoax5tz5QpnX5k8pjtsK6yDO/dOzPntw=; b=LJt1aHPpR1VtNNU97F662mFcBQ
-	04pv5pjmhELPxcfY8IU2J9oyhfgQvItd1fUo/P+Wom3ADKBICTxeaU2ubravoUlJ9bJKThqcbtmZO
-	YHZ6Bq5JNF5Oy1kZk0vGrojv9a9LNU4bL+WXTD5k/gljEqzdXg69aNBObe/lnHCHtRlMc6Ppc7Hqe
-	+NefvxaKjDH4eBZ/aYpgK8N4uyEQGVFSG36iqC/zjMjHjPuCdtgFFvp4F+STCUxI3HsTMMx8Jecfh
-	X5dQPxytEjbEWkMaTy11b/rkROV7wOirXDfTif06nI996QOXUgedgb0owSphnlvJb3u4X61SBTklq
-	DymCsIxA==;
-Date: Thu, 6 Jul 2023 08:38:40 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Anna Schumaker <anna@kernel.org>, Chao Yu <chao@kernel.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Kleikamp <shaggy@kernel.org>, David Sterba <dsterba@suse.com>,
-	dm-devel@redhat.com, drbd-dev@lists.linbit.com,
-	Gao Xiang <xiang@kernel.org>, Jack Wang <jinpu.wang@ionos.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	jfs-discussion@lists.sourceforge.net,
-	Joern Engel <joern@lazybastard.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
-	linux-bcache@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
-	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-pm@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
-	ocfs2-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Song Liu <song@kernel.org>, Sven Schnelle <svens@linux.ibm.com>,
-	target-devel@vger.kernel.org, Ted Tso <tytso@mit.edu>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 01/32] block: Provide blkdev_get_handle_* functions
-Message-ID: <ZKbgAG5OoHVyUKOG@infradead.org>
-References: <20230629165206.383-1-jack@suse.cz>
- <20230704122224.16257-1-jack@suse.cz>
+X-Inumbo-ID: d815800e-1c13-11ee-8611-37d641c3527e
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 845E08285514
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1688658203; bh=Z/xe/+UZWeimo/sm92wEXj+a5NzsiDM7/3QqDelMVdc=;
+	h=Message-ID:Date:MIME-Version:From:To;
+	b=nhESvTEKiH/wm7PrTilxSFP6TlLzIA7EYkovXojTkPKXVjmqrh2n5EuU2BR8JrciX
+	 p18eTIM3Elyb1OPb62I6PPbVdju0piWGogDR9jUcg2k8j2IOMKRTpR+ukz8m+m3mVL
+	 BOwO/LtpUL+Kdlgu94wLPHCmlyV6w9hd70DPRHLo=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <0c0e7324-cb99-31af-34a2-94ba8d581a31@raptorengineering.com>
+Date: Thu, 6 Jul 2023 10:43:22 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230704122224.16257-1-jack@suse.cz>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 1/3] xen/ppc: Set up a basic C environment
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+References: <cover.1687466822.git.sanastasio@raptorengineering.com>
+ <1afe27097c5e1b55dcffa9464dc0cd0c1038a23e.1687466822.git.sanastasio@raptorengineering.com>
+ <bfaba0e5-36e9-b201-30fd-b96add91cb1c@citrix.com>
+ <5011cde3-b553-6a17-85aa-a30edf3102fd@raptorengineering.com>
+In-Reply-To: <5011cde3-b553-6a17-85aa-a30edf3102fd@raptorengineering.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 04, 2023 at 02:21:28PM +0200, Jan Kara wrote:
-> Create struct bdev_handle that contains all parameters that need to be
-> passed to blkdev_put() and provide blkdev_get_handle_* functions that
-> return this structure instead of plain bdev pointer. This will
-> eventually allow us to pass one more argument to blkdev_put() without
-> too much hassle.
+On 6/22/23 8:26 PM, Shawn Anastasio wrote:
+> On 6/22/23 5:49 PM, Andrew Cooper wrote:
+>> On 22/06/2023 9:57 pm, Shawn Anastasio wrote:
+>>> Update ppc64/head.S to set up an initial boot stack, zero the .bss
+>>> section, and jump to C.
+>>>
+>>> Also refactor the endian fixup trampoline into its own macro, since it
+>>> will need to be used in multiple places, including every time we make a
+>>> call into firmware (see next commit).
+>>>
+>>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>>
+>> Thankyou for making this change - it definitely simplifies things.
+> 
+> No problem.
+> 
+>> I've done a bit of reading around, and it's rather sad that things prior
+>> to Power10 don't have PC-relative addressing.  So the LOAD_IMM64()'s do
+>> look necessary for the stack and bss.  I guess that means we can't be
+>> sensibly be position independent in head.S?
+> 
+> Prior to the introduction of pcrel loads/stores in P10, PIC is achieved
+> using a Table of Contents (TOC) whose base address is kept in r2 and can
+> be used as a relative base to address other symbols. I don't have -fPIC
+> enabled in this series yet (it's in the series I was hoping to submit
+> after this one), so for now I'm just loading the addresses as immediates
+> directly.
+> 
+>> Also, why store 0 onto the stack ?
+> 
+> On the ELFv2 ABI which we're using here, sp+0 is reserved for the "back
+> chain" pointer which is used to store the address of the caller's stack
+> frame and is used to support backtraces.
+> 
+> At the top of the stack, we need to make sure the first back chain
+> pointer is zero to ensure that anything walking the stack via these
+> pointers eventually terminates.
+> 
+>>> +
+>>> +    /* clear .bss */
+>>> +    LOAD_IMM64(%r14, __bss_start)
+>>> +    LOAD_IMM64(%r15, __bss_end)
+>>> +1:
+>>> +    std %r11, 0(%r14)
+>>> +    addi %r14, %r14, 8
+>>> +    cmpld %r14, %r15
+>>> +    blt 1b
+>>
+>> This loop is correct, except for the corner case of this patch alone,
+>> where the BSS is empty and this will write one word out-of-bounds.
+>>
+>> For RISC-V, we put a temporary "char bss_tmp;" in setup.c, and I suggest
+>> you do the same here, deleting it at a later point when there's real
+>> data in the bss.
+> 
+> Good catch. I actually introduce a .bss variable in patch 2 of this
+> series, so perhaps it would make the most sense for me to move this loop
+> to that patch?
+> 
+> Also it might make sense to have an assert in the linker script checking
+> that sizeof(.bss) > 0, though past early bring-up an empty .bss is
+> probably a pretty unlikely scenario...
+> 
+>>> +
+>>> +    /* call the C entrypoint */
+>>> +    LOAD_IMM64(%r12, start_xen)
+>>> +    mtctr %r12
+>>> +    bctrl
+>>
+>> Why is this a LOAD_IMM64(), and not just:
+>>
+>>     b start_xen
+>>
+>> ?  From the same reading around, PPC64 seems to have +/- 32M addressing
+>> for branches, and the entire x86 hypervisor (.init included) is within 3M.
+> 
+> Good question. You're right that here it's entirely unnecessary. Once we
+> enable -fPIC, though, the calling convention for functions changes a bit
+> and necessitates that in certain scenarios r12 contains the entrypoint
+> of the function being called.
 
-Can we use the opportunity to come up with better names?  blkdev_get_*
-was always a rather horrible naming convention for something that
-ends up calling into ->open.
+Turns out I was actually wrong here -- changing the indirect load +
+branch to a direct branch does actually break the code here, but for a
+reason other than what I anticipated. Even with PIC disabled, r2 needs
+to contain a valid TOC pointer. The function address doesn't need to be
+contained in r12 to calculate it since it's an absolute address rather
+than function-relative, but using a simple direct branch here causes the
+linker to skip past the TOC calculation prologue in `start_xen` as an
+optimization, since it assumes that r2 is already set up. Since we
+haven't set up r2, though, this results in the program using a
+garbage TOC pointer at run-time.
 
-What about:
+I'll just set up the TOC before making the call in `start` to fix this.
 
-struct bdev_handle *bdev_open_by_dev(dev_t dev, blk_mode_t mode, void *holder,
-		const struct blk_holder_ops *hops);
-struct bdev_handle *bdev_open_by_path(dev_t dev, blk_mode_t mode,
-		void *holder, const struct blk_holder_ops *hops);
-void bdev_release(struct bdev_handle *handle);
+Thanks,
+Shawn
 
-?
 
