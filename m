@@ -2,33 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A5C7498E8
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 12:02:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559826.875178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B746074999C
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 12:43:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559832.875187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHLo7-0003lx-3b; Thu, 06 Jul 2023 10:01:51 +0000
+	id 1qHMRU-0008EH-7V; Thu, 06 Jul 2023 10:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559826.875178; Thu, 06 Jul 2023 10:01:51 +0000
+Received: by outflank-mailman (output) from mailman id 559832.875187; Thu, 06 Jul 2023 10:42:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHLo7-0003jL-0T; Thu, 06 Jul 2023 10:01:51 +0000
-Received: by outflank-mailman (input) for mailman id 559826;
- Thu, 06 Jul 2023 10:01:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qHMRU-0008CN-4m; Thu, 06 Jul 2023 10:42:32 +0000
+Received: by outflank-mailman (input) for mailman id 559832;
+ Thu, 06 Jul 2023 10:42:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Jm08=CY=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1qHLo5-0003jF-6l
- for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 10:01:49 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1dd4b4d8-1be4-11ee-8611-37d641c3527e;
- Thu, 06 Jul 2023 12:01:46 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b701e1c80fso6590261fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 06 Jul 2023 03:01:46 -0700 (PDT)
+ (envelope-from <SRS0=jdui=CY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qHMRS-0008CH-OC
+ for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 10:42:30 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2055.outbound.protection.outlook.com [40.107.13.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cdbb3f2f-1be9-11ee-b237-6b7b168915f2;
+ Thu, 06 Jul 2023 12:42:29 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAWPR04MB9806.eurprd04.prod.outlook.com (2603:10a6:102:389::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Thu, 6 Jul
+ 2023 10:42:00 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Thu, 6 Jul 2023
+ 10:41:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,623 +46,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dd4b4d8-1be4-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1688637706; x=1691229706;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=CXvmPGa5oa/4U8HJIGwjcQ85FGvfc+qPVsCGxMP5qzU=;
-        b=IRczryd5lBoEpGKKNADf+2APN7EZi3gZlsfvJaSEEvTebvKyGKshDBCsQOpYzN90XE
-         0xOxzOfy06MBR6HdWIegJlHMc6ZAy9PQuUphQvrfFPcL33K7qaf94NW4aiqh80il/hlx
-         rIzHxDWESXJv4D2KxPwrGWv1+QzdHHNUQU3cc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688637706; x=1691229706;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=CXvmPGa5oa/4U8HJIGwjcQ85FGvfc+qPVsCGxMP5qzU=;
-        b=kYlXviPw6KHIyf+vGrWmlDXaCWV5CZiUEFUYT/KkrvdE5K3/XAriaxCxUmquMH0brR
-         f2ehIAqucTbA0R243M2pEzpodYcmSBb3PBzsT/aBY3pULh3bMILKeJm2i9HCTb2WSEGW
-         50mZedYyzoHYzA/n/037rqI9+Esrb3zyHO8DXGeJj3qbey39ls4ZLeu5jz39IeqfEcZg
-         CMfyWqRm4zSev8nMRcKOXQXfDFzRUh5MRbEQFi1UhAD6e/fZ6vBnTwJNboPYp6gdYR3w
-         IP5flPGOQ1EH2ZVTWcOI/quCs1IEjaiyGTVkjBI76szA0zZltO9zoJ54d+uPUfrs2u8x
-         iI1w==
-X-Gm-Message-State: ABy/qLY+Fq3KNXVcN3bpKqbUQwfU4yB2aUMHq880mGNYJE11/mcyEJbK
-	pKwcu0iXwRMXa3GqhS0Pp6cgOAF4WhCMJG1BwSqZ9w==
-X-Google-Smtp-Source: APBJJlFJq/ZNbrUWRWXv9OBgD+AWBoAUA1DVuEg0kdYZObktsLdSi41LfDjnsofkCMTWeGSUDWjjT4rq4E88YLQQ6ds=
-X-Received: by 2002:a2e:9c14:0:b0:2b6:dd13:4f26 with SMTP id
- s20-20020a2e9c14000000b002b6dd134f26mr867285lji.46.1688637705535; Thu, 06 Jul
- 2023 03:01:45 -0700 (PDT)
+X-Inumbo-ID: cdbb3f2f-1be9-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j+/0BNIEjvT/PdUV8eZdurJhMpcP0IJdhq7ZtDHaJNbOwBWwSW+DK9RxogwED0TCbCDZuy7+z6fru8v9//gnYQVj0wRxL/V/Ym/LNreUZz+ANMgP/hXBCfuwyCYhItVJ4mQ5qFN2jfmkLUjgo+VPKRwvruGw4ePUxRJlUAVPFCR4RxKjcn3ztLH/W65gk6YJt+T1xqkPYr2m0iTrx3T1jVBpBMIMTeWBnrrZMN9amONfnTAdHA7h6I+UitRhVMpm3I/wRayUsU7TQ/fiMMsa8bUyoDfYvPWvc+eqHcPvQib8JP7l5eRaGGOdFqWldLNzyoK3ELmwibZhCVaImqxssA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6GIA2cEGWA93UR7I6adr6dZSo5gee1gyxHc+wJ8ZC5g=;
+ b=V2xbypczwDKbehjnqyoUulRpmTiK/uZn8ol6DQgsk8+b+KTfRgwrVLO410NPxIC/hALyozMBPXXu5w8uapDYIbcuD8zWZRUi1awdaY1bgp3/xshzEktzmUryf8ahJKV9/5Ve7aaamhi2gN/zaf3KtzH7Y3ydlgJClNzPRsmOj8bps+scUFQHA8yzqXbsttkWBirE/5XWqLqdaMr9DvOXXnSuM2piDDAGVOEjn7yS9WDHmYTZz22j4g8SF7Hk/jJ3cE/A2V/rcq3qmLevaE1EdBmvdKcTck9CZWFnwJLNQboryhuIlnEKuMZ3B8fOjtAktOaEO2T1DJwZ7MlZV1SC6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6GIA2cEGWA93UR7I6adr6dZSo5gee1gyxHc+wJ8ZC5g=;
+ b=iax0HbeppCnQSQg8DgpePEZjh0Y/oojSKSti2UFUQImKcAWkqHJREMUdvmTqo+CQIAS6migg+42mrL/8JDw6VnyO7p/XaBbJi7QEYodwxUdViG35E7qkpIwpjEZOarTUTleiH+si6GpxVY+nDd2UmLBcB5pdPmsL5I+KCBCyUQkNryl/jn+Ya+Y3UXehMC7cU/PzEye71AxNZemXyHwpQzvvv6zVXvbpTDEVlrWGi1cIPZgzG3MTn0mDqnesWzNBKTbdXOHQs6QZdQV6fn95l4zwZTnGWCAa2DK7cdm8gi61lAWscKIo1COs+ILuvBUMZdqnXtJ9bQZlZUEJLT3IeA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <47cc5f67-973a-2095-932f-6ebea2d3bd9e@suse.com>
+Date: Thu, 6 Jul 2023 12:41:58 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v4 1/3] multiboot2: parse vga= option when setting GOP
+ mode
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20230705114741.11449-1-roger.pau@citrix.com>
+ <20230705114741.11449-2-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230705114741.11449-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0089.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::18) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-References: <8601CDD7-87F7-4FD0-A6E6-BAEAB12E7956@arm.com> <234199F8-DBB1-42B6-9A4C-8800EEF60997@gmail.com>
- <CA+zSX=Y3_g_aq4+sDK7CuZajywVqQ4xOrq7hKZ80eUT3uSxzuQ@mail.gmail.com> <alpine.DEB.2.22.394.2307051436120.761183@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2307051436120.761183@ubuntu-linux-20-04-desktop>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 6 Jul 2023 11:01:34 +0100
-Message-ID: <CA+zSX=ashTi590+cVss_3zyLESC8S=zVSMLjTKD00s6xfjZbJA@mail.gmail.com>
-Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: P S <pairspace@gmail.com>, Luca Fancellu <luca.fancellu@arm.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	Christopher Clark <christopher.w.clark@gmail.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>, 
-	Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>, 
-	Community Manager <community.manager@xenproject.org>, Doug Goldstein <cardoe@cardoe.com>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Anthony PERARD <anthony.perard@citrix.com>
-Content-Type: multipart/alternative; boundary="00000000000097d3ab05ffce9a1d"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAWPR04MB9806:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb171eea-63c6-44ad-0b6a-08db7e0da0ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	tnSQozHERjO48he4ZJo0rU3/IPldrRM96Wuwyg/5gjh9R5ancUpSdyvdWkV2ZHAUCgxhnNEElNhuuauJfJEA4bLcIqvOkk9zAm6cXTJAGrXhgkcNyauP7o/fEVZVM96Chx/wk6gNWxrttR5PUO7PKqyPG+r8IK+6ul78Z4ds12PNAqFaml7gDLhpcAwz2eQwdveMRGXesGwLYIgOniaQtdoTvAI/YYRpY6+rJwWR5OXQ15L6NnRQgVDEzEacu0A6oIQq6cCHiAAaTNq8RgZcAZopCY5klulatlWy+Y8pTS3B57dNsDR4V2g6jQATB8DpmdyoSFvZnbUIyekXpmnosQkD8o6gdcGIKOyVRS0jN+xVfZ9efWQoNleC3UXObWAz+GmXBU0Jv5aYDqxX24O1gPaRWM0PQ9fXC4AC09z/JxGvYLjDOHKqHygJeis/nEvIruHIFXdkYUMiYr3TmCrDW+F0u5WqrAci0ptz6AFGUICPF57Hx8P2idg5gbWwuhOPCaFVkFNpzJSPhdRqC7bGf9WP2G/anZUsayrAyXVO5GO8OnzFy/UbkjXb+Jvt2s9XGtxt2YHG/Fn3s0HS4zmMxClOXO9TGPQuCfLlNBsTAIk+tN4cta0tmDIzYWhTWr0CoK1tqnrzigFt/mngjKTqrQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(396003)(376002)(366004)(346002)(136003)(451199021)(6486002)(478600001)(54906003)(83380400001)(2616005)(36756003)(86362001)(31696002)(31686004)(2906002)(66946007)(6506007)(53546011)(186003)(26005)(6512007)(38100700002)(316002)(66476007)(6916009)(4326008)(41300700001)(66556008)(8936002)(8676002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YzB4YnZ0RFhmRDR2cTUwVzdtN25ZSzAvRmpHNk1RZEhVODlqNHdSSlg1SUJO?=
+ =?utf-8?B?SWR1QnFuWmpjNTd5cEZwQVd5M3A3ZWNhd2pkS3ZlUWo0RExsbUxQN1ZTWXAx?=
+ =?utf-8?B?Zko4V1owdmp2Z1E5Wkl4WHFCbm9nNUxER3dOUWZLL1c1RWZocEd6YngyVURU?=
+ =?utf-8?B?aUVsdDZib3A1TW9JNitraGEvckJEenZCM202RThQWTM4K1hZekl1OXNFS2pt?=
+ =?utf-8?B?QkFPK1hVcnpGQ1FxTTc0Nk5tVXpOYkZFMXBmdFFlNlMxMFk3V0VIZXp6dWha?=
+ =?utf-8?B?bHpBMEVUWE93UkVwcXlWYmlDeDdJazNNZFVqVjZmRjJGYisxVnAvQVVrN3N6?=
+ =?utf-8?B?K2xJU2FSVkU3Q25Fb3FyYUZWMUlxQ2ZxQVF6aUpDUjlGSkR5UWNPVFM2cTcv?=
+ =?utf-8?B?c1c3N2lOQnlJS09MMVhLR25NUW10MjRHTW1SbFU2a0lvMkppNjlMcU52STZV?=
+ =?utf-8?B?NDdrQ2Z6YmpBb3JoUytPbVRaWEh4Q0tTZUYrZHRlN245MW5wdjdLTGk4T2Ex?=
+ =?utf-8?B?VlNxN2k1ZzE4MmNCakRZWm5jeGt1aFJiV1FRSDhGTE5yUG00V3kyRnhlTndV?=
+ =?utf-8?B?VFVjakpTbk9MREJnZTRpWkwrNkRmbnR1UzJtTlNpaXZCN3hoTDUrN0hSaTBm?=
+ =?utf-8?B?YVdXYS9VM21BOGpYeWZzdFZXcjVNVmJrNUlxT2RLWWpjb24vVE1nNkdVLzQ1?=
+ =?utf-8?B?R2xHL3hYNVhJQXRHQ2JWclYrRnkvUlBtelBTOVgrR1ZWQUtMSFhYc1JqcENF?=
+ =?utf-8?B?ZHNuWXp6bEo4d2VkSGEwZU9HcUdOYWk3RkhGK0RReUdBNlo1SGdTTXREcnd5?=
+ =?utf-8?B?ekJ2TXZxZXBCOUdybjBsd1hpektzSHR0L2ZCUlVERGNZeE1WajFUR09PNUps?=
+ =?utf-8?B?WC9ML2ovR0RrTlcxd1F6WkdQT2FzWG9XOFJkbUxpSUhLQm1zM1AxVTFlNFps?=
+ =?utf-8?B?dStHeE9GQ20vaWtHVHAvcHgzdDd5NUF6Y3hITExCSzFxWEtTb2MxWG1XcnV2?=
+ =?utf-8?B?MjRkWkhPMFREaGw5M3dUa3FHbGd5VGxuYjM5R0lMYy9oZ0Nac1BkaVJuZUtw?=
+ =?utf-8?B?aG1BMXVuU0Izd2hpbjhVOWtGY09KY1VEQmpPNHgrMlNkZTdCcDB6MnFZbm1V?=
+ =?utf-8?B?N0dnZ2szcXA1cWxtaWppd0J5clF5T01ya2lib3hiQ0EwSGZOVFBsQ09VcXZh?=
+ =?utf-8?B?ODgvQXlRMzVxdUV5YW84RVdKNVVQWmgwck8xc05SMVB0ZXN1RVE1d3FqeEtv?=
+ =?utf-8?B?dklSS0ltNUtjR21NSUhNRFZSWUxmWk1oWk5TR1FncWdEV0NhcFQzTzkrS0pX?=
+ =?utf-8?B?ckl1VHdsRERmYlJBWm5BSHJpZVdLK1d6akdUdjQ2OVppVkFHT1RFVzlkV29u?=
+ =?utf-8?B?Ui96b0tEamtrQXduTWE0RW5yWk1hV1ZtcDExVmVHY2x1dU9FSXNWbmppVit3?=
+ =?utf-8?B?YXhYRFJ6Mm1DcEpRc0FQdEcwZTBQdHVoeDM2S1VDZlBVcVBEVTVtdGVERzZE?=
+ =?utf-8?B?MVplREJ0V1dsc2krWkN3NkEyL2VxSTFmZmt2YmEvaGtVUks1L2QzVllpY0JQ?=
+ =?utf-8?B?WDNYTm5QekhGK29LWWdUQXRJUUdiUWczbE9wOGV2RXMvQXVxOTBzeVFhM0tq?=
+ =?utf-8?B?d3Y1RXNkVFpHOHJSR3lHNkErWWRCUTVPRzZSQjRVMnVJbTVMOXc1K3NWVEVi?=
+ =?utf-8?B?aWhFRENqOUlUODVSbVAxNytCdkFISTFQUW1EYlpwZEErMFJqTjlTb0crVlhM?=
+ =?utf-8?B?NkswbE9wdzVTRFpBSlhJeklhZTZCYm9Eb3puL0crWlJORCs2dm1iZnppbDF3?=
+ =?utf-8?B?WHJGR1Vnak5QZkNZNlplVjcrNEI3bWhaZklkV3Y4RU80MEExS1FhZ3plVEVY?=
+ =?utf-8?B?c293Qjh1STl6dXhGRStrYXJ1dFdaMlp1enNETEVLaDJwV1ZYdk92NlRnM0xF?=
+ =?utf-8?B?cDBMUlhDNFhPYjloc0lVbGxlb0ZzbUxwaWltSjdYQ202QkpMZnNKNG1YQWUv?=
+ =?utf-8?B?MjI3Z250dVpsQk1pMkJMZlBIUGVQNnRuMzFlRXVsWXVHcWZaZzBZeXlLMldT?=
+ =?utf-8?B?NUZyaGI2NlBKZWwycHpETC9oZmw3Ni9MVGNsdnlPU1U4UDJFRVFsRHlMRDB2?=
+ =?utf-8?Q?yKjNiVQx8x9nT6CmtqEPykui5?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb171eea-63c6-44ad-0b6a-08db7e0da0ad
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 10:41:59.9626
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BAX4vE52JGUOIrUZ5mF49KLK3fVMfq1U7nfZm0bZJbhv4rO+c5jlQGhAaqvKsuUVktCfihZgAls7+AysdUADWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9806
 
---00000000000097d3ab05ffce9a1d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 05.07.2023 13:47, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -795,7 +795,30 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
+>  
+>  static void __init efi_arch_flush_dcache_area(const void *vaddr, UINTN size) { }
+>  
+> -void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+> +/* Return a pointer to the character after the first occurrence of opt in cmd */
+> +static const char __init *get_option(const char *cmd, const char *opt)
 
-On Wed, Jul 5, 2023 at 11:14=E2=80=AFPM Stefano Stabellini <
-stefano.stabellini@amd.com> wrote:
+Nit: __init and * want to change places.
 
-> On Wed, 5 Jul 2023, George Dunlap wrote:
-> > On Mon, Jul 3, 2023 at 9:55=E2=80=AFPM P S <pairspace@gmail.com> wrote:
-> >       > On Jul 3, 2023, at 15:45, Luca Fancellu <luca.fancellu@arm.com>
-> wrote:
-> >       =EF=BB=BF>
-> >       >> On 3 Jul 2023, at 18:48, Stefano Stabellini <
-> sstabellini@kernel.org> wrote:
-> >       >>
-> >       >>> On Mon, 3 Jul 2023, Daniel P. Smith wrote:
-> >       >>> On 7/1/23 11:13, Luca Fancellu wrote:
-> >       >>>>> On 1 Jul 2023, at 08:53, Andrew Cooper <
-> andrew.cooper3@citrix.com> wrote:
-> >       >>>>>
-> >       >>>>> On 30/06/2023 10:12 am, Luca Fancellu wrote:
-> >       >>>>>> The "dom0less" feature was intended to be the feature wher=
-e
-> a domU
-> >       >>>>>> domain could be launched without the control domain (Dom0)
-> >       >>>>>> intervention, however the name seems to suggest that Dom0
-> cannot
-> >       >>>>>> be part of the configuration, while instead it's a possibl=
-e
-> use case.
-> >       >>>>>>
-> >       >>>>>> To avoid that, rename the "dom0less" configuration with th=
-e
-> name
-> >       >>>>>> "hyperlaunch", that is less misleading.
-> >       >>>>>>
-> >       >>>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> >       >>>>>> ---
-> >       >>>>>> This is an RFC to get the feeling of the community about
-> the name
-> >       >>>>>> change, for now it's everything in one patch just to see
-> how it
-> >       >>>>>> will look like, if there is interest on proceeding into it=
-,
-> I can
-> >       >>>>>> split in more commit.
-> >       >>>>>
-> >       >>>>> Have you discussed this with Dan and Chris at all?  You
-> haven't even
-> >       >>>>> CC'd them.
-> >       >>>>
-> >       >>>> No, this rename idea started from a chat during the summit,
-> anyway Julien
-> >       >>>> promptly add them to the CC, because I forgot.
-> >       >>>
-> >       >>> No worries and thank you for considering and taking the time
-> to do this RFC.
-> >       >>> It is greatly appreciated that there is a strong willingness
-> to have dom0less
-> >       >>> and hyperlaunch merged.
-> >       >>>
-> >       >>>>>
-> >       >>>>> While there is a lot of end-goal in common between the
-> dom0less and
-> >       >>>>> hyperlaunch, and that the name dom0less is deeply misleadin=
-g,
-> >       >>>>> hyperlaunch is specifically not this.
-> >       >>>>
-> >       >>>> Yes Hyperlaunch is more than this, however as I said, with
-> this RFC I would
-> >       >>>> like
-> >       >>>> to ear opinions, @Daniel @Christopher could it be a proper
-> name for the
-> >       >>>> dom0less
-> >       >>>> feature?
-> >       >>>
-> >       >>> As Andy has alluded, hyperlaunch is meant to provide a
-> flexible means to
-> >       >>> handle domain construction at boot to meet a wide range of
-> possible use cases.
-> >       >>> One of those use cases is dom0less, so yes, ultimately what
-> dom0less does
-> >       >>> today will be achievable under hyperlaunch. Our intended
-> approach to align the
-> >       >>> two implementations is one that is meant to be minimally
-> disruptive, since
-> >       >>> dom0less is considered a supported (SUPPORT.md) capability. A=
-s
-> mentioned, we
-> >       >>> are greatly appreciative to the openness to adopt the name,
-> >       >>
-> >       >> Thanks Daniel!
-> >       >>
-> >       >>
-> >       >>> but a big concern
-> >       >>> I personally have is the confusion it could cause a general
-> user. A blanket
-> >       >>> rename would end up with two documents in the docs tree that
-> provide two
-> >       >>> different explanations of hyperlaunch and two different devic=
-e
-> tree
-> >       >>> definitions. So I think a more measured approach should be
-> considered here.
-> >       >>>
-> >       >>>> If this patch makes things more difficult for the Hyperlunch
-> serie, I=E2=80=99m ok
-> >       >>>> to drop it,
-> >       >>>> my only aim was just to find a less misleading name for the
-> feature.
-> >       >>>
-> >       >>> What I would like to suggest as a good first step would be an
-> update to the
-> >       >>> dom0less document. Provide a note at the beginning that point=
-s
-> to the
-> >       >>> hyperlaunch design doc as a more general approach that will
-> eventually subsume
-> >       >>> dom0less. This would provide a gentler transition for exist
-> users of dom0less.
-> >       >>>
-> >       >>> If it is not too much, I would also ask, please have a look a=
-t
-> the design for
-> >       >>> boot modules in the series Christopher just posted. The desig=
-n
-> pulls from the
-> >       >>> work done by dom0less and expanded upon it. I major step into
-> merging the two
-> >       >>> capabilities will be to have a common set of structures. Once
-> those are in
-> >       >>> place, we can move to a common device tree representation, an=
-d
-> at that point
-> >       >>> we would be fairly close, if not at the point of a formal
-> merger of between
-> >       >>> the two.
-> >       >>
-> >       >> At the moment we have a concrete problem with explaining
-> dom0less and
-> >       >> hyperlaunch to potential new users. Using two different names
-> for a
-> >       >> similar feature on arm and x86 causes confusion. It is hurting
-> Xen as a
-> >       >> solution. Personally I already had to switch to use the word
-> >       >> "hyperlaunch" for everything in my users-facing presentations.
-> >       >>
-> >       >> At the summit, we discussed that it would be a good idea to us=
-e
-> a single
-> >       >> name to refer to both features on arm and x86. Given that
-> "dom0less"
-> >       >> causes additional issues because it makes people think that
-> there is no
-> >       >> Dom0, the suggestion was to use "hyperlaunch" to refer to both
-> features.
-> >       >>
-> >       >> We don't need to 100% align the two implementations and data
-> structures.
-> >       >> This is not for engineers that are going to look at the
-> specifications
-> >       >> and improve them. This is for users/customers of Xen that are
-> trying to
-> >       >> understand what the hypervisor enables them to do. We need to
-> be able to
-> >       >> show users architecture slides with the same name and
-> explanation on
-> >       >> both ARM and x86.
-> >       >>
-> >       >> I am sure that Daniel and Christopher remember, but for the
-> others on
-> >       >> this email thread, the name "hyperlaunch" was born exactly to
-> be that:
-> >       >> the one name to cover both features on ARM and x86 even if the=
-y
-> have a
-> >       >> different implementation. Appended an old email for reference.
-> >       >>
-> >       >> Also I agree with Daniel that we need to be careful about the
-> two docs
-> >       >> under docs/. I think he is right we need to add a paragraph
-> explaining
-> >       >> the history and a pointer to the other document. Something lik=
-e:
-> >       >>
-> >       >> "Dom0less is the name that was used when initially introducing
-> the
-> >       >> feature on ARM. Then, the "dom0less" name was retired in favor
-> of
-> >       >> "hyperlaunch" to avoid confusion (a Dom0 might still be
-> present) and to
-> >       >> align with x86 (where a similar feature was called hyperlaunch
-> from the
-> >       >> start)."
-> >       >
-> >       > I=E2=80=99m fully ok to add a section like this pointing to the
-> Hyperlaunch design.
-> >
-> >       _If_ this text is added, please include links/references to the
-> Hyperlaunch wiki page and Hyperlaunch design docs.
-> >
-> >       > @Daniel and @Christopher would it be ok for you or the changes
-> in the serie
-> >       > are going to be problematic for your future work? In the end
-> it=E2=80=99s just a mechanical
-> >       > rename, so I guess we just need to agree on naming conventions.
-> >
-> >       Please see the history of trademark litigation about the use of
-> symbolic names to reference similar-but-different artifacts.
-> >       It is much easier to use the same name to refer to entirely
-> different objects. Historically, confusion arises when a name is
-> >       used in similar contexts.
-> >
-> >       There is also versioning.  Could we refer to dom0less as
-> "Hyperlaunch Version -1"?
-> >
-> >       How about renaming dom0less to "Hyperlaunch Lite"?
-> >
-> >
-> > Perhaps it would be helpful if you could explain more clearly your
-> concerns.  I take it that you want a name which can be used specifically
-> > to indicate the full "domB measured boot" functionality that was Daniel
-> and Christopher's original goal, and that you're afraid that using
-> > plain "Hyperlaunch" for only the "start VMs from Xen on boot"
-> functionality will dilute that?
-> >
-> > The "start VMs from Xen on boot" functionality is the *only* thing that
-> a big chunk of the users of this functionality want;  referring to
-> > it as "Hyperlaunch Lite" or "Hyperlaunch -1" will undermine the value o=
-f
-> the functionality.
-> >
-> > What if we use "Measured Hyperlaunch", or "Hyperlaunch Measured Boot" t=
-o
-> refer to the full measured boot functionality?
->
-> I think this is the best way.
->
->
-> > Or, "Hyperlaunch DT" for "Booting VMs from Xen using Device Tree"
-> (without the involvement of a domB), "Hyperlaunch Boot Domain /
-> > Hyperlaunch domB" for a more general "domB" functionality, and
-> "Hyperlaunch Measured Boot" for the full functionality (assuming there's
-> > more to this than simply having a domB involved)?
->
->
-> We need an overarching name to cover the feature "start VMs from Xen on
-> boot" on both ARM and x86. From my understanding and from the original
-> emails on the subject, the name "hyperlaunch" was it.
->
+> @@ -816,7 +839,54 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable
+>  
+>      if ( gop )
+>      {
+> -        gop_mode = efi_find_gop_mode(gop, 0, 0, 0);
+> +        const char *cur = cmdline;
+> +        unsigned int width = 0, height = 0, depth = 0;
+> +        bool keep_current = false;
+> +
+> +        while ( (cur = get_option(cur, "vga=")) != NULL )
+> +        {
+> +#define VALID_TERMINATOR(c) \
+> +    (*(c) == ' ' || *(c) == '\t' || *(c) == '\0' || *(c) == ',')
+> +            if ( !strncmp(cur, "gfx-", 4) )
+> +            {
+> +                width = simple_strtoul(cur + 4, &cur, 10);
+> +
+> +                if ( *cur == 'x' )
+> +                    height = simple_strtoul(cur + 1, &cur, 10);
+> +                else
+> +                    goto error;
+> +
+> +                if ( *cur == 'x' )
+> +                    depth = simple_strtoul(cur + 1, &cur, 10);
+> +                else
+> +                    goto error;
+> +
+> +                if ( !VALID_TERMINATOR(cur) )
+> +                {
+> +error:
 
-Sure; but think "guitar" vs "acoustic guitar" vs "electric guitar".
-"Electric guitar" is new, "guitar" covers them both, but you sometimes need
-a way to specify "acoustic".  Right now target configurations we're talking
-about include:
+Nit: Labels want to be indented by at least one blank. Here I'm
+inclined to suggest indenting to the level of the enclosing curly
+braces.
 
-1. Booting all your domains directly from Xen using DT configurations
-2. Booting a domB, which then executes some more complicated programmatic
-configuration to launch VMs before disappearing
-3. Doing full measured boot on the whole system using a domB.
+> +                    PrintStr(L"Warning: Invalid gfx- option detected.\r\n");
 
-If "Hyperlaunch" means 1-3, we not only need a way to specify that you're
-talking about 3, but *also* a way to specify that you're talking about 1.
-In the vast majority of cases for the foreseeable future are going to be
-1.  Additionally, we want to make sure that "Hyperlaunch" *actually* turns
-out to mean 1-3, and not just 1.
+Maybe better PrintErr() and no trailing full stop?
 
-The thing I like about "Hyperlaunch DT" is that to me it sounds pretty cool
-but also is very descriptive: I haven't talked to people building these
-systems, but it seems like saying, "The hypervisor launches VMs based on a
-Device Tree passed to it at boot" will be immediately understood, and stick
-in people's minds.
+> +                    width = height = depth = 0;
+> +                }
+> +                keep_current = false;
+> +            }
+> +            else if ( !strncmp(cur, "current", 7) && VALID_TERMINATOR(cur + 7) )
+> +                keep_current = true;
+> +            else if ( !strncmp(cur, "keep", 4) && VALID_TERMINATOR(cur + 4) )
+> +            {
+> +                /* Ignore, handled in later vga= parsing. */
+> +            }
+> +            else
+> +            {
+> +                /* Fallback to defaults if unimplemented. */
+> +                width = height = depth = 0;
+> +                keep_current = false;
+> +                PrintStr(L"Warning: Cannot use selected vga option.\r\n");
 
-So maybe informally, or in "short usage" use "Hyperlaunch", but in
-documentation or reference systems, when talking specifically about #1, try
-to use "Hyperlaunch DT", just to reinforce the idea that there's more to
-Hyperlaunch that's coming down the road?
+Same here then?
 
- -George
+With these addressed (which are all mechanical and hence can probably
+be done while committing, as long as we can reach agreement)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---00000000000097d3ab05ffce9a1d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jul 5, 2023 at 11:14=E2=80=AF=
-PM Stefano Stabellini &lt;<a href=3D"mailto:stefano.stabellini@amd.com">ste=
-fano.stabellini@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">On Wed, 5 Jul 2023, George Dunlap wrote:<br>
-&gt; On Mon, Jul 3, 2023 at 9:55=E2=80=AFPM P S &lt;<a href=3D"mailto:pairs=
-pace@gmail.com" target=3D"_blank">pairspace@gmail.com</a>&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; On Jul 3, 2023, at 15:45, Luca Fancellu=
- &lt;<a href=3D"mailto:luca.fancellu@arm.com" target=3D"_blank">luca.fancel=
-lu@arm.com</a>&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0=EF=BB=BF&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; On 3 Jul 2023, at 18:48, Stefano St=
-abellini &lt;<a href=3D"mailto:sstabellini@kernel.org" target=3D"_blank">ss=
-tabellini@kernel.org</a>&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; On Mon, 3 Jul 2023, Daniel P. S=
-mith wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; On 7/1/23 11:13, Luca Fancellu =
-wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; On 1 Jul 2023, at 08:53=
-, Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" target=3D"=
-_blank">andrew.cooper3@citrix.com</a>&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; On 30/06/2023 10:12 am,=
- Luca Fancellu wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; The &quot;dom0less&=
-quot; feature was intended to be the feature where a domU<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; domain could be lau=
-nched without the control domain (Dom0)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; intervention, howev=
-er the name seems to suggest that Dom0 cannot<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; be part of the conf=
-iguration, while instead it&#39;s a possible use case.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; To avoid that, rena=
-me the &quot;dom0less&quot; configuration with the name<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; &quot;hyperlaunch&q=
-uot;, that is less misleading.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; Signed-off-by: Luca=
- Fancellu &lt;<a href=3D"mailto:luca.fancellu@arm.com" target=3D"_blank">lu=
-ca.fancellu@arm.com</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; ---<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; This is an RFC to g=
-et the feeling of the community about the name<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; change, for now it&=
-#39;s everything in one patch just to see how it<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; will look like, if =
-there is interest on proceeding into it, I can<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;&gt; split in more commi=
-t.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; Have you discussed this=
- with Dan and Chris at all?=C2=A0 You haven&#39;t even<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; CC&#39;d them.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; No, this rename idea starte=
-d from a chat during the summit, anyway Julien<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; promptly add them to the CC=
-, because I forgot.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; No worries and thank you for co=
-nsidering and taking the time to do this RFC.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; It is greatly appreciated that =
-there is a strong willingness to have dom0less<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; and hyperlaunch merged.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; While there is a lot of=
- end-goal in common between the dom0less and<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; hyperlaunch, and that t=
-he name dom0less is deeply misleading,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;&gt; hyperlaunch is specific=
-ally not this.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; Yes Hyperlaunch is more tha=
-n this, however as I said, with this RFC I would<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; like<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; to ear opinions, @Daniel @C=
-hristopher could it be a proper name for the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; dom0less<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; feature?<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; As Andy has alluded, hyperlaunc=
-h is meant to provide a flexible means to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; handle domain construction at b=
-oot to meet a wide range of possible use cases.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; One of those use cases is dom0l=
-ess, so yes, ultimately what dom0less does<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; today will be achievable under =
-hyperlaunch. Our intended approach to align the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; two implementations is one that=
- is meant to be minimally disruptive, since<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; dom0less is considered a suppor=
-ted (SUPPORT.md) capability. As mentioned, we<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; are greatly appreciative to the=
- openness to adopt the name,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Thanks Daniel!<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; but a big concern<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; I personally have is the confus=
-ion it could cause a general user. A blanket<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; rename would end up with two do=
-cuments in the docs tree that provide two<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; different explanations of hyper=
-launch and two different device tree<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; definitions. So I think a more =
-measured approach should be considered here.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; If this patch makes things =
-more difficult for the Hyperlunch serie, I=E2=80=99m ok<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; to drop it,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;&gt; my only aim was just to fin=
-d a less misleading name for the feature.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; What I would like to suggest as=
- a good first step would be an update to the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; dom0less document. Provide a no=
-te at the beginning that points to the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; hyperlaunch design doc as a mor=
-e general approach that will eventually subsume<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; dom0less. This would provide a =
-gentler transition for exist users of dom0less.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; If it is not too much, I would =
-also ask, please have a look at the design for<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; boot modules in the series Chri=
-stopher just posted. The design pulls from the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; work done by dom0less and expan=
-ded upon it. I major step into merging the two<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; capabilities will be to have a =
-common set of structures. Once those are in<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; place, we can move to a common =
-device tree representation, and at that point<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; we would be fairly close, if no=
-t at the point of a formal merger of between<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;&gt; the two.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; At the moment we have a concrete pr=
-oblem with explaining dom0less and<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; hyperlaunch to potential new users.=
- Using two different names for a<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; similar feature on arm and x86 caus=
-es confusion. It is hurting Xen as a<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; solution. Personally I already had =
-to switch to use the word<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; &quot;hyperlaunch&quot; for everyth=
-ing in my users-facing presentations.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; At the summit, we discussed that it=
- would be a good idea to use a single<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; name to refer to both features on a=
-rm and x86. Given that &quot;dom0less&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; causes additional issues because it=
- makes people think that there is no<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Dom0, the suggestion was to use &qu=
-ot;hyperlaunch&quot; to refer to both features.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; We don&#39;t need to 100% align the=
- two implementations and data structures.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; This is not for engineers that are =
-going to look at the specifications<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; and improve them. This is for users=
-/customers of Xen that are trying to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; understand what the hypervisor enab=
-les them to do. We need to be able to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; show users architecture slides with=
- the same name and explanation on<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; both ARM and x86.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; I am sure that Daniel and Christoph=
-er remember, but for the others on<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; this email thread, the name &quot;h=
-yperlaunch&quot; was born exactly to be that:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; the one name to cover both features=
- on ARM and x86 even if they have a<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; different implementation. Appended =
-an old email for reference.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Also I agree with Daniel that we ne=
-ed to be careful about the two docs<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; under docs/. I think he is right we=
- need to add a paragraph explaining<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; the history and a pointer to the ot=
-her document. Something like:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; &quot;Dom0less is the name that was=
- used when initially introducing the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; feature on ARM. Then, the &quot;dom=
-0less&quot; name was retired in favor of<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; &quot;hyperlaunch&quot; to avoid co=
-nfusion (a Dom0 might still be present) and to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; align with x86 (where a similar fea=
-ture was called hyperlaunch from the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; start).&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; I=E2=80=99m fully ok to add a section l=
-ike this pointing to the Hyperlaunch design.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0_If_ this text is added, please include link=
-s/references to the Hyperlaunch wiki page and Hyperlaunch design docs.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; @Daniel and @Christopher would it be ok=
- for you or the changes in the serie<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; are going to be problematic for your fu=
-ture work? In the end it=E2=80=99s just a mechanical<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; rename, so I guess we just need to agre=
-e on naming conventions.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Please see the history of trademark litigati=
-on about the use of symbolic names to reference similar-but-different artif=
-acts.=C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0It is much easier to use the same name to re=
-fer to entirely different objects. Historically, confusion arises when a na=
-me is<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0used in similar contexts.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0There is also versioning.=C2=A0 Could we ref=
-er to dom0less as &quot;Hyperlaunch Version -1&quot;?<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0How about renaming dom0less to &quot;Hyperla=
-unch Lite&quot;?<br>
-&gt; <br>
-&gt; <br>
-&gt; Perhaps it would be helpful if you could explain more clearly your con=
-cerns.=C2=A0 I take it that you want a name which can be used specifically<=
-br>
-&gt; to indicate the full &quot;domB measured boot&quot; functionality that=
- was Daniel and Christopher&#39;s original goal, and that you&#39;re afraid=
- that using<br>
-&gt; plain &quot;Hyperlaunch&quot; for only the &quot;start VMs from Xen on=
- boot&quot; functionality will dilute that?<br>
-&gt; <br>
-&gt; The &quot;start VMs from Xen on boot&quot; functionality is the *only*=
- thing that a big chunk of the users of this functionality want;=C2=A0 refe=
-rring to<br>
-&gt; it as &quot;Hyperlaunch Lite&quot; or &quot;Hyperlaunch -1&quot; will =
-undermine the value of the functionality.<br>
-&gt; <br>
-&gt; What if we use &quot;Measured Hyperlaunch&quot;, or &quot;Hyperlaunch =
-Measured Boot&quot; to refer to the full measured boot functionality?<br>
-<br>
-I think this is the best way.<br>
-<br>
-<br>
-&gt; Or, &quot;Hyperlaunch DT&quot; for &quot;Booting VMs from Xen using De=
-vice Tree&quot; (without the involvement of a domB), &quot;Hyperlaunch Boot=
- Domain /<br>
-&gt; Hyperlaunch domB&quot; for a more general &quot;domB&quot; functionali=
-ty, and &quot;Hyperlaunch Measured Boot&quot; for the full functionality (a=
-ssuming there&#39;s<br>
-&gt; more to this than simply having a domB involved)?<br>
-<br>
-<br>
-We need an overarching name to cover the feature &quot;start VMs from Xen o=
-n<br>
-boot&quot; on both ARM and x86. From my understanding and from the original=
-<br>
-emails on the subject, the name &quot;hyperlaunch&quot; was it.<br></blockq=
-uote><div><br></div><div>Sure; but think &quot;guitar&quot; vs &quot;acoust=
-ic guitar&quot; vs &quot;electric guitar&quot;.=C2=A0 &quot;Electric guitar=
-&quot; is new, &quot;guitar&quot; covers them both, but you sometimes need =
-a way to specify &quot;acoustic&quot;.=C2=A0 Right now target configuration=
-s we&#39;re talking about include:</div><div><br></div><div>1. Booting all =
-your domains directly from Xen using DT configurations</div><div>2. Booting=
- a domB, which then executes some more complicated programmatic configurati=
-on to launch VMs before disappearing</div><div>3. Doing full measured boot =
-on the whole system using a domB.</div><div><br></div><div>If &quot;Hyperla=
-unch&quot; means 1-3, we not only need a way to specify that you&#39;re tal=
-king about 3, but *also* a way to specify that you&#39;re talking about 1.=
-=C2=A0 In the vast majority of cases for the foreseeable future are=C2=A0go=
-ing to be 1.=C2=A0 Additionally, we want to make sure that &quot;Hyperlaunc=
-h&quot; *actually* turns out to mean 1-3, and not just 1.</div><div><br></d=
-iv><div>The thing I like about &quot;Hyperlaunch DT&quot; is that to me it =
-sounds pretty cool but also is very descriptive: I haven&#39;t talked to pe=
-ople building these systems, but it seems like saying, &quot;The hypervisor=
- launches VMs based on a Device Tree passed to it at boot&quot; will be imm=
-ediately understood, and stick in people&#39;s minds.</div><div><br></div><=
-div>So maybe informally, or in &quot;short usage&quot; use &quot;Hyperlaunc=
-h&quot;, but in documentation or reference systems, when talking specifical=
-ly about #1, try to use &quot;Hyperlaunch DT&quot;, just to reinforce the i=
-dea that there&#39;s more to Hyperlaunch that&#39;s coming down the road?</=
-div><div><br></div><div>=C2=A0-George</div></div></div>
-
---00000000000097d3ab05ffce9a1d--
+Jan
 
