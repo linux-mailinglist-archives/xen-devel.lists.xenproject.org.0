@@ -2,65 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87577749BD1
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 14:32:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559881.875288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B544F749C4C
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 14:45:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559888.875298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHO98-0007ZO-8H; Thu, 06 Jul 2023 12:31:42 +0000
+	id 1qHOMM-0000nE-Ab; Thu, 06 Jul 2023 12:45:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559881.875288; Thu, 06 Jul 2023 12:31:42 +0000
+Received: by outflank-mailman (output) from mailman id 559888.875298; Thu, 06 Jul 2023 12:45:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHO98-0007X5-3r; Thu, 06 Jul 2023 12:31:42 +0000
-Received: by outflank-mailman (input) for mailman id 559881;
- Thu, 06 Jul 2023 12:31:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NM3K=CY=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1qHO96-0007TL-MT
- for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 12:31:40 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on061e.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::61e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0de68802-1bf9-11ee-b237-6b7b168915f2;
- Thu, 06 Jul 2023 14:31:39 +0200 (CEST)
-Received: from DU2PR04CA0251.eurprd04.prod.outlook.com (2603:10a6:10:28e::16)
- by AM8PR08MB6436.eurprd08.prod.outlook.com (2603:10a6:20b:365::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.19; Thu, 6 Jul
- 2023 12:31:34 +0000
-Received: from DBAEUR03FT038.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:28e:cafe::f4) by DU2PR04CA0251.outlook.office365.com
- (2603:10a6:10:28e::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
- Transport; Thu, 6 Jul 2023 12:31:34 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT038.mail.protection.outlook.com (100.127.143.23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6565.24 via Frontend Transport; Thu, 6 Jul 2023 12:31:33 +0000
-Received: ("Tessian outbound e2424c13b707:v142");
- Thu, 06 Jul 2023 12:31:33 +0000
-Received: from df0511b79b9c.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 91283564-B3AB-4497-A796-5E811B494832.1; 
- Thu, 06 Jul 2023 12:31:22 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id df0511b79b9c.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 06 Jul 2023 12:31:22 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by DU0PR08MB8786.eurprd08.prod.outlook.com (2603:10a6:10:473::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Thu, 6 Jul
- 2023 12:31:19 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::3861:64c:eb82:afa1]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::3861:64c:eb82:afa1%4]) with mapi id 15.20.6565.016; Thu, 6 Jul 2023
- 12:31:19 +0000
+	id 1qHOMM-0000lO-7X; Thu, 06 Jul 2023 12:45:22 +0000
+Received: by outflank-mailman (input) for mailman id 559888;
+ Thu, 06 Jul 2023 12:45:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qHOMK-0000lI-L0
+ for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 12:45:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qHOMD-00016s-Gu; Thu, 06 Jul 2023 12:45:13 +0000
+Received: from [54.239.6.185] (helo=[192.168.30.29])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qHOMD-0002KC-5s; Thu, 06 Jul 2023 12:45:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,312 +39,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0de68802-1bf9-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jm3ACxOy7D6NMWxNknWHeDscW3nXfaihZ3AGo9W+uf4=;
- b=1czTkXmD+k7Mk5n6ezOU6fK7ZH23dHoprFfllWC2ZfJjMqGRb5AClZlVHyxnqu/m4V2C4zT+07QiVWv/2h6UY4YOMJWw08xrzTJ1N5rfmMuaiguV/CKteMTmdpBzAVIlJjXL/J+q80SnTkjyEGZL2fY/0pwLclp47A9Ps13QHZk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: b1cde73cd8cb7e3b
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JXKLQYcClltGPNF6xtb5aNK6xT84tq4seUcpAFZZUVpuSlsWJ3dl7m0uLXwEW0TVXAMPy3/hRPtakZgUeIF51g/mQlNkH5PZ6FRFWxjkYOeL97JS7A1qMoOXdaLRe7wj2hiQxT8I4Pj/w/PuYH3z3cS8wP/WD5zTZUp1GjRQclNJSJxgnxlgzkbQVmTVCn6YBvpUeP0x3tuL5O7Fv1jAZnopFikRpR02E8ajQjFiY9KF2ffe1ycbmJ8l/3ZWP2PAVbSBUSmCcgNE1dfkj0fI2oPe7IDDqLNU+8zMLz78DutxrtjAZCJQ3ZNLcIcPzI/m2qcNK/IjYjgrBmeR6WuwKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jm3ACxOy7D6NMWxNknWHeDscW3nXfaihZ3AGo9W+uf4=;
- b=be/KMCm+/VNgs/LDAB7XWwKA/1DwN/Nr4EbNy6QfuYAm77kIEAO+N7tYH9J2XibIYX6I78PYu/Zq5NPEXHbH6KAnvrasoePeqRgeCf1sAe5/BfNBJQ2WkX7s7f7jYPgCEy+GxeXcPpJoshdcPc98b7RuuOX+ZejhPe5ib7cJW0Tan8EeloU5Q13jAMllL9RUgC5uRteNiPAQbM6OghjXtfXSVwFrfdCR0JUqvrk0QzmEVBIXX5h3HeP7RS0Rzty7mWovbkU+tO7uy0WiRvCJACt8WPLpLiUB/QVp3TLrWzdlYvwDZn/m4QsfUMPwDZsOOOC/cLZfdwxP+hs51dng2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jm3ACxOy7D6NMWxNknWHeDscW3nXfaihZ3AGo9W+uf4=;
- b=1czTkXmD+k7Mk5n6ezOU6fK7ZH23dHoprFfllWC2ZfJjMqGRb5AClZlVHyxnqu/m4V2C4zT+07QiVWv/2h6UY4YOMJWw08xrzTJ1N5rfmMuaiguV/CKteMTmdpBzAVIlJjXL/J+q80SnTkjyEGZL2fY/0pwLclp47A9Ps13QHZk=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: George Dunlap <george.dunlap@cloud.com>
-CC: Stefano Stabellini <stefano.stabellini@amd.com>, P S
-	<pairspace@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, "Daniel
- P. Smith" <dpsmith@apertussolutions.com>, Christopher Clark
-	<christopher.w.clark@gmail.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Henry Wang
-	<Henry.Wang@arm.com>, Community Manager <community.manager@xenproject.org>,
-	Doug Goldstein <cardoe@cardoe.com>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Anthony PERARD <anthony.perard@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=QHzoLoECchFXzDTUbZPqRdCe6SzEqxD8ctaXCoIgKBg=; b=Vmhjr3wBXUTOzPAkIdX2RksJ8O
+	hYbGhnOdqi6I+AQLVuchS+P2KGj8g/a9Qaogbh7qEgB4/l3HM0smoaGIOEsGw4CXDI7cj7fpJvjmH
+	sjLF4HZ1WDYlcI2paonZxI4WiHjTnKEDcLRomYhFHyOU0gx2YcWAtWocYV+3pNlkg1L0=;
+Message-ID: <4aec2aca-e2e6-d9e4-1f73-b5f98245033a@xen.org>
+Date: Thu, 6 Jul 2023 13:45:09 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
 Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
-Thread-Topic: [RFC PATCH] xen/arm: Rebranding dom0less feature
-Thread-Index:
- AQHZqzMUKP6yBnvUfEC1egkdxmuozK+ki8cAgAB66ACAAukxgIAAZuEAgAAgQQCAABPDAIACuauAgACBNoCAAMWkAIAAKcoA
-Date: Thu, 6 Jul 2023 12:31:18 +0000
-Message-ID: <A89C2FC7-999E-4FCE-8A05-4F4B86573DBA@arm.com>
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>,
+ George Dunlap <george.dunlap@cloud.com>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>, P S
+ <pairspace@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
 References: <8601CDD7-87F7-4FD0-A6E6-BAEAB12E7956@arm.com>
  <234199F8-DBB1-42B6-9A4C-8800EEF60997@gmail.com>
  <CA+zSX=Y3_g_aq4+sDK7CuZajywVqQ4xOrq7hKZ80eUT3uSxzuQ@mail.gmail.com>
  <alpine.DEB.2.22.394.2307051436120.761183@ubuntu-linux-20-04-desktop>
  <CA+zSX=ashTi590+cVss_3zyLESC8S=zVSMLjTKD00s6xfjZbJA@mail.gmail.com>
-In-Reply-To:
- <CA+zSX=ashTi590+cVss_3zyLESC8S=zVSMLjTKD00s6xfjZbJA@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|DU0PR08MB8786:EE_|DBAEUR03FT038:EE_|AM8PR08MB6436:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1f12919-cca9-47a1-5720-08db7e1ceeec
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- MSeKIJ6Me1W+Y84jFW4AFFZpUcc0rLc2eni3cUKs4jMR7XrrXCDo7f35rFl7SJiA5+rFM1e4SYDUNBMx7Tqru2nweHEFy3T6Wht2WPSH+BhnNIRJOABuESi1Q3MFaWiit0rj/JUVh0wcfKfKLaQIr6IQ9gfsGYhYtPhcDAUSHflZ49wKoar4GqlbdeYeZ/iFA50lsVrT3fU3z0MwlGqCkPcPnXRMBDMnqWIa0aYTTjgkdIERvpX+ZADIPmcr0LWKjk9ujyOv60G6eC0Obq8GS8uocntpR/8nocsJnmUlT9Ja9lnptSPJD8czdrIw7YIbhUGwivYTgpN7MTPsu+EUNB4LYpGu7XnM7NxiA2r26z3r0eRVUqeOVlfCZIIILHKbL6/WgXjhxvswa0nVrY8uA+Gz7UQ8YioIuoltHGxerTf934UD1F3Po8s64EhhWpm3yD+6DqQyknrKQPrb4+HtzOw7MR9bBUke2qzCguM9nRxJKneetZBvFspwuNNuJYwYxt/2Gi9A6bAV2QO4sz1aHg5Zx1j3pYLMqzK1GvN9dSjoME03Wz0puLbcPkyD6mQ9iua0sEjRMFqiDCN5Jypufo00l/nTY0HI8dYclS5FbtxphfJjlSpIIcz7BE9cqvzdTGq2Kuvzlnq6exPWQr20ceNpbYNzY/UT8acNUnYwP3M=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(396003)(39860400002)(366004)(346002)(451199021)(33656002)(30864003)(38100700002)(71200400001)(2906002)(6486002)(8936002)(54906003)(38070700005)(8676002)(41300700001)(36756003)(478600001)(7416002)(5660300002)(53546011)(66476007)(66556008)(6916009)(6512007)(66446008)(66946007)(91956017)(6506007)(186003)(26005)(64756008)(86362001)(76116006)(4326008)(316002)(122000001)(2616005)(83380400001)(32563001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D5B7DC32EF2BE6418020C9387A590289@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8786
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT038.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e071d0e0-5f06-4853-809c-08db7e1ce645
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	QZRLsWwXCF3yVXkZ1UEvyFxyRw/s3CxsjFS5S6XVcFHtprD/jlxK9HcHKOJIkPA8cVWQG/6VPYliVCmm9XKqEWDsGFVmEVo6xqCqcMCa6uHb0GmUBeRJ2bx6heSDspE0XBOS+8+mZIkMppfZzXXOZjbd4e/jtJ3BPZz0sP59i9W/w2J8KRGduUMN8VVIeFIrLihK02dUgREkE6SoXOP7I3WwOITVjtDwI3ftvVJ5mJF1TLRcRoIsgJ8/QTayJImVKtNzQ/mtv7xUu1Hih4GOn+tcY7rzKYiq70Jmg2d6421MLxOqRJvLutf2psh6D3/hfwwEpt/NzMF+yGJNdvA6+hw6BNV1lYeV1ojLv+79E9v4mchjRydI6yk0oqeONQZZ47RdZ/6tYt3CDPralfv6amqzd9OAGfC2CymTFV7H9jU9sTIbwE8ezoLfkiqIOIYZvtnq+a9xaDCIfJDvgmeLOjsmsN/66P2Ag4fxaYRC06WkOuh95nnwoJDyOokBmtH5FPMFWSJ5gK1QAcST3IbcVDaU/jdZC75coG65eLfJVARM4Fv96+dZMtYJNB5Uf/F+h+/PP3mHoGPl2YtzEmw8DZZUY4TST6eLfH35yiDPY4ZQ2TN45udYuLY5zoQ88BPJK5Bfq1HWxj2kGKMZNlB17RWJJa6fboA3kfrCmlOpUJOTOXxKHxOtmxJyFzXpsH86H+cJ2Vs8X88cNGyx8PSIK8ZoQG6lywd4x77nf7l0Ztplb4IT16/UkeAe6ikRNTEPz6BCk3bCCZ+/LwsEIf1sjQ==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(346002)(451199021)(46966006)(40470700004)(36840700001)(54906003)(8936002)(478600001)(36756003)(107886003)(5660300002)(8676002)(6486002)(70206006)(4326008)(70586007)(6862004)(316002)(41300700001)(6512007)(40460700003)(40480700001)(81166007)(356005)(47076005)(6506007)(86362001)(2616005)(26005)(53546011)(82740400003)(336012)(30864003)(36860700001)(83380400001)(82310400005)(2906002)(186003)(33656002)(32563001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 12:31:33.4926
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1f12919-cca9-47a1-5720-08db7e1ceeec
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT038.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6436
+ <A89C2FC7-999E-4FCE-8A05-4F4B86573DBA@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <A89C2FC7-999E-4FCE-8A05-4F4B86573DBA@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-DQoNCj4gT24gNiBKdWwgMjAyMywgYXQgMTE6MDEsIEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5s
-YXBAY2xvdWQuY29tPiB3cm90ZToNCj4gDQo+IA0KPiANCj4gT24gV2VkLCBKdWwgNSwgMjAyMyBh
-dCAxMToxNOKAr1BNIFN0ZWZhbm8gU3RhYmVsbGluaSA8c3RlZmFuby5zdGFiZWxsaW5pQGFtZC5j
-b20+IHdyb3RlOg0KPiBPbiBXZWQsIDUgSnVsIDIwMjMsIEdlb3JnZSBEdW5sYXAgd3JvdGU6DQo+
-ID4gT24gTW9uLCBKdWwgMywgMjAyMyBhdCA5OjU14oCvUE0gUCBTIDxwYWlyc3BhY2VAZ21haWwu
-Y29tPiB3cm90ZToNCj4gPiAgICAgICA+IE9uIEp1bCAzLCAyMDIzLCBhdCAxNTo0NSwgTHVjYSBG
-YW5jZWxsdSA8bHVjYS5mYW5jZWxsdUBhcm0uY29tPiB3cm90ZToNCj4gPiAgICAgICDvu78+DQo+
-ID4gICAgICAgPj4gT24gMyBKdWwgMjAyMywgYXQgMTg6NDgsIFN0ZWZhbm8gU3RhYmVsbGluaSA8
-c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4gd3JvdGU6DQo+ID4gICAgICAgPj4NCj4gPiAgICAgICA+
-Pj4gT24gTW9uLCAzIEp1bCAyMDIzLCBEYW5pZWwgUC4gU21pdGggd3JvdGU6DQo+ID4gICAgICAg
-Pj4+IE9uIDcvMS8yMyAxMToxMywgTHVjYSBGYW5jZWxsdSB3cm90ZToNCj4gPiAgICAgICA+Pj4+
-PiBPbiAxIEp1bCAyMDIzLCBhdCAwODo1MywgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNA
-Y2l0cml4LmNvbT4gd3JvdGU6DQo+ID4gICAgICAgPj4+Pj4NCj4gPiAgICAgICA+Pj4+PiBPbiAz
-MC8wNi8yMDIzIDEwOjEyIGFtLCBMdWNhIEZhbmNlbGx1IHdyb3RlOg0KPiA+ICAgICAgID4+Pj4+
-PiBUaGUgImRvbTBsZXNzIiBmZWF0dXJlIHdhcyBpbnRlbmRlZCB0byBiZSB0aGUgZmVhdHVyZSB3
-aGVyZSBhIGRvbVUNCj4gPiAgICAgICA+Pj4+Pj4gZG9tYWluIGNvdWxkIGJlIGxhdW5jaGVkIHdp
-dGhvdXQgdGhlIGNvbnRyb2wgZG9tYWluIChEb20wKQ0KPiA+ICAgICAgID4+Pj4+PiBpbnRlcnZl
-bnRpb24sIGhvd2V2ZXIgdGhlIG5hbWUgc2VlbXMgdG8gc3VnZ2VzdCB0aGF0IERvbTAgY2Fubm90
-DQo+ID4gICAgICAgPj4+Pj4+IGJlIHBhcnQgb2YgdGhlIGNvbmZpZ3VyYXRpb24sIHdoaWxlIGlu
-c3RlYWQgaXQncyBhIHBvc3NpYmxlIHVzZSBjYXNlLg0KPiA+ICAgICAgID4+Pj4+Pg0KPiA+ICAg
-ICAgID4+Pj4+PiBUbyBhdm9pZCB0aGF0LCByZW5hbWUgdGhlICJkb20wbGVzcyIgY29uZmlndXJh
-dGlvbiB3aXRoIHRoZSBuYW1lDQo+ID4gICAgICAgPj4+Pj4+ICJoeXBlcmxhdW5jaCIsIHRoYXQg
-aXMgbGVzcyBtaXNsZWFkaW5nLg0KPiA+ICAgICAgID4+Pj4+Pg0KPiA+ICAgICAgID4+Pj4+PiBT
-aWduZWQtb2ZmLWJ5OiBMdWNhIEZhbmNlbGx1IDxsdWNhLmZhbmNlbGx1QGFybS5jb20+DQo+ID4g
-ICAgICAgPj4+Pj4+IC0tLQ0KPiA+ICAgICAgID4+Pj4+PiBUaGlzIGlzIGFuIFJGQyB0byBnZXQg
-dGhlIGZlZWxpbmcgb2YgdGhlIGNvbW11bml0eSBhYm91dCB0aGUgbmFtZQ0KPiA+ICAgICAgID4+
-Pj4+PiBjaGFuZ2UsIGZvciBub3cgaXQncyBldmVyeXRoaW5nIGluIG9uZSBwYXRjaCBqdXN0IHRv
-IHNlZSBob3cgaXQNCj4gPiAgICAgICA+Pj4+Pj4gd2lsbCBsb29rIGxpa2UsIGlmIHRoZXJlIGlz
-IGludGVyZXN0IG9uIHByb2NlZWRpbmcgaW50byBpdCwgSSBjYW4NCj4gPiAgICAgICA+Pj4+Pj4g
-c3BsaXQgaW4gbW9yZSBjb21taXQuDQo+ID4gICAgICAgPj4+Pj4NCj4gPiAgICAgICA+Pj4+PiBI
-YXZlIHlvdSBkaXNjdXNzZWQgdGhpcyB3aXRoIERhbiBhbmQgQ2hyaXMgYXQgYWxsPyAgWW91IGhh
-dmVuJ3QgZXZlbg0KPiA+ICAgICAgID4+Pj4+IENDJ2QgdGhlbS4NCj4gPiAgICAgICA+Pj4+DQo+
-ID4gICAgICAgPj4+PiBObywgdGhpcyByZW5hbWUgaWRlYSBzdGFydGVkIGZyb20gYSBjaGF0IGR1
-cmluZyB0aGUgc3VtbWl0LCBhbnl3YXkgSnVsaWVuDQo+ID4gICAgICAgPj4+PiBwcm9tcHRseSBh
-ZGQgdGhlbSB0byB0aGUgQ0MsIGJlY2F1c2UgSSBmb3Jnb3QuDQo+ID4gICAgICAgPj4+DQo+ID4g
-ICAgICAgPj4+IE5vIHdvcnJpZXMgYW5kIHRoYW5rIHlvdSBmb3IgY29uc2lkZXJpbmcgYW5kIHRh
-a2luZyB0aGUgdGltZSB0byBkbyB0aGlzIFJGQy4NCj4gPiAgICAgICA+Pj4gSXQgaXMgZ3JlYXRs
-eSBhcHByZWNpYXRlZCB0aGF0IHRoZXJlIGlzIGEgc3Ryb25nIHdpbGxpbmduZXNzIHRvIGhhdmUg
-ZG9tMGxlc3MNCj4gPiAgICAgICA+Pj4gYW5kIGh5cGVybGF1bmNoIG1lcmdlZC4NCj4gPiAgICAg
-ICA+Pj4NCj4gPiAgICAgICA+Pj4+Pg0KPiA+ICAgICAgID4+Pj4+IFdoaWxlIHRoZXJlIGlzIGEg
-bG90IG9mIGVuZC1nb2FsIGluIGNvbW1vbiBiZXR3ZWVuIHRoZSBkb20wbGVzcyBhbmQNCj4gPiAg
-ICAgICA+Pj4+PiBoeXBlcmxhdW5jaCwgYW5kIHRoYXQgdGhlIG5hbWUgZG9tMGxlc3MgaXMgZGVl
-cGx5IG1pc2xlYWRpbmcsDQo+ID4gICAgICAgPj4+Pj4gaHlwZXJsYXVuY2ggaXMgc3BlY2lmaWNh
-bGx5IG5vdCB0aGlzLg0KPiA+ICAgICAgID4+Pj4NCj4gPiAgICAgICA+Pj4+IFllcyBIeXBlcmxh
-dW5jaCBpcyBtb3JlIHRoYW4gdGhpcywgaG93ZXZlciBhcyBJIHNhaWQsIHdpdGggdGhpcyBSRkMg
-SSB3b3VsZA0KPiA+ICAgICAgID4+Pj4gbGlrZQ0KPiA+ICAgICAgID4+Pj4gdG8gZWFyIG9waW5p
-b25zLCBARGFuaWVsIEBDaHJpc3RvcGhlciBjb3VsZCBpdCBiZSBhIHByb3BlciBuYW1lIGZvciB0
-aGUNCj4gPiAgICAgICA+Pj4+IGRvbTBsZXNzDQo+ID4gICAgICAgPj4+PiBmZWF0dXJlPw0KPiA+
-ICAgICAgID4+Pg0KPiA+ICAgICAgID4+PiBBcyBBbmR5IGhhcyBhbGx1ZGVkLCBoeXBlcmxhdW5j
-aCBpcyBtZWFudCB0byBwcm92aWRlIGEgZmxleGlibGUgbWVhbnMgdG8NCj4gPiAgICAgICA+Pj4g
-aGFuZGxlIGRvbWFpbiBjb25zdHJ1Y3Rpb24gYXQgYm9vdCB0byBtZWV0IGEgd2lkZSByYW5nZSBv
-ZiBwb3NzaWJsZSB1c2UgY2FzZXMuDQo+ID4gICAgICAgPj4+IE9uZSBvZiB0aG9zZSB1c2UgY2Fz
-ZXMgaXMgZG9tMGxlc3MsIHNvIHllcywgdWx0aW1hdGVseSB3aGF0IGRvbTBsZXNzIGRvZXMNCj4g
-PiAgICAgICA+Pj4gdG9kYXkgd2lsbCBiZSBhY2hpZXZhYmxlIHVuZGVyIGh5cGVybGF1bmNoLiBP
-dXIgaW50ZW5kZWQgYXBwcm9hY2ggdG8gYWxpZ24gdGhlDQo+ID4gICAgICAgPj4+IHR3byBpbXBs
-ZW1lbnRhdGlvbnMgaXMgb25lIHRoYXQgaXMgbWVhbnQgdG8gYmUgbWluaW1hbGx5IGRpc3J1cHRp
-dmUsIHNpbmNlDQo+ID4gICAgICAgPj4+IGRvbTBsZXNzIGlzIGNvbnNpZGVyZWQgYSBzdXBwb3J0
-ZWQgKFNVUFBPUlQubWQpIGNhcGFiaWxpdHkuIEFzIG1lbnRpb25lZCwgd2UNCj4gPiAgICAgICA+
-Pj4gYXJlIGdyZWF0bHkgYXBwcmVjaWF0aXZlIHRvIHRoZSBvcGVubmVzcyB0byBhZG9wdCB0aGUg
-bmFtZSwNCj4gPiAgICAgICA+Pg0KPiA+ICAgICAgID4+IFRoYW5rcyBEYW5pZWwhDQo+ID4gICAg
-ICAgPj4NCj4gPiAgICAgICA+Pg0KPiA+ICAgICAgID4+PiBidXQgYSBiaWcgY29uY2Vybg0KPiA+
-ICAgICAgID4+PiBJIHBlcnNvbmFsbHkgaGF2ZSBpcyB0aGUgY29uZnVzaW9uIGl0IGNvdWxkIGNh
-dXNlIGEgZ2VuZXJhbCB1c2VyLiBBIGJsYW5rZXQNCj4gPiAgICAgICA+Pj4gcmVuYW1lIHdvdWxk
-IGVuZCB1cCB3aXRoIHR3byBkb2N1bWVudHMgaW4gdGhlIGRvY3MgdHJlZSB0aGF0IHByb3ZpZGUg
-dHdvDQo+ID4gICAgICAgPj4+IGRpZmZlcmVudCBleHBsYW5hdGlvbnMgb2YgaHlwZXJsYXVuY2gg
-YW5kIHR3byBkaWZmZXJlbnQgZGV2aWNlIHRyZWUNCj4gPiAgICAgICA+Pj4gZGVmaW5pdGlvbnMu
-IFNvIEkgdGhpbmsgYSBtb3JlIG1lYXN1cmVkIGFwcHJvYWNoIHNob3VsZCBiZSBjb25zaWRlcmVk
-IGhlcmUuDQo+ID4gICAgICAgPj4+DQo+ID4gICAgICAgPj4+PiBJZiB0aGlzIHBhdGNoIG1ha2Vz
-IHRoaW5ncyBtb3JlIGRpZmZpY3VsdCBmb3IgdGhlIEh5cGVybHVuY2ggc2VyaWUsIEnigJltIG9r
-DQo+ID4gICAgICAgPj4+PiB0byBkcm9wIGl0LA0KPiA+ICAgICAgID4+Pj4gbXkgb25seSBhaW0g
-d2FzIGp1c3QgdG8gZmluZCBhIGxlc3MgbWlzbGVhZGluZyBuYW1lIGZvciB0aGUgZmVhdHVyZS4N
-Cj4gPiAgICAgICA+Pj4NCj4gPiAgICAgICA+Pj4gV2hhdCBJIHdvdWxkIGxpa2UgdG8gc3VnZ2Vz
-dCBhcyBhIGdvb2QgZmlyc3Qgc3RlcCB3b3VsZCBiZSBhbiB1cGRhdGUgdG8gdGhlDQo+ID4gICAg
-ICAgPj4+IGRvbTBsZXNzIGRvY3VtZW50LiBQcm92aWRlIGEgbm90ZSBhdCB0aGUgYmVnaW5uaW5n
-IHRoYXQgcG9pbnRzIHRvIHRoZQ0KPiA+ICAgICAgID4+PiBoeXBlcmxhdW5jaCBkZXNpZ24gZG9j
-IGFzIGEgbW9yZSBnZW5lcmFsIGFwcHJvYWNoIHRoYXQgd2lsbCBldmVudHVhbGx5IHN1YnN1bWUN
-Cj4gPiAgICAgICA+Pj4gZG9tMGxlc3MuIFRoaXMgd291bGQgcHJvdmlkZSBhIGdlbnRsZXIgdHJh
-bnNpdGlvbiBmb3IgZXhpc3QgdXNlcnMgb2YgZG9tMGxlc3MuDQo+ID4gICAgICAgPj4+DQo+ID4g
-ICAgICAgPj4+IElmIGl0IGlzIG5vdCB0b28gbXVjaCwgSSB3b3VsZCBhbHNvIGFzaywgcGxlYXNl
-IGhhdmUgYSBsb29rIGF0IHRoZSBkZXNpZ24gZm9yDQo+ID4gICAgICAgPj4+IGJvb3QgbW9kdWxl
-cyBpbiB0aGUgc2VyaWVzIENocmlzdG9waGVyIGp1c3QgcG9zdGVkLiBUaGUgZGVzaWduIHB1bGxz
-IGZyb20gdGhlDQo+ID4gICAgICAgPj4+IHdvcmsgZG9uZSBieSBkb20wbGVzcyBhbmQgZXhwYW5k
-ZWQgdXBvbiBpdC4gSSBtYWpvciBzdGVwIGludG8gbWVyZ2luZyB0aGUgdHdvDQo+ID4gICAgICAg
-Pj4+IGNhcGFiaWxpdGllcyB3aWxsIGJlIHRvIGhhdmUgYSBjb21tb24gc2V0IG9mIHN0cnVjdHVy
-ZXMuIE9uY2UgdGhvc2UgYXJlIGluDQo+ID4gICAgICAgPj4+IHBsYWNlLCB3ZSBjYW4gbW92ZSB0
-byBhIGNvbW1vbiBkZXZpY2UgdHJlZSByZXByZXNlbnRhdGlvbiwgYW5kIGF0IHRoYXQgcG9pbnQN
-Cj4gPiAgICAgICA+Pj4gd2Ugd291bGQgYmUgZmFpcmx5IGNsb3NlLCBpZiBub3QgYXQgdGhlIHBv
-aW50IG9mIGEgZm9ybWFsIG1lcmdlciBvZiBiZXR3ZWVuDQo+ID4gICAgICAgPj4+IHRoZSB0d28u
-DQo+ID4gICAgICAgPj4NCj4gPiAgICAgICA+PiBBdCB0aGUgbW9tZW50IHdlIGhhdmUgYSBjb25j
-cmV0ZSBwcm9ibGVtIHdpdGggZXhwbGFpbmluZyBkb20wbGVzcyBhbmQNCj4gPiAgICAgICA+PiBo
-eXBlcmxhdW5jaCB0byBwb3RlbnRpYWwgbmV3IHVzZXJzLiBVc2luZyB0d28gZGlmZmVyZW50IG5h
-bWVzIGZvciBhDQo+ID4gICAgICAgPj4gc2ltaWxhciBmZWF0dXJlIG9uIGFybSBhbmQgeDg2IGNh
-dXNlcyBjb25mdXNpb24uIEl0IGlzIGh1cnRpbmcgWGVuIGFzIGENCj4gPiAgICAgICA+PiBzb2x1
-dGlvbi4gUGVyc29uYWxseSBJIGFscmVhZHkgaGFkIHRvIHN3aXRjaCB0byB1c2UgdGhlIHdvcmQN
-Cj4gPiAgICAgICA+PiAiaHlwZXJsYXVuY2giIGZvciBldmVyeXRoaW5nIGluIG15IHVzZXJzLWZh
-Y2luZyBwcmVzZW50YXRpb25zLg0KPiA+ICAgICAgID4+DQo+ID4gICAgICAgPj4gQXQgdGhlIHN1
-bW1pdCwgd2UgZGlzY3Vzc2VkIHRoYXQgaXQgd291bGQgYmUgYSBnb29kIGlkZWEgdG8gdXNlIGEg
-c2luZ2xlDQo+ID4gICAgICAgPj4gbmFtZSB0byByZWZlciB0byBib3RoIGZlYXR1cmVzIG9uIGFy
-bSBhbmQgeDg2LiBHaXZlbiB0aGF0ICJkb20wbGVzcyINCj4gPiAgICAgICA+PiBjYXVzZXMgYWRk
-aXRpb25hbCBpc3N1ZXMgYmVjYXVzZSBpdCBtYWtlcyBwZW9wbGUgdGhpbmsgdGhhdCB0aGVyZSBp
-cyBubw0KPiA+ICAgICAgID4+IERvbTAsIHRoZSBzdWdnZXN0aW9uIHdhcyB0byB1c2UgImh5cGVy
-bGF1bmNoIiB0byByZWZlciB0byBib3RoIGZlYXR1cmVzLg0KPiA+ICAgICAgID4+DQo+ID4gICAg
-ICAgPj4gV2UgZG9uJ3QgbmVlZCB0byAxMDAlIGFsaWduIHRoZSB0d28gaW1wbGVtZW50YXRpb25z
-IGFuZCBkYXRhIHN0cnVjdHVyZXMuDQo+ID4gICAgICAgPj4gVGhpcyBpcyBub3QgZm9yIGVuZ2lu
-ZWVycyB0aGF0IGFyZSBnb2luZyB0byBsb29rIGF0IHRoZSBzcGVjaWZpY2F0aW9ucw0KPiA+ICAg
-ICAgID4+IGFuZCBpbXByb3ZlIHRoZW0uIFRoaXMgaXMgZm9yIHVzZXJzL2N1c3RvbWVycyBvZiBY
-ZW4gdGhhdCBhcmUgdHJ5aW5nIHRvDQo+ID4gICAgICAgPj4gdW5kZXJzdGFuZCB3aGF0IHRoZSBo
-eXBlcnZpc29yIGVuYWJsZXMgdGhlbSB0byBkby4gV2UgbmVlZCB0byBiZSBhYmxlIHRvDQo+ID4g
-ICAgICAgPj4gc2hvdyB1c2VycyBhcmNoaXRlY3R1cmUgc2xpZGVzIHdpdGggdGhlIHNhbWUgbmFt
-ZSBhbmQgZXhwbGFuYXRpb24gb24NCj4gPiAgICAgICA+PiBib3RoIEFSTSBhbmQgeDg2Lg0KPiA+
-ICAgICAgID4+DQo+ID4gICAgICAgPj4gSSBhbSBzdXJlIHRoYXQgRGFuaWVsIGFuZCBDaHJpc3Rv
-cGhlciByZW1lbWJlciwgYnV0IGZvciB0aGUgb3RoZXJzIG9uDQo+ID4gICAgICAgPj4gdGhpcyBl
-bWFpbCB0aHJlYWQsIHRoZSBuYW1lICJoeXBlcmxhdW5jaCIgd2FzIGJvcm4gZXhhY3RseSB0byBi
-ZSB0aGF0Og0KPiA+ICAgICAgID4+IHRoZSBvbmUgbmFtZSB0byBjb3ZlciBib3RoIGZlYXR1cmVz
-IG9uIEFSTSBhbmQgeDg2IGV2ZW4gaWYgdGhleSBoYXZlIGENCj4gPiAgICAgICA+PiBkaWZmZXJl
-bnQgaW1wbGVtZW50YXRpb24uIEFwcGVuZGVkIGFuIG9sZCBlbWFpbCBmb3IgcmVmZXJlbmNlLg0K
-PiA+ICAgICAgID4+DQo+ID4gICAgICAgPj4gQWxzbyBJIGFncmVlIHdpdGggRGFuaWVsIHRoYXQg
-d2UgbmVlZCB0byBiZSBjYXJlZnVsIGFib3V0IHRoZSB0d28gZG9jcw0KPiA+ICAgICAgID4+IHVu
-ZGVyIGRvY3MvLiBJIHRoaW5rIGhlIGlzIHJpZ2h0IHdlIG5lZWQgdG8gYWRkIGEgcGFyYWdyYXBo
-IGV4cGxhaW5pbmcNCj4gPiAgICAgICA+PiB0aGUgaGlzdG9yeSBhbmQgYSBwb2ludGVyIHRvIHRo
-ZSBvdGhlciBkb2N1bWVudC4gU29tZXRoaW5nIGxpa2U6DQo+ID4gICAgICAgPj4NCj4gPiAgICAg
-ICA+PiAiRG9tMGxlc3MgaXMgdGhlIG5hbWUgdGhhdCB3YXMgdXNlZCB3aGVuIGluaXRpYWxseSBp
-bnRyb2R1Y2luZyB0aGUNCj4gPiAgICAgICA+PiBmZWF0dXJlIG9uIEFSTS4gVGhlbiwgdGhlICJk
-b20wbGVzcyIgbmFtZSB3YXMgcmV0aXJlZCBpbiBmYXZvciBvZg0KPiA+ICAgICAgID4+ICJoeXBl
-cmxhdW5jaCIgdG8gYXZvaWQgY29uZnVzaW9uIChhIERvbTAgbWlnaHQgc3RpbGwgYmUgcHJlc2Vu
-dCkgYW5kIHRvDQo+ID4gICAgICAgPj4gYWxpZ24gd2l0aCB4ODYgKHdoZXJlIGEgc2ltaWxhciBm
-ZWF0dXJlIHdhcyBjYWxsZWQgaHlwZXJsYXVuY2ggZnJvbSB0aGUNCj4gPiAgICAgICA+PiBzdGFy
-dCkuIg0KPiA+ICAgICAgID4NCj4gPiAgICAgICA+IEnigJltIGZ1bGx5IG9rIHRvIGFkZCBhIHNl
-Y3Rpb24gbGlrZSB0aGlzIHBvaW50aW5nIHRvIHRoZSBIeXBlcmxhdW5jaCBkZXNpZ24uDQo+ID4g
-DQo+ID4gICAgICAgX0lmXyB0aGlzIHRleHQgaXMgYWRkZWQsIHBsZWFzZSBpbmNsdWRlIGxpbmtz
-L3JlZmVyZW5jZXMgdG8gdGhlIEh5cGVybGF1bmNoIHdpa2kgcGFnZSBhbmQgSHlwZXJsYXVuY2gg
-ZGVzaWduIGRvY3MuDQo+ID4gDQo+ID4gICAgICAgPiBARGFuaWVsIGFuZCBAQ2hyaXN0b3BoZXIg
-d291bGQgaXQgYmUgb2sgZm9yIHlvdSBvciB0aGUgY2hhbmdlcyBpbiB0aGUgc2VyaWUNCj4gPiAg
-ICAgICA+IGFyZSBnb2luZyB0byBiZSBwcm9ibGVtYXRpYyBmb3IgeW91ciBmdXR1cmUgd29yaz8g
-SW4gdGhlIGVuZCBpdOKAmXMganVzdCBhIG1lY2hhbmljYWwNCj4gPiAgICAgICA+IHJlbmFtZSwg
-c28gSSBndWVzcyB3ZSBqdXN0IG5lZWQgdG8gYWdyZWUgb24gbmFtaW5nIGNvbnZlbnRpb25zLg0K
-PiA+IA0KPiA+ICAgICAgIFBsZWFzZSBzZWUgdGhlIGhpc3Rvcnkgb2YgdHJhZGVtYXJrIGxpdGln
-YXRpb24gYWJvdXQgdGhlIHVzZSBvZiBzeW1ib2xpYyBuYW1lcyB0byByZWZlcmVuY2Ugc2ltaWxh
-ci1idXQtZGlmZmVyZW50IGFydGlmYWN0cy4gDQo+ID4gICAgICAgSXQgaXMgbXVjaCBlYXNpZXIg
-dG8gdXNlIHRoZSBzYW1lIG5hbWUgdG8gcmVmZXIgdG8gZW50aXJlbHkgZGlmZmVyZW50IG9iamVj
-dHMuIEhpc3RvcmljYWxseSwgY29uZnVzaW9uIGFyaXNlcyB3aGVuIGEgbmFtZSBpcw0KPiA+ICAg
-ICAgIHVzZWQgaW4gc2ltaWxhciBjb250ZXh0cy4NCj4gPiANCj4gPiAgICAgICBUaGVyZSBpcyBh
-bHNvIHZlcnNpb25pbmcuICBDb3VsZCB3ZSByZWZlciB0byBkb20wbGVzcyBhcyAiSHlwZXJsYXVu
-Y2ggVmVyc2lvbiAtMSI/DQo+ID4gDQo+ID4gICAgICAgSG93IGFib3V0IHJlbmFtaW5nIGRvbTBs
-ZXNzIHRvICJIeXBlcmxhdW5jaCBMaXRlIj8NCj4gPiANCj4gPiANCj4gPiBQZXJoYXBzIGl0IHdv
-dWxkIGJlIGhlbHBmdWwgaWYgeW91IGNvdWxkIGV4cGxhaW4gbW9yZSBjbGVhcmx5IHlvdXIgY29u
-Y2VybnMuICBJIHRha2UgaXQgdGhhdCB5b3Ugd2FudCBhIG5hbWUgd2hpY2ggY2FuIGJlIHVzZWQg
-c3BlY2lmaWNhbGx5DQo+ID4gdG8gaW5kaWNhdGUgdGhlIGZ1bGwgImRvbUIgbWVhc3VyZWQgYm9v
-dCIgZnVuY3Rpb25hbGl0eSB0aGF0IHdhcyBEYW5pZWwgYW5kIENocmlzdG9waGVyJ3Mgb3JpZ2lu
-YWwgZ29hbCwgYW5kIHRoYXQgeW91J3JlIGFmcmFpZCB0aGF0IHVzaW5nDQo+ID4gcGxhaW4gIkh5
-cGVybGF1bmNoIiBmb3Igb25seSB0aGUgInN0YXJ0IFZNcyBmcm9tIFhlbiBvbiBib290IiBmdW5j
-dGlvbmFsaXR5IHdpbGwgZGlsdXRlIHRoYXQ/DQo+ID4gDQo+ID4gVGhlICJzdGFydCBWTXMgZnJv
-bSBYZW4gb24gYm9vdCIgZnVuY3Rpb25hbGl0eSBpcyB0aGUgKm9ubHkqIHRoaW5nIHRoYXQgYSBi
-aWcgY2h1bmsgb2YgdGhlIHVzZXJzIG9mIHRoaXMgZnVuY3Rpb25hbGl0eSB3YW50OyAgcmVmZXJy
-aW5nIHRvDQo+ID4gaXQgYXMgIkh5cGVybGF1bmNoIExpdGUiIG9yICJIeXBlcmxhdW5jaCAtMSIg
-d2lsbCB1bmRlcm1pbmUgdGhlIHZhbHVlIG9mIHRoZSBmdW5jdGlvbmFsaXR5Lg0KPiA+IA0KPiA+
-IFdoYXQgaWYgd2UgdXNlICJNZWFzdXJlZCBIeXBlcmxhdW5jaCIsIG9yICJIeXBlcmxhdW5jaCBN
-ZWFzdXJlZCBCb290IiB0byByZWZlciB0byB0aGUgZnVsbCBtZWFzdXJlZCBib290IGZ1bmN0aW9u
-YWxpdHk/DQo+IA0KPiBJIHRoaW5rIHRoaXMgaXMgdGhlIGJlc3Qgd2F5Lg0KPiANCj4gDQo+ID4g
-T3IsICJIeXBlcmxhdW5jaCBEVCIgZm9yICJCb290aW5nIFZNcyBmcm9tIFhlbiB1c2luZyBEZXZp
-Y2UgVHJlZSIgKHdpdGhvdXQgdGhlIGludm9sdmVtZW50IG9mIGEgZG9tQiksICJIeXBlcmxhdW5j
-aCBCb290IERvbWFpbiAvDQo+ID4gSHlwZXJsYXVuY2ggZG9tQiIgZm9yIGEgbW9yZSBnZW5lcmFs
-ICJkb21CIiBmdW5jdGlvbmFsaXR5LCBhbmQgIkh5cGVybGF1bmNoIE1lYXN1cmVkIEJvb3QiIGZv
-ciB0aGUgZnVsbCBmdW5jdGlvbmFsaXR5IChhc3N1bWluZyB0aGVyZSdzDQo+ID4gbW9yZSB0byB0
-aGlzIHRoYW4gc2ltcGx5IGhhdmluZyBhIGRvbUIgaW52b2x2ZWQpPw0KPiANCj4gDQo+IFdlIG5l
-ZWQgYW4gb3ZlcmFyY2hpbmcgbmFtZSB0byBjb3ZlciB0aGUgZmVhdHVyZSAic3RhcnQgVk1zIGZy
-b20gWGVuIG9uDQo+IGJvb3QiIG9uIGJvdGggQVJNIGFuZCB4ODYuIEZyb20gbXkgdW5kZXJzdGFu
-ZGluZyBhbmQgZnJvbSB0aGUgb3JpZ2luYWwNCj4gZW1haWxzIG9uIHRoZSBzdWJqZWN0LCB0aGUg
-bmFtZSAiaHlwZXJsYXVuY2giIHdhcyBpdC4NCj4gDQo+IFN1cmU7IGJ1dCB0aGluayAiZ3VpdGFy
-IiB2cyAiYWNvdXN0aWMgZ3VpdGFyIiB2cyAiZWxlY3RyaWMgZ3VpdGFyIi4gICJFbGVjdHJpYyBn
-dWl0YXIiIGlzIG5ldywgImd1aXRhciIgY292ZXJzIHRoZW0gYm90aCwgYnV0IHlvdSBzb21ldGlt
-ZXMgbmVlZCBhIHdheSB0byBzcGVjaWZ5ICJhY291c3RpYyIuICBSaWdodCBub3cgdGFyZ2V0IGNv
-bmZpZ3VyYXRpb25zIHdlJ3JlIHRhbGtpbmcgYWJvdXQgaW5jbHVkZToNCj4gDQo+IDEuIEJvb3Rp
-bmcgYWxsIHlvdXIgZG9tYWlucyBkaXJlY3RseSBmcm9tIFhlbiB1c2luZyBEVCBjb25maWd1cmF0
-aW9ucw0KPiAyLiBCb290aW5nIGEgZG9tQiwgd2hpY2ggdGhlbiBleGVjdXRlcyBzb21lIG1vcmUg
-Y29tcGxpY2F0ZWQgcHJvZ3JhbW1hdGljIGNvbmZpZ3VyYXRpb24gdG8gbGF1bmNoIFZNcyBiZWZv
-cmUgZGlzYXBwZWFyaW5nDQo+IDMuIERvaW5nIGZ1bGwgbWVhc3VyZWQgYm9vdCBvbiB0aGUgd2hv
-bGUgc3lzdGVtIHVzaW5nIGEgZG9tQi4NCj4gDQo+IElmICJIeXBlcmxhdW5jaCIgbWVhbnMgMS0z
-LCB3ZSBub3Qgb25seSBuZWVkIGEgd2F5IHRvIHNwZWNpZnkgdGhhdCB5b3UncmUgdGFsa2luZyBh
-Ym91dCAzLCBidXQgKmFsc28qIGEgd2F5IHRvIHNwZWNpZnkgdGhhdCB5b3UncmUgdGFsa2luZyBh
-Ym91dCAxLiAgSW4gdGhlIHZhc3QgbWFqb3JpdHkgb2YgY2FzZXMgZm9yIHRoZSBmb3Jlc2VlYWJs
-ZSBmdXR1cmUgYXJlIGdvaW5nIHRvIGJlIDEuICBBZGRpdGlvbmFsbHksIHdlIHdhbnQgdG8gbWFr
-ZSBzdXJlIHRoYXQgIkh5cGVybGF1bmNoIiAqYWN0dWFsbHkqIHR1cm5zIG91dCB0byBtZWFuIDEt
-MywgYW5kIG5vdCBqdXN0IDEuDQo+IA0KPiBUaGUgdGhpbmcgSSBsaWtlIGFib3V0ICJIeXBlcmxh
-dW5jaCBEVCIgaXMgdGhhdCB0byBtZSBpdCBzb3VuZHMgcHJldHR5IGNvb2wgYnV0IGFsc28gaXMg
-dmVyeSBkZXNjcmlwdGl2ZTogSSBoYXZlbid0IHRhbGtlZCB0byBwZW9wbGUgYnVpbGRpbmcgdGhl
-c2Ugc3lzdGVtcywgYnV0IGl0IHNlZW1zIGxpa2Ugc2F5aW5nLCAiVGhlIGh5cGVydmlzb3IgbGF1
-bmNoZXMgVk1zIGJhc2VkIG9uIGEgRGV2aWNlIFRyZWUgcGFzc2VkIHRvIGl0IGF0IGJvb3QiIHdp
-bGwgYmUgaW1tZWRpYXRlbHkgdW5kZXJzdG9vZCwgYW5kIHN0aWNrIGluIHBlb3BsZSdzIG1pbmRz
-Lg0KDQpQZXJzb25hbGx5LCBJIGxpa2UgdGhlIG5hbWUg4oCcSHlwZXJsYXVuY2ggRFTigJ0sIGJl
-Y2F1c2UgaXQgdGVsbHMgbWUgdGhhdCB3ZSBhcmUgbGF1bmNoaW5nIFZNcyBhbmQgdGhlIERUIGlz
-IGludm9sdmVkLCBpZiBJIHVuZGVyc3Rvb2QgY29ycmVjdGx5IHRoZSBkZXNpZ24sDQppdCB3b3Vs
-ZCBiZSB0aGUgc2FtZSBhbHNvIG9uIHg4NiAoYW5kIGluIGV2ZXJ5IGFyY2hpdGVjdHVyZSB0aGF0
-IHdpbGwgY29tZSBsYXRlcikgc28gYmVpbmcg4oCcSHlwZXJsYXVuY2ggRFTigJ0gYW4gYXJjaCBh
-Z25vc3RpYyBuYW1lIG1ha2VzIGl0IGEgZ29vZA0KY2FuZGlkYXRlIGZvciBwaGFzZSBvdXQgZG9t
-MGxlc3MgbmFtZSBhbmQgZm9yIHRoZSBmdXR1cmUgd2hlbiBhIGNvbW1vbiBjb2RlIHdpbGwgdXNl
-IHRoZSBEVCB0byBsYXVuY2ggVk1zIGF0IFhlbiBib290Lg0KDQoNCj4gDQo+IFNvIG1heWJlIGlu
-Zm9ybWFsbHksIG9yIGluICJzaG9ydCB1c2FnZSIgdXNlICJIeXBlcmxhdW5jaCIsIGJ1dCBpbiBk
-b2N1bWVudGF0aW9uIG9yIHJlZmVyZW5jZSBzeXN0ZW1zLCB3aGVuIHRhbGtpbmcgc3BlY2lmaWNh
-bGx5IGFib3V0ICMxLCB0cnkgdG8gdXNlICJIeXBlcmxhdW5jaCBEVCIsIGp1c3QgdG8gcmVpbmZv
-cmNlIHRoZSBpZGVhIHRoYXQgdGhlcmUncyBtb3JlIHRvIEh5cGVybGF1bmNoIHRoYXQncyBjb21p
-bmcgZG93biB0aGUgcm9hZD8NCj4gDQo+ICAtR2VvcmdlDQoNCg==
+
+
+On 06/07/2023 13:31, Luca Fancellu wrote:
+> 
+> 
+>> On 6 Jul 2023, at 11:01, George Dunlap <george.dunlap@cloud.com> wrote:
+>>
+>>
+>>
+>> On Wed, Jul 5, 2023 at 11:14 PM Stefano Stabellini <stefano.stabellini@amd.com> wrote:
+>> On Wed, 5 Jul 2023, George Dunlap wrote:
+>>> On Mon, Jul 3, 2023 at 9:55 PM P S <pairspace@gmail.com> wrote:
+>>>        > On Jul 3, 2023, at 15:45, Luca Fancellu <luca.fancellu@arm.com> wrote:
+>>>        ﻿>
+>>>        >> On 3 Jul 2023, at 18:48, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>>>        >>
+>>>        >>> On Mon, 3 Jul 2023, Daniel P. Smith wrote:
+>>>        >>> On 7/1/23 11:13, Luca Fancellu wrote:
+>>>        >>>>> On 1 Jul 2023, at 08:53, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>>        >>>>>
+>>>        >>>>> On 30/06/2023 10:12 am, Luca Fancellu wrote:
+>>>        >>>>>> The "dom0less" feature was intended to be the feature where a domU
+>>>        >>>>>> domain could be launched without the control domain (Dom0)
+>>>        >>>>>> intervention, however the name seems to suggest that Dom0 cannot
+>>>        >>>>>> be part of the configuration, while instead it's a possible use case.
+>>>        >>>>>>
+>>>        >>>>>> To avoid that, rename the "dom0less" configuration with the name
+>>>        >>>>>> "hyperlaunch", that is less misleading.
+>>>        >>>>>>
+>>>        >>>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>        >>>>>> ---
+>>>        >>>>>> This is an RFC to get the feeling of the community about the name
+>>>        >>>>>> change, for now it's everything in one patch just to see how it
+>>>        >>>>>> will look like, if there is interest on proceeding into it, I can
+>>>        >>>>>> split in more commit.
+>>>        >>>>>
+>>>        >>>>> Have you discussed this with Dan and Chris at all?  You haven't even
+>>>        >>>>> CC'd them.
+>>>        >>>>
+>>>        >>>> No, this rename idea started from a chat during the summit, anyway Julien
+>>>        >>>> promptly add them to the CC, because I forgot.
+>>>        >>>
+>>>        >>> No worries and thank you for considering and taking the time to do this RFC.
+>>>        >>> It is greatly appreciated that there is a strong willingness to have dom0less
+>>>        >>> and hyperlaunch merged.
+>>>        >>>
+>>>        >>>>>
+>>>        >>>>> While there is a lot of end-goal in common between the dom0less and
+>>>        >>>>> hyperlaunch, and that the name dom0less is deeply misleading,
+>>>        >>>>> hyperlaunch is specifically not this.
+>>>        >>>>
+>>>        >>>> Yes Hyperlaunch is more than this, however as I said, with this RFC I would
+>>>        >>>> like
+>>>        >>>> to ear opinions, @Daniel @Christopher could it be a proper name for the
+>>>        >>>> dom0less
+>>>        >>>> feature?
+>>>        >>>
+>>>        >>> As Andy has alluded, hyperlaunch is meant to provide a flexible means to
+>>>        >>> handle domain construction at boot to meet a wide range of possible use cases.
+>>>        >>> One of those use cases is dom0less, so yes, ultimately what dom0less does
+>>>        >>> today will be achievable under hyperlaunch. Our intended approach to align the
+>>>        >>> two implementations is one that is meant to be minimally disruptive, since
+>>>        >>> dom0less is considered a supported (SUPPORT.md) capability. As mentioned, we
+>>>        >>> are greatly appreciative to the openness to adopt the name,
+>>>        >>
+>>>        >> Thanks Daniel!
+>>>        >>
+>>>        >>
+>>>        >>> but a big concern
+>>>        >>> I personally have is the confusion it could cause a general user. A blanket
+>>>        >>> rename would end up with two documents in the docs tree that provide two
+>>>        >>> different explanations of hyperlaunch and two different device tree
+>>>        >>> definitions. So I think a more measured approach should be considered here.
+>>>        >>>
+>>>        >>>> If this patch makes things more difficult for the Hyperlunch serie, I’m ok
+>>>        >>>> to drop it,
+>>>        >>>> my only aim was just to find a less misleading name for the feature.
+>>>        >>>
+>>>        >>> What I would like to suggest as a good first step would be an update to the
+>>>        >>> dom0less document. Provide a note at the beginning that points to the
+>>>        >>> hyperlaunch design doc as a more general approach that will eventually subsume
+>>>        >>> dom0less. This would provide a gentler transition for exist users of dom0less.
+>>>        >>>
+>>>        >>> If it is not too much, I would also ask, please have a look at the design for
+>>>        >>> boot modules in the series Christopher just posted. The design pulls from the
+>>>        >>> work done by dom0less and expanded upon it. I major step into merging the two
+>>>        >>> capabilities will be to have a common set of structures. Once those are in
+>>>        >>> place, we can move to a common device tree representation, and at that point
+>>>        >>> we would be fairly close, if not at the point of a formal merger of between
+>>>        >>> the two.
+>>>        >>
+>>>        >> At the moment we have a concrete problem with explaining dom0less and
+>>>        >> hyperlaunch to potential new users. Using two different names for a
+>>>        >> similar feature on arm and x86 causes confusion. It is hurting Xen as a
+>>>        >> solution. Personally I already had to switch to use the word
+>>>        >> "hyperlaunch" for everything in my users-facing presentations.
+>>>        >>
+>>>        >> At the summit, we discussed that it would be a good idea to use a single
+>>>        >> name to refer to both features on arm and x86. Given that "dom0less"
+>>>        >> causes additional issues because it makes people think that there is no
+>>>        >> Dom0, the suggestion was to use "hyperlaunch" to refer to both features.
+>>>        >>
+>>>        >> We don't need to 100% align the two implementations and data structures.
+>>>        >> This is not for engineers that are going to look at the specifications
+>>>        >> and improve them. This is for users/customers of Xen that are trying to
+>>>        >> understand what the hypervisor enables them to do. We need to be able to
+>>>        >> show users architecture slides with the same name and explanation on
+>>>        >> both ARM and x86.
+>>>        >>
+>>>        >> I am sure that Daniel and Christopher remember, but for the others on
+>>>        >> this email thread, the name "hyperlaunch" was born exactly to be that:
+>>>        >> the one name to cover both features on ARM and x86 even if they have a
+>>>        >> different implementation. Appended an old email for reference.
+>>>        >>
+>>>        >> Also I agree with Daniel that we need to be careful about the two docs
+>>>        >> under docs/. I think he is right we need to add a paragraph explaining
+>>>        >> the history and a pointer to the other document. Something like:
+>>>        >>
+>>>        >> "Dom0less is the name that was used when initially introducing the
+>>>        >> feature on ARM. Then, the "dom0less" name was retired in favor of
+>>>        >> "hyperlaunch" to avoid confusion (a Dom0 might still be present) and to
+>>>        >> align with x86 (where a similar feature was called hyperlaunch from the
+>>>        >> start)."
+>>>        >
+>>>        > I’m fully ok to add a section like this pointing to the Hyperlaunch design.
+>>>
+>>>        _If_ this text is added, please include links/references to the Hyperlaunch wiki page and Hyperlaunch design docs.
+>>>
+>>>        > @Daniel and @Christopher would it be ok for you or the changes in the serie
+>>>        > are going to be problematic for your future work? In the end it’s just a mechanical
+>>>        > rename, so I guess we just need to agree on naming conventions.
+>>>
+>>>        Please see the history of trademark litigation about the use of symbolic names to reference similar-but-different artifacts.
+>>>        It is much easier to use the same name to refer to entirely different objects. Historically, confusion arises when a name is
+>>>        used in similar contexts.
+>>>
+>>>        There is also versioning.  Could we refer to dom0less as "Hyperlaunch Version -1"?
+>>>
+>>>        How about renaming dom0less to "Hyperlaunch Lite"?
+>>>
+>>>
+>>> Perhaps it would be helpful if you could explain more clearly your concerns.  I take it that you want a name which can be used specifically
+>>> to indicate the full "domB measured boot" functionality that was Daniel and Christopher's original goal, and that you're afraid that using
+>>> plain "Hyperlaunch" for only the "start VMs from Xen on boot" functionality will dilute that?
+>>>
+>>> The "start VMs from Xen on boot" functionality is the *only* thing that a big chunk of the users of this functionality want;  referring to
+>>> it as "Hyperlaunch Lite" or "Hyperlaunch -1" will undermine the value of the functionality.
+>>>
+>>> What if we use "Measured Hyperlaunch", or "Hyperlaunch Measured Boot" to refer to the full measured boot functionality?
+>>
+>> I think this is the best way.
+>>
+>>
+>>> Or, "Hyperlaunch DT" for "Booting VMs from Xen using Device Tree" (without the involvement of a domB), "Hyperlaunch Boot Domain /
+>>> Hyperlaunch domB" for a more general "domB" functionality, and "Hyperlaunch Measured Boot" for the full functionality (assuming there's
+>>> more to this than simply having a domB involved)?
+>>
+>>
+>> We need an overarching name to cover the feature "start VMs from Xen on
+>> boot" on both ARM and x86. From my understanding and from the original
+>> emails on the subject, the name "hyperlaunch" was it.
+>>
+>> Sure; but think "guitar" vs "acoustic guitar" vs "electric guitar".  "Electric guitar" is new, "guitar" covers them both, but you sometimes need a way to specify "acoustic".  Right now target configurations we're talking about include:
+>>
+>> 1. Booting all your domains directly from Xen using DT configurations
+>> 2. Booting a domB, which then executes some more complicated programmatic configuration to launch VMs before disappearing
+>> 3. Doing full measured boot on the whole system using a domB.
+>>
+>> If "Hyperlaunch" means 1-3, we not only need a way to specify that you're talking about 3, but *also* a way to specify that you're talking about 1.  In the vast majority of cases for the foreseeable future are going to be 1.  Additionally, we want to make sure that "Hyperlaunch" *actually* turns out to mean 1-3, and not just 1.
+>>
+>> The thing I like about "Hyperlaunch DT" is that to me it sounds pretty cool but also is very descriptive: I haven't talked to people building these systems, but it seems like saying, "The hypervisor launches VMs based on a Device Tree passed to it at boot" will be immediately understood, and stick in people's minds.
+> 
+> Personally, I like the name “Hyperlaunch DT”, because it tells me that we are launching VMs and the DT is involved, if I understood correctly the design,
+> it would be the same also on x86 (and in every architecture that will come later) so being “Hyperlaunch DT” an arch agnostic name makes it a good
+> candidate for phase out dom0less name and for the future when a common code will use the DT to launch VMs at Xen boot.
+
+I assume that DT means Device-Tree here. If so, I find a name a bit 
+misleading because we are talking about the way to pass the 
+configuration rather than what the feature is doing.
+
+My assumption here is that a DomB solution would still use the 
+Device-Tree to describe the domains.
+
+Cheers,
+
+-- 
+Julien Grall
 
