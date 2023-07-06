@@ -2,46 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B6774A1F7
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 18:14:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.559935.875387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7650D74A21C
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jul 2023 18:20:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.559939.875397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHRcs-0001R4-Rk; Thu, 06 Jul 2023 16:14:38 +0000
+	id 1qHRiD-0002te-GA; Thu, 06 Jul 2023 16:20:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 559935.875387; Thu, 06 Jul 2023 16:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 559939.875397; Thu, 06 Jul 2023 16:20:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHRcs-0001PA-P7; Thu, 06 Jul 2023 16:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 559935;
- Thu, 06 Jul 2023 16:14:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qHRiD-0002rz-D1; Thu, 06 Jul 2023 16:20:09 +0000
+Received: by outflank-mailman (input) for mailman id 559939;
+ Thu, 06 Jul 2023 16:20:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZWa/=CY=suse.cz=jack@srs-se1.protection.inumbo.net>)
- id 1qHRcq-0001P4-HV
- for xen-devel@lists.xenproject.org; Thu, 06 Jul 2023 16:14:36 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32aa0a48-1c18-11ee-b237-6b7b168915f2;
- Thu, 06 Jul 2023 18:14:35 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4E502223E8;
- Thu,  6 Jul 2023 16:14:34 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2ADF1138EE;
- Thu,  6 Jul 2023 16:14:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +RN/CmropmTIKwAAMHmgww
- (envelope-from <jack@suse.cz>); Thu, 06 Jul 2023 16:14:34 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id B00D6A0707; Thu,  6 Jul 2023 18:14:33 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHRiC-0002rb-1U; Thu, 06 Jul 2023 16:20:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHRiB-0006a3-Pu; Thu, 06 Jul 2023 16:20:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHRiB-0004Mj-Fj; Thu, 06 Jul 2023 16:20:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHRiB-0008NN-FC; Thu, 06 Jul 2023 16:20:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,92 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32aa0a48-1c18-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1688660074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U3X2c4DZ7u1WJQoXTnnFA0EIrJReIsvKkxSR5ka0KIA=;
-	b=QmpkaGPRZaoHJzRo2a6TjndqPucrWh7f/FY2L3L/tkSmDEI1eMsM8wrizbEulyyCbALdKF
-	NAhJw22VD9dE7RV9U1X7QxEMrx2wMp7N4RocvtwIIP7j7sOckxmGngjpgD0K7UzZlI8BMj
-	7TaptoZ4hnlDaa+a0YvCourIJS7rkEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1688660074;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U3X2c4DZ7u1WJQoXTnnFA0EIrJReIsvKkxSR5ka0KIA=;
-	b=BFZ9TyrydR/g+7ExWBaMGJWuaCnekgsDWt3QOA77tpx+pa0ab3V9kDQ7HgXi8ns77IxFLs
-	krph+7hPTygy6eCw==
-Date: Thu, 6 Jul 2023 18:14:33 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Jan Kara <jack@suse.cz>, linux-block@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	Alasdair Kergon <agk@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Anna Schumaker <anna@kernel.org>, Chao Yu <chao@kernel.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Kleikamp <shaggy@kernel.org>, David Sterba <dsterba@suse.com>,
-	dm-devel@redhat.com, drbd-dev@lists.linbit.com,
-	Gao Xiang <xiang@kernel.org>, Jack Wang <jinpu.wang@ionos.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	jfs-discussion@lists.sourceforge.net,
-	Joern Engel <joern@lazybastard.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
-	linux-bcache@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
-	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-pm@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
-	ocfs2-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Song Liu <song@kernel.org>, Sven Schnelle <svens@linux.ibm.com>,
-	target-devel@vger.kernel.org, Ted Tso <tytso@mit.edu>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 01/32] block: Provide blkdev_get_handle_* functions
-Message-ID: <20230706161433.lj4apushiwguzvdd@quack3>
-References: <20230629165206.383-1-jack@suse.cz>
- <20230704122224.16257-1-jack@suse.cz>
- <ZKbgAG5OoHVyUKOG@infradead.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=jaejcnp8yWjDSVK9CwDcKtkfB7OBb545AkYlm4dSKGg=; b=rKq5E92JEWJLm7WWZBGHOytoH5
+	jr6G3BzS6uRVRl7zri+6225Z+96SAWzVLDi3ngZbSdgwaBCK8VjMwPpousjnot9PTr8HRv2OhVXKV
+	f3BXPhk9toYpn0OspATmTMnfz/uTpvHezBH1d9tG1izOrD3oqHBAg4OcjsTHMnNVXwXw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181722-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZKbgAG5OoHVyUKOG@infradead.org>
+Subject: [ovmf test] 181722: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=60475162a66a73426cd971174bb3cd853a4619cf
+X-Osstest-Versions-That:
+    ovmf=af8859bce2ffa8d72d8fb30149a0ef6423a8cc47
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 06 Jul 2023 16:20:07 +0000
 
-On Thu 06-07-23 08:38:40, Christoph Hellwig wrote:
-> On Tue, Jul 04, 2023 at 02:21:28PM +0200, Jan Kara wrote:
-> > Create struct bdev_handle that contains all parameters that need to be
-> > passed to blkdev_put() and provide blkdev_get_handle_* functions that
-> > return this structure instead of plain bdev pointer. This will
-> > eventually allow us to pass one more argument to blkdev_put() without
-> > too much hassle.
-> 
-> Can we use the opportunity to come up with better names?  blkdev_get_*
-> was always a rather horrible naming convention for something that
-> ends up calling into ->open.
-> 
-> What about:
-> 
-> struct bdev_handle *bdev_open_by_dev(dev_t dev, blk_mode_t mode, void *holder,
-> 		const struct blk_holder_ops *hops);
-> struct bdev_handle *bdev_open_by_path(dev_t dev, blk_mode_t mode,
-> 		void *holder, const struct blk_holder_ops *hops);
-> void bdev_release(struct bdev_handle *handle);
+flight 181722 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181722/
 
-I'd maybe use bdev_close() instead of bdev_release() but otherwise I like
-the new naming.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 60475162a66a73426cd971174bb3cd853a4619cf
+baseline version:
+ ovmf                 af8859bce2ffa8d72d8fb30149a0ef6423a8cc47
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Last test of basis   181705  2023-07-05 10:10:39 Z    1 days
+Testing same since   181722  2023-07-06 13:42:14 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Nickle Wang <nicklew@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   af8859bce2..60475162a6  60475162a66a73426cd971174bb3cd853a4619cf -> xen-tested-master
 
