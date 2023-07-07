@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF55374B530
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 18:46:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560590.876617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42D2674B861
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 22:53:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560594.876627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHoa7-0000iY-HM; Fri, 07 Jul 2023 16:45:19 +0000
+	id 1qHsQL-0008NM-QJ; Fri, 07 Jul 2023 20:51:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560590.876617; Fri, 07 Jul 2023 16:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 560594.876627; Fri, 07 Jul 2023 20:51:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHoa7-0000fp-EE; Fri, 07 Jul 2023 16:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 560590;
- Fri, 07 Jul 2023 16:45:17 +0000
+	id 1qHsQL-0008Kx-NS; Fri, 07 Jul 2023 20:51:29 +0000
+Received: by outflank-mailman (input) for mailman id 560594;
+ Fri, 07 Jul 2023 20:51:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zEh2=CZ=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1qHoa5-0000fg-TB
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 16:45:17 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ <SRS0=RURV=CZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qHsQK-0008Kr-5e
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 20:51:28 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6b23f43-1ce5-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 18:45:16 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2b5c231c23aso34431131fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 07 Jul 2023 09:45:16 -0700 (PDT)
-Received: from [192.168.0.106] ([91.123.150.167])
- by smtp.gmail.com with ESMTPSA id
- a9-20020ac25209000000b004fbc6a8ad08sm742351lfl.306.2023.07.07.09.45.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Jul 2023 09:45:15 -0700 (PDT)
+ id 093be36d-1d08-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 22:51:25 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 44C79617C2;
+ Fri,  7 Jul 2023 20:51:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF2AC433C7;
+ Fri,  7 Jul 2023 20:51:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,224 +44,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6b23f43-1ce5-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688748316; x=1691340316;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mLkW/hgt/ozYBGOqiaEtaZHsC+ZmrsXvgu2nxUx2jm4=;
-        b=ibMKfHQVzVqX94+UXQsj1P+n+g7rP7MgX5YDQhU8KaSYAQTtbnlJtU/d0dh9xe6gkB
-         P32oa8MUKng8AstW3AOXOf8NnFNgmbcox+slxmqDdqn8rnJfMJVfCJGjxUi2VXxZZuPp
-         hDn6GYqeXHBmqKVqdfl20Qboq9LyPnM6F9bIw4qLW7bgbUuLGR3tUFVa9/2C/nL2l7l4
-         DPw7fBj+Q7gIeBwQjUD4+m9ldmcNoZYmsxG4EUVIIC+1ImewPWpck2qjawxXVRMBl/5y
-         a/6RzLTSLunnZyr2paBeJ/5GKNet8c5uF/rRJe7NKyyq76tG8C8qt1k4M8h1WOVEtFWP
-         bu2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688748316; x=1691340316;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mLkW/hgt/ozYBGOqiaEtaZHsC+ZmrsXvgu2nxUx2jm4=;
-        b=agv8px0RVAjnqBW0+3UwkadpLkIHn6kZSiWO1xCfaDnfw8fjssdH+Wwz7wDhczr0WE
-         umRSSEYatN6kTOU2y3HwKQUlPGCRD9V1B983cZLEaRZtDo7JmZ7kROWfyE8UmdSv5M4B
-         AXdsYw6BL1RrhyDwYAyl5TDu2+5xiVaoCUp/ZZ9RkMPFIf3OUfSjdJ4SBz34rXUFYAAB
-         XpPHM6gVVr/oI4c5xn3FdcZLeA8Y+epm0yOmrEjJ79msRON4+/TaGiSAvRG7MOH8Ex4t
-         Z1ccvMO8kOOjEDYQk/nyRx58BE485TTrcv8Uxm3bmp69vCHy5mJ3GEqel21Nr0C6Ogxw
-         pDXw==
-X-Gm-Message-State: ABy/qLY1woieyzkfJnVdU2ZVXZgx/kSK/ClGO0S6YyaEbCP7mNpvX4xf
-	Bfo4mwl0o5/PXbUJNq00M4E=
-X-Google-Smtp-Source: APBJJlEMA8a25b1JAS0jkbMZ61puIL9z7YkwgN44MGfRoPJAQBUQoDsUiZlihYjV+tzLY2Dqvl/iRQ==
-X-Received: by 2002:ac2:4db5:0:b0:4fb:9469:d65f with SMTP id h21-20020ac24db5000000b004fb9469d65fmr4016168lfe.37.1688748315707;
-        Fri, 07 Jul 2023 09:45:15 -0700 (PDT)
-Message-ID: <828f5936-3bdf-2bbd-158b-d29350a72e14@gmail.com>
-Date: Fri, 7 Jul 2023 19:45:13 +0300
+X-Inumbo-ID: 093be36d-1d08-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688763083;
+	bh=GkXa8NYTqsjiWmtWF+qgPMdkxGiHi2MVtxO2Vakv29A=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=WK1csyYveOTFWsizvszDMo8qCgo1qc0k2DanpwjXjN1D+dSiyEbnoQZJhKjUhCva4
+	 s+3GqsRvhPqwOIyZFbUEjUd/4q71D63u8xUUCobHPmbLJ3o6KfipfkhiexKduTlW/Q
+	 DxhBaruLd9jB+Xv6F1MIjySBwgr6JRrYYn6z7YVlxxWh2vSRZIcBRUNnTjoATlHURb
+	 d1GwybmKL6/1bvbdfWZGNlWaBfNeduJE7DjiXWSy1rzVkTR3X9kjenThs/W9qwDU+K
+	 54N+7USxbT8r3yxoBj5aXOMFvf+kCOaoiN501guP/01T98fifkhwYyhAw9ZfyzFaFg
+	 70VtWOtLzX9EQ==
+Date: Fri, 7 Jul 2023 13:51:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: jgross@suse.com
+cc: roger.pau@citrix.com, sstabellini@kernel.org, olekstysh@gmail.com, 
+    marmarek@invisiblethingslab.com, Oleksandr_Tyshchenko@epam.com, 
+    petr.pavlu@suse.com, xen-devel@lists.xenproject.org, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    vikram.garhwal@amd.com
+Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
+In-Reply-To: <100177f8fec144ac96d91de226f76ebe@posteo.net>
+Message-ID: <alpine.DEB.2.22.394.2307071347160.761183@ubuntu-linux-20-04-desktop>
+References: <100177f8fec144ac96d91de226f76ebe@posteo.net>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 10/12] vpci: add initial support for virtual PCI bus
- topology
-To: Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20230613103159.524763-1-volodymyr_babchuk@epam.com>
- <20230613103159.524763-11-volodymyr_babchuk@epam.com>
- <f368e425-157f-ea1c-2123-be8a374c328d@suse.com>
-Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <f368e425-157f-ea1c-2123-be8a374c328d@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323329-55874677-1688763083=:761183"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
+--8323329-55874677-1688763083=:761183
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-On 21.06.23 15:06, Jan Beulich wrote:
-
-Hello all
-
-
-> On 13.06.2023 12:32, Volodymyr Babchuk wrote:
->> @@ -121,6 +124,62 @@ int vpci_add_handlers(struct pci_dev *pdev)
->>   }
->>   
->>   #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
->> +static int add_virtual_device(struct pci_dev *pdev)
->> +{
->> +    struct domain *d = pdev->domain;
->> +    pci_sbdf_t sbdf = { 0 };
->> +    unsigned long new_dev_number;
->> +
->> +    if ( is_hardware_domain(d) )
->> +        return 0;
->> +
->> +    ASSERT(pcidevs_locked());
->> +
->> +    /*
->> +     * Each PCI bus supports 32 devices/slots at max or up to 256 when
->> +     * there are multi-function ones which are not yet supported.
->> +     */
->> +    if ( pdev->info.is_extfn )
->> +    {
->> +        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
->> +                 &pdev->sbdf);
->> +        return -EOPNOTSUPP;
->> +    }
->> +
->> +    new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
->> +                                         VPCI_MAX_VIRT_DEV);
->> +    if ( new_dev_number >= VPCI_MAX_VIRT_DEV )
->> +        return -ENOSPC;
->> +
->> +    __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
+On Fri, 7 Jul 2023:
+> On 07.07.23 16:42, Roger Pau Monné wrote:
+> > On Fri, Jul 07, 2023 at 04:10:14PM +0200, Juergen Gross wrote:
+> > > On 07.07.23 11:50, Roger Pau Monné wrote:
+> > > > On Fri, Jul 07, 2023 at 06:38:48AM +0200, Juergen Gross wrote:
+> > > > > On 06.07.23 23:49, Stefano Stabellini wrote:
+> > > > > > On Thu, 6 Jul 2023, Roger Pau Monné wrote:
+> > > > > > > On Wed, Jul 05, 2023 at 03:41:10PM -0700, Stefano Stabellini
+> > > > > > > wrote:
+> > > > > > > > On Wed, 5 Jul 2023, Roger Pau Monné wrote:
+> > > > > > > > > On Tue, Jul 04, 2023 at 08:14:59PM +0300, Oleksandr Tyshchenko
+> > > > > > > > > wrote:
+> > > > > > > > > > Part 2 (clarification):
+> > > > > > > > > > 
+> > > > > > > > > > I think using a special config space register in the root
+> > > > > > > > > > complex would
+> > > > > > > > > > not be terrible in terms of guest changes because it is easy
+> > > > > > > > > > to
+> > > > > > > > > > introduce a new root complex driver in Linux and other OSes.
+> > > > > > > > > > The root
+> > > > > > > > > > complex would still be ECAM compatible so the regular ECAM
+> > > > > > > > > > driver would
+> > > > > > > > > > still work. A new driver would only be necessary if you want
+> > > > > > > > > > to be able
+> > > > > > > > > > to access the special config space register.
+> > > > > > > > > 
+> > > > > > > > > I'm slightly worry of this approach, we end up modifying a
+> > > > > > > > > root
+> > > > > > > > > complex emulation in order to avoid modifying a PCI device
+> > > > > > > > > emulation
+> > > > > > > > > on QEMU, not sure that's a good trade off.
+> > > > > > > > > 
+> > > > > > > > > Note also that different architectures will likely have
+> > > > > > > > > different root
+> > > > > > > > > complex, and so you might need to modify several of them, plus
+> > > > > > > > > then
+> > > > > > > > > arrange the PCI layout correctly in order to have the proper
+> > > > > > > > > hierarchy
+> > > > > > > > > so that devices belonging to different driver domains are
+> > > > > > > > > assigned to
+> > > > > > > > > different bridges.
+> > > > > > > > 
+> > > > > > > > I do think that adding something to the PCI conf register
+> > > > > > > > somewhere is
+> > > > > > > > the best option because it is not dependent on ACPI and it is
+> > > > > > > > not
+> > > > > > > > dependent on xenstore both of which are very undesirable.
+> > > > > > > > 
+> > > > > > > > I am not sure where specifically is the best place. These are 3
+> > > > > > > > ideas
+> > > > > > > > we came up with:
+> > > > > > > > 1. PCI root complex
+> > > > > > > > 2. a register on the device itself
+> > > > > > > > 3. a new capability of the device
+> > > > > > > > 4. add one extra dummy PCI device for the sole purpose of
+> > > > > > > > exposing the
+> > > > > > > >       grants capability
+> > > > > > > > 
+> > > > > > > > 
+> > > > > > > > Looking at the spec, there is a way to add a vendor-specific
+> > > > > > > > capability
+> > > > > > > > (cap_vndr = 0x9). Could we use that? It doesn't look like it is
+> > > > > > > > used
+> > > > > > > > today, Linux doesn't parse it.
+> > > > > > > 
+> > > > > > > I did wonder the same from a quick look at the spec.  There's
+> > > > > > > however
+> > > > > > > a text in the specification that says:
+> > > > > > > 
+> > > > > > > "The driver SHOULD NOT use the Vendor data capability except for
+> > > > > > > debugging and reporting purposes."
+> > > > > > > 
+> > > > > > > So we would at least need to change that because the capability
+> > > > > > > would
+> > > > > > > then be used by other purposes different than debugging and
+> > > > > > > reporting.
+> > > > > > > 
+> > > > > > > Seems like a minor adjustment, so might we worth asking upstream
+> > > > > > > about
+> > > > > > > their opinion, and to get a conversation started.
+> > > > > > 
+> > > > > > Wait, wouldn't this use-case fall under "reporting" ? It is exactly
+> > > > > > what
+> > > > > > we are doing, right?
+> > > > > 
+> > > > > I'd understand "reporting" as e.g. logging, transferring statistics,
+> > > > > ...
+> > > > > 
+> > > > > We'd like to use it for configuration purposes.
+> > > > 
+> > > > I've also read it that way.
+> > > > 
+> > > > > Another idea would be to enhance the virtio IOMMU device to suit our
+> > > > > needs:
+> > > > > we could add the domid as another virtio IOMMU device capability and
+> > > > > (for now)
+> > > > > use bypass mode for all "productive" devices.
+> > > > 
+> > > > If we have to start adding capabilties, won't it be easier to just add
+> > > > it to the each device instead of adding it to virtio IOMMU.  Or is the
+> > > > parsing of capabilities device specific, and hence we would have to
+> > > > implement such parsing for each device?  I would expect some
+> > > > capabilities are shared between all devices, and a Xen capability could
+> > > > be one of those.
+> > > 
+> > > Have a look at [1], which is describing the common device config layout.
+> > > The problem here is that we'd need to add the domid after the queue
+> > > specific
+> > > data, resulting in a mess if further queue fields would be added later.
+> > > 
+> > > We could try that, of course.
+> > 
+> > Right, we must make it part of the standard if we modify
+> > virtio_pci_common_cfg, or else newly added fields would overlap the
+> > Xen specific one.
+> > 
+> > Would it be possible to signal Xen-grants support in the
+> > `device_feature` field, and then expose it from a vendor capability?
+> > IOW, would it be possible to add a Xen-specific hook in the parsing of
+> > virtio_pci_common_cfg that would then fetch additional data from a
+> > capability?
 > 
-> Since the find-and-set can't easily be atomic, the lock used here (
-> asserted to be held above) needs to be the same as ...
+> TBH, I don't know. It might require some changes in the central parsing
+> logic, but this shouldn't be too hard to do.
 > 
->> +    /*
->> +     * Both segment and bus number are 0:
->> +     *  - we emulate a single host bridge for the guest, e.g. segment 0
->> +     *  - with bus 0 the virtual devices are seen as embedded
->> +     *    endpoints behind the root complex
->> +     *
->> +     * TODO: add support for multi-function devices.
->> +     */
->> +    sbdf.devfn = PCI_DEVFN(new_dev_number, 0);
->> +    pdev->vpci->guest_sbdf = sbdf;
->> +
->> +    return 0;
->> +
->> +}
->> +
->> +static void vpci_remove_virtual_device(const struct pci_dev *pdev)
->> +{
->> +    write_lock(&pdev->domain->vpci_rwlock);
->> +    if ( pdev->vpci )
->> +    {
->> +        __clear_bit(pdev->vpci->guest_sbdf.dev,
->> +                    &pdev->domain->vpci_dev_assigned_map);
->> +        pdev->vpci->guest_sbdf.sbdf = ~0;
->> +    }
->> +    write_unlock(&pdev->domain->vpci_rwlock);
+> > That would likely be less intrusive than adding a new Xen-specific
+> > field to virtio_pci_common_cfg while still allowing us to do Xen
+> > specific configuration for all VirtIO devices.
 > 
-> ... the one used here.
+> In case we want to go that route, this should be in a new "platform config"
+> capability, which might be just another form of a vendor capability.
+ 
+I think this is the best idea. We should look into this.
 
 
-I think, it makes sense, yes.
-
-***
-
-There is one more thing. As far as I remember, there were some requests 
-provided for the previous version (also v7) [1]. At least one of them, I 
-assume, is still applicable here. I am speaking about a request to 
-consider moving "cleaning up guest_sbdf / vpci_dev_assigned_map" into 
-vpci_remove_device() here and aliasing of vpci_deassign_device() to 
-vpci_remove_device() in commit #03/12.
-
-The diff below (to be applied on top of current patch) is my 
-understanding (not even build tested):
-
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index a61282cc5b..c3e6c153bc 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -51,6 +51,15 @@ void vpci_remove_device(struct pci_dev *pdev)
-          return;
-      }
-
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    if ( pdev->vpci->guest_sbdf.sbdf != ~0 )
-+    {
-+        __clear_bit(pdev->vpci->guest_sbdf.dev,
-+                    &pdev->domain->vpci_dev_assigned_map);
-+        pdev->vpci->guest_sbdf.sbdf = ~0;
-+    }
-+#endif
-+
-      vpci = pdev->vpci;
-      pdev->vpci = NULL;
-      write_unlock(&pdev->domain->vpci_rwlock);
-@@ -152,10 +161,14 @@ static int add_virtual_device(struct pci_dev *pdev)
-          return -EOPNOTSUPP;
-      }
-
-+    write_lock(&pdev->domain->vpci_rwlock);
-      new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
-                                           VPCI_MAX_VIRT_DEV);
-      if ( new_dev_number >= VPCI_MAX_VIRT_DEV )
-+    {
-+        write_unlock(&pdev->domain->vpci_rwlock);
-          return -ENOSPC;
-+    }
-
-      __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
-
-@@ -169,23 +182,12 @@ static int add_virtual_device(struct pci_dev *pdev)
-       */
-      sbdf.devfn = PCI_DEVFN(new_dev_number, 0);
-      pdev->vpci->guest_sbdf = sbdf;
-+    write_unlock(&pdev->domain->vpci_rwlock);
-
-      return 0;
-
-  }
-
--static void vpci_remove_virtual_device(const struct pci_dev *pdev)
--{
--    write_lock(&pdev->domain->vpci_rwlock);
--    if ( pdev->vpci )
--    {
--        __clear_bit(pdev->vpci->guest_sbdf.dev,
--                    &pdev->domain->vpci_dev_assigned_map);
--        pdev->vpci->guest_sbdf.sbdf = ~0;
--    }
--    write_unlock(&pdev->domain->vpci_rwlock);
--}
--
-  /* Notify vPCI that device is assigned to guest. */
-  int vpci_assign_device(struct pci_dev *pdev)
-  {
-@@ -215,7 +217,6 @@ void vpci_deassign_device(struct pci_dev *pdev)
-      if ( !has_vpci(pdev->domain) )
-          return;
-
--    vpci_remove_virtual_device(pdev);
-      vpci_remove_device(pdev);
-  }
-  #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
-(END)
-
-
-
-[1] 
-https://lore.kernel.org/xen-devel/20220719174253.541965-10-olekstysh@gmail.com/
-https://lore.kernel.org/xen-devel/20220719174253.541965-3-olekstysh@gmail.com/
-
+> > > > > Later we could even add grant-V3 support to Xen and to the virtio
+> > > > > IOMMU device
+> > > > > (see my last year Xen Summit design session). This could be usable for
+> > > > > disaggregated KVM setups, too, so I believe there is a chance to get
+> > > > > this
+> > > > > accepted.
+> > > > > 
+> > > > > > > > > > **********
+> > > > > > > > > > What do you think about it? Are there any pitfalls, etc?
+> > > > > > > > > > This also requires
+> > > > > > > > > > system changes, but at least without virtio spec changes.
+> > > > > > > > > 
+> > > > > > > > > Why are we so reluctant to add spec changes?  I understand
+> > > > > > > > > this might
+> > > > > > > > > take time an effort, but it's the only way IMO to build a
+> > > > > > > > > sustainable
+> > > > > > > > > VirtIO Xen implementation.  Did we already attempt to
+> > > > > > > > > negotiate with
+> > > > > > > > > Oasis Xen related spec changes and those where refused?
+> > > > > > > > 
+> > > > > > > > That's because spec changes can be very slow. This is a bug that
+> > > > > > > > we need
+> > > > > > > > a relatively quick solution for and waiting 12-24 months for a
+> > > > > > > > spec
+> > > > > > > > update is not realistic.
+> > > > > > > > 
+> > > > > > > > I think a spec change would be best as a long term solution. We
+> > > > > > > > also
+> > > > > > > > need a short term solution. The short term solution doesn't have
+> > > > > > > > to be
+> > > > > > > > ideal but it has to work now.
+> > > > > > > 
+> > > > > > > My fear with such approach is that once a bodge is in place people
+> > > > > > > move on to other stuff and this never gets properly fixed.
+> > > > > > > 
+> > > > > > > I know this might not be a well received opinion, but it would be
+> > > > > > > better if such bodge is kept in each interested party patchqueue
+> > > > > > > for
+> > > > > > > the time being, until a proper solution is implemented.  That way
+> > > > > > > there's an interest from parties into properly fixing it upstream.
+> > > > > > 
+> > > > > > Unfortunately we are in the situation where we have an outstanding
+> > > > > > upstream bug, so we have to take action one way or the other.
+> > > > > 
+> > > > > The required virtio IOMMU device modification would be rather small,
+> > > > > so
+> > > > > adding it maybe under a CONFIG option defaulting to off might be
+> > > > > acceptable.
+> > > > 
+> > > > Would you then do the grant allocation as part of virtio IOMMU?
+> > > 
+> > > Long term, maybe. Do you remember my Grant-V3 design session last year?
+> > > Being
+> > > able to reuse the same layout for virtio IOMMU was one of the basic ideas
+> > > for
+> > > that layout (this would need some heavy work on the virtio IOMMU frontend
+> > > and
+> > > backend, of course).
+> > 
+> > While this might well be the best option, do we have anyone with the
+> > time and expertise to work on this?  I might be wrong, but it seems
+> > like a huge task.
 > 
-> Jan
-> 
+> As a background project I'd like to pursue it. OTOH I'm not sure how much time
+> I could spend on it.
+
+Not only it is complex but also has severe implications in terms of
+security, safety, and needs to interact with potential virtual IOMMUs in
+the guest (virtual IOMMUs to expose another IOMMU stage of translation
+in the guest.)
+
+This is definitely not simple.
+
+At that point I would feel more confident in a solution that uses ACPI
+tables to add the necessary information the same way we use Device Tree
+to do it on ARM. Keep in mind that if an existing ACPI table doesn't
+have the fields that we need, we can introduce a new ACPI table.
+--8323329-55874677-1688763083=:761183--
 
