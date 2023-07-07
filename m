@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D2674B861
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 22:53:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560594.876627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F54674B862
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 22:53:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560598.876637 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHsQL-0008NM-QJ; Fri, 07 Jul 2023 20:51:29 +0000
+	id 1qHsRq-0000S0-5k; Fri, 07 Jul 2023 20:53:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560594.876627; Fri, 07 Jul 2023 20:51:29 +0000
+Received: by outflank-mailman (output) from mailman id 560598.876637; Fri, 07 Jul 2023 20:53:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHsQL-0008Kx-NS; Fri, 07 Jul 2023 20:51:29 +0000
-Received: by outflank-mailman (input) for mailman id 560594;
- Fri, 07 Jul 2023 20:51:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RURV=CZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qHsQK-0008Kr-5e
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 20:51:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 093be36d-1d08-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 22:51:25 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 44C79617C2;
- Fri,  7 Jul 2023 20:51:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF2AC433C7;
- Fri,  7 Jul 2023 20:51:22 +0000 (UTC)
+	id 1qHsRq-0000QL-1X; Fri, 07 Jul 2023 20:53:02 +0000
+Received: by outflank-mailman (input) for mailman id 560598;
+ Fri, 07 Jul 2023 20:53:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHsRp-0000Q8-0B; Fri, 07 Jul 2023 20:53:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHsRo-0004uP-RG; Fri, 07 Jul 2023 20:53:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHsRo-00088d-CW; Fri, 07 Jul 2023 20:53:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qHsRo-0005QN-C1; Fri, 07 Jul 2023 20:53:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,252 +42,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 093be36d-1d08-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688763083;
-	bh=GkXa8NYTqsjiWmtWF+qgPMdkxGiHi2MVtxO2Vakv29A=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=WK1csyYveOTFWsizvszDMo8qCgo1qc0k2DanpwjXjN1D+dSiyEbnoQZJhKjUhCva4
-	 s+3GqsRvhPqwOIyZFbUEjUd/4q71D63u8xUUCobHPmbLJ3o6KfipfkhiexKduTlW/Q
-	 DxhBaruLd9jB+Xv6F1MIjySBwgr6JRrYYn6z7YVlxxWh2vSRZIcBRUNnTjoATlHURb
-	 d1GwybmKL6/1bvbdfWZGNlWaBfNeduJE7DjiXWSy1rzVkTR3X9kjenThs/W9qwDU+K
-	 54N+7USxbT8r3yxoBj5aXOMFvf+kCOaoiN501guP/01T98fifkhwYyhAw9ZfyzFaFg
-	 70VtWOtLzX9EQ==
-Date: Fri, 7 Jul 2023 13:51:20 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: jgross@suse.com
-cc: roger.pau@citrix.com, sstabellini@kernel.org, olekstysh@gmail.com, 
-    marmarek@invisiblethingslab.com, Oleksandr_Tyshchenko@epam.com, 
-    petr.pavlu@suse.com, xen-devel@lists.xenproject.org, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    vikram.garhwal@amd.com
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-In-Reply-To: <100177f8fec144ac96d91de226f76ebe@posteo.net>
-Message-ID: <alpine.DEB.2.22.394.2307071347160.761183@ubuntu-linux-20-04-desktop>
-References: <100177f8fec144ac96d91de226f76ebe@posteo.net>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XSjofqbZiGDCjpXXzNI0tEcVqaBEC9H9tP27PWZVyiw=; b=3Wmrn76R9qBQRBQ91oyNIx1Ysj
+	3X3CDW3MSIc70mA7It1sX8x2kPzc//QAIlbYCIiz1OH2z8hZtrohzQQjNeHret2h56Bkad5X4DNGO
+	ymHeyPurZx8oqkDH77vwNL4NsE/kYFUJ+1G0hZiONCvgh0U95BP9NXgcEfBuKlmJY/tQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181732-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-55874677-1688763083=:761183"
+Subject: [linux-linus test] 181732: regressions - trouble: broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-pvshim:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:host-install(5):broken:regression
+    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:freebsd-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:debian-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:leak-check/basis(11):fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=5133c9e51de41bfa902153888e11add3342ede18
+X-Osstest-Versions-That:
+    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 07 Jul 2023 20:53:00 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 181732 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181732/
 
---8323329-55874677-1688763083=:761183
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Fri, 7 Jul 2023:
-> On 07.07.23 16:42, Roger Pau Monné wrote:
-> > On Fri, Jul 07, 2023 at 04:10:14PM +0200, Juergen Gross wrote:
-> > > On 07.07.23 11:50, Roger Pau Monné wrote:
-> > > > On Fri, Jul 07, 2023 at 06:38:48AM +0200, Juergen Gross wrote:
-> > > > > On 06.07.23 23:49, Stefano Stabellini wrote:
-> > > > > > On Thu, 6 Jul 2023, Roger Pau Monné wrote:
-> > > > > > > On Wed, Jul 05, 2023 at 03:41:10PM -0700, Stefano Stabellini
-> > > > > > > wrote:
-> > > > > > > > On Wed, 5 Jul 2023, Roger Pau Monné wrote:
-> > > > > > > > > On Tue, Jul 04, 2023 at 08:14:59PM +0300, Oleksandr Tyshchenko
-> > > > > > > > > wrote:
-> > > > > > > > > > Part 2 (clarification):
-> > > > > > > > > > 
-> > > > > > > > > > I think using a special config space register in the root
-> > > > > > > > > > complex would
-> > > > > > > > > > not be terrible in terms of guest changes because it is easy
-> > > > > > > > > > to
-> > > > > > > > > > introduce a new root complex driver in Linux and other OSes.
-> > > > > > > > > > The root
-> > > > > > > > > > complex would still be ECAM compatible so the regular ECAM
-> > > > > > > > > > driver would
-> > > > > > > > > > still work. A new driver would only be necessary if you want
-> > > > > > > > > > to be able
-> > > > > > > > > > to access the special config space register.
-> > > > > > > > > 
-> > > > > > > > > I'm slightly worry of this approach, we end up modifying a
-> > > > > > > > > root
-> > > > > > > > > complex emulation in order to avoid modifying a PCI device
-> > > > > > > > > emulation
-> > > > > > > > > on QEMU, not sure that's a good trade off.
-> > > > > > > > > 
-> > > > > > > > > Note also that different architectures will likely have
-> > > > > > > > > different root
-> > > > > > > > > complex, and so you might need to modify several of them, plus
-> > > > > > > > > then
-> > > > > > > > > arrange the PCI layout correctly in order to have the proper
-> > > > > > > > > hierarchy
-> > > > > > > > > so that devices belonging to different driver domains are
-> > > > > > > > > assigned to
-> > > > > > > > > different bridges.
-> > > > > > > > 
-> > > > > > > > I do think that adding something to the PCI conf register
-> > > > > > > > somewhere is
-> > > > > > > > the best option because it is not dependent on ACPI and it is
-> > > > > > > > not
-> > > > > > > > dependent on xenstore both of which are very undesirable.
-> > > > > > > > 
-> > > > > > > > I am not sure where specifically is the best place. These are 3
-> > > > > > > > ideas
-> > > > > > > > we came up with:
-> > > > > > > > 1. PCI root complex
-> > > > > > > > 2. a register on the device itself
-> > > > > > > > 3. a new capability of the device
-> > > > > > > > 4. add one extra dummy PCI device for the sole purpose of
-> > > > > > > > exposing the
-> > > > > > > >       grants capability
-> > > > > > > > 
-> > > > > > > > 
-> > > > > > > > Looking at the spec, there is a way to add a vendor-specific
-> > > > > > > > capability
-> > > > > > > > (cap_vndr = 0x9). Could we use that? It doesn't look like it is
-> > > > > > > > used
-> > > > > > > > today, Linux doesn't parse it.
-> > > > > > > 
-> > > > > > > I did wonder the same from a quick look at the spec.  There's
-> > > > > > > however
-> > > > > > > a text in the specification that says:
-> > > > > > > 
-> > > > > > > "The driver SHOULD NOT use the Vendor data capability except for
-> > > > > > > debugging and reporting purposes."
-> > > > > > > 
-> > > > > > > So we would at least need to change that because the capability
-> > > > > > > would
-> > > > > > > then be used by other purposes different than debugging and
-> > > > > > > reporting.
-> > > > > > > 
-> > > > > > > Seems like a minor adjustment, so might we worth asking upstream
-> > > > > > > about
-> > > > > > > their opinion, and to get a conversation started.
-> > > > > > 
-> > > > > > Wait, wouldn't this use-case fall under "reporting" ? It is exactly
-> > > > > > what
-> > > > > > we are doing, right?
-> > > > > 
-> > > > > I'd understand "reporting" as e.g. logging, transferring statistics,
-> > > > > ...
-> > > > > 
-> > > > > We'd like to use it for configuration purposes.
-> > > > 
-> > > > I've also read it that way.
-> > > > 
-> > > > > Another idea would be to enhance the virtio IOMMU device to suit our
-> > > > > needs:
-> > > > > we could add the domid as another virtio IOMMU device capability and
-> > > > > (for now)
-> > > > > use bypass mode for all "productive" devices.
-> > > > 
-> > > > If we have to start adding capabilties, won't it be easier to just add
-> > > > it to the each device instead of adding it to virtio IOMMU.  Or is the
-> > > > parsing of capabilities device specific, and hence we would have to
-> > > > implement such parsing for each device?  I would expect some
-> > > > capabilities are shared between all devices, and a Xen capability could
-> > > > be one of those.
-> > > 
-> > > Have a look at [1], which is describing the common device config layout.
-> > > The problem here is that we'd need to add the domid after the queue
-> > > specific
-> > > data, resulting in a mess if further queue fields would be added later.
-> > > 
-> > > We could try that, of course.
-> > 
-> > Right, we must make it part of the standard if we modify
-> > virtio_pci_common_cfg, or else newly added fields would overlap the
-> > Xen specific one.
-> > 
-> > Would it be possible to signal Xen-grants support in the
-> > `device_feature` field, and then expose it from a vendor capability?
-> > IOW, would it be possible to add a Xen-specific hook in the parsing of
-> > virtio_pci_common_cfg that would then fetch additional data from a
-> > capability?
-> 
-> TBH, I don't know. It might require some changes in the central parsing
-> logic, but this shouldn't be too hard to do.
-> 
-> > That would likely be less intrusive than adding a new Xen-specific
-> > field to virtio_pci_common_cfg while still allowing us to do Xen
-> > specific configuration for all VirtIO devices.
-> 
-> In case we want to go that route, this should be in a new "platform config"
-> capability, which might be just another form of a vendor capability.
- 
-I think this is the best idea. We should look into this.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-pvshim      <job status>                 broken
+ test-amd64-amd64-xl-pvshim    5 host-install(5)        broken REGR. vs. 180278
+ test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 180278
+ test-amd64-amd64-xl          11 leak-check/basis(11)     fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 180278
+ test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 180278
+ test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-credit1  11 leak-check/basis(11)     fail REGR. vs. 180278
+ test-amd64-amd64-xl-pvhv2-amd 11 leak-check/basis(11)    fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 180278
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 180278
+ test-amd64-amd64-freebsd11-amd64 12 freebsd-install      fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-multivcpu 12 debian-install          fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 leak-check/basis(11) fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 180278
+ test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 180278
+ test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 180278
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 180278
+ test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 180278
+ test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 180278
+ test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 180278
+ test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 180278
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 180278
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 180278
+ test-arm64-arm64-xl-vhd      13 guest-start              fail REGR. vs. 180278
+ test-arm64-arm64-libvirt-raw 13 guest-start              fail REGR. vs. 180278
+ test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 180278
+ test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 180278
+
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 180278
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-examine      8 reboot                       fail  like 180278
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
+ test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
+ test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                5133c9e51de41bfa902153888e11add3342ede18
+baseline version:
+ linux                6c538e1adbfc696ac4747fb10d63e704344f763d
+
+Last test of basis   180278  2023-04-16 19:41:46 Z   82 days
+Failing since        180281  2023-04-17 06:24:36 Z   81 days  160 attempts
+Testing same since   181732  2023-07-07 11:54:08 Z    0 days    1 attempts
+
+------------------------------------------------------------
+3720 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                fail    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   broken  
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                fail    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-> > > > > Later we could even add grant-V3 support to Xen and to the virtio
-> > > > > IOMMU device
-> > > > > (see my last year Xen Summit design session). This could be usable for
-> > > > > disaggregated KVM setups, too, so I believe there is a chance to get
-> > > > > this
-> > > > > accepted.
-> > > > > 
-> > > > > > > > > > **********
-> > > > > > > > > > What do you think about it? Are there any pitfalls, etc?
-> > > > > > > > > > This also requires
-> > > > > > > > > > system changes, but at least without virtio spec changes.
-> > > > > > > > > 
-> > > > > > > > > Why are we so reluctant to add spec changes?  I understand
-> > > > > > > > > this might
-> > > > > > > > > take time an effort, but it's the only way IMO to build a
-> > > > > > > > > sustainable
-> > > > > > > > > VirtIO Xen implementation.  Did we already attempt to
-> > > > > > > > > negotiate with
-> > > > > > > > > Oasis Xen related spec changes and those where refused?
-> > > > > > > > 
-> > > > > > > > That's because spec changes can be very slow. This is a bug that
-> > > > > > > > we need
-> > > > > > > > a relatively quick solution for and waiting 12-24 months for a
-> > > > > > > > spec
-> > > > > > > > update is not realistic.
-> > > > > > > > 
-> > > > > > > > I think a spec change would be best as a long term solution. We
-> > > > > > > > also
-> > > > > > > > need a short term solution. The short term solution doesn't have
-> > > > > > > > to be
-> > > > > > > > ideal but it has to work now.
-> > > > > > > 
-> > > > > > > My fear with such approach is that once a bodge is in place people
-> > > > > > > move on to other stuff and this never gets properly fixed.
-> > > > > > > 
-> > > > > > > I know this might not be a well received opinion, but it would be
-> > > > > > > better if such bodge is kept in each interested party patchqueue
-> > > > > > > for
-> > > > > > > the time being, until a proper solution is implemented.  That way
-> > > > > > > there's an interest from parties into properly fixing it upstream.
-> > > > > > 
-> > > > > > Unfortunately we are in the situation where we have an outstanding
-> > > > > > upstream bug, so we have to take action one way or the other.
-> > > > > 
-> > > > > The required virtio IOMMU device modification would be rather small,
-> > > > > so
-> > > > > adding it maybe under a CONFIG option defaulting to off might be
-> > > > > acceptable.
-> > > > 
-> > > > Would you then do the grant allocation as part of virtio IOMMU?
-> > > 
-> > > Long term, maybe. Do you remember my Grant-V3 design session last year?
-> > > Being
-> > > able to reuse the same layout for virtio IOMMU was one of the basic ideas
-> > > for
-> > > that layout (this would need some heavy work on the virtio IOMMU frontend
-> > > and
-> > > backend, of course).
-> > 
-> > While this might well be the best option, do we have anyone with the
-> > time and expertise to work on this?  I might be wrong, but it seems
-> > like a huge task.
-> 
-> As a background project I'd like to pursue it. OTOH I'm not sure how much time
-> I could spend on it.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Not only it is complex but also has severe implications in terms of
-security, safety, and needs to interact with potential virtual IOMMUs in
-the guest (virtual IOMMUs to expose another IOMMU stage of translation
-in the guest.)
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-This is definitely not simple.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-At that point I would feel more confident in a solution that uses ACPI
-tables to add the necessary information the same way we use Device Tree
-to do it on ARM. Keep in mind that if an existing ACPI table doesn't
-have the fields that we need, we can introduce a new ACPI table.
---8323329-55874677-1688763083=:761183--
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-amd64-amd64-xl-pvshim broken
+broken-step test-amd64-amd64-xl-pvshim host-install(5)
+
+Not pushing.
+
+(No revision log; it would be 615894 lines long.)
 
