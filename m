@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EF274B36B
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 16:57:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560541.876532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C3B474B389
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 17:02:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560547.876542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHmtI-0001l3-P6; Fri, 07 Jul 2023 14:57:00 +0000
+	id 1qHmxr-0003Gk-D5; Fri, 07 Jul 2023 15:01:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560541.876532; Fri, 07 Jul 2023 14:57:00 +0000
+Received: by outflank-mailman (output) from mailman id 560547.876542; Fri, 07 Jul 2023 15:01:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHmtI-0001jB-Ls; Fri, 07 Jul 2023 14:57:00 +0000
-Received: by outflank-mailman (input) for mailman id 560541;
- Fri, 07 Jul 2023 14:56:59 +0000
+	id 1qHmxr-0003F7-AG; Fri, 07 Jul 2023 15:01:43 +0000
+Received: by outflank-mailman (input) for mailman id 560547;
+ Fri, 07 Jul 2023 15:01:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6jVP=CZ=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1qHmtH-0001j5-Jt
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 14:56:59 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ (envelope-from <SRS0=VdXt=CZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qHmxp-0003F1-Hw
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 15:01:41 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85745510-1cd6-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 16:56:58 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4fb761efa7aso3079375e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 07 Jul 2023 07:56:58 -0700 (PDT)
+ id 2d5dd5f7-1cd7-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 17:01:40 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8DC7D21FDA;
+ Fri,  7 Jul 2023 15:01:39 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 39306139E0;
+ Fri,  7 Jul 2023 15:01:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id q+x6DNMoqGRHBwAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 07 Jul 2023 15:01:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,282 +51,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85745510-1cd6-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1688741818; x=1691333818;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ENT77DCi7Bc/endKOwtZAmoKVPICn79foL+YGOOThFo=;
-        b=NR0wOoBW2yXFtSt4YmIrJn7MWVGK///qysUvtTkiiMKvuR8NCZetjtPKJpnQ55J24u
-         YJrIWIU9ShzfKCL/iUdHUEtzqw6QZJ4WN4yv0vN0SVTGo/s+ZO/M4tICIv9987Jh/IT6
-         wMnCEZ7V51ObClZJW73zh+WjNjYyWZVpDZ7eI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688741818; x=1691333818;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ENT77DCi7Bc/endKOwtZAmoKVPICn79foL+YGOOThFo=;
-        b=YccmM6Z7EwEz46afJGKuziNIuFjXyMUPMNkxsEKK5uCaNFnpcU0JmeUrlGlwwSMGPD
-         2eRGva/kJ7OzfAHuIV9EHZrbVeLTBlOHDET+cL5kwh3JP9rf08ao4LRA9V3XSsttCFRY
-         PR1n6sKtGEdpRBF0nHYZbWOmUe3+Z57zWggKsn8w+k/VUJgdV4DK0Co9Fyqqel4auBpp
-         3//6l2v4bhoKKZUpCxESrxUUUlV2tUyBRadUQdmx1xLDyuCvHoYbqHuDvKEUuXvPcwo9
-         Zqczno9QeYPMIb+LK6e1LlMzaYXyt7Y8AnGKzc56PgG9BHzh5hsD/MOnWpEuwnI2tgc/
-         xc0g==
-X-Gm-Message-State: ABy/qLYS91/kwzJfNxir801cQo3OJmuzDfI7/gxcwQZtsXV28tO+niO2
-	l837HmT5HG0zn5EbD8fdOvk9x1cuMXvN7c+Bnu1Rgr6yD8kI4wy6
-X-Google-Smtp-Source: APBJJlHmHaVqTji7KmGtx+yH7cE5FpqtxBSu/U6uKKogS0970IQdwZ2n/d7w7b6YAbqS+6v5gOHhde/dhIYVqIF3MQ4=
-X-Received: by 2002:ac2:4f0d:0:b0:4f8:5717:e421 with SMTP id
- k13-20020ac24f0d000000b004f85717e421mr4840953lfr.40.1688741817737; Fri, 07
- Jul 2023 07:56:57 -0700 (PDT)
+X-Inumbo-ID: 2d5dd5f7-1cd7-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1688742099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4EqfZJRTxbQuGVjSPLr63ME7XafOxIVx9aKgPnt0iI=;
+	b=QXlUv1AZALz90FOznmXs8QKIXIDubSQJY04EbTEGaOkzZYseGoib0SbW9zHsctuNHP7FkZ
+	B4/ns5qVWwbM6nZ1l9m+HGDXZRZLwVi2n1n3Nt6MuGslE2Fob01PViRH7agJPt6xewg5Vl
+	39v8diqI3T+guS0mnJraQtMBzt7un3c=
+Message-ID: <106781fe-992b-8609-fe37-17619b699353@suse.com>
+Date: Fri, 7 Jul 2023 17:01:38 +0200
 MIME-Version: 1.0
-References: <CA+zSX=Y4MwsDSd9oSG1NQyt==YAw9SeRdh=eJxTUhhOx57ihWg@mail.gmail.com>
- <4ee01a0f-063e-ef93-ac24-da387d5b3438@rabbit.lu> <a680ae62-7765-aa51-1edd-9a1a7e39e449@suse.com>
- <20b1a79c-23c1-93bc-2090-8052f143422c@rabbit.lu> <27a3e6a2-b150-1d75-c86f-dfa2b906b298@suse.com>
- <CA+zSX=ZCmmKQX7acx-oK4nSki9ONscxLP7E8t8USjdjXJ9UDpA@mail.gmail.com>
- <495946e9-191f-22fe-9ecf-08eb5af833ba@suse.com> <28e2fc47-aada-e394-35b3-252bd1c6d720@suse.com>
-In-Reply-To: <28e2fc47-aada-e394-35b3-252bd1c6d720@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Fri, 7 Jul 2023 15:56:46 +0100
-Message-ID: <CA+zSX=bCC8A06t_gSpYCjxG1BZoC2EWnHhYAQtTM6b0WyzyZNA@mail.gmail.com>
-Subject: Re: Detecting whether dom0 is in a VM
-To: Jan Beulich <jbeulich@suse.com>
-Cc: zithro <slack@rabbit.lu>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000029f6f505ffe6d8da"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Petr Pavlu <petr.pavlu@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ vikram.garhwal@amd.com
+References: <ZKQF8qq8Oh5E+Fxx@mail-itl>
+ <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
+ <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
+ <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
+ <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
+ <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
+ <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
+ <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
+ <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
+In-Reply-To: <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------nhuD3mfs5ESRhYQN0JOgqySB"
 
---00000000000029f6f505ffe6d8da
-Content-Type: text/plain; charset="UTF-8"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------nhuD3mfs5ESRhYQN0JOgqySB
+Content-Type: multipart/mixed; boundary="------------8xnNKwnpjYsQU5Wv6RIpCTmH";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Petr Pavlu <petr.pavlu@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ vikram.garhwal@amd.com
+Message-ID: <106781fe-992b-8609-fe37-17619b699353@suse.com>
+Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
+References: <ZKQF8qq8Oh5E+Fxx@mail-itl>
+ <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
+ <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
+ <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
+ <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
+ <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
+ <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
+ <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
+ <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
+In-Reply-To: <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
+
+--------------8xnNKwnpjYsQU5Wv6RIpCTmH
+Content-Type: multipart/mixed; boundary="------------Th0Hc0gn0HmlyNGGZo5YwJr6"
+
+--------------Th0Hc0gn0HmlyNGGZo5YwJr6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDcuMDcuMjMgMTY6NDIsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIEZyaSwg
+SnVsIDA3LCAyMDIzIGF0IDA0OjEwOjE0UE0gKzAyMDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6
+DQo+PiBPbiAwNy4wNy4yMyAxMTo1MCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4+PiBP
+biBGcmksIEp1bCAwNywgMjAyMyBhdCAwNjozODo0OEFNICswMjAwLCBKdWVyZ2VuIEdyb3Nz
+IHdyb3RlOg0KPj4+PiBPbiAwNi4wNy4yMyAyMzo0OSwgU3RlZmFubyBTdGFiZWxsaW5pIHdy
+b3RlOg0KPj4+Pj4gT24gVGh1LCA2IEp1bCAyMDIzLCBSb2dlciBQYXUgTW9ubsOpIHdyb3Rl
+Og0KPj4+Pj4+IE9uIFdlZCwgSnVsIDA1LCAyMDIzIGF0IDAzOjQxOjEwUE0gLTA3MDAsIFN0
+ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4+Pj4+Pj4gT24gV2VkLCA1IEp1bCAyMDIzLCBS
+b2dlciBQYXUgTW9ubsOpIHdyb3RlOg0KPj4+Pj4+Pj4gT24gVHVlLCBKdWwgMDQsIDIwMjMg
+YXQgMDg6MTQ6NTlQTSArMDMwMCwgT2xla3NhbmRyIFR5c2hjaGVua28gd3JvdGU6DQo+Pj4+
+Pj4+Pj4gUGFydCAyIChjbGFyaWZpY2F0aW9uKToNCj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+IEkg
+dGhpbmsgdXNpbmcgYSBzcGVjaWFsIGNvbmZpZyBzcGFjZSByZWdpc3RlciBpbiB0aGUgcm9v
+dCBjb21wbGV4IHdvdWxkDQo+Pj4+Pj4+Pj4gbm90IGJlIHRlcnJpYmxlIGluIHRlcm1zIG9m
+IGd1ZXN0IGNoYW5nZXMgYmVjYXVzZSBpdCBpcyBlYXN5IHRvDQo+Pj4+Pj4+Pj4gaW50cm9k
+dWNlIGEgbmV3IHJvb3QgY29tcGxleCBkcml2ZXIgaW4gTGludXggYW5kIG90aGVyIE9TZXMu
+IFRoZSByb290DQo+Pj4+Pj4+Pj4gY29tcGxleCB3b3VsZCBzdGlsbCBiZSBFQ0FNIGNvbXBh
+dGlibGUgc28gdGhlIHJlZ3VsYXIgRUNBTSBkcml2ZXIgd291bGQNCj4+Pj4+Pj4+PiBzdGls
+bCB3b3JrLiBBIG5ldyBkcml2ZXIgd291bGQgb25seSBiZSBuZWNlc3NhcnkgaWYgeW91IHdh
+bnQgdG8gYmUgYWJsZQ0KPj4+Pj4+Pj4+IHRvIGFjY2VzcyB0aGUgc3BlY2lhbCBjb25maWcg
+c3BhY2UgcmVnaXN0ZXIuDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gSSdtIHNsaWdodGx5IHdvcnJ5
+IG9mIHRoaXMgYXBwcm9hY2gsIHdlIGVuZCB1cCBtb2RpZnlpbmcgYSByb290DQo+Pj4+Pj4+
+PiBjb21wbGV4IGVtdWxhdGlvbiBpbiBvcmRlciB0byBhdm9pZCBtb2RpZnlpbmcgYSBQQ0kg
+ZGV2aWNlIGVtdWxhdGlvbg0KPj4+Pj4+Pj4gb24gUUVNVSwgbm90IHN1cmUgdGhhdCdzIGEg
+Z29vZCB0cmFkZSBvZmYuDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gTm90ZSBhbHNvIHRoYXQgZGlm
+ZmVyZW50IGFyY2hpdGVjdHVyZXMgd2lsbCBsaWtlbHkgaGF2ZSBkaWZmZXJlbnQgcm9vdA0K
+Pj4+Pj4+Pj4gY29tcGxleCwgYW5kIHNvIHlvdSBtaWdodCBuZWVkIHRvIG1vZGlmeSBzZXZl
+cmFsIG9mIHRoZW0sIHBsdXMgdGhlbg0KPj4+Pj4+Pj4gYXJyYW5nZSB0aGUgUENJIGxheW91
+dCBjb3JyZWN0bHkgaW4gb3JkZXIgdG8gaGF2ZSB0aGUgcHJvcGVyIGhpZXJhcmNoeQ0KPj4+
+Pj4+Pj4gc28gdGhhdCBkZXZpY2VzIGJlbG9uZ2luZyB0byBkaWZmZXJlbnQgZHJpdmVyIGRv
+bWFpbnMgYXJlIGFzc2lnbmVkIHRvDQo+Pj4+Pj4+PiBkaWZmZXJlbnQgYnJpZGdlcy4NCj4+
+Pj4+Pj4NCj4+Pj4+Pj4gSSBkbyB0aGluayB0aGF0IGFkZGluZyBzb21ldGhpbmcgdG8gdGhl
+IFBDSSBjb25mIHJlZ2lzdGVyIHNvbWV3aGVyZSBpcw0KPj4+Pj4+PiB0aGUgYmVzdCBvcHRp
+b24gYmVjYXVzZSBpdCBpcyBub3QgZGVwZW5kZW50IG9uIEFDUEkgYW5kIGl0IGlzIG5vdA0K
+Pj4+Pj4+PiBkZXBlbmRlbnQgb24geGVuc3RvcmUgYm90aCBvZiB3aGljaCBhcmUgdmVyeSB1
+bmRlc2lyYWJsZS4NCj4+Pj4+Pj4NCj4+Pj4+Pj4gSSBhbSBub3Qgc3VyZSB3aGVyZSBzcGVj
+aWZpY2FsbHkgaXMgdGhlIGJlc3QgcGxhY2UuIFRoZXNlIGFyZSAzIGlkZWFzDQo+Pj4+Pj4+
+IHdlIGNhbWUgdXAgd2l0aDoNCj4+Pj4+Pj4gMS4gUENJIHJvb3QgY29tcGxleA0KPj4+Pj4+
+PiAyLiBhIHJlZ2lzdGVyIG9uIHRoZSBkZXZpY2UgaXRzZWxmDQo+Pj4+Pj4+IDMuIGEgbmV3
+IGNhcGFiaWxpdHkgb2YgdGhlIGRldmljZQ0KPj4+Pj4+PiA0LiBhZGQgb25lIGV4dHJhIGR1
+bW15IFBDSSBkZXZpY2UgZm9yIHRoZSBzb2xlIHB1cnBvc2Ugb2YgZXhwb3NpbmcgdGhlDQo+
+Pj4+Pj4+ICAgICAgIGdyYW50cyBjYXBhYmlsaXR5DQo+Pj4+Pj4+DQo+Pj4+Pj4+DQo+Pj4+
+Pj4+IExvb2tpbmcgYXQgdGhlIHNwZWMsIHRoZXJlIGlzIGEgd2F5IHRvIGFkZCBhIHZlbmRv
+ci1zcGVjaWZpYyBjYXBhYmlsaXR5DQo+Pj4+Pj4+IChjYXBfdm5kciA9IDB4OSkuIENvdWxk
+IHdlIHVzZSB0aGF0PyBJdCBkb2Vzbid0IGxvb2sgbGlrZSBpdCBpcyB1c2VkDQo+Pj4+Pj4+
+IHRvZGF5LCBMaW51eCBkb2Vzbid0IHBhcnNlIGl0Lg0KPj4+Pj4+DQo+Pj4+Pj4gSSBkaWQg
+d29uZGVyIHRoZSBzYW1lIGZyb20gYSBxdWljayBsb29rIGF0IHRoZSBzcGVjLiAgVGhlcmUn
+cyBob3dldmVyDQo+Pj4+Pj4gYSB0ZXh0IGluIHRoZSBzcGVjaWZpY2F0aW9uIHRoYXQgc2F5
+czoNCj4+Pj4+Pg0KPj4+Pj4+ICJUaGUgZHJpdmVyIFNIT1VMRCBOT1QgdXNlIHRoZSBWZW5k
+b3IgZGF0YSBjYXBhYmlsaXR5IGV4Y2VwdCBmb3INCj4+Pj4+PiBkZWJ1Z2dpbmcgYW5kIHJl
+cG9ydGluZyBwdXJwb3Nlcy4iDQo+Pj4+Pj4NCj4+Pj4+PiBTbyB3ZSB3b3VsZCBhdCBsZWFz
+dCBuZWVkIHRvIGNoYW5nZSB0aGF0IGJlY2F1c2UgdGhlIGNhcGFiaWxpdHkgd291bGQNCj4+
+Pj4+PiB0aGVuIGJlIHVzZWQgYnkgb3RoZXIgcHVycG9zZXMgZGlmZmVyZW50IHRoYW4gZGVi
+dWdnaW5nIGFuZCByZXBvcnRpbmcuDQo+Pj4+Pj4NCj4+Pj4+PiBTZWVtcyBsaWtlIGEgbWlu
+b3IgYWRqdXN0bWVudCwgc28gbWlnaHQgd2Ugd29ydGggYXNraW5nIHVwc3RyZWFtIGFib3V0
+DQo+Pj4+Pj4gdGhlaXIgb3BpbmlvbiwgYW5kIHRvIGdldCBhIGNvbnZlcnNhdGlvbiBzdGFy
+dGVkLg0KPj4+Pj4NCj4+Pj4+IFdhaXQsIHdvdWxkbid0IHRoaXMgdXNlLWNhc2UgZmFsbCB1
+bmRlciAicmVwb3J0aW5nIiA/IEl0IGlzIGV4YWN0bHkgd2hhdA0KPj4+Pj4gd2UgYXJlIGRv
+aW5nLCByaWdodD8NCj4+Pj4NCj4+Pj4gSSdkIHVuZGVyc3RhbmQgInJlcG9ydGluZyIgYXMg
+ZS5nLiBsb2dnaW5nLCB0cmFuc2ZlcnJpbmcgc3RhdGlzdGljcywgLi4uDQo+Pj4+DQo+Pj4+
+IFdlJ2QgbGlrZSB0byB1c2UgaXQgZm9yIGNvbmZpZ3VyYXRpb24gcHVycG9zZXMuDQo+Pj4N
+Cj4+PiBJJ3ZlIGFsc28gcmVhZCBpdCB0aGF0IHdheS4NCj4+Pg0KPj4+PiBBbm90aGVyIGlk
+ZWEgd291bGQgYmUgdG8gZW5oYW5jZSB0aGUgdmlydGlvIElPTU1VIGRldmljZSB0byBzdWl0
+IG91ciBuZWVkczoNCj4+Pj4gd2UgY291bGQgYWRkIHRoZSBkb21pZCBhcyBhbm90aGVyIHZp
+cnRpbyBJT01NVSBkZXZpY2UgY2FwYWJpbGl0eSBhbmQgKGZvciBub3cpDQo+Pj4+IHVzZSBi
+eXBhc3MgbW9kZSBmb3IgYWxsICJwcm9kdWN0aXZlIiBkZXZpY2VzLg0KPj4+DQo+Pj4gSWYg
+d2UgaGF2ZSB0byBzdGFydCBhZGRpbmcgY2FwYWJpbHRpZXMsIHdvbid0IGl0IGJlIGVhc2ll
+ciB0byBqdXN0IGFkZA0KPj4+IGl0IHRvIHRoZSBlYWNoIGRldmljZSBpbnN0ZWFkIG9mIGFk
+ZGluZyBpdCB0byB2aXJ0aW8gSU9NTVUuICBPciBpcyB0aGUNCj4+PiBwYXJzaW5nIG9mIGNh
+cGFiaWxpdGllcyBkZXZpY2Ugc3BlY2lmaWMsIGFuZCBoZW5jZSB3ZSB3b3VsZCBoYXZlIHRv
+DQo+Pj4gaW1wbGVtZW50IHN1Y2ggcGFyc2luZyBmb3IgZWFjaCBkZXZpY2U/ICBJIHdvdWxk
+IGV4cGVjdCBzb21lDQo+Pj4gY2FwYWJpbGl0aWVzIGFyZSBzaGFyZWQgYmV0d2VlbiBhbGwg
+ZGV2aWNlcywgYW5kIGEgWGVuIGNhcGFiaWxpdHkgY291bGQNCj4+PiBiZSBvbmUgb2YgdGhv
+c2UuDQo+Pg0KPj4gSGF2ZSBhIGxvb2sgYXQgWzFdLCB3aGljaCBpcyBkZXNjcmliaW5nIHRo
+ZSBjb21tb24gZGV2aWNlIGNvbmZpZyBsYXlvdXQuDQo+PiBUaGUgcHJvYmxlbSBoZXJlIGlz
+IHRoYXQgd2UnZCBuZWVkIHRvIGFkZCB0aGUgZG9taWQgYWZ0ZXIgdGhlIHF1ZXVlIHNwZWNp
+ZmljDQo+PiBkYXRhLCByZXN1bHRpbmcgaW4gYSBtZXNzIGlmIGZ1cnRoZXIgcXVldWUgZmll
+bGRzIHdvdWxkIGJlIGFkZGVkIGxhdGVyLg0KPj4NCj4+IFdlIGNvdWxkIHRyeSB0aGF0LCBv
+ZiBjb3Vyc2UuDQo+IA0KPiBSaWdodCwgd2UgbXVzdCBtYWtlIGl0IHBhcnQgb2YgdGhlIHN0
+YW5kYXJkIGlmIHdlIG1vZGlmeQ0KPiB2aXJ0aW9fcGNpX2NvbW1vbl9jZmcsIG9yIGVsc2Ug
+bmV3bHkgYWRkZWQgZmllbGRzIHdvdWxkIG92ZXJsYXAgdGhlDQo+IFhlbiBzcGVjaWZpYyBv
+bmUuDQo+IA0KPiBXb3VsZCBpdCBiZSBwb3NzaWJsZSB0byBzaWduYWwgWGVuLWdyYW50cyBz
+dXBwb3J0IGluIHRoZQ0KPiBgZGV2aWNlX2ZlYXR1cmVgIGZpZWxkLCBhbmQgdGhlbiBleHBv
+c2UgaXQgZnJvbSBhIHZlbmRvciBjYXBhYmlsaXR5Pw0KPiBJT1csIHdvdWxkIGl0IGJlIHBv
+c3NpYmxlIHRvIGFkZCBhIFhlbi1zcGVjaWZpYyBob29rIGluIHRoZSBwYXJzaW5nIG9mDQo+
+IHZpcnRpb19wY2lfY29tbW9uX2NmZyB0aGF0IHdvdWxkIHRoZW4gZmV0Y2ggYWRkaXRpb25h
+bCBkYXRhIGZyb20gYQ0KPiBjYXBhYmlsaXR5Pw0KDQpUQkgsIEkgZG9uJ3Qga25vdy4gSXQg
+bWlnaHQgcmVxdWlyZSBzb21lIGNoYW5nZXMgaW4gdGhlIGNlbnRyYWwgcGFyc2luZw0KbG9n
+aWMsIGJ1dCB0aGlzIHNob3VsZG4ndCBiZSB0b28gaGFyZCB0byBkby4NCg0KPiBUaGF0IHdv
+dWxkIGxpa2VseSBiZSBsZXNzIGludHJ1c2l2ZSB0aGFuIGFkZGluZyBhIG5ldyBYZW4tc3Bl
+Y2lmaWMNCj4gZmllbGQgdG8gdmlydGlvX3BjaV9jb21tb25fY2ZnIHdoaWxlIHN0aWxsIGFs
+bG93aW5nIHVzIHRvIGRvIFhlbg0KPiBzcGVjaWZpYyBjb25maWd1cmF0aW9uIGZvciBhbGwg
+VmlydElPIGRldmljZXMuDQoNCkluIGNhc2Ugd2Ugd2FudCB0byBnbyB0aGF0IHJvdXRlLCB0
+aGlzIHNob3VsZCBiZSBpbiBhIG5ldyAicGxhdGZvcm0gY29uZmlnIg0KY2FwYWJpbGl0eSwg
+d2hpY2ggbWlnaHQgYmUganVzdCBhbm90aGVyIGZvcm0gb2YgYSB2ZW5kb3IgY2FwYWJpbGl0
+eS4NCg0KPiANCj4+Pg0KPj4+PiBMYXRlciB3ZSBjb3VsZCBldmVuIGFkZCBncmFudC1WMyBz
+dXBwb3J0IHRvIFhlbiBhbmQgdG8gdGhlIHZpcnRpbyBJT01NVSBkZXZpY2UNCj4+Pj4gKHNl
+ZSBteSBsYXN0IHllYXIgWGVuIFN1bW1pdCBkZXNpZ24gc2Vzc2lvbikuIFRoaXMgY291bGQg
+YmUgdXNhYmxlIGZvcg0KPj4+PiBkaXNhZ2dyZWdhdGVkIEtWTSBzZXR1cHMsIHRvbywgc28g
+SSBiZWxpZXZlIHRoZXJlIGlzIGEgY2hhbmNlIHRvIGdldCB0aGlzDQo+Pj4+IGFjY2VwdGVk
+Lg0KPj4+Pg0KPj4+Pj4+Pj4+ICoqKioqKioqKioNCj4+Pj4+Pj4+PiBXaGF0IGRvIHlvdSB0
+aGluayBhYm91dCBpdD8gQXJlIHRoZXJlIGFueSBwaXRmYWxscywgZXRjPyBUaGlzIGFsc28g
+cmVxdWlyZXMNCj4+Pj4+Pj4+PiBzeXN0ZW0gY2hhbmdlcywgYnV0IGF0IGxlYXN0IHdpdGhv
+dXQgdmlydGlvIHNwZWMgY2hhbmdlcy4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBXaHkgYXJlIHdl
+IHNvIHJlbHVjdGFudCB0byBhZGQgc3BlYyBjaGFuZ2VzPyAgSSB1bmRlcnN0YW5kIHRoaXMg
+bWlnaHQNCj4+Pj4+Pj4+IHRha2UgdGltZSBhbiBlZmZvcnQsIGJ1dCBpdCdzIHRoZSBvbmx5
+IHdheSBJTU8gdG8gYnVpbGQgYSBzdXN0YWluYWJsZQ0KPj4+Pj4+Pj4gVmlydElPIFhlbiBp
+bXBsZW1lbnRhdGlvbi4gIERpZCB3ZSBhbHJlYWR5IGF0dGVtcHQgdG8gbmVnb3RpYXRlIHdp
+dGgNCj4+Pj4+Pj4+IE9hc2lzIFhlbiByZWxhdGVkIHNwZWMgY2hhbmdlcyBhbmQgdGhvc2Ug
+d2hlcmUgcmVmdXNlZD8NCj4+Pj4+Pj4NCj4+Pj4+Pj4gVGhhdCdzIGJlY2F1c2Ugc3BlYyBj
+aGFuZ2VzIGNhbiBiZSB2ZXJ5IHNsb3cuIFRoaXMgaXMgYSBidWcgdGhhdCB3ZSBuZWVkDQo+
+Pj4+Pj4+IGEgcmVsYXRpdmVseSBxdWljayBzb2x1dGlvbiBmb3IgYW5kIHdhaXRpbmcgMTIt
+MjQgbW9udGhzIGZvciBhIHNwZWMNCj4+Pj4+Pj4gdXBkYXRlIGlzIG5vdCByZWFsaXN0aWMu
+DQo+Pj4+Pj4+DQo+Pj4+Pj4+IEkgdGhpbmsgYSBzcGVjIGNoYW5nZSB3b3VsZCBiZSBiZXN0
+IGFzIGEgbG9uZyB0ZXJtIHNvbHV0aW9uLiBXZSBhbHNvDQo+Pj4+Pj4+IG5lZWQgYSBzaG9y
+dCB0ZXJtIHNvbHV0aW9uLiBUaGUgc2hvcnQgdGVybSBzb2x1dGlvbiBkb2Vzbid0IGhhdmUg
+dG8gYmUNCj4+Pj4+Pj4gaWRlYWwgYnV0IGl0IGhhcyB0byB3b3JrIG5vdy4NCj4+Pj4+Pg0K
+Pj4+Pj4+IE15IGZlYXIgd2l0aCBzdWNoIGFwcHJvYWNoIGlzIHRoYXQgb25jZSBhIGJvZGdl
+IGlzIGluIHBsYWNlIHBlb3BsZQ0KPj4+Pj4+IG1vdmUgb24gdG8gb3RoZXIgc3R1ZmYgYW5k
+IHRoaXMgbmV2ZXIgZ2V0cyBwcm9wZXJseSBmaXhlZC4NCj4+Pj4+Pg0KPj4+Pj4+IEkga25v
+dyB0aGlzIG1pZ2h0IG5vdCBiZSBhIHdlbGwgcmVjZWl2ZWQgb3BpbmlvbiwgYnV0IGl0IHdv
+dWxkIGJlDQo+Pj4+Pj4gYmV0dGVyIGlmIHN1Y2ggYm9kZ2UgaXMga2VwdCBpbiBlYWNoIGlu
+dGVyZXN0ZWQgcGFydHkgcGF0Y2hxdWV1ZSBmb3INCj4+Pj4+PiB0aGUgdGltZSBiZWluZywg
+dW50aWwgYSBwcm9wZXIgc29sdXRpb24gaXMgaW1wbGVtZW50ZWQuICBUaGF0IHdheQ0KPj4+
+Pj4+IHRoZXJlJ3MgYW4gaW50ZXJlc3QgZnJvbSBwYXJ0aWVzIGludG8gcHJvcGVybHkgZml4
+aW5nIGl0IHVwc3RyZWFtLg0KPj4+Pj4NCj4+Pj4+IFVuZm9ydHVuYXRlbHkgd2UgYXJlIGlu
+IHRoZSBzaXR1YXRpb24gd2hlcmUgd2UgaGF2ZSBhbiBvdXRzdGFuZGluZw0KPj4+Pj4gdXBz
+dHJlYW0gYnVnLCBzbyB3ZSBoYXZlIHRvIHRha2UgYWN0aW9uIG9uZSB3YXkgb3IgdGhlIG90
+aGVyLg0KPj4+Pg0KPj4+PiBUaGUgcmVxdWlyZWQgdmlydGlvIElPTU1VIGRldmljZSBtb2Rp
+ZmljYXRpb24gd291bGQgYmUgcmF0aGVyIHNtYWxsLCBzbw0KPj4+PiBhZGRpbmcgaXQgbWF5
+YmUgdW5kZXIgYSBDT05GSUcgb3B0aW9uIGRlZmF1bHRpbmcgdG8gb2ZmIG1pZ2h0IGJlDQo+
+Pj4+IGFjY2VwdGFibGUuDQo+Pj4NCj4+PiBXb3VsZCB5b3UgdGhlbiBkbyB0aGUgZ3JhbnQg
+YWxsb2NhdGlvbiBhcyBwYXJ0IG9mIHZpcnRpbyBJT01NVT8NCj4+DQo+PiBMb25nIHRlcm0s
+IG1heWJlLiBEbyB5b3UgcmVtZW1iZXIgbXkgR3JhbnQtVjMgZGVzaWduIHNlc3Npb24gbGFz
+dCB5ZWFyPyBCZWluZw0KPj4gYWJsZSB0byByZXVzZSB0aGUgc2FtZSBsYXlvdXQgZm9yIHZp
+cnRpbyBJT01NVSB3YXMgb25lIG9mIHRoZSBiYXNpYyBpZGVhcyBmb3INCj4+IHRoYXQgbGF5
+b3V0ICh0aGlzIHdvdWxkIG5lZWQgc29tZSBoZWF2eSB3b3JrIG9uIHRoZSB2aXJ0aW8gSU9N
+TVUgZnJvbnRlbmQgYW5kDQo+PiBiYWNrZW5kLCBvZiBjb3Vyc2UpLg0KPiANCj4gV2hpbGUg
+dGhpcyBtaWdodCB3ZWxsIGJlIHRoZSBiZXN0IG9wdGlvbiwgZG8gd2UgaGF2ZSBhbnlvbmUg
+d2l0aCB0aGUNCj4gdGltZSBhbmQgZXhwZXJ0aXNlIHRvIHdvcmsgb24gdGhpcz8gIEkgbWln
+aHQgYmUgd3JvbmcsIGJ1dCBpdCBzZWVtcw0KPiBsaWtlIGEgaHVnZSB0YXNrLg0KDQpBcyBh
+IGJhY2tncm91bmQgcHJvamVjdCBJJ2QgbGlrZSB0byBwdXJzdWUgaXQuIE9UT0ggSSdtIG5v
+dCBzdXJlIGhvdyBtdWNoIHRpbWUNCkkgY291bGQgc3BlbmQgb24gaXQuDQoNCg0KSnVlcmdl
+bg0K
+--------------Th0Hc0gn0HmlyNGGZo5YwJr6
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 7, 2023 at 12:45=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-> On 07.07.2023 12:16, Jan Beulich wrote:
-> > On 07.07.2023 11:52, George Dunlap wrote:
-> >> On Fri, Jul 7, 2023 at 9:00=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >>> On 06.07.2023 17:35, zithro wrote:
-> >>>> On 06 Jul 2023 09:02, Jan Beulich wrote:
-> >>>>> On 05.07.2023 18:20, zithro wrote:
-> >>>>>> So I'm wondering, isn't that path enough for correct detection ?
-> >>>>>> I mean, if "/sys/class/dmi/id/sys_vendor" reports Xen (or KVM, or
-> any
-> >>>>>> other known hypervisor), it's nested, otherwise it's on hardware ?
-> >>>>>>
-> >>>>>> Is that really mandatory to use CPUID leaves ?
-> >>>>>
-> >>>>> Let me ask the other way around: In user mode code under a non-nest=
-ed
-> >>>>> vs nested Xen, what would you be able to derive from CPUID? The
-> >>>>> "hypervisor" bit is going to be set in both cases. (All assuming yo=
-u
-> >>>>> run on new enough hardware+Xen such that CPUID would be intercepted
-> >>>>> even for PV.)
-> >>>>
-> >>>> I'm a bit clueless about CPUID stuff, but if I understand correctly,
-> >>>> you're essentially saying that using CPUID may not be the perfect wa=
-y
-> ?
-> >>>> Also, I don't get why the cpuid command returns two different values=
-,
-> >>>> depending on the -k switch :
-> >>>> # cpuid -l 0x40000000
-> >>>> hypervisor_id (0x40000000) =3D "\0\0\0\0\0\0\0\0\0\0\0\0"
-> >>>> # cpuid -k -l 0x40000000
-> >>>> hypervisor_id (0x40000000) =3D "XenVMMXenVMM"
-> >>>
-> >>> I'm afraid I can't comment on this without knowing what tool you're
-> >>> taking about. Neither of the two systems I checked have one of this
-> >>> name.
-> >>>
-> >>>>> Yet relying on DMI is fragile, too: Along the lines of
-> >>>>> https://lists.xen.org/archives/html/xen-devel/2022-01/msg00604.html
-> >>>>> basically any value in there could be "inherited" from the host (i.=
-e.
-> >>>>> from the layer below, to be precise).
-> >>>>
-> >>>> So using "/sys/class/dmi/id/sys_vendor", or simply doing "dmesg | gr=
-ep
-> >>>> DMI:" is also not perfect, as values can be inherited/spoofed by
-> >>>> underneath hypervisor ?
-> >>>
-> >>> That's my understanding, yes.
-> >>>
-> >>>>> The only way to be reasonably
-> >>>>> certain is to ask Xen about its view. The raw or host featuresets
-> >>>>> should give you this information, in the "mirror" of said respectiv=
-e
-> >>>>> CPUID leave's "hypervisor" bit.
-> >>>>
-> >>>> As said above, I'm clueless, can you expand please ?
-> >>>
-> >>> Xen's public interface offers access to the featuresets known / found=
- /
-> >>> used by the hypervisor. See XEN_SYSCTL_get_cpu_featureset, accessible
-> >>> via xc_get_cpu_featureset().
-> >>>
-> >>
-> >> Are any of these exposed in dom0 via sysctl, or hypfs?
-> >
-> > sysctl - yes (as the quoted name also says). hypfs no, afaict.
-> >
-> >>  SYSCTLs are
-> >> unfortunately not stable interfaces, correct?  So it wouldn't be
-> practical
-> >> for systemd to use them.
-> >
-> > Indeed, neither sysctl-s nor the libxc interfaces are stable.
->
-> Thinking of it, xen-cpuid is a wrapper tool around those. They may want
-> to look at its output (and, if they want to use it, advise distros to
-> also package it), which I think we try to keep reasonably stable,
-> albeit without providing any guarantees.
->
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-We haven't had any clear guidance yet on what the systemd team want in the
-<xen in a VM, systemd in a dom0> question; I just sort of assumed they
-wanted the L-1 virtualization *if possible*.  It sounds like `vm-other`
-would be acceptable, particularly as a fall-back output if there's no way
-to get Xen's picture of the cpuid.
+--------------Th0Hc0gn0HmlyNGGZo5YwJr6--
 
-It looks like xen-cpuid is available on Fedora, Debian, Ubuntu, and the old
-Virt SIG CentOS packages; so I'd expect most packages to follow suit.
-That's a place to start.
+--------------8xnNKwnpjYsQU5Wv6RIpCTmH--
 
-Just to take the discussion all the way to its conclusion:
+--------------nhuD3mfs5ESRhYQN0JOgqySB
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-- Supposing xen-cpuid isn't available, is there any other way to tell if
-Xen is running in a VM from dom0?
+-----BEGIN PGP SIGNATURE-----
 
-- Would it make sense to expose that information somewhere, either in sysfs
-or in hypfs (or both?), so that eventually even systems which may not get
-the memo about packaging xen-cpuid will get support (or if the systemd guys
-would rather avoid executing another process if possible)?
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSoKNIFAwAAAAAACgkQsN6d1ii/Ey/+
+sgf/bIDj/f2TsUiA0LwTt5HHGfbfb4BwgYPX7umelulWnIU/2321JCzJWm/z7GpXPHYPBK0bZQ+I
+fQxQZZizGXxBIElXxlh6GX3Tiu9Nl+sveQVtSRezpof6I3mrGTajc3ixX+P8RGhwUWR4TOtU7fwW
+7+ukLuOZ6DVGr65yGFDpjPE8cxQgeUwwJ8Qum4i5sXb+3lKWZc9A9Sa8ypOQeRu0IRsQVhaHvfVu
+nid8sZkzJzA2iHfTvwH9gLOM7a9yGCBr/fzTOl397Aw73eQgzM5xt1t/yjrFQEKBT559R4eW7ATz
+uyl9pbUXmzuvVKcczOO/+yyWkQMCf8MBhJqR+a2VsA==
+=ITor
+-----END PGP SIGNATURE-----
 
- -George
-
---00000000000029f6f505ffe6d8da
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jul 7, 2023 at 12:45=E2=80=AF=
-PM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On=
- 07.07.2023 12:16, Jan Beulich wrote:<br>
-&gt; On 07.07.2023 11:52, George Dunlap wrote:<br>
-&gt;&gt; On Fri, Jul 7, 2023 at 9:00=E2=80=AFAM Jan Beulich &lt;<a href=3D"=
-mailto:jbeulich@suse.com" target=3D"_blank">jbeulich@suse.com</a>&gt; wrote=
-:<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; On 06.07.2023 17:35, zithro wrote:<br>
-&gt;&gt;&gt;&gt; On 06 Jul 2023 09:02, Jan Beulich wrote:<br>
-&gt;&gt;&gt;&gt;&gt; On 05.07.2023 18:20, zithro wrote:<br>
-&gt;&gt;&gt;&gt;&gt;&gt; So I&#39;m wondering, isn&#39;t that path enough f=
-or correct detection ?<br>
-&gt;&gt;&gt;&gt;&gt;&gt; I mean, if &quot;/sys/class/dmi/id/sys_vendor&quot=
-; reports Xen (or KVM, or any<br>
-&gt;&gt;&gt;&gt;&gt;&gt; other known hypervisor), it&#39;s nested, otherwis=
-e it&#39;s on hardware ?<br>
-&gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt;&gt; Is that really mandatory to use CPUID leaves ?<br>
-&gt;&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; Let me ask the other way around: In user mode code und=
-er a non-nested<br>
-&gt;&gt;&gt;&gt;&gt; vs nested Xen, what would you be able to derive from C=
-PUID? The<br>
-&gt;&gt;&gt;&gt;&gt; &quot;hypervisor&quot; bit is going to be set in both =
-cases. (All assuming you<br>
-&gt;&gt;&gt;&gt;&gt; run on new enough hardware+Xen such that CPUID would b=
-e intercepted<br>
-&gt;&gt;&gt;&gt;&gt; even for PV.)<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; I&#39;m a bit clueless about CPUID stuff, but if I underst=
-and correctly,<br>
-&gt;&gt;&gt;&gt; you&#39;re essentially saying that using CPUID may not be =
-the perfect way ?<br>
-&gt;&gt;&gt;&gt; Also, I don&#39;t get why the cpuid command returns two di=
-fferent values,<br>
-&gt;&gt;&gt;&gt; depending on the -k switch :<br>
-&gt;&gt;&gt;&gt; # cpuid -l 0x40000000<br>
-&gt;&gt;&gt;&gt; hypervisor_id (0x40000000) =3D &quot;\0\0\0\0\0\0\0\0\0\0\=
-0\0&quot;<br>
-&gt;&gt;&gt;&gt; # cpuid -k -l 0x40000000<br>
-&gt;&gt;&gt;&gt; hypervisor_id (0x40000000) =3D &quot;XenVMMXenVMM&quot;<br=
->
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; I&#39;m afraid I can&#39;t comment on this without knowing wha=
-t tool you&#39;re<br>
-&gt;&gt;&gt; taking about. Neither of the two systems I checked have one of=
- this<br>
-&gt;&gt;&gt; name.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; Yet relying on DMI is fragile, too: Along the lines of=
-<br>
-&gt;&gt;&gt;&gt;&gt; <a href=3D"https://lists.xen.org/archives/html/xen-dev=
-el/2022-01/msg00604.html" rel=3D"noreferrer" target=3D"_blank">https://list=
-s.xen.org/archives/html/xen-devel/2022-01/msg00604.html</a><br>
-&gt;&gt;&gt;&gt;&gt; basically any value in there could be &quot;inherited&=
-quot; from the host (i.e.<br>
-&gt;&gt;&gt;&gt;&gt; from the layer below, to be precise).<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; So using &quot;/sys/class/dmi/id/sys_vendor&quot;, or simp=
-ly doing &quot;dmesg | grep<br>
-&gt;&gt;&gt;&gt; DMI:&quot; is also not perfect, as values can be inherited=
-/spoofed by<br>
-&gt;&gt;&gt;&gt; underneath hypervisor ?<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; That&#39;s my understanding, yes.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&gt; The only way to be reasonably<br>
-&gt;&gt;&gt;&gt;&gt; certain is to ask Xen about its view. The raw or host =
-featuresets<br>
-&gt;&gt;&gt;&gt;&gt; should give you this information, in the &quot;mirror&=
-quot; of said respective<br>
-&gt;&gt;&gt;&gt;&gt; CPUID leave&#39;s &quot;hypervisor&quot; bit.<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; As said above, I&#39;m clueless, can you expand please ?<b=
-r>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Xen&#39;s public interface offers access to the featuresets kn=
-own / found /<br>
-&gt;&gt;&gt; used by the hypervisor. See XEN_SYSCTL_get_cpu_featureset, acc=
-essible<br>
-&gt;&gt;&gt; via xc_get_cpu_featureset().<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Are any of these exposed in dom0 via sysctl, or hypfs?<br>
-&gt; <br>
-&gt; sysctl - yes (as the quoted name also says). hypfs no, afaict.<br>
-&gt; <br>
-&gt;&gt;=C2=A0 SYSCTLs are<br>
-&gt;&gt; unfortunately not stable interfaces, correct?=C2=A0 So it wouldn&#=
-39;t be practical<br>
-&gt;&gt; for systemd to use them.<br>
-&gt; <br>
-&gt; Indeed, neither sysctl-s nor the libxc interfaces are stable.<br>
-<br>
-Thinking of it, xen-cpuid is a wrapper tool around those. They may want<br>
-to look at its output (and, if they want to use it, advise distros to<br>
-also package it), which I think we try to keep reasonably stable,<br>
-albeit without providing any guarantees.<br></blockquote><div><br></div><di=
-v>We haven&#39;t had any clear guidance yet on what the systemd team want i=
-n the &lt;xen in a VM, systemd in a dom0&gt; question; I just sort of assum=
-ed they wanted the L-1 virtualization *if possible*.=C2=A0 It sounds like `=
-vm-other` would be acceptable, particularly as a fall-back output if there&=
-#39;s no way to get Xen&#39;s picture of the cpuid.<br></div><div><br></div=
-><div>It looks like xen-cpuid is available on Fedora, Debian, Ubuntu, and t=
-he old Virt SIG CentOS packages; so I&#39;d expect most packages to follow =
-suit.=C2=A0 That&#39;s a place to start.</div><div><br></div><div>Just to t=
-ake the discussion all the way to its conclusion:</div><div><br></div><div>=
-- Supposing xen-cpuid isn&#39;t available, is there any other way to tell i=
-f Xen is running in a VM from dom0?</div><div><br></div><div>- Would it mak=
-e sense to expose that information somewhere, either in sysfs or in hypfs (=
-or both?), so that eventually even systems which may not get the memo about=
- packaging xen-cpuid will get support (or if the systemd guys would rather =
-avoid executing another process if possible)?<br></div><div><br></div><div>=
-=C2=A0-George</div><div><br></div><div><br></div></div></div>
-
---00000000000029f6f505ffe6d8da--
+--------------nhuD3mfs5ESRhYQN0JOgqySB--
 
