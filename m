@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C3B74AECF
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 12:37:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560385.876282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA6674AEDC
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 12:43:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560389.876291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHipm-0004zB-2h; Fri, 07 Jul 2023 10:37:06 +0000
+	id 1qHivC-0006QJ-Nh; Fri, 07 Jul 2023 10:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560385.876282; Fri, 07 Jul 2023 10:37:06 +0000
+Received: by outflank-mailman (output) from mailman id 560389.876291; Fri, 07 Jul 2023 10:42:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHipl-0004x0-UI; Fri, 07 Jul 2023 10:37:05 +0000
-Received: by outflank-mailman (input) for mailman id 560385;
- Fri, 07 Jul 2023 10:37:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qHivC-0006Nu-JW; Fri, 07 Jul 2023 10:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 560389;
+ Fri, 07 Jul 2023 10:42:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jcIV=CZ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qHipk-0004wu-Qz
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 10:37:04 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 364d2cf6-1cb2-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 12:37:03 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fbb281eec6so2597655e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 07 Jul 2023 03:37:03 -0700 (PDT)
-Received: from [192.168.201.189] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- w7-20020ac24427000000b004f76a88dbcbsm629049lfl.176.2023.07.07.03.37.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 03:37:02 -0700 (PDT)
+ <SRS0=GM+b=CZ=citrix.com=prvs=545203e5e=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qHivB-0006No-EF
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 10:42:41 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd3b7742-1cb2-11ee-8611-37d641c3527e;
+ Fri, 07 Jul 2023 12:42:38 +0200 (CEST)
+Received: from mail-dm6nam10lp2104.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.104])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 07 Jul 2023 06:42:36 -0400
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com (2603:10b6:303:123::8)
+ by SA0PR03MB5564.namprd03.prod.outlook.com (2603:10b6:806:b6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
+ 2023 10:42:34 +0000
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::95db:33e0:ebe2:13dd]) by MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::95db:33e0:ebe2:13dd%7]) with mapi id 15.20.6565.016; Fri, 7 Jul 2023
+ 10:42:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,233 +49,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 364d2cf6-1cb2-11ee-b237-6b7b168915f2
+X-Inumbo-ID: fd3b7742-1cb2-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1688726558;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=6lM6MWjgbJYRIedmI3NWFMD+CBeKc2Qq5H1BZDBbuaQ=;
+  b=WPSdZoteGR11RxkGR0jy0musHwsBRfHB88GKADp8cTFeyILyIuyLMAVu
+   lTp8To+SZM58RKqzomqQmu/WBTjfJPbBgiVW7R04LcE/3AeNpyQ4qd9ZN
+   zESmQ+/tmniwATrALsvI93An4BcAtgjLJuemKaDXi6pDUCmgyL4C6IOKc
+   I=;
+X-IronPort-RemoteIP: 104.47.58.104
+X-IronPort-MID: 115483587
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:DPka6KoTq/sKviCDI0P6c323/19eBmI+ZBIvgKrLsJaIsI4StFCzt
+ garIBnTbP+CY2HzfNgkPNzkpklXuZ/SnddrSlM++SBgHngTpZuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GpwUmAWP6gR5weBzyZNVfrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAD1UMFeSpaH1+r+2evtvvMYxPNnCPpxK7xmMzRmBZRonabbqZvySoPN9gnI3jM0IGuvCb
+ c0EbzYpdA7HfxBEJlYQDtQ5gfusgX78NTZfrTp5p4JuuzSVkFM3jeiraYKJEjCJbZw9ckKwv
+ GXJ8n6/GhgHHNee1SCE4jSngeqncSbTAdtPSO3jq6416LGV7kAaKkVRFkOgm6iom0Tka90Ye
+ gstxQN7+MDe82TuFLERRSaQonSJoxodUNp4CPAh5UeGza+8yxmdLngJSHhGctNOnN87Q3km2
+ 0GEm/vtBCdzq/uFRHSF7LCWoDiufy8PIgc/iTQsSAIE55zvpd81hxeWFtJ7Svft0pvyBC36x
+ C2MoG4mnbIPgMUX1qK9u1fanzaroZuPRQkwjunKYl+YAspCTNbNT+SVBZLztJ6s8K7xooG9g
+ UU5
+IronPort-HdrOrdr: A9a23:kFG7U6qSilSytjsGCgWBI5EaV5oleYIsimQD101hICG9E/b1qy
+ nKpp8mPHDP5wr5NEtPpTnjAsm9qALnlKKdiLN5Vd3OYOCMghrKEGgN1/qG/xTQXwH46+5Bxe
+ NBXsFFebnN5IFB/KTH3DU=
+X-Talos-CUID: 9a23:RZ7clW/oYS0ALXB7kPiVv0NNRIc0UD6e9nrdE127M2R7WK28S0DFrQ==
+X-Talos-MUID: =?us-ascii?q?9a23=3AH+f3TQwmL71ym/NZUv1Rr+OFvu2aqIinKhhK0o0?=
+ =?us-ascii?q?dgZiVJCYqCzja3XOOfaZyfw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.01,187,1684814400"; 
+   d="scan'208";a="115483587"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T40JQgzmIeqs68Gww5ZZnKxP9HZEgIUSRtj6/LC1I2b1X4px7TSOGbGFNykrbB2BmYdYCK+XxYFfeKRpg2bcJpJQoRyjjWH5SOJEw/5SBeTH+YaGb2PvA9E3SlZUrGgn32EsJNXgkIqN/dzSqxSBeeOJKx+Toni/iAW0wBquLxzUt/lF7h6UGudvITMzIpxXkGcTTR3EeEl0LxzpHDctHr/5ir/eJVizAKndCrm8lE8t8TOp2UyY5ekZqUyDMj6zi1xMV7Gzo9GmHKkk807udXrehfj7lvyM2t0azlblxeFvINf6L2SF6tHHjzcDCCAJ1dPVWXFwc5PHPj39mWNvjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IZJKvhsg11+DsODq7tJU0EgDZ72sQ8MusxpZkfbhiK0=;
+ b=GTnsmymz+A135UXF2MrGy4b/GaaJO4hgo+smrHud/l691n0mha5pIyEoURClQVqt30KYw3ja0/i47+pGfOgShN3pani3bxhg9sWx30rYcPuCaoedUobHmc4c4qsh99go47zicelpaLFsJn4k7QtLgcSXTlcSzTRGlfMjxzmEtHc+ahI1dEFOBF7mW5QsdfOmJoeZsDLc70piAXEiFm4ZOYF8CuhU//U6wG3B4bSuDSHUVWlqyb1513vSd1jmkhLlbTZf3O+hpkR4ov9l2lKHllGwhWEJ9GkxyiPE7uunNgYGE6eus3zNRdXaJ2GepFhJ81Phka7irnudnn9+Q3NoLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688726223; x=1691318223;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Nk7NqYANnWZ6QHLF28Mg2hNcleSmLnmLQ6HMqzn0v+I=;
-        b=McwZAhiwKuuLs8b9jO5EgTKuawLa1/E3Gv1Llckb9OVkRWbPDSIGYycfeI8ubdzBfC
-         5AIMtrAgY2tuU+WuxVyCGiovabyOsel0PfLlpzdc6T4q1z7GNmh+97+fdNMwU7J1KrzN
-         PY48edEx5wnjc6JKJXw+JIFFDfVJ71lH/pEJQ8k5N/Xyu1d8aXGT3yfQyVpSqAXNu6He
-         Q604rvtYOho5J86G6IZwb0LcxJVwR+ppMSqYcLFMepPI7pX5tgoLROOTXCGasguPTZwi
-         XvW9UdXi+r5xta42V18vhtCgeChG3RNH81IhQGxKnPHbghuiZ6+vaylFRchq0Ht6cCdj
-         wTEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688726223; x=1691318223;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Nk7NqYANnWZ6QHLF28Mg2hNcleSmLnmLQ6HMqzn0v+I=;
-        b=VkcocEK90Ohp+AG6pgWm3cUo5C+m0nnWdlDJZGgLEdmBfj1oM6rA+sqIQ7BsbyOehY
-         kweJ9GkBX3bwyuH9uCPDb6rEZKxW0RAn2sTIvzk8e5dwoHOPfMUPicWmwpqls1Xv/4fa
-         9OxF+TT9iigWvctm4D4/8ZG/SVwtTEEjGrinYj7qpxFdDVLXeVwhwcfhzVJUcN+6gPVB
-         DSQJNAbatar3GlKBYHQ7/3C0H+ThhPdWk2U59pzUbhoCO4qxpAz/zoDvQxUPDe8Qc226
-         EjlSTWGvOLlfO3LzY2pm+CpbcFjQEhP/suRDpJGftPj7vFVUfIcGjcL0dXE/S2DnlZ5O
-         qFug==
-X-Gm-Message-State: ABy/qLZaL78S9RQpGeK3tgiMY/rTnS9vNZ2wh9rf6Nk9STVbpnRupPCA
-	0sGZ4N/MY6TuuHt+t6z54rI=
-X-Google-Smtp-Source: APBJJlHfxxcrJICO4CW+7izLREQUYmLLrsET/+d22IvZ1srYsQtEKe0vc5L1ecRnWDAvkPbfqopihA==
-X-Received: by 2002:ac2:4d9a:0:b0:4f8:6e1d:cf98 with SMTP id g26-20020ac24d9a000000b004f86e1dcf98mr3242092lfe.66.1688726222770;
-        Fri, 07 Jul 2023 03:37:02 -0700 (PDT)
-Message-ID: <1edb0c61a8ef64bb47809049252e9ad7b19f4bbe.camel@gmail.com>
-Subject: Re: [PATCH v2 4/6] xen/riscv: introduce identity mapping
-From: Oleksii <oleksii.kurochko@gmail.com>
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IZJKvhsg11+DsODq7tJU0EgDZ72sQ8MusxpZkfbhiK0=;
+ b=wrdS/GJk4KYymB1Vb7WaSvjMhb75M+J9Dt/XsTyR7yzZhFKK+iQ4qxdp69bZ/VxAIfqyPsIA0aV2UT4gQK98qorn5m6APO3CDKwWQmSSZ3jqp/emPD5RnnYmPM60zjQQlkU/33QYfOBeYDCbz0YijaCyxFo6O8NZikTwiiNqetM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 7 Jul 2023 12:42:18 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall
- <julien@xen.org>,  Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>,
- xen-devel@lists.xenproject.org
-Date: Fri, 07 Jul 2023 13:37:01 +0300
-In-Reply-To: <67df28ad-060e-07d5-acf2-02c3cd5f0b96@suse.com>
-References: <cover.1687178053.git.oleksii.kurochko@gmail.com>
-	 <21d8ce65f718bc10c2213688f79cf5f978bcaf16.1687178053.git.oleksii.kurochko@gmail.com>
-	 <67df28ad-060e-07d5-acf2-02c3cd5f0b96@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 1/3] multiboot2: parse vga= option when setting GOP
+ mode
+Message-ID: <ZKfsChflOUtYQCpk@MacBook-Air-de-Roger.local>
+References: <20230705114741.11449-1-roger.pau@citrix.com>
+ <20230705114741.11449-2-roger.pau@citrix.com>
+ <47cc5f67-973a-2095-932f-6ebea2d3bd9e@suse.com>
+ <ZKflLxsh1AKyvPOT@MacBook-Air-de-Roger.local>
+ <3bfd9a21-e4e7-2d9b-8a40-8b77c80e4fb7@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3bfd9a21-e4e7-2d9b-8a40-8b77c80e4fb7@suse.com>
+X-ClientProxiedBy: LO2P265CA0089.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8::29) To MW4PR03MB6428.namprd03.prod.outlook.com
+ (2603:10b6:303:123::8)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR03MB6428:EE_|SA0PR03MB5564:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e2b3e9d-07b0-4784-f81a-08db7ed6df59
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	qeD+Gjw/ElIQcFzPiVtjZmUAEczyUhok+fSK57GIvVmFrgYj3X/0V6bGxVGDGCEsz21pLnyw3cm/0Q6LEn+j5MWLr87e0hJRXAOz4eFezX5N/3pPMre651TOedDsZiB+UR695nYtEDwK9RNTZpQJUeoYGqMGoeAv/z9e8pk+f5dIyt6eN55AU6MnYK6EXMFuWVfWQPXO1+jZ0m7K4/ZA4faPwBfsALDPldLC0cvBb0qcGEQhdw6INteEGDqjGGlnAj1ndQkvR8ZXUt87DYBPKBLwdW6Y9Lw8k5FHNGgkyTV5VNB9LjWYoQRGRMdeiiUywSk8xonfYTdQgDidrK/xvDJ4Wnc7Rd60EKHlLAu0vYRvHfJL9UFstU7fxPOp0JDU1niyP5+vSb9GamrTyGGjOeKpX4TAVfk3sWgVYY96l1oJOFGvDxe9sEbk4vaag1ezKkWzWCL60OWzEfTgT0ZdAG7FV5+uBgqYPuEQijCxOtXHz/uEhoRifM66wqlwOqo+O0jP9S5o17oWARAfW9V74j//kn0/wAR9IMWGSo9QbsZCDs6hgyXgiIQH9/QGJXm9
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6428.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(346002)(366004)(136003)(376002)(451199021)(478600001)(26005)(186003)(6512007)(82960400001)(6506007)(9686003)(53546011)(86362001)(6666004)(316002)(66476007)(66556008)(6486002)(54906003)(38100700002)(4326008)(6916009)(66946007)(5660300002)(8676002)(8936002)(41300700001)(2906002)(85182001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NXBpaDZMRXRyNHpocm5pMWVoWmZsVnoxcDU3MnM5TUJqNEkwMEFhdHNwNUtF?=
+ =?utf-8?B?T05aNTVYSkZKSWRFUGFBMEUwbXhJMEh4Q3JaN0Rxb2RwUU5HRUI2cytmamZQ?=
+ =?utf-8?B?aytmSDU4dUJyUytDVzhhdXFYWDA1VjZtKytsdFFndU1UN1ZlV21weTJGR0tS?=
+ =?utf-8?B?NWRkbnFjQ1J3RHNnZWo0VFdYakZHbG5RczY5Q3RMYzVuNlRlbHA1bUd1TGdC?=
+ =?utf-8?B?NGZjdTFkdkNRMlR5TjdiZVpabG1maGludkowRm1pdkk1NzBaTkNsMTFPakYy?=
+ =?utf-8?B?ckFZLzlkV0FEa3dDeEsxbllSRGRKbnExbWd6YTNuNFFsUDlpOHNxeDVVeTFP?=
+ =?utf-8?B?RTJ0Qjl6NnJtOWRmTVhKUWNnL09RNitjZDBWQjl0V2JBNU1hQW5oRGpKbXFa?=
+ =?utf-8?B?cUNkeEtxRzFXQ2ZCbGkrZmxVZDRhTXJLbDQvM01IYkxrOWJVVEk2ZmxJM2tQ?=
+ =?utf-8?B?MTltZ3JVcXU4VTVZUFV1RTdNb0pnbUREcnZPT3EvZE8yWTN1dkFqcy91YkJZ?=
+ =?utf-8?B?QVBTUVczZEhWY01VL1p1d3NiNTlqc0cvdndZQXFHZHVJdnplMHBPcHZvU2lm?=
+ =?utf-8?B?bHNKd1NYRS81RFlseFVaRVRaMHE0bE5WaVhKSm8wdGlSeDAydUhXZkxydUhT?=
+ =?utf-8?B?MXljSXBqYnY1MlNtSVBra0JMQ0h6cCtPSlYrMnFxa0s5OS9na2FpcFNBTVR1?=
+ =?utf-8?B?b1lOVVMybWxzUmw0VlhHUTVBY2poRkdqZ0I5V3FZaTFXMGQvZmFyVUsrcDNI?=
+ =?utf-8?B?SHVPanJ5RXV5Kzk0VyswWGdkWWM1b0UwQitSK1AweURZaG41b293ckpxZi9z?=
+ =?utf-8?B?MFFjQVg0a1EvNG9nZkM2VkFYZlNWM3VqZEpqVFdIY1FmMjJvcHhtUXR1WTI3?=
+ =?utf-8?B?cWlVeHBoNHV0T0NCRkdPTG9oMjQ3a3pzVFlaZW9zZlduM1JuSVBEcmFoR3NK?=
+ =?utf-8?B?VjV6a1hsRVMyemtrSUZTQ1pMa3RvcWpnbzhBbW1FYVp4VTFta0pKTW1wUmU1?=
+ =?utf-8?B?STdQNkVNV2ZXU0pPcmJ0bDA2YWVpRHMzZzVKL01PVDV1WDNIN08rZFU4a0x4?=
+ =?utf-8?B?OGZPTE9lRThtWVMrZ3lSMWJkamFLQW11cmZOcWtLZGxMdFlKTHc3RkVodDFM?=
+ =?utf-8?B?L09LVHU1R0wxMFNETFRiN3BPWkQ5TzdGeC9CTGhhem0zQ1lKMytOTUlHN21s?=
+ =?utf-8?B?UGFuQ2R6Z3Zhd3dzNCtiVk1HNjhOTHlQZnhWMjFpQ3BnUEJKUm1URmswbVdr?=
+ =?utf-8?B?dTI2emx3RGdXazQ3QnIvSjJTQktDWndCMWNmZU9OVHY0VjIwUHFqazdiQnZu?=
+ =?utf-8?B?bDVvcHRqUHNjak1JbUtTSUM5Z2FCdWF0Mll4ZEx6djA3SzJKbFdXOWdHb3hv?=
+ =?utf-8?B?VU9Mb1hCRFBDNXpKcmNqekF0a2p6YThHODk5K2Y3K1I5R3dMRjF3MkFHM0Jt?=
+ =?utf-8?B?V0g5aExpWDJNdzArV2pTWm5oSnU2Z1plV0ZoNUtTL0V0QXBPR3RHbFc0V0JU?=
+ =?utf-8?B?M2tSSE1UYzlVaEp3eGhlNGhzcFZaSFhGOXRyRHpFQ2M0NE1lZ1pBKzA3cUJn?=
+ =?utf-8?B?T0hZQkRNdkZhN3h0U2dFRDRxUFVGbGppSUlrZlpaaGRxdXZtRHZrTmxwRUxB?=
+ =?utf-8?B?RnRDQktoK0lGVEoyQUpvdFRpaGxLZzM0ekIyWXcwUVRzcHlJaEhZUzJMR1Fy?=
+ =?utf-8?B?SjdtSnFNalQzZ2dEOWR5MWZ2RFpnWjFYcDA0bW9RNnBPd2xCZ0NiNGxMbkNq?=
+ =?utf-8?B?a1hMY1hTS0libXRmQjdFMzFxU1RtUEx0NmVtWlNCSmdtcHFXcUpZZVpPN2hO?=
+ =?utf-8?B?UFpBNmRSZWNacFJCaWpIU1l1MUxZUUF4ajcvazFuUFRkNUxNSk1LbURLWENx?=
+ =?utf-8?B?Zk9tLzl3S3A1Y3IybEhuY2RZWSt2T3JpZ2g3ZDNUNGlHMzBtMy9EakxjemMy?=
+ =?utf-8?B?NDlKSHdOb2pxdU8zMGFGdGV3KzE3VEhhUURXWk13U3hNQkNrejlYeW4rZWp4?=
+ =?utf-8?B?TXlMRllNZzhSYnpaOTd1VDBDOXFkTU1saTNoeHdRdm1EU0tqN2dyQ0g1Nk1s?=
+ =?utf-8?B?QkRzU1FodGNueTQ3THBzN1MzWGlNdU9rVStBVlZkK1Qwb2NlYlBWd1VKa3pS?=
+ =?utf-8?B?U0lmQjNjUGhzMVo1Wkdkd1RqQlZncHhyTm5HT3ZDRVluaEFQNWZxUmx5RzFq?=
+ =?utf-8?B?UUE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Ql53PO+2/YxmgrgG6kKKP2EVi9+TpdkRCaMRuzR5wunA3zlNSznDPD6mDSxkNk0/OBePdj4tXvBaNkd3hsKq2DTrDbFpIEZKZlpVgfj6fe3p4ZK9ABTN2mZasXpZWPOr682GIoZbROvPfqt4luWMuMIadR2T8ImIaLIhjiHp3sJcu/pcNaCJJxxyz7SHVbSaTKlEfgQVBw+OuCdVtXh8LgSfFxwxt3le6ihDEbd68GtAA7szoGEFN4S1C88RlM+yAhEj7HZqRXmoaF5+X3N1F7umGobynIzsbaJIpFhY+qjX0+rbzuVP5zC9n+2bMPx0LUj2ybayJD4lqhsPT9WKQbebTInY1D+SlAClRswkf33JaeDDLX5zyru1H3H6vNtlzmZiqVuZfUC5vXtBwOHSxjLXL93UQ6ccp6NJ2J+l8OWFtOpHRGrE3d05rcaRXX12yIgttylf5pQilDatmjVXXHMGYTmZR3MH1/aKL/E+cAhRz9e5QGLTruwtfjnUKcePVCnsFiU0cvCeTyF7x1NSJa7RgsvE3jPOpoAG+cHLIXye3xVeAnplQ8Tq4APr0VnyA6NwpnY5UV3nbaIyb1qWpCNZFrEWlo20cBKe5s5eOSH2LNx8vF/HwRL6tyUFWX58YqAODtUgcBfZI9qA9FAH6qmbAog/h4co0SakZgfmELEg5/TUkSLQhFikrNuMLrRACSK31+1xB/t6CCSYO8qJFaSnzmFa4YEV/zju9AyYuC1ChlriS2uE+y532WcBL344gk+/IeMVwIkquB/NowrJ9w6twgoWSJcINTDJA+maY00NdkrQvxRFF/Bfn7+i+YD/
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e2b3e9d-07b0-4784-f81a-08db7ed6df59
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6428.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 10:42:34.1171
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cZL6GbVsqzUFOhueQkFYOpag6lRQaTth8RepUPMpj3kxXGv4yquGzu4Ojb1RgmpWERXff5gBKflK1Fdu4tpr7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5564
 
-On Thu, 2023-07-06 at 13:35 +0200, Jan Beulich wrote:
-> On 19.06.2023 15:34, Oleksii Kurochko wrote:
-> > Since it is not easy to keep track where the identity map was
-> > mapped,
-> > so we will look for the top-level entry exclusive to the identity
-> > map and remove it.
->=20
-> I think you mean "top-most" or some such, as it's not necessarily the
-> top-level entry you zap.
-Yeah, 'top-most' is more appropriate in this context.
->=20
-> > --- a/xen/arch/riscv/include/asm/config.h
-> > +++ b/xen/arch/riscv/include/asm/config.h
-> > @@ -1,3 +1,5 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +
-> > =C2=A0#ifndef __RISCV_CONFIG_H__
-> > =C2=A0#define __RISCV_CONFIG_H__
-> > =C2=A0
->=20
-> Unrelated change?
-It  should be part of [PATCH v2 5/6] xen/riscv: introduce identity
-mapping.
+On Fri, Jul 07, 2023 at 12:24:10PM +0200, Jan Beulich wrote:
+> On 07.07.2023 12:13, Roger Pau Monné wrote:
+> > On Thu, Jul 06, 2023 at 12:41:58PM +0200, Jan Beulich wrote:
+> >> On 05.07.2023 13:47, Roger Pau Monne wrote:
+> >>> --- a/xen/arch/x86/efi/efi-boot.h
+> >>> +++ b/xen/arch/x86/efi/efi-boot.h
+> >>> @@ -795,7 +795,30 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
+> >>>  
+> >>>  static void __init efi_arch_flush_dcache_area(const void *vaddr, UINTN size) { }
+> >>>  
+> >>> -void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+> >>> +/* Return a pointer to the character after the first occurrence of opt in cmd */
+> >>> +static const char __init *get_option(const char *cmd, const char *opt)
+> >>
+> >> Nit: __init and * want to change places.
+> > 
+> > Hm, yes.  I assume that placing it before the return type is not OK?
+> > (static const __init char ...)
+> 
+> That's still in the middle of the return type then. Technically gcc
+> accepts it being placed anywhere, but they reserve the right to change
+> meaning when not placed appropriately. Recall that you may alter both
+> attributes of a function (or variable) and attributes of types. Hence
+> to disambiguate both, proper placement may become necessary down the
+> road. And while it might be that
+> 
+> static __init const char *...
+> 
+> would also be okay-ish (albeit I'm not certain), that's still against
+> how we do things commonly (i.e. a not written down style aspect).
 
->=20
-> > --- a/xen/arch/riscv/mm.c
-> > +++ b/xen/arch/riscv/mm.c
-> > @@ -25,6 +25,12 @@ unsigned long __ro_after_init phys_offset;
-> > =C2=A0#define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
-> > =C2=A0#define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
-> > =C2=A0
-> > +/*
-> > + * Should be removed as soon as enough headers will be merged for
-> > inclusion of
-> > + * <xen/lib.h>.
-> > + */
-> > +#define ARRAY_SIZE(arr)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(sizeof(arr) /
-> > sizeof((arr)[0]))
-> > +
-> > =C2=A0/*
-> > =C2=A0 * It is expected that Xen won't be more then 2 MB.
-> > =C2=A0 * The check in xen.lds.S guarantees that.
-> > @@ -35,8 +41,10 @@ unsigned long __ro_after_init phys_offset;
-> > =C2=A0 *
-> > =C2=A0 * It might be needed one more page table in case when Xen load
-> > address
-> > =C2=A0 * isn't 2 MB aligned.
-> > + *
-> > + * (CONFIG_PAGING_LEVELS - 1) page tables are needed for identity
-> > mapping.
-> > =C2=A0 */
-> > -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
-> > +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
->=20
-> How come the extra page (see the comment sentence in context) isn't
-> needed for the identity-mapping case?
-It is needed to allocate no more than two 'nonroot' page tables (L0 and
-L1 in case of Sv39 ) as page 'root' table ( L2 in case of Sv39 ) is
-always re-used.
+Thanks for the explanation.
 
-The same ( only 'nonroot' page tables might be needed to allocate )
-works for any MMU mode.
-
->=20
-> > @@ -255,25 +262,30 @@ void __init noreturn noinline enable_mmu()
-> > =C2=A0=C2=A0=C2=A0=C2=A0 csr_write(CSR_SATP,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 PFN_DOWN((unsigned long)stage1_pgtbl_root) |
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 RV_STAGE1_MODE << SATP_MODE_SHIFT);
-> > +}
-> > =C2=A0
-> > -=C2=A0=C2=A0=C2=A0 asm volatile ( ".p2align 2" );
-> > - mmu_is_enabled:
-> > -=C2=A0=C2=A0=C2=A0 /*
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * Stack should be re-inited as:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * 1. Right now an address of the stack is rel=
-ative to load
-> > time
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses what will cause=
- an issue in case of load start
-> > address
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 isn't equal to linker sta=
-rt address.
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * 2. Addresses in stack are all load time rel=
-ative which can
-> > be an
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 issue in case when load s=
-tart address isn't equal to
-> > linker
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 start address.
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * We can't return to the caller because the s=
-tack was reseted
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * and it may have stash some variable on the =
-stack.
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * Jump to a brand new function as the stack w=
-as reseted
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +void __init remove_identity_mapping(void)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 unsigned int i;
-> > +=C2=A0=C2=A0=C2=A0 pte_t *pgtbl;
-> > +=C2=A0=C2=A0=C2=A0 unsigned int index, xen_index;
-> > +=C2=A0=C2=A0=C2=A0 unsigned long load_addr =3D LINK_TO_LOAD(_start);
-> > =C2=A0
-> > -=C2=A0=C2=A0=C2=A0 switch_stack_and_jump((unsigned long)cpu0_boot_stac=
-k +
-> > STACK_SIZE,
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 cont_after_mmu_is_enabled);
-> > +=C2=A0=C2=A0=C2=A0 for ( pgtbl =3D stage1_pgtbl_root, i =3D 0;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i <=3D (CONFIG_=
-PAGING_LEVELS - 1);
->=20
-> i < CONFIG_PAGING_LEVELS ? But maybe it would be easier for i to
-> start
-> at CONFIG_PAGING_LEVELS and be decremented, simplifying ...
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i++ )
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 index =3D pt_index(CONFIG_P=
-AGING_LEVELS - 1 - i, load_addr);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen_index =3D pt_index(CONF=
-IG_PAGING_LEVELS - 1 - i,
-> > XEN_VIRT_START);
->=20
-> ... these two expressions?
-It makes sense. I'll update this part of the code.
-
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( index !=3D xen_index )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pgt=
-bl[index].pte =3D 0;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bre=
-ak;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> Is this enough? When load and link address are pretty close (but not
-> overlapping), can't they share a leaf table, in which case you need
-> to clear more than just a single entry? The present overlap check
-> looks to be 4k-granular, not 2M (in which case this couldn't happen;
-> IOW adjusting the overlap check may also be a way out).
-At the start of setup_initial_pagetables() there is a code which checks
-that load and link address don't overlap:
-
-    if ( (linker_start !=3D load_start) &&
-         (linker_start <=3D load_end) && (load_start <=3D linker_end) )
-    {
-        early_printk("(XEN) linker and load address ranges overlap\n");
-        die();
-    }
-
-So the closest difference between load and link address can be 4kb.
-Otherwise load and link address ranges are equal ( as we can't map less
-then 4kb).
-
-Let's take concrete examples:
-  Load address range is   0x8020_0000 - 0x8020_0FFF
-  Linker address range is 0x8020_1000 - 0x8020_1FFF
-  MMU mode: Sv39 ( so we have 3 page tables )
-
-  So we have:
-    * L2 index =3D 2, L1 index =3D 1, L0 index =3D 0 for load address
-    * L2 index =3D 2, L1 index =3D 1, L0 index =3D 1 for linker address
-  Thereby we have two different L0 tables for load and linker address=20
-ranges.
-  And it looks like it is pretty safe to remove only one L0 index that
-was used for identity mapping.
-
-Is it possible that I missed something?
-
-~ Oleksii
-
-
- =20
-
-
+Roger.
 
