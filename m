@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D38C574AB32
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 08:37:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560174.875871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DC574AB3F
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 08:41:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560180.875880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHf5b-0001KH-N8; Fri, 07 Jul 2023 06:37:11 +0000
+	id 1qHf8w-0002nk-9h; Fri, 07 Jul 2023 06:40:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560174.875871; Fri, 07 Jul 2023 06:37:11 +0000
+Received: by outflank-mailman (output) from mailman id 560180.875880; Fri, 07 Jul 2023 06:40:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHf5b-0001Gw-Jm; Fri, 07 Jul 2023 06:37:11 +0000
-Received: by outflank-mailman (input) for mailman id 560174;
- Fri, 07 Jul 2023 06:37:09 +0000
+	id 1qHf8w-0002lG-6B; Fri, 07 Jul 2023 06:40:38 +0000
+Received: by outflank-mailman (input) for mailman id 560180;
+ Fri, 07 Jul 2023 06:40:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ruU0=CZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qHf5Z-0001Gq-To
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 06:37:09 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0615.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::615])
+ id 1qHf8v-0002l8-06
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 06:40:37 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b219d1ba-1c90-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 08:37:09 +0200 (CEST)
+ id 2d849ad2-1c91-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 08:40:36 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AS8PR04MB8135.eurprd04.prod.outlook.com (2603:10a6:20b:3b0::23)
+ by DBBPR04MB7625.eurprd04.prod.outlook.com (2603:10a6:10:202::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
- 2023 06:37:06 +0000
+ 2023 06:40:33 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Fri, 7 Jul 2023
- 06:37:06 +0000
+ 06:40:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,188 +47,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b219d1ba-1c90-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 2d849ad2-1c91-11ee-b237-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G8oPKj1TdOZhcikhVTUdm96Ijc00FEewbmX07JXATTnQmNUcbsEetrCX2CZR8xLLH/542OpdEVPMkCUorGtmzrBBSIUNMivMhy7RoDm6TIZJAoYi0dTM1KEpDnot2vo854+a7mL7ejuUbRS3qqeyLmEeW5P2m2XvctuHnKTr0rcn9uFNNRHy6i2AtHPYhpJnu1S2zuKo0EgmMzlETUazMCDHK++Fj40Twi8UKIQjj1XOumWJOfrN/v4pAEeWxa5jRfxQVQFBwY5LqYhXij65FhjHxZbFYaUJ6Ei0C9beKHvuxGxduBG5TfmT8stLgc9lsa8F2PXw3XWL7DK4lAMdjw==
+ b=c43F85XB/K6O+ktcIpCPrOCqfndyd6iwjwIpCp9x9EKk2h/q0X285Hm3l+rASCU8BfJKe7T6Ux/Wuwzg6NOcl48nVn0MSSvirqgLqql6ZVNv+lnqvbpuhAtFkNve+k1w72QM/Jt0K6e0jEL1q7am5Zm89WAzXB3RO7uElXAdKfOS71UTL9705ZsFHtrz+ZLJxDMzbO0ukzb/Y4wW/zNL0+chayw3jS0LaqdTupmdvm6RL2sGwsqUH5DbKynrMYG9Zf11zWvTo0DJ90B6Xv0QRpE4Hjv6H387qBFWYKe3En4yBNGeMQBuio0Bz9MeFsxxhMxfZqJUqlCLYAcP4kRifw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lIWLWx8dgHcsTEVqplza6+9naUviv7sCsC3PH2iOdg4=;
- b=IDjVwUilQVGvp58yznrK3W71BhnVxLmD+ef9vpyW7jUKJ/Fs95sFA2+sqsCW+ao0uw4e5RbuP26Ppjg+Kd38S/PQGzMffyCldqCOmwl/maaPpWZXLb6/Dnei5CmjDLI5jl7srUFJh6TEKjBCKetM7HW1feqHO3HhikFQ2CqdQw9QZpFcaxLlHxehZxQxtqCScwReSVe/+hu7w46EOZw9uhY68CXqz4uF3mfvK2wdyVvzOjN6FfkVcHrrWnal50xJ5evuNQCJwgbdpMrzbSUDFaoTqQWfVNHHgk5+JoD6isyBzFlLndTXY2g8qVGFGe1DfEAZ0aE+heiZuRwX06SE4w==
+ bh=jlzV2EmP1qtPhJ8DoYMKNaP1aQPvRPicklhflKj4VMQ=;
+ b=HR9lpvqT+naM0Q5BzaTSPUMUBge0jOyY9awqcS4lMaSsJIqYGh+JkGAV+eYMi3g/cuIiSWlBSMh3rdEMkwsIaXbB5zbGlORO4Ke5tg7AGc4fejs80lYj53ZijOmFEL2QyPFhjGb14AVpH0kxcGL5ZTt24+23uo5S21XiK5TQAYeVtlN70Z4Hl5k2equgpd49UdDr9d+2yrhksFStbB3qIjW38C1D4uYaVY5jlqSDkT4os2kwgOXjyUHe63JVdqtXGTXT42CIg4w3fOjuTh0ekMySJsUD5S330+E+zVq3sOG7Hc3VL5JxE9AY/SIyp5ePMIrNVlLrOyQuk0LOQIcpJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lIWLWx8dgHcsTEVqplza6+9naUviv7sCsC3PH2iOdg4=;
- b=iB1pEWhVqNsm5oKszNEmnvYhVX0pP+g1GknWBAyco2dqyAlSQPtR99te7qsMpKFjZy+dsJ2LZQBUdK99R2o1SxFgYUjvkTCN935LadVCR+L6ESq1ITBODP+2XgYnc2iEqBRqutzPuHKBYzu7YikcxPlzdThV1LxQO3wuj18HWfVgDtN0Q1Q8D2+1MSrSDn5Cqz5vf3kV0WoQSYuke2XNmxhgIfnJoXQALUAEx0iZhRcPH9aiMJ2i5wTot6h/ZjxHw1p99jjBh7Ox0JSY5oqhRcFbAQTtkPuZi41eoOJtj6ZOLyqPj2VlNvDS9tPBPf9IdFl1b18R4nHQRJeaszgyzg==
+ bh=jlzV2EmP1qtPhJ8DoYMKNaP1aQPvRPicklhflKj4VMQ=;
+ b=aN31WeB7c1GWIP6V73lqEzITXYps60afzTJWxspqh1Z8yogBvW2uyIqLhrInpEzCcGzyufyTr81dqCysclcS5Zz1KV7N3Isc5Y7GJGzDIONkxKHdkytje8Lg7Y/ibOm2HPZ2uWBLhkk+iskMtuxEN8y+/Sb03QRRmLr5WWsH4ZAtNG1HdUAvMrehZj6cVrk83kaTeJIvpOIH4CRbtLF3F89tsPehG9u97Fxx6vy0aB7yKL6nGow0DBh2PoJiOKT+XJSIpVuewvr6T/5fVhu85xBEycN82frIArOqpFVKLp3WCkRtP22k5G61fA4HdPSKUMdlbsFWilFxRSJvwPSLhA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <fe73f06e-76e2-cfd8-64ca-7117a3835818@suse.com>
-Date: Fri, 7 Jul 2023 08:37:03 +0200
+Message-ID: <e6fb3b99-d59a-eceb-024a-8b791ef20129@suse.com>
+Date: Fri, 7 Jul 2023 08:40:30 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [XEN PATCH 4/5] x86/x86_emulate: change parameter name from 's'
- to 'state'
+Subject: Re: [XEN PATCH v2] x86: make function declarations consistent with
+ definitions
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+ consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-References: <cover.1688049494.git.federico.serafini@bugseng.com>
- <8c8bc96b96a1111a4651f970f506d304809ea40d.1688049495.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2306291230500.3936094@ubuntu-linux-20-04-desktop>
- <e7af3c85-92ec-7d0f-0e63-3a1e5d65877e@suse.com>
- <alpine.DEB.2.22.394.2307051544340.761183@ubuntu-linux-20-04-desktop>
- <c2a52a88-a8bf-3e14-f3f5-616177c3d807@suse.com>
- <alpine.DEB.2.22.394.2307061450530.761183@ubuntu-linux-20-04-desktop>
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+References: <1b2d5be30c0e4f335e59dce6e7c001cb0805d702.1688465215.git.federico.serafini@bugseng.com>
+ <a16cdb60-1307-636e-1473-e5388e8f79d9@suse.com>
+ <alpine.DEB.2.22.394.2307051604380.761183@ubuntu-linux-20-04-desktop>
+ <2c7d71cb-067d-8dac-3ee4-3af42b2756f3@suse.com>
+ <alpine.DEB.2.22.394.2307061506560.761183@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2307061450530.761183@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2307061506560.761183@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0066.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0079.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8135:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11f9c49c-a8d1-4cea-06c1-08db7eb494f9
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBBPR04MB7625:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4fc0e3d-d9dc-4ea1-8b4b-08db7eb51020
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	PR0VKHgfkQV4Eomgr3PL5Q4ngYqE9dfMJ21TWLTo+oKx4fGq4tUYM90YP+VHbdCgUbxM+bUs35R4lPBB2ZyidadqFznCa/U+pKWdBhG6o+zvQWgx2R6kGYWu1eNMrE0UUV7madsYWJFfWjSTmyGh4JH8RtTTzf05Fynasif/W0uEn1y2RYx09KX0qiCeT++Dn8IIMrLgfZUJ7ck9V4LZgydfqm9cJl0OUkbNW7i7cSqY4fhjkg0d27GNez2NzhXmiTHoDqL937A21lYELQGxlzJ9O/Zml4G6sjeqi7p3cvROEfWDRYlTBj5Ap6fR1vrUHlJklr982A6ZiJwmoq45tVdFcgbzB21svLGtD4l6tq3ZcptHdzJOzGyoRrm4XCe0ndGV+STWXHE6x9Lw23J+z5nSFrvkOF0rP00vU44Vi5c8M06DKG6gAYODgOlLjfNlbk6pIja2N5oE5WiQVj4h0ntnj8zKKtfi85VVmsYI9DR9bM0I4erYNU5/+KR6OCP0ffFxoHOJ64qCMmYMjVW2eWw+OxX5k2aP47w7bXOgPfT4s8OOWvko7hiUIuw88uT3V+qePjqrsJhLUnhsoOJ1OT6wDyagQkyGFnQ9XinMiR/v9V/qHZHedNk+YWqHbALac+QuiaUcf/MUZ2rVsu9vtQ==
+	unmAbOcxn3RyJJDYgD2wUsdaDXkWF1hJTZwVb+lWBQm9yKGO+ctrdL3S3wWY2Q9KSFIHNqdb6kbY7yGeX64dfxYHCZgjfM9Il2zXEoZ2KzN73wyClYsTKUAw2Ly/k0qcgsOIqO9ofBq8Vt1uZHOFLg7uJpRoGge/j6/wQ54fMQSrdFxwm9374GDWVzvvWzVAKnm62PKnhto96Qv/IBszTiSOh7DOJwdY0WvXWk/Zghi6oganFBXp4YIJ04hW7GmCWn4Zb7Ovb8Fzwu3xIeaS/wsxHbeIuZ5CSPzak2ICGFeYmRTM8jZVjqA4PL7pQHediiruKjGSJUfsT4424oXEYxd6lpfITGKT71qVSJrvNvnvDtC+42SJJbjxi1QQoE0yI87snIYI2+pjZP72V/28Oy/vGLTmZAiATbJi5/PC0zoxZSrxW39Apn9PeUPjDg4qTpsvsS32WHbjhZ2eBWcsOldknAj1IPGfQibbY+alcPImTt2x+hqm8R/QNpooXAcM2QeguAiXy38wmUTcrJO9j63dM/5W3pEtG2o8BSHAM4zGCr/GBl2NMM+qvSUQ7pyAn5kihRXqwWTw+efImUjfS5XsSZESkT7nuIB1j2Qenrm5XvVfaS6+Pg1NXUKKs8WsXZkM028hLBdM0yUPhQxgzQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(366004)(396003)(39860400002)(376002)(346002)(451199021)(6916009)(66946007)(4326008)(66476007)(66556008)(38100700002)(2616005)(186003)(6666004)(31696002)(6486002)(54906003)(36756003)(53546011)(478600001)(86362001)(6506007)(6512007)(7416002)(26005)(8676002)(31686004)(8936002)(5660300002)(316002)(2906002)(83380400001)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(396003)(346002)(39860400002)(366004)(376002)(451199021)(31686004)(6486002)(478600001)(54906003)(83380400001)(2616005)(86362001)(31696002)(36756003)(186003)(66946007)(2906002)(53546011)(6506007)(26005)(41300700001)(6512007)(6916009)(38100700002)(5660300002)(4326008)(8676002)(7416002)(8936002)(66556008)(66476007)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2I5NDBnY09EakF3RVVCMFovNVBkUmgrbkRPNnpKNFI0bmY5Si9qMG9CQmVJ?=
- =?utf-8?B?eGJOUWtiU015aHgvdzFqT25qRnNIMWhZZ2NuUENXb1hFaHFicjRCNVYwN1RC?=
- =?utf-8?B?YVlwSjRleW53MTBBTWZzUGFtMEFZeWtYUVhJNVpJcU82c1hPL0cwb1Zuc3VS?=
- =?utf-8?B?bk0zdG56MEc5SU1pZ1gvK0JCYnNodkZ5RjJyZW1pZ0dyV2ExVnhnMUVZVko4?=
- =?utf-8?B?M2NNQXliaDdmNWsvUUtZczBPblZ4WndSZHE1SEd2dmRWYXlxSnY2K0tzN0wx?=
- =?utf-8?B?NlZsemFla2VIaTZMdlhDR3BNQWpNN2x5QzRDenJ0RDl0aVFKbFFDdzhNYStF?=
- =?utf-8?B?Y0k2RnNJKzFoTXBQQldtdk9mZzVWaHFmUUhySnNibzI1VjNRZzNMR3ViVXZ2?=
- =?utf-8?B?cGRTaDU2K1BXL1lSRzlza2NpODE2K2FadVBUQzIydDRMS2E5OE03UFJzQ3VM?=
- =?utf-8?B?cG9JRGl1UEFoMVJqdmE4d1p2Zi9yWk5Jd1RDdWkrOUpWTGFqdTN5RzRoZFFy?=
- =?utf-8?B?K2xyZ0FhTGkxSVY4bmVpSzkvQzl5TTZ4aFFiVEJlZXN4YTZJRm5OS0ZOTkcv?=
- =?utf-8?B?YUJJQjhZbFF6TmNGcXFkYWo0WmJoS0dOQy9ZWmduMDBwQi9QOHJjR2tRMU53?=
- =?utf-8?B?NEtGNnIyK0Zjd3o0VHZ1cWVTZzI4WVgvM1hMWXladVRvVHVLVU5EOWdvNTVS?=
- =?utf-8?B?ZHU2cWlqVkVzc1NTdmNlY0Fva3lwQzhRVHQvaTdnNlY4MHBIQkcwa3R0S09h?=
- =?utf-8?B?UXV5cEV6V1R5QXgyMjgrMmdyOGJ3T0pIQWkzTnVzTjBVVWpMTm1TQWl3OFRG?=
- =?utf-8?B?dm5hNkR1Q2x4UWNEU0daR3hRVldKTXpwWmJtNWZENkRlYm15MjZjK1B3ZFEy?=
- =?utf-8?B?ZjFMY2thbW9nRk8reUo3U1RHUUVDRXpybkdyaXpwaFdVK0pBOHRJdklsMHRE?=
- =?utf-8?B?QmRUVTFXV0lTbGVkR3hXelc3dEl0alNPTUdta3NqM2MxTjJrd3h6RlB2L0Js?=
- =?utf-8?B?WEZ1a1VDbWNaa2E3ZzBIZ0JISVhlQ2p6YjhtbmIvYWJmcWJ0aUJ3ejdQbzdK?=
- =?utf-8?B?ZTVJeDZ2U0hLdk5sb2RCMmUxNkRUcE12bjVuKzgzNWNuVFAvY0RxaGRDcFZK?=
- =?utf-8?B?UzVEcG4rSlhkU05ManlldkoyS2x2OGN2dnhZSHp1Y080Mk55SG5tNGJTbXU3?=
- =?utf-8?B?Mk9hbDY1RjJlOTh0L1gxb21VeVYyK3hNOWloWERoMEJpWGJVQUJPd3JQWkRG?=
- =?utf-8?B?N2dtMThjMnlIOFhZTlRBZWFTVzAzV0RtZzJnMGpMaVpuZUtjVkFYSFA0ekdU?=
- =?utf-8?B?SEErVkhYendmVDgzb1dHVXpBN2JOSG9SSEdnMmlBak94S2l6aVlnVWlnM28x?=
- =?utf-8?B?b0M1L25pQTJqeXg2a2lwZVkvVG9HdEl1OGIwU1FlbVBEdzNkd0ZIbmhzZ1JT?=
- =?utf-8?B?ZldsY1A1VTVyaHdzbHF1bWRIWEFPbmlJa29YZWo1Mjloajk2V2RwSGNPNGFk?=
- =?utf-8?B?eEF2WTRMeGhwd3JTMFdiTVFqZGFwZWQvVytBRHk3VFV2akFJdXVSUmVVdVJw?=
- =?utf-8?B?QUJyRllxMXZlY2h5ZGxHN2wySkxIdGc1WVhmck1qMk9IWjFFZ2VVTlF5VUo2?=
- =?utf-8?B?eGc3OGxjYlFzcGhJdXd1bWtkTXNJTUc5bHlJQjN2Tld6OTNRVzR2N2k4djRM?=
- =?utf-8?B?bG1Na2dsYzB4d0luNDBoUGV3eFRINVdudXlGQVc3cUtrSUliVVIyYk9rcXpM?=
- =?utf-8?B?OXUvMHdUemRBakgvbjByQXRyREVaTEQ4cGEyS1k0aE9qY1Q2UGFUL05EMVk1?=
- =?utf-8?B?M2FEMXdWRk5ESFN5aUZxT2VxMU1XMU91ZndFeXZ6YXMvQUlPTU1HaVZ0TzVR?=
- =?utf-8?B?dHJSa2V4THFYOFhFaTVRWWR6L3dEMkk1T0RKOXNWWE9hWENtaEZhbnU4cmhB?=
- =?utf-8?B?RWRpdU9xazJzYUtWOGpxVjV2dGhEN3p5ckJ4SkNxMDFXU2Jjdzd3WHhrRU1G?=
- =?utf-8?B?YmdHVnlFZ0h0ZmtDZUw2ZkxOWjRDTE5XRzVReGRtMEw1cDhhdk9pQUZObGpj?=
- =?utf-8?B?QUEzOU5BclNicUxGN2szSHhicCtaa1psYm11RkRxdkxrdkluVGVhRWUzZ1JB?=
- =?utf-8?Q?SYIUQ5Q9Njy60Tm2I5VfQjUPs?=
+	=?utf-8?B?TUtwbHpxT3JNbHFqR2xNV3MvcW1HUWZWNDU5OUd4aXZkWDZqaFZhNDhZY3pN?=
+ =?utf-8?B?bjh4dU1PSWtSVE9ZYnRxRVRUUnJIZ05vemJYL1ZYRWxVdFA4TlFMZUNLM2pa?=
+ =?utf-8?B?bldlaWQwbHRacG5SSWpNNVB6NUZUSVUvajdnOVEwb0JsdWNFWlJPWXo5M0Fw?=
+ =?utf-8?B?SHR5a2JNakROaGNVb3owZTc2aFpPZUFDQ0VhWGtSaWt5UTR2V3FrUDh0Ui9C?=
+ =?utf-8?B?RmpOSGZWZklwOHpzWU1oVjYvNS9pZjhpTlZwZk5PR2JIOFcyL1NGd1Ziby9R?=
+ =?utf-8?B?WHJ4Q24wK09UVmMyWGZTczM5U1g5NGVMcDJuVGJlTTVxZ2tYSjZlQlg2RWpq?=
+ =?utf-8?B?TkJ3Q0tYcEpsRlpMYm5nUG5nd1YyQkJ2aC8wRW05eEJXbDVXanVyUFgxRyt0?=
+ =?utf-8?B?Nnlvd3F2Mk5xNDBiOW9sOFFRUURpSVVwQXVycGdMb0hmbmpMVkkrRVFXbjlC?=
+ =?utf-8?B?SUcyc2hPejRHVXVSMXpGdGRzQWRrRklFYnJhTlIySWdpMjRiV21oNUs5Zytz?=
+ =?utf-8?B?M29VRlRlU0FJZytxa3RWTzZEdXEybVZOTjVRNDUzN3FMamNHTlRtaVFYd2JB?=
+ =?utf-8?B?S2twZjhHVDhYUXRnKzFzL1lkNW9aV3JZZDVBY2dRbkhFaFBaZ1RramJ5TVU1?=
+ =?utf-8?B?ekpSbXkyL2JVcUI4RGhIRWEyK1A0UjFSSG50cGNrTVhWZ3NsWGo2ak5kK1NI?=
+ =?utf-8?B?Z3FoWVNhMDdZMk9jd1BnU1dKUW9vRENpb25PUTk4djRjWGFMRXJJSVJlcnl4?=
+ =?utf-8?B?NHhNTlkvNEh3aUEvYXNtYi9GN0tmM0RhanNLY0k2TGI4cHA5anlweFR0bnoz?=
+ =?utf-8?B?czFjTStnN1JpRkJFSlFwTnVUMFN5b2JPc1JOYkVkSDFqc0JXZ0F6cmMyOGlH?=
+ =?utf-8?B?UENQbURwL0FUNXhoM3ZwbnFqd1VLZ0oyWWlGUnRGQTNLaEF6TmNWZEp6Kzh5?=
+ =?utf-8?B?d2trSkN3L1JWTjhzNVlQdzlxMENTRVJLZzdLbVlwUitiYlBOVGR5SUMxdmFu?=
+ =?utf-8?B?ZGxyU0RkT3gvV3g0R3dMMmZaNDc1cnVyaHROUmZpamZxNGE0ZXo4TXI5cWRy?=
+ =?utf-8?B?cDZ3ejdEOGtzWWMrcitlbVFGVlRjUk1lV2dZSENkRHdvS2VqWFd5YmprQ0NH?=
+ =?utf-8?B?QXprVXlvTzN2YnFIUTdaU1B0OUJXUktYSTVXWmlWT3ZLRzZRV1ZMSUpOMDRl?=
+ =?utf-8?B?L08wZFhqTlJ0L2hNOVE4NS93cmhyam9MaTZLUlROZzJhNXJUY0tCZkY1MGRu?=
+ =?utf-8?B?UjBhRlVqaGdOOXhGQkRkcWVmd21BMmJySWU5VlV6eXNEZis4dWxVM0pnVHll?=
+ =?utf-8?B?Y2JvNFRXZTg4MFlPS2JKTUV6bUY4Um5JSGcvUkExRnkzUGk0d0NMY241NHpB?=
+ =?utf-8?B?TzN0NEk4ZGJ4bzZoek4rM3V6V0kxSE9GN21MQ3RIeFVxaFRhendIUUhtYm80?=
+ =?utf-8?B?cXoxbHZEcVBUd0kyRFc3UFRRbm04ODhIVXdmUE5uK2V3VE04TTc4eXpVV3V3?=
+ =?utf-8?B?dTZxNTRlckViTVFIckUrVFh2K2JZUWJ3OS9qdjU1eDl1WE9WTlNQVjMzcDk5?=
+ =?utf-8?B?NjBCK1ZJdldMNDZjdUMya3g4QWJ3dXJqTDlYZGNidmdOZzJUZEVGVHVYSzJu?=
+ =?utf-8?B?RXkxWit4Y3N0R2ZSK3FIZFY3S1F4Nno5K1ZhZE9uY2JYV090OUkyc1NYNkgv?=
+ =?utf-8?B?YjFROERmM2Z1bkR2eGsxK002WVpNczIyVE5BNllVd2syVVRGdmoxUjNEdUt1?=
+ =?utf-8?B?dU9hbEVFbHA2VFBqclN1T3NwMmVjYlZKMFUzbUVjandBUWF2QkJCbHA5WmRv?=
+ =?utf-8?B?UlpHS2FOUmswcXFwSDR2SThWY3VTRENuT3ZYZStwdXBoRHZxcXIvOHJIc2Fa?=
+ =?utf-8?B?ZWxKSnJUeENua2JBYU0wZUVWSG5zQjFlVjJocnR6dXpEMnExc25pSEVrMWEw?=
+ =?utf-8?B?YWp1M0dZRVBBUnE3Qms1MFpuM0F3M2tNWHRaOHBSQ3NNR0gyZ2hSdDQ0cndv?=
+ =?utf-8?B?dDRvaVNEa21GNElwMjhFYnBGMGN3UDd1YlVOdTAzblZQcGM5Mm1UcEh5d1Mw?=
+ =?utf-8?B?U1VHOEF4eWYveG5yUjVodi8rMXJDRVR5VFRhU1ZBWVdndVBrUUY2TVptWVhJ?=
+ =?utf-8?Q?lK33CQMXBgcLKMkWeLe5dOQ5Q?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11f9c49c-a8d1-4cea-06c1-08db7eb494f9
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4fc0e3d-d9dc-4ea1-8b4b-08db7eb51020
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 06:37:06.2789
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 06:40:32.9628
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lAyJx5jDjM5+txuBjQaVQ8LMZCZdGUOnXR9DKtGF06c8wouwKaBMiij36PZE+TGByvgm6vm49UpESvLwHfrfPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8135
+X-MS-Exchange-CrossTenant-UserPrincipalName: VA+ZyMKXsf3CSM7b9E3L2MmFUOrCOsTvszJ3faWkQ1+iWpqb/qLvWbJPQILxFLWCooUIHCUA7e+sor71ZYRqaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7625
 
-On 07.07.2023 00:05, Stefano Stabellini wrote:
+On 07.07.2023 00:29, Stefano Stabellini wrote:
 > On Thu, 6 Jul 2023, Jan Beulich wrote:
->> On 06.07.2023 00:49, Stefano Stabellini wrote:
+>> On 06.07.2023 01:22, Stefano Stabellini wrote:
 >>> On Tue, 4 Jul 2023, Jan Beulich wrote:
->>>> On 29.06.2023 21:31, Stefano Stabellini wrote:
->>>>> On Thu, 29 Jun 2023, Federico Serafini wrote:
->>>>>> Change parameter name from 's' to 'state' in function definitions in
->>>>>> order to:
->>>>>> 1) keep consistency with the parameter names used in the corresponding
->>>>>>    declarations;
->>>>>> 2) keep consistency with parameter names used within x86_emulate.h;
->>>>>> 3) fix violations of MISRA C:2012 Rule 8.3.
->>>>>>
->>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>> On 04.07.2023 12:23, Federico Serafini wrote:
+>>>>> Change mechanically the parameter names and types of function
+>>>>> declarations to be consistent with the ones used in the corresponding
+>>>>> definitions so as to fix violations of MISRA C:2012 Rule 8.3 ("All
+>>>>> declarations of an object or function shall use the same names and type
+>>>>> qualifiers") and MISRA C:2012 Rule 8.2 ("Function types shall be in
+>>>>> prototype form with named parameters").
 >>>>>
->>>>> You could use x86emul: as tag in the title. I'll let Jan choose the tag
->>>>> he prefers.
+>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 >>>>
->>>> x86emul: or x86/emul: is what we commonly use. That said, I don't like
->>>> this change. The files touched are pretty new, and it was deliberate
->>>> that I used s, not state, for the names. This is shorthand much like
->>>> (globally) we use v (instead of vcpu) and d (instead of domain).
+>>>> On top of my earlier remark (when this was part of a series):
 >>>
->>> Are you suggesting that the functions changed in this patch should be
->>> adapted in the other direction instead?  Meaning that the declaration is
->>> changed to match the definition instead of the opposite?
+>>> I am not addressing specifically this comment. I am trying to build a
+>>> common understanding on how to do things so that we can go faster in the
+>>> future.
 >>>
->>> If so, are you referring to all the functions changed in this patch? Or
->>> only some?
+>>> In general, as discussed at Xen Summit, in order to successfully merge
+>>> large numbers of changes in the coming weeks we should try to keep
+>>> mechanical changes mechanical. Separate non-mechanical changes into
+>>> different patches.
+>>>
+>>> This patch is large but mechanical. If I understand you correctly, you
+>>> are asking:
+>>> 1) to split the patch into smaller patches
+>>> 2) make a couple of non-mechanical changes described below
+>>>
+>>>
+>>> For 1), in my opinion it is not necessary as long as all changes remain
+>>> mechanical. If some changes are not mechanical they should be split out.
+>>> So if you are asking non-mechanical changes in 2), then 2) should be
+>>> split out but everything else could stay in the same patch.
+>>>
+>>> If you'd still like the patch to be split, OK but then you might want to
+>>> suggest exactly how it should be split because it is not obvious: all
+>>> changes are similar, local, and mechanical. I for one wouldn't know how
+>>> you would like this patch to be split.
 >>
->> All of the files touched here are ones which were recently introduced,
->> and which are deliberately the way they are. This "deliberately" really
->> goes as far as declarations and definitions disagreeing in names: For
->> the former, what matters are adjacent declarations in the header. For
->> the latter what matters is code readability. I'm sorry, I think the
->> Misra rule simply gets in the way of the original intentions here (and
->> I continue to disagree with there being any confusion from name
->> mismatches between declarations and definitions, the more that in the
->> case here it would be easy to avoid by simply omitting names in
->> declarations, but that is violating yet another rule I don't fully
->> agree with either, as voiced when discussing it).
+>> So I gave a clear reason and guideline how to split: To reduce the Cc
+>> list of (because of requiring fewer acks for) individual patches, and
+>> to separate (possibly) controversial from non-controversial changes.
+>> This then allows "easy" changes to go in quickly.
 >>
->> My preferred course of action here would be to simply drop the patch.
->> The least bad adjustment, if one is absolutely necessary, would be to
->> change the declarations, but then in a way that all adjacent ones
->> remain consistent (which may in turn require some _other_ definitions
->> to change). The mid- to long-term goal certainly is to use "s" more
->> where "state" may be used right now.
+>> I realize that what may be controversial may not always be obvious,
+>> but if in doubt this can be addressed in a v2 by simply omitting such
+>> changes after a respective comment was given (see also below).
+> 
+> So the guideline is to separate by maintainership, e.g.
+> x86/arm/common/vpci
+> 
+> Also separate out anything controversial and/or that receives feedback
+> so it is not mechanical/straightforward anymore.
 > 
 > 
-> If we drop this patch then we have the problem that Eclair and other
-> scanners will detect these as violations. Also this source file would
-> not be consistent with the rest of the codebase causing issues in the
-> future. Any patch updating this file would trigger new MISRA C
-> violations in the scanners.
+>>> For 2), I would encourage you to consider the advantage of keeping the
+>>> changes as-is in this patch, then send out a patch on top the way you
+>>> prefer. That is because it costs you more time to describe how you
+>>> would like these lines to be changed in English and review the full
+>>> patch a second time, than change them yourself and anyone could ack them
+>>> (feel free to CC me).
+>>>
+>>> For clarity: I think it is totally fine that you have better suggestions
+>>> on parameter names. I am only pointing out that providing those
+>>> suggestions as feedback in an email reply is not a very efficient way to
+>>> get it done.
+>>
+>> What you suggest results in the same code being touched twice to
+>> achieve the overall goal (satisfy Misra while at the same time not
+>> making the code any worse than it already is). I'd like to avoid this
+>> whenever possible, so my preference would be that if the English
+>> description isn't clear, then the respective change would best be
+>> omitted (and left to be addressed separately).
 > 
-> So I don't think we can drop this patch but we could add deviations. I
-> think your suggestion of "changing the declaration in a way that all
-> adjacent ones remain consistent" is better, but let me also provide this
-> option.
+> Yes, I think that would work. Basically the process could look like
+> this:
 > 
-> Basically, we would keep these declarations/definitions as is, and add
-> a one-line in-code comment for each deviation. Such as:
-> 
-> /* SAF-2-safe R8.3 */
-> bool cf_check
-> x86_insn_is_mem_write(const struct x86_emulate_state *state,
->                       const struct x86_emulate_ctxt *ctxt);
-> 
-> Your suggestion of changing the declaration is better in my opinion. Do
-> you agree?
+> - contributor sends out a patch with a number of mechanical changes
+> - reviewer spots a couple of things better done differently
+> - reviewer replies with "drop this change, I'll do it" no further
+>   explanation required
+> - in parallel: contributor sends out v2 without those changes for the
+>   reviewer to ack
+> - in parallel: reviewer sends out his favorite version of the changes
+>   for anyone to ack (assuming he is the maintainer)
 
-Yes. I'm not really happy with any of the options resulting from us following
-the various involved rules (also in particular 8.2), but this looks to be the
-least bad of them.
+For this last point, I don't see it needing to happen in parallel.
+Reviewers may be busy with other things, and making less mechanical
+changes can easily be done a little later. The overall count of
+violations is still going to decrease.
 
 Jan
+
+> This should work well with MISRA C because they are a large number of
+> changes but each of them very simple, so I really believe it will take
+> less time for the maintainer to write a patch than try to explain in
+> English and more back and forth.
+> 
+> I think this is less work for anyone involved. Let's give it a try!
+
 
