@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB04274AC8E
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 10:11:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560268.876048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12CA974ACAB
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 10:19:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560274.876058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHgYh-0003T4-1g; Fri, 07 Jul 2023 08:11:19 +0000
+	id 1qHggI-0004Dm-Ty; Fri, 07 Jul 2023 08:19:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560268.876048; Fri, 07 Jul 2023 08:11:19 +0000
+Received: by outflank-mailman (output) from mailman id 560274.876058; Fri, 07 Jul 2023 08:19:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHgYg-0003Qm-Tr; Fri, 07 Jul 2023 08:11:18 +0000
-Received: by outflank-mailman (input) for mailman id 560268;
- Fri, 07 Jul 2023 08:11:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VdXt=CZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qHgYf-0003NQ-SI
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 08:11:17 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d813dbbf-1c9d-11ee-8611-37d641c3527e;
- Fri, 07 Jul 2023 10:11:15 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 622CD2237F;
- Fri,  7 Jul 2023 08:11:15 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 30DF6139E0;
- Fri,  7 Jul 2023 08:11:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id JF/7CaPIp2SnMgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 07 Jul 2023 08:11:15 +0000
+	id 1qHggI-0004BH-Q7; Fri, 07 Jul 2023 08:19:10 +0000
+Received: by outflank-mailman (input) for mailman id 560274;
+ Fri, 07 Jul 2023 08:19:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kjyJ=CZ=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qHggH-0004BB-GH
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 08:19:09 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f1a8289b-1c9e-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 10:19:08 +0200 (CEST)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
+ [209.85.221.174])
+ by support.bugseng.com (Postfix) with ESMTPSA id B90674EE0C87
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jul 2023 10:19:07 +0200 (CEST)
+Received: by mail-vk1-f174.google.com with SMTP id
+ 71dfb90a1353d-47e25709402so638590e0c.0
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Jul 2023 01:19:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,308 +43,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d813dbbf-1c9d-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688717475; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=arIAW3OveDWr1GaHNZeCtrtLD9Pje9pa5DU23lYKgnE=;
-	b=akqxqzaWpUxYBOkPhdHnx7NVUL6KokD8V1vWp7mJP3dcjCbg1zaNCHjCNryyS8NjVdX4Bz
-	i5wGXPFfJ7c1Y9uuJez1CgMOqzza34PbA+oYeOL4u66OtOFS7JUY/NusPh4GgvaNOBvr+y
-	dRQBGWI0vA+UZ34evXa9pzHRh9bcC3M=
-Message-ID: <8b862919-296d-d0b6-d4c1-465b62cfa37f@suse.com>
-Date: Fri, 7 Jul 2023 10:11:14 +0200
+X-Inumbo-ID: f1a8289b-1c9e-11ee-b237-6b7b168915f2
+X-Gm-Message-State: ABy/qLYMrwMRUtC4IDYyQ9PHbXPhK2P5CIM4cXhXkiE+t/KiXlBm/iUn
+	Q/B3kpGMPFZ1VKyJ6+gV2fRg4aBt3ZEW31frPhY=
+X-Google-Smtp-Source: APBJJlERXkLn4rnLZROi+wS0Kk5grHYNuCk9w2E3B1GGUIiH8XHCixQHB7c4QSlTaKg09pTO/orxpb3caKrhoNoCsks=
+X-Received: by 2002:a05:6102:3a72:b0:443:695d:b91a with SMTP id
+ bf18-20020a0561023a7200b00443695db91amr2889414vsb.28.1688717946615; Fri, 07
+ Jul 2023 01:19:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-Content-Language: en-US
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20230621131214.9398-1-petr.pavlu@suse.com>
- <20230621131214.9398-3-petr.pavlu@suse.com>
- <15e31609-6c45-7372-76ee-0adf7a64fe88@epam.com>
- <alpine.DEB.2.22.394.2306281745010.3936094@ubuntu-linux-20-04-desktop>
- <f1a81ac1-5b9a-6d19-1a11-b98685bd2430@suse.com>
- <d5d6caa5-6ca6-b4b8-5334-fc156eeeb21d@epam.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <d5d6caa5-6ca6-b4b8-5334-fc156eeeb21d@epam.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ZRTo4Ebpgwa47mR0WqohChe9"
+References: <cover.1688559115.git.gianluca.luparini@bugseng.com>
+ <f30ef7c2cda2516d9ef07bb79e5da5513cd90c6c.1688559115.git.gianluca.luparini@bugseng.com>
+ <f3b6170a-db0d-ef00-b3f8-7deba17b9fe2@suse.com>
+In-Reply-To: <f3b6170a-db0d-ef00-b3f8-7deba17b9fe2@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Date: Fri, 7 Jul 2023 10:18:55 +0200
+X-Gmail-Original-Message-ID: <CAFHJcJuSPHDUqVOw_VSu+vEQGEvgtz30ef78vU-Ona1EQnJaLQ@mail.gmail.com>
+Message-ID: <CAFHJcJuSPHDUqVOw_VSu+vEQGEvgtz30ef78vU-Ona1EQnJaLQ@mail.gmail.com>
+Subject: Re: [XEN PATCH v2 07/13] x86/vmx: fix violations of MISRA C:2012 Rule 7.2
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Gianluca Luparini <gianluca.luparini@bugseng.com>, 
+	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, 
+	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000055832605ffe14911"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ZRTo4Ebpgwa47mR0WqohChe9
-Content-Type: multipart/mixed; boundary="------------0p72qKVXEjc8Akettz9hL15p";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Message-ID: <8b862919-296d-d0b6-d4c1-465b62cfa37f@suse.com>
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-References: <20230621131214.9398-1-petr.pavlu@suse.com>
- <20230621131214.9398-3-petr.pavlu@suse.com>
- <15e31609-6c45-7372-76ee-0adf7a64fe88@epam.com>
- <alpine.DEB.2.22.394.2306281745010.3936094@ubuntu-linux-20-04-desktop>
- <f1a81ac1-5b9a-6d19-1a11-b98685bd2430@suse.com>
- <d5d6caa5-6ca6-b4b8-5334-fc156eeeb21d@epam.com>
-In-Reply-To: <d5d6caa5-6ca6-b4b8-5334-fc156eeeb21d@epam.com>
+--00000000000055832605ffe14911
+Content-Type: text/plain; charset="UTF-8"
 
---------------0p72qKVXEjc8Akettz9hL15p
-Content-Type: multipart/mixed; boundary="------------kb0xkp33y6IjSL4ev99Cn3fp"
+Il giorno gio 6 lug 2023 alle ore 10:04 Jan Beulich <jbeulich@suse.com> ha
+scritto:
 
---------------kb0xkp33y6IjSL4ev99Cn3fp
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> On 05.07.2023 17:26, Simone Ballarin wrote:
+> > --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> > +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> > @@ -257,14 +257,14 @@ uint64_t get_vvmcs_virtual(void *vvmcs, uint32_t
+> vmcs_encoding)
+> >
+> >      switch ( enc.width ) {
+> >      case VVMCS_WIDTH_16:
+> > -        res &= 0xffff;
+> > +        res &= 0xffffU;
+>
+> I don't think the suffix is needed in cases like this one, and ...
+>
 
-T24gMDcuMDcuMjMgMTA6MDAsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiANCj4g
-DQo+IE9uIDA3LjA3LjIzIDEwOjA0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPiANCj4gSGVs
-bG8gSnVlcmdlbg0KPiANCj4gDQo+PiBSZS1yZWFkaW5nIHRoZSB3aG9sZSB0aHJlYWQgYWdh
-aW4gLi4uDQo+Pg0KPj4gT24gMjkuMDYuMjMgMDM6MDAsIFN0ZWZhbm8gU3RhYmVsbGluaSB3
-cm90ZToNCj4+PiBPbiBXZWQsIDIxIEp1biAyMDIzLCBPbGVrc2FuZHIgVHlzaGNoZW5rbyB3
-cm90ZToNCj4+Pj4gT24gMjEuMDYuMjMgMTY6MTIsIFBldHIgUGF2bHUgd3JvdGU6DQo+Pj4+
-DQo+Pj4+DQo+Pj4+IEhlbGxvIFBldHINCj4+Pj4NCj4+Pj4NCj4+Pj4+IFdoZW4gYXR0ZW1w
-dGluZyB0byBydW4gWGVuIG9uIGEgUUVNVS9LVk0gdmlydHVhbCBtYWNoaW5lIHdpdGggdmly
-dGlvDQo+Pj4+PiBkZXZpY2VzIChhbGwgeDg2XzY0KSwgZG9tMCB0cmllcyB0byBlc3RhYmxp
-c2ggYSBncmFudCBmb3IgaXRzZWxmIHdoaWNoDQo+Pj4+PiBldmVudHVhbGx5IHJlc3VsdHMg
-aW4gYSBoYW5nIGR1cmluZyB0aGUgYm9vdC4NCj4+Pj4+DQo+Pj4+PiBUaGUgYmFja3RyYWNl
-IGxvb2tzIGFzIGZvbGxvd3MsIHRoZSB3aGlsZSBsb29wIGluIF9fc2VuZF9jb250cm9sX21z
-ZygpDQo+Pj4+PiBtYWtlcyBubyBwcm9ncmVzczoNCj4+Pj4+DQo+Pj4+PiAgwqDCoMKgICMw
-wqAgdmlydHF1ZXVlX2dldF9idWZfY3R4IChfdnE9X3ZxQGVudHJ5PTB4ZmZmZjg4ODAwNzRh
-ODQwMCwNCj4+Pj4+IGxlbj1sZW5AZW50cnk9MHhmZmZmYzkwMDAwNDEzYzk0LCBjdHg9Y3R4
-QGVudHJ5PTB4MA0KPj4+Pj4gPGZpeGVkX3BlcmNwdV9kYXRhPikgYXQgLi4vZHJpdmVycy92
-aXJ0aW8vdmlydGlvX3JpbmcuYzoyMzI2DQo+Pj4+PiAgwqDCoMKgICMxwqAgMHhmZmZmZmZm
-ZjgxNzA4NmI3IGluIHZpcnRxdWV1ZV9nZXRfYnVmDQo+Pj4+PiAoX3ZxPV92cUBlbnRyeT0w
-eGZmZmY4ODgwMDc0YTg0MDAsIGxlbj1sZW5AZW50cnk9MHhmZmZmYzkwMDAwNDEzYzk0KQ0K
-Pj4+Pj4gYXQgLi4vZHJpdmVycy92aXJ0aW8vdmlydGlvX3JpbmcuYzoyMzMzDQo+Pj4+PiAg
-wqDCoMKgICMywqAgMHhmZmZmZmZmZjgxNzVmNmIyIGluIF9fc2VuZF9jb250cm9sX21zZyAo
-cG9ydGRldj08b3B0aW1pemVkDQo+Pj4+PiBvdXQ+LCBwb3J0X2lkPTB4ZmZmZmZmZmYsIGV2
-ZW50PTB4MCwgdmFsdWU9MHgxKSBhdA0KPj4+Pj4gLi4vZHJpdmVycy9jaGFyL3ZpcnRpb19j
-b25zb2xlLmM6NTYyDQo+Pj4+PiAgwqDCoMKgICMzwqAgMHhmZmZmZmZmZjgxNzVmNmVlIGlu
-IF9fc2VuZF9jb250cm9sX21zZyAocG9ydGRldj08b3B0aW1pemVkDQo+Pj4+PiBvdXQ+LCBw
-b3J0X2lkPTxvcHRpbWl6ZWQgb3V0PiwgZXZlbnQ9PG9wdGltaXplZCBvdXQ+LA0KPj4+Pj4g
-dmFsdWU9PG9wdGltaXplZCBvdXQ+KSBhdCAuLi9kcml2ZXJzL2NoYXIvdmlydGlvX2NvbnNv
-bGUuYzo1NjkNCj4+Pj4+ICDCoMKgwqAgIzTCoCAweGZmZmZmZmZmODE3NjE4YjEgaW4gdmly
-dGNvbnNfcHJvYmUNCj4+Pj4+ICh2ZGV2PTB4ZmZmZjg4ODAwNTg1ZTgwMCkgYXQgLi4vZHJp
-dmVycy9jaGFyL3ZpcnRpb19jb25zb2xlLmM6MjA5OA0KPj4+Pj4gIMKgwqDCoCAjNcKgIDB4
-ZmZmZmZmZmY4MTcwNzExNyBpbiB2aXJ0aW9fZGV2X3Byb2JlDQo+Pj4+PiAoX2Q9MHhmZmZm
-ODg4MDA1ODVlODEwKSBhdCAuLi9kcml2ZXJzL3ZpcnRpby92aXJ0aW8uYzozMDUNCj4+Pj4+
-ICDCoMKgwqAgIzbCoCAweGZmZmZmZmZmODE5OGUzNDggaW4gY2FsbF9kcml2ZXJfcHJvYmUN
-Cj4+Pj4+IChkcnY9MHhmZmZmZmZmZjgyYmU0MGMwIDx2aXJ0aW9fY29uc29sZT4sIGRydj0w
-eGZmZmZmZmZmODJiZTQwYzANCj4+Pj4+IDx2aXJ0aW9fY29uc29sZT4sIGRldj0weGZmZmY4
-ODgwMDU4NWU4MTApIGF0IC4uL2RyaXZlcnMvYmFzZS9kZC5jOjU3OQ0KPj4+Pj4gIMKgwqDC
-oCAjN8KgIHJlYWxseV9wcm9iZSAoZGV2PWRldkBlbnRyeT0weGZmZmY4ODgwMDU4NWU4MTAs
-DQo+Pj4+PiBkcnY9ZHJ2QGVudHJ5PTB4ZmZmZmZmZmY4MmJlNDBjMCA8dmlydGlvX2NvbnNv
-bGU+KSBhdA0KPj4+Pj4gLi4vZHJpdmVycy9iYXNlL2RkLmM6NjU4DQo+Pj4+PiAgwqDCoMKg
-ICM4wqAgMHhmZmZmZmZmZjgxOThlNThmIGluIF9fZHJpdmVyX3Byb2JlX2RldmljZQ0KPj4+
-Pj4gKGRydj1kcnZAZW50cnk9MHhmZmZmZmZmZjgyYmU0MGMwIDx2aXJ0aW9fY29uc29sZT4s
-DQo+Pj4+PiBkZXY9ZGV2QGVudHJ5PTB4ZmZmZjg4ODAwNTg1ZTgxMCkgYXQgLi4vZHJpdmVy
-cy9iYXNlL2RkLmM6ODAwDQo+Pj4+PiAgwqDCoMKgICM5wqAgMHhmZmZmZmZmZjgxOThlNjVh
-IGluIGRyaXZlcl9wcm9iZV9kZXZpY2UNCj4+Pj4+IChkcnY9ZHJ2QGVudHJ5PTB4ZmZmZmZm
-ZmY4MmJlNDBjMCA8dmlydGlvX2NvbnNvbGU+LA0KPj4+Pj4gZGV2PWRldkBlbnRyeT0weGZm
-ZmY4ODgwMDU4NWU4MTApIGF0IC4uL2RyaXZlcnMvYmFzZS9kZC5jOjgzMA0KPj4+Pj4gIMKg
-wqDCoCAjMTAgMHhmZmZmZmZmZjgxOThlODMyIGluIF9fZHJpdmVyX2F0dGFjaA0KPj4+Pj4g
-KGRldj0weGZmZmY4ODgwMDU4NWU4MTAsIGRhdGE9MHhmZmZmZmZmZjgyYmU0MGMwIDx2aXJ0
-aW9fY29uc29sZT4pDQo+Pj4+PiBhdCAuLi9kcml2ZXJzL2Jhc2UvZGQuYzoxMjE2DQo+Pj4+
-PiAgwqDCoMKgICMxMSAweGZmZmZmZmZmODE5OGJmYjIgaW4gYnVzX2Zvcl9lYWNoX2RldiAo
-YnVzPTxvcHRpbWl6ZWQgb3V0PiwNCj4+Pj4+IHN0YXJ0PXN0YXJ0QGVudHJ5PTB4MCA8Zml4
-ZWRfcGVyY3B1X2RhdGE+LA0KPj4+Pj4gZGF0YT1kYXRhQGVudHJ5PTB4ZmZmZmZmZmY4MmJl
-NDBjMCA8dmlydGlvX2NvbnNvbGU+LA0KPj4+Pj4gIMKgwqDCoMKgwqDCoMKgIGZuPWZuQGVu
-dHJ5PTB4ZmZmZmZmZmY4MTk4ZTdiMCA8X19kcml2ZXJfYXR0YWNoPikgYXQNCj4+Pj4+IC4u
-L2RyaXZlcnMvYmFzZS9idXMuYzozNjgNCj4+Pj4+ICDCoMKgwqAgIzEyIDB4ZmZmZmZmZmY4
-MTk4ZGI2NSBpbiBkcml2ZXJfYXR0YWNoDQo+Pj4+PiAoZHJ2PWRydkBlbnRyeT0weGZmZmZm
-ZmZmODJiZTQwYzAgPHZpcnRpb19jb25zb2xlPikgYXQNCj4+Pj4+IC4uL2RyaXZlcnMvYmFz
-ZS9kZC5jOjEyMzMNCj4+Pj4+ICDCoMKgwqAgIzEzIDB4ZmZmZmZmZmY4MTk4ZDIwNyBpbiBi
-dXNfYWRkX2RyaXZlcg0KPj4+Pj4gKGRydj1kcnZAZW50cnk9MHhmZmZmZmZmZjgyYmU0MGMw
-IDx2aXJ0aW9fY29uc29sZT4pIGF0DQo+Pj4+PiAuLi9kcml2ZXJzL2Jhc2UvYnVzLmM6Njcz
-DQo+Pj4+PiAgwqDCoMKgICMxNCAweGZmZmZmZmZmODE5OGY1NTAgaW4gZHJpdmVyX3JlZ2lz
-dGVyDQo+Pj4+PiAoZHJ2PWRydkBlbnRyeT0weGZmZmZmZmZmODJiZTQwYzAgPHZpcnRpb19j
-b25zb2xlPikgYXQNCj4+Pj4+IC4uL2RyaXZlcnMvYmFzZS9kcml2ZXIuYzoyNDYNCj4+Pj4+
-ICDCoMKgwqAgIzE1IDB4ZmZmZmZmZmY4MTcwNmI0NyBpbiByZWdpc3Rlcl92aXJ0aW9fZHJp
-dmVyDQo+Pj4+PiAoZHJpdmVyPWRyaXZlckBlbnRyeT0weGZmZmZmZmZmODJiZTQwYzAgPHZp
-cnRpb19jb25zb2xlPikgYXQNCj4+Pj4+IC4uL2RyaXZlcnMvdmlydGlvL3ZpcnRpby5jOjM1
-Nw0KPj4+Pj4gIMKgwqDCoCAjMTYgMHhmZmZmZmZmZjgzMmNkMzRiIGluIHZpcnRpb19jb25z
-b2xlX2luaXQgKCkgYXQNCj4+Pj4+IC4uL2RyaXZlcnMvY2hhci92aXJ0aW9fY29uc29sZS5j
-OjIyNTgNCj4+Pj4+ICDCoMKgwqAgIzE3IDB4ZmZmZmZmZmY4MTAwMTA1YyBpbiBkb19vbmVf
-aW5pdGNhbGwgKGZuPTB4ZmZmZmZmZmY4MzJjZDJlMA0KPj4+Pj4gPHZpcnRpb19jb25zb2xl
-X2luaXQ+KSBhdCAuLi9pbml0L21haW4uYzoxMjQ2DQo+Pj4+PiAgwqDCoMKgICMxOCAweGZm
-ZmZmZmZmODMyNzcyOTMgaW4gZG9faW5pdGNhbGxfbGV2ZWwNCj4+Pj4+IChjb21tYW5kX2xp
-bmU9MHhmZmZmODg4MDAzZTJmOTAwICJyb290IiwgbGV2ZWw9MHg2KSBhdA0KPj4+Pj4gLi4v
-aW5pdC9tYWluLmM6MTMxOQ0KPj4+Pj4gIMKgwqDCoCAjMTkgZG9faW5pdGNhbGxzICgpIGF0
-IC4uL2luaXQvbWFpbi5jOjEzMzUNCj4+Pj4+ICDCoMKgwqAgIzIwIGRvX2Jhc2ljX3NldHVw
-ICgpIGF0IC4uL2luaXQvbWFpbi5jOjEzNTQNCj4+Pj4+ICDCoMKgwqAgIzIxIGtlcm5lbF9p
-bml0X2ZyZWVhYmxlICgpIGF0IC4uL2luaXQvbWFpbi5jOjE1NzENCj4+Pj4+ICDCoMKgwqAg
-IzIyIDB4ZmZmZmZmZmY4MWY2NGJlMSBpbiBrZXJuZWxfaW5pdCAodW51c2VkPTxvcHRpbWl6
-ZWQgb3V0PikNCj4+Pj4+IGF0IC4uL2luaXQvbWFpbi5jOjE0NjINCj4+Pj4+ICDCoMKgwqAg
-IzIzIDB4ZmZmZmZmZmY4MTAwMWY0OSBpbiByZXRfZnJvbV9mb3JrICgpIGF0DQo+Pj4+PiAu
-Li9hcmNoL3g4Ni9lbnRyeS9lbnRyeV82NC5TOjMwOA0KPj4+Pj4gIMKgwqDCoCAjMjQgMHgw
-MDAwMDAwMDAwMDAwMDAwIGluID8/ICgpDQo+Pj4+Pg0KPj4+Pj4gRml4IHRoZSBwcm9ibGVt
-IGJ5IHByZXZlbnRpbmcgeGVuX2dyYW50X2luaXRfYmFja2VuZF9kb21pZCgpIGZyb20NCj4+
-Pj4+IHNldHRpbmcgZG9tMCBhcyBhIGJhY2tlbmQgd2hlbiBydW5uaW5nIGluIGRvbTAuDQo+
-Pj4+Pg0KPj4+Pj4gRml4ZXM6IDAzNWUzYTQzMjFmNyAoInhlbi92aXJ0aW86IE9wdGltaXpl
-IHRoZSBzZXR1cCBvZg0KPj4+Pj4gInhlbi1ncmFudC1kbWEiIGRldmljZXMiKQ0KPj4+Pg0K
-Pj4+Pg0KPj4+PiBJIGFtIG5vdCAxMDAlIHN1cmUgd2hldGhlciB0aGUgRml4ZXMgdGFnIHBv
-aW50cyB0byBwcmVjaXNlIGNvbW1pdC4gSWYgSQ0KPj4+PiBhbSBub3QgbWlzdGFrZW4sIHRo
-ZSBzYWlkIGNvbW1pdCBqdXN0IG1vdmVzIHRoZSBjb2RlIGluIHRoZSBjb250ZXh0DQo+Pj4+
-IHdpdGhvdXQgY2hhbmdpbmcgdGhlIGxvZ2ljIG9mIENPTkZJR19YRU5fVklSVElPX0ZPUkNF
-X0dSQU5ULCB0aGlzIHdhcw0KPj4+PiBpbnRyb2R1Y2VkIGJlZm9yZS4NCj4+Pj4NCj4+Pj4N
-Cj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFBldHIgUGF2bHUgPHBldHIucGF2bHVAc3VzZS5jb20+
-DQo+Pj4+PiAtLS0NCj4+Pj4+ICDCoMKgIGRyaXZlcnMveGVuL2dyYW50LWRtYS1vcHMuYyB8
-IDQgKysrLQ0KPj4+Pj4gIMKgwqAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQ0KPj4+Pj4NCj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9n
-cmFudC1kbWEtb3BzLmMgYi9kcml2ZXJzL3hlbi9ncmFudC1kbWEtb3BzLmMNCj4+Pj4+IGlu
-ZGV4IDc2ZjZmMjYyNjVhMy4uMjllZDI3YWM0NTBlIDEwMDY0NA0KPj4+Pj4gLS0tIGEvZHJp
-dmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+Pj4+PiArKysgYi9kcml2ZXJzL3hlbi9ncmFu
-dC1kbWEtb3BzLmMNCj4+Pj4+IEBAIC0zNjIsNyArMzYyLDkgQEAgc3RhdGljIGludCB4ZW5f
-Z3JhbnRfaW5pdF9iYWNrZW5kX2RvbWlkKHN0cnVjdA0KPj4+Pj4gZGV2aWNlICpkZXYsDQo+
-Pj4+PiAgwqDCoMKgwqDCoMKgIGlmIChucCkgew0KPj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHJldCA9IHhlbl9kdF9ncmFudF9pbml0X2JhY2tlbmRfZG9taWQoZGV2LCBucCwNCj4+
-Pj4+IGJhY2tlbmRfZG9taWQpOw0KPj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgIG9mX25v
-ZGVfcHV0KG5wKTsNCj4+Pj4+IC3CoMKgwqAgfSBlbHNlIGlmIChJU19FTkFCTEVEKENPTkZJ
-R19YRU5fVklSVElPX0ZPUkNFX0dSQU5UKSB8fA0KPj4+Pj4geGVuX3B2X2RvbWFpbigpKSB7
-DQo+Pj4+PiArwqDCoMKgIH0gZWxzZSBpZiAoKElTX0VOQUJMRUQoQ09ORklHX1hFTl9WSVJU
-SU9fRk9SQ0VfR1JBTlQpIHx8DQo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB4ZW5f
-cHZfZG9tYWluKCkpICYmDQo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqAgIXhlbl9pbml0
-aWFsX2RvbWFpbigpKSB7DQo+Pj4+DQo+Pj4+IFRoZSBjb21taXQgbGd0bSwganVzdCBvbmUg
-bm90ZToNCj4+Pj4NCj4+Pj4NCj4+Pj4gSSB3b3VsZCBldmVuIGJhaWwgb3V0IGVhcmx5IGlu
-IHhlbl92aXJ0aW9fcmVzdHJpY3RlZF9tZW1fYWNjKCkgaW5zdGVhZCwNCj4+Pj4gYXMgSSBh
-c3N1bWUgdGhlIHNhbWUgaXNzdWUgY291bGQgaGFwcGVuIG9uIEFybSB3aXRoIERUIChhbHRo
-b3VnaCB0aGVyZQ0KPj4+PiB3ZSBkb24ndCBndWVzcyB0aGUgYmFja2VuZCdzIGRvbWlkLCB3
-ZSByZWFkIGl0IGZyb20gRFQgYW5kIHF1aXRlDQo+Pj4+IHVubGlrZWx5IHdlIGdldCBEb20w
-IGJlaW5nIGluIERvbTAgd2l0aCBjb3JyZWN0IERUKS4NCj4+Pj4NCj4+Pj4gU29tZXRoaW5n
-IGxpa2U6DQo+Pj4+DQo+Pj4+IEBAIC00MTYsNiArNDIxLDEwIEBAIGJvb2wgeGVuX3ZpcnRp
-b19yZXN0cmljdGVkX21lbV9hY2Moc3RydWN0DQo+Pj4+IHZpcnRpb19kZXZpY2UgKmRldikN
-Cj4+Pj4gIMKgwqAgew0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGRvbWlkX3QgYmFja2Vu
-ZF9kb21pZDsNCj4+Pj4NCj4+Pj4gK8KgwqDCoMKgwqDCoCAvKiBYZW4gZ3JhbnQgRE1BIG9w
-cyBhcmUgbm90IHVzZWQgd2hlbiBydW5uaW5nIGFzIGluaXRpYWwNCj4+Pj4gZG9tYWluICov
-DQo+Pj4+ICvCoMKgwqDCoMKgwqAgaWYgKHhlbl9pbml0aWFsX2RvbWFpbigpKQ0KPj4+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gZmFsc2U7DQo+Pj4+ICsNCj4+
-Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIXhlbl9ncmFudF9pbml0X2JhY2tlbmRfZG9t
-aWQoZGV2LT5kZXYucGFyZW50LA0KPj4+PiAmYmFja2VuZF9kb21pZCkpIHsNCj4+Pj4gIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgeGVuX2dyYW50X3NldHVwX2RtYV9v
-cHMoZGV2LT5kZXYucGFyZW50LA0KPj4+PiBiYWNrZW5kX2RvbWlkKTsNCj4+Pj4gIMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHRydWU7DQo+Pj4+IChFTkQp
-DQo+Pj4+DQo+Pj4+DQo+Pj4+DQo+Pj4+IElmIHNvLCB0aGF0IGNvbW1pdCBzdWJqZWN0IHdv
-dWxkIG5lZWQgdG8gYmUgdXBkYXRlZCBhY2NvcmRpbmdseS4NCj4+Pj4NCj4+Pj4gTGV0J3Mg
-c2VlIHdoYXQgb3RoZXIgcmV2aWV3ZXJzIHdpbGwgc2F5Lg0KPj4+DQo+Pj4gVGhpcyBkb2Vz
-bid0IHdvcmsgaW4gYWxsIGNhc2VzLiBJbWFnaW5lIHVzaW5nIFBDSSBQYXNzdGhyb3VnaCB0
-byBhc3NpZ24NCj4+PiBhICJwaHlzaWNhbCIgdmlydGlvIGRldmljZSB0byBhIGRvbVUuIFRo
-ZSBkb21VIHdpbGwgcnVuIGludG8gdGhlIHNhbWUNCj4+PiBlcnJvciwgcmlnaHQ/DQo+Pj4N
-Cj4+PiBUaGUgcHJvYmxlbSBpcyB0aGF0IHdlIG5lZWQgYSB3YXkgZm9yIHRoZSB2aXJ0aW8g
-YmFja2VuZCB0byBhZHZlcnRpc2UNCj4+PiBpdHMgYWJpbGl0eSBvZiBoYW5kbGluZyBncmFu
-dHMuIFJpZ2h0IG5vdyB3ZSBvbmx5IGhhdmUgYSB3YXkgdG8gZG8gd2l0aA0KPj4+IHRoYXQg
-d2l0aCBkZXZpY2UgdHJlZSBvbiBBUk0uIE9uIHg4Niwgd2Ugb25seSBoYXZlDQo+Pj4gQ09O
-RklHX1hFTl9WSVJUSU9fRk9SQ0VfR1JBTlQsIGFuZCBpZiB3ZSB0YWtlDQo+Pj4gQ09ORklH
-X1hFTl9WSVJUSU9fRk9SQ0VfR1JBTlQgYXQgZmFjZSB2YWx1ZSwgaXQgYWxzbyBlbmFibGVz
-IGdyYW50cyBmb3INCj4+PiAicGh5c2ljYWwiIHZpcnRpbyBkZXZpY2VzLiBOb3RlIHRoYXQg
-aW4gdGhpcyBjYXNlIHdlIGFyZSBmaXhpbmcgYQ0KPj4+IG5lc3RlZC12aXJ0dWFsaXphdGlv
-biBidWcsIGJ1dCB0aGVyZSBhcmUgYWN0dWFsbHkgcGh5c2ljYWwNCj4+PiB2aXJ0aW8tY29t
-cGF0aWJsZSBkZXZpY2VzIG91dCB0aGVyZS4gQ09ORklHX1hFTl9WSVJUSU9fRk9SQ0VfR1JB
-TlQgd2lsbA0KPj4+IGJyZWFrIHRob3NlIHRvby4NCj4+DQo+PiBJbiBjYXNlIHlvdSB3YW50
-IHZpcnRpbyBkZXZpY2UgcGFzc3Rocm91Z2gsIHlvdSBzaG91bGRuJ3QgdXNlIGEga2VybmVs
-DQo+PiBidWlsdCB3aXRoIENPTkZJR19YRU5fVklSVElPX0ZPUkNFX0dSQU5ULg0KPj4NCj4+
-IEFuZCBzdXBwb3J0aW5nIHBhc3NpbmcgdGhyb3VnaCB2aXJ0aW8gZGV2aWNlcyBvZiB0aGUg
-aG9zdCB0byBwdi1kb21VcyBpcw0KPj4gYSBzZWN1cml0eSByaXNrIGFueXdheS4NCj4+DQo+
-PiBXZSBfY291bGRfIGRyb3AgdGhlIHJlcXVpcmVtZW50IG9mIHRoZSBiYWNrZW5kIG5lZWRp
-bmcgdG8gc2V0DQo+PiBWSVJUSU9fRl9BQ0NFU1NfUExBVEZPUk0gZm9yIFBWIGd1ZXN0cyBh
-bmQgYWxsb3cgZ3JhbnQtbGVzcyB2aXJ0aW8NCj4+IGhhbmRsaW5nIGZvciBhbGwgZ3Vlc3Rz
-LiBGb3IgdGhpcyB0byB3b3JrIHhlbl92aXJ0aW9fcmVzdHJpY3RlZF9tZW1fYWNjKCkNCj4+
-IHdvdWxkIG5lZWQgdG8gY2hlY2sgZm9yIFZJUlRJT19GX0FDQ0VTU19QTEFURk9STSBhbmQg
-cmV0dXJuIHRydWUgaWYgc2V0Lg0KPj4gTWF5YmUgd2UnZCB3YW50IHRvIGVuYWJsZSB0aGF0
-IHBvc3NpYmlsaXR5IHZpYSBhIGJvb3QgcGFyYW1ldGVyPw0KPiANCj4gDQo+IE1heWJlLCB5
-ZXMuIEkgZG9uJ3Qgc2VlIGF0IHRoZSBtb21lbnQgd2h5IHRoaXMgd29uJ3Qgd29yay4NCj4g
-DQo+IEF0IHRoZSBzYW1lIHRpbWUgSSB3b25kZXIsIGNvdWxkIHdlIGp1c3QgbW9kaWZ5IHhl
-bl9wdl9pbml0X3BsYXRmb3JtKCkNCj4gdG8gY2FsbCB2aXJ0aW9fbm9fcmVzdHJpY3RlZF9t
-ZW1fYWNjKCkgaWYgZm9yY2libHkgZGlzYWJsZWQgYnkgYm9vdA0KPiBwYXJhbWV0ZXIgaXJy
-ZXNwZWN0aXZlIG9mIFZJUlRJT19GX0FDQ0VTU19QTEFURk9STSBwcmVzZW5jZT8NCg0KVGhp
-cyB3b3VsZG4ndCB3b3JrIGZvciB0aGUgY2FzZSB3aGVyZSBhIGhvc3QgdmlydGlvIGRldmlj
-ZSBpcyBwYXNzZWQgdGhyb3VnaA0KdG8gdGhlIHB2IGRvbVUgYW5kIGF0IHRoZSBzYW1lIHRp
-bWUgYW5vdGhlciB2aXJ0aW8gZGV2aWNlIGlzIHVzaW5nIGRvbTAgYXMgYQ0KYmFja2VuZC4g
-SSB0aGluayB3ZSBzaG91bGQgdXNlIGdyYW50cyBpZiBwb3NzaWJsZS4NCg0KDQpKdWVyZ2Vu
-DQoNCg==
---------------kb0xkp33y6IjSL4ev99Cn3fp
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+> >          break;
+> >     case VVMCS_WIDTH_64:
+> >          if ( enc.access_type )
+> >              res >>= 32;
+> >          break;
+> >      case VVMCS_WIDTH_32:
+> > -        res &= 0xffffffff;
+> > +        res &= 0xffffffffU;
+>
+> ... while generally I'm suggesting to avoid casts I wonder whether
+> casting to uint32_t here wouldn't make things more obviously match
+> the purpose. (Same again further down then.)
+>
+
+Using the cast is fine. I will change the patch.
+
+>
+> > --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> > +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> > @@ -207,7 +207,7 @@ void vmx_vmcs_reload(struct vcpu *v);
+> >  #define CPU_BASED_ACTIVATE_MSR_BITMAP         0x10000000
+> >  #define CPU_BASED_MONITOR_EXITING             0x20000000
+> >  #define CPU_BASED_PAUSE_EXITING               0x40000000
+> > -#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000
+> > +#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000U
+>
+> Interesting - you don't change adjacent #define-s here, nor ...
+>
+> > @@ -257,7 +257,7 @@ extern u32 vmx_vmentry_control;
+> >  #define SECONDARY_EXEC_XSAVES                   0x00100000
+> >  #define SECONDARY_EXEC_TSC_SCALING              0x02000000
+> >  #define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
+> > -#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
+> > +#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000U
+>
+> ... here. May I ask why that is? (I'm not opposed, but the
+> description suggests otherwise.)
+>
+> > --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> > +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> > @@ -136,7 +136,7 @@ static inline void pi_clear_sn(struct pi_desc
+> *pi_desc)
+> >  /*
+> >   * Exit Reasons
+> >   */
+> > -#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000
+> > +#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000U
+> >  #define VMX_EXIT_REASONS_BUS_LOCK       (1u << 26)
+>
+> Along the lines of the latter, perhaps switch to 1u << 31?
+>
+> > @@ -246,15 +246,15 @@ typedef union cr_access_qual {
+> >  /*
+> >   * Access Rights
+> >   */
+> > -#define X86_SEG_AR_SEG_TYPE     0xf        /* 3:0, segment type */
+> > -#define X86_SEG_AR_DESC_TYPE    (1u << 4)  /* 4, descriptor type */
+> > -#define X86_SEG_AR_DPL          0x60       /* 6:5, descriptor privilege
+> level */
+> > -#define X86_SEG_AR_SEG_PRESENT  (1u << 7)  /* 7, segment present */
+> > -#define X86_SEG_AR_AVL          (1u << 12) /* 12, available for system
+> software */
+> > -#define X86_SEG_AR_CS_LM_ACTIVE (1u << 13) /* 13, long mode active (CS
+> only) */
+> > -#define X86_SEG_AR_DEF_OP_SIZE  (1u << 14) /* 14, default operation
+> size */
+> > -#define X86_SEG_AR_GRANULARITY  (1u << 15) /* 15, granularity */
+> > -#define X86_SEG_AR_SEG_UNUSABLE (1u << 16) /* 16, segment unusable */
+> > +#define X86_SEG_AR_SEG_TYPE     0xfU       /* 3:0, segment type */
+> > +#define X86_SEG_AR_DESC_TYPE    (1U << 4)  /* 4, descriptor type */
+> > +#define X86_SEG_AR_DPL          0x60U      /* 6:5, descriptor privilege
+> level */
+> > +#define X86_SEG_AR_SEG_PRESENT  (1U << 7)  /* 7, segment present */
+> > +#define X86_SEG_AR_AVL          (1U << 12) /* 12, available for system
+> software */
+> > +#define X86_SEG_AR_CS_LM_ACTIVE (1U << 13) /* 13, long mode active (CS
+> only) */
+> > +#define X86_SEG_AR_DEF_OP_SIZE  (1U << 14) /* 14, default operation
+> size */
+> > +#define X86_SEG_AR_GRANULARITY  (1U << 15) /* 15, granularity */
+> > +#define X86_SEG_AR_SEG_UNUSABLE (1U << 16) /* 16, segment unusable */
+>
+> How is this change related to rule 7.2? There are u suffixes already where
+> needed (and 0xf and 0x60 don't strictly need one), so there's no violation
+> here afaict. A mere style change to switch from u to U imo doesn't belong
+> here (and, as mentioned while discussing the rule, is imo hampering
+> readability in cases like these ones).
+>
+> Jan
+>
+
+In general, I will remove all non-strictly required U's you have pointed
+out.
+I will also amend the commit messages in these cases.
+
+-- 
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com
+<http://bugseng.com>)
+
+--00000000000055832605ffe14911
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">Il giorno gio 6 lug 2023 alle ore 10:=
+04 Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D"_blank">j=
+beulich@suse.com</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">On 05.07.2023 17:26, Simone Ballarin wrote:<br>
+&gt; --- a/xen/arch/x86/hvm/vmx/vvmx.c<br>
+&gt; +++ b/xen/arch/x86/hvm/vmx/vvmx.c<br>
+&gt; @@ -257,14 +257,14 @@ uint64_t get_vvmcs_virtual(void *vvmcs, uint32_t=
+ vmcs_encoding)<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 switch ( enc.width ) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 case VVMCS_WIDTH_16:<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 res &amp;=3D 0xffff;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 res &amp;=3D 0xffffU;<br>
+<br>
+I don&#39;t think the suffix is needed in cases like this one, and ...<br><=
+/blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0case VVMCS_WIDTH_64:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( enc.access_type )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 res &gt;&gt;=3D 32;<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 case VVMCS_WIDTH_32:<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 res &amp;=3D 0xffffffff;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 res &amp;=3D 0xffffffffU;<br>
+<br>
+... while generally I&#39;m suggesting to avoid casts I wonder whether<br>
+casting to uint32_t here wouldn&#39;t make things more obviously match<br>
+the purpose. (Same again further down then.)<br></blockquote><div><br></div=
+><div>Using the cast is fine. I will change the patch.<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h<br>
+&gt; +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h<br>
+&gt; @@ -207,7 +207,7 @@ void vmx_vmcs_reload(struct vcpu *v);<br>
+&gt;=C2=A0 #define CPU_BASED_ACTIVATE_MSR_BITMAP=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A00x10000000<br>
+&gt;=C2=A0 #define CPU_BASED_MONITOR_EXITING=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A00x20000000<br>
+&gt;=C2=A0 #define CPU_BASED_PAUSE_EXITING=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A00x40000000<br>
+&gt; -#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000<br>
+&gt; +#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000U<br>
+<br>
+Interesting - you don&#39;t change adjacent #define-s here, nor ...<br>
+<br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt; @@ -257,7 +257,7 @@ extern u32 vmx_vmentry_control;<br>
+&gt;=C2=A0 #define SECONDARY_EXEC_XSAVES=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x00100000<br>
+&gt;=C2=A0 #define SECONDARY_EXEC_TSC_SCALING=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 0x02000000<br>
+&gt;=C2=A0 #define SECONDARY_EXEC_BUS_LOCK_DETECTION=C2=A0 =C2=A0 =C2=A0 =
+=C2=A00x40000000<br>
+&gt; -#define SECONDARY_EXEC_NOTIFY_VM_EXITING=C2=A0 =C2=A0 =C2=A0 =C2=A0 0=
+x80000000<br>
+&gt; +#define SECONDARY_EXEC_NOTIFY_VM_EXITING=C2=A0 =C2=A0 =C2=A0 =C2=A0 0=
+x80000000U<br>
+<br>
+... here. May I ask why that is? (I&#39;m not opposed, but the<br>
+description suggests otherwise.)<br>
+<br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt; --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h<br>
+&gt; +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h<br>
+&gt; @@ -136,7 +136,7 @@ static inline void pi_clear_sn(struct pi_desc *pi_=
+desc)<br>
+&gt;=C2=A0 /*<br>
+&gt;=C2=A0 =C2=A0* Exit Reasons<br>
+&gt;=C2=A0 =C2=A0*/<br>
+&gt; -#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000<br>
+&gt; +#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000U<br>
+&gt;=C2=A0 #define VMX_EXIT_REASONS_BUS_LOCK=C2=A0 =C2=A0 =C2=A0 =C2=A0(1u =
+&lt;&lt; 26)<br>
+<br>
+Along the lines of the latter, perhaps switch to 1u &lt;&lt; 31?<br>
+<br>
+&gt; @@ -246,15 +246,15 @@ typedef union cr_access_qual {<br>
+&gt;=C2=A0 /*<br>
+&gt;=C2=A0 =C2=A0* Access Rights<br>
+&gt;=C2=A0 =C2=A0*/<br>
+&gt; -#define X86_SEG_AR_SEG_TYPE=C2=A0 =C2=A0 =C2=A00xf=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 /* 3:0, segment type */<br>
+&gt; -#define X86_SEG_AR_DESC_TYPE=C2=A0 =C2=A0 (1u &lt;&lt; 4)=C2=A0 /* 4,=
+ descriptor type */<br>
+&gt; -#define X86_SEG_AR_DPL=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x60=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0/* 6:5, descriptor privilege level */<br>
+&gt; -#define X86_SEG_AR_SEG_PRESENT=C2=A0 (1u &lt;&lt; 7)=C2=A0 /* 7, segm=
+ent present */<br>
+&gt; -#define X86_SEG_AR_AVL=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (1u &lt;&lt;=
+ 12) /* 12, available for system software */<br>
+&gt; -#define X86_SEG_AR_CS_LM_ACTIVE (1u &lt;&lt; 13) /* 13, long mode act=
+ive (CS only) */<br>
+&gt; -#define X86_SEG_AR_DEF_OP_SIZE=C2=A0 (1u &lt;&lt; 14) /* 14, default =
+operation size */<br>
+&gt; -#define X86_SEG_AR_GRANULARITY=C2=A0 (1u &lt;&lt; 15) /* 15, granular=
+ity */<br>
+&gt; -#define X86_SEG_AR_SEG_UNUSABLE (1u &lt;&lt; 16) /* 16, segment unusa=
+ble */<br>
+&gt; +#define X86_SEG_AR_SEG_TYPE=C2=A0 =C2=A0 =C2=A00xfU=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* 3:0, segment type */<br>
+&gt; +#define X86_SEG_AR_DESC_TYPE=C2=A0 =C2=A0 (1U &lt;&lt; 4)=C2=A0 /* 4,=
+ descriptor type */<br>
+&gt; +#define X86_SEG_AR_DPL=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x60U=C2=A0 =
+=C2=A0 =C2=A0 /* 6:5, descriptor privilege level */<br>
+&gt; +#define X86_SEG_AR_SEG_PRESENT=C2=A0 (1U &lt;&lt; 7)=C2=A0 /* 7, segm=
+ent present */<br>
+&gt; +#define X86_SEG_AR_AVL=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (1U &lt;&lt;=
+ 12) /* 12, available for system software */<br>
+&gt; +#define X86_SEG_AR_CS_LM_ACTIVE (1U &lt;&lt; 13) /* 13, long mode act=
+ive (CS only) */<br>
+&gt; +#define X86_SEG_AR_DEF_OP_SIZE=C2=A0 (1U &lt;&lt; 14) /* 14, default =
+operation size */<br>
+&gt; +#define X86_SEG_AR_GRANULARITY=C2=A0 (1U &lt;&lt; 15) /* 15, granular=
+ity */<br>
+&gt; +#define X86_SEG_AR_SEG_UNUSABLE (1U &lt;&lt; 16) /* 16, segment unusa=
+ble */<br>
+<br>
+How is this change related to rule 7.2? There are u suffixes already where<=
+br>
+needed (and 0xf and 0x60 don&#39;t strictly need one), so there&#39;s no vi=
+olation<br>
+here afaict. A mere style change to switch from u to U imo doesn&#39;t belo=
+ng<br>
+here (and, as mentioned while discussing the rule, is imo hampering<br>
+readability in cases like these ones).<br>
+<br>
+Jan<br>
+</blockquote></div><br clear=3D"all"><div>In general, I will remove all non=
+-strictly required U&#39;s you have pointed out.</div><div>I will also amen=
+d the commit messages in these cases.</div><br><span class=3D"gmail_signatu=
+re_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><div di=
+r=3D"ltr">Simone Ballarin, M.Sc.<br><br><div>Field Application Engineer, BU=
+GSENG (<a href=3D"http://bugseng.com" target=3D"_blank">https://bugseng.com=
+</a>)</div></div></div></div>
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------kb0xkp33y6IjSL4ev99Cn3fp--
-
---------------0p72qKVXEjc8Akettz9hL15p--
-
---------------ZRTo4Ebpgwa47mR0WqohChe9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSnyKIFAwAAAAAACgkQsN6d1ii/Ey8E
-7Qf/dm40PExD3UqKQhXcgaO4Ovhc9Mu7fzOlT5fy0Iut6lsSOrp1C+fwqJgMlOnet29zuzOLMT9e
-Z39TWsdq8gFKE72yOtg5Dvd8JQXTNDpAR50D2sd7VqzEDd5t3n7BI6wMxIw89z8vJOBpPbhLkOsg
-bnskPBRjv5AemY+cq8TVYGxuU96OYIh+G6yT9PpxGqvTWpiE58bzIo7KfPwn5WtYAHOAOk6zKFlM
-frA5oEDVsXyTtzR8G/87K7I3Rs1rG163Fs4bCl3y/5plVF9e7ZWfX8c119hCTfZj7OTNZ9ifU0eZ
-FTDvAaBiXyNA5mr1uHcp8SaNPnT2qn+7/lhSSu8Vxw==
-=e86j
------END PGP SIGNATURE-----
-
---------------ZRTo4Ebpgwa47mR0WqohChe9--
+--00000000000055832605ffe14911--
 
