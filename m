@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283C974AA00
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 06:40:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560163.875850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5296474AB2A
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 08:35:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560170.875860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHdF7-0005Gs-Qu; Fri, 07 Jul 2023 04:38:53 +0000
+	id 1qHf23-0000kC-64; Fri, 07 Jul 2023 06:33:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560163.875850; Fri, 07 Jul 2023 04:38:53 +0000
+Received: by outflank-mailman (output) from mailman id 560170.875860; Fri, 07 Jul 2023 06:33:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHdF7-0005DZ-OD; Fri, 07 Jul 2023 04:38:53 +0000
-Received: by outflank-mailman (input) for mailman id 560163;
- Fri, 07 Jul 2023 04:38:52 +0000
+	id 1qHf23-0000h2-3C; Fri, 07 Jul 2023 06:33:31 +0000
+Received: by outflank-mailman (input) for mailman id 560170;
+ Fri, 07 Jul 2023 06:33:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VdXt=CZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qHdF6-0005DB-0M
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 04:38:52 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=ruU0=CZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qHf21-0000gw-IY
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 06:33:29 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2048.outbound.protection.outlook.com [40.107.13.48])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b18343e-1c80-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 06:38:50 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7A917227BF;
- Fri,  7 Jul 2023 04:38:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D4BB1346D;
- Fri,  7 Jul 2023 04:38:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ILemCdmWp2ScWAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 07 Jul 2023 04:38:49 +0000
+ id 2e49b8cc-1c90-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 08:33:27 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DBBPR04MB7913.eurprd04.prod.outlook.com (2603:10a6:10:1ee::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
+ 2023 06:32:57 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Fri, 7 Jul 2023
+ 06:32:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,292 +46,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b18343e-1c80-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688704729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kd5Msn99kxjmQQ5xZ5RN/FB7LBiCBkjNrXvyP7HqpFY=;
-	b=rhw8ZE+iJu0Boy1jwQ1apRceFShohgzVBpU3hDM19x8gBcziIwXd4mT+flh9VF/hEY6E5K
-	N1M3B4AvsMVF0oi12o9gfutwrfp52gNZTeoWBOSTgfufELKKWFx8RT1TLKgBe8MIV6A8HI
-	8cGAkD4FxEEiP7fgqEKR4jaD6x1BRB4=
-Message-ID: <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
-Date: Fri, 7 Jul 2023 06:38:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+X-Inumbo-ID: 2e49b8cc-1c90-11ee-b237-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MVm6sU2tDJulPpjwo2GkZhPHpdSloum47QDVX6gUo6AGYmp7oIn1FSbYz3/SSnnurJoy+n/2tldsHkcj8MrQGQ2ykLqxVd/fOiM/gJDSnFylg0bX+/dZbF+M5T2U3mthOBFtV6SbYaiiJlqunL3ik43PUM0WjbweSQu91ei31S++L1xKOaPFej9cslehbdzyxLYTsf/P99e9X/NwK/NBWlMDC4iz0TBAAvxPkXHS7Z5zIfw2MHEzs3uw9sT16UzgeB8sGxdgKCjC4mwUKIQnH3o2bQ2yJW7fQ4nMoZTsS3HuNJEtcFTeBN2ibeCYFSz5KYEN0IM9foq2uG/LsBrw6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W5VxBTkIf+j4Tu2a5hY04lbMSs8PaSW52Z3IZ6PkoOs=;
+ b=cO7xA3SwUVBpZ6EVGgFGA08br5dt0hno3fB5WmylnjtvN4SiTNo0ilXpNtQRovjte87nMi67dv5iiCWq6mcJacH7hUvLbo7MOgjd7HhGDXkhOKA2S+oqw1r7bsTdszcy61SO/rmYHqS5v/HR9uAGu1wsfTgnSVlX6jtENIuBrR05He4Ur2o/iJ5NOtyiTVqANKQ/nc7IWZ03hXoHyM+wKrfUlcYEo/jTRvHzRL+g70P/XXCyegxoFGyUy6ooIPdzgaI2nZB6R58NVQASllyQB7jSO8/6qST2XEhXxLEWXjljCa3HDhHEuOQx0jHYMcgwqHsQJFjrpIEipx+LAr0xZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W5VxBTkIf+j4Tu2a5hY04lbMSs8PaSW52Z3IZ6PkoOs=;
+ b=J4Y1O9pj8Dj8mWL0sPugBm/gtjD8RdVFXzzg4tTHSiwWGkjsYdmiQz/OthWQtEHtSd/R+k8QHqsoJlCssGSt2JREnP/igOGduTCAsUi3XXXvyHisu9RztUfGApt77MM872VszJW4ItoxxSW2NOXjN2YOaS1hpTYYwNAviwVgOBWK4OaDFzRdJeUrf7nLb7PuERUZeyxM4NlFWF/g8febe2lYNguUNN+FFSD+L2w4IujP0dVFdbOPWcntlSNUclVWphJGDWrq0w2orQzS9ezNAmKe7dR2ybGBM6l1z1bLrWO5u9LW3BdCHGbhnQyFgO+bGwiAVhOuMa2aq2CmVBn2PQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e0c60476-ac03-cc6d-59f4-d317f1b4a7e8@suse.com>
+Date: Fri, 7 Jul 2023 08:32:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
+Subject: Re: [PATCH v7 01/12] vpci: introduce per-domain lock to protect vpci
+ structure
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Petr Pavlu <petr.pavlu@suse.com>,
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- vikram.garhwal@amd.com
-References: <alpine.DEB.2.22.394.2306281745010.3936094@ubuntu-linux-20-04-desktop>
- <b21398eb-2fb2-4fca-dd90-d2c81d8df1c4@epam.com>
- <alpine.DEB.2.22.394.2306291502150.3936094@ubuntu-linux-20-04-desktop>
- <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
- <e5eda26f-9a31-dc3a-d97f-33d2efa20efa@suse.com> <ZKQF8qq8Oh5E+Fxx@mail-itl>
- <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
- <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
- <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
- <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-In-Reply-To: <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0zxCTWlRSlE359BNaPmE4m00"
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
+References: <20230613103159.524763-1-volodymyr_babchuk@epam.com>
+ <20230613103159.524763-2-volodymyr_babchuk@epam.com>
+ <ZIyOCan//39V3bdy@MacBook-Air-de-Roger.local> <87352kpj04.fsf@epam.com>
+ <ZJQDGOrP1I3hR5Jj@MacBook-Air-de-Roger.local> <87ilbfnqmo.fsf@epam.com>
+ <ZJVc77SwvyKOEdnJ@MacBook-Air-de-Roger.local> <87wmzfmltd.fsf@epam.com>
+ <ab79bcb6-6fc8-c68f-65bf-16ce7316c3ae@suse.com>
+ <ZKUw2MPBhOSgG-Eg@MacBook-Air-de-Roger.local>
+ <a964cffa-fb42-b0e0-e60a-1044d8794193@suse.com> <87mt08mqb9.fsf@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <87mt08mqb9.fsf@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0160.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBBPR04MB7913:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e392dd4-abf9-4f37-eaf4-08db7eb40097
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	sPUrOC6lb5QLidrmOElwrALsUFYyObBJCYmTFGuc7An0Taaazt8XKNLCeGdYLp4OTb8rHqxXaqlv79x7KwniwpNYrIyWZB6YBSqeyGMZt4eeIE5pfgkm2cfTQr17aVmn5GxhYSSZFevJO2Ld6PhwcO8CSanKKGX4mjYMgyikNmPxrHFghOh5Jjy2rMGkt8rt3AeqhmRTlYPf1/Sta0Cs9rdH939CBdhAGO5uvrz4h+0gbdi9XbZtaEy6vIFlZCRek+aMVbDSvJkmTQBoZSSenqL38MkdQIO6TMFLTsk6wyDEK/4YNsUTTN1sl66plgo/BZCuaQkS22Afz3U/lUuou3K0IajgNomztJigzFjds/Iag9dO/7Q3O1BTtV5ROhgRUkZEukEjPs+Nl1Q46r/G6crygLR6AEpMy0jcs1RSB+0b8bGH5TetOdR72UecD5vFn0vwenRX27+Z0bNYDyl9zxomBKrLP4YDpNMC5ZE11ODdaqJC1r7V/Jz5709Wade7lfTlk660bgZU9jTtoqYOwUiKNrAE4nKp9nX99Gs0tyBzZwgi8YJiTUqDrwTLvp19bJ6jSEpMkDQX5RthONva9wZrqW1v4xWvyqKyWsogmB0dSR0OdMndzbZTgmqu/aNjArW6IxzXSlA8kq3xy/G8wQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(376002)(366004)(396003)(346002)(136003)(451199021)(316002)(36756003)(31686004)(86362001)(31696002)(7416002)(2906002)(5660300002)(6512007)(186003)(83380400001)(6506007)(53546011)(26005)(54906003)(66556008)(6486002)(66476007)(66946007)(4326008)(38100700002)(2616005)(6916009)(8936002)(478600001)(8676002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dW93SVZBZnRnaC9kTWlRR3d3UVRHaGllU1B2UDBuOXorOXBNeTdHY0F3dkI3?=
+ =?utf-8?B?clZvV0FDanpCOG1SdFJab1JWQTR5NldwVE9NV1ppM2N6QUZISzhwczFRR3Jo?=
+ =?utf-8?B?S0JnUlJaUDdmZmkyUnpsekZZU2NGNm1FQUUrdVZRYW83S0t3MUFZNkp1Zmkv?=
+ =?utf-8?B?c3RIdEdwWmVkeG5qZGwxR1ZtV0h6VEdXSC82eFIwbUV1S2hHdEtUMldyMDk1?=
+ =?utf-8?B?ZGdUTk9ReE5NaCtMYnduOGdYT0pCQ2dkdUxaL0xUSklvWGhYS2llYWVLK2xl?=
+ =?utf-8?B?ZEx0MTZQcmc4cG5ibFdhb3YvMmI3cnNzYmNlZWpiWmtOMTNGZ05wS2ZiTEYw?=
+ =?utf-8?B?bkpIVm9KNm5xTkQzbnhLVlZlQzJ4cGtQU1JZQWxZOWNBblEyMlRVMHJ6L1JH?=
+ =?utf-8?B?KzQ3Q2JQam5ZWUI4N3VnWEY4b21NUWhMaU5YVnBaSWI3bHJ0Z2JOdEI2SmR2?=
+ =?utf-8?B?TEFFR3RBTEJ6Q0FwMkExMkUvN2xkcmVxR1lkVmwyWUM3Mkg0K1ZnRmRLaEdC?=
+ =?utf-8?B?VGp0NkF2S1BscThJNW9PVE5QZEU3aXR5ZmpCL1JIM3BvNEZBSGp0VnUyZGZR?=
+ =?utf-8?B?aWRNMnZzT1I2U0l3RE5PSnI2RVFqNVd3SU51ZTZqaTd1Uk1tSEJaVlVkUUFE?=
+ =?utf-8?B?SFpSYStlNWVncmorVUNiQWQrakV5Z2FzSTA3RW1nc29GQm9IbkVVSWpqQ2Fw?=
+ =?utf-8?B?Y3duUnpETkNSMW5Qak1teU1TMHVDYWZqbmNBMVExZzR3QmhIRi9GbFpDd0Fv?=
+ =?utf-8?B?TCsrc1FsbHRuREJhMGMvVmo3UE4xalBOV2dkZklIK3VHUGdIeENPMHF2VTdt?=
+ =?utf-8?B?d29mMm5GTWo3MHFuUm5maFlEM2JiWmQ5TnJYN2FaQUVGSzl3a0ZpM05pa2lk?=
+ =?utf-8?B?TmNTN2MyZ1M1bmk3anM2T0hHL255OXhndDJPYjliY2pURHI3OE4vT3EzZU9G?=
+ =?utf-8?B?eXBEQWFldmoxczZoYWtuWjZSS3o4WHRxS0JzMTAvbWxZdnhWTjhwcmdqYU9L?=
+ =?utf-8?B?bFlhaFpCTENEWFZDT21jNHFUVGJpeVBDYk1uRmZSODErMGVaRktWZnpyeGF5?=
+ =?utf-8?B?cHJkT1ZqeEZrakZMRjBIaXpIOWw0aEFOZFMrRDdZdXZPaFVwZExrUzFPNE9h?=
+ =?utf-8?B?d3pLNm9lTU5xa05pdjU3dWZObXN3dUJ4Zzdaem12U0J4WTJtVzNHWW1SY0oy?=
+ =?utf-8?B?VEx4Rkw0L2tmUGVtQk04bVJ1aU1xQXNmcW5qc2w4dWZHbktPSlJrU3hrSk5H?=
+ =?utf-8?B?OHN1MzgwUmgxbUMyY1JGMDRRM1AzVkZDcXlwUDdKV2tDSFRQRTFna1ExeWZW?=
+ =?utf-8?B?QVVPRTF3K3ZGMDIxWXFtd09GOHlTbFNIMWwwc0RGMENaZCtGUFRrT3diUW55?=
+ =?utf-8?B?Ti9zMkFNeEhUR20wN1JXSVJKeFo0VXQ4TFZaamcxcmE1SUNmNDk4NnRDNnRh?=
+ =?utf-8?B?ZC9ZckhTMmRvZ0RDU0NQdlN1RTM3YzVWa3h0MGdIczRWc2puYmVFeW56aXR4?=
+ =?utf-8?B?c1AyWEVtR1RGZVBsUE5wWnk0a25LZG5xTWIwYnZITHlueExRSXRXMVZmWEpw?=
+ =?utf-8?B?b3VPZTZGTFpEY1Y5MjJ4dVQ3aDVjNDFoQUtRT3FaWk5qemZ5WlJtd1Z0MEVT?=
+ =?utf-8?B?RGs2SVRocWJPWDNpOXg1Mi9hTnhvSm9vQWg0OFBOaUxqZE81VUQ0dXg1WC80?=
+ =?utf-8?B?NUE4ZldEZ2FDWjlJR09DSjREYkFidXhhV0NMTGtaNVVIQlpMSWZxL0Z0TExR?=
+ =?utf-8?B?VTJzRk9wUWk3c0drRVZZK0haZ2xncDBJOUk4MmhmRE5hR3hEUS9YVEF5ZGIr?=
+ =?utf-8?B?UkJuYmpmMlJwSU0wK2Nha0VaYnZjQXB6ajFHRmZuVFBMRmp6SGFFanF1SnVE?=
+ =?utf-8?B?czE5MWIxVE9jS2FtMSt2U1ZWbnRCMmpPQlhXaG9tWmx6UjhkcGxzYnB2YU93?=
+ =?utf-8?B?bmJUL2IzM2tiY2IwdkJEWHdLcy8vckJYZkl4aDlJTmpxR1JJNmN6bGVyZ0ww?=
+ =?utf-8?B?TUxMdDhnRU5hREgrV1lTNnloSjRiaXlZY25hcVhEWktyTlZJampCSVpPOHVL?=
+ =?utf-8?B?TjZoc0NDMExOYWVJWDV5dVBiUCtZWEhpc2x3TWZnR0hTcU5kZzJWanJoOXEx?=
+ =?utf-8?Q?tP6tHe9UpdUZgWrIN3bSsiW6S?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e392dd4-abf9-4f37-eaf4-08db7eb40097
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 06:32:57.3565
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vJkayOWvPzcPsO4KdhEYbbs08uIEIdeE9RFVksQS0mi7NPwN6OpZlkNqAPZYg5xLwn1WmApQa1xW4nXiro+sdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7913
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0zxCTWlRSlE359BNaPmE4m00
-Content-Type: multipart/mixed; boundary="------------Asphqc9ReLTqJNRCJ1hcghNc";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- vikram.garhwal@amd.com
-Message-ID: <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-References: <alpine.DEB.2.22.394.2306281745010.3936094@ubuntu-linux-20-04-desktop>
- <b21398eb-2fb2-4fca-dd90-d2c81d8df1c4@epam.com>
- <alpine.DEB.2.22.394.2306291502150.3936094@ubuntu-linux-20-04-desktop>
- <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
- <e5eda26f-9a31-dc3a-d97f-33d2efa20efa@suse.com> <ZKQF8qq8Oh5E+Fxx@mail-itl>
- <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
- <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
- <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
- <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
+On 07.07.2023 04:02, Volodymyr Babchuk wrote:
+> 
+> Hi Jan,
+> 
+> Jan Beulich <jbeulich@suse.com> writes:
+> 
+>> On 05.07.2023 10:59, Roger Pau Monné wrote:
+>>> On Wed, Jul 05, 2023 at 09:11:10AM +0200, Jan Beulich wrote:
+>>>> On 04.07.2023 23:03, Volodymyr Babchuk wrote:
+>>>>> I am currently implementing your proposal (along with Jan's
+>>>>> suggestions), but I am facing ABBA deadlock with IOMMU's
+>>>>> reassign_device() call, which has this piece of code:
+>>>>>
+>>>>>         list_move(&pdev->domain_list, &target->pdev_list);
+>>>>>
+>>>>> My immediate change was:
+>>>>>
+>>>>>         write_lock(&pdev->domain->pci_lock);
+>>>>>         list_del(&pdev->domain_list);
+>>>>>         write_unlock(&pdev->domain->pci_lock);
+>>>>>
+>>>>>         write_lock(&target->pci_lock);
+>>>>>         list_add(&pdev->domain_list, &target->pdev_list);
+>>>>>         write_unlock(&target->pci_lock);
+>>>>>
+>>>>> But this will not work because reassign_device is called from
+>>>>> pci_release_devices() which iterates over d->pdev_list, so we need to
+>>>>> take a d->pci_lock early.
+>>>>>
+>>>>> Any suggestions on how to fix this? My idea is to remove a device from a
+>>>>> list one at time:
+>>>>>
+>>>>> int pci_release_devices(struct domain *d)
+>>>>> {
+>>>>>     struct pci_dev *pdev;
+>>>>>     u8 bus, devfn;
+>>>>>     int ret;
+>>>>>
+>>>>>     pcidevs_lock();
+>>>>>     write_lock(&d->pci_lock);
+>>>>>     ret = arch_pci_clean_pirqs(d);
+>>>>>     if ( ret )
+>>>>>     {
+>>>>>         pcidevs_unlock();
+>>>>>         write_unlock(&d->pci_lock);
+>>>>>         return ret;
+>>>>>     }
+>>>>>
+>>>>>     while ( !list_empty(&d->pdev_list) )
+>>>>>     {
+>>>>>         pdev = list_entry(&d->pdev_list, struct pci_dev, domain_list);
+>>>>>         bus = pdev->bus;
+>>>>>         devfn = pdev->devfn;
+>>>>>         list_del(&pdev->domain_list);
+>>>>>         write_unlock(&d->pci_lock);
+>>>>>         ret = deassign_device(d, pdev->seg, bus, devfn) ?: ret;
+>>>>>         write_lock(&d->pci_lock);
+>>>>
+>>>> I think it needs doing almost like this, but with two more tweaks and
+>>>> no list_del() right here (first and foremost to avoid needing to
+>>>> figure whether removing early isn't going to subtly break anything;
+>>>> see below for an error case that would end up with changed behavior):
+>>>>
+>>>>     while ( !list_empty(&d->pdev_list) )
+>>>>     {
+>>>>         const struct pci_dev *pdev = list_first_entry(&d->pdev_list, struct pci_dev, domain_list);
+>>>>         uint16_t seg = pdev->seg;
+>>>>         uint8_t bus = pdev->bus;
+>>>>         uint8_t devfn = pdev->devfn;
+>>>>
+>>>>         write_unlock(&d->pci_lock);
+>>>
+>>> I think you need to remove the device from the pdev_list before
+>>> dropping the lock, or else release could race with other operations.
+>>>
+>>> That's unlikely, but still if the lock is dropped and the routine
+>>> needs to operate on the device it is better remove such device from
+>>> the domain so other operations cannot get a reference to it.
+>>>
+>>> Otherwise you could modify reassign_device() implementations so they
+>>> require the caller to hold the source->pci_lock when calling the
+>>> routine, but that's ugly because the lock would need to be dropped in
+>>> order to reassign the device from source to target domains.
+>>>
+>>> Another option would be to move the whole d->pdev_list to a local
+>>> variable (so that d->pdev_list would be empty) and then iterate over
+>>> it without the d->pci_lock.  On failure you would take the lock and
+>>> add the failing device back into d->pdev_list.
+>>
+>> Conceptually I like this last variant, but like the individual list_del()
+>> it requires auditing code for no dependency on the device still being on
+>> that list. In fact deassign_device()'s use of pci_get_pdev() does. The
+>> function would then need changing to have struct pci_dev * passed in.
+>> Yet who knows where else there are uses of pci_get_pdev() lurking.
+> 
+> Okay, so I changed deassign_device() signature and reworked the loop
+> in pci_release_devices() in a such way:
+> 
+>     INIT_LIST_HEAD(&tmp_list);
+>     /* Move all entries to tmp_list, so we can drop d->pci_lock */
+>     list_splice_init(&d->pdev_list, &tmp_list);
+>     write_unlock(&d->pci_lock);
+> 
+>     list_for_each_entry_safe ( pdev, tmp, &tmp_list, domain_list )
+>     {
+>         pdev = list_entry(&d->pdev_list, struct pci_dev, domain_list);
+>         rc = deassign_device(d, pdev);
+>         if ( rc )
+>         {
+>             /* Return device back to the domain list */
+>             write_lock(&d->pci_lock);
+>             list_add(&pdev->domain_list, &d->pdev_list);
+>             write_unlock(&d->pci_lock);
+>             func_ret = rc;
+>         }
+>     }
+> 
+> 
+> Also, I checked for all pci_get_pdev() calls and found that struct
+> domain (the first parameter) is passed only in handful of places:
+> 
+> *** xen/drivers/vpci/vpci.c:
+> vpci_read[504]                 pdev = pci_get_pdev(d, sbdf);
+> vpci_read[506]                 pdev = pci_get_pdev(dom_xen, sbdf);
+> vpci_write[621]                pdev = pci_get_pdev(d, sbdf);
+> vpci_write[623]                pdev = pci_get_pdev(dom_xen, sbdf);
+> 
+> *** xen/arch/x86/irq.c:
+> map_domain_pirq[2166]          pdev = pci_get_pdev(d, msi->sbdf);
+> 
+> *** xen/drivers/passthrough/pci.c:
+> XEN_GUEST_HANDLE_PARAM[1712]   pdev = pci_get_pdev(d, machine_sbdf);
+> 
+> The last one is due to my change to deassign_device() signature.
 
---------------Asphqc9ReLTqJNRCJ1hcghNc
-Content-Type: multipart/mixed; boundary="------------j2xSVfZI8LfGeLTm6HMCHTsd"
+And which is going to continue to return NULL when earlier on you've
+emptied the list. The purpose of passing in struct pdev * was to
+eliminate this call. (Yet there may be further reasons why eliminating
+this call actually isn't correct.)
 
---------------j2xSVfZI8LfGeLTm6HMCHTsd
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> ==============================
+> 
+> d->pdev_list can be accessed there:
+> 
+> *** xen/drivers/passthrough/amd/pci_amd_iommu.c:
+> reassign_device[489]           list_add(&pdev->domain_list, &target->pdev_list);
+> 
+> *** xen/drivers/passthrough/pci.c:
+> _pci_hide_device[463]          list_add(&pdev->domain_list, &dom_xen->pdev_list);
+> pci_get_pdev[561]              list_for_each_entry ( pdev, &d->pdev_list, domain_list )
+> pci_add_device[759]            list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+> pci_release_devices[917]       list_splice_init(&d->pdev_list, &tmp_list);
+> pci_release_devices[922]       pdev = list_entry(&d->pdev_list, struct pci_dev, domain_list);
+> pci_release_devices[928]       list_add(&pdev->domain_list, &d->pdev_list);
+> _setup_hwdom_pci_devices[1155] list_add(&pdev->domain_list, &ctxt->d->pdev_list);
+> 
+> *** xen/drivers/passthrough/vtd/iommu.c:
+> reassign_device_ownership[2819] list_add(&pdev->domain_list, &target->pdev_list);
+> 
+> *** xen/include/xen/pci.h:
+> for_each_pdev[149]             list_for_each_entry(pdev, &(domain)->pdev_list, domain_list)
+> has_arch_pdevs[151]            #define has_arch_pdevs(d) (!list_empty(&(d)->pdev_list))
+> 
+> ==============================
+> 
+> And has_arch_pdevs() is used there:
+> 
+> *** xen/arch/x86/hvm/hvm.c:
+> hvm_set_cr0[2388]              has_arch_pdevs(d)) )
+> 
+> *** xen/arch/x86/hvm/vmx/vmcs.c:
+> vmx_do_resume[1892]            if ( has_arch_pdevs(v->domain) && !iommu_snoop
+> 
+> *** xen/arch/x86/mm.c:
+> l1_disallow_mask[172]          !has_arch_pdevs(d) && \
+> 
+> *** xen/arch/x86/mm/p2m-pod.c:
+> p2m_pod_set_mem_target[352]    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
+> guest_physmap_mark_populate_on_demand[1404] if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
+> 
+> *** xen/arch/x86/mm/paging.c:
+> paging_log_dirty_enable[208]   if ( has_arch_pdevs(d) )
+> 
+> *** xen/drivers/passthrough/vtd/iommu.c:
+> reassign_device_ownership[2773] if ( !has_arch_pdevs(target) )
+> reassign_device_ownership[2807] if ( !has_arch_pdevs(target) )
+> reassign_device_ownership[2825] if ( !has_arch_pdevs(source) )
+> 
+> 
+> has_arch_pdevs() bothers me most, actually, because it is not always
+> obvious how to add locking for the callers. I am planning to rework it
+> in the following way:
 
-T24gMDYuMDcuMjMgMjM6NDksIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gT24gVGh1
-LCA2IEp1bCAyMDIzLCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOg0KPj4gT24gV2VkLCBKdWwg
-MDUsIDIwMjMgYXQgMDM6NDE6MTBQTSAtMDcwMCwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3Rl
-Og0KPj4+IE9uIFdlZCwgNSBKdWwgMjAyMywgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4+
-Pj4gT24gVHVlLCBKdWwgMDQsIDIwMjMgYXQgMDg6MTQ6NTlQTSArMDMwMCwgT2xla3NhbmRy
-IFR5c2hjaGVua28gd3JvdGU6DQo+Pj4+PiAqKioqKioqKioqDQo+Pj4+Pg0KPj4+Pj4gUGFy
-dCAxIChpbnRybyk6DQo+Pj4+Pg0KPj4+Pj4gV2UgY291bGQgcmV1c2UgYSBQQ0kgY29uZmln
-IHNwYWNlIHJlZ2lzdGVyIHRvIGV4cG9zZSB0aGUgYmFja2VuZCBpZC4NCj4+Pj4+IEhvd2V2
-ZXIgdGhpcyBzb2x1dGlvbiByZXF1aXJlcyBhIGJhY2tlbmQgY2hhbmdlIChRRU1VKSB0byBl
-eHBvc2UgdGhlDQo+Pj4+PiBiYWNrZW5kIGlkIHZpYSBhbiBlbXVsYXRlZCByZWdpc3RlciBm
-b3IgZWFjaCBlbXVsYXRlZCBkZXZpY2UuDQo+Pj4+Pg0KPj4+Pj4gVG8gYXZvaWQgaGF2aW5n
-IHRvIGludHJvZHVjZSBhIHNwZWNpYWwgY29uZmlnIHNwYWNlIHJlZ2lzdGVyIGluIGFsbA0K
-Pj4+Pj4gZW11bGF0ZWQgUENJIGRldmljZXMgKHZpcnRpby1uZXQsIHZpcnRpby1ibG9jaywg
-ZXRjKSBJIHdvbmRlciBpZiB3ZQ0KPj4+Pj4gY291bGQgYWRkIGEgc3BlY2lhbCBQQ0kgY29u
-ZmlnIHNwYWNlIHJlZ2lzdGVyIGF0IHRoZSBlbXVsYXRlZCBQQ0kgUm9vdA0KPj4+Pj4gQ29t
-cGxleCBsZXZlbC4NCj4+Pj4+DQo+Pj4+PiBCYXNpY2FsbHkgdGhlIHdvcmtmbG93IHdvdWxk
-IGJlIGFzIGZvbGxvdzoNCj4+Pj4+DQo+Pj4+PiAtIExpbnV4IHJlY29nbml6ZXMgdGhlIFBD
-SSBSb290IENvbXBsZXggYXMgYSBYZW4gUENJIFJvb3QgQ29tcGxleA0KPj4+Pj4gLSBMaW51
-eCB3cml0ZXMgdG8gc3BlY2lhbCBQQ0kgY29uZmlnIHNwYWNlIHJlZ2lzdGVyIG9mIHRoZSBY
-ZW4gUENJIFJvb3QNCj4+Pj4+ICAgIENvbXBsZXggdGhlIFBDSSBkZXZpY2UgaWQgKGJhc2lj
-YWxseSB0aGUgQkRGKQ0KPj4+Pj4gLSBUaGUgWGVuIFBDSSBSb290IENvbXBsZXggZW11bGF0
-ZWQgYnkgWGVuIGFuc3dlcnMgYnkgd3JpdGluZyBiYWNrIHRvDQo+Pj4+PiAgICB0aGUgc2Ft
-ZSBsb2NhdGlvbiB0aGUgYmFja2VuZCBpZCAoZG9taWQgb2YgdGhlIGJhY2tlbmQpDQo+Pj4+
-PiAtIExpbnV4IHJlYWRzIGJhY2sgdGhlIHNhbWUgUENJIGNvbmZpZyBzcGFjZSByZWdpc3Rl
-ciBvZiB0aGUgWGVuIFBDSQ0KPj4+Pj4gICAgUm9vdCBDb21wbGV4IGFuZCBsZWFybiB0aGUg
-cmVsZXZhbnQgZG9taWQNCj4+Pj4NCj4+Pj4gSU1PIHRoaXMgc2VlbXMgYXdmdWxseSBjb21w
-bGV4LiAgSSdtIG5vdCBmYW1pbGlhciB3aXRoIHRoZSBWaXJ0SU8NCj4+Pj4gc3BlYywgYnV0
-IEkgc2VlIHRoZXJlJ3MgYSBWZW5kb3IgZGF0YSBjYXBhYmlsaXR5LCBjb3VsZCB3ZSBwb3Nz
-aWJseQ0KPj4+PiBleHBvc2UgWGVuLXNwZWNpZmljIGluZm9ybWF0aW9uIG9uIHRoYXQgY2Fw
-YWJpbGl0eT8NCj4+Pg0KPj4+IFRoYXQgaXMgYWxzbyBhIHBvc3NpYmlsaXR5IHRvby4gQWxz
-byB3ZSBjb3VsZCB1c2UgYSBQQ0kgY29uZiByZWdpc3Rlcg0KPj4+IHdoaWNoIGlzIGtub3du
-IHRvIGJlIHVudXNlZCBpbiB0aGUgVmlydGlvIHNwZWMgdG8gZXhwb3NlIHRoZSBncmFudA0K
-Pj4+IGNhcGFiaWxpdHkgYW5kIGJhY2tlbmQgZG9taWQuDQo+Pg0KPj4gQ2FwYWJpbGl0aWVz
-IGRvbid0IGhhdmUgYSBmaXhlZCBjb25maWcgc3BhY2UgcmVnaXN0ZXIsIHRoZXkgYXJlIGEN
-Cj4+IGxpbmtlZCBsaXN0LCBhbmQgc28gY2FwYWJpbGl0aWVzIGVuZCB1cCBhdCBkaWZmZXJl
-bnQgcG9zaXRpb25zDQo+PiBkZXBlbmRpbmcgb24gdGhlIHNwZWNpZmljIGRldmljZSBsYXlv
-dXQuICBUaGUgb25seSBmaXhlZCBwYXJ0IGlzIHRoZQ0KPj4gcmFuZ2UgZnJvbSBbMCwgMHgz
-RiksIGFuZCB0aGF0J3MgZnVsbHkgZGVmaW5lZCBpbiB0aGUgc3BlY2lmaWNhdGlvbi4NCj4+
-DQo+PiBUcnlpbmcgdG8gZGVmaW5lIGEgZml4ZWQgYWRkcmVzcyBmb3IgWGVuIHVzZSBhZnRl
-ciB0aGUgM2YgYm91bmRhcnkNCj4+IHNlZW1zIGxpa2UgYSBiYWQgaWRlYSwgYXMgaXQncyBn
-b2luZyB0byBiZSBoYXJkIHRvIG1ha2Ugc3VyZSB0aGF0IHN1Y2gNCj4+IGFkZHJlc3MgaXMg
-bm90IHVzZWQgb24gYWxsIHBvc3NpYmxlIGRldmljZXMuICBJTU8gdGhlIG9ubHkgd2F5IGlz
-IHRvDQo+PiBwbGFjZSBzdWNoIGluZm9ybWF0aW9uIGluIGEgY2FwYWJpbGl0eSwgd2hldGhl
-ciB0aGF0J3MgYW4gZXhpc3RpbmcNCj4+IGNhcGFiaWxpdHkgb3IgYSBuZXcgb25lIEkgZG9u
-J3QgcmVhbGx5IGtub3cuDQo+IA0KPiBUaGF0IHNlZW1zIGxpa2UgYSBnb29kIGlkZWENCj4g
-ICANCj4gICANCj4+Pj4+IFBhcnQgMiAoY2xhcmlmaWNhdGlvbik6DQo+Pj4+Pg0KPj4+Pj4g
-SSB0aGluayB1c2luZyBhIHNwZWNpYWwgY29uZmlnIHNwYWNlIHJlZ2lzdGVyIGluIHRoZSBy
-b290IGNvbXBsZXggd291bGQNCj4+Pj4+IG5vdCBiZSB0ZXJyaWJsZSBpbiB0ZXJtcyBvZiBn
-dWVzdCBjaGFuZ2VzIGJlY2F1c2UgaXQgaXMgZWFzeSB0bw0KPj4+Pj4gaW50cm9kdWNlIGEg
-bmV3IHJvb3QgY29tcGxleCBkcml2ZXIgaW4gTGludXggYW5kIG90aGVyIE9TZXMuIFRoZSBy
-b290DQo+Pj4+PiBjb21wbGV4IHdvdWxkIHN0aWxsIGJlIEVDQU0gY29tcGF0aWJsZSBzbyB0
-aGUgcmVndWxhciBFQ0FNIGRyaXZlciB3b3VsZA0KPj4+Pj4gc3RpbGwgd29yay4gQSBuZXcg
-ZHJpdmVyIHdvdWxkIG9ubHkgYmUgbmVjZXNzYXJ5IGlmIHlvdSB3YW50IHRvIGJlIGFibGUN
-Cj4+Pj4+IHRvIGFjY2VzcyB0aGUgc3BlY2lhbCBjb25maWcgc3BhY2UgcmVnaXN0ZXIuDQo+
-Pj4+DQo+Pj4+IEknbSBzbGlnaHRseSB3b3JyeSBvZiB0aGlzIGFwcHJvYWNoLCB3ZSBlbmQg
-dXAgbW9kaWZ5aW5nIGEgcm9vdA0KPj4+PiBjb21wbGV4IGVtdWxhdGlvbiBpbiBvcmRlciB0
-byBhdm9pZCBtb2RpZnlpbmcgYSBQQ0kgZGV2aWNlIGVtdWxhdGlvbg0KPj4+PiBvbiBRRU1V
-LCBub3Qgc3VyZSB0aGF0J3MgYSBnb29kIHRyYWRlIG9mZi4NCj4+Pj4NCj4+Pj4gTm90ZSBh
-bHNvIHRoYXQgZGlmZmVyZW50IGFyY2hpdGVjdHVyZXMgd2lsbCBsaWtlbHkgaGF2ZSBkaWZm
-ZXJlbnQgcm9vdA0KPj4+PiBjb21wbGV4LCBhbmQgc28geW91IG1pZ2h0IG5lZWQgdG8gbW9k
-aWZ5IHNldmVyYWwgb2YgdGhlbSwgcGx1cyB0aGVuDQo+Pj4+IGFycmFuZ2UgdGhlIFBDSSBs
-YXlvdXQgY29ycmVjdGx5IGluIG9yZGVyIHRvIGhhdmUgdGhlIHByb3BlciBoaWVyYXJjaHkN
-Cj4+Pj4gc28gdGhhdCBkZXZpY2VzIGJlbG9uZ2luZyB0byBkaWZmZXJlbnQgZHJpdmVyIGRv
-bWFpbnMgYXJlIGFzc2lnbmVkIHRvDQo+Pj4+IGRpZmZlcmVudCBicmlkZ2VzLg0KPj4+DQo+
-Pj4gSSBkbyB0aGluayB0aGF0IGFkZGluZyBzb21ldGhpbmcgdG8gdGhlIFBDSSBjb25mIHJl
-Z2lzdGVyIHNvbWV3aGVyZSBpcw0KPj4+IHRoZSBiZXN0IG9wdGlvbiBiZWNhdXNlIGl0IGlz
-IG5vdCBkZXBlbmRlbnQgb24gQUNQSSBhbmQgaXQgaXMgbm90DQo+Pj4gZGVwZW5kZW50IG9u
-IHhlbnN0b3JlIGJvdGggb2Ygd2hpY2ggYXJlIHZlcnkgdW5kZXNpcmFibGUuDQo+Pj4NCj4+
-PiBJIGFtIG5vdCBzdXJlIHdoZXJlIHNwZWNpZmljYWxseSBpcyB0aGUgYmVzdCBwbGFjZS4g
-VGhlc2UgYXJlIDMgaWRlYXMNCj4+PiB3ZSBjYW1lIHVwIHdpdGg6DQo+Pj4gMS4gUENJIHJv
-b3QgY29tcGxleA0KPj4+IDIuIGEgcmVnaXN0ZXIgb24gdGhlIGRldmljZSBpdHNlbGYNCj4+
-PiAzLiBhIG5ldyBjYXBhYmlsaXR5IG9mIHRoZSBkZXZpY2UNCj4+PiA0LiBhZGQgb25lIGV4
-dHJhIGR1bW15IFBDSSBkZXZpY2UgZm9yIHRoZSBzb2xlIHB1cnBvc2Ugb2YgZXhwb3Npbmcg
-dGhlDQo+Pj4gICAgIGdyYW50cyBjYXBhYmlsaXR5DQo+Pj4NCj4+Pg0KPj4+IExvb2tpbmcg
-YXQgdGhlIHNwZWMsIHRoZXJlIGlzIGEgd2F5IHRvIGFkZCBhIHZlbmRvci1zcGVjaWZpYyBj
-YXBhYmlsaXR5DQo+Pj4gKGNhcF92bmRyID0gMHg5KS4gQ291bGQgd2UgdXNlIHRoYXQ/IEl0
-IGRvZXNuJ3QgbG9vayBsaWtlIGl0IGlzIHVzZWQNCj4+PiB0b2RheSwgTGludXggZG9lc24n
-dCBwYXJzZSBpdC4NCj4+DQo+PiBJIGRpZCB3b25kZXIgdGhlIHNhbWUgZnJvbSBhIHF1aWNr
-IGxvb2sgYXQgdGhlIHNwZWMuICBUaGVyZSdzIGhvd2V2ZXINCj4+IGEgdGV4dCBpbiB0aGUg
-c3BlY2lmaWNhdGlvbiB0aGF0IHNheXM6DQo+Pg0KPj4gIlRoZSBkcml2ZXIgU0hPVUxEIE5P
-VCB1c2UgdGhlIFZlbmRvciBkYXRhIGNhcGFiaWxpdHkgZXhjZXB0IGZvcg0KPj4gZGVidWdn
-aW5nIGFuZCByZXBvcnRpbmcgcHVycG9zZXMuIg0KPj4NCj4+IFNvIHdlIHdvdWxkIGF0IGxl
-YXN0IG5lZWQgdG8gY2hhbmdlIHRoYXQgYmVjYXVzZSB0aGUgY2FwYWJpbGl0eSB3b3VsZA0K
-Pj4gdGhlbiBiZSB1c2VkIGJ5IG90aGVyIHB1cnBvc2VzIGRpZmZlcmVudCB0aGFuIGRlYnVn
-Z2luZyBhbmQgcmVwb3J0aW5nLg0KPj4NCj4+IFNlZW1zIGxpa2UgYSBtaW5vciBhZGp1c3Rt
-ZW50LCBzbyBtaWdodCB3ZSB3b3J0aCBhc2tpbmcgdXBzdHJlYW0gYWJvdXQNCj4+IHRoZWly
-IG9waW5pb24sIGFuZCB0byBnZXQgYSBjb252ZXJzYXRpb24gc3RhcnRlZC4NCj4gDQo+IFdh
-aXQsIHdvdWxkbid0IHRoaXMgdXNlLWNhc2UgZmFsbCB1bmRlciAicmVwb3J0aW5nIiA/IEl0
-IGlzIGV4YWN0bHkgd2hhdA0KPiB3ZSBhcmUgZG9pbmcsIHJpZ2h0Pw0KDQpJJ2QgdW5kZXJz
-dGFuZCAicmVwb3J0aW5nIiBhcyBlLmcuIGxvZ2dpbmcsIHRyYW5zZmVycmluZyBzdGF0aXN0
-aWNzLCAuLi4NCg0KV2UnZCBsaWtlIHRvIHVzZSBpdCBmb3IgY29uZmlndXJhdGlvbiBwdXJw
-b3Nlcy4NCg0KQW5vdGhlciBpZGVhIHdvdWxkIGJlIHRvIGVuaGFuY2UgdGhlIHZpcnRpbyBJ
-T01NVSBkZXZpY2UgdG8gc3VpdCBvdXIgbmVlZHM6DQp3ZSBjb3VsZCBhZGQgdGhlIGRvbWlk
-IGFzIGFub3RoZXIgdmlydGlvIElPTU1VIGRldmljZSBjYXBhYmlsaXR5IGFuZCAoZm9yIG5v
-dykNCnVzZSBieXBhc3MgbW9kZSBmb3IgYWxsICJwcm9kdWN0aXZlIiBkZXZpY2VzLg0KDQpM
-YXRlciB3ZSBjb3VsZCBldmVuIGFkZCBncmFudC1WMyBzdXBwb3J0IHRvIFhlbiBhbmQgdG8g
-dGhlIHZpcnRpbyBJT01NVSBkZXZpY2UNCihzZWUgbXkgbGFzdCB5ZWFyIFhlbiBTdW1taXQg
-ZGVzaWduIHNlc3Npb24pLiBUaGlzIGNvdWxkIGJlIHVzYWJsZSBmb3INCmRpc2FnZ3JlZ2F0
-ZWQgS1ZNIHNldHVwcywgdG9vLCBzbyBJIGJlbGlldmUgdGhlcmUgaXMgYSBjaGFuY2UgdG8g
-Z2V0IHRoaXMNCmFjY2VwdGVkLg0KDQo+Pj4+PiAqKioqKioqKioqDQo+Pj4+PiBXaGF0IGRv
-IHlvdSB0aGluayBhYm91dCBpdD8gQXJlIHRoZXJlIGFueSBwaXRmYWxscywgZXRjPyBUaGlz
-IGFsc28gcmVxdWlyZXMNCj4+Pj4+IHN5c3RlbSBjaGFuZ2VzLCBidXQgYXQgbGVhc3Qgd2l0
-aG91dCB2aXJ0aW8gc3BlYyBjaGFuZ2VzLg0KPj4+Pg0KPj4+PiBXaHkgYXJlIHdlIHNvIHJl
-bHVjdGFudCB0byBhZGQgc3BlYyBjaGFuZ2VzPyAgSSB1bmRlcnN0YW5kIHRoaXMgbWlnaHQN
-Cj4+Pj4gdGFrZSB0aW1lIGFuIGVmZm9ydCwgYnV0IGl0J3MgdGhlIG9ubHkgd2F5IElNTyB0
-byBidWlsZCBhIHN1c3RhaW5hYmxlDQo+Pj4+IFZpcnRJTyBYZW4gaW1wbGVtZW50YXRpb24u
-ICBEaWQgd2UgYWxyZWFkeSBhdHRlbXB0IHRvIG5lZ290aWF0ZSB3aXRoDQo+Pj4+IE9hc2lz
-IFhlbiByZWxhdGVkIHNwZWMgY2hhbmdlcyBhbmQgdGhvc2Ugd2hlcmUgcmVmdXNlZD8NCj4+
-Pg0KPj4+IFRoYXQncyBiZWNhdXNlIHNwZWMgY2hhbmdlcyBjYW4gYmUgdmVyeSBzbG93LiBU
-aGlzIGlzIGEgYnVnIHRoYXQgd2UgbmVlZA0KPj4+IGEgcmVsYXRpdmVseSBxdWljayBzb2x1
-dGlvbiBmb3IgYW5kIHdhaXRpbmcgMTItMjQgbW9udGhzIGZvciBhIHNwZWMNCj4+PiB1cGRh
-dGUgaXMgbm90IHJlYWxpc3RpYy4NCj4+Pg0KPj4+IEkgdGhpbmsgYSBzcGVjIGNoYW5nZSB3
-b3VsZCBiZSBiZXN0IGFzIGEgbG9uZyB0ZXJtIHNvbHV0aW9uLiBXZSBhbHNvDQo+Pj4gbmVl
-ZCBhIHNob3J0IHRlcm0gc29sdXRpb24uIFRoZSBzaG9ydCB0ZXJtIHNvbHV0aW9uIGRvZXNu
-J3QgaGF2ZSB0byBiZQ0KPj4+IGlkZWFsIGJ1dCBpdCBoYXMgdG8gd29yayBub3cuDQo+Pg0K
-Pj4gTXkgZmVhciB3aXRoIHN1Y2ggYXBwcm9hY2ggaXMgdGhhdCBvbmNlIGEgYm9kZ2UgaXMg
-aW4gcGxhY2UgcGVvcGxlDQo+PiBtb3ZlIG9uIHRvIG90aGVyIHN0dWZmIGFuZCB0aGlzIG5l
-dmVyIGdldHMgcHJvcGVybHkgZml4ZWQuDQo+Pg0KPj4gSSBrbm93IHRoaXMgbWlnaHQgbm90
-IGJlIGEgd2VsbCByZWNlaXZlZCBvcGluaW9uLCBidXQgaXQgd291bGQgYmUNCj4+IGJldHRl
-ciBpZiBzdWNoIGJvZGdlIGlzIGtlcHQgaW4gZWFjaCBpbnRlcmVzdGVkIHBhcnR5IHBhdGNo
-cXVldWUgZm9yDQo+PiB0aGUgdGltZSBiZWluZywgdW50aWwgYSBwcm9wZXIgc29sdXRpb24g
-aXMgaW1wbGVtZW50ZWQuICBUaGF0IHdheQ0KPj4gdGhlcmUncyBhbiBpbnRlcmVzdCBmcm9t
-IHBhcnRpZXMgaW50byBwcm9wZXJseSBmaXhpbmcgaXQgdXBzdHJlYW0uDQo+IA0KPiBVbmZv
-cnR1bmF0ZWx5IHdlIGFyZSBpbiB0aGUgc2l0dWF0aW9uIHdoZXJlIHdlIGhhdmUgYW4gb3V0
-c3RhbmRpbmcNCj4gdXBzdHJlYW0gYnVnLCBzbyB3ZSBoYXZlIHRvIHRha2UgYWN0aW9uIG9u
-ZSB3YXkgb3IgdGhlIG90aGVyLg0KDQpUaGUgcmVxdWlyZWQgdmlydGlvIElPTU1VIGRldmlj
-ZSBtb2RpZmljYXRpb24gd291bGQgYmUgcmF0aGVyIHNtYWxsLCBzbw0KYWRkaW5nIGl0IG1h
-eWJlIHVuZGVyIGEgQ09ORklHIG9wdGlvbiBkZWZhdWx0aW5nIHRvIG9mZiBtaWdodCBiZQ0K
-YWNjZXB0YWJsZS4NCg0KDQpKdWVyZ2VuDQo=
---------------j2xSVfZI8LfGeLTm6HMCHTsd
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Locking is only one aspect. As above, another is whether the function
+might wrongly return "false" when you prematurely empty the list of
+devices.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> #define has_arch_pdevs_unlocked(d) (!list_empty(&(d)->pdev_list))
+> 
+> static inline bool has_arch_pdevs(struct domain *d)
+> {
+>     bool ret;
+> 
+>     read_lock(&d->pci_lock);
+>     ret = has_arch_pdevs_unlocked(d);
+>     read_unlock(&d->pci_lock);
+> 
+>     return ret;
+> }
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+No, this follows a pattern that earlier was said isn't acceptable:
+The result of such a check is meaningless to the caller without holding
+the lock past actually consuming the result. It simply is stale by the
+time you return to the caller. (There may be special cases where other
+constraints eliminate the concern, like maybe during domain
+construction or domain cleanup, but such need carefully considering in
+each individual case. Which in particular means there shouldn't be any
+common-use helper functions doing what is unsafe in the general case.)
 
---------------j2xSVfZI8LfGeLTm6HMCHTsd--
-
---------------Asphqc9ReLTqJNRCJ1hcghNc--
-
---------------0zxCTWlRSlE359BNaPmE4m00
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSnltgFAwAAAAAACgkQsN6d1ii/Ey9g
-ygf+NAZxeBtmbA89mNlh8hm2pIT18GiomgxioL76DcMi5PhrWYe/c9xJNaDkhlUws4VMIx5iRWzq
-avbi/cCdM6LBkR7Upi3A6wivNx8tdZ9NXK2OooGrpQb7D/KR9kWusAZj4GZF4+JM69cAVDFMi0LE
-lNy9UO5AuaWyshvvM5lshq+GdaqTmHCg9SWVhauFcPew69zmTNg8w2Jkyn5jHVRUmLpHPFEl9Ysm
-DcLW9pvSAePtvTijjwlU/yyBCFw92mepstsfboYL6Tb+iDUxLLDV8kxvCp5ELEvufRUI2r6wpVlP
-+FreYUinkQQ3TNOdDQpS4UrTmrM3LdvZz/X3SdJdDA==
-=9eJw
------END PGP SIGNATURE-----
-
---------------0zxCTWlRSlE359BNaPmE4m00--
+Jan
 
