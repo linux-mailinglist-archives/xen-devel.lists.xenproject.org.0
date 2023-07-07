@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F75074AF17
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 12:52:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560401.876311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 796D374AF52
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 13:03:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560407.876322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHj4H-000068-V2; Fri, 07 Jul 2023 10:52:05 +0000
+	id 1qHjEE-0001hP-Vy; Fri, 07 Jul 2023 11:02:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560401.876311; Fri, 07 Jul 2023 10:52:05 +0000
+Received: by outflank-mailman (output) from mailman id 560407.876322; Fri, 07 Jul 2023 11:02:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHj4H-0008VJ-RS; Fri, 07 Jul 2023 10:52:05 +0000
-Received: by outflank-mailman (input) for mailman id 560401;
- Fri, 07 Jul 2023 10:52:05 +0000
+	id 1qHjEE-0001f7-Rk; Fri, 07 Jul 2023 11:02:22 +0000
+Received: by outflank-mailman (input) for mailman id 560407;
+ Fri, 07 Jul 2023 11:02:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ruU0=CZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qHj4G-0008VD-Td
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 10:52:05 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on2061f.outbound.protection.outlook.com
- [2a01:111:f400:fe12::61f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e83a534-1cb4-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 12:52:03 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PAXPR04MB9644.eurprd04.prod.outlook.com (2603:10a6:102:242::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
- 2023 10:52:01 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6544.024; Fri, 7 Jul 2023
- 10:52:01 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3LXA=CZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1qHjED-0001f1-HT
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 11:02:21 +0000
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc668bb7-1cb5-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 13:02:19 +0200 (CEST)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 54AEE3200914;
+ Fri,  7 Jul 2023 07:02:15 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Fri, 07 Jul 2023 07:02:15 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 7 Jul 2023 07:02:13 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,259 +43,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e83a534-1cb4-11ee-b237-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C8+fgSBTVTQmsNEGwzZUN5tGeFfy4d4bibOGItuEQ854L1Iqe8dHlWf7dUD6m43ORpOAD/X0vNhzfCf9CU4DOPiGomuMA4bXRYXGL7EARsV3jiE2saniQCRxvTIOf1PK27r1LN8qRE9WZQEOnArcMRvfYq4cUN3WkiCWOSujoxY6jjBkmlVxamnE2rBRM7oDk3iGhdrJrCMV+AN6uUWQW6dTUnUNT64NBss7H+pKfHvAC8HLaugeJP99IoGwQBHhCoY1jlwsY2WQXr3Xh6nMKpyFBpqBMnrM2+VY5bV3L8W8ax/1q9Y6IyGvahVgUZ22HxTLzcM9GbqY4x6VNZ+ZBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BL9+aXTPNJDOZDtEI32Z7FIa/ntG4R26DDAHnoR5PAc=;
- b=IIBSAmboGSK66Q4c9gD6CK+N2KME8Gh12+H0Wa3CIhfrYtQqLvR0TLT3F5TbkKBKPHGUOMXXAbRU/lLtQKUbSjf5ip4QkSYHcibVomm1OXtlhIC8VItJhnaOEA3AHNAuKO8sHZm/R4CqMcb/4PiG8bSW2F6mqk8e7UwJsDJJ2wPYQkKlh4eTeeWqQzz90uTt5rSxX4jNt7c9jYyE+w2ufYmHaQ4fEp/ywukXnF+EFIDSPRkbkT3a0ZRZQ3HXR/R0SLVHcn6Hkt2K+hnz2qTH3r3wnn1xBYPhoU7so0YboEecF5BvwHJLBLJu2Dgpl9hmJjzzifbWGbduyPzndo44ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BL9+aXTPNJDOZDtEI32Z7FIa/ntG4R26DDAHnoR5PAc=;
- b=ejJKLAAC5PjxK+Pl+ZpjsAy5aEekA1PWPlPPBnQCuTk+1c+ehIeNP87u5VD3RT0FJc+RFwl0IbfJ8myEPW4+T4Biy5kRtykE1nawvUnUpe64Wxdy1GX2CWHM9OqbvBmcxQtdFXNA/1Q/+XrdXgEhaFBtZxFKFsK2KY2yhx46AVXwmq8r3ygI9pcNTTbYUGLagLGE5kSIGYgGVR2goXNzTgVJ8CYSi4xHwwFzl+v4tNeA08T683t1hTX7F4g/S14Ved0SfRq2YAwEfDY6VZ0YHR0DgI8+Gv8XUiCwrNM4MDxOBcrufHNM3ExWGJ8q/CUyVJqnci9gamw4KH/MgKWF+Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <69699edb-78b2-336c-15f5-2b243257852e@suse.com>
-Date: Fri, 7 Jul 2023 12:51:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v2 4/6] xen/riscv: introduce identity mapping
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1687178053.git.oleksii.kurochko@gmail.com>
- <21d8ce65f718bc10c2213688f79cf5f978bcaf16.1687178053.git.oleksii.kurochko@gmail.com>
- <67df28ad-060e-07d5-acf2-02c3cd5f0b96@suse.com>
- <1edb0c61a8ef64bb47809049252e9ad7b19f4bbe.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <1edb0c61a8ef64bb47809049252e9ad7b19f4bbe.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0115.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::17) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: bc668bb7-1cb5-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1688727734; x=1688814134; bh=2JQhjxKyml7irJHr5y4i+kR5NB0VbxX81e8
+	nVB6UkMY=; b=MtkHcl9zK76gSt147cAhfus7vEtSPtpsHLRC9F29WwVFMy2CUoW
+	1OEQAIDV1BaG7MAZlS8yLmyh6lnmkRZontWBYt3redfjR2o38iRUABq/S4xHKhjg
+	EBga80SmmBFaHdry0YN4qds2IldQ9/X7jv7s8B7WmPnl3dzAQOzC5DM0OTKzq2x9
+	rZS+U7nELcEHD/YF4Ix7ceKVigcH8XKaq40bAPuLqw74Vgr9yRA7PK+obBlayLq5
+	3lPLcgDoDsBDkt4pO8IawfxC5GIt8KmuLmXmz2Zppw0J2/BCm0aFEjehTL0CbZK+
+	NMDXNRa5mXY5zhJ2D+Sk2Jar6WfwIgT49hw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1688727734; x=1688814134; bh=2JQhjxKyml7ir
+	JHr5y4i+kR5NB0VbxX81e8nVB6UkMY=; b=N1J0dO5KZq7kWaFRtU7EwMyH/frqe
+	ot2dwClYR+g6pnZIH5wXU9vtVoJMIVh88ybE8U1twuIMaXS2lH/BWM+cy0kaijo2
+	A5nXS1sceE1Iv9rL/24VCkQcKQrJg0BG9cwRRMAlerWoBFKNg3q4QhRaOhxLMfLj
+	yC1hpg/wgwipes9ldaltEP0/U4e4XZE3oU8CkjwNRfX2kg5PWhGppmQXzIyqZ2aD
+	NCapEt47Ht0b6BKz47X6jg+q5RZAKuCcoCT7AAV3ybST1sz7s93x26r7y1FHVNZP
+	tfPQbJGMYDTRZKSO5GStMdljVxjg2Zhmlq1/33veWiTa0ivSVr1FCavQA==
+X-ME-Sender: <xms:tvCnZOsXexGsJVEQ6eNYpEsWR_eiLfjLkUIu4j29UFuhvs3Q-RTwIQ>
+    <xme:tvCnZDdtgCdXoi2sQAPtz9138T7RnVbUkiM-4QTQ9sH8FI_vKsTM0NTln4PS9_O-1
+    GYFsm1YntVU1A>
+X-ME-Received: <xmr:tvCnZJxC4ovZxBF7L6zbzosh_3_qThz399iw20OcPrlRTUw6EXBWWbAlcictABagp0gdxBIyoXIWCd612Skxy80ATNIvJJR6j1o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrvddugdefhecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:tvCnZJPw4cuNJ9GSOcu4LMPB1mQ_v40zBbQEPQsPNAOxeMiHMf_7yQ>
+    <xmx:tvCnZO9EH0s6vVQdLWiHTfTNvdudie9Pn0Jd1i-ACtf3ZCdNhpN9Gw>
+    <xmx:tvCnZBWweWNHEeO7oh8OK90QQLT9pAMum10zHnLzZh4gx4-3ubBc8g>
+    <xmx:tvCnZFYjvsphxvBY2SdinnwKbjUpPm9TUqmSvh8Wr_KV0fVstIDsMQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 7 Jul 2023 13:02:10 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/2] x86/mm: add API for marking only part of a MMIO
+ page read only
+Message-ID: <ZKfwsvFmwEo+gzh9@mail-itl>
+References: <cover.dd82aca339854e90ffe12e7bc4298254a6caaf0d.1683321183.git-series.marmarek@invisiblethingslab.com>
+ <def382a6481a9d1bcc106200b971cd5b0f3d19c1.1683321183.git-series.marmarek@invisiblethingslab.com>
+ <f3531050-fb31-2d9e-f3dd-2d310dc7c5ec@suse.com>
+ <ZJ9XFdGhxyKLY3fm@mail-itl>
+ <3773dc6e-9d36-ba80-2a0a-bb1589c9993f@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB9644:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2e59888-081e-496a-ed0c-08db7ed831a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	wL7zdzW7sSA5i7YFLG2X5Te0EihZJ2TYeFXyf9aMOiMqlkuX5ZwT4+bLd+7aHrUYbnI/1PWClzq/LgczIaUqldhT6yl1LwATfjLRSdTlHNGul3LSNn7MECoPJ4oNFOGmLaDaskn//s1s0OUSOJ7KQ7yfGwdWEYYcFp25X7wOvJPq7Uz6JWSUJNT4E6rjm4n+KSEGFuuhsH0gDzpLJo61rQzdV/Crmn7r3QK5KZKdBUO+DyqW3QNKXOByDoJ+NOOztwx6i/MNxORxb7Z0zsJRiPQ2vioizbv3CgAK0yJ4IvvEYNknTbv4wjT3v3JNBrEFVY2ws9NjqTGCxZlh763s9OKBV8iLb4TcK38eQO5Oc0ZEGEf9FrtkEwe9DPOhHytxCSyEg2sDwtj7M2KuAye1/cFLKXGGpkiM0OqQM1rWMyx3G0QhQLIZMeh2uzbr7W/88fADOrEz0tL7kMn6FaGN+CKuiV3moutz3RRVAmiPU08Cje0H8M74GWrN2RB5Fofab65MqP3Zi5pWcBNbQGy2Uun+lkCztt9ARhqUqfSdRS7qyty1W0Ugoxd8SlujZUWiQULC7AlnyEp+/JqvsAmB/Ci+j7py5GZQpQVc7MBp5h6jx8kusso1DqW2nL2N/IKHaxFLNIAEMJKN2l0XwVMBqQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(136003)(396003)(346002)(366004)(39860400002)(451199021)(38100700002)(36756003)(31696002)(6512007)(86362001)(6486002)(6506007)(478600001)(186003)(53546011)(26005)(8676002)(8936002)(41300700001)(5660300002)(31686004)(54906003)(66476007)(66556008)(66946007)(4326008)(6916009)(2906002)(316002)(2616005)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VjZlM3J6WWoyaUY3Y0hLTU5kbjYyOWVQQmpqeHAzMkx2b2kyU0hHWnRiWktw?=
- =?utf-8?B?dGZ3WW41djRzUncxdmkxdVlpeWRoVEE2Nkc4R1R0U2hNT0xzWVQ1ZVF1dzA2?=
- =?utf-8?B?dGdyd1lxRzl6QjlXaG5obUtpdmkrTGtsN0ZuU05GSmFmMGpRek42b0VCNG85?=
- =?utf-8?B?WjlrNmZja2ZIaER0NkFnMG1IaTF5NHJUUFhta2lOelBzU1NrZVZMb0haZmV2?=
- =?utf-8?B?OUJZeE50REkxUWFOUytjTnA1LzdiTUViS25GRGw2WWNWVk9MUEZJL05PUllC?=
- =?utf-8?B?VmdTTkZhNnp1MTdERFMyTXhlQnh5cXNPSW9iYVZwUW5IeXNMbVJHODl4M2U5?=
- =?utf-8?B?anZvVmtud0RWaFJ3WVptTnpvMXdhSGN1ZXQ5WDlRUkd3cUlmb0c0Sk16V3hO?=
- =?utf-8?B?Ykx2WklDaWp2LzFMZitnL0hVNkpyV0FQRDFnU0R3S29JTlQ4VThNbHNPQ3cz?=
- =?utf-8?B?bTdNTTZFNFpmVWtzbVpUNlIvWnY0MFhiaU5mRFdabHI4RjJRVHVwRnhYUVZT?=
- =?utf-8?B?RmZlZWtPSWI0ZXdTdUVnUE9SYWpuSVphZE5ZL3RoTG1MRlJ3SUNsTmN2V0o1?=
- =?utf-8?B?RG9FQWRrU3ZVSlM0aFByanlKNXNmZHRmRTNEK3F6SUlMOFRXeERxUVV5bGM4?=
- =?utf-8?B?M08xeWpiTm9yVzlya201RHZjU0R6NUE0YmU4RU5IajErand0RU11WDhCSGJn?=
- =?utf-8?B?OUU4M2xBYUxpZzVSamoyY2ZVNm5QejlxbVhsRDZ5NDZFdDF5ZEdObkRYV2xM?=
- =?utf-8?B?UGNIcmhBa05lc21hWlNHSVZZcGJUM2JsWTBEVjJtbEcxYnVGNlRNb2pUbkpR?=
- =?utf-8?B?ZnVmd1VEVTJXb2tydWRvK3FQd3hoZDZOUEpaWUNLZXhkUXZyY2ZuUGVtTlhl?=
- =?utf-8?B?RHFCOTF4ZTZvb3JsYnQ4OFlwOUVuSzdTNGZ5WjFPQ1pZa1F1eXZiNlZ6anFl?=
- =?utf-8?B?VDZVanVHVDRONVY5ejk3TkRqL0tXbFI3YW90Z3ZSMGwycG5PQlVlak02T09Z?=
- =?utf-8?B?bGhsVWNDTFd1VUk2c3NlNDdEYkU2VzZSaDNLTmRyN3B6MkpGa2o5Sk0yUTVR?=
- =?utf-8?B?V0VSK3Fnd3NpN3lYNnUrUFhNUmY2YjlOaDF6Z1doYm9QTkVzRHFhd3JaNjlD?=
- =?utf-8?B?U2crMGJkMVZHVXB2eEVOQnlBWjdGUjFtSEdLT1NlZmNpNGFIL1Q4dml6V0Fk?=
- =?utf-8?B?bnlkajRBcUZnbmdBYXUxTjZCNjcraW8yYnhDWjBBOE9hMmE5bDVIbHNTOUZV?=
- =?utf-8?B?OWVXaXAzMzJxMFg5M1ovS3ZldVdSQWtOVHJWTkRtR0wyYWtjbkdsYXB4SFhw?=
- =?utf-8?B?eHNFazNGbmpmOUZHTisrdHdWblRSRHljNTh6VVpLS3hxTzVaMzZFNVJVWUp1?=
- =?utf-8?B?UGlzVnhjUjErV3A4bERGYjNOTzhLdFR0Nk5idDh6VlY0VGZTdmhZRTFxbTN1?=
- =?utf-8?B?akVuWkZoSTRRcWp0VHRjRngxdWt2ODVKRWh3T0t2bERGWkcwU2E2RVYyZmor?=
- =?utf-8?B?aTFvUUdxQzNvbHN6dWJ1V1dSbS9YQVBqZlgzZHFQV2dac0VSSkxFWEpRbGJ1?=
- =?utf-8?B?YWN5N0pUdnlXZlo4UEl4YmgyVFd3YWxDU0lUSFJ6K2J5UzQ3RjdUWmgzVXBn?=
- =?utf-8?B?SG9ZUVZCTFcvV1FpYldlWnRhQ2tQOTJ3M1R2RGVRajBRT2tYZmwrR014RVB5?=
- =?utf-8?B?TXl1ZGxDZzh2UGRRVVZqYVdObVU2TERpc1dmRW4zMXJwQWFnMzA4amhqTWNp?=
- =?utf-8?B?RXVRZzVMZ05Lek9KK3VXNGEwMm93VlJMZ252c3hBa3BjVkRrOUxaNkpSZFdZ?=
- =?utf-8?B?Q2ZjS1hkQ1NUZ0ozdHk3NDZFZFd6cVhUb0NFbkRDZEFaZjYxQlFLdkFNblFp?=
- =?utf-8?B?T0Z0Mkc1M0F4U3p6MXJja2JuQ0FmK0ZTSGptNUUydzVjRnhyWURJTmREY2tU?=
- =?utf-8?B?MEZaL2FNam1MTmpwUzFtYjk0ajBXclNKM0tRaEJ3Z24xdGZQekNRaFAxTFRX?=
- =?utf-8?B?WDE4NmNYTWVCYnRvVTZXcGVkS1g5Ym9Fc0o3QXBuVXhjakJqNU5UUE8xYTJh?=
- =?utf-8?B?NkluTjRZaktNcFd3RklUUU8yeEE3MnY5Nk1RcVBCYTc5WmRKelJCTFNKbDAx?=
- =?utf-8?Q?Q7AWZSMRL7B1uKwX2jg48vYiz?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2e59888-081e-496a-ed0c-08db7ed831a5
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 10:52:01.5427
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 98Xa2VK8f6Va/UsBEwXx7HrhfwUklul9GN2n75ie6ezkFA8wxJzSxWDMapJZY5MlC9xet7pjSLuzY427ezat+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9644
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="9xpvJaW4i3iau5pz"
+Content-Disposition: inline
+In-Reply-To: <3773dc6e-9d36-ba80-2a0a-bb1589c9993f@suse.com>
 
-On 07.07.2023 12:37, Oleksii wrote:
-> On Thu, 2023-07-06 at 13:35 +0200, Jan Beulich wrote:
->> On 19.06.2023 15:34, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/config.h
->>> +++ b/xen/arch/riscv/include/asm/config.h
->>> @@ -1,3 +1,5 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +
->>>  #ifndef __RISCV_CONFIG_H__
->>>  #define __RISCV_CONFIG_H__
->>>  
->>
->> Unrelated change?
-> It  should be part of [PATCH v2 5/6] xen/riscv: introduce identity
-> mapping.
 
-Hmm, here we're discussing "[PATCH v2 4/6] xen/riscv: introduce identity
-mapping". I'm confused, I guess.
+--9xpvJaW4i3iau5pz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 7 Jul 2023 13:02:10 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/2] x86/mm: add API for marking only part of a MMIO
+ page read only
 
->>> --- a/xen/arch/riscv/mm.c
->>> +++ b/xen/arch/riscv/mm.c
->>> @@ -25,6 +25,12 @@ unsigned long __ro_after_init phys_offset;
->>>  #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
->>>  #define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
->>>  
->>> +/*
->>> + * Should be removed as soon as enough headers will be merged for
->>> inclusion of
->>> + * <xen/lib.h>.
->>> + */
->>> +#define ARRAY_SIZE(arr)                (sizeof(arr) /
->>> sizeof((arr)[0]))
->>> +
->>>  /*
->>>   * It is expected that Xen won't be more then 2 MB.
->>>   * The check in xen.lds.S guarantees that.
->>> @@ -35,8 +41,10 @@ unsigned long __ro_after_init phys_offset;
->>>   *
->>>   * It might be needed one more page table in case when Xen load
->>> address
->>>   * isn't 2 MB aligned.
->>> + *
->>> + * (CONFIG_PAGING_LEVELS - 1) page tables are needed for identity
->>> mapping.
->>>   */
->>> -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
->>> +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
->>
->> How come the extra page (see the comment sentence in context) isn't
->> needed for the identity-mapping case?
-> It is needed to allocate no more than two 'nonroot' page tables (L0 and
-> L1 in case of Sv39 ) as page 'root' table ( L2 in case of Sv39 ) is
-> always re-used.
-> 
-> The same ( only 'nonroot' page tables might be needed to allocate )
-> works for any MMU mode.
+On Wed, Jul 05, 2023 at 10:23:53AM +0200, Jan Beulich wrote:
+> On 01.07.2023 00:28, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Tue, May 30, 2023 at 01:56:34PM +0200, Jan Beulich wrote:
+> >> On 05.05.2023 23:25, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> --- a/xen/arch/x86/hvm/hvm.c
+> >>> +++ b/xen/arch/x86/hvm/hvm.c
+> >>> @@ -1990,6 +1990,14 @@ int hvm_hap_nested_page_fault(paddr_t gpa, uns=
+igned long gla,
+> >>>          goto out_put_gfn;
+> >>>      }
+> >>> =20
+> >>> +    if ( (p2mt =3D=3D p2m_mmio_direct) && npfec.write_access && npfe=
+c.present &&
+> >>> +         subpage_mmio_write_accept(mfn, gla) &&
+> >>> +         (hvm_emulate_one_mmio(mfn_x(mfn), gla) =3D=3D X86EMUL_OKAY)=
+ )
+> >>> +    {
+> >>> +        rc =3D 1;
+> >>> +        goto out_put_gfn;
+> >>> +    }
+> >>
+> >> But npfec.write_access set doesn't mean it was a write permission
+> >> violation, does it?=20
+> >=20
+> > Doesn't it? IIUC it means it was a write attempt, to a mapped page
+> > (npfec.present), and since we've got EPT violation, it got denied.=20
+>=20
+> But the denial may have been for reasons other than the W bit being
+> clear, at least in principle? Abusing the bit now, even if in
+> practice there was no other possible reason on existing hardware
+> with the features we presently use, might lead to hard to locate
+> issues in case a different reason appears down the road.
 
-Of course, but if you cross a 2Mb boundary you'll need 2 L0 tables.
+Ok, so how do you propose to check if it was a write violation?
 
->>> @@ -255,25 +262,30 @@ void __init noreturn noinline enable_mmu()
->>>      csr_write(CSR_SATP,
->>>                PFN_DOWN((unsigned long)stage1_pgtbl_root) |
->>>                RV_STAGE1_MODE << SATP_MODE_SHIFT);
->>> +}
->>>  
->>> -    asm volatile ( ".p2align 2" );
->>> - mmu_is_enabled:
->>> -    /*
->>> -     * Stack should be re-inited as:
->>> -     * 1. Right now an address of the stack is relative to load
->>> time
->>> -     *    addresses what will cause an issue in case of load start
->>> address
->>> -     *    isn't equal to linker start address.
->>> -     * 2. Addresses in stack are all load time relative which can
->>> be an
->>> -     *    issue in case when load start address isn't equal to
->>> linker
->>> -     *    start address.
->>> -     *
->>> -     * We can't return to the caller because the stack was reseted
->>> -     * and it may have stash some variable on the stack.
->>> -     * Jump to a brand new function as the stack was reseted
->>> -     */
->>> +void __init remove_identity_mapping(void)
->>> +{
->>> +    unsigned int i;
->>> +    pte_t *pgtbl;
->>> +    unsigned int index, xen_index;
->>> +    unsigned long load_addr = LINK_TO_LOAD(_start);
->>>  
->>> -    switch_stack_and_jump((unsigned long)cpu0_boot_stack +
->>> STACK_SIZE,
->>> -                          cont_after_mmu_is_enabled);
->>> +    for ( pgtbl = stage1_pgtbl_root, i = 0;
->>> +          i <= (CONFIG_PAGING_LEVELS - 1);
->>
->> i < CONFIG_PAGING_LEVELS ? But maybe it would be easier for i to
->> start
->> at CONFIG_PAGING_LEVELS and be decremented, simplifying ...
->>
->>> +          i++ )
->>> +    {
->>> +        index = pt_index(CONFIG_PAGING_LEVELS - 1 - i, load_addr);
->>> +        xen_index = pt_index(CONFIG_PAGING_LEVELS - 1 - i,
->>> XEN_VIRT_START);
->>
->> ... these two expressions?
-> It makes sense. I'll update this part of the code.
-> 
->>
->>> +        if ( index != xen_index )
->>> +        {
->>> +            pgtbl[index].pte = 0;
->>> +            break;
->>> +        }
->>
->> Is this enough? When load and link address are pretty close (but not
->> overlapping), can't they share a leaf table, in which case you need
->> to clear more than just a single entry? The present overlap check
->> looks to be 4k-granular, not 2M (in which case this couldn't happen;
->> IOW adjusting the overlap check may also be a way out).
-> At the start of setup_initial_pagetables() there is a code which checks
-> that load and link address don't overlap:
-> 
->     if ( (linker_start != load_start) &&
->          (linker_start <= load_end) && (load_start <= linker_end) )
->     {
->         early_printk("(XEN) linker and load address ranges overlap\n");
->         die();
->     }
-> 
-> So the closest difference between load and link address can be 4kb.
-> Otherwise load and link address ranges are equal ( as we can't map less
-> then 4kb).
-> 
-> Let's take concrete examples:
->   Load address range is   0x8020_0000 - 0x8020_0FFF
->   Linker address range is 0x8020_1000 - 0x8020_1FFF
->   MMU mode: Sv39 ( so we have 3 page tables )
-> 
->   So we have:
->     * L2 index = 2, L1 index = 1, L0 index = 0 for load address
->     * L2 index = 2, L1 index = 1, L0 index = 1 for linker address
->   Thereby we have two different L0 tables for load and linker address 
-> ranges.
->   And it looks like it is pretty safe to remove only one L0 index that
-> was used for identity mapping.
-> 
-> Is it possible that I missed something?
+(...)
 
-Looks as if you are thinking of only a Xen which fits in 4k. The code
-here wants to cope with Xen getting quite a bit bigger.
+> >> Since you mark the qwords which are to be protected, how is one to set
+> >> up safely two discontiguous ranges on the same page? I think I had
+> >> asked for v1 already why you don't do things the other way around:
+> >> Initially the entire page is protected, and then writable regions are
+> >> carved out.
+> >=20
+> > Because that's not how the API is used. This API is for those how want
+> > to write-protect some specific ranges (to be written exclusively by
+> > Xen). They don't need to even know what is else is on the same page.
+> > Take XHCI case as an example: it gets the range to write-protect by
+> > enumerating XHCI extended capabilities, which is a linked list. The
+> > driver gets info where XHCI console registers are.  Things before/after
+> > them on that page may not even be XHCI extended caps at all.
+> > This in fact is very similar approach to already existing
+> > mmio_ro_ranges.
+>=20
+> While I agree there's a similarity, multiple entities caring about the
+> same MFN isn't an expected scenario there. Whereas here you explicitly
+> add support for such.
+>=20
+> Furthermore you sub-divide pages covered by mmio_ro_ranges here, so
+> defaulting to "full page protected" and then carving out sub-regions
+> would be the more natural approach imo.
 
-Jan
+But then the API would be awkward to use. Instead of "mark this (smaller
+than a page) region as read-only" so Xen can use it safely, you would
+(likely) need marking _two_ regions as writable, after marking a page as
+read-only. So, either you'd need separate (3?) calls, array of ranges or
+something similar.
+
+> >> I guess I shouldn't further ask about overlapping r/o ranges and their
+> >> cleaning up. But at least a comment towards the restriction would be
+> >> nice. Perhaps even check upon registration that no part of the range
+> >> is already marked r/o.
+> >=20
+> > Yes, this is a good suggestion, I'll add that.
+>=20
+> As long as all restrictions are properly spelled out, this may be
+> sufficient. But please don't be surprised if I ask again on a
+> subsequent version.
+
+(...)
+
+> >>> +static void subpage_mmio_write_emulate(
+> >>> +    mfn_t mfn,
+> >>> +    unsigned int offset,
+> >>> +    const void *data,
+> >>> +    unsigned int len)
+> >>> +{
+> >>> +    struct subpage_ro_range *entry;
+> >>> +    void __iomem *addr;
+> >>> +
+> >>> +    rcu_read_lock(&subpage_ro_rcu);
+> >>> +
+> >>> +    list_for_each_entry_rcu(entry, &subpage_ro_ranges, list)
+> >>> +    {
+> >>> +        if ( mfn_eq(entry->mfn, mfn) )
+> >>> +        {
+> >>> +            if ( test_bit(offset / SUBPAGE_MMIO_RO_ALIGN, entry->ro_=
+qwords) )
+> >>> +                goto write_ignored;
+> >>
+> >> I think you can get away with just a single "goto" by putting the gpri=
+ntk()
+> >> (and its label) here.
+> >=20
+> > write_ignored label is used also below in "default" case (which should
+> > be unreachable, but still).
+>=20
+> Right, which is why I said 'just a single "goto"' (implying a label would
+> still be needed).
+>=20
+> > Do you suggest jumping from default case into here?
+>=20
+> Yes, that would be one way of structuring things.
+
+IMO jumping into a middle of some nested conditional/loop is harder to
+follow, I'd prefer to avoid such practice. Furthermore, if moving the
+gprintk here, it still needs "goto out_unlock", so it isn't really
+saving any "goto", just changing its target.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--9xpvJaW4i3iau5pz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmSn8LIACgkQ24/THMrX
+1yx4gwf/eHlpAf5cam8pUZ4YggNwBd0X4vWyXFHzn3myrhHploaGC9WLZLU+if5d
+4zhVi4K63+F2TuLw0QA7ejxtvO9n/g9PlqUWVbq/cCBeWI4mNsE87OphGySeLWE/
+t22aKb/cMSgIS0Pfu5TTe7rB97FXftxBf/GGmrv5HXFgOlLHb4qdnyamFmOYzWRY
+1C1XFDr4gsrFPpYb7AtGBWLaLkMECUr4/5CXpGkJMvWEJG07tdZlVRq/QWWBOMwx
+Y4S2LZc1vACSgbsScluwdpvEONNPBAaZ5Y/fffS1qB13zn9AGW2RHOfw+tjJbuuJ
+mf55mWS8Z8neK4EYoRFBtlM2erboFA==
+=usiB
+-----END PGP SIGNATURE-----
+
+--9xpvJaW4i3iau5pz--
 
