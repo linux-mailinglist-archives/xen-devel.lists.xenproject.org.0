@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D94374B30B
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 16:29:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560525.876503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C14D74B337
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 16:43:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560529.876513 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHmRI-0005e2-Vd; Fri, 07 Jul 2023 14:28:04 +0000
+	id 1qHmfw-00082W-8a; Fri, 07 Jul 2023 14:43:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560525.876503; Fri, 07 Jul 2023 14:28:04 +0000
+Received: by outflank-mailman (output) from mailman id 560529.876513; Fri, 07 Jul 2023 14:43:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHmRI-0005bb-SA; Fri, 07 Jul 2023 14:28:04 +0000
-Received: by outflank-mailman (input) for mailman id 560525;
- Fri, 07 Jul 2023 14:28:03 +0000
+	id 1qHmfw-0007zc-5G; Fri, 07 Jul 2023 14:43:12 +0000
+Received: by outflank-mailman (input) for mailman id 560529;
+ Fri, 07 Jul 2023 14:43:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VdXt=CZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qHmRH-0005bV-JN
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 14:28:03 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a1318d6-1cd2-11ee-b237-6b7b168915f2;
- Fri, 07 Jul 2023 16:28:01 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D4B811FDA8;
- Fri,  7 Jul 2023 14:28:00 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E144139E0;
- Fri,  7 Jul 2023 14:28:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id q6ZFHfAgqGS0dQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 07 Jul 2023 14:28:00 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GM+b=CZ=citrix.com=prvs=545203e5e=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qHmfu-0007zW-Bu
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 14:43:10 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9571d56e-1cd4-11ee-b237-6b7b168915f2;
+ Fri, 07 Jul 2023 16:43:07 +0200 (CEST)
+Received: from mail-bn7nam10lp2101.outbound.protection.outlook.com (HELO
+ NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.101])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 07 Jul 2023 10:42:57 -0400
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com (2603:10b6:303:123::8)
+ by MN2PR03MB5118.namprd03.prod.outlook.com (2603:10b6:208:1af::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25; Fri, 7 Jul
+ 2023 14:42:46 +0000
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::95db:33e0:ebe2:13dd]) by MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::95db:33e0:ebe2:13dd%7]) with mapi id 15.20.6565.016; Fri, 7 Jul 2023
+ 14:42:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,245 +49,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a1318d6-1cd2-11ee-b237-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688740080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GDaG49MjZZ9m6rAsgdhSgUWt0nb0O6bInSa3AoannsE=;
-	b=fZOF2qUCjwV+xQr8V7MSqKPKHfuznzo01lfvFBPGCGfpXBYBdI6I4gvOXxtmW94JmZap5L
-	CVePKAPRJgYQPmu/VMKwDm+Xt5cFfUjeN5F2uFHisCE9J2ZsKI2Hq5gJ65D+Ze0lm30E9j
-	jL3K/xOKH244Oqsiyn1Zm5E77YQYZRc=
-Message-ID: <00f2ae75-b3cd-6c6d-c1c5-b2e9d6a974b6@suse.com>
-Date: Fri, 7 Jul 2023 16:27:59 +0200
+X-Inumbo-ID: 9571d56e-1cd4-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1688740987;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=df+/rVJMYWXW1GBljmz9n57ywdi33sqr7imjf2Q7/Ic=;
+  b=FA+TZLnb75uFqP0jUuNT5MXW+Qsa2aKjndw9qVhQ0Cen1SU+8ChNdVoA
+   xwIBgcwFr77iKNQE3lXaUekuugECJ5YIzmqWHe+eGAzmmyqX8J18KAg/+
+   TUpn6mgqH0zGq9sRLNjMu9lhPCnbmI6xek58QMHp2spSpZrp0hDFO82LH
+   8=;
+X-IronPort-RemoteIP: 104.47.70.101
+X-IronPort-MID: 118064505
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:aHZxcqMcx87yyELvrR3tl8FynXyQoLVcMsEvi/4bfWQNrUp21DACx
+ mcfXTjVMv7bNzD9e912PY+xpB4DuZSHzIMxTwto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/vrRC9H5qyo42tH5gNmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0spQMV9O5
+ aY0ER4qQQydgeyf0JiZFPY506zPLOGzVG8ekldJ6GiBSNwAHtXESaiM4sJE1jAtgMwIBezZe
+ 8cSdTtoalLHfgFLPVAUTpk5mY9EhFGmK2Ee9A3T+vJxujCKpOBy+OGF3N79YNuFSN8Thk+Fj
+ mnH4374ElcRM9n3JT+tqyv83rGTwHumMG4UPJam/Pdh2mS3/E0sIx06cWadgeiVk0HrDrqzL
+ GRRoELCt5Ma9kOxScLmdwalu3PCtRkZM/JLCPEz4gyJzqvS4i6aC3ICQzoHb8Yp3OcxQTEpz
+ UOYhNPBCjlmsbnTQnWYnp+RpCm3MDIYLkcDYzEFVgoP59T/oIA1gQnLR9wlG6mw5vXSHTzz2
+ DmMoDIJu6QIjcUL2qO4+njKmzup4JPOS2Yd/gjLRCS95x19eaa+epelr1Pc6J5oPIufC1WMo
+ nUAs8yf9/wVS4GAkjSXR+cAF63v4OyKWBXYgFhyD9wi+i6r9nqLY49d+nd9KV1vP8JCfiXmC
+ GfNuABL7ZoVM3KwbbB+Z6q4Dshsxq/lfekJTdjRZ9tKJ5J3KwmO+Xg2YVbKhji01k8xjas4J
+ JGXN962CmoXArhmyzzwQPoB1bgsxWY1wma7qY3H8ilLGIG2PBa9IYrp+nPXBgzlxMtoeDnoz
+ us=
+IronPort-HdrOrdr: A9a23:KG0OVKye8Ofveg6HyYo3KrPw2r1zdoMgy1knxilNoHxuH/BwWf
+ rPoB17726TtN91YhsdcL+7V5VoLUmzyXcx2/hyAV7AZniAhILLFvAA0WKK+VSJdxEWtNQtsJ
+ uIG5IUNDSaNykfsS+V2miF+9ZL+qj5zEir792usUuEm2tRGtBdBwQSMHfqLqVvLjM2fKbQjP
+ Cnl7d6TzzLQwVuUu2LQkMrcsLkvNPxmJfvcXc9dmIaAFnnt0LS1FbieSLopCsjbw==
+X-Talos-CUID: 9a23:I3DevGH0qvPg+H6qqmJL034qGtB/XkTz61jMPUm2IHZDauOKHAo=
+X-Talos-MUID: 9a23:T7+x3gtidFYnJpNMJM2nry9oPcwy2oCUKX8mkbkihu+kJABpNGLI
+X-IronPort-AV: E=Sophos;i="6.01,189,1684814400"; 
+   d="scan'208";a="118064505"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ORqETL8Af23G67UQJ9qz1OE5dhvTV3D8lZfNIauT8FbutI/l226+NtLCDbwl8ATHxyUfbNovWacE/7phLPYqTfZZ9EWPb7080ebmjsUfoVsHxC1knjhv5EjVoymjvToa7IXQinsabMSK/fLfI5RuZ4VWg5Wps2P8965XqfDB4mVZr1YJwV1JJFAOx8iqbE/H0Pdp8owfCeyHH++mZbFhRjAsgKHc9gMJONWmKWpLWINNVGIy5weM9WI6TptCDgLgrVGMt7Y0RUnYtfd/HGYDLNyGPIrxKNzxY7EOIkwChk7YEgv1UyzIMjFsL+mRR6VeBXKVo2ffswqxZpvkp+higA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yflHwoduI6GXqH85ABFTPEmbWuDt3ZiTPT/VoKcCoVY=;
+ b=AUgFasKH5HHGNDh3xkbZACsxXCu+IWAZpfT5H8R/0mRm0vDoHrM12hjgxR7kBArW2hodIyECgNvkXMvzTWq/q4fLK4Rq/pV+5X0hit/Nnzrh9uy4Xr+lBwG+5wSw1245wfy0YMTFnYMi5DFVGOwI0M2by2IPTzdWpbYR3N3QSyt2tT2LcPkluMfcw023xgD26ciSUgjCbFebgzPFH/K7DOH16alcZpj7tUDA7KB9aD/p8zNXai9LH4DZO4aqBxD+lSjVlTaIObkgJXEEheBS/0aWU2ulRnhEH2Lcqwm8MhabW96ZkU7k3GFvc+d3kyn+pxS/Cp94p1Lx14ubSIuEHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yflHwoduI6GXqH85ABFTPEmbWuDt3ZiTPT/VoKcCoVY=;
+ b=MZ4Hxrs8vc0o0dfqarBRjWVDzBOjffyFZwrNyXHqfMNUxE/C9PLCBRnruzSuHwXbT/XvqPomuYmjgwLfZC1rOfOyP74v/Oegtp5gGsM5g+uuLkYPkEmoz2nmD8CodJ+WMsKAKFdzLDqPcNcxn6oXea7lY7c6DeUh49kNBE1JA5o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 7 Jul 2023 16:42:40 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	vikram.garhwal@amd.com
+Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
+Message-ID: <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
+References: <ZKQF8qq8Oh5E+Fxx@mail-itl>
+ <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
+ <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
+ <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
+ <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
+ <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
+ <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
+ <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
+ <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
+X-ClientProxiedBy: LNXP123CA0008.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:d2::20) To MW4PR03MB6428.namprd03.prod.outlook.com
+ (2603:10b6:303:123::8)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- vikram.garhwal@amd.com
-References: <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
- <e5eda26f-9a31-dc3a-d97f-33d2efa20efa@suse.com> <ZKQF8qq8Oh5E+Fxx@mail-itl>
- <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
- <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
- <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
- <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
- <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
- <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
- <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
-In-Reply-To: <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Rn6WLhPRazTf0w0yBOa9MskN"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR03MB6428:EE_|MN2PR03MB5118:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7f5f080-a5b5-4a96-3ed4-08db7ef86db7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SYDwjhE9GQo4adxLGZCw1M6GtoR9J7zJ/QMWhvXBUmLOvt0nEKC77hC9fvjP0nH+qwgpJ4mOlNK+gvV7VLPlTxk5yPWotqPYU/hHOD5caaZ/SPwA4SiANGAwwFlNfuHeOUmy/xHno3htwyVViyLtiXx2/QCUXnG9T2ehvlXV/5N0/uicKC+fOdVu7R+eqbQwpXGBHjszHQXPa8OZhUDAg8+aD7Uc45XJ6diiJsh3qtxqAFjJ9YuQkSDuCCew7uVLxMmaXwLncFiNsP7MpqHTY71MCxr13fFMj+g7qqK+E4PDkLMxid+fFptP5bNM8p4YW+e7vt9xlFd+wWO9D9lOH9IrxYy/MqyUP6XoibAhtpWaRwh1Lb5gN4NQPYGFjzfLdlvNh2UGf2piK/TuDKSnyor8Pce2txZN+PzuqRSGFw0bT2j2kyOz8HS3ZBvMmpyeWEfZlPvQMg/ocro93DL2OTdCfwkAli32L5GClruQqOjjcJy0hpGqJ1S/wRgsXeuLFOukiQEwiJyI5MnfPuBdSBYSKaNN+wUjJqSieCmWAsYceF0PbOSkKkQihPemnT+0
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6428.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(366004)(376002)(451199021)(6666004)(478600001)(6486002)(54906003)(53546011)(9686003)(6506007)(26005)(186003)(6512007)(2906002)(41300700001)(316002)(6916009)(4326008)(66556008)(66946007)(66476007)(5660300002)(8936002)(8676002)(38100700002)(82960400001)(86362001)(85182001)(83380400001)(66899021);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?azlLVXBKL09qRTNBcnNReFJhU0hXaURheXpiRzZIemJxRkQwS1pFcjFHRGJt?=
+ =?utf-8?B?Z010R1h4M2phSXlKMTZCank0eVZ4Mk43TmR3aHNNOVNnWTZVTDFKOUVWSVM0?=
+ =?utf-8?B?SkZ6STh6aVFRTm1YK0R3QzIvRy9IeVZsQVltcXVqOWxQRktyZ3VHRFQvbVh0?=
+ =?utf-8?B?YzVQL3pacGZuTFF0TGZFU0k3YytUZHN2VzVkRUVXZFFKK0ExdGZYbUtMZFJK?=
+ =?utf-8?B?cENMS0VqSGhtcTJDRmJTQUw1eGVjYUZ1d1ZHa0JZNU5Cb1Z5WmZBRlJYT3N6?=
+ =?utf-8?B?SzY1OXRSL0ZZeFhYV3k3WmxjMEh4bGw2UUREdlJocE55Q25zZ2tIWGFRY2Rz?=
+ =?utf-8?B?aUZBcXk3a3RDRldCMUZlenpUVSt6TGVXcnBnYTVNRS9qMlM5aE5Sd0hKNDkr?=
+ =?utf-8?B?SEluT0FJdVlUQmZWWGFSejJYbkNxY2xOZjNJcVR4Sk1qSHJHL2lkaXZremZs?=
+ =?utf-8?B?d21VbEl3OTIycU5OS3RVYnV1eGRJRXpRTFAwUDhXOEFHQm5HaDZiTWl4emhY?=
+ =?utf-8?B?aStTRVk1ZzBkeUF0d0lDUEJGL3VGMm5XazJYWXlGbStsVkNyRWF3OGduVFJv?=
+ =?utf-8?B?bGxqUWtIVTkxWnBuSVRsRXVTMElETUxHMVQwS1RBVkJIRG5OQlVrdEc1elc3?=
+ =?utf-8?B?SW44ZzBCYWNhWmREZi9oMXVnV1FhZXJvL3FRTHBUbkNlUUIrWEEyS2FCL1pM?=
+ =?utf-8?B?ZGNFSmVSdjUvUEJQZXEyTElnY0ZLNHNzM2tiOWJTamhseUNnejMyYTd2NFJW?=
+ =?utf-8?B?NFNOc0FJNXUxMURsZTI2dlZqSGZZSmlPUVdKWEZnejlBak84RXBSbEtiK1Vu?=
+ =?utf-8?B?WUwvaGw0WERxN214UjJkM0ttdHFhVERxMDdibGNyUSs1MVMrRStVdmpEVDR4?=
+ =?utf-8?B?bGFiVjd1aS8wUzJlaDNnS0dZMFZOVWpiM0tLaERXaC96QjNDVHB1aXU2NW5Q?=
+ =?utf-8?B?cHIrRFp5N0p0YS9vQXBNa0pDRFgzYjRoQUNUYmVQUHYrVnNITEtNVzRtbTNU?=
+ =?utf-8?B?cEsyclowMHliaFZGVW1xaGgvZ2k4WndsWnpUcUorNjBybmFrbHp3ckd2QWpB?=
+ =?utf-8?B?Sk9PSWtqeG1kWWtiaXZxT0JzWFN1Z2M1VUM4YnFIY3oxQTZqR3RMakJlakdz?=
+ =?utf-8?B?eEluTW1HWnRaYzNOTnpHQXozNVdaNHZGTWJOM2s1cXZVZ0FSVy8rd3lJejVX?=
+ =?utf-8?B?N3Q5YWoyekl1NWUxckJaVlpuTHZkbGhNUXVvME5LMGtwOW1TUlBhT0JzMTFX?=
+ =?utf-8?B?c2QvQ240NDFTTjk3OVQzeWN0YjNodkswQ09NSHJlVHVmTGx5VWROYkM1bE0y?=
+ =?utf-8?B?S1AyTitCaXFhU29RRXpNYmFhOVFaSUFOVzRhZThRNkZKOFRhQVFIc1ZEWTJF?=
+ =?utf-8?B?V1lKdnlyWTYrRVVuS25tWTZDZU9GdTIwOVl5YVFXZlZseUprODNHNVh0aDJa?=
+ =?utf-8?B?SU1XdnR0MEpPbExsVjNSVjBSajh6dmdBeW5BU0dpTUorc2ZReFRwcUZmOTFh?=
+ =?utf-8?B?SWxSUlVEUjd2b3VWdEtvTWMxUyt6SW9HbU92SFdZT09tVkRyWGpmL293RG95?=
+ =?utf-8?B?aGFWcDZTSGI1T3ZhT0JDQU9vaDF4Q3dNL2JRUFhqekhwdlJ1MTRtU1d4NDZr?=
+ =?utf-8?B?N3ZCRHFxaUNudzIyWUc0YlpKTjU1ekFhYlprWVZJN2szKzRUMDNQV2dGQWxD?=
+ =?utf-8?B?UllheG84bTk1VE92MFV1STlxbGpsSjhZQUFiOXZEZnc3bTBEMXQrMURydUVT?=
+ =?utf-8?B?MU5WNkRFY3B0VCtXSVd0KzRSUzlDUE9WZnIzb1ZWSGI1U2JLeVJ6QXNtVkg3?=
+ =?utf-8?B?RFhXeTcvcWZjUFRaTVdFQ3FjanhLdEVaRlBjKytwRzJjZDZidFcrTmVQa2N5?=
+ =?utf-8?B?ZThWeWlqdUtkRU1pcDNGcDdMdjVvRVh0enVPTUJreUtjOFpOM2tlSmlpRFRN?=
+ =?utf-8?B?cVZjVklpYnlhU1ZTYUsrajNiSm5TMHBUdHc1aG1CMVQ4eTJoaVZraENzWmxq?=
+ =?utf-8?B?WUI0Mmhib01KNE10U2FyeDQ3WlFta0trRjFmSjBKNlJJWE9ReHdOTDU4UzlO?=
+ =?utf-8?B?ZDk0Yjg5dzl6M3pkLzNoYS8xMGVxRWptOE1laXh1N1ZpSTZtN0c2VVJzeGY0?=
+ =?utf-8?B?QkhXN281Yy8yS1FCamQwK3IyeXE2aEFPTHVQL0M1RFpuYTJva2VaVkpjbVMr?=
+ =?utf-8?B?eXc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	=?utf-8?B?UUUvcXlQazA5Wm9DblI2S2FwL3A0ODB6VWF0Yi9nVWY3T0dpSmdKb2ZJZkFQ?=
+ =?utf-8?B?bXNrNGFCQWdaK3VVaXZKckhua1EwaWNpOFU0YVRrbnNUS09BQlJhSHdsT2xk?=
+ =?utf-8?B?K2RhL0V2aHNURjJidE5CNDRnVS9hcnVWcm02dXhheUZEQjNudldLNGttb0E0?=
+ =?utf-8?B?d0w1NkhhQkk5MjVIOENwTXIzbVQ2MXJLUXBuTGdIZGQzbENkMmtSQWM1QjZU?=
+ =?utf-8?B?WDZzZm40TzMrNnBNTnQwcWVKQVNjNkIxSGlmemZOREk3M1J4T0lHem84S1BC?=
+ =?utf-8?B?Q2pnV2xHZFN4OWJTTTRST0NzZllBRStLNWdIZVVFR09CZ2xXYm1rZlhvYjRJ?=
+ =?utf-8?B?TFBvZGlPRWNJeGpjMDBSNUFsZlpUYU5XL055WGgvaTBDUEJQbWdSWFBMa29I?=
+ =?utf-8?B?NjhrQ2hDU2hDV1ZzUzl6MFhUeE5HdE93TElXMTVSczBFWnRVdWdzSklzb0xk?=
+ =?utf-8?B?SjRXTEQxU1hEeU5GaE9FaFkxblY0U1NFQ1RhUldscmtBUGZhR2hwQTdtRHBS?=
+ =?utf-8?B?OWFCVFZ0bm8zM3A3V20wMnRhYjRMbHMwaGpwR2lUR2NCdVB3YjMyaW1iYXdV?=
+ =?utf-8?B?K1JJb1Vrd2VDVHZ1cjUvWWdYOC80cFhXMURYUTU1RkM4TVA3RmFwZks3U2hn?=
+ =?utf-8?B?Z0N5NHFYc0U1NElLZE1wN3cwVWV2a3k4WG8zQy9NQ2s4VzNnTHJBRDFGOTRP?=
+ =?utf-8?B?QVVnTVQ5QndMZzI0eE5jWTZIZFc5NVZGV2FkaU1SU1pjbkk5V2pZRVRIRUhO?=
+ =?utf-8?B?YkJoMGQ1NzRWTVhhajRGZVR1ZCtZbWpiZ0craEFnUjlKMXlRL09RU2VLWThY?=
+ =?utf-8?B?bjBTRmNoa1Fpa2lFc1VPYnlRZWw1Ynd5dG8zVWE5NnNON09BWFp6b1BVNGZF?=
+ =?utf-8?B?amJvQWk1TXZPUHFvclgrM0VvalV0N1p5azAvbGdmcDlHL0M1RzRxUkFVZ2lx?=
+ =?utf-8?B?Ujg3L2lFZ0R1ekxuMGxPNGhQcjdWeXFvMVp1dG9GOHpGcnYzNTU4VEw4NDRi?=
+ =?utf-8?B?bWV5RGZVb1ZNKytoWXZwYWluak9UakxiR3hOMTBNcTRxR2lQM0xWc3QyTjNI?=
+ =?utf-8?B?b1NldDl3SzR2dUlmc3V5R0J1elFhMHUybWdXbytqamZ3dFR2akg5bmdrK0Zl?=
+ =?utf-8?B?cVR4UmZYcy8xREZsRHQyc3k5NWpvQWhpSUdLVkpqRlYvZjVxVHpLbVE3R0hw?=
+ =?utf-8?B?TFR1a3FqVDVlMHYvTW0vUmgvNmR6U1VTT1lQTVY1N25hRXBXN0d1aWhlbnJt?=
+ =?utf-8?B?MWUycjB1RGZSbDFhTmljSjVSR1RlU09DT2RiNjFYcXVEeG5TRFVEOFJGamlY?=
+ =?utf-8?Q?J6i8LjEYMvQLLGwKFIF458jNR34buDTqEO?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7f5f080-a5b5-4a96-3ed4-08db7ef86db7
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6428.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 14:42:46.2970
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DCnctZIdTddcqOnLQVmWVlZ+yoQbukY4aERZZeWN5JK5D+eir88x23pMHyeBKwnwYhMxauILSEq3ROfGR383FQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5118
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Rn6WLhPRazTf0w0yBOa9MskN
-Content-Type: multipart/mixed; boundary="------------0aHEKMBKGLFCUAXrXu1i8iGv";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- vikram.garhwal@amd.com
-Message-ID: <00f2ae75-b3cd-6c6d-c1c5-b2e9d6a974b6@suse.com>
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-References: <ZKPO5WbFGblXU5hX@MacBook-Air-de-Roger.local>
- <e5eda26f-9a31-dc3a-d97f-33d2efa20efa@suse.com> <ZKQF8qq8Oh5E+Fxx@mail-itl>
- <ZKQxZY03x30rjdoF@MacBook-Air-de-Roger.local>
- <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
- <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
- <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
- <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
- <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
- <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
-In-Reply-To: <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
+On Fri, Jul 07, 2023 at 04:10:14PM +0200, Juergen Gross wrote:
+> On 07.07.23 11:50, Roger Pau Monné wrote:
+> > On Fri, Jul 07, 2023 at 06:38:48AM +0200, Juergen Gross wrote:
+> > > On 06.07.23 23:49, Stefano Stabellini wrote:
+> > > > On Thu, 6 Jul 2023, Roger Pau Monné wrote:
+> > > > > On Wed, Jul 05, 2023 at 03:41:10PM -0700, Stefano Stabellini wrote:
+> > > > > > On Wed, 5 Jul 2023, Roger Pau Monné wrote:
+> > > > > > > On Tue, Jul 04, 2023 at 08:14:59PM +0300, Oleksandr Tyshchenko wrote:
+> > > > > > > > Part 2 (clarification):
+> > > > > > > > 
+> > > > > > > > I think using a special config space register in the root complex would
+> > > > > > > > not be terrible in terms of guest changes because it is easy to
+> > > > > > > > introduce a new root complex driver in Linux and other OSes. The root
+> > > > > > > > complex would still be ECAM compatible so the regular ECAM driver would
+> > > > > > > > still work. A new driver would only be necessary if you want to be able
+> > > > > > > > to access the special config space register.
+> > > > > > > 
+> > > > > > > I'm slightly worry of this approach, we end up modifying a root
+> > > > > > > complex emulation in order to avoid modifying a PCI device emulation
+> > > > > > > on QEMU, not sure that's a good trade off.
+> > > > > > > 
+> > > > > > > Note also that different architectures will likely have different root
+> > > > > > > complex, and so you might need to modify several of them, plus then
+> > > > > > > arrange the PCI layout correctly in order to have the proper hierarchy
+> > > > > > > so that devices belonging to different driver domains are assigned to
+> > > > > > > different bridges.
+> > > > > > 
+> > > > > > I do think that adding something to the PCI conf register somewhere is
+> > > > > > the best option because it is not dependent on ACPI and it is not
+> > > > > > dependent on xenstore both of which are very undesirable.
+> > > > > > 
+> > > > > > I am not sure where specifically is the best place. These are 3 ideas
+> > > > > > we came up with:
+> > > > > > 1. PCI root complex
+> > > > > > 2. a register on the device itself
+> > > > > > 3. a new capability of the device
+> > > > > > 4. add one extra dummy PCI device for the sole purpose of exposing the
+> > > > > >      grants capability
+> > > > > > 
+> > > > > > 
+> > > > > > Looking at the spec, there is a way to add a vendor-specific capability
+> > > > > > (cap_vndr = 0x9). Could we use that? It doesn't look like it is used
+> > > > > > today, Linux doesn't parse it.
+> > > > > 
+> > > > > I did wonder the same from a quick look at the spec.  There's however
+> > > > > a text in the specification that says:
+> > > > > 
+> > > > > "The driver SHOULD NOT use the Vendor data capability except for
+> > > > > debugging and reporting purposes."
+> > > > > 
+> > > > > So we would at least need to change that because the capability would
+> > > > > then be used by other purposes different than debugging and reporting.
+> > > > > 
+> > > > > Seems like a minor adjustment, so might we worth asking upstream about
+> > > > > their opinion, and to get a conversation started.
+> > > > 
+> > > > Wait, wouldn't this use-case fall under "reporting" ? It is exactly what
+> > > > we are doing, right?
+> > > 
+> > > I'd understand "reporting" as e.g. logging, transferring statistics, ...
+> > > 
+> > > We'd like to use it for configuration purposes.
+> > 
+> > I've also read it that way.
+> > 
+> > > Another idea would be to enhance the virtio IOMMU device to suit our needs:
+> > > we could add the domid as another virtio IOMMU device capability and (for now)
+> > > use bypass mode for all "productive" devices.
+> > 
+> > If we have to start adding capabilties, won't it be easier to just add
+> > it to the each device instead of adding it to virtio IOMMU.  Or is the
+> > parsing of capabilities device specific, and hence we would have to
+> > implement such parsing for each device?  I would expect some
+> > capabilities are shared between all devices, and a Xen capability could
+> > be one of those.
+> 
+> Have a look at [1], which is describing the common device config layout.
+> The problem here is that we'd need to add the domid after the queue specific
+> data, resulting in a mess if further queue fields would be added later.
+> 
+> We could try that, of course.
 
---------------0aHEKMBKGLFCUAXrXu1i8iGv
-Content-Type: multipart/mixed; boundary="------------XUZAguPkyzrC4lcfNeo16yqk"
+Right, we must make it part of the standard if we modify
+virtio_pci_common_cfg, or else newly added fields would overlap the
+Xen specific one.
 
---------------XUZAguPkyzrC4lcfNeo16yqk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Would it be possible to signal Xen-grants support in the
+`device_feature` field, and then expose it from a vendor capability?
+IOW, would it be possible to add a Xen-specific hook in the parsing of
+virtio_pci_common_cfg that would then fetch additional data from a
+capability?
 
-T24gMDcuMDcuMjMgMTY6MTAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDA3LjA3LjIz
-IDExOjUwLCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOg0KPj4gT24gRnJpLCBKdWwgMDcsIDIw
-MjMgYXQgMDY6Mzg6NDhBTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+PiBPbiAw
-Ni4wNy4yMyAyMzo0OSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPj4+PiBPbiBUaHUs
-IDYgSnVsIDIwMjMsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+Pj4+PiBPbiBXZWQsIEp1
-bCAwNSwgMjAyMyBhdCAwMzo0MToxMFBNIC0wNzAwLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3Jv
-dGU6DQo+Pj4+Pj4gT24gV2VkLCA1IEp1bCAyMDIzLCBSb2dlciBQYXUgTW9ubsOpIHdyb3Rl
-Og0KPj4+Pj4+PiBPbiBUdWUsIEp1bCAwNCwgMjAyMyBhdCAwODoxNDo1OVBNICswMzAwLCBP
-bGVrc2FuZHIgVHlzaGNoZW5rbyB3cm90ZToNCj4+Pj4+Pj4+IFBhcnQgMiAoY2xhcmlmaWNh
-dGlvbik6DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gSSB0aGluayB1c2luZyBhIHNwZWNpYWwgY29u
-ZmlnIHNwYWNlIHJlZ2lzdGVyIGluIHRoZSByb290IGNvbXBsZXggd291bGQNCj4+Pj4+Pj4+
-IG5vdCBiZSB0ZXJyaWJsZSBpbiB0ZXJtcyBvZiBndWVzdCBjaGFuZ2VzIGJlY2F1c2UgaXQg
-aXMgZWFzeSB0bw0KPj4+Pj4+Pj4gaW50cm9kdWNlIGEgbmV3IHJvb3QgY29tcGxleCBkcml2
-ZXIgaW4gTGludXggYW5kIG90aGVyIE9TZXMuIFRoZSByb290DQo+Pj4+Pj4+PiBjb21wbGV4
-IHdvdWxkIHN0aWxsIGJlIEVDQU0gY29tcGF0aWJsZSBzbyB0aGUgcmVndWxhciBFQ0FNIGRy
-aXZlciB3b3VsZA0KPj4+Pj4+Pj4gc3RpbGwgd29yay4gQSBuZXcgZHJpdmVyIHdvdWxkIG9u
-bHkgYmUgbmVjZXNzYXJ5IGlmIHlvdSB3YW50IHRvIGJlIGFibGUNCj4+Pj4+Pj4+IHRvIGFj
-Y2VzcyB0aGUgc3BlY2lhbCBjb25maWcgc3BhY2UgcmVnaXN0ZXIuDQo+Pj4+Pj4+DQo+Pj4+
-Pj4+IEknbSBzbGlnaHRseSB3b3JyeSBvZiB0aGlzIGFwcHJvYWNoLCB3ZSBlbmQgdXAgbW9k
-aWZ5aW5nIGEgcm9vdA0KPj4+Pj4+PiBjb21wbGV4IGVtdWxhdGlvbiBpbiBvcmRlciB0byBh
-dm9pZCBtb2RpZnlpbmcgYSBQQ0kgZGV2aWNlIGVtdWxhdGlvbg0KPj4+Pj4+PiBvbiBRRU1V
-LCBub3Qgc3VyZSB0aGF0J3MgYSBnb29kIHRyYWRlIG9mZi4NCj4+Pj4+Pj4NCj4+Pj4+Pj4g
-Tm90ZSBhbHNvIHRoYXQgZGlmZmVyZW50IGFyY2hpdGVjdHVyZXMgd2lsbCBsaWtlbHkgaGF2
-ZSBkaWZmZXJlbnQgcm9vdA0KPj4+Pj4+PiBjb21wbGV4LCBhbmQgc28geW91IG1pZ2h0IG5l
-ZWQgdG8gbW9kaWZ5IHNldmVyYWwgb2YgdGhlbSwgcGx1cyB0aGVuDQo+Pj4+Pj4+IGFycmFu
-Z2UgdGhlIFBDSSBsYXlvdXQgY29ycmVjdGx5IGluIG9yZGVyIHRvIGhhdmUgdGhlIHByb3Bl
-ciBoaWVyYXJjaHkNCj4+Pj4+Pj4gc28gdGhhdCBkZXZpY2VzIGJlbG9uZ2luZyB0byBkaWZm
-ZXJlbnQgZHJpdmVyIGRvbWFpbnMgYXJlIGFzc2lnbmVkIHRvDQo+Pj4+Pj4+IGRpZmZlcmVu
-dCBicmlkZ2VzLg0KPj4+Pj4+DQo+Pj4+Pj4gSSBkbyB0aGluayB0aGF0IGFkZGluZyBzb21l
-dGhpbmcgdG8gdGhlIFBDSSBjb25mIHJlZ2lzdGVyIHNvbWV3aGVyZSBpcw0KPj4+Pj4+IHRo
-ZSBiZXN0IG9wdGlvbiBiZWNhdXNlIGl0IGlzIG5vdCBkZXBlbmRlbnQgb24gQUNQSSBhbmQg
-aXQgaXMgbm90DQo+Pj4+Pj4gZGVwZW5kZW50IG9uIHhlbnN0b3JlIGJvdGggb2Ygd2hpY2gg
-YXJlIHZlcnkgdW5kZXNpcmFibGUuDQo+Pj4+Pj4NCj4+Pj4+PiBJIGFtIG5vdCBzdXJlIHdo
-ZXJlIHNwZWNpZmljYWxseSBpcyB0aGUgYmVzdCBwbGFjZS4gVGhlc2UgYXJlIDMgaWRlYXMN
-Cj4+Pj4+PiB3ZSBjYW1lIHVwIHdpdGg6DQo+Pj4+Pj4gMS4gUENJIHJvb3QgY29tcGxleA0K
-Pj4+Pj4+IDIuIGEgcmVnaXN0ZXIgb24gdGhlIGRldmljZSBpdHNlbGYNCj4+Pj4+PiAzLiBh
-IG5ldyBjYXBhYmlsaXR5IG9mIHRoZSBkZXZpY2UNCj4+Pj4+PiA0LiBhZGQgb25lIGV4dHJh
-IGR1bW15IFBDSSBkZXZpY2UgZm9yIHRoZSBzb2xlIHB1cnBvc2Ugb2YgZXhwb3NpbmcgdGhl
-DQo+Pj4+Pj4gwqDCoMKgwqAgZ3JhbnRzIGNhcGFiaWxpdHkNCj4+Pj4+Pg0KPj4+Pj4+DQo+
-Pj4+Pj4gTG9va2luZyBhdCB0aGUgc3BlYywgdGhlcmUgaXMgYSB3YXkgdG8gYWRkIGEgdmVu
-ZG9yLXNwZWNpZmljIGNhcGFiaWxpdHkNCj4+Pj4+PiAoY2FwX3ZuZHIgPSAweDkpLiBDb3Vs
-ZCB3ZSB1c2UgdGhhdD8gSXQgZG9lc24ndCBsb29rIGxpa2UgaXQgaXMgdXNlZA0KPj4+Pj4+
-IHRvZGF5LCBMaW51eCBkb2Vzbid0IHBhcnNlIGl0Lg0KPj4+Pj4NCj4+Pj4+IEkgZGlkIHdv
-bmRlciB0aGUgc2FtZSBmcm9tIGEgcXVpY2sgbG9vayBhdCB0aGUgc3BlYy7CoCBUaGVyZSdz
-IGhvd2V2ZXINCj4+Pj4+IGEgdGV4dCBpbiB0aGUgc3BlY2lmaWNhdGlvbiB0aGF0IHNheXM6
-DQo+Pj4+Pg0KPj4+Pj4gIlRoZSBkcml2ZXIgU0hPVUxEIE5PVCB1c2UgdGhlIFZlbmRvciBk
-YXRhIGNhcGFiaWxpdHkgZXhjZXB0IGZvcg0KPj4+Pj4gZGVidWdnaW5nIGFuZCByZXBvcnRp
-bmcgcHVycG9zZXMuIg0KPj4+Pj4NCj4+Pj4+IFNvIHdlIHdvdWxkIGF0IGxlYXN0IG5lZWQg
-dG8gY2hhbmdlIHRoYXQgYmVjYXVzZSB0aGUgY2FwYWJpbGl0eSB3b3VsZA0KPj4+Pj4gdGhl
-biBiZSB1c2VkIGJ5IG90aGVyIHB1cnBvc2VzIGRpZmZlcmVudCB0aGFuIGRlYnVnZ2luZyBh
-bmQgcmVwb3J0aW5nLg0KPj4+Pj4NCj4+Pj4+IFNlZW1zIGxpa2UgYSBtaW5vciBhZGp1c3Rt
-ZW50LCBzbyBtaWdodCB3ZSB3b3J0aCBhc2tpbmcgdXBzdHJlYW0gYWJvdXQNCj4+Pj4+IHRo
-ZWlyIG9waW5pb24sIGFuZCB0byBnZXQgYSBjb252ZXJzYXRpb24gc3RhcnRlZC4NCj4+Pj4N
-Cj4+Pj4gV2FpdCwgd291bGRuJ3QgdGhpcyB1c2UtY2FzZSBmYWxsIHVuZGVyICJyZXBvcnRp
-bmciID8gSXQgaXMgZXhhY3RseSB3aGF0DQo+Pj4+IHdlIGFyZSBkb2luZywgcmlnaHQ/DQo+
-Pj4NCj4+PiBJJ2QgdW5kZXJzdGFuZCAicmVwb3J0aW5nIiBhcyBlLmcuIGxvZ2dpbmcsIHRy
-YW5zZmVycmluZyBzdGF0aXN0aWNzLCAuLi4NCj4+Pg0KPj4+IFdlJ2QgbGlrZSB0byB1c2Ug
-aXQgZm9yIGNvbmZpZ3VyYXRpb24gcHVycG9zZXMuDQo+Pg0KPj4gSSd2ZSBhbHNvIHJlYWQg
-aXQgdGhhdCB3YXkuDQo+Pg0KPj4+IEFub3RoZXIgaWRlYSB3b3VsZCBiZSB0byBlbmhhbmNl
-IHRoZSB2aXJ0aW8gSU9NTVUgZGV2aWNlIHRvIHN1aXQgb3VyIG5lZWRzOg0KPj4+IHdlIGNv
-dWxkIGFkZCB0aGUgZG9taWQgYXMgYW5vdGhlciB2aXJ0aW8gSU9NTVUgZGV2aWNlIGNhcGFi
-aWxpdHkgYW5kIChmb3Igbm93KQ0KPj4+IHVzZSBieXBhc3MgbW9kZSBmb3IgYWxsICJwcm9k
-dWN0aXZlIiBkZXZpY2VzLg0KPj4NCj4+IElmIHdlIGhhdmUgdG8gc3RhcnQgYWRkaW5nIGNh
-cGFiaWx0aWVzLCB3b24ndCBpdCBiZSBlYXNpZXIgdG8ganVzdCBhZGQNCj4+IGl0IHRvIHRo
-ZSBlYWNoIGRldmljZSBpbnN0ZWFkIG9mIGFkZGluZyBpdCB0byB2aXJ0aW8gSU9NTVUuwqAg
-T3IgaXMgdGhlDQo+PiBwYXJzaW5nIG9mIGNhcGFiaWxpdGllcyBkZXZpY2Ugc3BlY2lmaWMs
-IGFuZCBoZW5jZSB3ZSB3b3VsZCBoYXZlIHRvDQo+PiBpbXBsZW1lbnQgc3VjaCBwYXJzaW5n
-IGZvciBlYWNoIGRldmljZT/CoCBJIHdvdWxkIGV4cGVjdCBzb21lDQo+PiBjYXBhYmlsaXRp
-ZXMgYXJlIHNoYXJlZCBiZXR3ZWVuIGFsbCBkZXZpY2VzLCBhbmQgYSBYZW4gY2FwYWJpbGl0
-eSBjb3VsZA0KPj4gYmUgb25lIG9mIHRob3NlLg0KPiANCj4gSGF2ZSBhIGxvb2sgYXQgWzFd
-LCB3aGljaCBpcyBkZXNjcmliaW5nIHRoZSBjb21tb24gZGV2aWNlIGNvbmZpZyBsYXlvdXQu
-DQo+IFRoZSBwcm9ibGVtIGhlcmUgaXMgdGhhdCB3ZSdkIG5lZWQgdG8gYWRkIHRoZSBkb21p
-ZCBhZnRlciB0aGUgcXVldWUgc3BlY2lmaWMNCj4gZGF0YSwgcmVzdWx0aW5nIGluIGEgbWVz
-cyBpZiBmdXJ0aGVyIHF1ZXVlIGZpZWxkcyB3b3VsZCBiZSBhZGRlZCBsYXRlci4NCj4gDQo+
-IFdlIGNvdWxkIHRyeSB0aGF0LCBvZiBjb3Vyc2UuDQoNClRoaW5raW5nIG1vcmUgYWJvdXQg
-aXQsIHRoZSB2aXJ0aW8gSU9NTVUgZGV2aWNlIHNlZW1zIHRvIGJlIGEgYmV0dGVyIGZpdDoN
-Cg0KSW4gY2FzZSB3ZSdkIGFkZCB0aGUgZG9taWQgdG8gdGhlIGRldmljZSdzIFBDSSBjb25m
-aWcgc3BhY2UsIHRoZSB2YWx1ZSB3b3VsZA0KYmUgY29udHJvbGxlZCBieSB0aGUgYmFja2Vu
-ZCBkb21haW4uIElNTyB0aGUgZG9taWQgcGFzc2VkIHRvIHRoZSBmcm9udGVuZA0Kc2hvdWxk
-IGJlIGNvbnRyb2xsZWQgYnkgYSB0cnVzdGVkIGVudGl0eSAoZG9tMCBvciB0aGUgaHlwZXJ2
-aXNvciksIHdoaWNoDQp3b3VsZCBiZSB0aGUgbmF0dXJhbCBiYWNrZW5kIG9mIHRoZSB2aXJ0
-aW8gSU9NTVUgZGV2aWNlLg0KDQoNCkp1ZXJnZW4NCg==
---------------XUZAguPkyzrC4lcfNeo16yqk
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+That would likely be less intrusive than adding a new Xen-specific
+field to virtio_pci_common_cfg while still allowing us to do Xen
+specific configuration for all VirtIO devices.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> > 
+> > > Later we could even add grant-V3 support to Xen and to the virtio IOMMU device
+> > > (see my last year Xen Summit design session). This could be usable for
+> > > disaggregated KVM setups, too, so I believe there is a chance to get this
+> > > accepted.
+> > > 
+> > > > > > > > **********
+> > > > > > > > What do you think about it? Are there any pitfalls, etc? This also requires
+> > > > > > > > system changes, but at least without virtio spec changes.
+> > > > > > > 
+> > > > > > > Why are we so reluctant to add spec changes?  I understand this might
+> > > > > > > take time an effort, but it's the only way IMO to build a sustainable
+> > > > > > > VirtIO Xen implementation.  Did we already attempt to negotiate with
+> > > > > > > Oasis Xen related spec changes and those where refused?
+> > > > > > 
+> > > > > > That's because spec changes can be very slow. This is a bug that we need
+> > > > > > a relatively quick solution for and waiting 12-24 months for a spec
+> > > > > > update is not realistic.
+> > > > > > 
+> > > > > > I think a spec change would be best as a long term solution. We also
+> > > > > > need a short term solution. The short term solution doesn't have to be
+> > > > > > ideal but it has to work now.
+> > > > > 
+> > > > > My fear with such approach is that once a bodge is in place people
+> > > > > move on to other stuff and this never gets properly fixed.
+> > > > > 
+> > > > > I know this might not be a well received opinion, but it would be
+> > > > > better if such bodge is kept in each interested party patchqueue for
+> > > > > the time being, until a proper solution is implemented.  That way
+> > > > > there's an interest from parties into properly fixing it upstream.
+> > > > 
+> > > > Unfortunately we are in the situation where we have an outstanding
+> > > > upstream bug, so we have to take action one way or the other.
+> > > 
+> > > The required virtio IOMMU device modification would be rather small, so
+> > > adding it maybe under a CONFIG option defaulting to off might be
+> > > acceptable.
+> > 
+> > Would you then do the grant allocation as part of virtio IOMMU?
+> 
+> Long term, maybe. Do you remember my Grant-V3 design session last year? Being
+> able to reuse the same layout for virtio IOMMU was one of the basic ideas for
+> that layout (this would need some heavy work on the virtio IOMMU frontend and
+> backend, of course).
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+While this might well be the best option, do we have anyone with the
+time and expertise to work on this?  I might be wrong, but it seems
+like a huge task.
 
---------------XUZAguPkyzrC4lcfNeo16yqk--
-
---------------0aHEKMBKGLFCUAXrXu1i8iGv--
-
---------------Rn6WLhPRazTf0w0yBOa9MskN
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSoIO8FAwAAAAAACgkQsN6d1ii/Ey8+
-igf/YjozvDjTT9kxQ8QX9wWc53sCrD4GUm+mbOU7Vs1u8mv7lXghI9FV4AWSfh9ivTooCmyCHHzn
-+ReSltsXL2RA8g/WPMzkOlHuNc+XnQ7IXqULbo2YmnMbfHRRpUJnVQIgsvw2vwvAG3aNYGCqGimC
-E7JI0B7NJbTzpq9wdK0rIlpjoVkPtMOXLBGGMkzK4V0KMNCra/x76GnQocoOUzoULTqlvxLpkctR
-/Uifpaa0D4+5fdT+GXW6YLs8WudbanEadyHPZk3FBa6a5wfeHbMFUKi6YOvz6X6bzV/L6LYbYm4I
-42d/xj0+NwTw3Mh3/c2Xn2j2PrW5EmPkTic1fEDT9A==
-=T4SZ
------END PGP SIGNATURE-----
-
---------------Rn6WLhPRazTf0w0yBOa9MskN--
+Thanks, Roger.
 
