@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A58A74B3F2
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 17:15:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560561.876573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6316A74B4BC
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jul 2023 17:56:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560568.876583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHnBL-0005v1-5V; Fri, 07 Jul 2023 15:15:39 +0000
+	id 1qHno5-000216-7L; Fri, 07 Jul 2023 15:55:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560561.876573; Fri, 07 Jul 2023 15:15:39 +0000
+Received: by outflank-mailman (output) from mailman id 560568.876583; Fri, 07 Jul 2023 15:55:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qHnBL-0005sC-1x; Fri, 07 Jul 2023 15:15:39 +0000
-Received: by outflank-mailman (input) for mailman id 560561;
- Fri, 07 Jul 2023 15:15:37 +0000
+	id 1qHno5-0001yB-4i; Fri, 07 Jul 2023 15:55:41 +0000
+Received: by outflank-mailman (input) for mailman id 560568;
+ Fri, 07 Jul 2023 15:55:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VdXt=CZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qHnBJ-0004kb-QN
- for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 15:15:37 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X2dY=CZ=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qHno3-0001y2-DQ
+ for xen-devel@lists.xenproject.org; Fri, 07 Jul 2023 15:55:39 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f5098ac-1cd9-11ee-8611-37d641c3527e;
- Fri, 07 Jul 2023 17:15:36 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3C6C822366;
- Fri,  7 Jul 2023 15:15:35 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E2FC7139E0;
- Fri,  7 Jul 2023 15:15:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XxK8NRYsqGSNDQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 07 Jul 2023 15:15:34 +0000
+ id b512a91a-1cde-11ee-8611-37d641c3527e;
+ Fri, 07 Jul 2023 17:55:36 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-977e0fbd742so254768366b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Jul 2023 08:55:34 -0700 (PDT)
+Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ g3-20020a1709063b0300b009786ae9ed50sm2332013ejf.194.2023.07.07.08.55.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Jul 2023 08:55:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,271 +45,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f5098ac-1cd9-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688742935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZncDOKZ9x+kpnlS7bBEnKGfdCqfhcrTh2UKs90bTUE=;
-	b=ZODyVr89B9bQ/GIAu+X0tgi8UQMKOy6NVDlObFNpxH8eZ+6ytVYu98Eu31mrpvk8JcKptc
-	poVQTlg0yo1LWYJHrO52KX2XozK3YCQWuL7LKlFWaD2qvxwAmXgtxrCDUD6ErGdz2UYmfY
-	PGqrbhAwWzR4bG7qTBIIADJhjKahrXE=
-Message-ID: <90a9ef87-b5e7-63fb-49c1-3606cefef8a4@suse.com>
-Date: Fri, 7 Jul 2023 17:15:34 +0200
+X-Inumbo-ID: b512a91a-1cde-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1688745334; x=1691337334;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=l65fIxU7PQPm2QeYAxinf04OLcyj1bHcNGD7tCg11BA=;
+        b=c+kn5V3GJk0pRblbAZYRuQj1wG2f8SrpZ+MIN7fe2uqL76sQNebzCwf4091s12PXVH
+         KZLTXTZD8zf157qZSxInyPeNi7JEXg1Ex04bOjuo9TSYvR6K2CBnv9aaDPx8+QnfRilU
+         Ss73dsypdT4w3F7OaYqQLxNxUe55rjrZ8ybOI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688745334; x=1691337334;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=l65fIxU7PQPm2QeYAxinf04OLcyj1bHcNGD7tCg11BA=;
+        b=NVTa1/7uiw0oajYx0BMhjfLHP2WyG/hxa/W/08zKbaQYg54ztKyrOp1ELoQdgvr/Gl
+         B3oTpkwYAaf3JFPeEw/1iSc6KlwO4IjmQJAMPg5HlmPNnqGx8Xrp289beUOMmgrrNSLG
+         cl1U5IIhlGumpCGzauMY17w2hc+6r9Wi/mBGYalpVvXdAy1NJ9GmocDcvZTMoJWuVUH1
+         42sd4BIAzDr034sG5KmjmMxNA/Gu4Mclcy8kq1KvMP+0Ngx4r0D5hTFjXx8donOZGkOg
+         kX8hIupuX7pwIv4kg0xAwst27pSouuBELZ/8cjCnyeVyw172qQNO5Tri4Vs4KCRdfALR
+         57Bg==
+X-Gm-Message-State: ABy/qLY4DEg/8wfpF3e3y2lBgVvBHoDsSBx4m0WqW1TTVUiZJPo5CQAn
+	1/cimYvGE3691d9DAqEvtnqf7Q==
+X-Google-Smtp-Source: APBJJlGOv/EBi7cIX94zSa9hHsbeSufxIl5kxtUUoFzxA7RSh7e3uvGIPmrN8t3uB9BE8lapIrSQlA==
+X-Received: by 2002:a17:906:259:b0:993:d5bd:a757 with SMTP id 25-20020a170906025900b00993d5bda757mr1632745ejl.19.1688745333629;
+        Fri, 07 Jul 2023 08:55:33 -0700 (PDT)
+Message-ID: <64a83575.170a0220.2c96.8158@mx.google.com>
+X-Google-Original-Message-ID: <ZKg1cgevZIfvwfQ6@EMEAENGAAD19049.>
+Date: Fri, 7 Jul 2023 16:55:30 +0100
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] mm/pdx: Add comments throughout the codebase for pdx
+References: <20230622140237.8996-1-alejandro.vallejo@cloud.com>
+ <e7d3daa3-7d5b-1c36-51f1-453bf11b55d2@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- vikram.garhwal@amd.com
-References: <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
- <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
- <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
- <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
- <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
- <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
- <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
- <106781fe-992b-8609-fe37-17619b699353@suse.com>
- <ZKgrwvSO9MgLqXTn@MacBook-Air-de-Roger.local>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <ZKgrwvSO9MgLqXTn@MacBook-Air-de-Roger.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------gBQZQQLufC3OxQcZ7IVdlfQH"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e7d3daa3-7d5b-1c36-51f1-453bf11b55d2@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gBQZQQLufC3OxQcZ7IVdlfQH
-Content-Type: multipart/mixed; boundary="------------90Ooqz7cF1y4zzZJzl5mQrRx";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Petr Pavlu <petr.pavlu@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- vikram.garhwal@amd.com
-Message-ID: <90a9ef87-b5e7-63fb-49c1-3606cefef8a4@suse.com>
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-References: <CAPD2p-nG8SbNYF6Ob262bP71qXNGmWLZcYTLO-DnnmTQX2VHvw@mail.gmail.com>
- <ZKUqomfCfjrQUt6u@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307051540590.761183@ubuntu-linux-20-04-desktop>
- <ZKZ4fAfbKsVEO_xo@MacBook-Air-de-Roger.local>
- <alpine.DEB.2.22.394.2307061449160.761183@ubuntu-linux-20-04-desktop>
- <05341cac-ac75-a6e5-9c29-3caf83ea99fc@suse.com>
- <ZKff0w2EpzX5r8vK@MacBook-Air-de-Roger.local>
- <74493ba6-48c5-6326-b027-0b6761ef4836@suse.com>
- <ZKgkYKG11AWIUXuv@MacBook-Air-de-Roger.local>
- <106781fe-992b-8609-fe37-17619b699353@suse.com>
- <ZKgrwvSO9MgLqXTn@MacBook-Air-de-Roger.local>
-In-Reply-To: <ZKgrwvSO9MgLqXTn@MacBook-Air-de-Roger.local>
+On Thu, Jul 06, 2023 at 11:50:58AM +0200, Jan Beulich wrote:
+> On 22.06.2023 16:02, Alejandro Vallejo wrote:
+> > @@ -57,9 +100,25 @@ uint64_t __init pdx_init_mask(uint64_t base_addr)
+> >                           (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
+> >  }
+> >  
+> > -u64 __init pdx_region_mask(u64 base, u64 len)
+> > +uint64_t __init pdx_region_mask(uint64_t base, uint64_t len)
+> >  {
+> > -    return fill_mask(base ^ (base + len - 1));
+> > +    uint64_t last = base + len - 1;
+> > +    /*
+> > +     * The only bit that matters in base^last is the MSB. There are 2 cases.
+> > +     *
+> > +     * case msb(base) < msb(last):
+> > +     *     then msb(fill_mask(base^last)) == msb(last). This is non
+> > +     *     compressible.
+> > +     * case msb(base) == msb(last):
+> > +     *     This means that there _may_ be a sequence of compressible zeroes
+> > +     *     for all addresses between `base` and `last` iff `base` has enough
+> > +     *     trailing zeroes. That is, it's compressible when
+> 
+> Why trailing zeros? [100000f000,10ffffffff] has compressible bits
+> 32-35, but the low bits of base don't matter at all.
+Ugh, I was thinking about the zeroes in the hole, but those are hardly
+trailing indeed. Look below for the revamped comment though, as this simply
+goes away.
 
---------------90Ooqz7cF1y4zzZJzl5mQrRx
-Content-Type: multipart/mixed; boundary="------------ahTK0ozz3fzdSsZPePPRJ5hg"
+> 
+> > +     *     msb(fill_mask(base^last)) < msb(last)
+> 
+> No caller uses the result this way, so I'm unconvinced it is helpful
+> to explain it here this way. This is also why I'm still not convinced
+> of the introduction of "last" (as a real variable and in the comment).
+> It's only the invariant bits in the range that we're after, as you
+> say ...
+> > +     * The resulting mask is effectively the moving bits between `base` and
+> > +     * `last`.
+> 
+> ... here (where things could be expressed without "last").
+> 
+I've given it a go rephrashing it in terms of the logical operations being
+applied rather than the relationship between the inputs. If you're still
+unsatisfied I'm happy to hear other suggestions. It's just a complicated
+thing to put into words.
 
---------------ahTK0ozz3fzdSsZPePPRJ5hg
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+With this definition I'm happy to remove the `last` auxiliary variable from
+the patch because it's unnecessary.
 
-T24gMDcuMDcuMjMgMTc6MTQsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIEZyaSwg
-SnVsIDA3LCAyMDIzIGF0IDA1OjAxOjM4UE0gKzAyMDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6
-DQo+PiBPbiAwNy4wNy4yMyAxNjo0MiwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4+PiBP
-biBGcmksIEp1bCAwNywgMjAyMyBhdCAwNDoxMDoxNFBNICswMjAwLCBKdWVyZ2VuIEdyb3Nz
-IHdyb3RlOg0KPj4+PiBPbiAwNy4wNy4yMyAxMTo1MCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90
-ZToNCj4+Pj4+IE9uIEZyaSwgSnVsIDA3LCAyMDIzIGF0IDA2OjM4OjQ4QU0gKzAyMDAsIEp1
-ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pj4+Pj4gT24gMDYuMDcuMjMgMjM6NDksIFN0ZWZhbm8g
-U3RhYmVsbGluaSB3cm90ZToNCj4+Pj4+Pj4gT24gVGh1LCA2IEp1bCAyMDIzLCBSb2dlciBQ
-YXUgTW9ubsOpIHdyb3RlOg0KPj4+Pj4+Pj4gT24gV2VkLCBKdWwgMDUsIDIwMjMgYXQgMDM6
-NDE6MTBQTSAtMDcwMCwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPj4+Pj4+Pj4+IE9u
-IFdlZCwgNSBKdWwgMjAyMywgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4+Pj4+Pj4+Pj4g
-T24gVHVlLCBKdWwgMDQsIDIwMjMgYXQgMDg6MTQ6NTlQTSArMDMwMCwgT2xla3NhbmRyIFR5
-c2hjaGVua28gd3JvdGU6DQo+Pj4+Pj4+Pj4+PiBQYXJ0IDIgKGNsYXJpZmljYXRpb24pOg0K
-Pj4+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+Pj4+IEkgdGhpbmsgdXNpbmcgYSBzcGVjaWFsIGNvbmZp
-ZyBzcGFjZSByZWdpc3RlciBpbiB0aGUgcm9vdCBjb21wbGV4IHdvdWxkDQo+Pj4+Pj4+Pj4+
-PiBub3QgYmUgdGVycmlibGUgaW4gdGVybXMgb2YgZ3Vlc3QgY2hhbmdlcyBiZWNhdXNlIGl0
-IGlzIGVhc3kgdG8NCj4+Pj4+Pj4+Pj4+IGludHJvZHVjZSBhIG5ldyByb290IGNvbXBsZXgg
-ZHJpdmVyIGluIExpbnV4IGFuZCBvdGhlciBPU2VzLiBUaGUgcm9vdA0KPj4+Pj4+Pj4+Pj4g
-Y29tcGxleCB3b3VsZCBzdGlsbCBiZSBFQ0FNIGNvbXBhdGlibGUgc28gdGhlIHJlZ3VsYXIg
-RUNBTSBkcml2ZXIgd291bGQNCj4+Pj4+Pj4+Pj4+IHN0aWxsIHdvcmsuIEEgbmV3IGRyaXZl
-ciB3b3VsZCBvbmx5IGJlIG5lY2Vzc2FyeSBpZiB5b3Ugd2FudCB0byBiZSBhYmxlDQo+Pj4+
-Pj4+Pj4+PiB0byBhY2Nlc3MgdGhlIHNwZWNpYWwgY29uZmlnIHNwYWNlIHJlZ2lzdGVyLg0K
-Pj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+PiBJJ20gc2xpZ2h0bHkgd29ycnkgb2YgdGhpcyBhcHBy
-b2FjaCwgd2UgZW5kIHVwIG1vZGlmeWluZyBhIHJvb3QNCj4+Pj4+Pj4+Pj4gY29tcGxleCBl
-bXVsYXRpb24gaW4gb3JkZXIgdG8gYXZvaWQgbW9kaWZ5aW5nIGEgUENJIGRldmljZSBlbXVs
-YXRpb24NCj4+Pj4+Pj4+Pj4gb24gUUVNVSwgbm90IHN1cmUgdGhhdCdzIGEgZ29vZCB0cmFk
-ZSBvZmYuDQo+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+IE5vdGUgYWxzbyB0aGF0IGRpZmZlcmVu
-dCBhcmNoaXRlY3R1cmVzIHdpbGwgbGlrZWx5IGhhdmUgZGlmZmVyZW50IHJvb3QNCj4+Pj4+
-Pj4+Pj4gY29tcGxleCwgYW5kIHNvIHlvdSBtaWdodCBuZWVkIHRvIG1vZGlmeSBzZXZlcmFs
-IG9mIHRoZW0sIHBsdXMgdGhlbg0KPj4+Pj4+Pj4+PiBhcnJhbmdlIHRoZSBQQ0kgbGF5b3V0
-IGNvcnJlY3RseSBpbiBvcmRlciB0byBoYXZlIHRoZSBwcm9wZXIgaGllcmFyY2h5DQo+Pj4+
-Pj4+Pj4+IHNvIHRoYXQgZGV2aWNlcyBiZWxvbmdpbmcgdG8gZGlmZmVyZW50IGRyaXZlciBk
-b21haW5zIGFyZSBhc3NpZ25lZCB0bw0KPj4+Pj4+Pj4+PiBkaWZmZXJlbnQgYnJpZGdlcy4N
-Cj4+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+IEkgZG8gdGhpbmsgdGhhdCBhZGRpbmcgc29tZXRoaW5n
-IHRvIHRoZSBQQ0kgY29uZiByZWdpc3RlciBzb21ld2hlcmUgaXMNCj4+Pj4+Pj4+PiB0aGUg
-YmVzdCBvcHRpb24gYmVjYXVzZSBpdCBpcyBub3QgZGVwZW5kZW50IG9uIEFDUEkgYW5kIGl0
-IGlzIG5vdA0KPj4+Pj4+Pj4+IGRlcGVuZGVudCBvbiB4ZW5zdG9yZSBib3RoIG9mIHdoaWNo
-IGFyZSB2ZXJ5IHVuZGVzaXJhYmxlLg0KPj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4gSSBhbSBub3Qg
-c3VyZSB3aGVyZSBzcGVjaWZpY2FsbHkgaXMgdGhlIGJlc3QgcGxhY2UuIFRoZXNlIGFyZSAz
-IGlkZWFzDQo+Pj4+Pj4+Pj4gd2UgY2FtZSB1cCB3aXRoOg0KPj4+Pj4+Pj4+IDEuIFBDSSBy
-b290IGNvbXBsZXgNCj4+Pj4+Pj4+PiAyLiBhIHJlZ2lzdGVyIG9uIHRoZSBkZXZpY2UgaXRz
-ZWxmDQo+Pj4+Pj4+Pj4gMy4gYSBuZXcgY2FwYWJpbGl0eSBvZiB0aGUgZGV2aWNlDQo+Pj4+
-Pj4+Pj4gNC4gYWRkIG9uZSBleHRyYSBkdW1teSBQQ0kgZGV2aWNlIGZvciB0aGUgc29sZSBw
-dXJwb3NlIG9mIGV4cG9zaW5nIHRoZQ0KPj4+Pj4+Pj4+ICAgICAgICBncmFudHMgY2FwYWJp
-bGl0eQ0KPj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+PiBMb29raW5nIGF0IHRoZSBz
-cGVjLCB0aGVyZSBpcyBhIHdheSB0byBhZGQgYSB2ZW5kb3Itc3BlY2lmaWMgY2FwYWJpbGl0
-eQ0KPj4+Pj4+Pj4+IChjYXBfdm5kciA9IDB4OSkuIENvdWxkIHdlIHVzZSB0aGF0PyBJdCBk
-b2Vzbid0IGxvb2sgbGlrZSBpdCBpcyB1c2VkDQo+Pj4+Pj4+Pj4gdG9kYXksIExpbnV4IGRv
-ZXNuJ3QgcGFyc2UgaXQuDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gSSBkaWQgd29uZGVyIHRoZSBz
-YW1lIGZyb20gYSBxdWljayBsb29rIGF0IHRoZSBzcGVjLiAgVGhlcmUncyBob3dldmVyDQo+
-Pj4+Pj4+PiBhIHRleHQgaW4gdGhlIHNwZWNpZmljYXRpb24gdGhhdCBzYXlzOg0KPj4+Pj4+
-Pj4NCj4+Pj4+Pj4+ICJUaGUgZHJpdmVyIFNIT1VMRCBOT1QgdXNlIHRoZSBWZW5kb3IgZGF0
-YSBjYXBhYmlsaXR5IGV4Y2VwdCBmb3INCj4+Pj4+Pj4+IGRlYnVnZ2luZyBhbmQgcmVwb3J0
-aW5nIHB1cnBvc2VzLiINCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBTbyB3ZSB3b3VsZCBhdCBsZWFz
-dCBuZWVkIHRvIGNoYW5nZSB0aGF0IGJlY2F1c2UgdGhlIGNhcGFiaWxpdHkgd291bGQNCj4+
-Pj4+Pj4+IHRoZW4gYmUgdXNlZCBieSBvdGhlciBwdXJwb3NlcyBkaWZmZXJlbnQgdGhhbiBk
-ZWJ1Z2dpbmcgYW5kIHJlcG9ydGluZy4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBTZWVtcyBsaWtl
-IGEgbWlub3IgYWRqdXN0bWVudCwgc28gbWlnaHQgd2Ugd29ydGggYXNraW5nIHVwc3RyZWFt
-IGFib3V0DQo+Pj4+Pj4+PiB0aGVpciBvcGluaW9uLCBhbmQgdG8gZ2V0IGEgY29udmVyc2F0
-aW9uIHN0YXJ0ZWQuDQo+Pj4+Pj4+DQo+Pj4+Pj4+IFdhaXQsIHdvdWxkbid0IHRoaXMgdXNl
-LWNhc2UgZmFsbCB1bmRlciAicmVwb3J0aW5nIiA/IEl0IGlzIGV4YWN0bHkgd2hhdA0KPj4+
-Pj4+PiB3ZSBhcmUgZG9pbmcsIHJpZ2h0Pw0KPj4+Pj4+DQo+Pj4+Pj4gSSdkIHVuZGVyc3Rh
-bmQgInJlcG9ydGluZyIgYXMgZS5nLiBsb2dnaW5nLCB0cmFuc2ZlcnJpbmcgc3RhdGlzdGlj
-cywgLi4uDQo+Pj4+Pj4NCj4+Pj4+PiBXZSdkIGxpa2UgdG8gdXNlIGl0IGZvciBjb25maWd1
-cmF0aW9uIHB1cnBvc2VzLg0KPj4+Pj4NCj4+Pj4+IEkndmUgYWxzbyByZWFkIGl0IHRoYXQg
-d2F5Lg0KPj4+Pj4NCj4+Pj4+PiBBbm90aGVyIGlkZWEgd291bGQgYmUgdG8gZW5oYW5jZSB0
-aGUgdmlydGlvIElPTU1VIGRldmljZSB0byBzdWl0IG91ciBuZWVkczoNCj4+Pj4+PiB3ZSBj
-b3VsZCBhZGQgdGhlIGRvbWlkIGFzIGFub3RoZXIgdmlydGlvIElPTU1VIGRldmljZSBjYXBh
-YmlsaXR5IGFuZCAoZm9yIG5vdykNCj4+Pj4+PiB1c2UgYnlwYXNzIG1vZGUgZm9yIGFsbCAi
-cHJvZHVjdGl2ZSIgZGV2aWNlcy4NCj4+Pj4+DQo+Pj4+PiBJZiB3ZSBoYXZlIHRvIHN0YXJ0
-IGFkZGluZyBjYXBhYmlsdGllcywgd29uJ3QgaXQgYmUgZWFzaWVyIHRvIGp1c3QgYWRkDQo+
-Pj4+PiBpdCB0byB0aGUgZWFjaCBkZXZpY2UgaW5zdGVhZCBvZiBhZGRpbmcgaXQgdG8gdmly
-dGlvIElPTU1VLiAgT3IgaXMgdGhlDQo+Pj4+PiBwYXJzaW5nIG9mIGNhcGFiaWxpdGllcyBk
-ZXZpY2Ugc3BlY2lmaWMsIGFuZCBoZW5jZSB3ZSB3b3VsZCBoYXZlIHRvDQo+Pj4+PiBpbXBs
-ZW1lbnQgc3VjaCBwYXJzaW5nIGZvciBlYWNoIGRldmljZT8gIEkgd291bGQgZXhwZWN0IHNv
-bWUNCj4+Pj4+IGNhcGFiaWxpdGllcyBhcmUgc2hhcmVkIGJldHdlZW4gYWxsIGRldmljZXMs
-IGFuZCBhIFhlbiBjYXBhYmlsaXR5IGNvdWxkDQo+Pj4+PiBiZSBvbmUgb2YgdGhvc2UuDQo+
-Pj4+DQo+Pj4+IEhhdmUgYSBsb29rIGF0IFsxXSwgd2hpY2ggaXMgZGVzY3JpYmluZyB0aGUg
-Y29tbW9uIGRldmljZSBjb25maWcgbGF5b3V0Lg0KPj4+PiBUaGUgcHJvYmxlbSBoZXJlIGlz
-IHRoYXQgd2UnZCBuZWVkIHRvIGFkZCB0aGUgZG9taWQgYWZ0ZXIgdGhlIHF1ZXVlIHNwZWNp
-ZmljDQo+Pj4+IGRhdGEsIHJlc3VsdGluZyBpbiBhIG1lc3MgaWYgZnVydGhlciBxdWV1ZSBm
-aWVsZHMgd291bGQgYmUgYWRkZWQgbGF0ZXIuDQo+Pj4+DQo+Pj4+IFdlIGNvdWxkIHRyeSB0
-aGF0LCBvZiBjb3Vyc2UuDQo+Pj4NCj4+PiBSaWdodCwgd2UgbXVzdCBtYWtlIGl0IHBhcnQg
-b2YgdGhlIHN0YW5kYXJkIGlmIHdlIG1vZGlmeQ0KPj4+IHZpcnRpb19wY2lfY29tbW9uX2Nm
-Zywgb3IgZWxzZSBuZXdseSBhZGRlZCBmaWVsZHMgd291bGQgb3ZlcmxhcCB0aGUNCj4+PiBY
-ZW4gc3BlY2lmaWMgb25lLg0KPj4+DQo+Pj4gV291bGQgaXQgYmUgcG9zc2libGUgdG8gc2ln
-bmFsIFhlbi1ncmFudHMgc3VwcG9ydCBpbiB0aGUNCj4+PiBgZGV2aWNlX2ZlYXR1cmVgIGZp
-ZWxkLCBhbmQgdGhlbiBleHBvc2UgaXQgZnJvbSBhIHZlbmRvciBjYXBhYmlsaXR5Pw0KPj4+
-IElPVywgd291bGQgaXQgYmUgcG9zc2libGUgdG8gYWRkIGEgWGVuLXNwZWNpZmljIGhvb2sg
-aW4gdGhlIHBhcnNpbmcgb2YNCj4+PiB2aXJ0aW9fcGNpX2NvbW1vbl9jZmcgdGhhdCB3b3Vs
-ZCB0aGVuIGZldGNoIGFkZGl0aW9uYWwgZGF0YSBmcm9tIGENCj4+PiBjYXBhYmlsaXR5Pw0K
-Pj4NCj4+IFRCSCwgSSBkb24ndCBrbm93LiBJdCBtaWdodCByZXF1aXJlIHNvbWUgY2hhbmdl
-cyBpbiB0aGUgY2VudHJhbCBwYXJzaW5nDQo+PiBsb2dpYywgYnV0IHRoaXMgc2hvdWxkbid0
-IGJlIHRvbyBoYXJkIHRvIGRvLg0KPj4NCj4+PiBUaGF0IHdvdWxkIGxpa2VseSBiZSBsZXNz
-IGludHJ1c2l2ZSB0aGFuIGFkZGluZyBhIG5ldyBYZW4tc3BlY2lmaWMNCj4+PiBmaWVsZCB0
-byB2aXJ0aW9fcGNpX2NvbW1vbl9jZmcgd2hpbGUgc3RpbGwgYWxsb3dpbmcgdXMgdG8gZG8g
-WGVuDQo+Pj4gc3BlY2lmaWMgY29uZmlndXJhdGlvbiBmb3IgYWxsIFZpcnRJTyBkZXZpY2Vz
-Lg0KPj4NCj4+IEluIGNhc2Ugd2Ugd2FudCB0byBnbyB0aGF0IHJvdXRlLCB0aGlzIHNob3Vs
-ZCBiZSBpbiBhIG5ldyAicGxhdGZvcm0gY29uZmlnIg0KPj4gY2FwYWJpbGl0eSwgd2hpY2gg
-bWlnaHQgYmUganVzdCBhbm90aGVyIGZvcm0gb2YgYSB2ZW5kb3IgY2FwYWJpbGl0eS4NCj4g
-DQo+IEkgdGhpbmsgdGVsbGluZyBwZW9wbGUgdGhhdCB0aGV5IHdpbGwgbmVlZCB0byBpbXBs
-ZW1lbnQgZ3JhbnRzLXYzIGluDQo+IG9yZGVyIHRvIHNvbHZlIHRoaXMgbWlnaHQgYmUgdG9v
-IG11Y2guICBJIHdvdWxkIHJhdGhlciBwcmVmZXIgYSBtb3JlDQo+IGNvbmNyZXRlIHNvbHV0
-aW9uIHRoYXQgZG9lc24ndCBoYXZlIHNvIG1hbnkgbG9vc2UgZW5kcy4NCj4gDQo+IEFueXdh
-eSwgaXQncyB1cCB0byB0aGUgcGVyc29uIGRvaW5nIHRoZSBqb2IsIGJ1dCBzdGFydGluZyB3
-aXRoICJ5b3UNCj4gd2lsbCBoYXZlIHRvIGltcGxlbWVudCBncmFudHMtdjMiIGlzIHF1aXRl
-IGxpa2VseSB0byBkZXRlciBhbnlvbmUgZnJvbQ0KPiBhdHRlbXB0aW5nIHRvIHNvbHZlIHRo
-aXMgSSdtIGFmcmFpZC4NCg0KRmFpciBlbm91Z2guIDotKQ0KDQoNCkp1ZXJnZW4NCg0K
---------------ahTK0ozz3fzdSsZPePPRJ5hg
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+```
+     * We say a bit "moves" in a range if there exist 2 addresses in that
+     * range that have that bit both set and cleared respectively. We want
+     * to create a mask of _all_ moving bits in this range. We do this by
+     * comparing the first and last addresses in the range, discarding the
+     * bits that remain the same (this is logically an XOR operation). The
+     * MSB of the resulting expression is the most significant moving bit
+     * in the range. Then it's a matter of setting every bit in lower
+     * positions in order to get the mask of moving bits.
+```
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> > --- a/xen/include/xen/mm.h
+> > +++ b/xen/include/xen/mm.h
+> > @@ -31,6 +31,16 @@
+> >   *   (i.e. all devices assigned to) a guest share a single DMA address space
+> >   *   and, by default, Xen will ensure dfn == pfn.
+> >   *
+> > + * pdx: Page InDeX
+> > + *   Indices into the frame table holding the per-page's book-keeping
+> > + *   metadata. A compression scheme is used and there's a possibly non
+> 
+> s/is/may be/ ?
+Ack. The scheme is used even if it can yield no gains, but I do plan on
+making it optional, so this comment can preemptively already reflect that.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> 
+> Also as said earlier at least on x86 pdx-es are also used as direct map
+> indices. I think this wants mentioning irrespective of what Arm does.
+This is a common header. If the warping of the directmap due to pdx
+compression is mentioned one has to talk about the common aspects of it,
+and at least give a heads up that each port is free to apply further warps.
+I'll mention the notion of it, but it must be vague in the spirit of
+describing common behaviour and not x86 in particular.
 
---------------ahTK0ozz3fzdSsZPePPRJ5hg--
+> 
+> > --- a/xen/include/xen/pdx.h
+> > +++ b/xen/include/xen/pdx.h
+> > @@ -1,6 +1,67 @@
+> >  #ifndef __XEN_PDX_H__
+> >  #define __XEN_PDX_H__
+> >  
+> > +/*
+> > + * PDX (Page inDeX)
+> > + *
+> > + * This file deals with optimisations pertaining frame table indexing,
+> 
+> Nit: Missing "to"?
+Indeed
+> 
+> > + * A pdx is an index into the frame table. However, having an identity
+> > + * relationship between mfn and pdx could waste copious amounts of memory
+> > + * in empty frame table entries. There are some techniques to bring memory
+> > + * wastage down.
+> 
+> Like above the direct map wants mentioning here as well, I think.
+I can add another paragraph mentioning that warp. Like I mentioned before,
+we should be careful not to leave the ARM port (or others) outside the
+scope of these definitions as they aren't x86-specific.
 
---------------90Ooqz7cF1y4zzZJzl5mQrRx--
+> > + * ## PDX compression
+> > + *
+> > + * This is a technique to avoid wasting memory on machines known to have
+> > + * split their machine address space in several big discontinuous and highly
+> > + * disjoint chunks.
+> > + *
+> > + * In its uncompressed form the frame table must have book-keeping metadata
+> > + * structures for every page between [0, max_mfn) (whether they are backed
+> > + * by RAM or not), and a similar condition exists for the direct map. We
+> > + * know some systems, however, that have some sparsity in their address
+> > + * space, leading to a lot of wastage in the form of unused frame table
+> > + * entries.
+> > + *
+> > + * This is where compression becomes useful. The idea is to note that if
+> > + * you have several big chunks of memory sufficiently far apart you can
+> > + * ignore the middle part of the address because it will always contain
+> > + * zeroes as long as the base address is sufficiently well aligned and the
+> > + * length of the region is much smaller than the base address.
+> 
+> As per above alignment of the base address doesn't really matter.
+Where above? As far as I understand you need enough alignment to cover the
+hole or you won't have zeroes to compress. Point in case:
 
---------------gBQZQQLufC3OxQcZ7IVdlfQH
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+  * region1: [0x0000000000000000 -
+              0x00000000FFFFFFFF]
 
------BEGIN PGP SIGNATURE-----
+  * region2: [0x0001FFFFFFFFF000 -
+              0x00020000FFFFFFFF]
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSoLBYFAwAAAAAACgkQsN6d1ii/Ey8m
-CQf/Z/StDpMFgi/fp17fOXWy3N1Nw+0JUd0bXFmwdSy3rGPwfnmTPIxiIJyDxsOrfwejFFcqkrx4
-YHf9THAOrfG+fUMlUYgFuEgLTPwwMWW9dEYpaDdadHS0c/CZDVozQoAMn80qJqfepz0QYKc7StmN
-U0tEr4ZeZkhwOwnv63zGCKWdPS9T6sE1WCQk7QmaTFEYvCamy+HvPDb5UdTxVE0lnr8IewhrPFDD
-iEgWVKHTp3HFjgQZPHOumQFwMNjqSCpdu4HQC8h4NX20HQxWQ9om0v0JkoYMWsQ5Dc1vrPk/9YWN
-rrZr9s5cQz05zzyTAHBTtow3yEM1PrHOPHG0SMP1Cw==
-=8fHh
------END PGP SIGNATURE-----
+I can agree this configuration is beyond dumb and statistically unlikely to
+exist in the wild, but it should (IMO) still be covered by that comment.
 
---------------gBQZQQLufC3OxQcZ7IVdlfQH--
+> 
+> > + * i.e:
+> > + *   Consider 2 regions of memory. One starts at 0 while the other starts
+> > + *   at offset 2^off_h. Furthermore, let's assume both regions are smaller
+> > + *   than 2^off_l. This means that all addresses between [2^off_l, 2^off_h)
+> > + *   are invalid and we can assume them to be zero on all valid addresses.
+> > + *
+> > + *                 off_h     off_l
+> > + *                 |         |
+> > + *                 V         V
+> > + *         --------------------------
+> > + *         |HHHHHHH|000000000|LLLLLL| <--- mfn
+> > + *         --------------------------
+> > + *           ^ |
+> > + *           | | (de)compression by adding/removing "useless" zeroes
+> > + *           | V
+> > + *         ---------------
+> > + *         |HHHHHHHLLLLLL| <--- pdx
+> > + *         ---------------
+> > + *
+> > + * This scheme also holds for multiple regions, where HHHHHHH acts as
+> > + * the region identifier and LLLLLL fully contains the span of every
+> > + * region involved. Consider the following 3 regions.
+> > + */
+> > +
+> >  #ifdef CONFIG_HAS_PDX
+> 
+> Stray last sentence in the comment?
+Oops, yes. I had more, but it was inconsequential and I ended up removing
+it. I'll remove that last sentence too.
+
+> 
+> > @@ -13,22 +74,81 @@ extern unsigned long pfn_top_mask, ma_top_mask;
+> >                           (sizeof(*frame_table) & -sizeof(*frame_table)))
+> >  extern unsigned long pdx_group_valid[];
+> >  
+> > -extern uint64_t pdx_init_mask(u64 base_addr);
+> > -extern u64 pdx_region_mask(u64 base, u64 len);
+> > +/**
+> > + * Calculates a mask covering "moving" bits of all addresses of a region
+> > + *
+> > + * The i-th bit of the mask must be set if there's 2 different addresses
+> > + * in the region that have different j-th bits. where j >= i.
+> > + *
+> > + * e.g:
+> > + *       base=0x1B00000000
+> > + *   len+base=0x1B00082000
+> > + *
+> > + *   ought to return 0x00000FFFFF, which implies that every bit position
+> > + *   with a zero in the mask remains unchanged in every address of the
+> > + *   region.
+> 
+> Maybe the example would look "more generic" if the resulting mask didn't
+> consist of just 0s and Fs, e.g.
+> 
+>  *       base=0x1B00000000
+>  *   len+base=0x1B00042000
+>  *
+>  *   ought to return 0x000007FFFF, ...
+Good idea, sure.
+
+> 
+> > + * @param base Base address of the region
+> > + * @param len  Size in octets of the region
+> > + * @return Mask of moving bits at the bottom of all the region addresses
+> > + */
+> > +uint64_t pdx_region_mask(uint64_t base, uint64_t len);
+> >  
+> > -extern void set_pdx_range(unsigned long smfn, unsigned long emfn);
+> > +/**
+> > + * Creates a basic pdx mask
+> 
+> What is "basic" trying to describe here? "The mask to start from" would
+> look more to the point to me, plus saying that this is the (up front)
+> companion to pdx_region_mask().
+I'm honestly on the fence on whether this function should exist at all. One
+could always integrate this mask in pdx_region_mask() and have the
+callers start with a zero mask. I won't do this on this patch, but I'll try
+to get rid of it on the follow-up series to these docs.
+
+> 
+> > + * This mask is used to determine non-compressible bits. No address in the
+> > + * system shall have compressible bits covered by this initial mask.
+> > + *
+> > + * It's the larger of:
+> > + *   - A mask of MAX_ORDER + PAGESHIFT 1s
+> > + *   - base_addr rounded up to the nearest `2^n - 1`
+> 
+> I'm having trouble with this mathematically: Rounding always means
+> going to some proper multiple of some base number (granularity).
+I'm not sure about that definition, but regardless I can just remove that
+"larger of" and ignore the problem. It's basically telling what the code
+does and not adding content.
+
+> This doesn't fit with the value being 2^n-1. Maybe "padded"?
+Padding the number would be adding zeroes or ones, but we're mutating it.
+IMO, that would add more confusion than it would solve.
+
+> 
+> > + * @param base_addr Address of the first maddr in the system
+> > + * @return An integer of the form 2^n - 1
+> > + */
+> > +uint64_t pdx_init_mask(uint64_t base_addr);
+> > +
+> > +/**
+> > + * Mark [smfn, emfn) as allocatable in the frame table
+> 
+> What does "allocatable" mean here?
+> 
+> Jan
+Accesible, which is probably what it should say instead.
+
+Thanks,
+
+Alejandro
 
