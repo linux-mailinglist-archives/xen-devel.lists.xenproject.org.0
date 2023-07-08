@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C18A774BEB0
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Jul 2023 20:14:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560717.876827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D7D74BEC0
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Jul 2023 20:31:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560724.876837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qICRR-00013t-JF; Sat, 08 Jul 2023 18:13:57 +0000
+	id 1qICha-0003lB-1n; Sat, 08 Jul 2023 18:30:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560717.876827; Sat, 08 Jul 2023 18:13:57 +0000
+Received: by outflank-mailman (output) from mailman id 560724.876837; Sat, 08 Jul 2023 18:30:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qICRR-000124-FU; Sat, 08 Jul 2023 18:13:57 +0000
-Received: by outflank-mailman (input) for mailman id 560717;
- Sat, 08 Jul 2023 18:13:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qIChZ-0003jW-Ud; Sat, 08 Jul 2023 18:30:37 +0000
+Received: by outflank-mailman (input) for mailman id 560724;
+ Sat, 08 Jul 2023 18:30:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QfqP=C2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qICRQ-00011w-DU
- for xen-devel@lists.xenproject.org; Sat, 08 Jul 2023 18:13:56 +0000
+ id 1qIChY-0003jM-3j
+ for xen-devel@lists.xenproject.org; Sat, 08 Jul 2023 18:30:36 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32ba6df5-1dbb-11ee-b237-6b7b168915f2;
- Sat, 08 Jul 2023 20:13:55 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 85a5d381-1dbd-11ee-8611-37d641c3527e;
+ Sat, 08 Jul 2023 20:30:33 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE80060A27;
- Sat,  8 Jul 2023 18:13:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409C7C433C8;
- Sat,  8 Jul 2023 18:13:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EED6F60E92;
+ Sat,  8 Jul 2023 18:30:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AFA9C433C8;
+ Sat,  8 Jul 2023 18:30:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,239 +44,316 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32ba6df5-1dbb-11ee-b237-6b7b168915f2
+X-Inumbo-ID: 85a5d381-1dbd-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688840033;
-	bh=dPx7yoq7RWueE8zj6BgOSb2UpY0VYuZbcx6HPyZZ4tk=;
+	s=k20201202; t=1688841031;
+	bh=N5NuL+AHQ0zfDCRFirOIkkjVd2gz7xl8FKT/3eqh4VU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aEa8wqoZ/pthXhAxBpbAzqdv/JJDQziz/vEw8Wjp46MMAgZdq8aqUq17JPsRKk6DC
-	 e5O/m31LubAhswJGJZ5RWZCcib3jNxZHcG/i/D7ZFsdUlZAxKWepSmlNFJmC3xOGmu
-	 OluQQaH3W1Db2v+mtK2z7MUDzMFFGU/w15WQKcgCojxWhWb1hX38e7J7HE4X8cjkXf
-	 RO4uOh3us5uT/53VyXc1RwoERmdHwcZrHFxL+7VNYTC3tjDON+jOWcPa3FvVw8Ern7
-	 fDA6aVGZvmOCWR7dEzxBWXUyUiFhVJ1dCdV5bOoqet7p2WV6GDLhlLRioXLESQcD5e
-	 ThbhKTDWTzySg==
-Date: Sat, 8 Jul 2023 11:13:50 -0700 (PDT)
+	b=mlp2f9/31AQtyVEXnY6Vr+26ZtjsvlSFMY6ss/+scj9C7tNKhJLvfUFmgJKkk+mzX
+	 NoSzk2OGhyRlgynWTqPLZFBSiyYMd69jQOjCoh5hJRZHUoMT4+/xQTpo2j5OfqDzlH
+	 RFt2+e0lQ5Fr5eAnhOLWqWizct/ADWxbH0JnHOAYf72Tr1PB4ytJ8IKmxKG9z85bMX
+	 AZH0SRG6/ZVTCLUpI+lwgegsJuMW09Gv7FjdBTLS70WZ2f2XVBKjQ/H8KnbsC5zttU
+	 y47+XKF3Fwzq/tYnf8NFPye09LBNNVlVnRMSm+a5KWQNsJ/+YR2NbbSv1SbWWjzacZ
+	 DQsiHZdoIeYlg==
+Date: Sat, 8 Jul 2023 11:30:27 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Juergen Gross <jgross@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Petr Pavlu <petr.pavlu@suse.com>, 
-    Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] xen/virtio: Avoid use of the dom0 backend in dom0
-In-Reply-To: <bd194479-3799-58cb-7e4a-8619818cd03a@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2307081110220.761183@ubuntu-linux-20-04-desktop>
-References: <20230621131214.9398-1-petr.pavlu@suse.com> <20230621131214.9398-3-petr.pavlu@suse.com> <15e31609-6c45-7372-76ee-0adf7a64fe88@epam.com> <551a1594-9c8b-d447-6bf3-a4a208d5550f@suse.com> <41893db4-cd66-a9f7-ffe5-d90fffb43657@suse.com>
- <alpine.DEB.2.22.394.2307071351530.761183@ubuntu-linux-20-04-desktop> <bd194479-3799-58cb-7e4a-8619818cd03a@suse.com>
+To: Christopher Clark <christopher.w.clark@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Daniel Smith <dpsmith@apertussolutions.com>, stefano.stabellini@amd.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Luca Fancellu <luca.fancellu@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Rich Persaud <persaur@gmail.com>
+Subject: Re: [PATCH 01/10] x86 setup: move x86 boot module counting into a
+ new boot_info struct
+In-Reply-To: <20230701071835.41599-2-christopher.w.clark@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2307081124250.761183@ubuntu-linux-20-04-desktop>
+References: <20230701071835.41599-1-christopher.w.clark@gmail.com> <20230701071835.41599-2-christopher.w.clark@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sat, 8 Jul 2023, Juergen Gross wrote:
-> On 07.07.23 23:02, Stefano Stabellini wrote:
-> > On Fri, 7 Jul 2023, Juergen Gross wrote:
-> > > On 26.06.23 15:17, Petr Pavlu wrote:
-> > > > On 6/21/23 19:58, Oleksandr Tyshchenko wrote:
-> > > > > On 21.06.23 16:12, Petr Pavlu wrote:
-> > > > > > When attempting to run Xen on a QEMU/KVM virtual machine with virtio
-> > > > > > devices (all x86_64), dom0 tries to establish a grant for itself
-> > > > > > which
-> > > > > > eventually results in a hang during the boot.
-> > > > > > 
-> > > > > > The backtrace looks as follows, the while loop in
-> > > > > > __send_control_msg()
-> > > > > > makes no progress:
-> > > > > > 
-> > > > > >      #0  virtqueue_get_buf_ctx (_vq=_vq@entry=0xffff8880074a8400,
-> > > > > > len=len@entry=0xffffc90000413c94, ctx=ctx@entry=0x0
-> > > > > > <fixed_percpu_data>)
-> > > > > > at ../drivers/virtio/virtio_ring.c:2326
-> > > > > >      #1  0xffffffff817086b7 in virtqueue_get_buf
-> > > > > > (_vq=_vq@entry=0xffff8880074a8400, len=len@entry=0xffffc90000413c94)
-> > > > > > at
-> > > > > > ../drivers/virtio/virtio_ring.c:2333
-> > > > > >      #2  0xffffffff8175f6b2 in __send_control_msg
-> > > > > > (portdev=<optimized
-> > > > > > out>, port_id=0xffffffff, event=0x0, value=0x1) at
-> > > > > > ../drivers/char/virtio_console.c:562
-> > > > > >      #3  0xffffffff8175f6ee in __send_control_msg
-> > > > > > (portdev=<optimized
-> > > > > > out>, port_id=<optimized out>, event=<optimized out>,
-> > > > > > value=<optimized
-> > > > > > out>) at ../drivers/char/virtio_console.c:569
-> > > > > >      #4  0xffffffff817618b1 in virtcons_probe
-> > > > > > (vdev=0xffff88800585e800)
-> > > > > > at ../drivers/char/virtio_console.c:2098
-> > > > > >      #5  0xffffffff81707117 in virtio_dev_probe
-> > > > > > (_d=0xffff88800585e810)
-> > > > > > at ../drivers/virtio/virtio.c:305
-> > > > > >      #6  0xffffffff8198e348 in call_driver_probe
-> > > > > > (drv=0xffffffff82be40c0
-> > > > > > <virtio_console>, drv=0xffffffff82be40c0 <virtio_console>,
-> > > > > > dev=0xffff88800585e810) at ../drivers/base/dd.c:579
-> > > > > >      #7  really_probe (dev=dev@entry=0xffff88800585e810,
-> > > > > > drv=drv@entry=0xffffffff82be40c0 <virtio_console>) at
-> > > > > > ../drivers/base/dd.c:658
-> > > > > >      #8  0xffffffff8198e58f in __driver_probe_device
-> > > > > > (drv=drv@entry=0xffffffff82be40c0 <virtio_console>,
-> > > > > > dev=dev@entry=0xffff88800585e810) at ../drivers/base/dd.c:800
-> > > > > >      #9  0xffffffff8198e65a in driver_probe_device
-> > > > > > (drv=drv@entry=0xffffffff82be40c0 <virtio_console>,
-> > > > > > dev=dev@entry=0xffff88800585e810) at ../drivers/base/dd.c:830
-> > > > > >      #10 0xffffffff8198e832 in __driver_attach
-> > > > > > (dev=0xffff88800585e810,
-> > > > > > data=0xffffffff82be40c0 <virtio_console>) at
-> > > > > > ../drivers/base/dd.c:1216
-> > > > > >      #11 0xffffffff8198bfb2 in bus_for_each_dev (bus=<optimized
-> > > > > > out>,
-> > > > > > start=start@entry=0x0 <fixed_percpu_data>,
-> > > > > > data=data@entry=0xffffffff82be40c0 <virtio_console>,
-> > > > > >          fn=fn@entry=0xffffffff8198e7b0 <__driver_attach>) at
-> > > > > > ../drivers/base/bus.c:368
-> > > > > >      #12 0xffffffff8198db65 in driver_attach
-> > > > > > (drv=drv@entry=0xffffffff82be40c0 <virtio_console>) at
-> > > > > > ../drivers/base/dd.c:1233
-> > > > > >      #13 0xffffffff8198d207 in bus_add_driver
-> > > > > > (drv=drv@entry=0xffffffff82be40c0 <virtio_console>) at
-> > > > > > ../drivers/base/bus.c:673
-> > > > > >      #14 0xffffffff8198f550 in driver_register
-> > > > > > (drv=drv@entry=0xffffffff82be40c0 <virtio_console>) at
-> > > > > > ../drivers/base/driver.c:246
-> > > > > >      #15 0xffffffff81706b47 in register_virtio_driver
-> > > > > > (driver=driver@entry=0xffffffff82be40c0 <virtio_console>) at
-> > > > > > ../drivers/virtio/virtio.c:357
-> > > > > >      #16 0xffffffff832cd34b in virtio_console_init () at
-> > > > > > ../drivers/char/virtio_console.c:2258
-> > > > > >      #17 0xffffffff8100105c in do_one_initcall
-> > > > > > (fn=0xffffffff832cd2e0
-> > > > > > <virtio_console_init>) at ../init/main.c:1246
-> > > > > >      #18 0xffffffff83277293 in do_initcall_level
-> > > > > > (command_line=0xffff888003e2f900 "root", level=0x6) at
-> > > > > > ../init/main.c:1319
-> > > > > >      #19 do_initcalls () at ../init/main.c:1335
-> > > > > >      #20 do_basic_setup () at ../init/main.c:1354
-> > > > > >      #21 kernel_init_freeable () at ../init/main.c:1571
-> > > > > >      #22 0xffffffff81f64be1 in kernel_init (unused=<optimized out>)
-> > > > > > at
-> > > > > > ../init/main.c:1462
-> > > > > >      #23 0xffffffff81001f49 in ret_from_fork () at
-> > > > > > ../arch/x86/entry/entry_64.S:308
-> > > > > >      #24 0x0000000000000000 in ?? ()
-> > > > > > 
-> > > > > > Fix the problem by preventing xen_grant_init_backend_domid() from
-> > > > > > setting dom0 as a backend when running in dom0.
-> > > > > > 
-> > > > > > Fixes: 035e3a4321f7 ("xen/virtio: Optimize the setup of
-> > > > > > "xen-grant-dma"
-> > > > > > devices")
-> > > > > 
-> > > > > 
-> > > > > I am not 100% sure whether the Fixes tag points to precise commit. If
-> > > > > I
-> > > > > am not mistaken, the said commit just moves the code in the context
-> > > > > without changing the logic of CONFIG_XEN_VIRTIO_FORCE_GRANT, this was
-> > > > > introduced before.
-> > > > 
-> > > > I see, the tag should better point to 7228113d1fa0 ("xen/virtio: use
-> > > > dom0 as default backend for CONFIG_XEN_VIRTIO_FORCE_GRANT") which
-> > > > introduced the original logic to use dom0 as backend.
-> > > > 
-> > > > Commit 035e3a4321f7 ("xen/virtio: Optimize the setup of "xen-grant-dma"
-> > > > devices") is relevant in sense that it extended when this logic is
-> > > > active by adding an OR check for xen_pv_domain().
-> > > > 
-> > > > > 
-> > > > > 
-> > > > > > Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-> > > > > > ---
-> > > > > >     drivers/xen/grant-dma-ops.c | 4 +++-
-> > > > > >     1 file changed, 3 insertions(+), 1 deletion(-)
-> > > > > > 
-> > > > > > diff --git a/drivers/xen/grant-dma-ops.c
-> > > > > > b/drivers/xen/grant-dma-ops.c
-> > > > > > index 76f6f26265a3..29ed27ac450e 100644
-> > > > > > --- a/drivers/xen/grant-dma-ops.c
-> > > > > > +++ b/drivers/xen/grant-dma-ops.c
-> > > > > > @@ -362,7 +362,9 @@ static int xen_grant_init_backend_domid(struct
-> > > > > > device *dev,
-> > > > > >     	if (np) {
-> > > > > >     		ret = xen_dt_grant_init_backend_domid(dev, np,
-> > > > > > backend_domid);
-> > > > > >     		of_node_put(np);
-> > > > > > -	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) ||
-> > > > > > xen_pv_domain()) {
-> > > > > > +	} else if ((IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) ||
-> > > > > > +		    xen_pv_domain()) &&
-> > > > > > +		   !xen_initial_domain()) {
-> > > > > 
-> > > > > The commit lgtm, just one note:
-> > > > > 
-> > > > > 
-> > > > > I would even bail out early in xen_virtio_restricted_mem_acc()
-> > > > > instead,
-> > > > > as I assume the same issue could happen on Arm with DT (although there
-> > > > > we don't guess the backend's domid, we read it from DT and quite
-> > > > > unlikely we get Dom0 being in Dom0 with correct DT).
-> > > > > 
-> > > > > Something like:
-> > > > > 
-> > > > > @@ -416,6 +421,10 @@ bool xen_virtio_restricted_mem_acc(struct
-> > > > > virtio_device *dev)
-> > > > >     {
-> > > > >            domid_t backend_domid;
-> > > > > 
-> > > > > +       /* Xen grant DMA ops are not used when running as initial
-> > > > > domain
-> > > > > */
-> > > > > +       if (xen_initial_domain())
-> > > > > +               return false;
-> > > > > +
-> > > > >            if (!xen_grant_init_backend_domid(dev->dev.parent,
-> > > > > &backend_domid)) {
-> > > > >                    xen_grant_setup_dma_ops(dev->dev.parent,
-> > > > > backend_domid);
-> > > > >                    return true;
-> > > > > (END)
-> > > > > 
-> > > > > 
-> > > > > 
-> > > > > If so, that commit subject would need to be updated accordingly.
-> > > > > 
-> > > > > Let's see what other reviewers will say.
-> > > > 
-> > > > Ok, makes sense.
-> > > 
-> > > I think this is okay for a fix of the current problem.
-> > > 
-> > > Passing through virtio devices to a PV domU is not covered by this fix,
-> > > but
-> > > this
-> > > should be a rather rare configuration, which doesn't work today either. So
-> > > the
-> > > suggested patch would fix the current issue without introducing a
-> > > regression.
-> > > 
-> > > Anything else can be done later.
-> > 
-> > Why do you say that passing through virtio devices to a PV domU doesn't
-> > work today anyway? Also, as you know many people use Xen outside of
-> > datacenter deployments (laptops, embedded etc.) where drivers domains
-> > and device assignment are very common. You could assign a virtio network
-> > card to a domU and use PV network to share the network with other
-> > guests. Physical virtio devices, especially virtio-net devices, exist. I
-> > could probably repro this problem today in a domU just installing
-> > QubesOS inside QEMU. QubesOS uses network driver domains and if QEMU
-> > provides a virtio-net network card, this would break even with this
-> > patch.
+On Sat, 1 Jul 2023, Christopher Clark wrote:
+> An initial step towards a non-multiboot internal representation of boot
+> modules for common code, starting with x86 setup and converting the
+> fields that are accessed for the startup calculations.
 > 
-> I might be wrong, but I don't think all virtio frontends will work in that
-> scenario. The main reason is the PFN/MFN difference: a frontend using guest
-> consecutive memory for doing large I/Os will fail miserably. This was the
-> main reason why I had to add the functionality of consecutive grants for
-> large I/O buffers. The same goes for multi-page virtio ring pages.
+> Introduce a new header, <xen/bootinfo.h>, and populate it with a new
+> boot_info structure initially containing a count of the number of boot
+> modules.
+> 
+> The naming of the header, structure and fields is intended to respect
+> the boot structures on Arm -- see arm/include/asm/setup.h -- as part of
+> work towards aligning common architecture-neutral boot logic and
+> structures.
 
-I think for PV guests the virtio frontends would work but they might be
-slow as they would have to bounce over swiotlb-xen every multi-page
-buffer. But the virtio frontends should work OK for PVH and HVM guests.
+Thanks for aligning the two archs. At some point we should also have ARM
+use the common headers.
+
+
+> No functional change intended.
+> 
+> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> 
+> ---
+> Changes since v1: patch is a subset of v1 series patches 2 and 3.
+> 
+>  xen/arch/x86/setup.c       | 58 +++++++++++++++++++++++---------------
+>  xen/include/xen/bootinfo.h | 20 +++++++++++++
+>  2 files changed, 55 insertions(+), 23 deletions(-)
+>  create mode 100644 xen/include/xen/bootinfo.h
+> 
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 74e3915a4d..708639b236 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1,3 +1,4 @@
+> +#include <xen/bootinfo.h>
+>  #include <xen/init.h>
+>  #include <xen/lib.h>
+>  #include <xen/err.h>
+> @@ -268,7 +269,16 @@ static int __init cf_check parse_acpi_param(const char *s)
+>  custom_param("acpi", parse_acpi_param);
+>  
+>  static const module_t *__initdata initial_images;
+> -static unsigned int __initdata nr_initial_images;
+> +static struct boot_info __initdata *boot_info;
+
+Why can't this be not a pointer?
+
+
+> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
+> +{
+> +    static struct boot_info __initdata info;
+
+Then we don't need this
+
+
+> +    info.nr_mods = mbi->mods_count;
+> +
+> +    boot_info = &info;
+
+And we could just do:
+
+  boot_info.nr_mods = mbi->mods_count;
+
+?
+
+
+> +}
+>  
+>  unsigned long __init initial_images_nrpages(nodeid_t node)
+>  {
+> @@ -277,7 +287,7 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
+>      unsigned long nr;
+>      unsigned int i;
+>  
+> -    for ( nr = i = 0; i < nr_initial_images; ++i )
+> +    for ( nr = i = 0; i < boot_info->nr_mods; ++i )
+>      {
+>          unsigned long start = initial_images[i].mod_start;
+>          unsigned long end = start + PFN_UP(initial_images[i].mod_end);
+> @@ -293,7 +303,7 @@ void __init discard_initial_images(void)
+>  {
+>      unsigned int i;
+>  
+> -    for ( i = 0; i < nr_initial_images; ++i )
+> +    for ( i = 0; i < boot_info->nr_mods; ++i )
+>      {
+>          uint64_t start = (uint64_t)initial_images[i].mod_start << PAGE_SHIFT;
+>  
+> @@ -301,7 +311,7 @@ void __init discard_initial_images(void)
+>                             start + PAGE_ALIGN(initial_images[i].mod_end));
+>      }
+>  
+> -    nr_initial_images = 0;
+> +    boot_info->nr_mods = 0;
+>      initial_images = NULL;
+>  }
+>  
+> @@ -1020,6 +1030,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          mod = __va(mbi->mods_addr);
+>      }
+>  
+> +    multiboot_to_bootinfo(mbi);
+> +
+>      loader = (mbi->flags & MBI_LOADERNAME)
+>          ? (char *)__va(mbi->boot_loader_name) : "unknown";
+>  
+> @@ -1127,18 +1139,18 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>             bootsym(boot_edd_info_nr));
+>  
+>      /* Check that we have at least one Multiboot module. */
+> -    if ( !(mbi->flags & MBI_MODULES) || (mbi->mods_count == 0) )
+> +    if ( !(mbi->flags & MBI_MODULES) || (boot_info->nr_mods == 0) )
+>          panic("dom0 kernel not specified. Check bootloader configuration\n");
+>  
+>      /* Check that we don't have a silly number of modules. */
+> -    if ( mbi->mods_count > sizeof(module_map) * 8 )
+> +    if ( boot_info->nr_mods > sizeof(module_map) * 8 )
+>      {
+> -        mbi->mods_count = sizeof(module_map) * 8;
+> +        boot_info->nr_mods = sizeof(module_map) * 8;
+>          printk("Excessive multiboot modules - using the first %u only\n",
+> -               mbi->mods_count);
+> +               boot_info->nr_mods);
+>      }
+>  
+> -    bitmap_fill(module_map, mbi->mods_count);
+> +    bitmap_fill(module_map, boot_info->nr_mods);
+>      __clear_bit(0, module_map); /* Dom0 kernel is always first */
+>  
+>      if ( pvh_boot )
+> @@ -1311,9 +1323,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>      kexec_reserve_area(&boot_e820);
+>  
+>      initial_images = mod;
+> -    nr_initial_images = mbi->mods_count;
+> +    boot_info->nr_mods = boot_info->nr_mods;
+>  
+> -    for ( i = 0; !efi_enabled(EFI_LOADER) && i < mbi->mods_count; i++ )
+> +    for ( i = 0; !efi_enabled(EFI_LOADER) && i < boot_info->nr_mods; i++ )
+>      {
+>          if ( mod[i].mod_start & (PAGE_SIZE - 1) )
+>              panic("Bootloader didn't honor module alignment request\n");
+> @@ -1337,8 +1349,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>           * respective reserve_e820_ram() invocation below. No need to
+>           * query efi_boot_mem_unused() here, though.
+>           */
+> -        mod[mbi->mods_count].mod_start = virt_to_mfn(_stext);
+> -        mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
+> +        mod[boot_info->nr_mods].mod_start = virt_to_mfn(_stext);
+> +        mod[boot_info->nr_mods].mod_end = __2M_rwdata_end - _stext;
+>      }
+>  
+>      modules_headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
+> @@ -1398,7 +1410,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          {
+>              /* Don't overlap with modules. */
+>              end = consider_modules(s, e, reloc_size + mask,
+> -                                   mod, mbi->mods_count, -1);
+> +                                   mod, boot_info->nr_mods, -1);
+>              end &= ~mask;
+>          }
+>          else
+> @@ -1419,7 +1431,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          }
+>  
+>          /* Is the region suitable for relocating the multiboot modules? */
+> -        for ( j = mbi->mods_count - 1; j >= 0; j-- )
+> +        for ( j = boot_info->nr_mods - 1; j >= 0; j-- )
+>          {
+>              unsigned long headroom = j ? 0 : modules_headroom;
+>              unsigned long size = PAGE_ALIGN(headroom + mod[j].mod_end);
+> @@ -1429,7 +1441,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>  
+>              /* Don't overlap with other modules (or Xen itself). */
+>              end = consider_modules(s, e, size, mod,
+> -                                   mbi->mods_count + relocated, j);
+> +                                   boot_info->nr_mods + relocated, j);
+>  
+>              if ( highmem_start && end > highmem_start )
+>                  continue;
+> @@ -1456,7 +1468,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          {
+>              /* Don't overlap with modules (or Xen itself). */
+>              e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), mod,
+> -                                 mbi->mods_count + relocated, -1);
+> +                                 boot_info->nr_mods + relocated, -1);
+>              if ( s >= e )
+>                  break;
+>              if ( e > kexec_crash_area_limit )
+> @@ -1471,7 +1483,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>  
+>      if ( modules_headroom && !mod->reserved )
+>          panic("Not enough memory to relocate the dom0 kernel image\n");
+> -    for ( i = 0; i < mbi->mods_count; ++i )
+> +    for ( i = 0; i < boot_info->nr_mods; ++i )
+>      {
+>          uint64_t s = (uint64_t)mod[i].mod_start << PAGE_SHIFT;
+>  
+> @@ -1540,7 +1552,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>                      ASSERT(j);
+>                  }
+>                  map_e = boot_e820.map[j].addr + boot_e820.map[j].size;
+> -                for ( j = 0; j < mbi->mods_count; ++j )
+> +                for ( j = 0; j < boot_info->nr_mods; ++j )
+>                  {
+>                      uint64_t end = pfn_to_paddr(mod[j].mod_start) +
+>                                     mod[j].mod_end;
+> @@ -1616,7 +1628,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          }
+>      }
+>  
+> -    for ( i = 0; i < mbi->mods_count; ++i )
+> +    for ( i = 0; i < boot_info->nr_mods; ++i )
+>      {
+>          set_pdx_range(mod[i].mod_start,
+>                        mod[i].mod_start + PFN_UP(mod[i].mod_end));
+> @@ -1999,8 +2011,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>             cpu_has_nx ? XENLOG_INFO : XENLOG_WARNING "Warning: ",
+>             cpu_has_nx ? "" : "not ");
+>  
+> -    initrdidx = find_first_bit(module_map, mbi->mods_count);
+> -    if ( bitmap_weight(module_map, mbi->mods_count) > 1 )
+> +    initrdidx = find_first_bit(module_map, boot_info->nr_mods);
+> +    if ( bitmap_weight(module_map, boot_info->nr_mods) > 1 )
+>          printk(XENLOG_WARNING
+>                 "Multiple initrd candidates, picking module #%u\n",
+>                 initrdidx);
+> @@ -2010,7 +2022,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>       * above our heap. The second module, if present, is an initrd ramdisk.
+>       */
+>      dom0 = create_dom0(mod, modules_headroom,
+> -                       initrdidx < mbi->mods_count ? mod + initrdidx : NULL,
+> +                       initrdidx < boot_info->nr_mods ? mod + initrdidx : NULL,
+>                         kextra, loader);
+>      if ( !dom0 )
+>          panic("Could not set up DOM0 guest OS\n");
+> diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h
+> new file mode 100644
+> index 0000000000..6a7d55d20e
+> --- /dev/null
+> +++ b/xen/include/xen/bootinfo.h
+> @@ -0,0 +1,20 @@
+> +#ifndef __XEN_BOOTINFO_H__
+> +#define __XEN_BOOTINFO_H__
+> +
+> +#include <xen/types.h>
+
+I don't think you need types.h right now
+
+
+> +struct boot_info {
+
+This is what we call struct bootmodules on ARM right? Would it help if
+we used the same name?
+
+I am not asking to make the ARM code common because I think that would
+probably be a lot more work.
+
+
+> +    unsigned int nr_mods;
+> +};
+> +
+> +#endif
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> -- 
+> 2.25.1
+> 
+> 
 
