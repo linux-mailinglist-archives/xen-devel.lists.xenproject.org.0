@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 555F374BE1F
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Jul 2023 17:23:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560707.876806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C69274BEAF
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Jul 2023 20:10:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560713.876817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qI9mK-0008ED-Gc; Sat, 08 Jul 2023 15:23:20 +0000
+	id 1qICMf-00080m-2p; Sat, 08 Jul 2023 18:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560707.876806; Sat, 08 Jul 2023 15:23:20 +0000
+Received: by outflank-mailman (output) from mailman id 560713.876817; Sat, 08 Jul 2023 18:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qI9mK-0008CX-Do; Sat, 08 Jul 2023 15:23:20 +0000
-Received: by outflank-mailman (input) for mailman id 560707;
- Sat, 08 Jul 2023 15:23:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qI9mI-0008CH-Q7; Sat, 08 Jul 2023 15:23:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qI9mI-0005ES-F9; Sat, 08 Jul 2023 15:23:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qI9mI-0007og-4O; Sat, 08 Jul 2023 15:23:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qI9mI-0001vo-42; Sat, 08 Jul 2023 15:23:18 +0000
+	id 1qICMe-0007yZ-VZ; Sat, 08 Jul 2023 18:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 560713;
+ Sat, 08 Jul 2023 18:09:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QfqP=C2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qICMd-0007yT-Uq
+ for xen-devel@lists.xenproject.org; Sat, 08 Jul 2023 18:09:00 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 813f839b-1dba-11ee-b237-6b7b168915f2;
+ Sat, 08 Jul 2023 20:08:57 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F1B0A601D9;
+ Sat,  8 Jul 2023 18:08:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D67C433C7;
+ Sat,  8 Jul 2023 18:08:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,144 +44,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3it2lp5/9iBIPpDP54eqmqnh0xOuS9UJ4mNcenJTTY0=; b=Sfw2EFlirE1DoFlHxGIDKTu2kn
-	ln2mWqXr9ZpgCD9IBlwNN4hNhZT7inzT+7IZ2zbJvu1PxArGcl9AjOs6gmO1qLB/CAg30wb4pXe+k
-	8Np2VKoz4POvyYQkM+XKMtmID3MZx/CM8BO1OnNyvZi1B4nN9WtrGd4BW59csIvAk2tA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181738-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 813f839b-1dba-11ee-b237-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688839735;
+	bh=HIy8KMbQOvDbOJR7WWjTx2K8cRdpxvsiNzLUY6jEL/4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=XEsuJXmZs8oEwO1MYI6joeDr2hwqFTxRv/0I/WE74P2QT1PiR7Ku5amhXep+DPF9N
+	 KTTyysZUHQH2aue0KTfONKNP/NLGt30D6aXLmXT2aUmxbBfgzXeIB+943iZcORlETw
+	 e3b58q5jRq9jdYImMwIc6tmgOodLSypmDFbMbLvMMT0RVlAyMlWICFE725ugop4r8A
+	 yGckpPEvcPKexupVAieX7vaJEtTpcGHKG8PZoXlqd37kzzF8j20Qmb0WBqX27qj5Ii
+	 IlFZ8p4furvHFdpca2KRQfjWWiRTEBkGEPM7A7P4t90zmwJr+b+4MlIEH5HE3IbNz7
+	 u7z2QC5OXtWuw==
+Date: Sat, 8 Jul 2023 11:08:49 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Rich Persaud <persaur@gmail.com>
+cc: Luca Fancellu <luca.fancellu@arm.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Christopher Clark <christopher.w.clark@gmail.com>, 
+    George Dunlap <george.dunlap@cloud.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    Andrew Cooper <Andrew.Cooper3@citrix.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, 
+    Henry Wang <Henry.Wang@arm.com>, 
+    Community Manager <community.manager@xenproject.org>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+    Anthony PERARD <anthony.perard@citrix.com>, 
+    Rian Quinn <rianquinn@gmail.com>, Ian Jackson <iwj@xenproject.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Scott Davis <scott.davis@starlab.io>, Adam Fraser <adam@starlab.io>, 
+    Paul Durrant <paul@xen.org>, rsmith@riversideresearch.org, 
+    m.a.young@durham.ac.uk, Elliott Mitchell <ehem+xen@m5p.com>, 
+    openxt <openxt@googlegroups.com>, Jason Andryuk <jandryuk@gmail.com>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [RFC PATCH] xen/arm: Rebranding dom0less feature
+In-Reply-To: <7C4F691F-1C60-48EF-A1B6-B358DF16B13B@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2307081108440.761183@ubuntu-linux-20-04-desktop>
+References: <4CAC8F69-ABE0-47D7-9421-77F0719B9BDE@arm.com> <7C4F691F-1C60-48EF-A1B6-B358DF16B13B@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [libvirt test] 181738: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    libvirt:test-amd64-amd64-libvirt-vhd:guest-start.2:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=5f7f6ceb47b8bec3f8ad93599f95b755e00e439a
-X-Osstest-Versions-That:
-    libvirt=00cd7d2b1a9bd5a0d2f7555b7f54a6197af3c00f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 08 Jul 2023 15:23:18 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-1385878080-1688838543=:761183"
+Content-ID: <alpine.DEB.2.22.394.2307081049060.761183@ubuntu-linux-20-04-desktop>
 
-flight 181738 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181738/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-1385878080-1688838543=:761183
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2307081049061.761183@ubuntu-linux-20-04-desktop>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt-vhd 20 guest-start.2           fail blocked in 181717
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181717
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181717
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181717
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              5f7f6ceb47b8bec3f8ad93599f95b755e00e439a
-baseline version:
- libvirt              00cd7d2b1a9bd5a0d2f7555b7f54a6197af3c00f
-
-Last test of basis   181717  2023-07-06 04:18:48 Z    2 days
-Testing same since   181738  2023-07-08 04:18:54 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jim Fehlig <jfehlig@suse.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
+On Sat, 8 Jul 2023, Rich Persaud wrote:
+> On Jul 8, 2023, at 03:29, Luca Fancellu <luca.fancellu@arm.com> wrote:
+> > ﻿
+> >>>> 
+> >>>> Instead, the use case configurations should themselves be describable.
+> >>> 
+> >>> Thanks Christopher, Daniel and all!
+> >>> 
+> >>> So if I understand correctly, you are in favor if renaming Dom0less to
+> >>> Hyperlaunch throughout the Xen codebase? And we need a clarification of
+> >>> the docs/, especially docs/features/dom0less.pandoc?
+> >> 
+> >> Christopher wrote:
+> >>>> = Community resourcing
+> >> 
+> >> Note the pre-requisite work items for upstream Xen, listed under "Community Resourcing", to merge code for Hyperlaunch common interfaces and test cases, with docs on configuration of Hyperlaunch to deliver functionality for dom0less use cases.
+> > 
+> > Are you saying that before renaming the “dom0less” feature, we should wait for it to be ported to the common code?
+> 
+> Why "wait"? In what timeframe do you expect dom0less to use Hyperlaunch code?
+> 
+> Can kernel component foo adopt the name of kernel component bar without code change?
+> 
+> Can dom0less stakeholders derive Hyperlaunch benefits without using Hyperlaunch code?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I think Rich is saying that before using the same name we should make
+sure that the interfaces and features are actually comparable and maybe
+even "compatible". I think that is very reasonable. Rich, did I
+understand correctly?
 
 
-Pushing revision :
+The Hyperlaunch (x86) code is not yet upstream, but the design document
+that describes the device tree interface shows an interface that is very
+similar, almost compatible, with today's dom0less (ARM) device tree
+interface.
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   00cd7d2b1a..5f7f6ceb47  5f7f6ceb47b8bec3f8ad93599f95b755e00e439a -> xen-tested-master
+The structure of the device tree information is the same. Going through
+it I could only spot only tiny differences:
+- top level node is "hypervisor" instead of "chosen"
+- "module-addr" instead of "reg"
+- "module,kernel" instead of "multiboot,kernel"
+- "module,ramdisk" instead of "multiboot,ramdisk" 
+
+The rest is the same. If we sort out these small differences one way or
+the other then the resulting interface should actually be fully
+compatible and we could reuse the existing Dom0less (ARM) code to parse
+an HyperLaunch (x86) configuration.
+
+The top level node is not a problem. We could easily deal with both
+"hypervisor" and also "chosen". Or we could pick a third different name
+for both: "domains" which is the one used by System Device Tree.
+
+I think we should rename "module-addr" to "reg" in the hyperlaunch
+design document. I don't think it would have any effect on the existing
+hyperlaunch (x86) code and usage because direct addresses are typically
+not used on x86.
+
+"module,kernel" and "module,ramdisk": we could either get rid of them in
+favor of "multiboot,kernel" and "multiboot,ramdisk", or we could add
+"module,kernel" and "module,ramdisk" as alternative aliases in the
+existing dom0less (ARM) code. We already have "xen,linux-zimage" and
+"xen,linux-initrd" as aliases so it is not a problem.
+
+
+Also, I do think that Dom0less stakeholders would benefit from
+Hyperlaunch code such as Dom0's reduction of privilege. Things like
+"permissions" and "functions" of the Hyperlauch device tree interface
+design document.
+
+
+So, my opinion is that we should go ahead with dom0less->hyperlaunch
+rename but we should also try to make the two device tree interfaces
+compatible, sorting out the small differences above. That would help a
+lot in terms of documentation and tooling. It would be ideal if things
+like ImageBuilder worked equally well for Hyperlaunch (x86) and Dom0less
+(ARM).
+
+
+P.S.
+Note that I only added (ARM) and (x86) for extra clarity in this
+discussion, and I don't want to keep using them going forward.
+--8323329-1385878080-1688838543=:761183--
 
