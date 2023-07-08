@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52AF974BFCB
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Jul 2023 00:22:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560773.876926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 333DF74BFCC
+	for <lists+xen-devel@lfdr.de>; Sun,  9 Jul 2023 00:24:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560778.876937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIGKB-0005bc-OY; Sat, 08 Jul 2023 22:22:43 +0000
+	id 1qIGLm-0006Cg-2v; Sat, 08 Jul 2023 22:24:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560773.876926; Sat, 08 Jul 2023 22:22:43 +0000
+Received: by outflank-mailman (output) from mailman id 560778.876937; Sat, 08 Jul 2023 22:24:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIGKB-0005ZC-Lh; Sat, 08 Jul 2023 22:22:43 +0000
-Received: by outflank-mailman (input) for mailman id 560773;
- Sat, 08 Jul 2023 22:22:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qIGLl-0006AK-W1; Sat, 08 Jul 2023 22:24:21 +0000
+Received: by outflank-mailman (input) for mailman id 560778;
+ Sat, 08 Jul 2023 22:24:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QfqP=C2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qIGK9-000517-VW
- for xen-devel@lists.xenproject.org; Sat, 08 Jul 2023 22:22:41 +0000
+ id 1qIGLl-0006AC-G6
+ for xen-devel@lists.xenproject.org; Sat, 08 Jul 2023 22:24:21 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2c3e4d9-1ddd-11ee-8611-37d641c3527e;
- Sun, 09 Jul 2023 00:22:40 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e703fbc-1dde-11ee-b237-6b7b168915f2;
+ Sun, 09 Jul 2023 00:24:20 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D905260010;
- Sat,  8 Jul 2023 22:22:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856B2C433C7;
- Sat,  8 Jul 2023 22:22:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F0C926023F;
+ Sat,  8 Jul 2023 22:24:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97977C433C8;
+ Sat,  8 Jul 2023 22:24:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +44,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2c3e4d9-1ddd-11ee-8611-37d641c3527e
+X-Inumbo-ID: 2e703fbc-1dde-11ee-b237-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688854958;
-	bh=eY0cOWD3nJddZmtYCGjKmZRXpteaQG62tae8NiGIonw=;
+	s=k20201202; t=1688855058;
+	bh=gve7EL/o01er41M/hJovg8UNy+5NeOpVbO08ligNgIM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=WDyvlTCgzud/Px2NYuDSWjCAWiH3w6e1NJKEdZb+rGvMC8O+0W7HU63BstR5mOYlp
-	 P8zjJRBI6b+Q584QRPt5wbcmj6u4E/U7jkBKyQXweSz8GutsPEN2AGqp1nIKH7krmu
-	 Wg3rDHtE95IUQNTWbZ38x/T0ytISEpUErm8xZ3PtEDV5zbm12Mc5q5rBW6hx/CQmGp
-	 fKhxv7ilpW5Jrl9dX9VeE+OrbnrC+K5MVrrkSM88MxaoQq7wcbhqu3Ijsqt1jJwSmx
-	 FowSD6fuUZxl1WYjEGL2Wut0YI39QmOm0BeDwLWQ2MLnuSI2rKptUV+ihbM8UOqyoK
-	 KsIaqoYEHRl/A==
-Date: Sat, 8 Jul 2023 15:22:34 -0700 (PDT)
+	b=MHgOXUC/V3f3ubnd7KmVMYT1LLVISx5s6MHB1jQyOOjf4sZeBFnr2j37x/FQZ681x
+	 zyo71irGMS2Im0LVLZALv6d60R/5V4Wzd8FubOZpQzf+hC4lU3Uoleuj+Fu5thsr6z
+	 /+UOLcuQXoCbpOEmVAiwsBQRQc8yMPRFBejI5PppXB7tG7lMtTz9HbquUPMJpIkG1V
+	 Pt/Zi2lCaZ1MiS9HKRSnMz2Tjw+GXnTqG47eJZGdW8xg3qtdZ3ky+fRlGZe2zzml75
+	 2KgO0TnMRI4jTqc96TwDWpM52zEcd6wyFoEDhtqG23hzWzsiW95LihuH9exxDk8913
+	 AANqlpBD/HU1w==
+Date: Sat, 8 Jul 2023 15:24:14 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Christopher Clark <christopher.w.clark@gmail.com>
@@ -68,116 +68,146 @@ cc: xen-devel@lists.xenproject.org,
     Luca Fancellu <luca.fancellu@arm.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Rich Persaud <persaur@gmail.com>
-Subject: Re: [PATCH 08/10] x86, arm, riscv: add per-arch bootinfo headers
-In-Reply-To: <20230701071835.41599-9-christopher.w.clark@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2307081522180.761183@ubuntu-linux-20-04-desktop>
-References: <20230701071835.41599-1-christopher.w.clark@gmail.com> <20230701071835.41599-9-christopher.w.clark@gmail.com>
+Subject: Re: [PATCH 07/10] x86 boot: define paddr_t and add macros for
+ typedefing struct pointers
+In-Reply-To: <20230701071835.41599-8-christopher.w.clark@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2307081522410.761183@ubuntu-linux-20-04-desktop>
+References: <20230701071835.41599-1-christopher.w.clark@gmail.com> <20230701071835.41599-8-christopher.w.clark@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Sat, 1 Jul 2023, Christopher Clark wrote:
-> Changes to ensure that inclusion of <xen/bootinfo.h> succeeds in each
-> of the main archtecture builds and in the 32-bit early x86 boot build.
+> Pointer fields within structs need to be defined as fixed size types in
+> the x86 boot build environment. Using a typedef for the field type
+> rather than a struct pointer type enables the type definition to
+> be changed in the 32-bit boot build and the main hypervisor build,
+> allowing for a single common structure definition and a common header file.
+
+Sorry for my ignorance, but why?
+
+struct boot_module is not used as part of any ABI, right? It is
+populated by Xen at boot by hand. Why do we need a specific memory
+layout for it?
+
+
+
+> Introduces DEFINE_STRUCT_PTR_TYPE and DEFINE_PTR_TYPE which will
+> generate typedefs with a _ptr_t suffix for pointers to the specified
+> type. This is then used in <xen/bootinfo.h> for pointers within structs
+> as preparation for using these headers in the x86 boot build.
 > 
-> The <xen/bootinfo.h> header contains structures that will be used in efi
-> logic prior to the main start of Xen, so it needs to be suitable for
-> inclusion in Arm source files.
+> The 32-bit behaviour is obtained by inclusion of "defs.h" first with a
+> check for such an existing definition on the <xen/types.h> version.
 > 
-> The same header will also be included in early x86 boot logic, where
-> asm/* headers are not reachable, and so they cannot be transitively
-> included, so a ifdef condition is needed to prevent an attempt to
-> include <asm/bootinfo.h> from within <xen/bootinfo.h> in that case.
-> 
-> The early x86 boot logic can then directly include <asm/bootinfo.h> via
-> a specified directory path where it can be included successfully.
+> paddr_t is used in <xen/bootinfo.h> so a definition is added here to
+> the x86 boot environment defs.h header.
 > 
 > Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
 > Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-I think this is fine.
-
 
 > ---
-> New for v2 series.
+> Changes since v2: This is two v2 patches merged into one for v3.
+> Changes since v1: New in v2 of series.
 > 
->  xen/arch/arm/include/asm/bootinfo.h   | 20 ++++++++++++++++++++
->  xen/arch/riscv/include/asm/bootinfo.h | 20 ++++++++++++++++++++
->  xen/include/xen/bootinfo.h            |  7 ++-----
->  3 files changed, 42 insertions(+), 5 deletions(-)
->  create mode 100644 xen/arch/arm/include/asm/bootinfo.h
->  create mode 100644 xen/arch/riscv/include/asm/bootinfo.h
+>  xen/arch/x86/boot/defs.h            |  9 +++++++++
+>  xen/arch/x86/include/asm/bootinfo.h |  4 +++-
+>  xen/include/xen/bootinfo.h          |  9 +++++----
+>  xen/include/xen/types.h             | 11 +++++++++++
+>  4 files changed, 28 insertions(+), 5 deletions(-)
 > 
-> diff --git a/xen/arch/arm/include/asm/bootinfo.h b/xen/arch/arm/include/asm/bootinfo.h
-> new file mode 100644
-> index 0000000000..5316c87a3d
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/bootinfo.h
-> @@ -0,0 +1,20 @@
-> +#ifndef __ARCH_ARM_BOOTINFO_H__
-> +#define __ARCH_ARM_BOOTINFO_H__
+> diff --git a/xen/arch/x86/boot/defs.h b/xen/arch/x86/boot/defs.h
+> index f9840044ec..bc0f1b5cf8 100644
+> --- a/xen/arch/x86/boot/defs.h
+> +++ b/xen/arch/x86/boot/defs.h
+> @@ -60,4 +60,13 @@ typedef u64 uint64_t;
+>  #define U16_MAX		((u16)(~0U))
+>  #define UINT_MAX	(~0U)
+>  
+> +typedef unsigned long long paddr_t;
 > +
-> +struct __packed arch_bootmodule { };
+> +#define DEFINE_STRUCT_PTR_TYPE(struct_name) \
+> +    typedef uint64_t struct_name ## _ptr_t;
+> +
+> +#define DEFINE_PTR_TYPE(type) \
+> +    typedef uint64_t type ## _ptr_t;
+> +DEFINE_PTR_TYPE(char);
+> +
+>  #endif /* __BOOT_DEFS_H__ */
+> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+> index 30c27980e0..989fb7a1da 100644
+> --- a/xen/arch/x86/include/asm/bootinfo.h
+> +++ b/xen/arch/x86/include/asm/bootinfo.h
+> @@ -6,6 +6,7 @@ struct arch_bootmodule {
+>      uint32_t flags;
+>      unsigned headroom;
+>  };
 > +DEFINE_STRUCT_PTR_TYPE(arch_bootmodule);
-> +
-> +struct __packed arch_boot_info { };
+>  
+>  struct arch_boot_info {
+>      uint32_t flags;
+> @@ -14,11 +15,12 @@ struct arch_boot_info {
+>  #define BOOTINFO_FLAG_X86_MEMMAP       1U << 6
+>  #define BOOTINFO_FLAG_X86_LOADERNAME   1U << 9
+>  
+> -    char *boot_loader_name;
+> +    char_ptr_t boot_loader_name;
+>  
+>      uint32_t mmap_length;
+>      paddr_t mmap_addr;
+>  };
 > +DEFINE_STRUCT_PTR_TYPE(arch_boot_info);
-> +
-> +#endif
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/riscv/include/asm/bootinfo.h b/xen/arch/riscv/include/asm/bootinfo.h
-> new file mode 100644
-> index 0000000000..5316c87a3d
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/bootinfo.h
-> @@ -0,0 +1,20 @@
-> +#ifndef __ARCH_ARM_BOOTINFO_H__
-> +#define __ARCH_ARM_BOOTINFO_H__
-> +
-> +struct __packed arch_bootmodule { };
-> +DEFINE_STRUCT_PTR_TYPE(arch_bootmodule);
-> +
-> +struct __packed arch_boot_info { };
-> +DEFINE_STRUCT_PTR_TYPE(arch_boot_info);
-> +
-> +#endif
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
+>  
+>  struct __packed mb_memmap {
+>      uint32_t size;
 > diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h
-> index 8389da4f72..bf5586a76b 100644
+> index 2f4284a91f..8389da4f72 100644
 > --- a/xen/include/xen/bootinfo.h
 > +++ b/xen/include/xen/bootinfo.h
-> @@ -5,11 +5,8 @@
->  #include <xen/compiler.h>
->  #include <xen/mm-frame.h>
+> @@ -35,17 +35,18 @@ struct boot_module {
+>      mfn_t mfn;
+>      size_t size;
 >  
-> -#ifdef CONFIG_X86
-> -#include <asm/bootinfo.h>
-> -#else
-> -    struct arch_bootmodule { };
-> -    struct arch_boot_info { };
-> +#if defined CONFIG_X86 || CONFIG_ARM || CONFIG_RISCV
-> +# include <asm/bootinfo.h>
+> -    struct arch_bootmodule *arch;
+> +    arch_bootmodule_ptr_t arch;
+>      struct boot_string string;
+>  };
+> +DEFINE_STRUCT_PTR_TYPE(boot_module);
+>  
+>  struct boot_info {
+> -    char *cmdline;
+> +    char_ptr_t cmdline;
+>  
+>      unsigned int nr_mods;
+> -    struct boot_module *mods;
+> +    boot_module_ptr_t mods;
+>  
+> -    struct arch_boot_info *arch;
+> +    arch_boot_info_ptr_t arch;
+>  };
+>  
 >  #endif
+> diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
+> index 6aba80500a..e807ffe255 100644
+> --- a/xen/include/xen/types.h
+> +++ b/xen/include/xen/types.h
+> @@ -71,4 +71,15 @@ typedef bool bool_t;
+>  #define test_and_set_bool(b)   xchg(&(b), true)
+>  #define test_and_clear_bool(b) xchg(&(b), false)
 >  
->  /* Boot module binary type / purpose */
+> +#ifndef DEFINE_STRUCT_PTR_TYPE
+> +#define DEFINE_STRUCT_PTR_TYPE(struct_name) \
+> +    typedef struct struct_name * struct_name ## _ptr_t;
+> +#endif
+> +
+> +#ifndef DEFINE_PTR_TYPE
+> +#define DEFINE_PTR_TYPE(type) \
+> +    typedef type * type ## _ptr_t;
+> +DEFINE_PTR_TYPE(char);
+> +#endif
+> +
+>  #endif /* __TYPES_H__ */
 > -- 
 > 2.25.1
 > 
