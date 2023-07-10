@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E39674CDED
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 09:09:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560980.877213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A420074CDF6
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 09:10:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561003.877283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIl1b-00013y-VN; Mon, 10 Jul 2023 07:09:35 +0000
+	id 1qIl23-0004Gj-HJ; Mon, 10 Jul 2023 07:10:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560980.877213; Mon, 10 Jul 2023 07:09:35 +0000
+Received: by outflank-mailman (output) from mailman id 561003.877283; Mon, 10 Jul 2023 07:10:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIl1b-00012n-S6; Mon, 10 Jul 2023 07:09:35 +0000
-Received: by outflank-mailman (input) for mailman id 560980;
- Mon, 10 Jul 2023 07:09:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qIl23-0004DX-DF; Mon, 10 Jul 2023 07:10:03 +0000
+Received: by outflank-mailman (input) for mailman id 561003;
+ Mon, 10 Jul 2023 07:10:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Xcmr=C4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qIktM-0002xd-SD
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 07:01:04 +0000
+ id 1qIktU-0002bQ-03
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 07:01:12 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88f144bf-1eef-11ee-b239-6b7b168915f2;
- Mon, 10 Jul 2023 09:01:04 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8c40cad7-1eef-11ee-8611-37d641c3527e;
+ Mon, 10 Jul 2023 09:01:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C756821E91;
- Mon, 10 Jul 2023 07:01:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 62BBE21E99;
+ Mon, 10 Jul 2023 07:01:09 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9ABAF1361C;
- Mon, 10 Jul 2023 07:01:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 34C9B1361C;
+ Mon, 10 Jul 2023 07:01:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id FedZJK+sq2Q7YwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 10 Jul 2023 07:01:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id VsZ+C7Wsq2RKYwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 10 Jul 2023 07:01:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,135 +51,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88f144bf-1eef-11ee-b239-6b7b168915f2
+X-Inumbo-ID: 8c40cad7-1eef-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688972463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1688972469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LL0mYNGCcpz3qPsiYMb2y3kfqsUKSB/ihslfEA9JXv8=;
-	b=Xul1CLsaspdPVpUllNlHt6JrzfdN/vPldpEgH7u5zH3TrVsd8FSVF5nSORYEOcErX+hu2C
-	oOuTHLrD6aAE94vdsk3nQWYOx3CKRbsMV5vkjxZQgP4gfRUOWcopoxsPirfDyk7fNWRzuc
-	yy2aAkH43VF5CzQWU1uGNOKSSp8hI0Y=
+	bh=zEHQOByY3/G0AhnrW+dmrcu8r5Zv08ynjvJcMWugCDE=;
+	b=TIxbIpTALW117ziwWgjeA6zE6IA9D9ZCSEKqeClrHlcJ04hNaghAsnsK43/WJy3P60OJUU
+	OxidPEaPbG9/3KCcyGTQO2AjXfGAfVRDLh/OTbyMWUTBJ/bxePyItcFNKmplpl32YOy5nj
+	hwB/GjIMi4w4PVuu0prQ2czj/Zov9VY=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 13/18] tools/xenstore: let db_delete() return void
-Date: Mon, 10 Jul 2023 08:59:42 +0200
-Message-Id: <20230710065947.4201-14-jgross@suse.com>
+Subject: [PATCH v2 14/18] tools/xenstore: move copying of node data out of db_fetch()
+Date: Mon, 10 Jul 2023 08:59:43 +0200
+Message-Id: <20230710065947.4201-15-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230710065947.4201-1-jgross@suse.com>
 References: <20230710065947.4201-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-db_delete() only ever is returning 0. Switch it to return void and
-remove all the error handling dealing wit a non-zero return value.
+Today the node data is copied in db_fetch() on each data base read in
+order to avoid accidental data base modifications when working on a
+node.
 
-Suggested-by: Julien Grall <julien@xen.org>
+read_node() is the only caller of db_fetch() which isn't freeing the
+returned data area immediately after using it. The other callers don't
+modify the returned data, so they don't need the data to be copied.
+
+Move copying of the data into read_node(), resulting in a speedup of
+the other callers due to no memory allocation and no copying being
+needed anymore.
+
+As db_fetch() can't return any error other than ENOENT now, error
+handling for the callers can be simplified.
+
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
 - new patch
 ---
- tools/xenstore/xenstored_core.c        | 11 ++++-------
- tools/xenstore/xenstored_core.h        |  4 ++--
- tools/xenstore/xenstored_transaction.c | 14 +++++---------
- 3 files changed, 11 insertions(+), 18 deletions(-)
+ tools/xenstore/xenstored_core.c        | 41 ++++++++++----------------
+ tools/xenstore/xenstored_transaction.c |  3 --
+ 2 files changed, 16 insertions(+), 28 deletions(-)
 
 diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index ff10659e65..11da470b20 100644
+index 11da470b20..d5c9054fe9 100644
 --- a/tools/xenstore/xenstored_core.c
 +++ b/tools/xenstore/xenstored_core.c
-@@ -679,8 +679,8 @@ int db_write(struct connection *conn, const char *db_name, void *data,
- 	return 0;
- }
+@@ -557,8 +557,7 @@ static void initialize_fds(int *p_sock_pollfd_idx, int *ptimeout)
  
--int db_delete(struct connection *conn, const char *name,
--	      struct node_account_data *acc)
-+void db_delete(struct connection *conn, const char *name,
-+	       struct node_account_data *acc)
+ struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
  {
- 	struct node_account_data tmp_acc;
- 	unsigned int domid;
-@@ -700,8 +700,6 @@ int db_delete(struct connection *conn, const char *name,
- 		domain_memory_add_nochk(conn, domid,
- 					-acc->memory - strlen(name));
- 	}
+-	const struct xs_tdb_record_hdr *hdr;
+-	struct xs_tdb_record_hdr *p;
++	struct xs_tdb_record_hdr *hdr;
+ 
+ 	hdr = hashtable_search(nodes, db_name);
+ 	if (!hdr) {
+@@ -569,18 +568,9 @@ struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
+ 	*size = sizeof(*hdr) + hdr->num_perms * sizeof(hdr->perms[0]) +
+ 		hdr->datalen + hdr->childlen;
+ 
+-	p = talloc_size(NULL, *size);
+-	if (!p) {
+-		errno = ENOMEM;
+-		return NULL;
+-	}
 -
--	return 0;
+ 	trace_tdb("read %s size %zu\n", db_name, *size + strlen(db_name));
+ 
+-	/* Return a copy, avoiding a potential modification in the DB. */
+-	memcpy(p, hdr, *size);
+-
+-	return p;
++	return hdr;
  }
  
- /*
-@@ -1668,9 +1666,8 @@ static int delnode_sub(const void *ctx, struct connection *conn,
- 	if (domain_nbentry_dec(conn, get_node_owner(node)))
- 		return WALK_TREE_ERROR_STOP;
+ static void get_acc_data(const char *name, struct node_account_data *acc)
+@@ -597,7 +587,6 @@ static void get_acc_data(const char *name, struct node_account_data *acc)
+ 			acc->memory = size;
+ 			acc->domid = hdr->perms[0].id;
+ 		}
+-		talloc_free(hdr);
+ 	}
+ }
  
--	/* In case of error stop the walk. */
--	if (!ret && db_delete(conn, db_name, &node->acc))
--		return WALK_TREE_ERROR_STOP;
-+	if (!ret)
-+		db_delete(conn, db_name, &node->acc);
+@@ -731,30 +720,32 @@ struct node *read_node(struct connection *conn, const void *ctx,
+ 	hdr = db_fetch(db_name, &size);
  
- 	/*
- 	 * Fire the watches now, when we can still see the node permissions.
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 5d96799c60..3c0dd40dfb 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -365,8 +365,8 @@ struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size);
- int db_write(struct connection *conn, const char *db_name, void *data,
- 	     size_t size, struct node_account_data *acc,
- 	     enum write_node_mode mode, bool no_quota_check);
--int db_delete(struct connection *conn, const char *name,
--	      struct node_account_data *acc);
-+void db_delete(struct connection *conn, const char *name,
-+	       struct node_account_data *acc);
+ 	if (hdr == NULL) {
+-		if (errno == ENOENT) {
+-			node->generation = NO_GENERATION;
+-			err = access_node(conn, node, NODE_ACCESS_READ, NULL);
+-			errno = err ? : ENOENT;
+-		} else {
+-			log("DB error on read: %s", strerror(errno));
+-			errno = EIO;
+-		}
++		node->generation = NO_GENERATION;
++		err = access_node(conn, node, NODE_ACCESS_READ, NULL);
++		errno = err ? : ENOENT;
+ 		goto error;
+ 	}
  
- void conn_free_buffered_data(struct connection *conn);
+ 	node->parent = NULL;
+-	talloc_steal(node, hdr);
+ 
+ 	/* Datalen, childlen, number of permissions */
+ 	node->generation = hdr->generation;
+ 	node->perms.num = hdr->num_perms;
+ 	node->datalen = hdr->datalen;
+ 	node->childlen = hdr->childlen;
++	node->acc.domid = hdr->perms[0].id;
++	node->acc.memory = size;
++
++	/* Copy node data to new memory area, starting with permissions. */
++	size -= sizeof(*hdr);
++	node->perms.p = talloc_size(node, size);
++	if (node->perms.p == NULL) {
++		errno = ENOMEM;
++		goto error;
++	}
++	memcpy(node->perms.p, hdr->perms, size);
+ 
+ 	/* Permissions are struct xs_permissions. */
+-	node->perms.p = hdr->perms;
+-	node->acc.domid = get_node_owner(node);
+-	node->acc.memory = size;
+ 	if (domain_adjust_node_perms(node))
+ 		goto error;
  
 diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index 420645e55d..5d7da82aad 100644
+index 5d7da82aad..e3e05a1d84 100644
 --- a/tools/xenstore/xenstored_transaction.c
 +++ b/tools/xenstore/xenstored_transaction.c
-@@ -378,10 +378,8 @@ static int finalize_transaction(struct connection *conn,
- 
- 		/* Entries for unmodified nodes can be removed early. */
- 		if (!i->modified) {
--			if (i->ta_node) {
--				if (db_delete(conn, i->trans_name, NULL))
--					return EIO;
--			}
-+			if (i->ta_node)
-+				db_delete(conn, i->trans_name, NULL);
- 			list_del(&i->list);
- 			talloc_free(i);
- 		}
-@@ -396,8 +394,7 @@ static int finalize_transaction(struct connection *conn,
- 				       ? NODE_CREATE : NODE_MODIFY;
- 				*is_corrupt |= db_write(conn, i->node, hdr,
- 							size, NULL, flag, true);
--				if (db_delete(conn, i->trans_name, NULL))
--					*is_corrupt = true;
-+				db_delete(conn, i->trans_name, NULL);
+@@ -365,13 +365,10 @@ static int finalize_transaction(struct connection *conn,
+ 		if (i->check_gen) {
+ 			hdr = db_fetch(i->node, &size);
+ 			if (!hdr) {
+-				if (errno != ENOENT)
+-					return errno;
+ 				gen = NO_GENERATION;
  			} else {
- 				*is_corrupt = true;
+ 				gen = hdr->generation;
  			}
-@@ -407,9 +404,8 @@ static int finalize_transaction(struct connection *conn,
- 			 * in this transaction will have no generation
- 			 * information stored.
- 			 */
--			*is_corrupt |= (i->generation == NO_GENERATION)
--				       ? false
--				       : db_delete(conn, i->node, NULL);
-+			if (i->generation != NO_GENERATION)
-+				db_delete(conn, i->node, NULL);
+-			talloc_free(hdr);
+ 			if (i->generation != gen)
+ 				return EAGAIN;
  		}
- 		if (i->fire_watch)
- 			fire_watches(conn, trans, i->node, NULL, i->watch_exact,
 -- 
 2.35.3
 
