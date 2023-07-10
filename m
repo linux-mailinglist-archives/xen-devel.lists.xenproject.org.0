@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C52674D09E
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 10:52:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561092.877403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA23E74D0A3
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 10:53:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561098.877414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qImdM-0005sH-8Z; Mon, 10 Jul 2023 08:52:40 +0000
+	id 1qImeL-0006VI-MN; Mon, 10 Jul 2023 08:53:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561092.877403; Mon, 10 Jul 2023 08:52:40 +0000
+Received: by outflank-mailman (output) from mailman id 561098.877414; Mon, 10 Jul 2023 08:53:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qImdM-0005pu-5e; Mon, 10 Jul 2023 08:52:40 +0000
-Received: by outflank-mailman (input) for mailman id 561092;
- Mon, 10 Jul 2023 08:52:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=72qR=C4=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qImdK-0005pm-RI
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 08:52:38 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on060d.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::60d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1eb69bf3-1eff-11ee-b239-6b7b168915f2;
- Mon, 10 Jul 2023 10:52:38 +0200 (CEST)
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
- by AS4PR04MB9315.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.29; Mon, 10 Jul
- 2023 08:52:36 +0000
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e]) by AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e%7]) with mapi id 15.20.6565.016; Mon, 10 Jul 2023
- 08:52:35 +0000
+	id 1qImeL-0006Sw-JL; Mon, 10 Jul 2023 08:53:41 +0000
+Received: by outflank-mailman (input) for mailman id 561098;
+ Mon, 10 Jul 2023 08:53:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gbMe=C4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qImeK-0006Sk-EY
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 08:53:40 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 42b3db50-1eff-11ee-8611-37d641c3527e;
+ Mon, 10 Jul 2023 10:53:38 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-4fba86f069bso6458425e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 10 Jul 2023 01:53:38 -0700 (PDT)
+Received: from [192.168.201.189] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ b11-20020a056512024b00b004fb76751156sm1611076lfo.157.2023.07.10.01.53.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Jul 2023 01:53:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,210 +45,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1eb69bf3-1eff-11ee-b239-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L+En57oQQSPTZAqHAmSxPyhTAHgvj17DALtgge4jIsYs6oA2IL+4Mqriy9EKO9rPZ3Otd2WnA634fC1SvBKAb+jkpL4GELtqRm56l7CSqGY2Ydj+ayewcjU7iZrWpbfEKhHocy/k3LM1birIGrA5BkTYHlGrk9abiZXpKwRFgI1QbVm2Ci4CTz78iD7cFJ0g0DHosjeixbbeIXJ+FzkOAfZq++vz6cT+NdTIr0RIzbtsLokkUnx0l5NO1X2XXqvQ9hIO1ias5bgD2HOIccvBDRi3JxKU4niSeiTn7paZpchhrbeFbWxzMZgTMq+bLcVpdAs7O2DYJrXS8gEBaFLxZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Njshz39xQXWzUhA0rIyJzlUroK26ZOgCP1y5HqVWGkc=;
- b=l9N+oSAPoI4ar5xQtsr3s7vg3AHX3vuVeTjz4JjVXGsBhu5UJ3TMzGcpxCygkCVD56071oeo8Js0MG1e6BrRVVOrf+axH+nE/unX2F4JrhGBHn1umbLCnkh24tEW+vejH6MF6/V3ohtK0WvxayFLf65HqCdKxcfdtD0XUbhX6fUfLjsu8hmmlNyeVBzK18buwMNKl8hg2oGiav2hyCaxKGmu94Zx2DTADJ5mLZiWZY0ToaA8HlT0jBeMSEx8XElpnhfRkzI5wTj8hN+0OuocHzTauecCGEBCybohp5+Gjk6Z8MMsgnwO6HYJyXKA15pLHkWhB7db48n3C7naG0ptIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Njshz39xQXWzUhA0rIyJzlUroK26ZOgCP1y5HqVWGkc=;
- b=PpHfwbxubi50Zze7hViJybvADhiYC0wPvmGdysQQ2ZpjEVlci1DuXu5pCclt2GTY9bRH7yrjcTd5HEXnxdrYHlMQYx32/p4nQwGQbRok/KTcUeJ28VbT0TDM9LOEJ9di29/zqHj7Y9rNi77v7Cr2wB60voJVfYO7eQjiFhDt5sRy20zmdNkxPwsFdOex9zcQ1Ub0a5cVQBJYz5N+EIJAH7/YJQHqLCMFy1aZZ6j9q6UdVJvT7pVNClwo9RtNIPVYCjM9yHfOrnvYrQvxpuDOcEnOjW8ah8dBJvBbHbyn1s8gNFQKWNfVa0x2uEy7nfLWdQRg2V4JgTJ5ylIhiSR+hg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e685d0d4-72a0-e628-c0af-75849fbdab67@suse.com>
-Date: Mon, 10 Jul 2023 10:52:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: [PATCH v3 2/8] common: assembly entry point type/size annotations
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- George Dunlap <george.dunlap@citrix.com>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <a4907ba1-a247-f96d-54e4-090f27665b20@suse.com>
-In-Reply-To: <a4907ba1-a247-f96d-54e4-090f27665b20@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0125.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::19) To AS8PR04MB8788.eurprd04.prod.outlook.com
- (2603:10a6:20b:42f::21)
+X-Inumbo-ID: 42b3db50-1eff-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1688979217; x=1691571217;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=8A25Ofh6EHiYPaglhgbe/Nue8Bthl09YvlTGHT+WidQ=;
+        b=r3cL5DrBW4wyLMJm62QRRWASPNN4j1SSrtf8CyyhhMewqDZeON2nWfQEiFFeHH0I99
+         Zn9s51RND+fY0J7SqoeH3O6d+zPYwqVIy0BCvwtKHJpZbpf19hUE8wVYLd4QQdM6gXob
+         +T+nCUBgXfnR11rINI/o1PGJzV112hkkqUMbvF42W0W+ZI4DrpmWTGksMAJcQg3u/ulr
+         fqXOyt49erKENcSgOKdjI91kFLdpANelBZQdzLHYSYqJwImnW/naLiekA4dJbVCJI/xJ
+         L6XlBWO1/0wR+BB+xi0kCT9wJ09hnKuy5YjEttpTfZ68ZCkV5SlaX5l6mok3ZeICIKO3
+         A8eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688979217; x=1691571217;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8A25Ofh6EHiYPaglhgbe/Nue8Bthl09YvlTGHT+WidQ=;
+        b=djzeJISoLevX+qoa56d/n5p9Gy8sKO97nLPtE6XRN42OQquUPK8jq8rXxXoW9gggn6
+         pkB0wDqzBW8DytOZ9VkrRBHhO6c7fwrIk2Ku3susqLUaq0WAvaC16ER3s5X/qYE/jb8J
+         KjPfyEl2ON3QDqXPfihHjgkoIrl8U1P7R8PQX7Raw0M2vj/7achtMwOupaMuhJj6IpKL
+         jO9fzdH9YxKdZ0ivbS1R72FYrIvGtJhkNKxtzuRQr5MEUIlt92EcmqdK4Ih/MrmLtxjI
+         hNMijlyVH+vkAKVIlQ9Cco6HVzqwTGQ4TO7u7ta3/oGe8Fkye/p2R4W+2QCHIsAz0pYp
+         6KwQ==
+X-Gm-Message-State: ABy/qLZVx6aVFKqlgeP0ERw0zYDwuWt4UVsoRgehh6RE819I78Yuvhb0
+	I/HfPs5mdvhwA27r4VPSvBzzqHcMacI=
+X-Google-Smtp-Source: APBJJlH4zg1sJNwuNMQo06FaGv+koEmh/bMz9qR+toc7LsD87NpEhQceFbx7QEcohn8MF/JyiLmhag==
+X-Received: by 2002:a19:691e:0:b0:4f9:5718:70b0 with SMTP id e30-20020a19691e000000b004f9571870b0mr8359227lfc.41.1688979217439;
+        Mon, 10 Jul 2023 01:53:37 -0700 (PDT)
+Message-ID: <9e6fdb4f946b804ae102069825b0f56a3997a4dc.camel@gmail.com>
+Subject: Re: [PATCH v2 4/6] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall
+ <julien@xen.org>,  Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>,
+ xen-devel@lists.xenproject.org
+Date: Mon, 10 Jul 2023 11:53:36 +0300
+In-Reply-To: <69699edb-78b2-336c-15f5-2b243257852e@suse.com>
+References: <cover.1687178053.git.oleksii.kurochko@gmail.com>
+	 <21d8ce65f718bc10c2213688f79cf5f978bcaf16.1687178053.git.oleksii.kurochko@gmail.com>
+	 <67df28ad-060e-07d5-acf2-02c3cd5f0b96@suse.com>
+	 <1edb0c61a8ef64bb47809049252e9ad7b19f4bbe.camel@gmail.com>
+	 <69699edb-78b2-336c-15f5-2b243257852e@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|AS4PR04MB9315:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74920813-a889-4af5-2e54-08db812301e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	WvBd+tBkx6BccUgQIQNEALAMP8Q53U+xgUI7QJG/S/jahPI4Iqamyabdo52axjc3aeYpN9fvjskEIlsBMJcR/SlwmJ1AQ3ffvaBtWrczsOs1c084by4kvst/3CdvgiqjUzZGqxAuswcAusokCF6tFi2AnaG5DE/ZdDLfjezheV2vPlrHmQ7lhLg2TYBvZxyTs80SVecBTySzxo4VDWHfUr2ZggWAsNrNU3ShwMti95eOjtdh9gBI12fzauh9SJaVx2L5lk97x5TCW6vCrsVR79oaqrbaqsH0cvrlsnKKer2HLD1KiX06ZIgGdrLk9RdxBD8XjnH/PPTiupAdknjN2Uhjeg+JaNKI65QeCqrf6uHIPUDB6UO/Y14yCC12dvpxWO17OnQymiv1yChlXwANvmn1WRqUpJySWp7c0lGzyMPsXYlKdStV0NggIlz25fqcUiK2HzqxlVXtnA+I+vbs9zyu//RAWmtuFL7Dnf1Z4J2S/CWdiV7N1UzEHN3g2rqmz9u8cciVArEWhTuj1za1vMAjalYxHVigkE2OgZHh4JgYUZSmQgFWZv5sEG0iImzUwqxy0vFqgh3JRhm29CyyUl5fCqODtwzArdoPuAff1Mg1mE/Ke32x7I5pdLX68ZZLldg7qBTTj/MDZQu5OrE48A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(346002)(39860400002)(136003)(376002)(451199021)(31686004)(478600001)(4326008)(54906003)(2616005)(86362001)(31696002)(36756003)(2906002)(966005)(26005)(6512007)(6506007)(6486002)(186003)(38100700002)(66556008)(5660300002)(316002)(41300700001)(8936002)(66476007)(66946007)(8676002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WjFuZWREOU1OeFNIb1hreFNpd0NZdGE0Y0FPZis3V1NFMEErbGtuS1g4ZnRm?=
- =?utf-8?B?R2ViZFl4eTZ3SDB6YlNCZWpzY1h2eWUzVVdHdE5XZ01WdnFucVFSclMvQ01o?=
- =?utf-8?B?M0h5UVRRNmhPNWpTb0dyMkhZZTF5SFBGODBmd3RaY1VNdnN4SVp4aVBQWllY?=
- =?utf-8?B?WWQ0WENCSWU3TmI5alorY2c1K2xkd1ltSXp4bGNBejhicEtiRXJKZUpMMU1U?=
- =?utf-8?B?NlROb1ZSdEtQc2ZXV1ZJcmxVSUJLV1NtNGs2WmhyQWwvV0Yra01vWVp2Z0ZP?=
- =?utf-8?B?S0JOREpSMkMxNE13K1ZwTEgzWGRJdUZaK1Bhcm9LY0k4Vi9NYU1yTHBWZTlK?=
- =?utf-8?B?UG5Mb0NBMUZNR3g5cldmK3MyQkcxWFBCcU1nOG9aRlErOHpnbE5wb3pYVmNM?=
- =?utf-8?B?eFNnVlJ0TFpaWExpNU5iUG80K3VtOTY1QVV6UWdhbnpBZVhaS3dFenVGd1FN?=
- =?utf-8?B?MHBJN25TM21FM0FYVkYxVHQ2eEZrZGR5aXZWYnJqZ2NpUy8vU2F2VkRZUTMw?=
- =?utf-8?B?UUtTWHVvSHpHTXFjMW82Y3F2RVQvQWNWZGp0d0Y2ZjA3a0FqSG9qeVkvMVBu?=
- =?utf-8?B?OUxzNThjT0U3TWRoNjRBVXVma2N3SXluUjNNZHhzUHRuWFRGN2Ixd29BcWRU?=
- =?utf-8?B?NmRhOGNtNElObUh3U1dlWGxvekorSnZ0QmdDKzhaQXg0VkI5TVN6eTdTSGwy?=
- =?utf-8?B?VTZvSjdHYVRTZGJ4bjRpdFB3UW4zSGJZcDgyOVdHTU5NM1N1KzA3VFBNb0U1?=
- =?utf-8?B?UWYweS96MjVUaTJqeDU3VXNSV0QvRit4OGZSNkt5Nkh1c0ZrZG93eXZxQVJ1?=
- =?utf-8?B?ZWFZK05xVVo0b1F6QkVSM3M2b3pYN3dpeHF4YVgvNnp3dS9tZ2J1TWVhbFNQ?=
- =?utf-8?B?YUtQVHliT2hHUVRlQ0Rud0tCZDdTdG81RHdFdUl0MFV6Ykd1eThsYW1mdzFv?=
- =?utf-8?B?cXc3RUdodWc1ZmFuS3B6UFdxNDNVN1A3b0ZnWVVaejBLMFR3Y295VXhLSFg5?=
- =?utf-8?B?a202RUpyNUg5MWtkZFBhVVBXYW1BNVlPQUt3bWkzbS9UUzNFSHUvUWhRZ09E?=
- =?utf-8?B?c0N2TnBUazZ6eHhjTGI3ajIwbWFoQkVEM1RlajNGM2wyZzJ5MFh0Q3MxZjcr?=
- =?utf-8?B?Ky9ha0VSU0ovbVhiQW1haHNHQ3E2Z0FmbUszZktWSFl5Zm5jd09QdmU3dWNJ?=
- =?utf-8?B?ZkpSbENVZFA2d0lDZmFsQmsvdFNwdURZQ0tkbU5qclVpTE1XS01kTlVBSWJ1?=
- =?utf-8?B?VTJYM0xYVTFSQUlrSElQWHo4TVN3MDRSamxyMUFxWU9jQlAvY3ZHQmFJckVP?=
- =?utf-8?B?elI3VktocFQ0Sm1GMld3dkVBSDg5cG9iQTEzWFllTWErOXpUbkVTTHkvd1dZ?=
- =?utf-8?B?YkRWdTMzb3VDRS9VaE1EbFVxNlZEOEVDUmNBcnA4Q053bU5HSFBTRzB5S0xm?=
- =?utf-8?B?L3NtUTNOZ3pmVU9yaWNFQ3VUd1ZVWXFqWkhJUmtVK2VOOFJ1NDIraGM0dUR6?=
- =?utf-8?B?bXhhU1p1bUU0MmNqMUx6Nmg1cEtLcW1rbGU1dEVzdEthNllGeHh2b1hnYk5l?=
- =?utf-8?B?T2lPWWlLUTkzSXpITGpGa1gvYWRBWmowVkVVd1lHU0U3aWFVRTRiMXUvSXkx?=
- =?utf-8?B?Z0JsQXJvelpidDczMG9ZQjUvQkdzSHZCZFZsZFJuTi9kZ0NnQnZHRExYb2dL?=
- =?utf-8?B?ekgxN2tjblVyRVhOVGVsbm1LMnRDK1pFUjZHMHRGRHNEUk5hL3B0U0FnRVA1?=
- =?utf-8?B?bm52bFRHYUVPVTJVRWI0TlUvVS96ZndyT3A3NjlRak00bjhSYk50TjZ4SHNN?=
- =?utf-8?B?RUNsL1RIMU1vYWQrQWluMktVMnlqL0dLcEF3VGVXTFJMRnVyU2F2aFYwSVVS?=
- =?utf-8?B?bDNBMWNkVDJwaHFFQmk5VlM0NFRMVnRaRUNrcENRY3JSSk50d1RyWnZKMklJ?=
- =?utf-8?B?MmFvQTR0b2ZCQ0tkK0VDUjFHQWJUQnkxQXlaVk1SelVyVDIwQkxaRHpjWkZq?=
- =?utf-8?B?NlQrYWtzanoxYmk1d0dMdkNEVFpvS1d1WWZkczU4aDZTRXViSG9aTkp0bC9M?=
- =?utf-8?B?dEVBY21hYW1Gc25GWUloV3dsMDlDSkVnTE9yb3pIbm1JaXBSaURQckM0S2NZ?=
- =?utf-8?Q?viZuIClV7rEb1mSfBAw1qvCcz?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74920813-a889-4af5-2e54-08db812301e8
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 08:52:35.9723
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 28CeclLfKUPr5AFGA+2dmN3r2sss919lvKYpuYPIJV1Kze1UqCoTEA/6hMTp4ksFSFAeup1hqtZ1r5X8kwwaRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9315
 
-Recent gas versions generate minimalistic Dwarf debug info for items
-annotated as functions and having their sizes specified [1]. Furthermore
-generating live patches wants items properly annotated. "Borrow" Arm's
-END() and (remotely) derive other annotation infrastructure from
-Linux'es, for all architectures to use.
+On Fri, 2023-07-07 at 12:51 +0200, Jan Beulich wrote:
+> On 07.07.2023 12:37, Oleksii wrote:
+> > On Thu, 2023-07-06 at 13:35 +0200, Jan Beulich wrote:
+> > > On 19.06.2023 15:34, Oleksii Kurochko wrote:
+> > > > --- a/xen/arch/riscv/include/asm/config.h
+> > > > +++ b/xen/arch/riscv/include/asm/config.h
+> > > > @@ -1,3 +1,5 @@
+> > > > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > > > +
+> > > > =C2=A0#ifndef __RISCV_CONFIG_H__
+> > > > =C2=A0#define __RISCV_CONFIG_H__
+> > > > =C2=A0
+> > >=20
+> > > Unrelated change?
+> > It=C2=A0 should be part of [PATCH v2 5/6] xen/riscv: introduce identity
+> > mapping.
+>=20
+> Hmm, here we're discussing "[PATCH v2 4/6] xen/riscv: introduce
+> identity
+> mapping". I'm confused, I guess.
+Sorry for confusion. i meant the patch: [PATCH v2 5/6] xen/riscv: add
+SPDX tags.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> > > > --- a/xen/arch/riscv/mm.c
+> > > > +++ b/xen/arch/riscv/mm.c
+> > > > @@ -25,6 +25,12 @@ unsigned long __ro_after_init phys_offset;
+> > > > =C2=A0#define LOAD_TO_LINK(addr) ((unsigned long)(addr) -
+> > > > phys_offset)
+> > > > =C2=A0#define LINK_TO_LOAD(addr) ((unsigned long)(addr) +
+> > > > phys_offset)
+> > > > =C2=A0
+> > > > +/*
+> > > > + * Should be removed as soon as enough headers will be merged
+> > > > for
+> > > > inclusion of
+> > > > + * <xen/lib.h>.
+> > > > + */
+> > > > +#define ARRAY_SIZE(arr)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(sizeof(arr) /
+> > > > sizeof((arr)[0]))
+> > > > +
+> > > > =C2=A0/*
+> > > > =C2=A0 * It is expected that Xen won't be more then 2 MB.
+> > > > =C2=A0 * The check in xen.lds.S guarantees that.
+> > > > @@ -35,8 +41,10 @@ unsigned long __ro_after_init phys_offset;
+> > > > =C2=A0 *
+> > > > =C2=A0 * It might be needed one more page table in case when Xen
+> > > > load
+> > > > address
+> > > > =C2=A0 * isn't 2 MB aligned.
+> > > > + *
+> > > > + * (CONFIG_PAGING_LEVELS - 1) page tables are needed for
+> > > > identity
+> > > > mapping.
+> > > > =C2=A0 */
+> > > > -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
+> > > > +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 +
+> > > > 1)
+> > >=20
+> > > How come the extra page (see the comment sentence in context)
+> > > isn't
+> > > needed for the identity-mapping case?
+> > It is needed to allocate no more than two 'nonroot' page tables (L0
+> > and
+> > L1 in case of Sv39 ) as page 'root' table ( L2 in case of Sv39 ) is
+> > always re-used.
+> >=20
+> > The same ( only 'nonroot' page tables might be needed to allocate )
+> > works for any MMU mode.
+>=20
+> Of course, but if you cross a 2Mb boundary you'll need 2 L0 tables.
+Yes, in the case of crossing a 2Mb boundary, it will require 2 L0
+tables.
 
-[1] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=591cc9fbbfd6d51131c0f1d4a92e7893edcc7a28
----
-v3: New, generalized from earlier x86-only version. LAST() (now
-    LASTARG()) moved to macros.h.
----
-TBD: What to set CODE_ALIGN to by default? Or should we requires arch-es
-     to define that in all cases?
+Then, the number of required page tables is needed depending on Xen
+size and load address alignment. Because for each 2Mb, we need a new L0
+table.
 
-TBD: {CODE,DATA}_ALIGN are byte granular, such that a value of 0 can be
-     specified (in case this has some special meaning on an arch;
-     conceivably it could mean to use some kind of arch default). We may
-     not strictly need that, and hence we could also make these power-of
-     -2 values (using .p2align).
+Sure, this is not needed now ( as in xen.lds.S, we have a Xen size
+check ), but if someone increases Xen size binary to 4Mb, then the
+amount of page tables should be updated too.
+Should we take into account that?
 
-Note that we can't use ALIGN() (in place of SYM_ALIGN()) as long as we
-still have ALIGN.
+>=20
+> > > > @@ -255,25 +262,30 @@ void __init noreturn noinline
+> > > > enable_mmu()
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 csr_write(CSR_SATP,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 PFN_DOWN((unsigned long)stage1_pgtbl_root) |
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 RV_STAGE1_MODE << SATP_MODE_SHIFT);
+> > > > +}
+> > > > =C2=A0
+> > > > -=C2=A0=C2=A0=C2=A0 asm volatile ( ".p2align 2" );
+> > > > - mmu_is_enabled:
+> > > > -=C2=A0=C2=A0=C2=A0 /*
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 * Stack should be re-inited as:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 * 1. Right now an address of the stack is=
+ relative to
+> > > > load
+> > > > time
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses what will c=
+ause an issue in case of load
+> > > > start
+> > > > address
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 isn't equal to linker=
+ start address.
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 * 2. Addresses in stack are all load time=
+ relative which
+> > > > can
+> > > > be an
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 issue in case when lo=
+ad start address isn't equal to
+> > > > linker
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 start address.
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 * We can't return to the caller because t=
+he stack was
+> > > > reseted
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 * and it may have stash some variable on =
+the stack.
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 * Jump to a brand new function as the sta=
+ck was reseted
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > +void __init remove_identity_mapping(void)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned int i;
+> > > > +=C2=A0=C2=A0=C2=A0 pte_t *pgtbl;
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned int index, xen_index;
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned long load_addr =3D LINK_TO_LOAD(_start=
+);
+> > > > =C2=A0
+> > > > -=C2=A0=C2=A0=C2=A0 switch_stack_and_jump((unsigned long)cpu0_boot_=
+stack +
+> > > > STACK_SIZE,
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 cont_after_mmu_is_enabled);
+> > > > +=C2=A0=C2=A0=C2=A0 for ( pgtbl =3D stage1_pgtbl_root, i =3D 0;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i <=3D (CON=
+FIG_PAGING_LEVELS - 1);
+> > >=20
+> > > i < CONFIG_PAGING_LEVELS ? But maybe it would be easier for i to
+> > > start
+> > > at CONFIG_PAGING_LEVELS and be decremented, simplifying ...
+> > >=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i++ )
+> > > > +=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 index =3D pt_index(CONF=
+IG_PAGING_LEVELS - 1 - i,
+> > > > load_addr);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen_index =3D pt_index(=
+CONFIG_PAGING_LEVELS - 1 - i,
+> > > > XEN_VIRT_START);
+> > >=20
+> > > ... these two expressions?
+> > It makes sense. I'll update this part of the code.
+> >=20
+> > >=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( index !=3D xen_ind=
+ex )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pgtbl[index].pte =3D 0;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ break;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > >=20
+> > > Is this enough? When load and link address are pretty close (but
+> > > not
+> > > overlapping), can't they share a leaf table, in which case you
+> > > need
+> > > to clear more than just a single entry? The present overlap check
+> > > looks to be 4k-granular, not 2M (in which case this couldn't
+> > > happen;
+> > > IOW adjusting the overlap check may also be a way out).
+> > At the start of setup_initial_pagetables() there is a code which
+> > checks
+> > that load and link address don't overlap:
+> >=20
+> > =C2=A0=C2=A0=C2=A0 if ( (linker_start !=3D load_start) &&
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (linker_start <=3D loa=
+d_end) && (load_start <=3D linker_end) )
+> > =C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 early_printk("(XEN) linker a=
+nd load address ranges
+> > overlap\n");
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 die();
+> > =C2=A0=C2=A0=C2=A0 }
+> >=20
+> > So the closest difference between load and link address can be 4kb.
+> > Otherwise load and link address ranges are equal ( as we can't map
+> > less
+> > then 4kb).
+> >=20
+> > Let's take concrete examples:
+> > =C2=A0 Load address range is=C2=A0=C2=A0 0x8020_0000 - 0x8020_0FFF
+> > =C2=A0 Linker address range is 0x8020_1000 - 0x8020_1FFF
+> > =C2=A0 MMU mode: Sv39 ( so we have 3 page tables )
+> >=20
+> > =C2=A0 So we have:
+> > =C2=A0=C2=A0=C2=A0 * L2 index =3D 2, L1 index =3D 1, L0 index =3D 0 for=
+ load address
+> > =C2=A0=C2=A0=C2=A0 * L2 index =3D 2, L1 index =3D 1, L0 index =3D 1 for=
+ linker address
+> > =C2=A0 Thereby we have two different L0 tables for load and linker
+> > address=20
+> > ranges.
+> > =C2=A0 And it looks like it is pretty safe to remove only one L0 index
+> > that
+> > was used for identity mapping.
+> >=20
+> > Is it possible that I missed something?
+>=20
+> Looks as if you are thinking of only a Xen which fits in 4k. The code
+> here wants to cope with Xen getting quite a bit bigger.
 
-Note further that FUNC()'s etc "algn" parameter is intended to allow for
-only no or a single argument. If we wanted to also make the fill value
-customizable per call site, the constructs would need re-doing to some
-degree.
+Yeah, I missed that when I tried to come up with an example.
 
---- /dev/null
-+++ b/xen/include/xen/linkage.h
-@@ -0,0 +1,56 @@
-+#ifndef __LINKAGE_H__
-+#define __LINKAGE_H__
-+
-+#ifdef __ASSEMBLY__
-+
-+#include <xen/macros.h>
-+
-+#ifndef CODE_ALIGN
-+# define CODE_ALIGN ??
-+#endif
-+#ifndef CODE_FILL
-+# define CODE_FILL ~0
-+#endif
-+
-+#ifndef DATA_ALIGN
-+# define DATA_ALIGN 0
-+#endif
-+#ifndef DATA_FILL
-+# define DATA_FILL ~0
-+#endif
-+
-+#define SYM_ALIGN(algn...) .balign algn
-+
-+#define SYM_L_GLOBAL(name) .globl name
-+#define SYM_L_WEAK(name)   .weak name
-+#define SYM_L_LOCAL(name)  /* nothing */
-+
-+#define SYM_T_FUNC         STT_FUNC
-+#define SYM_T_DATA         STT_OBJECT
-+#define SYM_T_NONE         STT_NOTYPE
-+
-+#define SYM(name, typ, linkage, algn...)          \
-+        .type name, SYM_T_ ## typ;                \
-+        SYM_L_ ## linkage(name);                  \
-+        SYM_ALIGN(algn);                          \
-+        name:
-+
-+#define END(name) .size name, . - name
-+
-+#define FUNC(name, algn...) \
-+        SYM(name, FUNC, GLOBAL, LASTARG(CODE_ALIGN, ## algn), CODE_FILL)
-+#define LABEL(name, algn...) \
-+        SYM(name, NONE, GLOBAL, LASTARG(CODE_ALIGN, ## algn), CODE_FILL)
-+#define DATA(name, algn...) \
-+        SYM(name, DATA, GLOBAL, LASTARG(DATA_ALIGN, ## algn), DATA_FILL)
-+
-+#define FUNC_LOCAL(name, algn...) \
-+        SYM(name, FUNC, LOCAL, LASTARG(CODE_ALIGN, ## algn), CODE_FILL)
-+#define LABEL_LOCAL(name, algn...) \
-+        SYM(name, NONE, LOCAL, LASTARG(CODE_ALIGN, ## algn), CODE_FILL)
-+#define DATA_LOCAL(name, algn...) \
-+        SYM(name, DATA, LOCAL, LASTARG(DATA_ALIGN, ## algn), DATA_FILL)
-+
-+#endif /*  __ASSEMBLY__ */
-+
-+#endif /* __LINKAGE_H__ */
---- a/xen/include/xen/macros.h
-+++ b/xen/include/xen/macros.h
-@@ -15,6 +15,15 @@
- #define count_args(args...) \
-     count_args_(., ## args, 8, 7, 6, 5, 4, 3, 2, 1, 0)
- 
-+#define ARG1_(x, y...) (x)
-+#define ARG2_(x, y...) ARG1_(y)
-+#define ARG3_(x, y...) ARG2_(y)
-+#define ARG4_(x, y...) ARG3_(y)
-+
-+#define ARG__(nr) ARG ## nr ## _
-+#define ARG_(nr)  ARG__(nr)
-+#define LASTARG(x, y...) ARG_(count_args(x, ## y))(x, ## y)
-+
- /* Indirect macros required for expanded argument pasting. */
- #define PASTE_(a, b) a ## b
- #define PASTE(a, b) PASTE_(a, b)
-
+So it will probably be more universal if we recursively go through the
+whole identity mapping and unmap each pte individually.
 
