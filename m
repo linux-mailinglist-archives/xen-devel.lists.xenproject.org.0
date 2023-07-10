@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122AE74CDEE
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 09:09:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560984.877225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCC1074CDE6
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 09:05:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.560974.877204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIl1d-0001Lg-8f; Mon, 10 Jul 2023 07:09:37 +0000
+	id 1qIkxA-0000UO-E3; Mon, 10 Jul 2023 07:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560984.877225; Mon, 10 Jul 2023 07:09:37 +0000
+Received: by outflank-mailman (output) from mailman id 560974.877204; Mon, 10 Jul 2023 07:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIl1d-0001ID-4D; Mon, 10 Jul 2023 07:09:37 +0000
-Received: by outflank-mailman (input) for mailman id 560984;
- Mon, 10 Jul 2023 07:09:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qIkxA-0000R9-Af; Mon, 10 Jul 2023 07:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 560974;
+ Mon, 10 Jul 2023 07:04:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Xcmr=C4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qIkto-0002xd-WC
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 07:01:33 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99a2c6e0-1eef-11ee-b239-6b7b168915f2;
- Mon, 10 Jul 2023 09:01:32 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C6C5A1F38D;
- Mon, 10 Jul 2023 07:01:31 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A10C1361C;
- Mon, 10 Jul 2023 07:01:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3sRVJMusq2RyYwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 10 Jul 2023 07:01:31 +0000
+ (envelope-from <SRS0=72qR=C4=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qIkx8-0000R3-Nz
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 07:04:58 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on062c.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 137cfde8-1ef0-11ee-8611-37d641c3527e;
+ Mon, 10 Jul 2023 09:04:56 +0200 (CEST)
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
+ by AM9PR04MB7601.eurprd04.prod.outlook.com (2603:10a6:20b:285::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.31; Mon, 10 Jul
+ 2023 07:04:53 +0000
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::cbc0:69aa:c9a2:198e]) by AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::cbc0:69aa:c9a2:198e%7]) with mapi id 15.20.6565.016; Mon, 10 Jul 2023
+ 07:04:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,338 +47,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99a2c6e0-1eef-11ee-b239-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688972491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UK04J9dErimDKqoXrosnGNBdXEpxv+Xoy6piXu//+Go=;
-	b=L6vcRSYbCCaE/luqflnMc+4AEs3JIpmMPnN2bu8sfKaeQCNEqv2wyZB4UQZB9XHGXuDqfn
-	9Qm7jcvaMfrL8g+0YGIjC1xspfJtt556FaB5DQEkitGuij4yG849KJBR/A0bvAoCsOfcUs
-	SXwbqF851v6mUhpOJa/XG4ea30w0oNA=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read functions
-Date: Mon, 10 Jul 2023 08:59:47 +0200
-Message-Id: <20230710065947.4201-19-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230710065947.4201-1-jgross@suse.com>
-References: <20230710065947.4201-1-jgross@suse.com>
-MIME-Version: 1.0
+X-Inumbo-ID: 137cfde8-1ef0-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PofhZU5CJdCtpOFc6tt5FIL7pg45kPxY+tx21NsaVuWS2g6ebRtbDl9mfJGK+27YW2fYwXap95+0Yv+eQvA9p0Q/QomEJXcljsqxItl9PS4jZcmAbQ3Pwb8z2rMCSihmWNxvuBY/pdT5Jd+gFJ8SVABiXZ/16JpjDFy+qX6tocNFtTl9+byLB43ggOAhsqCKEvij1aekzCTc9yGYDHgsOrMfk2M/SsEzFlqKtADxzr00LVsLsWDydXzOnqnQ2Uw002T2JoguT7p/u3fzrqqvm9S9sP0crYUW8Sc6vaZWuELTQQUoLK9T/4pG8uuazpl03JQhJVB0+SikFW8hdXOE8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZDs25XemFfOM1SAvRnePHIamijZCHmsmmSpXwXJ78Ms=;
+ b=HCE9gPkR5xy7RkNbB1JUnDdHOTygqhHSUWm+oMrRxo+x4sS6mhkuCtaZvtu4yqZ2qnzGsKB4UZSRVHF0NOwRNx/6NBVY6fa01SPkI2Y2Fne1QFrpGaZ1GS945ZaHkz/gybOrOv+LzTmUqUDZTQq3a8aoKDTNF2zm4IFvqkmc9Bk4fM6vqictN3Bc2f6eNNAaSbCsMOpGCdCimzAsiCwRAkMPEs9Fau3gisOxBt5ivV1a+xXpNjdSfd9apIql4qqz+gYrxhqezGCJ+KZSGn1gHF6n5v778PiKiLU0jIB5L7a8U/WGu5/qcqHraiEgr7H9og0pvkIvF/mbfdHCxRn2pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZDs25XemFfOM1SAvRnePHIamijZCHmsmmSpXwXJ78Ms=;
+ b=pE1n9GtfcgAxvyGp4/xR+K9CAt7oFltC/WtSJiE1bls4lXLya4PNeQyNmDpulXLGQ6PlTbu0JNgM1qYZvxFPsIWzS/OMPGVGuZ87Bk0FO8nAIeB/vGP/MyqbqVT2x6+LQdoK9boEbjgt49IEPGLTmpoGViW0AwaNNqMsMBWmr00g8/McskKyPTfiHnRfBOJgK8iTvoL71ldlLDEAcQVx1ZPq7ga1EPl3SsTvD/iv0ZF8hOo2u2mqhqjTEOMeijbrKjs8xaxJrRO2z8yQ1CGFipy9U0bvKx8U/USgAO8zUaBKcJ6NlaK08jlvN8wPTV9CelgP5T4DOOaM6PVG+tNhmQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <272b20f4-e45d-d0db-2dec-785e15025c64@suse.com>
+Date: Mon, 10 Jul 2023 09:04:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v2 1/2] x86/mm: add API for marking only part of a MMIO
+ page read only
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.dd82aca339854e90ffe12e7bc4298254a6caaf0d.1683321183.git-series.marmarek@invisiblethingslab.com>
+ <def382a6481a9d1bcc106200b971cd5b0f3d19c1.1683321183.git-series.marmarek@invisiblethingslab.com>
+ <f3531050-fb31-2d9e-f3dd-2d310dc7c5ec@suse.com> <ZJ9XFdGhxyKLY3fm@mail-itl>
+ <3773dc6e-9d36-ba80-2a0a-bb1589c9993f@suse.com> <ZKfwsvFmwEo+gzh9@mail-itl>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZKfwsvFmwEo+gzh9@mail-itl>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0181.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::17) To AS8PR04MB8788.eurprd04.prod.outlook.com
+ (2603:10a6:20b:42f::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|AM9PR04MB7601:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fc12517-1cf8-4ee3-db1b-08db8113f5b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	nBzohlw+SA3cHCx4C8JbIqRiGDPckle2ksU/PfeDx7rGRGkKgzCYXcWrqpbT61wCN8hKdHH/OT/+qbvpsbPIJfIaPDvJ7xyaR2+uCFUV0UkWPmGe4RN0EyWZlQr8g6OmXROOu54+9Wt84pg5rzzbYZ3wMH/zHJuw5x8azyTgpD12unNoef9OJp14JoKxDx/maBshd3c3iwFUlb3exM6SZX7dZMy4VOdCvfJUsMguxq4RXcUUcOfo7PLpXZ/osm0JNKGLg2yWrIupL0rD6Wa45Omdcf8xNFTfQmEZ1vvmEfgSYZOUdunEIxLFO76VniG2ZKkiPaUED9U5JbK3jUXCpbm/xM1Tmjzv32uA4/jb3iZYQrR0NXOJGlHBAGXLBisjgjrcw4PbAUcQWgoP384dEkJ0eHjIENa7yri7bqlQa24JSxcEBHJpIjXF8A3pvbhTj0Hepw2ZueXULrkaDiCw4igcUGEN6XMhVotE1KwRmJe2GAC+teZ18J8qUwenN0sAbCuoyPBKdR85zrJyKHvAky20o3hFHYzf0ODNm8CmDJ+2er3JtrIu7VLVb3WvOBs+uuNWjWFgoKELckFq8H2IFR54DY+oedpAARqrBzyIBXgiakwVKX7aiAJAYIJjlXmt+UI6s6Lqqr6W+VY7zlzJOg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(376002)(346002)(136003)(39860400002)(396003)(451199021)(53546011)(66574015)(6506007)(186003)(26005)(86362001)(8676002)(8936002)(2616005)(31696002)(31686004)(83380400001)(5660300002)(6512007)(6486002)(41300700001)(66476007)(66556008)(66946007)(2906002)(36756003)(478600001)(54906003)(38100700002)(4326008)(6916009)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aDJKZ2FzZHd4U3IwNnhsbWZxMmhram1zNlBDQU1CRU1iU0FlQUhOVFNGSWNx?=
+ =?utf-8?B?S2I1ZTdXbDBNZUc4ZHo5bkl0VEJWeGRIYS9hU1JlSjVOek1vOWZoMHoycS83?=
+ =?utf-8?B?UjF2eTJBcHUvM3I3VjYrNllJcnEvZEk2bHk0bVJ2L1ovdlVLK09SMGFwRlc1?=
+ =?utf-8?B?MkY2RjB2SE5yc1gxL0o3akxpUGtkZVNpTVQ1Z083T20zMjJ5NnRDWHQ4bTNP?=
+ =?utf-8?B?YjVSdklVdUZCbWcvWHZRNkMrUnphc1B6aUNUSlE5Q1p4NWR5VWI0QnFIcEpl?=
+ =?utf-8?B?TWxhdVM1bnJON0Vvd0tKdW5PYVFHS1AvVm1ic1BmRURBN0tvckxqOTdCdmZz?=
+ =?utf-8?B?QUEzQjhZbS9ZK1hPbC8xY3pmZmpMby9tTWx2NTVVMXpCZ2pLL3R6Mld2cFhL?=
+ =?utf-8?B?ZHRNSHFYbEFQcUI2Tk0xRVVOaTJ1YytFYVN6QVZjUDhXN1M0T1hzWGgwVnF6?=
+ =?utf-8?B?dXUrMHRoM2IrR1ZTOVV4RVNGM2ZpaXBoN28zWjNDN0N2c3JGNUh0bTJOdEU3?=
+ =?utf-8?B?ZlM1MlQ2WVRZU1FuUmtuMlU3VGFkNGs4RGxMWGRmdXVLU3J1WU9VeEMvY3E0?=
+ =?utf-8?B?SFdPdWE0MUlYdmg4VFJRT2lpNWVObC9SUkFuVytiTWMxOEVwUXZVekpZWjNX?=
+ =?utf-8?B?MGVzeXRSd3VHKzhEOTllNHFoZnYvM0FrVUZwVzhuMHVHdnBsdVA3dlcrQ1Fs?=
+ =?utf-8?B?dGFXRzltbEdyTXRRWlVNc1REMTZ1bXcxK2UvUWxEamZuRlc5OTkxMVVhdGlr?=
+ =?utf-8?B?ZXdTOS9pZTJSNFgwMng4eEFiNWFxTnFURmFWemNNa21wdmwwUGJ1M1Y4WUNC?=
+ =?utf-8?B?cXoxMlMwSTd6Y2ZLemJlYm1nQkVJcjMxUVdxbHdXV0U1dmQ4NjVZSjVOTXRp?=
+ =?utf-8?B?WjJyL1NtazZMWCtjQ2RjVjRyMWFUUHdieXdsZUJkU3RWVEoxa0sveU9mVW5K?=
+ =?utf-8?B?a1paYXZTcVBldCt3T0M0UnNlQjhsL2d0N1ZoNGh1NnF2WEIzbjU5QjZLVU5R?=
+ =?utf-8?B?eDJxd1N6QUQ0QURYNjVnKytFODRJTkdFanhsbzFZT1dnQkNjdzB1eURoRTRr?=
+ =?utf-8?B?MC95aXhISHpvS3FGV1JmUTN1Q3RBaG1ENXBHeGJacWxYNkNEWTM5Q3dqN2VB?=
+ =?utf-8?B?MjlnRXdIVmR3ZDZQYmZxNHlyTmRoWGd5TXFRbkUzS2pMM294TlF0WlZtYlF2?=
+ =?utf-8?B?cDY5QlJmclhpSDdoaUI1T1QzNWlNL0kxRjJTR2xTdXJCdTNIL3lKSUxvQVhT?=
+ =?utf-8?B?SHZFZlFRV2k0eEZTZ21PaFFiUC9yb2pQMDZYK2w1NGtkS1JZS2UxVlVzRURm?=
+ =?utf-8?B?RDc1UlFRbVRZdExlOHJ6NCtMQWhCZU81blZUSkp3czd5TGRqaXU1R2dnaHlO?=
+ =?utf-8?B?OGpxajNRbnJnZWc2Nzh0dzNEOVV3SmhvNUhBY1VpamNuam9RbFVYYnNTTGlj?=
+ =?utf-8?B?cnYyQ3c5QVA5WEs3ZmFWUHp6b3pIaC9oQTc4UnlJWDA5RXRWSUt4Q2tDNWdr?=
+ =?utf-8?B?M1VXUzJrKzZpUkQwYW9KaW1FekV3UE1TTlB5RUtGODZtTGhXbWZlT2NPcStN?=
+ =?utf-8?B?bWtDbzFMOElCMFQ5bEM5YVZvMDhROHBqV21pQTBkRml1RDVhKzBpRVlLVGph?=
+ =?utf-8?B?azNWMFk1cXBPa2JXR2VjQXZ4alhGNWEwQVNMRmVjLzdJdU5IS1Q2bmhzVWV1?=
+ =?utf-8?B?dHJFVjk4Q0U4WXNQZElSQStzRXo5Z3ZFWWp3cFp3VHNlTVYrWmpLVE9mOUtj?=
+ =?utf-8?B?SFFINHZWbTZ2NzdkWDEyTThTQlJmVzVJY0NOMytkWDh4cTg3eld3SmJQUy9h?=
+ =?utf-8?B?YzNhNlM2TitqYjkzRHYwd3B6N2dGLzZib3hIdTFZSmZFeVozQkk2eDBidTRx?=
+ =?utf-8?B?NFY1MWVrUmpPelNsaEJuRGwyV29jUmFpVVhyczZQL3JiZThtTGdvZ0xsamx0?=
+ =?utf-8?B?ODlzTy9QdXdBeGI5NDZCM2ZpK0FSaFRLOWFpUU94SEl3NGtaOXgvSmVqQzdW?=
+ =?utf-8?B?STduV1Q2U2RLbDl2QUFCQjBjUFhvMmZaSzhEMkltdXV1WWFvd2ljVzdFM2xO?=
+ =?utf-8?B?elhBU2pVY1B3NEM2VUdyMW1mR2pEWWtLaXlvWHVLUzd3dHhEcENMRmpSLzJ1?=
+ =?utf-8?Q?q1Zmp/6IPE3609y7S3rMuzvWi?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fc12517-1cf8-4ee3-db1b-08db8113f5b6
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 07:04:53.1045
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h6tSkQvIKLszxqABEzRYVzlpHhkwj2020oN1O7USqRzmJ2UYtoblF863vAvO1NPPrDuSl500hCosq8X5LkYdMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7601
 
-Today when reading a node from the data base through read_node(), the
-node data is copied in order to avoid modifying the data base when
-preparing a node update, as otherwise an error might result in an
-inconsistent state.
+On 07.07.2023 13:02, Marek Marczykowski-Górecki wrote:
+> On Wed, Jul 05, 2023 at 10:23:53AM +0200, Jan Beulich wrote:
+>> On 01.07.2023 00:28, Marek Marczykowski-Górecki wrote:
+>>> On Tue, May 30, 2023 at 01:56:34PM +0200, Jan Beulich wrote:
+>>>> On 05.05.2023 23:25, Marek Marczykowski-Górecki wrote:
+>>>>> --- a/xen/arch/x86/hvm/hvm.c
+>>>>> +++ b/xen/arch/x86/hvm/hvm.c
+>>>>> @@ -1990,6 +1990,14 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
+>>>>>          goto out_put_gfn;
+>>>>>      }
+>>>>>  
+>>>>> +    if ( (p2mt == p2m_mmio_direct) && npfec.write_access && npfec.present &&
+>>>>> +         subpage_mmio_write_accept(mfn, gla) &&
+>>>>> +         (hvm_emulate_one_mmio(mfn_x(mfn), gla) == X86EMUL_OKAY) )
+>>>>> +    {
+>>>>> +        rc = 1;
+>>>>> +        goto out_put_gfn;
+>>>>> +    }
+>>>>
+>>>> But npfec.write_access set doesn't mean it was a write permission
+>>>> violation, does it? 
+>>>
+>>> Doesn't it? IIUC it means it was a write attempt, to a mapped page
+>>> (npfec.present), and since we've got EPT violation, it got denied. 
+>>
+>> But the denial may have been for reasons other than the W bit being
+>> clear, at least in principle? Abusing the bit now, even if in
+>> practice there was no other possible reason on existing hardware
+>> with the features we presently use, might lead to hard to locate
+>> issues in case a different reason appears down the road.
+> 
+> Ok, so how do you propose to check if it was a write violation?
+> 
+> (...)
 
-There are, however, many cases where such a copy operation isn't
-needed, as the node isn't modified.
+Well, that's the thing - even on VMX, where more state is provided by
+hardware than is conveyed here, this can't be done reliably (afaict).
+Hence any "approximation" will have its safety towards false positives
+or negatives justified.
 
-Add a "nocopy" flag to read_node() and get_node*() functions for making
-those cases less memory consuming and more performant.
+>>>> Since you mark the qwords which are to be protected, how is one to set
+>>>> up safely two discontiguous ranges on the same page? I think I had
+>>>> asked for v1 already why you don't do things the other way around:
+>>>> Initially the entire page is protected, and then writable regions are
+>>>> carved out.
+>>>
+>>> Because that's not how the API is used. This API is for those how want
+>>> to write-protect some specific ranges (to be written exclusively by
+>>> Xen). They don't need to even know what is else is on the same page.
+>>> Take XHCI case as an example: it gets the range to write-protect by
+>>> enumerating XHCI extended capabilities, which is a linked list. The
+>>> driver gets info where XHCI console registers are.  Things before/after
+>>> them on that page may not even be XHCI extended caps at all.
+>>> This in fact is very similar approach to already existing
+>>> mmio_ro_ranges.
+>>
+>> While I agree there's a similarity, multiple entities caring about the
+>> same MFN isn't an expected scenario there. Whereas here you explicitly
+>> add support for such.
+>>
+>> Furthermore you sub-divide pages covered by mmio_ro_ranges here, so
+>> defaulting to "full page protected" and then carving out sub-regions
+>> would be the more natural approach imo.
+> 
+> But then the API would be awkward to use. Instead of "mark this (smaller
+> than a page) region as read-only" so Xen can use it safely, you would
+> (likely) need marking _two_ regions as writable, after marking a page as
+> read-only. So, either you'd need separate (3?) calls, array of ranges or
+> something similar.
 
-Note that there is one modification of the node data left, which is not
-problematic: domain_adjust_node_perms() might set the "ignore" flag of
-a permission. This does no harm, as such an update of the permissions
-doesn't need to be undone in case of a later processing error.
+I understand that, and hence I'm willing to accept it provided ...
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- new patch
----
- tools/xenstore/xenstored_core.c   | 68 +++++++++++++++++--------------
- tools/xenstore/xenstored_core.h   |  2 +-
- tools/xenstore/xenstored_domain.c |  2 +-
- tools/xenstore/xenstored_watch.c  |  4 +-
- 4 files changed, 41 insertions(+), 35 deletions(-)
+>>>> I guess I shouldn't further ask about overlapping r/o ranges and their
+>>>> cleaning up. But at least a comment towards the restriction would be
+>>>> nice. Perhaps even check upon registration that no part of the range
+>>>> is already marked r/o.
+>>>
+>>> Yes, this is a good suggestion, I'll add that.
+>>
+>> As long as all restrictions are properly spelled out, this may be
+>> sufficient. But please don't be surprised if I ask again on a
+>> subsequent version.
 
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 7495747d76..8041a6a1c6 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -706,7 +706,7 @@ void db_delete(struct connection *conn, const char *name,
-  * Temporary memory allocations will be done with ctx.
-  */
- struct node *read_node(struct connection *conn, const void *ctx,
--		       const char *name)
-+		       const char *name, bool nocopy)
- {
- 	size_t size;
- 	struct node_hdr *hdr;
-@@ -743,14 +743,18 @@ struct node *read_node(struct connection *conn, const void *ctx,
- 	node->acc.domid = perms_from_node_hdr(hdr)->id;
- 	node->acc.memory = size;
- 
--	/* Copy node data to new memory area, starting with permissions. */
--	size -= sizeof(*hdr);
--	node->perms = talloc_size(node, size);
--	if (node->perms == NULL) {
--		errno = ENOMEM;
--		goto error;
-+	if (nocopy) {
-+		node->perms = (struct xs_permissions *)(hdr + 1);
-+	} else {
-+		/* Copy node data to new area, starting with permissions. */
-+		size -= sizeof(*hdr);
-+		node->perms = talloc_size(node, size);
-+		if (node->perms == NULL) {
-+			errno = ENOMEM;
-+			goto error;
-+		}
-+		memcpy(node->perms, perms_from_node_hdr(hdr), size);
- 	}
--	memcpy(node->perms, perms_from_node_hdr(hdr), size);
- 
- 	/* Permissions are struct xs_permissions. */
- 	if (domain_adjust_node_perms(node))
-@@ -905,7 +909,7 @@ static int ask_parents(struct connection *conn, const void *ctx,
- 		name = get_parent(ctx, name);
- 		if (!name)
- 			return errno;
--		node = read_node(conn, ctx, name);
-+		node = read_node(conn, ctx, name, true);
- 		if (node)
- 			break;
- 		if (read_node_can_propagate_errno())
-@@ -954,12 +958,12 @@ static int errno_from_parents(struct connection *conn, const void *ctx,
- static struct node *get_node(struct connection *conn,
- 			     const void *ctx,
- 			     const char *name,
--			     unsigned int perm)
-+			     unsigned int perm, bool nocopy)
- {
- 	struct node *node;
- 	struct node_perms perms;
- 
--	node = read_node(conn, ctx, name);
-+	node = read_node(conn, ctx, name, nocopy);
- 	/* If we don't have permission, we don't have node. */
- 	if (node) {
- 		node_to_node_perms(node, &perms);
-@@ -1248,7 +1252,7 @@ static struct node *get_node_canonicalized(struct connection *conn,
- 					   const void *ctx,
- 					   const char *name,
- 					   char **canonical_name,
--					   unsigned int perm)
-+					   unsigned int perm, bool nocopy)
- {
- 	char *tmp_name;
- 
-@@ -1261,17 +1265,18 @@ static struct node *get_node_canonicalized(struct connection *conn,
- 		errno = EINVAL;
- 		return NULL;
- 	}
--	return get_node(conn, ctx, *canonical_name, perm);
-+	return get_node(conn, ctx, *canonical_name, perm, nocopy);
- }
- 
- static struct node *get_spec_node(struct connection *conn, const void *ctx,
- 				  const char *name, char **canonical_name,
--				  unsigned int perm)
-+				  unsigned int perm, bool nocopy)
- {
- 	if (name[0] == '@')
--		return get_node(conn, ctx, name, perm);
-+		return get_node(conn, ctx, name, perm, nocopy);
- 
--	return get_node_canonicalized(conn, ctx, name, canonical_name, perm);
-+	return get_node_canonicalized(conn, ctx, name, canonical_name, perm,
-+				      nocopy);
- }
- 
- static int send_directory(const void *ctx, struct connection *conn,
-@@ -1280,7 +1285,7 @@ static int send_directory(const void *ctx, struct connection *conn,
- 	struct node *node;
- 
- 	node = get_node_canonicalized(conn, ctx, onearg(in), NULL,
--				      XS_PERM_READ);
-+				      XS_PERM_READ, true);
- 	if (!node)
- 		return errno;
- 
-@@ -1302,7 +1307,7 @@ static int send_directory_part(const void *ctx, struct connection *conn,
- 
- 	/* First arg is node name. */
- 	node = get_node_canonicalized(conn, ctx, in->buffer, NULL,
--				      XS_PERM_READ);
-+				      XS_PERM_READ, true);
- 	if (!node)
- 		return errno;
- 
-@@ -1352,7 +1357,7 @@ static int do_read(const void *ctx, struct connection *conn,
- 	struct node *node;
- 
- 	node = get_node_canonicalized(conn, ctx, onearg(in), NULL,
--				      XS_PERM_READ);
-+				      XS_PERM_READ, true);
- 	if (!node)
- 		return errno;
- 
-@@ -1414,7 +1419,7 @@ static struct node *construct_node(struct connection *conn, const void *ctx,
- 			return NULL;
- 
- 		/* Try to read parent node until we found an existing one. */
--		parent = read_node(conn, ctx, parentname);
-+		parent = read_node(conn, ctx, parentname, false);
- 		if (!parent && (errno != ENOENT || !strcmp(parentname, "/")))
- 			return NULL;
- 
-@@ -1566,7 +1571,8 @@ static int do_write(const void *ctx, struct connection *conn,
- 	offset = strlen(vec[0]) + 1;
- 	datalen = in->used - offset;
- 
--	node = get_node_canonicalized(conn, ctx, vec[0], &name, XS_PERM_WRITE);
-+	node = get_node_canonicalized(conn, ctx, vec[0], &name, XS_PERM_WRITE,
-+				      false);
- 	if (!node) {
- 		/* No permissions, invalid input? */
- 		if (errno != ENOENT)
-@@ -1595,7 +1601,7 @@ static int do_mkdir(const void *ctx, struct connection *conn,
- 	char *name;
- 
- 	node = get_node_canonicalized(conn, ctx, onearg(in), &name,
--				      XS_PERM_WRITE);
-+				      XS_PERM_WRITE, false);
- 
- 	/* If it already exists, fine. */
- 	if (!node) {
-@@ -1689,7 +1695,7 @@ int rm_node(struct connection *conn, const void *ctx, const char *name)
- 	if (!parentname)
- 		return errno;
- 
--	parent = read_node(conn, ctx, parentname);
-+	parent = read_node(conn, ctx, parentname, false);
- 	if (!parent)
- 		return read_node_can_propagate_errno() ? errno : EINVAL;
- 
-@@ -1725,7 +1731,7 @@ static int do_rm(const void *ctx, struct connection *conn,
- 	char *parentname;
- 
- 	node = get_node_canonicalized(conn, ctx, onearg(in), &name,
--				      XS_PERM_WRITE);
-+				      XS_PERM_WRITE, false);
- 	if (!node) {
- 		/* Didn't exist already?  Fine, if parent exists. */
- 		if (errno == ENOENT) {
-@@ -1734,7 +1740,7 @@ static int do_rm(const void *ctx, struct connection *conn,
- 			parentname = get_parent(ctx, name);
- 			if (!parentname)
- 				return errno;
--			node = read_node(conn, ctx, parentname);
-+			node = read_node(conn, ctx, parentname, false);
- 			if (node) {
- 				send_ack(conn, XS_RM);
- 				return 0;
-@@ -1767,7 +1773,7 @@ static int do_get_perms(const void *ctx, struct connection *conn,
- 	unsigned int len;
- 	struct node_perms perms;
- 
--	node = get_spec_node(conn, ctx, onearg(in), NULL, XS_PERM_READ);
-+	node = get_spec_node(conn, ctx, onearg(in), NULL, XS_PERM_READ, true);
- 	if (!node)
- 		return errno;
- 
-@@ -1811,7 +1817,7 @@ static int do_set_perms(const void *ctx, struct connection *conn,
- 
- 	/* We must own node to do this (tools can do this too). */
- 	node = get_spec_node(conn, ctx, in->buffer, &name,
--			     XS_PERM_WRITE | XS_PERM_OWNER);
-+			     XS_PERM_WRITE | XS_PERM_OWNER, false);
- 	if (!node)
- 		return errno;
- 
-@@ -1933,7 +1939,7 @@ int walk_node_tree(const void *ctx, struct connection *conn, const char *root,
- 			parent = node;
- 		}
- 		/* Read next node (root node or next child). */
--		node = read_node(conn, tmpctx, name);
-+		node = read_node(conn, tmpctx, name, false);
- 		if (!node) {
- 			/* Child not found - should not happen! */
- 			/* ENOENT case can be handled by supplied function. */
-@@ -2483,7 +2489,7 @@ int check_store_path(const char *name, struct check_store_data *data)
- {
- 	struct node *node;
- 
--	node = read_node(NULL, NULL, name);
-+	node = read_node(NULL, NULL, name, false);
- 	if (!node) {
- 		log("check_store: error %d reading special node '%s'", errno,
- 		    name);
-@@ -3245,7 +3251,7 @@ static int dump_state_special_node(FILE *fp, const void *ctx,
- 	struct node *node;
- 	int ret;
- 
--	node = read_node(NULL, ctx, name);
-+	node = read_node(NULL, ctx, name, true);
- 	if (!node)
- 		return dump_state_node_err(data, "Dump node read node error");
- 
-@@ -3447,7 +3453,7 @@ void read_state_node(const void *ctx, const void *state)
- 		parentname = get_parent(node, name);
- 		if (!parentname)
- 			barf("allocation error restoring node");
--		parent = read_node(NULL, node, parentname);
-+		parent = read_node(NULL, node, parentname, false);
- 		if (!parent)
- 			barf("read parent error restoring node");
- 
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 79b2a699fd..a4cd3e503a 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -280,7 +280,7 @@ int write_node_raw(struct connection *conn, const char *db_name,
- 
- /* Get a node from the data base. */
- struct node *read_node(struct connection *conn, const void *ctx,
--		       const char *name);
-+		       const char *name, bool nocopy);
- 
- /* Remove a node and its children. */
- int rm_node(struct connection *conn, const void *ctx, const char *name);
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 4d66dc91ce..b8fd7469d0 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -568,7 +568,7 @@ static void fire_special_watches(const char *name)
- 	if (!ctx)
- 		return;
- 
--	node = read_node(NULL, ctx, name);
-+	node = read_node(NULL, ctx, name, true);
- 
- 	if (node)
- 		fire_watches(NULL, ctx, name, node, true, NULL);
-diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
-index 10645f762d..54a9468090 100644
---- a/tools/xenstore/xenstored_watch.c
-+++ b/tools/xenstore/xenstored_watch.c
-@@ -88,7 +88,7 @@ static bool watch_permitted(struct connection *conn, const void *ctx,
- 	}
- 
- 	if (!node) {
--		node = read_node(conn, ctx, name);
-+		node = read_node(conn, ctx, name, true);
- 		if (!node)
- 			return false;
- 	}
-@@ -103,7 +103,7 @@ static bool watch_permitted(struct connection *conn, const void *ctx,
- 		parent_name = get_parent(ctx, node->name);
- 		if (!parent_name)
- 			return false;
--		parent = read_node(conn, ctx, parent_name);
-+		parent = read_node(conn, ctx, parent_name, true);
- 		if (!parent)
- 			return false;
- 	}
--- 
-2.35.3
+... it's all spelled out (including the multi-subrange limitation
+mentioned earlier, and left purposefully in context).
 
+Jan
 
