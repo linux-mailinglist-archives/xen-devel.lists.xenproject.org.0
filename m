@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2429974DFE3
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 22:59:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561407.877842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FEE74E004
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 23:09:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561411.877852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIxyP-0008GV-RO; Mon, 10 Jul 2023 20:59:09 +0000
+	id 1qIy7s-0001Ni-NS; Mon, 10 Jul 2023 21:08:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561407.877842; Mon, 10 Jul 2023 20:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 561411.877852; Mon, 10 Jul 2023 21:08:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIxyP-0008Ek-On; Mon, 10 Jul 2023 20:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 561407;
- Mon, 10 Jul 2023 20:59:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qIxyO-0008Eb-4P
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 20:59:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qIxyN-0001qE-0K; Mon, 10 Jul 2023 20:59:07 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qIxyM-0004Sr-Pz; Mon, 10 Jul 2023 20:59:06 +0000
+	id 1qIy7s-0001Lr-Jx; Mon, 10 Jul 2023 21:08:56 +0000
+Received: by outflank-mailman (input) for mailman id 561411;
+ Mon, 10 Jul 2023 21:08:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=atS4=C4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qIy7q-0001Ll-VY
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 21:08:54 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f86650c5-1f65-11ee-8611-37d641c3527e;
+ Mon, 10 Jul 2023 23:08:52 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0B8DD611FE;
+ Mon, 10 Jul 2023 21:08:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0033C433C8;
+ Mon, 10 Jul 2023 21:08:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,201 +44,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=jQhlamo0auyjYn+di/qoY4T1dB+rjc/i+EUateFuE6A=; b=M07OgVp/IRO91SSGVqpcI5L/3j
-	09DFgI/u9iiVYiOFHArE7kyHJODRxxPRcz0DNQ9OtDl8Nf9sWOTRBTTRwSAtlmCD79BcydLqVc0mR
-	5E63/KvcNTZuMJW438N1Ea3vgeiotFcv2UlP/6vtZPDfUQN03lbBgyNhUp9rwMlX3YpE=;
-Message-ID: <0cd9d94b-0a8d-a3e1-d683-04fac1572750@xen.org>
-Date: Mon, 10 Jul 2023 21:59:04 +0100
+X-Inumbo-ID: f86650c5-1f65-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689023330;
+	bh=1RigCnDsZjZm2CJMHPZcxT1GYO4ucMyFDXXUYEdpraY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=WRFP8dZS6HfUhys4FzGFR9EO173OuuuMYD2bQsDbxGOzpsfREr8/xTDLJsDgEL2jp
+	 QrplQtMckL3M890SkTfAdf3Xy81MkdlLwlz06UF2Y5wybL7B3JLYf0DkS1JSpGUX8w
+	 0jCc3DscevAjzMXaczrIKaFq1kPI/mGSmjgFFw0PN1NkzanBqLVS6Bj515yay/BvyD
+	 1JEcBh0JuAtWL/+w8d9Szt24vXaJBjr7YiBHastp4fHwbpChVa3ysuzGQ94jFEk1Jv
+	 cYU6FVlQke8Mo53R4Ss08j0iuYZv1vVB0GmJ7NIut20POs3GZcXtZ2LSbtQrgZ5hz2
+	 hJVM2m+3hJlOg==
+Date: Mon, 10 Jul 2023 14:08:47 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+    Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: Re: [XEN PATCH] x86/emul: fix violations of MISRA C:2012 Rule 8.3
+ on parameter names
+In-Reply-To: <149e5516d0db712916912fce8ab9c8285023e7c8.1688997768.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2307101408390.761183@ubuntu-linux-20-04-desktop>
+References: <149e5516d0db712916912fce8ab9c8285023e7c8.1688997768.git.federico.serafini@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
- <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 1/2] restrict concept of pIRQ to x86
-In-Reply-To: <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Jan,
+On Mon, 10 Jul 2023, Federico Serafini wrote:
+> The headline of MISRA C:2012 Rule 8.3 states that:
+> "All declarations of an object or function shall use the same names and
+> type qualifiers".
+> 
+> Change parameter names to meet the following requirements:
+> 1) keep consistency between declarations and the corresponding
+>    definitions thus fixing violations of the Rule 8.3;
+> 2) use the globally-adopted shorthands (e.g., 's' to denote a 'state');
+> 3) keep adjacent declarations consistent with respect to the parameter
+>    names that are used.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-On 03/05/2023 16:33, Jan Beulich wrote:
-> ... by way of a new arch-selectable Kconfig control.
-> 
-> Note that some smaller pieces of code are left without #ifdef, to keep
-> things better readable. Hence items like ECS_PIRQ, nr_static_irqs, or
-> domain_pirq_to_irq() remain uniformly.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
-> I'm not really certain about XEN_DOMCTL_irq_permission: With pIRQ-s not
-> used, the prior pIRQ -> IRQ translation cannot have succeeded on Arm, so
-> quite possibly the entire domctl is unused there? Yet then how is access
-> to particular device IRQs being granted/revoked?
-> ---
-> v2: New.
+>  xen/arch/x86/x86_emulate/x86_emulate.c | 54 +++++++++++++-------------
+>  xen/arch/x86/x86_emulate/x86_emulate.h | 26 ++++++-------
+>  2 files changed, 40 insertions(+), 40 deletions(-)
 > 
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -1120,7 +1120,7 @@ introduced with the Nehalem architecture
->         intended as an emergency option for people who first chose fast, then
->         change their minds to secure, and wish not to reboot.**
->   
-> -### extra_guest_irqs
-> +### extra_guest_irqs (x86)
->   > `= [<domU number>][,<dom0 number>]`
->   
->   > Default: `32,<variable>`
-> --- a/xen/arch/arm/include/asm/irq.h
-> +++ b/xen/arch/arm/include/asm/irq.h
-> @@ -52,7 +52,6 @@ struct arch_irq_desc {
->   
->   extern const unsigned int nr_irqs;
->   #define nr_static_irqs NR_IRQS
-> -#define arch_hwdom_irqs(domid) NR_IRQS
->   
->   struct irq_desc;
->   struct irqaction;
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -25,6 +25,7 @@ config X86
->   	select HAS_PCI
->   	select HAS_PCI_MSI
->   	select HAS_PDX
-> +	select HAS_PIRQ
->   	select HAS_SCHED_GRANULARITY
->   	select HAS_UBSAN
->   	select HAS_VPCI if HVM
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -56,6 +56,9 @@ config HAS_KEXEC
->   config HAS_PDX
->   	bool
->   
-> +config HAS_PIRQ
-> +	bool
-> +
->   config HAS_PMAP
->   	bool
->   
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -350,6 +350,8 @@ static int late_hwdom_init(struct domain
->   #endif
->   }
->   
-> +#ifdef CONFIG_HAS_PIRQ
-> +
->   static unsigned int __read_mostly extra_hwdom_irqs;
->   static unsigned int __read_mostly extra_domU_irqs = 32;
->   
-> @@ -364,6 +366,8 @@ static int __init cf_check parse_extra_g
->   }
->   custom_param("extra_guest_irqs", parse_extra_guest_irqs);
->   
-> +#endif /* CONFIG_HAS_PIRQ */
-
-NIT: I would suggest create a file pirq.c and move anything PIRQ 
-specific there. This should reduce the number of #ifdef in the code.
-
-> +
->   /*
->    * Release resources held by a domain.  There may or may not be live
->    * references to the domain, and it may or may not be fully constructed.
-> @@ -653,6 +657,7 @@ struct domain *domain_create(domid_t dom
->       if ( is_system_domain(d) && !is_idle_domain(d) )
->           return d;
->   
-> +#ifdef CONFIG_HAS_PIRQ
->       if ( !is_idle_domain(d) )
->       {
->           if ( !is_hardware_domain(d) )
-> @@ -664,6 +669,7 @@ struct domain *domain_create(domid_t dom
->   
->           radix_tree_init(&d->pirq_tree);
->       }
-> +#endif
->   
->       if ( (err = arch_domain_create(d, config, flags)) != 0 )
->           goto fail;
-> @@ -755,7 +761,9 @@ struct domain *domain_create(domid_t dom
->       {
->           evtchn_destroy(d);
->           evtchn_destroy_final(d);
-> +#ifdef CONFIG_HAS_PIRQ
->           radix_tree_destroy(&d->pirq_tree, free_pirq_struct);
-> +#endif
->       }
->       if ( init_status & INIT_watchdog )
->           watchdog_domain_destroy(d);
-> @@ -1151,7 +1159,9 @@ static void cf_check complete_domain_des
->   
->       evtchn_destroy_final(d);
->   
-> +#ifdef CONFIG_HAS_PIRQ
->       radix_tree_destroy(&d->pirq_tree, free_pirq_struct);
-> +#endif
->   
->       xfree(d->vcpu);
->   
-> @@ -1864,6 +1874,8 @@ long do_vm_assist(unsigned int cmd, unsi
->   }
->   #endif
->   
-> +#ifdef CONFIG_HAS_PIRQ
-> +
-
-With this change and some others, we probably can remove 
-alloc_pirq_struct() & co. I will have a look to send a clean-up patch 
-after this goes in.
-
->   struct pirq *pirq_get_info(struct domain *d, int pirq)
->   {
->       struct pirq *info = pirq_info(d, pirq);
-> @@ -1893,6 +1905,8 @@ void cf_check free_pirq_struct(void *ptr
->       call_rcu(&pirq->rcu_head, _free_pirq_struct);
->   }
->   
-> +#endif /* CONFIG_HAS_PIRQ */
-> +
->   struct migrate_info {
->       long (*func)(void *data);
->       void *data;
-> --- a/xen/common/domctl.c
-> +++ b/xen/common/domctl.c
-> @@ -683,11 +683,13 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
->           unsigned int pirq = op->u.irq_permission.pirq, irq;
->           int allow = op->u.irq_permission.allow_access;
->   
-> +#ifdef CONFIG_HAS_PIRQ
->           if ( pirq >= current->domain->nr_pirqs )
->           {
->               ret = -EINVAL;
->               break;
->           }
-> +#endif
-
-This #ifdef reads a little bit strange. If we can get away with the 
-check for Arm, then why can't when CONFIG_HAS_PIRQ=y? Overall, a comment 
-would be helpful.
-
->           irq = pirq_access_permitted(current->domain, pirq);
->           if ( !irq || xsm_irq_permission(XSM_HOOK, d, irq, allow) )
->               ret = -EPERM;
-
-Cheers,
-
--- 
-Julien Grall
+> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+> index be2e3c6b11..2de1be7996 100644
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -8446,12 +8446,12 @@ int x86_emul_rmw(
+>      void *ptr,
+>      unsigned int bytes,
+>      uint32_t *eflags,
+> -    struct x86_emulate_state *state,
+> +    struct x86_emulate_state *s,
+>      struct x86_emulate_ctxt *ctxt)
+>  {
+>      unsigned long *dst = ptr;
+>  
+> -    ASSERT(bytes == state->op_bytes);
+> +    ASSERT(bytes == s->op_bytes);
+>  
+>  /*
+>   * We cannot use Jcc below, as this code executes with the guest status flags
+> @@ -8469,23 +8469,23 @@ int x86_emul_rmw(
+>      ".L" #op "%=:\n\t" \
+>      #op
+>  
+> -    switch ( state->rmw )
+> +    switch ( s->rmw )
+>      {
+>  #define UNOP(op) \
+>      case rmw_##op: \
+>          _emulate_1op(COND_LOCK(op), dst, bytes, *eflags, \
+> -                     "c" ((long)state->lock_prefix) ); \
+> +                     "c" ((long)s->lock_prefix) ); \
+>          break
+>  #define BINOP(op, sfx) \
+>      case rmw_##op: \
+>          _emulate_2op_SrcV##sfx(COND_LOCK(op), \
+> -                               state->ea.val, dst, bytes, *eflags, \
+> -                               "c" ((long)state->lock_prefix) ); \
+> +                               s->ea.val, dst, bytes, *eflags, \
+> +                               "c" ((long)s->lock_prefix) ); \
+>          break
+>  #define SHIFT(op) \
+>      case rmw_##op: \
+> -        ASSERT(!state->lock_prefix); \
+> -        _emulate_2op_SrcB(#op, state->ea.val, dst, bytes, *eflags); \
+> +        ASSERT(!s->lock_prefix); \
+> +        _emulate_2op_SrcB(#op, s->ea.val, dst, bytes, *eflags); \
+>          break
+>  
+>      BINOP(adc, );
+> @@ -8514,46 +8514,46 @@ int x86_emul_rmw(
+>  #undef SHIFT
+>  
+>      case rmw_not:
+> -        switch ( state->op_bytes )
+> +        switch ( s->op_bytes )
+>          {
+>          case 1:
+>              asm ( COND_LOCK(notb) " %0"
+> -                  : "+m" (*dst) : "c" ((long)state->lock_prefix) );
+> +                  : "+m" (*dst) : "c" ((long)s->lock_prefix) );
+>              break;
+>          case 2:
+>              asm ( COND_LOCK(notw) " %0"
+> -                  : "+m" (*dst) : "c" ((long)state->lock_prefix) );
+> +                  : "+m" (*dst) : "c" ((long)s->lock_prefix) );
+>              break;
+>          case 4:
+>              asm ( COND_LOCK(notl) " %0"
+> -                  : "+m" (*dst) : "c" ((long)state->lock_prefix) );
+> +                  : "+m" (*dst) : "c" ((long)s->lock_prefix) );
+>              break;
+>  #ifdef __x86_64__
+>          case 8:
+>              asm ( COND_LOCK(notq) " %0"
+> -                  : "+m" (*dst) : "c" ((long)state->lock_prefix) );
+> +                  : "+m" (*dst) : "c" ((long)s->lock_prefix) );
+>              break;
+>  #endif
+>          }
+>          break;
+>  
+>      case rmw_shld:
+> -        ASSERT(!state->lock_prefix);
+> +        ASSERT(!s->lock_prefix);
+>          _emulate_2op_SrcV_nobyte("shld",
+> -                                 state->ea.val, dst, bytes, *eflags,
+> -                                 "c" (state->ea.orig_val) );
+> +                                 s->ea.val, dst, bytes, *eflags,
+> +                                 "c" (s->ea.orig_val) );
+>          break;
+>  
+>      case rmw_shrd:
+> -        ASSERT(!state->lock_prefix);
+> +        ASSERT(!s->lock_prefix);
+>          _emulate_2op_SrcV_nobyte("shrd",
+> -                                 state->ea.val, dst, bytes, *eflags,
+> -                                 "c" (state->ea.orig_val) );
+> +                                 s->ea.val, dst, bytes, *eflags,
+> +                                 "c" (s->ea.orig_val) );
+>          break;
+>  
+>      case rmw_xadd:
+>          *eflags &= ~EFLAGS_MASK;
+> -        switch ( state->op_bytes )
+> +        switch ( s->op_bytes )
+>          {
+>              unsigned long dummy;
+>  
+> @@ -8562,11 +8562,11 @@ int x86_emul_rmw(
+>              asm ( "" \
+>                    COND_LOCK(xadd) " %"#mod"[reg], %[mem]; " \
+>                    _POST_EFLAGS("[efl]", "[msk]", "[tmp]") \
+> -                  : [reg] "+" #cst (state->ea.val), \
+> +                  : [reg] "+" #cst (s->ea.val), \
+>                      [mem] "+m" (*dst), \
+>                      [efl] "+g" (*eflags), \
+>                      [tmp] "=&r" (dummy) \
+> -                  : "c" ((long)state->lock_prefix), \
+> +                  : "c" ((long)s->lock_prefix), \
+>                      [msk] "i" (EFLAGS_MASK) ); \
+>              break
+>          XADD(1, q, b);
+> @@ -8580,21 +8580,21 @@ int x86_emul_rmw(
+>          break;
+>  
+>      case rmw_xchg:
+> -        switch ( state->op_bytes )
+> +        switch ( s->op_bytes )
+>          {
+>          case 1:
+> -            asm ( "xchg %b0, %b1" : "+q" (state->ea.val), "+m" (*dst) );
+> +            asm ( "xchg %b0, %b1" : "+q" (s->ea.val), "+m" (*dst) );
+>              break;
+>          case 2:
+> -            asm ( "xchg %w0, %w1" : "+r" (state->ea.val), "+m" (*dst) );
+> +            asm ( "xchg %w0, %w1" : "+r" (s->ea.val), "+m" (*dst) );
+>              break;
+>          case 4:
+>  #ifdef __x86_64__
+> -            asm ( "xchg %k0, %k1" : "+r" (state->ea.val), "+m" (*dst) );
+> +            asm ( "xchg %k0, %k1" : "+r" (s->ea.val), "+m" (*dst) );
+>              break;
+>          case 8:
+>  #endif
+> -            asm ( "xchg %0, %1" : "+r" (state->ea.val), "+m" (*dst) );
+> +            asm ( "xchg %0, %1" : "+r" (s->ea.val), "+m" (*dst) );
+>              break;
+>          }
+>          break;
+> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+> index 40d5054fb7..698750267a 100644
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+> @@ -746,36 +746,36 @@ x86_decode_insn(
+>          struct x86_emulate_ctxt *ctxt));
+>  
+>  unsigned int
+> -x86_insn_opsize(const struct x86_emulate_state *state);
+> +x86_insn_opsize(const struct x86_emulate_state *s);
+>  int
+> -x86_insn_modrm(const struct x86_emulate_state *state,
+> +x86_insn_modrm(const struct x86_emulate_state *s,
+>                 unsigned int *rm, unsigned int *reg);
+>  unsigned long
+> -x86_insn_operand_ea(const struct x86_emulate_state *state,
+> +x86_insn_operand_ea(const struct x86_emulate_state *s,
+>                      enum x86_segment *seg);
+>  unsigned long
+> -x86_insn_immediate(const struct x86_emulate_state *state,
+> +x86_insn_immediate(const struct x86_emulate_state *s,
+>                     unsigned int nr);
+>  unsigned int
+> -x86_insn_length(const struct x86_emulate_state *state,
+> +x86_insn_length(const struct x86_emulate_state *s,
+>                  const struct x86_emulate_ctxt *ctxt);
+>  bool cf_check
+> -x86_insn_is_mem_access(const struct x86_emulate_state *state,
+> +x86_insn_is_mem_access(const struct x86_emulate_state *s,
+>                         const struct x86_emulate_ctxt *ctxt);
+>  bool cf_check
+> -x86_insn_is_mem_write(const struct x86_emulate_state *state,
+> +x86_insn_is_mem_write(const struct x86_emulate_state *s,
+>                        const struct x86_emulate_ctxt *ctxt);
+>  bool cf_check
+> -x86_insn_is_portio(const struct x86_emulate_state *state,
+> +x86_insn_is_portio(const struct x86_emulate_state *s,
+>                     const struct x86_emulate_ctxt *ctxt);
+>  bool cf_check
+> -x86_insn_is_cr_access(const struct x86_emulate_state *state,
+> +x86_insn_is_cr_access(const struct x86_emulate_state *s,
+>                        const struct x86_emulate_ctxt *ctxt);
+>  
+>  #if !defined(__XEN__) || defined(NDEBUG)
+> -static inline void x86_emulate_free_state(struct x86_emulate_state *state) {}
+> +static inline void x86_emulate_free_state(struct x86_emulate_state *s) {}
+>  #else
+> -void x86_emulate_free_state(struct x86_emulate_state *state);
+> +void x86_emulate_free_state(struct x86_emulate_state *s);
+>  #endif
+>  
+>  #ifdef __XEN__
+> @@ -800,7 +800,7 @@ x86_emul_rmw(
+>      void *ptr,
+>      unsigned int bytes,
+>      uint32_t *eflags,
+> -    struct x86_emulate_state *state,
+> +    struct x86_emulate_state *s,
+>      struct x86_emulate_ctxt *ctxt);
+>  int
+>  x86_emul_blk(
+> @@ -808,7 +808,7 @@ x86_emul_blk(
+>      void *data,
+>      unsigned int bytes,
+>      uint32_t *eflags,
+> -    struct x86_emulate_state *state,
+> +    struct x86_emulate_state *s,
+>      struct x86_emulate_ctxt *ctxt);
+>  
+>  static inline void x86_emul_hw_exception(
+> -- 
+> 2.34.1
+> 
 
