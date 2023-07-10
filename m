@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 251A874CDCA
+	by mail.lfdr.de (Postfix) with ESMTPS id E84F374CDCC
 	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 09:00:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.560948.877144 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.560949.877154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIksT-0004UY-Bx; Mon, 10 Jul 2023 07:00:09 +0000
+	id 1qIksZ-0004y1-K0; Mon, 10 Jul 2023 07:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 560948.877144; Mon, 10 Jul 2023 07:00:09 +0000
+Received: by outflank-mailman (output) from mailman id 560949.877154; Mon, 10 Jul 2023 07:00:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIksT-0004SM-7M; Mon, 10 Jul 2023 07:00:09 +0000
-Received: by outflank-mailman (input) for mailman id 560948;
- Mon, 10 Jul 2023 07:00:08 +0000
+	id 1qIksZ-0004v4-F1; Mon, 10 Jul 2023 07:00:15 +0000
+Received: by outflank-mailman (input) for mailman id 560949;
+ Mon, 10 Jul 2023 07:00:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Xcmr=C4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qIksS-0002xd-CK
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 07:00:08 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1qIksY-0002xd-1Z
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 07:00:14 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 676f134e-1eef-11ee-b239-6b7b168915f2;
- Mon, 10 Jul 2023 09:00:07 +0200 (CEST)
+ id 6ac82313-1eef-11ee-b239-6b7b168915f2;
+ Mon, 10 Jul 2023 09:00:13 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 904E921E97;
- Mon, 10 Jul 2023 07:00:07 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3471E1F88C;
+ Mon, 10 Jul 2023 07:00:13 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 537C71361C;
- Mon, 10 Jul 2023 07:00:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0550B1361C;
+ Mon, 10 Jul 2023 07:00:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Afj2Enesq2StYgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 10 Jul 2023 07:00:07 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id nq9lO3ysq2S+YgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 10 Jul 2023 07:00:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,110 +51,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 676f134e-1eef-11ee-b239-6b7b168915f2
+X-Inumbo-ID: 6ac82313-1eef-11ee-b239-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1688972407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1688972413; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OZ3QkIbfe9/RFlUdF2rbK/pn4dQLdQYEQ838CQ5c7JM=;
-	b=jpqktDvbyx541fU5KQztWpDkZnrOt8ulOrNzkJjycn8dGFTtVOEoIXGoP/IjzJ3/RLznTj
-	eqrOeGhP/o4nhBF0CSYSA86iJbOoX4Dp+jyCENU8V1RwRKcTKfSage9dE5BCNP2guHZrrl
-	nIvA/wbfBnfNZDm/MxsRIWCtlIeDewA=
+	bh=xsZdRFZMlmJYeC+b7NSvfoHA0euYyIWBUyMoe8hvlNs=;
+	b=ZQSfrQxPzu/T/Z7GKVK63Kdow34xvGdxXu8rbjOxQmAocIztptxeCAc2QV34vMBkiEuw8N
+	qucIICs3OqcVA8HzhfMxxwPC92ehoi1cZzQvexj3QUtw0UTYMY5HvRiveVvaxxzT79fdF5
+	yo2T2qusOoucVUJvRfqwVN+hXNp6Xuo=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v2 03/18] tools/xenstore: let transaction_prepend() return the name for access
-Date: Mon, 10 Jul 2023 08:59:32 +0200
-Message-Id: <20230710065947.4201-4-jgross@suse.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 04/18] tools/xenstore: rename do_tdb_delete() and change parameter type
+Date: Mon, 10 Jul 2023 08:59:33 +0200
+Message-Id: <20230710065947.4201-5-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230710065947.4201-1-jgross@suse.com>
 References: <20230710065947.4201-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of setting the TDB key for accessing the node in the data base,
-let transaction_prepend() return the associated name instead.
+Rename do_tdb_delete() to db_delete() and replace the key parameter
+with db_name specifying the name of the node in the data base.
 
 This is in preparation to replace TDB with a more simple data storage.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
- tools/xenstore/xenstored_core.c        |  4 +++-
- tools/xenstore/xenstored_transaction.c | 11 ++++-------
- tools/xenstore/xenstored_transaction.h |  3 +--
- 3 files changed, 8 insertions(+), 10 deletions(-)
+V2:
+- remove unrelated change (Julien Grall)
+---
+ tools/xenstore/xenstored_core.c        | 31 ++++++++++++--------------
+ tools/xenstore/xenstored_core.h        |  5 +++--
+ tools/xenstore/xenstored_transaction.c | 16 +++++--------
+ 3 files changed, 23 insertions(+), 29 deletions(-)
 
 diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 521ce1a70e..6d7f002b54 100644
+index 6d7f002b54..5e83c412ad 100644
 --- a/tools/xenstore/xenstored_core.c
 +++ b/tools/xenstore/xenstored_core.c
-@@ -695,6 +695,7 @@ struct node *read_node(struct connection *conn, const void *ctx,
- 	TDB_DATA key, data;
- 	struct xs_tdb_record_hdr *hdr;
- 	struct node *node;
-+	const char *db_name;
- 	int err;
- 
- 	node = talloc(ctx, struct node);
-@@ -709,7 +710,8 @@ struct node *read_node(struct connection *conn, const void *ctx,
- 		return NULL;
- 	}
- 
--	transaction_prepend(conn, name, &key);
-+	db_name = transaction_prepend(conn, name);
-+	set_tdb_key(db_name, &key);
- 
- 	data = tdb_fetch(tdb_ctx, key);
- 
-diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index 9dab0cd165..1646c07040 100644
---- a/tools/xenstore/xenstored_transaction.c
-+++ b/tools/xenstore/xenstored_transaction.c
-@@ -196,20 +196,17 @@ static char *transaction_get_node_name(void *ctx, struct transaction *trans,
-  * Prepend the transaction to name if node has been modified in the current
-  * transaction.
-  */
--void transaction_prepend(struct connection *conn, const char *name,
--			 TDB_DATA *key)
-+const char *transaction_prepend(struct connection *conn, const char *name)
- {
- 	struct accessed_node *i;
- 
- 	if (conn && conn->transaction) {
- 		i = find_accessed_node(conn->transaction, name);
--		if (i) {
--			set_tdb_key(i->trans_name, key);
--			return;
--		}
-+		if (i)
-+			return i->trans_name;
- 	}
- 
--	set_tdb_key(name, key);
-+	return name;
+@@ -658,28 +658,31 @@ int do_tdb_write(struct connection *conn, TDB_DATA *key, TDB_DATA *data,
+ 	return 0;
  }
  
- /*
-diff --git a/tools/xenstore/xenstored_transaction.h b/tools/xenstore/xenstored_transaction.h
-index f6a2e2f7f5..b196b1ab07 100644
---- a/tools/xenstore/xenstored_transaction.h
-+++ b/tools/xenstore/xenstored_transaction.h
-@@ -47,8 +47,7 @@ int __must_check access_node(struct connection *conn, struct node *node,
- void queue_watches(struct connection *conn, const char *name, bool watch_exact);
+-int do_tdb_delete(struct connection *conn, TDB_DATA *key,
+-		  struct node_account_data *acc)
++int db_delete(struct connection *conn, const char *name,
++	      struct node_account_data *acc)
+ {
+ 	struct node_account_data tmp_acc;
+ 	unsigned int domid;
++	TDB_DATA key;
++
++	set_tdb_key(name, &key);
  
- /* Prepend the transaction to name if appropriate. */
--void transaction_prepend(struct connection *conn, const char *name,
--                         TDB_DATA *key);
-+const char *transaction_prepend(struct connection *conn, const char *name);
+ 	if (!acc) {
+ 		acc = &tmp_acc;
+ 		acc->memory = -1;
+ 	}
  
- /* Mark the transaction as failed. This will prevent it to be committed. */
- void fail_transaction(struct transaction *trans);
+-	get_acc_data(key, acc);
++	get_acc_data(&key, acc);
+ 
+-	if (tdb_delete(tdb_ctx, *key)) {
++	if (tdb_delete(tdb_ctx, key)) {
+ 		errno = EIO;
+ 		return errno;
+ 	}
+-	trace_tdb("delete %s\n", key->dptr);
++	trace_tdb("delete %s\n", name);
+ 
+ 	if (acc->memory) {
+-		domid = get_acc_domid(conn, key, acc->domid);
+-		domain_memory_add_nochk(conn, domid, -acc->memory - key->dsize);
++		domid = get_acc_domid(conn, &key, acc->domid);
++		domain_memory_add_nochk(conn, domid, -acc->memory - key.dsize);
+ 	}
+ 
+ 	return 0;
+@@ -1450,13 +1453,10 @@ nomem:
+ 
+ static void destroy_node_rm(struct connection *conn, struct node *node)
+ {
+-	TDB_DATA key;
+-
+ 	if (streq(node->name, "/"))
+ 		corrupt(NULL, "Destroying root node!");
+ 
+-	set_tdb_key(node->db_name, &key);
+-	do_tdb_delete(conn, &key, &node->acc);
++	db_delete(conn, node->db_name, &node->acc);
+ }
+ 
+ static int destroy_node(struct connection *conn, struct node *node)
+@@ -1647,7 +1647,6 @@ static int delnode_sub(const void *ctx, struct connection *conn,
+ 	bool watch_exact;
+ 	int ret;
+ 	const char *db_name;
+-	TDB_DATA key;
+ 
+ 	/* Any error here will probably be repeated for all following calls. */
+ 	ret = access_node(conn, node, NODE_ACCESS_DELETE, &db_name);
+@@ -1658,8 +1657,7 @@ static int delnode_sub(const void *ctx, struct connection *conn,
+ 		return WALK_TREE_ERROR_STOP;
+ 
+ 	/* In case of error stop the walk. */
+-	set_tdb_key(db_name, &key);
+-	if (!ret && do_tdb_delete(conn, &key, &node->acc))
++	if (!ret && db_delete(conn, db_name, &node->acc))
+ 		return WALK_TREE_ERROR_STOP;
+ 
+ 	/*
+@@ -2484,9 +2482,8 @@ static int clean_store_(TDB_CONTEXT *tdb, TDB_DATA key, TDB_DATA val,
+ 	}
+ 	if (!hashtable_search(reachable, name)) {
+ 		log("clean_store: '%s' is orphaned!", name);
+-		if (recovery) {
+-			do_tdb_delete(NULL, &key, NULL);
+-		}
++		if (recovery)
++			db_delete(NULL, name, NULL);
+ 	}
+ 
+ 	talloc_free(name);
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 2cfc01f200..7bc1f68532 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -361,12 +361,13 @@ extern xengnttab_handle **xgt_handle;
+ 
+ int remember_string(struct hashtable *hash, const char *str);
+ 
++/* Data base access functions. */
+ void set_tdb_key(const char *name, TDB_DATA *key);
+ int do_tdb_write(struct connection *conn, TDB_DATA *key, TDB_DATA *data,
+ 		 struct node_account_data *acc, enum write_node_mode mode,
+ 		 bool no_quota_check);
+-int do_tdb_delete(struct connection *conn, TDB_DATA *key,
+-		  struct node_account_data *acc);
++int db_delete(struct connection *conn, const char *name,
++	      struct node_account_data *acc);
+ 
+ void conn_free_buffered_data(struct connection *conn);
+ 
+diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
+index 1646c07040..a4f9d40e9a 100644
+--- a/tools/xenstore/xenstored_transaction.c
++++ b/tools/xenstore/xenstored_transaction.c
+@@ -385,8 +385,7 @@ static int finalize_transaction(struct connection *conn,
+ 		/* Entries for unmodified nodes can be removed early. */
+ 		if (!i->modified) {
+ 			if (i->ta_node) {
+-				set_tdb_key(i->trans_name, &ta_key);
+-				if (do_tdb_delete(conn, &ta_key, NULL))
++				if (db_delete(conn, i->trans_name, NULL))
+ 					return EIO;
+ 			}
+ 			list_del(&i->list);
+@@ -395,7 +394,6 @@ static int finalize_transaction(struct connection *conn,
+ 	}
+ 
+ 	while ((i = list_top(&trans->accessed, struct accessed_node, list))) {
+-		set_tdb_key(i->node, &key);
+ 		if (i->ta_node) {
+ 			set_tdb_key(i->trans_name, &ta_key);
+ 			data = tdb_fetch(tdb_ctx, ta_key);
+@@ -406,10 +404,11 @@ static int finalize_transaction(struct connection *conn,
+ 				hdr->generation = ++generation;
+ 				flag = (i->generation == NO_GENERATION)
+ 				       ? NODE_CREATE : NODE_MODIFY;
++				set_tdb_key(i->node, &key);
+ 				*is_corrupt |= do_tdb_write(conn, &key, &data,
+ 							    NULL, flag, true);
+ 				talloc_free(data.dptr);
+-				if (do_tdb_delete(conn, &ta_key, NULL))
++				if (db_delete(conn, i->trans_name, NULL))
+ 					*is_corrupt = true;
+ 			} else {
+ 				*is_corrupt = true;
+@@ -422,7 +421,7 @@ static int finalize_transaction(struct connection *conn,
+ 			 */
+ 			*is_corrupt |= (i->generation == NO_GENERATION)
+ 				       ? false
+-				       : do_tdb_delete(conn, &key, NULL);
++				       : db_delete(conn, i->node, NULL);
+ 		}
+ 		if (i->fire_watch)
+ 			fire_watches(conn, trans, i->node, NULL, i->watch_exact,
+@@ -439,15 +438,12 @@ static int destroy_transaction(void *_transaction)
+ {
+ 	struct transaction *trans = _transaction;
+ 	struct accessed_node *i;
+-	TDB_DATA key;
+ 
+ 	wrl_ntransactions--;
+ 	trace_destroy(trans, "transaction");
+ 	while ((i = list_top(&trans->accessed, struct accessed_node, list))) {
+-		if (i->ta_node) {
+-			set_tdb_key(i->trans_name, &key);
+-			do_tdb_delete(trans->conn, &key, NULL);
+-		}
++		if (i->ta_node)
++			db_delete(trans->conn, i->trans_name, NULL);
+ 		list_del(&i->list);
+ 		talloc_free(i);
+ 	}
 -- 
 2.35.3
 
