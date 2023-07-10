@@ -2,33 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF83A74D9D5
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 17:24:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561257.877688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20CEF74DA78
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 17:53:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561263.877698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIsj6-0000dm-Db; Mon, 10 Jul 2023 15:23:00 +0000
+	id 1qItC3-00045P-PN; Mon, 10 Jul 2023 15:52:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561257.877688; Mon, 10 Jul 2023 15:23:00 +0000
+Received: by outflank-mailman (output) from mailman id 561263.877698; Mon, 10 Jul 2023 15:52:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIsj6-0000bL-AT; Mon, 10 Jul 2023 15:23:00 +0000
-Received: by outflank-mailman (input) for mailman id 561257;
- Mon, 10 Jul 2023 15:22:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qItC3-00042I-MW; Mon, 10 Jul 2023 15:52:55 +0000
+Received: by outflank-mailman (input) for mailman id 561263;
+ Mon, 10 Jul 2023 15:52:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ppwN=C4=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qIsj5-0000bF-6T
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 15:22:59 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a47f1e9d-1f35-11ee-8611-37d641c3527e;
- Mon, 10 Jul 2023 17:22:55 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-4fafe87c6fbso7159990e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jul 2023 08:22:55 -0700 (PDT)
+ <SRS0=n6vR=C4=citrix.com=prvs=54822c203=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qItC2-00042C-6f
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 15:52:54 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d244f86c-1f39-11ee-b239-6b7b168915f2;
+ Mon, 10 Jul 2023 17:52:51 +0200 (CEST)
+Received: from mail-dm6nam12lp2169.outbound.protection.outlook.com (HELO
+ NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 10 Jul 2023 11:52:48 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by DM6PR03MB5131.namprd03.prod.outlook.com (2603:10b6:5:1f0::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26; Mon, 10 Jul
+ 2023 15:52:45 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2%5]) with mapi id 15.20.6565.028; Mon, 10 Jul 2023
+ 15:52:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,414 +49,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a47f1e9d-1f35-11ee-8611-37d641c3527e
+X-Inumbo-ID: d244f86c-1f39-11ee-b239-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689004371;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=vLj48icegD92MXj4YOa2t4mytEyYDbc8fWB4ylwxFn0=;
+  b=KUzq35e1FFEyxlhJBvxXbsgI+tGn3qgk6uC4kg6MUqq6ENugfFwvnjS3
+   GSIOXPx0QajL47pgiVeC9opFLmm7SgWCIOq43VPVBP+aYn0z/IOBKs55Y
+   D4MrHYwG1Tea6bS6cmLM0qJnYr/LUBQQVLS4x7fxHLbMG/Hq/atvIAIRM
+   k=;
+X-IronPort-RemoteIP: 104.47.59.169
+X-IronPort-MID: 115735407
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:gDBd9axOr0FAnxFO+oZ6t+f5xyrEfRIJ4+MujC+fZmUNrF6WrkUBy
+ WcfUWiHP6qKYGOhKI8gaNzi9x8H7ZeAz9BlTwo4pSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw/zF8EoHUMja4mtC5QRhPKgT5TcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KVoR+
+ +4iCmEiVDmSleayn5ahEvdD3u12eaEHPKtH0p1h5RfwKK98BLzmHeDN79Ie2yosjMdTG/qYf
+ 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvjmVlVIguFTuGIO9ltiiX8Jak1zev
+ mvb12/4HgsbJJqUzj/tHneE37aSwnimBNpNfFG+3qNhjAWKy2gZNDMXUgvlu9Dpi2WBf90Kf
+ iT4/QJr98De7neDTNPwQhm5q36spQMHVpxbFOhSwBGAzO/Y7hiUAkAATyVdc5o2uckuXzso2
+ 1SV2dTzClRHsqCRSH+b3qeZq3W1Iyd9BXQZeSYOQA8B4t/iiII+lBTCSpBkCqHdpsLxMSH9x
+ XaNtidWulkIpcsC1qH+8VWZhTup/8LNVlRsuFSRWX+55ARkYoLjf5av9VXQ8fdHKsCeU0WFu
+ 38H3cOZ6YjiEK2wqcBEe81VdJnB2hpPGGS0bYJHd3X5ywmQxg==
+IronPort-HdrOrdr: A9a23:eBKIaaBRVDg69+vlHemf55DYdb4zR+YMi2TDj3oBKyC9Afbo8v
+ xG/c5rrCMc5wx+ZJhNo7u90ey7MBDhHP1OkPEs1NWZPTUO0VHARL2Kr7GD/9SKIUDDH5tmup
+ uIBJITNDSfNzJHZI3BkW2F+p4bsb66GY6T9IHj80s=
+X-Talos-CUID: 9a23:a7JZWmCSgCaYMXT6ExI4+lwuOJEKSFTM3nPUfGuiUXhGEJTAHA==
+X-Talos-MUID: 9a23:V4pW7wS/T2Azi32ORXSxjz06Lcps6ZiACUddz48v68ivCgh/bmI=
+X-IronPort-AV: E=Sophos;i="6.01,194,1684814400"; 
+   d="scan'208";a="115735407"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BZrifusf+M+8CsC6zXQXq7pa5xXnk7K5KPkunh4MPrjOGy1lKSPEd8EJX56sZ52kDH7Jzhwt30Daat2fDuYS4vP5WnRapaf22YXh3QuOwPHZMvDGHlmkVqHJrjPGpMc+oOKGWkwggdsB9cvB2VJFqtxdwq/wyqLQ7hOvdwwhzL9VzXRLAbcfkOZFo/jDv91EpJRIrbWLLVuehalpxx6Qvo7tDd0eNAPMAtE5YWBN4PKlMXi5q1cC++CP6bGFH+KoZJmTXxOzwa6FxGwAAzV1gXsBm17CoWWXLT8FVaXkwni5iTAPu3rsE18yPiW+ojY02+O0W0vf5iKz7bSSGCyxyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HFDnNf31r7Xqt8jqbnsePXZ5QIlJ+QZx9C6FqEtB/kE=;
+ b=Of3u+5tYbuiV0anr0nY6Y/1JUByteQwxRLrq4LORdOWKQ1AnQhb6oBNb9sB+EE1i9hHcOzSxJ/Jo7i9FFGE1EThXVaa6X1VP3tbLEBNwvYll4WhcX3EU670JeE0dbWSeHLH9KHXJwfeeHH0jj0TTqmt94Ni0GI5J0E373s0K8x6beUhsOezRCrk8MsEelNIvh3BuRLhpYLdUa/8yANsPHVzHlJgY7YTu7RtjJP2ym3bExM8UA2XIUIjO5jolPMaTLW4xEzVOCJoz5aszmMGlklarZiT4BWhKkpzEAAmvZe6/eeE0IzhqxgnxAy+s6KSsx51fBPYaS0sqNrAbNFEhgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689002574; x=1691594574;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Yu4f3oYsFCpzKIzOIndWgEiO2yGPNwpVmsrVjHpIEWQ=;
-        b=T0cmE2+lD7R4oWkjFSczmQHMi7cUWTdr8T7Jn59II55r0ruEWNmflpCgtL8esybEPl
-         qiF3Iw7dnoX33Ads5Y+hNVnXiFmnPvbfQHzjSJqpm6sKT7GxdT32bQggX5HSa12LkNxY
-         ykWolqTjiGcAEpuFjpxKmAW4LWDVPSvWOGp8TEVVAgL0/gxIsTPoQ8SYJoQv2y/TrC2W
-         Wpmw77tWhph3ROcsEX/rr++c0THxXyo/JIRpqhoHpWv8R2+wUTi2W4SCNwZxQTcFpEbc
-         P1UPlnB6X+ZftHMY7SNBdy7ngxzEdoFedc4/yVbIf86RlbNKOrLoRjWgxoDY/dCGGbbY
-         z8OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689002574; x=1691594574;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Yu4f3oYsFCpzKIzOIndWgEiO2yGPNwpVmsrVjHpIEWQ=;
-        b=WrLUDrNJ22eZiT/B2y25XPP9QoNwrMBT6FRYb+xRr59ZtlIHJ3JIxIu76tssPRLAlZ
-         1H33+usQTL4dxEYjpWAFEs52+rgcTjNN+cVu+eLvrvscjKAA9JqfTQZp/bVhK6WixbUt
-         9j1/uqdU+KS2+kAE/gd6Qc0pmsw6F1OL1ldIDb1UNz6OqaGP+rymB76KHnpaYO3dw3Aa
-         /RqPM8NPhib71ReSEPSSFgJmVpW9neHrKIBMaGMigcxqaGQQ5pRzjQSvtltlbXfvm+tE
-         dUKa+CmBQGKLTZ/SiHWoWZenuCvCCAEahjSUrQETqiM5DD0URxDxDHYqloM5aZdMnl0b
-         m/mQ==
-X-Gm-Message-State: ABy/qLbftJzUQM94M41AiEecKaBV8rmnsHXMgEzl8JYgM63vN/5yYiXR
-	o4gsy973jvjRbBmTEaeMZPkAlELc8oWaqjgQZ00=
-X-Google-Smtp-Source: APBJJlHdR5/ez3Rx8xhwx6sklaPbkz7SlJ27Xvj0MvKHZYhpF3B9zgX0EB28wn6jUSSpQxn+ZKZdOASU6EFGw4tGAYQ=
-X-Received: by 2002:a05:6512:10cf:b0:4f3:d682:7b1c with SMTP id
- k15-20020a05651210cf00b004f3d6827b1cmr11897289lfg.45.1689002573838; Mon, 10
- Jul 2023 08:22:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230706185440.48333-1-jandryuk@gmail.com> <20230706185440.48333-7-jandryuk@gmail.com>
- <eeeb032f-a21b-5eb2-e3d5-63357a04a500@suse.com>
-In-Reply-To: <eeeb032f-a21b-5eb2-e3d5-63357a04a500@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 10 Jul 2023 11:22:41 -0400
-Message-ID: <CAKf6xptn0OL0qz+DW9qrwU=sFSKSp-O3S7z6vFbZp9RstFanbw@mail.gmail.com>
-Subject: Re: [PATCH v5 06/15] cpufreq: Add Hardware P-State (HWP) driver
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HFDnNf31r7Xqt8jqbnsePXZ5QIlJ+QZx9C6FqEtB/kE=;
+ b=YmWNSipuOz4co7zFGzioobKDra9BcStdU6gcPodsiarp4uPv3Qh/XVYQQNgGkQ5/NaC4TzZXo4ahfHSeveGXPmEriDMkwxeyNr2igL1Jore9GsS1GeKREttHSxC8j42Mj8vXPUsEde5Pd1e0F4bfcIwaCWafC40mMmAYb0n+Nn4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 10 Jul 2023 17:52:38 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] xenoprof: default to off
+Message-ID: <ZKwpRrHyP0RN97nB@MacBook-Air-de-Roger.local>
+References: <e3034416-0c34-322b-732a-02008be514b3@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e3034416-0c34-322b-732a-02008be514b3@suse.com>
+X-ClientProxiedBy: LO2P265CA0175.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::19) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|DM6PR03MB5131:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d4b47e4-f04a-402e-d3f4-08db815db379
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	A4zAe0UKgr2J3Hwfiq+2Dy1oSzNZjv3kavRg8/rxbR7NslomOKPHuPpg4iOEYPsyWaksz9Vfut55wzIefvUyzxBqD2LjR/2O3+CZauOLgmaiFIrSbshJZg1/hXSRN/5uX1+JoToqggeK0Mm6JEGbd9D5hg3haWZwEsCDwA0PE7KHneMrtN/qhxampjHmz13PHoZDGc2R5VWRrVhoRn2x/mHiBlNfr+DqlV8tMXstpV8lSpddQpJ6dKp9ic0P/NTuMOBjRTQaTLSM4YeY5xTUjeRiQDR48/3hlsAe5ZF04KB9zzkfVPcuSOspl+VHLxV6CIZw+pzh9AVp0sEVA8NivGqDbwUNV+u2e18z1ITQnxbTyiZXNdhhYra/1KZLERrSJCg65W975/WvU6TaGe02ElmMX4H9uHXjCbwtKJ7gf6gheLf7nmvQCNr5QG8A7Yhu5LX8kYl1nuHL0EWRY3RN5PGYEwU9ki7Ckjc9kmJxD2TjtM/7ULSFu+ILIPefh2hoT5HEF5BXcKxrl4HM8jSy9WBIvMuKQ63rGC/CQs0hUBoV0V6iMVMycqWCUm4yBq7W
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199021)(6486002)(6666004)(478600001)(54906003)(38100700002)(85182001)(26005)(9686003)(86362001)(4744005)(2906002)(6506007)(6512007)(186003)(82960400001)(66946007)(316002)(66476007)(6916009)(66556008)(41300700001)(4326008)(8676002)(5660300002)(8936002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d3NoejR0RlNoUlY5OUFNUmtkeVZ3TUlJdDhMKy8wSFlBT2IwVWN3R2ROdkR2?=
+ =?utf-8?B?T3JWQy9jaFMwZUwrTXBReDM3RjQ3OU84ZGxVSzhhTElibW1oTnpFVHpxT0Z4?=
+ =?utf-8?B?VENHZnU3Y05XTXQwKzJJMmQyRVErbk9LS1VuWnpTK2ZLUm5UMGdUb1FtRTFn?=
+ =?utf-8?B?STlDSUpTQ3JkWXhwVEZuU2dKL3FubGcwL1JaTXNONnFkZnJjVHpsN29tOUVt?=
+ =?utf-8?B?eWNGSzJKV3RlQXNVVFB6Z0QvM1hPUHlWbXhDVUltRFpLZVZGSEtndzB5ZU42?=
+ =?utf-8?B?WVlVeExSK2JuTWtVdGJvYTU2RGlFNGRmSFdBRUMxRHI0bEZxbHpPbmorNFhv?=
+ =?utf-8?B?Q0VYeE1RdElLVjdVdkU0ZHVoUlgwaU85M24xaldUUTZOU1huZFdraTY0aHdy?=
+ =?utf-8?B?TmhUZmlpd1VheFAwQm5qRFhNZ0VvTnlqN0g0VWtiZXRKM2VRUE1jbUN5cUlr?=
+ =?utf-8?B?NjdWSVVNaW12Tlp4SFI5aWt0WUdtMFpXa0tsMXJtSmw1RkpySE4wd0QvYXdG?=
+ =?utf-8?B?bjJhWlAyUTJzeUg2Q2FSU0ZRV2tXMU9BdytaVDhWemxLVHFkOWROV0JJem55?=
+ =?utf-8?B?MXQrZDhiVmFXRGs2RFd3TmMxVVhnUUQrYUx4RXRUUjR6YW1ENzJuTlZaejdW?=
+ =?utf-8?B?MDBDVWp3U3FvdTJVcDlKYlhFNG9GeEwyR3BRajhqejVheHY0QzMrVmZQSVZX?=
+ =?utf-8?B?MFJ4UUl1T2l4QWVSaTZ1dnczS1ROZUxxWnppaFVVL3k3YlRaZkd0SEw1WTZR?=
+ =?utf-8?B?TTZEL2ZWT2dzRVU5Rk81eDdVb0VzT3NKSFh0Sld1VkR2dHJpdlNEL3l6UGRM?=
+ =?utf-8?B?QUJWbVFid1NxT1hxZlNZT0FtRHlVdnFVNXVBL3h4RlZ4SEFra2pYb3dpaSt2?=
+ =?utf-8?B?SE5Dcy9aeEpyZndwVWZsVHBVWmlpdzBOWTVrRHpKcllETlJPSXNsVmVMZjdO?=
+ =?utf-8?B?ckVOaG9UQzl5N09oQTJ6Y1pwWS8wQldhNjhzREtDazZiWWlTc0RuTHdmaW1S?=
+ =?utf-8?B?Z1BqZlFBSUVmQVBWLzVKVFk4ckxHOXR0TlFrbU01V0FEbkM3SGhKb0NqVzJx?=
+ =?utf-8?B?VTNTZ01uZnVsZWkzOXQ1SGF0a2J0Z08xK1ljeGt5QVVDdkhpZCtiTjY0OHJE?=
+ =?utf-8?B?U1lpTkErV2FHc0JXMThzalpBYXhBUHpTOTRjTEdKMFlHd3crOUd3TGFKdzQy?=
+ =?utf-8?B?K2p6S0NxZ3RXemR0VVlFMmJrdDFLV0tyM0dTMVhWenRLclNaUFZSMXA1bFFH?=
+ =?utf-8?B?K0ZzVit1OHpZRkxpUmt2azNwT0x0eUk1WjFwS1BsbXBWU1UvcFR3WHNMSjE0?=
+ =?utf-8?B?eXcyYTA2T3Bya0dJZG8rczlCeWVlcGt1N2lHOW9oSzRyKzB1WHhTWW4zV2lL?=
+ =?utf-8?B?WElMTlA0clpvSW13N1owV3RaNzNrMXBRTzhvb2NzM1g1Z0NhMGZkTm1WaU1M?=
+ =?utf-8?B?cWJUVWxNU2NUb3ViSWJrMHhaM2U0UHJuWXo1Y002Mk5QWVN2N3RaMDdmNHh3?=
+ =?utf-8?B?RjIyaXFCN1hNN202MzhNT04rOExXcTZPRWpKeEdSTzV4a1R6QlhTZ1dEYnd6?=
+ =?utf-8?B?aUY5UndORUM3UUtmbEU2eU9EWUYvaTI1WG1JRCtnRU9iSVdidjdnb3VhNkdt?=
+ =?utf-8?B?VHdOcUFBVXlJc3FYOVhUNFpnMllWVW5xbVMvWVZBempxUzBSR0I0U1dkMnRL?=
+ =?utf-8?B?Ni95d3p4T2RKQWxZMHN6VHpwNjlWM0tlTjR2N1RVbit6SDVFV3RyamhrNWZX?=
+ =?utf-8?B?SXRYWVhWNUZoZXhLRlV4YXpOanpKRE4zNW4zY0x1UFJNejBUZU82WXBTSGhm?=
+ =?utf-8?B?cXpHS1Y0SGtPQ1dwRXhBZFQxK0VGclduL2pwRGpDZHZQL3VES0JsRUtOa050?=
+ =?utf-8?B?YlU2bWVvdTFBeXltZzhYbm5NaWN3ckw4MjZEVk9hWUNTWUk3Z2M4ZnNCMmxW?=
+ =?utf-8?B?bS9Xcm91US85UkxWQUFZZG1GTU5BNk5TNjhORXE2Y0p6VzVuaUIwRVdNMUVz?=
+ =?utf-8?B?WnpHK1dtdThsbnBuNWxoY2QrbW9Hdmx2SjlteURiMEg3elZlTXVaLzJlbm9r?=
+ =?utf-8?B?eVFXblQ1QWw0dEVFV3FjelpZaG5MSEpvODlsUTg1RkZ5TlpZL0lkaUE3WFZU?=
+ =?utf-8?Q?QHK/7pSoEnFV7V+lZg0Fc0qgt?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	fzmNYVo5Xgwil4Yzb+YA554WWPnD+pKrNKXGztZlRpZiEJZVCOUe0PU+i0CbQWrhwC2Y4s84j8iViT2EmmxEDUKQpkVNCGspYNjMzBslt338XQizxjy8Q2x6hE2t3dFMUIe1bfTJxa/gqvzRj7+pyPiecaT3TniZQZEqYYSX8QFmazA0j+kA3NH+5/T8+8nHo5Oi4qgmR8ogG3IYKWNmb2FeXe3SH9e/2PWfsVTKshh7/3WLHehEQWRDXZlwUvh7JJWX2OXXWJVSk4mZBgVc2k/GZSLHylGOozXfHIj6VBTzjP+LUvuI5aNXNgCdBZA1tYBow3ujIbtkvlUV/gY1j4nwCpnMKK1cSG4i5JTHrDaJ7EDaVRAquwFg/6CYUWjsLmqm3TFDMLL1sLSlOOOGPi0KOmYXadQvUprwy7I3GizilujCKQ0HU/fnYRcjgkL6C5sxhV2JtN0a7wrFhWA5W22WF70lB5mL4mCUxnwMOenn7e5PLtw9NGZhU3iA21BBq69M5HCFF8KnVNky4h3zqDpRIMBhXqoIhPhhQhvGh0xZireP2Vo2haiVWETIDd7qiRg1DlMP0sopX//H+x98qf9vBVb9Pt+CR0OtkW4jKiOJDBAnb96IJKFLJWcjruOMyO49P7VFkrYox3NEwwTYR3RNPBoZTcKEKdQLTZBFOs2IXwhGw0SxLHeJl8d4oNkOzEg7nMFUc+5ubwsy7a1ootsjv4JYdsyvqBYubNWPwfdFYeX9juKFNwsASaX6O5Ms+X9IsOvej2oGGyPtwULOLHTJKAgGPc4O2SsjJPuEtLldE+SqmZljmhb1hfmdAV7HTEHyFFbvVADxAdRuextiZ/E1MN3yQPCwm5gjBFFgbMo=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d4b47e4-f04a-402e-d3f4-08db815db379
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 15:52:44.7937
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HbbV0bU3NL6LBLduxsDZtZpJz7Eaj1HwrSGXq0Kqdu4rnFMTk9WY7LxWmEw9R+FtFxo1vt9mWVyhL0Wx9M9ikg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5131
 
-On Mon, Jul 10, 2023 at 9:13=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 06.07.2023 20:54, Jason Andryuk wrote:
-> > @@ -510,6 +510,22 @@ choice of `dom0-kernel` is deprecated and not supp=
-orted by all Dom0 kernels.
-> >  * `<maxfreq>` and `<minfreq>` are integers which represent max and min=
- processor frequencies
-> >    respectively.
-> >  * `verbose` option can be included as a string or also as `verbose=3D<=
-integer>`
-> > +  for `xen`.  It is a boolean for `hwp`.
-> > +* `hwp` selects Hardware-Controlled Performance States (HWP) on suppor=
-ted Intel
-> > +  hardware.  HWP is a Skylake+ feature which provides better CPU power
-> > +  management.  The default is disabled.  If `hwp` is selected, but har=
-dware
-> > +  support is not available, Xen will fallback to cpufreq=3Dxen.
-> > +* `<hdc>` is a boolean to enable Hardware Duty Cycling (HDC).  HDC ena=
-bles the
-> > +  processor to autonomously force physical package components into idl=
-e state.
-> > +  The default is enabled, but the option only applies when `hwp` is en=
-abled.
-> > +
-> > +There is also support for `;`-separated fallback options:
-> > +`cpufreq=3Dhwp,verbose;xen`.  This first tries `hwp` and falls back to=
- `xen`
-> > +if unavailable.
->
-> In the given example, does "verbose" also apply to the fallback case? If =
-so,
-> perhaps better "cpufreq=3Dhwp;xen,verbose", to eliminate that ambiguity?
+On Mon, Jul 10, 2023 at 11:48:09AM +0200, Jan Beulich wrote:
+> This being x86-only right now, and its x86 bits being heavily outdated,
+> let's no longer enable this by default.
+> 
+> While there also adjust the "help" keyword spelling.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Yes, "verbose" is applied to both.  I can make the change.  I
-mentioned it in the commit message, but I'll mention it here as well.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-> > --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
-> > +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
-> > @@ -642,7 +642,24 @@ static int __init cf_check cpufreq_driver_init(voi=
-d)
-> >          switch ( boot_cpu_data.x86_vendor )
-> >          {
-> >          case X86_VENDOR_INTEL:
-> > -            ret =3D cpufreq_register_driver(&acpi_cpufreq_driver);
-> > +            unsigned int i;
->
-> At the moment we still don't mix declarations and statements, i.e. all
-> declarations have to be at the top of a block/scope. What iirc we do use
-> in a couple of places (and what hence you may want to do here as well) is
-> ...
->
-> > +            ret =3D -ENOENT;
-> > +
-> > +            for ( i =3D 0; i < cpufreq_xen_cnt; i++ )
->
-> ... declare the induction variable inside the loop header.
-
-Sounds good, thanks.
-
-> > +            {
-> > +                switch ( cpufreq_xen_opts[i] )
-> > +                {
-> > +                case CPUFREQ_xen:
-> > +                    ret =3D cpufreq_register_driver(&acpi_cpufreq_driv=
-er);
-> > +                    break;
-> > +                case CPUFREQ_hwp:
-> > +                    ret =3D hwp_register_driver();
-> > +                    break;
-> > +                }
-> > +
-> > +                if ( ret =3D=3D 0 )
-> > +                    break;
-> > +            }
-> >              break;
->
-> In this model any kind of failure results in the fallback to be tried
-> (and the fallback's error to be returned to the caller rather than
-> the primary one). This may or may not be what we actually want;
-> personally I would have expected
->
->                 if ( ret !=3D -ENODEV )
->                     break;
->
-> or some such instead.
-
-I guess this comes back to our fruit preferences. :)
-
-I can switch it around like that, and make hwp_register_driver()
-return -ENODEV for hwp_available() returning false.
-
-> > +static bool hwp_handle_option(const char *s, const char *end)
-> > +{
-> > +    int ret;
-> > +
-> > +    ret =3D parse_boolean("verbose", s, end);
-> > +    if ( ret >=3D 0 ) {
->
-> Nit: Style (brace placement).
->
-> > +        cpufreq_verbose =3D ret;
-> > +        return true;
-> > +    }
-> > +
-> > +    ret =3D parse_boolean("hdc", s, end);
-> > +    if ( ret >=3D 0 ) {
->
-> Same here.
-
-Thanks.  Sorry about those.
-
-> > +        opt_cpufreq_hdc =3D ret;
-> > +        return true;
-> > +    }
-> > +
-> > +    return false;
-> > +}
-> > +
-> > +int __init hwp_cmdline_parse(const char *s, const char *e)
-> > +{
-> > +    do
-> > +    {
-> > +        const char *end =3D strpbrk(s, ",;");
-> > +
-> > +        if ( s && !hwp_handle_option(s, end) )
->
-> This check of s not being NULL comes too late, as strpbrk() would have
-> de-referenced it already. Considering ...
->
-> > +        {
-> > +            printk(XENLOG_WARNING "cpufreq/hwp: option '%s' not recogn=
-ized\n",
-> > +                   s);
-> > +
-> > +            return -1;
-> > +        }
-> > +
-> > +        s =3D end ? ++end : end;
-> > +    } while ( s && s < e );
->
-> ... this it probably wants to move even ahead of the loop.
-
-I'll switch from do/while to just while and then the NULL check will
-be covered.  In practice, this function is never called with s =3D=3D
-NULL.
-
-> > +static int hdc_set_pkg_hdc_ctl(unsigned int cpu, bool val)
-> > +{
-> > +    uint64_t msr;
-> > +
-> > +    if ( rdmsr_safe(MSR_PKG_HDC_CTL, msr) )
-> > +    {
-> > +        hwp_err(cpu, "rdmsr_safe(MSR_PKG_HDC_CTL)\n");
-> > +        return -1;
-> > +    }
-> > +
-> > +    if ( val )
-> > +        msr |=3D PKG_HDC_CTL_HDC_PKG_ENABLE;
-> > +    else
-> > +        msr &=3D ~PKG_HDC_CTL_HDC_PKG_ENABLE;
-> > +
-> > +    if ( wrmsr_safe(MSR_PKG_HDC_CTL, msr) )
-> > +    {
-> > +        hwp_err(cpu, "wrmsr_safe(MSR_PKG_HDC_CTL): %016lx\n", msr);
-> > +        return -1;
-> > +    }
-> > +
-> > +    return 0;
-> > +}
->
-> Please can you use either boolean return values or proper 0 / -errno
-> ones? (Same again then in the subsequent function.)
-
-Sure, I'll use booleans.
-
-> > +static void cf_check hwp_init_msrs(void *info)
-> > +{
-> > +    struct cpufreq_policy *policy =3D info;
-> > +    struct hwp_drv_data *data =3D this_cpu(hwp_drv_data);
-> > +    uint64_t val;
-> > +
-> > +    /*
-> > +     * Package level MSR, but we don't have a good idea of packages he=
-re, so
-> > +     * just do it everytime.
-> > +     */
-> > +    if ( rdmsr_safe(MSR_PM_ENABLE, val) )
-> > +    {
-> > +        hwp_err(policy->cpu, "rdmsr_safe(MSR_PM_ENABLE)\n");
-> > +        data->curr_req.raw =3D -1;
-> > +        return;
-> > +    }
-> > +
-> > +    /* Ensure we don't generate interrupts */
-> > +    if ( feature_hwp_notification )
-> > +        wrmsr_safe(MSR_HWP_INTERRUPT, 0);
-> > +
-> > +    hwp_verbose("CPU%u: MSR_PM_ENABLE: %016lx\n", policy->cpu, val);
-> > +    if ( !(val & PM_ENABLE_HWP_ENABLE) )
-> > +    {
-> > +        val |=3D PM_ENABLE_HWP_ENABLE;
-> > +        if ( wrmsr_safe(MSR_PM_ENABLE, val) )
-> > +        {
-> > +            hwp_err(policy->cpu, "wrmsr_safe(MSR_PM_ENABLE, %lx)\n", v=
-al);
-> > +            data->curr_req.raw =3D -1;
-> > +            return;
-> > +        }
-> > +    }
-> > +
-> > +    if ( rdmsr_safe(MSR_HWP_CAPABILITIES, data->hwp_caps) )
-> > +    {
-> > +        hwp_err(policy->cpu, "rdmsr_safe(MSR_HWP_CAPABILITIES)\n");
-> > +        goto error;
-> > +    }
-> > +
-> > +    if ( rdmsr_safe(MSR_HWP_REQUEST, data->curr_req.raw) )
-> > +    {
-> > +        hwp_err(policy->cpu, "rdmsr_safe(MSR_HWP_REQUEST)\n");
-> > +        goto error;
-> > +    }
-> > +
-> > +    /*
-> > +     * Check for APERF/MPERF support in hardware
-> > +     * also check for boost/turbo support
-> > +     */
-> > +    intel_feature_detect(policy);
-> > +
-> > +    if ( feature_hdc )
-> > +    {
-> > +        if ( hdc_set_pkg_hdc_ctl(policy->cpu, opt_cpufreq_hdc) ||
-> > +             hdc_set_pm_ctl1(policy->cpu, opt_cpufreq_hdc) ) {
->
-> Please can these two if()s be joined and the well-placed brace be
-> retained?
-
-Sure.
-
-> > +            hwp_err(policy->cpu, "Disabling HDC support\n");
-> > +            feature_hdc =3D false;
-> > +            goto error;
->
-> Why? Can't you continue just with HDC turned off?
-
-Yes, that is what I intended to implement after your earlier review,
-but I failed to actually delete the goto.
-
-> > +static void cf_check hwp_write_request(void *info)
-> > +{
-> > +    const struct cpufreq_policy *policy =3D info;
-> > +    struct hwp_drv_data *data =3D this_cpu(hwp_drv_data);
-> > +    union hwp_request hwp_req =3D data->curr_req;
-> > +
-> > +    data->ret =3D 0;
-> > +
-> > +    BUILD_BUG_ON(sizeof(union hwp_request) !=3D sizeof(hwp_req.raw));
->
-> You changed only the right side to not be sizeof(<type>).
-
-Updated.  I was just focused on removing the uint64_t from your earlier com=
-ment.
-
-> > +static int cf_check hwp_cpufreq_cpu_init(struct cpufreq_policy *policy=
-)
-> > +{
-> > +    unsigned int cpu =3D policy->cpu;
-> > +    struct hwp_drv_data *data;
-> > +
-> > +    data =3D xzalloc(struct hwp_drv_data);
-> > +    if ( !data )
-> > +        return -ENOMEM;
-> > +
-> > +    policy->governor =3D &cpufreq_gov_hwp;
-> > +
-> > +    per_cpu(hwp_drv_data, cpu) =3D data;
-> > +
-> > +    on_selected_cpus(cpumask_of(cpu), hwp_init_msrs, policy, 1);
->
-> Could I talk you into moving the helper function immediately ahead of
-> this (sole) one using it, much like you have it for hwp_cpufreq_target()
-> and hwp_write_request()?
-
-Yes. sounds good.  I'll move hdc_set_pkg_hdc_ctl(), hdc_set_pm_ctl1(),
-hwp_get_cpu_speeds() as well since they are all called by
-hwp_init_msrs().
-
-> > +    if ( data->curr_req.raw =3D=3D -1 )
-> > +    {
-> > +        hwp_err(cpu, "Could not initialize HWP properly\n");
-> > +        per_cpu(hwp_drv_data, cpu) =3D NULL;
-> > +        xfree(data);
-> > +        return -ENODEV;
-> > +    }
-> > +
-> > +    data->minimum =3D data->curr_req.min_perf;
-> > +    data->maximum =3D data->curr_req.max_perf;
-> > +    data->desired =3D data->curr_req.desired;
-> > +    data->energy_perf =3D data->curr_req.energy_perf;
-> > +    data->activity_window =3D data->curr_req.activity_window;
-> > +
-> > +    if ( cpu =3D=3D 0 )
-> > +        hwp_verbose("CPU%u: HWP_CAPABILITIES: %016lx\n", cpu, data->hw=
-p_caps);
->
-> While I'm fine with this (perhaps apart from you using "cpu =3D=3D 0",
-> which is an idiom we're trying to get rid of), ...
-
-Oh, I didn't know that.  What is the preferred way to identify the
-BSP?  This doesn't necessarily run on the BSP, so "cpu"/"policy->cpu"
-is all we have to make a determination.
-
-> > +    hwp_verbose("CPU%u: rdmsr HWP_REQUEST %016lx\n", cpu, data->curr_r=
-eq.raw);
->
-> ... this once-per-CPU message still looks to verbose to me. Perhaps
-> for both:
-> - print for the BSP,
-> - print when AP value differs from BSP (albeit I don't know how
-> [un]likely that is)?
-
-On my test systems, the values have all been identical.  But your
-differing values idea seems good.
-
-> > +static int cf_check hwp_cpufreq_cpu_exit(struct cpufreq_policy *policy=
-)
-> > +{
-> > +    struct hwp_drv_data *data =3D per_cpu(hwp_drv_data, policy->cpu);
-> > +    per_cpu(hwp_drv_data, policy->cpu) =3D NULL;
-> > +    xfree(data);
->
-> Nit: Style (blank line between declaration(s) and statement(s) please.
-> (Also at least once again below.)
->
-> > --- a/xen/drivers/cpufreq/cpufreq.c
-> > +++ b/xen/drivers/cpufreq/cpufreq.c
-> > @@ -63,12 +63,18 @@ LIST_HEAD_READ_MOSTLY(cpufreq_governor_list);
-> >  /* set xen as default cpufreq */
-> >  enum cpufreq_controller cpufreq_controller =3D FREQCTL_xen;
-> >
-> > -static int __init cpufreq_cmdline_parse(const char *s);
-> > +enum cpufreq_xen_opt cpufreq_xen_opts[2] =3D { CPUFREQ_xen, };
-> > +unsigned int cpufreq_xen_cnt =3D 1;
->
-> Looks like both can be __initdata?
-
-Yes, thanks.
-
-> As to the array initializer: For one Misra won't like the 2nd slot not
-> initialized. Plus the implicit 0 there is nothing else than CPUFREQ_xen,
-> which also ends up a little fragile. Perhaps 0 wants to stand for
-> CPUFREQ_none (or whatever name you deem appropriate)?
-
-:) I had a CPUFREQ_none originally, but dropped it as there was no
-need for one with cpufreq_xen_cnt controlling the iteration.  I'll add
-it back.  (gcc 12 at least complains that the switch in
-cpufreq_driver_init() needs to handle CPUFREQ_none, so I'll just have
-it return 0 in that case.)
-
-Thanks for the review.
-
-Regards,
-Jason
+Thanks, Roger.
 
