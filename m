@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE9E974DF39
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 22:29:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561393.877822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA30974DFCE
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jul 2023 22:47:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561401.877832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIxV2-000446-9u; Mon, 10 Jul 2023 20:28:48 +0000
+	id 1qIxmB-0006gM-My; Mon, 10 Jul 2023 20:46:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561393.877822; Mon, 10 Jul 2023 20:28:48 +0000
+Received: by outflank-mailman (output) from mailman id 561401.877832; Mon, 10 Jul 2023 20:46:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qIxV2-00040j-6W; Mon, 10 Jul 2023 20:28:48 +0000
-Received: by outflank-mailman (input) for mailman id 561393;
- Mon, 10 Jul 2023 20:28:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=atS4=C4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qIxV0-0003xp-1v
- for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 20:28:46 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b45be5a-1f60-11ee-8611-37d641c3527e;
- Mon, 10 Jul 2023 22:28:41 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F057D611C0;
- Mon, 10 Jul 2023 20:28:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD6BC433C7;
- Mon, 10 Jul 2023 20:28:38 +0000 (UTC)
+	id 1qIxmB-0006du-Jt; Mon, 10 Jul 2023 20:46:31 +0000
+Received: by outflank-mailman (input) for mailman id 561401;
+ Mon, 10 Jul 2023 20:46:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qIxmA-0006do-Fa
+ for xen-devel@lists.xenproject.org; Mon, 10 Jul 2023 20:46:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qIxm8-0001Tf-Sw; Mon, 10 Jul 2023 20:46:28 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qIxm8-00041T-Kn; Mon, 10 Jul 2023 20:46:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b45be5a-1f60-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689020919;
-	bh=axyZZQcYXEYTlxOxAA7ForY8wuep7GAcbh9SoRg9mZo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Ss3QI9eEJVaJSQjEO2UqkrEhgCZvMkqFE57MOrujvpfBFfz/sRLeWLEcwLn9vHfk9
-	 YTcjMUKjE5jInBZwX98TlYi7RuGhFmCwEWt34efW+8UwJUenQrBy4h+Xolr6uQLLnm
-	 AjGfFfxAJaNp/jIRB6UrjV/rYS0teUShmLD7OAP7SBiDwkL33jfklIcDsAHaTAH9f1
-	 pNgzcnfWgYlPeZXibS5K2R9Wu75BB1VfbF4XPJIub5xc8xYhHW/CwZ2GwiiQ8vvWRB
-	 BixjtQe2ctiDN+xF4igFEQ+U2ES8r2b1YX4DME3xy+4ITbRK5E/I0pp3H1KDpux8X4
-	 Kdy0SJw3HquuQ==
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	julien@xen.org,
-	sstabellini@kernel.org,
-	george.dunlap@citrix.com,
-	bertrand.marquis@arm.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v2] docs/misra: add Rule 7.4 and 9.4
-Date: Mon, 10 Jul 2023 13:28:35 -0700
-Message-Id: <20230710202835.2052428-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=D8mFncSuiOb0SNdC84qMjnH1owlFYEwJJzFDGKB9AUQ=; b=sbgMsnwYHj1psGl99B+TPDPLxS
+	8sOCkceN85tv0CgBjGmgeO+f77hIPiULjv7w8i1LCMG/SU5HivlZbXofxlUGU0Mk+lI1K+e07HAUk
+	fM9vILlyT8wYJFAYC4G0am4/9K5BVeS1289GT8A4H9Jw8EikKw4iH+nfeEUQ4dUpD27c=;
+Message-ID: <4ea37c25-c4b0-7cc7-725b-4ea10c727743@xen.org>
+Date: Mon, 10 Jul 2023 21:46:26 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v2 1/2] restrict concept of pIRQ to x86
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
+ <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
+ <ZFNiS8oxfozlxCz6@Air-de-Roger>
+ <2a46c7df-b380-cc41-5582-70b4829d7f47@suse.com>
+ <ZFNpI929Zk61sZ5X@Air-de-Roger>
+ <cf8bb56f-8fc5-77a6-40c1-a2f10970a094@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <cf8bb56f-8fc5-77a6-40c1-a2f10970a094@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Stabellini <stefano.stabellini@amd.com>
+Hi,
 
-Rule 9.4 is non-controversial and we have no violations.
+On 04/05/2023 09:21, Jan Beulich wrote:
+> On 04.05.2023 10:13, Roger Pau Monné wrote:
+>> On Thu, May 04, 2023 at 09:50:27AM +0200, Jan Beulich wrote:
+>>> On 04.05.2023 09:44, Roger Pau Monné wrote:
+>>>> On Wed, May 03, 2023 at 05:33:05PM +0200, Jan Beulich wrote:
+>>>>> --- a/xen/include/xen/sched.h
+>>>>> +++ b/xen/include/xen/sched.h
+>>>>> @@ -438,12 +438,14 @@ struct domain
+>>>>>   
+>>>>>       struct grant_table *grant_table;
+>>>>>   
+>>>>> +#ifdef CONFIG_HAS_PIRQ
+>>>>>       /*
+>>>>>        * Interrupt to event-channel mappings and other per-guest-pirq data.
+>>>>>        * Protected by the domain's event-channel spinlock.
+>>>>>        */
+>>>>>       struct radix_tree_root pirq_tree;
+>>>>>       unsigned int     nr_pirqs;
+>>>>> +#endif
+>>>>
+>>>> Won't it be cleaner to just move this into arch_domain and avoid a
+>>>> bunch of the ifdefary? As the initialization of the fields would be
+>>>> moved to arch_domain_create() also.
+>>>
+>>> That's hard to decide without knowing what e.g. RISC-V is going to
+>>> want. Taking (past) IA-64 into consideration - that would likely
+>>> have wanted to select this new HAS_PIRQ, and hence keeping these
+>>> pieces where they are imo makes sense.
+>>
+>> I'm kind of confused, what does Arm do here?  AFAICT the pirq_tree is
+>> used by both PV and HVM guests in order to store the native interrupt
+>> -> guest interrupt translation, doesn't Arm also need something
+>> similar?
+> 
+> According to [1] they don't, hence the (new in v2) change here. Aiui
+> they simply map IRQ to pIRQ 1:1.
 
-Rule 7.4 is considered a good idea with the caveat that assigning a
-string literal to const void is allowed. I added a note to specify it.
+The vGIC is able to cope with vIRQ != pIRQ. But so far, we only allow a 
+domain to map 1:1.
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-Changes in v2:
-- improve rule 7.4 note
----
- docs/misra/rules.rst | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+For that we are storing the pIRQ to vIRQ mapping in the IRQ desc and 
+have a pointer to the desc in the vIRQ information.
 
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index 622f35410c..67ee8c029e 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -203,6 +203,15 @@ maintainers if you want to suggest a change.
-      - The lowercase character l shall not be used in a literal suffix
-      -
- 
-+   * - `Rule 7.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_04.c>`_
-+     - Required
-+     - A string literal shall not be assigned to an object unless the
-+       objects type is pointer to const-qualified char
-+     - All "character types" are permitted, as long as the string
-+       element type and the character type match. (There should be no
-+       casts.) Assigning a string literal to any object with type
-+       "pointer to const-qualified void" is allowed.
-+
-    * - `Rule 8.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_01.c>`_
-      - Required
-      - Types shall be explicitly specified
-@@ -275,6 +284,11 @@ maintainers if you want to suggest a change.
-        braces
-      -
- 
-+   * - `Rule 9.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_09_04.c>`_
-+     - Required
-+     - An element of an object shall not be initialized more than once
-+     -
-+
-    * - `Rule 12.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_12_05.c>`_
-      - Mandatory
-      - The sizeof operator shall not have an operand which is a function
+So no need to a PIRQ tree on the Arm side.
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
