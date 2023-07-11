@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58FAB74EED1
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 14:30:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561753.878265 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9705574EFCA
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 15:03:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561760.878276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJCV1-0004Tp-UX; Tue, 11 Jul 2023 12:29:47 +0000
+	id 1qJD0p-0000MB-Ee; Tue, 11 Jul 2023 13:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561753.878265; Tue, 11 Jul 2023 12:29:47 +0000
+Received: by outflank-mailman (output) from mailman id 561760.878276; Tue, 11 Jul 2023 13:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJCV1-0004S7-RY; Tue, 11 Jul 2023 12:29:47 +0000
-Received: by outflank-mailman (input) for mailman id 561753;
- Tue, 11 Jul 2023 12:29:46 +0000
+	id 1qJD0p-0000Jg-AW; Tue, 11 Jul 2023 13:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 561760;
+ Tue, 11 Jul 2023 13:02:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B4LE=C5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qJCV0-0004S1-Dk
- for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 12:29:46 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20617.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::617])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c48d1c8-1fe6-11ee-8611-37d641c3527e;
- Tue, 11 Jul 2023 14:29:42 +0200 (CEST)
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
- by PAXPR04MB8702.eurprd04.prod.outlook.com (2603:10a6:102:21d::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 11 Jul
- 2023 12:29:38 +0000
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e]) by AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e%7]) with mapi id 15.20.6565.016; Tue, 11 Jul 2023
- 12:29:38 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rRYD=C5=citrix.com=prvs=54940d4e9=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qJD0n-0000Ja-Jk
+ for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 13:02:37 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32f1bf32-1feb-11ee-8611-37d641c3527e;
+ Tue, 11 Jul 2023 15:02:34 +0200 (CEST)
+Received: from mail-bn8nam12lp2169.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 11 Jul 2023 09:02:23 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by CH0PR03MB5969.namprd03.prod.outlook.com (2603:10b6:610:e0::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.32; Tue, 11 Jul
+ 2023 13:02:20 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2%5]) with mapi id 15.20.6565.028; Tue, 11 Jul 2023
+ 13:02:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,182 +49,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c48d1c8-1fe6-11ee-8611-37d641c3527e
+X-Inumbo-ID: 32f1bf32-1feb-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689080554;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=GbzrxSEQN5Nktv2P0azVvj9xFD78cTllJWv+xgoLEWY=;
+  b=PizUfnO+Pz4NyLoYtaGRGAPZnEQvMOn0xtAcDVcSbZGJSnGtgmEHpXJ8
+   iVh5Iz6PWGUWFVLnvlSm+E48gNFAuOfuA5bpaBgw1SSqQP2lBQVb1Ym9Q
+   Rkf2X3SN/HazjHliwN/OiDVfkXEnqyTqnFasQZIWqV2MWsAbGrlbg/3eT
+   s=;
+X-IronPort-RemoteIP: 104.47.55.169
+X-IronPort-MID: 115123952
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:OCFDEaDjQiuahBVW/w/iw5YqxClBgxIJ4kV8jS/XYbTApG8mhjwDx
+ 2ZMCmCGP62IajOmfop+Oo+18R5VuJbdnNBiQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbCRMsspvlDs15K6p4GxB5wRnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw27tvDkMQp
+ NskFCkqbUCHqseK5p6iRbw57igjBJGD0II3nFhFlGucJ9B2BJfJTuPN+MNS2yo2ioZWB/HCa
+ sEFaD1pKhPdfxlIPVRRA5U79AuqriCnL3sE9xTI+OxuvTm7IA9ZidABNPLPfdOHX4NNl1uwr
+ WPa5WXpRBodMbRzzBLcqy/13LSewHmTtIQ6BKaI68dv2wWo220TFRkRUkOd+fy5hRvrMz5YA
+ wlOksY0loAw/kG2Stj2XzWjvWWJ+BUbXrJ4DOkS+AyLjK3O7G6xFmUCCzJMdtEinMs3XiAxk
+ E+EmcvzAj5iu6HTTmiSnop4thu3MCkRaGUENSkNSFJf58G5+d9iyBXSUtxkDai5yMXvHi39y
+ CyLqy54gKgPickM1OOw+lWvby+Qm6UlhzUdvm3/Nl9JJCsgDGJ5T+REMWTm0Ms=
+IronPort-HdrOrdr: A9a23:V1eNCKpxOjDkXps7HENaaHQaV5oMeYIsimQD101hICG9E/bo7/
+ xG+c5x6faaslgssR0b9OxpFsG7IE80tqQFhLX5Xo3SPzUO2lHYVb2KhLGKq1fd8kvFh4xgPM
+ xbHJSWZuedMbE0t7ef3OAUKadG/PCXtIqTraP1yXN1SAFjbKttqz1+Fh2QHiRNJDWuQaBJcq
+ ah2g==
+X-Talos-CUID: =?us-ascii?q?9a23=3A4zydoWuCsp8f/wOcQjFX3RP06IsEL2XS7imBBHO?=
+ =?us-ascii?q?EEEFqGLm4bGO21Lprxp8=3D?=
+X-Talos-MUID: =?us-ascii?q?9a23=3A0tLERw9FOzbNEsbgt7XNceKQf9dz07mXDRtVqog?=
+ =?us-ascii?q?Hu9SAMitoHW+YjDviFw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.01,196,1684814400"; 
+   d="scan'208";a="115123952"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KzojWCzNAN48CUvcxGTjnOA2SG3Z9dhXLYcXyiVyhLm14Qi7cYDDDudrS60Nt9QX9yYswAVljOHV2tDOY+u/0yeevttDE00sHx7hSGgiV1rT/KmQlUTyIBR6FzSLzvFJT+RnIoYFgZwzZrdea63+mPybmx+EDFqJW3n4uvS6DzPY89MbGIFDMf0xVz80XCG9RI/CnJqh87sqxjglVueGTaMkydssLwMabniFMeSpChaTtW2Ik54581SE8sPFydsSCSi49st8FFPXB5zBU9RgGjm8aIUPw5/dGwehkO5WJRw0cCCQ0KncRee+Ovw+/kuAzIpzN7QwbNWLvUaKdc8PXA==
+ b=Y61AyWRNiHKmeNeZv7qLw/O7cnPbIlf3wp/J6mVxJDur+D91Sn6u1foPsaZKjenwVKsYuZH1oEAzMmasfJfKVpLvFcN/g/7TCcrpGLAyDE9KKrdIvjVknyMERoWBcEFX2dhrzdLz0pL9AybyjUg22X76uuGEkJyQkMV8mBEvZJpCqlmWpMpG7WJf7I90NX+Ishr8uIyncKdeSWYajfnWy73Qn7HcWOP9Ir5BayLjQHQy6r0WvVRwTQu6vJtoMByqtKF7BpHSin5EUMXv+C3cwXaWloHTzf0F3jU5ygCG0LmsTmDDsZNiTxLoddkhphLCaszmbMgUvL1pJj9IlAxYug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=syXStTI23O0+gCg0sti8utaiolLVGzGb5ZTsLDaYJrE=;
- b=lRRChI6etqlRmJtS/K38Fg3e3SqDPPPWSNukBdaRt3t7GGgfjzIh9O76wvs/axRZVcBfJmas9mCYVN4OtfQAFO6dL2gJ49NX2BtB8gS9gCEnWu81i+Z62Z6mzjHORGq16S3LkGSaJ3wTmwyFEnA4nD7wOLLYc5403dpBbpZ5rrpEkn8OTotvXIDEJeU6vTBiTzpgqCghrkJ52O8tVhro21dmuKuXiToIUg4Qm/eSQ+e27BvNj3QY3NjQ627zv+ZOtY2fx0vHB5hfJUrNxGcuKYQBBxGBOVbsh3MGfiTaOISIkzQgCBUGBQjjzh3n7MsBj9LT1JX5sf1tVFZaWa9eEw==
+ bh=3U/MC3s1bATOC1m3p28D0fmyspNQvfKwMStXKvWIuSY=;
+ b=B43fnfCDAuUcdg4TIciSiVd/y6TkK39kPOwyd2TRvqiSQ/iYIFSP6P0xD6lbZvI1PfbMoBAwfiSU2eRMrCPlrcC+vNcS04WK3/mk0m8sWY2Il4GQungh1pjOcaw7nFgMdIsGB4Hbf5JiPH7Psdq7cybFtki0dMaTQf9MDBxM32iAoWSEuC/jZ1pjFB9aQ6kNzSNjP9714N+ThCh1rkQ464I5zDwR/crnf+C0SM5OyAaN5jX15Kr2KzHrSOnJNxzNlFY41pfqAZn5gImCmv/24Hf/sI5UslSBrnBK4P2sbAL6JlMxchzqxH/whP0XiMw3/o/xemNIH21guZdQM8UIzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=syXStTI23O0+gCg0sti8utaiolLVGzGb5ZTsLDaYJrE=;
- b=nt8XB4GIOIIZ6Ox+/ZpEJgRxo3coI4Au2qqgixeSqdu9dpsGPK6IPpbZ4Iw+0dRTxgaKbn4/F19jfYDRQ9uWkIKhlFE6c87MD9fPtJNIZ9Gr/7AZuzuZh+xmcmDsagiOrfx8fDo0EAYbsv66RdnTfLNVd/5smRXWVNXoCg91L8V1BI38Ysm00qtuXxLQrL4mR9FRamKUgiEA3SZ54qr40Jf/p1RK/qqq4fkd/U2qDYcaaLBNSmNhNmux8XpIMRpOnKhLE3vHyMGa3cVzWoQmr+QaYguuLfYQS4RLCEZ9BncTsYoUfJYvNZlbwrm6o1vvC6Q8TJQpe0ewoMcvlT0ruw==
+ bh=3U/MC3s1bATOC1m3p28D0fmyspNQvfKwMStXKvWIuSY=;
+ b=ucOgXjGC7Zc6vj1nvpoTqf3sGxgT2qLjJZ3U3ogFbXW9Rze/Swl4hRCsRLNQkfI6PWmRBub57FUWMyUvGhiW8v8SBWJDrNh+tSUVifJP3GApJfNTH4YhuYhmc8N8ARp028Puu+6aoZLziTycrjP1UZqv8EGOD7BSQTHzgNQb0JY=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8cdf9179-7b3f-5a52-ff02-8ededbe03e0c@suse.com>
-Date: Tue, 11 Jul 2023 14:29:37 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v2 1/2] restrict concept of pIRQ to x86
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
- <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
- <0cd9d94b-0a8d-a3e1-d683-04fac1572750@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <0cd9d94b-0a8d-a3e1-d683-04fac1572750@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::17) To AS8PR04MB8788.eurprd04.prod.outlook.com
- (2603:10a6:20b:42f::21)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 11 Jul 2023 15:02:13 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/ioapic: sanitize IO-APIC pins before enabling the
+ local APIC
+Message-ID: <ZK1S1V71ZUIPjKqZ@MacBook-Air-de-Roger.local>
+References: <20230707095338.44244-1-roger.pau@citrix.com>
+ <92d16012-ff9f-693b-07c6-d45fe07a00a0@suse.com>
+ <ZKwZBQ_0Z2c7NJNL@MacBook-Air-de-Roger.local>
+ <1f79491a-46f5-5293-e92f-0e2b0b3efb62@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1f79491a-46f5-5293-e92f-0e2b0b3efb62@suse.com>
+X-ClientProxiedBy: LO6P123CA0036.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2fe::10) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|PAXPR04MB8702:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d666d7c-89a4-48e0-07e9-08db820a7e8f
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|CH0PR03MB5969:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa9ec487-c22c-4be6-80c1-08db820f0f36
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	C3Fh6WMvFxDwx0dG231K1lMyORKMYr2+x/zB6btsC+8iBOkfVhXTloqvoOSUZdJaxPDSrUTh0oGrc6p+YS7mswJOyV3c2pFEPrydtArp2CTiIFdidOZksB+bBusXb8oqtORs7qLrASw1pqgXyzrtpLqx600Cz3e/ipnOhDG6RI8imasqfqzCAkfRH/IJhuSpPriqxn8HZ58Zp/Anez+YjAM2uhAaAEfuVccHWR0muyUb6rKtZMlrIGhmVjVHN/0iPdXFyR9GqfBV50w9lLSbkW77aJmp43By7qdSXcNumPqQpvpSGlgYtmA/DhZgqniBoE+BTqtAv8Qi4lSkNWFbohH9RgyIJNuLzSD2kOrzcKMAZdImJA+NM+Bhdj74XAbwCemGJpmkrQ9yZPBmCqFMIYwc2ZL5xg+n5zy9nGJgzVgiwHUmYd/VD+iZNHRWyiDndXvCrG+yceO3novq9kqNtMZXwYOn3pXcCKmcKl7ayqDPsm9VXB2EHbKXgh7GMv5ENMameDS2Vazy1nBowDPxeF1gxKz1pDfYo8x5FSDmlLgEnBIgbzLN2hqi0BQ0DZVMZ2anxiI3J2/yo3S3ffPZMdoostJySZrLdFHz9FH5QpQIM2iHKNpZSOKdXyMqQqz22ss0KMZoN1M3XM4G/QBRLA==
+	34PLRaZf86PX2xvATS1ag+4whZsWMxh9bny0FFKX6nb0on+B6rQ6pSLSUApmhRdH7bx7bVuSvzADl8XQa2v5g4G60LeW+NF/CF4Fw8xm+s/+CRzw8YojTMDjrKWusONtjVjMtTmWnKkPQq6gqmSy+KlgAMunExLgV5gOYQi2S5+BpiRxnQ11qF0az8TubpO5GIZubuZp+rfUlBAvKk+3JoFAljQdTBojKxmGK2skH4Wrf+Tjlg/Qwv24N2xf47vole7syYA0/WXhWkCuXWDlKMwFt8dTNA/O2peJPVb1q5brKpZ2T2aDcqcmPMGf8UqXY3XgYrdAbVM2XOabW52uN4Byr9OsVEsYffxwwj/RwdjwX9/QG2hpE3QBQOrRHdfSY+XYJIOJHgKmRIRs8mbi65zNlFlwKX40TziEEiRkTj94yliwYUbC0zzmtU4jCtAajj6kKQR2XLwiSyKoSNzUkAii03/OF2WiZcvEkzkv/+HPUMKac1uWZLNp2+MPeM6kkT8C/Xp/YWAX35eKMF8E615oatDFhOxfEUuQh1AhMbzBkvv7ZSr0pPVFovSVYPW0
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(376002)(366004)(346002)(39860400002)(451199021)(41300700001)(2906002)(5660300002)(8936002)(8676002)(36756003)(478600001)(2616005)(31686004)(26005)(6512007)(6506007)(186003)(6486002)(86362001)(6916009)(4326008)(66556008)(66946007)(66476007)(54906003)(38100700002)(31696002)(83380400001)(316002)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(39860400002)(396003)(366004)(346002)(451199021)(8676002)(8936002)(5660300002)(83380400001)(186003)(26005)(53546011)(6506007)(86362001)(41300700001)(66899021)(6666004)(6486002)(316002)(6512007)(9686003)(66476007)(66556008)(2906002)(66946007)(82960400001)(6916009)(85182001)(4326008)(54906003)(478600001)(38100700002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1dhYy9rQnZRR3dURERzR2cwNHo4Ty9CczFQMmtDLzRBQ1hoMDJxTlF4Qkxj?=
- =?utf-8?B?c1JxMGZVN2xtQ0kwelBXZTAzTDk0ejBnNFQ4S2JDV0UyQko2QXdmSUZqWkQ5?=
- =?utf-8?B?a1ZBcnk0eXozazVVUjZRd2FleFloREVySTRPRm45UE9nNkVocnVYelYwUFVi?=
- =?utf-8?B?OUNOcVpNcjhCY1NXYUdINlB2T2kyWGgwSGlSUGxuVGk0dEVrZEhFck9CL05p?=
- =?utf-8?B?bnlyN3VqV1I5UmZTV20wNG53dmdVN2ZSL2FMaUxSMWZUejNOT3FIcm4xYW9S?=
- =?utf-8?B?ZkFlZXNpRGJ4U1RjK0NVV25sWlZIbEdTanpmODV5MTJEa2pEWTh4Z2JjaFVR?=
- =?utf-8?B?RzF6N3M3d25UQmVTaG5RWnZhL01zeExKQU1aR1VuOW1pQ1JwZjBRWWY5OU9t?=
- =?utf-8?B?Y01zVGVWMHNXNmY3NGlvS002MitBMDNwWks0Zk8yVTd3MjNvQUdEVXBlOXNU?=
- =?utf-8?B?dXFSRTkxaGpsYWRQQkhSZmp6VnZUV1FpeGxOd3hITnBnaTdEMXN2K0VtNTZo?=
- =?utf-8?B?QVptRVhUcmllRTV2NG1IMEdkQzdaTXN5ekcxSnA5dlM2ckxxdFVJSitNTFcx?=
- =?utf-8?B?bGlpUVRmYXZrRjEvQnNtVWN4cHIrTVJqVWgyclNOUVY2dzdyamJ2Ylp3S3hu?=
- =?utf-8?B?RisvVUVGbjlFZmplaTVhV09ZRU5SMU93TTYzTFJPejdpRXJYaER4QVZDemIz?=
- =?utf-8?B?VnpQQW9IQjd1MUxPa01pVWZnSHZZUEo3ZjFuK3ZnQndueHJweFgrWWUxMUJU?=
- =?utf-8?B?K1h3d2NuVkpXTjFZUVBDaklhZ0JMTzEvd1FJaEdPYXBXWjJNbVlCZVh5Vytp?=
- =?utf-8?B?NThQZkFXWjNFNE9RN2F4N3B4My9oMWRLYVZTampkSkFsRlQzZm9taHRocDMw?=
- =?utf-8?B?a0VwU0MrbDBSMFVoVTRXaVkrckRoTmZUZmw4RW5qUkoxUi9xcVhoeWFFQUdX?=
- =?utf-8?B?L1c5VU1CRkQ0ZDl0R0xhTnptZi9xVE5uSXVVWmtOM0VNOTBmQUZOcTBweG1K?=
- =?utf-8?B?TnVPYnNKOVF5WTBBUlZPcXhWQmxlRUFGSmg1eDhJRi9hUGliN0RmaHducG82?=
- =?utf-8?B?cHlSRmVmSFNSNmVDUWVZWDkyUUFaWFI5Q01Da2RGZGNHenA5N0MvZzRmR3A2?=
- =?utf-8?B?Sy9obEdJZUZGSEI5NjBMQktqMDFjN2tSU0RrdGEvcTNKUUxBNzRvS1VZbzhI?=
- =?utf-8?B?TnZ0Ti9yZjM3SlptaDRyckF1SFlGS2FyTFpoSENpZFZqZkFYZ3FXQVZvek56?=
- =?utf-8?B?VjViUkZGd2RQN3Y4NmVNZ2V5YTBJMXdobjBwNm13b3dhR3RGdUFtZFVyT1NS?=
- =?utf-8?B?NUhNdDIveWdQNFJVaDZBb0JqNmJLK0d5aUxTcjhBRUdIaXc4VUdVc0ZabUhV?=
- =?utf-8?B?eDRlTGFMeG41aUdGRW1MSnVHcTY4cG1MM0xkY3hWdVN3SEVVaTZvSHBNeEE4?=
- =?utf-8?B?L3MzMmxFT0MrbDFZOTNzTnRJUk1BNExLSkVpVU1HNlZ0YW41N1JVUjlDT1or?=
- =?utf-8?B?M0FGTXZPRWZNTWRjSVg3QkhZQzk1eXBzN2RSMkdHU1VkRVlrdW1ZN3FOamMr?=
- =?utf-8?B?YmN4NjNzZk5zVXlaTVhoQ1JZNUYwTmR5VWpYQ2trYlBCaFYzU1dESW14c0dN?=
- =?utf-8?B?Z2pFTml5dzB2NUR4YXJpQlhxeUJiMnJXck8zMkFYQmhBMU41a05abDRtbWxp?=
- =?utf-8?B?YTVFVXpsV0lneFF0QmJualJzTGludGhCRUFqY2hUQTkzY1VMVXY3c2xZMkdv?=
- =?utf-8?B?SG5rY05RR3E2U09sNDl0U0Q5d2pGa1VBNlVhbXJrNVgzSm9FT2ZjUUVxSjZh?=
- =?utf-8?B?T0hCYWROSG1WR2hDK1V4QjVXSkZ2bWpRNWFPK2hncElEeDFKVHVNV0EzeW54?=
- =?utf-8?B?dFZGazEzRllGcHNGYVY0SU5Lb0NoVi9ORkJ3NGxQNi8veWZiNlhKVXhhZE52?=
- =?utf-8?B?blEzRnE2Z3dsMUdIMWdBaFNjbzhBb0cwYjF2NXJza3BrcVYzSXVyMnVSb3ZW?=
- =?utf-8?B?YjQwMVY4YXVmdUZVWkNNSHloSGhuZGtuYzFOSm1jUHh0SXhJNDJ6b205ZnFW?=
- =?utf-8?B?RmsvWUlrWkdRNzdFb2pmeUgrWlRuSEtINUY0Q1lwdnEzWHJYb0F4TTNFcUxW?=
- =?utf-8?Q?SqU+aXk5afSywKdnbSlzki+pZ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d666d7c-89a4-48e0-07e9-08db820a7e8f
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
+	=?utf-8?B?amtPQjBid0NNS0JnZ0cvNHFZV3dnc2E3cHc0OENtWlNwL1pHTmtlaDZENUhR?=
+ =?utf-8?B?NVRjYXV5cjFNU2JLcDIycTdXTmRxcHRHTjNrVy90c1JSNUxTWFhnU3BORHpQ?=
+ =?utf-8?B?NEVwcHQ3T2tpS3AyY3pBNU9QZVlCYUg3SmxQTXRyNVBiUFMyMFlnc1BlVDF6?=
+ =?utf-8?B?dmxHN0hrbmFYUklqcjFReFhxd2JKOXE3Q0EwZGRNMjFYTXJGOTZnUm51YXRs?=
+ =?utf-8?B?cmFBUXNSYUdqRlorUGc3S0kwSU5VOExxOVNEaENPMXZiZGYxYmxPRjVRSzIv?=
+ =?utf-8?B?K2RlWXh0SWt2OVdlUTUrUFNQemtIOFFJWUp3TU9MRFlURDVjK0J0N2lJeEE5?=
+ =?utf-8?B?S3FrV2dQVlRXSm1LbkJWWTRkOHk0MGZDY0UzeFU3NUFwOWlwTTU1Tkp0QThs?=
+ =?utf-8?B?Wk1jaFVsaU1kakZFTjhadUZUNjlqa090bmdMMFhubE8xQno3Uk9NMzQvVkJP?=
+ =?utf-8?B?YldWVmpjRUFSeVJWOFlTSWoxYlprZU1uUHpKeVNDcU92RDNtT2R6c0dYOUdY?=
+ =?utf-8?B?NElzdmdQYzAxMDhnOEtNendjSzhEUEpSbmduTXRnL28rblJwWWhuaUdHaTJI?=
+ =?utf-8?B?NFRoV3l0a2tQNTFtYTlRVElCQ09sTmdrdzlKSDVEdnJsMVNxQUNZRTc4eVVp?=
+ =?utf-8?B?Z0lLbmJrR0I0Nkt1VXRiZWYxalQvU2RuRU40WDB1R3N5MnBXVmRzNjZ6SWo1?=
+ =?utf-8?B?Q0tWODBKREh6b293VnZjTFZ2QndVdWh4Njk1Zk1QQkgxSk1yM3QzNkhnVVpv?=
+ =?utf-8?B?RXRsQ0xuMGh2aENXSmhic2ZHZSsybXhBczArZHJ4MW0rbFNQMUw0cDlrSnlP?=
+ =?utf-8?B?UFJiS3RhbUNEckpsZ2t2UUpvcDJlUjYwbXN0N1htQm1ZelZXUUM1bWVWZGNO?=
+ =?utf-8?B?L2t3YTM4Szd4QTVHSmFhSnZYU2FUSTA2OURzckxpSzRYY0pDV2JRSVBBZSto?=
+ =?utf-8?B?dzBrb0RmNC9vWVZsUEwraHlLVEthdVN0TXZmZ3NDdDhrZ2dUUy95WDJhWXFv?=
+ =?utf-8?B?UlRnSGY2WThhRDdtZGxSNjljamNkY281YmE5WC9JTTY3MGZkajJHbFA1Yld2?=
+ =?utf-8?B?bmRpNmRLTmJJUks2V2RSQVR0Q1Rha0RFZnJweUpyTXkyOC9BalQvUHU1c29K?=
+ =?utf-8?B?M3BKMkNkWWo1dTJmSGQvZUgwVS9OMFZyem5VdE5pVld6ZUM3S1NHd2dPWk1E?=
+ =?utf-8?B?UFVkckRHY3FZWDRFdThDdXhWWC92dld2QXhkZE5SbHlOVWh0dkZPTGRqdE10?=
+ =?utf-8?B?TW5MV2xGcDdqekpCZkpwTUtlVDR0aW5laC9qMFJKcWVuVGd2S2VURC9Rbi9j?=
+ =?utf-8?B?dG42N29jTHBIR2RhTFprRFJ2bE5MMjh2TUkyYWNxTHlCbDlmTnN3RnN3bm9l?=
+ =?utf-8?B?OUdOeW0vUnpVdkFBT1pDczk3WUNFUFc1MS9qWXJOdXNjU0tvb1pGSGlsckdp?=
+ =?utf-8?B?VXZBaDR0OHQvVGp5VVNpK1Njc29ZZy9hR2E0Kys2Y3YzSFBqTGxMZS93MHRO?=
+ =?utf-8?B?UmdqTWg3L0NZSll1aERrSWw5dStXY0krWVd5UmR2OUFreEhJUWcvalRFdERo?=
+ =?utf-8?B?WlRYS0VtU0ROVERSb2NreG5BeWpSTXZ6N2VqcGc5NmpOWWdpOUJwUllmei9t?=
+ =?utf-8?B?a0U1S0VoUnA5aXVJN2xzOU1jR1puVThjQVFwVWhmOStxeW1nbGlYaU5pVGdt?=
+ =?utf-8?B?TWYyY1JBQkhsbjg3ZStYTmdVT3BuNHppOWVFWnZ5ZGRTUG5Ed2dIQ3U0RWts?=
+ =?utf-8?B?aWNGdHZ5SmttRzM5YlZvaXV0VFhMUVh0RWgvRWtvZUNyODB6MjJ4czR5L2lN?=
+ =?utf-8?B?SDUyZTFDSFphQWRhMlZTbTlTNHZ6RjdrQnBDVVdacCtEb0RldDdqcy9mdTJj?=
+ =?utf-8?B?OU1DTFpveFVTOHptREtoeGd4RnU4YXEyYS9ndXNQT08ra1A5d0ZRTG9TOGZV?=
+ =?utf-8?B?eUFVaWMxcS9LZitaV0VTMHUzS0s0blpYYk9KcFBrK0ltWlk2eTQwODltUWxu?=
+ =?utf-8?B?WGljajFpdTFCYVcxcGlmaUZEeCtHTnIwc2NucExNQ3E4RFc1ckdkZWtkZUtz?=
+ =?utf-8?B?eXFxZkpOQWdFbXFhbFRKNkE5bmlsd2J4QzFqRjRLNDJYL0sySWZ4NTdQa2F6?=
+ =?utf-8?B?eDFsU3cyaVB3ZVViRFNOb1N1eTlQVmdZS2MyTVA3SlJuMWhmRzlaWjBpMU5Z?=
+ =?utf-8?B?NUE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	jnlZWfQevJ1ztswidgTmlpdGf287XZMJ6yBLTYomyJhktfNDmOiv4RAElRo40a6ZLW9W1mn+lbtskzPcrO92PAi7pCaglyuTiMqByodPrx1nVBToTi3MEhzvStdhMsHIQEWTdy2s00BjLm4Cxqy6qF7Bhb1J7EBmUg/D5d0CuuQg5VhC5x4v8/FgqI+ExKmL4KMVQ+EblQkTiTMF1rwbRw/AaL01UFscEEsW94YTGcNrQTvW9FcjYVjWptUsyG02hZSh4Nmw5kEcjsOhS7zw1h387/2EAN/RWPX3Hd3KxWx4+LMedlFrSRUgOaaH0U1F460ZiX+5/C/Co7NulJMJaSCvsTitwdfHntqWUQGCTkOtIUSN5pPss0z83XNQ1z6l4us68C8q2pBBEHukPNJn+c3SuCdUdj2q25fBtMtr4K3nZjv2u0X0CPEuXyT6AE/zvTjAEl8pIk9Bt4aQSBA44gjzWvzjygNJMNnr603tzCsMY6wPXY/hHeoLPhQGLzjo3WNuSZVNPEu2UlYKFq9K+BPouSoIr7Rngmhq1IZEael/pdZe3FFfPnbUQB+nJmw8kru+FO9X3uIgMxEK0w6qAAcVLAGNTJQwRhII4K2NsabyGREDCRUby6+dn6L7J6OkAFaEePMRXoFsxiYSKlHGPzNMA7ve4W9hCBaWopXXzQ/iSdoCCC/mItoG+Yb2sbLYbyFbJpO/c896byuvXJYZkHJyFmvi8079eKyc77iN5O7IKT3HOWDWertI+zRLWQlHChf0hpWTmwH167W4KLR/LATaiMg5HobuX14StV1K7OyJS3Lcskr0HwLUVa//SsoC
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa9ec487-c22c-4be6-80c1-08db820f0f36
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 12:29:38.8542
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 13:02:19.7391
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6FqU6+v7kmY0mirzJGgilZ0aeXeiMlx64W7K6OlfODL+IRETQzGP9tx8+/09NvQdTyNCZ4eW1lq1q3aJzLjBmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8702
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0aolR2M1YJzskoF6rvLrhmpG7nJIYJRIExHNNBqNPjpFrNfWzrCxstVUk+1Bntg8jQfVwM3jX7mH4YzqjnsH0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB5969
 
-On 10.07.2023 22:59, Julien Grall wrote:
->> ---
->> I'm not really certain about XEN_DOMCTL_irq_permission: With pIRQ-s not
->> used, the prior pIRQ -> IRQ translation cannot have succeeded on Arm, so
->> quite possibly the entire domctl is unused there? Yet then how is access
->> to particular device IRQs being granted/revoked?
-
-(Leaving this in context, as it'll be relevant for the last comment you
-gave.)
-
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -350,6 +350,8 @@ static int late_hwdom_init(struct domain
->>   #endif
->>   }
->>   
->> +#ifdef CONFIG_HAS_PIRQ
->> +
->>   static unsigned int __read_mostly extra_hwdom_irqs;
->>   static unsigned int __read_mostly extra_domU_irqs = 32;
->>   
->> @@ -364,6 +366,8 @@ static int __init cf_check parse_extra_g
->>   }
->>   custom_param("extra_guest_irqs", parse_extra_guest_irqs);
->>   
->> +#endif /* CONFIG_HAS_PIRQ */
+On Tue, Jul 11, 2023 at 12:53:31PM +0200, Jan Beulich wrote:
+> On 10.07.2023 16:43, Roger Pau Monné wrote:
+> > On Mon, Jul 10, 2023 at 12:56:27PM +0200, Jan Beulich wrote:
+> >> On 07.07.2023 11:53, Roger Pau Monne wrote:
+> >>> The current logic to init the local APIC and the IO-APIC does init the
+> >>> former first before doing any kind of sanitation on the IO-APIC pin
+> >>> configuration.  It's already noted on enable_IO_APIC() that Xen
+> >>> shouldn't trust the IO-APIC being empty at bootup.
+> >>>
+> >>> At XenServer we have a system where the IO-APIC 0 is handed to Xen
+> >>> with pin 0 unmasked, set to Fixed delivery mode, edge triggered and
+> >>> with a vector of 0 (all fields of the RTE are zeroed).  Once the local
+> >>> APIC is enabled periodic injections from such pin cause a storm of
+> >>> errors:
+> >>>
+> >>> APIC error on CPU0: 00(40), Received illegal vector
+> >>> APIC error on CPU0: 40(40), Received illegal vector
+> >>> APIC error on CPU0: 40(40), Received illegal vector
+> >>> APIC error on CPU0: 40(40), Received illegal vector
+> >>> APIC error on CPU0: 40(40), Received illegal vector
+> >>> APIC error on CPU0: 40(40), Received illegal vector
+> >>>
+> >>> That prevents Xen from booting.
+> >>
+> >> And I expect no RTE is in ExtInt mode, so one might conclude that
+> >> firmware meant to set up RTE 0 that way. Mainly as a remark, albeit
+> >> of course there's then the question whether to change the RTE
+> >> rather than masking it. What do ACPI tables say?
+> > 
+> > There's one relevant override:
+> > 
+> > [668h 1640   1]                Subtable Type : 02 [Interrupt Source Override]
+> > [669h 1641   1]                       Length : 0A
+> > [66Ah 1642   1]                          Bus : 00
+> > [66Bh 1643   1]                       Source : 00
+> > [66Ch 1644   4]                    Interrupt : 00000002
+> > [670h 1648   2]        Flags (decoded below) : 0000
+> >                                     Polarity : 0
+> >                                 Trigger Mode : 0
+> > 
+> > So IRQ 0 -> GSI 2, so it's likely pin 0 is the one the i8259 is
+> > connected to.
 > 
-> NIT: I would suggest create a file pirq.c and move anything PIRQ 
-> specific there. This should reduce the number of #ifdef in the code.
+> Then wouldn't we be better off converting that RTE to ExtInt? That
+> would allow PIC IRQs (not likely to exist, but still) to work
+> (without undue other side effects afaics), whereas masking this RTE
+> would not.
 
-I did consider that, but it looked quite a bit more intrusive to
-me than the few #ifdef-s added to this file. (The ones in other
-files would be yet uglier to eliminate, if that was to be implied
-from your remark.)
+I'm kind of worry of trying to automate this logic.  Should we always
+convert pin 0 to ExtInt if it's found unmasked, with and invalid
+vector and there's a source override entry for the IRQ?
 
->> @@ -1864,6 +1874,8 @@ long do_vm_assist(unsigned int cmd, unsi
->>   }
->>   #endif
->>   
->> +#ifdef CONFIG_HAS_PIRQ
->> +
+It seems weird to infer this just from the fact that pin 0 is all
+zeroed out.
+
+> >>> --- a/xen/arch/x86/apic.c
+> >>> +++ b/xen/arch/x86/apic.c
+> >>> @@ -1476,6 +1476,10 @@ int __init APIC_init_uniprocessor (void)
+> >>>          return -1;
+> >>>      }
+> >>>  
+> >>> +    if ( smp_found_config && !skip_ioapic_setup && nr_ioapics )
+> >>> +        /* Sanitize the IO-APIC pins before enabling the local APIC. */
+> >>> +        sanitize_IO_APIC();
+> >>
+> >> I'm a little puzzled by the smp_found_config part of the check here,
+> >> but not in smp_prepare_cpus(). What's the reason for (a) the check
+> >> and (b) the difference?
+> > 
+> > This just mimics what gates the call to setup_IO_APIC() in that same
+> > function.  It makes no sense to call sanitize_IO_APIC() if
+> > setup_IO_APIC() is not called, and I wasn't planning on changing the
+> > logic that gates the call setup_IO_APIC() in this patch.
+> > 
+> > I did note the difference with smp_prepare_cpus(), and I think we
+> > should look at unifying those paths, but didn't want to do it as part
+> > of this fix.
 > 
-> With this change and some others, we probably can remove 
-> alloc_pirq_struct() & co. I will have a look to send a clean-up patch 
-> after this goes in.
+> Well, consistency is one valid goal. But masking RTEs may need to be
+> done more aggressively than setting up the IO-APICs. In particular
+> if we're not to use them, we still want to mask all RTEs. Otherwise
+> we're likely to observe each IRQ to arrive via two separate routes
+> (once through the 8259 and once from an unmasked IO-APIC pin).
 
-Right, there's likely further cleanup possible.
+So avoid the smp_found_config check here and use the same condition as in
+smp_prepare_cpus(), I will adjust the patch to that effect.
 
->> --- a/xen/common/domctl.c
->> +++ b/xen/common/domctl.c
->> @@ -683,11 +683,13 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
->>           unsigned int pirq = op->u.irq_permission.pirq, irq;
->>           int allow = op->u.irq_permission.allow_access;
->>   
->> +#ifdef CONFIG_HAS_PIRQ
->>           if ( pirq >= current->domain->nr_pirqs )
->>           {
->>               ret = -EINVAL;
->>               break;
->>           }
->> +#endif
+I do wonder why we don't simply mandate IO-APIC usage and get rid of
+the code to handle the 8259.  Is it only to cope with systems that
+have a broken IO-APIC configuration?  Because I don't think there are
+x86 64bit systems without an IO-APIC?
+
+> >> Isn't checking nr_ioapics sufficient in this
+> >> regard? (b) probably could be addressed by moving the code to the
+> >> beginning of verify_local_APIC(), immediately ahead of which you
+> >> insert both call sites. (At which point the function may want naming
+> >> verify_IO_APIC() for consistency, but that's surely minor.)
+> > 
+> > I wanted the call to sanitize_IO_APIC() to be done at the same level
+> > where the call to setup_IO_APIC() is done, because it makes the logic
+> > clearer.
 > 
-> This #ifdef reads a little bit strange. If we can get away with the 
-> check for Arm, then why can't when CONFIG_HAS_PIRQ=y? Overall, a comment 
-> would be helpful.
+> Hmm, I see.
+> 
+> >> As to also checking skip_ioapic_setup - wouldn't the unmasked pin be
+> >> similarly troublesome in that case?
+> > 
+> > skip_ioapic_setup is set when the IO-APIC address in the MADT is
+> > invalid, so in that case attempting to access IO-APIC registers in
+> > that case won't lead to anything good.
+> 
+> Of course, as I did say as well. Still if for some IO-APICs we know
+> their addresses, we would still be able to deal with those (if we
+> were to stick to this mask-all-RTEs-early model).
 
-As per the post-commit-message remark first of all I need to understand
-why things were the way they were, and why (whether) that was correct
-(or at least entirely benign) for Arm in the first place. Only then I'll
-(hopefully) be in the position of putting a sensible comment here.
+The issue is that ioapic_init_mappings() will refuse to process
+further IO-APIC entries once an entry with address 0 is found.  We
+could change that, but I would likely do it as an improvement rather
+than tie it to this change.
 
-One thing is clear, I suppose: Without the #ifdef the code wouldn't
-build. Yet imo if things all matched up, it should have been buildable
-either way already in the past. Hence the questions.
-
-Jan
+Thanks, Roger.
 
