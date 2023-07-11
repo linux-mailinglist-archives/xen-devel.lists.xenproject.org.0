@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4833C74F422
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 17:55:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561796.878336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66BDC74F44D
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 18:04:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561806.878356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJFhG-0003KI-FV; Tue, 11 Jul 2023 15:54:38 +0000
+	id 1qJFqr-0005i5-LQ; Tue, 11 Jul 2023 16:04:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561796.878336; Tue, 11 Jul 2023 15:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 561806.878356; Tue, 11 Jul 2023 16:04:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJFhG-0003HX-Bn; Tue, 11 Jul 2023 15:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 561796;
- Tue, 11 Jul 2023 15:54:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qJFqr-0005gK-IO; Tue, 11 Jul 2023 16:04:33 +0000
+Received: by outflank-mailman (input) for mailman id 561806;
+ Tue, 11 Jul 2023 16:04:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mpZR=C5=microsoft.com=mikelley@srs-se1.protection.inumbo.net>)
- id 1qJFhE-0003HP-UX
- for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 15:54:37 +0000
-Received: from DM5PR00CU002.outbound.protection.outlook.com
- (mail-cusazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c111::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 397960c1-2003-11ee-8611-37d641c3527e;
- Tue, 11 Jul 2023 17:54:33 +0200 (CEST)
-Received: from BYAPR21MB1688.namprd21.prod.outlook.com (2603:10b6:a02:bf::26)
- by PH7PR21MB4042.namprd21.prod.outlook.com (2603:10b6:510:207::7)
+ <SRS0=rRYD=C5=citrix.com=prvs=54940d4e9=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qJFqq-0005fl-0B
+ for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 16:04:32 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9d63f95e-2004-11ee-b239-6b7b168915f2;
+ Tue, 11 Jul 2023 18:04:30 +0200 (CEST)
+Received: from mail-dm6nam10lp2102.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.102])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 11 Jul 2023 12:04:23 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by BY5PR03MB5233.namprd03.prod.outlook.com (2603:10b6:a03:22c::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.6; Tue, 11 Jul
- 2023 15:54:27 +0000
-Received: from BYAPR21MB1688.namprd21.prod.outlook.com
- ([fe80::275c:198b:4685:accd]) by BYAPR21MB1688.namprd21.prod.outlook.com
- ([fe80::275c:198b:4685:accd%5]) with mapi id 15.20.6609.003; Tue, 11 Jul 2023
- 15:54:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Tue, 11 Jul
+ 2023 16:04:20 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2%5]) with mapi id 15.20.6565.028; Tue, 11 Jul 2023
+ 16:04:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,349 +49,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 397960c1-2003-11ee-8611-37d641c3527e
+X-Inumbo-ID: 9d63f95e-2004-11ee-b239-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689091470;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=EG3wrjbRsczjgbQBhj3L+m/pELl8SwVkEpHOpIHGi5g=;
+  b=Svqms9wB8h1dpoYM6UXCF+2BjI3CkFxrHJi5RJjE5moDimtqv/77tcC5
+   C5eJ2Rh8FrHEk0RJ9qakO+uS2f7FWkyQ765E34u8OCb+vIPZELYvy5Ie8
+   Im5LyF4Pw1qFoAvgG+QXCqV5pyPKqHlfx/YNvIEg7r0jp92Kym614KQVs
+   M=;
+X-IronPort-RemoteIP: 104.47.58.102
+X-IronPort-MID: 114567044
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:qufqI6DUH9eSERVW/7/iw5YqxClBgxIJ4kV8jS/XYbTApD8j3jQAz
+ TYcUDrVOf+NNDOmKotzOoTi90hSvZTVnNFqQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbCRMsspvlDs15K6p4GxB5wRnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwpOxGL2VOz
+ a0jGTUmP0qqpMG82KOec7w57igjBJGD0II3nFhFlGmcIdN4BJfJTuPN+MNS2yo2ioZWB/HCa
+ sEFaD1pKhPdfxlIPVRRA5U79AuqriCnL3sE9xTI9exuuzK7IA9ZidABNPLPfdOHX4NNl1uwr
+ WPa5WXpRBodMbRzzBLcqy7x2LCXwX+TtIQ6CLm7ytFRhn6q3Fc+IicKBHDkq/iTsxvrMz5YA
+ wlOksY0loAp6EG0R8PhGR25pHKJtAQVXdZ4Gug2rgqKz8L88wufQ2QJUDNFQNgnr9MtAywn0
+ EeTmNHkDiApt6eaIVqG7audpz62PSkTLEcBaDUCQA9D5MPsyKkxkxbOQ9BLAKOzyNrvFlnYy
+ T2QsDI3gblViMcRzri65njOmTfqrZ/MJiYL4QHQUnOg/xlOToevbIy16nDW9f9Fao2eSzGpp
+ nEEhszY9+EIApGlnTaIBu4KGdmUC+2tNTTdhRtjGscn/jH0o3q7J9kIund5OVtjNdsCdXnxe
+ kjPtAhN5ZhVeny3catwZIH3AMMvpUT9KenYujnvRoImSvBMmMWvpUmCuWb4M7jRrXUR
+IronPort-HdrOrdr: A9a23:Tm6KAq05P/ksb14gbcVwowqjBZVxeYIsimQD101hICG9Lfb5qy
+ n+ppUmPEHP5gr5AEtQ5OxoS5PwPU80lKQFq7X5WI3JLWrbUQSTXfpfBOfZslnd8k7Fh6NgPM
+ VbAtJD4bTLZDAQ4KqUkWvIdurIq+P3lpxA8N2ut0uFOjsaEp2IgT0JbTqzIwlTfk1rFJA5HJ
+ 2T6o5uoCehQ20eaoCWF2QIRO/KovzMjdbDbQQdDxAqxQGShXfwgYSKXCSw71M7aXdi0L0i+W
+ /Kn0jQ4biiieiyzlvxxnLe9JNfnfrm059mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfpGoCoZ
+ 3pmVMNLs5z43TeciWeuh32wTTt1z4o9jvL1UKYqWGLm725eBsKT+56wa5JeBrQ7EQt+Ptm1r
+ hQ4m6fv51LSTvdgSXG4cTSXR0CrDv1nZNiq59Rs5Vsa/paVFZjl/1awKqTKuZGIMvO0vFkLA
+ CpNrCb2B8ZSyLCU5mThBgR/DXlZAVMIv7BeDlNhuWllwFMmnZ31k0Zw9FasEsh2fsGOsN5zt
+ WBC79vkr5WSM8QcOZaP8cuBeWKKkGle2OQDIq1SW6XT53v/0i986Ie7NgOlZCXUY1Nw50olJ
+ vbVlRE8WY0ZkL1EMWLmIZG6xbXXQyGLH3QI+xllu9EU4fHNczWGDzGTEprn9qrov0ZDMGeU/
+ GvOIhOC/umKWf1A45G0wD3RpEXcBAlIYYok8d+X0jLrtPAK4XsuOCeePHPJKD1GTJhXm/kGH
+ MMUDX6Oc0F5EG2XX3zhgTXRhrWCwTC1IM1FLKf8/kYyYALOIEJug8JiU6h7sXOMjFGurxeRj
+ oLHFomqNLPmYCbxxe704wyAGssMq982sSSb093
+X-Talos-CUID: 9a23:EC7+aGHvyo2tkRXyqmI5/n86HsAdI0bsyVyBeWabKmxxWZisHAo=
+X-Talos-MUID: 9a23:rSO43wZaHXPb/+BTqzvvuB5ZMuRR+Z+DInoRwL5ZsciuDHkl
+X-IronPort-AV: E=Sophos;i="6.01,196,1684814400"; 
+   d="scan'208";a="114567044"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gDY7dstcW/pUMeSilzAqSGlJiur2gzOd3bNysGulqTP40jc+RngStsoFPuzJA7TFrCosrv8Ien1aIqTt4rRgHV7gMsBOEeddBorBXwG0Ynd3Ht7rF8QKs6iqhi/gGAjV/tOOHv4n/NGKNkI62R2jjM2GziqZDus3FaOWSvTOQxm9Va163xZuP3S0bC39qhHf9O0JgEhVXVGrsNrEIVjwPf+hSaC/Q5CM+vECzeRyN0OLQyqOuX/Tc3FwSb+MqIkGpAxprBgVqplmZBxUJpdLLG3034oz7MiIyBbL6ilc/7FbhrlaJFR2ank4vO4tTHZpTztaiqy1Fuhs0SFwShmirQ==
+ b=J523z6dsO4o9ugZR/q8i9IfaecgDlnuXMocbUs+b59sykLInhyF6qsYtI6RiGAScY+ocOIsfRbSAdM03eMBYQc0MB8JTMHH4TZfOkSpR1R8bcWbJNMEnK7+rlgCXj1K/hna+PK3L5TG5o9IGIyb7F6/p4cjtEds1YQHRwkdH2G0NevPOQiKDGJrdULSfDmPSb5BF5tfzREiDYG6ee74Lurvj0zpbL2ypyDS+tQ7PqqY3B9N+881xxZROEUAR4XFz8GcsyB2SQ+Twf+oMlyvXvP3iHqg99DT4CBwbrq41I/VwrZKJa7KCOxzCQHT27y1N94CP5A7khLwu6r5e9/LCiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=znrz4HIQxt2oszuYbbT9CbSrKWMeRoRJhvOteUxVFFE=;
- b=m+3C93Ka45bbclviXEZFu1UilTrGkDDcQ0Y8gQ9H07pp8lMQt/98WWRDkQ34qMOZk11dVTRk8a4Debiy0qRtY4LZWqF1SSPFVtrSiGt5Gou1iQq5IMWQKP7xN02pijWh0aVyK7BfMl87/jOSfguYibzAIkZeO4DA+OEU8d3LjNs6vfwTzVMauViPb8W7UcQCaB++rTbNJk/MgCHJeBebwV3IhMjoicQg21L1NXj5WCDG1PDseg+wiAR5PP2zHwyP8dAF3Mw3O8yVrGAHNTC9UzFM9VxsBFzg3/xaTzMSddIACWkelq9aP1XP+o46NVXUzGvTaidNL/OQg3Xu87nF+g==
+ bh=48chY0xPaSgtH4igxXtcrcXiKgeKOLWf++UqDMpz7t0=;
+ b=XMJjSyUuDFULHMJAtBJ5i3OdEQzmPPE6wSBG3SU4DdmvkDvifF3QifQ1ziIFxHIgrRFseRiNZzCC9fheYsqASuflRcCvDW5JrsDLjtBegLZ+jkKikdlChp1Xz0uB3T6PakoPXsv+JKUIX7m0/PX/OuevTxawGwo4yzuAbTOtjeE1aJY+hrGgDjqW9e6qc9CGIr1yvExO51BzlVuqn05MckKDXI74NsQfKXTGUtkYvWTc5R343BzukFpEsE8apzljG7imJDbQ4+xMcCr9zmerNCEagi73WOeWY6I+LHroP8wm2hd8e0qHIOxJWoRTqSiQgikxDIiwm9ig4HZtVfbnbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=znrz4HIQxt2oszuYbbT9CbSrKWMeRoRJhvOteUxVFFE=;
- b=SMJamC8hMDbs4VhFv2XOlOMr/zw+Rvrh4PUYPT7/Xpek/rODe0ahd7lzQNdjLiCV2AJwrxnzOjh7nNGKP91BrvWTuZ66odhQx+lUUSsfA3Yubys+XctRPtk0QWqYHrQ4dNIMtPQX1QnFVfpOHoyX3o1DM12x9rTPGP/okzFj+e4=
-From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-To: =?iso-8859-2?Q?Petr_Tesa=F8=EDk?= <petr@tesarici.cz>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Petr Tesarik
-	<petrtesarik@huaweicloud.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "maintainer:X86
- ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H. Peter Anvin"
-	<hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Juergen Gross
-	<jgross@suse.com>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>, Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>, Hans de Goede <hdegoede@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Kees Cook <keescook@chromium.org>, Saravana
- Kannan <saravanak@google.com>, "moderated list:XEN HYPERVISOR ARM"
-	<xen-devel@lists.xenproject.org>, "moderated list:ARM PORT"
-	<linux-arm-kernel@lists.infradead.org>, open list
-	<linux-kernel@vger.kernel.org>, "open list:MIPS"
-	<linux-mips@vger.kernel.org>, "open list:XEN SWIOTLB SUBSYSTEM"
-	<iommu@lists.linux.dev>, Roberto Sassu <roberto.sassu@huaweicloud.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>
-Subject: RE: [PATCH v3 4/7] swiotlb: if swiotlb is full, fall back to a
- transient memory pool
-Thread-Topic: [PATCH v3 4/7] swiotlb: if swiotlb is full, fall back to a
- transient memory pool
-Thread-Index:
- AQHZqN4Es6xs27E7q0W1vSuhepPC1q+p0aJAgAKeXgCAAGWX4IABQ5kAgAAO3oCAAduRkIACzpkAgAH5cQA=
-Date: Tue, 11 Jul 2023 15:54:27 +0000
-Message-ID:
- <BYAPR21MB16886DBD419EFF6D16E05477D731A@BYAPR21MB1688.namprd21.prod.outlook.com>
-References: <cover.1687859323.git.petr.tesarik.ext@huawei.com>
-	<34c2a1ba721a7bc496128aac5e20724e4077f1ab.1687859323.git.petr.tesarik.ext@huawei.com>
-	<BYAPR21MB1688AAC65852E75764F53099D72CA@BYAPR21MB1688.namprd21.prod.outlook.com>
-	<2023070626-boxcar-bubbly-471d@gregkh>
-	<BYAPR21MB168802F691D3041C9B2F9F2DD72CA@BYAPR21MB1688.namprd21.prod.outlook.com>
-	<2023070706-humbling-starfish-c68f@gregkh>
-	<20230707122213.3a7378b5@meshulam.tesarici.cz>
-	<BYAPR21MB1688D3AC0C094420733717C4D732A@BYAPR21MB1688.namprd21.prod.outlook.com>
- <20230710113618.2038e033@meshulam.tesarici.cz>
-In-Reply-To: <20230710113618.2038e033@meshulam.tesarici.cz>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=4fe17a3a-44f9-4ee2-847b-6be77321446b;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2023-07-11T15:45:20Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR21MB1688:EE_|PH7PR21MB4042:EE_
-x-ms-office365-filtering-correlation-id: ad1fcb6d-8fbd-4cd9-1489-08db82271b46
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- SUnwiDdXEay51yrfY3ijdJ+NR2hnIGskLhzhza3h4MzpZu1yWZizIOcxBp70Cr/sy4FLGGdTgp14YQjevcPz2SAmYE/6dRUjgJhYtbmi0NTEuOA6uTDAv9j+P52loN9x5JDfE7RKr1ELN0rmbh6K4EqsHEpg3XhnJaNb2aRQTrVupnOhRebuN1WM6qCZERdcZLIgLrv88vIqRYGxM4U8n0wyJpnyf0k9NQXp0ESibttfW3JLu6TktXmEs125kYYK3pDsnv72s6eODiB0k1hFH5lPqvzCWufZ/vnIxQWNCDMeASpuGf4FNsg7p4yxFE3aZT/VNSgQZvWYIFvcHUwO6vXladPrqZ/1fT/y3Jwj7VKWpRwHrxhnRqywori55V1xx2PrxkbRwgW7Or9Gq2w7kU7CIfWgl4LLAkYmM0Hshx1/Uk/G6uQSgt1wf+AL0cAWPIjlfJF/mmR1hdeQxPSOl4oFCTNWiyR6j1iCF65zt4E28fGcamJxyRLpP8r8x8KXuuJqYZ1RrXBB2Tt1rKsrgrY+vuAcytmLxPcLkREnINA1q8xFM7ENPKqhq0LesohT/EMkpE7E+poo/x+prLdl8bTToDYfAQmYXWo/YfXolCWLmsq2dWgxJQX/Au3qzDr6z7JRgCLk+zjEBH33ucw/kQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR21MB1688.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(39860400002)(366004)(451199021)(6916009)(4326008)(64756008)(66476007)(66446008)(66556008)(76116006)(66946007)(38100700002)(122000001)(86362001)(186003)(38070700005)(6506007)(26005)(83380400001)(82960400001)(82950400001)(10290500003)(33656002)(478600001)(9686003)(966005)(7696005)(8990500004)(54906003)(71200400001)(7416002)(55016003)(41300700001)(8676002)(8936002)(5660300002)(52536014)(316002)(2906002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-2?Q?DpmrLS+gaMw2CjFaOZce4l0z2b2Krn/u2YYH3rcdpVo7SQk2r5Eu5nOgy0?=
- =?iso-8859-2?Q?xDY2v5vQ2jWEfgHB7ZRtspI/SJN8dyvls8CrpzQ8csJvY5kRs2U4fvcG7I?=
- =?iso-8859-2?Q?kt1LM/d5P3Plc5KWY9+6YNZki0PBBSKtvQkB8M62Ab5fUTveRmcFNV8haD?=
- =?iso-8859-2?Q?m5MreUSn/DxE2zRCpCbsqJalYxLNDLOsHo6umpwioJUnRXLCWR2JdifFh0?=
- =?iso-8859-2?Q?flHBZDuQM8Skab8N+wkzL7sktZ5SOXNyzF4B2fyNYAd8K7RxIs0Vhqfv6x?=
- =?iso-8859-2?Q?KARwdlu1n2hw1eby++iWeWRDlYremDkNnQIZn6vcV+42S6kJ0H5G+GsYFU?=
- =?iso-8859-2?Q?6J9sTvefivDtYUuAp2vYgT+cPvhS/ilTVT/d6sq1U2XgquQkdtZBv3rqbP?=
- =?iso-8859-2?Q?SWY+4pKFTnUsL5b2YEQF4J+y2dF7lntDBbr21H5EjhlONVWEaUhlQp/VkL?=
- =?iso-8859-2?Q?xk4x4p11D/RMw19y6AanGvteS9rI1B683m11OybjdLNUHppA/odKfE4XN/?=
- =?iso-8859-2?Q?rFju7bwjNgcdywwPduoKeFEYnzX4TOls3C0HQWzAk/sQMyjR1+eD6hB64P?=
- =?iso-8859-2?Q?nxsmTn1jz6kuqKtAxkbPq1s6vy29Z/fL2qQ3RpHmLopI6GB0Lh+ghHZzCe?=
- =?iso-8859-2?Q?yp+amZSvzqVgFxUl7Pwffc+/eZr2IzOb8ypbPHGT3f5RlDvCOYp/n0wA2F?=
- =?iso-8859-2?Q?YwqNzXB/69QzPAo2Z4YFux8zdjS8ynjm8iNPDHW/WFLnz6oMKRAwPlHpPC?=
- =?iso-8859-2?Q?B+Y10vqN5T4+IXLOYeaxlGYgxwo7u94fUqboHxOk+8SOcN338buueEXiwH?=
- =?iso-8859-2?Q?ygQ7jSyZnu7SYbd+Iew3BZFN/k5dRymAlTSbD1HiWENQd+EwuTmPUgJCCU?=
- =?iso-8859-2?Q?BmQOw79lkWW1XYFu+qL77YCUQ9Y7hUol55YxXmGag2B3V5eTaHVP5MkqBh?=
- =?iso-8859-2?Q?ivbfC6NZqi6YtX9uHC60bU+sQB6qpYSCB+7GHRUKDubzD5lqhwOZQa09TD?=
- =?iso-8859-2?Q?kopn0ks05NamWBHj5Drn4p8LuTOjMODwvfb81fKLKUDFRnQD9+mBH1cDn5?=
- =?iso-8859-2?Q?eb1VY13z+HDYK83ur/Kfa/g6JEOwZn9qCj8Sc4aWRCCMneXnPb4GC0IGIm?=
- =?iso-8859-2?Q?U1Z0OKxFEargiRkkqEyp2ISWAEecY5IBPPtPSAQ52xESmu7nhZPo1bvfDC?=
- =?iso-8859-2?Q?3GK46c0LqsJRE/dJW3K2WZIaoLAxeVay0nnNIfzFLOArHtBz1HoecCnddO?=
- =?iso-8859-2?Q?OTnwoT/6pcDPkoxboNs6bJgJ0tW1OAWnBsH94PYIFeYj5pYJWxdRve2heR?=
- =?iso-8859-2?Q?erSqYi8jJJKCjKXFJvKzg6UuHvYyYIUSz+UFc3K884Vsny9glEL8NxYUow?=
- =?iso-8859-2?Q?mwK7xewi/XSiYugo/YXcc5mhA2wQWzUrIo0z2vLoMSBCI+tg8fVmmaqPrJ?=
- =?iso-8859-2?Q?T6gisz3OnSysbFX1+a1qKBI/NMEbhu3m1ORDRjCUimDf7JYs2o5dRYk+HU?=
- =?iso-8859-2?Q?+cHkl/DK91aRfQuSp4TpPVo1H5IWmPzjEtibj+spjiTSGnFLmvqnsSWFFR?=
- =?iso-8859-2?Q?ly6/qOWE30uFM7cJr2AF/ZCzuOIYT/F4SQfWeqa6jjKgU0UXTtxlgXTFXc?=
- =?iso-8859-2?Q?0W6yV8HbNLz1vG57vvyPB79mliLS8A9iigOZOtJJ84Vcks9yMvMoNrig?=
- =?iso-8859-2?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+ bh=48chY0xPaSgtH4igxXtcrcXiKgeKOLWf++UqDMpz7t0=;
+ b=ihAWeKkq6KRrVDzhOGVQftn4fBj4qoylwFN6HjEZ+80DT65ER6NZuVC4OR3/B7gVA7jHIqtCGpBz8OG7HHuSbBgdmBl16wpJIuexNdATr6OKXwK93PraZoLJeBT0soj/EnZD4p3SuzCk1bcHT/e+hcmH22uZ4WBxbXRi2s0qma4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 11 Jul 2023 18:04:12 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Rahul Singh <rahul.singh@arm.com>
+Subject: Re: [PATCH] xen/arm: pci: fix check in pci_check_bar()
+Message-ID: <ZK19fKfVCH4Od6B1@MacBook-Air-de-Roger.local>
+References: <20230711154648.729567-1-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230711154648.729567-1-stewart.hildebrand@amd.com>
+X-ClientProxiedBy: LO0P123CA0001.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:354::10) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BY5PR03MB5233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6dc51131-9ac0-49d0-7d48-08db82287b54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	vWGZSkgp+FZGXJ2qWXrtNkBSsIuiLOPqBgyYyAUKzfEtg0bhD4siY9Z5CKSsm+HxahADj/t+Ub+0kb6ahdPWpYBa59jjVwfTm7CzAJZ/QNkpYV0vRmnGTg1E0QaOlkNo/cKMFDZ1i6gzt2qCfGSgtbe2cSBZHHOgqlrdqJsOC0EW9j0beYBH+fTHkKCZUAxs9GE7ZtkWPInW1CHGtohbwk697i+wdcK+jsaE03r1uaU3SY2uKt4y37C+Y99HgN7EPYOtoW9oLMcS2/x4SMnOQvCPBRR7uOm7GFvZwd/owh4cu9WLT8zplfuurxP9wK3i71dOjmc5ehgKbYwPJiFOOWP+TfevOAaoxPjYEpp4khRdTdDkloj33JXwjLg70AyJdJGr03EpW0/aX1RiFUo+UwBUKh/0IlHr66jtp1yF4K23ygSB9OBD5n5U1AX2OLmF9/VBFaxw47j1ylCFXMZnwX3vUaRyfH3oiKoTEFbUjHS4893YRPN+5M22PyiffVPBiocLZ+r3jLF5SVlXg7s4u0ZZhkujjjp8ssNBlN6WWWB/+msF4iXgqqhvmfqOhfku
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(366004)(136003)(346002)(396003)(451199021)(86362001)(8676002)(8936002)(186003)(85182001)(2906002)(83380400001)(5660300002)(26005)(9686003)(6506007)(82960400001)(6666004)(54906003)(38100700002)(66946007)(66476007)(66556008)(6916009)(6486002)(4326008)(478600001)(316002)(41300700001)(6512007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aUw4UytsdzkyRWttd3lBekNSTk4vQ0VzZXlWcWJsTnNieDR3WEc5R09mSzhm?=
+ =?utf-8?B?UjlFVjROSWN2MmV1UUNpK2RwYkNDVExML0cxc2lHbnJyNHVPNGV0RlpSamU3?=
+ =?utf-8?B?THdnNjdRSGJGMVFlVkU5SEtrVlpTejQxaTdTb0VSZktubW1tMUJoek9yczJZ?=
+ =?utf-8?B?bzQ2dlZnM3QwbzR0c1BhejQxR2ZOa0hrMUdlcUJMOGpjVVI3VG5BNC9FZU1y?=
+ =?utf-8?B?VmFqc3JFNm1JL1RTZ1piVU14SDdHdnkybVBSQmdUVzdZaTdEdXFLbWZta3Ju?=
+ =?utf-8?B?TlA1Rm9vNmNQS2Urc1AwdWI3SkE2TGliZUJ3V2R3MDdacHRZckJmMkdpQTF1?=
+ =?utf-8?B?NkFSTzJVQ0dsakhadmFGMXpwVG1TWG1PMWpWMmkvNGw3R3lxaE11YnpWTXJ4?=
+ =?utf-8?B?RlAzVjlrYlkyUUlWMVFNeFZENnk5Z2Y5d1NCQmxuQTV0b2tGOWE5MlkxM3lp?=
+ =?utf-8?B?YW9YeXpWbHZzRVd6RkVKdmQyWlRBNzYxMjZidkZVaW5hTnlIZWJRZWlkL0pp?=
+ =?utf-8?B?SHJyZVNuQW9MQTVVdzJLS2pMalh4Tk5KR1pZRWUwSzcrR0N6cWJDcmFSdjJ5?=
+ =?utf-8?B?ZkJBK0xXMEduZWxZNHJNQmZWZjNqSCt6cy9lWkw0WFVLNlVUVjlvSGNsNHdj?=
+ =?utf-8?B?RlRTV2YyODM0S2RzbEJBc3VtcTNHTzFyelR1czY4bUZJYk56MjRiT0E5SUtz?=
+ =?utf-8?B?QUNhT1J5ZC93cGtkZXB0YlJwampnUm4vRGFGV0VkQ0JxSk5tTERoVFJjeG1w?=
+ =?utf-8?B?OVh0TTY5bExFc3JDSHNoMFhEbkdyZmpvNmxTaTVmTXlWTC9Bc0I4WGFscDNL?=
+ =?utf-8?B?NG1ySGl5NURlRnBlanlBZUZJTlRreFRJbm9CdDJQeFNoZHZZbUNoMnp2Mmo2?=
+ =?utf-8?B?S1VnMDU3MzVlbVF5Y2ZtejVKYVA0ZjhyNm5ld1U3VHRMTUxpQXI5R1VwRDl2?=
+ =?utf-8?B?Vzd0QjdxRE9EL2cxY0xQaXI5Y0FJL3RnRUVlRTMyTnMvTWs4UzEyTHVvM3Rj?=
+ =?utf-8?B?bXJVZ1NxM0ljTmViRUFNalh0ZWJQM01YRkpJaHYwUWpnSjM1cnZKYzlsYWh5?=
+ =?utf-8?B?ZVJrOFRTeGlWbERyVzEyb0o4MTFlZ2JTWlpRSmVpRzJvbW5oOUZMWDI0WUQ0?=
+ =?utf-8?B?aFZWOXpncXpLT3JWVnA1SDFseXM2UEJQSUVMKzVBV2FKK1BwanF1MER2UGFB?=
+ =?utf-8?B?YmkyUkpCaXB2bjh0VEJNTkgwRlozdVlob1ZIVlZqNUJYQ1Y3Mkc3OHNCSEdl?=
+ =?utf-8?B?dklFTnZiM0o5REQrNk5mNXFmUnF5U0xSVU9sd1NBYUJEeTByZ0tCYlFkTkF0?=
+ =?utf-8?B?cUlXY0RDYWJ3UVRER3phWktpenlqaTJnVERHcEk0L0pzdE5NZTdnTDJDUk0x?=
+ =?utf-8?B?T0lBNG1YZ2l2U2ttcXpBNFVVNkNrNDJMS1JEbG5uWmMvam1GdVFGaW5nNXdH?=
+ =?utf-8?B?RFVSajlqU1BxN0ZPOGpibmNzWS9oL1RjYTExaE1aQTd4czNPcmxoa21aQUpX?=
+ =?utf-8?B?dzZERFRnbTNRQ01EK00xYUVQTFRLZ3dnT0ZaVktpOXpZYVhPaE9iVDgxeURS?=
+ =?utf-8?B?L0RmZjVPUW9RWTBkVVhvRDRFRUUrT0ZuQSt1dFQ0bWV4NlpoME5aMTZPcDZ3?=
+ =?utf-8?B?WUQ0MENXSHdSNDN2N2xaTmcwa3k2Z0s5SmlNWk9UV0VKM3k4TEFaYzNONmcz?=
+ =?utf-8?B?WHhrZU9wS29BU0R0OUIyWEt6QitJaGxRV3VGaXlNalZhQ2o5R1A1dFJNaktV?=
+ =?utf-8?B?WmNoUlRVRmh1QURnbW9ya1JBOEx3N0FLTEUvM0ZqUW84dUd0dGlRN3N2OVp3?=
+ =?utf-8?B?RmEvM3B2dDUrRDZYSGNjSXBkbFZWNDZwdytHU1hyK3dGK2JjL1hSR2QzN0h2?=
+ =?utf-8?B?UlZOdjRuUDhOQk5WWU5lSnVCeUpBWVE4QkFvQVQrc05NTUVOYktyNFJ3M3R0?=
+ =?utf-8?B?d3lYN1d2M1BRcDlleVJXOXdMSjVTbGFvMUJjRm1FRHc1TUQvZ1BKWTBmSUZq?=
+ =?utf-8?B?Y1ZjT2VSY0JRM0RHT25wKzNkbmh2VzRGWm85WUtoTHJVVkFqRTVCLzByakRQ?=
+ =?utf-8?B?YXdzelVBRUdVVjlycXJ1WUw1MzRaR2pOdUFVNzJBaXArOHBvYjF1aUV2OEtD?=
+ =?utf-8?B?SVdqSFVRNjE1dmxZVEpqdGhMM3A1VzZTd3JwbEp2VUY3cHV4WTVkNjBzc1hI?=
+ =?utf-8?B?MGc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	7gl010KAd11/ayFUzy8hMbpopQB6yuMswZUAfxeLfgtduFIAYh0OAy+wftiLi9l01ZXq2GPkS0etMO20oagKiwF2JhOjgTUodP0bje0F7T0K8eMVVZp71hc1ZIiJQsTMBlcVJrr8pDoXNHssz8IQsUpWBICrDqZ6C0EWjtQAzduXZwQLDf37ZehNBDU5W2qg9dpH9ckKoCbNMJ6oTdaccZ6Ds+aXreCReRrVHc8qXsgyL9LyOz5hSgI8QoT4KCHXavRr1EBIKV10BxpSf6FnQWeBdunFjw4yRg88NkIaf5DILe1y7spUz0er25ltnM2m+92thCyKAotXEH9QEfei+8oa33l9IB3+oR8vX47Yl7O8q04MYbi1knsj6q/0V4GoHoOC2euaG4W8XHKvn3Nvgzn04GwWwraFU55BlcdJb9pMBLOkLEO7Zd2EoMP14hSAboSG5vS8LcsHtUAzD7b0NqBRk1DXzE9p6oVRnrgWkKRIF8AgSynbTGQifP0+hBn8H3hjFzeyFB7zaMWCjamkB06YOpB0VtghXAvA+o+UbB3yxO+m73h2MM3uPAQcMRIEOZW5yNR7U3uTYYpl6gI2Hx5NgKieO4FkkuCKuW26VKMp3xcz0frBwhHd280Y9IgEJAeb2nCeS2JZnmtyQTwwr32IAYbKtrU4yYRd3uc1WDM1nVdG201bGRqBqc6YfDNlRQIufF7ZqCkBho+N1E5nHUXaVrx2vmBOhU/JIPJf2jIAwAfNHiZwuq6CgbhgbhHWIlQcuYhLvAlQvGDzNjhjDV7q6ePpetNtP6nihrYc2U6sxh+3EP8GOx7lF9yklHUlOaLBJiShFuytNVKL5OTzzfzSXRxdq8AyTgFMZ1jOVPma4Rtc9P+T6GPAzOuKY3l0dnnHiSbXvM04gLjs4jFBHg==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc51131-9ac0-49d0-7d48-08db82287b54
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR21MB1688.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad1fcb6d-8fbd-4cd9-1489-08db82271b46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2023 15:54:27.5620
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 16:04:19.0339
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6rcT/mx8AI1N/qgQmkIse7rnaczRnduqikxVREcs9Opuektrxry4sSBk1AvL52MsvS/t4ClDE1zqo8yU6GZ/qXSjCLlutG9UdkD5gUBiVp4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR21MB4042
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UNs1mJLuBEKCkkduerk3k/Xu9qLs94SQhjqdEqsuxx6trVhU/DnTI4HRZKDglLWUxVT41F1QKzecNgEJx3/1Ow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5233
 
-From: Petr Tesa=F8=EDk <petr@tesarici.cz> Sent: Monday, July 10, 2023 2:36 =
-AM
->=20
-> On Sat, 8 Jul 2023 15:18:32 +0000
-> "Michael Kelley (LINUX)" <mikelley@microsoft.com> wrote:
->=20
-> > From: Petr Tesa=F8=EDk <petr@tesarici.cz> Sent: Friday, July 7, 2023 3:=
-22 AM
-> > >
-> > > On Fri, 7 Jul 2023 10:29:00 +0100
-> > > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> > >
-> > > > On Thu, Jul 06, 2023 at 02:22:50PM +0000, Michael Kelley (LINUX) wr=
-ote:
-> > > > > From: Greg Kroah-Hartman <gregkh@linuxfoundation.org> Sent: Thurs=
-day, July 6,
-> > > 2023 1:07 AM
-> > > > > >
-> > > > > > On Thu, Jul 06, 2023 at 03:50:55AM +0000, Michael Kelley (LINUX=
-) wrote:
-> > > > > > > From: Petr Tesarik <petrtesarik@huaweicloud.com> Sent: Tuesda=
-y, June 27, 2023
-> > > > > > 2:54 AM
-> > > > > > > >
-> > > > > > > > Try to allocate a transient memory pool if no suitable slot=
-s can be found,
-> > > > > > > > except when allocating from a restricted pool. The transien=
-t pool is just
-> > > > > > > > enough big for this one bounce buffer. It is inserted into =
-a per-device
-> > > > > > > > list of transient memory pools, and it is freed again when =
-the bounce
-> > > > > > > > buffer is unmapped.
-> > > > > > > >
-> > > > > > > > Transient memory pools are kept in an RCU list. A memory ba=
-rrier is
-> > > > > > > > required after adding a new entry, because any address with=
-in a transient
-> > > > > > > > buffer must be immediately recognized as belonging to the S=
-WIOTLB, even if
-> > > > > > > > it is passed to another CPU.
-> > > > > > > >
-> > > > > > > > Deletion does not require any synchronization beyond RCU or=
-dering
-> > > > > > > > guarantees. After a buffer is unmapped, its physical addres=
-ses may no
-> > > > > > > > longer be passed to the DMA API, so the memory range of the=
- corresponding
-> > > > > > > > stale entry in the RCU list never matches. If the memory ra=
-nge gets
-> > > > > > > > allocated again, then it happens only after a RCU quiescent=
- state.
-> > > > > > > >
-> > > > > > > > Since bounce buffers can now be allocated from different po=
-ols, add a
-> > > > > > > > parameter to swiotlb_alloc_pool() to let the caller know wh=
-ich memory pool
-> > > > > > > > is used. Add swiotlb_find_pool() to find the memory pool co=
-rresponding to
-> > > > > > > > an address. This function is now also used by is_swiotlb_bu=
-ffer(), because
-> > > > > > > > a simple boundary check is no longer sufficient.
-> > > > > > > >
-> > > > > > > > The logic in swiotlb_alloc_tlb() is taken from __dma_direct=
-_alloc_pages(),
-> > > > > > > > simplified and enhanced to use coherent memory pools if nee=
-ded.
-> > > > > > > >
-> > > > > > > > Note that this is not the most efficient way to provide a b=
-ounce buffer,
-> > > > > > > > but when a DMA buffer can't be mapped, something may (and w=
-ill) actually
-> > > > > > > > break. At that point it is better to make an allocation, ev=
-en if it may be
-> > > > > > > > an expensive operation.
-> > > > > > >
-> > > > > > > I continue to think about swiotlb memory management from the =
-standpoint
-> > > > > > > of CoCo VMs that may be quite large with high network and sto=
-rage loads.
-> > > > > > > These VMs are often running mission-critical workloads that c=
-an't tolerate
-> > > > > > > a bounce buffer allocation failure.  To prevent such failures=
-, the swiotlb
-> > > > > > > memory size must be overly large, which wastes memory.
-> > > > > >
-> > > > > > If "mission critical workloads" are in a vm that allowes overco=
-mmit and
-> > > > > > no control over other vms in that same system, then you have wo=
-rse
-> > > > > > problems, sorry.
-> > > > > >
-> > > > > > Just don't do that.
-> > > > > >
-> > > > >
-> > > > > No, the cases I'm concerned about don't involve memory overcommit=
-.
-> > > > >
-> > > > > CoCo VMs must use swiotlb bounce buffers to do DMA I/O.  Current =
-swiotlb
-> > > > > code in the Linux guest allocates a configurable, but fixed, amou=
-nt of guest
-> > > > > memory at boot time for this purpose.  But it's hard to know how =
-much
-> > > > > swiotlb bounce buffer memory will be needed to handle peak I/O lo=
-ads.
-> > > > > This patch set does dynamic allocation of swiotlb bounce buffer m=
-emory,
-> > > > > which can help avoid needing to configure an overly large fixed s=
-ize at boot.
-> > > >
-> > > > But, as you point out, memory allocation can fail at runtime, so ho=
-w can
-> > > > you "guarantee" that this will work properly anymore if you are goi=
-ng to
-> > > > make it dynamic?
-> > >
-> > > In general, there is no guarantee, of course, because bounce buffers
-> > > may be requested from interrupt context. I believe Michael is looking
-> > > for the SWIOTLB_MAY_SLEEP flag that was introduced in my v2 series, s=
-o
-> > > new pools can be allocated with GFP_KERNEL instead of GFP_NOWAIT if
-> > > possible, and then there is no need to dip into the coherent pool.
-> > >
-> > > Well, I have deliberately removed all complexities from my v3 series,
-> > > but I have more WIP local topic branches in my local repo:
-> > >
-> > > - allow blocking allocations if possible
-> > > - allocate a new pool before existing pools are full
-> > > - free unused memory pools
-> > >
-> > > I can make a bigger series, or I can send another series as RFC if th=
-is
-> > > is desired. ATM I don't feel confident enough that my v3 series will =
-be
-> > > accepted without major changes, so I haven't invested time into
-> > > finalizing the other topic branches.
-> > >
-> > > @Michael: If you know that my plan is to introduce blocking allocatio=
-ns
-> > > with a follow-up patch series, is the present approach acceptable?
-> > >
-> >
-> > Yes, I think the present approach is acceptable as a first step.  But
-> > let me elaborate a bit on my thinking.
-> >
-> > I was originally wondering if it is possible for swiotlb_map() to detec=
-t
-> > whether it is called from a context that allows sleeping, without the u=
-se
-> > of SWIOTLB_MAY_SLEEP.   This would get the benefits without having to
-> > explicitly update drivers to add the flag.  But maybe that's too risky.
->=20
-> This is a recurring topic and it has been discussed several times in
-> the mailing lists. If you ask me, the best answer is this one by Andrew
-> Morton, albeit a bit dated:
->=20
-> https://lore.kernel.org/lkml/20080320201723.b87b3732.akpm@linux-foundatio=
-n.org/
+On Tue, Jul 11, 2023 at 11:46:47AM -0400, Stewart Hildebrand wrote:
+> When mapping BARs for vPCI, it's valid for a BAR start address to equal the BAR
+> end address (i.e. s == e). However, pci_check_bar() currently returns false in
+> this case, which results in Xen not mapping the BAR. In this example boot log,
+> Linux has mapped the BARs, but since Xen did not map them, Linux encounters a
+> data abort and panics:
+> 
+> [    2.593300] pci 0000:00:00.0: BAR 0: assigned [mem 0x50008000-0x50008fff]
+> [    2.593682] pci 0000:00:00.0: BAR 2: assigned [mem 0x50009000-0x50009fff]
+> [    2.594066] pci 0000:00:00.0: BAR 4: assigned [mem 0x5000a000-0x5000afff]
+> ...
+> [    2.810502] virtio-pci 0000:00:00.0: enabling device (0000 -> 0002)
+> (XEN) 0000:00:00.0: not mapping BAR [50008, 50008] invalid position
+> (XEN) 0000:00:00.0: not mapping BAR [50009, 50009] invalid position
+> (XEN) 0000:00:00.0: not mapping BAR [5000a, 5000a] invalid position
+> [    2.817502] virtio-pci 0000:00:00.0: virtio_pci: leaving for legacy driver
+> [    2.817853] virtio-pci 0000:00:00.0: enabling bus mastering
+> (XEN) arch/arm/traps.c:1992:d0v0 HSR=0x00000093010045 pc=0xffff8000089507d4 gva=0xffff80000c46d012 gpa=0x00000050008012
+> [    2.818397] Unable to handle kernel ttbr address size fault at virtual address ffff80000c46d012
+> ...
+> 
+> Fix this by changing the condition in pci_check_bar().
+> 
+> Fixes: cc80e2bab0d0 ("xen/pci: replace call to is_memory_hole to pci_check_bar")
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> ---
+>  xen/arch/arm/pci/pci-host-common.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+> index 7cdfc89e5211..e0ec526f9776 100644
+> --- a/xen/arch/arm/pci/pci-host-common.c
+> +++ b/xen/arch/arm/pci/pci-host-common.c
+> @@ -406,7 +406,7 @@ bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
+>          .is_valid = false
+>      };
+>  
+> -    if ( s >= e )
+> +    if ( s > e )
 
-Thanks.  That's useful context.
+I think you want to adjust e to include the full page, ie:
 
->=20
-> > For
-> > the CoCo VM scenario that I'm most interested in, being a VM implicitly
-> > reduces the set of drivers that are being used, and so it's not that ha=
-rd
-> > to add the flag in the key drivers that generate most of the bounce
-> > buffer traffic.
->=20
-> Yes, that's my thinking as well.
->=20
-> > Then I was thinking about a slightly different usage for the flag than =
-what
-> > you implemented in v2 of the series.   In the case where swiotlb_map()
-> > can't allocate slots because of the swiotlb pool being full (or mostly =
-full),
-> > kick the background thread (if it is not already awake) to allocate a
-> > dynamic pool and grow the total size of the swiotlb.  Then if
-> > SWIOTLB_MAY_SLEEP is *not* set, allocate a transient pool just as you
-> > have implemented in this v3 of the series.  But if SWIOTLB_MAY_SLEEP
-> > *is* set, swiotlb_map() should sleep until the background thread has
-> > completed the memory allocation and grown the size of the swiotlb.
-> > After the sleep, retry the slot allocation.  Maybe what I'm describing
-> > is what you mean by "allow blocking allocations".  :-)
->=20
-> Not really, but I like the idea. After all, the only reason to have
-> transient pools is when something is needed immediately while the
-> background allocation is running.
+paddr_t e = mfn_to_maddr(end + 1) - 1;
 
-You can also take the thinking one step further:  For bounce buffer
-requests that allow blocking, you could decide not to grow the pool
-above a specified maximum.  If the max has been reached and space
-is not available, sleep until space is released by some other in-progress
-request.  This could be a valid way to handle peak demand while
-capping the memory allocated to the bounce buffer pool.  There
-would be a latency hit because of the waiting, but that could
-be a valid tradeoff for rare peaks.  Of course, for requests that can't
-block, you'd still need to allocate a transient pool.
+As passing start == end should be assumed to cover a full page, and s
+== e won't be possible anymore.  Adjusting the check to drop the equal
+is still good IMO.
 
-Michael
-
->=20
-> > This approach effectively throttles incoming swiotlb requests when spac=
-e
-> > is exhausted, and gives the dynamic sizing mechanism a chance to catch
-> > up in an efficient fashion.  Limiting transient pools to requests that =
-can't
-> > sleep will reduce the likelihood of exhausting the coherent memory
-> > pools.  And as you mentioned above, kicking the background thread at th=
-e
-> > 90% full mark (or some such heuristic) also helps the dynamic sizing
-> > mechanism keep up with demand.
->=20
-> FWIW I did some testing, and my systems were not able to survive a
-> sudden I/O peak without transient pools, no matter how low I set the
-> threshold for kicking a background. OTOH I always tested with the
-> smallest possible SWIOTLB (256 KiB * rounded up number of CPUs, e.g. 16
-> MiB on my VM with 48 CPUs). Other sizes may lead to different results.
->=20
-> As a matter of fact, the size of the initial SWIOTLB memory pool and the
-> size(s) of additional pool(s) sound like interesting tunable parameters
-> that I haven't explored in depth yet.
->=20
-> Petr T
+Thanks, Roger.
 
