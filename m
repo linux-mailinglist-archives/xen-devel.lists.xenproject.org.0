@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A2574F469
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 18:07:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561813.878365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6B174F489
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 18:11:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561818.878376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJFtS-0006bx-1i; Tue, 11 Jul 2023 16:07:14 +0000
+	id 1qJFx1-00084h-Gq; Tue, 11 Jul 2023 16:10:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561813.878365; Tue, 11 Jul 2023 16:07:14 +0000
+Received: by outflank-mailman (output) from mailman id 561818.878376; Tue, 11 Jul 2023 16:10:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJFtR-0006ZL-VN; Tue, 11 Jul 2023 16:07:13 +0000
-Received: by outflank-mailman (input) for mailman id 561813;
- Tue, 11 Jul 2023 16:07:12 +0000
+	id 1qJFx1-00082n-Dx; Tue, 11 Jul 2023 16:10:55 +0000
+Received: by outflank-mailman (input) for mailman id 561818;
+ Tue, 11 Jul 2023 16:10:54 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qJFtQ-0006ZD-Eo
- for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 16:07:12 +0000
+ (envelope-from <julien@xen.org>) id 1qJFx0-00082h-K1
+ for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 16:10:54 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qJFtQ-0003qc-7D; Tue, 11 Jul 2023 16:07:12 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228]
+ id 1qJFx0-0003vG-8T; Tue, 11 Jul 2023 16:10:54 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
  helo=[192.168.8.176]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qJFtQ-0002g0-1u; Tue, 11 Jul 2023 16:07:12 +0000
+ id 1qJFx0-0002o7-2j; Tue, 11 Jul 2023 16:10:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +42,75 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=chJsI1+lhv1ic8+ehGMrs///auMfQgYravMo+4ot6xE=; b=4kEICu7cAsfmi3hJeQ72qjUhb9
-	M1+yFj1OewrgQwBAbCOXrOTe8PJkkrUf00uMidq+ihZ5G8+cW4NE0FhGKPhbilZHx4I7LBwucGcZb
-	AuFTysctmWQFFPn16xyR8yEwAPL0YGtbQ/RAbCrdwqeSbPuqxMgXlIbK4st3hval5OJk=;
-Message-ID: <8bc1ed0e-3ad6-2243-4dd6-a88dd0ee00f8@xen.org>
-Date: Tue, 11 Jul 2023 17:07:10 +0100
+	bh=8v0c/AtjzRiHbX0M2NJojbYKCAkvwv13WWD0LQ5dIYk=; b=cBFgumKbiDixijx5drrtNNGf2O
+	gNjzq1pQY1OJ1iUZdGCKt7AvsV6XF212N741exMPlKqQXQrnk2gt6ze+VdqHNO/kz6s7BMGYG+99D
+	kWJcmBfOuulX6AkKG8HMcONbPN+Owr4/KtgctB4489thXdVtIXs4lskamRTwxGhPORvI=;
+Message-ID: <da7a0268-57d6-74ad-4f22-80ca8a0a5f3c@xen.org>
+Date: Tue, 11 Jul 2023 17:10:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH 2/2] xen/arm: Account for domU dtb bootmodule size
- separately
+Subject: Re: [PATCH] xen/arm: pci: fix check in pci_check_bar()
 Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230711082931.5402-1-michal.orzel@amd.com>
- <20230711082931.5402-3-michal.orzel@amd.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Rahul Singh <rahul.singh@arm.com>
+References: <20230711154648.729567-1-stewart.hildebrand@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230711082931.5402-3-michal.orzel@amd.com>
+In-Reply-To: <20230711154648.729567-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Michal,
+Hi,
 
-On 11/07/2023 09:29, Michal Orzel wrote:
-> At the moment, we limit the allocation size when creating a domU dtb to
-> 4KB, which is not enough when using a passthrough dtb with several nodes.
-> Improve the handling by accounting for a dtb bootmodule (if present)
-> size separately, while keeping 4KB for the Xen generated nodes (still
-> plenty of space for new nodes). Also, cap the allocation size to 2MB,
-> which is the max dtb size allowed.
+On 11/07/2023 16:46, Stewart Hildebrand wrote:
+> When mapping BARs for vPCI, it's valid for a BAR start address to equal the BAR
+> end address (i.e. s == e). However, pci_check_bar() currently returns false in
+> this case, which results in Xen not mapping the BAR. In this example boot log,
+> Linux has mapped the BARs, but since Xen did not map them, Linux encounters a
+> data abort and panics:
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> ---
-> Note for the future:
-> As discussed with Julien, really the best way would be to generate dtb directly
-> in the guest memory, where no allocation would be necessary. This of course
-> requires some rework. The solution in this patch is good enough for now and
-> can be treated as an intermediated step to support dtb creation of various
-> sizes.
-
-Thanks for summarizing our discussion :).
-
-> ---
->   xen/arch/arm/domain_build.c | 18 +++++++++++++-----
->   1 file changed, 13 insertions(+), 5 deletions(-)
+> [    2.593300] pci 0000:00:00.0: BAR 0: assigned [mem 0x50008000-0x50008fff]
+> [    2.593682] pci 0000:00:00.0: BAR 2: assigned [mem 0x50009000-0x50009fff]
+> [    2.594066] pci 0000:00:00.0: BAR 4: assigned [mem 0x5000a000-0x5000afff]
+> ...
+> [    2.810502] virtio-pci 0000:00:00.0: enabling device (0000 -> 0002)
+> (XEN) 0000:00:00.0: not mapping BAR [50008, 50008] invalid position
+> (XEN) 0000:00:00.0: not mapping BAR [50009, 50009] invalid position
+> (XEN) 0000:00:00.0: not mapping BAR [5000a, 5000a] invalid position
+> [    2.817502] virtio-pci 0000:00:00.0: virtio_pci: leaving for legacy driver
+> [    2.817853] virtio-pci 0000:00:00.0: enabling bus mastering
+> (XEN) arch/arm/traps.c:1992:d0v0 HSR=0x00000093010045 pc=0xffff8000089507d4 gva=0xffff80000c46d012 gpa=0x00000050008012
+> [    2.818397] Unable to handle kernel ttbr address size fault at virtual address ffff80000c46d012
+> ...
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index f2134f24b971..1dc0eca37bd6 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -3257,14 +3257,15 @@ static int __init domain_handle_dtb_bootmodule(struct domain *d,
->   }
+> Fix this by changing the condition in pci_check_bar().
+> 
+> Fixes: cc80e2bab0d0 ("xen/pci: replace call to is_memory_hole to pci_check_bar")
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> ---
+>   xen/arch/arm/pci/pci-host-common.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+> index 7cdfc89e5211..e0ec526f9776 100644
+> --- a/xen/arch/arm/pci/pci-host-common.c
+> +++ b/xen/arch/arm/pci/pci-host-common.c
+> @@ -406,7 +406,7 @@ bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
+>           .is_valid = false
+>       };
 >   
->   /*
-> - * The max size for DT is 2MB. However, the generated DT is small, 4KB
-> - * are enough for now, but we might have to increase it in the future.
-> + * The max size for DT is 2MB. However, the generated DT is small (not including
-> + * domU passthrough DT nodes whose size we account separately), 4KB are enough
-> + * for now, but we might have to increase it in the future.
->    */
->   #define DOMU_DTB_SIZE 4096
->   static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->   {
->       int addrcells, sizecells;
-> -    int ret;
-> +    int ret, fdt_size = DOMU_DTB_SIZE;
+> -    if ( s >= e )
+> +    if ( s > e )
+>           return false;
 
-Can fdt_size be unsigned?
-
->   
->       kinfo->phandle_gic = GUEST_PHANDLE_GIC;
->       kinfo->gnttab_start = GUEST_GNTTAB_BASE;
-> @@ -3273,11 +3274,18 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->       addrcells = GUEST_ROOT_ADDRESS_CELLS;
->       sizecells = GUEST_ROOT_SIZE_CELLS;
->   
-> -    kinfo->fdt = xmalloc_bytes(DOMU_DTB_SIZE);
-> +    /* Account for domU passthrough DT size */
-> +    if ( kinfo->dtb_bootmodule )
-> +        fdt_size += kinfo->dtb_bootmodule->size;
-> +
-> +    /* Cap to max DT size if needed */
-> +    fdt_size = min(fdt_size, SZ_2M);
-> +
-> +    kinfo->fdt = xmalloc_bytes(fdt_size);
->       if ( kinfo->fdt == NULL )
->           return -ENOMEM;
->   
-> -    ret = fdt_create(kinfo->fdt, DOMU_DTB_SIZE);
-> +    ret = fdt_create(kinfo->fdt, fdt_size);
->       if ( ret < 0 )
->           goto err;
->   
+This is yet another example why using start/end in parameters are a bad 
+idea :). I am OK if you want to keep the same interface, but can we at 
+least document on top of the function whether we are expecting 'end' to 
+be excluded or included?
 
 Cheers,
 
