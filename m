@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3635374F185
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 16:16:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561768.878286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E86A74F183
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 16:16:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561771.878296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJE9b-0007oD-Pd; Tue, 11 Jul 2023 14:15:47 +0000
+	id 1qJEAD-0008FH-1Y; Tue, 11 Jul 2023 14:16:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561768.878286; Tue, 11 Jul 2023 14:15:47 +0000
+Received: by outflank-mailman (output) from mailman id 561771.878296; Tue, 11 Jul 2023 14:16:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJE9b-0007mL-MG; Tue, 11 Jul 2023 14:15:47 +0000
-Received: by outflank-mailman (input) for mailman id 561768;
- Tue, 11 Jul 2023 14:15:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qJE9Z-0007mB-Hf; Tue, 11 Jul 2023 14:15:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qJE9Z-0000p9-FA; Tue, 11 Jul 2023 14:15:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qJE9Z-00060d-5m; Tue, 11 Jul 2023 14:15:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qJE9Z-0001zH-5O; Tue, 11 Jul 2023 14:15:45 +0000
+	id 1qJEAC-0008DM-UV; Tue, 11 Jul 2023 14:16:24 +0000
+Received: by outflank-mailman (input) for mailman id 561771;
+ Tue, 11 Jul 2023 14:16:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cjKM=C5=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qJEAB-0008Bn-12
+ for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 14:16:23 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8185fc47-1ff5-11ee-b239-6b7b168915f2;
+ Tue, 11 Jul 2023 16:16:21 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-51e99584adaso987545a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jul 2023 07:16:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,153 +40,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aEPWmulPUjg6S84d7zNDi7vp1c/BKf66DBa+TcyC3FY=; b=yEJDEi7BI13EwwtzHAgkDqlBWp
-	kz+KbRvzu5ANfVCQy86b7KHJDz1JK7r/SNe/+v+l1aA6gAV0lw4Jd73Kk7QRHqbqMZKsN3s9nlAOc
-	qpgCAzR0vBWiEfBJJ8zFawUZw8AnCaVHC2s+waSNWbJIMGkw7+xshbX5f1vzEmZ+iFVA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181759-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8185fc47-1ff5-11ee-b239-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689084979; x=1691676979;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n3t8MOjTESHetojE5fepGdnt7zMEWWqb4KmlEDKAmrw=;
+        b=lLPy8qQdQeVZlUsxKQYaJLJW/pRKVT3RgzV3onHlXD9XGicpVghKdWDR7Qca8Ldx8Q
+         OnDO3DMSzqvfMIiP+Zb7CxDqb65f2nfivrjrkJ/Gj2tTTMhmoe3ZPLprOEGyHZf60CVx
+         B3YutWTQcJ4fxKDbvoxslude/QIxSYvb/oRhglyshFABS9C8eDxCtOMVucCr6xnGcQJM
+         7Mq/UQvC1ryWZyKb/w0Erdiep3ZlMxnC6eZ5h2DjXa3zdG9OdDnLKUKYKvo4a0yayoMA
+         RyYYK8LSmmYZfeD7cMKx/9NpUdSGmCkLlmmMiRLggVpm+ezfdaEa8iTxk01w4b2ZUbYn
+         /JWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689084979; x=1691676979;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=n3t8MOjTESHetojE5fepGdnt7zMEWWqb4KmlEDKAmrw=;
+        b=HOYBTcKMNF2CCXz+l+ilGGkyysc7hjS6mqQY3JzzeP7DRcDKsGYxywvAewDLqNs/hD
+         99ffHZ2q9Fg4kMPGgL9lADvXlIATrErDtMY+9qV1yT4/7w15VtNwiAqmXFo+I99LIosO
+         mtc/g6MmxXg1i3d5NZUqlceYp6DVum0YWuh0GBAd/B5NiCtuzQx9xiZkCGu7AmdfbHKA
+         MzqoVuEjv8COtg0MP/ljc+Ab60fKMAfQf7t5zccwLXaDJZmgxyE14xfR5U9PiVeT/WQE
+         vmoRM/uFzuwmHTPVidoNYirDHdjMzn5ASVAmaT7tZg2hj7mKEwVl3uFvN4owkfUDzyWG
+         xb8w==
+X-Gm-Message-State: ABy/qLbWzNhmQSBH0ScsFqAAfAmI1TMHq99l/3qhiUmvNB43zpjCqX/W
+	stBKTTisMLCyp6fQ/YvxPbnoETvX4+tGJkD8W4JKfMpduv4=
+X-Google-Smtp-Source: APBJJlGOIp5rwlECl7uk8jJAujph+1MLuxYpGT+85R80mQBnZI4aUUZfjp5N0o/SUQ41INgJfHTAej8bL60SfwmKrPw=
+X-Received: by 2002:aa7:c042:0:b0:51e:be0:d2ea with SMTP id
+ k2-20020aa7c042000000b0051e0be0d2eamr15091559edo.9.1689084978963; Tue, 11 Jul
+ 2023 07:16:18 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [libvirt test] 181759: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt-qcow2:guest-start:fail:heisenbug
-    libvirt:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=3bf02acdc5446b2c4a3078f99d8f5232acff9043
-X-Osstest-Versions-That:
-    libvirt=5f7f6ceb47b8bec3f8ad93599f95b755e00e439a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 11 Jul 2023 14:15:45 +0000
+References: <20230706185440.48333-1-jandryuk@gmail.com> <20230706185440.48333-7-jandryuk@gmail.com>
+ <eeeb032f-a21b-5eb2-e3d5-63357a04a500@suse.com> <CAKf6xptn0OL0qz+DW9qrwU=sFSKSp-O3S7z6vFbZp9RstFanbw@mail.gmail.com>
+ <bfacee48-f640-f2eb-7fd7-f440ad03e612@suse.com>
+In-Reply-To: <bfacee48-f640-f2eb-7fd7-f440ad03e612@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 11 Jul 2023 10:16:05 -0400
+Message-ID: <CAKf6xpvVd49dx=CtGyPMt+NMuOfhJ4a1fiZb-O4e-guq9BwcFw@mail.gmail.com>
+Subject: Re: [PATCH v5 06/15] cpufreq: Add Hardware P-State (HWP) driver
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 181759 libvirt real [real]
-flight 181764 libvirt real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181759/
-http://logs.test-lab.xenproject.org/osstest/logs/181764/
+On Tue, Jul 11, 2023 at 4:18=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 10.07.2023 17:22, Jason Andryuk wrote:
+> > On Mon, Jul 10, 2023 at 9:13=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >> On 06.07.2023 20:54, Jason Andryuk wrote:
+> >>> @@ -510,6 +510,22 @@ choice of `dom0-kernel` is deprecated and not su=
+pported by all Dom0 kernels.
+> >>>  * `<maxfreq>` and `<minfreq>` are integers which represent max and m=
+in processor frequencies
+> >>>    respectively.
+> >>>  * `verbose` option can be included as a string or also as `verbose=
+=3D<integer>`
+> >>> +  for `xen`.  It is a boolean for `hwp`.
+> >>> +* `hwp` selects Hardware-Controlled Performance States (HWP) on supp=
+orted Intel
+> >>> +  hardware.  HWP is a Skylake+ feature which provides better CPU pow=
+er
+> >>> +  management.  The default is disabled.  If `hwp` is selected, but h=
+ardware
+> >>> +  support is not available, Xen will fallback to cpufreq=3Dxen.
+> >>> +* `<hdc>` is a boolean to enable Hardware Duty Cycling (HDC).  HDC e=
+nables the
+> >>> +  processor to autonomously force physical package components into i=
+dle state.
+> >>> +  The default is enabled, but the option only applies when `hwp` is =
+enabled.
+> >>> +
+> >>> +There is also support for `;`-separated fallback options:
+> >>> +`cpufreq=3Dhwp,verbose;xen`.  This first tries `hwp` and falls back =
+to `xen`
+> >>> +if unavailable.
+> >>
+> >> In the given example, does "verbose" also apply to the fallback case? =
+If so,
+> >> perhaps better "cpufreq=3Dhwp;xen,verbose", to eliminate that ambiguit=
+y?
+> >
+> > Yes, "verbose" is applied to both.  I can make the change.  I
+> > mentioned it in the commit message, but I'll mention it here as well.
+>
+> FTAOD my earlier comment implied that the spelling form you use above
+> should not even be accepted when parsing. I.e. it was not just about
+> the doc aspect.
 
-Failures :-/ but no regressions.
+Oh.  So what exactly do you want then?
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-libvirt-qcow2 13 guest-start       fail pass in 181764-retest
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail pass in 181764-retest
+There is a single cpufreq_verbose variable today that is set by either
+cpufreq=3Dhwp,verbose or cpufreq=3Dxen,verbose.  Is that okay, or should
+the "xen" and "hwp" each get a separate variable?
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail in 181764 like 181738
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check fail in 181764 never pass
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181738
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181738
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+Do you only want to allow a single trailing "verbose" to apply to all
+of cpufreq (cpufreq=3D$foo,verbose)?  Or do you want "verbose" to be
+only valid for "xen"?  Both cpufreq_cmdline_parse() and
+hwp_cmdline_parse() just loop over their options and don't care about
+order, even though the documentation lists verbose last.  Would you
+want "cpufreq=3Dhwp,verbose,hdc" to fail to parse?
 
-version targeted for testing:
- libvirt              3bf02acdc5446b2c4a3078f99d8f5232acff9043
-baseline version:
- libvirt              5f7f6ceb47b8bec3f8ad93599f95b755e00e439a
+All parsing is done upfront before knowing whether "xen" or "hwp" will
+be used as the cpufreq driver, so there is a trickiness for
+implementing "verbose" only for one option.  Similarly,
+"cpufreq=3Dhwp,invalid;xen" will try "hwp" (but not "xen")  since the
+live variables are updated.  Even without this patch, cpufreq will be
+configured up to an invalid parameter.
 
-Last test of basis   181738  2023-07-08 04:18:54 Z    3 days
-Testing same since   181759  2023-07-11 04:18:51 Z    0 days    1 attempts
+FYI, cpufreq=3Dxen;hwp will be accepted.  "xen" shouldn't fail, so it
+doesn't make sense to specify that.  But it didn't seem necessary to
+prevent it.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+> >>> +            {
+> >>> +                switch ( cpufreq_xen_opts[i] )
+> >>> +                {
+> >>> +                case CPUFREQ_xen:
+> >>> +                    ret =3D cpufreq_register_driver(&acpi_cpufreq_dr=
+iver);
+> >>> +                    break;
+> >>> +                case CPUFREQ_hwp:
+> >>> +                    ret =3D hwp_register_driver();
+> >>> +                    break;
+> >>> +                }
+> >>> +
+> >>> +                if ( ret =3D=3D 0 )
+> >>> +                    break;
+> >>> +            }
+> >>>              break;
+> >>
+> >> In this model any kind of failure results in the fallback to be tried
+> >> (and the fallback's error to be returned to the caller rather than
+> >> the primary one). This may or may not be what we actually want;
+> >> personally I would have expected
+> >>
+> >>                 if ( ret !=3D -ENODEV )
+> >>                     break;
+> >>
+> >> or some such instead.
+> >
+> > I guess this comes back to our fruit preferences. :)
+>
+> Does it? It's not just a style question here, but one of when / whether
+> to use the fallback.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
+Indeed.  I was trying to allude back to the earlier conversation.  Do
+we try the pears only when there are no apples or also when the apples
+are "bad"?  Only falling back for no apples is fine.
 
+> > I can switch it around like that, and make hwp_register_driver()
+> > return -ENODEV for hwp_available() returning false.
+>
+> Thanks.
+>
+> >>> +int __init hwp_cmdline_parse(const char *s, const char *e)
+> >>> +{
+> >>> +    do
+> >>> +    {
+> >>> +        const char *end =3D strpbrk(s, ",;");
+> >>> +
+> >>> +        if ( s && !hwp_handle_option(s, end) )
+> >>
+> >> This check of s not being NULL comes too late, as strpbrk() would have
+> >> de-referenced it already. Considering ...
+> >>
+> >>> +        {
+> >>> +            printk(XENLOG_WARNING "cpufreq/hwp: option '%s' not reco=
+gnized\n",
+> >>> +                   s);
+> >>> +
+> >>> +            return -1;
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I should change this to -EINVAL.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> >>> +        }
+> >>> +
+> >>> +        s =3D end ? ++end : end;
+> >>> +    } while ( s && s < e );
+> >>
+> >> ... this it probably wants to move even ahead of the loop.
+> >
+> > I'll switch from do/while to just while and then the NULL check will
+> > be covered.  In practice, this function is never called with s =3D=3D
+> > NULL.
+>
+> In which case - why not leave things largely as they are, simply dropping
+> the odd check of s?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Sure.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> >>> +    if ( data->curr_req.raw =3D=3D -1 )
+> >>> +    {
+> >>> +        hwp_err(cpu, "Could not initialize HWP properly\n");
+> >>> +        per_cpu(hwp_drv_data, cpu) =3D NULL;
+> >>> +        xfree(data);
+> >>> +        return -ENODEV;
+> >>> +    }
+> >>> +
+> >>> +    data->minimum =3D data->curr_req.min_perf;
+> >>> +    data->maximum =3D data->curr_req.max_perf;
+> >>> +    data->desired =3D data->curr_req.desired;
+> >>> +    data->energy_perf =3D data->curr_req.energy_perf;
+> >>> +    data->activity_window =3D data->curr_req.activity_window;
+> >>> +
+> >>> +    if ( cpu =3D=3D 0 )
+> >>> +        hwp_verbose("CPU%u: HWP_CAPABILITIES: %016lx\n", cpu, data->=
+hwp_caps);
+> >>
+> >> While I'm fine with this (perhaps apart from you using "cpu =3D=3D 0",
+> >> which is an idiom we're trying to get rid of), ...
+> >
+> > Oh, I didn't know that.  What is the preferred way to identify the
+> > BSP?
+>
+> Sometimes we pass a separate boolean to functions, in other cases we
+> check whether a struct cpuinfo_x86 * equals &boot_cpu_info. The
+> latter clearly can't be used here, and the former doesn't look to be
+> a good fit either. However, ...
+>
+> >  This doesn't necessarily run on the BSP, so "cpu"/"policy->cpu"
+> > is all we have to make a determination.
+>
+> ... isn't it, conversely, the case that the function only ever runs
+> on "cpu" when it is the BSP? In which case "cpu =3D=3D smp_processor_id()=
+"
+> ought to do the trick.
 
+The calls do not necessarily run from the BSP.  The cpufreq init
+callbacks run later when dom0 uploads the ACPI processor data.  If you
+don't want "cpu =3D=3D 0", maybe just print for the first CPU regardless
+of number, and then print differences from that?
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   5f7f6ceb47..3bf02acdc5  3bf02acdc5446b2c4a3078f99d8f5232acff9043 -> xen-tested-master
+Regards,
+Jason
 
