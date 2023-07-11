@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBB6474F27A
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 16:41:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.561779.878306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5C374F3F6
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jul 2023 17:44:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.561787.878316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJEY5-0003Hn-Sq; Tue, 11 Jul 2023 14:41:05 +0000
+	id 1qJFWY-0001Fq-6k; Tue, 11 Jul 2023 15:43:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 561779.878306; Tue, 11 Jul 2023 14:41:05 +0000
+Received: by outflank-mailman (output) from mailman id 561787.878316; Tue, 11 Jul 2023 15:43:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJEY5-0003FW-P9; Tue, 11 Jul 2023 14:41:05 +0000
-Received: by outflank-mailman (input) for mailman id 561779;
- Tue, 11 Jul 2023 14:41:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B4LE=C5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qJEY4-0003FQ-LN
- for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 14:41:04 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2061b.outbound.protection.outlook.com
- [2a01:111:f400:fe13::61b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f53a528b-1ff8-11ee-8611-37d641c3527e;
- Tue, 11 Jul 2023 16:41:02 +0200 (CEST)
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
- by DB9PR04MB8316.eurprd04.prod.outlook.com (2603:10a6:10:246::20)
+	id 1qJFWY-0001CY-3B; Tue, 11 Jul 2023 15:43:34 +0000
+Received: by outflank-mailman (input) for mailman id 561787;
+ Tue, 11 Jul 2023 15:43:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7wqX=C5=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qJFWV-0001CS-UT
+ for xen-devel@lists.xenproject.org; Tue, 11 Jul 2023 15:43:32 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae1d1a19-2001-11ee-b239-6b7b168915f2;
+ Tue, 11 Jul 2023 17:43:30 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by BL3PR12MB6476.namprd12.prod.outlook.com (2603:10b6:208:3bc::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Tue, 11 Jul
- 2023 14:41:00 +0000
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e]) by AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e%7]) with mapi id 15.20.6565.016; Tue, 11 Jul 2023
- 14:41:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Tue, 11 Jul
+ 2023 15:43:25 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6588.017; Tue, 11 Jul 2023
+ 15:43:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,216 +47,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f53a528b-1ff8-11ee-8611-37d641c3527e
+X-Inumbo-ID: ae1d1a19-2001-11ee-b239-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CdZ8vHYtQVvmz593Ayc/1mRsem48QQmUACU71+fhNX7Tr7gvitIonSnOiXNDg5Es6LD4V10z3dZEVwXjwqfreYW3YIftQCZcT9vvjQ9v/g7jZf3dl5JkJLFVFPQAfgQakUSP8xNRE0kUIBW320bz4omx0NWb0nG453zwFUIx8GwoTD4/gI88bd79KzjVXfBHee9KhQxHqAoBt9T5kFlsB76qGuff3r/iHndsp2uLF5O3DhPwXbNY2K7Bd2dlgwiXeYJnUP0SsP4Sirc8Dp8unQZ3Lq15NS6AdLBgoUEwXpYZm5RIp+JiU9U5/zk9H+Vb2smDwAaBnGTKBE8x5/XTjw==
+ b=iqLqpXGfZV1XnOOZb4Vhc5TuFvnaXGMzBv46IsDQdp6FX9o9TwbW6WOEK/Kc5Ae1cX54vKMo+9LTl35oyEr3CZi3TakBz+lIC4YCC1UbmeRmWrhAwL589uC1QVRwTf1EA3mXOEFj62DvFc1pl14P4Ub94yw/GvHgxaaS8lTqTLHV8aQZVi89HOsL5BKpcENHkpL8dsKRhO7Ot3YsXogbh4xlEUJXX4B5aLsb1OoBpzY43IzLXpOLhmZeQjqabMjYO74dDYkN7uAIfinB6kfgIiK2El+LGAoBaWHuk4ZeYME0lCeBQuctssDxpeCGmqtEGGQE3tqoTyXqpSGrCR8wvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3eCMYDj8YVuWQ5O9a/ggtOvR1J3EVo9UBfTkFfcnpJw=;
- b=N9HiKWfl4OcnsAruIm9rzNRAC4DGJzUMZDXJyK2Xm4jzivqtxwR+IvpxxtoViBgQDrpNY1vsHzGgGA6fzfPh4nnB553KueZs+VLJqg9a0bDqRuYxSR5aa5AlZAID+2tM9WKfK0wExJ1s+gcQlnw14kDbnC1+XfmNuO1av+44/GUvnrJeBoPVG+0mFh55ytCJKofsf/hOCN7vnHPo1iBALBwVpDkhiu04x+B6rCkXevGkS/CXl0oEPiTIdPXc8O+zbPf4BC04F8x0yWe1b2RIvQpis23pXUtB1ME/R8Mwbrf5W7W2VLsgc30+pjNnEjeCITsTp40yU1mwZDb9tpw1+Q==
+ bh=toprCbtRqWWEFm51huvlokYccBkGzouj7gEFp/QXEYA=;
+ b=XcGzXMRH8Lq06OObPfI/f0DKr2TY29H0PlQNYOfENx0CBSw3eqFyLO/fuZrgvGf4+DIM9rpTcDlzSs+L/f2gan+bxboa8/KSj/+uQT2HjwAQ1rqwjGVXKaPZWWk1L4wzl6mdc53ffc9PbEg4SiUiL/moWoYqGE6qZLOQTwjw72ZzdSQIS06d5hT/V17ZX/Tk9eU4upMDL0Ty5Cq1SJi6yXX+XsrqTILUfn0eGvtHSXPmt28vAxY1P9LFdrnCD5EI8uiYX6QkGMcgAjFhXcTEJc/H+NldyGE6dFVEybHTyz/EOIziMoDN5qZkZt9Z4IACkOwm1dp2eyL8VeDWs9oC/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3eCMYDj8YVuWQ5O9a/ggtOvR1J3EVo9UBfTkFfcnpJw=;
- b=M1ZzvReeeOUtklWc0hJGWvX5717jImTsrZS/xak5+f5xGxGFvMQ4m1x+pw08SNLFllvGXQpWh+Ur8uDQyYOyZCov0K2dbbB0GTb3peKK+7XF9mjTc4FbDHp5mx7C7/gwPhLfX5txq7A845Un4ile02Skvojgk4XrY8JLFTWONyhW2GFcsvy5BgkoBgIhS8RB2XVfdqfITUD2yR4rPJKqCuOBGWKgasLJJCC7i/8rl0VS02NvxJ2hwUQUl0QKgBFDobpxsV4lmJsxgTaCsHtrGB9d4oy0+15AplRRTbLFTFEUs1m8v0JKiOxW90fQtA6X9lyHDK6pJTnny2jgyZaxKg==
+ bh=toprCbtRqWWEFm51huvlokYccBkGzouj7gEFp/QXEYA=;
+ b=t2gvKkpaYp0mccuOj0PGAWm7/K88lIFP5PpbHHQJ19IBhhHKwE/vZCVZY/nrV6mtIT7Z/mAku7lEskrYDFwg9Tg0QrCLtzJUlnPGBM7ynfGnustl4PUhNEfGt0+h9hB74GoLVJeYDRLEpSSqa3DkQEynMJzjafmd6jTj+xFlBQU=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <cdbaec77-9112-7b18-e9eb-fa12a16d2ccf@suse.com>
-Date: Tue, 11 Jul 2023 16:40:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v5 06/15] cpufreq: Add Hardware P-State (HWP) driver
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20230706185440.48333-1-jandryuk@gmail.com>
- <20230706185440.48333-7-jandryuk@gmail.com>
- <eeeb032f-a21b-5eb2-e3d5-63357a04a500@suse.com>
- <CAKf6xptn0OL0qz+DW9qrwU=sFSKSp-O3S7z6vFbZp9RstFanbw@mail.gmail.com>
- <bfacee48-f640-f2eb-7fd7-f440ad03e612@suse.com>
- <CAKf6xpvVd49dx=CtGyPMt+NMuOfhJ4a1fiZb-O4e-guq9BwcFw@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAKf6xpvVd49dx=CtGyPMt+NMuOfhJ4a1fiZb-O4e-guq9BwcFw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <b6ec25a2-e1fd-bbff-6f66-55172a5f5ed8@amd.com>
+Date: Tue, 11 Jul 2023 16:43:17 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v1] xen/drivers: ns16550: Fix the return logic for
+ pci_uart_config()
+To: Jan Beulich <jbeulich@suse.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ wl@xen.org, xen-devel@lists.xenproject.org
+References: <20230707113518.141489-1-ayan.kumar.halder@amd.com>
+ <6717701f-76c3-94f6-241b-743b4828ad6e@suse.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <6717701f-76c3-94f6-241b-743b4828ad6e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0265.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::14) To AS8PR04MB8788.eurprd04.prod.outlook.com
- (2603:10a6:20b:42f::21)
+X-ClientProxiedBy: LO4P302CA0014.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c2::15) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|DB9PR04MB8316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1fb7ae33-2c90-43d9-2ca6-08db821cd81e
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|BL3PR12MB6476:EE_
+X-MS-Office365-Filtering-Correlation-Id: c92e288c-b7ce-4359-2b00-08db8225900d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	E4EzkhSDTlZzLBlpdGPZKYbIeh4y4j8xVQTDny+WPyEJCFkaaI2lQY83bjnL0/NFNDu8qsqmrBIuItBc2IVZ754LWJysZXmUzj7YK+RI/z0TmIo9b8Xd582DyTC58HvXQ2kJV7t00oiIzAN8Sq8iRMdfSP3gyxKCjHPBWCOXRXSH43c7CqG32fQjO2HDGc+N3eDzsChbSorDtl2FItBOPoTgQQiN4oy7M69BjCPcEtFl0I+K8EImohTCNGBty+0mYmPCXw40q8Y4gDxQnQ02bNue+kxdK4fgGanKqlIYRt3cr+xL9QclKBxMlq92DWo5fJm0EmyKvJWSf6UOUQMo7XSR8Ysnodga39zoRxbV46Zp23gTGj9knvYD3A6IBHtPi/17xQFXY/4rb83QGUaEsWUEhnkTCAdh6ipKgyTcJo8NK4fcM13xUKlkHozjQdbXHDPm0/3kjdI4mFQtt05d52/DfAbHs90G7Jd+hVenzIhGqy+rmS5LPxUd0arkxJcnLMIpaqL4cbqqocGRNy/++22c8kfoXJ9hBg6zLIulKJJE+j23wyFKXnYv7j38fybVvXsSz1TvJd79JeHgepvd5HpRHzNWlMKNBuvNX8wIm5LE/RJKIkwMeWPhmu06y7bVFClQ2BA70jfS5WiYeVSyWQ==
+	2wBeZzBH08oDFR/Wd8fu5UlCvAraQjuwBPo1aYmaIHCeLGOUeUaJI1WAs+TnMJG4soGr/HQmSYjrnlIYamXvdhn3ERsKUkxdws7HE/AOBUQn8PiRcIH8JFUPxvC35RlPY9yVdDUkW+iqCHSM5K8s8rXETEHSx2liXPldtJQDEFuGJStjdNUWjvZUUQAKexo0j9+EqrwOKZGJmZE3JRZspB7+GAyMvlZjaRuZMlkRxQo/5O9Ed9EUncK9InJ56e9GiWSys2zOC+EVlvGubn5tylhW4MM+g7V4XDaLJ/gCAjGjRM7wRq0GmGcZC1QcIgdO1y6o3syf4cx7d1TmSpb0OB45RZJEdEP4CuB3bMApRdI6myI+HEpoAu105fFz4GxJqJ6NePa2/r5PPHpdF9Psg66XC84qZycxKYSjC5lesmcopo3I1QkZwl+sG/Se3wZGkwQz9k3SgjGeEHp2XSGDStRqrzK/G6nXr918rIuktyMtY3II8hihaH8vvSmQ8SERjk5+mZGN98740A0rZl4SjuERYBKdNLF+QmJs9D1RvKTX5sKQGaSkL4rfRxCs0g1A66J71TISKgeT4zaFtKnh+U4SkXst4pb1cVPxZ+xdSYJiGgKun+7LPHbc+P5sl+ugOwVvN8PzxqSUV18tnTdWwg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(39860400002)(376002)(396003)(346002)(136003)(451199021)(2616005)(41300700001)(53546011)(26005)(6506007)(83380400001)(31686004)(186003)(6512007)(478600001)(54906003)(6486002)(4326008)(6916009)(316002)(66556008)(66946007)(38100700002)(66476007)(86362001)(31696002)(8936002)(5660300002)(8676002)(2906002)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(346002)(136003)(376002)(366004)(451199021)(31696002)(38100700002)(6666004)(6512007)(6486002)(966005)(110136005)(31686004)(2906002)(2616005)(36756003)(6636002)(4326008)(316002)(66556008)(66476007)(66946007)(8676002)(8936002)(6506007)(53546011)(478600001)(26005)(186003)(41300700001)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dHF6RHM0aUgxTEl3ZUZDamVEVTJ3RCsxQ3Y0dUhWOEdsRGpkSTZQbnRSWVpO?=
- =?utf-8?B?cGN2Sk83Q05waW05RlNCcWtyN3dtSWRoQlhQRFplVkFZUFFlUXViaWg1cS9j?=
- =?utf-8?B?WHBEVnB1Z0VYVUxkSSt4UFNzV0JoVXlmanBPbGYxNDBjOWZOeG5CUDJYZC9P?=
- =?utf-8?B?eUREWVlZdDhtUWI0Zm5EVVdLMHBGWkxFM0l5UHdpdVBGdFVFU1dHaWs5THQz?=
- =?utf-8?B?QUhMMVoveDF6L21maWdzNzB1MHUvWDdVRXVURlBGNVloOUxQN3dHQlBUelV0?=
- =?utf-8?B?Z2l3UVhCK1hIVk12MENUMS9qOUJwMFg0TlV4WHRhM0tKdzNNWUhCQ24rSUsy?=
- =?utf-8?B?djVwdkJ2c2dnVDdDQXZpcnIzT3N0SW9Wd0RxTm1YaE40SDgzK0cyVk5FRHg5?=
- =?utf-8?B?UDZqaEV3eU8yR3dmSDBkU1JEREVKZ290bkgzc21qVEJZUGRMV0s5aVp0OVFu?=
- =?utf-8?B?K3pmRGNTdzBvWmNsZDI0eXFTdkhDVXNFY1puRWJ2M3NzUEduekpvL0hHVThW?=
- =?utf-8?B?dkhFZTJVVTRtRmlNb3NvWWVsZDZHTE14OEJ6OFh0N1lnaHdnbGRYTXFVSjBq?=
- =?utf-8?B?VnVhb0JBanNQWDRmZHFGQUtXUXAvdldQNkpJT3BSdTErTFg0UXZrRExQeWc4?=
- =?utf-8?B?b0g0a1VRaVNoejBqbDlsTS9aS2k3ajcyVkxZQ0Urb3VRVWJPdjFKc250RUk1?=
- =?utf-8?B?NHkrRklRSWk0RnZlYk55Nm5LNGgrRm9aNjM2amVTTnpFOGxKQ2YrSldtRkZJ?=
- =?utf-8?B?VmdYdTM5V1FUdGRITHdPQ0tNeVRXbUJTcmRoMlJQUitHRXU5MzdaNGxVVnFD?=
- =?utf-8?B?VjNtWEdXVVAvZTQ5Mi8raEVuQWdSejZwR3g3R2dSZjk1Vk1qMTg0M2xxanBr?=
- =?utf-8?B?T1pwMVlzaFdxWEtpNFM3R0NCTHBRUjFFUWpVVXN5N2o0c2tTN2Z0a2NoeEJK?=
- =?utf-8?B?aXRmMFRnRTV4c3FzT3JuZkxZTGFwRHhUeEE2RENIRFBaZXFVZlNuTDZldU5i?=
- =?utf-8?B?WTIzbzNkTjJDSjVEbG1xM3NKOXJOTk8vVzZYektzMEFmVkRyTW1neDIzUXV3?=
- =?utf-8?B?V0hXQzdIZytPMlVQUzM0RUtza1JsSG9ON2lvSDNOL1VpV2lWOWFOcFVqUm9Z?=
- =?utf-8?B?VnE4M29jMm50UmRGNkU4TE9maHFWSk5yZkc2b25pcWt5cXQwTmtPYVMzZlZG?=
- =?utf-8?B?Q2p3QklsVUhKbTltcFdKNlRWMWc0MFBEUGZ3K0RtU3ZKeVYwUGNaQ09sUkgw?=
- =?utf-8?B?dzBCZXB5SkhZSnpaMS9FeXBTU0lqOVpNK3RXNC80VEdDK2hYNDZrWWhTNXIz?=
- =?utf-8?B?cXRES1VML0VrZWQzckNEelo3bUo0dTVHRjF1YkxHOWpKNFdkUldSQ0xJRGhC?=
- =?utf-8?B?ZjFiVFY3VU16OHVuaHZDUEdKQTZHaTZKOFMzSXRQWm5SazVzV3dPYWxGa1lu?=
- =?utf-8?B?MzBpSjdkd3BNUFc3dytRR25OS0VCMVhmNStDRXVzbm92U3BEQ2F3ZXRGWHRZ?=
- =?utf-8?B?bjYxRi9KY3cyTyt1eHovMVI5TWRrbXcvUEpQOU9rcjFkcGkzd0FsTWtidHBl?=
- =?utf-8?B?Y3E1T3pyZ2NqWnIrL29BcmdoQk8yeWRScm1jdzY5NzBheHhmSE42aENKNk8x?=
- =?utf-8?B?VWd0YmxHcFhyZ1hBbGdmMmp1QmZtaWFJbTNZeVlIOHpaRTluWkIvNUtodWZP?=
- =?utf-8?B?ZmFZcUZyMGVNYkZqY2VwMkk4M0dWdFg0dGJadVk4aEJ2M3VlOGtQYklHbk1j?=
- =?utf-8?B?NDNBd2ZKTkhuZytKVnBXczBaNlNaeCtyd21JZ1IvQ3NndXNOenVzSnpRd0dZ?=
- =?utf-8?B?aVJWRWIzMXlwa2ZIZlh5WGZxQjVNZTVsa05xbE40RmozWFQ4R0RwR0FQbWZZ?=
- =?utf-8?B?RVIvT2dUcTZIdC9zNVFxQUkzZldUSG1LVGtZbnBhdUVaTzNDUUJwMVN4RFdm?=
- =?utf-8?B?VWFMUU80QWdQMVdUSll4YkpJSHg3R2Q4SzZPR2NFMjNONXFCODVoS1phQWox?=
- =?utf-8?B?a0RhZjI0dG9iZ2Y5em9keGtES1lRNXNsWWVENE14SzJobUtJKzhRVHluZWQv?=
- =?utf-8?B?NkpuMnNrTzIvMUlEL09aMWRlRlYyVUhpY2lJQzBqU0hWbGN3Ly90TkhaaTAw?=
- =?utf-8?Q?p/FjdmZV5zEH2VD8vLGpVhyNt?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fb7ae33-2c90-43d9-2ca6-08db821cd81e
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
+	=?utf-8?B?S0VDQ1R6bFR1UDgzemF4TXA3YzJTSURKU0xNN0F0Q0ZlYm9acGhmWXpIUkh0?=
+ =?utf-8?B?bUZ5YndqTU0wcGtBbDhqV3RETStqU1dUS1NMUzVzSW0rRURuVkVocXUwQ0Nx?=
+ =?utf-8?B?TEE1L3Z4WFJQQmdZRU50Tk9LSm53MVVwQkdVQkx5OVQ3aU1KUVBYYVFQQ21r?=
+ =?utf-8?B?TEVrOGowWXpnbjRsMUJVUjVpRHlCVVZNNVlqdHF5djBvbzVmOEh5SVIvQ3gx?=
+ =?utf-8?B?cGU0RlRrZWVETXVWSmNGaVJSMkFCbTdXQmtzSm9LNFRCa25GY1RDMzZiR0Q0?=
+ =?utf-8?B?Y2NWN0NrV1ZpOXR6N1hsNS9lS1d5REJ1MUNnOXBJd0pVaTYvdnMrT2NVNjEz?=
+ =?utf-8?B?MUhYSWtQTmJwa1l2TU0zR2JOSmdWL1g1SHdpclM5TEo4NnpLQXlJVXFVM0Vr?=
+ =?utf-8?B?b0ZDVi9jRFA4MERJUHlPRjVvaXBpUEN6L1A0enRNeWNJbGx3RWoxNnFMU0Vu?=
+ =?utf-8?B?K3ordllWcmNFenRpVDNOa3F0Nk40WDY0OUVRY1c1b1U4dkhBQkxkNGRYbGJQ?=
+ =?utf-8?B?N1NBYzg1cTIzTC9uVnVtRjNWZjdmd3BZQzZaWkdTRHlRakwydGtML1QzYmlw?=
+ =?utf-8?B?N3cwUUZibm94QWdpZTJiZ01hc3ozSTVSb1lvV3NQdTU4dldPYStrSkFHS2xo?=
+ =?utf-8?B?UXJRZEUyRWh3Rk9MS3ZTdHpuV0dDQ2dmd0t6ZmppdGE0Ui9BNGRZYnVvZzBN?=
+ =?utf-8?B?eHBBQUlQTGNJUjRVV2p2dndEcXR6R0hScHhmMWwrcWZ2eGpJOGtNM0MvVi9n?=
+ =?utf-8?B?bE9RZlJSY3BjVkxoUXhIQVpFOEptTHlNOWpCcUJDMlllZnBLVXlmNVBNczBz?=
+ =?utf-8?B?NTVMUlRhczI1emJzcTVHeUhBdTRPc0VrbS85TWV1eS9PZFlrZVB2cmI0cUNz?=
+ =?utf-8?B?YXdZQjJJemVpOUx3N0ZIWjgyOXJ3czNpd0RIb29ST2ExSTRyc3FlRmZYbjZQ?=
+ =?utf-8?B?YXZTditCeHF0eC80cUwvK1MrTmh2YlhYa21pUCtxeDU3d3VTU05BNGhUTy85?=
+ =?utf-8?B?cDE2UXhRWk54ZDArYWVqcnZyN2FIa0hEQ1Nib2pRVGpLbktIZTBqaGw1dHc2?=
+ =?utf-8?B?Q2Fsc1FSRUt6QTJ4NGpmeS9OZ2JKYzhESnJMb0ZheTRidlNYemlRd3VsR3Mw?=
+ =?utf-8?B?MThDTnBwY2NVSFp2bjMxL0JVeWttK2psaEZkOEZPczdPZkptWWRuSWFzY2Vm?=
+ =?utf-8?B?Ly8vTTMrcWlydFBsZU9lenlmWU9qYlExdWhpNnFwUmxKaWtmemVpTXFhbVBG?=
+ =?utf-8?B?NVNuZWV5QmgwMFpseTBCN29jWEx4TUVqck42TWtFbkkrVlhzdnZ6Z2RUOXdi?=
+ =?utf-8?B?TFR0dDlwNElPVENDTWZsdEp5bEN0STl2S1FmMkxrbzlPaVVVcHczUDk0cTNF?=
+ =?utf-8?B?MUl0cWV5eDNpNEpQOCtqN1hjakIvbFBwV3grNkY5YkIrQmtWeWNtWmxRakd0?=
+ =?utf-8?B?cmp0K0xDbG1MQi83YUVpRlVEUkdvSjVEUk5OWTlzY2RySGlLbXp6NTJQenVi?=
+ =?utf-8?B?OXQrWVk2M2FVRHgzd0Rqa1pKTVdtWCtWNnNDUC9NTnZBNGYzQVJOZWtjV2dW?=
+ =?utf-8?B?OEZNQ3VOVEduVVZWSjlWeTBqMnVOeEJIN3NucG5UY2N4TTBscGdPYnpwZFFN?=
+ =?utf-8?B?Y0o2YkM0QWFwbXgrQk1udlhmNW9aUEZZT0Z3T0hRZTRGUHptZzlRaXFiczla?=
+ =?utf-8?B?UmJsRUl0b2F4RFNKS1FvaFEwMzluNlIzRDY0VmlqK3kvUmw1ZzFoeXFtZno0?=
+ =?utf-8?B?Nk11RUczV2pMZ1dwQzliWEdKUXJ0bmswVUpmQTZsSDczcUptVjhjSXVTZi9r?=
+ =?utf-8?B?azBWTHhhSUZjY2FUNlE0Yi9ZVzNIR1ZNWi9VRTVjV2p6Sjl4Q2tnU2dHa3dD?=
+ =?utf-8?B?dDArNEVMUWxNcUxtTjZJeEJ6N0Y3dVpROXRIUEdIeXRqdld4a3pWQ0ozVi9r?=
+ =?utf-8?B?UEw0WGNBL0hmYzhTRVNrTWxlY0pId0E0Y2M1NTU3cWtvem5Gajd0WVQrMDdF?=
+ =?utf-8?B?MGszOWVxQWYxRUY5RXYzTEQ5TDQxcUdRM2ZpR21KK3ZuVEl4U0dINHpibWxv?=
+ =?utf-8?B?ZzJIeEc2TXFWaGxGYTlob1M4ejkvOUI0UEZPYnB5NWRyR0wvMGF6dUgwd2pL?=
+ =?utf-8?Q?PFvn1q8E9Mi2eeWL8Zd+Y7hv4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c92e288c-b7ce-4359-2b00-08db8225900d
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 14:41:00.0890
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 15:43:24.7967
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZwPaj6sTB9nItUXfHmSsXLRrWRY3vUTrDLzukt+WTf7HJ9l7vfRrku6bBu8JWkKlFhh+lR3ViD1RTOiF83rqKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8316
+X-MS-Exchange-CrossTenant-UserPrincipalName: vEYKkSm3oi/3rX4mwmMaMLqaEyOVKkhrnD8mCiAjmWXocqXlTYeCqMNkBWksWTySHPdeT/HzQZuVjlTRdeqGBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6476
 
-On 11.07.2023 16:16, Jason Andryuk wrote:
-> On Tue, Jul 11, 2023 at 4:18 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 10.07.2023 17:22, Jason Andryuk wrote:
->>> On Mon, Jul 10, 2023 at 9:13 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 06.07.2023 20:54, Jason Andryuk wrote:
->>>>> @@ -510,6 +510,22 @@ choice of `dom0-kernel` is deprecated and not supported by all Dom0 kernels.
->>>>>  * `<maxfreq>` and `<minfreq>` are integers which represent max and min processor frequencies
->>>>>    respectively.
->>>>>  * `verbose` option can be included as a string or also as `verbose=<integer>`
->>>>> +  for `xen`.  It is a boolean for `hwp`.
->>>>> +* `hwp` selects Hardware-Controlled Performance States (HWP) on supported Intel
->>>>> +  hardware.  HWP is a Skylake+ feature which provides better CPU power
->>>>> +  management.  The default is disabled.  If `hwp` is selected, but hardware
->>>>> +  support is not available, Xen will fallback to cpufreq=xen.
->>>>> +* `<hdc>` is a boolean to enable Hardware Duty Cycling (HDC).  HDC enables the
->>>>> +  processor to autonomously force physical package components into idle state.
->>>>> +  The default is enabled, but the option only applies when `hwp` is enabled.
->>>>> +
->>>>> +There is also support for `;`-separated fallback options:
->>>>> +`cpufreq=hwp,verbose;xen`.  This first tries `hwp` and falls back to `xen`
->>>>> +if unavailable.
->>>>
->>>> In the given example, does "verbose" also apply to the fallback case? If so,
->>>> perhaps better "cpufreq=hwp;xen,verbose", to eliminate that ambiguity?
->>>
->>> Yes, "verbose" is applied to both.  I can make the change.  I
->>> mentioned it in the commit message, but I'll mention it here as well.
->>
->> FTAOD my earlier comment implied that the spelling form you use above
->> should not even be accepted when parsing. I.e. it was not just about
->> the doc aspect.
-> 
-> Oh.  So what exactly do you want then?
-> 
-> There is a single cpufreq_verbose variable today that is set by either
-> cpufreq=hwp,verbose or cpufreq=xen,verbose.  Is that okay, or should
-> the "xen" and "hwp" each get a separate variable?
-> 
-> Do you only want to allow a single trailing "verbose" to apply to all
-> of cpufreq (cpufreq=$foo,verbose)?  Or do you want "verbose" to be
-> only valid for "xen"?  Both cpufreq_cmdline_parse() and
-> hwp_cmdline_parse() just loop over their options and don't care about
-> order, even though the documentation lists verbose last.  Would you
-> want "cpufreq=hwp,verbose,hdc" to fail to parse?
-> 
-> All parsing is done upfront before knowing whether "xen" or "hwp" will
-> be used as the cpufreq driver, so there is a trickiness for
-> implementing "verbose" only for one option.  Similarly,
-> "cpufreq=hwp,invalid;xen" will try "hwp" (but not "xen")  since the
-> live variables are updated.  Even without this patch, cpufreq will be
-> configured up to an invalid parameter.
+Hi Jan,
 
-Right, and I'd like to see "hwp;xen" to be treated as a "unit", with
-",verbose" applying to whichever succeeds initializing. I don't think
-there is much point to have separate verbosity variables.
+On 10/07/2023 11:08, Jan Beulich wrote:
+> On 07.07.2023 13:35, Ayan Kumar Halder wrote:
+>> --- a/xen/drivers/char/ns16550.c
+>> +++ b/xen/drivers/char/ns16550.c
+>> @@ -1342,13 +1342,9 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
+>>           }
+>>       }
+>>   
+>> -    if ( !skip_amt )
+>> -        return -1;
+> This special case probably needs retaining in the new model (with an
+> altered return value), such that ...
 
-> FYI, cpufreq=xen;hwp will be accepted.  "xen" shouldn't fail, so it
-> doesn't make sense to specify that.  But it didn't seem necessary to
-> prevent it.
+Does this look correct ?
 
-Sure, that's fine.
+      if ( !skip_amt )
+-        return -1;
++        return -EINVAL;
 
->>>>> +    if ( data->curr_req.raw == -1 )
->>>>> +    {
->>>>> +        hwp_err(cpu, "Could not initialize HWP properly\n");
->>>>> +        per_cpu(hwp_drv_data, cpu) = NULL;
->>>>> +        xfree(data);
->>>>> +        return -ENODEV;
->>>>> +    }
->>>>> +
->>>>> +    data->minimum = data->curr_req.min_perf;
->>>>> +    data->maximum = data->curr_req.max_perf;
->>>>> +    data->desired = data->curr_req.desired;
->>>>> +    data->energy_perf = data->curr_req.energy_perf;
->>>>> +    data->activity_window = data->curr_req.activity_window;
->>>>> +
->>>>> +    if ( cpu == 0 )
->>>>> +        hwp_verbose("CPU%u: HWP_CAPABILITIES: %016lx\n", cpu, data->hwp_caps);
->>>>
->>>> While I'm fine with this (perhaps apart from you using "cpu == 0",
->>>> which is an idiom we're trying to get rid of), ...
->>>
->>> Oh, I didn't know that.  What is the preferred way to identify the
->>> BSP?
->>
->> Sometimes we pass a separate boolean to functions, in other cases we
->> check whether a struct cpuinfo_x86 * equals &boot_cpu_info. The
->> latter clearly can't be used here, and the former doesn't look to be
->> a good fit either. However, ...
->>
->>>  This doesn't necessarily run on the BSP, so "cpu"/"policy->cpu"
->>> is all we have to make a determination.
->>
->> ... isn't it, conversely, the case that the function only ever runs
->> on "cpu" when it is the BSP? In which case "cpu == smp_processor_id()"
->> ought to do the trick.
-> 
-> The calls do not necessarily run from the BSP.  The cpufreq init
-> callbacks run later when dom0 uploads the ACPI processor data.
+>
+>> -    /* No AMT found, fallback to the defaults. */
+>>       uart->io_base = orig_base;
+>>   
+>> -    return 0;
+>> +    return -ENODEV;
+>>   }
+>>   
+>>   static void enable_exar_enhanced_bits(const struct ns16550 *uart)
+>> @@ -1527,13 +1523,13 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
+>>   #ifdef CONFIG_HAS_PCI
+>>           if ( strncmp(conf, "pci", 3) == 0 )
+>>           {
+>> -            if ( pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
+>> +            if ( !pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
+>>                   return true;
+>>               conf += 3;
+>>           }
+>>           else if ( strncmp(conf, "amt", 3) == 0 )
+>>           {
+>> -            if ( pci_uart_config(uart, 0, uart - ns16550_com) )
+>> +            if ( !pci_uart_config(uart, 0, uart - ns16550_com) )
+>>                   return true;
+>>               conf += 3;
+>>           }
+> ... e.g. here you don't suddenly change behavior in unintended ways.
+> Prior to your change the earlier of the return paths was impossible
+> to be taken. That's likely wrong, but you now returning in the success
+> case can't be correct either:
+I am afraid I don't follow your comments very well.
 
-Oh, of course. How did I manage to forget?
+pci_uart_config() returns 0 for success. So we need to check "!(pci_uart_config(...)" to return true.
 
->  If you
-> don't want "cpu == 0", maybe just print for the first CPU regardless
-> of number, and then print differences from that?
+> Further items may need parsing, first
+> and foremost the IRQ to use.
 
-Perhaps best then.
+I see the irq is parsed here 
+https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/drivers/char/ns16550.c;h=212a9c49ae8e5c40dc6cd05da07a6652c8405935;hb=refs/heads/master#l1558 
+.
 
-Jan
+Do we need to do something more ?
+
+- Ayan
+
+>
+> Jan
+>
+>> @@ -1642,13 +1638,17 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
+>>           case device:
+>>               if ( strncmp(param_value, "pci", 3) == 0 )
+>>               {
+>> -                pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com);
+>> -                dev_set = true;
+>> +                if ( !pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
+>> +                    dev_set = true;
+>> +                else
+>> +                    return false;
+>>               }
+>>               else if ( strncmp(param_value, "amt", 3) == 0 )
+>>               {
+>> -                pci_uart_config(uart, 0, uart - ns16550_com);
+>> -                dev_set = true;
+>> +                if ( !pci_uart_config(uart, 0, uart - ns16550_com) )
+>> +                    dev_set = true;
+>> +                else
+>> +                    return false;
+>>               }
+>>               break;
+>>   
 
