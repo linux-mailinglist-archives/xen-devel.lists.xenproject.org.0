@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7DF07504D2
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 12:37:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562258.878916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B11367504D5
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 12:37:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562257.878912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJXDo-0004Lz-A3; Wed, 12 Jul 2023 10:37:24 +0000
+	id 1qJXDo-0004Bc-0a; Wed, 12 Jul 2023 10:37:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562258.878916; Wed, 12 Jul 2023 10:37:24 +0000
+Received: by outflank-mailman (output) from mailman id 562257.878912; Wed, 12 Jul 2023 10:37:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJXDo-0004Bl-2Z; Wed, 12 Jul 2023 10:37:24 +0000
-Received: by outflank-mailman (input) for mailman id 562258;
+	id 1qJXDn-0004Ad-Ma; Wed, 12 Jul 2023 10:37:23 +0000
+Received: by outflank-mailman (input) for mailman id 562257;
  Wed, 12 Jul 2023 10:37:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M0TT=C6=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qJXAc-00061z-BS
- for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 10:34:06 +0000
+ id 1qJXAb-0006Dd-EF
+ for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 10:34:05 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9edd3c6f-209f-11ee-8611-37d641c3527e;
- Wed, 12 Jul 2023 12:34:03 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9fa98df3-209f-11ee-b239-6b7b168915f2;
+ Wed, 12 Jul 2023 12:34:04 +0200 (CEST)
 Received: from beta.bugseng.com (unknown [37.161.151.90])
- by support.bugseng.com (Postfix) with ESMTPSA id F15154EE0C8F;
- Wed, 12 Jul 2023 12:34:01 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 4CB734EE0737;
+ Wed, 12 Jul 2023 12:34:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9edd3c6f-209f-11ee-8611-37d641c3527e
+X-Inumbo-ID: 9fa98df3-209f-11ee-b239-6b7b168915f2
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
@@ -54,9 +54,9 @@ Cc: consulting@bugseng.com,
 	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
 	Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH v3 14/15] ACPI/APEI: fix violations of MISRA C:2012 Rule 7.2
-Date: Wed, 12 Jul 2023 12:32:15 +0200
-Message-Id: <9fa7f3b467b7efbe1c9f80269c4af942fbebea8d.1689152719.git.gianluca.luparini@bugseng.com>
+Subject: [XEN PATCH v3 15/15] xen: fix violations of MISRA C:2012 Rule 7.2
+Date: Wed, 12 Jul 2023 12:32:16 +0200
+Message-Id: <7a58c9341d10ef79e117ac35da048bbb088ec5d0.1689152719.git.gianluca.luparini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1689152719.git.gianluca.luparini@bugseng.com>
 References: <cover.1689152719.git.gianluca.luparini@bugseng.com>
@@ -72,75 +72,164 @@ that are represented in an unsigned type".
 
 Add the 'U' suffix to integers literals with unsigned type.
 
-For the sake of uniformity, the following changes are made:
-- add the 'U' suffix to all first macro's arguments in 'cper.h'
+Fot the sake of uniformity, the following changes are made:
+- add the 'U' suffix to all integer constants before the
+  '?' operator in 'bitops.h'
 
 Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes in v3:
-- create this commit for 'cper.h'
----
- xen/include/xen/cper.h | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+- change 'Signed-off-by' ordering
+- change commit message
+- fix in 'muldiv64.c'
+- add changes to 'bitops.h' macros
+- move 'cper.h' in a separate commit
 
-diff --git a/xen/include/xen/cper.h b/xen/include/xen/cper.h
-index f8e5272bc1..7c6a4c45ce 100644
---- a/xen/include/xen/cper.h
-+++ b/xen/include/xen/cper.h
-@@ -56,7 +56,7 @@ static inline uint64_t cper_next_record_id(void)
- #define CPER_SIG_RECORD				"CPER"
- #define CPER_SIG_SIZE				4
- /* Used in signature_end field in struct cper_record_header */
--#define CPER_SIG_END				0xffffffff
-+#define CPER_SIG_END				0xffffffffU
+Changes in v2:
+- minor change to commit title
+- change commit message
+- add '(uint32_t)' in 'muldiv64.c' for consistency
+- add fix in 'vesa.c'
+---
+ xen/common/gunzip.c          |  2 +-
+ xen/common/xmalloc_tlsf.c    |  2 +-
+ xen/drivers/char/ehci-dbgp.c |  4 ++--
+ xen/drivers/video/vesa.c     |  2 +-
+ xen/include/public/memory.h  |  2 +-
+ xen/include/public/sysctl.h  |  4 ++--
+ xen/include/xen/bitops.h     | 10 +++++-----
+ xen/lib/muldiv64.c           |  2 +-
+ 8 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/xen/common/gunzip.c b/xen/common/gunzip.c
+index 71ec5f26be..b810499be2 100644
+--- a/xen/common/gunzip.c
++++ b/xen/common/gunzip.c
+@@ -11,7 +11,7 @@ static unsigned char *__initdata window;
+ static memptr __initdata free_mem_ptr;
+ static memptr __initdata free_mem_end_ptr;
  
- /*
-  * CPER record header revision, used in revision field in struct
-@@ -80,35 +80,35 @@ static inline uint64_t cper_next_record_id(void)
-  * Corrected Machine Check
-  */
- #define CPER_NOTIFY_CMC							\
--	UUID_LE(0x2DCE8BB1, 0xBDD7, 0x450e, 0xB9, 0xAD, 0x9C, 0xF4,	\
-+	UUID_LE(0x2DCE8BB1U, 0xBDD7, 0x450e, 0xB9, 0xAD, 0x9C, 0xF4,	\
- 		0xEB, 0xD4, 0xF8, 0x90)
- /* Corrected Platform Error */
- #define CPER_NOTIFY_CPE							\
--	UUID_LE(0x4E292F96, 0xD843, 0x4a55, 0xA8, 0xC2, 0xD4, 0x81,	\
-+	UUID_LE(0x4E292F96U, 0xD843, 0x4a55, 0xA8, 0xC2, 0xD4, 0x81,	\
- 		0xF2, 0x7E, 0xBE, 0xEE)
- /* Machine Check Exception */
- #define CPER_NOTIFY_MCE							\
--	UUID_LE(0xE8F56FFE, 0x919C, 0x4cc5, 0xBA, 0x88, 0x65, 0xAB,	\
-+	UUID_LE(0xE8F56FFEU, 0x919C, 0x4cc5, 0xBA, 0x88, 0x65, 0xAB,	\
- 		0xE1, 0x49, 0x13, 0xBB)
- /* PCI Express Error */
- #define CPER_NOTIFY_PCIE						\
--	UUID_LE(0xCF93C01F, 0x1A16, 0x4dfc, 0xB8, 0xBC, 0x9C, 0x4D,	\
-+	UUID_LE(0xCF93C01FU, 0x1A16, 0x4dfc, 0xB8, 0xBC, 0x9C, 0x4D,	\
- 		0xAF, 0x67, 0xC1, 0x04)
- /* INIT Record (for IPF) */
- #define CPER_NOTIFY_INIT						\
--	UUID_LE(0xCC5263E8, 0x9308, 0x454a, 0x89, 0xD0, 0x34, 0x0B,	\
-+	UUID_LE(0xCC5263E8U, 0x9308, 0x454a, 0x89, 0xD0, 0x34, 0x0B,	\
- 		0xD3, 0x9B, 0xC9, 0x8E)
- /* Non-Maskable Interrupt */
- #define CPER_NOTIFY_NMI							\
--	UUID_LE(0x5BAD89FF, 0xB7E6, 0x42c9, 0x81, 0x4A, 0xCF, 0x24,	\
-+	UUID_LE(0x5BAD89FFU, 0xB7E6, 0x42c9, 0x81, 0x4A, 0xCF, 0x24,	\
- 		0x85, 0xD6, 0xE9, 0x8A)
- /* BOOT Error Record */
- #define CPER_NOTIFY_BOOT						\
--	UUID_LE(0x3D61A466, 0xAB40, 0x409a, 0xA6, 0x98, 0xF3, 0x62,	\
-+	UUID_LE(0x3D61A466U, 0xAB40, 0x409a, 0xA6, 0x98, 0xF3, 0x62,	\
- 		0xD4, 0x64, 0xB3, 0x8F)
- /* DMA Remapping Error */
- #define CPER_NOTIFY_DMAR						\
--	UUID_LE(0x667DD791, 0xC6B3, 0x4c27, 0x8A, 0x6B, 0x0F, 0x8E,	\
-+	UUID_LE(0x667DD791U, 0xC6B3, 0x4c27, 0x8A, 0x6B, 0x0F, 0x8E,	\
- 		0x72, 0x2D, 0xEB, 0x41)
+-#define WSIZE           0x80000000
++#define WSIZE           0x80000000U
  
- /*
+ static unsigned char *__initdata inbuf;
+ static unsigned int __initdata insize;
+diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
+index 75bdf18c4e..c21bf71e88 100644
+--- a/xen/common/xmalloc_tlsf.c
++++ b/xen/common/xmalloc_tlsf.c
+@@ -46,7 +46,7 @@
+ #define BHDR_OVERHEAD   (sizeof(struct bhdr) - MIN_BLOCK_SIZE)
+ 
+ #define PTR_MASK        (sizeof(void *) - 1)
+-#define BLOCK_SIZE_MASK (0xFFFFFFFF - PTR_MASK)
++#define BLOCK_SIZE_MASK (0xFFFFFFFFU - PTR_MASK)
+ 
+ #define GET_NEXT_BLOCK(addr, r) ((struct bhdr *) \
+                                 ((char *)(addr) + (r)))
+diff --git a/xen/drivers/char/ehci-dbgp.c b/xen/drivers/char/ehci-dbgp.c
+index bb9d3198d9..4d8d765122 100644
+--- a/xen/drivers/char/ehci-dbgp.c
++++ b/xen/drivers/char/ehci-dbgp.c
+@@ -375,12 +375,12 @@ static inline u32 dbgp_pid_write_update(u32 x, u32 tok)
+     static u8 data0 = USB_PID_DATA1;
+ 
+     data0 ^= USB_PID_DATA0 ^ USB_PID_DATA1;
+-    return (x & 0xffff0000) | (data0 << 8) | (tok & 0xff);
++    return (x & 0xffff0000U) | (data0 << 8) | (tok & 0xffU);
+ }
+ 
+ static inline u32 dbgp_pid_read_update(u32 x, u32 tok)
+ {
+-    return (x & 0xffffff00) | (tok & 0xff);
++    return (x & 0xffffff00U) | (tok & 0xffU);
+ }
+ 
+ static inline void dbgp_set_data(struct ehci_dbg_port __iomem *ehci_debug,
+diff --git a/xen/drivers/video/vesa.c b/xen/drivers/video/vesa.c
+index c41f6b8d40..b007ff5678 100644
+--- a/xen/drivers/video/vesa.c
++++ b/xen/drivers/video/vesa.c
+@@ -123,7 +123,7 @@ void __init vesa_init(void)
+     if ( vlfb_info.bits_per_pixel > 8 )
+     {
+         /* Light grey in truecolor. */
+-        unsigned int grey = 0xaaaaaaaa;
++        unsigned int grey = 0xaaaaaaaaU;
+         lfbp.pixel_on =
+             ((grey >> (32 - vlfb_info.  red_size)) << vlfb_info.  red_pos) |
+             ((grey >> (32 - vlfb_info.green_size)) << vlfb_info.green_pos) |
+diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+index c5f0d31e23..5e545ae9a4 100644
+--- a/xen/include/public/memory.h
++++ b/xen/include/public/memory.h
+@@ -234,7 +234,7 @@ struct xen_add_to_physmap {
+ 
+     unsigned int space; /* => enum phys_map_space */
+ 
+-#define XENMAPIDX_grant_table_status 0x80000000
++#define XENMAPIDX_grant_table_status 0x80000000U
+ 
+     /* Index into space being mapped. */
+     xen_ulong_t idx;
+diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+index 33e86ace51..fa7147de47 100644
+--- a/xen/include/public/sysctl.h
++++ b/xen/include/public/sysctl.h
+@@ -384,7 +384,7 @@ struct xen_sysctl_pm_op {
+         struct xen_set_cpufreq_para set_para;
+         uint64_aligned_t get_avgfreq;
+         uint32_t                    set_sched_opt_smt;
+-#define XEN_SYSCTL_CX_UNLIMITED 0xffffffff
++#define XEN_SYSCTL_CX_UNLIMITED 0xffffffffU
+         uint32_t                    get_max_cstate;
+         uint32_t                    set_max_cstate;
+     } u;
+@@ -547,7 +547,7 @@ struct xen_sysctl_numainfo {
+ #define XEN_SYSCTL_CPUPOOL_OP_RMCPU                 5  /* R */
+ #define XEN_SYSCTL_CPUPOOL_OP_MOVEDOMAIN            6  /* M */
+ #define XEN_SYSCTL_CPUPOOL_OP_FREEINFO              7  /* F */
+-#define XEN_SYSCTL_CPUPOOL_PAR_ANY     0xFFFFFFFF
++#define XEN_SYSCTL_CPUPOOL_PAR_ANY     0xFFFFFFFFU
+ struct xen_sysctl_cpupool_op {
+     uint32_t op;          /* IN */
+     uint32_t cpupool_id;  /* IN: CDIARM OUT: CI */
+diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+index 4cd0310789..e926047932 100644
+--- a/xen/include/xen/bitops.h
++++ b/xen/include/xen/bitops.h
+@@ -227,11 +227,11 @@ static inline __u32 ror32(__u32 word, unsigned int shift)
+ }
+ 
+ /* base-2 logarithm */
+-#define __L2(_x)  (((_x) & 0x00000002) ?   1 : 0)
+-#define __L4(_x)  (((_x) & 0x0000000c) ? ( 2 + __L2( (_x)>> 2)) : __L2( _x))
+-#define __L8(_x)  (((_x) & 0x000000f0) ? ( 4 + __L4( (_x)>> 4)) : __L4( _x))
+-#define __L16(_x) (((_x) & 0x0000ff00) ? ( 8 + __L8( (_x)>> 8)) : __L8( _x))
+-#define ilog2(_x) (((_x) & 0xffff0000) ? (16 + __L16((_x)>>16)) : __L16(_x))
++#define __L2(x)  (((x) & 0x00000002U) ?   1                     : 0)
++#define __L4(x)  (((x) & 0x0000000cU) ? ( 2 + __L2( (x) >> 2))  : __L2( x))
++#define __L8(x)  (((x) & 0x000000f0U) ? ( 4 + __L4( (x) >> 4))  : __L4( x))
++#define __L16(x) (((x) & 0x0000ff00U) ? ( 8 + __L8( (x) >> 8))  : __L8( x))
++#define ilog2(x) (((x) & 0xffff0000U) ? (16 + __L16((x) >> 16)) : __L16(x))
+ 
+ /**
+  * for_each_set_bit - iterate over every set bit in a memory region
+diff --git a/xen/lib/muldiv64.c b/xen/lib/muldiv64.c
+index 78177ce616..a51cbc8767 100644
+--- a/xen/lib/muldiv64.c
++++ b/xen/lib/muldiv64.c
+@@ -27,7 +27,7 @@ uint64_t muldiv64(uint64_t a, uint32_t b, uint32_t c)
+     rh = (uint64_t)u.l.high * (uint64_t)b;
+     rh += (rl >> 32);
+     res.l.high = rh / c;
+-    res.l.low = (((rh % c) << 32) + (rl & 0xffffffff)) / c;
++    res.l.low = (((rh % c) << 32) + ((uint32_t)rl)) / c;
+ 
+     return res.ll;
+ #endif
 -- 
 2.41.0
 
