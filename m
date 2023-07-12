@@ -2,33 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676987505A4
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 13:10:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562395.879049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FCEE7505A7
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 13:11:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562400.879058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJXjU-0007zG-JP; Wed, 12 Jul 2023 11:10:08 +0000
+	id 1qJXks-0008VB-T8; Wed, 12 Jul 2023 11:11:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562395.879049; Wed, 12 Jul 2023 11:10:08 +0000
+Received: by outflank-mailman (output) from mailman id 562400.879058; Wed, 12 Jul 2023 11:11:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJXjU-0007w7-GW; Wed, 12 Jul 2023 11:10:08 +0000
-Received: by outflank-mailman (input) for mailman id 562395;
- Wed, 12 Jul 2023 11:08:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qJXks-0008TD-QK; Wed, 12 Jul 2023 11:11:34 +0000
+Received: by outflank-mailman (input) for mailman id 562400;
+ Wed, 12 Jul 2023 11:11:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Wxm=C6=inria.fr=julia.lawall@srs-se1.protection.inumbo.net>)
- id 1qJXhW-000749-9Z
- for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 11:08:06 +0000
-Received: from mail3-relais-sop.national.inria.fr
- (mail3-relais-sop.national.inria.fr [192.134.164.104])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ec2a468-20a4-11ee-8611-37d641c3527e;
- Wed, 12 Jul 2023 13:08:03 +0200 (CEST)
-Received: from hstsheraton06.h.subnet.rcn.com (HELO hadrien) ([207.180.135.5])
- by mail3-relais-sop.national.inria.fr with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2023 13:07:34 +0200
+ <SRS0=v/dJ=C6=epam.com=prvs=1557cd3329=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1qJXks-0008T7-46
+ for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 11:11:34 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dae9a0aa-20a4-11ee-b239-6b7b168915f2;
+ Wed, 12 Jul 2023 13:11:32 +0200 (CEST)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36C7KE8Y031295; Wed, 12 Jul 2023 11:09:16 GMT
+Received: from eur05-db8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2113.outbound.protection.outlook.com [104.47.17.113])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3rs96gtt35-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jul 2023 11:09:16 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by DB9PR03MB7417.eurprd03.prod.outlook.com (2603:10a6:10:225::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Wed, 12 Jul
+ 2023 11:09:12 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::c192:26de:9053:ab05]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::c192:26de:9053:ab05%6]) with mapi id 15.20.6565.028; Wed, 12 Jul 2023
+ 11:09:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,302 +53,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ec2a468-20a4-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ZJpBQTRvYf3xLQYim5PgpqIBO472OK4qQBRBn5wK5Lo=;
-  b=LiXL1vdteb3LQ9kRIyiqac+rKgCW2hgh2hum23eyRXq5g9LP+B8eU6Dp
-   yAXUq+WJAba1z7ssx8t9t2gLhg3oemVZYeyt9D+AD8e0OAjokLOSxIaFX
-   9WTYl28HsAaDebnlB3oyseEPBOV0bXJ9JOXjVMF/PU7HUlTO1JHrhIytd
-   4=;
-Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.01,199,1684792800"; 
-   d="scan'208";a="61228938"
-Date: Wed, 12 Jul 2023 07:07:32 -0400 (EDT)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-cc: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
-    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-    Maxime Ripard <mripard@kernel.org>, 
-    Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-    Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
-    "Pan, Xinhui" <Xinhui.Pan@amd.com>, 
-    Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-    Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
-    Hamza Mahfooz <hamza.mahfooz@amd.com>, 
-    Javier Martinez Canillas <javierm@redhat.com>, 
-    Guchun Chen <guchun.chen@amd.com>, 
-    Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
-    Evan Quan <evan.quan@amd.com>, Likun Gao <Likun.Gao@amd.com>, 
-    =?ISO-8859-15?Q?Marek_Ol=A8=E1k?= <marek.olsak@amd.com>, 
-    David Francis <David.Francis@amd.com>, 
-    Hawking Zhang <Hawking.Zhang@amd.com>, Lang Yu <Lang.Yu@amd.com>, 
-    Philip Yang <Philip.Yang@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>, 
-    Tim Huang <Tim.Huang@amd.com>, Zack Rusin <zackr@vmware.com>, 
-    Sam Ravnborg <sam@ravnborg.org>, Jani Nikula <jani.nikula@intel.com>, 
-    Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-    =?ISO-8859-15?Q?Ma=EDra_Canal?= <mairacanal@riseup.net>, 
-    =?ISO-8859-15?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>, 
-    Qingqing Zhuo <qingqing.zhuo@amd.com>, 
-    Aurabindo Pillai <aurabindo.pillai@amd.com>, 
-    Hersen Wu <hersenxs.wu@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, 
-    Stylon Wang <stylon.wang@amd.com>, Alan Liu <haoping.liu@amd.com>, 
-    Wayne Lin <Wayne.Lin@amd.com>, Aaron Liu <aaron.liu@amd.com>, 
-    Melissa Wen <mwen@igalia.com>, 
-    Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, 
-    David Tadokoro <davidbtadokoro@usp.br>, Wenjing Liu <wenjing.liu@amd.com>, 
-    Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, 
-    Mario Limonciello <mario.limonciello@amd.com>, 
-    Alexey Kodanev <aleksei.kodanev@bell-sw.com>, Roman Li <roman.li@amd.com>, 
-    =?ISO-8859-15?Q?Joaqu=EDn_Ignacio_Aramend=EDa?= <samsagax@gmail.com>, 
-    Dave Airlie <airlied@redhat.com>, Russell King <linux@armlinux.org.uk>, 
-    Liviu Dudau <liviu.dudau@arm.com>, Joel Stanley <joel@jms.id.au>, 
-    Boris Brezillon <bbrezillon@kernel.org>, 
-    Nicolas Ferre <nicolas.ferre@microchip.com>, 
-    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-    Claudiu Beznea <claudiu.beznea@microchip.com>, 
-    Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
-    Kyungmin Park <kyungmin.park@samsung.com>, 
-    Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
-    Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
-    Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
-    =?ISO-8859-15?Q?Noralf_Tr=F8nnes?= <noralf@tronnes.org>, 
-    Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
-    Danilo Krummrich <dakr@redhat.com>, Deepak Rawat <drawat.floss@gmail.com>, 
-    Jani Nikula <jani.nikula@linux.intel.com>, 
-    Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-    Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-    Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
-    =?ISO-8859-15?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
-    Lucas De Marchi <lucas.demarchi@intel.com>, 
-    Ankit Nautiyal <ankit.k.nautiyal@intel.com>, 
-    Andrzej Hajda <andrzej.hajda@intel.com>, 
-    Matt Roper <matthew.d.roper@intel.com>, 
-    Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>, 
-    Radhakrishna Sripada <radhakrishna.sripada@intel.com>, 
-    Hans de Goede <hdegoede@redhat.com>, 
-    Luca Coelho <luciano.coelho@intel.com>, 
-    Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>, 
-    Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-    Vinod Govindapillai <vinod.govindapillai@intel.com>, 
-    =?ISO-8859-2?Q?=A3ukasz_Bartosik?= <lb@semihalf.com>, 
-    Anusha Srivatsa <anusha.srivatsa@intel.com>, 
-    Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>, 
-    Uma Shankar <uma.shankar@intel.com>, Imre Deak <imre.deak@intel.com>, 
-    Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>, 
-    Swati Sharma <swati2.sharma@intel.com>, 
-    =?ISO-8859-15?Q?Jouni_H=F6gander?= <jouni.hogander@intel.com>, 
-    Mika Kahola <mika.kahola@intel.com>, 
-    =?ISO-8859-15?Q?Jos=E9_Roberto_de_Souza?= <jose.souza@intel.com>, 
-    Arun R Murthy <arun.r.murthy@intel.com>, 
-    Gustavo Sousa <gustavo.sousa@intel.com>, 
-    Khaled Almahallawy <khaled.almahallawy@intel.com>, 
-    Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>, 
-    Andi Shyti <andi.shyti@linux.intel.com>, Nirmoy Das <nirmoy.das@intel.com>, 
-    Fei Yang <fei.yang@intel.com>, Animesh Manna <animesh.manna@intel.com>, 
-    Deepak R Varma <drv@mailo.com>, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, 
-    Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
-    Vandita Kulkarni <vandita.kulkarni@intel.com>, 
-    Suraj Kandpal <suraj.kandpal@intel.com>, 
-    Drew Davenport <ddavenport@chromium.org>, 
-    Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
-    Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-    Philipp Zabel <p.zabel@pengutronix.de>, Dan Carpenter <error27@gmail.com>, 
-    Paul Cercueil <paul@crapouillou.net>, 
-    Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
-    Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
-    Linus Walleij <linus.walleij@linaro.org>, 
-    Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
-    Matthias Brugger <matthias.bgg@gmail.com>, 
-    Neil Armstrong <neil.armstrong@linaro.org>, 
-    Kevin Hilman <khilman@baylibre.com>, Rob Clark <robdclark@gmail.com>, 
-    Abhinav Kumar <quic_abhinavk@quicinc.com>, 
-    Vinod Polimera <quic_vpolimer@quicinc.com>, 
-    Jiasheng Jiang <jiasheng@iscas.ac.cn>, 
-    Konrad Dybcio <konrad.dybcio@linaro.org>, 
-    Jessica Zhang <quic_jesszhan@quicinc.com>, 
-    Liu Shixin <liushixin2@huawei.com>, Marek Vasut <marex@denx.de>, 
-    Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>, 
-    Lyude Paul <lyude@redhat.com>, Tomi Valkeinen <tomba@kernel.org>, 
-    Emma Anholt <emma@anholt.net>, Gerd Hoffmann <kraxel@redhat.com>, 
-    Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-    Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
-    Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-    Geert Uytterhoeven <geert+renesas@glider.be>, 
-    Biju Das <biju.das.jz@bp.renesas.com>, Sandy Huang <hjc@rock-chips.com>, 
-    =?ISO-8859-15?Q?Heiko_St=FCbner?= <heiko@sntech.de>, 
-    Orson Zhai <orsonzhai@gmail.com>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Chunyan Zhang <zhang.lyra@gmail.com>, 
-    Alain Volmat <alain.volmat@foss.st.com>, 
-    Yannick Fertre <yannick.fertre@foss.st.com>, 
-    Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
-    Philippe Cornu <philippe.cornu@foss.st.com>, 
-    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-    Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, 
-    Thierry Reding <thierry.reding@gmail.com>, 
-    Mikko Perttunen <mperttunen@nvidia.com>, 
-    Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
-    David Lechner <david@lechnology.com>, 
-    Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>, 
-    Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>, 
-    Melissa Wen <melissa.srw@gmail.com>, 
-    Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
-    Michal Simek <michal.simek@amd.com>, 
-    Haneen Mohammed <hamohammed.sa@gmail.com>, linux-hyperv@vger.kernel.org, 
-    linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org, 
-    dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, 
-    Yongqin Liu <yongqin.liu@linaro.org>, 
-    Alim Akhtar <alim.akhtar@samsung.com>, 
-    Marijn Suijten <marijn.suijten@somainline.org>, 
-    Fabio Estevam <festevam@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-    Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org, 
-    amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, 
-    linux-rockchip@lists.infradead.org, 
-    Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
-    VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>, 
-    NXP Linux Team <linux-imx@nxp.com>, spice-devel@lists.freedesktop.org, 
-    linux-sunxi@lists.linux.dev, 
-    Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-    linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-    linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org, 
-    linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-    Gurchetan Singh <gurchetansingh@chromium.org>, Sean Paul <sean@poorly.run>, 
-    linux-arm-kernel@lists.infradead.org, 
-    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-    Andrew Jeffery <andrew@aj.id.au>, linux-mips@vger.kernel.org, 
-    Chia-I Wu <olvaffe@gmail.com>, linux-renesas-soc@vger.kernel.org, 
-    kernel@pengutronix.de, John Stultz <jstultz@google.com>, 
-    freedreno@lists.freedesktop.org, Lucas Stach <l.stach@pengutronix.de>, 
-    Julia Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [PATCH RFC v1 00/52] drm/crtc: Rename struct drm_crtc::dev to
- drm_dev
-In-Reply-To: <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
-Message-ID: <acd7913-3c42-7354-434-a826b6c8718@inria.fr>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de> <94eb6e4d-9384-152f-351b-ebb217411da9@amd.com> <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
+X-Inumbo-ID: dae9a0aa-20a4-11ee-b239-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hJ2Fs0Re0laEhWB9s13xkRX73E35Ti5MV9Ig2K9fxjaSSTd95sw4lT08dh9OeTuZEBjkrLJ6c/e6R0mfrMfX0ZODrj35JhEAmzHYHsA5m6+QLVbwRtJbUMcsFKagCQ+/aACRbUY0qhtxIjebg6GRww95dY3K0glRihpPgalUgO7wSWOrfCafXO9UfOW/skLTEqzlsOiGkSFHFTQ2cgugmUPyrdgVGurni6yCRB2qdrML0CgDBugo3XLAVRxEa/qhiswh8R55aX8H/WQh7isZ8IkkOevrsztY9bcQ7oKDPnckB+T1F+o0f8Qu6fOeNSaOln63TqKuJzAUpDXAbslSKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yBQplZJ/bBI+Ds3UBCsq/QIdWwTo2b0qGVSwh7iiGTI=;
+ b=G8WTmcXMVOpbO+RZmjtynoIOPWdyLrSf81+TfHFtqE647B3Vxf+S0Kd+tYyheoKHktiLYrkSR4FSozS3uPOqz6D1zPn0LvrPoc0cn5KeQ2GPuIOvxNHqn2GROYmVgQjsy/x4F7mHGWw9H1nCe50u6ak7sKbtwySWklUEDp5nNWM/VoDDHjkMFwD37pdRvRO9aKNn/eYA/WbKCjwJRCRNJQ3jWgBDBd6hK4V2VBmIff36Y7bLt2I7YauFS0Z7JIkoK0G7sfCJsC5zU9dbWltJqPtlxG+ewAuPMjnYyfZrBhibn8otoxUqbX0BObzeHe7gk34ryXjApDIfQUGlTxHwKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yBQplZJ/bBI+Ds3UBCsq/QIdWwTo2b0qGVSwh7iiGTI=;
+ b=M02N2DGSswgWbM2LQjAJrsysz6hZWQA8l4f1LoppgqZmNU7iV1DRWQo2G2/X4jC5+HH6ydZNzFbXD+bH+d3zIpFZDVAIoaohM0Vr8diw+KA3Cx2o9g24gndcj0vQc952gJGvuaCO6wntfpblKiXwR1hd4j0fdGF9c2sZQjSL1pdYmhBfsIdDh1EBYdKSk9gz3ymgR1Sa1wf0gC1u4ULs8bQij2mAbAB2aWaHMSi8qh49TufudrLmAwo02ryqAs2BFZKKylEk+XTTnxZQGI7tGXCe7ssTstthucvi47fsyf08uAq9CtQUP4zd2U5gt7Z5t94sI1O6yirFmsvyPJHsjQ==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>,
+        =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.co>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+        =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
+        Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+        Julien Grall
+	<julien@xen.org>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Jun Nakajima
+	<jun.nakajima@intel.com>,
+        Kevin Tian <kevin.tian@intel.com>, Paul Durrant
+	<paul@xen.org>,
+        Oleksandr Tyshchenko <olekstysh@gmail.com>,
+        Oleksandr
+ Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH] pci: introduce per-domain PCI rwlock
+Thread-Topic: [RFC PATCH] pci: introduce per-domain PCI rwlock
+Thread-Index: AQHZs5ESsjHhLtlMU0qzCbDGds6cO6+0XLQAgABxyYCAAQ0QAIAAE50A
+Date: Wed, 12 Jul 2023 11:09:12 +0000
+Message-ID: <87wmz5fktl.fsf@epam.com>
+References: <20230711004537.888185-1-volodymyr_babchuk@epam.com>
+ <e6ca0ef1-fb66-d923-388f-79cfc20d1626@suse.com> <874jmagulx.fsf@epam.com>
+ <c0ba8144-3e3e-1f98-a719-ea03e9f29495@suse.com>
+In-Reply-To: <c0ba8144-3e3e-1f98-a719-ea03e9f29495@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.8.9; emacs 28.2
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|DB9PR03MB7417:EE_
+x-ms-office365-filtering-correlation-id: 01981ee1-4a4c-4357-249a-08db82c86c17
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ qPbB/bPpKmydvFuYjjv4y2D9uPEq8WTpIQdsuDFaSbgQh5najjC3OEICU0XpAxNqBdQWbcrnPoOm3MP4QGPIYsJNii8/NRVbt+kc5KpouIVehdOr48jz8bjm4/ZRQkTEMBaCsB70v6POBoUzhfs59wKnvzMyHgBgOYL7OTCq039pka8WWXFUPV3PHt9qayxMzMXy7iTx5DXnYDTwO91h9y8Z4QceJu030D7l0t9i2RjbMKTz686p+Yy9DtiPZRJDmvoIr0LHwrUqLB0bTXvyeQ+ajx3PmgQC2U0jSUT4NuHvIZQbNyadWX+HJnuszAXiBGXzBAKs1cp1O6br2Ek/Kxo9+XEIaADLPO9rIevAph756ObZ2v3KccfT9dwKCbSl8gxQuLAZlDTCvVgSpbgNAyb5IDqyenfJ55SVGXFsQnfiJO5zR5ZqBWlpDRapSWhlAxovAisp7W5xcKQu1XYVOyNx4fp/SLCccNw5g0Ia2flZ4zjIWm5F9/oe/tA93P2q90MmWJaOufWntTTJmaUBysNtYJ8LkAZbwUNn8BuHLuqDT3JA3PlbCKaMTxC7zuaxNWbGxNQXpv+lBPre1HHdTEgDbsvXv8ilxzORPqz6Azo=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(366004)(136003)(376002)(396003)(346002)(451199021)(186003)(6506007)(55236004)(26005)(6512007)(966005)(2616005)(5660300002)(4326008)(64756008)(66446008)(83380400001)(8936002)(478600001)(41300700001)(2906002)(66556008)(316002)(66946007)(66476007)(8676002)(7416002)(76116006)(54906003)(91956017)(110136005)(71200400001)(6486002)(36756003)(122000001)(38070700005)(38100700002)(86362001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?9EjfmWgxVt2qFSwgjM6k0ibPI1LbnOZaU7baqsovhaZq8v77o1WmyjeGf2?=
+ =?iso-8859-1?Q?n0dQMd7B+S8K7X/FtCj/vymVx7au0bSneo3DhhmqhkoHlmoCp3YgIT6bQq?=
+ =?iso-8859-1?Q?eCWsfctGfzh9ZOvpejba3mpzbJjS8UuhRP/P93tGWMd6/RBYYpzFPECGcR?=
+ =?iso-8859-1?Q?4Ksi7RUc6wZEBzxkSW0CHkL4U0FcxmmnaiY9jgw/97WsJE/gehef/uwDVH?=
+ =?iso-8859-1?Q?rMO1g6DqmOPMEuG33Z1Ytlj4P062nCTFYrJwtTkRUCr+qUEgkn5ZkIjHP0?=
+ =?iso-8859-1?Q?W9Ewg8pvbMseZrKZDLNWBZPpKYuDisRal3gBIIw14t/zSiaVFNnJA8unlP?=
+ =?iso-8859-1?Q?kOMoubPhWufI++rwOi7y3l9WK0MV8KL1NiDsxd2sYzfFboMgRdWNx3vjMt?=
+ =?iso-8859-1?Q?mB2caGnuElZoGRLX+2XJOYKx2sH5Aih/yMPTWqli21L9PHphdYTTOBIeGc?=
+ =?iso-8859-1?Q?JNCRMqmQJAOme8bFw9t+XEyePIdfS0sNcgWoWg+fbAwdjn/ftl0KJpmHPU?=
+ =?iso-8859-1?Q?iIsUI1TGEmqOhx8ZMnJNUVErLBp3Tl8jg70AZ5SOZB7l+lPkugxPXBJAhq?=
+ =?iso-8859-1?Q?y6znAUOUiwHT2fE4U4UQn602Bgk0APNVRav39to6MDcIRLMz1KVTX32rgO?=
+ =?iso-8859-1?Q?tYKMfOCyLJuvaAtbkRq7R8lXvR0cfzxKDfV/LMOVfF+c45W+SgYYM27B+T?=
+ =?iso-8859-1?Q?UYp1Or03LbkBz6f0zKX8vDKZcSPbzdGBlWN02oPcW3htI1b1TFmS5Ca4+U?=
+ =?iso-8859-1?Q?BVcuQNKtFQfxQPKilS5qIqqym81u1Dvr2YXDkObsboegp7Ojzj2p+6zQuR?=
+ =?iso-8859-1?Q?9VrNhSj4u3zxxjlGTPv2Gd1GB/6WOFjXDFswRSPcXBgz3CuJe2FylGq7Ji?=
+ =?iso-8859-1?Q?I4vSbObc3mSZhi2TMFZ4UjMZVXiS24/r/yFsNGot/yzAYXmTNlbMt0MZXs?=
+ =?iso-8859-1?Q?MICSr8dmTKGE0tsJbQnQJ5QesCQ05R8cPPuMXsl8fLerZEG8sR2x2hq76i?=
+ =?iso-8859-1?Q?r9bS2LcAu+Yyk8JZuIgOruDGuDu3fEGdxzquYaC94JP+Wwp92SjhNhlJ14?=
+ =?iso-8859-1?Q?fEF5WfZQiDcinPapt/+WbQXttKlUvYE+l+FzvleZ+4weYaD/R/ZWu+Heys?=
+ =?iso-8859-1?Q?RJjb8/752va6tClnAb3xEo9SM/GfFOCn2RU3UZsZkrATBbbnTxSZQ+AOcW?=
+ =?iso-8859-1?Q?ARsBCSNC5TH/OQ2jOiKnVzc5d/1Up/GshhNEy1Bqc/yE9O7+y8nFAWCZP+?=
+ =?iso-8859-1?Q?152OPlMJ05X2gUxN5AX3HC0E+i7Z1H7p2ivVpM98fP+qdBPN4g/MhQS6tq?=
+ =?iso-8859-1?Q?NjfoTuwwAGoijHT9QypnqUnGl3gVqNI3Uh9nWNFMG8nuzI1mb+e0B1ktil?=
+ =?iso-8859-1?Q?R61sh8x5HIPnTggtbM45cHQ7B5BJf4oJa8gs7WkoWwIExr+fWfP73g8DS4?=
+ =?iso-8859-1?Q?ymzQk5CQeRxDbG1Fb2ASrPApMqH0aycSUzte7bKR0aiDLWKb5ICDXknclv?=
+ =?iso-8859-1?Q?cOd0zkyk1/kBoSs5UN3xq+axQ1mjfnKc9T6QWFECPVxFSyItGXtLSHze2j?=
+ =?iso-8859-1?Q?Rltl3L93k8Apm69p7C9PV38sn7GB+OMUtG/HXWyBJO1sCrZyORnx6iqwoV?=
+ =?iso-8859-1?Q?Dgi1xgwtkyWgkC6BD7plm5y1tPpvi5y8psS3clzUpOuFeCiuA9i0H6YA?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1690266391-1689160075=:3129"
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01981ee1-4a4c-4357-249a-08db82c86c17
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jul 2023 11:09:12.1183
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bLm3cDQmakp1/GvIZqIkRNhI2AoG5yoO9Vxf6ccQ+RuZUgS4XCe/1loW1+LutmSFfarRS5WM7j5zu/Mj+iSOb2kUEyfowlZ5WGoBR651Xsc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7417
+X-Proofpoint-GUID: W_uM00fa6kLMe-4WQB9WjR5EblDrgsgf
+X-Proofpoint-ORIG-GUID: W_uM00fa6kLMe-4WQB9WjR5EblDrgsgf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-12_06,2023-07-11_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ mlxlogscore=691 bulkscore=0 clxscore=1011 malwarescore=0 impostorscore=0
+ mlxscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307120099
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1690266391-1689160075=:3129
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8BIT
+Hi Jan, Roger,
 
+Jan Beulich <jbeulich@suse.com> writes:
 
+> Up front remark: I'm sorry for some possibly unhelpful replies below. I,
+> for one, am of the opinion that some of the issues you ask about are to
+> be looked into by whoever wants / needs to rework the locking model.
+> After all this (likely) is why nobody has dared to make an attempt before
+> the need became apparent.
 
-On Wed, 12 Jul 2023, Uwe Kleine-König wrote:
+I have no great need desire or need to rework the locking model. I was
+perfectly fine with much narrower vpci_lock. As you remember, it is
+Roger who suggested to extend this lock to the include the whole PCI
+device.
 
-> On Wed, Jul 12, 2023 at 12:46:33PM +0200, Christian König wrote:
-> > Am 12.07.23 um 11:46 schrieb Uwe Kleine-König:
-> > > Hello,
-> > >
-> > > while I debugged an issue in the imx-lcdc driver I was constantly
-> > > irritated about struct drm_device pointer variables being named "dev"
-> > > because with that name I usually expect a struct device pointer.
-> > >
-> > > I think there is a big benefit when these are all renamed to "drm_dev".
-> > > I have no strong preference here though, so "drmdev" or "drm" are fine
-> > > for me, too. Let the bikesheding begin!
-> > >
-> > > Some statistics:
-> > >
-> > > $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort | uniq -c | sort -n
-> > >        1 struct drm_device *adev_to_drm
-> > >        1 struct drm_device *drm_
-> > >        1 struct drm_device          *drm_dev
-> > >        1 struct drm_device        *drm_dev
-> > >        1 struct drm_device *pdev
-> > >        1 struct drm_device *rdev
-> > >        1 struct drm_device *vdev
-> > >        2 struct drm_device *dcss_drv_dev_to_drm
-> > >        2 struct drm_device **ddev
-> > >        2 struct drm_device *drm_dev_alloc
-> > >        2 struct drm_device *mock
-> > >        2 struct drm_device *p_ddev
-> > >        5 struct drm_device *device
-> > >        9 struct drm_device * dev
-> > >       25 struct drm_device *d
-> > >       95 struct drm_device *
-> > >      216 struct drm_device *ddev
-> > >      234 struct drm_device *drm_dev
-> > >      611 struct drm_device *drm
-> > >     4190 struct drm_device *dev
-> > >
-> > > This series starts with renaming struct drm_crtc::dev to drm_dev. If
-> > > it's not only me and others like the result of this effort it should be
-> > > followed up by adapting the other structs and the individual usages in
-> > > the different drivers.
-> > >
-> > > To make this series a bit easier handleable, I first added an alias for
-> > > drm_crtc::dev, then converted the drivers one after another and the last
-> > > patch drops the "dev" name. This has the advantage of being easier to
-> > > review, and if I should have missed an instance only the last patch must
-> > > be dropped/reverted. Also this series might conflict with other patches,
-> > > in this case the remaining patches can still go in (apart from the last
-> > > one of course). Maybe it also makes sense to delay applying the last
-> > > patch by one development cycle?
-> >
-> > When you automatically generate the patch (with cocci for example) I usually
-> > prefer a single patch instead.
->
-> Maybe I'm too stupid, but only parts of this patch were created by
-> coccinelle. I failed to convert code like
->
-> -       spin_lock_irq(&crtc->dev->event_lock);
-> +       spin_lock_irq(&crtc->drm_dev->event_lock);
->
-> Added Julia to Cc, maybe she has a hint?!
+I already tried something like this as part of the another patch series:
+"[RFC,01/10] xen: pci: add per-domain pci list lock" [1], with the same
+result: it was considered very hard to do this properly, so I dropped
+that effort. I am not so familiar with x86-specific code as a whole and
+IOMMU drivers in particular to be 100% sure that I am doing correct
+changes. Without support from x86 guys I can't do proper patches and
+looks like x86 guys are not interested in this. So, this is dead end.
 
-A priori, I see no reason why the rule below should not apply to the above
-code.  Is there a parsing problem in the containing function?  You can run
+Roger, in [2] I proposed another approach to fix ABBA in modify_bars():
+store copy of BARs in the domain structure. Taking into account that my
+effort to introduce d->pci_lock basically failed (again), I am proposing
+to return back to d->vpci_lock + BARs shadow copy in the domain
+struct. What do you think? And you, Jan?
 
-spatch --parse-c file.c
+[1] https://lore.kernel.org/all/20220831141040.13231-2-volodymyr_babchuk@ep=
+am.com/
+[2] https://lore.kernel.org/all/87ilbfnqmo.fsf@epam.com/
 
-If there is a paring problem, please let me know and i will try to fix it
-so the while thing can be done automatically.
-
-julia
-
->
-> (Up to now it's only
->
-> @@
-> struct drm_crtc *crtc;
-> @@
-> -crtc->dev
-> +crtc->drm_dev
->
-> )
->
-> > Background is that this makes merge conflicts easier to handle and detect.
->
-> Really? Each file (apart from include/drm/drm_crtc.h) is only touched
-> once. So unless I'm missing something you don't get less or easier
-> conflicts by doing it all in a single patch. But you gain the freedom to
-> drop a patch for one driver without having to drop the rest with it. So
-> I still like the split version better, but I'm open to a more verbose
-> reasoning from your side.
->
-> > When you have multiple patches and a merge conflict because of some added
-> > lines using the old field the build breaks only on the last patch which
-> > removes the old field.
->
-> Then you can revert/drop the last patch without having to respin the
-> whole single patch and thus caring for still more conflicts that arise
-> until the new version is sent.
->
-> Best regards
-> Uwe
->
-> --
-> Pengutronix e.K.                           | Uwe Kleine-König            |
-> Industrial Linux Solutions                 | https://www.pengutronix.de/ |
->
---8323329-1690266391-1689160075=:3129--
+--=20
+WBR, Volodymyr=
 
