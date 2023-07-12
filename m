@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D893575141F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 01:07:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562882.879646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 156B5751466
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 01:25:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562891.879656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJivW-00026c-QO; Wed, 12 Jul 2023 23:07:18 +0000
+	id 1qJjCA-0004cM-AQ; Wed, 12 Jul 2023 23:24:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562882.879646; Wed, 12 Jul 2023 23:07:18 +0000
+Received: by outflank-mailman (output) from mailman id 562891.879656; Wed, 12 Jul 2023 23:24:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJivW-00024e-Nc; Wed, 12 Jul 2023 23:07:18 +0000
-Received: by outflank-mailman (input) for mailman id 562882;
- Wed, 12 Jul 2023 23:07:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eU4r=C6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qJivV-00024Y-Ry
- for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 23:07:17 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d71aae3c-2108-11ee-8611-37d641c3527e;
- Thu, 13 Jul 2023 01:07:15 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6899161987;
- Wed, 12 Jul 2023 23:07:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51974C433C9;
- Wed, 12 Jul 2023 23:07:12 +0000 (UTC)
+	id 1qJjCA-0004aP-7k; Wed, 12 Jul 2023 23:24:30 +0000
+Received: by outflank-mailman (input) for mailman id 562891;
+ Wed, 12 Jul 2023 23:24:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qJjC8-0004aF-Nn; Wed, 12 Jul 2023 23:24:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qJjC8-0006Tw-KV; Wed, 12 Jul 2023 23:24:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qJjC7-0005Px-VF; Wed, 12 Jul 2023 23:24:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qJjC7-0006H1-Ur; Wed, 12 Jul 2023 23:24:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,97 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d71aae3c-2108-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689203233;
-	bh=CYRbIpWoIAaxmtzfD3OKPejKu4fNSGS/fN4ROsKBYnI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IhwzZVTVknV/Q8SRDFs6r69Yo5byXyFS7p3MMok4LBqx0TmiCxHwA6VDWq14XawB+
-	 QCXapxuln3Z/fHty5XiVqxd3/0Y7F5zU5aTpY12y3VfoMxW+z2ufuLhVmEhozvekv0
-	 PjOvFt8Poqm/29tOBRpwrptMXm8bAMr4qXvLkH8UrAXge5d4ui3idPP+DUWPnC9o8H
-	 Q6UU0csbDhvFANRFsRe0kLQyVflwTVvv+F/IiNjuUxeHBmjtU6m+WhnjH7TzoyWZUk
-	 PuYGRdwtwSReql8Ige5ejQLKVvY2vj0n1ADco4Onz7rCkPWlkrz/BdShy7vKOTEJtl
-	 LgbwrXakAKfPA==
-Date: Wed, 12 Jul 2023 16:07:10 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH] xen: fix violations of MISRA C:2012 Rule 3.1
-In-Reply-To: <9a27f6cbe552a00274f7ad32eec63f0e80e7644f.1689176790.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307121607030.761183@ubuntu-linux-20-04-desktop>
-References: <9a27f6cbe552a00274f7ad32eec63f0e80e7644f.1689176790.git.nicola.vetrini@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xXxdQbWmWsS3fwnbxss3iIV9jRdESrWt3Eoqgd2JiNg=; b=bkllW/HXvA7nj0VC+3gERJrUjT
+	1xYNnF2E0ZnjgTU90zx/de6GwymI4w1Wfm5WV6knqy2NcOedOVWrxU4gdM4CrAIULw1a1PmVSRHep
+	kTQwi3YZJDvKdb/D/0D8aQHv81okPbCXIlTfSG/beROxmi2lJj6Wo/iPk4lzQI652Y0c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181776-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 181776: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=24909098fdb260da9ffd0ba733d3a540c8c61aec
+X-Osstest-Versions-That:
+    xen=0a834e953b01ec25c412369d7a5b8b57d340ac60
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 12 Jul 2023 23:24:27 +0000
 
-On Wed, 12 Jul 2023, Nicola Vetrini wrote:
-> In the file 'xen/common/xmalloc_tlsf.c' is not clear how
-> the commented-out code should interact with the previous statement.
-> To resolve the MISRA violation generated by the nested comment
-> a #if .. #endif block with an explanatory comment substitutes
-> the earlier construct.
-> 
-> In the file 'xen/include/xen/atomic.h' the nested comment has been removed,
-> since the code sample is already explained by the preceding comment.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+flight 181776 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181776/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  24909098fdb260da9ffd0ba733d3a540c8c61aec
+baseline version:
+ xen                  0a834e953b01ec25c412369d7a5b8b57d340ac60
+
+Last test of basis   181773  2023-07-12 12:02:02 Z    0 days
+Testing same since   181776  2023-07-12 21:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-> ---
-> Following the suggestion of this message
-> https://lore.kernel.org/xen-devel/536f3049-41f7-b127-ba94-81925e34ea0f@suse.com/
-> an explanatory comment has been added.
-> ---
->  xen/common/xmalloc_tlsf.c | 13 ++++++++++---
->  xen/include/xen/atomic.h  |  2 +-
->  2 files changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
-> index c21bf71e88..56c3849414 100644
-> --- a/xen/common/xmalloc_tlsf.c
-> +++ b/xen/common/xmalloc_tlsf.c
-> @@ -139,10 +139,17 @@ static inline void MAPPING_SEARCH(unsigned long *r, int *fl, int *sl)
->          *r = *r + t;
->          *fl = flsl(*r) - 1;
->          *sl = (*r >> (*fl - MAX_LOG2_SLI)) - MAX_SLI;
-> -        *fl -= FLI_OFFSET;
-> -        /*if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
-> -         *fl = *sl = 0;
-> +        /* 
-> +         * It's unclear what was the purpose of the commented-out code that now
-> +         * is in the #else branch. The current form is motivated by the correction
-> +         * of a violation MISRA:C 2012 Rule 3.1
->           */
-> +#if 1
-> +        *fl -= FLI_OFFSET;
-> +#else
-> +        if ((*fl -= FLI_OFFSET) < 0) // FL will be always >0!
-> +          *fl = *sl = 0;
-> +#endif
->          *r &= ~t;
->      }
->  }
-> diff --git a/xen/include/xen/atomic.h b/xen/include/xen/atomic.h
-> index 529213ebbb..fa750a18ae 100644
-> --- a/xen/include/xen/atomic.h
-> +++ b/xen/include/xen/atomic.h
-> @@ -78,7 +78,7 @@ static inline void _atomic_set(atomic_t *v, int i);
->   *      int old = atomic_read(&v);
->   *      int new = old + 1;
->   *      if ( likely(old == atomic_cmpxchg(&v, old, new)) )
-> - *          break; // success!
-> + *          break;
->   *  }
->   */
->  static inline int atomic_cmpxchg(atomic_t *v, int old, int new);
-> -- 
-> 2.34.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   0a834e953b..24909098fd  24909098fdb260da9ffd0ba733d3a540c8c61aec -> smoke
 
