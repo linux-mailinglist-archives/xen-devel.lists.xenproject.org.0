@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4684F7503A3
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 11:47:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562128.878698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1527503E5
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 11:53:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562134.878708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJWRP-0004U8-CG; Wed, 12 Jul 2023 09:47:23 +0000
+	id 1qJWWv-0005wx-VD; Wed, 12 Jul 2023 09:53:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562128.878698; Wed, 12 Jul 2023 09:47:23 +0000
+Received: by outflank-mailman (output) from mailman id 562134.878708; Wed, 12 Jul 2023 09:53:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJWRP-0004Rf-9Y; Wed, 12 Jul 2023 09:47:23 +0000
-Received: by outflank-mailman (input) for mailman id 562128;
- Wed, 12 Jul 2023 09:47:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MfTd=C6=pengutronix.de=ukl@srs-se1.protection.inumbo.net>)
- id 1qJWRN-0004QP-B8
- for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 09:47:21 +0000
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [2001:67c:670:201:290:27ff:fe1d:cc33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1871f7ee-2099-11ee-b239-6b7b168915f2;
- Wed, 12 Jul 2023 11:47:20 +0200 (CEST)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJWRI-0001gi-MR; Wed, 12 Jul 2023 11:47:16 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJWRH-00Dr6z-B1; Wed, 12 Jul 2023 11:47:15 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJWRG-004GV2-E6; Wed, 12 Jul 2023 11:47:14 +0200
+	id 1qJWWv-0005uU-SV; Wed, 12 Jul 2023 09:53:05 +0000
+Received: by outflank-mailman (input) for mailman id 562134;
+ Wed, 12 Jul 2023 09:53:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qJWWu-0005uO-1n
+ for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 09:53:04 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qJWWs-0003Tu-3i; Wed, 12 Jul 2023 09:53:02 +0000
+Received: from [15.248.2.150] (helo=[10.24.67.30])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qJWWr-0002h1-QP; Wed, 12 Jul 2023 09:53:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,90 +39,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1871f7ee-2099-11ee-b239-6b7b168915f2
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	xen-devel@lists.xenproject.org,
-	kernel@pengutronix.de
-Subject: [PATCH RFC v1 50/52] drm/xen: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
-Date: Wed, 12 Jul 2023 11:47:00 +0200
-Message-Id: <20230712094702.1770121-51-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=vuXmIAv4AZUppmiBlulQc0pZkBQLZtRtdwKOei99RmQ=; b=qY/kR+gtSHdtR7/ys/sGg7xaCn
+	dsa0GbeP5PxEzFAz0cBuVOcyHFrfQ5bQ1cNLzqw1ykbp0GB51Yjr28fLfBTT+5sasO0IfVQxcrmFH
+	z3cY5QlNAnWMLutlr2a2wvR2UUx9kBSAm5Tx0L5NOEovbGf0ZqU3/gKFptF/v3sHRc7U=;
+Message-ID: <b1a9be99-6078-6553-74f1-5be5f002b23d@xen.org>
+Date: Wed, 12 Jul 2023 10:52:59 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2234; i=u.kleine-koenig@pengutronix.de; h=from:subject; bh=4JQln/Shv9usfMfN5P2qRiulxlrxKajP/CdCtAPx/7U=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkrnaQzs1+wM39L5Obw+FywgTwC3eOlZMVvXLLy L6tpeE2RweJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZK52kAAKCRCPgPtYfRL+ Tn/YCACCUWng2jWALKbLH4qxPQvGq5Z/APgLNJrfFTJf8vPpxFtMWv/NLsAXpOspDsvDwQs5snR PdDagtck9c/rTw5xkc+FR+kyX1c9zr7/qsl6eXXc8N/NzGpND7wHNlx/sDt2Vzu8luds3CGgUih AZxR1FBnBrPHlbM+2B5QqfEcACftPs8BOtUmklcZ7frvRl6e/eYmJfZMcROhue4NE3DQkWj+m5O 0HYPqP2HQoIZ1z2TO/0hHUA2CZJqg6B3l45aokWGHUGnZO1NB5dLVJsp0iTl1OXiPVDM6/rfLiA sTf3BoRj+yGkLCfOIj5lz3iyYh0Vl9STjCw0VlnEQyi0Ulxd
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: xen-devel@lists.xenproject.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [XEN PATCH v9 02/24] xen/arm: add TEE teardown to
+ arch_domain_teardown()
+Content-Language: en-US
+To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand.Marquis@arm.com,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Wei Liu <wl@xen.org>, Marc Bonnici <marc.bonnici@arm.com>,
+ Achin Gupta <achin.gupta@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20230705093433.2514898-1-jens.wiklander@linaro.org>
+ <20230705093433.2514898-3-jens.wiklander@linaro.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230705093433.2514898-3-jens.wiklander@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Prepare dropping the alias "dev" for struct drm_crtc::drm_dev. "drm_dev"
-is the better name as "dev" is usually a struct device pointer.
+Hi Jens,
 
-No semantic changes.
+On 05/07/2023 10:34, Jens Wiklander wrote:
+> Adds a progress state for tee_domain_teardown() to be called from
+> arch_domain_teardown(). tee_domain_teardown() calls the new callback
+> domain_teardown() in struct tee_mediator_ops.
+> 
+> An empty domain_teardown() callback is added to the OP-TEE mediator.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Co-developed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- drivers/gpu/drm/xen/xen_drm_front_kms.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+I am a bit confused with the tags ordering. The first signed-off-by 
+indicates that Andrew is the author but he co-developped with himself? 
+Did you indent to put your signed-off-by first?
 
-diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm/xen/xen_drm_front_kms.c
-index dfa78a49a6d9..72042139b73a 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
-@@ -93,7 +93,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
- static void send_pending_event(struct xen_drm_front_drm_pipeline *pipeline)
- {
- 	struct drm_crtc *crtc = &pipeline->pipe.crtc;
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&dev->event_lock, flags);
-@@ -113,7 +113,7 @@ static void display_enable(struct drm_simple_display_pipe *pipe,
- 	struct drm_framebuffer *fb = plane_state->fb;
- 	int ret, idx;
- 
--	if (!drm_dev_enter(pipe->crtc.dev, &idx))
-+	if (!drm_dev_enter(pipe->crtc.drm_dev, &idx))
- 		return;
- 
- 	ret = xen_drm_front_mode_set(pipeline, crtc->x, crtc->y,
-@@ -135,7 +135,7 @@ static void display_disable(struct drm_simple_display_pipe *pipe)
- 			to_xen_drm_pipeline(pipe);
- 	int ret = 0, idx;
- 
--	if (drm_dev_enter(pipe->crtc.dev, &idx)) {
-+	if (drm_dev_enter(pipe->crtc.drm_dev, &idx)) {
- 		ret = xen_drm_front_mode_set(pipeline, 0, 0, 0, 0, 0,
- 					     xen_drm_front_fb_to_cookie(NULL));
- 		drm_dev_exit(idx);
-@@ -251,7 +251,7 @@ static void display_update(struct drm_simple_display_pipe *pipe,
- 
- 	event = crtc->state->event;
- 	if (event) {
--		struct drm_device *dev = crtc->dev;
-+		struct drm_device *dev = crtc->drm_dev;
- 		unsigned long flags;
- 
- 		WARN_ON(pipeline->pending_event);
-@@ -263,7 +263,7 @@ static void display_update(struct drm_simple_display_pipe *pipe,
- 		spin_unlock_irqrestore(&dev->event_lock, flags);
- 	}
- 
--	if (!drm_dev_enter(pipe->crtc.dev, &idx)) {
-+	if (!drm_dev_enter(pipe->crtc.drm_dev, &idx)) {
- 		send_pending_event(pipeline);
- 		return;
- 	}
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> 
+> ---
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Jens Wiklander <jens.wiklander@linaro.org>
+> ---
+>   xen/arch/arm/domain.c              | 36 ++++++++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/tee/tee.h |  7 ++++++
+>   xen/arch/arm/tee/optee.c           |  6 +++++
+>   xen/arch/arm/tee/tee.c             |  8 +++++++
+>   4 files changed, 57 insertions(+)
+> 
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 15d9709a97d2..18171decdc66 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -795,6 +795,42 @@ fail:
+>   
+>   int arch_domain_teardown(struct domain *d)
+>   {
+> +    int ret = 0;
+> +
+> +    BUG_ON(!d->is_dying);
+> +
+> +    /* See domain_teardown() for an explanation of all of this magic. */
+> +    switch ( d->teardown.arch_val )
+> +    {
+> +#define PROGRESS(x)                             \
+> +        d->teardown.arch_val = PROG_ ## x;      \
+> +        fallthrough;                            \
+> +    case PROG_ ## x
+> +
+> +        enum {
+> +            PROG_none,
+> +            PROG_tee,
+> +            PROG_done,
+> +        };
+> +
+> +    case PROG_none:
+> +        BUILD_BUG_ON(PROG_none != 0);
+> +
+> +    PROGRESS(tee):
+> +        ret = tee_domain_teardown(d);
+> +        if ( ret )
+> +            return ret;
+> +        break;
+> +
+> +    PROGRESS(done):
+> +        break;
+> +
+> +#undef PROGRESS
+> +
+> +    default:
+> +        BUG();
+> +    }
+> +
+>       return 0;
+>   }
+>   
+> diff --git a/xen/arch/arm/include/asm/tee/tee.h b/xen/arch/arm/include/asm/tee/tee.h
+> index f483986385c8..da324467e130 100644
+> --- a/xen/arch/arm/include/asm/tee/tee.h
+> +++ b/xen/arch/arm/include/asm/tee/tee.h
+> @@ -34,6 +34,7 @@ struct tee_mediator_ops {
+>        * guest and create own structures for the new domain.
+>        */
+>       int (*domain_init)(struct domain *d);
+> +    int (*domain_teardown)(struct domain *d);
+>   
+>       /*
+>        * Called during domain destruction to relinquish resources used
+> @@ -62,6 +63,7 @@ struct tee_mediator_desc {
+>   
+>   bool tee_handle_call(struct cpu_user_regs *regs);
+>   int tee_domain_init(struct domain *d, uint16_t tee_type);
+> +int tee_domain_teardown(struct domain *d);
+>   int tee_relinquish_resources(struct domain *d);
+>   uint16_t tee_get_type(void);
+>   
+> @@ -93,6 +95,11 @@ static inline int tee_relinquish_resources(struct domain *d)
+>       return 0;
+>   }
+>   
+> +static inline int tee_domain_teardown(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+>   static inline uint16_t tee_get_type(void)
+>   {
+>       return XEN_DOMCTL_CONFIG_TEE_NONE;
+> diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
+> index 301d205a36c5..c91bd7d5ac25 100644
+> --- a/xen/arch/arm/tee/optee.c
+> +++ b/xen/arch/arm/tee/optee.c
+> @@ -268,6 +268,11 @@ static int optee_domain_init(struct domain *d)
+>       return 0;
+>   }
+>   
+> +static int optee_domain_teardown(struct domain *d)
+> +{
+> +    return 0;
+
+I think for OP-TEE, we also need to moved the smc call to destroy the VM 
+here. I am OK if this is not handled here, but it would be worth 
+mentioning in the commit message.
+
+> +}
+> +
+>   static uint64_t regpair_to_uint64(register_t reg0, register_t reg1)
+>   {
+>       return ((uint64_t)reg0 << 32) | (uint32_t)reg1;
+> @@ -1732,6 +1737,7 @@ static const struct tee_mediator_ops optee_ops =
+>   {
+>       .probe = optee_probe,
+>       .domain_init = optee_domain_init,
+> +    .domain_teardown = optee_domain_teardown,
+>       .relinquish_resources = optee_relinquish_resources,
+>       .handle_call = optee_handle_call,
+>   };
+> diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
+> index 3964a8a5cddf..ddd17506a9ff 100644
+> --- a/xen/arch/arm/tee/tee.c
+> +++ b/xen/arch/arm/tee/tee.c
+> @@ -52,6 +52,14 @@ int tee_domain_init(struct domain *d, uint16_t tee_type)
+>       return cur_mediator->ops->domain_init(d);
+>   }
+>   
+> +int tee_domain_teardown(struct domain *d)
+> +{
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    return cur_mediator->ops->domain_teardown(d);
+
+NIT: I would consider to check if the callback is NULL. This would avoid 
+providing dummy helper.
+
+> +}
+> +
+>   int tee_relinquish_resources(struct domain *d)
+>   {
+>       if ( !cur_mediator )
+
+Cheers,
+
 -- 
-2.39.2
-
+Julien Grall
 
