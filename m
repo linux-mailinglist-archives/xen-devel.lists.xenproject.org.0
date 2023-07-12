@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 440B175046A
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 12:31:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562181.878778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21EF375048A
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 12:34:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562200.878788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJX7h-0004uj-Lj; Wed, 12 Jul 2023 10:31:05 +0000
+	id 1qJXAM-00064E-2J; Wed, 12 Jul 2023 10:33:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562181.878778; Wed, 12 Jul 2023 10:31:05 +0000
+Received: by outflank-mailman (output) from mailman id 562200.878788; Wed, 12 Jul 2023 10:33:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJX7h-0004t2-Ic; Wed, 12 Jul 2023 10:31:05 +0000
-Received: by outflank-mailman (input) for mailman id 562181;
- Wed, 12 Jul 2023 10:31:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qJXAL-00062V-Vp; Wed, 12 Jul 2023 10:33:49 +0000
+Received: by outflank-mailman (input) for mailman id 562200;
+ Wed, 12 Jul 2023 10:33:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I1v4=C6=arm.com=peter.hoyes@srs-se1.protection.inumbo.net>)
- id 1qJX7g-0004bk-1i
- for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 10:31:04 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 334d1767-209f-11ee-b239-6b7b168915f2;
- Wed, 12 Jul 2023 12:31:03 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9E43DD75;
- Wed, 12 Jul 2023 03:31:44 -0700 (PDT)
-Received: from e125920.cambridge.arm.com (unknown [10.1.199.64])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0E90F3F73F;
- Wed, 12 Jul 2023 03:31:00 -0700 (PDT)
+ <SRS0=M0TT=C6=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qJXAK-00061z-6N
+ for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 10:33:48 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 949e7cab-209f-11ee-8611-37d641c3527e;
+ Wed, 12 Jul 2023 12:33:46 +0200 (CEST)
+Received: from beta.bugseng.com (unknown [37.161.151.90])
+ by support.bugseng.com (Postfix) with ESMTPSA id 9085C4EE0737;
+ Wed, 12 Jul 2023 12:33:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,303 +39,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 334d1767-209f-11ee-b239-6b7b168915f2
-From: Peter Hoyes <peter.hoyes@arm.com>
+X-Inumbo-ID: 949e7cab-209f-11ee-8611-37d641c3527e
+From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	luca.fancellu@arm.com,
-	Peter Hoyes <Peter.Hoyes@arm.com>,
+Cc: consulting@bugseng.com,
+	Gianluca Luparini <gianluca.luparini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v5 2/2] xl: Add escape character argument to xl console
-Date: Wed, 12 Jul 2023 11:29:17 +0100
-Message-Id: <20230712102917.37763-3-peter.hoyes@arm.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Paul Durrant <paul@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [XEN PATCH v3 00/15] xen: fix violations of MISRA C:2012 Rule 7.2
+Date: Wed, 12 Jul 2023 12:32:01 +0200
+Message-Id: <cover.1689152719.git.gianluca.luparini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230712102917.37763-1-peter.hoyes@arm.com>
-References: <20230712102917.37763-1-peter.hoyes@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Hoyes <Peter.Hoyes@arm.com>
+From: Gianluca Luparini <gianluca.luparini@bugseng.com>
 
-Add -e argument to xl console and pass to new escape_character argument
-of libxl_console_exec.
+The xen sources contains violations of MISRA C:2012 Rule 7.2 whose headline
+states:
+"A 'u' or 'U' suffix shall be applied to all integer constants that are
+represented in an unsigned type".
 
-Introduce a new API version to support this new argument and advertise
-the new functionality in libxl.h
+These violations are caused by the missing "u" or "U" suffix in unsigned
+integer constants, such as:
 
-In libxl_console_exec, there are currently two call sites to execl,
-which uses varargs, in order to support optionally passing
-'start-notify-fd' to the console client. In order to support passing
-the 'escape' argument optionally too, refactor to instead have a single
-call site to execv, which has the same behavior but takes an array of
-arguments.
+xen/arch/x86/hvm/hypercall.c:132.17-132.26
+if ( (eax & 0x80000000) && is_viridian_domain(currd) )
 
-If -e is not specified, --escape is not passed to the console client and
-the existing value (^]) is used as a default.
+If a rule is not met, fixes are needed in order to achieve compliance.
+The patches in this series achieve compliance for MISRA C:2012 Rule 7.2 by
+adding the 'U' suffix to integers literals with unsigned type and also to other
+literals used in the same contexts or near violations, when their positive
+nature is immediately clear. The latter changes are done for the sake of
+uniformity.
 
-Update the xl docs.
+Changes to macros 'X86_CR0_PG' and 'MSR_EFER' in files
+"xen/arch/x86/include/asm/x86-defns.h" and "xen/arch/x86/include/asm/msr-index.h"
+are not made since they are used also in assembly files.
 
-Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
 ---
-Changes in v5:
-- Add this changelog
-- Fix comment style in libxl_console_exec
-
-Changes in v4:
-- Document xl console -e argument in xl.1.pod.in
-- Add changes for libxl API version compatibility
-
 Changes in v3:
-- Re-add the Reviewed-By tag accidentally removed in v2
+- fixes following review comments
+- change some commit messages
+- change 'Signed-off-by' ordering
+- create two new commits
 
 Changes in v2:
-- Drop the tags intended only for internal use at Arm
+- fixes following review comments
+- change title and commit messages
+- remove changes in out of scope files
+- remove changes in some macros
 
- docs/man/xl.1.pod.in             |  8 ++++++-
- tools/include/libxl.h            | 39 +++++++++++++++++++++++++++++---
- tools/libs/light/libxl_console.c | 30 +++++++++++++++++-------
- tools/xl/xl_cmdtable.c           |  3 ++-
- tools/xl/xl_console.c            | 10 +++++---
- tools/xl/xl_vmcontrol.c          |  2 +-
- 6 files changed, 75 insertions(+), 17 deletions(-)
+Gianluca Luparini (15):
+  x86/cpufreq: fix violations of MISRA C:2012 Rule 7.2
+  AMD/IOMMU: fix violations of MISRA C:2012 Rule 7.2
+  x86/svm: fix violations of MISRA C:2012 Rule 7.2
+  xen/arm: fix violations of MISRA C:2012 Rule 7.2
+  xen/device-tree: fix violations of MISRA C:2012 Rule 7.2
+  xen/efi: fix violations of MISRA C:2012 Rule 7.2
+  x86/vmx: fix violations of MISRA C:2012 Rule 7.2
+  xen/pci: fix violations of MISRA C:2012 Rule 7.2
+  xen/public: fix violations of MISRA C:2012 Rule 7.2
+  x86/monitor: fix violations of MISRA C:2012 Rule 7.2
+  xen/vpci: fix violations of MISRA C:2012 Rule 7.2
+  xen/x86: fix violations of MISRA C:2012 Rule 7.2
+  x86/viridian: fix violations of MISRA C:2012 Rule 7.2
+  ACPI/APEI: fix violations of MISRA C:2012 Rule 7.2
+  xen: fix violations of MISRA C:2012 Rule 7.2
 
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index 101e14241d..9ba22a8fa2 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -222,7 +222,8 @@ Attach to the console of a domain specified by I<domain-id>.  If you've set up
- your domains to have a traditional login console this will look much like a
- normal text login screen.
- 
--Use the key combination Ctrl+] to detach from the domain console.
-+Use the escape character key combination (default Ctrl+]) to detach from the
-+domain console.
- 
- B<OPTIONS>
- 
-@@ -239,6 +240,11 @@ emulated serial for HVM guests and PV console for PV guests.
- 
- Connect to console number I<NUM>. Console numbers start from 0.
- 
-+=item I<-e escapechar>
-+
-+Customize the escape sequence used to detach from the domain console to
-+I<escapechar>. If not specified, the value "^]" is used.
-+
- =back
- 
- =item B<destroy> [I<OPTIONS>] I<domain-id>
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index cac641a7eb..21e43cc839 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -81,6 +81,15 @@
-  */
- #define LIBXL_HAVE_CONSOLE_NOTIFY_FD 1
- 
-+/* LIBXL_HAVE_CONSOLE_ESCAPE_CHARACTER
-+ *
-+ * If this is defined, libxl_console_exec and
-+ * libxl_primary_console_exe take an escape_character parameter. That
-+ * parameter will be used to modify the escape sequence used to exit the
-+ * console.
-+ */
-+#define LIBXL_HAVE_CONSOLE_ESCAPE_CHARACTER 1
-+
- /* LIBXL_HAVE_CONST_COPY_AND_LENGTH_FUNCTIONS
-  *
-  * If this is defined, the copy functions have constified src parameter and the
-@@ -790,7 +799,8 @@ typedef struct libxl__ctx libxl_ctx;
- #if LIBXL_API_VERSION != 0x040200 && LIBXL_API_VERSION != 0x040300 && \
-     LIBXL_API_VERSION != 0x040400 && LIBXL_API_VERSION != 0x040500 && \
-     LIBXL_API_VERSION != 0x040700 && LIBXL_API_VERSION != 0x040800 && \
--    LIBXL_API_VERSION != 0x041300 && LIBXL_API_VERSION != 0x041400
-+    LIBXL_API_VERSION != 0x041300 && LIBXL_API_VERSION != 0x041400 && \
-+    LIBXL_API_VERSION != 0x041800
- #error Unknown LIBXL_API_VERSION
- #endif
- #endif
-@@ -1958,7 +1968,8 @@ int libxl_vncviewer_exec(libxl_ctx *ctx, uint32_t domid, int autopass);
-  * the caller that it has connected to the guest console.
-  */
- int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
--                       libxl_console_type type, int notify_fd);
-+                       libxl_console_type type, int notify_fd,
-+                       char* escape_character);
- /* libxl_primary_console_exec finds the domid and console number
-  * corresponding to the primary console of the given vm, then calls
-  * libxl_console_exec with the right arguments (domid might be different
-@@ -1968,9 +1979,12 @@ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
-  * guests using pygrub.
-  * If notify_fd is not -1, xenconsole will write 0x00 to it to nofity
-  * the caller that it has connected to the guest console.
-+ * If escape_character is not NULL, the provided value is used to exit
-+ * the guest console.
-  */
- int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm,
--                               int notify_fd);
-+                               int notify_fd,
-+                               char* escape_character);
- 
- #if defined(LIBXL_API_VERSION) && LIBXL_API_VERSION < 0x040800
- 
-@@ -1989,6 +2003,25 @@ static inline int libxl_primary_console_exec_0x040700(libxl_ctx *ctx,
- }
- #define libxl_primary_console_exec libxl_primary_console_exec_0x040700
- 
-+#elif defined(LIBXL_API_VERSION) && LIBXL_API_VERSION < 0x041800
-+
-+static inline int libxl_console_exec_0x041800(libxl_ctx *ctx, uint32_t domid,
-+                                              int cons_num,
-+                                              libxl_console_type type,
-+                                              int notify_fd)
-+{
-+    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd, NULL);
-+}
-+#define libxl_console_exec libxl_console_exec_0x041800
-+
-+static inline int libxl_primary_console_exec_0x041800(libxl_ctx *ctx,
-+                                                      uint32_t domid_vm,
-+                                                      int notify_fd)
-+{
-+    return libxl_primary_console_exec(ctx, domid_vm, notify_fd, NULL);
-+}
-+#define libxl_primary_console_exec libxl_primary_console_exec_0x041800
-+
- #endif
- 
- /* libxl_console_get_tty retrieves the specified domain's console tty path
-diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_console.c
-index f497be141b..cd7412a327 100644
---- a/tools/libs/light/libxl_console.c
-+++ b/tools/libs/light/libxl_console.c
-@@ -52,7 +52,8 @@ out:
- }
- 
- int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
--                       libxl_console_type type, int notify_fd)
-+                       libxl_console_type type, int notify_fd,
-+                       char* escape_character)
- {
-     GC_INIT(ctx);
-     char *p = GCSPRINTF("%s/xenconsole", libxl__private_bindir_path());
-@@ -75,15 +76,26 @@ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
-         goto out;
-     }
- 
-+    char *args[] = {
-+        p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
-+        NULL, NULL, NULL, NULL, /* start-notify-fd, escape */
-+        NULL, /* list terminator - do not use */
-+    };
-+    char **args_extra = args + 6;
-+
-     if (notify_fd != -1) {
-         notify_fd_s = GCSPRINTF("%d", notify_fd);
--        execl(p, p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
--              "--start-notify-fd", notify_fd_s, (void *)NULL);
--    } else {
--        execl(p, p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
--              (void *)NULL);
-+        *args_extra++ = "--start-notify-fd";
-+        *args_extra++ = notify_fd_s;
-     }
- 
-+    if (escape_character) {
-+        *args_extra++ = "--escape";
-+        *args_extra++ = escape_character;
-+    }
-+
-+    execv(p, args);
-+
- out:
-     GC_FREE;
-     return ERROR_FAIL;
-@@ -156,7 +168,8 @@ out:
-     return rc;
- }
- 
--int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd)
-+int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd,
-+                               char* escape_character)
- {
-     uint32_t domid;
-     int cons_num;
-@@ -165,7 +178,8 @@ int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd)
- 
-     rc = libxl__primary_console_find(ctx, domid_vm, &domid, &cons_num, &type);
-     if ( rc ) return rc;
--    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd);
-+    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd,
-+                              escape_character);
- }
- 
- int libxl_primary_console_get_tty(libxl_ctx *ctx, uint32_t domid_vm,
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index ccf4d83584..67604e9536 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -141,7 +141,8 @@ const struct cmd_spec cmd_table[] = {
-       "Attach to domain's console",
-       "[options] <Domain>\n"
-       "-t <type>       console type, pv , serial or vuart\n"
--      "-n <number>     console number"
-+      "-n <number>     console number\n"
-+      "-e <escape>     escape character"
-     },
-     { "vncviewer",
-       &main_vncviewer, 0, 0,
-diff --git a/tools/xl/xl_console.c b/tools/xl/xl_console.c
-index b27f9e0136..5633c6f6f7 100644
---- a/tools/xl/xl_console.c
-+++ b/tools/xl/xl_console.c
-@@ -28,8 +28,9 @@ int main_console(int argc, char **argv)
-     int opt = 0, num = 0;
-     libxl_console_type type = 0;
-     const char *console_names = "pv, serial, vuart";
-+    char* escape_character = NULL;
- 
--    SWITCH_FOREACH_OPT(opt, "n:t:", NULL, "console", 1) {
-+    SWITCH_FOREACH_OPT(opt, "n:t:e:", NULL, "console", 1) {
-     case 't':
-         if (!strcmp(optarg, "pv"))
-             type = LIBXL_CONSOLE_TYPE_PV;
-@@ -45,13 +46,16 @@ int main_console(int argc, char **argv)
-     case 'n':
-         num = atoi(optarg);
-         break;
-+    case 'e':
-+        escape_character = optarg;
-+        break;
-     }
- 
-     domid = find_domain(argv[optind]);
-     if (!type)
--        libxl_primary_console_exec(ctx, domid, -1);
-+        libxl_primary_console_exec(ctx, domid, -1, escape_character);
-     else
--        libxl_console_exec(ctx, domid, num, type, -1);
-+        libxl_console_exec(ctx, domid, num, type, -1, escape_character);
-     fprintf(stderr, "Unable to attach console\n");
-     return EXIT_FAILURE;
- }
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 5518c78dc6..03971927e9 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -643,7 +643,7 @@ static void autoconnect_console(libxl_ctx *ctx_ignored,
-     postfork();
- 
-     sleep(1);
--    libxl_primary_console_exec(ctx, bldomid, notify_fd);
-+    libxl_primary_console_exec(ctx, bldomid, notify_fd, NULL);
-     /* Do not return. xl continued in child process */
-     perror("xl: unable to exec console client");
-     _exit(1);
+ xen/arch/arm/domain_build.c                  |   4 +-
+ xen/arch/arm/efi/efi-boot.h                  |   2 +-
+ xen/arch/arm/gic-v2.c                        |   6 +-
+ xen/arch/arm/gic-v3.c                        |  10 +-
+ xen/arch/arm/include/asm/arm64/brk.h         |   2 +-
+ xen/arch/arm/include/asm/arm64/efibind.h     |  10 +-
+ xen/arch/arm/include/asm/arm64/insn.h        |  16 +-
+ xen/arch/arm/include/asm/vreg.h              |   2 +-
+ xen/arch/arm/kernel.c                        |   2 +-
+ xen/arch/arm/traps.c                         |  14 +-
+ xen/arch/arm/vgic-v2.c                       |   2 +-
+ xen/arch/arm/vgic-v3.c                       |   2 +-
+ xen/arch/x86/acpi/cpufreq/powernow.c         |  14 +-
+ xen/arch/x86/apic.c                          |   2 +-
+ xen/arch/x86/cpu-policy.c                    |  18 +-
+ xen/arch/x86/cpu/mcheck/mce-apei.c           |   4 +-
+ xen/arch/x86/cpu/vpmu_intel.c                |   2 +-
+ xen/arch/x86/cpuid.c                         |   8 +-
+ xen/arch/x86/efi/efi-boot.h                  |   6 +-
+ xen/arch/x86/extable.c                       |   2 +-
+ xen/arch/x86/hvm/hypercall.c                 |   2 +-
+ xen/arch/x86/hvm/irq.c                       |   2 +-
+ xen/arch/x86/hvm/pmtimer.c                   |   4 +-
+ xen/arch/x86/hvm/stdvga.c                    |  50 ++---
+ xen/arch/x86/hvm/svm/asid.c                  |   2 +-
+ xen/arch/x86/hvm/svm/svm.c                   |   8 +-
+ xen/arch/x86/hvm/viridian/viridian.c         |   2 +-
+ xen/arch/x86/hvm/vlapic.c                    |   6 +-
+ xen/arch/x86/hvm/vmx/vmcs.c                  |   6 +-
+ xen/arch/x86/hvm/vmx/vvmx.c                  |   8 +-
+ xen/arch/x86/include/asm/apicdef.h           |   2 +-
+ xen/arch/x86/include/asm/config.h            |   2 +-
+ xen/arch/x86/include/asm/guest/hyperv-tlfs.h |  28 +--
+ xen/arch/x86/include/asm/hpet.h              |   2 +-
+ xen/arch/x86/include/asm/hvm/trace.h         |   4 +-
+ xen/arch/x86/include/asm/hvm/vioapic.h       |   2 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h      |  84 ++++----
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h       |  16 +-
+ xen/arch/x86/include/asm/msi.h               |   2 +-
+ xen/arch/x86/include/asm/msr-index.h         | 202 +++++++++----------
+ xen/arch/x86/include/asm/pci.h               |   8 +-
+ xen/arch/x86/include/asm/x86-defns.h         |   2 +-
+ xen/arch/x86/monitor.c                       |   6 +-
+ xen/arch/x86/percpu.c                        |   2 +-
+ xen/arch/x86/psr.c                           |   2 +-
+ xen/arch/x86/spec_ctrl.c                     |   8 +-
+ xen/arch/x86/x86_64/acpi_mmcfg.c             |   2 +-
+ xen/arch/x86/x86_64/pci.c                    |   2 +-
+ xen/arch/x86/x86_emulate/x86_emulate.h       |   2 +-
+ xen/common/device_tree.c                     |   4 +-
+ xen/common/efi/boot.c                        |   8 +-
+ xen/common/efi/runtime.c                     |   2 +-
+ xen/common/gunzip.c                          |   2 +-
+ xen/common/xmalloc_tlsf.c                    |   2 +-
+ xen/drivers/char/ehci-dbgp.c                 |   4 +-
+ xen/drivers/passthrough/amd/iommu-defs.h     | 122 +++++------
+ xen/drivers/passthrough/pci.c                |   4 +-
+ xen/drivers/video/vesa.c                     |   2 +-
+ xen/drivers/vpci/msi.c                       |   2 +-
+ xen/drivers/vpci/msix.c                      |   2 +-
+ xen/drivers/vpci/vpci.c                      |   6 +-
+ xen/include/acpi/cpufreq/processor_perf.h    |   2 +-
+ xen/include/public/arch-arm/smccc.h          |   4 +-
+ xen/include/public/io/ring.h                 |  10 +-
+ xen/include/public/memory.h                  |   2 +-
+ xen/include/public/sysctl.h                  |   4 +-
+ xen/include/xen/bitops.h                     |  10 +-
+ xen/include/xen/cper.h                       |  18 +-
+ xen/lib/muldiv64.c                           |   2 +-
+ xen/lib/x86/cpuid.c                          |   8 +-
+ xen/lib/x86/policy.c                         |   2 +-
+ 71 files changed, 409 insertions(+), 409 deletions(-)
+
 -- 
-2.34.1
+2.41.0
 
 
