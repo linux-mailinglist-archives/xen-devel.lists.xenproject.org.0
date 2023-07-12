@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2780750A2A
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 15:57:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562533.879264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A532A750A1E
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jul 2023 15:54:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562532.879249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJaL3-0001vg-4W; Wed, 12 Jul 2023 13:57:05 +0000
+	id 1qJaIL-0001DG-De; Wed, 12 Jul 2023 13:54:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562533.879264; Wed, 12 Jul 2023 13:57:05 +0000
+Received: by outflank-mailman (output) from mailman id 562532.879249; Wed, 12 Jul 2023 13:54:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJaL3-0001qf-0u; Wed, 12 Jul 2023 13:57:05 +0000
-Received: by outflank-mailman (input) for mailman id 562533;
- Wed, 12 Jul 2023 13:54:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qJaIL-0001Aa-9d; Wed, 12 Jul 2023 13:54:17 +0000
+Received: by outflank-mailman (input) for mailman id 562532;
+ Wed, 12 Jul 2023 13:54:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=STpc=C6=amd.com=Christian.Koenig@srs-se1.protection.inumbo.net>)
- id 1qJaIM-0001Kh-2j
- for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 13:54:18 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7eab::60d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96ad5705-20bb-11ee-b239-6b7b168915f2;
- Wed, 12 Jul 2023 15:54:16 +0200 (CEST)
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SN7PR12MB8004.namprd12.prod.outlook.com (2603:10b6:806:341::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Wed, 12 Jul
- 2023 13:54:11 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::669f:5dca:d38a:9921]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::669f:5dca:d38a:9921%4]) with mapi id 15.20.6588.017; Wed, 12 Jul 2023
- 13:54:11 +0000
+ <SRS0=65J3=C6=citrix.com=prvs=55084c2ea=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qJaIJ-0001AU-Ro
+ for xen-devel@lists.xenproject.org; Wed, 12 Jul 2023 13:54:16 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 94adb952-20bb-11ee-8611-37d641c3527e;
+ Wed, 12 Jul 2023 15:54:13 +0200 (CEST)
+Received: from mail-mw2nam12lp2040.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.40])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 12 Jul 2023 09:54:05 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by DM4PR03MB5999.namprd03.prod.outlook.com (2603:10b6:5:38a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Wed, 12 Jul
+ 2023 13:54:00 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::fb95:b992:be69:7fa2%5]) with mapi id 15.20.6565.028; Wed, 12 Jul 2023
+ 13:54:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,325 +49,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96ad5705-20bb-11ee-b239-6b7b168915f2
+X-Inumbo-ID: 94adb952-20bb-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689170053;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=vCdrEdqrufE4zBgy5pmd7cjq7Z6h7Nt5UN56pxCJ8MY=;
+  b=fU+9Q0j3+KZZIFkqTchnW9JkQMCkiDWKdl/h+i0KjVWcqEnuyk+xHkDn
+   VNpecqbe9jMzWP3Oi8QRilohEjNWrLrai/fcZynK4zRdtMN/0B9kf24Vk
+   AVz146DEA6cVETFVXLK+xjMhZ5t3n/Qx5yWLOsLCU7WivnI90RwNWDRsF
+   g=;
+X-IronPort-RemoteIP: 104.47.66.40
+X-IronPort-MID: 114683009
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:Gk3fpqip1lEgwsxT5xB3Zaf3X161RxEKZh0ujC45NGQN5FlHY01je
+ htvDziPO/ncNmagKI9zadvi/R4EusLXzYdnGgRt+CwwES0b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyr0N8klgZmP6sT4waEzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQSESJcQEqi3tmt/++GYe13tp5zCo70adZ3VnFIlVk1DN4AaLWaGeDv2oUd2z09wMdTAfzZe
+ swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilIvluS1WDbWUoXiqcF9hEGXq
+ 3iA523kKhobKMae2XyO9XfEaurnxHqnBtJJTOXpnhJsqHu19mMUNDhKbwL4qtOdpkq/adJbc
+ 2VBr0LCqoB3riRHVOLVXRe1vXqFtR40QMdLHqsx7wTl4rXQyxaUAC4DVDEpQMwrsoo6SCIn0
+ neNnsj1Hnp/vbuNU3Wf+7yI6zSoNkAowXQqYCYFSU4A/IPlqYRq1BbXFI4/SOiyk8H/Hiz2z
+ 3aSti8iir4PjMkNkaKm4VTAhDHqrZ/MJuIo2jjqsquexlsRTOaYi0aAsDA3Md4owF6lc2S8
+IronPort-HdrOrdr: A9a23:6HVvkKtMF2iUxA/SnBOBLISI7skDWtV00zEX/kB9WHVpm6uj+v
+ xG/c526faQslwssR4b+OxoVJPwJk80lqQU3WByB9mftWDd0QOVxedZnPLfKlbbak/DH4Bmup
+ uII5IUNDSJNykdsS7HijPIcOrJ/7O8gcSVrPabxX9oVAlrZaYl7woRMHf/LnFL
+X-Talos-CUID: 9a23:YPeRDmDpfC/Ab+/6EyNe5h86QOF8SWbikUr7J1SIUzZPD6LAHA==
+X-Talos-MUID: 9a23:GVHK+ATEmDKIiexsRXTKogFtM/tNv573S0sntbkCuvuEMXRZbmI=
+X-IronPort-AV: E=Sophos;i="6.01,199,1684814400"; 
+   d="scan'208";a="114683009"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lg/wJHH/ZFJfBXf0dR+HzSa8gUzcCNvgEVvSP267D7MPQK3c5Exm7efzcpBuo/uHQ9WOvoGqGIVxG40Rc82ll6k2VkBtY1yuAaYceR/K//D14Gm0caoArWB3nfjKis14Vskkl0gSEIzUbyz8mqAk0gEsHi+duohyuMOg2sGtjJab7KWtg4+aigLjIevXMT9EMyH4/8k/rcdxC8VEE1KEbQateFBjVetDl1pvJneGzw3czwTtBQciw04ZgfocQhHIfF9cClYcvKS59o75Obf7g7CcFeutjC4KZIDbPZC2MrPgdhHt9VK7C82QtwlM63cm1vipNSn0EqwbJk05JoZkOg==
+ b=BokNYzyCHaeJApe/xvdhvpjQdl8kwyhpqmBEwUmnIimatjxAaa8Zikt/hQ3iXJ4M1Ca5+i40QBcvyuXs/7ZWf/BSeFSUGiCXhBZX7GvJe7Vx1ZdkW4+vtdy+hoD/Fln71P44CNclHRQqO+wtgarCYrtGsaYaC2H93Unje735vsaQvQIps9cJCqrSazYBAurSw0IrF4mOpimBsIEU5SY18KLEaWCgt8yBIXjVr0HXL5iXiZN6iSCZB9DPdofnQbmJwW3uLkJAlUnp8iGSVntfNs5IYhNt75DAdQr4O5M6qXVx7GWVjo634qrX/ctQjJEVy+MH/r9rbMFSsVCe6SfGWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XgHMqA6NR6xwi31+5UQb02kpONt6s3GFuikZRULOVgI=;
- b=XcpEFbGo4dujwilE05EBLxUAB4zsdSGoZgIAg7JhFWRakc8T6Z5SxWzlFR5OPi0yEBzVwcBJVx21N6zDlJrw88liyEa3Qb3q1tRUxUvgCgu23cpv2gVXUPTy5SdiEVvy/MP/iWQAFMSC9E1HkUKoUWYyz4UCwrODoIGzQR7Stf1uViO9Mo0aFUcTck0fYCVUyXWgjyrJscV3vgmjbnlWa3cUf2F+tLcmQYpMJH+oddSKYKdJNiM/NmBHSoYjjUCDePj/XpsawdOanzetUfInWzoimAoLBVt45F9UDG0yd1mG3gf7G8OwxPWh/RL7pIZwKiGJvxdfLrhBI+roBotxUA==
+ bh=m/vQOwoWy4tF03DCtwjLc3AtsQSOcYWmuL0vQhZhTms=;
+ b=LIuYEkFs8hYAGa12vV9hbTO/9U4ti6wK32gs7KPL62opTIloiBXT7Tk417QT+/TESJNx5p7PxWW0Cos6bV4m581CLTAeH/MQy/m7s318q3pu55eEtDFiGK1ij5S/RyOh/TeZURQdvE95wgSC8Oj0/ryyDqE+s378/vZFsX+lRqmKEGtEhGFN9sGYWWiM19+0C5h8LYIE8GWhju0IVMus0S9F21bzAmdmHVqKNkuOf671cZ+uV7AuYSCz5DHRU5N+UUoSVKIF9JJlZ2l4cqarGVbQkJLWrzlViVre4Hstc8ydWoVexPS7k5I7OJBySgWH62eybFaoSDwrQPBOryPmvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XgHMqA6NR6xwi31+5UQb02kpONt6s3GFuikZRULOVgI=;
- b=VsTwGxlovAH+46yi04iJt6VNhWVApnJMd0mPZ5sw1AqorHxPRvBJGBkrD52FaJ9tbEji7+v0jusEoLcCNJqN5huTd57Zq9u6F31SQth6QTv2sU53YqkDgGQDd2Lj2tG/LZx4c+pqyQW2Di8ZFFsObxdpo62OpsNeTEiAtUV1kqo=
+ bh=m/vQOwoWy4tF03DCtwjLc3AtsQSOcYWmuL0vQhZhTms=;
+ b=tB8Xcv6+NCfJI3S2GnTOV8la7IowLwmmG+As+4d4Iu1v3oq8pmiBOAn8gL7CgUJgc6y8nltDaEV1QR2FveRDzzBZxl8QfxaGi5X8tvh9ZRjZwrdQD/8C8LflZYFe24rC8q/1ucVF42tl+hw2GGnankYaI11Q9YEkUmlAyDwQDAc=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <603f0b69-71d3-ad8f-4b5e-53b63a6fd521@amd.com>
-Date: Wed, 12 Jul 2023 15:53:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH RFC v1 00/52] drm/crtc: Rename struct drm_crtc::dev to
- drm_dev
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Maxime Ripard <mripard@kernel.org>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
- dri-devel@lists.freedesktop.org,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet
- <jbrunet@baylibre.com>, Liu Shixin <liushixin2@huawei.com>,
- linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Matt Roper <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
- spice-devel@lists.freedesktop.org,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?=c5=81ukasz_Bartosik?= <lb@semihalf.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin
- <zackr@vmware.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- =?UTF-8?Q?Jos=c3=a9_Roberto_de_Souza?= <jose.souza@intel.com>,
- virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Fei Yang
- <fei.yang@intel.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, David Lechner <david@lechnology.com>,
- Julia Lawall <Julia.Lawall@inria.fr>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, =?UTF-8?Q?Jouni_H=c3=b6gander?=
- <jouni.hogander@intel.com>, Dave Airlie <airlied@redhat.com>,
- linux-mips@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
- linux-renesas-soc@vger.kernel.org, Jani Nikula
- <jani.nikula@linux.intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
- Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang
- <zhang.lyra@gmail.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Sandy Huang <hjc@rock-chips.com>, Swati Sharma <swati2.sharma@intel.com>,
- John Stultz <jstultz@google.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Drew Davenport <ddavenport@chromium.org>, Kevin Hilman
- <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Anusha Srivatsa <anusha.srivatsa@intel.com>,
- Dan Carpenter <error27@gmail.com>, Karol Herbst <kherbst@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, =?UTF-8?Q?Ma=c3=adra_Canal?=
- <mairacanal@riseup.net>, Luca Coelho <luciano.coelho@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Joel Stanley <joel@jms.id.au>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, Lyude Paul <lyude@redhat.com>,
- intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Gustavo Sousa <gustavo.sousa@intel.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- Khaled Almahallawy <khaled.almahallawy@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li
- <roman.li@amd.com>, Paul Cercueil <paul@crapouillou.net>,
- Rob Clark <robdclark@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Russell King <linux@armlinux.org.uk>, Leo Li <sunpeng.li@amd.com>,
- Uma Shankar <uma.shankar@intel.com>, Mika Kahola <mika.kahola@intel.com>,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>,
- linux-tegra@vger.kernel.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <marek.olsak@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter
- <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <94eb6e4d-9384-152f-351b-ebb217411da9@amd.com>
- <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
- <o3dc4q27ap6rajsvpfwfvs3z3afekkwbhnclvswkaietciy2kc@unjf67gz5tur>
- <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 12 Jul 2023 15:53:54 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/ioapic: sanitize IO-APIC pins before enabling the
+ local APIC
+Message-ID: <ZK6wcpHnh5OgHv4R@MacBook-Air-de-Roger.local>
+References: <20230707095338.44244-1-roger.pau@citrix.com>
+ <92d16012-ff9f-693b-07c6-d45fe07a00a0@suse.com>
+ <ZKwZBQ_0Z2c7NJNL@MacBook-Air-de-Roger.local>
+ <1f79491a-46f5-5293-e92f-0e2b0b3efb62@suse.com>
+ <ZK1S1V71ZUIPjKqZ@MacBook-Air-de-Roger.local>
+ <eb2e3b57-a423-cf52-0192-a344db33a58f@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0182.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::17) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+In-Reply-To: <eb2e3b57-a423-cf52-0192-a344db33a58f@suse.com>
+X-ClientProxiedBy: LO4P302CA0018.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c1::14) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SN7PR12MB8004:EE_
-X-MS-Office365-Filtering-Correlation-Id: 671d3312-9a10-4462-11d9-08db82df77d0
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|DM4PR03MB5999:EE_
+X-MS-Office365-Filtering-Correlation-Id: fab9ef08-7ef7-48ef-69aa-08db82df717d
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Q+CjsHYjoEoIKYhGUtD4L6IdokqTfF3/rDoqE4aTyfCbPLgsxxuVuGUsuYCA35P4DktoBo4NaYU33T1d8TbAYeptCtWe1B55Dc7oLzVxiycliZfDBnEm8XarwPg0ryzzSJwJvhapixHLvylLlitF0v/N12hzY0tfsoDFfKqumWSnLuk5x9Kn4zL6bJWU91FmrGKdnYdHX5drfEhP8xT5CwqxgEcEcA6YmR3c+YE5hsNLi/9CstC4LyCaAp5+lOrfLNlEjbdWekywxde7dpFY5E5s2/endwHQUHrz1bB9ykbxzYdRfCd0i9JW7/R6RC1xHH6+RRBRUIVRg1hDT66tr9wgyeCj9kKh/5b2fvBgeIJAefMeQ4DQGX2ABfSJY1ODzvBXYMRjaaJvv2MH5lBW1Wdn+4LhArrIoqD0ox+pZbg4DAYjKVelomflcL76YONd3m/Nm+A7Hl4KYkmN3O9uoF8v3kUa4pH8JvdeVkcLPt6rn2HtEznZol9p06p+UQwoRqyFsHPi7xBhaQmHP/1s/M/8/S29cNU3SALPZIHU7nlxbjBCA4vScSL+4SOd+JOPhDgQZTqOQ2+2X3KoAk0XpNvhaWjTc9kOmWYNTsNJP8BQ2Q3Gk9OICAtK/ERCMFrWI2Rxa4J2jJ36saRcsxOVNQ==
+	R5UKSr7vn0ASD2FkZPFgXJpiYdT1NeKenfL3ITZYx7nvjNGuv0Xx2IhdFs0Np+zPMlBEONdeODET+8sxAX7yuL/k+ED29tH6CnKro7Ffyt5CbXXZPogUZ1qmGAEZ7e/7eDL5vYFbuwub/KKHjLo3UT0vOadCXYoU7+tvMe7MtI6lH/zpIvu7H14+FA5RiYDpcxd358S6XNOhAx6OsuMfI1KGHb/TXYA1/+uNYm1B89GnQGgk/Y0Tsf7JWBPxnwkHeoyfLdrF5C7I4QbzQ1Unmpfgn4uAasE9Posehm5INUEF7mSA7374mFWaCLtsBjmOSK8b159Tnsm/h2Hzv85WKppvSzV+50r+xE2Y2C7Q1z9iZ8T4zgbw3jo17k665JYlYImAwCH6UodEmKcs52g1GeZcaKi3JFQoQP5gpmtEW39ozg3gNriUINVKSxwt1mXPFejSQQXVihpajyeHsso8iUAKmCD26Ut09Nr+XpDSWwr+l6i6IGyF8MXfXvMFGSwd6WoChhq2RVVEMI42irj8sMWyaEz8XzLvcq21dPytCSpqeeVe/xsaDkkhTtiQ8pqy
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR12MB3587.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(366004)(396003)(39860400002)(136003)(451199021)(8676002)(8936002)(7336002)(83380400001)(2906002)(66574015)(2616005)(36756003)(38100700002)(31696002)(86362001)(7406005)(7416002)(7366002)(7276002)(5660300002)(6506007)(186003)(31686004)(6666004)(66556008)(66476007)(4326008)(6486002)(110136005)(54906003)(66946007)(41300700001)(6512007)(316002)(478600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(396003)(39860400002)(346002)(366004)(451199021)(6486002)(186003)(82960400001)(54906003)(86362001)(6666004)(478600001)(53546011)(6506007)(26005)(9686003)(316002)(8936002)(8676002)(85182001)(41300700001)(5660300002)(6512007)(66476007)(66556008)(66946007)(6916009)(4326008)(38100700002)(2906002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cWZnOXNSRjdOTkRMN2twRmhhNlZKUU04WHhCY2Z0bUFVMmd0ZzMzZldoayts?=
- =?utf-8?B?elhFTXRKeWVNRUpHQ01yaTVaa1Ztakt4R216MWlHODdMUmhQYjdhMWRWUk9K?=
- =?utf-8?B?OFRpNCtPWlhuR003dy83ZXZySTlIcExnU1c0aHFEaWlya2hyRDliSjlkYlg1?=
- =?utf-8?B?bDNlV3I3b3VsWXN6VStIZDhhd1hzcW5OblM5Z0ZwWmp2b0FTMTVpdE5zTC9J?=
- =?utf-8?B?SGFRSm5PVmVhSjJSWnd6V2dYcE9RenYzbEg0UEpZTGRvbFQzUVFWQUZERjRu?=
- =?utf-8?B?bE5ncmc4N0xPZkZEbURQTjIwYlpYSFNzUC91TUxYZVZ2bHgvQmNNak5aNHp2?=
- =?utf-8?B?SG5kdnIvdmliUitLc2lYbnVpdjJOOHJLYkhMK3doOFdIZGtlckJSRmt1WHZ5?=
- =?utf-8?B?VTM4QldNT0JwV29jQXF4SzVaMzhpRmhCcmlJOVJTVFp0VzE0RGtUYmIrb3dJ?=
- =?utf-8?B?MnQvb0tRaFpVWlBjVE5OdE9heDVyYjNkUExTN3BxaWNCOE1WVTFoQkh6R3V6?=
- =?utf-8?B?eHhYS0FMVURYRFp0VXA5ZFBUNmV2QU5tMzVxK2FERFc5aFFObEkzKyt6ekpX?=
- =?utf-8?B?YlM4VElnWStHaVNhY2dsdWdDSGh4TkNEZnpveVk1c3I4RCtIOHJJTTNIbTF2?=
- =?utf-8?B?U3NtaTF5OWZ6Z0FpSFRLcHdBVFlpcEpoTVU1TjJnZ1J4YW9qVmlUSHViNlVL?=
- =?utf-8?B?emNONXFSYzhSM04xc0xkNmFidGw3cWNrbEs1OHVOTENPamFlRzB5SzVWNFlN?=
- =?utf-8?B?T0tIQWc0T0JNT2VxR25wKzFjSE00NVg3cWxMNGxtOC9ubHRlOTN1QXllQkhZ?=
- =?utf-8?B?a2RJVjF1RjhleWdlMzZkcDVMTForNU13UllNVUdBYldTYXJnTXdEVjBIZlVZ?=
- =?utf-8?B?R1lNOUM4VGhGV2NYMDExWU1tNG1VTUlEMzQrQjI3S0JvTjQ3aStLdlUrU2xn?=
- =?utf-8?B?MkdRdFR0eXl3VEtWL2p2WWRNb1pIMFNERHVxdm1tSHVyRkN6elVOcjBDVUw0?=
- =?utf-8?B?cGRVdlpCdVJFb1dHYk03VlVUZzl3NE8vVlN6bksrZGd3SEx0d1QwNmVKeVBT?=
- =?utf-8?B?ZHVkWXRCMjIvem9VOTl1ZnJQVEVCbUtuWElLY0ZTRWxnM3VPVFh6V1MvZnJO?=
- =?utf-8?B?ZG9zQ3VaQnFLUjZ1OXdGNEFMS1JWOS9BSTRYQkxPMHVxckYzaGFxcmtlcXgz?=
- =?utf-8?B?VXhrcE9CT2twUXYwQVYxSHk4UEJsdlVwMnF0YmxkUmh6cUMrdlI3SE9GUDVU?=
- =?utf-8?B?MzVxUUpHQXNOL1Z1REY2dTc0cEQwUGlHZVdqUmlzbHd6Nk1jdExTMjZDMXlQ?=
- =?utf-8?B?elJxMDZOWEhibURhenV4RHNwdUdXWDhxNXMwcVVucHBGOUI0WndLeXRmLzVz?=
- =?utf-8?B?UUxGUVhLaHEwK1NOd0pHYk9Lb2dnSGhqNU9LN3NWTlhxKzBXd3UxOUlWaEtI?=
- =?utf-8?B?UmIxeHUzOXdvNmtOM0hXbVJIYW5tWUFGMi94ck5Yb0VHUitCeFc1SlphVXJZ?=
- =?utf-8?B?cm1xaW1nL1NjQmdLQUd3dXUyQ2wyblJZMWZ0RGxGSXN3T296N1Y3dDk4dUhN?=
- =?utf-8?B?TVpGYWllcmdvYXFhUVdlanB1V3F5RzM2Zm9RSjZpNk5wSWZpWmhiYzNSVS9r?=
- =?utf-8?B?SDY5U1BHQlVrWTgvd1M1Y0tCUkFMK0RHNnBxUjQ5ZnQ5dU8yKzdvSC9JWXRP?=
- =?utf-8?B?V0pLTytkVTlEUkNWOTgyZ3QyL1BnOEpwNzB0YjMvUEVzazhiY2owVGg2RWdq?=
- =?utf-8?B?Mmh4R2JINXdPK3B0QnVxQjNJaTBTeUtzSE5oYlNtQjBvMnZCb2hleEc4RkJm?=
- =?utf-8?B?Q3lzZ3J6MjU4a1pLaDFnalFBT0FvTFZtYkZHckExSFRtU3NHbHY1Sjd0NFB3?=
- =?utf-8?B?WDg2MU1PaC93VE9vYVFZdmZ4dmh1R0RzYlRtcmdTUTh1MjZoR2NVUVErZVRy?=
- =?utf-8?B?aCtjeWp2dk1IWWg2anFrZDQ2WWMzSGtWY0xBT3FPZXJBMXY0U2xGNkY0eFZ3?=
- =?utf-8?B?QnpHWjJ2WXBGdjBBRTUvcXVkeC8yYkdXSWRJMDZIOUNSOHdsR2JhYWVNMkU5?=
- =?utf-8?B?T1FQQk9YVVFTL2RLcllWZXhWdGt0YWxxc2JJYVpwYlRRc3AxZGpLYTdLaXU4?=
- =?utf-8?B?K0hSNmJqS3BVUG04aWhWdlBvM2lBSTZQZU9kaDBwT2tJRkozSjdRZVNZSmkr?=
- =?utf-8?Q?wZiHYk+qO2DJStqXYi3DikavUdxGeplCKcXkmFW5lXc7?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 671d3312-9a10-4462-11d9-08db82df77d0
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+	=?utf-8?B?d0N2RjhGK0JFNzZCYzVHQXlmQnFMNVNMNEFMMFNmc2xGWUR2UDZxeGswbmhZ?=
+ =?utf-8?B?SDVhQnZXVkxkelVJdGhkYzU4ekZRQU9ROHcrbDl0Wi91M3ZiM0V4Z29FNG9x?=
+ =?utf-8?B?aTR5cjZPRVUwWFJkdzUrWUw0ZzErdU1EMkRJZXVJeEd2Zy9RYTR3VktVdzlO?=
+ =?utf-8?B?K0lqb0k3VjRHYkdCOUNjcnNFcXQ4K05sRWl6eFNDazUxejlSU25uamF2RFNP?=
+ =?utf-8?B?MktJaDk2bVFsMzUvUlBlcHM5TG1SOE9SaVBtK3crVklPQTUzbG5wUE9XVEdL?=
+ =?utf-8?B?VXJxRVNMWGh5b3FzU3cvL3ltdis2d2psNFptMXlyUmxHUUtta2o3YTZDY21q?=
+ =?utf-8?B?UDBYaFY3RUdDMEdaSDR0Q3V4ZUpQem1tNi9jb0Z3NEFZdFF2bGE1SFkySmlz?=
+ =?utf-8?B?V0xWTzRYYVMzUFluc0xNSkZleGIySDBtdUU2V2JrbldTSDBPZjZCRlFXeUto?=
+ =?utf-8?B?aGx6K2pvdXJpUnZucTR0Wjl4UzRjUHhQUERHVXVYOWs5MHkyZFVPdmg3MXR4?=
+ =?utf-8?B?VE16ckdJMDJlU0daZkxMdXhtNG1aZ01SSjJSWnliditpOTFZNDY3NW5NWUhz?=
+ =?utf-8?B?OGtscmdKaFUvZXFBVElsTERlM1VLYjlpMENvUDd1U2s2bWgvZUFoRG9LQnFZ?=
+ =?utf-8?B?ZUo3bVJlQWh1V2Jkd29aR0dzcWNtMDYzWFlycHI1d3dXQlViNlNoZmFtRzVH?=
+ =?utf-8?B?NUtaRnU2WGJ1N2l4cXpSOUJVMGJUOWxkTUJRQytTVG1SZUhFYS9HTkZESEdL?=
+ =?utf-8?B?QUM5RUx5ZWFlRGpiSzd4M1dIelhWc243SXJleUhEU3R5bWtNRFVQdnNScTF3?=
+ =?utf-8?B?bUNYWWdIQ0d2amlPZFBRamZWVWd6VEJ3dmFwZERZbmMvUG55YisxalNOMXVz?=
+ =?utf-8?B?S2M3eW83RHlUU1RjSUNGMDg1dVc0cnhCSlRqOVhDQ2o4YXlYcjVEUHpsOUhH?=
+ =?utf-8?B?bzV2Z2VjV09adUZzVitENmRnNC94Z0U1MEw1RGQ2Y1lXeVFsVFBHd3pNS2RF?=
+ =?utf-8?B?YmJ3elhRMDhlS085NDJ2ZHdQeDM0OEhXamozL0k1alBFUEJyMFZaeDdTSUtX?=
+ =?utf-8?B?RlZUNjRkWTZCeUhlZEdJdkRCMGlWc1habkVCUWE4LzRpaU5SWVNmb1pJNkRo?=
+ =?utf-8?B?MmhQWU5hNWxKeG1pNTluV0FROVpnUVJXRFFpc2EwSEFSNWhkSzQ3bm5WckNa?=
+ =?utf-8?B?Q0hwQkFmbW14L3hibEtpMFRPTElFWVA1dHpYM2hFTDNySGlLWkNJS0Qrb1B3?=
+ =?utf-8?B?VWxmZklxWFlScjRENEhiLytlR0F1R0JDQjlaK2QveVdzaVQ4T1F5eU9qUEM2?=
+ =?utf-8?B?eFQrdlFrdnVmMFZzb0d0L1dOdmkwL0dGcVBlS2QrVzY5VGxLeUhKMG9kZUgv?=
+ =?utf-8?B?dlNxU21lME5HLzZZMFpSN3dwYnpKWGllaVMzZTdPMHpBQklySHI2QU54R0w4?=
+ =?utf-8?B?VDlrdDRCWTZBZFprSy9zby82QjlTZktCamQvMGMvdkJDeGhESk5hQkFaY1ZP?=
+ =?utf-8?B?a2tRb0NKclVocENoWlQ5SU1PeGhpUzFpZXlsMEZXbzFDdzAxUC85Y2prOGs5?=
+ =?utf-8?B?T1dTaTROVkw3dG9ZM3M2Q1gxMDlZS240RFJUcW5hM0prcEJNcTBGcGxNb3A4?=
+ =?utf-8?B?VENqenFMRGZBSEJCR0gva1BPVmQ4blFFYTNBNGdncWs5Y1UxdFowM3RHQzZP?=
+ =?utf-8?B?Mk5nNkZqbmkrcnlrUVp5V1paZ2ZpVHRsWVd4VGRRSWt6N21hVHFURjhsR3BZ?=
+ =?utf-8?B?ZUJuR3R4d2Y1TUJHMWlYZ1VIY2pYTWFqb29hT2t1aHd0MTJxSFROS282Q1Bs?=
+ =?utf-8?B?SDR3Q3RoMVdXYUhNNzJmSjdWTFluWTdHNzEzcVlvazhMN2F6NnoweVZ0cDV0?=
+ =?utf-8?B?U2FHWmVhalcvZXQzMUZGZlJTWEFza2xKWjMwS1J2dnBqSGpVNnQ3bVUzTi81?=
+ =?utf-8?B?RElVVUo2TmtUdVFTVmY1SHdpRGg2WUlQeXR4Ui9zYlMrdGV4QWlSSkVBS2o4?=
+ =?utf-8?B?OEtvaFdwNzdlV2VLME5hTXNHR1NiTk1XZC9YTWpCaVdPM0JNZzVrZnBaQVN2?=
+ =?utf-8?B?a3F1R2NNak5EcmxhM0F1QmxLVjg5NnlVVGpML01LQVN0S3AydXcwUERzMDVq?=
+ =?utf-8?B?NnNHZElGOVlBcjF3TUR3cjRxS1gxK2t4T2J2UWcvYy9ZYmtmczFrN01nU0Vz?=
+ =?utf-8?B?eWc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	IQ7ZsoN75F7ibhuAtca09+92sBNXHuhYAxpYYhv2pts+ibTJIm+NGrmnBF1aYSTb6+zO0xKGvWyxSSytvvNFeHdbvbyZSd33qnSmfwgmD15gXXeMYbP3NIgnmtI2tGte4o4yo7xHfowdtOh5q8acsHMcrM/jWWZSKRFlo5REjIKvPtMTHBKCOKNkW5H0uX8sbwykJUgHCA5WduHdtwqrOkw/sH6qHdArn8wBR5MGAJjCJYAVtvhLWe58xuwO+NWfZIhvGg2RQKJ6F3fRTp8Omium6mLDnPOMVnP//L7Nno1UWgukbuahZO/zfGmhMxmcggw/pBcf2SNmfJ2tLxmnyxPFj/JGu4Cu6DTTT3GJ89kYt7crurTx+96okmwfQZpGHreNODF8PWf/zgWxawYyG61nk4+o2ccMvahG+aJsc84d+7czGR8khLHFw9o5ISFUe5PPF2HPTzJW7nRkAH3cgyWa0kX0jclbaQgAG72BHMTAPJLU7FA+L8ygM0h/4OaR9C+lui8eQWpnrCMedD3F4/MU5Ui0+ocjtd+SzEEFjWToB32anSRBWLhApKvoDpvkWyP3qr5Nu+EyaGIQWtw2v0KQlh7+B+3hMBvrvn1kHcItBUlgUdBmJIOu9UvG9xJT3gHKn+8CX0q5TYVzLGVNkNFaufRNYDrjk9oBkmuthYPyCsfDGtQg2SDNDeXE7E/c+NDQRZxEwX6f1QTet2JesrUGA8wsglRTX8EajTjwIY/YXWjB1+AJJbE5mIUVdyI4jDhFUyh8Gy/dwh0Bpvoq9cg9ZOOcJuFy8DW2DjaPQJpHJrU9SOeiV+I5l6o4CJq8
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fab9ef08-7ef7-48ef-69aa-08db82df717d
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 13:54:10.5983
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 13:53:59.9772
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ISzr+3rCUPYNUMLw1tOBcCfws4G9gt0O8QB3ANwU8gXg/6JBx2yCDaCKDG7kwoD8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8004
+X-MS-Exchange-CrossTenant-UserPrincipalName: h4+Ekyyrfd8d556iZa4Np3Ehk/iR0oCsFYyqptYy70rYrhEWcNVnxAeeeybKP/qsQxE4JPp37rOKqKFhpQnb4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5999
 
-Am 12.07.23 um 15:38 schrieb Uwe Kleine-König:
-> Hello Maxime,
->
-> On Wed, Jul 12, 2023 at 02:52:38PM +0200, Maxime Ripard wrote:
->> On Wed, Jul 12, 2023 at 01:02:53PM +0200, Uwe Kleine-König wrote:
->>>> Background is that this makes merge conflicts easier to handle and detect.
->>> Really?
->> FWIW, I agree with Christian here.
->>
->>> Each file (apart from include/drm/drm_crtc.h) is only touched once. So
->>> unless I'm missing something you don't get less or easier conflicts by
->>> doing it all in a single patch. But you gain the freedom to drop a
->>> patch for one driver without having to drop the rest with it.
->> Not really, because the last patch removed the union anyway. So you have
->> to revert both the last patch, plus that driver one. And then you need
->> to add a TODO to remove that union eventually.
-> Yes, with a single patch you have only one revert (but 194 files changed,
-> 1264 insertions(+), 1296 deletions(-)) instead of two (one of them: 1
-> file changed, 9 insertions(+), 1 deletion(-); the other maybe a bit
-> bigger). (And maybe you get away with just reverting the last patch.)
->
-> With a single patch the TODO after a revert is "redo it all again (and
-> prepare for a different set of conflicts)" while with the split series
-> it's only "fix that one driver that was forgotten/borked" + reapply that
-> 10 line patch.
+On Wed, Jul 12, 2023 at 12:07:43PM +0200, Jan Beulich wrote:
+> On 11.07.2023 15:02, Roger Pau Monné wrote:
+> > On Tue, Jul 11, 2023 at 12:53:31PM +0200, Jan Beulich wrote:
+> >> On 10.07.2023 16:43, Roger Pau Monné wrote:
+> >>> On Mon, Jul 10, 2023 at 12:56:27PM +0200, Jan Beulich wrote:
+> >>>> On 07.07.2023 11:53, Roger Pau Monne wrote:
+> >>>>> The current logic to init the local APIC and the IO-APIC does init the
+> >>>>> former first before doing any kind of sanitation on the IO-APIC pin
+> >>>>> configuration.  It's already noted on enable_IO_APIC() that Xen
+> >>>>> shouldn't trust the IO-APIC being empty at bootup.
+> >>>>>
+> >>>>> At XenServer we have a system where the IO-APIC 0 is handed to Xen
+> >>>>> with pin 0 unmasked, set to Fixed delivery mode, edge triggered and
+> >>>>> with a vector of 0 (all fields of the RTE are zeroed).  Once the local
+> >>>>> APIC is enabled periodic injections from such pin cause a storm of
+> >>>>> errors:
+> >>>>>
+> >>>>> APIC error on CPU0: 00(40), Received illegal vector
+> >>>>> APIC error on CPU0: 40(40), Received illegal vector
+> >>>>> APIC error on CPU0: 40(40), Received illegal vector
+> >>>>> APIC error on CPU0: 40(40), Received illegal vector
+> >>>>> APIC error on CPU0: 40(40), Received illegal vector
+> >>>>> APIC error on CPU0: 40(40), Received illegal vector
+> >>>>>
+> >>>>> That prevents Xen from booting.
+> >>>>
+> >>>> And I expect no RTE is in ExtInt mode, so one might conclude that
+> >>>> firmware meant to set up RTE 0 that way. Mainly as a remark, albeit
+> >>>> of course there's then the question whether to change the RTE
+> >>>> rather than masking it. What do ACPI tables say?
+> >>>
+> >>> There's one relevant override:
+> >>>
+> >>> [668h 1640   1]                Subtable Type : 02 [Interrupt Source Override]
+> >>> [669h 1641   1]                       Length : 0A
+> >>> [66Ah 1642   1]                          Bus : 00
+> >>> [66Bh 1643   1]                       Source : 00
+> >>> [66Ch 1644   4]                    Interrupt : 00000002
+> >>> [670h 1648   2]        Flags (decoded below) : 0000
+> >>>                                     Polarity : 0
+> >>>                                 Trigger Mode : 0
+> >>>
+> >>> So IRQ 0 -> GSI 2, so it's likely pin 0 is the one the i8259 is
+> >>> connected to.
+> >>
+> >> Then wouldn't we be better off converting that RTE to ExtInt? That
+> >> would allow PIC IRQs (not likely to exist, but still) to work
+> >> (without undue other side effects afaics), whereas masking this RTE
+> >> would not.
+> > 
+> > I'm kind of worry of trying to automate this logic.  Should we always
+> > convert pin 0 to ExtInt if it's found unmasked, with and invalid
+> > vector and there's a source override entry for the IRQ?
+> > 
+> > It seems weird to infer this just from the fact that pin 0 is all
+> > zeroed out.
+> 
+> As you say in the earlier paragraph, it wouldn't be just that. It's
+> unmasked + bad vector + present source override (indicating that
+> nothing except perhaps a PIC is connected to the pin).
 
-Yeah, but for a maintainer the size of the patches doesn't matter. 
-That's only interesting if you need to manually review the patch, which 
-you hopefully doesn't do in case of something auto-generated.
+I can do this as a separate patch, but not really here IMO.  The
+purpose of this patch is strictly to perform the IO-APIC sanitation
+ahead of enabling the local APIC.  I will add a followup patch to the
+series, albeit I'm unconvinced we want to infer IO-APIC pin
+configuration based on firmware miss configurations.
 
-In other words if the patch is auto-generated re-applying it completely 
-is less work than fixing things up individually.
-
->   As the one who gets that TODO, I prefer the latter.
-
-Yeah, but your personal preferences are not a technical relevant 
-argument to a maintainer.
-
-At the end of the day Dave or Daniel need to decide, because they need 
-to live with it.
-
-Regards,
-Christian.
-
->
-> So in sum: If your metric is "small count of reverted commits", you're
-> right. If however your metric is: Better get 95% of this series' change
-> in than maybe 0%, the split series is the way to do it.
->
-> With me having spend ~3h on this series' changes, it's maybe
-> understandable that I did it the way I did.
->
-> FTR: This series was created on top of v6.5-rc1. If you apply it to
-> drm-misc-next you get a (trivial) conflict in patch #2. If I consider to
-> be the responsible maintainer who applies this series, I like being able
-> to just do git am --skip then.
->
-> FTR#2: In drm-misc-next is a new driver
-> (drivers/gpu/drm/loongson/lsdc_crtc.c) so skipping the last patch for
-> now might indeed be a good idea.
->
->>> So I still like the split version better, but I'm open to a more
->>> verbose reasoning from your side.
->> You're doing only one thing here, really: you change the name of a
->> structure field. If it was shared between multiple maintainers, then
->> sure, splitting that up is easier for everyone, but this will go through
->> drm-misc, so I can't see the benefit it brings.
-> I see your argument, but I think mine weights more.
->
-> Best regards
-> Uwe
->
-
+Thanks, Roger.
 
