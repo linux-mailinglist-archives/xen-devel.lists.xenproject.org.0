@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52FE5752A1D
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 20:03:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563346.880545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70722752A3C
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 20:16:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563352.880555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qK0eR-0004ma-0M; Thu, 13 Jul 2023 18:02:51 +0000
+	id 1qK0rB-0006Mu-76; Thu, 13 Jul 2023 18:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563346.880545; Thu, 13 Jul 2023 18:02:50 +0000
+Received: by outflank-mailman (output) from mailman id 563352.880555; Thu, 13 Jul 2023 18:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qK0eQ-0004jE-U8; Thu, 13 Jul 2023 18:02:50 +0000
-Received: by outflank-mailman (input) for mailman id 563346;
- Thu, 13 Jul 2023 18:02:50 +0000
+	id 1qK0rB-0006KF-3f; Thu, 13 Jul 2023 18:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 563352;
+ Thu, 13 Jul 2023 18:15:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qK0eQ-0004j5-Fd; Thu, 13 Jul 2023 18:02:50 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qK0r8-0006K9-QU
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 18:15:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qK0eQ-00008H-9b; Thu, 13 Jul 2023 18:02:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qK0eQ-00011B-0V; Thu, 13 Jul 2023 18:02:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qK0eP-0002Yg-WB; Thu, 13 Jul 2023 18:02:49 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qK0r8-0000MR-DB; Thu, 13 Jul 2023 18:15:58 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=[192.168.30.214]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qK0r8-0004s5-7O; Thu, 13 Jul 2023 18:15:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +39,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=T6klABTE2RUxrKUsStUrDFTUAGuzIrwXtO55S1zCphE=; b=Nv1k0LWfGyZKlMi57X1ZWY+4hP
-	diBqqja0ZyVG1rY2iT72PPcvWUlFrF39Nb/xu8pYcGL6yxi5CemuZV/3pNjiS7M3uROYVZJvNGq5h
-	xNSiamtdFWZ4Xm+jrWzL9Xqk5BON0qCJpVC2t8xdTV0qM8XJ+kaY057UnNdCWxnJEFwk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181784-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=eLMZ1eunLjksH9WZerI8huF0kt1l/ZRISTyz8uO1K7U=; b=vRo/pDKzECBfQwX2FAi7v97/cB
+	WursnVu6kQnaqNZ0mITSp7MRxy5DcSrsLWlDXZJmvm9yV924xSVSdkNhXI1ekUqU+abrt/ANOTOAF
+	TeprrpXtUoUPThMfTTFmqlsvc642oczcEgdgealg8HGHaTITEH3Tc24FN3Jgeyxv0f5c=;
+Message-ID: <66997c9c-d0d9-fce3-e5bd-a4f41cf0de91@xen.org>
+Date: Thu, 13 Jul 2023 19:15:56 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 181784: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=2acec876949e2488dfeffab3c531984b91d33cf5
-X-Osstest-Versions-That:
-    xen=99e45548934923f0d2c1d52ae1239ffe4ef17a06
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 13 Jul 2023 18:02:49 +0000
-
-flight 181784 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181784/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  2acec876949e2488dfeffab3c531984b91d33cf5
-baseline version:
- xen                  99e45548934923f0d2c1d52ae1239ffe4ef17a06
-
-Last test of basis   181781  2023-07-13 11:00:27 Z    0 days
-Testing same since   181784  2023-07-13 15:00:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Jan Beulich <jbeulich@suse.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH 2/2] xen/arm: Account for domU dtb bootmodule size
+ separately
+Content-Language: en-US
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230711082931.5402-1-michal.orzel@amd.com>
+ <20230711082931.5402-3-michal.orzel@amd.com>
+ <8bc1ed0e-3ad6-2243-4dd6-a88dd0ee00f8@xen.org>
+ <b39b19a4-9649-173b-bb05-518702d05873@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b39b19a4-9649-173b-bb05-518702d05873@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 12/07/2023 08:01, Michal Orzel wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi Michal,
+> 
+> On 11/07/2023 18:07, Julien Grall wrote:
+>>
+>>
+>> Hi Michal,
+>>
+>> On 11/07/2023 09:29, Michal Orzel wrote:
+>>> At the moment, we limit the allocation size when creating a domU dtb to
+>>> 4KB, which is not enough when using a passthrough dtb with several nodes.
+>>> Improve the handling by accounting for a dtb bootmodule (if present)
+>>> size separately, while keeping 4KB for the Xen generated nodes (still
+>>> plenty of space for new nodes). Also, cap the allocation size to 2MB,
+>>> which is the max dtb size allowed.
+>>>
+>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>> ---
+>>> Note for the future:
+>>> As discussed with Julien, really the best way would be to generate dtb directly
+>>> in the guest memory, where no allocation would be necessary. This of course
+>>> requires some rework. The solution in this patch is good enough for now and
+>>> can be treated as an intermediated step to support dtb creation of various
+>>> sizes.
+>>
+>> Thanks for summarizing our discussion :).
+>>
+>>> ---
+>>>    xen/arch/arm/domain_build.c | 18 +++++++++++++-----
+>>>    1 file changed, 13 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>> index f2134f24b971..1dc0eca37bd6 100644
+>>> --- a/xen/arch/arm/domain_build.c
+>>> +++ b/xen/arch/arm/domain_build.c
+>>> @@ -3257,14 +3257,15 @@ static int __init domain_handle_dtb_bootmodule(struct domain *d,
+>>>    }
+>>>
+>>>    /*
+>>> - * The max size for DT is 2MB. However, the generated DT is small, 4KB
+>>> - * are enough for now, but we might have to increase it in the future.
+>>> + * The max size for DT is 2MB. However, the generated DT is small (not including
+>>> + * domU passthrough DT nodes whose size we account separately), 4KB are enough
+>>> + * for now, but we might have to increase it in the future.
+>>>     */
+>>>    #define DOMU_DTB_SIZE 4096
+>>>    static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>>>    {
+>>>        int addrcells, sizecells;
+>>> -    int ret;
+>>> +    int ret, fdt_size = DOMU_DTB_SIZE;
+>>
+>> Can fdt_size be unsigned?
+> I used int because by looking at all the fdt_create() calls in our codebase
+> we seem to use int and not unsigned. 
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+This is a bit of a mess because xmalloc_bytes() is expecting an unsigned 
+long parameter. So we have some inconsistency here and we need to chose 
+a side.
 
+My preference would be to use the 'unsigned int/long' because the value 
+is not meant to be negative.
 
-Pushing revision :
+Also, I used min() that does strict type checking
+> and SZ_2M is int. So if you want, I can use unsigned int but will also have to use
+> MIN() macro instead not to do type checking (I cannot use MB(2) as it has ULL type
+> and do not want to use min() with cast).
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   99e4554893..2acec87694  2acec876949e2488dfeffab3c531984b91d33cf5 -> smoke
+By "use min() with cast", do you mean using min_t()? I would be OK with 
+using MIN().
+
+> Also, are you OK with the rest of the code?
+
+The rest is fine to me. Anyway, I am OK with this patch as-is. So:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
