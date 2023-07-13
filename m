@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CFF6761DEF
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 18:02:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569815.890928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070137620C3
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 19:58:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569858.891011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOKTY-00008p-CG; Tue, 25 Jul 2023 16:01:28 +0000
+	id 1qOMI1-0007Qi-HA; Tue, 25 Jul 2023 17:57:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569815.890928; Tue, 25 Jul 2023 16:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 569858.891011; Tue, 25 Jul 2023 17:57:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOKTY-00006L-8n; Tue, 25 Jul 2023 16:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 569815;
- Tue, 25 Jul 2023 16:01:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qOMI1-0007Og-EY; Tue, 25 Jul 2023 17:57:41 +0000
+Received: by outflank-mailman (input) for mailman id 569858;
+ Tue, 25 Jul 2023 17:57:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qOKTX-00006F-2b
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 16:01:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qOKTW-0006Wp-8D; Tue, 25 Jul 2023 16:01:26 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=[192.168.17.43]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qOKTW-0002jH-1u; Tue, 25 Jul 2023 16:01:26 +0000
+ (envelope-from <SRS0=z+7o=DL=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1qOMHz-0007Oa-Tf
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 17:57:39 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc1c6d4a-2b14-11ee-8613-37d641c3527e;
+ Tue, 25 Jul 2023 19:57:36 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 36PHvBrk067089
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 25 Jul 2023 13:57:16 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 36PHvAFL067088;
+ Tue, 25 Jul 2023 10:57:10 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,47 +43,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=TTddz3KDHA+u9P8uLHSBtOip9rReMIppMTqy0uZHQZ0=; b=zBQm3AMSSEulvFIJBLE0yTaQ4C
-	h9gsmoStonFhnjlzwOXRgA9+4n8R3l8tzVMxVRYUb2oXExisW2kfJVG5wIEfzrYsVCUbUz+dAnMiV
-	5oEGI8pC1iwhH31u5cteEj1hhjWvkFTxQ+unBif99i0DkXX05HWmCMyoU2v/uXLKSFBA=;
-Message-ID: <c5314cd4-eba6-0dba-1fd0-77cdbc710a0a@xen.org>
-Date: Tue, 25 Jul 2023 17:01:24 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [PATCH v3 01/25] tools/xenstore: explicitly specify create or
- modify for tdb_store()
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-2-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230724110247.10520-2-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: bc1c6d4a-2b14-11ee-8613-37d641c3527e
+Message-Id: <8891bdfb2378187cfcaa8ed6f49817404db15924.1690307465.git.ehem+xen@m5p.com>
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>
+Cc: Anthony PERARD <anthony.perard@citrix.com>
+Date: Thu, 13 Jul 2023 16:53:57 -0700
+Subject: [PATCH RESEND] tools/xl_parse: remove message for tsc mode string
+X-Spam-Status: No, score=2.5 required=10.0 tests=DATE_IN_PAST_96_XX,
+	KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-Hi Juergen,
+Normal behavior is to be silent.  Generating a message for the preferred
+input can be mistaken for an error.  As such remove this message to match
+other conditions.
 
-On 24/07/2023 12:02, Juergen Gross wrote:
-> Instead of using TDB_REPLACE for either creating or modifying a TDB
-> entry, use either TDB_INSERT or TDB_MODIFY when calling tdb_store().
-> 
-> At higher function levels use the abstract mode values NODE_CREATE
-> and NODE_MODIFY.
-> 
-> This is for preparing to get rid of TDB, even if it is beneficial
-> while using TDB, too.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+---
+This looks like a bit of printf()-debugging which never got removed.  The
+message serves to discourage use of the named tsc_mode values.  I suspect
+this is the ooposite of the desired result and therefore should be
+purged.
+---
+ tools/xl/xl_parse.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index f036e56fc2..7b1369f098 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -1658,7 +1658,6 @@ void parse_config_data(const char *config_source,
+         }
+         b_info->tsc_mode = l;
+     } else if (!xlu_cfg_get_string(config, "tsc_mode", &buf, 0)) {
+-        fprintf(stderr, "got a tsc mode string: \"%s\"\n", buf);
+         if (libxl_tsc_mode_from_string(buf, &b_info->tsc_mode)) {
+             fprintf(stderr, "ERROR: invalid value \"%s\" for \"tsc_mode\"\n",
+                     buf);
 -- 
-Julien Grall
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
