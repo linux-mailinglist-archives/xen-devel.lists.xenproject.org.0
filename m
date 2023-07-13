@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8657475269D
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 17:20:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563215.880345 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D68E475264E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 17:13:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563217.880325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJy6i-0001BW-0z; Thu, 13 Jul 2023 15:19:52 +0000
+	id 1qJxzO-0008I1-Ou; Thu, 13 Jul 2023 15:12:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563215.880345; Thu, 13 Jul 2023 15:19:51 +0000
+Received: by outflank-mailman (output) from mailman id 563217.880325; Thu, 13 Jul 2023 15:12:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJy6h-00019J-Tu; Thu, 13 Jul 2023 15:19:51 +0000
-Received: by outflank-mailman (input) for mailman id 563215;
- Thu, 13 Jul 2023 15:09:12 +0000
+	id 1qJxzO-0008GM-Lz; Thu, 13 Jul 2023 15:12:18 +0000
+Received: by outflank-mailman (input) for mailman id 563217;
+ Thu, 13 Jul 2023 15:12:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8EtB=C7=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1qJxwO-0007Ny-Gs
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 15:09:12 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0tL6=C7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qJxzN-0008GG-8q
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 15:12:17 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::61e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36c741db-218f-11ee-8611-37d641c3527e;
- Thu, 13 Jul 2023 17:09:08 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7C6A52215A;
- Thu, 13 Jul 2023 15:09:07 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D4808133D6;
- Thu, 13 Jul 2023 15:09:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 08LHMo8TsGTCBQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 13 Jul 2023 15:09:03 +0000
+ id a6225f8a-218f-11ee-8611-37d641c3527e;
+ Thu, 13 Jul 2023 17:12:15 +0200 (CEST)
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
+ by VI1PR04MB9763.eurprd04.prod.outlook.com (2603:10a6:800:1d3::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.36; Thu, 13 Jul
+ 2023 15:12:11 +0000
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::cbc0:69aa:c9a2:198e]) by AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::cbc0:69aa:c9a2:198e%7]) with mapi id 15.20.6565.016; Thu, 13 Jul 2023
+ 15:12:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,439 +47,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36c741db-218f-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1689260947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MS6Q/88TMXWzZPXfu/PTu2qDJkEKMqR1diKbb8wT1eU=;
-	b=cEBc0UcNtLsv9/np6kbLs/An3rRHlzzg4WKB1vazu2CrpKaBj2wmoM6mOu0B48lqik2WZU
-	s0jUIKNWNSsjxwILxBM98lddtS+cUFtia+65jXw7n0fBK7Q5iNfwmfJLNnBLiP47Upwn23
-	PHKmf1yem40W1KFSIQvAVq4ArQzWMuk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689260947;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MS6Q/88TMXWzZPXfu/PTu2qDJkEKMqR1diKbb8wT1eU=;
-	b=Vl/f6Y8CEHJhBZGlsg6hVEEwlwTtg+HhIYHsDOu10IZWCZUdlBGSixnruIlV04LbwCBXFV
-	h0UKbVbUcp8wDlBA==
-Message-ID: <78be52b8-5ffb-601a-84b2-ead2894973a6@suse.de>
-Date: Thu, 13 Jul 2023 17:09:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
- drm_crtc::dev to drm_dev
+X-Inumbo-ID: a6225f8a-218f-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OCWJdIlf1DwTh1hvTDnce5o38nhPTLWbQxWV4oIfcdH0qL6Ka6n/RiJZT7cdcaCUv6j3BAD6vANIQoT3EBxWZv5ATCiDqkbJGNO7l0NwTBFWKZTpJiu0pvuAh4Mtx1qNJRjggCkndaST6/ADofm9EetyLeIdLtNmy5VgbbyVzy7r7DF+m3CgSXK70acuOCED7aUwDbS0aiFKAyl/P9gg5TsGbXqBFP/JElxr4CS/pmwzqReIwm5fOntUwfv6bqXfw1IEX6xFbTGyQ3qAoelrG9vR5miiBx+CTX0wXMjvp7Zf0odYcDcR9NFO+xMbtQGHiFLVxsjr4yIa/qXVrZGCvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m7GEpxG8plrcHkZLC6LAHA131sajozL3jMElLXf1qww=;
+ b=kLwn/R085xqmNob4Y7zJKHRC6e+ZZ+M4Cn48k2EoHUCm9KlZiwdHR0ARksyh6DO57JXsKGNphMGxhDe1LbuILFlICTpNG5HguVpqeZ1ydE9YDs/t+p283uovDiJsrRJ2dQyNK73eP6VTknvsAzfDHODt4JkzPPRhAF7soFkg0zzeHDqNpyaguvb7c+ewZKFvx47rnUAECUWHOCMSX8yrfI4ntMvbOd9+Q1MA631t8Mp2KNU8NCD1rF0FJqsdc3gFGEFn0sWrkOU1tfCOoVgJfSAS/VjjP+UVKEXLLcGUkCPjcrDHoaTbN8WQxOuivexMMgtPGjh2Z+ojpoHwB4Nl1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m7GEpxG8plrcHkZLC6LAHA131sajozL3jMElLXf1qww=;
+ b=m5ZXFp8Pkyvq46DD93v/lbKhsezM2w2cbfDD06wHg7MhE4YN9xfQMy11HPVK8JitLhoaICYFJqJbltJRz7bYy2EyrUOn6Mpnpdz3i0VuJfG1YenYZ/SvzWtMf7HaJQfEspc9Hf1jhsloBFsCmYw97l2RMbiOr4L1YWkVvGrNTXNqMPTN3xSfELkmdkfXFud3rMdy9BboAPE0Fs5xvvqba0mw/OQCWxJUGA/yk2Q9/dFI2R1xuMCcN+NneO29BkM/1i/zL2lALH1TQ00hmZu5uYWkZiOQJhYcPniWwhE+WaMShsQ2FhAPs+RPrD+Z0Nzlmud+18sgpNgNYcqJWd6gsA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <646ce8b8-7a8c-88c1-2b1e-76a721e6f164@suse.com>
+Date: Thu, 13 Jul 2023 17:12:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3] mm/pdx: Add comments throughout the codebase for pdx
 Content-Language: en-US
-To: Sean Paul <seanpaul@chromium.org>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Jani Nikula <jani.nikula@intel.com>, =?UTF-8?Q?Heiko_St=c3=bcbner?=
- <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
- dri-devel@lists.freedesktop.org,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet
- <jbrunet@baylibre.com>, Liu Shixin <liushixin2@huawei.com>,
- linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Matt Roper <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
- spice-devel@lists.freedesktop.org,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?=c5=81ukasz_Bartosik?= <lb@semihalf.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin
- <zackr@vmware.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- =?UTF-8?Q?Jos=c3=a9_Roberto_de_Souza?= <jose.souza@intel.com>,
- virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Fei Yang
- <fei.yang@intel.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, David Lechner <david@lechnology.com>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, =?UTF-8?Q?Jouni_H=c3=b6gander?=
- <jouni.hogander@intel.com>, Dave Airlie <airlied@redhat.com>,
- linux-mips@vger.kernel.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-amlogic@lists.infradead.org,
- Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang
- <zhang.lyra@gmail.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Sandy Huang <hjc@rock-chips.com>, Swati Sharma <swati2.sharma@intel.com>,
- John Stultz <jstultz@google.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Drew Davenport <ddavenport@chromium.org>, Kevin Hilman
- <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Anusha Srivatsa <anusha.srivatsa@intel.com>,
- Dan Carpenter <error27@gmail.com>, Karol Herbst <kherbst@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, =?UTF-8?Q?Ma=c3=adra_Canal?=
- <mairacanal@riseup.net>, Luca Coelho <luciano.coelho@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Joel Stanley <joel@jms.id.au>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, Lyude Paul <lyude@redhat.com>,
- intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Gustavo Sousa <gustavo.sousa@intel.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- Chia-I Wu <olvaffe@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Khaled Almahallawy <khaled.almahallawy@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li
- <roman.li@amd.com>, Paul Cercueil <paul@crapouillou.net>,
- Rob Clark <robdclark@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Russell King <linux@armlinux.org.uk>, Uma Shankar <uma.shankar@intel.com>,
- Mika Kahola <mika.kahola@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>,
- linux-tegra@vger.kernel.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <marek.olsak@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter
- <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <87fs5tgpvv.fsf@intel.com>
- <CAOw6vbLO_UaXDbTCtAQJgthXOUMPqEV+c2MQhP-1DuK44OhGxw@mail.gmail.com>
- <20230713130337.fd2l67r23g2irifx@pengutronix.de>
- <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------UZzIExM15Kv5h8d3TfG92PJg"
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230707160759.12132-1-alejandro.vallejo@cloud.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230707160759.12132-1-alejandro.vallejo@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0011.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::21) To AS8PR04MB8788.eurprd04.prod.outlook.com
+ (2603:10a6:20b:42f::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|VI1PR04MB9763:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5200a549-eb49-4576-ffe1-08db83b38869
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	5iFRgDEjwXhZYtkKoaQX434Mi3bkXwjuiRXI/WOSmjTyls+GqeZODZXpCMeRLFcPPuxSUeXShVmZrcxZt2dxc87XvIOlw/Nd0r7And4FMwNoNE47NZic8UglZCDzmYH3hVnAeV6SfUoraLeL75eAWlzLij88y6KNN2//EtaSBCf9rM02kr7doHZR+CNYbQkDNMgCuPo1KIAEmyjxdE9Jp4Z8XyxZPTi9rOUjYW0TLzvKiGL9mnoxxla9SZ8/gKFvFLsWwcuc+vzMTxBWiTr2BHNKdY80N9xc5RKTVUR9m/Enk6qiuslu8O0MJV8jG2cIVzSQ8kah5YwWkX9EU+si7dhIUrkX5DWrVmEGh/ZOrRp+DF34FCc9cOuhbj8gCLe7W6yqfl0zljSxk5iW7vDtsrMuuCToOaLQTLnQbmAZzgT72bWyZhWqZhF4miX4K/iy+7Bar0KbpEsZmx7H7QXOrvSkoJJp5xXqLXkaAEN08fHQqUVYyF8Sux7GORXCIq9JxLsBb/DQU1qy4AV/volajX0QFPGud9m0xvLxvoQihq8zMF6WEFOfH0VyrRVOza9SJ0kBLIzaqFm/IuyMMdnzvW2QSEg9PtHm+OwP+t+rwIkLbiq73+KSCGC35kJUs7+x1LAPn+OBGYr4q05Oo+okkg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(136003)(39860400002)(346002)(396003)(366004)(451199021)(31696002)(36756003)(86362001)(38100700002)(478600001)(2906002)(6486002)(6506007)(53546011)(6512007)(26005)(8676002)(8936002)(316002)(41300700001)(66556008)(66476007)(66946007)(5660300002)(6916009)(54906003)(31686004)(4326008)(66899021)(2616005)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U21UdGdsMExJRGVmOGZKYWo5cmc0aHY3b1ZFeE5xeW4xYnI2dmx1WlhGS05B?=
+ =?utf-8?B?VkNIb2I1L1R1dUpnYVZPTmRLRStIWkRQeFZxT1lSNjJUMGJwN1c0eWRmWmxu?=
+ =?utf-8?B?RWxJNFJ4VTJEZk1rM2tzWTd1YzZnREJIMjRNTWZDdEFYWVBjaUN6bGVJbDB6?=
+ =?utf-8?B?UEFyNkNJYkUxMTVPU3NUeFFNWE9BMkNyV3lFMFpyWUlGbFNWdVZOUmFRWUN2?=
+ =?utf-8?B?N2RSM1NsMElFMEprVUVKZjhHT3VzMnBiMWNyU2NuSkFlWDV1VUhWUVFNL2tQ?=
+ =?utf-8?B?di80MENrNmx0UUZNUkdKaGxTMWZMcE1makJWejc0dU03RHB4WjdORlNUcTAy?=
+ =?utf-8?B?TFNWakREVkhId1Y3TFVYbFNNSk1MSmFHRXRaRmI5SFlONmVETHpZWkY0WFpz?=
+ =?utf-8?B?RkthT050MGd5OHM1K1FYdjNnaFEyMEJ5NllZbERla0ErOXV4WUVsK00vdjI2?=
+ =?utf-8?B?VWhIcWNVQjhFNWhwN05CdVdPWFVhQzdtUG56eEVodEFYVG5oS2JCZ3JnQ0Fj?=
+ =?utf-8?B?eXkvcTlMZW9TQU1wTTRsK1JWNlo0Nm4zZ05MVVlBUWRZZ28zbWtrSHVXclY4?=
+ =?utf-8?B?VDdVOXBuS2xvMmhIMSsza1JKaVQ2UzlvL0dxNko3U0dzdGNpRW81NzMxcC84?=
+ =?utf-8?B?OG45Mi9PaklVOWNLM0EzMWV5cTI4b1FKVDV5VXM3S2RHNm1MRDM0dGJobWFz?=
+ =?utf-8?B?a2tHNHBPUWZ4QUpXSXZ1MWVTMW5QODd0SnNwSEpERmZGN2xNckR1MDVud080?=
+ =?utf-8?B?QXZDa2l4c1lDRjgxU0VySWhLWVBHdzdiSG9JRXJoVktpY3ZqemI4cWM4TXNx?=
+ =?utf-8?B?YTFtMHdFUFlEaWhrZHlvdTFVaXkzQlg4bFFEMDE2NXB3b3BjeXFKZDRFS3JV?=
+ =?utf-8?B?WHk4T2NDTUs3dzFQbGtvNVNzK200aXp2SzVtcFVMZHJSQjRkTG1qL2tJYWJT?=
+ =?utf-8?B?cU90MTdNY1BFcmh0cmErN0YvUEYzbmVRcFdTSWU4RlppUU5sY2VSKzlyZWY3?=
+ =?utf-8?B?SDc0NTlMRGtzWFU4MXpLTW4rZTlkNUFuWUdoZzVBQ2hJTUtFZmhNTzZhZFlD?=
+ =?utf-8?B?bkpZU0wvbXpmZUxxSk9MUThjVEl6VXBtQUZid0ZpeHV3dTFybUN0aC9UTzdy?=
+ =?utf-8?B?TDBhd1B4TzlXVmhZbjQvSDNtdkJLUTg1dE96OHpSeVgxVXN0dTBkLzFqcXBl?=
+ =?utf-8?B?SXVTcUVSSERpMTZwN1dVQ3Fzd1pKRmlwcmh2UHdzZnRQdGEyZU9BU1ZFcEdM?=
+ =?utf-8?B?TTltM1h4YkNFY3hiRkowcHMvOXpwUVdoNzc3Z0NRWCs1eGF2OHg0cFpiTUFS?=
+ =?utf-8?B?T3REZ0h2SkJQSlVBM3d6UlpQWnRrbVRxaS80NTNQemVxWW5uNHgySmxmWTNO?=
+ =?utf-8?B?SXBiVFVUK3ZzN1BlaFpzZjZaVlZKR3lYUG1UNzNGejdVVWJ1TDd3aUU0UXpU?=
+ =?utf-8?B?eS9rYVFySXpKUk05MzNQWWxObXhyUHZUU1c0K0ZuSFBjeEdJeXlrTHFnL3Jw?=
+ =?utf-8?B?NzBEWTBvWkxobUZpdE9OTkh4dk9zSG5GZkU2UG16bmJseTM2N1ZJRFAvaHVR?=
+ =?utf-8?B?bWFiU2ZNMHMrOUJnVnNmOW0wMUpmT3h5MEE5MVIwN1U5NnFlYUs1d2tVMzNS?=
+ =?utf-8?B?WXd6U0tpUE82YWRobEh4RVRvcDZOOHBwVWplSDIrOWJ5eVRBdHY4NWtEUlpu?=
+ =?utf-8?B?Zi8vd1Vhd29DTjJCRkxaNUJSRDgxMW9DOXFCWnVEa0JmM0xJVjZlaHlJNzg5?=
+ =?utf-8?B?NzVGY09OWnVxWGpRWXRLVGQyakpjSkczYVVZZzI5T1J1TEVJbU5rY2w3b3hQ?=
+ =?utf-8?B?aC9ER3E5OXZwWkQzSWxRVHl1MUQwUGp4ZEcxekErMUFBZ2ZrUytKMVJraTJ4?=
+ =?utf-8?B?eTlQUjV5ZzFNczY1NjZhZ2pkSmtkSlBnK2pYRThwLzhMTE44OWdiaXJWUVZR?=
+ =?utf-8?B?bktCbFpDb2RsU2RyRzVnaytqbkRJRHJmY1NkQzlxU2lPSmdzMXZPSjJHWjls?=
+ =?utf-8?B?cWRrTU80bFJiL3hvQWkrdFBhd2pGZGtQcFZzWStGNHRMTW5YZU91ZUc5bVk3?=
+ =?utf-8?B?UThKeUR3SmtkTmplbXd6WExUVnh0cExuRmh1MDJuMTNwUEw5RUo5SFFoV3RH?=
+ =?utf-8?Q?GfXPu8dght3UJ43Z7IYWMI3fu?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5200a549-eb49-4576-ffe1-08db83b38869
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 15:12:11.5135
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 69227qSZBWUbKxDh/LdgMjISD5aQDIOKgzBqTmq91cnb5iUEv/CmjItD7OQv27tMvkpsZ9XrhjYjz7dlfnW3VQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9763
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------UZzIExM15Kv5h8d3TfG92PJg
-Content-Type: multipart/mixed; boundary="------------MlAYonS9DhZc9LUjMUrylqL8";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Sean Paul <seanpaul@chromium.org>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Jani Nikula <jani.nikula@intel.com>, =?UTF-8?Q?Heiko_St=c3=bcbner?=
- <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
- dri-devel@lists.freedesktop.org,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet
- <jbrunet@baylibre.com>, Liu Shixin <liushixin2@huawei.com>,
- linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Matt Roper <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
- spice-devel@lists.freedesktop.org,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?=c5=81ukasz_Bartosik?= <lb@semihalf.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin
- <zackr@vmware.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- =?UTF-8?Q?Jos=c3=a9_Roberto_de_Souza?= <jose.souza@intel.com>,
- virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Fei Yang
- <fei.yang@intel.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, David Lechner <david@lechnology.com>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, =?UTF-8?Q?Jouni_H=c3=b6gander?=
- <jouni.hogander@intel.com>, Dave Airlie <airlied@redhat.com>,
- linux-mips@vger.kernel.org, Gurchetan Singh <gurchetansingh@chromium.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-amlogic@lists.infradead.org,
- Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang
- <zhang.lyra@gmail.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Sandy Huang <hjc@rock-chips.com>, Swati Sharma <swati2.sharma@intel.com>,
- John Stultz <jstultz@google.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Drew Davenport <ddavenport@chromium.org>, Kevin Hilman
- <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Anusha Srivatsa <anusha.srivatsa@intel.com>,
- Dan Carpenter <error27@gmail.com>, Karol Herbst <kherbst@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, =?UTF-8?Q?Ma=c3=adra_Canal?=
- <mairacanal@riseup.net>, Luca Coelho <luciano.coelho@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Joel Stanley <joel@jms.id.au>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, Lyude Paul <lyude@redhat.com>,
- intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Gustavo Sousa <gustavo.sousa@intel.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- Chia-I Wu <olvaffe@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Khaled Almahallawy <khaled.almahallawy@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li
- <roman.li@amd.com>, Paul Cercueil <paul@crapouillou.net>,
- Rob Clark <robdclark@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Russell King <linux@armlinux.org.uk>, Uma Shankar <uma.shankar@intel.com>,
- Mika Kahola <mika.kahola@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>,
- linux-tegra@vger.kernel.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <marek.olsak@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter
- <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Message-ID: <78be52b8-5ffb-601a-84b2-ead2894973a6@suse.de>
-Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
- drm_crtc::dev to drm_dev
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <87fs5tgpvv.fsf@intel.com>
- <CAOw6vbLO_UaXDbTCtAQJgthXOUMPqEV+c2MQhP-1DuK44OhGxw@mail.gmail.com>
- <20230713130337.fd2l67r23g2irifx@pengutronix.de>
- <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
-In-Reply-To: <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
+On 07.07.2023 18:07, Alejandro Vallejo wrote:
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -31,6 +31,17 @@
+>   *   (i.e. all devices assigned to) a guest share a single DMA address space
+>   *   and, by default, Xen will ensure dfn == pfn.
+>   *
+> + * pdx: Page InDeX
+> + *   Indices into the frame table holding the per-page's book-keeping
+> + *   metadata. A compression scheme may be used, so there's a possibly non
+> + *   identity mapping between valid(mfn) <-> valid(pdx). See the comments
+> + *   in pdx.c for an in-depth explanation of that mapping. This also has a
+> + *   knock-on effect on the directmap, as "compressed" pfns have no
+> + *   corresponding mapped frames.
 
---------------MlAYonS9DhZc9LUjMUrylqL8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Didn't you mean to keep the directmap part optional, which would call for
+saying "may" here (twice)? Yet then ...
 
-SGkNCg0KQW0gMTMuMDcuMjMgdW0gMTY6NDEgc2NocmllYiBTZWFuIFBhdWw6DQo+IE9uIFRo
-dSwgSnVsIDEzLCAyMDIzIGF0IDk6MDTigK9BTSBVd2UgS2xlaW5lLUvDtm5pZw0KPiA8dS5r
-bGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPiB3cm90ZToNCj4+DQo+PiBoZWxsbyBTZWFu
-LA0KPj4NCj4+IE9uIFdlZCwgSnVsIDEyLCAyMDIzIGF0IDAyOjMxOjAyUE0gLTA0MDAsIFNl
-YW4gUGF1bCB3cm90ZToNCj4+PiBJJ2QgcmVhbGx5IHByZWZlciB0aGlzIHBhdGNoIChzZXJp
-ZXMgb3Igc2luZ2xlKSBpcyBub3QgYWNjZXB0ZWQuIFRoaXMNCj4+PiB3aWxsIGNhdXNlIHBy
-b2JsZW1zIGZvciBldmVyeW9uZSBjaGVycnktcGlja2luZyBwYXRjaGVzIHRvIGENCj4+PiBk
-b3duc3RyZWFtIGtlcm5lbCAoTFRTIG9yIGRpc3RybyB0cmVlKS4gSSB1c3VhbGx5IHdvdWxk
-bid0IGV4cGVjdA0KPj4+IHN5bXBhdGh5IGhlcmUsIGJ1dCB0aGUgcXVlc3Rpb25hYmxlIGJl
-bmVmaXQgZG9lcyBub3Qgb3V0d2VpZ2ggdGhlIGNvc3QNCj4+PiBJTVtiaWFzZWRdTy4NCj4+
-DQo+PiBJIGFncmVlIHRoYXQgZm9yIGJhY2twb3J0cyB0aGlzIGlzbid0IHNvIG5pY2UuIEhv
-d2V2ZXIgd2l0aCB0aGUgc3BsaXQNCj4+IGFwcHJvYWNoICh0aGF0IHdhcyBhcmd1bWVudGVk
-IGFnYWluc3QgaGVyZSkgaXQncyBub3Qgc29vIGJhZC4gUGF0Y2ggIzENCj4+IChhbmQgc2lt
-aWxhciBjaGFuZ2VzIGZvciB0aGUgb3RoZXIgYWZmZWN0ZWQgc3RydWN0dXJlcykgY291bGQg
-YmUNCj4+IHRyaXZpYWxseSBiYWNrcG9ydGVkIGFuZCB3aXRoIHRoYXQgaXQgZG9lc24ndCBt
-YXR0ZXIgaWYgeW91IHdyaXRlIGRldiBvcg0KPj4gZHJtIChvciB3aGF0ZXZlciBuYW1lIGlz
-IGNob3NlbiBpbiB0aGUgZW5kKTsgYm90aCB3b3JrIGluIHRoZSBzYW1lIHdheS4NCj4gDQo+
-IFBhdGNoICMxIGF2b2lkcyB0aGUgbmVlZCB0byBiYWNrcG9ydCB0aGUgZW50aXJlIHNldCwg
-aG93ZXZlciBldmVyeQ0KPiBjaGFuZ2Ugb2NjdXJpbmcgYWZ0ZXIgdGhlIHJlbmFtZSBwYXRj
-aGVzIHdpbGwgY2F1c2UgY29uZmxpY3RzIG9uDQo+IGZ1dHVyZSBjaGVycnktcGlja3MuIERv
-d25zdHJlYW0ga2VybmVscyB3aWxsIGhhdmUgdG8gYmFja3BvcnQgdGhlDQo+IHdob2xlIHNl
-dC4gQmFja3BvcnRpbmcgdGhlIGVudGlyZSBzZXQgd2lsbCBjcmVhdGUgYW4gZXBvY2ggaW4N
-Cj4gZG93bnN0cmVhbSBrZXJuZWxzIHdoZXJlIGNoZXJyeS1waWNraW5nIHBhdGNoZXMgcHJl
-Y2VkaW5nIHRoaXMgc2V0DQo+IHdpbGwgbmVlZCB0byB1bmRlcmdvIGNvbmZsaWN0IHJlc29s
-dXRpb24gYXMgd2VsbC4gQXMgbWVudGlvbmVkIGluIG15DQo+IHByZXZpb3VzIGVtYWlsLCBJ
-IGRvbid0IGV4cGVjdCBzeW1wYXRoeSBoZXJlLCBpdCdzIHBhcnQgb2YgbWFpbnRhaW5pbmcN
-Cj4gYSBkb3duc3RyZWFtIGtlcm5lbCwgYnV0IHRoZXJlIGlzIGEgcmVhbCBjb3N0IHRvIGtl
-cm5lbCBjb25zdW1lcnMuDQo+IA0KPj4NCj4+IEJ1dCBldmVuIHdpdGggdGhlIG9uZS1wYXRj
-aC1wZXItcmVuYW1lIGFwcHJvYWNoIEknZCBjb25zaWRlciB0aGUNCj4+IHJlbmFtaW5nIGEg
-bmV0IHdpbiwgYmVjYXVzZSBlYXNlIG9mIHVuZGVyc3RhbmRpbmcgY29kZSBoYXMgYSBiaWcg
-dmFsdWUuDQo+PiBJdCdzIHZhbHVlIGlzIG5vdCBzbyBlYXN5IG1lYXN1cmFibGUgYXMgImNv
-bmZsaWN0cyB3aGVuIGJhY2twb3J0aW5nIiwNCj4+IGJ1dCBpdCBhbHNvIG1hdHRlcnMgaW4g
-c2F5IHR3byB5ZWFycyBmcm9tIG5vdywgd2hpbGUgYmFja3BvcnRpbmcNCj4+IHNob3VsZG4n
-dCBiZSBhbiBpc3N1ZSB0aGVuIGFueSBtb3JlLg0KPiANCj4gWW91J3ZlIHJpZ2h0bHkgaWRl
-bnRpZmllZCB0aGUgY29uamVjdHVyZSBpbiB5b3VyIHN0YXRlbWVudC4gSSd2ZSBiZWVuDQo+
-IG9uIGJvdGggc2lkZXMgb2YgdGhlIGFyZ3VtZW50LCBoYXZpbmcgd3JpdHRlbi9tYWludGFp
-bmVkIGRybSBjb2RlDQo+IHVwc3RyZWFtIGFuZCBjaGVycnktcGlja2VkIGNoYW5nZXMgdG8g
-YSBkb3duc3RyZWFtIGtlcm5lbC4gUGVyaGFwcw0KPiBpdCdzIGJlY2F1c2UgZHJtJ3MgZGVm
-aW5pdGlvbiBvZiBkZXYgaXMgaW5ncmFpbmVkIGluIG15IG11c2NsZSBtZW1vcnksDQo+IG9y
-IG1heWJlIGl0J3MgYmVjYXVzZSBJIGRvbid0IGRvIGEgbG90IG9mIHVwc3RyZWFtIGRldmVs
-b3BtZW50IHRoZXNlDQo+IGRheXMsIGJ1dCBJIGp1c3QgaGF2ZSBhIGhhcmQgdGltZSBzZWVp
-bmcgdGhlIGJlbmVmaXQgaGVyZS4NCg0KSSBjYW4gb25seSBzZWNvbmQgd2hhdCBTZWFuIHdy
-aXRlcy4gSSd2ZSBkb25lIHF1aXRlIGEgYml0IG9mIGJhY2twb3J0aW5nIA0Kb2YgRFJNIGNv
-ZGUuIEl0J3MgaGFyZCBhbHJlYWR5LiBBbmQgdGhpcyBraW5kIG9mIGNoYW5nZSBpcyBnb2lu
-ZyB0byB0byANCmFmZmVjdCBhbG1vc3QgZXZlcnkgYmFja3BvcnRlZCBEUk0gcGF0Y2ggaW4g
-dGhlIGNvbWluZyB5ZWFycy4gTm90IGp1c3QgDQpmb3IgZGlzdHJpYnV0aW9uIGtlcm5lbHMs
-IGJ1dCBhbHNvIGZvciB1cHN0cmVhbSdzIHN0YWJsZSBzZXJpZXMuIEl0J3MgDQpyZWFsbHkg
-b25seSBwb3NzaWJsZSB0byBkbyB0aGlzIGNoYW5nZSBvdmVyIG1hbnkgcmVsZWFzZXMgd2hp
-bGUga2VlcGluZyANCmNvbXBhdGlibGUgd2l0aCB0aGUgb2xkIG5hbWUuIFNvIHRoZSBtb3Jl
-IEkgdGhpbmsgYWJvdXQgaXQsIHRoZSBsZXNzIEkgDQpsaWtlIHRoaXMgY2hhbmdlLg0KDQpC
-ZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0KPiBJIGFwcHJlY2lhdGUgeW91ciBlbmdhZ2Vt
-ZW50IG9uIHRoZSB0b3BpYywgdGhhbmsgeW91IQ0KPiANCj4gU2Vhbg0KPiANCj4+DQo+PiBU
-aGFua3MgZm9yIHlvdXIgaW5wdXQsIGJlc3QgcmVnYXJkcw0KPj4gVXdlDQo+Pg0KPj4gLS0N
-Cj4+IFBlbmd1dHJvbml4IGUuSy4gICAgICAgICAgICAgICAgICAgICAgICAgICB8IFV3ZSBL
-bGVpbmUtS8O2bmlnICAgICAgICAgICAgfA0KPj4gSW5kdXN0cmlhbCBMaW51eCBTb2x1dGlv
-bnMgICAgICAgICAgICAgICAgIHwgaHR0cHM6Ly93d3cucGVuZ3V0cm9uaXguZGUvIHwNCg0K
-LS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VT
-RSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJIDQpGcmFua2Vuc3RyYXNzZSAxNDYs
-IDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0KR0Y6IEl2byBUb3RldiwgQW5kcmV3IE15ZXJz
-LCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4gTW9lcm1hbg0KSFJCIDM2ODA5IChBRyBOdWVy
-bmJlcmcpDQo=
+> --- a/xen/include/xen/pdx.h
+> +++ b/xen/include/xen/pdx.h
+> @@ -1,6 +1,73 @@
+>  #ifndef __XEN_PDX_H__
+>  #define __XEN_PDX_H__
+>  
+> +/*
+> + * PDX (Page inDeX)
+> + *
+> + * This file deals with optimisations pertaining to frame table and
+> + * directmap indexing, A pdx is an index into the frame table, which
+> + * typically also means an index into the directmap[1]. However, having an
+> + * identity relationship between mfn and pdx could waste copious amounts of
+> + * memory in empty frame table entries and page tables. There are some
+> + * techniques to bring memory wastage down.
+> + *
+> + * [1] Some ports apply further modifications to a pdx before indexing the
+> + *     directmap. This doesn't change the fact that the same compression
+> + *     present in the frame table is also present in the directmap
+> + *     whenever said map is present.
 
---------------MlAYonS9DhZc9LUjMUrylqL8--
+.. you mention it here as non-optional as well. Didn't you tell me that
+Arm doesn't use compressed indexes into the directmap?
 
---------------UZzIExM15Kv5h8d3TfG92PJg
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmSwE44FAwAAAAAACgkQlh/E3EQov+CI
-yQ//aZHYhcxB037tgGfzs4wCdHrFdvhb5Mqh5H9F2uMCAuLkMCZZ6zMzqlDeOTNynCNJ8xBXx/tY
-Z9jdNWdNGgTZE4GyX63pd3sAgBDtmj62p2x5eeBhve2bM01a7BvueZoqQ7bKedRwl7xyVPZYM11a
-zBT+/iz7U+E/+N5J66ZaUOVWiIW1CAo+Z+zxewzXD+pjA/earmoHjIu+01QUsUyUQ9OX9cQpJOPv
-/J0bNuItNGvILSLV7rR70FF55hJ/DbyvlCgOmrbhFRsVX4uuuuCAW3gAoTu/UFq+ZWhUDV0Td3Bg
-jb/adYZH7VmxHTv6LOheoWTgj3K8qjK+fgbTIZy/Llzenh1R+b8cf5hbIMirI2i1BdNLqiRZggWK
-cuEA8icsjxmmXDpLK1+bRk5L5Jh0oKmI3AJztXIFAQIC/KiC4S2a2onb7toJyFvoeEzbIdpR5xXw
-a7NhaDkGwksRiHgQv1BMO4GIZtkzMqxja6qqac1CQxnU3nyBH3rBjSiT36K7+uyMQkw/11rNweNU
-Bp/pM3ZcHIUoyP6oJTuIYWZm7drTbfstCMjAuQGT+EY1V/vHJifdtruW29QM9DsXPz09pkFR0REk
-f/Xbx4gNiXjL6H17xkRd1v/NJ/NTJXoxF1Oc9H46yvUMX4Vj8klQKGqEcnUzYWmAQB8VdfHTff1e
-ztc=
-=359C
------END PGP SIGNATURE-----
-
---------------UZzIExM15Kv5h8d3TfG92PJg--
+Jan
 
