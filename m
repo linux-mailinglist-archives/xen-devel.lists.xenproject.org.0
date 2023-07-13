@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACAD5752A07
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 19:51:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563338.880525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB07C752A0E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 19:53:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563341.880535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qK0Rv-0001iw-KA; Thu, 13 Jul 2023 17:49:55 +0000
+	id 1qK0VB-00037u-2T; Thu, 13 Jul 2023 17:53:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563338.880525; Thu, 13 Jul 2023 17:49:55 +0000
+Received: by outflank-mailman (output) from mailman id 563341.880535; Thu, 13 Jul 2023 17:53:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qK0Rv-0001hE-HH; Thu, 13 Jul 2023 17:49:55 +0000
-Received: by outflank-mailman (input) for mailman id 563338;
- Thu, 13 Jul 2023 17:49:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=In0U=C7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qK0Ru-0001h8-Dh
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 17:49:54 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab745fb6-21a5-11ee-b239-6b7b168915f2;
- Thu, 13 Jul 2023 19:49:52 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4fba8f2197bso1797331e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jul 2023 10:49:52 -0700 (PDT)
-Received: from [192.168.201.189] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- m17-20020a056512015100b004f858249931sm1200091lfo.93.2023.07.13.10.49.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 10:49:51 -0700 (PDT)
+	id 1qK0VA-00036D-Vv; Thu, 13 Jul 2023 17:53:16 +0000
+Received: by outflank-mailman (input) for mailman id 563341;
+ Thu, 13 Jul 2023 17:53:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dpWG=C7=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
+ id 1qK0V7-000365-ND
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 17:53:14 +0000
+Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 21bdd4ac-21a6-11ee-8611-37d641c3527e;
+ Thu, 13 Jul 2023 19:53:11 +0200 (CEST)
+Received: from meshulam.tesarici.cz
+ (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
+ [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by bee.tesarici.cz (Postfix) with ESMTPSA id 5EE5814DBB9;
+ Thu, 13 Jul 2023 19:53:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +44,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab745fb6-21a5-11ee-b239-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689270592; x=1691862592;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=SkAJ95bWITjQMArIuV8XW+ADF1vl6AjTeXxHvoUW+6o=;
-        b=DQe23IVYip4+hUV9RVfYMopeHJtuSymTvwj4iHT3I6VwFW2cpi/6ccZAAyhSAb9O22
-         81RtKCyoHq/a5YAKM8tapRRpKz8ufvPhBSG5YGxPGelzL91oXHcMYTeJCw3oyoIIVmUK
-         kiL5Q/0FMwerNw4pizdRyrVEA/jVJFiQPkpKC+g7NEb9uOng8OI+uLHdJXjjLdv2d4eN
-         5kV4JwPNS/u5BS4ybYoGyMOGomNjr0a8MtiZtkJmhsW647T1EMgfXO5E1hJLNJO7goV8
-         1Q59AG/Jul9Mi3rIQY9GL78Oc1uzRQUeXpzcSiWHy5KSUDkyVR/ahDwatdFvtYZVcz1G
-         nejg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689270592; x=1691862592;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SkAJ95bWITjQMArIuV8XW+ADF1vl6AjTeXxHvoUW+6o=;
-        b=I7HTnVw/JvvW8DPwPxaTLzjjAhaFE/AECfaUPiEppsLhfGIgrvtLrO2wePUzz9YDLf
-         lK2Qyc77Xxs83LE6ZeRVgMAtH+8B8lnQhge6T7f91FEUXjfcIDFz/4+J8VrGaXbtpLQX
-         IY9ofpXS3w+RyIwjWp8cPiSPTwn1Hv/piv8eA1gc8aODHQzV6Ey7YoiklqCOaYabf6ye
-         /Xp4CVbAderY3MZz6Vv/kzL/etwo5dqb1BEjDLbddamc0SmE8RS/s6vgNpfcTzFhH+oZ
-         802cKIlHuH1KRVGnc71N26JvBAr5cAqBSrTm6ptd917Zallbvcr9dgAlRFw32mgRH2El
-         pcJw==
-X-Gm-Message-State: ABy/qLYeM63qsax+MMd11mIpkjrY3nUGyHBuCf8VQorGq0RVYQfcPB1y
-	SaEjSfPQY/zl1obGXeu0/e8=
-X-Google-Smtp-Source: APBJJlE4iIixE04N+uFeZYFhfUHi+rJmQRq248BG/D+sRpK1LZuoNlqdR8zJ4ujVJHabf4eCZ0R9AA==
-X-Received: by 2002:ac2:5f01:0:b0:4f9:567a:7a62 with SMTP id 1-20020ac25f01000000b004f9567a7a62mr1529986lfq.21.1689270592044;
-        Thu, 13 Jul 2023 10:49:52 -0700 (PDT)
-Message-ID: <9415dc2fe8c8ca0325ba6dfe41fdf72cb0f2ea0a.camel@gmail.com>
-Subject: Re: [PATCH] ns1650: refactor interrupt handling in
- ns16550_uart_dt_init()
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org, Julien Grall
- <julien@xen.org>
-Date: Thu, 13 Jul 2023 20:49:51 +0300
-In-Reply-To: <200693a2-267d-16c8-61f3-3047dc8967da@suse.com>
-References: 
-	<cc5a08056abacdbb6d6509b56716eb45467307bb.1689240611.git.oleksii.kurochko@gmail.com>
-	 <a385a17b-a60c-d770-e044-af64273371d6@suse.com>
-	 <86702f86787ee7b963b131c4b2d6db463eddc1f3.camel@gmail.com>
-	 <3e4c673d-1b8b-15ab-629f-27a9f687b37a@suse.com>
-	 <83f67337cb69fb8cf2aa5d56b8a711384cdaa5f0.camel@gmail.com>
-	 <200693a2-267d-16c8-61f3-3047dc8967da@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+X-Inumbo-ID: 21bdd4ac-21a6-11ee-8611-37d641c3527e
+Authentication-Results: mail.tesarici.cz; dmarc=fail (p=none dis=none) header.from=tesarici.cz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
+	t=1689270789; bh=bPL0dJQsO71F+7x2c6oBcd15kYFwAiWbA6uxbyrkpGE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=EkihYalIeEcrIel7VgAhcpVNo9/pboyyZekjWK0jOnc5F1ahW2sgtlX2s4G3xz2aa
+	 7/pVJP13bkUSQtOnx/qTC561TvfhmkpEWgCjkNF0dnKtNeOHHWOPNueuVhTFgK2ELk
+	 wUOXEGu3hH49hYFoW2UWlnrBscc4Wib4CIVTdHzIxE5HMHeeuN7aydOSwzOTqbpdDv
+	 gD5Bsyr0BRxuvTKvkDlRDW5xFxEeTF4ZsC7VFVRP05INsvS0TzW3gxx20lzeEnkYdG
+	 ce/RvNC6zV5zfoC3oip2w9zTQ1heZ9+LR1nTdovemvPME96D6qgBeJM/SIEWJ77vyR
+	 +exPMHF3hrfBg==
+Date: Thu, 13 Jul 2023 19:53:07 +0200
+From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
+To: Petr Tesarik <petrtesarik@huaweicloud.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)), "H. Peter
+ Anvin" <hpa@zytor.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Christoph Hellwig
+ <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+ <robin.murphy@arm.com>, Petr Tesarik <petr.tesarik.ext@huawei.com>,
+ Jonathan Corbet <corbet@lwn.net>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Hans de Goede <hdegoede@redhat.com>,
+ James Seo <james@equiv.tech>, James Clark <james.clark@arm.com>, Kees Cook
+ <keescook@chromium.org>, xen-devel@lists.xenproject.org (moderated list:XEN
+ HYPERVISOR ARM), linux-arm-kernel@lists.infradead.org (moderated list:ARM
+ PORT), linux-kernel@vger.kernel.org (open list), linux-mips@vger.kernel.org
+ (open list:MIPS), iommu@lists.linux.dev (open list:XEN SWIOTLB SUBSYSTEM),
+ Roberto Sassu <roberto.sassu@huaweicloud.com>, Kefeng Wang
+ <wangkefeng.wang@huawei.com>
+Subject: Re: [PATCH v4 3/8] swiotlb: separate memory pool data from other
+ allocator data
+Message-ID: <20230713195307.08d68b01@meshulam.tesarici.cz>
+In-Reply-To: <e309b4a88ffb306c88a3b3cfe5e57483d73d20bc.1689261692.git.petr.tesarik.ext@huawei.com>
+References: <cover.1689261692.git.petr.tesarik.ext@huawei.com>
+	<e309b4a88ffb306c88a3b3cfe5e57483d73d20bc.1689261692.git.petr.tesarik.ext@huawei.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2023-07-13 at 16:26 +0200, Jan Beulich wrote:
-> On 13.07.2023 15:36, Oleksii wrote:
-> > On Thu, 2023-07-13 at 15:27 +0200, Jan Beulich wrote:
-> > > I don't understand. My earlier comment was affecting all checks
-> > > of
-> > > uart->irq alike, as I'm unconvinced IRQ0 may not possibly be
-> > > usable
-> > > on some architecture / platform. IOW I don't see why the check in
-> > > ns16550_init_postirq() would allow us any leeway.
-> > It looks like I misunderstood you.
-> >=20
-> > Do you mean that on some architecture IRQ0 may be used for ns16550?
->=20
-> Yes, I don't see why this shouldn't be possible in principle. As
-> Julien
-> said it can't happen on Arm, so if it also can't happen on RISC-V and
-> PPC, we could elect to continue to ignore that aspect.
->=20
-Then for RISC-V ( at least, for PLIC interrupt controller ) it is
-reserved:
-https://github.com/riscv/riscv-plic-spec/blob/master/riscv-plic.adoc#interr=
-upt-identifiers-ids
+On Thu, 13 Jul 2023 17:23:14 +0200
+Petr Tesarik <petrtesarik@huaweicloud.com> wrote:
 
-What about to have 'define NO_IRQ_POLL 0' ( mentioned by Julien )+
-assert(irq_from_device_tree !=3D NO_IRQ_POLL) ?
+> From: Petr Tesarik <petr.tesarik.ext@huawei.com>
+> 
+> Carve out memory pool specific fields from struct io_tlb_mem. The original
+> struct now contains shared data for the whole allocator, while the new
+> struct io_tlb_pool contains data that is specific to one memory pool of
+> (potentially) many.
+> 
+> Allocate both structures together for restricted DMA pools to keep the
+> error cleanup path simple.
+> 
+> Signed-off-by: Petr Tesarik <petr.tesarik.ext@huawei.com>
+> ---
+>  include/linux/device.h  |   2 +-
+>  include/linux/swiotlb.h |  47 +++++++----
+>  kernel/dma/swiotlb.c    | 181 +++++++++++++++++++++++++---------------
+>  3 files changed, 147 insertions(+), 83 deletions(-)
+> 
+> diff --git a/include/linux/device.h b/include/linux/device.h
+> index bbaeabd04b0d..d9754a68ba95 100644
+> --- a/include/linux/device.h
+> +++ b/include/linux/device.h
+> @@ -625,7 +625,7 @@ struct device_physical_location {
+>   * @dma_pools:	Dma pools (if dma'ble device).
+>   * @dma_mem:	Internal for coherent mem override.
+>   * @cma_area:	Contiguous memory area for dma allocations
+> - * @dma_io_tlb_mem: Pointer to the swiotlb pool used.  Not for driver use.
+> + * @dma_io_tlb_mem: Software IO TLB allocator.  Not for driver use.
+>   * @archdata:	For arch-specific additions.
+>   * @of_node:	Associated device tree node.
+>   * @fwnode:	Associated device node supplied by platform firmware.
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index 39313c3a791a..d669e11e2827 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -62,8 +62,7 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t phys,
+>  #ifdef CONFIG_SWIOTLB
+>  
+>  /**
+> - * struct io_tlb_mem - IO TLB Memory Pool Descriptor
+> - *
+> + * struct io_tlb_pool - IO TLB memory pool descriptor
+>   * @start:	The start address of the swiotlb memory pool. Used to do a quick
+>   *		range check to see if the memory was in fact allocated by this
+>   *		API.
+> @@ -73,15 +72,36 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t phys,
+>   * @vaddr:	The vaddr of the swiotlb memory pool. The swiotlb memory pool
+>   *		may be remapped in the memory encrypted case and store virtual
+>   *		address for bounce buffer operation.
+> - * @nslabs:	The number of IO TLB blocks (in groups of 64) between @start and
+> - *		@end. For default swiotlb, this is command line adjustable via
+> - *		setup_io_tlb_npages.
+> + * @nslabs:	The number of IO TLB slots between @start and @end. For the
+> + *		default swiotlb, this can be adjusted with a boot parameter,
+> + *		see setup_io_tlb_npages().
+> + * @used:	The number of used IO TLB slots.
+> + * @late_alloc:	%true if allocated using the page allocator.
+> + * @nareas:	Number of areas in the pool.
+> + * @area_nslabs: Number of slots in each area.
+> + * @areas:	Array of memory area descriptors.
+> + * @slots:	Array of slot descriptors.
+> + */
+> +struct io_tlb_pool {
+> +	phys_addr_t start;
+> +	phys_addr_t end;
+> +	void *vaddr;
+> +	unsigned long nslabs;
+> +	unsigned long used;
 
-~ Oleksii
+Oops. This member should not be re-introduced here after I removed it
+with commit efa76afdde16...
+
+I'm going to fix this in a v5, but I don't think it's critical enough
+to make an immediate resend.
+
+Petr T
 
