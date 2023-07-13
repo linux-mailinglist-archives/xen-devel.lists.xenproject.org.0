@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F44C752ABA
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 21:06:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563374.880605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7C6752AFF
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 21:31:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563386.880615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qK1dO-0005mi-Ql; Thu, 13 Jul 2023 19:05:50 +0000
+	id 1qK225-0000tM-RL; Thu, 13 Jul 2023 19:31:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563374.880605; Thu, 13 Jul 2023 19:05:50 +0000
+Received: by outflank-mailman (output) from mailman id 563386.880615; Thu, 13 Jul 2023 19:31:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qK1dO-0005jd-NF; Thu, 13 Jul 2023 19:05:50 +0000
-Received: by outflank-mailman (input) for mailman id 563374;
- Thu, 13 Jul 2023 19:05:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qK225-0000rA-OI; Thu, 13 Jul 2023 19:31:21 +0000
+Received: by outflank-mailman (input) for mailman id 563386;
+ Thu, 13 Jul 2023 19:31:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LNpG=C7=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1qK1dN-0005jX-3M
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 19:05:49 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45606f0d-21b0-11ee-b239-6b7b168915f2;
- Thu, 13 Jul 2023 21:05:46 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 36DJ5Kdr097933
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 13 Jul 2023 15:05:26 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 36DJ5J5s097932;
- Thu, 13 Jul 2023 12:05:19 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qK224-0000r0-Ux; Thu, 13 Jul 2023 19:31:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qK224-00029Q-Mw; Thu, 13 Jul 2023 19:31:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qK224-0004UA-6R; Thu, 13 Jul 2023 19:31:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qK224-00031R-62; Thu, 13 Jul 2023 19:31:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,52 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45606f0d-21b0-11ee-b239-6b7b168915f2
-Date: Thu, 13 Jul 2023 12:05:19 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 0/3] Fixing ACPI error reporting display
-Message-ID: <ZLBK7/xbwtZ3Afah@mattapan.m5p.com>
-References: <cover.1689191941.git.ehem+xen@m5p.com>
- <47f21cdf-5aa3-5f19-b967-6b217890e706@suse.com>
- <ZLAZnHUo8P2wccxD@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=MitiP5G40hyoOMZQ/MBxTPugJsvfQu8Ivpbc5fgxhkQ=; b=ppMNQN6eannBg2yAAnSKAjm3fr
+	Ei26NJSF9hefcPxyKiDULdSaaf4ieBgJ1xQyE86fB1AH5MAOVb+DTsOzD2cUzDHExskxJZbrRyJvg
+	s0mc6uuwh64luhjjN7+9nBuH9v558a/vp5FlJONDbmW5AGgGO4D21jz9BoWTv3O4eV18=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181786-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZLAZnHUo8P2wccxD@mattapan.m5p.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+Subject: [ovmf test] 181786: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ff3382a51ca726a90f49623a2b2d2e8ad8459ce2
+X-Osstest-Versions-That:
+    ovmf=8dab4eebe435fc28cae329867a74cee45d040d3e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 13 Jul 2023 19:31:20 +0000
 
-On Thu, Jul 13, 2023 at 08:34:52AM -0700, Elliott Mitchell wrote:
-> On Thu, Jul 13, 2023 at 10:38:37AM +0200, Jan Beulich wrote:
-> > On 12.07.2023 21:59, Elliott Mitchell wrote:
-> > > This series has been seen previously.  The issue is pretty simple, if
-> > > ACPI errors occur there is a high probability they will occur on multiple
-> > > cores at once.
-> > 
-> > Nit: Both here and in the title s/ACPI/APIC/, to not misguide people about
-> > the area the series touches (just in case a v4 might be needed).
-> 
-> Uh, yeah.  Wonder how that got missed.  Seems like the time for a
-> Simpson's "doh!"  Also in patch #2 there is "APIC errors".
-> 
-> It would be correct if English words had the transitivity property.
+flight 181786 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181786/
 
-Then re-check and realize I corrected things the wrong way.  Acronyms
-become problematic when they are anagrams of each other.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ff3382a51ca726a90f49623a2b2d2e8ad8459ce2
+baseline version:
+ ovmf                 8dab4eebe435fc28cae329867a74cee45d040d3e
 
-Anyone up for Hitchhiker's Guide to the Galaxy quotes?
+Last test of basis   181760  2023-07-11 06:42:24 Z    2 days
+Testing same since   181786  2023-07-13 17:42:16 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Hao A Wu <hao.a.wu@intel.com>
+  Richard Ho <richardho@ami.com>
+  Tinh Nguyen <tinhnguyen@os.amperecomputing.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   8dab4eebe4..ff3382a51c  ff3382a51ca726a90f49623a2b2d2e8ad8459ce2 -> xen-tested-master
 
