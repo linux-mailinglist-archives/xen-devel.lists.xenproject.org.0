@@ -2,40 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5E1475172B
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 06:09:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.562897.879692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 262D1751873
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 08:01:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.562925.879707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJncx-0007j3-Gf; Thu, 13 Jul 2023 04:08:27 +0000
+	id 1qJpMS-00034l-BN; Thu, 13 Jul 2023 05:59:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 562897.879692; Thu, 13 Jul 2023 04:08:27 +0000
+Received: by outflank-mailman (output) from mailman id 562925.879707; Thu, 13 Jul 2023 05:59:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJncx-0007f5-CZ; Thu, 13 Jul 2023 04:08:27 +0000
-Received: by outflank-mailman (input) for mailman id 562897;
- Thu, 13 Jul 2023 00:07:27 +0000
+	id 1qJpMS-000336-8e; Thu, 13 Jul 2023 05:59:32 +0000
+Received: by outflank-mailman (input) for mailman id 562925;
+ Thu, 13 Jul 2023 05:59:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8DW2=C7=amd.com=Luben.Tuikov@srs-se1.protection.inumbo.net>)
- id 1qJjrj-0001O8-3H
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 00:07:27 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20624.outbound.protection.outlook.com
- [2a01:111:f400:7e88::624])
+ <SRS0=tMFS=C7=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1qJpMP-000330-VB
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 05:59:30 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20628.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::628])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3defcdda-2111-11ee-b239-6b7b168915f2;
- Thu, 13 Jul 2023 02:07:24 +0200 (CEST)
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20) with
+ id 6c8888f4-2142-11ee-b239-6b7b168915f2;
+ Thu, 13 Jul 2023 07:59:27 +0200 (CEST)
+Received: from DUZPR01CA0223.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b4::10) by AM8PR08MB6580.eurprd08.prod.outlook.com
+ (2603:10a6:20b:369::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24; Thu, 13 Jul
+ 2023 05:59:23 +0000
+Received: from DBAEUR03FT011.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:4b4:cafe::b) by DUZPR01CA0223.outlook.office365.com
+ (2603:10a6:10:4b4::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24 via Frontend
+ Transport; Thu, 13 Jul 2023 05:59:23 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT011.mail.protection.outlook.com (100.127.142.132) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.22; Thu, 13 Jul 2023 00:07:17 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::e3dd:99bb:b742:2d48]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::e3dd:99bb:b742:2d48%2]) with mapi id 15.20.6565.034; Thu, 13 Jul 2023
- 00:07:17 +0000
+ 15.20.6588.24 via Frontend Transport; Thu, 13 Jul 2023 05:59:22 +0000
+Received: ("Tessian outbound f9124736ff4f:v145");
+ Thu, 13 Jul 2023 05:59:22 +0000
+Received: from 481900c8624d.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ F00C89A8-9CD6-4B73-9718-F74A4DEF12EA.1; 
+ Thu, 13 Jul 2023 05:59:16 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 481900c8624d.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 13 Jul 2023 05:59:16 +0000
+Received: from DB8PR06CA0024.eurprd06.prod.outlook.com (2603:10a6:10:100::37)
+ by DB3PR08MB8889.eurprd08.prod.outlook.com (2603:10a6:10:439::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Thu, 13 Jul
+ 2023 05:59:13 +0000
+Received: from DBAEUR03FT061.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:100:cafe::2d) by DB8PR06CA0024.outlook.office365.com
+ (2603:10a6:10:100::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26 via Frontend
+ Transport; Thu, 13 Jul 2023 05:59:13 +0000
+Received: from nebula.arm.com (40.67.248.234) by
+ DBAEUR03FT061.mail.protection.outlook.com (100.127.143.28) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6588.20 via Frontend Transport; Thu, 13 Jul 2023 05:59:13 +0000
+Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX04.Arm.com
+ (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 13 Jul
+ 2023 05:59:13 +0000
+Received: from [10.169.188.57] (10.169.188.57) by mail.arm.com (10.251.24.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27 via Frontend
+ Transport; Thu, 13 Jul 2023 05:59:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,341 +85,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3defcdda-2111-11ee-b239-6b7b168915f2
+X-Inumbo-ID: 6c8888f4-2142-11ee-b239-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fb21Prp8fY+sRO79D5+pwDnvhBbwbDsxvfdcKF5/o2o=;
+ b=Jt3FPx3S4gK//08qFG/vsEJ9934c63N0KXO4waEqYHIqrWS/Jv2xgUttIL59ubppet/wB9imPvJ8FezIIId47pbiUPW6RJ4g7n2G+Vu3FSL+74gE1vubaJoHOXW1WMuGaf53YA6cNN0pggemnIN9h32pN/cWLBZ1+sPnfj6LrNU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 45810f259d438bca
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LUTw+GaxXAo8m7B/4EiLWvPeyR6kNfHX+LqHUG+iO+b00q24d3uLSQMQioutIwk2jepTG8XvzFTTmRLL1uTZI1rQ0e+0yRR0kv5GOjnCCRYIKmZWZZ8n8b/k8Us6vAFFYKj64c9mRrMWikXudEHNc+aa2ZX0a3ODnhiCELeYPVDWNTjEzF/Cvp7kaTwKItgRhubTU0fz5U/I2kVk2fvXG2ePDZwzYAySeSgYHyYbDMrXXEzWoqrdwPxeWGHvH1lissVVPoKhXvO9VlI1sep6pJVNX1rKp+7EMW6qj6YApGp7lEuuvhaiKri9/QeSvUwFuNrH0jAmmXOtV869MH1jzw==
+ b=eaivM5W/YR5q7hil1ZB3aCnEqpTDp9SqEhEoYC3szP7vb9KDjfRkOcitqJUyrleKAiFxmWngrplq8YMSi3HvRa+trxIy+R6zFw8nREFIywV5gPlAx02XDoGzH14wsVIE7MMrRfujqFLwgZgX9ODOintKzPU4JcP+IMDf99FjbYYOVB13o1XUPr8X9e2MH5I8GllSemdUy+/XcARFO7vIMZK3Wpdk1F6K3CLsdmfYbL9o/xu7wm+iikDSK0p8MJe7GtKqGkn/EIr/VXV1lzKbOkGXDH2eUjmJC0X1QQZNczUG6iy628u/5xGhVvJsjrt2FQjdvaN2qZrCSP7VDrPHAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Z5H35+F0RctIC+ljl2z7BhYqWE5Rp24IPpYbkFwomc=;
- b=gbH852GnHE3csMzrWtRgQF9QPxLtJi8uDaojIjmx3r8W+0Ey1KWQD98QYjMfSb0mRCwHx5789Ox4uKJM6jaI74doWzmMnd/PFmDJ6vPMGTfiZGvUWjrTvE+GAdnB3Q9j8fREsEF/Wu3voozV3JHoDPDszMPAOQ/n9SlyWVLIf1DvOLVEj6Sj7k4iup0QT7f+nUeO6hO/9pUd+gsX1GDM6h64JI0YtXCYwvrwo0YLZpHYmEGIfImYDzQ75CwM4cu7BoYJdNXNT5Qi3nPWxL3CEXgzQ3msklUfFc+m3ZJoz4htvvW6ACUGUxlsX5GcmguYbFdhXqybrcK5rz5+GF7HLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=fb21Prp8fY+sRO79D5+pwDnvhBbwbDsxvfdcKF5/o2o=;
+ b=CfAMaPClnL+n/6Q9GWFs1wABvawGG7cFSFz8eNqs3g3etpyP99JFNu/E8eqXzgFUAaTCyZ73BhUIkKXMYTySg3z38L1dQdOzgnbxBp1MPcNJS7CX5JxGnoKoYH5dzSgDx0bffXNDFxtc2WFniuzGum28yEPSsP11bAQiJzRwABr3mPliDyHvm+NZxwFY1mCL3zacmagjADIZ6wsxm1GnCJE/K7rMmpJ/QHVaJ0SG/QgOXb+KPwq6UZ2TSnhbhC4VJiQNMxSvtCR4U9rtkzPwGDBFGqcAp0anZfeS3HHyeUU0kI5uQBQpM0oLB1m39i5ad8rmmPLVSPQrBzSJ2PmPdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 40.67.248.234) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Z5H35+F0RctIC+ljl2z7BhYqWE5Rp24IPpYbkFwomc=;
- b=nI0CjZDiXaSvo8Be/EgRitxDIdf1OSksh20gaEk9fZlmEtivU+COKbmPteZ8GuziqBaODlRwxWSspRnPNmTGj4isIkdWdEtwaLG4vfTlsUNJh5OlhOqI66vNu0Lk1ZNr2Mj8t+AOgOmzSS8X2yaqxuMTPKHYhhnDzWijroTOBts=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <83bba180-faac-e2a9-e7d3-c5fdf5df2303@amd.com>
-Date: Wed, 12 Jul 2023 20:06:58 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v1 00/52] drm/crtc: Rename struct drm_crtc::dev to
- drm_dev
-Content-Language: en-CA, en-US
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Maxime Ripard <mripard@kernel.org>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
- dri-devel@lists.freedesktop.org,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet
- <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Samuel Holland <samuel@sholland.org>, Matt Roper
- <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
- spice-devel@lists.freedesktop.org,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-sunxi@lists.linux.dev,
- Matthias Brugger <matthias.bgg@gmail.com>, Stylon Wang
- <stylon.wang@amd.com>, Tim Huang <Tim.Huang@amd.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Mika Kahola <mika.kahola@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Dave Airlie <airlied@redhat.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?=C5=81ukasz_Bartosik?= <lb@semihalf.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin
- <zackr@vmware.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- =?UTF-8?Q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>,
- virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Fei Yang
- <fei.yang@intel.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, David Francis <David.Francis@amd.com>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>,
- Aaron Liu <aaron.liu@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, =?UTF-8?Q?Jouni_H=C3=B6gander?=
- <jouni.hogander@intel.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Tian Tao <tiantao6@hisilicon.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
- Swati Sharma <swati2.sharma@intel.com>, linux-renesas-soc@vger.kernel.org,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Anusha Srivatsa <anusha.srivatsa@intel.com>,
- Dan Carpenter <error27@gmail.com>, Karol Herbst <kherbst@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mairacanal@riseup.net>, Luca Coelho <luciano.coelho@intel.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Likun Gao <Likun.Gao@amd.com>, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- Emma Anholt <emma@anholt.net>, Alain Volmat <alain.volmat@foss.st.com>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Deepak Rawat <drawat.floss@gmail.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
- Orson Zhai <orsonzhai@gmail.com>, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>, Harry Wentland <harry.wentland@amd.com>,
- Chia-I Wu <olvaffe@gmail.com>, Alan Liu <haoping.liu@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, intel-gfx@lists.freedesktop.org,
- Alison Wang <alison.wang@nxp.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Gustavo Sousa <gustavo.sousa@intel.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, Mikko Perttunen <mperttunen@nvidia.com>,
- Yifan Zhang <yifan1.zhang@amd.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Julia Lawall <Julia.Lawall@inria.fr>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- John Stultz <jstultz@google.com>, Roman Li <roman.li@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Khaled Almahallawy <khaled.almahallawy@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Sam Ravnborg <sam@ravnborg.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Liu Shixin <liushixin2@huawei.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
- Marek Vasut <marex@denx.de>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>, Lang Yu
- <Lang.Yu@amd.com>, xen-devel@lists.xenproject.org,
- Guchun Chen <guchun.chen@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Russell King <linux@armlinux.org.uk>, Leo Li <sunpeng.li@amd.com>,
- Uma Shankar <uma.shankar@intel.com>, Andi Shyti
- <andi.shyti@linux.intel.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- David Lechner <david@lechnology.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- David Tadokoro <davidbtadokoro@usp.br>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Wayne Lin <Wayne.Lin@amd.com>, Drew Davenport <ddavenport@chromium.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Lucas Stach <l.stach@pengutronix.de>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <94eb6e4d-9384-152f-351b-ebb217411da9@amd.com>
- <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
- <o3dc4q27ap6rajsvpfwfvs3z3afekkwbhnclvswkaietciy2kc@unjf67gz5tur>
- <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
- <603f0b69-71d3-ad8f-4b5e-53b63a6fd521@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Autocrypt: addr=luben.tuikov@amd.com; keydata=
- xjMEY1i6jxYJKwYBBAHaRw8BAQdAhfD+Cc+P5t/fiF08Vw25EMLiwUuxULYRiDQAP6H50MTN
- I0x1YmVuIFR1aWtvdiA8bHViZW4udHVpa292QGFtZC5jb20+wpkEExYKAEEWIQQyyR05VSHw
- x45E/SoppxulNG8HhgUCY1i6jwIbAwUJCWYBgAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIX
- gAAKCRAppxulNG8Hhk53AP4k4UY5xfcje0c5OF1k22pNv8tErxtVpgKKZgvfetA4xwD+OoAh
- vesLIYumBDxP0BoLiLN84udxdT15HwPFUGiDmwDOOARjWLqPEgorBgEEAZdVAQUBAQdAzSxY
- a2EtvvIwd09NckBLSTarSLNDkUthmqPnwolwiDYDAQgHwn4EGBYKACYWIQQyyR05VSHwx45E
- /SoppxulNG8HhgUCY1i6jwIbDAUJCWYBgAAKCRAppxulNG8HhnBLAP4yjSGpK6PE1mapKhrq
- 8bSl9reo+F6EqdhE8X2TTHPycAEAt8EkTEstSiaOpM66gneU7r+xxzOYULo1b1XjXayGvwM=
-In-Reply-To: <603f0b69-71d3-ad8f-4b5e-53b63a6fd521@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0142.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::21) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+ bh=fb21Prp8fY+sRO79D5+pwDnvhBbwbDsxvfdcKF5/o2o=;
+ b=Jt3FPx3S4gK//08qFG/vsEJ9934c63N0KXO4waEqYHIqrWS/Jv2xgUttIL59ubppet/wB9imPvJ8FezIIId47pbiUPW6RJ4g7n2G+Vu3FSL+74gE1vubaJoHOXW1WMuGaf53YA6cNN0pggemnIN9h32pN/cWLBZ1+sPnfj6LrNU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
+ smtp.mailfrom=arm.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=40.67.248.234; helo=nebula.arm.com; pr=C
+Message-ID: <4aea82de-6517-a974-2610-897de52fe952@arm.com>
+Date: Thu, 13 Jul 2023 13:59:08 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DS0PR12MB7747:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4992d380-7822-4818-e82c-08db83351e21
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v3 35/52] xen/arm: map static memory on demand
+Content-Language: en-US
+To: Ayan Kumar Halder <ayankuma@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
+References: <20230626033443.2943270-1-Penny.Zheng@arm.com>
+ <20230626033443.2943270-36-Penny.Zheng@arm.com>
+ <16428e2d-423c-6a9c-5caa-6ff5770a840e@amd.com>
+ <add845b8-31c1-52a6-18ff-b19a6cb6ef38@arm.com>
+ <ae0f338b-e86e-79db-8cb1-65cdd36c0911@amd.com>
+From: Penny Zheng <penny.zheng@arm.com>
+In-Reply-To: <ae0f338b-e86e-79db-8cb1-65cdd36c0911@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 1
+X-MS-TrafficTypeDiagnostic:
+	DBAEUR03FT061:EE_|DB3PR08MB8889:EE_|DBAEUR03FT011:EE_|AM8PR08MB6580:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdbc86ec-c846-4579-d987-08db83664e4f
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 0yb8DpECsSfZ4DHPrss3a5Ds7fMT7LhMtcrG+sEg3cxhFIh6T7PnLGrEe6qqcNe7fmtYfgYo4SoGwqNbexioalaz1EgATIoVa1H34TPtkSToaAiOrArv/9bEDBzzlY8+/qwcXJn9A0WQbllNYQF92JBePswTorhhHKTgmAVpfe3NJNYVdxuuKaC8U8GY9ohzd1Z4jWs4o3CX9h8oP55amrXZdmkO1n8jPaBnqpXb+BOP5U1ShDqhr7cP2H+kxZT5IcF94m6h5BhgDU15HwzX2tH1+BqLNDtxQCoZ1Lkjp9mnZ/OSr4OMq0nOXlOn6E7GvFvAJliUtXJz9D2sYm+OBBYwn/qSFmPwhVmgtoYn5WrmVkXj2qGhUGewSfBxBPJuKHwZG8G35ImaFCb5N0zwpneeIrXD0USDPmWSIezSwKG+DJHfFPETRa/Egrgju4MEsWrtqhnIHLJwRZJw5dRpjEMzEsbZB3zFcU0UNlzHtonCrmOmVd+7zB8dfW8Wpnu6U1uGguI7qEMUUTvNG+NdE+E+qsVgKVzJeJZmkq/JG4yCcKvdP+8bF4l51n1HwxKRq9fiA6kklKVwpJ3tlEqpnOXiYy6IgZpZPQ3fbRn1FJSSK1gDB/+G5Mo2lZMmjAmGKV6Reo8o3r8wvPdCnGXIluhUlVpho8IKKboMoZjQ+HYI/7m6/acfvwjY1eRG4UHwoecshtRBUhH9CdLONKaI71AJIyYocfD7FZ9XdTR1Y6DBIX+aCHa3sRfUUmvvjJNtutka1774ewD3pjNf+PVl06NWcbzYq+cM7FWOUDdl4mGnJFBobYyylmp3bVe8rFmIhcod4MR6tY/dAHZlm15MovLFYUWC4s3bCOvp4U93aPw=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(396003)(346002)(136003)(451199021)(40470700004)(46966006)(36840700001)(31686004)(8936002)(8676002)(41300700001)(54906003)(110136005)(40480700001)(5660300002)(2906002)(316002)(16576012)(44832011)(4326008)(70586007)(70206006)(40460700003)(426003)(478600001)(36756003)(31696002)(86362001)(186003)(336012)(82310400005)(81166007)(356005)(83380400001)(47076005)(82740400003)(2616005)(53546011)(26005)(36860700001)(21314003)(3940600001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR08MB8889
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT011.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	82678c0e-3079-4e49-d350-08db836648fb
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	OetvGvXD4kbxnCvicm9ni93hrWSam1zxuJRcM29ALwkNkH1AFtPd7P/Fyut+wVTwNRt8kO+LhdiIUSC1nQqS+szX772rIFaiUjeRRephMzDJ3xy8rpIje9x49uMfe9F9/LjfLGoWKdfeJqcwYUureMjoenn97vO+dYMxty5PauyatVWKpap4APxXn7eypRg6Z4r7zknOnRzj29/lHavwBcALufwcs5VfL/FigAspNt75CSQuPhNMs3a08krXLPL/erzed/WZkLd+0FBPGRAp8c5vsiH52N3jc94uvGRANw+kb5Uw+28WUhzIvnpwvEa8VJCgsr3deKdhL3+f4AT3drVotCYjrDbci0NrK24snHfS3m1Tgo31MAq7mIH2elLJ/JhuClAnoygxSAIg+mYpet5v7nkLkibMmthjZRSUisxDItjg1idZmrA18aJ6v/BkjE1N8YzvGJ1bxPasqsJUs+I4kfjVsctqSXhZQXRMaJR9zJe9rGcf2iFQ+IDOhHlM56aUv6o7oe7mIuzVXImAvsy3PM1U9GPWr9Kase/6s8ozNB6wq8z8Yd3XwvsQhOBf6vk0a3KEotDh3oYEJEq+43G/I6/3LDwJlkzPH0DpqdI8I6zEDNPCZU/Kpsp4gjErmrS4H6o/dX3ChVCJ3du5ZQ==
+	BNdM4eNh2H0iyZ8JagLc+QR1w3UCz7mRF9s4phjRyDIT/U9ch/ZRGe1/1pypo6uc2beQgV7ch625/9Z4FBWPdLwSoUKO95J4GtJdfrcZjvqEr3jyXEhwGTdcebI0O2VgCnBn4mcg7J7rwzkreVMRh4k5l5+UXgElai/ZmD/WcIquMQlvXrPuqWBnVygZ7zvF5HTzVh6bk1sw3QtlvXqc6oSO2hybdei79+RmH73DtAu73z+Yl5t6v4C7XthX1bb7oGSe0cL6f0U5DX8q0hvAHfZqlzOPPHHc+n/wLQDQFnignwIsikjP98mCb3lQqTzbhhm8w5cIPDFbYaSYmaBe5yMWVY1xTImekZkJsCFD3kg1r0oSWniF7NreITv6RVjcSVIiXHNpSyGYja4au/9IxPR4xWvhVwtphzj15qS0c9gpm+p9bVC3lwbMw8ma40HEdKhVg77fQRjfvviQpDotPjQYRMtRgNcdL5y+NDnBXk4LyFO4dvaWvxrr1TzAdvPtemugEsdcLL4JjqRHiJMW2SLZPgV3MGNlVWpRVjIxwpHXT5h1oBQ8VuysM+2wgOQ6A6WkD+WUMn0UR0/cbk3Cmj5Ve0hir+DXNZpFaSmvyGvlv+UYVZ4h8hF11e89VvuD9OIb9tZ2zF9ctStOobFAkSfxM9TcbA4RdJr2CYT5hgN9LB1NSF9iu0VQqsW7rgItwwDlejCdflMLdNOS7rdypiOmPzFqFhjh1KDUt/BBOPR1oMab5GmMSpzdYYCpoM/YkII2jAq85tPyCpv631jk0JFgd4MLOdHn2gcvqXHE7F78NEDQVqUOm9l1n9WkT7QDZ8uIcBoOhfdbPQxzxdk67g==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB3370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(396003)(366004)(451199021)(66574015)(2906002)(2616005)(36756003)(41300700001)(83380400001)(53546011)(5660300002)(26005)(6506007)(186003)(7416002)(7406005)(7366002)(7276002)(44832011)(7336002)(8936002)(8676002)(31696002)(54906003)(110136005)(6486002)(66476007)(66946007)(66556008)(4326008)(6666004)(86362001)(478600001)(38100700002)(31686004)(316002)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z2N5THVtVkpNaWV5NUJIRG1QS1dBa0dqbXpYZnpOTmxFZ2pDVUY2U3M4anh2?=
- =?utf-8?B?SW1IOTlCN2RVbUJha2hzY01aZkFZT2UxTndiR2dKNlVjVFZINDJXLzRYN1Aw?=
- =?utf-8?B?djFxN0VGZVVyaW1xSmhTN1NpYmo3NGRLTVl1Mlo0L2V4cklISHM2bStXL1lj?=
- =?utf-8?B?bVZTd2pTaGJVcG9WN0svQ0pQVXFQKzEvaUsxTlJIblc5N2l3TFNtYlpqSmNh?=
- =?utf-8?B?Rk1aZHBZUS9oanhwOGxzV1VCMFR2MjM3UmdzRE43V3F4V3dMQVRYdy81bVQ3?=
- =?utf-8?B?bFhHb1l1eHR4d0YrQmkzdVpVeEkzVm12QjgzektVUTA3OHduVGpOMU9sTjRR?=
- =?utf-8?B?SXRCN2MzSE54R3ZXZWlsNVVYY0xKZC9neGFwNlE3Y3VEczN6TzZXQkxkNWtn?=
- =?utf-8?B?Z2djZkJkc3JIODc4UDkzbkRpZzhDSDBRZURpK0Y4Uk8xMGdocis5WHk3RTJT?=
- =?utf-8?B?RFVWQkdQQWJ4OGNoNmcrNnRWenpVc0F5aFlXclU5VWZDV0FOYUcvQURNYWpq?=
- =?utf-8?B?MnYvY1lWMEE1eUJYSEdOenMzSzBXK2hmMDdOcFcxSGpKWHZoZjNFNlJRZkFC?=
- =?utf-8?B?WWdhZFhiN0FqaWwrOWdpZE9tWXdLZ24wVkpENmViYjJMVnZVdlowQSt5ZjNs?=
- =?utf-8?B?Q3dpTCtQQnRCbXBORUFFL3d1OXZrMi9rTHVIZnIwaVVtblIydG9wOU9KWG42?=
- =?utf-8?B?aHpqZ3FTdmJqVTM5NlZ5Z1NDNUtwSENnMkFHNEdFRjREMlhoRVQxUnY1MU9N?=
- =?utf-8?B?a2E5UEFpbGd1Tm8wY1MvS1REUndERkZzSmpXdVRGeTRGbE1LSStTSDZDZS9v?=
- =?utf-8?B?SGlESDlSTm5ua01YTG5tTDF6NDY4T0ZaMFIzZHpRRWF3ZnROeHpVQjN6TGp2?=
- =?utf-8?B?bGIyMXMzeXdnSjNyM1ZsL1BVNG1tVllETDZVQkxUbDdrdkp5K3VzUEZwTXJw?=
- =?utf-8?B?Ly9yY21vcTN5T0U2OEluWkNudUdUc0NuN1hFNFcvclZMOTVtT1lIZGEyYTk3?=
- =?utf-8?B?NnIxelRjR3Z2cEdxTk1OZHFTWExuWFhMM0hucU41QmVGOHRBTGVORWJ1ZVh2?=
- =?utf-8?B?NmoyMktEQk1FSEEvRUExaHozL1dNOEdqSEFNcmdHRlNleXpUdVR2Q0VDc2Vt?=
- =?utf-8?B?Q0N4cnFaaW8vb0NVeFJBWmN5Yi9uTnY1WmI4SXVFc0oxNk9pOWlOdHBhNUNt?=
- =?utf-8?B?MFVwaFArbmNEN1lad3poLzNqMk94NnYvYnFJUDNmRW5BelcvRUgwYk92eTlo?=
- =?utf-8?B?eWQyQm1OZnZ2YmlIR2tNNU56Wklad3hQVWRGc293cXladHY1ZVFuZllaZksr?=
- =?utf-8?B?TFpWYU1PT296TU9lQ3gxZnJVaDgzbkxDZnZoV0pwMkNRQW5rTjRBcDFtbGZO?=
- =?utf-8?B?cm80NWVqSlhRQllRcjY1V2lRYXZYeTRHTEVJNHJsWkFVcGR0aHY2QU9lc3Ry?=
- =?utf-8?B?VjFHeXZHVmZNWG81U1ZCV2xzdlJKQUNzTG9uejVSR3IwTDYyZTkrdlpWVk1F?=
- =?utf-8?B?YVYrdEFrSGRLWWZBYjlHS2JsOTYzRWU0TkwzYktqZndTMlphbnNiT1FPUkd2?=
- =?utf-8?B?Y1R1TC9sSStwQXJWZ25uS0JIOWFMcjBsUzdYTDR5c281a0tKeHdzZDUycnVh?=
- =?utf-8?B?SHljYmNUVDNicEQvWTNxc2YrVkJIWkNaYXVrN3kvRmlxQ0dVRVFLNVdReVFX?=
- =?utf-8?B?QVhZMWhJQXRZRHYvOUFDKzhpNHdnQ1JPempmOFd3d1NGTzJOZytqQVNKS3Fk?=
- =?utf-8?B?NHhmUlZPYWtQeG00SWRHOCs5M3RMOUVZWlBSWEtTWGl0NFVpakdCVk1KRU5Q?=
- =?utf-8?B?TU15QzQzUy95TkdwbCtqN3Q5UktoL2Q4N2taVG0wajhFRDlUY2oyUXlOMFlP?=
- =?utf-8?B?d0JhWSsxVWZqdnpmL1F6R0xzSGRJSUlGdndBb2lseVZOOEEzWXNnZU4rRjlH?=
- =?utf-8?B?QXdkaW05Q2RLUlNiQThzeEFrS0hVM0lOc01yV1VzVE4zQlc1c0Q1ZWNiYWFJ?=
- =?utf-8?B?c05Oall2M3JLQVltRlB4MVdzU290dEdXdzdsT3JUM3RZVGFyQTRLZE42d0hD?=
- =?utf-8?B?Tm5NbThmYUJ5YjJ3Q1JuaW55cmlBd3BGZUhKcnZ1dVhseHhEU1dTc1VYbzNP?=
- =?utf-8?Q?k7m36FXVjmqGRYjPJGL1uTMxN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4992d380-7822-4818-e82c-08db83351e21
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 00:07:16.9878
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199021)(36840700001)(46966006)(40470700004)(40480700001)(36860700001)(36756003)(31696002)(86362001)(81166007)(82740400003)(82310400005)(40460700003)(478600001)(110136005)(54906003)(16576012)(8936002)(44832011)(5660300002)(316002)(70586007)(70206006)(2906002)(41300700001)(8676002)(31686004)(4326008)(2616005)(83380400001)(47076005)(336012)(426003)(53546011)(26005)(186003)(21314003)(3940600001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 05:59:22.6815
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CKN08Ur9guvB4xSjc0iFLLgs5BPyDy2I6XIh73skvHxQqbwwf8rx4nqW3J6KPWkI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7747
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdbc86ec-c846-4579-d987-08db83664e4f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT011.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6580
 
-On 2023-07-12 09:53, Christian König wrote:
-> Am 12.07.23 um 15:38 schrieb Uwe Kleine-König:
->> Hello Maxime,
+Hi Ayan
+
+On 2023/7/5 21:33, Ayan Kumar Halder wrote:
+> 
+> On 05/07/2023 11:16, Penny Zheng wrote:
+>> Hi Ayan
+> Hi Penny,
 >>
->> On Wed, Jul 12, 2023 at 02:52:38PM +0200, Maxime Ripard wrote:
->>> On Wed, Jul 12, 2023 at 01:02:53PM +0200, Uwe Kleine-König wrote:
->>>>> Background is that this makes merge conflicts easier to handle and detect.
->>>> Really?
->>> FWIW, I agree with Christian here.
+>> On 2023/7/4 23:10, Ayan Kumar Halder wrote:
+>>> Hi Penny,
 >>>
->>>> Each file (apart from include/drm/drm_crtc.h) is only touched once. So
->>>> unless I'm missing something you don't get less or easier conflicts by
->>>> doing it all in a single patch. But you gain the freedom to drop a
->>>> patch for one driver without having to drop the rest with it.
->>> Not really, because the last patch removed the union anyway. So you have
->>> to revert both the last patch, plus that driver one. And then you need
->>> to add a TODO to remove that union eventually.
->> Yes, with a single patch you have only one revert (but 194 files changed,
->> 1264 insertions(+), 1296 deletions(-)) instead of two (one of them: 1
->> file changed, 9 insertions(+), 1 deletion(-); the other maybe a bit
->> bigger). (And maybe you get away with just reverting the last patch.)
+>>> On 26/06/2023 04:34, Penny Zheng wrote:
+>>>> CAUTION: This message has originated from an External Source. Please 
+>>>> use proper judgment and caution when opening attachments, clicking 
+>>>> links, or responding to this email.
+>>>>
+>>>>
+>>>> In function init_staticmem_pages, we need the access to static memory
+>>>> for proper initialization.
+>>>> It is not a problem in MMU system, as Xen map the whole RAM in
+>>>> setup_mm(). However, with limited MPU memory regions, it is too luxury
+>>>> to map the whole RAM.
+>>>> As a result, we follow the rule of "map on demand", to map static 
+>>>> memory
+>>>> temporarily before its initialization, and unmap immediately after its
+>>>> initialization.
+>>>
+>>> I could see that you are using _PAGE_TRANSIENT  to map memory 
+>>> temporarily. However, I don't see this being translated to any of the 
+>>> MPU hardware features (ie _PAGE_TRANSIENT does not seem to translate 
+>>> to any of the attributes in PRBAR, PRLAR, PRENR, etc). Thus, how is 
+>>> it different from mapping the memory in "non temporary" way ?
+>>>
 >>
->> With a single patch the TODO after a revert is "redo it all again (and
->> prepare for a different set of conflicts)" while with the split series
->> it's only "fix that one driver that was forgotten/borked" + reapply that
->> 10 line patch.
-> 
-> Yeah, but for a maintainer the size of the patches doesn't matter. 
-> That's only interesting if you need to manually review the patch, which 
-> you hopefully doesn't do in case of something auto-generated.
-> 
-> In other words if the patch is auto-generated re-applying it completely 
-> is less work than fixing things up individually.
-> 
->>   As the one who gets that TODO, I prefer the latter.
-> 
-> Yeah, but your personal preferences are not a technical relevant 
-> argument to a maintainer.
-> 
-> At the end of the day Dave or Daniel need to decide, because they need 
-> to live with it.
-> 
-> Regards,
-> Christian.
-> 
->>
->> So in sum: If your metric is "small count of reverted commits", you're
->> right. If however your metric is: Better get 95% of this series' change
->> in than maybe 0%, the split series is the way to do it.
->>
->> With me having spend ~3h on this series' changes, it's maybe
->> understandable that I did it the way I did.
->>
->> FTR: This series was created on top of v6.5-rc1. If you apply it to
->> drm-misc-next you get a (trivial) conflict in patch #2. If I consider to
->> be the responsible maintainer who applies this series, I like being able
->> to just do git am --skip then.
->>
->> FTR#2: In drm-misc-next is a new driver
->> (drivers/gpu/drm/loongson/lsdc_crtc.c) so skipping the last patch for
->> now might indeed be a good idea.
->>
->>>> So I still like the split version better, but I'm open to a more
->>>> verbose reasoning from your side.
->>> You're doing only one thing here, really: you change the name of a
->>> structure field. If it was shared between multiple maintainers, then
->>> sure, splitting that up is easier for everyone, but this will go through
->>> drm-misc, so I can't see the benefit it brings.
->> I see your argument, but I think mine weights more.
+>> It is only software feature.
+>> It is designed for implementing functions like ioremap_xxx(), or 
+>> map_staticmem_pages_to_xen() here, which are always occuring with its 
+>> reverse unmapping function nearby like iounmap(), or 
+>> unmap_staticmem_pages_to_xen(), to map a chunk of memory 
+>> *temporarily*, for a very short time.
+> I understand that it is a software only feature. But why does the 
+> software need to know if the memory is mapped temporarily or not ? What 
+> difference does it make ?
 
-I'm with Maxime and Christian on this--a single action necessitates a single patch.
-One single movement. As Maxime said "either 0 or 100."
+See this pair map_domain_page()/unmap_domain_page(), which is used to 
+map/unmap page of guest RAM. vcpu in different mode is facing different 
+scenario.
 
-As to the name, perhaps "drm_dev" is more descriptive than just "drm".
-What is "drm"? Ah it's a "dev", as in "drm dev"... Then why not rename it
-to "drm_dev"? You are renaming it from "dev" to something more descriptive
-after all. "dev" --> "drm" is no better, but "dev" --> "drm_dev" is just
-right.
--- 
-Regards,
-Luben
+Taking usage in copy_guest() as example:
+When vcpu in guest mode trying to access its own memory(e.g. copy
+hypercall param), there is no need to do the mapping/unmapping in MPU,
+as page is already mapped at both EL1/EL2. Checking if it is transient
+region in unmap_domain_page() is definitely necessary to help avoid 
+unmapping it here.
+When vcpu in hypervisor mode at boot time copying kernel image to guest
+memory, we need to map page as transient MPU region to do the copying 
+and pasting.
 
+>> I want to check this flag in the unmapping function, to ensure that we 
+>> are unmapping the proper MPU region.
+> 
+> I had a look at unmap_staticmem_pages_to_xen() --> xen_mpumap_update() 
+> --> control_mpu_region_from_index() and I don't see this flag used 
+> anywhere.
+ >
+> - Ayan
+> 
+>>
+>> Fixed MPU regions are like Xen text section, Xen data section, etc.
+>>
+>>> Please let me know what I am missing.
+>>>
+>>> - Ayan
+>>>
+>>>>
+>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>>>> ---
+>>>> v3:
+>>>> - new commit
+>>>> ---
+>>>>   xen/arch/arm/include/asm/mm.h |  2 ++
+>>>>   xen/arch/arm/mmu/mm.c         | 10 ++++++++++
+>>>>   xen/arch/arm/mpu/mm.c         | 10 ++++++++++
+>>>>   xen/arch/arm/setup.c          | 21 +++++++++++++++++++++
+>>>>   4 files changed, 43 insertions(+)
+>>>>
+>>>> diff --git a/xen/arch/arm/include/asm/mm.h 
+>>>> b/xen/arch/arm/include/asm/mm.h
+>>>> index 66d98b9a29..cffbf8a595 100644
+>>>> --- a/xen/arch/arm/include/asm/mm.h
+>>>> +++ b/xen/arch/arm/include/asm/mm.h
+>>>> @@ -224,6 +224,8 @@ extern void mm_init_secondary_cpu(void);
+>>>>   extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
+>>>>   /* map a physical range in virtual memory */
+>>>>   void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int 
+>>>> attributes);
+>>>> +extern int map_staticmem_pages_to_xen(paddr_t start, paddr_t end);
+>>>> +extern int unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end);
+>>>>
+>>>>   static inline void __iomem *ioremap_nocache(paddr_t start, size_t 
+>>>> len)
+>>>>   {
+>>>> diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
+>>>> index 2f29cb53fe..4196a55c32 100644
+>>>> --- a/xen/arch/arm/mmu/mm.c
+>>>> +++ b/xen/arch/arm/mmu/mm.c
+>>>> @@ -1113,6 +1113,16 @@ int populate_pt_range(unsigned long virt, 
+>>>> unsigned long nr_mfns)
+>>>>       return xen_pt_update(virt, INVALID_MFN, nr_mfns, _PAGE_POPULATE);
+>>>>   }
+>>>>
+>>>> +int __init map_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+>>>> +{
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +int __init unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+>>>> +{
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>>   /*
+>>>>    * Local variables:
+>>>>    * mode: C
+>>>> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+>>>> index a40055ae5e..9d5c1da39c 100644
+>>>> --- a/xen/arch/arm/mpu/mm.c
+>>>> +++ b/xen/arch/arm/mpu/mm.c
+>>>> @@ -614,6 +614,16 @@ void __init setup_frametable_mappings(paddr_t 
+>>>> ps, paddr_t pe)
+>>>>              frametable_size - (nr_pdxs * sizeof(struct page_info)));
+>>>>   }
+>>>>
+>>>> +int __init map_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+>>>> +{
+>>>> +    return xen_mpumap_update(start, end, PAGE_HYPERVISOR | 
+>>>> _PAGE_TRANSIENT);
+>>>> +}
+>>>> +
+>>>> +int __init unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+>>>> +{
+>>>> +    return xen_mpumap_update(start, end, 0);
+>>>> +}
+>>>> +
+>>>>   /*
+>>>>    * Local variables:
+>>>>    * mode: C
+>>>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>>>> index f42b53d17b..c21d1db763 100644
+>>>> --- a/xen/arch/arm/setup.c
+>>>> +++ b/xen/arch/arm/setup.c
+>>>> @@ -637,12 +637,33 @@ void __init init_staticmem_pages(void)
+>>>>               mfn_t bank_start = 
+>>>> _mfn(PFN_UP(bootinfo.reserved_mem.bank[bank].start));
+>>>>               unsigned long bank_pages = 
+>>>> PFN_DOWN(bootinfo.reserved_mem.bank[bank].size);
+>>>>               mfn_t bank_end = mfn_add(bank_start, bank_pages);
+>>>> +            int res;
+>>>>
+>>>>               if ( mfn_x(bank_end) <= mfn_x(bank_start) )
+>>>>                   return;
+>>>>
+>>>> +            /* Map temporarily before initialization */
+>>>> +            res = map_staticmem_pages_to_xen(mfn_to_maddr(bank_start),
+>>>> + mfn_to_maddr(bank_end));
+>>>> +            if ( res )
+>>>> +            {
+>>>> +                printk(XENLOG_ERR "Failed to map static memory to 
+>>>> Xen: %d\n",
+>>>> +                       res);
+>>>> +                return;
+>>>> +            }
+>>>> +
+>>>> unprepare_staticmem_pages(mfn_to_page(bank_start),
+>>>>                                         bank_pages, false);
+>>>> +
+>>>> +            /* Unmap immediately after initialization */
+>>>> +            res = 
+>>>> unmap_staticmem_pages_to_xen(mfn_to_maddr(bank_start),
+>>>> + mfn_to_maddr(bank_end));
+>>>> +            if ( res )
+>>>> +            {
+>>>> +                printk(XENLOG_ERR "Failed to unmap static memory to 
+>>>> Xen: %d\n",
+>>>> +                       res);
+>>>> +                return;
+>>>> +            }
+>>>>           }
+>>>>       }
+>>>>   #endif
+>>>> -- 
+>>>> 2.25.1
+>>>>
+>>>>
 
