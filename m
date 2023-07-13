@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0091751D5A
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 11:35:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563054.879991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 880A4751D97
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 11:43:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563064.880011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJsiK-00067z-Bc; Thu, 13 Jul 2023 09:34:20 +0000
+	id 1qJsqn-0008CR-HM; Thu, 13 Jul 2023 09:43:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563054.879991; Thu, 13 Jul 2023 09:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 563064.880011; Thu, 13 Jul 2023 09:43:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJsiK-000660-8m; Thu, 13 Jul 2023 09:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 563054;
- Thu, 13 Jul 2023 09:34:19 +0000
+	id 1qJsqn-00089X-DL; Thu, 13 Jul 2023 09:43:05 +0000
+Received: by outflank-mailman (input) for mailman id 563064;
+ Thu, 13 Jul 2023 09:43:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qJsiJ-00065u-5H
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 09:34:19 +0000
+ (envelope-from <julien@xen.org>) id 1qJsqm-00089R-34
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 09:43:04 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qJsiI-0004O5-38; Thu, 13 Jul 2023 09:34:18 +0000
+ id 1qJsql-0004Ww-6c; Thu, 13 Jul 2023 09:43:03 +0000
 Received: from [15.248.2.150] (helo=[10.24.67.22])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qJsiH-0001eZ-Th; Thu, 13 Jul 2023 09:34:18 +0000
+ id 1qJsql-00028h-0D; Thu, 13 Jul 2023 09:43:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +42,104 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bcoc3IJFFi4Cq0DgAnGjf5qqSfL5e2opArg8uGrYNZM=; b=RO+I4Q+V9tYw3MoqA4L/5wsrkG
-	3pHRQBmDc0ONcF+WRwxl0AFtAUEAnfsE22PyuwPT0VfGaV3RnEahqRJziWnm6SdyT1+MNwygWmnO0
-	kKyZn1ZqwruSMaXeSjqjTiEpqiW0FGuIYjC75Uyie4iP4vetTSIf2IoEzvblAF9x7sTY=;
-Message-ID: <3f853d77-f1a3-3031-cd83-6826dc9d966f@xen.org>
-Date: Thu, 13 Jul 2023 10:34:15 +0100
+	bh=VDTftAUGfVfdWCue+V47lISMjulisJSRWjxTzf9wXfA=; b=1pWwKEAiQKq5XzsHqE7vz/p7Oz
+	b2CiDD7JfWEqHc8EYS8y854Hlt4sasqftqgHAwKaMq0cxhwwIyuE2pMMvt8a5M0f+m0h6aTazvI6D
+	QlZMrAEzjd4LD2KKpVDU4b5/pVBIu/8bYf1EtEVHVGUuSEggUJf8m9rSheqI9E9s8eKE=;
+Message-ID: <ca31c7aa-1879-a196-ace0-4418d8a5b0c9@xen.org>
+Date: Thu, 13 Jul 2023 10:43:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [XEN PATCH v9 02/24] xen/arm: add TEE teardown to
- arch_domain_teardown()
+Subject: Re: [PATCH] ns1650: refactor interrupt handling in
+ ns16550_uart_dt_init()
 Content-Language: en-US
-To: Jens Wiklander <jens.wiklander@linaro.org>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand.Marquis@arm.com,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Wei Liu <wl@xen.org>, Marc Bonnici <marc.bonnici@arm.com>,
- Achin Gupta <achin.gupta@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20230705093433.2514898-1-jens.wiklander@linaro.org>
- <20230705093433.2514898-3-jens.wiklander@linaro.org>
- <b1a9be99-6078-6553-74f1-5be5f002b23d@xen.org>
- <CAHUa44FxkUxN4+pfECk0Sb9JgArNAh7vgKktK+=bY1C0rABVqg@mail.gmail.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <cc5a08056abacdbb6d6509b56716eb45467307bb.1689240611.git.oleksii.kurochko@gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAHUa44FxkUxN4+pfECk0Sb9JgArNAh7vgKktK+=bY1C0rABVqg@mail.gmail.com>
+In-Reply-To: <cc5a08056abacdbb6d6509b56716eb45467307bb.1689240611.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Oleksii,
 
-On 13/07/2023 08:02, Jens Wiklander wrote:
->>> +}
->>> +
->>>    static uint64_t regpair_to_uint64(register_t reg0, register_t reg1)
->>>    {
->>>        return ((uint64_t)reg0 << 32) | (uint32_t)reg1;
->>> @@ -1732,6 +1737,7 @@ static const struct tee_mediator_ops optee_ops =
->>>    {
->>>        .probe = optee_probe,
->>>        .domain_init = optee_domain_init,
->>> +    .domain_teardown = optee_domain_teardown,
->>>        .relinquish_resources = optee_relinquish_resources,
->>>        .handle_call = optee_handle_call,
->>>    };
->>> diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
->>> index 3964a8a5cddf..ddd17506a9ff 100644
->>> --- a/xen/arch/arm/tee/tee.c
->>> +++ b/xen/arch/arm/tee/tee.c
->>> @@ -52,6 +52,14 @@ int tee_domain_init(struct domain *d, uint16_t tee_type)
->>>        return cur_mediator->ops->domain_init(d);
->>>    }
->>>
->>> +int tee_domain_teardown(struct domain *d)
->>> +{
->>> +    if ( !cur_mediator )
->>> +        return 0;
->>> +
->>> +    return cur_mediator->ops->domain_teardown(d);
->>
->> NIT: I would consider to check if the callback is NULL. This would avoid
->> providing dummy helper.
+Title: IMO, Your patch doesn't do any refactor. Instead, it add support 
+for polling when using the DT.
+
+On 13/07/2023 10:30, Oleksii Kurochko wrote:
+> In ns16550_init_postirq() there is the following check:
+>      if ( uart->irq > 0 )
+>      {
+>          uart->irqaction.handler = ns16550_interrupt;
+>          uart->irqaction.name    = "ns16550";
+>          uart->irqaction.dev_id  = port;
+>          if ( (rc = setup_irq(uart->irq, 0, &uart->irqaction)) != 0 )
+>              printk("ERROR: Failed to allocate ns16550 IRQ %d\n", uart->irq);
+>      }
 > 
-> Yes, that's an advantage, but we'd treat this callback differently
-> from others. 
+> Thereby to have ns16550 work in polling mode uart->irq, should be equal to 0.
+> 
+> So it is needed to relax the following check in ns16550_uart_dt_init():
+>      res = platform_get_irq(dev, 0);
+>      if ( ! res )
+>          return -EINVAL;
+>      uart->irq = res;
+> If 'res' equals to -1 then polling mode should be used instead of return
+> -EINVAL.
 
-I haven't checked the rest of the callbacks. But I would argue that any 
-callback that are expected to be optional, should have an if 
-(...->ops->fn). This reducing the amount of dummy helper (4 lines) each 
-times.
+This commit message has a bit too much code in it for me taste. I don't 
+think it is necessary to quote the code. Instead, you can explain the 
+following:
 
-> I'd prefer to keep this as it is if you don't mind.
-I am Ok with that. Once FFA is merged, I will try to remember to go 
-through the callback and there the empty ones.
+  * Why you want to support polling
+  * Why this is valid to have a node without interrupts (add a reference 
+to the bindings)
+  * That polling is indicated by using 'irq = 0'. I would consider to 
+provide a define (e.g NO_IRQ_POLL) to make it more clearer.
+
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>   xen/drivers/char/ns16550.c | 12 ++++++++++--
+>   1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+> index 2aed6ec707..f30f10d175 100644
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -1791,8 +1791,16 @@ static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
+>       }
+>   
+>       res = platform_get_irq(dev, 0);
+> -    if ( ! res )
+> -        return -EINVAL;
+> +    if ( res == -1 )
+
+Why do you check explicitely for -1 instead of < 0? Also, the behavior 
+is somewhat change now. Before, we would return -EINVAL when res equals 
+0. Can you explain in the commit message why this is done?
+
+> +    {
+> +        printk("ns1650: polling will be used\n");
+> +        /*
+> +         * There is the check 'if ( uart->irq > 0 )' in ns16550_init_postirq().
+> +         * If the check is true then interrupt mode will be used otherwise
+> +         * ( when irq = 0 )polling.
+> +         */
+
+Similar remark to the commit message. You could write:
+
+"If the node doesn't have any interrupt, then it means the driver will 
+want to using polling."
+
+> +        res = 0;
+> +    }
+>       uart->irq = res;
+>   
+>       uart->dw_usr_bsy = dt_device_is_compatible(dev, "snps,dw-apb-uart");
 
 Cheers,
 
