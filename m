@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 874AF752404
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 15:37:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563175.880245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7AA075241F
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 15:44:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563180.880255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJwVW-0002DN-3j; Thu, 13 Jul 2023 13:37:22 +0000
+	id 1qJwbc-0003gD-Ox; Thu, 13 Jul 2023 13:43:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563175.880245; Thu, 13 Jul 2023 13:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 563180.880255; Thu, 13 Jul 2023 13:43:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJwVW-0002Av-0Z; Thu, 13 Jul 2023 13:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 563175;
- Thu, 13 Jul 2023 13:37:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qJwbc-0003d3-Ls; Thu, 13 Jul 2023 13:43:40 +0000
+Received: by outflank-mailman (input) for mailman id 563180;
+ Thu, 13 Jul 2023 13:43:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=In0U=C7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qJwVV-0002Ap-8L
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 13:37:21 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4acbb449-2182-11ee-b239-6b7b168915f2;
- Thu, 13 Jul 2023 15:36:38 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4f95bf5c493so1275705e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jul 2023 06:36:38 -0700 (PDT)
-Received: from [192.168.201.189] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- h12-20020ac2596c000000b004fbb011c9c7sm1120050lfp.162.2023.07.13.06.36.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 06:36:37 -0700 (PDT)
+ <SRS0=Khrh=C7=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qJwbb-0003cx-Jb
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 13:43:39 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 44bb4138-2183-11ee-8611-37d641c3527e;
+ Thu, 13 Jul 2023 15:43:37 +0200 (CEST)
+Received: from [192.168.1.101] (unknown [37.163.129.145])
+ by support.bugseng.com (Postfix) with ESMTPSA id 460E84EE0739;
+ Thu, 13 Jul 2023 15:43:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4acbb449-2182-11ee-b239-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689255397; x=1691847397;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=BfgR5y98oK5asaUp7M81t2LiGzYaD1t1AQDY9HxBF+c=;
-        b=Uc9HzGhYhdqlp4cNpJ3orGC/y0OxBiUhPNraCOJEPDnNaFQxnUl61gAk8xYShTd3vH
-         a1TGI2isz+hSfYzTPlAxPd+u7wt8taONjxSun+LB+lB/H1X4cLUx641Dqwp+0TC83SN8
-         WIdYtz9mgXaaQGii86NI9LK+TD4D6fUrzTGPP9Gs7psbtqycWSjhme1P5nUiGyMoRtXS
-         k+kVdXRHeeoFb1jT5y8O3gWGJiJRa4akR4FrMgQz8R6B9CowGsIYJZEqsQD5fgwQzCuK
-         vksBK8ix5iHI9tR6hgOHxJl85tto8OhFZsPgtaDZyznzohkdIxyPsvYwMEackfarXrdh
-         zoHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689255397; x=1691847397;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BfgR5y98oK5asaUp7M81t2LiGzYaD1t1AQDY9HxBF+c=;
-        b=jUCcs5tDUqiRR+W+1yZVcxAce7y9JHFSL8acel+2VydxW6Xjn9Tb4CBdexwjjlp06G
-         P4PtRB76+DvxMX7Nl19z0uUOreGHvhMD4tFBgtDXsZnnvEYENckvwMjiu8UPEo2VdBAl
-         tglRt5OL3SLKPT/dpJY4Gbf9O932NEQZEKjOG+cez8IgA6t6g86LL41LCZ9oPzrMjCUD
-         tuWtTJEnRycOmosWuRawU3Db648r7G2zkllre9mLtkOb+C6PXoLmF2PhFbVyQ+CMy1M2
-         /skNVCTKpxHI1J/ufYHhnvLok0NMasTAPOZN0eAoD+dSZ9TbEIfvgEQz0OcnMB/uE5ZQ
-         o1oA==
-X-Gm-Message-State: ABy/qLbMkrVKT/dCHUuh9QEp36Ve7rLkbCZCaM0apNQDFN40JRNyVMZj
-	lDRn2keJuHZY2ZySj/X0vw4=
-X-Google-Smtp-Source: APBJJlE5lyVy67bvtFDpMQYnzhDZ0Gx7jOb3PMQ4x/5IumypXSCQOrgNKXcoGGZHRj0j3Xg2h7b6dA==
-X-Received: by 2002:ac2:55ac:0:b0:4f8:6d99:f4f3 with SMTP id y12-20020ac255ac000000b004f86d99f4f3mr1423225lfg.52.1689255397319;
-        Thu, 13 Jul 2023 06:36:37 -0700 (PDT)
-Message-ID: <83f67337cb69fb8cf2aa5d56b8a711384cdaa5f0.camel@gmail.com>
-Subject: Re: [PATCH] ns1650: refactor interrupt handling in
- ns16550_uart_dt_init()
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org, Julien Grall
- <julien@xen.org>
-Date: Thu, 13 Jul 2023 16:36:35 +0300
-In-Reply-To: <3e4c673d-1b8b-15ab-629f-27a9f687b37a@suse.com>
-References: 
-	<cc5a08056abacdbb6d6509b56716eb45467307bb.1689240611.git.oleksii.kurochko@gmail.com>
-	 <a385a17b-a60c-d770-e044-af64273371d6@suse.com>
-	 <86702f86787ee7b963b131c4b2d6db463eddc1f3.camel@gmail.com>
-	 <3e4c673d-1b8b-15ab-629f-27a9f687b37a@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+X-Inumbo-ID: 44bb4138-2183-11ee-8611-37d641c3527e
+Message-ID: <c07a096a-9089-f600-4acd-30ae4d929d5c@bugseng.com>
+Date: Thu, 13 Jul 2023 15:43:35 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [XEN PATCH v2] x86: make function declarations consistent with
+ definitions
+Content-Language: en-US, it
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+References: <1b2d5be30c0e4f335e59dce6e7c001cb0805d702.1688465215.git.federico.serafini@bugseng.com>
+ <a16cdb60-1307-636e-1473-e5388e8f79d9@suse.com>
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <a16cdb60-1307-636e-1473-e5388e8f79d9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2023-07-13 at 15:27 +0200, Jan Beulich wrote:
-> I don't understand. My earlier comment was affecting all checks of
-> uart->irq alike, as I'm unconvinced IRQ0 may not possibly be usable
-> on some architecture / platform. IOW I don't see why the check in
-> ns16550_init_postirq() would allow us any leeway.
-It looks like I misunderstood you.
-
-Do you mean that on some architecture IRQ0 may be used for ns16550?
-
-If yes, the code inside ns16550_init_postirq() will ignore that fact
-and use polling mode.
-
-~ Oleksii
 
 
+On 04/07/23 16:51, Jan Beulich wrote:
+> On top of my earlier remark (when this was part of a series):
+> 
+>> --- a/xen/arch/x86/cpu/mcheck/x86_mca.h
+>> +++ b/xen/arch/x86/cpu/mcheck/x86_mca.h
+>> @@ -113,7 +113,7 @@ static inline int mcabanks_test(int bit, struct mca_banks* banks)
+>>       return test_bit(bit, banks->bank_map);
+>>   }
+>>   
+>> -struct mca_banks *mcabanks_alloc(unsigned int nr);
+>> +struct mca_banks *mcabanks_alloc(unsigned int nr_mce_banks);
+> 
+> I'm not convinced here.
+> 
+>> --- a/xen/arch/x86/hvm/rtc.c
+>> +++ b/xen/arch/x86/hvm/rtc.c
+>> @@ -59,7 +59,7 @@ enum rtc_mode {
+>>   static void rtc_copy_date(RTCState *s);
+>>   static void rtc_set_time(RTCState *s);
+>>   static inline int from_bcd(RTCState *s, int a);
+>> -static inline int convert_hour(RTCState *s, int hour);
+>> +static inline int convert_hour(RTCState *s, int raw);
+> 
+> Nor here.
+> 
+>> --- a/xen/arch/x86/include/asm/guest_pt.h
+>> +++ b/xen/arch/x86/include/asm/guest_pt.h
+>> @@ -422,7 +422,7 @@ static inline unsigned int guest_walk_to_page_order(const walk_t *gw)
+>>   
+>>   bool
+>>   guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+>> -                  unsigned long va, walk_t *gw, uint32_t pfec,
+>> +                  unsigned long va, walk_t *gw, uint32_t walk,
+>>                     gfn_t top_gfn, mfn_t top_mfn, void *top_map);
+> 
+> While the definition's use of "walk" makes clear why the variable is
+> named the way it is despite being used with PFEC_* constants, not
+> naming it "pfec" here will add confusion, as the connection to those
+> constants will be lost. One will then be forced to go look at the
+> definition, when looking at the declaration ought to be sufficient.
+> 
+> I'm not going to look further, but instead repeat my suggestion to
+> split this patch. Besides reducing the Cc list(s), that'll also
+> help getting in parts which are uncontroversial (like e.g. the
+> change to xen/arch/x86/hvm/vioapic.c).
+> 
+> Jan
 
+Hello Jan.
+
+In the three cases above,
+do you think changing the definitions to match the declarations
+might be a solution?
+
+Regards
+-- 
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
