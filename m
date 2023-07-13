@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5987D7526F0
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 17:28:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563270.880430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A38752753
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 17:35:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563295.880454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJyEf-0006oD-A2; Thu, 13 Jul 2023 15:28:05 +0000
+	id 1qJyLM-0000yb-IV; Thu, 13 Jul 2023 15:35:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563270.880430; Thu, 13 Jul 2023 15:28:05 +0000
+Received: by outflank-mailman (output) from mailman id 563295.880454; Thu, 13 Jul 2023 15:35:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJyEf-0006jS-4N; Thu, 13 Jul 2023 15:28:05 +0000
-Received: by outflank-mailman (input) for mailman id 563270;
- Thu, 13 Jul 2023 15:28:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qJyLM-0000w0-FR; Thu, 13 Jul 2023 15:35:00 +0000
+Received: by outflank-mailman (input) for mailman id 563295;
+ Thu, 13 Jul 2023 15:31:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9mYz=C7=huaweicloud.com=petrtesarik@srs-se1.protection.inumbo.net>)
- id 1qJyD4-0003b5-IX
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 15:26:26 +0000
-Received: from frasgout13.his.huawei.com (unknown [14.137.139.46])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0e9f764-2191-11ee-8611-37d641c3527e;
- Thu, 13 Jul 2023 17:26:25 +0200 (CEST)
-Received: from mail02.huawei.com (unknown [172.18.147.229])
- by frasgout13.his.huawei.com (SkyGuard) with ESMTP id 4R1ypb2WRhz9xGnG
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jul 2023 23:15:19 +0800 (CST)
-Received: from A2101119013HW2.china.huawei.com (unknown [10.81.218.161])
- by APP1 (Coremail) with SMTP id LxC2BwA3k94BF7BkxG6BBA--.7207S10;
- Thu, 13 Jul 2023 16:25:57 +0100 (CET)
+ <SRS0=ojy9=C7=kernel.org=mripard@srs-se1.protection.inumbo.net>)
+ id 1qJyHb-0000p0-H4
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 15:31:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 457e2d6b-2192-11ee-b239-6b7b168915f2;
+ Thu, 13 Jul 2023 17:31:01 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 63BC76191F;
+ Thu, 13 Jul 2023 15:31:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C7EC433C8;
+ Thu, 13 Jul 2023 15:30:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,173 +44,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0e9f764-2191-11ee-8611-37d641c3527e
-From: Petr Tesarik <petrtesarik@huaweicloud.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Petr Tesarik <petr.tesarik.ext@huawei.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	James Seo <james@equiv.tech>,
-	James Clark <james.clark@arm.com>,
-	Kees Cook <keescook@chromium.org>,
-	xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR ARM),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM PORT),
-	linux-kernel@vger.kernel.org (open list),
-	linux-mips@vger.kernel.org (open list:MIPS),
-	iommu@lists.linux.dev (open list:XEN SWIOTLB SUBSYSTEM)
-Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	petr@tesarici.cz
-Subject: [PATCH v4 8/8] swiotlb: search the software IO TLB only if a device makes use of it
-Date: Thu, 13 Jul 2023 17:23:19 +0200
-Message-Id: <a8d31d3fffa0867dce2b44b98dc2714289edfdc9.1689261692.git.petr.tesarik.ext@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1689261692.git.petr.tesarik.ext@huawei.com>
-References: <cover.1689261692.git.petr.tesarik.ext@huawei.com>
+X-Inumbo-ID: 457e2d6b-2192-11ee-b239-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689262259;
+	bh=uzhsJbzCPqmtv9Iva7enj3ZHEuzsA/mgnEXkOaQhU9Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=apAUusekBfUIkmKmEO/VS8T9qHdqUnkE+vHBuwh7V6I5QcyPpYmgxp1ahQXAI5PYX
+	 Q205Dc8ZiTML6NoPvDwStBJdVecictHdGlX6sR8d1yIInCRjby34A2LvHQw5pxENsQ
+	 1wqp0rrEzF/BTmElQJW3al1svso7EF4o44ATGXZhxb+TPq8S8yAKu5zqWlAuIBRb5B
+	 czCx5x8gAWYnhrDGlBoqImAOuEkIxSg1sW8eWzrENJp0ZpX/Ea+J76nQC36ce987vw
+	 FRACS4R5ZawYDdX2diVtgrWZ7hU7ITXQ2m15GlNNkcy4iK52jTnnHWSzOrigCzUwUj
+	 hi6Doo/CMqFLg==
+Date: Thu, 13 Jul 2023 17:30:56 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sean Paul <seanpaul@chromium.org>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Jani Nikula <jani.nikula@intel.com>, 
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Xinliang Liu <xinliang.liu@linaro.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, Alexey Kodanev <aleksei.kodanev@bell-sw.com>, 
+	dri-devel@lists.freedesktop.org, Vandita Kulkarni <vandita.kulkarni@intel.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Liu Shixin <liushixin2@huawei.com>, linux-samsung-soc@vger.kernel.org, 
+	Samuel Holland <samuel@sholland.org>, Matt Roper <matthew.d.roper@intel.com>, 
+	Wenjing Liu <wenjing.liu@amd.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>, Danilo Krummrich <dakr@redhat.com>, 
+	NXP Linux Team <linux-imx@nxp.com>, spice-devel@lists.freedesktop.org, 
+	Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>, linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>, 
+	Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>, 
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, Andi Shyti <andi.shyti@linux.intel.com>, 
+	Yifan Zhang <yifan1.zhang@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Lucas De Marchi <lucas.demarchi@intel.com>, 
+	Inki Dae <inki.dae@samsung.com>, Hersen Wu <hersenxs.wu@amd.com>, 
+	Jessica Zhang <quic_jesszhan@quicinc.com>, Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>, 
+	Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>, 
+	Radhakrishna Sripada <radhakrishna.sripada@intel.com>, Andrew Jeffery <andrew@aj.id.au>, 
+	Seung-Woo Kim <sw0312.kim@samsung.com>, Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, 
+	kernel@pengutronix.de, Alex Deucher <alexander.deucher@amd.com>, 
+	freedreno@lists.freedesktop.org, Claudiu Beznea <claudiu.beznea@microchip.com>, 
+	Zack Rusin <zackr@vmware.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org, 
+	Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>, =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>, 
+	virtualization@lists.linux-foundation.org, Thierry Reding <thierry.reding@gmail.com>, 
+	Yongqin Liu <yongqin.liu@linaro.org>, Mario Limonciello <mario.limonciello@amd.com>, 
+	Fei Yang <fei.yang@intel.com>, Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+	David Lechner <david@lechnology.com>, Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>, 
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>, David Francis <David.Francis@amd.com>, 
+	Aaron Liu <aaron.liu@amd.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+	Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org, 
+	Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, 
+	VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>, Ben Skeggs <bskeggs@redhat.com>, 
+	Jouni =?utf-8?B?SMO2Z2FuZGVy?= <jouni.hogander@intel.com>, Dave Airlie <airlied@redhat.com>, linux-mips@vger.kernel.org, 
+	Gurchetan Singh <gurchetansingh@chromium.org>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>, 
+	linux-renesas-soc@vger.kernel.org, Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>, 
+	Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org, 
+	Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Boris Brezillon <bbrezillon@kernel.org>, 
+	Chunyan Zhang <zhang.lyra@gmail.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>, 
+	Sandy Huang <hjc@rock-chips.com>, Swati Sharma <swati2.sharma@intel.com>, 
+	John Stultz <jstultz@google.com>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Drew Davenport <ddavenport@chromium.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+	Haneen Mohammed <hamohammed.sa@gmail.com>, Anusha Srivatsa <anusha.srivatsa@intel.com>, 
+	Dan Carpenter <error27@gmail.com>, Karol Herbst <kherbst@redhat.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>, 
+	Melissa Wen <melissa.srw@gmail.com>, =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>, 
+	Luca Coelho <luciano.coelho@intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>, Sam Ravnborg <sam@ravnborg.org>, 
+	Alain Volmat <alain.volmat@foss.st.com>, Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Deepak Rawat <drawat.floss@gmail.com>, 
+	Chen-Yu Tsai <wens@csie.org>, Joel Stanley <joel@jms.id.au>, 
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>, Harry Wentland <harry.wentland@amd.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>, 
+	Philip Yang <Philip.Yang@amd.com>, Lyude Paul <lyude@redhat.com>, intel-gfx@lists.freedesktop.org, 
+	Alison Wang <alison.wang@nxp.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Abhinav Kumar <quic_abhinavk@quicinc.com>, Gustavo Sousa <gustavo.sousa@intel.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>, 
+	Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, 
+	"Pan, Xinhui" <Xinhui.Pan@amd.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Chia-I Wu <olvaffe@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Tian Tao <tiantao6@hisilicon.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Khaled Almahallawy <khaled.almahallawy@intel.com>, linux-stm32@st-md-mailman.stormreply.com, 
+	Emma Anholt <emma@anholt.net>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+	Imre Deak <imre.deak@intel.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li <roman.li@amd.com>, 
+	Paul Cercueil <paul@crapouillou.net>, Rob Clark <robdclark@gmail.com>, 
+	Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>, 
+	Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, xen-devel@lists.xenproject.org, 
+	Guchun Chen <guchun.chen@amd.com>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+	Russell King <linux@armlinux.org.uk>, Uma Shankar <uma.shankar@intel.com>, 
+	Mika Kahola <mika.kahola@intel.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Jiasheng Jiang <jiasheng@iscas.ac.cn>, Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
+	Vinod Govindapillai <vinod.govindapillai@intel.com>, linux-tegra@vger.kernel.org, 
+	Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	=?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>, Melissa Wen <mwen@igalia.com>, 
+	Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org, 
+	Fabio Estevam <festevam@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, David Tadokoro <davidbtadokoro@usp.br>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org, 
+	Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+	Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>, 
+	Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
+ drm_crtc::dev to drm_dev
+Message-ID: <hoaz447ghc2vypjo7peknac35vzkgsaikp7ctehk3yhgopnweh@gzwzthsp2fnr>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <87fs5tgpvv.fsf@intel.com>
+ <CAOw6vbLO_UaXDbTCtAQJgthXOUMPqEV+c2MQhP-1DuK44OhGxw@mail.gmail.com>
+ <20230713130337.fd2l67r23g2irifx@pengutronix.de>
+ <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
+ <78be52b8-5ffb-601a-84b2-ead2894973a6@suse.de>
+ <d6160aeb-6344-b272-775a-cb665dca46ac@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:LxC2BwA3k94BF7BkxG6BBA--.7207S10
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF15Ww18ZF1fWr1UtFW7XFb_yoWrXF1DpF
-	yUAFZ8Kayqqr97Cr92kF4UZ3Wagw4vkw43CryaqrnY9rn8JwnaqF1DKrWYv3s5Ar47ZF47
-	Xryj939Ykw17Xr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQl14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_
-	GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
-	x0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
-	JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
-	ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc7CjxVAKzI0EY4vE52x082I5MxAIw28IcxkI
-	7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxV
-	Cjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAI
-	cVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42
-	IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280
-	aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VUjgAw3UUUUU==
-X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
-X-CFilter-Loop: Reflected
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yql6uuzpsgfxjltx"
+Content-Disposition: inline
+In-Reply-To: <d6160aeb-6344-b272-775a-cb665dca46ac@linux.intel.com>
 
-From: Petr Tesarik <petr.tesarik.ext@huawei.com>
 
-Skip searching the software IO TLB if a device has never used it, making
-sure these devices are not affected by the introduction of multiple IO TLB
-memory pools.
+--yql6uuzpsgfxjltx
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Additional memory barrier is required to ensure that the new value of the
-flag is visible to other CPUs after mapping a new bounce buffer. For
-efficiency, the flag check should be inlined, and then the memory barrier
-must be moved to is_swiotlb_buffer(). However, it can replace the existing
-barrier in swiotlb_find_pool(), because all callers use is_swiotlb_buffer()
-first to verify that the buffer address belongs to the software IO TLB.
+On Thu, Jul 13, 2023 at 04:14:55PM +0100, Tvrtko Ursulin wrote:
+>=20
+> On 13/07/2023 16:09, Thomas Zimmermann wrote:
+> > Hi
+> >=20
+> > Am 13.07.23 um 16:41 schrieb Sean Paul:
+> > > On Thu, Jul 13, 2023 at 9:04=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> > > <u.kleine-koenig@pengutronix.de> wrote:
+> > > >=20
+> > > > hello Sean,
+> > > >=20
+> > > > On Wed, Jul 12, 2023 at 02:31:02PM -0400, Sean Paul wrote:
+> > > > > I'd really prefer this patch (series or single) is not accepted. =
+This
+> > > > > will cause problems for everyone cherry-picking patches to a
+> > > > > downstream kernel (LTS or distro tree). I usually wouldn't expect
+> > > > > sympathy here, but the questionable benefit does not outweigh the=
+ cost
+> > > > > IM[biased]O.
+> > > >=20
+> > > > I agree that for backports this isn't so nice. However with the spl=
+it
+> > > > approach (that was argumented against here) it's not soo bad. Patch=
+ #1
+> > > > (and similar changes for the other affected structures) could be
+> > > > trivially backported and with that it doesn't matter if you write d=
+ev or
+> > > > drm (or whatever name is chosen in the end); both work in the same =
+way.
+> > >=20
+> > > Patch #1 avoids the need to backport the entire set, however every
+> > > change occuring after the rename patches will cause conflicts on
+> > > future cherry-picks. Downstream kernels will have to backport the
+> > > whole set. Backporting the entire set will create an epoch in
+> > > downstream kernels where cherry-picking patches preceding this set
+> > > will need to undergo conflict resolution as well. As mentioned in my
+> > > previous email, I don't expect sympathy here, it's part of maintaining
+> > > a downstream kernel, but there is a real cost to kernel consumers.
+> > >=20
+> > > >=20
+> > > > But even with the one-patch-per-rename approach I'd consider the
+> > > > renaming a net win, because ease of understanding code has a big va=
+lue.
+> > > > It's value is not so easy measurable as "conflicts when backporting=
+",
+> > > > but it also matters in say two years from now, while backporting
+> > > > shouldn't be an issue then any more.
+> > >=20
+> > > You've rightly identified the conjecture in your statement. I've been
+> > > on both sides of the argument, having written/maintained drm code
+> > > upstream and cherry-picked changes to a downstream kernel. Perhaps
+> > > it's because drm's definition of dev is ingrained in my muscle memory,
+> > > or maybe it's because I don't do a lot of upstream development these
+> > > days, but I just have a hard time seeing the benefit here.
+> >=20
+> > I can only second what Sean writes. I've done quite a bit of backporting
+> > of DRM code. It's hard already. And this kind of change is going to to
+> > affect almost every backported DRM patch in the coming years. Not just
+> > for distribution kernels, but also for upstream's stable series. It's
+> > really only possible to do this change over many releases while keeping
+> > compatible with the old name. So the more I think about it, the less I
+> > like this change.
+>=20
+> I've done my share of backporting, and still am doing it, so I can say I
+> dislike it as much as anyone, however.. Is this an argument which the ker=
+nel
+> as a wider entity typically accepts? If not could it be a slippery slope =
+to
+> start a precedent?
+>=20
+> It is a honest question - I am not familiar if there were or were not any
+> similar discussions in the past.
 
-Signed-off-by: Petr Tesarik <petr.tesarik.ext@huawei.com>
----
- include/linux/device.h  |  2 ++
- include/linux/swiotlb.h |  6 +++++-
- kernel/dma/swiotlb.c    | 14 ++++++--------
- 3 files changed, 13 insertions(+), 9 deletions(-)
+Eventually, it's a trade-off. There's always pros and cons to merging
+every patch, and "backporting pains" is indeed not a very strong con.
 
-diff --git a/include/linux/device.h b/include/linux/device.h
-index 549b0a62455c..86871d628648 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -628,6 +628,7 @@ struct device_physical_location {
-  * @dma_io_tlb_mem: Software IO TLB allocator.  Not for driver use.
-  * @dma_io_tlb_pools:	List of transient swiotlb memory pools.
-  * @dma_io_tlb_lock:	Protects changes to the list of active pools.
-+ * @dma_uses_io_tlb: %true if device has used the software IO TLB.
-  * @archdata:	For arch-specific additions.
-  * @of_node:	Associated device tree node.
-  * @fwnode:	Associated device node supplied by platform firmware.
-@@ -735,6 +736,7 @@ struct device {
- 	struct io_tlb_mem *dma_io_tlb_mem;
- 	struct list_head dma_io_tlb_pools;
- 	spinlock_t dma_io_tlb_lock;
-+	bool dma_uses_io_tlb;
- #endif
- 	/* arch specific additions */
- 	struct dev_archdata	archdata;
-diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-index 06fd94de1cd8..8069cb62c893 100644
---- a/include/linux/swiotlb.h
-+++ b/include/linux/swiotlb.h
-@@ -150,7 +150,11 @@ struct io_tlb_pool *swiotlb_find_pool(struct device *dev, phys_addr_t paddr);
-  */
- static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
- {
--	return dev->dma_io_tlb_mem &&
-+	/* Pairs with smp_wmb() in swiotlb_find_slots() and
-+	 * swiotlb_dyn_alloc(), which modify the RCU lists.
-+	 */
-+	smp_rmb();
-+	return dev->dma_uses_io_tlb &&
- 		!!swiotlb_find_pool(dev, paddr);
- }
- 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 9c66ec2c47dd..854d139ddcb7 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -706,7 +706,7 @@ static void swiotlb_dyn_alloc(struct work_struct *work)
- 
- 	add_mem_pool(mem, pool);
- 
--	/* Pairs with smp_rmb() in swiotlb_find_pool(). */
-+	/* Pairs with smp_rmb() in is_swiotlb_buffer(). */
- 	smp_wmb();
- }
- 
-@@ -734,6 +734,7 @@ void swiotlb_dev_init(struct device *dev)
- 	dev->dma_io_tlb_mem = &io_tlb_default_mem;
- 	INIT_LIST_HEAD(&dev->dma_io_tlb_pools);
- 	spin_lock_init(&dev->dma_io_tlb_lock);
-+	dev->dma_uses_io_tlb = false;
- }
- 
- /**
-@@ -751,11 +752,6 @@ struct io_tlb_pool *swiotlb_find_pool(struct device *dev, phys_addr_t paddr)
- 	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
- 	struct io_tlb_pool *pool;
- 
--	/* Pairs with smp_wmb() in swiotlb_find_slots() and
--	 * swiotlb_dyn_alloc(), which modify the RCU lists.
--	 */
--	smp_rmb();
--
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(pool, &mem->pools, node) {
- 		if (paddr >= pool->start && paddr < pool->end)
-@@ -1128,9 +1124,11 @@ static int swiotlb_find_slots(struct device *dev, phys_addr_t orig_addr,
- 	list_add_rcu(&pool->node, &dev->dma_io_tlb_pools);
- 	spin_unlock_irqrestore(&dev->dma_io_tlb_lock, flags);
- 
--	/* Pairs with smp_rmb() in swiotlb_find_pool(). */
--	smp_wmb();
- found:
-+	dev->dma_uses_io_tlb = true;
-+	/* Pairs with smp_rmb() in is_swiotlb_buffer() */
-+	smp_wmb();
-+
- 	*retpool = pool;
- 	return index;
- }
--- 
-2.25.1
+But it's definitely the kind of patch where everyone and their mother
+will have their opinion, without every reaching a clear consensus, and
+there's no clear benefit either (but I might be biaised on that one).
 
+So imo, while that downside is fairly weak, the pros are certainly
+weaker.
+
+> My gut feeling is that *if* there is a consensus that something _improves_
+> the code base significantly, backporting pains should probably not be
+> weighted very heavily as a contra argument.
+
+100% agreed here, but I'm afraid we're far from that point.
+
+Maxime
+
+--yql6uuzpsgfxjltx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZLAYrwAKCRDj7w1vZxhR
+xf8DAQCNcz/JSq5Uj/12GtaqEjBVAYLY5aL9Nnxgat9AIjRbRgD/fdm86CWCaQ2V
+rEH5Fl9T7PgR6UnZbbxrlm+UvQdqrwE=
+=3Ea3
+-----END PGP SIGNATURE-----
+
+--yql6uuzpsgfxjltx--
 
