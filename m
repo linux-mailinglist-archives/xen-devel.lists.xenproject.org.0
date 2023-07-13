@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA35575231F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 15:14:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563162.880216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7169B75234E
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jul 2023 15:20:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563167.880225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJw9Q-0006gV-P7; Thu, 13 Jul 2023 13:14:32 +0000
+	id 1qJwEO-0007YL-Ao; Thu, 13 Jul 2023 13:19:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563162.880216; Thu, 13 Jul 2023 13:14:32 +0000
+Received: by outflank-mailman (output) from mailman id 563167.880225; Thu, 13 Jul 2023 13:19:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qJw9Q-0006cC-Kx; Thu, 13 Jul 2023 13:14:32 +0000
-Received: by outflank-mailman (input) for mailman id 563162;
- Thu, 13 Jul 2023 13:14:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0tL6=C7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qJw9P-0006Y7-GE
- for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 13:14:31 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061c.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33ba69d8-217f-11ee-b239-6b7b168915f2;
- Thu, 13 Jul 2023 15:14:31 +0200 (CEST)
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
- by DU2PR04MB9114.eurprd04.prod.outlook.com (2603:10a6:10:2f5::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24; Thu, 13 Jul
- 2023 13:14:29 +0000
-Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e]) by AS8PR04MB8788.eurprd04.prod.outlook.com
- ([fe80::cbc0:69aa:c9a2:198e%7]) with mapi id 15.20.6565.016; Thu, 13 Jul 2023
- 13:14:29 +0000
+	id 1qJwEO-0007VA-7Z; Thu, 13 Jul 2023 13:19:40 +0000
+Received: by outflank-mailman (input) for mailman id 563167;
+ Thu, 13 Jul 2023 13:19:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=In0U=C7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qJwEM-0007V4-Es
+ for xen-devel@lists.xenproject.org; Thu, 13 Jul 2023 13:19:38 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e9e9b135-217f-11ee-8611-37d641c3527e;
+ Thu, 13 Jul 2023 15:19:36 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4fa48b5dc2eso1249924e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jul 2023 06:19:36 -0700 (PDT)
+Received: from [192.168.201.189] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ j23-20020ac24557000000b004f755b6ffcdsm1118718lfm.23.2023.07.13.06.19.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Jul 2023 06:19:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,110 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33ba69d8-217f-11ee-b239-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GCne/XI7ZWO6nCeEFpI+5YL8me8GRfPQxgSKDFAAGFhzWXe0lebxIbVdRAGUtZOROpO8FyikiyCFttDMXwhvK+OYhoGEehV18SrzLkFoneaVbbfzVwhzKY9ac64EpgLWm5a2SV470K9qMW20Dz2RbzBCGzFSL15vsIV6PS5THLh4X3Ul9S4gEUBxMo+JokHFUPGQWAmJYHeRFwoCRrBzewOxr2sV9Y6NgepzS4izPj6Dwa/asypmwrK+rHq0/h2BlQvLhgEYhMQt21T3pcF1RLFO3UmoyvRETHThxtIBwLKFZcp73m002brBdxrAJ9kzrCFo8EtmKRzHWaWkAB0Iog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QlZX91p8o+J8o6R9G8RODh9CdY9TAzoNfg11XvRDMjI=;
- b=L3fls1SME78uk8SNoRzOgkf9c95K2dgGqpNLOXSO0gv4Mt90R845G0uOOuMH86LD0p1BJWAWGWzeUdxmLJN1PU8pjqwuZ+hX0YZoHjmYzWbS7cnXOXjx+4tJf5vUamXVHNnGxK1Cl6mr61nXv6UwvyRDwLlAFat6VbXy58IJ0AyfEgXP52ofIMPJ9jAsyqnme2NhUmwMkXuWLVg/XTl27rH3iyik21ivtGT80h2LBJHR33L1+qCcKkyGWyqtBrEHkHhXkcJlGdaWS55YirUJQ7oDDilR/70FxugNjMBr+IGI8ILMmZq1TwL0qVQuHjWkq5Qmggq1QSyXFzkjvYoLgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QlZX91p8o+J8o6R9G8RODh9CdY9TAzoNfg11XvRDMjI=;
- b=zBZziDsWhZjoU5Ne33Z0JV1hqAIDX9pl2XwfgFTTz+ryrJ0PAcxicw6RGYLkyYYNEKw4T9sysvGL2tNmumy2nAP+DJOq5H2FMFpCvLZgzKAPxteYxoxsuXWM9mRUe6g30JNpqfkUq/Tp3HHBV3RMhITgCFY/DWpXIU+7pPAJvsnCVuQqTqpcogRhYgyD+67odCqXGhkpWBp56IrfrzdpXCIS5KuKLpZySpb774HGK+403zOXRZ1rcY/MY1zG+ArKGzNkBJ1VbJybA7gz+HtspKXM5z/wGiuvJaphnaEoWaGA5a8q874oJlrw8Jk70lOQw5fWtVsvJP0VV5vBRM5h8Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9338d641-5833-caed-ef3b-5653247287ad@suse.com>
-Date: Thu, 13 Jul 2023 15:14:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 3/3] x86/APIC: adjustments to error_interrupt() loop
-Content-Language: en-US
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1689191941.git.ehem+xen@m5p.com>
- <880212ac370425389688f8b4fef2fd27c4fba446.1689191941.git.ehem+xen@m5p.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <880212ac370425389688f8b4fef2fd27c4fba446.1689191941.git.ehem+xen@m5p.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0157.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:99::18) To AS8PR04MB8788.eurprd04.prod.outlook.com
- (2603:10a6:20b:42f::21)
+X-Inumbo-ID: e9e9b135-217f-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689254376; x=1691846376;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ekp53NrB2fdpzrC5sxzIdHoUGPVY+3adxPPQjel8A3k=;
+        b=LLALEiJ5JSSSRWAId5MidDk4A8YFE3p7/BluKSWJtq1uUl66V2L4I6Q/k747qXsX2A
+         THt7JAYZohsesleJjztHVx2BGzeXne9UMBU5XHZPAdWVM267IUuFD3FtM1RtApddwEVO
+         aTIWPykcYL1vrJs9ldjhrirPo4vGHyEu4eLeBxyQifSkCUrrcq+nOToKZwPY2kpPeVFY
+         J6fAVktQ9HUn0ZqN+XfWRWRwQC0uJMH7Wyl9VUrQPnhLbql5pg7lOz1ek+SGfo/jYzWW
+         JI0FYxOlD5HMlZg/J0XLRiUPECHDxROAApLmdI6Po6Rb4ttz5yejF3/LTQRkRudAmcgy
+         IORw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689254376; x=1691846376;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ekp53NrB2fdpzrC5sxzIdHoUGPVY+3adxPPQjel8A3k=;
+        b=fMbao6CCWPgj1j9+vvMX4rkQw+bivwXpwDn9VTR1e1DpwomTQ6gaTQXDQPg/gDcDJ0
+         4gpFuLZw+qT6ZXWH4ClmD9V6GADWy5dFIORN2lgL8e5goPitspCwDoxkqvbudHOF19Ty
+         xdwECxj1BSJSmmHQSNheQ0MQMndmlcI07W45VhcxshNFnp7Vmv4ZreHmy81BxNRJlGr6
+         vfGFxQhvyR5CSSBTzbrJ0MY/fTffjWJqME6fdhWnfaviSGn4P3Wx6K/g9Xv2lqpHGBhz
+         DCpCjC2agr1wva1wUy9VYsq6NTfdva5jW4rAhPxKzZOlCHL+0QLZEo45PPkSPpzNIXaQ
+         qqRQ==
+X-Gm-Message-State: ABy/qLbNqlXoqFQdMpg5w21dVSaagD/Gb1DcZIG1ddTQPQELh0Zv8Xti
+	284OK6tdTtFm76ly6mc6rSE=
+X-Google-Smtp-Source: APBJJlEGt43PxyE4QjYYxtaCWVO4v8Kba2CW+RmLwpmLXTNDU6kNvalBLsKbwg5+nEp/iWeNmx8ASw==
+X-Received: by 2002:ac2:4c86:0:b0:4fb:7772:7bae with SMTP id d6-20020ac24c86000000b004fb77727baemr1140218lfl.6.1689254375547;
+        Thu, 13 Jul 2023 06:19:35 -0700 (PDT)
+Message-ID: <86702f86787ee7b963b131c4b2d6db463eddc1f3.camel@gmail.com>
+Subject: Re: [PATCH] ns1650: refactor interrupt handling in
+ ns16550_uart_dt_init()
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Date: Thu, 13 Jul 2023 16:19:34 +0300
+In-Reply-To: <a385a17b-a60c-d770-e044-af64273371d6@suse.com>
+References: 
+	<cc5a08056abacdbb6d6509b56716eb45467307bb.1689240611.git.oleksii.kurochko@gmail.com>
+	 <a385a17b-a60c-d770-e044-af64273371d6@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|DU2PR04MB9114:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30d24798-8887-4a8a-8f48-08db83a31725
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	FpbznjFGz+778woaRLeV7UkyVKcKcaJZY8IonbWCJ1Rm7SVOSDQe7X/EhLnw8QMmatvGw2PMIbyTyhIZkZfYylTQlLJ+w5ciqQZDGhmOo9PspjAQB2col0rtItazaUfCkMEBob42vO1iUQPr+PZaE684ENyoAm8DijoiusDWA6MT1b4ng5FnioDJiu6clV7c01O6VTi//u6UEm+2zxe8UbqlCMgtYY4VARg1fM9Y4sN9BhxsAM1oczWcC8ncuZDLSmZlFdS5E8HCmkNcK2w0UJuucb5nsObQbIxcrhnCAK2Li2O23oDmQp5YdM1k5F402CiaH9JwxVV/eFLBQ8vZ+0dIKAd93H2ua6KT4sUXA9Az/NoxYWKUR/MyL8cUOk2XhMF5kAFAaSccCazQswhhEyn3K059YitoBFIeavd+yDhLfBvdi2S7aaLej5TUMH+iAqrd68RoQHW6yica5BW2E82/cBT/60MuIJW/D1EfR0SIS094e+WDL/fH5YUPXpMOd3JaIxu3cdpD2WXNQO2Izl0nyOWi978z5Bqvv3wGLKj5+WOyBphf+lQjl00l0SEciTV/ztEo7Q6apH0dBNPIV8fdbE3USbVt+tlCKLICl5WWOE/7lmmhQ+uBxQa5sFJD2m3megXZnSabDnJXcPiY9A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(376002)(396003)(136003)(39860400002)(366004)(451199021)(478600001)(31686004)(54906003)(66946007)(4326008)(2906002)(5660300002)(316002)(41300700001)(8676002)(8936002)(66556008)(66476007)(6512007)(6486002)(26005)(6506007)(53546011)(38100700002)(186003)(2616005)(36756003)(86362001)(31696002)(558084003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3NDNXV3V253UXhoUjZ1clRGTklHNkxBRzI5eXZkdXVRMWpWK3VRWjcyWWNJ?=
- =?utf-8?B?YkpvZlg4Tnh6OHl6dDJMMzNudDJRS2dzejlVMmNYLzA4LzJ6eVVLR0QrbE5a?=
- =?utf-8?B?elhLazFLbVo4aG85NUxyT1pqUHc0R3ZtZFUyWG12eHRTSWJUcmhHM1NJNTVX?=
- =?utf-8?B?cWxRWFpJS1hkbGhxbDAxTHZSUmxuVTRaSHFiNjhLRFA5SnNzSGp5anVRVko0?=
- =?utf-8?B?QU1yOEZnbktWaWxBUUN2SUd1SVVQV2VYQ00xUVpqTWxhc2tlTzRkbjRacHRB?=
- =?utf-8?B?SklYUHJQNWpwZVdaVklkcE9pZkhmZWZvd0FBckovZUUrM2VkRU9wNlNmZzFs?=
- =?utf-8?B?cGFUWWFSOWw0ZVZ4TmFvQ1M2WWFGdzV4NWw3aGplK2xvc1NhdzZhVS9BOFN1?=
- =?utf-8?B?bnRWd3AxdzFzQlhEbVNNdVF3VXJ6ZEhKaWVxT2tqbjR6QnY5WkhYZkdVN1pW?=
- =?utf-8?B?Y0Z4SHB5dk9ocThBZWlwcjAwS3NVcnFDdGdBZU9IRVNoWVlUVGR3SWNBaTZO?=
- =?utf-8?B?Z2E4Vy9JOU51OHBISXJaOHFVMGI4Ym14MlVxSDRaMTdrTzFucGZqc0xHcTlD?=
- =?utf-8?B?c1hLZjhPTmVyemFVb0tPR1V1MDdPM1RoTjdpeEpYemJwVWoxU2pWQ1FPK0Fs?=
- =?utf-8?B?K0VaNXc3a1QyN3lrSXpJeHdjYXQ4THlERmF0Q3BaODZoVm85dDRmNFBPcWxI?=
- =?utf-8?B?VXNuMXZ1TVRtNVp3MXJvTFhGQVRPREZ6bkg5c0JnTWFBcXQxYzE4akQ4akpY?=
- =?utf-8?B?S0I1Y25zN1E5MFg4QXBBS1RmZ2xLd3A2TmV1YXlkZjdWMkpYQXR3T1d4NGJ2?=
- =?utf-8?B?a0ZpYWZJWDk4ZFplcGxESk1XdVpUSzRWS1RKRmRWZFZwOGI1ZVAwejFiZHQw?=
- =?utf-8?B?YXFtWW5CZmg4bFdYelgxM2xHbGY4LzZaamZlbml4UmZ4VGZaT0p6ZFRzZ1RI?=
- =?utf-8?B?bHlndGFEYjI2cWk4OUMrWTRNbEtNdEEvU2FPYzFvK2hidk50VDk5YW5KVWl5?=
- =?utf-8?B?WHRXOTFBMEFPVXFkbmptUzBiMmF4Vy95WGw2SlJEeG0yRmNkVCt3T1BrV0l5?=
- =?utf-8?B?QlRFc3I1M2R3bkQyVTBXWXdlb1Q3MTlzNVRqNkZTUlc1VndhTWpIRzRsc3FG?=
- =?utf-8?B?c0pDNEE0WVlRZGJ5cVg1ZlhPUFVXb1JYK2RXRW9qNHV2M3VSMnkwb25LbEVt?=
- =?utf-8?B?RnVOK3hWZm9UZTFSaWxWcFdlVVFhK3Azb1Y3MHFYNWFGalErQWdOeEdvL0x2?=
- =?utf-8?B?V3NTQjlKcTZpdmYrRCs5cmFleitiTHJMR1ZzZ2xXSFNYbzd3bTRTd3JibU53?=
- =?utf-8?B?QjduZk5ZMTltMEhkR1lMVkd2UGRmZTlIY3JCa3NRR3FOODBXcEx2ZlhtTHh6?=
- =?utf-8?B?MkZkbERVUXU5YXEvOVZKcnlmTVdhd0FIMHBaTWhMRHVuUm5Lc1lGTHlhZHBw?=
- =?utf-8?B?WnN1eFBPRS93S1FrT1J1ZHpnbXFNMC9vMERFbEV5amFNTjVPWlpBTTlKSXJ6?=
- =?utf-8?B?NisraitHNVRMelNTOWhwMW9nU21VODlEWTRuRjR3NnA3SUYxSjRqdHU1aGY0?=
- =?utf-8?B?QWlXMGI1QnF5dENkUzJJYUluY3QvZUt3S3E5QVlLTHA1bXhQWHF4U21qWThE?=
- =?utf-8?B?UVo4TVMxbG5ZSUlXdUw4NlEwS3BLWTRRNEJOVjVkKytZck95bDJXa1NlV0oz?=
- =?utf-8?B?amRFVFVlcUIxRytOcngyNzFELzVheDVRQXU5ZThEYUdMZXJSMk5PdG9jSTB3?=
- =?utf-8?B?TzIweUZQS3owcUlCUGIvcHJVKzE3STdsczI0MXFYV0dyQVROWXlsRVZIYnZx?=
- =?utf-8?B?aC9Lc2VGR3N0K3BPRkdiSFh6NTFTbkFCdlBWU1pUeG5yUis5dldQK1NjUFI0?=
- =?utf-8?B?UXJBRUZWTUVDOUJyeGFnbUJOcWVDVlVHRXVJV3I5VEY2Y0pSUVduUkIrMEhM?=
- =?utf-8?B?dWplZENjWmRiR1BacWFWZFN2UldnMWJqZmZNNmJ1aXpsTE5ZKzZ4ejREV3pw?=
- =?utf-8?B?WnZuQk9YWFFwNFZVQzVNYll3M2trRS8wUzBLME5zNDE4TWxTcHNHZ3UyTTkr?=
- =?utf-8?B?c3FLR21kS3FNQ1ZoSmlvcFNEa0hOY09rUTVvaHBZb2ZZbzZONWp0dkIwV2VX?=
- =?utf-8?Q?Mx2gWx+ardlYXH8H0vKNL5Pyu?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30d24798-8887-4a8a-8f48-08db83a31725
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 13:14:29.6505
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nVbWdAgi+btD5+WsHCgZmoeTEfmI2xPhY47SmEYqUk2qNfLuAnXn8xU645sDta4n8gQHf9JXDpKXEdhUAv7OFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9114
 
-On 17.03.2023 20:53, Elliott Mitchell wrote:
-> ARRAY_SIZE() makes future maintainance easier and thus less likely for
-> bugs to occur.
-> 
-> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
+On Thu, 2023-07-13 at 12:08 +0200, Jan Beulich wrote:
+> On 13.07.2023 11:30, Oleksii Kurochko wrote:
+> > --- a/xen/drivers/char/ns16550.c
+> > +++ b/xen/drivers/char/ns16550.c
+> > @@ -1791,8 +1791,16 @@ static int __init
+> > ns16550_uart_dt_init(struct dt_device_node *dev,
+> > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 res =3D platform_get_irq(dev, 0);
+> > -=C2=A0=C2=A0=C2=A0 if ( ! res )
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+> > +=C2=A0=C2=A0=C2=A0 if ( res =3D=3D -1 )
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("ns1650: polling wil=
+l be used\n");
+>=20
+> Nit: Please don't omit one of the two 5-s here.
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * There is the check =
+'if ( uart->irq > 0 )' in
+> > ns16550_init_postirq().
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * If the check is tru=
+e then interrupt mode will be used
+> > otherwise
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * ( when irq =3D 0 )p=
+olling.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>=20
+> I wonder in how far that's actually correct outside of x86. On x86
+> IRQ0 is
+> always the timer interrupt, but I'm not convinced something similar
+> can be
+> used as kind of a heuristic on Arm, RISC-V, or basically any other
+> architecture.
+uart->irq is used as an interrupt number for ns16550 and according to
+the code in ns16550_init_postirq() uart->irq should be > 0.
+So there is safe to use 0 as a detector of polling as it won't be used
+as an interrupt number for ns16550 itself.
 
 
+~ Oleksii
 
