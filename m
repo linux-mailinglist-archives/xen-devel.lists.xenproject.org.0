@@ -2,56 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FDD8753675
+	by mail.lfdr.de (Postfix) with ESMTPS id 28E36753676
 	for <lists+xen-devel@lfdr.de>; Fri, 14 Jul 2023 11:30:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563549.880804 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.563548.880794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qKF6w-00047S-Vn; Fri, 14 Jul 2023 09:29:14 +0000
+	id 1qKF6k-0003qA-Mr; Fri, 14 Jul 2023 09:29:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563549.880804; Fri, 14 Jul 2023 09:29:14 +0000
+Received: by outflank-mailman (output) from mailman id 563548.880794; Fri, 14 Jul 2023 09:29:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qKF6w-00045G-R8; Fri, 14 Jul 2023 09:29:14 +0000
-Received: by outflank-mailman (input) for mailman id 563549;
- Fri, 14 Jul 2023 09:29:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VHA8=DA=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
- id 1qKF6v-00044r-Ih
- for xen-devel@lists.xenproject.org; Fri, 14 Jul 2023 09:29:13 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20607.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::607])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e30037f6-2228-11ee-b239-6b7b168915f2;
- Fri, 14 Jul 2023 11:29:10 +0200 (CEST)
-Received: from BY3PR05CA0024.namprd05.prod.outlook.com (2603:10b6:a03:254::29)
- by CH2PR12MB4937.namprd12.prod.outlook.com (2603:10b6:610:64::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26; Fri, 14 Jul
- 2023 09:29:07 +0000
-Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:254:cafe::f4) by BY3PR05CA0024.outlook.office365.com
- (2603:10b6:a03:254::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.15 via Frontend
- Transport; Fri, 14 Jul 2023 09:29:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.27 via Frontend Transport; Fri, 14 Jul 2023 09:29:06 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 14 Jul
- 2023 04:29:05 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Fri, 14 Jul
- 2023 02:29:05 -0700
-Received: from 10.0.2.15 (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Fri, 14 Jul 2023 04:29:04 -0500
+	id 1qKF6k-0003oV-JB; Fri, 14 Jul 2023 09:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 563548;
+ Fri, 14 Jul 2023 09:29:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qKF6i-0003oP-SU
+ for xen-devel@lists.xenproject.org; Fri, 14 Jul 2023 09:29:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qKF6c-000581-RO; Fri, 14 Jul 2023 09:28:54 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qKF6c-0000uG-GC; Fri, 14 Jul 2023 09:28:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,133 +39,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e30037f6-2228-11ee-b239-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KMnpdvlxNR7gN13AKguLpbh1b2uTlfiXGHTRNgGK+TNjPbx+LDl4+CyB3MyP8gDvMSall9l9USxdlHJP0k2bUDXZC3nMTAptwDXTSq+mh7JObDLJ4Hb7xwMFndnooBKV7JEGBbaiMes7lndIAgYQLFwQnomETzWqCa1jFROHlggIQIQFmP7kJHPvH77zPFZ7SL83iB+qZ/iLTxkGiTK/BOIYjDcbL3ca2UEG7H2vlFnK1jWt7iEHcsHvqnlZrdMBlQHzkSOLiCuX1SWpwIvhhypHUyDwbahDidjnSS8lJO5DH2U/QFOt5fR7mRS0ehmRzlXGCIiVuWXhhuJ3D3cJrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0xOoX2/Cgac9pFbV1Jy/oMIpEZrUX9KsUGUFT4KaB8k=;
- b=mzatdwN+kyGU7PecrYVN7jwASXzSaDRITLswK5LMJh7Nku//EIFbsPjmG7ypgrf/pjVXeVzgFZRXj0xixcyhzD9m6HRJyzs11eDsHTA6cq1OH4NWGe59U+CdtRNy6RGlecyDxC3hCjvPAkFuy17AcTjIfi6qKh5aaWFLr62z3MMOKU8RV53EsCNuVOmop31NNsZqenYe15eHeJdR8+ff92YMQF0lm7XyqFNfwDQmXJPRrM2LAAVgI55gV3QCVp/S6rLDMBuEAvtJYvhAug7ADKlKrM4HpZP1LPBg8HbD+7ZMHRC9B8HQRp/+I/hjD0OfjNvEeXlCRGEmvWSJ1/X24A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=seabios.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0xOoX2/Cgac9pFbV1Jy/oMIpEZrUX9KsUGUFT4KaB8k=;
- b=Yitsv9p+gF7xfGu0OpdX6uq2F+pkIoQc1+xEs4peC4pok4bd97lGsE2zAN5NlhvBVgt0eVsSlRSnzt+BWWcOPN4vwoM7srNV54aYSka8SHWNQWI1Qj46S4K+DsvtYtfwN/cXYFy+vTEFF3h/5XUQwP+TCVIACfZu00sOVRZZybA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-To: <seabios@seabios.org>
-CC: Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Gerd Hoffmann
-	<kraxel@redhat.com>, Kevin O'Connor <kevin@koconnor.net>,
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH] paravirt: call pci_bios_init_devices() when runningOnXen()
-Date: Fri, 14 Jul 2023 12:28:09 +0300
-Message-ID: <eed01ea56212a0e1c5ebfd7d087da5a231cb7af1.1689326029.git.xenia.ragiadakou@amd.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=50WfSytNTAkD+vaGxiaTL0sbP+GHuBfj/91rG957sjc=; b=k0RHeoIDNSQIKXyNHV0DXZdumo
+	9ejlFGcrG1cxxfj1Cek2LZPZPYpNn4xNJSiQCgtPBfuj2sBf7i9zLUrhEEjBd8Rh4LKutxBD3AHqo
+	m3nQmkwP1ujLEqOMtO4BOwDEFJLn/m1iAiDEbaBIYuowsgOGyTcnlVOVVgj4KbQiJYxc=;
+Message-ID: <4a6bd691-95e1-ad15-1054-b43460c85b32@xen.org>
+Date: Fri, 14 Jul 2023 10:28:52 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT012:EE_|CH2PR12MB4937:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71c03ef3-fd5a-41a9-05b8-08db844cc532
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	yxctxlntajJR0I3b0s6BCYonnnAY4xGNFdhzLpSa+ovIW6Zf0tf+IgQCodXNcesPgh2T6/uD4pmy6RPXRXsFkFtEdYuRrNTza4DckCzMJ+FHmrkno9iNiL00V2ydMfN1LhFdzaD261khhRT0cBohwk7zKQPsfySfEbEF9llsNVn8QICcBjgg4CFYDWSCkgodpS5oaG+bPtP0GtEH9feO7iSlm1r+EWl/69nGKVcKSsupHNO20rqOS/IJwP4wiIkuhZ3yW9b3Tcrl69yoxfm7cNNh+lROXfmVTJlY/dnVQx7EJC+f2iqBFQKt9zUHawZ5pcs8AG9juMAKL/1JMIz/Zz6AM9zLvlnR+Fsw88yzK2cVh3tMtTM3E3tLKTDEQeGFlBj7otClEMhZ7HRnz7u4WrX9dOaHQniqFqViDsXASbZG2UoQ3TBicHJy9w7B7COwWrGXEUaF2VzEOxpbXEdUt96L1lwWfvtW3IWMf3E38xPaYZpLvgSpibSn37QSpwTh2DE+DvrBYaeOwONbW0XbuOUoQ84vjOMcoTziTkmoko0++/0/f33kq6w29oRQgiZ1+oZYP3hbA7bficvplH6QjsrcDEDv6PbeiEH7PrNDgv8AsG+fdLjlCPg0uWQOCcAMy19mboVA0avKXR9JI0vcSABLkwxFZ0kAM8zLHTKoNoBFxTjFp9ANn4oiQSD7r8m5a8B4fhuNnWFRidA2UND/xC2YkgRh7IBsSb09AleGKRkdmiaKy3fU4jQ9Q+b9JNQUHT9s37CIf2k9HfV1qTK6VA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(6029001)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199021)(46966006)(40470700004)(36840700001)(36860700001)(82310400005)(36756003)(86362001)(40480700001)(81166007)(40460700003)(82740400003)(356005)(16576012)(54906003)(44832011)(478600001)(316002)(70586007)(4326008)(6916009)(70206006)(5660300002)(8676002)(2906002)(41300700001)(8936002)(2616005)(336012)(186003)(26005)(47076005)(426003)(83380400001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2023 09:29:06.2890
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71c03ef3-fd5a-41a9-05b8-08db844cc532
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4937
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Subject: Re: [PATCH v2 1/2] restrict concept of pIRQ to x86
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
+ <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
+ <0cd9d94b-0a8d-a3e1-d683-04fac1572750@xen.org>
+ <8cdf9179-7b3f-5a52-ff02-8ededbe03e0c@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <8cdf9179-7b3f-5a52-ff02-8ededbe03e0c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The issue that this patch attempts to address is S3 related.
-Currently, suspending a XEN guest multiple times does not work.
-This happens because PIIX4 PM io space gets unmapped during S3
-resume and any accesses performed to trigger subsequent suspends
-are not handled. So, the guest spins on the wake sts bit forever.
-Below follows a more detailed description of the issue.
+Hi Jan,
 
-On S3 resume path, QEMU issues piix4_pm_reset() to bring PPIX4 PM
-controller to the state expected. More specifically, piix4_pm_reset()
-zeroes PMIOSE register, i.e pci_conf[0x80] = 0, and this results in
-unmapping PIIX4 PM io space,
-i.e. memory_region_set_enabled(&s->io, d->config[0x80] & 1)
-It is bios responsibility to reenable PIIX4 PM io space during
-S3 resume path. However, when running on XEN, the qemu platform
-initialization code does not call pci_bios_init_devices(), hence
-the PIIX4 PM controller init function is not called and PiixPmBDF
-is not set. The value of PiixPmBDF indicates the presence of PIIX4
-PM controller. Thus, S3 resume code in pci_resume() considers that
-PIIX4 PM controller is not present and does not perform the relevant
-post-resume setup that restores PIIX4 PM io space. This is the reason
-why any subsequent guest access to those registers is not handled.
+On 11/07/2023 13:29, Jan Beulich wrote:
+> On 10.07.2023 22:59, Julien Grall wrote:
+>>> ---
+>>> I'm not really certain about XEN_DOMCTL_irq_permission: With pIRQ-s not
+>>> used, the prior pIRQ -> IRQ translation cannot have succeeded on Arm, so
+>>> quite possibly the entire domctl is unused there? Yet then how is access
+>>> to particular device IRQs being granted/revoked?
+> 
+> (Leaving this in context, as it'll be relevant for the last comment you
+> gave.)
 
-This patch adds a call to pci_bios_init_devices() to the early xen
-platform setup code.
+Sorry I missed this comment.
 
-Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
----
- src/fw/paravirt.c | 1 +
- src/fw/pciinit.c  | 2 +-
- src/util.h        | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ > so quite possibly the entire domctl is unused there?
 
-diff --git a/src/fw/paravirt.c b/src/fw/paravirt.c
-index fba4e52..0c035eb 100644
---- a/src/fw/paravirt.c
-+++ b/src/fw/paravirt.c
-@@ -205,6 +205,7 @@ qemu_platform_setup(void)
- 
-     if (runningOnXen()) {
-         pci_probe_devices();
-+        pci_bios_init_devices();
-         xen_hypercall_setup();
-         xen_biostable_setup();
-         return;
-diff --git a/src/fw/pciinit.c b/src/fw/pciinit.c
-index badf13d..f955481 100644
---- a/src/fw/pciinit.c
-+++ b/src/fw/pciinit.c
-@@ -417,7 +417,7 @@ static void pci_bios_init_device(struct pci_device *pci)
-                          PCI_BRIDGE_CTL_SERR);
- }
- 
--static void pci_bios_init_devices(void)
-+void pci_bios_init_devices(void)
- {
-     struct pci_device *pci;
-     foreachpci(pci) {
-diff --git a/src/util.h b/src/util.h
-index aff8e88..ebd863f 100644
---- a/src/util.h
-+++ b/src/util.h
-@@ -137,6 +137,7 @@ extern u64 pcimem64_start, pcimem64_end;
- extern const u8 pci_irqs[4];
- void pci_setup(void);
- void pci_resume(void);
-+void pci_bios_init_devices(void);
- 
- // fw/pirtable.c
- void pirtable_setup(void);
+You are right, the domctl permission is not used on Arm.
+
+ >  Yet then how is access to particular device IRQs being granted/revoked?
+
+At the moment, a device can only be attached at domain creation and 
+detached when the domain is destroyed. Also, only the toolstack can map 
+IRQs. So we don't need to worry for granting/revoking IRQs.
+
+> 
+>>> --- a/xen/common/domain.c
+>>> +++ b/xen/common/domain.c
+>>> @@ -350,6 +350,8 @@ static int late_hwdom_init(struct domain
+>>>    #endif
+>>>    }
+>>>    
+>>> +#ifdef CONFIG_HAS_PIRQ
+>>> +
+>>>    static unsigned int __read_mostly extra_hwdom_irqs;
+>>>    static unsigned int __read_mostly extra_domU_irqs = 32;
+>>>    
+>>> @@ -364,6 +366,8 @@ static int __init cf_check parse_extra_g
+>>>    }
+>>>    custom_param("extra_guest_irqs", parse_extra_guest_irqs);
+>>>    
+>>> +#endif /* CONFIG_HAS_PIRQ */
+>>
+>> NIT: I would suggest create a file pirq.c and move anything PIRQ
+>> specific there. This should reduce the number of #ifdef in the code.
+> 
+> I did consider that, but it looked quite a bit more intrusive to
+> me than the few #ifdef-s added to this file. (The ones in other
+> files would be yet uglier to eliminate, if that was to be implied
+> from your remark.)
+
+I was under the impression we wanted to limit the number of #ifdef in 
+the common code. They didn't seem to be warrant here and, from a brief 
+look, it didn't seem the option would be that "ugly". But I guess this 
+is a matter of taste.
+
+> 
+>>> @@ -1864,6 +1874,8 @@ long do_vm_assist(unsigned int cmd, unsi
+>>>    }
+>>>    #endif
+>>>    
+>>> +#ifdef CONFIG_HAS_PIRQ
+>>> +
+>>
+>> With this change and some others, we probably can remove
+>> alloc_pirq_struct() & co. I will have a look to send a clean-up patch
+>> after this goes in.
+> 
+> Right, there's likely further cleanup possible.
+> 
+>>> --- a/xen/common/domctl.c
+>>> +++ b/xen/common/domctl.c
+>>> @@ -683,11 +683,13 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
+>>>            unsigned int pirq = op->u.irq_permission.pirq, irq;
+>>>            int allow = op->u.irq_permission.allow_access;
+>>>    
+>>> +#ifdef CONFIG_HAS_PIRQ
+>>>            if ( pirq >= current->domain->nr_pirqs )
+>>>            {
+>>>                ret = -EINVAL;
+>>>                break;
+>>>            }
+>>> +#endif
+>>
+>> This #ifdef reads a little bit strange. If we can get away with the
+>> check for Arm, then why can't when CONFIG_HAS_PIRQ=y? Overall, a comment
+>> would be helpful.
+> 
+> As per the post-commit-message remark first of all I need to understand
+> why things were the way they were, and why (whether) that was correct
+> (or at least entirely benign) for Arm in the first place. Only then I'll
+> (hopefully) be in the position of putting a sensible comment here.
+> 
+> One thing is clear, I suppose: Without the #ifdef the code wouldn't
+> build. Yet imo if things all matched up, it should have been buildable
+> either way already in the past. Hence the questions.
+
+Right, it would not build. But does this check really matter even in the 
+case where CONFIG_HAS_PIRQ=y? Looking at the code, it sounds like more 
+an optimization/a way to return a different error code if there value is 
+too high. For the domctl, it doesn't seem to be worth it, the more if we 
+need to add #ifdef.
+
+With that, the rest of the domctl should mostly work for Arm.
+
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
