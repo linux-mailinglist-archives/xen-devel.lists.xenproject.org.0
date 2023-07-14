@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C46FF7540B2
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jul 2023 19:42:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.563721.881162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B0747541C2
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jul 2023 19:55:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.563787.881203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qKMn9-00087P-Ra; Fri, 14 Jul 2023 17:41:19 +0000
+	id 1qKN0c-0003Hg-V7; Fri, 14 Jul 2023 17:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 563721.881162; Fri, 14 Jul 2023 17:41:19 +0000
+Received: by outflank-mailman (output) from mailman id 563787.881203; Fri, 14 Jul 2023 17:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qKMn9-00085d-L8; Fri, 14 Jul 2023 17:41:19 +0000
-Received: by outflank-mailman (input) for mailman id 563721;
- Fri, 14 Jul 2023 17:41:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GXWP=DA=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1qKMn7-00083u-Se
- for xen-devel@lists.xen.org; Fri, 14 Jul 2023 17:41:17 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e7e1b83-226d-11ee-8611-37d641c3527e;
- Fri, 14 Jul 2023 19:41:14 +0200 (CEST)
-Received: from xenbits.xenproject.org ([104.239.192.120])
+	id 1qKN0c-0003EG-Rs; Fri, 14 Jul 2023 17:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 563787;
+ Fri, 14 Jul 2023 17:55:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qKN0b-0003E6-BY; Fri, 14 Jul 2023 17:55:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrewcoop@xenbits.xen.org>)
- id 1qKMmq-0000i8-Up; Fri, 14 Jul 2023 17:41:00 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <andrewcoop@xenbits.xen.org>)
- id 1qKMmq-00035B-SS; Fri, 14 Jul 2023 17:41:00 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qKN0b-00018P-4g; Fri, 14 Jul 2023 17:55:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qKN0a-0001pi-R2; Fri, 14 Jul 2023 17:55:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qKN0a-0004dH-Qa; Fri, 14 Jul 2023 17:55:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,117 +42,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e7e1b83-226d-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=gxB4B4uIvI6wAiFwKGJzyX3wE3vX8wzw64hKr8BxA9I=; b=FXF2NKoFKFfVrspdb9BJ/B/frR
-	8W+LCdD1qV75H2UAogqF38xZnScWubmNwXpKQySknnKHr5impkoj7BWMp98CdeAzKJkxAW4ltoOSV
-	EDXn1LNqXMD7+5wlk7QQMxOuLsHxi/jf7Wf6qJG5cnS7J3PunBsJ/tPzrcUs0aM3eJvo=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=clvLsVewBq2FFBFVbZ3lH1errGZbWPYA6RrTeZeB21Q=; b=RIP1MCieMXnVKaNgxPi3IAHfXS
+	AeZAEmv0Uqhnj4YSpzrLzHtfM/kO9chuxWBDCz3b4XQrMJzrrFgc6NcjAqXh6prN2e8AmYIGAYZwr
+	DEJkOb3StWtkx5YZvbjzqWifN/vsI72Zok1WkYM9OZ1cq/SydsqgyczyenSGQt8Z9HTg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181789-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Notice 1 v1 - winpvdrvbuild.xenproject.org
- potentially compromised
-Message-Id: <E1qKMmq-00035B-SS@xenbits.xenproject.org>
-Date: Fri, 14 Jul 2023 17:41:00 +0000
+Subject: [libvirt test] 181789: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:xen-boot:fail:heisenbug
+    libvirt:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=14026db9b0e25739ea30685bd643ff23aca30588
+X-Osstest-Versions-That:
+    libvirt=ded44a0406c82c560b654ac69ef4259add152eb4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 14 Jul 2023 17:55:12 +0000
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+flight 181789 libvirt real [real]
+flight 181796 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181789/
+http://logs.test-lab.xenproject.org/osstest/logs/181796/
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Failures :-/ but no regressions.
 
-                     Xen Security Notice 1
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt      8 xen-boot            fail pass in 181796-retest
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail pass in 181796-retest
 
-         winpvdrvbuild.xenproject.org potentially compromised
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail blocked in 181769
+ test-armhf-armhf-libvirt 16 saverestore-support-check fail in 181796 like 181769
+ test-armhf-armhf-libvirt    15 migrate-support-check fail in 181796 never pass
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181769
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-ISSUE DESCRIPTION
-=================
+version targeted for testing:
+ libvirt              14026db9b0e25739ea30685bd643ff23aca30588
+baseline version:
+ libvirt              ded44a0406c82c560b654ac69ef4259add152eb4
 
-Software running on the Xen Project hosted subdomain
-winpvdrvbuild.xenproject.org is outdated and vulnerable to several
-CVEs.  Some of the reported issues include remote code execution.  The
-affected host was running the Jenkins build system for the Windows PV
-Drivers subproject.
+Last test of basis   181769  2023-07-12 04:20:30 Z    2 days
+Testing same since   181789  2023-07-14 04:21:56 Z    0 days    1 attempts
 
-IMPACT
-======
+------------------------------------------------------------
+People who touched revisions under test:
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
 
-Since the list of CVEs reported include remote code execution we no
-longer have confidence that binaries previously available at:
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
 
-https://xenbits.xen.org/pvdrivers/win/
 
-are trustworthy.  This includes binaries signed with Xen Project's EV
-key that is cross-signed by Microsoft.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Note that the source code for the windows drivers, hosted on
-xenbits.xen.org is in a separate system and we are confident that it
-has not been tampered with.  The EV key was also not available to the
-possibly compromised system.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-ACTIONS TAKEN
-=============
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-The possibly compromised system has been decommissioned.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-We have removed all previous binaries from:
 
-https://xenbits.xen.org/pvdrivers/win/
+Pushing revision :
 
-A new set of drivers based on the current master branch
-(9.0-unstable) and built on a trusted environment have been uploaded
-on the same folder with the following hashes:
-
-$ sha256sum xen*.tar
-b089e46d52ffc64a14799c609272ccdded805c1552a88b45d95a64a27e775de7  xenbus.tar
-afc6f11f9078cb457daa000b8b8d8ab69656d3950e7afbf6f40aaa5da217301a  xencons.tar
-7bbcedcda5e2ffa8ab32eb3d207d1c7db5b91e22926b26d75750bfadde6611f0  xenhid.tar
-a8f3344e370647696e3ed39201f5c9db693aca1c093a638fde8b7a928a4416c2  xeniface.tar
-560d7049f5e321545dda25c26b5f56e0975a7f62d35629f4c9a73f0fbd148cf3  xennet.tar
-9cb34cd135aab045a2401098c4044c95dbd179c454718e43045e433401b8e3dd  xenvbd.tar
-47c1b9bc6e90e20d3f524036a3171cf7f8da1d94186febbae0d4a108db7bb3b5  xenvif.tar
-09a4b108a9d3fca699c3c31aeb4836cfee2538e588462b0646dcccbde42a4263  xenvkbd.tar
-
-ACTIONS IN PROGRESS
-===================
-
-The security team is attempting to inspect existing binaries to
-determine whether there are any obvious signs of tampering.
-
-CREDITS
-=======
-
-We would like to thank Mahmud Hasan for bringing this to our
-attention.
-
-WHAT IS AN XSN
-==============
-
-A Xen Security Notice is a mechanism the Security Team was already in
-the process of introducing, for providing official communication of
-security-relevant information that is not of the form that fits in the
-normal XSA template.  Please bear with us as we find the right balance
-while trying to fast-track it into use.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmSxe3YMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZgwgH/1serMIChH2tFlbU0HSgVk07KCO17lFcCJnhDSA8
-uEv3uYiW8NCZEwaD2wmgxN9tW7yTIoeSrsnTyU9D305M6gy3F9g1XcktAv9HhtEO
-fS/Pdq1q/ec4vStOYUzx6yG/2GIKNYny5Um4X2Odr/dvYcdZJPkmeJtv6yIa5wSC
-q3jCou/VoBCwXUGqlqzRdRsJ+srmsFfmsTn/oNuM28gkV+qRAUc+J6z+psObo2yp
-KE/Jgl9B6Nq2+d7sbcgto77a/4FrgtW01qFgIbvQPcE8BBlPF4xymKeCBSGEY/yL
-MrOyYpw81cOd0IvSVdQglW63+DO76EksBJJWQbtazwhbPDs=
-=jmGB
------END PGP SIGNATURE-----
-
---=separator--
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   ded44a0406..14026db9b0  14026db9b0e25739ea30685bd643ff23aca30588 -> xen-tested-master
 
