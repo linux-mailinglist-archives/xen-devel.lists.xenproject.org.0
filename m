@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DCC7755CAB
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 09:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.564178.881503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83407755CA5
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 09:22:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.564177.881497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLIXy-0006Vo-Ia; Mon, 17 Jul 2023 07:21:30 +0000
+	id 1qLIXy-0006Qj-5P; Mon, 17 Jul 2023 07:21:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 564178.881503; Mon, 17 Jul 2023 07:21:30 +0000
+Received: by outflank-mailman (output) from mailman id 564177.881497; Mon, 17 Jul 2023 07:21:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLIXy-0006Qg-AE; Mon, 17 Jul 2023 07:21:30 +0000
-Received: by outflank-mailman (input) for mailman id 564178;
+	id 1qLIXy-0006Nf-0N; Mon, 17 Jul 2023 07:21:30 +0000
+Received: by outflank-mailman (input) for mailman id 564177;
  Mon, 17 Jul 2023 07:21:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xV9D=DD=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1qLIXw-0005A9-9x
+ id 1qLIXw-0005A3-5T
  for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 07:21:28 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ab55b1a-2472-11ee-8611-37d641c3527e;
- Mon, 17 Jul 2023 09:21:26 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4f122ff663eso6448768e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jul 2023 00:21:26 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b5cc22a-2472-11ee-b23a-6b7b168915f2;
+ Mon, 17 Jul 2023 09:21:27 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-4fb5bcb9a28so6385308e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jul 2023 00:21:27 -0700 (PDT)
 Received: from rayden.urgonet (h-46-59-78-111.A175.priv.bahnhof.se.
  [46.59.78.111]) by smtp.gmail.com with ESMTPSA id
- l10-20020ac24a8a000000b004f846cd74bcsm2658938lfp.245.2023.07.17.00.21.24
+ l10-20020ac24a8a000000b004f846cd74bcsm2658938lfp.245.2023.07.17.00.21.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jul 2023 00:21:25 -0700 (PDT)
+ Mon, 17 Jul 2023 00:21:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ab55b1a-2472-11ee-8611-37d641c3527e
+X-Inumbo-ID: 8b5cc22a-2472-11ee-b23a-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1689578486; x=1692170486;
+        d=linaro.org; s=google; t=1689578487; x=1692170487;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dqoldXxWy8H0mye06Jm+vbzYDtmZMz3z5RdS7rzJXrI=;
-        b=k5s9hWg0UjMMBvk2rvqYEsCQ+9oVoo/BjP4XJxw9Qn74sKitjmiunmrrj84bOCM5oL
-         JUO9qNu9Y0n1xrx8RoDajzyAIW37ENS0WNnlOq8Bd7Qcs/02Tu6Tf6dQBlW2/a+qs8CS
-         36ZuvxaSe8ElAWll3npoltLAnrgRHw1mZH2hY4+3xcPjrfAvjpvwusio5Uh9wjJJhnC3
-         isUwYLq/hFMXjE5NkUdYXJp9XMoVaTYyvvh6HbIZawOjtoDZt0i7yi+qiMkDF3HNbUdC
-         HWNds8NH+JkohvFg3b2jdblQZ2b8Sr1hTlqiTK5Hj751ZnOoYoP/4V9BBr1rQFYJX0Z1
-         6hXg==
+        bh=4wSiWqYej8EPgULt6otzEwmKVlaIAponcAwfHuOJ0rA=;
+        b=qZlG5/5+KozbDG0dX2Pv46WGN80L7UYXywXQ+0/2LnHsEZfdvzqVzKq6DYdlBIkufx
+         MsJI0/Kv4gGhPvcwBAT2ZhvJPFKOFTlg2aqK1h7wHNZ9MBUbNJ6SOyMC8cbKmDBrAoVg
+         M6Ijx/72XKfb0hklTPFpMmmd18TMEdL82yOMRO4govS81iwG4I5CW5eD+b0qOTR8d+d5
+         I916oiuztElanzYWmV32MZ2DGizLFiUzzcPnF/pFm9rwv6Spuz4RkzKN6NxHYBAzJOKj
+         kIzG86XXbbXZdlLfy8BWrCVrgyCULG0QcK4e5p1c8gfT5YxOw2gtrMkeQ4QZ+UQNRyOs
+         PCfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689578486; x=1692170486;
+        d=1e100.net; s=20221208; t=1689578487; x=1692170487;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dqoldXxWy8H0mye06Jm+vbzYDtmZMz3z5RdS7rzJXrI=;
-        b=WyzOU3kEaPWiepOpr+iGR10dc4Lgu+EE73Ik3cYvd1YncmpoOXBbMjFz4eLOy4ORt0
-         YAQH7jT1UUnurT1Fp9f2K0Kb7v/2RkFVMGFPefCnJjLmm7+V+5T5enDx3S/r1RAr4L6N
-         7fnXmH7cQFTuOwWLPJt3MM99XGgpZUYZcXUvw9Q1Gu1P5diGOQnYlNM9FNebB77/3HdO
-         b9dsz9d16adv6bCez1AyVrYDGgSNEZTJ+JKucVFPViB1TGDX9Urm8CHWiWetuBEuY3eQ
-         dZCg8V4rs9jMV8X+i+BUZdo+RPkUER5X4HPtP/eGxFqnR1LvbQd+6u2gAj+uI0wfdOGz
-         0GiA==
-X-Gm-Message-State: ABy/qLaT7xUlh58aof3HF3oPMecrd6JlKPl4OfhdhKccLQVzv7k67IIr
-	oSYLZvwkfTCSsPADA0JBO90+vWOt2U2DXn/l1qM=
-X-Google-Smtp-Source: APBJJlFsPVqb1ZKW99UCUnllvrT3Wz1ecmkenPUbmhg7YarNaX6cyia4T22tYLKgNzCZYPDh/tRMog==
-X-Received: by 2002:ac2:4c0b:0:b0:4fb:73ba:5d9c with SMTP id t11-20020ac24c0b000000b004fb73ba5d9cmr6460037lfq.17.1689578485988;
-        Mon, 17 Jul 2023 00:21:25 -0700 (PDT)
+        bh=4wSiWqYej8EPgULt6otzEwmKVlaIAponcAwfHuOJ0rA=;
+        b=HsJxrecgYTXFegKO0rPC080T6ONZMDlWCEj4AKzqrzHTFxpTAoEkjToTQqgcn4N69M
+         WGrbF8AlD+zCb96Vu9KInyUIQW+r0o+p9jJwVc9Nipq3RWJlydCrNt8fF22inzR7WL/A
+         dpf6nywUqDi+k0gFGAoRweqWJjVeX7vzIO30hXDjGA+hoQUwORG0KEuOietVRlmUurBx
+         Ri4bNx0u4NwX9L/ckGHAH+AiqDmmvJph/yfYD8Fc7bqWWok42itbjyXV0IP521bwEbg5
+         CiJaGJkXdVXupp+094r/oeiG7OcfKZp7zYKb7L+nkxJ3/Eo6fxI6mfELV/kp+w4nhlMK
+         FZ6w==
+X-Gm-Message-State: ABy/qLZroWUk1bKznFvrKYo03W55wVbO0tEYV0f6C297YSHeb7D5Pi4E
+	SyPartw42DanHfOzU3gpW1DdktraHE8wMME/Big=
+X-Google-Smtp-Source: APBJJlHsUIExGwq/SOkJY5f47gzvIKiWT9Pe1PJHiVjY2QneHf99uvvJZtEmarMrEGqvoCJjvSgxVg==
+X-Received: by 2002:ac2:5921:0:b0:4fb:85ad:b6e2 with SMTP id v1-20020ac25921000000b004fb85adb6e2mr7278312lfi.50.1689578487119;
+        Mon, 17 Jul 2023 00:21:27 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -90,71 +90,69 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Henry Wang <Henry.Wang@arm.com>
-Subject: [XEN PATCH v10 05/24] xen/arm: ffa: add remaining SMC function IDs
-Date: Mon, 17 Jul 2023 09:20:48 +0200
-Message-Id: <20230717072107.753304-6-jens.wiklander@linaro.org>
+Subject: [XEN PATCH v10 06/24] xen/arm: ffa: add flags for FFA_PARTITION_INFO_GET
+Date: Mon, 17 Jul 2023 09:20:49 +0200
+Message-Id: <20230717072107.753304-7-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230717072107.753304-1-jens.wiklander@linaro.org>
 References: <20230717072107.753304-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds the remaining SMC function IDs from FF-A 1.1 specification,
-DEN0077A version 1.1 REL0.
+According to DEN0077A version 1.1 REL0, section 13.8, defines
+flags used for the function FFA_PARTITION_INFO_GET.
 
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Reviewed-by: Henry Wang <Henry.Wang@arm.com>
 ---
  xen/arch/arm/tee/ffa.c | 34 ++++++++++++++++++++++++++++++++++
  1 file changed, 34 insertions(+)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 927c4d33a380..2296e3115beb 100644
+index 2296e3115beb..c1dead73d1f2 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -60,7 +60,41 @@
+@@ -57,6 +57,40 @@
+ #define FFA_MY_VERSION          MAKE_FFA_VERSION(FFA_MY_VERSION_MAJOR, \
+                                                  FFA_MY_VERSION_MINOR)
+ 
++/*
++ * Flags to determine partition properties in FFA_PARTITION_INFO_GET return
++ * message:
++ * BIT(0): Supports receipt of direct requests
++ * BIT(1): Can send direct requests
++ * BIT(2): Can send and receive indirect messages
++ * BIT(3): Supports receipt of notifications
++ * BIT(4-5): Partition ID is a PE endpoint ID
++ * BIT(6): Partition must be informed about each VM that is created by
++ *         the Hypervisor
++ * BIT(7): Partition must be informed about each VM that is destroyed by
++ *         the Hypervisor
++ * BIT(8): Partition runs in the AArch64 execution state else AArch32
++ *         execution state
++ */
++#define FFA_PART_PROP_DIRECT_REQ_RECV   BIT(0, U)
++#define FFA_PART_PROP_DIRECT_REQ_SEND   BIT(1, U)
++#define FFA_PART_PROP_INDIRECT_MSGS     BIT(2, U)
++#define FFA_PART_PROP_RECV_NOTIF        BIT(3, U)
++#define FFA_PART_PROP_IS_TYPE_MASK      (3U << 4)
++#define FFA_PART_PROP_IS_PE_ID          (0U << 4)
++#define FFA_PART_PROP_IS_SEPID_INDEP    (1U << 4)
++#define FFA_PART_PROP_IS_SEPID_DEP      (2U << 4)
++#define FFA_PART_PROP_IS_AUX_ID         (3U << 4)
++#define FFA_PART_PROP_NOTIF_CREATED     BIT(6, U)
++#define FFA_PART_PROP_NOTIF_DESTROYED   BIT(7, U)
++#define FFA_PART_PROP_AARCH64_STATE     BIT(8, U)
++
++/*
++ * Flag used as parameter to FFA_PARTITION_INFO_GET to return partition
++ * count only.
++ */
++#define FFA_PARTITION_INFO_GET_COUNT_FLAG BIT(0, U)
++
  /* Function IDs */
  #define FFA_ERROR                       0x84000060U
  #define FFA_SUCCESS_32                  0x84000061U
-+#define FFA_SUCCESS_64                  0xC4000061U
-+#define FFA_INTERRUPT                   0x84000062U
- #define FFA_VERSION                     0x84000063U
-+#define FFA_FEATURES                    0x84000064U
-+#define FFA_RX_ACQUIRE                  0x84000084U
-+#define FFA_RX_RELEASE                  0x84000065U
-+#define FFA_RXTX_MAP_32                 0x84000066U
-+#define FFA_RXTX_MAP_64                 0xC4000066U
-+#define FFA_RXTX_UNMAP                  0x84000067U
-+#define FFA_PARTITION_INFO_GET          0x84000068U
-+#define FFA_ID_GET                      0x84000069U
-+#define FFA_SPM_ID_GET                  0x84000085U
-+#define FFA_MSG_WAIT                    0x8400006BU
-+#define FFA_MSG_YIELD                   0x8400006CU
-+#define FFA_RUN                         0x8400006DU
-+#define FFA_MSG_SEND2                   0x84000086U
-+#define FFA_MSG_SEND_DIRECT_REQ_32      0x8400006FU
-+#define FFA_MSG_SEND_DIRECT_REQ_64      0xC400006FU
-+#define FFA_MSG_SEND_DIRECT_RESP_32     0x84000070U
-+#define FFA_MSG_SEND_DIRECT_RESP_64     0xC4000070U
-+#define FFA_MEM_DONATE_32               0x84000071U
-+#define FFA_MEM_DONATE_64               0xC4000071U
-+#define FFA_MEM_LEND_32                 0x84000072U
-+#define FFA_MEM_LEND_64                 0xC4000072U
-+#define FFA_MEM_SHARE_32                0x84000073U
-+#define FFA_MEM_SHARE_64                0xC4000073U
-+#define FFA_MEM_RETRIEVE_REQ_32         0x84000074U
-+#define FFA_MEM_RETRIEVE_REQ_64         0xC4000074U
-+#define FFA_MEM_RETRIEVE_RESP           0x84000075U
-+#define FFA_MEM_RELINQUISH              0x84000076U
-+#define FFA_MEM_RECLAIM                 0x84000077U
-+#define FFA_MEM_FRAG_RX                 0x8400007AU
-+#define FFA_MEM_FRAG_TX                 0x8400007BU
-+#define FFA_MSG_SEND                    0x8400006EU
-+#define FFA_MSG_POLL                    0x8400006AU
- 
- struct ffa_ctx {
-     /* FF-A version used by the guest */
 -- 
 2.34.1
 
