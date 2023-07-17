@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4A58755FA3
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 11:44:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.564340.881797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE4B8755FD9
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 11:52:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.564344.881807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLKls-0005jT-PC; Mon, 17 Jul 2023 09:44:00 +0000
+	id 1qLKtV-0007F1-Gd; Mon, 17 Jul 2023 09:51:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 564340.881797; Mon, 17 Jul 2023 09:44:00 +0000
+Received: by outflank-mailman (output) from mailman id 564344.881807; Mon, 17 Jul 2023 09:51:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLKls-0005gY-Ly; Mon, 17 Jul 2023 09:44:00 +0000
-Received: by outflank-mailman (input) for mailman id 564340;
- Mon, 17 Jul 2023 09:43:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qLKtV-0007Cz-DU; Mon, 17 Jul 2023 09:51:53 +0000
+Received: by outflank-mailman (input) for mailman id 564344;
+ Mon, 17 Jul 2023 09:51:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hD51=DD=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qLKlr-0005gS-Dj
- for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 09:43:59 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2078.outbound.protection.outlook.com [40.107.7.78])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73a69dfd-2486-11ee-b23a-6b7b168915f2;
- Mon, 17 Jul 2023 11:43:58 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM0PR04MB6916.eurprd04.prod.outlook.com (2603:10a6:208:185::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Mon, 17 Jul
- 2023 09:43:28 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6588.031; Mon, 17 Jul 2023
- 09:43:28 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLKtT-0007Cp-Km; Mon, 17 Jul 2023 09:51:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLKtT-0000Dx-EU; Mon, 17 Jul 2023 09:51:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLKtS-0005y8-PN; Mon, 17 Jul 2023 09:51:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLKtS-0001el-Os; Mon, 17 Jul 2023 09:51:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,129 +42,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73a69dfd-2486-11ee-b23a-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MmKEmda/RnE6S7CzNwixU458Dds0wbfHiRMjAT1ZBPGNFe7fiMwPCozK8Ru17ogj59ZzG3vQ7ktfJIgkMucksoWALzpps/iQLz67jdLbTd0HbYnScEKQK+sMlCo4LGj/fX06DOEBTDNFeo9tb/4arhd9QUvKxtDPQzny+k7q+78ohg1pq+ZsHdBUOoRLgPwLouZVLvghEFFdSqLidpnVJPzpSvkjsR1UL12VJwfBuX1d3+Cpl5K43BHXeIxfRvYERXYZcaCev9d/Jn9k2Dj9VjUnCpq4mqw0ahMzBATKx8BdceN1knUFUVJWDn2VzYoCFfwYw8pI34kV6Q/HlM41+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7qEj9eXO7lsrKeTJfCmJD/7oAg8dzzkd/vp3P4GDAS0=;
- b=mxR5AKqKd7IvBTu8neEgRsWyH5jCPm8xiZebqlEzF+5ezT0AQAqKAko/eSb0WdeLMC6Did7W329JYaXGqwzDR1InlHJ536+LFZTAq++x54EF7NSIxAdLkkUuCh+SyXIFUMBBF8NQKUCSS8f9J+mdN4uypppO9i/SQIwzlMtECxVAs93t8Y98VYcB2WAXxmI72q/66Z9tqxEqfEb9qGGdDZ/mZG42cbBPXTKwazWkJ3DGz5sylZtHHCUBOdAGtqN7pFboMcCXfMwbu7YddM/7ak90zzgXklyJuu6td2dE69vFmrHCfyz5UZKD5LaGuXvDt6w+atFKrvZ3blhJDw92PA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7qEj9eXO7lsrKeTJfCmJD/7oAg8dzzkd/vp3P4GDAS0=;
- b=msZebKGH2sUYbJ8+1vMB00JM8i/tN1QhuO94VzoiN147g4lMPipz9LdbJP0M/dg2c/kQaY6f7EVW5I7iyJGyTQlBKI0WfCkHpiN3m90ZSTwVV8oHTjxgbr/djbvawBVMs7hHrhx5lyxaZAp01ZN/+4xk8OUJcwEKdGTl+MZUQklESyKqQE0uNhiHmSy81GqU72gLR/BQ6a7Jurm25+cNHNJMMZNRCXkxmV/wxDBHuykLQOBxzqDGaKOLoxp/1lQR6T2YKKtyg/JBht6bs1UqKxlgYoBuJxbnqpwFBoMyVhXP+LdwU/9Px/2fm8XF3GoA2PvrXXelvdOGM95G6I2HUg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <93646ba2-ca84-755d-290b-d7470827ef46@suse.com>
-Date: Mon, 17 Jul 2023 11:43:28 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/ACPI: correct off-by-1 in SGI MMCFG check
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Gianluca Luparini <gianluca.luparini@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0121.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:97::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=KiOMA7X/pOiXLvGyzTACUC9qIIyQud2p1YSPfw9HiWo=; b=DBaPH5ugbUxINY1CeQj2tgLgdJ
+	32V27Rx4W/Mp5G/922KS3fDi/SA1JVf5FOl3XRCMwR6B3tedkL0aZJoxEThm0P3oH0RyrYlwZ0YD5
+	hLrPnwaI3j/Sfc0OZjLS/AFxmFNlqkACjYknMHhRt24qm8ulPcpYM24FiTCQ0mbjLRLo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181808-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM0PR04MB6916:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2ba0480-5a72-4694-680d-08db86aa4638
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	nw/PQgzl7t1Hykb7mI2wPA0SpBMkh/dbzIzW6nRubT/5ESINe6JUbzTxwXeBY1hSjKwfE+s8Lna1Shfgs+qksBL1Zjpj97LafLqb4ZHz6sg7WD1ftFolt8yq+ABY63YIEagZ58lLyFFXCQKHVlB132ylhdhswF2RkLzwd/M8Y4J9QLW4XEy79HEA83CMJcXXeIeTzNLKBreEIFg1lYt1gdfI5wvX839ne7Ne6kzO4I4Rp2KZIvqHTVLjMdKtcHRUsi0bUt//EIH2j/c2tBbwPuNJQklZTPTO7g4/EuRchZ/YybOdjffNhQe+1If8HBEUKqvnnY7uiYspKunbIQRoDp3ZyTIDQyOXSWhQcx2Q3sl72GgYuvddcmEVGnHb2bjIi7xAYsZtaKM+U4xCmgT7tKze5SIC3LkprdegTSU4vUHxMj3J3YXREwmUex8eft8vizEIr/ey6YKNgmggfeUDCrjTPZjizXQ8FJqWI/zTQXx1rySpERHkNxmy4uZ2MvhQ8M3BZPcfkdkMTNoDY/1suluqA+GDgYY3MWyowLezFCi5F2ICT1kWQdiQbCeCe0DL3ETG9h+tUeJIQPpFaWzEjpNEIUpDoahiJ+Vqja336B5ZTy6JwmEEAZO6T2kHzOGJEg6l/2KokwQlgieDJUM92A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(376002)(366004)(396003)(136003)(451199021)(31686004)(478600001)(6486002)(54906003)(31696002)(86362001)(2906002)(36756003)(186003)(6506007)(2616005)(26005)(6512007)(316002)(38100700002)(66556008)(4326008)(6916009)(66946007)(66476007)(41300700001)(8676002)(8936002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUtPUlVYZjFoU0VyOFRQeXRRdWxqZnpDN1J4K1dwSFZOVXZKR0NDNHBtNkJP?=
- =?utf-8?B?Yk9wRWdWOEFoWVJGUTNzRkl5NzBjWmNmYzhaWWJkbXU1SjA3dnVoWWNNcjFk?=
- =?utf-8?B?N3RnaDdRblU2d1IxVld6MDFMbER5NEFGdjFOMWJNZ1dsMEh0TTRrZEdoWWlL?=
- =?utf-8?B?enhXZzc4VlpleDVDUjVkRDJzQXhweDVuUS9IbURwclZJSlZhV1ZNd3VtSjVo?=
- =?utf-8?B?WWtIVE5JejQ3bE9XUDJ1QjVRZHJyQ3JIVHRoVkhac3RtRXpKYzBkdTE4Y215?=
- =?utf-8?B?Z2VYUHk1QnJqcWZzOU5xMmhPdWdadE9zbzdYbldxeHlEczlpb1kzNEtIRm54?=
- =?utf-8?B?bGFHREVQYjZFcGtZM0E3NjRmeGY0UmpBTkJLM09uYWtJbHdrUkN0dE1YUDh0?=
- =?utf-8?B?RStqZWtKTFFtMFM1NEdxaFdjNEE5RTBNWTcxeFQ2dWFiT0hJSGkwRGo2Tng3?=
- =?utf-8?B?ZER6cTg2R1dxV3pnT2Jacko2bUIvVVVjb1pLU2NucmtVRTJUbzNjSzRNRXdN?=
- =?utf-8?B?Z1gvUklveW1JM04wYU1mc2dITW1TTDRJT0xSYXBMdThWWDNVZFBidnk5SXRY?=
- =?utf-8?B?TytPQTY2dW5raElqdWhBY0hBYzhuV3l2UmhrcnE1KzVBZG4yNytpN0lWMWZx?=
- =?utf-8?B?Zm9IYU5PQmNBVndURkxFMFhDVys1aEJDWHl0UmMvOUhLQWtyU2lVK2R4d05i?=
- =?utf-8?B?ajVpZkJtZ2o1cUpNTkdCejhNQzgzY0c5bCtLZ1I4Y3FlUDRsaW1CeU1sQzdQ?=
- =?utf-8?B?U3hJOXpGK3BydVZYcGxNZ2pTUS9GY3g3VTRITlV0c2R3dEY1RDFBc3FQSGJX?=
- =?utf-8?B?OXhvdW8xVS9kUDhpMzFWblA1UHBRQjJtTDh1cHRpbzJOaWNWeWFWRzJXekFG?=
- =?utf-8?B?UEFFWTMrSFZST0NQYTgvNFVvOENPODFVYTQvcGo3ME1rM3diTW5kcUwzOW1K?=
- =?utf-8?B?UllQUmhTTnJzRU93MWw5K3MzZ0hEQ0xHcUxKZTRvWHREWnJGczZUYnNwSDRq?=
- =?utf-8?B?MlUzY0p6VklkR25KKzZGMlpzc2NDeEEzeE9qOWNBcFB5c1NrY2l3N3FxM1U4?=
- =?utf-8?B?RFVFK3A1dlQyVU5kdTZJVGZaRFdRWFBOdzA5VHROL3FBNGEwL3BhTlZVTG5X?=
- =?utf-8?B?SXl6TzV0bW5SUkdsN0FzSXg5K0Y5bk8wN25mOGdHMkFrSXpNdDMzb05xdGxR?=
- =?utf-8?B?aS9obm9kRUFLZ3VQVEk4TmF1RFM0SXEyWmlwSzhrYlZlT2NFajRNM0FxU3pR?=
- =?utf-8?B?WHF0UFUvdDBYaElTeEFRTEh4aVMvZnVjZ3ZNa3ZOMjhvalZTQ24zMUI0SFV3?=
- =?utf-8?B?cUl2SkZFOExDcW80ZzgxT0tiNkptYWRNckFDeCtWc2VIc1pyaXNkNnhuMnBL?=
- =?utf-8?B?U0dLTFVBKy82NUxWUmwzQ080NEVIYUU1bFY3N0RxZVMxaHUrUjRsZXlvT0xN?=
- =?utf-8?B?Z0JnaXNUZ1B4a1lwd2pYZGU3cWswT3lmQWlnUDRHTkppQUF6eDVrRmVlQlRY?=
- =?utf-8?B?UFQrSXZ4Y3dVMWN4WnQrNHNjVmNBdWJwUGpTUWlvQWgxL3VsK1c1T05Ldm5G?=
- =?utf-8?B?WTE0a0pEUW1tRzRsUFFwTExmYjZHYm1aM0pNcnd0azVDZW9UMmU1SGVOc2d6?=
- =?utf-8?B?K3E5K2p3NlNnaHVmRTRZbE15N1RxRXU0bENmQ291THl5MSs3eGdzMTNwbVFr?=
- =?utf-8?B?cCs4UzBWUTVYR05QSDlGUW91eXA4azBzUzJaeEZNODVoOUNKZm00MnBUSTI0?=
- =?utf-8?B?Y3dLZDA3SWxuektidEY4UmJtL3loMm05NFF1SC9MTjdTVnpTOUF3MTR2VHYz?=
- =?utf-8?B?OGkvbmgvRkUrZEI5d1NxQjF2UlBpUVJySGdHMjgxWWFlV3ExaWlUWUpaSXRL?=
- =?utf-8?B?eU1oN21pbGk4clJTeUNQYjdaMjBhbjRTZDBLMEJXYi96Z1V2aTVRbDJhQ2w0?=
- =?utf-8?B?Nzd1eW5GOG5mdXVOa09nSUx1RGYxM3lPZ1IyeWNlaU5mM2hLZmxxcHJLcmJj?=
- =?utf-8?B?dEx2K1hWUFNoSjJKbmFGZ09MbmRkcytZaXhTQnVISjBKbjduUXNUcndLYTl6?=
- =?utf-8?B?bUE4dUJFMXVDQmlMWjlaNndlaXczYXJBMEpydCtrL0lCRmR1ckhvUXJvNE1h?=
- =?utf-8?Q?PWTkdCF6fYHCZFjulrriIsNtj?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2ba0480-5a72-4694-680d-08db86aa4638
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 09:43:28.4625
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CnC+ck1CyM0JSMEfYfiEI0Sm1ObkEsrNoozls7f7ptkc5x35U1pENLqKclfIT2PzX7spogIkppCgKS2RL+rj3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6916
+Subject: [libvirt test] 181808: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    libvirt:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=36b247b908e50534a8450909f87bb3f0216a9ff7
+X-Osstest-Versions-That:
+    libvirt=14026db9b0e25739ea30685bd643ff23aca30588
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 17 Jul 2023 09:51:50 +0000
 
-As supported by the printk() (deliberately made visible in context by
-also correcting a mis-indented return statement), "above 4GiB" is meant
-here. Avoid comparison with a constant to "escape" Misra rule 7.2
-complaints. (Note however that even up-to-date Linux, which is where we
-"inherited" this code from, still uses the very same off-by-1 check.)
+flight 181808 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181808/
 
-Fixes: 94ea0622c5b8 ("x86-64/mmcfg: relax base address restriction")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Regressions :-(
 
---- a/xen/arch/x86/x86_64/acpi_mmcfg.c
-+++ b/xen/arch/x86/x86_64/acpi_mmcfg.c
-@@ -50,7 +50,7 @@ static int __init acpi_mcfg_check_entry(
- {
-     int year;
- 
--    if (cfg->address < 0xFFFFFFFF)
-+    if (cfg->address == (uint32_t)cfg->address)
-         return 0;
- 
-     if (!strncmp(mcfg->header.oem_id, "SGI", 3))
-@@ -59,7 +59,7 @@ static int __init acpi_mcfg_check_entry(
-     if (mcfg->header.revision >= 1 &&
-         dmi_get_date(DMI_BIOS_DATE, &year, NULL, NULL) &&
-         year >= 2010)
--            return 0;
-+        return 0;
- 
-     printk(KERN_ERR "MCFG region for %04x:%02x-%02x at %#"PRIx64
-                     " (above 4GB) ignored\n",
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 181789
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 181789
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt   16 saverestore-support-check fail blocked in 181789
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181789
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181789
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ libvirt              36b247b908e50534a8450909f87bb3f0216a9ff7
+baseline version:
+ libvirt              14026db9b0e25739ea30685bd643ff23aca30588
+
+Last test of basis   181789  2023-07-14 04:21:56 Z    3 days
+Testing same since   181808  2023-07-15 04:18:52 Z    2 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Tim Small <tim@seoss.co.uk>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 36b247b908e50534a8450909f87bb3f0216a9ff7
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 12:00:04 2023 +0100
+
+    docs: Reword ninja invocation note to clarify build directory
+    
+    Minor rewording to clarify purpose of the -C flag in the ninja
+    invocation, whilst retaining previous meaning.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit ef7228f5ca22c7ebb47d40ce87b8c4817fd28c7c
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 12:00:03 2023 +0100
+
+    docs: Fix deprecated use of implicit meson "setup" command
+    
+    Use the explicit meson "setup" command instead of the deprecated
+    implicit invocation. The implied setup usage generates a warning with
+    meson version 1.0.1:
+    
+    WARNING: Running the setup command as `meson [options]` instead of
+    `meson setup [options]` is ambiguous and deprecated.
+    
+    Additionally the implicit command is likely to be confusing to those
+    unfamiliar with Meson - the `build` argument in `meson build` resembles
+    an action rather than an arbitrary path.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 4d50cd23c91c54996ba78f424811e0570ed7cb91
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 12:00:02 2023 +0100
+
+    docs: Point to mailing list archives from submitting-patches
+    
+    Suggest that new contributors should review past patch submissions for
+    typical style, feedback etc. prior to submitting. Link to archives.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 7160215146c9b3085a40e3923ab895644de3a645
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 12:00:01 2023 +0100
+
+    docs: Advise running CI tests prior to submission
+    
+    In the preparing patches section, note that it is possible to run CI
+    tests via gitlab prior to submitting patches.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 941fc36f114e6581425310462bd148b924d99495
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 12:00:00 2023 +0100
+
+    docs: Reword "Preparing Patches" to clarify
+    
+    Clarify that patches should apply cleanly to the master branch. Give
+    guidance for typical bug fix process for existing releases.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 3da8d8b5b1c48ae780d0ae76cec9a432e2cc6d39
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 11:59:59 2023 +0100
+
+    docs: Add config instructions for clangd with libvirt
+    
+    In build environments which use gcc as the default compiler, use of the
+    clangd LSP server (for enhanced code editing and navigation etc.) with
+    libvirt requires some additional configuration.  Detail this and link
+    from `hacking.rst`.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 401a6171a3ea80c3f00e25b78132a4346c346e68
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 11:59:58 2023 +0100
+
+    docs: Point to compiling guide from code contribution guide
+    
+    The "hacking" doc details where to find the code, but not how to compile
+    it - link to the instructions contained in `compiling.rst`.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 721897086254850c9fd1cf762695d265fc30e4b8
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 11:59:57 2023 +0100
+
+    docs: Link main "contributing" from programming-specific guide
+    
+    There are two guides to contributing: `hacking.rst` is focused on code
+    contributions, and `contributing.rst` is more general. Clarify scope of
+    `hacking.rst` and link to the general guide in its references.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 225f6de45fc0520d7a4e1037419ab85c97ffe2c4
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 11:59:56 2023 +0100
+
+    docs: Missing "full-stop"/"period" on some bullet items
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit cccf129c2d253fdb8f49cb89d4442dd019a482a3
+Author: Tim Small <tim@seoss.co.uk>
+Date:   Thu Jul 13 11:59:55 2023 +0100
+
+    docs: Link to main docs directory from Quick Links
+    
+    Whilst the "docs" documentation map is linked in the navigation bar,
+    users may scroll down and lose sight of this, so also place at the
+    bottom of the "Quick Links" section.
+    
+    Signed-off-by: Tim Small <tim@seoss.co.uk>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
 
