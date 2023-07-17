@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079587568A0
+	by mail.lfdr.de (Postfix) with ESMTPS id 799EA7568A2
 	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 18:03:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.564731.882411 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.564733.882425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLQh6-0002zg-Ss; Mon, 17 Jul 2023 16:03:28 +0000
+	id 1qLQh7-0003HW-Tf; Mon, 17 Jul 2023 16:03:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 564731.882411; Mon, 17 Jul 2023 16:03:28 +0000
+Received: by outflank-mailman (output) from mailman id 564733.882425; Mon, 17 Jul 2023 16:03:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLQh6-0002v1-NW; Mon, 17 Jul 2023 16:03:28 +0000
-Received: by outflank-mailman (input) for mailman id 564731;
- Mon, 17 Jul 2023 16:03:26 +0000
+	id 1qLQh7-00037B-LN; Mon, 17 Jul 2023 16:03:29 +0000
+Received: by outflank-mailman (input) for mailman id 564733;
+ Mon, 17 Jul 2023 16:03:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fcy7=DD=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qLQh4-0002Zo-LD
- for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 16:03:26 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ id 1qLQh5-0002Zo-Ih
+ for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 16:03:27 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75af6146-24bb-11ee-8611-37d641c3527e;
- Mon, 17 Jul 2023 18:03:24 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4fb73ba3b5dso7599782e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jul 2023 09:03:24 -0700 (PDT)
+ id 764ff69d-24bb-11ee-8611-37d641c3527e;
+ Mon, 17 Jul 2023 18:03:25 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5216569f9e3so4831001a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jul 2023 09:03:25 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net
  (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
  by smtp.gmail.com with ESMTPSA id
- bo28-20020a0564020b3c00b0051df5bd1cd8sm10099050edb.65.2023.07.17.09.03.23
+ bo28-20020a0564020b3c00b0051df5bd1cd8sm10099050edb.65.2023.07.17.09.03.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jul 2023 09:03:23 -0700 (PDT)
+ Mon, 17 Jul 2023 09:03:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,142 +46,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75af6146-24bb-11ee-8611-37d641c3527e
+X-Inumbo-ID: 764ff69d-24bb-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1689609804; x=1692201804;
+        d=cloud.com; s=cloud; t=1689609805; x=1692201805;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=v0IhxmE72AYW3LaZbJhXXAiAR4Fd8XXkCy6sjFZ0aFM=;
-        b=FtvKo5PCq617lmKRFyV0zgLNB30iOSu8auC6E2SOys3Xyqd1Rucss97XPbNM20PqXT
-         SPQfBQbbQObshwWPAkZzbmIPg7N436jBLf7+3WQ6DXGTXHjCtYZmCRrZvig/7frXOgdI
-         M+3JpXTV8FmMP83cXmg0nAcyJtUv1ZZtuwFNA=
+        bh=HhpWCn/ri7wmy6U70OoVzKYS333ZuYeUMZy4TaZcJGg=;
+        b=LC8OXhHYu2epObgaJF1GN8yE+taRZmj2Deix//fzqFxnm4zzgTsSRxqKU35v6fbcaY
+         Fo3dh22EUX1fPQx8YgXsJt8gWAY5OeKljz9zY2CL4yNl9ksag1Y0Q0Wy4rmZSqD07dSt
+         OHNePmKyjiZElFKHZrs6C2QYd+1pzVU4Ppjjo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689609804; x=1692201804;
+        d=1e100.net; s=20221208; t=1689609805; x=1692201805;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=v0IhxmE72AYW3LaZbJhXXAiAR4Fd8XXkCy6sjFZ0aFM=;
-        b=kAxBWSDNE5fv6w2AE3R8M8A1mWUG2Z3t1OkRZnGz5Lo+Uxp3mLSdOMpUcrIfdR9o1J
-         QgfaKZWCw3EFUS+OUSEPFR1MlwUNwj0e8KtyxPPDwifmKYpgrrIYIl3QEXzJOKP99/9e
-         bhtI0hJG5cMvFwhHjicZdMsuko6FOxVxU7JHbUeuWeTT0/yehL+UWCLOROwmI/8M9TtI
-         WkXjy2P7QAez7W4J9WLUT70n+LIyQW7YrgUO2Y9qG+H8eSOcnt2iThPmMDGth4ASLMvE
-         7tf4EicvigZawKi6E1QhmZi4+gNurGt38rBp+ja72qdZxXdzm1Thv1enRGrpdBQIrPiE
-         oBwQ==
-X-Gm-Message-State: ABy/qLZx+Ob8gHrCSWaT1GcWIlyOEATiV3b6w/DqNjkBKrOrHynawk/i
-	CPevNMJCwyLDPN6pb5fwoNf8AYF2HPavChTT/Yw=
-X-Google-Smtp-Source: APBJJlGlOoLPXXCdptae0m4OTaZqL/bcr7BbXfoZ/2PlFQ6YxvMLg3XpFG5LN6Zp4BtfhPEDporJiw==
-X-Received: by 2002:a05:6512:3194:b0:4f9:586b:dba6 with SMTP id i20-20020a056512319400b004f9586bdba6mr10059097lfe.10.1689609804064;
-        Mon, 17 Jul 2023 09:03:24 -0700 (PDT)
+        bh=HhpWCn/ri7wmy6U70OoVzKYS333ZuYeUMZy4TaZcJGg=;
+        b=dWAR5Hhju0ANpEtpW7+pxIjBSgcO24xiYdOa1+j/KjroscnrIWpD3J7VXbSzF889Qd
+         neXSPIZZrJ2D+JWdttDqptH0e8cTwaCS8mWcMr/u+sSiqAJGz1KzvKqcUuZGjgUazosG
+         40fvk1r3Cs8KBryJKh9DU9jmIagUYdNvWQ1EOnIOU4JWplTjfqM+WurlXlLSDdb0Fe6g
+         puGHCkYSn5A9vmxDI6ne8/3QYGdtb88O3D+EncWIdYLGFBvhvlktGZDEh1FfJZoHYlrn
+         VB/HvuCrXdZRYCHJhpsUspCnVyXdIdeO4zAD+CCdrQZKUs+PjTG064Id0YxD1iJHKMnM
+         jhpg==
+X-Gm-Message-State: ABy/qLY/mgRNmWM0A2KTZPakhNB2WXJyWDZweNRnGLb+q6GK6l8rXIAg
+	9h8N7aAdTF61BMygIGS5HFuwchzlSwoZNugTIYg=
+X-Google-Smtp-Source: APBJJlFnFUUmOQ+wqt6dusKepCAatkVsCd0yz8EvIbApX95MNtQnG6lkA4Vb2tobteJBuPe+BusbqA==
+X-Received: by 2002:a05:6402:335:b0:51e:288d:2a27 with SMTP id q21-20020a056402033500b0051e288d2a27mr12091129edw.11.1689609805273;
+        Mon, 17 Jul 2023 09:03:25 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 4/8] build: Remove CONFIG_HAS_PDX
-Date: Mon, 17 Jul 2023 17:03:14 +0100
-Message-Id: <20230717160318.2113-5-alejandro.vallejo@cloud.com>
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 6/8] mm/pdx: Standardize region validation wrt pdx compression
+Date: Mon, 17 Jul 2023 17:03:16 +0100
+Message-Id: <20230717160318.2113-7-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
 References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-It's set everywhere and can't be turned off because it's presence is
-assumed in several parts of the codebase. This is an initial patch towards
-adding a more fine-grained CONFIG_HAS_PDX_COMPRESSION that can actually be
-disabled on systems that don't typically benefit from it.
+Regions must be occasionally validated for pdx compression validity. That
+is, whether any of the machine addresses spanning the region have a bit set
+in the pdx "hole" (which is expected to always contain zeroes). There are
+a few such tests through the code, and they all check for different things.
 
-No functional change.
+This patch replaces all such occurences with a call to a centralized
+function that checks a region for validity.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
- xen/arch/arm/Kconfig  | 1 -
- xen/arch/x86/Kconfig  | 1 -
- xen/common/Kconfig    | 3 ---
- xen/common/Makefile   | 2 +-
- xen/include/xen/pdx.h | 3 ---
- 5 files changed, 1 insertion(+), 9 deletions(-)
+ xen/arch/x86/x86_64/mm.c |  2 +-
+ xen/common/efi/boot.c    |  6 +++---
+ xen/common/pdx.c         | 13 +++++++++++--
+ xen/include/xen/pdx.h    |  9 +++++++++
+ 4 files changed, 24 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 439cc94f33..ea1949fbaa 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -14,7 +14,6 @@ config ARM
- 	select HAS_ALTERNATIVE
- 	select HAS_DEVICE_TREE
- 	select HAS_PASSTHROUGH
--	select HAS_PDX
- 	select HAS_PMAP
- 	select HAS_UBSAN
- 	select IOMMU_FORCE_PT_SHARE
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 92f3a627da..30df085d96 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -24,7 +24,6 @@ config X86
- 	select HAS_PASSTHROUGH
- 	select HAS_PCI
- 	select HAS_PCI_MSI
--	select HAS_PDX
- 	select HAS_SCHED_GRANULARITY
- 	select HAS_UBSAN
- 	select HAS_VPCI if HVM
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index dd8d7c3f1c..40ec63c4b2 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -53,9 +53,6 @@ config HAS_IOPORTS
- config HAS_KEXEC
- 	bool
+diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+index 60db439af3..914e65c26c 100644
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -1168,7 +1168,7 @@ static int mem_hotadd_check(unsigned long spfn, unsigned long epfn)
+     if ( (spfn | epfn) & ((1UL << PAGETABLE_ORDER) - 1) )
+         return 0;
  
--config HAS_PDX
--	bool
--
- config HAS_PMAP
- 	bool
+-    if ( (spfn | epfn) & pfn_hole_mask )
++    if ( !pdx_is_region_compressible(spfn, epfn) )
+         return 0;
  
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 46049eac35..0020cafb8a 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -29,7 +29,7 @@ obj-y += multicall.o
- obj-y += notifier.o
- obj-$(CONFIG_NUMA) += numa.o
- obj-y += page_alloc.o
--obj-$(CONFIG_HAS_PDX) += pdx.o
-+obj-y += pdx.o
- obj-$(CONFIG_PERF_COUNTERS) += perfc.o
- obj-bin-$(CONFIG_HAS_PMAP) += pmap.init.o
- obj-y += preempt.o
+     /* Make sure the new range is not present now */
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 24169b7b50..b098a8c030 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -14,6 +14,7 @@
+ #include <xen/multiboot.h>
+ #include <xen/param.h>
+ #include <xen/pci_regs.h>
++#include <xen/pdx.h>
+ #include <xen/pfn.h>
+ #if EFI_PAGE_SIZE != PAGE_SIZE
+ # error Cannot use xen/pfn.h here!
+@@ -1647,7 +1648,7 @@ static bool __init cf_check ram_range_valid(unsigned long smfn, unsigned long em
+ {
+     unsigned long sz = pfn_to_pdx(emfn - 1) / PDX_GROUP_COUNT + 1;
+ 
+-    return !(smfn & pfn_hole_mask) &&
++    return pdx_is_region_compressible(smfn, emfn) &&
+            find_next_bit(pdx_group_valid, sz,
+                          pfn_to_pdx(smfn) / PDX_GROUP_COUNT) < sz;
+ }
+@@ -1759,8 +1760,7 @@ void __init efi_init_memory(void)
+             prot |= _PAGE_NX;
+ 
+         if ( pfn_to_pdx(emfn - 1) < (DIRECTMAP_SIZE >> PAGE_SHIFT) &&
+-             !(smfn & pfn_hole_mask) &&
+-             !((smfn ^ (emfn - 1)) & ~pfn_pdx_bottom_mask) )
++             pdx_is_region_compressible(smfn, emfn))
+         {
+             if ( (unsigned long)mfn_to_virt(emfn - 1) >= HYPERVISOR_VIRT_END )
+                 prot &= ~_PAGE_GLOBAL;
+diff --git a/xen/common/pdx.c b/xen/common/pdx.c
+index 99d4a90a50..72845e4bab 100644
+--- a/xen/common/pdx.c
++++ b/xen/common/pdx.c
+@@ -88,7 +88,7 @@ bool __mfn_valid(unsigned long mfn)
+ }
+ 
+ /* Sets all bits from the most-significant 1-bit down to the LSB */
+-static uint64_t __init fill_mask(uint64_t mask)
++static uint64_t fill_mask(uint64_t mask)
+ {
+     while (mask & (mask + 1))
+         mask |= mask + 1;
+@@ -96,6 +96,15 @@ static uint64_t __init fill_mask(uint64_t mask)
+     return mask;
+ }
+ 
++bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn)
++{
++    uint64_t base = smfn << PAGE_SHIFT;
++    uint64_t len = (emfn - smfn) << PAGE_SHIFT;
++
++    return !(smfn & pfn_hole_mask) &&
++           !(pdx_region_mask(base, len) & ~ma_va_bottom_mask);
++}
++
+ /* We don't want to compress the low MAX_ORDER bits of the addresses. */
+ uint64_t __init pdx_init_mask(uint64_t base_addr)
+ {
+@@ -103,7 +112,7 @@ uint64_t __init pdx_init_mask(uint64_t base_addr)
+                          (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
+ }
+ 
+-uint64_t __init pdx_region_mask(uint64_t base, uint64_t len)
++uint64_t pdx_region_mask(uint64_t base, uint64_t len)
+ {
+     /*
+      * We say a bit "moves" in a range if there exist 2 addresses in that
 diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
-index de5439a5e5..67ae20e89c 100644
+index f8ca0f5821..5378e664c2 100644
 --- a/xen/include/xen/pdx.h
 +++ b/xen/include/xen/pdx.h
-@@ -67,8 +67,6 @@
-  * region involved.
-  */
+@@ -77,6 +77,15 @@ extern unsigned long pfn_top_mask, ma_top_mask;
+                          (sizeof(*frame_table) & -sizeof(*frame_table)))
+ extern unsigned long pdx_group_valid[];
  
--#ifdef CONFIG_HAS_PDX
--
- extern unsigned long max_pdx;
- extern unsigned long pfn_pdx_bottom_mask, ma_va_bottom_mask;
- extern unsigned int pfn_pdx_hole_shift;
-@@ -171,7 +169,6 @@ static inline unsigned long pdx_to_pfn(unsigned long pdx)
-  */
- void pfn_pdx_hole_setup(unsigned long mask);
- 
--#endif /* HAS_PDX */
- #endif /* __XEN_PDX_H__ */
- 
- /*
++/**
++ * Validate a region's compatibility with the current compression runtime
++ *
++ * @param smfn Start mfn
++ * @param emfn End mfn (non-inclusive)
++ * @return True iff the region can be used with the current compression
++ */
++bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn);
++
+ /**
+  * Calculates a mask covering "moving" bits of all addresses of a region
+  *
 -- 
 2.34.1
 
