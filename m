@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43EE275662D
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 16:18:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.564614.882155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFA2375662E
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 16:18:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.564620.882166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLP2j-0003D2-26; Mon, 17 Jul 2023 14:17:41 +0000
+	id 1qLP3A-0003gf-Ad; Mon, 17 Jul 2023 14:18:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 564614.882155; Mon, 17 Jul 2023 14:17:41 +0000
+Received: by outflank-mailman (output) from mailman id 564620.882166; Mon, 17 Jul 2023 14:18:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLP2i-0003A5-Vj; Mon, 17 Jul 2023 14:17:40 +0000
-Received: by outflank-mailman (input) for mailman id 564614;
- Mon, 17 Jul 2023 14:17:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qLP3A-0003eZ-78; Mon, 17 Jul 2023 14:18:08 +0000
+Received: by outflank-mailman (input) for mailman id 564620;
+ Mon, 17 Jul 2023 14:18:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LRey=DD=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qLP2h-00039z-0g
- for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 14:17:39 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae18138f-24ac-11ee-8611-37d641c3527e;
- Mon, 17 Jul 2023 16:17:37 +0200 (CEST)
-Received: from [192.168.1.100] (unknown [37.163.206.54])
- by support.bugseng.com (Postfix) with ESMTPSA id 1661B4EE0737;
- Mon, 17 Jul 2023 16:17:31 +0200 (CEST)
+ <SRS0=peYT=DD=citrix.com=prvs=555f7cff5=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qLP39-0003RA-3m
+ for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 14:18:07 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be727ee2-24ac-11ee-b23a-6b7b168915f2;
+ Mon, 17 Jul 2023 16:18:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +36,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae18138f-24ac-11ee-8611-37d641c3527e
-Message-ID: <d01fe137-756e-5a0c-4f7c-35895606c1fa@bugseng.com>
-Date: Mon, 17 Jul 2023 16:17:27 +0200
+X-Inumbo-ID: be727ee2-24ac-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689603485;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=UJMyvEEmIjIbPLQ3Zyo8P65ouEn3wRNR82i0jvI+GIc=;
+  b=e3ks1QkPVNhsuXV7iCj23GIhTnb0tzz7TDzioTOSMTArrW1DvcKoTLJe
+   1q50RBj9AzKWEept4tfDullHO1fL7mLouvSV3YiteRiF4fJLQplDPKXbP
+   mhrKsjKrBX9pYxPfO4QJ+CZIRc396BilV+85D4pfLYplWSLac3r4zOMfK
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 116488458
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:GpzE46NwYgZ8AyPvrR3/l8FynXyQoLVcMsEvi/4bfWQNrUog3jEHy
+ 2NLC2+Ba/qCY2Lzetsjat6/oE8GusWEytJmSwto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/vrRC9H5qyo42tH5wNmPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0vRoBENvz
+ OAqFDlORRKsiu6b/rHqF8A506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUoXTG5kFzhrF9
+ goq+UzWDhs9D5uQwwCq61CJicDzsHzme6Q7QejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxa5UgU0AoQKVbdgsUfUl/SSulzCboQZctJfQM45se0XfCAY6
+ lbKtNHGCDBCjr7EFFvIo994sgiO1TgpwX4qPHFUHFZfsoW98OnfnTqUEI89TffdYsndXGipn
+ mvU9HVWa6A715Zj6kmtwbzQb9tATLDtRxV92AjYV3nNAuhRNN/8PNzABbQ2AJ99wGelorqp5
+ iJsdzC2trxmMH10vHXlrB8xNL+o/e2ZFzbXnERiGZIsnxz0pS7yINsKvG0jeho0WirhRdMOS
+ BaO0T69GbcJZCf6BUOJS9nZ5zsWIVjISo2+C6G8gitmaZltbg6XlByClmbJt10BZHMEyPllU
+ b/CKJbEMJrvIfg/pNZAb7tHgOBDK+FX7T+7eK0XODz8i+XDOyHOEO1t3ZnnRrlR0Z5oaT79q
+ 753X/ZmAT0GOAEiSkE7KbIuEG0=
+IronPort-HdrOrdr: A9a23:aNZ2iq5bZS7mtu0qCwPXwAzXdLJyesId70hD6qkQc3Fom62j5q
+ WTdZEgvyMc5wx/ZJhNo7690cq7MBHhHPxOgbX5VI3KNGXbUQOTR72KhrGSoAEIdReeygZcv5
+ 0QCZSXCrfLfCVHZRCR2njFLz4iquP3j5xBnY3lvhNQpZkBUdAZ0+9+YDzrdXFedU19KrcSMo
+ GT3cZDryrIQwVtUizqbkN1OdQqvrfw5evbXSI=
+X-Talos-CUID: 9a23:32ys5mzOszD0gQWaK4nrBgUGBcUHU0TB/kvZYGS6JmtlZYOWGAK5rfY=
+X-Talos-MUID: =?us-ascii?q?9a23=3A0ETYXA5ny30zm7/1JmZvigDSxoxH766JMwcCm68?=
+ =?us-ascii?q?pouuhOgNMFmiArxKeF9o=3D?=
+X-IronPort-AV: E=Sophos;i="6.01,211,1684814400"; 
+   d="scan'208";a="116488458"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: [OSSTEST PATCH] ts-xen-build-prep: force use of git protocol v2
+Date: Mon, 17 Jul 2023 15:17:45 +0100
+Message-ID: <20230717141745.33470-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [RFC PATCH 2/4] xen/arm64: bitops: justify uninitialized variable
- inside a macro
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "michal.orzel@amd.com" <michal.orzel@amd.com>,
- "xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>,
- "ayan.kumar.halder@amd.com" <ayan.kumar.halder@amd.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>, Julien Grall <julien@xen.org>
-References: <cover.1689329728.git.nicola.vetrini@bugseng.com>
- <d06a312944bee7457fa2ac75e0cfef20f0ec430f.1689329728.git.nicola.vetrini@bugseng.com>
- <d1ccb5e1-d122-88df-e46a-39494b6d6d12@xen.org>
- <299D0BAE-D15E-4260-AF3E-8D84CF058083@arm.com>
- <528fb310-f469-e449-d1c3-269fa7dec750@xen.org>
- <2bc64be1-10c0-d064-a5a2-1f076b596e6e@bugseng.com>
- <c89d59de-4aaa-7b60-181d-5c3658181b3a@suse.com>
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-In-Reply-To: <c89d59de-4aaa-7b60-181d-5c3658181b3a@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+Recent version of QEMU (to be 8.1) started to use meson subproject to
+clone extra repo. With the example of the subproject "dtc", they do a
+shallow clone with a sha1. Meson end up running:
 
+    git fetch --depth 1 origin b6910bec11614980a21e46fbccc35934b671bd81
 
-On 17/07/23 16:06, Jan Beulich wrote:
-> On 17.07.2023 14:16, Nicola Vetrini wrote:
->> On 16/07/23 18:50, Julien Grall wrote:
->>> On 16/07/2023 10:20, Luca Fancellu wrote:
->>>>> On 14 Jul 2023, at 14:05, Julien Grall <julien@xen.org> wrote:
->>>>> On 14/07/2023 12:49, Nicola Vetrini wrote:
->>>>>> The macro 'testop' expands to a function that declares the local
->>>>>> variable 'oldbit', which is written before being set, but is such a
->>>>>> way that is not amenable to automatic checking.
->>>>>
->>>>> The code is pretty straightforward. So I am not entirely sure why
->>>>> Eclair is not happy. Is it because the value is set by assembly code?
->>
->> Exactly. The reason why I didn't just state that oldbit is always
->> written or never read before being written in that function is that I
->> was unsure about the meaning of the assembly.
-> 
-> So I'm pretty sure the tool wouldn't take apart the string literal passed
-> first to the asm(). Instead I expect it goes from the operands specified,
-> which for oldbit is "=&r". There's nothing conditional here, so if the
-> tool didn't trust that outputs are written, it would need to flag such an
-> issue on about any asm() having outputs.
-> 
-> I hope the issue isn't that the tool doesn't properly deal with the
-> do/while.
-> 
-> In any event: I may misremember earlier discussions, but isn't this a
-> pretty obvious false positive? In which case didn't we mean to flag
-> those as such (because really an improved checking tool could avoid them)?
-> 
-> Jan
-> 
+This command fails. I think the error message is something like "the
+remote end hung up unexpectedly", on Debian Buster. A more useful
+message with more recent version of git seems to be "couldn't find
+remote ref".
 
-Actually, given that the function indeed always writes oldbit in the asm 
-instruction, I can state that this post-condition holds for the function.
+If we allow git to communicate with the protocol v2, then the shallow
+clone works. But git on buster still use v1 by default. Force it to
+use v2.
 
+This needs a git-cache-proxy version that can allow to switch to v2 of
+the protocol. A bug is open upstream to track this change:
+    https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1040476
+
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+
+Notes:
+    I've already apply the patch to our git-cache-proxy version in the
+    testlab.
+    
+    Also, I've been using this osstest patch a few times, and none of my
+    flights broke because if it, so I guess git-protocol v2 work well enough
+    in buster, even if it isn't the default yet in this git version.
+
+ Osstest/TestSupport.pm | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/Osstest/TestSupport.pm b/Osstest/TestSupport.pm
+index 360cfdea..f0e087aa 100644
+--- a/Osstest/TestSupport.pm
++++ b/Osstest/TestSupport.pm
+@@ -3254,6 +3254,14 @@ sub gitcache_setup ($) {
+         insteadOf = ${proxy}$urlprefix
+ END
+     }
++
++    # Adding mandadory use of Git protocol v2
++    # necessary on buster when building QEMU v8.1
++    $gitcfg .= <<END;
++[protocol]
++	version = 2
++END
++
+     target_putfilecontents_stash($ho,30,$gitcfg,"/home/osstest/.gitconfig",
+                                  'home-osstest-gitconfig');
+ }
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Anthony PERARD
+
 
