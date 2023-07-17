@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 914F97567CC
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 17:24:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.564688.882295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 307527567DE
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 17:26:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.564693.882306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLQ5X-0001Oz-J6; Mon, 17 Jul 2023 15:24:39 +0000
+	id 1qLQ7V-00023k-31; Mon, 17 Jul 2023 15:26:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 564688.882295; Mon, 17 Jul 2023 15:24:39 +0000
+Received: by outflank-mailman (output) from mailman id 564693.882306; Mon, 17 Jul 2023 15:26:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLQ5X-0001NA-GF; Mon, 17 Jul 2023 15:24:39 +0000
-Received: by outflank-mailman (input) for mailman id 564688;
- Mon, 17 Jul 2023 15:24:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qLQ7V-00020P-0M; Mon, 17 Jul 2023 15:26:41 +0000
+Received: by outflank-mailman (input) for mailman id 564693;
+ Mon, 17 Jul 2023 15:26:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hD51=DD=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qLQ5W-0001N4-Co
- for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 15:24:38 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061a.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09602ff2-24b6-11ee-8611-37d641c3527e;
- Mon, 17 Jul 2023 17:24:36 +0200 (CEST)
+ id 1qLQ7T-00020F-E1
+ for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 15:26:39 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2060b.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 526287b5-24b6-11ee-b23a-6b7b168915f2;
+ Mon, 17 Jul 2023 17:26:38 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PAXPR04MB8458.eurprd04.prod.outlook.com (2603:10a6:102:1d9::17)
+ by AS5PR04MB9854.eurprd04.prod.outlook.com (2603:10a6:20b:673::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Mon, 17 Jul
- 2023 15:24:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.32; Mon, 17 Jul
+ 2023 15:26:36 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::9bd3:48c9:ff58:9880]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::9bd3:48c9:ff58:9880%4]) with mapi id 15.20.6588.031; Mon, 17 Jul 2023
- 15:24:33 +0000
+ 15:26:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,189 +47,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09602ff2-24b6-11ee-8611-37d641c3527e
+X-Inumbo-ID: 526287b5-24b6-11ee-b23a-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jZM/uUKVdguBYJ7ZqbFHJhK6bYjmm1aaXuLtt6wVAMVILnVa7SsMZ0FhxYafeLPKeV69JsGknLvUg3hFSb3Qx4l7CScwF5QNwqtZPV1sYJ42vYvr3+oXbLwtkFjXVhfqEzfp/EusQq/lfg9Fyvr3Xe0fN+hkqwks42S8uqvB8BpOcuAFPDQoIixx6bVIW3zERyvyCdFUIhm81vNP1opYBHXfWDu4hNmmh7ozkTeGnPLhOwh2ykFn5HqLfbpRz1z6XcW8FHstXG5wo7wKuJoDapYrELwuuGwcp5PUoC3+HfDRrzBY0mrTlJFCL/GJx/4diT6q6cKBVRiIy+RxPbAABw==
+ b=UOWal60g7JqN2Dwdjau/eEo0roAp0PQISj+sk3AawR/rGfD1VtP85gpyh7IAJT0AesC9mFySo9L0gx/txYCJPiTwbfbAB8gKPSuU68le0o6uJDsQzLrsqQrTI0P0xNH6Matf8D4abgXa+CLY1Dc0tOnOOeEtIZszVCHtBCiS5KgifGShIugkpq4LDF/55cIEVz+TC34E6ojhYkFiFwnawNTsVnLwgV6ucusVDqqAuAJdpv4uKoBsKr4tvQhBSZP8X1DoSY/5P5FUwRquwjrXx/ZoqEpcZrc9qKhjJHcDfE3bOdib6vt2VdASf9cTDhKpnJ8puHk7BjpjSeh7ZQ5DYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rETN4uDzWMvRWpBX8XEP1iUCSlsZMqna6EL42TzTo+M=;
- b=n7usenqI0EkbeZ1H3v5+NQ9KjlBEDlaUsQGRy82tGPUBT0enEbLZlGLFmOXg91vHgYkROij0/WATZtopEbNE3B8/fwgBWkxgKeBSwYIp8DL484C5xLlufrkCc7v1Ure3260rI5jR2UnCJXgE/1VKWmn8gcbMLfK3/ZbXa/q6OVgKvnCjH7fJM0MjWCB+/ndr4/EJ1jD6T/uNxhb1xtrybt5H7lH0H3p6PqqeSYDSQWN1JWS7tH+CBrL1Mf3oxf+lp0PvWywCmNkyvMPpIT4GIoIZKYLrxBPqKcOeqJN+N9Mp8zH7LncPHnFdJxmNLBFyQwZfmyWFM4o/f0fl0zJb7w==
+ bh=fFizzRq6ubBUv8UnCTIZeEGNkuJ58yYStXVp4GsQk9I=;
+ b=duh2Iw/FQjv0/INP53xz8Dh/qdTOmWEKG6DmxGKXssUKBAxPKoV+/6FEO2XA6DbRQuRGWqcVS7VJTclp1FqPrJTlHIRswQdDerjFCbkK+7aOsXBB3+AeqVHmbcx9vLjoucFeqCTA/MQD+M0ciLHlos5XbF1Fb3TSug/qil24WEXJvhE+lRnelqEsxAadjJoWMH+qDOaI2uqrdOjtgJAyKfsELKyo/qcIelvdXSf/JtjkGNaA0ZmK4cTVUpWC1E9DpsGLdECAVhicTq/0N/bjabOUOHzgJ7sXgImrEi/sHzSY3hsHERccMUiqNp3b3875pFUkb9q+u+nvlhSrZ7FD3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rETN4uDzWMvRWpBX8XEP1iUCSlsZMqna6EL42TzTo+M=;
- b=NPJri493GCPjR9/Aji/J00lOh5jStsC/5Qhkf3WmR3XZMszXJdB5MdhKcFji6at4RnnbY8ai+CXUB5gLbwq6sx8pAN6RsbV6pylYKXkt59t2lPzvslXywY3hukKuOatBl1fZ2jaHhGQSdceVqpcB7RkQ2iCBDWF+NV/dDKgnW0J+FqGIsRlUhgglgNg2BoUl/Yn9JY2m8n6CQPL3mLfmPBLRbOL5MIkqUyIK5PeCGRH9yafcn6A8dXdD62fh7NFURZ1nkxCRB5vBFQ1gIGm8Z3YroPCEmObCz7EeIJqJ9x0rdABcvDki9iJWzQrXNEJ28tGxG5Ueo/IzZKWw78b3Gw==
+ bh=fFizzRq6ubBUv8UnCTIZeEGNkuJ58yYStXVp4GsQk9I=;
+ b=Vga/xrD9DX7AWjlSIRPvfN/Hge4ekt6BiXWxnG5NjMCO0Cg9jGIABNkspoWurpmyH/7lHNrF0+M7+l8yPed5NO1XxHTYbZRI2Tjk/ayRyab8O3MXTE/F9z0s6Sb0+5MWjmudmcHmqFD3av++myL/Y+7U/xik6L8xNbExI2TN5ZXiBmmzsel5dQ61NZxbMkY5OdWwBFuj94yLmORtmVNCHlxbDj6Wfn5/R+ElIG9hVBRBp9CBzggyIt8d70c1LOkPYjU1QxxLtpuZ437dSwFF+cgk35GcRmQbTNhAHOmsO40ITHls8seeqH8WFVIw81ZMcjvvKK5+rGQEnGEAz7Y64A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ceb81450-90ff-ffbe-431c-37bc60c7946a@suse.com>
-Date: Mon, 17 Jul 2023 17:24:30 +0200
+Message-ID: <8577f99b-7c35-e433-3418-cf8c7dd47f9c@suse.com>
+Date: Mon, 17 Jul 2023 17:26:33 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH v2 1/2] restrict concept of pIRQ to x86
+Subject: Re: [PATCH v3] mm/pdx: Add comments throughout the codebase for pdx
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
- <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
- <0cd9d94b-0a8d-a3e1-d683-04fac1572750@xen.org>
- <8cdf9179-7b3f-5a52-ff02-8ededbe03e0c@suse.com>
- <4a6bd691-95e1-ad15-1054-b43460c85b32@xen.org>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230707160759.12132-1-alejandro.vallejo@cloud.com>
+ <646ce8b8-7a8c-88c1-2b1e-76a721e6f164@suse.com>
+ <64b1232a.050a0220.898b.6177@mx.google.com>
+ <6519818f-d31e-d588-6613-3671cc7427d4@suse.com>
+ <64b55b9e.a70a0220.f2728.ad3a@mx.google.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <4a6bd691-95e1-ad15-1054-b43460c85b32@xen.org>
+In-Reply-To: <64b55b9e.a70a0220.f2728.ad3a@mx.google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0177.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::16) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0072.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8458:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0cfe4f7-b8cf-4f87-ef6b-08db86d9ec49
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS5PR04MB9854:EE_
+X-MS-Office365-Filtering-Correlation-Id: edf718e7-7f4e-4dd1-8b7f-08db86da3569
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+HbqkUZInYNIf/mf2QxMTmf/IZgPR+8Kcf6W/PPYpXRxgrM648HQA3WcVaSqcF9zJ4CngbpfzCbg4HlA3C8Q0/Crx5d21GY9Hj8QXFELgfnnfcecZoRvkXMYX3j2aUtyeAHHwedA2cGIR3UnORTOvFVL48PT08czX+GIS2WFAwQwsck8w6zbPMfo4pdwgS1j2KMAQQRp1a17+QJS7gYgUWZH3zJKuHH0IqGM5cP1mtfJkYg1M8cXxg7hoKQg4IkBZ1bl9kFRwXg1Tar+YGI1ibIUaA84iDzNZKW5pBY/DIXr+QqHfGfN1DQPNWUgYnKRiDmMjGrUdXDa2J4XYgzWvTWyxGigA3Tz8iuzD1NkVe3AdD6YY+9iiWjdUQXMIi9tXJFGpzAro8p3GcGpTfTaEYDHvFtJTklox9QcIXOFaN0o7EbGUw0ujfa8qAxzGG0TW0wen/Xh7mFi2Uy/RyHE4yThxFzm3RrSRpq/VgMMjXWfJaT+M5V83QLmIfG190I2Hp1yNzc9APxAzxyUE93A8qmZBS51aFYGypdjIJvOwkBqxvXkcC5S5XbeBSY8GoM8bgUEs4Y1tLFJwznRR9Gt/iHyQSEUzFC7JZUpNkSDNrRxQ8BojgtW+Y8QiqXJz1fYkd2Go8cCHrV1FlqhZWcRsg==
+	6+jEZRndZxUvMm4UZecn82qY35cbVut9vl1vWsjZcqoveWFrSSyraMdjLrP2h2J/+Nz5A0D/n9XQmUJiCVw54bfa1UHhluq53YOho0p6WAFCucPHq1KU3GEjHEC39GmWXqQf4+Kl8Cqv2A9EZOm161ChOf1i3J4SadbQ5W4OFxC6JxYky3CNGNEngjcofF/EhCsphxsTHSOdOioEOngrpNIYnBLcNCua2etZtd37TV/rRsMFGBnuqqpXjDKFAayLQKnCUpWKgdCYPsfxtVZqWf3tSlfBke5VWyw3pX70KvQFa5oFBOKbwukyOt78Omjzr8AKHIoGSwWh0XRS29bw5HqNCnDWGoeVZqCwHAfYE7ZGOct/75nR81ZVLgzgo1aVHiif5MjHKWiAPjhfjXtZgtzbbogGCDMfHCzt9ZvT0v4qvUdTT55/8ODbg+5EvrKV/Q1ghtnmLG3L+HtO4Xu7GlhiorOSou8RtmFIdoHoAdWZr8waijPJKRN5cyv5CLkZC8658cuvyeyvbrKu4JSeUcMNrsy8plfg/e3A7psPjezSiyiP987LCGtbBrbNB8AzGKqubQM6WU92ZXhEIStcRxq+jooFgvtzR6w3DEk+RgXYtKnDRhfx9Hufj3kQ/X1DOvFDgWoHZGBlGWt4CeOGOA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(346002)(376002)(366004)(39860400002)(136003)(451199021)(54906003)(38100700002)(6486002)(41300700001)(478600001)(8676002)(8936002)(5660300002)(66476007)(6916009)(66556008)(66946007)(316002)(4326008)(2616005)(186003)(83380400001)(6512007)(53546011)(26005)(6506007)(31696002)(86362001)(36756003)(2906002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(346002)(136003)(376002)(396003)(39860400002)(451199021)(478600001)(6486002)(6666004)(54906003)(186003)(53546011)(6506007)(26005)(6512007)(2906002)(316002)(41300700001)(6916009)(66946007)(4326008)(66556008)(8676002)(5660300002)(8936002)(38100700002)(66476007)(36756003)(86362001)(31696002)(2616005)(66899021)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cU02Tkw5dDlqN2FGcXY0WnhoemlFVVBUam1GUFVST0FuRk5CZzEraWdwbU42?=
- =?utf-8?B?aTlrdkptUW05VzM5OFBQcTFTUVI5SXEvdUdVZzNiNlNvUWVtWVZvdVNCTVdn?=
- =?utf-8?B?aVpXLzRGb0JmWndZeHF6L3hDMDZPTGJaaXhlekZHS2c0ZUxCczNINnVTREFt?=
- =?utf-8?B?Z0RWQnhHWGFaT1EyOC91WmJLZmZmT0pNb21RZ0JoaVlkMGNZRkVadWVyZm8x?=
- =?utf-8?B?ZnBEWVF5eHpxTkN3T25BZWlEUkRwZTRJRThCRDI5NVJRUkFOSys0ZzJlQUNK?=
- =?utf-8?B?L0Ric3ZzZjUrdkZHRG5idDc2SVNTNmxjZGJvQkM3ZlJYbC9ETGdyN2o2TEc3?=
- =?utf-8?B?VFlLbElLdVFJMlJQaEFtQmRNOFd4OVpWOXJqbU15bi9UZkZPRTJ2RWYrY3dO?=
- =?utf-8?B?Z0p2cHQ5OFVFV3IrSFJHV2dtOWEvZEc0enVndzJ5VW1FNUN5bmJJQ1pJL0RN?=
- =?utf-8?B?eE8rdCtFOE16VmMvbmZKYmpNUXBKVlk3VlRvRjFnSWhCcGMrOXhpejlrb2cx?=
- =?utf-8?B?ck5uaW9FS0tQVklyY3RTOER0Wks5TFYrTVRqaW55NkdtdWErbFdpQ1BycUt4?=
- =?utf-8?B?Y1AzU3hVeFRIUnZNSDlZR2RQVWR0ZlhqMHNwK1lXTVRjU3Y3YWlhYnp0TUNZ?=
- =?utf-8?B?SEtBT0tGVEwvOXdNVWNmbWl5Y3hIM3lHaEhsaGRKeUszOXZ2cmtFdjNxelFu?=
- =?utf-8?B?ZW11VkpEYXlUVFhneUtTNWdNcjdteVdsQUgyV2VXUnFFSGxBRGYyYmh5WkVy?=
- =?utf-8?B?Wlh0U3B1VS9saFVDMDNiejcyUS9aTm5aV1l5VHpXQWo4VU5OTTV6K2t5YVdC?=
- =?utf-8?B?MllZSTQ3eDgraHdIZWtBSlVtYWlGSmV5dkVhcjRCVXA1ekNJOFlQN29kdEcw?=
- =?utf-8?B?ZkhHSnVLR2VHbDA2OVE1L0NYK0IxbC9ReFZjeWxoNllmY0F3Q2JyQ05aNWZK?=
- =?utf-8?B?NFUyaVI3SkZxeTJma3ZNL3daenBIbXNCVjY4Vi9oNGtyWjZpUEczK2Jqb1Z4?=
- =?utf-8?B?aDNSb2RwZXdpcUJ6ZjJMNkQ0cEl5TkdDVjVDOU1aS1Nvc0VQLzAvRVlidzBO?=
- =?utf-8?B?UERrS0NabytsRGNaMWJvcjJrMXBHb05ndEo3c3ZudThBbFB2R0ZwM0EreDNI?=
- =?utf-8?B?OG9nN1NpWDBqVkZhMkkzczh1a1FXbXJYemxsMW5KWEtOTTV1ZlNrcUtTNjIw?=
- =?utf-8?B?dGl6eUs3VXZLTGg5ajhYSVpPSHBYSVVyS2dIR29XRndSUlZWN3plbnhmTGdG?=
- =?utf-8?B?RHBlT2toUHFiUHVINDkrcDRNTXhaUldVYzBSYUl3Q3FTbkhGRXppY1lpSjFC?=
- =?utf-8?B?cXp2L0ZobWhleU8rci9mR0ZKMHJuQ0hGbVJLUHc5Y1h0Z1hLWVZzekJQcGht?=
- =?utf-8?B?dlJhckZpTEhkWTJIcFhZSElQcTZiZDE5Q2xzb2taVVY5S0hEdFoxL012eW9y?=
- =?utf-8?B?dlZORHI2ZndNby8wNjNKY2dFbVZHOHpXSi9MQzFqS3dRY3MrQWF3d3M0VU5L?=
- =?utf-8?B?RmpLYTlicEVJQnhLY0I2SWptclVHSE9qOWp4ZitETjdZODhTdlJrOFJzQlZR?=
- =?utf-8?B?YXVoK2l4WjRKYVlOSGtaK0R4L3FWVDlMOWdEc2pNMWd2NE9QZDBob1djL0Nj?=
- =?utf-8?B?ZVV6d1p5NzlyQXFzMjQxdldDK2xPS0RJakt3YzlWT2QySHNSVTcrU0xBVVJU?=
- =?utf-8?B?cWZHN2JENWlHRm85QUw0WjJxckNkSDh1YXNWemw0WUpDSFdQRW94VzNNWWN5?=
- =?utf-8?B?Zjg5dmI5UkxHMkI5ek5kTzc0MjB5L3RYY2UxdVRUcEhibnJNNk5KK0YxcXBL?=
- =?utf-8?B?MjNnM1dFajB3c3RQaTFnQjRtNk1uR3ZSYjBJUnpSUFgwRlEyR1NYQ0tRamJC?=
- =?utf-8?B?R0x0QlUvaW5vc21sMTdjZGV5QjFYSFZORFRxaitzdzJxaGY0NzVja0pyOFpV?=
- =?utf-8?B?cjRFMlhTQUZMOXh4clIzelBDcWdzQzBuSmpuMGNsbUZ1ZTBEZ0p1NEdldnBq?=
- =?utf-8?B?eXBmN1F4eElIQ3p2MzJQR00wWmRLWXl5UlV6eGd4bFRaemNITldYancraHph?=
- =?utf-8?B?Mm56REx2SnI0Zi92aWlGYWZWTnU4dnpkNGpKTW9IY2RlQ3A4YkE3WU5EaytQ?=
- =?utf-8?Q?upzshYF1GVZADIz3KmBLT3Sy2?=
+	=?utf-8?B?NGZKMWE2cDZ0cDVjVXFOUXBRMVNnYXF5SWRiL2xIbHRDWklEWHZrRzRQdEFv?=
+ =?utf-8?B?dWtEbTRzZnVQam5lUjU3bFNId2hiMklROHoxOUhjTTJENzJsVWFtd3l1a0Nr?=
+ =?utf-8?B?R01OM1FZRlBQOHR4NHBkTUNxS3hsWFdHWGZHKzY0b2VXOUkvSTcyeXAvVjVi?=
+ =?utf-8?B?RW5zam9HeGw5UzZSOFU4RTJ4a1F2NzQxbDJsaDRpbkFPb09xcmtzZ29KcnB1?=
+ =?utf-8?B?cDNuVGw4Yld0OWtmVlBDS3I5d045TEtNdVVmcXZrYXpSM3ZWM1VjVDQ1aUsw?=
+ =?utf-8?B?cWUzck9SK2NGR0VPRmFVV0NOV2ZCYTFYdTBTeTlJRTBZVFJXdTh1ZHIvNnhO?=
+ =?utf-8?B?NnFFeThRVURFeCsrUjdSd282MGJGK29MUWxsOVgvWi80NW9aeTBPTndxK21W?=
+ =?utf-8?B?SzIzeWRPOGhsV0EwOTBpVXFBNmhWb2dxeW1WTlo0eExlYVdSSVozNTJUQTMy?=
+ =?utf-8?B?ZjdQMmlyajJUYWpsS3BQelRhZVhRbUczSFVGMTV1aUJ5bnZWMVlmWUFlTWpz?=
+ =?utf-8?B?cHlNa3ZzVUxBOHh3endFUWNWYm12b2pMdmxjRHR1Rk5DR244bElMM1FQa2R0?=
+ =?utf-8?B?MFlFQ3lFdGgzcm4zL0hqSTlBZlZ2MjhVbVplSTRHa1ZPcE5YRUhKWWp1bGJG?=
+ =?utf-8?B?aGtjSS9LbHJDdmNzbDArdmk0NzFGSVVabEJFQVZBTGNJYkttTnBueHF4c1k0?=
+ =?utf-8?B?Njc1RndGSWlMQkh6NElCS3BBOTM2dXdVOUVlTk95QW1IcStnb0htekZGK1hr?=
+ =?utf-8?B?anp4bTN2VU9KdjkwcnJoS2V1VkQxeFR5OGZSM3hzakdoUUgxNEQ0MlBvVU9I?=
+ =?utf-8?B?TnZ3VGc3eVBDNTRxWWQ2eE5yVUI4QS9CZXU2L3BrQVdpVURNK0pPWnk5UjNR?=
+ =?utf-8?B?R0x5TnJLQy9KMGZyaUozQUtDR1ZaazNQSyttOEl6c2psbmRwR29sK3NYMVlz?=
+ =?utf-8?B?ZDA0cnp2WlJrMzQwZGJ4UHNSRXFwV3hQQjAyWWpqT2xDTmVUczNWOGsyUVE5?=
+ =?utf-8?B?em9odk5KdVB2T3IzK0NkTHFyTGVONVFUNTdiZlhQRUV4R1VjWFA4b2ZnUXRP?=
+ =?utf-8?B?TEsrTWg0MlFUSUtMZ252RmV2WmpNV2tRYUdYVWFxbXpnYVl4UGJaSGNmZ1Ey?=
+ =?utf-8?B?WERobTU3QzRnQ3l4SDRlY0tvb0ljSCt6VE5mblg4c3RJVjdoNURIZm9yMzlQ?=
+ =?utf-8?B?WWpvOVo1T1dKMGppRGFTWHMrWDF3MVR2VjIyN0I2ZWtjSVhyRS9ORGNwbCtH?=
+ =?utf-8?B?dXBNQ0s4d01HWXhmTHBhNE9hbWxIdkN3T3EyS0Q1NWoyK3o4U2lCK0ZPbk15?=
+ =?utf-8?B?TWJMZzhkM250eE5raW9nVE1qcFlSdVA2dXMwNjZWcndFYmgvQS9oTnVVZzh1?=
+ =?utf-8?B?cE4zWTRKRnkyazY0T0QxSFQ3Zy9lTFRpL0NmR2RXcjlrbktTcGJlaGptTHA1?=
+ =?utf-8?B?VWxxaG5Sazh4N0c5V1o2bVVNM21tY3l4Wnk5UU84czZRRzBxMlhMWVNmcnND?=
+ =?utf-8?B?M0RER2xsUTM1bHRMVXVqNHcrZkZjemZuK1l1bERrMTQ5cTRoaXBWQ1NkVVRR?=
+ =?utf-8?B?VE04akJRWU04ZElJcWErSHE2M2wxZWt2WU5hUTQ1OTZWNHFwWnpmUHNINmpC?=
+ =?utf-8?B?N0lYK1h0eG5MOUQ1RXpSRzRQSlduT3kzbENjeHlFWGIrTGRtQ29iRkR1aTcr?=
+ =?utf-8?B?RjdOay9LLzFZK0RWUEtuSWlWbmh5Q29DZy9ESHA4OHdXSXIwSFlGZWtNRVM2?=
+ =?utf-8?B?ejFZOURZNVJpS1MxbDF0TnlSdXZ6NGRkaXhTU0x4SFExcVlnNTl1N3FYQnZE?=
+ =?utf-8?B?Tzc1Y245YjJzdWl3YzVIN04vd3h0bFEweEUrUlVpdzZ5aXpTV1BHcDJ1VnJU?=
+ =?utf-8?B?c0Q4R2ZoWGUxdi9PVThmUXgwU1JSeFJVbVJDV3lQNVd4TWNWR0w4anhseGxp?=
+ =?utf-8?B?bHIvVHJkcDdtSytDQ0hlZjRObElxNkNlWW1WNXhnb1l2Qk5FejBDWHYvcDNa?=
+ =?utf-8?B?SkkvNzZpTjgvakZNdjE4ZVlCOXdIcnF1Vmh2WjVEdVowMmE0M3RLMXlnaGw2?=
+ =?utf-8?B?bGNvVVZSMHZLR3NHQjBRSTU4NmN5Ly9YUGVVck5jNnNpaFBhRVEyd3RTNEsv?=
+ =?utf-8?Q?dBGBpkmg6qNL439hF55OVrZyk?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0cfe4f7-b8cf-4f87-ef6b-08db86d9ec49
+X-MS-Exchange-CrossTenant-Network-Message-Id: edf718e7-7f4e-4dd1-8b7f-08db86da3569
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 15:24:33.4426
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 15:26:36.1113
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mmVIM65u1be/uhwi6pRVilru4x0s3IQKt2lomAvfpVj3+jby5+oGU0zAEX8AOhRJIxX7827lFOedVu/bR4G72Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8458
+X-MS-Exchange-CrossTenant-UserPrincipalName: iJ5J4YA1pbv94xMwT+Cy6gjDoVkSeT93S9ZQJXH8G71DBYaMvkuDCfwhIoBSfSa0aoCycwXVZKt+pDeSt/1rhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9854
 
-On 14.07.2023 11:28, Julien Grall wrote:
-> On 11/07/2023 13:29, Jan Beulich wrote:
->> On 10.07.2023 22:59, Julien Grall wrote:
->>>> ---
->>>> I'm not really certain about XEN_DOMCTL_irq_permission: With pIRQ-s not
->>>> used, the prior pIRQ -> IRQ translation cannot have succeeded on Arm, so
->>>> quite possibly the entire domctl is unused there? Yet then how is access
->>>> to particular device IRQs being granted/revoked?
->>
->> (Leaving this in context, as it'll be relevant for the last comment you
->> gave.)
-> 
-> Sorry I missed this comment.
-> 
->  > so quite possibly the entire domctl is unused there?
-> 
-> You are right, the domctl permission is not used on Arm.
-> 
->  >  Yet then how is access to particular device IRQs being granted/revoked?
-> 
-> At the moment, a device can only be attached at domain creation and 
-> detached when the domain is destroyed. Also, only the toolstack can map 
-> IRQs. So we don't need to worry for granting/revoking IRQs.
-
-Thanks for clarifying.
-
->>>> --- a/xen/common/domctl.c
->>>> +++ b/xen/common/domctl.c
->>>> @@ -683,11 +683,13 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
->>>>            unsigned int pirq = op->u.irq_permission.pirq, irq;
->>>>            int allow = op->u.irq_permission.allow_access;
->>>>    
->>>> +#ifdef CONFIG_HAS_PIRQ
->>>>            if ( pirq >= current->domain->nr_pirqs )
->>>>            {
->>>>                ret = -EINVAL;
->>>>                break;
->>>>            }
->>>> +#endif
+On 17.07.2023 17:17, Alejandro Vallejo wrote:
+> On Fri, Jul 14, 2023 at 12:36:11PM +0200, Jan Beulich wrote:
+>> On 14.07.2023 12:27, Alejandro Vallejo wrote:
+>>> On Thu, Jul 13, 2023 at 05:12:09PM +0200, Jan Beulich wrote:
+>>>> On 07.07.2023 18:07, Alejandro Vallejo wrote:
+>>>>> --- a/xen/include/xen/mm.h
+>>>>> +++ b/xen/include/xen/mm.h
+>>>>> @@ -31,6 +31,17 @@
+>>>>>   *   (i.e. all devices assigned to) a guest share a single DMA address space
+>>>>>   *   and, by default, Xen will ensure dfn == pfn.
+>>>>>   *
+>>>>> + * pdx: Page InDeX
+>>>>> + *   Indices into the frame table holding the per-page's book-keeping
+>>>>> + *   metadata. A compression scheme may be used, so there's a possibly non
+>>>>> + *   identity mapping between valid(mfn) <-> valid(pdx). See the comments
+>>>>> + *   in pdx.c for an in-depth explanation of that mapping. This also has a
+>>>>> + *   knock-on effect on the directmap, as "compressed" pfns have no
+>>>>> + *   corresponding mapped frames.
+>>>>
+>>>> Didn't you mean to keep the directmap part optional,
+>>> I did.
 >>>
->>> This #ifdef reads a little bit strange. If we can get away with the
->>> check for Arm, then why can't when CONFIG_HAS_PIRQ=y? Overall, a comment
->>> would be helpful.
+>>>> which would call for saying "may" here (twice)?
+>>> That paragraph as-is doesn't really mandate a directmap. It merely state
+>>> that there are knock-on effects on directmap indexing, not that there's
+>>> always a directmap to index.
+>>>
+>>>> Yet then ...
+>>>>
+>>>>
+>>>>> --- a/xen/include/xen/pdx.h
+>>>>> +++ b/xen/include/xen/pdx.h
+>>>>> @@ -1,6 +1,73 @@
+>>>>>  #ifndef __XEN_PDX_H__
+>>>>>  #define __XEN_PDX_H__
+>>>>>  
+>>>>> +/*
+>>>>> + * PDX (Page inDeX)
+>>>>> + *
+>>>>> + * This file deals with optimisations pertaining to frame table and
+>>>>> + * directmap indexing, A pdx is an index into the frame table, which
+>>>>> + * typically also means an index into the directmap[1]. However, having an
+>>>>> + * identity relationship between mfn and pdx could waste copious amounts of
+>>>>> + * memory in empty frame table entries and page tables. There are some
+>>>>> + * techniques to bring memory wastage down.
+>>>>> + *
+>>>>> + * [1] Some ports apply further modifications to a pdx before indexing the
+>>>>> + *     directmap. This doesn't change the fact that the same compression
+>>>>> + *     present in the frame table is also present in the directmap
+>>>>> + *     whenever said map is present.
+>>>>
+>>>> .. you mention it here as non-optional as well. Didn't you tell me that
+>>>> Arm doesn't use compressed indexes into the directmap?
+>>>>
+>>>> Jan
+>>>
+>>> The [1] note states "whenever said map is present", meaning that it may not
+>>> be present. Saying it's optional is a stretch though. It's not like we can
+>>> choose right now.
+>>>
+>>>> Didn't you tell me that Arm doesn't use compressed indexes into the directmap?
+>>> arm32 doesn't have a directmap at all. arm64 uses biased pdx as indices
+>>> (they are offset by a constant), so they are still subject to compression.
 >>
->> As per the post-commit-message remark first of all I need to understand
->> why things were the way they were, and why (whether) that was correct
->> (or at least entirely benign) for Arm in the first place. Only then I'll
->> (hopefully) be in the position of putting a sensible comment here.
->>
->> One thing is clear, I suppose: Without the #ifdef the code wouldn't
->> build. Yet imo if things all matched up, it should have been buildable
->> either way already in the past. Hence the questions.
+>> Hmm, then our understanding of "optional" was differing: I understood
+>> "use of compressed indexes is optional", when you apparently meant
+>> "the use of a directmap is optional". If this is the case, then I
+>> agree with the chosen wording. (Nevertheless using the suggested "may"
+>> wouldn't yield and incorrect outcome.)
 > 
-> Right, it would not build. But does this check really matter even in the 
-> case where CONFIG_HAS_PIRQ=y? Looking at the code, it sounds like more 
-> an optimization/a way to return a different error code if there value is 
-> too high. For the domctl, it doesn't seem to be worth it, the more if we 
-> need to add #ifdef.
+> Like this?
+> 
+> ```
+>  * pdx: Page InDeX
+>  *   Indices into the frame table holding the per-page's book-keeping
+>  *   metadata. A compression scheme may be used, so there's a possibly non
+>  *   identity mapping between valid(mfn) <-> valid(pdx). See the comments
+>  *   in pdx.c for an in-depth explanation of that mapping. This also may
+>  *   have a knock-on effect on the directmap, as "compressed" pfns may not
+>  *   have corresponding mapped frames.
+> ```
+> 
+> If so, sure. I don't mind either way. I'm happy for those 2 _may_s to be added. 
 
-I wouldn't call it an optimization. The check has always been there, with
-b72cea07db32 transforming it (largely) into what we have today. In fact
-in an initial attempt I had gone further and also #ifdef-ed out the
-pirq_access_permitted() (and iirc the pirq variable altogether), seeing
-that without HAS_PIRQ the incoming field can only sensibly hold an IRQ.
-But then I thought that this would be going too far, leading to me
-undoing part of the change.
+Yes please.
 
-If we dropped the check, we'd start relying on domain_pirq_to_irq()
-(invoked by pirq_access_permitted()) to always fail cleanly for an out-
-of-range input. While I think that holds, it would still feel a little
-like making the code (slightly) less robust. But yes, I think doing so
-would be an option. (Still I also think that returning EINVAL for
-obviously out-of-range values is somewhat better than EPERM.) Yet then
-...
-
-> With that, the rest of the domctl should mostly work for Arm.
-
-..., taking into account also your clarification at the top, I wonder
-whether we shouldn't #ifdef out the entire subop.
-
-Jan
+Thanks, Jan
 
