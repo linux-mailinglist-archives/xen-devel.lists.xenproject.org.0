@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AADAC7566AA
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 16:41:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.564650.882242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FEFD7566BA
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jul 2023 16:47:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.564666.882265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLPPH-000247-3S; Mon, 17 Jul 2023 14:40:59 +0000
+	id 1qLPUp-00041p-7B; Mon, 17 Jul 2023 14:46:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 564650.882242; Mon, 17 Jul 2023 14:40:59 +0000
+Received: by outflank-mailman (output) from mailman id 564666.882265; Mon, 17 Jul 2023 14:46:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLPPH-0001wr-06; Mon, 17 Jul 2023 14:40:59 +0000
-Received: by outflank-mailman (input) for mailman id 564650;
- Mon, 17 Jul 2023 14:40:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qLPUp-0003zS-4A; Mon, 17 Jul 2023 14:46:43 +0000
+Received: by outflank-mailman (input) for mailman id 564666;
+ Mon, 17 Jul 2023 14:46:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7PMI=DD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qLPPE-0001et-OU
- for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 14:40:56 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id efff9087-24af-11ee-b23a-6b7b168915f2;
- Mon, 17 Jul 2023 16:40:56 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4fb761efa7aso7191250e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 17 Jul 2023 07:40:56 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- d15-20020ac25ecf000000b004fa52552c7csm2836284lfq.151.2023.07.17.07.40.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jul 2023 07:40:54 -0700 (PDT)
+ <SRS0=RVQe=DD=citrix.com=prvs=555fa4c0e=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qLPUo-0003zK-1I
+ for xen-devel@lists.xenproject.org; Mon, 17 Jul 2023 14:46:42 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ba7ae29a-24b0-11ee-8611-37d641c3527e;
+ Mon, 17 Jul 2023 16:46:37 +0200 (CEST)
+Received: from mail-dm6nam11lp2176.outbound.protection.outlook.com (HELO
+ NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.176])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 17 Jul 2023 10:46:34 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by MW4PR03MB6363.namprd03.prod.outlook.com (2603:10b6:303:11e::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.32; Mon, 17 Jul
+ 2023 14:46:32 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::38aa:4814:3c7b:78ea]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::38aa:4814:3c7b:78ea%5]) with mapi id 15.20.6588.031; Mon, 17 Jul 2023
+ 14:46:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,354 +49,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efff9087-24af-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: ba7ae29a-24b0-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689605197;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=AKc1rayZswtsI6jewBKzEIGp5stt7lwKm0+5C4FcIWQ=;
+  b=AKxHB/ji6DKbiw61nsVFl84PTRZiicRHCoMocg2t73ctTeBDKNTHeVji
+   KdRqmdxcg8fGP7mtBIAxgMt8bYPsodgdxZ+A9YFj/u7CzYzNwsomi+Koj
+   HoqnViGHme8vLKo2W5z1WDwn7d0i///51ecjtFIAcngT0+wIjKW0b8ZsY
+   M=;
+X-IronPort-RemoteIP: 104.47.57.176
+X-IronPort-MID: 116348375
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:CUiE4agBkJQ3ivKnX8Hm7TWuX161RBEKZh0ujC45NGQN5FlHY01je
+ htvUGmHOaqIZ2Oge95yaYi0/BxXu8LWn9U1TgporiA2Rngb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyr0N8klgZmP6sT4waBzyB94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQAEzkGcy2gjti1/4++VulQ3dQaApHSadZ3VnFIlVk1DN4AaLWaGuDmwIEd2z09wMdTAfzZe
+ swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilEuluGybrI5efTTLSlRtlyfq
+ W/cuXzwHzkRNcCFyCrD+XWp7gPKtXqiBtlORObnq5aGhnW1z2AdJiQRCmCyvKjhq2+fR/AFI
+ nQtr39GQa8asRbDosPGdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOq8seVTEsk
+ FiTkLvBBzN1t6aOYWmA7brSpjS3URX5NkcHbC4ACAcAvd/qpdhqigqVF4k9VqmoktfyBDf8h
+ SiQqzQzjKkSishN0Lin+VfAgHSnoZ2hohMJ2zg7l1mNtmtRDLNJraTxgbQHxZ6s9Lqkc2Q=
+IronPort-HdrOrdr: A9a23:xMXQca+CKT9BmEQY6lduk+AoI+orL9Y04lQ7vn2ZKSY5TiX4rb
+ HIoB1/73XJYVkqN03I9ervBEDEewK+yXcX2/h0AV7BZmnbUQKTRekP0WKh+UyDJ8SXzIVgPM
+ xbAs1D4bPLbGSTjazBkXWF+9RL+qj5zEh/792usUuETmtRGtBdBx8SMHf8LqXvLjM2f6bQEv
+ Cnl7N6jgvlQ1s7ROKhCEIIWuDSzue76a4PMXY9dmYaABDlt0LS1ILH
+X-Talos-CUID: =?us-ascii?q?9a23=3AZAO+sWpf/j38AIrtClpcc4DmUdgee3bA8VTZGUy?=
+ =?us-ascii?q?HNGN1SIHOWWa+oJoxxg=3D=3D?=
+X-Talos-MUID: 9a23:iTOGYAhlpYTc1bANzDU4I8MpEs5k7YqXDx82mIhX4+ilFDBSYT6ltWHi
+X-IronPort-AV: E=Sophos;i="6.01,211,1684814400"; 
+   d="scan'208";a="116348375"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CTrML7wCtpbGGMtThBoC9kAN7An2olRq7dDXqmwBoRVgnVuxyhhwA4mRtIT+zfxWeaGLI+JP0LKQoRGdUvEypi/IwzA0rL8FQm1a2smgWPBi/ncOb5yObDzBBdk/h6I+uKbjENKyzWE/VsKLVtD3FxWKmTc5gl7fHrLw+Kp6pRY4MNB6SP5n0OiaTgxtHMZ19ooEwl3YWgT5eB8HYDsMARIZi8jQIEifhbwOtbOTUauZbUxrJm26ECSeOC/RK+AJtujAcKGLq9DMM6GADa4IwGKXue6mI9yKrmW+coZAjAqUduJhRqBolalwtUA8+mILUtijfKzVCvJGwxTGQdls4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9XE6hngjyvDPrBecSEUxnjPDwhFaAoQ10IEUjLKS+y8=;
+ b=oebvgRgMI9wWQEKuhVvIEFJOFE4fUq8w9stlwr4zHuupq/AXU3sP2sArG1tgVJxF5XhyB7ERQLs91gGBG8I/npgAshf0A/BhGVd0jAXLX9hGc5BZAXwlHaVxoln7XX7V2hOGhmv6hrQ2PU+RrzU3GR0eUKl05aEjBbB11kZ7YpJ3vu1G7/oNNnc82O80tgmjwyXtqNRPqiXpUJu7McI1x3qyUCvbaW2FhOhZFrwW3kj3RSvFFscq6oVWFY75oS+qzkQbvwnsOOr15AXEbSgBhNnb8ywNLOdFkXiwSx3Z0AtiyKauGypFlBdvA39FTegIsE8oFuk5S01Z1GRrplYxng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689604855; x=1692196855;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ThvgRboCSDvEXREJE4U7nta8TE4rl24QuMRMslv53Fs=;
-        b=baas+kJb+izOVZb1HqVPerYDBD5um4bsPdwHvTdQcUoRklgfIMyNP4Jldgk/PYT31P
-         qnGD2DECyCR9D7iWXOAnoMnvPWN/46/QNfE5ykbRXb+uHKYcFcvY2iQgDVcfm6S7x+pB
-         5Ws7MZtVK3UtUF+Xn4nLvV+DlBjZmF8JT0GT8OFKz4+y5SXnKeSXlSVSY9mXAD+ObXT0
-         do+GApBZa+ZKZJRfHnRpgZuqgZS72wVtYwwH659IFnXn7eobyW8/5UoS8g5S4ZiFTgNz
-         CwkYw6wOGtWTw1OCV0u8uNpvQAQUSjHaLruxzBx3AGmjdiyPPzu/uJmOTVQEwS9ycG8D
-         TwVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689604855; x=1692196855;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ThvgRboCSDvEXREJE4U7nta8TE4rl24QuMRMslv53Fs=;
-        b=ZQdki3jVDYLWWnhvRrvqVbKQ84i3ieaEhbcyv63nKslp6n9PnCxFSHRWYY2umxtL1L
-         g36y+RA151hZfnKRT+47ElUa5zwQyOCpcqVpBkyw9AOjp1y2hqDBXp7jMuJN60S2qzPN
-         kWp/FsJ+7sGC+G7eewiBCckXdLUXxS98b3FIIutT+I+xiaBrxeD/D1LK5pZE7QGQQdBx
-         7Rysi5w882YReoYfqxQ63+f+aI2sDWXBIZCXGxVbE5MlrvrPdqFGHosu3MheMlNt1te+
-         QkIRhG94u+QGj5IVUaCsqwGRziENg7ug6kRNqW33+4bmfqfFLnEhlOZa1D4zdU4oPG1m
-         ig1A==
-X-Gm-Message-State: ABy/qLYtR4kHovp4O39tgm7OGt2XevJAzAEzIjjzdYvc/tMp/pmtSiaw
-	EdxBq1EeVIJHdl5hvp84R4NegvOfWuoBTest
-X-Google-Smtp-Source: APBJJlGu1YQLCviMcAIgoznHE/5aMvL6olLbw4P9LoNcE05IS4TGDEjo1zWxrA3877a0svdcuTeyFQ==
-X-Received: by 2002:a05:6512:2813:b0:4fd:bdf8:9326 with SMTP id cf19-20020a056512281300b004fdbdf89326mr2509197lfb.67.1689604855144;
-        Mon, 17 Jul 2023 07:40:55 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v3 3/3] xen/riscv: introduce identity mapping
-Date: Mon, 17 Jul 2023 17:40:50 +0300
-Message-ID: <8c69050d7b1f42df5e776ca9494164a4d15f2d52.1689604562.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1689604562.git.oleksii.kurochko@gmail.com>
-References: <cover.1689604562.git.oleksii.kurochko@gmail.com>
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9XE6hngjyvDPrBecSEUxnjPDwhFaAoQ10IEUjLKS+y8=;
+ b=JY4QO+Jems+ChQNr0EDAd81P3tJBN4U6VrWwiOwVccXGdwV43940XCQxBZzpgCpTiCr2DzNCS3u+f24f9XQljrZBoUtxyh3cYsXwXXean+KkB0Mx1C1g3RWL0GWTHelL5W223ZCw9qjJnCHj4MmUIgFZvJ1xX5t3c1J3js2DjzQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 17 Jul 2023 16:46:25 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2 6/6] libxl: add support for parsing MSR features
+Message-ID: <ZLVUQdM3XtclUw5l@MacBook-Air-de-Roger.local>
+References: <20230711092230.15408-1-roger.pau@citrix.com>
+ <20230711092230.15408-7-roger.pau@citrix.com>
+ <48d5ca83-d14b-44e1-9431-5324118eacb7@perard>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <48d5ca83-d14b-44e1-9431-5324118eacb7@perard>
+X-ClientProxiedBy: LO4P123CA0050.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::19) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|MW4PR03MB6363:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe3a6fb8-29ba-4355-0955-08db86d49c31
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XBILFz6voRX0x/PTKZmH97rBtQ2JV3fPHSjF0FJ6V550//tA3+dLHgpW2iJiOLkQrzsEvEHk8oZCvT4kv9uDYEzXtF8DZ4kASMZJ957TnPu1vfJQIllqbDyXA9GggaeG+7V+H300IhiDUpgmmmzuUPPkMcvJgHOdIghfDtzj/zjb/RM+FgHE/R3r3MzAaOIT74zhIbR6d43NWztyW3Lw6jtupmIIcy1WaexLcMAZTH5luT7JfrxhFCxxcmzTFEHHFcAm2OUaa1/xAdZKp2qv5Dh2ehHbIBYl6stBzRN239f8MxLkoU4plKSXJG8fKtav1BqZn5Q+lZ4aXlf9I+04EzpC8mwdUMBfmV3uZvRzLoHQzRokqPH2G2slxrQ89zg43pmApaw8aeaHMap27Ww4so1VwxnYD24+pVqtvBsRvfAylJPhFR7t/PvZP0k5HEadPiuB/YCTIwLMj1aZJIcPNhc/BbGhZPUtuScv8jqyzK4Wkc8A9qrI/mujNAKDulDUlu26frj2VLWhtMQU99+cYw/2JACEWfeHzA1nX95xDxL/z2yWHyPtjJ8MHCcFdIf9
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(346002)(396003)(376002)(39860400002)(451199021)(8676002)(41300700001)(66476007)(6862004)(66946007)(2906002)(66556008)(8936002)(9686003)(6666004)(6486002)(54906003)(85182001)(86362001)(6636002)(4326008)(316002)(5660300002)(6512007)(38100700002)(6506007)(83380400001)(186003)(26005)(82960400001)(478600001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MzJMajJ0dTFFOE4rek5FWHd0emY2RzIrQ1h5OElqaFJqczhiNmF3NGljekhr?=
+ =?utf-8?B?QVJxL0hXaDhGV1JmY0hpWmlvRlRJRXNwbjZybXRIZDFGdW8wQjY0dXN6QnMr?=
+ =?utf-8?B?MDZtREpVcTJmcHBtejdyc01LQXFBcXFYWGNlT2h3WnlFSGV4dERMUm5sdHl5?=
+ =?utf-8?B?ZTNQODczdzVjcmY2MFh1QWlROTRobzhLb3VXMlB6ejkzVjcwUkpwa3Z2Vldp?=
+ =?utf-8?B?YTdrUkhjOE0zWnRMQngwbmpYL1VJQm41M0hnTTNqWjFNUnFUeitocTczMENk?=
+ =?utf-8?B?UDl5cTB4RnZycnE3UHhDOUVocmp1VXVpaWh2SzJFRlhHdWduMVhuNFpBakp2?=
+ =?utf-8?B?QXlVaVJ2dys3ZHlBVDlRYnhnWW5Lb21GQVdVM0hGd3k1eVY4NE5aVzJYTlhO?=
+ =?utf-8?B?SldPZVFSU3J4aWFtQkFvakRmSDRhZzBJZVJaSDBhK1FCNkJnTlJZWFlpTndH?=
+ =?utf-8?B?cjUxR3JhQno2SEJyakdBWkFWbmNkUlpoclloNytTNzhlbjdTM3hiQ3ducFlu?=
+ =?utf-8?B?c2dNajdtRkY1dUZqcUlMVWMySGh0cml1NUpIemRXVlVCeVhSNDVMMk1WaUhu?=
+ =?utf-8?B?QVEwWVZtcTBMS1gzNXFwZStmcWg0QUlBbTdZVlRhT0Q3czJmMzlGOWtDL0Zu?=
+ =?utf-8?B?QWpHbFZIOEdSTU5iQ1BVTkNFd1A4Tyt5VkMyUWxOYitvVUk3Sjgyb2diai9D?=
+ =?utf-8?B?TVh6VHVNT1ZoY3NMbjE4SEVUOXdoNElPd04zTkJSdURkbGNNZit2Wnl3YXNl?=
+ =?utf-8?B?SzFwQUwwY201bDFhUlRhSThOT3daTm5WMmNCQmdJVUhxd2lTYkJTMklEZnl1?=
+ =?utf-8?B?cmhYU0djOXZ2WUZqZlg2QjczenJpZ0JnVHBlbk1jV1dWYlRLZ0o1V0pGODY5?=
+ =?utf-8?B?Y0RqV3NqRnhuL2hMbUhGaHZLMUZ5VXFzTjVEeEF6OW5rdFRzczEyM1ZrSTB4?=
+ =?utf-8?B?cWMrRXF4UXhBWGZHQy9GRzdQcFdFL0lXcE1scUphV2JBY2phRzc4TEZmd3Ev?=
+ =?utf-8?B?WS9taUQ4UllHL3JLNFdTRHNadUl3eG1UWHZ6Zkx0YUNaaWJOU3RvdUJPUXVa?=
+ =?utf-8?B?Z3RkQkl3TkFSUy8yV3A3NGVuMjZKSVM4V0N0NWFJc1ZqUWV6UXVNS20rUXRv?=
+ =?utf-8?B?Y2NjT1NuOHRNT2JSTUpKRE5KTVVEa21vMDkxUTk4WXl6eWZucEk4Ukd3djBM?=
+ =?utf-8?B?L1p6ZDFWRUd5MUVQUlk3SGt1bjRZWkRWNlpOaWNOU2piQzRIWTErU3duTGJz?=
+ =?utf-8?B?Y2xlSHpwSHU4NzNpQ2V4V0hvN01Va1NBd2pud0sra0ExRytvb0l5ZDdiaUFN?=
+ =?utf-8?B?UTNydGNOMHNKWlgwem83MGZGSjlFTkozeVlpVFFOTXZzYVRuZmlMSGE1TXRr?=
+ =?utf-8?B?VXY0R1FxL1JldjkweStlY3V2dG0zSEdUb2RsYVRDeUVTWnNJdnFpVlNtWjVs?=
+ =?utf-8?B?NmRSQ3JNUlI1ZzYrYWkyOW1OSkhwaWo3V1Z2QzZoQmIyT2hsbXo0RmxCU2xK?=
+ =?utf-8?B?eHAyeUlwU1lwcWJWZE0vNENHRTZybTltaks4ZGVUTHFFKzFIdnppS1V5VXAv?=
+ =?utf-8?B?OVdZVzNIVGl1Q1RxMmNoYnZNazdMTURlTWp4S3MvR0E3K0x5MnVHTm9YSzRy?=
+ =?utf-8?B?Mlc2Y3ZhaVJxSnZkTzVqYW5QSUVPalpHRXdVM2pTc0ZQZlN1NnBXQ3AyMDRp?=
+ =?utf-8?B?RzVzZ3R2YmE0N3lEakordDh2a0NVckMxTXBqRStwYUhxelhlcW5TTm8xU3Jk?=
+ =?utf-8?B?R2diOFlsdTY3MDNISnNWWk02ZlZrcGllSDBUNmpLMG5GMVVZOVVJaGM0c3dH?=
+ =?utf-8?B?Y1JSbm5sRm54ZG1DYUp4akZEdFVjUVhjUVFvVzRNUlpPOUhtUXV5TllNVHIw?=
+ =?utf-8?B?NDB5TVluVjVkV0UwU1FXNkhyckNEMUg1QjVDMVczb1k3d29QUU5sYTUyMElt?=
+ =?utf-8?B?UEJ4UnZGdmxyRkdmMzA2UXJYVzhiSWFNbDVLazBERUFrWDFla3g3SEtRK21u?=
+ =?utf-8?B?UlBzcnlzOXhYQjBBeldhR1VSVlFHd0Vkay84Y3pWakhoZStmVXpNaG10ajNQ?=
+ =?utf-8?B?WEp0V0ZVUVpBWGp1Y21KSFBOU3RXV3hMYzJrZ0ZabTdNVmJQVi9iYWlLaVMx?=
+ =?utf-8?B?WERTUXVUSWxPSnkyYlVhUTE3WjhpOE1BZTUrMmtINGJqYUV4ckRieEhUcWx1?=
+ =?utf-8?B?R1E9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	hxrQ6nWVLtaq1G8BPCQFkTLtEq+z/CXzLoxPql+lxIKHT6IS6u4cM/wju0Rb9MtdNSKu/rrTHUxBS3/chq8wmCFcnRtZwPHhhVpHYoaLybwhK9Vj83We/41f8zGmnBKQVAqc9PFIi1U14At+GYv7DbPflTn0D6rTej42CoKkb+ZWWeHtGngKKllkmU0LCO3jGop9vZC87iS+ou/ueSdqEUZnKqJud+qG5C957LtPygixSDReK96M2cYEo7Gy27LsQf2bT3LmMa8O0d39Jvh7h8peHbYE/xUz3igfBkaxDzNR7ugpfC8DnE3aoMSgICjNshGzvUNyEdbZH+ukF6ozEQLleWsTS/ilhfmksYSpbeNiMd+S8NNrbaHxAPAAWBNcwSuqp6mXS7/wP/1k/kdlviQDkACSciWaTjqkAV1BMKx2fTxFl9R1L5Qbpjjd+InhmIFOHtLT5kq2YADkR0EoOMbwGOWZ6VxFZzQ7gmcli/O2T9I30hu/1WtE5SnrhQHBMl4ipC1syn9CR4MUXTpkf24DumFESyoSowfofyu9OHRijWjM3A9INUmcZyn9Om8T2fSaT1YoUGiu5Kd/BtrSrzRfaojQiKnQ7xWCp1Lm6COO721zVGd1SuPp4BrxDrBFbYl8GEpQuJrcflXZMM+3VXgMWcjKospstre9r/Yf/sSWpjSb8FyVlvXg2joVXQ2vfnezeLubHi/QcIKk7GO7bwfp8+JPZLN9mo1yPEsHNzkIX6Ldu78JRhO8wvh2I9cV4iwE4NfUf5GieVA6/Oi/EYOpWuS9XGc2GlGuthsl99cxpKKnGYxqoP7dFvPRJRIZ
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe3a6fb8-29ba-4355-0955-08db86d49c31
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 14:46:31.7405
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i9wNQ/iOnS3GFQeXKh+IwYKkct+kz3dKHLICR5vqGPCzQZBrEI3alQFeZgLLrogzb3aLoTxEyOf2wBcAYtSi5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6363
 
-The way how switch to virtual address was implemented in the
-commit e66003e7be ("xen/riscv: introduce setup_initial_pages")
-isn't safe enough as:
-* enable_mmu() depends on hooking all exceptions
-  and pagefault.
-* Any exception other than pagefault, or not taking a pagefault
-  causes it to malfunction, which means you will fail to boot
-  depending on where Xen was loaded into memory.
+On Thu, Jul 13, 2023 at 11:39:53AM +0100, Anthony PERARD wrote:
+> On Tue, Jul 11, 2023 at 11:22:30AM +0200, Roger Pau Monne wrote:
+> > diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpuid.c
+> > index b1c4f8f2f45b..86a08f29a19c 100644
+> > --- a/tools/libs/light/libxl_cpuid.c
+> > +++ b/tools/libs/light/libxl_cpuid.c
+> > @@ -158,6 +158,57 @@ static int cpuid_add(libxl_cpuid_policy_list *policy,
+> >      return 0;
+> >  }
+> >  
+> > +static struct xc_msr *msr_find_match(libxl_cpuid_policy_list *pl, uint32_t index)
+> > +{
+> > +    unsigned int i = 0;
+> > +    libxl_cpuid_policy_list policy = *pl;
+> > +
+> > +    if (policy == NULL)
+> > +        policy = *pl = calloc(1, sizeof(*policy));
+> > +
+> > +    if (policy->msr != NULL)
+> > +        for (i = 0; policy->msr[i].index != XC_MSR_INPUT_UNUSED; i++)
+> 
+> Could you add { } for this two blocks? One line after a if() without { }
+> is ok, but not more.
 
-Instead of the proposed way of switching to virtual addresses was
-decided to use identity mapping of the entrire Xen and after
-switching to virtual addresses identity mapping is removed from
-page-tables.
-Since it is not easy to keep track where the identity map was mapped,
-so we will look for the top-most entry exclusive to the identity
-map and remove it.
+Sure.
 
-Fixes: e66003e7be ("xen/riscv: introduce setup_initial_pages")
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Changes in V3:
- - remove unrelated to the patch changes ( SPDX tags in config.h ).
- - update definition of PGTBL_INITIAL_COUNT taking into account identity mapping.
- - refactor remove_identity_mapping() function.
- - add explanatory comments in xen.lds.S and mm.c.
- - update commit message.
- - move save/restore of a0/a1 registers to [PATCH v2 2/3] xen/riscv: introduce
-   function for physical offset calculation.
----
-Changes in V2:
-  - update definition of PGTBL_INITIAL_COUNT and the comment above.
-  - code style fixes.
-  - 1:1 mapping for entire Xen.
-  - remove id_addrs array becase entire Xen is mapped.
-  - reverse condition for cycle inside remove_identity_mapping().
-  - fix page table walk in remove_identity_mapping().
-  - update the commit message.
-  - add Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-  - save hart_id and dtb_addr before call MMU related C functions.
-  - use phys_offset variable instead of doing calcultations to get phys offset
-    in head.S file. ( it can be easily done as entire Xen is 1:1 mapped )
-  - declare enable_muu() as __init.
----
- xen/arch/riscv/include/asm/mm.h |  3 +-
- xen/arch/riscv/mm.c             | 98 +++++++++++++++++++++------------
- xen/arch/riscv/riscv64/head.S   | 22 ++++++++
- xen/arch/riscv/setup.c          | 14 +----
- xen/arch/riscv/xen.lds.S        |  4 ++
- 5 files changed, 92 insertions(+), 49 deletions(-)
+> > +            if (policy->msr[i].index == index)
+> > +                return &policy->msr[i];
+> > +
+> > +    policy->msr = realloc(policy->msr, sizeof(struct xc_msr) * (i + 2));
+> > +    policy->msr[i].index = index;
+> > +    memset(policy->msr[i].policy, 'x', ARRAY_SIZE(policy->msr[0].policy) - 1);
+> 
+> Is this "array_size() - 1" correct? The -1 need to go, right?
+> 
+> > +    policy->msr[i].policy[ARRAY_SIZE(policy->msr[0].policy) - 1] = '\0';
+> 
+> Is it for convenience? Maybe for easier debugging (printf)? Also, I
+> guess having a NUL at the end mean the -1 on the previous statement kind
+> of useful.
 
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index d9c4205103..085eaab7fb 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -13,7 +13,8 @@ extern unsigned char cpu0_boot_stack[];
- void setup_initial_pagetables(void);
- 
- void enable_mmu(void);
--void cont_after_mmu_is_enabled(void);
-+
-+void remove_identity_mapping(void);
- 
- void calc_phys_offset(void);
- 
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index c84a8a7c3c..34cd62eefe 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -25,6 +25,12 @@ unsigned long __ro_after_init phys_offset;
- #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
- #define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
- 
-+/*
-+ * Should be removed as soon as enough headers will be merged for inclusion of
-+ * <xen/lib.h>.
-+ */
-+#define ARRAY_SIZE(arr)		(sizeof(arr) / sizeof((arr)[0]))
-+
- /*
-  * It is expected that Xen won't be more then 2 MB.
-  * The check in xen.lds.S guarantees that.
-@@ -35,8 +41,10 @@ unsigned long __ro_after_init phys_offset;
-  *
-  * It might be needed one more page table in case when Xen load address
-  * isn't 2 MB aligned.
-+ *
-+ * CONFIG_PAGING_LEVELS page tables are needed for identity mapping.
-  */
--#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
-+#define PGTBL_INITIAL_COUNT (CONFIG_PAGING_LEVELS * 2 + 1)
- 
- pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
- stage1_pgtbl_root[PAGETABLE_ENTRIES];
-@@ -75,6 +83,7 @@ static void __init setup_initial_mapping(struct mmu_desc *mmu_desc,
-     unsigned int index;
-     pte_t *pgtbl;
-     unsigned long page_addr;
-+    bool is_identity_mapping = map_start == pa_start;
- 
-     if ( (unsigned long)_start % XEN_PT_LEVEL_SIZE(0) )
-     {
-@@ -108,16 +117,18 @@ static void __init setup_initial_mapping(struct mmu_desc *mmu_desc,
-             {
-                 unsigned long paddr = (page_addr - map_start) + pa_start;
-                 unsigned int permissions = PTE_LEAF_DEFAULT;
-+                unsigned long addr = is_identity_mapping
-+                                     ? page_addr : LINK_TO_LOAD(page_addr);
-                 pte_t pte_to_be_written;
- 
-                 index = pt_index(0, page_addr);
- 
--                if ( is_kernel_text(LINK_TO_LOAD(page_addr)) ||
--                     is_kernel_inittext(LINK_TO_LOAD(page_addr)) )
--                    permissions =
--                        PTE_EXECUTABLE | PTE_READABLE | PTE_VALID;
-+                if ( is_kernel_text(addr) ||
-+                     is_kernel_inittext(addr) )
-+                        permissions =
-+                            PTE_EXECUTABLE | PTE_READABLE | PTE_VALID;
- 
--                if ( is_kernel_rodata(LINK_TO_LOAD(page_addr)) )
-+                if ( is_kernel_rodata(addr) )
-                     permissions = PTE_READABLE | PTE_VALID;
- 
-                 pte_to_be_written = paddr_to_pte(paddr, permissions);
-@@ -211,6 +222,10 @@ void __init setup_initial_pagetables(void)
-     unsigned long linker_start  = LOAD_TO_LINK(load_start);
-     unsigned long linker_end    = LOAD_TO_LINK(load_end);
- 
-+    /*
-+     * If the overlapping check will be removed then remove_identity_mapping()
-+     * logic should be updated.
-+     */
-     if ( (linker_start != load_start) &&
-          (linker_start <= load_end) && (load_start <= linker_end) )
-     {
-@@ -232,22 +247,18 @@ void __init setup_initial_pagetables(void)
-                           linker_start,
-                           linker_end,
-                           load_start);
-+
-+    if ( linker_start == load_start )
-+        return;
-+
-+    setup_initial_mapping(&mmu_desc,
-+                          load_start,
-+                          load_end,
-+                          load_start);
- }
- 
--void __init noreturn noinline enable_mmu()
-+void __init enable_mmu(void)
- {
--    /*
--     * Calculate a linker time address of the mmu_is_enabled
--     * label and update CSR_STVEC with it.
--     * MMU is configured in a way where linker addresses are mapped
--     * on load addresses so in a case when linker addresses are not equal
--     * to load addresses, after MMU is enabled, it will cause
--     * an exception and jump to linker time addresses.
--     * Otherwise if load addresses are equal to linker addresses the code
--     * after mmu_is_enabled label will be executed without exception.
--     */
--    csr_write(CSR_STVEC, LOAD_TO_LINK((unsigned long)&&mmu_is_enabled));
--
-     /* Ensure page table writes precede loading the SATP */
-     sfence_vma();
- 
-@@ -255,25 +266,40 @@ void __init noreturn noinline enable_mmu()
-     csr_write(CSR_SATP,
-               PFN_DOWN((unsigned long)stage1_pgtbl_root) |
-               RV_STAGE1_MODE << SATP_MODE_SHIFT);
-+}
- 
--    asm volatile ( ".p2align 2" );
-- mmu_is_enabled:
--    /*
--     * Stack should be re-inited as:
--     * 1. Right now an address of the stack is relative to load time
--     *    addresses what will cause an issue in case of load start address
--     *    isn't equal to linker start address.
--     * 2. Addresses in stack are all load time relative which can be an
--     *    issue in case when load start address isn't equal to linker
--     *    start address.
--     *
--     * We can't return to the caller because the stack was reseted
--     * and it may have stash some variable on the stack.
--     * Jump to a brand new function as the stack was reseted
--     */
-+void __init remove_identity_mapping(void)
-+{
-+    unsigned int i;
-+    pte_t *pgtbl;
-+    unsigned int index, xen_index;
-+    unsigned long load_start = LINK_TO_LOAD(_start);
-+
-+    for ( pgtbl = stage1_pgtbl_root, i = CONFIG_PAGING_LEVELS; i; i-- )
-+    {
-+        index = pt_index(i - 1, load_start);
-+        xen_index = pt_index(i - 1, XEN_VIRT_START);
-+
-+        if ( index != xen_index )
-+        {
-+            /* remove after it will be possible to include <xen/lib.h> */
-+            #define ROUNDUP(x, a) (((x) + (a) - 1) & ~((a) - 1))
-+
-+            unsigned long load_end = LINK_TO_LOAD(_end);
-+            unsigned long pt_level_size = XEN_PT_LEVEL_SIZE(i - 1);
-+            unsigned long xen_size = ROUNDUP(load_end - load_start, pt_level_size);
-+            unsigned long page_entries_num = xen_size / pt_level_size;
-+
-+            while ( page_entries_num-- )
-+                pgtbl[index++].pte = 0;
-+
-+            break;
- 
--    switch_stack_and_jump((unsigned long)cpu0_boot_stack + STACK_SIZE,
--                          cont_after_mmu_is_enabled);
-+            #undef ROUNDUP
-+        }
-+
-+        pgtbl = (pte_t *)pte_to_paddr(pgtbl[index]);
-+    }
- }
- 
- /*
-diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
-index 9015d06233..41983ffe63 100644
---- a/xen/arch/riscv/riscv64/head.S
-+++ b/xen/arch/riscv/riscv64/head.S
-@@ -39,6 +39,28 @@ ENTRY(start)
- 
-         jal     calc_phys_offset
- 
-+        jal     setup_initial_pagetables
-+
-+        jal     enable_mmu
-+
-+        la      t1, phys_offset
-+        REG_L   t1, (t1)
-+
-+        /* Calculate proper VA after jump from 1:1 mapping */
-+        la      t0, .L_primary_switched
-+        sub     t0, t0, t1
-+
-+        /* Jump from 1:1 mapping world */
-+        jr      t0
-+
-+.L_primary_switched:
-+        /*
-+         * cpu0_boot_stack address is 1:1 mapping related so it should be
-+         * recalculated after jump from 1:1 mapping world as 1:1 mapping
-+         * will be removed soon in start_xen().
-+         */
-+        jal     reset_stack
-+
-         /* restore bootcpu_id and dtb address */
-         mv      a0, s0
-         mv      a1, s1
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index dde8fb898b..6593f601c1 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -13,20 +13,10 @@ unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
- void __init noreturn start_xen(unsigned long bootcpu_id,
-                                paddr_t dtb_addr)
- {
--    early_printk("Hello from C env\n");
--
--    setup_initial_pagetables();
--
--    enable_mmu();
--
--    for ( ;; )
--        asm volatile ("wfi");
-+    remove_identity_mapping();
- 
--    unreachable();
--}
-+    early_printk("Hello from C env\n");
- 
--void __init noreturn cont_after_mmu_is_enabled(void)
--{
-     early_printk("All set up\n");
- 
-     for ( ;; )
-diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-index 9064852173..31ccebadcb 100644
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -173,4 +173,8 @@ ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
- ASSERT(!SIZEOF(.got),      ".got non-empty")
- ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
- 
-+/*
-+ * Changing the size of Xen binary can require an update of
-+ * PGTBL_INITIAL_COUNT.
-+ */
- ASSERT(_end - _start <= MB(2), "Xen too large for early-boot assumptions")
--- 
-2.41.0
+Yes, it's also to match the format of the policy string used by
+xc_xend_cpuid, which also has a terminating zero.
 
+Are you OK with this?
+
+Thanks, Roger.
 
