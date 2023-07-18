@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E1BB7585D6
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 21:51:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565448.883548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B86E758601
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 22:18:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565451.883558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLqhk-0000PJ-6U; Tue, 18 Jul 2023 19:49:52 +0000
+	id 1qLr94-0004OR-1c; Tue, 18 Jul 2023 20:18:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565448.883548; Tue, 18 Jul 2023 19:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 565451.883558; Tue, 18 Jul 2023 20:18:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLqhk-0000Mz-3E; Tue, 18 Jul 2023 19:49:52 +0000
-Received: by outflank-mailman (input) for mailman id 565448;
- Tue, 18 Jul 2023 19:49:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qLr93-0004Md-Ud; Tue, 18 Jul 2023 20:18:05 +0000
+Received: by outflank-mailman (input) for mailman id 565451;
+ Tue, 18 Jul 2023 20:18:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jxnk=DE=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qLqhj-0000Mt-DX
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 19:49:51 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fa11e8e-25a4-11ee-8611-37d641c3527e;
- Tue, 18 Jul 2023 21:49:48 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 220A08285333;
- Tue, 18 Jul 2023 14:49:46 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id xVTA0dMx5qNh; Tue, 18 Jul 2023 14:49:45 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id F3689828535D;
- Tue, 18 Jul 2023 14:49:44 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 0oVQ3l03KyCi; Tue, 18 Jul 2023 14:49:44 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 5AC3C8285333;
- Tue, 18 Jul 2023 14:49:44 -0500 (CDT)
+ <SRS0=ju50=DE=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1qLr92-0004MX-Lc
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 20:18:04 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2f5ffa72-25a8-11ee-b23a-6b7b168915f2;
+ Tue, 18 Jul 2023 22:18:02 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 64CDF5C0116;
+ Tue, 18 Jul 2023 16:17:57 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Tue, 18 Jul 2023 16:17:57 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 18 Jul 2023 16:17:53 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,114 +43,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fa11e8e-25a4-11ee-8611-37d641c3527e
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com F3689828535D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1689709785; bh=O89l9RKgtHV9218UtqijLQ2JUrHWjU82NabzCvrvUeE=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=vl9ym8w69rKdB81ABQ8DtCEeOhTVoC2ZmcvxecOMLLvpgxtEVG4eNOR7LVN0LWU3k
-	 +y0cod+P0nfrvkH/aK282bMRoS7gf/dqb+2cBMjJYqY72YDOuqYTURQfiha4TD8rbi
-	 a9wmpIqvyttq+/6W36cr4YyUcRsbmNxoT/wOv45c=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <2da1f2f6-b039-96b3-cb79-f813e6de782e@raptorengineering.com>
-Date: Tue, 18 Jul 2023 14:49:43 -0500
+X-Inumbo-ID: 2f5ffa72-25a8-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1689711477; x=1689797877; bh=5yZUpR+6ZPpUWjcU9SUTuExBXt7D47JD44m
+	vzL64O9w=; b=aWt7rrWj1HvCYDVWdaxeFCR3BB9kgv2xtvQwpRfVDx3yldCxeBN
+	zacMeG+fkVc5XySPNix7NzxKU97/x1HSU4GbrQQ0Qr+w1IHj3l3sSRZ66QE2qdde
+	EPyd7Lp6/BJxFsGLyPjrPq2kZd0N21leGo46udrqsZC/c7hT28MA9jiQ8cXY48yP
+	EGZvsLeN1oygSRm5ETSBH8Qmf99oQwmnUH3tkoO4Q9KYkYK+WLYTO86V2C6i+8IO
+	bbMTWpbtxWakZ9G6zWJdhSbEASySfbODlI9MLcR0JL1Xvzb9J8tBj6Xoarhtb5Wj
+	47yo3AUfL8tEQcBpHd2b6dLrpJ4js9PbWnw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1689711477; x=1689797877; bh=5yZUpR+6ZPpUW
+	jcU9SUTuExBXt7D47JD44mvzL64O9w=; b=Kuhj0/Zej1waNv+LlUq2rdfi+bahF
+	2mD71tarfYTcrK6jzm2lf39il4aOyIqJz/WP67Jq2+pqcxKPeDUW9THRDkK6rHPz
+	omsOiP1y49/7PT2AxLM6uM/qGeHsw2L3LUfeTnQ8T21TYT69gg9O8eMz8GxD8Jb/
+	lhiy9NNH82SlRm4c9kAD8TCGj1uVMfzdTPQZVfBK4nVaa26KxsY56RKJc/TKfcgW
+	BNWTEy0A04iX2aDDV5Z9ylIpS9gsdx8d7VsqVDEdJqU2d28F4iKCFhikX0wbqYtX
+	AI+6PVjNiu37PbUi7nKX2UuLXwdx7GM1+iWGvoPlrHvUe1viDCPsgsEYQ==
+X-ME-Sender: <xms:dfO2ZLFFNyr-2BZPvaKArX6nW1HLMal5Xi78fOdnumlIf7frVZTgiQ>
+    <xme:dfO2ZIXOR6cgH8H6CDvFhhWoi0PzqnBTq2Gbii_fXyRrQ6O_F5eA4RmCQLOa5JrgA
+    xT4LYur_EhWN0c>
+X-ME-Received: <xmr:dfO2ZNLEGm3YKVwv6Me4cS-vPs481bT7AH1jc0LSOKcK0M0ZyCm7naVvKNf3qxQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrgeeggddugeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepkfffggfuvfevfhfhjggtsehgtderredttdejnecuhfhrohhmpefuihhmohhn
+    ucfirghishgvrhcuoehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
+    homheqnecuggftrfgrthhtvghrnhepudfhfeejveevteehvddtueffuedtteevleelfeek
+    tdfhveehvedtieejteetueeinecuffhomhgrihhnpehinhhtvghlrdgtohhmpdhkvghrnh
+    gvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:dfO2ZJHltVPpYGxT2X_2c-FbjWJ-qV8dU7pxjd2Y1hEtavH-jPEWNg>
+    <xmx:dfO2ZBXJoqwNn-1LR_9F3szqM45eycys4FF2tOZ_UoNLbzk8REm2LA>
+    <xmx:dfO2ZEMYO9guUjyeLfygZYdXKG1m-peKhW1aYJLy2h4aOUDx5DnDmQ>
+    <xmx:dfO2ZEQjB5hfdmoQnONqBAkfMLhbm6w2rxodHe2t3o_MApMtzr6yPQ>
+Feedback-ID: idc5945a3:Fastmail
+Message-ID: <683e73d8-037a-5e38-745d-ae1c0e18fc79@invisiblethingslab.com>
+Date: Tue, 18 Jul 2023 22:17:45 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v3 1/8] common: move a few macros out of xen/lib.h
+Subject: Re: [PATCH 2/4] x86/idle: Get PC{8..10} counters for Tiger and Alder
+ Lake
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- George Dunlap <george.dunlap@citrix.com>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <a4907ba1-a247-f96d-54e4-090f27665b20@suse.com>
- <109efb43-a519-73f6-2a26-2b420090ab2b@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <109efb43-a519-73f6-2a26-2b420090ab2b@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20230718132334.2087-1-simon@invisiblethingslab.com>
+ <aa23a090-1883-008b-e395-2a3bca709258@suse.com>
+ <2be631d2-95f3-0d7f-ad84-eb9e16d1a39a@invisiblethingslab.com>
+ <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
+From: Simon Gaiser <simon@invisiblethingslab.com>
+In-Reply-To: <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------XkXusRDb9wd301gW0E277UxX"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------XkXusRDb9wd301gW0E277UxX
+Content-Type: multipart/mixed; boundary="------------9AOgAcx0N0K2Er0tVWGl9fk3";
+ protected-headers="v1"
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Message-ID: <683e73d8-037a-5e38-745d-ae1c0e18fc79@invisiblethingslab.com>
+Subject: Re: [PATCH 2/4] x86/idle: Get PC{8..10} counters for Tiger and Alder
+ Lake
+References: <20230718132334.2087-1-simon@invisiblethingslab.com>
+ <aa23a090-1883-008b-e395-2a3bca709258@suse.com>
+ <2be631d2-95f3-0d7f-ad84-eb9e16d1a39a@invisiblethingslab.com>
+ <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
+In-Reply-To: <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
+
+--------------9AOgAcx0N0K2Er0tVWGl9fk3
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 7/10/23 3:51 AM, Jan Beulich wrote:
-> Introduce xen/macros.h for this purpose. For now xen/lib.h simply
-> includes xen/macro.h, until consumers can be suitable cleaned up.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v3: New.
-> 
-> --- a/xen/include/xen/lib.h
-> +++ b/xen/include/xen/lib.h
-> @@ -1,26 +1,7 @@
->  #ifndef __LIB_H__
->  #define __LIB_H__
->  
-> -#define ROUNDUP(x, a) (((x) + (a) - 1) & ~((a) - 1))
-> -
-> -#define IS_ALIGNED(val, align) (!((val) & ((align) - 1)))
-> -
-> -#define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
-> -#define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
-> -
-> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
-> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
-> -
-> -#define count_args_(dot, a1, a2, a3, a4, a5, a6, a7, a8, x, ...) x
-> -#define count_args(args...) \
-> -    count_args_(., ## args, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-> -
-> -/* Indirect macros required for expanded argument pasting. */
-> -#define PASTE_(a, b) a ## b
-> -#define PASTE(a, b) PASTE_(a, b)
-> -
-> -#define __STR(...) #__VA_ARGS__
-> -#define STR(...) __STR(__VA_ARGS__)
-> +#include <xen/macros.h>
->  
->  #ifndef __ASSEMBLY__
->  
-> --- /dev/null
-> +++ b/xen/include/xen/macros.h
-> @@ -0,0 +1,34 @@
+Jan Beulich:
+> On 18.07.2023 15:46, Simon Gaiser wrote:
+>> Jan Beulich:
+>>> On 18.07.2023 15:23, Simon Gaiser wrote:
+>>>> ---
+>>>>  xen/arch/x86/acpi/cpu_idle.c | 9 ++++++---
+>>>>  1 file changed, 6 insertions(+), 3 deletions(-)
+>>>
+>>> This lacks both S-o-b and a proper description. The latter in
+>>> particular because you ...
+>>
+>> Yeah, I also noticed in the meantime, sorry. Will be fixed in v2.
+>>
+>>>> --- a/xen/arch/x86/acpi/cpu_idle.c
+>>>> +++ b/xen/arch/x86/acpi/cpu_idle.c
+>>>> @@ -155,6 +155,12 @@ static void cf_check do_get_hw_residencies(void=
+ *arg)
+>>>> =20
+>>>>      switch ( c->x86_model )
+>>>>      {
+>>>> +    /* Tiger Lake */
+>>>> +    case 0x8C:
+>>>> +    case 0x8D:
+>>>> +    /* Alder Lake */
+>>>> +    case 0x97:
+>>>> +    case 0x9A:
+>>>>      /* 4th generation Intel Core (Haswell) */
+>>>>      case 0x45:
+>>>>          GET_PC8_RES(hw_res->pc8);
+>>>> @@ -185,9 +191,6 @@ static void cf_check do_get_hw_residencies(void =
+*arg)
+>>>>      case 0x6C:
+>>>>      case 0x7D:
+>>>>      case 0x7E:
+>>>> -    /* Tiger Lake */
+>>>> -    case 0x8C:
+>>>> -    case 0x8D:
+>>>>      /* Kaby Lake */
+>>>>      case 0x8E:
+>>>>      case 0x9E:
+>>>
+>>> ... don't just add new case labels, but you actually move two. It
+>>> wants explaining whether this was outright wrong, or what else
+>>> causes the movement.
+>>
+>> Yes, as the commit message says it get those PC{8..10} counters for
+>> Tiger and Alder Lake.
+>=20
+> But that's the problem - there was no commit message.
 
-Should there be an SPDX header here?
+I'm used to that in git "commit message" refers to the whole thing,
+including the "title" (everything till the first blank line. Usually
+only a single line. Put into the Subject header by format-patch). And
+there it says exactly this, which I considered enough when drafting it.
+Will send a v2 with a more verbose description.
 
-> +#ifndef __MACROS_H__
-> +#define __MACROS_H__
-> +
-> +#define ROUNDUP(x, a) (((x) + (a) - 1) & ~((a) - 1))
-> +
-> +#define IS_ALIGNED(val, align) (!((val) & ((align) - 1)))
-> +
-> +#define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
-> +#define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
-> +
-> +#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
-> +#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
-> +
-> +#define count_args_(dot, a1, a2, a3, a4, a5, a6, a7, a8, x, ...) x
-> +#define count_args(args...) \
-> +    count_args_(., ## args, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-> +
-> +/* Indirect macros required for expanded argument pasting. */
-> +#define PASTE_(a, b) a ## b
-> +#define PASTE(a, b) PASTE_(a, b)
-> +
-> +#define __STR(...) #__VA_ARGS__
-> +#define STR(...) __STR(__VA_ARGS__)
-> +
-> +#endif /* __MACROS_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
+>> The former already had a label, therefore the
+>> move. I assume that when Tiger Lake was added it was an oversight to n=
+ot
+>> also read those package C-state counters.
+>=20
+> Or the SDM wasn't clear, and we needed to err on the safe side.
 
-Reviewed-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+The SDM [1] seems to be indeed a mess regarding
+MSR_PKG_C{8..10}_RESIDENCY. If I didn't missed something in that huge
+document it lists PC8 and PC9 only for Intel Core 4th gen with CPUID
+06_45H (table 2-31). For PC10 it additionally list Atoms starting with
+Goldmont (table 2-12 and references to it).
+
+But it already contradicts itself by listing on page 5002/5003 06_4Fh
+(some Xeons) as another model that supports those MSRs. It refers to
+table 2-38 there, but that table doesn't contain those MSRs.
+
+Linux' pmc_core [2] and turbostat [3] both use those MSRs on Tiger and
+Alder Lake. And on my Tiger Lake test system I get useful data from
+there.
+
+Is the code in Linux a good enough reference?
+
+Simon
+
+[1]:
+I looked at what's currently linked on Intel's website. "325462-080US"
+from "June 2023"
+https://cdrdv2.intel.com/v1/dl/getContent/671200
+
+[2]:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
+rivers/platform/x86/intel/pmc/core.c?h=3Dv6.4#n44
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
+rivers/platform/x86/intel/pmc/tgl.c?h=3Dv6.4#n188
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
+rivers/platform/x86/intel/pmc/adl.c?h=3Dv6.4#n291
+
+[3]:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/t=
+ools/power/x86/turbostat/turbostat.c?h=3Dv6.4#n5763
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/t=
+ools/power/x86/turbostat/turbostat.c?h=3Dv6.4#n5074
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/t=
+ools/power/x86/turbostat/turbostat.c?h=3Dv6.4#n5409
+
+--------------9AOgAcx0N0K2Er0tVWGl9fk3--
+
+--------------XkXusRDb9wd301gW0E277UxX
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmS282sACgkQkO9xfO/x
+ly+3gg/9H4hqwS8YzxXHb9FVzumNrOxhk8FyM3LjfhcsySt0DX+Hk/iCXy7IvOdD
+32SWT8Es9jtoWETE7m/1nqrYMX1HEILub+MccLJGYK6M60bs14jwLta2u+kiCilw
+KAjRTdcN0oWAkbqSG/iG3CL7eZ6v+47TTr5B6+fdk6HWeQhNW6x4+L6klz6cpCl5
+ZySGLmKPJMpUdBl8RJ6hy2TXIFambX/1FggYeGJZBlo3PvgGEFMQmC4yydOqqblL
+1BzIiqV8lnRtQ2jdHZsRCZjr7/uwGPtMlrPfQMVL+HqWr+rX9gB4YjYgW74kcZOn
+0zXzofp52c57sRiUEqQ1LDAObusXEcuQ6fIzkI4sovdc01rRMJNUo8rcs6GVTCDv
+SwIKmf0SSCvlRzLyBKzQnk+N7DJY1pMfIxfTuKBQdNfjgikkMIoxAmSlPzM3DQb5
+RRGGMnBOf2DRpYbc2HYESkhvWJuo/dcInAQiAuMf2/kbh4/mNFSxyK2aKa0CW3hY
+1wSEUdM6DA0fzFOK5yyY0Z0aA6iIswO9VeOFmCIrxyJ2wIfyeAf69cyuCMa8UYZC
+wEvMMA655w0YJ3YPFNaaXTI0u7MTLPB4erkc4/MuvrkMuOjsCAUdzvH2pxKnHIEJ
+uwTjW4xlSqo/BUHPnE9nnri1qGSeIZl7yJcsD/uvW1/3lpS0Uf8=
+=QJ0B
+-----END PGP SIGNATURE-----
+
+--------------XkXusRDb9wd301gW0E277UxX--
 
