@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D11B75864E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 22:51:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565486.883648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BCB7758659
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 22:59:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565489.883658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLrei-0005tJ-UD; Tue, 18 Jul 2023 20:50:48 +0000
+	id 1qLrmh-0006mj-LI; Tue, 18 Jul 2023 20:59:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565486.883648; Tue, 18 Jul 2023 20:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 565489.883658; Tue, 18 Jul 2023 20:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLrei-0005rd-Q7; Tue, 18 Jul 2023 20:50:48 +0000
-Received: by outflank-mailman (input) for mailman id 565486;
- Tue, 18 Jul 2023 20:50:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qLrmh-0006kC-Hx; Tue, 18 Jul 2023 20:59:03 +0000
+Received: by outflank-mailman (input) for mailman id 565489;
+ Tue, 18 Jul 2023 20:59:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qLreh-0005rL-3B
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 20:50:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qLreg-00046O-6z; Tue, 18 Jul 2023 20:50:46 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qLreg-00070P-1v; Tue, 18 Jul 2023 20:50:46 +0000
+ (envelope-from <SRS0=WFIX=DE=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1qLrmg-0006k6-1x
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 20:59:02 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e9768d80-25ad-11ee-8611-37d641c3527e;
+ Tue, 18 Jul 2023 22:58:58 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 36IKwhNh024279
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 18 Jul 2023 16:58:49 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 36IKwg5C024278;
+ Tue, 18 Jul 2023 13:58:42 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +43,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=+L7tvdShi+hOjAsd/cbXmvpSP8a2J0cPz40h9//UzTU=; b=wKiNiDf/UZQtCVpp/dsX6aoa1b
-	Jlfx5nyXceLcdTJ3kwSyskIUlHUWRaoKOgPpXHO21u3p2Zro2C+TseV8BqncJ9qyGYSZfx2LWuJ+V
-	5djrPmTR529I7jbAnstDXxVGQD0kqj/0ahbjYI52nmDUHRAVyjDnx1skzwEXEmxiPnJ8=;
-Message-ID: <f7e623a5-adec-fd99-4c42-fab0d04cd12e@xen.org>
-Date: Tue, 18 Jul 2023 21:50:44 +0100
+X-Inumbo-ID: e9768d80-25ad-11ee-8611-37d641c3527e
+Date: Tue, 18 Jul 2023 13:58:42 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+        Anthony PERARD <anthony.perard@citrix.com>,
+        Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH] docs/xen-tscmode: remove mention of numeric tsc_mode=
+ values
+Message-ID: <ZLb9AhaoJDixR7Nf@mattapan.m5p.com>
+References: <a8223a339a0b8ff3c0d04fb4ee2913c7558cc131.1689294071.git.ehem+xen@m5p.com>
+ <ZLCj62XMBbspMWbY@mail-itl>
+ <ZLDErKk8ziBuh1ZJ@mattapan.m5p.com>
+ <b3db9387-8139-e7f8-d250-9933e288f9fc@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [PATCH v2 10/18] tools/xenstore: add hashtable_replace() function
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230710065947.4201-1-jgross@suse.com>
- <20230710065947.4201-11-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230710065947.4201-11-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b3db9387-8139-e7f8-d250-9933e288f9fc@suse.com>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-Hi Juergen,
-
-On 10/07/2023 07:59, Juergen Gross wrote:
-> For an effective way to replace a hashtable entry add a new function
-> hashtable_replace().
+On Fri, Jul 14, 2023 at 09:21:59AM +0200, Jan Beulich wrote:
+> On 14.07.2023 05:44, Elliott Mitchell wrote:
+> > On Fri, Jul 14, 2023 at 03:24:59AM +0200, Marek Marczykowski-Górecki wrote:
+> >> On Thu, Jul 13, 2023 at 05:16:40PM -0700, Elliott Mitchell wrote:
+> >>> The better to encourage moving to setting via string mode names.
+> >>
+> >> The numeric values needs to remain documented, otherwise interpreting
+> >> pre-existing configs (that may use them) will be tricky.
+> > 
+> > Problem is the way it is documented tends to encourage continued use of
+> > the numeric values (notice how reports irt Zen 4 mention "tsc_mode=1").
+> > 
+> > `parse_config_data()` suggests the appropriate string value, so nominally
+> > that should take care of older configurations.  If "xen-tscmode" really
+> > needs to continue mentioning the numeric value, it should be in
+> > parentheses and with "old value" to suggest moving away from that.
 > 
-> While at it let hashtable_add() fail if an entry with the specified
-> key does already exist.
+> I'm not sure about "old" (we can't change the values without breaking
+> backwards compatibility), but the numeric values will want mentioning
+> alongside their spelled out names.
 
-This seems to be a left-over from the previous version.
+Then why is there a warning message about numeric tsc_mode in
+`parse_config_data()`?
 
-> 
-> This is in preparation to replace TDB with a more simple data storage.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->   tools/xenstore/hashtable.c | 20 ++++++++++++++++++++
->   tools/xenstore/hashtable.h | 16 ++++++++++++++++
->   2 files changed, 36 insertions(+)
-> 
-> diff --git a/tools/xenstore/hashtable.c b/tools/xenstore/hashtable.c
-> index 29c247f918..0c26a09567 100644
-> --- a/tools/xenstore/hashtable.c
-> +++ b/tools/xenstore/hashtable.c
-> @@ -160,6 +160,7 @@ static struct entry *hashtable_search_entry(const struct hashtable *h,
->   
->       return NULL;
->   }
-> +
+"WARNING: specifying \"tsc_mode\" as an integer is deprecated. "
+"Please use the named parameter variant. %s%s%s\n"
 
-I think this belong to the previous patch.
+Declaring them deprecated suggests it could be removed at some future
+point.  This message was added at af3b530c03, over a decade ago.
 
->   int hashtable_add(struct hashtable *h, const void *k, void *v)
->   {
->       unsigned int index;
-> @@ -204,6 +205,25 @@ void *hashtable_search(const struct hashtable *h, const void *k)
->       return e ? e->v : NULL;
->   }
->   
-> +int hashtable_replace(struct hashtable *h, const void *k, void *v)
-> +{
-> +    struct entry *e;
-> +
-> +    e = hashtable_search_entry(h, k);
-> +    if (!e)
-> +        return ENOENT;
-> +
-> +    if (h->flags & HASHTABLE_FREE_VALUE)
-> +    {
-> +        talloc_free(e->v);
-> +        talloc_steal(e, v);
-> +    }
-> +
-> +    e->v = v;
-> +
-> +    return 0;
-> +}
-> +
->   void
->   hashtable_remove(struct hashtable *h, const void *k)
->   {
-> diff --git a/tools/xenstore/hashtable.h b/tools/xenstore/hashtable.h
-> index 792f6cda7b..214aea1b3d 100644
-> --- a/tools/xenstore/hashtable.h
-> +++ b/tools/xenstore/hashtable.h
-> @@ -51,6 +51,22 @@ create_hashtable(const void *ctx, const char *name,
->   int
->   hashtable_add(struct hashtable *h, const void *k, void *v);
->   
-> +/*****************************************************************************
-> + * hashtable_replace
-> +
-> + * @name        hashtable_nsert
-> + * @param   h   the hashtable to insert into
-> + * @param   k   the key - hashtable claims ownership and will free on removal
-> + * @param   v   the value - does not claim ownership
-> + * @return      zero for successful insertion
-> + *
-> + * This function does check for an entry being present before replacing it
-> + * with a new value.
-> + */
-> +
-> +int
-> +hashtable_replace(struct hashtable *h, const void *k, void *v);
-> +
->   /*****************************************************************************
->    * hashtable_search
->      
+Though I suspect `tsc_mode` hasn't been heavily used since no one ever
+bothered to remove the debugging message.
 
-Chees,
 
 -- 
-Julien Grall
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
