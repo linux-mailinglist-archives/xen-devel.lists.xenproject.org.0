@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013F575881C
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 00:04:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565520.883727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8285A75889E
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 00:39:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565524.883738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLsnT-0001gY-RO; Tue, 18 Jul 2023 22:03:55 +0000
+	id 1qLtLO-0005yH-K8; Tue, 18 Jul 2023 22:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565520.883727; Tue, 18 Jul 2023 22:03:55 +0000
+Received: by outflank-mailman (output) from mailman id 565524.883738; Tue, 18 Jul 2023 22:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLsnT-0001eL-N3; Tue, 18 Jul 2023 22:03:55 +0000
-Received: by outflank-mailman (input) for mailman id 565520;
- Tue, 18 Jul 2023 22:03:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qLsnR-0001eE-Nr
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 22:03:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qLsnR-0006Cj-Js; Tue, 18 Jul 2023 22:03:53 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qLsnR-0001MN-F1; Tue, 18 Jul 2023 22:03:53 +0000
+	id 1qLtLO-0005vA-H1; Tue, 18 Jul 2023 22:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 565524;
+ Tue, 18 Jul 2023 22:38:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ju50=DE=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1qLtLM-0005v3-VG
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 22:38:56 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dec0ecd3-25bb-11ee-8611-37d641c3527e;
+ Wed, 19 Jul 2023 00:38:52 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id C7C3F5C0134;
+ Tue, 18 Jul 2023 18:38:51 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Tue, 18 Jul 2023 18:38:51 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 18 Jul 2023 18:38:49 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,172 +43,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=tYj57VRNKW4aJQspe4wERb/q2tgkX1f0EjgA2qD+dAk=; b=fRIpBjBd1ZIJiATwowrF4wlZmp
-	ps/l/TBcxBj9K6iIls600VUZaaxlEBlWwOrW9rNFU4As+VkPdxvZVEM94WM7yaLOZ5KKSkKYksfQ1
-	RdTCc7oM4ndEv8f6qIlYzczkNMmNSiw+s/t/iIwci8V1NJDe2d5O7FeibYxNy9OBIDyk=;
-Message-ID: <67bcdc0c-ad4f-43f7-d9ab-f11f937bfe87@xen.org>
-Date: Tue, 18 Jul 2023 23:03:51 +0100
+X-Inumbo-ID: dec0ecd3-25bb-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1689719931; x=1689806331; bh=nFyyEH9VlfXlBXqNzRUaguWL5sjGOdyy8v6
+	voiXeH1g=; b=iJGbneTJS7cA7H/LQnxng1ItTLP0y36uLSqkPGKKc/bKdA1o/Yu
+	72ybAWnXBzkIrioaLFSURlPwkuOSY8fSx2Pfz77FNAo1jz2jkWUIj8o7Cb7t9Luh
+	7svFVP9xCixPLmEg/gC1JQTGSxIuy93XZs9vR1vLaYWybonZcCjC66fcMCTk11mh
+	3e8bzgRPDM7Km76iwUysJLAxEBqzqBET0SSEZvpp3xcK6uAjYvtCi59BcH4pifZ3
+	pyhxlH8WKvGnWOBmqBhwWQOf14BNDjB7d2PPPdxavyTddA/AWAMsdcwExxnoU5jj
+	nJRxDSmaxacyl/4FKkt3FdVL+mBfo24DfWg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1689719931; x=1689806331; bh=nFyyEH9VlfXlB
+	XqNzRUaguWL5sjGOdyy8v6voiXeH1g=; b=vEai8/PrauZavfg1gsb6n2w2kW3gy
+	R+stiwdeFG0hvwb+hunDkUQe5sCHdM4iLa6plgWVK2O2aNLc6K70EVwOxnirlNbm
+	O4q9w7OWQByxLmbX9gmVgkkbZk1wC5JG0zi7b1TxGl0VYb4ex+EGzuecfEVuQyQh
+	TTCex8f0M1owmOP05KpAwaiP0VDjkPxYIx9qJUbLgH4MJZjqM/DPzuHD1RYOylUz
+	Lcxk3pQASGQwG4tLsBYF3gtOOwSNFLIXt1iui8h8x6RXEr4R+TWDCz8e0qayBVRY
+	ujgZZ2IqXyqLyiO/kwvmqxmuYLWdURgdwQo4zCpdJczL/rUpZ2Rpir7Jw==
+X-ME-Sender: <xms:exS3ZLe-mBStGF2lb4VSlzu1wcLttvGfc75eZua1IUORWnIf30_gjg>
+    <xme:exS3ZBO6C8vtwWbL_kEJKIw9U69yWMNiJvBW32mgfx6BtbBu6KU-GODYuNwWE-VF7
+    mnYzEf8OtfghWo>
+X-ME-Received: <xmr:exS3ZEikD_jGuLkV15jkeL7hzJOpG8g79BsBINIuAPUNamC0c-_xPOCOGZqavdg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrgeehgddufecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhhonhcu
+    ifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+    hmqeenucggtffrrghtthgvrhhnpeekueffiedtgeffleeglefhledtfefgiedtveeiffeg
+    hffgledtveehhfdugfetveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+    grihhlfhhrohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
+    mh
+X-ME-Proxy: <xmx:exS3ZM8OhdNwPP50_C7qYemsjBpyit5oUYOqp1N5WeeJe-u3FghaIg>
+    <xmx:exS3ZHsMDQBuPI-TXuxaACEpBN5v9RGvtn8-w5znNmO542iK2GKTmQ>
+    <xmx:exS3ZLFuD2tO3HqYfCdV73AOwpT7ZBsXyo37ETilnjR3B-mXiiTnNA>
+    <xmx:exS3ZHKZ-jYLZX-DyQvg247qEVIi9yfm37aNbvBLpzZrQx9IJut-ew>
+Feedback-ID: idc5945a3:Fastmail
+Message-ID: <9b53ef8b-7911-ed45-2160-60e6d553fc69@invisiblethingslab.com>
+Date: Wed, 19 Jul 2023 00:38:39 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-To: Ayan Kumar Halder <ayankuma@amd.com>, Michal Simek
- <michal.simek@amd.com>, "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Michal Orzel <michal.orzel@amd.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "Garhwal, Vikram" <vikram.garhwal@amd.com>, Xenia.Ragiadakou@amd.com
-References: <8929cafc-ea9c-35c9-e4a4-3c7ad2d1acc1@amd.com>
- <b60f4cb0-2a82-4227-de23-c59436cb47ef@amd.com>
- <9dd7e04e-92d9-bd90-dd66-0f8eefefc4a8@amd.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: U-Boot on XEN - dcache off
-In-Reply-To: <9dd7e04e-92d9-bd90-dd66-0f8eefefc4a8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [XEN PATCH] x86/msr: Allow hardware domain to read package
+ C-state residency counters
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <946e5494801866c93332cc5d9ec0fa03a4df00d7.1689686046.git.simon@invisiblethingslab.com>
+ <d512a592-24e7-2eca-16ce-7451dc110f64@suse.com>
+From: Simon Gaiser <simon@invisiblethingslab.com>
+In-Reply-To: <d512a592-24e7-2eca-16ce-7451dc110f64@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------0rxpIIXHNkyyVoM2hw1G9Mg2"
 
-Hi,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0rxpIIXHNkyyVoM2hw1G9Mg2
+Content-Type: multipart/mixed; boundary="------------2wrqahpHeSbi3sBPezDeCkd7";
+ protected-headers="v1"
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Message-ID: <9b53ef8b-7911-ed45-2160-60e6d553fc69@invisiblethingslab.com>
+Subject: Re: [XEN PATCH] x86/msr: Allow hardware domain to read package
+ C-state residency counters
+References: <946e5494801866c93332cc5d9ec0fa03a4df00d7.1689686046.git.simon@invisiblethingslab.com>
+ <d512a592-24e7-2eca-16ce-7451dc110f64@suse.com>
+In-Reply-To: <d512a592-24e7-2eca-16ce-7451dc110f64@suse.com>
 
-On 17/07/2023 16:31, Ayan Kumar Halder wrote:
-> + xen-devel (Since the question is related to Xen on Arm in general).
-> On 14/07/2023 15:14, Michal Simek wrote:
->> +xen
->>
->> On 7/14/23 16:11, Michal Simek wrote:
->>> Hi Stefano,
->>>
->>> I am playing with running u-boot on the top of xen 
->>> (xenguest_arm64_defconfig) based on ask from Kris to run QNX on the 
->>> top of it.
->>> In past we found that QNX requires to have DCACHE off before it's start.
->>> Chris found in past that dcache off is not working and he passed this 
->>> to us to take look at it more.
+--------------2wrqahpHeSbi3sBPezDeCkd7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Xen will not prevent the guest to turn off D-cache. BTW, on Armv8, the 
-cache is never really off, it is just by-passed. So a guest running with 
-MMU/D-Cache off has to be a lot more careful when writing/reading data.
+Jan Beulich:
+> On 18.07.2023 15:17, Simon Gaiser wrote:
+>> --- a/xen/arch/x86/pv/emul-priv-op.c
+>> +++ b/xen/arch/x86/pv/emul-priv-op.c
+>> @@ -965,6 +965,20 @@ static int cf_check read_msr(
+>>          *val =3D 0;
+>>          return X86EMUL_OKAY;
+>> =20
+>> +    case MSR_PKG_C2_RESIDENCY:
+>> +    case MSR_PKG_C3_RESIDENCY:
+>> +    case MSR_PKG_C6_RESIDENCY:
+>> +    case MSR_PKG_C7_RESIDENCY:
+>> +    case MSR_PKG_C8_RESIDENCY:
+>> +    case MSR_PKG_C9_RESIDENCY:
+>> +    case MSR_PKG_C10_RESIDENCY:
+>> +        if ( boot_cpu_data.x86_vendor !=3D X86_VENDOR_INTEL )
+>> +            break;
+>> +        if ( is_hardware_domain(currd) )
+>> +            goto normal;
+>> +        *val =3D 0;
+>> +        return X86EMUL_OKAY;
+>=20
+> In addition to what Andrew said: Why would we suddenly allow these
+> reads to succeed for DomU-s?
 
->>>
->>> That's why I enabled cache commands to be able to run dcache off and 
->>> see the hang as Kris.
+That patch wouldn't actually allow those reads, but fake a 0 response,
+or do I miss something. If you mean that behavior: I just mirrored what
+is done there in some of the other cases. If you prefer something else,
+for example treating it as unimplemented, I can change that.
 
-Can you provide more details on the hang? What is QNX trying to do? 
-What's the instruction it is blocked on?
+Simon
 
-Also, which version of Xen are you using?
+--------------2wrqahpHeSbi3sBPezDeCkd7--
 
->>> I found one interesting commit created by Marc for Android which were 
->>> taken back to u-boot upstream. It is talking about KVM and I barely 
->>> understand what he is talking about.
->>> I of course enabled this option to try it and behavior is the same.
->>> That's why my question is what Xen is doing in connection to dcache 
->>> operations.
-> 
-> WRT cache operations, Refer 
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=53b705d02cec03861044e673536586bd1b2443bd
-> 
-> When the data abort is caused due to cache maintenance for an address,
-> there are three scenarios:-
+--------------0rxpIIXHNkyyVoM2hw1G9Mg2
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-I might be missing some context. From my understanding, Michal is 
-referring an hang. This may or may not be a data abort. Do you have more 
-details you could share?
+-----BEGIN PGP SIGNATURE-----
 
-[...]
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmS3FHIACgkQkO9xfO/x
+ly+yThAAntqMMZFp8JESAhHrcQWwJu2rVw6fedsPnHVREG4pMW3iZbwj948zFAns
+ebgIxID/813do1K3HYNTDms0XpjsyKhAK+pDF7iqu26czh6mLTyNN3t9OGwYlZ12
+O7xlfEpAZkecL1FjmCDNMHfSx4WXBKTtPBdzECZ/SIegQ84FabyRBbww0rT4vdx9
+LChAESBcFiTwmPLiVla8Q5t+DKv0oenz0mUemF/IdFKweGBaxvD9Q45y2BfcbOCX
+CyLXP7OqtqWHuAlR+BIELq3KjLEc9wbVQwDXRX1qthzZBGi1mf2HDuGphfIqLq1l
+ad/9e7ZRs9ypGpVuNt9+k+vewVWu+QaGaDBgCv/MZ5KIDgafyUT4oEIpCv5YD3Uc
+02+YzynDLpXl83TBExxTgWWemG0Qn4hAfth+J/m3o2SqInTqDHUVKficBFfszRRi
+GCG5lbRm23b4XND6tOYQrrjvuj5hQGJ7otytYge1w9LbTgFIKKlRKq9fgy6KKWIk
+FzXD7OOSkeoFaIkjI77QGg+bP5fYvNiYUy/4y4LA6QWYrDRUPmg/ywV6tfF8EEGO
+7Fnm+bKs1TDxjVCYWqV80MLhrOyPgT/gOm3nq4eP6O3aQxtrGADGhZWV64yQx7M2
+AEWvlIg6xIvlSKJ9N0MgJG/M2s9hW2iuXhQQbTw3XVpDZ6SI9og=
+=rjKt
+-----END PGP SIGNATURE-----
 
->>>
->>>
->>> commit 46dc54287031759c03c68902283d92076938305c
->>> Author:     Marc Zyngier <maz@kernel.org>
->>> AuthorDate: Thu Feb 9 04:54:27 2023 +0800
->>> Commit:     Tom Rini <trini@konsulko.com>
->>> CommitDate: Mon Mar 6 17:03:55 2023 -0500
->>>
->>>      arm: cpu: Add optional CMOs by VA
->>>
->>>      Exposing set/way cache maintenance to a virtual machine is 
->>> unsafe, not
->>>      least because the instructions are not permission-checked but also
->>>      because they are not broadcast between CPUs. Consequently, KVM 
->>> traps and
->>>      emulates such maintenance in the host kernel using by-VA operations 
-> 
-> I am not sure if Xen behave in same way (ie traps and emulates *all* 
-> cache maintenance instructions).
-> 
-> @Julien, Stefano, Bertrand - Do you know more about this ?
-
-Xen will emulate set/way instructions only when the P2M is not shared 
-with the IOMMU (i.e there is no device passthrough for Arm). Otherwise, 
-a fault will be injected to the domain. Even when emulating, the 
-performance will be quite bad, so it is best to avoid them all together.
-
-By any chance, are you passthrough-ing a device and QNX is using set/way?
-
-> 
->>> and
->>>      looping over the stage-2 page-tables. However, when running under
->>>      protected KVM, these instructions are not able to be emulated 
->>> and will
->>>      instead result in an exception being delivered to the guest.
->>>
->>>      Introduce CONFIG_CMO_BY_VA_ONLY so that virtual platforms can 
->>> select
->>>      this option and perform by-VA cache maintenance instead of using 
->>> the
->>>      set/way instructions.
->>>
->>>      Signed-off-by: Marc Zyngier <maz@kernel.org>
->>>      Signed-off-by: Will Deacon <willdeacon@google.com>
->>>      Signed-off-by: Pierre-Clément Tosi <ptosi@google.com>
->>>      [ Paul: pick from the Android tree. Fixup Pierre's commit. And 
->>> fix some
->>>        checkpatch warnings. Rebased to upstream. ]
->>>      Signed-off-by: Ying-Chun Liu (PaulLiu) <paul.liu@linaro.org>
->>>      Cc: Tom Rini <trini@konsulko.com>
->>>      Link: 
->>> https://android.googlesource.com/platform/external/u-boot/+/db5507f47f4f57f766d52f753ff2cc761afc213b
->>>      Link: 
->>> https://android.googlesource.com/platform/external/u-boot/+/2baf54e743380a1e4a6bc2dbdde020a2e783ff67
->>>
->>>
->>> Code ends when it tries to call
->>> set_sctlr(sctlr & ~(CR_C|CR_M));
->>>
->>> Here is implementation. I confirm EL level which is obviously EL1.
->>>
->>> 180 static inline void set_sctlr(unsigned long val)
->>> 181 {
->>> 182         unsigned int el;
->>> 183
->>> 184         el = current_el();
->>> 185         if (el == 1)
->>> 186                 asm volatile("msr sctlr_el1, %0" : : "r" (val) : 
->>> "cc");
->>> 187         else if (el == 2)
->>> 188                 asm volatile("msr sctlr_el2, %0" : : "r" (val) : 
->>> "cc");
->>> 189         else
->>> 190                 asm volatile("msr sctlr_el3, %0" : : "r" (val) : 
->>> "cc");
->>> 191
->>> 192         asm volatile("isb");
->>> 193 }
->>>
->>> Is there any reason why it is not possible to clear to sctlr_el1 
->>> CR_C/CR_M - cache disabling, MMU disabling?
-
-I am not sure I understand the question. The code '& ~(CR_C|CR_M)' which 
-means all the bits but C/M will be cleared. IOW, the cache will be 
-disabled and the MMU disabled as well.
-
-IIUC, above you said, this is what QNX requires.
-
-Cheers,
-
--- 
-Julien Grall
+--------------0rxpIIXHNkyyVoM2hw1G9Mg2--
 
