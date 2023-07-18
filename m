@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B86E758601
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 22:18:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565451.883558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D17BA75861E
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 22:32:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565458.883568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLr94-0004OR-1c; Tue, 18 Jul 2023 20:18:06 +0000
+	id 1qLrMq-00070o-Bk; Tue, 18 Jul 2023 20:32:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565451.883558; Tue, 18 Jul 2023 20:18:06 +0000
+Received: by outflank-mailman (output) from mailman id 565458.883568; Tue, 18 Jul 2023 20:32:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLr93-0004Md-Ud; Tue, 18 Jul 2023 20:18:05 +0000
-Received: by outflank-mailman (input) for mailman id 565451;
- Tue, 18 Jul 2023 20:18:04 +0000
+	id 1qLrMq-0006yc-8W; Tue, 18 Jul 2023 20:32:20 +0000
+Received: by outflank-mailman (input) for mailman id 565458;
+ Tue, 18 Jul 2023 20:32:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ju50=DE=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1qLr92-0004MX-Lc
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 20:18:04 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f5ffa72-25a8-11ee-b23a-6b7b168915f2;
- Tue, 18 Jul 2023 22:18:02 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 64CDF5C0116;
- Tue, 18 Jul 2023 16:17:57 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 18 Jul 2023 16:17:57 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 18 Jul 2023 16:17:53 -0400 (EDT)
+ <SRS0=jxnk=DE=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qLrMo-0006yG-J9
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 20:32:18 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e81f482-25aa-11ee-b23a-6b7b168915f2;
+ Tue, 18 Jul 2023 22:32:16 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id B70CF8285AED;
+ Tue, 18 Jul 2023 15:32:14 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id tOLoozPT1EFX; Tue, 18 Jul 2023 15:32:13 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 413978285801;
+ Tue, 18 Jul 2023 15:32:13 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id XwmBic4oMqLn; Tue, 18 Jul 2023 15:32:13 -0500 (CDT)
+Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id C14BC8285396;
+ Tue, 18 Jul 2023 15:32:12 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,217 +51,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f5ffa72-25a8-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1689711477; x=1689797877; bh=5yZUpR+6ZPpUWjcU9SUTuExBXt7D47JD44m
-	vzL64O9w=; b=aWt7rrWj1HvCYDVWdaxeFCR3BB9kgv2xtvQwpRfVDx3yldCxeBN
-	zacMeG+fkVc5XySPNix7NzxKU97/x1HSU4GbrQQ0Qr+w1IHj3l3sSRZ66QE2qdde
-	EPyd7Lp6/BJxFsGLyPjrPq2kZd0N21leGo46udrqsZC/c7hT28MA9jiQ8cXY48yP
-	EGZvsLeN1oygSRm5ETSBH8Qmf99oQwmnUH3tkoO4Q9KYkYK+WLYTO86V2C6i+8IO
-	bbMTWpbtxWakZ9G6zWJdhSbEASySfbODlI9MLcR0JL1Xvzb9J8tBj6Xoarhtb5Wj
-	47yo3AUfL8tEQcBpHd2b6dLrpJ4js9PbWnw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1689711477; x=1689797877; bh=5yZUpR+6ZPpUW
-	jcU9SUTuExBXt7D47JD44mvzL64O9w=; b=Kuhj0/Zej1waNv+LlUq2rdfi+bahF
-	2mD71tarfYTcrK6jzm2lf39il4aOyIqJz/WP67Jq2+pqcxKPeDUW9THRDkK6rHPz
-	omsOiP1y49/7PT2AxLM6uM/qGeHsw2L3LUfeTnQ8T21TYT69gg9O8eMz8GxD8Jb/
-	lhiy9NNH82SlRm4c9kAD8TCGj1uVMfzdTPQZVfBK4nVaa26KxsY56RKJc/TKfcgW
-	BNWTEy0A04iX2aDDV5Z9ylIpS9gsdx8d7VsqVDEdJqU2d28F4iKCFhikX0wbqYtX
-	AI+6PVjNiu37PbUi7nKX2UuLXwdx7GM1+iWGvoPlrHvUe1viDCPsgsEYQ==
-X-ME-Sender: <xms:dfO2ZLFFNyr-2BZPvaKArX6nW1HLMal5Xi78fOdnumlIf7frVZTgiQ>
-    <xme:dfO2ZIXOR6cgH8H6CDvFhhWoi0PzqnBTq2Gbii_fXyRrQ6O_F5eA4RmCQLOa5JrgA
-    xT4LYur_EhWN0c>
-X-ME-Received: <xmr:dfO2ZNLEGm3YKVwv6Me4cS-vPs481bT7AH1jc0LSOKcK0M0ZyCm7naVvKNf3qxQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrgeeggddugeegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepkfffggfuvfevfhfhjggtsehgtderredttdejnecuhfhrohhmpefuihhmohhn
-    ucfirghishgvrhcuoehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
-    homheqnecuggftrfgrthhtvghrnhepudfhfeejveevteehvddtueffuedtteevleelfeek
-    tdfhveehvedtieejteetueeinecuffhomhgrihhnpehinhhtvghlrdgtohhmpdhkvghrnh
-    gvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:dfO2ZJHltVPpYGxT2X_2c-FbjWJ-qV8dU7pxjd2Y1hEtavH-jPEWNg>
-    <xmx:dfO2ZBXJoqwNn-1LR_9F3szqM45eycys4FF2tOZ_UoNLbzk8REm2LA>
-    <xmx:dfO2ZEMYO9guUjyeLfygZYdXKG1m-peKhW1aYJLy2h4aOUDx5DnDmQ>
-    <xmx:dfO2ZEQjB5hfdmoQnONqBAkfMLhbm6w2rxodHe2t3o_MApMtzr6yPQ>
-Feedback-ID: idc5945a3:Fastmail
-Message-ID: <683e73d8-037a-5e38-745d-ae1c0e18fc79@invisiblethingslab.com>
-Date: Tue, 18 Jul 2023 22:17:45 +0200
+X-Inumbo-ID: 2e81f482-25aa-11ee-b23a-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 413978285801
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1689712333; bh=hu0VBkQj2Z11eNO2gz3GrqyEnSUtPkSDbP3E1U420fY=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=NR0kssY9UvU09hQeIL0QAg9WTdu72JL2hyEJIAWrnaeO3XlqUc8plbesgNf9/ijqD
+	 QrY7H1g/WUiSXkdQufok2eXpou2rpX2liT3X6hcapiGpCqnzuslPGuVT51sV0Rd5Oc
+	 fDGGOeig3v4c/+hsCncllzHhlIWmy67YfTxRmXzU=
+X-Virus-Scanned: amavisd-new at rptsys.com
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: xen-devel@lists.xenproject.org
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH v4 0/4] Early serial on Power
+Date: Tue, 18 Jul 2023 15:20:21 -0500
+Message-Id: <cover.1689710519.git.sanastasio@raptorengineering.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/4] x86/idle: Get PC{8..10} counters for Tiger and Alder
- Lake
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20230718132334.2087-1-simon@invisiblethingslab.com>
- <aa23a090-1883-008b-e395-2a3bca709258@suse.com>
- <2be631d2-95f3-0d7f-ad84-eb9e16d1a39a@invisiblethingslab.com>
- <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
-From: Simon Gaiser <simon@invisiblethingslab.com>
-In-Reply-To: <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------XkXusRDb9wd301gW0E277UxX"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------XkXusRDb9wd301gW0E277UxX
-Content-Type: multipart/mixed; boundary="------------9AOgAcx0N0K2Er0tVWGl9fk3";
- protected-headers="v1"
-From: Simon Gaiser <simon@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Message-ID: <683e73d8-037a-5e38-745d-ae1c0e18fc79@invisiblethingslab.com>
-Subject: Re: [PATCH 2/4] x86/idle: Get PC{8..10} counters for Tiger and Alder
- Lake
-References: <20230718132334.2087-1-simon@invisiblethingslab.com>
- <aa23a090-1883-008b-e395-2a3bca709258@suse.com>
- <2be631d2-95f3-0d7f-ad84-eb9e16d1a39a@invisiblethingslab.com>
- <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
-In-Reply-To: <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
-
---------------9AOgAcx0N0K2Er0tVWGl9fk3
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Jan Beulich:
-> On 18.07.2023 15:46, Simon Gaiser wrote:
->> Jan Beulich:
->>> On 18.07.2023 15:23, Simon Gaiser wrote:
->>>> ---
->>>>  xen/arch/x86/acpi/cpu_idle.c | 9 ++++++---
->>>>  1 file changed, 6 insertions(+), 3 deletions(-)
->>>
->>> This lacks both S-o-b and a proper description. The latter in
->>> particular because you ...
->>
->> Yeah, I also noticed in the meantime, sorry. Will be fixed in v2.
->>
->>>> --- a/xen/arch/x86/acpi/cpu_idle.c
->>>> +++ b/xen/arch/x86/acpi/cpu_idle.c
->>>> @@ -155,6 +155,12 @@ static void cf_check do_get_hw_residencies(void=
- *arg)
->>>> =20
->>>>      switch ( c->x86_model )
->>>>      {
->>>> +    /* Tiger Lake */
->>>> +    case 0x8C:
->>>> +    case 0x8D:
->>>> +    /* Alder Lake */
->>>> +    case 0x97:
->>>> +    case 0x9A:
->>>>      /* 4th generation Intel Core (Haswell) */
->>>>      case 0x45:
->>>>          GET_PC8_RES(hw_res->pc8);
->>>> @@ -185,9 +191,6 @@ static void cf_check do_get_hw_residencies(void =
-*arg)
->>>>      case 0x6C:
->>>>      case 0x7D:
->>>>      case 0x7E:
->>>> -    /* Tiger Lake */
->>>> -    case 0x8C:
->>>> -    case 0x8D:
->>>>      /* Kaby Lake */
->>>>      case 0x8E:
->>>>      case 0x9E:
->>>
->>> ... don't just add new case labels, but you actually move two. It
->>> wants explaining whether this was outright wrong, or what else
->>> causes the movement.
->>
->> Yes, as the commit message says it get those PC{8..10} counters for
->> Tiger and Alder Lake.
->=20
-> But that's the problem - there was no commit message.
+Hello all,
 
-I'm used to that in git "commit message" refers to the whole thing,
-including the "title" (everything till the first blank line. Usually
-only a single line. Put into the Subject header by format-patch). And
-there it says exactly this, which I considered enough when drafting it.
-Will send a v2 with a more verbose description.
+This series adds support for early serial printing on Power, as well as
+a simple CI smoke test modeled after the riscv one.
 
->> The former already had a label, therefore the
->> move. I assume that when Tiger Lake was added it was an oversight to n=
-ot
->> also read those package C-state counters.
->=20
-> Or the SDM wasn't clear, and we needed to err on the safe side.
+The first patch is responsible for setting up a basic C environment with
+an initial stack while the second sets up an Open Firmware serial console
+and primitive early_printk infrastructure.
 
-The SDM [1] seems to be indeed a mess regarding
-MSR_PKG_C{8..10}_RESIDENCY. If I didn't missed something in that huge
-document it lists PC8 and PC9 only for Intel Core 4th gen with CPUID
-06_45H (table 2-31). For PC10 it additionally list Atoms starting with
-Goldmont (table 2-12 and references to it).
+This will currently only run on QEMU pseries VMs, since the firmware
+interface on bare metal differs significantly. Support for bare metal
+will be added in a future series along with support for the
+position-independent code model.
 
-But it already contradicts itself by listing on page 5002/5003 06_4Fh
-(some Xeons) as another model that supports those MSRs. It refers to
-table 2-38 there, but that table doesn't contain those MSRs.
+Based on v3 of Jan's "common: move a few macros out of xen/lib.h"
+(https://lists.xen.org/archives/html/xen-devel/2023-07/msg00582.html)
 
-Linux' pmc_core [2] and turbostat [3] both use those MSRs on Tiger and
-Alder Lake. And on my Tiger Lake test system I get useful data from
-there.
+Thanks,
+Shawn
 
-Is the code in Linux a good enough reference?
+--
+Changes in v4:
+  - Add macros.h patch for ARRAY_SIZE
+    - Based on v3 of Jan's "common: move a few macros out of xen/lib.h"
+  - (head.S) Remove unnecessary '.section .init.data'
+  - (head.S) Fixup spacing, remove unnecessary parens
+  - (setup.c, processor.h) Fix style of HMT_very_low macro
+  - (early_printk.c) Build early_printk.c as .init.o
+  - (early_printk.c) Mark putchar_func as __initdata
+  - (boot-of.c) Clarify original license in top comment
+  - (boot-of.c) Add parens around ADDR macro definition
+  - (boot-of.c) Add missing ADDR() for pointer arguments
+  - (boot-of.c) Add comment explaining ADDR macro
+  - (boot-of.c) Fix style (indentation, comment capitalization)
+  - (boot-of.c) Fix type inconsistency in boot-of.c
+  - (boot-of.c) Use ARRAY_SIZE instead of hard-coding nrets
+  - (boot-of.c) Change bof_chosen variable to function-scope
+  - (processor.h) Remove duplicate <xen/types.h> include
+  - (processor.h) Remove unnecessary <xen/config.h> include
+  - (processor.h) Move HMT_very_low macro to !defined(ASSEMBLY) block
+  - (processor.h) Fixup struct cpu_user_regs comment style
 
-Simon
+Changes in v3:
+  - Set up r2 TOC pointer in start
+  - Change indirect call to start_xen to a direct one
+  - Use 32-bit constant loads for stack pointer, etc. in start
+      - Our load address is < 4GB so this works fine
+      - In a future series we'll get -fPIC working and change all of
+        these immediate address loads to TOC-relative ones.
+  - Move .bss initialization to patch 2
+  - Move cpu0_boot_stack declaration to setup.c
+  - Bump stack size down to one page (64k), previous was way overkill.
+  - Remove unnecessary STACK_FRAME_OVERHEAD component from of-call.S
+    stack frame size calculation
+  - Add assertion that `struct cpu_user_regs` is stack-aligned
+  - Move magic `or 31,31,31` to appropriately-named macro
+  - Fix formatting of loop in setup.c
+  - Add newline in arch/ppc/Makefile to preserve alphabetical ordering
+    per group
+  - Rebase on staging, including the final version of
+    'xen/types: Rework stdint vs __{u,s}$N types'
 
-[1]:
-I looked at what's currently linked on Intel's website. "325462-080US"
-from "June 2023"
-https://cdrdv2.intel.com/v1/dl/getContent/671200
+Changes in v2:
+  - Split main patch into two - one for basic C environment setup and
+    one for serial
+  - Mark OpenFirmware functions and early_printk functions as __init and
+    change boot-of.o to boot-of.init.o in Makefile
+  - Change <xen/lib.h> include to <xen/stdarg.h> and drop skeleton
+    headers that are no longer necessary for build as a result
+  - Add loop to clear .bss before jumping to C environment that was
+    accidentally excluded from the first series
+  - Move common asm macros from processor.h to asm-defns.h
+  - Change note in head.S about preserved registers to a multi-line
+    comment so it's more noticeable
+  - Drop reg-defs.h and use '%'-prefixed register names in assembly
+      - This is necessary since -mregnames, which allows standard
+        non-prefixed register names without manual macro definitions,
+        is not supported by LLVM's assembler.
+  - Drop inline asm swab routines in favor of __builtin_bswap family
+  - Fix up types.h in accordance with (as of now, unmerged)
+    'xen/types: Rework stdint vs __{u,s}$N types'
+  - Remove unnecessary braces for single-line statements
+  - Remove unnecessary license text when SPDX header is present
+  - Fix alphabetical ordering of object declarations in Makefile
+  - Drop 'extern' from enter_of prototype, ensure prototypes have
+    argument names
 
-[2]:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
-rivers/platform/x86/intel/pmc/core.c?h=3Dv6.4#n44
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
-rivers/platform/x86/intel/pmc/tgl.c?h=3Dv6.4#n188
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
-rivers/platform/x86/intel/pmc/adl.c?h=3Dv6.4#n291
+Shawn Anastasio (4):
+  common: Move a few more standalone macros from xen/lib.h to
+    xen/macros.h
+  xen/ppc: Set up a basic C environment
+  xen/ppc: Implement early serial printk on pseries
+  automation: Add smoke test for ppc64le
 
-[3]:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/t=
-ools/power/x86/turbostat/turbostat.c?h=3Dv6.4#n5763
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/t=
-ools/power/x86/turbostat/turbostat.c?h=3Dv6.4#n5074
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/t=
-ools/power/x86/turbostat/turbostat.c?h=3Dv6.4#n5409
+ automation/gitlab-ci/test.yaml           |  20 ++++
+ automation/scripts/qemu-smoke-ppc64le.sh |  27 +++++
+ xen/arch/ppc/Kconfig.debug               |   5 +
+ xen/arch/ppc/Makefile                    |   4 +
+ xen/arch/ppc/boot-of.c                   | 113 +++++++++++++++++++
+ xen/arch/ppc/configs/ppc64_defconfig     |   1 +
+ xen/arch/ppc/early_printk.c              |  28 +++++
+ xen/arch/ppc/include/asm/asm-defns.h     |  57 ++++++++++
+ xen/arch/ppc/include/asm/boot.h          |  23 ++++
+ xen/arch/ppc/include/asm/byteorder.h     |  12 ++
+ xen/arch/ppc/include/asm/config.h        |   5 +-
+ xen/arch/ppc/include/asm/early_printk.h  |  15 +++
+ xen/arch/ppc/include/asm/msr.h           |  51 +++++++++
+ xen/arch/ppc/include/asm/processor.h     | 138 +++++++++++++++++++++++
+ xen/arch/ppc/include/asm/types.h         |  21 ++++
+ xen/arch/ppc/ppc64/Makefile              |   1 +
+ xen/arch/ppc/ppc64/asm-offsets.c         |  59 ++++++++++
+ xen/arch/ppc/ppc64/head.S                |  47 ++++----
+ xen/arch/ppc/ppc64/of-call.S             |  83 ++++++++++++++
+ xen/arch/ppc/setup.c                     |  32 ++++++
+ xen/include/xen/lib.h                    |  28 -----
+ xen/include/xen/macros.h                 |  32 ++++++
+ 22 files changed, 753 insertions(+), 49 deletions(-)
+ create mode 100755 automation/scripts/qemu-smoke-ppc64le.sh
+ create mode 100644 xen/arch/ppc/boot-of.c
+ create mode 100644 xen/arch/ppc/early_printk.c
+ create mode 100644 xen/arch/ppc/include/asm/asm-defns.h
+ create mode 100644 xen/arch/ppc/include/asm/boot.h
+ create mode 100644 xen/arch/ppc/include/asm/byteorder.h
+ create mode 100644 xen/arch/ppc/include/asm/early_printk.h
+ create mode 100644 xen/arch/ppc/include/asm/msr.h
+ create mode 100644 xen/arch/ppc/include/asm/processor.h
+ create mode 100644 xen/arch/ppc/include/asm/types.h
+ create mode 100644 xen/arch/ppc/ppc64/of-call.S
+ create mode 100644 xen/arch/ppc/setup.c
 
---------------9AOgAcx0N0K2Er0tVWGl9fk3--
+--
+2.30.2
 
---------------XkXusRDb9wd301gW0E277UxX
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmS282sACgkQkO9xfO/x
-ly+3gg/9H4hqwS8YzxXHb9FVzumNrOxhk8FyM3LjfhcsySt0DX+Hk/iCXy7IvOdD
-32SWT8Es9jtoWETE7m/1nqrYMX1HEILub+MccLJGYK6M60bs14jwLta2u+kiCilw
-KAjRTdcN0oWAkbqSG/iG3CL7eZ6v+47TTr5B6+fdk6HWeQhNW6x4+L6klz6cpCl5
-ZySGLmKPJMpUdBl8RJ6hy2TXIFambX/1FggYeGJZBlo3PvgGEFMQmC4yydOqqblL
-1BzIiqV8lnRtQ2jdHZsRCZjr7/uwGPtMlrPfQMVL+HqWr+rX9gB4YjYgW74kcZOn
-0zXzofp52c57sRiUEqQ1LDAObusXEcuQ6fIzkI4sovdc01rRMJNUo8rcs6GVTCDv
-SwIKmf0SSCvlRzLyBKzQnk+N7DJY1pMfIxfTuKBQdNfjgikkMIoxAmSlPzM3DQb5
-RRGGMnBOf2DRpYbc2HYESkhvWJuo/dcInAQiAuMf2/kbh4/mNFSxyK2aKa0CW3hY
-1wSEUdM6DA0fzFOK5yyY0Z0aA6iIswO9VeOFmCIrxyJ2wIfyeAf69cyuCMa8UYZC
-wEvMMA655w0YJ3YPFNaaXTI0u7MTLPB4erkc4/MuvrkMuOjsCAUdzvH2pxKnHIEJ
-uwTjW4xlSqo/BUHPnE9nnri1qGSeIZl7yJcsD/uvW1/3lpS0Uf8=
-=QJ0B
------END PGP SIGNATURE-----
-
---------------XkXusRDb9wd301gW0E277UxX--
 
