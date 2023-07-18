@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0B4D757C57
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 14:58:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565201.883154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0CC757CB4
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 15:03:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565210.883168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLkHR-0007Yo-2A; Tue, 18 Jul 2023 12:58:17 +0000
+	id 1qLkMb-0000l1-Lu; Tue, 18 Jul 2023 13:03:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565201.883154; Tue, 18 Jul 2023 12:58:17 +0000
+Received: by outflank-mailman (output) from mailman id 565210.883168; Tue, 18 Jul 2023 13:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLkHQ-0007WR-UK; Tue, 18 Jul 2023 12:58:16 +0000
-Received: by outflank-mailman (input) for mailman id 565201;
- Tue, 18 Jul 2023 12:58:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rqcw=DE=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qLkHP-0007WL-5G
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 12:58:15 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c17826bc-256a-11ee-b23a-6b7b168915f2;
- Tue, 18 Jul 2023 14:58:13 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-991da766865so788030766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jul 2023 05:58:13 -0700 (PDT)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- w21-20020a1709064a1500b00982b204678fsm973598eju.207.2023.07.18.05.58.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jul 2023 05:58:13 -0700 (PDT)
+	id 1qLkMb-0000jE-It; Tue, 18 Jul 2023 13:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 565210;
+ Tue, 18 Jul 2023 13:03:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLkMa-0000j4-Eu; Tue, 18 Jul 2023 13:03:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLkMa-0000V4-DI; Tue, 18 Jul 2023 13:03:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLkMa-0008AS-1X; Tue, 18 Jul 2023 13:03:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qLkMa-0006U4-0Z; Tue, 18 Jul 2023 13:03:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +42,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c17826bc-256a-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1689685093; x=1692277093;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JjHky2ofynad/3sKJ5swr3/zAEiThMFEONb1eagRRkg=;
-        b=Wpbk2MtdA8ZQJ0oEp2ZcZDp6jatDT9ufeHIW0cjaPAfgz+c/hyoM1hxATjnUYgJKQx
-         QultYNcPW8kDkywP9IYtv565qMFiz/dEPg4ZjqplUn/m3Ec4zRX1iDwMl6gnTAmQArYj
-         VIxvUlM3DMPW51PfsC3Iz8Oz+TuLaCD6EGq/M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689685093; x=1692277093;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JjHky2ofynad/3sKJ5swr3/zAEiThMFEONb1eagRRkg=;
-        b=EJWB+ISL+UcER561+gqx8QnrV1Kn2zoRvfkS1e5vmi+ItflDPoVsco35wviY7A4pbG
-         MdW1f55EvDEl/Mt2cLDbA6ZwZgi5sU0AZbrRVGU/yQTy+TdK0yCxcvzvLyhFNT/kX3St
-         YOiy9a1m6+L/gQLbJHPNWA24OIFjv528CjpPPrMiD9/mpBS2Br/SIEW7ak3kY0XraxKz
-         EUAnPga4qA44V+DxtbTGJpo5QSBuOy4xqGs6YSkkVuUVAbJaYAgNnZQHREk2wDU/v8t0
-         D0htE5Oen3eEV7DCU+jRjEzRZRpI4bv6o4quqWrNh57P83DKYn2AnsUFjUFrBaLiSMdk
-         mx7A==
-X-Gm-Message-State: ABy/qLa40IWUqsuIGmHJnmn5GY10mntrGUvXGff+H+FW44Mr8lyEsOV0
-	ARxuswt7KS7Q9w16E0xMKmp2XA==
-X-Google-Smtp-Source: APBJJlEB23mbt/Fzr3lLJJEr4A86A+YbcOqE4lW5Ww70jlxewjVo43p2BxgH5NhC1F1epDezQ7SLSg==
-X-Received: by 2002:a17:906:e285:b0:98e:1156:1a35 with SMTP id gg5-20020a170906e28500b0098e11561a35mr11747716ejb.74.1689685093350;
-        Tue, 18 Jul 2023 05:58:13 -0700 (PDT)
-Message-ID: <64b68c65.170a0220.b0fe3.40f1@mx.google.com>
-X-Google-Original-Message-ID: <ZLaMY0qTA9XqWrdb@EMEAENGAAD19049.>
-Date: Tue, 18 Jul 2023 13:58:11 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 0/8] Make PDX compression optional
-References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
- <7ad1dc72-3b1b-fa7f-8ce4-dd7973c8da93@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GYvn+BQrC9sZAeB+DV4ANKsGa5xBD6QYHTU23NBjBZM=; b=Ru/iza1yP18bq5iRO6N4C1FrWE
+	ui0LPIsdK/ePY/cFyCDmwmaBq9BeR41uaT6JrZNUATRZUHTLH4ThXWYNhsThXdpgayD4T5FAlcXJ0
+	sMKzmPlMkYzR5hUNWH6hbem3t0oontOMMWdSXU1pAdugGAyK8Ca0/NA3LjQI1xP/PSxs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181861-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7ad1dc72-3b1b-fa7f-8ce4-dd7973c8da93@suse.com>
+Subject: [xen-4.17-testing test] 181861: tolerable trouble: fail/pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-4.17-testing:test-amd64-i386-migrupgrade:xen-install/src_host:fail:heisenbug
+    xen-4.17-testing:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:heisenbug
+    xen-4.17-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-raw:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit1:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-thunderx:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-xsm:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt-raw:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit1:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-rtds:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-vhd:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit2:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-vhd:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-arndale:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit2:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=8f11b6e942dbf02592de2ab3338226f0cd3ee3ac
+X-Osstest-Versions-That:
+    xen=71792ec9af49f94dd3fcb581310106aa5156150f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 18 Jul 2023 13:03:36 +0000
 
-On Tue, Jul 18, 2023 at 11:33:03AM +0200, Jan Beulich wrote:
-> On 17.07.2023 18:03, Alejandro Vallejo wrote:
-> > Currently there's a CONFIG_HAS_PDX Kconfig option, but it's impossible to
-> > disable it because the whole codebase performs unconditional
-> > compression/decompression operations on addresses. This has the
-> > unfortunate side effect that systems without a need for compression still
-> > have to pay the performance impact of juggling bits on every pfn<->pdx
-> > conversion (this requires reading several global variables). This series
-> > attempts to:
-> > 
-> >   * Leave the state of pdx and pdx compression documented
-> >   * Factor out compression so it _can_ be removed through Kconfig
-> >   * Make it so compression is disabled on x86 and enabled on both Aarch32
-> >     and Aarch64 by default.
-> 
-> I disagree with this choice of default for x86. To avoid surprising
-> downstreams, this should at best be a two-step process: Keep the
-> default as Y right now, and switch to N a couple of releases later.
-I'm not particularly worried about the default, as that's easy to change
-locally for our customers. That said, my .02 on the matter is that it would
-be easier to accept (leaving it as Y) if there was some documented case of
-the feature being triggered at present on x86. I'd rather turn it off
-unless we have strong evidence that it's actually used. Forcing Xen users
-to pay the cost of a feature they don't benefit from just feels wrong.
+flight 181861 xen-4.17-testing real [real]
+flight 181873 xen-4.17-testing real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181861/
+http://logs.test-lab.xenproject.org/osstest/logs/181873/
 
-> 
-> But that's only the simple / mechanical side. Considering my earlier
-> effort to reduce / remove the involved overhead dynamically at
-> runtime (which you may or may not be aware of; see [2]),
-I wasn't. I'll have a look at the end of the day[3]. Regardless, most of this
-series is about containment of compression into known helpers and hopefully
-that should be undeniably positive irrespective of how the overhead
-reduction is achieved.
+Failures :-/ but no regressions.
 
-> I view a
-> compile time choice as less desirable. At the very least I would
-> expect some justification towards this build time choice being
-> acceptable / reasonable despite the earlier effort towards greater
-> flexibility. Only such would be likely to have me merely defer to
-> other x86 maintainers, rather than outright objecting.
-> 
-> Jan
-> 
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2018-09/msg01616.html
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-migrupgrade 10 xen-install/src_host fail pass in 181873-retest
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail pass in 181873-retest
 
-I believe the burden of proof is reversed. Features bring complexity, and
-complexity increases the chances of introducing bugs. It's the presence of
-a feature that ought to be backed by a proof-of-requirement, not its
-absence.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 181832
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 181832
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 181832
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 181832
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 181832
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 181832
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 181832
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 181832
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 181832
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-libvirt-raw  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-libvirt-xsm  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl           3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-credit1   3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-thunderx  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-xsm       3 hosts-allocate               starved  n/a
+ test-armhf-armhf-libvirt      3 hosts-allocate               starved  n/a
+ test-armhf-armhf-libvirt-raw  3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl-credit1   3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl-multivcpu  3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl-rtds      3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl-vhd       3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-credit2   3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-vhd       3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl           3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl-arndale   3 hosts-allocate               starved  n/a
+ test-armhf-armhf-xl-credit2   3 hosts-allocate               starved  n/a
 
-As far as data goes, we're aware of several ARM systems with compressible
-memory banks, but no publicly available x86 ones. I'm purposefully leaving
-RISC-V and PPC out of this equation, as they may or may not require this,
-it's something the maintainers of those ports will have to assess in due
-time.
+version targeted for testing:
+ xen                  8f11b6e942dbf02592de2ab3338226f0cd3ee3ac
+baseline version:
+ xen                  71792ec9af49f94dd3fcb581310106aa5156150f
 
-Alejandro
+Last test of basis   181832  2023-07-17 06:37:00 Z    1 days
+Testing same since   181861  2023-07-17 22:08:51 Z    0 days    1 attempts
 
-[3] Note that I send this email before reading carefully your 2018 series.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          starved 
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 starved 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      starved 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  starved 
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  starved 
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  starved 
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 starved 
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 starved 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      starved 
+ test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   71792ec9af..8f11b6e942  8f11b6e942dbf02592de2ab3338226f0cd3ee3ac -> stable-4.17
 
