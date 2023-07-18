@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAF2C757E15
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 15:48:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565285.883318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D9C757EF8
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 16:05:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565293.883328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLl3m-0005VC-OA; Tue, 18 Jul 2023 13:48:14 +0000
+	id 1qLlJZ-00088u-22; Tue, 18 Jul 2023 14:04:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565285.883318; Tue, 18 Jul 2023 13:48:14 +0000
+Received: by outflank-mailman (output) from mailman id 565293.883328; Tue, 18 Jul 2023 14:04:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLl3m-0005TG-LL; Tue, 18 Jul 2023 13:48:14 +0000
-Received: by outflank-mailman (input) for mailman id 565285;
- Tue, 18 Jul 2023 13:48:13 +0000
+	id 1qLlJY-00086P-UV; Tue, 18 Jul 2023 14:04:32 +0000
+Received: by outflank-mailman (input) for mailman id 565293;
+ Tue, 18 Jul 2023 14:04:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4bXZ=DE=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qLl3l-0005TA-O1
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 13:48:13 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=g6ux=DE=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qLlJX-00086J-4d
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 14:04:31 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0608.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::608])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bce056fc-2571-11ee-b23a-6b7b168915f2;
- Tue, 18 Jul 2023 15:48:12 +0200 (CEST)
-Received: from [192.168.1.100] (unknown [37.161.123.45])
- by support.bugseng.com (Postfix) with ESMTPSA id C6C334EE0C88;
- Tue, 18 Jul 2023 15:48:10 +0200 (CEST)
+ id 02b08f3c-2574-11ee-b23a-6b7b168915f2;
+ Tue, 18 Jul 2023 16:04:29 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB8111.eurprd04.prod.outlook.com (2603:10a6:102:1c7::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Tue, 18 Jul
+ 2023 14:04:26 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Tue, 18 Jul 2023
+ 14:04:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,125 +47,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bce056fc-2571-11ee-b23a-6b7b168915f2
-Message-ID: <c6d56050-e9f7-3530-02d6-440c337dbdad@bugseng.com>
-Date: Tue, 18 Jul 2023 15:48:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+X-Inumbo-ID: 02b08f3c-2574-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hK27GhChaj5iEhVvr10kuQ7KrK2Lnpn3xn2DGa5xttbB61OzDmVSMUGVESk5rA588g1tpsYcGzOdw46ddN5sINtSqfL+vzrUYIGWVwVRXStyP6Mg8e4gCKtikq2ABqQii/30gaafRtnIbfQXp/obT1sI3vRzWrOSiZVaUsD7QxQtbqNhoOo/f+Bvd9SCp1shGOgXHV1OANMEhBkTw0Foty6VevOqKIO7s+yixknrr3A3lhSyc9K4tyEw9ioWGZp8/rl8+7/1vjLHbiSY/VjAJyDIsfoAvrVgjk4urE13qW4i/KeGHrhub57+gCEJJnth1H7ATp5RpTaZRPNS6AOsow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+25IvNh56WZG8jpnz8opXrTMLKi925FBHoqVUdLjewc=;
+ b=QdZXU9kD2dTtkXKK4D6wcEszG9r4EogY5VCFF2xSHwm9886QD/w1mLZoF/MonFqBkCxR52yjYgaMTQ2PxmEidmkQef6PGpL0mNtelen5SIN0OUPro/5h19KQ9e0DpKBC4tBhpub5qSus9nW50u01xxULr35WKSiFc+B9AWpQIBOKV59h7w32k774jPQJ85F2EJ9lCcYT/fpoAVkt80nNYXvDtSNol9cvTmf+Ww9SsfzujFnk+rlZyJVzWQ3UQ1UZEu8pktOpwyEVDwVv1cfd2G0kvoWkFIfd8nkb70P+d7WLyUZxlYMP33bmv9fNl9c3kA2qgJA16X75YtskjIXM9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+25IvNh56WZG8jpnz8opXrTMLKi925FBHoqVUdLjewc=;
+ b=y9z4kj5c/8NkQEpjXBdJ+32/rUm8SjOssYomcYryLKNhnKHEVb9h1J+Fi0uQIDoEkgfr0ZyJb39VXDb1UR7YvDBHXhNrWle9ou3NF2bQ2jnzgXtmWF8Cdep2JaVD5WujwkB1EDAL3hFDYJrQXTWhyDVd9cIVoh7NCjFlFBwBhRSQn7v+eX4XY1sMKK2Bt0W1eU+AxPmZqA5bz67y5e4P8VFnctKNoXgqGVh2E17xBF0/MI3NoyKpHGKnJ2CiNEBSGiexq5fJ/99tnd6zbMa1yvY54eR3S2m5C3Nep0jPahFPIWCV3xCZOk+T0KCuzYUXFeatOoC4F3rU+U0iX1B+iA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <b6365b9d-47a1-8ab4-37eb-0b821257dbd2@suse.com>
+Date: Tue, 18 Jul 2023 16:04:24 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [RFC PATCH 2/4] xen/arm64: bitops: justify uninitialized variable
- inside a macro
+Subject: Re: [PATCH 2/4] x86/idle: Get PC{8..10} counters for Tiger and Alder
+ Lake
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "michal.orzel@amd.com" <michal.orzel@amd.com>,
- "xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>,
- "ayan.kumar.halder@amd.com" <ayan.kumar.halder@amd.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>
-References: <cover.1689329728.git.nicola.vetrini@bugseng.com>
- <d06a312944bee7457fa2ac75e0cfef20f0ec430f.1689329728.git.nicola.vetrini@bugseng.com>
- <CB1B8DB0-7708-454D-9E73-171CA894E304@arm.com>
- <f24d12ec-3edc-5aea-f399-05ed52ec1cbc@suse.com>
- <3356b44e-a596-8cff-afd9-66bbcca53b30@bugseng.com>
- <996e3d7d-96db-2f3d-8f4e-0805a2c60a6f@suse.com>
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-In-Reply-To: <996e3d7d-96db-2f3d-8f4e-0805a2c60a6f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: Simon Gaiser <simon@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20230718132334.2087-1-simon@invisiblethingslab.com>
+ <aa23a090-1883-008b-e395-2a3bca709258@suse.com>
+ <2be631d2-95f3-0d7f-ad84-eb9e16d1a39a@invisiblethingslab.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <2be631d2-95f3-0d7f-ad84-eb9e16d1a39a@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0014.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8111:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd878663-64d4-40cc-ec9a-08db8797e547
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	MPoj8Y9h5/ugCVkH5zjiXgym88vQYNa9pDSwB+Q8ARIP5K7kJS8+usxn6QmngnYPgv2YLS4QCuiMhiYim2M4Z0QF0YpHb1Jsn+BGMI9lAauWvl184IFzomrwSDkRS9LIQLRyahGf9FrxG3atYHuRkVDEQulSU1Rn+H1/YOe8vUaaSAujpuzjFQEDYF2FSMEb8lh6fBkdE6qPJmETuU3FzT6rCXVTOrbhPldyQgc6uophlVppOUyA282zAPV/yUy8eko4Di+MbLrUIFIo6RfbqPl7zCpNYr1UhUASlgtCq2qlnrNtRsBFTnI4S8rbdcutG2b6CwjqCc1UZFSZRVHbh2jUoWFVwlsL16u2QdETNgBBN87x7deM1izDdau+t7Vt+f+U6OVk91UrsNeJmLb3SYd+vKs3uklkqzLcBWkhOZXWeTl43ldoq6lmWAQNaCp58EoU+U5htBcebnvhopAXpTcP69mxb0PuCpAuycDZmFJ9i1Jpl/4FdO/wonlKHxUAf+jEZYmpjc4l7obtdd9UfkT5Pc32djZYfGJDbbcs1sqQ124V3kM/BX6SPNkxUsy6BZwgpne7tKYsrF2YhvR+5gEKOHGXFJxOgnJINl3R8kd7E6UK21s4u0XdhJLmzWOx6vgxuOFC2W/ZIZO6ndVDk0URIBoYuE53x+xGR+IX2nwCbzwXEuG7MAqSS2gs1PDr
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(376002)(39860400002)(396003)(366004)(346002)(451199021)(6486002)(53546011)(26005)(6506007)(38100700002)(36756003)(86362001)(2616005)(83380400001)(31696002)(186003)(6512007)(54906003)(8676002)(8936002)(2906002)(41300700001)(478600001)(4326008)(316002)(6916009)(66476007)(5660300002)(66946007)(66556008)(31686004)(101420200003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZFpGb1pyM2pTMXpmU1lTbVd5VU1UQm9UUXVzb0Y2ZDZDQXRoVUVTZkxRQ3Vz?=
+ =?utf-8?B?c1NBcVVRcG9lNldsUHdWbE9mY3VDaFJiNXpuY0Fqa3IyTkdrNHpkanRXMERm?=
+ =?utf-8?B?WGtHRjBiYmdNV1RlWkdrWWdXcUpPbTkzdmRMVk5JVTdCNk5TMzBZM2lYYUNL?=
+ =?utf-8?B?Vjh5RVIzSU03K3llamNVOENWNENpQWYyUnNkVzB6aU9UaENMV21IczJnVW52?=
+ =?utf-8?B?ZmJXTzQ3dnhCNE5GN3FsNDZ2SEYzQTdNWDdJenVZdklPUlBIMHFzMkd6TnlJ?=
+ =?utf-8?B?RWV1V1NPVW9ja2pCYnYzcUkrSWFCT3M4NFROZ0hKUmt6Vi9yNjFJMnBOWWlH?=
+ =?utf-8?B?MWVkVE9VRk9vYWhZYkFzR0l3TUFzTjY0eWE0Wkw5bkRLYTdXSS9NYUhQV0NS?=
+ =?utf-8?B?N0Y5R092UW92MTBLczBXV0NSWGV4Z3VQTzJRd2d1dHF4MDZ3ZHZCNmlwQTJv?=
+ =?utf-8?B?aU9kUkdEcTArK1h0R2VlU01DQkdjTDc5ZE8wMWhjcXNNUUtyV05YaC9laWhV?=
+ =?utf-8?B?TVJxQXFTcTBBTWgzbFdCMUpXK2VRT09Cc1pheW13cU8rYmdnTGlxcmN5WTg3?=
+ =?utf-8?B?LzZEaVdyMEN0QkhYZFBiVGJHU1lSRFIxcm9tRFI0b3JUOE9hNHpWZFdCT24v?=
+ =?utf-8?B?OXVScUkvaFJHRzRMSjRoWXd1RDVGU1didjYwNENwd3BxZ3MzcFhTQVNFSmRR?=
+ =?utf-8?B?NG1CaG5HVmNRa2tTTmNPZmNSNzBLdlJIaDM1ejZQbGgybHVkcFRlVzE4VUEv?=
+ =?utf-8?B?WUk0MzJ1cUNUQi9BZStvanljZ3BYUCsrMjNlVTBqbXhYYUxsM1hXOEFmVU1R?=
+ =?utf-8?B?YnF2Yi9iREhIZ3l4UWRTZGg0bGltYXVFSldWNUxVRDY5MFF3UEtNUWhsMFJw?=
+ =?utf-8?B?SDAzU0ZDekd2ZGtiTU42Z2cwUFZOWWcrV0M3VGRiRDBSK2dkYmthenVySVNV?=
+ =?utf-8?B?enVHNWdCZnl4NUVrcnR5djJBS0syZTduMFYxUWhlYVlubDlZZzN4MlVZQXQv?=
+ =?utf-8?B?LzQrMksvWEpic0k2bXZMMWhBZ2tjNGlqS1RWVG9lekdaakNVS09FM3l5dlZx?=
+ =?utf-8?B?SXBDYXJISHVhZG8wMmlieFZmQnU0WVBQYm1Ec1BwWVN0RlZ0ekJBaVp1Wk9o?=
+ =?utf-8?B?MGtCdkF5b2xxV2Z6T1F2Y3dmT29DUXlOeTNvZjlwVzdNWkZUam5kd3hlOG5Q?=
+ =?utf-8?B?V3RqZURCZWVQOEVvbEZ0cHZ1Tm84aDgybHJScjJlOGxaNVYzWHFpN2ZzaTB5?=
+ =?utf-8?B?OXNjRE45cy9hZzI2RzFwYWFudmFPcVFRaEpEY3JuOUdacG0wb1JJZkQvUm5o?=
+ =?utf-8?B?SXRrYXlaNTAvcjYyc041eFMzNzR0M1lrdzh4WWo4dng2QnNqZ3cvSmdDZnFa?=
+ =?utf-8?B?MmlIWUFNeG8xT0NGWnhKakhLeGptekkwOHU4MUhueXRiYVIxZWZ3UXVSWXJF?=
+ =?utf-8?B?RG5Rc3dZblBKZUF6M2dwRDFkeGJlYmc5Q1htK0JEN1l1dC9wSHlOekpDZlY2?=
+ =?utf-8?B?UHgxT1haYkNsdTJtRWRORUc4M0FKWWdxTGxSL2tsVUtnNUE3VytNeEovb2pC?=
+ =?utf-8?B?Z1BuMDFXOU5MT0dVZlJMMWFxSmphTlNmd0NjeVpXK1VJKzBtL1pKN2NINXVC?=
+ =?utf-8?B?MG4zT2VZMlJ0SGhFRnhmcXg2c1gxS3NQZ0tobXBZZDNOakw2ZDJTMWNRdkVx?=
+ =?utf-8?B?K2JRM1JEb05VaEx2ZlU1NlA5MG93WlVpbHgrQlNEMVhQVHh1ZlYyVjdvLzhh?=
+ =?utf-8?B?dzNnajIrd01yWjFqVlFMSDFtZURwbExVV2E1OVVqeUFGUlBLbVlzeHhHaE1Z?=
+ =?utf-8?B?VDBtUGZodzhrWnBvMTdsQVB4eWVDUVMrOXpRL2lBa0hYMW05N09zRlVPL1Y2?=
+ =?utf-8?B?dWh1RG9LTjg1dk4zbUtBVEtseXRnNHoySS9Ua1c1empWQUYwMG9ZazBhOWdj?=
+ =?utf-8?B?NEJNWk4rNTV4eTNvdWUwbFZBZXdGUDZNRXVMOUxIOEFLS3JTNy92VnpQc0N6?=
+ =?utf-8?B?NHRRd2tIYUdmZmV6dDZ6U3dNVVdPUFExK3R6b3pkMEdJYUtrSGovRThrQnN0?=
+ =?utf-8?B?M1ZRZjg2V0dvNHlMZFc4MTI4bnhZaElXYzhyenoxblZ4dkFHaEhrVVU1dXBy?=
+ =?utf-8?Q?eSTCB/CBlseKEHKV0cIRgqdwZ?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd878663-64d4-40cc-ec9a-08db8797e547
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2023 14:04:26.0874
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nUYdgWQ3QizC7/E3NYQcPmc/MchpukZA/HxSOmFHdf0MPFsTyYCbCXtYWFuxyaXih4UnFsDN9uj+BzOLcc2OhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8111
 
-
-
-On 17/07/23 17:46, Jan Beulich wrote:
-> On 17.07.2023 17:28, Nicola Vetrini wrote:
+On 18.07.2023 15:46, Simon Gaiser wrote:
+> Jan Beulich:
+>> On 18.07.2023 15:23, Simon Gaiser wrote:
+>>> ---
+>>>  xen/arch/x86/acpi/cpu_idle.c | 9 ++++++---
+>>>  1 file changed, 6 insertions(+), 3 deletions(-)
 >>
->>
->> On 17/07/23 15:59, Jan Beulich wrote:
->>> On 14.07.2023 16:20, Luca Fancellu wrote:
->>>>
->>>>
->>>>> On 14 Jul 2023, at 12:49, Nicola Vetrini <nicola.vetrini@bugseng.com> wrote:
->>>>>
->>>>> The macro 'testop' expands to a function that declares the local
->>>>> variable 'oldbit', which is written before being set, but is such a
->>>>> way that is not amenable to automatic checking.
->>>>>
->>>>> Therefore, a deviation comment, is introduced to document this situation.
->>>>>
->>>>> A similar reasoning applies to macro 'guest_testop'.
->>>>>
->>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>> ---
->>>>> docs/misra/safe.json                     | 16 ++++++++++++++++
->>>>> xen/arch/arm/arm64/lib/bitops.c          |  3 +++
->>>>> xen/arch/arm/include/asm/guest_atomics.h |  3 +++
->>>>> 3 files changed, 22 insertions(+)
->>>>>
->>>>> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
->>>>> index 244001f5be..4cf7cbf57b 100644
->>>>> --- a/docs/misra/safe.json
->>>>> +++ b/docs/misra/safe.json
->>>>> @@ -20,6 +20,22 @@
->>>>>           },
->>>>>           {
->>>>>               "id": "SAF-2-safe",
->>>>> +            "analyser": {
->>>>> +                "eclair": "MC3R1.R9.1"
->>>>> +            },
->>>>> +            "name": "Rule 9.1: initializer not needed",
->>>>> +            "text": "The following local variables are possibly subject to being read before being written, but code inspection ensured that the control flow in the construct where they appear ensures that no such event may happen."
->>>>> +        },
->>>>> +        {
->>>>> +            "id": "SAF-3-safe",
->>>>> +            "analyser": {
->>>>> +                "eclair": "MC3R1.R9.1"
->>>>> +            },
->>>>> +            "name": "Rule 9.1: initializer not needed",
->>>>> +            "text": "The following local variables are possibly subject to being read before being written, but code inspection ensured that the control flow in the construct where they appear ensures that no such event may happen."
->>>>> +        },
->>>>
->>>> Since the rule and the justification are the same, you can declare only once and use the same tag on top of the offending lines, so /* SAF-2-safe MC3R1.R9.1 */,
->>>
->>> +1
->>>
->>> I'm puzzled by the wording vs comment placement though: The comments
->>> are inserted ahead of the macro invocations, so there are no "following
->>> local variables". Plus does this imply the comment would suppress the
->>> checking on _all_ of them, rather than just the one that was confirmed
->>> to be safe? What if another new one was added, that actually introduces
->>> a problem?
->>>
->>>> also, I remember some maintainers not happy about the misra rule being put after the tag, now I don’t recall who
->>>
->>> Me, at least. The annotations should be tool-agnostic imo, or else the
->>> more tools we use, the longer these comments might get.
->>
->> No problem for both: Given the earlier remarks by Julien on patch 1/4, I
->> think we can devise something along the lines of
->>
->> /* SAF-x-safe MISRA:C 2012 Rule 9.1 <Justification> */
->> int var;
->>
->> and then write a generic justification in docs/misra/safe.json, while
->> <Justification> contains a specific one (e.g., this loop does so and so
->> to ensure that no access to unset variables happens).
+>> This lacks both S-o-b and a proper description. The latter in
+>> particular because you ...
 > 
-> But that still mentions the rule. What if a new MISRA:C 2025 appears,
-> with different rule numbers? I don't mind the comment mentioning, in
-> a sufficiently terse way, what problem is circumvented. But I don't
-> think tools or specifications should be referenced here. That's the
-> purpose of the referenced "database" entry.
+> Yeah, I also noticed in the meantime, sorry. Will be fixed in v2.
 > 
-> Jan
+>>> --- a/xen/arch/x86/acpi/cpu_idle.c
+>>> +++ b/xen/arch/x86/acpi/cpu_idle.c
+>>> @@ -155,6 +155,12 @@ static void cf_check do_get_hw_residencies(void *arg)
+>>>  
+>>>      switch ( c->x86_model )
+>>>      {
+>>> +    /* Tiger Lake */
+>>> +    case 0x8C:
+>>> +    case 0x8D:
+>>> +    /* Alder Lake */
+>>> +    case 0x97:
+>>> +    case 0x9A:
+>>>      /* 4th generation Intel Core (Haswell) */
+>>>      case 0x45:
+>>>          GET_PC8_RES(hw_res->pc8);
+>>> @@ -185,9 +191,6 @@ static void cf_check do_get_hw_residencies(void *arg)
+>>>      case 0x6C:
+>>>      case 0x7D:
+>>>      case 0x7E:
+>>> -    /* Tiger Lake */
+>>> -    case 0x8C:
+>>> -    case 0x8D:
+>>>      /* Kaby Lake */
+>>>      case 0x8E:
+>>>      case 0x9E:
+>>
+>> ... don't just add new case labels, but you actually move two. It
+>> wants explaining whether this was outright wrong, or what else
+>> causes the movement.
+> 
+> Yes, as the commit message says it get those PC{8..10} counters for
+> Tiger and Alder Lake.
 
-Ok
+But that's the problem - there was no commit message.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+> The former already had a label, therefore the
+> move. I assume that when Tiger Lake was added it was an oversight to not
+> also read those package C-state counters.
+
+Or the SDM wasn't clear, and we needed to err on the safe side.
+
+Jan
 
