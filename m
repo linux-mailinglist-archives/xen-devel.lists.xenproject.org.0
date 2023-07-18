@@ -2,65 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BA8B757934
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 12:23:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565090.882982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 161A5757A0D
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 13:08:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565118.882993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLhqO-00070I-85; Tue, 18 Jul 2023 10:22:12 +0000
+	id 1qLiY7-0003my-Ne; Tue, 18 Jul 2023 11:07:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565090.882982; Tue, 18 Jul 2023 10:22:12 +0000
+Received: by outflank-mailman (output) from mailman id 565118.882993; Tue, 18 Jul 2023 11:07:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLhqO-0006yd-40; Tue, 18 Jul 2023 10:22:12 +0000
-Received: by outflank-mailman (input) for mailman id 565090;
- Tue, 18 Jul 2023 10:22:10 +0000
+	id 1qLiY7-0003jd-Kq; Tue, 18 Jul 2023 11:07:23 +0000
+Received: by outflank-mailman (input) for mailman id 565118;
+ Tue, 18 Jul 2023 11:07:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=88xE=DE=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1qLhqM-0006yX-MV
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 10:22:10 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on061b.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::61b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f34d48a4-2554-11ee-b23a-6b7b168915f2;
- Tue, 18 Jul 2023 12:22:09 +0200 (CEST)
-Received: from AS4P195CA0002.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:5e2::6)
- by DU0PR08MB8042.eurprd08.prod.outlook.com (2603:10a6:10:3e6::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Tue, 18 Jul
- 2023 10:22:05 +0000
-Received: from AM7EUR03FT013.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:5e2:cafe::9a) by AS4P195CA0002.outlook.office365.com
- (2603:10a6:20b:5e2::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33 via Frontend
- Transport; Tue, 18 Jul 2023 10:22:05 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT013.mail.protection.outlook.com (100.127.140.191) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.33 via Frontend Transport; Tue, 18 Jul 2023 10:22:05 +0000
-Received: ("Tessian outbound f1e964b3a9be:v145");
- Tue, 18 Jul 2023 10:22:05 +0000
-Received: from e9ec91e7b19f.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 87F7D2B3-4356-4200-AE4C-E56D34FD1753.1; 
- Tue, 18 Jul 2023 10:21:58 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e9ec91e7b19f.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 18 Jul 2023 10:21:58 +0000
-Received: from AM0PR08MB3778.eurprd08.prod.outlook.com (2603:10a6:208:104::24)
- by AS8PR08MB9364.eurprd08.prod.outlook.com (2603:10a6:20b:5ab::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Tue, 18 Jul
- 2023 10:21:55 +0000
-Received: from AM0PR08MB3778.eurprd08.prod.outlook.com
- ([fe80::5a82:e906:eecd:7854]) by AM0PR08MB3778.eurprd08.prod.outlook.com
- ([fe80::5a82:e906:eecd:7854%3]) with mapi id 15.20.6588.031; Tue, 18 Jul 2023
- 10:21:55 +0000
+ <SRS0=ju50=DE=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1qLiY5-0003jE-IA
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 11:07:21 +0000
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 41edb092-255b-11ee-b23a-6b7b168915f2;
+ Tue, 18 Jul 2023 13:07:18 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 60084320091E;
+ Tue, 18 Jul 2023 07:07:15 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 18 Jul 2023 07:07:16 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 18 Jul 2023 07:07:11 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,328 +43,429 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f34d48a4-2554-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gKfTXqcIkG7wvy24x4435IHOuEQhDz69tFHffTq02O0=;
- b=U+ZMpzW7nS7S8QP6S1E9rLEtXyKA4OKVVxF2nb5bgl0iY7InqTZIcIxp47/t+J1P76X6WzkcfLSqdF0Mq6HPbHn7K/dst9lmyX6oNuEtIVMHq18zyShf5Km0dsE6QMlYyP+j7tMpNH/haAuwsDJqVMsFEW1CTQm8WfMkMgdN7BU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 0b8aa35ec9dc67d0
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hgn4sN3WqW0F6vRUMEo8qCiO9VLCV/jlpMz6+uNNX3pM1siccBV8+e96oqzxU8nhRCFixqGJci+DAzeTpqwY/6rTZ5XJ+eEAUnF3y1AnSW6HVA8A10nsKOgqIzssjJCAT63NetijonGodKejmnvShSex3ad4pQ95X9zI9Q9nWGNUx4uSxZRa2vQgOsyKhtkU6CfuPkfQV1xey+fweiExyBN7tf0PF/Clx1cFW7zNHbLFrt+kT68/k0or4pv/NMdMXDaSs1QLHJP3falJHzQrQuepBIyXVdzP3o+hRO5QwyU2KfXhpXk5xmD1su4ImJjyJaGcK08baJWGba95DT1ymQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gKfTXqcIkG7wvy24x4435IHOuEQhDz69tFHffTq02O0=;
- b=HpZybrIv+ROkJ3yTJMJZ314M7m6v6qlYHUB3OznRJYLzd54aJ8xqHQ7aw+1i7SeZeloQ7RxmhM9zDy8wCG5xIWloxfQpK5ip5/BBFKH5rCdXeHIjkPMU01R5x327szBUYzuFjvpMZItpReXGu8i6hvPaL0n7mYo8xiBDEQln69ju1BHS/hRtqV+sFOktfTMDjg2Q4UvkwWs1qpGHECHczI146jylr6lcZZSughSwPIHRVy0zEbn2kabf4Ef5cms+Wi7sDORT1unyPJi7E8gb1AN4ZDM3tyiik2573qo3DbU5Og6h+Lyhv+p8sYNHirPr5T3ng+36TViuJJ5we2pHyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gKfTXqcIkG7wvy24x4435IHOuEQhDz69tFHffTq02O0=;
- b=U+ZMpzW7nS7S8QP6S1E9rLEtXyKA4OKVVxF2nb5bgl0iY7InqTZIcIxp47/t+J1P76X6WzkcfLSqdF0Mq6HPbHn7K/dst9lmyX6oNuEtIVMHq18zyShf5Km0dsE6QMlYyP+j7tMpNH/haAuwsDJqVMsFEW1CTQm8WfMkMgdN7BU=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>, Marc Bonnici
-	<Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>
-Subject: Re: [XEN PATCH v10 14/24] xen/arm: ffa: support guest
- FFA_PARTITION_INFO_GET
-Thread-Topic: [XEN PATCH v10 14/24] xen/arm: ffa: support guest
- FFA_PARTITION_INFO_GET
-Thread-Index: AQHZuH9YF/Z3OeEtnU6SqiWq2d4poa+/Uk+A
-Date: Tue, 18 Jul 2023 10:21:55 +0000
-Message-ID: <D09E02DC-DE2A-4876-B5E7-10DD131EC98F@arm.com>
-References: <20230717072107.753304-1-jens.wiklander@linaro.org>
- <20230717072107.753304-15-jens.wiklander@linaro.org>
-In-Reply-To: <20230717072107.753304-15-jens.wiklander@linaro.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM0PR08MB3778:EE_|AS8PR08MB9364:EE_|AM7EUR03FT013:EE_|DU0PR08MB8042:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83450ee3-983d-42ac-29a3-08db8778d5a3
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- DahoaX6RMTv1IqfGlCxUnzaZf7hggiOLSFKKXosllA9c6Jpo7LMfcjQVwBzSO8U9MA+M0rMwaxOKWA1kj3Eu4+l/HG+atuy6FiBseKf5+bBRYD3+khrIjdGGXzlpUp26H5nOamPPHLNX6vJ9AcJgqcdcWdskR3R6tUhcBeoP6UjPJOOAzDHfgcEGIbmIwTsp/aSsIILWfJuVCSHYImPWhGEHC3X5mUse9j5HYgaBinXkEvk5zusaqORsWzytcWFEt2F+NQEVsYK9g1o9sBhzaHGe51qEhjxAPspWa9MbXt5ZfB3SopcVkFQB/oCa2VZsJOLx6NNREPIDeKLfxrdnzLSIPh3BjFzpJKRSr/uGubcCnOrqlsHmvz27OxyjMz44MYuaPCz5QowIdZwK+5IW/jyXnPddiDv3rZnJuN+D+hfrM+IQnvw5tSzyMNUCjSMxwcQbHjsZ/XJ3osQNlZuijsIt9FA2mkBAwihZhEsn+rckTAxxE7EV50iV79tcHWnr4M+Xjew3WtUWv/Vo2vSOpGJVSk+qfWtFUlq2osHA5JBAgSYyyFwaI1B3L8GJqktNhhaaSCGtfZ3eskusjcSGqTrO7VW7vc3kULNlknHtqHJCjOskhQ9bAJwD4BlxWFbUpOqt24TeR7j1nJRjlM8QwQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3778.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(396003)(366004)(39860400002)(376002)(451199021)(66556008)(54906003)(478600001)(71200400001)(6486002)(91956017)(53546011)(6506007)(186003)(36756003)(2616005)(316002)(6512007)(2906002)(76116006)(4326008)(66946007)(66476007)(41300700001)(66446008)(5660300002)(8676002)(8936002)(122000001)(64756008)(6916009)(38100700002)(86362001)(38070700005)(83380400001)(33656002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <32D48C7FFFD6AF4A96CCA62A5ABCA5CC@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 41edb092-255b-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1689678434; x=1689764834; bh=06VFn0AKXaUmDl0g9lGMmMwV0wNkTJc37cc
+	SZ2ARUwc=; b=Nj/JcjwzUHuQv+4at+dqi0CnXtiR2xGlQTOcK0iCSuqTL4Vd/u+
+	osEVS1+IWT+Bu6RgebydRctLMGyd45mPBgcDASBqVVS/xhy+W8sHvd2USHncBbBq
+	hn0pu9b4MtO+VWKW2Uk1HY8MqlpSHN4Waf46vYwrEWBD7KiHu+CouAGP/NI2QQqs
+	rQo5caR8CfKKi+x4kxHk5fbhNdhemXgCRFO0wg/0JRzPs5A8cY6h4T1GT4lHttj8
+	pAeq90es7fNyxT84RF+iWBpXxjVKZH3+A8CU9ydiA+kZQUfXhes50ZRgSQb3rkS2
+	pRZZyEC8c35r2QYtWZLntESBwhfhbEDdh8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1689678434; x=1689764834; bh=06VFn0AKXaUmD
+	l0g9lGMmMwV0wNkTJc37ccSZ2ARUwc=; b=C5UhMlWSHsJsSU3QUHmeaMbZBw1hh
+	hFXEHvyCTC6RAreynoI+74BiolCG6IBbCyGnIujJS2J44VtVqmKr8O0U0TEuRo8D
+	dzIeIEO3ioA/KVMU+Aeqbu1Z9V0wPLiJhLGPr4BexIoA0INsKjq1p49rEgN+8BZ6
+	0wFgGS0W/LDJ9gHdSP+twMLTmdikawRLDChc/yUfx29xzJbs1vdgZLAQ+AfoB79O
+	tV5/0NJnNFkXb0umbbBZfqtBxxWA0bE5k5qZwjlAkADzh+dLOqS28JFfP0BK/iro
+	C2hOpZzk8/YkBkzCYDZ7okivVfVLLM8OWh/peNR5RlToMHSXHPO+GOUog==
+X-ME-Sender: <xms:YnK2ZHgDJfY8gDy8XH_MsaY2ZA1MCynPLhm_6vhhRfnAvK0y5IOhZw>
+    <xme:YnK2ZEBmdpmYd9JFGzadDApaGJSVUW81Lnmh9_G1KDTl7uBprXZAhpMXcJ7ZdQDau
+    Ti0-8DspTvFxtI>
+X-ME-Received: <xmr:YnK2ZHFhp3Gnvc1tPB89X9v8qQQrRAZnGcY7HCnCaNd9X97E4E75zJtuGQ8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrgeeggdefhecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefuihhmohhnucfi
+    rghishgvrhcuoehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    eqnecuggftrfgrthhtvghrnhepueevheegtdefgeefuddvfeduueduffffffejveeugeef
+    udefiedugedugeevudfgnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsihhmohhnsehinhhv
+    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:YnK2ZERv39zovWtIxiVDnI7-y0zKziDrF1dHp2QU38yEyfWFayU6CQ>
+    <xmx:YnK2ZEw8DZCYcyM4AdjA1E12xRvpAyehD2DM8Tloe1kQOETxcjlJEQ>
+    <xmx:YnK2ZK6QxTgjDWUL1j-WZXO0rr9vN-HvXeZaBWkvFQJIEteNuSH4EA>
+    <xmx:YnK2ZOvl76B6zDWD_kR3cnyknJFEwHHK4v9v8zPogCOyF9H0nmpD0w>
+Feedback-ID: idc5945a3:Fastmail
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Simon Gaiser <simon@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [RFC XEN PATCH] x86/mwait-idle: Use ACPI for CPUs without hardcoded C-state table
+Date: Tue, 18 Jul 2023 13:04:53 +0200
+Message-Id: <aef138a50aaa769fceb2002dd56de437f1b8c456.1689674757.git.simon@invisiblethingslab.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9364
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT013.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	0d3a9ebe-c31c-4b33-86a2-08db8778cfe0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	jMyUxmgcOmh+lbCknxBADrzaKRHrCXwHp5SlKy7VooD6AYo2vq1kb7T6BHaKjxF1goxztsi7n+mbR+iRe64Mrje2CK8sBG3WQ3zZoCgafSxT76fNmsk2RVLy8LqkNuye/Pi4yQBuK62GeJE6gV0Kqyy6vHPJiM2J69kY+hTVmWlfPYdsaFGPnnKHDQSCkXHjfHtUgQa50wuZx9jr5OcOykE2DaXRvb8aLKm7k+IPCKu8l0d5Klp451ETm9AZOP5iesLNMTXuYoQt99z3B3kxwxwtQVXxkEJG/S1hA+TQeRvN9C8u0TNL790/w9b1vTSudHt2pbpSoPMuGW0wUt4rCMNOxXfc2SdSmtX8l1Iwpq6yw7xnlyrYy7fiDZM7AYDfi+Vj5d2gtwfCO4rPRa82BrpSNBxpX70Ip7okoFzrA4dtgn5Q1OX64H9LYgGGrmZHOmuCrSuz4ZtzGJ77EYVL51Sr8a7PeHtx8i+ZtiueYuy4DPvsaW8azdJMtqdKwT47nZNJJDcNozrUCr/RiL7yagBcbGsS5wRdukd2jHrF6JCxoWrNkIbijL0f8x8w8NSXwNQzo+yc0oUsbgohoWGWPs5KwJIYe31hRArPUt0S2qS9NWbXG4y2WNxu89D+5oz6gt/P2xBtkvO2mD17d8BHamCsS/sVUvceZuIJ0osEDMMLOXeQ+GfsSLv3uIEqLGYodO/z/47L588kNQNA4oU8+kMKpc3W7lFI/rLTaGXlFxmbp+aKZGkoSqP0rXhgKhvt
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(39860400002)(346002)(396003)(82310400008)(451199021)(40470700004)(36840700001)(46966006)(86362001)(2906002)(33656002)(36756003)(40460700003)(40480700001)(47076005)(2616005)(36860700001)(6512007)(186003)(336012)(6506007)(26005)(53546011)(82740400003)(356005)(81166007)(6486002)(54906003)(83380400001)(478600001)(70206006)(4326008)(8676002)(316002)(41300700001)(6862004)(8936002)(70586007)(5660300002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2023 10:22:05.2341
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83450ee3-983d-42ac-29a3-08db8778d5a3
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT013.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8042
+Content-Transfer-Encoding: 8bit
 
-Hi Jens,
+mwait-idle includes a hardcoded config for many CPUs. But some are
+missing, for example Tiger Lake. Linux' driver reads the config from
+ACPI in those cases. This adds this to Xen's implementation.
 
-> On 17 Jul 2023, at 09:20, Jens Wiklander <jens.wiklander@linaro.org> wrot=
-e:
->=20
-> Adds support in the mediator to handle FFA_PARTITION_INFO_GET requests
-> from a guest. The requests are forwarded to the SPMC and the response is
-> translated according to the FF-A version in use by the guest.
->=20
-> Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to the
-> caller (the guest in this case), so once it is done with the buffer it
-> must be released using FFA_RX_RELEASE before another call can be made.
->=20
-> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> ---
-> xen/arch/arm/tee/ffa.c | 131 +++++++++++++++++++++++++++++++++++++++++
-> 1 file changed, 131 insertions(+)
->=20
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index ffabb5ed0a80..d5748b9ce88c 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -166,7 +166,18 @@
-> #define FFA_MSG_SEND                    0x8400006EU
-> #define FFA_MSG_POLL                    0x8400006AU
->=20
-> +/*
-> + * Structs below ending with _1_0 are defined in FF-A-1.0-REL and
-> + * struct ending with _1_1 are defined in FF-A-1.1-REL0.
+The Linux driver also has a feature to combine the internal table with
+the infos from ACPI. This is not implemented here, for CPUs with
+internal config nothing is changed.
 
-Nit: For coherency, second line should be "Structs" instead of "struct"
+Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
+---
 
-> + */
-> +
-> /* Partition information descriptor */
-> +struct ffa_partition_info_1_0 {
-> +    uint16_t id;
-> +    uint16_t execution_context;
-> +    uint32_t partition_properties;
-> +};
-> +
-> struct ffa_partition_info_1_1 {
->     uint16_t id;
->     uint16_t execution_context;
-> @@ -189,6 +200,7 @@ struct ffa_ctx {
->      */
->     uint16_t create_signal_count;
->     bool rx_is_free;
-> +    spinlock_t lock;
-> };
->=20
-> /* Negotiated FF-A version to use with the SPMC */
-> @@ -203,9 +215,15 @@ static uint16_t subscr_vm_destroyed_count __read_mos=
-tly;
-> /*
->  * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
->  * number of pages used in each of these buffers.
-> + *
-> + * The RX buffer is protected from concurrent usage with ffa_rx_buffer_l=
-ock.
-> + * Note that the SPMC is also tracking the ownership of our RX buffer so
-> + * for calls which uses our RX buffer to deliver a result we must call
-> + * ffa_rx_release() to let the SPMC know that we're done with the buffer=
-.
->  */
-> static void *ffa_rx __read_mostly;
-> static void *ffa_tx __read_mostly;
-> +static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
->=20
-> static bool ffa_get_version(uint32_t *vers)
-> {
-> @@ -510,6 +528,100 @@ static uint32_t handle_rxtx_unmap(void)
->     return FFA_RET_OK;
-> }
->=20
-> +static int32_t handle_partition_info_get(uint32_t w1, uint32_t w2, uint3=
-2_t w3,
-> +                                         uint32_t w4, uint32_t w5,
-> +                                         uint32_t *count)
-> +{
-> +    int32_t ret =3D FFA_RET_DENIED;
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +
-> +    /*
-> +     * FF-A v1.0 has w5 MBZ while v1.1 allows
-> +     * FFA_PARTITION_INFO_GET_COUNT_FLAG to be non-zero.
-> +     */
+Sending this as RFC to get feedback on implementing it this way. I tried
+to keep this change small and to avoid changing the existing code path
+for CPUs with a config included in the driver. On the other hand this
+makes it look a bit hacky.
 
-You should add something to say that the INFO_GET_COUNT does
-not use the rxtx buffer to explain why you do the call directly in this cas=
-e.
+I'm not quite sure if initializing mwait-idle in set_cx_pminfo this way
+is correct. For example set_cx has some smp_wmb call I'm not sure when
+it's needed, so might be very well missing something.
 
-Reading the code as is, on might wonder why this case is different.
+What also surprised me is that the existing code in mwait-idle first
+calls cpuidle_current_governor->enable(processor_powers[cpu]) and later
+setup the C-state config in processor_powers[cpu]. This seems the be the
+wrong order (but, I think, current not important since
+menu_enable_device doesn't use that part of the struct).
 
-How about:
-FFA_PARTITION_INFO_GET_COUNT is only using registers and not
-the rxtx buffer so do the partition_info_get directly.
+When I brought up the topic of this patch the first time Jan had an
+interesting questions [1]:
 
-> +    if ( w5 =3D=3D FFA_PARTITION_INFO_GET_COUNT_FLAG &&
-> +         ctx->guest_vers =3D=3D FFA_VERSION_1_1 )
-> +        return ffa_partition_info_get(w1, w2, w3, w4, w5, count);
-> +    if ( w5 )
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    if ( !ffa_rx )
-> +        return FFA_RET_DENIED;
-> +
-> +    spin_lock(&ctx->lock);
-> +    if ( !ctx->page_count || !ctx->rx_is_free )
-> +        goto out;
-> +    spin_lock(&ffa_rx_buffer_lock);
-> +    ret =3D ffa_partition_info_get(w1, w2, w3, w4, w5, count);
-> +    if ( ret )
-> +        goto out_rx_buf_unlock;
-> +    /*
-> +     * ffa_partition_info_get() succeeded so we now own the RX buffer we
-> +     * share with the SPMC. We must give it back using ffa_rx_release()
-> +     * once we've copied the content.
-> +     */
-> +
-> +    if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 )
-> +    {
-> +        size_t n;
-> +        struct ffa_partition_info_1_1 *src =3D ffa_rx;
-> +        struct ffa_partition_info_1_0 *dst =3D ctx->rx;
-> +
-> +        if ( ctx->page_count * FFA_PAGE_SIZE < *count * sizeof(*dst) )
-> +        {
-> +            ret =3D FFA_RET_NO_MEMORY;
-> +            goto out_rx_release;
-> +        }
-> +
-> +        for ( n =3D 0; n < *count; n++ )
-> +        {
-> +            dst[n].id =3D src[n].id;
-> +            dst[n].execution_context =3D src[n].execution_context;
-> +            dst[n].partition_properties =3D src[n].partition_properties;
-> +        }
-> +    }
-> +    else
-> +    {
-> +        size_t sz =3D *count * sizeof(struct ffa_partition_info_1_1);
-> +
-> +        if ( ctx->page_count * FFA_PAGE_SIZE < sz )
-> +        {
-> +            ret =3D FFA_RET_NO_MEMORY;
-> +            goto out_rx_release;
-> +        }
-> +
-> +
-> +        memcpy(ctx->rx, ffa_rx, sz);
-> +    }
-> +    ctx->rx_is_free =3D false;
-> +out_rx_release:
-> +    ffa_rx_release();
-> +out_rx_buf_unlock:
-> +    spin_unlock(&ffa_rx_buffer_lock);
-> +out:
-> +    spin_unlock(&ctx->lock);
-> +
-> +    return ret;
-> +}
-> +
-> +static int32_t handle_rx_release(void)
-> +{
-> +    int32_t ret =3D FFA_RET_DENIED;
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +
-> +    spin_lock(&ctx->lock);
-> +    if ( !ctx->page_count || ctx->rx_is_free )
-> +        goto out;
-> +    ret =3D FFA_RET_OK;
-> +    ctx->rx_is_free =3D true;
-> +out:
-> +    spin_unlock(&ctx->lock);
-> +
-> +    return ret;
-> +}
-> +
-> static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32=
-_t fid)
-> {
->     struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
-> @@ -566,6 +678,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
-s)
->     uint32_t fid =3D get_user_reg(regs, 0);
->     struct domain *d =3D current->domain;
->     struct ffa_ctx *ctx =3D d->arch.tee;
-> +    uint32_t count;
->     int e;
->=20
->     if ( !ctx )
-> @@ -595,6 +708,24 @@ static bool ffa_handle_call(struct cpu_user_regs *re=
-gs)
->         else
->             set_regs_success(regs, 0, 0);
->         return true;
-> +    case FFA_PARTITION_INFO_GET:
-> +        e =3D handle_partition_info_get(get_user_reg(regs, 1),
-> +                                      get_user_reg(regs, 2),
-> +                                      get_user_reg(regs, 3),
-> +                                      get_user_reg(regs, 4),
-> +                                      get_user_reg(regs, 5), &count);
-> +        if ( e )
-> +            set_regs_error(regs, e);
-> +        else
-> +            set_regs_success(regs, count, 0);
-> +        return true;
-> +    case FFA_RX_RELEASE:
-> +        e =3D handle_rx_release();
-> +        if ( e )
-> +            set_regs_error(regs, e);
-> +        else
-> +            set_regs_success(regs, 0, 0);
-> +        return true;
->     case FFA_MSG_SEND_DIRECT_REQ_32:
->     case FFA_MSG_SEND_DIRECT_REQ_64:
->         handle_msg_send_direct_req(regs, fid);
-> --=20
-> 2.34.1
->=20
+> It hasn't become clear to me why Linux now has two CPU idle drivers
+> consuming ACPI data (intel_idle and the purely ACPI-based one).
 
-Cheers
-Bertrand
+I'm not quite sure either. Linux' intel_idle.c states:
+
+    intel_idle is a cpuidle driver that loads on all Intel CPUs with
+    MWAIT in lieu of the legacy ACPI processor_idle driver.  The intent
+    is to make Linux more efficient on these processors, as intel_idle
+    knows more than ACPI, as well as make Linux more immune to ACPI BIOS
+    bugs.
+
+The commit that first added ACPI support to the Linux driver [2] says:
+
+    The main functional difference between intel_idle with this change
+    and the ACPI processor driver is that the former sets the target
+    residency to be equal to the exit latency (provided by _CST) for
+    C1-type C-states and to 3 times the exit latency value for the other
+    C-state types, whereas the latter obtains the target residency by
+    multiplying the exit latency by the same number (2 by default) for
+    all C-state types.  Therefore it is expected that in general using
+    the former instead of the latter on the same system will lead to
+    improved energy-efficiency.
+
+This sounds less impressive and doesn't explain why not to just change
+the standard ACPI driver to use the better latency settings. On the
+Linux what might play also a role is that the mwait driver also gained
+the option to combine the internal settings with what it reads from
+ACPI. That would be probably harder to include in the generic ACPI
+driver.
+
+This also raises the option to change the latency setting in Xen's
+generic ACPI driver for the affected CPUs instead of touching
+mwait-idle.
+
+Currently I'm interested in this driver mainly for S0ix support. I did
+nearly all my testing while using the mwait-idle driver to keep
+differences to Linux as small as possible. (At first by hacking in some
+config for the Tiger Lake CPU of my test system. Now with this patch.).
+At some point I observed worse S0ix residency with Xen's generic ACPI
+idle driver than with mwait-idle. But when I tried to reproduce this for
+writing this e-mail I wasn't able to reproduce this measurement and got
+the same residency for both idle drivers. So either I did messed up my
+previous measurements or I have some unaccounted changes in my test
+setup.
+
+[1]: https://lore.kernel.org/xen-devel/f6c27788-bdd9-e5b1-a874-7f48a27c66a9@suse.com
+[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=18734958e9bfbc055805d110a38dc76307eba742
+
+ xen/arch/x86/acpi/cpu_idle.c       |  58 +++++++++++-----
+ xen/arch/x86/cpu/mwait-idle.c      | 108 ++++++++++++++++++++++++-----
+ xen/arch/x86/include/asm/cpuidle.h |   2 +-
+ 3 files changed, 134 insertions(+), 34 deletions(-)
+
+diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
+index 427c8c89c5..0a357acc58 100644
+--- a/xen/arch/x86/acpi/cpu_idle.c
++++ b/xen/arch/x86/acpi/cpu_idle.c
+@@ -78,6 +78,7 @@
+ static void cf_check lapic_timer_nop(void) { }
+ void (*__read_mostly lapic_timer_off)(void);
+ void (*__read_mostly lapic_timer_on)(void);
++static struct notifier_block cpu_nfb;
+ 
+ bool lapic_timer_init(void)
+ {
+@@ -1313,6 +1314,26 @@ static void print_cx_pminfo(uint32_t cpu, struct xen_processor_power *power)
+ #define print_cx_pminfo(c, p)
+ #endif
+ 
++
++static void repark_cpu(int cpu_id)
++{
++    uint32_t apic_id = x86_cpu_to_apicid[cpu_id];
++
++    /*
++     * If we've just learned of more available C states, wake the CPU if
++     * it's parked, so it can go back to sleep in perhaps a deeper state.
++     */
++    if ( park_offline_cpus && apic_id != BAD_APICID )
++    {
++        unsigned long flags;
++
++        local_irq_save(flags);
++        apic_wait_icr_idle();
++        apic_icr_write(APIC_DM_NMI | APIC_DEST_PHYSICAL, apic_id);
++        local_irq_restore(flags);
++    }
++}
++
+ long set_cx_pminfo(uint32_t acpi_id, struct xen_processor_power *power)
+ {
+     XEN_GUEST_HANDLE(xen_processor_cx_t) states;
+@@ -1360,24 +1381,27 @@ long set_cx_pminfo(uint32_t acpi_id, struct xen_processor_power *power)
+         set_cx(acpi_power, &xen_cx);
+     }
+ 
+-    if ( !cpu_online(cpu_id) )
+-    {
+-        uint32_t apic_id = x86_cpu_to_apicid[cpu_id];
+-
+-        /*
+-         * If we've just learned of more available C states, wake the CPU if
+-         * it's parked, so it can go back to sleep in perhaps a deeper state.
+-         */
+-        if ( park_offline_cpus && apic_id != BAD_APICID )
+-        {
+-            unsigned long flags;
+-
+-            local_irq_save(flags);
+-            apic_wait_icr_idle();
+-            apic_icr_write(APIC_DM_NMI | APIC_DEST_PHYSICAL, apic_id);
+-            local_irq_restore(flags);
++    if ( cpu_id == 0 && pm_idle_save == NULL ) {
++        /* Now that we have the ACPI info from dom0, try again to setup
++         * mwait-idle*/
++        ret = mwait_idle_init(&cpu_nfb, true);
++        if (ret >= 0) {
++            unsigned int cpu;
++            /* mwait-idle took over, call it's initializer for all CPUs*/
++            for_each_present_cpu ( cpu )
++            {
++                cpu_nfb.notifier_call(&cpu_nfb, CPU_UP_PREPARE, (void *)(long)cpu);
++                cpu_nfb.notifier_call(&cpu_nfb, CPU_ONLINE, (void *)(long)cpu);
++                if ( !cpu_online(cpu) ) {
++                    repark_cpu(cpu);
++                }
++            }
++            return 0;
+         }
+     }
++
++    if ( !cpu_online(cpu_id) )
++        repark_cpu(cpu_id);
+     else if ( cpuidle_current_governor->enable )
+     {
+         ret = cpuidle_current_governor->enable(acpi_power);
+@@ -1677,7 +1701,7 @@ static int __init cf_check cpuidle_presmp_init(void)
+     if ( !xen_cpuidle )
+         return 0;
+ 
+-    mwait_idle_init(&cpu_nfb);
++    mwait_idle_init(&cpu_nfb, false);
+     cpu_nfb.notifier_call(&cpu_nfb, CPU_UP_PREPARE, cpu);
+     cpu_nfb.notifier_call(&cpu_nfb, CPU_ONLINE, cpu);
+     register_cpu_notifier(&cpu_nfb);
+diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
+index 9e981e7e26..df37224fd9 100644
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -71,13 +71,15 @@
+ #undef PREFIX
+ #define PREFIX "mwait-idle: "
+ 
++#define pr_err(fmt...) printk(KERN_ERR fmt)
++
+ #ifdef DEBUG
+ # define pr_debug(fmt...) printk(KERN_DEBUG fmt)
+ #else
+ # define pr_debug(fmt...)
+ #endif
+ 
+-static __initdata bool opt_mwait_idle = true;
++static bool opt_mwait_idle = true;
+ boolean_param("mwait-idle", opt_mwait_idle);
+ 
+ static unsigned int mwait_substates;
+@@ -92,7 +94,7 @@ static unsigned int mwait_substates;
+  * exclusive C-states, this parameter has no effect.
+  */
+ static unsigned int __ro_after_init preferred_states_mask;
+-static char __initdata preferred_states[64];
++static char preferred_states[64];
+ string_param("preferred-cstates", preferred_states);
+ 
+ #define LAPIC_TIMER_ALWAYS_RELIABLE 0xFFFFFFFF
+@@ -1151,6 +1153,9 @@ static const struct idle_cpu idle_cpu_snr = {
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
+ 
++static struct idle_cpu __read_mostly idle_cpu_acpi = {
++};
++
+ #define ICPU(model, cpu) \
+ 	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ ## model, X86_FEATURE_ALWAYS, \
+ 	  &idle_cpu_ ## cpu}
+@@ -1436,21 +1441,92 @@ static void __init mwait_idle_state_table_update(void)
+ 	}
+ }
+ 
+-static int __init mwait_idle_probe(void)
++static int mwait_idle_state_table_from_acpi(void) {
++	// Linux tries every CPU until it finds one that declares FFH as entry
++	// method for all C-states in it's ACPI table. It assumes that the
++	// config is identical for all CPUs. So let's just check the first CPU.
++
++	int rc = -EINVAL;
++	struct acpi_processor_power *acpi_power = processor_powers[0];
++	struct cpuidle_state *state_table = xzalloc_array(
++			struct cpuidle_state,
++			acpi_power->count + 1 /* NULL at end */ - 1 /* no C0 */
++			);
++
++	if (state_table == NULL) {
++		pr_err(PREFIX "failed to allocate state table\n");
++		rc = -ENOMEM;
++		goto ret;
++	}
++
++	for (unsigned int cstate = 1; cstate < acpi_power->count; ++cstate) {
++		struct acpi_processor_cx *acpi_cx = &acpi_power->states[cstate];
++		struct cpuidle_state *idle_cx = &state_table[cstate - 1];
++		if (acpi_cx->entry_method != ACPI_CSTATE_EM_FFH) {
++			pr_debug(PREFIX "ACPI based config not usable: Entry method for C-state %u isn't FFH\n", cstate);
++			rc = -ENODEV;
++			goto ret;
++		}
++
++		snprintf(idle_cx->name, sizeof(idle_cx->name), "C%u", cstate);
++
++		idle_cx->flags = MWAIT2flg(acpi_cx->address);
++		if (acpi_cx->type > ACPI_STATE_C2)
++			idle_cx->flags |= CPUIDLE_FLAG_TLB_FLUSHED;
++		// Like Linux we don't set CPUIDLE_FLAG_IBRS
++
++		idle_cx->exit_latency = acpi_cx->latency;
++
++		idle_cx->target_residency = acpi_cx->latency;
++		if (acpi_cx->type > ACPI_STATE_C1)
++			idle_cx->target_residency *= 3;
++	}
++
++	idle_cpu_acpi.state_table = state_table;
++	rc = 0;
++	pr_debug(PREFIX "config read from ACPI\n");
++
++ret:
++	if (rc < 0 && state_table != NULL) {
++		xfree(state_table);
++	}
++	return rc;
++}
++
++static int mwait_idle_probe(bool from_acpi)
+ {
+ 	unsigned int eax, ebx, ecx;
+-	const struct x86_cpu_id *id = x86_match_cpu(intel_idle_ids);
+ 	const char *str;
+ 
+-	if (!id) {
+-		pr_debug(PREFIX "does not run on family %d model %d\n",
+-			 boot_cpu_data.x86, boot_cpu_data.x86_model);
+-		return -ENODEV;
+-	}
++	if (from_acpi) {
++		int rc;
+ 
+-	if (!boot_cpu_has(X86_FEATURE_MONITOR)) {
+-		pr_debug(PREFIX "Please enable MWAIT in BIOS SETUP\n");
+-		return -ENODEV;
++		if (boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
++		    boot_cpu_data.x86 != 6 ||
++		    !boot_cpu_has(X86_FEATURE_MONITOR)) {
++			pr_debug(PREFIX "skipping ACPI check on unsupported CPU\n");
++			return -ENODEV;
++		}
++
++		rc = mwait_idle_state_table_from_acpi();
++		if (rc < 0)
++			return rc;
++
++		icpu = &idle_cpu_acpi;
++	} else {
++		const struct x86_cpu_id *id = x86_match_cpu(intel_idle_ids);
++		if (!id) {
++			pr_debug(PREFIX "no interal config for family %d model %d\n",
++				 boot_cpu_data.x86, boot_cpu_data.x86_model);
++			return -ENODEV;
++		}
++
++		if (!boot_cpu_has(X86_FEATURE_MONITOR)) {
++			pr_debug(PREFIX "Please enable MWAIT in BIOS SETUP\n");
++			return -ENODEV;
++		}
++
++		icpu = id->driver_data;
+ 	}
+ 
+ 	if (boot_cpu_data.cpuid_level < CPUID_MWAIT_LEAF)
+@@ -1470,7 +1546,6 @@ static int __init mwait_idle_probe(void)
+ 
+ 	pr_debug(PREFIX "MWAIT substates: %#x\n", mwait_substates);
+ 
+-	icpu = id->driver_data;
+ 	cpuidle_state_table = icpu->state_table;
+ 
+ 	if (boot_cpu_has(X86_FEATURE_ARAT))
+@@ -1515,7 +1590,8 @@ static int __init mwait_idle_probe(void)
+ 	if (str[0])
+ 		printk("unrecognized \"preferred-cstates=%s\"\n", str);
+ 
+-	mwait_idle_state_table_update();
++	if (!from_acpi)
++		mwait_idle_state_table_update();
+ 
+ 	return 0;
+ }
+@@ -1624,14 +1700,14 @@ static int cf_check mwait_idle_cpu_init(
+ 	return NOTIFY_DONE;
+ }
+ 
+-int __init mwait_idle_init(struct notifier_block *nfb)
++int mwait_idle_init(struct notifier_block *nfb, bool from_acpi)
+ {
+ 	int err;
+ 
+ 	if (pm_idle_save)
+ 		return -ENODEV;
+ 
+-	err = mwait_idle_probe();
++	err = mwait_idle_probe(from_acpi);
+ 	if (!err && !boot_cpu_has(X86_FEATURE_ARAT)) {
+ 		hpet_broadcast_init();
+ 		if (xen_cpuidle < 0 && !hpet_broadcast_is_available())
+diff --git a/xen/arch/x86/include/asm/cpuidle.h b/xen/arch/x86/include/asm/cpuidle.h
+index 3edd7a75d2..f8913c7304 100644
+--- a/xen/arch/x86/include/asm/cpuidle.h
++++ b/xen/arch/x86/include/asm/cpuidle.h
+@@ -15,7 +15,7 @@ extern void (*lapic_timer_on)(void);
+ 
+ extern uint64_t (*cpuidle_get_tick)(void);
+ 
+-int mwait_idle_init(struct notifier_block *);
++int mwait_idle_init(struct notifier_block *, bool);
+ int cpuidle_init_cpu(unsigned int cpu);
+ void cf_check default_dead_idle(void);
+ void cf_check acpi_dead_idle(void);
+-- 
+2.40.1
 
 
