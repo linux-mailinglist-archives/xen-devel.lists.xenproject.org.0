@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4801D757A36
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 13:15:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565124.883002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98084757A6F
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 13:27:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565127.883012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLifH-0005Ej-FH; Tue, 18 Jul 2023 11:14:47 +0000
+	id 1qLiqV-0006sa-Gh; Tue, 18 Jul 2023 11:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565124.883002; Tue, 18 Jul 2023 11:14:47 +0000
+Received: by outflank-mailman (output) from mailman id 565127.883012; Tue, 18 Jul 2023 11:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLifH-0005CG-Bn; Tue, 18 Jul 2023 11:14:47 +0000
-Received: by outflank-mailman (input) for mailman id 565124;
- Tue, 18 Jul 2023 11:14:46 +0000
+	id 1qLiqV-0006qW-CZ; Tue, 18 Jul 2023 11:26:23 +0000
+Received: by outflank-mailman (input) for mailman id 565127;
+ Tue, 18 Jul 2023 11:26:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=agjq=DE=citrix.com=prvs=55665d270=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1qLifG-0005CA-4z
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 11:14:46 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b35763d-255c-11ee-b23a-6b7b168915f2;
- Tue, 18 Jul 2023 13:14:44 +0200 (CEST)
+ id 1qLiqU-0006qA-LF
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 11:26:22 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eac72130-255d-11ee-b23a-6b7b168915f2;
+ Tue, 18 Jul 2023 13:26:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,100 +36,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b35763d-255c-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: eac72130-255d-11ee-b23a-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1689678883;
+  d=citrix.com; s=securemail; t=1689679580;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:content-transfer-encoding:in-reply-to;
-  bh=H0sf74qDQKrwVRyEDdS7iWnmtZ2Fml7U03kG8T2HpA4=;
-  b=TJnEZcO92Rfd/9sSzuGV97cDqo4o+Pi6k9Jl8vcj0+dgayghf/k088KE
-   GuS60YbTFUgXdzL8nq3LTxPXDBirMnUOpQ9ZWPZ8hHSOrjee4EgvIw5yb
-   FKg/co+PoxYQ7M0QTnd3vHrb7LOrhBXotRE67VyNAp2IY00wSRp5MEgd4
-   g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=4gMrvFmGzJbbiK2O12iR5qtLnHaPJ/TowwpBPBFcl7k=;
+  b=Qd44ieppTIJEEV5VHYYw+4bU3/0tutsE66wQEMbbHOmFrVgRGF5s3GBZ
+   TMut8/QTgCemi/a/mlDWhK0tBiggyQgc2pxo67SEwKHkeAmXihM79MMTz
+   xGnU9u+YsnqHMUqoMHhklW6vWRfTCxJVLk5fFXDNr8YirSLTZ4NIrPSMw
+   M=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 119170195
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 115285157
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:bJHDEaowUg+HQosABIhtLhMHCBReBmILZRIvgKrLsJaIsI4StFCzt
- garIBmAaP3YNDahLop/PNmy8k5Uu5XXx9dqSAA4qSE2EC9EopuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GpwUmAWP6gR5weBzilNVvrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAGANNinZg96a+baAavt2weIdDvjZO7pK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
- jufrj2mWkhLabRzzxKa+SmohcmTuB+rAoU5GbSA3+9TqwO6kzl75Bo+CgLg/KjRZlSFc8JSL
- QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUS9wWl2qfSpQGDCQAsTDFbb8c9nNQrXjFs3
- ViM9/vgHTF1uaeZYW6c/LyT6zi1PEAowXQqPHFeC1Ffup+6/d9110iUJjp+LEKrpo31QQiqx
- wymlSwFp6cJyug19ZSJ+mmS1lpAuaP1oh4JChT/Bzz1v10nOtL9OeRE+nCAs68ecd/xok2p+
- SFdxpPAtL1m4YSlznTlfQkbIF2+Cx9p2hX4iEUnIZQu/i/FF5WLLdEJu2EWyKuE3685ld7Vj
- Kz741k5CGd7ZifCUEOOS9vZ5z4W5abhD8/5cfvfc8BDZJN8HCfeonE/OxfAgDm8zxB1+U3aB
- Xt9WZz0ZZr9If06pAdaus9HieN7rszA7Ti7qW/HI+SPjuPFOS/9pUYtO1qSdOEphJ5oUy2Mm
- +uzw/Cikk0FOMWnO3m/zGLmBQxSRZTNLcys+pM/my/qClYOJVzN/NeLmeN4J9I1wvQL/goKl
- 1nkMnJlJJPErSWvAW23hrpLMdsDgb4XQaoHABER
-IronPort-HdrOrdr: A9a23:L58TpaoEWa3hxCtvgPcxR6kaV5rveYIsimQD101hICG9Evb0qy
- nOpoV/6faQslwssR4b9uxoVJPvfZq+z+8W3WByB9eftWDd0QPFEGgL1+DfKlbbak7DH4BmtJ
- uJc8JFeafN5VoRt7eG3OFveexQvOVu88qT9JjjJ28Gd3APV0n5hT0JcjpyFCdNNW57LKt8Lr
- WwzOxdqQGtfHwGB/7LfUXsD4D41rv2fIuNW29+OyIa
-X-Talos-CUID: 9a23:/f50hmzp0dRGTrTnqO0tBgVEGpgcKHnh4E7UGG+qEyFPdp+ke1iprfY=
-X-Talos-MUID: 9a23:tOw6TAW+jZwhfH7q/CDn3zVhEptN3/T0D2sAmK0vqvCvawUlbg==
+IronPort-Data: A9a23:rVhEVaBrqwYyBBVW/zrjw5YqxClBgxIJ4kV8jS/XYbTApDkl1T1Vx
+ msaWziHbqqMY2b1ed5+boS09UxUuZOEmINiQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbCRMsspvlDs15K6p4GxB7gRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw/b18J3NJ9
+ uMiJG4mLQusne60wLeJc7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTIJs4gOevgGi5azBCoUiZjaE2/3LS3Ep6172F3N/9I4XXH5UIxxvHz
+ o7A103YCRIFC8yE8CSu2yicmf/Uvg6lAo1HQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFabujYMVtwWFPc1gCmPxbDT+B2xHXUfQ3hKb9lOnMYuSCYjz
+ FOhg9LjDjspu7qQIU9x7Z/N82n0Y3JMazZfO2ldF1BtD8TfTJ8biUnEaMRkE7GPgoPeWirf2
+ TyIrC0MvuBG5SIU7JlX7Wwrkhr1+MiYEFBrul2JNo62xlgnPdD4PuRE/XCetK8dd9jBEzFtq
+ VBew6CjAPYy4YZhfcBnaMEEB/mX6vmMK1UwanY/TsB6p1xBF5NOFL28AQ2Sx28zaK7ogRezP
+ CfuVfp5vfe/xkeCY65teJ6WAM8316XmHtmNfqmKPosQO8guLV7YpHgGiausM4bFyhBEfUYXY
+ MrzTCpRJSxCVfQPIMSeHI/xLoPHNghhnDiOFPgXPjys0KaEZW79dFv2GALmUwzN14vd+F+92
+ 48GZ6O3J+B3DLWWjt//rdRCcjjn7BETWfjLliCgXrTbclM6RjF8W6G5LHFIU9UNopm5X9zgp
+ hmVMnK0AnKm7ZEbAW1mskxeVY4=
+IronPort-HdrOrdr: A9a23:ANeCPKs1lr6m2DAgkcMyampT7skDstV00zEX/kB9WHVpm6yj+v
+ xG/c5rsCMc7Qx6ZJhOo7+90cW7L080lqQFg7X5X43DYOCOggLBQL2KhbGI/9SKIVycygcy78
+ Zdm6gVMqyLMbB55/yKnTVRxbwbsaW6GKPDv5ag8590JzsaD52Jd21Ce36m+ksdfnggObMJUK
+ Cyy+BgvDSadXEefq2AdwI4t7iqnaysqHr+CyR2fiIa1A==
+X-Talos-CUID: =?us-ascii?q?9a23=3AUs1Vr2gpawr+TpdR7tujb8bNtjJudSbW6mXXIFC?=
+ =?us-ascii?q?CBThCC6a6U1OS+KZWqp87?=
+X-Talos-MUID: 9a23:cgQ81gqgLIiit6NHU5MezxhDP8R33LS1MV4muM82pNmfFgEuYTjI2Q==
 X-IronPort-AV: E=Sophos;i="6.01,214,1684814400"; 
-   d="scan'208";a="119170195"
-Date: Tue, 18 Jul 2023 12:14:36 +0100
+   d="scan'208";a="115285157"
+Date: Tue, 18 Jul 2023 12:26:05 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
 	<jgross@suse.com>
-Subject: Re: [PATCH v2 3/6] libxl: introduce MSR data in libxl_cpuid_policy
-Message-ID: <1571d2d1-0a5e-49e9-b2f2-84af65e2d0cf@perard>
+Subject: Re: [PATCH v2 6/6] libxl: add support for parsing MSR features
+Message-ID: <d9671c90-b787-4839-9b6c-bd79a320d6a4@perard>
 References: <20230711092230.15408-1-roger.pau@citrix.com>
- <20230711092230.15408-4-roger.pau@citrix.com>
- <d7be70e8-611c-4f7d-a585-2a00b1513a92@perard>
- <ZLVR23KbddRHrC5z@MacBook-Air-de-Roger.local>
+ <20230711092230.15408-7-roger.pau@citrix.com>
+ <48d5ca83-d14b-44e1-9431-5324118eacb7@perard>
+ <ZLVUQdM3XtclUw5l@MacBook-Air-de-Roger.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZLVR23KbddRHrC5z@MacBook-Air-de-Roger.local>
+In-Reply-To: <ZLVUQdM3XtclUw5l@MacBook-Air-de-Roger.local>
 
-On Mon, Jul 17, 2023 at 04:36:11PM +0200, Roger Pau Monné wrote:
-> On Wed, Jul 12, 2023 at 05:39:01PM +0100, Anthony PERARD wrote:
-> > On Tue, Jul 11, 2023 at 11:22:27AM +0200, Roger Pau Monne wrote:
-> > > Add a new array field to libxl_cpuid_policy in order to store the MSR
-> > > policies.
-> > > 
-> > > Note that libxl_cpuid_policy_list_{copy,length,parse_json,gen_json}
-> > > are not adjusted to deal with the new MSR array now part of
-> > > libxl_cpuid_policy_list.
+On Mon, Jul 17, 2023 at 04:46:25PM +0200, Roger Pau Monné wrote:
+> On Thu, Jul 13, 2023 at 11:39:53AM +0100, Anthony PERARD wrote:
+> > On Tue, Jul 11, 2023 at 11:22:30AM +0200, Roger Pau Monne wrote:
+> > > diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpuid.c
+> > > index b1c4f8f2f45b..86a08f29a19c 100644
+> > > --- a/tools/libs/light/libxl_cpuid.c
+> > > +++ b/tools/libs/light/libxl_cpuid.c
+> > > @@ -158,6 +158,57 @@ static int cpuid_add(libxl_cpuid_policy_list *policy,
+> > >      return 0;
+> > >  }
+> > >  
+> > > +static struct xc_msr *msr_find_match(libxl_cpuid_policy_list *pl, uint32_t index)
+> > > +{
+> > > +    unsigned int i = 0;
+> > > +    libxl_cpuid_policy_list policy = *pl;
+> > > +
+> > > +    if (policy == NULL)
+> > > +        policy = *pl = calloc(1, sizeof(*policy));
+> > > +
+> > > +    if (policy->msr != NULL)
+> > > +        for (i = 0; policy->msr[i].index != XC_MSR_INPUT_UNUSED; i++)
 > > 
-> > Why? Isn't this going to be an issue? Or maybe that going to be dealt
-> > with in a future patch?
+> > Could you add { } for this two blocks? One line after a if() without { }
+> > is ok, but not more.
 > 
-> I'm unsure what's the point of those?  The CPUID/MSR data is passed as
-> a migration stream record from the hypervisor, so I don't see much
-> point into converting it into json.  It also seems quite complex, and
-> can't likely we done without breaking (or adjusting) the current
-> format.
-
-I think this data is used when the machine reboots. I've only try to
-edit the file "/var/lib/xen/userdata-d.*" and it change which cpu flags
-where available in the machine after a reboot. You could maybe confirm
-that when you change an msr value, it is actually conserved across
-reboot.
-
-> My plan was to leave this unimplemented and if someone is in
-> interested in having the data in json they can as well implement it.
+> Sure.
 > 
-> Would you be OK if I add a note to the commit message that
-> implementing json marshalling is left to implement for interested
-> parties?
+> > > +            if (policy->msr[i].index == index)
+> > > +                return &policy->msr[i];
+> > > +
+> > > +    policy->msr = realloc(policy->msr, sizeof(struct xc_msr) * (i + 2));
+> > > +    policy->msr[i].index = index;
+> > > +    memset(policy->msr[i].policy, 'x', ARRAY_SIZE(policy->msr[0].policy) - 1);
+> > 
+> > Is this "array_size() - 1" correct? The -1 need to go, right?
+> > 
+> > > +    policy->msr[i].policy[ARRAY_SIZE(policy->msr[0].policy) - 1] = '\0';
+> > 
+> > Is it for convenience? Maybe for easier debugging (printf)? Also, I
+> > guess having a NUL at the end mean the -1 on the previous statement kind
+> > of useful.
+> 
+> Yes, it's also to match the format of the policy string used by
+> xc_xend_cpuid, which also has a terminating zero.
+> 
+> Are you OK with this?
 
-My guess is, we will have to think of something and add the msr into
-json, even if it's done in a separate patch.
+Yes.
 
-Cheers,
+With the other style change done:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
 
 -- 
 Anthony PERARD
