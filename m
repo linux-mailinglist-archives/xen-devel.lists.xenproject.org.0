@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A91917580DB
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 17:28:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565372.883488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0528075812A
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jul 2023 17:41:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565385.883497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLmcR-0000E3-Ml; Tue, 18 Jul 2023 15:28:07 +0000
+	id 1qLmoN-0002nG-PO; Tue, 18 Jul 2023 15:40:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565372.883488; Tue, 18 Jul 2023 15:28:07 +0000
+Received: by outflank-mailman (output) from mailman id 565385.883497; Tue, 18 Jul 2023 15:40:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qLmcR-0000Ba-Jl; Tue, 18 Jul 2023 15:28:07 +0000
-Received: by outflank-mailman (input) for mailman id 565372;
- Tue, 18 Jul 2023 15:28:05 +0000
+	id 1qLmoN-0002kX-Mh; Tue, 18 Jul 2023 15:40:27 +0000
+Received: by outflank-mailman (input) for mailman id 565385;
+ Tue, 18 Jul 2023 15:40:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CPt9=DE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qLmcP-0000BR-PK
- for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 15:28:05 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=g6ux=DE=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qLmoM-0002kA-Lw
+ for xen-devel@lists.xenproject.org; Tue, 18 Jul 2023 15:40:26 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::615])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afe69c2a-257f-11ee-8611-37d641c3527e;
- Tue, 18 Jul 2023 17:28:03 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4fb7b2e3dacso9535744e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Jul 2023 08:28:03 -0700 (PDT)
-Received: from [192.168.201.189] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a10-20020a056512020a00b004fdc7543ab9sm482954lfo.229.2023.07.18.08.28.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jul 2023 08:28:02 -0700 (PDT)
+ id 688263c1-2581-11ee-8611-37d641c3527e;
+ Tue, 18 Jul 2023 17:40:23 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DBAPR04MB7400.eurprd04.prod.outlook.com (2603:10a6:10:1b3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Tue, 18 Jul
+ 2023 15:40:21 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Tue, 18 Jul 2023
+ 15:40:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +47,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afe69c2a-257f-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689694083; x=1692286083;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=JiW2EnlDfyx9QIBWLGdkYtMADSfm/h1wex3dVbp4WVQ=;
-        b=sLp00NYACHprxahouCKAMmMb82X+R59ReDSGt1MVLnfh0IThSeKvT87psZRfDjad1g
-         z3jEAkL0HxXfUzRbawtRDMIezJaWFu5eGIAs/7uCWwjruEf7Gsz7/lvwJ5pZtzogITk6
-         RlMMduCmj1DjC9x7h36wZbIG1FYnWnPf3zm17avK5jrqpPUSxBKDj1CXf9q+UOpPXn5a
-         XEBqEVvMAjQNjmE8OYsepjT+PeVzAnHsQrr/sf/RJMldd00IKbfjvFtR0NqNEDyRQjiK
-         If5wA0GCnx9dofwCyJMkGTbZzlDRopqTfBvbJzMK33CrnPeZc+6M3cAn1QaySLBrBiAN
-         lqkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689694083; x=1692286083;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JiW2EnlDfyx9QIBWLGdkYtMADSfm/h1wex3dVbp4WVQ=;
-        b=TCE2EoK42bhxBzzvfsGqU+zMujpD3WGs17ROBlchukQXFUPvAUdXaZ4z9L83x74ERJ
-         mCj/tNS1LOHOo36/D5DAHjhfmlFLQDJnq6aBuhMwYGa+mqGtkZiu38pBq9oS6OMjRxU/
-         X6N4Gsc76v3TwaxfyoYi6eclW63lHMfAVic2H3A1qMBUqG9Z+hzCddF7LzVhhN5hnHOT
-         8UeGgADhjPHp1jJEvJGCVcPOb3cqwmK5BgY5Oqxi/+mqyVeES6Mn7q9mDGT5hwXktNpL
-         qDL9zF0GPnCjRjipTYhpJt2VCCYL90N8Uyx7oW6mpfFP65X8Lb9hWAvP1AWpfTZQgSCP
-         lEzA==
-X-Gm-Message-State: ABy/qLa+uNojqeEkSRGF0LnLWJlM08D8ZRYOBPkyXn9icIpx9qV/Qq8O
-	cV25tUrcRFTwBa55LZRWJV3eMEwlHQE=
-X-Google-Smtp-Source: APBJJlEBC3Ee/TFE0wbWhoqLzZXoM3geMcKfEL7Bp91hw1hW7AoQ4ODZ3QXhM/bAzZjyzLyZUUSSzw==
-X-Received: by 2002:ac2:4da3:0:b0:4f8:6e52:68ae with SMTP id h3-20020ac24da3000000b004f86e5268aemr10176097lfe.31.1689694082762;
-        Tue, 18 Jul 2023 08:28:02 -0700 (PDT)
-Message-ID: <77182d4831ad99a261cec4053cf6f52713900f2b.camel@gmail.com>
-Subject: Re: [PATCH v2] ns16550: add support for polling mode when device
- tree is used
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+X-Inumbo-ID: 688263c1-2581-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IlP9YKq5WMTz9lrJVM7/r/vs2hV1wC33T0GzD0lCE8LbwIRv0j2YHCy7svl6DFnkvZT6vRuT2/y7Gj4dwjV+qmOmRPZS70ZCHhhpIRXcBdtrUQRNwto3ATidBR40IYsMfkC3m15emzpccIb+OqsNxEasnUrkjZ0uQ7a4gLk2U90Rp5yFtfu3k1d137dbOUvGiFgnuwwewlBxMZ8CuDRF2fk7T7GCfamGdbWSAN1laSzY6rSi0pUyQlwAQVm2ek0u3lq7OHjeNwrXc5/A8EJKoVckqEbCVY7fIS00kXpI1vK7AoqVAL1NklQ6D6mr5NqiFnFeW+3mYLfLgCQRQYIxAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iGNqzj5auuECKCtrg/wRT+UMA+m5RQVhzkueY9/jP3o=;
+ b=YT7JGXzoqnXOuwW0dTo1kxF9qgJcy7hQGWFRczuRXSp7ko+sU4n+Ri1xFp3FU1zJEQJ4gb36rVCjJ4sIMY8LQxurTP0uuGW98RywnUJAoqOkQvHNiVgvDnLAxvBGqWydUxInlZlV8ghAzUe3pH8y6XAmAaT1D2nfg5f4GNPdWJGdp0VsAgCgjC6moMcXRvhWMtRgOBFauzlht4Mb8SfvyA9sp6m2dCqRPXB1dudRhWiRNedrxrbZgWAqszuGxxhQp64eYBcoS3+upg74oSYBXEcERGVAzFLiTe5OifgQ83On8tsGZpxKD2VBnMN5pQcIknuG103VOxxM3hXyns1f3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iGNqzj5auuECKCtrg/wRT+UMA+m5RQVhzkueY9/jP3o=;
+ b=soxjhSwWyYbusf+Ih/P7kuUef5588HnBaoDM/PAmeKBvRIiVwoZMopOWbx0ZAXrtwT+rA5cUDzOxUgJWpHWN6hjqZxluvrAVRXslR60ZSBM8IrJsWRyCNTGzmadvTLWcnfXbWUh6c55tdncetViNLUK0ahBCc+N9IdeU0zjaDT+xH+AvSRUmwHUAK9az+5x7tCs8Ab3dFnGM4rjSs1bFQ5U3/ZdwS5Y7eYj7yGCFSb4K2iiQ/WzC3lo4Xes93o3Egu1FPBxnIK0qWM9mxQlWUoeyiqJHSWIi87vB4x/l4o7PdSi5t3FsTGiDVwdy0dcTmTzuN5H2tyJVD36VLg7Gdg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <1bc67bb2-9b01-eb18-eb6a-741067a9b35c@suse.com>
+Date: Tue, 18 Jul 2023 17:40:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v2 2/5] x86/ioapic: RTE modifications must use
+ ioapic_write_entry
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-Date: Tue, 18 Jul 2023 18:28:01 +0300
-In-Reply-To: <449e1832-83f8-a8c6-6137-7d161ac60fe4@suse.com>
-References: 
-	<ce821c1c81ba69397047daae0b0e6d44893ec28d.1689689630.git.oleksii.kurochko@gmail.com>
-	 <449e1832-83f8-a8c6-6137-7d161ac60fe4@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+References: <20230718124334.36548-1-roger.pau@citrix.com>
+ <20230718124334.36548-3-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230718124334.36548-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0246.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBAPR04MB7400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44289657-e060-4425-96f8-08db87a54b77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	5hUMdrxU+EIhkjqaOdIzDA1wh7gXgh4UtAZ3WhIoEF04kTIanHD0GUYnMklHpwGx8xcdnn2z5TxGb0UOQmYWjiE9W7m9Z1mvLocllV1pfuUB2jgaGeodsoR1OYk94QNzcTaZ1Ob8ZXzFOqNX5TTp0kcJ9LyXzXIQ4JUYHB9SHHs1pUjXxhXk+eivv/XWmnUTCYFjzjwWm8XW5xfH2TODVbFATI2/RgRHRFFRH1dzukoH49KqC3kVnmMOQlzUIZ1rqnenGI1GVe1XVQuOnTbGSywQmU+5y/SvSQAFXxaf9zh7Uv+7gJYiUln/fnKipjyAQnTTsDxih8dciJntA/RAliogEvET4htUOFTHnaCwiUfVdsXYEj5zkaOUdKUSdrqHuibftSw4fs2XIVzoVZfPpWSiF0YgriyKGGYqJl5+1BYDY1yxADuxpAgbdAVE6mOVK8HjoW0ueEEORf+SwG4SH8RdsEFO72a+srmz+t/oiXMZ75BKiHAfTjEKL+HjJm5d6CzMLDNh8G7yjuC4X7B1akpSTtq+tCVR9Ww31qL97qTKFxRlKaTERj5B4JVKAFSbosZt4SEP9vSDBzp4qE30sRr5nDT+bujdT4HeHvDO+vGgAIBSGMSjs+07nsYe32nay6smXMTC1e/gvuUJzp1hmA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(376002)(366004)(39860400002)(346002)(136003)(451199021)(8936002)(8676002)(31686004)(66476007)(66556008)(41300700001)(6512007)(6486002)(66946007)(316002)(4326008)(6916009)(5660300002)(54906003)(36756003)(6666004)(2906002)(478600001)(26005)(83380400001)(53546011)(6506007)(2616005)(31696002)(38100700002)(86362001)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U1F3Wmk0R1BlR3dUTlM5c0sxZWl1VU54T3BXM2VSRDFqTHpJTk1EeTRoNlJZ?=
+ =?utf-8?B?MGpReTk0eW1SV2pJV1VDeGIxZWtjUXZtaFVwKzk1QVNLSVFVSGV3NWFHRHlz?=
+ =?utf-8?B?ZmlSaW5tWEFRdkR2NGpZN2FKcldJMmFhWWhHa0lmSkE0RkVMUXRLUUlqYlN5?=
+ =?utf-8?B?a1JTUTNXVlRSQmhxRHBFNjZvbm83SUVka25iS2dab2pOWm5pRkh3U3ZRYTNI?=
+ =?utf-8?B?MkxNbVFNT3ZqZlcxR3BxaXhYL3JTRmR0cGpEdXFQQXp2WEZmdXB3NWxrbzQy?=
+ =?utf-8?B?QVdjNWNSSzA4N0UyYms2dmVWWmMxd3hMMm9nTVltM2ZpS1hYcFE2bk91RFpt?=
+ =?utf-8?B?Qm01RUhWYlFrRG5TMkcvdXZTWkFuQWRJM2s4dHp5QnhQS2hEUUtTS0M4R05J?=
+ =?utf-8?B?dVc5NlVzN1VBMXpEOFFHTS95djhYNWxlczZjVUxqeEhOWVE0cVFzclZzd3VJ?=
+ =?utf-8?B?Y09XZHhDNXVyUDRBWG10Tmpra1lKcHdtdDlUa0s2dGRGeXl3SVNndnE0aVdE?=
+ =?utf-8?B?Z2NsZjRnYmJJd2p1V2JzVU5LWTc1NDZJTWRnUHdqZjZkeVR3YVFkREhjTzhn?=
+ =?utf-8?B?ekVXdS9KK0M4U0ZxQXFCRTF6R29FMUdsZ1BYRWtBODU4UW1rYVMwVzVOMkho?=
+ =?utf-8?B?YlZPODUydVhnYlZMSEZIY3ZuWFY3ZzE4bFhBTzZPR2xHa2xWb1RYdDFxRktn?=
+ =?utf-8?B?Zzd0QnRiWG0ySUdFQk9ZQ3RjdlpZRldTTFlkQ0dUYmtLM0N5UUY2RCs0ZTdK?=
+ =?utf-8?B?RUxyS3RJMDhIa3dPRzJiUTQvZVhuMUUwWlJxOWxIMlJ6dEVkakNzb0pzVkFW?=
+ =?utf-8?B?ZFJhNHgwK3hGOHFNVzQ3VnZaOTAzTUt0T2puUUd2Qk94ZUdQQldodEgya3Vv?=
+ =?utf-8?B?cXpqclZURTNsQzlBUEZUdE12eXpEeDB4UE52MGVkM29mbyt0dXpHdDlNRlg3?=
+ =?utf-8?B?ZVAxdnNTbVQ0eE9QQ3J4WlBPM29BSXlleDAxQWp0S3N6Y3RuSlpibUU3ZnZY?=
+ =?utf-8?B?VXd0K2xOOHBKbnhoWkd3Y2xJU0lpa3duU2V6S1MvNy92akE2TGM1VUN3Z3l3?=
+ =?utf-8?B?ZWVLcU9mUlgxdjhEWmZCUzlSblNmYTN1bEVRYmdMNEhYc1lMVEJrN0gzWmEz?=
+ =?utf-8?B?L3FYUXhPN0ZoV1pIOUt5UXFIUi96SzNvd05RSnduelZJZkRUVjQ3Q1ZoOUV0?=
+ =?utf-8?B?WUxXc05tZkJ6OFpPNHdGMEgvTHV1aWNSWEtmRlZKWFBEa1U1VHY0bDk5QnVK?=
+ =?utf-8?B?Z0g0cWY2a2tvc0N2dFFCYWNiWHJRckF6a0xFRTJhbVNtSTY1aU5DQXBGWGpC?=
+ =?utf-8?B?M3I5b1pvR0dkZEhLeDNZK1lOU2prRCtZKzdhN0Fxd2J0dUpBOFE1Um5VcGJ6?=
+ =?utf-8?B?WjhBY1hxdi9tQm1zYlM0cG1reHJadjkrbjJyNFhZRTVVMG54dmZHcVdNVllP?=
+ =?utf-8?B?TFl6M0s5UmVnQzdsR0RSQXB4bUNSdXI2V3FpZFA3bXJaeGxSK2IxWHRzL1Ji?=
+ =?utf-8?B?eXhpMk1pUG14NDNTeGpKUkgxaUh1Q3NVdFZmOFU1eU8yM2prcU1kK0tTYytJ?=
+ =?utf-8?B?UkNSSzBKeEl5UE96c3dsa3M0WVVNNUZxcm9KSHdCU055bWhiRGljVnZEQUFu?=
+ =?utf-8?B?SXBjTnpncWxvdVYvcU1LU1RjRkJrV2dxOG80eTBOblR5eVlqVUJYUnVETExs?=
+ =?utf-8?B?VE1RdzhOdC92SmpHTSt4QitNQ1RBbWJrYnVCTU14bVEvcTN1amVEcy9UTDd1?=
+ =?utf-8?B?Y2habmRudlVTdTlyZUl5SExOaU55YzBOc2pzU1NiZGpRZm1scUJOVFExWWJn?=
+ =?utf-8?B?SG4wVk9zZ0tBK2IveUdIR1dPSU1RYjdNK0FNS1NWSXFoVDJuanR2cmZrN3d3?=
+ =?utf-8?B?MHZDNnVQWHVpQ3huWk13dDFGYzNSS25pM2NaZ0oxOTBnMUprMkh1Vm9MM0Vm?=
+ =?utf-8?B?S1NMTG1zT05MTkJKeVE4cDZtOWMxQ0M4MDFVWjhsbDlDbWZkREpTYTQxOXBw?=
+ =?utf-8?B?dVdHZkRWb1lwVGdlSmptMkJRUjVOU1Aram1DZDZYekZVaXorSVFFSER3ZTZR?=
+ =?utf-8?B?cy9zVS9KcHkyR201OC90VjkrS0c3M0xLUEJzRUViTlF6MzZrNFBIV1VlQloz?=
+ =?utf-8?Q?EYXJiyPongYRX4COqmICrVRFu?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44289657-e060-4425-96f8-08db87a54b77
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2023 15:40:21.2130
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ToAB2L29/lp8cq1asTJj5zUjnr/RBXcYqq4Erpl8o5T2bB7LTrWPgqABxT1xpJmkckJOC34XGJiOdbO/RkaECQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7400
 
-On Tue, 2023-07-18 at 16:40 +0200, Jan Beulich wrote:
-> On 18.07.2023 16:13, Oleksii Kurochko wrote:
-> > --- a/xen/drivers/char/ns16550.c
-> > +++ b/xen/drivers/char/ns16550.c
-> > @@ -40,6 +40,8 @@
-> > =C2=A0#include <asm/fixmap.h>
-> > =C2=A0#endif
-> > =C2=A0
-> > +#define NO_IRQ_POLL 0
->=20
-> Do you really need this? I ask because ...
->=20
-> > @@ -595,7 +603,9 @@ static void __init cf_check
-> > ns16550_endboot(struct serial_port *port)
-> > =C2=A0static int __init cf_check ns16550_irq(struct serial_port *port)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0 struct ns16550 *uart =3D port->uart;
-> > -=C2=A0=C2=A0=C2=A0 return ((uart->irq > 0) ? uart->irq : -1);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 return (((uart->intr_works !=3D polling) && (uart->=
-irq >=3D 0)) ?
->=20
-> ... you now use >=3D here, which includes that special value. As long
-> as intr_works is always set to "polling", the particular value in
-> uart->irq shouldn't matter (and hence you wouldn't need to store
-> anywhere that or any other special value).
-You are right it should matter what is the value of uart->irq in case
-when polling mode is set.
->=20
-> > @@ -1330,9 +1340,12 @@ pci_uart_config(struct ns16550 *uart, bool_t
-> > skip_amt, unsigned int idx)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * as special only for X86.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( uart->irq =3D=3D 0xff )
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uart->irq =3D 0;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uart->irq =3D NO_IRQ_POLL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uart->intr_works =3D polling;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 }
-> > =C2=A0#endif
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 if ( !uart->irq )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 if ( uart->intr_works =3D=3D polling )
->=20
-> Careful here - we may also have read 0 from PCI_INTERRUPT_LINE, or
-> forced 0 because we read 0 from PCI_INTERRUPT_PIN. All these cases,
-> unless provably broken, need to continue to function as they were.
-Missed that it should be if (( uart->intr_works =3D=3D polling ) || !uart-
->irq).
->=20
-> Further you alter parse_positional(), but you leave alone
-> parse_namevalue_pairs(). I think you're changing the admin (command
-> line) interface that way, because so far "irq=3D0" was the way to
-> request polling. While it may be unavoidable to change that interface
-> (which will then need noting in ./CHANGELOG.md), you still need to
-> offer a way to forcibly set polling mode.
-It think it would be better to pass 'uart_force_polling' ( or kind of )
-via command line.
+On 18.07.2023 14:43, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -269,15 +269,15 @@ void __ioapic_write_entry(
+>  {
+>      union entry_union eu = { .entry = e };
+>  
+> -    if ( raw )
+> +    if ( raw || !iommu_intremap )
+>      {
+>          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+>          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+>      }
+>      else
+>      {
+> -        io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+> -        io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+> +        iommu_update_ire_from_apic(apic, 0x11 + 2 * pin, eu.w2);
+> +        iommu_update_ire_from_apic(apic, 0x10 + 2 * pin, eu.w1);
+>      }
+>  }
 
-~ Oleksii
+I think __ioapic_read_entry() wants updating similarly, so that both
+remain consistent.
+
+> @@ -433,16 +433,17 @@ static void modify_IO_APIC_irq(unsigned int irq, unsigned int enable,
+>                                 unsigned int disable)
+>  {
+>      struct irq_pin_list *entry = irq_2_pin + irq;
+> -    unsigned int pin, reg;
+>  
+>      for (;;) {
+> -        pin = entry->pin;
+> +        unsigned int pin = entry->pin;
+> +        struct IO_APIC_route_entry rte;
+> +
+>          if (pin == -1)
+>              break;
+> -        reg = io_apic_read(entry->apic, 0x10 + pin*2);
+> -        reg &= ~disable;
+> -        reg |= enable;
+> -        io_apic_modify(entry->apic, 0x10 + pin*2, reg);
+> +        rte = __ioapic_read_entry(entry->apic, pin, false);
+> +        rte.raw &= ~(uint64_t)disable;
+> +        rte.raw |= enable;
+> +        __ioapic_write_entry(entry->apic, pin, false, rte);
+
+While this isn't going to happen overly often, ...
+
+> @@ -584,16 +585,16 @@ set_ioapic_affinity_irq(struct irq_desc *desc, const cpumask_t *mask)
+>              dest = SET_APIC_LOGICAL_ID(dest);
+>          entry = irq_2_pin + irq;
+>          for (;;) {
+> -            unsigned int data;
+> +            struct IO_APIC_route_entry rte;
+> +
+>              pin = entry->pin;
+>              if (pin == -1)
+>                  break;
+>  
+> -            io_apic_write(entry->apic, 0x10 + 1 + pin*2, dest);
+> -            data = io_apic_read(entry->apic, 0x10 + pin*2);
+> -            data &= ~IO_APIC_REDIR_VECTOR_MASK;
+> -            data |= MASK_INSR(desc->arch.vector, IO_APIC_REDIR_VECTOR_MASK);
+> -            io_apic_modify(entry->apic, 0x10 + pin*2, data);
+> +            rte = __ioapic_read_entry(entry->apic, pin, false);
+> +            rte.dest.dest32 = dest;
+> +            rte.vector = desc->arch.vector;
+> +            __ioapic_write_entry(entry->apic, pin, false, rte);
+
+... this makes me wonder whether there shouldn't be an
+__ioapic_modify_entry() capable of suppressing one of the two
+writes (but still being handed the full RTE).
+
+Jan
 
