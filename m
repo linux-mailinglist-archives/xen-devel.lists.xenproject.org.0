@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 411BC758E1E
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 08:50:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565597.883878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C491758F38
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 09:39:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565607.883890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM10S-0002Mq-Ck; Wed, 19 Jul 2023 06:49:52 +0000
+	id 1qM1lW-0000JP-0a; Wed, 19 Jul 2023 07:38:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565597.883878; Wed, 19 Jul 2023 06:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 565607.883890; Wed, 19 Jul 2023 07:38:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM10S-0002KD-9W; Wed, 19 Jul 2023 06:49:52 +0000
-Received: by outflank-mailman (input) for mailman id 565597;
- Wed, 19 Jul 2023 06:49:51 +0000
+	id 1qM1lV-0000Gq-Tt; Wed, 19 Jul 2023 07:38:29 +0000
+Received: by outflank-mailman (input) for mailman id 565607;
+ Wed, 19 Jul 2023 07:38:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vyro=DF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qM10R-0002K7-Jl
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 06:49:51 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (envelope-from <SRS0=qi+E=DF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qM1lT-0000Gk-Ta
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 07:38:28 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20609.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::609])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74f45db9-2600-11ee-b23a-6b7b168915f2;
- Wed, 19 Jul 2023 08:49:50 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B28631F8BB;
- Wed, 19 Jul 2023 06:49:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 88F7B1361C;
- Wed, 19 Jul 2023 06:49:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id a+DMH42Ht2RQSQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 19 Jul 2023 06:49:49 +0000
+ id 3f4a7a05-2607-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 09:38:26 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DBAPR04MB7205.eurprd04.prod.outlook.com (2603:10a6:10:1b3::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 19 Jul
+ 2023 07:38:24 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
+ 07:38:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,168 +47,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74f45db9-2600-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1689749389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kEJy0oGHVye6UxthBqVCd1onO3FJYeVO7mdaOLNqlv0=;
-	b=VCCeOxNLJi9daI00FmYzO/9oBoTZgOHGlCy09UJDME5761XB3saHk3PhULDQIW/FxLdT86
-	C5jPxkDCEt2pRT+S479ycXRijpqGKxnI4t8x8Tx5p2G1cAi1Y8hvyPEP93qrAM/46/bMvx
-	ru/vKOfg0Il1xux6+69I0s/PtjpYmYs=
-Message-ID: <32cd8b9f-8afa-2cde-3815-82edc7052535@suse.com>
-Date: Wed, 19 Jul 2023 08:49:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
+X-Inumbo-ID: 3f4a7a05-2607-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AZ8nVvbL5RDd9X4iHrwCAsv7BdEfdWqFGlv1fJts5zqmOlzyyfyYGx7dkRdFk7uFS/1jzF2PvA1hFKFzw/1UsLsl7D8dFC5J8lcBeW5iZmzN66Zwt2LwPMjTaqZdH8quLuaptuhY2VI35s64mcqdMkdf48mxakNS3+pNMf9NALzfKYBpGYNPRfmrpSfXAFFCZQ9Go4oKatEc+FQq1tx9IUQMBJEgJkyqPmtp4yovfYq/HJ152KwkNdpLxHQbNYtyIRfgAaoj97a+FOp8HqgzHYhNi1RvIDodNYGvLS4Fs597O7qAkwE6LTy0FKfar6QomkhWbtHJqnn0GVIyxinVFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uXb4NC6XF0E0BgAu0gjiWqBFwYNC73u24iqA1zZv1OA=;
+ b=lKG5DEZaIGw7mLCDrNG8qW4puVnI3mwG+KypYLaOJNiHv8oifDWa3fiyLTv/2Rbp9+nZfjWEaB0XLzt0u8uZa4oZispYS6tvEGZvEBPYpBTE9I6WQO8H3E++gfcYRA41EYHA0gVnS3RKDkz6Ew89erIWPo1NTvZP5cBUaIRRr0HytMkIA2nnUU67ciRTxZAhYyT8D6JCdwVrrkYwb7K5FEr6qAnri4GSjQDhaRNtAWXgEZ2l5UF/7eBgKAF8gRdhrhV3QXZm/xjTm1tDSJ9pH+ZVY+KCNIQAkgCUj2DmBY7AIOXpogEcJ1xy2ROK7vluxnmdtV+aJv33c7+K9dbw8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uXb4NC6XF0E0BgAu0gjiWqBFwYNC73u24iqA1zZv1OA=;
+ b=PZM60Xy++uNWcU8Fsys2POBF/jOhBlk7DGQMltbhD5t0opSJO4mav17+mwT/aqUiZzAtuNu5CV5W4zTi1/gVhXt3pI16/ZfeOmroxrgdYyMNst/2Pi6YBg0CbmkamwsDuVoMvk3MKDppL5jH5raRGFr3JGI8TwhC9bkMZ7bQSYK5V2AGArN8Od0licaMnMyj3p6xRWSXuKXxxTDaYKh1Sc0Orc7nmSf3KSDmisQWvKTedQXQ/fTZgVchFDyMUl63u29lEgLTaM8LHbagRPF3gswq/xG8cjnwmbUKeAs8cM1KBRWYhXWIxBQh9pSIxs23yqnn+JIHTpxKbPfvmvbtwQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <3913c170-09c6-2baf-ed38-5614f8c6cb2e@suse.com>
+Date: Wed, 19 Jul 2023 09:38:22 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230710065947.4201-1-jgross@suse.com>
- <20230710065947.4201-19-jgross@suse.com>
- <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read
- functions
-In-Reply-To: <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------mIJTYrpb9zyUT67yW82sPK7E"
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: fix early boot output
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0120.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBAPR04MB7205:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc18c008-b461-464a-e846-08db882b2258
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	BJ8OgDn/U+37P5Q5jGz5QYws7luNlQjW6/cRLptGqBVhzqRjQDg2qXzBUOrm7Q481UAKctZy2zTSILzg5G9Cktbn/fHiOOxFVvWcDLkSeE7fJ2p+wxTOBbj7hxUYtLy4qmFKnJbG/IQR8uUIF74g3sOpTeTTAcYgab57stWviOcTO+CDgduP5eKJYARYimjs63e1mbwYzRu1nKde41jfA0igCuS6g9Y+NY/vf8wF3MUmUaM7t+wUiAlDkXGOwOkEzfrLWyWjvmpwz3p49L4QeMvnTXfO/U8aI7Jfbfg9sxlQfN07K1yWdGrdNoUHwlrImRR5Z/oxJXD+iTPMyrtyK84mA+YTKoxGYeAgOdb3fGmT8X8DOwtYemoC2o4lKgy7mjN83ydDPxPg7QQBuilGd9sAPV65i/L0GnWhhBfX+cnxYOH3o7neAL4FqQJADWEkJHiXc+7jdqCF0bxQIsU79zmn4hgB8MYYky5je9pvvjUQbG1aoAOUAnQIMDmpbd8ixT6btP0aVJI4XFCpGkYMKRzKOt9pa8e+gTGFFUrvpuljqiw0hy4YXUyA13MDM4k1FwRvcy2Nj51m081jgYwPudzj+NOfFm39AVLi4vVIMqJRpc6cr/UxBNK3ub8wQLKbepHU/V/qsNPL/d7I6/0JJA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(39860400002)(376002)(346002)(136003)(451199021)(41300700001)(8936002)(31686004)(8676002)(316002)(5660300002)(54906003)(2906002)(478600001)(66476007)(6916009)(66946007)(66556008)(4326008)(6512007)(6506007)(26005)(6486002)(2616005)(38100700002)(186003)(83380400001)(36756003)(86362001)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TGRUYTZneUJJeWpwdFdQVU0rK094M05raE5VR0xDOU9kY1FFTjJKeXYwL1lJ?=
+ =?utf-8?B?YnZ4cWFFd21IVVpEbjVuVVkwU2t4ZTRkU0xIcG9EaGZpKzVrY29qNzR4M0Rh?=
+ =?utf-8?B?NzVJMC9NVlZueUJ4TmRvTmc0Q2JiUjZrNTBBMmVhRHNrUWVSSmxpbVoxaCtB?=
+ =?utf-8?B?NXJZQXRtc29KN1pHOVJQaC9MRXhxdS9ZSk1OQzdVL24veUx0T0U4T2NKbVNa?=
+ =?utf-8?B?VUY3Ulh2d0RiNlRJVkxGTzRYR0gyRTQ3elQvSkV1QWZUdTBVdDl0dkxZamdl?=
+ =?utf-8?B?MkZUTnM3ZDRWQlpVblFtTVh5MzhHQ1djNkJMa1dvbmc5cUdkR1B3WEtmc1RX?=
+ =?utf-8?B?Ukd4ZDd4K0llZkpZaTJFTjNXMU9zWnM4aXp3ZHREdGk4UzFYc2liYitXc2U2?=
+ =?utf-8?B?dGJPYXd6N00zaWtBcHlrSEZKZUdnVWFZR2dSaVFlTDBMY2dHMWdVTktuK00v?=
+ =?utf-8?B?UzA2dEY2Yitac2lrazFDRnNHUDZUTG94ZE91dDIycFZWY2x1R2pkd1Q2V2h0?=
+ =?utf-8?B?dldsT0lManVCckNZR3JpUi9Cei9mak1RbmE0by9RM0Rqc0EyZjJhSUtRNTRu?=
+ =?utf-8?B?WHYrc0orS3NRb3FiRFRZU1FjQS8yVzFQaUorZlIyQzdpSjljWlltUHo5VUI2?=
+ =?utf-8?B?Z3E0U2FSV0ZzTkVNTG1jeHdCby84a2wrZ2RnQktQbzZJYWlOdVpsU2J3dnJ3?=
+ =?utf-8?B?bWNuSGIwLzg4SXB1ZlVUMXQ1WG41ZEZ1bVBvS0JQVzNlQWhLcEg5ZmN3SEV2?=
+ =?utf-8?B?Um9PelNyVVBTbUpuY08vRDF6ZXZraUxDczc5WDByZjNjeXB6ZzkzWjJRMkpL?=
+ =?utf-8?B?TURySmVIM2R4MFdrbTJ6UU1nY3BPM000bWN6RTc2NzdzVnF5ZDBpbWxTT3lG?=
+ =?utf-8?B?UjNEVmpKMzNPVk1UelBVdGFrQ2Y3V1lKSVZuS1J4bXVqRUEyeFZhbG9udndr?=
+ =?utf-8?B?eklLWTJFT2d0UTdaZ1BFMHZSZjJjZmhRUExFNDhKanFwMlhEOUR0VHlPdmg2?=
+ =?utf-8?B?ZVFKTnEvUFQwMlRnM0JKOU1PR1ZCRDRNL1phdVJuSkJOTkVybk1zUENBR3pv?=
+ =?utf-8?B?YnhwNXNnUG40S3hYSk1VRW9tZUowdTdyODdiRGd5QVJWZTlST2diMW16V0ls?=
+ =?utf-8?B?YmRqZFAzeXIwMVVqcVVDNlRxMGJ6elpZTnViL3U3MG5DUlNibWpWd3d4c2FC?=
+ =?utf-8?B?NDZxejVCckE1cHdXUzVuVjdtdkZwYzk3RDBpczlzYU5qT0p2cTFUeXpqcWUx?=
+ =?utf-8?B?S3crSU1VSkR3UFpLTlFKRVZ6eHF2V21XRmFaVU1ZMlRmRHIwUHVPZWZ1Mk9l?=
+ =?utf-8?B?ZEdMNDZkbTlQMEJBM0dOam1MakRMQUR2ZmNqWUtIbUdNRHFrcXZ6NW94ZnlE?=
+ =?utf-8?B?V1FDVDlubGdhQVBXYTB3K1ZyeURSZER2Q2hQZndIZHRoOXd6Y2gyU0paeXNB?=
+ =?utf-8?B?N1ZzZW9URzBQN0VXdjVzVUJDUk9UeElaZUh5OEVuVmNmK2Jid042d0lGbEsv?=
+ =?utf-8?B?TXBXblZENGxNajFWS1FON29pQm9OSnZIdUdFa2NJcHVOZDJ6azJPTVAvd2Zs?=
+ =?utf-8?B?cjdvQUVoT2lhOERWUE1LK1Y5SnNVRENidGlQZzhWRnlkYlUzUjJwNG1FRHEy?=
+ =?utf-8?B?dXhBYnAzNS9XektRRjdPczNIYzZ3MHV6cVdXTllydi9mZXZMenJwWFEydlph?=
+ =?utf-8?B?T2FZZndPcGNITzBXaEEzSXdPUHlkbkFoWjVYRkN2eloxY1NXUHQ5TWd6blJX?=
+ =?utf-8?B?TW9NdmZ3YWRTR2pWSDkzdjNSeUVtVUNBMW5jZnJ4c1FrdDdCb2RpV0s4MnFs?=
+ =?utf-8?B?eFBQMWlwUmxHazRWOHVUUnFuQVMvWVpvUlhkQk1oVHVLeFROeXdLNUZoeXRz?=
+ =?utf-8?B?OVMyVjBDdzRLaDJDQzc2SG13MXFMTHBNblEzenRLSTR1ZE4xeFJTdnd6Ymw3?=
+ =?utf-8?B?bTMrVkU4emF1OE8vUHlnQUJIdHdxWm45L0JFLzVRckVjNkp0anNJK3pNV1FN?=
+ =?utf-8?B?ajN5Y1dNaHpTYW1lUy81L2lYaEtCNVRxVG1EaHpGNjh0UnZzTVZ0RkVGbCsr?=
+ =?utf-8?B?T2JmdWo2N290VzUzNjJFN2x6Ti9IM1RocldJZmxaM2FlNzNqN0ZsZmxWT1Uy?=
+ =?utf-8?Q?2+8qcJGQCwaoKNNx15h4vEiSx?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc18c008-b461-464a-e846-08db882b2258
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 07:38:24.5526
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K2fP/l0cInEFE9dYmT/VZ4bs4t8u+sk4LNKSl1oX9hlT1uhiPjx3iQhiA9S2r0D4tbKcPVnZFKah/IDsV85pCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7205
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mIJTYrpb9zyUT67yW82sPK7E
-Content-Type: multipart/mixed; boundary="------------rkLr9aeODPwVUkxn26MyCG7P";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <32cd8b9f-8afa-2cde-3815-82edc7052535@suse.com>
-Subject: Re: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read
- functions
-References: <20230710065947.4201-1-jgross@suse.com>
- <20230710065947.4201-19-jgross@suse.com>
- <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
-In-Reply-To: <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
+Loading the VGA base address involves sym_esi(), i.e. %esi still needs
+to hold the relocation base address. Therefore the address of the
+message to output cannot be "passed" in %esi. Put the message offset in
+%ecx instead, adding it into %esi _after_ its last use as base address.
 
---------------rkLr9aeODPwVUkxn26MyCG7P
-Content-Type: multipart/mixed; boundary="------------u8KaduSr3UsuuSSALm6LmfCz"
+Fixes: b28044226e1c ("x86: make Xen early boot code relocatable")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+This also suggests that 78e693cc1232 ("x86/boot: fix early error
+output") was only tested for the no-VGA case (i.e. EFI+MB2), and only
+for one of the two paths which bypass the loading of %edi at .Lget_vtb
+(or the offset load merely was lucky to pick up a zero).
 
---------------u8KaduSr3UsuuSSALm6LmfCz
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Clearly when using "vga=current" with MB2 when the screen is already in
+graphics mode, there will continue to be no visible output.
 
-T24gMTguMDcuMjMgMjM6MzUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDEwLzA3LzIwMjMgMDc6NTksIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBU
-b2RheSB3aGVuIHJlYWRpbmcgYSBub2RlIGZyb20gdGhlIGRhdGEgYmFzZSB0aHJvdWdoIHJl
-YWRfbm9kZSgpLCB0aGUNCj4+IG5vZGUgZGF0YSBpcyBjb3BpZWQgaW4gb3JkZXIgdG8gYXZv
-aWQgbW9kaWZ5aW5nIHRoZSBkYXRhIGJhc2Ugd2hlbg0KPj4gcHJlcGFyaW5nIGEgbm9kZSB1
-cGRhdGUsIGFzIG90aGVyd2lzZSBhbiBlcnJvciBtaWdodCByZXN1bHQgaW4gYW4NCj4+IGlu
-Y29uc2lzdGVudCBzdGF0ZS4NCj4+DQo+PiBUaGVyZSBhcmUsIGhvd2V2ZXIsIG1hbnkgY2Fz
-ZXMgd2hlcmUgc3VjaCBhIGNvcHkgb3BlcmF0aW9uIGlzbid0DQo+PiBuZWVkZWQsIGFzIHRo
-ZSBub2RlIGlzbid0IG1vZGlmaWVkLg0KPj4NCj4+IEFkZCBhICJub2NvcHkiIGZsYWcgdG8g
-cmVhZF9ub2RlKCkgYW5kIGdldF9ub2RlKigpIGZ1bmN0aW9ucyBmb3IgbWFraW5nDQo+PiB0
-aG9zZSBjYXNlcyBsZXNzIG1lbW9yeSBjb25zdW1pbmcgYW5kIG1vcmUgcGVyZm9ybWFudC4N
-Cj4gDQo+IFJlZHVjaW5nIG1lbW9yeSBjb25zdW1wdGlvbiBhbmQgaW1wcm92aW5nIHBlcmZv
-cm1hbmNlIGlzIGdvb2QuIEhvd2V2ZXIgeW91IGFyZSANCj4gbm93IHJlbHlpbmcgb24gdGhl
-IGNhbGxlciB0byBkbyB0aGUgcmlnaHQgdGhpbmcgd2hlbiAnbm9jb3B5JyBpcyB0cnVlLiBJ
-IGJlbGlldmUgDQo+IHRoaXMgaXMgYSBkaXNhc3RlciB3YWl0aW5nIHRvIGhhcHBlbi4NCj4g
-DQo+IFNvIGFzIGl0IHN0YW5kcywgSSBkb24ndCBzdXBwb3J0IHRoaXMgYXBwcm9hY2guIFRo
-ZSBzb2x1dGlvbiBJIGhhdmUgaW4gbWluZCANCj4gd291bGQgcmVxdWlyZSB0aGF0ICdzdHJ1
-Y3Qgbm9kZScgaXMgY29uc3QgZm9yIHRoZSAnbm9jb3B5JyBjYXNlLiBJIGFncmVlIHRoaXMg
-DQo+IG1lYW5zIG1vcmUgd29yaywgYnV0IHRoYXQncyB0aGUgcHJpY2UgZm9yIHJlZHVjZSB0
-aGUgdGhlIHJpc2sgb2YgY29ycnVwdGlvbi4NCg0KRmFpciBlbm91Z2guDQoNCkknbGwgbG9v
-ayBpbnRvIHNwbGl0dGluZyByZWFkX25vZGUoKSBpbnRvIGEgZGlyZWN0IHZhcmlhbnQgcmV0
-dXJuaW5nIGEgY29uc3QNCnBvaW50ZXIgYW5kIGEgdmFyaWFudCBjb3B5aW5nIHRoZSBkYXRh
-LiBTYW1lIHdpbGwgYmUgbmVlZGVkIGZvciBnZXRfbm9kZSooKS4NCg0KPiANCj4+DQo+PiBO
-b3RlIHRoYXQgdGhlcmUgaXMgb25lIG1vZGlmaWNhdGlvbiBvZiB0aGUgbm9kZSBkYXRhIGxl
-ZnQsIHdoaWNoIGlzIG5vdA0KPj4gcHJvYmxlbWF0aWM6IGRvbWFpbl9hZGp1c3Rfbm9kZV9w
-ZXJtcygpIG1pZ2h0IHNldCB0aGUgImlnbm9yZSIgZmxhZyBvZg0KPj4gYSBwZXJtaXNzaW9u
-LiBUaGlzIGRvZXMgbm8gaGFybSwgYXMgc3VjaCBhbiB1cGRhdGUgb2YgdGhlIHBlcm1pc3Np
-b25zDQo+PiBkb2Vzbid0IG5lZWQgdG8gYmUgdW5kb25lIGluIGNhc2Ugb2YgYSBsYXRlciBw
-cm9jZXNzaW5nIGVycm9yLg0KPiBFdmVuIGlmIHRoaXMgaXMgdGhlICJpZ25vcmUiIGZsYWcs
-IHRoaXMgaXMgZGVmaW5pdGVseSBub3QgYW4gaWRlYWwgc2l0dWF0aW9uLiANCj4gQW5kLCBB
-RkFJQ1QsIHRoaXMgaXMgbm90IGV2ZW4gZG9jdW1lbnQuIEkgZG9uJ3QgdG8gYmUgdGhlIHJl
-YWRlciB0cnlpbmcgdG8gDQo+IGZpZ3VyZSBvdXQgd2h5IHJlYWRfbm9kZSgpIGFuZCBkYl9m
-ZXRjaCgpIHJldHVybnMgYSBzbGlnaHRseSBkaWZmZXJlbnQgbm9kZSANCj4gY29udGVudCA6
-KS4NCg0KU28gd291bGQgeW91IGJlIGZpbmUgd2l0aCB0aGUgYWRkaXRpb24gb2YgYSBjb21t
-ZW50IGV4cGxhaW5pbmcgdGhlIHNpdHVhdGlvbj8NCg0KDQpKdWVyZ2VuDQoNCg==
---------------u8KaduSr3UsuuSSALm6LmfCz
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------u8KaduSr3UsuuSSALm6LmfCz--
-
---------------rkLr9aeODPwVUkxn26MyCG7P--
-
---------------mIJTYrpb9zyUT67yW82sPK7E
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmS3h4wFAwAAAAAACgkQsN6d1ii/Ey/J
-Ygf/ZxG1b1HYxLBNte6YP/fBkHCQPm7dPPJGocgWas2oR5FX5un6Iu5Vt78IWpn5+cSc+IeHtmvG
-LgjDj4gpLWR5bTUC2c/aslAuhJRwrosxKNm93gQ8mHab1CY0L5undNW1/eIeX/sY3BuzFV5iBjek
-L8DXb6H7TN4QZi5N9ixvaj8r33E5QW9yWIhMcWqRB8RhAXVrHhIbsOWsD/nEQjrEDZw7UBI4Kdy7
-8Q50o23MXmVl49f5waRmnoELXBdAbsMhqwraTCjJtG97BVcYLT61p2pOfLAFEZSa5tNCaKHzuD5q
-V6qcHIZ2UIPvuubyZAeEGUaAnBlEPmmU8Up7lCUR+w==
-=pMq4
------END PGP SIGNATURE-----
-
---------------mIJTYrpb9zyUT67yW82sPK7E--
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -146,17 +146,17 @@ efi_platform:
+ early_error: /* Here to improve the disassembly. */
+ 
+ .Lbad_cpu:
+-        add     $sym_offs(.Lbad_cpu_msg), %esi
++        mov     $sym_offs(.Lbad_cpu_msg), %ecx
+         jmp     .Lget_vtb
+ .Lnot_multiboot:
+-        add     $sym_offs(.Lbad_ldr_msg), %esi
++        mov     $sym_offs(.Lbad_ldr_msg), %ecx
+         jmp     .Lget_vtb
+ .Lnot_aligned:
+-        add     $sym_offs(.Lbag_alg_msg), %esi
++        mov     $sym_offs(.Lbag_alg_msg), %ecx
+         jmp     .Lget_vtb
+ #ifdef CONFIG_REQUIRE_NX
+ .Lno_nx:
+-        add     $sym_offs(.Lno_nx_msg), %esi
++        mov     $sym_offs(.Lno_nx_msg), %ecx
+         jmp     .Lget_vtb
+ #endif
+ .Lmb2_no_st:
+@@ -164,11 +164,11 @@ early_error: /* Here to improve the disa
+          * Here we are on EFI platform. vga_text_buffer was zapped earlier
+          * because there is pretty good chance that VGA is unavailable.
+          */
+-        add     $sym_offs(.Lbad_ldr_nst), %esi
++        mov     $sym_offs(.Lbad_ldr_nst), %ecx
+         jmp     .Lget_vtb
+ .Lmb2_no_ih:
+         /* Ditto. */
+-        add     $sym_offs(.Lbad_ldr_nih), %esi
++        mov     $sym_offs(.Lbad_ldr_nih), %ecx
+         jmp     .Lget_vtb
+ .Lmb2_no_bs:
+         /*
+@@ -176,7 +176,7 @@ early_error: /* Here to improve the disa
+          * via start label. Then reliable vga_text_buffer zap is impossible
+          * in Multiboot2 scanning loop and we have to zero %edi below.
+          */
+-        add     $sym_offs(.Lbad_ldr_nbs), %esi
++        mov     $sym_offs(.Lbad_ldr_nbs), %ecx
+         xor     %edi,%edi                       # No VGA text buffer
+         jmp     .Lprint_err
+ .Lmb2_efi_ia_32:
+@@ -184,12 +184,15 @@ early_error: /* Here to improve the disa
+          * Here we are on EFI IA-32 platform. Then reliable vga_text_buffer zap is
+          * impossible in Multiboot2 scanning loop and we have to zero %edi below.
+          */
+-        add     $sym_offs(.Lbad_efi_msg), %esi
++        mov     $sym_offs(.Lbad_efi_msg), %ecx
+         xor     %edi,%edi                       # No VGA text buffer
+         jmp     .Lprint_err
+ .Lget_vtb:
+         mov     sym_esi(vga_text_buffer), %edi
+ .Lprint_err:
++        add     %ecx, %esi     # Add string offset to relocation base.
++        # NOTE: No further use of sym_esi() till the end of the "function"!
++1:
+         lodsb
+         test    %al,%al        # Terminate on '\0' sentinel
+         je      .Lhalt
+@@ -202,11 +205,11 @@ early_error: /* Here to improve the disa
+         mov     %bl,%al
+         out     %al,%dx        # Send a character over the serial line
+         test    %edi,%edi      # Is the VGA text buffer available?
+-        jz      .Lprint_err
++        jz      1b
+         stosb                  # Write a character to the VGA text buffer
+         mov     $7,%al
+         stosb                  # Write an attribute to the VGA text buffer
+-        jmp     .Lprint_err
++        jmp     1b
+ .Lhalt: hlt
+         jmp     .Lhalt
+ 
 
