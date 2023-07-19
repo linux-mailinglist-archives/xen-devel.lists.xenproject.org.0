@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A87DB75933C
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 12:38:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565753.884220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3142A759343
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 12:39:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565760.884230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM4Zb-0006eD-Ly; Wed, 19 Jul 2023 10:38:23 +0000
+	id 1qM4ap-0007HR-0A; Wed, 19 Jul 2023 10:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565753.884220; Wed, 19 Jul 2023 10:38:23 +0000
+Received: by outflank-mailman (output) from mailman id 565760.884230; Wed, 19 Jul 2023 10:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM4Zb-0006cU-I0; Wed, 19 Jul 2023 10:38:23 +0000
-Received: by outflank-mailman (input) for mailman id 565753;
- Wed, 19 Jul 2023 10:38:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qM4ao-0007EG-SX; Wed, 19 Jul 2023 10:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 565760;
+ Wed, 19 Jul 2023 10:39:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bnZ=DF=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qM4ZZ-00068b-KA
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 10:38:21 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 614b3663-2620-11ee-b23a-6b7b168915f2;
- Wed, 19 Jul 2023 12:38:21 +0200 (CEST)
-Received: from [192.168.1.101] (unknown [37.163.72.116])
- by support.bugseng.com (Postfix) with ESMTPSA id B82114EE0C89;
- Wed, 19 Jul 2023 12:38:19 +0200 (CEST)
+ <SRS0=sL7T=DF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qM4am-0007Dg-I3
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 10:39:36 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d30ee89-2620-11ee-8611-37d641c3527e;
+ Wed, 19 Jul 2023 12:39:34 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-4fb863edcb6so11382738e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jul 2023 03:39:34 -0700 (PDT)
+Received: from [192.168.201.189] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ f25-20020ac251b9000000b004eb0c51780bsm897751lfk.29.2023.07.19.03.39.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Jul 2023 03:39:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,96 +45,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 614b3663-2620-11ee-b23a-6b7b168915f2
-Message-ID: <c4534f8a-d479-dbcc-ddb1-81eb00b074a2@bugseng.com>
-Date: Wed, 19 Jul 2023 12:38:18 +0200
+X-Inumbo-ID: 8d30ee89-2620-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689763174; x=1692355174;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=222jWkyHz8jH/hwrUjdVRK8EWWdHDOdhgdSin3Xrbuk=;
+        b=lTT0MvQNPvsV5aH2B+WpoRB4p7t4oMttz7SULWe6UTHVox3m/sLWzj9Q5mJre4vPKC
+         2W0Zu2U2FJwypiERqX4qX7pQhp+PvENUfXSqeFMf9Hj/dPQgjhlDIEJ+WSUOGrTw0l8k
+         HAivetGr1T04okD7KAtzzRPOJAX1LIDAcs5Zg9CCgFOFgRc8+Bc7ipreC7oa+4GSzAw3
+         MB0XCWesGNeAdnsL0KxVgDQ3Ryi0xVW55gNJiNodQ02i/oorkVpBxST586YwWlb+bm0T
+         mVmAdfFpMvVy6JCHBJm+0Xjv325z3PgzBJGY3ZqeWVTcBnDxaq2Rncqz/nDmUrlUSb/J
+         ieWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689763174; x=1692355174;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=222jWkyHz8jH/hwrUjdVRK8EWWdHDOdhgdSin3Xrbuk=;
+        b=KU+DnTQlwEYZ/rmMxCgDvSmtoKcXHmx8QsVAMj/R8V2P23tSxZgqJu3b9gQx2Qk/p3
+         DtGHBxWdHnXb2OcpZgAhvj/plegBeEB/PwNHlWoCRe+qzMfhIdH1E608TH6F7XcN7KbR
+         SeGA0+Rjz8r5vTr8MMdRkn9YAP9B9PzbmWCOITUEJfInONM/au4YEWgfF2gFQZMBFTyj
+         0pSRpOm1LQF0peohlQkFHe0GxANQ0sOIGCmqKHn1F/a9O7Ea7Kl38dGNaSyqXqNCRyEF
+         WKIx7GhOBhUO/oyT08RYtq2ZbLxtvsfg+npHSFMhi/OvCMv7Bx8kmwzdvgQCRJ9bciMo
+         lRbg==
+X-Gm-Message-State: ABy/qLaiBD7mQXsk17M51s7AefO1qfH6MhgX/fODYT67qwdN+VsG86ZX
+	3SNc2llH2D8ZqBlSsCMUsNE=
+X-Google-Smtp-Source: APBJJlE9aGLvXPfg91bSqn080WxMj62hS5hvm8sGeuRvrtA2K3Sp4vAszgpoBXXbo5lUfKn+RBcbeQ==
+X-Received: by 2002:a19:7712:0:b0:4f9:5ca5:f1a6 with SMTP id s18-20020a197712000000b004f95ca5f1a6mr3457172lfc.17.1689763173755;
+        Wed, 19 Jul 2023 03:39:33 -0700 (PDT)
+Message-ID: <dbb568a33691b1fed5cb7f8de801a87e4aebbe4d.camel@gmail.com>
+Subject: Re: [PATCH v3 3/3] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
+	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 19 Jul 2023 13:39:32 +0300
+In-Reply-To: <ad53c037-3c1b-ff1a-93df-b79ab2948174@suse.com>
+References: <cover.1689604562.git.oleksii.kurochko@gmail.com>
+	 <8c69050d7b1f42df5e776ca9494164a4d15f2d52.1689604562.git.oleksii.kurochko@gmail.com>
+	 <ad53c037-3c1b-ff1a-93df-b79ab2948174@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [XEN PATCH] x86/HVM: address violations of MISRA C:2012 Rules 8.2
- and 8.3
-Content-Language: en-US, it
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-References: <7c89ac0fe44dbd1ba1436a91024efebf2794db40.1689761143.git.federico.serafini@bugseng.com>
- <e0b03fd7-0487-3328-b532-2950c3b1e34b@citrix.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <e0b03fd7-0487-3328-b532-2950c3b1e34b@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+On Tue, 2023-07-18 at 17:03 +0200, Jan Beulich wrote:
+> On 17.07.2023 16:40, Oleksii Kurochko wrote:
+> > The way how switch to virtual address was implemented in the
+> > commit e66003e7be ("xen/riscv: introduce setup_initial_pages")
+> > isn't safe enough as:
+> > * enable_mmu() depends on hooking all exceptions
+> > =C2=A0 and pagefault.
+> > * Any exception other than pagefault, or not taking a pagefault
+> > =C2=A0 causes it to malfunction, which means you will fail to boot
+> > =C2=A0 depending on where Xen was loaded into memory.
+> >=20
+> > Instead of the proposed way of switching to virtual addresses was
+> > decided to use identity mapping of the entrire Xen and after
+> > switching to virtual addresses identity mapping is removed from
+> > page-tables.
+> > Since it is not easy to keep track where the identity map was
+> > mapped,
+> > so we will look for the top-most entry exclusive to the identity
+> > map and remove it.
+>=20
+> Doesn't this paragraph need adjustment now?
+It should be. Thanks. Ill update it in the next patch version.
 
+>=20
+> > --- a/xen/arch/riscv/mm.c
+> > +++ b/xen/arch/riscv/mm.c
+> > @@ -25,6 +25,12 @@ unsigned long __ro_after_init phys_offset;
+> > =C2=A0#define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+> > =C2=A0#define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
+> > =C2=A0
+> > +/*
+> > + * Should be removed as soon as enough headers will be merged for
+> > inclusion of
+> > + * <xen/lib.h>.
+> > + */
+> > +#define ARRAY_SIZE(arr)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0(sizeof(arr) /
+> > sizeof((arr)[0]))
+>=20
+> Like said to Shawn for PPC in [1], there's now a pretty easy way to
+> get this macro available for use here without needing to include
+> xen/lib.h.
+>=20
+> [1]
+> https://lists.xen.org/archives/html/xen-devel/2023-07/msg01081.html
+Great. It'll be very useful for me so I'll add dependency on the patch
+where ARRAY_SIZE and ROUNDUP are moved to <xen/macros.h>.
 
-On 19/07/23 12:23, Andrew Cooper wrote:
-> On 19/07/2023 11:07 am, Federico Serafini wrote:
->> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
->> index 57363c2ae1..8f19a79f6f 100644
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -319,7 +319,7 @@ static bool pat_valid(uint64_t val)
->>       return !(any_gt_7 | any_2_or_3);
->>   }
->>   
->> -int hvm_set_guest_pat(struct vcpu *v, uint64_t guest_pat)
->> +int hvm_set_guest_pat(struct vcpu *v, u64 guest_pat)
-> 
-> If there's a u64 vs uint64_t mismatch (or others for that matter),
-> resolve in the way of the stdint types.  That way you're correcting in
-> the direction of the Xen coding style, rather than away from it.
+>=20
+> > @@ -35,8 +41,10 @@ unsigned long __ro_after_init phys_offset;
+> > =C2=A0 *
+> > =C2=A0 * It might be needed one more page table in case when Xen load
+> > address
+> > =C2=A0 * isn't 2 MB aligned.
+> > + *
+> > + * CONFIG_PAGING_LEVELS page tables are needed for identity
+> > mapping.
+> > =C2=A0 */
+> > -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
+> > +#define PGTBL_INITIAL_COUNT (CONFIG_PAGING_LEVELS * 2 + 1)
+>=20
+> Where did the "- 1" go?
+My fault. Should be:
+  #define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS * 2  - 1) + 1)
 
-Changing the type in the declaration from u64 to uint64_t
-touching hvm.h will lead to inconsistencies with adjacent declarations.
-In such cases, should I propagate the change to the adjacent ones
-as well?
+>=20
+> > @@ -255,25 +266,40 @@ void __init noreturn noinline enable_mmu()
+> > =C2=A0=C2=A0=C2=A0=C2=A0 csr_write(CSR_SATP,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 PFN_DOWN((unsigned long)stage1_pgtbl_root) |
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 RV_STAGE1_MODE << SATP_MODE_SHIFT);
+> > +}
+> > =C2=A0
+> > -=C2=A0=C2=A0=C2=A0 asm volatile ( ".p2align 2" );
+> > - mmu_is_enabled:
+> > -=C2=A0=C2=A0=C2=A0 /*
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * Stack should be re-inited as:
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * 1. Right now an address of the stack is rel=
+ative to load
+> > time
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses what will cause=
+ an issue in case of load start
+> > address
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 isn't equal to linker sta=
+rt address.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * 2. Addresses in stack are all load time rel=
+ative which can
+> > be an
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 issue in case when load s=
+tart address isn't equal to
+> > linker
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 start address.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * We can't return to the caller because the s=
+tack was reseted
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * and it may have stash some variable on the =
+stack.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * Jump to a brand new function as the stack w=
+as reseted
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +void __init remove_identity_mapping(void)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 unsigned int i;
+> > +=C2=A0=C2=A0=C2=A0 pte_t *pgtbl;
+> > +=C2=A0=C2=A0=C2=A0 unsigned int index, xen_index;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long load_start =3D LINK_TO_LOAD(_start);
+> > +
+> > +=C2=A0=C2=A0=C2=A0 for ( pgtbl =3D stage1_pgtbl_root, i =3D CONFIG_PAG=
+ING_LEVELS; i;
+> > i-- )
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 index =3D pt_index(i - 1, l=
+oad_start);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen_index =3D pt_index(i - =
+1, XEN_VIRT_START);
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( index !=3D xen_index )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* =
+remove after it will be possible to include
+> > <xen/lib.h> */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #de=
+fine ROUNDUP(x, a) (((x) + (a) - 1) & ~((a) - 1))
+>=20
+> ROUNDUP() is even part of the patch that I've submitted already.
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+igned long load_end =3D LINK_TO_LOAD(_end);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+igned long pt_level_size =3D XEN_PT_LEVEL_SIZE(i -
+> > 1);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+igned long xen_size =3D ROUNDUP(load_end -
+> > load_start, pt_level_size);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+igned long page_entries_num =3D xen_size /
+> > pt_level_size;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 whi=
+le ( page_entries_num-- )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 pgtbl[index++].pte =3D 0;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bre=
+ak;
+>=20
+> Unless there's a "not crossing a 2Mb boundary" guarantee somewhere
+> that I've missed, this "break" is still too early afaict.
+You are right. I have to re-write this part again.
+Thanks.
 
->> diff --git a/xen/arch/x86/hvm/svm/nestedhvm.h b/xen/arch/x86/hvm/svm/nestedhvm.h
->> index 43245e13de..eb9c416307 100644
->> --- a/xen/arch/x86/hvm/svm/nestedhvm.h
->> +++ b/xen/arch/x86/hvm/svm/nestedhvm.h
->> @@ -42,7 +42,7 @@ int cf_check nsvm_vcpu_initialise(struct vcpu *v);
->>   int cf_check nsvm_vcpu_reset(struct vcpu *v);
->>   int nsvm_vcpu_vmrun(struct vcpu *v, struct cpu_user_regs *regs);
->>   int cf_check nsvm_vcpu_vmexit_event(struct vcpu *v,
->> -                                    const struct x86_event *event);
->> +                                    const struct x86_event *trap);
-> 
-> This needs to stay as event.  Trap is a related technical term, and
-> incorrect to use here.  (Yes, the implementation of
-> nsvm_vcpu_vmexit_event() is wrong.)
-
-Ok.
->> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
->> index 3c37f522b9..7943e287cf 100644
->> --- a/xen/arch/x86/include/asm/hvm/hvm.h
->> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
->>       int (*msr_write_intercept)(unsigned int msr, uint64_t msr_content);
->>       void (*handle_cd)(struct vcpu *v, unsigned long value);
->>       void (*set_info_guest)(struct vcpu *v);
->> -    void (*set_rdtsc_exiting)(struct vcpu *v, bool_t);
->> -    void (*set_descriptor_access_exiting)(struct vcpu *v, bool);
->> +    void (*set_rdtsc_exiting)(struct vcpu *v, bool_t enable);
-> 
-> In this case, we want to swap to bool as well as giving a name in the
-> prototype.
-
-Ok.
-
-> xen.git/xen$ git grep -w bool_t | wc -l
-> 441
-> 
-> I'm seriously tempted just to do a bulk fix of bool_t to get it over and
-> done with...
-> 
-> ~Andrew
-
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+~ Oleksii
 
