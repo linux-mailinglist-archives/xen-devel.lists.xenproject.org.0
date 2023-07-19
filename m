@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2BB77591DE
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 11:45:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565716.884127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E2AD7591E9
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 11:46:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565719.884136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM3k1-0003el-IM; Wed, 19 Jul 2023 09:45:05 +0000
+	id 1qM3lA-0004I1-Rk; Wed, 19 Jul 2023 09:46:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565716.884127; Wed, 19 Jul 2023 09:45:05 +0000
+Received: by outflank-mailman (output) from mailman id 565719.884136; Wed, 19 Jul 2023 09:46:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM3k1-0003br-FP; Wed, 19 Jul 2023 09:45:05 +0000
-Received: by outflank-mailman (input) for mailman id 565716;
- Wed, 19 Jul 2023 09:45:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qi+E=DF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qM3k0-0003bN-6t
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 09:45:04 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2060e.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::60e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ee76222a-2618-11ee-8611-37d641c3527e;
- Wed, 19 Jul 2023 11:45:02 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PR3PR04MB7404.eurprd04.prod.outlook.com (2603:10a6:102:8f::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.23; Wed, 19 Jul
- 2023 09:45:00 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
- 09:45:00 +0000
+	id 1qM3lA-0004GK-Ox; Wed, 19 Jul 2023 09:46:16 +0000
+Received: by outflank-mailman (input) for mailman id 565719;
+ Wed, 19 Jul 2023 09:46:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K8L3=DF=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1qM3l8-0004G6-Vy
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 09:46:15 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 19127ded-2619-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 11:46:13 +0200 (CEST)
+Received: by mail-qv1-xf35.google.com with SMTP id
+ 6a1803df08f44-634f59e7d47so36651106d6.2
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jul 2023 02:46:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,170 +40,313 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee76222a-2618-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dMfRo7QmsXgLzIkGLJiZBqwWm9uvS7YFSJkHgKgPmekiOosLniTuIjazDYBEBdjdc5eFrNnTPySgLBvHXosGSki5S6XFBIYdS82ZnEMw0k9SgmBbw3FVYEMlIvVK1SAIRcAho+YrFR2NjmNuQDQeZJqkuPZehauncDO3kppUdMYPcKaSdBk1Hseo036dQOQIxUCxKx2qNTfA2f1VpaaXsJM9JPgMbTVJ2F/JTQpwQJ5zNumvhbQvkInQxY9ONSd3oUovTkajm1Sei2LW11R2+Y6wp/8t1jojDRPGOjbYTGpP1EbkgxuoQC8RGSXPqWg5B+hSe3EuP+bNSG0HYZMiYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L7fll069aCOGhw/Ujfnzc7eYrLnddgaGWv3jfKQz64w=;
- b=TsTvQHFqfbgJdU1pB2H+gYAj/GjP66KGw7cvjf7mhCEwE0jQSho4z48PbvaAYmuGoRHIpT4L5HHgP+G4CiiKWnAHi7mzeCZkGAZxJ15cL+bciLyPj3X45n+aRc60XaVbYOtbwosSRES3J8Pqr8P2j+X5Aa3P9rQ+hxLdck67Ewo6W0K9KsJ9+KTgpVlgYr6j/4/68HtvcxnF53ceEpFiTURllAVOuOkTwSnW+//gkUzt3+8b6vLIsGkRRuPa2zpIaoO+dOflq57J8JgILYZC+qVOImSiDKbj0nx5unncD3oQEVmJZdzII0JmuPKrRGQbGcZFQy9EQej0HNtSHoHkcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7fll069aCOGhw/Ujfnzc7eYrLnddgaGWv3jfKQz64w=;
- b=ZUbi4UF51H2B6Msf3kUDA0flYx4UtPGUBlobZ6KYmy5YXqrIIwHUYeOTIlwccQ7speDPK5H0e3vQ6YaHlC4FfSn6nmHIr+JCQDvfoz8hkC7ofl8J2FMRaryiGdo0giBt6g1urkXnTMh3jlFUhkRGPROx2kIe8FdFkfmOBKWn0UTeEjO8keSwyt5kA5oGxE7JkkI6qWP1qU68aMf81qrpejxc9Z1PNLkK5mXWQQ7MaAb0qkXqtb7QBhs4/aZK1EqA2fucQ+r858Qwi00/XJhLs06mjtNyJFx6OLlSmTK+IUbe3WHmfmXOg9u1ivZ6pKv866CwCJRuYl9Gm16tOOINkw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ad0275d3-7146-b695-dfb8-f9269ce30894@suse.com>
-Date: Wed, 19 Jul 2023 11:44:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: [PATCH v2 4/4] x86: short-circuit certain cpu_has_* when
- x86-64-v{2,3} are in effect
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <dace10da-f108-fbe5-da4f-0e4497f512d9@suse.com>
-In-Reply-To: <dace10da-f108-fbe5-da4f-0e4497f512d9@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0113.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 19127ded-2619-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1689759972; x=1690364772;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QIC5XWMIY4srebN43oLmEIGgSwbY2kIXDCSH1F1uzp8=;
+        b=Opt3aQkMYsoC3EcMK8+5hSqp0GjLcjEbgPJwXZ9FjBh+o+0FPKgVxbQKhhJyKHmZcF
+         GSZDzC8DD6v59x0NEN8yF9GhIzbvaMaLm23ZX9Ouv3dAWnYT+4vlHiJlYTd+dEoFfE1Q
+         bMdSrLSLaabYuH+BjjEzl0y1ZXKV7FiY+LYReEdHGkO6VQeTWybiduVyqdPynPmn0aIi
+         H/O0IFnxCilWeYoLdWFWAPJrUFQF5AzTUbAHoBN4tdUXeO+1K0YJb+KHvBfJaFuTuAbs
+         oxQp0iB3yRDRpBHEqYKKilD1C1eJXzZ6w03gzon/ICrQv4spKocpIOQ1qpjWi4YCMowH
+         KbhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689759972; x=1690364772;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=QIC5XWMIY4srebN43oLmEIGgSwbY2kIXDCSH1F1uzp8=;
+        b=YqzOa32lt5kEPbshDp9gWFjNqxVVbuaP0kUyzbYisgTCS5GIdHL7KJIAua7nOOR8nq
+         gO7GmwO6aX2lX8Bzs5uwQZkYMXnBZrNtHyAzYEwPKSBR5vjZ4jxHPlZeXU+5RYzqZ5bu
+         UiEaKHXxvlNF0l3d1OMdWef2aBD8Y/cWEE9pym+GaKR2dE5uQRAso6euR7jB60JZl/A2
+         nECwXsopZZX9A9USC0eQXw3BuffDYhouOQRH/kmudxSKGlmYUI09rHtTV4BmD3zv2Wk2
+         1YV0Cwv46VXlJaHcvcxynlvvxx2x3BfbOKpkq0Z5nlRfnIL9NQFlO+tvDqP6gldaUodh
+         ixbA==
+X-Gm-Message-State: ABy/qLZucgE6REk4rFp3/5JhLl1rrFaOEMT385Mr/Dj04GgNUopSH5/s
+	dWItmDZy9Zn4+KAEXxTrgipO6MoaO9phV6Vz+MdZbjuwFnEgxSyl
+X-Google-Smtp-Source: APBJJlGD23QcP3bVnQEYNIahp0B64HJ6gwqAxNi1RMBEARRZmOTszNffCcPJzG08aVH46veJwa9yX9GHlMkuA6LOvZg=
+X-Received: by 2002:a0c:e093:0:b0:636:60c6:203d with SMTP id
+ l19-20020a0ce093000000b0063660c6203dmr4923928qvk.35.1689759972616; Wed, 19
+ Jul 2023 02:46:12 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PR3PR04MB7404:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70390515-baba-4c7e-f6fa-08db883cd1a9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SN3FhBNfC/WpRWz1ZOLtGEqbni9fO3DUjCxsEBbddoXmyXwAenS3K428UPeCm4NDBHGfawO1nFP8CjXwau69AEm99bBg0S9f6Aogcw1qoSQU5ilKXbJGd7bArlgdQifUGJKyGDh7Nsq/cogWrbjkT2nxWlmRolSQAPU3QMWsTNnI6InnegBu/VwQX3n9xkiNiBPtE3MfEoAR6Pwbdu1By5y7tVLv+9fcCJtm5TVlNdWVbHtJTbXbmfiMW9Fk1q4dY0Yn8eRyMub8iCoUkRnHRoGNFtdjCxSW461Ju2sZIuPTOEGjJ2ioMiUs1ea0PJ3F3+X0c8WDi2m2LMynq7sxAClXS9kOs1J4nuehPNkOdrSYEofZ/y4EyMvxCtQoB1rixaUJtbtV66gYsxFEuF89/ieFCKUG+K5NZxx0cNYVF41bumJWP+SyeUlXLWCh45kb+JKDyKFF4dt0qDVv4rcT4+cF0NntJKJIGlVR4J2BpQ3h8vzlBRLtsJuTWCGbBMmEGCMKkCG4Pu+l9zLpYozyKNSlhcQ5QxIjfBRDCoNjj15/lboD41ke4L7Upz+VgfgShI9XEHCDsfRjE517TRXDSQyzJiVa8y3lBBjQVxdF/HxS+7K3+ndv/6QOsWcH8nb7hHWdvnyyfudqJgvAAx28Yw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(396003)(136003)(366004)(376002)(451199021)(31686004)(6486002)(478600001)(54906003)(2616005)(36756003)(31696002)(86362001)(2906002)(26005)(6506007)(186003)(6512007)(38100700002)(6916009)(4326008)(66946007)(66556008)(66476007)(316002)(41300700001)(8676002)(5660300002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YXR0LzdtbFF1OUJQc21pcCs3VitsSXJQai84b2tZV1BBV056cEFZVHp2eS9D?=
- =?utf-8?B?b0hzc3gycW9nYytlclNUYTY0OVVBTUtUK2I1ZERVM29XUEMwWVhUMFZxYzBT?=
- =?utf-8?B?Yzl6TjlpSE5zaVd1VDhpS3RnSkNYTVRzOENBdHFzeWI1TVZuQlowS0I0VGNT?=
- =?utf-8?B?c2hleittVklXcmlJTDNWcTV5RXY4dHRvTGtCQlY5NW9JZ0RzVVYxOEZoRENm?=
- =?utf-8?B?WDM5NGpUWlI2TzQ1MlVIc0FmdHFaOTQ1TDVMYkdKVlEzTTRVeWtFa1Jtb1F1?=
- =?utf-8?B?Y2ZJcTc1K0xHWVJEWGtQOGFPYXRQN2JuMTlHMHNnbEdyZ05WTEVRWjFmRjBF?=
- =?utf-8?B?MzlvMFlJSXdoYkI3eHBheXlxTUpDUzdmRTBtMW9mK1lqMUtJcmZHajl4aVcr?=
- =?utf-8?B?aUdGczhnZlNJOUtaeEpSQ0U4S1NDdjJuZVcyV2FGdGQzVjZOM095VUk3UWxI?=
- =?utf-8?B?aTNhbmN6MEZUUk5rZk5pa0lEcHFGblo5SmdqTHlGUjhOUHo1cXNXQkN0ODZu?=
- =?utf-8?B?Tk0weEsxeVl6M1dvRzBxUWowMnR4ZHVtVkh3RjltamoxWG5uZ1hkd0xyM1RY?=
- =?utf-8?B?bUdhSmhMMnFyd2ZmVlY0YmRod1RMMmZMbGRCYXpreHVBb2VYV2pyaVJwd0JF?=
- =?utf-8?B?OFRMSHdHQWdVV0hUVXVsZCtMWnhtb2xaOC9BRklWSFlBNzRoVHIzbldrSXZO?=
- =?utf-8?B?bkJUN0ZDdlZza0cyT2tIdGZnZURQWnVjcUo1SVo0aW9aZnFidDkvMGsyeU9p?=
- =?utf-8?B?U3NTLzFEaHdkSWoyZVdvb2JZVzhwV0hmRE5LU29LRDZqVGNMUzAxd3FNUHcy?=
- =?utf-8?B?c0NEcXdwMHEyclUyMWFvZk9NZHBNcDliYmFxMWFjdWxoNVByNVVMdnlyOG83?=
- =?utf-8?B?QllDZ3QwYnk2TWtoUUtWUEhxL0dNYnAvdFRtZmFCWEVaY0FuVjI5ZGxsTC8x?=
- =?utf-8?B?L2J0WVF1WmZWK0hLRzh5bld0Um5ETzFzY3pIc3NIalRzWlJTSVFZMWMyS1M1?=
- =?utf-8?B?WUpHZWJOZXVjeWRRUk9sQXJyVTZXb2xTYXd2WjIvZnBBUDdpK2ZJeXk1eEw2?=
- =?utf-8?B?Qkx4WVFuTHliRmQzdGlBMjZOWll0OXNsS3hRejh6Q0p2bGc2dmlBeG9LV0l0?=
- =?utf-8?B?STRDU21FaXRlbWFhRElzZ1ZnNVhZZStycWFBcXdvd0kxZ09QT25lQmx5eTF3?=
- =?utf-8?B?RkVYYmlOWDNPMXlEUzJ4SXV2QWd3VTdLOFRRNmJJTFVGVVRieEMzWkFwZnJr?=
- =?utf-8?B?cmJyVFYzK3Z3TkMwUzBQZjZGcWhrSGd0UWFIWm9qSG1UclNhelRRRnNsWkti?=
- =?utf-8?B?TGRIcmVQN3JDQjFpZTJrTXNZSkNxZ3ZuZlhKYlVaZ01FV1NGTmVUd24vMnoz?=
- =?utf-8?B?SFlQOG1oK0Qva3FiVmxLbi84SlhqWCtZSmdaNzNDUGhZVkQvK0xweFFxL0M3?=
- =?utf-8?B?STlxV09BTFd4U2E5eGZZN0N0YnVHNVZzZC83b0ROSk43bFh4VE9sMkM2Zk5E?=
- =?utf-8?B?M0ppek4vRHp2Q2plMG9xbTlMb05XdnU4NUprMndhSjVnSHQ4R2hWbFFHK1cr?=
- =?utf-8?B?OGZsc0xBOFB6VHU1d0l6WU4wM2s1c2JXT3BKUkpyWFVBNDRWTEkxQjdQNk5Z?=
- =?utf-8?B?aWNIcFpESDc0OGJocWphdjRKbXdEVldPdE5ReWlPbFRTOU40KzVHcXk1WUR5?=
- =?utf-8?B?SzlMaGdXM21DVTU4Z2dTdUpjeEUzc3M3RUtaMEtzU1I2Sm1iTzd2c3ZuMlYz?=
- =?utf-8?B?elkzckZBcjg5c1lFNTNtdXZYbndJQUEzYmlYa2t3akwvOWRTTzFDUGFIQkVt?=
- =?utf-8?B?TUhIZDB0YjhNckFvWEUxQlN2MHNuWHVib29tOGtVVFdDdFVPZVhid2hPbDJj?=
- =?utf-8?B?Umw1bE96TEh0aDFiMnQ0eGIrZ0VrYzEvR0JUMDg3WXA5a2FMd2N5Mk9aQ3Rp?=
- =?utf-8?B?Uk1sZGhQMTJrcFlOQkU2L2wxNEQyU3lpbWxJL2NUdjdvejlWMWNLUDBNSmpB?=
- =?utf-8?B?eEMxTEE2T0FrSUdabkxlSHUyRWpHMVJnZXpHdnRYeStRYTJLamMyQmhhSUhK?=
- =?utf-8?B?MFpZeGJPb05mNHNnQW9PYnVGeHhRNUdQbjVXY0xlWnUvaXIrNWtZQlF1eWxi?=
- =?utf-8?Q?M0uhWrNMW4CT6/Z4uPrlG+sxC?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70390515-baba-4c7e-f6fa-08db883cd1a9
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 09:45:00.0936
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 073F9Jyyrr5fzEQ0sg1wUtBS9fIPMht82CF5vbPhn22m3nV/698GjRkyB854yGz8IT5TFvepkiMFaQoeSV+DlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7404
+References: <20230717072107.753304-1-jens.wiklander@linaro.org>
+ <20230717072107.753304-14-jens.wiklander@linaro.org> <88B6CFB1-81B3-4B55-AF8E-2BA8970CA5BB@arm.com>
+In-Reply-To: <88B6CFB1-81B3-4B55-AF8E-2BA8970CA5BB@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 19 Jul 2023 11:46:01 +0200
+Message-ID: <CAHUa44G8BkcWv6HSnDW6uMQYSaCrTqoN9YdL9rkWRvDnvqNGzg@mail.gmail.com>
+Subject: Re: [XEN PATCH v10 13/24] xen/arm: ffa: support mapping guest RX/TX buffers
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Certain fallback code can be made subject to DCE this way. Note that
-CX16 has no compiler provided manifest constant, so CONFIG_* are used
-there instead. Note also that we don't have cpu_has_movbe nor
-cpu_has_lzcnt (aka cpu_has_abm).
+Hi Bertrand,
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course we could use IS_ENABLED(CONFIG_X86_64_V<n>) everywhere, but as
-CX16 shows this isn't necessarily better than the #if/#else approach
-based on compiler-provided manifest symbols. While not really intended
-to be used that way, it looks as if we could also use
-IS_ENABLED(__POPCNT__) and alike if we thought this would end up neater
-(because of avoiding the #ifdef).
+On Tue, Jul 18, 2023 at 12:10=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 17 Jul 2023, at 09:20, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Adds support in the mediator to map and unmap the RX and TX buffers
+> > provided by the guest using the two FF-A functions FFA_RXTX_MAP and
+> > FFA_RXTX_UNMAP.
+> >
+> > These buffer are later used to transmit data that cannot be passed in
+> > registers only.
+> >
+> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> > ---
+> > xen/arch/arm/tee/ffa.c | 138 +++++++++++++++++++++++++++++++++++++++++
+> > 1 file changed, 138 insertions(+)
+> >
+> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > index d755363de686..ffabb5ed0a80 100644
+> > --- a/xen/arch/arm/tee/ffa.c
+> > +++ b/xen/arch/arm/tee/ffa.c
+> > @@ -74,6 +74,12 @@
+> >  */
+> > #define FFA_RXTX_PAGE_COUNT             1
+> >
+> > +/*
+> > + * Limits the number of pages RX/TX buffers guests can map.
+>
+> Typo: s/Limits/Limit/
 
-We could go further and also short-circuit SSE*, AVX and alike, which we
-don't use outside of the emulator. This then would of course call for
-also having a way to select x86-64-v4.
----
-v2: Also cover XSAVE.
+OK
 
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -76,15 +76,25 @@ static inline bool boot_cpu_has(unsigned
- #define cpu_has_eist            boot_cpu_has(X86_FEATURE_EIST)
- #define cpu_has_ssse3           boot_cpu_has(X86_FEATURE_SSSE3)
- #define cpu_has_fma             boot_cpu_has(X86_FEATURE_FMA)
--#define cpu_has_cx16            boot_cpu_has(X86_FEATURE_CX16)
-+#define cpu_has_cx16            (IS_ENABLED(CONFIG_X86_64_V2) || \
-+                                 IS_ENABLED(CONFIG_X86_64_V3) || \
-+                                 boot_cpu_has(X86_FEATURE_CX16))
- #define cpu_has_pdcm            boot_cpu_has(X86_FEATURE_PDCM)
- #define cpu_has_pcid            boot_cpu_has(X86_FEATURE_PCID)
- #define cpu_has_sse4_1          boot_cpu_has(X86_FEATURE_SSE4_1)
- #define cpu_has_sse4_2          boot_cpu_has(X86_FEATURE_SSE4_2)
- #define cpu_has_x2apic          boot_cpu_has(X86_FEATURE_X2APIC)
-+#ifdef __POPCNT__
-+#define cpu_has_popcnt          true
-+#else
- #define cpu_has_popcnt          boot_cpu_has(X86_FEATURE_POPCNT)
-+#endif
- #define cpu_has_aesni           boot_cpu_has(X86_FEATURE_AESNI)
-+#ifdef __XSAVE__
-+#define cpu_has_xsave           true
-+#else
- #define cpu_has_xsave           boot_cpu_has(X86_FEATURE_XSAVE)
-+#endif
- #define cpu_has_avx             boot_cpu_has(X86_FEATURE_AVX)
- #define cpu_has_f16c            boot_cpu_has(X86_FEATURE_F16C)
- #define cpu_has_rdrand          boot_cpu_has(X86_FEATURE_RDRAND)
-@@ -114,11 +124,19 @@ static inline bool boot_cpu_has(unsigned
- #define cpu_has_xsaves          boot_cpu_has(X86_FEATURE_XSAVES)
- 
- /* CPUID level 0x00000007:0.ebx */
-+#ifdef __BMI__
-+#define cpu_has_bmi1            true
-+#else
- #define cpu_has_bmi1            boot_cpu_has(X86_FEATURE_BMI1)
-+#endif
- #define cpu_has_hle             boot_cpu_has(X86_FEATURE_HLE)
- #define cpu_has_avx2            boot_cpu_has(X86_FEATURE_AVX2)
- #define cpu_has_smep            boot_cpu_has(X86_FEATURE_SMEP)
-+#ifdef __BMI2__
-+#define cpu_has_bmi2            true
-+#else
- #define cpu_has_bmi2            boot_cpu_has(X86_FEATURE_BMI2)
-+#endif
- #define cpu_has_invpcid         boot_cpu_has(X86_FEATURE_INVPCID)
- #define cpu_has_rtm             boot_cpu_has(X86_FEATURE_RTM)
- #define cpu_has_pqe             boot_cpu_has(X86_FEATURE_PQE)
+>
+> > + * TODO support a larger number.
+> > + */
+> > +#define FFA_MAX_RXTX_PAGE_COUNT         1
+> > +
+> > /*
+> >  * Flags and field values used for the MSG_SEND_DIRECT_REQ/RESP:
+> >  * BIT(31): Framework or partition message
+> > @@ -169,6 +175,12 @@ struct ffa_partition_info_1_1 {
+> > };
+> >
+> > struct ffa_ctx {
+> > +    void *rx;
+> > +    const void *tx;
+> > +    struct page_info *rx_pg;
+> > +    struct page_info *tx_pg;
+> > +    /* Number of 4kB pages in each of rx/rx_pg and tx/tx_pg */
+> > +    unsigned int page_count;
+> >     /* FF-A version used by the guest */
+> >     uint32_t guest_vers;
+> >     /*
+> > @@ -176,6 +188,7 @@ struct ffa_ctx {
+> >      * ffa_domain_teardown() to know which SPs need to be signalled.
+> >      */
+> >     uint16_t create_signal_count;
+> > +    bool rx_is_free;
+> > };
+> >
+> > /* Negotiated FF-A version to use with the SPMC */
+> > @@ -371,6 +384,11 @@ static void set_regs(struct cpu_user_regs *regs, r=
+egister_t v0, register_t v1,
+> >         set_user_reg(regs, 7, v7);
+> > }
+> >
+> > +static void set_regs_error(struct cpu_user_regs *regs, uint32_t error_=
+code)
+> > +{
+> > +    set_regs(regs, FFA_ERROR, 0, error_code, 0, 0, 0, 0, 0);
+> > +}
+> > +
+> > static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
+> >                              uint32_t w3)
+> > {
+> > @@ -392,6 +410,106 @@ static void handle_version(struct cpu_user_regs *=
+regs)
+> >     set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
+> > }
+> >
+> > +static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> > +                                register_t rx_addr, uint32_t page_coun=
+t)
+> > +{
+> > +    uint32_t ret =3D FFA_RET_INVALID_PARAMETERS;
+> > +    struct domain *d =3D current->domain;
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> > +    struct page_info *tx_pg;
+> > +    struct page_info *rx_pg;
+> > +    p2m_type_t t;
+> > +    void *rx;
+> > +    void *tx;
+> > +
+> > +    if ( !smccc_is_conv_64(fid) )
+> > +    {
+> > +        /*
+> > +         * Calls using the 32-bit calling convention must ignore the u=
+pper
+> > +         * 32 bits in the argument registers.
+> > +         */
+> > +        tx_addr &=3D UINT32_MAX;
+> > +        rx_addr &=3D UINT32_MAX;
+> > +    }
+> > +
+> > +    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT )
+> > +    {
+> > +        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (l=
+imit %u)\n",
+> > +               page_count, FFA_MAX_RXTX_PAGE_COUNT);
+> > +        return FFA_RET_NOT_SUPPORTED;
+> > +    }
+> > +
+> > +    /* Already mapped */
+> > +    if ( ctx->rx )
+> > +        return FFA_RET_DENIED;
+> > +
+> > +    tx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P=
+2M_ALLOC);
+> > +    if ( !tx_pg )
+> > +        return FFA_RET_INVALID_PARAMETERS;
+>
+> Please add a newline here
 
+OK
+
+>
+> > +    /* Only normal RW RAM for now */
+> > +    if ( t !=3D p2m_ram_rw )
+> > +        goto err_put_tx_pg;
+> > +
+> > +    rx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P=
+2M_ALLOC);
+> > +    if ( !tx_pg )
+> > +        goto err_put_tx_pg;
+>
+> Please add a newline here
+
+OK
+
+Thanks,
+Jens
+
+>
+> > +    /* Only normal RW RAM for now */
+> > +    if ( t !=3D p2m_ram_rw )
+> > +        goto err_put_rx_pg;
+> > +
+> > +    tx =3D __map_domain_page_global(tx_pg);
+> > +    if ( !tx )
+> > +        goto err_put_rx_pg;
+> > +
+> > +    rx =3D __map_domain_page_global(rx_pg);
+> > +    if ( !rx )
+> > +        goto err_unmap_tx;
+> > +
+> > +    ctx->rx =3D rx;
+> > +    ctx->tx =3D tx;
+> > +    ctx->rx_pg =3D rx_pg;
+> > +    ctx->tx_pg =3D tx_pg;
+> > +    ctx->page_count =3D page_count;
+> > +    ctx->rx_is_free =3D true;
+> > +    return FFA_RET_OK;
+> > +
+> > +err_unmap_tx:
+> > +    unmap_domain_page_global(tx);
+> > +err_put_rx_pg:
+> > +    put_page(rx_pg);
+> > +err_put_tx_pg:
+> > +    put_page(tx_pg);
+> > +
+> > +    return ret;
+> > +}
+> > +
+> > +static void rxtx_unmap(struct ffa_ctx *ctx)
+> > +{
+> > +    unmap_domain_page_global(ctx->rx);
+> > +    unmap_domain_page_global(ctx->tx);
+> > +    put_page(ctx->rx_pg);
+> > +    put_page(ctx->tx_pg);
+> > +    ctx->rx =3D NULL;
+> > +    ctx->tx =3D NULL;
+> > +    ctx->rx_pg =3D NULL;
+> > +    ctx->tx_pg =3D NULL;
+> > +    ctx->page_count =3D 0;
+> > +    ctx->rx_is_free =3D false;
+> > +}
+> > +
+> > +static uint32_t handle_rxtx_unmap(void)
+> > +{
+> > +    struct domain *d =3D current->domain;
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> > +
+> > +    if ( !ctx->rx )
+> > +        return FFA_RET_INVALID_PARAMETERS;
+> > +
+> > +    rxtx_unmap(ctx);
+> > +
+> > +    return FFA_RET_OK;
+> > +}
+> > +
+> > static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint=
+32_t fid)
+> > {
+> >     struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> > @@ -448,6 +566,7 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
+egs)
+> >     uint32_t fid =3D get_user_reg(regs, 0);
+> >     struct domain *d =3D current->domain;
+> >     struct ffa_ctx *ctx =3D d->arch.tee;
+> > +    int e;
+> >
+> >     if ( !ctx )
+> >         return false;
+> > @@ -460,6 +579,22 @@ static bool ffa_handle_call(struct cpu_user_regs *=
+regs)
+> >     case FFA_ID_GET:
+> >         set_regs_success(regs, get_vm_id(d), 0);
+> >         return true;
+> > +    case FFA_RXTX_MAP_32:
+> > +    case FFA_RXTX_MAP_64:
+> > +        e =3D handle_rxtx_map(fid, get_user_reg(regs, 1), get_user_reg=
+(regs, 2),
+> > +                            get_user_reg(regs, 3));
+> > +        if ( e )
+> > +            set_regs_error(regs, e);
+> > +        else
+> > +            set_regs_success(regs, 0, 0);
+> > +        return true;
+> > +    case FFA_RXTX_UNMAP:
+> > +        e =3D handle_rxtx_unmap();
+> > +        if ( e )
+> > +            set_regs_error(regs, e);
+> > +        else
+> > +            set_regs_success(regs, 0, 0);
+> > +        return true;
+> >     case FFA_MSG_SEND_DIRECT_REQ_32:
+> >     case FFA_MSG_SEND_DIRECT_REQ_64:
+> >         handle_msg_send_direct_req(regs, fid);
+> > @@ -551,6 +686,9 @@ static int ffa_domain_teardown(struct domain *d)
+> >                    get_vm_id(d), subscr_vm_destroyed[n], res);
+> >     }
+> >
+> > +    if ( ctx->rx )
+> > +        rxtx_unmap(ctx);
+> > +
+> >     XFREE(d->arch.tee);
+> >
+> >     return 0;
+> > --
+> > 2.34.1
+> >
+>
+> Cheers
+> Bertrand
+>
+>
 
