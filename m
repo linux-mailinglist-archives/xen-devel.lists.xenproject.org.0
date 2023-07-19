@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A55175A2D9
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 01:33:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566231.884771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3C6C75A2DA
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 01:34:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566234.884780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMGeA-0006fy-67; Wed, 19 Jul 2023 23:31:54 +0000
+	id 1qMGge-0007D0-Im; Wed, 19 Jul 2023 23:34:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566231.884771; Wed, 19 Jul 2023 23:31:54 +0000
+Received: by outflank-mailman (output) from mailman id 566234.884780; Wed, 19 Jul 2023 23:34:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMGeA-0006d6-3J; Wed, 19 Jul 2023 23:31:54 +0000
-Received: by outflank-mailman (input) for mailman id 566231;
- Wed, 19 Jul 2023 23:31:52 +0000
+	id 1qMGge-0007B5-G0; Wed, 19 Jul 2023 23:34:28 +0000
+Received: by outflank-mailman (input) for mailman id 566234;
+ Wed, 19 Jul 2023 23:34:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+D1l=DF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qMGe8-0006d0-BT
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 23:31:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1qMGgd-0007Ax-7P
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 23:34:27 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6dd377e0-268c-11ee-8611-37d641c3527e;
- Thu, 20 Jul 2023 01:31:48 +0200 (CEST)
+ id cb2779b6-268c-11ee-8611-37d641c3527e;
+ Thu, 20 Jul 2023 01:34:25 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 09EEE61877;
- Wed, 19 Jul 2023 23:31:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56228C433C7;
- Wed, 19 Jul 2023 23:31:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BAF4B61839;
+ Wed, 19 Jul 2023 23:34:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13BB5C433C7;
+ Wed, 19 Jul 2023 23:34:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,61 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dd377e0-268c-11ee-8611-37d641c3527e
+X-Inumbo-ID: cb2779b6-268c-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689809504;
-	bh=DVA0e9kIvNDQy2uop6SmFT0yIwQ/xiM+n9Fdm/b0yQI=;
+	s=k20201202; t=1689809663;
+	bh=+YbbLSgZK+Uw1AA3E1iarkdRECGhJzsn2L5sDzBb5EU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=acdgQPeJzJFJ1/WUoxMbKDME256jdw4NYoJaokU+6hvdOKcD5PnSGSLQLQ6Uzm0in
-	 sySowoHJght6Anhre5bLZOjfR3ta34+oRvEokNMiZGJ5U/T+pjq/0EQKuJoKhcfhe3
-	 HTWN82G8RewRKeom1FSCv7hC+ZXjiQEKIkMA66y/TRfYdeNpwPZubzDAyvSdMX3Gj3
-	 3D9VZCF3adMHulH0qBzS4DbV7q57sw3Jh2NIwRLBCi6p5H7yAAObFziMKh96+Y9CEL
-	 7vhHf9wFgX89dEd41UmSAYAGUQ5TJvrb/w6ShI6IVPL05lDjeE9tY7l9kbPZuDUlw2
-	 iZR3hzZhy4xCA==
-Date: Wed, 19 Jul 2023 16:31:35 -0700 (PDT)
+	b=ncXU2k58RXzjiR76+QgOYOj+T7S1K/OmoMUMmliNW/bEBQURpltNU++eIfh0un9KK
+	 zgjrv1wZouv7ghyZcfDzZZxcU838i8o1/6s3KoC/teBFVvYYAwQWYCfGU9IeT1ZQgL
+	 vExEUOSiS1k1o2Qw0ORL1vYCGfib/Y0T+NZhB8d3r0/E8tmqT96qmiciaSbwc7MH3e
+	 F2JTsFBkZOFl+72w6Mf56j9dO8kb2d4s1S+K9prFC0DokHVH6w75XIn9yo4aCDalqj
+	 r5iouPo3XofGNUBl+ekkxk9d9W2RXleS6/49nE9LvU2cyOMO1QS226rOWr39q3KX6P
+	 qtdg2Lm7GRiwQ==
+Date: Wed, 19 Jul 2023 16:34:20 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Luca Fancellu <Luca.Fancellu@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Experiments with clang-format and exclude-list.json
-In-Reply-To: <040fef3e-9a7f-61bc-13f5-c34f6ffdcb09@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2307191630380.3118466@ubuntu-linux-20-04-desktop>
-References: <505E6BDD-823F-4337-8FB9-C3294D180E74@arm.com> <040fef3e-9a7f-61bc-13f5-c34f6ffdcb09@suse.com>
+To: Yang Xu <yang.xu@mediatek.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH] docs/misc: fix document typo
+In-Reply-To: <20230718122529.19912-1-yang.xu@mediatek.com>
+Message-ID: <alpine.DEB.2.22.394.2307191634110.3118466@ubuntu-linux-20-04-desktop>
+References: <20230718122529.19912-1-yang.xu@mediatek.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2025689580-1689809503=:3118466"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-2025689580-1689809503=:3118466
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 18 Jul 2023, Jan Beulich wrote:
-> On 18.07.2023 11:13, Luca Fancellu wrote:
-> > I’ve done some experiment with clang-format and the hypervisor code (xen/xen/**), I had the need to exclude some files from the tool
-> > and I thought to use the exclude-list.json, but since it was intended for MISRA, I’m now asking your feedback about that.
-> > 
-> > In my opinion it could make sense, because with that list we are excluding everything that is external and not adopting the Xen
-> > coding style.
-> > 
-> > Do you have an opinion on that? Can it be one file? Or should it be a separate file only for the coding style exclusion?
+On Tue, 18 Jul 2023, yang.xu@mediatek.com wrote:
+> From: Yang Xu <yang.xu@mediatek.com>
 > 
-> It feels like back when the file was introduced I already commented on
-> the potential for it to be multi-use, so long as it's actually dealing
-> with the slightly separate needs. IOW I think it can be one file, but
-> it needs to allow for files that want excluding from rule checkers, but
-> not from style ones, and vice versa. Whether specific "comment" wording
-> would be suitable, or whether instead separate attributes would want
-> introducing is TBD.
+> Fix document typo for more accurate meaning
+> 
+> Signed-off-by: Yang Xu <yang.xu@mediatek.com>
 
-I agree
---8323329-2025689580-1689809503=:3118466--
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+>  docs/misc/xen-makefiles/makefiles.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/docs/misc/xen-makefiles/makefiles.rst b/docs/misc/xen-makefiles/makefiles.rst
+> index 04bc72601c..bc2f932fbc 100644
+> --- a/docs/misc/xen-makefiles/makefiles.rst
+> +++ b/docs/misc/xen-makefiles/makefiles.rst
+> @@ -68,7 +68,7 @@ Descending down in directories
+>  
+>  	It is good practice to use a `CONFIG_` variable when assigning directory
+>  	names. This allows the build system to totally skip the directory if the
+> -	corresponding `CONFIG_` option is 'y'.
+> +	corresponding `CONFIG_` option is not set to 'y'.
+>  
+>  Compilation flags
+>  -----------------
+> -- 
+> 2.25.1
+> 
 
