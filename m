@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8F77590B6
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 10:55:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565673.884031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46DBD759107
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 11:03:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565680.884041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM2x6-00014M-GO; Wed, 19 Jul 2023 08:54:32 +0000
+	id 1qM35m-0002pD-9Q; Wed, 19 Jul 2023 09:03:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565673.884031; Wed, 19 Jul 2023 08:54:32 +0000
+Received: by outflank-mailman (output) from mailman id 565680.884041; Wed, 19 Jul 2023 09:03:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM2x6-00011t-D4; Wed, 19 Jul 2023 08:54:32 +0000
-Received: by outflank-mailman (input) for mailman id 565673;
- Wed, 19 Jul 2023 08:54:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qM35m-0002n2-6k; Wed, 19 Jul 2023 09:03:30 +0000
+Received: by outflank-mailman (input) for mailman id 565680;
+ Wed, 19 Jul 2023 09:03:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dh/8=DF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qM2x5-00011n-0r
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 08:54:31 +0000
+ <SRS0=8bnZ=DF=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qM35k-0002mu-MX
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 09:03:28 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id deb8bf01-2611-11ee-8611-37d641c3527e;
- Wed, 19 Jul 2023 10:54:28 +0200 (CEST)
-Received: from [192.168.1.100] (unknown [37.163.72.116])
- by support.bugseng.com (Postfix) with ESMTPSA id 240454EE0C89;
- Wed, 19 Jul 2023 10:54:27 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1fde304d-2613-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 11:03:27 +0200 (CEST)
+Received: from [192.168.1.101] (unknown [37.163.72.116])
+ by support.bugseng.com (Postfix) with ESMTPSA id 53E624EE0C89;
+ Wed, 19 Jul 2023 11:03:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: deb8bf01-2611-11ee-8611-37d641c3527e
-Message-ID: <4748db4d-d0d7-142c-b547-c285ceb1357c@bugseng.com>
-Date: Wed, 19 Jul 2023 10:54:25 +0200
+X-Inumbo-ID: 1fde304d-2613-11ee-b23a-6b7b168915f2
+Message-ID: <716e5ceb-49aa-a83b-b03e-3df199804434@bugseng.com>
+Date: Wed, 19 Jul 2023 11:03:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [RFC PATCH 2/4] xen/arm64: bitops: justify uninitialized variable
- inside a macro
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
+Subject: Re: [XEN PATCH] x86: I/O emulation: fix violations of MISRA C:2012
+ Rules 8.2 and 8.3
+Content-Language: en-US, it
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Paul Durrant <paul@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1689329728.git.nicola.vetrini@bugseng.com>
- <d06a312944bee7457fa2ac75e0cfef20f0ec430f.1689329728.git.nicola.vetrini@bugseng.com>
- <76cb0f23-ebcb-2c51-2312-c926b0d6d570@xen.org>
- <8617ddae-02f6-981f-73fc-50be2e24ea64@xen.org>
-Content-Language: en-US
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-In-Reply-To: <8617ddae-02f6-981f-73fc-50be2e24ea64@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+References: <b6ebf3a49de027981505da63aef594cb0dc42ead.1689691260.git.federico.serafini@bugseng.com>
+ <be50867f-a3e4-0230-4ca7-bc24cc30b946@suse.com>
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <be50867f-a3e4-0230-4ca7-bc24cc30b946@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 17/07/23 22:45, Julien Grall wrote:
-> 
-> 
-> On 17/07/2023 21:40, Julien Grall wrote:
->> On 14/07/2023 12:49, Nicola Vetrini wrote:
->>> The macro 'testop' expands to a function that declares the local
->>> variable 'oldbit', which is written before being set, but is such a
->>> way that is not amenable to automatic checking.
->>>
->>> Therefore, a deviation comment, is introduced to document this 
->>> situation.
->>>
->>> A similar reasoning applies to macro 'guest_testop'.
+On 19/07/23 10:32, Jan Beulich wrote:
+> On 19.07.2023 10:24, Federico Serafini wrote:
+>> Give a name to unnamed parameters thus fixing violations of
+>> MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+>> named parameters").
+>> Keep consistency between parameter names used in function declarations
+>> and names used in the corresponding function definitions thus fixing
+>> violations of MISRA C:2012 Rule 8.3 ("All declarations of an object or
+>> function shall use the same names and type qualifiers").
 >>
->> Would you be able to check if the code below (only compile tested so 
->> far) would silence Eclair?
+>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>> ---
+>>   xen/arch/x86/include/asm/hvm/emulate.h |  8 ++++----
+>>   xen/arch/x86/include/asm/hvm/io.h      | 14 +++++++-------
+>>   2 files changed, 11 insertions(+), 11 deletions(-)
 > 
-> Hmmm.. I think my e-mail client mangled the diff. Here an unmangled 
-> version if needed:
+> If it was just the 2nd file, I'd agree with the "I/O" in the title
+> (albeit as a minor remark and as mentioned elsewhere, personally I
+> think double tags in titles are undesirable, and blanks in tags
+> aren't nice either). So perhaps "x86/HVM/emul:" ?
+
+"x86/HVM/emul:" is okay.
+I will follow your suggestions in the next patches.
+
+> The code changes themselves look okay to me (no matter that I don't
+> like some of them), so
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> I'd be happy to make, while committing, whatever title adjustment
+> that you can agree with.
 > 
-> http://paste.debian.net/1286154/
+> One other note though (there's no good general place to put it):
+> I'm also a little unhappy with all of you often using "fix" in the
+> titles, when you don't really fix any bugs. There are certainly
+> cases where addressing Misra complaints also fixes bugs, but that's
+> more the exception than the rule. Could we settle on something
+> like "eliminate", "address", "avoid", or alike when changes are
+> merely about style or other aspect which don't really correct
+> functionality?
 > 
-> Cheers,
-> 
+> Jan
 
-I have a question: wouldn't this patch also imply an update of 
-xen/arch/arm/include/asm/guest_atomics.h ?
+Sure, "address" seems good to us.
+Please, while committing, change the occurrences of "fix" into "address"
+for the commit title and and commit description as well
+(together with the tag change).
 
-This in particular is the bit of code that needs to be reworked to use 
-the newer *_timeout definition.
-
-
-bool succeed;
-
-succeed = name##_timeout(nr, p, &oldbit, 
-
-                          this_cpu(guest_safe_atomic_max));
-
-if ( succeed )
-         return oldbit;
-
-Probably something similar to
-
-
-int succeed;
-
-succeed = name##_timeout(nr, p, false, NULL, [...]);
-if ( succeed != 0 )
-   return succeed;
-
-I'm not really sure whether the third param should be true or false, but 
-I assumed false because it's similar to the use in bitops.c
-
+Regards
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
