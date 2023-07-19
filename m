@@ -2,65 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465667591C2
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 11:37:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565695.884067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45F717591C7
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 11:39:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565699.884076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM3cO-0007fN-D3; Wed, 19 Jul 2023 09:37:12 +0000
+	id 1qM3eU-0008Qw-OX; Wed, 19 Jul 2023 09:39:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565695.884067; Wed, 19 Jul 2023 09:37:12 +0000
+Received: by outflank-mailman (output) from mailman id 565699.884076; Wed, 19 Jul 2023 09:39:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM3cO-0007cd-AD; Wed, 19 Jul 2023 09:37:12 +0000
-Received: by outflank-mailman (input) for mailman id 565695;
- Wed, 19 Jul 2023 09:37:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qM3eU-0008OS-Ls; Wed, 19 Jul 2023 09:39:22 +0000
+Received: by outflank-mailman (input) for mailman id 565699;
+ Wed, 19 Jul 2023 09:39:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9vNg=DF=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1qM3cM-0007cX-TP
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 09:37:11 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2062f.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4618007-2617-11ee-b23a-6b7b168915f2;
- Wed, 19 Jul 2023 11:37:09 +0200 (CEST)
-Received: from DB9PR01CA0030.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:1d8::35) by GVXPR08MB7896.eurprd08.prod.outlook.com
- (2603:10a6:150:16::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.32; Wed, 19 Jul
- 2023 09:37:03 +0000
-Received: from DBAEUR03FT051.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:1d8:cafe::98) by DB9PR01CA0030.outlook.office365.com
- (2603:10a6:10:1d8::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24 via Frontend
- Transport; Wed, 19 Jul 2023 09:37:03 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT051.mail.protection.outlook.com (100.127.142.148) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.34 via Frontend Transport; Wed, 19 Jul 2023 09:37:03 +0000
-Received: ("Tessian outbound f9124736ff4f:v145");
- Wed, 19 Jul 2023 09:37:02 +0000
-Received: from 15017465e4b6.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 81F5C6EE-87CB-404C-B5F7-B4ADE3DD70C4.1; 
- Wed, 19 Jul 2023 09:36:55 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 15017465e4b6.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 19 Jul 2023 09:36:55 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DB3PR08MB8796.eurprd08.prod.outlook.com (2603:10a6:10:433::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 19 Jul
- 2023 09:36:53 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe%4]) with mapi id 15.20.6609.022; Wed, 19 Jul 2023
- 09:36:53 +0000
+ <SRS0=K8L3=DF=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1qM3eT-0008OK-1o
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 09:39:21 +0000
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [2607:f8b0:4864:20::f36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2184fe1b-2618-11ee-8611-37d641c3527e;
+ Wed, 19 Jul 2023 11:39:18 +0200 (CEST)
+Received: by mail-qv1-xf36.google.com with SMTP id
+ 6a1803df08f44-635e107642fso2723216d6.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Jul 2023 02:39:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,556 +40,530 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4618007-2617-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhW0PBE0uD7Alal5p0BDuqkb9edI/TMdvIjX65g+pxw=;
- b=RHO3IMI1Acqd+OMMlyQojaNuJvQHnz/Ozbmw+6o6gvxsHWPXe9314HwqZB/XRN3H4Ge2Em03XekFuXKizJ2OwogoUGD0BkVNEBHvnNz3qIWSEPT38UThaWJymfaRpv3c/xiKufRnBrGQTvlmX5284P1tj6uwf2x4U8u71ERDIWg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 67eb52b194590e72
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fqbbqQAOHXlvijXF1Sv4AGUzd+LTZHRnHRD41e+aZl+kOwoGimLC9suXZnAkKh1KYTZ213ZTAxui/MlpOhJyMVsCTzaSgG5vOWybFJruqfwmDlW5/KnJlFu8wJQmtZvzZNdOlJxS+D3D2E25f+mKkM3WHGnp2qz0seCpvaiBrFFLjapfdKRTeOvb/TkCoIpTevEmC3ZMYadPG6izcsyOg922n9t3+N08dZUlWz/pgOugBAFEVM15SXdA8Z/3quEzVs9RGaJ+QSarUzMlnThfjWRqzxBZGKMYAFqG2RAkjtfjp2YKmX8JueEyJjh/NhibAKDybVQU/2VhtDjTw3pmLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WhW0PBE0uD7Alal5p0BDuqkb9edI/TMdvIjX65g+pxw=;
- b=AhMEH799i+QmBemupTYLP4kBhHJPnQrbZzcuYmp8P3eratmKaAQiStk1+kARPCAoV4rdFv2iToj4NhW3F7JefJXwvzJ4fTIg4C902FAF6EFdS12B1gDk+bVBbR6nMHF9iw2FQnQ8Xw+gbcg51CTxeLKd08mjz1YsObynCRNqhAPXHH+X4GnHndP+tc1aIUpzloCSXPZcptAFEjVw4DnYqdVUs5DZlYsfKLHaQbwBD8lJfpLIgQLjsy6r6wgbr/mezf7RRlniwMDz7ukll8iGqQS5a7xcXhLI7S0ydu2w5PPzjyDk5AHqshlz0+hMSV3DbbRUquIosnkR7HoHBE0Aag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhW0PBE0uD7Alal5p0BDuqkb9edI/TMdvIjX65g+pxw=;
- b=RHO3IMI1Acqd+OMMlyQojaNuJvQHnz/Ozbmw+6o6gvxsHWPXe9314HwqZB/XRN3H4Ge2Em03XekFuXKizJ2OwogoUGD0BkVNEBHvnNz3qIWSEPT38UThaWJymfaRpv3c/xiKufRnBrGQTvlmX5284P1tj6uwf2x4U8u71ERDIWg=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>, Marc Bonnici
-	<Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>
-Subject: Re: [XEN PATCH v10 20/24] xen/arm: ffa: support sharing large memory
- ranges
-Thread-Topic: [XEN PATCH v10 20/24] xen/arm: ffa: support sharing large memory
- ranges
-Thread-Index: Adm6JI1IKCrkxlGedEeTT9m/ij46OQ==
-Date: Wed, 19 Jul 2023 09:36:53 +0000
-Message-ID: <8304EFA9-FA48-4823-B7B0-11311351592B@arm.com>
-References: <20230717072107.753304-1-jens.wiklander@linaro.org>
- <20230717072107.753304-21-jens.wiklander@linaro.org>
-In-Reply-To: <20230717072107.753304-21-jens.wiklander@linaro.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|DB3PR08MB8796:EE_|DBAEUR03FT051:EE_|GVXPR08MB7896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42a44bbd-476f-435e-770e-08db883bb55b
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- kZjcykhmOUsO87b6QgRjjdN15Mnb9F0LBleC+Bc7G5Jx/hOQQUFCbNdwYimj8XgaAhqccuTNqwOLZsPF3VukxUPS1BHNZHfLDZI6NNNM/VPvmakS5km+sZXDnj6Y2TSD7nva9DiFk0PHQkN+7LsWtdXRSpyPr2hosl6zPA0koEFvMJTsGB89KpvS4HEg3Z8GaY7VHCKRJ8lZjpoaPpS0jky2gsfV/JV7dzqJitdaVU8enZLS+39tAqUdk+2/CdRE0g+rTu6cJhi2uKwOY+4e7c4q9rSXQoD90/gr3MpVnYpvShS9rHJNcD+YehQehdDDaEK9IcQqkRSBbGo3wYNuAGVx9AFUiO/hDWHodsXnAUmCJ3Z7Kce/BaujFqz2OywWWH7PsnlfEDU+9zGMoQvco55KqeOVcOnVghzDuzE7STDbBJKZhPHVIzemzuACORcxI2TFDMKH6/OSwdf9bdXlpiKwwj2/N3tzQWKF/lx2Z/882fqCuJRZMOX10ZgKXc/ENFhvbwbYTpHCve24/3oU9pYcLy8eEFw1JGWceClUlmhJOGli59Qp4+rfWV93X4PqqTaEV3NqMwx0KPq9PTLVadrdFfr8U0d5XqnY4DONu3j3o7QJZappi+o21LLBwdr8XfUku+62xCCVH+U/bZgvkQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(136003)(346002)(366004)(376002)(451199021)(86362001)(478600001)(83380400001)(38100700002)(186003)(41300700001)(71200400001)(33656002)(30864003)(54906003)(316002)(53546011)(8676002)(8936002)(6916009)(2906002)(4326008)(122000001)(6512007)(66556008)(64756008)(66946007)(6486002)(66476007)(66446008)(6506007)(91956017)(38070700005)(2616005)(76116006)(36756003)(5660300002)(66899021)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <06FA2F8E5D1B664D9BB6C20254DF5130@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 2184fe1b-2618-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1689759557; x=1690364357;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hJM/SKcUHpfyPcOx8o5Myl7kYtFtGW9aQGUS6b6Xx/s=;
+        b=qRnj8zEij7rDyFyoZMMp7tC9ZzzWCqx/OVcpjRcF4ARCN47W2UHsihBCqUqeC1+43T
+         pJElYRGaakm6EGT6zybZ1xH0Q4562Grm1rdsW3V89fPtE+lwAnPEcDH6WnarZ/Wt7s7e
+         8p+ehqysD5MqbdjrGXJtw6hLfljsNYWCgHgsFnFhLjIFFBg3ydQgC9jVrXbrg4zONmDQ
+         WfnEMhnYqFkNDluT5jp2FuYRT6KN3uhAuADREOa68sLT+NeahWaGhBs0GMWMS/Qj61Jr
+         Ic+QcaDWvo/RmgPAlz1lTiTMbdk22zP56phMJonRLxpKEUnPG0Gncjo25o/8XpZ6M4rc
+         wDCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689759557; x=1690364357;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hJM/SKcUHpfyPcOx8o5Myl7kYtFtGW9aQGUS6b6Xx/s=;
+        b=hNhKTOpKp/hTqiauDm0CZGlxib9WtBlFEBWgv+euCLqZHn6WaRdj/oDxVsrXUll6SN
+         CdXQT8dpd37VidZ68hXJcw2Z2KlltVlenUdbAikj+NeDxtm5bV2qDxMQWk8IpMZyC35H
+         CYj0WYHLnB+fycOlQHTZ8PngIhymZcOW3L8x1UD797lLrBFOzvCK4m4a7IXkRmd/jcXN
+         qyhLXa+tT++eUUkLMkI0+iYu1DWSnnLDChtKXclgiNjc1OC+uhvGAJRbudQ0CS34BDrl
+         LebktXoS2gpvs9iJL/1Rj+pOk6Sm2QqyjjnjH8cbH25PpaDinJnx7pfSZ5L/uRYl3zA/
+         1v8A==
+X-Gm-Message-State: ABy/qLYCa/zEK1l5aPcc4ZHDRz+sYcMYmQ7sOA9r5f96w3uRrXNRf26z
+	eime86yzqH0HZGBe488Bk/3ruGkJY/TdFmwWNfVZiA==
+X-Google-Smtp-Source: APBJJlEiKP9MObG7n1w9BoDI1g4amd5IhDf4mIy1HFw3Kp6HQkQMxKk6LEMOJAngfiE7K6i/R/uxx+p//+W7NZTtkSY=
+X-Received: by 2002:ad4:5cc7:0:b0:636:695:c84c with SMTP id
+ iu7-20020ad45cc7000000b006360695c84cmr2244627qvb.20.1689759557315; Wed, 19
+ Jul 2023 02:39:17 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR08MB8796
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT051.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	88ef9e3f-37e3-45a1-7ec6-08db883bafc7
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	dDTWQdOEtu+wScvTkUMFmYRlX1Xg+9U1ERgCkOzsiKpAFkC0bBsyNjA+iMX3/wSCsBMNGezW1WhHY9lrjILC6I2o1gSxMDGVmr6AAK/7Z1TUpaGz6YTGUqCI/WZlRPJnL7fQI/zFtjbU52K1pzkwMMrCyTsSt+mVXh0XISPMHHML3nbBZHbSwFTAw9AwEHykthiGI4NIoy2FzN6egEH/+V9GLwqmfH55fq+OWqayBGtDO4mJtklme619FhKLoszGVBSEJjBcnc2K3pj0b6J7CVTD4JHNXcPYnojn8eN/xIVTDNfUhadAuGCFZTExi9e45VPaevME/emaj9JowNwp1UeLlGr60fZFnMu4/o/7eJl6UiuPV4D/qC2zzZExpbwA2SXBbYCLbvSQ0V2JzYoKNVC/+GGlnoAvDIrzqQIlusjq70dWQ1B070MTV9I3f5G/7vZVctRBPIIB4alzLsAndZthDOLPvU6BZbsRtE8hiVlHbJfB1d2Iwf0Utf+neweafp29SFs4ceXDLnMCqX1wJ8E1PPmZh1Mn3udyrQayP/gbmWTM0aN4dWEXyUFcMzYv+VKqOPXQwXVXHfX/aNn/HrKsGm+wOB9XtllXr3sQJgjbH5jwGwk5JdtU/Sn6sPOh4fcqf3bL0BjvfTwaYzUMAZHbIDm+JmwsPx8D/W8n+ckBUQJDq0tCQFGqn4AUuk0XUUQPb4nWlXGA8DDCq5HzY7BIK457zarW8pJajDJN4gOD1sw4zGN8lg4Eabdjq/xz
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(396003)(136003)(376002)(82310400008)(451199021)(46966006)(36840700001)(40470700004)(86362001)(30864003)(36756003)(2906002)(33656002)(66899021)(40460700003)(40480700001)(2616005)(36860700001)(186003)(6512007)(336012)(83380400001)(47076005)(6506007)(26005)(53546011)(82740400003)(81166007)(6486002)(356005)(70206006)(54906003)(70586007)(478600001)(316002)(5660300002)(4326008)(41300700001)(6862004)(8936002)(8676002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 09:37:03.0019
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42a44bbd-476f-435e-770e-08db883bb55b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT051.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB7896
+References: <20230717072107.753304-1-jens.wiklander@linaro.org>
+ <20230717072107.753304-13-jens.wiklander@linaro.org> <98D9585F-AE4B-4AC2-9D3B-BAF5590C0DD7@arm.com>
+ <CAHUa44HXORpP-vezd849Sv0FzvKq9kqcEMh9f98DZnNFtzNFyg@mail.gmail.com> <413E8FFB-E49A-470C-813D-A84A3EFE0EF2@arm.com>
+In-Reply-To: <413E8FFB-E49A-470C-813D-A84A3EFE0EF2@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 19 Jul 2023 11:39:06 +0200
+Message-ID: <CAHUa44HBQXRwQKfu1iHFx3W+dZZNKAZBypDDRr9ycz8OUDUwjw@mail.gmail.com>
+Subject: Re: [XEN PATCH v10 12/24] xen/arm: ffa: send guest events to Secure Partitions
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jens,
+Hi,
 
-> On 17 Jul 2023, at 09:21, Jens Wiklander <jens.wiklander@linaro.org> wrot=
-e:
->=20
-> Adds support for sharing large memory ranges transmitted in fragments
-> using FFA_MEM_FRAG_TX.
->=20
-> The implementation is the bare minimum to be able to communicate with
-> OP-TEE running as an SPMC at S-EL1.
->=20
-> Adds a check that the SP supports the needed FF-A feature
-> FFA_MEM_FRAG_TX.
->=20
-> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> ---
-> xen/arch/arm/tee/ffa.c | 253 ++++++++++++++++++++++++++++++++++++++---
-> 1 file changed, 240 insertions(+), 13 deletions(-)
->=20
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index c623c51168b9..ac23b9edc74c 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -359,6 +359,8 @@ struct ffa_ctx {
->      */
->     uint16_t create_signal_count;
->     bool rx_is_free;
-> +    /* Currently used fragment states, struct mem_frag_state */
-> +    struct list_head frag_list;
->     /* Used shared memory objects, struct ffa_shm_mem */
->     struct list_head shm_list;
->     /* Number of allocated shared memory object */
-> @@ -375,6 +377,18 @@ struct ffa_shm_mem {
->     struct page_info *pages[];
-> };
->=20
-> +struct mem_frag_state {
-> +    struct list_head list;
-> +    struct ffa_shm_mem *shm;
-> +    uint32_t range_count;
-> +    unsigned int current_page_idx;
-> +    unsigned int frag_offset;
-> +    unsigned int range_offset;
-> +    const uint8_t *buf;
-> +    unsigned int buf_size;
-> +    struct ffa_address_range range;
-> +};
-
-Please add some comments inside this structure as
-from reading the code it is not quite clear what is done.
-
-> +
-> /* Negotiated FF-A version to use with the SPMC */
-> static uint32_t __ro_after_init ffa_version;
->=20
-> @@ -538,6 +552,36 @@ static int32_t ffa_mem_share(uint32_t tot_len, uint3=
-2_t frag_len,
->     }
-> }
->=20
-> +static int32_t ffa_mem_frag_tx(uint64_t handle, uint32_t frag_len,
-> +                               uint16_t sender_id)
-> +{
-> +    struct arm_smccc_1_2_regs arg =3D {
-> +        .a0 =3D FFA_MEM_FRAG_TX,
-> +        .a1 =3D handle & UINT32_MAX,
-> +        .a2 =3D handle >> 32,
-> +        .a3 =3D frag_len,
-> +        .a4 =3D (uint32_t)sender_id << 16,
-> +    };
-> +    struct arm_smccc_1_2_regs resp;
-> +
-> +    arm_smccc_1_2_smc(&arg, &resp);
-> +
-> +    switch ( resp.a0 )
-> +    {
-> +    case FFA_ERROR:
-> +        if ( resp.a2 )
-> +            return resp.a2;
-> +        else
-> +            return FFA_RET_NOT_SUPPORTED;
-> +    case FFA_SUCCESS_32:
-> +        return FFA_RET_OK;
-> +    case FFA_MEM_FRAG_RX:
-> +        return resp.a3;
-> +    default:
-> +            return FFA_RET_NOT_SUPPORTED;
-> +    }
-> +}
-> +
-> static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi,
->                                uint32_t flags)
-> {
-> @@ -627,6 +671,14 @@ static void set_regs_success(struct cpu_user_regs *r=
-egs, uint32_t w2,
->     set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
-> }
->=20
-> +static void set_regs_frag_rx(struct cpu_user_regs *regs, uint32_t handle=
-_lo,
-> +                             uint32_t handle_hi, uint32_t frag_offset,
-> +                             uint16_t sender_id)
-> +{
-> +    set_regs(regs, FFA_MEM_FRAG_RX, handle_lo, handle_hi, frag_offset,
-> +             (uint32_t)sender_id << 16, 0, 0, 0);
-> +}
-> +
-> static void handle_version(struct cpu_user_regs *regs)
-> {
->     struct domain *d =3D current->domain;
-> @@ -999,6 +1051,8 @@ static int share_shm(struct ffa_shm_mem *shm)
->     paddr_t last_pa;
->     unsigned int n;
->     paddr_t pa;
-> +    bool first;
-> +    int ret;
->=20
->     ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
->     ASSERT(shm->page_count);
-> @@ -1034,13 +1088,23 @@ static int share_shm(struct ffa_shm_mem *shm)
->=20
->     tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_count,
->                                 region_descr->address_range_count);
-> -    if ( tot_len > max_frag_len )
-> -        return FFA_RET_NOT_SUPPORTED;
->=20
-> +    /*
-> +     * Sharing memory with secure world may have to be done with multipl=
-e
-> +     * calls depending on how many address ranges will be needed. If we'=
-re
-> +     * sharing physically contiguous memory we will only need one range =
-but
-> +     * we will also need to deal with the worst case where all physical
-> +     * pages are non-contiguous. For the first batch of address ranges w=
-e
-> +     * call ffa_mem_share() and for all that follows ffa_mem_frag_tx().
-> +     *
-> +     * We use frag_len to keep track of how far into the transmit buffer=
- we
-> +     * have gone.
-> +     */
->     addr_range =3D region_descr->address_range_array;
->     frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_count,=
- 1);
->     last_pa =3D page_to_maddr(shm->pages[0]);
->     init_range(addr_range, last_pa);
-> +    first =3D true;
->     for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
->     {
->         pa =3D page_to_maddr(shm->pages[n]);
-> @@ -1050,12 +1114,34 @@ static int share_shm(struct ffa_shm_mem *shm)
->             continue;
->         }
->=20
-> -        frag_len +=3D sizeof(*addr_range);
-> -        addr_range++;
-> +        if ( frag_len =3D=3D max_frag_len )
-
-This test seem a bit dangerous as there is nothing ensuring that frag_len w=
-ill end
-up aligned to a page.
-
-I would suggest here to do frag_len + sizeof(*addr_range) > max_frag_len to=
- check
-if we can fit or not an extra address range in the area.
-
-
-> +        {
-> +            if ( first )
-> +            {
-> +                ret =3D ffa_mem_share(tot_len, frag_len, 0, 0, &shm->han=
-dle);
-> +                first =3D false;
-> +            }
-> +            else
-> +            {
-> +                ret =3D ffa_mem_frag_tx(shm->handle, frag_len, shm->send=
-er_id);
-> +            }
-> +            if ( ret <=3D 0 )
-> +                return ret;
-> +            frag_len =3D sizeof(*addr_range);
-> +            addr_range =3D buf;
-> +        }
-> +        else
-> +        {
-> +            frag_len +=3D sizeof(*addr_range);
-> +            addr_range++;
-> +        }
->         init_range(addr_range, pa);
->     }
->=20
-> -    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> +    if ( first )
-> +        return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> +    else
-> +        return ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id);
-> }
->=20
-> static int read_mem_transaction(uint32_t ffa_vers, const void *buf, size_=
-t blen,
-> @@ -1132,8 +1218,53 @@ static int read_mem_transaction(uint32_t ffa_vers,=
- const void *buf, size_t blen,
->     return 0;
-> }
->=20
-> +static int add_mem_share_frag(struct mem_frag_state *s, unsigned int off=
-s,
-> +                              unsigned int frag_len)
-> +{
-> +    struct domain *d =3D current->domain;
-> +    unsigned int o =3D offs;
-> +    unsigned int l;
-> +    int ret;
-> +
-> +    if ( frag_len < o )
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    /* Fill up the first struct ffa_address_range */
-
-The magic here after requires some explanation, could you add more details =
-in
-the comment ?
-
-> +    l =3D min_t(unsigned int, frag_len - o, sizeof(s->range) - s->range_=
-offset);
-> +    memcpy((uint8_t *)&s->range + s->range_offset, s->buf + o, l);
-> +    s->range_offset +=3D l;
-> +    o +=3D l;
-> +    if ( s->range_offset !=3D sizeof(s->range) )
-> +        goto out;
-
-Shouldn't we test this before doing the memcpy ?
-Is this an error case ?
-What is the expected frag_offset value here ?
-
-
-> +    s->range_offset =3D 0;
-> +
-> +    while ( true )
-> +    {
-> +        ret =3D get_shm_pages(d, s->shm, &s->range, 1, s->current_page_i=
-dx,
-> +                            &s->current_page_idx);
-> +        if ( ret )
-> +            return ret;
-> +        if ( s->range_count =3D=3D 1 )
-> +            return 0;
-> +        s->range_count--;
-> +        if ( frag_len - o < sizeof(s->range) )
-> +            break;
-> +        memcpy(&s->range, s->buf + o, sizeof(s->range));
-> +        o +=3D sizeof(s->range);
-> +    }
-> +
-> +    /* Collect any remaining bytes for the next struct ffa_address_range=
- */
-> +    s->range_offset =3D frag_len - o;
-> +    memcpy(&s->range, s->buf + o, frag_len - o);
-> +out:
-> +    s->frag_offset +=3D frag_len;
-> +
-> +    return s->frag_offset;
-> +}
-
-Overall the processing in this function is not quite clear so we either nee=
-d
-to add comments to explain it more or find a better way to implement to mak=
-e
-it a bit clearer.
-
-The implementation for fragmented memory sharing requests here is very
-complex and I am not quite feeling confident that it does not contains bugs=
+On Wed, Jul 19, 2023 at 11:19=E2=80=AFAM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 19 Jul 2023, at 10:27, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Hi Bertrand,
+> >
+> > On Tue, Jul 18, 2023 at 12:05=E2=80=AFPM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 17 Jul 2023, at 09:20, Jens Wiklander <jens.wiklander@linaro.org> =
+wrote:
+> >>>
+> >>> The FF-A specification defines framework messages sent as direct
+> >>> requests when certain events occurs. For instance when a VM (guest) i=
+s
+> >>> created or destroyed. Only SPs which have subscribed to these events
+> >>> will receive them. An SP can subscribe to these messages in its
+> >>> partition properties.
+> >>>
+> >>> Adds a check that the SP supports the needed FF-A features
+> >>> FFA_PARTITION_INFO_GET and FFA_RX_RELEASE.
+> >>>
+> >>> The partition properties of each SP is retrieved with
+> >>> FFA_PARTITION_INFO_GET which returns the information in our RX buffer=
 .
-
-As this is not something required to have optee support, I would suggest to
-discard this part for now in the support.
-
-What do you think ?
-
-Cheers
-Bertrand
-
-> +
-> static void handle_mem_share(struct cpu_user_regs *regs)
-> {
-> +    static uint64_t next_handle =3D FFA_HANDLE_HYP_FLAG;
->     uint32_t tot_len =3D get_user_reg(regs, 1);
->     uint32_t frag_len =3D get_user_reg(regs, 2);
->     uint64_t addr =3D get_user_reg(regs, 3);
-> @@ -1168,13 +1299,6 @@ static void handle_mem_share(struct cpu_user_regs =
+> >>> Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to th=
+e
+> >>> caller (us), so once we're done with the buffer it must be released
+> >>> using FFA_RX_RELEASE before another call can be made.
+> >>>
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>> xen/arch/arm/tee/ffa.c | 233 ++++++++++++++++++++++++++++++++++++++++=
+-
+> >>> 1 file changed, 231 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>> index f8ccaabc568d..d755363de686 100644
+> >>> --- a/xen/arch/arm/tee/ffa.c
+> >>> +++ b/xen/arch/arm/tee/ffa.c
+> >>> @@ -160,14 +160,33 @@
+> >>> #define FFA_MSG_SEND                    0x8400006EU
+> >>> #define FFA_MSG_POLL                    0x8400006AU
+> >>>
+> >>> +/* Partition information descriptor */
+> >>> +struct ffa_partition_info_1_1 {
+> >>> +    uint16_t id;
+> >>> +    uint16_t execution_context;
+> >>> +    uint32_t partition_properties;
+> >>> +    uint8_t uuid[16];
+> >>> +};
+> >>> +
+> >>> struct ffa_ctx {
+> >>>    /* FF-A version used by the guest */
+> >>>    uint32_t guest_vers;
+> >>> +    /*
+> >>> +     * Number of SPs that we have sent a VM created signal to, used =
+in
+> >>> +     * ffa_domain_teardown() to know which SPs need to be signalled.
+> >>> +     */
+> >>> +    uint16_t create_signal_count;
+> >>> };
+> >>>
+> >>> /* Negotiated FF-A version to use with the SPMC */
+> >>> static uint32_t __ro_after_init ffa_version;
+> >>>
+> >>> +/* SPs subscribing to VM_CREATE and VM_DESTROYED events */
+> >>> +static uint16_t *subscr_vm_created __read_mostly;
+> >>> +static uint16_t subscr_vm_created_count __read_mostly;
+> >>> +static uint16_t *subscr_vm_destroyed __read_mostly;
+> >>> +static uint16_t subscr_vm_destroyed_count __read_mostly;
+> >>> +
+> >>> /*
+> >>> * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
+> >>> * number of pages used in each of these buffers.
+> >>> @@ -251,6 +270,87 @@ static int32_t ffa_rxtx_map(paddr_t tx_addr, pad=
+dr_t rx_addr,
+> >>>    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_cou=
+nt, 0);
+> >>> }
+> >>>
+> >>> +static int32_t ffa_partition_info_get(uint32_t w1, uint32_t w2, uint=
+32_t w3,
+> >>> +                                      uint32_t w4, uint32_t w5,
+> >>> +                                      uint32_t *count)
+> >>> +{
+> >>> +    const struct arm_smccc_1_2_regs arg =3D {
+> >>> +        .a0 =3D FFA_PARTITION_INFO_GET,
+> >>> +        .a1 =3D w1,
+> >>> +        .a2 =3D w2,
+> >>> +        .a3 =3D w3,
+> >>> +        .a4 =3D w4,
+> >>> +        .a5 =3D w5,
+> >>> +    };
+> >>> +    struct arm_smccc_1_2_regs resp;
+> >>> +    uint32_t ret;
+> >>> +
+> >>> +    arm_smccc_1_2_smc(&arg, &resp);
+> >>> +
+> >>> +    ret =3D get_ffa_ret_code(&resp);
+> >>> +    if ( !ret )
+> >>> +        *count =3D resp.a2;
+> >>> +
+> >>> +    return ret;
+> >>> +}
+> >>> +
+> >>> +static int32_t ffa_rx_release(void)
+> >>> +{
+> >>> +    return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+> >>> +}
+> >>> +
+> >>> +static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id=
+,
+> >>> +                                      uint8_t msg)
+> >>> +{
+> >>> +    uint32_t exp_resp =3D FFA_MSG_FLAG_FRAMEWORK;
+> >>> +    unsigned int retry_count =3D 0;
+> >>> +    int32_t res;
+> >>> +
+> >>> +    if ( msg =3D=3D FFA_MSG_SEND_VM_CREATED )
+> >>> +        exp_resp |=3D FFA_MSG_RESP_VM_CREATED;
+> >>> +    else if ( msg =3D=3D FFA_MSG_SEND_VM_DESTROYED )
+> >>> +        exp_resp |=3D FFA_MSG_RESP_VM_DESTROYED;
+> >>> +    else
+> >>> +        return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +    do {
+> >>> +        const struct arm_smccc_1_2_regs arg =3D {
+> >>> +            .a0 =3D FFA_MSG_SEND_DIRECT_REQ_32,
+> >>> +            .a1 =3D sp_id,
+> >>> +            .a2 =3D FFA_MSG_FLAG_FRAMEWORK | msg,
+> >>> +            .a5 =3D vm_id,
+> >>> +        };
+> >>> +        struct arm_smccc_1_2_regs resp;
+> >>> +
+> >>> +        arm_smccc_1_2_smc(&arg, &resp);
+> >>> +        if ( resp.a0 !=3D FFA_MSG_SEND_DIRECT_RESP_32 || resp.a2 !=
+=3D exp_resp )
+> >>> +        {
+> >>> +            /*
+> >>> +             * This is an invalid response, likely due to some error=
+ in the
+> >>> +             * implementation of the ABI.
+> >>> +             */
+> >>> +            return FFA_RET_INVALID_PARAMETERS;
+> >>> +        }
+> >>> +        res =3D resp.a3;
+> >>> +        if ( ++retry_count > 10 )
+> >>> +        {
+> >>> +            /*
+> >>> +             * TODO
+> >>> +             * FFA_RET_INTERRUPTED means that the SPMC has a pending
+> >>> +             * non-secure interrupt, we need a way of delivering tha=
+t
+> >>> +             * non-secure interrupt.
+> >>> +             * FFA_RET_RETRY is the SP telling us that it's temporar=
+ily
+> >>> +             * blocked from handling the direct request, we need a g=
+eneric
+> >>> +             * way to deal with this.
+> >>> +             * For now in both cases, give up after a few retries.
+> >>> +             */
+> >>> +            return res;
+> >>> +        }
+> >>> +    } while ( res =3D=3D FFA_RET_INTERRUPTED || res =3D=3D FFA_RET_R=
+ETRY );
+> >>> +
+> >>> +    return res;
+> >>> +}
+> >>> +
+> >>> static uint16_t get_vm_id(const struct domain *d)
+> >>> {
+> >>>    /* +1 since 0 is reserved for the hypervisor in FF-A */
+> >>> @@ -374,6 +474,8 @@ static bool ffa_handle_call(struct cpu_user_regs =
 *regs)
->         goto out_set_ret;
->     }
->=20
-> -    /* We currently only support a single fragment */
-> -    if ( frag_len !=3D tot_len )
-> -    {
-> -        ret =3D FFA_RET_NOT_SUPPORTED;
-> -        goto out_set_ret;
-> -    }
-> -
->     spin_lock(&ctx->lock);
->=20
->     if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
-> @@ -1240,6 +1364,36 @@ static void handle_mem_share(struct cpu_user_regs =
-*regs)
->     shm->sender_id =3D trans.sender_id;
->     shm->ep_id =3D read_atomic(&mem_access->access_perm.endpoint_id);
->=20
-> +    if ( frag_len !=3D tot_len )
-> +    {
-> +        struct mem_frag_state *s =3D xzalloc(struct mem_frag_state);
-> +
-> +        if ( !s )
-> +        {
-> +            ret =3D FFA_RET_NO_MEMORY;
-> +            goto out;
-> +        }
-> +        s->shm =3D shm;
-> +        s->range_count =3D range_count;
-> +        s->buf =3D ctx->tx;
-> +        s->buf_size =3D FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE;
-> +        ret =3D add_mem_share_frag(s, sizeof(*region_descr)  + region_of=
-fs,
-> +                                 frag_len);
-> +        if ( ret <=3D 0 )
-> +        {
-> +            xfree(s);
-> +            if ( ret < 0 )
-> +                goto out;
-> +        }
-> +        else
-> +        {
-> +            shm->handle =3D next_handle++;
-> +            uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
-> +            list_add_tail(&s->list, &ctx->frag_list);
-> +        }
-> +        goto out_unlock;
-> +    }
-> +
->     /*
->      * Check that the Composite memory region descriptor fits.
->      */
-> @@ -1278,7 +1432,75 @@ out_unlock:
->     spin_unlock(&ctx->lock);
->=20
-> out_set_ret:
-> -    if ( ret =3D=3D 0)
-> +    if ( ret > 0 )
-> +            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, trans.send=
-er_id);
-> +    else if ( ret =3D=3D 0)
-> +            set_regs_success(regs, handle_lo, handle_hi);
-> +    else
-> +            set_regs_error(regs, ret);
-> +}
-> +
-> +static struct mem_frag_state *find_frag_state(struct ffa_ctx *ctx,
-> +                                              uint64_t handle)
-> +{
-> +    struct mem_frag_state *s;
-> +
-> +    list_for_each_entry(s, &ctx->frag_list, list)
-> +        if ( s->shm->handle =3D=3D handle )
-> +            return s;
-> +
-> +    return NULL;
-> +}
-> +
-> +static void handle_mem_frag_tx(struct cpu_user_regs *regs)
-> +{
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +    uint32_t frag_len =3D get_user_reg(regs, 3);
-> +    uint32_t handle_lo =3D get_user_reg(regs, 1);
-> +    uint32_t handle_hi =3D get_user_reg(regs, 2);
-> +    uint64_t handle =3D regpair_to_uint64(handle_hi, handle_lo);
-> +    struct mem_frag_state *s;
-> +    uint16_t sender_id =3D 0;
-> +    int ret;
-> +
-> +    spin_lock(&ctx->lock);
-> +    s =3D find_frag_state(ctx, handle);
-> +    if ( !s )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out;
-> +    }
-> +    sender_id =3D s->shm->sender_id;
-> +
-> +    if ( frag_len > s->buf_size )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out_free_s;
-> +    }
-> +
-> +    ret =3D add_mem_share_frag(s, 0, frag_len);
-> +    if ( ret < 0 )
-> +        goto out_free_s;
-> +
-> +    /* Note that share_shm() uses our tx buffer */
-> +    spin_lock(&ffa_tx_buffer_lock);
-> +    ret =3D share_shm(s->shm);
-> +    spin_unlock(&ffa_tx_buffer_lock);
-> +    if ( ret < 0 )
-> +        goto out_free_s;
-> +    list_add_tail(&s->shm->list, &ctx->shm_list);
-> +out_free_s:
-> +    if ( ret < 0 )
-> +        free_ffa_shm_mem(ctx, s->shm);
-> +    list_del(&s->list);
-> +    xfree(s);
-> +out:
-> +    spin_unlock(&ctx->lock);
-> +
-> +    if ( ret > 0 )
-> +            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, sender_id)=
+> >>> static int ffa_domain_init(struct domain *d)
+> >>> {
+> >>>    struct ffa_ctx *ctx;
+> >>> +    unsigned int n;
+> >>> +    int32_t res;
+> >>>
+> >>>    if ( !ffa_version )
+> >>>        return -ENODEV;
+> >>> @@ -387,20 +489,68 @@ static int ffa_domain_init(struct domain *d)
+> >>>    ctx =3D xzalloc(struct ffa_ctx);
+> >>>    if ( !ctx )
+> >>>        return -ENOMEM;
+> >>> -
+> >>
+> >> This line removal does not seem to be intended.
+> >
+> > Right, I'll restore it.
+> >
+> >>
+> >>>    d->arch.tee =3D ctx;
+> >>>
+> >>> +    for ( n =3D 0; n < subscr_vm_created_count; n++ )
+> >>> +    {
+> >>> +        res =3D ffa_direct_req_send_vm(subscr_vm_created[n], get_vm_=
+id(d),
+> >>> +                                     FFA_MSG_SEND_VM_CREATED);
+> >>> +        if ( res )
+> >>> +        {
+> >>> +            printk(XENLOG_ERR "ffa: Failed to report creation of vm_=
+id %u to  %u: res %d\n",
+> >>> +                   get_vm_id(d), subscr_vm_created[n], res);
+> >>> +            ctx->create_signal_count =3D n;
+> >>> +            return -EIO;
+> >>> +        }
+> >>> +    }
+> >>> +    ctx->create_signal_count =3D n;
+> >>
+> >> For clarity here, i would do:
+> >> signal_count =3D subscr_vm_created_count
+> >
+> > OK, I'll update.
+> >
+> >>
+> >>> +
+> >>>    return 0;
+> >>> }
+> >>>
+> >>> +static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start=
+,
+> >>> +                              uint16_t end, uint16_t vm_id)
+> >>> +{
+> >>> +    unsigned int n;
+> >>> +
+> >>> +    for (n =3D start; n < end; n++)
+> >>
+> >> Coding style, missing spaces
+> >>
+> >>> +    {
+> >>> +        if (subscr[n] =3D=3D vm_id)
+> >>
+> >> Coding style, missing spaces
+> >
+> > I'm fixing the style issues.
+> >
+> >>
+> >>> +            return true;
+> >>> +    }
+> >>> +
+> >>> +    return false;
+> >>> +}
+> >>> +
+> >>> /* This function is supposed to undo what ffa_domain_init() has done =
+*/
+> >>> static int ffa_domain_teardown(struct domain *d)
+> >>> {
+> >>>    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>> +    unsigned int n;
+> >>> +    int32_t res;
+> >>>
+> >>>    if ( !ctx )
+> >>>        return 0;
+> >>>
+> >>> +    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
+> >>> +    {
+> >>> +        /*
+> >>> +         * Skip SPs subscribed to the VM created event that never wa=
+s
+> >>> +         * notified of the VM creation due to an error during
+> >>> +         * ffa_domain_init().
+> >>> +         */
+> >>> +        if ( is_in_subscr_list(subscr_vm_created, ctx->create_signal=
+_count,
+> >>> +                               subscr_vm_created_count, get_vm_id(d)=
+) )
+> >>> +            continue;
+> >>
+> >> I am not following the logic here and would need some explanations.
+> >>
+> >> A SP is subscribing to be informed of any VM creation, but here you ch=
+eck
+> >> the list against the VM ID that is destroyed.
+> >>
+> >> Also a SP could subscribe to be informed of VM destroyed but not VM cr=
+eated.
+> >>
+> >> In my head the logic should be:
+> >> if (signal_count < subscr_vm_created_count)
+> >>        for each sp in subscr_vm_created
+> >>                if is_in_list subscr_vm_destroyed sp
+> >>                        send_destroyed
+> >> else
+> >>        for each subscr_vm_destroyed
+> >>                send_destroyed
+> >
+> > The call to is_in_subscr_list() will only match SPs that have not yet
+> > received an expected VM creation event. If all SPs subscribed to the
+> > VM creation event have been notified, then is_in_subscr_list() will
+> > match nothing. The idea is that if an SP has subscribed to both create
+> > and destroy events then it might not expect a destroy event unless it
+> > has already received a create event. However, SPs only subscribed to
+> > destroy-events don't care if all create-events have been sent or not,
+> > they should be notified unconditionally.
+> >
+> > Does it make sense to you?
+>
+> The logic makes sense but the code is checking subscriber[n] againt the V=
+M ID
+> being destroyed which does not make sense.
+
+You're right, I'll update the patch.
+
+> The subscriber list contains a list of SP ID, none of the entries will ma=
+tch the VM
+> ID being destroyed.
+> What needs to be tested is if someone in the created subscribers that was=
+ signaled
+> already is in the destroy subscribers so that it needs to be signaled.
+
+Yes, I have unfortunately only one SP in my setup.
+
+Thanks,
+Jens
+
+>
+> Cheers
+> Bertrand
+>
+> >
+> >>
+> >>
+> >>> +
+> >>> +        res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_v=
+m_id(d),
+> >>> +                                     FFA_MSG_SEND_VM_DESTROYED);
+> >>> +
+> >>> +        if ( res )
+> >>> +            printk(XENLOG_ERR "ffa: Failed to report destruction of =
+vm_id %u to  %u: res %d\n",
+> >>> +                   get_vm_id(d), subscr_vm_destroyed[n], res);
+> >>> +    }
+> >>> +
+> >>>    XFREE(d->arch.tee);
+> >>>
+> >>>    return 0;
+> >>> @@ -411,6 +561,81 @@ static int ffa_relinquish_resources(struct domai=
+n *d)
+> >>>    return 0;
+> >>> }
+> >>>
+> >>> +static void uninit_subscribers(void)
+> >>> +{
+> >>> +        subscr_vm_created_count =3D 0;
+> >>> +        subscr_vm_destroyed_count =3D 0;
+> >>> +        XFREE(subscr_vm_created);
+> >>> +        XFREE(subscr_vm_destroyed);
+> >>> +}
+> >>> +
+> >>> +static bool init_subscribers(struct ffa_partition_info_1_1 *fpi, uin=
+t16_t count)
+> >>> +{
+> >>> +    uint16_t n;
+> >>> +    uint16_t c_pos;
+> >>> +    uint16_t d_pos;
+> >>> +
+> >>> +    subscr_vm_created_count =3D 0;
+> >>> +    subscr_vm_destroyed_count =3D 0;
+> >>> +    for ( n =3D 0; n < count; n++ )
+> >>> +    {
+> >>> +        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATE=
+D)
+> >> Coding style: spaces
+> >>
+> >>> +            subscr_vm_created_count++;
+> >>> +        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTRO=
+YED)
+> >> Coding style: spaces
+> >
+> > I'll fix the style issues.
+> >
+> > Thanks,
+> > Jens
+> >
+> >>
+> >> Cheers
+> >> Bertrand
+> >>
+> >>> +            subscr_vm_destroyed_count++;
+> >>> +    }
+> >>> +
+> >>> +    if ( subscr_vm_created_count )
+> >>> +        subscr_vm_created =3D xzalloc_array(uint16_t, subscr_vm_crea=
+ted_count);
+> >>> +    if ( subscr_vm_destroyed_count )
+> >>> +        subscr_vm_destroyed =3D xzalloc_array(uint16_t,
+> >>> +                                            subscr_vm_destroyed_coun=
+t);
+> >>> +    if ( (subscr_vm_created_count && !subscr_vm_created) ||
+> >>> +         (subscr_vm_destroyed_count && !subscr_vm_destroyed) )
+> >>> +    {
+> >>> +        printk(XENLOG_ERR "ffa: Failed to allocate subscription list=
+s\n");
+> >>> +        uninit_subscribers();
+> >>> +        return false;
+> >>> +    }
+> >>> +
+> >>> +    for ( c_pos =3D 0, d_pos =3D 0, n =3D 0; n < count; n++ )
+> >>> +    {
+> >>> +        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREAT=
+ED )
+> >>> +            subscr_vm_created[c_pos++] =3D fpi[n].id;
+> >>> +        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTR=
+OYED )
+> >>> +            subscr_vm_destroyed[d_pos++] =3D fpi[n].id;
+> >>> +    }
+> >>> +
+> >>> +    return true;
+> >>> +}
+> >>> +
+> >>> +static bool init_sps(void)
+> >>> +{
+> >>> +    bool ret =3D false;
+> >>> +    uint32_t count;
+> >>> +    int e;
+> >>> +
+> >>> +    e =3D ffa_partition_info_get(0, 0, 0, 0, 0, &count);
+> >>> +    if ( e )
+> >>> +    {
+> >>> +        printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e)=
 ;
-> +    else if ( ret =3D=3D 0)
->             set_regs_success(regs, handle_lo, handle_hi);
->     else
->             set_regs_error(regs, ret);
-> @@ -1391,6 +1613,9 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
-egs)
->         else
->             set_regs_success(regs, 0, 0);
->         return true;
-> +    case FFA_MEM_FRAG_TX:
-> +        handle_mem_frag_tx(regs);
-> +        return true;
->=20
->     default:
->         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> @@ -1432,6 +1657,7 @@ static int ffa_domain_init(struct domain *d)
->     }
->     ctx->create_signal_count =3D n;
->=20
-> +    INIT_LIST_HEAD(&ctx->frag_list);
->     INIT_LIST_HEAD(&ctx->shm_list);
->=20
->     return 0;
-> @@ -1625,6 +1851,7 @@ static bool ffa_probe(void)
->          !check_mandatory_feature(FFA_MEM_SHARE_64) ||
->          !check_mandatory_feature(FFA_RXTX_UNMAP) ||
->          !check_mandatory_feature(FFA_MEM_SHARE_32) ||
-> +         !check_mandatory_feature(FFA_MEM_FRAG_TX) ||
->          !check_mandatory_feature(FFA_MEM_RECLAIM) ||
->          !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
->         return false;
-> --=20
-> 2.34.1
->=20
-
+> >>> +        goto out;
+> >>> +    }
+> >>> +
+> >>> +    if ( count >=3D UINT16_MAX )
+> >>> +    {
+> >>> +        printk(XENLOG_ERR "ffa: Impossible number of SPs: %u\n", cou=
+nt);
+> >>> +        goto out;
+> >>> +    }
+> >>> +
+> >>> +    ret =3D init_subscribers(ffa_rx, count);
+> >>> +
+> >>> +out:
+> >>> +    ffa_rx_release();
+> >>> +
+> >>> +    return ret;
+> >>> +}
+> >>> +
+> >>> static bool ffa_probe(void)
+> >>> {
+> >>>    uint32_t vers;
+> >>> @@ -462,7 +687,8 @@ static bool ffa_probe(void)
+> >>>     * TODO: Rework the code to allow domain to use a subset of the
+> >>>     * features supported.
+> >>>     */
+> >>> -    if (
+> >>> +    if ( !check_mandatory_feature(FFA_PARTITION_INFO_GET) ||
+> >>> +         !check_mandatory_feature(FFA_RX_RELEASE) ||
+> >>>         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
+> >>>         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
+> >>>         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> >>> @@ -484,6 +710,9 @@ static bool ffa_probe(void)
+> >>>    }
+> >>>    ffa_version =3D vers;
+> >>>
+> >>> +    if ( !init_sps() )
+> >>> +        goto err_free_ffa_tx;
+> >>> +
+> >>>    return true;
+> >>>
+> >>> err_free_ffa_tx:
+> >>> --
+> >>> 2.34.1
+>
+>
 
