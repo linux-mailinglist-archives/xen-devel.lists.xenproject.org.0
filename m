@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C44C75976A
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 15:53:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565881.884470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F099B75978B
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 15:58:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565888.884480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7bi-0002P9-V8; Wed, 19 Jul 2023 13:52:46 +0000
+	id 1qM7gd-0003Js-LE; Wed, 19 Jul 2023 13:57:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565881.884470; Wed, 19 Jul 2023 13:52:46 +0000
+Received: by outflank-mailman (output) from mailman id 565888.884480; Wed, 19 Jul 2023 13:57:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7bi-0002MC-RO; Wed, 19 Jul 2023 13:52:46 +0000
-Received: by outflank-mailman (input) for mailman id 565881;
- Wed, 19 Jul 2023 13:52:45 +0000
+	id 1qM7gd-0003HG-HN; Wed, 19 Jul 2023 13:57:51 +0000
+Received: by outflank-mailman (input) for mailman id 565888;
+ Wed, 19 Jul 2023 13:57:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bnZ=DF=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qM7bh-0002M6-0r
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 13:52:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Vyro=DF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qM7gb-0003HA-O5
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 13:57:49 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88c1671e-263b-11ee-b23a-6b7b168915f2;
- Wed, 19 Jul 2023 15:52:43 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.160.140.35])
- by support.bugseng.com (Postfix) with ESMTPSA id 1D4B64EE0C89;
- Wed, 19 Jul 2023 15:52:42 +0200 (CEST)
+ id 3d9e1caa-263c-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 15:57:47 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 786D91FF6F;
+ Wed, 19 Jul 2023 13:57:46 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4DBD51361C;
+ Wed, 19 Jul 2023 13:57:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ej0jEdrrt2T9NgAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 19 Jul 2023 13:57:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,304 +51,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88c1671e-263b-11ee-b23a-6b7b168915f2
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN PATCH v2] x86/HVM: address violations of MISRA C:2012 Rules 8.2 and 8.3
-Date: Wed, 19 Jul 2023 15:52:31 +0200
-Message-Id: <589e9c2ef5f13bf0c035b63f7b2e24fbbb878543.1689773180.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 3d9e1caa-263c-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1689775066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+dcoVh2Imd0JCt8381sL4NIu6dgAuqBXMhcvOaYOEko=;
+	b=SHyC7f2qgnSHa9zAZ3ZEQernAoRsA61ckM49+rADC/sA6hbPFpxx0bDRtJnqwfBsgBRzVy
+	zQP6GrcuB060x9vfL2YrETfPokeuOXrmzxQZbyDRjVGrUtiIplCppMuzoO2j1x8jhVqVdf
+	Jf5E/MmypyYQkStjBXw8Eae/6k5Xzn4=
+Message-ID: <75b8d969-7f95-7e87-9f9f-7d99c97365e7@suse.com>
+Date: Wed, 19 Jul 2023 15:57:45 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read
+ functions
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230710065947.4201-1-jgross@suse.com>
+ <20230710065947.4201-19-jgross@suse.com>
+ <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
+ <32cd8b9f-8afa-2cde-3815-82edc7052535@suse.com>
+ <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JEdwe5XNr7mCIBK7su86n1Bd"
 
-Give a name to unnamed parameters thus addressing violations of
-MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
-named parameters").
-Keep consistency between parameter names and types used in function
-declarations and the ones used in the corresponding function
-definitions, thus addressing violations of MISRA C:2012 Rule 8.3
-("All declarations of an object or function shall use the same names
-and type qualifiers").
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JEdwe5XNr7mCIBK7su86n1Bd
+Content-Type: multipart/mixed; boundary="------------lhT0Utq61VgYwFfKO0IMK9vm";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <75b8d969-7f95-7e87-9f9f-7d99c97365e7@suse.com>
+Subject: Re: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read
+ functions
+References: <20230710065947.4201-1-jgross@suse.com>
+ <20230710065947.4201-19-jgross@suse.com>
+ <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
+ <32cd8b9f-8afa-2cde-3815-82edc7052535@suse.com>
+ <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
+In-Reply-To: <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
 
-No functional changes.
+--------------lhT0Utq61VgYwFfKO0IMK9vm
+Content-Type: multipart/mixed; boundary="------------tyvmTuSjRYhcf0uBgPw0grbQ"
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v2:
-  - u64 vs uint64_t mismatches are solved in favor of the stdint types.
----
- xen/arch/x86/hvm/domain.c              |  2 +-
- xen/arch/x86/hvm/hvm.c                 |  6 +++---
- xen/arch/x86/hvm/rtc.c                 | 12 ++++++------
- xen/arch/x86/hvm/svm/nestedsvm.c       |  8 ++++----
- xen/arch/x86/hvm/vioapic.c             |  2 +-
- xen/arch/x86/include/asm/hvm/domain.h  |  2 +-
- xen/arch/x86/include/asm/hvm/hvm.h     | 18 +++++++++---------
- xen/arch/x86/include/asm/hvm/irq.h     | 14 +++++++-------
- xen/arch/x86/include/asm/hvm/save.h    |  4 ++--
- xen/arch/x86/include/asm/hvm/support.h |  2 +-
- 10 files changed, 35 insertions(+), 35 deletions(-)
+--------------tyvmTuSjRYhcf0uBgPw0grbQ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/xen/arch/x86/hvm/domain.c b/xen/arch/x86/hvm/domain.c
-index 7692ee24c2..7f6e362a70 100644
---- a/xen/arch/x86/hvm/domain.c
-+++ b/xen/arch/x86/hvm/domain.c
-@@ -100,7 +100,7 @@ static int check_segment(struct segment_register *reg, enum x86_segment seg)
- }
- 
- /* Called by VCPUOP_initialise for HVM guests. */
--int arch_set_info_hvm_guest(struct vcpu *v, const vcpu_hvm_context_t *ctx)
-+int arch_set_info_hvm_guest(struct vcpu *v, const struct vcpu_hvm_context *ctx)
- {
-     const struct domain *d = v->domain;
-     struct cpu_user_regs *uregs = &v->arch.user_regs;
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 57363c2ae1..28d131a202 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -272,7 +272,7 @@ uint8_t hvm_combine_hw_exceptions(uint8_t vec1, uint8_t vec2)
-     return X86_EXC_DF;
- }
- 
--void hvm_set_rdtsc_exiting(struct domain *d, bool_t enable)
-+void hvm_set_rdtsc_exiting(struct domain *d, bool enable)
- {
-     struct vcpu *v;
- 
-@@ -280,7 +280,7 @@ void hvm_set_rdtsc_exiting(struct domain *d, bool_t enable)
-         alternative_vcall(hvm_funcs.set_rdtsc_exiting, v, enable);
- }
- 
--void hvm_get_guest_pat(struct vcpu *v, u64 *guest_pat)
-+void hvm_get_guest_pat(struct vcpu *v, uint64_t *guest_pat)
- {
-     if ( !alternative_call(hvm_funcs.get_guest_pat, v, guest_pat) )
-         *guest_pat = v->arch.hvm.pat_cr;
-@@ -426,7 +426,7 @@ static void hvm_set_guest_tsc_adjust(struct vcpu *v, u64 tsc_adjust)
-         update_vcpu_system_time(v);
- }
- 
--u64 hvm_get_guest_tsc_fixed(struct vcpu *v, uint64_t at_tsc)
-+uint64_t hvm_get_guest_tsc_fixed(struct vcpu *v, uint64_t at_tsc)
- {
-     uint64_t tsc;
- 
-diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
-index c1ab6c7d58..4a586342ce 100644
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -559,17 +559,17 @@ static inline int from_bcd(RTCState *s, int a)
- 
- /* Hours in 12 hour mode are in 1-12 range, not 0-11.
-  * So we need convert it before using it*/
--static inline int convert_hour(RTCState *s, int raw)
-+static inline int convert_hour(RTCState *s, int hour)
- {
--    int hour = from_bcd(s, raw & 0x7f);
-+    int ret = from_bcd(s, hour & 0x7f);
- 
-     if (!(s->hw.cmos_data[RTC_REG_B] & RTC_24H))
-     {
--        hour %= 12;
--        if (raw & 0x80)
--            hour += 12;
-+        ret %= 12;
-+        if (hour & 0x80)
-+            ret += 12;
-     }
--    return hour;
-+    return ret;
- }
- 
- static void rtc_set_time(RTCState *s)
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index 5d74863268..a09b6abaae 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -837,12 +837,12 @@ nsvm_vcpu_vmexit_inject(struct vcpu *v, struct cpu_user_regs *regs,
- }
- 
- int cf_check nsvm_vcpu_vmexit_event(
--    struct vcpu *v, const struct x86_event *trap)
-+    struct vcpu *v, const struct x86_event *event)
- {
-     ASSERT(vcpu_nestedhvm(v).nv_vvmcx != NULL);
- 
--    nestedsvm_vmexit_defer(v, VMEXIT_EXCEPTION_DE + trap->vector,
--                           trap->error_code, trap->cr2);
-+    nestedsvm_vmexit_defer(v, VMEXIT_EXCEPTION_DE + event->vector,
-+                           event->error_code, event->cr2);
-     return NESTEDHVM_VMEXIT_DONE;
- }
- 
-@@ -1538,7 +1538,7 @@ nestedsvm_vcpu_interrupt(struct vcpu *v, const struct hvm_intack intack)
-     return NSVM_INTR_NOTINTERCEPTED;
- }
- 
--bool_t
-+bool
- nestedsvm_gif_isset(struct vcpu *v)
- {
-     struct nestedsvm *svm = &vcpu_nestedsvm(v);
-diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-index 41e3c4d5e4..4e40d3609a 100644
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -43,7 +43,7 @@
- /* HACK: Route IRQ0 only to VCPU0 to prevent time jumps. */
- #define IRQ0_SPECIAL_ROUTING 1
- 
--static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int irq);
-+static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin);
- 
- static struct hvm_vioapic *addr_vioapic(const struct domain *d,
-                                         unsigned long addr)
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 02c32cf26d..6e53ce4449 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -47,7 +47,7 @@ struct hvm_pi_ops {
-      * Hook into arch_vcpu_block(), which is called
-      * from vcpu_block() and vcpu_do_poll().
-      */
--    void (*vcpu_block)(struct vcpu *);
-+    void (*vcpu_block)(struct vcpu *v);
- };
- 
- struct hvm_domain {
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 3c37f522b9..3aa5091f44 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -151,8 +151,8 @@ struct hvm_function_table {
- 
-     void (*fpu_leave)(struct vcpu *v);
- 
--    int  (*get_guest_pat)(struct vcpu *v, u64 *);
--    int  (*set_guest_pat)(struct vcpu *v, u64);
-+    int  (*get_guest_pat)(struct vcpu *v, uint64_t *gpat);
-+    int  (*set_guest_pat)(struct vcpu *v, uint64_t gpat);
- 
-     void (*set_tsc_offset)(struct vcpu *v, u64 offset, u64 at_tsc);
- 
-@@ -180,8 +180,8 @@ struct hvm_function_table {
-     int (*msr_write_intercept)(unsigned int msr, uint64_t msr_content);
-     void (*handle_cd)(struct vcpu *v, unsigned long value);
-     void (*set_info_guest)(struct vcpu *v);
--    void (*set_rdtsc_exiting)(struct vcpu *v, bool_t);
--    void (*set_descriptor_access_exiting)(struct vcpu *v, bool);
-+    void (*set_rdtsc_exiting)(struct vcpu *v, bool enable);
-+    void (*set_descriptor_access_exiting)(struct vcpu *v, bool enable);
- 
-     /* Nested HVM */
-     int (*nhvm_vcpu_initialise)(struct vcpu *v);
-@@ -265,10 +265,10 @@ int hvm_vcpu_cacheattr_init(struct vcpu *v);
- void hvm_vcpu_cacheattr_destroy(struct vcpu *v);
- void hvm_vcpu_reset_state(struct vcpu *v, uint16_t cs, uint16_t ip);
- 
--void hvm_get_guest_pat(struct vcpu *v, u64 *guest_pat);
--int hvm_set_guest_pat(struct vcpu *v, u64 guest_pat);
-+void hvm_get_guest_pat(struct vcpu *v, uint64_t *guest_pat);
-+int hvm_set_guest_pat(struct vcpu *v, uint64_t guest_pat);
- 
--u64 hvm_get_guest_tsc_fixed(struct vcpu *v, u64 at_tsc);
-+uint64_t hvm_get_guest_tsc_fixed(struct vcpu *v, uint64_t at_tsc);
- 
- u64 hvm_scale_tsc(const struct domain *d, u64 tsc);
- u64 hvm_get_tsc_scaling_ratio(u32 gtsc_khz);
-@@ -282,7 +282,7 @@ int vmsi_deliver(
-     uint8_t dest, uint8_t dest_mode,
-     uint8_t delivery_mode, uint8_t trig_mode);
- struct hvm_pirq_dpci;
--void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *);
-+void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci);
- int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode);
- 
- enum hvm_intblk
-@@ -350,7 +350,7 @@ void *hvm_map_guest_frame_rw(unsigned long gfn, bool_t permanent,
-                              bool_t *writable);
- void *hvm_map_guest_frame_ro(unsigned long gfn, bool_t permanent);
- void hvm_unmap_guest_frame(void *p, bool_t permanent);
--void hvm_mapped_guest_frames_mark_dirty(struct domain *);
-+void hvm_mapped_guest_frames_mark_dirty(struct domain *d);
- 
- int hvm_debug_op(struct vcpu *v, int32_t op);
- 
-diff --git a/xen/arch/x86/include/asm/hvm/irq.h b/xen/arch/x86/include/asm/hvm/irq.h
-index 2d136ab99b..1817ca6e2d 100644
---- a/xen/arch/x86/include/asm/hvm/irq.h
-+++ b/xen/arch/x86/include/asm/hvm/irq.h
-@@ -160,17 +160,17 @@ struct hvm_pirq_dpci {
-     struct list_head softirq_list;
- };
- 
--void pt_pirq_init(struct domain *, struct hvm_pirq_dpci *);
--bool pt_pirq_cleanup_check(struct hvm_pirq_dpci *);
-+void pt_pirq_init(struct domain *d, struct hvm_pirq_dpci *dpci);
-+bool pt_pirq_cleanup_check(struct hvm_pirq_dpci *dpci);
- int pt_pirq_iterate(struct domain *d,
--                    int (*cb)(struct domain *,
--                              struct hvm_pirq_dpci *, void *arg),
-+                    int (*cb)(struct domain *d,
-+                              struct hvm_pirq_dpci *dpci, void *arg),
-                     void *arg);
- 
- #ifdef CONFIG_HVM
--bool pt_pirq_softirq_active(struct hvm_pirq_dpci *);
-+bool pt_pirq_softirq_active(struct hvm_pirq_dpci *pirq_dpci);
- #else
--static inline bool pt_pirq_softirq_active(struct hvm_pirq_dpci *dpci)
-+static inline bool pt_pirq_softirq_active(struct hvm_pirq_dpci *pirq_dpci)
- {
-     return false;
- }
-@@ -211,6 +211,6 @@ void hvm_assert_evtchn_irq(struct vcpu *v);
- void hvm_set_callback_via(struct domain *d, uint64_t via);
- 
- struct pirq;
--bool hvm_domain_use_pirq(const struct domain *, const struct pirq *);
-+bool hvm_domain_use_pirq(const struct domain *d, const struct pirq *pirq);
- 
- #endif /* __ASM_X86_HVM_IRQ_H__ */
-diff --git a/xen/arch/x86/include/asm/hvm/save.h b/xen/arch/x86/include/asm/hvm/save.h
-index 9d838c48e3..535cf68ed2 100644
---- a/xen/arch/x86/include/asm/hvm/save.h
-+++ b/xen/arch/x86/include/asm/hvm/save.h
-@@ -36,8 +36,8 @@ void _hvm_write_entry(struct hvm_domain_context *h,
-     r; })
- 
- /* Unmarshalling: test an entry's size and typecode and record the instance */
--int _hvm_check_entry(struct hvm_domain_context *h, 
--                     uint16_t type, uint32_t len, bool_t strict_length);
-+int _hvm_check_entry(struct hvm_domain_context *h,
-+                     uint16_t type, uint32_t len, bool strict_length);
- 
- /* Unmarshalling: copy the contents in a type-safe way */
- void _hvm_read_entry(struct hvm_domain_context *h,
-diff --git a/xen/arch/x86/include/asm/hvm/support.h b/xen/arch/x86/include/asm/hvm/support.h
-index 8d4707e58c..ab7de0a43b 100644
---- a/xen/arch/x86/include/asm/hvm/support.h
-+++ b/xen/arch/x86/include/asm/hvm/support.h
-@@ -135,7 +135,7 @@ int hvm_descriptor_access_intercept(uint64_t exit_info,
-                                     unsigned int descriptor, bool is_write);
- int hvm_mov_to_cr(unsigned int cr, unsigned int gpr);
- int hvm_mov_from_cr(unsigned int cr, unsigned int gpr);
--void hvm_ud_intercept(struct cpu_user_regs *);
-+void hvm_ud_intercept(struct cpu_user_regs *regs);
- 
- /*
-  * May return X86EMUL_EXCEPTION, at which point the caller is responsible for
--- 
-2.34.1
+T24gMTkuMDcuMjMgMTQ6MDIsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gDQo+IA0KPiBPbiAx
+OS8wNy8yMDIzIDA3OjQ5LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMTguMDcuMjMg
+MjM6MzUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+PiBIaSBKdWVyZ2VuLA0KPj4+DQo+Pj4g
+T24gMTAvMDcvMjAyMyAwNzo1OSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+Pj4gVG9kYXkg
+d2hlbiByZWFkaW5nIGEgbm9kZSBmcm9tIHRoZSBkYXRhIGJhc2UgdGhyb3VnaCByZWFkX25v
+ZGUoKSwgdGhlDQo+Pj4+IG5vZGUgZGF0YSBpcyBjb3BpZWQgaW4gb3JkZXIgdG8gYXZvaWQg
+bW9kaWZ5aW5nIHRoZSBkYXRhIGJhc2Ugd2hlbg0KPj4+PiBwcmVwYXJpbmcgYSBub2RlIHVw
+ZGF0ZSwgYXMgb3RoZXJ3aXNlIGFuIGVycm9yIG1pZ2h0IHJlc3VsdCBpbiBhbg0KPj4+PiBp
+bmNvbnNpc3RlbnQgc3RhdGUuDQo+Pj4+DQo+Pj4+IFRoZXJlIGFyZSwgaG93ZXZlciwgbWFu
+eSBjYXNlcyB3aGVyZSBzdWNoIGEgY29weSBvcGVyYXRpb24gaXNuJ3QNCj4+Pj4gbmVlZGVk
+LCBhcyB0aGUgbm9kZSBpc24ndCBtb2RpZmllZC4NCj4+Pj4NCj4+Pj4gQWRkIGEgIm5vY29w
+eSIgZmxhZyB0byByZWFkX25vZGUoKSBhbmQgZ2V0X25vZGUqKCkgZnVuY3Rpb25zIGZvciBt
+YWtpbmcNCj4+Pj4gdGhvc2UgY2FzZXMgbGVzcyBtZW1vcnkgY29uc3VtaW5nIGFuZCBtb3Jl
+IHBlcmZvcm1hbnQuDQo+Pj4NCj4+PiBSZWR1Y2luZyBtZW1vcnkgY29uc3VtcHRpb24gYW5k
+IGltcHJvdmluZyBwZXJmb3JtYW5jZSBpcyBnb29kLiBIb3dldmVyIHlvdSANCj4+PiBhcmUg
+bm93IHJlbHlpbmcgb24gdGhlIGNhbGxlciB0byBkbyB0aGUgcmlnaHQgdGhpbmcgd2hlbiAn
+bm9jb3B5JyBpcyB0cnVlLiBJIA0KPj4+IGJlbGlldmUgdGhpcyBpcyBhIGRpc2FzdGVyIHdh
+aXRpbmcgdG8gaGFwcGVuLg0KPj4+DQo+Pj4gU28gYXMgaXQgc3RhbmRzLCBJIGRvbid0IHN1
+cHBvcnQgdGhpcyBhcHByb2FjaC4gVGhlIHNvbHV0aW9uIEkgaGF2ZSBpbiBtaW5kIA0KPj4+
+IHdvdWxkIHJlcXVpcmUgdGhhdCAnc3RydWN0IG5vZGUnIGlzIGNvbnN0IGZvciB0aGUgJ25v
+Y29weScgY2FzZS4gSSBhZ3JlZSB0aGlzIA0KPj4+IG1lYW5zIG1vcmUgd29yaywgYnV0IHRo
+YXQncyB0aGUgcHJpY2UgZm9yIHJlZHVjZSB0aGUgdGhlIHJpc2sgb2YgY29ycnVwdGlvbi4N
+Cj4+DQo+PiBGYWlyIGVub3VnaC4NCj4+DQo+PiBJJ2xsIGxvb2sgaW50byBzcGxpdHRpbmcg
+cmVhZF9ub2RlKCkgaW50byBhIGRpcmVjdCB2YXJpYW50IHJldHVybmluZyBhIGNvbnN0DQo+
+PiBwb2ludGVyIGFuZCBhIHZhcmlhbnQgY29weWluZyB0aGUgZGF0YS4gU2FtZSB3aWxsIGJl
+IG5lZWRlZCBmb3IgZ2V0X25vZGUqKCkuDQo+Pg0KPj4+DQo+Pj4+DQo+Pj4+IE5vdGUgdGhh
+dCB0aGVyZSBpcyBvbmUgbW9kaWZpY2F0aW9uIG9mIHRoZSBub2RlIGRhdGEgbGVmdCwgd2hp
+Y2ggaXMgbm90DQo+Pj4+IHByb2JsZW1hdGljOiBkb21haW5fYWRqdXN0X25vZGVfcGVybXMo
+KSBtaWdodCBzZXQgdGhlICJpZ25vcmUiIGZsYWcgb2YNCj4+Pj4gYSBwZXJtaXNzaW9uLiBU
+aGlzIGRvZXMgbm8gaGFybSwgYXMgc3VjaCBhbiB1cGRhdGUgb2YgdGhlIHBlcm1pc3Npb25z
+DQo+Pj4+IGRvZXNuJ3QgbmVlZCB0byBiZSB1bmRvbmUgaW4gY2FzZSBvZiBhIGxhdGVyIHBy
+b2Nlc3NpbmcgZXJyb3IuDQo+Pj4gRXZlbiBpZiB0aGlzIGlzIHRoZSAiaWdub3JlIiBmbGFn
+LCB0aGlzIGlzIGRlZmluaXRlbHkgbm90IGFuIGlkZWFsIHNpdHVhdGlvbi4gDQo+Pj4gQW5k
+LCBBRkFJQ1QsIHRoaXMgaXMgbm90IGV2ZW4gZG9jdW1lbnQuIEkgZG9uJ3QgdG8gYmUgdGhl
+IHJlYWRlciB0cnlpbmcgdG8gDQo+Pj4gZmlndXJlIG91dCB3aHkgcmVhZF9ub2RlKCkgYW5k
+IGRiX2ZldGNoKCkgcmV0dXJucyBhIHNsaWdodGx5IGRpZmZlcmVudCBub2RlIA0KPj4+IGNv
+bnRlbnQgOikuDQo+Pg0KPj4gU28gd291bGQgeW91IGJlIGZpbmUgd2l0aCB0aGUgYWRkaXRp
+b24gb2YgYSBjb21tZW50IGV4cGxhaW5pbmcgdGhlIHNpdHVhdGlvbj8NCj4gDQo+IEkgZXhw
+ZWN0IHRoYXQgbXkgcmVtYXJrIHdpbGwgYmVjb21lIG1vb3QgaWYgd2UgZ28gYWhlYWQgd2l0
+aCBzcGxpdHRpbmcgcmVhZF9ub2RlKCkuDQoNCkkgaGF2ZSBmb3VuZCBhIHNhbmUgc29sdXRp
+b24gbWVhbndoaWxlLg0KDQoNCkp1ZXJnZW4NCg0K
+--------------tyvmTuSjRYhcf0uBgPw0grbQ
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------tyvmTuSjRYhcf0uBgPw0grbQ--
+
+--------------lhT0Utq61VgYwFfKO0IMK9vm--
+
+--------------JEdwe5XNr7mCIBK7su86n1Bd
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmS369kFAwAAAAAACgkQsN6d1ii/Ey9N
+hAf7Bqi5zSZAU4Fpp1Jb39cjn8OyA9t0agOJteftJ2DVuK5a+9r1t30wBNIo4koQEkCJR9389gNK
+AtJiENTWJ5KVq+v26O6RSEdoRmSrwOgPvzJhW8ZvD76gCRJ6senxNwgoTEnDhFXX8tLr9F5moZ/s
+zU29nE1npPPvf9Oj/G65riIEmKI3xMvpRc0LP44PN19l9kyHvgOTEd2dp8xuOCXd1UgINPjuR2pT
+9UVus8QHrA43BNXFj3QHmBDuloDxbKHljdQjWjjqrH/HAKb8H/bcSwb8wlJzwbLT6AEnG8k9Bi3A
+yYybtf8CwnoT6pxLCZg4HKGkryKpaWp71GURfntUiw==
+=ysEk
+-----END PGP SIGNATURE-----
+
+--------------JEdwe5XNr7mCIBK7su86n1Bd--
 
