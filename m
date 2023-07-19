@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F099B75978B
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 15:58:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565888.884480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A85937597B7
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 16:06:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565894.884489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7gd-0003Js-LE; Wed, 19 Jul 2023 13:57:51 +0000
+	id 1qM7oG-0004sM-DZ; Wed, 19 Jul 2023 14:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565888.884480; Wed, 19 Jul 2023 13:57:51 +0000
+Received: by outflank-mailman (output) from mailman id 565894.884489; Wed, 19 Jul 2023 14:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7gd-0003HG-HN; Wed, 19 Jul 2023 13:57:51 +0000
-Received: by outflank-mailman (input) for mailman id 565888;
- Wed, 19 Jul 2023 13:57:49 +0000
+	id 1qM7oG-0004pW-AP; Wed, 19 Jul 2023 14:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 565894;
+ Wed, 19 Jul 2023 14:05:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vyro=DF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qM7gb-0003HA-O5
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 13:57:49 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (envelope-from <SRS0=qi+E=DF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qM7oE-0004pQ-Nx
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 14:05:42 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on20619.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::619])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d9e1caa-263c-11ee-b23a-6b7b168915f2;
- Wed, 19 Jul 2023 15:57:47 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 786D91FF6F;
- Wed, 19 Jul 2023 13:57:46 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4DBD51361C;
- Wed, 19 Jul 2023 13:57:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ej0jEdrrt2T9NgAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 19 Jul 2023 13:57:46 +0000
+ id 5884e540-263d-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 16:05:41 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AS8PR04MB8401.eurprd04.prod.outlook.com (2603:10a6:20b:3f3::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Wed, 19 Jul
+ 2023 14:05:39 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
+ 14:05:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,178 +47,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d9e1caa-263c-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1689775066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+dcoVh2Imd0JCt8381sL4NIu6dgAuqBXMhcvOaYOEko=;
-	b=SHyC7f2qgnSHa9zAZ3ZEQernAoRsA61ckM49+rADC/sA6hbPFpxx0bDRtJnqwfBsgBRzVy
-	zQP6GrcuB060x9vfL2YrETfPokeuOXrmzxQZbyDRjVGrUtiIplCppMuzoO2j1x8jhVqVdf
-	Jf5E/MmypyYQkStjBXw8Eae/6k5Xzn4=
-Message-ID: <75b8d969-7f95-7e87-9f9f-7d99c97365e7@suse.com>
-Date: Wed, 19 Jul 2023 15:57:45 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read
- functions
+X-Inumbo-ID: 5884e540-263d-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i21FzI5H8IHIXQAMGBj3Ps2CaJq4OhqOOM1wzU76PMfiKPz3uCxJoLaQYGZNp7dR9/enjhTagUTvOxtexkuvqRwpqA0eA8cvID/4NletrWd2bsvH9wfomUiyOkznJy149hiLPpxkfsi6fJ82vH/64zVYsDphZtAvV8G9RDVnhGWCRuekZWrPu3CNh0CIrNnX8sAU+Tvw72WBtGohpuuITmUEWZPyNuoUdojbwWl2uw8QXwaefQ7eoJNdAFjsOR4Dmsj8G+4Nu8TYRN+efCVtTJgjMP8CMtgJbmsQPLsxb9hmQBDBvu4d238fRsJK5fhIYEugXveoL5eCDs5+w4Mg2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iR/uHbFTNyiPmrVvR7D7PJSwy7SEshyigRQxJeSxNik=;
+ b=IQgp9GCVOx7oUjXfkEM7gsDlT7nZtt+z9lWsdpm1FkA6/N6Mex5iXDqejFdkmKLgot1sltChdjIYv6MMagKSuSib8KERbGTltd4iY+8+howrkEMhhkzQ8jFVcpm1Kbald/fD7W71dJ87b8ZXkW4/kGSJ97s6aAU9CTHDV7eAGFqNrm9vr5xYiCHf9qq6kkdjKhooTXQx5kS+gkxhrsrQ449XoAGSSYPUYSWw66qSO2IeBhgilwLgfk/dYqCXOGqfFbLH9eecQTU2mRrLN5VCgi8+bTiK3COWJhLud6/uP3m+Cy1umDnaCv3FamqtwN4+/EEHNxp1GtDYEO2FxuXtCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iR/uHbFTNyiPmrVvR7D7PJSwy7SEshyigRQxJeSxNik=;
+ b=1Xy6kHAdzKow9Kcq8jaodMejAtP8LVaSZlT4FT6WRwa98dt/X+5xHmEhJJkQWl2hZ0u1vgv866HehC1s0GRR730BS++3crVEnXVu1sZiCcTofnhOv+HBwsTB3pSOXHflJVyFUmNNmyHfS40tFQqDaLxz1uXLMjsiNM4ytj4+9CyA+584rxSxVHdD3c1PSJFt0zgLGnUpVvuq2MXozIY9G0Agzdr54FO/YRD/B0+HdsvXgwed0f1AzbzVgwsyHVVmk+EFcr2E9qFTUbdnsJOeNK+jT2niYYy+ks3WJcRpV3fRJ2wfwlBp44qkN2lu39L0kHo9q3iRkdZcxSDfsenhrw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <6d3b7cd6-7d6a-8d28-f1e7-7e939e393445@suse.com>
+Date: Wed, 19 Jul 2023 16:05:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v4 3/4] xen/ppc: Implement early serial printk on pseries
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230710065947.4201-1-jgross@suse.com>
- <20230710065947.4201-19-jgross@suse.com>
- <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
- <32cd8b9f-8afa-2cde-3815-82edc7052535@suse.com>
- <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JEdwe5XNr7mCIBK7su86n1Bd"
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1689710519.git.sanastasio@raptorengineering.com>
+ <7c416ff843ea359bb24b8c954cc079fe1bbaf75f.1689710519.git.sanastasio@raptorengineering.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <7c416ff843ea359bb24b8c954cc079fe1bbaf75f.1689710519.git.sanastasio@raptorengineering.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0018.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::23) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c0a2242-fb58-4a4f-0863-08db88613b14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ochOJcbv+TyC0ognu2u1AjsBlJXl5JE28kW+6TrT7H7+ywSxmmTzb7hP9QG92SmU9aUW07Do1tkWiTHJq+qg9WZWgRP7rYwAypNMIKJiO1QBFeZgOx0J1NXlsrUb2l4q3ErmRW8wNph6DLpFxXXfGWV2Y6LdQwPECMbhotNFzgnzI7AN96BPU+6tTEtth98LyGJxnRiqFs6k3vth0Hg4uJkRH+t45Cg3SYa8qakPPTRbJGqnO9pkAidx6VUe8NvVUqx9Uh3mZluDZp7rStevBTQeFC/T1Zf7HgJwCBRux9JXLSuUEfS3SRqf0VP+sEBBJkghQVzFKCwrBR5+/D2/V2IhrCDAksbsz4cp5Ad1jOElFVkr7UZpj/0vySQxgKNInAfP5DAl3E7qvbcasf5X9Vaq4VtG/cfGmI1wQHYh/m8Bocuv16AA1e3D76cKhY5m5aWQP1qLc8f5eyDmzxDnz4/3qe7bq+jWJtkx8tey2uVe0AxA4VaskCc6PF696Vnq4MgdB2Hu+xjdG3PWwlmJgXd4LrsnywVydktHsfSyb/1K9i+Da9A6afSwBoGuAS/1gBGhix7Mi9zpfA6ouU4sbavvV40SMvCJYPzDz3dHHOBWBXXi2+lGpn+Hut9QmTCz/GiEHthTTjM2rusojvSuXg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(366004)(346002)(39860400002)(136003)(396003)(451199021)(54906003)(6486002)(478600001)(53546011)(26005)(6506007)(186003)(6512007)(2906002)(5660300002)(66946007)(6916009)(66556008)(66476007)(316002)(8936002)(8676002)(38100700002)(4326008)(31696002)(86362001)(36756003)(83380400001)(2616005)(31686004)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SHUvTFpWcEtJWnR6ZE1xWHlrQUxxNWRTdHpqYVNZL0hNYXROREJyM2hDOS81?=
+ =?utf-8?B?OHJ2OUhLWTViZEV4eHVKOEN3azVYSFR4dFlOOCtPWDRUOENDa0lyRlEvaWZk?=
+ =?utf-8?B?TzNCVlk3R2p1b0RIeGdPS0VZcWZoTmRTaldLclFBQzJYMjQ2TVQ2RGRmZmxO?=
+ =?utf-8?B?by9kMU5CQzRNLzM2UUJXaDBRK3dCcEJFUXFtdHIxZXUyTWpzeHlPa1ZseDVV?=
+ =?utf-8?B?NCt3UUtpa1NqOUdsMHpDbVAwb1JVZXdkak1FVlpmdG50dGVlQ3h4dk1uS1lX?=
+ =?utf-8?B?UGI0RHhINzV2Mkg4dUtGc2VwRG1UOWRkV3VXc2dvVlZJcFRQUTdPazd3WFZF?=
+ =?utf-8?B?TlVEZmp4bkcvOXpwVCt1U24wMEFoWUxTdHBmZHRia3FUZXVCcTBQYjJVK0xP?=
+ =?utf-8?B?ZThQUmJ0eHplUUtHeGdOc1dUZG1UQndoUXZHNFJHdldUL3l3eFpKWUl5aVN3?=
+ =?utf-8?B?c0plMFErSGtLd21BWHlDRGRBRldzbEpPQ2hMZDZvREhGVE4rRWZGR1VRLzlr?=
+ =?utf-8?B?TXRRbWIycEpQRC9HRUJPNUVWMzBMYXZmZjcrUWxjR1E0S3FZMmplSVZ4bWph?=
+ =?utf-8?B?d3JHSU1PYUVXNUMxRktxM2x4MU1KR3NtT24vUE5tTlBodVptOFpIWDA1Lzdw?=
+ =?utf-8?B?UnVGamFVMUdGeEZFcDNUdVNPajdmbVIzdVVWZmxqL2kweS9iRk5VRWZ1YU1j?=
+ =?utf-8?B?MDJQRHVaTDE0TUhNQUZhU29CcEMvcUpuYUFacVk5SFZBWkJhMTlQdm40WnA5?=
+ =?utf-8?B?M3JFbmFRWnpJalc4SXNVemxWZExvMFZId2VicVJFWHZGb0tnelM1czREZkJl?=
+ =?utf-8?B?eDVaNFYwRlNxV1BYVGp0QTJZbzRsWmhMZE85M0NVQ1ZSZzE5Q0VKMVZWNFgr?=
+ =?utf-8?B?cUlUekRWcnh2WDFzMVpxY3hnMnBsd2x0SzNkT1BSd1Nsc3BVeUFQd0hSTUVD?=
+ =?utf-8?B?REFBajBEVi9RV3hFYUpMUW11VHo1R1VUQi9VOThncDZyVjZZZ3FJYzdUOFl2?=
+ =?utf-8?B?SUhxVVZDYzBDOUxQMnRPQllDZ2F0b3hvYTdsdEk5dG1CTkY1d0lsY0s3OXlC?=
+ =?utf-8?B?K1FiQXFBbDRhM0EyRjdQSHNlcjVFSkRHSWcvekpNL0wzVEljUWNsdUhXUVBP?=
+ =?utf-8?B?dHcwVVc3ZlV4QnorYXZndmlxRStYRkpBNXRKdTdjVjFDZGZQRWJwcThIZGhN?=
+ =?utf-8?B?MFUxc2QzNk1ESmRzSTBFSklzazllYmpjWVAvZktmOUc5Tnp3Y1ljREpzNHk1?=
+ =?utf-8?B?ZUdXVkNIaDZZTVRQNzAydFhGWVNtelVpTEY1bDdpajdCVEJMc29uME1QSWw0?=
+ =?utf-8?B?UVNzdDl6SHlJbkVqb2tiT2I1c3k2dDU3S0dXWFJMQmkzYS9DczNsYnRLTjBF?=
+ =?utf-8?B?VnorbGlMMnR1MlQ3d3orMjB5L3NyTVcvUjFLSHZoYU1SL2lxdWJuYzJBM0E0?=
+ =?utf-8?B?Y1pHY2xuTzFGaTlWVUZET3REcGMxMmttRlVpYW5UZ1dkTzJLa3c5NG50R2J5?=
+ =?utf-8?B?b0lneDhlV2c0UktlUEpFWWVjVHJtcVpmVDhYSWVacWs3dUxnWHpNNDlYOSti?=
+ =?utf-8?B?TG5DR3RIQThBWVNFbFZXNXAvdDJVQzVXZ3d3Y0hGWUZLbmYzSlpjV1ArQmIv?=
+ =?utf-8?B?dnZrZjRib2ZXcE55WUZvOTZTQU9zU3dNSTNGTVJDU0FlZ3dqeGcvZnMwQkdj?=
+ =?utf-8?B?aVhzWFVPZWdURVJzeFIwUGpDRDRWTVU4VWUzczVkRjZaanZvNW4yNmU4YklE?=
+ =?utf-8?B?ZUo4S25DWEQxeW14bzM2M3o1a3B6eEpYQ0x4Umk5MFEvYTh5YUE5ZGtoRk1o?=
+ =?utf-8?B?d3FneVRFaGc1cjk1RXB1VmhMYjhzQlorZEYrOXl5aEg4d3hocnh5anN6NU9h?=
+ =?utf-8?B?TlJWTDdlS3lpT2c0WUQ5dUgxVmlqWFZlTFBjUEp4UEJwaTBNUHFUMm5yUDBm?=
+ =?utf-8?B?RUJsUUVra1VRclNCNWErcStDSXIxUmpmaDlzWldDQXpjRnQ2TzFTQXdxenY3?=
+ =?utf-8?B?N0JOb1RpRGM2dE1JdGZ5aDc2ejg2aGV4cHNaMHJIbFpxMEZpQUVsV0xSdUFW?=
+ =?utf-8?B?VmFaWEtQU3pWUGI0dWV3UUtDS1pwenR1bmNUd1BDdzREcy96MzZjcTRXa3J2?=
+ =?utf-8?Q?lfsu3vdyZST12KYgYIGWmmd37?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c0a2242-fb58-4a4f-0863-08db88613b14
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 14:05:38.8652
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 287lxlQMM2rBpAg65Lpvb1SkSnENTemRE+ocN2A6McFFyF30hw3ml+Q6S4EpQ8QgY1zXwtyh4jpiZ9e5KJr72A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8401
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JEdwe5XNr7mCIBK7su86n1Bd
-Content-Type: multipart/mixed; boundary="------------lhT0Utq61VgYwFfKO0IMK9vm";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <75b8d969-7f95-7e87-9f9f-7d99c97365e7@suse.com>
-Subject: Re: [PATCH v2 18/18] tools/xenstore: add nocopy flag to node read
- functions
-References: <20230710065947.4201-1-jgross@suse.com>
- <20230710065947.4201-19-jgross@suse.com>
- <64ec2fd3-fcec-6ebf-5924-6b591215e19e@xen.org>
- <32cd8b9f-8afa-2cde-3815-82edc7052535@suse.com>
- <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
-In-Reply-To: <eca3cbf7-6747-6631-d0bc-26ec3faea233@xen.org>
+On 18.07.2023 22:20, Shawn Anastasio wrote:
+> +void __init boot_of_init(unsigned long vec)
+> +{
+> +    int bof_chosen;
+> +
+> +    of_vec = vec;
+> +
+> +    /* Get a handle to the default console */
+> +    bof_chosen = of_finddevice("/chosen");
+> +    of_getprop(bof_chosen, "stdout", &of_out, sizeof(of_out));
+> +    of_out = be32_to_cpu(of_out);
 
---------------lhT0Utq61VgYwFfKO0IMK9vm
-Content-Type: multipart/mixed; boundary="------------tyvmTuSjRYhcf0uBgPw0grbQ"
+Can any of these fail, and hence lead to ...
 
---------------tyvmTuSjRYhcf0uBgPw0grbQ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +    early_printk_init(of_putchar);
 
-T24gMTkuMDcuMjMgMTQ6MDIsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gDQo+IA0KPiBPbiAx
-OS8wNy8yMDIzIDA3OjQ5LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMTguMDcuMjMg
-MjM6MzUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+PiBIaSBKdWVyZ2VuLA0KPj4+DQo+Pj4g
-T24gMTAvMDcvMjAyMyAwNzo1OSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+Pj4gVG9kYXkg
-d2hlbiByZWFkaW5nIGEgbm9kZSBmcm9tIHRoZSBkYXRhIGJhc2UgdGhyb3VnaCByZWFkX25v
-ZGUoKSwgdGhlDQo+Pj4+IG5vZGUgZGF0YSBpcyBjb3BpZWQgaW4gb3JkZXIgdG8gYXZvaWQg
-bW9kaWZ5aW5nIHRoZSBkYXRhIGJhc2Ugd2hlbg0KPj4+PiBwcmVwYXJpbmcgYSBub2RlIHVw
-ZGF0ZSwgYXMgb3RoZXJ3aXNlIGFuIGVycm9yIG1pZ2h0IHJlc3VsdCBpbiBhbg0KPj4+PiBp
-bmNvbnNpc3RlbnQgc3RhdGUuDQo+Pj4+DQo+Pj4+IFRoZXJlIGFyZSwgaG93ZXZlciwgbWFu
-eSBjYXNlcyB3aGVyZSBzdWNoIGEgY29weSBvcGVyYXRpb24gaXNuJ3QNCj4+Pj4gbmVlZGVk
-LCBhcyB0aGUgbm9kZSBpc24ndCBtb2RpZmllZC4NCj4+Pj4NCj4+Pj4gQWRkIGEgIm5vY29w
-eSIgZmxhZyB0byByZWFkX25vZGUoKSBhbmQgZ2V0X25vZGUqKCkgZnVuY3Rpb25zIGZvciBt
-YWtpbmcNCj4+Pj4gdGhvc2UgY2FzZXMgbGVzcyBtZW1vcnkgY29uc3VtaW5nIGFuZCBtb3Jl
-IHBlcmZvcm1hbnQuDQo+Pj4NCj4+PiBSZWR1Y2luZyBtZW1vcnkgY29uc3VtcHRpb24gYW5k
-IGltcHJvdmluZyBwZXJmb3JtYW5jZSBpcyBnb29kLiBIb3dldmVyIHlvdSANCj4+PiBhcmUg
-bm93IHJlbHlpbmcgb24gdGhlIGNhbGxlciB0byBkbyB0aGUgcmlnaHQgdGhpbmcgd2hlbiAn
-bm9jb3B5JyBpcyB0cnVlLiBJIA0KPj4+IGJlbGlldmUgdGhpcyBpcyBhIGRpc2FzdGVyIHdh
-aXRpbmcgdG8gaGFwcGVuLg0KPj4+DQo+Pj4gU28gYXMgaXQgc3RhbmRzLCBJIGRvbid0IHN1
-cHBvcnQgdGhpcyBhcHByb2FjaC4gVGhlIHNvbHV0aW9uIEkgaGF2ZSBpbiBtaW5kIA0KPj4+
-IHdvdWxkIHJlcXVpcmUgdGhhdCAnc3RydWN0IG5vZGUnIGlzIGNvbnN0IGZvciB0aGUgJ25v
-Y29weScgY2FzZS4gSSBhZ3JlZSB0aGlzIA0KPj4+IG1lYW5zIG1vcmUgd29yaywgYnV0IHRo
-YXQncyB0aGUgcHJpY2UgZm9yIHJlZHVjZSB0aGUgdGhlIHJpc2sgb2YgY29ycnVwdGlvbi4N
-Cj4+DQo+PiBGYWlyIGVub3VnaC4NCj4+DQo+PiBJJ2xsIGxvb2sgaW50byBzcGxpdHRpbmcg
-cmVhZF9ub2RlKCkgaW50byBhIGRpcmVjdCB2YXJpYW50IHJldHVybmluZyBhIGNvbnN0DQo+
-PiBwb2ludGVyIGFuZCBhIHZhcmlhbnQgY29weWluZyB0aGUgZGF0YS4gU2FtZSB3aWxsIGJl
-IG5lZWRlZCBmb3IgZ2V0X25vZGUqKCkuDQo+Pg0KPj4+DQo+Pj4+DQo+Pj4+IE5vdGUgdGhh
-dCB0aGVyZSBpcyBvbmUgbW9kaWZpY2F0aW9uIG9mIHRoZSBub2RlIGRhdGEgbGVmdCwgd2hp
-Y2ggaXMgbm90DQo+Pj4+IHByb2JsZW1hdGljOiBkb21haW5fYWRqdXN0X25vZGVfcGVybXMo
-KSBtaWdodCBzZXQgdGhlICJpZ25vcmUiIGZsYWcgb2YNCj4+Pj4gYSBwZXJtaXNzaW9uLiBU
-aGlzIGRvZXMgbm8gaGFybSwgYXMgc3VjaCBhbiB1cGRhdGUgb2YgdGhlIHBlcm1pc3Npb25z
-DQo+Pj4+IGRvZXNuJ3QgbmVlZCB0byBiZSB1bmRvbmUgaW4gY2FzZSBvZiBhIGxhdGVyIHBy
-b2Nlc3NpbmcgZXJyb3IuDQo+Pj4gRXZlbiBpZiB0aGlzIGlzIHRoZSAiaWdub3JlIiBmbGFn
-LCB0aGlzIGlzIGRlZmluaXRlbHkgbm90IGFuIGlkZWFsIHNpdHVhdGlvbi4gDQo+Pj4gQW5k
-LCBBRkFJQ1QsIHRoaXMgaXMgbm90IGV2ZW4gZG9jdW1lbnQuIEkgZG9uJ3QgdG8gYmUgdGhl
-IHJlYWRlciB0cnlpbmcgdG8gDQo+Pj4gZmlndXJlIG91dCB3aHkgcmVhZF9ub2RlKCkgYW5k
-IGRiX2ZldGNoKCkgcmV0dXJucyBhIHNsaWdodGx5IGRpZmZlcmVudCBub2RlIA0KPj4+IGNv
-bnRlbnQgOikuDQo+Pg0KPj4gU28gd291bGQgeW91IGJlIGZpbmUgd2l0aCB0aGUgYWRkaXRp
-b24gb2YgYSBjb21tZW50IGV4cGxhaW5pbmcgdGhlIHNpdHVhdGlvbj8NCj4gDQo+IEkgZXhw
-ZWN0IHRoYXQgbXkgcmVtYXJrIHdpbGwgYmVjb21lIG1vb3QgaWYgd2UgZ28gYWhlYWQgd2l0
-aCBzcGxpdHRpbmcgcmVhZF9ub2RlKCkuDQoNCkkgaGF2ZSBmb3VuZCBhIHNhbmUgc29sdXRp
-b24gbWVhbndoaWxlLg0KDQoNCkp1ZXJnZW4NCg0K
---------------tyvmTuSjRYhcf0uBgPw0grbQ
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+... this better not getting invoked?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> --- a/xen/arch/ppc/ppc64/asm-offsets.c
+> +++ b/xen/arch/ppc/ppc64/asm-offsets.c
+> @@ -0,0 +1,59 @@
+> +/*
+> + * Generate definitions needed by assembly language modules.
+> + * This code generates raw asm output which is post-processed
+> + * to extract and format the required data.
+> + */
+> +
+> +#include <asm/processor.h>
+> +
+> +#define DEFINE(_sym, _val)                                                 \
+> +    asm volatile ("\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\"" \
+> +                  : : "i" (_val) )
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Nit: There's a blank missing after the opening paren, which will then want
+the 2nd line to be indented by one more character. (Instead, as a matter of
+your taste, you may omit the blank between the two colons.)
 
---------------tyvmTuSjRYhcf0uBgPw0grbQ--
+> +#define BLANK()                                                            \
+> +    asm volatile ( "\n.ascii\"==><==\"" : : )
+> +#define OFFSET(_sym, _str, _mem)                                           \
+> +    DEFINE(_sym, offsetof(_str, _mem));
+> +
+> +/* base-2 logarithm */
+> +#define __L2(_x)  (((_x) & 0x00000002) ?   1 : 0)
+> +#define __L4(_x)  (((_x) & 0x0000000c) ? ( 2 + __L2( (_x)>> 2)) : __L2( _x))
+> +#define __L8(_x)  (((_x) & 0x000000f0) ? ( 4 + __L4( (_x)>> 4)) : __L4( _x))
+> +#define __L16(_x) (((_x) & 0x0000ff00) ? ( 8 + __L8( (_x)>> 8)) : __L8( _x))
+> +#define LOG_2(_x) (((_x) & 0xffff0000) ? (16 + __L16((_x)>>16)) : __L16(_x))
+> +
+> +void __dummy__(void)
+> +{
+> +    DEFINE(GPR_WIDTH, sizeof(unsigned long));
+> +    DEFINE(FPR_WIDTH, sizeof(double));
+> +
+> +    OFFSET(UREGS_gprs, struct cpu_user_regs, gprs);
+> +    OFFSET(UREGS_r0, struct cpu_user_regs, gprs[0]);
+> +    OFFSET(UREGS_r1, struct cpu_user_regs, gprs[1]);
+> +    OFFSET(UREGS_r13, struct cpu_user_regs, gprs[13]);
+> +    OFFSET(UREGS_srr0, struct cpu_user_regs, srr0);
+> +    OFFSET(UREGS_srr1, struct cpu_user_regs, srr1);
+> +    OFFSET(UREGS_pc, struct cpu_user_regs, pc);
+> +    OFFSET(UREGS_msr, struct cpu_user_regs, msr);
+> +    OFFSET(UREGS_lr, struct cpu_user_regs, lr);
+> +    OFFSET(UREGS_ctr, struct cpu_user_regs, ctr);
+> +    OFFSET(UREGS_xer, struct cpu_user_regs, xer);
+> +    OFFSET(UREGS_hid4, struct cpu_user_regs, hid4);
+> +    OFFSET(UREGS_dar, struct cpu_user_regs, dar);
+> +    OFFSET(UREGS_dsisr, struct cpu_user_regs, dsisr);
+> +    OFFSET(UREGS_cr, struct cpu_user_regs, cr);
+> +    OFFSET(UREGS_fpscr, struct cpu_user_regs, fpscr);
+> +    DEFINE(UREGS_sizeof, sizeof(struct cpu_user_regs));
+> +}
+> +
+> +/* TODO: Replace with BUILD_BUG_ON + IS_ALIGNED once we can use <xen/lib.h> */
+> +_Static_assert(sizeof(struct cpu_user_regs) % STACK_ALIGN == 0,
+> +               "struct cpu_user_regs not stack aligned!");
 
---------------lhT0Utq61VgYwFfKO0IMK9vm--
+But patch 1 makes BUILD_BUG_ON() available now.
 
---------------JEdwe5XNr7mCIBK7su86n1Bd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> --- /dev/null
+> +++ b/xen/arch/ppc/ppc64/of-call.S
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Adapted from Linux's arch/powerpc/kernel/entry_64.S, with the
+> + * following copyright notice:
+> + *
+> + *  PowerPC version
+> + *    Copyright (C) 1995-1996 Gary Thomas (gdt@linuxppc.org)
+> + *  Rewritten by Cort Dougan (cort@cs.nmt.edu) for PReP
+> + *    Copyright (C) 1996 Cort Dougan <cort@cs.nmt.edu>
+> + *  Adapted for Power Macintosh by Paul Mackerras.
+> + *  Low-level exception handlers and MMU support
+> + *  rewritten by Paul Mackerras.
+> + *    Copyright (C) 1996 Paul Mackerras.
+> + *  MPC8xx modifications Copyright (C) 1997 Dan Malek (dmalek@jlc.net).
+> + */
+> +
+> +#include <asm/asm-offsets.h>
+> +#include <asm/asm-defns.h>
+> +#include <asm/msr.h>
+> +
+> +/* size of minimum stack frame that can hold an entire cpu_user_regs struct */
+> +#define STACK_SWITCH_FRAME_SIZE UREGS_sizeof
+> +
+> +    .section .init.text, "ax", @progbits
+> +
+> +ENTRY(enter_of)
+> +    mflr %r0
+> +    std %r0, 16(%r1)
+> +    stdu %r1,-STACK_SWITCH_FRAME_SIZE(%r1) /* Save SP and create stack space */
 
------BEGIN PGP SIGNATURE-----
+Nit: A blank after the comma would again be nice.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmS369kFAwAAAAAACgkQsN6d1ii/Ey9N
-hAf7Bqi5zSZAU4Fpp1Jb39cjn8OyA9t0agOJteftJ2DVuK5a+9r1t30wBNIo4koQEkCJR9389gNK
-AtJiENTWJ5KVq+v26O6RSEdoRmSrwOgPvzJhW8ZvD76gCRJ6senxNwgoTEnDhFXX8tLr9F5moZ/s
-zU29nE1npPPvf9Oj/G65riIEmKI3xMvpRc0LP44PN19l9kyHvgOTEd2dp8xuOCXd1UgINPjuR2pT
-9UVus8QHrA43BNXFj3QHmBDuloDxbKHljdQjWjjqrH/HAKb8H/bcSwb8wlJzwbLT6AEnG8k9Bi3A
-yYybtf8CwnoT6pxLCZg4HKGkryKpaWp71GURfntUiw==
-=ysEk
------END PGP SIGNATURE-----
+> +    /*
+> +     * Because PROM is running in 32b mode, it clobbers the high order half
+> +     * of all registers that it saves.  We therefore save those registers
+> +     * PROM might touch to the stack.  (%r0, %r3-%r13 are caller saved)
+> +     */
+> +    SAVE_GPR(2, %r1)
+> +    SAVE_GPR(13, %r1)
+> +    SAVE_NVGPRS(%r1)
+> +    mfcr %r10
+> +    mfmsr %r11
+> +    std %r10, UREGS_cr(%r1)
+> +    std %r11, UREGS_msr(%r1)
+> +
+> +    /* Put PROM address in SRR0 */
+> +    mtsrr0 %r4
+> +
+> +    /* Setup our trampoline return addr in LR */
+> +    bcl 20, 31, .+4
+> +0:  mflr %r4
+> +    addi %r4, %r4, 1f - 0b
+> +    mtlr %r4
+> +
+> +    /* Prepare a 32-bit mode big endian MSR */
+> +    LOAD_IMM64(%r12, MSR_SF | MSR_LE)
+> +    andc %r11, %r11, %r12
+> +    mtsrr1 %r11
+> +    rfid
+> +
+> +1:  /* Return from OF */
+> +    FIXUP_ENDIAN
+> +
+> +    /* Just make sure that %r1 top 32 bits didn't get corrupt by OF */
+> +    rldicl %r1, %r1, 0, 32
+> +
+> +    /* Restore the MSR (back to 64 bits) */
+> +    ld %r0, UREGS_msr(%r1)
+> +    mtmsrd %r0
+> +    isync
+> +
+> +    /* Restore other registers */
+> +    REST_GPR(2, %r1)
+> +    REST_GPR(13, %r1)
+> +    REST_NVGPRS(%r1)
+> +    ld %r4, UREGS_cr(%r1)
+> +    mtcr %r4
+> +
+> +    addi %r1, %r1, STACK_SWITCH_FRAME_SIZE
+> +    ld %r0, 16(%r1)
+> +    mtlr %r0
+> +    blr
+> +
+> +    .size enter_of, . - enter_of
+> +    .type enter_of, %function
 
---------------JEdwe5XNr7mCIBK7su86n1Bd--
+Before you/we grow more assembly code, may I re-raise a request regarding
+readability: I think it would be nice if operands started at a fixed column,
+unless the insn mnemonic is unusually long. Where exactly to draw the line
+is up to each archtecture; on x86 we use 8 positions from the start of the
+mnemonic.
+
+Jan
 
