@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF45D7596C2
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 15:28:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565852.884430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DDAD7596E4
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 15:32:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565863.884440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7Do-0005FF-6P; Wed, 19 Jul 2023 13:28:04 +0000
+	id 1qM7Hp-0006io-RR; Wed, 19 Jul 2023 13:32:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565852.884430; Wed, 19 Jul 2023 13:28:04 +0000
+Received: by outflank-mailman (output) from mailman id 565863.884440; Wed, 19 Jul 2023 13:32:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7Do-0005CH-2s; Wed, 19 Jul 2023 13:28:04 +0000
-Received: by outflank-mailman (input) for mailman id 565852;
- Wed, 19 Jul 2023 13:28:02 +0000
+	id 1qM7Hp-0006gA-Nm; Wed, 19 Jul 2023 13:32:13 +0000
+Received: by outflank-mailman (input) for mailman id 565863;
+ Wed, 19 Jul 2023 13:32:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dh/8=DF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qM7Dl-0005C8-VK
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 13:28:02 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qi+E=DF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qM7Ho-0006g4-OD
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 13:32:12 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20612.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::612])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 146ff032-2638-11ee-b23a-6b7b168915f2;
- Wed, 19 Jul 2023 15:28:00 +0200 (CEST)
-Received: from [192.168.1.100] (unknown [37.163.72.116])
- by support.bugseng.com (Postfix) with ESMTPSA id 351C54EE0C89;
- Wed, 19 Jul 2023 15:27:58 +0200 (CEST)
+ id aa229af0-2638-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 15:32:11 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DU0PR04MB9493.eurprd04.prod.outlook.com (2603:10a6:10:350::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 19 Jul
+ 2023 13:32:09 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
+ 13:32:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,367 +47,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 146ff032-2638-11ee-b23a-6b7b168915f2
-Message-ID: <af6157e5-fc71-1df7-cab7-fefa78425d3e@bugseng.com>
-Date: Wed, 19 Jul 2023 15:27:56 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+X-Inumbo-ID: aa229af0-2638-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZZM0a+Kit/PrUSv4WAcX2bQVQiee2bQiHCBNa2TkpA/xjuAj1JVmjkYfRJ76vgMKFqZ6fLo1kDYELKRWQKrs1FJcMKhMzoENaDMMGWAvzL+/fETbyPZqj3b3TprTXkCADWIIKRdtbOFZtOUxYmM6ir5r3T/xOK+50k/0JJEY6qUIAyN86jiakPcTQfKS5cJLzhrh1wnnJSro5LTd6eJpi/WOD36hTr0B0VnyiRjRKxKEHNhoOl9Ej5xZv6GGpM2zg6q2/kYb+jc8CqhfBFCi0cLEbfmNpnxM7wFofMd/mJ8+JI3El45HRr/2DMMYlE33RK9c/3F/ronsK7N1znWh0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5f1k70+30YSCqH+dphjBlx5tcaWKc7vKrEBYeb02Sw4=;
+ b=HKZevOTT4G9DfXE8+/B2Xt0xQzFsImMyYMnFsSa7b6MeCchMUZUuD187RwtqoVH0v1EV0+YURKmmep+jNr4goHmb2O6YRksBvhXeuC4tu/oKYbAnkMpXEDYe2BcTTDDOJUYIe4i7i4ebOruT5CN9RH9IFPosGSeY6Ra9jJQB0imOtwukF7Z8yyd1VEiGgM5bh7VLmwS3sNgc9mGCQqY893pKFMtGrWkvuPFyutoGPA6M+/ImoP5mLQR0+FmmhnqQIbDsAdjsCKLNogUy/AF+aIvX1BzhUTwfBFQJXTudo25jUXXyLc1RJhfga2ft2VaarSoUdcYbQ+aewnKqa1kPbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5f1k70+30YSCqH+dphjBlx5tcaWKc7vKrEBYeb02Sw4=;
+ b=hnktsmNtjbfdxGVu+y1KPos4RYz5jPA6ca191XVkS3hYtXO3XSC0LdXzQ9MA1WlrPF2S538aqciHz0NKOEW4wAsYgblGNou2ZoVahxrBTuJVBFEwSiHk4A0DsQLXXMiE9w+8k7I6nF0wcowVjUOzjrU2d+rzGfZuhOvRsZYPFd8E1C6nuWlis44J8+g+xrwF3BAIfUeS/h5xPgV85FpaOC3MoyOsacNgKDwIlHDrk864dv2fVnO1w69mBqQKK6Qg+vtNh3upQ4Kh1GZpAXzFNV8PEsS89O3UKr0tfYzxz117Fk7EIoXKX63nb6DkV1yvSKrv26FLHQrHVaXi3gfMwA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <58ee9410-e758-1503-e3f1-d25989fedc1e@suse.com>
+Date: Wed, 19 Jul 2023 15:32:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [RFC PATCH 3/4] xen/arm: initialize conditionally uninitialized
- local variables
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1689329728.git.nicola.vetrini@bugseng.com>
- <c7d2cd46f06f75f8a1810168c508f05d242f831c.1689329728.git.nicola.vetrini@bugseng.com>
- <9ab4ae66-aa72-2426-08e5-cbe44030d7f2@xen.org>
+Subject: Re: [XEN PATCH] x86/hpet: Disable legacy replacement mode after IRQ
+ test if not needed
 Content-Language: en-US
-In-Reply-To: <9ab4ae66-aa72-2426-08e5-cbe44030d7f2@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Simon Gaiser <simon@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20230718122603.2002-1-simon@invisiblethingslab.com>
+ <ZLaLLe2HFDN5oWUq@MacBook-Air-de-Roger.local>
+ <ac77ecba-6804-1d16-60dc-f184e5d31dcb@invisiblethingslab.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ac77ecba-6804-1d16-60dc-f184e5d31dcb@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0063.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU0PR04MB9493:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a9966a1-f588-4f17-fa82-08db885c8cfd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	m+3hJRLf7e5wXWtMYJLYAUIQ9IYrdT0Le3N265fnVVNhkHl0/9PZ7H3YRTDHSq8AaGPPRputOwDx9RVPtBGD1GhkQtzVPA0/RojdWZOnObJEz55Ma0hOGjteXm2V3JF3RB9KUPoS+p1MRdnVNw7H7AwcDQVksRODMvilSKqlIhIW1lP8tuBH4qgYqipqOFLjn+QvCwN4YCX50pdzN5cuJEP0t1ZF7Rvpw3fw1gr4pbq1EbFpOapmWXaJ6E/uDHXyc2wZqCte++7WwQIV1BRWodwBKfX79GP+9s9uQN6npUkI8vwE410A1BbW0rX1G78f42WCP8sJGeWJDALplGztopT5Blv9RrloHrmz7sujcWHsxR4WxqlzCv4iHsd7ocTZjAbu5bFqOa0bKRpwRg5WdKG+YBlsKLAcr6E2B9uYZhgYFburFuVNubxAU4tyGJXRzKPbdVflvFmR15r+xVZtd7dHDxOC575bX8hfoE9rdLISr5yPZs3jyfOQmhH1DsEuE6ikSTZbUdXCghsbEF8zPLm6f8sp8Bq2g7Xb4DFC2nrAWQvWAZYvy5buwhsfdo3IQ3LNRqok4Z1NtLBPr/xwlyDdcTBdf4uwTQ5O2NZBqMLovRSlHp/UiP+qJNjJpjIjNCgMCmboEjjSaLlk5MICJw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(366004)(346002)(396003)(39860400002)(136003)(451199021)(2906002)(86362001)(31696002)(26005)(6506007)(186003)(53546011)(83380400001)(2616005)(38100700002)(36756003)(478600001)(6512007)(6666004)(6486002)(54906003)(316002)(41300700001)(66556008)(66476007)(4326008)(6916009)(8936002)(31686004)(8676002)(5660300002)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U3Z6RFdGT3A3bGJrNXAzMWdaR05XNzVOZjgxM3Q1Nitid3JNZXIyWUE4WUJU?=
+ =?utf-8?B?Ulo1bHZYd2J5bGVQU21kZUdBL0R4OExLRzRhTExzcEN3Yjd4N01wOWZuUEV4?=
+ =?utf-8?B?eWVINkp2bkZYanFCTEp2K1NaanJzbWpOY2lNQkZ5OWZOM29MaHF3NEtDbWJU?=
+ =?utf-8?B?ejBDRzllZWxUaVJhTkg0aFJXSk9lZ3hNRGsyQ2R6MktOeEQ0bk9uS2lUN3BQ?=
+ =?utf-8?B?VXNXWFJiRzR3NnFYdVVkU3ZYY0RuMCtrcmVRd3hxZnZtdW1QWlRRYzNMZGJy?=
+ =?utf-8?B?elp1aU9ZUCszYmlSREEwM3k0VHJyWFRxR1VkUzRjQm9BbUdOdHBlZ0xWQ0M1?=
+ =?utf-8?B?SGJNVUF3ci9nZFdXSk9CTFcxc0hwUXNFN3lCSDBxS1B6WFgrVWJQaUJNWTRC?=
+ =?utf-8?B?L2ZCandOajQ1S3lEempGTmY3MnVLQzRTYVE5bm5NTVNJeFFEOUhzS0VNOVJS?=
+ =?utf-8?B?aUYzR3pCbVRIWENUdHExR0hsWVkyb1Y0ek9BZFVqVG4xRm1yQ1YyQlJxUmxD?=
+ =?utf-8?B?anlCS1dyTnIrK004ejkweHN6YjdQaWhZdllINzZCdm5tSG9SYVhrQVhydWhm?=
+ =?utf-8?B?cFN0dDVweDY1eDk3UHdMTER4cFJBdTFxajI4eWlteGNTZ2FRdFhQQU5zVU9L?=
+ =?utf-8?B?bjBTT2JvNmFXUUVHeUdtb0ozR1VrTC9GWjRmOUh1aExTbWhGWmtjZlo5Vjlt?=
+ =?utf-8?B?MDEyQkRSb1VFcDVmK01VNTNGS2diUE9Dek1uZHVRdVNUUEU1bzIrSUlsRENs?=
+ =?utf-8?B?M1BVbXBGODJXQ2dEZGJHc0p2STJ4bHB5QjU5YloxQWFoRW8yVGN5d3h3d2xi?=
+ =?utf-8?B?NzRHRkNyWmw1TlB5R0NIOW8rdm44ZThYaExXSHVpRDNuK2dzRmZRTUpvZy94?=
+ =?utf-8?B?VXNOWU9waEV5eFY5Z2xsdldwaGEwK21naVJicHhRV3RmKzA2WjZScVFuNkxW?=
+ =?utf-8?B?UFhEYUhCWkJncW8ySCsxeWMxd3pzaTBmM1EreXgzZzRhNHpPdDZnby9YMW9n?=
+ =?utf-8?B?QVdhZjRRbnlpUFlFSTZjZ01MOUY4ZCsydzdRTndVMXdBMnF2UEwxN1FkSExs?=
+ =?utf-8?B?bGlvWWx3NVovQVhhc01IeW1iU3BvNThJZ2ZzR1F0eTdYZ1k3V2pzeUdKMjIr?=
+ =?utf-8?B?MzBiVDRjY0IydnJ6MitPRGJ2dDBzbkkwVlUxQVVVUmR2bUZYaHRCaW5iNGhP?=
+ =?utf-8?B?MEdEekpaUS9ZT29PT0NjR1FJeWZLN0NSMzUvMGNndkJSeE53c1J1ekdhQmVH?=
+ =?utf-8?B?T1JKQnppRkdLNERKT0R1c1E2OVZ3cDZFNXExcFBlYjdEVjNieUVmUnlFMkox?=
+ =?utf-8?B?THdOWDV0V3l2a093TVFnVnhHaFE3b3RDNUpsRy9iRVlEWVJiVmpUcEszRm9H?=
+ =?utf-8?B?V3N0TkVucUg4cENqV1NOQWtWVWtFYjhUMGhKdzRxNmZxU2JOQjl1SzlNNHlI?=
+ =?utf-8?B?RWFIZm1TYmNoak44cmdtZnZGcmY4NkF4anFEQW1uSER5S0NkcmU1eEtEaVcy?=
+ =?utf-8?B?SUNhRHRPZXdjUmJVQ0JUaTcyUnBBNHo5L2k0NWtNSm5ucjBNZjFqSjNIZFB1?=
+ =?utf-8?B?Y0trR25IVVcyNzRCQjIwQnhZM1lKNCsvd2J1MThPa05JT0FkdFJUOW53Vkhm?=
+ =?utf-8?B?VENqMGdob25PUGJuenMvNzFlM2dOQ3BUZTFYNUR2VFhGTVNwMnI0cGhNTURM?=
+ =?utf-8?B?NnVvK25yMVNIS24vMGltRlJVUXJkajZYUys1RG1GZnVLaDdpUGI1RVBuZGlG?=
+ =?utf-8?B?RUFGeE1FenNXYXVMZ25vdTNveGRsTDVqSU43dWhpSWVTUVFKU29zeFJkVjRN?=
+ =?utf-8?B?cUY2ZnFUSnFOVjNFeE1TYkxhWGhuN3NVamNEUVpYcjRYbWdHK01YQ0s0T3lp?=
+ =?utf-8?B?bjJYSDRkNENZVU8vUUtQMFlnM0o0dC9iUmNpdUlxT3d0VUxGUFNremcwRlFI?=
+ =?utf-8?B?REZxdFNVQ1lQaVB6bUtHSzZPcnhLRnFsaFBFZmUvRWdTSHgrZmJTVTRFVk5D?=
+ =?utf-8?B?RStDWWIxTm4xMHBmN1lCYUZzSzkrTnFwZ3dZTkUvZFkvYlVSbWFweVlORDZn?=
+ =?utf-8?B?S1JPd1JLNXZiZDZtOG9mUTd4UDFZM0ptYXFKMWNCcjgwN1llYm5EYnhJbjNl?=
+ =?utf-8?Q?5z20X8FteFQfRgN1CWSocsx3G?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a9966a1-f588-4f17-fa82-08db885c8cfd
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 13:32:08.9425
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NkcHYxNHW9F0j5arsYjznpRkr6zCu5ZyQ2OZlWci/qM8QzXq6Zsi6seR744XnpC2yYbdSslxFCYh7dpqhWw2rw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9493
 
-Sorry for the late reply.
-
-On 14/07/23 15:21, Julien Grall wrote:
-> Hi,
-> 
-> On 14/07/2023 12:49, Nicola Vetrini wrote:
->> This patch aims to fix some occurrences of possibly uninitialized
->> variables, that may be read before being written. This behaviour would
->> violate MISRA C:2012 Rule 9.1, besides being generally undesirable.
+On 18.07.2023 23:51, Simon Gaiser wrote:
+> Roger Pau Monné:
+>> On Tue, Jul 18, 2023 at 02:26:03PM +0200, Simon Gaiser wrote:
+>>> As far as I understand the HPET legacy mode is not required on systems
+>>> with ARAT after the timer IRQ test.
 >>
->> In all the analyzed cases, such accesses were actually safe, but it's
->> quite difficult to prove so by automatic checking, therefore a safer
->> route is to change the code so as to avoid the behaviour from occurring,
->> while preserving the semantics.
+>> What's the relation with ARAT here?
 >>
->> An initialization to a safe value is provided to reach this aim.
->>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->> Additional input on which values may be 'safe' in each context is
->> surely welcome, to avoid possibly compromising the correctness of
->> the function semantics.
->> ---
->>   xen/arch/arm/cpuerrata.c                    |  6 +++---
->>   xen/arch/arm/domctl.c                       |  8 ++++----
->>   xen/arch/arm/gic-v3-lpi.c                   | 17 +++++++++--------
->>   xen/arch/arm/include/asm/p2m.h              | 10 ++++++----
->>   xen/arch/arm/platforms/xilinx-zynqmp-eemi.c | 10 ++--------
->>   xen/arch/arm/psci.c                         | 10 +++++-----
->>   xen/drivers/char/pl011.c                    |  2 +-
->>   7 files changed, 30 insertions(+), 33 deletions(-)
->>
->> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
->> index d0658aedb6..14694c6081 100644
->> --- a/xen/arch/arm/cpuerrata.c
->> +++ b/xen/arch/arm/cpuerrata.c
->> @@ -159,7 +159,7 @@ extern char __mitigate_spectre_bhb_loop_start_32[],
->>   static int enable_smccc_arch_workaround_1(void *data)
->>   {
->> -    struct arm_smccc_res res;
->> +    struct arm_smccc_res res = {0};
+>> It would seem to me that keeping legacy replacement enabled should
+>> only be done when opt_hpet_legacy_replacement > 0, and the currently
+>> modified block is already in a opt_hpet_legacy_replacement < 0 gated
+>> chunk.
 > 
-> I understand you desire to make happy. But I am not sure that 
-> initializing to 0 is the right thing. If the SMCC were not properly 
-> setting the register, then we most likely don't want to install the 
-> workaround. Instead, we most likely want to warn.
+> I was concerned that on systems without ARAT cpuidle might rely on HPET
+> legacy mode being available. See _disable_pit_irq and lapic_timer_init.
+> But now that I stared at this again, I think that condition isn't
+> actually needed. If we reach that code we know that we have no working
+> PIT, but HPET is working. So _disable_pit_irq which is run after
+> check_timer (__start_xen first calls check_timer via smp_prepare_cpus
+> and only later disable_pit_irq via do_initcalls) will setup HPET
+> broadcast, which should succeed since HPET worked previously.
 > 
-> So you want (int)res.a0 to be negative. We don't care about the other 
-> fields.
-> 
+> So I guess we can just drop the condition (please double check, that
+> code is quite tangled and I'm not familiar with it).
 
-In principle I'm ok with this, but see below.
+What you want to respect instead though is opt_hpet_legacy_replacement.
 
->>       const struct arm_cpu_capabilities *entry = data;
->>       /*
->> @@ -252,7 +252,7 @@ static int enable_spectre_bhb_workaround(void *data)
->>       if ( cpus_have_cap(ARM_WORKAROUND_BHB_SMCC_3) )
->>       {
->> -        struct arm_smccc_res res;
->> +        struct arm_smccc_res res = {0};
-> 
-> Same remark here.
-> 
->>           if ( smccc_ver < SMCCC_VERSION(1, 1) )
->>               goto warn;
->> @@ -393,7 +393,7 @@ DEFINE_PER_CPU_READ_MOSTLY(register_t, 
->> ssbd_callback_required);
->>   static bool has_ssbd_mitigation(const struct arm_cpu_capabilities 
->> *entry)
->>   {
->> -    struct arm_smccc_res res;
->> +    struct arm_smccc_res res = {0};
-> 
-> Here you would want (int)res.a0 to be equal to ARM_SMCCC_NOT_SUPPORTED.
-
-I see that ARM_SMCCC_NOT_SUPPORTED is
-#define ARM_SMCCC_NOT_SUPPORTED         (-1)
-
-thus an assignment to res.a0 would violate Rule 10.3:
-"The value of an expression shall not be assigned to an object with a 
-narrower essential type or of a different essential type category."
-(signed vs unsigned, and the exception does not apply here).
-
-This rule is not yet under discussion, but I would like to avoid 
-knowingly introducing more violations if there's an alternative.
-
-Do the fields of struct arm_smccc_res really need to be unsigned? If 
-that's not the case, then I'm happy with the proposed changes.
-
-> 
->>       bool required;
->>       if ( smccc_ver < SMCCC_VERSION(1, 1) )
->> diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
->> index ad56efb0f5..b38fed72be 100644
->> --- a/xen/arch/arm/domctl.c
->> +++ b/xen/arch/arm/domctl.c
->> @@ -29,10 +29,10 @@ static int handle_vuart_init(struct domain *d,
->>                                struct xen_domctl_vuart_op *vuart_op)
->>   {
->>       int rc;
->> -    struct vpl011_init_info info;
->> -
->> -    info.console_domid = vuart_op->console_domid;
->> -    info.gfn = _gfn(vuart_op->gfn);
->> +    struct vpl011_init_info info = {
->> +        .console_domid = vuart_op->console_domid,
->> +        .gfn = _gfn(vuart_op->gfn)
->> +    };
-> 
-> I am not against, this change. But I don't quite understand how this 
-> makes Eclair much happier?
-
-It also zero-initializes the third field:
-
-struct vpl011_init_info {
-     domid_t console_domid;
-     gfn_t gfn;
-     evtchn_port_t evtchn;
-};
-
-
-> 
-> Also, if this is the desired way, then I think this should be written 
-> down in the CODING_STYLE.
-
-This is just a matter of style, I can also set the other field 
-explicitly, if you prefer. Either way, it might be a good idea to settle 
-this in the CODING_STYLE in a different patch.
-
-> 
->>       if ( d->creation_finished )
->>           return -EPERM;
->> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
->> index eb0a5535e4..12f2af2e4d 100644
->> --- a/xen/arch/arm/gic-v3-lpi.c
->> +++ b/xen/arch/arm/gic-v3-lpi.c
->> @@ -210,7 +210,10 @@ out:
->>   void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
->>                                    uint32_t virt_lpi)
->>   {
->> -    union host_lpi *hlpip, hlpi;
->> +    union host_lpi *hlpip, hlpi = {
->> +        .virt_lpi = virt_lpi,
->> +        .dom_id = domain_id
->> +    };
->>       ASSERT(host_lpi >= LPI_OFFSET);
->> @@ -218,9 +221,6 @@ void gicv3_lpi_update_host_entry(uint32_t 
->> host_lpi, int domain_id,
->>       hlpip = &lpi_data.host_lpis[host_lpi / 
->> HOST_LPIS_PER_PAGE][host_lpi % HOST_LPIS_PER_PAGE];
->> -    hlpi.virt_lpi = virt_lpi;
->> -    hlpi.dom_id = domain_id;
->> -
->>       write_u64_atomic(&hlpip->data, hlpi.data);
->>   }
->> @@ -542,14 +542,15 @@ int gicv3_allocate_host_lpi_block(struct domain 
->> *d, uint32_t *first_lpi)
->>       for ( i = 0; i < LPI_BLOCK; i++ )
->>       {
->> -        union host_lpi hlpi;
->> -
->>           /*
->>            * Mark this host LPI as belonging to the domain, but don't 
->> assign
->>            * any virtual LPI or a VCPU yet.
->>            */
->> -        hlpi.virt_lpi = INVALID_LPI;
->> -        hlpi.dom_id = d->domain_id;
->> +        union host_lpi hlpi = {
->> +            .virt_lpi = INVALID_LPI,
->> +            .dom_id = d->domain_id
->> +        };
->> +
->>           write_u64_atomic(&lpi_data.host_lpis[chunk][lpi_idx + i].data,
->>                            hlpi.data);
->> diff --git a/xen/arch/arm/include/asm/p2m.h 
->> b/xen/arch/arm/include/asm/p2m.h
->> index 940495d42b..413e2a7add 100644
->> --- a/xen/arch/arm/include/asm/p2m.h
->> +++ b/xen/arch/arm/include/asm/p2m.h
->> @@ -345,7 +345,7 @@ static inline struct page_info *get_page_from_gfn(
->>       struct domain *d, unsigned long gfn, p2m_type_t *t, p2m_query_t q)
->>   {
->>       mfn_t mfn;
->> -    p2m_type_t _t;
->> +    p2m_type_t _t = p2m_invalid;
->>       struct page_info *page;
->>       /*
->> @@ -355,10 +355,12 @@ static inline struct page_info *get_page_from_gfn(
->>       if ( likely(d != dom_xen) )
->>           return p2m_get_page_from_gfn(d, _gfn(gfn), t);
->> -    if ( !t )
->> +    /* Allow t to be NULL */
->> +    if ( t )
->> +        *t = _t;
->> +    else {
->>           t = &_t;
->> -
->> -    *t = p2m_invalid;
->> +    }
-> 
-> I understand the exist construct is not liked by Eclair. But your new 
-> construct is not easily readable by a human. Before I can propose a 
-> different approach, can you clarify why Eclair is unhappy this the 
-> existing code?
-> 
-
-This has been addressed in the reply to patch 1/4.
-
->>       /*
->>        * DOMID_XEN sees 1-1 RAM. The p2m_type is based on the type of the
->> diff --git a/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c 
->> b/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
->> index 2053ed7ac5..39d9ab4fa9 100644
->> --- a/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
->> +++ b/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
->> @@ -51,11 +51,11 @@ static inline bool domain_has_reset_access(struct 
->> domain *d, uint32_t rst)
->>   bool zynqmp_eemi(struct cpu_user_regs *regs)
->>   {
->> -    struct arm_smccc_res res;
->> +    struct arm_smccc_res res = {0};
->>       uint32_t fid = get_user_reg(regs, 0);
->>       uint32_t nodeid = get_user_reg(regs, 1);
->>       unsigned int pm_fn = fid & 0xFFFF;
->> -    enum pm_ret_status ret;
->> +    enum pm_ret_status ret = XST_PM_NO_ACCESS;
-> 
-> It is not clear to me why Eclair is unhappy here?
-
-Gotos, as explained in the reply to patch 1/4. Since 'ret' here already 
-sets a value in every branch, I am in favour of initializing it before 
-the switch with that value. The zero-ed 'arm_smccc_res' is ok here?
-
-> 
->>       switch ( fid )
->>       {
->> @@ -89,7 +89,6 @@ bool zynqmp_eemi(struct cpu_user_regs *regs)
->>           {
->>               gprintk(XENLOG_WARNING,
->>                       "zynqmp-pm: fn=%u No access to node %u\n", 
->> pm_fn, nodeid);
->> -            ret = XST_PM_NO_ACCESS;
->>               goto done;
-> 
-> I find the new approach less obvious. How about introduce a macro that 
-> will set the result and the use replace the two lines with:
-> 
-> set_result(regs, XST_PM_NO_ACCESS);
-> return 0;
-> 
-> where set_result(regs, ret) is
-> 
-> set_user_reg(regs, 0, ret)
-> 
->> diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
->> index 695d2fa1f1..47e46af608 100644
->> --- a/xen/arch/arm/psci.c
->> +++ b/xen/arch/arm/psci.c
->> @@ -38,7 +38,7 @@ static uint32_t psci_cpu_on_nr;
->>   int call_psci_cpu_on(int cpu)
->>   {
->> -    struct arm_smccc_res res;
->> +    struct arm_smccc_res res = {0};
-> 
-> I don't this we should initialize a0 to 0 as this would indicate a 
-> success. Instead, we want an invalid value.
-
-Same remark as stated above about the invalid value being negative.
-
-> 
->>       arm_smccc_smc(psci_cpu_on_nr, cpu_logical_map(cpu), 
->> __pa(init_secondary),
->>                     &res);
->> @@ -50,7 +50,7 @@ void call_psci_cpu_off(void)
->>   {
->>       if ( psci_ver > PSCI_VERSION(0, 1) )
->>       {
->> -        struct arm_smccc_res res;
->> +        struct arm_smccc_res res = {0};
-> 
-> Same here.
-> 
->>           /* If successfull the PSCI cpu_off call doesn't return */
->>           arm_smccc_smc(PSCI_0_2_FN32_CPU_OFF, &res);
->> @@ -73,7 +73,7 @@ void call_psci_system_reset(void)
->>   static int __init psci_features(uint32_t psci_func_id)
->>   {
->> -    struct arm_smccc_res res;
->> +    struct arm_smccc_res res = {0};
-> 
-> Same here.
-> 
->>       if ( psci_ver < PSCI_VERSION(1, 0) )
->>           return PSCI_NOT_SUPPORTED;
->> @@ -115,7 +115,7 @@ static void __init psci_init_smccc(void)
->>       if ( psci_features(ARM_SMCCC_VERSION_FID) != PSCI_NOT_SUPPORTED )
->>       {
->> -        struct arm_smccc_res res;
->> +        struct arm_smccc_res res = {0};
-> 
-> Same here.
-> 
->>           arm_smccc_smc(ARM_SMCCC_VERSION_FID, &res);
->>           if ( PSCI_RET(res) != ARM_SMCCC_NOT_SUPPORTED )
->> @@ -168,7 +168,7 @@ static int __init psci_init_0_2(void)
->>           { /* sentinel */ },
->>       };
->>       int ret;
->> -    struct arm_smccc_res res;
->> +    struct arm_smccc_res res = {0};
-> 
-> Same here.
-> 
->>       if ( acpi_disabled )
->>       {
->> diff --git a/xen/drivers/char/pl011.c b/xen/drivers/char/pl011.c
->> index f7bf3ad117..34ce90be52 100644
->> --- a/xen/drivers/char/pl011.c
->> +++ b/xen/drivers/char/pl011.c
->> @@ -285,7 +285,7 @@ static int __init pl011_dt_uart_init(struct 
->> dt_device_node *dev,
->>       const char *config = data;
->>       int res;
->>       paddr_t addr, size;
->> -    uint32_t io_width;
->> +    uint32_t io_width = 0;
-> 
-> We have many use of dt_property_read_*() within the code base. I would 
-> like us te decide of a policy first.
-> 
-
-Well, the best outcome for me is if all these functions (i.e., 
-dt_property_*, dt_get_property_*) always write the parameter they are 
-supposed to set. I understand if this is not always feasible, but the 
-alternative is not clean (e.g., deviate or refactor in such a way that 
-the code is less readable).
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Jan
 
