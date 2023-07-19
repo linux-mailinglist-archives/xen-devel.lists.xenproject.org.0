@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D19D37597B8
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 16:07:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565897.884500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA827597DF
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 16:14:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565901.884510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7pP-0005ND-OB; Wed, 19 Jul 2023 14:06:55 +0000
+	id 1qM7w4-0007Bq-Ih; Wed, 19 Jul 2023 14:13:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565897.884500; Wed, 19 Jul 2023 14:06:55 +0000
+Received: by outflank-mailman (output) from mailman id 565901.884510; Wed, 19 Jul 2023 14:13:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM7pP-0005LV-Jj; Wed, 19 Jul 2023 14:06:55 +0000
-Received: by outflank-mailman (input) for mailman id 565897;
- Wed, 19 Jul 2023 14:06:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qM7w4-00078V-Fh; Wed, 19 Jul 2023 14:13:48 +0000
+Received: by outflank-mailman (input) for mailman id 565901;
+ Wed, 19 Jul 2023 14:13:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qM7pO-0005LL-Jf
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 14:06:54 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qM7pN-0004FH-4s; Wed, 19 Jul 2023 14:06:53 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228]
- helo=[192.168.5.130]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qM7pM-0007Ak-U1; Wed, 19 Jul 2023 14:06:53 +0000
+ (envelope-from <SRS0=qi+E=DF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qM7w2-00078P-Fd
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 14:13:46 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061c.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::61c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 78bf063e-263e-11ee-b23a-6b7b168915f2;
+ Wed, 19 Jul 2023 16:13:45 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AS8PR04MB7831.eurprd04.prod.outlook.com (2603:10a6:20b:2a8::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Wed, 19 Jul
+ 2023 14:13:42 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
+ 14:13:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,288 +47,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=cs21xDKuAl5htdEQty3rHproNTj5cFuOLY/wGHzuGo4=; b=SYnwIOB4/s9Id0dSikI0AbPmRa
-	NzDOGwlM+3OXImQm3YiNe6TwusbaJ/REPxAFjTfuV1+xUAEkidPr2KiKqILAzlkttCuZNDLYIz/PJ
-	Yo081bL1Rut5BPR3J9TvvQnghHrFADbpkv+b5a5TkKo2xyjzYD8bOSXX85vMSY+MCJ4o=;
-Message-ID: <d0ea5b5a-e2c6-41dd-39bb-c692af2b8ced@xen.org>
-Date: Wed, 19 Jul 2023 15:06:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [RFC PATCH 3/4] xen/arm: initialize conditionally uninitialized
- local variables
+X-Inumbo-ID: 78bf063e-263e-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KjXdc2ltqmJqB+CpLPC1NnoLtiGCOYHOTnf4e1l31+NuoRT6LPtw3YB0+sUiX0JewJeEo7aU1TyTMKpi6IPclqGwvJCFjdXQHg41bc4HqseRex/2UOBIG5MZDMAsI4i+prGtZ0DBmBftjo6HA4TvciE7sKGx0YKbaiDNCYaIuGWijIjtJLVAuhPt6hqAFtrLVrt51HXVW1Gq3lZ7itVFkFIUqoFjYymS7qYFBhlEgxYtH3RwWMURWEslYvIebiHkCalACAPLTb4JCcv14dDkTZgLE0f/Cx8ixisnMvM2hqV0cy8mscoe8QMZh+xafENgFDDmW6vhgTTe2EfYzT8kzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P1sYICqKnpdu0fmsyevRhCyDcZaOPyWwxqQvjY5Jm84=;
+ b=j41qLFYOFR7Sr+WwOWVIIYfN8Nj5S51EryF3J8PE5EAG/ue+rh6W28gY+BZerBjWN+/AGJ82NET4B6WaJmw4al1lZQE89/CEzUwtj7QNCxrD3W5Fj5S8RlqcD+EtPXavoJqSNWPHgjBAzZRtmFuoqdJh5pCh17W67GRCct6OUoBZ2OV4+tnWQArxPVHAQlX5NCzxQjs/p1ftn259ivDW1Ao4m6doItfE1i6Us9tHEJz9Ob+tdLOtLjMtZza/yeEqFBRlw2uae4bJScUsD8eharr58hXGQOi4W9xxT/hyvlb+X6lyuQA/CcCRR51z+uzmrNK8Za9FjnAP54tMNpzvvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P1sYICqKnpdu0fmsyevRhCyDcZaOPyWwxqQvjY5Jm84=;
+ b=xR6uppPLoBMyVTcc0BytkedoA0btf8v5AfZQbnTp6OcrHZECPcVO1yLaRIRivrCI/GzyCcm8X7fxiv/I/9GtQrxYV+c35TEgnGNtTLh2qW6IrKphLCSNeVy+z2sXvFgdrAMDto3rM3ehrKMXG9Hc27+pPAOhshDD5NpPjxDH5YbH+UsiUcAzsapjNuwDLxfunxIwJttrskCZ4ApoPC83J3wSy2/gRWmFB7pYQG8J8eDf0OqhRiF3EAmiTvuBl9S9RHo+vQ1q8W2NI430mmdR4ykBvksCEplaTL6mcF71+Cx2HyMqO7xeluf7nIQmo3DidPtqUNXBl4uYdGVY8TCzqA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e2dd3b3e-6270-602e-67ad-b7ddb4b1d96e@suse.com>
+Date: Wed, 19 Jul 2023 16:13:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH RFC] x86/boot: Update construct_dom0() to take a const
+ char *cmdline
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1689329728.git.nicola.vetrini@bugseng.com>
- <c7d2cd46f06f75f8a1810168c508f05d242f831c.1689329728.git.nicola.vetrini@bugseng.com>
- <9ab4ae66-aa72-2426-08e5-cbe44030d7f2@xen.org>
- <af6157e5-fc71-1df7-cab7-fefa78425d3e@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <af6157e5-fc71-1df7-cab7-fefa78425d3e@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Daniel Smith <dpsmith@apertussolutions.com>,
+ Christopher Clark <christopher@nexfir.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230719131802.4078609-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230719131802.4078609-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0163.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b3::17) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB7831:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5951e3fd-6bad-418b-4a03-08db88625b8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	p5cc/tUPRdkCRZerat4A53dAaUSWZg8jyln0FLhGG21KtVprrW7dsbPF1flJqDWGMDsl9rJozgqgUI023gzqLSOP5MTDjBKq/ZDbCEMEB2X2sAjDgd7evHeCa6fxZgc5V5y2qETJIp6vo+iIJYOZ5qXD6RmEel8DFV6JUC2veuWJNoPfed6lSMo454ompGb0hJ6U5A8monfXcSKvmO7mX8N0lkt5RIXOt8rR9LM6jTjV2K3ndia/CMtGstSftNp2G+GhsIJqo+OB8OgsD1IIMFSueuldbB7BPccGOROfdSGGFQ/BbmVuhDzrntjWdTrf8Ir2v+jjtHrwaThf8R0xVmr9W7RDwX0HURwtbSo1E/UXa3qHGxvWAvtjkBuduROQ9nO9Mw23j373JHeoU9hjjEN3PHmQiA0aTBIYp6lTd31WITRZl+0P+fpace7ZCOcVxIv+QyvDKDjTNF/tMX1jAtP6GvrhaD9d7EJ1WMFwuuzBT9Z9OjUBGYWAEN7LNvAp/Q2NH551U6XG08ZivUXMauAyhKtk4+lYb0HxVwwKzvkVo94xpZ+Hc9ecCH1YFYOBKDSZbwOk6zSeQuil2ETx86Vcm1wHP9zNCVC0iq9ouAnSlaRPRw/fIXvxnEg3qDrqpGcXcZWgvVwETkvJL0Tklw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(39860400002)(376002)(136003)(366004)(346002)(451199021)(31686004)(38100700002)(6506007)(53546011)(26005)(478600001)(6916009)(54906003)(15650500001)(5660300002)(8936002)(8676002)(4326008)(66476007)(66946007)(66556008)(6512007)(86362001)(41300700001)(6486002)(316002)(31696002)(2616005)(186003)(36756003)(2906002)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bXRXNE14RnlubHVOTVVXTkgvVzJvYy9rYjZoZ2hSWWFUN0JQckF5L1hKdlRT?=
+ =?utf-8?B?U1NaRFZWQldnTUxuMHNUanhaYUNoYnIyOXdIMVR3NWgzK1Q3WGtNcXV2N2Fo?=
+ =?utf-8?B?NjZVZzVMS2x2Nkltd0lSTWVOZTBTaFBqcVp3eHJZYW9NSGlpdlprWXJDNnBT?=
+ =?utf-8?B?SWw2dTZhekdGSEx2blk0RkQ0b2t6WHJWUDllZkEvOUF6WisvRlRPY1RnYytQ?=
+ =?utf-8?B?ODF6S0hEaE1vNmZ0aUc4Y0p3SGJ3T0tyS0hoSmxSVG1YMUJQYk1majhLS1Zv?=
+ =?utf-8?B?bHhNWXJOdytRcE55Z1oycS9SdWdrQzBzZUxxNlpyVzYycTNuNkZzMTdYQTBP?=
+ =?utf-8?B?WmpZVEppTFJQZlBoZWxFRS8rbmJ3bFo5bWVQQUlNOXVKSS9udnJtY0txU3BF?=
+ =?utf-8?B?MnRlajJ3Z09EOEVNVFBiOWJLbDZ2LzlxNTE4NXNzQjRqWkd3eHJoU0Z0MjBW?=
+ =?utf-8?B?NFJWQm91aHNBSnlGVFVpMXNGaE9vbGZHcmF6WjNFRnJ1WmxOajc2TzhGaG5x?=
+ =?utf-8?B?UE1hWnhqQjlOY25Vc0c1bUFuYlFCdkd0QlJTKzRmQ0pWT1lROU1Ia0lQS2Uy?=
+ =?utf-8?B?VGx4MEFORWZPbG5ZN1FMcFhRU0h1ZGpuYmNETEZrS1Arc3cyU2dXeUpGK2c0?=
+ =?utf-8?B?MHp1KzVaZ0hqbHV6NnNVam5YeU40UG51VmJDTi96aGhqclVaTDh6Ym53RnNt?=
+ =?utf-8?B?QzdmTHE0VEc1dFJ4OGgzZUoxdVgydkc4dHpjTitSN0Vtb1BHVVBQUUREdldL?=
+ =?utf-8?B?SnZSSmprSTBIS2hRSmE2VndQZjJUK2N4bm1ySVNZWTFWY1lTbDdlWi8vQW1K?=
+ =?utf-8?B?azNNOW9Wa3dZUE8ySWp0dzd6VGFPdFY4SEt3WWxxTXZGSEVjOExiMHVOUEhw?=
+ =?utf-8?B?Zzk2NHhoSzR0OHhYMHE2ZnNhT3NUMldtS25jb0ZCS2lBb1dnTmFQZTduVS9u?=
+ =?utf-8?B?cHBTWVZXTDFMU3UwU1dOU1BlZjlaam5ET1MvdmNnYnpTOXZjV0NnNjAyajdW?=
+ =?utf-8?B?VXF0U2JRSWNxQ0V0VzdwZEUrR2Z5aDRrd3BlVUEwRDhkcmMrRUVmQzNOZVpN?=
+ =?utf-8?B?VnFUZUVhc1d2dlhHS2ltRENzY0RhMmFVM3JrMm5SblJ1c3BZYmk4TzNNTjdP?=
+ =?utf-8?B?ZjZBdHI4ZHIxeWJVbUZ6bUVpOXNubUc3ZEs4K25QbXM5bndocGxBSy8yTkxu?=
+ =?utf-8?B?dkRKNnBsKzFsblFSOVZSSlQrWElaZUI2L2wyWjJnclRIaThaWThlTnVwcDMw?=
+ =?utf-8?B?ZjZoRHc3MTFHWUR1NmVzdVZPREcvQkYyK2x0T2ViZHMrN2h1ei80TFB3aGt5?=
+ =?utf-8?B?QkFnK2hDSFZsU0dTTzkwaS9majUxWkFZY1NtWnRUbC8rL3RpRWtYejBXOGFO?=
+ =?utf-8?B?empqVkViTzdnbTk2TmxFaWhWU1pYdVZBTC8vcStJcmVCSWlIbElSZkdSaURx?=
+ =?utf-8?B?UTVDK2ZTR1dKc0VORW5POHdVS2tjempET2MxaXB4c3V1dHRIVjMxZ0NuSVQ0?=
+ =?utf-8?B?STdkTWdNYjlBUm9oK2tiZ2lwTTJDcEhlcnRRRzBXRmNNcnZKNjVUaU1FWjdJ?=
+ =?utf-8?B?Uy9RY1dXd0R3VGlOV2h5WG1QdHA3V0J6T0Z3RG9FUUhwb3p1MmNuaGVheFZp?=
+ =?utf-8?B?alQ5amxEVk9HTXkwS3YzdThha25jQ1JjREpqUGlKWEZxTGxVU2FvNVlJSjFo?=
+ =?utf-8?B?cithMlpDbVZtb3cwc0FFVFVEYmxGdmE3Nm5TdFUvZENISXNEOUFWVHZTdzFk?=
+ =?utf-8?B?T2NUZVg0amtXR2V0cTZQM2hKc0ZxTDBEYTZkZXBvNVVvK25YRGhhKzhFMTNa?=
+ =?utf-8?B?MzUzNHd3c2xkSjErMmJJWWlOWTU1SVF4K1ltUnBIbDZ2Y01CaFBrOXJYdUV6?=
+ =?utf-8?B?RzB0STZienhObDlxbEJPNGRTeXB3ZG1YbXB0ZVNYcVEzeTRSVjQyVTdFbUJS?=
+ =?utf-8?B?OW1wUi9rUm0yM2dCc3loWXVpNXhsWGgvOE80N3Rmam1qMVZjNVplY1FyNWla?=
+ =?utf-8?B?ajhTb3lzZ2hnSExjb3FoZDZRTnQ4enNkNVcxQ1dtNllobjB6TC83Nk5CVFhx?=
+ =?utf-8?B?MlAyMUNsTThzKytpaWJZdlB3RmV4YlR2Y2dyZTZLbnNwc29JR29hU2lYSi84?=
+ =?utf-8?Q?qJSypXqy9nMxid53zZG4kdIGk?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5951e3fd-6bad-418b-4a03-08db88625b8a
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 14:13:42.8356
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sCNknHQvgBHXlyh4uXmNRAVHDk2CiekSyE5XgJ07MbaQzLkwTm8a11YwNyPgY+4M2CjT0ybIIZt/TKAuRqr5kQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7831
 
-Hi,
-
-On 19/07/2023 14:27, Nicola Vetrini wrote:
-> On 14/07/23 15:21, Julien Grall wrote:
->> Hi,
->>
->> On 14/07/2023 12:49, Nicola Vetrini wrote:
->>> This patch aims to fix some occurrences of possibly uninitialized
->>> variables, that may be read before being written. This behaviour would
->>> violate MISRA C:2012 Rule 9.1, besides being generally undesirable.
->>>
->>> In all the analyzed cases, such accesses were actually safe, but it's
->>> quite difficult to prove so by automatic checking, therefore a safer
->>> route is to change the code so as to avoid the behaviour from occurring,
->>> while preserving the semantics.
->>>
->>> An initialization to a safe value is provided to reach this aim.
->>>
->>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>> ---
->>> Additional input on which values may be 'safe' in each context is
->>> surely welcome, to avoid possibly compromising the correctness of
->>> the function semantics.
->>> ---
->>>   xen/arch/arm/cpuerrata.c                    |  6 +++---
->>>   xen/arch/arm/domctl.c                       |  8 ++++----
->>>   xen/arch/arm/gic-v3-lpi.c                   | 17 +++++++++--------
->>>   xen/arch/arm/include/asm/p2m.h              | 10 ++++++----
->>>   xen/arch/arm/platforms/xilinx-zynqmp-eemi.c | 10 ++--------
->>>   xen/arch/arm/psci.c                         | 10 +++++-----
->>>   xen/drivers/char/pl011.c                    |  2 +-
->>>   7 files changed, 30 insertions(+), 33 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
->>> index d0658aedb6..14694c6081 100644
->>> --- a/xen/arch/arm/cpuerrata.c
->>> +++ b/xen/arch/arm/cpuerrata.c
->>> @@ -159,7 +159,7 @@ extern char __mitigate_spectre_bhb_loop_start_32[],
->>>   static int enable_smccc_arch_workaround_1(void *data)
->>>   {
->>> -    struct arm_smccc_res res;
->>> +    struct arm_smccc_res res = {0};
->>
->> I understand you desire to make happy. But I am not sure that 
->> initializing to 0 is the right thing. If the SMCC were not properly 
->> setting the register, then we most likely don't want to install the 
->> workaround. Instead, we most likely want to warn.
->>
->> So you want (int)res.a0 to be negative. We don't care about the other 
->> fields.
->>
+On 19.07.2023 15:18, Andrew Cooper wrote:
+> With hvm_copy_to_guest_*() able to use const sources, update construct_dom0()
+> and friends to pass a const cmdline pointer.  Nothing in these paths have a
+> reason to be modifying the command line passed in.
 > 
-> In principle I'm ok with this, but see below.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Daniel Smith <dpsmith@apertussolutions.com>
+> CC: Christopher Clark <christopher@nexfir.com>
 > 
->>>       const struct arm_cpu_capabilities *entry = data;
->>>       /*
->>> @@ -252,7 +252,7 @@ static int enable_spectre_bhb_workaround(void *data)
->>>       if ( cpus_have_cap(ARM_WORKAROUND_BHB_SMCC_3) )
->>>       {
->>> -        struct arm_smccc_res res;
->>> +        struct arm_smccc_res res = {0};
->>
->> Same remark here.
->>
->>>           if ( smccc_ver < SMCCC_VERSION(1, 1) )
->>>               goto warn;
->>> @@ -393,7 +393,7 @@ DEFINE_PER_CPU_READ_MOSTLY(register_t, 
->>> ssbd_callback_required);
->>>   static bool has_ssbd_mitigation(const struct arm_cpu_capabilities 
->>> *entry)
->>>   {
->>> -    struct arm_smccc_res res;
->>> +    struct arm_smccc_res res = {0};
->>
->> Here you would want (int)res.a0 to be equal to ARM_SMCCC_NOT_SUPPORTED.
+> Slightly RFC.
 > 
-> I see that ARM_SMCCC_NOT_SUPPORTED is
-> #define ARM_SMCCC_NOT_SUPPORTED         (-1)
-> 
-> thus an assignment to res.a0 would violate Rule 10.3:
-> "The value of an expression shall not be assigned to an object with a 
-> narrower essential type or of a different essential type category."
-> (signed vs unsigned, and the exception does not apply here).
-> 
-> This rule is not yet under discussion, but I would like to avoid 
-> knowingly introducing more violations if there's an alternative.
-> 
-> Do the fields of struct arm_smccc_res really need to be unsigned?
+> I'm confused as to why image is const, but the initrd isn't.
 
-Yes, all the fields represent a register. Also, in this context, only 
-the first 32-bit of the register should be taken into account.
+dom0_construct_pv() has
 
-That why you will see code using (int)res.a0.
+            initrd->mod_start = initrd_mfn = mfn_x(page_to_mfn(page));
 
->>>       bool required;
->>>       if ( smccc_ver < SMCCC_VERSION(1, 1) )
->>> diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
->>> index ad56efb0f5..b38fed72be 100644
->>> --- a/xen/arch/arm/domctl.c
->>> +++ b/xen/arch/arm/domctl.c
->>> @@ -29,10 +29,10 @@ static int handle_vuart_init(struct domain *d,
->>>                                struct xen_domctl_vuart_op *vuart_op)
->>>   {
->>>       int rc;
->>> -    struct vpl011_init_info info;
->>> -
->>> -    info.console_domid = vuart_op->console_domid;
->>> -    info.gfn = _gfn(vuart_op->gfn);
->>> +    struct vpl011_init_info info = {
->>> +        .console_domid = vuart_op->console_domid,
->>> +        .gfn = _gfn(vuart_op->gfn)
->>> +    };
->>
->> I am not against, this change. But I don't quite understand how this 
->> makes Eclair much happier?
-> 
-> It also zero-initializes the third field:
-> 
-> struct vpl011_init_info {
->      domid_t console_domid;
->      gfn_t gfn;
->      evtchn_port_t evtchn;
-> };
-> 
-> 
->>
->> Also, if this is the desired way, then I think this should be written 
->> down in the CODING_STYLE.
-> 
-> This is just a matter of style, I can also set the other field 
-> explicitly, if you prefer.
+Looks like dom0_construct_pvh() and pvh_load_kernel() could have
+it const-ified.
 
-I am confused. In a previous reply, I thought you said the following 
-would also make ECLAIR unhappy:
+> This is necessary to make the -Wwrite-strings bodge compile, but I'm hoping
+> that a less-bad solution to the cmdline literals problem would avoid the need
+> to propagate const through this callpath.
 
-info.console_domid = <...>;
-info.gfn = <...>;
-info.evtchn = <...>;
+But propagating const through this, like any other, path is a good
+thing, isn't it?
 
-> Either way, it might be a good idea to settle 
-> this in the CODING_STYLE in a different patch.
+If you want to keep it (you appear to be uncertain)
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Well... The pattern you complain about is fairly common in Xen and I 
-personally prefer to use in some situation over your proposal. So I 
-think we need to agree first that your proposal is the way to go before 
-modifying the code everywhere.
-
-[...]
-
->>
->> I understand the exist construct is not liked by Eclair. But your new 
->> construct is not easily readable by a human. Before I can propose a 
->> different approach, can you clarify why Eclair is unhappy this the 
->> existing code?
->>
-> 
-> This has been addressed in the reply to patch 1/4.
-
-AFAICT the conversation wasn't settled. We will continue there to avoid 
-duplication.
-
-> 
->>>       /*
->>>        * DOMID_XEN sees 1-1 RAM. The p2m_type is based on the type of 
->>> the
->>> diff --git a/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c 
->>> b/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
->>> index 2053ed7ac5..39d9ab4fa9 100644
->>> --- a/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
->>> +++ b/xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
->>> @@ -51,11 +51,11 @@ static inline bool domain_has_reset_access(struct 
->>> domain *d, uint32_t rst)
->>>   bool zynqmp_eemi(struct cpu_user_regs *regs)
->>>   {
->>> -    struct arm_smccc_res res;
->>> +    struct arm_smccc_res res = {0};
->>>       uint32_t fid = get_user_reg(regs, 0);
->>>       uint32_t nodeid = get_user_reg(regs, 1);
->>>       unsigned int pm_fn = fid & 0xFFFF;
->>> -    enum pm_ret_status ret;
->>> +    enum pm_ret_status ret = XST_PM_NO_ACCESS;
->>
->> It is not clear to me why Eclair is unhappy here?
-> 
-> Gotos, as explained in the reply to patch 1/4. Since 'ret' here already 
-> sets a value in every branch, I am in favour of initializing it before 
-> the switch with that value. The zero-ed 'arm_smccc_res' is ok here?
-
-I am not in favor of this approach. Have you considered my proposal...
-
-> 
->>
->>>       switch ( fid )
->>>       {
->>> @@ -89,7 +89,6 @@ bool zynqmp_eemi(struct cpu_user_regs *regs)
->>>           {
->>>               gprintk(XENLOG_WARNING,
->>>                       "zynqmp-pm: fn=%u No access to node %u\n", 
->>> pm_fn, nodeid);
->>> -            ret = XST_PM_NO_ACCESS;
->>>               goto done;
->>
->> I find the new approach less obvious. How about introduce a macro that 
->> will set the result and the use replace the two lines with:
->>
->> set_result(regs, XST_PM_NO_ACCESS);
->> return 0;
->>
->> where set_result(regs, ret) is
->>
->> set_user_reg(regs, 0, ret)
-
-... here?
-
-[...]
-
->>> diff --git a/xen/drivers/char/pl011.c b/xen/drivers/char/pl011.c
->>> index f7bf3ad117..34ce90be52 100644
->>> --- a/xen/drivers/char/pl011.c
->>> +++ b/xen/drivers/char/pl011.c
->>> @@ -285,7 +285,7 @@ static int __init pl011_dt_uart_init(struct 
->>> dt_device_node *dev,
->>>       const char *config = data;
->>>       int res;
->>>       paddr_t addr, size;
->>> -    uint32_t io_width;
->>> +    uint32_t io_width = 0;
->>
->> We have many use of dt_property_read_*() within the code base. I would 
->> like us te decide of a policy first.
->>
-> 
-> Well, the best outcome for me is if all these functions (i.e., 
-> dt_property_*, dt_get_property_*) always write the parameter they are 
-> supposed to set. I understand if this is not always feasible, but the 
-> alternative is not clean (e.g., deviate or refactor in such a way that 
-> the code is less readable).
-
-I have had a look at the helpers. Here some thoughts
-
-* dt_get_property(): Always setting '*lenp' could result to user 
-starting relying on the 'len' rather than the error code. This could 
-potentially be mitigated by forcing the code to check the value (i.e. 
-adding __must_check).
-
-* dt_property_read_u*(): The best would be to let the user decide what 
-would a default sane value by adding an extra parameter.
-
-* dt_property_read_string(): I would return the string and use 
-ERR_PTR(...) when there is an error.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
