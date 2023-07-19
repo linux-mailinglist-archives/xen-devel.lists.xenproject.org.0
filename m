@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E72B759265
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 12:10:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.565738.884187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C87175925C
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jul 2023 12:08:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.565735.884176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM48L-0002IA-Qt; Wed, 19 Jul 2023 10:10:13 +0000
+	id 1qM46b-0000uY-FS; Wed, 19 Jul 2023 10:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 565738.884187; Wed, 19 Jul 2023 10:10:13 +0000
+Received: by outflank-mailman (output) from mailman id 565735.884176; Wed, 19 Jul 2023 10:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qM48L-0002GV-Nq; Wed, 19 Jul 2023 10:10:13 +0000
-Received: by outflank-mailman (input) for mailman id 565738;
- Wed, 19 Jul 2023 10:10:11 +0000
+	id 1qM46b-0000rq-Cu; Wed, 19 Jul 2023 10:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 565735;
+ Wed, 19 Jul 2023 10:08:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bnZ=DF=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qM48J-0002GN-Nm
- for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 10:10:11 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70ccd720-261c-11ee-8611-37d641c3527e;
- Wed, 19 Jul 2023 12:10:09 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.163.72.116])
- by support.bugseng.com (Postfix) with ESMTPSA id 9B72A4EE0C89;
- Wed, 19 Jul 2023 12:10:07 +0200 (CEST)
+ <SRS0=fyAl=DF=citrix.com=prvs=55726f7b7=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qM46a-0000rk-1a
+ for xen-devel@lists.xenproject.org; Wed, 19 Jul 2023 10:08:24 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3004a177-261c-11ee-8611-37d641c3527e;
+ Wed, 19 Jul 2023 12:08:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,276 +36,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70ccd720-261c-11ee-8611-37d641c3527e
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN PATCH] x86/HVM: address violations of MISRA C:2012 Rules 8.2 and 8.3
-Date: Wed, 19 Jul 2023 12:07:16 +0200
-Message-Id: <7c89ac0fe44dbd1ba1436a91024efebf2794db40.1689761143.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 3004a177-261c-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689761301;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=XIOOnQ4fgim3D5Pq1B3STxqg0s1BCaA46fECZIyfIC0=;
+  b=QsJvio9WvXXj/Y/ZTBgp/49O5vC8Q/hUdEsWqmeSuY2e0CAy8Q4z2r0c
+   RJoW2qAHdiv/udFwvZlMSzg/V8JhxcGbwszgtShE/ABkMZP4eE/cYgHCz
+   0LMrXiBSkeMGvz+VRt0zNQShvbeBIk88WEuFCYJYjnGSNk4M8PW1gegbY
+   U=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 119308311
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:GTeF8aI/jqJWMNk3FE+R0ZUlxSXFcZb7ZxGr2PjKsXjdYENS1TdWz
+ zZMWGyGOfvcZTHxKYxyOoy29koOsJbczdQxSQJlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrawP9TlK6q4mhA4QVvPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5xAGd/2
+ uYFEAoVazHfnuWZz5GVdLVV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJQOxhbD/
+ zuuE2LRHUFFPs3GxSG/7XeB2sv1lnzARYkIPejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
+ XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9K24EVAAeUDM/+9zC/Jg0oR3sYOg/Kfvg5jHqIg0c0
+ wxmvQBn2eVC0pNRh/3mlbzUq2ny/8aUF2bZ8i2SBzv4tV0hOeZJcqTysTDmAeB8wJF1p7Vrl
+ FwNgICg4e8HFvlhfwTdEbxWTNlFCxtoWQAwYGKD/LF7rVxBA1b5IehtDMhWfS+FyPosdz7ze
+ 1P0sghM/pJVN3bCRfYpM9PuU5lykfe/T4mNuhXogjxmOMQZmOivpXwGWKJt9zq1zBhEfV8XZ
+ f93jvpA/V5FUP86nVJats8W0KMxxzBW+I8gbcmT8vhT6pLHPCT9Ye5cYDOzghURsPvsTPP9r
+ 4wOaKNnCnx3DIXDX8Ug2ddMfA5ScSBhWMmeRg4+XrfrHzeK0VoJU5f5qY7NsaQ/90iJvo8kJ
+ k2AZ3I=
+IronPort-HdrOrdr: A9a23:2VmhkK5nm98fSpb15gPXwOPXdLJyesId70hD6qkRc20xTiX8ra
+ rCoB1173PJYVoqN03I4OrwQZVoIkmsl6Kdg7NwAV7KZmCPhILPFu9fBODZsl7d8kPFl9K14p
+ 0QF5SWWOeaMbGjt7eA3OBjKadH/DBbytHOuQ4D9QYUcei1UdAb0ztE
+X-Talos-CUID: =?us-ascii?q?9a23=3AMSZZDmjZ08S5QZvIvc5ospShyDJudHzb/VjKPne?=
+ =?us-ascii?q?CEWNIFKSSZlCz1p04qp87?=
+X-Talos-MUID: 9a23:T9+R3As1oB58xuxsiM2nm2E9PtYx77+UF0UgzbE8sJa/KCdqEmLI
+X-IronPort-AV: E=Sophos;i="6.01,216,1684814400"; 
+   d="scan'208";a="119308311"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/mem: Make mem_hotadd_check() more legible
+Date: Wed, 19 Jul 2023 11:08:08 +0100
+Message-ID: <20230719100808.4046779-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Give a name to unnamed parameters thus addressing violations of
-MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
-named parameters").
-Keep consistency between parameter names and types used in function
-declarations and the ones used in the corresponding function
-definitions thus addressing violations of MISRA C:2012 Rule 8.3
-("All declarations of an object or function shall use the same names
-and type qualifiers").
+Introduce a ROUND() macro to mirror ROUNDUP().  Use both to remove all the
+opencoded rounding in mem_hotadd_check().  Fix other minor style issues.
 
-No functional changes.
+No functional change.
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- xen/arch/x86/hvm/domain.c              |  2 +-
- xen/arch/x86/hvm/hvm.c                 |  4 ++--
- xen/arch/x86/hvm/rtc.c                 | 12 ++++++------
- xen/arch/x86/hvm/svm/nestedhvm.h       |  2 +-
- xen/arch/x86/hvm/svm/nestedsvm.c       |  2 +-
- xen/arch/x86/hvm/vioapic.c             |  2 +-
- xen/arch/x86/include/asm/hvm/domain.h  |  2 +-
- xen/arch/x86/include/asm/hvm/hvm.h     | 12 ++++++------
- xen/arch/x86/include/asm/hvm/irq.h     | 14 +++++++-------
- xen/arch/x86/include/asm/hvm/save.h    |  4 ++--
- xen/arch/x86/include/asm/hvm/support.h |  2 +-
- 11 files changed, 29 insertions(+), 29 deletions(-)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-diff --git a/xen/arch/x86/hvm/domain.c b/xen/arch/x86/hvm/domain.c
-index 7692ee24c2..7f6e362a70 100644
---- a/xen/arch/x86/hvm/domain.c
-+++ b/xen/arch/x86/hvm/domain.c
-@@ -100,7 +100,7 @@ static int check_segment(struct segment_register *reg, enum x86_segment seg)
- }
- 
- /* Called by VCPUOP_initialise for HVM guests. */
--int arch_set_info_hvm_guest(struct vcpu *v, const vcpu_hvm_context_t *ctx)
-+int arch_set_info_hvm_guest(struct vcpu *v, const struct vcpu_hvm_context *ctx)
+The compiled binary is identical.
+---
+ xen/arch/x86/x86_64/mm.c | 31 +++++++++++++------------------
+ xen/include/xen/macros.h |  1 +
+ 2 files changed, 14 insertions(+), 18 deletions(-)
+
+diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+index 60db439af3ec..38f978cab269 100644
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -1159,10 +1159,10 @@ static int mem_hotadd_check(unsigned long spfn, unsigned long epfn)
  {
-     const struct domain *d = v->domain;
-     struct cpu_user_regs *uregs = &v->arch.user_regs;
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 57363c2ae1..8f19a79f6f 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -319,7 +319,7 @@ static bool pat_valid(uint64_t val)
-     return !(any_gt_7 | any_2_or_3);
- }
+     unsigned long s, e, length, sidx, eidx;
  
--int hvm_set_guest_pat(struct vcpu *v, uint64_t guest_pat)
-+int hvm_set_guest_pat(struct vcpu *v, u64 guest_pat)
- {
-     if ( !pat_valid(guest_pat) )
+-    if ( (spfn >= epfn) )
++    if ( spfn >= epfn )
          return 0;
-@@ -426,7 +426,7 @@ static void hvm_set_guest_tsc_adjust(struct vcpu *v, u64 tsc_adjust)
-         update_vcpu_system_time(v);
- }
  
--u64 hvm_get_guest_tsc_fixed(struct vcpu *v, uint64_t at_tsc)
-+u64 hvm_get_guest_tsc_fixed(struct vcpu *v, u64 at_tsc)
- {
-     uint64_t tsc;
+-    if (pfn_to_pdx(epfn) > FRAMETABLE_NR)
++    if ( pfn_to_pdx(epfn) > FRAMETABLE_NR )
+         return 0;
  
-diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
-index c1ab6c7d58..4a586342ce 100644
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -559,17 +559,17 @@ static inline int from_bcd(RTCState *s, int a)
+     if ( (spfn | epfn) & ((1UL << PAGETABLE_ORDER) - 1) )
+@@ -1172,10 +1172,9 @@ static int mem_hotadd_check(unsigned long spfn, unsigned long epfn)
+         return 0;
  
- /* Hours in 12 hour mode are in 1-12 range, not 0-11.
-  * So we need convert it before using it*/
--static inline int convert_hour(RTCState *s, int raw)
-+static inline int convert_hour(RTCState *s, int hour)
- {
--    int hour = from_bcd(s, raw & 0x7f);
-+    int ret = from_bcd(s, hour & 0x7f);
+     /* Make sure the new range is not present now */
+-    sidx = ((pfn_to_pdx(spfn) + PDX_GROUP_COUNT - 1)  & ~(PDX_GROUP_COUNT - 1))
+-            / PDX_GROUP_COUNT;
+-    eidx = (pfn_to_pdx(epfn - 1) & ~(PDX_GROUP_COUNT - 1)) / PDX_GROUP_COUNT;
+-    if (sidx >= eidx)
++    sidx = ROUNDUP(pfn_to_pdx(spfn),     PDX_GROUP_COUNT) / PDX_GROUP_COUNT;
++    eidx = ROUND  (pfn_to_pdx(epfn - 1), PDX_GROUP_COUNT) / PDX_GROUP_COUNT;
++    if ( sidx >= eidx )
+         return 0;
  
-     if (!(s->hw.cmos_data[RTC_REG_B] & RTC_24H))
-     {
--        hour %= 12;
--        if (raw & 0x80)
--            hour += 12;
-+        ret %= 12;
-+        if (hour & 0x80)
-+            ret += 12;
-     }
--    return hour;
-+    return ret;
- }
+     s = find_next_zero_bit(pdx_group_valid, eidx, sidx);
+@@ -1186,28 +1185,24 @@ static int mem_hotadd_check(unsigned long spfn, unsigned long epfn)
+         return 0;
  
- static void rtc_set_time(RTCState *s)
-diff --git a/xen/arch/x86/hvm/svm/nestedhvm.h b/xen/arch/x86/hvm/svm/nestedhvm.h
-index 43245e13de..eb9c416307 100644
---- a/xen/arch/x86/hvm/svm/nestedhvm.h
-+++ b/xen/arch/x86/hvm/svm/nestedhvm.h
-@@ -42,7 +42,7 @@ int cf_check nsvm_vcpu_initialise(struct vcpu *v);
- int cf_check nsvm_vcpu_reset(struct vcpu *v);
- int nsvm_vcpu_vmrun(struct vcpu *v, struct cpu_user_regs *regs);
- int cf_check nsvm_vcpu_vmexit_event(struct vcpu *v,
--                                    const struct x86_event *event);
-+                                    const struct x86_event *trap);
- uint64_t cf_check nsvm_vcpu_hostcr3(struct vcpu *v);
- bool cf_check nsvm_vmcb_guest_intercepts_event(
-     struct vcpu *v, unsigned int vector, int errcode);
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index 5d74863268..9b4595f74a 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -1538,7 +1538,7 @@ nestedsvm_vcpu_interrupt(struct vcpu *v, const struct hvm_intack intack)
-     return NSVM_INTR_NOTINTERCEPTED;
- }
+     /* Caculate at most required m2p/compat m2p/frametable pages */
+-    s = (spfn & ~((1UL << (L2_PAGETABLE_SHIFT - 3)) - 1));
+-    e = (epfn + (1UL << (L2_PAGETABLE_SHIFT - 3)) - 1) &
+-            ~((1UL << (L2_PAGETABLE_SHIFT - 3)) - 1);
++    s = ROUND  (spfn, 1UL << (L2_PAGETABLE_SHIFT - 3));
++    e = ROUNDUP(epfn, 1UL << (L2_PAGETABLE_SHIFT - 3));
  
--bool_t
-+bool
- nestedsvm_gif_isset(struct vcpu *v)
- {
-     struct nestedsvm *svm = &vcpu_nestedsvm(v);
-diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-index 41e3c4d5e4..4e40d3609a 100644
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -43,7 +43,7 @@
- /* HACK: Route IRQ0 only to VCPU0 to prevent time jumps. */
- #define IRQ0_SPECIAL_ROUTING 1
+     length = (e - s) * sizeof(unsigned long);
  
--static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int irq);
-+static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin);
+-    s = (spfn & ~((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1));
+-    e = (epfn + (1UL << (L2_PAGETABLE_SHIFT - 2)) - 1) &
+-            ~((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1);
+-
+-    e = min_t(unsigned long, e,
++    s =     ROUND  (spfn, 1ULL << (L2_PAGETABLE_SHIFT - 2));
++    e = min(ROUNDUP(epfn, 1ULL << (L2_PAGETABLE_SHIFT - 2)),
+             (RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) >> 2);
  
- static struct hvm_vioapic *addr_vioapic(const struct domain *d,
-                                         unsigned long addr)
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 02c32cf26d..6e53ce4449 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -47,7 +47,7 @@ struct hvm_pi_ops {
-      * Hook into arch_vcpu_block(), which is called
-      * from vcpu_block() and vcpu_do_poll().
-      */
--    void (*vcpu_block)(struct vcpu *);
-+    void (*vcpu_block)(struct vcpu *v);
- };
+     if ( e > s )
+-        length += (e -s) * sizeof(unsigned int);
++        length += (e - s) * sizeof(unsigned int);
  
- struct hvm_domain {
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 3c37f522b9..7943e287cf 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -151,8 +151,8 @@ struct hvm_function_table {
+-    s = pfn_to_pdx(spfn) & ~(PDX_GROUP_COUNT - 1);
+-    e = ( pfn_to_pdx(epfn) + (PDX_GROUP_COUNT - 1) ) & ~(PDX_GROUP_COUNT - 1);
++    s = ROUND  (pfn_to_pdx(spfn), PDX_GROUP_COUNT);
++    e = ROUNDUP(pfn_to_pdx(epfn), PDX_GROUP_COUNT);
  
-     void (*fpu_leave)(struct vcpu *v);
+     length += (e - s) * sizeof(struct page_info);
  
--    int  (*get_guest_pat)(struct vcpu *v, u64 *);
--    int  (*set_guest_pat)(struct vcpu *v, u64);
-+    int  (*get_guest_pat)(struct vcpu *v, u64 *gpat);
-+    int  (*set_guest_pat)(struct vcpu *v, u64 gpat);
+-    if ((length >> PAGE_SHIFT) > (epfn - spfn))
++    if ( (length >> PAGE_SHIFT) > (epfn - spfn) )
+         return 0;
  
-     void (*set_tsc_offset)(struct vcpu *v, u64 offset, u64 at_tsc);
+     return 1;
+diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
+index 7b92d345044d..ceeffcaa95ff 100644
+--- a/xen/include/xen/macros.h
++++ b/xen/include/xen/macros.h
+@@ -1,6 +1,7 @@
+ #ifndef __MACROS_H__
+ #define __MACROS_H__
  
-@@ -180,8 +180,8 @@ struct hvm_function_table {
-     int (*msr_write_intercept)(unsigned int msr, uint64_t msr_content);
-     void (*handle_cd)(struct vcpu *v, unsigned long value);
-     void (*set_info_guest)(struct vcpu *v);
--    void (*set_rdtsc_exiting)(struct vcpu *v, bool_t);
--    void (*set_descriptor_access_exiting)(struct vcpu *v, bool);
-+    void (*set_rdtsc_exiting)(struct vcpu *v, bool_t enable);
-+    void (*set_descriptor_access_exiting)(struct vcpu *v, bool enable);
++#define ROUND(x, a)   ((x) & ~((a) - 1))
+ #define ROUNDUP(x, a) (((x) + (a) - 1) & ~((a) - 1))
  
-     /* Nested HVM */
-     int (*nhvm_vcpu_initialise)(struct vcpu *v);
-@@ -282,7 +282,7 @@ int vmsi_deliver(
-     uint8_t dest, uint8_t dest_mode,
-     uint8_t delivery_mode, uint8_t trig_mode);
- struct hvm_pirq_dpci;
--void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *);
-+void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci);
- int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode);
- 
- enum hvm_intblk
-@@ -350,7 +350,7 @@ void *hvm_map_guest_frame_rw(unsigned long gfn, bool_t permanent,
-                              bool_t *writable);
- void *hvm_map_guest_frame_ro(unsigned long gfn, bool_t permanent);
- void hvm_unmap_guest_frame(void *p, bool_t permanent);
--void hvm_mapped_guest_frames_mark_dirty(struct domain *);
-+void hvm_mapped_guest_frames_mark_dirty(struct domain *d);
- 
- int hvm_debug_op(struct vcpu *v, int32_t op);
- 
-diff --git a/xen/arch/x86/include/asm/hvm/irq.h b/xen/arch/x86/include/asm/hvm/irq.h
-index 2d136ab99b..1817ca6e2d 100644
---- a/xen/arch/x86/include/asm/hvm/irq.h
-+++ b/xen/arch/x86/include/asm/hvm/irq.h
-@@ -160,17 +160,17 @@ struct hvm_pirq_dpci {
-     struct list_head softirq_list;
- };
- 
--void pt_pirq_init(struct domain *, struct hvm_pirq_dpci *);
--bool pt_pirq_cleanup_check(struct hvm_pirq_dpci *);
-+void pt_pirq_init(struct domain *d, struct hvm_pirq_dpci *dpci);
-+bool pt_pirq_cleanup_check(struct hvm_pirq_dpci *dpci);
- int pt_pirq_iterate(struct domain *d,
--                    int (*cb)(struct domain *,
--                              struct hvm_pirq_dpci *, void *arg),
-+                    int (*cb)(struct domain *d,
-+                              struct hvm_pirq_dpci *dpci, void *arg),
-                     void *arg);
- 
- #ifdef CONFIG_HVM
--bool pt_pirq_softirq_active(struct hvm_pirq_dpci *);
-+bool pt_pirq_softirq_active(struct hvm_pirq_dpci *pirq_dpci);
- #else
--static inline bool pt_pirq_softirq_active(struct hvm_pirq_dpci *dpci)
-+static inline bool pt_pirq_softirq_active(struct hvm_pirq_dpci *pirq_dpci)
- {
-     return false;
- }
-@@ -211,6 +211,6 @@ void hvm_assert_evtchn_irq(struct vcpu *v);
- void hvm_set_callback_via(struct domain *d, uint64_t via);
- 
- struct pirq;
--bool hvm_domain_use_pirq(const struct domain *, const struct pirq *);
-+bool hvm_domain_use_pirq(const struct domain *d, const struct pirq *pirq);
- 
- #endif /* __ASM_X86_HVM_IRQ_H__ */
-diff --git a/xen/arch/x86/include/asm/hvm/save.h b/xen/arch/x86/include/asm/hvm/save.h
-index 9d838c48e3..535cf68ed2 100644
---- a/xen/arch/x86/include/asm/hvm/save.h
-+++ b/xen/arch/x86/include/asm/hvm/save.h
-@@ -36,8 +36,8 @@ void _hvm_write_entry(struct hvm_domain_context *h,
-     r; })
- 
- /* Unmarshalling: test an entry's size and typecode and record the instance */
--int _hvm_check_entry(struct hvm_domain_context *h, 
--                     uint16_t type, uint32_t len, bool_t strict_length);
-+int _hvm_check_entry(struct hvm_domain_context *h,
-+                     uint16_t type, uint32_t len, bool strict_length);
- 
- /* Unmarshalling: copy the contents in a type-safe way */
- void _hvm_read_entry(struct hvm_domain_context *h,
-diff --git a/xen/arch/x86/include/asm/hvm/support.h b/xen/arch/x86/include/asm/hvm/support.h
-index 8d4707e58c..ab7de0a43b 100644
---- a/xen/arch/x86/include/asm/hvm/support.h
-+++ b/xen/arch/x86/include/asm/hvm/support.h
-@@ -135,7 +135,7 @@ int hvm_descriptor_access_intercept(uint64_t exit_info,
-                                     unsigned int descriptor, bool is_write);
- int hvm_mov_to_cr(unsigned int cr, unsigned int gpr);
- int hvm_mov_from_cr(unsigned int cr, unsigned int gpr);
--void hvm_ud_intercept(struct cpu_user_regs *);
-+void hvm_ud_intercept(struct cpu_user_regs *regs);
- 
- /*
-  * May return X86EMUL_EXCEPTION, at which point the caller is responsible for
+ #define IS_ALIGNED(val, align) (!((val) & ((align) - 1)))
+
+base-commit: b1c16800e52743d9afd9af62c810f03af16dd942
 -- 
-2.34.1
+2.30.2
 
 
