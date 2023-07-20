@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E17775A5F1
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 08:00:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566335.885040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB9E775A685
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 08:32:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566338.885050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMMgL-0002Ax-Ux; Thu, 20 Jul 2023 05:58:33 +0000
+	id 1qMND2-0007T4-Fb; Thu, 20 Jul 2023 06:32:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566335.885040; Thu, 20 Jul 2023 05:58:33 +0000
+Received: by outflank-mailman (output) from mailman id 566338.885050; Thu, 20 Jul 2023 06:32:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMMgL-00029K-SO; Thu, 20 Jul 2023 05:58:33 +0000
-Received: by outflank-mailman (input) for mailman id 566335;
- Thu, 20 Jul 2023 05:58:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qMND2-0007R1-Ch; Thu, 20 Jul 2023 06:32:20 +0000
+Received: by outflank-mailman (input) for mailman id 566338;
+ Thu, 20 Jul 2023 06:32:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6Xo+=DG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qMMgK-00029E-Ak
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 05:58:32 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20605.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::605])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72694731-26c2-11ee-8611-37d641c3527e;
- Thu, 20 Jul 2023 07:58:30 +0200 (CEST)
+ id 1qMND1-0007Qv-0A
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 06:32:19 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0615.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::615])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2bd6a6c3-26c7-11ee-b23a-6b7b168915f2;
+ Thu, 20 Jul 2023 08:32:17 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PA4PR04MB9709.eurprd04.prod.outlook.com (2603:10a6:102:26b::10)
+ by PAXPR04MB8392.eurprd04.prod.outlook.com (2603:10a6:102:1c5::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.23; Thu, 20 Jul
- 2023 05:58:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Thu, 20 Jul
+ 2023 06:32:15 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6588.031; Thu, 20 Jul 2023
- 05:58:25 +0000
+ 06:32:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,152 +47,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72694731-26c2-11ee-8611-37d641c3527e
+X-Inumbo-ID: 2bd6a6c3-26c7-11ee-b23a-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L7bSMAke9mMOP5B8vhhvxtaOKRkKtL4n+4NW/ByXFTFoOCRssdeEpU3rALavFrQ0h5jPIADl9k81qPLKjRl5lRNUqgLVXM2xGjtkCZ6JReaiRv2O+8b7X2wUzCHHbnrDwA8WLIr1HRWHYiD3PQaKxPnFsDqDHrEh/zXsJTYGXYhcU39fF8p64T6gefw6a8yY45mPUhAUtNewSyYVl6PfAKC3ZLTJsGj5iecu5gmEJ1tjGg98wHZHd1fKlF+T0i7oEsA0xoIPBZwX4FwJE618ppnBlJC1hH2Cq1BzEG/bxLyYvkurkMVn00NIYMZoJjef0ytM48p7iqf9TRt1ojMKcg==
+ b=e93HzS+mEEZj0k7tFoD+ijA6gv5hqIvEkd6sJlW04lf546/pMvOtKmcA83JkuG/klvJB18glQkk+aI4Vu3T5F1AxFeuwYjRj900J/L3aHqu/NarfNArMBhpbdJkzpAt75lIXtJlom25byUf/eaMHxb0rl8+g9uZkxKknVpgryzqZ2W6no7DHjo3WPRvj+NudRMRgg1U9SGrmtEYqkgavEIsnpaJb01uCJTYSoKUXw7RBgIwUfQvmDLMzx92AzljDUWvVtQf3ChHrMifEEnQxZLg+mt2shV37a9h2sBrV4f0De0IrkcDWGNfLGwkBKaHo+MoeV8b38a8NyLxeofY19g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3vL1z85zPLYEi37XUl/gthOpeiSSFb9tRVWv6syiwM4=;
- b=KS/Hk9WCr4jIBjy/Enl58yuGwipUmQv3GAyqjuD80IV63iHtjqNozIk3LjuW/Mc8Y+KqlSy15s2n7WCISSLu3DwdQtcKttGb4rVguMRg/WXznRANrlwONGXdMs+UE+yAt/xp/w9/3nezfqxuEzK7SGAFDBIu1SyjzqfC5OUQ3G6DLfkRcD3zy4vNZYvQJ3zqQymy6NkCegVp1MlFKo71Un2ZnDvkZVgA9tDQu7dQjZ/kbh0D0bAZY08l/cM21Z09yYBEz07h5j5Epohr2I8E4rERxDZ9pP72HYRd1Es1ML5T0dIlotkzkkbIPLlv3DoudzEfZCc9o9wnIKYzH9tz/Q==
+ bh=/QrQlmWNReCfKkSixbiF3LTUVtYE7p21S9RunLoKOpE=;
+ b=a3UzlQrKoWF2mwPJYpSNuuVIx0ZXgVOanUuPuGzrmTsA4gkzQ1Ya7zWNXduHAQd/Cq4RG/pvSIm+g9Vh3DVX4xz6A0SJfx9XF9Rg2W3SPBJC/2HuODut1VmxKQ5d1yLeb9j+DA7szLfGKQYs5KGRkTpckm/VU6efM0ocpBgzgD0oVlRX8WVg2W11Y8zZNeX1lRuYNraNLR6var/+2fNvwjRiTLOMCa8rCVGT9HDeij6yeWJNOGkKf7CJl93zQcUAv7Ck/KPcX86e6GD5Kq70sSNf0fZROpnGMOG82VvNFZCFOIBmsxUCNbBK4bquToVdkb2qxFeM4v00zS3GbKaiJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3vL1z85zPLYEi37XUl/gthOpeiSSFb9tRVWv6syiwM4=;
- b=bj5KCRs1DSpBfNuKQMEUmlFhgH0PaR+jA3dy8av8+tvMaDjKyJWYtFi1wBrY9+Hvqv7FAXaMI2Ovj4VP6wNOXOI0HqMe78vba4Z6Z+dnowTPFu7jwfVGemHZ1+eV8L9g9eT4mkAvaqi6yI7SNBvGyMQHpAWxJTuQRimqjHD//pCALvt2VTZUMrMsNIGWb0wBIuG9NE38Rd7cc9mZkkuxU0aoxeVN9kRW+Rjf8dsTSY7KKyJ9AVBtd28SccZfuyQsTFCQsy7ZFbFpys1jCiUZTaxWgTXzZKuded09OziKRE0nFq2JRD5D152HY3sPf/A9Stoe8BW6xABb4Y2W/VHemw==
+ bh=/QrQlmWNReCfKkSixbiF3LTUVtYE7p21S9RunLoKOpE=;
+ b=a5blqF8hLMZmwNgawn9DOCvLdI+e1wf3ztCqKtjAEuHByX8ONXN5NuP4oUPk2nMcDqCLY4YCVfZD4nl9Pj9WWWqzyZxkhNGnERnVYyzHqZ8nnT8mDyg1fomDzYw3xfVPKdovqENx0voroNE2F0IOlkzK40ZsNCrhLLakMgOBNC5s9WNA+mdzj1nEjjHmzjObGKHohi6KwOT+HNueui22V25BbXsfNuOYTIXNlBT2P+zpFPqtFBRIiiR3CpxiYM0FYmO3YNvwExFKHAU3g8Mk3HOS7ppd/ejDl9u+b+8OnC+xbHQt5b2K8/Gyx7+45BN/e13rUI35jBfLoD2njjYujg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c1a3d447-4b4d-cd9f-642d-e30fed088302@suse.com>
-Date: Thu, 20 Jul 2023 07:58:22 +0200
+Message-ID: <898997ee-3a43-da37-9eb4-f78b34d9fb5b@suse.com>
+Date: Thu, 20 Jul 2023 08:32:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH v3 3/3] xen/riscv: introduce identity mapping
+Subject: Re: [PATCH v2 2/5] x86/ioapic: RTE modifications must use
+ ioapic_write_entry
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1689604562.git.oleksii.kurochko@gmail.com>
- <8c69050d7b1f42df5e776ca9494164a4d15f2d52.1689604562.git.oleksii.kurochko@gmail.com>
- <ad53c037-3c1b-ff1a-93df-b79ab2948174@suse.com>
- <30540953fb363fce4dfd59f8a7e709247a9872fd.camel@gmail.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20230718124334.36548-1-roger.pau@citrix.com>
+ <20230718124334.36548-3-roger.pau@citrix.com>
+ <1bc67bb2-9b01-eb18-eb6a-741067a9b35c@suse.com>
+ <ZLf_OJnYjyirT7Ee@MacBook-Air-de-Roger.local>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <30540953fb363fce4dfd59f8a7e709247a9872fd.camel@gmail.com>
+In-Reply-To: <ZLf_OJnYjyirT7Ee@MacBook-Air-de-Roger.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0132.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::6) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0110.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::20) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB9709:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f1097d3-9a83-4dd6-4f4d-08db88e654d4
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 009bbd39-f91e-4550-0f66-08db88eb0eab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	cWWdfHxNR0n4Rcw6FCS3Shjd2Pef+zvU1zWkfJRUWAE7OcPopf6s4G01j3vIQ/IQcJUfFmSf4XpFApzipNU6pF/zv2S0Vsp5N1AeaYN8dZwuUvMseAuST7jxQe5r2Oc8bz0JT76VuZiy0I8MGumXfiFszw8iGtnnamMVES/LJGqYecRoNqxNIw18yMFbmveEbxJyGR+fd+4Jmm8sQyRVlG1LgieFVN9r2o/FF/Jx7rBQxkrFVRJBcYisH88RNRx+TE0BmPeRJPHYm2gFTmQAh3mcFT3AJlKCIfZBy5Cz8fDfgrWho3E9gvIL0AgLxAM7+sSltdOtBFjQHPQ5kmdopV71x/ve1KQorggFfitX6kGUNMwtzVAZ8qp+5oIQ+SdnfQ6R26bjwxxi692ZhAL7bjWyhWb80j0NK4CTyXkBi7Qx/5/6XJ62524ARigqXBcYQmxx1WuEUKuCHtTjzap5HxHOFnCjWiTP7o7yW6KkGuTgU9j1l6wsnglIZ7o88ATTrWP780f00aivzIJkbE0ew6HsD9RwKhSVPts76SBsHH9BYcmVEp3tlkuWOHQNftK+rzrCfAia2F8+2V7xMWvMwAsuOkagWREdcsgFQcu0pAg13vgm+HZN3rPQLO8Z9Hjja9VJvBoK5L4r1sy7SlrZzg==
+	Pva/wVMwz2XLkS7tqP70IrN2h8mya2F+XINcKfZW3uKY+II6/Kbt0GBEeWWLruEovTfuiT2nKAHcNhOQxnkYbVi14wG0KOYeIFIUZv8QxtYzD3MnbzpY3GTWODjcsT69nHfTzMSvZlyKE3zEMGtBwYVGef762PurDHpHFcLCGd/Lpdl3COkmI/kFpwcpj9TOv2Z3EolUPBiZdOOSuTiHxa/bjBi3kIGq4bZJvJ9BgIOl4oLm9lSSvKG1ypCEvP0AxXX7AQozMU515tCqoRv/HnX5BrwDui5UeetqCeObyC1x4XKBXrn17v6+mc60X61TA951DThCif3qg9kfNh7X9SZfkGzTmzW1kYydD3oPPARdky523rIlLL6S19c9pnIqXZfrDhgJF3fC6dMsfcQ9mJQ2j1OHVUuQVuH6Sw/t/YthigRsDwcrtfl75PpIx3orqxv2PB4JwNkGVvSIsi6tKTWKweWLJipwnaGbYfbnF4sFTtsFT/tre0QyzXg7l4OeYISW+jMaSWA1GF8p7nWJ18GF1bOQ/9WZ0/8k5zPPf3jyAPTKyLkeKZmKjWQ/M7ZWzxzSKBq3FF/77AzzRksfe9RFJB4LN5idPLtFkDe4DHNGfr+nh4iIHALWNlLhTKI7c/y7J8Hg+FRL1CeWcrb/Qg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(366004)(376002)(396003)(136003)(346002)(451199021)(41300700001)(66899021)(2906002)(316002)(8936002)(8676002)(5660300002)(36756003)(86362001)(31696002)(6486002)(6666004)(186003)(54906003)(478600001)(53546011)(6506007)(26005)(6512007)(31686004)(2616005)(38100700002)(66946007)(4326008)(6916009)(66556008)(66476007)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(366004)(136003)(39860400002)(396003)(346002)(451199021)(6486002)(478600001)(54906003)(26005)(53546011)(186003)(6506007)(6512007)(2906002)(66946007)(66476007)(4326008)(5660300002)(8676002)(316002)(6916009)(8936002)(66556008)(38100700002)(41300700001)(86362001)(36756003)(83380400001)(2616005)(31696002)(31686004)(66899021)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UkZ2NzRhTEc3ZkNzekY2VFVYNkZXZklGc3NmNFVHRWl1SlNqd0ZSNUJjMEpG?=
- =?utf-8?B?UnR3b3VsSFJ0aWpTcklORVMvV3NER0dPS01Hakp0M3RwZHY2dktYQnRmREl6?=
- =?utf-8?B?QU5WUjR0Rm5QWmd4dW95Y21IbkpxTktqQzdsQnVJQjdRc1kvb1l4WnFqbVJQ?=
- =?utf-8?B?eTM5V2k5L2E1UE9iL0xYVUtxbkRUTkk1M3pkZTNwN0tuWHc2V0h4d3ltYm1x?=
- =?utf-8?B?NVZxdC9vMEJwOGtWZ2NxL0RXZ3ZnM3NxeE5tampqUURSZ20rRVFjYm9mZXNC?=
- =?utf-8?B?QjQrRk41M25ZV2RPUUIwaFJQNWI0WWVPNktkSS9MVC9MR0ZOelMzWmVvVVlT?=
- =?utf-8?B?NDZGMDdlUlVra1pheHZta1FiQjUrcTk4Q2kvNmJWbGVYajVKeUNyeDVMdHpw?=
- =?utf-8?B?S1BCTnkrL1BBdDdpcHFsL3AxclNuOE9Qd1ZUTFFHNUxRdUdQVEJjdTRhZXdP?=
- =?utf-8?B?MWFYdFdybGg4cytSTk1rdWVtRW9NaDRYcHR2b01xV3EwekhrNnA1ZGZyREc0?=
- =?utf-8?B?MHEyaHRUYVNYVmZ5clRub0hRY3g1cUhIaWdsRTQ3cXlzbUpXc00xNStVYk9x?=
- =?utf-8?B?eHk5blpmSWE5LzNHOUNIcVBLYjRoUnZqQTdSYTV5WG0rSEVqUEZmY0tkeTR6?=
- =?utf-8?B?VGV5QXN5T0R4SVJVMHMvTUw4TnlJZ3pTTmFrTDQwWnd5SzFYdUtGOFBrNm5T?=
- =?utf-8?B?SEMraE1md29SQ2RZNnBLWVJPMEdEb3FiV3dZUXRza0hNbUhSeTFDOVRudnll?=
- =?utf-8?B?blp4NGc4Vy9iSlRpdURJR3hDMW9JNStyVFVBV21veHVCdnJQRXBmbkZmT3oz?=
- =?utf-8?B?ZUw1N29hUmpoTENLRnJYdjZuVEE3dWFnWkJuRm1leWRCZVlhS1A2dldxV3Nk?=
- =?utf-8?B?Q3l2N1hiUzRYYzhXUEtqbG51Rk1RWm41cjFXUUxJRE55T001SUJ0Tzd0RHJF?=
- =?utf-8?B?YzcxaDNLTXMxQnpUWXZ1RUEvU3doOHYrMnJ0VzVqU1JCaXBrSGdPNEE4VjVr?=
- =?utf-8?B?Q3g2OXBlck5jWjMyV25ydlpoek9Vb1dySUs3UDFCc2VOVTFlNVFsM2JQUDdh?=
- =?utf-8?B?TWZYTm8vRzRuem1YNUNrL3d1MWwya21qZldzczRnRm1UKzduTjJmZmFjRVEr?=
- =?utf-8?B?T2pmRVB3TklCTzVtTXFnNzlGMElMYnFKUmsvUlZTVlZkZmR2Z0M0Znk3cFBL?=
- =?utf-8?B?YTIrWDNIOWNlbm9QY1JZazFTMEYzN3duZjN6Wk81QUpHV2RwTktiWnBzOXI4?=
- =?utf-8?B?ZEc2Q2Z1Smt5MW1jTk9FYnIzTlJpOGIyRWM0OEpVTHhzM3VINit0ellwWnJl?=
- =?utf-8?B?V3Q2L2wvVDRFUWUwWno3Q1dEZDVOOW9EeDEwODVIdytTdEdneHNHaWdnVEFI?=
- =?utf-8?B?UDR4Z3NSSDhmbVB4UmZSVG5ZL2R1M3VUc0NYUW9HR095dGVaMXNqNnp3NVF0?=
- =?utf-8?B?OU52Nnl5QWVwRDN2ZjcxZlE4QjdWQWlha2RHdWE3RGZ6N2hmVWlJbUQ1S1RW?=
- =?utf-8?B?SHNKdVdLaTFMUVZTOUhHV0xrNVQvaVYvNzgvUjRRbFQ4dm5abFQwRG1DWVNv?=
- =?utf-8?B?QUNrb3FHcjJBdmtKY3BVMVN2NGJFMkhpWmtSRWk3aUt3eFVpeWNaU0UxVllq?=
- =?utf-8?B?eGtDcmdJK0NTZmtDZkwrRmU1czc1UTRKWDFrajJnTE45cEFDRkJuN292WEZX?=
- =?utf-8?B?QSs3azdqYkRKVUpzemJoZU9uT1JBRTBHOEYzN1VVa1Zjdi9QNkFYcjQ0Mmc5?=
- =?utf-8?B?aUVZNk4yb01jNWdpYWJ5NjdCUGUvWFp3RytxWHM2MlkxWXIrUi9TeTI5ODIy?=
- =?utf-8?B?eGJyeHdENXdOWlZtQ3BIemxxOXFJUk05ak82c1kvSUh5MlRsOFhQU09pVDdl?=
- =?utf-8?B?cHR3V2hlNUE4ZDJLNi93SHl5OVlqb3RGbUlWQzVrQTJRSnJqcEhRY1JJVnpD?=
- =?utf-8?B?MmdiTExxbUd0Sk14ZWJxMnAxay9Ubm01TTkxVitFK1lrdTFGZDFVMlRCMzQ3?=
- =?utf-8?B?VEd5M0liT1hoaHE0RTBkOGxLWWNFRWhyc2NjTHdrRzF2RG5IeWV1dC95KzdM?=
- =?utf-8?B?LzVPeDVxWldGOUltVitDUnNlRVhLamw0TzhGbkVTYkloOHJlaEVKcm0rc2pJ?=
- =?utf-8?Q?pJ1T3oaMLvDvqPNtpp2Xf8pwM?=
+	=?utf-8?B?S2dCdnovWTB2T3RtOFpPMVM5eVQwVTRGUEJSc2s1OEhXRVpiaXBRcTkrQ0hS?=
+ =?utf-8?B?aGxiSUpNTzdTUGFpUUl1M2FCNjlRNXM3T1ZzY3JlNjBnV3cwSHo0NEw2WUhK?=
+ =?utf-8?B?OElCYWtidEtIUERRN1FoTkpsbE5rZ1NtekU1OXR3MTYxTDA3UVU0TmVCVER1?=
+ =?utf-8?B?R0VONWZkMkRWcUVDa1k3Tmp0blRrYkhPL2JMR0RLQUFjRnhmR0ZnZkgwNWVG?=
+ =?utf-8?B?NzBiam5Fbk1XMks0MUtITWdxaTdxeENnVWwrMVd4UnNYMkUwZVpTRGhxSTh0?=
+ =?utf-8?B?UzkyS1o3MTQxRFRRVVJEVjNzTTBXeVF3bHQ0MTBQS2ZJTUJMZHd4eDVWMG40?=
+ =?utf-8?B?L1lybXU0TVh5TEdQNkZhMTRySWlybHRVc2krSWs0TEhnazNjYXZ3WDBOTWN0?=
+ =?utf-8?B?MDZtYWRsOE5VNWJUYmQyNWlSUVhrQ05oRzRSK3A3NDZncnlSSGZKaWRFWTBa?=
+ =?utf-8?B?MkxwWWcvZEF6SlpmazN0VjdyM25wOTdsTy80YlZZOGRCaXNRNkZpbVAzWjdS?=
+ =?utf-8?B?Sk0rU2RNNXBoKzVjOS9QVWFIVSthR2UzTnlNU0lWVE1mT0NVVTRvTHZ3TWww?=
+ =?utf-8?B?aE93c0tjaXFybFBOek1vV0g5VCtwelFJNVhVb2NCVk02UWZyeXBxdWxPMkQz?=
+ =?utf-8?B?ZDVib0VBdk1zVyt2Q1lTVDNROFZQVWdLQlIzbVhjaW5sQk1JQzFiUGJKeE9Z?=
+ =?utf-8?B?Z3dQUnY4Q0pEVDdpWXNUekpvNG9tMmNCZVRvNk1iTTYwK0RUdlV4SDl3Y29z?=
+ =?utf-8?B?TWVheGlYT2NGUmVwVEFyeExnb1FnSXJKT1lhejFrWHpsaFNTaVEzU2VDQ2Vr?=
+ =?utf-8?B?UFozVTZSQUVsOW5oUTRoS1pnTTlIM3Nlclc4cTJsUHFrZjg2ZnRjNE9oVTk0?=
+ =?utf-8?B?Y09vZmdUZWFBSEYrSmFNU1RjNDkrYjdSTFp3bjhEbkVFSU9RMVlzaXNWTEE0?=
+ =?utf-8?B?TXZ5eEZMUWdTTVN5VHF4dmFCVjYybEZ3cHd4d2lGbkFNTVBOY0JFM2hzMkNB?=
+ =?utf-8?B?U0dBYldVUytmcHFzc3piRTM2OHpDR09UVHRYMXNGS2hnOVZvMFpIdzFvM3Z6?=
+ =?utf-8?B?bjYxa2E5UzBqS3VxNktjbHFXU3drUmxyMFUwdkNhNUFPUFVEbzZaUndYWjAw?=
+ =?utf-8?B?c2xBNng1VFg4MW80RWlwcFdBRlBSS29UaGFPMWVscGQrTU9rT2FMaHEvYUE3?=
+ =?utf-8?B?ZEc3a3d0NTRYOEh1ZitxNmtMdmttUUhUZXhPZW1yK0hRZUlUTmZYRDQyNEFG?=
+ =?utf-8?B?QXNOUXYrVFdnRnhET3ZOQzNTK1JjNlpCYVFPRzlJT3YxOG45UUhjWUd3VUZh?=
+ =?utf-8?B?MXVXQVdBb1IzR0tsUjVHNkVKWEVJV2lZNU5wbjhPdE1WaGpDUXdVSXh3LytD?=
+ =?utf-8?B?SnF5TFNpS3MrUmdCY0hKV2JEN3R1YzRneU9oZWRPSGFJdmVsNHVzUFJITjZs?=
+ =?utf-8?B?Y0NBclRqcVlzSlA5ZU9ERDdHTkplcWVZTWtzQkhQNy93cEJtNEl2Mk5ZUm44?=
+ =?utf-8?B?MUw2R1J0ekE3eUIyYmZzekprTkpIZHdLTFdtRWZSSDUyUnI3eXJlRTRiS2hX?=
+ =?utf-8?B?MXlXMHVDNEZIQVVOM0VZL2E4aXl1eUpnV0ZoN1EwYnkzWHMyWDgzc0F0R0NZ?=
+ =?utf-8?B?MkdFZkxPSzFqY2wxdGNieVF4VWs1QWprcjhNenE3YWJOazVEQVUvSTFRUGF5?=
+ =?utf-8?B?WG9Hb3cvdTFzWTZxMlRxQklSMXBmMHA4TGp1ZWlJUmtiSlUzTnVQMCtTZW8w?=
+ =?utf-8?B?bUtRZXVWUWJheC9XTThpNkNjdDVmU2QybE1CZU1HOEZwYVRYamtiRUV0cDVD?=
+ =?utf-8?B?Qm1YOVRqV1NrbFJzem9HMXZMbDhqeENoZWdYcmphTXFkWkxkRWZIQmlTVUFV?=
+ =?utf-8?B?eEpaa0RnYnhZVWhEdGZEd3dmMkVCMFlnR1EwZTZJRXVOU2s2NTJkUzhvbk8r?=
+ =?utf-8?B?TXRRdUo1TUkrUDFqSFFCN293bmFLQ1paUWJNNE5rd3lpTUdJZklOUEdDUEdv?=
+ =?utf-8?B?bHdBdzROclBPeVhhQzh0WHlHcElkUHVEUUVvbHk2cUY3dzFVVjg2WVRremNO?=
+ =?utf-8?B?Z3BJNVlhNFdmYmp0by9UK0dobTZJZ1VocnBza2lMQmpiRE9FazgwUEJ3SEJM?=
+ =?utf-8?Q?qwo5Wjxvmqc6jHdS7FDrVZVmT?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f1097d3-9a83-4dd6-4f4d-08db88e654d4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 009bbd39-f91e-4550-0f66-08db88eb0eab
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 05:58:25.1994
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 06:32:14.9089
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WL61Lfus8l64L+HKP+YVlSj4qZlSfor7lAuk0hQjzdGvQkjlavOCIhxKZNFT6hgYUkaIn0wih/Bh0g5OtshdjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9709
+X-MS-Exchange-CrossTenant-UserPrincipalName: XTV6h0eGLfhEr3cYN/HyBgO/6FFkOgPG8qoX28W/BObeISrjSrKiNwL90MAgjavyf8Cq4K+cLvskYmQrRgLa8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8392
 
-On 19.07.2023 18:35, Oleksii wrote:
-> On Tue, 2023-07-18 at 17:03 +0200, Jan Beulich wrote:
->>> +            unsigned long load_end = LINK_TO_LOAD(_end);
->>> +            unsigned long pt_level_size = XEN_PT_LEVEL_SIZE(i -
->>> 1);
->>> +            unsigned long xen_size = ROUNDUP(load_end -
->>> load_start, pt_level_size);
->>> +            unsigned long page_entries_num = xen_size /
->>> pt_level_size;
->>> +
->>> +            while ( page_entries_num-- )
->>> +                pgtbl[index++].pte = 0;
->>> +
->>> +            break;
+On 19.07.2023 17:20, Roger Pau Monné wrote:
+> On Tue, Jul 18, 2023 at 05:40:18PM +0200, Jan Beulich wrote:
+>> On 18.07.2023 14:43, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/io_apic.c
+>>> +++ b/xen/arch/x86/io_apic.c
+>>> @@ -269,15 +269,15 @@ void __ioapic_write_entry(
+>>>  {
+>>>      union entry_union eu = { .entry = e };
+>>>  
+>>> -    if ( raw )
+>>> +    if ( raw || !iommu_intremap )
+>>>      {
+>>>          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+>>>          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+>>>      }
+>>>      else
+>>>      {
+>>> -        io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+>>> -        io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+>>> +        iommu_update_ire_from_apic(apic, 0x11 + 2 * pin, eu.w2);
+>>> +        iommu_update_ire_from_apic(apic, 0x10 + 2 * pin, eu.w1);
+>>>      }
+>>>  }
 >>
->> Unless there's a "not crossing a 2Mb boundary" guarantee somewhere
->> that I've missed, this "break" is still too early afaict.
-> If I will add a '2 MB boundary check' for load_start and linker_start
-> could it be an upstreamable solution?
+>> I think __ioapic_read_entry() wants updating similarly, so that both
+>> remain consistent.
 > 
-> Something like:
->     if ( !IS_ALIGNED(load_start, MB(2) )
-> 	printk("load_start should be 2Mb algined\n");
-> and
->     ASSERT( !IS_ALIGNED(XEN_VIRT_START, MB(2) )
-> in xen.lds.S.
+> My plan was to deal with __ioapic_read_entry() separately, as I would
+> also like to convert iommu_read_apic_from_ire() to get passed a pin
+> instead of a register, but I could make your requested adjustment here
+> for consistency with __ioapic_write_entry().
 
-Arranging for the linked address to be 2Mb-aligned is certainly
-reasonable. Whether expecting the load address to also be depends
-on whether that can be arranged for (which in turn depends on boot
-loader behavior); it cannot be left to "luck".
+I would indeed prefer if you did, to avoid the functions going out of
+sync.
 
-> Then we will have completely different L0 tables for identity mapping
-> and not identity and the code above will be correct.
+>>> @@ -433,16 +433,17 @@ static void modify_IO_APIC_irq(unsigned int irq, unsigned int enable,
+>>>                                 unsigned int disable)
+>>>  {
+>>>      struct irq_pin_list *entry = irq_2_pin + irq;
+>>> -    unsigned int pin, reg;
+>>>  
+>>>      for (;;) {
+>>> -        pin = entry->pin;
+>>> +        unsigned int pin = entry->pin;
+>>> +        struct IO_APIC_route_entry rte;
+>>> +
+>>>          if (pin == -1)
+>>>              break;
+>>> -        reg = io_apic_read(entry->apic, 0x10 + pin*2);
+>>> -        reg &= ~disable;
+>>> -        reg |= enable;
+>>> -        io_apic_modify(entry->apic, 0x10 + pin*2, reg);
+>>> +        rte = __ioapic_read_entry(entry->apic, pin, false);
+>>> +        rte.raw &= ~(uint64_t)disable;
+>>> +        rte.raw |= enable;
+>>> +        __ioapic_write_entry(entry->apic, pin, false, rte);
+>>
+>> While this isn't going to happen overly often, ...
+>>
+>>> @@ -584,16 +585,16 @@ set_ioapic_affinity_irq(struct irq_desc *desc, const cpumask_t *mask)
+>>>              dest = SET_APIC_LOGICAL_ID(dest);
+>>>          entry = irq_2_pin + irq;
+>>>          for (;;) {
+>>> -            unsigned int data;
+>>> +            struct IO_APIC_route_entry rte;
+>>> +
+>>>              pin = entry->pin;
+>>>              if (pin == -1)
+>>>                  break;
+>>>  
+>>> -            io_apic_write(entry->apic, 0x10 + 1 + pin*2, dest);
+>>> -            data = io_apic_read(entry->apic, 0x10 + pin*2);
+>>> -            data &= ~IO_APIC_REDIR_VECTOR_MASK;
+>>> -            data |= MASK_INSR(desc->arch.vector, IO_APIC_REDIR_VECTOR_MASK);
+>>> -            io_apic_modify(entry->apic, 0x10 + pin*2, data);
+>>> +            rte = __ioapic_read_entry(entry->apic, pin, false);
+>>> +            rte.dest.dest32 = dest;
+>>> +            rte.vector = desc->arch.vector;
+>>> +            __ioapic_write_entry(entry->apic, pin, false, rte);
+>>
+>> ... this makes me wonder whether there shouldn't be an
+>> __ioapic_modify_entry() capable of suppressing one of the two
+>> writes (but still being handed the full RTE).
+> 
+> We would then need the original RTE to be passed to
+> __ioapic_modify_entry() in order for it to decide whether one of the
+> accesses can be eliminated (as I don't think we want to read the RTE
+> to check for differences, as we would then perform even more
+> accesses).
 
-As long as Xen won't grow beyond 2Mb total. Considering that at
-some point you may want to use large page mappings for .text,
-.data, and .rodata, that alone would grow Xen to 6 Mb (or really 8,
-assuming .init goes separate as well). That's leaving aside the
-realistic option of the mere sum of all sections being larger than
-2. That said, even Arm64 with ACPI is still quite a bit below 2Mb.
-x86 is nearing 2.5 though in even a somewhat limited config;
-allyesconfig may well be beyond that already.
+I was actually thinking of a 2-bit hint that the caller would pass:
+Low half unmodified and high half unmodified.
 
-Of course you may legitimately leave dealing with that to the
-future.
+> This would only be relevant for systems without IOMMU IRTEs, as
+> otherwise the IO-APIC RTE gets modified by the IOMMU handlers.
+
+Initially yes. I think there's room there to avoid one half of the
+write as well.
 
 Jan
 
