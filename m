@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DB2275AC17
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 12:34:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566529.885465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590D075AC59
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 12:49:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566533.885473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMQyy-0003bp-1r; Thu, 20 Jul 2023 10:34:04 +0000
+	id 1qMRDD-0005sF-Co; Thu, 20 Jul 2023 10:48:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566529.885465; Thu, 20 Jul 2023 10:34:04 +0000
+Received: by outflank-mailman (output) from mailman id 566533.885473; Thu, 20 Jul 2023 10:48:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMQyx-0003YT-Tq; Thu, 20 Jul 2023 10:34:03 +0000
-Received: by outflank-mailman (input) for mailman id 566529;
- Thu, 20 Jul 2023 10:34:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qMQyw-0003YN-16
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 10:34:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qMQyv-0000xH-Hr; Thu, 20 Jul 2023 10:34:01 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.24.131]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qMQyv-0006Cv-AG; Thu, 20 Jul 2023 10:34:01 +0000
+	id 1qMRDD-0005ps-AF; Thu, 20 Jul 2023 10:48:47 +0000
+Received: by outflank-mailman (input) for mailman id 566533;
+ Thu, 20 Jul 2023 10:48:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o2HW=DG=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qMRDC-0005pm-3t
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 10:48:46 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ff889a9a-26ea-11ee-b23a-6b7b168915f2;
+ Thu, 20 Jul 2023 12:48:44 +0200 (CEST)
+Received: from Dell.bugseng.com (unknown [37.163.218.169])
+ by support.bugseng.com (Postfix) with ESMTPSA id AA7504EE0C89;
+ Thu, 20 Jul 2023 12:48:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=T/Fe3Eh2Rsktx395xpMTwguu8JjKlhWxiyLQahpWNnc=; b=n6T8amDkRfLgU8ev6aUxE6Vr+G
-	Jlnb5aEdZmUIpRe54XSYdKEjPH6Dezmw9PPJFcTnFzsojkY1PIUKtoCJLqzg/qYrX7DTeoDkrHP6u
-	Av73rQAW4Z1js+jvzYyWhUKRGIwBqEZZGFAlLE2CoRkKTj3gf62/6E1zQEL7jsA+A46s=;
-Message-ID: <048266d6-a32f-5f4e-984a-8b74de01a1fc@xen.org>
-Date: Thu, 20 Jul 2023 11:33:59 +0100
+X-Inumbo-ID: ff889a9a-26ea-11ee-b23a-6b7b168915f2
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [XEN PATCH] x86/mtrr: address violations of MISRA C:2012 Rule 8.3 on parameter types
+Date: Thu, 20 Jul 2023 12:48:36 +0200
+Message-Id: <76dba3f8a6a7bc12f15a9e4fc8c73826a08e4b5c.1689849810.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [ARM][xencons] PV Console hangs due to illegal ring buffer
- accesses
-Content-Language: en-US
-To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, george.mocanu@nxp.com,
- Juergen Gross <jgross@suse.com>
-References: <62eeff72-c1fb-6932-6797-1b0058c97b03@oss.nxp.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <62eeff72-c1fb-6932-6797-1b0058c97b03@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-(+ Juergen)
+Change parameter types of function declarations to be consistent with
+the ones used in the corresponding definitions,
+thus addressing violations of MISRA C:2012 Rule 8.3 ("All declarations
+of an object or function shall use the same names and type qualifiers").
 
-On 19/07/2023 17:13, Andrei Cherechesu (OSS) wrote:
-> Hello,
+No functional changes.
 
-Hi Andrei,
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/arch/x86/include/asm/mtrr.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-> As we're running Xen 4.17 (with platform-related support added) on NXP S32G SoCs (ARMv8), with a custom Linux distribution built through Yocto, and we've set some Xen-based demos up, we encountered some issues which we think might not be related to our hardware. For additional context, the Linux kernel version we're running is 5.15.96-rt (with platform-related support added as well).
-> 
-> The setup to reproduce the problem is fairly simple: after booting a Dom0 (can provide configuration details if needed), we're booting a normal PV DomU with PV Networking. Additionally, the VMs have k3s (Lightweight Kubernetes - version v1.25.8+k3s1: https://github.com/k3s-io/k3s/releases/tag/v1.25.8%2Bk3s1) installed in their rootfs'es.
-> 
-> The problem is that the DomU console hangs (no new output is shown, no input can be sent) some time (non-deterministic, sometimes 5 seconds, other times like 15-20 seconds) after we run the `k3s server` command. We have this command running as part of a sysvinit service, and the same behavior can be observed in that case as well. The k3s version we use is the one mentioned in the paragraph above, but this can be reproduced with other versions as well (i.e., v1.21.11, v1.22.6). If the `k3s server` command is ran in the Dom0 VM, everything works fine. Using DomU as an agent node is also working fine, only when it is run as a server the console problem occurs.
-> 
-> Immediately after the serial console hangs, we can still log in on DomU using SSH, and we can observe the following messages its dmesg:
-> [   57.905806] xencons: Illegal ring page indices
-
-Looking at Linux code, this message is printed in a couple of place in 
-the xenconsole driver.
-
-I would assume that this is printed when reading from the buffer 
-(otherwise you would not see any message). Can you confirm it?
-
-Also, can you provide the indices that Linux considers buggy?
-
-Lastly, it seems like the barrier used are incorrect. It should be the 
-virt_*() version rather than a plain mb()/wmb(). I don't think it matter 
-for arm64 though (I am assuming you are not running 32-bit).
-
-> [   59.399620] xenbus: error -5 while reading message
-
-So this message is coming from the xenbus driver (used to read the 
-xenstore ring). This is -EIO, and AFAICT returned when the indices are 
-also incorrect.
-
-For this driver, I think there is also a TOCTOU because a compiler is 
-free to reload intf->rsp_cons after the check. Moving virt_mb() is 
-probably not sufficient. You would also want to use ACCESS_ONCE().
-
-What I find odd is you have two distinct rings (xenconsole and xenbus) 
-with similar issues. Above, you said you are using Linux RT. I wonder if 
-this has a play into the issue because if I am not mistaken, the two 
-functions would now be fully preemptible.
-
-This could expose some races. For instance, there are some missing 
-ACCESS_ONCE() (as mentioned above).
-
-In particular, Xenstored (I haven't checked xenconsoled) is using += to 
-update intf->rsp_cons. There is no guarantee that the update will be atomic.
-
-Overall, I am not 100% sure what I wrote is related. But that's probably 
-a good start of things that can be exacerbated with Linux RT.
-
-> [   59.399649] xenbus: error -5 while writing message
-
-This is in xenbus as well. But this time in the write part. The analysis 
-I wrote above for the read part can be applied here.
-
-Cheers,
-
+diff --git a/xen/arch/x86/include/asm/mtrr.h b/xen/arch/x86/include/asm/mtrr.h
+index e4f6ca6048..5d57a596ea 100644
+--- a/xen/arch/x86/include/asm/mtrr.h
++++ b/xen/arch/x86/include/asm/mtrr.h
+@@ -59,9 +59,10 @@ extern int mtrr_del_page(int reg, unsigned long base, unsigned long size);
+ extern int mtrr_get_type(const struct mtrr_state *m, paddr_t pa,
+                          unsigned int order);
+ extern void mtrr_centaur_report_mcr(int mcr, u32 lo, u32 hi);
+-extern u32 get_pat_flags(struct vcpu *v, u32 gl1e_flags, paddr_t gpaddr,
+-                  paddr_t spaddr, uint8_t gmtrr_mtype);
+-extern unsigned char pat_type_2_pte_flags(unsigned char pat_type);
++extern uint32_t get_pat_flags(struct vcpu *v, uint32_t gl1e_flags,
++                              paddr_t gpaddr, paddr_t spaddr,
++															uint8_t gmtrr_mtype);
++extern uint8_t pat_type_2_pte_flags(uint8_t pat_type);
+ extern int hold_mtrr_updates_on_aps;
+ extern void mtrr_aps_sync_begin(void);
+ extern void mtrr_aps_sync_end(void);
 -- 
-Julien Grall
+2.34.1
+
 
