@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EA8F75A362
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 02:22:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566247.884811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25FDC75A364
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 02:23:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566250.884822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMHQv-0007S8-LG; Thu, 20 Jul 2023 00:22:17 +0000
+	id 1qMHS1-0007xg-VU; Thu, 20 Jul 2023 00:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566247.884811; Thu, 20 Jul 2023 00:22:17 +0000
+Received: by outflank-mailman (output) from mailman id 566250.884822; Thu, 20 Jul 2023 00:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMHQv-0007PO-IA; Thu, 20 Jul 2023 00:22:17 +0000
-Received: by outflank-mailman (input) for mailman id 566247;
- Thu, 20 Jul 2023 00:22:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qMHS1-0007uz-Rg; Thu, 20 Jul 2023 00:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 566250;
+ Thu, 20 Jul 2023 00:23:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1UDO=DG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qMHQt-0007PI-W5
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 00:22:15 +0000
+ id 1qMHS0-0007up-Oe
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 00:23:24 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79762029-2693-11ee-b23a-6b7b168915f2;
- Thu, 20 Jul 2023 02:22:14 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a1e2bda4-2693-11ee-8611-37d641c3527e;
+ Thu, 20 Jul 2023 02:23:22 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1B519617DB;
- Thu, 20 Jul 2023 00:22:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B817C433C7;
- Thu, 20 Jul 2023 00:22:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 02BCE617DB;
+ Thu, 20 Jul 2023 00:23:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C82DDC433C8;
+ Thu, 20 Jul 2023 00:23:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79762029-2693-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: a1e2bda4-2693-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689812532;
-	bh=iOhtG18Xjx35RfOoBf0pJWVGi8TqQirc725rJUlwmzk=;
+	s=k20201202; t=1689812600;
+	bh=QClN7fgNnxh+r8yNUtg6htkB5pfGF02mh3r8mdJWKY4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=lDAkS2y/rn4oqw1FHxQLNGIklfDbgrJoCMbXTU7b//CGZq15PX6F/Y6htgT7/H+0B
-	 4gM9BVSeU4xNQ3Knbc52XgNboDZKrKSKIPZY+p+WRmBK2izjDflj4Yu6dwmRITciQ6
-	 03Fb4GjlVMplSqJJpeXni/KCvfD1WRWFe4owrQuSnS7efq/xgUGniAgAX5adsRMYWG
-	 LY+4V1vgN4kd6imrz9r20g5h78H+dIf04xQaG+898vINATyKh18QK3rSizEEtR5N8X
-	 OwPURvG25OOCPlt6AfYt7kOieFSkynrOlWygY5ESJl3ZD66LF4l59TXtL7UvMC6Av8
-	 nlVq06NNKB5OA==
-Date: Wed, 19 Jul 2023 17:22:09 -0700 (PDT)
+	b=qDHV/2ueCFWw9fGyDDzDsIV8QaL84wqtk0IOzEkTJNpX3uZcmCOfYHDFLoV+rl1QI
+	 C3uu6QYZnCzFOZHkRaG80bR+7Dtb0YJj3czwpdR/s3UxfxtixUFpzKjwlxIfC7GjXO
+	 o15E7iiVkujhZeOzeMokU7S/NfwmtbirLZTkNv+7B5i8wQ55/C2a9GexEi1Ru/0DHr
+	 xsOGafZf/nbTNpr9kHOIkTVDaODF6imYr9z7E67txDJcc64RmopR6QpKQetMaxE5II
+	 2VC6yPWVHRC/INeyeg+D56C4+FUJCRjaVCEc+JE2JzayuGJYTDM70XsYnHEAQibBaW
+	 0UvamxrJrKOlw==
+Date: Wed, 19 Jul 2023 17:23:16 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-cc: Rahul Singh <rahul.singh@arm.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-    Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    David Woodhouse <dwmw@amazon.co.uk>, 
-    Jane Malalane <jane.malalane@citrix.com>
-Subject: Re: [PATCH v3] xen/evtchn: Introduce new IOCTL to bind static
- evtchn
-In-Reply-To: <9a917f42-1a22-0c75-459e-db30c17dbe78@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2307191722010.3118466@ubuntu-linux-20-04-desktop>
-References: <ae7329bf1713f83e4aad4f3fa0f316258c40a3e9.1689677042.git.rahul.singh@arm.com> <9a917f42-1a22-0c75-459e-db30c17dbe78@epam.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
+    Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH] xen: address MISRA C:2012 Rule 4.1
+In-Reply-To: <378f18c287cfb65d25b42209c85645a2a10ff9b2.1689763253.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2307191723090.3118466@ubuntu-linux-20-04-desktop>
+References: <378f18c287cfb65d25b42209c85645a2a10ff9b2.1689763253.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-27211591-1689812531=:3118466"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, 19 Jul 2023, Nicola Vetrini wrote:
+> MISRA C:2012 Rule 4.1 has the following headline:
+> "Octal and hexadecimal escape sequences shall be terminated."
+> 
+> The string literals modified by this patch contain octal or
+> hexadecimal escape sequences that are neither terminated by the
+> end of the literal, nor by the beginning of another escape sequence.
+> 
+> Therefore, such unterminated sequences have been split into a
+> separate literal as a way to comply with the rule and preserve the
+> semantics of the code.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
---8323329-27211591-1689812531=:3118466
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-On Tue, 18 Jul 2023, Oleksandr Tyshchenko wrote:
-> On 18.07.23 14:31, Rahul Singh wrote:
-> 
-> 
-> Hello Rahul
-> 
-> 
-> > Xen 4.17 supports the creation of static evtchns. To allow user space
-> > application to bind static evtchns introduce new ioctl
-> > "IOCTL_EVTCHN_BIND_STATIC". Existing IOCTL doing more than binding
-> > that’s why we need to introduce the new IOCTL to only bind the static
-> > event channels.
-> > 
-> > Static evtchns to be available for use during the lifetime of the
-> > guest. When the application exits, __unbind_from_irq() ends up being
-> > called from release() file operations because of that static evtchns
-> > are getting closed. To avoid closing the static event channel, add the
-> > new bool variable "is_static" in "struct irq_info" to mark the event
-> > channel static when creating the event channel to avoid closing the
-> > static evtchn.
-> > 
-> > Also, take this opportunity to remove the open-coded version of the
-> > evtchn close in drivers/xen/evtchn.c file and use xen_evtchn_close().
-> > 
-> > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> > ---
-> > v3:
-> >   * Remove the open-coded version of the evtchn close in drivers/xen/evtchn.c
-> 
-> Thanks!
-> 
-> Looks like there is one unmentioned change in change-log since v2:
-> * Make sure that evtchn hasn't been added yet before binding it in 
-> evtchn_ioctl():case IOCTL_EVTCHN_BIND_STATIC
-> 
-> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-27211591-1689812531=:3118466--
+> ---
+> The choice whether to put a blank between the literals is up to
+> the maintainers' preference, I chose to do so to improve legibility.
+> ---
+>  xen/arch/x86/hvm/hvm.c  | 2 +-
+>  xen/common/decompress.c | 4 ++--
+>  xen/common/xz/stream.h  | 2 +-
+>  3 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 57363c2ae1..24ccf60d77 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3853,7 +3853,7 @@ void hvm_ud_intercept(struct cpu_user_regs *regs)
+>                                          cs, &addr) &&
+>               (hvm_copy_from_guest_linear(sig, addr, sizeof(sig),
+>                                           walk, NULL) == HVMTRANS_okay) &&
+> -             (memcmp(sig, "\xf\xbxen", sizeof(sig)) == 0) )
+> +             (memcmp(sig, "\xf\xb" "xen", sizeof(sig)) == 0) )
+>          {
+>              regs->rip += sizeof(sig);
+>              regs->eflags &= ~X86_EFLAGS_RF;
+> diff --git a/xen/common/decompress.c b/xen/common/decompress.c
+> index 989336983f..2c2c2ad877 100644
+> --- a/xen/common/decompress.c
+> +++ b/xen/common/decompress.c
+> @@ -19,13 +19,13 @@ int __init decompress(void *inbuf, unsigned int len, void *outbuf)
+>      if ( len >= 3 && !memcmp(inbuf, "\x42\x5a\x68", 3) )
+>          return bunzip2(inbuf, len, NULL, NULL, outbuf, NULL, error);
+>  
+> -    if ( len >= 6 && !memcmp(inbuf, "\3757zXZ", 6) )
+> +    if ( len >= 6 && !memcmp(inbuf, "\375" "7zXZ", 6) )
+>          return unxz(inbuf, len, NULL, NULL, outbuf, NULL, error);
+>  
+>      if ( len >= 2 && !memcmp(inbuf, "\135\000", 2) )
+>          return unlzma(inbuf, len, NULL, NULL, outbuf, NULL, error);
+>  
+> -    if ( len >= 5 && !memcmp(inbuf, "\x89LZO", 5) )
+> +    if ( len >= 5 && !memcmp(inbuf, "\x89" "LZO", 5) )
+>          return unlzo(inbuf, len, NULL, NULL, outbuf, NULL, error);
+>  
+>      if ( len >= 2 && !memcmp(inbuf, "\x02\x21", 2) )
+> diff --git a/xen/common/xz/stream.h b/xen/common/xz/stream.h
+> index d36d0fec64..8d9fbbe1b5 100644
+> --- a/xen/common/xz/stream.h
+> +++ b/xen/common/xz/stream.h
+> @@ -18,7 +18,7 @@
+>  
+>  #define STREAM_HEADER_SIZE 12
+>  
+> -#define HEADER_MAGIC "\3757zXZ"
+> +#define HEADER_MAGIC "\375" "7zXZ"
+>  #define HEADER_MAGIC_SIZE 6
+>  
+>  #define FOOTER_MAGIC "YZ"
+> -- 
+> 2.34.1
+> 
 
