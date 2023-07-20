@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4AA375AB39
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 11:45:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566505.885404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4099175ABC4
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 12:15:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566509.885413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMQE5-0001qQ-VH; Thu, 20 Jul 2023 09:45:37 +0000
+	id 1qMQgY-0006d7-Bn; Thu, 20 Jul 2023 10:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566505.885404; Thu, 20 Jul 2023 09:45:37 +0000
+Received: by outflank-mailman (output) from mailman id 566509.885413; Thu, 20 Jul 2023 10:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMQE5-0001nD-SL; Thu, 20 Jul 2023 09:45:37 +0000
-Received: by outflank-mailman (input) for mailman id 566505;
- Thu, 20 Jul 2023 09:45:36 +0000
+	id 1qMQgY-0006an-8g; Thu, 20 Jul 2023 10:15:02 +0000
+Received: by outflank-mailman (input) for mailman id 566509;
+ Thu, 20 Jul 2023 10:15:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/JYs=DG=citrix.com=prvs=558be806a=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qMQE4-0001n7-6E
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 09:45:36 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b14a236-26e2-11ee-b23a-6b7b168915f2;
- Thu, 20 Jul 2023 11:45:34 +0200 (CEST)
-Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Jul 2023 05:45:28 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by MW4PR03MB6569.namprd03.prod.outlook.com (2603:10b6:303:128::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Thu, 20 Jul
- 2023 09:45:26 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::38aa:4814:3c7b:78ea]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::38aa:4814:3c7b:78ea%5]) with mapi id 15.20.6588.031; Thu, 20 Jul 2023
- 09:45:26 +0000
+ <SRS0=BeWc=DG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qMQgW-0006ah-OT
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 10:15:00 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47632a87-26e6-11ee-b23a-6b7b168915f2;
+ Thu, 20 Jul 2023 12:14:58 +0200 (CEST)
+Received: from [192.168.1.100] (unknown [37.162.143.190])
+ by support.bugseng.com (Postfix) with ESMTPSA id D28534EE0C89;
+ Thu, 20 Jul 2023 12:14:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,383 +39,855 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b14a236-26e2-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1689846333;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=WDw17wo2WaEO3ZHwr3foXg5KyzyWBpz8gEFMf7FMqGA=;
-  b=GSCaHH2iV3tep1EWyEmk+Cd4vC8v0mc6CJ23FFSrYA7oX/2/MrUzPlpn
-   Jyg0GIohsnJADMXBS4MdHZGeXRUcR4R/rrrXRSMuIrIxgBFxk8d7Ox+Mm
-   fi75ljbr0Kl4WCavX2QsdI+cZ4Sp9R0CJU0qXhvPJ+LB5EPO1/B9iYmHP
-   E=;
-X-IronPort-RemoteIP: 104.47.58.169
-X-IronPort-MID: 115547412
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:5POsmagvQdDnH/MBqkFy7pb7X161VhEKZh0ujC45NGQN5FlHY01je
- htvWGyHbq6PMGKje9t+O4q2phsC68KGnYRrHgRuqSA0Hikb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsx+qyr0N8klgZmP6sT4wWGzyB94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tREC2xSaRejudic2YnmZtgvvOkhMsD0adZ3VnFIlVk1DN4AaLWaGuDgw48d2z09wMdTAfzZe
- swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilEhluGzYbI5efTTLSlRtlyfq
- W/cuXzwHzkRNcCFyCrD+XWp7gPKtXqiBd9OS+HhrJaGhnWq52kQWEw3DGG54tOe0GCMVesEc
- Ustr39GQa8asRbDosPGdyO/pHmIrxsNQe16Gucx6ByO4qfM6gPfDW8BJhZRZdpjuMIoSDgC0
- l6Sg8ivFTFpqKeSS3+W6vGTtzzaESofIHIGZCQEZRAY+NSlq4Y25i8jVf5mGa+xy9fzSTf5x
- mnTqDBk3utCy8kWy6+84FbLxSq2oYTERRI04QORWX+56gR+Z8iuYInABUXn0Mus5b2xFjGp1
- EXoUeDEhAzSJflhTBCwfdg=
-IronPort-HdrOrdr: A9a23:ynv2KqHxiO7KlW1upLqEcceALOsnbusQ8zAXPidKJiC9E/b1qy
- nKpp8mPHDP5gr5J0tQ/OxoVJPhfZq+z/NICOsqTMuftWDd0QPDEGgF1/qA/9SKIVydygcy78
- ZdmnlFebvN5RYTt7eC3OH1e+xQp+Vuv8iT9IPj5n1pUQpdbq1v5w1oPAKWFkZ7XxNGBYMOE4
- aZj/A33QaIc3EKZfK+Cn0PU/PYpt3TopX7ZRULHHccmXSzpCqv8qPzFi6T2BoTOgk/uosK6m
- jEnmXCl92ej80=
-X-Talos-CUID: 9a23:sUyZDmyUyARYMyBvI7lgBgVIOZx6dXr98k36OnTlJVcqcpCXV1aPrfY=
-X-Talos-MUID: 9a23:yZVPvAaoD1JwxuBTjh7ph2EzFZ5S4eeELxojo5s/4JODDHkl
-X-IronPort-AV: E=Sophos;i="6.01,218,1684814400"; 
-   d="scan'208";a="115547412"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DZLld+6ePOxYBEiEOfiutWXS4ttAOaT9X+bG5KNjPs+pXNqwXkhM8zDOC8ZA2Tcl62h4OCd1MDyyeV1cZPlq26dRsRtE87+Jks+mAeTAfgV4VH2043GTOORrUE455H0TopXDyeYi2IIGgsmGXblqgH3xk9t4gti9mF8RLj3TzwStMfRC4QMtshumu3VoIKdC3u/obvnmVNGChHkwJh/UFuD8rNnLVce/iO2EB2YD9u1UmiDj+9BpTrckO1cSfvV1eJxBBJ5xM4M/8A8HNB6K3QPtL3kA4Jjnifx4ryjBEd+kc4Wx6azNuDThyO3YphgdJsqrQpWtECbZdB56oQ8aig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LE0F85uEAxd62xuUVo0COuuAbEvLmENkGtPEs/UfeaE=;
- b=NBp+Kos4nuKYH7iWPyAAEIFNUaJsK9cgfj8yNftOPZk0dn7DJ/h7dGUBkuWPBUCIb32DFWBkNpyIzL9Sf73ZoRqnHKfppUlfj7Sa7esEvtfM+hHkDYxuO4Nsa3ASLZrmINE2aq7KNwQ7W7YnVlIm4LXEuIpTe4/y9SgA08Nbwq+eKFvi7lw8J5PgRtrWk6g6nAmNuWSJDPkBYfdtyvK9Jniyf9jSNV8ggK+73rTdJHX1hSeJXHmU6JnSbS4Quj7olzN5hZmrjOYVGGokVAVIJBqwMGL9u6mYEYcbS03Z2yE9OSpoX2mGAvn0q/ljXe3h9uuNFUwYrbEDXaM19yd1eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LE0F85uEAxd62xuUVo0COuuAbEvLmENkGtPEs/UfeaE=;
- b=CmdyhEODBRtBsKQ9j3ytwCUxk3ftWfyzVtolvOQj8G3h217IfagHG3L5fkGFW4FON+zURH6O4vz1haagP9HaraCm0YRUb+K3PPXjazTBzlNEWGhlKJvyFfagHqHm857ytnPjUeertQ+FMi3G1hngjiLomvuWqnHo6oowZQg1l1g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 20 Jul 2023 11:45:19 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v8 01/13] pci: introduce per-domain PCI rwlock
-Message-ID: <ZLkCL4TbE0sWZjd3@MacBook-Air-de-Roger.local>
-References: <20230720003205.1828537-1-volodymyr_babchuk@epam.com>
- <20230720003205.1828537-2-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230720003205.1828537-2-volodymyr_babchuk@epam.com>
-X-ClientProxiedBy: LO4P123CA0102.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::17) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+X-Inumbo-ID: 47632a87-26e6-11ee-b23a-6b7b168915f2
+Message-ID: <26008624-b00c-ecd2-77e0-3f1cad63db66@bugseng.com>
+Date: Thu, 20 Jul 2023 12:14:54 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|MW4PR03MB6569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 207a77ae-cefa-42f5-466c-08db89060b8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	xSDcIp+W4Q3hKAILX8Z7Nmf9+SAc8Ra+nGSsF9BtL+7i5VX9jDxlxA+w2xaSh/PJPph/6l/2Y8g5BMUrYCLlYan1YR1ZGLToKzRI/6DbBM9Bh0zchNkjY8cdORzCZpOPE+77WYdoiv1qiJuNQuezU4YQonQ5Vp1rVlaUvLHX/B3Uxn37AaJPAMSITf+Z6B27X9zioxhiJzv8ODobP+bbEcfv6K2pNM5j6f9iIawm7Y115u6B0M/ro6F+sizBeKkkijBMvd6KehD/wV98hbWXVvdOUIlOd7DX6NaR1oD392rYp7RXz3juV1TOikVa1iQz85uGZwfZ1XkiZk9b/278VBHN42InL8k54JJvH6dgfC2SxqaeyD/6el0hNbjGeFaLzYY3768mTdl2JKk5sCciX1H8aX/ZtNnPFkITT3rgMybNUQveyLkGJrXsc6mSG9++RLWPKB4TCh0quu0YMpDAX1KpkQoFpJb90xLVreCLzZkKjgBqYjvxqfuD9GlM7Sr0fE2Ac9GK/D60SpK+h46YciiN2OxUMoDOJNYJ97elGWtHZn2hULD6HCaZbgszgEpj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(136003)(39860400002)(346002)(376002)(396003)(451199021)(2906002)(54906003)(478600001)(66899021)(41300700001)(8676002)(8936002)(5660300002)(66556008)(66476007)(66946007)(4326008)(6916009)(316002)(82960400001)(85182001)(86362001)(26005)(186003)(6506007)(9686003)(6486002)(83380400001)(6512007)(38100700002)(6666004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ry9adjRFdTlxb2JPd0YxMjR3WWhQTVdMNzFnVUpBRFl5V09ITjRGQ1FsMStN?=
- =?utf-8?B?YkNIdGhBMWdlNjlRQkZTdjlYbGg4NUVkYXhqcllaMW0zWUFINkd2cUdKS0VE?=
- =?utf-8?B?QUZ0YVFlRGhSamE3ODFOalJnVmdEOURVZ2lOQ1BHVnFVVW5xS0NOZWU5allI?=
- =?utf-8?B?TVVLNUN2L3BRTXFvTDExL0JqZGtBa1QvT0xLbDdVeGhHWjhQaEZzOG9HTUdK?=
- =?utf-8?B?dzY2K1ZycURGRG9rc05EQWQzekFyTytVMXdmTEdZK0h6c0kxY1k5RDg4NUJC?=
- =?utf-8?B?Mk5YdlNFL3o5Mll6bnJvZzY1bjFQeGhVbUhIUUpEQ3FqMXBtbDYwMGJQQ3Zi?=
- =?utf-8?B?bC9nb05MR0Y4TXB5WGJCRkpSK0M1RTNNK0NmbDkvNDZaNXltSkMwT2VaZTdt?=
- =?utf-8?B?ZTdvWjZxODVuT1ltdjQ5b29BUFducm5Bck1lK2Z1WXdsUGpQMXAwV1owK29p?=
- =?utf-8?B?K3Z3MXRoWjhqRGFydExqK2VKUkVUSW9HanRqVFgrNnRuNTZ0amhSRDFTdDdF?=
- =?utf-8?B?L21FR0M0YkVKSHp0bGxZWS9QaUNIa0c3Q1liUGkyVjd3ak5YWUtCVERkWGdj?=
- =?utf-8?B?UGlIeU1vMUVyV3FMWGl6K0hZZjlRcmJrUVBOUTQ0aGVCMU13VDdPVmZ4VWJn?=
- =?utf-8?B?cURJZ2cxU2IrTExjakNncS9Qam1YRHZUdE5CelF5Sk1Cd2t6Q0xVZFdBQUt2?=
- =?utf-8?B?NFd2SXlTMXU1dmx1RWlzaGZFS0NkWEZzMTNGSEdIZlFNRHkxVi9zZ1hSRzdx?=
- =?utf-8?B?THdKQXlXN0l6UjU5elJ1UlMwWnkzZnpIVGYzZSs4bW5Na0F1RHk4dkF2V2hh?=
- =?utf-8?B?TmVRaGtjL2tqVTRkWXpMUUFoc0p2M3hzN2pUVHp5L1I0Ry9zZlJEeU1WQjFP?=
- =?utf-8?B?SXlpUHhMWVNCMnIxNmZTd0VmMWlrc1AxTUVIQUswUVZnMnhkMm5Manl3SVVR?=
- =?utf-8?B?eUpTU2VoblRPNVVGTmt5bk5LdUxKdVlBMXBnc29QL0dLUkxkclRXeTk1c2R1?=
- =?utf-8?B?VGdhQ09BdFM2RGZxS2t2TklvMisrWEhrMFNnNWFmTityckhwUU1JRjRyb2ZE?=
- =?utf-8?B?bjYxMjU5Z016bWlOSitIcldJTjgrRXpSTXB0YUtvdEFEYk5aQXNJT3NqMDFr?=
- =?utf-8?B?Z09LZ2U4NCtqNEFkVUFnSlBPOThZT2Rzd1FLRi8ycGVpL09JL0lZUk5IZ1Y3?=
- =?utf-8?B?VXBCZzVlTjg2MEVKYlBQOCs5Qk5MTFpQNkI1UUppbGVYbVdrZm5VNG9maWFp?=
- =?utf-8?B?S0ttMEFDWWFYWGw2T0xiRUZLN2R2MGl3RU44dHNlMm52dUIyMWE1TGtWU1BP?=
- =?utf-8?B?a0RhZ1I2cEdCelRVSWExOW1JQURsdDA0cWg4NjJqcVlRQU01ODdPa0F3a2Nl?=
- =?utf-8?B?YkNuN09xZWE0Si9rQmdPNnFkNjFFS2l1QzVyV2RBcktIaFg0Q2w1SWtlNXlO?=
- =?utf-8?B?OTBvclc5aTRBTnZhZm9WaDlwbEp5RUJuRlh1bzlUVVZQL3FzRkNXMVQrZXJN?=
- =?utf-8?B?Uy9rUllqQ29pNU8xQ0tTbVBmeUxsNjlrMWhPZklNVGswMG1GN1lNeHNodDZ3?=
- =?utf-8?B?dXhSNWlucHJCZ0R3Z2hQMDdjcEgzcXNmTGE5TGFMK3hlSFhjTmxFcXRESHBx?=
- =?utf-8?B?dGFIQ1NwNGh0blVpdG5kUkVXYlZKYnE2bmRta1owZks0RkRNQ3liK2t2Vjgr?=
- =?utf-8?B?UTk3VHYvRG9YSkgxWWU5Y016ZEFmV1hXTFZPOFozQkdCK3JhNkI4SWNnVEtG?=
- =?utf-8?B?K2dDWU1yTEk2cko5SWpmVnZaNjFCR05PVFBYd20xWnVXVE04WWJ1ZzRvOGZ2?=
- =?utf-8?B?dWxlNnp1ZThDRmFGdGhFaEhpSUQybkpwbW4yYjl6Zm5ha1c3UjVpNW5nNE13?=
- =?utf-8?B?R2FxcTc5YkpiVVV1c0xaVG00NzFpYngwMlgxaXFPUGV6SVJFVXBtMVJlOGtZ?=
- =?utf-8?B?REhyeHlKa2F3MEhFUU9EOHA4VkhxSWRnUEY1aUFSU05KZitWazA5TjUrcERi?=
- =?utf-8?B?M3FtV29ocTZoZlFnVzczOU1pUUZLRGZHM0puSnJuZ2s5K2tTZ0xRam9ZMzVC?=
- =?utf-8?B?dDRESDlCWXI1dktHSHpWb1lJQ3BKbjNQN2xrdFR6Z3MwRFpVTU90Q0QvMzZ6?=
- =?utf-8?B?aFVkaTcrWjRDMVpmUVhXWFlnWTFsWlIzMnRWRUxYTWllSEZZKzdEc2N0Zm1W?=
- =?utf-8?B?UHc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	p6k9uBe5o7gk4Qm9JgDXZUTiyZg5RzvRueLNaMFmifX/lMdFVIJKTcRgr668OpI+UYcj2Xq3nAiF/Kz2mIdC1cFksXr5scdwKLvVV6N7uFKdsvZlN3Rzn5mZ7T+LZuXTW23J3YInfg9Gi61/duGZqtiZrXUQ/SLE5uinh0V8kn7X3EQa0KLIkpiAJqVoYTVuTfETrK1yuZpKgF7KH0f58L5x5V2jDPYgc7e/hXXfx18H4aLUI9pmV9R3X4LPl6Cqfd/E4JUieJBro86nStqJ/Ftn0Iq69xA7TZJzzhYPlEeKRieu7yN1EKdlTKjlPbev0rEHYTAPNSIS0py6/YCfG2J60nlLGtMLZXcwiwMLjT9vBMfM70LV1fAmpWelclgjarFufEj8USgCD45aampp3zCLORU0ek3gFM+C/TPQXKm535WGecAUuyPtPVFQY+266E/5dF6DQNB0lPjeBGItppvWrLoOK1pzeEbV/87gXwsgBBP/ZX8b2YpIPhMe9IHm7pEeCvz0n34riyV5CxdRRI4R/dFIiJg9gGqUQtgX7K6ytrmy4Wxq6Unzs2O/7dpoLOJvMDd/YWYdjL0oV0sCMnCUVhU/PZiwBCwR3WI6Iq7ZMdCOiO7+ljSmWwUMkiggiIjQ5oIPj88ZGbXymT37MqrqfAJLNj9Yzh7yiBfflBZ4lwsWM+K7kFVm+pFyDJehdtTk2X+6iBKF9SMXqvtqwl2dX08kvak/EaeuA9slmfby2b202jm2gBD/40cRS17VPx2uI+9hRgLJBcbjbuFeqgnHhQM0Tk5UqFwSpKt8JBsP6ahtx58YEDgi2B90Hzwegob0cKVHQ7iQCAx0Rxj0wQ==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 207a77ae-cefa-42f5-466c-08db89060b8f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 09:45:26.2596
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wvU1RTBg87QJN3RNJHcZsZE16OAGwQRdWOYzDClpGW3xOsDoo62rIcqKDxI/hzWK0ttLnwytgzo2Umy5NydZ3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6569
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [RFC PATCH 1/4] xen/arm: justify or initialize conditionally
+ uninitialized variables
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1689329728.git.nicola.vetrini@bugseng.com>
+ <1ad20473a031eca75db4007bdc169616b512ef44.1689329728.git.nicola.vetrini@bugseng.com>
+ <97d8a796-f790-8efc-1d89-def1f1193e61@xen.org>
+ <5da7ae40-35c7-7f93-824f-42a0712cdcf1@bugseng.com>
+ <9cac9bc5-ad55-3bcd-b645-a30a5b863b3f@xen.org>
+Content-Language: en-US
+In-Reply-To: <9cac9bc5-ad55-3bcd-b645-a30a5b863b3f@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 20, 2023 at 12:32:31AM +0000, Volodymyr Babchuk wrote:
-> Add per-domain d->pci_lock that protects access to
-> d->pdev_list. Purpose of this lock is to give guarantees to VPCI code
-> that underlying pdev will not disappear under feet. This is a rw-lock,
-> but this patch adds only write_lock()s. There will be read_lock()
-> users in the next patches.
+
+
+On 17/07/23 15:40, Julien Grall wrote:
+> Hi Nicola,
 > 
-> This lock should be taken in write mode every time d->pdev_list is
-> altered. This covers both accesses to d->pdev_list and accesses to
-> pdev->domain_list fields. All write accesses also should be protected
-> by pcidevs_lock() as well. Idea is that any user that wants read
-> access to the list or to the devices stored in the list should use
-> either this new d->pci_lock or old pcidevs_lock(). Usage of any of
-> this two locks will ensure only that pdev of interest will not
-> disappear from under feet and that the pdev still will be assigned to
-> the same domain. Of course, any new users should use pcidevs_lock()
-> when it is appropriate (e.g. when accessing any other state that is
-> protected by the said lock).
-
-I think this needs a note about the ordering:
-
-"In case both the newly introduced per-domain rwlock and the pcidevs
-lock is taken, the later must be acquired first."
-
+> On 17/07/2023 13:08, Nicola Vetrini wrote:
+>> On 14/07/23 15:00, Julien Grall wrote:
+>>> Hi Nicola,
+>>>
+>>> On 14/07/2023 12:49, Nicola Vetrini wrote:
+>>>> This patch aims to fix some occurrences of possibly uninitialized
+>>>> variables, that may be read before being written. This behaviour would
+>>>> violate MISRA C:2012 Rule 9.1, besides being generally undesirable.
+>>>>
+>>>> In all the analyzed cases, such accesses were actually safe, but it's
+>>>> quite difficult to prove so by automatic checking, therefore a safer
+>>>> route is to change the code so as to avoid the behaviour from 
+>>>> occurring,
+>>>> while preserving the semantics.
+>>>>
+>>>> To achieve this goal, I adopted the following strategies:
+>>>
+>>> Please let's at least one patch per strategy. I would also consider 
+>>> some of the rework separate so they can go in regardless the decision 
+>>> for the SAF-*.
+>>>
+>>>>
+>>>> - Add a suitably formatted local deviation comment
+>>>>    (as indicated in 'docs/misra/documenting-violations.rst')
+>>>>    to exempt the following line from checking.
+>>>>
+>>>> - Provide an initialization for the variable at the declaration.
+>>>>
+>>>> - Substitute a goto breaking out of control flow logic with a 
+>>>> semantically
+>>>>    equivalent do { .. } while(0).
+>>>
+>>> As I already mentioned in private, it is unclear to me how you 
+>>> decided which strategy to use. I still think we need to define our 
+>>> policy before changing the code. Otherwise, it is going to be 
+>>> difficult to decide for new code.
+>>>
+>>
+>> The main point of this RFC is doing so. From what I gathered, it's not 
+>> an easy task: sometimes there are no 'safe' values to initialize 
+>> variables to and sometimes there is no easy way to prove that indeed 
+>> something is always initialized or not accessed at all.
 > 
-> Any write access to pdev->domain_list should be protected by both
-> pcidevs_lock() and d->pci_lock in the write mode.
-
-You also protect calls to vpci_remove_device() with the per-domain
-pci_lock it seems, and that will need some explanation as it's not
-obvious.
-
+> But you wrote the code. So you should be able to explain how you took 
+> the decision between one and the others.
 > 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Also, even if this is an RFC, it would have been good to summarize any 
+> discussion that happened in private and if there were concern try to 
+> come up with ideas or at least listing the concerns after '---.
 > 
-> ---
+
+I'll keep this if the need arises in the future.
+
+>>
+>>>>
+>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>> ---
+>>>>   docs/misra/safe.json                   |  8 +++++++
+>>>>   xen/arch/arm/arm64/lib/find_next_bit.c |  1 +
+>>>>   xen/arch/arm/bootfdt.c                 |  6 +++++
+>>>>   xen/arch/arm/decode.c                  |  2 ++
+>>>>   xen/arch/arm/domain_build.c            | 29 ++++++++++++++++++----
+>>>>   xen/arch/arm/efi/efi-boot.h            |  6 +++--
+>>>>   xen/arch/arm/gic-v3-its.c              |  9 ++++---
+>>>>   xen/arch/arm/mm.c                      |  1 +
+>>>>   xen/arch/arm/p2m.c                     | 33 
+>>>> +++++++++++++++-----------
+>>>>   9 files changed, 69 insertions(+), 26 deletions(-)
+>>>>
+>>>> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
+>>>> index e3c8a1d8eb..244001f5be 100644
+>>>> --- a/docs/misra/safe.json
+>>>> +++ b/docs/misra/safe.json
+>>>> @@ -12,6 +12,14 @@
+>>>>           },
+>>>>           {
+>>>>               "id": "SAF-1-safe",
+>>>> +            "analyser": {
+>>>> +                "eclair": "MC3R1.R9.1"
+>>>> +            },
+>>>> +            "name": "Rule 9.1: initializer not needed",
+>>>> +            "text": "The following local variables are possibly 
+>>>> subject to being read before being written, but code inspection 
+>>>> ensured that the control flow in the construct where they appear 
+>>>> ensures that no such event may happen."
+>>> I am bit concerned which such statement because the code instance was 
+>>> today with the current code. This could change in the future and 
+>>> invalide the reasoning.
+>>>
+>>> It is not clear to me if we have any mechanism to prevent that. If we 
+>>> don't, then I think we need to drastically reduce the number of time 
+>>> this is used (there are a bit too much for my taste).
+>>>
+>>
+>> Indeed, the purpose of such a deviation is that the sound 
+>> overapproximation computed by the tool requires a human to look at the 
+>> code and think twice before modifying it (i.e., if ever that code is 
+>> touched, the reviewer ought to assess whether that justification still 
+>> holds or some other thing should be done about it.
 > 
-> Changes in v8:
->  - New patch
+> Your assumption is the reviewer will notice there is an existing 
+> devitation and be able to assess it has changed. I view this assumption 
+> as risky in the long term.
 > 
-> Changes in v8 vs RFC:
->  - Removed all read_locks after discussion with Roger in #xendevel
->  - pci_release_devices() now returns the first error code
->  - extended commit message
->  - added missing lock in pci_remove_device()
->  - extended locked region in pci_add_device() to protect list_del() calls
-> ---
->  xen/common/domain.c                         |  1 +
->  xen/drivers/passthrough/amd/pci_amd_iommu.c |  9 ++-
->  xen/drivers/passthrough/pci.c               | 68 +++++++++++++++++----
->  xen/drivers/passthrough/vtd/iommu.c         |  9 ++-
->  xen/include/xen/sched.h                     |  1 +
->  5 files changed, 74 insertions(+), 14 deletions(-)
+> Have you investigate to improve the automatic tooling?
 > 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index caaa402637..5d8a8836da 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -645,6 +645,7 @@ struct domain *domain_create(domid_t domid,
->  
->  #ifdef CONFIG_HAS_PCI
->      INIT_LIST_HEAD(&d->pdev_list);
-> +    rwlock_init(&d->pci_lock);
->  #endif
->  
->      /* All error paths can depend on the above setup. */
-> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> index 94e3775506..e2f2e2e950 100644
-> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> @@ -476,8 +476,13 @@ static int cf_check reassign_device(
->  
->      if ( devfn == pdev->devfn && pdev->domain != target )
->      {
-> -        list_move(&pdev->domain_list, &target->pdev_list);
-> -        pdev->domain = target;
 
-You seem to have inadvertently dropped the above line? (and so devices
-would keep the previous pdev->domain value)
+Well, as discussed elsewhere in the thread, a slightly modified version 
+of this deviation comment can list the specific reason why such a thing 
+was deviated directly at the declaration or where the caution is, if you 
+think this is better.
 
-> +        write_lock(&pdev->domain->pci_lock);
-> +        list_del(&pdev->domain_list);
-> +        write_unlock(&pdev->domain->pci_lock);
-> +
-> +        write_lock(&target->pci_lock);
-> +        list_add(&pdev->domain_list, &target->pdev_list);
-> +        write_unlock(&target->pci_lock);
->      }
->  
->      /*
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 95846e84f2..5b4632ead2 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -454,7 +454,9 @@ static void __init _pci_hide_device(struct pci_dev *pdev)
->      if ( pdev->domain )
->          return;
->      pdev->domain = dom_xen;
-> +    write_lock(&dom_xen->pci_lock);
->      list_add(&pdev->domain_list, &dom_xen->pdev_list);
-> +    write_unlock(&dom_xen->pci_lock);
->  }
->  
->  int __init pci_hide_device(unsigned int seg, unsigned int bus,
-> @@ -747,6 +749,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->      ret = 0;
->      if ( !pdev->domain )
->      {
-> +        write_lock(&hardware_domain->pci_lock);
->          pdev->domain = hardware_domain;
->          list_add(&pdev->domain_list, &hardware_domain->pdev_list);
->  
-> @@ -760,6 +763,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->              printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
->              list_del(&pdev->domain_list);
->              pdev->domain = NULL;
-> +            write_unlock(&hardware_domain->pci_lock);
+Example:
 
-Strictly speaking, this could move one line earlier, as accesses to
-pdev->domain are not protected by the d->pci_lock?  Same in other
-instances (above and below), as you seem to introduce a pattern to
-perform accesses to pdev->domain with the rwlock taken.
+// <- SAF-x here
+int var;
 
->              goto out;
->          }
->          ret = iommu_add_device(pdev);
-> @@ -768,8 +772,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->              vpci_remove_device(pdev);
->              list_del(&pdev->domain_list);
->              pdev->domain = NULL;
-> +            write_unlock(&hardware_domain->pci_lock);
->              goto out;
->          }
-> +        write_unlock(&hardware_domain->pci_lock);
->      }
->      else
->          iommu_enable_device(pdev);
-> @@ -812,11 +818,13 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
->          {
-> +            write_lock(&pdev->domain->pci_lock);
->              vpci_remove_device(pdev);
->              pci_cleanup_msi(pdev);
->              ret = iommu_remove_device(pdev);
->              if ( pdev->domain )
->                  list_del(&pdev->domain_list);
-> +            write_unlock(&pdev->domain->pci_lock);
+[...]
 
-Here you seem to protect more than strictly required, I would think
-only the list_del() would need to be done holding the rwlock?
+// <- or HERE
+f(&var);
 
->              printk(XENLOG_DEBUG "PCI remove device %pp\n", &pdev->sbdf);
->              free_pdev(pseg, pdev);
->              break;
-> @@ -887,26 +895,62 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
->  
->  int pci_release_devices(struct domain *d)
->  {
-> -    struct pci_dev *pdev, *tmp;
-> -    u8 bus, devfn;
-> -    int ret;
-> +    int combined_ret;
-> +    LIST_HEAD(failed_pdevs);
->  
->      pcidevs_lock();
-> -    ret = arch_pci_clean_pirqs(d);
-> -    if ( ret )
-> +    write_lock(&d->pci_lock);
-> +    combined_ret = arch_pci_clean_pirqs(d);
+An alternative approach to justification, partly discussed with Stefano 
+in private is a macro that looks like an attribute to signal that the 
+variable is intentionally uninitialized. This does not have the benefit 
+of a written justification with a proper comment or an entry in the json 
+file, but is less intrusive and the justification for all occurrences of 
+__uninit w.r.t R9.1 would be included in the static analysis tool 
+configuration, which would be part of the MISRA compliance 
+documentation. This does imply a coarse justification like the one 
+above, but if further clarification is needed it can be provided locally 
+in the code, as guidance for contributors.
 
-Why do you need the per-domain rwlock for arch_pci_clean_pirqs()?
-That function doesn't modify the per-domain pdev list.
+Example:
+#define __uninit
 
-> +    if ( combined_ret )
->      {
->          pcidevs_unlock();
-> -        return ret;
-> +        write_unlock(&d->pci_lock);
-> +        return combined_ret;
+__uninit int x;
 
-Ideally we would like to keep the same order on unlock, so the rwlock
-should be released before the pcidevs lock (unless there's a reason
-not to).
+>>
+>>>> +        },
+>>>> +        {
+>>>> +            "id": "SAF-2-safe",
+>>>>               "analyser": {},
+>>>>               "name": "Sentinel",
+>>>>               "text": "Next ID to be used"
+>>>> diff --git a/xen/arch/arm/arm64/lib/find_next_bit.c 
+>>>> b/xen/arch/arm/arm64/lib/find_next_bit.c
+>>>> index ca6f82277e..51b852c595 100644
+>>>> --- a/xen/arch/arm/arm64/lib/find_next_bit.c
+>>>> +++ b/xen/arch/arm/arm64/lib/find_next_bit.c
+>>>> @@ -67,6 +67,7 @@ unsigned long find_next_zero_bit(const unsigned 
+>>>> long *addr, unsigned long size,
+>>>>   {
+>>>>       const unsigned long *p = addr + BIT_WORD(offset);
+>>>>       unsigned long result = offset & ~(BITS_PER_LONG-1);
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       unsigned long tmp;
+>>>
+>>> This is a file that was copied as-is from Linux. I thought we exclude 
+>>> them.
+>>
+>> There was an expansion location in the report that caused that file to 
+>> appear in the output. Thanks for reporting it.
+>>
+>>>
+>>> Anyway, can you provide some details why Eclair thinks this is may be 
+>>> used unitialized?
+>>
+>> The problem lies in the goto skipping out of control flow structures. 
+>> It can't be refactored with a "do { tmp=...; break; } while(0)", as 
+>> done elsewhere, because there are two distinct labels in there, so the 
+>> semantics would be altered. The same comment applies in other 
+>> instances as well.
+>>
+>>>
+>>>>       if (offset >= size)
+>>>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+>>>> index 2673ad17a1..1292a64e8d 100644
+>>>> --- a/xen/arch/arm/bootfdt.c
+>>>> +++ b/xen/arch/arm/bootfdt.c
+>>>> @@ -34,6 +34,7 @@ static bool __init device_tree_node_matches(const 
+>>>> void *fdt, int node,
+>>>>   static bool __init device_tree_node_compatible(const void *fdt, 
+>>>> int node,
+>>>>                                                  const char *match)
+>>>>   {
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int len, l;
+>>>
+>>> It is unclear to me whether the SAF-* applies to 'len' or 'l'.
+>>
+>> Just len, they need to be two separate declarations if it is agreed 
+>> not to initialize it. Good catch.
+>>
+>>>
+>>>>       const void *prop;
+>>>> @@ -169,7 +170,9 @@ int __init device_tree_for_each_node(const void 
+>>>> *fdt, int node,
+>>>>        */
+>>>>       int depth = 0;
+>>>>       const int first_node = node;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u32 address_cells[DEVICE_TREE_MAX_DEPTH];
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u32 size_cells[DEVICE_TREE_MAX_DEPTH];
+>>>
+>>> I have never sent formally, but in the past I proposed to rework the 
+>>> code so {address, size}_cells[0] would be initialized before the 
+>>> loop. See 
+>>> https://lore.kernel.org/all/ea06f2ac-4ac1-4a6f-bda6-e775a7e68699@xen.org/.
+>>>
+>>> Do you think this would help?
+>>
+>> If that initialization is applied to all the array elements yes, 
+>> because the Amplification of R9.1 says:
+>> "For the purposes of this rule, an array element or structure member 
+>> shall be considered as a discrete
+>> object".
+>> Otherwise, initializing just the first element does not improve the 
+>> situation in any way, and this is currently not within of the analysis 
+>> capabilities of ECLAIR.
+> 
+> Any plan to improve ECLAIR?
+> 
 
->      }
-> -    list_for_each_entry_safe ( pdev, tmp, &d->pdev_list, domain_list )
-> +
-> +    while ( !list_empty(&d->pdev_list) )
->      {
-> -        bus = pdev->bus;
-> -        devfn = pdev->devfn;
-> -        ret = deassign_device(d, pdev->seg, bus, devfn) ?: ret;
-> +        struct pci_dev *pdev = list_first_entry(&d->pdev_list,
-> +                                                struct pci_dev,
-> +                                                domain_list);
-> +        uint16_t seg = pdev->seg;
-> +        uint8_t bus = pdev->bus;
-> +        uint8_t devfn = pdev->devfn;
-> +        int ret;
-> +
-> +        write_unlock(&d->pci_lock);
-> +        ret = deassign_device(d, seg, bus, devfn);
-> +        write_lock(&d->pci_lock);
-> +        if ( ret )
-> +        {
-> +            bool still_present = false;
-> +            const struct pci_dev *tmp;
-> +
-> +            /*
-> +             * We need to check if deassign_device() left our pdev in
-> +             * domain's list. As we dropped the lock, we can't be sure
-> +             * that list wasn't permutated in some random way, so we
-> +             * need to traverse the whole list.
-> +             */
-> +            for_each_pdev ( d, tmp )
-> +            {
-> +                if ( tmp == pdev )
-> +                {
-> +                    still_present = true;
-> +                    break;
-> +                }
-> +            }
-> +            if ( still_present )
-> +                list_move(&pdev->domain_list, &failed_pdevs);
+Not in the short term on this. See further below.
 
-You can get rid of the still_present variable, and just do:
+>>
+>>>
+>>>>       int ret;
+>>>> @@ -249,8 +252,10 @@ static void __init process_multiboot_node(const 
+>>>> void *fdt, int node,
+>>>>       const __be32 *cell;
+>>>>       bootmodule_kind kind;
+>>>>       paddr_t start, size;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int len;
+>>>>       /* sizeof("/chosen/") + DT_MAX_NAME + '/' + DT_MAX_NAME + '/0' 
+>>>> => 92 */
+>>>> +    /* SAF-1-safe MC3R1.R9.1*/
+>>>>       char path[92];
+>>>
+>>> So the two above, is one category of issue. The variables are passed 
+>>> as argument of function which will fill them.
+>>>
+>>> Can Eclair look at the callers, if so, can we consider to always 
+>>> initialize the values in the callee?
+>>>
+>>> This would reduce the number of SAF-*. There are a few other examples 
+>>> like that below. So I will skip them for now.
+>>>
+>>> [...]
+>>>
+>>
+>> If the value is always initialized in the callee, then there's no 
+>> problem configuring ECLAIR so that it knows that this parameter is 
+>> always written, and therefore any subsequent use in the caller is ok.
+>>
+>> Another possibility is stating that a function never reads the pointee 
+>> before writing to it (it may or may not write it, but if it doesn't, 
+>> then the pointee is not read either). The 'strncmp' after 
+>> 'fdt_get_path' does get in the way, though, because this property is 
+>> not strong enough to ensure that we can use 'path' after returning 
+>> from the function.
+> 
+> I am not sure I fully understand what you wrote. Can you provide a C 
+> example?
+>
 
-for_each_pdev ( d, tmp )
-    if ( tmp == pdev )
-    {
-        list_move(&pdev->domain_list, &failed_pdevs);
-	break;
-    }
+void f(int *x) {
+   if(x) {
+     *x = 10;
+     int y =*x; // read the pointee after it's initialized
+   } else {
+     int z; // in this branch the pointee is not read nor written
+   }
+   // we can say that f never reads *x before (possibly) writing to it.
+}
 
+>>
+>>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>>> index d0d6be922d..d43f86c2f0 100644
+>>>> --- a/xen/arch/arm/domain_build.c
+>>>> +++ b/xen/arch/arm/domain_build.c
+>>>> @@ -62,7 +62,7 @@ custom_param("dom0_mem", parse_dom0_mem);
+>>>>   int __init parse_arch_dom0_param(const char *s, const char *e)
+>>>>   {
+>>>> -    long long val;
+>>>> +    long long val = LLONG_MAX;
+>>>
+>>> Can you explain why you decided to initialize rather than SAF-? For 
+>>> clarity, I am not asking to switch to SAF-, I am mainly interested 
+>>> what were your though process.
+>>>
+>>
+>> I saw that putting a large enough value here would be out of range and 
+>> trigger the printk even if the conditional leads to somehow enter the 
+>> if branch with an invalid value.
+> 
+> Ok. This wants to be documented on top of the assignment.
+> 
 
-> +            combined_ret = combined_ret?:ret;
+Ok. While testing this I also switched to LONG_MAX, whose definition is 
+already available in that file, and does not alter the semantics anyway.
 
-Nit: missing spaces around the ternary operator.
+>>
+>>>>       if ( !parse_signed_integer("sve", s, e, &val) )
+>>>>       {
+>>>> @@ -1077,6 +1077,7 @@ static void __init 
+>>>> assign_static_memory_11(struct domain *d,
+>>>>   static int __init handle_linux_pci_domain(struct kernel_info *kinfo,
+>>>>                                             const struct 
+>>>> dt_device_node *node)
+>>>>   {
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       uint16_t segment;
+>>>>       int res;
+>>>> @@ -1351,6 +1352,7 @@ static int __init make_memory_node(const 
+>>>> struct domain *d,
+>>>>       unsigned int i;
+>>>>       int res, reg_size = addrcells + sizecells;
+>>>>       int nr_cells = 0;
+>>>> +    /* SAF-1-safe MC3R1.R9.1*/
+>>>>       __be32 reg[NR_MEM_BANKS * 4 /* Worst case addrcells + 
+>>>> sizecells */];
+>>>>       __be32 *cells;
+>>>> @@ -1578,6 +1580,7 @@ static int __init 
+>>>> find_unallocated_memory(const struct kernel_info *kinfo,
+>>>>       struct rangeset *unalloc_mem;
+>>>>       paddr_t start, end;
+>>>>       unsigned int i;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int res;
+>>>>       dt_dprintk("Find unallocated memory for extended regions\n");
+>>>> @@ -1727,6 +1730,7 @@ static int __init find_memory_holes(const 
+>>>> struct kernel_info *kinfo,
+>>>>       dt_for_each_device_node( dt_host, np )
+>>>>       {
+>>>>           unsigned int naddr;
+>>>> +        /* SAF-1-safe MC3R1.R9.1 */
+>>>>           paddr_t addr, size;
+>>>>           naddr = dt_number_of_address(np);
+>>>> @@ -1976,9 +1980,11 @@ static int __init make_cpus_node(const struct 
+>>>> domain *d, void *fdt)
+>>>>       const struct dt_device_node *npcpu;
+>>>>       unsigned int cpu;
+>>>>       const void *compatible = NULL;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u32 len;
+>>>>       /* Placeholder for cpu@ + a 32-bit hexadecimal number + \0 */
+>>>>       char buf[13];
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u32 clock_frequency;
+>>>>       /* Keep the compiler happy with -Og */
+>>>>       bool clock_valid = false;
+>>>> @@ -2104,6 +2110,7 @@ static int __init make_gic_node(const struct 
+>>>> domain *d, void *fdt,
+>>>>       const struct dt_device_node *gic = dt_interrupt_controller;
+>>>>       int res = 0;
+>>>>       const void *addrcells, *sizecells;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u32 addrcells_len, sizecells_len;
+>>>>       /*
+>>>> @@ -2179,6 +2186,7 @@ static int __init make_timer_node(const struct 
+>>>> kernel_info *kinfo)
+>>>>       int res;
+>>>>       unsigned int irq[MAX_TIMER_PPI];
+>>>>       gic_interrupt_t intrs[3];
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u32 clock_frequency;
+>>>>       bool clock_valid;
+>>>> @@ -2511,6 +2519,7 @@ static int __init handle_device(struct domain 
+>>>> *d, struct dt_device_node *dev,
+>>>>       unsigned int naddr;
+>>>>       unsigned int i;
+>>>>       int res;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       paddr_t addr, size;
+>>>>       bool own_device = !dt_device_for_passthrough(dev);
+>>>>       /*
+>>>> @@ -2779,6 +2788,7 @@ static int __init make_gicv2_domU_node(struct 
+>>>> kernel_info *kinfo)
+>>>>   {
+>>>>       void *fdt = kinfo->fdt;
+>>>>       int res = 0;
+>>>> +    /* SAF-1-safe MC3R1.R9.1*/
+>>>>       __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) 
+>>>> * 2];
+>>>>       __be32 *cells;
+>>>>       const struct domain *d = kinfo->d;
+>>>> @@ -2914,6 +2924,7 @@ static int __init make_vpl011_uart_node(struct 
+>>>> kernel_info *kinfo)
+>>>>       void *fdt = kinfo->fdt;
+>>>>       int res;
+>>>>       gic_interrupt_t intr;
+>>>> +    /* SAF-1-safe MC3R1.R9.1*/
+>>>>       __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
+>>>>       __be32 *cells;
+>>>>       struct domain *d = kinfo->d;
+>>>> @@ -3435,6 +3446,7 @@ static void __init initrd_load(struct 
+>>>> kernel_info *kinfo)
+>>>>       paddr_t paddr, len;
+>>>>       int node;
+>>>>       int res;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       __be32 val[2];
+>>>>       __be32 *cellp;
+>>>>       void __iomem *initrd;
+>>>> @@ -3514,6 +3526,7 @@ static int __init get_evtchn_dt_property(const 
+>>>> struct dt_device_node *np,
+>>>>                                            uint32_t *port, uint32_t 
+>>>> *phandle)
+>>>>   {
+>>>>       const __be32 *prop = NULL;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       uint32_t len;
+>>>>       prop = dt_get_property(np, "xen,evtchn", &len);
+>>>> @@ -3538,10 +3551,13 @@ static int __init 
+>>>> get_evtchn_dt_property(const struct dt_device_node *np,
+>>>>   static int __init alloc_domain_evtchn(struct dt_device_node *node)
+>>>>   {
+>>>>       int rc;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       uint32_t domU1_port, domU2_port, remote_phandle;
+>>>>       struct dt_device_node *remote_node;
+>>>>       const struct dt_device_node *p1_node, *p2_node;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       struct evtchn_alloc_unbound alloc_unbound;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       struct evtchn_bind_interdomain bind_interdomain;
+>>>>       struct domain *d1 = NULL, *d2 = NULL;
+>>>> @@ -3789,11 +3805,12 @@ static int __init construct_domain(struct 
+>>>> domain *d, struct kernel_info *kinfo)
+>>>>   static int __init alloc_xenstore_evtchn(struct domain *d)
+>>>>   {
+>>>> -    evtchn_alloc_unbound_t alloc;
+>>>> +    evtchn_alloc_unbound_t alloc = {
+>>>> +        .dom = d->domain_id,
+>>>> +        .remote_dom = hardware_domain->domain_id
+>>>> +    };
+>>>>       int rc;
+>>>> -    alloc.dom = d->domain_id;
+>>>> -    alloc.remote_dom = hardware_domain->domain_id;
+>>>
+>>> It is not clear why this is modified. There are only two fields in 
+>>> 'alloc' and they are both initialized.
+>>>
+>>
+>> There are three fields in the struct, and the third is clearly to be 
+>> set by an initalization function. If, as above with 'path', the init 
+>> function ensures that the third field is always written then there's 
+>> no problem, otherwise this initialization prevents any use of an 
+>> uninitialized port.
+>> > struct evtchn_alloc_unbound {
+>>       /* IN parameters */
+>>       domid_t dom, remote_dom;
+>>       /* OUT parameters */
+>>       evtchn_port_t port;
+>> };
+>> typedef struct evtchn_alloc_unbound evtchn_alloc_unbound_t;
+> 
+> Ah, I didn't spot the third field because it was defined on the same 
+> line. I would prefer if the value is explicitely initialized to 0.
+> 
+> Also, I think this ought to be in a separate patch (with other similar 
+> pattern).
+> 
 
-Thanks, Roger.
+Ok.
+
+>>>>       rc = evtchn_alloc_unbound(&alloc, 0);
+>>>>       if ( rc )
+>>>>       {
+>>>> @@ -3810,8 +3827,9 @@ static int __init construct_domU(struct domain 
+>>>> *d,
+>>>>                                    const struct dt_device_node *node)
+>>>>   {
+>>>>       struct kernel_info kinfo = {};
+>>>> -    const char *dom0less_enhanced;
+>>>> +    const char *dom0less_enhanced = NULL;
+>>>
+>>> If you look at the user below, all the callers assume 
+>>> dom0less_enhanced will be non-NULL. So it is unclear to me how this 
+>>> value is safer.
+>>>  > Looking at the code, I wonder whether we should convert
+>>> dt_property_read_string() to use ERR_PTR(). So we could remove the 
+>>> last argument and return it instead.
+>>
+>> Is relying on that assumption somehow safer? 
+> 
+> I am assuming you are referring to "If you look at the user below, all 
+> the callers assume dom0less_enhanced will be non-NULL". Note that I 
+> didn't suggest it is safer. I am only pointed out that you didn't 
+> specify how this was better in the context of the code.
+>
+
+This should be probably discussed after deciding on the refactoring 
+'dt_property_read_string'
+
+>> The suggestion to remove the last parameter seems better.
+>>
+>>>
+>>>>       int rc;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       u64 mem;
+>>>>       u32 p2m_mem_mb;
+>>>>       unsigned long p2m_pages;
+>>>> @@ -3939,6 +3957,7 @@ void __init create_domUs(void)
+>>>>               .grant_opts = 
+>>>> XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>>>>           };
+>>>>           unsigned int flags = 0U;
+>>>> +        /* SAF-1-safe MC3R1.R9.1 */
+>>>>           uint32_t val;
+>>>>           int rc;
+>>>> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+>>>> index bb64925d70..25f39364d1 100644
+>>>> --- a/xen/arch/arm/efi/efi-boot.h
+>>>> +++ b/xen/arch/arm/efi/efi-boot.h
+>>>> @@ -117,6 +117,7 @@ static int __init setup_chosen_node(void *fdt, 
+>>>> int *addr_cells, int *size_cells)
+>>>>   static int __init fdt_set_reg(void *fdt, int node, int addr_cells,
+>>>>                                 int size_cells, uint64_t addr, 
+>>>> uint64_t len)
+>>>>   {
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       __be32 val[4]; /* At most 2 64 bit values to be stored */
+>>>>       __be32 *cellp;
+>>>> @@ -308,7 +309,7 @@ fdt_set_fail:
+>>>>   static void __init *fdt_increase_size(struct file *fdtfile, int 
+>>>> add_size)
+>>>>   {
+>>>>       EFI_STATUS status;
+>>>> -    EFI_PHYSICAL_ADDRESS fdt_addr;
+>>>> +    EFI_PHYSICAL_ADDRESS fdt_addr = 0;
+>>>>       int fdt_size;
+>>>>       int pages;
+>>>>       void *new_fdt;
+>>>> @@ -433,7 +434,7 @@ static void __init efi_arch_cfg_file_late(const 
+>>>> EFI_LOADED_IMAGE *image,
+>>>>   static void *__init efi_arch_allocate_mmap_buffer(UINTN map_size)
+>>>>   {
+>>>> -    void *ptr;
+>>>> +    void *ptr = NULL;
+>>>>       EFI_STATUS status;
+>>>>       status = efi_bs->AllocatePool(EfiLoaderData, map_size, &ptr);
+>>>> @@ -538,6 +539,7 @@ static void __init efi_arch_handle_module(const 
+>>>> struct file *file,
+>>>>   {
+>>>>       int node;
+>>>>       int chosen;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int addr_len, size_len;
+>>>>       if ( file == &dtbfile )
+>>>> diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+>>>> index 3aa4edda10..aa0180ab5b 100644
+>>>> --- a/xen/arch/arm/gic-v3-its.c
+>>>> +++ b/xen/arch/arm/gic-v3-its.c
+>>>> @@ -192,8 +192,7 @@ static int its_send_cmd_mapc(struct host_its 
+>>>> *its, uint32_t collection_id,
+>>>>       cmd[0] = GITS_CMD_MAPC;
+>>>>       cmd[1] = 0x00;
+>>>> -    cmd[2] = encode_rdbase(its, cpu, collection_id);
+>>>> -    cmd[2] |= GITS_VALID_BIT;
+>>>> +    cmd[2] = encode_rdbase(its, cpu, collection_id) | GITS_VALID_BIT;
+>>>
+>>> Hmmm... How is this even considered as unitialized variable?
+>>>
+>>
+>> The analysis here could use some more precision, but the modified 
+>> construct is entirely equivalent.
+> 
+> I agree that they are equivalent. But in general, we don't change the 
+> style of the construct without explaining why.
+> 
+> In this case, the first step would be to improve Eclair.
+> 
+
+The changes needed for this kind of analysis are not trivial: we've 
+looked into this, but there's no easy way to support this in a timely 
+manner. I understand that this is an estabilished pattern, but what 
+would you think of an initializer using designators?
+
+uint64_t cmd[4] = {
+         .[0] = GITS_CMD_MAPC;
+         .[1] = 0x00;
+         .[2] = encode_rdbase(its, cpu, collection_id) | GITS_VALID_BIT;
+         .[3] = 0x00;
+}
+
+>>
+>>>>       cmd[3] = 0x00;
+>>>>       return its_send_command(its, cmd);
+>>>> @@ -215,9 +214,7 @@ static int its_send_cmd_mapd(struct host_its 
+>>>> *its, uint32_t deviceid,
+>>>>       }
+>>>>       cmd[0] = GITS_CMD_MAPD | ((uint64_t)deviceid << 32);
+>>>>       cmd[1] = size_bits;
+>>>> -    cmd[2] = itt_addr;
+>>>> -    if ( valid )
+>>>> -        cmd[2] |= GITS_VALID_BIT;
+>>>> +    cmd[2] = itt_addr | (valid ? GITS_VALID_BIT : 0x00);
+>>>
+>>> Same here.
+>>>
+>>>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>>>> index c688227abd..a36068b2d8 100644
+>>>> --- a/xen/arch/arm/mm.c
+>>>> +++ b/xen/arch/arm/mm.c
+>>>> @@ -935,6 +935,7 @@ static int xen_pt_update_entry(mfn_t root, 
+>>>> unsigned long virt,
+>>>>                                  mfn_t mfn, unsigned int target,
+>>>>                                  unsigned int flags)
+>>>>   {
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int rc;
+>>>>       unsigned int level;
+>>>>       lpae_t *table;
+>>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>>>> index de32a2d638..83c56cf1cb 100644
+>>>> --- a/xen/arch/arm/p2m.c
+>>>> +++ b/xen/arch/arm/p2m.c
+>>>> @@ -496,16 +496,18 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, 
+>>>> gfn_t gfn,
+>>>>       lpae_t entry, *table;
+>>>>       int rc;
+>>>>       mfn_t mfn = INVALID_MFN;
+>>>> -    p2m_type_t _t;
+>>>> +    p2m_type_t _t = p2m_invalid;
+>>>>       DECLARE_OFFSETS(offsets, addr);
+>>>>       ASSERT(p2m_is_locked(p2m));
+>>>>       BUILD_BUG_ON(THIRD_MASK != PAGE_MASK);
+>>>>       /* Allow t to be NULL */
+>>>> -    t = t ?: &_t;
+>>>> -
+>>>> -    *t = p2m_invalid;
+>>>> +    if( t ) {
+>>>> +        *t = _t;
+>>>> +    } else {
+>>>> +        t = &_t;
+>>>> +    }
+>>> What was the problem with the previous code?
+>>>
+>>> This is also not conformant to Xen coding style.
+>>>
+>>
+>> The problem is that _t may be uninitialized, hence assigning its 
+>> address to t could be problematic.
+> 
+> But the value is set right after. IOW, there is no read between. So how 
+> is this prob
+> 
+>> Another way to address this is to initialize _t to a bad value and use 
+>> this variable in the body, then assign to t based on the value just 
+>> before returning.
+> 
+> IHMO, neither solution are ideal. I think we should investigate whether 
+> Eclair can be improved.
+> 
+> [...]
+> 
+
+I'll see what can be done about it, I'll reply when I have an answer.
+
+>>>>       if ( valid )
+>>>>           *valid = false;
+>>>> @@ -1031,6 +1033,7 @@ static int __p2m_set_entry(struct p2m_domain 
+>>>> *p2m,
+>>>>       unsigned int level = 0;
+>>>>       unsigned int target = 3 - (page_order / XEN_PT_LPAE_SHIFT);
+>>>>       lpae_t *entry, *table, orig_pte;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int rc;
+>>>
+>>> Can you provide some details why Eclair thinks it is unitialized?
+>>
+>> Same issue with gotos explained above, can't be refactored because of 
+>> the for enclosing the goto.
+>>
+>>>
+>>>>       /* A mapping is removed if the MFN is invalid. */
+>>>>       bool removing_mapping = mfn_eq(smfn, INVALID_MFN);
+>>>> @@ -1483,6 +1486,7 @@ static inline int p2m_remove_mapping(struct 
+>>>> domain *d,
+>>>>   {
+>>>>       struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>>>>       unsigned long i;
+>>>> +    /* SAF-1-safe MC3R1.R9.1 */
+>>>>       int rc;
+>>>
+>>>
+>>> Can you provide some details why Eclair thinks it is unitialized?
+>>>
+>>
+>> Same as above.
+>>
+>>>>       p2m_write_lock(p2m);
+>>>> @@ -1685,20 +1689,21 @@ static int p2m_alloc_vmid(struct domain *d)
+>>>>       ASSERT(nr != INVALID_VMID);
+>>>> -    if ( nr == MAX_VMID )
+>>>> -    {
+>>>> -        rc = -EBUSY;
+>>>> -        printk(XENLOG_ERR "p2m.c: dom%d: VMID pool exhausted\n", 
+>>>> d->domain_id);
+>>>> -        goto out;
+>>>> -    }
+>>>> +    do {
+>>>
+>>> I don't understand this change. How is this making better for Eclair?
+>>>
+>>
+>> This is an example where the goto can be eliminated, which in turn 
+>> allows to automatically check the correctness.
+> If you want to eliminate the 'goto' then they are better way to do it. 
+> Like:
+> 
+> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> index bc9c3ae25693..8771679dd5fc 100644
+> --- a/xen/arch/arm/p2m.c
+> +++ b/xen/arch/arm/p2m.c
+> @@ -186,16 +186,14 @@ int p2m_alloc_vmid(struct domain *d)
+>       {
+>           rc = -EBUSY;
+>           printk(XENLOG_ERR "p2m.c: dom%d: VMID pool exhausted\n", 
+> d->domain_id);
+> -        goto out;
+> +    }
+> +    else
+> +    {
+> +        set_bit(nr, vmid_mask);
+> +        p2m->vmid = nr;
+> +        rc = 0;
+>       }
+> 
+> -    set_bit(nr, vmid_mask);
+> -
+> -    p2m->vmid = nr;
+> -
+> -    rc = 0;
+> -
+> -out:
+>       spin_unlock(&vmid_alloc_lock);
+>       return rc;
+>   }
+> 
+> I have a slight preference with the goto version, but I could accept it 
+> if Eclair can't cope with the construct. In any case, this is the sort 
+> of change that deserve its own patch as you want to explain why Eclair 
+> can't cope with such construct (I don't view it as complex).
+> 
+
+ok
+
+>>
+>>>> +      if ( nr == MAX_VMID )
+>>>> +      {
+>>>> +          rc = -EBUSY;
+>>>> +          printk(XENLOG_ERR "p2m.c: dom%d: VMID pool exhausted\n", 
+>>>> d->domain_id);
+>>>> +          break;
+>>>> +      }
+>>>> -    set_bit(nr, vmid_mask);
+>>>> +      set_bit(nr, vmid_mask);
+>>>> -    p2m->vmid = nr;
+>>>> +      p2m->vmid = nr;
+>>>> -    rc = 0;
+>>>> +            rc = 0;
+>>>> +        } while ( 0 );
+>>>> -out:
+>>>>       spin_unlock(&vmid_alloc_lock);
+>>>>       return rc;
+>>>>   }
+>>>
+>>
+>>
+>> Considering all of the replies above, a first draft of a 
+>> strategy/policy I can think of is having:
+>>
+>> - Initializer functions that always write their parameter, so that the 
+>> strongest "pointee always written" property can be stated. This causes 
+>> all further uses to be marked safe.
+>>
+>> - Initialize the variable when there exists a known safe value that 
+>> does not alter the semantics of the function. The initialization does 
+>> not need to be at the declaration, but doing so simplifies the code.
+> 
+> As I mentionned in private there are two risks with that:
+>   1. You silence compiler to spot other issues
+>   2. You may now get warning from Coverity if it spots you set a value 
+> that get overwritten before its first use.
+> 
+> So I think such approach should be used with parcimony. Instead, we 
+> should look at reworking the code when possible.
+> 
+
+Do you think it would help if you look directly at actual cautions to 
+spot possible functions that can be refactored?
+
+>>
+>> - Deviate all cases where any of the previous does not apply, with a 
+>> comment deviation that refers to a justification reporting that the 
+>> code has been checked to respect the rule (keep in mind that 
+>> _violations_ to a Mandatory rule such as R9.1 are not allowed to claim 
+>> MISRA compliance).
+> 
+> See above for my concern about adding so many deviations. But I am 
+> confused with what you wrote. If the rule is mandatory, then why are you 
+> trying to add deviation in Xen? Who is going to solve them to make Xen 
+> MISRA compliant?
+> 
+
+Because only cautions were found, not violations (which cannot be 
+deviated). In the former case Xen can say that the code does not violate 
+the rule, but it can't be proven by the tool.
+
+Regards,
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
