@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F45B75ADA5
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 13:59:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566562.885550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EC0775ADDC
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 14:09:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566569.885559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMSIt-00021d-AF; Thu, 20 Jul 2023 11:58:43 +0000
+	id 1qMSSa-0004Kf-AQ; Thu, 20 Jul 2023 12:08:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566562.885550; Thu, 20 Jul 2023 11:58:43 +0000
+Received: by outflank-mailman (output) from mailman id 566569.885559; Thu, 20 Jul 2023 12:08:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMSIt-0001zp-6Z; Thu, 20 Jul 2023 11:58:43 +0000
-Received: by outflank-mailman (input) for mailman id 566562;
- Thu, 20 Jul 2023 11:58:41 +0000
+	id 1qMSSa-0004IR-7h; Thu, 20 Jul 2023 12:08:44 +0000
+Received: by outflank-mailman (input) for mailman id 566569;
+ Thu, 20 Jul 2023 12:08:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5mVk=DG=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1qMSIr-0001z3-6t
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 11:58:41 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060e.outbound.protection.outlook.com
- [2a01:111:f400:7eab::60e])
+ id 1qMSSZ-0004IL-94
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 12:08:43 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20624.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::624])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1eaddf4-26f4-11ee-8611-37d641c3527e;
- Thu, 20 Jul 2023 13:58:37 +0200 (CEST)
-Received: from BYAPR07CA0087.namprd07.prod.outlook.com (2603:10b6:a03:12b::28)
- by CY5PR12MB6599.namprd12.prod.outlook.com (2603:10b6:930:41::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25; Thu, 20 Jul
- 2023 11:58:33 +0000
-Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:12b:cafe::26) by BYAPR07CA0087.outlook.office365.com
- (2603:10b6:a03:12b::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25 via Frontend
- Transport; Thu, 20 Jul 2023 11:58:32 +0000
+ id 2a251b6b-26f6-11ee-8611-37d641c3527e;
+ Thu, 20 Jul 2023 14:08:40 +0200 (CEST)
+Received: from SJ0PR13CA0156.namprd13.prod.outlook.com (2603:10b6:a03:2c7::11)
+ by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Thu, 20 Jul
+ 2023 12:08:36 +0000
+Received: from CO1NAM11FT074.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:2c7:cafe::2c) by SJ0PR13CA0156.outlook.office365.com
+ (2603:10b6:a03:2c7::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.20 via Frontend
+ Transport; Thu, 20 Jul 2023 12:08:36 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ CO1NAM11FT074.mail.protection.outlook.com (10.13.174.254) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6609.25 via Frontend Transport; Thu, 20 Jul 2023 11:58:32 +0000
+ 15.20.6609.28 via Frontend Transport; Thu, 20 Jul 2023 12:08:36 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 20 Jul
- 2023 06:58:26 -0500
+ 2023 07:08:31 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1eaddf4-26f4-11ee-8611-37d641c3527e
+X-Inumbo-ID: 2a251b6b-26f6-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iCq//9NXjn8tb1hFLphvG4x3ueM9vr58jrk4R61oTZp8nkVyVgLaq9CcSJ43SZJhN7BWteCOotEciLAVkGfaMs5aGQBFoBdynYJzJlFFuxHuybwh6tukh+ZUvex9EBk5ibAydppkXLoue5XJSv8DVLgjMoDJt4bLeXMrwBAjFKFAB6Ljsnn2EqqbPUiViFKnHf4eauFsY8BCvd4d8XIAHLg+YmNmqTP5GKvoWH3x828C1DEOmcjnmH41iO0RIGxy/UPk8L4OoWEa8PoSLtnfj1ZvhlTFHzG6RiFyFXxNngmRcAdncwQDSxjnywrBKjue/C4kkJawjvwDonapMu2WkA==
+ b=bx+iNGstkIYsdm93IjChgam34Y741kYWQYAs5b1ZvWM+9Fg80nvtp+R0k/3yYHsxjMS+0mNVF/oIo5ovwrktWcj90k7thQnjVnETfqRFdRW6sxZwkjCxfIryiUfoGW7W9DSV26wPZR2wmj799PqPVjYywORUX2sj8plw4nt4mc8TJw+CCWBc5oLXo5wkDM2A901cOR+ZyNBIA3uGdZvokYX3bBNRupqMmUHDNkGFEcUuYQGWfEQ55ZG/rIwPTGli5nvkzqqtuKYkYGZWWpZ3o7huEsjOppL/XVIfZSk1urDPc4xC/0W4PK6+3z+i3cbZW0WLPdPxjE03O+1fCijuvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wcZo3bf8z8SwwQG9zNxK76NSvPfAhiyEQDRvnk3eIKo=;
- b=MMSSJuoGXLjD18ssdDQdeUi51d3jOfBeAN6FINIuILA7/MrhNdtpYII+FVgi2F4xGzSAHJ0oWcZLHsDkMZsOgFYTLah1fHv19X3dhBJI2Hz/Tm2uwyxxV2Pi00LRoXQt3B3TmCD80Qq6bLXoC8DdyHp04qRcarb6uAPhK3Z0+XjdQAPk4NDtQA8a6wGqKYxRUVQ2dTLh1t2Yd22WZRdoN8KxWX5styp4WCoNXeX0AkJK4Tmf3pKNVDHH6uCCdi52dmBfaEFshYHSSWAkd/EH5SzW5qbty3MBkUGQ5dAObqPV53BoKydI+OlI+nXQ5Lwis9B5nZY8H4NZBzJbk8Oa3A==
+ bh=sQ9pj/iaxuUff0x3bnr1X9IpLfVr35JpB2JPJTt6P9c=;
+ b=RxGAQrAtoAAP/NWWlV3mLMZpP5WP8OXV/NTUnygIajKL+9NuxlFW/93f/jmv8jisCANIu7tntTutCFP/SdNsyseASUMZZnjcKT4MJdqGjbkjx+ffMHRJY8FZEwVR0xrEWHhwzjjCB7oRK/krqnxgVXmLQ4cYg4nkb+I2UF5VOuzaH0BNz0RV67SGbz/iPmVxitf9qohVxP2zquvdq0Cx/nvd4RetWkSeV4tt+D9IFeDhUszkfclxCtTEue9QTLDQ1psS3htYdsEvifnbfdEJKX+2MV+CKb3Amrtkbz6TgWeAJhrzrgF19CETEqbkznwlpyCrK6Bpm/H/RX/2+pkgrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wcZo3bf8z8SwwQG9zNxK76NSvPfAhiyEQDRvnk3eIKo=;
- b=3xM41brXrV41SQi5aGHUg4e8YBp0dtYJsjcpZuX3kZIQXTEyAPImTi8vyfN5Ow+zlDOpGLd51GYxkUKswviSkMfx+fTkB91/XAGa1HYRedKMIGXzWsC1uRhdlIkPQcIiP6jD+svfaGFiw2TxLCbolTpeP2Os2Yma88u25GGuPK4=
+ bh=sQ9pj/iaxuUff0x3bnr1X9IpLfVr35JpB2JPJTt6P9c=;
+ b=fhDPD2QBwgYspP3RarJbzRnOWvdbgccilado6ER2rdk4UUXDLAjb913Fj0gleQcZ+5la7Jr6FGPzpBO3IKHFbYLkfE1D1S0X4cHrUKyDcxWfcxrNyvUID2RvkwHS5DhZ9tBVxlRN9HLQiW8ExQX3rlz9kRV+SSxkP+wE09KgjUY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -79,350 +79,131 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@gmail.com>, "Gurchetan
- Singh" <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, "Juergen
- Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Robert Beckett <bob.beckett@collabora.com>,
-	<virtualization@lists.linux-foundation.org>, <linux-kernel@vger.kernel.org>,
-	<dri-devel@lists.freedesktop.org>
-CC: <xen-devel@lists.xenproject.org>, Alex Deucher
-	<Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>,
-	Stewart Hildebrand <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou
-	<burzalodowa@gmail.com>, Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang
-	<Julia.Zhang@amd.com>, Huang Rui <Ray.Huang@amd.com>, Jiqian Chen
-	<Jiqian.Chen@amd.com>
-Subject: [LINUX KERNEL PATCH v3 1/1] virtgpu: init vq during resume and notify qemu guest status
-Date: Thu, 20 Jul 2023 19:58:05 +0800
-Message-ID: <20230720115805.8206-2-Jiqian.Chen@amd.com>
+To: Gerd Hoffmann <kraxel@redhat.com>, =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?=
+	<marcandre.lureau@gmail.com>, "Michael S . Tsirkin" <mst@redhat.com>, "Robert
+ Beckett" <bob.beckett@collabora.com>, <qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Dr . David Alan
+ Gilbert" <dgilbert@redhat.com>, Alex Deucher <Alexander.Deucher@amd.com>,
+	Christian Koenig <Christian.Koenig@amd.com>, Stewart Hildebrand
+	<Stewart.Hildebrand@amd.com>, Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>,
+	Huang Rui <Ray.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: [QEMU PATCH v4 0/1] S3 support
+Date: Thu, 20 Jul 2023 20:08:15 +0800
+Message-ID: <20230720120816.8751-1-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230720115805.8206-1-Jiqian.Chen@amd.com>
-References: <20230720115805.8206-1-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT020:EE_|CY5PR12MB6599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70a254fa-62fe-41cb-5368-08db8918a3bf
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT074:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc098db3-75fb-406a-111c-08db891a0bf3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	m/6Q4PufneewRpaES0AJdpc9BR71BIZIvXuofHBOmrvME8bcydnYQN634iA/qn02iqsVTd+E4ttm0FuWHhJGJ6R+E0ZE6eYOqG46q3h9PYiEUfE6c1wE5/Ii9Vmxp/ZF6a6+Td/56RGOFo4AiT8pa+/gtwLf6k7otfO2cKCOFAmcnvnqyH18zPh83qSR/OrxN57zcClRHixesYDokFGDFckN5vNSPMisyAgm/ncfjybkYx58+axIZpT9IcYfIKIOElgHrpaY7gHGIMqNvQeQFws7h6pQtFrEdg0xz2coAYwUYxxz8PE+8QP/ZNRJyJR8AO8tSEmGiOc7spcwdHBFEWAU5ApQn18RrqqOjUcICtDYaCNYRrxvCIdm9RUC5sRdW8wdRpZdfawJnxuchZDZTIaU3k+OHXVFGpGGKresLr7YQUXf207QBTUfltowiEbvamRnFOIM4bbLUk+tOjdC+8Pjir3weUmUCj9yWE0NGZi7HRcJyjTTsY5quIRoEJVRbfLR/xxc/7dLFtWMVRfPuQJdD9RxcMXkx6NLAe3hQv+ggopoyPOvcWZ4SvQHAFsnFQujwie+eJ9g+3O8SeKkG3YlC9BMs+lpm25HDVD1ICWa0l+/Sm2BHzaNU352auPtdhvxlLVn5ieG3DYMSeBWsm+kVoyJROTwWFr7XYDiai0bsA/7QvTPGhLkeCH4Tl1YUus57TIhQlwsGdkMXnGr3T6TrC4VAe+Z0FNKWfDNeOvgQC9jnIaRDjbz88BREj8T2GAdTbyH6H8hVnXA3kbdkZVu6gcuC7obsUIA3SQlstY=
+	33wYTmt0JEQfT4p2Tho6l7PnBKGlFvsyDyL+Ln74JnKl3fjDs+C7a1KpWoXmD5+q1tXv04mt897X/36lJVSfUhiJBd4U1FpodRu+0K1Q+SK3w2Mj7XZjhstbCPu0SoYRVAs+sfkLznZmRN4Ah+jC9k8WCx+u/DKdXRfnuQFvHPK55GDVzN3gfUa8dtp+EAXl5iYcVg9EEaAWuNi9ra1MZMaTlIJcbYUsUpPrbyDwI9oA+tEK/yofBr+8ExmO1ODYJxspyveDH/8LHpxpNPoArcNXsizG2klsbxPxcvpAhrgey3QtzEm4I9pzGyk22/8ippoP/V6BJffXtnwt23tWiAJ96FfnyFFBtRNZykxYmQudg2apolTw1D90VfWCAmXRG5U+DMz1QKFYuQd9YQ9Rr/6zWCNQXrTr1y6Q1hTFpkZKcXouAF12jws/UeG0KLA/wZzCe9Xmsb5oBDTDNBP/83bB02HhGGIr803SW2rr/mlfGXYt0aiqyQPnVD5NJ8USrKyn4vcx/4whpNheEq12em/XgfJObN0LFOTxEAkdeqm3AsX8ena1JACtec3VNgt8sZrhKPhQltM9JjICUwXsrnDB0R7KavBjuvSRVXcuzhY36NJSPGSxIFfkcr3JVkvG+xxwd4vYnX4s8H64+qM7jRxL57rOPKo5KNtZfG2iozdnBcJ9w1VqjeB2nvAHe7ETHZYGom4Md9XTGsbz6c0gO0pi8VGNmj8hpw3m8wZtV1RkivDg9oKeJNa3VY1obSJ1YlFQnlclZNgvz65Rz+G+DwwoQqm9XOvrxlCFCbQ6pA0=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(376002)(346002)(39860400002)(82310400008)(451199021)(40470700004)(46966006)(36840700001)(336012)(7696005)(6666004)(26005)(186003)(70586007)(70206006)(316002)(4326008)(40480700001)(41300700001)(1076003)(16526019)(5660300002)(54906003)(110136005)(478600001)(7416002)(8936002)(8676002)(2616005)(356005)(47076005)(426003)(921005)(40460700003)(83380400001)(36860700001)(30864003)(2906002)(81166007)(82740400003)(36756003)(86362001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(39860400002)(396003)(346002)(82310400008)(451199021)(46966006)(40470700004)(36840700001)(36860700001)(40460700003)(8676002)(8936002)(86362001)(426003)(47076005)(36756003)(2906002)(2616005)(41300700001)(83380400001)(40480700001)(26005)(5660300002)(336012)(186003)(1076003)(16526019)(7416002)(70206006)(70586007)(4326008)(7696005)(82740400003)(110136005)(356005)(6666004)(54906003)(966005)(316002)(81166007)(478600001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 11:58:32.1721
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 12:08:36.4284
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70a254fa-62fe-41cb-5368-08db8918a3bf
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc098db3-75fb-406a-111c-08db891a0bf3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT074.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6599
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 
-This patch solves two problem:
+v4:
 
-First, when we suspended guest VM, it called into Qemu to call
-virtio_reset->__virtio_queue_reset, this cleared all virtuqueue
-information of virtgpu on Qemu end. As a result, after guest
-resumed, guest sended ctrl/cursor requests to Qemu through
-virtqueue, but Qemu can't get requests from the virtqueue now.
-In function virtio_queue_notify, vq->vring.desc is NULL.
+Hi all,
+Thanks for Gerd Hoffmann's advice. V4 makes below changes:
+* Use enum for freeze mode, so this can be extended with more
+  modes in the future.
+* Rename functions and paratemers with "_S3" postfix.
+And no functional changes.
 
-So, this patch add freeze and restore function for virtgpu driver.
-In freeze function, it flushes all virtqueue works and deletes
-virtqueues. In restore function, it initializes virtqueues. And
-then, Qemu and guest can communicate normally.
+latest version on kernel side:
+https://lore.kernel.org/lkml/20230720115805.8206-1-Jiqian.Chen@amd.com/T/#t
 
-Second, when we suspended guest VM, it called into Qemu to call
-virtio_reset->virtio_gpu_gl_reset, this destroyed resources and
-reset renderer which were used for display. As a result, after
-guest resumed, the display can't come back and we only saw a black
-screen.
+Best regards,
+Jiqian Chen.
 
-So, this patch add a new ctrl message VIRTIO_GPU_CMD_SET_FREEZE_MODE.
-When guest is during suspending, we set freeze mode to freeze_S3 to
-notify Qemu that guest entered suspending, and then Qemu will not
-destroy resources. When guest is during resuming, we set freeze mode
-to unfreeze to notify Qemu that guest exited suspending, and then
-Qemu will keep its origin actions. As a result, the display can come
-back and everything of guest can come back to the time when guest
-was suspended.
 
-Due to this implemention needs cooperation with host Qemu, so it
-added a new feature flag VIRTIO_GPU_F_FREEZE_S3, so that guest and
-host can negotiate whenever freeze_S3 is supported or not.
+v3:
+link,
+https://lore.kernel.org/qemu-devel/20230719074726.1613088-1-Jiqian.Chen@amd.com/T/#t
 
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
- drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
- drivers/gpu/drm/virtio/virtgpu_drv.c     | 39 ++++++++++++++++++++++++
- drivers/gpu/drm/virtio/virtgpu_drv.h     |  5 +++
- drivers/gpu/drm/virtio/virtgpu_kms.c     | 36 ++++++++++++++++------
- drivers/gpu/drm/virtio/virtgpu_vq.c      | 16 ++++++++++
- include/uapi/linux/virtio_gpu.h          | 19 ++++++++++++
- 6 files changed, 107 insertions(+), 9 deletions(-)
+Hi all,
+Thanks for Michael S. Tsirkin's advice. V3 makes below changes:
+* Remove changes in file include/standard-headers/linux/virtio_gpu.h
+  I am not supposed to edit this file and it will be imported after
+  the patches of linux kernel was merged.
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-index 853dd9aa397e..c84fd6d7f5f3 100644
---- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-@@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
- 
- 	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
- 	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
-+	virtio_gpu_add_bool(m, "freeze_S3", vgdev->has_freeze_S3);
- 	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
- 	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
- 	if (vgdev->host_visible_region.len) {
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index add075681e18..83ad0ac82b94 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -130,6 +130,40 @@ static void virtio_gpu_config_changed(struct virtio_device *vdev)
- 	schedule_work(&vgdev->config_changed_work);
- }
- 
-+#ifdef CONFIG_PM
-+static int virtio_gpu_freeze(struct virtio_device *dev)
-+{
-+	struct drm_device *ddev = dev->priv;
-+	struct virtio_gpu_device *vgdev = ddev->dev_private;
-+	int ret = 0;
-+
-+	if (vgdev->has_freeze_S3) {
-+		ret = virtio_gpu_cmd_set_freeze_mode(vgdev,
-+					VIRTIO_GPU_FREEZE_MODE_FREEZE_S3);
-+	}
-+	if (!ret) {
-+		flush_work(&vgdev->ctrlq.dequeue_work);
-+		flush_work(&vgdev->cursorq.dequeue_work);
-+		vgdev->vdev->config->del_vqs(vgdev->vdev);
-+	}
-+	return ret;
-+}
-+
-+static int virtio_gpu_restore(struct virtio_device *dev)
-+{
-+	struct drm_device *ddev = dev->priv;
-+	struct virtio_gpu_device *vgdev = ddev->dev_private;
-+	int ret;
-+
-+	ret = virtio_gpu_init_vqs(dev);
-+	if (!ret && vgdev->has_freeze_S3) {
-+		ret = virtio_gpu_cmd_set_freeze_mode(vgdev,
-+					VIRTIO_GPU_FREEZE_MODE_UNFREEZE);
-+	}
-+	return ret;
-+}
-+#endif
-+
- static struct virtio_device_id id_table[] = {
- 	{ VIRTIO_ID_GPU, VIRTIO_DEV_ANY_ID },
- 	{ 0 },
-@@ -148,6 +182,7 @@ static unsigned int features[] = {
- 	VIRTIO_GPU_F_RESOURCE_UUID,
- 	VIRTIO_GPU_F_RESOURCE_BLOB,
- 	VIRTIO_GPU_F_CONTEXT_INIT,
-+	VIRTIO_GPU_F_FREEZE_S3,
- };
- static struct virtio_driver virtio_gpu_driver = {
- 	.feature_table = features,
-@@ -156,6 +191,10 @@ static struct virtio_driver virtio_gpu_driver = {
- 	.driver.owner = THIS_MODULE,
- 	.id_table = id_table,
- 	.probe = virtio_gpu_probe,
-+#ifdef CONFIG_PM
-+	.freeze = virtio_gpu_freeze,
-+	.restore = virtio_gpu_restore,
-+#endif
- 	.remove = virtio_gpu_remove,
- 	.config_changed = virtio_gpu_config_changed
- };
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 4126c384286b..231b5a6138b2 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -246,6 +246,7 @@ struct virtio_gpu_device {
- 	bool has_resource_blob;
- 	bool has_host_visible;
- 	bool has_context_init;
-+	bool has_freeze_S3;
- 	struct virtio_shm_region host_visible_region;
- 	struct drm_mm host_visible_mm;
- 
-@@ -282,6 +283,7 @@ extern struct drm_ioctl_desc virtio_gpu_ioctls[DRM_VIRTIO_NUM_IOCTLS];
- void virtio_gpu_create_context(struct drm_device *dev, struct drm_file *file);
- 
- /* virtgpu_kms.c */
-+int virtio_gpu_init_vqs(struct virtio_device *vdev);
- int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev);
- void virtio_gpu_deinit(struct drm_device *dev);
- void virtio_gpu_release(struct drm_device *dev);
-@@ -425,6 +427,9 @@ virtio_gpu_cmd_set_scanout_blob(struct virtio_gpu_device *vgdev,
- 				uint32_t width, uint32_t height,
- 				uint32_t x, uint32_t y);
- 
-+int virtio_gpu_cmd_set_freeze_mode(struct virtio_gpu_device *vgdev,
-+				virtio_gpu_freeze_mode_t freeze_mode);
-+
- /* virtgpu_display.c */
- int virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev);
- void virtio_gpu_modeset_fini(struct virtio_gpu_device *vgdev);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 5a3b5aaed1f3..a762a762f907 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -114,16 +114,33 @@ static void virtio_gpu_get_capsets(struct virtio_gpu_device *vgdev,
- 	vgdev->num_capsets = num_capsets;
- }
- 
--int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
-+int virtio_gpu_init_vqs(struct virtio_device *vdev)
- {
- 	static vq_callback_t *callbacks[] = {
- 		virtio_gpu_ctrl_ack, virtio_gpu_cursor_ack
- 	};
- 	static const char * const names[] = { "control", "cursor" };
-+	struct drm_device *dev = vdev->priv;
-+	struct virtio_gpu_device *vgdev = dev->dev_private;
-+	struct virtqueue *vqs[2];
-+	int ret;
-+
-+	virtio_gpu_init_vq(&vgdev->ctrlq, virtio_gpu_dequeue_ctrl_func);
-+	virtio_gpu_init_vq(&vgdev->cursorq, virtio_gpu_dequeue_cursor_func);
-+
-+	ret = virtio_find_vqs(vgdev->vdev, 2, vqs, callbacks, names, NULL);
-+	if (ret) {
-+		DRM_ERROR("failed to find virt queues\n");
-+		return ret;
-+	}
-+	vgdev->ctrlq.vq = vqs[0];
-+	vgdev->cursorq.vq = vqs[1];
-+	return 0;
-+}
- 
-+int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
-+{
- 	struct virtio_gpu_device *vgdev;
--	/* this will expand later */
--	struct virtqueue *vqs[2];
- 	u32 num_scanouts, num_capsets;
- 	int ret = 0;
- 
-@@ -144,8 +161,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 	ida_init(&vgdev->ctx_id_ida);
- 	ida_init(&vgdev->resource_ida);
- 	init_waitqueue_head(&vgdev->resp_wq);
--	virtio_gpu_init_vq(&vgdev->ctrlq, virtio_gpu_dequeue_ctrl_func);
--	virtio_gpu_init_vq(&vgdev->cursorq, virtio_gpu_dequeue_cursor_func);
- 
- 	vgdev->fence_drv.context = dma_fence_context_alloc(1);
- 	spin_lock_init(&vgdev->fence_drv.lock);
-@@ -197,6 +212,9 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_CONTEXT_INIT)) {
- 		vgdev->has_context_init = true;
- 	}
-+	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_FREEZE_S3)) {
-+		vgdev->has_freeze_S3 = true;
-+	}
- 
- 	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
- 		 vgdev->has_virgl_3d    ? '+' : '-',
-@@ -207,13 +225,13 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 	DRM_INFO("features: %ccontext_init\n",
- 		 vgdev->has_context_init ? '+' : '-');
- 
--	ret = virtio_find_vqs(vgdev->vdev, 2, vqs, callbacks, names, NULL);
-+	DRM_INFO("features: %cfreeze_S3\n",
-+		 vgdev->has_freeze_S3 ? '+' : '-');
-+
-+	ret = virtio_gpu_init_vqs(vdev);
- 	if (ret) {
--		DRM_ERROR("failed to find virt queues\n");
- 		goto err_vqs;
- 	}
--	vgdev->ctrlq.vq = vqs[0];
--	vgdev->cursorq.vq = vqs[1];
- 	ret = virtio_gpu_alloc_vbufs(vgdev);
- 	if (ret) {
- 		DRM_ERROR("failed to alloc vbufs\n");
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index b1a00c0c25a7..74b34951e4fa 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -1302,3 +1302,19 @@ void virtio_gpu_cmd_set_scanout_blob(struct virtio_gpu_device *vgdev,
- 
- 	virtio_gpu_queue_ctrl_buffer(vgdev, vbuf);
- }
-+
-+int virtio_gpu_cmd_set_freeze_mode(struct virtio_gpu_device *vgdev,
-+				virtio_gpu_freeze_mode_t freeze_mode)
-+{
-+	struct virtio_gpu_set_freeze_mode *cmd_p;
-+	struct virtio_gpu_vbuffer *vbuf;
-+
-+	cmd_p = virtio_gpu_alloc_cmd(vgdev, &vbuf, sizeof(*cmd_p));
-+	memset(cmd_p, 0, sizeof(*cmd_p));
-+
-+	cmd_p->hdr.type = cpu_to_le32(VIRTIO_GPU_CMD_SET_FREEZE_MODE);
-+	cmd_p->freeze_mode = freeze_mode;
-+	virtio_gpu_queue_ctrl_buffer(vgdev, vbuf);
-+	virtio_gpu_notify(vgdev);
-+	return 0;
-+}
-\ No newline at end of file
-diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-index f556fde07b76..21ca87bf7417 100644
---- a/include/uapi/linux/virtio_gpu.h
-+++ b/include/uapi/linux/virtio_gpu.h
-@@ -65,6 +65,11 @@
-  */
- #define VIRTIO_GPU_F_CONTEXT_INIT        4
- 
-+/*
-+ * VIRTIO_GPU_CMD_SET_FREEZE_MODE
-+ */
-+#define VIRTIO_GPU_F_FREEZE_S3            5
-+
- enum virtio_gpu_ctrl_type {
- 	VIRTIO_GPU_UNDEFINED = 0,
- 
-@@ -100,6 +105,9 @@ enum virtio_gpu_ctrl_type {
- 	VIRTIO_GPU_CMD_UPDATE_CURSOR = 0x0300,
- 	VIRTIO_GPU_CMD_MOVE_CURSOR,
- 
-+	/* freeze mode */
-+	VIRTIO_GPU_CMD_SET_FREEZE_MODE = 0x0400,
-+
- 	/* success responses */
- 	VIRTIO_GPU_RESP_OK_NODATA = 0x1100,
- 	VIRTIO_GPU_RESP_OK_DISPLAY_INFO,
-@@ -453,4 +461,15 @@ struct virtio_gpu_resource_unmap_blob {
- 	__le32 padding;
- };
- 
-+/* VIRTIO_GPU_CMD_SET_FREEZE_MODE */
-+typedef enum {
-+	VIRTIO_GPU_FREEZE_MODE_UNFREEZE = 0,
-+	VIRTIO_GPU_FREEZE_MODE_FREEZE_S3 = 3,
-+} virtio_gpu_freeze_mode_t;
-+
-+struct virtio_gpu_set_freeze_mode {
-+	struct virtio_gpu_ctrl_hdr hdr;
-+	virtio_gpu_freeze_mode_t freeze_mode;
-+};
-+
- #endif
+
+v2:
+link,
+https://lore.kernel.org/qemu-devel/20230630070016.841459-1-Jiqian.Chen@amd.com/T/#t
+
+Hi all,
+Thanks to Marc-André Lureau, Robert Beckett and Gerd Hoffmann for
+their advice and guidance. V2 makes below changes:
+
+* Change VIRTIO_CPU_CMD_STATUS_FREEZING to 0x0400 (<0x1000)
+* Add virtio_gpu_device_unrealize to destroy resources to solve
+  potential memory leak problem. This also needs hot-plug support.
+* Add a new feature flag VIRTIO_GPU_F_FREEZING, so that guest and
+  host can negotiate whenever freezing is supported or not.
+
+v1:
+link,
+https://lore.kernel.org/qemu-devel/20230608025655.1674357-1-Jiqian.Chen@amd.com/
+
+Hi all,
+I am working to implement virtgpu S3 function on Xen.
+
+Currently on Xen, if we start a guest who enables virtgpu, and then
+run "echo mem > /sys/power/state" to suspend guest. And run
+"sudo xl trigger <guest id> s3resume" to resume guest. We can find that
+the guest kernel comes back, but the display doesn't. It just shown a
+black screen.
+
+Through reading codes, I founded that when guest was during suspending,
+it called into Qemu to call virtio_gpu_gl_reset. In virtio_gpu_gl_reset,
+it destroyed all resources and reset renderer. This made the display
+gone after guest resumed.
+
+I think we should keep resources or prevent they being destroyed when
+guest is suspending. So, I add a new status named freezing to virtgpu,
+and add a new ctrl message VIRTIO_GPU_CMD_STATUS_FREEZING to get
+notification from guest. If freezing is set to true, and then Qemu will
+realize that guest is suspending, it will not destroy resources and will
+not reset renderer. If freezing is set to false, Qemu will do its origin
+actions, and has no other impaction.
+
+And now, display can come back and applications can continue their
+status after guest resumes.
+
+Jiqian Chen (1):
+  virtgpu: do not destroy resources when guest suspend
+
+ hw/display/virtio-gpu-base.c   |  3 ++
+ hw/display/virtio-gpu-gl.c     | 10 ++++++-
+ hw/display/virtio-gpu-virgl.c  |  7 +++++
+ hw/display/virtio-gpu.c        | 55 ++++++++++++++++++++++++++++++++--
+ hw/virtio/virtio.c             |  3 ++
+ include/hw/virtio/virtio-gpu.h |  6 ++++
+ 6 files changed, 81 insertions(+), 3 deletions(-)
+
 -- 
 2.34.1
 
