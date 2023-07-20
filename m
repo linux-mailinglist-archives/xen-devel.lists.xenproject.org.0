@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8849675A90E
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 10:23:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566450.885264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 522BE75A911
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 10:23:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566456.885274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMOvx-0000EM-PS; Thu, 20 Jul 2023 08:22:49 +0000
+	id 1qMOwT-0000ky-1j; Thu, 20 Jul 2023 08:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566450.885264; Thu, 20 Jul 2023 08:22:49 +0000
+Received: by outflank-mailman (output) from mailman id 566456.885274; Thu, 20 Jul 2023 08:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMOvx-0000Ck-Me; Thu, 20 Jul 2023 08:22:49 +0000
-Received: by outflank-mailman (input) for mailman id 566450;
- Thu, 20 Jul 2023 08:22:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qMOwS-0000iD-Uh; Thu, 20 Jul 2023 08:23:20 +0000
+Received: by outflank-mailman (input) for mailman id 566456;
+ Thu, 20 Jul 2023 08:23:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o8fF=DG=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1qMOvw-0000Ce-NX
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 08:22:48 +0000
+ id 1qMOwR-0000ZF-BV
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 08:23:19 +0000
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b332c13-26d6-11ee-8611-37d641c3527e;
- Thu, 20 Jul 2023 10:22:46 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae688f9c-26d6-11ee-b23a-6b7b168915f2;
+ Thu, 20 Jul 2023 10:23:18 +0200 (CEST)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 6B09B6732D; Thu, 20 Jul 2023 10:22:42 +0200 (CEST)
+ id C7E1C6732D; Thu, 20 Jul 2023 10:23:16 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,8 +38,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b332c13-26d6-11ee-8611-37d641c3527e
-Date: Thu, 20 Jul 2023 10:22:42 +0200
+X-Inumbo-ID: ae688f9c-26d6-11ee-b23a-6b7b168915f2
+Date: Thu, 20 Jul 2023 10:23:16 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Petr =?utf-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
 Cc: Christoph Hellwig <hch@lst.de>,
@@ -71,40 +71,26 @@ Cc: Christoph Hellwig <hch@lst.de>,
 	"open list:XEN SWIOTLB SUBSYSTEM" <iommu@lists.linux.dev>,
 	Roberto Sassu <roberto.sassu@huaweicloud.com>,
 	Kefeng Wang <wangkefeng.wang@huawei.com>
-Subject: Re: [PATCH v4 8/8] swiotlb: search the software IO TLB only if a
- device makes use of it
-Message-ID: <20230720082242.GA6932@lst.de>
-References: <cover.1689261692.git.petr.tesarik.ext@huawei.com> <a8d31d3fffa0867dce2b44b98dc2714289edfdc9.1689261692.git.petr.tesarik.ext@huawei.com> <20230720064744.GA4395@lst.de> <20230720100238.58f11c06@meshulam.tesarici.cz>
+Subject: Re: [PATCH v4 0/8] Allow dynamic allocation of software IO TLB
+ bounce buffers
+Message-ID: <20230720082316.GB6932@lst.de>
+References: <cover.1689261692.git.petr.tesarik.ext@huawei.com> <20230720065216.GB4395@lst.de> <20230720101320.72bbd2fc@meshulam.tesarici.cz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230720100238.58f11c06@meshulam.tesarici.cz>
+In-Reply-To: <20230720101320.72bbd2fc@meshulam.tesarici.cz>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Jul 20, 2023 at 10:02:38AM +0200, Petr Tesařík wrote:
-> On Thu, 20 Jul 2023 08:47:44 +0200
-> Christoph Hellwig <hch@lst.de> wrote:
+On Thu, Jul 20, 2023 at 10:13:20AM +0200, Petr Tesařík wrote:
+> Fine with me. I removed it after all my testing showed no performance
+> impact as long as the size of the initial SWIOTLB is kept at the
+> default value (and sufficient for the workload), but it's OK for me if
+> dynamic SWIOTLB allocations are off by default.
 > 
-> > Any reason this can't just do a list_empty_careful on the list
-> > instead of adding yet another field that grows struct device?
-> 
-> On which list?
+> OTOH I'd like to make it a boot-time option rather than build-time
+> option. Would that be OK for you?
 
-dev->dma_io_tlb_mem->pools?
-
-> 
-> The dma_io_tlb_pools list only contains transient pools, but a device
-> may use bounce buffers from a regular pool.
-
-Oh, true.
-
-> The dma_io_tlb_mem.pools list will always be non-empty, unless the
-> system runs without SWIOTLB.
-> 
-> On a system which does have a SWIOTLB, the flag allows to differentiate
-> between devices that actually use bounce buffers and devices that do
-> not (e.g. because they do not have any addressing limitations).
-
-Ok.
+I'd really like the config option to not even build the code.  But
+a boot time option sounds very useful in addition to that.
 
