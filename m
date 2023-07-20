@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A011E75BB2F
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 01:31:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566804.886149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88D375BB4A
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 01:37:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566808.886159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMd7I-0000T6-LW; Thu, 20 Jul 2023 23:31:28 +0000
+	id 1qMdDB-0001Xp-Fr; Thu, 20 Jul 2023 23:37:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566804.886149; Thu, 20 Jul 2023 23:31:28 +0000
+Received: by outflank-mailman (output) from mailman id 566808.886159; Thu, 20 Jul 2023 23:37:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMd7I-0000Qg-Ia; Thu, 20 Jul 2023 23:31:28 +0000
-Received: by outflank-mailman (input) for mailman id 566804;
- Thu, 20 Jul 2023 23:31:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qMdDB-0001VO-Ci; Thu, 20 Jul 2023 23:37:33 +0000
+Received: by outflank-mailman (input) for mailman id 566808;
+ Thu, 20 Jul 2023 23:37:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1UDO=DG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qMd7G-0000Qa-Ed
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 23:31:26 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8858db9c-2755-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 01:31:22 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6F77061CBF;
- Thu, 20 Jul 2023 23:31:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D472C433CA;
- Thu, 20 Jul 2023 23:31:18 +0000 (UTC)
+ <SRS0=5z78=DG=epam.com=prvs=156527e6f7=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1qMdDA-0001VI-GR
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 23:37:32 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 646a1544-2756-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 01:37:30 +0200 (CEST)
+Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36KM1ina021895; Thu, 20 Jul 2023 23:37:28 GMT
+Received: from eur04-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2050.outbound.protection.outlook.com [104.47.13.50])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3rxknwnp33-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Jul 2023 23:37:28 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by DB9PR03MB7385.eurprd03.prod.outlook.com (2603:10a6:10:222::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25; Thu, 20 Jul
+ 2023 23:37:24 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::68d2:d90f:ac32:7c85]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::68d2:d90f:ac32:7c85%3]) with mapi id 15.20.6609.026; Thu, 20 Jul 2023
+ 23:37:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,223 +53,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8858db9c-2755-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689895879;
-	bh=oE9QZcmvPVcOSiuYsuycZcR8Tm3RiAzrRkw/xfdsxDg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=l5DAQcOaI0SPtHdnvGEKgkZ3rGNjB59ePBHi7yJ/P1LFpaKKmozEPph8CazSMn2Hk
-	 nZJ0Rnt9FYVD2KoKEasr4cREIzxnnGcwmLafXi1Y5r9s7YJmEE5v5JACdjnwh+MeCo
-	 AHFHm7U/T5nPSfpzBehXDZ2ELZoFbaVcO38ZiVIa1PiIxDuQx9XggEbkmnN/n4u2D3
-	 2XDT32S5tzn0xyuCMv4PO6CJhg3DqIZiGQgzGGjEVK+KaR65qSi+gfa4aQjrvv19Jh
-	 qQ6ZNRlsKAr27GGEyeYVm8MZwtOwCP6Irf33dR9CLv/S1/2cThTfkLhtISYzuzK9aq
-	 z6D/rYSSs+RWw==
-Date: Thu, 20 Jul 2023 16:31:16 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Petr Mladek <pmladek@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com, 
-    jgross@suse.com, xen-devel@lists.xenproject.org, 
-    Luca Miccio <lucmiccio@gmail.com>, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    live-patching@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
-    Peter Zijlstra <peterz@infradead.org>, 
-    Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH LINUX v5 2/2] xen: add support for initializing xenstore
- later as HVM domain
-In-Reply-To: <ZLkKAO09DnM8quG-@alley>
-Message-ID: <alpine.DEB.2.22.394.2307201629190.3118466@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2205131417320.3842@ubuntu-linux-20-04-desktop> <20220513211938.719341-2-sstabellini@kernel.org> <ZLgFmS4TQwGWA7o0@alley> <alpine.DEB.2.22.394.2307191841290.3118466@ubuntu-linux-20-04-desktop> <ZLkKAO09DnM8quG-@alley>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 646a1544-2756-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MepVV0JEgr6+6Oy/aoXcrSiXkJ3Kc8hC7mBjjz2k7bjeZSxzmKt8SySTse4I5t+SAHh0oR/+v9wlvRfvAMt6L5H4+ipUU61xRqLzgJGXd0uNih8Oa+EE0T3Rs8txjaUuVXc1duNQbLhwddADx0t76Y2EQyxw4V0ZGjgcJsFvTHOnx+XJt7zmdAemkZoiD5au24VMgrMB53iVdPYvY4oaglI1jEwg7L8XabzBlmpmBPFKRLD4QA4o8PRvdQCX5B3S9RqFU9TRKT3PbaWUacz/5lrO3pXupcBsbG/xXehotDAtOOVfi1xHSj/GVpsp/vU+a4f+q3h59sfGOa0RKseHKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qaYDi3NstrVNCkpkxaVmpvrl7M537rpQ+bzUpN4xTdk=;
+ b=eRk4Mz91bAPViOAK73tnFD6RQOKLhSynF7wfU0TNvePOcfTik+EpoDxnmFXa7jLNcCMVG0kzo+JYYO56jLTGhK9ddW8qsEM4peKUPzclla+izmKBPuAH5DCySxqOfL6FYMHM7cn9Cw2luH/uAO8QQTzk4KvwwZmjhKfdIFpxXG/MdRZMcQMcZyB8CkLJCFoQ4Ef5hVAp2DN8hvoZuAGCly70LWbUkYfeLz180gNzH29clNfp+UFZbIr2vt7DTXitGJnqwtQnETWW2VZ49UCztp2E+uvar3dDj0EW0VCwBGhz1LNkJ6S5GtQW1z2c2s4JSYOxSpJXKRN5aiMJuuV1jA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qaYDi3NstrVNCkpkxaVmpvrl7M537rpQ+bzUpN4xTdk=;
+ b=XSS9K7DFTgQhXE9ZtmR4MwlPtVEF3bPXsSZspxWUdczuRHfFSTxLMrdbaNI9oXn3V5jj24eG9O90kC4PUvGmD4Nj86k0I9JO7FDVB0kmLKaFfX7LSLMEXHkGqeQkfWMeo8/rxwlcQVUZUh41FXx00nsXEP9pgb80ggkHGHV/eWTK+8wycBSxfT98YDfjlC3fLOQv3pb26Mz5PiZbf6bVPVnvrAjY7nLtrqM6kTiKxvfrgNc6UyxA7WthfdiuHREkCuSEOHBOZ8x9b9xQF28gDWftvEUH5Yt7e25tGroOhMEFQhQaYCsrWGCuEWFzr3DjGpH6YItxCv8WDZM7/A6w9Q==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v8 01/13] pci: introduce per-domain PCI rwlock
+Thread-Topic: [PATCH v8 01/13] pci: introduce per-domain PCI rwlock
+Thread-Index: AQHZuqGr3g/gocvkCU2kdSqq613Aoa/Cy8SAgACDMIA=
+Date: Thu, 20 Jul 2023 23:37:22 +0000
+Message-ID: <87zg3qduj1.fsf@epam.com>
+References: <20230720003205.1828537-1-volodymyr_babchuk@epam.com>
+ <20230720003205.1828537-2-volodymyr_babchuk@epam.com>
+ <b6375b17-7922-66ea-88fd-697fa759f96a@suse.com>
+In-Reply-To: <b6375b17-7922-66ea-88fd-697fa759f96a@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.8.9; emacs 28.2
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|DB9PR03MB7385:EE_
+x-ms-office365-filtering-correlation-id: 8a3bcf48-4424-4143-3a13-08db897a446b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ bILj6+O6KgR4DH51Wi55HW0cAin/FtE24krUCmPaPYKXZFjUuiaaX9yIUVFT77j1Idhiiu+rfgyLJzBI6zgeVxGLMfimVFHdI+mCmvDStFhoa7Bi/hXxCaA/Z6A58t39Xq6gkR41XU6aHDCL0mbQqtwn2BCxRsoEsdGcuu1Xx4SR6EdmS9KwlXLnWQB2yc7uUMlmc/IsnQi6S/Cqc8hbxRuiyj7xLwOEnDL97jSAPoSPa9AQsy49DXEY1UIdzrk2M/ChByuglKQVmnUMHK5dUnaMSfWbmJE6zDM6YwWycyiBddAUeIQVhzCGLTm4R0Dncf3jcoqeR2kS6PYsH9SIEd0B6xuoCfzFxMrwDTzdvXk+P4pOY/3TwGME04zGtqPuX+mODeH8R71w4RG85MyyWDOYJoGj4Pn7xepfTQKVrUF1h0NZMbsuXpSum2oMv4zl1DgRX1aVjKHlYhwL9wG37XZaVGaF8dL/IEqQbJA63FRlcnrklYFaO/GueB2AbRaax4q6Vq8u+n+huM4rK0TTOHCtXM81oqD64+ugEMBy7SL8hNhWf/qbIRm8UDk0yP9/vg7epwIGRTPVH9DIzQ3EAt/7syBlvsxv+iuPGTNMkBH/uz5xl+a8dze5MA/Ujh19
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(396003)(366004)(136003)(39860400002)(451199021)(6486002)(71200400001)(478600001)(38100700002)(122000001)(2906002)(5660300002)(316002)(41300700001)(38070700005)(54906003)(8936002)(8676002)(36756003)(6512007)(2616005)(66446008)(83380400001)(6916009)(26005)(4326008)(66476007)(6506007)(66556008)(64756008)(53546011)(86362001)(55236004)(66946007)(76116006)(186003)(91956017);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?AwaZfbwS49UruznDatGYGCv3Sw7wRKdL+ENEQI/vTu6UMcyynTpYtaGgVS?=
+ =?iso-8859-1?Q?F7dCj4uSKYjS/Z4dJ3KySrdihlBtHbk2UktV/s7P2np/b3nY2iC2GSqkhe?=
+ =?iso-8859-1?Q?bhn/3Fpim21d++xGFIM52gXew6AVRR61vjy29FMbAbRjLd78gs8ZZxygrg?=
+ =?iso-8859-1?Q?GrSJLPMILJROw1DZy6dCLF4v4oiPQXKrfMDZTAnA33eXm4gWPz0F9QO7BK?=
+ =?iso-8859-1?Q?yJMibdhzfA2OZOMXv42PzBjC14D3rlPaHzoNcx33QKOJ9zecDsJiJgqBXw?=
+ =?iso-8859-1?Q?o1x+ZGCvwc+GkAUHN5WphpE2ez3yBBMJScGezaYnu8tmHtgu3ZXiGGgKtA?=
+ =?iso-8859-1?Q?f4HLJZ1ULHbD9nzy7VGD9uU65lOb5YRSGCtTafpltzQRCxBVJm9/kY0fgB?=
+ =?iso-8859-1?Q?M8bYLzRnQ2sQA5SPamQFLLyrwZDnNJ2xdglDKSsynJMajqWYJZQS+FZfuJ?=
+ =?iso-8859-1?Q?h0MhVZLhN+YcU/Bb+WUlgYGjFjrhnalc8LBaxa/gWSkd/IeLmn3sInA3yF?=
+ =?iso-8859-1?Q?q/lovNJzTnugvhaFKUb21jrynC+6VocG9i4n4vlvXeegb0rvEcexDKl1KG?=
+ =?iso-8859-1?Q?Lj3KOnspXKSKFayDrd+2801+PB5ZKunhLs1Trhdy+z0yqpiWZKhl1dT0hA?=
+ =?iso-8859-1?Q?aK/TVvqYCGK0ehaOeqLhLvR87tsmzdXW/tjsKYFd20u4iJWMHdE1NPDMyH?=
+ =?iso-8859-1?Q?kAlY5jcVvJ8B3dmyaXDA/p+TnoVWjqCWTyFB5met4V5nWsW+onwmDlenjQ?=
+ =?iso-8859-1?Q?0XnsrPGiln4IsO5HuidSxgIO/6PFUcJICJJtrbWSFAzxTtlnFHVmnbIBxS?=
+ =?iso-8859-1?Q?BLZYT3lOwtJNqqsgm81h026hrtK55JG8nYiJcAtBZ7NETNpbQq9nabfxtF?=
+ =?iso-8859-1?Q?PIHGNRBhHQgz9OeLZjiWYAAZbq5ijExPFFi9EHZiBV8fI25Xsnq2p5/OsH?=
+ =?iso-8859-1?Q?+pDnGASW4FnbHWzDNhYsAu+KlgGQ57hd0evLHkl4N/2q6gwjFjAw8yOWO1?=
+ =?iso-8859-1?Q?fXsOlXp3FcZgsBZBnSRtZ+hnDQgghKx7iVHf44s+Mn/cMJhLoULDHTEcWz?=
+ =?iso-8859-1?Q?MhkOL4HTHPb1qEYGl233wIgq0j9b3gLq1Clj/pi5LNeHXL4mBoN1vB84tC?=
+ =?iso-8859-1?Q?6xN9I5Y03phk0GtDZJk6H2jLUJ/6xKOVhNkqW9rpO6WyysOMIF8xLrJwuj?=
+ =?iso-8859-1?Q?ieN5RNkEnlMEIIrjtoI5M8wrnAs6d7wTkcsyWDnqnaP/NUMj2buG+eBgxF?=
+ =?iso-8859-1?Q?HFlZgRvEpHnBZWkEsaUmr8hD/yxdW7Q3T/nwKHVNe3k8ue/GUSB3uB0Of4?=
+ =?iso-8859-1?Q?fAn7spwka9ShNKJNwt1Ct7HZQ5oW4BrzyM8WSTbF/SRB+8d8k55HI6F6lT?=
+ =?iso-8859-1?Q?GpPQA4EcIMyL7IO3JFDzMKSjBL+/kaoaL+ynz3ztY8mLuxPdHfcyv+HfoP?=
+ =?iso-8859-1?Q?gjXmZhstZrE1qOC1UAkXDRu2LFYM55Z8CcjsL0A7kO3QzNOetgz9Gt2Oi1?=
+ =?iso-8859-1?Q?1itn4vuDj0N5RLzm4SQ0NbvE09yZ5w3u2kAnKYf23fHmi801HggmxiJ+1d?=
+ =?iso-8859-1?Q?KOEW3QQGM24LXcdbmai/LWgsr5QKZe+TtGS7LsLoZ7idSDpaYhah1mq1Om?=
+ =?iso-8859-1?Q?75oG7ZCzE+NqdVSR3olixcNIzp76BxpV+AHHW2D/dST4D06XMenUNvMQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3bcf48-4424-4143-3a13-08db897a446b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2023 23:37:22.9783
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GwFM8bSkNkL0+sIRM9StZxvE0kfGwIpT7Zw2ldhV3XwXfU5sH975IXyqOBPiHvoP/33kJMOUCsebvopVnCqvS4s2Zms1gKxNuR7EeKlJK70=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7385
+X-Proofpoint-ORIG-GUID: ujnrI4VXT58ErsJ8XwzmN_gPKvFO16u3
+X-Proofpoint-GUID: ujnrI4VXT58ErsJ8XwzmN_gPKvFO16u3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-20_10,2023-07-20_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 malwarescore=0
+ impostorscore=0 mlxscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ mlxlogscore=792 priorityscore=1501 clxscore=1015 spamscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
+ definitions=main-2307200202
 
-On Thu, 20 Jul 2023, Petr Mladek wrote:
-> On Wed 2023-07-19 18:46:08, Stefano Stabellini wrote:
-> > On Wed, 19 Jul 2023, Petr Mladek wrote:
-> > > On Fri 2022-05-13 14:19:38, Stefano Stabellini wrote:
-> > > > From: Luca Miccio <lucmiccio@gmail.com>
-> > > > 
-> > > > When running as dom0less guest (HVM domain on ARM) the xenstore event
-> > > > channel is available at domain creation but the shared xenstore
-> > > > interface page only becomes available later on.
-> > > > 
-> > > > In that case, wait for a notification on the xenstore event channel,
-> > > > then complete the xenstore initialization later, when the shared page
-> > > > is actually available.
-> > > > 
-> > > > The xenstore page has few extra field. Add them to the shared struct.
-> > > > One of the field is "connection", when the connection is ready, it is
-> > > > zero. If the connection is not-zero, wait for a notification.
-> > > 
-> > > I see the following warning from free_irq() in 6.5-rc2 when running
-> > > livepatching selftests. It does not happen after reverting this patch.
-> > > 
-> > > [  352.168453] livepatch: signaling remaining tasks
-> > > [  352.173228] ------------[ cut here ]------------
-> > > [  352.175563] Trying to free already-free IRQ 0
-> > > [  352.177355] WARNING: CPU: 1 PID: 88 at kernel/irq/manage.c:1893 free_irq+0xbf/0x350
-> > > [  352.179942] Modules linked in: test_klp_livepatch(EK)
-> > > [  352.181621] CPU: 1 PID: 88 Comm: xenbus_probe Kdump: loaded Tainted: G            E K    6.5.0-rc2-default+ #535
-> > > [  352.184754] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.15.0-0-g2dd4b9b-rebuilt.opensuse.org 04/01/2014
-> > > [  352.188214] RIP: 0010:free_irq+0xbf/0x350
-> > > [  352.192211] Code: 7a 08 75 0e e9 36 02 00 00 4c 3b 7b 08 74 5a 48 89 da 48 8b 5a 18 48 85 db 75 ee 44 89 f6 48 c7 c7 58 b0 8b 86 e8 21 0a f5 ff <0f> 0b 48 8b 34 24 4c 89 ef e8 53 bb e3 00 
-> > > 48 8b 45 40 48 8b 40 78
-> > > [  352.200079] RSP: 0018:ffffaf0440b4be80 EFLAGS: 00010086
-> > > [  352.201465] RAX: 0000000000000000 RBX: ffff99f105116c80 RCX: 0000000000000003
-> > > [  352.203324] RDX: 0000000080000003 RSI: ffffffff8691d4bc RDI: 00000000ffffffff
-> > > [  352.204989] RBP: ffff99f100052000 R08: 0000000000000000 R09: c0000000ffff7fff
-> > > [  352.206253] R10: ffffaf0440b4bd18 R11: ffffaf0440b4bd10 R12: ffff99f1000521e8
-> > > [  352.207451] R13: ffff99f1000520a8 R14: 0000000000000000 R15: ffffffff86f42360
-> > > [  352.208787] FS:  0000000000000000(0000) GS:ffff99f15a400000(0000) knlGS:0000000000000000
-> > > [  352.210061] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > [  352.210815] CR2: 00007f8415d56000 CR3: 0000000105e36003 CR4: 0000000000370ee0
-> > > [  352.211867] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> > > [  352.212912] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> > > [  352.213951] Call Trace:
-> > > [  352.214390]  <TASK>
-> > > [  352.214717]  ? __warn+0x81/0x170
-> > > [  352.215436]  ? free_irq+0xbf/0x350
-> > > [  352.215906]  ? report_bug+0x10b/0x200
-> > > [  352.216408]  ? prb_read_valid+0x17/0x20
-> > > [  352.216926]  ? handle_bug+0x44/0x80
-> > > [  352.217409]  ? exc_invalid_op+0x13/0x60
-> > > [  352.217932]  ? asm_exc_invalid_op+0x16/0x20
-> > > [  352.218497]  ? free_irq+0xbf/0x350
-> > > [  352.218979]  ? __pfx_xenbus_probe_thread+0x10/0x10
-> > > [  352.219600]  xenbus_probe+0x7a/0x80
-> > > [  352.221030]  xenbus_probe_thread+0x76/0xc0
-> > > [  352.221416]  ? __pfx_autoremove_wake_function+0x10/0x10
-> > > [  352.221882]  kthread+0xfd/0x130
-> > > [  352.222191]  ? __pfx_kthread+0x10/0x10
-> > > [  352.222544]  ret_from_fork+0x2d/0x50
-> > > [  352.222893]  ? __pfx_kthread+0x10/0x10
-> > > [  352.223260]  ret_from_fork_asm+0x1b/0x30
-> > > [  352.223629] RIP: 0000:0x0
-> > > [  352.223931] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-> > > [  352.224488] RSP: 0000:0000000000000000 EFLAGS: 00000000 ORIG_RAX: 0000000000000000
-> > > [  352.225044] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-> > > [  352.225571] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> > > [  352.226106] RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-> > > [  352.226632] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-> > > [  352.227171] R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-> > > [  352.227710]  </TASK>
-> > > [  352.227917] irq event stamp: 22
-> > > [  352.228209] hardirqs last  enabled at (21): [<ffffffff854240be>] ___slab_alloc+0x68e/0xc80
-> > > [  352.228914] hardirqs last disabled at (22): [<ffffffff85fe98fd>] _raw_spin_lock_irqsave+0x8d/0x90
-> > > [  352.229546] softirqs last  enabled at (0): [<ffffffff850fc0ee>] copy_process+0xaae/0x1fd0
-> > > [  352.230079] softirqs last disabled at (0): [<0000000000000000>] 0x0
-> > > [  352.230503] ---[ end trace 0000000000000000 ]---
-> > > 
-> > > , where the message "livepatch: signaling remaining tasks" means that
-> > > it might send fake signals to non-kthread tasks.
-> > > 
-> > > The aim is to force userspace tasks to enter and leave kernel space
-> > > so that they might start using the new patched code. It is done
-> > > this way:
-> > > 
-> > > /*
-> > >  * Sends a fake signal to all non-kthread tasks with TIF_PATCH_PENDING set.
-> > >  * Kthreads with TIF_PATCH_PENDING set are woken up.
-> > >  */
-> > > static void klp_send_signals(void)
-> > > {
-> > > [...]
-> > > 
-> > > 			/*
-> > > 			 * Send fake signal to all non-kthread tasks which are
-> > > 			 * still not migrated.
-> > > 			 */
-> > > 			set_notify_signal(task);
-> > > [...]
-> > > 
-> > > The warning is most likely printed in this condition:
-> > > 
-> > > const void *free_irq(unsigned int irq, void *dev_id)
-> > > {
-> > > 	struct irq_desc *desc = irq_to_desc(irq);
-> > > 	struct irqaction *action;
-> > > 	const char *devname;
-> > > 
-> > > 	if (!desc || WARN_ON(irq_settings_is_per_cpu_devid(desc)))
-> > > 		return NULL;
-> > > 
-> > > 
-> > > See below.
-> > > 
-> > > > --- a/drivers/xen/xenbus/xenbus_probe.c
-> > > > +++ b/drivers/xen/xenbus/xenbus_probe.c
-> > > > @@ -750,6 +751,20 @@ static void xenbus_probe(void)
-> > > >  {
-> > > >  	xenstored_ready = 1;
-> > > >  
-> > > > +	if (!xen_store_interface) {
-> > > > +		xen_store_interface = xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
-> > > > +						XEN_PAGE_SIZE);
-> > > > +		/*
-> > > > +		 * Now it is safe to free the IRQ used for xenstore late
-> > > > +		 * initialization. No need to unbind: it is about to be
-> > > > +		 * bound again from xb_init_comms. Note that calling
-> > > > +		 * unbind_from_irqhandler now would result in xen_evtchn_close()
-> > > > +		 * being called and the event channel not being enabled again
-> > > > +		 * afterwards, resulting in missed event notifications.
-> > > > +		 */
-> > > > +		free_irq(xs_init_irq, &xb_waitq);
-> > > 
-> > > Is it possbile that this free_irq(), the fake signal, and the warning
-> > > are somehow related, please?
-> > 
-> > I don't know how the fake signal could relate to this,
-> 
-> In short, the fake signal sets TIF_NOTIFY_SIGNAL and wakes
-> the kthread. It has special handling in signal_pending().
-> It causes that wait_interruptible() and friends would prematurely
-> stop waiting.
-> 
-> It is used primary to speedup/unblock livepatching and some io_uring
-> operations.
-> 
-> I do not know where exactly it triggers the XEN code.
-> 
-> > but it would seem
-> > that either:
-> > 1) free_irq is called twice
-> > 2) free_irq is called but xs_init_irq wasn't initialized before
-> > 
-> > For 2) I can see that xenbus_probe() is called in a few cases where
-> > xs_init_irq wasn't set. Something like the below would make the warning
-> > go away but it would be nice to figure out which one is the code path
-> > taken that originally triggered the warning.
-> 
-> I added some debugging messages and:
-> 
->   + xenbus_probe() was called in xenbus_probe_thread().
-> 
->   + xenbus_init() returned early after xen_domain() check so that
->     xs_init_irq was never initialized.
-> 
-> Note that I use KVM and not XEN:
-> 
-> [    0.000000] Hypervisor detected: KVM
-> [...]
-> [    0.072150] Booting paravirtualized kernel on KVM
 
-Ah! So the issue is that xenbus_init() returns early but
-xenbus_probe_initcall() doesn't. So maybe we just need a xen_domain
-check in xenbus_probe_initcall too.
+Hi Jan,
 
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 58b732dcbfb8..e9bd3ed70108 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -811,6 +812,9 @@ static int xenbus_probe_thread(void *unused)
- 
- static int __init xenbus_probe_initcall(void)
- {
-+	if (!xen_domain())
-+		return -ENODEV;
-+
- 	/*
- 	 * Probe XenBus here in the XS_PV case, and also XS_HVM unless we
- 	 * need to wait for the platform PCI device to come up or
+Jan Beulich <jbeulich@suse.com> writes:
+
+> On 20.07.2023 02:32, Volodymyr Babchuk wrote:
+>> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+>> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+>> @@ -476,8 +476,13 @@ static int cf_check reassign_device(
+>> =20
+>>      if ( devfn =3D=3D pdev->devfn && pdev->domain !=3D target )
+>>      {
+>> -        list_move(&pdev->domain_list, &target->pdev_list);
+>> -        pdev->domain =3D target;
+>> +        write_lock(&pdev->domain->pci_lock);
+>> +        list_del(&pdev->domain_list);
+>> +        write_unlock(&pdev->domain->pci_lock);
+>
+> As mentioned on an earlier version, perhaps better (cheaper) to use
+> "source" here? (Same in VT-d code then.)
+
+Sorry, I saw you comment for the previous version, but missed to include
+this change. It will be done in the next version.
+
+>> @@ -747,6 +749,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>      ret =3D 0;
+>>      if ( !pdev->domain )
+>>      {
+>> +        write_lock(&hardware_domain->pci_lock);
+>>          pdev->domain =3D hardware_domain;
+>>          list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+>> =20
+>> @@ -760,6 +763,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>              printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
+>>              list_del(&pdev->domain_list);
+>>              pdev->domain =3D NULL;
+>> +            write_unlock(&hardware_domain->pci_lock);
+>>              goto out;
+>
+> In addition to Roger's comments about locking scope: In a case like this
+> one it would probably also be good to move the printk() out of the locked
+> area. It can be slow, after all.
+>
+> Question is why you have this wide a locked area here in the first place:
+> Don't you need to hold the lock just across the two list operations (but
+> not in between)?
+
+Strictly speaking yes, we need to hold lock only when operating on the
+list. For now. Next patch will use the same lock to protect the VPCI
+(de)alloction, so locked region will be extended anyways.
+
+I think, I'll decrease locked area in this patch and increase in the
+next one, it will be most logical.
+
+
+>> @@ -887,26 +895,62 @@ static int deassign_device(struct domain *d, uint1=
+6_t seg, uint8_t bus,
+>> =20
+>>  int pci_release_devices(struct domain *d)
+>>  {
+>> -    struct pci_dev *pdev, *tmp;
+>> -    u8 bus, devfn;
+>> -    int ret;
+>> +    int combined_ret;
+>> +    LIST_HEAD(failed_pdevs);
+>> =20
+>>      pcidevs_lock();
+>> -    ret =3D arch_pci_clean_pirqs(d);
+>> -    if ( ret )
+>> +    write_lock(&d->pci_lock);
+>> +    combined_ret =3D arch_pci_clean_pirqs(d);
+>> +    if ( combined_ret )
+>>      {
+>>          pcidevs_unlock();
+>> -        return ret;
+>> +        write_unlock(&d->pci_lock);
+>> +        return combined_ret;
+>>      }
+>> -    list_for_each_entry_safe ( pdev, tmp, &d->pdev_list, domain_list )
+>> +
+>> +    while ( !list_empty(&d->pdev_list) )
+>>      {
+>> -        bus =3D pdev->bus;
+>> -        devfn =3D pdev->devfn;
+>> -        ret =3D deassign_device(d, pdev->seg, bus, devfn) ?: ret;
+>> +        struct pci_dev *pdev =3D list_first_entry(&d->pdev_list,
+>> +                                                struct pci_dev,
+>> +                                                domain_list);
+>> +        uint16_t seg =3D pdev->seg;
+>> +        uint8_t bus =3D pdev->bus;
+>> +        uint8_t devfn =3D pdev->devfn;
+>> +        int ret;
+>> +
+>> +        write_unlock(&d->pci_lock);
+>> +        ret =3D deassign_device(d, seg, bus, devfn);
+>> +        write_lock(&d->pci_lock);
+>> +        if ( ret )
+>> +        {
+>> +            bool still_present =3D false;
+>> +            const struct pci_dev *tmp;
+>> +
+>> +            /*
+>> +             * We need to check if deassign_device() left our pdev in
+>> +             * domain's list. As we dropped the lock, we can't be sure
+>> +             * that list wasn't permutated in some random way, so we
+>> +             * need to traverse the whole list.
+>> +             */
+>> +            for_each_pdev ( d, tmp )
+>> +            {
+>> +                if ( tmp =3D=3D pdev )
+>> +                {
+>> +                    still_present =3D true;
+>> +                    break;
+>> +                }
+>> +            }
+>> +            if ( still_present )
+>> +                list_move(&pdev->domain_list, &failed_pdevs);
+>
+> In order to retain original ordering on the resulting list, perhaps bette=
+r
+> list_move_tail()?
+
+Yes, thanks.
+
+
+--=20
+WBR, Volodymyr=
 
