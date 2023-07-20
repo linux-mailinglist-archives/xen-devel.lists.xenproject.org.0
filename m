@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2799675A94A
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 10:29:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566485.885353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 092FB75AA85
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 11:21:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566492.885364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMP1u-0005mF-9b; Thu, 20 Jul 2023 08:28:58 +0000
+	id 1qMPpY-0005Pi-1r; Thu, 20 Jul 2023 09:20:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566485.885353; Thu, 20 Jul 2023 08:28:58 +0000
+Received: by outflank-mailman (output) from mailman id 566492.885364; Thu, 20 Jul 2023 09:20:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMP1u-0005jb-6h; Thu, 20 Jul 2023 08:28:58 +0000
-Received: by outflank-mailman (input) for mailman id 566485;
- Thu, 20 Jul 2023 08:28:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/1Sz=DG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qMP1s-0005jJ-7F
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 08:28:56 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76146da0-26d7-11ee-8611-37d641c3527e;
- Thu, 20 Jul 2023 10:28:53 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4fb863edcb6so768573e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jul 2023 01:28:53 -0700 (PDT)
-Received: from [192.168.201.189] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- q4-20020ac25284000000b004fdc6f03c6dsm90561lfm.37.2023.07.20.01.28.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jul 2023 01:28:52 -0700 (PDT)
+	id 1qMPpX-0005NN-VT; Thu, 20 Jul 2023 09:20:15 +0000
+Received: by outflank-mailman (input) for mailman id 566492;
+ Thu, 20 Jul 2023 09:20:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qMPpW-0005NH-O1
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 09:20:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qMPpW-0007ds-AN; Thu, 20 Jul 2023 09:20:14 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[192.168.24.131]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qMPpV-0003Du-UL; Thu, 20 Jul 2023 09:20:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +39,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76146da0-26d7-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689841733; x=1690446533;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=smyzLeygPGKA0rC9jUZSOwG5+PJ3VqfR+LpYNKICf34=;
-        b=pI0kqj3l2EAq63WBezahXRCys3v7i8qXRkN/sm7J7UTBL7JuA44Mr1M4h2Cbu3mThy
-         BJrk1VSLsPNTkCPCIZ41M9Iia4mbDu//5bGwCwH2ie3EtCRxO33/HALdIsl8CUkuIvIr
-         z05JYpiJmCBMjZOXFwEzm8s8A+lGnSAG64L+2LODAcIrPFW7CzXpxb3+iMUAmeIc2B4V
-         pcRDfO0FrowUnIdRryUeHa8sC8XYJmtcFtzyA2c5kuiVW+jI1mCKCZ7GbVTDfs78HrgC
-         1OcX6XWAc/Im9OjrCFvvdj2/PWRQwZqw3h/RcrUlC4RH8n/Sv46A2BqaXF5d2GvnUwie
-         G39Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689841733; x=1690446533;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=smyzLeygPGKA0rC9jUZSOwG5+PJ3VqfR+LpYNKICf34=;
-        b=QGSGcI1XiWlef/lAYBWyRneCH2ytviToeNvH8pEUw+WTwIhKrnp40k63SqYc3yy6W1
-         KCu+MxlFY4tt/JRkh8hcM3ESRZHHELjTMgkLWUpZSlZ8s+hN0MdoujlnbckQLL5SNze6
-         wZ7Dq/znjmain/4YrQNQVufpW9VMwznVJLW8eEsn0TkMQSZj+f4wXZLMb8qzdwRGm11m
-         merDeHK7ly/bRfg/juQXg7GDq6B71ZjeC0DSmy0iIlpz0ivTEEM3GAk635J7mdn3hGkr
-         wUICkEPrZpEdDMdxo/Ybaz2puIhyaVFHOHkLmQ8LTZYT+0Jd/DdMb+JF6vMT9EtpB0z6
-         tXhg==
-X-Gm-Message-State: ABy/qLYATb1Q/uyfwSoncFhKEbkedCcEaeE/eMzvp3njsAWbwj0ADt9V
-	9AAskpSFzlmpbbtA/N4tFSQ=
-X-Google-Smtp-Source: APBJJlGc0NVpS61/F2J2toUyXaVZ6uTBwDHrzOHKT6V9DBWm6LEzHwsLpGgKnkDWpnVPNZy5ui+bGA==
-X-Received: by 2002:a19:4409:0:b0:4fb:74d6:6154 with SMTP id r9-20020a194409000000b004fb74d66154mr1527230lfa.37.1689841732873;
-        Thu, 20 Jul 2023 01:28:52 -0700 (PDT)
-Message-ID: <0cbf6a69e8ae08f6b85edcc4f8d53a84e0103d8b.camel@gmail.com>
-Subject: Re: [PATCH v3 3/3] xen/riscv: introduce identity mapping
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
-	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Thu, 20 Jul 2023 11:28:52 +0300
-In-Reply-To: <c1a3d447-4b4d-cd9f-642d-e30fed088302@suse.com>
-References: <cover.1689604562.git.oleksii.kurochko@gmail.com>
-	 <8c69050d7b1f42df5e776ca9494164a4d15f2d52.1689604562.git.oleksii.kurochko@gmail.com>
-	 <ad53c037-3c1b-ff1a-93df-b79ab2948174@suse.com>
-	 <30540953fb363fce4dfd59f8a7e709247a9872fd.camel@gmail.com>
-	 <c1a3d447-4b4d-cd9f-642d-e30fed088302@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=jvifhrBzg7ZW3jPPsl89TSoiFWqaidsXZQg2N+GG++w=; b=yPAvsaeh8esNTbGZCgeKSeB6Xd
+	gf8/2olijbwAHOzz4QFhu44rUWpX0rEjg5uQQ2McG3oBbfWHaaMhdXmjvRcRP1QjiAS+Bt6u4J0v2
+	1uqYxhQgbe6luIoB6PQ1+uPHcmehuaYlKkpahkSE0SW1uRnmAQyfcahlYoUkWtHr2fcY=;
+Message-ID: <2053098f-5311-89ec-294a-aa731f2b01e1@xen.org>
+Date: Thu, 20 Jul 2023 10:20:11 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH v2 1/3] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig
+ option
+Content-Language: en-US
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Rahul Singh <rahul.singh@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Artem Mygaiev <artem_mygaiev@epam.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+References: <20230707014754.51333-1-stewart.hildebrand@amd.com>
+ <20230707014754.51333-2-stewart.hildebrand@amd.com>
+ <041323d2-9114-328f-40c6-f5fed60892a5@xen.org>
+ <1a8d7024-f881-a3f4-c575-240fb393555f@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <1a8d7024-f881-a3f4-c575-240fb393555f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2023-07-20 at 07:58 +0200, Jan Beulich wrote:
-> On 19.07.2023 18:35, Oleksii wrote:
-> > On Tue, 2023-07-18 at 17:03 +0200, Jan Beulich wrote:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- unsigned long load_end =3D LINK_TO_LOAD(_end);
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- unsigned long pt_level_size =3D XEN_PT_LEVEL_SIZE(i
-> > > > -
-> > > > 1);
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- unsigned long xen_size =3D ROUNDUP(load_end -
-> > > > load_start, pt_level_size);
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- unsigned long page_entries_num =3D xen_size /
-> > > > pt_level_size;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- while ( page_entries_num-- )
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 pgtbl[index++].pte =3D 0;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- break;
-> > >=20
-> > > Unless there's a "not crossing a 2Mb boundary" guarantee
-> > > somewhere
-> > > that I've missed, this "break" is still too early afaict.
-> > If I will add a '2 MB boundary check' for load_start and
-> > linker_start
-> > could it be an upstreamable solution?
-> >=20
-> > Something like:
-> > =C2=A0=C2=A0=C2=A0 if ( !IS_ALIGNED(load_start, MB(2) )
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0printk("load_start shou=
-ld be 2Mb algined\n");
-> > and
-> > =C2=A0=C2=A0=C2=A0 ASSERT( !IS_ALIGNED(XEN_VIRT_START, MB(2) )
-> > in xen.lds.S.
->=20
-> Arranging for the linked address to be 2Mb-aligned is certainly
-> reasonable. Whether expecting the load address to also be depends
-> on whether that can be arranged for (which in turn depends on boot
-> loader behavior); it cannot be left to "luck".
-Maybe I didn't quite understand you here, but if Xen has an alignment
-check of load address then boot loader has to follow the alignment
-requirements of Xen. So it doesn't look as 'luck'.
+Hi,
 
->=20
-> > Then we will have completely different L0 tables for identity
-> > mapping
-> > and not identity and the code above will be correct.
->=20
-> As long as Xen won't grow beyond 2Mb total. Considering that at
-> some point you may want to use large page mappings for .text,
-> .data, and .rodata, that alone would grow Xen to 6 Mb (or really 8,
-> assuming .init goes separate as well). That's leaving aside the
-> realistic option of the mere sum of all sections being larger than
-> 2. That said, even Arm64 with ACPI is still quite a bit below 2Mb.
-> x86 is nearing 2.5 though in even a somewhat limited config;
-> allyesconfig may well be beyond that already.
-I am missing something about Xen size. Lets assume that Xen will be
-mapped using only 4k pagees ( like it is done now ). Then if Xen will
-be more then 2Mb then only what will be changed is a number of page
-tables so it is only question of changing of PGTBL_INITIAL_COUNT ( in
-case of RISC-V).
+On 18/07/2023 18:35, Stewart Hildebrand wrote:
+> On 7/13/23 14:40, Julien Grall wrote:
+>> Hi Stewart,
+>>
+>> On 07/07/2023 02:47, Stewart Hildebrand wrote:
+>>> From: Rahul Singh <rahul.singh@arm.com>
+>>>
+>>> Setting CONFIG_PCI_PASSTHROUGH=y will enable PCI passthrough on ARM, even though
+>>> the feature is not yet complete in the current upstream codebase. The purpose of
+>>> this is to make it easier to enable the necessary configs (HAS_PCI, HAS_VPCI) for
+>>> testing and development of PCI passthrough on ARM.
+>>>
+>>> Since PCI passthrough on ARM is still work in progress at this time, make it
+>>> depend on EXPERT.
+>>
+>> While preparing the patch for committing, I noticed that HAS_PASSTHROUGH
+>> will now allow the user to select one of the IOMMU quarantine options.
+>>
+>> There are three of them right now:
+>>    1. none
+>>    2. basic (i.e. faulting)
+>>    3. scratch page
+>>
+>> The latter is unlikely to work on Arm because we don't setup the scratch
+>> page. AFAIU, for that, we would need to implement the callback
+>> quarantine_init().
+>>
+>> I would expect 1 and 2 work. That said, I think 1. would behave like 2.
+>> because on Arm the device should not be automatically re-assigned to
+>> dom0. I know this is correct for platform device, but will it be valid
+>> for PCI as well?
+> 
+> In a system with dom0 where the guest is created from the xl toolstack, we rely on "xl pci-assignable-add". Upon domain destruction, the device automatically gets assigned to domIO.
 
-Could you please explain why Xen will grow to 6/8 MB in case of larger
-page mappings? In case of larger page mapping fewer tables are needed.
-For example, if we would like to use 2Mb pages then we will stop at L1
-page table and write an physical address to L1 page table entry instead
-of creating new L0 page table.
+Ok. To clarify, does this mean any DMA will fault, the same as for 
+platform device?
 
->=20
-> Of course you may legitimately leave dealing with that to the
-> future.
-Then I'll send new patch series with updated alignment requirements.
+> However, there's nothing preventing a user from attempting to invoke "xl pci-assignable-remove", which should assign the device back to dom0, but it is not automatic.
 
-~ Oleksii
+I don't think we want to fully prevent a user to re-assign a device to 
+dom0. But we at least want to avoid re-assigning the device to dom0 by 
+default. After that a user can reset the device before it gets 
+re-assigned to dom0.
+
+Cheers,
+
+-- 
+Julien Grall
 
