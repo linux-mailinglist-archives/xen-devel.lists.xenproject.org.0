@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D54D675A93A
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 10:27:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566465.885314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A32675A93B
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 10:27:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566467.885324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMP08-0002RN-O3; Thu, 20 Jul 2023 08:27:08 +0000
+	id 1qMP0F-0002ry-0N; Thu, 20 Jul 2023 08:27:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566465.885314; Thu, 20 Jul 2023 08:27:08 +0000
+Received: by outflank-mailman (output) from mailman id 566467.885324; Thu, 20 Jul 2023 08:27:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMP08-0002Oe-Kg; Thu, 20 Jul 2023 08:27:08 +0000
-Received: by outflank-mailman (input) for mailman id 566465;
- Thu, 20 Jul 2023 08:27:06 +0000
+	id 1qMP0E-0002pU-T1; Thu, 20 Jul 2023 08:27:14 +0000
+Received: by outflank-mailman (input) for mailman id 566467;
+ Thu, 20 Jul 2023 08:27:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/JYs=DG=citrix.com=prvs=558be806a=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qMP06-0001wC-Oa
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 08:27:06 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 343663dd-26d7-11ee-8611-37d641c3527e;
- Thu, 20 Jul 2023 10:27:04 +0200 (CEST)
-Received: from mail-co1nam11lp2172.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.172])
+ id 1qMP0D-0001wC-1W
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 08:27:13 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37ecb9dd-26d7-11ee-8611-37d641c3527e;
+ Thu, 20 Jul 2023 10:27:10 +0200 (CEST)
+Received: from mail-co1nam11lp2177.outbound.protection.outlook.com (HELO
+ NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.177])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Jul 2023 04:27:02 -0400
+ 20 Jul 2023 04:27:08 -0400
 Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
  by SJ0PR03MB5760.namprd03.prod.outlook.com (2603:10b6:a03:2d3::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Thu, 20 Jul
- 2023 08:27:00 +0000
+ 2023 08:27:06 +0000
 Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
  ([fe80::38aa:4814:3c7b:78ea]) by SJ0PR03MB6423.namprd03.prod.outlook.com
  ([fe80::38aa:4814:3c7b:78ea%5]) with mapi id 15.20.6588.031; Thu, 20 Jul 2023
- 08:27:00 +0000
+ 08:27:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,57 +49,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 343663dd-26d7-11ee-8611-37d641c3527e
+X-Inumbo-ID: 37ecb9dd-26d7-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1689841624;
+  d=citrix.com; s=securemail; t=1689841630;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=PoGS6PLKgGovzFPQKOOfY9Pvlc4ex9V0H8gcinS47Ag=;
-  b=Gt+mtOs3pvo+T0qyH3SMcqraOHRFPeaomUo1zWRO8TB13SFiJMz1zDZW
-   JOX7OslVKmaBpoBSXMTZSQ+QwlR37UH354P4JOC+KLSwZi3fbgxzY+z0P
-   PHEz/T1wsBLDtfXdIhc01JZ4rRHJ4NZMT+dQRIbyBNKfsd35O+lIhOAl0
+  bh=z60meDtNx5jYvrY40BCNAM50IKsscj3nDQMwXvAX/mA=;
+  b=cgr0S3a3lVFKsggm+jCO+CsRJfpIEIqeWmDkDNJMSxgQzCnz1TasDm9V
+   ba5XReiP6di1n0u/mnpxK3qbisuTXxeMjf2klOklgG8AG53PEJqHFC9nD
+   XDXjWeN5uwCGn0JyiN5LUyx7pFp+pE07SqMLXc0x5Z1qiQgCC5VoVqlWU
    g=;
-X-IronPort-RemoteIP: 104.47.56.172
-X-IronPort-MID: 115538996
+X-IronPort-RemoteIP: 104.47.56.177
+X-IronPort-MID: 117268389
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:e+gJrKLBCU7Ynob6FE+R9ZQlxSXFcZb7ZxGr2PjKsXjdYENS1zADy
- mYdWmzTaPzeM2L8ftB1OYq380wA7cPRm4I3HVdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrawP9TlK6q4mhA4QZmPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5lE1Bt9
- OIcNwsxRR+niNDmnbOiTLZz05FLwMnDZOvzu1lG5BSAVLMNZsmGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dppTGMlmSd05C0WDbRUsaNSshP2F6Ru
- 0rN/njjAwFcP9uaodaA2iv127KUzXKqBur+EpW27OBBnkXJ+lUPGR48CFaCm/eHmG6xDoc3x
- 0s8v3BGQbIJ3FymSJzxUgO1pFaAvwUAQJxAHusi8gaPx6HIpQGDCQAsUTppeNEg8sgsSlQC1
- FCTmMjyLSdyq7DTQnWYnop4thu3MCkRaGQFPCkNSFJc58G5+d5pyBXSUtxkDai5yMXvHi39y
- CyLqy54gKgPickM1OOw+lWvby+Qm6UlhzUdvm3/Nl9JJCsgDGJ5T+REMWTm0Ms=
-IronPort-HdrOrdr: A9a23:1yX65KjIUoG+zzZtwIv9hhCeVHBQXtkji2hC6mlwRA09TyVXrb
- HIoB17726TtN91YhsdcL+7Scq9qB/nlaKdgrNxAV7BZniFhILAFugLhrcKqAeQfhEWmNQtsZ
- uIsJITNDQzNzVHZArBjzVQ2uxP/OW6
-X-Talos-CUID: =?us-ascii?q?9a23=3ABPhhamu6pzRLu9ijtnUMK3ZD6Is3YEz+zWnUPHS?=
- =?us-ascii?q?EImlNR4/FFF6J/vx7xp8=3D?=
-X-Talos-MUID: 9a23:9JI9gARcABS1sRlkRXTini9JKt8y352yGUMnzJg/gce6Jwx/bmI=
+IronPort-Data: A9a23:bgTMGK+xD0RiahemH4MiDrUDpH+TJUtcMsCJ2f8bNWPcYEJGY0x3n
+ WcbXm+FbKneamP3LdByO4XipBlXucPTnYUwTwVuqSA8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ird7ks21BjOkGlA5AdmOqoT5Aa2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkly0
+ fsRKB8IVSnArOjx6au6R+BPitwaeZyD0IM34hmMzBn/JNN/GNXoZPyP4tVVmjAtmspJAPDSI
+ dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTWNilUuj9ABM/KMEjCObd9SkUuC4
+ HrP4kzyAw0ANczZwj2Amp6prraWwnmlCNlCRdVU8NZx0We842oMJSQoFhi5+9+mpXGVeOpmf
+ hl8Fi0G6PJaGFaQZsnwWVi0rWCJujYYWsFMCKsq5QeV0K3W7g2FQG8eQVZpd9gOpMIwAzsw2
+ TehndzzAid0mKaIUn/b/bCRxQ5eIgAQJG4GICQDFA0M5oC6pJlp102QCNF+DKSyk9v5Xynqx
+ CyHpzQ/gLNVitMX06K8/hbMhDfESoX1czPZLz7/BgqNhj6Vrqb8D2B0wTA3Ncp9Ebs=
+IronPort-HdrOrdr: A9a23:nBjeYq2BMe/74PLoEs3yUgqjBLEkLtp133Aq2lEZdPWaSL3+qy
+ nOpoV86faQslwssR4b6LO90cW7IU80lqQV3WByB8bBYOCOggLBR72KhrGSpgEIdReOktK1Fp
+ 0NT0G9MrDN5JRB4voSKTPXL+od
+X-Talos-CUID: 9a23:OguAtWxLYquZAFr0Eul9BgUoPscsclLY906TCEX/IH9oRbS2RUeprfY=
+X-Talos-MUID: 9a23:ymgbAQSmvgrALLRcRXT31QtNEcF3zp2QSwMPy7MZlPavFhRJbmI=
 X-IronPort-AV: E=Sophos;i="6.01,218,1684814400"; 
-   d="scan'208";a="115538996"
+   d="scan'208";a="117268389"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CCRXOicWHAj9nEam5AAl05SmfyylXnGj50Fi3ENH8ZfEu97VZIfuDVJQd2+n5KyxTJiG1zr/+7VZkCdUgHJ25gp8zxHsIVnLDQBdWPbmdK+IxIZaFVd7hnwAl7TZSl/wiVYzIZLya89RfdDDyS6jGEgn/tQGORnzS65VLODcRTTpieH28jxvtENsM6oq+2L7hZQOxNRmw5RGlhGtDsA+esif5glkEf4IKFK+QF3b4IZ0ZOV23lRkMnn8HAGYQNb+uBA894cLcCJp5b5rfQ/fj2E9+c4CLBhcaOrVMZsczuKLojOt4h9DcMvCfXZBYeAm5txf9Oy7Uo1BL7MS794ZgA==
+ b=SuvGwHQlA5KWywFZDsOTo8OIOgG+1uQR8+iS/1C60frKPgdsrVL6KipGBr6dvxPYLriufKBfA98QS07p962U1BFT9PhfHVqVbc2eD6+NhVsw3u/NYIL3WjZzfhY/kLVVwHX7wUo1abNmnhuUUBHbC0/CAOxvWMNOeSeepCWSsM1iyhVjjfmEYW+E+9BAzM16MrHhBNmTChoq/DapjhrxUZm7jOLwgp3F6++e7z5XKqSc9PTrk8vlY07J4RL3TecmYzCilnrmw7tMh6TYDbrD3qts15aapuz+20Z4L71DDrI+5pljUJGF6L7fDVXJ0L8jQb02dry5PVbm3S8ac9X/dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2/LRt01+eEG0RC09vGzKXREvrvgUJopnQM/vveJrCdc=;
- b=JcBDwyO6+8HV7w1+UryyI7sTqZfEy98ACBit3u3og6bcectR8wcd+RsWPSm68egGoRkw6iujZbGkEocgr91gxsiAPMjNTTCOvbHTFb229/VyNFIGHZCcyN92ud2NxuCfbVAuUlJC57KVJ4ifRSMRFUq2WCYg0c/LFIuw6zY1SjfL6w4++KIJn/00sPoP91MOE+g1d4mOrZseLkeFmQIUxS2V3ptlNeo7DU4uIGaQTAoiUHia6ADG67b6S8Hzjn4YvU7h+NBCaF2gn4weNwWWIe3Zhsm5rsxJyOjx54AvlQGyk/+kAVD71UbkkkHn6SEx97aWn6znJFG2/0RxhlM33w==
+ bh=LHmNVAJhwJyrZMNRZ2DJFQDWxfGyOuELk3JbP/xrT3Q=;
+ b=FUvZcNT5+HPslFHGsngP2St3wqOGHowKZwVyDibpXsG5GechAYFk5zmDWRXbKdktnXQM/KTuXyzZuV+k5AqcaH2DR9dV7H+/vau4UMQFb6kkOyWfI4xE6vZv4FLHk1Qq+Frft/XBW0BnCPK2BxFqyP3rDR7l32CDwHhcS8ty8FeKkDgu4rE7ZWqwTCmLAW07WQlupITP6M5+5kKKaUa0f8pwX3wwL0J+NGyUH/FFGNWmHJcrAt4yjxqrww1Lv5uh9bI03aK8a4JhbonQrr1mHC06+ljy/cMg+7NgETx9Eeea9K+H/qWC+ZXGKoH/Q3HbZsF4YHKQ2QIRKE4V8VcL2Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2/LRt01+eEG0RC09vGzKXREvrvgUJopnQM/vveJrCdc=;
- b=KvlmP9kLvbXZXMd9d2dnHQEDUM5IvH024MLWclhx3pkR1VDxyf9GjWyR+FvXDfpVtdNFDFmZZQ2T0+wn9B3+kwtXkjt1iSKCsHMhMFTkB9KbwDTM6Hcm2VMbRYXXpyG84v/+WMYM0w7ObxbLgDG2DKKkxOBdUreXlmCBXfH+tbU=
+ bh=LHmNVAJhwJyrZMNRZ2DJFQDWxfGyOuELk3JbP/xrT3Q=;
+ b=sTJ2TlGasGqAilrAbMvGvMwSoRTuTY2LocyqtrqvqUETnH9m2Lke48NTLsgo5Dvq+zh3Ve8buhhJrm92UGKeeXz5qLU0Zfs/UYzrRJ3+E2hDjxFYcqEH0ssUXtZYkii1J8rcIjQmS86e49n+Cdzof2uhS2ABM1miAy2JqrJjZC4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -108,381 +107,243 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 3/6] libxl: introduce MSR data in libxl_cpuid_policy
-Date: Thu, 20 Jul 2023 10:25:37 +0200
-Message-ID: <20230720082540.69444-4-roger.pau@citrix.com>
+Subject: [PATCH v3 4/6] libxl: split logic to parse user provided CPUID features
+Date: Thu, 20 Jul 2023 10:25:38 +0200
+Message-ID: <20230720082540.69444-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230720082540.69444-1-roger.pau@citrix.com>
 References: <20230720082540.69444-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO3P123CA0004.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:ba::9) To SJ0PR03MB6423.namprd03.prod.outlook.com
+X-ClientProxiedBy: LNXP265CA0048.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:5c::36) To SJ0PR03MB6423.namprd03.prod.outlook.com
  (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB5760:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b1fa335-f0b2-40b0-b4fe-08db88fb168d
+X-MS-Office365-Filtering-Correlation-Id: 93afaddc-7181-46a9-ed88-08db88fb19fa
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	mpJ5Ulom3cy8Aq5OQEZmw89hFhI9oKQxwCIaJCP9xKeffL6RNVFl5MVIvuxsaqiHzCjHub3YQ5/SieFvQ6vTEDDlKc3U2+iEWGKTVSNRrOhx8hZbF9Kko+xvLAE8UQ5hiWkuM/e9SXNf7YurWwD9tluBywTcSj7jBBkHS6Pg8fNdWdt88ARXQ18FpnhE2ktJnYLydZOc1++J8oLYi1dp20BfuX1fvHJsa293IYFmXcBv0PX+YrdSudm32/JWcg1+weVf3Opb2Dy/NcL1GbLabZ37VzmqMitGEAypuZIn2U90HiPtJ8MC53KXSiUUECvo83L7XermNFiL4FpH46jujvwYlBTqypZXL/hbJjQbjTLr6xVBiqxHr5hLe6PqAK1g5elPjqiukga9Dg9bine2Qk6LHTNqkLUisHNozZ9w1MDYOgNPg56hEOv3WbG8Pt15ZmXqtzCDOXQ91betB8qilbQJ1ZIDgFmhZolZ/8p82mWsxxsHccRgJ60jNKkUpj/3QGlbP8/A6K66L2FVRac31JcCBQ7XW0z7twsLw9dH+OfIWjoYc/lAGxnrShQfmnt3
+	5A0nSjhlQ7AMcdRVHyK6Qpdp0UUN8UQ9ES0nmA0UJybYx6+QKMDf1MMAxpxUupONFu+soZbTekvdifVpftQ9qjbbxcjtlwgdoROzFR2Dq29iGZd+O3AgNMDHqZ4/ZlR60pDHVpt6LLve9ZiirgU7kqIJKn9qBWiiT/GgfYhDpkzYcV4GHWqQ0DsakSIMB2rBWJEa0HK+nndkFKZ/qcsazMgoBa1MKuztF/3sAjzcuDpcQNmQtJVuCWv1fibG7jqPP/41oY92kgQExdCNS165fDHKkBbIWZy21+6K3ubbDJ/IxGk0wfjTmLOzFlIS80h/eli54uAuv6y89afJYtvcwxTU2RaggxLAmpx7HOgMrhvKa0e8hTxns8b6xWfyp+ezQJ6g6+kJSPPDKNMXZFaSqituBF4R5bp9QNd8AA+00el3Bo2fPGTw3Gb8JR2EsfeBXMVyb+Luhh+cdp5VAk2ukifDQPe8Sxup3Dwy1Gt1NxXFPo6KtryYrnaHZoBwW5r8d3SckZ+wW55S8g+zHsz1bDIu3dvDGmfA141VapEKgZ2HvwUNqok9nSVKa/4ObR/i
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(346002)(136003)(376002)(366004)(451199021)(86362001)(478600001)(83380400001)(1076003)(186003)(38100700002)(41300700001)(26005)(54906003)(6916009)(8676002)(8936002)(316002)(2906002)(4326008)(6512007)(66556008)(66946007)(6666004)(66476007)(6486002)(6506007)(82960400001)(2616005)(36756003)(5660300002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QnFhalZzamFld2VJY2VpdnFBbTN1Z1h3YWZ5dHVKdnE1eVc5bjIrZmxwSzJs?=
- =?utf-8?B?bHZCZkREdnE0eGg1TDh0S05ma1VhVUxXTFgxV1JqVzlVcHAzMGVFOWM5UFp2?=
- =?utf-8?B?SHRRNVZTekdXbHBBeGwvNENNL1U1VzVSSGFBUGltOXB2SnlNNlV3ZmprU0Yw?=
- =?utf-8?B?ejFXVERrczlyTUVyYWVEZG5INnMxN3h6QlFDbExQR0twK0E3R1l3bkZvWXJm?=
- =?utf-8?B?aEplU3NVcHlSVmczdUwrRzhGUU5icFY3WVg4VU5ldFJ4M00wb3NDV3FSMzdC?=
- =?utf-8?B?OFYyVEk4RkJHaGMyME5WNldKaHV6K0FySDZIUWplYlJCWlZUNmJ4TDJOdkMy?=
- =?utf-8?B?OVlKcldabVBHaHc2QTlFS2lxRmFCa0Z6eUtqZEU3aFR1c1VrRG90Rzc5UkpQ?=
- =?utf-8?B?UDJ1N1k5QmpmTEZjOVpodUdyVHhBVjBGODRQY1U3WGNGaXRsUG1MRzU5SEJa?=
- =?utf-8?B?TU9qWjFDNlBpejlkcmIySk9OeHE0Yk42OXhOZjJSMDJDaFYvTURmYzAySkgy?=
- =?utf-8?B?cFNMVitNK3lRTTdIeS95QXMvbFExTFVISGMxTzNibnRzYkxmZDlGVVBIRDM1?=
- =?utf-8?B?bHNyRUxxMFU5aE1TYWZDNUxEVWVicTVzRXY3U3o4OHpmVERZSDJ3dXBqQlJ6?=
- =?utf-8?B?ZEw5SkIxV3hVd3RNY1hYdmJGbXkxb1JONnBkM0YzcXNqQjIvdFhvYkxvU2hV?=
- =?utf-8?B?dDJERkdjOUEvZmZnWlc5cFduV3c3UzF5ZFh2U1VBQ0Q5elRMWWRmVDdDeFNw?=
- =?utf-8?B?cHlqZ3l6cnBDakhWdktnSTZaTkM0Uy9VM2IzTmlRbkp6VU1oNjNlTzFVTmt0?=
- =?utf-8?B?bGJmTEVHQ1ZxT1NHVkJTUkl1eGhXbnhjNi9Ha1JQREdnVG1aYmQ4QjI3UW40?=
- =?utf-8?B?aDE1aklUNHNjeXdGUDFPWGtUNG1Lazk5a1ZzNFJaUW9YTm9yN3ZBSW5sTzR0?=
- =?utf-8?B?TCt0bERCTFlNZE9FUXBtbXA1aGxmYlRDNkF5cXZ2d0pxMUZYZ0JFbmhXZnJR?=
- =?utf-8?B?ZU9HcWV3bU1qQnVDS1NSaThOQUhOcnVZRm1HN1lYS2lzRGV6azZxL0dKR2Zp?=
- =?utf-8?B?dHJrNDBDSEVadUtwMmFYV1drN2dsUWhPWm94L3ZZVEJtVmdIblBQSUh1WTBa?=
- =?utf-8?B?UENNcTgyM2ZGMFJYeXJpamJ2QitKKy9CbVRFaGJGZTliZnl4Zi9vYkdWUG1Z?=
- =?utf-8?B?VjQ2TFV1OTF2VnlUbFFybkRyVDFPT010QlFtV2I5ZWFNOVJ3d0dXNW03b1R6?=
- =?utf-8?B?QlJIaW1zMUI0NmpYZ2pTQzN3WkFneEo5UFFhRTZ1RU42TXdSMHpkbFgwaGpZ?=
- =?utf-8?B?RnRSdEY0MGZtc3dWWkZ6aTNzaEZ4Q1R3d2RHU1pXRWtEYXRjT3o3ZHBqOGJk?=
- =?utf-8?B?L2lZTWdBSlFReXZYbUcrNW80RDNpcVZzWnQrdnZDcWJRK3hSN3dFelpuNlgy?=
- =?utf-8?B?SzhtSGJsakVxQ2M5bHN6cVF4eXVTSTIxTFZvTUdyb0RMZW9sbmVlc09FdVMx?=
- =?utf-8?B?K2Y2LzhjYU1oVFhxSjlQWWhpMVprckVPOUlNZ1BkdWd3RitvMnU1N0JGQ3RZ?=
- =?utf-8?B?K1VUU25GbFRVK01Wbmd0QlpFNzdaeFkybkJLUUdrZ2VVa0FaSmx4RnMreWNn?=
- =?utf-8?B?WEZnYWR4SEUrVWIwMzB4NGpFbzVVb0FPcFdTa3owRktrNTk4enpWa1FWOE1D?=
- =?utf-8?B?N3loeUpoNjJHZGpLZUZGczdzVlRmK21pTTdlT2lXQTVtQTNPSkwvZVFFOU13?=
- =?utf-8?B?K1VMM0JpOGl1N2dhaDQyYWRVemxncm0wQ3JDd0lNbEFqbHBtQ2Y2YTZwTitK?=
- =?utf-8?B?a1VLMitLUkRxMjUvd1Uva3FlbkRsMmRaTUdXU3kzbFM1b3FDb25wZWtuS2ZW?=
- =?utf-8?B?cVBSczlmSEhlN1F1ZWQ5cFhaS3JDVjNnRWlIS3h6WUFLd3VKdk42R25wNFFM?=
- =?utf-8?B?WDZxdUlzMzRJZlAwSmdnc3ZPcThHQVM1NnBLT2xRY0dsUkVVMUdRK2ZhRTds?=
- =?utf-8?B?MStwQi9aN0RGUEtBSmgyejdmQ3dwQzhKWU1xMVpjNXBMMytuOGxhVm05M3Ny?=
- =?utf-8?B?cjRkbThqeVBPcnY1bjNVTkJKMzJxSDltZ29BeWlqRTRBdDdJemx4UFFGbERI?=
- =?utf-8?B?c3hVck1HMnFOaWFqcXJuTjF2bjFGMEdubXNxTzV1eGl6MlNRbVdtVFE4MGxz?=
- =?utf-8?B?MkE9PQ==?=
+	=?utf-8?B?Wk9RNjkrR1AxNGJDZEVIOGhPek5wRGljQ3ZJa1NVbjI4M0p4NHdZeVJrWUNZ?=
+ =?utf-8?B?STY0dEtkRlZUWEpSR0JOQi9Ra1BMZlBuMEFYbmhwNmhGRXdPejlnQlNiTXhB?=
+ =?utf-8?B?TGFyakZMLzhoYjIrYjNieVQ0YUhNdW1xZWxTK1FCUEdGU0RtUGFJdmZLNGZ5?=
+ =?utf-8?B?blZsakQ2RGFxVW5aMVM5WnRhc1pMT2c5Q2ljT0hYdElFWUg5ZFRmSEZ5V2NN?=
+ =?utf-8?B?N3FTeUlPYnhLbHJrSWR3dWRzdGlhNTc3RUY4RWN3ZFB2SWFEcWRhWWdxdkJl?=
+ =?utf-8?B?MlpVNDBhU0Nab3dvYnoxdEQyWDJsMWxXV2c1dlFITmdLeXBVTTA4S2RQcmlu?=
+ =?utf-8?B?NmhLWlZ2ZkpYanAwQ2NnSmFkWExqMGVqbGRpVG9hM0tJR04rL0JzZXdheVF3?=
+ =?utf-8?B?ZEx0YSs0U0hNNzBnWTlSYlVvNmVHbHdCQTNJZFJQcmtxTUFVdFZydllZRmlz?=
+ =?utf-8?B?c0g5VEhIVytvTnBZQ05FNEpaNElYN3NVRHVWamJZdXdCTkgwV1ZUV1ZVMzMx?=
+ =?utf-8?B?dGRPeXZLTXV3d3dZNzBrSU05eVVSMVlmZGJtMFdjc0NTVkZtZy9sSFFrMk1M?=
+ =?utf-8?B?Nm83ZTBJMThVSWErVmN0QTJrN1puQVphTUZyczhxVklPUzVuSFFXUHFjWlVV?=
+ =?utf-8?B?MjBGTk9NQ0p5SnJucnpOQWZ6UFlxYk02VzBHRTJwVm9HRjlKbnIwOVJqVHdu?=
+ =?utf-8?B?bWkyeDkxVjVBbkFmNzlMNTZ5Q3VSWEhTNnc5SjJQdVhROEFCMWlDTzMvaHA3?=
+ =?utf-8?B?eVRkTVhMTXhOOXI5VGM4Ly9RbzNod3N0alk2RVRhMEpySGNMRklqNWVodHVV?=
+ =?utf-8?B?cXJqTFdUcjdtUXpvRG54Q3dKYTV2ZHppR3pSQ3BkSmtLTFFCOG5HWEdRb0JU?=
+ =?utf-8?B?Vm9mSGZkR1ZPS0V5Vk8rWVBOTGJrWnRtMEozUW9sOGZncEVrVkp3VjlNNkRh?=
+ =?utf-8?B?RXk3SGFvVkpPWlpXbmJPL0E1UUhDMHJKd05RZkZUUFdnMGhUL0psa0ZzR3Za?=
+ =?utf-8?B?SGkyTzhvMm9DT0tHenF6dml0VTdVcFRSMTlrdnFJVjVIazV1cGJ5N3hhdVQy?=
+ =?utf-8?B?cCtqa2pHa01OMlZjZWNyaTFocUhxVjVKUy8xaGQySGlzNVMzYUsxV3pXRldK?=
+ =?utf-8?B?bHFrblFEb25DQmpjYUJzZGw3U2VOb1BhMTdNeFZjSS8vU2JENlJ1aklkNW5Q?=
+ =?utf-8?B?S0wzTCtzbWRGY2wzbGsyaTY0WWtyemZ6V1lPYVZsazlHNUtUZ3NwSVhUR3Zi?=
+ =?utf-8?B?emJwc2VmZ2Fsc3FySWRYODdlN2QrQWtFL2pxN1phS0ZleWhkSTBmMU9IRCsy?=
+ =?utf-8?B?Tyt2T0FoUkhtdDZwNHZNNG1JdmkrZ2ozTEFKUFg0Ty8zb2gweGxPWkVReDE2?=
+ =?utf-8?B?RkJJVFhxY01kTDZXNzQ1Qlg5dFBJazM1dWRlZ2pCckJaL3dFOEY2ZTk0U0Ns?=
+ =?utf-8?B?bmNCVE5Ga3NTWFA3enlsaE1SN28zV0tHZDJXbkxTZnZkOEU4QmxHTTZLTTkr?=
+ =?utf-8?B?aEcybStRclU1OW5xM0xaKzlySERjdE5tWmRqSjBaOFY5ajRtMitMd2tRYVdr?=
+ =?utf-8?B?Tit0YzVNZDRMb1pHK2JtTG1rNWdJclZ1QTFOa0tyV1dGWnliYTV6dk0yS21C?=
+ =?utf-8?B?NXVEUi9uSE5PbGlES2FYY2wyNjVNYURVaDhaMWhrL211S3FKcmRVSitUZEZS?=
+ =?utf-8?B?QUFrSzFnM3VVYW1nV3FRV2pBeDRaTlpLUUFwUFFDcjF1TkNQYTZmZ1p4MEl6?=
+ =?utf-8?B?Sk15czJnVHU4SHdhb2Urd2JNU1VPT3NnYWZIRDdkZ3NnNVlyRkQ3MWRTd2NE?=
+ =?utf-8?B?aTJ3SnVEc25uUEFrY0l0Wis3SjU3VHdyZXBTZFU2aHVraEMzb0hiUkdEaGxU?=
+ =?utf-8?B?VVZoMC9NYUdqL09IMU9mTTFpMksvVmgvR1ZDYmwwak9pRzV4MEdIdWlTemRY?=
+ =?utf-8?B?QlpmZGVIWnZpZHZ1SC9qUThxYzNEMU43dGJlVzdWdmxJZUJEcGFRQktvSjJO?=
+ =?utf-8?B?cU9nUTNCZjQ1RzdCZWs3OWJMVHJ2Y1pmR2hBK0h1blVaRXpway8xTVNteDNR?=
+ =?utf-8?B?ZFZ6Y2k5Y3lvOVN2YVhXSld2UldoWDNBZTNjOHNqMVFETWJUQ3c5U3AxSjJY?=
+ =?utf-8?B?TlIzM2hoemx4U0NraURkOGNxeWpzaUJId0NBcmNzYmxzbnhYeTY1Z2hpM0kw?=
+ =?utf-8?B?alE9PQ==?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	VG7vtKK5icSJxQE37R0XmUdgLsTke1C6DQ0IiJA+KXqNSR+XYBEQHzBbX257hiqh/MipLzVFfX3K/SP9q9OdNMzygNiTmoJ7qZdUJfR/aWX6mXZYzMyJLecTDmaaaR7yk9gGbfLh+72jdnjCifSh67z5o15x9z6yxYVCtZuerCZe221sOfQxhNXkI81XW49KhW5YDsnbIPgPQAXkKtmAn0a0BqErXuXxXhKyFOs6blDKpQ/v4PE0+Lbdx8Md+I/SigzMrd5UNRlfqF690InPfZJQzIbxlS1fAQMZcx5fk3og17kBRI4pphwHjj7geBxoeKXjlwpiFdG34UOYb/4eAOgMHv/88/UXJclVoeQgMpKCM1njCu/QR5brCe+uuvmtyTFIcdACVCUAnaukXoCDeJo4NxXZFcPpgimb/tYO8/t53v35SgYvaYCW2cYhyleAZA2H9jlaZJj9NbSBl2NFbZTLCBQAs5uC6SdSduSTXTgr976LZdQAjdE5TifKq2VofhwO+ct/DafSvU9aP1xpU9WfqCyn/D92hxtRDQKBVDYjWUf22Jg1n9ZxAJm/t17yPxMEhWrxt82kZvKF0+wJ+IL3ILuBIIE7X0OS9A8sNsxogLjyh9RrJEQH40IeHNptFdCW23GgZrLcAauriTzYRn1kgtuFJpv6abLPbB4JE3rNRd+NANOrFjHk22pWxHIHql5f7AODDnLFpAHsVrEM6/ui+tn35PxGqJBmWqQPSZJA2hwSqTxDGsw/tAZmIdsbUShdtsesanTFbdFVe/nmelSxfq07FFUSG7zHrqmK7hhukHFz7qJNkLmuMb9K6IW1
+	jnrrVzdqlcr/So8/tOn8WEMREA6GqylsE3twnmMtIrnY8n333pjYO1N3IRM5tFefM/X8iIWTH6jo0rpwlm4ok+l8sMTjUuWxQhwX3J3hNpLcb43N14S/UYWuB7SNmqxbIkhR61sNm93WQJ2fFIDFnJvmWCMMyvv7k9EfpXKlWlHcttbHyrvno2BM5W3M4Jo5hIm51Ir/43/5pIAB18yuFp5R/Ghz6e8GuubeUOc/3Y/Mn70qqLTygOm7hPVmYyyPn9/Ve+NZQQbr9dTlm3Nf9jIdXCnzA360TB7/kAMA5ZDFVbv+pDZJ0dUVr/dJ1wsW8IXYF07bcIP1mPyWqR2q7hfDAebeCJruO7zlWzy5x5ZUtLGHwktjmVfuCKgNWfgaEPl9OsG6M+O/f9eP2L8z5rB0gtUs3nOFfY1e+hl1jlOWu6tZRx8XhH7AZSCMKO7iGJ7085d7CgMGM+qGXgAGTUL9jZGblpwyQ10EaR4AKILTRZBXtLiEWo00+jReySHqwKKr2BRZdNH4dHmVvqGxzB3gK090XE9ICuaGUMFvHtTmCsfXFjHHXGWAsIcsZSqEe2qmK6HZAD1y+sHvcHtJmUojVA57BpQCztbHV9LEiRopfppVtI9JvdTdiEO1i9WP4UrYJ+hijMvgKjoY7ve7KOA2zF4fsjTs8sP2DhM3A/4so86fSmxy8xEM7X/uo99WQRLyfsT2zUm/A9NMdZ4mgP5cP28+VgC0IVCUTWpbAOZg8H/G9mU3JV/uuztFkrYXHIWoERgWhQ4l8pZRbK6MVHCrWW2WQtcKpwHt4kiJfYiSS8xeuoYjtdOC0/8YDw9p
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1fa335-f0b2-40b0-b4fe-08db88fb168d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93afaddc-7181-46a9-ed88-08db88fb19fa
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 08:27:00.0946
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 08:27:06.3522
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /ZyCqlIVpX1OMka4s1N2f7nNp13P37W2t7QFjQhIuaOrQkrCrV0kIqEnpxEAWh/mXq03wgv+dsU4+uQAjouiHA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: acJ6znnuepME0E9GuGQTcsgDUqaYu88GxjdOHvCSBOixQGCbml74V6VRJnnVtSHTj3Akz65uaxNOP/4dM5UwLg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5760
 
-Add a new array field to libxl_cpuid_policy in order to store the MSR
-policies.
+Move the CPUID value parsers out of libxl_cpuid_parse_config() into a
+newly created cpuid_add() local helper.  This is in preparation for
+also adding MSR feature parsing support.
 
-Adding the MSR data in the libxl_cpuid_policy_list type is done so
-that existing users can seamlessly pass MSR features as part of the
-CPUID data, without requiring the introduction of a separate
-domain_build_info field, and a new set of handlers functions.
+No functional change intended.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
-Changes since v2:
- - Unconditionally call free().
- - Implement the JSON marshaling functions.
----
-It would be nice to rename the json output field to 'cpu_policy'
-instead of 'cpuid', so that it looks like:
-
-"cpu_policy": {
-    "cpuid": [
-        {
-            "leaf": 7,
-            "subleaf": 0,
-            "edx": "xx1xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-        },
-        {
-            "leaf": 1,
-            "ebx": "xxxxxxxxxxxxxxxx00010000xxxxxxxx"
-        }
-        }
-        }
-    ],
-    "msr": [
-        {
-            "index": 266,
-            "policy": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1xx1x1"
-        }
-    ]
-},
-
-Sadly I have no idea how to do that, and can be done in a followup
-change anyway.
----
- tools/libs/light/libxl_cpuid.c    | 142 ++++++++++++++++++++++++++----
- tools/libs/light/libxl_internal.h |   1 +
- tools/libs/light/libxl_types.idl  |   2 +-
- 3 files changed, 128 insertions(+), 17 deletions(-)
+ tools/libs/light/libxl_cpuid.c | 120 +++++++++++++++++----------------
+ 1 file changed, 63 insertions(+), 57 deletions(-)
 
 diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpuid.c
-index 3c8b2a72c0b8..68b797886642 100644
+index 68b797886642..c62247f9bda7 100644
 --- a/tools/libs/light/libxl_cpuid.c
 +++ b/tools/libs/light/libxl_cpuid.c
-@@ -16,7 +16,7 @@
- 
- int libxl__cpuid_policy_is_empty(libxl_cpuid_policy_list *pl)
- {
--    return !libxl_cpuid_policy_list_length(pl);
-+    return !*pl || (!libxl_cpuid_policy_list_length(pl) && !(*pl)->msr);
+@@ -96,6 +96,66 @@ static struct xc_xend_cpuid *cpuid_find_match(libxl_cpuid_policy_list *pl,
+     return *list + i;
  }
  
- void libxl_cpuid_dispose(libxl_cpuid_policy_list *pl)
-@@ -40,6 +40,8 @@ void libxl_cpuid_dispose(libxl_cpuid_policy_list *pl)
-         free(policy->cpuid);
-     }
- 
-+    free(policy->msr);
++static int cpuid_add(libxl_cpuid_policy_list *policy,
++                     const struct cpuid_flags *flag, const char *val)
++{
++    struct xc_xend_cpuid *entry = cpuid_find_match(policy, flag->leaf,
++                                                   flag->subleaf);
++    unsigned long num;
++    char flags[33], *resstr, *endptr;
++    unsigned int i;
 +
-     free(policy);
-     *pl = NULL;
-     return;
-@@ -516,7 +518,8 @@ int libxl__cpuid_legacy(libxl_ctx *ctx, uint32_t domid, bool restore,
- 
-     r = xc_cpuid_apply_policy(ctx->xch, domid, restore, NULL, 0,
-                               pae, itsc, nested_virt,
--                              info->cpuid ? info->cpuid->cpuid : NULL, NULL);
-+                              info->cpuid ? info->cpuid->cpuid : NULL,
-+                              info->cpuid ? info->cpuid->msr : NULL);
-     if (r)
-         LOGEVD(ERROR, -r, domid, "Failed to apply CPUID policy");
- 
-@@ -528,16 +531,22 @@ static const char *input_names[2] = { "leaf", "subleaf" };
- static const char *policy_names[4] = { "eax", "ebx", "ecx", "edx" };
- /*
-  * Aiming for:
-- * [
-- *     { 'leaf':    'val-eax',
-- *       'subleaf': 'val-ecx',
-- *       'eax':     'filter',
-- *       'ebx':     'filter',
-- *       'ecx':     'filter',
-- *       'edx':     'filter' },
-- *     { 'leaf':    'val-eax', ..., 'eax': 'filter', ... },
-- *     ... etc ...
-- * ]
-+ * {   'cpuid': [
-+ *              { 'leaf':    'val-eax',
-+ *                'subleaf': 'val-ecx',
-+ *                'eax':     'filter',
-+ *                'ebx':     'filter',
-+ *                'ecx':     'filter',
-+ *                'edx':     'filter' },
-+ *              { 'leaf':    'val-eax', ..., 'eax': 'filter', ... },
-+ *              ... etc ...
-+ *     ],
-+ *     'msr': [
-+ *            { 'index': 'val-index',
-+ *              'policy': 'filter', },
-+ *              ... etc ...
-+ *     ],
-+ * }
-  */
- 
- yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
-@@ -545,9 +554,16 @@ yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
- {
-     libxl_cpuid_policy_list policy = *pl;
-     struct xc_xend_cpuid *cpuid;
-+    struct xc_msr *msr;
-     yajl_gen_status s;
-     int i, j;
- 
-+    s = yajl_gen_map_open(hand);
-+    if (s != yajl_gen_status_ok) goto out;
-+
-+    s = libxl__yajl_gen_asciiz(hand, "cpuid");
-+    if (s != yajl_gen_status_ok) goto out;
-+
-     s = yajl_gen_array_open(hand);
-     if (s != yajl_gen_status_ok) goto out;
- 
-@@ -582,6 +598,39 @@ yajl_gen_status libxl_cpuid_policy_list_gen_json(yajl_gen hand,
- 
- empty:
-     s = yajl_gen_array_close(hand);
-+    if (s != yajl_gen_status_ok) goto out;
-+
-+    s = libxl__yajl_gen_asciiz(hand, "msr");
-+    if (s != yajl_gen_status_ok) goto out;
-+
-+    s = yajl_gen_array_open(hand);
-+    if (s != yajl_gen_status_ok) goto out;
-+
-+    if (!policy || !policy->msr) goto done;
-+    msr = policy->msr;
-+
-+    for (i = 0; msr[i].index != XC_MSR_INPUT_UNUSED; i++) {
-+        s = yajl_gen_map_open(hand);
-+        if (s != yajl_gen_status_ok) goto out;
-+
-+        s = libxl__yajl_gen_asciiz(hand, "index");
-+        if (s != yajl_gen_status_ok) goto out;
-+        s = yajl_gen_integer(hand, msr[i].index);
-+        if (s != yajl_gen_status_ok) goto out;
-+        s = libxl__yajl_gen_asciiz(hand, "policy");
-+        if (s != yajl_gen_status_ok) goto out;
-+        s = yajl_gen_string(hand,
-+                            (const unsigned char *)msr[i].policy, 64);
-+        if (s != yajl_gen_status_ok) goto out;
-+
-+        s = yajl_gen_map_close(hand);
-+        if (s != yajl_gen_status_ok) goto out;
-+    }
-+
-+done:
-+    s = yajl_gen_array_close(hand);
-+    if (s != yajl_gen_status_ok) goto out;
-+    s = yajl_gen_map_close(hand);
- out:
-     return s;
- }
-@@ -592,17 +641,24 @@ int libxl__cpuid_policy_list_parse_json(libxl__gc *gc,
- {
-     int i, size;
-     struct xc_xend_cpuid *l;
-+    struct xc_msr *msr;
-+    const libxl__json_object *co;
-     flexarray_t *array;
- 
--    if (!libxl__json_object_is_array(o))
-+    if (!libxl__json_object_is_map(o))
-         return ERROR_FAIL;
- 
--    array = libxl__json_object_get_array(o);
-+    co = libxl__json_map_get("cpuid", o, JSON_ARRAY);
-+    if (!libxl__json_object_is_array(co))
-+        return ERROR_FAIL;
-+
-+    *p = libxl__calloc(NOGC, 1, sizeof(**p));
-+
-+    array = libxl__json_object_get_array(co);
-     if (!array->count)
--        return 0;
-+        goto cpuid_empty;
- 
-     size = array->count;
--    *p = libxl__calloc(NOGC, 1, sizeof(**p));
-     /* need one extra slot as sentinel */
-     l = (*p)->cpuid = libxl__calloc(NOGC, size + 1,
-                                     sizeof(struct xc_xend_cpuid));
-@@ -642,6 +698,40 @@ int libxl__cpuid_policy_list_parse_json(libxl__gc *gc,
-         }
-     }
- 
-+cpuid_empty:
-+    co = libxl__json_map_get("msr", o, JSON_ARRAY);
-+    if (!libxl__json_object_is_array(co))
-+        return ERROR_FAIL;
-+
-+    array = libxl__json_object_get_array(co);
-+    if (!array->count)
-+        return 0;
-+    size = array->count;
-+    /* need one extra slot as sentinel */
-+    msr = (*p)->msr = libxl__calloc(NOGC, size + 1, sizeof(struct xc_msr));
-+
-+    msr[size].index = XC_MSR_INPUT_UNUSED;
-+
-+    for (i = 0; i < size; i++) {
-+        const libxl__json_object *t, *r;
-+
-+        if (flexarray_get(array, i, (void**)&t) != 0)
-+            return ERROR_FAIL;
-+
-+        if (!libxl__json_object_is_map(t))
-+            return ERROR_FAIL;
-+
-+        r = libxl__json_map_get("index", t, JSON_INTEGER);
-+        if (!r) return ERROR_FAIL;
-+        msr[i].index = libxl__json_object_get_integer(r);
-+        r = libxl__json_map_get("policy", t, JSON_STRING);
-+        if (!r) return ERROR_FAIL;
-+        if (strlen(libxl__json_object_get_string(r)) !=
-+            ARRAY_SIZE(msr[i].policy) - 1)
-+            return ERROR_FAIL;
-+        strcpy(msr[i].policy, libxl__json_object_get_string(r));
-+    }
-+
-     return 0;
- }
- 
-@@ -677,6 +767,10 @@ void libxl_cpuid_policy_list_copy(libxl_ctx *ctx,
-     }
- 
-     *pdst = libxl__calloc(NOGC, 1, sizeof(**pdst));
-+
-+    if (!(*psrc)->cpuid)
-+        goto copy_msr;
-+
-     dst = &(*pdst)->cpuid;
-     src = &(*psrc)->cpuid;
-     len = libxl_cpuid_policy_list_length(psrc);
-@@ -696,6 +790,22 @@ void libxl_cpuid_policy_list_copy(libxl_ctx *ctx,
-                 (*dst)[i].policy[j] = NULL;
-     }
- 
-+copy_msr:
-+    if ((*psrc)->msr) {
-+        const struct xc_msr *msr = (*psrc)->msr;
-+
-+        for (i = 0; msr[i].index != XC_MSR_INPUT_UNUSED; i++)
-+            ;
-+        len = i;
-+        (*pdst)->msr = libxl__calloc(NOGC, len + 1, sizeof(struct xc_msr));
-+        (*pdst)->msr[len].index = XC_MSR_INPUT_UNUSED;
-+
-+        for (i = 0; i < len; i++) {
-+            (*pdst)->msr[i].index = msr[i].index;
-+            strcpy((*pdst)->msr[i].policy, msr[i].policy);
++    resstr = entry->policy[flag->reg - 1];
++    num = strtoull(val, &endptr, 0);
++    flags[flag->length] = 0;
++    if (endptr != val) {
++        /* if this was a valid number, write the binary form into the string */
++        for (i = 0; i < flag->length; i++) {
++            flags[flag->length - 1 - i] = "01"[!!(num & (1 << i))];
++        }
++    } else {
++        switch(val[0]) {
++        case 'x': case 'k': case 's':
++            memset(flags, val[0], flag->length);
++            break;
++        default:
++            return 3;
 +        }
 +    }
 +
- out:
-     GC_FREE;
++    if (resstr == NULL) {
++        resstr = strdup("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
++    }
++
++    /* the family and model entry is potentially split up across
++     * two fields in Fn0000_0001_EAX, so handle them here separately.
++     */
++    if (!strcmp(flag->name, "family")) {
++        if (num < 16) {
++            memcpy(resstr + (32 - 4) - flag->bit, flags + 4, 4);
++            memcpy(resstr + (32 - 8) - 20, "00000000", 8);
++        } else {
++            num -= 15;
++            memcpy(resstr + (32 - 4) - flag->bit, "1111", 4);
++            for (i = 0; i < 7; i++) {
++                flags[7 - i] = "01"[num & 1];
++                num >>= 1;
++            }
++            memcpy(resstr + (32 - 8) - 20, flags, 8);
++        }
++    } else if (!strcmp(flag->name, "model")) {
++        memcpy(resstr + (32 - 4) - 16, flags, 4);
++        memcpy(resstr + (32 - 4) - flag->bit, flags + 4, 4);
++    } else {
++        memcpy(resstr + (32 - flag->length) - flag->bit, flags,
++               flag->length);
++    }
++    entry->policy[flag->reg - 1] = resstr;
++
++    return 0;
++
++}
++
+ /* parse a single key=value pair and translate it into the libxc
+  * used interface using 32-characters strings for each register.
+  * Will overwrite earlier entries and thus can be called multiple
+@@ -340,12 +400,8 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *policy, const char* str)
+         {NULL, 0, NA, CPUID_REG_INV, 0, 0}
+     };
+ #undef NA
+-    char *sep, *val, *endptr;
+-    int i;
++    const char *sep, *val;
+     const struct cpuid_flags *flag;
+-    struct xc_xend_cpuid *entry;
+-    unsigned long num;
+-    char flags[33], *resstr;
+ 
+     sep = strchr(str, '=');
+     if (sep == NULL) {
+@@ -355,60 +411,10 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *policy, const char* str)
+     }
+     for (flag = cpuid_flags; flag->name != NULL; flag++) {
+         if(!strncmp(str, flag->name, sep - str) && flag->name[sep - str] == 0)
+-            break;
+-    }
+-    if (flag->name == NULL) {
+-        return 2;
+-    }
+-    entry = cpuid_find_match(policy, flag->leaf, flag->subleaf);
+-    resstr = entry->policy[flag->reg - 1];
+-    num = strtoull(val, &endptr, 0);
+-    flags[flag->length] = 0;
+-    if (endptr != val) {
+-        /* if this was a valid number, write the binary form into the string */
+-        for (i = 0; i < flag->length; i++) {
+-            flags[flag->length - 1 - i] = "01"[!!(num & (1 << i))];
+-        }
+-    } else {
+-        switch(val[0]) {
+-        case 'x': case 'k': case 's':
+-            memset(flags, val[0], flag->length);
+-            break;
+-        default:
+-            return 3;
+-        }
+-    }
+-
+-    if (resstr == NULL) {
+-        resstr = strdup("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
++            return cpuid_add(policy, flag, val);
+     }
+ 
+-    /* the family and model entry is potentially split up across
+-     * two fields in Fn0000_0001_EAX, so handle them here separately.
+-     */
+-    if (!strncmp(str, "family", sep - str)) {
+-        if (num < 16) {
+-            memcpy(resstr + (32 - 4) - flag->bit, flags + 4, 4);
+-            memcpy(resstr + (32 - 8) - 20, "00000000", 8);
+-        } else {
+-            num -= 15;
+-            memcpy(resstr + (32 - 4) - flag->bit, "1111", 4);
+-            for (i = 0; i < 7; i++) {
+-                flags[7 - i] = "01"[num & 1];
+-                num >>= 1;
+-            }
+-            memcpy(resstr + (32 - 8) - 20, flags, 8);
+-        }
+-    } else if (!strncmp(str, "model", sep - str)) {
+-        memcpy(resstr + (32 - 4) - 16, flags, 4);
+-        memcpy(resstr + (32 - 4) - flag->bit, flags + 4, 4);
+-    } else {
+-        memcpy(resstr + (32 - flag->length) - flag->bit, flags,
+-               flag->length);
+-    }
+-    entry->policy[flag->reg - 1] = resstr;
+-
+-    return 0;
++    return 2;
  }
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index ef882cff3912..b1a7cd9f615b 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -4871,6 +4871,7 @@ _hidden int libxl__domain_set_paging_mempool_size(
  
- struct libxl__cpu_policy {
-     struct xc_xend_cpuid *cpuid;
-+    struct xc_msr *msr;
- };
- 
- #endif
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 9e48bb772646..887824fdd828 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -19,7 +19,7 @@ libxl_mac = Builtin("mac", json_parse_type="JSON_STRING", passby=PASS_BY_REFEREN
- libxl_bitmap = Builtin("bitmap", json_parse_type="JSON_ARRAY", dispose_fn="libxl_bitmap_dispose", passby=PASS_BY_REFERENCE,
-                        check_default_fn="libxl_bitmap_is_empty", copy_fn="libxl_bitmap_copy_alloc")
- libxl_cpuid_policy_list = Builtin("cpuid_policy_list", dispose_fn="libxl_cpuid_dispose", passby=PASS_BY_REFERENCE,
--                                  json_parse_type="JSON_ARRAY", check_default_fn="libxl__cpuid_policy_is_empty",
-+                                  json_parse_type="JSON_MAP", check_default_fn="libxl__cpuid_policy_is_empty",
-                                   copy_fn="libxl_cpuid_policy_list_copy")
- 
- libxl_string_list = Builtin("string_list", dispose_fn="libxl_string_list_dispose", passby=PASS_BY_REFERENCE,
+ /* parse a single list item from the legacy Python xend syntax, where
 -- 
 2.41.0
 
