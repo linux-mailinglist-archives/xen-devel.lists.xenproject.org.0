@@ -2,33 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E0F75BA4E
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 00:13:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566754.886019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B05975BA4F
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 00:13:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566758.886029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMbt8-0007n8-6w; Thu, 20 Jul 2023 22:12:46 +0000
+	id 1qMbtl-0008Ky-HX; Thu, 20 Jul 2023 22:13:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566754.886019; Thu, 20 Jul 2023 22:12:46 +0000
+Received: by outflank-mailman (output) from mailman id 566758.886029; Thu, 20 Jul 2023 22:13:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMbt8-0007kn-2c; Thu, 20 Jul 2023 22:12:46 +0000
-Received: by outflank-mailman (input) for mailman id 566754;
- Thu, 20 Jul 2023 22:12:44 +0000
+	id 1qMbtl-0008IK-Dz; Thu, 20 Jul 2023 22:13:25 +0000
+Received: by outflank-mailman (input) for mailman id 566758;
+ Thu, 20 Jul 2023 22:13:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DC1w=DG=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
- id 1qMbt6-0007kh-H3
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 22:12:44 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bb0d571-274a-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 00:12:42 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-51e28b299adso1794328a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jul 2023 15:12:42 -0700 (PDT)
+ <SRS0=kV2r=DG=citrix.com=prvs=558cdb244=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qMbtj-0008IA-Is
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 22:13:23 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a1c39dab-274a-11ee-8611-37d641c3527e;
+ Fri, 21 Jul 2023 00:13:20 +0200 (CEST)
+Received: from mail-mw2nam04lp2171.outbound.protection.outlook.com (HELO
+ NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.171])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 20 Jul 2023 18:13:17 -0400
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by BN8PR03MB4947.namprd03.prod.outlook.com (2603:10b6:408:7b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.26; Thu, 20 Jul
+ 2023 22:13:15 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::ea9c:844:91b8:a780]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::ea9c:844:91b8:a780%5]) with mapi id 15.20.6609.026; Thu, 20 Jul 2023
+ 22:13:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,209 +49,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bb0d571-274a-11ee-8611-37d641c3527e
+X-Inumbo-ID: a1c39dab-274a-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689891200;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=RmjLTghnezze+nyOnyPG/c/N8Q3wwOZyAB0bPZaALzU=;
+  b=N87rNx6DSx/oEMoHd0kHtXgwr2zDGfg74viI3VbvlzmkywUWgD1Bzkvx
+   /9tS4/X+Njp5d5zCQbEuSjqkhP69K+soPOD93iJDJjJp4+z7BlMEMhuHN
+   Xz/pE0CRXrv2oCZt0m6n0IFntfLrbIampPT0uvV/OpQ2khxKLuiV36vqa
+   c=;
+X-IronPort-RemoteIP: 104.47.73.171
+X-IronPort-MID: 116942674
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:Hdl6NK894CnCIZgnwreNDrUDJn+TJUtcMsCJ2f8bNWPcYEJGY0x3n
+ zAcXmqOP/jcN2qhLo0nPoSxpEwDsZ/RmtRnSVBupCE8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ird7ks21BjOkGlA5AdmOqoT5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkex
+ fcTJWkOVCrTpOWz6u/rCcUzmJoKeZyD0IM34hmMzBn/JNN+HdXmfP+P4tVVmjAtmspJAPDSI
+ dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTeIilUuidABM/KMEjCObexTklyVu
+ STt+GPhDwtBHNee1SCE4jSngeqncSbTAdtMReHiqKE26LGV7nA4JSYRVXuBm9WgrE6ueZVbE
+ hIf2yV7+MDe82TuFLERRSaQomOAvxMac8pdFas98g7l4qPQ7gSQAGQeSXhfYdgiuc0xbTcu0
+ UKF2djuAFRHoLCTDH6Q6LqQhTezIjQOa38PYzceSgkI6MWlp5s85jrNRNt+FK++jvXuBCr9h
+ TuNqUAWnK4PhMQG06G6+1HvgD+2oJXNCAkv6W3/QWaN/g5/Iom/aOSA41XB8exJKorfS1Cbp
+ WUFgOCX9uVIBpaI/ASzR+EKEKCs9uyyGjTWil5yHLEs7z2ovXWkeOhtDCpWIU5oNoMBZmXva
+ UqL5QdJvsYMZT2tcLN9ZJ+3B4Iy16/8GN/5V/fSKN1Tfpx2cwzB9yZrDaKN413QfIEXuflXE
+ f+mnQyEVB721YwPIOKKetog
+IronPort-HdrOrdr: A9a23:WFnsfaPKn44MQMBcTt2jsMiBIKoaSvp037BL7TETdfQ2Gvbzqy
+ nKppkmPHPP5wr5OktNpTnaAtjjfZq0z/ccirX5W43NYOCMgguVxe9ZjLff/w==
+X-Talos-CUID: =?us-ascii?q?9a23=3A9BTalGhtS5h48mzHnn6qMUeJlDJuIk3Wx3qJIHW?=
+ =?us-ascii?q?CWUVuTZfIGRy8p706up87?=
+X-Talos-MUID: 9a23:yHWV4goFmRS97/ijLXkezy1JGfxv44SUMmwUt5UWmY6ADHJ7GjjI2Q==
+X-IronPort-AV: E=Sophos;i="6.01,219,1684814400"; 
+   d="scan'208";a="116942674"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GRqM/LRmQDSyENmh/bpsv86P85e1ZoxDnB+D1ZW/CRbNpMVVd707HbFmHgwLrFFuxFGVuJiumu2+o6zJN7EVf0xHih2cTCVxyzUG/QASeRLFDnvTTjbaF/8jkFqyVFS+puNO8G+9ZL68bNVCBDUiDqSiXlJTK61KSbMRP8v5PhMWckffxxAMArWVVkMe8KN/2kVv+VEyciwmdww3WxVaRMcbSrCRytkPnVML6C8RVpvIYTtNpkI+flNxYIUBldoDjbsY+hYi8dCM5Nr2N+cesvgY4/sYKr4WKOo0jiZj7sYmjAE1h5eCjOnvfILE3+h0P84RyICaLXqSAjhWik0k+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RmjLTghnezze+nyOnyPG/c/N8Q3wwOZyAB0bPZaALzU=;
+ b=iSsfsOv1GJntJi/h6eiZ611IyZYU35kH1Jv/nY/an/Kl/dUUgq0cCqdWCIetP0GF+yU8SloaFd3Gwk5RF+CCGI3Do3dBiB42WedoO0IBY6dLIv85fW5eqF+HymIuCMoksl9Fyl+0nKECoe2qNibBGWwy63TVnzE27VY0QIWQ0YhLiDXiChmS7YRqEkBUlLEyZ121wzzCtC9Cdek5IawLMO+LPXuE9gfMu2WG6Tdgo0ciEh6FjDuNnaofOd+/mKBVYTfdYHzCP0V0bAVW0fP1qebp2843j1KS7SnkJxy4R9PRJ6azW856v5Y7W7fUMQSq/0mEvjqJEcgdScOQBG4tPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689891161; x=1690495961;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=fia0k+DTB2r8KZc5nHTVPKsuSqVAuPZDvXVIrBGCUuQ=;
-        b=I3QM0is0pCufs9dzrwJap0WY+1FJxhknVOaPDwGUaCJmiFmzAI58894I7+Eh3HaH4j
-         Qatzn8iEqtB0Nvt7C300rYveig9KVAlpe7LOPvIQrUDHeDnNH4dY8EyfM423YNgZu0Fo
-         mXPrLFYYagk6uDi403ZCAq+qInn7ZVbVQfB9kIni1EEOEUHHSHJm8ViDbR23pqfYvNpJ
-         9NxlRF6gButnnSDulDJfoiEpiBH20Dza1ZxpZsZ9UvEcMSiZ4FxzCFzttT/pDgzPtqO4
-         xR5apQ2ulFjPKN4WXl8OZtqf4e32U4LET4Zn6NSE1gKciPgkC8QXMf5yspZdAuNTmUs8
-         OqfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689891161; x=1690495961;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fia0k+DTB2r8KZc5nHTVPKsuSqVAuPZDvXVIrBGCUuQ=;
-        b=IyUMHVuAfn6L+CW66xHU2PePc/eutbnckTuf2Z6K/Z+ZcPCWUMLsCbF6KEY2KzCBeW
-         zANX55STIa8/mf7awL8TjKfvnTITMSqvUukS2PVX49MYz8KFht0PECCGFklQVtNLDQFI
-         zFTBgkfOryrcpxclws6MEnvNLFe/VTaKfqZXmfjMwmuJXgkfhkY2+6mP6eO4+nT7M1F1
-         iSLWPfTumkMOV7UG2f9rbq7n7tDQnZwNZ0AAbjE6+o5cqoFDMND0StUjBQpVmdsWPheu
-         MmFgb4lqVJoLZ8Fp6WAAcbMRt9ujEG6t2rPxbtp4QUeZtuPqYAmtj2JUEyeg+dz9uZgz
-         s+OQ==
-X-Gm-Message-State: ABy/qLYpySQ751mAJ2geG9XntX1uYA7Z0Y/9U2vTJusIcevVsFdTDY7c
-	4Fof2skfQU7e5Lh+mR9l6BGypx/X2i9A5ud9ApU=
-X-Google-Smtp-Source: APBJJlH4WfnY3J5XCy9VXXweyG9sihM0V+HIbUsb3NEkJmBOZeRBwAYBHM+1tcB3nA29RYNjIh8azrB3n4nFAOXqYdQ=
-X-Received: by 2002:aa7:dcc7:0:b0:515:1e50:5498 with SMTP id
- w7-20020aa7dcc7000000b005151e505498mr124474edu.15.1689891161481; Thu, 20 Jul
- 2023 15:12:41 -0700 (PDT)
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RmjLTghnezze+nyOnyPG/c/N8Q3wwOZyAB0bPZaALzU=;
+ b=C3B3jIVRG6edZEB7R957LsJlNj253UP1Xpy7V+GAwuyQTxEeJ3iB2hL1Vt1Us3M2BBNPp2zW+l95DWSMx/JOaG2l3va75wXX5cPdiR0B1P7qE2dgQJrZfjJ4ZmERoM7sNLiL9jwAhD4697Xnrjlcv7Qo2ZMDIzZfvOUrw6eO01o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <e7e05885-01e6-4e65-023b-2361cb84bb8c@citrix.com>
+Date: Thu, 20 Jul 2023 23:13:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 0/8] Make PDX compression optional
+Content-Language: en-GB
+To: Julien Grall <julien@xen.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
+ <f962d1ce-4cde-e1b5-59b3-5e71d2e83109@xen.org>
+In-Reply-To: <f962d1ce-4cde-e1b5-59b3-5e71d2e83109@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0257.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:194::10) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-References: <20230701071835.41599-1-christopher.w.clark@gmail.com>
- <20230701071835.41599-4-christopher.w.clark@gmail.com> <alpine.DEB.2.22.394.2307081144340.761183@ubuntu-linux-20-04-desktop>
- <CACMJ4GYE6PW1SY35dhs4XkXd9ru25igrvMCrh4pJMWEBNNz0YQ@mail.gmail.com>
-In-Reply-To: <CACMJ4GYE6PW1SY35dhs4XkXd9ru25igrvMCrh4pJMWEBNNz0YQ@mail.gmail.com>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Thu, 20 Jul 2023 15:12:29 -0700
-Message-ID: <CACMJ4Gb_ZwKSjP7qzfQj98YQjSpBdFuWzeGQJUNNqst0GdXCOw@mail.gmail.com>
-Subject: Re: [PATCH 03/10] x86 setup: change bootstrap map to accept new boot
- module structures
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Daniel Smith <dpsmith@apertussolutions.com>, stefano.stabellini@amd.com, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Luca Fancellu <luca.fancellu@arm.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Rich Persaud <persaur@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000063a6a20600f272fd"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|BN8PR03MB4947:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f738746-4a2f-4e46-0c32-08db896e830a
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Jt5N5lGM9wgvUY34uKW1YaIykOH0aVQVki0xC9podFLu3QAb796z1WfLbSHCyPCMws+ZKY95YxRDtP7pGMghcYEmO+VHJFWfQrCuuJXncPeHs5E4PCCp/KxXsRrfrl2qQQdsMptaHa8ZDwaOc1AOds89ghBwoVUpoRXQo0q1UcjxqawMQbLRFtb3ULQEvSMjmbbSQ3P+czeb2I/6ALrt3ukAgoOqP/K3fJ3eZDfidb85FZg21icMUXUxrxpgiUOFrP5TUTPXgPUN+xwSUjvw+AcVnBA5opvnKqB//Dk5Q0GnQTAwPHagzYm8U2aGYZyo3lS7AbPyKbsEnWYcPgpxfed59Rb8QZkurypFmlG1hKNQYW0GnVPA3+uygZ7ME1PszflyY5+SNKHu/cs8I6eSvlAm2E6UmDhgULZtOIKhUPGQ730B8AN+DocpAZCaWRSX3X/YAWXC8iwxMKuWnC314p2+W3AP69vGBLDYVjAppAOiT59ullDVBqvKD6IkwxwkK9WoCy2AknF4EOpLieWFtQDLmMOGUQaKuY7f4PVLlYwhirjkw1wDNtrxbt58UoFV0fy0bhBHLilxdp0T5ngCnvfXZJowTpUmUXbSGTv227sFS5L60kJg7ibZnv9J2yuctY1V9oEzexYnBxGLt1peVw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(39860400002)(136003)(376002)(346002)(451199021)(2906002)(83380400001)(2616005)(86362001)(31696002)(36756003)(82960400001)(38100700002)(41300700001)(53546011)(6506007)(107886003)(6486002)(66476007)(66556008)(66946007)(316002)(4326008)(186003)(26005)(6666004)(6512007)(478600001)(7416002)(8936002)(8676002)(54906003)(5660300002)(31686004)(110136005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1oxMWl0bXNBK285YjdsbCsvUzFseTlPcmtnVEtUMVl0cWhuRkJzVEJsNFFq?=
+ =?utf-8?B?WlRJdlZWeS82LzdMMDVsT1RCQXR0RmFOZ042Q3hwN1d6UlVlYzdLNXZ6RzVt?=
+ =?utf-8?B?d3k0YWRTKzMxbkovTURTTkRlcEdiQ0N0aGk3YmpSNjdWY2NGNmlmUWZ1S2FS?=
+ =?utf-8?B?czFjU1RmTU9YSTZ6emJzYzA5bld5Nmw0Zk14WUwwckR4TW9KQUJ1VGsxNFc4?=
+ =?utf-8?B?RGovVXhPTU5zdnJkRVBIdU5mS2ptVE1QU1hLbHc3L1NNSy9mWjZSeVBRa05F?=
+ =?utf-8?B?NUIyZUpqVW9FUzYwWlB0MWsrZWZpUHRobVVTb1FVdlJPOXptbktVcEdYeGZa?=
+ =?utf-8?B?RFRFV1hOYXgzcnVxdm41cTlCcWIvajdSalkzZTZBV2pxNS9OQjJDNmRrRUJV?=
+ =?utf-8?B?em9IT2NPdDFXSWRJaFBYakFtTGFMR1dSV2txYnY5UytNT1pkRDRUZnhjRExh?=
+ =?utf-8?B?YlFHMXRzZ3k4d1V4T3lrQ0NFZzFSWHd2L3QzczV6YVhlUlhMdDlIMXBHVC91?=
+ =?utf-8?B?amQybzRqbEhzdWtKa3ZDa0QxYTlQc0RYZU1ZT1oxdHRXNEF0QWUxd2tDdmdE?=
+ =?utf-8?B?N20xdjlYZ00vRTZDcU1DcW4ySi95N05FWXJ3all3WHI4Si8yS0xOR3pwdW9F?=
+ =?utf-8?B?aFVBcWFYampQMHNBcFA5NTFNaEJmUytrOE9XWDZ6MmFTYUFJV096bG1nN3Vt?=
+ =?utf-8?B?K0ZzQkJ4a2ZNbGZVOGxpNHZxQW8vYkxOcEZsRk93NjRQL0h5VS9EL1Q5NGJq?=
+ =?utf-8?B?TmJIYmRPcW1WVHAyeUxldUZVbHVoOEtodjlrZXZ1VGx2bTJ4Zlp5VnFXVXF3?=
+ =?utf-8?B?OGd5MXRHRlFvZi9XRnNTVklsM0VmUjBIRDgyL0VZNnhRMnoxT09CYTZmTjFk?=
+ =?utf-8?B?K1dtMllTaE01Z0U0Q0FqR2s0QTR0RFM3QlptRnFWZ2xKT1NWOTRrVGMrMGxV?=
+ =?utf-8?B?OEVrSUF3V0Z1NkNNNno1Q3duem1pQVRObUpWSGdDQXpjMWs2c2NXRlhxZVFU?=
+ =?utf-8?B?NkNJTlZhcFN0aVVxUVk2UGYxUVZ2bFpVZ3lNYzlHamNibnp0QmN1VnhGbHdB?=
+ =?utf-8?B?ZkVjMDJ1VTZBc1A1clhhdzRLeWFBMFgyd0VVSEpNV3hCRklYNGowUDlVcSta?=
+ =?utf-8?B?cXVKa3pEL1dkUFVxSjZEVUVDMVlLNmQyOTFZOFVFWlVtWk9QWXpBazV4SmJP?=
+ =?utf-8?B?WGNyQ0VxMDZqUTF4SXNjTTFGY211bWp4WDdQYlVxTkoyNHpjbjA3V2k2c0N1?=
+ =?utf-8?B?Q3ArQm8yUytuUWhrQTVPaFhpN0dtN2ZpT0pVeGFiRUIvNWdwRUNYaTlQVS9H?=
+ =?utf-8?B?cTI5ZXlDTklCZW0rZWpHMDBFVmhwQUFNcktxaXFiU0RzU08ySjZER3JNK0x5?=
+ =?utf-8?B?cDQyZzBTTmh4YXJlYXlyK1ZGRG4ySWlPc1NNWFg1c215Q0NUV1IxbUpKN2Np?=
+ =?utf-8?B?YVYyQmRFcm1KeXREYVZZWi9vb2t2QzFjeUw3QkxkTllTZEZlWVdhWmZuRFlk?=
+ =?utf-8?B?U1FJQzZxNXFKSjVWeVh2WlZGT1E3bFlFcWFOU2FhL1NhVnJIK0djNUptS0M2?=
+ =?utf-8?B?Z09FclBaZ0xiQ2oyT3M0clFmb3ozQ3RybE9LNUhONXhlRDRSVXR1enBrUUZN?=
+ =?utf-8?B?TDVOSnJscDJKVjZkWm51RzBNZ2xKMjkycjFoT0htQ2JNc2xVUVBsTTNseTZq?=
+ =?utf-8?B?bkZSMUN3ejZtUTlGMEM0WjFaenJQcFJxWEtxdU5hZU5ORTMwTGYvTVBNeVdW?=
+ =?utf-8?B?bHdVeHhDWld5UmFqVjlNL0Y2YTh0NU1hYzNQdDFjMGJCMHEvTUV3M1JJN0tM?=
+ =?utf-8?B?VVJTS1BDQytOckJGa1dVZHJCbWx2eXdrR0NRcVB0elordWZ1OHdHRUVNTHgz?=
+ =?utf-8?B?N3RKZTdGQlV2RHFhVnQ3RTZ5MkZOQmQ2dElJS0VRK2N4NFAxOGxXSzJHUzZp?=
+ =?utf-8?B?QzNtSE9FZXJTKzgvczNnM0laSy9SVFcwaWhPdW92cjNrOFBsb0lISW9xcC9J?=
+ =?utf-8?B?M2hTSU9UaTN0MlExMjBLanlFZmdsbWt0S1hrWDZWeUpSdnJudnNUOTg3ei91?=
+ =?utf-8?B?bEtXYks1YjBGOW52UkR6L3Zwai9iVGlIUXUrR3krZVBRemkzTmdPamxQdkRw?=
+ =?utf-8?B?NDZqZXZpZFROckR1TUFKaTlScGUwTGZJczZldTJ1UWloZGFTU2J1TDJCSlA5?=
+ =?utf-8?B?eXc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	L2ydFhPB06MHf9i2rRP4hwD84s81M8O+S74Ja9qEfpAHs+XJILQEWxkQPc37XAsD5xG58ggS8lw4Ml+CHE/ebzgOQpCn5W0Pwu2m9sRyVCkX2x1MvWySSO/oUWISGs/RyGa7VzrRQ6yF/9gqZIqs/hUqqLndbw6JYSvOhzKB8KBznUUo2HkAnnASNyTe6eVFe4fuZdvEa+OpGpokty/DlgtJrIZ1vP588X27QcNXS2ZAyAKK1g7NJEe12lqRFtKSPerFGWX3QrBdVSRW8d2FW4tjX8U6JK8CEgRPXpgw21KLCRjtgmf2E4dsJafj0ToxE9E6Uz72COgBIZyxF502yNZast1iCd+0Q1Ch7PcgU2qFy3B0tdnea4CEI1h/rcPFovw4T2eRFxasCEFXBnentOqDoIbKWebD3R1NF24UDtVFtta7NAuNNwO/GPTR9fArzopg9QzYQt27StCC+NYWreFbuktMfL6m/GDp9GdO+Hwq4EBWHJjb6qq0Ce6pcX9kqN5a+HIh6ZQf35gQR/nX61L2XUeysWc2g1vgkCg3bvkaOZl1n2XHLbi3SpRSucrHGpGzqriYcfw0MENUsqxc3fDoxTAS+O6oYc7QS0Julpeq7r7BDNdPUg7ZGeGZ37OU7srFpcL2m9R6EuARDT2Zy1tETDy7lrTkj8uBjRIuHfHRCxmmjsxTs/zEGJnKovvKzrbNE8IM78di/Q+T01571/xEc/5G0Rib+ypA1TZM51RqeVRV22bwIW6DNuxXeuCsQjwbGitV/Tu4gvvPFJPoAYPLpru2lqmKb9c2WPMfnrEyfCYqrvgMGQOdedjpFbxTpiJZCKbv5LQQHHhI9kkQ/bRFBkrmgocwZWgvjpGDNDUMFu6nVTo2OSOa5ozLo61QPzOge1rvfMmybLMuc1X0WNMOCJC2II0Kpk36ma/u0/0=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f738746-4a2f-4e46-0c32-08db896e830a
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2023 22:13:14.3948
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z+dzlRDa1J+AWk8YW2XExlmXM05SEF7jDUFcTrHYUHzWVdGai4/1hiFObuWkfr5WwRF5JFWzXmfg11PlZ3kAQyAmrXQKE9jgNJGtCl1Pr7g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4947
 
---00000000000063a6a20600f272fd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jul 13, 2023 at 11:51=E2=80=AFPM Christopher Clark <
-christopher.w.clark@gmail.com> wrote:
-
+On 20/07/2023 11:00 pm, Julien Grall wrote:
+> Hi Alejandro,
 >
+> Great work!
 >
-> On Sat, Jul 8, 2023 at 11:47=E2=80=AFAM Stefano Stabellini <sstabellini@k=
-ernel.org>
-> wrote:
->
->> On Sat, 1 Jul 2023, Christopher Clark wrote:
->> > To convert the x86 boot logic from multiboot to boot module structures=
-,
->> > change the bootstrap map function to accept a boot module parameter.
->> >
->> > To allow incremental change from multiboot to boot modules across all
->> > x86 setup logic, provide a temporary inline wrapper that still accepts=
- a
->> > multiboot module parameter and use it where necessary. The wrapper is
->> > placed in a new arch/x86 header <asm/boot.h> to avoid putting a static
->> > inline function into an existing header that has no such functions
->> > already. This new header will be expanded with additional functions in
->> > subsequent patches in this series.
->> >
->> > No functional change intended.
->> >
->> > Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
->> > Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> >
->>
->> [...]
->>
->> > diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h
->> > index b72ae31a66..eb93cc3439 100644
->> > --- a/xen/include/xen/bootinfo.h
->> > +++ b/xen/include/xen/bootinfo.h
->> > @@ -10,6 +10,9 @@
->> >  #endif
->> >
->> >  struct boot_module {
->> > +    paddr_t start;
->> > +    size_t size;
->>
->> I think size should be paddr_t (instead of size_t) to make sure it is
->> the right size on both 64-bit and 32-bit architectures that support
->> 64-bit addresses.
->>
->
-> Thanks, that explanation does make sense - ack.
->
+> On 17/07/2023 17:03, Alejandro Vallejo wrote:
+>> Currently there's a CONFIG_HAS_PDX Kconfig option, but it's
+>> impossible to
+>> disable it because the whole codebase performs unconditional
+>> compression/decompression operations on addresses. This has the
+>> unfortunate side effect that systems without a need for compression
+>> still
+>> have to pay the performance impact of juggling bits on every pfn<->pdx
+>> conversion (this requires reading several global variables). This series
+>> attempts to:
+> Just as a datapoint. I applied this to a tree with Live-Update
+> support. From the basic test I did, this is reducing the downtime by
+> 10% :).
 
-I've come back to reconsider this as it doesn't seem right to me to store a
-non-address value (which this will always be) in a type explicitly defined
-to hold an address: addresses may have architectural alignment requirements
-whereas a size value is just a number of bytes so will not. The point of a
-size_t value is that size_t is defined to be large enough to hold the size
-of any valid object in memory, so I think this was right as-is.
+I'm not surprised in the slightest.
 
-Christopher
+We've had many cases that prove that compression (of 0 bits, on all x86
+systems) is a disaster perf wise, and its used in pretty much every
+fastpath in Xen.
 
+Look no further than c/s 564d261687c and the 10% improvements in general
+PV runtime too, and that was optimising away one single instance in one
+single fastpath.
 
+It's also why I'm not entertaining the concept of leaving it active or
+selectable on x86.
 
->
-> Christopher
->
->
->>
->>
->> >      struct arch_bootmodule *arch;
->> >  };
->>
->
-
---00000000000063a6a20600f272fd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jul 13, 2023 at 11:51=E2=80=
-=AFPM Christopher Clark &lt;<a href=3D"mailto:christopher.w.clark@gmail.com=
-">christopher.w.clark@gmail.com</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><br></di=
-v><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On S=
-at, Jul 8, 2023 at 11:47=E2=80=AFAM Stefano Stabellini &lt;<a href=3D"mailt=
-o:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Sat, 1=
- Jul 2023, Christopher Clark wrote:<br>
-&gt; To convert the x86 boot logic from multiboot to boot module structures=
-,<br>
-&gt; change the bootstrap map function to accept a boot module parameter.<b=
-r>
-&gt; <br>
-&gt; To allow incremental change from multiboot to boot modules across all<=
-br>
-&gt; x86 setup logic, provide a temporary inline wrapper that still accepts=
- a<br>
-&gt; multiboot module parameter and use it where necessary. The wrapper is<=
-br>
-&gt; placed in a new arch/x86 header &lt;asm/boot.h&gt; to avoid putting a =
-static<br>
-&gt; inline function into an existing header that has no such functions<br>
-&gt; already. This new header will be expanded with additional functions in=
-<br>
-&gt; subsequent patches in this series.<br>
-&gt; <br>
-&gt; No functional change intended.<br>
-&gt; <br>
-&gt; Signed-off-by: Christopher Clark &lt;<a href=3D"mailto:christopher.w.c=
-lark@gmail.com" target=3D"_blank">christopher.w.clark@gmail.com</a>&gt;<br>
-&gt; Signed-off-by: Daniel P. Smith &lt;<a href=3D"mailto:dpsmith@apertusso=
-lutions.com" target=3D"_blank">dpsmith@apertussolutions.com</a>&gt;<br>
-&gt; <br>
-<br>
-[...]<br>
-<br>
-&gt; diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h<b=
-r>
-&gt; index b72ae31a66..eb93cc3439 100644<br>
-&gt; --- a/xen/include/xen/bootinfo.h<br>
-&gt; +++ b/xen/include/xen/bootinfo.h<br>
-&gt; @@ -10,6 +10,9 @@<br>
-&gt;=C2=A0 #endif<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 struct boot_module {<br>
-&gt; +=C2=A0 =C2=A0 paddr_t start;<br>
-&gt; +=C2=A0 =C2=A0 size_t size;<br>
-<br>
-I think size should be paddr_t (instead of size_t) to make sure it is<br>
-the right size on both 64-bit and 32-bit architectures that support<br>
-64-bit addresses.<br></blockquote><div><br></div><div>Thanks, that explanat=
-ion does make sense - ack.</div></div></div></blockquote><div><br></div><di=
-v>I&#39;ve come back to reconsider this as it doesn&#39;t seem right to me =
-to store a non-address value (which this will always be) in a type explicit=
-ly defined to hold an address: addresses may have architectural=C2=A0alignm=
-ent requirements whereas a size value is just a number of bytes so will not=
-. The point of a size_t value is that size_t is defined to be large enough =
-to hold the size of any valid object in memory, so I think this was right a=
-s-is.</div><div><br></div><div>Christopher</div><div><br></div><div>=C2=A0<=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><di=
-v class=3D"gmail_quote"><div><br></div><div>Christopher</div><div>=C2=A0</d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 struct arch_bootmodule *arch;<br>
-&gt;=C2=A0 };<br>
-</blockquote></div></div>
-</blockquote></div></div>
-
---00000000000063a6a20600f272fd--
+~Andrew
 
