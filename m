@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1BA675BAA9
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 00:34:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566773.886069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368D275BAC2
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 00:44:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566780.886089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMcEK-0004rz-RW; Thu, 20 Jul 2023 22:34:40 +0000
+	id 1qMcNY-0007M9-1P; Thu, 20 Jul 2023 22:44:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566773.886069; Thu, 20 Jul 2023 22:34:40 +0000
+Received: by outflank-mailman (output) from mailman id 566780.886089; Thu, 20 Jul 2023 22:44:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMcEK-0004px-On; Thu, 20 Jul 2023 22:34:40 +0000
-Received: by outflank-mailman (input) for mailman id 566773;
- Thu, 20 Jul 2023 22:34:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qMcEJ-0004pr-2H
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 22:34:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qMcEI-0001od-3B; Thu, 20 Jul 2023 22:34:38 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.24.131]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qMcEH-0002EY-TI; Thu, 20 Jul 2023 22:34:38 +0000
+	id 1qMcNX-0007J2-UC; Thu, 20 Jul 2023 22:44:11 +0000
+Received: by outflank-mailman (input) for mailman id 566780;
+ Thu, 20 Jul 2023 22:44:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GtTE=DG=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1qMcNV-0007Iw-QO
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 22:44:10 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ecaa09d2-274e-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 00:44:06 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id EA5493202ABC;
+ Thu, 20 Jul 2023 18:44:00 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 20 Jul 2023 18:44:01 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 20 Jul 2023 18:43:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,45 +43,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=fJRcYabS2lk4HLM2SyiLqij6GQwimGvrDIS/QYNFSDg=; b=Ra+XWXt0B4lxOgEf1PzBJ0L67U
-	8VvkLRh6asJwgvlFHPE9sYfvzPAqg1yp3LkE5mDW9NG3OaYKqtKgeHImOeueVqHY5dGAj4O+JSQet
-	xUB1XyHs+3bF2f7emCWT7iPJIu5+yQQLJ3pHBjOGEYBOyReBCssdIbdM9ylAcmPT8uqI=;
-Message-ID: <6e858280-c778-883c-0f8d-2afa737232fd@xen.org>
-Date: Thu, 20 Jul 2023 23:34:36 +0100
+X-Inumbo-ID: ecaa09d2-274e-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1689893040; x=1689979440; bh=uvJ2lRUpS0RozvK7oxH/DvhKOg1op0VChlq
+	O8mVoUl0=; b=JPW0juiEg/KuUQEaQP4nwCk/saF2qqSu1vkaYhmzifnda9R+7vU
+	WVSkzQpX84WHGuUNrRRWkejjoE/qZV2G8pItK6w4XzAF3lB/7Bj5WEsHrzvgKctg
+	1sr+1DM3tyWox7VzGhKiy8FC+W1lKs2xsGuqKnP4wcIvKbtzmECKspdJvN6UNyS0
+	gw5VUtyFgE2kEhsYAlyeoV4wsYaf5GDJO3R30UfkARt6m6onrlfJgMW4PBidFQO1
+	Rx/6N6X3ngCPlWKYKVPtIoCnzCPHVt33w6IbawSBdwbyBNopDC3cvOKAOS1M8ek3
+	CvcMJJZGwwauHWaFhCFkoGQ8Al5YX/zcbPg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1689893040; x=1689979440; bh=uvJ2lRUpS0Roz
+	vK7oxH/DvhKOg1op0VChlqO8mVoUl0=; b=r+P6Xt/NzsxzCRj071C1hlJwQkj1h
+	oDN33E0nVgDEkgUBzR27qxtR7/3LEY778LW6RnvIZqi+wM2mOY18O4ymENxarPbt
+	A3CDgkKHqQ8Ycx0UsPjfb6G6jrZ4CwaBUPIbb3N/zpxieq0mAEQlrm88Ict1PUzA
+	u50J+HrqmARZgrU1MlbAbghBqqztHAJC50/+bVDIOiSlgY/sT0r+Tll+y2s1r9if
+	5Tr4Lrke/xYZhP7QVdnajpxEeCNCUDneO/ABdJkyijxVZ+H08plfPPRPuOj68gs9
+	ktMumA/i5UqzSxokCHvvnGI4O8fvUw/eLHSWY5TVJl4laxp46f3uCiPDw==
+X-ME-Sender: <xms:sLi5ZB-5MuP_8XDnPP9UiAmQ8bu7sKiFt7DN3K683Z__ALMbrdJwDw>
+    <xme:sLi5ZFvIdCG3oBDc7GWux0Ms-i2VpAyQDOr_TXguByXRqv2LpUci90OVZ9yJox0zw
+    DELSr3gUzYIyw>
+X-ME-Received: <xmr:sLi5ZPBo_7_YjY09o4u5k4L4nPgHEKOTPs_iMRWXDJTJ2G1uLt86dbJbsjdwFOsBQQ-2WILphjgi-2-_A0YvtKUW8g919enJRcY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrhedugdduvdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:sLi5ZFe6KlodGlx9skqmxW_1lST3CaUzpP6rrgfpz9dfxZVE03_2Fw>
+    <xmx:sLi5ZGNFEz4zFw9N0ZzpzrVG9zri-ZvygFEfVQ_8BR-INVbjTxNdOw>
+    <xmx:sLi5ZHkZthDFFTJnIy7JqNkqVE-6xEojL3kddYgEvK21-XZwOk8VOQ>
+    <xmx:sLi5ZPZ7rjnOOnukeiy3Lh28PUi7Zk0f2UeJH8yz2lppytJQtJ3INQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 21 Jul 2023 00:43:55 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] automation: add ECLAIR pipeline
+Message-ID: <ZLm4q/zhvATqMI55@mail-itl>
+References: <eb5fa852f306790160b967787592553d2fdf3de6.1689887842.git.simone.ballarin@bugseng.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [PATCH] tools/xenstore: fix XSA-417 patch
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230720150459.31111-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230720150459.31111-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Za4u7niYLOziw1dA"
+Content-Disposition: inline
+In-Reply-To: <eb5fa852f306790160b967787592553d2fdf3de6.1689887842.git.simone.ballarin@bugseng.com>
 
-Hi Juergen,
 
-On 20/07/2023 16:04, Juergen Gross wrote:
-> The fix for XSA-417 had a bug: domain_alloc_permrefs() will not return
-> a negative value in case of an error, but a plain errno value.
-> 
-> Note this is not considered to be a security issue, as the only case
-> where domain_alloc_permrefs() will return an error is a failed memory
-> allocation. As a guest should not be able to drive Xenstore out of
-> memory, this is NOT a problem a guest can trigger at will.
-> 
-> Fixes: ab128218225d ("tools/xenstore: fix checking node permissions")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+--Za4u7niYLOziw1dA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Jul 2023 00:43:55 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] automation: add ECLAIR pipeline
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+On Thu, Jul 20, 2023 at 11:20:29PM +0200, Simone Ballarin wrote:
+> +# ECLAIR configuration files are maintened by BUGSENG
+> +export GIT_SSH_COMMAND=3D"ssh -o StrictHostKeyChecking=3Dno"
+> +[ -d ECLAIR_scripts ] || git clone ssh://git@git.bugseng.com/eclair/scri=
+pts/XEN ECLAIR_scripts
+> +(cd ECLAIR_scripts; git pull --rebase)
 
-Cheers,
+I'd suggest to print here commit id of the scripts repo, so the
+logs will keep that information.
 
--- 
-Julien Grall
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Za4u7niYLOziw1dA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmS5uKwACgkQ24/THMrX
+1yyrKgf/cRyNsw7Ny4eVJ24X723ieyERbWx7ABwssZZLpdzo8zw0MJ+Cg5DXHexV
+0aflj3Ts1pXh7iFTVH+i6N+tASklQwi9v+kWUY6VEZty2hermih/G7MdsxydLS0Z
+7KN8YpIVb6uFsIe0tfzSAvG4HuregwmNGxQMLDLzERnLh93mftM86la5eRAvetIm
+LQDSkKvT9yP2Y/5F7XvKB3zPq9FxHSpDfNKP6eRw12wWo7FrVSPJ8Hs1+r7ukg6X
+i8nyYQYo03Y3xFUywOOYG9zGCe9MqKVym7U73eoAWT+CvnFfkTADV7p7IodgPrQ6
+l9oK1j0dO2nMoB+zewYyFYFpFcmfXQ==
+=UlR1
+-----END PGP SIGNATURE-----
+
+--Za4u7niYLOziw1dA--
 
