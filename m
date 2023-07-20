@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8706075A6A1
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 08:38:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566349.885071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A85275A6DD
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jul 2023 08:48:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.566356.885081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMNIu-0000Uh-FP; Thu, 20 Jul 2023 06:38:24 +0000
+	id 1qMNS4-00026m-Bd; Thu, 20 Jul 2023 06:47:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566349.885071; Thu, 20 Jul 2023 06:38:24 +0000
+Received: by outflank-mailman (output) from mailman id 566356.885081; Thu, 20 Jul 2023 06:47:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMNIu-0000SO-CZ; Thu, 20 Jul 2023 06:38:24 +0000
-Received: by outflank-mailman (input) for mailman id 566349;
- Thu, 20 Jul 2023 06:38:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qMNS4-00023d-8D; Thu, 20 Jul 2023 06:47:52 +0000
+Received: by outflank-mailman (input) for mailman id 566356;
+ Thu, 20 Jul 2023 06:47:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o8fF=DG=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1qMNIt-0000Ks-1J
- for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 06:38:23 +0000
+ id 1qMNS2-00023E-W1
+ for xen-devel@lists.xenproject.org; Thu, 20 Jul 2023 06:47:50 +0000
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0524f0c6-26c8-11ee-b23a-6b7b168915f2;
- Thu, 20 Jul 2023 08:38:22 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 574897e2-26c9-11ee-8611-37d641c3527e;
+ Thu, 20 Jul 2023 08:47:49 +0200 (CEST)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id B78E368AFE; Thu, 20 Jul 2023 08:38:19 +0200 (CEST)
+ id 0C93467373; Thu, 20 Jul 2023 08:47:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,8 +38,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0524f0c6-26c8-11ee-b23a-6b7b168915f2
-Date: Thu, 20 Jul 2023 08:38:19 +0200
+X-Inumbo-ID: 574897e2-26c9-11ee-8611-37d641c3527e
+Date: Thu, 20 Jul 2023 08:47:44 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Petr Tesarik <petrtesarik@huaweicloud.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -70,26 +70,16 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	"open list:XEN SWIOTLB SUBSYSTEM" <iommu@lists.linux.dev>,
 	Roberto Sassu <roberto.sassu@huaweicloud.com>,
 	Kefeng Wang <wangkefeng.wang@huawei.com>, petr@tesarici.cz
-Subject: Re: [PATCH v4 2/8] swiotlb: add documentation and rename
- swiotlb_do_find_slots()
-Message-ID: <20230720063819.GB3842@lst.de>
-References: <cover.1689261692.git.petr.tesarik.ext@huawei.com> <11826bfbc148771ab36d0b485558aa52cbdd204f.1689261692.git.petr.tesarik.ext@huawei.com>
+Subject: Re: [PATCH v4 8/8] swiotlb: search the software IO TLB only if a
+ device makes use of it
+Message-ID: <20230720064744.GA4395@lst.de>
+References: <cover.1689261692.git.petr.tesarik.ext@huawei.com> <a8d31d3fffa0867dce2b44b98dc2714289edfdc9.1689261692.git.petr.tesarik.ext@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <11826bfbc148771ab36d0b485558aa52cbdd204f.1689261692.git.petr.tesarik.ext@huawei.com>
+In-Reply-To: <a8d31d3fffa0867dce2b44b98dc2714289edfdc9.1689261692.git.petr.tesarik.ext@huawei.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Jul 13, 2023 at 05:23:13PM +0200, Petr Tesarik wrote:
-> From: Petr Tesarik <petr.tesarik.ext@huawei.com>
-> 
-> Add some kernel-doc comments and move the existing documentation of struct
-> io_tlb_slot to its correct location. The latter was forgotten in commit
-> 942a8186eb445 ("swiotlb: move struct io_tlb_slot to swiotlb.c").
-> 
-> Use the opportunity to give swiotlb_do_find_slots() a more descriptive
-> name, which makes it clear how it differs from swiotlb_find_slots().
-
-Please keep the swiotlb_ prefix.  Otherwise this looks good to me.
-
+Any reason this can't just do a list_empty_careful on the list
+instead of adding yet another field that grows struct device?
 
