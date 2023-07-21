@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5E5F75BF09
+	by mail.lfdr.de (Postfix) with ESMTPS id A9CB575BF08
 	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 08:39:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567354.886289 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.567355.886298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMjnQ-0002jN-0x; Fri, 21 Jul 2023 06:39:24 +0000
+	id 1qMjnj-000340-Co; Fri, 21 Jul 2023 06:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567354.886289; Fri, 21 Jul 2023 06:39:24 +0000
+Received: by outflank-mailman (output) from mailman id 567355.886298; Fri, 21 Jul 2023 06:39:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMjnP-0002g2-UK; Fri, 21 Jul 2023 06:39:23 +0000
-Received: by outflank-mailman (input) for mailman id 567354;
- Fri, 21 Jul 2023 06:39:22 +0000
+	id 1qMjnj-00031n-AE; Fri, 21 Jul 2023 06:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 567355;
+ Fri, 21 Jul 2023 06:39:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2N6Z=DH=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1qMjnO-0002fw-D6
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 06:39:22 +0000
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [2607:f8b0:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FBlW=DH=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qMjni-0002fw-09
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 06:39:42 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on20630.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 523ce1a2-2791-11ee-b23a-6b7b168915f2;
- Fri, 21 Jul 2023 08:39:20 +0200 (CEST)
-Received: by mail-pl1-x62b.google.com with SMTP id
- d9443c01a7336-1b8b318c5cfso11914315ad.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Jul 2023 23:39:20 -0700 (PDT)
-Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
- 13-20020a170902c20d00b001b7ebb6a2d4sm2573471pll.163.2023.07.20.23.39.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jul 2023 23:39:18 -0700 (PDT)
+ id 5e8a37e9-2791-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 08:39:41 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB8733.eurprd04.prod.outlook.com (2603:10a6:102:21d::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Fri, 21 Jul
+ 2023 06:39:38 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6609.026; Fri, 21 Jul 2023
+ 06:39:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,459 +47,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 523ce1a2-2791-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1689921559; x=1690526359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aWHdr1UYRJW9VJcQhEmLRZZfGjs4LZPTuEuEN5VniGg=;
-        b=HoKbJJZVoe8s84WHtBeOcgYw4WZFlrwiNjuyu0pQIdWVe6mC2MvJBWaW5O7xtyMzOz
-         hqfGDomdoMd6icWK/EzF6OQIXJeqF41BFiX3H6w0UkFLowGWUk2oexd0gEYauBySsT5A
-         Y8tb7AzGqC89XXPVwdl3scpYfoQFlXhUQpRapww8Q4Yr6VyeMWlvri+k6o2vmef1O/gY
-         hSgi6ip6hfofsZhqmxcG3LaerO6wmx8SJYbxfoOXipr9E6TvEU3sA67ybeq4oKSFNTNZ
-         nxD687W+/XNWrMD6KT+H1HFnH+id68A5+3/vkyeKtQL+770XKGkPOia0+vipWTB0FDNE
-         lulg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689921559; x=1690526359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aWHdr1UYRJW9VJcQhEmLRZZfGjs4LZPTuEuEN5VniGg=;
-        b=G/3r4/yJPRc6/pUuVVsHVRjVDgoOuL5uocReA5XoIr89zvkv3raXL56Yebhw9SMChd
-         3c3tSZs6sS2vdD/JzFKdwlkQOOkzl1bNeNUBRgHkUSDOTFus/UmPp89F+qcFhwmcaCx4
-         tg2Au3RZ5dVS4AVQPxnLQuxqlzmjU+kybRHM0U44fCBTgKRRh/2crDlP1dKYOSixABbj
-         BLMTbIIqrbMvBGk7FScyFiDyDSUda4o5ri12sTJJoNxizkYD4XEmiqZdzkTR9HlprQDi
-         5WOM5NCRaBi3jkW3D8BgsLhiKUAN8lHPwqRR7OLU8YoEF4ToZdreaVV5wvEcMpCsPKH1
-         iIbg==
-X-Gm-Message-State: ABy/qLaTXbK2NXItj8f3hUDk0N+CVV6NIj49po8YzsaA9Hptia8mqgwI
-	/N0KqWM0shiK3g8c3Vf+w2Eexw==
-X-Google-Smtp-Source: APBJJlFENksIN70Ox7KO10Fsypcj1FJKNqqLpSbBDBOXtyS7l3me2e/S1YHUubPyvwvdVs1ClfxDJQ==
-X-Received: by 2002:a17:902:cec6:b0:1b8:53b5:8518 with SMTP id d6-20020a170902cec600b001b853b58518mr1647637plg.63.1689921559181;
-        Thu, 20 Jul 2023 23:39:19 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Erik Schilling <erik.schilling@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH V2.1 2/2] xen: privcmd: Add support for irqfd
-Date: Fri, 21 Jul 2023 12:09:06 +0530
-Message-Id: <24293535aaac8a84f836c8fc75c6ce4a2c343f16.1689921432.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <c923befe0a016891e7dee3e1ccb3c00d676f2b3d.1689845210.git.viresh.kumar@linaro.org>
-References: <c923befe0a016891e7dee3e1ccb3c00d676f2b3d.1689845210.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: 5e8a37e9-2791-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ec3ay5viu9UwOGDrRfS/uzHLbYA4BNzhzwp/VBv825IFHFWw7ywxPeClw9bVNSD+RAuJTG/NJyjk5fpfSN4r62edRRqn6rb6TggFKZwAn8rPHE8rYCcXffvckwE2C2IPIqDMIace9fvXE9chPCAKz9uXvHU20kjBzU2Ony3f4SKGsY6iQGIHq2lQai5+GX2gv6fMja0ymhzoUGqYOBpLZC64RpFah0TAj2O0iJl7OnQ3YwBA5e624mMwbhOPjAc0O9Uf1U1vxWt2L/DSzj8wySdvK+BCRJW/0UdQ+ez47dJQCEkVvZya4rse0VXZhmXDHK5E9U7nEWybakAlicRO1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o9NCcKMpSbwUgHA9WwKD5asGHZbQNl87/iW64kIUCu4=;
+ b=WMsHMlsYM9hm3I+VjyRZfA0mRbi82eFvtrvdSfN9dW0jayHOmDN5sD0owx92st5zuYCqZubiriQVU1Rk7fz6+ayuV8pFZllDbwXGw7jQbRMmbAV9fLZr4NwsT1RmRISy+9q4oyZubIAI3wcm0AI9SnmQGEykv27xYoWu7CRWm/h8Upx9gSortL9VSon8mVfpReb2utpDYBWqtDk5+7WQyXrF4iLrj23qwwbnj4ex1X5N5pANLS4myCJzsgvqgofLPvi69jrnPmp9yHQ0FIkcRI3Nlj/E7dD+6S2MTZplUCDwGoFgI0LljCfaszJqRwk7Jes4M6ZaAqAViMt8hBQ4Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o9NCcKMpSbwUgHA9WwKD5asGHZbQNl87/iW64kIUCu4=;
+ b=GkUt/nD2galrhLQkalseRzLc21VMK6nbB64Ry7uB7VlpnBitE5wHD8QvmgEyZPFWPC5KbGEj6vc3h7ihM3qJZpyZn4VMd0g2AnMm2dAlxkb4sT9h7SlWtCJneyc2V9dUZaGnCKj353detU/OP0JqHv+in1nmreY+68c+6QfH0uu167ePPyDn2Nb1CgheFDTFQj4lhPX4w2vKHQhxw/YxqEzampIrml3rzGo99xYprVkUbJmOLFfOHShBGA/r39X0gCWNWS/lcE1MJLFlJbfGFNN3MC4t1pPqy5d7fQCX3JtzJykxNpVCkh0jjcS3z/ndqfmiEhKlH+V3ZzG3aSeCEw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <94ae50bc-d4e5-3700-dd84-a783afb832e7@suse.com>
+Date: Fri, 21 Jul 2023 08:39:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] tools/xenstore: fix XSA-417 patch
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20230720150459.31111-1-jgross@suse.com>
+ <6e858280-c778-883c-0f8d-2afa737232fd@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <6e858280-c778-883c-0f8d-2afa737232fd@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0117.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8733:EE_
+X-MS-Office365-Filtering-Correlation-Id: e69796fb-f0bc-4ba1-1fb2-08db89b54102
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	VGljGv6EEddSYJahZIBDioLtEM4uW8/IqDUOfcpQeo4W1PMHCwKqgRUfGnJ4zjsceaj3fR+OTtQYahvI9He8dxaCkbcIHR8Uyk/odNf4vYwRpOaSH6Zwbd2hLBbCOWpf4H1zxvVg/R8gUCtaIjGh5pKdBv92vk3qYQVDBgmfPDzAowZ8RsudS4UeI9spBsQEDn9xUSOPKcx0bGN1mFOZe9dlPpWYKrJKBqBvCKEQluirvfB7OdEZaxN3wTPnjmwKlOkTMRhkbU6J+lVG1PmTMEntxkkJe/FJG2uZC7ktAWDLTfpWLr+IcNQI7FcWbpAcPPaZHi953tsAG0lFtCBVELnFEJaQxnOebL7UVAONFX3URhfuJJVxCTkYgFFVSrzU91X+g32en0ZIAz3DDM2/b7Co8Vf7yQdA9Lh+bR5SqXuhm4Tzq+VmbfKB0gms39HAezCtCV+xB7cb/r4/1bmkhruiWmYpFfvpiCtp0FxPkk9AHwfBYcA8plNxalmYodH7DKMFZd18ceqiTW5rPXbCuOCpCrNsEXz8oN0M6KBZdhvAEdNUnJNigIrYXpLozbVcXf8FJxIqUbxkkN1Y9PGqQujLiUV1SOoZmav0/Ok9BJxE0/IeFEQYnZluCqnCG9Xz9JUU/joeuTxsQOmdw4XIQQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(136003)(39860400002)(366004)(396003)(376002)(451199021)(31696002)(86362001)(31686004)(36756003)(54906003)(110136005)(6486002)(478600001)(38100700002)(6506007)(53546011)(2616005)(186003)(6512007)(26005)(83380400001)(2906002)(4326008)(8676002)(8936002)(6636002)(5660300002)(66946007)(66556008)(316002)(41300700001)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MjFJTEl5b2NTV1J1eDM0M2E1alQ0MndxU2g1eUNyODlDd204aVNVZFRLdDJs?=
+ =?utf-8?B?cjdpdDAwTnZhVVpFTnkvRTk1S2Jtd0ZEdC9XM2pmM2hET1RvbUtWUTVqUDBH?=
+ =?utf-8?B?RDZweWhDQTVXdFAxcm9YRUlDdkhLVC9sazkvUmhscXAweDJRR21JZTVFVXhj?=
+ =?utf-8?B?VW5hd1BmOEJPSGRtcWJOOE56T3piTTlaTHdNNGpoUlJoNi93K1g3VDJBT2FY?=
+ =?utf-8?B?OE1ISFpRZ0Q2OE1icDgwSXZVZlZLc1pDeDl4Zzc2ckoyWHhNM0ZjQU9QRmZz?=
+ =?utf-8?B?ZUFoR0t2VzFMNVBzOWdJSTFNd3JXVmFnc29BUkpUZ094Y0tteVVRREl3Uysy?=
+ =?utf-8?B?eTBxK2xLYTdFMzd6dlEwZ1V4QVozcS96bjJRUUdOUEM3WUNUbjNwVUg4N2Nz?=
+ =?utf-8?B?WldaaGROK1R1VHVHeldQODkwOFVhK0tHVU1iVmQybUJvS1RVYlJSNWQ2Z2wr?=
+ =?utf-8?B?ZFQxZWJycWFZRVZKQjFYalRXT1NnQlN4Rk9ia25LdUw0MXVESnpYVjgvZUIw?=
+ =?utf-8?B?aXd3WHVUczFWMkd6aTRKVms5a3htTWRoQTZncElGaDUvNklBdW1aNWd4Uk1w?=
+ =?utf-8?B?UXYrbTN0TUJvWFpYNjVZV3hmdUIxVTlNbzlTQUNhaUhJQlJmSzVKRURtWGlJ?=
+ =?utf-8?B?Sy8wREpxMEJOcGg3STh6NklsTzhBNnZEVjBpcjN2ejJGOXE5VW5CNllmNUR3?=
+ =?utf-8?B?bDRnem1kWHdMYmtMS3RxYlJmTXR2dzJoNzBCRXdtM3RFc3NUeVNnM0I2MHYr?=
+ =?utf-8?B?eGNoRDJDT0ttY1lFb3o4WkZHTE13V2JqL3A0Ym8zVmdkYUVMcXFKOHJraXc1?=
+ =?utf-8?B?bnBUTloyQno4Y2E3T2dzMzlKSjNLR1dJWkdWRW5EZHJOUFNPcFAxQzJTVTFs?=
+ =?utf-8?B?a3lUT0k2ODFSa3o5eitkdFZGVjZNZlN0cXl6VEdmRkZXVWd4bmNkYitSRTh5?=
+ =?utf-8?B?cHBnVk5XTE1mZXRFWWo3bDdTc3RyWUtTeXFJbHlPVS9EdWlxU3NPOHgwVkxm?=
+ =?utf-8?B?cUNuQ3dBd3lhNzB1UmdVdlUvKzVaSGZRMitEbk9jYkp1VUdxN0Q4TDhtK3p2?=
+ =?utf-8?B?cE9vaG1ITzA5emNkV2pQdm9QZGdEN0FOdFNaV25QSHF4bW1sYXpQaDhRRmhX?=
+ =?utf-8?B?MDRTVFRxb3R6SjhWR2JMTlhwYnZuY0UzYjhsSHB0NDhpbUQwNmxPdUxqNUhr?=
+ =?utf-8?B?SzdhTGxCR2RUVXArbmUyNXVyV0o3ZDNpTGt5Z3VDSmo4OWNqSlpmZ1p5cDJw?=
+ =?utf-8?B?Qk1MdkE1MUpJQW9ha2JETDVqdDBEbDhOb0ozVDJlTjFuMEhiWFk1YVM4dFRY?=
+ =?utf-8?B?MFZvcHNkR0pXMHFodTVkVUplTWtLdHNnU05wOU95ZHlUOFZQWXozemx5OXB2?=
+ =?utf-8?B?bWhGenRXekdmSlBDY0h6WVNISDZpQVRLdGJEcWE0SHNvdWw4d3MyUHM1VmU2?=
+ =?utf-8?B?OVYzYXAxWEcrZ1Z6YmYzNDR4VmRmNzAzSURmV3RjTEhGRzlPdGJGZWN1WGtD?=
+ =?utf-8?B?cnhSUGtyblRTSmlpTEZCVVMxK1JIZEU2eVltTkpPVlIwSCs0MmdBYUlFajBs?=
+ =?utf-8?B?b2dWbVZwZGl0aTFZN3laTXdHOGFLeEhyWXM2WHRPZlJsVWZHc1lWSHhBTDFx?=
+ =?utf-8?B?MHdvZUgzcDFib1NWNXRUdWptM2JWTUQxd0ZWUWd4Q3haUlZUMnpJRTZtN2Jj?=
+ =?utf-8?B?RXRpb0FuUm1RU2loUmdRbWdCbHN5Z0lhYTRFMEFyVFZoZkFBVGZYUmg4TUFO?=
+ =?utf-8?B?dkpIOERCSnJ5aXk0cWxnRE9EdW5BMy81Sk5yVWlNbDZYZHdHQmJEcUVQU2Zl?=
+ =?utf-8?B?YlB1cHNKc3V5UXdHNkZxZGZUQjJmS0xEZjVQeXFpRnBWZktySDhJam03N0pV?=
+ =?utf-8?B?dEJkZlBUQlRrdHZYYzV2bDYzZXduQkhDQXlsZXRrbnRHTVFZb3oxZHVlNHhw?=
+ =?utf-8?B?S2RxajVIU1o5RFVFNXYrOVdNenlTMDlsdW0zSTVUKzRmdnRvYVZ2NVBKOUY2?=
+ =?utf-8?B?T0tXRzBNb0prYUUxRDd5TnZjUkhpMkR3dVc0L0pUaGpWTzl3LzZ2MkJIMTZT?=
+ =?utf-8?B?dUhYT094K2VzQlh0MkpWc2d4WUZCSXp2TUlOKzlPS3pCVktESWJmMEE4K3Fo?=
+ =?utf-8?Q?o0cn6s5s0aWrkWsm+Ev6+aICr?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e69796fb-f0bc-4ba1-1fb2-08db89b54102
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 06:39:37.7015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /C3+6rP05nayODFraY7mct23B9YCwVUWBVGQt+AJocKSHT14f/apcRfznccmlZ51sGitw4Gd+tEbhW6tizG5Zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8733
 
-Xen provides support for injecting interrupts to the guests via the
-HYPERVISOR_dm_op() hypercall. The same is used by the Virtio based
-device backend implementations, in an inefficient manner currently.
+On 21.07.2023 00:34, Julien Grall wrote:
+> On 20/07/2023 16:04, Juergen Gross wrote:
+>> The fix for XSA-417 had a bug: domain_alloc_permrefs() will not return
+>> a negative value in case of an error, but a plain errno value.
+>>
+>> Note this is not considered to be a security issue, as the only case
+>> where domain_alloc_permrefs() will return an error is a failed memory
+>> allocation. As a guest should not be able to drive Xenstore out of
+>> memory, this is NOT a problem a guest can trigger at will.
+>>
+>> Fixes: ab128218225d ("tools/xenstore: fix checking node permissions")
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+> 
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-Generally, the Virtio backends are implemented to work with the Eventfd
-based mechanism. In order to make such backends work with Xen, another
-software layer needs to poll the Eventfds and raise an interrupt to the
-guest using the Xen based mechanism. This results in an extra context
-switch.
+In the interest of not missing to add this to my to-be-backported
+collection, I've included this in what I've committed just now. It
+correcting an earlier XSA fix, I guess we may want to go as far as
+backporting this also to the security-only stable trees (i.e.
+through to 4.14 rather than just back to 4.16)?
 
-This is not a new problem in Linux though. It is present with other
-hypervisors like KVM, etc. as well. The generic solution implemented in
-the kernel for them is to provide an IOCTL call to pass the interrupt
-details and eventfd, which lets the kernel take care of polling the
-eventfd and raising of the interrupt, instead of handling this in user
-space (which involves an extra context switch).
+As an aside - note that 4.14 is about to close.
 
-This patch adds support to inject a specific interrupt to guest using
-the eventfd mechanism, by preventing the extra context switch.
-
-Inspired by existing implementations for KVM, etc..
-
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V2->V2.1
-- Select EVENTFD from Kconfig
-
-V1->V2:
-- Improve error handling.
-- Remove the unnecessary usage of list_for_each_entry_safe().
-- Restrict the use of XEN_DMOP_set_irq_level to only ARM64.
-
- drivers/xen/Kconfig        |   1 +
- drivers/xen/privcmd.c      | 276 ++++++++++++++++++++++++++++++++++++-
- include/uapi/xen/privcmd.h |  14 ++
- 3 files changed, 289 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index d5d7c402b651..7967393c55a4 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -261,6 +261,7 @@ config XEN_SCSI_BACKEND
- config XEN_PRIVCMD
- 	tristate "Xen hypercall passthrough driver"
- 	depends on XEN
-+	select EVENTFD
- 	default m
- 	help
- 	  The hypercall passthrough driver allows privileged user programs to
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index e2f580e30a86..0debc5482253 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -9,11 +9,16 @@
- 
- #define pr_fmt(fmt) "xen:" KBUILD_MODNAME ": " fmt
- 
-+#include <linux/eventfd.h>
-+#include <linux/file.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/poll.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-+#include <linux/workqueue.h>
- #include <linux/errno.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
-@@ -833,6 +838,257 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
- 	return rc;
- }
- 
-+/* Irqfd support */
-+static struct workqueue_struct *irqfd_cleanup_wq;
-+static DEFINE_MUTEX(irqfds_lock);
-+static LIST_HEAD(irqfds_list);
-+
-+struct privcmd_kernel_irqfd {
-+	domid_t dom;
-+	u8 level;
-+	bool error;
-+	u32 irq;
-+	struct eventfd_ctx *eventfd;
-+	struct work_struct shutdown;
-+	wait_queue_entry_t wait;
-+	struct list_head list;
-+	poll_table pt;
-+};
-+
-+static void irqfd_deactivate(struct privcmd_kernel_irqfd *kirqfd)
-+{
-+	lockdep_assert_held(&irqfds_lock);
-+
-+	list_del_init(&kirqfd->list);
-+	queue_work(irqfd_cleanup_wq, &kirqfd->shutdown);
-+}
-+
-+static void irqfd_shutdown(struct work_struct *work)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd =
-+		container_of(work, struct privcmd_kernel_irqfd, shutdown);
-+	u64 cnt;
-+
-+	eventfd_ctx_remove_wait_queue(kirqfd->eventfd, &kirqfd->wait, &cnt);
-+	eventfd_ctx_put(kirqfd->eventfd);
-+	kfree(kirqfd);
-+}
-+
-+static void irqfd_inject(struct privcmd_kernel_irqfd *kirqfd)
-+{
-+	/* Different architectures support this differently */
-+	struct xen_dm_op dm_op = {
-+#ifdef CONFIG_ARM64
-+		.op = XEN_DMOP_set_irq_level,
-+		.u.set_irq_level.irq = kirqfd->irq,
-+		.u.set_irq_level.level = kirqfd->level,
-+#endif
-+	};
-+	struct xen_dm_op_buf xbufs = {
-+		.size = sizeof(dm_op),
-+	};
-+	u64 cnt;
-+	long rc;
-+
-+	eventfd_ctx_do_read(kirqfd->eventfd, &cnt);
-+	set_xen_guest_handle(xbufs.h, &dm_op);
-+
-+	xen_preemptible_hcall_begin();
-+	rc = HYPERVISOR_dm_op(kirqfd->dom, 1, &xbufs);
-+	xen_preemptible_hcall_end();
-+
-+	/* Don't repeat the error message for consecutive failures */
-+	if (rc && !kirqfd->error) {
-+		pr_err("Failed to configure irq: %d to level: %d for guest domain: %d\n",
-+		       kirqfd->irq, kirqfd->level, kirqfd->dom);
-+	}
-+
-+	kirqfd->error = !!rc;
-+}
-+
-+static int
-+irqfd_wakeup(wait_queue_entry_t *wait, unsigned int mode, int sync, void *key)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd =
-+		container_of(wait, struct privcmd_kernel_irqfd, wait);
-+	__poll_t flags = key_to_poll(key);
-+
-+	if (flags & EPOLLIN)
-+		irqfd_inject(kirqfd);
-+
-+	if (flags & EPOLLHUP) {
-+		mutex_lock(&irqfds_lock);
-+		irqfd_deactivate(kirqfd);
-+		mutex_unlock(&irqfds_lock);
-+	}
-+
-+	return 0;
-+}
-+
-+static void
-+irqfd_poll_func(struct file *file, wait_queue_head_t *wqh, poll_table *pt)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd =
-+		container_of(pt, struct privcmd_kernel_irqfd, pt);
-+
-+	add_wait_queue_priority(wqh, &kirqfd->wait);
-+}
-+
-+static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd, *tmp;
-+	struct eventfd_ctx *eventfd;
-+	__poll_t events;
-+	struct fd f;
-+	int ret;
-+
-+	kirqfd = kzalloc(sizeof(*kirqfd), GFP_KERNEL);
-+	if (!kirqfd)
-+		return -ENOMEM;
-+
-+	kirqfd->irq = irqfd->irq;
-+	kirqfd->dom = irqfd->dom;
-+	kirqfd->level = irqfd->level;
-+	INIT_LIST_HEAD(&kirqfd->list);
-+	INIT_WORK(&kirqfd->shutdown, irqfd_shutdown);
-+
-+	f = fdget(irqfd->fd);
-+	if (!f.file) {
-+		ret = -EBADF;
-+		goto error_kfree;
-+	}
-+
-+	eventfd = eventfd_ctx_fileget(f.file);
-+	if (IS_ERR(eventfd)) {
-+		ret = PTR_ERR(eventfd);
-+		goto error_fd_put;
-+	}
-+
-+	kirqfd->eventfd = eventfd;
-+
-+	/*
-+	 * Install our own custom wake-up handling so we are notified via a
-+	 * callback whenever someone signals the underlying eventfd.
-+	 */
-+	init_waitqueue_func_entry(&kirqfd->wait, irqfd_wakeup);
-+	init_poll_funcptr(&kirqfd->pt, irqfd_poll_func);
-+
-+	mutex_lock(&irqfds_lock);
-+
-+	list_for_each_entry(tmp, &irqfds_list, list) {
-+		if (kirqfd->eventfd == tmp->eventfd) {
-+			ret = -EBUSY;
-+			mutex_unlock(&irqfds_lock);
-+			goto error_eventfd;
-+		}
-+	}
-+
-+	list_add_tail(&kirqfd->list, &irqfds_list);
-+	mutex_unlock(&irqfds_lock);
-+
-+	/*
-+	 * Check if there was an event already pending on the eventfd before we
-+	 * registered, and trigger it as if we didn't miss it.
-+	 */
-+	events = vfs_poll(f.file, &kirqfd->pt);
-+	if (events & EPOLLIN)
-+		irqfd_inject(kirqfd);
-+
-+	/*
-+	 * Do not drop the file until the kirqfd is fully initialized, otherwise
-+	 * we might race against the EPOLLHUP.
-+	 */
-+	fdput(f);
-+	return 0;
-+
-+error_eventfd:
-+	eventfd_ctx_put(eventfd);
-+
-+error_fd_put:
-+	fdput(f);
-+
-+error_kfree:
-+	kfree(kirqfd);
-+	return ret;
-+}
-+
-+static int privcmd_irqfd_deassign(struct privcmd_irqfd *irqfd)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd;
-+	struct eventfd_ctx *eventfd;
-+
-+	eventfd = eventfd_ctx_fdget(irqfd->fd);
-+	if (IS_ERR(eventfd))
-+		return PTR_ERR(eventfd);
-+
-+	mutex_lock(&irqfds_lock);
-+
-+	list_for_each_entry(kirqfd, &irqfds_list, list) {
-+		if (kirqfd->eventfd == eventfd) {
-+			irqfd_deactivate(kirqfd);
-+			break;
-+		}
-+	}
-+
-+	mutex_unlock(&irqfds_lock);
-+
-+	eventfd_ctx_put(eventfd);
-+
-+	/*
-+	 * Block until we know all outstanding shutdown jobs have completed so
-+	 * that we guarantee there will not be any more interrupts once this
-+	 * deassign function returns.
-+	 */
-+	flush_workqueue(irqfd_cleanup_wq);
-+
-+	return 0;
-+}
-+
-+static long privcmd_ioctl_irqfd(struct file *file, void __user *udata)
-+{
-+	struct privcmd_data *data = file->private_data;
-+	struct privcmd_irqfd irqfd;
-+
-+	if (copy_from_user(&irqfd, udata, sizeof(irqfd)))
-+		return -EFAULT;
-+
-+	/* No other flags should be set */
-+	if (irqfd.flags & ~PRIVCMD_IRQFD_FLAG_DEASSIGN)
-+		return -EINVAL;
-+
-+	/* If restriction is in place, check the domid matches */
-+	if (data->domid != DOMID_INVALID && data->domid != irqfd.dom)
-+		return -EPERM;
-+
-+	if (irqfd.flags & PRIVCMD_IRQFD_FLAG_DEASSIGN)
-+		return privcmd_irqfd_deassign(&irqfd);
-+
-+	return privcmd_irqfd_assign(&irqfd);
-+}
-+
-+static int privcmd_irqfd_init(void)
-+{
-+	irqfd_cleanup_wq = alloc_workqueue("privcmd-irqfd-cleanup", 0, 0);
-+	if (!irqfd_cleanup_wq)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static void privcmd_irqfd_exit(void)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd, *tmp;
-+
-+	mutex_lock(&irqfds_lock);
-+
-+	list_for_each_entry_safe(kirqfd, tmp, &irqfds_list, list)
-+		irqfd_deactivate(kirqfd);
-+
-+	mutex_unlock(&irqfds_lock);
-+
-+	destroy_workqueue(irqfd_cleanup_wq);
-+}
-+
- static long privcmd_ioctl(struct file *file,
- 			  unsigned int cmd, unsigned long data)
- {
-@@ -868,6 +1124,10 @@ static long privcmd_ioctl(struct file *file,
- 		ret = privcmd_ioctl_mmap_resource(file, udata);
- 		break;
- 
-+	case IOCTL_PRIVCMD_IRQFD:
-+		ret = privcmd_ioctl_irqfd(file, udata);
-+		break;
-+
- 	default:
- 		break;
- 	}
-@@ -992,15 +1252,27 @@ static int __init privcmd_init(void)
- 	err = misc_register(&xen_privcmdbuf_dev);
- 	if (err != 0) {
- 		pr_err("Could not register Xen hypercall-buf device\n");
--		misc_deregister(&privcmd_dev);
--		return err;
-+		goto err_privcmdbuf;
-+	}
-+
-+	err = privcmd_irqfd_init();
-+	if (err != 0) {
-+		pr_err("irqfd init failed\n");
-+		goto err_irqfd;
- 	}
- 
- 	return 0;
-+
-+err_irqfd:
-+	misc_deregister(&xen_privcmdbuf_dev);
-+err_privcmdbuf:
-+	misc_deregister(&privcmd_dev);
-+	return err;
- }
- 
- static void __exit privcmd_exit(void)
- {
-+	privcmd_irqfd_exit();
- 	misc_deregister(&privcmd_dev);
- 	misc_deregister(&xen_privcmdbuf_dev);
- }
-diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
-index d2029556083e..47334bb91a09 100644
---- a/include/uapi/xen/privcmd.h
-+++ b/include/uapi/xen/privcmd.h
-@@ -98,6 +98,18 @@ struct privcmd_mmap_resource {
- 	__u64 addr;
- };
- 
-+/* For privcmd_irqfd::flags */
-+#define PRIVCMD_IRQFD_FLAG_DEASSIGN (1 << 0)
-+
-+struct privcmd_irqfd {
-+	__u32 fd;
-+	__u32 flags;
-+	__u32 irq;
-+	domid_t dom;
-+	__u8 level;
-+	__u8 pad;
-+};
-+
- /*
-  * @cmd: IOCTL_PRIVCMD_HYPERCALL
-  * @arg: &privcmd_hypercall_t
-@@ -125,5 +137,7 @@ struct privcmd_mmap_resource {
- 	_IOC(_IOC_NONE, 'P', 6, sizeof(domid_t))
- #define IOCTL_PRIVCMD_MMAP_RESOURCE				\
- 	_IOC(_IOC_NONE, 'P', 7, sizeof(struct privcmd_mmap_resource))
-+#define IOCTL_PRIVCMD_IRQFD					\
-+	_IOC(_IOC_NONE, 'P', 8, sizeof(struct privcmd_irqfd))
- 
- #endif /* __LINUX_PUBLIC_PRIVCMD_H__ */
--- 
-2.31.1.272.g89b43f80a514
-
+Jan
 
