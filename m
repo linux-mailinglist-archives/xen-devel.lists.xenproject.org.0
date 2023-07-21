@@ -2,65 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC10E75C911
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 16:08:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567565.886801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BE8675C93C
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 16:10:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567567.886810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMqnf-0007Ep-0G; Fri, 21 Jul 2023 14:08:07 +0000
+	id 1qMqpd-0000Al-AF; Fri, 21 Jul 2023 14:10:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567565.886801; Fri, 21 Jul 2023 14:08:06 +0000
+Received: by outflank-mailman (output) from mailman id 567567.886810; Fri, 21 Jul 2023 14:10:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMqne-0007C1-TA; Fri, 21 Jul 2023 14:08:06 +0000
-Received: by outflank-mailman (input) for mailman id 567565;
- Fri, 21 Jul 2023 14:08:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qMqpd-00008i-7A; Fri, 21 Jul 2023 14:10:09 +0000
+Received: by outflank-mailman (input) for mailman id 567567;
+ Fri, 21 Jul 2023 14:10:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=So7w=DH=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1qMqnd-0007Bv-EC
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 14:08:05 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on060c.outbound.protection.outlook.com
- [2a01:111:f400:fe02::60c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ffc09f3c-27cf-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 16:08:00 +0200 (CEST)
-Received: from DB7PR05CA0072.eurprd05.prod.outlook.com (2603:10a6:10:2e::49)
- by PR3PR08MB5786.eurprd08.prod.outlook.com (2603:10a6:102:85::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Fri, 21 Jul
- 2023 14:07:56 +0000
-Received: from DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2e:cafe::d) by DB7PR05CA0072.outlook.office365.com
- (2603:10a6:10:2e::49) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28 via Frontend
- Transport; Fri, 21 Jul 2023 14:07:56 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT028.mail.protection.outlook.com (100.127.142.236) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6609.28 via Frontend Transport; Fri, 21 Jul 2023 14:07:56 +0000
-Received: ("Tessian outbound e1fdbe8a48d3:v145");
- Fri, 21 Jul 2023 14:07:56 +0000
-Received: from d12412e26dec.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- E2086BE4-027C-4DBC-83B2-CB295A6596F9.1; 
- Fri, 21 Jul 2023 14:07:50 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d12412e26dec.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 21 Jul 2023 14:07:50 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by AM8PR08MB6577.eurprd08.prod.outlook.com (2603:10a6:20b:355::11)
+ <SRS0=dNy0=DH=citrix.com=prvs=559993d03=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qMqpa-0008VA-WC
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 14:10:07 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49648e75-27d0-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 16:10:05 +0200 (CEST)
+Received: from mail-dm3nam02lp2048.outbound.protection.outlook.com (HELO
+ NAM02-DM3-obe.outbound.protection.outlook.com) ([104.47.56.48])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 21 Jul 2023 10:09:51 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by SJ2PR03MB7094.namprd03.prod.outlook.com (2603:10b6:a03:4ff::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Fri, 21 Jul
- 2023 14:07:47 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe%4]) with mapi id 15.20.6609.026; Fri, 21 Jul 2023
- 14:07:47 +0000
+ 2023 14:09:49 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::38aa:4814:3c7b:78ea]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::38aa:4814:3c7b:78ea%5]) with mapi id 15.20.6588.031; Fri, 21 Jul 2023
+ 14:09:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,203 +49,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffc09f3c-27cf-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sx3dnexRw5NDd9Tu1cAgD+pc9Q6SBtS4JugeJb3CAA4=;
- b=5dvbqkqnFsgsxAQixI7puzMmPp6eoeegjO09+L4hoX9DHAQ3ntoJ/GpCna+WagwY3h/ixoodLyO3SYcoRa3romIlDYzmyOUZWqXkR/n2VwXO+zf3scLmTJMMEiYOoKHgrzlb+3dCVY9hzSOFs9Tj+ojuZxi2AY3R0hUFfmQp1ag=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 4bb054820abf7023
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 49648e75-27d0-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689948605;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=tmGFNAh0DXwlYmpV23+dFivminsOr+JdnDfXfDMA89Y=;
+  b=fai97Na4Y5h3OyLiDKAwrTAJiEy2PV0DJI8PpAqsdNBuGXxcfAi5dGkV
+   7zhjPAdWtVtlORHEU0ZQmaADKGJbqAT+FFQ1KXqJTHq3qTj69mb7Dqyhq
+   f1Fj0mgFB2MBf4UHbm+xtjWckFLQPx7/d6ffkrMXppwvfhBcmUVVdbBIf
+   g=;
+X-IronPort-RemoteIP: 104.47.56.48
+X-IronPort-MID: 119619626
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:/ntF1aJRJIH0wZepFE+RFZQlxSXFcZb7ZxGr2PjKsXjdYENS1zUGz
+ WsbXGnQPPzcNGv8KNxybdjnpEgPvZSHmoVlQQtlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrawP9TlK6q4mhA4QZnPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5vDSZzx
+ fFfFwkdRR2KjsiQ756CYe9F05FLwMnDZOvzu1lG5BSBV7MKZMuGRK/Ho9hFwD03m8ZCW+7EY
+ NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dppTSDpOBy+OGF3N79YNuFSN8Thk+Fj
+ mnH4374ElcRM9n3JT+tqyv92Laew3mlMG4UPJeftaFIomy6/zAsFAIRXlSGv/TosnfrDrqzL
+ GRRoELCt5MaykuvSdXsWgyil1SNtBUcRtl4HvUz7UeGza+8yxaUAC0IQyBMbPQitdQqXno62
+ 1mRhdTrCDdz9rqPRhq10bOZrii7PyQPGkYEaTUZVgsO49Tlo4YbgwrGS5BoF6vdszHuMTT5w
+ jTPoC1lgbwW1ZQPz//joQCBhC+wrJ/USAJz/h/QQm+u8gJ+YsiiepCs7l/Yq/1HKe51U2W8g
+ ZTNoODGhMhmMH1HvHXlrDkldF1x28u4DQ==
+IronPort-HdrOrdr: A9a23:hpsijKol+qRmadmuKHJ1YJoaV5rveYIsimQD101hICG9Evb0qy
+ nOpoV/6faQslwssR4b9uxoVJPvfZq+z+8W3WByB9eftWDd0QPFEGgL1+DfKlbbak7DH4BmtJ
+ uJc8JFeafN5VoRt7eG3OFveexQvOVu88qT9JjjJ28Gd3APV0n5hT0JcjpyFCdNNW57LKt8Lr
+ WwzOxdqQGtfHwGB/7LfUXsD4D41rv2fIuNW29+OyIa
+X-Talos-CUID: 9a23:UbQiKGFwsaAuXbfJqmJ/+AkpKs1iTUTN53rZKmWeJkpQY7u8HAo=
+X-Talos-MUID: 9a23:Ayv0GQUrhFLzmcnq/BXLx25AFvZB2viRFF8Kmpo7pcTVDRUlbg==
+X-IronPort-AV: E=Sophos;i="6.01,220,1684814400"; 
+   d="scan'208";a="119619626"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YD6806nosYnbLE6o5V5suJSaTDqBz1hSQEW1l06h0YVc3zmkSHku34PJHvc9sL2QcwL4ZCB0sATex6AMOzFL28Ic5RvrhBKSPo+K/bDGJbKs1q8Qd9fbBrvRwLm7uG0uOmzyqBRrSoWcnh6ObrZBxNbNDLpPLFY0vreisXfHjxX+RA41VAR3tgC4y510FvjR3JB9QP1VDBOgzVaziNBh93zpqOV04EdInXuRqu6X2mFyWouNwz0cICp83KKeau94hGgkW6dNSDi8ayw4JGZDMVYR1P7CVHe0phwjFwa9/uxSkIUIbGDydlT22ULJCmt3VGkbA1FkwWCxKuMA8pYhKQ==
+ b=cbiDy7YTFuJCuVtJT2NabQv74hcQgS9sIoU/9FQ1SHC3bWxhJ5d99mgQfU9UVFFz/BQgpSuJ3bjbJP3rChsBw6rTJMb08GPGNt950BsrnUUBp0ggLP0JFxZz6EPvMuMCcf5wP/n/hStqAohWDUVe3xQU9eMjSj6UNSMQOFP0Zq8kXQaKvIsd9MuRbf8CZmjyAsirsxGOR0Z5H65sUvefkEemrOR0tA1xKdEA0GTWMeYEI5ixVHeiIDQ5OPoNgL5IN6NyCICadOZZVo5dQtOUSd+IqejjQnCDGxKImwDzbu+qZTJUOgFuSDNgx3ku624tlySHKQpANbk8HWgnrDTWVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sx3dnexRw5NDd9Tu1cAgD+pc9Q6SBtS4JugeJb3CAA4=;
- b=WVXmG9xoi+JB4DEn2ug2JppOYJNWLjqThMK6yKhHv0Nya0ZvogQhQf47BvdJVtePdkb7y7TKJwpR/hb4XBQ40KMpsmc880U7kwZI6/5WGU6ZtpD03jYnf2iIy+ZMQKP8/Qsn9gx6k3aDg0COvKFhAeR9FnGNLKOJzwPQap9+yi5aGfNerkBltjtx2MILmKlswWhEEn7GsNg7X2ehS8rhLMaxHdeFGAVI+Ge1QLu0+eTRLdZzAjz/1WBcCrX9K/0IzuCBeIphi9ke6dP90+KTpQcH4wUbsUWy/o8qny/juvZjBql6Mfrn+ObsYjluzXULf4dupt5tUiTUocq2E3DDmA==
+ bh=86jMzWe3de5VBjC6nF+oPSaKCxPcywDaOC9vNr8jykM=;
+ b=be14VrUR67Dk61K8xRoJNkGaHFE4CIqSQjULIDINz/Kqtw6MzBSqth6fyxf2NE9yodDoi9Tl1BdNK4vCZzWvrKXRjTdveLcSSJUlg5hiDM4u78fFZm39q+ah8kAcEJ771ZBvJitBxo+EdZ2kSdWt3PJeZevSDd5OHJ27EEe0BXJBHItYDFcOMjDbpgDA+leYMLrDPDXkSZQGxn/ab0PAjkv7LfuDJaEkBdqITwx5d7yXyhbc0Ntq2umczVOa4Znf+AuLjvVVpST9jO22e2GDLDvMYUzBIumrOI5eaNKoqqbq660h1GOCfeQOKXKxQaMXFCwG50UBOZXg3sDtv1emIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sx3dnexRw5NDd9Tu1cAgD+pc9Q6SBtS4JugeJb3CAA4=;
- b=5dvbqkqnFsgsxAQixI7puzMmPp6eoeegjO09+L4hoX9DHAQ3ntoJ/GpCna+WagwY3h/ixoodLyO3SYcoRa3romIlDYzmyOUZWqXkR/n2VwXO+zf3scLmTJMMEiYOoKHgrzlb+3dCVY9hzSOFs9Tj+ojuZxi2AY3R0hUFfmQp1ag=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Jens Wiklander <jens.wiklander@linaro.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen/arm: Move TEE mediators in a kconfig submenu
-Thread-Topic: [PATCH] xen/arm: Move TEE mediators in a kconfig submenu
-Thread-Index:
- AQHZu6nFJdPelAC9nE2wzAZF/5qPkK/D6iMAgAACsoCAABzbgIAAHFKAgAALbgCAABCjAA==
-Date: Fri, 21 Jul 2023 14:07:46 +0000
-Message-ID: <8ABBDFFB-AE3C-4A8F-8AAA-F0C5EB99C2C3@arm.com>
-References:
- <a44f74559f52d1fa90a3f77390e7d121c9cd848e.1689926422.git.bertrand.marquis@arm.com>
- <cb7b53bc-2440-8619-61ce-39c967b56eb7@suse.com>
- <DFD07AA0-E7E2-400B-8961-A646E5531DF7@arm.com>
- <6b24847c-5cd2-877a-bc72-16bb732e0ca2@suse.com>
- <C63A942A-AC5D-46CD-81B3-50B6376860E7@arm.com>
- <47ab1431-6a0b-6e74-92ec-8495c6bf8fbd@suse.com>
-In-Reply-To: <47ab1431-6a0b-6e74-92ec-8495c6bf8fbd@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|AM8PR08MB6577:EE_|DBAEUR03FT028:EE_|PR3PR08MB5786:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86168117-52df-4598-8eb7-08db89f3e1eb
-x-checkrecipientrouted: true
-nodisclaimer: true
+ bh=86jMzWe3de5VBjC6nF+oPSaKCxPcywDaOC9vNr8jykM=;
+ b=iY4Mt2SuwmuRs3B7VwEqWMcEbKMQZiSa3l5DoD4ip0tdt19yMrXIDsOXiak0J14dLn373egCV4EKr39ELbach5Tt4Bgb1fnoOkGtffVxdz1TVe/apw1sy+wjvB1BVHttdydCCsIDclBQKzMObmEzW1y03le07j0pUTY9IDEKhP0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 21 Jul 2023 16:09:43 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Subject: Re: [PATCH v8 12/13] xen/arm: translate virtual PCI bus topology for
+ guests
+Message-ID: <ZLqRp4oiwiaI_-gw@MacBook-Air-de-Roger.local>
+References: <20230720003205.1828537-1-volodymyr_babchuk@epam.com>
+ <20230720003205.1828537-13-volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230720003205.1828537-13-volodymyr_babchuk@epam.com>
+X-ClientProxiedBy: LO4P265CA0101.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2bc::10) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ2PR03MB7094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e922db4-145c-424a-3794-08db89f42516
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- B2IwZ5Kl+jpVEGxv54Z4JLdzGW9jfbK5HcPR5vHxORcgacZoVLiuTSiWeWIbwxMXFEMPWMIcNIwaH8ZqpfMxNz41SwHc5CVxiIpjmx/mD1GfL+2n5CoH/X8a4lspDDrk2aOixuSaLasDNso1aNH8XX3LpWAzOfkstjKHkh6F/UmhDl4/pCPRhGxNWsPoJc4Bui4KvghHEFvBphzTT5aREUBGBociEpTOS7+8oJh6BrL6BiTLGPyxsYtC+KTz0Wk+Dvsi6ibAHUQEx5l3pB2w3tbFL7jOy2CBjl3aglSpfrG6pBUP3PdeL9yNickhMU6x8UVrMIB7DaKo9AAOsJ19IYgeisSK9u/dp7AFqBevVZ3+iaaJkU0QkZGaFE81FvfFDHLwjzwDfmRUonQre0Xd2UT+C6x5v83olMplhjMu0ar587BXFgsoqOyVVgnONK+Z9vYISgXwgMQhxSQwoE/ZaWVk+y8PJ5xgOSiEmg/E5afSZvlTeWQaxsFanbLlx11MY8qPWyVct9u+fMessjcmH7aVOe/bi4qDttiuaxhDnvHZ2Gz8pQjMIbyq0Q03A/qcxpOeK8ELXTLR+hC3aIoKRNwIzuS7wPzSj09Qfjj+I/iquj/uk0Qf29AVhM17FK5op5GxMx7Bg/7c7d5fGx/SlxmDbctq5yQ1L331ITSz/ACWhUlLVz20o+zAzb+MumAH
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(346002)(396003)(39860400002)(136003)(376002)(451199021)(6512007)(122000001)(38100700002)(83380400001)(6506007)(53546011)(186003)(2616005)(26005)(2906002)(33656002)(8676002)(8936002)(5660300002)(36756003)(71200400001)(6486002)(478600001)(38070700005)(4326008)(66446008)(66476007)(66556008)(64756008)(41300700001)(316002)(66946007)(54906003)(76116006)(91956017)(6916009)(86362001)(76704002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <0D41B5E83E0C2D4AA3DC234E8FCB1216@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6577
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	651c4c3d-86c9-4e7b-1d8e-08db89f3dc5c
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Uz67tALfyDObGETzFkBvKL7T6Fol+WndbNyTj8DsTX7ZWHaZ3/4R1gq4fl7/4emZ4kujTIfK4yk1h6ewBxiUWbrbbWn8kVn5U+MMCQ9jtXA+QWaFaumfcWL2GWhjkIKffewR6kgj8+HhHapNpngRqj8nxoipCAWRXe/d3oMrAVFXTrJc9k8SCIXov1QCjaB9BWsvQ6G6RwTP98d4dpjlnAwNQlHQ4pDyclbMVy96SV/OhugOC+lRw6q0srhcvHM51UD72k41a/Jg5Ai3XLiD1zrgzhBSEBofO61v7Cl+tTdrFzp5v6UO37YKbZGvhe5COcIf03DGMc4xQ9FvqUoADgt41Pcqcw7aCrT05vICVyjcqiF/0RNac24cP2jeIPtXOxewsThiUrecZH0Ln3Xm/3X4m0iEm9IVWyEkYcWGZU1SH+7zgLfyARgD4e4SA+UAaetX4n3Nhd+XG4h9/jKEfm8Ocg0euW2iA8NA+g/XDNV1od37RFKGxWDBJzQVMXSashUCxv7uWTSnGvu+RFMsMPkz7JV52LbVlKjKGhi0iNxJp6g4x9kKrQ6ZTiIekzCRRLzOjZgCRTc6DWUuF0UPbvG8l7lDxoOn6W2GpHueY9/A6hv5J7TqJk+FK7DzzMLFhEMlQ3i4AOnAJ1e6+KGZVVHU3qGqKtunGENhdTvCPIpEONOU4VxZsZyjVPwkKynF/VcpDDS2KUJc4Ldp5iEdrfPuSQkewnhV6pZbmIsTYcgffn/tP5UwJmGNHzRH5LIjIwgue3cXhLShqIAvSxjROA==
+	zeQXndydWAMfVRdqrjCmUDBX3x6/X+cvItNxdfu16nCfWXPV0bqPKOZo0WVcYlZP2BiSrostwRNdLgdK2WDmwdnpFWv31YejddwzYkB3ReIQz/OYwf32hOf+wD4edUDfORdDnUaRRn1lZmAM0laIcKKTOq1OBv8RSpNPG5jN6oIhtUtVvysFzwrrrGl92lKhmFjrWOxbwZz3Fnq687ZcMpdusc3n2QKBXsn/YEHF5KrbA1Rom24n9FJs49fA9QRYslVtT3RctQ+3vUcxEADlwhyTohPz8unO6+j8aF2O0pd5EQS+9UHoxX8ouLBioRDKv3Ms+rdCZstPGyaeNyRdV6/x/MNiVGYTSfyx7QhNjbxOWyvphcdo3mw5+KU5i20WNAhk/UrnDMbEhiFjzT5GsE1rFf/4oIXkxAEyKdHkneaxU9wGcApiiKVo0afaI597uFaF8mBFTImVSqJRd01QWp4mmKJ3/fhjnhja+gPz4GqXMGqfv4EYmgP/xyXXJKeSa71ZvsaZzYGnAswT/mHhh7IkMTzFq9/cZETH1TSRrKz/MyT7QN1ajHXolcoE65C1
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(396003)(346002)(136003)(82310400008)(451199021)(46966006)(36840700001)(40470700004)(6486002)(6512007)(478600001)(54906003)(336012)(53546011)(186003)(6506007)(26005)(2906002)(70586007)(41300700001)(2616005)(4326008)(316002)(6862004)(5660300002)(70206006)(8936002)(8676002)(82740400003)(356005)(81166007)(33656002)(36756003)(86362001)(40460700003)(36860700001)(83380400001)(47076005)(40480700001)(76704002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 14:07:56.3270
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(136003)(366004)(376002)(39860400002)(451199021)(6486002)(6512007)(6666004)(9686003)(478600001)(54906003)(186003)(6506007)(26005)(2906002)(316002)(41300700001)(66476007)(66946007)(66556008)(5660300002)(4326008)(8936002)(8676002)(6916009)(82960400001)(38100700002)(86362001)(85182001)(83380400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QWZGUFJLM0szcTBNR1ZYQ1QxaG5BNmd0N0pyTC9Ddkcyb3A3NXdIcSs5alhK?=
+ =?utf-8?B?WUtFMzRsaGduOUFiQ0kvMHZoM2RQcDJ3SzJzNXZ1Z2hBTU5DbytoYld3REdZ?=
+ =?utf-8?B?Qld5cERBaTFpclF6TzFYdjc2TmVjTkxveVJrTVNUZ1h0bVcyZ0t6ZDRDMFNa?=
+ =?utf-8?B?UEY4SWRzUlgrbXFSdlNEWTZzbjhNTW5TQzFIT3UwSHpvR3FaWlJqUzR2ZFFn?=
+ =?utf-8?B?WUpzLzhSZmdGTzRvdTZyRllQK0tTWGl3cmtzR2NpVk1QekkxdnljVk5oMFp6?=
+ =?utf-8?B?U096KzIvcEI1MGtGUHlCSnBmd1ZmbUovMmV1S1YvckpnTXdvZ3lDQXlTcG9K?=
+ =?utf-8?B?VzFZUGRmNU11MnVBQ1lqVUN4TDhQSFJjaHJCRE04M3hVdlB5TUpjZ0xibXpQ?=
+ =?utf-8?B?OWVqdkRhNytYSFY2NjZoNFBOR3ZCVVNjbXB2Zk9IdnR5clZvOGgxZXMrazRL?=
+ =?utf-8?B?aGxtVk9BYk5iZ3Zoc3U3aGNIeWRSYmZqRkF2UkU0bDd5VHM3RVVhTVo0QmVQ?=
+ =?utf-8?B?azhwNzltai9tMzhMUkhsV3JZZ280SnFVUzZDUXAzVnlZRUY0dGpVMjdsY0dC?=
+ =?utf-8?B?KzRCN3lZeCtBOHVmRFZ4VXZRTGFpaU4vYTBIU2V4QitsU3g2UGY5V2FWVkho?=
+ =?utf-8?B?Ky9LR2VpTXIyYW9VZGQwNXltYWRWdmtjLys3Ry9LRzNLTG5YUG1nck5aQjh1?=
+ =?utf-8?B?cFQrNmRXU1BOeGtsdEZISzlvdFdLMTRRaCtMNVFqQlFyMWVDNHc1TXEvM0V0?=
+ =?utf-8?B?ZVFCNytUSHhyL3pSejIwaHlvZStCSFJUSzRSblFKdDBnWVU3Vk5Ua05mYjFN?=
+ =?utf-8?B?MEwvMkdZQmhXM0I0WXE5RGVZT29qSjlHQTZVY05UZmEyWUdtTmJDSHJYVEVU?=
+ =?utf-8?B?ZTFyVi9SYVYrRCtGTE5wYm1QTUV5RlBBZXBTVThkYXR6bXYxbzdWZDl5SEh4?=
+ =?utf-8?B?cTloMHZKTWNkWVBmb0VUZGhIWk13R1M1MStQdlloOEV0UEFsWnNtYVBRbjVV?=
+ =?utf-8?B?L3BUT1IvYnQrVlNvNlltQnVzN2pkUGtYN0hzdHk1cStIcThlMFdZdzZtQk5O?=
+ =?utf-8?B?YWFyODI5N2RsUzBRTzBndnV4c2FWYXZKRS9qcWQzMFBycGpXbGtMdnVybWN5?=
+ =?utf-8?B?WGhqcnkrclhBYmlBVWVYb29LbHdIOXVLZlpXYUpUQStHNUYwbFVsL250Zkli?=
+ =?utf-8?B?SURhY3BWY3ltY3VlQlh1UThrMWNoZHpmN2hnSDVYT3l4ZzNKTDZwdmFYRXpp?=
+ =?utf-8?B?dUsybnhhY203NGtNUGJjamUwcXNFWUhMaEtueFhUTUl1NEZXSWFENmZFNkY0?=
+ =?utf-8?B?aEU0c1VnR0V6anlNU1lUSGlZU2pOTVdvMWJ2N1RBY05WWjMvL1cwSTR3NzRT?=
+ =?utf-8?B?WkhTSHhqeTg5V25oMDhrc2kvcW9ORGpwcnBhVlU5aUw5U2tmK0IvcldYK1dr?=
+ =?utf-8?B?ZEttZTVhN0dPc3FJaVZhSStYWkFhMjM1UDZmS0lBWW12M2VUdytnU25henQ5?=
+ =?utf-8?B?WTVwczQ3c0hyajZlYkxaOXFId3RlQWdMN2tjTmJQblJGcDVsbk9XTy9UNzls?=
+ =?utf-8?B?TlhTMDE0eXQ0SDJEcGloZFJQNkV4eWptT3FOMS9oR1pVODg4anhhV1grZjN3?=
+ =?utf-8?B?OXAzR0YyVUpsYnNJSjh5ZzY2eG9QMi9tVlZMQUZ3VStoT1lPOUk2NU4vLzRT?=
+ =?utf-8?B?akFJMnRTcldNOVA4bjlEL0Y5bDlBOG1tQVhpZHlmTDF2U0xPem9VbmgxQi9H?=
+ =?utf-8?B?NjFCTzYzV0orL2FvUSt0bDJhOXpDcFRtenppNWVWelI4ZStEdEpDRTVGRHRN?=
+ =?utf-8?B?Rmt1YXZhVTJmUDJxeWgvTW9OdTZpK0IxVUk0bGs0bnV5R2ZhbXpBMmp3MmFj?=
+ =?utf-8?B?RENUNmJBMExLWEJwQ3AxQU9OeDAvK29YWlM5dUc2dTcrV1ZHcjA2SEtVWDk0?=
+ =?utf-8?B?M1A1YWcwcWp6cytVY2xqbVdUa0RvVUdKMTVtTmhhOHNkeTBiejVCWDk3OFZL?=
+ =?utf-8?B?cjExbFQxQ2wraW45V2Q4c3h6NWJ4cms2Y0k4ZjJMME1ubE9LQUlqMUcvTHA4?=
+ =?utf-8?B?V0s1YzdnTW9aNkp6ZkN6bWFBNFZLcWdMcGc1Nlg3eHk5bldqazEzRWliWCtj?=
+ =?utf-8?B?TnQ5ZXZId3Y4bzJ1bVNmTlpXZFQ1MEZQUnVzY0JXTjVmYjR0V2h3eFQyalVv?=
+ =?utf-8?B?cnc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	DMhSJAP8viIOQDCM4hVGSNKxtXbqRfF5oYwWCs6lkUp1r79R8Bwh0FfuLWa58kk29PzOZHCH76iwstsRDsZDL5sh8iS1jfgySP4BYXKMpM8PLJGbXYacooJFsKvmFmBlNA10rCZPC4/F98ugSvck5u4B7ZcLqxiaVBAKqy2MKARpcyCRkkkKZFvGAH3w1Qzml4NBPozhnoxAFcZ5P4TSYE0SxjBLQ59yhMUtrSXN5/bbvqbNUCiTGIjoZyhoclyYP/LW9n0Kf6n+YXcJ07iU4CkhHzpGrwFcVBl9Y9CDk8TBRN1Nsdzi/QCPNhT+pqTbnbjrgT00UYyn+L/Gm7ljt1imcM7AnrB44cu4wTr9BtSbAtFe9wvojoS05AIdDVtVktsqMJl+ZUY/DGXOLM1aOZ7VLR7IjdzkHHzQ/QVnBRosRfAbZ6ZfDTRDEeRyJ11VvBzAn32S8G/EdL6148vUwKL5ROrunkoq/XwE2UJB1mna6k5rTGZsYdFpkxzGZKO9FM4gnrvPs7TltzxDrnlBMd270Egw2/1av3KWqZ1VJKDcW4Hahkvec+vSIj7O26oUtCODzyXxOTWl5JmnISt2YT/25TmlN2dwbRGywBuwoVCJLvkAHCWjjnE5Fe2BDNQ+MB0+zf07bMukkkntsy3q8YALeyTHdhaPuaT0I2Fy6hVinFiNomMuPkaTnJyI0XawUSS1mGeqCVEx6iqSQ5sjwoxHO2fsU+OqOQ0FXZWWIvte5fMIhNfQmIntY0hGHSE3lfa4gJO3OuZCtI7/8iDFNbcmV7vRFaZRZNh/sBUP9j4=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e922db4-145c-424a-3794-08db89f42516
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 14:09:49.2269
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86168117-52df-4598-8eb7-08db89f3e1eb
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5786
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e6WmqO8WLSqk3lCvl2reDDR3Xfeo/Matny91i+KGQHaPhTBqS/waYxC5PCE8QyAqWp80/FEXnQjP5TjEctWAoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7094
 
-Hi Jan,
+On Thu, Jul 20, 2023 at 12:32:34AM +0000, Volodymyr Babchuk wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> There are three  originators for the PCI configuration space access:
+> 1. The domain that owns physical host bridge: MMIO handlers are
+> there so we can update vPCI register handlers with the values
+> written by the hardware domain, e.g. physical view of the registers
+> vs guest's view on the configuration space.
+> 2. Guest access to the passed through PCI devices: we need to properly
+> map virtual bus topology to the physical one, e.g. pass the configuration
+> space access to the corresponding physical devices.
+> 3. Emulated host PCI bridge access. It doesn't exist in the physical
+> topology, e.g. it can't be mapped to some physical host bridge.
+> So, all access to the host bridge itself needs to be trapped and
+> emulated.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> ---
+> Since v8:
+> - locks moved out of vpci_translate_virtual_device()
+> Since v6:
+> - add pcidevs locking to vpci_translate_virtual_device
+> - update wrt to the new locking scheme
+> Since v5:
+> - add vpci_translate_virtual_device for #ifndef CONFIG_HAS_VPCI_GUEST_SUPPORT
+>   case to simplify ifdefery
+> - add ASSERT(!is_hardware_domain(d)); to vpci_translate_virtual_device
+> - reset output register on failed virtual SBDF translation
+> Since v4:
+> - indentation fixes
+> - constify struct domain
+> - updated commit message
+> - updates to the new locking scheme (pdev->vpci_lock)
+> Since v3:
+> - revisit locking
+> - move code to vpci.c
+> Since v2:
+>  - pass struct domain instead of struct vcpu
+>  - constify arguments where possible
+>  - gate relevant code with CONFIG_HAS_VPCI_GUEST_SUPPORT
+> New in v2
+> ---
+>  xen/arch/arm/vpci.c     | 47 +++++++++++++++++++++++++++++++++++++++--
+>  xen/drivers/vpci/vpci.c | 24 +++++++++++++++++++++
+>  xen/include/xen/vpci.h  |  7 ++++++
+>  3 files changed, 76 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+> index 3bc4bb5508..66701465af 100644
+> --- a/xen/arch/arm/vpci.c
+> +++ b/xen/arch/arm/vpci.c
+> @@ -28,10 +28,33 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+>                            register_t *r, void *p)
+>  {
+>      struct pci_host_bridge *bridge = p;
+> -    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+> +    pci_sbdf_t sbdf;
+>      /* data is needed to prevent a pointer cast on 32bit */
+>      unsigned long data;
+>  
+> +    ASSERT(!bridge == !is_hardware_domain(v->domain));
+> +
+> +    sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+> +
+> +    /*
+> +     * For the passed through devices we need to map their virtual SBDF
+> +     * to the physical PCI device being passed through.
+> +     */
+> +    if ( !bridge )
+> +    {
+> +        bool translated;
+> +
+> +        read_lock(&v->domain->pci_lock);
+> +        translated = vpci_translate_virtual_device(v->domain, &sbdf);
+> +        read_unlock(&v->domain->pci_lock);
+> +
+> +        if ( !translated )
+> +        {
+> +            *r = ~0ul;
+> +            return 1;
+> +        }
+> +    }
+> +
+>      if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+>                          1U << info->dabt.size, &data) )
+>      {
+> @@ -48,7 +71,27 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
+>                             register_t r, void *p)
+>  {
+>      struct pci_host_bridge *bridge = p;
+> -    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+> +    pci_sbdf_t sbdf;
+> +
+> +    ASSERT(!bridge == !is_hardware_domain(v->domain));
+> +
+> +    sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+> +
+> +    /*
+> +     * For the passed through devices we need to map their virtual SBDF
+> +     * to the physical PCI device being passed through.
+> +     */
+> +    if ( !bridge )
+> +    {
+> +        bool translated;
+> +
+> +        read_lock(&v->domain->pci_lock);
+> +        translated = vpci_translate_virtual_device(v->domain, &sbdf);
+> +        read_unlock(&v->domain->pci_lock);
 
-> On 21 Jul 2023, at 15:08, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 21.07.2023 14:27, Bertrand Marquis wrote:
->> Hi Jan,
->>=20
->>> On 21 Jul 2023, at 12:45, Jan Beulich <jbeulich@suse.com> wrote:
->>>=20
->>> On 21.07.2023 11:02, Bertrand Marquis wrote:
->>>>> On 21 Jul 2023, at 10:52, Jan Beulich <jbeulich@suse.com> wrote:
->>>>> On 21.07.2023 10:02, Bertrand Marquis wrote:
->>>>>> --- a/xen/arch/arm/tee/Kconfig
->>>>>> +++ b/xen/arch/arm/tee/Kconfig
->>>>>> @@ -1,7 +1,17 @@
->>>>>> +menu "TEE mediators"
->>>>>> + visible if UNSUPPORTED
->>>>>=20
->>>>> With this ...
->>>>>=20
->>>>>> +config TEE
->>>>>> + bool
->>>>>> + default n
->>>>>> + help
->>>>>> +  This option enables generic TEE mediators support. It allows gues=
-ts
->>>>>> +  to access real TEE via one of TEE mediators implemented in XEN.
->>>>>> +
->>>>>> config OPTEE
->>>>>> - bool "Enable OP-TEE mediator"
->>>>>> + bool "Enable OP-TEE mediator (UNSUPPORTED)" if UNSUPPORTED
->>>>>=20
->>>>> ... you shouldn't need the "if" here, and ...
->>>>>=20
->>>>>> default n
->>>>>> - depends on TEE
->>>>>> + select TEE
->>>>>> help
->>>>>> Enable the OP-TEE mediator. It allows guests to access
->>>>>> OP-TEE running on your platform. This requires
->>>>>> @@ -13,9 +23,13 @@ config FFA
->>>>>> bool "Enable FF-A mediator support (UNSUPPORTED)" if UNSUPPORTED
->>>>>=20
->>>>> ... you could drop the one here. I think.
->>>>=20
->>>> visible if is only for the GUI/ncurse display but the if is required
->>>> to make sure that a .config file cannot set CONFIG_TEE or
->>>> CONFIG_FFA if. UNSUPPORTED is not selected.
->>>=20
->>> Is what you describe "depends on"? "if" controls merely prompt
->>> visibility aiui.
->>=20
->> So you think that having  CONFIG_FFA without CONFIG_UNSUPPORTED
->> would be a valid configuration and the if is only here for the gui ?
->>=20
->> I tested that with the following procedure:
->> - use menuconfig, select UNSUPPORTED and FFA
->> - edit .config and disable UNSUPPORTED but keep FFA
->> - build
->> - CONFIG_FFA is removed from .config
->>=20
->> Now what puzzles me is that i did the same but removing the if UNSUPPORT=
-ED
->> for TEE and FFA and i have exactly the same behaviour.
->>=20
->> So it seems that "if UNSUPPORTED" and visibility all behave in the same =
-way
->> as depends on which i was not expecting.
->=20
-> Hmm, maybe that's a bug in our variant of kconfig (we didn't sync
-> for quite some time)?
+You drop the lock here, so it's possible that returned SBDF is already
+stale by the time Xen does scan the domain pdev list again?
 
-It could be but if it is the case and we update we might end up with
-people getting UNSUPPORTED features in where they would not
-have been before (because the build is cleaning up .config).
+I guess it's a minor issue.
 
->=20
->> So what should i keep or remove here ?
->=20
-> My understanding so far was that "visibility" merely hides all prompts
-> underneath (but then I use the command line version of the tool, not
-> menuconfig), so it largely is shorthand for adding "if" to all enclosed
-> prompts. Therefore I think all the "if UNSUPPORTED" are redundant and
-> could be dropped. But then I'm also working from the understanding that
-> "depends on" would behave somewhat differently ...
+> +
+> +        if ( !translated )
+> +            return 1;
+> +    }
+>  
+>      return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+>                             1U << info->dabt.size, r);
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index baaafe4a2a..2ce36e811d 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -177,6 +177,30 @@ static int add_virtual_device(struct pci_dev *pdev)
+>      return 0;
+>  }
+>  
+> +/*
+> + * Find the physical device which is mapped to the virtual device
+> + * and translate virtual SBDF to the physical one.
+> + * This must hold domain's pci_lock in read mode.
+> + */
+> +bool vpci_translate_virtual_device(struct domain *d, pci_sbdf_t *sbdf)
+> +{
+> +    struct pci_dev *pdev;
 
-If that is ok with you I would rather keep them so that making one of them
-SUPPORTED one day will not end up in wrongly making the other one
-supported to. The visible if i added was more to "beautify" a bit when
-unsupported is not selected so that we do not have an empty menu.
+const for pdev and d.
 
-Cheers
-Bertrand
+> +
+> +    ASSERT(!is_hardware_domain(d));
+> +
+> +    for_each_pdev( d, pdev )
+> +    {
+> +        if ( pdev->vpci && (pdev->vpci->guest_sbdf.sbdf == sbdf->sbdf) )
+> +        {
+> +            /* Replace guest SBDF with the physical one. */
+> +            *sbdf = pdev->sbdf;
 
+Since you are already iterating over the domain pdev list, won't it be
+more helpful to return the pdev?
 
->=20
-> Jan
-
-
+Thanks, Roger.
 
