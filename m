@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096D875BE8D
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 08:14:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567348.886269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1055375BEC9
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 08:24:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567351.886279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMjPF-00082n-RQ; Fri, 21 Jul 2023 06:14:25 +0000
+	id 1qMjYf-00018Q-Pc; Fri, 21 Jul 2023 06:24:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567348.886269; Fri, 21 Jul 2023 06:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 567351.886279; Fri, 21 Jul 2023 06:24:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMjPF-00080H-OW; Fri, 21 Jul 2023 06:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 567348;
- Fri, 21 Jul 2023 06:14:24 +0000
+	id 1qMjYf-00015g-Lf; Fri, 21 Jul 2023 06:24:09 +0000
+Received: by outflank-mailman (input) for mailman id 567351;
+ Fri, 21 Jul 2023 06:24:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FBlW=DH=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qMjPE-00080B-A2
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 06:14:24 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on060f.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::60f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2N6Z=DH=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1qMjYe-00015X-C7
+ for xen-devel@lists.xen.org; Fri, 21 Jul 2023 06:24:08 +0000
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [2607:f8b0:4864:20::1031])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6053cc9-278d-11ee-b23a-6b7b168915f2;
- Fri, 21 Jul 2023 08:14:23 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM0PR04MB7041.eurprd04.prod.outlook.com (2603:10a6:208:19a::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.28; Fri, 21 Jul
- 2023 06:14:21 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6609.026; Fri, 21 Jul 2023
- 06:14:21 +0000
+ id 318757f1-278f-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 08:24:07 +0200 (CEST)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ 98e67ed59e1d1-263374f2f17so754919a91.0
+ for <xen-devel@lists.xen.org>; Thu, 20 Jul 2023 23:24:06 -0700 (PDT)
+Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
+ gw15-20020a17090b0a4f00b00267bb769652sm1864958pjb.6.2023.07.20.23.24.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Jul 2023 23:24:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,171 +44,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6053cc9-278d-11ee-b23a-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Azq1mvIe9Abbo9U2TjUacnmC7FCBb3wC7XeY/s1HJ4MUEqxKMvvAc63tAYWUVaHPHO2uv90IIzhVFpg+LxKgA3NXcjXWexUeg0PDctWUCHw5ynndAZr/PbcWGtklrzrY9YVIM5mwkB1WVsUjZ9gisVPLrC9x5hia3Ro5jmxYNn8UZNrggQ4PNjpIvBMkluHqiFOljaSTlv6tx3Eqz9Qwf6e4UtkMkVRv/XPiWngbSKLOqhUYN39DAb9JCvwSwWh6i7mBJ34iaM+YfKNJfztxHnc7e2ANqTNl/aIdcvstfntRA+gtI2sdobSqU7bb5V+b+NyRfRiRi4Yg36KspLkY0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ngtzY7KzRhC6pMMna28295OZkJY4Gh8I+QpnU6bveBE=;
- b=g14cCGqYx5IBPuei5sj5anM9c9c6BCoFD1DOkfiJrW5ct49S2oiBTSDW/ecW5wWnltZiS/LSZAj7RaC8mkl3H/QaKGJ//2x55Vd1kMvjgnFcKqdNhiQPrGUfMFSZMlMfreuriN4vvBPB/5HzBNVXC/8Tfg7U76G6Vbp7W5iaaNtn/pLohudrfbIpdAFDzFf4mKp2TkteXio/SrAZ0DiR7wQOYztPcoZfODV5oYX1evclGsEWjTPZ5JWsZ/IBfCrzyMdo+gnsYnsPvcWaI1SdUBj3Ktl5DfmOAzs75wQDLuTsa3bEPq1cpcYMq9OYdjvMOq3DycX/v5Bwwc+u0VUxlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ngtzY7KzRhC6pMMna28295OZkJY4Gh8I+QpnU6bveBE=;
- b=fYFirGmMzSEZEhBkFvGhhkbPMpFMWCbVUY7goDo/87Ysq10tRsJeZDs6+sfpypOwISHbSsHTuSkj1ryznf6WI0DCuz4LlaAhYAGdf0D98/SsurHT56YPx20cgDgzPO2XbEF0l3lpuLsiJAycrZfD2kk+3/uj7y7GVJV2/JVwyMa5ktZ2wTX6mZO4Ev94FHBksFSekqzjL3yVrdrwN7iZVURNqP/LIZWo8io2UO+CYsXfDXPKWVS1YxKu6mR5/pXm7ozAvA/2Kgog0FDhtM3G7cwC4k9+s24/cyGjs4aUpyvnWJi9rIF6Y2MWWXQCNg6CdnGCIp981o4BgEb0mYS+Zg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4e0a0fc9-0c1b-4725-5692-de67ee68a980@suse.com>
-Date: Fri, 21 Jul 2023 08:14:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 03/10] x86 setup: change bootstrap map to accept new boot
- module structures
-Content-Language: en-US
-To: Christopher Clark <christopher.w.clark@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Daniel Smith <dpsmith@apertussolutions.com>, stefano.stabellini@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Luca Fancellu <luca.fancellu@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Rich Persaud <persaur@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20230701071835.41599-1-christopher.w.clark@gmail.com>
- <20230701071835.41599-4-christopher.w.clark@gmail.com>
- <alpine.DEB.2.22.394.2307081144340.761183@ubuntu-linux-20-04-desktop>
- <CACMJ4GYE6PW1SY35dhs4XkXd9ru25igrvMCrh4pJMWEBNNz0YQ@mail.gmail.com>
- <CACMJ4Gb_ZwKSjP7qzfQj98YQjSpBdFuWzeGQJUNNqst0GdXCOw@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CACMJ4Gb_ZwKSjP7qzfQj98YQjSpBdFuWzeGQJUNNqst0GdXCOw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0150.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 318757f1-278f-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1689920645; x=1690525445;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Az5kk1wz6TEQ8ZYux94QCIBg5jaoSQ3XyOK3pt/uVU=;
+        b=ErfbSFGxBRdKfJZZB0PxrB9pJNGQ1ZOQoUV1ThNTT8E03dbZIMlGEbWw1+f9HOLniz
+         T0wkAD09y3Et76iMldpGq4YuwAds4R4ZnLHjFidjAnVHHnCykJ0dDvo0hApKCyLNjfnb
+         LSCiXEN1fCbsJsnDJ932XVj8kii0QqV7lxIWevsAtpkTO+8uKxCwd5Q/uJcVP7z8kxLQ
+         gVCV/69ieJON4pGAiZCLWbkIhvAZRZcmcvCGRcpVtBr7Brp/C9FUWIUmZNmlyOT0avZM
+         sQ4JLA6Pck2H8hUpwD7RbR9rEz2hXdUhNkvzQnQ/H4k9YdX2Tlfup5MSFC0hKmo4WLqp
+         N6Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689920645; x=1690525445;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1Az5kk1wz6TEQ8ZYux94QCIBg5jaoSQ3XyOK3pt/uVU=;
+        b=Vj0MeqkVyZAwhM8DZE9gX1TJRM71HZeWO3qMHG65hA/RSh1gp74u8+eQHAppISOAhG
+         bcHjm9twQpQsOCUA384dLESgnhkVUy1tNtmZnYLVUvp4tSj4gdbvkZ8R8vGUnEpYtOIk
+         C3FbTqY6qYMA5/NseYzebv09JP1uPNMuXxPFRYX9+u8rXprn3iK7X9/tJ5zFJJ7alOPK
+         9+LsaU9JWLmI0YnotMiBDSWbW+FqeMPUS7GQWAECu+a97Q9tAp/E2dbGOjM8XY2byKps
+         APtWIXOnjcrac2qJiN6MBrpKtEVpMicckaF7MG7vuyz5+0Pa6el9wLIbbJcfUNdN9Onx
+         tFSA==
+X-Gm-Message-State: ABy/qLb8H8WaYFsgBBDNB7xwK53spTPvVmIlm1ycA9zPtvhIFcgQQeV6
+	NZJuVR3pCHn2JZDoNk2VnAbcBtq1sS8R1CH9tu4=
+X-Google-Smtp-Source: APBJJlHvhwk8tK0AJfNOv37UPaKnGAsHdDsahuxcbUWOxbHjeFEO3/f/69W9xZNLuNfkFFfYQp1imQ==
+X-Received: by 2002:a17:90a:474e:b0:262:fc42:c7bc with SMTP id y14-20020a17090a474e00b00262fc42c7bcmr617434pjg.32.1689920645384;
+        Thu, 20 Jul 2023 23:24:05 -0700 (PDT)
+Date: Fri, 21 Jul 2023 11:54:02 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: xen-devel@lists.xen.org, Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.com>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Erik Schilling <erik.schilling@linaro.org>
+Subject: Re: [PATCH V4] libxl: arm: Add grant_usage parameter for virtio
+ devices
+Message-ID: <20230721062402.bgu3hzcd33yrlfdg@vireshk-i7>
+References: <144a57807d6f3e6c1e9b45215cb4fa5fa4535f10.1688628006.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM0PR04MB7041:EE_
-X-MS-Office365-Filtering-Correlation-Id: c181bb68-c6db-4b76-76a1-08db89b1b902
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	XYsf9yNlfZSjJN+RHJzoOzcYfy+y8IqMhEQDpRwIxboFs8VAGdxoKh0Aj3hgqLZNWWjd449Ow+z5B9r6O+iKP7Wz/E/sMvqwNeMl2u4Lx7JtWV5rbY/Jzv4ob+iP9nii/9aNCRVmRId1idii0eYHdM7ILXqpS2oB7+QE+sCGtdRFBGeUhqNK5zT7HlneR5Xw6oYYnVaRJR3s1cRYJV5cIrno18A0DWlt3zL0RnhlFunVu2ODcFNFw4jcatfYBUFycx34v3mq09dw/SEDNNLDMbqI8XnZq3AAhZrdRTYMqdmEyiqHw/ly4l3g34/v0dZ43h3OJ7F3WxFx0DYcj+2OB0Gu6yzPG2k0D3xHc9mpZxOnhT7HjyN+hjorFAUQpLBTHWZCoMZitGUSoOIK5kN0V8UkwXJE2f6gYQHm5FIOK/0f6YYI05dqfZ6AMAZ4FG2UiV2i0Wit73cYXUue10WS0AWHEPrZzFPl4n8V/+zEum61zghlXdVhPu8GHv2H4JSQf5GNtZR9zEnWbNRJZrDbqfalTIrhofO+PrCrAoUoBgV74cPVMwWCSWBD1K26G2DfLiNqZSgyPhG2ewrLJ9gBOPkwsnDuupeRqO6FqTfneeg6RxgjlNq1uChKndk7E+Iz2+nmBeQBW3OA2awKcPy2CA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(136003)(396003)(366004)(39860400002)(346002)(451199021)(41300700001)(8676002)(316002)(7416002)(8936002)(86362001)(2906002)(36756003)(31696002)(5660300002)(6512007)(26005)(6506007)(53546011)(478600001)(2616005)(6666004)(6486002)(83380400001)(186003)(31686004)(38100700002)(4326008)(6916009)(66946007)(54906003)(66476007)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?REl3c29yZEM4bDAvbHRRL2UwbnVycEpCb3lnT1FPUEMyN29PVkw5NGd2dDN5?=
- =?utf-8?B?QUlwZE5qMzhZTkdab2N1R2paeEVpMWJmY3IwRTdPbTdiZE5jWDlQRDhjVmZ4?=
- =?utf-8?B?SHV0T2pyai9ROUxBSUlPNmNvZCtBRkxHeTQ4OS9LZlRxa2tpSzFBNzdkNW9j?=
- =?utf-8?B?OG9UdURaQ0MwOFNJUUp0dVlTNENRTCtXRUlEMWdpd0hjL3kwNjRSc3dINWlL?=
- =?utf-8?B?a3ErYnQyV0FsQjIwSlNFSngxRnIyeFk2WHo5T3hsa25WUzUrY2EwSWZTUzZa?=
- =?utf-8?B?Y1V3UFlRNjR1OGo3ZXUxR2k2aUVJekJZWDJjUWFIMG9RVVVFcENUQWNZVHBa?=
- =?utf-8?B?Um4rbnlnK3lTSDcvMVNhaUFxNzBtY2V6VjIyMW5qQzFvTXdJZHdIZ2R4aE9R?=
- =?utf-8?B?eloyR0V1Yy9yUmduN0diNDhMYzZIYXRjcVpNM1d6UWNvYXZobS9QTFZWU1Rh?=
- =?utf-8?B?SmFodUM2cWxxNWhhVDhWSVpTTkdVUUorVEhVa0xabkMyVVpLZ3BEN1JGWHZP?=
- =?utf-8?B?SitVaUJXN29ta2kzemEzU2ExckZCNTJtb294Nk9OcW1PNEpCaklRWXhydzZ3?=
- =?utf-8?B?Z01Oc2U1WVBVTWdWSHhtQUVtdjhBU3MzWWNiaFdsSEtqREVkMHlSSDA2NlFF?=
- =?utf-8?B?N1M3UnlzM25qQVROWGtpeU9iTXduYzIzQnBUdklTWFhHQ2gzYm1SN3oyN21Q?=
- =?utf-8?B?R0FJcUw4UnJBYk9haUlRRDBscDhuZU9jQW9oTVdLVVN3aFdIVlJycmQ1Tllr?=
- =?utf-8?B?VDVWbTlUbkVjakJLb0l1NldTOVV1S01uYU16akprSWlJNjhiRFZYa01JMkd2?=
- =?utf-8?B?c0U2S3EzS1pTdHg2dUFyMkFTN2U4Wm01WTRDNlNWMHB3V3ZFSytybzZpN0pG?=
- =?utf-8?B?VXBpMFVtR21qUHIxMnFBQTF1Y0lZUUNRVmZXbm9HRTQwYVd1UTNjU0hFY3o0?=
- =?utf-8?B?OHlQZzg4ZS9QNWozWmFlMDZ0ZU9nbnpZamhGRU9jRXJYTGMrRndsK0VRdDdl?=
- =?utf-8?B?dFRndnFkNm9QM2I0L3p6UUJIY0pvWGs1aHkxQ0tzVHFGVUl3VnBmY1VEMlZu?=
- =?utf-8?B?ZDdMMm5abWpUTjlkNks1bEpaR0ZmWDBPM0poQlJxVVRISXdaZnJocC9ZR2cv?=
- =?utf-8?B?bklRRVhwM25XTmR3ZWFzOFltZzlTVk9QbHFIbmIydlYrazZpcFBpT0pjOU5x?=
- =?utf-8?B?azh4VzZVV2F3TmdiMktIdUozZlBUUWhuUDlad1VPcG9rNU9aTExPMVIvZ3Yx?=
- =?utf-8?B?SlRWOE83eG00cHo0SjNBdFAzZENkUmdQbDRtaTg2WnJrc2JOWFNvTXh6dHln?=
- =?utf-8?B?QndXWEplQW00d25VTDBjNFEyUkJLZjFQZDR5T2s5ZXZ5SWV4Vm5TVVJJc210?=
- =?utf-8?B?bDFaWWpRUjZXMzUzQWhCejhEa0ZVdTExK2VuSlEyWkFjS211N1VjeTFMRzZk?=
- =?utf-8?B?WUNXYXlVSUZYbkJBSTAyN2svSUw1Nm9WYWhpbXp3VHRXRlBqNjdqaXVkSHc4?=
- =?utf-8?B?Y3JSTGxwbCs0Wjg2Z0tNM09XaWtFd2RSeE9vRlZ2ZWtWNUJSUUhNT3p5RWpV?=
- =?utf-8?B?SXhUQ0RPaWwxaVFmK1JIdGxRNERDK3YzSDBMVDhlMWxPcDhJMnF4RExxZmx6?=
- =?utf-8?B?dXlUd280WWtPT29VdjVMMEhFTnNpR3lMb3V5T2pCd0RRSnJ2T3lYdEhuSGkw?=
- =?utf-8?B?c0hmZ1BPQXVVODdvOFFJTWxGODNqQlE4bm5aZXlIQmd5WE9UaGJkRUtiNVcw?=
- =?utf-8?B?VTF2eVpmUVNscU5DMW8vQWM3eVFUcloyZGg3dzlUVENHVWs5czU1REt6QWdR?=
- =?utf-8?B?Y1ZDalNRRXREVGZzbUZPSGhCZWUxbG9FOTV5VHZrajNMSXJRYURnL1U2c2dT?=
- =?utf-8?B?RUUvVHdQMVVsVmxwMnJOWjFFaC9iZEhjMXBiN1FzcVFxd1YvaXVqT2lWZHR0?=
- =?utf-8?B?QU42dlRUb3d2WWRnN0s3cEdQTmRaZ2t6VlNxN1I0SVFzNXhEMkZyQ0lGQi9V?=
- =?utf-8?B?UGNOT25OTUc2QmdXUktML0NQejQ3M0lRb0VzcytLeGtmdm9ZUUsxYzVuWStN?=
- =?utf-8?B?NExvazA2aG1ncjRjL295aXkxSjJZZlBtTW1TUmptcTQ5MHQ4ZzhSUCszTlJX?=
- =?utf-8?Q?0KxozHAgD/gLu45lVbaWv5zss?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c181bb68-c6db-4b76-76a1-08db89b1b902
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 06:14:21.0182
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q5JuSqiEBrNzFtfF2WWt3M8y913GwpMLTDHsUF6ejF22E7ZruK0P5aK+VkntVUt+t3j5JD/ppiWGYU2jwY+OWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7041
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <144a57807d6f3e6c1e9b45215cb4fa5fa4535f10.1688628006.git.viresh.kumar@linaro.org>
 
-On 21.07.2023 00:12, Christopher Clark wrote:
-> On Thu, Jul 13, 2023 at 11:51 PM Christopher Clark <
-> christopher.w.clark@gmail.com> wrote:
+On 06-07-23, 12:59, Viresh Kumar wrote:
+> Currently, the grant mapping related device tree properties are added if
+> the backend domain is not Dom0. While Dom0 is privileged and can do
+> foreign mapping for the entire guest memory, it is still desired for
+> Dom0 to access guest's memory via grant mappings and hence map only what
+> is required.
 > 
->>
->>
->> On Sat, Jul 8, 2023 at 11:47 AM Stefano Stabellini <sstabellini@kernel.org>
->> wrote:
->>
->>> On Sat, 1 Jul 2023, Christopher Clark wrote:
->>>> To convert the x86 boot logic from multiboot to boot module structures,
->>>> change the bootstrap map function to accept a boot module parameter.
->>>>
->>>> To allow incremental change from multiboot to boot modules across all
->>>> x86 setup logic, provide a temporary inline wrapper that still accepts a
->>>> multiboot module parameter and use it where necessary. The wrapper is
->>>> placed in a new arch/x86 header <asm/boot.h> to avoid putting a static
->>>> inline function into an existing header that has no such functions
->>>> already. This new header will be expanded with additional functions in
->>>> subsequent patches in this series.
->>>>
->>>> No functional change intended.
->>>>
->>>> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
->>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>>
->>>
->>> [...]
->>>
->>>> diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h
->>>> index b72ae31a66..eb93cc3439 100644
->>>> --- a/xen/include/xen/bootinfo.h
->>>> +++ b/xen/include/xen/bootinfo.h
->>>> @@ -10,6 +10,9 @@
->>>>  #endif
->>>>
->>>>  struct boot_module {
->>>> +    paddr_t start;
->>>> +    size_t size;
->>>
->>> I think size should be paddr_t (instead of size_t) to make sure it is
->>> the right size on both 64-bit and 32-bit architectures that support
->>> 64-bit addresses.
->>>
->>
->> Thanks, that explanation does make sense - ack.
->>
+> This commit adds the "grant_usage" parameter for virtio devices, which
+> provides better control over the functionality.
 > 
-> I've come back to reconsider this as it doesn't seem right to me to store a
-> non-address value (which this will always be) in a type explicitly defined
-> to hold an address: addresses may have architectural alignment requirements
-> whereas a size value is just a number of bytes so will not. The point of a
-> size_t value is that size_t is defined to be large enough to hold the size
-> of any valid object in memory, so I think this was right as-is.
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+> V3.1->V4:
+> - Added Reviewed-by tags.
+> - Other patches from the series are already applied.
+> - No code changes.
 
-"Any object in memory" implies virtual addresses (or more generally addresses
-which can be used for accessing objects). This isn't the case when considering
-physical addresses - there may be far more memory in a system than can be made
-accessible all in one go.
+Hi George / Nick,
 
-Jan
+Can you guys please review / ack this patch ?
+
+-- 
+viresh
 
