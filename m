@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE62675CB0C
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 17:10:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567596.886860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7372975CB65
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 17:19:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567599.886871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMrkm-00087i-Sh; Fri, 21 Jul 2023 15:09:12 +0000
+	id 1qMruj-0001B3-Pq; Fri, 21 Jul 2023 15:19:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567596.886860; Fri, 21 Jul 2023 15:09:12 +0000
+Received: by outflank-mailman (output) from mailman id 567599.886871; Fri, 21 Jul 2023 15:19:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMrkm-000859-Q0; Fri, 21 Jul 2023 15:09:12 +0000
-Received: by outflank-mailman (input) for mailman id 567596;
- Fri, 21 Jul 2023 15:09:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qMruj-00019L-N6; Fri, 21 Jul 2023 15:19:29 +0000
+Received: by outflank-mailman (input) for mailman id 567599;
+ Fri, 21 Jul 2023 15:19:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bkvi=DH=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qMrkk-00084n-SZ
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 15:09:10 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8948728c-27d8-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 17:09:06 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-9924ac01f98so322997166b.1
- for <xen-devel@lists.xenproject.org>; Fri, 21 Jul 2023 08:09:06 -0700 (PDT)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- mc13-20020a170906eb4d00b00988c0c175c6sm2272381ejb.189.2023.07.21.08.09.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Jul 2023 08:09:05 -0700 (PDT)
+ <SRS0=PAjr=DH=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qMruh-00019F-O2
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 15:19:27 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id faa2f3fd-27d9-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 17:19:26 +0200 (CEST)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
+ [209.85.217.41])
+ by support.bugseng.com (Postfix) with ESMTPSA id C0A274EE0C99
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Jul 2023 17:19:25 +0200 (CEST)
+Received: by mail-vs1-f41.google.com with SMTP id
+ ada2fe7eead31-4438f623370so867881137.3
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Jul 2023 08:19:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +43,442 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8948728c-27d8-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1689952146; x=1690556946;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sjpbD0hG/VdEHDmZOuXkIsY3klgYFoxMw8k6FKHZP9U=;
-        b=MyAYXrHvai4a/9WEWdysYfhGPcaCuYRMV97SKbI/QWvxhpHs6HTjgDy4k9wiPobbid
-         y7DJ1kH7bornFFl93ssHpR8La/cJClaqPuFblcxnK7tTkgbAZn0qfef7Bzoce2p+NX5J
-         ktv1imIgzXkYEPJ5jtZCiGk3TPOFrBbDY0EU4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689952146; x=1690556946;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sjpbD0hG/VdEHDmZOuXkIsY3klgYFoxMw8k6FKHZP9U=;
-        b=YigrHTp98P9Bq7vnDe/jABDvbKthCEJC1rPG/G5KeJuanuwTwpRe/k7MxcMB5xMv75
-         WA9zDrxh0kuWZ9R6S0bGR7JQ+d4I45CA7FV/RdvzF+M2tEzMFZSli15lUsjvo9jHwLhD
-         zrRC+FKUabrTEVydACcaltPnjjQB2pfTD3qCIF4gmsMuqKBwezIevVOzNlHggg/qPnoj
-         6nthg+dD5uUPKCfdU+XFuYUmGT8ObAQBgNmtR2KTQjBh115b+Ch1zS/J9nIZu1edgyWs
-         +ZXXsbbla9et22fQObI1KaRTRR+X3MFanEhT93gGXwO2ORQK5E24O8iSvrwmxBvf94qQ
-         uqWw==
-X-Gm-Message-State: ABy/qLYoxID3ekGhfBWa8S569n/MnhphSyXr0SEL4b/cZ705fK8asEZy
-	p8uFBhiPDCpP3JN5DqN1giiA8g==
-X-Google-Smtp-Source: APBJJlH1J3YPLMiCB/DBWu0AwIq4O9qygcgKGmPSsMVOD7Wg0SCWeorfMYih1h+1jYQWvaIen37t5A==
-X-Received: by 2002:a17:906:8e:b0:99b:5689:1331 with SMTP id 14-20020a170906008e00b0099b56891331mr1863257ejc.59.1689952146037;
-        Fri, 21 Jul 2023 08:09:06 -0700 (PDT)
-Message-ID: <64ba9f91.170a0220.bad4d.8728@mx.google.com>
-X-Google-Original-Message-ID: <ZLqfjirJEZKZZpJ4@EMEAENGAAD19049.>
-Date: Fri, 21 Jul 2023 16:09:02 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Julien Grall <julien@xen.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 2/8] arm/mm: Document the differences between arm32 and
- arm64 directmaps
-References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
- <20230717160318.2113-3-alejandro.vallejo@cloud.com>
- <437849e6-08a3-8fac-a594-2003d5b94b41@xen.org>
+X-Inumbo-ID: faa2f3fd-27d9-11ee-b23a-6b7b168915f2
+X-Gm-Message-State: ABy/qLZ47Rem7fpyg8C1QwPoo3ZaEA9juSeWyndMy/rPT0sn3WRLyhcn
+	/EjnUIlEAK8NN0RRsdaEgEU2TpdVTZYVJyXmDWE=
+X-Google-Smtp-Source: APBJJlHNbRxfAJD0rFsfvb+01SPA1D8fPFMeoIVLCnuVWHi2TKilY9DK1YZAvD7gS0BjW9IBYHcVLtCeac49IJth32A=
+X-Received: by 2002:a67:bd04:0:b0:443:90ff:c691 with SMTP id
+ y4-20020a67bd04000000b0044390ffc691mr307485vsq.13.1689952764503; Fri, 21 Jul
+ 2023 08:19:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <437849e6-08a3-8fac-a594-2003d5b94b41@xen.org>
+References: <eb5fa852f306790160b967787592553d2fdf3de6.1689887842.git.simone.ballarin@bugseng.com>
+ <alpine.DEB.2.22.394.2307201507070.3118466@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2307201507070.3118466@ubuntu-linux-20-04-desktop>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Date: Fri, 21 Jul 2023 17:19:13 +0200
+X-Gmail-Original-Message-ID: <CAFHJcJs816ZreXXMK4ZOgxeiqowUJyXLUaBOaR9RE9FxTp+bGg@mail.gmail.com>
+Message-ID: <CAFHJcJs816ZreXXMK4ZOgxeiqowUJyXLUaBOaR9RE9FxTp+bGg@mail.gmail.com>
+Subject: Re: [XEN PATCH] automation: add ECLAIR pipeline
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+	Doug Goldstein <cardoe@cardoe.com>
+Content-Type: multipart/alternative; boundary="000000000000372d54060100caa8"
 
-Hi Julian,
+--000000000000372d54060100caa8
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jul 20, 2023 at 09:05:55PM +0100, Julien Grall wrote:
-> Hi Alejandro,
-> 
-> On 17/07/2023 17:03, Alejandro Vallejo wrote:
-> > arm32 merely covers the XENHEAP, whereas arm64 currently covers anything in
-> > the frame table. These comments highlight why arm32 doesn't need to account for PDX
-> > compression in its __va() implementation while arm64 does.
-> > 
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Il giorno ven 21 lug 2023 alle ore 00:29 Stefano Stabellini <
+sstabellini@kernel.org> ha scritto:
+
+>
+> Patchew automatically picked it up from xen-devel and started a pipeline
+> here:
+>
+> https://gitlab.com/xen-project/patchew/xen/-/pipelines/939440592
+>
+> However the eclair-x86_64 job failed with:
+>
+> ERROR: Uploading artifacts as "archive" to coordinator... 413 Payload
+> Too Large
+>
+
+In the next patch, I will avoid uploading the ECLAIR database in GitLab
+artifacts.
+Of course, the databases can still be accessed via the links in the
+pipeline logs.
+
+
+>
+> Also the eclair-ARM64 job failed but it is not clear to me why.
+>
+
+The reason is that the WTOKEN variable is missing. This masked variable
+should be set
+and visible to *all* repositories (xen-project/xen, xen-project/people/.*).
+
+
+> I think at least initially we should mark the two Eclair jobs with:
+>
+>   allow_failure: true
+>
+> until we are sure they work reliably all the time. Otherwise we end up
+> blocking the whole Xen staging pipeline if we make any mistakes here. We
+> can remove "allow_failure: true" once we are sure it works well all the
+> time.
+>
+
+Ok.
+
+>
+> The second thing I noticed is that the build phase didn't start until
+> the analyze phase was concluded. This is not good because it would
+> increase the overall time significantly. We need the build/test phases
+> to start in parallel. To do that you need to add the following change to
+> this patch:
+>
+>
+> diff --git a/automation/gitlab-ci/build.yaml
+> b/automation/gitlab-ci/build.yaml
+> index c401f62d61..f01e2c32bb 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -11,6 +11,7 @@
+>        - '*.log'
+>        - '*/*.log'
+>      when: always
+> +  needs: []
+>    except:
+>      - master
+>      - smoke
+>
+> Thanks.
+
+>
 > > ---
-> >   xen/arch/arm/include/asm/mm.h | 27 +++++++++++++++++++++++++++
-> >   1 file changed, 27 insertions(+)
-> > 
-> > diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-> > index 4262165ce2..1a83f41879 100644
-> > --- a/xen/arch/arm/include/asm/mm.h
-> > +++ b/xen/arch/arm/include/asm/mm.h
-> > @@ -280,6 +280,19 @@ static inline paddr_t __virt_to_maddr(vaddr_t va)
-> >   #define virt_to_maddr(va)   __virt_to_maddr((vaddr_t)(va))
-> >   #ifdef CONFIG_ARM_32
-> > +/**
-> > + * Find the virtual address corresponding to a machine address
-> > + *
-> > + * Only memory backing the XENHEAP has a corresponding virtual address to
-> > + * be found. This is so we can save precious virtual space, as it's in
-> > + * short supply on arm32. This mapping is not subject to PDX compression
-> > + * because XENHEAP is known to be physically contiguous and can't hence
-> > + * jump over the PDX hole. This means we can avoid the roundtrips
-> > + * converting to/from pdx.
-> > + *
-> > + * @param ma Machine address
-> > + * @return Virtual address mapped to `ma`
-> > + */
-> >   static inline void *maddr_to_virt(paddr_t ma)
-> >   {
-> >       ASSERT(is_xen_heap_mfn(maddr_to_mfn(ma)));
-> > @@ -287,6 +300,20 @@ static inline void *maddr_to_virt(paddr_t ma)
-> >       return (void *)(unsigned long) ma + XENHEAP_VIRT_START;
-> >   }
-> >   #else
-> > +/**
-> > + * Find the virtual address corresponding to a machine address
-> > + *
-> > + * The directmap covers all conventional memory accesible by the
-> > + * hypervisor. This means it's subject to PDX compression.
-> > + *
-> > + * More specifically to arm64, the directmap mappings start at the first
-> > + * GiB boundary containing valid RAM. This means there's an extra offset
-> > + * applied (directmap_base_pdx) on top of the regular PDX compression
-> > + * logic.
-> 
-> I find this paragraph a bit confusing to read because it leads to think that
-> pdx_to_maddr(directmap_base_pdx) will return a GiB aligned address.
-> 
-> The base PDX corresponds to the start of the first region and the only
-> requirement is it should be page-aligned. However, when mapping in the
-> virtual address space we also offset the start to ensure that superpage can
-> be used (this is where the GiB alignment is used).
-> 
-> That's why XENHEAP_VIRT_START points to directmap_virt_start rather than
-> DIRECTMAP_VIRT_START. I think it would make sense to have the logic
-> following what you suggest as it would remove a memory read. But I would
-> understand if you don't want to take that extra work. :)
-> 
-> So for now, I would suggest to remove "GiB boundary containing".
-> 
-> Cheers,
-> 
-> -- 
-> Julien Grall
-Just to make sure it's the wording and not my understanding at fault
-(definitely having DIRECTMAP_VIRT_START != directmap_virt_start doesn't do
-any favours cognitive load).
+> >  .gitlab-ci.yml                    |  2 ++
+> >  automation/gitlab-ci/analyze.yaml | 38 +++++++++++++++++++++++++++++++
+> >  automation/scripts/eclair         | 26 +++++++++++++++++++++
+> >  3 files changed, 66 insertions(+)
+> >  create mode 100644 automation/gitlab-ci/analyze.yaml
+> >  create mode 100755 automation/scripts/eclair
+> >
+> > diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> > index c8bd7519d5..ee5430b8b7 100644
+> > --- a/.gitlab-ci.yml
+> > +++ b/.gitlab-ci.yml
+> > @@ -1,7 +1,9 @@
+> >  stages:
+> > +  - analyze
+> >    - build
+> >    - test
+> >
+> >  include:
+> > +  - 'automation/gitlab-ci/analyze.yaml'
+> >    - 'automation/gitlab-ci/build.yaml'
+> >    - 'automation/gitlab-ci/test.yaml'
+> > diff --git a/automation/gitlab-ci/analyze.yaml
+> b/automation/gitlab-ci/analyze.yaml
+> > new file mode 100644
+> > index 0000000000..be96d96e71
+> > --- /dev/null
+> > +++ b/automation/gitlab-ci/analyze.yaml
+> > @@ -0,0 +1,38 @@
+> > +.eclair-analysis:
+> > +  stage: analyze
+> > +  tags:
+> > +    - eclair-analysis
+> > +    - eclair
+> > +    - misrac
+>
+> I would only use 1 tag, eclair-analysis or eclair, up to you
+>
+> Ok.
 
-/GiB boundary
-|
-|   /offset=address of 1st region of RAM % 1GiB
-|   |
-|---------|
-V         V
---------------------------------------------------------------------------
-| padding |                           directmap                | padding |
---------------------------------------------------------------------------
-^         ^
-|         |
-|         \directmap_virt_start=pdx[directmap_base_pdx]
-|
-\DIRECTMAP_VIRT_START
 
-In actual words, I considered DIRECTMAP_VIRT_START the beginning of the
-directmap, not directmap_virt_start.
+> > +  variables:
+> > +    ECLAIR_OUTPUT_DIR: "ECLAIR_out"
+> > +    ANALYSIS_KIND: "normal"
+> > +    ECLAIR_REPORT_URL: "saas.eclairit.com"
+> > +    ENABLE_ECLAIR_BOT: "n"
+> > +    AUTOPRBRANCH: "staging"
+> > +    AUTOPRREPOSITORY: "xen-project/xen"
+> > +  artifacts:
+> > +    when: always
+> > +    paths:
+> > +      - "${ECLAIR_OUTPUT_DIR}"
+> > +      - '*.log'
+> > +    reports:
+> > +      codequality: gl-code-quality-report.json
+> > +
+> > +eclair-x86_64:
+> > +  extends: .eclair-analysis
+> > +  variables:
+> > +    LOGFILE: "eclair-x86_64.log"
+> > +    VARIANT: "X86_64"
+> > +    RULESET: "Set1"
+> > +  script:
+> > +    - ./automation/scripts/eclair 2>&1 | tee "${LOGFILE}"
+>
+> allow_failure: true
+>
+>
+> > +eclair-ARM64:
+> > +  extends: .eclair-analysis
+> > +  variables:
+> > +    LOGFILE: "eclair-ARM64.log"
+> > +    VARIANT: "ARM64"
+> > +    RULESET: "Set1"
+> > +  script:
+> > +    - ./automation/scripts/eclair 2>&1 | tee "${LOGFILE}"
+>
+> allow_failure: true
+>
+>
+> > diff --git a/automation/scripts/eclair b/automation/scripts/eclair
+> > new file mode 100755
+> > index 0000000000..d7f0845aec
+> > --- /dev/null
+> > +++ b/automation/scripts/eclair
+> > @@ -0,0 +1,26 @@
+> > +#!/bin/bash -eu
+> > +
+> > +# ECLAIR configuration files are maintened by BUGSENG
+> > +export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no"
+> > +[ -d ECLAIR_scripts ] || git clone ssh://
+> git@git.bugseng.com/eclair/scripts/XEN ECLAIR_scripts
+> > +(cd ECLAIR_scripts; git pull --rebase)
+> > +
+> > +ECLAIR_DIR=ECLAIR_scripts/ECLAIR
+> > +ECLAIR_OUTPUT_DIR=$(realpath "${ECLAIR_OUTPUT_DIR}")
+> > +
+> > +ECLAIR_scripts/prepare.sh "${VARIANT}"
+> > +
+> > +ex=0
+> > +"${ECLAIR_DIR}/analyze.sh" "${VARIANT}" "${RULESET}" || ex=$?
+> > +"${ECLAIR_DIR}/action_log.sh" ANALYSIS_LOG \
+> > +                             "ECLAIR analysis log" \
+> > +                             "${ECLAIR_OUTPUT_DIR}/ANALYSIS.log" \
+> > +                             "${ex}"
+> > +"${ECLAIR_DIR}/action_log.sh" REPORT_LOG \
+> > +                             "ECLAIR report log" \
+> > +                             "${ECLAIR_OUTPUT_DIR}/REPORT.log" \
+> > +                             "${ex}"
+> > +[ "${ex}" = 0 ] || exit "${ex}"
+> > +"${ECLAIR_DIR}/action_push.sh" "${WTOKEN}" "${ECLAIR_OUTPUT_DIR}"
+> > +
+> > +rm -rf "${ECLAIR_OUTPUT_DIR}/.data"
+> > --
+> > 2.34.1
+> >
+>
 
-If this is it, you probably want to document somewhere what's what. In
-particular, you want a big scary message in DIRECTMAP_VIRT_START stating
-that it merely delimits the virtual range where the directmap can be, not
-where the directmap is, with a "See directmap_virt_start for the address
-where the directmap actually starts" message attached.
 
-With that considered I'm happy to amend as you suggested on v2.
+-- 
+Simone Ballarin, M.Sc.
 
-IMO, the ARM port should not keep that base pdx variable around, but
-integrate it in the pdx logic, so the first valid address always
-corresponds to pdx[0]. Then given a pdx it's immediate to find frame table
-entries and directmap frames. It would also greatly simplify the definition
-of a pdx.
+Field Application Engineer, BUGSENG (https://bugseng.com
+<http://bugseng.com>)
 
-Alejandro
+--000000000000372d54060100caa8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">Il giorno ven 21 lug 2023 alle ore 00=
+:29 Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabe=
+llini@kernel.org</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">
+<br>
+Patchew automatically picked it up from xen-devel and started a pipeline<br=
+>
+here:<br>
+<br>
+<a href=3D"https://gitlab.com/xen-project/patchew/xen/-/pipelines/939440592=
+" rel=3D"noreferrer" target=3D"_blank">https://gitlab.com/xen-project/patch=
+ew/xen/-/pipelines/939440592</a><br>
+<br>
+However the eclair-x86_64 job failed with:<br>
+<br>
+ERROR: Uploading artifacts as &quot;archive&quot; to coordinator... 413 Pay=
+load<br>
+Too Large<br></blockquote><div><br></div><div><div class=3D"gmail_quote"><s=
+pan class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk=
+0b"><span class=3D"gmail-ryNqvb">In the next patch, I will avoid uploading =
+the ECLAIR database</span></span><span class=3D"gmail-jCAhz"><span class=3D=
+"gmail-ryNqvb">
+</span></span><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail=
+-ryNqvb">in GitLab artifacts.</span></span></span></div><div class=3D"gmail=
+_quote"><span class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz =
+gmail-ChMk0b"><span class=3D"gmail-ryNqvb">Of course, the databases can sti=
+ll be accessed via the links in the pipeline logs.</span></span></span></di=
+v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Also the eclair-ARM64 job failed but it is not clear to me why.<br></blockq=
+uote><div><br></div><div>The reason is that the WTOKEN variable is missing.=
+ This masked variable should be set</div><div>and visible to *all* reposito=
+ries (xen-project/xen, xen-project/people/.*).</div><div><br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">
+<br>
+I think at least initially we should mark the two Eclair jobs with:<br>
+<br>
+=C2=A0 allow_failure: true<br>
+<br>
+until we are sure they work reliably all the time. Otherwise we end up<br>
+blocking the whole Xen staging pipeline if we make any mistakes here. We<br=
+>
+can remove &quot;allow_failure: true&quot; once we are sure it works well a=
+ll the<br>
+time.<br></blockquote><div><br></div><div>Ok. <br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">
+<br>
+The second thing I noticed is that the build phase didn&#39;t start until<b=
+r>
+the analyze phase was concluded. This is not good because it would<br>
+increase the overall time significantly. We need the build/test phases<br>
+to start in parallel. To do that you need to add the following change to<br=
+>
+this patch:<br>
+<br>
+<br>
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.y=
+aml<br>
+index c401f62d61..f01e2c32bb 100644<br>
+--- a/automation/gitlab-ci/build.yaml<br>
++++ b/automation/gitlab-ci/build.yaml<br>
+@@ -11,6 +11,7 @@<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0- &#39;*.log&#39;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0- &#39;*/*.log&#39;<br>
+=C2=A0 =C2=A0 =C2=A0when: always<br>
++=C2=A0 needs: []<br>
+=C2=A0 =C2=A0except:<br>
+=C2=A0 =C2=A0 =C2=A0- master<br>
+=C2=A0 =C2=A0 =C2=A0- smoke<br>
+<br></blockquote><div>Thanks. <br></div><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
+ding-left:1ex">
+<br>
+&gt; ---<br>
+&gt;=C2=A0 .gitlab-ci.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 ++<br>
+&gt;=C2=A0 automation/gitlab-ci/analyze.yaml | 38 +++++++++++++++++++++++++=
+++++++<br>
+&gt;=C2=A0 automation/scripts/eclair=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 26 =
++++++++++++++++++++++<br>
+&gt;=C2=A0 3 files changed, 66 insertions(+)<br>
+&gt;=C2=A0 create mode 100644 automation/gitlab-ci/analyze.yaml<br>
+&gt;=C2=A0 create mode 100755 automation/scripts/eclair<br>
+&gt; <br>
+&gt; diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml<br>
+&gt; index c8bd7519d5..ee5430b8b7 100644<br>
+&gt; --- a/.gitlab-ci.yml<br>
+&gt; +++ b/.gitlab-ci.yml<br>
+&gt; @@ -1,7 +1,9 @@<br>
+&gt;=C2=A0 stages:<br>
+&gt; +=C2=A0 - analyze<br>
+&gt;=C2=A0 =C2=A0 - build<br>
+&gt;=C2=A0 =C2=A0 - test<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 include:<br>
+&gt; +=C2=A0 - &#39;automation/gitlab-ci/analyze.yaml&#39;<br>
+&gt;=C2=A0 =C2=A0 - &#39;automation/gitlab-ci/build.yaml&#39;<br>
+&gt;=C2=A0 =C2=A0 - &#39;automation/gitlab-ci/test.yaml&#39;<br>
+&gt; diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/=
+analyze.yaml<br>
+&gt; new file mode 100644<br>
+&gt; index 0000000000..be96d96e71<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/automation/gitlab-ci/analyze.yaml<br>
+&gt; @@ -0,0 +1,38 @@<br>
+&gt; +.eclair-analysis:<br>
+&gt; +=C2=A0 stage: analyze<br>
+&gt; +=C2=A0 tags:<br>
+&gt; +=C2=A0 =C2=A0 - eclair-analysis<br>
+&gt; +=C2=A0 =C2=A0 - eclair<br>
+&gt; +=C2=A0 =C2=A0 - misrac<br>
+<br>
+I would only use 1 tag, eclair-analysis or eclair, up to you<br>
+<br></blockquote><div>Ok.</div><div>=C2=A0<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex">
+&gt; +=C2=A0 variables:<br>
+&gt; +=C2=A0 =C2=A0 ECLAIR_OUTPUT_DIR: &quot;ECLAIR_out&quot;<br>
+&gt; +=C2=A0 =C2=A0 ANALYSIS_KIND: &quot;normal&quot;<br>
+&gt; +=C2=A0 =C2=A0 ECLAIR_REPORT_URL: &quot;<a href=3D"http://saas.eclairi=
+t.com" rel=3D"noreferrer" target=3D"_blank">saas.eclairit.com</a>&quot;<br>
+&gt; +=C2=A0 =C2=A0 ENABLE_ECLAIR_BOT: &quot;n&quot;<br>
+&gt; +=C2=A0 =C2=A0 AUTOPRBRANCH: &quot;staging&quot;<br>
+&gt; +=C2=A0 =C2=A0 AUTOPRREPOSITORY: &quot;xen-project/xen&quot;<br>
+&gt; +=C2=A0 artifacts:<br>
+&gt; +=C2=A0 =C2=A0 when: always<br>
+&gt; +=C2=A0 =C2=A0 paths:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 - &quot;${ECLAIR_OUTPUT_DIR}&quot;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 - &#39;*.log&#39;<br>
+&gt; +=C2=A0 =C2=A0 reports:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 codequality: gl-code-quality-report.json<br>
+&gt; +<br>
+&gt; +eclair-x86_64:<br>
+&gt; +=C2=A0 extends: .eclair-analysis<br>
+&gt; +=C2=A0 variables:<br>
+&gt; +=C2=A0 =C2=A0 LOGFILE: &quot;eclair-x86_64.log&quot;<br>
+&gt; +=C2=A0 =C2=A0 VARIANT: &quot;X86_64&quot;<br>
+&gt; +=C2=A0 =C2=A0 RULESET: &quot;Set1&quot;<br>
+&gt; +=C2=A0 script:<br>
+&gt; +=C2=A0 =C2=A0 - ./automation/scripts/eclair 2&gt;&amp;1 | tee &quot;$=
+{LOGFILE}&quot;<br>
+<br>
+allow_failure: true<br>
+<br>
+<br>
+&gt; +eclair-ARM64:<br>
+&gt; +=C2=A0 extends: .eclair-analysis<br>
+&gt; +=C2=A0 variables:<br>
+&gt; +=C2=A0 =C2=A0 LOGFILE: &quot;eclair-ARM64.log&quot;<br>
+&gt; +=C2=A0 =C2=A0 VARIANT: &quot;ARM64&quot;<br>
+&gt; +=C2=A0 =C2=A0 RULESET: &quot;Set1&quot;<br>
+&gt; +=C2=A0 script:<br>
+&gt; +=C2=A0 =C2=A0 - ./automation/scripts/eclair 2&gt;&amp;1 | tee &quot;$=
+{LOGFILE}&quot;<br>
+<br>
+allow_failure: true<br>
+<br>
+<br>
+&gt; diff --git a/automation/scripts/eclair b/automation/scripts/eclair<br>
+&gt; new file mode 100755<br>
+&gt; index 0000000000..d7f0845aec<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/automation/scripts/eclair<br>
+&gt; @@ -0,0 +1,26 @@<br>
+&gt; +#!/bin/bash -eu<br>
+&gt; +<br>
+&gt; +# ECLAIR configuration files are maintened by BUGSENG<br>
+&gt; +export GIT_SSH_COMMAND=3D&quot;ssh -o StrictHostKeyChecking=3Dno&quot=
+;<br>
+&gt; +[ -d ECLAIR_scripts ] || git clone ssh://<a href=3D"http://git@git.bu=
+gseng.com/eclair/scripts/XEN" rel=3D"noreferrer" target=3D"_blank">git@git.=
+bugseng.com/eclair/scripts/XEN</a> ECLAIR_scripts<br>
+&gt; +(cd ECLAIR_scripts; git pull --rebase)<br>
+&gt; +<br>
+&gt; +ECLAIR_DIR=3DECLAIR_scripts/ECLAIR<br>
+&gt; +ECLAIR_OUTPUT_DIR=3D$(realpath &quot;${ECLAIR_OUTPUT_DIR}&quot;)<br>
+&gt; +<br>
+&gt; +ECLAIR_scripts/prepare.sh &quot;${VARIANT}&quot;<br>
+&gt; +<br>
+&gt; +ex=3D0<br>
+&gt; +&quot;${ECLAIR_DIR}/analyze.sh&quot; &quot;${VARIANT}&quot; &quot;${R=
+ULESET}&quot; || ex=3D$?<br>
+&gt; +&quot;${ECLAIR_DIR}/action_log.sh&quot; ANALYSIS_LOG \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;ECLAIR analysis log&quot; \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;${ECLAIR_OUTPUT_DIR}/ANALYSIS.log&=
+quot; \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;${ex}&quot;<br>
+&gt; +&quot;${ECLAIR_DIR}/action_log.sh&quot; REPORT_LOG \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;ECLAIR report log&quot; \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;${ECLAIR_OUTPUT_DIR}/REPORT.log&qu=
+ot; \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;${ex}&quot;<br>
+&gt; +[ &quot;${ex}&quot; =3D 0 ] || exit &quot;${ex}&quot;<br>
+&gt; +&quot;${ECLAIR_DIR}/action_push.sh&quot; &quot;${WTOKEN}&quot; &quot;=
+${ECLAIR_OUTPUT_DIR}&quot;<br>
+&gt; +<br>
+&gt; +rm -rf &quot;${ECLAIR_OUTPUT_DIR}/.data&quot;<br>
+&gt; -- <br>
+&gt; 2.34.1<br>
+&gt; <br>
+</blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signature_pre=
+fix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"l=
+tr">Simone Ballarin, M.Sc.<br><br><div>Field Application Engineer, BUGSENG =
+(<a href=3D"http://bugseng.com" target=3D"_blank">https://bugseng.com</a>)<=
+/div></div></div></div>
+
+--000000000000372d54060100caa8--
 
