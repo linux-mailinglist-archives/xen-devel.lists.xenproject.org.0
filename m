@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7487175D00F
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 18:53:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567661.886991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C703C75D04B
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 19:03:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567666.887000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtNO-0001JW-5y; Fri, 21 Jul 2023 16:53:10 +0000
+	id 1qMtX6-0002vb-7k; Fri, 21 Jul 2023 17:03:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567661.886991; Fri, 21 Jul 2023 16:53:10 +0000
+Received: by outflank-mailman (output) from mailman id 567666.887000; Fri, 21 Jul 2023 17:03:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtNO-0001Hu-2a; Fri, 21 Jul 2023 16:53:10 +0000
-Received: by outflank-mailman (input) for mailman id 567661;
- Fri, 21 Jul 2023 16:53:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qMtX6-0002tH-4L; Fri, 21 Jul 2023 17:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 567666;
+ Fri, 21 Jul 2023 17:03:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NI5b=DH=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qMtNM-0001Ho-VU
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 16:53:08 +0000
+ id 1qMtX5-0002st-0p
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 17:03:11 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f4c83f4-27e7-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 18:53:05 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 777d4183-27e8-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 19:03:09 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 9E8328285590;
- Fri, 21 Jul 2023 11:53:03 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 153F782854B9;
+ Fri, 21 Jul 2023 12:03:08 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 7T53_EDlM9kY; Fri, 21 Jul 2023 11:53:02 -0500 (CDT)
+ with ESMTP id xnJemO2A6LkH; Fri, 21 Jul 2023 12:03:06 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 36EA68285957;
- Fri, 21 Jul 2023 11:53:02 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 58EA0828597B;
+ Fri, 21 Jul 2023 12:03:06 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id UrC3dRSvM5h6; Fri, 21 Jul 2023 11:53:02 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id B69C18285590;
- Fri, 21 Jul 2023 11:53:01 -0500 (CDT)
+ with ESMTP id 4WoZ_PJhEpRB; Fri, 21 Jul 2023 12:03:06 -0500 (CDT)
+Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id D2BCB82854B9;
+ Fri, 21 Jul 2023 12:03:05 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,217 +51,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f4c83f4-27e7-11ee-8611-37d641c3527e
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 36EA68285957
+X-Inumbo-ID: 777d4183-27e8-11ee-b23a-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 58EA0828597B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1689958382; bh=fYfLF0WSeFnVwXg54J6bA2OQsEwG0Ye0kjBmI9gTu+k=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=tUiIJBauH0acvaYAu2EpsY2bglQDrmvm6l+iDRNcq13+ZNN/FVg1pBGXPpA7GQs1k
-	 sqRwP8VEdEwyFMI/J8rDn8rSYaz4dyiL+G4v6lAKSDNRFSU8Ms3v0Gt1Ckh1HlPxK5
-	 4JAHoKd8NCkbXJ3HSUP+f8YnAZLbKk+nKMa+7kXM=
+	t=1689958986; bh=ZDv3g81mkdDkqDVPk78c0dBzMiqZjC3nBfH519h+Fc4=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=nXyb8unvKcItCZSibarWJzCADfl6p/fNigKNLYVPtlTKgkrZcFGmekanxmhRNtMKn
+	 j3Cl2y+43QtyBJERspeK9bCRqBxwM1mBFDqaQgHIBKVm/5oFjd7T7OBrz9UzB2d74M
+	 U1QwYY3ooranNJo8OiZiGdmFESeQd1scHX1nv/GY=
 X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <a7f89b3b-bcd1-6844-b836-40b73a9fa3b0@raptorengineering.com>
-Date: Fri, 21 Jul 2023 11:53:01 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v4 3/4] xen/ppc: Implement early serial printk on pseries
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1689710519.git.sanastasio@raptorengineering.com>
- <7c416ff843ea359bb24b8c954cc079fe1bbaf75f.1689710519.git.sanastasio@raptorengineering.com>
- <6d3b7cd6-7d6a-8d28-f1e7-7e939e393445@suse.com>
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <6d3b7cd6-7d6a-8d28-f1e7-7e939e393445@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH v5 0/4] Early serial on Power
+Date: Fri, 21 Jul 2023 12:02:51 -0500
+Message-Id: <cover.1689958538.git.sanastasio@raptorengineering.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On 7/19/23 9:05 AM, Jan Beulich wrote:
-> On 18.07.2023 22:20, Shawn Anastasio wrote:
->> +void __init boot_of_init(unsigned long vec)
->> +{
->> +    int bof_chosen;
->> +
->> +    of_vec = vec;
->> +
->> +    /* Get a handle to the default console */
->> +    bof_chosen = of_finddevice("/chosen");
->> +    of_getprop(bof_chosen, "stdout", &of_out, sizeof(of_out));
->> +    of_out = be32_to_cpu(of_out);
-> 
-> Can any of these fail, and hence lead to ...
+Hello all,
 
-These calls are allowed to fail, but their return value in those cases
-is well-defined (an invalid handle), so...
+This series adds support for early serial printing on Power, as well as
+a simple CI smoke test modeled after the riscv one.
 
-> 
->> +    early_printk_init(of_putchar);
-> 
-> ... this better not getting invoked?
+The first patch is responsible for setting up a basic C environment with
+an initial stack while the second sets up an Open Firmware serial console
+and primitive early_printk infrastructure.
 
-this being invoked is fine even in those cases. It will just result in
-the invalid handle being passed to of_write and the firmware will refuse
-to service the writes.
-
->> --- a/xen/arch/ppc/ppc64/asm-offsets.c
->> +++ b/xen/arch/ppc/ppc64/asm-offsets.c
->> @@ -0,0 +1,59 @@
->> +/*
->> + * Generate definitions needed by assembly language modules.
->> + * This code generates raw asm output which is post-processed
->> + * to extract and format the required data.
->> + */
->> +
->> +#include <asm/processor.h>
->> +
->> +#define DEFINE(_sym, _val)                                                 \
->> +    asm volatile ("\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\"" \
->> +                  : : "i" (_val) )
-> 
-> Nit: There's a blank missing after the opening paren, which will then want
-> the 2nd line to be indented by one more character. (Instead, as a matter of
-> your taste, you may omit the blank between the two colons.)
-
-Will fix.
-
->> +#define BLANK()                                                            \
->> +    asm volatile ( "\n.ascii\"==><==\"" : : )
->> +#define OFFSET(_sym, _str, _mem)                                           \
->> +    DEFINE(_sym, offsetof(_str, _mem));
->> +
->> +/* base-2 logarithm */
->> +#define __L2(_x)  (((_x) & 0x00000002) ?   1 : 0)
->> +#define __L4(_x)  (((_x) & 0x0000000c) ? ( 2 + __L2( (_x)>> 2)) : __L2( _x))
->> +#define __L8(_x)  (((_x) & 0x000000f0) ? ( 4 + __L4( (_x)>> 4)) : __L4( _x))
->> +#define __L16(_x) (((_x) & 0x0000ff00) ? ( 8 + __L8( (_x)>> 8)) : __L8( _x))
->> +#define LOG_2(_x) (((_x) & 0xffff0000) ? (16 + __L16((_x)>>16)) : __L16(_x))
->> +
->> +void __dummy__(void)
->> +{
->> +    DEFINE(GPR_WIDTH, sizeof(unsigned long));
->> +    DEFINE(FPR_WIDTH, sizeof(double));
->> +
->> +    OFFSET(UREGS_gprs, struct cpu_user_regs, gprs);
->> +    OFFSET(UREGS_r0, struct cpu_user_regs, gprs[0]);
->> +    OFFSET(UREGS_r1, struct cpu_user_regs, gprs[1]);
->> +    OFFSET(UREGS_r13, struct cpu_user_regs, gprs[13]);
->> +    OFFSET(UREGS_srr0, struct cpu_user_regs, srr0);
->> +    OFFSET(UREGS_srr1, struct cpu_user_regs, srr1);
->> +    OFFSET(UREGS_pc, struct cpu_user_regs, pc);
->> +    OFFSET(UREGS_msr, struct cpu_user_regs, msr);
->> +    OFFSET(UREGS_lr, struct cpu_user_regs, lr);
->> +    OFFSET(UREGS_ctr, struct cpu_user_regs, ctr);
->> +    OFFSET(UREGS_xer, struct cpu_user_regs, xer);
->> +    OFFSET(UREGS_hid4, struct cpu_user_regs, hid4);
->> +    OFFSET(UREGS_dar, struct cpu_user_regs, dar);
->> +    OFFSET(UREGS_dsisr, struct cpu_user_regs, dsisr);
->> +    OFFSET(UREGS_cr, struct cpu_user_regs, cr);
->> +    OFFSET(UREGS_fpscr, struct cpu_user_regs, fpscr);
->> +    DEFINE(UREGS_sizeof, sizeof(struct cpu_user_regs));
->> +}
->> +
->> +/* TODO: Replace with BUILD_BUG_ON + IS_ALIGNED once we can use <xen/lib.h> */
->> +_Static_assert(sizeof(struct cpu_user_regs) % STACK_ALIGN == 0,
->> +               "struct cpu_user_regs not stack aligned!");
-> 
-> But patch 1 makes BUILD_BUG_ON() available now.
-
-Good point, will fix.
-
->> --- /dev/null
->> +++ b/xen/arch/ppc/ppc64/of-call.S
->> @@ -0,0 +1,83 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +/*
->> + * Adapted from Linux's arch/powerpc/kernel/entry_64.S, with the
->> + * following copyright notice:
->> + *
->> + *  PowerPC version
->> + *    Copyright (C) 1995-1996 Gary Thomas (gdt@linuxppc.org)
->> + *  Rewritten by Cort Dougan (cort@cs.nmt.edu) for PReP
->> + *    Copyright (C) 1996 Cort Dougan <cort@cs.nmt.edu>
->> + *  Adapted for Power Macintosh by Paul Mackerras.
->> + *  Low-level exception handlers and MMU support
->> + *  rewritten by Paul Mackerras.
->> + *    Copyright (C) 1996 Paul Mackerras.
->> + *  MPC8xx modifications Copyright (C) 1997 Dan Malek (dmalek@jlc.net).
->> + */
->> +
->> +#include <asm/asm-offsets.h>
->> +#include <asm/asm-defns.h>
->> +#include <asm/msr.h>
->> +
->> +/* size of minimum stack frame that can hold an entire cpu_user_regs struct */
->> +#define STACK_SWITCH_FRAME_SIZE UREGS_sizeof
->> +
->> +    .section .init.text, "ax", @progbits
->> +
->> +ENTRY(enter_of)
->> +    mflr %r0
->> +    std %r0, 16(%r1)
->> +    stdu %r1,-STACK_SWITCH_FRAME_SIZE(%r1) /* Save SP and create stack space */
-> 
-> Nit: A blank after the comma would again be nice.
-
-Will fix.
-
->> +    /*
->> +     * Because PROM is running in 32b mode, it clobbers the high order half
->> +     * of all registers that it saves.  We therefore save those registers
->> +     * PROM might touch to the stack.  (%r0, %r3-%r13 are caller saved)
->> +     */
->> +    SAVE_GPR(2, %r1)
->> +    SAVE_GPR(13, %r1)
->> +    SAVE_NVGPRS(%r1)
->> +    mfcr %r10
->> +    mfmsr %r11
->> +    std %r10, UREGS_cr(%r1)
->> +    std %r11, UREGS_msr(%r1)
->> +
->> +    /* Put PROM address in SRR0 */
->> +    mtsrr0 %r4
->> +
->> +    /* Setup our trampoline return addr in LR */
->> +    bcl 20, 31, .+4
->> +0:  mflr %r4
->> +    addi %r4, %r4, 1f - 0b
->> +    mtlr %r4
->> +
->> +    /* Prepare a 32-bit mode big endian MSR */
->> +    LOAD_IMM64(%r12, MSR_SF | MSR_LE)
->> +    andc %r11, %r11, %r12
->> +    mtsrr1 %r11
->> +    rfid
->> +
->> +1:  /* Return from OF */
->> +    FIXUP_ENDIAN
->> +
->> +    /* Just make sure that %r1 top 32 bits didn't get corrupt by OF */
->> +    rldicl %r1, %r1, 0, 32
->> +
->> +    /* Restore the MSR (back to 64 bits) */
->> +    ld %r0, UREGS_msr(%r1)
->> +    mtmsrd %r0
->> +    isync
->> +
->> +    /* Restore other registers */
->> +    REST_GPR(2, %r1)
->> +    REST_GPR(13, %r1)
->> +    REST_NVGPRS(%r1)
->> +    ld %r4, UREGS_cr(%r1)
->> +    mtcr %r4
->> +
->> +    addi %r1, %r1, STACK_SWITCH_FRAME_SIZE
->> +    ld %r0, 16(%r1)
->> +    mtlr %r0
->> +    blr
->> +
->> +    .size enter_of, . - enter_of
->> +    .type enter_of, %function
+This will currently only run on QEMU pseries VMs, since the firmware
+interface on bare metal differs significantly. Support for bare metal
+will be added in a future series along with support for the
+position-independent code model.
 
 Thanks,
 Shawn
+
+--
+Changes in v5:
+  - (xen/macros.h) Add signoff
+  - (xen/macros.h) Fix up comment formatting and macro parameter names
+  - (*.S) Use 8-space column alignment for assembly
+  - (of-call.S) Add missing space after comma
+  - (asm-offsets.c) Fix DEFINE() macro formatting
+  - (asm-offsets.c) Replace _Static_assert with BUILD_BUG_ON
+
+Changes in v4:
+  - Add macros.h patch for ARRAY_SIZE
+    - Based on v3 of Jan's "common: move a few macros out of xen/lib.h"
+  - (head.S) Remove unnecessary '.section .init.data'
+  - (head.S) Fixup spacing, remove unnecessary parens
+  - (setup.c, processor.h) Fix style of HMT_very_low macro
+  - (early_printk.c) Build early_printk.c as .init.o
+  - (early_printk.c) Mark putchar_func as __initdata
+  - (boot-of.c) Clarify original license in top comment
+  - (boot-of.c) Add parens around ADDR macro definition
+  - (boot-of.c) Add missing ADDR() for pointer arguments
+  - (boot-of.c) Add comment explaining ADDR macro
+  - (boot-of.c) Fix style (indentation, comment capitalization)
+  - (boot-of.c) Fix type inconsistency in boot-of.c
+  - (boot-of.c) Use ARRAY_SIZE instead of hard-coding nrets
+  - (boot-of.c) Change bof_chosen variable to function-scope
+  - (processor.h) Remove duplicate <xen/types.h> include
+  - (processor.h) Remove unnecessary <xen/config.h> include
+  - (processor.h) Move HMT_very_low macro to !defined(ASSEMBLY) block
+  - (processor.h) Fixup struct cpu_user_regs comment style
+
+Changes in v3:
+  - Set up r2 TOC pointer in start
+  - Change indirect call to start_xen to a direct one
+  - Use 32-bit constant loads for stack pointer, etc. in start
+      - Our load address is < 4GB so this works fine
+      - In a future series we'll get -fPIC working and change all of
+        these immediate address loads to TOC-relative ones.
+  - Move .bss initialization to patch 2
+  - Move cpu0_boot_stack declaration to setup.c
+  - Bump stack size down to one page (64k), previous was way overkill.
+  - Remove unnecessary STACK_FRAME_OVERHEAD component from of-call.S
+    stack frame size calculation
+  - Add assertion that `struct cpu_user_regs` is stack-aligned
+  - Move magic `or 31,31,31` to appropriately-named macro
+  - Fix formatting of loop in setup.c
+  - Add newline in arch/ppc/Makefile to preserve alphabetical ordering
+    per group
+  - Rebase on staging, including the final version of
+    'xen/types: Rework stdint vs __{u,s}$N types'
+
+Changes in v2:
+  - Split main patch into two - one for basic C environment setup and
+    one for serial
+  - Mark OpenFirmware functions and early_printk functions as __init and
+    change boot-of.o to boot-of.init.o in Makefile
+  - Change <xen/lib.h> include to <xen/stdarg.h> and drop skeleton
+    headers that are no longer necessary for build as a result
+  - Add loop to clear .bss before jumping to C environment that was
+    accidentally excluded from the first series
+  - Move common asm macros from processor.h to asm-defns.h
+  - Change note in head.S about preserved registers to a multi-line
+    comment so it's more noticeable
+  - Drop reg-defs.h and use '%'-prefixed register names in assembly
+      - This is necessary since -mregnames, which allows standard
+        non-prefixed register names without manual macro definitions,
+        is not supported by LLVM's assembler.
+  - Drop inline asm swab routines in favor of __builtin_bswap family
+  - Fix up types.h in accordance with (as of now, unmerged)
+    'xen/types: Rework stdint vs __{u,s}$N types'
+  - Remove unnecessary braces for single-line statements
+  - Remove unnecessary license text when SPDX header is present
+  - Fix alphabetical ordering of object declarations in Makefile
+  - Drop 'extern' from enter_of prototype, ensure prototypes have
+    argument names
+
+Shawn Anastasio (4):
+  common: Move a few more standalone macros from xen/lib.h to
+    xen/macros.h
+  xen/ppc: Set up a basic C environment
+  xen/ppc: Implement early serial printk on pseries
+  automation: Add smoke test for ppc64le
+
+ automation/gitlab-ci/test.yaml           |  20 ++++
+ automation/scripts/qemu-smoke-ppc64le.sh |  27 +++++
+ xen/arch/ppc/Kconfig.debug               |   5 +
+ xen/arch/ppc/Makefile                    |   4 +
+ xen/arch/ppc/boot-of.c                   | 113 +++++++++++++++++++
+ xen/arch/ppc/configs/ppc64_defconfig     |   1 +
+ xen/arch/ppc/early_printk.c              |  28 +++++
+ xen/arch/ppc/include/asm/asm-defns.h     |  57 ++++++++++
+ xen/arch/ppc/include/asm/boot.h          |  23 ++++
+ xen/arch/ppc/include/asm/byteorder.h     |  12 ++
+ xen/arch/ppc/include/asm/config.h        |   5 +-
+ xen/arch/ppc/include/asm/early_printk.h  |  15 +++
+ xen/arch/ppc/include/asm/msr.h           |  51 +++++++++
+ xen/arch/ppc/include/asm/processor.h     | 138 +++++++++++++++++++++++
+ xen/arch/ppc/include/asm/types.h         |  21 ++++
+ xen/arch/ppc/ppc64/Makefile              |   1 +
+ xen/arch/ppc/ppc64/asm-offsets.c         |  58 ++++++++++
+ xen/arch/ppc/ppc64/head.S                |  47 ++++----
+ xen/arch/ppc/ppc64/of-call.S             |  83 ++++++++++++++
+ xen/arch/ppc/setup.c                     |  32 ++++++
+ xen/include/xen/lib.h                    |  28 -----
+ xen/include/xen/macros.h                 |  34 ++++++
+ 22 files changed, 754 insertions(+), 49 deletions(-)
+ create mode 100755 automation/scripts/qemu-smoke-ppc64le.sh
+ create mode 100644 xen/arch/ppc/boot-of.c
+ create mode 100644 xen/arch/ppc/early_printk.c
+ create mode 100644 xen/arch/ppc/include/asm/asm-defns.h
+ create mode 100644 xen/arch/ppc/include/asm/boot.h
+ create mode 100644 xen/arch/ppc/include/asm/byteorder.h
+ create mode 100644 xen/arch/ppc/include/asm/early_printk.h
+ create mode 100644 xen/arch/ppc/include/asm/msr.h
+ create mode 100644 xen/arch/ppc/include/asm/processor.h
+ create mode 100644 xen/arch/ppc/include/asm/types.h
+ create mode 100644 xen/arch/ppc/ppc64/of-call.S
+ create mode 100644 xen/arch/ppc/setup.c
+
+--
+2.30.2
+
 
