@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35A875D047
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 19:03:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567668.887021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 269BA75D053
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 19:06:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567683.887050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtX7-0003PA-Na; Fri, 21 Jul 2023 17:03:13 +0000
+	id 1qMtZk-0005lR-Q7; Fri, 21 Jul 2023 17:05:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567668.887021; Fri, 21 Jul 2023 17:03:13 +0000
+Received: by outflank-mailman (output) from mailman id 567683.887050; Fri, 21 Jul 2023 17:05:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtX7-0003Mk-JB; Fri, 21 Jul 2023 17:03:13 +0000
-Received: by outflank-mailman (input) for mailman id 567668;
- Fri, 21 Jul 2023 17:03:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NI5b=DH=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qMtX5-0002st-Lj
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 17:03:11 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78305254-27e8-11ee-b23a-6b7b168915f2;
- Fri, 21 Jul 2023 19:03:10 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 78E5A828597B;
- Fri, 21 Jul 2023 12:03:09 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id F6KNfYDGUPNK; Fri, 21 Jul 2023 12:03:09 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id DAF03828595C;
- Fri, 21 Jul 2023 12:03:08 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id T3UZyJ_-5EvO; Fri, 21 Jul 2023 12:03:08 -0500 (CDT)
-Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id A9B908285A35;
- Fri, 21 Jul 2023 12:03:07 -0500 (CDT)
+	id 1qMtZk-0005ip-N8; Fri, 21 Jul 2023 17:05:56 +0000
+Received: by outflank-mailman (input) for mailman id 567683;
+ Fri, 21 Jul 2023 17:05:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qMtZi-0005ig-NK
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 17:05:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qMtZh-0003OG-Lf; Fri, 21 Jul 2023 17:05:53 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[192.168.21.208]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qMtZh-0006oj-DX; Fri, 21 Jul 2023 17:05:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,119 +39,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78305254-27e8-11ee-b23a-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com DAF03828595C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1689958988; bh=t2XSxlE4JcYvYurr+9ZptgwwCybbDwha+GFsOD84g3s=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=HkptPHndv8brZtUT0MonN0Vk8eZkwp+Y2J6DlfOsvTzvPaAAZq+8IYcmrK8ByL/fb
-	 JqurN/Q8baZqQt6XQZz3szbNwCLYcoFN8jB2QO10mTucK7SwwkKeGtOjHDQO+i+QeJ
-	 YUhCNu/NMCYau+fDCrTxjXKdXxc5uKMDfRG8ZyPU=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 4/4] automation: Add smoke test for ppc64le
-Date: Fri, 21 Jul 2023 12:02:55 -0500
-Message-Id: <ade2e58251c506e4576424082623d9b232a435f9.1689958538.git.sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1689958538.git.sanastasio@raptorengineering.com>
-References: <cover.1689958538.git.sanastasio@raptorengineering.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=MjAeznATP3VrlhETPWNmDUS5qb+UQitxxgR3yd6/7vg=; b=Y63uFTa/o8+kUMi+LjMStIzdj3
+	dqHjmpqCveW6mA+LwFOgR4nSB7YP8tkZrtkjasguKnZL7yhWlWDcKNYrbe9Vj9k57BHVQky97I3wD
+	bYuUsWyqWDvg+nN3BtM7DUJHlCi/0ESMnrZyp2Ib0K6BWQ0VTn6/Gc4KrA57uCZuG7As=;
+Message-ID: <1eb58b83-87ee-d738-08b0-948a8b48773a@xen.org>
+Date: Fri, 21 Jul 2023 18:05:51 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH 6/8] mm/pdx: Standardize region validation wrt pdx
+ compression
+Content-Language: en-US
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
+ <20230717160318.2113-7-alejandro.vallejo@cloud.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230717160318.2113-7-alejandro.vallejo@cloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add an initial smoke test that boots xen on a ppc64/pseries machine and
-checks for a magic string. Based on the riscv smoke test.
+Hi Alejandro,
 
-Eventually the powernv9 (POWER9 bare metal) machine type will want to be
-tested as well, but for now we only boot on pseries.
+On 17/07/2023 17:03, Alejandro Vallejo wrote:
+> Regions must be occasionally validated for pdx compression validity. That
+> is, whether any of the machine addresses spanning the region have a bit set
+> in the pdx "hole" (which is expected to always contain zeroes). There are
+> a few such tests through the code, and they all check for different things.
+> 
+> This patch replaces all such occurences with a call to a centralized
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
- automation/gitlab-ci/test.yaml           | 20 ++++++++++++++++++
- automation/scripts/qemu-smoke-ppc64le.sh | 27 ++++++++++++++++++++++++
- 2 files changed, 47 insertions(+)
- create mode 100755 automation/scripts/qemu-smoke-ppc64le.sh
+Typo: s/occurences/occurrences/
 
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.y=
-aml
-index d5cb238b0a..45e8ddb7a3 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -71,6 +71,19 @@
-   tags:
-     - x86_64
-=20
-+.qemu-ppc64le:
-+  extends: .test-jobs-common
-+  variables:
-+    CONTAINER: debian:bullseye-ppc64le
-+    LOGFILE: qemu-smoke-ppc64le.log
-+  artifacts:
-+    paths:
-+      - smoke.serial
-+      - '*.log'
-+    when: always
-+  tags:
-+    - x86_64
-+
- .xilinx-arm64:
-   extends: .test-jobs-common
-   variables:
-@@ -444,3 +457,10 @@ qemu-smoke-riscv64-gcc:
-     - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
-   needs:
-     - archlinux-current-gcc-riscv64-debug
-+
-+qemu-smoke-ppc64le-pseries-gcc:
-+  extends: .qemu-ppc64le
-+  script:
-+    - ./automation/scripts/qemu-smoke-ppc64le.sh pseries-5.2 2>&1 | tee =
-${LOGFILE}
-+  needs:
-+    - debian-bullseye-gcc-ppc64le-debug
-diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/script=
-s/qemu-smoke-ppc64le.sh
-new file mode 100755
-index 0000000000..eb55221221
---- /dev/null
-+++ b/automation/scripts/qemu-smoke-ppc64le.sh
-@@ -0,0 +1,27 @@
-+#!/bin/bash
-+
-+set -ex
-+
-+# machine type from first arg passed directly to qemu -M
-+machine=3D$1
-+
-+# Run the test
-+rm -f smoke.serial
-+set +e
-+
-+touch smoke.serial
-+
-+timeout -k 1 20 \
-+qemu-system-ppc64 \
-+    -M $machine \
-+    -m 2g \
-+    -smp 1 \
-+    -vga none \
-+    -monitor none \
-+    -nographic \
-+    -serial file:smoke.serial \
-+    -kernel binaries/xen
-+
-+set -e
-+(grep -q "Hello, ppc64le!" smoke.serial) || exit 1
-+exit 0
---=20
-2.30.2
+> function that checks a region for validity.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+>   xen/arch/x86/x86_64/mm.c |  2 +-
+>   xen/common/efi/boot.c    |  6 +++---
+>   xen/common/pdx.c         | 13 +++++++++++--
+>   xen/include/xen/pdx.h    |  9 +++++++++
+>   4 files changed, 24 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+> index 60db439af3..914e65c26c 100644
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -1168,7 +1168,7 @@ static int mem_hotadd_check(unsigned long spfn, unsigned long epfn)
+>       if ( (spfn | epfn) & ((1UL << PAGETABLE_ORDER) - 1) )
+>           return 0;
+>   
+> -    if ( (spfn | epfn) & pfn_hole_mask )
+> +    if ( !pdx_is_region_compressible(spfn, epfn) )
+>           return 0;
+>   
+>       /* Make sure the new range is not present now */
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 24169b7b50..b098a8c030 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -14,6 +14,7 @@
+>   #include <xen/multiboot.h>
+>   #include <xen/param.h>
+>   #include <xen/pci_regs.h>
+> +#include <xen/pdx.h>
+>   #include <xen/pfn.h>
+>   #if EFI_PAGE_SIZE != PAGE_SIZE
+>   # error Cannot use xen/pfn.h here!
+> @@ -1647,7 +1648,7 @@ static bool __init cf_check ram_range_valid(unsigned long smfn, unsigned long em
+>   {
+>       unsigned long sz = pfn_to_pdx(emfn - 1) / PDX_GROUP_COUNT + 1;
+>   
+> -    return !(smfn & pfn_hole_mask) &&
+> +    return pdx_is_region_compressible(smfn, emfn) &&
+>              find_next_bit(pdx_group_valid, sz,
+>                            pfn_to_pdx(smfn) / PDX_GROUP_COUNT) < sz;
+>   }
+> @@ -1759,8 +1760,7 @@ void __init efi_init_memory(void)
+>               prot |= _PAGE_NX;
+>   
+>           if ( pfn_to_pdx(emfn - 1) < (DIRECTMAP_SIZE >> PAGE_SHIFT) &&
+> -             !(smfn & pfn_hole_mask) &&
+> -             !((smfn ^ (emfn - 1)) & ~pfn_pdx_bottom_mask) )
+> +             pdx_is_region_compressible(smfn, emfn))
+>           {
+>               if ( (unsigned long)mfn_to_virt(emfn - 1) >= HYPERVISOR_VIRT_END )
+>                   prot &= ~_PAGE_GLOBAL;
+> diff --git a/xen/common/pdx.c b/xen/common/pdx.c
+> index 99d4a90a50..72845e4bab 100644
+> --- a/xen/common/pdx.c
+> +++ b/xen/common/pdx.c
+> @@ -88,7 +88,7 @@ bool __mfn_valid(unsigned long mfn)
+>   }
+>   
+>   /* Sets all bits from the most-significant 1-bit down to the LSB */
+> -static uint64_t __init fill_mask(uint64_t mask)
+> +static uint64_t fill_mask(uint64_t mask)
+>   {
+>       while (mask & (mask + 1))
+>           mask |= mask + 1;
+> @@ -96,6 +96,15 @@ static uint64_t __init fill_mask(uint64_t mask)
+>       return mask;
+>   }
+>   
+> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn)
 
+For newer interface, I would rather prefer if we use start + size. It is 
+easier to reason (you don't have to wonder whether 'emfn' is inclusive 
+or not) and avoid issue in the case you are trying to handle a region 
+right at the end of the address space as emfn would be 0 in the 
+non-inclusive case (not much a concern for MFNs as the last one should 
+be invalid, but it makes harder to reason).
+
+> +{
+> +    uint64_t base = smfn << PAGE_SHIFT;
+
+On Arm32, physical address are up to 40-bit. So you want to cast smfn to 
+uint64_t before shifting. That said, it would be best to use 
+pfn_to_paddr() and possibly switch to paddr_t for the type.
+
+Note that I understand that the rest of the PDX code is using uint64_t. 
+So I would be ok if you don't want to switch to paddr_t.
+
+> +    uint64_t len = (emfn - smfn) << PAGE_SHIFT;
+
+Same here.
+
+> +
+> +    return !(smfn & pfn_hole_mask) &&
+> +           !(pdx_region_mask(base, len) & ~ma_va_bottom_mask);
+> +}
+> +
+>   /* We don't want to compress the low MAX_ORDER bits of the addresses. */
+>   uint64_t __init pdx_init_mask(uint64_t base_addr)
+>   {
+> @@ -103,7 +112,7 @@ uint64_t __init pdx_init_mask(uint64_t base_addr)
+>                            (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
+>   }
+>   
+> -uint64_t __init pdx_region_mask(uint64_t base, uint64_t len)
+> +uint64_t pdx_region_mask(uint64_t base, uint64_t len)
+>   {
+>       /*
+>        * We say a bit "moves" in a range if there exist 2 addresses in that
+> diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
+> index f8ca0f5821..5378e664c2 100644
+> --- a/xen/include/xen/pdx.h
+> +++ b/xen/include/xen/pdx.h
+> @@ -77,6 +77,15 @@ extern unsigned long pfn_top_mask, ma_top_mask;
+>                            (sizeof(*frame_table) & -sizeof(*frame_table)))
+>   extern unsigned long pdx_group_valid[];
+>   
+> +/**
+> + * Validate a region's compatibility with the current compression runtime
+> + *
+> + * @param smfn Start mfn
+> + * @param emfn End mfn (non-inclusive)
+> + * @return True iff the region can be used with the current compression
+> + */
+> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn);
+> +
+>   /**
+>    * Calculates a mask covering "moving" bits of all addresses of a region
+>    *
+
+Cheers,
+
+-- 
+Julien Grall
 
