@@ -2,32 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 269BA75D053
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 19:06:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567683.887050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77D575D082
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 19:18:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567687.887061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtZk-0005lR-Q7; Fri, 21 Jul 2023 17:05:56 +0000
+	id 1qMtl4-0007Mn-1T; Fri, 21 Jul 2023 17:17:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567683.887050; Fri, 21 Jul 2023 17:05:56 +0000
+Received: by outflank-mailman (output) from mailman id 567687.887061; Fri, 21 Jul 2023 17:17:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtZk-0005ip-N8; Fri, 21 Jul 2023 17:05:56 +0000
-Received: by outflank-mailman (input) for mailman id 567683;
- Fri, 21 Jul 2023 17:05:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qMtZi-0005ig-NK
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 17:05:54 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qMtZh-0003OG-Lf; Fri, 21 Jul 2023 17:05:53 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.21.208]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qMtZh-0006oj-DX; Fri, 21 Jul 2023 17:05:53 +0000
+	id 1qMtl3-0007KK-UI; Fri, 21 Jul 2023 17:17:37 +0000
+Received: by outflank-mailman (input) for mailman id 567687;
+ Fri, 21 Jul 2023 17:17:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=E6wv=DH=epam.com=prvs=15660979e2=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1qMtl2-0007KE-TL
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 17:17:37 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7b1c2b56-27ea-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 19:17:34 +0200 (CEST)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36LGd5pD016817; Fri, 21 Jul 2023 17:17:24 GMT
+Received: from eur05-db8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2109.outbound.protection.outlook.com [104.47.17.109])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3rywqdr303-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Jul 2023 17:17:24 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
+ by AS8PR03MB9772.eurprd03.prod.outlook.com (2603:10a6:20b:61b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25; Fri, 21 Jul
+ 2023 17:17:21 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::11f9:615a:4d9a:a5d2]) by DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::11f9:615a:4d9a:a5d2%6]) with mapi id 15.20.6588.027; Fri, 21 Jul 2023
+ 17:17:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,180 +53,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=MjAeznATP3VrlhETPWNmDUS5qb+UQitxxgR3yd6/7vg=; b=Y63uFTa/o8+kUMi+LjMStIzdj3
-	dqHjmpqCveW6mA+LwFOgR4nSB7YP8tkZrtkjasguKnZL7yhWlWDcKNYrbe9Vj9k57BHVQky97I3wD
-	bYuUsWyqWDvg+nN3BtM7DUJHlCi/0ESMnrZyp2Ib0K6BWQ0VTn6/Gc4KrA57uCZuG7As=;
-Message-ID: <1eb58b83-87ee-d738-08b0-948a8b48773a@xen.org>
-Date: Fri, 21 Jul 2023 18:05:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [PATCH 6/8] mm/pdx: Standardize region validation wrt pdx
- compression
+X-Inumbo-ID: 7b1c2b56-27ea-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dpUiLZ1N0Q6BS6Eog66kc2cQ8vK2+wMvZXw3pOUDS/a67dOqpQZAAh3Hk7i/TW2KaHFFf0pkwqa5nIDryh/qeUBRPu+et78bYgU9/f9+T2PWDNLUKdicv/eT+295+Xsh9dhHKGTBtZ83Xrhw73hR2E3KWTx8eIM2b6N5zFU+TPJVI6ou1Yllalncku3NnQqeoJlVvFc2rg5hDOhZ/qQp74AUnthJexWnVpudDzjrfsQ49lBal4+GHLkMci1kbFfZQSVivX3hAqt+7kPsK7BBqgFqdQ2a1L49MN54co6sjujWG1KWNVF5NjhQ0ZSmtXio6aTEgdQeAFkcoXHy5RcVhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HfIcqW9GgexNsijht0tyEaiScvBY9P0LfsmoQ66ReWk=;
+ b=YEJOcKTdEO+gEmubfgGx3/m7Mg2bkN6Qn7eqn83XuHsNHP7z+zDWXUG7WRAuwoYrakIEcGZdwKwWFeT3HJl1ciT+M5FIitNYfI4Npq2eXowchhlsbGl9ISTr9q2qm/gWl07sjZPbAKxOE6cwg3sEcDZVuD/B8Wo/m11TuGi33eW5srmCZIC+yv0qQVjCp6hRc2oIRmyFvlROYIAOpoGjjxglgoaYyQYVncYDza3Nyx2kiaZ3hZvqmYfcURuCbu0QQM2MWzMXqA8hRvsMnKEFyYVB5CUAywA94akCRn4K8/goaZtxN2hzjboOzjgzU0ga2kQh+VMPm5fWluGOgDH/HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HfIcqW9GgexNsijht0tyEaiScvBY9P0LfsmoQ66ReWk=;
+ b=Epmpxyitk/4mrd7SmOyKeQm28aLQfOuGxNeCAxew+LdSl8UCCssb9L/tiG44hixOspwHiKe0XA/TnnqmxLRSmeoAqHeA/QhOafbmZ9pSvNiCehSPpfpB7OhZl0KLdXLe01NKDrIGZMwSinkiPSikfaT96JCfg97nWegzOn4JKOvSRntIfRi1z59xDlQYo4yBOMfAC+nbSX+NooKXUo863PICb2fCimwWps/InAxltLy102Xes0uhnrN3ZqXFAjMJmY54NsEczvBNXi5OsxvgsCZcQV+fp8fe9yBHLIkgEw4brp/3SaurJnLblyC3gsPFI0HtGzTzyczOBbyVc000Ug==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+CC: Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini
+	<sstabellini@kernel.org>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        =?utf-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>,
+        "stratos-dev@op-lists.linaro.org" <stratos-dev@op-lists.linaro.org>,
+        Erik
+ Schilling <erik.schilling@linaro.org>,
+        Manos Pitsidianakis
+	<manos.pitsidianakis@linaro.org>,
+        Mathieu Poirier
+	<mathieu.poirier@linaro.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xen: privcmd: Add support for irqfd
+Thread-Topic: [PATCH] xen: privcmd: Add support for irqfd
+Thread-Index: AQHZtJ2tw+2Ln+ZUhUa/nIHLslV4fq+3Uo+AgAB0BQCACqzlgIACEa0A
+Date: Fri, 21 Jul 2023 17:17:20 +0000
+Message-ID: <b126f918-fcd7-dc45-5fa5-eea8309d1b60@epam.com>
+References: 
+ <d4e0233524b8c7c48614b09cae4d23f2cdf10988.1689150266.git.viresh.kumar@linaro.org>
+ <a5521a9d-72c6-4e03-0fbb-8a37418c32f2@suse.com>
+ <97e63191-e2ba-34f6-ca6c-99b9e9841587@epam.com>
+ <20230720094127.zsqpvryj36cbekik@vireshk-i7>
+In-Reply-To: <20230720094127.zsqpvryj36cbekik@vireshk-i7>
+Accept-Language: en-US, ru-RU
 Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
- <20230717160318.2113-7-alejandro.vallejo@cloud.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230717160318.2113-7-alejandro.vallejo@cloud.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|AS8PR03MB9772:EE_
+x-ms-office365-filtering-correlation-id: 07551415-9849-40e3-543e-08db8a0e57ea
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ hhH2lM3WQV4yOCRJPEE08qHunE4pQNlnP3gsWo5VaY+pr3y0E1Tuxz0vL+Vljp9Ll/TalltUmOcImrR8NGxw6nBQu4N86ScSfd4xt7ebnWQYia29BVSA+ZQ71/wyj21J20stU2MmjLSyB10+MDlAtanlN5l334A5bI1HDU72gTi/iBYD6XF3qhhWHom/IAzn244Kw+7iVbpkvjule+ATXP+uQHOuClIdeQR16q89cySPE7i4cZ4Y8G/jBcEo/RUrxIgHcHcOYiff5QUsMsh2TQ6NrjdOLdnmAlGvRlKXEb5p3lKRGPxqY8SJD3V2jSMod42kVmy4zCKzC0Zq0bzx/bDQhPYxmCyihUuODC4EzPD/hhAr8zo8CO9g70WAstSCUa+3E85NpWz9UhVj3u2Cz5H5l06ZFzgYEB45KCyKVL5di6NtvUYev/Th4T986R6oIdMmSEBSgkg99z2EixNeAiYsabhawo6rtc8Ar/DDM9gNK5RBtjbJip1Cip0KTO9SrdGGV07UCAlPR82SudfPg3DzSZ9Q0zUt+JyzvnDJKQNJnTsD+CDWhHV+MJ6pdQ5ytCAgTf+Ev8faUmyg+JOUg0D4w3el/qmeKDUL7eKepmgRym0Up5oFHRHWC9wiYm6uBZ24x46jnIU5auOmyK7BBg==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(39860400002)(376002)(396003)(136003)(346002)(451199021)(38070700005)(31686004)(31696002)(66446008)(38100700002)(86362001)(122000001)(4744005)(2616005)(36756003)(66476007)(2906002)(71200400001)(8676002)(8936002)(7416002)(478600001)(83380400001)(5660300002)(6486002)(966005)(6512007)(53546011)(26005)(6506007)(186003)(6916009)(54906003)(316002)(4326008)(76116006)(41300700001)(66946007)(91956017)(64756008)(66556008)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?OEZuWittRTV5dkJmWlpkczBoeFFlZFBDOEJTcitmTS9pbGVqN21RTkc1T0xr?=
+ =?utf-8?B?aHRpTUNuN1ArQ1NGTVRYUGIzZUxjeHljc3BXV0RIb3ZTOWNvQ2ZpQlQza0Fi?=
+ =?utf-8?B?ZzI4ajhEVjN5aG1HWUFJc0diZEttRVNHbHBMV3o3aDFGQzFrS3p2TStnTExX?=
+ =?utf-8?B?V0c3ajI0ZWNBMUdiMWpzTXMxR3cxNUZPTDM5cnlUdmx4TUw0cVZER2QzT3c4?=
+ =?utf-8?B?eUpRK0ppelNuWWtZYVpLTUlOQ3VsZUlneFJTMzVaNGVHRDdrZFEycy9rZGVu?=
+ =?utf-8?B?SzlKTEswcnFlb1RTN0ZkTmsxRVhhSEgrMDNxcGM1aEp5MTJFajd0R2p3TlIv?=
+ =?utf-8?B?L2dFL2ZzdHBnaXkrbG4xaDZqRGxCUVRsWGRIUVNsZi9rL2pJZDgrN3lRbWpw?=
+ =?utf-8?B?RTJnZS9sMlVaY1k4Q09kTWE3UE9tRUE4aGxqMzdsZ05XYXhnbWlLQitWREwr?=
+ =?utf-8?B?ZjgrdDB5UzRlOHdMYXE1VGh0WFprMnkvS3htR3Vscktaa0tDNXc5VU9PMm9W?=
+ =?utf-8?B?OGRoOUVQSUtCdGczUXJWSVpGeFZsRDYyemxKTnFRWXM4V3BBbHhSMXBWTWJw?=
+ =?utf-8?B?K0FJdFI4RnAraExjaVdYMFpWZXFCWllLcmVEL2RTTDJFTkc0Y2c0K1JHckEv?=
+ =?utf-8?B?RDNwRnM5cDBHVytOTnpwWWRQdEt4c2NFMHdITWtTZnZnajBOdHJIRDY4R1Fq?=
+ =?utf-8?B?SnIxb0gxSlhaWjBUUzczMFN6YmtjT2VMTDdmQW05U2RzNUQxbDhBZzlOei9S?=
+ =?utf-8?B?aHZIbWd3bkJKSlJNN3IxdEh4aURLTEpmVXNGUlFNYTFVYXpFY3BJWVBsRlF3?=
+ =?utf-8?B?Tkl2R2puaU53Q3J4U1VkdlM0UUFKZ21oZWQzVFNtUmRvWHBhd2FsM2xDQU4v?=
+ =?utf-8?B?RUVKRWwvWEo1WkZPVkpnbWZKb0l0TERta3RmeThMZk9pV1hpdm5NSTRWOG1j?=
+ =?utf-8?B?YjBHcmlrS3JodXZUWnlGOG5OYTRDQ25WazZVUkloWUp1WDR3SEI3UUw5UEVP?=
+ =?utf-8?B?SXNHQjZBM3ZrMWQyZjhkYm1UWDdaR2FjNWs3RSs3UDRrOUk0U3gyMmExKzJq?=
+ =?utf-8?B?MUVtQzV2OEpSenNvLzRKOVRlc0FMVjJLL3ZvVk1Xd3N1bFpNeUpyYU9STzlr?=
+ =?utf-8?B?M1Ficy9UVUxJZmI5ZEhRdDhJbTJpdnNWQVpvdHpHWUg4TWtsYitjWkdWMlpa?=
+ =?utf-8?B?cThLcG5GV0IrbkN4K1NoZWQyVzBRTDk5SUVsZDlqOEZWeHhLcDFvVFh2WWov?=
+ =?utf-8?B?NjB6VmJJRmgxb01XNzA2cmtjUjhhL01wMEpUMGxEamp3cDJEczRIMU42MUYy?=
+ =?utf-8?B?SU5IVHh1YXEwckZyMVFXQXJFQlprMlR5RC9aeWF0S0JPZHQvWFBBQ3h5RlR5?=
+ =?utf-8?B?YjRUbGtwMmNUSnowS3k0MnZ3c2lpUTNGeFgwc0szTURHWHdvWDZzZmNKVjQ2?=
+ =?utf-8?B?eDhYSFlaZVhmVlNNTVhjQ1FBakQ2cTI3UGtPRi9xdzFzTnVGd2I5MnUvNk9s?=
+ =?utf-8?B?TTc5cmt4WTNVdkF3L29jVHF6UXhldTZhY2xES1NzZlNWcDN1c0JlcHhGQ2xr?=
+ =?utf-8?B?cG0wUDBlRURUSi8vT1NMdWRoUlovMEFDaThsWjF6TnhRdXlGWEo3bU5ERDRG?=
+ =?utf-8?B?RU8reGIvbVFGcDFYVmQ0K1lTVnoyUFFmZlRhQXpCQWNqZlNRMGFIUlFTdHdO?=
+ =?utf-8?B?dWV1RzNVRE0vZi8vQ2FLSGxLUFVqRHRJQzdCMSswMktLZ202RXY0bFpodm9I?=
+ =?utf-8?B?V2lFNnQ4WTJrbUVOSTIwckw4RTJ4K1BBYlZRb1dMK3dxOGdOUlh4R0gxVGh0?=
+ =?utf-8?B?MUpEVEtHV2pHWUE3RUdOOGhtdVdOKys0czZMOXRwQnArZWtpQ0lrYWZjY2Nh?=
+ =?utf-8?B?TTV5eGhoNjUwYzlKcDExczJXbUlHNWcrZ0hsMGVYTkVlSFVGN1BmSjdwRE1B?=
+ =?utf-8?B?eW92aHlRSXY4NjAxdzhOZU9yMlRkckVQdktVRXY4Mm1Ua2xpSERWbE9ia0Nm?=
+ =?utf-8?B?Z1cxZlNsQ0d3V1NLYS9XSllzMnJ4RW5xQWtSTUgxd2xDeXZBMGY5N2w5Ny9h?=
+ =?utf-8?B?YW1XaE91V0twbE1xck43OGE2WS9FMVZVMm92aktFL2NzQURDK0JZK0o0NWJM?=
+ =?utf-8?B?c2orOXljZUxVMkxkOXhqdTZFRkpUSU9mbXZlakc3SnBQODcxNlhCSEZZai9l?=
+ =?utf-8?Q?Q0Xbuxwib75s69+HBEIESPM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C90163E51E2C6645AD5DBDBC7DEFA6F7@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07551415-9849-40e3-543e-08db8a0e57ea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2023 17:17:21.1693
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oeYrGgD8AomwW/LAUvsAdBHbU15Jz2RQUM3MK0USsLgWFn2uRVMTUlusagEyaqat+GNK2hCa45kmZoM7Aj/XPimj0lnyThAhLXj9GRfxruU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB9772
+X-Proofpoint-GUID: MzMO3Kk743EXQ_X1rXZIPmf-QDioDhyI
+X-Proofpoint-ORIG-GUID: MzMO3Kk743EXQ_X1rXZIPmf-QDioDhyI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-21_10,2023-07-20_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ adultscore=0 suspectscore=0 mlxscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 mlxlogscore=999 bulkscore=0 lowpriorityscore=0 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307210151
 
-Hi Alejandro,
-
-On 17/07/2023 17:03, Alejandro Vallejo wrote:
-> Regions must be occasionally validated for pdx compression validity. That
-> is, whether any of the machine addresses spanning the region have a bit set
-> in the pdx "hole" (which is expected to always contain zeroes). There are
-> a few such tests through the code, and they all check for different things.
-> 
-> This patch replaces all such occurences with a call to a centralized
-
-Typo: s/occurences/occurrences/
-
-> function that checks a region for validity.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
->   xen/arch/x86/x86_64/mm.c |  2 +-
->   xen/common/efi/boot.c    |  6 +++---
->   xen/common/pdx.c         | 13 +++++++++++--
->   xen/include/xen/pdx.h    |  9 +++++++++
->   4 files changed, 24 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-> index 60db439af3..914e65c26c 100644
-> --- a/xen/arch/x86/x86_64/mm.c
-> +++ b/xen/arch/x86/x86_64/mm.c
-> @@ -1168,7 +1168,7 @@ static int mem_hotadd_check(unsigned long spfn, unsigned long epfn)
->       if ( (spfn | epfn) & ((1UL << PAGETABLE_ORDER) - 1) )
->           return 0;
->   
-> -    if ( (spfn | epfn) & pfn_hole_mask )
-> +    if ( !pdx_is_region_compressible(spfn, epfn) )
->           return 0;
->   
->       /* Make sure the new range is not present now */
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 24169b7b50..b098a8c030 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -14,6 +14,7 @@
->   #include <xen/multiboot.h>
->   #include <xen/param.h>
->   #include <xen/pci_regs.h>
-> +#include <xen/pdx.h>
->   #include <xen/pfn.h>
->   #if EFI_PAGE_SIZE != PAGE_SIZE
->   # error Cannot use xen/pfn.h here!
-> @@ -1647,7 +1648,7 @@ static bool __init cf_check ram_range_valid(unsigned long smfn, unsigned long em
->   {
->       unsigned long sz = pfn_to_pdx(emfn - 1) / PDX_GROUP_COUNT + 1;
->   
-> -    return !(smfn & pfn_hole_mask) &&
-> +    return pdx_is_region_compressible(smfn, emfn) &&
->              find_next_bit(pdx_group_valid, sz,
->                            pfn_to_pdx(smfn) / PDX_GROUP_COUNT) < sz;
->   }
-> @@ -1759,8 +1760,7 @@ void __init efi_init_memory(void)
->               prot |= _PAGE_NX;
->   
->           if ( pfn_to_pdx(emfn - 1) < (DIRECTMAP_SIZE >> PAGE_SHIFT) &&
-> -             !(smfn & pfn_hole_mask) &&
-> -             !((smfn ^ (emfn - 1)) & ~pfn_pdx_bottom_mask) )
-> +             pdx_is_region_compressible(smfn, emfn))
->           {
->               if ( (unsigned long)mfn_to_virt(emfn - 1) >= HYPERVISOR_VIRT_END )
->                   prot &= ~_PAGE_GLOBAL;
-> diff --git a/xen/common/pdx.c b/xen/common/pdx.c
-> index 99d4a90a50..72845e4bab 100644
-> --- a/xen/common/pdx.c
-> +++ b/xen/common/pdx.c
-> @@ -88,7 +88,7 @@ bool __mfn_valid(unsigned long mfn)
->   }
->   
->   /* Sets all bits from the most-significant 1-bit down to the LSB */
-> -static uint64_t __init fill_mask(uint64_t mask)
-> +static uint64_t fill_mask(uint64_t mask)
->   {
->       while (mask & (mask + 1))
->           mask |= mask + 1;
-> @@ -96,6 +96,15 @@ static uint64_t __init fill_mask(uint64_t mask)
->       return mask;
->   }
->   
-> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn)
-
-For newer interface, I would rather prefer if we use start + size. It is 
-easier to reason (you don't have to wonder whether 'emfn' is inclusive 
-or not) and avoid issue in the case you are trying to handle a region 
-right at the end of the address space as emfn would be 0 in the 
-non-inclusive case (not much a concern for MFNs as the last one should 
-be invalid, but it makes harder to reason).
-
-> +{
-> +    uint64_t base = smfn << PAGE_SHIFT;
-
-On Arm32, physical address are up to 40-bit. So you want to cast smfn to 
-uint64_t before shifting. That said, it would be best to use 
-pfn_to_paddr() and possibly switch to paddr_t for the type.
-
-Note that I understand that the rest of the PDX code is using uint64_t. 
-So I would be ok if you don't want to switch to paddr_t.
-
-> +    uint64_t len = (emfn - smfn) << PAGE_SHIFT;
-
-Same here.
-
-> +
-> +    return !(smfn & pfn_hole_mask) &&
-> +           !(pdx_region_mask(base, len) & ~ma_va_bottom_mask);
-> +}
-> +
->   /* We don't want to compress the low MAX_ORDER bits of the addresses. */
->   uint64_t __init pdx_init_mask(uint64_t base_addr)
->   {
-> @@ -103,7 +112,7 @@ uint64_t __init pdx_init_mask(uint64_t base_addr)
->                            (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
->   }
->   
-> -uint64_t __init pdx_region_mask(uint64_t base, uint64_t len)
-> +uint64_t pdx_region_mask(uint64_t base, uint64_t len)
->   {
->       /*
->        * We say a bit "moves" in a range if there exist 2 addresses in that
-> diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
-> index f8ca0f5821..5378e664c2 100644
-> --- a/xen/include/xen/pdx.h
-> +++ b/xen/include/xen/pdx.h
-> @@ -77,6 +77,15 @@ extern unsigned long pfn_top_mask, ma_top_mask;
->                            (sizeof(*frame_table) & -sizeof(*frame_table)))
->   extern unsigned long pdx_group_valid[];
->   
-> +/**
-> + * Validate a region's compatibility with the current compression runtime
-> + *
-> + * @param smfn Start mfn
-> + * @param emfn End mfn (non-inclusive)
-> + * @return True iff the region can be used with the current compression
-> + */
-> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn);
-> +
->   /**
->    * Calculates a mask covering "moving" bits of all addresses of a region
->    *
-
-Cheers,
-
--- 
-Julien Grall
+DQoNCk9uIDIwLjA3LjIzIDEyOjQxLCBWaXJlc2ggS3VtYXIgd3JvdGU6DQoNCkhlbGxvIFZpcmVz
+aA0KDQo+IE9uIDEzLTA3LTIzLCAxNDo0MCwgT2xla3NhbmRyIFR5c2hjaGVua28gd3JvdGU6DQo+
+PiBWaXJlc2gsIGdyZWF0IHdvcmshDQo+IA0KPiBUaGFua3MgT2xla3NhbmRyLg0KPiANCj4+IERv
+IHlvdSBwZXJoYXBzIGhhdmUgY29ycmVzcG9uZGluZyB1c2Vycy1zcGFjZSAodmlydGlvIGJhY2tl
+bmQpIGV4YW1wbGUNCj4+IGFkb3B0ZWQgZm9yIHRoYXQgZmVhdHVyZSAoSSB3b3VsZCBsaWtlIHRv
+IHRha2UgYSBsb29rIGF0IGl0IGlmIHBvc3NpYmxlKT8NCj4gDQo+IFRoaXMgaXMgdGFrZW4gY2Fy
+ZSBieSB0aGUgeGVuLXZob3N0LWZyb250ZW5kIFJ1c3QgY3JhdGUgaW4gb3VyIGNhc2UNCj4gKHdo
+aWNoIHdhcyBpbml0aWFsbHkgZGVzaWduZWQgYmFzZWQgb24gdmlydGlvLWRpc2sgYnV0IGhhcyBk
+ZXZpYXRlZCBhDQo+IGxvdCBmcm9tIGl0IG5vdykuIA0KDQpJIHNlZQ0KDQpIZXJlIGlzIHRoZSBj
+b21taXQgb2YgaW50ZXJlc3QuIFRoZSBiYWNrZW5kcyByZW1haW4NCj4gdW5tb2RpZmllZCB0aG91
+Z2guDQo+IA0KPiBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9naXRodWIuY29t
+L3ZpcmVzaGsveGVuLXZob3N0LWZyb250ZW5kL2NvbW1pdC9kNzljNDE5ZjE0YzFmNTQyNDBiMzE0
+N2MzNDI4OTQ5OThjMjc0MzY0X187ISFHRl8yOWRiY1FJVUJQQSExeUhSUjExVGJQQi1jcUhtYk85
+ZXcwVzRHS1BmeDF5MUdYV0hqMFE3d0lFY29tM1pnVTI4dVpjclhFWWxuVlBsMXg0N3Qzb29YRUNT
+WWVyMmxDbG5PM1Fvc3FpT21GWSQgW2dpdGh1YlsuXWNvbV0NCj4gDQo+IEFuZCBJIGhhdmUgdXBk
+YXRlZCB0aGUgY29tbWl0IHdpdGggQ09ORklHX0FSTTY0IHRoaW5neS4uDQoNClRoYW5rIHlvdSBm
+b3IgdGhlIGluZm9ybWF0aW9uIQ==
 
