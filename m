@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD91075CCBC
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 17:55:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567641.886941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FF2675CD8E
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 18:13:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567644.886950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMsSh-0000TQ-TO; Fri, 21 Jul 2023 15:54:35 +0000
+	id 1qMsjR-0003RZ-Ai; Fri, 21 Jul 2023 16:11:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567641.886941; Fri, 21 Jul 2023 15:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 567644.886950; Fri, 21 Jul 2023 16:11:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMsSh-0000QW-Ow; Fri, 21 Jul 2023 15:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 567641;
- Fri, 21 Jul 2023 15:54:35 +0000
+	id 1qMsjR-0003P0-7X; Fri, 21 Jul 2023 16:11:53 +0000
+Received: by outflank-mailman (input) for mailman id 567644;
+ Fri, 21 Jul 2023 16:11:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qMsSg-0000QQ-V1
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 15:54:35 +0000
+ (envelope-from <julien@xen.org>) id 1qMsjP-0003Os-Gm
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 16:11:51 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qMsSg-0001FY-BO; Fri, 21 Jul 2023 15:54:34 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ id 1qMsjN-00024m-L5; Fri, 21 Jul 2023 16:11:49 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
  helo=[192.168.21.208]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qMsSg-0006Y5-20; Fri, 21 Jul 2023 15:54:34 +0000
+ id 1qMsjN-0007bD-CP; Fri, 21 Jul 2023 16:11:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,57 +42,144 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=rUoOoweRa5HydyDUpA0mv1S5V7GjblEr08agVZ9dhx0=; b=ll8a6O9hprqgEBNDwSDXcTqy1M
-	1xLDNYPx5H128mTunNzuvJcQsV6BifMSozQwCcKGpSTN+IPojqCZU2DCEU+JFIawb91hHhIghHXvk
-	kVIM0nLdza0+ivW9gufmOBzfRYQLBMa1fJPHDvD/trGm9qUkcWqFTrIMatl7P9hs/LbY=;
-Message-ID: <ae4beda6-bb2d-b494-bc06-ce6475bf3624@xen.org>
-Date: Fri, 21 Jul 2023 16:54:31 +0100
+	bh=NPrVvjH8UIj7XB0Jr4QlNUCjgndIdetd4JX273Kjdz4=; b=AwdGhAZUQhTwxNXdPXPD/MwudX
+	19lmDuY4ZzhGqIuHkAJIdikpocG8DGnbe/BFalUQknf7xEh6uWR3k1o4G9m9XvyG54GlIOvLG0UMt
+	1pjNQGx2RcY48ZVOWYO9YGQm/bWAk+aonZsMwZYbJXpuBF6G9hKtDfLueLomcxULK5B0=;
+Message-ID: <7dc614f1-c215-f106-38b8-22c0600b0f73@xen.org>
+Date: Fri, 21 Jul 2023 17:11:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [XEN PATCH] xen/arm: mechanical renaming to address MISRA C:2012
- Rule 5.3
+Subject: Re: [PATCH 5/8] mm: Factor out the pdx compression logic in ma/va
+ converters
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <164303a2b19336a0e5f934a995d2a9c104035fab.1689952914.git.nicola.vetrini@bugseng.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
+ <20230717160318.2113-6-alejandro.vallejo@cloud.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <164303a2b19336a0e5f934a995d2a9c104035fab.1689952914.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <20230717160318.2113-6-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Alejandro,
 
-On 21/07/2023 16:22, Nicola Vetrini wrote:
-> Rule 5.3 has the following headline:
-> "An identifier declared in an inner scope shall not hide an
-> identifier declared in an outer scope"
+On 17/07/2023 17:03, Alejandro Vallejo wrote:
+> This patch factors out the pdx compression logic hardcoded in both ports
+> for the maddr<->vaddr conversion functions.
 > 
-> The function parameters renamed in this patch are hiding a variable defined
-> in an enclosing scope or a function identifier.
+> Touches both x86 and arm ports.
 > 
-> The following renames have been made:
-> - s/guest_mode/guest_mode_on/ to distinguish from function 'guest_mode'
-> - s/struct module_name/struct module_info to distinguish from the homonymous
-
-Typo: Missing '/' after 'module_info'.
-
-> parameters, since the structure contains more information than just the name.
-> - s/file_name/file_info in 'xen/arch/arm/efi/efi-boot.h' for consistency with
-
-Same here.
-
-> the previous renaming.
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+>   xen/arch/arm/include/asm/mm.h          |  3 +--
+>   xen/arch/x86/include/asm/x86_64/page.h | 28 +++++++++++---------------
+>   xen/include/xen/pdx.h                  | 25 +++++++++++++++++++++++
+>   3 files changed, 38 insertions(+), 18 deletions(-)
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+> index 1a83f41879..78cb23858a 100644
+> --- a/xen/arch/arm/include/asm/mm.h
+> +++ b/xen/arch/arm/include/asm/mm.h
+> @@ -320,8 +320,7 @@ static inline void *maddr_to_virt(paddr_t ma)
+>              (DIRECTMAP_SIZE >> PAGE_SHIFT));
+>       return (void *)(XENHEAP_VIRT_START -
+>                       (directmap_base_pdx << PAGE_SHIFT) +
+> -                    ((ma & ma_va_bottom_mask) |
+> -                     ((ma & ma_top_mask) >> pfn_pdx_hole_shift)));
+> +                    maddr_to_directmapoff(ma));
+>   }
+>   #endif
+>   
+> diff --git a/xen/arch/x86/include/asm/x86_64/page.h b/xen/arch/x86/include/asm/x86_64/page.h
+> index 53faa7875b..b589c93e77 100644
+> --- a/xen/arch/x86/include/asm/x86_64/page.h
+> +++ b/xen/arch/x86/include/asm/x86_64/page.h
+> @@ -36,26 +36,22 @@ static inline unsigned long __virt_to_maddr(unsigned long va)
+>   {
+>       ASSERT(va < DIRECTMAP_VIRT_END);
+>       if ( va >= DIRECTMAP_VIRT_START )
+> -        va -= DIRECTMAP_VIRT_START;
+> -    else
+> -    {
+> -        BUILD_BUG_ON(XEN_VIRT_END - XEN_VIRT_START != GB(1));
+> -        /* Signed, so ((long)XEN_VIRT_START >> 30) fits in an imm32. */
+> -        ASSERT(((long)va >> (PAGE_ORDER_1G + PAGE_SHIFT)) ==
+> -               ((long)XEN_VIRT_START >> (PAGE_ORDER_1G + PAGE_SHIFT)));
+> -
+> -        va += xen_phys_start - XEN_VIRT_START;
+> -    }
+> -    return (va & ma_va_bottom_mask) |
+> -           ((va << pfn_pdx_hole_shift) & ma_top_mask);
+> +        return directmapoff_to_maddr(va - DIRECTMAP_VIRT_START);
+> +
+> +    BUILD_BUG_ON(XEN_VIRT_END - XEN_VIRT_START != GB(1));
+> +    /* Signed, so ((long)XEN_VIRT_START >> 30) fits in an imm32. */
+> +    ASSERT(((long)va >> (PAGE_ORDER_1G + PAGE_SHIFT)) ==
+> +           ((long)XEN_VIRT_START >> (PAGE_ORDER_1G + PAGE_SHIFT)));
+> +
+> +    return xen_phys_start + va - XEN_VIRT_START;
+>   }
+>   
+>   static inline void *__maddr_to_virt(unsigned long ma)
+>   {
+> -    ASSERT(pfn_to_pdx(ma >> PAGE_SHIFT) < (DIRECTMAP_SIZE >> PAGE_SHIFT));
+> -    return (void *)(DIRECTMAP_VIRT_START +
+> -                    ((ma & ma_va_bottom_mask) |
+> -                     ((ma & ma_top_mask) >> pfn_pdx_hole_shift)));
+> +    /* Offset in the direct map, accounting for pdx compression */
+> +    size_t va_offset = maddr_to_directmapoff(ma);
+> +    ASSERT(va_offset < DIRECTMAP_SIZE);
+> +    return (void *)(DIRECTMAP_VIRT_START + va_offset);
+>   }
+>   
+>   /* read access (should only be used for debug printk's) */
+> diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
+> index 67ae20e89c..f8ca0f5821 100644
+> --- a/xen/include/xen/pdx.h
+> +++ b/xen/include/xen/pdx.h
+> @@ -158,6 +158,31 @@ static inline unsigned long pdx_to_pfn(unsigned long pdx)
+>   #define mfn_to_pdx(mfn) pfn_to_pdx(mfn_x(mfn))
+>   #define pdx_to_mfn(pdx) _mfn(pdx_to_pfn(pdx))
+>   
+> +/**
+> + * Computes the offset into the direct map of an maddr
+> + *
+> + * @param ma Machine address
+> + * @return Offset on the direct map where that
+> + *         machine address can be accessed
+> + */
+> +static inline unsigned long maddr_to_directmapoff(uint64_t ma)
+> +{
+> +    return ((ma & ma_top_mask) >> pfn_pdx_hole_shift) |
+> +           (ma & ma_va_bottom_mask);
 
-Assuming there is no other comments, I would be Ok to fix it on commit. So:
+NIT: I got a bit confused because your re-order the two operations. I 
+guess this was done because it is nicer to read.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Anyway, I have confirmed the logic is still the same (just different 
+ordering).
+
+> +}
+> +
+> +/**
+> + * Computes a machine address given a direct map offset
+> + *
+> + * @param offset Offset into the direct map
+> + * @return Corresponding machine address of that virtual location
+> + */
+> +static inline uint64_t directmapoff_to_maddr(unsigned long offset)
+> +{
+> +    return ((offset << pfn_pdx_hole_shift) & ma_top_mask) |
+
+'unsigned long' may be 32-bit. So I think you want to cast offset to 
+uint64_t.
 
 Cheers,
 
