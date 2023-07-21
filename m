@@ -2,65 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B557975C6E2
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 14:29:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567515.886661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF0D75C6ED
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 14:33:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567519.886671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMpFh-0006F9-63; Fri, 21 Jul 2023 12:28:57 +0000
+	id 1qMpK4-0007lJ-Rd; Fri, 21 Jul 2023 12:33:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567515.886661; Fri, 21 Jul 2023 12:28:57 +0000
+Received: by outflank-mailman (output) from mailman id 567519.886671; Fri, 21 Jul 2023 12:33:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMpFh-0006Ca-28; Fri, 21 Jul 2023 12:28:57 +0000
-Received: by outflank-mailman (input) for mailman id 567515;
- Fri, 21 Jul 2023 12:28:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qMpK4-0007iQ-Ol; Fri, 21 Jul 2023 12:33:28 +0000
+Received: by outflank-mailman (input) for mailman id 567519;
+ Fri, 21 Jul 2023 12:33:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=So7w=DH=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1qMpFf-0006CS-Jw
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 12:28:55 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::60d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 281fcf1a-27c2-11ee-b23a-6b7b168915f2;
- Fri, 21 Jul 2023 14:28:54 +0200 (CEST)
-Received: from AS9PR06CA0517.eurprd06.prod.outlook.com (2603:10a6:20b:49d::21)
- by DB5PR08MB10164.eurprd08.prod.outlook.com (2603:10a6:10:4a1::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25; Fri, 21 Jul
- 2023 12:28:52 +0000
-Received: from AM7EUR03FT015.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:49d:cafe::92) by AS9PR06CA0517.outlook.office365.com
- (2603:10a6:20b:49d::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25 via Frontend
- Transport; Fri, 21 Jul 2023 12:28:51 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT015.mail.protection.outlook.com (100.127.140.173) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.34 via Frontend Transport; Fri, 21 Jul 2023 12:28:51 +0000
-Received: ("Tessian outbound f1e964b3a9be:v145");
- Fri, 21 Jul 2023 12:28:51 +0000
-Received: from da644066141b.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 350764D5-F0B2-4785-9399-A069701E5E98.1; 
- Fri, 21 Jul 2023 12:28:44 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id da644066141b.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 21 Jul 2023 12:28:44 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by PAWPR08MB9471.eurprd08.prod.outlook.com (2603:10a6:102:2e5::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Fri, 21 Jul
- 2023 12:28:42 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe%4]) with mapi id 15.20.6609.026; Fri, 21 Jul 2023
- 12:28:42 +0000
+ <SRS0=dNy0=DH=citrix.com=prvs=559993d03=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qMpK3-0007iJ-86
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 12:33:27 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7fe1fcd-27c2-11ee-8611-37d641c3527e;
+ Fri, 21 Jul 2023 14:33:24 +0200 (CEST)
+Received: from mail-dm6nam11lp2176.outbound.protection.outlook.com (HELO
+ NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.176])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 21 Jul 2023 08:33:21 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by SA0PR03MB5658.namprd03.prod.outlook.com (2603:10b6:806:c0::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Fri, 21 Jul
+ 2023 12:33:18 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::38aa:4814:3c7b:78ea]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::38aa:4814:3c7b:78ea%5]) with mapi id 15.20.6588.031; Fri, 21 Jul 2023
+ 12:33:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,222 +49,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 281fcf1a-27c2-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZzjC3bAZGySvsK62XAcK6kjc+eOkdmMOS3G1/saiQv0=;
- b=EnVbrC3NvMbz6IYf9qczFBXHVokinsaXxrnka37X7pokU6FO1efZTPIi50Zf/YDTmwD00DyOZwXsNtcoGKM9gUDnvpznopoc9wx2JWJkGgkf4K6WT/AoKnEZBFHx82k82tQMcoN9LWhImFEDp2n60atQAfcBxyaEslSZtY+hz5w=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 92ebf5c3d62949a0
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: c7fe1fcd-27c2-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1689942804;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=ureQDmAb34/07iNbPW+48n/vpU/rYoI8SODgabUAArY=;
+  b=hpjfXB6KVblvCpGNNJppTNylNWdaE4Xl0h6bzYcXUHjqeAcMcCfQ/7cL
+   CFwh1rpAM5JFusI0CSnhVtjUr4W6Re+vA2TuUbqsandwG/MICiC7SUH+B
+   x5cmbvmGJxjttdBCdYq5Fbbx9A+y5uiq1PtmxHSybdjZ6URBkxnZgS0Ek
+   4=;
+X-IronPort-RemoteIP: 104.47.57.176
+X-IronPort-MID: 117427983
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:izkkqq3lM9QHtQ/aXPbD5eZwkn2cJEfYwER7XKvMYLTBsI5bpzcAz
+ TRMW2DTbquJN2ajfNokOt7i/UkH6JCBmtJmTlQ6pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8teTb8XuDgNyo4GlD5gNkPKgS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfLWQJ1
+ adCExQxYB2ngf3p+qq7dcVvmZF2RCXrFNt3VnBI6xj8VK9jbbWdBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvC6Kk1IZPLvFabI5fvSQQspYhACAr
+ 3/u9GXlGBAKcteYzFJp91r137CTx3yqCNl6+LuQpqB2ukGf514oOTIsSFiYvOH+tRaDRIcKQ
+ 6AT0m90xUQoz2SvU9L0GROxpnWJuhoBc9NKFqsx7wTl4rrZ5UOVC3YJShZFacc6r4kmSDoyz
+ FiLktj1Qzt1v9W9U3ud67PStjK0Nig9JHUHIyQDSGM4D8LLpYgyilfDS4hlGavs19ntQ2ivn
+ XaNsTQ0gKgVgYgTzaKn8FvbgjWq4J/UUgoy4QaRVWWghu9kWLOYi0WTwQCzxZ59wEyxFDFtY
+ FBsdxCi0d0z
+IronPort-HdrOrdr: A9a23:jSyRE6zQwD/+ESUUe7WlKrPwDb1zdoMgy1knxilNYDd0Vuzdrc
+ yqkP4H0wScskd1ZJhGo7290ci7LU80kKQe3WB/B9aftWXdyQmVxatZnPPfKkTbalTDH41mtZ
+ uIEZIRNDSYNzETsS+d2njfLz9K+qjlzEnHv4jjJ0wGd3AMV0hr1XYcNu/KKCZLeDU=
+X-Talos-CUID: =?us-ascii?q?9a23=3A2IC1KmgUMh2Vls213aMXd9YRMzJuXnia7CyKGGu?=
+ =?us-ascii?q?EB2tNTqLKc0eQx49njJ87?=
+X-Talos-MUID: 9a23:Thj5NAtmgixCMTeezM2n1G9+DttkwpaVOW83jJYlptHDCnRNJGLI
+X-IronPort-AV: E=Sophos;i="6.01,220,1684814400"; 
+   d="scan'208";a="117427983"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ktO7huNDfg1EiJ5CIyJgj1n79i1tfkVDe//EzbaXDAv41OF5R1foeheY1F9J7SOGMokMEKm0Ejwo+s+igOfqOAHys/WEZq2SQgIKHe9zEaQjsvzlZKPliwlQWOKtOK8C3gnV6x+EiiaO0Db21tA/U2DVMjcOH+C4ILZ/pFNXwzhb+91SGQo5KRkmXf/3K0xRmuuVgd4KlHd/nRBUgiuP3Vq0v0S2q/Z8Ii0Lh9FXkwnO1ydXHzYq2zifwimNtp1DUBWyqgaG+wOtA/wWNS3eq4Y/08Zyk4rCuXRFfTGN3coY+5sryM8H7UXIi+/t8rCTL4E6puCDO7pulMCvvOkwpw==
+ b=SwcG7PYPaFJird6MPY6zWS086xK0ESR2E1cWL6MiMkPJ3b2glmXSooLicI9BwJMRLSuwI4gmrObNvYwdjEoR/LW8myQlW2KmPHtNd0RmPVwsRrcTrik8x6Kv1n/YEfA39ycslyBeLWpXcSa9tnuFv9J6ndlfjOddc96eDKGZkhxOcxBKUcEsh6PR7tJRlUnEBvVy0JkYqxX9rD1kGzMcVvb1dQFmlZo4ZOVnylVHJ8prXJdSEILvdslSR6kxy8Zc+kpkEc/fOLR5v33E8YAvVgGe+Jm88fsOaR65q2nTy0Dr6HLo2nUZc51T0AM33Yek0LeMljiCpTT3VwD8Fh60vA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZzjC3bAZGySvsK62XAcK6kjc+eOkdmMOS3G1/saiQv0=;
- b=fW0TECznAakgrawgktBc0ODE0wd32jvpCdBptNSntqiJhcSmHYMN8YDiy1OlMgVhQbrjJsHUE+r2sJLwofVWI7are7F3IWV1VVORcU121C4ddFuitRUaZkwCUsrv5fiXuN/QbJl12KOrKxid6ziYx81ObWOnEmbcJD2i08ud6bcAfPM6CO9EHxEX/RXc82jQAeTl1S3QOSK8mPzOZypL3CnF2faqExrdehrgSazPoo0VTZ4zWGBus0XsHZjRSRYe+JXnmsdlPOKtnOOGHtYWK2Ij53vMNOBv7kbQJB/Hl/2ezTAsbOjqQAlNNEXjq7euwzdMvynXIZsLuX9qZJJ3Bw==
+ bh=quS7JODlCbB3FnrYqh9DRjcgMUiIMuUVidrVDDdDvV8=;
+ b=aZTr6pgo2cC2sQD+JdpcjVVPC6fKqf1LjeQXU0BqWooQEFx7VS7ozSpixwmUp3ML9s2LkbMEzLUfrWkdkPBhWf7NT11RiCwacSyzLPxWfHwDpCh/CEgVVxKy9qkbw1w1c9umQed0//k09wDmB2aPc+VZSbEFDgYv839jC8VDMCq9WNaCXKFA7/h+U5yWmfv7ac3NPiHmaSSGfC/PSA3VfZO7dcD/66AH2g5mkttkYHG6TBY35f2SuEtqfW/GJQ9tD6Z3b4yIKAiEGmOHsl+TzD6kCEuB12BnC13OUGgv0/O0n2159J6ZEOHpa1FnyJm0ArNA6mIy7XIWp+QnigNcJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZzjC3bAZGySvsK62XAcK6kjc+eOkdmMOS3G1/saiQv0=;
- b=EnVbrC3NvMbz6IYf9qczFBXHVokinsaXxrnka37X7pokU6FO1efZTPIi50Zf/YDTmwD00DyOZwXsNtcoGKM9gUDnvpznopoc9wx2JWJkGgkf4K6WT/AoKnEZBFHx82k82tQMcoN9LWhImFEDp2n60atQAfcBxyaEslSZtY+hz5w=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Jens Wiklander
-	<jens.wiklander@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2] xen/arm: Move TEE mediators in a kconfig submenu
-Thread-Topic: [PATCH v2] xen/arm: Move TEE mediators in a kconfig submenu
-Thread-Index: AQHZu7UoTgj0ElhTvUC42VsaPH5iba/D/OyAgAApYgA=
-Date: Fri, 21 Jul 2023 12:28:42 +0000
-Message-ID: <B5883910-D35A-404B-8EBA-8AAB6C093342@arm.com>
-References:
- <c55ce2891172a696e8a29f8c9bcc9dd33ebe9e50.1689931326.git.bertrand.marquis@arm.com>
- <e6d72d9a-a146-733c-0a9b-016fb291c2ea@xen.org>
-In-Reply-To: <e6d72d9a-a146-733c-0a9b-016fb291c2ea@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|PAWPR08MB9471:EE_|AM7EUR03FT015:EE_|DB5PR08MB10164:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3cb79e24-da0a-4f9b-e4ce-08db89e60a74
-x-checkrecipientrouted: true
-nodisclaimer: true
+ bh=quS7JODlCbB3FnrYqh9DRjcgMUiIMuUVidrVDDdDvV8=;
+ b=jYLbnARw/CIYKPXfDtpJUamQFrd4oHSw9sQZrvCciW0I7aGFFIRZ0w3ahyHBkSjOfJ3ETUnOt4cc11B3XDUzzFW1jo1d3zvroqmD2IofiK+Lts+td3R+rGPxtb6TRwzm0CHqD5XbMRGLTOO9KpluaRhYvNMqKkhjKFiP74MIGMI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 21 Jul 2023 14:33:12 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: xen-devel@lists.xenproject.org, rahul.singh@arm.com
+Subject: Re: [OSSTEST] ts-kernel-build: add kernel kconfig for the Arndale
+Message-ID: <ZLp7CBp7ZYsYeuu-@MacBook-Air-de-Roger.local>
+References: <20230721121627.1229906-1-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230721121627.1229906-1-luca.fancellu@arm.com>
+X-ClientProxiedBy: LO2P265CA0424.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a0::28) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SA0PR03MB5658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41c901df-d4c9-4a13-7572-08db89e6a965
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- k89mueGeRW8poG+BqYVCD5TFFPZvljb8SkGnyuIAw9H6e7W4yg+aHxGFLoy00RbwSjGXG52jkUKz8C9D25p9g6+QRK8IbXEtDW5XSFD6J1jtGjiDqFNprMsrXeAjoIrURl149hbaOX/KlJcJo/ip6sUfnNFLwN87OSd0M9BVwXScML2/3ae3iikjo1yG1Do8hvNBtxS9Q5CGWS63tnQkMmwDV+qPhIj2e4QZhMhaortFARejE2mFTedRrjTm/7BWikx5iOpuqUjsEc9RwMgJv3KhI9+fZWCcSyaVqopBeEu1uq+xw0wddcjmt/IFNZGbfy3TXg3YHHJN+IYqmWNMn/5gSFZnVn8ZxelU1vpi7yyXQzn6dKWASnxZcVQQZQVy8xImBAW/SCGEp5O14S/rK7QIPE3hO6nWEs75qucQf+SU1dtcov/xLw0E4es9a5sd3cgx2MYkta75laHsDJv+Tp+4uotT5XPzd6mmqHUCy3vT0Mi0egQe+7D9wXB/Q2nJg48dZUZMGqPeFTmSmzNSp1RzP0kehzK6zCtRLQVEBr/tSowdXwUL7o3FmlJZsM8hMctpVoxluQFWODhnLf08Y1dHIpr5fJTQIVtN/qsx21Py1TE3i3m2jkh3MSQDRJZ0sWgZTk9eN1w4M5cr3HNT4Q==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(451199021)(966005)(71200400001)(478600001)(6512007)(6486002)(91956017)(54906003)(186003)(53546011)(6506007)(2906002)(76116006)(41300700001)(6916009)(4326008)(316002)(66556008)(64756008)(5660300002)(8936002)(8676002)(66446008)(2616005)(38100700002)(66476007)(122000001)(66946007)(33656002)(36756003)(38070700005)(86362001)(83380400001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <6925936932FCCF40B5164C88E18BD740@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9471
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT015.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	57d95d4f-d76c-439b-703c-08db89e60510
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	m2hlG5GBskx5Da7Dffk1+FQaXhdkyXTwbeVJ8C8trG+toezFCO0xBxHP9It8+oCVzxfDoFBGrX5+KGtlTgm/STfWMLjba12ZO9xs+8T3WW4wrSZQ6o9AHaNbGJ/MjYW1vN3FY6sHr1OIKmUA7W3wf61jf0Vza6x9I0+M4AJCBIxUkD1TaXFrbuwGIalrY5v8QkVIbk7xUJqh/WDb2cElb0wH3cEPgvzvWwx/W4cejZW1ng96JsP16gTdThvW9bNR6YQyBAI6lhkLTpGtKTYzgXkAHKoTqdXK/yGhhzyAypNUAnbxttlCyYBUt6dVR0k0nLymh2vSUx5FCxP2wSmbTBoZJXVDrcbQcH5JfPOggC+qzns7Ijc+ydsSC72nA79wIhnDosCnyL7D4RNQI9DY+yh3poxD7lcPT4M7cDDDc3ZZSwJuhEXVGMo186fmYy6zziBW0P5Tq/YMGcbzftgwJtK8cfsfQVEGOF+ZAAitLXLe8+tHFRt516BtKVILMRRUU4yCnZJzdMuuSUoci0soE0nDw8W0Wj/y1t2VBXKgWeJ7Di2S93J4E6Q5SYJUubsQPB6+8uGzmeuHl0ovEZiD5/4b7JmbcVMPDF6qGmcohQtjsrik+1G0IKLaifBRaI+RepGoSgRKOJ7jzYBUVnprFuX95wlr73BwWlU+bh7s9rG0F6/IhIQy2JK0F+HfNfnIqHPmUNOQc0gCMRP2GELgtxKf4DMyZmwMf7KjmvNlNLE=
+	X0y/+0x0clQb7T/rh5kVvVTQ4F8y50cBIjR6r4PKycGaYUcW0k0t77LjP9URNocnsiEN9kBPfLbMtZYAHEFVLbFWoKIqOy2WHnePhxr07ZHiRYRC05eFSRnqJPpo7cPCOnPJnSxSXO7ij7mrj7Rj8a2G/NMNSXNN5kywzzBCQgliTYE3xGc6ijXjYW9z1NclaJEwho5ju/qDMlMvStk0/Kb/rU4iVKUMHuO2LrGOt0H4Mln9EqXdN9403QhzuMgHCOe7QCV5BIt07vACR825eGFr2lhysGUGK1rD+c1v8iMZ9Ef8bzBrahW8buGzO7OO+d9Qut6afRgSdSsOf66Ki3ghRGbCt/QcwRd5T4i2wSnyFnGU9gKzwryN4aMTcX/W0AItlgjp7WZ6jQN/mp4X8zNy+LCIMEuJ+Lq95PZcZKzrMHNVM8cfFVN8Efz9xiQSwAboDazVeysM3WTPmISxgRJuFLvG5ZqRbCEi6B14ZfvSg1HTOmz4Ro1PzcRNuSZ7/JmVlFVvGOXsUTHEa0y2ZwRLGY95fQrDFjjip6JCqmUKTpUo+wtLqNhv8kD0ywcW
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199021)(82310400008)(36840700001)(46966006)(40470700004)(40460700003)(966005)(4326008)(6486002)(53546011)(6506007)(26005)(107886003)(478600001)(70206006)(54906003)(70586007)(86362001)(33656002)(36756003)(36860700001)(83380400001)(336012)(47076005)(186003)(2616005)(8936002)(41300700001)(5660300002)(316002)(6862004)(40480700001)(6512007)(2906002)(81166007)(8676002)(356005)(82740400003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 12:28:51.3348
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(366004)(136003)(346002)(396003)(451199021)(8676002)(8936002)(186003)(26005)(6506007)(86362001)(6512007)(9686003)(5660300002)(66556008)(66946007)(6666004)(85182001)(478600001)(2906002)(82960400001)(41300700001)(6486002)(38100700002)(4326008)(6916009)(66476007)(316002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N2VBRC82YlRHN2F4MDFPOUdEREFLRStRdDNHRDdXNFVPakQ5V05MK3RyOWgw?=
+ =?utf-8?B?Y2RBdm9GYXZieVA2V1E0M0RPSGRYN0FqODI2Mm44bFowUVBka3BhMU4vdHVX?=
+ =?utf-8?B?cHp2MHVmSWlzeExZQVE4R1RwWW5HZ21oeGdEeG5USGZiNUFhejhFNTVrWU9R?=
+ =?utf-8?B?bE9hbHhERGRFbUNmRlN6YzB6VEpucE9yRUkyeno5RUhJQmhoRFYzM0psZ3BM?=
+ =?utf-8?B?dXhHQ3VEZzF5OHBxOEFsTiszM3lmb1U2a0VSR3VZeGFYcHo2SDJCUDhJVks0?=
+ =?utf-8?B?K1I2RC9CTS9Zd3dERXVoenZ5ck9BRTJoZ3JzdHBnZDdjRVpEazhoaFlYZDFl?=
+ =?utf-8?B?d1RuQUV5dHlnWjV5UVV4eHUwdDRGVVMvVVAyY3Q5TURvRnVZUnBtRnpNRHUy?=
+ =?utf-8?B?TUNOZVYyUEVYYWRWelJrVkx4TDBhdnJRVzdYYStJbWdtQTBHVFFsWVAwWno0?=
+ =?utf-8?B?T0VBYlBCeG5EYTI2RFQvQ2MzMG1ZcTUyaTdDOEJpa2JjT1V4Z1JudGlsbTY5?=
+ =?utf-8?B?djlyV0I0UFVOMkhiMloxSEo4Mkh3eVdGelQ0Y0xtK1dpL01SVHBCdDlaYjg4?=
+ =?utf-8?B?bkcvUUtaOVo0eGEwTCtEdnFab0Z0VU91K0tLcWVUU1VsdHBhd0RXc2FONXNp?=
+ =?utf-8?B?QkJnWjBNM0RTRGIwUlNNTUJHalhBSGFZeWRURnBHWm1jc0tMY3pUWFNraCs4?=
+ =?utf-8?B?RTBkM044M3NRdjMxa0V1UC92dXpUM0FVOTlFOHF6TmxYdEZSdkpsODMxSXQ5?=
+ =?utf-8?B?TG9iV1I1b2tCemltN01oQmxsUytEcW92TjRhb20vajk2WnhoUmtOdUROVlB2?=
+ =?utf-8?B?a1dSRWlOWG1adnY4RU1lUitNdUJ3b00zTHI5RWcyeE0rclhNOTZXb25kRVNX?=
+ =?utf-8?B?UjZXM093OVBqYUQrcnpUL0Z0UHpVd2dBOGVYaWFjQVRsTVRpWjYzUm5EZUhh?=
+ =?utf-8?B?OXlCcXVNaGlqS0FRUWFFZk9qZzBXcmlWS3BBNGwwMUtNRnlXMGplSk9nejNu?=
+ =?utf-8?B?cVVpVTJWWUR1aFllSmFCeWs4NkJUWHByMHNuaXQyQU1GbTVmS3ZiZXBIMTBC?=
+ =?utf-8?B?Z3RCbkhjODF1UVpTYmcxTzJWZkdmUUN4YVBHUm94dUpkTkp3T1h0QUJIak4x?=
+ =?utf-8?B?OGpOeXJOaEFQRk5ueW9lUmkvdnNTZFhmeDhDZjJoUE51RFU1OHFyUUJKOE5t?=
+ =?utf-8?B?Zk5ib0E3N1FGZHRWQmppZk5Mb3Y3b20vTHJEU2xUaFJpNENkN3BjL2wyRmtJ?=
+ =?utf-8?B?RUVQZUxpOHl1cHdTcGNCNUJoQ05JZy9EV0VlN05idVB3R2kwWW5GUHMvTlB0?=
+ =?utf-8?B?emFXZFkrNmdUR0xWYXlwMjM4V25nRWpUTmwydGVUMlRIQUcvV0RNaG4wSTNX?=
+ =?utf-8?B?NU96bjRlOHJPd1BNeEFENnFUbmJWNjQva0sxMkxrZVJvYjBabFFTTkcvOVN4?=
+ =?utf-8?B?SFV1bDlCOFdzM2JmQnZuSXRvZkdJRWdYc1h1cVh5SisrdDZsb2RoNDRjcm5G?=
+ =?utf-8?B?Uk5nNEppbzY4bXQyOE80YlU2b20wWUp2WGlGWXlNN0Z0cTFEbGh6M2tjTklE?=
+ =?utf-8?B?eHk0cEdTWGZtM0E5UjFxUysvbnB6bm5OMzZZMHlxc3ZtWFZ2K0h1K3FhT3NE?=
+ =?utf-8?B?SFdSeWVLeCttUGQ3dmMxL3ZNeXczT0VJb0ZucGdBWVN5c05TVkFFVDRYdDkr?=
+ =?utf-8?B?NnZBaEFRb0FVZGt4dzhRc25VVUNlWlgvQlVEZytqaHB3dmd4d1cyRStNL0Rx?=
+ =?utf-8?B?MUQ2Vy96cVFnL3llWkVVSFN6MUdOOWtaSlZOSTNXbEM1WGlLVmg5cm9pbm5T?=
+ =?utf-8?B?Vk9scDJjeXhUaXBRS1ZUQVpvN3cxSDNXVWFQdzZta2lKZHBRai96REhCN05U?=
+ =?utf-8?B?OHdqZU9hYlV6TXFValZZNFlzcldDWGVLb1F2QlQ0bXNWQ0hoMTRWT2J4d296?=
+ =?utf-8?B?ZzAwL0EyWFpRdTQ4OWhOc1o1U3pRZ2dQUndJWVpIc0RDUThNZTdwVTg4RE9p?=
+ =?utf-8?B?dkFZdHZELzJUc1ZIWnNaNzM1ZWFlUXMvOTFQWnlZejJyVjFXQ095YnRhNVRS?=
+ =?utf-8?B?aHIvcFNaTjFvdHBmcDVVVC9iMVhzVy9iK1NJODZTYkMvK1hVMWhsUmRUQ2Qz?=
+ =?utf-8?B?VUZjaDEwMjlwZ0tTRFNuWUc5YnI0QnlWeTczV1BXMHI5aVR5U2l5MG1ReUZj?=
+ =?utf-8?B?U3c9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	GgO5TlVv/bWge63htOQt9/RbJETj4KZa4GyUyNVpKjqAEhipIOGDvnSgWj7DiUHhdTexd9k+n0O0TDuczkFO9IaS6z1qNZeSyEMatZ20LjxtBhIKTpvGGYvLp0IVlk7aDpWr15DWvCxd+EbYqDsPKyA3CoO64jJPLayTjVYaAmFiSOkdwgvQvs0oKwiM5lWy1nB4yrdt2KHDtDRxmvIYRBLjVqzX3r/Lxk9KhM/00ROEUzBjWeuCKLKaFJ3GCCDd5jQCwZD6oDexzDK37I3cpBHntCQa2IZ+ngKalkN6/2JQ7C2AQlX2qnVR5bTvoGmS6zCWOnztH+jwTH8AUPBLGPoz+7+qqKjVf3OAiqZ/Hx8AOHJEJ63Bv1AsJEQ6kdyGVlJoDAUHCBYxNsjdnv636JQQ0/CcGw5lILb/pyy4Sre1ZNg4VgZdB+qcrAjJso/wa9FviXUCLcBPema2J7U7iqLCMK23aiCjLM0q8AWLuDjlrlv47k54WFtJvKnhQNaHX/A17ZMHdCybiEGLcyFdqdMGSt/xPbJBv15RhMBQJnEVc0AQePCpkcoaPeX20PYTge4rAxQ9bX76zEU4K9hko3YrYvL0BnpzxIbgwgBUv2geujnRoi6G9nM+7g2N6uvBW0vpUjfIDZtPaYXrXBrtsV4VdsZbaq3do/E+fXJ8N5xot/CNEO2x3j/CQE6oe2P+T7X2pt76uhJU3vTEBr3Fnq/McwPOi+Mh26klFreJfhn4/YfLa/OHE6k74z5LVUn53xiKZRVbAiYq06tOF76QMaXqwk9g1HB6oAJKQZWf1LQ=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41c901df-d4c9-4a13-7572-08db89e6a965
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 12:33:18.3442
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cb79e24-da0a-4f9b-e4ce-08db89e60a74
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT015.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR08MB10164
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dAMiEnP7PLEVWxBLF0GH5CsDiKAIkq4K+bxZ+W0SfEBUAK0N8mNEDKoi5wE6/akC7Lu1PunOjJeDzP+HrEGALw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5658
 
-Hi,
+On Fri, Jul 21, 2023 at 01:16:27PM +0100, Luca Fancellu wrote:
+> The Linux commit 33629d35090f5ce2b1b4ce78aa39954c603536d5 has
+> removed the 'snps,dwc-ahci' compatible from the generic
+> AHCI-platform driver control module selected by
+> CONFIG_SATA_AHCI_PLATFORM.
+> 
+> A new driver, the DWC AHCI SATA platform driver is now implemented
+> and handles the above compatible when CONFIG_AHCI_DWC is selected.
+> 
+> The module is needed for the Arndale board to have the SATA controller
+> working, so enable the CONFIG_AHCI_DWC as additional kconfig parameter
+> in ts-kernel-build.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-> On 21 Jul 2023, at 12:00, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Bertrand,
->=20
-> On 21/07/2023 10:23, Bertrand Marquis wrote:
->> Rework TEE mediators to put them under a submenu in Kconfig.
->> The submenu is only visible if UNSUPPORTED is activated as all currently
->> existing mediators are UNSUPPORTED.
->> While there rework a bit the configuration so that OP-TEE and FF-A
->> mediators are selecting the generic TEE interface instead of depending
->> on it.
->> Make the TEE option hidden as it is of no interest for anyone to select
->> it without one of the mediators so having them select it instead should
->> be enough.
->> Rework makefile inclusion and selection so that generic TEE is included
->> only when selected and include the tee Makefile all the time making the
->> directory tee self contained.
->=20
-> Is this a left over?
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Oups yes, please remove.
+> ---
+> Tested successfully on:
+>  - arndale-lakeside
+>  - arndale-metrocentre
+>  - arndale-westfield
+> 
+> arndale-bluewater must have some HW issue, don't have much more info ATM.
+> ---
+>  ts-kernel-build | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/ts-kernel-build b/ts-kernel-build
+> index 6c8f1d6a..73104874 100755
+> --- a/ts-kernel-build
+> +++ b/ts-kernel-build
+> @@ -245,6 +245,7 @@ setopt CONFIG_SENSORS_LM90 n
+>  setopt CONFIG_ICS932S401 n
+>  
+>  # Enable some additional drivers for Arndale.
+> +setopt CONFIG_AHCI_DWC y
 
->=20
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> ---
->> Changes in v2:
->> - only included tee subdirectory in makefile if CONFIG_TEE is selected
->>   (reverts to state before patch)
->> - remove help in hidden TEE config
->> - rebase on top of staging
->> ---
->>  xen/arch/arm/Kconfig      |  7 -------
->>  xen/arch/arm/tee/Kconfig  | 17 ++++++++++++++---
->>  xen/arch/arm/tee/Makefile |  2 +-
->>  3 files changed, 15 insertions(+), 11 deletions(-)
->> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->> index 439cc94f3344..fd57a82dd284 100644
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -175,13 +175,6 @@ config ARM64_BTI
->>     Branch Target Identification support.
->>     This feature is not supported in Xen.
->>  -config TEE
->> - bool "Enable TEE mediators support (UNSUPPORTED)" if UNSUPPORTED
->> - default n
->> - help
->> -   This option enables generic TEE mediators support. It allows guests
->> -   to access real TEE via one of TEE mediators implemented in XEN.
->> -
->>  source "arch/arm/tee/Kconfig"
->>    config STATIC_SHM
->> diff --git a/xen/arch/arm/tee/Kconfig b/xen/arch/arm/tee/Kconfig
->> index db3ea78faaaa..c5b0f88d7522 100644
->> --- a/xen/arch/arm/tee/Kconfig
->> +++ b/xen/arch/arm/tee/Kconfig
->> @@ -1,7 +1,14 @@
->> +menu "TEE mediators"
->> + visible if UNSUPPORTED
->> +
->> +config TEE
->> + bool
->> + default n
->> +
->>  config OPTEE
->> - bool "Enable OP-TEE mediator"
->> + bool "Enable OP-TEE mediator (UNSUPPORTED)" if UNSUPPORTED
->>   default n
->> - depends on TEE
->> + select TEE
->>   help
->>     Enable the OP-TEE mediator. It allows guests to access
->>     OP-TEE running on your platform. This requires
->> @@ -12,10 +19,14 @@ config OPTEE
->>  config FFA
->>   bool "Enable FF-A mediator support (UNSUPPORTED)" if UNSUPPORTED
->>   default n
->> - depends on ARM_64 && TEE
->> + depends on ARM_64
->> + select TEE
->>   help
->>     This option enables a minimal FF-A mediator. The mediator is
->>     generic as it follows the FF-A specification [1], but it only
->>     implements a small subset of the specification.
->>       [1] https://developer.arm.com/documentation/den0077/latest
->> +
->> +endmenu
->> +
->> diff --git a/xen/arch/arm/tee/Makefile b/xen/arch/arm/tee/Makefile
->> index 58a1015e40e0..1ef49a271fdb 100644
->> --- a/xen/arch/arm/tee/Makefile
->> +++ b/xen/arch/arm/tee/Makefile
->> @@ -1,3 +1,3 @@
->>  obj-$(CONFIG_FFA) +=3D ffa.o
->> -obj-y +=3D tee.o
->> +obj-$(CONFIG_TEE) +=3D tee.o
->>  obj-$(CONFIG_OPTEE) +=3D optee.o
->=20
-> Same here? The rest LGTM and I would be happy to do the changes on commit=
-.
+I would have added at the bottom of the Arndale list, but it's easier
+for context to see it belongs in the Arndale section.
 
-This one is not, I think it is more logic to keep that one like this so tha=
-t if someone
-creates a TEE not depending on this it could still put it here without comp=
-iling tee.o
-for no reason.
-
-Now there is still a discussion around visibility and if UNSUPPORTED that w=
-e need
-to settle (even though current behaviour is right and as i expected, the ef=
-fect of the
-"visibility" is not what I expected).
-
-Cheers
-Bertrand
-
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
-
-
+Thanks, Roger.
 
