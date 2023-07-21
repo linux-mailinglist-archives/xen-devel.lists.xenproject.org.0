@@ -2,65 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BA4375CFFD
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 18:46:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567657.886980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7487175D00F
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 18:53:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567661.886991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtGV-0008Gm-Ei; Fri, 21 Jul 2023 16:46:03 +0000
+	id 1qMtNO-0001JW-5y; Fri, 21 Jul 2023 16:53:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567657.886980; Fri, 21 Jul 2023 16:46:03 +0000
+Received: by outflank-mailman (output) from mailman id 567661.886991; Fri, 21 Jul 2023 16:53:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMtGV-0008Ev-C8; Fri, 21 Jul 2023 16:46:03 +0000
-Received: by outflank-mailman (input) for mailman id 567657;
- Fri, 21 Jul 2023 16:46:01 +0000
+	id 1qMtNO-0001Hu-2a; Fri, 21 Jul 2023 16:53:10 +0000
+Received: by outflank-mailman (input) for mailman id 567661;
+ Fri, 21 Jul 2023 16:53:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pf5t=DH=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1qMtGT-0008Ep-Rb
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 16:46:01 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20614.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::614])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 105a9780-27e6-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 18:45:57 +0200 (CEST)
-Received: from DU2PR04CA0268.eurprd04.prod.outlook.com (2603:10a6:10:28e::33)
- by AS2PR08MB9343.eurprd08.prod.outlook.com (2603:10a6:20b:598::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Fri, 21 Jul
- 2023 16:45:53 +0000
-Received: from DBAEUR03FT064.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:28e:cafe::98) by DU2PR04CA0268.outlook.office365.com
- (2603:10a6:10:28e::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28 via Frontend
- Transport; Fri, 21 Jul 2023 16:45:53 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT064.mail.protection.outlook.com (100.127.143.3) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.35 via Frontend Transport; Fri, 21 Jul 2023 16:45:52 +0000
-Received: ("Tessian outbound ba2f3d95109c:v145");
- Fri, 21 Jul 2023 16:45:52 +0000
-Received: from e7f2e2cd2a88.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 895B95DF-3147-4C31-B36C-09AE2C625C56.1; 
- Fri, 21 Jul 2023 16:45:46 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e7f2e2cd2a88.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 21 Jul 2023 16:45:46 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by AS4PR08MB7506.eurprd08.prod.outlook.com (2603:10a6:20b:4f8::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Fri, 21 Jul
- 2023 16:45:44 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::4c7d:6a1:e742:3b1a]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::4c7d:6a1:e742:3b1a%4]) with mapi id 15.20.6609.026; Fri, 21 Jul 2023
- 16:45:44 +0000
+ <SRS0=NI5b=DH=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qMtNM-0001Ho-VU
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 16:53:08 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0f4c83f4-27e7-11ee-8611-37d641c3527e;
+ Fri, 21 Jul 2023 18:53:05 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 9E8328285590;
+ Fri, 21 Jul 2023 11:53:03 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 7T53_EDlM9kY; Fri, 21 Jul 2023 11:53:02 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 36EA68285957;
+ Fri, 21 Jul 2023 11:53:02 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id UrC3dRSvM5h6; Fri, 21 Jul 2023 11:53:02 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id B69C18285590;
+ Fri, 21 Jul 2023 11:53:01 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,122 +51,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 105a9780-27e6-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IO3eQnv1fs9UD9jh5L8BYHoK7voDyvxMDzI2vo71+H8=;
- b=ovWPY7j7U+2PiOipM60nG4cDAXVkjtZzgdPqAZTFhnD8JnkElK7ugRuwcxx9poM4P+jLfB82UzKwqwnnyo9jchjDmyonzTY6mfIVFynIPdPtuDI0jTQBVGbbYq8ncm4AGZBN84nZEiWMRPRjn0l2HzxAOdWbgUbLM2t8vPoQTXc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 9e9f2f7cddfbf2d5
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PfM/LqjcZJ1qigmtlexWWuOolbYgsEJvQyKfg1R/56bIE35DEwrofkhUrXMLOxXt+1CyZ+JscpbklMEsJSAhBqdZ9Lw2OmzI0iSrTtp0IJAC7HUO1DhRyECQsTzLiwyoRiRtdjXbtC40JhLQ6wuxmD46SUHE3orj27hPpeXo97Ea9LaZKKi6wrRb3IKSJlQwMXY3HQGciBz1Gu9cvlv5yRakOlUq7Yvy9se0cAxuOcDon2EZ1R2txxD+ivk8uFIaV5ywP/NPWRNUJbolqLq1eEzhbxDGHczHp60VVStEBGQ9ddeZS2BQAdxwOWPh6bnPzeqC/efqLzOpJora0h674Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IO3eQnv1fs9UD9jh5L8BYHoK7voDyvxMDzI2vo71+H8=;
- b=W7Q9dIZTOijKnjHpTtA1BfQakT5UzYL/H0bFjMf4DT3Icphy8RfVLUQWD/y0H+JOgwfN/t/R/O+S4JxtCj1lg35k+vuy0L1fJOI/8B38V7eBv9PefzZml5n5S4ZJ03/guYipb0biHzlHqKxfJfPhNf8QKenjELg7ZSJ04C0ZAnPmFzmwapSe8pNo89E260kUGX4KsCSMc8J/zFWUAVcbR99IcM20wDEYLQLpwk2BhxMBVp0IkAn8KDhl14TLVqL4quHuLe1CQ858cwRZc9P4m5xl6nDn2lpeeFVSa0dajhGwNNOULrad2zBDZuEG4KKH2dM2eqf7aZSnZxGFwMBTDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IO3eQnv1fs9UD9jh5L8BYHoK7voDyvxMDzI2vo71+H8=;
- b=ovWPY7j7U+2PiOipM60nG4cDAXVkjtZzgdPqAZTFhnD8JnkElK7ugRuwcxx9poM4P+jLfB82UzKwqwnnyo9jchjDmyonzTY6mfIVFynIPdPtuDI0jTQBVGbbYq8ncm4AGZBN84nZEiWMRPRjn0l2HzxAOdWbgUbLM2t8vPoQTXc=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Rahul Singh <Rahul.Singh@arm.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [OSSTEST] ts-kernel-build: add kernel kconfig for the Arndale
-Thread-Topic: [OSSTEST] ts-kernel-build: add kernel kconfig for the Arndale
-Thread-Index: AQHZu81JNSQT8M0pukCzoS21u4bdG6/ENcMAgAA4KoA=
-Date: Fri, 21 Jul 2023 16:45:44 +0000
-Message-ID: <2CA77C15-BA9B-4D98-80A0-B1B7EDE4E48B@arm.com>
-References: <20230721121627.1229906-1-luca.fancellu@arm.com>
- <ceb7d6ad-0292-facf-6ad5-4bd265a8d34d@suse.com>
-In-Reply-To: <ceb7d6ad-0292-facf-6ad5-4bd265a8d34d@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|AS4PR08MB7506:EE_|DBAEUR03FT064:EE_|AS2PR08MB9343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74b17dd6-6957-4d04-b44a-08db8a09f24a
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 623QHv80aLHe4no2/Qx58Roe7yAgkCSGkRvfasKrgwKPRP1INUh95PbB94ULBKtGB8aZT3j0AJPm3WgV24FmikD151C8efGK5BA/Z8bz6HHmrtWmsMTRbUmkYZwTouP4slplFSzeBNxu2WmYfGTyrgNCfDFcE3JvGTWUif6uqIaWY/LDS3GwJPXzGtTc1AAwcahAQcQbVcCY+YVCjdJvipY4I1HDpryalosCRSPl7VztL7aRra4VIWBgWc/pd1yGS6/M2Y6bMiGzU1HggwcYW7EJqWyl7fcmp1X5y2lhe0VwmMsy/Hl16NTV4pGd7m6w/NYHo8o0R0LkuRhF02HEggD+z3q3UsxvW0Wjcr97eKCsNdGeP3ACClo5CZ9nSWqN+Lf7BY2xw30pd3bvn00LhjTHMnJwTVSNgzFQ+uY+ITAG/8uS/sfjeylUu8YLKTA5XpOvNetPJ4WfLdqULJ0C729zUImyD7NjkCU18qqNbn4qvV+DUMJO7Xaj7xsy2hiXkLGjYpi64TM04wfNhSgFGXIxUCpFR7Bt08QTdq8id962MCg+huA4JqXcW5hR/Wg/k1VtNSNKep0Stdtkp/nhq114Bg3bXkm1PTXujPicSj+WPyFQq4e5Xds70Rvz20jR2CpiIcOq7PieASDNrGAEjg==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(346002)(39860400002)(396003)(136003)(376002)(451199021)(6512007)(122000001)(38100700002)(186003)(2616005)(6506007)(53546011)(26005)(33656002)(2906002)(8676002)(8936002)(5660300002)(71200400001)(36756003)(478600001)(38070700005)(6486002)(316002)(64756008)(66446008)(4326008)(6916009)(41300700001)(66476007)(54906003)(86362001)(66946007)(66556008)(76116006)(91956017)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <FF2A59B700AD3A40B4C0DFEA8E090879@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 0f4c83f4-27e7-11ee-8611-37d641c3527e
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 36EA68285957
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1689958382; bh=fYfLF0WSeFnVwXg54J6bA2OQsEwG0Ye0kjBmI9gTu+k=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=tUiIJBauH0acvaYAu2EpsY2bglQDrmvm6l+iDRNcq13+ZNN/FVg1pBGXPpA7GQs1k
+	 sqRwP8VEdEwyFMI/J8rDn8rSYaz4dyiL+G4v6lAKSDNRFSU8Ms3v0Gt1Ckh1HlPxK5
+	 4JAHoKd8NCkbXJ3HSUP+f8YnAZLbKk+nKMa+7kXM=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <a7f89b3b-bcd1-6844-b836-40b73a9fa3b0@raptorengineering.com>
+Date: Fri, 21 Jul 2023 11:53:01 -0500
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7506
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT064.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	5c2b7b6c-3e72-4c2b-0bb1-08db8a09ed43
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	tsyCzmijQ9z6MPM1BXbb7ujAvWgiY8ZguPlE1nw5V/HPB5YtOrGiUJNwQMyMnfHZencije0mopzXMVkrhesHKVcT3UmnIfx1e4tEHBg5qhW68hpZippUKwbBU6jrJaH1d4Mm4gO1c5ijf7xRHgPrCLMTCvQgXNX3jAn8LLWr9dBNXuPTWPPFaySW8HkCb3NxPJ1wIk7QZ1vkF6hzc+PUFnRYy+8y+9tOJHNpPTF9Kv09bnKAGSFeJ+TF9+GreITZm++OQAvYnVkaDDAgRuNcWkMrx3As9GhMTjCs7K2+VrGlniA1tQSQOkNTdeys/bT7oUwvyxWo6Z5CG96BIUDeDvubtRebZ9VkCGwFhDCd9z3FUqv3hUvKtGTL/D29Fr2PAO0EA3mfDMh3/bJQCALbquiAU8dzq3ISKKZx/McCBkL3OcJyKBierh9S3exZy2UZ4RSqYz0imwYmtgIWTf5yp8msfF/KzvR8oqCH7a/r/g3ou0fnytKSJ3LrdA98hp/Yhs/xZrQiUcbqwH3sJW47m83Nr8LzIa93qi5/Adw4RMKIHzjO0Dek7TkbVOsVC8t29lUCvg1OGF2nB916SUX+xRIiAuU/5y/DMrmp33NAYhUi0ILi2u4QA8IQ5ly9f7m43DFmAzg8oqZRMDjdzU9Fw4NAD8FbHqX/0wJ30ef+yWYsciV0pfw8gOcjz5P6VPCauy461b9ECA5M0yxikzb7i1CaGA2ifrnreOJCATgPP18=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199021)(82310400008)(46966006)(40470700004)(36840700001)(40460700003)(8936002)(8676002)(6862004)(33656002)(36860700001)(2906002)(36756003)(6506007)(5660300002)(26005)(2616005)(47076005)(356005)(53546011)(82740400003)(81166007)(186003)(336012)(40480700001)(70586007)(4326008)(70206006)(54906003)(86362001)(6486002)(41300700001)(478600001)(6512007)(316002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 16:45:52.7065
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74b17dd6-6957-4d04-b44a-08db8a09f24a
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT064.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9343
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v4 3/4] xen/ppc: Implement early serial printk on pseries
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1689710519.git.sanastasio@raptorengineering.com>
+ <7c416ff843ea359bb24b8c954cc079fe1bbaf75f.1689710519.git.sanastasio@raptorengineering.com>
+ <6d3b7cd6-7d6a-8d28-f1e7-7e939e393445@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <6d3b7cd6-7d6a-8d28-f1e7-7e939e393445@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DQoNCj4gT24gMjEgSnVsIDIwMjMsIGF0IDE0OjI0LCBKYW4gQmV1bGljaCA8amJldWxpY2hAc3Vz
-ZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMjEuMDcuMjAyMyAxNDoxNiwgTHVjYSBGYW5jZWxsdSB3
-cm90ZToNCj4+IFRoZSBMaW51eCBjb21taXQgMzM2MjlkMzUwOTBmNWNlMmIxYjRjZTc4YWEzOTk1
-NGM2MDM1MzZkNSBoYXMNCj4+IHJlbW92ZWQgdGhlICdzbnBzLGR3Yy1haGNpJyBjb21wYXRpYmxl
-IGZyb20gdGhlIGdlbmVyaWMNCj4+IEFIQ0ktcGxhdGZvcm0gZHJpdmVyIGNvbnRyb2wgbW9kdWxl
-IHNlbGVjdGVkIGJ5DQo+PiBDT05GSUdfU0FUQV9BSENJX1BMQVRGT1JNLg0KPj4gDQo+PiBBIG5l
-dyBkcml2ZXIsIHRoZSBEV0MgQUhDSSBTQVRBIHBsYXRmb3JtIGRyaXZlciBpcyBub3cgaW1wbGVt
-ZW50ZWQNCj4+IGFuZCBoYW5kbGVzIHRoZSBhYm92ZSBjb21wYXRpYmxlIHdoZW4gQ09ORklHX0FI
-Q0lfRFdDIGlzIHNlbGVjdGVkLg0KPj4gDQo+PiBUaGUgbW9kdWxlIGlzIG5lZWRlZCBmb3IgdGhl
-IEFybmRhbGUgYm9hcmQgdG8gaGF2ZSB0aGUgU0FUQSBjb250cm9sbGVyDQo+PiB3b3JraW5nLCBz
-byBlbmFibGUgdGhlIENPTkZJR19BSENJX0RXQyBhcyBhZGRpdGlvbmFsIGtjb25maWcgcGFyYW1l
-dGVyDQo+PiBpbiB0cy1rZXJuZWwtYnVpbGQuDQoNCkhpIEphbiwNCg0KPiANCj4gTGFyZ2VseSBv
-dXQgb2YgY3VyaW9zaXR5OiBTaW5jZSB5b3Ugc2F5ICJtb2R1bGUiIGhlcmUsIC4uLg0KPiANCj4+
-IC0tLSBhL3RzLWtlcm5lbC1idWlsZA0KPj4gKysrIGIvdHMta2VybmVsLWJ1aWxkDQo+PiBAQCAt
-MjQ1LDYgKzI0NSw3IEBAIHNldG9wdCBDT05GSUdfU0VOU09SU19MTTkwIG4NCj4+IHNldG9wdCBD
-T05GSUdfSUNTOTMyUzQwMSBuDQo+PiANCj4+ICMgRW5hYmxlIHNvbWUgYWRkaXRpb25hbCBkcml2
-ZXJzIGZvciBBcm5kYWxlLg0KPj4gK3NldG9wdCBDT05GSUdfQUhDSV9EV0MgeQ0KPiANCj4gLi4u
-IGRvZXMgaXQgcmVhbGx5IG5lZWQgdG8gYmUgeSAoYW5kIG5vdCBtKSBoZXJlPw0KDQpJIGRpZG7i
-gJl0IHRyeSB3aXRoIG0gYmVmb3JlIGJlY2F1c2UgSSB3YXMgdW5zdXJlIHdoZXJlIHRoZSBrZXJu
-ZWwgbW9kdWxlIHdlcmUgcHV0IChpbiB0aGUgZGlzaz8gQnV0IHRoZW4gd2UgbmVlZCB0byByZWFk
-IGl0KSwNCmJ1dCBub3cgSSBkaWQgYSB0cnkgd2l0aCDigJht4oCZIGFuZCBpdCB3b3Jrcywgc28g
-SSBndWVzcyB0aGUgbW9kdWxlIGFyZSBwdXQgaW4gc29tZSByYW1kaXNrIGluc3RlYWQgb2YgdGhl
-IGRpc2sgd2Ugd2FudCB0byByZWFkLg0KDQpUaGFua3MgZm9yIHBvaW50aW5nIHRoYXQgb3V0Lg0K
-DQpAUm9nZXIsIGlzIGl0IHBvc3NpYmxlIHRvIGNoYW5nZSBpdCBvbiBjb21taXQgb3Igc2hvdWxk
-IEkgc2VuZCBhIHYyPw0KDQpDaGVlcnMsDQpMdWNhDQoNCj4gDQo+IEphbg0KDQo=
+On 7/19/23 9:05 AM, Jan Beulich wrote:
+> On 18.07.2023 22:20, Shawn Anastasio wrote:
+>> +void __init boot_of_init(unsigned long vec)
+>> +{
+>> +    int bof_chosen;
+>> +
+>> +    of_vec = vec;
+>> +
+>> +    /* Get a handle to the default console */
+>> +    bof_chosen = of_finddevice("/chosen");
+>> +    of_getprop(bof_chosen, "stdout", &of_out, sizeof(of_out));
+>> +    of_out = be32_to_cpu(of_out);
+> 
+> Can any of these fail, and hence lead to ...
+
+These calls are allowed to fail, but their return value in those cases
+is well-defined (an invalid handle), so...
+
+> 
+>> +    early_printk_init(of_putchar);
+> 
+> ... this better not getting invoked?
+
+this being invoked is fine even in those cases. It will just result in
+the invalid handle being passed to of_write and the firmware will refuse
+to service the writes.
+
+>> --- a/xen/arch/ppc/ppc64/asm-offsets.c
+>> +++ b/xen/arch/ppc/ppc64/asm-offsets.c
+>> @@ -0,0 +1,59 @@
+>> +/*
+>> + * Generate definitions needed by assembly language modules.
+>> + * This code generates raw asm output which is post-processed
+>> + * to extract and format the required data.
+>> + */
+>> +
+>> +#include <asm/processor.h>
+>> +
+>> +#define DEFINE(_sym, _val)                                                 \
+>> +    asm volatile ("\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\"" \
+>> +                  : : "i" (_val) )
+> 
+> Nit: There's a blank missing after the opening paren, which will then want
+> the 2nd line to be indented by one more character. (Instead, as a matter of
+> your taste, you may omit the blank between the two colons.)
+
+Will fix.
+
+>> +#define BLANK()                                                            \
+>> +    asm volatile ( "\n.ascii\"==><==\"" : : )
+>> +#define OFFSET(_sym, _str, _mem)                                           \
+>> +    DEFINE(_sym, offsetof(_str, _mem));
+>> +
+>> +/* base-2 logarithm */
+>> +#define __L2(_x)  (((_x) & 0x00000002) ?   1 : 0)
+>> +#define __L4(_x)  (((_x) & 0x0000000c) ? ( 2 + __L2( (_x)>> 2)) : __L2( _x))
+>> +#define __L8(_x)  (((_x) & 0x000000f0) ? ( 4 + __L4( (_x)>> 4)) : __L4( _x))
+>> +#define __L16(_x) (((_x) & 0x0000ff00) ? ( 8 + __L8( (_x)>> 8)) : __L8( _x))
+>> +#define LOG_2(_x) (((_x) & 0xffff0000) ? (16 + __L16((_x)>>16)) : __L16(_x))
+>> +
+>> +void __dummy__(void)
+>> +{
+>> +    DEFINE(GPR_WIDTH, sizeof(unsigned long));
+>> +    DEFINE(FPR_WIDTH, sizeof(double));
+>> +
+>> +    OFFSET(UREGS_gprs, struct cpu_user_regs, gprs);
+>> +    OFFSET(UREGS_r0, struct cpu_user_regs, gprs[0]);
+>> +    OFFSET(UREGS_r1, struct cpu_user_regs, gprs[1]);
+>> +    OFFSET(UREGS_r13, struct cpu_user_regs, gprs[13]);
+>> +    OFFSET(UREGS_srr0, struct cpu_user_regs, srr0);
+>> +    OFFSET(UREGS_srr1, struct cpu_user_regs, srr1);
+>> +    OFFSET(UREGS_pc, struct cpu_user_regs, pc);
+>> +    OFFSET(UREGS_msr, struct cpu_user_regs, msr);
+>> +    OFFSET(UREGS_lr, struct cpu_user_regs, lr);
+>> +    OFFSET(UREGS_ctr, struct cpu_user_regs, ctr);
+>> +    OFFSET(UREGS_xer, struct cpu_user_regs, xer);
+>> +    OFFSET(UREGS_hid4, struct cpu_user_regs, hid4);
+>> +    OFFSET(UREGS_dar, struct cpu_user_regs, dar);
+>> +    OFFSET(UREGS_dsisr, struct cpu_user_regs, dsisr);
+>> +    OFFSET(UREGS_cr, struct cpu_user_regs, cr);
+>> +    OFFSET(UREGS_fpscr, struct cpu_user_regs, fpscr);
+>> +    DEFINE(UREGS_sizeof, sizeof(struct cpu_user_regs));
+>> +}
+>> +
+>> +/* TODO: Replace with BUILD_BUG_ON + IS_ALIGNED once we can use <xen/lib.h> */
+>> +_Static_assert(sizeof(struct cpu_user_regs) % STACK_ALIGN == 0,
+>> +               "struct cpu_user_regs not stack aligned!");
+> 
+> But patch 1 makes BUILD_BUG_ON() available now.
+
+Good point, will fix.
+
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/ppc64/of-call.S
+>> @@ -0,0 +1,83 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +/*
+>> + * Adapted from Linux's arch/powerpc/kernel/entry_64.S, with the
+>> + * following copyright notice:
+>> + *
+>> + *  PowerPC version
+>> + *    Copyright (C) 1995-1996 Gary Thomas (gdt@linuxppc.org)
+>> + *  Rewritten by Cort Dougan (cort@cs.nmt.edu) for PReP
+>> + *    Copyright (C) 1996 Cort Dougan <cort@cs.nmt.edu>
+>> + *  Adapted for Power Macintosh by Paul Mackerras.
+>> + *  Low-level exception handlers and MMU support
+>> + *  rewritten by Paul Mackerras.
+>> + *    Copyright (C) 1996 Paul Mackerras.
+>> + *  MPC8xx modifications Copyright (C) 1997 Dan Malek (dmalek@jlc.net).
+>> + */
+>> +
+>> +#include <asm/asm-offsets.h>
+>> +#include <asm/asm-defns.h>
+>> +#include <asm/msr.h>
+>> +
+>> +/* size of minimum stack frame that can hold an entire cpu_user_regs struct */
+>> +#define STACK_SWITCH_FRAME_SIZE UREGS_sizeof
+>> +
+>> +    .section .init.text, "ax", @progbits
+>> +
+>> +ENTRY(enter_of)
+>> +    mflr %r0
+>> +    std %r0, 16(%r1)
+>> +    stdu %r1,-STACK_SWITCH_FRAME_SIZE(%r1) /* Save SP and create stack space */
+> 
+> Nit: A blank after the comma would again be nice.
+
+Will fix.
+
+>> +    /*
+>> +     * Because PROM is running in 32b mode, it clobbers the high order half
+>> +     * of all registers that it saves.  We therefore save those registers
+>> +     * PROM might touch to the stack.  (%r0, %r3-%r13 are caller saved)
+>> +     */
+>> +    SAVE_GPR(2, %r1)
+>> +    SAVE_GPR(13, %r1)
+>> +    SAVE_NVGPRS(%r1)
+>> +    mfcr %r10
+>> +    mfmsr %r11
+>> +    std %r10, UREGS_cr(%r1)
+>> +    std %r11, UREGS_msr(%r1)
+>> +
+>> +    /* Put PROM address in SRR0 */
+>> +    mtsrr0 %r4
+>> +
+>> +    /* Setup our trampoline return addr in LR */
+>> +    bcl 20, 31, .+4
+>> +0:  mflr %r4
+>> +    addi %r4, %r4, 1f - 0b
+>> +    mtlr %r4
+>> +
+>> +    /* Prepare a 32-bit mode big endian MSR */
+>> +    LOAD_IMM64(%r12, MSR_SF | MSR_LE)
+>> +    andc %r11, %r11, %r12
+>> +    mtsrr1 %r11
+>> +    rfid
+>> +
+>> +1:  /* Return from OF */
+>> +    FIXUP_ENDIAN
+>> +
+>> +    /* Just make sure that %r1 top 32 bits didn't get corrupt by OF */
+>> +    rldicl %r1, %r1, 0, 32
+>> +
+>> +    /* Restore the MSR (back to 64 bits) */
+>> +    ld %r0, UREGS_msr(%r1)
+>> +    mtmsrd %r0
+>> +    isync
+>> +
+>> +    /* Restore other registers */
+>> +    REST_GPR(2, %r1)
+>> +    REST_GPR(13, %r1)
+>> +    REST_NVGPRS(%r1)
+>> +    ld %r4, UREGS_cr(%r1)
+>> +    mtcr %r4
+>> +
+>> +    addi %r1, %r1, STACK_SWITCH_FRAME_SIZE
+>> +    ld %r0, 16(%r1)
+>> +    mtlr %r0
+>> +    blr
+>> +
+>> +    .size enter_of, . - enter_of
+>> +    .type enter_of, %function
+
+Thanks,
+Shawn
 
