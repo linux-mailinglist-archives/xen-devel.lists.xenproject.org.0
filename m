@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9374975CBAD
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 17:27:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567612.886890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B4CC75CBB8
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 17:29:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567618.886900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMs1a-0003Fh-Qt; Fri, 21 Jul 2023 15:26:34 +0000
+	id 1qMs4A-0003pr-8N; Fri, 21 Jul 2023 15:29:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567612.886890; Fri, 21 Jul 2023 15:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 567618.886900; Fri, 21 Jul 2023 15:29:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMs1a-0003Dx-O8; Fri, 21 Jul 2023 15:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 567612;
- Fri, 21 Jul 2023 15:26:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qMs4A-0003nr-5h; Fri, 21 Jul 2023 15:29:14 +0000
+Received: by outflank-mailman (input) for mailman id 567618;
+ Fri, 21 Jul 2023 15:29:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OIrH=DH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qMs1Z-0003Dp-TQ
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 15:26:33 +0000
+ id 1qMs49-0003nl-6G
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 15:29:13 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8619b04-27da-11ee-b23a-6b7b168915f2;
- Fri, 21 Jul 2023 17:26:32 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 573f3b66-27db-11ee-8611-37d641c3527e;
+ Fri, 21 Jul 2023 17:29:11 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [37.162.18.33])
- by support.bugseng.com (Postfix) with ESMTPSA id 7711E4EE0C89;
- Fri, 21 Jul 2023 17:26:30 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 1894E4EE0C89;
+ Fri, 21 Jul 2023 17:29:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8619b04-27da-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: 573f3b66-27db-11ee-8611-37d641c3527e
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -48,10 +48,14 @@ Cc: sstabellini@kernel.org,
 	ayan.kumar.halder@amd.com,
 	consulting@bugseng.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH] efi: mechanical renaming to address MISRA C:2012 Rule 5.3
-Date: Fri, 21 Jul 2023 17:26:11 +0200
-Message-Id: <4da442b03ba783b4db0e56614bed43ce882a32ae.1689953085.git.nicola.vetrini@bugseng.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH] xen/spinlock: mechanically rename parameter name 'debug'
+Date: Fri, 21 Jul 2023 17:29:02 +0200
+Message-Id: <78255b6c5caaaa02dad638c7d4102ea793a09b88.1689953306.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -60,57 +64,161 @@ Rule 5.3 has the following headline:
 "An identifier declared in an inner scope shall not hide an
 identifier declared in an outer scope"
 
-The function parameters renamed in this patch are hiding a variable defined
-in an enclosing scope or a function identifier.
-
-The following rename is made:
-- s/cfg/config/
-to distinguish from the variable 'cfg', which is hidden by the parameter inside
-the modified functions.
+To avoid any confusion resulting from the parameter 'debug'
+hiding the homonymous function declared at
+'xen/arch/x86/include/asm/processor.h:428'
+the rename of parameters s/debug/dbg is performed.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/common/efi/boot.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+x86 maintainers CC'ed because the violation is caused by a declaration
+in an x86 file, but I reckon it would harm understandability if
+a function was renamed to 'dbg'
+---
+ xen/common/spinlock.c      | 38 +++++++++++++++++++-------------------
+ xen/include/xen/spinlock.h |  6 +++---
+ 2 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 24169b7b50..233639f3bc 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -528,10 +528,10 @@ static char * __init split_string(char *s)
-     return NULL;
+diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
+index 7f453234a9..d8d2e6ad1a 100644
+--- a/xen/common/spinlock.c
++++ b/xen/common/spinlock.c
+@@ -78,7 +78,7 @@ static int __init cf_check lockdebug_init(void)
+ }
+ presmp_initcall(lockdebug_init);
+ 
+-void check_lock(union lock_debug *debug, bool try)
++void check_lock(union lock_debug *dbg, bool try)
+ {
+     bool irq_safe = !local_irq_is_enabled();
+     unsigned int cpu = smp_processor_id();
+@@ -118,12 +118,12 @@ void check_lock(union lock_debug *debug, bool try)
+     if ( try && irq_safe )
+         return;
+ 
+-    if ( unlikely(debug->irq_safe != irq_safe) )
++    if ( unlikely(dbg->irq_safe != irq_safe) )
+     {
+         union lock_debug seen, new = { 0 };
+ 
+         new.irq_safe = irq_safe;
+-        seen.val = cmpxchg(&debug->val, LOCK_DEBUG_INITVAL, new.val);
++        seen.val = cmpxchg(&dbg->val, LOCK_DEBUG_INITVAL, new.val);
+ 
+         if ( !seen.unseen && seen.irq_safe == !irq_safe )
+         {
+@@ -137,14 +137,14 @@ void check_lock(union lock_debug *debug, bool try)
+         return;
+ 
+     for ( i = 0; i < nr_taken; i++ )
+-        if ( taken[i] == debug )
++        if ( taken[i] == dbg )
+         {
+-            printk("CHECKLOCK FAILURE: lock at %p taken recursively\n", debug);
++            printk("CHECKLOCK FAILURE: lock at %p taken recursively\n", dbg);
+             BUG();
+         }
  }
  
--static char *__init get_value(const struct file *cfg, const char *section,
-+static char *__init get_value(const struct file *config, const char *section,
-                               const char *item)
+-static void check_barrier(union lock_debug *debug)
++static void check_barrier(union lock_debug *dbg)
  {
--    char *ptr = cfg->str, *end = ptr + cfg->size;
-+    char *ptr = config->str, *end = ptr + config->size;
-     size_t slen = section ? strlen(section) : 0, ilen = strlen(item);
-     bool match = !slen;
- 
-@@ -821,9 +821,9 @@ static bool __init read_section(const EFI_LOADED_IMAGE *image,
-     return true;
+     if ( unlikely(atomic_read(&spin_debug) <= 0) )
+         return;
+@@ -160,10 +160,10 @@ static void check_barrier(union lock_debug *debug)
+      * However, if we spin on an IRQ-unsafe lock with IRQs disabled then that
+      * is clearly wrong, for the same reason outlined in check_lock() above.
+      */
+-    BUG_ON(!local_irq_is_enabled() && !debug->irq_safe);
++    BUG_ON(!local_irq_is_enabled() && !dbg->irq_safe);
  }
  
--static void __init pre_parse(const struct file *cfg)
-+static void __init pre_parse(const struct file *config)
+-void lock_enter(const union lock_debug *debug)
++void lock_enter(const union lock_debug *dbg)
  {
--    char *ptr = cfg->str, *end = ptr + cfg->size;
-+    char *ptr = config->str, *end = ptr + config->size;
-     bool start = true, comment = false;
+     unsigned int cpu = smp_processor_id();
+     const union lock_debug **taken = per_cpu(locks_taken, cpu);
+@@ -176,7 +176,7 @@ void lock_enter(const union lock_debug *debug)
+     local_irq_save(flags);
  
-     for ( ; ptr < end; ++ptr )
-@@ -844,7 +844,7 @@ static void __init pre_parse(const struct file *cfg)
-         else
-             start = 0;
+     if ( *nr_taken < lock_depth_size )
+-        taken[(*nr_taken)++] = debug;
++        taken[(*nr_taken)++] = dbg;
+     else if ( !max_depth_reached )
+     {
+         max_depth_reached = true;
+@@ -187,7 +187,7 @@ void lock_enter(const union lock_debug *debug)
+     local_irq_restore(flags);
+ }
+ 
+-void lock_exit(const union lock_debug *debug)
++void lock_exit(const union lock_debug *dbg)
+ {
+     unsigned int cpu = smp_processor_id();
+     const union lock_debug **taken = per_cpu(locks_taken, cpu);
+@@ -202,7 +202,7 @@ void lock_exit(const union lock_debug *debug)
+ 
+     for ( i = *nr_taken; i > 0; i-- )
+     {
+-        if ( taken[i - 1] == debug )
++        if ( taken[i - 1] == dbg )
+         {
+             memmove(taken + i - 1, taken + i,
+                     (*nr_taken - i) * sizeof(*taken));
+@@ -217,28 +217,28 @@ void lock_exit(const union lock_debug *debug)
+ 
+     if ( !max_depth_reached )
+     {
+-        printk("CHECKLOCK released lock at %p not recorded!\n", debug);
++        printk("CHECKLOCK released lock at %p not recorded!\n", dbg);
+         WARN();
      }
--    if ( cfg->size && end[-1] )
-+    if ( config->size && end[-1] )
-          PrintStr(L"No newline at end of config file,"
-                    " last line will be ignored.\r\n");
+ 
+     local_irq_restore(flags);
  }
+ 
+-static void got_lock(union lock_debug *debug)
++static void got_lock(union lock_debug *dbg)
+ {
+-    debug->cpu = smp_processor_id();
++    dbg->cpu = smp_processor_id();
+ 
+-    lock_enter(debug);
++    lock_enter(dbg);
+ }
+ 
+-static void rel_lock(union lock_debug *debug)
++static void rel_lock(union lock_debug *dbg)
+ {
+     if ( atomic_read(&spin_debug) > 0 )
+-        BUG_ON(debug->cpu != smp_processor_id());
++        BUG_ON(dbg->cpu != smp_processor_id());
+ 
+-    lock_exit(debug);
++    lock_exit(dbg);
+ 
+-    debug->cpu = SPINLOCK_NO_CPU;
++    dbg->cpu = SPINLOCK_NO_CPU;
+ }
+ 
+ void spin_debug_enable(void)
+diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
+index 0a02a527dc..d303c56f8a 100644
+--- a/xen/include/xen/spinlock.h
++++ b/xen/include/xen/spinlock.h
+@@ -22,9 +22,9 @@ union lock_debug {
+     };
+ };
+ #define _LOCK_DEBUG { LOCK_DEBUG_INITVAL }
+-void check_lock(union lock_debug *debug, bool try);
+-void lock_enter(const union lock_debug *debug);
+-void lock_exit(const union lock_debug *debug);
++void check_lock(union lock_debug *dbg, bool try);
++void lock_enter(const union lock_debug *dbg);
++void lock_exit(const union lock_debug *dbg);
+ void spin_debug_enable(void);
+ void spin_debug_disable(void);
+ #else
 -- 
 2.34.1
 
