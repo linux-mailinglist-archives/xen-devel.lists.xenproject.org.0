@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 458A075D7B3
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Jul 2023 00:57:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567733.887178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C141675D7CE
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Jul 2023 01:06:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567737.887189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMz3X-0004ct-22; Fri, 21 Jul 2023 22:57:03 +0000
+	id 1qMzCV-0006Ab-Td; Fri, 21 Jul 2023 23:06:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567733.887178; Fri, 21 Jul 2023 22:57:03 +0000
+Received: by outflank-mailman (output) from mailman id 567737.887189; Fri, 21 Jul 2023 23:06:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMz3W-0004aL-Ve; Fri, 21 Jul 2023 22:57:02 +0000
-Received: by outflank-mailman (input) for mailman id 567733;
- Fri, 21 Jul 2023 22:57:02 +0000
+	id 1qMzCV-00067J-QK; Fri, 21 Jul 2023 23:06:19 +0000
+Received: by outflank-mailman (input) for mailman id 567737;
+ Fri, 21 Jul 2023 23:06:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BzSz=DH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qMz3W-0004aF-Ft
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 22:57:02 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1qMzCU-00067D-6M
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 23:06:18 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6449279-2819-11ee-b23a-6b7b168915f2;
- Sat, 22 Jul 2023 00:57:00 +0200 (CEST)
+ id 315dfdbb-281b-11ee-b23a-6b7b168915f2;
+ Sat, 22 Jul 2023 01:06:16 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C1B7160E9D;
- Fri, 21 Jul 2023 22:56:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E09C433C9;
- Fri, 21 Jul 2023 22:56:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 40CE261D2F;
+ Fri, 21 Jul 2023 23:06:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FF1C433C8;
+ Fri, 21 Jul 2023 23:06:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,31 +45,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6449279-2819-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: 315dfdbb-281b-11ee-b23a-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689980219;
-	bh=cODPKSnrGgWhxG3JOMp9/jCWaQjGjpn/HdrXhXLpGd8=;
+	s=k20201202; t=1689980772;
+	bh=KmLTHDIQH+KQu9Xe53d5fj4x8sC5QD5a5Dt4/v72IHM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=h7Maiz3ihpz7Ltw1Q2w/2ysNEwj+t9AhofXPu21z8G376VoOlMVBrw8ucoLLzbHN4
-	 /q4KhUW3B+fcZRJJMi9plAVIfx4wiGoFUrEC5+azAcUMAtpq4PnieYgZpFdcCrOV38
-	 GWA6gJQFi7v/1Yodly90tXl0mwnihNcZDDp29e8INWggbyvpKB5Ps0z9Y9caPfHxuP
-	 yxhYsk5VUAgNWPRMq8aFDbYXQ9mn8NpWNSTp92cR6MNLgQVekcupGZk7inA6ssugel
-	 zuYMGCdB9R9MiVCGC7gL9SvgaFzImw5sc+bfXKkMLYLEG4idPbK5SXCEG34rUqU/0K
-	 J8dI7VMMNp3tA==
-Date: Fri, 21 Jul 2023 15:56:55 -0700 (PDT)
+	b=bI0SemcuMqu3DKEzv5F0q2wfR3H3yUr/BVl4rgijD7Q3CUhYIIW1HCnSn9KUH8ArF
+	 VPeUuxb8CeMh3zm010zBmA5gMs4pF5cWfDFCuVeBJHHkvzXE3shCFdbuu4Tnj66u1I
+	 f55Xa9Y8MuHVkBhNUNc0GQipOfwDKc8K3dvg9xzCwnt/Uju6Zj6TbIP5poAr+3qJ9V
+	 6yv9astYLhFZmNAOUOYCJKz/LZpY+oY3lOHbtJ2MaX7SpHMRoZs+xiQpEU7GXKiDDl
+	 b3giR6Ody6e2lxnkPj6cyax32C50D5s6dM/8n4RpyvF/3ZlTRYIxfT9MAd8VTXmnVS
+	 BHcA92Pbg27bw==
+Date: Fri, 21 Jul 2023 16:06:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    consulting@bugseng.com, George Dunlap <george.dunlap@citrix.com>, 
+    Dario Faggioli <dfaggioli@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH] xen/spinlock: mechanically rename parameter name
- 'debug'
-In-Reply-To: <78255b6c5caaaa02dad638c7d4102ea793a09b88.1689953306.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307211555510.3118466@ubuntu-linux-20-04-desktop>
-References: <78255b6c5caaaa02dad638c7d4102ea793a09b88.1689953306.git.nicola.vetrini@bugseng.com>
+Subject: Re: [XEN PATCH] xen/sched: mechanical renaming to address MISRA
+ C:2012 Rule 5.3
+In-Reply-To: <9945fd23b0bb88f3e0c6054a7f992cfa642d3f9f.1689953420.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2307211601230.3118466@ubuntu-linux-20-04-desktop>
+References: <9945fd23b0bb88f3e0c6054a7f992cfa642d3f9f.1689953420.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -78,165 +80,165 @@ On Fri, 21 Jul 2023, Nicola Vetrini wrote:
 > "An identifier declared in an inner scope shall not hide an
 > identifier declared in an outer scope"
 > 
-> To avoid any confusion resulting from the parameter 'debug'
-> hiding the homonymous function declared at
-> 'xen/arch/x86/include/asm/processor.h:428'
-> the rename of parameters s/debug/dbg is performed.
+> The renaming s/sched_id/scheduler_id of the function defined in
+> 'xen/common/sched/core.c' prevents any hiding of that function
+> by the many instances of omonymous function parameters.
+> 
+> Similarly, the renames
+> - s/ops/operations
+> - s/do_softirq/exec_softirq
+> - s/loop/it
+> are introduced for parameter names, to avoid any conflict
+> with the homonymous variable or function defined in an enclosing
+> scope.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
-> x86 maintainers CC'ed because the violation is caused by a declaration
-> in an x86 file, but I reckon it would harm understandability if
-> a function was renamed to 'dbg'
-> ---
->  xen/common/spinlock.c      | 38 +++++++++++++++++++-------------------
->  xen/include/xen/spinlock.h |  6 +++---
->  2 files changed, 22 insertions(+), 22 deletions(-)
+>  xen/common/sched/core.c    | 18 +++++++++---------
+>  xen/common/sched/credit2.c |  4 ++--
+>  xen/common/sysctl.c        |  2 +-
+>  xen/include/xen/sched.h    |  2 +-
+>  4 files changed, 13 insertions(+), 13 deletions(-)
 > 
-> diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-> index 7f453234a9..d8d2e6ad1a 100644
-> --- a/xen/common/spinlock.c
-> +++ b/xen/common/spinlock.c
-> @@ -78,7 +78,7 @@ static int __init cf_check lockdebug_init(void)
->  }
->  presmp_initcall(lockdebug_init);
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index 022f548652..e74b1208bd 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -99,13 +99,13 @@ static void sched_set_affinity(
+>      struct sched_unit *unit, const cpumask_t *hard, const cpumask_t *soft);
 >  
-> -void check_lock(union lock_debug *debug, bool try)
-> +void check_lock(union lock_debug *dbg, bool try)
+>  static struct sched_resource *cf_check
+> -sched_idle_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+> +sched_idle_res_pick(const struct scheduler *operations, const struct sched_unit *unit)
+
+nit: code style, now the line is over 80 chars, could be fixed on commit
+
+
 >  {
->      bool irq_safe = !local_irq_is_enabled();
->      unsigned int cpu = smp_processor_id();
-> @@ -118,12 +118,12 @@ void check_lock(union lock_debug *debug, bool try)
->      if ( try && irq_safe )
->          return;
+>      return unit->res;
+>  }
 >  
-> -    if ( unlikely(debug->irq_safe != irq_safe) )
-> +    if ( unlikely(dbg->irq_safe != irq_safe) )
->      {
->          union lock_debug seen, new = { 0 };
+>  static void *cf_check
+> -sched_idle_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+> +sched_idle_alloc_udata(const struct scheduler *operations, struct sched_unit *unit,
+>                         void *dd)
+>  {
+>      /* Any non-NULL pointer is fine here. */
+> @@ -113,12 +113,12 @@ sched_idle_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+>  }
 >  
->          new.irq_safe = irq_safe;
-> -        seen.val = cmpxchg(&debug->val, LOCK_DEBUG_INITVAL, new.val);
-> +        seen.val = cmpxchg(&dbg->val, LOCK_DEBUG_INITVAL, new.val);
+>  static void cf_check
+> -sched_idle_free_udata(const struct scheduler *ops, void *priv)
+> +sched_idle_free_udata(const struct scheduler *operations, void *priv)
+>  {
+>  }
 >  
->          if ( !seen.unseen && seen.irq_safe == !irq_safe )
->          {
-> @@ -137,14 +137,14 @@ void check_lock(union lock_debug *debug, bool try)
->          return;
+>  static void cf_check sched_idle_schedule(
+> -    const struct scheduler *ops, struct sched_unit *unit, s_time_t now,
+> +    const struct scheduler *operations, struct sched_unit *unit, s_time_t now,
+>      bool tasklet_work_scheduled)
+>  {
+>      const unsigned int cpu = smp_processor_id();
+> @@ -2040,8 +2040,8 @@ long do_set_timer_op(s_time_t timeout)
+>      return 0;
+>  }
 >  
->      for ( i = 0; i < nr_taken; i++ )
-> -        if ( taken[i] == debug )
-> +        if ( taken[i] == dbg )
->          {
-> -            printk("CHECKLOCK FAILURE: lock at %p taken recursively\n", debug);
-> +            printk("CHECKLOCK FAILURE: lock at %p taken recursively\n", dbg);
->              BUG();
+> -/* sched_id - fetch ID of current scheduler */
+> -int sched_id(void)
+> +/* scheduler_id - fetch ID of current scheduler */
+> +int scheduler_id(void)
+>  {
+>      return ops.sched_id;
+>  }
+> @@ -2579,7 +2579,7 @@ static void cf_check sched_slave(void)
+>      struct sched_unit    *prev = vprev->sched_unit, *next;
+>      s_time_t              now;
+>      spinlock_t           *lock;
+> -    bool                  do_softirq = false;
+> +    bool                  exec_softirq = false;
+
+We don't typically use "exec" especially in the context of softirqs.
+I would just change it to "softirq".
+
+
+>      unsigned int          cpu = smp_processor_id();
+>  
+>      ASSERT_NOT_IN_ATOMIC();
+> @@ -2604,7 +2604,7 @@ static void cf_check sched_slave(void)
+>              return;
 >          }
->  }
 >  
-> -static void check_barrier(union lock_debug *debug)
-> +static void check_barrier(union lock_debug *dbg)
->  {
->      if ( unlikely(atomic_read(&spin_debug) <= 0) )
->          return;
-> @@ -160,10 +160,10 @@ static void check_barrier(union lock_debug *debug)
->       * However, if we spin on an IRQ-unsafe lock with IRQs disabled then that
->       * is clearly wrong, for the same reason outlined in check_lock() above.
->       */
-> -    BUG_ON(!local_irq_is_enabled() && !debug->irq_safe);
-> +    BUG_ON(!local_irq_is_enabled() && !dbg->irq_safe);
->  }
->  
-> -void lock_enter(const union lock_debug *debug)
-> +void lock_enter(const union lock_debug *dbg)
->  {
->      unsigned int cpu = smp_processor_id();
->      const union lock_debug **taken = per_cpu(locks_taken, cpu);
-> @@ -176,7 +176,7 @@ void lock_enter(const union lock_debug *debug)
->      local_irq_save(flags);
->  
->      if ( *nr_taken < lock_depth_size )
-> -        taken[(*nr_taken)++] = debug;
-> +        taken[(*nr_taken)++] = dbg;
->      else if ( !max_depth_reached )
->      {
->          max_depth_reached = true;
-> @@ -187,7 +187,7 @@ void lock_enter(const union lock_debug *debug)
->      local_irq_restore(flags);
->  }
->  
-> -void lock_exit(const union lock_debug *debug)
-> +void lock_exit(const union lock_debug *dbg)
->  {
->      unsigned int cpu = smp_processor_id();
->      const union lock_debug **taken = per_cpu(locks_taken, cpu);
-> @@ -202,7 +202,7 @@ void lock_exit(const union lock_debug *debug)
->  
->      for ( i = *nr_taken; i > 0; i-- )
->      {
-> -        if ( taken[i - 1] == debug )
-> +        if ( taken[i - 1] == dbg )
->          {
->              memmove(taken + i - 1, taken + i,
->                      (*nr_taken - i) * sizeof(*taken));
-> @@ -217,28 +217,28 @@ void lock_exit(const union lock_debug *debug)
->  
->      if ( !max_depth_reached )
->      {
-> -        printk("CHECKLOCK released lock at %p not recorded!\n", debug);
-> +        printk("CHECKLOCK released lock at %p not recorded!\n", dbg);
->          WARN();
+> -        do_softirq = true;
+> +        exec_softirq = true;
 >      }
 >  
->      local_irq_restore(flags);
->  }
+>      if ( !prev->rendezvous_in_cnt )
+> @@ -2614,7 +2614,7 @@ static void cf_check sched_slave(void)
+>          rcu_read_unlock(&sched_res_rculock);
 >  
-> -static void got_lock(union lock_debug *debug)
-> +static void got_lock(union lock_debug *dbg)
->  {
-> -    debug->cpu = smp_processor_id();
-> +    dbg->cpu = smp_processor_id();
+>          /* Check for failed forced context switch. */
+> -        if ( do_softirq )
+> +        if ( exec_softirq )
+>              raise_softirq(SCHEDULE_SOFTIRQ);
 >  
-> -    lock_enter(debug);
-> +    lock_enter(dbg);
->  }
+>          return;
+> diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+> index 87a1e31ee9..aba51a7963 100644
+> --- a/xen/common/sched/credit2.c
+> +++ b/xen/common/sched/credit2.c
+> @@ -3884,7 +3884,7 @@ csched2_dump(const struct scheduler *ops)
+>      list_for_each_entry ( rqd, &prv->rql, rql )
+>      {
+>          struct list_head *iter, *runq = &rqd->runq;
+> -        int loop = 0;
+> +        int it = 0;
+
+Nice catch! This is almost a bug fix.
+
+
+>          /* We need the lock to scan the runqueue. */
+>          spin_lock(&rqd->lock);
+> @@ -3901,7 +3901,7 @@ csched2_dump(const struct scheduler *ops)
 >  
-> -static void rel_lock(union lock_debug *debug)
-> +static void rel_lock(union lock_debug *dbg)
->  {
->      if ( atomic_read(&spin_debug) > 0 )
-> -        BUG_ON(debug->cpu != smp_processor_id());
-> +        BUG_ON(dbg->cpu != smp_processor_id());
+>              if ( svc )
+>              {
+> -                printk("\t%3d: ", loop++);
+> +                printk("\t%3d: ", it++);
+>                  csched2_dump_unit(prv, svc);
+>              }
+>          }
+> diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+> index 0cbfe8bd44..7cabfb0230 100644
+> --- a/xen/common/sysctl.c
+> +++ b/xen/common/sysctl.c
+> @@ -71,7 +71,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>          break;
 >  
-> -    lock_exit(debug);
-> +    lock_exit(dbg);
+>      case XEN_SYSCTL_sched_id:
+> -        op->u.sched_id.sched_id = sched_id();
+> +        op->u.sched_id.sched_id = scheduler_id();
+
+I am confused about this one. There is no global variable or no other
+global function named "sched_id". Why do we need to rename sched_id to
+scheduler_id?
+
+
+>          break;
 >  
-> -    debug->cpu = SPINLOCK_NO_CPU;
-> +    dbg->cpu = SPINLOCK_NO_CPU;
->  }
+>      case XEN_SYSCTL_getdomaininfolist:
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 854f3e32c0..bfe714d2e2 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -791,7 +791,7 @@ int  sched_init_domain(struct domain *d, unsigned int poolid);
+>  void sched_destroy_domain(struct domain *d);
+>  long sched_adjust(struct domain *, struct xen_domctl_scheduler_op *);
+>  long sched_adjust_global(struct xen_sysctl_scheduler_op *);
+> -int  sched_id(void);
+> +int  scheduler_id(void);
 >  
->  void spin_debug_enable(void)
-> diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-> index 0a02a527dc..d303c56f8a 100644
-> --- a/xen/include/xen/spinlock.h
-> +++ b/xen/include/xen/spinlock.h
-> @@ -22,9 +22,9 @@ union lock_debug {
->      };
->  };
->  #define _LOCK_DEBUG { LOCK_DEBUG_INITVAL }
-> -void check_lock(union lock_debug *debug, bool try);
-> -void lock_enter(const union lock_debug *debug);
-> -void lock_exit(const union lock_debug *debug);
-> +void check_lock(union lock_debug *dbg, bool try);
-> +void lock_enter(const union lock_debug *dbg);
-> +void lock_exit(const union lock_debug *dbg);
->  void spin_debug_enable(void);
->  void spin_debug_disable(void);
->  #else
+>  /*
+>   * sched_get_id_by_name - retrieves a scheduler id given a scheduler name
 > -- 
 > 2.34.1
 > 
