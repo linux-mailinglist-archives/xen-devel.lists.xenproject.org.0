@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 067DD75C3F1
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 12:02:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567449.886509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FF4575C408
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 12:08:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567453.886519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMmxW-0002GE-CD; Fri, 21 Jul 2023 10:02:02 +0000
+	id 1qMn3D-0002uO-Vk; Fri, 21 Jul 2023 10:07:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567449.886509; Fri, 21 Jul 2023 10:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 567453.886519; Fri, 21 Jul 2023 10:07:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMmxW-0002EG-8t; Fri, 21 Jul 2023 10:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 567449;
- Fri, 21 Jul 2023 10:02:01 +0000
+	id 1qMn3D-0002sj-T2; Fri, 21 Jul 2023 10:07:55 +0000
+Received: by outflank-mailman (input) for mailman id 567453;
+ Fri, 21 Jul 2023 10:07:54 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qMmxV-0002EA-Gk
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 10:02:01 +0000
+ (envelope-from <julien@xen.org>) id 1qMn3C-0002sd-55
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 10:07:54 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qMmxU-0001Ek-Rk; Fri, 21 Jul 2023 10:02:00 +0000
+ id 1qMn3B-0001Ki-7a; Fri, 21 Jul 2023 10:07:53 +0000
 Received: from 54-240-197-231.amazon.com ([54.240.197.231]
  helo=[192.168.21.208]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qMmxU-0007Xa-M2; Fri, 21 Jul 2023 10:02:00 +0000
+ id 1qMn3A-0007mR-VR; Fri, 21 Jul 2023 10:07:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +42,84 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ZDO5Nsb0PpfP+K3tpdK4x4UWrHWyTBVKaMLkPJnbiKY=; b=UninlnJFvxcZCjKXxObA6/0kjo
-	rdHmSrcTAZBoZFImjniTm1Hd34sdFO0+1RTsPVABLBIzcoxUdQYxhUfCYCZ3f/8cs4Nyny210/Tnh
-	cRHNx+NxfTSRd5+7YK06IARe71lstmwkpfjSDW64LUs0k5KoCVE9vaH8ocRLzlS1xhEI=;
-Message-ID: <9c1b7c53-f8da-76a2-cc02-7c72a3030be4@xen.org>
-Date: Fri, 21 Jul 2023 11:01:58 +0100
+	bh=QmNciW+UFf5AYMt5WO+tKxOBZ7mv3Dv6gmlym972ORg=; b=OziNzBYe1yQ71sDoL2IyAKOjhU
+	P8gP+ognZG7J8+9GpDT3TQuxygvv0/qXnzRNnSXwP5K1QVectaIlR/a7BV5TUf/hxBud7rBbRxyEC
+	yD/5o8JBdwKxM5/vIT/NT1WL9Rez8di7aJReNWUbKK4E3u1e+iCAsfCjQ+R36ZickI7k=;
+Message-ID: <d214397a-bffc-0ce9-8126-7878c74e9981@xen.org>
+Date: Fri, 21 Jul 2023 11:07:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [XEN PATCH] xen/arm: p2m: refactor 'p2m_get_entry'
+Subject: Re: [XEN PATCH] xen/arm: optee: provide an initialization for struct
+ arm_smccc_res
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
  xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
  ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <118566cd8b9ebbcedd2b610f5f602cc31c12fd55.1689922099.git.nicola.vetrini@bugseng.com>
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <a86604d6c85a0d516b8e29258ffebb2841dc6aff.1689863236.git.nicola.vetrini@bugseng.com>
+ <b245a0da-0a21-8405-6744-22b86ba994a5@xen.org>
+ <8891a642-853b-7e1c-6d91-21e09793fd51@bugseng.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <118566cd8b9ebbcedd2b610f5f602cc31c12fd55.1689922099.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <8891a642-853b-7e1c-6d91-21e09793fd51@bugseng.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Nicola,
+Hi,
 
-I would add "to please ECLAIR" in the commit title.
-
-On 21/07/2023 07:49, Nicola Vetrini wrote:
-> This function is refactored to avoid using a
-> local dummy variable that served as a fallback
-> if the parameter 't' is NULL.
+On 21/07/2023 08:28, Nicola Vetrini wrote:
+> On 20/07/23 17:54, Julien Grall wrote:
+>> Hi Nicola,
+>>
+>> On 20/07/2023 15:29, Nicola Vetrini wrote:
+>>> The local variables with type 'struct arm_smccc_res' are initialized
+>>> just after the declaration to avoid any possible read usage prior
+>>> to any write usage, which would constitute a violation of
+>>> MISRA C:2012 Rule 9.1.
+>>>
+>>> This is already prevented by suitable checks in the code,
+>>> but the correctness of this approach is difficult to prove and
+>>> reason about.
+>>
+>> So I looked at the implementation of arm_smccc_smc(). For arm64, it is 
+>> (simplified):
+>>
+>> if ( cpus_have_const_cap(ARM_SMCCC_1_1) )
+>>     arm_smccc_1_1_smc(__VA_ARGS__);
+>> else
+>>     arm_smccc_1_0_smc(_VA_ARGS__);
+>>
+>> In arm_smccc_1_1_smc(), we will explicitly initialize __res:
+>>
+>> if ( ___res )
+>>    *___res = (typeof(*___res)) {r0, r1, r2, r3};
+>>
+>>
+>> Whereas for arm_smccc_1_0_smc(), we would call assembly function. I 
+>> assuming this is the problem?
+>>
+>> I think this is similar to the discussion we had on set_interrupts() 
+>> and dt_set_cells(). If so, couldn't we tell ECLAIR that 
+>> __arm_smccc_1_0_smc() will always initialize *res?
+>>
 > 
-> Storing the address of that variable into 't' caused
-> static analysis tools not to be able to recognize the
+> This is slightly different because of the chained variadic macro 
+> expansions of arm_smccc_smc. I could have stated that arm_smccc_smc 
+> initializes its args, but because it's variadic I can't narrow it down 
+> to a specific index, therefore the property is not correct, because the 
+> input arguments are instead expected to be read by the macro. The same 
+> reasoning applies for all variadic macros that have some input and 
+> output parameters, not just this one.
+> 
+> In the end, if these were fixed-argument functions or macros we can aim 
+> for that, and that would obsolete this patch.
 
-Can you mention which static analysis tools is not happy and the 
-version? This could help us in the future if we decided to revert the patch.
+They are all ending up to call a fixed-argument macro 
+(__arm_smccc_1_0_smc_7()) and then function __arm_smccc_1_0_smc().
 
-> validity of the initialization, and to help with automatic
-> checking the two usages of 't' have been slightly refactored.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Suggested-by: Julien Grall <julien@xen.org>
-> ---
->   xen/arch/arm/p2m.c | 10 ++++------
->   1 file changed, 4 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index de32a2d638..05d65db01b 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -496,16 +496,13 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
->       lpae_t entry, *table;
->       int rc;
->       mfn_t mfn = INVALID_MFN;
-> -    p2m_type_t _t;
->       DECLARE_OFFSETS(offsets, addr);
->   
->       ASSERT(p2m_is_locked(p2m));
->       BUILD_BUG_ON(THIRD_MASK != PAGE_MASK);
->   
-> -    /* Allow t to be NULL */
-> -    t = t ?: &_t;
-> -
-> -    *t = p2m_invalid;
-> +    if ( t )
-> +        *t = p2m_invalid;
->   
->       if ( valid )
->           *valid = false;
-> @@ -549,7 +546,8 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
->   
->       if ( p2m_is_valid(entry) )
->       {
-> -        *t = entry.p2m.type;
-> +        if ( t )
-> +            *t = entry.p2m.type;
->   
->           if ( a )
->               *a = p2m_mem_access_radix_get(p2m, gfn);
+Are you suggesting that this would still not be enough for Eclair?
 
 Cheers,
 
