@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B276E75D741
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Jul 2023 00:16:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567716.887129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7713375D773
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Jul 2023 00:25:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567720.887138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMyQY-0006Qr-0j; Fri, 21 Jul 2023 22:16:46 +0000
+	id 1qMyYd-0007wt-RY; Fri, 21 Jul 2023 22:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567716.887129; Fri, 21 Jul 2023 22:16:45 +0000
+Received: by outflank-mailman (output) from mailman id 567720.887138; Fri, 21 Jul 2023 22:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMyQX-0006Oz-U4; Fri, 21 Jul 2023 22:16:45 +0000
-Received: by outflank-mailman (input) for mailman id 567716;
- Fri, 21 Jul 2023 22:16:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qMyYd-0007tg-Ol; Fri, 21 Jul 2023 22:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 567720;
+ Fri, 21 Jul 2023 22:25:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BzSz=DH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qMyQW-0006Ot-4W
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 22:16:44 +0000
+ id 1qMyYc-0007ta-Fv
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 22:25:06 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44fdcbc5-2814-11ee-b23a-6b7b168915f2;
- Sat, 22 Jul 2023 00:16:42 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6fa9a200-2815-11ee-8611-37d641c3527e;
+ Sat, 22 Jul 2023 00:25:03 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5871561D2F;
- Fri, 21 Jul 2023 22:16:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97F52C433C8;
- Fri, 21 Jul 2023 22:16:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1105E61DA6;
+ Fri, 21 Jul 2023 22:25:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39B5C433C8;
+ Fri, 21 Jul 2023 22:25:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44fdcbc5-2814-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: 6fa9a200-2815-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689977800;
-	bh=UU/KNHtJWPOE4DwMSvwfMbjpQ3D4sVoEwSzL4QdF4O0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=QJ8Z5plGK9/iRi+qC+XLcZzsNYggCRA3XAY3RKZYgKk4xzMntN3VTDVl4wv7j5CYq
-	 vA2OO2R1tPaUeRr99IQiKJv1hH5CwnryWqOkmyOPlsk0JUzTrACDLlvsm3u19RJ+HN
-	 UaobQwj6jZMEnbCV0QdKacWCdJ1GBdiwEp2u8MQrTJTr8x1v6SvmN7YyrZKrwDuAk+
-	 Q7ynOXOzFUwleQHct52lPPY4CT888bbdcsY6wxo2JcD9rsnBbX4I2ZFl7nYDzm6sVx
-	 YKsp4uyr8+2Ee2EQvnBAYUFAn0tnyHYbhtmThDzh+Gm/R7e0328uo9l6wWcb1XafAC
-	 vm59BRcYmbfug==
+	s=k20201202; t=1689978302;
+	bh=RHE0mxNohEwFwow60CRuulZInR7LMvCwiWSlLoYZBLY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=urPjiMJhXOBMRMOlqNDl80YBUOcSGQ3KE8JNiY6feaGSyn0BwLx33nD92qxRhYuna
+	 GSh1TPdPT0NRJAeKwJe/jwLlzZMGfG7o8eNCgDSBoY99sJu3mrd0RWnGGlW3VFfV6a
+	 qWAsTunoHf0cC8vHhpckvpUJYKQTPYdU5SdRQ44MtWkPOtP0pRal0rITuKMgpPMrAt
+	 oP42zlQz3g1EXFuhN7QQVkJnG2+Mrn9+CMn9xq9gyBBJez1qYkrh+Rq4KM3hIMPodt
+	 XZE4bd53KwCo4yIpMiYU/4MI31EmIP8IwBlXa7RcQ618UR/UXNRbsrz9YsKgEJ39dp
+	 Ufw4VuDbHjzEQ==
+Date: Fri, 21 Jul 2023 15:25:00 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	julien@xen.org,
-	sstabellini@kernel.org,
-	george.dunlap@citrix.com,
-	bertrand.marquis@arm.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v2] docs/misra: add Rule 1.1 and 5.6
-Date: Fri, 21 Jul 2023 15:16:36 -0700
-Message-Id: <20230721221636.3693746-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH] automation: add ECLAIR pipeline
+In-Reply-To: <CAFHJcJs816ZreXXMK4ZOgxeiqowUJyXLUaBOaR9RE9FxTp+bGg@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2307211523540.3118466@ubuntu-linux-20-04-desktop>
+References: <eb5fa852f306790160b967787592553d2fdf3de6.1689887842.git.simone.ballarin@bugseng.com> <alpine.DEB.2.22.394.2307201507070.3118466@ubuntu-linux-20-04-desktop> <CAFHJcJs816ZreXXMK4ZOgxeiqowUJyXLUaBOaR9RE9FxTp+bGg@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-282688782-1689978302=:3118466"
 
-From: Stefano Stabellini <stefano.stabellini@amd.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Rule 1.1 is uncontroversial and we are already following it.
+--8323329-282688782-1689978302=:3118466
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Rule 5.6 has been deemed a good rule to have by the MISRA C group.
-However, we do have a significant amount of violations that will take
-time to resolve and might require partial deviations in the form of
-in-code comments or MISRA C scanners special configurations (ECLAIR).
-For new code, we want this rule to generally apply hence the addition to
-docs/misra/rules.rst.
+On Fri, 21 Jul 2023, Simone Ballarin wrote:
+> Il giorno ven 21 lug 2023 alle ore 00:29 Stefano Stabellini <sstabellini@kernel.org> ha scritto:
+> 
+>       Patchew automatically picked it up from xen-devel and started a pipeline
+>       here:
+> 
+>       https://gitlab.com/xen-project/patchew/xen/-/pipelines/939440592
+> 
+>       However the eclair-x86_64 job failed with:
+> 
+>       ERROR: Uploading artifacts as "archive" to coordinator... 413 Payload
+>       Too Large
+> 
+> 
+> In the next patch, I will avoid uploading the ECLAIR database in GitLab artifacts.
+> Of course, the databases can still be accessed via the links in the pipeline logs.
+>  
+> 
+>       Also the eclair-ARM64 job failed but it is not clear to me why.
+> 
+> 
+> The reason is that the WTOKEN variable is missing. This masked variable should be set
+> and visible to *all* repositories (xen-project/xen, xen-project/people/.*).
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-
----
-Changes in v2:
-- add a note about compiler extensions to Rule 1.1
-- add "generally" in the commit message
----
- docs/misra/rules.rst | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index 29a777938a..8f0e4d3f25 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -82,6 +82,14 @@ maintainers if you want to suggest a change.
-      - Summary
-      - Notes
- 
-+   * - `Rule 1.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_01_01.c>`_
-+     - Required
-+     - The program shall contain no violations of the standard C syntax
-+       and constraints, and shall not exceed the implementation's
-+       translation limits
-+     - We make use of several compiler extensions as documented by
-+       `C-language-toolchain.rst <docs/misra/C-language-toolchain.rst>`_
-+
-    * - `Rule 1.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_01_03.c>`_
-      - Required
-      - There shall be no occurrence of undefined or critical unspecified
-@@ -156,6 +164,11 @@ maintainers if you want to suggest a change.
-        headers (xen/include/public/) are allowed to retain longer
-        identifiers for backward compatibility.
- 
-+   * - `Rule 5.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_06.c>`_
-+     - Required
-+     - A typedef name shall be a unique identifier
-+     -
-+
-    * - `Rule 6.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_06_01.c>`_
-      - Required
-      - Bit-fields shall only be declared with an appropriate type
--- 
-2.25.1
-
+OK this is interesting. I added WTOKEN to https://gitlab.com/xen-project
+so I assumed it would propagate to all the subprojects like
+https://gitlab.com/xen-project/xen,
+https://gitlab.com/xen-project/people/sstabellini, etc. but it looks
+like it might have to be added manually at every instance.
+--8323329-282688782-1689978302=:3118466--
 
