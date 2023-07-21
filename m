@@ -2,44 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17BD175BD1E
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 06:10:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.566829.886209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D75175BD8A
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jul 2023 06:55:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567328.886219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMhSR-0006Tf-Ir; Fri, 21 Jul 2023 04:09:35 +0000
+	id 1qMiA2-0005f1-RI; Fri, 21 Jul 2023 04:54:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 566829.886209; Fri, 21 Jul 2023 04:09:35 +0000
+Received: by outflank-mailman (output) from mailman id 567328.886219; Fri, 21 Jul 2023 04:54:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qMhSR-0006Rj-Fi; Fri, 21 Jul 2023 04:09:35 +0000
-Received: by outflank-mailman (input) for mailman id 566829;
- Fri, 21 Jul 2023 04:09:34 +0000
+	id 1qMiA2-0005ce-Nz; Fri, 21 Jul 2023 04:54:38 +0000
+Received: by outflank-mailman (input) for mailman id 567328;
+ Fri, 21 Jul 2023 04:54:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vfIn=DH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qMhSQ-0006Rd-L1
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 04:09:34 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=b4k+=DH=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1qMiA1-0005cY-Cq
+ for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 04:54:37 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20618.outbound.protection.outlook.com
+ [2a01:111:f400:7e8c::618])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 65b348a8-277c-11ee-b23a-6b7b168915f2;
- Fri, 21 Jul 2023 06:09:33 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B6A8821A87;
- Fri, 21 Jul 2023 04:09:32 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8CC66134B0;
- Fri, 21 Jul 2023 04:09:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +uWcIPwEumTUWwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 21 Jul 2023 04:09:32 +0000
+ id b0bca03e-2782-11ee-b23a-6b7b168915f2;
+ Fri, 21 Jul 2023 06:54:36 +0200 (CEST)
+Received: from BYAPR07CA0030.namprd07.prod.outlook.com (2603:10b6:a02:bc::43)
+ by IA1PR12MB8311.namprd12.prod.outlook.com (2603:10b6:208:3fa::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Fri, 21 Jul
+ 2023 04:54:31 +0000
+Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a02:bc:cafe::b0) by BYAPR07CA0030.outlook.office365.com
+ (2603:10b6:a02:bc::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28 via Frontend
+ Transport; Fri, 21 Jul 2023 04:54:31 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6609.28 via Frontend Transport; Fri, 21 Jul 2023 04:54:30 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 20 Jul
+ 2023 23:54:30 -0500
+Received: from [192.168.137.15] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
+ Transport; Thu, 20 Jul 2023 23:54:29 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,162 +59,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65b348a8-277c-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1689912572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+wb19BdGhpyh4/RvwwArZ9MDpw/UcwPy66NyncwESHE=;
-	b=OaSkMorcXd3QrAMy8ehU4CyPPRW7f/gRvSxooMYno3UNaE/t5nrC/rOwRZ4L0DQ/qX41ls
-	4OGSaCooFDakiv7hOKZTB7QTpMh0Mh5gSf0hMjfHTR+i4+KZ0CBK4gaJBfK8gJvA7DfckJ
-	fC5W1wbFJZW5oWuYAYT2FkiIXMmoGxA=
-Message-ID: <adeeeada-6f93-20d5-ef07-61a57d0de206@suse.com>
-Date: Fri, 21 Jul 2023 06:09:31 +0200
+X-Inumbo-ID: b0bca03e-2782-11ee-b23a-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HcSpQ+OGNAKtrF1HXugAD5VWwb2LglxckMYcshsRAj0Cxm2sBQOoVsmnHFfH+Pc+bldW5QIciuFu5e0au+25Dvq48y7WR7Zxh8LuN4vEKoDOgqH31A9Ay5tbJ2Urw1G5QacEx7rigOFDXvUNiTrA3L4FAEmlOTrn0+gt0aWWFftH065TIA7IMDhZWWrLdwHmqOAXEgQH5yk2rhQoutiH/+AuAAIishypfd1PBgV9x++QJoiCSxZ15yQYpB4mUJ4HRjVA6qUeTgz2P7zkUsF3zD0jOkcH8EfHtXV4Rb/McW2tcUpkM3t0Xjzpj69OVg7VZ93bFwAnPtpDhL0ZMOlBYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N4El6l6pMp5WQlZxGqtNTmB12qi+0jy/P8LrSTccuQI=;
+ b=fe6yOgo1iw1K4fqNxvct90jJFa8HqpJ02xXld5UGL9ZzL4S85GheLHunKH4bmIvtaBXqe5Ncf91gDp1VhJZPrwsvDO/oX7mgg+17IhgVrkC/uX/gET1j2ez3g67uiZhg0cncRW59GP/VnuygowsN/MU0H1BqTCImB2gNq5a0N6tXvrVprhWl7OVpqFMKfw7LGm8us6J6ASqjroTk9i3rw9AltohwuXPgckCx/n6Q6plvSrmfsK3DC4xjb/PbHGMRsB0+z+jb6YaWEvIrxD0VFwcTVhA5F22oW0sOcruBfgXzkghMqVLqZYelUVFWxywbZUMZHIku/tC/aVqRbtcrhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N4El6l6pMp5WQlZxGqtNTmB12qi+0jy/P8LrSTccuQI=;
+ b=pNm8fucMEzSRSwiUz5OSJ6WXhqRcNMRhRk1MOdHJq72mt6yWzMI9OuHaVs2ZHHOggC/kTyZ3FT8ctMAuVHrlP4BdT0ZOQMynxhn4Z40eoGC/GDSR30m1As8gyuHRkny1+Rf5j8HIF6e9Qa5OF76/ii1SffKCDk4+eWlW8OHXJgA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <38cdc3b4-76de-d657-7fc7-f098ebea9d32@amd.com>
+Date: Fri, 21 Jul 2023 00:54:28 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] tools/xenstore: fix get_spec_node()
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v2 3/3] [FUTURE] xen/arm: enable vPCI for domUs
+To: Rahul Singh <Rahul.Singh@arm.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Artem Mygaiev <artem_mygaiev@epam.com>
+References: <20230707014754.51333-1-stewart.hildebrand@amd.com>
+ <20230707014754.51333-4-stewart.hildebrand@amd.com>
+ <9A14CA15-2706-4907-A3D3-9A670CF9BAED@arm.com>
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230720150853.31368-1-jgross@suse.com>
- <d19a18c3-128b-2997-e22c-b2f2f6c46083@xen.org>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <d19a18c3-128b-2997-e22c-b2f2f6c46083@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------xunum8HqzHpo3zf30U1iVAZE"
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <9A14CA15-2706-4907-A3D3-9A670CF9BAED@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT027:EE_|IA1PR12MB8311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f82d0da-3ceb-4012-051c-08db89a691f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	UE3tRCQpkkwqfRjlZ/d76zo7mciYWbzFIXEX9gkuO8NYPIJrOisdGUVq4Bah5mumUxbM1sTqvfg+LSHL6y/hq5+PSTuRUi7isg3iVFT7/hPp1MdZ6GpshwWueY28JIE4yzf2NwaWkxoD3kSLsF18Jr1RZE2VoWcbGp1d8Ge81dsr3sUZL6gaU9BSPUM2C8ifdDDphnfZJhwlxCQliT00yc8YPgqdZVUc9g+8PmetrB+POL/WCnNCQ55BlER94TN11bqEF++UCx8Lho2SLPtH6KDMh2M35VnAHZSIIgrYVr0rHrmu4wJY4/Si+dO0/jBSxr0qKPce7SQdaHR8L4XUbT6jOYgAI6GTA+W9Jf7dAvD3ibUFZvsxtnlBTp/ucZv4TSPlURJmftg/AMpez6BDTbESWLSeE3OCJUE8PK/0BRDfiHaBioCRNXDzfSMJ/KTCsHIK8euTF2CtDEnlr0C9U2xUcsDwSAY32uRidBv2N2vFzwEyPNk2sU9g8uhTSQfBme/0L0HTU3EIaB+N8W9xFOA+Tw62TEFigw4orxdPBSjoHQP6Mz3CkqGkQis5yiz2+ucU3DTNXiR1DWzRQ72TaxWxzf0VMhr6swv2PZg5qTVVRAqoqE3CWHeZNuol9OiN9wCOjP+y/q7Vou+83OHtjcpdci7xZLXRbeiyIkeAv87OrgyrUF1pJhaNE+juIOcRU6ziDpMlFV56NFVjkLa0OzOzBdzL2VLuDWJGeRwLCTNjSsfL9S5TpCM7VOOO2Rxnr4KZBgOjQInYfDHWJNgfdnZAJA2/7lddkOH7V6zlyOI=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(39860400002)(376002)(396003)(82310400008)(451199021)(36840700001)(46966006)(40470700004)(4326008)(426003)(36860700001)(70586007)(2906002)(6916009)(8676002)(44832011)(5660300002)(966005)(8936002)(356005)(31686004)(31696002)(70206006)(41300700001)(16576012)(47076005)(82740400003)(478600001)(316002)(81166007)(54906003)(40480700001)(186003)(2616005)(26005)(86362001)(40460700003)(36756003)(336012)(66899021)(53546011)(83380400001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 04:54:30.8802
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f82d0da-3ceb-4012-051c-08db89a691f8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8311
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------xunum8HqzHpo3zf30U1iVAZE
-Content-Type: multipart/mixed; boundary="------------DDAv689UTkI0SewFEu6NhH4R";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <adeeeada-6f93-20d5-ef07-61a57d0de206@suse.com>
-Subject: Re: [PATCH] tools/xenstore: fix get_spec_node()
-References: <20230720150853.31368-1-jgross@suse.com>
- <d19a18c3-128b-2997-e22c-b2f2f6c46083@xen.org>
-In-Reply-To: <d19a18c3-128b-2997-e22c-b2f2f6c46083@xen.org>
+On 7/7/23 07:04, Rahul Singh wrote:
+> Hi Stewart,
+> 
+>> On 7 Jul 2023, at 2:47 am, Stewart Hildebrand <Stewart.Hildebrand@amd.com> wrote:
+>>
+>> Remove is_hardware_domain check in has_vpci, and select HAS_VPCI_GUEST_SUPPORT
+>> in Kconfig.
+>>
+>> [1] https://lists.xenproject.org/archives/html/xen-devel/2023-06/msg00863.html
+>>
+>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>> ---
+>> As the tag implies, this patch is not intended to be merged (yet).
+>>
+>> Note that CONFIG_HAS_VPCI_GUEST_SUPPORT is not currently used in the upstream
+>> code base. It will be used by the vPCI series [1]. This patch is intended to be
+>> merged as part of the vPCI series.
+>>
+>> v1->v2:
+>> * new patch
+>> ---
+>> xen/arch/arm/Kconfig              | 1 +
+>> xen/arch/arm/include/asm/domain.h | 2 +-
+>> 2 files changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>> index 4e0cc421ad48..75dfa2f5a82d 100644
+>> --- a/xen/arch/arm/Kconfig
+>> +++ b/xen/arch/arm/Kconfig
+>> @@ -195,6 +195,7 @@ config PCI_PASSTHROUGH
+>> depends on ARM_64
+>> select HAS_PCI
+>> select HAS_VPCI
+>> + select HAS_VPCI_GUEST_SUPPORT
+> 
+> I tested this series on top of "SMMU handling for PCIe Passthrough on ARM” series on the N1SDP board
+> and observe the SMMUv3 fault.
 
---------------DDAv689UTkI0SewFEu6NhH4R
-Content-Type: multipart/mixed; boundary="------------S37SVvBaGV6wYoBV02vLBt6f"
+Thanks for testing this. After a great deal of tinkering, I can reproduce the SMMU fault.
 
---------------S37SVvBaGV6wYoBV02vLBt6f
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+(XEN) smmu: /axi/smmu@fd800000: Unhandled context fault: fsr=0x402, iova=0xf9030040, fsynr=0x12, cb=0
 
-T24gMjEuMDcuMjMgMDA6NDUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDIwLzA3LzIwMjMgMTY6MDgsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBJ
-biBjYXNlIGdldF9zcGVjX25vZGUoKSBpcyBiZWluZyBjYWxsZWQgZm9yIGEgc3BlY2lhbCBu
-b2RlIHN0YXJ0aW5nDQo+PiB3aXRoICdAJyBpdCB3b24ndCBzZXQgKmNhbm9uaWNhbF9uYW1l
-LiBUaGlzIGNhbiByZXN1bHQgaW4gYSBjcmFzaCBvZg0KPj4geGVuc3RvcmVkIGR1ZSB0byBk
-ZXJlZmVyZW5jaW5nIHRoZSB1bmluaXRpYWxpemVkIG5hbWUgaW4NCj4+IGZpcmVfd2F0Y2hl
-cygpLg0KPj4NCj4+IFRoaXMgaXMgbm8gc2VjdXJpdHkgaXNzdWUgYXMgaXQgcmVxdWlyZXMg
-ZWl0aGVyIGEgcHJpdmlsZWdlZCBjYWxsZXIgb3INCj4+IG93bmVyc2hpcCBvZiB0aGUgc3Bl
-Y2lhbCBub2RlIGluIHF1ZXN0aW9uIGJ5IGFuIHVucHJpdmlsZWdlZCBjYWxsZXINCj4+ICh3
-aGljaCBpcyBxdWVzdGlvbmFibGUsIGFzIHRoaXMgd291bGQgbWFrZSB0aGUgb3duZXIgcHJp
-dmlsZWdlZCBpbiBzb21lDQo+PiB3YXkpLg0KPj4NCj4+IEZpeGVzOiBkNmJiNjM5MjRmYzIg
-KCJ0b29scy94ZW5zdG9yZTogaW50cm9kdWNlIGR1bW15IG5vZGVzIGZvciBzcGVjaWFsIHdh
-dGNoIA0KPj4gcGF0aHMiKQ0KPj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdy
-b3NzQHN1c2UuY29tPg0KPj4gLS0tDQo+PiDCoCB0b29scy94ZW5zdG9yZS94ZW5zdG9yZWRf
-Y29yZS5jIHwgNSArKysrLQ0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygr
-KSwgMSBkZWxldGlvbigtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS90b29scy94ZW5zdG9yZS94
-ZW5zdG9yZWRfY29yZS5jIGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvcmUuYw0KPj4g
-aW5kZXggYTFkMzA0N2U0OC4uNzkwYzQwMzkwNCAxMDA2NDQNCj4+IC0tLSBhL3Rvb2xzL3hl
-bnN0b3JlL3hlbnN0b3JlZF9jb3JlLmMNCj4+ICsrKyBiL3Rvb2xzL3hlbnN0b3JlL3hlbnN0
-b3JlZF9jb3JlLmMNCj4+IEBAIC0xMjUyLDggKzEyNTIsMTEgQEAgc3RhdGljIHN0cnVjdCBu
-b2RlICpnZXRfc3BlY19ub2RlKHN0cnVjdCBjb25uZWN0aW9uIA0KPj4gKmNvbm4sIGNvbnN0
-IHZvaWQgKmN0eCwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNvbnN0IGNoYXIgKm5hbWUsIGNoYXIgKipjYW5vbmljYWxfbmFtZSwNCj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBwZXJtKQ0KPj4g
-wqAgew0KPj4gLcKgwqDCoCBpZiAobmFtZVswXSA9PSAnQCcpDQo+PiArwqDCoMKgIGlmIChu
-YW1lWzBdID09ICdAJykgew0KPj4gK8KgwqDCoMKgwqDCoMKgIGlmIChjYW5vbmljYWxfbmFt
-ZSkNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICpjYW5vbmljYWxfbmFtZSA9IChjaGFy
-ICopbmFtZTsNCj4gDQo+IGV3dy4gTGV0J3Mgbm90IGNvbnRpbnVlIHRoZSBiYWQgcHJhY3Rp
-Y2UgaW4gWGVuc3RvcmVkIHRvIGNhc3QgYXdheSB0aGUgY29uc3QuIEkgDQo+IHdpbGwgaGF2
-ZSBhIGxvb2sgdG8gcmVtb3ZlIHRoZSBjb25zdCBhbmQgeW91IGNhbiByZWJhc2UgeW91ciBw
-YXRjaCBvbiB0b3AuDQoNCkkgdGhpbmsgaXQgc2hvdWxkIGJlIHBvc3NpYmxlIHRvIG1ha2Ug
-Y2Fub25pY2FsX25hbWUgY29uc3QuIEknbGwgbG9vayBpbnRvIHRoYXQuDQoNCg0KSnVlcmdl
-bg0KDQo=
---------------S37SVvBaGV6wYoBV02vLBt6f
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> Enable the Kconfig option PCI_PASSTHROUGH, ARM_SMMU_V3,HAS_ITS and "iommu=on”,
+> "pci_passthrough_enabled=on" cmd line parameter and after that, there is an SMMU fault
+> for the ITS doorbell register access from the PCI devices.
+> 
+> As there is no upstream support for ARM for vPCI MSI/MSI-X handling because of that SMMU fault is observed.
+> 
+> Linux Kernel will set the ITS doorbell register( physical address of doorbell register as IOMMU is not enabled in Kernel)
+> in PCI config space to set up the MSI-X interrupts, but there is no mapping in SMMU page tables because of that SMMU
+> fault is observed. To fix this we need to map the ITS doorbell register to SMMU page tables to avoid the fault.
+> 
+> We can fix this after setting the mapping for the ITS doorbell offset in the ITS code.
+> 
+> diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
+> index 299b384250..8227a7a74b 100644
+> --- a/xen/arch/arm/vgic-v3-its.c
+> +++ b/xen/arch/arm/vgic-v3-its.c
+> @@ -682,6 +682,18 @@ static int its_handle_mapd(struct virt_its *its, uint64_t *cmdptr)
+>                                           BIT(size, UL), valid);
+>          if ( ret && valid )
+>              return ret;
+> +
+> +        if ( is_iommu_enabled(its->d) ) {
+> +            ret = map_mmio_regions(its->d, gaddr_to_gfn(its->doorbell_address),
+> +                           PFN_UP(ITS_DOORBELL_OFFSET),
+> +                           maddr_to_mfn(its->doorbell_address));
+> +            if ( ret < 0 )
+> +            {
+> +                printk(XENLOG_ERR "GICv3: Map ITS translation register d%d failed.\n",
+> +                        its->d->domain_id);
+> +                return ret;
+> +            }
+> +        }
+>      }
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Thank you, this resolves the SMMU fault. If it's okay, I will include this patch in the next revision of the SMMU series (I see your Signed-off-by is already in the attachment).
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------S37SVvBaGV6wYoBV02vLBt6f--
-
---------------DDAv689UTkI0SewFEu6NhH4R--
-
---------------xunum8HqzHpo3zf30U1iVAZE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmS6BPsFAwAAAAAACgkQsN6d1ii/Ey8D
-9gf/ZpFig+LlV3iiyruPfWS//8RKJvJcdtCCgdRVQW6RItaeStbTjF+lIhsab+D/3tOFNmqLfsE6
-f0tZNu8OpZV5JW/Cn/7Go2xvYl6piYsgP22tV1mnmpn0wOtFWQTQntT7LHeuE2eQltW1PR+spp1i
-iQjaMFm+nZesqcu0hCpyEiaArSo5qDb+OoyMs0sBfMw1ScFQpW/dwLqSQvGvktSlObTZv6QM7DL2
-sxXwwL3ePNg+MyEydbHi7YT0YnDD2sqIcSxd43+RKPt1uWt9ne4A5wrvBvk5nuTgNSyQEZfgnM4h
-Opey+gK6td9Mv/fbZ0AYl01DjhrApusn6cukkk2kDQ==
-=CrW7
------END PGP SIGNATURE-----
-
---------------xunum8HqzHpo3zf30U1iVAZE--
+> Also as per Julien's request, I tried to set up the IOMMU for the PCI device without
+> "pci_passthroigh_enable=on" and without HAS_VPCI everything works as expected
+> after applying below patches.
+> 
+> To test enable kconfig options HAS_PCI, ARM_SMMU_V3 and HAS_ITS and add below
+> patches to make it work.
+> 
+>     • Set the mapping for the ITS doorbell offset in the ITS code when iommu is enabled.
+>     • Reverted the patch that added the support for pci_passthrough_on.
+>     • Allow MMIO mapping of ECAM space to dom0 when vPCI is not enabled, as of now MMIO
+>       mapping for ECAM is based on pci_passthrough_enabled. We need this patch if we want to avoid
+>      enabling HAS_VPCI
+> 
+> Please find the attached patches in case you want to test at your end.
+> 
+> 
+> 
+> Regards,
+> Rahul
+> 
+>> default n
+>> help
+>>  This option enables PCI device passthrough
+>> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+>> index 1a13965a26b8..6e016b00bae1 100644
+>> --- a/xen/arch/arm/include/asm/domain.h
+>> +++ b/xen/arch/arm/include/asm/domain.h
+>> @@ -298,7 +298,7 @@ static inline void arch_vcpu_block(struct vcpu *v) {}
+>>
+>> #define arch_vm_assist_valid_mask(d) (1UL << VMASST_TYPE_runstate_update_flag)
+>>
+>> -#define has_vpci(d) ({ IS_ENABLED(CONFIG_HAS_VPCI) && is_hardware_domain(d); })
+>> +#define has_vpci(d)    ({ (void)(d); IS_ENABLED(CONFIG_HAS_VPCI); })
+>>
+>> struct arch_vcpu_io {
+>>     struct instr_details dabt_instr; /* when the instruction is decoded */
+>> --
+>> 2.41.0
+>>
+>>
+> 
 
