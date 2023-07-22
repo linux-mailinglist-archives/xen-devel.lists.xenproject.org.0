@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C70975DA3E
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Jul 2023 07:46:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.567589.887302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9118175DA3F
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Jul 2023 07:46:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.567761.887309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qN5Qa-0008Ea-Q1; Sat, 22 Jul 2023 05:45:16 +0000
+	id 1qN5Qb-0008MV-5S; Sat, 22 Jul 2023 05:45:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 567589.887302; Sat, 22 Jul 2023 05:45:16 +0000
+Received: by outflank-mailman (output) from mailman id 567761.887309; Sat, 22 Jul 2023 05:45:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qN5Qa-0008CE-Ms; Sat, 22 Jul 2023 05:45:16 +0000
-Received: by outflank-mailman (input) for mailman id 567589;
- Fri, 21 Jul 2023 14:28:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qN5Qb-0008FL-1Y; Sat, 22 Jul 2023 05:45:17 +0000
+Received: by outflank-mailman (input) for mailman id 567761;
+ Sat, 22 Jul 2023 00:21:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=icXM=DH=nxp.com=george.mocanu@srs-se1.protection.inumbo.net>)
- id 1qMr7f-0003ZE-TE
- for xen-devel@lists.xenproject.org; Fri, 21 Jul 2023 14:28:48 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0629.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e60d798c-27d2-11ee-8611-37d641c3527e;
- Fri, 21 Jul 2023 16:28:45 +0200 (CEST)
-Received: from PA4PR04MB9224.eurprd04.prod.outlook.com (2603:10a6:102:2a3::5)
- by DBBPR04MB7865.eurprd04.prod.outlook.com (2603:10a6:10:1e2::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Fri, 21 Jul
- 2023 14:28:42 +0000
-Received: from PA4PR04MB9224.eurprd04.prod.outlook.com
- ([fe80::8090:c99d:36d1:fd0c]) by PA4PR04MB9224.eurprd04.prod.outlook.com
- ([fe80::8090:c99d:36d1:fd0c%4]) with mapi id 15.20.6609.024; Fri, 21 Jul 2023
- 14:28:42 +0000
+ <SRS0=McP0=DI=gmail.com=bagasdotme@srs-se1.protection.inumbo.net>)
+ id 1qN0N2-0000hd-Ia
+ for xen-devel@lists.xenproject.org; Sat, 22 Jul 2023 00:21:16 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9e61c15-2825-11ee-b23a-6b7b168915f2;
+ Sat, 22 Jul 2023 02:21:13 +0200 (CEST)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-1b9cd6a0051so16614575ad.1
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Jul 2023 17:21:13 -0700 (PDT)
+Received: from [192.168.0.104] ([103.131.18.64])
+ by smtp.gmail.com with ESMTPSA id
+ u3-20020a170902b28300b001b8a897cd26sm4070032plr.195.2023.07.21.17.21.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Jul 2023 17:21:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,316 +45,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e60d798c-27d2-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I4BEAsbRhyY14PyJZ2Oxnaindd5Jv6Txpy2PNMT58g3Wu6EngT1LZRFbWsd3VfDxKESengt91CHRDNqk/5TOnhfrPxH+latxi19XlL04VChsSBr1R0lj0W+x1zDZLhmZFZMhO6I/WjfHeZBoXTz6aW4sXdop1qd+UhMOt9Tzy9VTa7jAfhLNCiHXKJHP0apPDWZ+ctin29e4dTSgReHj/3A5okvi3xDK2lYGx/nDHzvgH7QR2h+IzbQju6oFz/Fkb3xtNLr64LPjWo+3Q7y74miUBvYTmF6WBoRSj8DUP++LD4nyN5N+xgWGmk1PROm9KXK8UZ7cz3eImO3/B7CyoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0fkF1gi4yv1anqQphJwiAe5V5eXV4Q9xEOnZXRJ9f4k=;
- b=fc2+KeaXkQLvxNibkpa2AhDOEubzxW3iZp4TPIRbXZHXR1UCQpXamkHdrTa1iU7FpUvyCkMvsGYFQBjWoyjjm+L5WQvwcfV5absjec4pumaYAQe7MFpzUUm+XqHdeb4nnd3k1FhiwZ4FAbiqclvP+9uLlgWRCo9MtN644JE9zfIBGftSx6oCCqy5V3uh7oAdYp8x746Elko92gFb2xBZdNzQ0ZaKUxys01fsVbefS2uxGqXbjaL7yvim2ZuXyW2oHvyG+e+PjAKn3m+MvLWlZcbku7pB/xGydQDF0pKm3qcthoil/8Tk2tpDH8X+DP7SwgcQQ2ghXgc6r+zhZ3chMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0fkF1gi4yv1anqQphJwiAe5V5eXV4Q9xEOnZXRJ9f4k=;
- b=FmcnHrLpuDVLlCZSJ9697Xtk4VopkWgw9lWzfZia1dK+NtssrbcEVb+CJnFvwb3BYXenIpM25/EJ5q6bjqrUcSFDEpst1KpKktWRjb/Q5X1y0EiIlSMAj8vgSC64nOytYNmUTAGAuenWEMef1Z6WcLkz25lxVOEZWbSzQkqZLBs=
-From: George Mocanu <george.mocanu@nxp.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-CC: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Juergen
- Gross <jgross@suse.com>
-Subject: Re: [ARM][xencons] PV Console hangs due to illegal ring buffer
- accesses
-Thread-Topic: [ARM][xencons] PV Console hangs due to illegal ring buffer
- accesses
-Thread-Index: AQHZu9+mUGszY5KMlkWI3r1B3a7IQw==
-Date: Fri, 21 Jul 2023 14:28:42 +0000
-Message-ID:
- <PA4PR04MB9224D6AC1B217212D007D4D0FB3FA@PA4PR04MB9224.eurprd04.prod.outlook.com>
-References: <62eeff72-c1fb-6932-6797-1b0058c97b03@oss.nxp.com>
- <048266d6-a32f-5f4e-984a-8b74de01a1fc@xen.org>
- <alpine.DEB.2.22.394.2307201609030.3118466@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2307201609030.3118466@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PA4PR04MB9224:EE_|DBBPR04MB7865:EE_
-x-ms-office365-filtering-correlation-id: 38eeac72-9771-4832-a0c8-08db89f6c8df
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- qtBMb0qoS7HwsWOe8PI71lKl0UxG1OxAv6LGROmA2mCZ3GzbZJH8BfDzzijvWXK/rn4Nw4nmymmpcmd04cW1HnX/uSqZEl8raUEPHD7k6UrMV1XbgnGw5BPcYsw8PjQdrWr5NjmZFLLU7vUUtAJQ7kW1tPw4Xp6izsB6jAygM6A+bQOUNkVm+qXzN/Nd17EXqhi9uAR5u8yWWRsKl0buIVDlCXizms3Fuid0TJHoBcJ/ENF14JA3v5NTTV8geVOGSJfvqiRx+KOIzb2jxz5I/AtAy7ZMMdPUFbtxDNiejSdPv4FwsvnVRBjXMRTw/NKZB1uqjvv8NQIREGI7CIKrJ0N+FrC0dtI7rZuv+zRMNLBS/yuLNVtvpM61e3Bs/+cTb8sW7vYeFrC0/YciAY4f6NABbxgpIYl2t0CoqDU0M5tvXrNDOeLZJSjTGM+xqLdN+OuWB584asz0+bMdN5oiuY9/EYb4z68nUcWUi+fzmX8CLhkvYU0AXRLohs0pfxMrWj2vwcvUWOK17kuzosliL4fnF0rTbFADVhVDmefiiUPGTiDilmGrJ+5bpShtXxS4QPDhnU2IRdbUT5SpHklepv2Rl2kbxkZuttmpdY5s4RdfjWccGMkBR77D3DDsNSGK
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9224.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(366004)(346002)(376002)(136003)(396003)(451199021)(55016003)(9686003)(71200400001)(38070700005)(66556008)(64756008)(66446008)(66476007)(4326008)(66946007)(7696005)(2906002)(76116006)(54906003)(110136005)(316002)(478600001)(86362001)(6506007)(53546011)(83380400001)(186003)(122000001)(38100700002)(33656002)(52536014)(5660300002)(8676002)(8936002)(41300700001)(26005)(44832011);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?MpN9fz7A2Nek2gvhxakeKcy2oRM8XHCzpG1kpRMGvKkMC+z1mrmS6nAaQiuD?=
- =?us-ascii?Q?ogAiCOPHs9as5k3OQ0rjb0goWjh2POnR4pBZrboOB835lh505micHozq3ROI?=
- =?us-ascii?Q?l/MLyj4tZeqiVAMtqxnV3t3DaQcYAk3Egzlf9uCZjyOwo3I6BAJhnPXd9t+L?=
- =?us-ascii?Q?biXZonX1q70yv4VL8Z/sn3BgLa3+LrIASl+ZJG/fJ6GdmNBKpbPevX14MZ+z?=
- =?us-ascii?Q?f8+/4cAprWJqcp6/u/p999zTh9LLkETIeDZWxdUtwWHyV5h6tHPjRQI2uiG/?=
- =?us-ascii?Q?krNCDLSdwSSbfr4c2TzAW6Eydz/iA79lmicc/VNwzceGEZMHVTKHKs3wHWXJ?=
- =?us-ascii?Q?SSBVwDe7koY5cy2S9OGJ/fJcsRv6qAF929R7Y4keN8rRlmaC4+88W7ziDwpJ?=
- =?us-ascii?Q?ai5wnO+5Oy88O4M4EDtWiHonOJzs78fTbthb9W2d8Yb4Fcvpc8cDpUjNKilX?=
- =?us-ascii?Q?SzAJMRZtq08SJcHrxyydH+OUmWKE9rLtRiaL64TabrGuVRdaWafmFRhNFelN?=
- =?us-ascii?Q?QRumOaylO0iyRDzmFyKYDzwxTY3ck6qj7fqEpjczSonzTXu2Iemyh0ViOnJt?=
- =?us-ascii?Q?UZZnqwCmxxH+FdgdPlCxtA/tusNJgZenxJYNdjakaGsvaH5mnHPj0R5gOQL5?=
- =?us-ascii?Q?joRxCHaljBUrFXRfChyHrhK/ltHCKDBmY1MtES1Bg6bBMFT+wICMhzfdZybO?=
- =?us-ascii?Q?yBs1t0auN7PoGPWie9oU8ppQgpqz0nspzESkdQr5TUZE+p55aloHaXI1hRA5?=
- =?us-ascii?Q?Cqis5EAkELGAwhsBIsXfkOjtDslwxoXW0sVn97s77cgVEBilxp4QiO7Zf5iG?=
- =?us-ascii?Q?o+wxR2uKfwjUENiBzVWyneYtCa7NP522daYQzoApAB7WCg/lblE3jS8EIpso?=
- =?us-ascii?Q?qYYxQSV2BhSwy6ggBzBzpHLHbF9YA2hxMxGkvz91+Hb6RpBaiEPWwGdIltwP?=
- =?us-ascii?Q?zcP1UCxsQq413PWEOpEa/o38Q7Ibri2Mev2LDm/dd8r8DnJQeZM4a+MlVhPI?=
- =?us-ascii?Q?NHtWD/HdAob8IJpD8g6u919GU3hAg96i3gEw1+kqOBTFdthFH8dxpKZEFKMD?=
- =?us-ascii?Q?tA8vPWrAJU/P7jfZTXJ43RjTI1AlS2UKHFSYRUNEzj56ez9x/FJIAdJMeGAz?=
- =?us-ascii?Q?1aELeYmuRmjODaWEMAMgDXm7ONdblcLARMmzdo2hCXpb2GIQwqgs+rtWXf0G?=
- =?us-ascii?Q?vcjkY93r3L//1PRGMq0RCQK7N8it8Lgx9JiaRwdB9fN89K9gpiY3SH6hald8?=
- =?us-ascii?Q?r5Ln8sINBr5JCV4a+M2Plfyu8G1tBYBA69Mpw8RF8Ytp48KThYOvZ/JrjyKR?=
- =?us-ascii?Q?zLbK8kBeX6yitdcBh9ru0woJWxRoAqUPS2zw278NcqfcMEZB3VREhL1H7lz6?=
- =?us-ascii?Q?a+zIRfA9M8kbgIkisC6IB3smmDbK0cJZx6z0b9x9p1UmaQ+9SPUiwkHWMkC1?=
- =?us-ascii?Q?THey6ZZpT3PxfJfZs4WClHOp8AlWEAou4h9PtTaJMLloEj3ZrwujtWZQsq4H?=
- =?us-ascii?Q?TI9aanbCu02H/gvEL6qcKjCoxIT5RGYA0I4JGWWWBQtqkvDzinsor7zOa3LE?=
- =?us-ascii?Q?q3udo/c8ocBe91LHh4k3Zi3P4X9rBUyyb+6GyFpF?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: a9e61c15-2825-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689985272; x=1690590072;
+        h=content-transfer-encoding:subject:from:cc:to:content-language
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=37jHSLFgAqYIe1fMBFWz3IsmA+NfaKZptfwfcm9yo38=;
+        b=Gs4eA0UV6HBbwJ5hg2BaRyy4uj1qAHyXIBoAkpZE2YrJeKb7/vmAvHyckS7UKpc+Gp
+         UPpn9pTN0PAD9YyPyyjzN1fKq1JG+V/Q6Lw9S6GDcfBl4ue7lrPfx5pKv+WjYZXNRGdz
+         MGn7sBGlJL1jrve4jBXcVJT++IKNqtq4eFPyVVC0gAGLg4VfjIdDb0AT6OHO5fKldUh5
+         3wMu0hTiq4yRl1XorhU82JomavcoCtdriR7o6+AR+6zi12yIidoya/lhEphgFFyNGe6h
+         JcX1lumhX9XpjK+wcL6CpMosMvsueJGE7pkVO05sDvFNo5K35AsFhnqXaYALyvtxrZtf
+         5PVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689985272; x=1690590072;
+        h=content-transfer-encoding:subject:from:cc:to:content-language
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=37jHSLFgAqYIe1fMBFWz3IsmA+NfaKZptfwfcm9yo38=;
+        b=Yspim1LAB6iCHAONccf1CuHPri54R9oWFsLerRSwe4dfxDRCn8P6ofl+gEgJIW+2kL
+         tXWZ8MX5TBEO6JsD6RPV3yTzmTZoF5Hnl0vInT9JdmUZCZ1eWWF81gJndNXVVMurpLGj
+         OTNbNfexEO3FEYB9KrcmL8KXXHygTc8LxTfWsun6Tw3pLTLHGFHirVCBHK873VrtMvdh
+         Q04E3g9QKCcCe0+DBvdy94WUpTC9Ji9v4QbB2qEyY0JfWcCiXQ1iTn6MlqZdRDHeDX+F
+         3agEvgRFF0GXqK9Lsn0hqD80wqLSoynLWlwsGUHKapG1ctqYzvRQPjLfhNMufZzRTGq3
+         sncA==
+X-Gm-Message-State: ABy/qLZxgfuIk5iDTLwNuoCBQA4Shysy/UnZjl9bbce9fBGI03hLH5NW
+	JastG9Yf9udBRJepwGH39sc=
+X-Google-Smtp-Source: APBJJlFvUvUbyqctdEaJWp5LBniOVhPH/oTRiWJPqf9VtejwknXrcf8LT+ovNOvfvX58H50aeKfJAw==
+X-Received: by 2002:a17:903:22c6:b0:1b8:41d4:89f with SMTP id y6-20020a17090322c600b001b841d4089fmr3385302plg.4.1689985271597;
+        Fri, 21 Jul 2023 17:21:11 -0700 (PDT)
+Message-ID: <7e3841ce-011d-5ba6-9dae-7b14e07b5c4b@gmail.com>
+Date: Sat, 22 Jul 2023 07:21:05 +0700
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9224.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38eeac72-9771-4832-a0c8-08db89f6c8df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2023 14:28:42.7573
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5cUwWK5HYfvChn0d6RVqkXi7KLwVmld6RIn7tmVvfpG9LDWKe3ry2H3nRyrQHAasDN8+hr52XxAUaFKVLK76Xg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7865
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
+ "David S. Miller" <davem@davemloft.net>, sander44 <ionut_n2001@yahoo.com>
+Cc: Linux Xen <xen-devel@lists.xenproject.org>,
+ Linux BPF <bpf@vger.kernel.org>, Linux Networking <netdev@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Regressions <regressions@lists.linux.dev>
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+Subject: Fwd: UBSAN: index 1 is out of range for type
+ 'xen_netif_rx_sring_entry [1]'
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello, Stefano,=20
-Hello, Julien,
+Hi,
 
-Thanks for your suggestions. I gave each of them a try, but it doesn't
-look like it brings me anywhere at the moment.
+I notice a regression report on Bugzilla [1]. Quoting from it:
 
-On 21/07/2023 02:25, Stefano Stabellini wrote:
->=20
-> On Thu, 20 Jul 2023, Julien Grall wrote:
-> > (+ Juergen)
-> >
-> > On 19/07/2023 17:13, Andrei Cherechesu (OSS) wrote:
-> > > Hello,
-> >
-> > Hi Andrei,
-> >
-> > > As we're running Xen 4.17 (with platform-related support added) on NX=
-P
-> S32G
-> > > SoCs (ARMv8), with a custom Linux distribution built through Yocto, a=
-nd
-> > > we've set some Xen-based demos up, we encountered some issues which w=
-e think
-> > > might not be related to our hardware. For additional context, the Lin=
-ux
-> > > kernel version we're running is 5.15.96-rt (with platform-related sup=
-port
-> > > added as well).
-> > >
-> > > The setup to reproduce the problem is fairly simple: after booting a =
-Dom0
-> > > (can provide configuration details if needed), we're booting a normal=
- PV
-> > > DomU with PV Networking. Additionally, the VMs have k3s (Lightweight
-> > > Kubernetes - version v1.25.8+k3s1) installed in
-> > > their rootfs'es.
-> > >
-> > > The problem is that the DomU console hangs (no new output is shown, n=
-o input
-> > > can be sent) some time (non-deterministic, sometimes 5 seconds, other=
- times
-> > > like 15-20 seconds) after we run the `k3s server` command. We have th=
-is
-> > > command running as part of a sysvinit service, and the same behavior =
-can be
-> > > observed in that case as well. The k3s version we use is the one ment=
-ioned
-> > > in the paragraph above, but this can be reproduced with other version=
-s as
-> > > well (i.e., v1.21.11, v1.22.6). If the `k3s server` command is ran in=
- the
-> > > Dom0 VM, everything works fine. Using DomU as an agent node is also w=
-orking
-> > > fine, only when it is run as a server the console problem occurs.
-> > >
-> > > Immediately after the serial console hangs, we can still log in on Do=
-mU
-> > > using SSH, and we can observe the following messages its dmesg:
-> > > [   57.905806] xencons: Illegal ring page indices
-> >
-> > Looking at Linux code, this message is printed in a couple of place in =
-the
-> > xenconsole driver.
-> >
-> > I would assume that this is printed when reading from the buffer (other=
-wise
-> > you would not see any message). Can you confirm it?
-> >
-> > Also, can you provide the indices that Linux considers buggy?
+> Hi Kernel Team,
+> 
+> I rebuild today latest version from mainline repo.
+> And i notice issue regarding xen-netfront.c.
+> 
+> Error:
+> [    3.477400] ================================================================================
+> [    3.477633] UBSAN: array-index-out-of-bounds in drivers/net/xen-netfront.c:1291:3
+> [    3.477858] index 1 is out of range for type 'xen_netif_rx_sring_entry [1]'
+> [    3.478085] CPU: 0 PID: 700 Comm: NetworkManager Not tainted 6.5.0-rc2-1-generation1 #3
+> [    3.478088] Hardware name: Intel Corporation W2600CR/W2600CR, BIOS SE5C600.86B.02.06.0007.082420181029 01/13/2022
+> [    3.478090] Call Trace:
+> [    3.478092]  <IRQ>
+> [    3.478097]  dump_stack_lvl+0x48/0x70
+> [    3.478105]  dump_stack+0x10/0x20
+> [    3.478107]  __ubsan_handle_out_of_bounds+0xc6/0x110
+> [    3.478114]  xennet_poll+0xa94/0xac0
+> [    3.478118]  ? generic_smp_call_function_single_interrupt+0x13/0x20
+> [    3.478125]  __napi_poll+0x33/0x200
+> [    3.478131]  net_rx_action+0x181/0x2e0
+> [    3.478135]  __do_softirq+0xd9/0x346
+> [    3.478139]  do_softirq.part.0+0x41/0x80
+> [    3.478144]  </IRQ>
+> [    3.478145]  <TASK>
+> [    3.478146]  __local_bh_enable_ip+0x72/0x80
+> [    3.478149]  _raw_spin_unlock_bh+0x1d/0x30
+> [    3.478151]  xennet_open+0x75/0x160
+> [    3.478154]  __dev_open+0x105/0x1d0
+> [    3.478156]  __dev_change_flags+0x1b5/0x230
+> [    3.478158]  dev_change_flags+0x27/0x80
+> [    3.478160]  do_setlink+0x3d2/0x12b0
+> [    3.478164]  ? __nla_validate_parse+0x5b/0xdb0
+> [    3.478169]  __rtnl_newlink+0x6f6/0xb10
+> [    3.478173]  ? rtnl_newlink+0x2f/0x80
+> [    3.478177]  rtnl_newlink+0x48/0x80
+> [    3.478180]  rtnetlink_rcv_msg+0x170/0x430
+> [    3.478183]  ? fib6_clean_node+0xad/0x190
+> [    3.478188]  ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+> [    3.478191]  netlink_rcv_skb+0x5d/0x110
+> [    3.478195]  rtnetlink_rcv+0x15/0x30
+> [    3.478198]  netlink_unicast+0x247/0x390
+> [    3.478200]  netlink_sendmsg+0x25e/0x4e0
+> [    3.478202]  sock_sendmsg+0xaf/0xc0
+> [    3.478204]  ____sys_sendmsg+0x2a9/0x350
+> [    3.478206]  ___sys_sendmsg+0x9a/0xf0
+> [    3.478212]  ? _copy_from_iter+0x80/0x4a0
+> [    3.478217]  __sys_sendmsg+0x89/0xf0
+> [    3.478220]  __x64_sys_sendmsg+0x1d/0x30
+> [    3.478222]  do_syscall_64+0x5c/0x90
+> [    3.478226]  ? do_syscall_64+0x68/0x90
+> [    3.478228]  ? ksys_write+0xe6/0x100
+> [    3.478232]  ? exit_to_user_mode_prepare+0x49/0x220
+> [    3.478236]  ? syscall_exit_to_user_mode+0x1b/0x50
+> [    3.478240]  ? do_syscall_64+0x68/0x90
+> [    3.478242]  ? do_syscall_64+0x68/0x90
+> [    3.478243]  ? irqentry_exit_to_user_mode+0x9/0x30
+> [    3.478246]  ? irqentry_exit+0x43/0x50
+> [    3.478248]  ? sysvec_xen_hvm_callback+0x4b/0xd0
+> [    3.478250]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+> [    3.478253] RIP: 0033:0x7f973c244e4d
+> [    3.478268] Code: 28 89 54 24 1c 48 89 74 24 10 89 7c 24 08 e8 ca ee ff ff 8b 54 24 1c 48 8b 74 24 10 41 89 c0 8b 7c 24 08 b8 2e 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 33 44 89 c7 48 89 44 24 08 e8 fe ee ff ff 48
+> [    3.478270] RSP: 002b:00007fff4777f470 EFLAGS: 00000293 ORIG_RAX: 000000000000002e
+> [    3.478273] RAX: ffffffffffffffda RBX: 00005583087c6480 RCX: 00007f973c244e4d
+> [    3.478274] RDX: 0000000000000000 RSI: 00007fff4777f4c0 RDI: 000000000000000c
+> [    3.478276] RBP: 00007fff4777f4c0 R08: 0000000000000000 R09: 0000000000000000
+> [    3.478277] R10: 0000000000000000 R11: 0000000000000293 R12: 00005583087c6480
+> [    3.478279] R13: 00007fff4777f668 R14: 00007fff4777f65c R15: 0000000000000000
+> [    3.478283]  </TASK>
+> [    3.478284] ================================================================================
+> [    3.685513] ================================================================================
+> [    3.685751] UBSAN: array-index-out-of-bounds in drivers/net/xen-netfront.c:485:7
+> [    3.686111] index 1 is out of range for type 'xen_netif_tx_sring_entry [1]'
+> [    3.686379] CPU: 1 PID: 697 Comm: avahi-daemon Not tainted 6.5.0-rc2-1-generation1 #3
+> [    3.686381] Hardware name: Intel Corporation W2600CR/W2600CR, BIOS SE5C600.86B.02.06.0007.082420181029 01/13/2022
+> [    3.686385] Call Trace:
+> [    3.686388]  <TASK>
+> [    3.686391]  dump_stack_lvl+0x48/0x70
+> [    3.686399]  dump_stack+0x10/0x20
+> [    3.686399]  __ubsan_handle_out_of_bounds+0xc6/0x110
+> [    3.686403]  xennet_tx_setup_grant+0x1f7/0x230
+> [    3.686403]  ? __pfx_xennet_tx_setup_grant+0x10/0x10
+> [    3.686403]  gnttab_foreach_grant_in_range+0x5c/0x100
+> [    3.686415]  xennet_start_xmit+0x428/0x990
+> [    3.686415]  ? kmem_cache_alloc_node+0x1b1/0x3b0
+> [    3.686415]  dev_hard_start_xmit+0x68/0x1e0
+> [    3.686415]  sch_direct_xmit+0x10b/0x350
+> [    3.686415]  __dev_queue_xmit+0x512/0xda0
+> [    3.686439]  ? ___neigh_create+0x6cb/0x970
+> [    3.686439]  neigh_resolve_output+0x118/0x1e0
+> [    3.686446]  ip_finish_output2+0x181/0x540
+> [    3.686450]  ? netif_rx_internal+0x46/0x140
+> [    3.686456]  __ip_finish_output+0xb6/0x180
+> [    3.686456]  ? dev_loopback_xmit+0x86/0x110
+> [    3.686456]  ip_finish_output+0x29/0x100
+> [    3.686456]  ip_mc_output+0x95/0x2e0
+> [    3.686456]  ? __pfx_ip_finish_output+0x10/0x10
+> [    3.686456]  ip_send_skb+0x9f/0xb0
+> [    3.686456]  udp_send_skb+0x158/0x380
+> [    3.686475]  udp_sendmsg+0xb84/0xf20
+> [    3.686475]  ? do_sys_poll+0x3a1/0x5f0
+> [    3.686483]  ? __pfx_ip_generic_getfrag+0x10/0x10
+> [    3.686483]  inet_sendmsg+0x76/0x80
+> [    3.686483]  ? inet_sendmsg+0x76/0x80
+> [    3.686483]  sock_sendmsg+0xa8/0xc0
+> [    3.686483]  ? _copy_from_user+0x30/0xa0
+> [    3.686483]  ____sys_sendmsg+0x2a9/0x350
+> [    3.686483]  ___sys_sendmsg+0x9a/0xf0
+> [    3.686483]  __sys_sendmsg+0x89/0xf0
+> [    3.686483]  __x64_sys_sendmsg+0x1d/0x30
+> [    3.686483]  do_syscall_64+0x5c/0x90
+> [    3.686483]  ? exit_to_user_mode_prepare+0x49/0x220
+> [    3.686483]  ? syscall_exit_to_user_mode+0x1b/0x50
+> [    3.686483]  ? do_syscall_64+0x68/0x90
+> [    3.686483]  ? syscall_exit_to_user_mode+0x1b/0x50
+> [    3.686483]  ? do_syscall_64+0x68/0x90
+> [    3.686483]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+> [    3.686483] RIP: 0033:0x7ff365942e13
+> [    3.686483] Code: 8b 15 b9 a1 00 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b8 0f 1f 00 64 8b 04 25 18 00 00 00 85 c0 75 14 b8 2e 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 55 c3 0f 1f 40 00 48 83 ec 28 89 54 24 1c 48
+> [    3.686483] RSP: 002b:00007ffc7bf1ca78 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+> [    3.686483] RAX: ffffffffffffffda RBX: 00005596bd24c900 RCX: 00007ff365942e13
+> [    3.686483] RDX: 0000000000000000 RSI: 00007ffc7bf1cb30 RDI: 000000000000000c
+> [    3.686483] RBP: 000000000000000c R08: 0000000000000004 R09: 0000000000000019
+> [    3.686483] R10: 00007ff365a1ca94 R11: 0000000000000246 R12: 00007ffc7bf1cb30
+> [    3.686483] R13: 0000000000000002 R14: 00005596bd235f9c R15: 0000000000000000
+> [    3.686483]  </TASK>
+> [    3.686483] ================================================================================
+> [    3.686858] ================================================================================
+> [    3.687190] UBSAN: array-index-out-of-bounds in drivers/net/xen-netfront.c:413:4
+> [    3.687501] index 1 is out of range for type 'xen_netif_tx_sring_entry [1]'
+> [    3.687800] CPU: 18 PID: 0 Comm: swapper/18 Not tainted 6.5.0-rc2-1-generation1 #3
+> [    3.687804] Hardware name: Intel Corporation W2600CR/W2600CR, BIOS SE5C600.86B.02.06.0007.082420181029 01/13/2022
+> [    3.687806] Call Trace:
+> [    3.687808]  <IRQ>
+> [    3.687812]  dump_stack_lvl+0x48/0x70
+> [    3.687819]  dump_stack+0x10/0x20
+> [    3.687821]  __ubsan_handle_out_of_bounds+0xc6/0x110
+> [    3.687827]  xennet_tx_buf_gc+0x34a/0x440
+> [    3.687831]  xennet_handle_tx.constprop.0+0x49/0x90
+> [    3.687834]  xennet_tx_interrupt+0x32/0x70
+> [    3.687837]  __handle_irq_event_percpu+0x4f/0x1b0
+> [    3.687842]  handle_irq_event+0x39/0x80
+> [    3.687846]  handle_edge_irq+0x8c/0x230
+> [    3.687849]  handle_irq_desc+0x40/0x60
+> [    3.687851]  generic_handle_irq+0x1f/0x30
+> [    3.687854]  handle_irq_for_port+0x8e/0x180
+> [    3.687858]  ? _raw_spin_unlock_irqrestore+0x11/0x60
+> [    3.687861]  __evtchn_fifo_handle_events+0x221/0x330
+> [    3.687866]  evtchn_fifo_handle_events+0xe/0x20
+> [    3.687869]  __xen_evtchn_do_upcall+0x72/0xd0
+> [    3.687873]  xen_hvm_evtchn_do_upcall+0xe/0x20
+> [    3.687876]  __sysvec_xen_hvm_callback+0x53/0x70
+> [    3.687880]  sysvec_xen_hvm_callback+0x8d/0xd0
+> [    3.687884]  </IRQ>
+> [    3.687885]  <TASK>
+> [    3.687886]  asm_sysvec_xen_hvm_callback+0x1b/0x20
+> [    3.687891] RIP: 0010:pv_native_safe_halt+0xb/0x10
+> [    3.687896] Code: 0b 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d 49 cc 33 00 fb f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 55
+> [    3.687898] RSP: 0000:ffffad85c0147e08 EFLAGS: 00000246
+> [    3.687901] RAX: ffffffffa00d39a0 RBX: 0000000000000002 RCX: 0000000000000000
+> [    3.687902] RDX: 0000000000000002 RSI: ffffffffa14d28e0 RDI: ffff920446abda00
+> [    3.687904] RBP: ffffad85c0147e18 R08: 0000000000000000 R09: 0000000000000000
+> [    3.687905] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000002
+> [    3.687906] R13: 0000000000000002 R14: 0000000000000002 R15: ffffffffa14d29c8
+> [    3.687909]  ? __pfx_intel_idle_hlt+0x10/0x10
+> [    3.687913]  ? intel_idle_hlt+0xc/0x40
+> [    3.687916]  cpuidle_enter_state+0xa0/0x730
+> [    3.687920]  cpuidle_enter+0x2e/0x50
+> [    3.687924]  call_cpuidle+0x23/0x60
+> [    3.687928]  do_idle+0x207/0x260
+> [    3.687932]  cpu_startup_entry+0x1d/0x20
+> [    3.687934]  start_secondary+0x129/0x160
+> [    3.687939]  secondary_startup_64_no_verify+0x17e/0x18b
+> [    3.687945]  </TASK>
+> [    3.687946] ================================================================================
+> [    4.624607] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+> [    4.629153] Bridge firewalling registered
+> [    4.745355] Initializing XFRM netlink socket
+> [    4.794107] loop8: detected capacity change from 0 to 8
+> [    7.104544] rfkill: input handler disabled
+> [   26.445163] ================================================================================
+> [   26.445171] UBSAN: array-index-out-of-bounds in drivers/net/xen-netfront.c:807:4
+> [   26.445175] index 109 is out of range for type 'xen_netif_tx_sring_entry [1]'
+> [   26.445178] CPU: 8 PID: 1729 Comm: sshd Not tainted 6.5.0-rc2-1-generation1 #3
+> [   26.445180] Hardware name: Intel Corporation W2600CR/W2600CR, BIOS SE5C600.86B.02.06.0007.082420181029 01/13/2022
+> [   26.445181] Call Trace:
+> [   26.445185]  <TASK>
+> [   26.445185]  dump_stack_lvl+0x48/0x70
+> [   26.445185]  dump_stack+0x10/0x20
+> [   26.445200]  __ubsan_handle_out_of_bounds+0xc6/0x110
+> [   26.445206]  xennet_start_xmit+0x932/0x990
+> [   26.445211]  dev_hard_start_xmit+0x68/0x1e0
+> [   26.445216]  sch_direct_xmit+0x10b/0x350
+> [   26.445220]  __dev_queue_xmit+0x512/0xda0
+> [   26.445224]  ip_finish_output2+0x261/0x540
+> [   26.445225]  __ip_finish_output+0xb6/0x180
+> [   26.445225]  ip_finish_output+0x29/0x100
+> [   26.445234]  ip_output+0x73/0x120
+> [   26.445234]  ? __pfx_ip_finish_output+0x10/0x10
+> [   26.445238]  ip_local_out+0x61/0x70
+> [   26.445238]  __ip_queue_xmit+0x18d/0x470
+> [   26.445238]  ip_queue_xmit+0x15/0x30
+> [   26.445238]  __tcp_transmit_skb+0xb39/0xcc0
+> [   26.445238]  tcp_write_xmit+0x595/0x1570
+> [   26.445238]  ? _copy_from_iter+0x80/0x4a0
+> [   26.445256]  __tcp_push_pending_frames+0x37/0x110
+> [   26.445259]  tcp_push+0x123/0x190
+> [   26.445260]  tcp_sendmsg_locked+0xafe/0xed0
+> [   26.445264]  tcp_sendmsg+0x2c/0x50
+> [   26.445268]  inet_sendmsg+0x42/0x80
+> [   26.445268]  sock_write_iter+0x160/0x180
+> [   26.445274]  vfs_write+0x397/0x440
+> [   26.445274]  ksys_write+0xc9/0x100
+> [   26.445274]  __x64_sys_write+0x19/0x30
+> [   26.445274]  do_syscall_64+0x5c/0x90
+> [   26.445287]  ? syscall_exit_to_user_mode+0x1b/0x50
+> [   26.445290]  ? do_syscall_64+0x68/0x90
+> [   26.445290]  ? do_syscall_64+0x68/0x90
+> [   26.445294]  ? do_syscall_64+0x68/0x90
+> [   26.445294]  ? syscall_exit_to_user_mode+0x1b/0x50
+> [   26.445298]  ? do_syscall_64+0x68/0x90
+> [   26.445300]  ? exc_page_fault+0x94/0x1b0
+> [   26.445302]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+> [   26.445306] RIP: 0033:0x7f26c4c3d473
+> [   26.445318] Code: 8b 15 21 2a 0e 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b7 0f 1f 00 64 8b 04 25 18 00 00 00 85 c0 75 14 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 55 c3 0f 1f 40 00 48 83 ec 28 48 89 54 24 18
+> [   26.445321] RSP: 002b:00007ffdee7b5528 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+> [   26.445321] RAX: ffffffffffffffda RBX: 0000000000000700 RCX: 00007f26c4c3d473
+> [   26.445321] RDX: 0000000000000700 RSI: 000055567032e230 RDI: 0000000000000004
+> [   26.445321] RBP: 0000555670313d70 R08: fffffffffffffff0 R09: 0000000000000000
+> [   26.445321] R10: 0000000000000000 R11: 0000000000000246 R12: 000055566fcb2768
+> [   26.445321] R13: 0000000000000000 R14: 0000000000000004 R15: 000055566fc67a80
+> [   26.445332]  </TASK>
+> [   26.445333] ================================================================================
 
-Adding to what Andrei said previously, we login into the DomU console
-to observe its state, and send some input keys to confirm whether it is
-in the buggy state. Considering this flow, it looks like this message
-comes from the write_console() call. In one instance I started the k3s
-server process in the console (disabled the sysvinit service beforehand),
-then proceeded to kill it after some time - a message from read_console()
-was displayed in that instance. As for the indices, I've dumped them in
-a separate message, and they are different always:
+See Bugzilla for the full thread and attached dmesg.
 
-[   45.303520] xencons: Illegal ring page indices -- write_console()
-[   45.303529] xencons: prod 4289880869, cons 2015782840, intf->out size 20=
-48
+Anyway, I'm adding it to regzbot:
 
-[   59.203570] xencons: Illegal ring page indices -- write_console()
-[   59.203576] xencons: prod 1735287148, cons 1869033263, intf->out size 20=
-48
+#regzbot introduced: 8446066bf8c1f9f https://bugzilla.kernel.org/show_bug.cgi?id=217693
 
-[   40.838740] xencons: Illegal ring page indices -- write_console()
-[   40.838753] xencons: prod 1647211507, cons 2923534489, intf->out size 20=
-48
-[...]
-[  126.184299] xencons: Illegal ring page indices -- read_console()
-[  126.184317] xencons: prod 127, cons 1815732224, intf->int size 1024
+Thanks.
 
-> >
-> > Lastly, it seems like the barrier used are incorrect. It should be the
-> > virt_*() version rather than a plain mb()/wmb(). I don't think it matte=
-r for
-> > arm64 though (I am assuming you are not running 32-bit).
-> >
+[1]: https://bugzilla.kernel.org/show_bug.cgi?id=217693
 
-Replaced them with the virt_*() relatives, but I couldn't notice any change
-in the behavior.
-
-> > > [   59.399620] xenbus: error -5 while reading message
-> >
-> > So this message is coming from the xenbus driver (used to read the xens=
-tore
-> > ring). This is -EIO, and AFAICT returned when the indices are also inco=
-rrect.
-> >
-> > For this driver, I think there is also a TOCTOU because a compiler is f=
-ree to
-> > reload intf->rsp_cons after the check. Moving virt_mb() is probably not
-> > sufficient. You would also want to use ACCESS_ONCE().
-> >
-> > What I find odd is you have two distinct rings (xenconsole and xenbus) =
-with
-> > similar issues. Above, you said you are using Linux RT. I wonder if thi=
-s has a
-> > play into the issue because if I am not mistaken, the two functions wou=
-ld now
-> > be fully preemptible.
-> >
-> > This could expose some races. For instance, there are some missing
-> > ACCESS_ONCE() (as mentioned above).
-> >
-> > In particular, Xenstored (I haven't checked xenconsoled) is using +=3D =
-to update
-> > intf->rsp_cons. There is no guarantee that the update will be atomic.
-> >
-> > Overall, I am not 100% sure what I wrote is related. But that's probabl=
-y a
-> > good start of things that can be exacerbated with Linux RT.
-
-Added memory barriers wherever I saw the corresponding ring indexes used in
-both the xenconsole and xenbus drivers, but nothing changed.
-
-> >
-> > > [   59.399649] xenbus: error -5 while writing message
-> >
-> > This is in xenbus as well. But this time in the write part. The analysi=
-s I
-> > wrote above for the read part can be applied here.
->=20
-> This is really strange. What is also strange is that somehow the indexes
-> recover after 10-15 seconds? How is that even possible. Let's say there
-> is a memory corruption of some sort, maybe due to missing barriers like
-> Julien suggested, how can it go back to normal after a while?
->=20
-> I am really confused. I would try with regular Linux instead of Linux RT
-> and also would try to replace all the barriers in
-> drivers/tty/hvc/hvc_xen.c with their virt_* version to see if we can
-> narrow down the problem a bit.
->=20
->=20
-> Keep in mind that during PV network operations grants are used, which
-> involve mapping pages at the backend and changing the MMU/IOMMU
-> pagetables to introduce the new mapping. After the DMA operation,
-> typically the page is unmapped and removed from the pagetable.
->=20
-> Is it possible that the pagetable change is causing the problem, and
-> when the mapping is removed everything goes back to normal?
->=20
-> I don't know how that could happen, but the mapping and unmapping of the
-> page is something ongoing which could break things then go back to
-> normal. One thing you could try is to force all DMA operations to go via
-> swiotlb-xen in Linux:
->=20
-> diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-> index 3d826c0b5fee..f78d86f1bb9c 100644
-> --- a/arch/arm/xen/mm.c
-> +++ b/arch/arm/xen/mm.c
-> @@ -112,8 +112,7 @@ bool xen_arch_need_swiotlb(struct device *dev,
->          * require a bounce buffer because the device doesn't support coh=
-erent
->          * memory and we are not able to flush the cache.
->          */
-> -       return (!hypercall_cflush && (xen_pfn !=3D bfn) &&
-> -               !dev_is_dma_coherent(dev));
-> +       return true;
->  }
->=20
->  static int __init xen_mm_init(void)
->=20
->=20
-> Then you can remove any iommu pagetable flushes in Xen:
->=20
->=20
-> diff --git a/xen/arch/arm/include/asm/grant_table.h
-> b/xen/arch/arm/include/asm/grant_table.h
-> index d3c518a926..b72f8391bd 100644
-> --- a/xen/arch/arm/include/asm/grant_table.h
-> +++ b/xen/arch/arm/include/asm/grant_table.h
-> @@ -74,7 +74,7 @@ int replace_grant_host_mapping(uint64_t gpaddr, mfn_t
-> frame,
->      page_get_xenheap_gfn(gnttab_status_page(t, i))
->=20
->  #define gnttab_need_iommu_mapping(d)                    \
-> -    (is_domain_direct_mapped(d) && is_iommu_enabled(d))
-> +    (0)
->=20
->  #endif /* __ASM_GRANT_TABLE_H__ */
->  /*
->=20
->=20
-> I don't know how this could be related but it might help narrow down the
-> problem.
-
-Applied your suggestion regarding DMA operations, but we observe the same
-behavior (the serial console would hang after some time), besides some new
-issues with some other drivers.
-
-We will continue to look into this issue, but if you have some new ideas,
-please let us know.
-
-Thank you,
-George Mocanu
-
+-- 
+An old man doll... just what I always wanted! - Clara
 
