@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFE8075DFE9
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Jul 2023 06:51:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568132.887547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA9D75E006
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Jul 2023 07:47:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568139.887563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNR38-0002c1-I2; Sun, 23 Jul 2023 04:50:30 +0000
+	id 1qNRvx-0000Zh-NS; Sun, 23 Jul 2023 05:47:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568132.887547; Sun, 23 Jul 2023 04:50:30 +0000
+Received: by outflank-mailman (output) from mailman id 568139.887563; Sun, 23 Jul 2023 05:47:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNR38-0002Zg-F3; Sun, 23 Jul 2023 04:50:30 +0000
-Received: by outflank-mailman (input) for mailman id 568132;
- Sun, 23 Jul 2023 04:50:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qNRvx-0000Xv-JU; Sun, 23 Jul 2023 05:47:09 +0000
+Received: by outflank-mailman (input) for mailman id 568139;
+ Sun, 23 Jul 2023 05:47:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dWw5=DJ=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1qNR36-0002Za-Fd
- for xen-devel@lists.xenproject.org; Sun, 23 Jul 2023 04:50:28 +0000
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e73c862-2914-11ee-8611-37d641c3527e;
- Sun, 23 Jul 2023 06:50:24 +0200 (CEST)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2023 21:50:21 -0700
-Received: from lkp-server02.sh.intel.com (HELO 36946fcf73d7) ([10.239.97.151])
- by orsmga005.jf.intel.com with ESMTP; 22 Jul 2023 21:50:18 -0700
-Received: from kbuild by 36946fcf73d7 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qNR2v-0008qL-0x;
- Sun, 23 Jul 2023 04:50:17 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qNRvw-0000Xl-3w; Sun, 23 Jul 2023 05:47:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qNRvv-0005kV-O9; Sun, 23 Jul 2023 05:47:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qNRvv-0007WS-3f; Sun, 23 Jul 2023 05:47:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qNRvv-0000fT-36; Sun, 23 Jul 2023 05:47:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,167 +42,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e73c862-2914-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690087824; x=1721623824;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/xZW808BrUCeT5DlyP4BVVq4u1ojxXBhWS/KYqOFDsA=;
-  b=ISiTbxsKbyR5p8uguNcjrrUoPfxX/89qJJgFXk+Tw/uoRZPACEG0qn+r
-   wtzb32bTePlyE6/34cO1GUDoLyk/ET4Rdd5SUUgiBOGwk8rIXvN/1uFiD
-   Gm02/CiE0d1LfqBSxz06o4IY1Bb9H6I0bs3XvJCp3Yzqz0RWsbStfKG3H
-   xHTU0qqiuAnlA4kt1BCgxID/t4EJ2j0ynkuVS6kKKcMeI7fLMaxJXEvja
-   yNDK79telNfZx/z+E78jPMWmbM6FPhbQibI4NVpzWqHbDsGY8nPwckZAK
-   B9lYftGbCawITZboBn+V6aWmQTQ/YSHXJ4Ehxc66Ae4jXHfDDIk+H+k/M
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10779"; a="370850804"
-X-IronPort-AV: E=Sophos;i="6.01,226,1684825200"; 
-   d="scan'208";a="370850804"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10779"; a="899131358"
-X-IronPort-AV: E=Sophos;i="6.01,226,1684825200"; 
-   d="scan'208";a="899131358"
-Date: Sun, 23 Jul 2023 12:49:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: oe-kbuild-all@lists.linux.dev, Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Erik Schilling <erik.schilling@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 2/2] xen: privcmd: Add support for irqfd
-Message-ID: <202307231237.JHGxqmdg-lkp@intel.com>
-References: <a25d5f01fe9b4624aa12cab77abd001044ea02d5.1689845210.git.viresh.kumar@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ukJWqg0aTU37CiUbZNeiUUWJIj6yAYn1WLMEA4SrYfI=; b=t+04N+/IRSiAOhtUGfimqZFLT1
+	48GJjEvAYsnpmhaTJ4wl0Q2QNwn4okrYF8czChYJKSR8BngiIxEMAuyc+eKEnSU8BEWdYcYOKCtLh
+	970q+tNwVQ4ctzfPuhINEg9IvjdCDwRQNbRninGp4KA7Ko9HxSNwfeiPGYAWLbnUmuEY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181972-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a25d5f01fe9b4624aa12cab77abd001044ea02d5.1689845210.git.viresh.kumar@linaro.org>
+Subject: [linux-linus test] 181972: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-shadow:guest-localmigrate/x10:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:guest-start/debianhvm.repeat:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:guest-start/debian.repeat:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:guest-start/debianhvm.repeat:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-start/debian.repeat:fail:allowable
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=d192f5382581d972c4ae1b4d72e0b59b34cadeb9
+X-Osstest-Versions-That:
+    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 23 Jul 2023 05:47:07 +0000
 
-Hi Viresh,
+flight 181972 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181972/
 
-kernel test robot noticed the following build errors:
+Regressions :-(
 
-[auto build test ERROR on xen-tip/linux-next]
-[also build test ERROR on linus/master v6.5-rc2 next-20230721]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-shadow   20 guest-localmigrate/x10   fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 180278
+ test-arm64-arm64-libvirt-raw 13 guest-start              fail REGR. vs. 180278
+ test-arm64-arm64-xl-vhd      13 guest-start              fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 14 guest-start/debianhvm.repeat fail REGR. vs. 180278
+ test-amd64-amd64-xl-vhd     21 guest-start/debian.repeat fail REGR. vs. 180278
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 20 guest-start/debianhvm.repeat fail REGR. vs. 180278
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Viresh-Kumar/xen-privcmd-Add-support-for-irqfd/20230720-173905
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
-patch link:    https://lore.kernel.org/r/a25d5f01fe9b4624aa12cab77abd001044ea02d5.1689845210.git.viresh.kumar%40linaro.org
-patch subject: [PATCH V2 2/2] xen: privcmd: Add support for irqfd
-config: x86_64-randconfig-r091-20230723 (https://download.01.org/0day-ci/archive/20230723/202307231237.JHGxqmdg-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230723/202307231237.JHGxqmdg-lkp@intel.com/reproduce)
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds    22 guest-start/debian.repeat fail REGR. vs. 180278
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307231237.JHGxqmdg-lkp@intel.com/
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
+ test-armhf-armhf-examine      8 reboot                       fail  like 180278
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
+ test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
 
-All error/warnings (new ones prefixed by >>):
+version targeted for testing:
+ linux                d192f5382581d972c4ae1b4d72e0b59b34cadeb9
+baseline version:
+ linux                6c538e1adbfc696ac4747fb10d63e704344f763d
 
-   drivers/xen/privcmd.c: In function 'privcmd_irqfd_assign':
->> drivers/xen/privcmd.c:961:19: error: implicit declaration of function 'eventfd_ctx_fileget'; did you mean 'eventfd_ctx_fdget'? [-Werror=implicit-function-declaration]
-     961 |         eventfd = eventfd_ctx_fileget(f.file);
-         |                   ^~~~~~~~~~~~~~~~~~~
-         |                   eventfd_ctx_fdget
->> drivers/xen/privcmd.c:961:17: warning: assignment to 'struct eventfd_ctx *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-     961 |         eventfd = eventfd_ctx_fileget(f.file);
-         |                 ^
-   cc1: some warnings being treated as errors
+Last test of basis   180278  2023-04-16 19:41:46 Z   97 days
+Failing since        180281  2023-04-17 06:24:36 Z   96 days  184 attempts
+Testing same since   181972  2023-07-22 13:29:13 Z    0 days    1 attempts
+
+------------------------------------------------------------
+3808 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-vim +961 drivers/xen/privcmd.c
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-   936	
-   937	static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
-   938	{
-   939		struct privcmd_kernel_irqfd *kirqfd, *tmp;
-   940		struct eventfd_ctx *eventfd;
-   941		__poll_t events;
-   942		struct fd f;
-   943		int ret;
-   944	
-   945		kirqfd = kzalloc(sizeof(*kirqfd), GFP_KERNEL);
-   946		if (!kirqfd)
-   947			return -ENOMEM;
-   948	
-   949		kirqfd->irq = irqfd->irq;
-   950		kirqfd->dom = irqfd->dom;
-   951		kirqfd->level = irqfd->level;
-   952		INIT_LIST_HEAD(&kirqfd->list);
-   953		INIT_WORK(&kirqfd->shutdown, irqfd_shutdown);
-   954	
-   955		f = fdget(irqfd->fd);
-   956		if (!f.file) {
-   957			ret = -EBADF;
-   958			goto error_kfree;
-   959		}
-   960	
- > 961		eventfd = eventfd_ctx_fileget(f.file);
-   962		if (IS_ERR(eventfd)) {
-   963			ret = PTR_ERR(eventfd);
-   964			goto error_fd_put;
-   965		}
-   966	
-   967		kirqfd->eventfd = eventfd;
-   968	
-   969		/*
-   970		 * Install our own custom wake-up handling so we are notified via a
-   971		 * callback whenever someone signals the underlying eventfd.
-   972		 */
-   973		init_waitqueue_func_entry(&kirqfd->wait, irqfd_wakeup);
-   974		init_poll_funcptr(&kirqfd->pt, irqfd_poll_func);
-   975	
-   976		mutex_lock(&irqfds_lock);
-   977	
-   978		list_for_each_entry(tmp, &irqfds_list, list) {
-   979			if (kirqfd->eventfd == tmp->eventfd) {
-   980				ret = -EBUSY;
-   981				mutex_unlock(&irqfds_lock);
-   982				goto error_eventfd;
-   983			}
-   984		}
-   985	
-   986		list_add_tail(&kirqfd->list, &irqfds_list);
-   987		mutex_unlock(&irqfds_lock);
-   988	
-   989		/*
-   990		 * Check if there was an event already pending on the eventfd before we
-   991		 * registered, and trigger it as if we didn't miss it.
-   992		 */
-   993		events = vfs_poll(f.file, &kirqfd->pt);
-   994		if (events & EPOLLIN)
-   995			irqfd_inject(kirqfd);
-   996	
-   997		/*
-   998		 * Do not drop the file until the kirqfd is fully initialized, otherwise
-   999		 * we might race against the EPOLLHUP.
-  1000		 */
-  1001		fdput(f);
-  1002		return 0;
-  1003	
-  1004	error_eventfd:
-  1005		eventfd_ctx_put(eventfd);
-  1006	
-  1007	error_fd_put:
-  1008		fdput(f);
-  1009	
-  1010	error_kfree:
-  1011		kfree(kirqfd);
-  1012		return ret;
-  1013	}
-  1014	
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 639403 lines long.)
 
