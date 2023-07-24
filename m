@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 238D175F30A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 12:25:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568702.888466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0EB75F317
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 12:28:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568704.888476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNskL-0007fe-5t; Mon, 24 Jul 2023 10:24:57 +0000
+	id 1qNsnW-0008Md-KN; Mon, 24 Jul 2023 10:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568702.888466; Mon, 24 Jul 2023 10:24:57 +0000
+Received: by outflank-mailman (output) from mailman id 568704.888476; Mon, 24 Jul 2023 10:28:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNskL-0007cT-34; Mon, 24 Jul 2023 10:24:57 +0000
-Received: by outflank-mailman (input) for mailman id 568702;
- Mon, 24 Jul 2023 10:24:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qNskJ-0007cN-Pt
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 10:24:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qNskI-0005Q7-U4; Mon, 24 Jul 2023 10:24:54 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qNskI-0002N7-GI; Mon, 24 Jul 2023 10:24:54 +0000
+	id 1qNsnW-0008Kz-HO; Mon, 24 Jul 2023 10:28:14 +0000
+Received: by outflank-mailman (input) for mailman id 568704;
+ Mon, 24 Jul 2023 10:28:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GZnG=DK=citrix.com=prvs=5629cf0ab=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qNsnV-0008Kr-J9
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 10:28:13 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8c300ab-2a0c-11ee-8612-37d641c3527e;
+ Mon, 24 Jul 2023 12:28:10 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,195 +36,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
-	Subject:Cc:To:From; bh=emAUPp2iwh6deQobz6UsP/g0MPIQJ8uB2ul+C3tWMog=; b=JPy4Rk
-	JIneq5PfwR1b/6ua27urc0bVwGK2XFPiVSpsOYK2SWpTAclX75Sg/w/VB1Y204M+Hqumubad8U9Qx
-	SFHqE6kQxdPbqNVbFULlvIVNeT0isB9RixB8O69nOfKfSDqkjDh9lX9GBBUdT1yxIyE2aQlb2JrjW
-	ELM7mNMXQ4s=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: nicola.vetrini@bugseng.com,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/dt: Rework the prototype of dt_property_read_string() to help Eclair
-Date: Mon, 24 Jul 2023 11:24:43 +0100
-Message-Id: <20230724102443.91894-1-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
+X-Inumbo-ID: c8c300ab-2a0c-11ee-8612-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1690194490;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=+f9zFSLQ2gak6Gf97nxUR4+vN+KgXcXbChzBQRV/ijA=;
+  b=K9jbcP5OkOV+428vY5fRDE9OwmoueK/KfRhXGFJzMidvKVhxsaJTl5Iv
+   DLo0T/9aoySuzYjvR8CX5jdD1Hl4EQ4M5S4ytPw12rSQlPClxEsablKE0
+   XBnhLvw8YCEtj/+w3z90q//TKXdqrkk7wKPC3urhPNitmcOJ9JVLaiT+b
+   I=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 117641410
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:FNMfw6hbXrgdxiY8X+vf6U3JX161VxAKZh0ujC45NGQN5FlHY01je
+ htvUW7QPv2KazGjfYsiPYmypkoO68PUmN9mGldqqSxnQSob9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyr0N8klgZmP6sT4wWFzyJ94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQUAQ9cKSiHot6ng7ulELNt25QONNvSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27B/
+ z2Yoz2lW0ly2Nq36yqPynK2uM3zwS7KaZM5T4X/qvx0qQjGroAUIEJPDgbqyRWjsWaaRtlWb
+ WId/CEjqawv3EWxS5/2WBjQiHyOswMYWtFQO/Yn8wzLwa3Riy6jD2gZSnh6adoptOc/Xzls3
+ ViM9/v5CDoqvLCLRHa18raPsSj0KSUTNXUFZyIPUU0C+daLiIgrgwjGVNpLDK+/hdqzEjb1q
+ w1mtwBn2e9V15RSkfzmoxae2WnESoX1ohAd6izoDyWd6iZFdc2sedby6AWLwO5SFdPMJrWeh
+ 0Toi/Ry/chXU8DVzXfRHb1VdF26z63baWOB2DaDC7Fkrm3woCD7IOi89RkkfC9U3tA4lSgFi
+ aM5kSdY/9dtMXSjdsebiKrhWp1xncAM+TkIP804j+aigbArLmdrBAk0OSatM5nFySDAa50XN
+ 5aBatqLBn0HE6lhxzfeb75DgOdynX9kmT6CHcuTI/GbPV22PSD9dFv4GAHWMrBRAF2s/W05D
+ Oqzx+PVkk4CAYUSkwHc8JIJLEBiEJTILcmeliCjTcbaelAOMDh4W5fsLUYJJ9QNc1J9yr2Zo
+ RlQmyZwlDLCuJEwAVzTOyE9MumxDM8XQLBSFXVEAGtEEkMLOe6HhJrzvbNtFVX73ISPFcJJc
+ sQ=
+IronPort-HdrOrdr: A9a23:7ahpLKw3aiArGdKurP0WKrPwLL1zdoMgy1knxilNoH1uA6qlfq
+ WV9sjzuiWE6gr5O0tBpTnjAtjkfZq0z/cciugs1NyZLW3bUQWTXeZfBEjZrwEI2ReSygeQ78
+ hdmmFFZuEZqzVB/KXH3DU=
+X-Talos-CUID: 9a23:5lUrSGPUsu3yqe5DVABYpQksHuUZYz7U0i2KIhLoJH57cejA
+X-Talos-MUID: 9a23:oU7wIgnN1xMqd59Hb5g0dnpAJM1Q476QKnxRnKQ3quLfDWssOSm02WE=
+X-IronPort-AV: E=Sophos;i="6.01,228,1684814400"; 
+   d="scan'208";a="117641410"
+Date: Mon, 24 Jul 2023 11:28:04 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+CC: Jan Beulich <jbeulich@suse.com>, Rahul Singh <Rahul.Singh@arm.com>, "Roger
+ Pau =?iso-8859-1?Q?Monn=E9?=" <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [OSSTEST] ts-kernel-build: add kernel kconfig for the Arndale
+Message-ID: <af1388d4-ddd8-4afe-8710-f5a780e8c333@perard>
+References: <20230721121627.1229906-1-luca.fancellu@arm.com>
+ <ceb7d6ad-0292-facf-6ad5-4bd265a8d34d@suse.com>
+ <2CA77C15-BA9B-4D98-80A0-B1B7EDE4E48B@arm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2CA77C15-BA9B-4D98-80A0-B1B7EDE4E48B@arm.com>
 
-From: Julien Grall <jgrall@amazon.com>
+On Fri, Jul 21, 2023 at 04:45:44PM +0000, Luca Fancellu wrote:
+> > On 21 Jul 2023, at 14:24, Jan Beulich <jbeulich@suse.com> wrote:
+> > On 21.07.2023 14:16, Luca Fancellu wrote:
+> >> --- a/ts-kernel-build
+> >> +++ b/ts-kernel-build
+> >> @@ -245,6 +245,7 @@ setopt CONFIG_SENSORS_LM90 n
+> >> setopt CONFIG_ICS932S401 n
+> >> 
+> >> # Enable some additional drivers for Arndale.
+> >> +setopt CONFIG_AHCI_DWC y
+> > 
+> > ... does it really need to be y (and not m) here?
+> 
+> I didn’t try with m before because I was unsure where the kernel module were put (in the disk? But then we need to read it),
+> but now I did a try with ‘m’ and it works, so I guess the module are put in some ramdisk instead of the disk we want to read.
+> 
+> Thanks for pointing that out.
+> 
+> @Roger, is it possible to change it on commit or should I send a v2?
 
-Eclair vXXX is unable to prove the parameter out_string will only be
-used the return of dt_property_read_string() is 0. So it will consider
-that MISRA C:2012 Rule 9.1 was violated.
+I've pushed the patch to "pretest" with this modification.
 
-Rework the prototype so the string is returned and use ERR_PTR() to
-embed the error code.
+If osstest is happy with the patch (that is no regression with a
+"xen-unstable" flight), it will be committed.
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+Thanks,
 
----
-
-The XXX should be replaced with the version of Eclair. Nicola, can you
-provide it?
----
- xen/arch/arm/domain_build.c   |  4 +++-
- xen/arch/arm/psci.c           | 10 +++++-----
- xen/common/device_tree.c      | 15 +++++++--------
- xen/drivers/char/arm-uart.c   | 10 ++++++----
- xen/include/xen/device_tree.h | 16 ++++++++--------
- 5 files changed, 29 insertions(+), 26 deletions(-)
-
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 39b4ee03a505..2f98f0b1bd9c 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -3850,7 +3850,9 @@ static int __init construct_domU(struct domain *d,
- 
-     kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
- 
--    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
-+    dom0less_enhanced = dt_property_read_string(node, "xen,enhanced");
-+
-+    rc = IS_ERR(dom0less_enhanced) ? PTR_ERR(dom0less_enhanced) : 0;
-     if ( rc == -EILSEQ ||
-          rc == -ENODATA ||
-          (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
-diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
-index 695d2fa1f1b5..8e01b5962c63 100644
---- a/xen/arch/arm/psci.c
-+++ b/xen/arch/arm/psci.c
-@@ -8,7 +8,7 @@
-  * Copyright (c) 2013 Linaro Limited.
-  */
- 
--
-+#include <xen/err.h>
- #include <xen/types.h>
- #include <xen/init.h>
- #include <xen/mm.h>
-@@ -85,13 +85,13 @@ static int __init psci_features(uint32_t psci_func_id)
- 
- static int __init psci_is_smc_method(const struct dt_device_node *psci)
- {
--    int ret;
-     const char *prop_str;
- 
--    ret = dt_property_read_string(psci, "method", &prop_str);
--    if ( ret )
-+    prop_str = dt_property_read_string(psci, "method");
-+    if ( IS_ERR(prop_str) )
-     {
--        printk("/psci node does not provide a method (%d)\n", ret);
-+        printk("/psci node does not provide a method (%ld)\n",
-+               PTR_ERR(prop_str));
-         return -EINVAL;
-     }
- 
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 0677193ab370..11222c3a8abf 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -191,21 +191,20 @@ bool_t dt_property_read_u64(const struct dt_device_node *np,
- 
-     return 1;
- }
--int dt_property_read_string(const struct dt_device_node *np,
--                            const char *propname, const char **out_string)
-+
-+const char *dt_property_read_string(const struct dt_device_node *np,
-+                                    const char *propname)
- {
-     const struct dt_property *pp = dt_find_property(np, propname, NULL);
- 
-     if ( !pp )
--        return -EINVAL;
-+        return ERR_PTR(-EINVAL);
-     if ( !pp->length )
--        return -ENODATA;
-+        return ERR_PTR(-ENODATA);
-     if ( strnlen(pp->value, pp->length) >= pp->length )
--        return -EILSEQ;
--
--    *out_string = pp->value;
-+        return ERR_PTR(-EILSEQ);
- 
--    return 0;
-+    return pp->value;
- }
- 
- /**
-diff --git a/xen/drivers/char/arm-uart.c b/xen/drivers/char/arm-uart.c
-index 8098a968c285..b76d8063beee 100644
---- a/xen/drivers/char/arm-uart.c
-+++ b/xen/drivers/char/arm-uart.c
-@@ -21,6 +21,7 @@
- 
- #include <xen/console.h>
- #include <xen/device_tree.h>
-+#include <xen/err.h>
- #include <xen/param.h>
- #include <xen/serial.h>
- #include <xen/errno.h>
-@@ -55,16 +56,17 @@ static void __init dt_uart_init(void)
-         {
-             const char *stdout;
- 
--            ret = dt_property_read_string(chosen, "stdout-path", &stdout);
--            if ( ret >= 0 )
-+            stdout = dt_property_read_string(chosen, "stdout-path");
-+            if ( !IS_ERR(stdout) )
-             {
-                 printk("Taking dtuart configuration from /chosen/stdout-path\n");
-                 if ( strlcpy(opt_dtuart, stdout, sizeof(opt_dtuart))
-                      >= sizeof(opt_dtuart) )
-                     printk("WARNING: /chosen/stdout-path too long, truncated\n");
-             }
--            else if ( ret != -EINVAL /* Not present */ )
--                printk("Failed to read /chosen/stdout-path (%d)\n", ret);
-+            else if ( PTR_ERR(stdout) != -EINVAL /* Not present */ )
-+                printk("Failed to read /chosen/stdout-path (%ld)\n",
-+                       PTR_ERR(stdout));
-         }
-     }
- 
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index c2eada748915..492204b4feda 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -486,18 +486,18 @@ static inline bool_t dt_property_read_bool(const struct dt_device_node *np,
-  *              if return value if 0.
-  *
-  * Search for a property in a device tree node and retrieve a null
-- * terminated string value (pointer to data, not a copy). Returns 0 on
-- * success, -EINVAL if the property does not exist, -ENODATA if property
-- * doest not have value, and -EILSEQ if the string is not
-- * null-terminated with the length of the property data.
-+ * terminated string value (pointer to data, not a copy). Returns a
-+ * pointer to a null terminated string on success, -EINVAL if the property
-+ * does not exist, -ENODATA if property doest not have value, and -EILSEQ
-+ * if the string is not null-terminated with the length of the property data.
-+ *
-+ * The caller should use IS_ERR(...) to check if an error is returned.
-  *
-  * Note that the empty string "" has length of 1, thus -ENODATA cannot
-  * be interpreted as an empty string.
-- *
-- * The out_string pointer is modified only if a valid string can be decoded.
-  */
--int dt_property_read_string(const struct dt_device_node *np,
--                            const char *propname, const char **out_string);
-+const char *dt_property_read_string(const struct dt_device_node *np,
-+                                    const char *propname);
- 
- /**
-  * dt_property_match_string() - Find string in a list and return index
 -- 
-2.40.1
-
+Anthony PERARD
 
