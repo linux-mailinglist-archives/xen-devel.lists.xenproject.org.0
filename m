@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A06475EF52
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 11:43:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568526.887926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF53875F03E
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 11:50:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568533.887946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNs5b-00061S-9F; Mon, 24 Jul 2023 09:42:51 +0000
+	id 1qNsCv-0000XI-2j; Mon, 24 Jul 2023 09:50:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568526.887926; Mon, 24 Jul 2023 09:42:51 +0000
+Received: by outflank-mailman (output) from mailman id 568533.887946; Mon, 24 Jul 2023 09:50:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNs5b-0005yI-5Y; Mon, 24 Jul 2023 09:42:51 +0000
-Received: by outflank-mailman (input) for mailman id 568526;
- Mon, 24 Jul 2023 09:42:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qNsCu-0000U6-SJ; Mon, 24 Jul 2023 09:50:24 +0000
+Received: by outflank-mailman (input) for mailman id 568533;
+ Mon, 24 Jul 2023 09:45:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c6P8=DK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qNs5Z-0005hi-IK
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 09:42:49 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7188aa35-2a06-11ee-8612-37d641c3527e;
- Mon, 24 Jul 2023 11:42:46 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5217bb5ae05so5541090a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 02:42:47 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- k10-20020aa7c04a000000b0050488d1d376sm6020958edo.0.2023.07.24.02.42.45
+ <SRS0=jodz=DK=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
+ id 1qNs7p-0007Dq-UJ
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 09:45:10 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c6052529-2a06-11ee-b23a-6b7b168915f2;
+ Mon, 24 Jul 2023 11:45:08 +0200 (CEST)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-1bba9539a23so639175ad.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 02:45:08 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
+ by smtp.gmail.com with ESMTPSA id
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.44.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:42:45 -0700 (PDT)
+ Mon, 24 Jul 2023 02:45:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,363 +45,440 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7188aa35-2a06-11ee-8612-37d641c3527e
+X-Inumbo-ID: c6052529-2a06-11ee-b23a-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690191766; x=1690796566;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3A7jIfn7cd5zSr8lvNclLlaXmI+gimV3tunSWePZzuo=;
-        b=FjreHnYj84PURYQMOG0tUHg+XaO1B9OA3QVLQjya6LJldeYPkey2vp9IUaPHOh4NQy
-         MT2iIAlfbtOO/34TpgSXH3aCtWK3c2vldGXFpGzPnrnr2ogTMq72dzamNad5ueGMkwAT
-         3myLua7hvHOW9CklzECY3YKzu+hBvQ+5TspzuGN//+h68Av93EIrXExoPmJVWyeXqqSb
-         NUIm2vaDT/mlWHyRPu2CdgOC/yi6ssthGQ8T9hQKV7QrjMqV4C87/VbMcccXWjuWSACX
-         DGBSlMMEORsIbZNE8gK0xdYh8PjH6sHyZ5W9yHxnk5VrD9irW4g2fomW+zZ4nnMiDJyQ
-         IeEg==
+        d=bytedance.com; s=google; t=1690191907; x=1690796707;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GhsBT9Fumj8uBYrifNTbdeUWiupPg7k66ZIkdolEOus=;
+        b=Mux1pbqzjbfqRXVfJEIWZc81mrnEot0PRQ/rTJrVGIim7ktrzSNm05Fsso5ilARRvv
+         faySszbFYa9OO4CMI3npMpUlhKd9leJWtwrwrnGBgTFgyKPWAZhGDLwNVS7t8DhkjiqN
+         RwEnjMy2GP0KMYlVucQ6x1a/u1Cr93p0iJndU/bpqFkEM97m8/txQF/6lkl5JDWlk8AU
+         3iT7I2JCi3x9P2zSBpP/ZmfJYfqHGCek7eMXdifxANKuP/Fuf+mUHCVg2tSmefehawea
+         n1OerRq0jnWZtgNyWPX2fjm4/jIjVqZyDgwY5w5AIUqAK7zCLOIJi1p74U5td8CU8Ec4
+         mzxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690191766; x=1690796566;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3A7jIfn7cd5zSr8lvNclLlaXmI+gimV3tunSWePZzuo=;
-        b=hUzEegW0N7UZcxX3bKnIqmYyfqeqtxC9eyE5IvrCx11xgtsGHuh5ybgDTQ/iJVmuG1
-         li0PBsb3sM1kBbRUuDt3lf7aAgyun2sWIYB+rG1eVpXiAjqeqMVCHgpl/xeEI+YAvtjP
-         1GLe6RwH8eFb8b0nOatFSpzfS8fnQSmbR7KeJM0QaOFbwz6rNg6/SwoERL52likxhKw+
-         gxTUKYfBKXaoRperjjY+JNynuUtrzwp7MbHZaq01b31+BuaNZJ4XGTGIq+3F3LWXLnKV
-         gROCpl2vQG35OUiuuoJmSWOtR29CqZgtp4ZUvkyQ0EdslyJPCb0NTFy9TYcYI90d4s8U
-         do/Q==
-X-Gm-Message-State: ABy/qLawgpy+0D7afEFdy73yx+kjC7nDtG7Ri81vI9WHd2WQLm9iqpsE
-	dInUNtxrSCgkKutIy19CrZ5Q2MZ0vTg=
-X-Google-Smtp-Source: APBJJlG3Jq/VevmjGpaGSwcVLTeyfhAWXO+R3+Bc6NhCeh5J20ZztJ0zkfTfmbGo4ZDw8LV/OAY01Q==
-X-Received: by 2002:a05:6402:609:b0:51e:c82:6f3b with SMTP id n9-20020a056402060900b0051e0c826f3bmr7925509edv.16.1690191765947;
-        Mon, 24 Jul 2023 02:42:45 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v4 2/2] xen/riscv: introduce identity mapping
-Date: Mon, 24 Jul 2023 12:42:41 +0300
-Message-ID: <a8ab1829ab718dda869db3df3348ded211e81967.1690191480.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1690191480.git.oleksii.kurochko@gmail.com>
-References: <cover.1690191480.git.oleksii.kurochko@gmail.com>
+        d=1e100.net; s=20221208; t=1690191907; x=1690796707;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GhsBT9Fumj8uBYrifNTbdeUWiupPg7k66ZIkdolEOus=;
+        b=Y7PMSQUFh3UhN0nC6xT3FrN9XVohKZESVuOfnxP9xGdVBnGcPlZMNUcC7OsV8rhlp2
+         rbZCWtqQDL4mrrr5X1Km2wX3Zjgp+BMjlQmTPHoxMiMzGMNcB5XW6wIap/QDO7tspR7w
+         IqhLNsENqn6J09+goveG+cRnbTJ6wwhSiMjfwCtKGyTFNZSr0WOmPeiNffRLHmOlpJK4
+         FT+4IPFn51nqVgPhYla/wpKaBYNL422ujLtS3MvkUdkrnq240siQ/moBCDu/CcKEm0Sd
+         sCg5WCYoLVlmF4Jduj9SPyailH0FIIGaoBaMZTigSG6cA+cRSVarYCVLa06N6CXtjlLE
+         UdNA==
+X-Gm-Message-State: ABy/qLZR7u2RLEYS7wOZIMcPAgkWNr4Q20G5hJz97zrlvM6JYAKdWjGn
+	MVYMnyl50OO+1vgIe6st+KqS3Q==
+X-Google-Smtp-Source: APBJJlG2lKEMpVGWAV6dsRZ28hllsUFknqcdUwpJ+mz8ptX/BQjWY5s2WSDY0Jqf92PnyDAdPtn/0A==
+X-Received: by 2002:a17:902:ea01:b0:1bb:83ec:832 with SMTP id s1-20020a170902ea0100b001bb83ec0832mr8326265plg.2.1690191906857;
+        Mon, 24 Jul 2023 02:45:06 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: akpm@linux-foundation.org,
+	david@fromorbit.com,
+	tkhai@ya.ru,
+	vbabka@suse.cz,
+	roman.gushchin@linux.dev,
+	djwong@kernel.org,
+	brauner@kernel.org,
+	paulmck@kernel.org,
+	tytso@mit.edu,
+	steven.price@arm.com,
+	cel@kernel.org,
+	senozhatsky@chromium.org,
+	yujie.liu@intel.com,
+	gregkh@linuxfoundation.org,
+	muchun.song@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-erofs@lists.ozlabs.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	cluster-devel@redhat.com,
+	linux-nfs@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	rcu@vger.kernel.org,
+	netdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	dm-devel@redhat.com,
+	linux-raid@vger.kernel.org,
+	linux-bcache@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-btrfs@vger.kernel.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: [PATCH v2 00/47] use refcount+RCU method to implement lockless slab shrink
+Date: Mon, 24 Jul 2023 17:43:07 +0800
+Message-Id: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The way how switch to virtual address was implemented in the
-commit e66003e7be ("xen/riscv: introduce setup_initial_pages")
-isn't safe enough as:
-* enable_mmu() depends on hooking all exceptions
-  and pagefault.
-* Any exception other than pagefault, or not taking a pagefault
-  causes it to malfunction, which means you will fail to boot
-  depending on where Xen was loaded into memory.
+Hi all,
 
-Instead of the proposed way of switching to virtual addresses was
-decided to use identity mapping of the entrire Xen and after
-switching to virtual addresses identity mapping is removed from
-page-tables in the following way: recursively visit all ptes related
-to identity mapping and remove them.
+1. Background
+=============
 
-Fixes: e66003e7be ("xen/riscv: introduce setup_initial_pages")
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Changes in V4:
- - remove definition of ARRAY_SIZE and ROUNDUP as <xen/macors.h> was introduced where these macros are located now.
- - update definition of PGTBL_INITIAL_COUNT
- - update the commit message
- - update the algo of identity mapping removing
----
-Changes in V3:
- - remove unrelated to the patch changes ( SPDX tags in config.h ).
- - update definition of PGTBL_INITIAL_COUNT taking into account identity mapping.
- - refactor remove_identity_mapping() function.
- - add explanatory comments in xen.lds.S and mm.c.
- - update commit message.
- - move save/restore of a0/a1 registers to [PATCH v2 2/3] xen/riscv: introduce
-   function for physical offset calculation.
----
-Changes in V2:
-  - update definition of PGTBL_INITIAL_COUNT and the comment above.
-  - code style fixes.
-  - 1:1 mapping for entire Xen.
-  - remove id_addrs array becase entire Xen is mapped.
-  - reverse condition for cycle inside remove_identity_mapping().
-  - fix page table walk in remove_identity_mapping().
-  - update the commit message.
-  - add Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-  - save hart_id and dtb_addr before call MMU related C functions.
-  - use phys_offset variable instead of doing calcultations to get phys offset
-    in head.S file. ( it can be easily done as entire Xen is 1:1 mapped )
-  - declare enable_muu() as __init.
----
- xen/arch/riscv/include/asm/mm.h |   3 +-
- xen/arch/riscv/mm.c             | 101 ++++++++++++++++++++------------
- xen/arch/riscv/riscv64/head.S   |  22 +++++++
- xen/arch/riscv/setup.c          |  14 +----
- xen/arch/riscv/xen.lds.S        |   4 ++
- 5 files changed, 93 insertions(+), 51 deletions(-)
+We used to implement the lockless slab shrink with SRCU [1], but then kernel
+test robot reported -88.8% regression in stress-ng.ramfs.ops_per_sec test
+case [2], so we reverted it [3].
 
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index d9c4205103..085eaab7fb 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -13,7 +13,8 @@ extern unsigned char cpu0_boot_stack[];
- void setup_initial_pagetables(void);
- 
- void enable_mmu(void);
--void cont_after_mmu_is_enabled(void);
-+
-+void remove_identity_mapping(void);
- 
- void calc_phys_offset(void);
- 
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index c84a8a7c3c..aae24f3a54 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -4,6 +4,7 @@
- #include <xen/compiler.h>
- #include <xen/init.h>
- #include <xen/kernel.h>
-+#include <xen/macros.h>
- #include <xen/pfn.h>
- 
- #include <asm/early_printk.h>
-@@ -35,8 +36,10 @@ unsigned long __ro_after_init phys_offset;
-  *
-  * It might be needed one more page table in case when Xen load address
-  * isn't 2 MB aligned.
-+ *
-+ * CONFIG_PAGING_LEVELS page tables are needed for identity mapping.
-  */
--#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) + 1)
-+#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2) + 1
- 
- pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
- stage1_pgtbl_root[PAGETABLE_ENTRIES];
-@@ -75,10 +78,11 @@ static void __init setup_initial_mapping(struct mmu_desc *mmu_desc,
-     unsigned int index;
-     pte_t *pgtbl;
-     unsigned long page_addr;
-+    bool is_identity_mapping = map_start == pa_start;
- 
--    if ( (unsigned long)_start % XEN_PT_LEVEL_SIZE(0) )
-+    if ( !IS_ALIGNED((unsigned long)_start, KB(4)) )
-     {
--        early_printk("(XEN) Xen should be loaded at 4k boundary\n");
-+        early_printk("(XEN) Xen should be loaded at 4KB boundary\n");
-         die();
-     }
- 
-@@ -108,16 +112,18 @@ static void __init setup_initial_mapping(struct mmu_desc *mmu_desc,
-             {
-                 unsigned long paddr = (page_addr - map_start) + pa_start;
-                 unsigned int permissions = PTE_LEAF_DEFAULT;
-+                unsigned long addr = is_identity_mapping
-+                                     ? page_addr : LINK_TO_LOAD(page_addr);
-                 pte_t pte_to_be_written;
- 
-                 index = pt_index(0, page_addr);
- 
--                if ( is_kernel_text(LINK_TO_LOAD(page_addr)) ||
--                     is_kernel_inittext(LINK_TO_LOAD(page_addr)) )
--                    permissions =
--                        PTE_EXECUTABLE | PTE_READABLE | PTE_VALID;
-+                if ( is_kernel_text(addr) ||
-+                     is_kernel_inittext(addr) )
-+                        permissions =
-+                            PTE_EXECUTABLE | PTE_READABLE | PTE_VALID;
- 
--                if ( is_kernel_rodata(LINK_TO_LOAD(page_addr)) )
-+                if ( is_kernel_rodata(addr) )
-                     permissions = PTE_READABLE | PTE_VALID;
- 
-                 pte_to_be_written = paddr_to_pte(paddr, permissions);
-@@ -211,6 +217,10 @@ void __init setup_initial_pagetables(void)
-     unsigned long linker_start  = LOAD_TO_LINK(load_start);
-     unsigned long linker_end    = LOAD_TO_LINK(load_end);
- 
-+    /*
-+     * If the overlapping check will be removed then remove_identity_mapping()
-+     * logic should be updated.
-+     */
-     if ( (linker_start != load_start) &&
-          (linker_start <= load_end) && (load_start <= linker_end) )
-     {
-@@ -232,22 +242,18 @@ void __init setup_initial_pagetables(void)
-                           linker_start,
-                           linker_end,
-                           load_start);
-+
-+    if ( linker_start == load_start )
-+        return;
-+
-+    setup_initial_mapping(&mmu_desc,
-+                          load_start,
-+                          load_end,
-+                          load_start);
- }
- 
--void __init noreturn noinline enable_mmu()
-+void __init enable_mmu(void)
- {
--    /*
--     * Calculate a linker time address of the mmu_is_enabled
--     * label and update CSR_STVEC with it.
--     * MMU is configured in a way where linker addresses are mapped
--     * on load addresses so in a case when linker addresses are not equal
--     * to load addresses, after MMU is enabled, it will cause
--     * an exception and jump to linker time addresses.
--     * Otherwise if load addresses are equal to linker addresses the code
--     * after mmu_is_enabled label will be executed without exception.
--     */
--    csr_write(CSR_STVEC, LOAD_TO_LINK((unsigned long)&&mmu_is_enabled));
--
-     /* Ensure page table writes precede loading the SATP */
-     sfence_vma();
- 
-@@ -255,25 +261,44 @@ void __init noreturn noinline enable_mmu()
-     csr_write(CSR_SATP,
-               PFN_DOWN((unsigned long)stage1_pgtbl_root) |
-               RV_STAGE1_MODE << SATP_MODE_SHIFT);
-+}
- 
--    asm volatile ( ".p2align 2" );
-- mmu_is_enabled:
--    /*
--     * Stack should be re-inited as:
--     * 1. Right now an address of the stack is relative to load time
--     *    addresses what will cause an issue in case of load start address
--     *    isn't equal to linker start address.
--     * 2. Addresses in stack are all load time relative which can be an
--     *    issue in case when load start address isn't equal to linker
--     *    start address.
--     *
--     * We can't return to the caller because the stack was reseted
--     * and it may have stash some variable on the stack.
--     * Jump to a brand new function as the stack was reseted
--     */
-+void __init remove_identity_mapping(void)
-+{
-+    static pte_t *pgtbl = stage1_pgtbl_root;
-+    static unsigned long load_start = XEN_VIRT_START;
-+    static unsigned int pt_level = CONFIG_PAGING_LEVELS - 1;
-+
-+    unsigned long load_end = LINK_TO_LOAD(_end);
-+    unsigned long xen_size;
-+    unsigned long pt_level_size = XEN_PT_LEVEL_SIZE(pt_level);
-+    unsigned long pte_nums;
-+
-+    unsigned long virt_indx = pt_index(pt_level, XEN_VIRT_START);
-+    unsigned long indx;
-+
-+    if ( load_start == XEN_VIRT_START )
-+        load_start = LINK_TO_LOAD(_start);
-+
-+    xen_size = load_end - load_start;
-+    pte_nums = ROUNDUP(xen_size, pt_level_size) / pt_level_size;
-+
-+    while ( pte_nums-- )
-+    {
-+        indx = pt_index(pt_level, load_start);
- 
--    switch_stack_and_jump((unsigned long)cpu0_boot_stack + STACK_SIZE,
--                          cont_after_mmu_is_enabled);
-+        if ( virt_indx != indx )
-+        {
-+            pgtbl[indx].pte = 0;
-+            load_start += XEN_PT_LEVEL_SIZE(pt_level);
-+        }
-+        else
-+        {
-+            pgtbl =  (pte_t *)LOAD_TO_LINK(pte_to_paddr(pgtbl[indx]));
-+            pt_level--;
-+            remove_identity_mapping();
-+        }
-+    }
- }
- 
- /*
-diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
-index a28714e0ef..d74412351e 100644
---- a/xen/arch/riscv/riscv64/head.S
-+++ b/xen/arch/riscv/riscv64/head.S
-@@ -38,6 +38,28 @@ ENTRY(start)
- 
-         jal     calc_phys_offset
- 
-+        jal     setup_initial_pagetables
-+
-+        jal     enable_mmu
-+
-+        la      t1, phys_offset
-+        REG_L   t1, (t1)
-+
-+        /* Calculate proper VA after jump from 1:1 mapping */
-+        la      t0, .L_primary_switched
-+        sub     t0, t0, t1
-+
-+        /* Jump from 1:1 mapping world */
-+        jr      t0
-+
-+.L_primary_switched:
-+        /*
-+         * cpu0_boot_stack address is 1:1 mapping related so it should be
-+         * recalculated after jump from 1:1 mapping world as 1:1 mapping
-+         * will be removed soon in start_xen().
-+         */
-+        jal     reset_stack
-+
-         /* restore hart_id ( bootcpu_id ) and dtb address */
-         mv      a0, s0
-         mv      a1, s1
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index dde8fb898b..6593f601c1 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -13,20 +13,10 @@ unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
- void __init noreturn start_xen(unsigned long bootcpu_id,
-                                paddr_t dtb_addr)
- {
--    early_printk("Hello from C env\n");
--
--    setup_initial_pagetables();
--
--    enable_mmu();
--
--    for ( ;; )
--        asm volatile ("wfi");
-+    remove_identity_mapping();
- 
--    unreachable();
--}
-+    early_printk("Hello from C env\n");
- 
--void __init noreturn cont_after_mmu_is_enabled(void)
--{
-     early_printk("All set up\n");
- 
-     for ( ;; )
-diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-index 9064852173..31ccebadcb 100644
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -173,4 +173,8 @@ ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
- ASSERT(!SIZEOF(.got),      ".got non-empty")
- ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
- 
-+/*
-+ * Changing the size of Xen binary can require an update of
-+ * PGTBL_INITIAL_COUNT.
-+ */
- ASSERT(_end - _start <= MB(2), "Xen too large for early-boot assumptions")
+This patch series aims to re-implement the lockless slab shrink using the
+refcount+RCU method proposed by Dave Chinner [4].
+
+[1]. https://lore.kernel.org/lkml/20230313112819.38938-1-zhengqi.arch@bytedance.com/
+[2]. https://lore.kernel.org/lkml/202305230837.db2c233f-yujie.liu@intel.com/
+[3]. https://lore.kernel.org/all/20230609081518.3039120-1-qi.zheng@linux.dev/
+[4]. https://lore.kernel.org/lkml/ZIJhou1d55d4H1s0@dread.disaster.area/
+
+2. Implementation
+=================
+
+Currently, the shrinker instances can be divided into the following three types:
+
+a) global shrinker instance statically defined in the kernel, such as
+   workingset_shadow_shrinker.
+
+b) global shrinker instance statically defined in the kernel modules, such as
+   mmu_shrinker in x86.
+
+c) shrinker instance embedded in other structures.
+
+For case a, the memory of shrinker instance is never freed. For case b, the
+memory of shrinker instance will be freed after synchronize_rcu() when the
+module is unloaded. For case c, the memory of shrinker instance will be freed
+along with the structure it is embedded in.
+
+In preparation for implementing lockless slab shrink, we need to dynamically
+allocate those shrinker instances in case c, then the memory can be dynamically
+freed alone by calling kfree_rcu().
+
+This patchset adds the following new APIs for dynamically allocating shrinker,
+and add a private_data field to struct shrinker to record and get the original
+embedded structure.
+
+1. shrinker_alloc()
+2. shrinker_free_non_registered()
+3. shrinker_register()
+4. shrinker_unregister()
+
+In order to simplify shrinker-related APIs and make shrinker more independent of
+other kernel mechanisms, this patchset uses the above APIs to convert all
+shrinkers (including case a and b) to dynamically allocated, and then remove all
+existing APIs. This will also have another advantage mentioned by Dave Chinner:
+
+```
+The other advantage of this is that it will break all the existing out of tree
+code and third party modules using the old API and will no longer work with a
+kernel using lockless slab shrinkers. They need to break (both at the source and
+binary levels) to stop bad things from happening due to using uncoverted
+shrinkers in the new setup.
+```
+
+Then we free the shrinker by calling kfree_rcu(), and use rcu_read_{lock,unlock}()
+to ensure that the shrinker instance is valid. And the shrinker::refcount
+mechanism ensures that the shrinker instance will not be run again after
+unregistration. So the structure that records the pointer of shrinker instance
+can be safely freed without waiting for the RCU read-side critical section.
+
+In this way, while we implement the lockless slab shrink, we don't need to be
+blocked in unregister_shrinker() to wait RCU read-side critical section.
+
+PATCH 1: move shrinker-related code into a separate file
+PATCH 2: remove redundant shrinker_rwsem in debugfs operations
+PATCH 3: add infrastructure for dynamically allocating shrinker
+PATCH 4 ~ 21: dynamically allocate the shrinker instances in case a and b
+PATCH 22 ~ 40: dynamically allocate the shrinker instances in case c
+PATCH 41: remove old APIs
+PATCH 42: introduce pool_shrink_rwsem to implement private synchronize_shrinkers()
+PATCH 43: add a secondary array for shrinker_info::{map, nr_deferred}
+PATCH 44 ~ 45: implement the lockless slab shrink
+PATCH 46 ~ 47: convert shrinker_rwsem to mutex
+
+3. Testing
+==========
+
+3.1 slab shrink stress test
+---------------------------
+
+We can reproduce the down_read_trylock() hotspot through the following script:
+
+```
+
+DIR="/root/shrinker/memcg/mnt"
+
+do_create()
+{
+    mkdir -p /sys/fs/cgroup/memory/test
+    echo 4G > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
+    for i in `seq 0 $1`;
+    do
+        mkdir -p /sys/fs/cgroup/memory/test/$i;
+        echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
+        mkdir -p $DIR/$i;
+    done
+}
+
+do_mount()
+{
+    for i in `seq $1 $2`;
+    do
+        mount -t tmpfs $i $DIR/$i;
+    done
+}
+
+do_touch()
+{
+    for i in `seq $1 $2`;
+    do
+        echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
+        dd if=/dev/zero of=$DIR/$i/file$i bs=1M count=1 &
+    done
+}
+
+case "$1" in
+  touch)
+    do_touch $2 $3
+    ;;
+  test)
+    do_create 4000
+    do_mount 0 4000
+    do_touch 0 3000
+    ;;
+  *)
+    exit 1
+    ;;
+esac
+```
+
+Save the above script, then run test and touch commands. Then we can use the
+following perf command to view hotspots:
+
+perf top -U -F 999
+
+1) Before applying this patchset:
+
+  40.44%  [kernel]            [k] down_read_trylock
+  17.59%  [kernel]            [k] up_read
+  13.64%  [kernel]            [k] pv_native_safe_halt
+  11.90%  [kernel]            [k] shrink_slab
+   8.21%  [kernel]            [k] idr_find
+   2.71%  [kernel]            [k] _find_next_bit
+   1.36%  [kernel]            [k] shrink_node
+   0.81%  [kernel]            [k] shrink_lruvec
+   0.80%  [kernel]            [k] __radix_tree_lookup
+   0.50%  [kernel]            [k] do_shrink_slab
+   0.21%  [kernel]            [k] list_lru_count_one
+   0.16%  [kernel]            [k] mem_cgroup_iter
+
+2) After applying this patchset:
+
+  60.17%  [kernel]           [k] shrink_slab
+  20.42%  [kernel]           [k] pv_native_safe_halt
+   3.03%  [kernel]           [k] do_shrink_slab
+   2.73%  [kernel]           [k] shrink_node
+   2.27%  [kernel]           [k] shrink_lruvec
+   2.00%  [kernel]           [k] __rcu_read_unlock
+   1.92%  [kernel]           [k] mem_cgroup_iter
+   0.98%  [kernel]           [k] __rcu_read_lock
+   0.91%  [kernel]           [k] osq_lock
+   0.63%  [kernel]           [k] mem_cgroup_calculate_protection
+   0.55%  [kernel]           [k] shrinker_put
+   0.46%  [kernel]           [k] list_lru_count_one
+
+We can see that the first perf hotspot becomes shrink_slab, which is what we
+expect.
+
+3.2 registeration and unregisteration stress test
+-------------------------------------------------
+
+Run the command below to test:
+
+stress-ng --timeout 60 --times --verify --metrics-brief --ramfs 9 &
+
+1) Before applying this patchset:
+
+setting to a 60 second run per stressor
+dispatching hogs: 9 ramfs
+stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+                          (secs)    (secs)    (secs)   (real time) (usr+sys time)
+ramfs            735238     60.00     12.37    363.70     12253.05        1955.08
+for a 60.01s run time:
+   1440.27s available CPU time
+     12.36s user time   (  0.86%)
+    363.70s system time ( 25.25%)
+    376.06s total time  ( 26.11%)
+load average: 10.79 4.47 1.69
+passed: 9: ramfs (9)
+failed: 0
+skipped: 0
+successful run completed in 60.01s (1 min, 0.01 secs)
+
+2) After applying this patchset:
+
+setting to a 60 second run per stressor
+dispatching hogs: 9 ramfs
+stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+                          (secs)    (secs)    (secs)   (real time) (usr+sys time)
+ramfs            746677     60.00     12.22    367.75     12443.70        1965.13
+for a 60.01s run time:
+   1440.26s available CPU time
+     12.21s user time   (  0.85%)
+    367.75s system time ( 25.53%)
+    379.96s total time  ( 26.38%)
+load average: 8.37 2.48 0.86
+passed: 9: ramfs (9)
+failed: 0
+skipped: 0
+successful run completed in 60.01s (1 min, 0.01 secs)
+
+We can see that the ops/s has hardly changed.
+
+This series is based on next-20230711, and the [PATCH v2 05/49] depends on the
+patch: https://lore.kernel.org/lkml/20230625154937.64316-1-qi.zheng@linux.dev/.
+
+Comments and suggestions are welcome.
+
+Thanks,
+Qi
+
+Changelog in v1 -> v2:
+ - implement the new APIs and convert all shrinkers to use it.
+   (suggested by Dave Chinner)
+ - fix UAF in PATCH [05/29] (pointed by Steven Price)
+ - add a secondary array for shrinker_info::{map, nr_deferred}
+ - re-implement the lockless slab shrink
+   (Since unifying the processing of global and memcg slab shrink needs to
+    modify the startup sequence (As I mentioned in https://lore.kernel.org/lkml/38b14080-4ce5-d300-8a0a-c630bca6806b@bytedance.com/),
+    I finally choose to process them separately.)
+ - collect Acked-bys
+
+Qi Zheng (47):
+  mm: vmscan: move shrinker-related code into a separate file
+  mm: shrinker: remove redundant shrinker_rwsem in debugfs operations
+  mm: shrinker: add infrastructure for dynamically allocating shrinker
+  kvm: mmu: dynamically allocate the x86-mmu shrinker
+  binder: dynamically allocate the android-binder shrinker
+  drm/ttm: dynamically allocate the drm-ttm_pool shrinker
+  xenbus/backend: dynamically allocate the xen-backend shrinker
+  erofs: dynamically allocate the erofs-shrinker
+  f2fs: dynamically allocate the f2fs-shrinker
+  gfs2: dynamically allocate the gfs2-glock shrinker
+  gfs2: dynamically allocate the gfs2-qd shrinker
+  NFSv4.2: dynamically allocate the nfs-xattr shrinkers
+  nfs: dynamically allocate the nfs-acl shrinker
+  nfsd: dynamically allocate the nfsd-filecache shrinker
+  quota: dynamically allocate the dquota-cache shrinker
+  ubifs: dynamically allocate the ubifs-slab shrinker
+  rcu: dynamically allocate the rcu-lazy shrinker
+  rcu: dynamically allocate the rcu-kfree shrinker
+  mm: thp: dynamically allocate the thp-related shrinkers
+  sunrpc: dynamically allocate the sunrpc_cred shrinker
+  mm: workingset: dynamically allocate the mm-shadow shrinker
+  drm/i915: dynamically allocate the i915_gem_mm shrinker
+  drm/msm: dynamically allocate the drm-msm_gem shrinker
+  drm/panfrost: dynamically allocate the drm-panfrost shrinker
+  dm: dynamically allocate the dm-bufio shrinker
+  dm zoned: dynamically allocate the dm-zoned-meta shrinker
+  md/raid5: dynamically allocate the md-raid5 shrinker
+  bcache: dynamically allocate the md-bcache shrinker
+  vmw_balloon: dynamically allocate the vmw-balloon shrinker
+  virtio_balloon: dynamically allocate the virtio-balloon shrinker
+  mbcache: dynamically allocate the mbcache shrinker
+  ext4: dynamically allocate the ext4-es shrinker
+  jbd2,ext4: dynamically allocate the jbd2-journal shrinker
+  nfsd: dynamically allocate the nfsd-client shrinker
+  nfsd: dynamically allocate the nfsd-reply shrinker
+  xfs: dynamically allocate the xfs-buf shrinker
+  xfs: dynamically allocate the xfs-inodegc shrinker
+  xfs: dynamically allocate the xfs-qm shrinker
+  zsmalloc: dynamically allocate the mm-zspool shrinker
+  fs: super: dynamically allocate the s_shrink
+  mm: shrinker: remove old APIs
+  drm/ttm: introduce pool_shrink_rwsem
+  mm: shrinker: add a secondary array for shrinker_info::{map,
+    nr_deferred}
+  mm: shrinker: make global slab shrink lockless
+  mm: shrinker: make memcg slab shrink lockless
+  mm: shrinker: hold write lock to reparent shrinker nr_deferred
+  mm: shrinker: convert shrinker_rwsem to mutex
+
+ arch/x86/kvm/mmu/mmu.c                        |  18 +-
+ drivers/android/binder_alloc.c                |  31 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  30 +-
+ drivers/gpu/drm/i915/i915_drv.h               |   2 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |   4 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   4 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |  36 +-
+ drivers/gpu/drm/panfrost/panfrost_device.h    |   2 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c       |   6 +-
+ drivers/gpu/drm/panfrost/panfrost_gem.h       |   2 +-
+ .../gpu/drm/panfrost/panfrost_gem_shrinker.c  |  32 +-
+ drivers/gpu/drm/ttm/ttm_pool.c                |  38 +-
+ drivers/md/bcache/bcache.h                    |   2 +-
+ drivers/md/bcache/btree.c                     |  27 +-
+ drivers/md/bcache/sysfs.c                     |   3 +-
+ drivers/md/dm-bufio.c                         |  26 +-
+ drivers/md/dm-cache-metadata.c                |   2 +-
+ drivers/md/dm-zoned-metadata.c                |  28 +-
+ drivers/md/raid5.c                            |  25 +-
+ drivers/md/raid5.h                            |   2 +-
+ drivers/misc/vmw_balloon.c                    |  38 +-
+ drivers/virtio/virtio_balloon.c               |  25 +-
+ drivers/xen/xenbus/xenbus_probe_backend.c     |  17 +-
+ fs/btrfs/super.c                              |   2 +-
+ fs/erofs/utils.c                              |  20 +-
+ fs/ext4/ext4.h                                |   2 +-
+ fs/ext4/extents_status.c                      |  22 +-
+ fs/f2fs/super.c                               |  32 +-
+ fs/gfs2/glock.c                               |  20 +-
+ fs/gfs2/main.c                                |   6 +-
+ fs/gfs2/quota.c                               |  26 +-
+ fs/gfs2/quota.h                               |   3 +-
+ fs/jbd2/journal.c                             |  27 +-
+ fs/kernfs/mount.c                             |   2 +-
+ fs/mbcache.c                                  |  23 +-
+ fs/nfs/nfs42xattr.c                           |  87 +-
+ fs/nfs/super.c                                |  20 +-
+ fs/nfsd/filecache.c                           |  22 +-
+ fs/nfsd/netns.h                               |   4 +-
+ fs/nfsd/nfs4state.c                           |  20 +-
+ fs/nfsd/nfscache.c                            |  31 +-
+ fs/proc/root.c                                |   2 +-
+ fs/quota/dquot.c                              |  17 +-
+ fs/super.c                                    |  39 +-
+ fs/ubifs/super.c                              |  22 +-
+ fs/xfs/xfs_buf.c                              |  25 +-
+ fs/xfs/xfs_buf.h                              |   2 +-
+ fs/xfs/xfs_icache.c                           |  26 +-
+ fs/xfs/xfs_mount.c                            |   4 +-
+ fs/xfs/xfs_mount.h                            |   2 +-
+ fs/xfs/xfs_qm.c                               |  26 +-
+ fs/xfs/xfs_qm.h                               |   2 +-
+ include/linux/fs.h                            |   2 +-
+ include/linux/jbd2.h                          |   2 +-
+ include/linux/memcontrol.h                    |  12 +-
+ include/linux/shrinker.h                      |  54 +-
+ kernel/rcu/tree.c                             |  21 +-
+ kernel/rcu/tree_nocb.h                        |  19 +-
+ mm/Makefile                                   |   4 +-
+ mm/huge_memory.c                              |  69 +-
+ mm/shrinker.c                                 | 772 ++++++++++++++++++
+ mm/shrinker_debug.c                           |  76 +-
+ mm/vmscan.c                                   | 701 ----------------
+ mm/workingset.c                               |  26 +-
+ mm/zsmalloc.c                                 |  28 +-
+ net/sunrpc/auth.c                             |  19 +-
+ 66 files changed, 1516 insertions(+), 1225 deletions(-)
+ create mode 100644 mm/shrinker.c
+
 -- 
-2.41.0
+2.30.2
 
 
