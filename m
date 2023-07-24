@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DF4075F27D
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 12:15:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568690.888446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E245975F2AE
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 12:18:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568694.888457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNsam-0005To-T7; Mon, 24 Jul 2023 10:15:04 +0000
+	id 1qNsde-0006DP-Gl; Mon, 24 Jul 2023 10:18:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568690.888446; Mon, 24 Jul 2023 10:15:04 +0000
+Received: by outflank-mailman (output) from mailman id 568694.888457; Mon, 24 Jul 2023 10:18:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNsam-0005Rw-OV; Mon, 24 Jul 2023 10:15:04 +0000
-Received: by outflank-mailman (input) for mailman id 568690;
- Mon, 24 Jul 2023 10:15:03 +0000
+	id 1qNsde-0006An-BW; Mon, 24 Jul 2023 10:18:02 +0000
+Received: by outflank-mailman (input) for mailman id 568694;
+ Mon, 24 Jul 2023 10:18:00 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qNsal-0005Rq-IU
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 10:15:03 +0000
+ (envelope-from <julien@xen.org>) id 1qNsdc-0006Ah-DE
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 10:18:00 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qNsal-0004xf-1Q; Mon, 24 Jul 2023 10:15:03 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ id 1qNsdb-000505-OP; Mon, 24 Jul 2023 10:17:59 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qNsak-00020c-Mp; Mon, 24 Jul 2023 10:15:02 +0000
+ id 1qNsdb-000257-Jc; Mon, 24 Jul 2023 10:17:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,214 +40,83 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
-	Subject:Cc:To:From; bh=hCg9UPO+iJ8A9P2inWazj1KBsCeHxGmLi7g4EiwiQ6E=; b=VRyjB7
-	F/mUUH3bgKVaTO54zMaH25w54ePycYK8ojYjzgRWM5eMqtc4ODSwEIALDqDqjcUZNgafMEqWb1UAG
-	ZtYd3b6njpN4aweqNrCm+o577TnWB2fO013HG3cz8fkn9IYkT7pUEm6JRYyIn+6nspQUo4ePqDKZO
-	m1BRFOQ5BlM=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: Luca.Fancellu@arm.com,
-	michal.orzel@amd.com,
-	Henry.Wang@arm.com,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2] xen/arm32: head: Widen the use of the temporary mapping
-Date: Mon, 24 Jul 2023 11:14:58 +0100
-Message-Id: <20230724101458.79412-1-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=OPFAh+JMkSbhiwigso2scbLewGXjLhTXiV380AezFxE=; b=1ncu61U+RiN/hXI/oC2wmZq1w6
+	tP/1UzGGS0vl01YaENlphPavQ/EGlFaCuN82jJOQeMrs7/jxUZaOQf/BAdtv8AQ2ayxW/TUtuOjGT
+	o1PnuvrctJ8V/+EIXJ9NzOEes7KSxFMAwF+NM2CLDkDkwGCu7V8l5RmqYApZTMHzx9X0=;
+Message-ID: <fcd60aeb-e983-93a2-8da3-0193d1062764@xen.org>
+Date: Mon, 24 Jul 2023 11:17:58 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH v2 1/2] tools/xenstore: add const to the return type of
+ canonicalize()
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230722081646.4136-1-jgross@suse.com>
+ <20230722081646.4136-2-jgross@suse.com>
+ <adc0b17a-1d59-8c52-8823-64a0d9ec475b@xen.org>
+ <e374c950-7dce-2e28-3b4c-946f4a0a2aec@xen.org>
+ <2fca0a55-3cbf-1875-62c9-2d27cbdd5f20@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <2fca0a55-3cbf-1875-62c9-2d27cbdd5f20@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi,
 
-At the moment, the temporary mapping is only used when the virtual
-runtime region of Xen is clashing with the physical region.
+On 24/07/2023 08:10, Juergen Gross wrote:
+> On 22.07.23 18:44, Julien Grall wrote:
+>>
+>>
+>> On 22/07/2023 16:20, Julien Grall wrote:
+>>> Hi Juergen,
+>>>
+>>> On 22/07/2023 09:16, Juergen Gross wrote:
+>>>> -static struct watch *add_watch(struct connection *conn, char *path, 
+>>>> char *token,
+>>>> -                   bool relative, bool no_quota_check)
+>>>> +static struct watch *add_watch(struct connection *conn, const char 
+>>>> *path,
+>>>> +                   const char *token, bool relative,
+>>>> +                   bool no_quota_check)
+>>>>   {
+>>>>       struct watch *watch;
+>>>> @@ -218,12 +219,14 @@ int do_watch(const void *ctx, struct 
+>>>> connection *conn, struct buffered_data *in)
+>>>>   {
+>>>>       struct watch *watch;
+>>>>       char *vec[2];
+>>>> +    const char *path;
+>>>>       bool relative;
+>>>>       if (get_strings(in, vec, ARRAY_SIZE(vec)) != ARRAY_SIZE(vec))
+>>>>           return EINVAL;
+>>>> -    errno = check_watch_path(conn, ctx, &(vec[0]), &relative);
+>>>> +    path = vec[0];
+>>>> +    errno = check_watch_path(conn, ctx, &path, &relative);
+>>>
+>>>  From my understanding, check_watch_path() could update vec[0] which 
+>>> is then used below. But with your change, vec[0] would not be updated 
+>>> anymore.
+>>>
+>>> I can see two possible approach:
+>>>     1) get_strings() is taking a const as well
+>>
+>> I have a patch doing this. I will send it on Monday.
+> 
+> Hmm, looking at this I think this will collide with my patch.
 
-In follow-up patches, we will rework how secondary CPU bring-up works
-and it will be convenient to use the fixmap area for accessing
-the root page-table (it is per-cpu).
+Yes, it will for check_watch_patch().
 
-Rework the code to use temporary mapping when the Xen physical address
-is not overlapping with the temporary mapping.
+> 
+> Would you mind me doing the conversion of get_strings() in my patch, too?
 
-This also has the advantage to simplify the logic to identity map
-Xen.
+Sure.
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+Cheers,
 
-----
-
-This patch was originally part of [1] but it was reverted due to
-Xen not booting on the Arndale. The second patch of this series
-is fixing it (confirmed by booting on the Arndale). So I am including
-this patch.
-
-[1] https://lore.kernel.org/xen-devel/20230416143211.72227-1-julien@xen.org/
-
-Changes in new v2:
-    - Rebase
-    - Drop reviewed-by tags
-
-Changelog from the previous series:
-
-    Changes in v6:
-        - Add Henry's reviewed-by and tested-by tag
-        - Add Michal's reviewed-by
-        - Add newline in remove_identity_mapping for clarity
-
-    Changes in v5:
-        - Fix typo in a comment
-        - No need to link boot_{second, third}_id again if we need to
-          create a temporary area.
-
-    Changes in v3:
-        - Resolve conflicts after switching from "ldr rX, <label>" to
-          "mov_w rX, <label>" in a previous patch
-
-    Changes in v2:
-        - Patch added
----
- xen/arch/arm/arm32/head.S | 86 ++++++++-------------------------------
- 1 file changed, 16 insertions(+), 70 deletions(-)
-
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index 26fc420b2e1f..33b038e7e0ca 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -473,7 +473,6 @@ ENDPROC(cpu_init)
- create_page_tables:
-         /* Prepare the page-tables for mapping Xen */
-         mov_w r0, XEN_VIRT_START
--        create_table_entry boot_pgtable, boot_second, r0, 1
- 
-         /*
-          * We need to use a stash register because
-@@ -519,70 +518,37 @@ create_page_tables:
-         cmp   r1, r0                 /* Loop until we map all of Xen */
-         blo   1b
- 
--        /*
--         * If Xen is loaded at exactly XEN_VIRT_START then we don't
--         * need an additional 1:1 mapping, the virtual mapping will
--         * suffice.
--         */
--        cmp   r9, #XEN_VIRT_START
--        moveq pc, lr
--
-         /*
-          * Setup the 1:1 mapping so we can turn the MMU on. Note that
-          * only the first page of Xen will be part of the 1:1 mapping.
--         *
--         * In all the cases, we will link boot_third_id. So create the
--         * mapping in advance.
-          */
-+        create_table_entry boot_pgtable, boot_second_id, r9, 1
-+        create_table_entry boot_second_id, boot_third_id, r9, 2
-         create_mapping_entry boot_third_id, r9, r9
- 
-         /*
--         * Find the first slot used. If the slot is not XEN_FIRST_SLOT,
--         * then the 1:1 mapping will use its own set of page-tables from
--         * the second level.
-+         * Find the first slot used. If the slot is not the same
-+         * as TEMPORARY_AREA_FIRST_SLOT, then we will want to switch
-+         * to the temporary mapping before jumping to the runtime
-+         * virtual mapping.
-          */
-         get_table_slot r1, r9, 1     /* r1 := first slot */
--        cmp   r1, #XEN_FIRST_SLOT
--        beq   1f
--        create_table_entry boot_pgtable, boot_second_id, r9, 1
--        b     link_from_second_id
--
--1:
--        /*
--         * Find the second slot used. If the slot is XEN_SECOND_SLOT, then the
--         * 1:1 mapping will use its own set of page-tables from the
--         * third level.
--         */
--        get_table_slot r1, r9, 2     /* r1 := second slot */
--        cmp   r1, #XEN_SECOND_SLOT
--        beq   virtphys_clash
--        create_table_entry boot_second, boot_third_id, r9, 2
--        b     link_from_third_id
-+        cmp   r1, #TEMPORARY_AREA_FIRST_SLOT
-+        bne   use_temporary_mapping
- 
--link_from_second_id:
--        create_table_entry boot_second_id, boot_third_id, r9, 2
--link_from_third_id:
--        /* Good news, we are not clashing with Xen virtual mapping */
-+        mov_w r0, XEN_VIRT_START
-+        create_table_entry boot_pgtable, boot_second, r0, 1
-         mov   r12, #0                /* r12 := temporary mapping not created */
-         mov   pc, lr
- 
--virtphys_clash:
-+use_temporary_mapping:
-         /*
--         * The identity map clashes with boot_third. Link boot_first_id and
--         * map Xen to a temporary mapping. See switch_to_runtime_mapping
--         * for more details.
-+         * The identity mapping is not using the first slot
-+         * TEMPORARY_AREA_FIRST_SLOT. Create a temporary mapping.
-+         * See switch_to_runtime_mapping for more details.
-          */
--        PRINT("- Virt and Phys addresses clash  -\r\n")
-         PRINT("- Create temporary mapping -\r\n")
- 
--        /*
--         * This will override the link to boot_second in XEN_FIRST_SLOT.
--         * The page-tables are not live yet. So no need to use
--         * break-before-make.
--         */
--        create_table_entry boot_pgtable, boot_second_id, r9, 1
--        create_table_entry boot_second_id, boot_third_id, r9, 2
--
-         /* Map boot_second (cover Xen mappings) to the temporary 1st slot */
-         mov_w r0, TEMPORARY_XEN_VIRT_START
-         create_table_entry boot_pgtable, boot_second, r0, 1
-@@ -720,33 +686,13 @@ remove_identity_mapping:
-         /* r2:r3 := invalid page-table entry */
-         mov   r2, #0x0
-         mov   r3, #0x0
--        /*
--         * Find the first slot used. Remove the entry for the first
--         * table if the slot is not XEN_FIRST_SLOT.
--         */
-+
-+        /* Find the first slot used and remove it */
-         get_table_slot r1, r9, 1     /* r1 := first slot */
--        cmp   r1, #XEN_FIRST_SLOT
--        beq   1f
--        /* It is not in slot 0, remove the entry */
-         mov_w r0, boot_pgtable       /* r0 := root table */
-         lsl   r1, r1, #3             /* r1 := Slot offset */
-         strd  r2, r3, [r0, r1]
--        b     identity_mapping_removed
--
--1:
--        /*
--         * Find the second slot used. Remove the entry for the first
--         * table if the slot is not XEN_SECOND_SLOT.
--         */
--        get_table_slot r1, r9, 2     /* r1 := second slot */
--        cmp   r1, #XEN_SECOND_SLOT
--        beq   identity_mapping_removed
--        /* It is not in slot 1, remove the entry */
--        mov_w r0, boot_second        /* r0 := second table */
--        lsl   r1, r1, #3             /* r1 := Slot offset */
--        strd  r2, r3, [r0, r1]
- 
--identity_mapping_removed:
-         flush_xen_tlb_local r0
-         mov   pc, lr
- ENDPROC(remove_identity_mapping)
 -- 
-2.40.1
-
+Julien Grall
 
