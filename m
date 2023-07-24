@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68222760234
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 00:24:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569252.889620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D835760245
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 00:29:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569255.889630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qO3yV-0000Y4-Vk; Mon, 24 Jul 2023 22:24:19 +0000
+	id 1qO433-0001C7-He; Mon, 24 Jul 2023 22:29:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569252.889620; Mon, 24 Jul 2023 22:24:19 +0000
+Received: by outflank-mailman (output) from mailman id 569255.889630; Mon, 24 Jul 2023 22:29:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qO3yV-0000WO-Sm; Mon, 24 Jul 2023 22:24:19 +0000
-Received: by outflank-mailman (input) for mailman id 569252;
- Mon, 24 Jul 2023 22:24:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qO433-00019W-EP; Mon, 24 Jul 2023 22:29:01 +0000
+Received: by outflank-mailman (input) for mailman id 569255;
+ Mon, 24 Jul 2023 22:29:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AJiQ=DK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qO3yU-0000WC-HS
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 22:24:18 +0000
+ id 1qO432-00019Q-0V
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 22:29:00 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2c9202c-2a70-11ee-b23c-6b7b168915f2;
- Tue, 25 Jul 2023 00:24:16 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7a3f6c7c-2a71-11ee-8612-37d641c3527e;
+ Tue, 25 Jul 2023 00:28:57 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4A5C26143D;
- Mon, 24 Jul 2023 22:24:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D18C433C7;
- Mon, 24 Jul 2023 22:24:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 14A906144E;
+ Mon, 24 Jul 2023 22:28:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6977AC433C8;
+ Mon, 24 Jul 2023 22:28:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,109 +44,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2c9202c-2a70-11ee-b23c-6b7b168915f2
+X-Inumbo-ID: 7a3f6c7c-2a71-11ee-8612-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690237454;
-	bh=T4VaUWM7QMySV5arEfjq710+X6f2/x+T6JgWklnuo58=;
+	s=k20201202; t=1690237735;
+	bh=UGSJRNRJY2sX+WOaCRfEkNafNwXKK+QCD1M7K1RX084=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FQhBwsG0uVLL6zEuQxekSWx3wzp6wbjsbBh51uQ+a1lRB9b7m5uVDXaK0qaYQP0Nx
-	 ImqfttZHRJTcXrQK5bZ0WGD54x5sBbKycCT9YDquhc2gHX3Y4QF6stnooXY+2CXAfn
-	 04uQF6rgKoieGqSwqz866jGfk17OfAnZQIZgAcC+l4J8OQDpCMWGjgbyH/rVraMBOt
-	 EvCMZYnphwyzT8ULNcevFEVHC+9cgNCCgXHEranKVFSOnyCS7VFsmyqJg6K1yNyRoY
-	 13MiIbcQN2H7VUMPxCTGMYHi9/G87I9sdDGzC1W4YMA6kxZEZQIHKAilzV9oSRk8/8
-	 ZZmcNEp0wsjeQ==
-Date: Mon, 24 Jul 2023 15:24:11 -0700 (PDT)
+	b=QKtS6FvrcwLehzVyxzzuRo+LTK2wd+UxHDfeQIE3ts82ji4ooE+k6S+MoQTAv/ol/
+	 byuzgdvl27DpzDNrVcNRBDaIDu7HgTP02/GV0u5ZWgI/84y6ib1UmXvwyFn3e4vgMp
+	 wHCoBdFke6Xqtgt0mFY8shxm6j0gLjcsWKjB8H/m6Zm630/l0qOhMr8JZOYo9V6BK9
+	 muN+bQs3iD6vN4W7NSEn4iBKMYeL2XnhUOG+EZxkyhzzaejZjFyq6WxWKeu9LV/5fU
+	 SVm/Cgr5ra3Z7TEmuPgtDH66L3uU0GidkzjcUTAw2VRv4Plgdl0scq6sincqAps0QX
+	 hk1es57F1kLmg==
+Date: Mon, 24 Jul 2023 15:28:52 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, nicola.vetrini@bugseng.com, 
+    Julien Grall <jgrall@amazon.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH v2] xen/arm/atomic: change parameter name in
- atomic_cmpxchg() definition
-In-Reply-To: <a45f6a84f3c50a694e0f55042ef1b2f9ad9ac57d.1690184136.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307241524050.3118466@ubuntu-linux-20-04-desktop>
-References: <a45f6a84f3c50a694e0f55042ef1b2f9ad9ac57d.1690184136.git.federico.serafini@bugseng.com>
+Subject: Re: [PATCH] xen/dt: Rework the prototype of dt_property_read_string()
+ to help Eclair
+In-Reply-To: <20230724102443.91894-1-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2307241528150.3118466@ubuntu-linux-20-04-desktop>
+References: <20230724102443.91894-1-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 24 Jul 2023, Federico Serafini wrote:
-> Change parameter name from 'ptr' to 'v' in the function definition thus
-> addressing violations of MISRA C:2012 Rule 8.3: "All declarations of an
-> object or function shall use the same names and type qualifiers".
+On Mon, 24 Jul 2023, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> No functional changes.
+> Eclair vXXX is unable to prove the parameter out_string will only be
+> used the return of dt_property_read_string() is 0. So it will consider
+> that MISRA C:2012 Rule 9.1 was violated.
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> Rework the prototype so the string is returned and use ERR_PTR() to
+> embed the error code.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+I'll let you sort out the best commit message. For the code changes:
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> Changes in v2:
->   - added arm tag;
->   - propagated change to arm32.
-> ---
->  xen/arch/arm/include/asm/arm32/atomic.h | 8 ++++----
->  xen/arch/arm/include/asm/arm64/atomic.h | 4 ++--
->  2 files changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/xen/arch/arm/include/asm/arm32/atomic.h b/xen/arch/arm/include/asm/arm32/atomic.h
-> index 2832a72792..33f9e73b19 100644
-> --- a/xen/arch/arm/include/asm/arm32/atomic.h
-> +++ b/xen/arch/arm/include/asm/arm32/atomic.h
-> @@ -113,13 +113,13 @@ static inline void atomic_and(int m, atomic_t *v)
->  	: "cc");
+> The XXX should be replaced with the version of Eclair. Nicola, can you
+> provide it?
+> ---
+>  xen/arch/arm/domain_build.c   |  4 +++-
+>  xen/arch/arm/psci.c           | 10 +++++-----
+>  xen/common/device_tree.c      | 15 +++++++--------
+>  xen/drivers/char/arm-uart.c   | 10 ++++++----
+>  xen/include/xen/device_tree.h | 16 ++++++++--------
+>  5 files changed, 29 insertions(+), 26 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 39b4ee03a505..2f98f0b1bd9c 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3850,7 +3850,9 @@ static int __init construct_domU(struct domain *d,
+>  
+>      kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+>  
+> -    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+> +    dom0less_enhanced = dt_property_read_string(node, "xen,enhanced");
+> +
+> +    rc = IS_ERR(dom0less_enhanced) ? PTR_ERR(dom0less_enhanced) : 0;
+>      if ( rc == -EILSEQ ||
+>           rc == -ENODATA ||
+>           (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+> diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
+> index 695d2fa1f1b5..8e01b5962c63 100644
+> --- a/xen/arch/arm/psci.c
+> +++ b/xen/arch/arm/psci.c
+> @@ -8,7 +8,7 @@
+>   * Copyright (c) 2013 Linaro Limited.
+>   */
+>  
+> -
+> +#include <xen/err.h>
+>  #include <xen/types.h>
+>  #include <xen/init.h>
+>  #include <xen/mm.h>
+> @@ -85,13 +85,13 @@ static int __init psci_features(uint32_t psci_func_id)
+>  
+>  static int __init psci_is_smc_method(const struct dt_device_node *psci)
+>  {
+> -    int ret;
+>      const char *prop_str;
+>  
+> -    ret = dt_property_read_string(psci, "method", &prop_str);
+> -    if ( ret )
+> +    prop_str = dt_property_read_string(psci, "method");
+> +    if ( IS_ERR(prop_str) )
+>      {
+> -        printk("/psci node does not provide a method (%d)\n", ret);
+> +        printk("/psci node does not provide a method (%ld)\n",
+> +               PTR_ERR(prop_str));
+>          return -EINVAL;
+>      }
+>  
+> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> index 0677193ab370..11222c3a8abf 100644
+> --- a/xen/common/device_tree.c
+> +++ b/xen/common/device_tree.c
+> @@ -191,21 +191,20 @@ bool_t dt_property_read_u64(const struct dt_device_node *np,
+>  
+>      return 1;
+>  }
+> -int dt_property_read_string(const struct dt_device_node *np,
+> -                            const char *propname, const char **out_string)
+> +
+> +const char *dt_property_read_string(const struct dt_device_node *np,
+> +                                    const char *propname)
+>  {
+>      const struct dt_property *pp = dt_find_property(np, propname, NULL);
+>  
+>      if ( !pp )
+> -        return -EINVAL;
+> +        return ERR_PTR(-EINVAL);
+>      if ( !pp->length )
+> -        return -ENODATA;
+> +        return ERR_PTR(-ENODATA);
+>      if ( strnlen(pp->value, pp->length) >= pp->length )
+> -        return -EILSEQ;
+> -
+> -    *out_string = pp->value;
+> +        return ERR_PTR(-EILSEQ);
+>  
+> -    return 0;
+> +    return pp->value;
 >  }
 >  
-> -static inline int atomic_cmpxchg(atomic_t *ptr, int old, int new)
-> +static inline int atomic_cmpxchg(atomic_t *v, int old, int new)
->  {
->  	int oldval;
->  	unsigned long res;
+>  /**
+> diff --git a/xen/drivers/char/arm-uart.c b/xen/drivers/char/arm-uart.c
+> index 8098a968c285..b76d8063beee 100644
+> --- a/xen/drivers/char/arm-uart.c
+> +++ b/xen/drivers/char/arm-uart.c
+> @@ -21,6 +21,7 @@
 >  
->  	smp_mb();
-> -	prefetchw(&ptr->counter);
-> +	prefetchw(&v->counter);
+>  #include <xen/console.h>
+>  #include <xen/device_tree.h>
+> +#include <xen/err.h>
+>  #include <xen/param.h>
+>  #include <xen/serial.h>
+>  #include <xen/errno.h>
+> @@ -55,16 +56,17 @@ static void __init dt_uart_init(void)
+>          {
+>              const char *stdout;
 >  
->  	do {
->  		__asm__ __volatile__("@ atomic_cmpxchg\n"
-> @@ -127,8 +127,8 @@ static inline int atomic_cmpxchg(atomic_t *ptr, int old, int new)
->  		"mov	%0, #0\n"
->  		"teq	%1, %4\n"
->  		"strexeq %0, %5, [%3]\n"
-> -		    : "=&r" (res), "=&r" (oldval), "+Qo" (ptr->counter)
-> -		    : "r" (&ptr->counter), "Ir" (old), "r" (new)
-> +		    : "=&r" (res), "=&r" (oldval), "+Qo" (v->counter)
-> +		    : "r" (&v->counter), "Ir" (old), "r" (new)
->  		    : "cc");
->  	} while (res);
+> -            ret = dt_property_read_string(chosen, "stdout-path", &stdout);
+> -            if ( ret >= 0 )
+> +            stdout = dt_property_read_string(chosen, "stdout-path");
+> +            if ( !IS_ERR(stdout) )
+>              {
+>                  printk("Taking dtuart configuration from /chosen/stdout-path\n");
+>                  if ( strlcpy(opt_dtuart, stdout, sizeof(opt_dtuart))
+>                       >= sizeof(opt_dtuart) )
+>                      printk("WARNING: /chosen/stdout-path too long, truncated\n");
+>              }
+> -            else if ( ret != -EINVAL /* Not present */ )
+> -                printk("Failed to read /chosen/stdout-path (%d)\n", ret);
+> +            else if ( PTR_ERR(stdout) != -EINVAL /* Not present */ )
+> +                printk("Failed to read /chosen/stdout-path (%ld)\n",
+> +                       PTR_ERR(stdout));
+>          }
+>      }
 >  
-> diff --git a/xen/arch/arm/include/asm/arm64/atomic.h b/xen/arch/arm/include/asm/arm64/atomic.h
-> index 2d42567866..4460165295 100644
-> --- a/xen/arch/arm/include/asm/arm64/atomic.h
-> +++ b/xen/arch/arm/include/asm/arm64/atomic.h
-> @@ -105,7 +105,7 @@ static inline void atomic_and(int m, atomic_t *v)
->  	: "Ir" (m));
->  }
+> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> index c2eada748915..492204b4feda 100644
+> --- a/xen/include/xen/device_tree.h
+> +++ b/xen/include/xen/device_tree.h
+> @@ -486,18 +486,18 @@ static inline bool_t dt_property_read_bool(const struct dt_device_node *np,
+>   *              if return value if 0.
+>   *
+>   * Search for a property in a device tree node and retrieve a null
+> - * terminated string value (pointer to data, not a copy). Returns 0 on
+> - * success, -EINVAL if the property does not exist, -ENODATA if property
+> - * doest not have value, and -EILSEQ if the string is not
+> - * null-terminated with the length of the property data.
+> + * terminated string value (pointer to data, not a copy). Returns a
+> + * pointer to a null terminated string on success, -EINVAL if the property
+> + * does not exist, -ENODATA if property doest not have value, and -EILSEQ
+> + * if the string is not null-terminated with the length of the property data.
+> + *
+> + * The caller should use IS_ERR(...) to check if an error is returned.
+>   *
+>   * Note that the empty string "" has length of 1, thus -ENODATA cannot
+>   * be interpreted as an empty string.
+> - *
+> - * The out_string pointer is modified only if a valid string can be decoded.
+>   */
+> -int dt_property_read_string(const struct dt_device_node *np,
+> -                            const char *propname, const char **out_string);
+> +const char *dt_property_read_string(const struct dt_device_node *np,
+> +                                    const char *propname);
 >  
-> -static inline int atomic_cmpxchg(atomic_t *ptr, int old, int new)
-> +static inline int atomic_cmpxchg(atomic_t *v, int old, int new)
->  {
->  	unsigned long tmp;
->  	int oldval;
-> @@ -119,7 +119,7 @@ static inline int atomic_cmpxchg(atomic_t *ptr, int old, int new)
->  "	stxr	%w0, %w4, %2\n"
->  "	cbnz	%w0, 1b\n"
->  "2:"
-> -	: "=&r" (tmp), "=&r" (oldval), "+Q" (ptr->counter)
-> +	: "=&r" (tmp), "=&r" (oldval), "+Q" (v->counter)
->  	: "Ir" (old), "r" (new)
->  	: "cc");
->  
+>  /**
+>   * dt_property_match_string() - Find string in a list and return index
 > -- 
-> 2.34.1
+> 2.40.1
 > 
 
