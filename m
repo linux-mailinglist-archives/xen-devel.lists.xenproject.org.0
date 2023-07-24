@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E6AE75EE62
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 10:53:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568509.887865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B7C975EEE2
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 11:17:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568513.887877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNrIt-0006l3-2m; Mon, 24 Jul 2023 08:52:31 +0000
+	id 1qNrgJ-0000x3-2d; Mon, 24 Jul 2023 09:16:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568509.887865; Mon, 24 Jul 2023 08:52:31 +0000
+Received: by outflank-mailman (output) from mailman id 568513.887877; Mon, 24 Jul 2023 09:16:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNrIt-0006jG-0B; Mon, 24 Jul 2023 08:52:31 +0000
-Received: by outflank-mailman (input) for mailman id 568509;
- Mon, 24 Jul 2023 08:52:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FJWe=DK=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1qNrIr-0006j1-DI
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 08:52:29 +0000
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [2607:f8b0:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68f6c0e0-29ff-11ee-8612-37d641c3527e;
- Mon, 24 Jul 2023 10:52:25 +0200 (CEST)
-Received: by mail-pf1-x436.google.com with SMTP id
- d2e1a72fcca58-666e97fcc60so2168016b3a.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 01:52:26 -0700 (PDT)
-Received: from leoy-yangtze.lan (n058152048165.netvigator.com. [58.152.48.165])
- by smtp.gmail.com with ESMTPSA id
- y10-20020aa7804a000000b006862af32fbesm7468270pfm.14.2023.07.24.01.52.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 01:52:24 -0700 (PDT)
+	id 1qNrgI-0000tv-VL; Mon, 24 Jul 2023 09:16:42 +0000
+Received: by outflank-mailman (input) for mailman id 568513;
+ Mon, 24 Jul 2023 09:16:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jVkC=DK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qNrgH-0000tp-47
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 09:16:41 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cbfd16d6-2a02-11ee-b23a-6b7b168915f2;
+ Mon, 24 Jul 2023 11:16:39 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3809822897;
+ Mon, 24 Jul 2023 09:16:39 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0D4C213476;
+ Mon, 24 Jul 2023 09:16:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id YO2jAXdBvmQ/IQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 24 Jul 2023 09:16:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +51,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68f6c0e0-29ff-11ee-8612-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690188745; x=1690793545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q3vP9oVx6XJxTpEk4lj39ypfC446ppW0B9Ad1g8MeRw=;
-        b=a3aK1Xru3bnq80T4H/MTa4a2WlJfUFOMxElqqeRaJkTKwmZcEoboJH/E02s0rCduKl
-         c73qtM8iMbSWp9/Apmi1P8MgtZQ0wYyyKibF00sM0WKlDmn7dXQVlHgBZGI7iB8A97XA
-         SZGoq+pBUkcJRghyD9kuZX64t3yvpWN1fvLvu1budovqTiCjXqa4o67sA3rqsb6R3DGV
-         9gvw0/Nmj5oLnYrGa/Dy/XFjtKsmSXtCmAKMitE9PiN/2MJKk2+B3KjeFMc3nd8JRkA4
-         fCHZFca7p/gF1o/DPU1ce9O3sa+YH+m3dcoa7njjj4HSs0M1i3hQiam6JWiJkdQW6AwX
-         ESzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690188745; x=1690793545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Q3vP9oVx6XJxTpEk4lj39ypfC446ppW0B9Ad1g8MeRw=;
-        b=ODORZ3rTk1mutikV0PUKWcfNgL3Oxlaola0gNtACIQAsM5Z+LdsVFP8ixPGWYB2eO9
-         IMdTgcsJlq9eLrBN3gRsz81/cYVTz5NOmRgrzMD2OdFhcQn83bpioP5sfIzOCFe0sK2i
-         L0LIPVn6qvIrtZ5yilR2T4SVlZEsQAbRurjCvYdt9fYAv5ix65sgVvvU764P13YER0ij
-         2sParBmI5ScDftQHapux3MDBMcLivcMZm7XizUfZfBrfOkZnuFrVo0m5Ypfbqrn7QFDf
-         RmlM56FfK5Q1oHoGyBoviS9LNLPhl9U4n3NFABE9NDI+DIs4Ul2fVICFep7zNGPTSEm5
-         85qg==
-X-Gm-Message-State: ABy/qLZ7ss6HQ//8nZ1WlalpiF6VUk23Xe2hphkZUlAPSYI+RL1f7ntM
-	SD4rX0r39RFXE92gMcN3L/UqqBO3Zo5SJTG9xnU2WQ==
-X-Google-Smtp-Source: APBJJlHDhVp69JuqF8N0VBOWFEmBhf+3xPkJoxi2C2DVG7PlwC7504jjwnIFnTRlY9wKAS3aZbavfg==
-X-Received: by 2002:a05:6a00:2d8a:b0:666:81ae:fec0 with SMTP id fb10-20020a056a002d8a00b0066681aefec0mr5678751pfb.25.1690188744850;
-        Mon, 24 Jul 2023 01:52:24 -0700 (PDT)
-From: Leo Yan <leo.yan@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Leo Yan <leo.yan@linaro.org>
-Subject: [PATCH] docs: Correct name for xen-command-line.pandoc
-Date: Mon, 24 Jul 2023 16:52:11 +0800
-Message-Id: <20230724085211.1383703-1-leo.yan@linaro.org>
-X-Mailer: git-send-email 2.39.2
+X-Inumbo-ID: cbfd16d6-2a02-11ee-b23a-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1690190199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PVqUYuKw5DtX3E/gcgs6pb3jzkLuApZdht3gzt5Cm50=;
+	b=f7uL/Wzhfec9yNBM8nwWO1QCoIl8j6hMw5PZ2mj72v6LW4XVlviqTa7qi9ntiTiaroDmuC
+	slXH9Jp/bHbygQIqGHGFswTs5kT5ViiK3tfLAGqcvtFBJPzcPxPItouBsKUCq8T0/158Gs
+	5nTh54WQe3YrxMCnWORNKhJwevODdlg=
+Message-ID: <9dfdc8fb-443e-8f93-6602-8f3da36e4dd7@suse.com>
+Date: Mon, 24 Jul 2023 11:16:38 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] xenbus: check xen_domain in xenbus_probe_initcall
+Content-Language: en-US
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "pmladek@suse.com" <pmladek@suse.com>
+References: <alpine.DEB.2.22.394.2307211609140.3118466@ubuntu-linux-20-04-desktop>
+ <1fa1bb86-f0a9-62f5-b61a-ffb29daa81f5@epam.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <1fa1bb86-f0a9-62f5-b61a-ffb29daa81f5@epam.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------5jpAB1ZNhb0zUMmRkR2ST0EN"
 
-In the commit d661611d08 ("docs/markdown: Switch to using pandoc, and
-fix underscore escaping"), the documentation suffix was changed from
-".markdown" to ".pandoc"; however, the reference was missed to update.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------5jpAB1ZNhb0zUMmRkR2ST0EN
+Content-Type: multipart/mixed; boundary="------------DzOmqtnTZFubx8I0Bg7JsIrh";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "pmladek@suse.com" <pmladek@suse.com>
+Message-ID: <9dfdc8fb-443e-8f93-6602-8f3da36e4dd7@suse.com>
+Subject: Re: [PATCH] xenbus: check xen_domain in xenbus_probe_initcall
+References: <alpine.DEB.2.22.394.2307211609140.3118466@ubuntu-linux-20-04-desktop>
+ <1fa1bb86-f0a9-62f5-b61a-ffb29daa81f5@epam.com>
+In-Reply-To: <1fa1bb86-f0a9-62f5-b61a-ffb29daa81f5@epam.com>
 
-This patch updates the documentation name to xen-command-line.pandoc.
+--------------DzOmqtnTZFubx8I0Bg7JsIrh
+Content-Type: multipart/mixed; boundary="------------BQ7VU3I4Ib1808UMHFmXbJut"
 
-Fixes: d661611d08 ("docs/markdown: Switch to using pandoc, and fix underscore escaping")
-Signed-off-by: Leo Yan <leo.yan@linaro.org>
----
- docs/features/sched_credit2.pandoc | 2 +-
- docs/misc/arm/big.LITTLE.txt       | 2 +-
- xen/common/Kconfig                 | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+--------------BQ7VU3I4Ib1808UMHFmXbJut
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/docs/features/sched_credit2.pandoc b/docs/features/sched_credit2.pandoc
-index 436ff9f8f6..ef07e463cb 100644
---- a/docs/features/sched_credit2.pandoc
-+++ b/docs/features/sched_credit2.pandoc
-@@ -27,7 +27,7 @@ different than `credit2`) parameter is passed to Xen via the
- bootloader.
- 
- Other parameters are available for tuning the behavior of Credit2
--(see `docs/misc/xen-command-line.markdown` for a complete list and
-+(see `docs/misc/xen-command-line.pandoc` for a complete list and
- for their meaning).
- 
- Once the system is live, for creating a cpupool with Credit2 as
-diff --git a/docs/misc/arm/big.LITTLE.txt b/docs/misc/arm/big.LITTLE.txt
-index b6ea1c9d61..1d11058444 100644
---- a/docs/misc/arm/big.LITTLE.txt
-+++ b/docs/misc/arm/big.LITTLE.txt
-@@ -42,5 +42,5 @@ The following option runs one domain vcpu as big and one as LITTLE:
-   cpus = ["0-3", "4-7"]
- 
- 
--[1] docs/misc/xen-command-line.markdown
-+[1] docs/misc/xen-command-line.pandoc
- [2] docs/man/xl.cfg.pod.5
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index dd8d7c3f1c..0d248ab941 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -440,7 +440,7 @@ config DOM0_MEM
- 	  The specified string will be used for the dom0_mem parameter in
- 	  case it was not specified on the command line.
- 
--	  See docs/misc/xen-command-line.markdown for the supported syntax.
-+	  See docs/misc/xen-command-line.pandoc for the supported syntax.
- 
- 	  Leave empty if you are not sure what to specify.
- 
--- 
-2.39.2
+T24gMjIuMDcuMjMgMTU6MDAsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiANCj4g
+DQo+IE9uIDIyLjA3LjIzIDAyOjEzLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6DQo+IA0K
+PiBIZWxsbyBTdGVmYW5vDQo+IA0KPiANCj4+IFRoZSBzYW1lIHdheSB3ZSBhbHJlYWR5IGRv
+IGluIHhlbmJ1c19pbml0Lg0KPj4gRml4ZXMgdGhlIGZvbGxvd2luZyB3YXJuaW5nOg0KPj4N
+Cj4+IFsgIDM1Mi4xNzU1NjNdIFRyeWluZyB0byBmcmVlIGFscmVhZHktZnJlZSBJUlEgMA0K
+Pj4gWyAgMzUyLjE3NzM1NV0gV0FSTklORzogQ1BVOiAxIFBJRDogODggYXQga2VybmVsL2ly
+cS9tYW5hZ2UuYzoxODkzIGZyZWVfaXJxKzB4YmYvMHgzNTANCj4+IFsuLi5dDQo+PiBbICAz
+NTIuMjEzOTUxXSBDYWxsIFRyYWNlOg0KPj4gWyAgMzUyLjIxNDM5MF0gIDxUQVNLPg0KPj4g
+WyAgMzUyLjIxNDcxN10gID8gX193YXJuKzB4ODEvMHgxNzANCj4+IFsgIDM1Mi4yMTU0MzZd
+ICA/IGZyZWVfaXJxKzB4YmYvMHgzNTANCj4+IFsgIDM1Mi4yMTU5MDZdICA/IHJlcG9ydF9i
+dWcrMHgxMGIvMHgyMDANCj4+IFsgIDM1Mi4yMTY0MDhdICA/IHByYl9yZWFkX3ZhbGlkKzB4
+MTcvMHgyMA0KPj4gWyAgMzUyLjIxNjkyNl0gID8gaGFuZGxlX2J1ZysweDQ0LzB4ODANCj4+
+IFsgIDM1Mi4yMTc0MDldICA/IGV4Y19pbnZhbGlkX29wKzB4MTMvMHg2MA0KPj4gWyAgMzUy
+LjIxNzkzMl0gID8gYXNtX2V4Y19pbnZhbGlkX29wKzB4MTYvMHgyMA0KPj4gWyAgMzUyLjIx
+ODQ5N10gID8gZnJlZV9pcnErMHhiZi8weDM1MA0KPj4gWyAgMzUyLjIxODk3OV0gID8gX19w
+ZnhfeGVuYnVzX3Byb2JlX3RocmVhZCsweDEwLzB4MTANCj4+IFsgIDM1Mi4yMTk2MDBdICB4
+ZW5idXNfcHJvYmUrMHg3YS8weDgwDQo+PiBbICAzNTIuMjIxMDMwXSAgeGVuYnVzX3Byb2Jl
+X3RocmVhZCsweDc2LzB4YzANCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBTdGVmYW5vIFN0YWJl
+bGxpbmkgPHN0ZWZhbm8uc3RhYmVsbGluaUBhbWQuY29tPg0KPj4gVGVzdGVkLWJ5OiBQZXRy
+IE1sYWRlayA8cG1sYWRla0BzdXNlLmNvbT4NCj4gDQo+IA0KPiBSZXZpZXdlZC1ieTogT2xl
+a3NhbmRyIFR5c2hjaGVua28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPg0KPiAN
+Cj4gSSBndWVzcyB0aGlzIHdhbnRzIHRvIGdhaW4gdGhlIEZpeGVzIHRhZzoNCj4gDQo+IEZp
+eGVzOiA1YjMzNTM5NDllODkgKCJ4ZW46IGFkZCBzdXBwb3J0IGZvciBpbml0aWFsaXppbmcg
+eGVuc3RvcmUgbGF0ZXINCj4gYXMgSFZNIGRvbWFpbiIpDQoNCkknbGwgYWRkIGl0IHdoZW4g
+Y29tbWl0dGluZy4NCg0KDQpKdWVyZ2VuDQo=
+--------------BQ7VU3I4Ib1808UMHFmXbJut
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------BQ7VU3I4Ib1808UMHFmXbJut--
+
+--------------DzOmqtnTZFubx8I0Bg7JsIrh--
+
+--------------5jpAB1ZNhb0zUMmRkR2ST0EN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmS+QXYFAwAAAAAACgkQsN6d1ii/Ey9n
+KAf9Hj4DgJBzzT8gpPihw1w6pQ97w7OH8tPD0jUYIZHPmmn37LgnHek1HVcDPx//c0eZVA14F0N3
+UTnz0hq9Qc1kPDlv/r4rH5C0HqBcphbRnmn9qS9p8GWJOQhKXX1a3+et2LfHmt1BCJW2DrCaIaDm
+ujmUUfk7d4O6I3RFZIlqT+43o5peyaLeNhxLrZWu9JPhxHE+9YDv9w6gj5z6ATLcxQZ17dEhtKJs
+/C2C09fGUOVqabMGwW+6ldGicB4QeQ7A10zNaESHOV0r+9YnA5CgMg73YTidB5uuHFL3q5EzO/cN
+rF1FQU2hMWdJgPBvIeTDs/lD+Z43o6NQRxMA295oXQ==
+=NfFS
+-----END PGP SIGNATURE-----
+
+--------------5jpAB1ZNhb0zUMmRkR2ST0EN--
 
