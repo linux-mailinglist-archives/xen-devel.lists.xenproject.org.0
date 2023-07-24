@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0EB75F317
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 12:28:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568704.888476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4546575F34F
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 12:29:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568706.888486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNsnW-0008Md-KN; Mon, 24 Jul 2023 10:28:14 +0000
+	id 1qNsok-0000UP-VU; Mon, 24 Jul 2023 10:29:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568704.888476; Mon, 24 Jul 2023 10:28:14 +0000
+Received: by outflank-mailman (output) from mailman id 568706.888486; Mon, 24 Jul 2023 10:29:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNsnW-0008Kz-HO; Mon, 24 Jul 2023 10:28:14 +0000
-Received: by outflank-mailman (input) for mailman id 568704;
- Mon, 24 Jul 2023 10:28:13 +0000
+	id 1qNsok-0000R6-S9; Mon, 24 Jul 2023 10:29:30 +0000
+Received: by outflank-mailman (input) for mailman id 568706;
+ Mon, 24 Jul 2023 10:29:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GZnG=DK=citrix.com=prvs=5629cf0ab=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1qNsnV-0008Kr-J9
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 10:28:13 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8c300ab-2a0c-11ee-8612-37d641c3527e;
- Mon, 24 Jul 2023 12:28:10 +0200 (CEST)
+ <SRS0=sIK2=DK=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1qNsoj-0000R0-Pj
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 10:29:29 +0000
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6d565bf-2a0c-11ee-8612-37d641c3527e;
+ Mon, 24 Jul 2023 12:29:27 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id E886B320091C;
+ Mon, 24 Jul 2023 06:29:24 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Mon, 24 Jul 2023 06:29:25 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 24 Jul 2023 06:29:22 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,91 +43,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8c300ab-2a0c-11ee-8612-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1690194490;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+f9zFSLQ2gak6Gf97nxUR4+vN+KgXcXbChzBQRV/ijA=;
-  b=K9jbcP5OkOV+428vY5fRDE9OwmoueK/KfRhXGFJzMidvKVhxsaJTl5Iv
-   DLo0T/9aoySuzYjvR8CX5jdD1Hl4EQ4M5S4ytPw12rSQlPClxEsablKE0
-   XBnhLvw8YCEtj/+w3z90q//TKXdqrkk7wKPC3urhPNitmcOJ9JVLaiT+b
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 117641410
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:FNMfw6hbXrgdxiY8X+vf6U3JX161VxAKZh0ujC45NGQN5FlHY01je
- htvUW7QPv2KazGjfYsiPYmypkoO68PUmN9mGldqqSxnQSob9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsx+qyr0N8klgZmP6sT4wWFzyJ94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQUAQ9cKSiHot6ng7ulELNt25QONNvSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27B/
- z2Yoz2lW0ly2Nq36yqPynK2uM3zwS7KaZM5T4X/qvx0qQjGroAUIEJPDgbqyRWjsWaaRtlWb
- WId/CEjqawv3EWxS5/2WBjQiHyOswMYWtFQO/Yn8wzLwa3Riy6jD2gZSnh6adoptOc/Xzls3
- ViM9/v5CDoqvLCLRHa18raPsSj0KSUTNXUFZyIPUU0C+daLiIgrgwjGVNpLDK+/hdqzEjb1q
- w1mtwBn2e9V15RSkfzmoxae2WnESoX1ohAd6izoDyWd6iZFdc2sedby6AWLwO5SFdPMJrWeh
- 0Toi/Ry/chXU8DVzXfRHb1VdF26z63baWOB2DaDC7Fkrm3woCD7IOi89RkkfC9U3tA4lSgFi
- aM5kSdY/9dtMXSjdsebiKrhWp1xncAM+TkIP804j+aigbArLmdrBAk0OSatM5nFySDAa50XN
- 5aBatqLBn0HE6lhxzfeb75DgOdynX9kmT6CHcuTI/GbPV22PSD9dFv4GAHWMrBRAF2s/W05D
- Oqzx+PVkk4CAYUSkwHc8JIJLEBiEJTILcmeliCjTcbaelAOMDh4W5fsLUYJJ9QNc1J9yr2Zo
- RlQmyZwlDLCuJEwAVzTOyE9MumxDM8XQLBSFXVEAGtEEkMLOe6HhJrzvbNtFVX73ISPFcJJc
- sQ=
-IronPort-HdrOrdr: A9a23:7ahpLKw3aiArGdKurP0WKrPwLL1zdoMgy1knxilNoH1uA6qlfq
- WV9sjzuiWE6gr5O0tBpTnjAtjkfZq0z/cciugs1NyZLW3bUQWTXeZfBEjZrwEI2ReSygeQ78
- hdmmFFZuEZqzVB/KXH3DU=
-X-Talos-CUID: 9a23:5lUrSGPUsu3yqe5DVABYpQksHuUZYz7U0i2KIhLoJH57cejA
-X-Talos-MUID: 9a23:oU7wIgnN1xMqd59Hb5g0dnpAJM1Q476QKnxRnKQ3quLfDWssOSm02WE=
-X-IronPort-AV: E=Sophos;i="6.01,228,1684814400"; 
-   d="scan'208";a="117641410"
-Date: Mon, 24 Jul 2023 11:28:04 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: Jan Beulich <jbeulich@suse.com>, Rahul Singh <Rahul.Singh@arm.com>, "Roger
- Pau =?iso-8859-1?Q?Monn=E9?=" <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [OSSTEST] ts-kernel-build: add kernel kconfig for the Arndale
-Message-ID: <af1388d4-ddd8-4afe-8710-f5a780e8c333@perard>
-References: <20230721121627.1229906-1-luca.fancellu@arm.com>
- <ceb7d6ad-0292-facf-6ad5-4bd265a8d34d@suse.com>
- <2CA77C15-BA9B-4D98-80A0-B1B7EDE4E48B@arm.com>
+X-Inumbo-ID: f6d565bf-2a0c-11ee-8612-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1690194564; x=1690280964; bh=bRwBeznDm7R257YGjVw6nEKDUe4UcUMR/8q
+	E2bCz4vc=; b=GX2ZDMvAXgehf2SahEhgC/O4Cd/11DUqRB4BEwVtVLEZHRQCz7w
+	wuARVsCq8jmdpJlCVBWu5P7fUuD96g2XeAkF2GvVafQdE0cv3QK9LCje/B26nQtL
+	pKN9mhe0XnYsOn014yTIxaSLoq4tiCuQ07xB01LaoGh73DrH4EERYU3Ko9gzqqKw
+	vPyZOdhqANRpVSRyRvLVkVac6PR1amCUJq35F/R8JBNJkW/go21J0YI6pnpw9n/Z
+	F1ykGw3cWq56UqrXOWHgubhaBaLXAo4zkkA2H7JmBtVopZVlH/REGPr//C+LEO8M
+	JMZzaY/Zj6yZ1WeMFcWPDRcaD/ToWgvxV2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1690194564; x=1690280964; bh=bRwBeznDm7R25
+	7YGjVw6nEKDUe4UcUMR/8qE2bCz4vc=; b=0CY6hNqRUvzNjyEMbdOXDFJN71QjD
+	zHNksNkVVRhUKnrLsRJKzBMJz0ILMbDRbhoNyOO0xahVyXHkWRPGhkVuS1pNjDRR
+	oC69Pg8F0xw3N9tj0/rirn8oDhlcWusRNmWh83m90FPEeDrUX8zyeyAMKuTbc8BM
+	csz3gosk7BvwGrrwWmDsrLx5/plVTCt7fJyKOEBHWcro5YRr6Xwm6jG0Nqwe5DGy
+	71KYbSfuPHKVLnQh53Vel+tfBYFHfRDIsHz5+heGJ4AvYQ8LO4IrG96SobEQyd+A
+	KO3p+DK2Q1It9YjgvQEyc0JhAzrPAaVT6TUA787bejxWxL5BAI7Ls4tXw==
+X-ME-Sender: <xms:hFK-ZJdW_kEmBIRp34dLp2PaFRsTyUE2Aqmmg0rUQgN4MvbARAhcoA>
+    <xme:hFK-ZHOkQKhp5cXxmcEcjSypAtZyfpvLsE92Q2fpCFVeg2SlRhuC0svD2F-be_j_E
+    -MoJImGz0FBHBs>
+X-ME-Received: <xmr:hFK-ZCivqQKrO8-vov09bJFYDsxkQfvwm099ZaVIbX8853-f50PQo2Mf_sI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrheekgddvjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhhonhcu
+    ifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+    hmqeenucggtffrrghtthgvrhhnpeeftdefudeltdevhfehkeefhfeutdfhffdugeetffdv
+    gfehfeekhfetgedvuefggfenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshhimhhonhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:hFK-ZC_wYAPQOYH8iG3S8VnC9ffRLxMQug32483z2RCe668YzirbVg>
+    <xmx:hFK-ZFtCqPEDnnycVZD5lGXgb2lWyRTElQlL6ZalwWYKSiOlZoIc9w>
+    <xmx:hFK-ZBGfDKcvYyx1gKKQWOOWqS_PNVNgfOIJJjHnSufWL_0vd9IPgQ>
+    <xmx:hFK-ZO4f2YDJBVI2IDvm-n7MwbP17-4TznU9uvB_qEju_qR-xcRIJQ>
+Feedback-ID: idc5945a3:Fastmail
+Message-ID: <81ca146e-986c-b934-3567-2e1267a31ad7@invisiblethingslab.com>
+Date: Mon, 24 Jul 2023 12:29:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2CA77C15-BA9B-4D98-80A0-B1B7EDE4E48B@arm.com>
+Subject: Re: [PATCH] xen/events: Add wakeup support to xen-pirq
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20230313134102.3157-1-simon@invisiblethingslab.com>
+From: Simon Gaiser <simon@invisiblethingslab.com>
+In-Reply-To: <20230313134102.3157-1-simon@invisiblethingslab.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Hf0VWW22SHCK1Z6ZaG9MPeYj"
 
-On Fri, Jul 21, 2023 at 04:45:44PM +0000, Luca Fancellu wrote:
-> > On 21 Jul 2023, at 14:24, Jan Beulich <jbeulich@suse.com> wrote:
-> > On 21.07.2023 14:16, Luca Fancellu wrote:
-> >> --- a/ts-kernel-build
-> >> +++ b/ts-kernel-build
-> >> @@ -245,6 +245,7 @@ setopt CONFIG_SENSORS_LM90 n
-> >> setopt CONFIG_ICS932S401 n
-> >> 
-> >> # Enable some additional drivers for Arndale.
-> >> +setopt CONFIG_AHCI_DWC y
-> > 
-> > ... does it really need to be y (and not m) here?
-> 
-> I didn’t try with m before because I was unsure where the kernel module were put (in the disk? But then we need to read it),
-> but now I did a try with ‘m’ and it works, so I guess the module are put in some ramdisk instead of the disk we want to read.
-> 
-> Thanks for pointing that out.
-> 
-> @Roger, is it possible to change it on commit or should I send a v2?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Hf0VWW22SHCK1Z6ZaG9MPeYj
+Content-Type: multipart/mixed; boundary="------------NM7xgrV6rptQJ4hiPTQm8Yjd";
+ protected-headers="v1"
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <81ca146e-986c-b934-3567-2e1267a31ad7@invisiblethingslab.com>
+Subject: Re: [PATCH] xen/events: Add wakeup support to xen-pirq
+References: <20230313134102.3157-1-simon@invisiblethingslab.com>
+In-Reply-To: <20230313134102.3157-1-simon@invisiblethingslab.com>
 
-I've pushed the patch to "pretest" with this modification.
+--------------NM7xgrV6rptQJ4hiPTQm8Yjd
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-If osstest is happy with the patch (that is no regression with a
-"xen-unstable" flight), it will be committed.
+Simon Gaiser:
+> This allows entering and exiting s2idle. Actual S0ix residency is
+> another topic [1].
+>=20
+> Without this the ACPI code currently ignores the error enable_irq_wake(=
+)
+> returns when being used on a xen-pirq and the system goes to idle for
+> ever since the wakeup IRQ doesn't gets enabled. With [2] the error is
+> handled and the system refuses to go to s2idle.
+>=20
+> Link: https://lore.kernel.org/xen-devel/9051e484-b128-715a-9253-48af8e4=
+7bb9d@invisiblethingslab.com/ # [1]
+> Link: https://lore.kernel.org/linux-acpi/20230313125344.2893-1-simon@in=
+visiblethingslab.com/ # [2]
+> Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
+> ---
+>=20
+> While I think that the set of flags I set is correct, I'm not familiar
+> with that code, so please pay special attention during review if they
+> are actually correct for xen-pirq.
+>=20
+>  drivers/xen/events/events_base.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/even=
+ts_base.c
+> index c7715f8bd452..991082f04f05 100644
+> --- a/drivers/xen/events/events_base.c
+> +++ b/drivers/xen/events/events_base.c
+> @@ -2176,6 +2176,10 @@ static struct irq_chip xen_pirq_chip __read_most=
+ly =3D {
+>  	.irq_set_affinity	=3D set_affinity_irq,
+> =20
+>  	.irq_retrigger		=3D retrigger_dynirq,
+> +
+> +	.flags                  =3D IRQCHIP_SKIP_SET_WAKE |
+> +				  IRQCHIP_ENABLE_WAKEUP_ON_SUSPEND |
+> +				  IRQCHIP_MASK_ON_SUSPEND,
+>  };
+> =20
+>  static struct irq_chip xen_percpu_chip __read_mostly =3D {
+ping
 
-Thanks,
+--------------NM7xgrV6rptQJ4hiPTQm8Yjd--
 
--- 
-Anthony PERARD
+--------------Hf0VWW22SHCK1Z6ZaG9MPeYj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmS+UncACgkQkO9xfO/x
+ly9H4w/9H6fMRreUIMniGKL0lM56B1kdKr6WGIfsRP979zHetmBSz0dKKcjJ7e5b
+M+ljI+bNMocw/Pq4ph6EKLtrkCjsfH51+44EnZJmDgONbF5kZbxOZc1/YB+WHmWm
+qr1eRhq6p7ORtCCRiHdc2Rpr72HMoxc+YDNLhfxdF10j3CVI2jShuEp/hf46zZnM
+T3JSVXd1boQo09O2pt6Ka7BjbblfINJ0wT6zNdyhOeBEZMDI5siFP6cddKf+nrAo
+2m7CYP7Njgr0IALV1OC4NC39s+qEx7uNzBTVSLJkBpYvyvKC6XfHyJavyaY40MA7
+iyeA8hjq6IWCsZ67OcjAokF06ox0xr4ll7H8kx7QAZSwtSTbC+gK4zBgPn/DBAD1
+NWj8qHhxFl3oEb/KBZXTg+0JuABbU7ARk/JZhZxR62WZU2hwHMzUViy1hzUvOzty
+b1rzZTi3SsSmTaxZOr/vEHBkdde0FYQpLRowLs0v0uUvYB227Ey/HNxr0DJCC6CJ
+WhcArncJhkRV+A5kYy47iLJeDMQTElGCRNm1Anm42BMo475b2GT2CWcw0Spnhnnl
+pqGSfJISZTQ2HdZmcwFOzDnwBpTcByYsBI5ou5m2/JfRx5UWNGcsxRQaXSAp5IQ4
+QelAecD+Fh6LNjnWn3AXXDhBL3o40A+upI4T1prOr74lPjYZudI=
+=hLGI
+-----END PGP SIGNATURE-----
+
+--------------Hf0VWW22SHCK1Z6ZaG9MPeYj--
 
