@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDBDB75FC94
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE4475FC93
 	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 18:53:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569161.889451 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.569162.889460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNyna-0000k6-Gp; Mon, 24 Jul 2023 16:52:42 +0000
+	id 1qNynb-0000yM-Ne; Mon, 24 Jul 2023 16:52:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569161.889451; Mon, 24 Jul 2023 16:52:42 +0000
+Received: by outflank-mailman (output) from mailman id 569162.889460; Mon, 24 Jul 2023 16:52:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNyna-0000go-DK; Mon, 24 Jul 2023 16:52:42 +0000
-Received: by outflank-mailman (input) for mailman id 569161;
- Mon, 24 Jul 2023 16:52:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qNynb-0000w9-KK; Mon, 24 Jul 2023 16:52:43 +0000
+Received: by outflank-mailman (input) for mailman id 569162;
+ Mon, 24 Jul 2023 16:52:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+YiG=DK=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qNynY-0000Rl-Pq
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 16:52:40 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f86e7ac-2a42-11ee-b23b-6b7b168915f2;
- Mon, 24 Jul 2023 18:52:39 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-313e742a787so2894374f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 09:52:39 -0700 (PDT)
+ id 1qNyna-0000gc-8n
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 16:52:42 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8007e9d6-2a42-11ee-8612-37d641c3527e;
+ Mon, 24 Jul 2023 18:52:40 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3144bf65ce9so3489430f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 09:52:40 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net
  (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
  by smtp.gmail.com with ESMTPSA id
- x13-20020a5d60cd000000b0030ada01ca78sm13480777wrt.10.2023.07.24.09.52.37
+ x13-20020a5d60cd000000b0030ada01ca78sm13480777wrt.10.2023.07.24.09.52.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 24 Jul 2023 09:52:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -46,33 +46,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f86e7ac-2a42-11ee-b23b-6b7b168915f2
+X-Inumbo-ID: 8007e9d6-2a42-11ee-8612-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1690217558; x=1690822358;
+        d=cloud.com; s=cloud; t=1690217559; x=1690822359;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3OqOlHUGbYLsNw2DCYr1XfJ49MHPIApDoD89S57teGo=;
-        b=Dj2sUcDZPUR8iEur6y588xckGrd7OERkp/FAE/G+DmWG/xYeCCzVaTm+Mtrmk75PSV
-         DLoIf20R8RJpZHRSIzmV4rgN+ozDQYtzYw8P4vxaLGoDLd8kvmuBZVSiQPDiinqBcbo3
-         MmBgWQb+4+8dXAvJWk2Mr4oV4VQ/jnvl0Z8h4=
+        bh=A572cM8GKUnw4aLvmx7+QkpR9aur5X3rTBja4ErTb1k=;
+        b=bz2LZzqDjLeexZgD0bf/vo+LfkQbMWseYbLDirCYM4JJqBf1TsgdbNCcwJPiOsIezm
+         FpnGKKLQmOtmvll5VgRThGnwO7gVvepKYLa4RZ3bPCubuWuuiNO7IKzoqEQGgtEY9MZA
+         Ho0fWtZHPrfmcUSLJbqZvddgJ6PXx/prtTm/U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690217558; x=1690822358;
+        d=1e100.net; s=20221208; t=1690217559; x=1690822359;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3OqOlHUGbYLsNw2DCYr1XfJ49MHPIApDoD89S57teGo=;
-        b=ZYb9Piybznlz/nkgObFJ0tBs6lNlKFql/0hMNzU2H+O5GwZAqVwJ6V86+IgMPc8yy2
-         7M3HA8hdB0SIOWHXlFYkzA84f7eN8dwhD8+SYoc48ymbQwwCnFaemSFNomF0O7gVZGm+
-         civF1uzsHi7k45LMWj0k/vXMud3Mvv5YzQdr5Bd+prMqczaFIc52QJoOd2+n0WXxecJl
-         gSshGSOdtGGCaA82zw/D9+2wCKTDkg8HWUcwqw+AWkeZFFkI/lVWVqj6IJmHoTINvIXn
-         g+f96U64aZKF3T3+EXY7QwWh7TgrTFqI2BAaqvV56cqxrW+a+UchqE1+2TBJ779zeKZC
-         wC5w==
-X-Gm-Message-State: ABy/qLYZDUCUnG/yJYhpAFUN/jvRa2YuO2fQbEWmY6lG0ZPck7MVp+sx
-	PxSM0Zf7MCoUuwJh/9ZdgLHvcfwzv7yiwY+6ktU=
-X-Google-Smtp-Source: APBJJlGRi77c9zNJWYtpeiRgKRE9bFZwYBuQiSPvocOw7EHVHJnt59w7dC/XEonETQwuEP4NkaUP3g==
-X-Received: by 2002:adf:e9c7:0:b0:311:360e:ea3a with SMTP id l7-20020adfe9c7000000b00311360eea3amr12406885wrn.34.1690217558475;
-        Mon, 24 Jul 2023 09:52:38 -0700 (PDT)
+        bh=A572cM8GKUnw4aLvmx7+QkpR9aur5X3rTBja4ErTb1k=;
+        b=UQAafBiUiifM3eSTHbPsHCnUGql51ojR2QB1TWPlZK09Y+kEjZOC6sLEFjho5dIzuV
+         L2RAbFqdHtmp8bIQco6AQ+2AFC8gqGW45vL8SrC1IeBTGaZF1wkieq92JcE3eniht/hJ
+         hMsozxmmBjpfOwhV6hzaIYOkKQ0RVGRzDgUbO1zv0ErmmGE1xfj++ITmfOq0Y1yg+kLY
+         DDR7nhv/YZ1yv/JDZk6vFt8dWyp6l6rJ8brNCiUNOEA8fANf3oQOLCA6zfcDZokaUxWo
+         6EovdLl6/nitKFwfRY/Ev1JhJ+aFpsnAWpMZ3+YtxowPh/n0/RkCTzW8dkWNOAFDgXmG
+         FGFg==
+X-Gm-Message-State: ABy/qLbNsOpH4GqOk3J4YznHXUuafRsLKkwM9e77+Jwz6plqO8iEWna0
+	6mdPiKNQR3CAF2uP9/fH72C9yReoIqzr98GOfqc=
+X-Google-Smtp-Source: APBJJlG9eQSXgi17Zj7NZ2nSBfg6QzHxndz9XtpBvomf6xyXB1RwYTh/aNnHH+ur85VfYYuamzrAvA==
+X-Received: by 2002:adf:d4c5:0:b0:317:5ddb:a8bf with SMTP id w5-20020adfd4c5000000b003175ddba8bfmr2655699wrk.29.1690217559216;
+        Mon, 24 Jul 2023 09:52:39 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -80,59 +80,165 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v6 1/3] x86/microcode: Ignore microcode loading interface for revision = -1
-Date: Mon, 24 Jul 2023 17:52:33 +0100
-Message-Id: <20230724165235.25262-2-alejandro.vallejo@cloud.com>
+Subject: [PATCH v6 2/3] x86: Read MSR_ARCH_CAPS immediately after early_microcode_init()
+Date: Mon, 24 Jul 2023 17:52:34 +0100
+Message-Id: <20230724165235.25262-3-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230724165235.25262-1-alejandro.vallejo@cloud.com>
 References: <20230724165235.25262-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some hypervisors report ~0 as the microcode revision to mean "don't issue
-microcode updates". Ignore the microcode loading interface in that case.
+Move MSR_ARCH_CAPS read code from tsx_init() to early_cpu_init(). Because
+microcode updates might make them that MSR to appear/have different values
+we also must reload it after a microcode update in early_microcode_init().
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 v6:
-  * Change message content and move severity WARNING -> INFO (Andrew)
-      NOTE: It has a convoluted argument to simplify the last patch, that
-            uses the same printk()
+ * Invert logic of a verbosity-guard to reduce diff (Jan)
+ * Reflow last printk in v5/patch3:early_cpu_init() for line length (Jan)
+ * Rewrite comment for the early_cpu_init(false) statement (Jan)
 ---
- xen/arch/x86/cpu/microcode/core.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ xen/arch/x86/cpu/common.c         | 20 +++++++++++++++-----
+ xen/arch/x86/cpu/microcode/core.c |  9 +++++++++
+ xen/arch/x86/include/asm/setup.h  |  2 +-
+ xen/arch/x86/setup.c              |  2 +-
+ xen/arch/x86/tsx.c                | 16 ++++------------
+ 5 files changed, 30 insertions(+), 19 deletions(-)
 
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index cfcdaace12..2b9cc680ac 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -303,7 +303,7 @@ static inline u32 phys_pkg_id(u32 cpuid_apic, int index_msb)
+ 
+    WARNING: this function is only called on the BP.  Don't add code here
+    that is supposed to run on all CPUs. */
+-void __init early_cpu_init(void)
++void __init early_cpu_init(bool verbose)
+ {
+ 	struct cpuinfo_x86 *c = &boot_cpu_data;
+ 	u32 eax, ebx, ecx, edx;
+@@ -324,6 +324,8 @@ void __init early_cpu_init(void)
+ 	case X86_VENDOR_SHANGHAI: this_cpu = &shanghai_cpu_dev; break;
+ 	case X86_VENDOR_HYGON:    this_cpu = &hygon_cpu_dev;    break;
+ 	default:
++		if (!verbose)
++			break;
+ 		printk(XENLOG_ERR
+ 		       "Unrecognised or unsupported CPU vendor '%.12s'\n",
+ 		       c->x86_vendor_id);
+@@ -340,10 +342,13 @@ void __init early_cpu_init(void)
+ 	c->x86_capability[FEATURESET_1d] = edx;
+ 	c->x86_capability[FEATURESET_1c] = ecx;
+ 
+-	printk(XENLOG_INFO
+-	       "CPU Vendor: %s, Family %u (%#x), Model %u (%#x), Stepping %u (raw %08x)\n",
+-	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
+-	       c->x86_model, c->x86_model, c->x86_mask, eax);
++	if (verbose)
++		printk(XENLOG_INFO
++		       "CPU Vendor: %s, Family %u (%#x), "
++		       "Model %u (%#x), Stepping %u (raw %08x)\n",
++		       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86,
++		       c->x86, c->x86_model, c->x86_model, c->x86_mask,
++		       eax);
+ 
+ 	if (c->cpuid_level >= 7) {
+ 		uint32_t max_subleaf;
+@@ -352,6 +357,11 @@ void __init early_cpu_init(void)
+ 			    &c->x86_capability[FEATURESET_7c0],
+ 			    &c->x86_capability[FEATURESET_7d0]);
+ 
++		if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability))
++			rdmsr(MSR_ARCH_CAPABILITIES,
++			      c->x86_capability[FEATURESET_m10Al],
++			      c->x86_capability[FEATURESET_m10Ah]);
++
+ 		if (max_subleaf >= 1)
+ 			cpuid_count(7, 1, &eax, &ebx, &ecx,
+ 				    &c->x86_capability[FEATURESET_7d1]);
 diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index bec8b55db2..71e3944cf2 100644
+index 71e3944cf2..44bc0fafa3 100644
 --- a/xen/arch/x86/cpu/microcode/core.c
 +++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -867,10 +867,23 @@ int __init early_microcode_init(unsigned long *module_map,
-         return -ENODEV;
-     }
- 
--    microcode_grab_module(module_map, mbi);
--
-     ucode_ops.collect_cpu_info();
- 
-+    /*
-+     * Some hypervisors deliberately report a microcode revision of -1 to
-+     * mean that they will not accept microcode updates. We take the hint
-+     * and ignore the microcode interface in that case.
-+     */
-+    if ( this_cpu(cpu_sig).rev == ~0 )
-+    {
-+        printk(XENLOG_INFO "Microcode loading disabled due to: %s",
-+                           "HW toggle");
-+        ucode_ops.apply_microcode = NULL;
-+        return -ENODEV;
-+    }
-+
-+    microcode_grab_module(module_map, mbi);
-+
+@@ -887,5 +887,14 @@ int __init early_microcode_init(unsigned long *module_map,
      if ( ucode_mod.mod_end || ucode_blob.size )
          rc = early_microcode_update_cpu();
  
++    /*
++     * Some CPUID leaves and MSRs are only present after microcode updates
++     * on some processors. We take the chance here to make sure what little
++     * state we have already probed is re-probed in order to ensure we do
++     * not use stale values. tsx_init() in particular needs to have up to
++     * date MSR_ARCH_CAPS.
++     */
++    early_cpu_init(false);
++
+     return rc;
+ }
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index ae0dd3915a..df59a4cd28 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -15,7 +15,7 @@ extern uint64_t boot_tsc_stamp;
+ 
+ extern void *stack_start;
+ 
+-void early_cpu_init(void);
++void early_cpu_init(bool verbose);
+ void early_time_init(void);
+ 
+ void set_nr_cpu_ids(unsigned int max_cpus);
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 74e3915a4d..bdf66e80ac 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1211,7 +1211,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         panic("Bootloader provided no memory information\n");
+ 
+     /* This must come before e820 code because it sets paddr_bits. */
+-    early_cpu_init();
++    early_cpu_init(true);
+ 
+     /* Choose shadow stack early, to set infrastructure up appropriately. */
+     if ( !boot_cpu_has(X86_FEATURE_CET_SS) )
+diff --git a/xen/arch/x86/tsx.c b/xen/arch/x86/tsx.c
+index 80c6f4cedd..50d8059f23 100644
+--- a/xen/arch/x86/tsx.c
++++ b/xen/arch/x86/tsx.c
+@@ -39,9 +39,10 @@ void tsx_init(void)
+     static bool __read_mostly once;
+ 
+     /*
+-     * This function is first called between microcode being loaded, and CPUID
+-     * being scanned generally.  Read into boot_cpu_data.x86_capability[] for
+-     * the cpu_has_* bits we care about using here.
++     * This function is first called between microcode being loaded, and
++     * CPUID being scanned generally. early_cpu_init() has already prepared
++     * the feature bits needed here. And early_microcode_init() has ensured
++     * they are not stale after the microcode update.
+      */
+     if ( unlikely(!once) )
+     {
+@@ -49,15 +50,6 @@ void tsx_init(void)
+ 
+         once = true;
+ 
+-        if ( boot_cpu_data.cpuid_level >= 7 )
+-            boot_cpu_data.x86_capability[FEATURESET_7d0]
+-                = cpuid_count_edx(7, 0);
+-
+-        if ( cpu_has_arch_caps )
+-            rdmsr(MSR_ARCH_CAPABILITIES,
+-                  boot_cpu_data.x86_capability[FEATURESET_m10Al],
+-                  boot_cpu_data.x86_capability[FEATURESET_m10Ah]);
+-
+         has_rtm_always_abort = cpu_has_rtm_always_abort;
+ 
+         if ( cpu_has_tsx_ctrl && cpu_has_srbds_ctrl )
 -- 
 2.34.1
 
