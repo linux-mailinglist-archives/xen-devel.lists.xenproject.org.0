@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4298675F475
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 13:07:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568752.888675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3162175F479
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 13:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568757.888706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNtPT-0006yr-W9; Mon, 24 Jul 2023 11:07:27 +0000
+	id 1qNtPv-0008Qk-MF; Mon, 24 Jul 2023 11:07:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568752.888675; Mon, 24 Jul 2023 11:07:27 +0000
+Received: by outflank-mailman (output) from mailman id 568757.888706; Mon, 24 Jul 2023 11:07:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNtPT-0006xE-TA; Mon, 24 Jul 2023 11:07:27 +0000
-Received: by outflank-mailman (input) for mailman id 568752;
- Mon, 24 Jul 2023 11:07:25 +0000
+	id 1qNtPv-0008P2-JD; Mon, 24 Jul 2023 11:07:55 +0000
+Received: by outflank-mailman (input) for mailman id 568757;
+ Mon, 24 Jul 2023 11:07:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jVkC=DK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qNtMZ-0000KR-0e
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 11:04:27 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1qNtMf-0000KR-0n
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 11:04:33 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id da691f06-2a11-11ee-b23a-6b7b168915f2;
- Mon, 24 Jul 2023 13:04:26 +0200 (CEST)
+ id ddbf1902-2a11-11ee-b23a-6b7b168915f2;
+ Mon, 24 Jul 2023 13:04:31 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2673A2298F;
- Mon, 24 Jul 2023 11:04:26 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B87651FDF0;
+ Mon, 24 Jul 2023 11:04:31 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EC43613476;
- Mon, 24 Jul 2023 11:04:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8C1A513476;
+ Mon, 24 Jul 2023 11:04:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id X8JKOLlavmQZYgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 24 Jul 2023 11:04:25 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id K//TIL9avmQrYgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 24 Jul 2023 11:04:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,274 +51,394 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da691f06-2a11-11ee-b23a-6b7b168915f2
+X-Inumbo-ID: ddbf1902-2a11-11ee-b23a-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1690196666; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1690196671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HbG6vFfvfpnBEfnaaQaQ12ffiTPqhKHDZgquwOgUpOo=;
-	b=lZQCbaqclyrLeW7Qk45h0NM5eK5D7aWNYWZkIEjznaHuVvQhWzLS/6hNsyXfCkYebr4QcY
-	/af6jMVjIgKjxv3/cmUE8B/NTSXBHaXGbmWeB6qDLDr+p1Q37j3B2msfrrWU5l0VXzBiSl
-	fRmhVGMr4Z0lqkE6w4mkKCpYP7QaCAU=
+	bh=HP5J6XIp0DWqkQx8z5cq/ygHh6Oytu7p/EOreeJK8xE=;
+	b=MenFa1wuLALtZWgUlCFQ57wC3MAWua2vaPS0StOYNTAJQHWhCwQyEYIhFkKmYaP+m8abSQ
+	HKa8CsnytuKkKCYjLD6mRWn0yCXxNfIKmV7UWWqnUozNqA5YdoJU4bOqlnFe+AKlDh9uUc
+	Z4qnS6c6+YYbLAYjtb+NMiCGOiJag2g=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v3 17/25] tools/xenstore: rework struct xs_tdb_record_hdr
-Date: Mon, 24 Jul 2023 13:02:39 +0200
-Message-Id: <20230724110247.10520-18-jgross@suse.com>
+Subject: [PATCH v3 18/25] tools/xenstore: don't use struct node_perms in struct node
+Date: Mon, 24 Jul 2023 13:02:40 +0200
+Message-Id: <20230724110247.10520-19-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230724110247.10520-1-jgross@suse.com>
 References: <20230724110247.10520-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Struct xs_tdb_record_hdr is used for nodes stored in the data base.
-When working on a node, struct node is being used, which is including
-the same information as struct xs_tdb_record_hdr, but in a different
-format. Rework struct xs_tdb_record_hdr in order to prepare including
-it in struct node.
+Open code struct node_perms in struct node in order to prepare using
+struct node_hdr in struct node.
 
-Do the following modifications:
-
-- move its definition to xenstored_core.h, as the reason to put it into
-  utils.h are no longer existing
-
-- rename it to struct node_hdr, as the "tdb" in its name has only
-  historical reasons
-
-- replace the empty permission array at the end with a comment about
-  the layout of data in the data base (concatenation of header,
-  permissions, node contents, and children list)
-
-- use narrower types for num_perms and datalen, as those are naturally
-  limited to XENSTORE_PAYLOAD_MAX (childlen is different here, as it is
-  in theory basically unlimited)
+Add two helpers to transfer permissions between struct node and struct
+node_perms.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
 - new patch
 ---
- tools/xenstore/utils.h                 |  9 -------
- tools/xenstore/xenstored_core.c        | 35 +++++++++++++++-----------
- tools/xenstore/xenstored_core.h        | 20 ++++++++++++++-
- tools/xenstore/xenstored_transaction.c |  6 ++---
- 4 files changed, 42 insertions(+), 28 deletions(-)
+ tools/xenstore/xenstored_core.c        | 76 ++++++++++++++------------
+ tools/xenstore/xenstored_core.h        | 21 ++++++-
+ tools/xenstore/xenstored_domain.c      | 13 ++---
+ tools/xenstore/xenstored_transaction.c |  8 +--
+ tools/xenstore/xenstored_watch.c       |  7 ++-
+ 5 files changed, 75 insertions(+), 50 deletions(-)
 
-diff --git a/tools/xenstore/utils.h b/tools/xenstore/utils.h
-index 028ecb9d7a..405d662ea2 100644
---- a/tools/xenstore/utils.h
-+++ b/tools/xenstore/utils.h
-@@ -9,15 +9,6 @@
- 
- #include "xenstore_lib.h"
- 
--/* Header of the node record in tdb. */
--struct xs_tdb_record_hdr {
--	uint64_t generation;
--	uint32_t num_perms;
--	uint32_t datalen;
--	uint32_t childlen;
--	struct xs_permissions perms[0];
--};
--
- /* Is A == B ? */
- #define streq(a,b) (strcmp((a),(b)) == 0)
- 
 diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 1f5f118f1c..86b7c9bf36 100644
+index 86b7c9bf36..c72fc0c725 100644
 --- a/tools/xenstore/xenstored_core.c
 +++ b/tools/xenstore/xenstored_core.c
-@@ -555,9 +555,9 @@ static void initialize_fds(int *p_sock_pollfd_idx, int *ptimeout)
- 	}
- }
+@@ -735,7 +735,7 @@ struct node *read_node(struct connection *conn, const void *ctx,
  
--const struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
-+const struct node_hdr *db_fetch(const char *db_name, size_t *size)
- {
--	struct xs_tdb_record_hdr *hdr;
-+	struct node_hdr *hdr;
- 
- 	hdr = hashtable_search(nodes, db_name);
- 	if (!hdr) {
-@@ -565,7 +565,7 @@ const struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
- 		return NULL;
- 	}
- 
--	*size = sizeof(*hdr) + hdr->num_perms * sizeof(hdr->perms[0]) +
-+	*size = sizeof(*hdr) + hdr->num_perms * sizeof(struct xs_permissions) +
- 		hdr->datalen + hdr->childlen;
- 
- 	trace_tdb("read %s size %zu\n", db_name, *size + strlen(db_name));
-@@ -573,10 +573,15 @@ const struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
- 	return hdr;
- }
- 
-+static struct xs_permissions *perms_from_node_hdr(const struct node_hdr *hdr)
-+{
-+	return (struct xs_permissions *)(hdr + 1);
-+}
-+
- static void get_acc_data(const char *name, struct node_account_data *acc)
- {
- 	size_t size;
--	const struct xs_tdb_record_hdr *hdr;
-+	const struct node_hdr *hdr;
- 
- 	if (acc->memory < 0) {
- 		hdr = db_fetch(name, &size);
-@@ -585,7 +590,7 @@ static void get_acc_data(const char *name, struct node_account_data *acc)
- 			acc->memory = 0;
- 		} else {
- 			acc->memory = size;
--			acc->domid = hdr->perms[0].id;
-+			acc->domid = perms_from_node_hdr(hdr)->id;
- 		}
- 	}
- }
-@@ -606,7 +611,7 @@ int db_write(struct connection *conn, const char *db_name, const void *data,
- 	     size_t size, struct node_account_data *acc,
- 	     enum write_node_mode mode, bool no_quota_check)
- {
--	const struct xs_tdb_record_hdr *hdr = data;
-+	const struct node_hdr *hdr = data;
- 	struct node_account_data old_acc = {};
- 	unsigned int old_domid, new_domid;
- 	size_t name_len = strlen(db_name);
-@@ -620,7 +625,7 @@ int db_write(struct connection *conn, const char *db_name, const void *data,
- 
- 	get_acc_data(db_name, &old_acc);
- 	old_domid = get_acc_domid(conn, db_name, old_acc.domid);
--	new_domid = get_acc_domid(conn, db_name, hdr->perms[0].id);
-+	new_domid = get_acc_domid(conn, db_name, perms_from_node_hdr(hdr)->id);
- 
- 	/*
- 	 * Don't check for ENOENT, as we want to be able to switch orphaned
-@@ -661,7 +666,7 @@ int db_write(struct connection *conn, const char *db_name, const void *data,
- 
- 	if (acc) {
- 		/* Don't use new_domid, as it might be a transaction node. */
--		acc->domid = hdr->perms[0].id;
-+		acc->domid = perms_from_node_hdr(hdr)->id;
- 		acc->memory = size;
- 	}
- 
-@@ -699,7 +704,7 @@ struct node *read_node(struct connection *conn, const void *ctx,
- 		       const char *name)
- {
- 	size_t size;
--	const struct xs_tdb_record_hdr *hdr;
-+	const struct node_hdr *hdr;
- 	struct node *node;
- 	const char *db_name;
- 	int err;
-@@ -733,12 +738,12 @@ struct node *read_node(struct connection *conn, const void *ctx,
- 	node->perms.num = hdr->num_perms;
+ 	/* Datalen, childlen, number of permissions */
+ 	node->generation = hdr->generation;
+-	node->perms.num = hdr->num_perms;
++	node->num_perms = hdr->num_perms;
  	node->datalen = hdr->datalen;
  	node->childlen = hdr->childlen;
--	node->acc.domid = hdr->perms[0].id;
-+	node->acc.domid = perms_from_node_hdr(hdr)->id;
- 	node->acc.memory = size;
+ 	node->acc.domid = perms_from_node_hdr(hdr)->id;
+@@ -743,8 +743,8 @@ struct node *read_node(struct connection *conn, const void *ctx,
  
  	/* Copy node data to new memory area, starting with permissions. */
  	size -= sizeof(*hdr);
--	node->perms.p = talloc_memdup(node, hdr->perms, size);
-+	node->perms.p = talloc_memdup(node, perms_from_node_hdr(hdr), size);
- 	if (node->perms.p == NULL) {
+-	node->perms.p = talloc_memdup(node, perms_from_node_hdr(hdr), size);
+-	if (node->perms.p == NULL) {
++	node->perms = talloc_memdup(node, perms_from_node_hdr(hdr), size);
++	if (node->perms == NULL) {
  		errno = ENOMEM;
  		goto error;
-@@ -785,7 +790,7 @@ int write_node_raw(struct connection *conn, const char *db_name,
- 	void *data;
- 	size_t size;
- 	void *p;
--	struct xs_tdb_record_hdr *hdr;
-+	struct node_hdr *hdr;
+ 	}
+@@ -757,7 +757,7 @@ struct node *read_node(struct connection *conn, const void *ctx,
+ 		node->acc.memory = 0;
  
- 	if (domain_adjust_node_perms(node))
+ 	/* Data is binary blob (usually ascii, no nul). */
+-	node->data = node->perms.p + hdr->num_perms;
++	node->data = node->perms + hdr->num_perms;
+ 	/* Children is strings, nul separated. */
+ 	node->children = node->data + node->datalen;
+ 
+@@ -796,7 +796,7 @@ int write_node_raw(struct connection *conn, const char *db_name,
  		return errno;
-@@ -812,9 +817,9 @@ int write_node_raw(struct connection *conn, const char *db_name,
+ 
+ 	size = sizeof(*hdr)
+-		+ node->perms.num * sizeof(node->perms.p[0])
++		+ node->num_perms * sizeof(node->perms[0])
+ 		+ node->datalen + node->childlen;
+ 
+ 	/* Call domain_max_chk() in any case in order to record max values. */
+@@ -813,13 +813,13 @@ int write_node_raw(struct connection *conn, const char *db_name,
+ 
+ 	hdr = data;
+ 	hdr->generation = node->generation;
+-	hdr->num_perms = node->perms.num;
++	hdr->num_perms = node->num_perms;
  	hdr->datalen = node->datalen;
  	hdr->childlen = node->childlen;
  
--	memcpy(hdr->perms, node->perms.p,
--	       node->perms.num * sizeof(*node->perms.p));
--	p = hdr->perms + node->perms.num;
-+	p = perms_from_node_hdr(hdr);
-+	memcpy(p, node->perms.p, node->perms.num * sizeof(*node->perms.p));
-+	p += node->perms.num * sizeof(*node->perms.p);
+ 	p = perms_from_node_hdr(hdr);
+-	memcpy(p, node->perms.p, node->perms.num * sizeof(*node->perms.p));
+-	p += node->perms.num * sizeof(*node->perms.p);
++	memcpy(p, node->perms, node->num_perms * sizeof(*node->perms));
++	p += node->num_perms * sizeof(*node->perms);
  	memcpy(p, node->data, node->datalen);
  	p += node->datalen;
  	memcpy(p, node->children, node->childlen);
+@@ -900,6 +900,7 @@ static int ask_parents(struct connection *conn, const void *ctx,
+ 		       const char *name, unsigned int *perm)
+ {
+ 	struct node *node;
++	struct node_perms perms;
+ 
+ 	do {
+ 		name = get_parent(ctx, name);
+@@ -919,7 +920,8 @@ static int ask_parents(struct connection *conn, const void *ctx,
+ 		return 0;
+ 	}
+ 
+-	*perm = perm_for_conn(conn, &node->perms);
++	node_to_node_perms(node, &perms);
++	*perm = perm_for_conn(conn, &perms);
+ 	return 0;
+ }
+ 
+@@ -956,11 +958,13 @@ static struct node *get_node(struct connection *conn,
+ 			     unsigned int perm)
+ {
+ 	struct node *node;
++	struct node_perms perms;
+ 
+ 	node = read_node(conn, ctx, name);
+ 	/* If we don't have permission, we don't have node. */
+ 	if (node) {
+-		if ((perm_for_conn(conn, &node->perms) & perm) != perm) {
++		node_to_node_perms(node, &perms);
++		if ((perm_for_conn(conn, &perms) & perm) != perm) {
+ 			errno = EACCES;
+ 			node = NULL;
+ 		}
+@@ -1434,14 +1438,14 @@ static struct node *construct_node(struct connection *conn, const void *ctx,
+ 		node->name = talloc_steal(node, names[levels - 1]);
+ 
+ 		/* Inherit permissions, unpriv domains own what they create. */
+-		node->perms.num = parent->perms.num;
+-		node->perms.p = talloc_memdup(node, parent->perms.p,
+-					      node->perms.num *
+-					      sizeof(*node->perms.p));
+-		if (!node->perms.p)
++		node->num_perms = parent->num_perms;
++		node->perms = talloc_memdup(node, parent->perms,
++					    node->num_perms *
++					    sizeof(*node->perms));
++		if (!node->perms)
+ 			goto nomem;
+ 		if (domain_is_unprivileged(conn))
+-			node->perms.p[0].id = conn->id;
++			node->perms[0].id = conn->id;
+ 
+ 		/* No children, no data */
+ 		node->children = node->data = NULL;
+@@ -1764,12 +1768,14 @@ static int do_get_perms(const void *ctx, struct connection *conn,
+ 	struct node *node;
+ 	char *strings;
+ 	unsigned int len;
++	struct node_perms perms;
+ 
+ 	node = get_spec_node(conn, ctx, onearg(in), NULL, XS_PERM_READ);
+ 	if (!node)
+ 		return errno;
+ 
+-	strings = perms_to_strings(node, &node->perms, &len);
++	node_to_node_perms(node, &perms);
++	strings = perms_to_strings(node, &perms, &len);
+ 	if (!strings)
+ 		return errno;
+ 
+@@ -1818,10 +1824,10 @@ static int do_set_perms(const void *ctx, struct connection *conn,
+ 	    perms.p[0].id != get_node_owner(node))
+ 		return EPERM;
+ 
+-	old_perms = node->perms;
++	node_to_node_perms(node, &old_perms);
+ 	if (domain_nbentry_dec(conn, get_node_owner(node)))
+ 		return ENOMEM;
+-	node->perms = perms;
++	node_perms_to_node(&perms, node);
+ 	if (domain_nbentry_inc(conn, get_node_owner(node)))
+ 		return ENOMEM;
+ 
+@@ -2333,8 +2339,8 @@ static void manual_node(const char *name, const char *child)
+ 		barf_perror("Could not allocate initial node %s", name);
+ 
+ 	node->name = name;
+-	node->perms.p = &perms;
+-	node->perms.num = 1;
++	node->perms = &perms;
++	node->num_perms = 1;
+ 	node->children = (char *)child;
+ 	if (child)
+ 		node->childlen = strlen(child) + 1;
+@@ -3205,10 +3211,10 @@ static int dump_state_node(const void *ctx, struct connection *conn,
+ 	sn.conn_id = 0;
+ 	sn.ta_id = 0;
+ 	sn.ta_access = 0;
+-	sn.perm_n = node->perms.num;
++	sn.perm_n = node->num_perms;
+ 	sn.path_len = pathlen;
+ 	sn.data_len = node->datalen;
+-	head.length += node->perms.num * sizeof(*sn.perms);
++	head.length += node->num_perms * sizeof(*sn.perms);
+ 	head.length += pathlen;
+ 	head.length += node->datalen;
+ 	head.length = ROUNDUP(head.length, 3);
+@@ -3218,7 +3224,7 @@ static int dump_state_node(const void *ctx, struct connection *conn,
+ 	if (fwrite(&sn, sizeof(sn), 1, fp) != 1)
+ 		return dump_state_node_err(data, "Dump node state error");
+ 
+-	ret = dump_state_node_perms(fp, node->perms.p, node->perms.num);
++	ret = dump_state_node_perms(fp, node->perms, node->num_perms);
+ 	if (ret)
+ 		return dump_state_node_err(data, ret);
+ 
+@@ -3415,29 +3421,29 @@ void read_state_node(const void *ctx, const void *state)
+ 	node->data = name + sn->path_len;
+ 	node->childlen = 0;
+ 	node->children = NULL;
+-	node->perms.num = sn->perm_n;
+-	node->perms.p = talloc_array(node, struct xs_permissions,
+-				     node->perms.num);
+-	if (!node->perms.p)
++	node->num_perms = sn->perm_n;
++	node->perms = talloc_array(node, struct xs_permissions,
++				   node->num_perms);
++	if (!node->perms)
+ 		barf("allocation error restoring node");
+-	for (i = 0; i < node->perms.num; i++) {
++	for (i = 0; i < node->num_perms; i++) {
+ 		switch (sn->perms[i].access) {
+ 		case 'r':
+-			node->perms.p[i].perms = XS_PERM_READ;
++			node->perms[i].perms = XS_PERM_READ;
+ 			break;
+ 		case 'w':
+-			node->perms.p[i].perms = XS_PERM_WRITE;
++			node->perms[i].perms = XS_PERM_WRITE;
+ 			break;
+ 		case 'b':
+-			node->perms.p[i].perms = XS_PERM_READ | XS_PERM_WRITE;
++			node->perms[i].perms = XS_PERM_READ | XS_PERM_WRITE;
+ 			break;
+ 		default:
+-			node->perms.p[i].perms = XS_PERM_NONE;
++			node->perms[i].perms = XS_PERM_NONE;
+ 			break;
+ 		}
+ 		if (sn->perms[i].flags & XS_STATE_NODE_PERM_IGNORE)
+-			node->perms.p[i].perms |= XS_PERM_IGNORE;
+-		node->perms.p[i].id = sn->perms[i].domid;
++			node->perms[i].perms |= XS_PERM_IGNORE;
++		node->perms[i].id = sn->perms[i].domid;
+ 	}
+ 
+ 	if (!strstarts(name, "@")) {
 diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 6d1578ce97..c965709090 100644
+index c965709090..9cb4c2f3eb 100644
 --- a/tools/xenstore/xenstored_core.h
 +++ b/tools/xenstore/xenstored_core.h
-@@ -168,6 +168,24 @@ struct connection
- };
- extern struct list_head connections;
+@@ -209,7 +209,8 @@ struct node {
+ #define NO_GENERATION ~((uint64_t)0)
  
-+/*
-+ * Header of the node record in the data base.
-+ * In the data base the memory of the node is a single memory chunk with the
-+ * following format:
-+ * struct {
-+ *     node_hdr hdr;
-+ *     struct xs_permissions perms[hdr.num_perms];
-+ *     char data[hdr.datalen];
-+ *     char children[hdr.childlen];
-+ * };
-+ */
-+struct node_hdr {
-+	uint64_t generation;
-+	uint16_t num_perms;
-+	uint16_t datalen;
-+	uint32_t childlen;
-+};
+ 	/* Permissions. */
+-	struct node_perms perms;
++	unsigned int num_perms;
++	struct xs_permissions *perms;
+ 
+ 	/* Contents. */
+ 	unsigned int datalen;
+@@ -251,7 +252,23 @@ unsigned int perm_for_conn(struct connection *conn,
+ /* Get owner of a node. */
+ static inline unsigned int get_node_owner(const struct node *node)
+ {
+-	return node->perms.p[0].id;
++	return node->perms[0].id;
++}
 +
- struct node_perms {
- 	unsigned int num;
- 	struct xs_permissions *p;
-@@ -362,7 +380,7 @@ extern xengnttab_handle **xgt_handle;
- int remember_string(struct hashtable *hash, const char *str);
++/* Transfer permissions from node to struct node_perms. */
++static inline void node_to_node_perms(const struct node *node,
++				      struct node_perms *perms)
++{
++	perms->num = node->num_perms;
++	perms->p = node->perms;
++}
++
++/* Transfer permissions from struct node_perms to node. */
++static inline void node_perms_to_node(const struct node_perms *perms,
++				      struct node *node)
++{
++	node->num_perms = perms->num;
++	node->perms = perms->p;
+ }
  
- /* Data base access functions. */
--const struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size);
-+const struct node_hdr *db_fetch(const char *db_name, size_t *size);
- int db_write(struct connection *conn, const char *db_name, const void *data,
- 	     size_t size, struct node_account_data *acc,
- 	     enum write_node_mode mode, bool no_quota_check);
+ /* Write a node to the data base. */
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 10d2280f84..1ba73d9db2 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -513,12 +513,12 @@ static int domain_tree_remove_sub(const void *ctx, struct connection *conn,
+ 	struct domain *domain = arg;
+ 	int ret = WALK_TREE_OK;
+ 
+-	if (node->perms.p[0].id != domain->domid)
++	if (node->perms[0].id != domain->domid)
+ 		return WALK_TREE_OK;
+ 
+ 	if (keep_orphans) {
+ 		domain_nbentry_dec(NULL, domain->domid);
+-		node->perms.p[0].id = priv_domid;
++		node->perms[0].id = priv_domid;
+ 		node->acc.memory = 0;
+ 		domain_nbentry_inc(NULL, priv_domid);
+ 		if (write_node_raw(NULL, node->name, node, NODE_MODIFY, true)) {
+@@ -1335,12 +1335,11 @@ int domain_adjust_node_perms(struct node *node)
+ {
+ 	unsigned int i;
+ 
+-	for (i = 1; i < node->perms.num; i++) {
+-		if (node->perms.p[i].perms & XS_PERM_IGNORE)
++	for (i = 1; i < node->num_perms; i++) {
++		if (node->perms[i].perms & XS_PERM_IGNORE)
+ 			continue;
+-		if (!chk_domain_generation(node->perms.p[i].id,
+-					   node->generation))
+-			node->perms.p[i].perms |= XS_PERM_IGNORE;
++		if (!chk_domain_generation(node->perms[i].id, node->generation))
++			node->perms[i].perms |= XS_PERM_IGNORE;
+ 	}
+ 
+ 	return 0;
 diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index a90283dcc5..9ca73b9874 100644
+index 9ca73b9874..213a2c436c 100644
 --- a/tools/xenstore/xenstored_transaction.c
 +++ b/tools/xenstore/xenstored_transaction.c
-@@ -357,7 +357,7 @@ static int finalize_transaction(struct connection *conn,
- {
- 	struct accessed_node *i, *n;
- 	size_t size;
--	const struct xs_tdb_record_hdr *hdr;
-+	const struct node_hdr *hdr;
- 	uint64_t gen;
+@@ -259,13 +259,13 @@ int access_node(struct connection *conn, struct node *node,
+ 		if (!i->trans_name)
+ 			goto nomem;
+ 		i->node = strchr(i->trans_name, '/') + 1;
+-		if (node->generation != NO_GENERATION && node->perms.num) {
++		if (node->generation != NO_GENERATION && node->num_perms) {
+ 			i->perms.p = talloc_array(i, struct xs_permissions,
+-						  node->perms.num);
++						  node->num_perms);
+ 			if (!i->perms.p)
+ 				goto nomem;
+-			i->perms.num = node->perms.num;
+-			memcpy(i->perms.p, node->perms.p,
++			i->perms.num = node->num_perms;
++			memcpy(i->perms.p, node->perms,
+ 			       i->perms.num * sizeof(*i->perms.p));
+ 		}
  
- 	list_for_each_entry_safe(i, n, &trans->accessed, list) {
-@@ -394,12 +394,12 @@ static int finalize_transaction(struct connection *conn,
- 				 * generation count.
- 				 */
- 				enum write_node_mode mode;
--				struct xs_tdb_record_hdr *own;
-+				struct node_hdr *own;
+diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
+index fefbf56ab2..c161385f89 100644
+--- a/tools/xenstore/xenstored_watch.c
++++ b/tools/xenstore/xenstored_watch.c
+@@ -79,6 +79,7 @@ static bool watch_permitted(struct connection *conn, const void *ctx,
+ 	unsigned int perm;
+ 	struct node *parent;
+ 	char *parent_name;
++	struct node_perms node_perms;
  
- 				talloc_increase_ref_count(hdr);
- 				db_delete(conn, i->trans_name, NULL);
+ 	if (perms) {
+ 		perm = perm_for_conn(conn, perms);
+@@ -92,7 +93,8 @@ static bool watch_permitted(struct connection *conn, const void *ctx,
+ 			return false;
+ 	}
  
--				own = (struct xs_tdb_record_hdr *)hdr;
-+				own = (struct node_hdr *)hdr;
- 				own->generation = ++generation;
- 				mode = (i->generation == NO_GENERATION)
- 				       ? NODE_CREATE : NODE_MODIFY;
+-	perm = perm_for_conn(conn, &node->perms);
++	node_to_node_perms(node, &node_perms);
++	perm = perm_for_conn(conn, &node_perms);
+ 	if (perm & XS_PERM_READ)
+ 		return true;
+ 
+@@ -106,7 +108,8 @@ static bool watch_permitted(struct connection *conn, const void *ctx,
+ 			return false;
+ 	}
+ 
+-	perm = perm_for_conn(conn, &parent->perms);
++	node_to_node_perms(parent, &node_perms);
++	perm = perm_for_conn(conn, &node_perms);
+ 
+ 	return perm & XS_PERM_READ;
+ }
 -- 
 2.35.3
 
