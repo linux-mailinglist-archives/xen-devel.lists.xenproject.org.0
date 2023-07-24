@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CADB7602CD
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 00:55:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569262.889660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46BB87602F7
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 01:09:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569264.889670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qO4Sh-0005hO-3d; Mon, 24 Jul 2023 22:55:31 +0000
+	id 1qO4fp-0007F9-9X; Mon, 24 Jul 2023 23:09:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569262.889660; Mon, 24 Jul 2023 22:55:31 +0000
+Received: by outflank-mailman (output) from mailman id 569264.889670; Mon, 24 Jul 2023 23:09:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qO4Sh-0005fI-0K; Mon, 24 Jul 2023 22:55:31 +0000
-Received: by outflank-mailman (input) for mailman id 569262;
- Mon, 24 Jul 2023 22:55:29 +0000
+	id 1qO4fp-0007DU-5u; Mon, 24 Jul 2023 23:09:05 +0000
+Received: by outflank-mailman (input) for mailman id 569264;
+ Mon, 24 Jul 2023 23:09:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AJiQ=DK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qO4Sf-0005fC-St
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 22:55:29 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1qO4fo-0007DO-Fq
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 23:09:04 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2eabb6d4-2a75-11ee-b23c-6b7b168915f2;
- Tue, 25 Jul 2023 00:55:28 +0200 (CEST)
+ id 1421c33e-2a77-11ee-b23c-6b7b168915f2;
+ Tue, 25 Jul 2023 01:09:03 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5789D6145D;
- Mon, 24 Jul 2023 22:55:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A362FC433C8;
- Mon, 24 Jul 2023 22:55:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C85886145F;
+ Mon, 24 Jul 2023 23:09:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7F4C433C8;
+ Mon, 24 Jul 2023 23:08:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,30 +44,30 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eabb6d4-2a75-11ee-b23c-6b7b168915f2
+X-Inumbo-ID: 1421c33e-2a77-11ee-b23c-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690239326;
-	bh=D9aN3tyC2B0wvSthHOwUv/fEVrhSHzVK2GuhbKiPlGY=;
+	s=k20201202; t=1690240141;
+	bh=+GM9qScBHJhZPZmCDzrmXRXW1HhK2Vjnf0mP4FPhLrE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=urKbb5rOZzlRedPGpFPI/bjbYbJmRwNeFNGcXXgal4GOMLDwDTeR8HCHvUlY90Iow
-	 biD1IvZMQHCRz/gxZ7+ucjMRiJpuFpmAXf6CQXbNBwisedJHMKx75AlOwEJjMkwwO3
-	 UBwk5aWXi6BaOhmGjS5B2p7LK3pMQ5/VeS1qTEacRs2Hnfnyz80oi9TXpsvIJ+mZE8
-	 AMXbmNDGVqbRZY6IuTrD8IgWnExxitjkIxxlRRPAuxvirMGG3MBAZBbWonP9ql2LzC
-	 G0H6gt2TUb3uCvxiuZx/run/NfoqDUnL42SV1gUtara7c7IYT3f1bTeyGsRef+ZHUp
-	 10EGGgCx2Ga2Q==
-Date: Mon, 24 Jul 2023 15:55:24 -0700 (PDT)
+	b=nMRx+P4DyEAexRJOE/r2mYNjGgrzqpYGqIQkMrWQ+IaXg+F+38KtgrcCpGfH+bvu1
+	 O9hm/8w6aVb7Su1pFGvXJL+Lu+F9kys5qY3vlsNAks2JwIgwNHQPGJLnPmoRfW8IJ5
+	 MikztO4rPl684SdPQXtDMW8JAee/FMbLTAb9lzzbOwXMa+nvZENoGzzL6aKqOLbr6h
+	 Os1bQO9NS3YH2nuYtqL0C23AjFoow/cF00B8U0DMYjMNUIAPy+a+hShvzZi0XNLvJo
+	 Gpv+k42PIg+NSu6DNZTkfCRlp5Pn2kQ8nFXKdw+mMWaRHCdjsWmIQX0VCjizRO9FyN
+	 ym69HPRLe6jPg==
+Date: Mon, 24 Jul 2023 16:08:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Federico Serafini <federico.serafini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH 2/3] xen/arm: irq: address violations of MISRA C:
- 2012 Rules 8.2 and 8.3
-In-Reply-To: <a62e88a9c29cf7866c251968b5a5b6865aff4a2a.1690217195.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307241551380.3118466@ubuntu-linux-20-04-desktop>
-References: <cover.1690217195.git.federico.serafini@bugseng.com> <a62e88a9c29cf7866c251968b5a5b6865aff4a2a.1690217195.git.federico.serafini@bugseng.com>
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 3/3] x86/irq: address violations of MISRA C:2012
+ Rules 8.2 and 8.3
+In-Reply-To: <ae48788c6c41e5e506b9995037d176ac8b08d3f2.1690217195.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2307241558350.3118466@ubuntu-linux-20-04-desktop>
+References: <cover.1690217195.git.federico.serafini@bugseng.com> <ae48788c6c41e5e506b9995037d176ac8b08d3f2.1690217195.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -87,51 +86,223 @@ On Mon, 24 Jul 2023, Federico Serafini wrote:
 > 
 > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 > ---
->  xen/arch/arm/irq.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+>  xen/arch/x86/include/asm/irq.h | 32 ++++++++++++++++----------------
+>  xen/arch/x86/irq.c             | 28 ++++++++++++++--------------
+>  2 files changed, 30 insertions(+), 30 deletions(-)
 > 
-> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-> index 16e56f8945..335e06a2a7 100644
-> --- a/xen/arch/arm/irq.c
-> +++ b/xen/arch/arm/irq.c
-> @@ -58,7 +58,7 @@ hw_irq_controller no_irq_type = {
->  static irq_desc_t irq_desc[NR_IRQS];
->  static DEFINE_PER_CPU(irq_desc_t[NR_LOCAL_IRQS], local_irq_desc);
+> diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+> index 3f95dd39b7..bb8b7ff2cc 100644
+> --- a/xen/arch/x86/include/asm/irq.h
+> +++ b/xen/arch/x86/include/asm/irq.h
+> @@ -101,18 +101,18 @@ void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
+>  uint8_t alloc_hipriority_vector(void);
 >  
-> -irq_desc_t *__irq_to_desc(int irq)
-> +struct irq_desc *__irq_to_desc(int irq)
->  {
->      if ( irq < NR_LOCAL_IRQS )
->          return &this_cpu(local_irq_desc)[irq];
-> @@ -182,7 +182,8 @@ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask)
+>  void set_direct_apic_vector(
+> -    uint8_t vector, void (*handler)(struct cpu_user_regs *));
+> +    uint8_t vector, void (*handler)(struct cpu_user_regs *regs));
+>  void alloc_direct_apic_vector(
+> -    uint8_t *vector, void (*handler)(struct cpu_user_regs *));
+> +    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs));
+>  
+>  void do_IRQ(struct cpu_user_regs *regs);
+>  
+> -void cf_check disable_8259A_irq(struct irq_desc *);
+> -void cf_check enable_8259A_irq(struct irq_desc *);
+> +void cf_check disable_8259A_irq(struct irq_desc *desc);
+> +void cf_check enable_8259A_irq(struct irq_desc *desc);
+>  int i8259A_irq_pending(unsigned int irq);
+>  void mask_8259A(void);
+>  void unmask_8259A(void);
+> -void init_8259A(int aeoi);
+> +void init_8259A(int auto_eoi);
+>  void make_8259A_irq(unsigned int irq);
+>  bool bogus_8259A_irq(unsigned int irq);
+>  int i8259A_suspend(void);
+> @@ -148,9 +148,9 @@ int map_domain_pirq(struct domain *d, int pirq, int irq, int type,
+>                             void *data);
+>  int unmap_domain_pirq(struct domain *d, int pirq);
+>  int get_free_pirq(struct domain *d, int type);
+> -int get_free_pirqs(struct domain *, unsigned int nr);
+> +int get_free_pirqs(struct domain *d, unsigned int nr);
+>  void free_domain_pirqs(struct domain *d);
+> -int map_domain_emuirq_pirq(struct domain *d, int pirq, int irq);
+> +int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq);
+>  int unmap_domain_pirq_emuirq(struct domain *d, int pirq);
+>  
+>  /* Reset irq affinities to match the given CPU mask. */
+> @@ -168,9 +168,9 @@ int irq_to_vector(int irq);
+>   */
+>  int create_irq(nodeid_t node, bool grant_access);
+>  void destroy_irq(unsigned int irq);
+> -int assign_irq_vector(int irq, const cpumask_t *);
+> +int assign_irq_vector(int irq, const cpumask_t *mask);
+>  
+> -void cf_check irq_complete_move(struct irq_desc *);
+> +void cf_check irq_complete_move(struct irq_desc *desc);
+>  
+>  extern struct irq_desc *irq_desc;
+>  
+> @@ -179,16 +179,16 @@ void unlock_vector_lock(void);
+>  
+>  void setup_vector_irq(unsigned int cpu);
+>  
+> -void move_native_irq(struct irq_desc *);
+> -void move_masked_irq(struct irq_desc *);
+> +void move_native_irq(struct irq_desc *desc);
+> +void move_masked_irq(struct irq_desc *desc);
+>  
+> -int bind_irq_vector(int irq, int vector, const cpumask_t *);
+> +int bind_irq_vector(int irq, int vector, const cpumask_t *mask);
+>  
+> -void cf_check end_nonmaskable_irq(struct irq_desc *, uint8_t vector);
+> -void irq_set_affinity(struct irq_desc *, const cpumask_t *mask);
+> +void cf_check end_nonmaskable_irq(struct irq_desc *desc, uint8_t vector);
+> +void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask);
+>  
+> -int init_domain_irq_mapping(struct domain *);
+> -void cleanup_domain_irq_mapping(struct domain *);
+> +int init_domain_irq_mapping(struct domain *d);
+> +void cleanup_domain_irq_mapping(struct domain *d);
+>  
+>  #define domain_pirq_to_irq(d, pirq) pirq_field(d, pirq, arch.irq, 0)
+>  #define domain_irq_to_pirq(d, irq) ({                           \
+> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+> index 20150b1c7f..c2ec1182f1 100644
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -148,14 +148,14 @@ static void trace_irq_mask(uint32_t event, int irq, int vector,
 >  }
 >  
->  int request_irq(unsigned int irq, unsigned int irqflags,
-> -                void (*handler)(int, void *, struct cpu_user_regs *),
-> +                void (*handler)(int irq, void *dev_id,
-> +                                struct cpu_user_regs *regs),
-
-We have an inconsistency where the handler functions on x86 typically
-call it void *data, while on arm they typically use void *dev_id
-(see xen/arch/x86/irq.c:request_irq and
-xen/arch/x86/hpet.c:hpet_interrupt_handler). I think we should be
-consistent. Or, if this is not a MISRA requirement because this is just
-a function pointer rather than a proper function, then I would leave it
-alone.
-
-
->                  const char *devname, void *dev_id)
+>  static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
+> -                                   const cpumask_t *cpu_mask)
+> +                                   const cpumask_t *mask)
 >  {
->      struct irqaction *action;
-> @@ -617,7 +618,7 @@ void pirq_guest_unbind(struct domain *d, struct pirq *pirq)
->      BUG();
+>      cpumask_t online_mask;
+>      int cpu;
+>  
+>      BUG_ON((unsigned)vector >= X86_NR_VECTORS);
+>  
+> -    cpumask_and(&online_mask, cpu_mask, &cpu_online_map);
+> +    cpumask_and(&online_mask, mask, &cpu_online_map);
+>      if (cpumask_empty(&online_mask))
+>          return -EINVAL;
+>      if ( (desc->arch.vector == vector) &&
+> @@ -177,7 +177,7 @@ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
+>      return 0;
+>  }
+>  
+> -int __init bind_irq_vector(int irq, int vector, const cpumask_t *cpu_mask)
+> +int __init bind_irq_vector(int irq, int vector, const cpumask_t *mask)
+>  {
+>      struct irq_desc *desc = irq_to_desc(irq);
+>      unsigned long flags;
+> @@ -187,7 +187,7 @@ int __init bind_irq_vector(int irq, int vector, const cpumask_t *cpu_mask)
+>  
+>      spin_lock_irqsave(&desc->lock, flags);
+>      spin_lock(&vector_lock);
+> -    ret = _bind_irq_vector(desc, vector, cpu_mask);
+> +    ret = _bind_irq_vector(desc, vector, mask);
+>      spin_unlock(&vector_lock);
+>      spin_unlock_irqrestore(&desc->lock, flags);
+>  
+> @@ -893,10 +893,10 @@ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask)
+>      desc->status |= IRQ_MOVE_PENDING;
 >  }
 >  
 > -void pirq_set_affinity(struct domain *d, int pirq, const cpumask_t *mask)
 > +void pirq_set_affinity(struct domain *d, int irq, const cpumask_t *mask)
 
-I think we should leave it as is because there is also the x86
-implementation of pirq_set_affinity that uses int pirq as parameter. It
-is not a good idea to introduce inconsistencies between the x86 and the
-ARM versions of the same function.
+I welcome feedback from the other maintainers on this but I would keep
+the original "pirq" parameter name here...
+
+
+>  {
+>      unsigned long flags;
+> -    struct irq_desc *desc = domain_spin_lock_irq_desc(d, pirq, &flags);
+> +    struct irq_desc *desc = domain_spin_lock_irq_desc(d, irq, &flags);
+>  
+>      if ( !desc )
+>          return;
+> @@ -915,16 +915,16 @@ uint8_t alloc_hipriority_vector(void)
+>      return next++;
+>  }
+>  
+> -static void (*direct_apic_vector[X86_NR_VECTORS])(struct cpu_user_regs *);
+> +static void (*direct_apic_vector[X86_NR_VECTORS])(struct cpu_user_regs *regs);
+>  void set_direct_apic_vector(
+> -    uint8_t vector, void (*handler)(struct cpu_user_regs *))
+> +    uint8_t vector, void (*handler)(struct cpu_user_regs *regs))
+>  {
+>      BUG_ON(direct_apic_vector[vector] != NULL);
+>      direct_apic_vector[vector] = handler;
+>  }
+>  
+>  void alloc_direct_apic_vector(
+> -    uint8_t *vector, void (*handler)(struct cpu_user_regs *))
+> +    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs))
+>  {
+>      static DEFINE_SPINLOCK(lock);
+>  
+> @@ -964,7 +964,7 @@ static int __init cf_check irq_ratelimit_init(void)
+>  __initcall(irq_ratelimit_init);
+>  
+>  int __init request_irq(unsigned int irq, unsigned int irqflags,
+> -        void (*handler)(int, void *, struct cpu_user_regs *),
+> +        void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs),
+>          const char * devname, void *dev_id)
+
+I think hpet_interrupt_handler should be adapted for consistency
+
+
+
+>  {
+>      struct irqaction * action;
+> @@ -1194,9 +1194,9 @@ static void cf_check irq_guest_eoi_timer_fn(void *data)
+>   * to the per-domain irq-to-vector mapping.
+>   */
+>  struct irq_desc *domain_spin_lock_irq_desc(
+> -    struct domain *d, int pirq, unsigned long *pflags)
+> +    struct domain *d, int irq, unsigned long *pflags)
+>  {
+> -    const struct pirq *info = pirq_info(d, pirq);
+> +    const struct pirq *info = pirq_info(d, irq);
+>  
+>      return info ? pirq_spin_lock_irq_desc(info, pflags) : NULL;
+>  }
+
+... and here
+
+
+> @@ -1525,14 +1525,14 @@ static int irq_acktype(const struct irq_desc *desc)
+>      return 0;
+>  }
+>  
+> -int pirq_shared(struct domain *d, int pirq)
+> +int pirq_shared(struct domain *d, int irq)
+
+and here
+
+
+>  {
+>      struct irq_desc    *desc;
+>      const irq_guest_action_t *action;
+>      unsigned long       flags;
+>      int                 shared;
+>  
+> -    desc = domain_spin_lock_irq_desc(d, pirq, &flags);
+> +    desc = domain_spin_lock_irq_desc(d, irq, &flags);
+
+and here
+
+I change the declarations as needed
+
+
+
+>      if ( desc == NULL )
+>          return 0;
+>  
+> -- 
+> 2.34.1
+> 
+> 
 
