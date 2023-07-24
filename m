@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64EDE75F0FF
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 11:54:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.568624.888296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBFE775F000
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jul 2023 11:49:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.568580.887936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNsGu-0002tT-LH; Mon, 24 Jul 2023 09:54:32 +0000
+	id 1qNsBS-0007VT-7n; Mon, 24 Jul 2023 09:48:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 568624.888296; Mon, 24 Jul 2023 09:54:32 +0000
+Received: by outflank-mailman (output) from mailman id 568580.887936; Mon, 24 Jul 2023 09:48:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qNsGu-0002pQ-HJ; Mon, 24 Jul 2023 09:54:32 +0000
-Received: by outflank-mailman (input) for mailman id 568624;
- Mon, 24 Jul 2023 09:54:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qNsBS-0007St-4l; Mon, 24 Jul 2023 09:48:54 +0000
+Received: by outflank-mailman (input) for mailman id 568580;
+ Mon, 24 Jul 2023 09:48:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jodz=DK=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qNsGs-0001Ob-PN
- for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 09:54:30 +0000
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [2607:f8b0:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 14d76bb7-2a08-11ee-b23a-6b7b168915f2;
- Mon, 24 Jul 2023 11:54:30 +0200 (CEST)
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-1bba9539a23so652975ad.1
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 02:54:30 -0700 (PDT)
-Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
- by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.54.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:54:28 -0700 (PDT)
+ <SRS0=sIK2=DK=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1qNsBQ-0007Pe-GK
+ for xen-devel@lists.xenproject.org; Mon, 24 Jul 2023 09:48:52 +0000
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 49170100-2a07-11ee-8612-37d641c3527e;
+ Mon, 24 Jul 2023 11:48:49 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 5FFC73200065;
+ Mon, 24 Jul 2023 05:48:45 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Mon, 24 Jul 2023 05:48:45 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 24 Jul 2023 05:48:40 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,265 +43,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14d76bb7-2a08-11ee-b23a-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1690192469; x=1690797269;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F/oK6bm2Afi7WKsfFLPLaSlUUie3UdhMRHX1z52bb4o=;
-        b=W9Prg0fDQM4GlbOp7Efh7k12YSFxbQAIDSIFUNXpcxiaiwsMOqIS9spB+ZW9R8bqkG
-         2eUk3vAJhRvOfzbc0lzRJ0pjebzRGDfg8mSr9wE4svx2n4tEZzvgmCHhvlLJZaqcPuTF
-         ajZf7zR02a5nB3jGeTnCYDCOv2ZoK+omuzdRQRiU6Gx6ifxD/5gUipR32piSj3zU9ojE
-         giQ5EbsOhgO/nBwZ9hR/Jy1y+NlQ/pZ5vMWcA3q2UVTMdeqbP2Ck3FtJpUlMmobx8vUB
-         vcMI8GxEI7t1W6HxEfOkf8W6IvWEtYrQu4A2vSBZhjnQNuGVAvXWDybi001tXCfDYH7J
-         BNiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690192469; x=1690797269;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=F/oK6bm2Afi7WKsfFLPLaSlUUie3UdhMRHX1z52bb4o=;
-        b=kG6pu6dZPGoqXWn2s6xd46Ouf+MnMAI7OaeM8sAHtakffarQRXm0kexuJZoyJL/SrP
-         AOrmhRrHOPjtxJ+Z+8mUglHJxtut7F3c8WLkGuY1v6uVEibquv6bWD1Aa4k7e97LXAz9
-         DYDx6o6MtsUDXTtgmZwIYnbSF/Wo6Yqg0OlRkgQGA8zYyf1kwdGOMbrdDDgw1SJ2j/Mv
-         OqNiNvdSoKu+VKrH493DsT2CVf1b7Bd/+YuTViR1aNme2hAUScZm3od48s2IugFEj0nC
-         pvnN6tUJ/i7UD1s0DqFGNSANviIGSvTI6Du1suK4m9wDgVZ/EFLJO7RZZhzK9gALWYs2
-         YEJw==
-X-Gm-Message-State: ABy/qLZwCnPTBcetfY5Z3+2Nt0GbZ9/RY0lg2D7uqO27v3Zu+dlr3Zo3
-	5kL/vh5rh3C/FWiyhKrbXxPvsQ==
-X-Google-Smtp-Source: APBJJlFeSJXGwKM1/4Fx4M034iEieIqp39l7VwM/I3gIgSntmWk50xYbsW/3q3bB2XT8c22SamI2Bg==
-X-Received: by 2002:a17:902:dad2:b0:1b8:9fc4:2733 with SMTP id q18-20020a170902dad200b001b89fc42733mr12483608plx.3.1690192468770;
-        Mon, 24 Jul 2023 02:54:28 -0700 (PDT)
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-To: akpm@linux-foundation.org,
-	david@fromorbit.com,
-	tkhai@ya.ru,
-	vbabka@suse.cz,
-	roman.gushchin@linux.dev,
-	djwong@kernel.org,
-	brauner@kernel.org,
-	paulmck@kernel.org,
-	tytso@mit.edu,
-	steven.price@arm.com,
-	cel@kernel.org,
-	senozhatsky@chromium.org,
-	yujie.liu@intel.com,
-	gregkh@linuxfoundation.org,
-	muchun.song@linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	x86@kernel.org,
-	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-erofs@lists.ozlabs.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	cluster-devel@redhat.com,
-	linux-nfs@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	rcu@vger.kernel.org,
-	netdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	dm-devel@redhat.com,
-	linux-raid@vger.kernel.org,
-	linux-bcache@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-btrfs@vger.kernel.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: [PATCH v2 47/47] mm: shrinker: convert shrinker_rwsem to mutex
-Date: Mon, 24 Jul 2023 17:43:54 +0800
-Message-Id: <20230724094354.90817-48-zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
-References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
+X-Inumbo-ID: 49170100-2a07-11ee-8612-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1690192124; x=1690278524; bh=2rLKSuU16UsnDfiMjPqYzoBhsClO4zSaeBL
+	j/AD8j3o=; b=zinzpmKDgvyvA+XfsPVuDxD5BhJ/IC/cIU6erncXhQumrGFqW9N
+	wHywbRgNM3UodM3aiwhoJAOlNhuOTDJP4sx/3luYLCTipe1X/8yDs+5ABqchmOxX
+	E4MZl6RYvYUscgaC95qq9eeyYsK6OZSUa/LhoMjq3MAcybz/Oom0ig1f+VFomqi/
+	Zan+lvcDYO8nubHvrvSf8zkGOKnDOw9LPnMURzhLCrDPtpLCzw/K1JeqXEmvSewT
+	Axo3CsYtyP/72/VEOKKl9BF9Ndbu+6P8d8VkOn+R2A+g4kOJOsroWFNRrGhA1V8P
+	+wbDkglvlKOlBOwEjdXZjlj+pRyZh3Wqliw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1690192124; x=1690278524; bh=2rLKSuU16UsnD
+	fiMjPqYzoBhsClO4zSaeBLj/AD8j3o=; b=jaGpchDJCwSbaGsk7mdZSuU7tkWYq
+	CZSMzkHBV9zjhYyVFhTYVt9pZG+qJVyxJGGzleQZn79TUmaFK8Ob1lsSQI+P2rAp
+	NytI8fZxWFrxDIBWwOZK4ELBYOmbXflcNRnTerlpaZmqMXEAZH+t2kgItn+orWve
+	Lfzw/tLNqwIKleOGyviwmH/ilFYtjCGovkVSmMptnU99xhVn5Rc/CnBVCtvGQcjg
+	lsiF+aL5uW194aLTvVGMK67loSn7+PWSX1vv3tKaDSoGNlaEbBkBjgVouAfZfZfW
+	sAHOCHlF+BSj5hDCOftDFWaZ0FeR7wPskzdh7pJvarZc8kFHKszWvvb7g==
+X-ME-Sender: <xms:_Ei-ZGtCrqPojc3lqdPdePyySCxn7PfGGjQfBnf3kLRKabGOWKGzyA>
+    <xme:_Ei-ZLeFeI3uqrLKZA9ANMmn6Gh4qrayhT0dYUn-B1M2r1S1PXPIUFdp6e-Os3f8V
+    Nveq9i8zyGuGS0>
+X-ME-Received: <xmr:_Ei-ZByxh3Itp-JN7uemWWjqWHxW6kNpC05NQJ3Q0n6xwnBbsiNDSClr79veagdB>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrheekgddulecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhhonhcu
+    ifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+    hmqeenucggtffrrghtthgvrhhnpeekueffiedtgeffleeglefhledtfefgiedtveeiffeg
+    hffgledtveehhfdugfetveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+    grihhlfhhrohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
+    mh
+X-ME-Proxy: <xmx:_Ei-ZBP9mH-FhqcuIatPiNiv60S1gQoDsTm0hkWufo2LH6Dzh2_nVg>
+    <xmx:_Ei-ZG-XSstEohxVe-_timxON9w41F59geEX06gC58feTVBmVyaXyw>
+    <xmx:_Ei-ZJXQCvAf6-oIGO7nqoemCpXLt-U7RCFQ-NTyUrZrRInC1DmTWA>
+    <xmx:_Ei-ZNbTIj9LOGlB4nuznzzfTae9yPMrUGCut2ZH9S5OLVU-I32-tg>
+Feedback-ID: idc5945a3:Fastmail
+Message-ID: <2b4075e5-0b17-fe14-72db-12c63ab30f86@invisiblethingslab.com>
+Date: Mon, 24 Jul 2023 11:48:24 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [XEN PATCH] x86/hpet: Disable legacy replacement mode after IRQ
+ test if not needed
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20230718122603.2002-1-simon@invisiblethingslab.com>
+ <ZLaLLe2HFDN5oWUq@MacBook-Air-de-Roger.local>
+ <ac77ecba-6804-1d16-60dc-f184e5d31dcb@invisiblethingslab.com>
+ <58ee9410-e758-1503-e3f1-d25989fedc1e@suse.com>
+Content-Language: en-US
+From: Simon Gaiser <simon@invisiblethingslab.com>
+In-Reply-To: <58ee9410-e758-1503-e3f1-d25989fedc1e@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------BaKg4KX5cvA95YSCPwr5wObm"
 
-Now there are no readers of shrinker_rwsem, so we can simply replace it
-with mutex lock.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------BaKg4KX5cvA95YSCPwr5wObm
+Content-Type: multipart/mixed; boundary="------------LVwnDABkqVYRbyUaMPboQkTp";
+ protected-headers="v1"
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+Message-ID: <2b4075e5-0b17-fe14-72db-12c63ab30f86@invisiblethingslab.com>
+Subject: Re: [XEN PATCH] x86/hpet: Disable legacy replacement mode after IRQ
+ test if not needed
+References: <20230718122603.2002-1-simon@invisiblethingslab.com>
+ <ZLaLLe2HFDN5oWUq@MacBook-Air-de-Roger.local>
+ <ac77ecba-6804-1d16-60dc-f184e5d31dcb@invisiblethingslab.com>
+ <58ee9410-e758-1503-e3f1-d25989fedc1e@suse.com>
+In-Reply-To: <58ee9410-e758-1503-e3f1-d25989fedc1e@suse.com>
 
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- drivers/md/dm-cache-metadata.c |  2 +-
- fs/super.c                     |  2 +-
- mm/shrinker.c                  | 16 ++++++++--------
- mm/shrinker_debug.c            | 14 +++++++-------
- 4 files changed, 17 insertions(+), 17 deletions(-)
+--------------LVwnDABkqVYRbyUaMPboQkTp
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/md/dm-cache-metadata.c b/drivers/md/dm-cache-metadata.c
-index acffed750e3e..9e0c69958587 100644
---- a/drivers/md/dm-cache-metadata.c
-+++ b/drivers/md/dm-cache-metadata.c
-@@ -1828,7 +1828,7 @@ int dm_cache_metadata_abort(struct dm_cache_metadata *cmd)
- 	 * Replacement block manager (new_bm) is created and old_bm destroyed outside of
- 	 * cmd root_lock to avoid ABBA deadlock that would result (due to life-cycle of
- 	 * shrinker associated with the block manager's bufio client vs cmd root_lock).
--	 * - must take shrinker_rwsem without holding cmd->root_lock
-+	 * - must take shrinker_mutex without holding cmd->root_lock
- 	 */
- 	new_bm = dm_block_manager_create(cmd->bdev, DM_CACHE_METADATA_BLOCK_SIZE << SECTOR_SHIFT,
- 					 CACHE_MAX_CONCURRENT_LOCKS);
-diff --git a/fs/super.c b/fs/super.c
-index 04643fd80886..602cf54eb7da 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -54,7 +54,7 @@ static char *sb_writers_name[SB_FREEZE_LEVELS] = {
-  * One thing we have to be careful of with a per-sb shrinker is that we don't
-  * drop the last active reference to the superblock from within the shrinker.
-  * If that happens we could trigger unregistering the shrinker from within the
-- * shrinker path and that leads to deadlock on the shrinker_rwsem. Hence we
-+ * shrinker path and that leads to deadlock on the shrinker_mutex. Hence we
-  * take a passive reference to the superblock to avoid this from occurring.
-  */
- static unsigned long super_cache_scan(struct shrinker *shrink,
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index 90c045620fe3..5c4546d2c234 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -7,7 +7,7 @@
- #include <trace/events/vmscan.h>
- 
- LIST_HEAD(shrinker_list);
--DECLARE_RWSEM(shrinker_rwsem);
-+DEFINE_MUTEX(shrinker_mutex);
- DEFINE_SPINLOCK(shrinker_lock);
- 
- #ifdef CONFIG_MEMCG
-@@ -80,7 +80,7 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 	int nid, ret = 0;
- 	int array_size = 0;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	array_size = shrinker_unit_size(shrinker_nr_max);
- 	for_each_node(nid) {
- 		info = kvzalloc_node(sizeof(*info) + array_size, GFP_KERNEL, nid);
-@@ -91,7 +91,7 @@ int alloc_shrinker_info(struct mem_cgroup *memcg)
- 			goto err;
- 		rcu_assign_pointer(memcg->nodeinfo[nid]->shrinker_info, info);
- 	}
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	return ret;
- 
-@@ -104,7 +104,7 @@ static struct shrinker_info *shrinker_info_protected(struct mem_cgroup *memcg,
- 						     int nid)
- {
- 	return rcu_dereference_protected(memcg->nodeinfo[nid]->shrinker_info,
--					 lockdep_is_held(&shrinker_rwsem));
-+					 lockdep_is_held(&shrinker_mutex));
- }
- 
- static struct shrinker_info *shrinker_info_rcu(struct mem_cgroup *memcg,
-@@ -158,7 +158,7 @@ static int expand_shrinker_info(int new_id)
- 	int new_size, old_size = 0;
- 	struct mem_cgroup *memcg;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 
- 	if (!root_mem_cgroup)
- 		goto out;
-@@ -179,7 +179,7 @@ static int expand_shrinker_info(int new_id)
- 	if (!ret)
- 		shrinker_nr_max = new_nr_max;
- 
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	return ret;
- }
-@@ -303,7 +303,7 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- 		parent = root_mem_cgroup;
- 
- 	/* Prevent from concurrent shrinker_info expand */
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	for_each_node(nid) {
- 		child_info = shrinker_info_protected(memcg, nid);
- 		parent_info = shrinker_info_protected(parent, nid);
-@@ -316,7 +316,7 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
- 			}
- 		}
- 	}
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- }
- #else
- static int shrinker_memcg_alloc(struct shrinker *shrinker)
-diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
-index badda35464c3..44b620b1919d 100644
---- a/mm/shrinker_debug.c
-+++ b/mm/shrinker_debug.c
-@@ -8,7 +8,7 @@
- #include <linux/rculist.h>
- 
- /* defined in vmscan.c */
--extern struct rw_semaphore shrinker_rwsem;
-+extern struct mutex shrinker_mutex;
- extern struct list_head shrinker_list;
- 
- static DEFINE_IDA(shrinker_debugfs_ida);
-@@ -168,7 +168,7 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
- 	if (!shrinker_debugfs_root)
- 		return 0;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	if (shrinker->debugfs_entry)
- 		goto fail;
- 
-@@ -196,7 +196,7 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
- 			    &shrinker_debugfs_scan_fops);
- 
- fail:
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 	return ret;
- }
- 
-@@ -215,7 +215,7 @@ int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
- 	if (!new)
- 		return -ENOMEM;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 
- 	old = shrinker->name;
- 	shrinker->name = new;
-@@ -233,7 +233,7 @@ int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
- 			shrinker->debugfs_entry = entry;
- 	}
- 
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	kfree_const(old);
- 
-@@ -246,7 +246,7 @@ struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
- {
- 	struct dentry *entry = shrinker->debugfs_entry;
- 
--	down_write(&shrinker_rwsem);
-+	mutex_lock(&shrinker_mutex);
- 	kfree_const(shrinker->name);
- 	shrinker->name = NULL;
- 
-@@ -257,7 +257,7 @@ struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
- 	 */
- 	smp_wmb();
- 	shrinker->debugfs_entry = NULL;
--	up_write(&shrinker_rwsem);
-+	mutex_unlock(&shrinker_mutex);
- 
- 	return entry;
- }
--- 
-2.30.2
+Jan Beulich:
+> On 18.07.2023 23:51, Simon Gaiser wrote:
+>> Roger Pau Monn=C3=A9:
+>>> On Tue, Jul 18, 2023 at 02:26:03PM +0200, Simon Gaiser wrote:
+>>>> As far as I understand the HPET legacy mode is not required on syste=
+ms
+>>>> with ARAT after the timer IRQ test.
+>>>
+>>> What's the relation with ARAT here?
+>>>
+>>> It would seem to me that keeping legacy replacement enabled should
+>>> only be done when opt_hpet_legacy_replacement > 0, and the currently
+>>> modified block is already in a opt_hpet_legacy_replacement < 0 gated
+>>> chunk.
+>>
+>> I was concerned that on systems without ARAT cpuidle might rely on HPE=
+T
+>> legacy mode being available. See _disable_pit_irq and lapic_timer_init=
+=2E
+>> But now that I stared at this again, I think that condition isn't
+>> actually needed. If we reach that code we know that we have no working=
 
+>> PIT, but HPET is working. So _disable_pit_irq which is run after
+>> check_timer (__start_xen first calls check_timer via smp_prepare_cpus
+>> and only later disable_pit_irq via do_initcalls) will setup HPET
+>> broadcast, which should succeed since HPET worked previously.
+>>
+>> So I guess we can just drop the condition (please double check, that
+>> code is quite tangled and I'm not familiar with it).
+>=20
+> What you want to respect instead though is opt_hpet_legacy_replacement.=
+
+
+Can you please explain what behavior you expect? As Roger pointed out
+this code only runs with opt_hpet_legacy_replacement < 0 so the user
+didn't make an explicit choice. In that case enabling the legacy mode
+for the timer IRQ test and then disabling it to allow lower power modes
+seems reasonable to me.
+
+Simon
+
+--------------LVwnDABkqVYRbyUaMPboQkTp--
+
+--------------BaKg4KX5cvA95YSCPwr5wObm
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmS+SOoACgkQkO9xfO/x
+ly9JPw//WumzM2bn//BEMPfXjj2ucaftDIJnuu3r44ih3EPtDdtUSSrdojLUqce3
+vRBETsGbdMowB/5rTfr34xXoyNA/gcvy0SormM7+soou74ZrC7aq0VMYoz9F9R5U
+oLPS3l2I3gxCOPr/wO1j5L3Exq7+XBTL/bIn5xl13BN97a6cqsk/AcB9gYcuUag4
+MzlUa3FNdbJtcxaMbk8tSxsWL5snuFmtIjmUcdn1TDPNPS9RxtsjefsVVaXbexrV
+5Ejt8wGlD6X+9rgZMsrc5fjA1SbqmQU4E/I8PipH9d+oVzqzfbSQNkgk4QS2C8WW
+7jZxMLs34hN6ZiF3pok6Od+VfcYHhqw6ihlLGGpp6KGjI/UsjNGjDdBkWE+zPg8r
+GS4p28KlhD/RBfoJUKgun9WdQq/z7hXo3m8czwONIMhLPEpKxDfrr9yJYnAwe6P2
+JYmje077UgNtXyg4d/xzzlqCMFaxHthkeu0nyWJfEz1ARXldHEs7NVObbEustPV5
+o7YgsHzE1LobqK8JWNeKDqDV8SUrNgvUIKn9V+CKU8kE2VBbzPSt6cSmkxDxQbOR
+ubTOxn4CgQE7Q2opwjMTLe/qF16YQdTOqlL+EIZ1DiWI4x+uy/Qyo9Y7rTjS+Z22
+EXZXkzh/273tMzRnUnyGsb8sVP1EPIaBcOZNnpa9Uda0PzHYBn4=
+=gRqi
+-----END PGP SIGNATURE-----
+
+--------------BaKg4KX5cvA95YSCPwr5wObm--
 
