@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A2EC761BA0
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 16:28:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569729.890718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4BC761BB2
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 16:30:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569732.890728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOJ11-0003ca-Gt; Tue, 25 Jul 2023 14:27:55 +0000
+	id 1qOJ3H-00052J-SY; Tue, 25 Jul 2023 14:30:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569729.890718; Tue, 25 Jul 2023 14:27:55 +0000
+Received: by outflank-mailman (output) from mailman id 569732.890728; Tue, 25 Jul 2023 14:30:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOJ11-0003ak-Cn; Tue, 25 Jul 2023 14:27:55 +0000
-Received: by outflank-mailman (input) for mailman id 569729;
- Tue, 25 Jul 2023 14:27:54 +0000
+	id 1qOJ3H-0004zM-PT; Tue, 25 Jul 2023 14:30:15 +0000
+Received: by outflank-mailman (input) for mailman id 569732;
+ Tue, 25 Jul 2023 14:30:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qOJ10-0003ad-2V
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 14:27:54 +0000
+ (envelope-from <julien@xen.org>) id 1qOJ3F-0004z0-Ib
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 14:30:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qOJ0y-0003dY-Tc; Tue, 25 Jul 2023 14:27:52 +0000
+ id 1qOJ3B-0003hY-Ur; Tue, 25 Jul 2023 14:30:09 +0000
 Received: from 54-240-197-230.amazon.com ([54.240.197.230]
  helo=[192.168.17.43]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qOJ0y-0006S0-M4; Tue, 25 Jul 2023 14:27:52 +0000
+ id 1qOJ3B-0006U8-Or; Tue, 25 Jul 2023 14:30:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,96 +42,72 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RzJckpnz3evDMZSeIJfRFcPgovOnF5f1qG9MwpUxOAY=; b=mwRDQslIW1A7T8AWpp87T8kYzI
-	tbAqiGYlnDTRidWuv2JPcQ/whirlxEMAGU+YSXhiG/W+M8DPNiEZNBMKkxIRhmv2WS0SgNOYVzYvP
-	la3KL7pF2s5dzImS485J0LB10Piw8aVf91GZCZcrtCm4UhEJOgIvIHllupUJ+P5NNKDI=;
-Message-ID: <dc76516e-2334-798a-216e-5ad983fea2f9@xen.org>
-Date: Tue, 25 Jul 2023 15:27:50 +0100
+	bh=4Vs3l1QEosKolhDvdmkMRtOXHwMJdKxdH7fCelID/dU=; b=dLBc7BQHWLPrpljfhGJcinwVJ1
+	KD83OPX3pHZAQf9mRPqfZkhOUALhXUGR5p6CS8LgejIQCAgr7OaGU5dSpi9hNZUHIuYUIfx5+Et4a
+	lu9iBxpRPABm/Y81HLL/cK4oOO6rRyH6FD3I5vCfT6ZxPaqvy2Ru3B4qL8Og4QgyC7Yw=;
+Message-ID: <6f263328-0fdb-8a8d-69b4-1d05ec742cef@xen.org>
+Date: Tue, 25 Jul 2023 15:30:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [PATCH 6/8] mm/pdx: Standardize region validation wrt pdx
- compression
+Subject: Re: [PATCH] xen/arm: Move TEE mediators in a kconfig submenu
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
- <20230717160318.2113-7-alejandro.vallejo@cloud.com>
- <1eb58b83-87ee-d738-08b0-948a8b48773a@xen.org>
- <64be6c1c.7b0a0220.49ba9.0e38@mx.google.com>
- <79ecab0a-cb91-cc95-fd31-c76ec287fa9b@xen.org>
- <0d28d9cd-8cb3-6d03-94d3-e07a4dab9e95@suse.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a44f74559f52d1fa90a3f77390e7d121c9cd848e.1689926422.git.bertrand.marquis@arm.com>
+ <cb7b53bc-2440-8619-61ce-39c967b56eb7@suse.com>
+ <DFD07AA0-E7E2-400B-8961-A646E5531DF7@arm.com>
+ <6b24847c-5cd2-877a-bc72-16bb732e0ca2@suse.com>
+ <C63A942A-AC5D-46CD-81B3-50B6376860E7@arm.com>
+ <47ab1431-6a0b-6e74-92ec-8495c6bf8fbd@suse.com>
+ <8ABBDFFB-AE3C-4A8F-8AAA-F0C5EB99C2C3@arm.com>
+ <fc1bffbe-c5ce-ba05-ad01-22bb1ff983b7@suse.com>
+ <60BC1EAE-ACE2-4D28-9323-51E03D405B35@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <0d28d9cd-8cb3-6d03-94d3-e07a4dab9e95@suse.com>
+In-Reply-To: <60BC1EAE-ACE2-4D28-9323-51E03D405B35@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 25/07/2023 07:51, Jan Beulich wrote:
-> On 24.07.2023 20:20, Julien Grall wrote:
->> On 24/07/2023 13:18, Alejandro Vallejo wrote:
->>> On Fri, Jul 21, 2023 at 06:05:51PM +0100, Julien Grall wrote:
->>>> Hi Alejandro,
+On 21/07/2023 15:34, Bertrand Marquis wrote:
+>> On 21 Jul 2023, at 16:24, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 21.07.2023 16:07, Bertrand Marquis wrote:
+>>>> On 21 Jul 2023, at 15:08, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 21.07.2023 14:27, Bertrand Marquis wrote:
+>>>>> So what should i keep or remove here ?
 >>>>
->>>> On 17/07/2023 17:03, Alejandro Vallejo wrote:
->>>>> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn)
->>>>
->>>> For newer interface, I would rather prefer if we use start + size. It is
->>>> easier to reason (you don't have to wonder whether 'emfn' is inclusive or
->>>> not) and avoid issue in the case you are trying to handle a region right at
->>>> the end of the address space as emfn would be 0 in the non-inclusive case
->>>> (not much a concern for MFNs as the last one should be invalid, but it makes
->>>> harder to reason).
->>> I could agree on this, but every single caller is based on (smfn, emfn),
->>> so it needlessly forces every caller to perform conversions where the
->>> callee can do it just once.
+>>>> My understanding so far was that "visibility" merely hides all prompts
+>>>> underneath (but then I use the command line version of the tool, not
+>>>> menuconfig), so it largely is shorthand for adding "if" to all enclosed
+>>>> prompts. Therefore I think all the "if UNSUPPORTED" are redundant and
+>>>> could be dropped. But then I'm also working from the understanding that
+>>>> "depends on" would behave somewhat differently ...
+>>>
+>>> If that is ok with you I would rather keep them so that making one of them
+>>> SUPPORTED one day will not end up in wrongly making the other one
+>>> supported to. The visible if i added was more to "beautify" a bit when
+>>> unsupported is not selected so that we do not have an empty menu.
 >>
->> That's indeed one way to see it. The problem is that...
->>
->>> That said, I think your point makes sense and
->>> it ought to be done. Probably as as part of a bigger refactor where
->>> (smfn, emfn)-based functions are turned into (base, len) variants.
->>
->> ... clean-up tends to be put in the back-burner and we just continue to
->> add new use. This makes the task to remove every use a lot more
->> difficult. So there is a point when one has to say no more.
->>
->> Therefore, I would strongly prefer if each callers are doing the
->> computation. The rest can be removed leisurely.
->>
->> Let see what the opinion of the other maintainers.
+>> You're the maintainer, so you judge what is best. If I was maintainer, the
+>> primary thing I would ask for is that there be no redundancy. IOW here
+>> either no "if"s or no "visibility".
 > 
-> I think [a,b] ranges are fine to pass, and may even be preferable over
-> passing a size. I'm specifically using that term that you also used:
-> "size" (or "length") is ambiguous when talking about page granular
-> items - is it in bytes or number of pages?
+> In this case i do think that the "if UNSUPPORTED" per entry is important
+> so that it clear per config entry which ones are unsupported.
+> 
+> So if other arm maintainers agree with your point, i would remove the
+> "visibility" and keep an empty menu.
+> But my vote is to keep both.
+> 
+> @julien and Stefano: Any view on that ?
 
-I was referring to the number of pages. I don't think it make sense to 
-have it in bytes given the start is a frame.
-
-> Especially in the former
-> case calculations at the call sites would be quite a bit more cumbersome.
-> I could agree with (mfn,nr) tuples
-
-Ok. So your objection of my proposal is just about the name, right? If 
-so, I didn't put too much thought behind the naming when I sent my 
-original e-mail. I am open to any.
-
-, but as said I think inclusive
-> ranges are also fine to use (and would be less of a problem at the call
-> sites here, afaics).
-
-The problem with range is that it can lead to confusion on whether the 
-end is inclusive or exclusive. We had one bug recently in the Arm PCI 
-code because of that.
-
-So I would like to get rid of any use of range in new functions.
+I agree with keeping both.
 
 Cheers,
 
