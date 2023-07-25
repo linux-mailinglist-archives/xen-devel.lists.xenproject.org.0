@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A95760ACF
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 08:47:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569455.890218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60339760AF5
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 08:52:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569463.890230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOBpc-0005t5-Ay; Tue, 25 Jul 2023 06:47:40 +0000
+	id 1qOBtn-0007fq-Sl; Tue, 25 Jul 2023 06:51:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569455.890218; Tue, 25 Jul 2023 06:47:40 +0000
+Received: by outflank-mailman (output) from mailman id 569463.890230; Tue, 25 Jul 2023 06:51:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOBpc-0005r3-7r; Tue, 25 Jul 2023 06:47:40 +0000
-Received: by outflank-mailman (input) for mailman id 569455;
- Tue, 25 Jul 2023 06:47:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QXT9=DL=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1qOBpa-0005qU-Rp
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 06:47:38 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22e147cd-2ab7-11ee-8613-37d641c3527e;
- Tue, 25 Jul 2023 08:47:35 +0200 (CEST)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1b89114266dso41678295ad.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 23:47:35 -0700 (PDT)
-Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
- f20-20020a170902ab9400b001bb7a736b46sm6520346plr.104.2023.07.24.23.47.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 23:47:33 -0700 (PDT)
+	id 1qOBtn-0007d8-Oq; Tue, 25 Jul 2023 06:51:59 +0000
+Received: by outflank-mailman (input) for mailman id 569463;
+ Tue, 25 Jul 2023 06:51:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nivo=DL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qOBtn-0007d2-0X
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 06:51:59 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20627.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::627])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bec80103-2ab7-11ee-b23d-6b7b168915f2;
+ Tue, 25 Jul 2023 08:51:58 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB7554.eurprd04.prod.outlook.com (2603:10a6:20b:2da::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 25 Jul
+ 2023 06:51:54 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
+ 06:51:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,462 +47,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22e147cd-2ab7-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690267654; x=1690872454;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Hcw0vhkpfA1IWVmpW9wPPgV2C/r/WIeNrF6Q4NPx1Cs=;
-        b=e2vS6JKd5Vy/p29drm1dbYw1K/JcNfPQeFaLfaYPx0UwGlXs2imi0lkQVd00y2dXtj
-         m+UpNHaeCs21NcHkcxK+BwICVhhKZQPsfzid5i83VJ7CmWNIpHXlus3VADuc1Wimp90M
-         AxQyNtR1aTZANK9UnHB+z4qfjhm4/QfCmo444N8cSTUlSfF1eEBL10tDYfqMkvRkzUS0
-         ntCOQmyYsx0/VVfhp3eAgJAsjFs9DPDQ/wCNiHDi6TZkpI9TE7sLJDb35Kh+77XaIqff
-         GMiXpM5DoGXzzdNAGw78cPbRLZBk0lJQG8bWMmXvAi/FJ49Qe7eLOCyXAgDJypSFWQJZ
-         h4Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690267654; x=1690872454;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Hcw0vhkpfA1IWVmpW9wPPgV2C/r/WIeNrF6Q4NPx1Cs=;
-        b=hqrR8F6Zfm/MKP6qIEFONqGNNq7jeVLu8tvH2DFh1rbY6wCOBd3Vmzi33pWLnWS8E0
-         ZhkI8Q3Bx8lKNCVfsJb439TulhXOikRN6Z1KwLH+UrYnPcbYAXUCKRHZCWikK2XDlzQD
-         T4G5nIN8PGAqHnUYHbB8A5JV/c/ztostur+rMZT/qIBmLIh9o+48szNoIyCg4bqrn9V2
-         9aGAw33qQLHwaWxvxSBSm66GrjfNKpEOrY1yuEplHBQ5c8jHpnNsxwbeCR/RxA5abA6h
-         IxgOdLn2mjAPtBHGDGuyWxmJKRT4spNoF5jJzmexJp2tjh70YuxuiO46leyO7tGG/UXg
-         my2g==
-X-Gm-Message-State: ABy/qLaClMOOZx6dI0b/4GYmxp0O6MLDTgcIDRVo6ZZrL2i3WxnbkBfX
-	PGq8mDSxFmW8h4HOc4hVe2Cln8fpzoLTAFnM2So=
-X-Google-Smtp-Source: APBJJlFtlQZpWmJARSwj2NSQOJ/18NpmQBTPAIV6sVOL+bAv54tYlrZaDWwP8hi2MCYmwm2uvE2nig==
-X-Received: by 2002:a17:902:cec1:b0:1b8:8dbd:e1a0 with SMTP id d1-20020a170902cec100b001b88dbde1a0mr15735753plg.13.1690267654137;
-        Mon, 24 Jul 2023 23:47:34 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Erik Schilling <erik.schilling@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH V3 2/2] xen: privcmd: Add support for irqfd
-Date: Tue, 25 Jul 2023 12:17:26 +0530
-Message-Id: <8c1ea7faa0fe5deed1b2c86ea0f73e824f8a001d.1690190453.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <ffae9d7021829fea19fd93fda3c30b52b0af923e.1690190453.git.viresh.kumar@linaro.org>
-References: <ffae9d7021829fea19fd93fda3c30b52b0af923e.1690190453.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: bec80103-2ab7-11ee-b23d-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jnSweCAiqTVQQWqj9zMPMEpdFt786AbIdMcFcrmSXjIArLFKCRLuwY7pdvdhjAXlfGHMYeGINf6Z7TBwB9BvcoZ93k2dhmy69F5DaTQkrfKJIgx4StHaOWywIBdj4kXb0nZ0W/qqS8p5J/tYL65NHoUS+fZJsJ39w2INAh9r8SnEj45okm5nTBW6SJXVeJ4USjclt0NOCynq7Gy6LT/dgmTbvol2g280dmOR63+YMTOK+RTIIINMqHJFl1XM4pz/k5EQsMvA366pbE9gP69y1rFqA1Gr4RmGN7TX3RyF41bAMk7fClvRDiJxw7FN6JzWf+e53GHKyfvOEZ2JddLtWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n0RbcNAgsxwzQByZOv0WqToh+4jZlbpzHh/ceuBS+1o=;
+ b=WcUePRVDBwQx/vbHaXpLsLwu0BpBgMu/TXSk/zCKHcegwHdirgvhO7aDUioe/ZGlEsxaky6AAUg7tQ1SWWYP7H740tCKCoUnyertn3trM537Ir0XacKO49/9hYTV8yWUUK2CNUf9/TdRKWm+GpgrrL2wsVxFGrJxofAhRHmhejIoNtjRik3jDQqPhCuVt9oHaYkG6Q2wCxyUMchyTxPAg2MxVbHU1KSjH2S3yn8qjscPrMxzIv9+rDo9ViO7GnKjhx1dGVv4LFqHSRr1WuaFHhYbkwh8pQPgDTP2UAeQDhoM7zuVuhkOVln6uE2d9+AnM1IC57Yb00NYniW3MsWkSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n0RbcNAgsxwzQByZOv0WqToh+4jZlbpzHh/ceuBS+1o=;
+ b=mt3IyZyO3MnjIUYJ0v9BOQLEh676K15mttBxNa6x26QSqcQwH33kANMP9QJME1UK6Zyu662gMl8Z7OElYPcebUdPM4Oxe29pYdXAnLNj6jAcNOO3/Fj1L/UXy6syOBbm2SmpbKk4nAoxTcKGQMgSc/n0PZhkHa8Zto1or5hklXbNaeEoUc4YMSGb3m4RHKwe7kk2/4ZqThrc7eldcZyvp0C6iFOdj+85o4Zh62xodQhEzoy37C6dfbnMyB7d6Eq1E6eBeOdCFhpmcLt8L+8xIJsyx+MiRNhSgBkE+aC/ihwHf+tXL6HuQIF/hbCYBwgTGftne9kBTR18vv66cKPodA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <0d28d9cd-8cb3-6d03-94d3-e07a4dab9e95@suse.com>
+Date: Tue, 25 Jul 2023 08:51:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 6/8] mm/pdx: Standardize region validation wrt pdx
+ compression
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
+ <20230717160318.2113-7-alejandro.vallejo@cloud.com>
+ <1eb58b83-87ee-d738-08b0-948a8b48773a@xen.org>
+ <64be6c1c.7b0a0220.49ba9.0e38@mx.google.com>
+ <79ecab0a-cb91-cc95-fd31-c76ec287fa9b@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <79ecab0a-cb91-cc95-fd31-c76ec287fa9b@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0219.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ac::12) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB7554:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba029042-579d-4677-b4e0-08db8cdba1a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	QT27KwuDGm5i5FJe22oYKqAyklBRKoatcmyxHKMqUbyBszDeWA58QTbuyeJzszKmByIi6CLx8EB0k5ratniHXKGYEpXv4UPMqma8/O+wqHCFuinznb60ijV71rh5T7rm8HMz31StLqCSs1l8j2ni+eoLbo8Vy6mcQzTpJJ9it/QDn8TZ/tqrNnuYw4dvC07bEPSK6S26UXpsK5fJRc2ppjfUm6g/ot2WbZvZo2so3G2T6FrWNXy3blCc1KG3qYZJfB1Jqs16F+0Ma550pTN3xGKG2tMe9kYk0+84O6kzimhxNFhrSOdep3jhWtVa4PSPvu7puWpqqaDw8VKHEsSBKtDpDVFKhDskyBcHSr0ruHwlZZn8+tpuVPkFl0IuUbNSNLdz0fpYOYPVV4hM+viR+uP4VcxSf+VGA+UKtD/Au+kmrGwRRB3UDYw/QMKb7K4ZqOawM1OcWFSLPZOEJ+Sl6shNc8HADDEh5iBAbUhvrQG+lGO9PtMQ1alLeH9I3b4llKB+7Ne6uNkjkaDSlW5FbcfOyzgXpqAswndjJgDgAMV31upLBqtTklUXHSkk9lLDjRr2/WRT3RIOwnbVMdeSm/HDdVcu4tOJcs40mPK+BWoSUqIgaoWWM1VclPAROnqwexzlBtxRxFcAVn+m+ZgPWA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(136003)(366004)(376002)(396003)(451199021)(31686004)(8676002)(8936002)(5660300002)(41300700001)(316002)(6916009)(4326008)(54906003)(2906002)(66946007)(66476007)(66556008)(6486002)(186003)(26005)(53546011)(478600001)(6512007)(6506007)(31696002)(86362001)(36756003)(2616005)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y0pUMzVyaE9FVS95YWtCL1ZmSlhyWnhsblFDVjYxY1Y2ZjZVd1RhRDJLaXY3?=
+ =?utf-8?B?SmFiV0JZYU1YT3NXSjhMQ1dudyt1SHo1azRQU3ZBanljY25RTFg0Sk0rYkRJ?=
+ =?utf-8?B?T1FXREh1M3QwVCtSeVh1WVE3ZWF1bnpWV3NtRThCQnd5bDBNZkRFZnFYRXNE?=
+ =?utf-8?B?eUVnSFBkSk1yWjlxM0hWeWNKWERKT2NlRmhBYXRNUjQ4MzhCRytyTTJHaWFm?=
+ =?utf-8?B?Szh3UTluUWFxdFVTbWw2b0FsWmtaRklPeVJ3djZoNi8xbXZtV29YRysybHJF?=
+ =?utf-8?B?QmRPaDJvK2hJdmw0Vk9NcFRqdWpXTkNuNjJpdzNJQ3B2L1A1YlZuQkJTMGZD?=
+ =?utf-8?B?bENYTXZWbCtieC9GZTNXMnpZeGIwUFpQNWxGYmlQREFVc3YxNDJzclNzaE1z?=
+ =?utf-8?B?OUlpSmhWN3YxelFrb2NzalJxQkdYVDVMTnJrbUxsaWYyVlhva0EwcFhpbngz?=
+ =?utf-8?B?Q005OE1reUhCRGFsd09LbkJZa3JWS1BaeFhjd2JEd0hRTkpvSHVpUnp1NE14?=
+ =?utf-8?B?L1M0MjhWbUtmSVZySmFGR0NUVVMrNWQzanR5d25NWmRIOURSN3doWTBMYzha?=
+ =?utf-8?B?SVA5c01mdFRKVkNtZHBSejNKL0JzTW5uYzFSdW9BVDRmdyt5c1RrRXpYTUQ0?=
+ =?utf-8?B?T0VGbWh1Sm1QeGMvVTkxMGxyMmRHNUlWMTN1Ukw0V1YyRkdncWhySCs4Y3Ja?=
+ =?utf-8?B?Q1hBbmE1YXZjZC9WdUVwMXJaTnBmK09KcHdSRGxoK296Q1o1bG9wdWV0Ujhq?=
+ =?utf-8?B?TGx6V1VWcEMrL3hxb29wa2pjd1pla2hkYVIxYWVLTkhuTzdjK3d5M3AvQkRO?=
+ =?utf-8?B?eHZsbG83bEp0VTBHa2kxY205bTI1MkhNems4RTh6VGRIT2dSZDNHdnd3SStF?=
+ =?utf-8?B?di94OGlOcVVEWlI4Ti9SY0IrbmZtSDhjemdiRElVUHhXaW96NUgvT3B1M3B4?=
+ =?utf-8?B?TlJScGRrajF1WVN3QVp6bTkwZ3ZaejNBSlZsL01ZUVA5NllxMG13dSt0VkpL?=
+ =?utf-8?B?ZldvcDB6a3J1TkY3QUpSQ29BZzBUdDdQbWg4VFhhbmMyYjVOdWhTd3B4WEhP?=
+ =?utf-8?B?Rm5WTHNTTEthZlUxaW5QeG5xQmh2SWZ1MEIydlhkbytZU0Z3QUlHVVFZUW5B?=
+ =?utf-8?B?cFpOUS9LNHZBMlhseXNNenkva2gzdHlETWpKWFVpaXRxRmE3TTA4QWJVdUlu?=
+ =?utf-8?B?Vjc0U1RIZitPSy9WODF2Q2RlWTJrYVE3dFl0ZjJLUHBrYzMzNlp0Qm5WNzQ5?=
+ =?utf-8?B?UEpKcFArcnhhVlVqVHdOYTVCZWFlT2lyMlhaR1J0QUI1WWVzY1JyZGVFcDJE?=
+ =?utf-8?B?WjBHSHYvNDVzc01acEN6UzNUckFPSUx5d1VhM083L3dWOTE3WE0zY3hSVHNT?=
+ =?utf-8?B?bUp0R2N0MmVjMmg4Qy95aW96U3RNZWVscHNGeE80ZThkaWhSS3BTcEkrbnhC?=
+ =?utf-8?B?L0tIdkRlOW5EeDFPWUFEWGdSY0N5cElTZlhMVHNIUjhWd1VjM2p4aGU4V1pF?=
+ =?utf-8?B?L0VrTkRYTTJteTFWSTFYdXY5TVFxeVE2dGt0VjBkUFkrZ0tEOFc3ODBkeVd6?=
+ =?utf-8?B?QmdkcWZkWTk2TkY2RnRPcTRhRU52TTFPcUxpQjAvWHdlbTBRQzZMNHlXRDl6?=
+ =?utf-8?B?QnI2UzlJNzBuc3NibXVIb1BPb0xpdWd1d2h3Qkl6WTdDY2Z4UXhaaElLK2Nw?=
+ =?utf-8?B?cnBIN0VMN1I4L2pJQ2F2UFZtNitpYjV0c1NNeTJKeWF2bjQ2TXdwVU1raU9s?=
+ =?utf-8?B?cjNMVkxLenowTDhMUTVENFZ1RUs5bWV6VmhENVplbGt5djFEMTl0Vm9FNWc4?=
+ =?utf-8?B?a2tZWml2aDd3am9RSGpSWituY3FPRWY1VzVScmF2ZXpOS0JtTm5IWHBBVDhW?=
+ =?utf-8?B?ajFoUTZxT0E0UUR2RUJYNS9uTE5vSC8zNnZyVEd0SW9tWlViTE5sMjd3eUpD?=
+ =?utf-8?B?NVgzN0xYMkNmZ29xRmx5NFU2SzlCZHJEQ25IYjFQWUtuTDlmeVdDOE5TeXFl?=
+ =?utf-8?B?bWFEc2lEWTd4TVBXY2lSeisvelZWcDRVKy93V1dhS3NjNXduc2Q4aEcxN095?=
+ =?utf-8?B?MFZYM2N1anlMbVhYNjlTK29uR1VzbnFDS094T2dQR1dHWG5IWGxlL0hjS2dQ?=
+ =?utf-8?Q?A8y9WQGJf7+TyqK06z5r8Hk/4?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba029042-579d-4677-b4e0-08db8cdba1a3
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 06:51:54.1668
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RPpR146zXfExDJzVxh++T1Gsyh4GrE2m6Kt1ag94zhtdzDzM2Hm0fxruXMkEpNgwlG4C2gDdThubp1DKHrhHVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7554
 
-Xen provides support for injecting interrupts to the guests via the
-HYPERVISOR_dm_op() hypercall. The same is used by the Virtio based
-device backend implementations, in an inefficient manner currently.
+On 24.07.2023 20:20, Julien Grall wrote:
+> On 24/07/2023 13:18, Alejandro Vallejo wrote:
+>> On Fri, Jul 21, 2023 at 06:05:51PM +0100, Julien Grall wrote:
+>>> Hi Alejandro,
+>>>
+>>> On 17/07/2023 17:03, Alejandro Vallejo wrote:
+>>>> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn)
+>>>
+>>> For newer interface, I would rather prefer if we use start + size. It is
+>>> easier to reason (you don't have to wonder whether 'emfn' is inclusive or
+>>> not) and avoid issue in the case you are trying to handle a region right at
+>>> the end of the address space as emfn would be 0 in the non-inclusive case
+>>> (not much a concern for MFNs as the last one should be invalid, but it makes
+>>> harder to reason).
+>> I could agree on this, but every single caller is based on (smfn, emfn),
+>> so it needlessly forces every caller to perform conversions where the
+>> callee can do it just once.
+> 
+> That's indeed one way to see it. The problem is that...
+> 
+>> That said, I think your point makes sense and
+>> it ought to be done. Probably as as part of a bigger refactor where
+>> (smfn, emfn)-based functions are turned into (base, len) variants.
+> 
+> ... clean-up tends to be put in the back-burner and we just continue to 
+> add new use. This makes the task to remove every use a lot more 
+> difficult. So there is a point when one has to say no more.
+> 
+> Therefore, I would strongly prefer if each callers are doing the 
+> computation. The rest can be removed leisurely.
+> 
+> Let see what the opinion of the other maintainers.
 
-Generally, the Virtio backends are implemented to work with the Eventfd
-based mechanism. In order to make such backends work with Xen, another
-software layer needs to poll the Eventfds and raise an interrupt to the
-guest using the Xen based mechanism. This results in an extra context
-switch.
+I think [a,b] ranges are fine to pass, and may even be preferable over
+passing a size. I'm specifically using that term that you also used:
+"size" (or "length") is ambiguous when talking about page granular
+items - is it in bytes or number of pages? Especially in the former
+case calculations at the call sites would be quite a bit more cumbersome.
+I could agree with (mfn,nr) tuples, but as said I think inclusive
+ranges are also fine to use (and would be less of a problem at the call
+sites here, afaics).
 
-This is not a new problem in Linux though. It is present with other
-hypervisors like KVM, etc. as well. The generic solution implemented in
-the kernel for them is to provide an IOCTL call to pass the interrupt
-details and eventfd, which lets the kernel take care of polling the
-eventfd and raising of the interrupt, instead of handling this in user
-space (which involves an extra context switch).
-
-This patch adds support to inject a specific interrupt to guest using
-the eventfd mechanism, by preventing the extra context switch.
-
-Inspired by existing implementations for KVM, etc..
-
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V2.1->V3
-- No changes
-
-V2->V2.1
-- Select EVENTFD from Kconfig
-
-V1->V2:
-- Improve error handling.
-- Remove the unnecessary usage of list_for_each_entry_safe().
-- Restrict the use of XEN_DMOP_set_irq_level to only ARM64.
-
- drivers/xen/Kconfig        |   1 +
- drivers/xen/privcmd.c      | 276 ++++++++++++++++++++++++++++++++++++-
- include/uapi/xen/privcmd.h |  14 ++
- 3 files changed, 289 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index d5d7c402b651..7967393c55a4 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -261,6 +261,7 @@ config XEN_SCSI_BACKEND
- config XEN_PRIVCMD
- 	tristate "Xen hypercall passthrough driver"
- 	depends on XEN
-+	select EVENTFD
- 	default m
- 	help
- 	  The hypercall passthrough driver allows privileged user programs to
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index e2f580e30a86..0debc5482253 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -9,11 +9,16 @@
- 
- #define pr_fmt(fmt) "xen:" KBUILD_MODNAME ": " fmt
- 
-+#include <linux/eventfd.h>
-+#include <linux/file.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/poll.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-+#include <linux/workqueue.h>
- #include <linux/errno.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
-@@ -833,6 +838,257 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
- 	return rc;
- }
- 
-+/* Irqfd support */
-+static struct workqueue_struct *irqfd_cleanup_wq;
-+static DEFINE_MUTEX(irqfds_lock);
-+static LIST_HEAD(irqfds_list);
-+
-+struct privcmd_kernel_irqfd {
-+	domid_t dom;
-+	u8 level;
-+	bool error;
-+	u32 irq;
-+	struct eventfd_ctx *eventfd;
-+	struct work_struct shutdown;
-+	wait_queue_entry_t wait;
-+	struct list_head list;
-+	poll_table pt;
-+};
-+
-+static void irqfd_deactivate(struct privcmd_kernel_irqfd *kirqfd)
-+{
-+	lockdep_assert_held(&irqfds_lock);
-+
-+	list_del_init(&kirqfd->list);
-+	queue_work(irqfd_cleanup_wq, &kirqfd->shutdown);
-+}
-+
-+static void irqfd_shutdown(struct work_struct *work)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd =
-+		container_of(work, struct privcmd_kernel_irqfd, shutdown);
-+	u64 cnt;
-+
-+	eventfd_ctx_remove_wait_queue(kirqfd->eventfd, &kirqfd->wait, &cnt);
-+	eventfd_ctx_put(kirqfd->eventfd);
-+	kfree(kirqfd);
-+}
-+
-+static void irqfd_inject(struct privcmd_kernel_irqfd *kirqfd)
-+{
-+	/* Different architectures support this differently */
-+	struct xen_dm_op dm_op = {
-+#ifdef CONFIG_ARM64
-+		.op = XEN_DMOP_set_irq_level,
-+		.u.set_irq_level.irq = kirqfd->irq,
-+		.u.set_irq_level.level = kirqfd->level,
-+#endif
-+	};
-+	struct xen_dm_op_buf xbufs = {
-+		.size = sizeof(dm_op),
-+	};
-+	u64 cnt;
-+	long rc;
-+
-+	eventfd_ctx_do_read(kirqfd->eventfd, &cnt);
-+	set_xen_guest_handle(xbufs.h, &dm_op);
-+
-+	xen_preemptible_hcall_begin();
-+	rc = HYPERVISOR_dm_op(kirqfd->dom, 1, &xbufs);
-+	xen_preemptible_hcall_end();
-+
-+	/* Don't repeat the error message for consecutive failures */
-+	if (rc && !kirqfd->error) {
-+		pr_err("Failed to configure irq: %d to level: %d for guest domain: %d\n",
-+		       kirqfd->irq, kirqfd->level, kirqfd->dom);
-+	}
-+
-+	kirqfd->error = !!rc;
-+}
-+
-+static int
-+irqfd_wakeup(wait_queue_entry_t *wait, unsigned int mode, int sync, void *key)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd =
-+		container_of(wait, struct privcmd_kernel_irqfd, wait);
-+	__poll_t flags = key_to_poll(key);
-+
-+	if (flags & EPOLLIN)
-+		irqfd_inject(kirqfd);
-+
-+	if (flags & EPOLLHUP) {
-+		mutex_lock(&irqfds_lock);
-+		irqfd_deactivate(kirqfd);
-+		mutex_unlock(&irqfds_lock);
-+	}
-+
-+	return 0;
-+}
-+
-+static void
-+irqfd_poll_func(struct file *file, wait_queue_head_t *wqh, poll_table *pt)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd =
-+		container_of(pt, struct privcmd_kernel_irqfd, pt);
-+
-+	add_wait_queue_priority(wqh, &kirqfd->wait);
-+}
-+
-+static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd, *tmp;
-+	struct eventfd_ctx *eventfd;
-+	__poll_t events;
-+	struct fd f;
-+	int ret;
-+
-+	kirqfd = kzalloc(sizeof(*kirqfd), GFP_KERNEL);
-+	if (!kirqfd)
-+		return -ENOMEM;
-+
-+	kirqfd->irq = irqfd->irq;
-+	kirqfd->dom = irqfd->dom;
-+	kirqfd->level = irqfd->level;
-+	INIT_LIST_HEAD(&kirqfd->list);
-+	INIT_WORK(&kirqfd->shutdown, irqfd_shutdown);
-+
-+	f = fdget(irqfd->fd);
-+	if (!f.file) {
-+		ret = -EBADF;
-+		goto error_kfree;
-+	}
-+
-+	eventfd = eventfd_ctx_fileget(f.file);
-+	if (IS_ERR(eventfd)) {
-+		ret = PTR_ERR(eventfd);
-+		goto error_fd_put;
-+	}
-+
-+	kirqfd->eventfd = eventfd;
-+
-+	/*
-+	 * Install our own custom wake-up handling so we are notified via a
-+	 * callback whenever someone signals the underlying eventfd.
-+	 */
-+	init_waitqueue_func_entry(&kirqfd->wait, irqfd_wakeup);
-+	init_poll_funcptr(&kirqfd->pt, irqfd_poll_func);
-+
-+	mutex_lock(&irqfds_lock);
-+
-+	list_for_each_entry(tmp, &irqfds_list, list) {
-+		if (kirqfd->eventfd == tmp->eventfd) {
-+			ret = -EBUSY;
-+			mutex_unlock(&irqfds_lock);
-+			goto error_eventfd;
-+		}
-+	}
-+
-+	list_add_tail(&kirqfd->list, &irqfds_list);
-+	mutex_unlock(&irqfds_lock);
-+
-+	/*
-+	 * Check if there was an event already pending on the eventfd before we
-+	 * registered, and trigger it as if we didn't miss it.
-+	 */
-+	events = vfs_poll(f.file, &kirqfd->pt);
-+	if (events & EPOLLIN)
-+		irqfd_inject(kirqfd);
-+
-+	/*
-+	 * Do not drop the file until the kirqfd is fully initialized, otherwise
-+	 * we might race against the EPOLLHUP.
-+	 */
-+	fdput(f);
-+	return 0;
-+
-+error_eventfd:
-+	eventfd_ctx_put(eventfd);
-+
-+error_fd_put:
-+	fdput(f);
-+
-+error_kfree:
-+	kfree(kirqfd);
-+	return ret;
-+}
-+
-+static int privcmd_irqfd_deassign(struct privcmd_irqfd *irqfd)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd;
-+	struct eventfd_ctx *eventfd;
-+
-+	eventfd = eventfd_ctx_fdget(irqfd->fd);
-+	if (IS_ERR(eventfd))
-+		return PTR_ERR(eventfd);
-+
-+	mutex_lock(&irqfds_lock);
-+
-+	list_for_each_entry(kirqfd, &irqfds_list, list) {
-+		if (kirqfd->eventfd == eventfd) {
-+			irqfd_deactivate(kirqfd);
-+			break;
-+		}
-+	}
-+
-+	mutex_unlock(&irqfds_lock);
-+
-+	eventfd_ctx_put(eventfd);
-+
-+	/*
-+	 * Block until we know all outstanding shutdown jobs have completed so
-+	 * that we guarantee there will not be any more interrupts once this
-+	 * deassign function returns.
-+	 */
-+	flush_workqueue(irqfd_cleanup_wq);
-+
-+	return 0;
-+}
-+
-+static long privcmd_ioctl_irqfd(struct file *file, void __user *udata)
-+{
-+	struct privcmd_data *data = file->private_data;
-+	struct privcmd_irqfd irqfd;
-+
-+	if (copy_from_user(&irqfd, udata, sizeof(irqfd)))
-+		return -EFAULT;
-+
-+	/* No other flags should be set */
-+	if (irqfd.flags & ~PRIVCMD_IRQFD_FLAG_DEASSIGN)
-+		return -EINVAL;
-+
-+	/* If restriction is in place, check the domid matches */
-+	if (data->domid != DOMID_INVALID && data->domid != irqfd.dom)
-+		return -EPERM;
-+
-+	if (irqfd.flags & PRIVCMD_IRQFD_FLAG_DEASSIGN)
-+		return privcmd_irqfd_deassign(&irqfd);
-+
-+	return privcmd_irqfd_assign(&irqfd);
-+}
-+
-+static int privcmd_irqfd_init(void)
-+{
-+	irqfd_cleanup_wq = alloc_workqueue("privcmd-irqfd-cleanup", 0, 0);
-+	if (!irqfd_cleanup_wq)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static void privcmd_irqfd_exit(void)
-+{
-+	struct privcmd_kernel_irqfd *kirqfd, *tmp;
-+
-+	mutex_lock(&irqfds_lock);
-+
-+	list_for_each_entry_safe(kirqfd, tmp, &irqfds_list, list)
-+		irqfd_deactivate(kirqfd);
-+
-+	mutex_unlock(&irqfds_lock);
-+
-+	destroy_workqueue(irqfd_cleanup_wq);
-+}
-+
- static long privcmd_ioctl(struct file *file,
- 			  unsigned int cmd, unsigned long data)
- {
-@@ -868,6 +1124,10 @@ static long privcmd_ioctl(struct file *file,
- 		ret = privcmd_ioctl_mmap_resource(file, udata);
- 		break;
- 
-+	case IOCTL_PRIVCMD_IRQFD:
-+		ret = privcmd_ioctl_irqfd(file, udata);
-+		break;
-+
- 	default:
- 		break;
- 	}
-@@ -992,15 +1252,27 @@ static int __init privcmd_init(void)
- 	err = misc_register(&xen_privcmdbuf_dev);
- 	if (err != 0) {
- 		pr_err("Could not register Xen hypercall-buf device\n");
--		misc_deregister(&privcmd_dev);
--		return err;
-+		goto err_privcmdbuf;
-+	}
-+
-+	err = privcmd_irqfd_init();
-+	if (err != 0) {
-+		pr_err("irqfd init failed\n");
-+		goto err_irqfd;
- 	}
- 
- 	return 0;
-+
-+err_irqfd:
-+	misc_deregister(&xen_privcmdbuf_dev);
-+err_privcmdbuf:
-+	misc_deregister(&privcmd_dev);
-+	return err;
- }
- 
- static void __exit privcmd_exit(void)
- {
-+	privcmd_irqfd_exit();
- 	misc_deregister(&privcmd_dev);
- 	misc_deregister(&xen_privcmdbuf_dev);
- }
-diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
-index d2029556083e..47334bb91a09 100644
---- a/include/uapi/xen/privcmd.h
-+++ b/include/uapi/xen/privcmd.h
-@@ -98,6 +98,18 @@ struct privcmd_mmap_resource {
- 	__u64 addr;
- };
- 
-+/* For privcmd_irqfd::flags */
-+#define PRIVCMD_IRQFD_FLAG_DEASSIGN (1 << 0)
-+
-+struct privcmd_irqfd {
-+	__u32 fd;
-+	__u32 flags;
-+	__u32 irq;
-+	domid_t dom;
-+	__u8 level;
-+	__u8 pad;
-+};
-+
- /*
-  * @cmd: IOCTL_PRIVCMD_HYPERCALL
-  * @arg: &privcmd_hypercall_t
-@@ -125,5 +137,7 @@ struct privcmd_mmap_resource {
- 	_IOC(_IOC_NONE, 'P', 6, sizeof(domid_t))
- #define IOCTL_PRIVCMD_MMAP_RESOURCE				\
- 	_IOC(_IOC_NONE, 'P', 7, sizeof(struct privcmd_mmap_resource))
-+#define IOCTL_PRIVCMD_IRQFD					\
-+	_IOC(_IOC_NONE, 'P', 8, sizeof(struct privcmd_irqfd))
- 
- #endif /* __LINUX_PUBLIC_PRIVCMD_H__ */
--- 
-2.31.1.272.g89b43f80a514
-
+Jan
 
