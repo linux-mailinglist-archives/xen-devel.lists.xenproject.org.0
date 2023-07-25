@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3521D761AC6
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 15:57:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569715.890708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A2EC761BA0
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 16:28:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569729.890718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOIXB-0008Ov-1h; Tue, 25 Jul 2023 13:57:05 +0000
+	id 1qOJ11-0003ca-Gt; Tue, 25 Jul 2023 14:27:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569715.890708; Tue, 25 Jul 2023 13:57:05 +0000
+Received: by outflank-mailman (output) from mailman id 569729.890718; Tue, 25 Jul 2023 14:27:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOIXA-0008MV-Tq; Tue, 25 Jul 2023 13:57:04 +0000
-Received: by outflank-mailman (input) for mailman id 569715;
- Tue, 25 Jul 2023 13:57:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n1im=DL=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qOIXA-0008Lz-14
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 13:57:04 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 214e52a4-2af3-11ee-8613-37d641c3527e;
- Tue, 25 Jul 2023 15:57:02 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.160.93.75])
- by support.bugseng.com (Postfix) with ESMTPSA id 11B7B4EE0739;
- Tue, 25 Jul 2023 15:57:00 +0200 (CEST)
+	id 1qOJ11-0003ak-Cn; Tue, 25 Jul 2023 14:27:55 +0000
+Received: by outflank-mailman (input) for mailman id 569729;
+ Tue, 25 Jul 2023 14:27:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qOJ10-0003ad-2V
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 14:27:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qOJ0y-0003dY-Tc; Tue, 25 Jul 2023 14:27:52 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=[192.168.17.43]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qOJ0y-0006S0-M4; Tue, 25 Jul 2023 14:27:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,159 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 214e52a4-2af3-11ee-8613-37d641c3527e
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: [XEN PATCH v3] device_tree: address violations of MISRA C:2012 Rules 8.2 and 8.3
-Date: Tue, 25 Jul 2023 15:56:44 +0200
-Message-Id: <982ad65413e08e8c10ef035cb8246ba7277ff01b.1690292999.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=RzJckpnz3evDMZSeIJfRFcPgovOnF5f1qG9MwpUxOAY=; b=mwRDQslIW1A7T8AWpp87T8kYzI
+	tbAqiGYlnDTRidWuv2JPcQ/whirlxEMAGU+YSXhiG/W+M8DPNiEZNBMKkxIRhmv2WS0SgNOYVzYvP
+	la3KL7pF2s5dzImS485J0LB10Piw8aVf91GZCZcrtCm4UhEJOgIvIHllupUJ+P5NNKDI=;
+Message-ID: <dc76516e-2334-798a-216e-5ad983fea2f9@xen.org>
+Date: Tue, 25 Jul 2023 15:27:50 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH 6/8] mm/pdx: Standardize region validation wrt pdx
+ compression
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+References: <20230717160318.2113-1-alejandro.vallejo@cloud.com>
+ <20230717160318.2113-7-alejandro.vallejo@cloud.com>
+ <1eb58b83-87ee-d738-08b0-948a8b48773a@xen.org>
+ <64be6c1c.7b0a0220.49ba9.0e38@mx.google.com>
+ <79ecab0a-cb91-cc95-fd31-c76ec287fa9b@xen.org>
+ <0d28d9cd-8cb3-6d03-94d3-e07a4dab9e95@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <0d28d9cd-8cb3-6d03-94d3-e07a4dab9e95@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Give a name to unnamed parameters thus addressing violations of
-MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
-named parameters").
-Keep consistency between parameter names and types used in function
-declarations and the ones used in the corresponding function
-definitions, thus addressing violations of MISRA C:2012 Rule 8.3
-("All declarations of an object or function shall use the same names
-and type qualifiers").
+Hi,
 
-No functional changes.
+On 25/07/2023 07:51, Jan Beulich wrote:
+> On 24.07.2023 20:20, Julien Grall wrote:
+>> On 24/07/2023 13:18, Alejandro Vallejo wrote:
+>>> On Fri, Jul 21, 2023 at 06:05:51PM +0100, Julien Grall wrote:
+>>>> Hi Alejandro,
+>>>>
+>>>> On 17/07/2023 17:03, Alejandro Vallejo wrote:
+>>>>> +bool pdx_is_region_compressible(unsigned long smfn, unsigned long emfn)
+>>>>
+>>>> For newer interface, I would rather prefer if we use start + size. It is
+>>>> easier to reason (you don't have to wonder whether 'emfn' is inclusive or
+>>>> not) and avoid issue in the case you are trying to handle a region right at
+>>>> the end of the address space as emfn would be 0 in the non-inclusive case
+>>>> (not much a concern for MFNs as the last one should be invalid, but it makes
+>>>> harder to reason).
+>>> I could agree on this, but every single caller is based on (smfn, emfn),
+>>> so it needlessly forces every caller to perform conversions where the
+>>> callee can do it just once.
+>>
+>> That's indeed one way to see it. The problem is that...
+>>
+>>> That said, I think your point makes sense and
+>>> it ought to be done. Probably as as part of a bigger refactor where
+>>> (smfn, emfn)-based functions are turned into (base, len) variants.
+>>
+>> ... clean-up tends to be put in the back-burner and we just continue to
+>> add new use. This makes the task to remove every use a lot more
+>> difficult. So there is a point when one has to say no more.
+>>
+>> Therefore, I would strongly prefer if each callers are doing the
+>> computation. The rest can be removed leisurely.
+>>
+>> Let see what the opinion of the other maintainers.
+> 
+> I think [a,b] ranges are fine to pass, and may even be preferable over
+> passing a size. I'm specifically using that term that you also used:
+> "size" (or "length") is ambiguous when talking about page granular
+> items - is it in bytes or number of pages?
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v3:
-  - use parameter name 'dev' instead of 'device'.
----
-Changes in v2:
-  - improved consistency in parameter renaming.
----
- xen/common/device_tree.c      | 16 ++++++++--------
- xen/include/xen/device_tree.h | 20 ++++++++++----------
- 2 files changed, 18 insertions(+), 18 deletions(-)
+I was referring to the number of pages. I don't think it make sense to 
+have it in bytes given the start is a frame.
 
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 0677193ab3..0522fdf976 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -85,11 +85,11 @@ struct dt_bus
-     unsigned int (*get_flags)(const __be32 *addr);
- };
- 
--void dt_get_range(const __be32 **cell, const struct dt_device_node *np,
-+void dt_get_range(const __be32 **cellp, const struct dt_device_node *np,
-                   u64 *address, u64 *size)
- {
--    *address = dt_next_cell(dt_n_addr_cells(np), cell);
--    *size = dt_next_cell(dt_n_size_cells(np), cell);
-+    *address = dt_next_cell(dt_n_addr_cells(np), cellp);
-+    *size = dt_next_cell(dt_n_size_cells(np), cellp);
- }
- 
- void dt_set_cell(__be32 **cellp, int size, u64 val)
-@@ -993,9 +993,9 @@ int dt_device_get_paddr(const struct dt_device_node *dev, unsigned int index,
- }
- 
- int dt_for_each_range(const struct dt_device_node *dev,
--                      int (*cb)(const struct dt_device_node *,
-+                      int (*cb)(const struct dt_device_node *dev,
-                                 uint64_t addr, uint64_t length,
--                                void *),
-+                                void *data),
-                       void *data)
- {
-     const struct dt_device_node *parent = NULL;
-@@ -1197,9 +1197,9 @@ unsigned int dt_number_of_address(const struct dt_device_node *dev)
- }
- 
- int dt_for_each_irq_map(const struct dt_device_node *dev,
--                        int (*cb)(const struct dt_device_node *,
--                                  const struct dt_irq *,
--                                  void *),
-+                        int (*cb)(const struct dt_device_node *dev,
-+                                  const struct dt_irq *dt_irq,
-+                                  void *data),
-                         void *data)
- {
-     const struct dt_device_node *ipar, *tnode, *old = NULL;
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index c2eada7489..1d79e23b28 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -538,7 +538,7 @@ bool_t dt_machine_is_compatible(const char *compat);
-  * Returns a node pointer with refcount incremented, use
-  * of_node_put() on it when done.
-  */
--struct dt_device_node *dt_find_node_by_name(struct dt_device_node *node,
-+struct dt_device_node *dt_find_node_by_name(struct dt_device_node *from,
-                                             const char *name);
- 
- /**
-@@ -622,12 +622,12 @@ unsigned int dt_number_of_irq(const struct dt_device_node *device);
- 
- /**
-  * dt_number_of_address - Get the number of addresses for a device
-- * @device: the device whose number of address is to be retrieved
-+ * @dev: the device whose number of address is to be retrieved
-  *
-  * Return the number of address for this device or 0 if there is no
-  * address or an error occurred.
-  */
--unsigned int dt_number_of_address(const struct dt_device_node *device);
-+unsigned int dt_number_of_address(const struct dt_device_node *dev);
- 
- /**
-  * dt_device_get_irq - Resolve an interrupt for a device
-@@ -639,7 +639,7 @@ unsigned int dt_number_of_address(const struct dt_device_node *device);
-  * device-tree node. It's the high level pendant to dt_device_get_raw_irq().
-  */
- int dt_device_get_irq(const struct dt_device_node *device, unsigned int index,
--                      struct dt_irq *irq);
-+                      struct dt_irq *out_irq);
- 
- /**
-  * dt_device_get_raw_irq - Resolve an interrupt for a device without translation
-@@ -652,7 +652,7 @@ int dt_device_get_irq(const struct dt_device_node *device, unsigned int index,
-  */
- int dt_device_get_raw_irq(const struct dt_device_node *device,
-                           unsigned int index,
--                          struct dt_raw_irq *irq);
-+                          struct dt_raw_irq *out_irq);
- 
- /**
-  * dt_irq_translate - Translate an irq
-@@ -668,9 +668,9 @@ int dt_irq_translate(const struct dt_raw_irq *raw, struct dt_irq *out_irq);
-  * @data: Caller data passed to callback
-  */
- int dt_for_each_irq_map(const struct dt_device_node *dev,
--                        int (*cb)(const struct dt_device_node *,
--                                  const struct dt_irq *,
--                                  void *),
-+                        int (*cb)(const struct dt_device_node *dev,
-+                                  const struct dt_irq *dt_irq,
-+                                  void *data),
-                         void *data);
- 
- /**
-@@ -680,9 +680,9 @@ int dt_for_each_irq_map(const struct dt_device_node *dev,
-  * @data: Caller data passed to callback
-  */
- int dt_for_each_range(const struct dt_device_node *dev,
--                      int (*cb)(const struct dt_device_node *,
-+                      int (*cb)(const struct dt_device_node *dev,
-                                 uint64_t addr, uint64_t length,
--                                void *),
-+                                void *data),
-                       void *data);
- 
- /**
+> Especially in the former
+> case calculations at the call sites would be quite a bit more cumbersome.
+> I could agree with (mfn,nr) tuples
+
+Ok. So your objection of my proposal is just about the name, right? If 
+so, I didn't put too much thought behind the naming when I sent my 
+original e-mail. I am open to any.
+
+, but as said I think inclusive
+> ranges are also fine to use (and would be less of a problem at the call
+> sites here, afaics).
+
+The problem with range is that it can lead to confusion on whether the 
+end is inclusive or exclusive. We had one bug recently in the Arm PCI 
+code because of that.
+
+So I would like to get rid of any use of range in new functions.
+
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
