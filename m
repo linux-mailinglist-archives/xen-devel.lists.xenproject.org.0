@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B430D761AC2
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 15:56:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569712.890697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3521D761AC6
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 15:57:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569715.890708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOIW9-0007t8-Ma; Tue, 25 Jul 2023 13:56:01 +0000
+	id 1qOIXB-0008Ov-1h; Tue, 25 Jul 2023 13:57:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569712.890697; Tue, 25 Jul 2023 13:56:01 +0000
+Received: by outflank-mailman (output) from mailman id 569715.890708; Tue, 25 Jul 2023 13:57:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOIW9-0007qv-Jz; Tue, 25 Jul 2023 13:56:01 +0000
-Received: by outflank-mailman (input) for mailman id 569712;
- Tue, 25 Jul 2023 13:56:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aw78=DL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qOIW8-0007qp-TP
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 13:56:00 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc1eaa03-2af2-11ee-b23f-6b7b168915f2;
- Tue, 25 Jul 2023 15:55:59 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 519E91FD65;
- Tue, 25 Jul 2023 13:55:59 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2CB8E13487;
- Tue, 25 Jul 2023 13:55:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id c+IrCW/Uv2SEcAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 25 Jul 2023 13:55:59 +0000
+	id 1qOIXA-0008MV-Tq; Tue, 25 Jul 2023 13:57:04 +0000
+Received: by outflank-mailman (input) for mailman id 569715;
+ Tue, 25 Jul 2023 13:57:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=n1im=DL=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qOIXA-0008Lz-14
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 13:57:04 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 214e52a4-2af3-11ee-8613-37d641c3527e;
+ Tue, 25 Jul 2023 15:57:02 +0200 (CEST)
+Received: from Dell.bugseng.com (unknown [37.160.93.75])
+ by support.bugseng.com (Postfix) with ESMTPSA id 11B7B4EE0739;
+ Tue, 25 Jul 2023 15:57:00 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,142 +39,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc1eaa03-2af2-11ee-b23f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1690293359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=jUKVQwiBVg5c8tP4oa1JbpgaUtbxTHSXSrceFPdKKlw=;
-	b=jVIMgYDPsjOyxMn6nWgvP+3TMO5OlLo8fH/xCaqM8yAViIKje2rwb9jJz6gSJU2uxTIRTN
-	kxMs6w8VnrqIR1QOSk9uGbseucZ+KaW8dBXXIekVi9LYa2r43c+AAgWzF8BWvR1OMSuH0s
-	1moEONLCpGBGDYzJQKTdPvwDD8zdpq0=
-From: Juergen Gross <jgross@suse.com>
+X-Inumbo-ID: 214e52a4-2af3-11ee-8613-37d641c3527e
+From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>
-Subject: [PATCH] xen/public: fix flexible array definitions
-Date: Tue, 25 Jul 2023 15:55:57 +0200
-Message-Id: <20230725135557.20518-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH v3] device_tree: address violations of MISRA C:2012 Rules 8.2 and 8.3
+Date: Tue, 25 Jul 2023 15:56:44 +0200
+Message-Id: <982ad65413e08e8c10ef035cb8246ba7277ff01b.1690292999.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Flexible arrays in public headers can be problematic with some
-compilers.
+Give a name to unnamed parameters thus addressing violations of
+MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+named parameters").
+Keep consistency between parameter names and types used in function
+declarations and the ones used in the corresponding function
+definitions, thus addressing violations of MISRA C:2012 Rule 8.3
+("All declarations of an object or function shall use the same names
+and type qualifiers").
 
-Replace them with arr[XEN_FLEX_ARRAY_DIM] in order to avoid compilation
-errors.
+No functional changes.
 
-This includes arrays defined as "arr[1]", as seen with a recent Linux
-kernel [1].
-
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=217693
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 ---
- xen/include/public/io/cameraif.h | 2 +-
- xen/include/public/io/displif.h  | 2 +-
- xen/include/public/io/fsif.h     | 4 ++--
- xen/include/public/io/pvcalls.h  | 2 +-
- xen/include/public/io/ring.h     | 4 ++--
- xen/include/public/io/sndif.h    | 2 +-
- 6 files changed, 8 insertions(+), 8 deletions(-)
+Changes in v3:
+  - use parameter name 'dev' instead of 'device'.
+---
+Changes in v2:
+  - improved consistency in parameter renaming.
+---
+ xen/common/device_tree.c      | 16 ++++++++--------
+ xen/include/xen/device_tree.h | 20 ++++++++++----------
+ 2 files changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/xen/include/public/io/cameraif.h b/xen/include/public/io/cameraif.h
-index 13763abef9..d6c69d6e1c 100644
---- a/xen/include/public/io/cameraif.h
-+++ b/xen/include/public/io/cameraif.h
-@@ -763,7 +763,7 @@ struct xencamera_buf_create_req {
+diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+index 0677193ab3..0522fdf976 100644
+--- a/xen/common/device_tree.c
++++ b/xen/common/device_tree.c
+@@ -85,11 +85,11 @@ struct dt_bus
+     unsigned int (*get_flags)(const __be32 *addr);
+ };
+ 
+-void dt_get_range(const __be32 **cell, const struct dt_device_node *np,
++void dt_get_range(const __be32 **cellp, const struct dt_device_node *np,
+                   u64 *address, u64 *size)
+ {
+-    *address = dt_next_cell(dt_n_addr_cells(np), cell);
+-    *size = dt_next_cell(dt_n_size_cells(np), cell);
++    *address = dt_next_cell(dt_n_addr_cells(np), cellp);
++    *size = dt_next_cell(dt_n_size_cells(np), cellp);
+ }
+ 
+ void dt_set_cell(__be32 **cellp, int size, u64 val)
+@@ -993,9 +993,9 @@ int dt_device_get_paddr(const struct dt_device_node *dev, unsigned int index,
+ }
+ 
+ int dt_for_each_range(const struct dt_device_node *dev,
+-                      int (*cb)(const struct dt_device_node *,
++                      int (*cb)(const struct dt_device_node *dev,
+                                 uint64_t addr, uint64_t length,
+-                                void *),
++                                void *data),
+                       void *data)
+ {
+     const struct dt_device_node *parent = NULL;
+@@ -1197,9 +1197,9 @@ unsigned int dt_number_of_address(const struct dt_device_node *dev)
+ }
+ 
+ int dt_for_each_irq_map(const struct dt_device_node *dev,
+-                        int (*cb)(const struct dt_device_node *,
+-                                  const struct dt_irq *,
+-                                  void *),
++                        int (*cb)(const struct dt_device_node *dev,
++                                  const struct dt_irq *dt_irq,
++                                  void *data),
+                         void *data)
+ {
+     const struct dt_device_node *ipar, *tnode, *old = NULL;
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index c2eada7489..1d79e23b28 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -538,7 +538,7 @@ bool_t dt_machine_is_compatible(const char *compat);
+  * Returns a node pointer with refcount incremented, use
+  * of_node_put() on it when done.
   */
- struct xencamera_page_directory {
-     grant_ref_t gref_dir_next_page;
--    grant_ref_t gref[1]; /* Variable length */
-+    grant_ref_t gref[XEN_FLEX_ARRAY_DIM];
- };
+-struct dt_device_node *dt_find_node_by_name(struct dt_device_node *node,
++struct dt_device_node *dt_find_node_by_name(struct dt_device_node *from,
+                                             const char *name);
  
- /*
-diff --git a/xen/include/public/io/displif.h b/xen/include/public/io/displif.h
-index 73d0cbdf15..4b9a27e960 100644
---- a/xen/include/public/io/displif.h
-+++ b/xen/include/public/io/displif.h
-@@ -537,7 +537,7 @@ struct xendispl_dbuf_create_req {
+ /**
+@@ -622,12 +622,12 @@ unsigned int dt_number_of_irq(const struct dt_device_node *device);
  
- struct xendispl_page_directory {
-     grant_ref_t gref_dir_next_page;
--    grant_ref_t gref[1]; /* Variable length */
-+    grant_ref_t gref[XEN_FLEX_ARRAY_DIM];
- };
+ /**
+  * dt_number_of_address - Get the number of addresses for a device
+- * @device: the device whose number of address is to be retrieved
++ * @dev: the device whose number of address is to be retrieved
+  *
+  * Return the number of address for this device or 0 if there is no
+  * address or an error occurred.
+  */
+-unsigned int dt_number_of_address(const struct dt_device_node *device);
++unsigned int dt_number_of_address(const struct dt_device_node *dev);
  
- /*
-diff --git a/xen/include/public/io/fsif.h b/xen/include/public/io/fsif.h
-index ec57850233..0e1fba994a 100644
---- a/xen/include/public/io/fsif.h
-+++ b/xen/include/public/io/fsif.h
-@@ -40,7 +40,7 @@ struct fsif_read_request {
-     int32_t pad;
-     uint64_t len;
-     uint64_t offset;
--    grant_ref_t grefs[1];  /* Variable length */
-+    grant_ref_t grefs[XEN_FLEX_ARRAY_DIM];
- };
+ /**
+  * dt_device_get_irq - Resolve an interrupt for a device
+@@ -639,7 +639,7 @@ unsigned int dt_number_of_address(const struct dt_device_node *device);
+  * device-tree node. It's the high level pendant to dt_device_get_raw_irq().
+  */
+ int dt_device_get_irq(const struct dt_device_node *device, unsigned int index,
+-                      struct dt_irq *irq);
++                      struct dt_irq *out_irq);
  
- struct fsif_write_request {
-@@ -48,7 +48,7 @@ struct fsif_write_request {
-     int32_t pad;
-     uint64_t len;
-     uint64_t offset;
--    grant_ref_t grefs[1];  /* Variable length */
-+    grant_ref_t grefs[XEN_FLEX_ARRAY_DIM];
- };
+ /**
+  * dt_device_get_raw_irq - Resolve an interrupt for a device without translation
+@@ -652,7 +652,7 @@ int dt_device_get_irq(const struct dt_device_node *device, unsigned int index,
+  */
+ int dt_device_get_raw_irq(const struct dt_device_node *device,
+                           unsigned int index,
+-                          struct dt_raw_irq *irq);
++                          struct dt_raw_irq *out_irq);
  
- struct fsif_stat_request {
-diff --git a/xen/include/public/io/pvcalls.h b/xen/include/public/io/pvcalls.h
-index 230b0719e3..c8c7602470 100644
---- a/xen/include/public/io/pvcalls.h
-+++ b/xen/include/public/io/pvcalls.h
-@@ -30,7 +30,7 @@ struct pvcalls_data_intf {
-     uint8_t pad2[52];
+ /**
+  * dt_irq_translate - Translate an irq
+@@ -668,9 +668,9 @@ int dt_irq_translate(const struct dt_raw_irq *raw, struct dt_irq *out_irq);
+  * @data: Caller data passed to callback
+  */
+ int dt_for_each_irq_map(const struct dt_device_node *dev,
+-                        int (*cb)(const struct dt_device_node *,
+-                                  const struct dt_irq *,
+-                                  void *),
++                        int (*cb)(const struct dt_device_node *dev,
++                                  const struct dt_irq *dt_irq,
++                                  void *data),
+                         void *data);
  
-     RING_IDX ring_order;
--    grant_ref_t ref[];
-+    grant_ref_t ref[XEN_FLEX_ARRAY_DIM];
- };
- DEFINE_XEN_FLEX_RING(pvcalls);
+ /**
+@@ -680,9 +680,9 @@ int dt_for_each_irq_map(const struct dt_device_node *dev,
+  * @data: Caller data passed to callback
+  */
+ int dt_for_each_range(const struct dt_device_node *dev,
+-                      int (*cb)(const struct dt_device_node *,
++                      int (*cb)(const struct dt_device_node *dev,
+                                 uint64_t addr, uint64_t length,
+-                                void *),
++                                void *data),
+                       void *data);
  
-diff --git a/xen/include/public/io/ring.h b/xen/include/public/io/ring.h
-index 0cae4367be..fa43396318 100644
---- a/xen/include/public/io/ring.h
-+++ b/xen/include/public/io/ring.h
-@@ -110,7 +110,7 @@ struct __name##_sring {                                                 \
-         uint8_t pvt_pad[4];                                             \
-     } pvt;                                                              \
-     uint8_t __pad[44];                                                  \
--    union __name##_sring_entry ring[1]; /* variable-length */           \
-+    union __name##_sring_entry ring[XEN_FLEX_ARRAY_DIM];                \
- };                                                                      \
-                                                                         \
- /* "Front" end's private variables */                                   \
-@@ -479,7 +479,7 @@ struct name##_data_intf {                                                     \
-     uint8_t pad2[56];                                                         \
-                                                                               \
-     RING_IDX ring_order;                                                      \
--    grant_ref_t ref[];                                                        \
-+    grant_ref_t ref[XEN_FLEX_ARRAY_DIM];                                      \
- };                                                                            \
- DEFINE_XEN_FLEX_RING(name)
- 
-diff --git a/xen/include/public/io/sndif.h b/xen/include/public/io/sndif.h
-index 4234a47c87..32f1fde4d6 100644
---- a/xen/include/public/io/sndif.h
-+++ b/xen/include/public/io/sndif.h
-@@ -659,7 +659,7 @@ struct xensnd_open_req {
- 
- struct xensnd_page_directory {
-     grant_ref_t gref_dir_next_page;
--    grant_ref_t gref[1]; /* Variable length */
-+    grant_ref_t gref[XEN_FLEX_ARRAY_DIM];
- };
- 
- /*
+ /**
 -- 
-2.35.3
+2.34.1
 
 
