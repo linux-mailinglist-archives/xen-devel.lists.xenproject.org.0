@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB1A760C79
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 09:55:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569498.890329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0488B760CC8
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 10:16:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569522.890339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOCsh-0002Ux-O8; Tue, 25 Jul 2023 07:54:55 +0000
+	id 1qODCg-0005bj-R9; Tue, 25 Jul 2023 08:15:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569498.890329; Tue, 25 Jul 2023 07:54:55 +0000
+Received: by outflank-mailman (output) from mailman id 569522.890339; Tue, 25 Jul 2023 08:15:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOCsh-0002T0-Lb; Tue, 25 Jul 2023 07:54:55 +0000
-Received: by outflank-mailman (input) for mailman id 569498;
- Tue, 25 Jul 2023 07:54:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aw78=DL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qOCsg-0002Su-NC
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 07:54:54 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a307b9f-2ac0-11ee-b23d-6b7b168915f2;
- Tue, 25 Jul 2023 09:54:53 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 36B371F74C;
- Tue, 25 Jul 2023 07:54:53 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C339513342;
- Tue, 25 Jul 2023 07:54:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YejKLcx/v2QtJAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 25 Jul 2023 07:54:52 +0000
+	id 1qODCg-0005ZM-O9; Tue, 25 Jul 2023 08:15:34 +0000
+Received: by outflank-mailman (input) for mailman id 569522;
+ Tue, 25 Jul 2023 08:15:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BzC/=DL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qODCe-0005ZA-Lq
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 08:15:32 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 651bfae8-2ac3-11ee-8613-37d641c3527e;
+ Tue, 25 Jul 2023 10:15:19 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4fbc0314a7bso7819443e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jul 2023 01:15:25 -0700 (PDT)
+Received: from [192.168.202.116] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ h14-20020a05651211ce00b004fd36c89c3csm2652350lfr.43.2023.07.25.01.15.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Jul 2023 01:15:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,176 +45,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a307b9f-2ac0-11ee-b23d-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1690271693; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=igjqLOUndV0llKBZReZGwl1hYmK7O2hDw+Z4/9yZX8M=;
-	b=C7adS2yoYoVvIyH20vrfTMjPB5nDwXUo24uzLpbZJFiwqaXX2xMWQwmxQQlPR7yMhOi1JR
-	A+uIvUfe7nioZ+ilkBOmzcIdRFAJTVfX7a8JdULfy5rmDfJhbkPajAmjOUq55MKP8D8Trv
-	KXHkgqQyYJevZjHmagGb8oTSXM6vWYU=
-Message-ID: <8466d82c-d4ff-8302-2475-ae1acc09da38@suse.com>
-Date: Tue, 25 Jul 2023 09:54:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH V3 1/2] xen: Update dm_op.h from Xen public header
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- stratos-dev@op-lists.linaro.org, Erik Schilling <erik.schilling@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <ffae9d7021829fea19fd93fda3c30b52b0af923e.1690190453.git.viresh.kumar@linaro.org>
- <1498bef6-ded0-1b1f-a5ca-e8755800b489@suse.com>
- <20230725070914.m3dxlokedrgjlgcu@vireshk-i7>
- <3770f13f-0621-48af-4c79-880a0ffaa8a6@suse.com>
- <20230725074218.zcgbkkx5pfgszimu@vireshk-i7>
- <920ede72-c2fb-c814-7b1c-aa488e400f83@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <920ede72-c2fb-c814-7b1c-aa488e400f83@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JL4MhcBsBYwNo14ivZLIVRNV"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JL4MhcBsBYwNo14ivZLIVRNV
-Content-Type: multipart/mixed; boundary="------------YVvyqzcome6DaI7ZaEhR27cg";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- stratos-dev@op-lists.linaro.org, Erik Schilling <erik.schilling@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Message-ID: <8466d82c-d4ff-8302-2475-ae1acc09da38@suse.com>
-Subject: Re: [PATCH V3 1/2] xen: Update dm_op.h from Xen public header
-References: <ffae9d7021829fea19fd93fda3c30b52b0af923e.1690190453.git.viresh.kumar@linaro.org>
- <1498bef6-ded0-1b1f-a5ca-e8755800b489@suse.com>
- <20230725070914.m3dxlokedrgjlgcu@vireshk-i7>
- <3770f13f-0621-48af-4c79-880a0ffaa8a6@suse.com>
- <20230725074218.zcgbkkx5pfgszimu@vireshk-i7>
- <920ede72-c2fb-c814-7b1c-aa488e400f83@suse.com>
-In-Reply-To: <920ede72-c2fb-c814-7b1c-aa488e400f83@suse.com>
-
---------------YVvyqzcome6DaI7ZaEhR27cg
-Content-Type: multipart/mixed; boundary="------------hzgYDLsIxTgAe0GpXazwiSlp"
-
---------------hzgYDLsIxTgAe0GpXazwiSlp
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjUuMDcuMjMgMDk6NDksIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNS4wNy4yMDIz
-IDA5OjQyLCBWaXJlc2ggS3VtYXIgd3JvdGU6DQo+PiBPbiAyNS0wNy0yMywgMDk6MTgsIEph
-biBCZXVsaWNoIHdyb3RlOg0KPj4+IEkgcXVlc3Rpb24gdGhhdCB1c2UsIGJ0dywgYnV0IGl0
-IGlzIG5vdCB1cCB0byBtZSB0byBkZWNpZGUgd2hldGhlciB0bw0KPj4+IGFjY2VwdCBzdWNo
-IGEgbGF5ZXJpbmcgdmlvbGF0aW9uIGluIExpbnV4LiBkbS1vcCBpcywgYXMgaXRzIG5hbWUg
-c2F5cywNCj4+PiBmb3IgZGV2aWNlIG1vZGVscyB0byB1c2UuIFlvdXIgaW50ZW5kZWQgdXNl
-IGRvZXNuJ3QgZmFsbCBpbiB0aGF0DQo+Pj4gY2F0ZWdvcnksIGFpdWkuIEltbyB0aGUgcHJl
-c2VudCBjb250ZW50cyBvZiBkbV9vcC5oIGluIExpbnV4IGlzIGluZGVlZA0KPj4+IGFsbCBh
-IGtlcm5lbCBpcyBzdXBwb3NlZCB0byBrbm93IGFib3V0LCB1bmxlc3MgaXQgd2FzIHRvIGdh
-aW4gaW4ta2VybmVsDQo+Pj4gZGV2aWNlIG1vZGVscy4NCj4+DQo+PiBJcyB0aGVyZSBhbnkg
-b3RoZXIgd2F5IGJ5IHdoaWNoIGFuIGludGVycnVwdCBjYW4gYmUgcmFpc2VkIGZvciB0aGUN
-Cj4+IGd1ZXN0IFZNID8gSSB3YXMgb25seSBhd2FyZSBvZiB0aGlzIG1ldGhvZCBhbmQgc28g
-aW1wbGVtZW50ZWQgaXQgbGlrZQ0KPj4gdGhpcy4NCj4+DQo+PiBJIGFtIG9wZW4gdG8gc3Vn
-Z2VzdGlvbnMgb24gdGhpcy4NCj4gDQo+IFdlbGwuIEkgZG9uJ3Qga25vdyB5b3VyIHJlcXVp
-cmVtZW50cy4gR2VuZXJhbGx5IEkgd291bGQgc3VnZ2VzdCB1c2luZw0KPiBldmVudCBjaGFu
-bmVscywgbm90IGludGVycnVwdHMsIHdoZW4gdGFsa2luZyBhYm91dCBpbmplY3RpbmcgZXZl
-bnRzDQo+IGludG8gZ3Vlc3RzLiBJZiBpdCBzdHJpY3RseSBuZWVkcyB0byBiZSBhbiBpbnRl
-cnJ1cHQsIHRoZW4gSSBndWVzcyBhDQo+IG5vbi1kbS1vcCBtZWFucyB3b3VsZCBuZWVkIGlu
-dHJvZHVjaW5nIGlmIG5vbmUgYWxyZWFkeSBleGlzdHMuDQoNCkkgdGhpbmsgdGhlIGJlc3Qg
-d2F5IHdvdWxkIGJlIHRvIGxldCB0aGUgdXNlciBtb2RlIGRldmljZSBtb2RlbCAoaS5lLiB0
-aGUNCmJhY2tlbmQpIGNvbnN0cnVjdCB0aGUgZG0tb3AgcGFyYW1ldGVycyBsaWtlIHFlbXUg
-aXMgZG9pbmcgaXQgYW5kIHBhc3MgaXQNCnZpYSB0aGUgaW9jdGwgdG8gdGhlIHByaXZjbWQg
-ZHJpdmVyIGFzIHBhcnQgb2Ygc3RydWN0IHByaXZjbWRfaXJxZmQuIFRoZW4NCml0IHdvdWxk
-IGJlIG9wYXF1ZSB0byB0aGUga2VybmVsIGxpa2UgZXZlcnkgb3RoZXIgZG0tb3AuDQoNCg0K
-SnVlcmdlbg0KDQo=
---------------hzgYDLsIxTgAe0GpXazwiSlp
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+X-Inumbo-ID: 651bfae8-2ac3-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690272925; x=1690877725;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=YhWqz0FUKVohbtdgIg+bZJt5UeCCllY5/RPT9e38CBg=;
+        b=Svol500bxkr2KTbJ1H4Y9HVRm/pWA+AWXNu/o/viNr7B7BGHdS3h86Wwi73pou823/
+         flm+UM+i2gIXJIfxX9wIzQIk2/xIJ+ta+hbSOx3/BrPKGLLMOTpAeZn6mc2MikTEdPuS
+         rsGeOZ4CjHLDVB13dLSr+CYzNbu1MoH7nR1orKXd2sNfGQjV1OCNY0RWWhwpiVo7p/Qa
+         G7IH++DdijvCClAT6aN9++q/MAvlCdRuldilpLrnlTgeYwfvpj4L2l/hK9f/JkC7BQnw
+         p4/+amA1d2g1mLwugyiQshxsp3mRRgBBQtL2/NtRP8aIWYWrPC6zrgjnKibTJTwc9kDm
+         KWAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690272925; x=1690877725;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YhWqz0FUKVohbtdgIg+bZJt5UeCCllY5/RPT9e38CBg=;
+        b=BIVgPVziwfPRXgKcaLPTDdAk3SedOs6Q84CIvfpJnNYKhUWYWDJwpJylP+31Mct3Ti
+         at+cgl9m0R4rxIM/AaT8GzUh/lnVdpu5AF859MG0kgSCDJw67XpcyyeqyqfpJ9zTWJLP
+         qQzYwQ42LpSDQW0pD0r0ZQJMdTpOS6FOiYpmkQawgBB8PTWvUyolxSutBx66wJZrcHNU
+         3PJl0pe7tsruzsIYqIAyCXOCSbibeoMnXyPvLV2+aUrjAWJ6zz16h8vHbsgnZcEncaS+
+         gYfBH73UlqhrduJ0KdmXKDDVis+eJscw6KY/jTf30k4xvCpdKWSNIEsmd86qVX8VcenH
+         KhLA==
+X-Gm-Message-State: ABy/qLZBpi6GNz1UN5iqQofsk68BT4F6hH+KYcOWuRZYKCiaPZEDAHOu
+	CBRLFHxxr0erzmo5FGBpy3I=
+X-Google-Smtp-Source: APBJJlHyVWOdYsVQVEI0RGOqv/B0zpuhCb4mKlNJhKbLVo2pUyKBFrygrqdlGGGYVd9xBc/BsQ6HcQ==
+X-Received: by 2002:a05:6512:401e:b0:4fb:90c6:c31a with SMTP id br30-20020a056512401e00b004fb90c6c31amr7844583lfb.14.1690272924798;
+        Tue, 25 Jul 2023 01:15:24 -0700 (PDT)
+Message-ID: <ab9e7a3f3b5faa4805b5b2c8ffc985bc3330c4a3.camel@gmail.com>
+Subject: Re: [PATCH v3] ns16550: add support for polling mode when device
+ tree is used
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Tue, 25 Jul 2023 11:15:23 +0300
+In-Reply-To: <be0c9eb8-6561-f6bc-ff76-a1bfeaeaab9d@suse.com>
+References: 
+	<d929b43814e6e1a247b954c4be40a35d61b6a45a.1690208840.git.oleksii.kurochko@gmail.com>
+	 <be0c9eb8-6561-f6bc-ff76-a1bfeaeaab9d@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Mon, 2023-07-24 at 16:43 +0200, Jan Beulich wrote:
+> On 24.07.2023 16:27, Oleksii Kurochko wrote:
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -993,6 +993,8 @@ void __init console_init_preirq(void)
+> > =C2=A0#endif
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else if ( !strncmp(p, =
+"none", 4) )
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 continue;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else if ( !strncmp(p, "poll=
+ing", 7 )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 con=
+tinue;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else if ( (sh =3D seri=
+al_parse_handle(p)) >=3D 0 )
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 sercon_handle =3D sh;
+>=20
+> Looks like you mean the new option to go under "console=3D". Besides
+> this being guesswork because of you not updating the command line
+> doc, this also is wrong, as the property then applies to all
+> consoles. What you mean is a control for a specific instance of a
+> 16550 console, which can only possibly go under "com<N>=3D". I would
+> suggest to simply extend [<irq>|msi] there to [<irq>|msi|poll].
+Thanks. It would be definitely better to go under "com<N>"
+>=20
+> > @@ -595,7 +601,9 @@ static void __init cf_check
+> > ns16550_endboot(struct serial_port *port)
+> > =C2=A0static int __init cf_check ns16550_irq(struct serial_port *port)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0 struct ns16550 *uart =3D port->uart;
+> > -=C2=A0=C2=A0=C2=A0 return ((uart->irq > 0) ? uart->irq : -1);
+> > +
+> > +=C2=A0=C2=A0=C2=A0 return ( uart->intr_works !=3D polling ) ?
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uar=
+t->irq : -1;
+> > =C2=A0}
+>=20
+> Please don't corrupt previously correct style. You can keep things
+> almost like they were (albeit there's no strict need for any of the
+> parentheses):
+>=20
+> =C2=A0=C2=A0=C2=A0 return ((uart->intr_works !=3D polling) ? uart->irq : =
+-1);
+Thanks.
+>=20
+> > @@ -1330,9 +1341,12 @@ pci_uart_config(struct ns16550 *uart, bool_t
+> > skip_amt, unsigned int idx)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * as special only for X86.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( uart->irq =3D=3D 0xff )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uart->irq =3D 0;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uart->intr_works =3D polling;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 }
+> > =C2=A0#endif
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 if ( !uart->irq )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 if ( !uart->irq || (uart->intr_works =3D=3D polling) =
+)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk(XENLOG_INFO
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "ns16550: %pp: no legacy IRQ, using
+> > poll mode\n",
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 &PCI_SBDF(0, b, d, f));
+>=20
+> Message and code (after your addition) continue to be out of sync.
+> As said before, any condition that leads to polling mode wants to
+> find itself expressed by uart->intr_works set to "polling".
+Well. It looks like it would be better to set 'uart->intr_works =3D
+polling' inside if ( !uart->irq ):
+  if ( !uart->irq || (uart->intr_works =3D=3D polling) )
+  {
+      uart->intr_works =3D polling;
+      printk(XENLOG_INFO
+             "ns16550: %pp: using poll mode\n",
+             &PCI_SBDF(0, b, d, f));
+  }
+Then "uart->intr_works =3D polling;" can be removed from "if ( uart->irq
+=3D=3D 0xff )" as in that case 'uart->irq =3D 0' means polling mode for X86=
+.
+ =20
+>=20
+> > @@ -1552,6 +1566,7 @@ static bool __init parse_positional(struct
+> > ns16550 *uart, char **str)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 conf +=3D 3;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 uart->msi =3D true;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 uart->irq =3D 0;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uar=
+t->intr_works =3D polling;
+>=20
+> How that? "msi" is specifically asking for interrupt driven mode,
+> just that the IRQ number isn't known yet. (Seeing this I notice that
+> parse_namevalue_pairs() offers no way of selecting MSI mode. But
+> that's not something you need to sort out.)
+I was confused by the code from ns16550_init_postirq():
+                if ( rc )
+                {
+                    uart->irq =3D 0;
+                    if ( msi_desc )
+                        msi_free_irq(msi_desc);
+                    else
+                        destroy_irq(msi.irq);
+                }
+where "uart->irq =3D 0;" means that polling mode should be used because
+of the following code in the same function:
+    if ( uart->irq > 0 )
+    {
+        uart->irqaction.handler =3D ns16550_interrupt;
+        uart->irqaction.name    =3D "ns16550";
+        uart->irqaction.dev_id  =3D port;
+        if ( (rc =3D setup_irq(uart->irq, 0, &uart->irqaction)) !=3D 0 )
+            printk("ERROR: Failed to allocate ns16550 IRQ %d\n", uart-
+>irq);
+    }
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------hzgYDLsIxTgAe0GpXazwiSlp--
-
---------------YVvyqzcome6DaI7ZaEhR27cg--
-
---------------JL4MhcBsBYwNo14ivZLIVRNV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmS/f8wFAwAAAAAACgkQsN6d1ii/Ey9V
-5Qf/afTWZb8SmxR62nYwuB7eC64OtFZRVwz55tH7meJhDs1Hvk6nGWXoprhtHmmtS2sEnQH6rR2r
-oFk2jLq1TtV60vmkQpQyVgJRAmILxckUNgENMlsK+6SekVE8akLBXzQ2gchxZeu3xILJrRuB3CeA
-8LiUuEN3vrjigrg+0COrO8AuRyx3sH39N2WGviVU6pa3eTsQdohpl79W4Y/R9wSDFDWOfIKd4jRl
-FgICR88NxaY6vJjGVoNo4evpV3XhRzpnLrDXF3NLehYARKmS/EEHAa0kW1KMKH+yzOwehRpgbXgL
-InTEzR4VULuhKSn+hauyNg0hKxKV3K/tmJMIhdO+SQ==
-=hHoe
------END PGP SIGNATURE-----
-
---------------JL4MhcBsBYwNo14ivZLIVRNV--
+~ Oleksii
 
