@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8221762228
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 21:24:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569895.891041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180EC76224B
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 21:32:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569898.891054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qONdb-00010e-7S; Tue, 25 Jul 2023 19:24:03 +0000
+	id 1qONlq-0002Yf-45; Tue, 25 Jul 2023 19:32:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569895.891041; Tue, 25 Jul 2023 19:24:03 +0000
+Received: by outflank-mailman (output) from mailman id 569898.891054; Tue, 25 Jul 2023 19:32:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qONdb-0000yP-4n; Tue, 25 Jul 2023 19:24:03 +0000
-Received: by outflank-mailman (input) for mailman id 569895;
- Tue, 25 Jul 2023 19:24:02 +0000
+	id 1qONlq-0002WN-1H; Tue, 25 Jul 2023 19:32:34 +0000
+Received: by outflank-mailman (input) for mailman id 569898;
+ Tue, 25 Jul 2023 19:32:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ITxH=DL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qONda-0000yH-0P
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 19:24:02 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1qONlo-0002WH-9n
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 19:32:32 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce26a7ab-2b20-11ee-b240-6b7b168915f2;
- Tue, 25 Jul 2023 21:24:00 +0200 (CEST)
+ id feac5d9a-2b21-11ee-b240-6b7b168915f2;
+ Tue, 25 Jul 2023 21:32:31 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DA17E61826;
- Tue, 25 Jul 2023 19:23:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94BF2C433C7;
- Tue, 25 Jul 2023 19:23:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B452961888;
+ Tue, 25 Jul 2023 19:32:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140F0C433C8;
+ Tue, 25 Jul 2023 19:32:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,176 +44,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce26a7ab-2b20-11ee-b240-6b7b168915f2
+X-Inumbo-ID: feac5d9a-2b21-11ee-b240-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690313038;
-	bh=aOlsPNJ7N1Szj7NrNWi/AlsWfiWT7rFphb073vD4EoA=;
+	s=k20201202; t=1690313549;
+	bh=A+a/6l+yUXC1DJZe/ZrvK0q+y5Xy7Ic9XFzcSzhYAcQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NvFHDZirCFDPKcFQG76bZFwwwABbZDn0345S4N5g9L6HoeW/G+3tKWdxjaT1fDh3q
-	 tNGaGk4v8paTugFab0mopSoJdf5lpJwOmGXi1HZFfP4IJ/9FhhfEW/HR13yDWQDgJo
-	 8AI/Qg8WGGcKivoFUTWd07D8OrPaNNllSFtaqzPynIakGNvayQn93fHRAHXFtYkHcc
-	 XJkZTKl97Odu/eRsqsJNejtO2VOOtslTVmDNl88B8iLwdPIxEAd5GZnLHIktOh5LEP
-	 TU/rTMryWPuIq6YtSq5Rj+uwJSej6BbeAKbDelCj1q/ELJkzQKP3+30RGlQZkFn8mI
-	 AisnOhMiAorpA==
-Date: Tue, 25 Jul 2023 12:23:55 -0700 (PDT)
+	b=rairky3HqFZE9ol3iftLMrEmeJFgHBnIP9du3wwKkqWQMU/yxmpuwOVVvG2DqqKqi
+	 36AY5J5jGJOyhToFWNM/ro3AWXqxqU0lZQYIEzL571EOuUT3eMWMhkkxCxxUaqhTj0
+	 iJqMXYcWotv46cM4qXrfA0HXqDUhHjZoHcw5iyuuk4V4Ti5ON5MT0nyCWq1dcmjz5Z
+	 olufCcQ4K/eYdNMZ7vhXMOwIIr/Wdm8lpNSWrn055fotFQC8EOX9k5ySMV1Ralo/1I
+	 gtOmPMueq9yibCL0jr4VNw2ihqRD/KqTNa3EK2cYDxK/GdJxauES1XasJL0Gm4PV2P
+	 ewHw87bGrtgHQ==
+Date: Tue, 25 Jul 2023 12:32:26 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [XEN PATCH v3] device_tree: address violations of MISRA C:2012
- Rules 8.2 and 8.3
-In-Reply-To: <982ad65413e08e8c10ef035cb8246ba7277ff01b.1690292999.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307251223470.3118466@ubuntu-linux-20-04-desktop>
-References: <982ad65413e08e8c10ef035cb8246ba7277ff01b.1690292999.git.federico.serafini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Federico Serafini <federico.serafini@bugseng.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, consulting@bugseng.com, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 2/3] xen/arm: irq: address violations of MISRA C:
+ 2012 Rules 8.2 and 8.3
+In-Reply-To: <a81326f4-e018-b461-ebec-9ef2ff5dc4df@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2307251226180.3118466@ubuntu-linux-20-04-desktop>
+References: <cover.1690217195.git.federico.serafini@bugseng.com> <a62e88a9c29cf7866c251968b5a5b6865aff4a2a.1690217195.git.federico.serafini@bugseng.com> <a81326f4-e018-b461-ebec-9ef2ff5dc4df@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 25 Jul 2023, Federico Serafini wrote:
-> Give a name to unnamed parameters thus addressing violations of
-> MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
-> named parameters").
-> Keep consistency between parameter names and types used in function
-> declarations and the ones used in the corresponding function
-> definitions, thus addressing violations of MISRA C:2012 Rule 8.3
-> ("All declarations of an object or function shall use the same names
-> and type qualifiers").
+On Tue, 25 Jul 2023, Jan Beulich wrote:
+> On 24.07.2023 19:50, Federico Serafini wrote:
+> > @@ -182,7 +182,8 @@ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask)
+> >  }
+> >  
+> >  int request_irq(unsigned int irq, unsigned int irqflags,
+> > -                void (*handler)(int, void *, struct cpu_user_regs *),
+> > +                void (*handler)(int irq, void *dev_id,
+> > +                                struct cpu_user_regs *regs),
+> >                  const char *devname, void *dev_id)
+> >  {
 > 
-> No functional changes.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> Before we accept patches, don't we need to first settle on whether to
+> apply the rule(s) also to function type declarations (and not just
+> ordinary prototypes)?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Yes, in retrospect we should have found agreement on this issue this
+morning but I forgot to bring it up :-(  Ooops.
 
-
-> ---
-> Changes in v3:
->   - use parameter name 'dev' instead of 'device'.
-> ---
-> Changes in v2:
->   - improved consistency in parameter renaming.
-> ---
->  xen/common/device_tree.c      | 16 ++++++++--------
->  xen/include/xen/device_tree.h | 20 ++++++++++----------
->  2 files changed, 18 insertions(+), 18 deletions(-)
-> 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 0677193ab3..0522fdf976 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -85,11 +85,11 @@ struct dt_bus
->      unsigned int (*get_flags)(const __be32 *addr);
->  };
->  
-> -void dt_get_range(const __be32 **cell, const struct dt_device_node *np,
-> +void dt_get_range(const __be32 **cellp, const struct dt_device_node *np,
->                    u64 *address, u64 *size)
->  {
-> -    *address = dt_next_cell(dt_n_addr_cells(np), cell);
-> -    *size = dt_next_cell(dt_n_size_cells(np), cell);
-> +    *address = dt_next_cell(dt_n_addr_cells(np), cellp);
-> +    *size = dt_next_cell(dt_n_size_cells(np), cellp);
->  }
->  
->  void dt_set_cell(__be32 **cellp, int size, u64 val)
-> @@ -993,9 +993,9 @@ int dt_device_get_paddr(const struct dt_device_node *dev, unsigned int index,
->  }
->  
->  int dt_for_each_range(const struct dt_device_node *dev,
-> -                      int (*cb)(const struct dt_device_node *,
-> +                      int (*cb)(const struct dt_device_node *dev,
->                                  uint64_t addr, uint64_t length,
-> -                                void *),
-> +                                void *data),
->                        void *data)
->  {
->      const struct dt_device_node *parent = NULL;
-> @@ -1197,9 +1197,9 @@ unsigned int dt_number_of_address(const struct dt_device_node *dev)
->  }
->  
->  int dt_for_each_irq_map(const struct dt_device_node *dev,
-> -                        int (*cb)(const struct dt_device_node *,
-> -                                  const struct dt_irq *,
-> -                                  void *),
-> +                        int (*cb)(const struct dt_device_node *dev,
-> +                                  const struct dt_irq *dt_irq,
-> +                                  void *data),
->                          void *data)
->  {
->      const struct dt_device_node *ipar, *tnode, *old = NULL;
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index c2eada7489..1d79e23b28 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -538,7 +538,7 @@ bool_t dt_machine_is_compatible(const char *compat);
->   * Returns a node pointer with refcount incremented, use
->   * of_node_put() on it when done.
->   */
-> -struct dt_device_node *dt_find_node_by_name(struct dt_device_node *node,
-> +struct dt_device_node *dt_find_node_by_name(struct dt_device_node *from,
->                                              const char *name);
->  
->  /**
-> @@ -622,12 +622,12 @@ unsigned int dt_number_of_irq(const struct dt_device_node *device);
->  
->  /**
->   * dt_number_of_address - Get the number of addresses for a device
-> - * @device: the device whose number of address is to be retrieved
-> + * @dev: the device whose number of address is to be retrieved
->   *
->   * Return the number of address for this device or 0 if there is no
->   * address or an error occurred.
->   */
-> -unsigned int dt_number_of_address(const struct dt_device_node *device);
-> +unsigned int dt_number_of_address(const struct dt_device_node *dev);
->  
->  /**
->   * dt_device_get_irq - Resolve an interrupt for a device
-> @@ -639,7 +639,7 @@ unsigned int dt_number_of_address(const struct dt_device_node *device);
->   * device-tree node. It's the high level pendant to dt_device_get_raw_irq().
->   */
->  int dt_device_get_irq(const struct dt_device_node *device, unsigned int index,
-> -                      struct dt_irq *irq);
-> +                      struct dt_irq *out_irq);
->  
->  /**
->   * dt_device_get_raw_irq - Resolve an interrupt for a device without translation
-> @@ -652,7 +652,7 @@ int dt_device_get_irq(const struct dt_device_node *device, unsigned int index,
->   */
->  int dt_device_get_raw_irq(const struct dt_device_node *device,
->                            unsigned int index,
-> -                          struct dt_raw_irq *irq);
-> +                          struct dt_raw_irq *out_irq);
->  
->  /**
->   * dt_irq_translate - Translate an irq
-> @@ -668,9 +668,9 @@ int dt_irq_translate(const struct dt_raw_irq *raw, struct dt_irq *out_irq);
->   * @data: Caller data passed to callback
->   */
->  int dt_for_each_irq_map(const struct dt_device_node *dev,
-> -                        int (*cb)(const struct dt_device_node *,
-> -                                  const struct dt_irq *,
-> -                                  void *),
-> +                        int (*cb)(const struct dt_device_node *dev,
-> +                                  const struct dt_irq *dt_irq,
-> +                                  void *data),
->                          void *data);
->  
->  /**
-> @@ -680,9 +680,9 @@ int dt_for_each_irq_map(const struct dt_device_node *dev,
->   * @data: Caller data passed to callback
->   */
->  int dt_for_each_range(const struct dt_device_node *dev,
-> -                      int (*cb)(const struct dt_device_node *,
-> +                      int (*cb)(const struct dt_device_node *dev,
->                                  uint64_t addr, uint64_t length,
-> -                                void *),
-> +                                void *data),
->                        void *data);
->  
->  /**
-> -- 
-> 2.34.1
-> 
+(I think the agreement was to change the function type declarations too,
+that's why docs/misra/rules.rst doesn't have a note about this, but I
+don't want to make assumptions as I am not certain.)
 
