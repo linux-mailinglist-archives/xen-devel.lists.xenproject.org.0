@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8C7A760C30
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 09:42:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569490.890308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237A8760C60
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 09:50:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569494.890319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOCgc-0000FV-Ap; Tue, 25 Jul 2023 07:42:26 +0000
+	id 1qOCnx-00012E-4C; Tue, 25 Jul 2023 07:50:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569490.890308; Tue, 25 Jul 2023 07:42:26 +0000
+Received: by outflank-mailman (output) from mailman id 569494.890319; Tue, 25 Jul 2023 07:50:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOCgc-0000Cw-8A; Tue, 25 Jul 2023 07:42:26 +0000
-Received: by outflank-mailman (input) for mailman id 569490;
- Tue, 25 Jul 2023 07:42:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QXT9=DL=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1qOCga-0000Cq-Uw
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 07:42:25 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6c36b04-2abe-11ee-8613-37d641c3527e;
- Tue, 25 Jul 2023 09:42:17 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-1b8ad8383faso39858095ad.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jul 2023 00:42:22 -0700 (PDT)
-Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
- l20-20020a170903005400b001b8a85489a3sm10254527pla.262.2023.07.25.00.42.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Jul 2023 00:42:20 -0700 (PDT)
+	id 1qOCnx-0000zf-00; Tue, 25 Jul 2023 07:50:01 +0000
+Received: by outflank-mailman (input) for mailman id 569494;
+ Tue, 25 Jul 2023 07:49:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nivo=DL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qOCnu-0000y0-Fp
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 07:49:58 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20622.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::622])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d91fa4a8-2abf-11ee-b23d-6b7b168915f2;
+ Tue, 25 Jul 2023 09:49:57 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AS5PR04MB9942.eurprd04.prod.outlook.com (2603:10a6:20b:67e::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 25 Jul
+ 2023 07:49:53 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
+ 07:49:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,73 +47,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6c36b04-2abe-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690270941; x=1690875741;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=kewmDoSwKZcyBAfVPaIo9+Biv1FObKhjKX+FUtEeF3k=;
-        b=PA+fK6qXbHqYwEPVsLMv/2Ju1Mxrp9vScm/JmrJ7HPHfkOnZsCfnzfbxllwJPkxjV1
-         Hk+IVr0kEUHskUZVuUq0VBT5mNuJxc96HduKH0ezuRL7do8qgxgB5SJUIfF82pObwC+h
-         DXogbpdgn4C88+PsK3UNW0ZRNiXMoH9yh1/8x+wkMS5HtFRThUCrNALaEnu6+1tC3zjg
-         oljAojsu5/XpZUccb55Q7m1LgEJwQk8oQLqFk4Gtsd0p8otmccReDMDX0k/dXvdfJYN+
-         1LRWKACoE9ytjmLGfZfsjzn8+flAvCFYSQ/A1/Xt8FrfiBLsq+M0dwuZn/P5E3gUNYnN
-         GI+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690270941; x=1690875741;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kewmDoSwKZcyBAfVPaIo9+Biv1FObKhjKX+FUtEeF3k=;
-        b=LJJhh8yc7HGeLql0kdqrQd9Cb4muObHHDn5ihhAg5dgXFtdCQTUUev1ehTixn4uOqK
-         yE8FWAHibu8tx7wDvBIAOaBGZj4gbSegI3uwBPIQHn4MO1rF3D6USJAhsIiqMSyHaa7b
-         VamQsceiUMe/QMqrlqs6mFkloREFt1b3Mp8kLJoJludZGu9Wat5yoL1O3OXnE5xF/JRp
-         2SLyBQbBja5heQBGimQkA8VW74LEkF+RdreU2bkupYqqvirx/8SUYWmbNkfy1Fd0UrjE
-         wlwX9mecTLA5yBzM0lYS16081NAzEVfgEnU/O2KR3xAT7wwXOdEXs7Z2yOnT2Rq2lr2V
-         EIdg==
-X-Gm-Message-State: ABy/qLbex5FyhFa6vZetdIfZfgF/cg3ulyUyR7GrfWE8Aimh03ArCTby
-	OZtnaAKatytcVuaHreD+pgjHUA==
-X-Google-Smtp-Source: APBJJlHHSoNX8d5INhseTullEgrqBEXbHGAfAD9IQElyfVzOxJEv7mdJAxFRTer6Win8HqYFlgHQew==
-X-Received: by 2002:a17:903:2341:b0:1b8:a31b:ac85 with SMTP id c1-20020a170903234100b001b8a31bac85mr15445663plh.41.1690270941395;
-        Tue, 25 Jul 2023 00:42:21 -0700 (PDT)
-Date: Tue, 25 Jul 2023 13:12:18 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Erik Schilling <erik.schilling@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+X-Inumbo-ID: d91fa4a8-2abf-11ee-b23d-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U6nwFXTYzhMNzMK3ma1RLmzC04E+/o2rz5wWzWi5ApQ1TErhpn6bCmg5cwSUIIrGpwoziUEslZvp3ph/V5dNmHO/UbhE6iJ+JM93rEGeErR6C3JJks1meLLl85UniWE3oCJcwgxCDO3nsVbBD+M/hnJEXiFbbdp0cvw+634WGMmMZrm3g6MbEhWsHFMLDyOKKFFmZifG/GMMF3BUWZ7PS0gVJ9rqbLKkdM7nfhPtX1V/HHorBGiikjdQvoMNKfGqEuaTHk7pjU3UWlaGXKkPCXFpvYasi54+GaibhCErUns8OQ1moqfcbhbtn+nRW9jNxwvuez6JT+sxrdEIQgp+4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dnV2Wz9VIuWc6O3b1FpCA0oPWzq8AyxfKwpDVwjvO08=;
+ b=CPYKuu34QIteLKvGDNuZ5mZbiL6IILt1A1H8US+3kZwjBz20xdRCVoS0YBM/SQCI4uuxx0cj+ioHmONoLS3ophK3/3ixC2RE9i15RvSBe9roLsbXR/RvF9j02i5hIw0rjhpGbDdSVqOY/Duhk5p/cGzpt3rlbvn+WcyN7nVGVb2Pcs9L3MC59x/OBciTorxhvvlA9ym89NcRLXuy4HZS6EnShyrEsn1tCEdv/ZBVsZ2ErpEWc6sL/JBFlWvwJlckA29PsNuL6yIqrq3VsxtStWUvKzLdQihSyHG6+WL1Qz84Dv4bq6fJuy/phOigxbwJDYhsKPfJGIDInCseLftZzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dnV2Wz9VIuWc6O3b1FpCA0oPWzq8AyxfKwpDVwjvO08=;
+ b=i5h3KsnPQgHR04TDXXWr2NPWj87Pbyo9XMX0s7arlaTDDVTeeeGTwj7z6fHwiyl7gX7IcQlUDt8KUhFNVYCX/IoEkPv7dYOETEkOm/j1SOkQ3WJRE1kT5fckiA9JEnyF1zbr1ASsW/43jPYaSzg7N5m4bAe/Ufi9n365xXDEKLIxC9llEOx2lBGBigTEXnWk1rAJ/1AhDs8I2vUFiHu7eo6YMD8PVJMNG/6SG8gXVHmy84s4mvpvBYLxB04UBdp6VYOqsDegXFbk0oV6oC9dCny8aNXAn7tSRDox9Jfn/GsnQxDaT/vWhLOP60n1k61GPG99EU2JKdyqKZGcWjiiqw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <920ede72-c2fb-c814-7b1c-aa488e400f83@suse.com>
+Date: Tue, 25 Jul 2023 09:49:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
 Subject: Re: [PATCH V3 1/2] xen: Update dm_op.h from Xen public header
-Message-ID: <20230725074218.zcgbkkx5pfgszimu@vireshk-i7>
+Content-Language: en-US
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ stratos-dev@op-lists.linaro.org, Erik Schilling <erik.schilling@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 References: <ffae9d7021829fea19fd93fda3c30b52b0af923e.1690190453.git.viresh.kumar@linaro.org>
  <1498bef6-ded0-1b1f-a5ca-e8755800b489@suse.com>
  <20230725070914.m3dxlokedrgjlgcu@vireshk-i7>
  <3770f13f-0621-48af-4c79-880a0ffaa8a6@suse.com>
+ <20230725074218.zcgbkkx5pfgszimu@vireshk-i7>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230725074218.zcgbkkx5pfgszimu@vireshk-i7>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0065.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3770f13f-0621-48af-4c79-880a0ffaa8a6@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS5PR04MB9942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f9911ab-333b-4380-3d6f-08db8ce3bb94
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	zve+le0WNiHuJSnhrzEJN+6PLckPQ7h75e/Uvk2jSn+bb9c9Ig8omN/OxYzGE3pJnxnPUYUjWLEzk4PTzLG9kJ2ca2ZpI1mJ1aQUdIXPNEPWnbSkPGQGl00MrDgH6UcXRoDb8n8c5OT5BBmMiU43ZitqBfHjmbOTYYZlVnsorPevHduuDMOd/0gSumLT7E/BlP5o4c0khER8Hj8kBTdkqSIQAbCZNr8G0by7Lb2xqtuFDnuAeHAz7WDPkkbEG2z3D3Z7d3cR9yrir7TMqP8Aj6GMEWYwUQDoEWTSfBAZ3su+L34s+KCTLFFsfzDRLsATAsWLneOQWsgZ9MAbKe+Pq6uhgSEUdAGuRkfGtTNn3rucR52ZUIytnU0fJrQNhfAfhx6/zjGI1YKFGwI99hLsJ4HiG8/aFEnTbZIKl9nhAXVfNbf3XOAQbFZOKoX+oJaXKc6ZgnrlCZl9P89nwI0YUInLcgScARWVyUepaQdJP21x7DZb5MEVH8ntE8gn2SYxLd5pOpe+AnGljUVBWBJM7uDDu46cHofsL2oWzAKN9D0wV2uYNqO2PqFafuqU3bT2Pw7egjVNY7YJzvkPmosXJZmE/xH7/YPfxoRE1DlxL95bbvHg7AA9Zog33/UPHf6Dy4DoC21M2OPUyQ6q8s/LqQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(376002)(366004)(136003)(346002)(39860400002)(451199021)(54906003)(66946007)(66556008)(66476007)(2616005)(36756003)(86362001)(31696002)(38100700002)(478600001)(186003)(6486002)(6512007)(53546011)(26005)(6506007)(2906002)(31686004)(41300700001)(5660300002)(316002)(4744005)(6916009)(4326008)(8676002)(8936002)(7416002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXF3Z1hNeEpOYytZSm0wSVM5NlhTRXJTRWR3RXZTQ0xQZ0M0QWRtNERLQTdS?=
+ =?utf-8?B?dThJb3h5MkU0bUJCQlJ3c0lraEt2TVVKZm5rRDdFd1RtSTg2M0tMYUsyNkds?=
+ =?utf-8?B?ZkRNeEFaSG1WdFhBVkpVN3Vsd1RNemZjUStzV1BnYjA4WFRQbWdLSGtxTlhU?=
+ =?utf-8?B?K2JSZGI4cklFdm1HV0RYQ0lSaCs1aG5ySGRTQiszQlBhVGR5Wml6QTBJQmdy?=
+ =?utf-8?B?QiszRFE1SE8zRlJhekFTRzdpMmpmUzNJV1JWUFBZT25OZXdMenY2K0ZuVHhk?=
+ =?utf-8?B?MXBjOTEyOEVOUlJFUmpRQitNRmVVTTFocEJxSWQ0VU5DRCt3RStLQW1iSlAy?=
+ =?utf-8?B?bDhFZ1VEUUZZV0NONS8xeXY0Zkc2VzZWb3FVNWk3NEJBREljV1loUERKelpt?=
+ =?utf-8?B?M3JTVGszNDZUTW5aVEl4TGQyZ0p1MWRqTlRuWjNnVWZ4U3VVYVhEVTNPb3FG?=
+ =?utf-8?B?ZlpGbVpoZzk0Uys2R3J5S2Y0UENKZXJmazllMmkzVWNwekpGSVVaMFVUc3JV?=
+ =?utf-8?B?STRXK3EwQXJzVHMxdDYzNFE4WDRZd3NyaTE2Tmk1a3Zzay9SZ1gvMUQvRUdQ?=
+ =?utf-8?B?MThiRytVbjVXeUREYUd0ZldxQUY5Q0U4V01YY2p3d3VVVHhTNG5USGd0aFBu?=
+ =?utf-8?B?SXVHTTBiNkxJL1UvRTVlWnYyVUhmSXVqZDh5WWZXd0V5cERweFVjaFpRbUZu?=
+ =?utf-8?B?TnYzYUJyMTFWZFRCckt4enhqcFhIMWFMazJnZUM1ZVcyM2NnTXRQSGRsTzhp?=
+ =?utf-8?B?SzNSYzI4d3crdzlzekpIK2orNGxXUnRBczBWYlc0UTh0RU1yZ0ZaK0o4cUNK?=
+ =?utf-8?B?QWlHQXlJdXdQbVhzUnBFUlNJVW9tQW1xY091b3JtN3I0c1FRVEI4ZkkvU1c3?=
+ =?utf-8?B?VW5jc3JrV0VQMTFsRGFpWm40UGNUNndBZ09hZ0NML2VNbWJSOEZadzFLZkhu?=
+ =?utf-8?B?UXR1Wm9FSFZMQ2xJb3BGU2lsQTdUeG1xbDY4WE02eUg1QjE2dGFCQW5hd054?=
+ =?utf-8?B?MkF4WE8rV1JWdTZKQldYQTJPT3FXempzRFhhemROTDlGeFZwS1ZsRDJocXU0?=
+ =?utf-8?B?cTM2MXpLZzRUb2NuMFg2SU9mbExxb2hOcnRsVExjSXdoRXdrZW1FTm50dkE4?=
+ =?utf-8?B?ZnV5WHNzcjhXei9keVhYSERWWUxmbWtZZzVxVmtoTnp0TmNSNm5RczJQTEE2?=
+ =?utf-8?B?dEJMT09kSmNTU1VxdjBwNEJVUG8zQXErZDFrdzZHS2kvN0pjVFZNc3ZScW1O?=
+ =?utf-8?B?WkRPaEVHbGkyR3VnK1VMMzdEa0JmTWZBVGRobnNmOFJkcVQxbEhERkVxSnhN?=
+ =?utf-8?B?MVhVMG1LNlgxd2xhTENqVmdqVVd5ZHlFc1Z0RllKK1kwcm5SZWVUeWxNUjhO?=
+ =?utf-8?B?TTY4YllOOCtXaW9TTG5rRXJRRmdtYzliTTFhdWhJcGZhS3Z0ZWVSWWFraTRl?=
+ =?utf-8?B?N3MvKytJNVRSZ1VoS1ZYK0l6d25lSWpILzltb1dpQnBaeTFCWFFJL0JTbURj?=
+ =?utf-8?B?MDlMWDdFamFFUzFSdzhvSlQ3dTZGaFFBMXNkUCtMRkVoWnJPY1R1TG12NWFY?=
+ =?utf-8?B?ejE0MDkwZC80eG53RTZVY1c0UjVwZkRXdUVHQ0lqYXoxcWdrR2FFY3N1bStl?=
+ =?utf-8?B?VHNOa0tOS3FwNytTMlZCYm1uOGg2S0VoWjBYNmdmSlJYMERpdnRxOFd2d2FQ?=
+ =?utf-8?B?ZDZHLzVGLzhwTmNHdjIxOXN3OFF3eDhMSEl6Y0p3N0F0MDdvUmNsaTd4aWFD?=
+ =?utf-8?B?d3VWalRUM1lxa21DeG9FbmdObU1nV3JuUTk5QmhOSG9oejR1TnhkQ2N0WjFF?=
+ =?utf-8?B?SW9OK3FWWVVFckZUc0JleGRqbmNsbzBDcDAwcFJMSjQ5ME5VNklPOTZZdm9a?=
+ =?utf-8?B?Wlk1Syt5NFlUeTVSQXJzZ1ZKVHNkZ1UrMWFzUGd6Y0dVR0ZOWDMyZGVQNEdN?=
+ =?utf-8?B?N0gzMGc1bHF3cjdFWnB6cWhQMmM3OUxlMWJIaE56NFp5KzdqVmwxbUJxOVNL?=
+ =?utf-8?B?ekZEQ2ZoZDF5TUFqZDRzYS82NmUzUUR4UUd1WkZVMFFwUUZEVWhmWCt2M1Ji?=
+ =?utf-8?B?OStDUEFGYm93N08yWkRlTitrZTlrUmQ4SDEwcDYwZ0lFSmlnaDJFZ01tOXFG?=
+ =?utf-8?Q?yDASf07IwxwFY9EwKwhHn+Plf?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f9911ab-333b-4380-3d6f-08db8ce3bb94
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 07:49:53.6848
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5zxKfk0H1aK9mMTdEApZvO1rQ4495PPR1+i4Ogddnicx4jiNVeld2xOcBhbTO6BWDW1L2iKtl+btb5r9T0P9IQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9942
 
-On 25-07-23, 09:18, Jan Beulich wrote:
-> I question that use, btw, but it is not up to me to decide whether to
-> accept such a layering violation in Linux. dm-op is, as its name says,
-> for device models to use. Your intended use doesn't fall in that
-> category, aiui. Imo the present contents of dm_op.h in Linux is indeed
-> all a kernel is supposed to know about, unless it was to gain in-kernel
-> device models.
+On 25.07.2023 09:42, Viresh Kumar wrote:
+> On 25-07-23, 09:18, Jan Beulich wrote:
+>> I question that use, btw, but it is not up to me to decide whether to
+>> accept such a layering violation in Linux. dm-op is, as its name says,
+>> for device models to use. Your intended use doesn't fall in that
+>> category, aiui. Imo the present contents of dm_op.h in Linux is indeed
+>> all a kernel is supposed to know about, unless it was to gain in-kernel
+>> device models.
+> 
+> Is there any other way by which an interrupt can be raised for the
+> guest VM ? I was only aware of this method and so implemented it like
+> this.
+> 
+> I am open to suggestions on this.
 
-Is there any other way by which an interrupt can be raised for the
-guest VM ? I was only aware of this method and so implemented it like
-this.
+Well. I don't know your requirements. Generally I would suggest using
+event channels, not interrupts, when talking about injecting events
+into guests. If it strictly needs to be an interrupt, then I guess a
+non-dm-op means would need introducing if none already exists.
 
-I am open to suggestions on this.
-
--- 
-viresh
+Jan
 
