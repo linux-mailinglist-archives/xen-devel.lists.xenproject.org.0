@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF642760AAA
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569452.890199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC9DC760ACE
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 08:47:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569454.890209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOBlO-000515-Du; Tue, 25 Jul 2023 06:43:18 +0000
+	id 1qOBpX-0005de-Vr; Tue, 25 Jul 2023 06:47:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569452.890199; Tue, 25 Jul 2023 06:43:18 +0000
+Received: by outflank-mailman (output) from mailman id 569454.890209; Tue, 25 Jul 2023 06:47:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOBlO-0004yk-B6; Tue, 25 Jul 2023 06:43:18 +0000
-Received: by outflank-mailman (input) for mailman id 569452;
- Tue, 25 Jul 2023 06:43:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nivo=DL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qOBlM-0004yc-Nc
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 06:43:16 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20625.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::625])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 849d2c97-2ab6-11ee-8613-37d641c3527e;
- Tue, 25 Jul 2023 08:43:09 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM7PR04MB6823.eurprd04.prod.outlook.com (2603:10a6:20b:102::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 25 Jul
- 2023 06:43:12 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
- 06:43:12 +0000
+	id 1qOBpX-0005at-RM; Tue, 25 Jul 2023 06:47:35 +0000
+Received: by outflank-mailman (input) for mailman id 569454;
+ Tue, 25 Jul 2023 06:47:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QXT9=DL=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1qOBpW-0005an-9Y
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 06:47:34 +0000
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [2607:f8b0:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 20e001e0-2ab7-11ee-b23d-6b7b168915f2;
+ Tue, 25 Jul 2023 08:47:32 +0200 (CEST)
+Received: by mail-pf1-x433.google.com with SMTP id
+ d2e1a72fcca58-666eb03457cso2896212b3a.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 23:47:32 -0700 (PDT)
+Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
+ p18-20020a170902a41200b001bb9f104333sm3906512plq.12.2023.07.24.23.47.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jul 2023 23:47:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,139 +44,532 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 849d2c97-2ab6-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mat5TGBb5kQinOncVWKIudZNpL+TycH+/i/PIkWw3joISboM29W9Hqw2tEKbMbEsNuwJxzf4+ic/39GEV1rS11cfMsaTiOSmnl5N8sjbPhZ41PG67rtv/d+/cZf5Ich86xnlm8h/iXCgrnVigH7k6xUXo6iv2MRNmx9EzY2iOH00sKT8mVcuY1YMyTQRDWN32sDY1PomN2A9h20lZvY4DyrJgAtcH0J0DlgpRwBxLNvWxYQS8paOnKr1Y7gW0S0xo6GyqQ/iW04aCgWH9naspcgEesX6WZsc6WAERnOHn/e+OmxYWd5JthBdsOMgYt2K3O0nA7DyeGgVKgg9RkP4fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IqWXcYfpK4ztMAnhZGAzcZh3J5RSTOKhD6SWS3tr2Fg=;
- b=hsfrEg0RTQxnorgBTl3olDY1jiDDu36/uKjV1XNs/+4ElhBdKx7d/yUc7IjKkZB2gB6BfVYU20yOSzgstes5uP42BBcX/flekDLztZKbrCJgwtVMQyYyhB5fOotGviqEJT2nqGdR4IgFcQRkle0Hiosy8cDP0uaUuDlhdHuuOxxPFa3nJm8wTJBpg0xaPfoAkAmmbRQd2pBX0JvZiDt1X+zGmD8h2dacfR0GAVkj9THYALkiCZxdZWnTj390WmQTyVowlRb/WXZqM9AYEPwfZeUb4KcaMCq9GOhUbY0a27XSj7nO8yZ6FJ5GYNBbV/7o7glNYaBEapZsZPpF4/4uFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IqWXcYfpK4ztMAnhZGAzcZh3J5RSTOKhD6SWS3tr2Fg=;
- b=tHuFlvbrhR/CMRiRyKKjGcdBr46znxIJXjvF9L41kWTlr0GPzv6SvWWaYL0ucZSRHC1sjwSlbzojrk3kIbORtnFDxnJ6/tpQUollX7TtBrsAbaEbWVdTbfZlOHLiYV9QmwP40K9qCiumyr4ELsicljtZJs65Cl267mrwzWGE+qSD6QIRcLXQSr4VEd1yRkT431QG3XER2y0gmp5y0e4xDGwGr8MwBYRIDxrUqJr/Pi6Bd5SPyYwhSGRSZyOdjLXC+/zYBAQybwbzzSnaxxCqpFzNU+SwM5olWeKMDjOK9zN9SlLS4eK3IOnRWkflioPIZZCz4Xh466EwIPqWntm1Gw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <873d6b15-957e-9888-7a36-0aebacbf3666@suse.com>
-Date: Tue, 25 Jul 2023 08:43:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v6 1/3] x86/microcode: Ignore microcode loading interface
- for revision = -1
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230724165235.25262-1-alejandro.vallejo@cloud.com>
- <20230724165235.25262-2-alejandro.vallejo@cloud.com>
- <4a31893d-a784-ed33-bd47-5db85b3c02b6@suse.com>
-In-Reply-To: <4a31893d-a784-ed33-bd47-5db85b3c02b6@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0053.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::17) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 20e001e0-2ab7-11ee-b23d-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690267651; x=1690872451;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rWzN+HUQXSE8CC0n86w1+/sl9/LWI75RHk+lRbcP7uQ=;
+        b=vK/cpq+XWmV8elkOjGqR/FSbCh2+QA4jEpC+cdRsN1NvyTMYsKV900RWFOhyZ9DDiz
+         JPo2TwZXFnBZf8fYGuMsI07osGoJvNY14R0ysPvEc6Ft9LJsCyPJtA8fuelswb6wIEP4
+         WiOBcqZ6dSb68yF/rku5wz1zmo7QpEE4diqQmccpU5rSzXh5SIhhG4hFZY+eUM92M691
+         hHwUJILbZQ40y5SmT8UTK7wrSrDx2jt3LfRHbwIAunSeJcGtMDYePQOoErkIQ/EKeeoh
+         b9XZ3hK6PvAww6Plv4TTmERMqij2sTkksKPGlH9MhH37EdZEuM0c+Gz2DFq5Q4+xWbW+
+         k2Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690267651; x=1690872451;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rWzN+HUQXSE8CC0n86w1+/sl9/LWI75RHk+lRbcP7uQ=;
+        b=IiEO6i0bqmbk24Z9mDDjxx16PLQnLTgYYOvrLnKcGURHDjgWF+wVYmUlnXXPs8qQw8
+         kfWgdVrUxYz5WhzMXukrAALU2KTMsULn3ja72BlLFdqTbuq+sZHKwED+H/q9qNWYwzTr
+         WwoZWO74TqwLjAYD2RcLBkGkAfxVL7P4XdTlnEj7TwWDZ58wWC9NIWlaU0zyrRdQ8XNI
+         6qVRGCxWJOMyE+YYRVVCHnaUp96DjnAZ+q2ywpndSZPXjwE1uAjyfvO7lukeAArXL8Rm
+         f2Z1CYEdZD7ItfSDkvqBdvsZc2pyHAMEj+Ps9M2Q7/YF8PYpi+lzzhYDVlS6IKIdAPK+
+         7ZXQ==
+X-Gm-Message-State: ABy/qLZJiYuLaPStrAkfVoLAGNaa4glRJHxKWJzqiddTnfwmte7eDKFi
+	pdmEN11Uq4qLPUO5/6I2Nx1rJA==
+X-Google-Smtp-Source: APBJJlEUiVNnwpl1ujfGTV4J3Wl9UlyHhagVQvV3W3y2/Umq0sU3Sc1U7L8vMx0LSpx0aqXmnEzaDQ==
+X-Received: by 2002:a05:6a20:42a5:b0:126:306b:c6d4 with SMTP id o37-20020a056a2042a500b00126306bc6d4mr9851386pzj.23.1690267650623;
+        Mon, 24 Jul 2023 23:47:30 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Erik Schilling <erik.schilling@linaro.org>,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH V3 1/2] xen: Update dm_op.h from Xen public header
+Date: Tue, 25 Jul 2023 12:17:25 +0530
+Message-Id: <ffae9d7021829fea19fd93fda3c30b52b0af923e.1690190453.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM7PR04MB6823:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2a81d49-32cd-4cbf-f708-08db8cda6a9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	/TUzznmo9H6WmBvlLmxKHCjhw+w5qJlNX11/3bHYalRvn34ipQMzw12Tx2v4laSyjpnRAY/WrkEn1iWpDrDZR8NbzDxUtSeZyYlrbAANGGuklrUb01u3BNpmytStDwqm0M/BMHkEZCGn9RNADoQE0YGpwUBEKY/nLJEkknnZCvnAdgcUaX8GAYoFhX8TUQ0KKaP/RM25/AANV8ravVq4iGT/UTlGsA7TmTcQnQlvltjSU+40DFiNwM0S/EhEyi1GFVGJPYr0wTeKefTcTtPN3piWUz/vtW0FaQDXAJICoDxd5IezNKnf6pnDwb8Gv5fiXUtKr15eaN9G8y9IdQ15x4w6mhU/Q/85hi8HzcvAYlYXa+Qwl4gYW9PeHTOXhz8q2VXeaPyu8qsjCH3InmbCHMQY18mdKQTVN/DThp49iUcU76FekUZ2dJXaO88sHe4siiEyVnrhQvRGa3b+s9jVdcJgfw1TK4KruYxYVVgrfelEpNV5DuYkgH4T6Ul3OuzZayeM4UhAsF4Owxg+fEskKy75oAdTqNBOczNm56ueO8bB9fBuQ5hWU/s0h6i3Boa6EQUHlJ2ngM1sDCwJ+33g9WnXMf5aQybTJ3jmurtJRQo9lnrnIowedz4EAMbRdS7h/uaCXDjAMzV5rh9D6zfuhg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199021)(2906002)(186003)(6506007)(26005)(38100700002)(2616005)(53546011)(83380400001)(41300700001)(5660300002)(66946007)(66556008)(316002)(66476007)(4326008)(6916009)(8676002)(8936002)(36756003)(86362001)(31696002)(54906003)(478600001)(6512007)(6486002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Vlo5TFZjeWYzdkNKVU9DVkl1bW5Md3hqaVA5b1FpaUxSa0dBNWk0bkVYMFBp?=
- =?utf-8?B?Vk9hcEQzOUtpcXl5anRYaHQ1K290WWtqMVhxbnM2RnpTZ3VVcGVzQXpCdDBB?=
- =?utf-8?B?dEdwSzVibjhFM1VnVC9Ea09jQjNJbUYwTUpWNFBKRmpQYWI4SnpjQUcrRFpZ?=
- =?utf-8?B?SnIxRWRxdEJ0dkZEMWdWSlFONFJ0aExFU1NoU3VPWUQ0R0lyTzZXdi9kQ2Zo?=
- =?utf-8?B?aVNZa1h0ZzZiUzFyaW9aUzlmTmZ3bTJvU2Jja0dBUE5jaGxFRUdqUEgrZ3A0?=
- =?utf-8?B?TlFCZFptMjgwVStTeExiekN5d24ycXQzVzNZbXVQZEliWlNDbXZ6S0ZkNGJ1?=
- =?utf-8?B?eXNjb3JQNlNUVHBXTVJuNlRBaFNFTm9kT2UrUVlITGNxZnRITlVQY01mb1B1?=
- =?utf-8?B?U2VqcUYrZWlURFFFaTFORWNDRURCN2pqa2xNOXdiNTdPaTkvMVpiRDdpQ0g5?=
- =?utf-8?B?VmFYV2RFYXNicWs0UHp3Yjk2UHl4SERWRkYyZVBKWVlEN3doSmR2Mk5WY29y?=
- =?utf-8?B?aUwrN040UVhXL09kZEFvMWtaLzZET2RVb1RhQ2ZKN25aUkpsSWZsVG9sMFpn?=
- =?utf-8?B?UzFyNS9HNTlJUFlNYW9PcngvUmEvSEYwc2s3T3FWaExHRUtuUEozZ0JQcnVJ?=
- =?utf-8?B?d0pQRU9DYkpDU3VENG5rcVBzME9TeGtROERrbG41K2tCQ2NJaDFXU2VVWnBH?=
- =?utf-8?B?cFNzNjU3dnNOdC9raUI3eE01aGlWUFdlTXMzNi82Q1g0dytra0NNVEp4Wkh2?=
- =?utf-8?B?NHNZTlRkdmgwWjBrMWovd3czYllYNUZlSlVaaFhNcnBNWkpKLzZoc0FpZjdj?=
- =?utf-8?B?N05QV0wwYjJUTXNJbFdrOW15bW1nTi94L0FOTm95L09zVENCSkI2V1lnZDBG?=
- =?utf-8?B?WnNRSEVuZ3hZS25RcWhWdXlSY0RKbUhWRzFYZWZMTW84MFBHNGU1NkpyczBK?=
- =?utf-8?B?UHdsVllMZHZQVkNGODNTcDN0TFhpYWwzWjBCYkVaN3hEeWlyd3pWTitON2Vv?=
- =?utf-8?B?b0lrOExHcjJQL1FtaDV5MUFNdnhOSHBJd1Jod1hXaXlIeFhkS1N1MHd2MEZN?=
- =?utf-8?B?N3hBMjhJbzJUTXM0a0lIUktSWEJYVmFpMXpSVFZmdE42ck5Kc2dTY3g5eWtX?=
- =?utf-8?B?TmJoREtLKzVWNUIrQitTczd3QjRHQ09XQ3hSenU3Njc0T2RIdWJLQTRxdVN4?=
- =?utf-8?B?bXFWQlhTL1k5OVpnaHNNTS9ENndzZmtKT05LQlYxVnlxTjE5SDcwM21WdzFR?=
- =?utf-8?B?Z0pndm9vRGgwbWdzd0MxTnZHV29EVTlKb3pyTlEyLytUV0syN1RqM1pNVkw1?=
- =?utf-8?B?empDNDhBWFpYeWRzZWU2aEZ5a0NUeEoyd09aQnZoeWJMczNESThaVU96Z1Rz?=
- =?utf-8?B?MjBRNzBEZEltd21FOWpMa3N0NlNhNEdhNTI3b0RPWTM4ZHNqQ0YwZnhaSytD?=
- =?utf-8?B?T0k5cG5wUGVHbUZWVjBmczV6Z0p4R2tiWTZUTzBSa2dHOXpXSWh4OXVqYzJS?=
- =?utf-8?B?Wk5aVnk2dkZvMVNIYU9zT0dGNWhtZm1vVVVicHYrVk5ROTl0aUU0UUVVNFJM?=
- =?utf-8?B?SnNVWmtjR1FRWHZQSHdPUytaZjBhT2JabWh6ZUtpSHM4ejJjYUVmMENkU2VK?=
- =?utf-8?B?TTN2eUJTSjJ2Wm43bEZQa2FmdGdGMlRKZy92QnZtMGlrQ3V5bUVvZHpyWUQz?=
- =?utf-8?B?d05JeXJ2R2RNN2syVUpSUksvcFRrVXdLNWpOR095VkZZSWdoQm5FQVB4VmdC?=
- =?utf-8?B?N25CUGNwREZvcENIejF6bVAyUnZaY25Rci9OemJUOU9NZ0ptYzlhQjFpK1I2?=
- =?utf-8?B?U0s2Rjk2T1hPNzNmUEVyZmRKb0g0dm9KSEd3clluTWtlb3pPNTgwb1NxNklP?=
- =?utf-8?B?N0JwTzlKUWFMUVdBS083bHFDcE1qK3RBWUhaTEhoaG9qc3B5N1ZIWkxqUkxa?=
- =?utf-8?B?N2VGdjlXam1zTTVubmU2M0hKUDVQN1NZYTkydXpSMU9rZjg3YUhJbGs1VG92?=
- =?utf-8?B?YkFrNlRxMmFNR253T1d1cW5WT1ZPTHcwRGVBbkx6NWR4aFNSZHRHY093NVBu?=
- =?utf-8?B?aldaU25NREQ1TDQvaTdKNE1YRmYvUGJMYjlvR2R6ZXlVT0M1alRNQlBpbmN1?=
- =?utf-8?Q?PLgOMfLJVS8S9SOb+aQzdlVTA?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2a81d49-32cd-4cbf-f708-08db8cda6a9f
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 06:43:12.3640
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2/P3TabtPwsyimBYBInHopdD82mlNauutnvv/rNEEO20ZNV+yO/9hxGashZVCmHmg4CmoUwIh2X52GVLvpXbvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6823
+Content-Transfer-Encoding: 8bit
 
-On 25.07.2023 08:40, Jan Beulich wrote:
-> On 24.07.2023 18:52, Alejandro Vallejo wrote:
->> --- a/xen/arch/x86/cpu/microcode/core.c
->> +++ b/xen/arch/x86/cpu/microcode/core.c
->> @@ -867,10 +867,23 @@ int __init early_microcode_init(unsigned long *module_map,
->>          return -ENODEV;
->>      }
->>  
->> -    microcode_grab_module(module_map, mbi);
->> -
->>      ucode_ops.collect_cpu_info();
->>  
->> +    /*
->> +     * Some hypervisors deliberately report a microcode revision of -1 to
->> +     * mean that they will not accept microcode updates. We take the hint
->> +     * and ignore the microcode interface in that case.
->> +     */
->> +    if ( this_cpu(cpu_sig).rev == ~0 )
->> +    {
->> +        printk(XENLOG_INFO "Microcode loading disabled due to: %s",
-> 
-> While we have tentatively agreed to adjust what _will_ be emitted by
-> default (subject to suitable justification in that change's
-> description), such a patch is yet to be sent. As it stands this message
-> will be invisible by default.
-> 
->> +                           "HW toggle");
-> 
-> With the comment talking about hypervisors, what is this string supposed
-> to tell an observer of the message in a log file?
+Update the definitions in dm_op.h from Xen public header (latest commit
+0c53c638e162 ("tools/xenstore: fix XSA-417 patch")).
 
-Looking at patch 3 I get the impression that you put here the wrong of the
-two messages there.
+List of changes done to the file after copying from Xen:
+- Updated paths of included files.
+- Removed typedef definitions, as is done for other Xen headers (as per
+  kernel coding guidelines).
+- Removed some not-so-useful comments.
 
-Jan
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+V2->V3:
+- Updated commit log with more details.
+
+V1->V2:
+- New commit.
+
+ include/xen/interface/hvm/dm_op.h | 445 ++++++++++++++++++++++++++++++
+ 1 file changed, 445 insertions(+)
+
+diff --git a/include/xen/interface/hvm/dm_op.h b/include/xen/interface/hvm/dm_op.h
+index 08d972f87c7b..bc6948fd1815 100644
+--- a/include/xen/interface/hvm/dm_op.h
++++ b/include/xen/interface/hvm/dm_op.h
+@@ -6,6 +6,451 @@
+ #ifndef __XEN_PUBLIC_HVM_DM_OP_H__
+ #define __XEN_PUBLIC_HVM_DM_OP_H__
+ 
++#include <xen/interface/xen.h>
++#include <xen/interface/event_channel.h>
++
++#ifndef uint64_aligned_t
++#define uint64_aligned_t uint64_t
++#endif
++
++/*
++ * IOREQ Servers
++ *
++ * The interface between an I/O emulator and Xen is called an IOREQ Server.
++ * A domain supports a single 'legacy' IOREQ Server which is instantiated if
++ * parameter...
++ *
++ * HVM_PARAM_IOREQ_PFN is read (to get the gfn containing the synchronous
++ * ioreq structures), or...
++ * HVM_PARAM_BUFIOREQ_PFN is read (to get the gfn containing the buffered
++ * ioreq ring), or...
++ * HVM_PARAM_BUFIOREQ_EVTCHN is read (to get the event channel that Xen uses
++ * to request buffered I/O emulation).
++ *
++ * The following hypercalls facilitate the creation of IOREQ Servers for
++ * 'secondary' emulators which are invoked to implement port I/O, memory, or
++ * PCI config space ranges which they explicitly register.
++ */
++
++typedef uint16_t ioservid_t;
++
++/*
++ * XEN_DMOP_create_ioreq_server: Instantiate a new IOREQ Server for a
++ *                               secondary emulator.
++ *
++ * The <id> handed back is unique for target domain. The valur of
++ * <handle_bufioreq> should be one of HVM_IOREQSRV_BUFIOREQ_* defined in
++ * hvm_op.h. If the value is HVM_IOREQSRV_BUFIOREQ_OFF then  the buffered
++ * ioreq ring will not be allocated and hence all emulation requests to
++ * this server will be synchronous.
++ */
++#define XEN_DMOP_create_ioreq_server 1
++
++struct xen_dm_op_create_ioreq_server {
++    /* IN - should server handle buffered ioreqs */
++    uint8_t handle_bufioreq;
++    uint8_t pad[3];
++    /* OUT - server id */
++    ioservid_t id;
++};
++
++/*
++ * XEN_DMOP_get_ioreq_server_info: Get all the information necessary to
++ *                                 access IOREQ Server <id>.
++ *
++ * If the IOREQ Server is handling buffered emulation requests, the
++ * emulator needs to bind to event channel <bufioreq_port> to listen for
++ * them. (The event channels used for synchronous emulation requests are
++ * specified in the per-CPU ioreq structures).
++ * In addition, if the XENMEM_acquire_resource memory op cannot be used,
++ * the emulator will need to map the synchronous ioreq structures and
++ * buffered ioreq ring (if it exists) from guest memory. If <flags> does
++ * not contain XEN_DMOP_no_gfns then these pages will be made available and
++ * the frame numbers passed back in gfns <ioreq_gfn> and <bufioreq_gfn>
++ * respectively. (If the IOREQ Server is not handling buffered emulation
++ * only <ioreq_gfn> will be valid).
++ *
++ * NOTE: To access the synchronous ioreq structures and buffered ioreq
++ *       ring, it is preferable to use the XENMEM_acquire_resource memory
++ *       op specifying resource type XENMEM_resource_ioreq_server.
++ */
++#define XEN_DMOP_get_ioreq_server_info 2
++
++struct xen_dm_op_get_ioreq_server_info {
++    /* IN - server id */
++    ioservid_t id;
++    /* IN - flags */
++    uint16_t flags;
++
++#define _XEN_DMOP_no_gfns 0
++#define XEN_DMOP_no_gfns (1u << _XEN_DMOP_no_gfns)
++
++    /* OUT - buffered ioreq port */
++    evtchn_port_t bufioreq_port;
++    /* OUT - sync ioreq gfn (see block comment above) */
++    uint64_aligned_t ioreq_gfn;
++    /* OUT - buffered ioreq gfn (see block comment above)*/
++    uint64_aligned_t bufioreq_gfn;
++};
++
++/*
++ * XEN_DMOP_map_io_range_to_ioreq_server: Register an I/O range for
++ *                                        emulation by the client of
++ *                                        IOREQ Server <id>.
++ * XEN_DMOP_unmap_io_range_from_ioreq_server: Deregister an I/O range
++ *                                            previously registered for
++ *                                            emulation by the client of
++ *                                            IOREQ Server <id>.
++ *
++ * There are three types of I/O that can be emulated: port I/O, memory
++ * accesses and PCI config space accesses. The <type> field denotes which
++ * type of range* the <start> and <end> (inclusive) fields are specifying.
++ * PCI config space ranges are specified by segment/bus/device/function
++ * values which should be encoded using the DMOP_PCI_SBDF helper macro
++ * below.
++ *
++ * NOTE: unless an emulation request falls entirely within a range mapped
++ * by a secondary emulator, it will not be passed to that emulator.
++ */
++#define XEN_DMOP_map_io_range_to_ioreq_server 3
++#define XEN_DMOP_unmap_io_range_from_ioreq_server 4
++
++struct xen_dm_op_ioreq_server_range {
++    /* IN - server id */
++    ioservid_t id;
++    uint16_t pad;
++    /* IN - type of range */
++    uint32_t type;
++# define XEN_DMOP_IO_RANGE_PORT   0 /* I/O port range */
++# define XEN_DMOP_IO_RANGE_MEMORY 1 /* MMIO range */
++# define XEN_DMOP_IO_RANGE_PCI    2 /* PCI segment/bus/dev/func range */
++    /* IN - inclusive start and end of range */
++    uint64_aligned_t start, end;
++};
++
++#define XEN_DMOP_PCI_SBDF(s,b,d,f) \
++	((((s) & 0xffff) << 16) |  \
++	 (((b) & 0xff) << 8) |     \
++	 (((d) & 0x1f) << 3) |     \
++	 ((f) & 0x07))
++
++/*
++ * XEN_DMOP_set_ioreq_server_state: Enable or disable the IOREQ Server <id>
++ *
++ * The IOREQ Server will not be passed any emulation requests until it is
++ * in the enabled state.
++ * Note that the contents of the ioreq_gfn and bufioreq_gfn (see
++ * XEN_DMOP_get_ioreq_server_info) are not meaningful until the IOREQ Server
++ * is in the enabled state.
++ */
++#define XEN_DMOP_set_ioreq_server_state 5
++
++struct xen_dm_op_set_ioreq_server_state {
++    /* IN - server id */
++    ioservid_t id;
++    /* IN - enabled? */
++    uint8_t enabled;
++    uint8_t pad;
++};
++
++/*
++ * XEN_DMOP_destroy_ioreq_server: Destroy the IOREQ Server <id>.
++ *
++ * Any registered I/O ranges will be automatically deregistered.
++ */
++#define XEN_DMOP_destroy_ioreq_server 6
++
++struct xen_dm_op_destroy_ioreq_server {
++    /* IN - server id */
++    ioservid_t id;
++    uint16_t pad;
++};
++
++/*
++ * XEN_DMOP_track_dirty_vram: Track modifications to the specified pfn
++ *                            range.
++ *
++ * NOTE: The bitmap passed back to the caller is passed in a
++ *       secondary buffer.
++ */
++#define XEN_DMOP_track_dirty_vram 7
++
++struct xen_dm_op_track_dirty_vram {
++    /* IN - number of pages to be tracked */
++    uint32_t nr;
++    uint32_t pad;
++    /* IN - first pfn to track */
++    uint64_aligned_t first_pfn;
++};
++
++/*
++ * XEN_DMOP_set_pci_intx_level: Set the logical level of one of a domain's
++ *                              PCI INTx pins.
++ */
++#define XEN_DMOP_set_pci_intx_level 8
++
++struct xen_dm_op_set_pci_intx_level {
++    /* IN - PCI INTx identification (domain:bus:device:intx) */
++    uint16_t domain;
++    uint8_t bus, device, intx;
++    /* IN - Level: 0 -> deasserted, 1 -> asserted */
++    uint8_t  level;
++};
++
++/*
++ * XEN_DMOP_set_isa_irq_level: Set the logical level of a one of a domain's
++ *                             ISA IRQ lines.
++ */
++#define XEN_DMOP_set_isa_irq_level 9
++
++struct xen_dm_op_set_isa_irq_level {
++    /* IN - ISA IRQ (0-15) */
++    uint8_t  isa_irq;
++    /* IN - Level: 0 -> deasserted, 1 -> asserted */
++    uint8_t  level;
++};
++
++/*
++ * XEN_DMOP_set_pci_link_route: Map a PCI INTx line to an IRQ line.
++ */
++#define XEN_DMOP_set_pci_link_route 10
++
++struct xen_dm_op_set_pci_link_route {
++    /* PCI INTx line (0-3) */
++    uint8_t  link;
++    /* ISA IRQ (1-15) or 0 -> disable link */
++    uint8_t  isa_irq;
++};
++
++/*
++ * XEN_DMOP_modified_memory: Notify that a set of pages were modified by
++ *                           an emulator.
++ *
++ * DMOP buf 1 contains an array of xen_dm_op_modified_memory_extent with
++ * @nr_extents entries.
++ *
++ * On error, @nr_extents will contain the index+1 of the extent that
++ * had the error.  It is not defined if or which pages may have been
++ * marked as dirty, in this event.
++ */
++#define XEN_DMOP_modified_memory 11
++
++struct xen_dm_op_modified_memory {
++    /*
++     * IN - Number of extents to be processed
++     * OUT -returns n+1 for failing extent
++     */
++    uint32_t nr_extents;
++    /* IN/OUT - Must be set to 0 */
++    uint32_t opaque;
++};
++
++struct xen_dm_op_modified_memory_extent {
++    /* IN - number of contiguous pages modified */
++    uint32_t nr;
++    uint32_t pad;
++    /* IN - first pfn modified */
++    uint64_aligned_t first_pfn;
++};
++
++/*
++ * XEN_DMOP_set_mem_type: Notify that a region of memory is to be treated
++ *                        in a specific way. (See definition of
++ *                        hvmmem_type_t).
++ *
++ * NOTE: In the event of a continuation (return code -ERESTART), the
++ *       @first_pfn is set to the value of the pfn of the remaining
++ *       region and @nr reduced to the size of the remaining region.
++ */
++#define XEN_DMOP_set_mem_type 12
++
++struct xen_dm_op_set_mem_type {
++    /* IN - number of contiguous pages */
++    uint32_t nr;
++    /* IN - new hvmmem_type_t of region */
++    uint16_t mem_type;
++    uint16_t pad;
++    /* IN - first pfn in region */
++    uint64_aligned_t first_pfn;
++};
++
++/*
++ * XEN_DMOP_inject_event: Inject an event into a VCPU, which will
++ *                        get taken up when it is next scheduled.
++ *
++ * Note that the caller should know enough of the state of the CPU before
++ * injecting, to know what the effect of injecting the event will be.
++ */
++#define XEN_DMOP_inject_event 13
++
++struct xen_dm_op_inject_event {
++    /* IN - index of vCPU */
++    uint32_t vcpuid;
++    /* IN - interrupt vector */
++    uint8_t vector;
++    /* IN - event type (DMOP_EVENT_* ) */
++    uint8_t type;
++/* NB. This enumeration precisely matches hvm.h:X86_EVENTTYPE_* */
++# define XEN_DMOP_EVENT_ext_int    0 /* external interrupt */
++# define XEN_DMOP_EVENT_nmi        2 /* nmi */
++# define XEN_DMOP_EVENT_hw_exc     3 /* hardware exception */
++# define XEN_DMOP_EVENT_sw_int     4 /* software interrupt (CD nn) */
++# define XEN_DMOP_EVENT_pri_sw_exc 5 /* ICEBP (F1) */
++# define XEN_DMOP_EVENT_sw_exc     6 /* INT3 (CC), INTO (CE) */
++    /* IN - instruction length */
++    uint8_t insn_len;
++    uint8_t pad0;
++    /* IN - error code (or ~0 to skip) */
++    uint32_t error_code;
++    uint32_t pad1;
++    /* IN - type-specific extra data (%cr2 for #PF, pending_dbg for #DB) */
++    uint64_aligned_t cr2;
++};
++
++/*
++ * XEN_DMOP_inject_msi: Inject an MSI for an emulated device.
++ */
++#define XEN_DMOP_inject_msi 14
++
++struct xen_dm_op_inject_msi {
++    /* IN - MSI data (lower 32 bits) */
++    uint32_t data;
++    uint32_t pad;
++    /* IN - MSI address (0xfeexxxxx) */
++    uint64_aligned_t addr;
++};
++
++/*
++ * XEN_DMOP_map_mem_type_to_ioreq_server : map or unmap the IOREQ Server <id>
++ *                                      to specific memory type <type>
++ *                                      for specific accesses <flags>
++ *
++ * For now, flags only accept the value of XEN_DMOP_IOREQ_MEM_ACCESS_WRITE,
++ * which means only write operations are to be forwarded to an ioreq server.
++ * Support for the emulation of read operations can be added when an ioreq
++ * server has such requirement in future.
++ */
++#define XEN_DMOP_map_mem_type_to_ioreq_server 15
++
++struct xen_dm_op_map_mem_type_to_ioreq_server {
++    ioservid_t id;      /* IN - ioreq server id */
++    uint16_t type;      /* IN - memory type */
++    uint32_t flags;     /* IN - types of accesses to be forwarded to the
++                           ioreq server. flags with 0 means to unmap the
++                           ioreq server */
++
++#define XEN_DMOP_IOREQ_MEM_ACCESS_READ (1u << 0)
++#define XEN_DMOP_IOREQ_MEM_ACCESS_WRITE (1u << 1)
++
++    uint64_t opaque;    /* IN/OUT - only used for hypercall continuation,
++                           has to be set to zero by the caller */
++};
++
++/*
++ * XEN_DMOP_remote_shutdown : Declare a shutdown for another domain
++ *                            Identical to SCHEDOP_remote_shutdown
++ */
++#define XEN_DMOP_remote_shutdown 16
++
++struct xen_dm_op_remote_shutdown {
++    uint32_t reason;       /* SHUTDOWN_* => enum sched_shutdown_reason */
++                           /* (Other reason values are not blocked) */
++};
++
++/*
++ * XEN_DMOP_relocate_memory : Relocate GFNs for the specified guest.
++ *                            Identical to XENMEM_add_to_physmap with
++ *                            space == XENMAPSPACE_gmfn_range.
++ */
++#define XEN_DMOP_relocate_memory 17
++
++struct xen_dm_op_relocate_memory {
++    /* All fields are IN/OUT, with their OUT state undefined. */
++    /* Number of GFNs to process. */
++    uint32_t size;
++    uint32_t pad;
++    /* Starting GFN to relocate. */
++    uint64_aligned_t src_gfn;
++    /* Starting GFN where GFNs should be relocated. */
++    uint64_aligned_t dst_gfn;
++};
++
++/*
++ * XEN_DMOP_pin_memory_cacheattr : Pin caching type of RAM space.
++ *                                 Identical to XEN_DOMCTL_pin_mem_cacheattr.
++ */
++#define XEN_DMOP_pin_memory_cacheattr 18
++
++struct xen_dm_op_pin_memory_cacheattr {
++    uint64_aligned_t start; /* Start gfn. */
++    uint64_aligned_t end;   /* End gfn. */
++/* Caching types: these happen to be the same as x86 MTRR/PAT type codes. */
++#define XEN_DMOP_MEM_CACHEATTR_UC  0
++#define XEN_DMOP_MEM_CACHEATTR_WC  1
++#define XEN_DMOP_MEM_CACHEATTR_WT  4
++#define XEN_DMOP_MEM_CACHEATTR_WP  5
++#define XEN_DMOP_MEM_CACHEATTR_WB  6
++#define XEN_DMOP_MEM_CACHEATTR_UCM 7
++#define XEN_DMOP_DELETE_MEM_CACHEATTR (~(uint32_t)0)
++    uint32_t type;          /* XEN_DMOP_MEM_CACHEATTR_* */
++    uint32_t pad;
++};
++
++/*
++ * XEN_DMOP_set_irq_level: Set the logical level of a one of a domain's
++ *                         IRQ lines (currently Arm only).
++ * Only SPIs are supported.
++ */
++#define XEN_DMOP_set_irq_level 19
++
++struct xen_dm_op_set_irq_level {
++    uint32_t irq;
++    /* IN - Level: 0 -> deasserted, 1 -> asserted */
++    uint8_t level;
++    uint8_t pad[3];
++};
++
++/*
++ * XEN_DMOP_nr_vcpus: Query the number of vCPUs a domain has.
++ *
++ * This is the number of vcpu objects allocated in Xen for the domain, and is
++ * fixed from creation time.  This bound is applicable to e.g. the vcpuid
++ * parameter of XEN_DMOP_inject_event, or number of struct ioreq objects
++ * mapped via XENMEM_acquire_resource.
++ */
++#define XEN_DMOP_nr_vcpus 20
++
++struct xen_dm_op_nr_vcpus {
++    uint32_t vcpus; /* OUT */
++};
++
++struct xen_dm_op {
++    uint32_t op;
++    uint32_t pad;
++    union {
++        struct xen_dm_op_create_ioreq_server create_ioreq_server;
++        struct xen_dm_op_get_ioreq_server_info get_ioreq_server_info;
++        struct xen_dm_op_ioreq_server_range map_io_range_to_ioreq_server;
++        struct xen_dm_op_ioreq_server_range unmap_io_range_from_ioreq_server;
++        struct xen_dm_op_set_ioreq_server_state set_ioreq_server_state;
++        struct xen_dm_op_destroy_ioreq_server destroy_ioreq_server;
++        struct xen_dm_op_track_dirty_vram track_dirty_vram;
++        struct xen_dm_op_set_pci_intx_level set_pci_intx_level;
++        struct xen_dm_op_set_isa_irq_level set_isa_irq_level;
++        struct xen_dm_op_set_irq_level set_irq_level;
++        struct xen_dm_op_set_pci_link_route set_pci_link_route;
++        struct xen_dm_op_modified_memory modified_memory;
++        struct xen_dm_op_set_mem_type set_mem_type;
++        struct xen_dm_op_inject_event inject_event;
++        struct xen_dm_op_inject_msi inject_msi;
++        struct xen_dm_op_map_mem_type_to_ioreq_server map_mem_type_to_ioreq_server;
++        struct xen_dm_op_remote_shutdown remote_shutdown;
++        struct xen_dm_op_relocate_memory relocate_memory;
++        struct xen_dm_op_pin_memory_cacheattr pin_memory_cacheattr;
++        struct xen_dm_op_nr_vcpus nr_vcpus;
++    } u;
++};
++
+ struct xen_dm_op_buf {
+ 	GUEST_HANDLE(void) h;
+ 	xen_ulong_t size;
+-- 
+2.31.1.272.g89b43f80a514
 
 
