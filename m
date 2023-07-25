@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47BA07624A2
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 23:41:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569951.891195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C828762772
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 01:36:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569988.891208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOPmX-0006De-Id; Tue, 25 Jul 2023 21:41:25 +0000
+	id 1qORYO-0000cr-Au; Tue, 25 Jul 2023 23:34:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569951.891195; Tue, 25 Jul 2023 21:41:25 +0000
+Received: by outflank-mailman (output) from mailman id 569988.891208; Tue, 25 Jul 2023 23:34:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOPmX-0006B4-FM; Tue, 25 Jul 2023 21:41:25 +0000
-Received: by outflank-mailman (input) for mailman id 569951;
- Tue, 25 Jul 2023 21:41:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qORYO-0000aK-7e; Tue, 25 Jul 2023 23:34:56 +0000
+Received: by outflank-mailman (input) for mailman id 569988;
+ Tue, 25 Jul 2023 23:34:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qOPmV-0006Au-Vq; Tue, 25 Jul 2023 21:41:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qOPmV-0006Ou-TH; Tue, 25 Jul 2023 21:41:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qOPmV-0001De-Dz; Tue, 25 Jul 2023 21:41:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qOPmV-0001Ja-DR; Tue, 25 Jul 2023 21:41:23 +0000
+ (envelope-from <SRS0=I1ML=DL=intel.com=lkp@srs-se1.protection.inumbo.net>)
+ id 1qORYM-0000aE-1E
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 23:34:54 +0000
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d7b77bb6-2b43-11ee-8613-37d641c3527e;
+ Wed, 26 Jul 2023 01:34:49 +0200 (CEST)
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2023 16:34:46 -0700
+Received: from lkp-server02.sh.intel.com (HELO 953e8cd98f7d) ([10.239.97.151])
+ by orsmga008.jf.intel.com with ESMTP; 25 Jul 2023 16:34:40 -0700
+Received: from kbuild by 953e8cd98f7d with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qORY7-0000Qn-2W;
+ Tue, 25 Jul 2023 23:34:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,295 +44,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5zcxsWZfDv6zSLFjjm7eEQDBa0aiuUkGeGjBDrdorEw=; b=wqkHSPM+7MtUn4RvX0NIxD4Go0
-	olobbY+DP1VS7wlEoNTvJGguvunp67hetU6Zlgfksqr+9vgmdG218yegT25688Vzq8rQ+a8k0yX1B
-	gzH1ABIMTYmbbm208YRkyIN3eZLm8ScYE2gamTrIL+clIKTICJitzrVsClMdy4dpXIKg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181997-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d7b77bb6-2b43-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690328089; x=1721864089;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=C5xyKe5/WjYZUNBE8/1FHjpgxl/fMdUuo5xkgVP7J8Y=;
+  b=kprEQkvDUSYB8VY754hEFOqF9OPVst5QCXBOombACoxddVdAJ8Mbz8BO
+   y9j/KrfHTk0kNkhfEjXQ4yyYfSYlXsID0sZf9EIi/TX/LVvMyZop1imT1
+   64drc3Kd0NKooYGQmtnluxbjXPtzNonbi2AjsEfyh3fCNbE97dgA2E1xx
+   aaMJLxRLAvRgg3DdTPC34a3yt2ZxKKe/CslwvJn3r42X3sqowcsjUBjQB
+   dx252wRrrF9rDLbw+TCCIsr/0xZ113UfcaSUUuRc19bOhFluME1UWyRw+
+   xYejA5PKL7S0aB2oQJYOBJaBmZ8Dv4PdkJNAh/qxn/GIqPGRtCVMeqIah
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="366747677"
+X-IronPort-AV: E=Sophos;i="6.01,231,1684825200"; 
+   d="scan'208";a="366747677"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="755945611"
+X-IronPort-AV: E=Sophos;i="6.01,231,1684825200"; 
+   d="scan'208";a="755945611"
+Date: Wed, 26 Jul 2023 07:33:59 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
+	Hugh Dickins <hughd@google.com>,
+	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Mike Rapoport <rppt@kernel.org>
+Subject: Re: [PATCH mm-unstable v7 12/31] powerpc: Convert various functions
+ to use ptdescs
+Message-ID: <202307260706.qNPJSnjR-lkp@intel.com>
+References: <20230725042051.36691-13-vishal.moola@gmail.com>
 MIME-Version: 1.0
-Subject: [xen-4.17-testing test] 181997: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-4.17-testing:test-amd64-i386-migrupgrade:xen-install/dst_host:fail:heisenbug
-    xen-4.17-testing:test-amd64-i386-migrupgrade:xen-install/src_host:fail:heisenbug
-    xen-4.17-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=3141a0b85c37b76e069ec7dcb906ff202f5c4075
-X-Osstest-Versions-That:
-    xen=69611e5b3c43f52ce130b89ac4c6bb1c2aeb25d3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 25 Jul 2023 21:41:23 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230725042051.36691-13-vishal.moola@gmail.com>
 
-flight 181997 xen-4.17-testing real [real]
-flight 182014 xen-4.17-testing real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181997/
-http://logs.test-lab.xenproject.org/osstest/logs/182014/
+Hi Vishal,
 
-Failures :-/ but no regressions.
+kernel test robot noticed the following build errors:
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-migrupgrade 11 xen-install/dst_host fail in 182014 pass in 181997
- test-amd64-i386-migrupgrade 10 xen-install/src_host fail pass in 182014-retest
+[auto build test ERROR on akpm-mm/mm-everything]
+[also build test ERROR on next-20230725]
+[cannot apply to powerpc/next powerpc/fixes s390/features geert-m68k/for-next geert-m68k/for-linus linus/master v6.5-rc3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181945
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 181945
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 181945
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 181945
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 181945
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181945
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181945
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 181945
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 181945
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 181945
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 181945
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 181945
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+url:    https://github.com/intel-lab-lkp/linux/commits/Vishal-Moola-Oracle/mm-Add-PAGE_TYPE_OP-folio-functions/20230725-122458
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20230725042051.36691-13-vishal.moola%40gmail.com
+patch subject: [PATCH mm-unstable v7 12/31] powerpc: Convert various functions to use ptdescs
+config: powerpc-randconfig-r034-20230725 (https://download.01.org/0day-ci/archive/20230726/202307260706.qNPJSnjR-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
+reproduce: (https://download.01.org/0day-ci/archive/20230726/202307260706.qNPJSnjR-lkp@intel.com/reproduce)
 
-version targeted for testing:
- xen                  3141a0b85c37b76e069ec7dcb906ff202f5c4075
-baseline version:
- xen                  69611e5b3c43f52ce130b89ac4c6bb1c2aeb25d3
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202307260706.qNPJSnjR-lkp@intel.com/
 
-Last test of basis   181945  2023-07-21 06:36:55 Z    4 days
-Testing same since   181997  2023-07-24 16:37:35 Z    1 days    1 attempts
+All errors (new ones prefixed by >>):
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+   In file included from arch/powerpc/mm/pgtable-frag.c:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/powerpc/include/asm/hardirq.h:6:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/powerpc/include/asm/io.h:672:
+   arch/powerpc/include/asm/io-defs.h:45:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
+      45 | DEF_PCI_AC_NORET(insw, (unsigned long p, void *b, unsigned long c),
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      46 |                  (p, b, c), pio, p)
+         |                  ~~~~~~~~~~~~~~~~~~
+   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
+     669 |                 __do_##name al;                                 \
+         |                 ^~~~~~~~~~~~~~
+   <scratch space>:40:1: note: expanded from here
+      40 | __do_insw
+         | ^
+   arch/powerpc/include/asm/io.h:610:56: note: expanded from macro '__do_insw'
+     610 | #define __do_insw(p, b, n)      readsw((PCI_IO_ADDR)_IO_BASE+(p), (b), (n))
+         |                                        ~~~~~~~~~~~~~~~~~~~~~^
+   In file included from arch/powerpc/mm/pgtable-frag.c:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/powerpc/include/asm/hardirq.h:6:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/powerpc/include/asm/io.h:672:
+   arch/powerpc/include/asm/io-defs.h:47:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
+      47 | DEF_PCI_AC_NORET(insl, (unsigned long p, void *b, unsigned long c),
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      48 |                  (p, b, c), pio, p)
+         |                  ~~~~~~~~~~~~~~~~~~
+   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
+     669 |                 __do_##name al;                                 \
+         |                 ^~~~~~~~~~~~~~
+   <scratch space>:42:1: note: expanded from here
+      42 | __do_insl
+         | ^
+   arch/powerpc/include/asm/io.h:611:56: note: expanded from macro '__do_insl'
+     611 | #define __do_insl(p, b, n)      readsl((PCI_IO_ADDR)_IO_BASE+(p), (b), (n))
+         |                                        ~~~~~~~~~~~~~~~~~~~~~^
+   In file included from arch/powerpc/mm/pgtable-frag.c:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/powerpc/include/asm/hardirq.h:6:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/powerpc/include/asm/io.h:672:
+   arch/powerpc/include/asm/io-defs.h:49:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
+      49 | DEF_PCI_AC_NORET(outsb, (unsigned long p, const void *b, unsigned long c),
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      50 |                  (p, b, c), pio, p)
+         |                  ~~~~~~~~~~~~~~~~~~
+   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
+     669 |                 __do_##name al;                                 \
+         |                 ^~~~~~~~~~~~~~
+   <scratch space>:44:1: note: expanded from here
+      44 | __do_outsb
+         | ^
+   arch/powerpc/include/asm/io.h:612:58: note: expanded from macro '__do_outsb'
+     612 | #define __do_outsb(p, b, n)     writesb((PCI_IO_ADDR)_IO_BASE+(p),(b),(n))
+         |                                         ~~~~~~~~~~~~~~~~~~~~~^
+   In file included from arch/powerpc/mm/pgtable-frag.c:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/powerpc/include/asm/hardirq.h:6:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/powerpc/include/asm/io.h:672:
+   arch/powerpc/include/asm/io-defs.h:51:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
+      51 | DEF_PCI_AC_NORET(outsw, (unsigned long p, const void *b, unsigned long c),
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      52 |                  (p, b, c), pio, p)
+         |                  ~~~~~~~~~~~~~~~~~~
+   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
+     669 |                 __do_##name al;                                 \
+         |                 ^~~~~~~~~~~~~~
+   <scratch space>:46:1: note: expanded from here
+      46 | __do_outsw
+         | ^
+   arch/powerpc/include/asm/io.h:613:58: note: expanded from macro '__do_outsw'
+     613 | #define __do_outsw(p, b, n)     writesw((PCI_IO_ADDR)_IO_BASE+(p),(b),(n))
+         |                                         ~~~~~~~~~~~~~~~~~~~~~^
+   In file included from arch/powerpc/mm/pgtable-frag.c:12:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/powerpc/include/asm/hardirq.h:6:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/powerpc/include/asm/io.h:672:
+   arch/powerpc/include/asm/io-defs.h:53:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
+      53 | DEF_PCI_AC_NORET(outsl, (unsigned long p, const void *b, unsigned long c),
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      54 |                  (p, b, c), pio, p)
+         |                  ~~~~~~~~~~~~~~~~~~
+   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
+     669 |                 __do_##name al;                                 \
+         |                 ^~~~~~~~~~~~~~
+   <scratch space>:48:1: note: expanded from here
+      48 | __do_outsl
+         | ^
+   arch/powerpc/include/asm/io.h:614:58: note: expanded from macro '__do_outsl'
+     614 | #define __do_outsl(p, b, n)     writesl((PCI_IO_ADDR)_IO_BASE+(p),(b),(n))
+         |                                         ~~~~~~~~~~~~~~~~~~~~~^
+>> arch/powerpc/mm/pgtable-frag.c:125:22: error: use of undeclared identifier 'page'
+     125 |         BUG_ON(atomic_read(&page->pt_frag_refcount) <= 0);
+         |                             ^
+   7 errors generated.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for HOTPLUG_CPU
+   Depends on [n]: SMP [=y] && (PPC_PSERIES [=n] || PPC_PMAC [=n] || PPC_POWERNV [=n] || FSL_SOC_BOOKE [=n])
+   Selected by [y]:
+   - PM_SLEEP_SMP [=y] && SMP [=y] && (ARCH_SUSPEND_POSSIBLE [=y] || ARCH_HIBERNATION_POSSIBLE [=y]) && PM_SLEEP [=y]
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+vim +/page +125 arch/powerpc/mm/pgtable-frag.c
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+0203dd58d897cbd Hugh Dickins          2023-07-11  117  
+a95d133c8643cae Christophe Leroy      2018-11-29  118  void pte_fragment_free(unsigned long *table, int kernel)
+a95d133c8643cae Christophe Leroy      2018-11-29  119  {
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  120) 	struct ptdesc *ptdesc = virt_to_ptdesc(table);
+a95d133c8643cae Christophe Leroy      2018-11-29  121  
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  122) 	if (pagetable_is_reserved(ptdesc))
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  123) 		return free_reserved_ptdesc(ptdesc);
+645d5ce2f7d6cb4 Aneesh Kumar K.V      2020-07-09  124  
+a95d133c8643cae Christophe Leroy      2018-11-29 @125  	BUG_ON(atomic_read(&page->pt_frag_refcount) <= 0);
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  126) 	if (atomic_dec_and_test(&ptdesc->pt_frag_refcount)) {
+0203dd58d897cbd Hugh Dickins          2023-07-11  127  		if (kernel)
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  128) 			pagetable_free(ptdesc);
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  129) 		else if (folio_test_clear_active(ptdesc_folio(ptdesc)))
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  130) 			call_rcu(&ptdesc->pt_rcu_head, pte_free_now);
+0203dd58d897cbd Hugh Dickins          2023-07-11  131  		else
+e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  132) 			pte_free_now(&ptdesc->pt_rcu_head);
+0203dd58d897cbd Hugh Dickins          2023-07-11  133  	}
+a95d133c8643cae Christophe Leroy      2018-11-29  134  }
+0203dd58d897cbd Hugh Dickins          2023-07-11  135  
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   69611e5b3c..3141a0b85c  3141a0b85c37b76e069ec7dcb906ff202f5c4075 -> stable-4.17
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
