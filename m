@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D66760DE5
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 11:03:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569558.890399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C94760DFD
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 11:09:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569561.890412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qODwi-0005TE-Hl; Tue, 25 Jul 2023 09:03:08 +0000
+	id 1qOE2m-00066c-8c; Tue, 25 Jul 2023 09:09:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569558.890399; Tue, 25 Jul 2023 09:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 569561.890412; Tue, 25 Jul 2023 09:09:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qODwi-0005RY-Eo; Tue, 25 Jul 2023 09:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 569558;
- Tue, 25 Jul 2023 09:03:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qOE2m-00064t-4C; Tue, 25 Jul 2023 09:09:24 +0000
+Received: by outflank-mailman (input) for mailman id 569561;
+ Tue, 25 Jul 2023 09:09:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+ZC3=DL=linux.dev=muchun.song@srs-se1.protection.inumbo.net>)
- id 1qODwg-0005RR-DX
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 09:03:07 +0000
-Received: from out-18.mta1.migadu.com (out-18.mta1.migadu.com [95.215.58.18])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 105efce5-2aca-11ee-b23d-6b7b168915f2;
- Tue, 25 Jul 2023 11:03:04 +0200 (CEST)
+ <SRS0=1Iib=DL=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qOE2l-00064n-76
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 09:09:23 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ece9c984-2aca-11ee-8613-37d641c3527e;
+ Tue, 25 Jul 2023 11:09:14 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [37.161.75.91])
+ by support.bugseng.com (Postfix) with ESMTPSA id D6EDD4EE0739;
+ Tue, 25 Jul 2023 11:09:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,309 +39,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 105efce5-2aca-11ee-b23d-6b7b168915f2
-Message-ID: <3648ca69-d65e-8431-135a-a5738586bc25@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1690275782;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jkjBh/Kp2KZsbd5A9bxpjAJZxN02Eft+lFTspqPnOCk=;
-	b=C86+NnAgVOWWduY0bypLj9pEd8+f7K2hQWQRdMiOl+4lNoex/sNqQF/OzRY+XF6R/pQj3x
-	RJfrwmBw/U62Xz7gGIQfDrsff33dmTRFy6JUY2ZoASoV8vvmjWXkOHfSOC62P8ONIDS3dq
-	14Z/qjc5TC07VTaeF50qDKBsNsdzhz4=
-Date: Tue, 25 Jul 2023 17:02:47 +0800
+X-Inumbo-ID: ece9c984-2aca-11ee-8613-37d641c3527e
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v2] xen/sched: mechanical renaming to address MISRA C:2012 Rule 5.3
+Date: Tue, 25 Jul 2023 11:08:39 +0200
+Message-Id: <0b489f53751f8f7e80a7be85eb832f90bcadcbb0.1690272371.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 03/47] mm: shrinker: add infrastructure for dynamically
- allocating shrinker
-To: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- dm-devel@redhat.com, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru, vbabka@suse.cz,
- roman.gushchin@linux.dev, djwong@kernel.org, brauner@kernel.org,
- paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com, cel@kernel.org,
- senozhatsky@chromium.org, yujie.liu@intel.com, gregkh@linuxfoundation.org
-References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-4-zhengqi.arch@bytedance.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20230724094354.90817-4-zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
+Rule 5.3 has the following headline:
+"An identifier declared in an inner scope shall not hide an
+identifier declared in an outer scope"
 
+The renaming s/sched_id/scheduler_id/ of the function defined in
+'xen/common/sched/core.c' prevents any hiding of that function
+by the instances of homonymous function parameters that
+are defined in inner scopes.
 
-On 2023/7/24 17:43, Qi Zheng wrote:
-> Currently, the shrinker instances can be divided into the following three
-> types:
->
-> a) global shrinker instance statically defined in the kernel, such as
->     workingset_shadow_shrinker.
->
-> b) global shrinker instance statically defined in the kernel modules, such
->     as mmu_shrinker in x86.
->
-> c) shrinker instance embedded in other structures.
->
-> For case a, the memory of shrinker instance is never freed. For case b,
-> the memory of shrinker instance will be freed after synchronize_rcu() when
-> the module is unloaded. For case c, the memory of shrinker instance will
-> be freed along with the structure it is embedded in.
->
-> In preparation for implementing lockless slab shrink, we need to
-> dynamically allocate those shrinker instances in case c, then the memory
-> can be dynamically freed alone by calling kfree_rcu().
->
-> So this commit adds the following new APIs for dynamically allocating
-> shrinker, and add a private_data field to struct shrinker to record and
-> get the original embedded structure.
->
-> 1. shrinker_alloc()
->
-> Used to allocate shrinker instance itself and related memory, it will
-> return a pointer to the shrinker instance on success and NULL on failure.
->
-> 2. shrinker_free_non_registered()
->
-> Used to destroy the non-registered shrinker instance.
+Similarly, the renames
+- s/ops/operations/ for the static variable in 'xen/common/sched/core.c'
+- s/do_softirq/needs_softirq/
+are introduced for variables, to avoid any conflict with homonymous
+parameters or function identifiers.
 
-At least I don't like this name. I know you want to tell others
-this function only should be called when shrinker has not been
-registed but allocated. Maybe shrinker_free() is more simple.
-And and a comment to tell the users when to use it.
+Moreover, the variable 'loop' defined at 'xen/common/sched/credit2.c:3887'
+has been dropped, in favour of the homonymous variable declared in the
+outer scope. This in turn requires a modification of the printk call that
+involves it.
 
->
-> 3. shrinker_register()
->
-> Used to register the shrinker instance, which is same as the current
-> register_shrinker_prepared().
->
-> 4. shrinker_unregister()
->
-> Used to unregister and free the shrinker instance.
->
-> In order to simplify shrinker-related APIs and make shrinker more
-> independent of other kernel mechanisms, subsequent submissions will use
-> the above API to convert all shrinkers (including case a and b) to
-> dynamically allocated, and then remove all existing APIs.
->
-> This will also have another advantage mentioned by Dave Chinner:
->
-> ```
-> The other advantage of this is that it will break all the existing
-> out of tree code and third party modules using the old API and will
-> no longer work with a kernel using lockless slab shrinkers. They
-> need to break (both at the source and binary levels) to stop bad
-> things from happening due to using uncoverted shrinkers in the new
-> setup.
-> ```
->
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
->   include/linux/shrinker.h |   6 +++
->   mm/shrinker.c            | 113 +++++++++++++++++++++++++++++++++++++++
->   2 files changed, 119 insertions(+)
->
-> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-> index 961cb84e51f5..296f5e163861 100644
-> --- a/include/linux/shrinker.h
-> +++ b/include/linux/shrinker.h
-> @@ -70,6 +70,8 @@ struct shrinker {
->   	int seeks;	/* seeks to recreate an obj */
->   	unsigned flags;
->   
-> +	void *private_data;
-> +
->   	/* These are for internal use */
->   	struct list_head list;
->   #ifdef CONFIG_MEMCG
-> @@ -98,6 +100,10 @@ struct shrinker {
->   
->   unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
->   			  int priority);
-> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...);
-> +void shrinker_free_non_registered(struct shrinker *shrinker);
-> +void shrinker_register(struct shrinker *shrinker);
-> +void shrinker_unregister(struct shrinker *shrinker);
->   
->   extern int __printf(2, 3) prealloc_shrinker(struct shrinker *shrinker,
->   					    const char *fmt, ...);
-> diff --git a/mm/shrinker.c b/mm/shrinker.c
-> index 0a32ef42f2a7..d820e4cc5806 100644
-> --- a/mm/shrinker.c
-> +++ b/mm/shrinker.c
-> @@ -548,6 +548,119 @@ unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
->   	return freed;
->   }
->   
-> +struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...)
-> +{
-> +	struct shrinker *shrinker;
-> +	unsigned int size;
-> +	va_list __maybe_unused ap;
-> +	int err;
-> +
-> +	shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
-> +	if (!shrinker)
-> +		return NULL;
-> +
-> +#ifdef CONFIG_SHRINKER_DEBUG
-> +	va_start(ap, fmt);
-> +	shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, ap);
-> +	va_end(ap);
-> +	if (!shrinker->name)
-> +		goto err_name;
-> +#endif
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- s/softirq/needs_softirq/
+- Dropped local variable 'it'
+- Renamed the 'ops' static variable instead of function parameters
+in the idle scheduler for coherence.
+---
+ xen/common/sched/core.c    | 35 ++++++++++++++++++-----------------
+ xen/common/sched/credit2.c |  9 +++++----
+ xen/common/sysctl.c        |  2 +-
+ xen/include/xen/sched.h    |  2 +-
+ 4 files changed, 25 insertions(+), 23 deletions(-)
 
-So why not introduce another helper to handle this and declare it
-as a void function when !CONFIG_SHRINKER_DEBUG? Something like the
-following:
-
-#ifdef CONFIG_SHRINKER_DEBUG
-static int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const 
-char *fmt,
-                                        va_list vargs)
-
-{
-     shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, vargs);
-     return shrinker->name ? 0 : -ENOMEM;
-}
-#else
-static int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const 
-char *fmt,
-                                        va_list vargs)
-{
-     return 0;
-}
-#endif
-
-> +	shrinker->flags = flags;
-> +
-> +	if (flags & SHRINKER_MEMCG_AWARE) {
-> +		err = prealloc_memcg_shrinker(shrinker);
-> +		if (err == -ENOSYS)
-> +			shrinker->flags &= ~SHRINKER_MEMCG_AWARE;
-> +		else if (err == 0)
-> +			goto done;
-> +		else
-> +			goto err_flags;
-> +	}
-> +
-> +	/*
-> +	 * The nr_deferred is available on per memcg level for memcg aware
-> +	 * shrinkers, so only allocate nr_deferred in the following cases:
-> +	 *  - non memcg aware shrinkers
-> +	 *  - !CONFIG_MEMCG
-> +	 *  - memcg is disabled by kernel command line
-> +	 */
-> +	size = sizeof(*shrinker->nr_deferred);
-> +	if (flags & SHRINKER_NUMA_AWARE)
-> +		size *= nr_node_ids;
-> +
-> +	shrinker->nr_deferred = kzalloc(size, GFP_KERNEL);
-> +	if (!shrinker->nr_deferred)
-> +		goto err_flags;
-> +
-> +done:
-> +	return shrinker;
-> +
-> +err_flags:
-> +#ifdef CONFIG_SHRINKER_DEBUG
-> +	kfree_const(shrinker->name);
-> +	shrinker->name = NULL;
-
-This could be shrinker_debugfs_name_free()
-
-> +err_name:
-> +#endif
-> +	kfree(shrinker);
-> +	return NULL;
-> +}
-> +EXPORT_SYMBOL(shrinker_alloc);
-> +
-> +void shrinker_free_non_registered(struct shrinker *shrinker)
-> +{
-> +#ifdef CONFIG_SHRINKER_DEBUG
-> +	kfree_const(shrinker->name);
-> +	shrinker->name = NULL;
-
-This could be shrinker_debugfs_name_free()
-
-> +#endif
-> +	if (shrinker->flags & SHRINKER_MEMCG_AWARE) {
-> +		down_write(&shrinker_rwsem);
-> +		unregister_memcg_shrinker(shrinker);
-> +		up_write(&shrinker_rwsem);
-> +	}
-> +
-> +	kfree(shrinker->nr_deferred);
-> +	shrinker->nr_deferred = NULL;
-> +
-> +	kfree(shrinker);
-> +}
-> +EXPORT_SYMBOL(shrinker_free_non_registered);
-> +
-> +void shrinker_register(struct shrinker *shrinker)
-> +{
-> +	down_write(&shrinker_rwsem);
-> +	list_add_tail(&shrinker->list, &shrinker_list);
-> +	shrinker->flags |= SHRINKER_REGISTERED;
-> +	shrinker_debugfs_add(shrinker);
-> +	up_write(&shrinker_rwsem);
-> +}
-> +EXPORT_SYMBOL(shrinker_register);
-> +
-> +void shrinker_unregister(struct shrinker *shrinker)
-
-You have made all shrinkers to be dynamically allocated, so
-we should prevent users from allocating shrinkers statically and
-use this function to unregister it. It is better to add a
-flag like SHRINKER_ALLOCATED which is set in shrinker_alloc(),
-and check whether it is set in shrinker_unregister(), if not
-maybe a warning should be added to tell the users what happened.
-
-> +{
-> +	struct dentry *debugfs_entry;
-> +	int debugfs_id;
-> +
-> +	if (!shrinker || !(shrinker->flags & SHRINKER_REGISTERED))
-> +		return;
-> +
-> +	down_write(&shrinker_rwsem);
-> +	list_del(&shrinker->list);
-> +	shrinker->flags &= ~SHRINKER_REGISTERED;
-> +	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
-> +		unregister_memcg_shrinker(shrinker);
-> +	debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
-
-In the internal of this function, you also could use
-shrinker_debugfs_name_free().
-
-Thanks.
-
-> +	up_write(&shrinker_rwsem);
-> +
-> +	shrinker_debugfs_remove(debugfs_entry, debugfs_id);
-> +
-> +	kfree(shrinker->nr_deferred);
-> +	shrinker->nr_deferred = NULL;
-> +
-> +	kfree(shrinker);
-> +}
-> +EXPORT_SYMBOL(shrinker_unregister);
-> +
->   /*
->    * Add a shrinker callback to be called from the vm.
->    */
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 022f548652..ed977ddfd5 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -91,7 +91,7 @@ extern const struct scheduler *__start_schedulers_array[], *__end_schedulers_arr
+ #define NUM_SCHEDULERS (__end_schedulers_array - __start_schedulers_array)
+ #define schedulers __start_schedulers_array
+ 
+-static struct scheduler __read_mostly ops;
++static struct scheduler __read_mostly operations;
+ 
+ static bool scheduler_active;
+ 
+@@ -99,14 +99,15 @@ static void sched_set_affinity(
+     struct sched_unit *unit, const cpumask_t *hard, const cpumask_t *soft);
+ 
+ static struct sched_resource *cf_check
+-sched_idle_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
++sched_idle_res_pick(
++    const struct scheduler *ops, const struct sched_unit *unit)
+ {
+     return unit->res;
+ }
+ 
+ static void *cf_check
+-sched_idle_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+-                       void *dd)
++sched_idle_alloc_udata(
++    const struct scheduler *ops, struct sched_unit *unit, void *dd)
+ {
+     /* Any non-NULL pointer is fine here. */
+     return ZERO_BLOCK_PTR;
+@@ -171,7 +172,7 @@ static inline struct scheduler *dom_scheduler(const struct domain *d)
+      * is the default scheduler that has been, choosen at boot.
+      */
+     ASSERT(is_idle_domain(d));
+-    return &ops;
++    return &operations;
+ }
+ 
+ static inline struct scheduler *unit_scheduler(const struct sched_unit *unit)
+@@ -2040,10 +2041,10 @@ long do_set_timer_op(s_time_t timeout)
+     return 0;
+ }
+ 
+-/* sched_id - fetch ID of current scheduler */
+-int sched_id(void)
++/* scheduler_id - fetch ID of current scheduler */
++int scheduler_id(void)
+ {
+-    return ops.sched_id;
++    return operations.sched_id;
+ }
+ 
+ /* Adjust scheduling parameter for a given domain. */
+@@ -2579,7 +2580,7 @@ static void cf_check sched_slave(void)
+     struct sched_unit    *prev = vprev->sched_unit, *next;
+     s_time_t              now;
+     spinlock_t           *lock;
+-    bool                  do_softirq = false;
++    bool                  needs_softirq = false;
+     unsigned int          cpu = smp_processor_id();
+ 
+     ASSERT_NOT_IN_ATOMIC();
+@@ -2604,7 +2605,7 @@ static void cf_check sched_slave(void)
+             return;
+         }
+ 
+-        do_softirq = true;
++        needs_softirq = true;
+     }
+ 
+     if ( !prev->rendezvous_in_cnt )
+@@ -2614,7 +2615,7 @@ static void cf_check sched_slave(void)
+         rcu_read_unlock(&sched_res_rculock);
+ 
+         /* Check for failed forced context switch. */
+-        if ( do_softirq )
++        if ( needs_softirq )
+             raise_softirq(SCHEDULE_SOFTIRQ);
+ 
+         return;
+@@ -3016,14 +3017,14 @@ void __init scheduler_init(void)
+         BUG_ON(!scheduler);
+         printk("Using '%s' (%s)\n", scheduler->name, scheduler->opt_name);
+     }
+-    ops = *scheduler;
++    operations = *scheduler;
+ 
+     if ( cpu_schedule_up(0) )
+         BUG();
+     register_cpu_notifier(&cpu_schedule_nfb);
+ 
+-    printk("Using scheduler: %s (%s)\n", ops.name, ops.opt_name);
+-    if ( sched_init(&ops) )
++    printk("Using scheduler: %s (%s)\n", operations.name, operations.opt_name);
++    if ( sched_init(&operations) )
+         panic("scheduler returned error on init\n");
+ 
+     if ( sched_ratelimit_us &&
+@@ -3363,7 +3364,7 @@ int schedule_cpu_rm(unsigned int cpu, struct cpu_rm_data *data)
+ 
+ struct scheduler *scheduler_get_default(void)
+ {
+-    return &ops;
++    return &operations;
+ }
+ 
+ struct scheduler *scheduler_alloc(unsigned int sched_id)
+@@ -3392,7 +3393,7 @@ struct scheduler *scheduler_alloc(unsigned int sched_id)
+ 
+ void scheduler_free(struct scheduler *sched)
+ {
+-    BUG_ON(sched == &ops);
++    BUG_ON(sched == &operations);
+     sched_deinit(sched);
+     xfree(sched);
+ }
+@@ -3416,7 +3417,7 @@ void schedule_dump(struct cpupool *c)
+     }
+     else
+     {
+-        sched = &ops;
++        sched = &operations;
+         cpus = &cpupool_free_cpus;
+     }
+ 
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index 87a1e31ee9..0a76652a66 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -3809,7 +3809,8 @@ csched2_dump(const struct scheduler *ops)
+     struct list_head *iter_sdom;
+     struct csched2_private *prv = csched2_priv(ops);
+     unsigned long flags;
+-    unsigned int j, loop;
++    unsigned int loop;
++    int j;
+     struct csched2_runqueue_data *rqd;
+ 
+     /*
+@@ -3874,7 +3875,7 @@ csched2_dump(const struct scheduler *ops)
+ 
+             lock = unit_schedule_lock(unit);
+ 
+-            printk("\t%3d: ", ++loop);
++            printk("\t%3u: ", ++loop);
+             csched2_dump_unit(prv, svc);
+ 
+             unit_schedule_unlock(lock, unit);
+@@ -3884,7 +3885,7 @@ csched2_dump(const struct scheduler *ops)
+     list_for_each_entry ( rqd, &prv->rql, rql )
+     {
+         struct list_head *iter, *runq = &rqd->runq;
+-        int loop = 0;
++        loop = 0;
+ 
+         /* We need the lock to scan the runqueue. */
+         spin_lock(&rqd->lock);
+@@ -3901,7 +3902,7 @@ csched2_dump(const struct scheduler *ops)
+ 
+             if ( svc )
+             {
+-                printk("\t%3d: ", loop++);
++                printk("\t%3u: ", loop++);
+                 csched2_dump_unit(prv, svc);
+             }
+         }
+diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+index 0cbfe8bd44..7cabfb0230 100644
+--- a/xen/common/sysctl.c
++++ b/xen/common/sysctl.c
+@@ -71,7 +71,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+         break;
+ 
+     case XEN_SYSCTL_sched_id:
+-        op->u.sched_id.sched_id = sched_id();
++        op->u.sched_id.sched_id = scheduler_id();
+         break;
+ 
+     case XEN_SYSCTL_getdomaininfolist:
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 854f3e32c0..bfe714d2e2 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -791,7 +791,7 @@ int  sched_init_domain(struct domain *d, unsigned int poolid);
+ void sched_destroy_domain(struct domain *d);
+ long sched_adjust(struct domain *, struct xen_domctl_scheduler_op *);
+ long sched_adjust_global(struct xen_sysctl_scheduler_op *);
+-int  sched_id(void);
++int  scheduler_id(void);
+ 
+ /*
+  * sched_get_id_by_name - retrieves a scheduler id given a scheduler name
+-- 
+2.34.1
 
 
