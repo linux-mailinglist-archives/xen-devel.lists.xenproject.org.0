@@ -2,30 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B547607F2
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 06:24:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569349.889946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0745876076E
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jul 2023 06:21:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569354.889793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qO9bF-0001is-87; Tue, 25 Jul 2023 04:24:41 +0000
+	id 1qO9Xr-00026d-9a; Tue, 25 Jul 2023 04:21:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569349.889946; Tue, 25 Jul 2023 04:24:41 +0000
+Received: by outflank-mailman (output) from mailman id 569354.889793; Tue, 25 Jul 2023 04:21:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qO9bF-0001bF-0r; Tue, 25 Jul 2023 04:24:41 +0000
-Received: by outflank-mailman (input) for mailman id 569349;
- Tue, 25 Jul 2023 03:24:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qO9Xr-00023z-5q; Tue, 25 Jul 2023 04:21:11 +0000
+Received: by outflank-mailman (input) for mailman id 569354;
+ Tue, 25 Jul 2023 04:21:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+ZC3=DL=linux.dev=muchun.song@srs-se1.protection.inumbo.net>)
- id 1qO8fE-0003q7-OE
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 03:24:44 +0000
-Received: from out-8.mta0.migadu.com (out-8.mta0.migadu.com
- [2001:41d0:1004:224b::8])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb52a77e-2a9a-11ee-b23c-6b7b168915f2;
- Tue, 25 Jul 2023 05:24:43 +0200 (CEST)
+ <SRS0=dJfN=DL=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
+ id 1qO9Xq-00023t-Ig
+ for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 04:21:10 +0000
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [2607:f8b0:4864:20::b35])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ad09e06a-2aa2-11ee-8613-37d641c3527e;
+ Tue, 25 Jul 2023 06:21:07 +0200 (CEST)
+Received: by mail-yb1-xb35.google.com with SMTP id
+ 3f1490d57ef6-d075a831636so3447885276.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Jul 2023 21:21:07 -0700 (PDT)
+Received: from unknowna0e70b2ca394.attlocal.net ([2600:1700:2f7d:1800::16])
+ by smtp.googlemail.com with ESMTPSA id
+ h9-20020a25b189000000b00d0db687ef48sm1175540ybj.61.2023.07.24.21.21.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jul 2023 21:21:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,119 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb52a77e-2a9a-11ee-b23c-6b7b168915f2
-Content-Type: text/plain;
-	charset=us-ascii
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1690255481;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6p0DFvIoLJzSIVM0qRIM/GXeN12xkckyA9Fji4TGEhI=;
-	b=r9D+tXFVa/N1RN+BLv5WgR5iQ4rwtyebnPM62Sh3w2AQ+19WlSlFOjsJl5wosr8TEtJchn
-	V877L2MD6oNieyuMlTG6JawmQ1ns/Fjh33pHsVXqhR6CCRTDc2499SUTwOS+JRsWVrdweW
-	vS3GyBw0+b28Uj9NeJVk00fqQ8IPfLM=
+X-Inumbo-ID: ad09e06a-2aa2-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690258866; x=1690863666;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TyJK1FcnJgXFfZtNrnEiwbnRrWFFZ4hxtDemQIw/+70=;
+        b=IWbM/8TKnsrsFnwfAtrtbT7DO2Dq3vbt1JDGjncQR1/QHrfo4QUSkIiEQN1x/WCeen
+         Wq+1xfZOSXiXa3ftlSpFueFEFpvRBK3/RSrU5gjulTAyP6CHn+1+IFvHFglXW6v8keEi
+         8OQyuFtLfuzytADBe5cFOUdQJ/Hdq1bfJlON7Nb+Mx5/ezSX5vpuq992erh0MteP8eY0
+         ca2RegvmV6aTmEkiWQSzVkeiWkjDFWU6BxECXoDX15tgD4oeetn4XjwJQHkKr/UZi4jn
+         M2rzWVhqQ0uUKv1+kbt9dezvn9EL8NwkaBEBxeHbR53ElScFeaGw8CT+ZDStPX5ya8Y8
+         SH2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690258866; x=1690863666;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TyJK1FcnJgXFfZtNrnEiwbnRrWFFZ4hxtDemQIw/+70=;
+        b=a4fD/mQ9snEaGRpZfI67Ypx+2QTCfWKt+awDQsc2PXT46IOAhy4SE5QEf7Ic5VEE8c
+         rJH48ys4lsEgJwnMju+V5ctbp+nqTZ8w5hsJepiMnxsvbaY+97y5veC+zeX4Td3z+sK2
+         501XPKjY1lsVJkaZ/F6OLYkhAuEO+VEob+fof7Q/9cRU3j4UDA/pG/G42hAvgWKz1QJ6
+         5fBx7IqMX94LLlHvsSyiLDtotxLWszCut4pp4enAmaf+WEmcygJsDHRQphv9byx8+Aad
+         ZWumfaLhiKbj4zFRB0z9uy6+6g0G0SVqySfI4G8g7asd/uXPRdYPdJkoKeI6UrY0ZA9l
+         TJsA==
+X-Gm-Message-State: ABy/qLaXeqbRj2ocozqmqDk6evXB9jTQpuqPOCoSchImISII9FkIB7/Y
+	vNBHTPCon6kiBp2+G2odlgU=
+X-Google-Smtp-Source: APBJJlGpggWKl9mhx1f6cNzYJrVg2oqym/Xg0n0t+vhY+yg/UIrQUebANCL8UUu/vWaCrzFFriLNMw==
+X-Received: by 2002:a25:844f:0:b0:cf0:b977:2794 with SMTP id r15-20020a25844f000000b00cf0b9772794mr10487441ybm.30.1690258866444;
+        Mon, 24 Jul 2023 21:21:06 -0700 (PDT)
+From: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>
+Cc: linux-mm@kvack.org,
+	linux-arch@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org,
+	linux-hexagon@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org,
+	linux-openrisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	xen-devel@lists.xenproject.org,
+	kvm@vger.kernel.org,
+	Hugh Dickins <hughd@google.com>,
+	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Jonas Bonn <jonas@southpole.se>,
+	David Hildenbrand <david@redhat.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Richard Weinberger <richard@nod.at>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: [PATCH mm-unstable v7 00/31] Split ptdesc from struct page
+Date: Mon, 24 Jul 2023 21:20:20 -0700
+Message-Id: <20230725042051.36691-1-vishal.moola@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 01/47] mm: vmscan: move shrinker-related code into a
- separate file
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <d2621ad0-8b99-9154-5ff5-509dec2f32a3@bytedance.com>
-Date: Tue, 25 Jul 2023 11:23:54 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- david@fromorbit.com,
- tkhai@ya.ru,
- Vlastimil Babka <vbabka@suse.cz>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- djwong@kernel.org,
- Christian Brauner <brauner@kernel.org>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- tytso@mit.edu,
- steven.price@arm.com,
- cel@kernel.org,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- yujie.liu@intel.com,
- Greg KH <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Linux Memory Management List <linux-mm@kvack.org>,
- x86@kernel.org,
- kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org,
- linux-erofs@lists.ozlabs.org,
- linux-f2fs-devel@lists.sourceforge.net,
- cluster-devel@redhat.com,
- linux-nfs@vger.kernel.org,
- linux-mtd@lists.infradead.org,
- rcu@vger.kernel.org,
- netdev <netdev@vger.kernel.org>,
- dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org,
- dm-devel@redhat.com,
- linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org,
- linux-btrfs@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6FE62F56-1B4E-4E2A-BEA9-0DA6907A2FA9@linux.dev>
-References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-2-zhengqi.arch@bytedance.com>
- <97E80C37-8872-4C5A-A027-A0B35F39152A@linux.dev>
- <d2621ad0-8b99-9154-5ff5-509dec2f32a3@bytedance.com>
-To: Qi Zheng <zhengqi.arch@bytedance.com>
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
+The MM subsystem is trying to shrink struct page. This patchset
+introduces a memory descriptor for page table tracking - struct ptdesc.
 
+This patchset introduces ptdesc, splits ptdesc from struct page, and
+converts many callers of page table constructor/destructors to use ptdescs.
 
-> On Jul 25, 2023, at 11:09, Qi Zheng <zhengqi.arch@bytedance.com> =
-wrote:
->=20
->=20
->=20
-> On 2023/7/25 10:35, Muchun Song wrote:
->>> On Jul 24, 2023, at 17:43, Qi Zheng <zhengqi.arch@bytedance.com> =
-wrote:
->>>=20
->>> The mm/vmscan.c file is too large, so separate the shrinker-related
->>> code from it into a separate file. No functional changes.
->>>=20
->>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>> ---
->>> include/linux/shrinker.h |   3 +
->>> mm/Makefile              |   4 +-
->>> mm/shrinker.c            | 707 =
-+++++++++++++++++++++++++++++++++++++++
->>> mm/vmscan.c              | 701 =
---------------------------------------
->>> 4 files changed, 712 insertions(+), 703 deletions(-)
->>> create mode 100644 mm/shrinker.c
->>>=20
->>> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
->>> index 224293b2dd06..961cb84e51f5 100644
->>> --- a/include/linux/shrinker.h
->>> +++ b/include/linux/shrinker.h
->>> @@ -96,6 +96,9 @@ struct shrinker {
->>>  */
->>> #define SHRINKER_NONSLAB (1 << 3)
->>>=20
->>> +unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct =
-mem_cgroup *memcg,
->>> +    int priority);
->> A good cleanup, vmscan.c is so huge.
->> I'd like to introduce a new header in mm/ directory and contains =
-those
->> declarations of functions (like this and other debug function in
->> shrinker_debug.c) since they are used internally across mm.
->=20
-> How about putting them in the mm/internal.h file?
+Ptdesc is a foundation to further standardize page tables, and eventually
+allow for dynamic allocation of page tables independent of struct page.
+However, the use of pages for page table tracking is quite deeply
+ingrained and varied across archictectures, so there is still a lot of
+work to be done before that can happen.
 
-Either is fine to me.
+This is rebased on mm-unstable.
 
->=20
->> Thanks.
+v7:
+  Drop s390 gmap ptdesc conversions - gmap is unecessary complication
+    that can be dealt with later
+  Be more thorough with ptdesc struct sanity checks and comments
+  Rebase onto mm-unstable
 
+Vishal Moola (Oracle) (31):
+  mm: Add PAGE_TYPE_OP folio functions
+  pgtable: Create struct ptdesc
+  mm: add utility functions for ptdesc
+  mm: Convert pmd_pgtable_page() callers to use pmd_ptdesc()
+  mm: Convert ptlock_alloc() to use ptdescs
+  mm: Convert ptlock_ptr() to use ptdescs
+  mm: Convert pmd_ptlock_init() to use ptdescs
+  mm: Convert ptlock_init() to use ptdescs
+  mm: Convert pmd_ptlock_free() to use ptdescs
+  mm: Convert ptlock_free() to use ptdescs
+  mm: Create ptdesc equivalents for pgtable_{pte,pmd}_page_{ctor,dtor}
+  powerpc: Convert various functions to use ptdescs
+  x86: Convert various functions to use ptdescs
+  s390: Convert various pgalloc functions to use ptdescs
+  mm: Remove page table members from struct page
+  pgalloc: Convert various functions to use ptdescs
+  arm: Convert various functions to use ptdescs
+  arm64: Convert various functions to use ptdescs
+  csky: Convert __pte_free_tlb() to use ptdescs
+  hexagon: Convert __pte_free_tlb() to use ptdescs
+  loongarch: Convert various functions to use ptdescs
+  m68k: Convert various functions to use ptdescs
+  mips: Convert various functions to use ptdescs
+  nios2: Convert __pte_free_tlb() to use ptdescs
+  openrisc: Convert __pte_free_tlb() to use ptdescs
+  riscv: Convert alloc_{pmd, pte}_late() to use ptdescs
+  sh: Convert pte_free_tlb() to use ptdescs
+  sparc64: Convert various functions to use ptdescs
+  sparc: Convert pgtable_pte_page_{ctor, dtor}() to ptdesc equivalents
+  um: Convert {pmd, pte}_free_tlb() to use ptdescs
+  mm: Remove pgtable_{pmd, pte}_page_{ctor, dtor}() wrappers
+
+ Documentation/mm/split_page_table_lock.rst    |  12 +-
+ .../zh_CN/mm/split_page_table_lock.rst        |  14 +-
+ arch/arm/include/asm/tlb.h                    |  12 +-
+ arch/arm/mm/mmu.c                             |   7 +-
+ arch/arm64/include/asm/tlb.h                  |  14 +-
+ arch/arm64/mm/mmu.c                           |   7 +-
+ arch/csky/include/asm/pgalloc.h               |   4 +-
+ arch/hexagon/include/asm/pgalloc.h            |   8 +-
+ arch/loongarch/include/asm/pgalloc.h          |  27 ++--
+ arch/loongarch/mm/pgtable.c                   |   7 +-
+ arch/m68k/include/asm/mcf_pgalloc.h           |  47 +++---
+ arch/m68k/include/asm/sun3_pgalloc.h          |   8 +-
+ arch/m68k/mm/motorola.c                       |   4 +-
+ arch/mips/include/asm/pgalloc.h               |  32 ++--
+ arch/mips/mm/pgtable.c                        |   8 +-
+ arch/nios2/include/asm/pgalloc.h              |   8 +-
+ arch/openrisc/include/asm/pgalloc.h           |   8 +-
+ arch/powerpc/mm/book3s64/mmu_context.c        |  10 +-
+ arch/powerpc/mm/book3s64/pgtable.c            |  32 ++--
+ arch/powerpc/mm/pgtable-frag.c                |  56 +++----
+ arch/riscv/include/asm/pgalloc.h              |   8 +-
+ arch/riscv/mm/init.c                          |  16 +-
+ arch/s390/include/asm/pgalloc.h               |   4 +-
+ arch/s390/include/asm/tlb.h                   |   4 +-
+ arch/s390/mm/pgalloc.c                        | 128 +++++++--------
+ arch/sh/include/asm/pgalloc.h                 |   9 +-
+ arch/sparc/mm/init_64.c                       |  17 +-
+ arch/sparc/mm/srmmu.c                         |   5 +-
+ arch/um/include/asm/pgalloc.h                 |  18 +--
+ arch/x86/mm/pgtable.c                         |  47 +++---
+ arch/x86/xen/mmu_pv.c                         |   2 +-
+ include/asm-generic/pgalloc.h                 |  88 +++++-----
+ include/asm-generic/tlb.h                     |  11 ++
+ include/linux/mm.h                            | 151 +++++++++++++-----
+ include/linux/mm_types.h                      |  18 ---
+ include/linux/page-flags.h                    |  30 +++-
+ include/linux/pgtable.h                       |  80 ++++++++++
+ mm/memory.c                                   |   8 +-
+ 38 files changed, 585 insertions(+), 384 deletions(-)
+
+-- 
+2.40.1
 
 
