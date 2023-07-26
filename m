@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C828762772
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 01:36:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.569988.891208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1625B7627C9
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 02:35:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.569998.891219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qORYO-0000cr-Au; Tue, 25 Jul 2023 23:34:56 +0000
+	id 1qOSU0-0007YZ-7b; Wed, 26 Jul 2023 00:34:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 569988.891208; Tue, 25 Jul 2023 23:34:56 +0000
+Received: by outflank-mailman (output) from mailman id 569998.891219; Wed, 26 Jul 2023 00:34:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qORYO-0000aK-7e; Tue, 25 Jul 2023 23:34:56 +0000
-Received: by outflank-mailman (input) for mailman id 569988;
- Tue, 25 Jul 2023 23:34:54 +0000
+	id 1qOSU0-0007WT-4j; Wed, 26 Jul 2023 00:34:28 +0000
+Received: by outflank-mailman (input) for mailman id 569998;
+ Wed, 26 Jul 2023 00:34:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=I1ML=DL=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1qORYM-0000aE-1E
- for xen-devel@lists.xenproject.org; Tue, 25 Jul 2023 23:34:54 +0000
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=j0A2=DM=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qOSTx-0007WN-VA
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 00:34:25 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7b77bb6-2b43-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 01:34:49 +0200 (CEST)
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 16:34:46 -0700
-Received: from lkp-server02.sh.intel.com (HELO 953e8cd98f7d) ([10.239.97.151])
- by orsmga008.jf.intel.com with ESMTP; 25 Jul 2023 16:34:40 -0700
-Received: from kbuild by 953e8cd98f7d with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qORY7-0000Qn-2W;
- Tue, 25 Jul 2023 23:34:39 +0000
+ id 2ac97e73-2b4c-11ee-8613-37d641c3527e;
+ Wed, 26 Jul 2023 02:34:23 +0200 (CEST)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
+ [209.85.217.43])
+ by support.bugseng.com (Postfix) with ESMTPSA id BF52C4EE073C
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jul 2023 02:34:22 +0200 (CEST)
+Received: by mail-vs1-f43.google.com with SMTP id
+ ada2fe7eead31-44758510539so31072137.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jul 2023 17:34:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,216 +43,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7b77bb6-2b43-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690328089; x=1721864089;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=C5xyKe5/WjYZUNBE8/1FHjpgxl/fMdUuo5xkgVP7J8Y=;
-  b=kprEQkvDUSYB8VY754hEFOqF9OPVst5QCXBOombACoxddVdAJ8Mbz8BO
-   y9j/KrfHTk0kNkhfEjXQ4yyYfSYlXsID0sZf9EIi/TX/LVvMyZop1imT1
-   64drc3Kd0NKooYGQmtnluxbjXPtzNonbi2AjsEfyh3fCNbE97dgA2E1xx
-   aaMJLxRLAvRgg3DdTPC34a3yt2ZxKKe/CslwvJn3r42X3sqowcsjUBjQB
-   dx252wRrrF9rDLbw+TCCIsr/0xZ113UfcaSUUuRc19bOhFluME1UWyRw+
-   xYejA5PKL7S0aB2oQJYOBJaBmZ8Dv4PdkJNAh/qxn/GIqPGRtCVMeqIah
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="366747677"
-X-IronPort-AV: E=Sophos;i="6.01,231,1684825200"; 
-   d="scan'208";a="366747677"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="755945611"
-X-IronPort-AV: E=Sophos;i="6.01,231,1684825200"; 
-   d="scan'208";a="755945611"
-Date: Wed, 26 Jul 2023 07:33:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-	Hugh Dickins <hughd@google.com>,
-	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Mike Rapoport <rppt@kernel.org>
-Subject: Re: [PATCH mm-unstable v7 12/31] powerpc: Convert various functions
- to use ptdescs
-Message-ID: <202307260706.qNPJSnjR-lkp@intel.com>
-References: <20230725042051.36691-13-vishal.moola@gmail.com>
+X-Inumbo-ID: 2ac97e73-2b4c-11ee-8613-37d641c3527e
+X-Gm-Message-State: ABy/qLZxdpEiNCJ10R6GvFPiKcOrFdjDXAGyhv6tQTA45ntE+U2wsYx9
+	T+KfcM8TU21FxzLm712521T216wqd2IcNmLH7yQ=
+X-Google-Smtp-Source: APBJJlHmA2dYS0aHd4Om4w3JopZjDnO48tPcyQUCDek+IivVZYs/R8zqZLWFVguZ9PZmy9tTxnUURDcB1ks3COuIPUM=
+X-Received: by 2002:a05:6102:99:b0:447:5054:e36a with SMTP id
+ t25-20020a056102009900b004475054e36amr379123vsp.28.1690331661466; Tue, 25 Jul
+ 2023 17:34:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230725042051.36691-13-vishal.moola@gmail.com>
+References: <cover.1690294965.git.simone.ballarin@bugseng.com>
+ <5e0b4afa229e29914392ffee736129f5ec2462cd.1690294965.git.simone.ballarin@bugseng.com>
+ <alpine.DEB.2.22.394.2307251247360.3118466@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2307251247360.3118466@ubuntu-linux-20-04-desktop>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Date: Wed, 26 Jul 2023 02:34:10 +0200
+X-Gmail-Original-Message-ID: <CAFHJcJu6jeYDQj6Z3HdSQF6ODVyWroDinvhp0JwxevoeFwAW-Q@mail.gmail.com>
+Message-ID: <CAFHJcJu6jeYDQj6Z3HdSQF6ODVyWroDinvhp0JwxevoeFwAW-Q@mail.gmail.com>
+Subject: Re: [XEN PATCH 3/4] automation: Add ECLAIR pipelines
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+	Doug Goldstein <cardoe@cardoe.com>
+Content-Type: multipart/alternative; boundary="0000000000003c04c206015902f9"
 
-Hi Vishal,
+--0000000000003c04c206015902f9
+Content-Type: text/plain; charset="UTF-8"
 
-kernel test robot noticed the following build errors:
+Il giorno mar 25 lug 2023 alle ore 22:04 Stefano Stabellini <
+sstabellini@kernel.org> ha scritto:
 
-[auto build test ERROR on akpm-mm/mm-everything]
-[also build test ERROR on next-20230725]
-[cannot apply to powerpc/next powerpc/fixes s390/features geert-m68k/for-next geert-m68k/for-linus linus/master v6.5-rc3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> How do I access "gl-code-quality-report.json" or otherwise any other
+> meaningful ECLAIR output? If I browse the job artifacts I see all the
+> various logs but no gl-code-quality-report.json.
+>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Vishal-Moola-Oracle/mm-Add-PAGE_TYPE_OP-folio-functions/20230725-122458
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20230725042051.36691-13-vishal.moola%40gmail.com
-patch subject: [PATCH mm-unstable v7 12/31] powerpc: Convert various functions to use ptdescs
-config: powerpc-randconfig-r034-20230725 (https://download.01.org/0day-ci/archive/20230726/202307260706.qNPJSnjR-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
-reproduce: (https://download.01.org/0day-ci/archive/20230726/202307260706.qNPJSnjR-lkp@intel.com/reproduce)
+gl-code-quality-report.json is a GitLab-specific artifact that GitLab
+exploits
+to provide some features called Code Quality (
+https://docs.gitlab.com/ee/ci/testing/code_quality.html).
+The file is not supposed to be used outside of the context of the Code
+Quality
+features.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307260706.qNPJSnjR-lkp@intel.com/
+ECLAIR can produce stand-alone artifacts in various formats and
+we can decide to store some of them in the job artifacts (see
+https://www.bugseng.com/eclair/reports for an exhaustive list).
 
-All errors (new ones prefixed by >>):
+Scrolling up from the bottom of the job console output I see:
+>
+> Browse analysis:
+> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp2/ARM64/4732041018/index.html
+>
+> And if I click on the link, I can access a web interface with the
+> results. Is that the intended way to access the job output?
+>
 
-   In file included from arch/powerpc/mm/pgtable-frag.c:12:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/powerpc/include/asm/hardirq.h:6:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/powerpc/include/asm/io.h:672:
-   arch/powerpc/include/asm/io-defs.h:45:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-      45 | DEF_PCI_AC_NORET(insw, (unsigned long p, void *b, unsigned long c),
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      46 |                  (p, b, c), pio, p)
-         |                  ~~~~~~~~~~~~~~~~~~
-   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
-     669 |                 __do_##name al;                                 \
-         |                 ^~~~~~~~~~~~~~
-   <scratch space>:40:1: note: expanded from here
-      40 | __do_insw
-         | ^
-   arch/powerpc/include/asm/io.h:610:56: note: expanded from macro '__do_insw'
-     610 | #define __do_insw(p, b, n)      readsw((PCI_IO_ADDR)_IO_BASE+(p), (b), (n))
-         |                                        ~~~~~~~~~~~~~~~~~~~~~^
-   In file included from arch/powerpc/mm/pgtable-frag.c:12:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/powerpc/include/asm/hardirq.h:6:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/powerpc/include/asm/io.h:672:
-   arch/powerpc/include/asm/io-defs.h:47:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-      47 | DEF_PCI_AC_NORET(insl, (unsigned long p, void *b, unsigned long c),
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      48 |                  (p, b, c), pio, p)
-         |                  ~~~~~~~~~~~~~~~~~~
-   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
-     669 |                 __do_##name al;                                 \
-         |                 ^~~~~~~~~~~~~~
-   <scratch space>:42:1: note: expanded from here
-      42 | __do_insl
-         | ^
-   arch/powerpc/include/asm/io.h:611:56: note: expanded from macro '__do_insl'
-     611 | #define __do_insl(p, b, n)      readsl((PCI_IO_ADDR)_IO_BASE+(p), (b), (n))
-         |                                        ~~~~~~~~~~~~~~~~~~~~~^
-   In file included from arch/powerpc/mm/pgtable-frag.c:12:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/powerpc/include/asm/hardirq.h:6:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/powerpc/include/asm/io.h:672:
-   arch/powerpc/include/asm/io-defs.h:49:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-      49 | DEF_PCI_AC_NORET(outsb, (unsigned long p, const void *b, unsigned long c),
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      50 |                  (p, b, c), pio, p)
-         |                  ~~~~~~~~~~~~~~~~~~
-   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
-     669 |                 __do_##name al;                                 \
-         |                 ^~~~~~~~~~~~~~
-   <scratch space>:44:1: note: expanded from here
-      44 | __do_outsb
-         | ^
-   arch/powerpc/include/asm/io.h:612:58: note: expanded from macro '__do_outsb'
-     612 | #define __do_outsb(p, b, n)     writesb((PCI_IO_ADDR)_IO_BASE+(p),(b),(n))
-         |                                         ~~~~~~~~~~~~~~~~~~~~~^
-   In file included from arch/powerpc/mm/pgtable-frag.c:12:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/powerpc/include/asm/hardirq.h:6:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/powerpc/include/asm/io.h:672:
-   arch/powerpc/include/asm/io-defs.h:51:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-      51 | DEF_PCI_AC_NORET(outsw, (unsigned long p, const void *b, unsigned long c),
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      52 |                  (p, b, c), pio, p)
-         |                  ~~~~~~~~~~~~~~~~~~
-   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
-     669 |                 __do_##name al;                                 \
-         |                 ^~~~~~~~~~~~~~
-   <scratch space>:46:1: note: expanded from here
-      46 | __do_outsw
-         | ^
-   arch/powerpc/include/asm/io.h:613:58: note: expanded from macro '__do_outsw'
-     613 | #define __do_outsw(p, b, n)     writesw((PCI_IO_ADDR)_IO_BASE+(p),(b),(n))
-         |                                         ~~~~~~~~~~~~~~~~~~~~~^
-   In file included from arch/powerpc/mm/pgtable-frag.c:12:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/powerpc/include/asm/hardirq.h:6:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/powerpc/include/asm/io.h:672:
-   arch/powerpc/include/asm/io-defs.h:53:1: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-      53 | DEF_PCI_AC_NORET(outsl, (unsigned long p, const void *b, unsigned long c),
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      54 |                  (p, b, c), pio, p)
-         |                  ~~~~~~~~~~~~~~~~~~
-   arch/powerpc/include/asm/io.h:669:3: note: expanded from macro 'DEF_PCI_AC_NORET'
-     669 |                 __do_##name al;                                 \
-         |                 ^~~~~~~~~~~~~~
-   <scratch space>:48:1: note: expanded from here
-      48 | __do_outsl
-         | ^
-   arch/powerpc/include/asm/io.h:614:58: note: expanded from macro '__do_outsl'
-     614 | #define __do_outsl(p, b, n)     writesl((PCI_IO_ADDR)_IO_BASE+(p),(b),(n))
-         |                                         ~~~~~~~~~~~~~~~~~~~~~^
->> arch/powerpc/mm/pgtable-frag.c:125:22: error: use of undeclared identifier 'page'
-     125 |         BUG_ON(atomic_read(&page->pt_frag_refcount) <= 0);
-         |                             ^
-   7 errors generated.
+The link in the console is just a way to access the analysis results.
+Typically the most
+convenient one is the message written by the integration in the commit
+thread,
+see here an example:
+https://eclairit.com:8444/swquality/eclair_demo/-/commit/0d312f8ebca6c4e98eabbeaf9b0fcb8b4a4344d9
+.
+To enable this feature you have to provide an impersonation token to the
+integration,
+you can find more information on the commit message.
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for HOTPLUG_CPU
-   Depends on [n]: SMP [=y] && (PPC_PSERIES [=n] || PPC_PMAC [=n] || PPC_POWERNV [=n] || FSL_SOC_BOOKE [=n])
-   Selected by [y]:
-   - PM_SLEEP_SMP [=y] && SMP [=y] && (ARCH_SUSPEND_POSSIBLE [=y] || ARCH_HIBERNATION_POSSIBLE [=y]) && PM_SLEEP [=y]
+If so, would it be possible to print out the message "Browse
+> analysis:..." as the very last message to make it easier to spot? After
+> it at the moment I can see:
+>
+> From https://gitlab.com:443/xen-project/xen
+>  * [new branch]            4.10.0-shim-comet   ->
+> autoPRRemote/4.10.0-shim-comet
+>  [...]
+>
+> The long list of branch names hides the "Browse analysis" link.
+>
+> Ok. I will try also to remove the warnings.
 
-
-vim +/page +125 arch/powerpc/mm/pgtable-frag.c
-
-0203dd58d897cbd Hugh Dickins          2023-07-11  117  
-a95d133c8643cae Christophe Leroy      2018-11-29  118  void pte_fragment_free(unsigned long *table, int kernel)
-a95d133c8643cae Christophe Leroy      2018-11-29  119  {
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  120) 	struct ptdesc *ptdesc = virt_to_ptdesc(table);
-a95d133c8643cae Christophe Leroy      2018-11-29  121  
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  122) 	if (pagetable_is_reserved(ptdesc))
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  123) 		return free_reserved_ptdesc(ptdesc);
-645d5ce2f7d6cb4 Aneesh Kumar K.V      2020-07-09  124  
-a95d133c8643cae Christophe Leroy      2018-11-29 @125  	BUG_ON(atomic_read(&page->pt_frag_refcount) <= 0);
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  126) 	if (atomic_dec_and_test(&ptdesc->pt_frag_refcount)) {
-0203dd58d897cbd Hugh Dickins          2023-07-11  127  		if (kernel)
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  128) 			pagetable_free(ptdesc);
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  129) 		else if (folio_test_clear_active(ptdesc_folio(ptdesc)))
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  130) 			call_rcu(&ptdesc->pt_rcu_head, pte_free_now);
-0203dd58d897cbd Hugh Dickins          2023-07-11  131  		else
-e18a6b21f4c0c0c Vishal Moola (Oracle  2023-07-24  132) 			pte_free_now(&ptdesc->pt_rcu_head);
-0203dd58d897cbd Hugh Dickins          2023-07-11  133  	}
-a95d133c8643cae Christophe Leroy      2018-11-29  134  }
-0203dd58d897cbd Hugh Dickins          2023-07-11  135  
+>
+> BTW I really like the graphics output, e.g.:
+>
+> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp2/ARM64/4732041018/PROJECT.ecd;/by_service.html#service/first_file&kind
+>
+> Very nice and clear!
+>
+>
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com
+<http://bugseng.com>)
+
+--0000000000003c04c206015902f9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">Il giorno mar 25 lug 2023 alle ore 22=
+:04 Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabe=
+llini@kernel.org</a>&gt; ha scritto: <br></div><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex">
+How do I access &quot;gl-code-quality-report.json&quot; or otherwise any ot=
+her<br>
+meaningful ECLAIR output? If I browse the job artifacts I see all the<br>
+various logs but no gl-code-quality-report.json.<br></blockquote><div>=C2=
+=A0</div><div>gl-code-quality-report.json is a GitLab-specific artifact tha=
+t GitLab exploits</div><div>to provide some features called Code Quality (<=
+a href=3D"https://docs.gitlab.com/ee/ci/testing/code_quality.html">https://=
+docs.gitlab.com/ee/ci/testing/code_quality.html</a>).</div><div>The file is=
+ not supposed to be used outside of the context of the Code Quality</div><d=
+iv>features.</div><div><br></div><div>ECLAIR can produce stand-alone artifa=
+cts in various formats and<br></div><div>we can decide to store some of the=
+m in the job artifacts (see=C2=A0<div><a href=3D"https://www.bugseng.com/ec=
+lair/reports">https://www.bugseng.com/eclair/reports</a> for an exhaustive =
+list).</div></div><div><br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex">
+Scrolling up from the bottom of the job console output I see:<br>
+<br>
+Browse analysis: <a href=3D"https://saas.eclairit.com:3787/fs/var/local/ecl=
+air/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp2/=
+ARM64/4732041018/index.html" rel=3D"noreferrer" target=3D"_blank">https://s=
+aas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/peop=
+le/sstabellini/xen/ECLAIR_normal/ppp2/ARM64/4732041018/index.html</a><br>
+<br>
+And if I click on the link, I can access a web interface with the<br>
+results. Is that the intended way to access the job output?<br></blockquote=
+><div><br></div><div>The link in the console is just a way to access the an=
+alysis results. Typically the most</div><div>convenient one is the message =
+written by the integration in the commit thread,</div><div>see here an exam=
+ple: <a href=3D"https://eclairit.com:8444/swquality/eclair_demo/-/commit/0d=
+312f8ebca6c4e98eabbeaf9b0fcb8b4a4344d9">https://eclairit.com:8444/swquality=
+/eclair_demo/-/commit/0d312f8ebca6c4e98eabbeaf9b0fcb8b4a4344d9</a>.</div><d=
+iv>To enable this feature you have to provide an impersonation token to the=
+ integration,</div><div>you can find more information on the commit message=
+.</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+If so, would it be possible to print out the message &quot;Browse<br>
+analysis:...&quot; as the very last message to make it easier to spot? Afte=
+r<br>
+it at the moment I can see:<br>
+<br>
+From <a href=3D"https://gitlab.com:443/xen-project/xen" rel=3D"noreferrer" =
+target=3D"_blank">https://gitlab.com:443/xen-project/xen</a><br>
+=C2=A0* [new branch]=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 4.10.0-shim-c=
+omet=C2=A0 =C2=A0-&gt; autoPRRemote/4.10.0-shim-comet<br>
+=C2=A0[...]<br>
+<br>
+The long list of branch names hides the &quot;Browse analysis&quot; link.<b=
+r>
+<br></blockquote><div>Ok. I will try also to remove the warnings.<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+BTW I really like the graphics output, e.g.:<br>
+<a href=3D"https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.e=
+cdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp2/ARM64/4732041018/=
+PROJECT.ecd;/by_service.html#service/first_file&amp;kind" rel=3D"noreferrer=
+" target=3D"_blank">https://saas.eclairit.com:3787/fs/var/local/eclair/xen-=
+project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp2/ARM64/47=
+32041018/PROJECT.ecd;/by_service.html#service/first_file&amp;kind</a><br>
+<br>
+Very nice and clear!<br>
+<br>
+</blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signature_pre=
+fix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"l=
+tr">Simone Ballarin, M.Sc.<br><br><div>Field Application Engineer, BUGSENG =
+(<a href=3D"http://bugseng.com" target=3D"_blank">https://bugseng.com</a>)<=
+/div></div></div></div>
+
+--0000000000003c04c206015902f9--
 
