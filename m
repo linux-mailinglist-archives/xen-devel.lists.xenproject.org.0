@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2074D763BA7
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 17:53:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570573.892473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78ACB763BAC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 17:54:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570575.892483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOgor-0007gB-9B; Wed, 26 Jul 2023 15:52:57 +0000
+	id 1qOgqN-0008CN-JN; Wed, 26 Jul 2023 15:54:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570573.892473; Wed, 26 Jul 2023 15:52:57 +0000
+Received: by outflank-mailman (output) from mailman id 570575.892483; Wed, 26 Jul 2023 15:54:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOgor-0007eG-6P; Wed, 26 Jul 2023 15:52:57 +0000
-Received: by outflank-mailman (input) for mailman id 570573;
- Wed, 26 Jul 2023 15:52:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qOgqN-0008AH-GU; Wed, 26 Jul 2023 15:54:31 +0000
+Received: by outflank-mailman (input) for mailman id 570575;
+ Wed, 26 Jul 2023 15:54:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cp0x=DM=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qOgoq-0007eA-2n
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 15:52:56 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b05f531-2bcc-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 17:52:53 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id B0D6A82858BD;
- Wed, 26 Jul 2023 10:52:52 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id Lyy6uhMLNw86; Wed, 26 Jul 2023 10:52:51 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A54168285A08;
- Wed, 26 Jul 2023 10:52:51 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id egHo1gWlkq9W; Wed, 26 Jul 2023 10:52:51 -0500 (CDT)
-Received: from [192.168.82.115] (c-98-222-97-219.hsd1.il.comcast.net
- [98.222.97.219])
- by mail.rptsys.com (Postfix) with ESMTPSA id 2526F82858BD;
- Wed, 26 Jul 2023 10:52:51 -0500 (CDT)
+ <SRS0=oEth=DM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qOgqM-0008A9-Gf
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 15:54:30 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b4184d45-2bcc-11ee-b242-6b7b168915f2;
+ Wed, 26 Jul 2023 17:54:29 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4fdd14c1fbfso10924640e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jul 2023 08:54:29 -0700 (PDT)
+Received: from [192.168.202.116] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ j16-20020a19f510000000b004fb964d48e6sm3366507lfb.95.2023.07.26.08.54.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Jul 2023 08:54:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,95 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b05f531-2bcc-11ee-8613-37d641c3527e
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A54168285A08
+X-Inumbo-ID: b4184d45-2bcc-11ee-b242-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1690386771; bh=yT0Yoz2hTvrJdF+QjdNptiYp8M6z7LZ26vnknsmHxfs=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=GXog7oNRSAnxQGs/tU4q445w3scSVc8ql88ID1MBMrIJ6dIf148C2Bf368S5PsuQR
-	 nnOXONJs/UHB19SvX/F6AbWhf7FQnOhXVNHgAkPsknLdroFdAaB4kJ61c3QBwZySLH
-	 o9zUXp7D8Hn4s4NZII67Q/CUe8HcBtuaGbN7cVVg=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <5cddd8ae-f020-0113-9270-97bc1b68036a@raptorengineering.com>
-Date: Wed, 26 Jul 2023 10:52:50 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v5 3/4] xen/ppc: Implement early serial printk on pseries
-Content-Language: en-US
+        d=gmail.com; s=20221208; t=1690386868; x=1690991668;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=fDaekb2eZKhs05UpY7NvEXKQr60RjhtMKkrszbB5REE=;
+        b=opFDl23ijlVnlrQbaptVD7/2ee4gDTmZ8TWIuOfD4vg9+vI8Zi9REOA5IFNoFnCyy4
+         KNfPblirDYaqThukkdxPp65DpUATgMBoZbPcfCHXjS10NYEBxS5R7DVJlAA3TH+pIEc0
+         /O4L65DbpfJ49ys2shrb9Q0w+uzGLGUWQze5RIpogwCwA3TZLfaJ8QSJ8MQHOYB3CaBc
+         MJgUExdH8dQGWtA5sDg7GbqLpuG5YTvHc/Lbg3ohc2Zcha2U8GIKTAcC9sB8l68sEuQH
+         8hx9J2meTS8Iy+dzpZXtJ2lG6Mgy6w4wG9Jhjklas8/psGVe5kJa84oivcxizAjx2PXT
+         gMdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690386868; x=1690991668;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fDaekb2eZKhs05UpY7NvEXKQr60RjhtMKkrszbB5REE=;
+        b=jlfkgA1pDptaVgj/WnChCXk422mz+cvPAmxkHxrsqcRGhr2r9ZAOA0i/8RBiEO/H4q
+         P8EnUQ97kDPvI/hd0jzl5ARRrjR5Zu/xr0itETlxNIVGd5OPSObBFsaV+cJJL7lnf7Y1
+         0olrhBgeph++bkPT/J/Waj3w6bbLC4P2v4Cszt/AEOr9BKihCMHfcan8hLPAuQTiJG+X
+         F/xjATV0OEkg9pn/8PQs1lPePESOR9ArFNtW+AOMbYszyIY23QGE/ckQi1+Wf+HcmIuH
+         rBZ6WTiT8aAtVozPcKt7p8Qgn9DV+N+xgzaG9msv2mi9YNZ+U+5aOSr2eBPb7ltoTBou
+         fhjQ==
+X-Gm-Message-State: ABy/qLZNBCEJ0uh0Q3ftz/+q8O8RelmjdYe/5/qbmvYDSUT5n7eDHqTO
+	BmD9FWMiPR/dPdN3vOlpV94=
+X-Google-Smtp-Source: APBJJlGT9Q7CuaS5SG770G3TudrQQz9JgJObA8PUdlrA9XzulO8Rud/L8vqhPLPvzWace/wGm0aSZQ==
+X-Received: by 2002:a05:6512:6c4:b0:4f8:77db:1d9e with SMTP id u4-20020a05651206c400b004f877db1d9emr1667151lff.12.1690386868195;
+        Wed, 26 Jul 2023 08:54:28 -0700 (PDT)
+Message-ID: <dee3624525f9530aaf3252c6c4fa6eb5262e76cd.camel@gmail.com>
+Subject: Re: [PATCH v4 2/2] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1689958538.git.sanastasio@raptorengineering.com>
- <f326168638ae05f5f387e4fa018ac2ed057bac8c.1689958538.git.sanastasio@raptorengineering.com>
- <019914c7-c6ca-70b9-6c90-e1891f4201c4@suse.com>
- <cf7e418f-763a-6f27-d498-c88b19c8a9eb@raptorengineering.com>
- <ab870428-fbce-240a-d4c7-4298fbed4050@suse.com>
- <825b00d0-432b-5db8-fe12-2266dffdf06f@raptorengineering.com>
- <d4bd511d-965a-153b-a649-ff9c679a006d@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <d4bd511d-965a-153b-a649-ff9c679a006d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
+	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 26 Jul 2023 18:54:27 +0300
+In-Reply-To: <5a40abd4-edc2-0de0-99ed-d23174940d66@suse.com>
+References: <cover.1690191480.git.oleksii.kurochko@gmail.com>
+	 <a8ab1829ab718dda869db3df3348ded211e81967.1690191480.git.oleksii.kurochko@gmail.com>
+	 <a370548e30aaa8c1160ecd5f2eccfcc10002a8f9.camel@gmail.com>
+	 <6675f535-7cf7-dd55-4ebe-82ba486029f7@suse.com>
+	 <4deb8c44cf639af66ad7f5b9b42180554e08d5cf.camel@gmail.com>
+	 <5a40abd4-edc2-0de0-99ed-d23174940d66@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
 
-On 7/26/23 10:45 AM, Jan Beulich wrote:
-> On 26.07.2023 17:42, Shawn Anastasio wrote:
->> On 7/26/23 10:32 AM, Jan Beulich wrote:
->>> On 24.07.2023 17:06, Shawn Anastasio wrote:
->>>> On 7/24/23 7:40 AM, Jan Beulich wrote:
->>>>> On 21.07.2023 19:02, Shawn Anastasio wrote:
->>>>>> On typical Power VMs (e.g. QEMU's -M pseries), a variety of services
->>>>>> including an early serial console are provided by Open Firmware.
->>>>>> Implement the required interfaces to call into Open Firmware and write
->>>>>> to the serial console.
->>>>>>
->>>>>> Since Open Firmware runs in 32-bit Big Endian mode and Xen runs in
->>>>>> 64-bit Little Endian mode, a thunk is required to save/restore
->>>>>> any potentially-clobbered registers as well as to perform the
->>>>>> required endianness switch. Thankfully, linux already has such
->>>>>> a routine, which was imported into ppc64/of-call.S.
->>>>>>
->>>>>> Support for bare metal (PowerNV) will be implemented in a future
->>>>>> patch.
->>>>>>
->>>>>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->>>>>
->>>>> While I've committed the earlier two patches, I had to back out this
->>>>> one. In my environment (gcc13) the build fails due an unresolved
->>>>> reference to memset() out of boot-of.c (supposedly from of_call()).
->>>>
->>>> Does removing the `{ 0 }` initializer to `struct of_service s` on line
->>>> 43 resolve this?
->>>
->>> Yes, that's what's causing the call (and removing, whether or not correct,
->>> helps).
->>
->> Thanks for confirming. Removing it should be fine since the code
->> manually initializes all of the other fields of the struct. The only
->> behavioral difference is that the members of `ofs_args` at indices >=
->> nargs would be left uninitialized. This shouldn't be an issue though
->> since we're guarding reads of the array on `nargs` and `nrets` and thus
->> only read explicitly initialized values (and of course, firmware would
->> do the same).
->>
->> Naturally we can't avoid memset calls forever. I have lib/ building
->> locally, but if we could get this series in without having to make those
->> changes here that'd be great.
-> 
-> Are you suggesting I should put in this patch almost as is, with just
-> that initializer dropped?
+On Wed, 2023-07-26 at 17:00 +0200, Jan Beulich wrote:
+> On 26.07.2023 15:12, Oleksii wrote:
+> > On Wed, 2023-07-26 at 13:58 +0200, Jan Beulich wrote:
+> > > On 26.07.2023 13:23, Oleksii wrote:
+> > > > I would like to ask for advice on whether it would be easier,
+> > > > less
+> > > > bug-
+> > > > provoking ( during identity mapping to remove of whole Xen ) to
+> > > > have a
+> > > > separate identity section that won't be more than PAGE_SIZE.
+> > >=20
+> > > I'm afraid you can't safely do this in C, or at least not without
+> > > further checking on what the compiler actually did.
+> > >=20
+> > > > @@ -264,6 +268,19 @@ void __init enable_mmu(void)
+> > > > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RV_STAGE1_MO=
+DE << SATP_MODE_SHIFT);
+> > > > =C2=A0}
+> > > > =C2=A0
+> > > > +void __attribute__((naked)) __section(".ident")
+> > > > turn_on_mmu(unsigned
+> > > > long ra)
+> > >=20
+> > > Did you read what gcc doc says about "naked"? Extended asm()
+> > > isn't
+> > > supported there. Since ...
+> > >=20
+> > > > +{
+> > > > + =C2=A0 =C2=A0/* Ensure page table writes precede loading the SATP=
+ */
+> > > > + =C2=A0 =C2=A0sfence_vma();
+> > > > +
+> > > > + =C2=A0 =C2=A0/* Enable the MMU and load the new pagetable for Xen=
+ */
+> > > > + =C2=A0 =C2=A0csr_write(CSR_SATP,
+> > > > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PFN_DOWN((unsigne=
+d long)stage1_pgtbl_root) |
+> > > > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RV_STAGE1_MODE <<=
+ SATP_MODE_SHIFT);
+> > > > +
+> > > > + =C2=A0 =C2=A0asm volatile( "jr %0\n" : : "r"(ra) );
+> > > > +}
+> > >=20
+> > > ... none of this really requires C, I think we're at the point
+> > > where
+> > > (iirc) Andrew's and my suggestion wants following, moving this to
+> > > assembly code (at which point it doesn't need to be a separate
+> > > function). You can still build page tables in C, of course.
+> > > (Likely
+> > > you then also won't need a separate section; some minimal
+> > > alignment
+> > > guarantees ought to suffice to make sure the critical code is
+> > > confined to a single page.)
+> >=20
+> > Thanks. I'll move all of this to assembly code.
+> > Regarding alignment it is needed alignment on start and end of
+> > function:
+> > =C2=A0=C2=A0=C2=A0 .balign PAGE_SIZE
+> > =C2=A0=C2=A0=C2=A0 GLOBAL(turn_on_mmu)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0=C2=A0 .balign PAGE_SIZE
+> > =C2=A0=C2=A0=C2=A0 ENDPROC(turn_on_mmu)
+> >=20
+> > Does the better way exist?
+>=20
+> The function is only going to be a handful of instructions. Its
+> alignment doesn't need to be larger than the next power of 2. I
+> expect you'll be good with 64-byte alignment. (In no case do you
+> need to align the end of the function: Putting other stuff there
+> is not a problem at all.) What you want in any event is a build
+> time check that the within-a-page constraint is met.
+But shouldn't be an address be aligned to a boundary equal to page
+size?
 
-Yes. I've tested the change locally and it still behaves correctly, so
-if dropping it removes the memset invocation on your toolchain then I'd
-say the patch is fine to go with that initializer dropped.
+According to the RISC-V privileged spec:
+Any level of PTE may be a leaf PTE, so in addition to 4 KiB pages, Sv39
+supports 2 MiB megapages
+and 1 GiB gigapages, each of which must be virtually and physically
+aligned to a boundary equal
+to its size. A page-fault exception is raised if the physical address
+is insufficiently aligned.
 
-I could also submit a v6 with the initializer dropped, if you'd be more
-comfortable with that.
-
-> Jan
-
-Thanks,
-Shawn
+~ Oleksii
 
