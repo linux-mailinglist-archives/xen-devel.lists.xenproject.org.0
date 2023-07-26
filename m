@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AC437636DD
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 14:56:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570452.892231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D3A37636DB
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 14:56:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570453.892241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOe3C-0001UI-IV; Wed, 26 Jul 2023 12:55:34 +0000
+	id 1qOe3K-0001nw-UA; Wed, 26 Jul 2023 12:55:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570452.892231; Wed, 26 Jul 2023 12:55:34 +0000
+Received: by outflank-mailman (output) from mailman id 570453.892241; Wed, 26 Jul 2023 12:55:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOe3C-0001RO-Du; Wed, 26 Jul 2023 12:55:34 +0000
-Received: by outflank-mailman (input) for mailman id 570452;
- Wed, 26 Jul 2023 12:55:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qOe3K-0001lP-Pd; Wed, 26 Jul 2023 12:55:42 +0000
+Received: by outflank-mailman (input) for mailman id 570453;
+ Wed, 26 Jul 2023 12:55:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CD/9=DM=citrix.com=prvs=564dce665=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qOe3B-0001CQ-3h
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 12:55:33 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b36a6c9f-2bb3-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 14:55:30 +0200 (CEST)
-Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
+ id 1qOe3I-0001jo-CN
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 12:55:40 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b7b7f66c-2bb3-11ee-b242-6b7b168915f2;
+ Wed, 26 Jul 2023 14:55:39 +0200 (CEST)
+Received: from mail-mw2nam12lp2047.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.47])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 26 Jul 2023 08:55:26 -0400
+ 26 Jul 2023 08:55:32 -0400
 Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
  by BN8PR03MB4964.namprd03.prod.outlook.com (2603:10b6:408:7d::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Wed, 26 Jul
- 2023 12:55:25 +0000
+ 2023 12:55:29 +0000
 Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
  ([fe80::2e0e:5665:96a7:5767]) by SJ0PR03MB6423.namprd03.prod.outlook.com
  ([fe80::2e0e:5665:96a7:5767%3]) with mapi id 15.20.6631.026; Wed, 26 Jul 2023
- 12:55:24 +0000
+ 12:55:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,60 +49,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b36a6c9f-2bb3-11ee-8613-37d641c3527e
+X-Inumbo-ID: b7b7f66c-2bb3-11ee-b242-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1690376131;
+  d=citrix.com; s=securemail; t=1690376139;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=bMzgoEGHShhbiGsSDEpVwuBzCaDU2yGfCvh44S0Z3qQ=;
-  b=Erf8FKv2YH6y1qP+A928acrHb2AMSL7AL8KPp5IVHuK9+jCQqjbGU83g
-   FsS6uU/kqpDzXMCeS3v927UvYolVgkxPGhyEinFJSGXuo7CSgAydmVglU
-   Ib4l5qGeazbSD06dlWTeTvqwZNtvf6SgXTXxEb8nsjBLiytZ3KdWOch8j
-   c=;
-X-IronPort-RemoteIP: 104.47.58.169
-X-IronPort-MID: 120127620
+  bh=zxay+fjWD7Q5pjhPAAOErwHFFjDdYjv3cBVue6zMQvQ=;
+  b=UzUMAE7xkJYZZhhgSIa1MvfzyaN2xR4WecxT7nenBvUXnu2EmPRczdwr
+   UVShtfjtGvmx75lNLCWmIHFF3h+FrP1mirGUrpUnq86wwcnlY0qxdGgqj
+   PYV7vAg00yBBiJbvoOgN3u2dGDerbPxYNXfCONSYvLg9BDbUImLSRNilr
+   U=;
+X-IronPort-RemoteIP: 104.47.66.47
+X-IronPort-MID: 116199184
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:veLOHKAxjqi+VhVW/xXiw5YqxClBgxIJ4kV8jS/XYbTApG8i1z1Tz
- mIaDGGEPK6NMDSjet4kad+xpxkC757RzIc2QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbCRMsspvlDs15K6p4GxC4ARnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw3ecwK0EX2
- 84idhctXxmypum75++VVbw57igjBJGD0II3nFhFlGicJ9B2BJfJTuPN+MNS2yo2ioZWB/HCa
- sEFaD1pKhPdfxlIPVRRA5U79AuqriCnL3sE9xTI9exuvTm7IA9ZidABNPLPfdOHX4NNl1uwr
- WPa5WXpRBodMbRzzBLcqCr13LCRx3uTtIQ6PpGj2/Izu3Cvm3ESDRcaFkS/+uKIoxvrMz5YA
- wlOksY0loAi+UruQtTjUhmQpH+fogVaS9dWC/c96gyG1uzT+QnxLmoOQyNFadcmnNQrXjFs3
- ViM9/v2ARR/vbvTTmiSnp+XoC2zP24JLGYETS4CUQYBpdLkpekOYgnnS99iFOu/iI3zEDSpm
- jSS9nFg1vMUkNIB0Li98RbfmTWwq5PVTwkzoALKQmai6QA/b4mgD2C11WXmAT97BN7xZjG8U
- LIswaByMMhm4UmxqRGw
-IronPort-HdrOrdr: A9a23:h5Kqoq6NGMH8xBKXzwPXwAzXdLJyesId70hD6qkQc3Fom62j5q
- WTdZEgvyMc5wx/ZJhNo7690cq7MBHhHPxOgbX5VI3KNGXbUQOTR72KhrGSoAEIdReeygZcv5
- 0QCZSXCrfLfCVHZRCR2njFLz4iquP3j5xBnY3lvhNQpZkBUdAZ0+9+YDzrdXFedU19KrcSMo
- GT3cZDryrIQwVtUizqbkN1OdQqvrfw5evbXSI=
-X-Talos-CUID: =?us-ascii?q?9a23=3A/6twHWlOkxUsGjE1gFpYQBlolIzXOVrci13wemG?=
- =?us-ascii?q?KMzhOaIyceH6b9YQ5vdU7zg=3D=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AgYWqrgzLeAtcmp1AY4YwAZgyrt2aqI6CE20ByK4?=
- =?us-ascii?q?rh5SZNCl6N3SCiG+sc6Zyfw=3D=3D?=
+IronPort-Data: A9a23:l2IvhapeVVd8piE7VNWL7hA+nrFeBmI/ZBIvgKrLsJaIsI4StFCzt
+ garIBnQbq2MamH1L9kgaNzloBgF7Z7SydUyTAZlrnthE3tEpZuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GpwUmAWP6gR5weBzSdNVfrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAAATdTKg3PiN+ur4bfZXmPoNJpbgJ4xK7xmMzRmBZRonabbqZvyQoPpnhnI3jM0IGuvCb
+ c0EbzYpdA7HfxBEJlYQDtQ5gfusgX78NTZfrTp5p4JuuzSVkFM3juarbIW9lt+iHK25mm6Co
+ W3L5SLhCwwyP92D0zuVtHmrg4cjmAuiAdxLRezhpqICbFu743c6AzlISliBkN7llEqeS9RGK
+ nQpw397xUQ13AnxJjXnZDWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOnM08SCEu1
+ 1SJt8j0HjEpu7qQIVqC8p+EoDX0PjIaRVLufgcBRAoBptz8+oc6i0uVSs45SPLqyNroBTv33
+ jaG6jAkgKkehtIK0KP9+k3bhzWrpd7CSQtdChjrY19JJzhRPOaND7FEI3CChRqcBO51lmW8g
+ UU=
+IronPort-HdrOrdr: A9a23:Wd4/haHnE9zLq9wSpLqELMeALOsnbusQ8zAXPiBKJCC9E/bo8v
+ xG+c5w6faaslkssR0b9+xoW5PwI080l6QU3WB5B97LMDUO0FHCEGgI1/qA/9SPIUzDHu4279
+ YbT0B9YueAcGSTW6zBkXWF+9VL+qj5zEix792uq0uE1WtRGtldBwESMHf9LmRGADNoKLAeD5
+ Sm6s9Ot1ObCA8qhpTSPAhiYwDbzee77a7bXQ==
+X-Talos-CUID: =?us-ascii?q?9a23=3A9uWIsmjfE1J5HPD234sebBf8VDJuQmPG7lSLOXS?=
+ =?us-ascii?q?CUSVOV4aLd3Gap6h/nJ87?=
+X-Talos-MUID: 9a23:fJbMDAo48WfW1mYYoXsezxR5HcxMvbutMnEqzYsCm9mCLC1IBg7I2Q==
 X-IronPort-AV: E=Sophos;i="6.01,232,1684814400"; 
-   d="scan'208";a="120127620"
+   d="scan'208";a="116199184"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VzBIK6YZDTIP5DWTjpYUuszDOxjnRx4ppz1IBHpVFhBJIH5zcKji9OL0Lis3D+add8m+HJ1qENAaNV8777oId2yQeIhaMQcImCCzX4yjvRMHXgk26Km5U7eSco/WyX3NT4wLJyjEn0j92Eey9veZUmVkgXTw2xajOvLi/qnCfE9TB+KYhB7pxuwqHy839a7kwqIjrQzKR2wd31hquM+hmAIcllmaKidKSFx24ig8CU82uOTXvehcYARRbLBusJpymXz9c+5C8JFqrD7jjp2TPxxmlwzdjymIONQZKaC5ZX3F93kj23KqXbMgMTnalKQLO/VImISY13Trtiyihpej7g==
+ b=a9B4AOSp9zIPZFpqoJuyyk7aP8v9boiWOmt0kQIHHxfsK/RFQb4eeUACCs1qR3rdvlcWlSv8y2dPhqMmHjmaMZZ00lI49GUZbLSJ6E6fij25W8mrqNDO5RW5JOLnG1afE0i2scaWyF51ZsQp6DkM5RzHt44rkgcNNFFfsHKHT2ViFssKRauhkPrn22LXBQFaqqG+S23W2fmEvUsclczJ7M6ZFOhuCTXZViBEQGsCegc4+S93Ba3C4SswDQ6vEBUTj87YRyk4s3F1b9FhrGnLVKCAteksT9m7IIhePo8Vnlj48/B2Z5amzgY9FMFq1+U1fyZrpyp5BLtnx6hHzMLmJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N4+akuxj11Pm6MmCcIs2+XB2xj50RQ6f8LRImtxUdTY=;
- b=Cq7pMRXbRDnLGQjGdGxF5qZp1NvptzIuPSMJ4nU+7wUi4rZftCGGpRWVix0mj5sGB678WJM8a1PHC4h46an2v8R1/2T3cNK2Z3mcpqCeP74q9lawdUHfuxHz0uSTNsdBGZj5AkB+ItFcoUDvoCTg3L5IL0485MU9QNGG4wtCYfD5maNMq/n0efTCUkAwox3dpKpTnIC+xOirPCevPY2b2NVJOTPrgFYenRI08VkaD/sa2w8KUmtO3aQtbc8/uJLfGuNBCzBAx0G+hqz4vEk2gA759NDDcRXfWLiL7Arb19lke2S0uV87tUzyt22LdH+w4M4XxhYDU6GZVT1RxSiZeA==
+ bh=nMLLJuQaKwbKD73WGXmC1pk5x2poKlwnGry2jF/xGuI=;
+ b=LSnir7jDBSvxRELJ8Wosain9sc9uvY3E2/LEPzFCazrHjBYaU7ypo6Ztj8uqNVv+jic0h8DLVa9+9Ww6jyDmSl2svtX//sYnle0UalyoHGxp654SixHwGBumdu/V3h1h0b3ovun1A4Khb0hdrQLa07yzUDamJTZ+MlEw6yQ8Qi/gk6DOdcVoEMDj6MLrwDjsMMwjpTox/vxouesZfKgaTIDkjGcKPqUb/qh8m5xJPqz/1V79MLaiYb6bbjwstCGrJmEbVkkNkjy4CXU2Pxs+ECXphAt1/VzhojW2zhtcfkGw7M0XT7B1udlcDm+IIzJKDnjWC037GLJaeg2r9qp8+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N4+akuxj11Pm6MmCcIs2+XB2xj50RQ6f8LRImtxUdTY=;
- b=YGQEu1EDh64fe+NsBtzBeaUjv3G+bMX2yqk8DkuEgQySGycdNgZVUq482DA98IukQfN1G2q1/hk9RaU4naOFXrVpknt/MEs+bKLttDy/uMH2yYu+HGhD9f//8Mq/bKx3fMXhMdelzSM7lYWnC371qaQZON/+7/OzO27KCXJWagM=
+ bh=nMLLJuQaKwbKD73WGXmC1pk5x2poKlwnGry2jF/xGuI=;
+ b=cbncixaf/saD6QfzODfJKu20cdwGAUH5A4zYypOIzmZTLiUZ345N1w3Rz6SjkmniM/rI0qTi9CsSJTyGBY8GE1gWfsZ2ZNlAjfitlPudLzphGLjfDGy6pvw2nuI6i7R1PdfB9pctECX0Fft+S0fY/HPNiVS1i9RDLzKSOZ3K1sc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -110,224 +109,256 @@ To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v3 1/4] x86/ioapic: add a raw field to RTE struct
-Date: Wed, 26 Jul 2023 14:55:05 +0200
-Message-ID: <20230726125508.78704-2-roger.pau@citrix.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 2/4] x86/ioapic: RTE modifications must use ioapic_write_entry
+Date: Wed, 26 Jul 2023 14:55:06 +0200
+Message-ID: <20230726125508.78704-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230726125508.78704-1-roger.pau@citrix.com>
 References: <20230726125508.78704-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0295.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a5::19) To SJ0PR03MB6423.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P265CA0031.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::7) To SJ0PR03MB6423.namprd03.prod.outlook.com
  (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BN8PR03MB4964:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9165da2f-8aec-4ed7-a238-08db8dd7942e
+X-MS-Office365-Filtering-Correlation-Id: fa60e983-b585-4408-73a1-08db8dd796eb
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	mEpAiIZsL1RG3FSHtj+lZIxpOIn3ANWHSxxAa2L+FqbRPkWXCEVFDahluBXgN7WnWWWGxtd2yALcOipdhEdrRiZdaiB+NNYMjQrdNTcVvg6AgygiTFSJHfpvAyfS8mrr5mGFJ9XGvYVavR+80ZI3DivAu7vENt7W8LpE81Xa9bPwPpTs5eckMUdmSF866T3K8KNehgqLUaG7Jl92BfwnKW8uGuAaUTUlrcY4bjJH+ZhLKw9wK89FJ/SnIeFrSR3mMl/GxLaLFUl4gDcYwWGU7ZoLPKxWmBkDC9WfE5mIl5JJrOPsDsXXE93OvLQzXL9Wp464Gp5g/2J1tx/qE/UTPWKhEDajFVYCm9lNiJ6ntHGwR8jmImeKl2McMMk5F1b3OGlBVUwzGt8a8uXdu5MYDXcLuY4kTuWqARTwywcKDjN2qtcqeTbOKY60spaTNcgumzCjAu9HALHfOsthCUCyYO3+41pJJr+DA3RQVdUfWaFZBtULbmAPcZ23VJeRauBL/KOkXs7hnmbXQQbvLYl5jXRbfq0W9C1K6jSdIilJFVX1NFWgS2zB6t9f5VYarVcy
+	AqD/nR5ahdisSEphxqk3A54xMqVKYV1RzR/1caJSCW/a3vMCVgRoTeQ4vcfVr9qwKdhnlYxwfDycO0vbl/TOQXBEUZ+c0Sk3fhQw0yGv+rfUSdLzhdWvOts22L7UsAW1Hvmdc38qScISLQNbHl+/TvJJfwURiQsyFWLLzr0R2CwAG3l3LH1l38WMmPZ3hIXUC3Eq4oZp2UX8YtoNbld0sCI/cyA0C3c+dJUIgJoiS/GlbtiqPu1Teqc/QSG5SKRJ74c0pqN7B0wu5X/MZhHDJYY3z/o+L/HtpY3Xn4vgcFEKy9whkn2yKmS+4NvlH9aDG/HuNTmjxWEOlCic/dGk1PjQbMpFEW8mio/I8HSz4J4PTJ2whkQePrP6n2xPlInfpaFSjfFjygWUOK9LwnNWUOY3NtqYpJ5XqPCZaEa0hLJ/a1S2H3yorKvH0EuW10qTXrHv8eJDSTmj4x6nwuKWvhiOJuOI/U1sANMYmGFBOE8O8A6vDP+0WEl9+tWWWKvMxj7hVqLMUpHLXf+LDeKrBB7cXZizxXWTRF/C+qQ19DtjbBmvxZ0h1pRwfTaOWWY3
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(136003)(396003)(346002)(366004)(451199021)(41300700001)(26005)(6506007)(478600001)(38100700002)(6512007)(86362001)(36756003)(6916009)(4326008)(8676002)(8936002)(186003)(316002)(66946007)(66476007)(66556008)(5660300002)(2906002)(2616005)(83380400001)(54906003)(82960400001)(6486002)(1076003)(6666004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TGlPOWx6dktTVjdFb1Jtc0JXTTFReWNBMy8zRDRZanNoN1pwb1JMN0pZRFI2?=
- =?utf-8?B?QjBJUTNOOC9yT1JVU0NhTEQ0Y0dLc2xMbTFBUmJYWEdDNHFQaWliV05jN2lC?=
- =?utf-8?B?enNWRnBLZzh0azJpdTQ5QTl5QS8wcmZwWFV6em12K3lVYUhJYU1lc3pScE9u?=
- =?utf-8?B?eVo3Y1ByRXg1WUF0UE03Mm8xZUJ1c1dQU0VDK3dhTVRvdWpmTWNPbW1ZZU1H?=
- =?utf-8?B?QTBUaXplTlhuaU1KWVN4MEFUMHk3N0VQcXh6aWhpU2tXRzZva0tMUHJuS3VB?=
- =?utf-8?B?eEFkeUhpeU5xdkhldlBYcktQRDJBd2Roc3djVkFha1RobW9IcDZudGVFZDM4?=
- =?utf-8?B?OEpWdG5JOG42ZHNhZFJtM2EyR3lhRWZNK040NkJld0lKWHRkSEtPT2o1MFNK?=
- =?utf-8?B?Y2dQWG1HMjU0cEs3YnY2VXNFdnZqREJ4cWJiSUNqakpxYSs3QW8vb3ozMlFM?=
- =?utf-8?B?TW5QZnFNbFhiVVdLVEdqKzRIZVlESUpLRzR5UGEyVklrUTlFTm1BTUIrNW9W?=
- =?utf-8?B?NHE1UHdVb2YwTVFjMGdjVHVSc0Jpdno0ckdwRXZESS9JRW8vZXIyZW5qcmd5?=
- =?utf-8?B?dHpxdjltQXEvSlF0cjNhcGd2YlNxMGkzN0pQQUpYL3VqREF2c1puK21xUFVy?=
- =?utf-8?B?TFdnalo5RHJRcGxqTzVJV1ozNmtvK1gyVlVyc2lCdU5sV0tnTkpUSEdpYThx?=
- =?utf-8?B?VFptVWV3cHlpWmtlN1dQZHp5UDhoTTlHazBERENua0gwUEhBNGpPYWxFR21S?=
- =?utf-8?B?a0hoc3BHSEdTSFZnYUd5eFlXeXZiYU1LVUZWWjVPNXNlb0pOS3YwYXgxWEYw?=
- =?utf-8?B?U0VFNDU1c2x2WkhBRllIeE5kWEVoTW9ydU5rS3p4NWpET2ZsQUpQeVY2ZmJH?=
- =?utf-8?B?TkkyczI0eitNN1hJMTVRMDhnWkdwN3oxVFlHdmxxZ3diMlRXaHZwSXZxMUhH?=
- =?utf-8?B?U3ptbWdxeWx4Ty9UUU5QaTZZTlR5YVJhUGFyNEV1dm9SMEZaeTdWYXprMmdB?=
- =?utf-8?B?Q0wwNE55RlRMbk05Z1JhWGhTMXpWajNLY3VsNkdmenRucnpyN0V0eXNFOGZW?=
- =?utf-8?B?MGRwRXE0Y0IzdlluZm1veGhtaENBZ0cwV2k5L2xhQ1VrSGFEOVlHbjM3SThI?=
- =?utf-8?B?dTlhaXFEWkZrcmIxSGE4c05FNGNVNVNiR2R6QUpOaUgycDVTWk1Lem5NVjNv?=
- =?utf-8?B?Ymo0ZkkyY3ZkMThyRjFsY2FKQUdUQWRIVmtNOFhEQTRkZk0vRi90VW0vTjhw?=
- =?utf-8?B?Q2Y4QzV0cHl5ajh4QVR0WFdQQldrcGZUbmw0Mzk1VFVleTNQb2w0TW5jVHVY?=
- =?utf-8?B?ZTRRcnN2M0lHWVQrMUVVSTZra01LSXkvTmRCaW1WZTI5OW5oamNsNE9yNXdI?=
- =?utf-8?B?U2lJUmJtemltc2pPb0ptWXRGZDYzU1lnWEJGOFJPOFJuV2UxTXBaZkNPQTdM?=
- =?utf-8?B?a0J3eEIxSDdtaGhLWXMyOGJuaXkyMjZOTkF1TXNkM2V6M1JPb25PVGxDZkpN?=
- =?utf-8?B?ODlWSkpIWFQ4RWdUbUdZRURZNVFKaEZ3UVJNYXpLT1k5dlBnYUdxVEMyTUhX?=
- =?utf-8?B?YStFN3BYOUg1bk8xUWtsS3ZDZ0p5dnhDQlpoRDA2YmMwTzMrdEh5Q1d0WVpu?=
- =?utf-8?B?M0RVWW94MGFqYnFKTHRzZFRiQnVyck96dVlUbUpXZWJFblg2Q2FmNS8rVDBW?=
- =?utf-8?B?K0Vzajd3MVVoSmtUWnBFbDVaMlNJV0pSNnJsUzF2VnIraDNSNHBlYWRqZjlM?=
- =?utf-8?B?T1oweS84NEtRS0FIY2t3VERjS1VwU3lMaXJrSDgzdEVtZVI2Q0RRVjluZG4x?=
- =?utf-8?B?MGpZK1FOazdIQlpsVDVYcEtQTDFCZU1WOFBHVXZVbzR4Q1czRlc2VVVqZkRT?=
- =?utf-8?B?anNESVdZMnVwMHFFWVhjUU5mSjM4alc5cUt1cS9LOXRIL3d4ZEt5cUp4SXA0?=
- =?utf-8?B?UitKSkUva3RIRjJ4UTMzc055T2plVzM0c3ZrbHBsVU5kT0FBcC8vTkZ3dldU?=
- =?utf-8?B?dmp5TzNOZUxVa3RLM21DZGxOWExNUXJETGlmMVl3cjBkcldYaktrdTA5a3pC?=
- =?utf-8?B?NTQ1WktYSnJQQmxkOTZZOG9SQjZJd3lKUDhmQTJVdkdGM3lCZkVoVmZFZ25a?=
- =?utf-8?B?QVRaWU9DN005Ry8xU09iVHA5SmxoZDZUdGZiVHJTZUFVVzlaa0hQWndjcklZ?=
- =?utf-8?B?OVE9PQ==?=
+	=?utf-8?B?eDhvUi9aS3RMcVhtOGUwUmxkSlpSRjlJbHIvL056YytpTnU2ajRlTzZmMmFD?=
+ =?utf-8?B?NFF0SjEzSWN3ZG1GdHltdk80VnJFaXgwak03SktacmhtNVdoL2hYZjVleFFu?=
+ =?utf-8?B?dWhsYUhQYUlHdHUrMm5OZlZDbW5aQjFyOVgyTklJQTNzM3AreVFQcEthT0wy?=
+ =?utf-8?B?SXpHYVFyZmM5TUVydkVHN0l6dmZTbXpwdlE5bG1ZdGl1VmFCV1BjZk9FWEVJ?=
+ =?utf-8?B?SWQrWkJrdDRnMjlZcjBnQkZ2K2hTMEphc254VlpldDlyZGVCNEROS09kMHVa?=
+ =?utf-8?B?Vzl6cUpXOUFTZVg5NnY4bUMzcURpTGx6OHRyaEYzNUNGWGlkNWdjSGlGcjMx?=
+ =?utf-8?B?aXc3dVpmdU9OSUpEa2grRVhYM2g4d3NHOC8yOUl2TUtpSmhtd3FDemg5TU5X?=
+ =?utf-8?B?czhWNVVXVnRUUDY2U1JBRmJiQklkVE9pZnNpcXBDZzVTOVRNY1VXTmhyMmJs?=
+ =?utf-8?B?UnpXcUY4Qm4zL3Y0SnVLR3hlUG9Fd0xncExhdkhZbk9JV1JmUTJnWGdROVJT?=
+ =?utf-8?B?d0pNcDRxSERTcU13OERwV2tzRmN4NjNVYng3UWpBK2wrYzRLN01YeVlXVzRE?=
+ =?utf-8?B?Z3V5ckEvaDEwVTlXRWU2eEVVNE1ER2tIdTVTMlhNa3RTb2tMdnBjdUFHckM5?=
+ =?utf-8?B?ZEt5QWZCMmtZelVpWjlNdDdKMjBzTVRDWXVaVkI5aU55UDhMRlF5ZWFmc21o?=
+ =?utf-8?B?aDVkTXFBMEdMNDNDbzI4UkwrL3NLaVZkLzl5VTBZdUIzeVlKcVJmMWw1bmJX?=
+ =?utf-8?B?aW1oR25BNUt4NXNPVGFLVHZqSVh4Wkd4UCtIbHR3VkdBNklMSXdzZDdGVzUx?=
+ =?utf-8?B?SGJiTFVRVGFsMDFxZzhkWkJFdUxsaE1RRWh6bUxXZnFnNEVlNkJQV3NpN1M0?=
+ =?utf-8?B?KzVZcVRFQkJNY25LZTk2aENleDQrSk9GMlBkY0l6c2VnZXFaeHY5NVRQM0R2?=
+ =?utf-8?B?WjBMcFAvb1FpK2NhR01tR1BQclNiR1gwTllteTVGeTlQNXArMUt0MzV1V0dt?=
+ =?utf-8?B?TzF5VzBYWlFma0dLNURFVm93cTRCWTFuRWw3NWV5enQrbmxJR3ZiN3NIa1Nz?=
+ =?utf-8?B?NmFnN3RBMldPYjZZN2Z5MzVlVC9NekcreFFjb1gxbFdkUXdXSVR0MmxOekNq?=
+ =?utf-8?B?ZWpHT241UDFVTE9HZXBxT1RRNElDaUhNMzBUdGNodjYvaUNnTk1BSDIzMDhR?=
+ =?utf-8?B?M09oTWZWdEFsbDJsS3pqYUpKQlViNGdPSkV0YzY3Z2grdHVsVmViVGxzNFgz?=
+ =?utf-8?B?WXVjUG1XS0dkYjhNdWhldmVOL3JTcEtwam9lUE1ORktBZFFYNVpVNE9Ra3Br?=
+ =?utf-8?B?QVV2WDY0dUJ2Y1BiSTJFNS93aVkrdktwOVErRytKekZwYmVSMXdXeFhuNVU2?=
+ =?utf-8?B?c0VxbnFHYWhJRFlQQStRQnpmUThxZk5iWjgvSFJRS3FCRjVKTlNLM1pqM25h?=
+ =?utf-8?B?SnFjOVNadnJ4ZkY5TnZuMVp1bG9yaDNGSlgveVdKamZWc1pHdnhqdkpKQlJq?=
+ =?utf-8?B?Z3BDWjVSb2g2Sk56SU1KdTRHdnBjWGVWOUkveVRZZ1NPU1NldnJCR2dmSGc1?=
+ =?utf-8?B?YzdjaTd1QWRpd29tM0hONkdVY0NPN0ZFMW12UWlPdVhyMWhhTkdJcVhNK0xX?=
+ =?utf-8?B?cmcyY1grZEZvSDN4SzI4Y0R1Vk55L3VtYXJYTkpLb25yZUE4Qnh5Ty9BQkl2?=
+ =?utf-8?B?RGtHc0J1dkt0V3ZQcVVnRlQvcytWa2ptcFdid3dZOVhnalUwM3BEc0NwWmZ6?=
+ =?utf-8?B?bEIrL3IrU2VKaWRJMDZ0NmNVcFJEejFXM2xTUFoxemRORU9UMVllSXgxWVNx?=
+ =?utf-8?B?eEQ0dmo4MXptRE9XUUx4MVRVWGZIT0ltcW11SVVQN0F4L1ZsZmpFT3l6WHBy?=
+ =?utf-8?B?VXdJaUlTTXFpN3FZRDhFZ1pWTWlPQ0lIVWg5THZmUzlDWk8yeXpuMGU3SHpp?=
+ =?utf-8?B?TmRiRHRlT0N3ejU4MVF1dW5nSFFQa3NDRE02b0o4MFVtdXNCZXJNYWE2aUFW?=
+ =?utf-8?B?UnNjRFFDV2cweDZzbEZ2UDFYclBBOFZvcGhYYXJXQ2wvdythUy9SbThXSGZT?=
+ =?utf-8?B?SGxEeXFuN0dnV3daa1E5Nmh6eDhudENTN3FXTmk3eXBBbFdrUmJ5RmRFb3pX?=
+ =?utf-8?B?dHdtTHJlRGRBeUFnaGFrTWs2YlVnOWRQTUpGMHkxTk5admVJaXRVdXBmRGRu?=
+ =?utf-8?B?Rmc9PQ==?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	gDprcMIUIgK/zonqQj5risU1zYm3BEKFrbaUM8JO7oN5QeGVmzWOUJUENFrnVEtgoQNkqOauCy/CmPiV9C+L2XosfzLpfQL/DwYikycygrDP4MXnrZjXfFDy9DuPrlOGGPh3MYerPiOpbBaeqd4eVmTTS0NhAAO1FJnJGXOeXRJX0D0mEbs8rZGpnQbZxqTqH+JGOuUpVASMGCaIXXE8KznaUH0nR/3Yok2eMgsqwBhz/or+4JnNjzLb+EiDrNxxfQjrluAuGWBk+Y/gx2+FixkMkURB9P8SuIE6kM0UmKPEndIMKPzV96jol0+i2u+E2Z8wOf6jButUtQFYeZa45o/c1aUyBbvR8lm4TrCqshS19wr/GlJZrf/k4klk4ZMx8XLkszDCIzslZCzb4USAdtjCwRIfHyTgQFL4UYQP10+0GCovTA4O8tykzpHhZz5ACGPEvxxLg+iJLm+4/jJ2vnUIAGaaumePS0AxalrdFIBc2eW48Sw/yEOHVanDXschxlItzymGSCnd81a0H64WeOlG+6yJvCjbOEOCSw2umb15T9h+BgzXkfIZJhw6jFRmKQYTzXId8v5lzPr9N9htPc/8CzqGGIv72s8vkqpHE7qqZlmoP7YcPh9ONwz+xhQjGPjlUTQtGAdSdEmSWHabfvESBTd3wg+Vseg+QPwXixFxrVapeno4EcarzLZJrfefdY63GRgFu82h27IU61I9ZY/ZlKoHeOkzTx5FR76PpB0p0hGtAGP6yaM6ucd6ZOpZupeAVCJugT/h7Bc4dGiWP8iyA0yVAR7h2bV/q0mxMTbXgfuL6Bb9e9taAmy7xPhWxxeQW7XfF1lP+8I7xTcXS7ml4E7NFBU+oEJeHDVeA7Y=
+	d3Vw4+bsf0gSQuyWoScprpIAlpJj6iBEHavN6qWlMDqWASNKZq3UVjr8ysGL0z9QVIlXFXeIhxA+4wnH7viU0rvA8qWo/8EtoqMmAttD9k1TnXwFtw3GnxJ47lpfekfpPbE6gjpiZ57miqkI/J9Ytkk4gjDeMeUXJhHJL5O+PFkOi+n4IklM4l2WAOLXGicJhdHqlqm1HqQiUT2zuezyF4eFXncMJ5H2sZG6GgS1cicTjRw29RrZl/6Yhr7OBprgf6hWGMPLg38TvigE3A3FtZecwg0MYJgJyjCLhB0B2EGbOEviacQYm+xgL1HWY1x5moQ+MMsCHFG5Wpge/hVJzV9YptDZLoGp/dmqoOfwdJ0ZgEfZCZq6uGYcyyxSU65CkAWhLjxj3nNzl92Ha04iOnHwPst+hmgjTVqMtz1DobMEAH4zwZngnPGx17b1FanIwx414e97UZ9gVnP/SJv1p18UdoLdY1spxv4vG7M6GfEcZ/s2qRsne41HhMysW3P2AoJfvs3DzKcQJ2EEHZhD2RmCrziXc0S4Dhu7EDlbPgSiskD62134n8N9MR/8RM9S5DmxRzKbq7rxgwXgikfbSc+F/Otk6rY8gkwzc57RkxEOkkjBx4B9cLf/Cwc7d9PzgSQdZ1Ch9Mqyhuws47yPh4YerbuK3wQb1oM8bK1+rAZdhxBHrAMa8pyfbK+7C3LcKe7tfVDYDpGI1mkryf0BjqqWjShwmD861DB+W7pwENsPb3kxnTlnJEw8LmoxulUaMkKFkBC+XbXWX5VDdpJ8xFA4Nsjg3QB1WhzLNNbv1+OfECtzsJ07jDMI3QppC1CWR2PwEQg3qWfU+B8nNp2BTA==
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9165da2f-8aec-4ed7-a238-08db8dd7942e
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa60e983-b585-4408-73a1-08db8dd796eb
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2023 12:55:24.9031
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2023 12:55:29.3953
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ldUOxp+XZZwdSCW8jzQle3pSSvhZypuPoDfoFM6p+BvOJo2XU0M6gjK1XLraEUQKEk/X1prozUTonSz4cNUWNQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /OdzZk6HnEBfL5HbK+6yWylqyxbxD83YJZh/HYx7bwBBQa4w7B+qagLRvAhsNqBxa+LQN2CNw0wNInSKsqsXAA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4964
 
-Further changes will require access to the full RTE as a single value
-in order to pass it to IOMMU interrupt remapping handlers.
+Do not allow to write to RTE registers using io_apic_write and instead
+require changes to RTE to be performed using ioapic_write_entry.
 
-No functional change intended.
+This is in preparation for passing the full contents of the RTE to the
+IOMMU interrupt remapping handlers, so remapping entries for IO-APIC
+RTEs can be updated atomically when possible.
+
+While immediately this commit might expand the number of MMIO accesses
+in order to update an IO-APIC RTE, further changes will benefit from
+getting the full RTE value passed to the IOMMU handlers, as the logic
+is greatly simplified when the IOMMU handlers can get the complete RTE
+value in one go.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
+Changes since v2:
+ - Also adjust __ioapic_read_entry().
+
 Changes since v1:
- - Fix initializers.
+ - Reinstate io_apic_modify().
+ - Expand commit message.
 ---
-Tested on gitlab CI, builds on all compilers used there.
----
- xen/arch/x86/include/asm/io_apic.h       | 57 +++++++++++++-----------
- xen/arch/x86/io_apic.c                   |  2 +-
- xen/drivers/passthrough/amd/iommu_intr.c |  4 +-
- xen/drivers/passthrough/vtd/intremap.c   |  4 +-
- 4 files changed, 35 insertions(+), 32 deletions(-)
+ xen/arch/x86/include/asm/io_apic.h       |  8 ++---
+ xen/arch/x86/io_apic.c                   | 43 ++++++++++++------------
+ xen/drivers/passthrough/amd/iommu_intr.c |  6 ----
+ 3 files changed, 25 insertions(+), 32 deletions(-)
 
 diff --git a/xen/arch/x86/include/asm/io_apic.h b/xen/arch/x86/include/asm/io_apic.h
-index bd8cb95f46b1..4c4777b68a51 100644
+index 4c4777b68a51..9165da2281ae 100644
 --- a/xen/arch/x86/include/asm/io_apic.h
 +++ b/xen/arch/x86/include/asm/io_apic.h
-@@ -90,35 +90,38 @@ enum ioapic_irq_destination_types {
- };
+@@ -162,8 +162,8 @@ static inline void __io_apic_write(unsigned int apic, unsigned int reg, unsigned
  
- struct IO_APIC_route_entry {
--    unsigned int vector:8;
--    unsigned int delivery_mode:3; /*
--                                   * 000: FIXED
--                                   * 001: lowest prio
--                                   * 111: ExtINT
--                                   */
--    unsigned int dest_mode:1;     /* 0: physical, 1: logical */
--    unsigned int delivery_status:1;
--    unsigned int polarity:1;      /* 0: low, 1: high */
--    unsigned int irr:1;
--    unsigned int trigger:1;       /* 0: edge, 1: level */
--    unsigned int mask:1;          /* 0: enabled, 1: disabled */
--    unsigned int __reserved_2:15;
--
-     union {
-         struct {
--            unsigned int __reserved_1:24;
--            unsigned int physical_dest:4;
--            unsigned int __reserved_2:4;
--        } physical;
--
--        struct {
--            unsigned int __reserved_1:24;
--            unsigned int logical_dest:8;
--        } logical;
--
--        /* used when Interrupt Remapping with EIM is enabled */
--        unsigned int dest32;
--    } dest;
-+            unsigned int vector:8;
-+            unsigned int delivery_mode:3; /*
-+                                           * 000: FIXED
-+                                           * 001: lowest prio
-+                                           * 111: ExtINT
-+                                           */
-+            unsigned int dest_mode:1;     /* 0: physical, 1: logical */
-+            unsigned int delivery_status:1;
-+            unsigned int polarity:1;      /* 0: low, 1: high */
-+            unsigned int irr:1;
-+            unsigned int trigger:1;       /* 0: edge, 1: level */
-+            unsigned int mask:1;          /* 0: enabled, 1: disabled */
-+            unsigned int __reserved_2:15;
-+
-+            union {
-+                struct {
-+                    unsigned int __reserved_1:24;
-+                    unsigned int physical_dest:4;
-+                    unsigned int __reserved_2:4;
-+                } physical;
-+
-+                struct {
-+                    unsigned int __reserved_1:24;
-+                    unsigned int logical_dest:8;
-+                } logical;
-+                unsigned int dest32;
-+            } dest;
-+        };
-+        uint64_t raw;
-+    };
- };
+ static inline void io_apic_write(unsigned int apic, unsigned int reg, unsigned int value)
+ {
+-    if ( ioapic_reg_remapped(reg) )
+-        return iommu_update_ire_from_apic(apic, reg, value);
++    /* RTE writes must use ioapic_write_entry. */
++    BUG_ON(reg >= 0x10);
+     __io_apic_write(apic, reg, value);
+ }
  
- /*
+@@ -173,8 +173,8 @@ static inline void io_apic_write(unsigned int apic, unsigned int reg, unsigned i
+  */
+ static inline void io_apic_modify(unsigned int apic, unsigned int reg, unsigned int value)
+ {
+-    if ( ioapic_reg_remapped(reg) )
+-        return iommu_update_ire_from_apic(apic, reg, value);
++    /* RTE writes must use ioapic_write_entry. */
++    BUG_ON(reg >= 0x10);
+     *(IO_APIC_BASE(apic) + 4) = value;
+ }
+ 
 diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 25a08b1ea6c6..aada2ef96c62 100644
+index aada2ef96c62..041233b9b706 100644
 --- a/xen/arch/x86/io_apic.c
 +++ b/xen/arch/x86/io_apic.c
-@@ -2360,7 +2360,7 @@ int ioapic_guest_read(unsigned long physbase, unsigned int reg, u32 *pval)
- int ioapic_guest_write(unsigned long physbase, unsigned int reg, u32 val)
+@@ -237,15 +237,15 @@ struct IO_APIC_route_entry __ioapic_read_entry(
  {
-     int apic, pin, irq, ret, pirq;
--    struct IO_APIC_route_entry rte = { 0 };
-+    struct IO_APIC_route_entry rte = { };
-     unsigned long flags;
-     struct irq_desc *desc;
+     union entry_union eu;
  
+-    if ( raw )
++    if ( raw || !iommu_intremap )
+     {
+         eu.w1 = __io_apic_read(apic, 0x10 + 2 * pin);
+         eu.w2 = __io_apic_read(apic, 0x11 + 2 * pin);
+     }
+     else
+     {
+-        eu.w1 = io_apic_read(apic, 0x10 + 2 * pin);
+-        eu.w2 = io_apic_read(apic, 0x11 + 2 * pin);
++        eu.w1 = iommu_read_apic_from_ire(apic, 0x10 + 2 * pin);
++        eu.w2 = iommu_read_apic_from_ire(apic, 0x11 + 2 * pin);
+     }
+ 
+     return eu.entry;
+@@ -269,15 +269,15 @@ void __ioapic_write_entry(
+ {
+     union entry_union eu = { .entry = e };
+ 
+-    if ( raw )
++    if ( raw || !iommu_intremap )
+     {
+         __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+         __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+     }
+     else
+     {
+-        io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+-        io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
++        iommu_update_ire_from_apic(apic, 0x11 + 2 * pin, eu.w2);
++        iommu_update_ire_from_apic(apic, 0x10 + 2 * pin, eu.w1);
+     }
+ }
+ 
+@@ -433,16 +433,17 @@ static void modify_IO_APIC_irq(unsigned int irq, unsigned int enable,
+                                unsigned int disable)
+ {
+     struct irq_pin_list *entry = irq_2_pin + irq;
+-    unsigned int pin, reg;
+ 
+     for (;;) {
+-        pin = entry->pin;
++        unsigned int pin = entry->pin;
++        struct IO_APIC_route_entry rte;
++
+         if (pin == -1)
+             break;
+-        reg = io_apic_read(entry->apic, 0x10 + pin*2);
+-        reg &= ~disable;
+-        reg |= enable;
+-        io_apic_modify(entry->apic, 0x10 + pin*2, reg);
++        rte = __ioapic_read_entry(entry->apic, pin, false);
++        rte.raw &= ~(uint64_t)disable;
++        rte.raw |= enable;
++        __ioapic_write_entry(entry->apic, pin, false, rte);
+         if (!entry->next)
+             break;
+         entry = irq_2_pin + entry->next;
+@@ -584,16 +585,16 @@ set_ioapic_affinity_irq(struct irq_desc *desc, const cpumask_t *mask)
+             dest = SET_APIC_LOGICAL_ID(dest);
+         entry = irq_2_pin + irq;
+         for (;;) {
+-            unsigned int data;
++            struct IO_APIC_route_entry rte;
++
+             pin = entry->pin;
+             if (pin == -1)
+                 break;
+ 
+-            io_apic_write(entry->apic, 0x10 + 1 + pin*2, dest);
+-            data = io_apic_read(entry->apic, 0x10 + pin*2);
+-            data &= ~IO_APIC_REDIR_VECTOR_MASK;
+-            data |= MASK_INSR(desc->arch.vector, IO_APIC_REDIR_VECTOR_MASK);
+-            io_apic_modify(entry->apic, 0x10 + pin*2, data);
++            rte = __ioapic_read_entry(entry->apic, pin, false);
++            rte.dest.dest32 = dest;
++            rte.vector = desc->arch.vector;
++            __ioapic_write_entry(entry->apic, pin, false, rte);
+ 
+             if (!entry->next)
+                 break;
+@@ -2127,10 +2128,8 @@ void ioapic_resume(void)
+             reg_00.bits.ID = mp_ioapics[apic].mpc_apicid;
+             __io_apic_write(apic, 0, reg_00.raw);
+         }
+-        for (i = 0; i < nr_ioapic_entries[apic]; i++, entry++) {
+-            __io_apic_write(apic, 0x11+2*i, *(((int *)entry)+1));
+-            __io_apic_write(apic, 0x10+2*i, *(((int *)entry)+0));
+-        }
++        for (i = 0; i < nr_ioapic_entries[apic]; i++, entry++)
++            __ioapic_write_entry(apic, i, true, *entry);
+     }
+     spin_unlock_irqrestore(&ioapic_lock, flags);
+ }
 diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
-index f4de09f43180..9e6be3be3515 100644
+index 9e6be3be3515..f32c418a7e49 100644
 --- a/xen/drivers/passthrough/amd/iommu_intr.c
 +++ b/xen/drivers/passthrough/amd/iommu_intr.c
-@@ -352,8 +352,8 @@ static int update_intremap_entry_from_ioapic(
- void cf_check amd_iommu_ioapic_update_ire(
-     unsigned int apic, unsigned int reg, unsigned int value)
- {
--    struct IO_APIC_route_entry old_rte = { 0 };
--    struct IO_APIC_route_entry new_rte = { 0 };
-+    struct IO_APIC_route_entry old_rte = { };
-+    struct IO_APIC_route_entry new_rte = { };
-     unsigned int rte_lo = (reg & 1) ? reg - 1 : reg;
-     unsigned int pin = (reg - 0x10) / 2;
-     int seg, bdf, rc;
-diff --git a/xen/drivers/passthrough/vtd/intremap.c b/xen/drivers/passthrough/vtd/intremap.c
-index b39bc832821a..786388b4d9c7 100644
---- a/xen/drivers/passthrough/vtd/intremap.c
-+++ b/xen/drivers/passthrough/vtd/intremap.c
-@@ -419,7 +419,7 @@ unsigned int cf_check io_apic_read_remap_rte(
- {
-     unsigned int ioapic_pin = (reg - 0x10) / 2;
-     int index;
--    struct IO_xAPIC_route_entry old_rte = { 0 };
-+    struct IO_xAPIC_route_entry old_rte = { };
-     int rte_upper = (reg & 1) ? 1 : 0;
-     struct vtd_iommu *iommu = ioapic_to_iommu(IO_APIC_ID(apic));
+@@ -361,12 +361,6 @@ void cf_check amd_iommu_ioapic_update_ire(
+     struct amd_iommu *iommu;
+     unsigned int idx;
  
-@@ -442,7 +442,7 @@ void cf_check io_apic_write_remap_rte(
-     unsigned int apic, unsigned int reg, unsigned int value)
- {
-     unsigned int ioapic_pin = (reg - 0x10) / 2;
--    struct IO_xAPIC_route_entry old_rte = { 0 };
-+    struct IO_xAPIC_route_entry old_rte = { };
-     struct IO_APIC_route_remap_entry *remap_rte;
-     unsigned int rte_upper = (reg & 1) ? 1 : 0;
-     struct vtd_iommu *iommu = ioapic_to_iommu(IO_APIC_ID(apic));
+-    if ( !iommu_intremap )
+-    {
+-        __io_apic_write(apic, reg, value);
+-        return;
+-    }
+-
+     idx = ioapic_id_to_index(IO_APIC_ID(apic));
+     if ( idx == MAX_IO_APICS )
+         return;
 -- 
 2.41.0
 
