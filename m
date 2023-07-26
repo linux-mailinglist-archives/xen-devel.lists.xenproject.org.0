@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5998A763D72
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 19:17:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570665.892737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69B1F763EB8
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 20:41:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570687.892754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOi8a-0004SQ-Uf; Wed, 26 Jul 2023 17:17:24 +0000
+	id 1qOjQN-0006Li-HO; Wed, 26 Jul 2023 18:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570665.892737; Wed, 26 Jul 2023 17:17:24 +0000
+Received: by outflank-mailman (output) from mailman id 570687.892754; Wed, 26 Jul 2023 18:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOi8a-0004Hb-NM; Wed, 26 Jul 2023 17:17:24 +0000
-Received: by outflank-mailman (input) for mailman id 570665;
- Wed, 26 Jul 2023 17:17:22 +0000
+	id 1qOjQN-0006J0-Eb; Wed, 26 Jul 2023 18:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 570687;
+ Wed, 26 Jul 2023 18:39:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pn9P=DM=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qOi2v-00062Z-3b
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 17:11:33 +0000
-Received: from mail-vk1-xa29.google.com (mail-vk1-xa29.google.com
- [2607:f8b0:4864:20::a29])
+ <SRS0=oEth=DM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qOjQM-0006Iu-9y
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 18:39:50 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77ad7ed3-2bd7-11ee-b242-6b7b168915f2;
- Wed, 26 Jul 2023 19:11:32 +0200 (CEST)
-Received: by mail-vk1-xa29.google.com with SMTP id
- 71dfb90a1353d-4864cc561aeso20610e0c.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jul 2023 10:11:32 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com
- (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
- [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
- s17-20020a0ca611000000b0063d1aa446e2sm1248019qva.59.2023.07.26.10.11.25
+ id cc720c75-2be3-11ee-b243-6b7b168915f2;
+ Wed, 26 Jul 2023 20:39:48 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4fde022de07so169967e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jul 2023 11:39:48 -0700 (PDT)
+Received: from [192.168.202.116] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ h4-20020ac25964000000b004fe142afd1esm217505lfp.152.2023.07.26.11.39.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jul 2023 10:11:30 -0700 (PDT)
+ Wed, 26 Jul 2023 11:39:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,77 +45,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77ad7ed3-2bd7-11ee-b242-6b7b168915f2
+X-Inumbo-ID: cc720c75-2be3-11ee-b243-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690391491; x=1690996291;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7fKIbOA4RKJwyWZPk8ACAEU8hAgIi7aDz2OnDwWBK4c=;
-        b=cEqPDTYN4jp1bM38ONyapZb5sjjHHtuoRMvn7/AOYco0cl9A39Uw+AeJ7Vx0yGadKh
-         g+GryXW4l38nradggkyUGKrTGZSAG7a3yOXd9d2ULPO1TR39s115caF4uK5ZRZhuAcXI
-         gbgcQh2kyRlTkSaolEQ5nKAk4nAykM2Ux5RQWAdkYUlw2+IDVv87ugyxd2PfoYuxQ95O
-         yiYqzJzMOB/ATv6MHqkU0fiEVQzc7y9HNGXMj1oL1V7U281QwgPsGpeH6e4dXPj/yJbX
-         GN7DPHi/8k4p2l3+MwtfPLtoB2u7hURT57nUzVmTvYW2HxEdxPkFskS0dW6A1gWzJM/U
-         NKuA==
+        d=gmail.com; s=20221208; t=1690396788; x=1691001588;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=M74KkJWeLhXF7Leg8AJ/X7+H++Tcs2iotik08Z3CZAk=;
+        b=Hj32TAUfFhWjCbyFr/FTlDfQTedJcHxshSt3fLNptNH/miHbAVGTQX2mgK9gIH0w4N
+         uRsZVMFDtImOarr0nlS4jSbULvhhxjNZ0chSQmpuEcqxNSTpuvaPqibKcq6US0jcP3nh
+         JVfZyst93Nj5utKGUR7ujeowZ8EG0Bgym/Bq/TkA0vtMrMFOIAvKEJSDu8MwZxgKX3fE
+         cRZoSEbX/wLD2fJp5Fu6OIM+0KCBnTf+A0GIbtcnrB7SYXrsQgcr3SnoOjRLr5ayvJdE
+         /7OPVEEGq6CbLaZTBHDrRdW+VNsdcCvJtiQH7Swtl1BCHh8z+bNJwAP8Gzynywass7dl
+         vc/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690391491; x=1690996291;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7fKIbOA4RKJwyWZPk8ACAEU8hAgIi7aDz2OnDwWBK4c=;
-        b=F5D5TdJIGrkJqXw92S0Z5HWRIv+4KFZjNYNL2Lcnav7AWo0dXdwvyeBsbzq09y0QUr
-         uuYh7fEslSZCjbMA+bY15FW3sOLLPyHICbLU36tyukB53i4rqDaVw6s+KQaP6O5yYIbH
-         ZKbIakxLrv6+f/jSnZB+v1Id0cFWvJwUiiSj0CCEJLdcOQXVMpPpPs5FcUdoY1/+vSKb
-         owdSRa6CYPDhZHml58uFZc471GDoEN9UM3PVMs8YxhBKvASWEzNOtBO5RFA0GCRKHK7w
-         S4WR79Jpe71XgRhMXQO0Lj3JrEFRZ3GaOr1FwjZj4FLARWtA4zgB7woX88Azdkv0Jh9+
-         KCeg==
-X-Gm-Message-State: ABy/qLax+V1rpxbqkgWNXryiWZMaViLqCYOCg4bVgtrA64y01sxMZd0t
-	KSAdmrDGUZgkOTuPrvZ90j6qLPT0h9k=
-X-Google-Smtp-Source: APBJJlEWDBNLI3jM2iCnuUvrRJIpeItyiY4vKwD9Ygri4G5qaqR/i40OGmB/BoJ79bDVPyjBY8Tohw==
-X-Received: by 2002:a1f:dd44:0:b0:486:4c0e:9ae5 with SMTP id u65-20020a1fdd44000000b004864c0e9ae5mr1882323vkg.13.1690391490884;
-        Wed, 26 Jul 2023 10:11:30 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Henry Wang <Henry.Wang@arm.com>,
-	Community Manager <community.manager@xenproject.org>
-Subject: [PATCH v7 15/15] CHANGELOG: Add Intel HWP entry
-Date: Wed, 26 Jul 2023 13:09:45 -0400
-Message-ID: <20230726170945.34961-16-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230726170945.34961-1-jandryuk@gmail.com>
-References: <20230726170945.34961-1-jandryuk@gmail.com>
+        d=1e100.net; s=20221208; t=1690396788; x=1691001588;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M74KkJWeLhXF7Leg8AJ/X7+H++Tcs2iotik08Z3CZAk=;
+        b=ZJYAot+IO7z1w7LWdGhMbtMd4uyJx3PP/1WCqeKS2uuUPXJbnZz0xBT+wl7us8P9cZ
+         siMQcfdHHqr5wGRplaCDen8oxhwKzCmx1cXuak0XmNAJ9+UpBMxaW5XJJJEA5cR3uQHN
+         FLIY1YvkS80u49ti9uOzc9EIDh7oLDmXdSZZgsCThdRinZyfvjLuwgfjlaUVaPcTy9uF
+         jTMQJPU1zG7gMBdkiPabcMmVGRNJG9F0Ydb7sDglWcHGW0fHPgzbXDwO7RXeylDVP7OX
+         PlEgLlKG0J2cxG1mo7nV2Xr33T6O8ux+F6TGGGYSdS16SSg2HkpzefkyM2y3dZ7pChdV
+         GYCQ==
+X-Gm-Message-State: ABy/qLbVDs5Kmxn0fUsxh+kxvzwSuvm3XOyTHqE/KQKrSLdn2BqTT8dw
+	BeSMrMBKinUVCG7AtdE67b4=
+X-Google-Smtp-Source: APBJJlHJvbo9x7CqkCFgI2JGqDCqQMih7Q65Mz9B1ICJ8Qp5BZ+r5qca8DTC7sbM2aSjXjINQA37Xw==
+X-Received: by 2002:a05:6512:1146:b0:4fb:a990:bb28 with SMTP id m6-20020a056512114600b004fba990bb28mr17697lfg.18.1690396787456;
+        Wed, 26 Jul 2023 11:39:47 -0700 (PDT)
+Message-ID: <b219699f928b9e86a3b0af9656bfe0e083d3cfdc.camel@gmail.com>
+Subject: Re: [PATCH v4 2/2] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
+	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 26 Jul 2023 21:39:46 +0300
+In-Reply-To: <79b20131-46c2-9e54-e615-18a346b83b8d@suse.com>
+References: <cover.1690191480.git.oleksii.kurochko@gmail.com>
+	 <a8ab1829ab718dda869db3df3348ded211e81967.1690191480.git.oleksii.kurochko@gmail.com>
+	 <a370548e30aaa8c1160ecd5f2eccfcc10002a8f9.camel@gmail.com>
+	 <6675f535-7cf7-dd55-4ebe-82ba486029f7@suse.com>
+	 <4deb8c44cf639af66ad7f5b9b42180554e08d5cf.camel@gmail.com>
+	 <5a40abd4-edc2-0de0-99ed-d23174940d66@suse.com>
+	 <dee3624525f9530aaf3252c6c4fa6eb5262e76cd.camel@gmail.com>
+	 <79b20131-46c2-9e54-e615-18a346b83b8d@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-Acked-by: Henry Wang <Henry.Wang@arm.com>
----
-v3:
-Position under existing Added section
-Add Henry's Ack
+On Wed, 2023-07-26 at 17:59 +0200, Jan Beulich wrote:
+> On 26.07.2023 17:54, Oleksii wrote:
+> > On Wed, 2023-07-26 at 17:00 +0200, Jan Beulich wrote:
+> > > On 26.07.2023 15:12, Oleksii wrote:
+> > > > On Wed, 2023-07-26 at 13:58 +0200, Jan Beulich wrote:
+> > > > > On 26.07.2023 13:23, Oleksii wrote:
+> > > > > > I would like to ask for advice on whether it would be
+> > > > > > easier,
+> > > > > > less
+> > > > > > bug-
+> > > > > > provoking ( during identity mapping to remove of whole Xen
+> > > > > > ) to
+> > > > > > have a
+> > > > > > separate identity section that won't be more than
+> > > > > > PAGE_SIZE.
+> > > > >=20
+> > > > > I'm afraid you can't safely do this in C, or at least not
+> > > > > without
+> > > > > further checking on what the compiler actually did.
+> > > > >=20
+> > > > > > @@ -264,6 +268,19 @@ void __init enable_mmu(void)
+> > > > > > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RV_STAGE=
+1_MODE << SATP_MODE_SHIFT);
+> > > > > > =C2=A0}
+> > > > > > =C2=A0
+> > > > > > +void __attribute__((naked)) __section(".ident")
+> > > > > > turn_on_mmu(unsigned
+> > > > > > long ra)
+> > > > >=20
+> > > > > Did you read what gcc doc says about "naked"? Extended asm()
+> > > > > isn't
+> > > > > supported there. Since ...
+> > > > >=20
+> > > > > > +{
+> > > > > > + =C2=A0 =C2=A0/* Ensure page table writes precede loading the =
+SATP
+> > > > > > */
+> > > > > > + =C2=A0 =C2=A0sfence_vma();
+> > > > > > +
+> > > > > > + =C2=A0 =C2=A0/* Enable the MMU and load the new pagetable for=
+ Xen
+> > > > > > */
+> > > > > > + =C2=A0 =C2=A0csr_write(CSR_SATP,
+> > > > > > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PFN_DOWN((uns=
+igned long)stage1_pgtbl_root) |
+> > > > > > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RV_STAGE1_MOD=
+E << SATP_MODE_SHIFT);
+> > > > > > +
+> > > > > > + =C2=A0 =C2=A0asm volatile( "jr %0\n" : : "r"(ra) );
+> > > > > > +}
+> > > > >=20
+> > > > > ... none of this really requires C, I think we're at the
+> > > > > point
+> > > > > where
+> > > > > (iirc) Andrew's and my suggestion wants following, moving
+> > > > > this to
+> > > > > assembly code (at which point it doesn't need to be a
+> > > > > separate
+> > > > > function). You can still build page tables in C, of course.
+> > > > > (Likely
+> > > > > you then also won't need a separate section; some minimal
+> > > > > alignment
+> > > > > guarantees ought to suffice to make sure the critical code is
+> > > > > confined to a single page.)
+> > > >=20
+> > > > Thanks. I'll move all of this to assembly code.
+> > > > Regarding alignment it is needed alignment on start and end of
+> > > > function:
+> > > > =C2=A0=C2=A0=C2=A0 .balign PAGE_SIZE
+> > > > =C2=A0=C2=A0=C2=A0 GLOBAL(turn_on_mmu)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
+> > > > =C2=A0=C2=A0=C2=A0 .balign PAGE_SIZE
+> > > > =C2=A0=C2=A0=C2=A0 ENDPROC(turn_on_mmu)
+> > > >=20
+> > > > Does the better way exist?
+> > >=20
+> > > The function is only going to be a handful of instructions. Its
+> > > alignment doesn't need to be larger than the next power of 2. I
+> > > expect you'll be good with 64-byte alignment. (In no case do you
+> > > need to align the end of the function: Putting other stuff there
+> > > is not a problem at all.) What you want in any event is a build
+> > > time check that the within-a-page constraint is met.
+> > But shouldn't be an address be aligned to a boundary equal to page
+> > size?
+> >=20
+> > According to the RISC-V privileged spec:
+> > Any level of PTE may be a leaf PTE, so in addition to 4 KiB pages,
+> > Sv39
+> > supports 2 MiB megapages
+> > and 1 GiB gigapages, each of which must be virtually and physically
+> > aligned to a boundary equal
+> > to its size. A page-fault exception is raised if the physical
+> > address
+> > is insufficiently aligned.
+>=20
+> You'd simply map the page containing the chunk, i.e. masking off the
+> low 12 bits. If far enough away from the Xen virtual range, you could
+> as well map a 2M page masking off the low 21 bits, or a 1G page with
+> the low 30 bits of the address cleared.
+Agree, then it will work.
 
-v2:
-Add blank line
----
- CHANGELOG.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+But still it doesn't clear what to do if turn_on_mmu will be bigger
+then 64 ( ASSERT( (turn_on_mmu_end - turn_on_mmu) <=3D 64 ) somewhere in
+xen.lds.S ). Right now turn_on_mmu() function is 0x22 bytes and it is
+enough ( we are sure that we don't cross 4k boundary ) to be 64-byte
+aligned. But if the size will be more then 64 bytes then the alignment
+need to be changed to 0x128.
+Am i right?
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 7d7e0590f8..8d6e6c3088 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -24,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - xl/libxl can customize SMBIOS strings for HVM guests.
-  - Add support for AVX512-FP16 on x86.
-  - On Arm, Xen supports guests running SVE/SVE2 instructions. (Tech Preview)
--
-+ - Add Intel Hardware P-States (HWP) cpufreq driver.
- 
- ## [4.17.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.17.0) - 2022-12-12
- 
--- 
-2.41.0
 
+~ Oleksii
 
