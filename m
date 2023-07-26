@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 319A1764166
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 23:50:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570709.892812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5B77641E8
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 00:11:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570711.892822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOmO6-0001j8-D7; Wed, 26 Jul 2023 21:49:42 +0000
+	id 1qOmj4-00054P-2s; Wed, 26 Jul 2023 22:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570709.892812; Wed, 26 Jul 2023 21:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 570711.892822; Wed, 26 Jul 2023 22:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOmO6-0001gp-A8; Wed, 26 Jul 2023 21:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 570709;
- Wed, 26 Jul 2023 21:49:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qOmj3-00052l-Ut; Wed, 26 Jul 2023 22:11:21 +0000
+Received: by outflank-mailman (input) for mailman id 570711;
+ Wed, 26 Jul 2023 22:11:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WQ2z=DM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qOmO4-0001gj-Si
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 21:49:40 +0000
+ id 1qOmj2-00052f-Sh
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 22:11:20 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50f1e62d-2bfe-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 23:49:38 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 57f5085d-2c01-11ee-b245-6b7b168915f2;
+ Thu, 27 Jul 2023 00:11:18 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2EC8C61CAA;
- Wed, 26 Jul 2023 21:49:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1140CC433C8;
- Wed, 26 Jul 2023 21:49:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3E40661CD9;
+ Wed, 26 Jul 2023 22:11:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD5BC433C7;
+ Wed, 26 Jul 2023 22:11:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +44,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50f1e62d-2bfe-11ee-8613-37d641c3527e
+X-Inumbo-ID: 57f5085d-2c01-11ee-b245-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690408176;
-	bh=k6JzFsTM6CuwnCTwJvVhnX6+N8p+POnDE7tjOkQfUd8=;
+	s=k20201202; t=1690409476;
+	bh=2sx6Kx5ktO3GO/vgUIqQ9/lB0mkfr6+u29AoXvxh6A8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DSjQIYYw1KXtv2BYZ8v6Wtgr1AUPLOJB+fdLf8lQiCRii85YlXLCeFtHw6YZMXJ8V
-	 UXgzQL47d5vBRP+oP2VaiaE98ANepjCeFD42wwoSFce4lfThkEg/lY1W7Tb+kMA/Lr
-	 HCcXHW/z7sKcGju5snIcenRtXew3tFh1FN0OspF7A7TWOPQvBANDMiEOsour6BTLr5
-	 sJW5ouxOkepxjKhW8JpnaRpx6OcFPiCmbZGNYyHc9xtHIXfQRPfG9JoN72pznj942f
-	 ceu4DrsdhGdO721erSfHuepT9kHB+/v7Y4GgXoPSzIflxE1qFfIANrtLAxV8+zwiPa
-	 hbi8uoKGBCwtQ==
-Date: Wed, 26 Jul 2023 14:49:33 -0700 (PDT)
+	b=fF/9C3VX0WqMoalnqIi48Ha1L7ol8TATJ4x/EuwaxQifd7Xya882/GLgWAbM6TD35
+	 0FLVEdMq6BZIpLQY9TM2RGZR4AIqlbQ/5h8NqZYuFAFFdBtpGWjJyIRrlKBKlXW+2g
+	 CQcf6IgbgN8cD0QSiqCvlE2+O0+a9tQw3d1H9CgY0H2Pd7LDxVX19oExDz5w1spdlS
+	 WfWvZNiY7Hu7Hkm0mFelsaaemLNp573aMdRXTaIsCReRazzXAbaMrCcwH0ycoT150o
+	 Mb494iEbX7VtwVfCAP//fOE1cp2U1KqeIcC/JdfFvvJsnTQQbPy/CCErqSC5gR3r9c
+	 hmcrwlR9RFm1A==
+Date: Wed, 26 Jul 2023 15:11:13 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v3] xen/spinlock: mechanically rename parameter name
- 'debug'
-In-Reply-To: <8914bf47-c4ca-4a14-6a92-b5b23ee739a0@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2307261448010.3118466@ubuntu-linux-20-04-desktop>
-References: <a66f1084686b77b098c5ccf3d0cf5f52980fdf5a.1690317797.git.nicola.vetrini@bugseng.com> <11a3ae18-508b-cf08-2803-bc4aaeec7353@suse.com> <f424fc5b-6266-3d04-b494-0448fa453b75@bugseng.com> <8914bf47-c4ca-4a14-6a92-b5b23ee739a0@suse.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v2] xen: use parameter name 'mcs' in
+ arch_do_multicall_call()
+In-Reply-To: <e71bac85a2b7f92a6438f97048cc6cddc917768d.1690362993.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2307261511050.3118466@ubuntu-linux-20-04-desktop>
+References: <e71bac85a2b7f92a6438f97048cc6cddc917768d.1690362993.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 26 Jul 2023, Jan Beulich wrote:
-> On 26.07.2023 08:42, Nicola Vetrini wrote:
-> > On 26/07/23 08:34, Jan Beulich wrote:
-> >> On 25.07.2023 22:45, Nicola Vetrini wrote:
-> >>> Rule 5.3 has the following headline:
-> >>> "An identifier declared in an inner scope shall not hide an
-> >>> identifier declared in an outer scope"
-> >>>
-> >>> To avoid any confusion resulting from the parameter 'debug'
-> >>> hiding the homonymous function declared at
-> >>> 'xen/arch/x86/include/asm/processor.h:428'
-> >>> the rename of parameters s/debug/lkdbg/ is performed.
-> >>>
-> >>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> >>> ---
-> >>> Changes in v2:
-> >>> - s/dbg/lkdbg/
-> >>> Changes in v3:
-> >>> - Added missing renames for consistency
-> >>
-> >> Hmm, you asked whether to send v3, but then you didn't wait for an
-> >> answer. So to repeat what I said there: I'd prefer if we could first
-> >> settle whether to rename the conflicting x86 symbol.
-> >>
-> > 
-> > Stefano replied asking for a v3 [1] before I had a chance to read your 
-> > message this morning.
+On Wed, 26 Jul 2023, Federico Serafini wrote:
+> Make function declaration and definition consistent using the same
+> parameter name ('mcs' do denote a pointer to an 'mc_state').
+> This addresses a violation of MISRA C:2012 Rule 8.3: "All declarations
+> of an object or function shall use the same names and type qualifiers".
 > 
-> Right, sorry, I spotted his reply only after seeing the v3.
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-For what is worth I prefer the current implementation compared to
-renaming debug()
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+> ---
+> Changes in v2:
+>   - added forgotten changes about x86.
+> ---
+>  xen/arch/arm/traps.c        | 4 ++--
+>  xen/arch/x86/hypercall.c    | 6 +++---
+>  xen/include/xen/multicall.h | 2 +-
+>  3 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index d1ef787638..eab2fcfc02 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -1470,9 +1470,9 @@ static bool check_multicall_32bit_clean(struct multicall_entry *multi)
+>      return true;
+>  }
+>  
+> -enum mc_disposition arch_do_multicall_call(struct mc_state *state)
+> +enum mc_disposition arch_do_multicall_call(struct mc_state *mcs)
+>  {
+> -    struct multicall_entry *multi = &state->call;
+> +    struct multicall_entry *multi = &mcs->call;
+>  
+>      if ( multi->op >= ARRAY_SIZE(hypercall_args) )
+>      {
+> diff --git a/xen/arch/x86/hypercall.c b/xen/arch/x86/hypercall.c
+> index cc9a6a9d59..01cd73040d 100644
+> --- a/xen/arch/x86/hypercall.c
+> +++ b/xen/arch/x86/hypercall.c
+> @@ -203,15 +203,15 @@ int hypercall_xlat_continuation(unsigned int *id, unsigned int nr,
+>      return rc;
+>  }
+>  
+> -enum mc_disposition arch_do_multicall_call(struct mc_state *state)
+> +enum mc_disposition arch_do_multicall_call(struct mc_state *mcs)
+>  {
+>      const struct domain *currd = current->domain;
+>  
+>      if ( is_pv_domain(currd) )
+> -        return pv_do_multicall_call(state);
+> +        return pv_do_multicall_call(mcs);
+>  
+>      if ( is_hvm_domain(currd) )
+> -        return hvm_do_multicall_call(state);
+> +        return hvm_do_multicall_call(mcs);
+>  
+>      return mc_exit;
+>  }
+> diff --git a/xen/include/xen/multicall.h b/xen/include/xen/multicall.h
+> index ac8238660a..5bebeca7b2 100644
+> --- a/xen/include/xen/multicall.h
+> +++ b/xen/include/xen/multicall.h
+> @@ -25,6 +25,6 @@ enum mc_disposition {
+>      mc_continue,
+>      mc_exit,
+>      mc_preempt,
+> -} arch_do_multicall_call(struct mc_state *mc);
+> +} arch_do_multicall_call(struct mc_state *mcs);
+>  
+>  #endif /* __XEN_MULTICALL_H__ */
+> -- 
+> 2.34.1
+> 
 
