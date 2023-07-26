@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 850907633CB
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 12:33:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570282.891993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A94A7633DD
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 12:34:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570285.892002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qObpS-0007jZ-ST; Wed, 26 Jul 2023 10:33:14 +0000
+	id 1qObqC-0008M7-8m; Wed, 26 Jul 2023 10:34:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570282.891993; Wed, 26 Jul 2023 10:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 570285.892002; Wed, 26 Jul 2023 10:34:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qObpS-0007hs-Nz; Wed, 26 Jul 2023 10:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 570282;
- Wed, 26 Jul 2023 10:33:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qObqC-0008JF-5j; Wed, 26 Jul 2023 10:34:00 +0000
+Received: by outflank-mailman (input) for mailman id 570285;
+ Wed, 26 Jul 2023 10:33:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aSls=DM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qObpR-0007hm-92
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 10:33:13 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2061f.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::61f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d1606bcb-2b9f-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 12:33:11 +0200 (CEST)
+ id 1qObqB-00089h-3h
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 10:33:59 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on20607.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::607])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id edb30fa0-2b9f-11ee-b242-6b7b168915f2;
+ Wed, 26 Jul 2023 12:33:58 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
  by AS8PR04MB9175.eurprd04.prod.outlook.com (2603:10a6:20b:44a::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Wed, 26 Jul
- 2023 10:33:09 +0000
+ 2023 10:33:56 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6609.032; Wed, 26 Jul 2023
- 10:33:09 +0000
+ 10:33:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,29 +47,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1606bcb-2b9f-11ee-8613-37d641c3527e
+X-Inumbo-ID: edb30fa0-2b9f-11ee-b242-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kEKu4H5/KA/7ug4A//MCHkUTExtYmWcW/xp8/4bv4ryRMoP93r/tTQKpTowX/7UUjIsKFADjfRdnWVnaq2W3+c30od/O0RgZeL8O0kheB6g1AYz7gxbLU6w/q4GU5XKKRZc+0aA4t5G8pLIITEdKEge5HXrKUWw+ourARIPSDso1854UhPksdXc/YOX7puoRGrKx5M01BfjcCSzpd4jF2IIb/BQSNHLswzwnFMrBnFljPk9k5Qo+goRQ5JVomfs8+FqYK8QEnHfouFenf/i0ThCBuSt/SW/g8AznOdtbrXK81YuJtGebOedW8tgve601oGg0XXdhrxr3dE+a9NVwOg==
+ b=eIlGtv243838urcZISZZpaCepcZ0enGGrTcprCxv0A3SV2m/hkRUMutPlRVLhoMVrXmJhZH3g8KmqbQ2/e5ckV6bbYIlnmO3UrfvGg7FLOclX41XH3vpeTH3qI1lAG+bCbXpPX9QM7CaygRee5gJORyp97k7A14M0gHSD1YWrSaUahWvsHYeNPAc+E4Y6c2MkiepQI15fHshvcSoF+TXmkGW+miHKh7FtamBso6hvTlMsl/wWm9IqCo+rmHUGxvh9pH9DoOEMPduoibeuNVgTPpQ/Gj/Uz0rn/bx/7D+KX8hpbKAfIY2l60zGweibIWH4AxL2mlc63Pcg0rzq3+EzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BUQNrBvwkCW3i8IvMZ9HOVhTuG/uMRjUcx7MUJQ2KDs=;
- b=BqiMFfDHMyCh6kt6o/J9vFXJIUoOERDjuXhf5T1MLG3pWGLRbEZLfTovXT0Pzn7MySSZPP8lCDTm9dj2/4htp5A3y0XOkyEr2tv9J7r/SNd/5P7Nhp4MxH4IQrEa+lQsIHy+Wj8KwkTs+u4+fj1ZzPIN2j74gpHjHctJJOe3uRcLi13Lms5zNnPsiJPE4BE4gaNwnYX8bFfPmECT1svyAK0z62jamfAFg5fPy0bUO+mdhMuChIyl7z+wD8KMOD0VVszkoGzIpb8g4B0FVREKxY93KT4DKacYiLeVOlH84Lbev69trJInBcfllr8Pzvh8xGRVoiWB/k7hWUM77Cxbsw==
+ bh=TBwtNBln1PoPHd4P5QDMVI0TR5/7gNq72VnGJQQ+6LE=;
+ b=hTX9lA5Ds1kpSxMCuHEdGG0otfSroxP2chakMD7qwUbLt+/B41PwIL1z8Qlx7mDRvHDprQDeO/F9YRw6luIiuHN3CLOOwVO9o37bcF9dnN+w65Li09mPztO3qdvmRHANqVZHiWPqCbDdqqYekl03xSxU/WS5k3sT8c0GIcAGzQizEYjrjz9iu7lv7lbhBYAJnl2Fu0jqO+FpftECrrNZRGDn+9uMhgwRq8sf2nvDGCmSiuK5kvYeAmoozvNNxZL0TismpQDhO+DXju3uKGz/6Xg7zYUKv8cHPsgBzSrMdbCKuOzNp5xEwQLNuFLNrbeIr9w1PZu6Wn0smXsJC4nJUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BUQNrBvwkCW3i8IvMZ9HOVhTuG/uMRjUcx7MUJQ2KDs=;
- b=F3D/c9wASpnoUlsGnSkTbc28lFwnr/C060k4jXaM1+dUCfh9+GTASptadQrHCGsBhQEwazmmcGwrCgGy5CgbbVOEWlCTps1EEE2avS5E5jQK+0Aa3JBivjMtHslhd+DlSvf4gfMXceeV2FDdp0kcWQDrbhMb2cZU1egursNJ+w4ioffJIBqNByv4om3dU0je2LXzPfDFkEpwMKaEcGL2DJaE0CtkUuSM4FmK7vQZprgjxOnReg3G3vzoXAbPa1uo5MrPfGrPc53LMFlgzto5gKS7lQbYLBLfrNfNtVnKs4534H6/0+NBR8cJF27Zpvih4NNemhKu6JNTch3r0fUXSg==
+ bh=TBwtNBln1PoPHd4P5QDMVI0TR5/7gNq72VnGJQQ+6LE=;
+ b=AcrVotX6iyA6bHD+au+pVhACXLpD+EsjGv8T0G2jDLrex9YUcfNeEvY20Zeqk9Wf71reIpyM18PvXGUpPVZ0o2b0u70F2n0fKiFRa67sDxUwC8I4il42IvyS/VMqCYCxYRW0718W9rHc7NXwyCqcHdhsDGGS7HOAcWF3ioL/xy8z6bS2BhTCrMCPDt3yeGT5zbCCsP2jJCup6LTFSQWMnLnwjOAuIO7KZGyH70SmjhOxpFIKKTKr6BeH/HbiUtZZjrOKkdtf27qtvyxUze0z4NsFMg/LUvhV4HTsmzvMTxBclhmymztSNYjFC7lw5SuTpQYdRtw8Rz0CXYQ3rdLWrw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <60da37cf-abec-be58-d433-e98eec0c59bd@suse.com>
-Date: Wed, 26 Jul 2023 12:33:07 +0200
+Message-ID: <14b578f9-b612-4bb8-e558-983be6f72386@suse.com>
+Date: Wed, 26 Jul 2023 12:33:54 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: [PATCH v3 1/5] build: make cc-option properly deal with unrecognized
- sub-options
+Subject: [PATCH v3 2/5] build: permit Kconfig control over how to deal with
+ unsatisfiable choices
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -82,118 +82,142 @@ References: <10ce72fb-4fb7-67de-41ec-7291dbac0038@suse.com>
 In-Reply-To: <10ce72fb-4fb7-67de-41ec-7291dbac0038@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0248.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::7) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0244.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB9175:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f0894e5-913e-4ea7-586a-08db8dc3b487
+X-MS-Office365-Filtering-Correlation-Id: 9badda2b-1be2-4954-5f6f-08db8dc3d07b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	dO0ZO6NNcmo7vhh8sQOispNr04T0/FSewxKg/zkrAlnNXFCD1u6N4jPF4AivX+bqW2U4BwkvyUmkX/jSdDm0O2zY9iQS0YnlHMww32VeZsuTQ4Pze2SbKWxXSQ30YWDGYlhjdqRkqG6795DdegWcpRl7zMqWBPHKV7cMI6ECp0dR+PyenpdE4qeod63VDooZ2NqVu0rtrJo+cQ2cCiXrV0qcyHPAP+Ifzx3TIzKJD3xX0mt7W9owWI77uBeTOQ9XPXpwxLAlwc3Kvh+L+cp8Khev4CbB8A9EdE2U8LJJvmSrI5FF8ArKs+KNUTZp0zPgbPSbNINuFsOh1f/Ieb6ZvJIwn5Ws0yqbmg+LsHHbw3PLLCYtla9U+eKq/rUVxx7IkWVhqrw2bw0LZuhzT9pmgP+78iNUd9CYuP1GhBQ681ylC/Ye4a9IikEsjUP/zVP4tdoas6KQxOKeKXeYgyBZdX4asysEWFVUoNfRVDl4MgTB/LWIB2Pp19k9juDv5tu1N4L3R8+A3Xx6iN0Tcj39NEw5iouULOPFYlvuZdBhnGcBl6I25uRkHm6e+4/UUtK34E4xkjIlj9cGM+RmR5r2pig6vB/QaSxz2xJHKmqbk1yKTm9+dZS6HP2Jubu7UytEvOrGSjAJRUN+wXc5qWqfVQ==
+	xUliL8az7+whMLLTPui9pgrZBhy9ZFHCteFU2RpdUoAQ/tWnnZwdkzwXc6VVApGpFJPH/kk5eH56dPOTBc3w3Yg/OA6GVa7wIz8YnvowLbVLU/JzkybbCo1dSh8v6eoTT5YjkTghJrOcP/LiVAZ/k07e5uRRe7KP8HvAMDbOHdU7dYBG0JdN8K1+EsAGLNPcPFVGCr0O+Ab/DCbLRAFaeogXcO/dbpEvXAZcbqsIvM0edHpqbB7tyxlyOQk2H5RKnFwaeV9h032XqY76ptOgYw0fn2pfbjHVLn1ZeFAfnAch33FqblGhkRkmaYkkvU18CRJ1U2RVunNkTDjGEeEHarZe2JBo1nK0+me3r1iL3i4YD9uI6nppSRAOKr/b9HnjfoC6XcfjS6OsZTBZQUEkUd93fOIuB0E610tLzf5rQKeP0xLN7e5bmHw/WLvgWkE5p4/x1jBclS9W5x+u7+iTGIEavmTyovPq360o4zYXmdOkduqkn7pIzW4vvbVgtCAjncn/5nTSKQcMiy+dxINWKa6FkIqsO6GnbWRFrwM38s7h1oCn1OLuF7qvjXX9JTeiStz4uvV0Q4MIiEIGxkBdX1bcTx+m0Dk81JaUiywaQwGQFgwTGQKfnZbxKxG3tSNqLzjXajUZ+3RJS/yXCkQuYg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(376002)(366004)(396003)(136003)(451199021)(54906003)(6512007)(6486002)(478600001)(66476007)(2616005)(26005)(186003)(6506007)(2906002)(66556008)(6916009)(66946007)(316002)(4326008)(5660300002)(8936002)(8676002)(41300700001)(38100700002)(86362001)(31696002)(83380400001)(36756003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(376002)(366004)(396003)(136003)(451199021)(54906003)(6512007)(6486002)(478600001)(66476007)(2616005)(26005)(186003)(6506007)(2906002)(66556008)(6916009)(66946007)(316002)(4326008)(5660300002)(8936002)(8676002)(41300700001)(38100700002)(86362001)(31696002)(83380400001)(36756003)(31686004)(66899021)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ekZXRnFaMFByNlhFUW05bi9qYVZJaUJxWHg2L3JBK3RFeWxTN3lSRTRFTDhC?=
- =?utf-8?B?RTY3dk5ZeEY2L0wrclZhWXlGSnNHOEc1ZmN2Z0s5b0ZQNjVtditLbUphQjBo?=
- =?utf-8?B?MnNEcnVlQWEzWVQ2K002SkpQOHMwS1JwdDAyOWtlcy82MlNCdGMrYk92SExH?=
- =?utf-8?B?Tkc0OFZBVWlUOExWbGpjSmFCVnorcEFOOGVSb0QzKzc2c1NoQmNGbTFuNFVV?=
- =?utf-8?B?Q3hzQTJoZCtVbmRFbFN6elNhcTFyVTlzZGcyU3Q0K0VMNTRZeFFEK3lWcHRI?=
- =?utf-8?B?cDR0Qzg1NUMza3NTdG5KcUlPTHMrK1FVNnl0S003SnZrQ2NzZnVERVUrOXJD?=
- =?utf-8?B?MXYzbTVldkNwMFlmM0ZKVit6VkxYQ2RkdjgxUUoxeDhTSlZYU00yLzJZaEhy?=
- =?utf-8?B?djRnUHBaS3VyQXVMMGhDNVhwMkUyZFA1Qk82akZKQ1BOc1ZIRGdVYndCK0Iz?=
- =?utf-8?B?aUE2N3VLRUZVTGJsUHA3dG1EVENiVUZrNGhBWFQ3Slc5K1hEQmc4NitIcE92?=
- =?utf-8?B?NS9neHprcElobUZHUlVSeDJWYlNKcitydENXNmZTY0Q4NFVjS3N3T21kOXBv?=
- =?utf-8?B?YWdQWFh6ZEx1Tm1mU1NKc0ZVQkZkdXlMNDQ0RERLVUg0bnJYeXl6ZkJEdzlh?=
- =?utf-8?B?Y1lQM1g3WjFGRGFGRzhYMFMzYm1uZ0Q2c1ptalI5OGdnNG9JUGtoYWxVUXpn?=
- =?utf-8?B?SUtmYmc5WHVYeXRIYmg0N2RmeE44Rmg1dlVQSjg4dFIvclJ0QlVRS3FiWHpp?=
- =?utf-8?B?VXhOWE8yV3pzc0RvbzFIUk40Zmp6bmE0bCt3SFpoMzh2czMyTytvK2FXS09W?=
- =?utf-8?B?d0pOQXArczF0WWQyL2hlcHIzSkpYOFp5YmpNRjdSTGdid0hiVmVHZnpWNCsv?=
- =?utf-8?B?bm05cTlaeXJPcC96TXNHbjRxSFNWMVc0V0lBTk5LdnF1dExnL1VKOVNlR3Ji?=
- =?utf-8?B?RXdYWkhtS21XR2wwcUx3d24waW4wN2QwYXViWkhOY2t1ZDhjSERIRmFJRWYw?=
- =?utf-8?B?dVB5RjV0a3h2Qy9vUENmNWZVNktqKzZmbXhmSzd4WjZwTTlDUFNkM0FtNEJk?=
- =?utf-8?B?MFNFczF4RUJFN1B2RGRXTG5sTTYzMFBxSVM5QTQ1MXVMUHk4d1Jtb2VNRHRE?=
- =?utf-8?B?UUMxbXVRV1NZK1NtSnJqU2xEK0NKMjd5N3JpZWM4cHcvQWorRjFXNE8wYmRn?=
- =?utf-8?B?bFJZSWQ0Y0FRazFpTGhGa3dQYlhIN2lLN2MvTmdua0NnZlFvMjFHWCs1VnFl?=
- =?utf-8?B?elFTV3Zrem15Y0wwU3hjeVI0bUV1Ym9kK2sxcUxkRDJHVUowTWlOakZ5SExO?=
- =?utf-8?B?cXhIV2ZGZlpKMjZFYUd0am5oeHdDOHh6dk1VRitZa1EvUkp6QlFhRnl4WVhs?=
- =?utf-8?B?QTJsL0RHUlFUS21PUS9ad0IwT20yVW5NSWg5eHo2YS9wVjBGQm44RkVJZ0xy?=
- =?utf-8?B?dXl5MlZpU3V2QzlnTFdINklHa2xQWTUyMERnTGQ5N09Ya2Z2d2dabysyM0JK?=
- =?utf-8?B?NG9RQmpKeU9HTWJvckJDQm0vZlJZYWtBQ0RBNlQ2RVdlaUUyK0R3V3dhRVFr?=
- =?utf-8?B?TDhkc0k2Sk90d0QrL24vVys3N1NsYjZuamZsOEJ5cENzQzdYNUwyOUFqRmRS?=
- =?utf-8?B?cFFJakROa0t3NGFlaFAyVzlkUXpEZ1BhWnVZU3NEbHhUMVpzYkcrelk2RXhv?=
- =?utf-8?B?K1dxTDZyUXpZU2dyWkVLQi9LdURiNmF2N284MGl1NmFiN2hWVEE5bGZiQkp2?=
- =?utf-8?B?NkpSN0pFaVdVQ1A0Y28zQzlmS1NvOTVpODZEbWdMSy96Z256WXVSaWtrTGha?=
- =?utf-8?B?V2FQaGt1U1Y5N3dkMkZBWUVvY05DZUFCUXpDdG5zbTVoQy9MK1AyZGhaTDhK?=
- =?utf-8?B?b1VQbmJpdUk0ZGFqNDlNT2NlTkxrL1Azd0Rkb2hHRDZ2cmo0NXpHY1ZuaUFL?=
- =?utf-8?B?WjNvWjIzSlgyM016amN3aFE1WGpKeWk4bFZuaFNZV1Zldmd5Y1RIVE1WRHRO?=
- =?utf-8?B?RGZlei9mN1JGU1FJanJ6N0tsSkFUWHcvMm5kSENpTEszNVRXeGFtSUNldUJB?=
- =?utf-8?B?QTlRWDhaRkNiL05jVUxFbCtmNm9iOHRrY1lNSFlaLzdSU1RCOS9WN2JPTkk3?=
- =?utf-8?Q?47GkpKplqgKSbZ/oEEne9OdGs?=
+	=?utf-8?B?N3RPUytGREw3YWJpWU9YWHY1VFVESVE4bkV0WGEyOGtyaDRTVGZkdTZrVlIz?=
+ =?utf-8?B?YTJiQlBPSVRGbnBnOCtkSytGT2FrWU50c1l0empyTUV4TGNKVElkUmdEdVVT?=
+ =?utf-8?B?SzRzcVhBbDB3RWtFMVlFcEFaVDJPcGxUbTFnWVNYUndLUkNjNXRiRWtoRTJY?=
+ =?utf-8?B?Y3dIV2dVWE4rN1pTb0I3VUk0QjhpTEIvSWdSUzlRZG9jcUdXZmFPOXJlYzFt?=
+ =?utf-8?B?RUlKYmFOYmVTT1FGbWdTR2p5Mm1OMW9FK3VoaEhQL21zZXUxZlVxME1XN0Nl?=
+ =?utf-8?B?UGdQcVNaVXVVU3hiY3BqVnpML2svRG1kYzNNM2RuM3RWN1R4elZhcUJ4Wmhz?=
+ =?utf-8?B?ZzA1N0dCN0RMWmhWQnVKUUc5SkVKYW5reDA0Z2JESHNpdFdtVGh2NHlFM2NR?=
+ =?utf-8?B?cWh5enFqS1lOcWVjUzhPbW1sZmxkOFJza28wcmRRTGp3NWlvRUwwTGdRMzFN?=
+ =?utf-8?B?WkZ1TWEwZzJSS2VnQkZmelY1YzhEK2ZwOExxWlU4OHY0YkZBd2tvREE4VXNl?=
+ =?utf-8?B?cmErV3UybytBTnZRb2V0SG9rZ3UwSm5BT2htSjJ1Mk9rS0dMTDNQZ1BiRWl2?=
+ =?utf-8?B?SVFVTXdXYjdqdG53THJHbmJwQ1dZdktrS2FCMUZwdDNXTFZHTzVGVTA4M0pF?=
+ =?utf-8?B?TS9ueEFoQ3Z2OGlUMGdHTmZad2pZZjhDaFM3VmgvM2x2V0hKdEVxa01BWDQ0?=
+ =?utf-8?B?dUdRZERIRS9UeGRhUTBLaVI4WXQwejltb1IvVlNqT1N0a2JLS0d0VU83aEds?=
+ =?utf-8?B?b3h1ZnN4bml0ZnBhMHRHTmd6Zzl6NGdvR3BwV054N090SFFiZWhsUTVKdVRu?=
+ =?utf-8?B?TFAvbGR3T1N1ODBjYmhZa2ZlMy9tZmVEV21PTXlHeVlZbGNadGdVMHZsbG1Y?=
+ =?utf-8?B?cWFGVlZraENNeW1FUFlNNjNudm9qUENsbExqNGJiZHY4NnFLQ1JyZjVkUXNk?=
+ =?utf-8?B?Sk0wUTJhdndFTHZhWnJ5QjBBam9UamtxMitLbWtuYW5YUnVTaHNlTE9QMGNy?=
+ =?utf-8?B?SVMxR3h2UkdSNHFIT3RRZEZRWEZEWVBlOU9nQjJJWm13VzVlam5DYlUxRUNp?=
+ =?utf-8?B?azZnL0hQanBsejZVdnFIaERNU0JNR2hVNDJGOTdnUzgvcmllRWFrUEt2cGNG?=
+ =?utf-8?B?a3ZvYTlMUlhFYXgxQUM2K0VObFg4QjFGSlllVlFDb3ZFSjQ2RHNlZ2d1SXBK?=
+ =?utf-8?B?Q2M1UUZmbS92K2RRN1lVVEVaaTduWVRoZW5VakpiSXM4N3dHMDZlVzdxY3ZV?=
+ =?utf-8?B?RHRkM08vSHhJeDQzb090QVJvQlM1cVZNa3VyM1g4dCtZcTVwTEUwRmVrVW5t?=
+ =?utf-8?B?RlRYNTdod3NoamEyRUtWeEF5UHJOZTRPMHYzTFdLVllsS1l4bUo3c2x5L0U1?=
+ =?utf-8?B?WXhFVkxoakhBenROeVhWK00yTjI5b2MxcTdIYSthV092Rml3bXdqRFlQRGxV?=
+ =?utf-8?B?U3JnUUlFVSttV0NtRitJWEkwbU8wNWQ3Vk43YnJ5bGNUbTA1QXNVZFljMWxl?=
+ =?utf-8?B?QUVTaVpDSFh5UEJNRUh0dmNLcEZSUTZzbGdmazNMaUM1cGJFeHVGaHREbmxO?=
+ =?utf-8?B?MVRjY0liY1h3YXBaTUNDa200N3FsMmRqMmVZdmdDVUZITE9yZEVFQlpiaHJx?=
+ =?utf-8?B?WUU3SUh0eWQxQnlHbkw2UUFUU2YwYW9DdTkyUjNydjh0Z2doeDVaQXppNGFF?=
+ =?utf-8?B?ZlpDUFViZEVzWGNSdkxQaWNWK2hjNGlpdThFczlhZ0VXblJ3djdmMTlOc3JF?=
+ =?utf-8?B?Y2QrY2FFdmJqQ2Y0dUttdzIwY1dmQ3lQNnZma0Y2NTUvdy9Zc2UrT2RuNDN5?=
+ =?utf-8?B?Rk1WYnViNkRnbFo4QlBzazZaRW83VWdnSnZKdmlqM3VESFVISklGV1lTZEhq?=
+ =?utf-8?B?dEJCTWRTcjVqRk5VREsreElEek0xYk5USU5OUWFYZkFxYzBrVEZxK0hWbVBV?=
+ =?utf-8?B?bTRTQXFybmlNUlB5ZkppWi92TmZzZ2VueDRJVjkvU084LzhTcHJ3amVab3Ez?=
+ =?utf-8?B?THF6Y0N4cWFLT3FoRHIxbDh6azVXQW5xWWFzZVpLcTNlMndMK0xLS2M0M3FB?=
+ =?utf-8?B?clBsbnpJMjZGME1YZVRubHNuNkdBTDRvbkNGSWxHQjA0TVMwRTYydHFpSUdE?=
+ =?utf-8?Q?KzdnCJ/ke9f0J8aMZFy7sAWJg?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f0894e5-913e-4ea7-586a-08db8dc3b487
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9badda2b-1be2-4954-5f6f-08db8dc3d07b
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2023 10:33:09.3501
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2023 10:33:56.0156
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CLHqeQ3epvvmn3b8VZyKNOaBn/Pp5f/+DzKI6LXyt3+u+E2CTPbbU/O7dmO5EM7Ex+mLj/YABvE1EhLi/HXiww==
+X-MS-Exchange-CrossTenant-UserPrincipalName: p+4ysTVEqNcniNVNTmV+pRBm7v+Bw3NF0wzep7Rc2SgcF5tsaaPupkS0tsMDf6fazqtMzJxMoVM2Kg5CQ13sag==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9175
 
-In options like -march=, it may be only the sub-option which is
-unrecognized by the compiler. In such an event the error message often
-splits option and argument, typically saying something like "bad value
-'<argument>' for '<option>'. Extend the grep invocation accordingly,
-also accounting for Clang to not mention e.g. -march at all when an
-incorrect argument was given for it.
-
-To keep things halfway readable, re-wrap and re-indent the entire
-construct.
+Some options we allow the build admin to select may require new enough
+tool chain components to fulfill (partly or entirely). Provide yet
+another control to pick what action to take at the end of the build
+process - be silent about this, warn, or fail the build.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-In principle -e "$$pat" could now be omitted from the grep invocation,
-since if that matches, both $$opt and $$arg will, too. But I thought I'd
-leave it for completeness.
----
-v3: Fix build with make 4.3 and newer, where the treatment of \# has
-    changed.
-v2: Further relax grep patterns for clang, which doesn't mention -march
-    when complaining about an invalid argument to it.
+This may not be fine grained enough: Optimization settings (like added
+by "x86: allow Kconfig control over psABI level") may want dealing with
+differently than security relevant ones (like XEN_SHSTK or XEN_IBT).
 
---- a/Config.mk
-+++ b/Config.mk
-@@ -8,6 +8,7 @@ endif
- comma   := ,
- open    := (
- close   := )
-+sharp   := \#
- squote  := '
- #' Balancing squote, to help syntax highlighting
- empty   :=
-@@ -90,9 +91,14 @@ PYTHON_PREFIX_ARG ?= --prefix="$(prefix)
- # of which would indicate an "unrecognized command-line option" warning/error.
- #
- # Usage: cflags-y += $(call cc-option,$(CC),-march=winchip-c6,-march=i586)
--cc-option = $(shell if test -z "`echo 'void*p=1;' | \
--              $(1) $(2) -c -o /dev/null -x c - 2>&1 | grep -- $(2:-Wa$(comma)%=%) -`"; \
--              then echo "$(2)"; else echo "$(3)"; fi ;)
-+cc-option = $(shell pat='$(2:-Wa$(comma)%=%)'; \
-+                    opt="$${pat%%=*}" arg="$${pat$(sharp)*=}"; \
-+                    if test -z "`echo 'void*p=1;' | \
-+                                 $(1) $(2) -c -o /dev/null -x c - 2>&1 | \
-+                                 grep -e "$$pat" -e "$$opt" -e "$$arg" -`"; \
-+                    then echo "$(2)"; \
-+                    else echo "$(3)"; \
-+                    fi;)
+Whether to do this uniformly at the end of the build is up for
+discussion: In the "warn" case we will want the resulting output late,
+so it is more likely to be noticed. In the "fail build" case though we
+may want the failure to occur early.
+---
+v3: New.
+
+--- a/xen/Kconfig
++++ b/xen/Kconfig
+@@ -64,6 +64,25 @@ config UNSUPPORTED
+ 	  preview features as defined by SUPPORT.md. (Note that if an option
+ 	  doesn't depend on UNSUPPORTED it doesn't imply that is supported.)
  
- # cc-option-add: Add an option to compilation flags, but only if supported.
- # Usage: $(call cc-option-add CFLAGS,CC,-march=winchip-c6)
++choice
++	prompt "How to deal with settings which cannot be satisified"
++	default UNSATISFIED_WARNING
++	help
++	  Some selectable options may depend on e.g. tool chain functionality.
++	  Select here how to deal with such when actually building a such
++	  configured hypervisor.
++
++config UNSATISFIED_SILENT
++	bool "silent"
++
++config UNSATISFIED_WARNING
++	bool "emit warnings"
++
++config UNSATISFIED_ERROR
++	bool "fail the build"
++
++endchoice
++
+ config LTO
+ 	bool "Link Time Optimisation"
+ 	depends on BROKEN
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -588,6 +588,10 @@ $(TARGET): outputmakefile FORCE
+ 	$(Q)$(MAKE) $(build)=arch/$(SRCARCH) include
+ 	$(Q)$(MAKE) $(build)=. arch/$(SRCARCH)/include/asm/asm-offsets.h
+ 	$(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
++ifneq ($(CONFIG_UNSATISFIED_SILENT),y)
++	$(Q)$(if $(strip $(XEN_CONFIG_UNSATISFIED)),$(MAKE),:) \
++	    $(build)=. 'XEN_CONFIG_UNSATISFIED=$(XEN_CONFIG_UNSATISFIED)' check_unsatisfied
++endif
+ 
+ SUBDIRS = xsm arch common crypto drivers lib test
+ define all_sources
+--- a/xen/build.mk
++++ b/xen/build.mk
+@@ -88,3 +88,11 @@ targets += prelink.o
+ 
+ $(TARGET): prelink.o FORCE
+ 	$(Q)$(MAKE) $(build)=arch/$(SRCARCH) $@
++
++PHONY += check_unsatisfied
++check_unsatisfied:
++	$(Q): $(if $(filter y,$(CONFIG_UNSATISFIED_WARNING)), \
++	           $(warning The following selections could not be satisfied:), \
++	           $(shell echo 'The following selections could not be satisfied:' >&2)) \
++	      $(foreach c,$(sort $(XEN_CONFIG_UNSATISFIED)),$(shell echo ' - CONFIG_$c' >&2)) \
++	      $(if $(filter y,$(CONFIG_UNSATISFIED_ERROR)),$(error Failing build))
 
 
