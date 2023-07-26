@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67674762F93
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 10:21:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570184.891742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FCAE762FD8
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 10:28:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570189.891752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOZlE-0006At-5i; Wed, 26 Jul 2023 08:20:44 +0000
+	id 1qOZs6-0006qq-Uu; Wed, 26 Jul 2023 08:27:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570184.891742; Wed, 26 Jul 2023 08:20:44 +0000
+Received: by outflank-mailman (output) from mailman id 570189.891752; Wed, 26 Jul 2023 08:27:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOZlE-00068P-2Y; Wed, 26 Jul 2023 08:20:44 +0000
-Received: by outflank-mailman (input) for mailman id 570184;
- Wed, 26 Jul 2023 08:20:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qOZlC-00068J-B4
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 08:20:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qOZlB-0004HR-D6; Wed, 26 Jul 2023 08:20:41 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qOZlB-0007uY-70; Wed, 26 Jul 2023 08:20:41 +0000
+	id 1qOZs6-0006ot-S8; Wed, 26 Jul 2023 08:27:50 +0000
+Received: by outflank-mailman (input) for mailman id 570189;
+ Wed, 26 Jul 2023 08:27:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+seJ=DM=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qOZs4-0006on-IT
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 08:27:48 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4cc25310-2b8e-11ee-b242-6b7b168915f2;
+ Wed, 26 Jul 2023 10:27:47 +0200 (CEST)
+Received: from Dell.bugseng.com (unknown [37.163.229.19])
+ by support.bugseng.com (Postfix) with ESMTPSA id 8A7A54EE0738;
+ Wed, 26 Jul 2023 10:27:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,123 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=W0DJyua12lvqbd3sCYRyDdR+9JCOG3MY4JRuZHDUj+I=; b=G8bM+Oz0XYsxiDpdt13Lux0jMN
-	IdA9w8thgki/4/7YkSX6/CELt6ggqbgDGsBIYx1/htU4CpQchrl1CmKtuEDYhJ55q9tkHWo1YkMH0
-	aC3NTcsv0lCq7cetIhQ+4G2po7RfWIsmJYq3wS2SKIDyy6VG0ZJpihtzHDDhjo2COr5k=;
-Message-ID: <f0a115a6-843e-74ff-7f0f-28cf0545932e@xen.org>
-Date: Wed, 26 Jul 2023 09:20:39 +0100
+X-Inumbo-ID: 4cc25310-2b8e-11ee-b242-6b7b168915f2
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH] xen/event: address violations of MISRA C:2012 Rules 8.2 and 8.3
+Date: Wed, 26 Jul 2023 10:27:38 +0200
+Message-Id: <367ab3b09deaab82dfea0e833eeceaf8de49f5c1.1690359344.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/25] tools/xenstore: make hashtable key and value
- parameters const
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-9-jgross@suse.com>
- <2c981a1a-b020-3908-8b9b-8821daec9457@xen.org>
- <a6370aa2-ec6c-259f-3e24-bc1a74ead2a6@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <a6370aa2-ec6c-259f-3e24-bc1a74ead2a6@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
+Give a name to unnamed parameters thus addressing violations of
+MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+named parameters").
+Keep consistency between parameter names and types used in function
+declarations and the ones used in the corresponding function
+definitions, thus addressing violations of MISRA C:2012 Rule 8.3
+("All declarations of an object or function shall use the same names
+and type qualifiers").
 
-On 26/07/2023 07:19, Juergen Gross wrote:
-> On 25.07.23 18:08, Julien Grall wrote:
->> Hi,
->>
->> On 24/07/2023 12:02, Juergen Gross wrote:
->>> The key and value are never modified by hashtable code, so they should
->>> be marked as const.
->>
->> You wrote this but...
->>
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> V3:
->>> - make value const, too.
->>> ---
->>>   tools/xenstore/hashtable.c | 7 ++++---
->>>   tools/xenstore/hashtable.h | 4 ++--
->>>   2 files changed, 6 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/tools/xenstore/hashtable.c b/tools/xenstore/hashtable.c
->>> index 11f6bf8f15..670dc01003 100644
->>> --- a/tools/xenstore/hashtable.c
->>> +++ b/tools/xenstore/hashtable.c
->>> @@ -11,7 +11,8 @@
->>>   struct entry
->>>   {
->>> -    void *k, *v;
->>> +    const void *k;
->>> +    void *v;
->>
->>
->> ... this is not const and ...
->>
->>>       unsigned int h;
->>>       struct entry *next;
->>>   };
->>> @@ -140,7 +141,7 @@ static int hashtable_expand(struct hashtable *h)
->>>       return 0;
->>>   }
->>> -int hashtable_add(struct hashtable *h, void *k, void *v)
->>> +int hashtable_add(struct hashtable *h, const void *k, const void *v)
->>>   {
->>>       /* This method allows duplicate keys - but they shouldn't be 
->>> used */
->>>       unsigned int index;
->>> @@ -164,7 +165,7 @@ int hashtable_add(struct hashtable *h, void *k, 
->>> void *v)
->>>       e->k = k;
->>>       if (h->flags & HASHTABLE_FREE_KEY)
->>>           talloc_steal(e, k);
->>> -    e->v = v;
->>> +    e->v = (void *)v;
->>
->> ... you cast-away the const here. I think this is a pretty bad idea.
->>
->> Can you clarify why you are doing like that?
-> 
-> The value is never changed by the hashtable code, but it might be 
-> changed by
-> e.g. a caller of hashtable_search() (see e.g. callers of 
-> find_domain_struct()).
-> 
-> Somewhere I need to cast the const away. I could do so in 
-> hashtable_search()
-> in case you prefer me to do so.
+No functional changes.
 
-My problem is not with the placement of the const but the fact you are 
-removing the const.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/include/xen/event.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-I agree that the hashtable code is not meant to modify the content. 
-However, as you wrote, the caller of hashtable_search() could modify the 
-content. So, for me, the value should not be const in the hashtable code.
-
-To give a concrete example, with the current interface we are telling 
-the user that what they store in the hashtable can be modified at some 
-point. By adding 'const' for the value in hashtable_add(), we can 
-mislead a user to think it is fine to store static string, yet this is 
-not enforced all the way through. So one could mistakenly think that 
-values returned hashtable_search() can be modified. And the compiler 
-will not be here to help enforcing it because you cast-away the const.
-
-Do you have any code in this series that requires the 'const' in 
-hashtable_add()? If so, can you point me to the patch and I will have a 
-look?
-
-If not, then I will strongly argue that this should be dropped because 
-dropping a const is always a recipe for disaster.
-
-Cheers,
-
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+index 8eae9984a9..8e509e0784 100644
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -48,10 +48,10 @@ int set_global_virq_handler(struct domain *d, uint32_t virq);
+  *  @d:        Domain to which physical IRQ should be sent
+  *  @pirq:     Physical IRQ number
+  */
+-void send_guest_pirq(struct domain *, const struct pirq *);
++void send_guest_pirq(struct domain *d, const struct pirq *pirq);
+ 
+ /* Send a notification from a given domain's event-channel port. */
+-int evtchn_send(struct domain *d, unsigned int lport);
++int evtchn_send(struct domain *ld, unsigned int lport);
+ 
+ /* Bind a local event-channel port to the specified VCPU. */
+ int evtchn_bind_vcpu(evtchn_port_t port, unsigned int vcpu_id);
+@@ -69,7 +69,7 @@ int evtchn_close(struct domain *d1, int port1, bool guest);
+ void evtchn_free(struct domain *d, struct evtchn *chn);
+ 
+ /* Allocate a specific event channel port. */
+-int evtchn_allocate_port(struct domain *d, unsigned int port);
++int evtchn_allocate_port(struct domain *d, evtchn_port_t port);
+ 
+ /* Allocate a new event channel */
+ int __must_check evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc,
+@@ -78,7 +78,7 @@ int __must_check evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc,
+ /* Bind an event channel port to interdomain */
+ int __must_check evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind,
+                                          struct domain *ld,
+-                                         evtchn_port_t port);
++                                         evtchn_port_t lport);
+ 
+ /* Unmask a local event-channel port. */
+ int evtchn_unmask(unsigned int port);
 -- 
-Julien Grall
+2.34.1
+
 
