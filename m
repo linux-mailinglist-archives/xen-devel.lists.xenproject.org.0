@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17FC2763479
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 13:04:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570318.892092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25399763481
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 13:07:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570324.892103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOcJu-0007GQ-0t; Wed, 26 Jul 2023 11:04:42 +0000
+	id 1qOcMF-0000GD-F2; Wed, 26 Jul 2023 11:07:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570318.892092; Wed, 26 Jul 2023 11:04:41 +0000
+Received: by outflank-mailman (output) from mailman id 570324.892103; Wed, 26 Jul 2023 11:07:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOcJt-0007Dn-QY; Wed, 26 Jul 2023 11:04:41 +0000
-Received: by outflank-mailman (input) for mailman id 570318;
- Wed, 26 Jul 2023 11:04:41 +0000
+	id 1qOcMF-0000E2-CO; Wed, 26 Jul 2023 11:07:07 +0000
+Received: by outflank-mailman (input) for mailman id 570324;
+ Wed, 26 Jul 2023 11:07:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j0A2=DM=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qOcJs-000611-OT
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 11:04:40 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iO1l=DM=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qOcMD-0000Dq-Ur
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 11:07:05 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35fe85c4-2ba4-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 13:04:37 +0200 (CEST)
-Received: from beta.bugseng.com (unknown [37.163.26.92])
- by support.bugseng.com (Postfix) with ESMTPSA id 8B47E4EE0738;
- Wed, 26 Jul 2023 13:04:36 +0200 (CEST)
+ id 8d0cb608-2ba4-11ee-8613-37d641c3527e;
+ Wed, 26 Jul 2023 13:07:03 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4BE6D1F85D;
+ Wed, 26 Jul 2023 11:07:03 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1681C139BD;
+ Wed, 26 Jul 2023 11:07:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2Ku7A1f+wGRzGwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 26 Jul 2023 11:07:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,908 +51,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35fe85c4-2ba4-11ee-8613-37d641c3527e
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Gianluca Luparini <gianluca.luparini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH v4 4/4] xen/x86: address violations of MISRA C:2012 Rule 7.2
-Date: Wed, 26 Jul 2023 13:03:39 +0200
-Message-Id: <3790011b9d9235fd0c3fd2016ee25feb37e925f5.1690368810.git.simone.ballarin@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1690368810.git.simone.ballarin@bugseng.com>
-References: <cover.1690368810.git.simone.ballarin@bugseng.com>
+X-Inumbo-ID: 8d0cb608-2ba4-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1690369623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xQWth3HzOAPEhRj/NFkcxnmXAC1Etzn2prwQAeyTUxo=;
+	b=PKOvFZXpo3HUa55kGL+KKfrZVuOBp5igY+iKdOkLUIgn0VUbhKvJ/zSpWBqX1HLJioRdfj
+	Vio/4AIzqzXAzUw/gW5S1/YzHWhIMjZsOh8ZsV8vNjZ5owh+vmRbz2spM7oQB+iDJ/sunC
+	IEB38jOVywkB4+NJ8GsdmA2WtsQKgf4=
+Message-ID: <97a8e4e8-2955-f9bd-d5f2-7244061ee6f4@suse.com>
+Date: Wed, 26 Jul 2023 13:07:02 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v3 08/25] tools/xenstore: make hashtable key and value
+ parameters const
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-9-jgross@suse.com>
+ <2c981a1a-b020-3908-8b9b-8821daec9457@xen.org>
+ <a6370aa2-ec6c-259f-3e24-bc1a74ead2a6@suse.com>
+ <f0a115a6-843e-74ff-7f0f-28cf0545932e@xen.org>
+ <3d2daedf-b2c0-5a26-a57d-4742f69f08b7@suse.com>
+ <c86e0983-6b51-c5be-a666-20fd407b2537@xen.org>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <c86e0983-6b51-c5be-a666-20fd407b2537@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------hxI3ibq4dVH3R8hdfmK307so"
 
-From: Gianluca Luparini <gianluca.luparini@bugseng.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------hxI3ibq4dVH3R8hdfmK307so
+Content-Type: multipart/mixed; boundary="------------li9gz3XuiA5paHgFlJDTK25C";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <97a8e4e8-2955-f9bd-d5f2-7244061ee6f4@suse.com>
+Subject: Re: [PATCH v3 08/25] tools/xenstore: make hashtable key and value
+ parameters const
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-9-jgross@suse.com>
+ <2c981a1a-b020-3908-8b9b-8821daec9457@xen.org>
+ <a6370aa2-ec6c-259f-3e24-bc1a74ead2a6@suse.com>
+ <f0a115a6-843e-74ff-7f0f-28cf0545932e@xen.org>
+ <3d2daedf-b2c0-5a26-a57d-4742f69f08b7@suse.com>
+ <c86e0983-6b51-c5be-a666-20fd407b2537@xen.org>
+In-Reply-To: <c86e0983-6b51-c5be-a666-20fd407b2537@xen.org>
 
-The xen sources contains violations of MISRA C:2012 Rule 7.2 whose
-headline states:
-"A 'u' or 'U' suffix shall be applied to all integer constants
-that are represented in an unsigned type".
+--------------li9gz3XuiA5paHgFlJDTK25C
+Content-Type: multipart/mixed; boundary="------------gxjfkNeBN6AFtqGmsbVc5Gzl"
 
-Add the 'U' suffix to integers literals with unsigned type.
-Use _AC() for macro costants that are used also in assembly files.
+--------------gxjfkNeBN6AFtqGmsbVc5Gzl
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-For the sake of uniformity, the following changes are made:
-- add the 'U' suffix to all first macro's arguments in 'mce-apei.c'
-- add the 'U' suffix to switch cases in 'cpuid.c'
-- add 'U' suffixes to 'mask16' in 'stdvga.c'
-- add the 'U' suffix to macros in 'pci.h'
-- use _AC() for macros near 'X86_CR0_PG'
+T24gMjYuMDcuMjMgMTE6MjksIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGksDQo+IA0KPiBP
+biAyNi8wNy8yMDIzIDA5OjQ0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMjYuMDcu
+MjMgMTA6MjAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+PiBUbyBnaXZlIGEgY29uY3JldGUg
+ZXhhbXBsZSwgd2l0aCB0aGUgY3VycmVudCBpbnRlcmZhY2Ugd2UgYXJlIHRlbGxpbmcgdGhl
+IA0KPj4+IHVzZXIgdGhhdCB3aGF0IHRoZXkgc3RvcmUgaW4gdGhlIGhhc2h0YWJsZSBjYW4g
+YmUgbW9kaWZpZWQgYXQgc29tZSBwb2ludC4gQnkgDQo+Pj4gYWRkaW5nICdjb25zdCcgZm9y
+IHRoZSB2YWx1ZSBpbiBoYXNodGFibGVfYWRkKCksIHdlIGNhbiBtaXNsZWFkIGEgdXNlciB0
+byANCj4+PiB0aGluayBpdCBpcyBmaW5lIHRvIHN0b3JlIHN0YXRpYyBzdHJpbmcsIHlldCB0
+aGlzIGlzIG5vdCBlbmZvcmNlZCBhbGwgdGhlIHdheSANCj4+PiB0aHJvdWdoLiBTbyBvbmUg
+Y291bGQgbWlzdGFrZW5seSB0aGluayB0aGF0IHZhbHVlcyByZXR1cm5lZCANCj4+PiBoYXNo
+dGFibGVfc2VhcmNoKCkgY2FuIGJlIG1vZGlmaWVkLiBBbmQgdGhlIGNvbXBpbGVyIHdpbGwg
+bm90IGJlIGhlcmUgdG8gaGVscCANCj4+PiBlbmZvcmNpbmcgaXQgYmVjYXVzZSB5b3UgY2Fz
+dC1hd2F5IHRoZSBjb25zdC4NCj4+DQo+PiBZZXMsIGxpa2UgaW4gdGhlIGNhc2Ugb2Ygc3Ry
+c3RyKCkuDQo+Pg0KPj4gSXQgdGFrZXMgdHdvIGNvbnN0IGNoYXIgKiBwYXJhbWV0ZXJzIGFu
+ZCBpdCBpcyByZXR1cm5pbmcgY2hhciAqLCBldmVuIHdpdGggaXQNCj4+IHBvaW50aW5nIGlu
+dG8gdGhlIGZpcnN0IHBhcmFtZXRlci4NCj4gDQo+IFRoaXMgaXMgYSBwcmV0dHkgZ29vZCBl
+eGFtcGxlIG9uIGhvdyB0byBub3Qgd3JpdGUgYW4gaW50ZXJmYWNlLiA6KQ0KPiANCj4+DQo+
+Pj4gRG8geW91IGhhdmUgYW55IGNvZGUgaW4gdGhpcyBzZXJpZXMgdGhhdCByZXF1aXJlcyB0
+aGUgJ2NvbnN0JyBpbiANCj4+PiBoYXNodGFibGVfYWRkKCk/IElmIHNvLCBjYW4geW91IHBv
+aW50IG1lIHRvIHRoZSBwYXRjaCBhbmQgSSB3aWxsIGhhdmUgYSBsb29rPw0KPj4NCj4+IEkg
+aGFkIGl0IHdoZW4gd3JpdGluZyB0aGlzIHBhdGNoLCBidXQgdGhpcyByZXF1aXJlbWVudCBp
+cyBnb25lIG5vdy4gQnV0IHBsZWFzZQ0KPj4gbm90ZSB0aGF0IHRoaXMgbWVhbnMgdG8gZHJv
+cCB0aGUgY29uc3QgZnJvbSBkYl93cml0ZSgpLCB0b28uDQo+Pg0KPj4+IElmIG5vdCwgdGhl
+biBJIHdpbGwgc3Ryb25nbHkgYXJndWUgdGhhdCB0aGlzIHNob3VsZCBiZSBkcm9wcGVkIGJl
+Y2F1c2UgDQo+Pj4gZHJvcHBpbmcgYSBjb25zdCBpcyBhbHdheXMgYSByZWNpcGUgZm9yIGRp
+c2FzdGVyLg0KPj4NCj4+IERlcGVuZHMgSU1PLg0KPj4NCj4+IEkgYmVsaWV2ZSBpdCBpcyBi
+ZXR0ZXIgYXMgSSd2ZSBkb25lIGl0LA0KPj4gYnV0IGluIGNhc2UgeW91IGluc2lzdCBvbiBp
+dCBJIGNhbiBkcm9wDQo+PiB0aGUgcGF0Y2guDQo+IA0KPiBXZWxsLi4uIEkgY2FuIGFsd2F5
+cyBiZSBzd2F5ZWQgaWYgdGhlcmUgaXMgYSBnb29kIGFyZ3VtZW50IHRvIG1ha2UgaXQgY29u
+c3QuIFNvIA0KPiBmYXIsIHlvdSBtZW50aW9uIHRoYXQgaGFzaHRhYmxlIGRvZXNuJ3QgbW9k
+aWZ5IHRoZSBjb250ZW50IGJ1dCB5b3UgZG9uJ3QgcmVhbGx5IA0KPiBleHBsYWluIHdoeSB3
+YWl2aW5nIGF3YXkgdGhlIGhlbHAgZnJvbSB0aGUgY29tcGlsZXIgaXMgb2suIFRoZXJlZm9y
+ZSwgdG8gbWUgaXQgDQo+IHNlZW1zIHRoZSBkb3duc2lkZSBpcyBiaWdnZXIgdGhhbiB0aGUg
+YmVuZWZpdC4NCj4gDQo+IEFsc28sIEkgYW0gbm90IGFza2luZyB0byBkcm9wIHRoZSBwYXRj
+aC4gVGhlIGNvbnN0IG9uIHRoZSBrZXkgaXMgb2suIEkgYW0gb25seSANCj4gcmVxdWVzdGlu
+ZyB0byByZW1vdmUgdGhlIGNvbnN0IG9uIHRoZSB2YWx1ZS4NCj4gDQo+Pg0KPj4gQW4gYWx0
+ZXJuYXRpdmUgd291bGQgYmUgbWFrZSBoYXNodGFibGVfc2VhcmNoKCkgcmV0dXJuIGEgY29u
+c3QgYW5kIG9ubHkgY2FzdCB0aGUNCj4+IGNvbnN0IGF3YXkgd2hlcmUgaXQgaXMgcmVhbGx5
+IG5lZWRlZCAoYW5kIHByb2JhYmx5IHdpdGggYSBwcm9taW5lbnQgY29tbWVudCBhdA0KPj4g
+dGhlIHJlbGF0ZWQgaGFzaHRhYmxlX2FkZCgpIHBsYWNlKS4gSSB0aGluayB0aGlzIHdpbGwg
+aGl0IHhlbnN0b3JlZF9kb21haW4uYyB1c2UNCj4+IGNhc2VzIG9ubHkuDQo+IA0KPiBBZ2Fp
+biwgdGhpcyBzdGlsbCBtZWFucyB3ZSBhcmUgY2FzdGluZyBhd2F5IHRoZSBjb25zdCBzb21l
+d2hlcmUuIFRoaXMgaXMgdGhlIA0KPiBwYXJ0IEkgYW0gYWdhaW5zdCBpZiB0aGVyZSBpcyBu
+byBzdHJvbmcganVzdGlmaWNhdGlvbiBmb3IgaXQgKGkuZS4gdGhlcmUgaXMgbm8gDQo+IG90
+aGVyIHdheSB0byBkbyBpdCkuDQoNCk9rYXksIEknbGwgZHJvcCB0aGUgY29uc3QgYXR0cmli
+dXRlIGZvciB0aGUgdmFsdWUgcGFyYW1ldGVyLg0KDQoNCkp1ZXJnZW4NCg0K
+--------------gxjfkNeBN6AFtqGmsbVc5Gzl
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
-Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-Changes in v4:
-- change commit headline
-- remove 'U' suffix from '0xffff' in 'cpu-policy.c'
-- remove some changes in 'msr-index.h'
-- remove changes in 'irq.c' and 'acpi_mmcfg.c'
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Changes in v3:
-- change 'Signed-off-by' ordering
-- change commit message
-- add 'UL' in 'extable.c'
-- fix indentation in 'cpu-policy.c'
-- remove excessive suffixes in 'mce-apei.c'
-- add 'UL' in 'x86-defns.h'
-- remove changes to 'sr_mask' in 'stdvga.c'
-- remove comments to 'gr_mask' in 'stdvga.c'
-- move 'viridian.c' and 'hyperv-tlfs.h' in a separate commit
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Changes in v2:
-- minor change to commit title
-- change commit message
-- remove comments from 'gr_mask' in 'stdvga.c'
-- correct code style in 'trace.h'
-- add fix in 'extable.c'
-- remove changes in 'x86-defns.h', 'msr-index.h' and 'xen-x86_64.h'
----
- xen/arch/x86/apic.c                    |   2 +-
- xen/arch/x86/cpu-policy.c              |  18 +--
- xen/arch/x86/cpu/mcheck/mce-apei.c     |   4 +-
- xen/arch/x86/cpuid.c                   |   8 +-
- xen/arch/x86/efi/efi-boot.h            |   6 +-
- xen/arch/x86/extable.c                 |   2 +-
- xen/arch/x86/hvm/hypercall.c           |   2 +-
- xen/arch/x86/hvm/pmtimer.c             |   4 +-
- xen/arch/x86/hvm/stdvga.c              |  50 +++----
- xen/arch/x86/hvm/vlapic.c              |   6 +-
- xen/arch/x86/include/asm/apicdef.h     |   2 +-
- xen/arch/x86/include/asm/config.h      |   2 +-
- xen/arch/x86/include/asm/hpet.h        |   2 +-
- xen/arch/x86/include/asm/hvm/trace.h   |   4 +-
- xen/arch/x86/include/asm/hvm/vioapic.h |   2 +-
- xen/arch/x86/include/asm/msi.h         |   2 +-
- xen/arch/x86/include/asm/msr-index.h   | 180 ++++++++++++-------------
- xen/arch/x86/include/asm/pci.h         |   8 +-
- xen/arch/x86/include/asm/x86-defns.h   |  24 ++--
- xen/arch/x86/percpu.c                  |   2 +-
- xen/arch/x86/psr.c                     |   2 +-
- xen/arch/x86/spec_ctrl.c               |   8 +-
- xen/arch/x86/x86_64/pci.c              |   2 +-
- xen/arch/x86/x86_emulate/x86_emulate.h |   2 +-
- xen/lib/x86/cpuid.c                    |   8 +-
- xen/lib/x86/policy.c                   |   2 +-
- 26 files changed, 177 insertions(+), 177 deletions(-)
+--------------gxjfkNeBN6AFtqGmsbVc5Gzl--
 
-diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-index 41879230ec..1109c0d9cf 100644
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1211,7 +1211,7 @@ static void __init calibrate_APIC_clock(void)
-      * Setup the APIC counter to maximum. There is no way the lapic
-      * can underflow in the 100ms detection time frame.
-      */
--    __setup_APIC_LVTT(0xffffffff);
-+    __setup_APIC_LVTT(0xffffffffU);
- 
-     bus_freq = calibrate_apic_timer();
-     if ( !bus_freq )
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index f40eeb8be8..b0c7e3bd02 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -321,7 +321,7 @@ static void recalculate_misc(struct cpu_policy *p)
-         p->extd.vendor_edx = p->basic.vendor_edx;
- 
-         p->extd.raw_fms = p->basic.raw_fms;
--        p->extd.raw[0x1].b &= 0xff00ffff;
-+        p->extd.raw[0x1].b &= 0xff00ffffU;
-         p->extd.e1d |= p->basic._1d & CPUID_COMMON_1D_FEATURES;
- 
-         p->extd.raw[0x8].a &= 0x0000ffff; /* GuestMaxPhysAddr hidden. */
-@@ -378,10 +378,10 @@ static void __init calculate_host_policy(void)
-      * this information.
-      */
-     if ( cpu_has_lfence_dispatch )
--        max_extd_leaf = max(max_extd_leaf, 0x80000021);
-+        max_extd_leaf = max(max_extd_leaf, 0x80000021U);
- 
--    p->extd.max_leaf = 0x80000000 | min_t(uint32_t, max_extd_leaf & 0xffff,
--                                          ARRAY_SIZE(p->extd.raw) - 1);
-+    p->extd.max_leaf = 0x80000000U | min_t(uint32_t, max_extd_leaf & 0xffff,
-+                                           ARRAY_SIZE(p->extd.raw) - 1);
- 
-     x86_cpu_featureset_to_policy(boot_cpu_data.x86_capability, p);
-     recalculate_xstate(p);
-@@ -768,11 +768,11 @@ void recalculate_cpuid_policy(struct domain *d)
- 
-     p->basic.max_leaf   = min(p->basic.max_leaf,   max->basic.max_leaf);
-     p->feat.max_subleaf = min(p->feat.max_subleaf, max->feat.max_subleaf);
--    p->extd.max_leaf    = 0x80000000 | min(p->extd.max_leaf & 0xffff,
--                                           ((p->x86_vendor & (X86_VENDOR_AMD |
--                                                              X86_VENDOR_HYGON))
--                                            ? CPUID_GUEST_NR_EXTD_AMD
--                                            : CPUID_GUEST_NR_EXTD_INTEL) - 1);
-+    p->extd.max_leaf    = 0x80000000U | min(p->extd.max_leaf & 0xffff,
-+                                            ((p->x86_vendor & (X86_VENDOR_AMD |
-+                                                               X86_VENDOR_HYGON))
-+                                             ? CPUID_GUEST_NR_EXTD_AMD
-+                                             : CPUID_GUEST_NR_EXTD_INTEL) - 1);
- 
-     x86_cpu_policy_to_featureset(p, fs);
-     x86_cpu_policy_to_featureset(max, max_fs);
-diff --git a/xen/arch/x86/cpu/mcheck/mce-apei.c b/xen/arch/x86/cpu/mcheck/mce-apei.c
-index 53b6735896..b895020882 100644
---- a/xen/arch/x86/cpu/mcheck/mce-apei.c
-+++ b/xen/arch/x86/cpu/mcheck/mce-apei.c
-@@ -37,10 +37,10 @@
- #include "mce.h"
- 
- #define CPER_CREATOR_MCE						\
--	UUID_LE(0x75a574e3, 0x5052, 0x4b29, 0x8a, 0x8e, 0xbe, 0x2c,	\
-+	UUID_LE(0x75a574e3U, 0x5052, 0x4b29, 0x8a, 0x8e, 0xbe, 0x2c,	\
- 		0x64, 0x90, 0xb8, 0x9d)
- #define CPER_SECTION_TYPE_MCE						\
--	UUID_LE(0xfe08ffbe, 0x95e4, 0x4be7, 0xbc, 0x73, 0x40, 0x96,	\
-+	UUID_LE(0xfe08ffbeU, 0x95e4, 0x4be7, 0xbc, 0x73, 0x40, 0x96,	\
- 		0x04, 0x4a, 0x38, 0xfc)
- 
- /*
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index 455a09b2dd..7290a979c6 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -93,7 +93,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-         }
-         break;
- 
--    case 0x40000000 ... 0x400000ff:
-+    case 0x40000000U ... 0x400000ffU:
-         if ( is_viridian_domain(d) )
-             return cpuid_viridian_leaves(v, leaf, subleaf, res);
- 
-@@ -103,10 +103,10 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-          * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
-          * only until 0x400000ff, but we already use double that.
-          */
--    case 0x40000100 ... 0x400001ff:
-+    case 0x40000100U ... 0x400001ffU:
-         return cpuid_hypervisor_leaves(v, leaf, subleaf, res);
- 
--    case 0x80000000 ... 0x80000000 + CPUID_GUEST_NR_EXTD - 1:
-+    case 0x80000000U ... 0x80000000U + CPUID_GUEST_NR_EXTD - 1:
-         ASSERT((p->extd.max_leaf & 0xffff) < ARRAY_SIZE(p->extd.raw));
-         if ( (leaf & 0xffff) > min_t(uint32_t, p->extd.max_leaf & 0xffff,
-                                      ARRAY_SIZE(p->extd.raw) - 1) )
-@@ -352,7 +352,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-         }
-         break;
- 
--    case 0x80000001:
-+    case 0x80000001U:
-         /* SYSCALL is hidden outside of long mode on Intel. */
-         if ( p->x86_vendor == X86_VENDOR_INTEL &&
-              is_hvm_domain(d) && !hvm_long_mode_active(v) )
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 92f4cfe8bd..eebc54180b 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -740,16 +740,16 @@ static void __init efi_arch_handle_module(const struct file *file,
- 
- static void __init efi_arch_cpu(void)
- {
--    uint32_t eax = cpuid_eax(0x80000000);
-+    uint32_t eax = cpuid_eax(0x80000000U);
-     uint32_t *caps = boot_cpu_data.x86_capability;
- 
-     boot_tsc_stamp = rdtsc();
- 
-     caps[FEATURESET_1c] = cpuid_ecx(1);
- 
--    if ( (eax >> 16) == 0x8000 && eax > 0x80000000 )
-+    if ( (eax >> 16) == 0x8000 && eax > 0x80000000U )
-     {
--        caps[FEATURESET_e1d] = cpuid_edx(0x80000001);
-+        caps[FEATURESET_e1d] = cpuid_edx(0x80000001U);
- 
-         /*
-          * This check purposefully doesn't use cpu_has_nx because
-diff --git a/xen/arch/x86/extable.c b/xen/arch/x86/extable.c
-index c3771c2e39..0e8694c188 100644
---- a/xen/arch/x86/extable.c
-+++ b/xen/arch/x86/extable.c
-@@ -141,7 +141,7 @@ static int __init cf_check stub_selftest(void)
-           .rax = 0x0123456789abcdef,
-           .res.fields.trapnr = X86_EXC_GP },
-         { .opc = { endbr64, 0x02, 0x04, 0x04, 0xc3 }, /* add (%rsp,%rax),%al */
--          .rax = 0xfedcba9876543210,
-+          .rax = 0xfedcba9876543210UL,
-           .res.fields.trapnr = X86_EXC_SS },
-         { .opc = { endbr64, 0xcc, 0xc3, 0xc3, 0xc3 }, /* int3 */
-           .res.fields.trapnr = X86_EXC_BP },
-diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-index 20d266ffd5..eeb73e1aa5 100644
---- a/xen/arch/x86/hvm/hypercall.c
-+++ b/xen/arch/x86/hvm/hypercall.c
-@@ -129,7 +129,7 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-         break;
-     }
- 
--    if ( (eax & 0x80000000) && is_viridian_domain(currd) )
-+    if ( (eax & 0x80000000U) && is_viridian_domain(currd) )
-     {
-         int ret;
- 
-diff --git a/xen/arch/x86/hvm/pmtimer.c b/xen/arch/x86/hvm/pmtimer.c
-index 2145c531b6..eb4a455763 100644
---- a/xen/arch/x86/hvm/pmtimer.c
-+++ b/xen/arch/x86/hvm/pmtimer.c
-@@ -40,8 +40,8 @@
- #define SCI_IRQ 9
- 
- /* We provide a 32-bit counter (must match the TMR_VAL_EXT bit in the FADT) */
--#define TMR_VAL_MASK  (0xffffffff)
--#define TMR_VAL_MSB   (0x80000000)
-+#define TMR_VAL_MASK  (0xffffffffU)
-+#define TMR_VAL_MSB   (0x80000000U)
- 
- /* Dispatch SCIs based on the PM1a_STS and PM1a_EN registers */
- static void pmt_update_sci(PMTState *s)
-diff --git a/xen/arch/x86/hvm/stdvga.c b/xen/arch/x86/hvm/stdvga.c
-index 798a9a0549..d3dfb9b689 100644
---- a/xen/arch/x86/hvm/stdvga.c
-+++ b/xen/arch/x86/hvm/stdvga.c
-@@ -39,22 +39,22 @@
- 
- #define PAT(x) (x)
- static const uint32_t mask16[16] = {
--    PAT(0x00000000),
--    PAT(0x000000ff),
--    PAT(0x0000ff00),
--    PAT(0x0000ffff),
--    PAT(0x00ff0000),
--    PAT(0x00ff00ff),
--    PAT(0x00ffff00),
--    PAT(0x00ffffff),
--    PAT(0xff000000),
--    PAT(0xff0000ff),
--    PAT(0xff00ff00),
--    PAT(0xff00ffff),
--    PAT(0xffff0000),
--    PAT(0xffff00ff),
--    PAT(0xffffff00),
--    PAT(0xffffffff),
-+    PAT(0x00000000U),
-+    PAT(0x000000ffU),
-+    PAT(0x0000ff00U),
-+    PAT(0x0000ffffU),
-+    PAT(0x00ff0000U),
-+    PAT(0x00ff00ffU),
-+    PAT(0x00ffff00U),
-+    PAT(0x00ffffffU),
-+    PAT(0xff000000U),
-+    PAT(0xff0000ffU),
-+    PAT(0xff00ff00U),
-+    PAT(0xff00ffffU),
-+    PAT(0xffff0000U),
-+    PAT(0xffff00ffU),
-+    PAT(0xffffff00U),
-+    PAT(0xffffffffU),
- };
- 
- /* force some bits to zero */
-@@ -70,15 +70,15 @@ static const uint8_t sr_mask[8] = {
- };
- 
- static const uint8_t gr_mask[9] = {
--    (uint8_t)~0xf0, /* 0x00 */
--    (uint8_t)~0xf0, /* 0x01 */
--    (uint8_t)~0xf0, /* 0x02 */
--    (uint8_t)~0xe0, /* 0x03 */
--    (uint8_t)~0xfc, /* 0x04 */
--    (uint8_t)~0x84, /* 0x05 */
--    (uint8_t)~0xf0, /* 0x06 */
--    (uint8_t)~0xf0, /* 0x07 */
--    (uint8_t)~0x00, /* 0x08 */
-+    (uint8_t)~0xf0,
-+    (uint8_t)~0xf0,
-+    (uint8_t)~0xf0,
-+    (uint8_t)~0xe0,
-+    (uint8_t)~0xfc,
-+    (uint8_t)~0x84,
-+    (uint8_t)~0xf0,
-+    (uint8_t)~0xf0,
-+    (uint8_t)~0x00,
- };
- 
- static uint8_t *vram_getb(struct hvm_hw_stdvga *s, unsigned int a)
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index c7ce82d064..a8e87c4446 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -237,7 +237,7 @@ bool_t vlapic_match_dest(
-     case APIC_DEST_NOSHORT:
-         if ( dest_mode )
-             return vlapic_match_logical_addr(target, dest);
--        return (dest == _VLAPIC_ID(target, 0xffffffff)) ||
-+        return (dest == _VLAPIC_ID(target, 0xffffffffU)) ||
-                (dest == VLAPIC_ID(target));
- 
-     case APIC_DEST_SELF:
-@@ -467,7 +467,7 @@ static bool_t is_multicast_dest(struct vlapic *vlapic, unsigned int short_hand,
-         return short_hand != APIC_DEST_SELF;
- 
-     if ( vlapic_x2apic_mode(vlapic) )
--        return dest_mode ? hweight16(dest) > 1 : dest == 0xffffffff;
-+        return dest_mode ? hweight16(dest) > 1 : dest == 0xffffffffU;
- 
-     if ( dest_mode )
-         return hweight8(dest &
-@@ -831,7 +831,7 @@ void vlapic_reg_write(struct vcpu *v, unsigned int reg, uint32_t val)
-         break;
- 
-     case APIC_ICR2:
--        vlapic_set_reg(vlapic, APIC_ICR2, val & 0xff000000);
-+        vlapic_set_reg(vlapic, APIC_ICR2, val & 0xff000000U);
-         break;
- 
-     case APIC_LVTT:         /* LVT Timer Reg */
-diff --git a/xen/arch/x86/include/asm/apicdef.h b/xen/arch/x86/include/asm/apicdef.h
-index 2440d83c8d..7f21d3f49c 100644
---- a/xen/arch/x86/include/asm/apicdef.h
-+++ b/xen/arch/x86/include/asm/apicdef.h
-@@ -8,7 +8,7 @@
-  * Ingo Molnar <mingo@redhat.com>, 1999, 2000
-  */
- 
--#define		APIC_DEFAULT_PHYS_BASE	0xfee00000
-+#define		APIC_DEFAULT_PHYS_BASE	0xfee00000U
-  
- #define		APIC_ID		0x20
- #define			APIC_ID_MASK		(0xFFu<<24)
-diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
-index fbc4bb3416..bbced338be 100644
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -257,7 +257,7 @@ extern unsigned char boot_edid_info[128];
- #endif /* CONFIG_PV32 */
- 
- #define MACH2PHYS_COMPAT_VIRT_START    HYPERVISOR_COMPAT_VIRT_START
--#define MACH2PHYS_COMPAT_VIRT_END      0xFFE00000
-+#define MACH2PHYS_COMPAT_VIRT_END      0xFFE00000U
- #define MACH2PHYS_COMPAT_NR_ENTRIES(d) \
-     ((MACH2PHYS_COMPAT_VIRT_END-MACH2PHYS_COMPAT_VIRT_START(d))>>2)
- 
-diff --git a/xen/arch/x86/include/asm/hpet.h b/xen/arch/x86/include/asm/hpet.h
-index 9919f74730..c5e8e9c8db 100644
---- a/xen/arch/x86/include/asm/hpet.h
-+++ b/xen/arch/x86/include/asm/hpet.h
-@@ -41,7 +41,7 @@
- #define HPET_TN_ROUTE		0x3e00
- #define HPET_TN_FSB		0x4000
- #define HPET_TN_FSB_CAP		0x8000
--#define HPET_TN_RESERVED	0xffff0081
-+#define HPET_TN_RESERVED	0xffff0081U
- #define HPET_TN_INT_ROUTE_CAP	(0xffffffffULL << 32)
- 
- 
-diff --git a/xen/arch/x86/include/asm/hvm/trace.h b/xen/arch/x86/include/asm/hvm/trace.h
-index 696e42eb94..9d7a3c6e51 100644
---- a/xen/arch/x86/include/asm/hvm/trace.h
-+++ b/xen/arch/x86/include/asm/hvm/trace.h
-@@ -58,7 +58,7 @@
- #define DO_TRC_HVM_VLAPIC           DEFAULT_HVM_MISC
- 
- 
--#define TRC_PAR_LONG(par) ((par)&0xFFFFFFFF),((par)>>32)
-+#define TRC_PAR_LONG(par) ((uint32_t)par), ((par) >> 32)
- 
- #define TRACE_2_LONG_2D(_e, d1, d2, ...) \
-     TRACE_4D(_e, d1, d2)
-@@ -93,7 +93,7 @@
-     HVMTRACE_ND(evt, 0, 0)
- 
- #define HVMTRACE_LONG_1D(evt, d1)                  \
--                   HVMTRACE_2D(evt ## 64, (d1) & 0xFFFFFFFF, (d1) >> 32)
-+                   HVMTRACE_2D(evt ## 64, (uint32_t)d1, (d1) >> 32)
- #define HVMTRACE_LONG_2D(evt, d1, d2, ...)              \
-                    HVMTRACE_3D(evt ## 64, d1, d2)
- #define HVMTRACE_LONG_3D(evt, d1, d2, d3, ...)      \
-diff --git a/xen/arch/x86/include/asm/hvm/vioapic.h b/xen/arch/x86/include/asm/hvm/vioapic.h
-index 2944ec20dd..68af6dce79 100644
---- a/xen/arch/x86/include/asm/hvm/vioapic.h
-+++ b/xen/arch/x86/include/asm/hvm/vioapic.h
-@@ -32,7 +32,7 @@
- #define VIOAPIC_EDGE_TRIG  0
- #define VIOAPIC_LEVEL_TRIG 1
- 
--#define VIOAPIC_DEFAULT_BASE_ADDRESS  0xfec00000
-+#define VIOAPIC_DEFAULT_BASE_ADDRESS  0xfec00000U
- #define VIOAPIC_MEM_LENGTH            0x100
- 
- /* Direct registers. */
-diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-index a53ade95c9..d89723d009 100644
---- a/xen/arch/x86/include/asm/msi.h
-+++ b/xen/arch/x86/include/asm/msi.h
-@@ -37,7 +37,7 @@
-  */
- 
- #define MSI_ADDR_BASE_HI            0
--#define MSI_ADDR_BASE_LO            0xfee00000
-+#define MSI_ADDR_BASE_LO            0xfee00000U
- #define MSI_ADDR_BASE_MASK          (~0xfffff)
- #define MSI_ADDR_HEADER             MSI_ADDR_BASE_LO
- 
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 2382fc8e11..4b9004cdc3 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -30,7 +30,7 @@
- 
- #define MSR_INTEL_CORE_THREAD_COUNT         0x00000035
- #define  MSR_CTC_THREAD_MASK                0x0000ffff
--#define  MSR_CTC_CORE_MASK                  0xffff0000
-+#define  MSR_CTC_CORE_MASK                  0xffff0000U
- 
- #define MSR_SPEC_CTRL                       0x00000048
- #define  SPEC_CTRL_IBRS                     (_AC(1, ULL) <<  0)
-@@ -168,7 +168,7 @@
- #define MSR_UARCH_MISC_CTRL                 0x00001b01
- #define  UARCH_CTRL_DOITM                   (_AC(1, ULL) <<  0)
- 
--#define MSR_EFER                            0xc0000080 /* Extended Feature Enable Register */
-+#define MSR_EFER                            _AC(0xc0000080, U)  /* Extended Feature Enable Register */
- #define  EFER_SCE                           (_AC(1, ULL) <<  0) /* SYSCALL Enable */
- #define  EFER_LME                           (_AC(1, ULL) <<  8) /* Long Mode Enable */
- #define  EFER_LMA                           (_AC(1, ULL) << 10) /* Long Mode Active */
-@@ -181,35 +181,35 @@
-     (EFER_SCE | EFER_LME | EFER_LMA | EFER_NXE | EFER_SVME | EFER_FFXSE | \
-      EFER_AIBRSE)
- 
--#define MSR_STAR                            0xc0000081 /* legacy mode SYSCALL target */
--#define MSR_LSTAR                           0xc0000082 /* long mode SYSCALL target */
--#define MSR_CSTAR                           0xc0000083 /* compat mode SYSCALL target */
--#define MSR_SYSCALL_MASK                    0xc0000084 /* EFLAGS mask for syscall */
--#define MSR_FS_BASE                         0xc0000100 /* 64bit FS base */
--#define MSR_GS_BASE                         0xc0000101 /* 64bit GS base */
--#define MSR_SHADOW_GS_BASE                  0xc0000102 /* SwapGS GS shadow */
--#define MSR_TSC_AUX                         0xc0000103 /* Auxiliary TSC */
-+#define MSR_STAR                            0xc0000081U /* legacy mode SYSCALL target */
-+#define MSR_LSTAR                           0xc0000082U /* long mode SYSCALL target */
-+#define MSR_CSTAR                           0xc0000083U /* compat mode SYSCALL target */
-+#define MSR_SYSCALL_MASK                    0xc0000084U /* EFLAGS mask for syscall */
-+#define MSR_FS_BASE                         0xc0000100U /* 64bit FS base */
-+#define MSR_GS_BASE                         0xc0000101U /* 64bit GS base */
-+#define MSR_SHADOW_GS_BASE                  0xc0000102U /* SwapGS GS shadow */
-+#define MSR_TSC_AUX                         0xc0000103U /* Auxiliary TSC */
- 
--#define MSR_K8_SYSCFG                       0xc0010010
-+#define MSR_K8_SYSCFG                       0xc0010010U
- #define  SYSCFG_MTRR_FIX_DRAM_EN            (_AC(1, ULL) << 18)
- #define  SYSCFG_MTRR_FIX_DRAM_MOD_EN        (_AC(1, ULL) << 19)
- #define  SYSCFG_MTRR_VAR_DRAM_EN            (_AC(1, ULL) << 20)
- #define  SYSCFG_MTRR_TOM2_EN                (_AC(1, ULL) << 21)
- #define  SYSCFG_TOM2_FORCE_WB               (_AC(1, ULL) << 22)
- 
--#define MSR_K8_IORR_BASE0                   0xc0010016
--#define MSR_K8_IORR_MASK0                   0xc0010017
--#define MSR_K8_IORR_BASE1                   0xc0010018
--#define MSR_K8_IORR_MASK1                   0xc0010019
-+#define MSR_K8_IORR_BASE0                   0xc0010016U
-+#define MSR_K8_IORR_MASK0                   0xc0010017U
-+#define MSR_K8_IORR_BASE1                   0xc0010018U
-+#define MSR_K8_IORR_MASK1                   0xc0010019U
- 
--#define MSR_K8_TSEG_BASE                    0xc0010112 /* AMD doc: SMMAddr */
--#define MSR_K8_TSEG_MASK                    0xc0010113 /* AMD doc: SMMMask */
-+#define MSR_K8_TSEG_BASE                    0xc0010112U /* AMD doc: SMMAddr */
-+#define MSR_K8_TSEG_MASK                    0xc0010113U /* AMD doc: SMMMask */
- 
--#define MSR_K8_VM_CR                        0xc0010114
-+#define MSR_K8_VM_CR                        0xc0010114U
- #define  VM_CR_INIT_REDIRECTION             (_AC(1, ULL) <<  1)
- #define  VM_CR_SVM_DISABLE                  (_AC(1, ULL) <<  4)
- 
--#define MSR_VIRT_SPEC_CTRL                  0xc001011f /* Layout matches MSR_SPEC_CTRL */
-+#define MSR_VIRT_SPEC_CTRL                  0xc001011fU /* Layout matches MSR_SPEC_CTRL */
- 
- /*
-  * Legacy MSR constants in need of cleanup.  No new MSRs below this comment.
-@@ -293,7 +293,7 @@
- #define CMCI_EN 			(1UL<<30)
- #define CMCI_THRESHOLD_MASK		0x7FFF
- 
--#define MSR_AMD64_MC0_MASK		0xc0010044
-+#define MSR_AMD64_MC0_MASK		0xc0010044U
- 
- #define MSR_IA32_MCx_CTL(x)		(MSR_IA32_MC0_CTL + 4*(x))
- #define MSR_IA32_MCx_STATUS(x)		(MSR_IA32_MC0_STATUS + 4*(x))
-@@ -325,82 +325,82 @@
- 
- /* K7/K8 MSRs. Not complete. See the architecture manual for a more
-    complete list. */
--#define MSR_K7_EVNTSEL0			0xc0010000
--#define MSR_K7_PERFCTR0			0xc0010004
--#define MSR_K7_EVNTSEL1			0xc0010001
--#define MSR_K7_PERFCTR1			0xc0010005
--#define MSR_K7_EVNTSEL2			0xc0010002
--#define MSR_K7_PERFCTR2			0xc0010006
--#define MSR_K7_EVNTSEL3			0xc0010003
--#define MSR_K7_PERFCTR3			0xc0010007
--#define MSR_K8_TOP_MEM1			0xc001001a
--#define MSR_K8_TOP_MEM2			0xc001001d
--
--#define MSR_K8_HWCR			0xc0010015
-+#define MSR_K7_EVNTSEL0			0xc0010000U
-+#define MSR_K7_PERFCTR0			0xc0010004U
-+#define MSR_K7_EVNTSEL1			0xc0010001U
-+#define MSR_K7_PERFCTR1			0xc0010005U
-+#define MSR_K7_EVNTSEL2			0xc0010002U
-+#define MSR_K7_PERFCTR2			0xc0010006U
-+#define MSR_K7_EVNTSEL3			0xc0010003U
-+#define MSR_K7_PERFCTR3			0xc0010007U
-+#define MSR_K8_TOP_MEM1			0xc001001aU
-+#define MSR_K8_TOP_MEM2			0xc001001dU
-+
-+#define MSR_K8_HWCR			0xc0010015U
- #define K8_HWCR_TSC_FREQ_SEL		(1ULL << 24)
- #define K8_HWCR_CPUID_USER_DIS		(1ULL << 35)
- 
--#define MSR_K7_FID_VID_CTL		0xc0010041
--#define MSR_K7_FID_VID_STATUS		0xc0010042
--#define MSR_K8_PSTATE_LIMIT		0xc0010061
--#define MSR_K8_PSTATE_CTRL		0xc0010062
--#define MSR_K8_PSTATE_STATUS		0xc0010063
--#define MSR_K8_PSTATE0			0xc0010064
--#define MSR_K8_PSTATE1			0xc0010065
--#define MSR_K8_PSTATE2			0xc0010066
--#define MSR_K8_PSTATE3			0xc0010067
--#define MSR_K8_PSTATE4			0xc0010068
--#define MSR_K8_PSTATE5			0xc0010069
--#define MSR_K8_PSTATE6			0xc001006A
--#define MSR_K8_PSTATE7			0xc001006B
--#define MSR_K8_ENABLE_C1E		0xc0010055
--#define MSR_K8_VM_HSAVE_PA		0xc0010117
--
--#define MSR_AMD_FAM15H_EVNTSEL0		0xc0010200
--#define MSR_AMD_FAM15H_PERFCTR0		0xc0010201
--#define MSR_AMD_FAM15H_EVNTSEL1		0xc0010202
--#define MSR_AMD_FAM15H_PERFCTR1		0xc0010203
--#define MSR_AMD_FAM15H_EVNTSEL2		0xc0010204
--#define MSR_AMD_FAM15H_PERFCTR2		0xc0010205
--#define MSR_AMD_FAM15H_EVNTSEL3		0xc0010206
--#define MSR_AMD_FAM15H_PERFCTR3		0xc0010207
--#define MSR_AMD_FAM15H_EVNTSEL4		0xc0010208
--#define MSR_AMD_FAM15H_PERFCTR4		0xc0010209
--#define MSR_AMD_FAM15H_EVNTSEL5		0xc001020a
--#define MSR_AMD_FAM15H_PERFCTR5		0xc001020b
--
--#define MSR_AMD_L7S0_FEATURE_MASK	0xc0011002
--#define MSR_AMD_THRM_FEATURE_MASK	0xc0011003
--#define MSR_K8_FEATURE_MASK		0xc0011004
--#define MSR_K8_EXT_FEATURE_MASK		0xc0011005
-+#define MSR_K7_FID_VID_CTL		0xc0010041U
-+#define MSR_K7_FID_VID_STATUS		0xc0010042U
-+#define MSR_K8_PSTATE_LIMIT		0xc0010061U
-+#define MSR_K8_PSTATE_CTRL		0xc0010062U
-+#define MSR_K8_PSTATE_STATUS		0xc0010063U
-+#define MSR_K8_PSTATE0			0xc0010064U
-+#define MSR_K8_PSTATE1			0xc0010065U
-+#define MSR_K8_PSTATE2			0xc0010066U
-+#define MSR_K8_PSTATE3			0xc0010067U
-+#define MSR_K8_PSTATE4			0xc0010068U
-+#define MSR_K8_PSTATE5			0xc0010069U
-+#define MSR_K8_PSTATE6			0xc001006AU
-+#define MSR_K8_PSTATE7			0xc001006BU
-+#define MSR_K8_ENABLE_C1E		0xc0010055U
-+#define MSR_K8_VM_HSAVE_PA		0xc0010117U
-+
-+#define MSR_AMD_FAM15H_EVNTSEL0		0xc0010200U
-+#define MSR_AMD_FAM15H_PERFCTR0		0xc0010201U
-+#define MSR_AMD_FAM15H_EVNTSEL1		0xc0010202U
-+#define MSR_AMD_FAM15H_PERFCTR1		0xc0010203U
-+#define MSR_AMD_FAM15H_EVNTSEL2		0xc0010204U
-+#define MSR_AMD_FAM15H_PERFCTR2		0xc0010205U
-+#define MSR_AMD_FAM15H_EVNTSEL3		0xc0010206U
-+#define MSR_AMD_FAM15H_PERFCTR3		0xc0010207U
-+#define MSR_AMD_FAM15H_EVNTSEL4		0xc0010208U
-+#define MSR_AMD_FAM15H_PERFCTR4		0xc0010209U
-+#define MSR_AMD_FAM15H_EVNTSEL5		0xc001020aU
-+#define MSR_AMD_FAM15H_PERFCTR5		0xc001020bU
-+
-+#define MSR_AMD_L7S0_FEATURE_MASK	0xc0011002U
-+#define MSR_AMD_THRM_FEATURE_MASK	0xc0011003U
-+#define MSR_K8_FEATURE_MASK			0xc0011004U
-+#define MSR_K8_EXT_FEATURE_MASK		0xc0011005U
- 
- /* AMD64 MSRs */
--#define MSR_AMD64_NB_CFG		0xc001001f
-+#define MSR_AMD64_NB_CFG		0xc001001fU
- #define AMD64_NB_CFG_CF8_EXT_ENABLE_BIT	46
--#define MSR_AMD64_LS_CFG		0xc0011020
--#define MSR_AMD64_IC_CFG		0xc0011021
--#define MSR_AMD64_DC_CFG		0xc0011022
--#define MSR_AMD64_DE_CFG		0xc0011029
-+#define MSR_AMD64_LS_CFG		0xc0011020U
-+#define MSR_AMD64_IC_CFG		0xc0011021U
-+#define MSR_AMD64_DC_CFG		0xc0011022U
-+#define MSR_AMD64_DE_CFG		0xc0011029U
- #define AMD64_DE_CFG_LFENCE_SERIALISE	(_AC(1, ULL) << 1)
--#define MSR_AMD64_EX_CFG		0xc001102c
--#define MSR_AMD64_DE_CFG2		0xc00110e3
-+#define MSR_AMD64_EX_CFG		0xc001102cU
-+#define MSR_AMD64_DE_CFG2		0xc00110e3U
- 
--#define MSR_AMD64_DR0_ADDRESS_MASK	0xc0011027
--#define MSR_AMD64_DR1_ADDRESS_MASK	0xc0011019
--#define MSR_AMD64_DR2_ADDRESS_MASK	0xc001101a
--#define MSR_AMD64_DR3_ADDRESS_MASK	0xc001101b
-+#define MSR_AMD64_DR0_ADDRESS_MASK	0xc0011027U
-+#define MSR_AMD64_DR1_ADDRESS_MASK	0xc0011019U
-+#define MSR_AMD64_DR2_ADDRESS_MASK	0xc001101aU
-+#define MSR_AMD64_DR3_ADDRESS_MASK	0xc001101bU
- 
- /* AMD Family10h machine check MSRs */
--#define MSR_F10_MC4_MISC1		0xc0000408
--#define MSR_F10_MC4_MISC2		0xc0000409
--#define MSR_F10_MC4_MISC3		0xc000040A
-+#define MSR_F10_MC4_MISC1		0xc0000408U
-+#define MSR_F10_MC4_MISC2		0xc0000409U
-+#define MSR_F10_MC4_MISC3		0xc000040AU
- 
- /* AMD Family10h Bus Unit MSRs */
--#define MSR_F10_BU_CFG 		0xc0011023
--#define MSR_F10_BU_CFG2		0xc001102a
-+#define MSR_F10_BU_CFG 		0xc0011023U
-+#define MSR_F10_BU_CFG2		0xc001102aU
- 
- /* Other AMD Fam10h MSRs */
--#define MSR_FAM10H_MMIO_CONF_BASE	0xc0010058
-+#define MSR_FAM10H_MMIO_CONF_BASE	0xc0010058U
- #define FAM10H_MMIO_CONF_ENABLE         (1<<0)
- #define FAM10H_MMIO_CONF_BUSRANGE_MASK	0xf
- #define FAM10H_MMIO_CONF_BUSRANGE_SHIFT 2
-@@ -409,22 +409,22 @@
- 
- /* AMD Microcode MSRs */
- #define MSR_AMD_PATCHLEVEL		0x0000008b
--#define MSR_AMD_PATCHLOADER		0xc0010020
-+#define MSR_AMD_PATCHLOADER		0xc0010020U
- 
- /* AMD TSC RATE MSR */
--#define MSR_AMD64_TSC_RATIO		0xc0000104
-+#define MSR_AMD64_TSC_RATIO		0xc0000104U
- 
- /* AMD Lightweight Profiling MSRs */
--#define MSR_AMD64_LWP_CFG		0xc0000105
--#define MSR_AMD64_LWP_CBADDR		0xc0000106
-+#define MSR_AMD64_LWP_CFG		0xc0000105U
-+#define MSR_AMD64_LWP_CBADDR		0xc0000106U
- 
- /* AMD OS Visible Workaround MSRs */
--#define MSR_AMD_OSVW_ID_LENGTH          0xc0010140
--#define MSR_AMD_OSVW_STATUS             0xc0010141
-+#define MSR_AMD_OSVW_ID_LENGTH          0xc0010140U
-+#define MSR_AMD_OSVW_STATUS             0xc0010141U
- 
- /* AMD Protected Processor Inventory Number */
--#define MSR_AMD_PPIN_CTL                0xc00102f0
--#define MSR_AMD_PPIN                    0xc00102f1
-+#define MSR_AMD_PPIN_CTL                0xc00102f0U
-+#define MSR_AMD_PPIN                    0xc00102f1U
- 
- /* VIA Cyrix defined MSRs*/
- #define MSR_VIA_FCR			0x00001107
-diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
-index f4a58c8acf..e1dd12eb19 100644
---- a/xen/arch/x86/include/asm/pci.h
-+++ b/xen/arch/x86/include/asm/pci.h
-@@ -3,10 +3,10 @@
- 
- #include <xen/mm.h>
- 
--#define CF8_BDF(cf8)     (  ((cf8) & 0x00ffff00) >> 8)
--#define CF8_ADDR_LO(cf8) (   (cf8) & 0x000000fc)
--#define CF8_ADDR_HI(cf8) (  ((cf8) & 0x0f000000) >> 16)
--#define CF8_ENABLED(cf8) (!!((cf8) & 0x80000000))
-+#define CF8_BDF(cf8)     (  ((cf8) & 0x00ffff00U) >> 8)
-+#define CF8_ADDR_LO(cf8) (   (cf8) & 0x000000fcU)
-+#define CF8_ADDR_HI(cf8) (  ((cf8) & 0x0f000000U) >> 16)
-+#define CF8_ENABLED(cf8) (!!((cf8) & 0x80000000U))
- 
- #define IS_SNB_GFX(id) (id == 0x01068086 || id == 0x01168086 \
-                         || id == 0x01268086 || id == 0x01028086 \
-diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
-index e350227e57..6c1aff948c 100644
---- a/xen/arch/x86/include/asm/x86-defns.h
-+++ b/xen/arch/x86/include/asm/x86-defns.h
-@@ -30,17 +30,17 @@
- /*
-  * Intel CPU flags in CR0
-  */
--#define X86_CR0_PE              0x00000001 /* Enable Protected Mode    (RW) */
--#define X86_CR0_MP              0x00000002 /* Monitor Coprocessor      (RW) */
--#define X86_CR0_EM              0x00000004 /* Require FPU Emulation    (RO) */
--#define X86_CR0_TS              0x00000008 /* Task Switched            (RW) */
--#define X86_CR0_ET              0x00000010 /* Extension type           (RO) */
--#define X86_CR0_NE              0x00000020 /* Numeric Error Reporting  (RW) */
--#define X86_CR0_WP              0x00010000 /* Supervisor Write Protect (RW) */
--#define X86_CR0_AM              0x00040000 /* Alignment Checking       (RW) */
--#define X86_CR0_NW              0x20000000 /* Not Write-Through        (RW) */
--#define X86_CR0_CD              0x40000000 /* Cache Disable            (RW) */
--#define X86_CR0_PG              0x80000000 /* Paging                   (RW) */
-+#define X86_CR0_PE              _AC(0x00000001, U) /* Enable Protected Mode    (RW) */
-+#define X86_CR0_MP              _AC(0x00000002, U) /* Monitor Coprocessor      (RW) */
-+#define X86_CR0_EM              _AC(0x00000004, U) /* Require FPU Emulation    (RO) */
-+#define X86_CR0_TS              _AC(0x00000008, U) /* Task Switched            (RW) */
-+#define X86_CR0_ET              _AC(0x00000010, U) /* Extension type           (RO) */
-+#define X86_CR0_NE              _AC(0x00000020, U) /* Numeric Error Reporting  (RW) */
-+#define X86_CR0_WP              _AC(0x00010000, U) /* Supervisor Write Protect (RW) */
-+#define X86_CR0_AM              _AC(0x00040000, U) /* Alignment Checking       (RW) */
-+#define X86_CR0_NW              _AC(0x20000000, U) /* Not Write-Through        (RW) */
-+#define X86_CR0_CD              _AC(0x40000000, U) /* Cache Disable            (RW) */
-+#define X86_CR0_PG              _AC(0x80000000, U) /* Paging                   (RW) */
- 
- /*
-  * Intel CPU flags in CR3
-@@ -103,7 +103,7 @@
- /*
-  * Debug status flags in DR6.
-  */
--#define X86_DR6_DEFAULT         0xffff0ff0  /* Default %dr6 value. */
-+#define X86_DR6_DEFAULT         0xffff0ff0UL  /* Default %dr6 value. */
- 
- /*
-  * Debug control flags in DR7.
-diff --git a/xen/arch/x86/percpu.c b/xen/arch/x86/percpu.c
-index 288050cdba..1ebeb65ad6 100644
---- a/xen/arch/x86/percpu.c
-+++ b/xen/arch/x86/percpu.c
-@@ -12,7 +12,7 @@ unsigned long __per_cpu_offset[NR_CPUS];
-  * possible #PF at (NULL + a little) which has security implications in the
-  * context of PV guests.
-  */
--#define INVALID_PERCPU_AREA (0x8000000000000000L - (long)__per_cpu_start)
-+#define INVALID_PERCPU_AREA (0x8000000000000000UL - (long)__per_cpu_start)
- #define PERCPU_ORDER get_order_from_bytes(__per_cpu_data_end - __per_cpu_start)
- 
- void __init percpu_init_areas(void)
-diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
-index a1e0af27c5..5581b4717a 100644
---- a/xen/arch/x86/psr.c
-+++ b/xen/arch/x86/psr.c
-@@ -191,7 +191,7 @@ static struct feat_node *feat_l2_cat;
- static struct feat_node *feat_mba;
- 
- /* Common functions */
--#define cat_default_val(len) (0xffffffff >> (32 - (len)))
-+#define cat_default_val(len) (0xffffffffU >> (32 - (len)))
- 
- /*
-  * get_cdp_data - get DATA COS register value from input COS ID.
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 4081cef200..b030ad8a5b 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -398,8 +398,8 @@ static void __init print_details(enum ind_thunk thunk)
-         cpuid_count(7, 0, &max, &tmp, &tmp, &_7d0);
-     if ( max >= 2 )
-         cpuid_count(7, 2, &tmp, &tmp, &tmp, &_7d2);
--    if ( boot_cpu_data.extended_cpuid_level >= 0x80000008 )
--        cpuid(0x80000008, &tmp, &e8b, &tmp, &tmp);
-+    if ( boot_cpu_data.extended_cpuid_level >= 0x80000008U )
-+        cpuid(0x80000008U, &tmp, &e8b, &tmp, &tmp);
-     if ( cpu_has_arch_caps )
-         rdmsrl(MSR_ARCH_CAPABILITIES, caps);
- 
-@@ -1337,8 +1337,8 @@ void __init init_speculation_mitigations(void)
-          * TODO: Adjust cpu_has_svm_spec_ctrl to be usable earlier on boot.
-          */
-         if ( opt_msr_sc_hvm &&
--             (boot_cpu_data.extended_cpuid_level >= 0x8000000a) &&
--             (cpuid_edx(0x8000000a) & (1u << SVM_FEATURE_SPEC_CTRL)) )
-+             (boot_cpu_data.extended_cpuid_level >= 0x8000000aU) &&
-+             (cpuid_edx(0x8000000aU) & (1u << SVM_FEATURE_SPEC_CTRL)) )
-             setup_force_cpu_cap(X86_FEATURE_SC_MSR_HVM);
-     }
- 
-diff --git a/xen/arch/x86/x86_64/pci.c b/xen/arch/x86/x86_64/pci.c
-index aad1c3f7cf..8d33429103 100644
---- a/xen/arch/x86/x86_64/pci.c
-+++ b/xen/arch/x86/x86_64/pci.c
-@@ -9,7 +9,7 @@
- #include <asm/io.h>
- 
- #define PCI_CONF_ADDRESS(sbdf, reg) \
--    (0x80000000 | ((sbdf).bdf << 8) | ((reg) & ~3))
-+    (0x80000000U | ((sbdf).bdf << 8) | ((reg) & ~3))
- 
- uint8_t pci_conf_read8(pci_sbdf_t sbdf, unsigned int reg)
- {
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-index 698750267a..d92be69d84 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.h
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-@@ -620,7 +620,7 @@ struct x86_emulate_ctxt
-  * below).
-  * Hence no separate #define-s get added.
-  */
--#define X86EMUL_OPC_EXT_MASK         0xffff0000
-+#define X86EMUL_OPC_EXT_MASK         0xffff0000U
- #define X86EMUL_OPC(ext, byte)       ((uint8_t)(byte) | \
-                                       MASK_INSR((ext), X86EMUL_OPC_EXT_MASK))
- /*
-diff --git a/xen/lib/x86/cpuid.c b/xen/lib/x86/cpuid.c
-index 07e5501914..a4ea579ebe 100644
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -217,10 +217,10 @@ void x86_cpu_policy_fill_native(struct cpu_policy *p)
-     }
- 
-     /* Extended leaves. */
--    cpuid_leaf(0x80000000, &p->extd.raw[0]);
-+    cpuid_leaf(0x80000000U, &p->extd.raw[0]);
-     for ( i = 1; i <= MIN(p->extd.max_leaf & 0xffffU,
-                           ARRAY_SIZE(p->extd.raw) - 1); ++i )
--        cpuid_leaf(0x80000000 + i, &p->extd.raw[i]);
-+        cpuid_leaf(0x80000000U + i, &p->extd.raw[i]);
- 
-     /* Don't report leaves from possible lower level hypervisor, for now. */
-     p->hv_limit = 0;
-@@ -421,7 +421,7 @@ int x86_cpuid_copy_to_buffer(const struct cpu_policy *p,
-     /* Extended leaves. */
-     for ( leaf = 0; leaf <= MIN(p->extd.max_leaf & 0xfffful,
-                                 ARRAY_SIZE(p->extd.raw) - 1); ++leaf )
--        COPY_LEAF(0x80000000 | leaf, XEN_CPUID_NO_SUBLEAF, &p->extd.raw[leaf]);
-+        COPY_LEAF(0x80000000U | leaf, XEN_CPUID_NO_SUBLEAF, &p->extd.raw[leaf]);
- 
- #undef COPY_LEAF
- 
-@@ -521,7 +521,7 @@ int x86_cpuid_copy_from_buffer(struct cpu_policy *p,
-             p->hv2_limit = l.a;
-             break;
- 
--        case 0x80000000 ... 0x80000000 + ARRAY_SIZE(p->extd.raw) - 1:
-+        case 0x80000000U ... 0x80000000U + ARRAY_SIZE(p->extd.raw) - 1:
-             if ( data.subleaf != XEN_CPUID_NO_SUBLEAF )
-                 goto out_of_range;
- 
-diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
-index a9c60000af..f033d22785 100644
---- a/xen/lib/x86/policy.c
-+++ b/xen/lib/x86/policy.c
-@@ -22,7 +22,7 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
-         FAIL_CPUID(7, 0);
- 
-     if ( guest->extd.max_leaf > host->extd.max_leaf )
--        FAIL_CPUID(0x80000000, NA);
-+        FAIL_CPUID(0x80000000U, NA);
- 
-     /* TODO: Audit more CPUID data. */
- 
--- 
-2.34.1
+--------------li9gz3XuiA5paHgFlJDTK25C--
 
+--------------hxI3ibq4dVH3R8hdfmK307so
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTA/lYFAwAAAAAACgkQsN6d1ii/Ey/S
+1wf+Mt5NGdZbmpH7qfz3nEynpaQ8lzKpVHFpfyiMw5sDPnYvOe0Z73RpjyAgzYzbFuqsiIlWz+Yt
+Qu1tHp8VqoXSEmbcGfqt8Yhn5M6bW2LJrBRuG2Ye1V9SpITkBasOUClpv/eRkySX9Ay4u+UBewb9
+OE4L+kC9Wr3iKTvyZmT5CaVDOK2r0k+3kaG8sg2EZiYcBWJ0i729D2bCcrzgnMVq6pqbdrqt1D8x
+fLYT0S4cT8zuXaFlLJP4SIT8Igg7ZUJKoa4YQso9ljNGdATs3oQekg55bSPRX75yuC0cVJAr5m72
+WHdJw53DTj4s36iPdbhppycOkovgZTHOu7Ph3N8A9w==
+=vJjD
+-----END PGP SIGNATURE-----
+
+--------------hxI3ibq4dVH3R8hdfmK307so--
 
