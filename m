@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ACD4763D48
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 19:10:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570633.892614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDD2763D4A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jul 2023 19:10:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570634.892624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOi1q-0006OT-Ig; Wed, 26 Jul 2023 17:10:26 +0000
+	id 1qOi1t-0006gW-QN; Wed, 26 Jul 2023 17:10:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570633.892614; Wed, 26 Jul 2023 17:10:26 +0000
+Received: by outflank-mailman (output) from mailman id 570634.892624; Wed, 26 Jul 2023 17:10:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOi1q-0006L9-Em; Wed, 26 Jul 2023 17:10:26 +0000
-Received: by outflank-mailman (input) for mailman id 570633;
- Wed, 26 Jul 2023 17:10:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qOi1t-0006du-N6; Wed, 26 Jul 2023 17:10:29 +0000
+Received: by outflank-mailman (input) for mailman id 570634;
+ Wed, 26 Jul 2023 17:10:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Pn9P=DM=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qOi1p-0005nP-2d
- for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 17:10:25 +0000
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [2607:f8b0:4864:20::72b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e13bdb8-2bd7-11ee-8613-37d641c3527e;
- Wed, 26 Jul 2023 19:10:22 +0200 (CEST)
-Received: by mail-qk1-x72b.google.com with SMTP id
- af79cd13be357-76714caf466so3088285a.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Jul 2023 10:10:23 -0700 (PDT)
+ id 1qOi1r-00062Z-Uu
+ for xen-devel@lists.xenproject.org; Wed, 26 Jul 2023 17:10:27 +0000
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [2607:f8b0:4864:20::735])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50c90e80-2bd7-11ee-b242-6b7b168915f2;
+ Wed, 26 Jul 2023 19:10:27 +0200 (CEST)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-76ae5b44426so2498385a.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Jul 2023 10:10:27 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com
  (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
  [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
- s17-20020a0ca611000000b0063d1aa446e2sm1248019qva.59.2023.07.26.10.10.20
+ s17-20020a0ca611000000b0063d1aa446e2sm1248019qva.59.2023.07.26.10.10.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jul 2023 10:10:21 -0700 (PDT)
+ Wed, 26 Jul 2023 10:10:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,36 +46,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e13bdb8-2bd7-11ee-8613-37d641c3527e
+X-Inumbo-ID: 50c90e80-2bd7-11ee-b242-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690391422; x=1690996222;
+        d=gmail.com; s=20221208; t=1690391425; x=1690996225;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tj29XCVclI+6QGR1ahwKo+P0a4dIzt4OqPyhJ7hCJ/k=;
-        b=eiNoAZOOGxuceqVWp2ammLbsp+637AYhLdnzo/0ZgxzBvrtaq/7uczbqwToMHwCL9E
-         oP32llNkDgxa8zP4LsbwJoqD16+zUHi78FHC9YjOSXyKZ5uxvGUOLg1nHOjC6wPD+zWi
-         sYu5S4u6biDs31r7OwSU5St5l8xkNlmAUI/qPBnmWqh3lZzikIuv+yx1KV1zGv1tO3/9
-         fnrI4zs7ewI7Inv00OkJt0SxMICp3IxGFLEeRJZ74Z7gO3NQqLTmtkIh7mVao1N7DDUA
-         RhoBzKygdg0ei/g21svSV5bhFi7J1W4MmMdIx+BlIOmk7ssiMESmezgf437BqkCeQFTV
-         0R+A==
+        bh=6N7tHO/NpGPoNencisuqLlnFkoHrBAPddvPlzfIc1r8=;
+        b=CZom+YTmDnHiRp8FX7mQxKkFsjyAiG0xPZHEu7bkMTB673t77gvfq5VsZwXCsew/9w
+         vidT6gQwl7G0G3a1iRR09VS5rr547Ztov18JL0StBbHpric4NvntKEpbV9k/Zr2BX7NX
+         pzVN+3wQ1MrnlRgLsrjTidioCPwdL/ahTXW/lETGU8O1lUyQkl/Vp5xXpX5zMta3+qjP
+         s9bRRlk3gtKw2HsHO7mJfCvH4JaENOMSqDYxoatmHWt38LtQ+CDYI/RTMiNdXoVbJUIh
+         NSP3KYAIZyIJYyxSeX80IzJAlbqJgOGL0UXmE9wP/dxx4obr3KYrmV+RDgKiIUTgNn4D
+         GTBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690391422; x=1690996222;
+        d=1e100.net; s=20221208; t=1690391425; x=1690996225;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=tj29XCVclI+6QGR1ahwKo+P0a4dIzt4OqPyhJ7hCJ/k=;
-        b=SPj/4Bd8rxqm+LULiosc7LsGRMJp6qIuStOoD/mOf0G73Zt/K3nhpVRWTVstH12GGn
-         lq1YT4GVAIWahqv8NoHzySXRA5k5jsiCJOc8uLaX9aGZzsVSPTAjq0f4Ab5qk0eSts1c
-         9umej9Si+kYS5A8p1NgPVKQ7WLx7Ij3gjxx/3NkaObja1NhRvZNMOiRlufvPrzREBBPQ
-         TRhw7IW6xg90vqC5D05aCdJKtWI42FurRyqf6lmYqMPxnQspAxVNq+BZJyW2uW1MRFeY
-         cB9ZfZg11spYUSkCg/I59VAJVxK/iX2th3aGhKff7SRRKhgP4tZzGkEp4gSuNJasLAd3
-         xCdQ==
-X-Gm-Message-State: ABy/qLZTA7CmW33FaPhdklilMLFSEGEe0SOA0qcKvt+mIh9/JJuxhtfh
-	Dst5MJqje9YWl5v4FV3urEmT7syTZi8=
-X-Google-Smtp-Source: APBJJlH48lxLuLRRThOdDWjI4a2VBOKN76LvDeNPxc5mjqX3/N56ultLiZRko5Yq4i6oiox/KX6AjQ==
-X-Received: by 2002:a05:6214:5294:b0:637:85e3:2a2d with SMTP id kj20-20020a056214529400b0063785e32a2dmr2779361qvb.58.1690391421785;
-        Wed, 26 Jul 2023 10:10:21 -0700 (PDT)
+        bh=6N7tHO/NpGPoNencisuqLlnFkoHrBAPddvPlzfIc1r8=;
+        b=k1VpMK4JIIjbDOSHMEZsL61ubNws6mKJ1EKNEN5xj5zGS/U1AUiCFr6PfTsGi+ON/1
+         tBwEQsovlKgmKibRRT/VBA7sf3gE1TU2HzMCkHctlFKgm2NjxUqc+vzrzkUMvYnE2q9L
+         A/mTYn0Yp0IxvqrtiFNnTvfD3h0ABlS5iPn846dg/2knLdlI63XNakG+wEgUBbTtapmz
+         c0Yc2HzBJq7a8pEStuujlA4gGpLVF49P9S5TopdC3oP9jwo61gcP2I2Iiu49dU1OwlHI
+         2SUOjoeY/eRw8Cd1tWFVOyj8WIP1F0//3A4b76YX19Xeshvlmhtkip2x9U4/nOKLQmSI
+         fbyg==
+X-Gm-Message-State: ABy/qLYhTt41I2Ur/n3aTcYbjYZsvR5v4sGWBoFjjuq1JxLLpuRLqy7s
+	HtQb90/Oa/if41K6dcg7hZuCFBXHWsM=
+X-Google-Smtp-Source: APBJJlHkSob2x7uUuh5jB8GE9zJTKb2Ot+bP8m9J4kEKe8C794coO7B/Sr8vfeQt0Ngm6wQ91Ljipg==
+X-Received: by 2002:a0c:e5ce:0:b0:635:f4e3:8842 with SMTP id u14-20020a0ce5ce000000b00635f4e38842mr2416231qvm.48.1690391425476;
+        Wed, 26 Jul 2023 10:10:25 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
@@ -83,75 +83,74 @@ Cc: Jason Andryuk <jandryuk@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v7 02/15] cpufreq: Add perf_freq to cpuinfo
-Date: Wed, 26 Jul 2023 13:09:32 -0400
-Message-ID: <20230726170945.34961-3-jandryuk@gmail.com>
+Subject: [PATCH v7 03/15] cpufreq: Export intel_feature_detect
+Date: Wed, 26 Jul 2023 13:09:33 -0400
+Message-ID: <20230726170945.34961-4-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230726170945.34961-1-jandryuk@gmail.com>
 References: <20230726170945.34961-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-acpi-cpufreq scales the aperf/mperf measurements by max_freq, but HWP
-needs to scale by base frequency.  Settings max_freq to base_freq
-"works" but the code is not obvious, and returning values to userspace
-is tricky.  Add an additonal perf_freq member which is used for scaling
-aperf/mperf measurements.
+Export feature_detect as intel_feature_detect so it can be re-used by
+HWP.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-v3:
+v4:
 Add Jan's Ack
 
-I don't like this, but it seems the best way to re-use the common
-aperf/mperf code.  The other option would be to add wrappers that then
-do the acpi vs. hwp scaling.
+v3:
+Remove void * cast when calling intel_feature_detect
+
+v2:
+export intel_feature_detect with typed pointer
+Move intel_feature_detect to acpi/cpufreq/cpufreq.h since the
+declaration now contains struct cpufreq_policy *.
 ---
- xen/arch/x86/acpi/cpufreq/cpufreq.c | 2 +-
- xen/drivers/cpufreq/utility.c       | 1 +
- xen/include/acpi/cpufreq/cpufreq.h  | 3 +++
- 3 files changed, 5 insertions(+), 1 deletion(-)
+ xen/arch/x86/acpi/cpufreq/cpufreq.c | 8 ++++++--
+ xen/include/acpi/cpufreq/cpufreq.h  | 2 ++
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/xen/arch/x86/acpi/cpufreq/cpufreq.c b/xen/arch/x86/acpi/cpufreq/cpufreq.c
-index 2e0067fbe5..6c70d04395 100644
+index 6c70d04395..f1cc473b4f 100644
 --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
 +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
-@@ -316,7 +316,7 @@ unsigned int get_measured_perf(unsigned int cpu, unsigned int flag)
-     else
-         perf_percent = 0;
- 
--    return policy->cpuinfo.max_freq * perf_percent / 100;
-+    return policy->cpuinfo.perf_freq * perf_percent / 100;
+@@ -339,9 +339,8 @@ static unsigned int cf_check get_cur_freq_on_cpu(unsigned int cpu)
+     return extract_freq(get_cur_val(cpumask_of(cpu)), data);
  }
  
- static unsigned int cf_check get_cur_freq_on_cpu(unsigned int cpu)
-diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utility.c
-index 9eb7ecedcd..6831f62851 100644
---- a/xen/drivers/cpufreq/utility.c
-+++ b/xen/drivers/cpufreq/utility.c
-@@ -236,6 +236,7 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy,
+-static void cf_check feature_detect(void *info)
++void intel_feature_detect(struct cpufreq_policy *policy)
+ {
+-    struct cpufreq_policy *policy = info;
+     unsigned int eax;
  
-     policy->min = policy->cpuinfo.min_freq = min_freq;
-     policy->max = policy->cpuinfo.max_freq = max_freq;
-+    policy->cpuinfo.perf_freq = max_freq;
-     policy->cpuinfo.second_max_freq = second_max_freq;
+     eax = cpuid_eax(6);
+@@ -353,6 +352,11 @@ static void cf_check feature_detect(void *info)
+     }
+ }
  
-     if (policy->min == ~0)
++static void cf_check feature_detect(void *info)
++{
++    intel_feature_detect(info);
++}
++
+ static unsigned int check_freqs(const cpumask_t *mask, unsigned int freq,
+                                 struct acpi_cpufreq_data *data)
+ {
 diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
-index 44fc4c58fc..1f1898d811 100644
+index 1f1898d811..482ea5b0de 100644
 --- a/xen/include/acpi/cpufreq/cpufreq.h
 +++ b/xen/include/acpi/cpufreq/cpufreq.h
-@@ -37,6 +37,9 @@ extern struct acpi_cpufreq_data *cpufreq_drv_data[NR_CPUS];
- struct cpufreq_cpuinfo {
-     unsigned int        max_freq;
-     unsigned int        second_max_freq;    /* P1 if Turbo Mode is on */
-+    unsigned int        perf_freq; /* Scaling freq for aperf/mpref.
-+                                      acpi-cpufreq uses max_freq, but HWP uses
-+                                      base_freq.*/
-     unsigned int        min_freq;
-     unsigned int        transition_latency; /* in 10^(-9) s = nanoseconds */
- };
+@@ -243,4 +243,6 @@ int write_userspace_scaling_setspeed(unsigned int cpu, unsigned int freq);
+ void cpufreq_dbs_timer_suspend(void);
+ void cpufreq_dbs_timer_resume(void);
+ 
++void intel_feature_detect(struct cpufreq_policy *policy);
++
+ #endif /* __XEN_CPUFREQ_PM_H__ */
 -- 
 2.41.0
 
