@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BEF87654DB
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 15:23:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571108.894155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC127654F1
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 15:26:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571112.894164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP0xQ-00016P-DP; Thu, 27 Jul 2023 13:23:08 +0000
+	id 1qP10n-0001gm-SU; Thu, 27 Jul 2023 13:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571108.894155; Thu, 27 Jul 2023 13:23:08 +0000
+Received: by outflank-mailman (output) from mailman id 571112.894164; Thu, 27 Jul 2023 13:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP0xQ-00013q-A9; Thu, 27 Jul 2023 13:23:08 +0000
-Received: by outflank-mailman (input) for mailman id 571108;
- Thu, 27 Jul 2023 13:23:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qP0xP-00013b-3E; Thu, 27 Jul 2023 13:23:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qP0xP-00055M-08; Thu, 27 Jul 2023 13:23:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qP0xO-0007Am-IY; Thu, 27 Jul 2023 13:23:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qP0xO-00047i-I3; Thu, 27 Jul 2023 13:23:06 +0000
+	id 1qP10n-0001f7-Pc; Thu, 27 Jul 2023 13:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 571112;
+ Thu, 27 Jul 2023 13:26:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RfsC=DN=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qP10m-0001f0-1A
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 13:26:36 +0000
+Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
+ [136.143.184.57]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 331b4c96-2c81-11ee-8613-37d641c3527e;
+ Thu, 27 Jul 2023 15:26:33 +0200 (CEST)
+Received: from [10.10.1.94] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1690464386105636.1042016409584;
+ Thu, 27 Jul 2023 06:26:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,239 +40,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pxngSlTP9WYOIFENJOK0D2Cl+SLynkSgqLlMhrtvQlk=; b=gewFpP6GU0TC6uAIKu1kDcqsMo
-	9zhqaeoQirWOyN5tlprDa8ftMYB5t9qVsRHPIIzrwnY8tZEgpVhRhNo8X7Y3TeUhIpLhPAgpLCsbT
-	z8hW7uuYEz/FhWSCotFlNVkVrk5c3ZMZOXgjrMgtw/KlytmSIUw+jTGn3d8cyJ4S4LTs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182025-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 331b4c96-2c81-11ee-8613-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1690464389; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MNmHa/q5UMeEjGIls+mP9IERomY6tt6R4ULGLMNEr0YuGMQZmgEbaXr+V26CVNCfz8SfL6YjCVJfC/JIVENQGQMRXcfSqt4oCwRoeYt4c5RyUzynekUO+MPtp0E+GWGIiauQODYHwKdWa2OFMznwc8tAX2SotjP5ZeS1vi7inTY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1690464389; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=XMBdIHKSpaiE95N3d6r4LbZnkBbvXwtqpQOJK7TScnQ=; 
+	b=n1di8RQ0/xTVujtFLJ1aCYUqIBRE0K7vJdoVrI9iTRSHpQI6Xt/+IGkVnLoFOxI2AmyaPXzOeFG2oLTy+NOjKyCQm+BOto8bY7FK/ZMm4xK3qYYhDfvMcrwwgahT21YYwASmK28jtYxY2bqD2MZfpg7pjmaIaVINenFl9tSAsCU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1690464389;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=XMBdIHKSpaiE95N3d6r4LbZnkBbvXwtqpQOJK7TScnQ=;
+	b=Pl5Rmvu1Mmu2c089XzhERFn5oP1qbDXltOgc07QxwooubgBlx9qlCO0daUi/ueNC
+	arhcqBXNWhhVb2rlFlbB7qzgVQoVdmJoi+5XKTPjFRS1HzSkeOhTaVuMalXTi5xCd3H
+	vW+hpq0VHtofdPXlzYO1B8/HD1ptTrNqoxeq/ypA=
+Message-ID: <19bb355f-576c-b8d7-b6da-fa2dd8ff2228@apertussolutions.com>
+Date: Thu, 27 Jul 2023 09:26:23 -0400
 MIME-Version: 1.0
-Subject: [linux-linus test] 182025: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-libvirt-raw:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-start/debian.repeat:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-localmigrate/x10:fail:heisenbug
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=18b44bc5a67275641fb26f2c54ba7eef80ac5950
-X-Osstest-Versions-That:
-    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 27 Jul 2023 13:23:06 +0000
-
-flight 182025 linux-linus real [real]
-flight 182036 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182025/
-http://logs.test-lab.xenproject.org/osstest/logs/182036/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-libvirt-raw 13 guest-start              fail REGR. vs. 180278
- test-arm64-arm64-xl-vhd      13 guest-start              fail REGR. vs. 180278
- test-amd64-amd64-xl-credit2 22 guest-start/debian.repeat fail in 182036 REGR. vs. 180278
-
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-credit2 20 guest-localmigrate/x10 fail pass in 182036-retest
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt   16 saverestore-support-check fail blocked in 180278
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail blocked in 180278
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 180278
- test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                18b44bc5a67275641fb26f2c54ba7eef80ac5950
-baseline version:
- linux                6c538e1adbfc696ac4747fb10d63e704344f763d
-
-Last test of basis   180278  2023-04-16 19:41:46 Z  101 days
-Failing since        180281  2023-04-17 06:24:36 Z  101 days  190 attempts
-Testing same since   182025  2023-07-26 16:01:05 Z    0 days    1 attempts
-
-------------------------------------------------------------
-3821 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      pass    
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 03/10] x86 setup: change bootstrap map to accept new boot
+ module structures
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, stefano.stabellini@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Luca Fancellu <luca.fancellu@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Rich Persaud <persaur@gmail.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Christopher Clark <christopher.w.clark@gmail.com>
+References: <20230701071835.41599-1-christopher.w.clark@gmail.com>
+ <20230701071835.41599-4-christopher.w.clark@gmail.com>
+ <alpine.DEB.2.22.394.2307081144340.761183@ubuntu-linux-20-04-desktop>
+ <CACMJ4GYE6PW1SY35dhs4XkXd9ru25igrvMCrh4pJMWEBNNz0YQ@mail.gmail.com>
+ <CACMJ4Gb_ZwKSjP7qzfQj98YQjSpBdFuWzeGQJUNNqst0GdXCOw@mail.gmail.com>
+ <4e0a0fc9-0c1b-4725-5692-de67ee68a980@suse.com>
+ <2994c9b8-c803-1fd9-20df-0d25d2b66c49@apertussolutions.com>
+ <ca85fd2e-45a5-32c3-cb4b-1042be6c6915@suse.com>
+ <32a22c57-1333-47b0-c61d-abff8d7df112@apertussolutions.com>
+ <7ab3c4ae-3903-29de-ba32-d328b426d104@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <7ab3c4ae-3903-29de-ba32-d328b426d104@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 7/27/23 08:54, Jan Beulich wrote:
+> On 27.07.2023 14:48, Daniel P. Smith wrote:
+>> On 7/27/23 07:58, Jan Beulich wrote:
+>>> On 27.07.2023 13:46, Daniel P. Smith wrote:
+>>>> On 7/21/23 02:14, Jan Beulich wrote:
+>>>>> On 21.07.2023 00:12, Christopher Clark wrote:
+>>>>>> On Thu, Jul 13, 2023 at 11:51 PM Christopher Clark <
+>>>>>> christopher.w.clark@gmail.com> wrote:
+>>>>>>> On Sat, Jul 8, 2023 at 11:47 AM Stefano Stabellini <sstabellini@kernel.org>
+>>>>>>> wrote:
+>>>>>>>> On Sat, 1 Jul 2023, Christopher Clark wrote:
+>>>>>>>>> To convert the x86 boot logic from multiboot to boot module structures,
+>>>>>>>>> change the bootstrap map function to accept a boot module parameter.
+>>>>>>>>>
+>>>>>>>>> To allow incremental change from multiboot to boot modules across all
+>>>>>>>>> x86 setup logic, provide a temporary inline wrapper that still accepts a
+>>>>>>>>> multiboot module parameter and use it where necessary. The wrapper is
+>>>>>>>>> placed in a new arch/x86 header <asm/boot.h> to avoid putting a static
+>>>>>>>>> inline function into an existing header that has no such functions
+>>>>>>>>> already. This new header will be expanded with additional functions in
+>>>>>>>>> subsequent patches in this series.
+>>>>>>>>>
+>>>>>>>>> No functional change intended.
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
+>>>>>>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> [...]
+>>>>>>>>
+>>>>>>>>> diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h
+>>>>>>>>> index b72ae31a66..eb93cc3439 100644
+>>>>>>>>> --- a/xen/include/xen/bootinfo.h
+>>>>>>>>> +++ b/xen/include/xen/bootinfo.h
+>>>>>>>>> @@ -10,6 +10,9 @@
+>>>>>>>>>     #endif
+>>>>>>>>>
+>>>>>>>>>     struct boot_module {
+>>>>>>>>> +    paddr_t start;
+>>>>>>>>> +    size_t size;
+>>>>>>>>
+>>>>>>>> I think size should be paddr_t (instead of size_t) to make sure it is
+>>>>>>>> the right size on both 64-bit and 32-bit architectures that support
+>>>>>>>> 64-bit addresses.
+>>>>>>>>
+>>>>>>>
+>>>>>>> Thanks, that explanation does make sense - ack.
+>>>>>>>
+>>>>>>
+>>>>>> I've come back to reconsider this as it doesn't seem right to me to store a
+>>>>>> non-address value (which this will always be) in a type explicitly defined
+>>>>>> to hold an address: addresses may have architectural alignment requirements
+>>>>>> whereas a size value is just a number of bytes so will not. The point of a
+>>>>>> size_t value is that size_t is defined to be large enough to hold the size
+>>>>>> of any valid object in memory, so I think this was right as-is.
+>>>>>
+>>>>> "Any object in memory" implies virtual addresses (or more generally addresses
+>>>>> which can be used for accessing objects). This isn't the case when considering
+>>>>> physical addresses - there may be far more memory in a system than can be made
+>>>>> accessible all in one go.
+>>>>
+>>>> That is not my understanding of it, but I could be wrong. My
+>>>> understanding based on all the debates I have read online around this
+>>>> topic is that the intent in the spec is that size_t has to be able to
+>>>> hold a value that represents the largest object the CPU can manipulate
+>>>> with general purpose operations. From which I understand to mean as
+>>>> large as the largest register a CPU instruction may use for a size
+>>>> argument to a general purpose instruction. On x86_64, that is a 64bit
+>>>> register, as I don't believe the SSE/AVX registers are counted even
+>>>> though the are used by compiler/libc implementations to optimize some
+>>>> memory operations.
+>>>
+>>> I can't see how this relates to my earlier remark.
+>>
+>> Perhaps I misunderstood what your point was then. I thought you were
+>> taking the position that size_t could not be used to represent the
+>> largest object in memory addressable by a single CPU operation.
+> 
+> No. I was trying to clarify that we're talking about physical addresses
+> here. Which you still seem to have trouble with, ...
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+No, I perfectly understand what you are saying and am not having 
+difficulties with.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>>>>    From what I have seen for Xen, this is currently reflected in the x86
+>>>> code base, as size_t is 32bits for the early 32bit code and 64bits for
+>>>> Xen proper.
+>>>>
+>>>> That aside, another objection I have to the use of paddr_t is that it is
+>>>> type abuse. Types are meant to convey context to the intended use of the
+>>>> variable and enable the ability to enforce proper usage of the variable,
+>>>> otherwise we might as well just use u64/uint64_t and be done. The
+>>>> field's purpose is to convey a size of an object,
+>>>
+>>> You use "object" here again, when in physical address space (with paging
+>>> enabled) this isn't an appropriate term.
+>>
+>> Because that is the language used in the C spec to refer to instances in
+>> memory,
+>>
+>> "Object: region of data storage in the execution environment, the
+>> contents of which can represent values"
+>>
+>> ISO/IEC 9899:1999(E) - 3.14:
+>> https://www.dii.uchile.cl/~daespino/files/Iso_C_1999_definition.pdf
+>>
+>>
+>>
+>> With the following two interpretations of the spec for size_t to mean
+>> (any emphasis being mine),
+>>
+>>
+>> "size_t is an unsigned integer type used to represent the size of any
+>> **object** (including arrays) in the particular implementation."
+>>
+>> Wikipedia - size_t: https://en.wikipedia.org/wiki/C_data_types#stddef.h
+>>
+>>
+>> "size_t can store the maximum size of a theoretically possible
+>> **object** of any type (including array)."
+>>
+>> CPP Ref - size_t: (https://en.cppreference.com/w/c/types/size_t)
+> 
+> ... according to all of this and ...
+> 
+>>>> and labeling it a type
+>>>> that is intended for physical address objects violates both intents
+>>>> behind declaring a type, it asserts an invalid context and enables
+>>>> violations of type checking.
+>>>
+>>> It is type abuse to a certain extent, yes, but what do you do? We could
+>>> invent psize_t, but that would (afaics) always match paddr_t. uint64_t
+>>> otoh may be too larger for 32-bit platforms which only know a 32-bit
+>>> wide physical address space.
+>>
+>> Why invent a new type? That is the purpose of `size_t`, and it should be
+>> of the correct size, otherwise Xen's implementation is incorrect (which
+>> it is not).
+> 
+> ... this. What C talks about is what the CPU can address (within a single
+> address space, i.e. normally virtual addresses). With 32-bit addresses
+> you can address at most 4G, when the system you're running on may have
+> much more memory. Yet in an OS or hypervisor you need to deal with this
+> larger amount of memory, no matter that you can't address all of it in
+> one go.
 
+Nothing I said disagrees with your statement.
 
-Not pushing.
+Let's bring this back to the actual implementation instead of the 
+theoretical. Your position is that Xen's paddr_t is desired because it 
+can store larger values than that of size_t. Now if you look in Xen 
+proper (main 64bit code on x86), paddr_t is a typedef for a 64bit 
+unsigned integer. And if you look at size_t, it is also a typedef to a 
+64bit unsigned integer, they are literally a couple of lines apart in 
+types.h. Thus they are the same size and can only represent the same 
+maximum size. The only area of issue for x86 is during the short bit of 
+code that runs in 32bit mode during startup. In this series, we address 
+this by using a set of macros in the 32bit code to provide 64bit clean 
+definition of the structures. This approach is acceptable because as far 
+as I am aware, x86 is the only platform where the hypervisor has to 
+transition from one bit size to another, e.g. Arm just starts in 64bit 
+mode when on a 64bit device.
 
-(No revision log; it would be 642153 lines long.)
+At the end of the day, size_t is the same size as paddr_t for the end 
+execution environments and I would levy a guess that should x86 suddenly 
+find itself having a 128bit mode which would likely drive paddr_t to 
+128bits, so would follow size_t.
+
+v/r,
+dps
 
