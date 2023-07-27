@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 376647651E7
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 13:03:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571028.893863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D63C7651FD
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 13:08:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571030.893871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOylf-0004Ta-Jc; Thu, 27 Jul 2023 11:02:51 +0000
+	id 1qOyqh-00056z-6e; Thu, 27 Jul 2023 11:08:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571028.893863; Thu, 27 Jul 2023 11:02:51 +0000
+Received: by outflank-mailman (output) from mailman id 571030.893871; Thu, 27 Jul 2023 11:08:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOylf-0004QG-Gh; Thu, 27 Jul 2023 11:02:51 +0000
-Received: by outflank-mailman (input) for mailman id 571028;
- Thu, 27 Jul 2023 11:02:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qOyqh-00054B-3v; Thu, 27 Jul 2023 11:08:03 +0000
+Received: by outflank-mailman (input) for mailman id 571030;
+ Thu, 27 Jul 2023 11:08:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dT6+=DN=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qOyle-0004QA-8h
- for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 11:02:50 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f34debb-2c6d-11ee-8613-37d641c3527e;
- Thu, 27 Jul 2023 13:02:48 +0200 (CEST)
-Received: from [172.20.10.2] (unknown [37.160.234.46])
- by support.bugseng.com (Postfix) with ESMTPSA id 2BDF34EE073F;
- Thu, 27 Jul 2023 13:02:47 +0200 (CEST)
+ <SRS0=RfsC=DN=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qOyqf-000542-3c
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 11:08:01 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d7baf831-2c6d-11ee-b247-6b7b168915f2;
+ Thu, 27 Jul 2023 13:07:59 +0200 (CEST)
+Received: from [10.10.1.94] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1690456069410632.3201078848144;
+ Thu, 27 Jul 2023 04:07:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,74 +40,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f34debb-2c6d-11ee-8613-37d641c3527e
-Message-ID: <31b72cda-2ef0-2f3c-4e83-948d7b763f19@bugseng.com>
-Date: Thu, 27 Jul 2023 13:02:45 +0200
+X-Inumbo-ID: d7baf831-2c6d-11ee-b247-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1690456072; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cqZ9HDVq8rctYo2627CbbrKdDZdThT5NAa+ZwxyxNxsaNJBJlP8RcARyFA3BZpFZ+PUMkYQ4c681YIwujGuoAYB9spM3iuCa58XdAAXNtbm63i30d0hjWPBCHWmDdorma5WwKjDsj4Lyex/tNk2+cgO5Zrv+YbuuUlp1R77Yn4Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1690456072; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=lpKA5PHRg3WWL504PILmYBYaZ5GD8vX74mjfOTcAdGQ=; 
+	b=YAvA8/J48pgHcLArErgPtZAAYXJ6Wlybjim/4y2a4/jbdYXnIWZGwZgUpvEZhijGLSfLzftJ1VFAuk7E0NUshx1ENibwTIfbi25DP36EAOc3x1xnVqmWi2niCp7siNtjJooP3UPkC/vIKqu37uKaxCPWw/CqaULFBt/2cfNhPww=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1690456072;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=lpKA5PHRg3WWL504PILmYBYaZ5GD8vX74mjfOTcAdGQ=;
+	b=StC/ZIY7L4MpKu66Y7MYqgspKpqC3rVcvoks4b+RGOtcmd1Sv2v28Gyt3QbdtWW9
+	ObEfUpjnwKqYN2UDS+zLIbv05O2nkbmq1kQ84Ha/x/aR/vW1e6inxc9MzqiIzB8kMT8
+	VycNpjvEKZ0BAtGCYb5d7vnFPoY7m2sdKWh3taGE=
+Message-ID: <d46a1bf9-2f66-542a-9e7f-3d298ad1adb2@apertussolutions.com>
+Date: Thu, 27 Jul 2023 07:07:46 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [XEN PATCH 2/3] xen/arm: irq: address violations of MISRA C: 2012
- Rules 8.2 and 8.3
-Content-Language: en-US, it
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2] vpci: add permission checks to map_range()
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1690217195.git.federico.serafini@bugseng.com>
- <a62e88a9c29cf7866c251968b5a5b6865aff4a2a.1690217195.git.federico.serafini@bugseng.com>
- <a81326f4-e018-b461-ebec-9ef2ff5dc4df@suse.com>
- <alpine.DEB.2.22.394.2307251226180.3118466@ubuntu-linux-20-04-desktop>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <alpine.DEB.2.22.394.2307251226180.3118466@ubuntu-linux-20-04-desktop>
+References: <20230726140132.80151-1-roger.pau@citrix.com>
+ <a277dacd-56f6-a5ab-6982-b5cc4f9d507c@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <a277dacd-56f6-a5ab-6982-b5cc4f9d507c@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hello Jan, Stefano,
 
-On 25/07/23 21:32, Stefano Stabellini wrote:
-> On Tue, 25 Jul 2023, Jan Beulich wrote:
->> On 24.07.2023 19:50, Federico Serafini wrote:
->>> @@ -182,7 +182,8 @@ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask)
->>>   }
->>>   
->>>   int request_irq(unsigned int irq, unsigned int irqflags,
->>> -                void (*handler)(int, void *, struct cpu_user_regs *),
->>> +                void (*handler)(int irq, void *dev_id,
->>> +                                struct cpu_user_regs *regs),
->>>                   const char *devname, void *dev_id)
->>>   {
+
+On 7/27/23 03:56, Jan Beulich wrote:
+> On 26.07.2023 16:01, Roger Pau Monne wrote:
+>> Just like it's done for the XEN_DOMCTL_memory_mapping hypercall, add
+>> the permissions checks to vPCI map_range(), which is used to map the
+>> BARs into the domain p2m.
 >>
->> Before we accept patches, don't we need to first settle on whether to
->> apply the rule(s) also to function type declarations (and not just
->> ordinary prototypes)?
+>> Adding those checks requires that for x86 PVH hardware domain builder
+>> the permissions are set before initializing the IOMMU, or else
+>> attempts to initialize vPCI done as part of IOMMU device setup will
+>> fail due to missing permissions to create the BAR mappings.
+>>
+>> While moving the call to dom0_setup_permissions() convert the panic()
+>> used for error handling to a printk, the caller will already panic if
+>> required.
+>>
+>> Fixes: 9c244fdef7e7 ('vpci: add header handlers')
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Yes, in retrospect we should have found agreement on this issue this
-> morning but I forgot to bring it up :-(  Ooops.
+> I've committed this, but despite the Fixes: tag I'm not sure this
+> wants backporting. Thoughts?
 > 
-> (I think the agreement was to change the function type declarations too,
-> that's why docs/misra/rules.rst doesn't have a note about this, but I
-> don't want to make assumptions as I am not certain.)
+> Jan
 
-I have ready a patch for violations of rules 8.2 and 8.3 in
-xen/include/xen/iommu.h.
-I am talking about this, in this IRQ thread, because I think the 
-following two options also apply for an eventual v2 patch for the IRQ 
-module, until a decision about rule 8.2 and function pointers is taken:
+ From a cursory review thus far, since this introduced a new XSM hook 
+site, shouldn't this have at least had an Rb by an XSM 
+reviewer/maintainer? I would have replied sooner, but have been on 
+holiday for last two weeks.
 
-1) Split patches and submit only the changes *not* involving function
-    pointers.
-2) In the meantime that you make a decision,
-    I submit patches thus addressing the existing violations.
-
-I personally prefer the second one, but please let me know what you
-think.
-
-Regards
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+V/r,
+Daniel P. Smith
 
