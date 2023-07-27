@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FC127654F1
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 15:26:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571112.894164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A8F76553D
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 15:38:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571116.894176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP10n-0001gm-SU; Thu, 27 Jul 2023 13:26:37 +0000
+	id 1qP1Bx-0003HN-3J; Thu, 27 Jul 2023 13:38:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571112.894164; Thu, 27 Jul 2023 13:26:37 +0000
+Received: by outflank-mailman (output) from mailman id 571116.894176; Thu, 27 Jul 2023 13:38:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP10n-0001f7-Pc; Thu, 27 Jul 2023 13:26:37 +0000
-Received: by outflank-mailman (input) for mailman id 571112;
- Thu, 27 Jul 2023 13:26:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qP1Bw-0003Fi-Uk; Thu, 27 Jul 2023 13:38:08 +0000
+Received: by outflank-mailman (input) for mailman id 571116;
+ Thu, 27 Jul 2023 13:38:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RfsC=DN=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qP10m-0001f0-1A
- for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 13:26:36 +0000
-Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
- [136.143.184.57]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 331b4c96-2c81-11ee-8613-37d641c3527e;
- Thu, 27 Jul 2023 15:26:33 +0200 (CEST)
-Received: from [10.10.1.94] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1690464386105636.1042016409584;
- Thu, 27 Jul 2023 06:26:26 -0700 (PDT)
+ <SRS0=SoSB=DN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qP1Bv-0003FR-2o
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 13:38:07 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d0b9c76f-2c82-11ee-b248-6b7b168915f2;
+ Thu, 27 Jul 2023 15:38:05 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2b74310566cso14335671fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jul 2023 06:38:05 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ l3-20020a2e7003000000b002b6bb68c7eesm341955ljc.110.2023.07.27.06.38.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jul 2023 06:38:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,228 +44,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 331b4c96-2c81-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1690464389; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=MNmHa/q5UMeEjGIls+mP9IERomY6tt6R4ULGLMNEr0YuGMQZmgEbaXr+V26CVNCfz8SfL6YjCVJfC/JIVENQGQMRXcfSqt4oCwRoeYt4c5RyUzynekUO+MPtp0E+GWGIiauQODYHwKdWa2OFMznwc8tAX2SotjP5ZeS1vi7inTY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1690464389; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=XMBdIHKSpaiE95N3d6r4LbZnkBbvXwtqpQOJK7TScnQ=; 
-	b=n1di8RQ0/xTVujtFLJ1aCYUqIBRE0K7vJdoVrI9iTRSHpQI6Xt/+IGkVnLoFOxI2AmyaPXzOeFG2oLTy+NOjKyCQm+BOto8bY7FK/ZMm4xK3qYYhDfvMcrwwgahT21YYwASmK28jtYxY2bqD2MZfpg7pjmaIaVINenFl9tSAsCU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1690464389;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=XMBdIHKSpaiE95N3d6r4LbZnkBbvXwtqpQOJK7TScnQ=;
-	b=Pl5Rmvu1Mmu2c089XzhERFn5oP1qbDXltOgc07QxwooubgBlx9qlCO0daUi/ueNC
-	arhcqBXNWhhVb2rlFlbB7qzgVQoVdmJoi+5XKTPjFRS1HzSkeOhTaVuMalXTi5xCd3H
-	vW+hpq0VHtofdPXlzYO1B8/HD1ptTrNqoxeq/ypA=
-Message-ID: <19bb355f-576c-b8d7-b6da-fa2dd8ff2228@apertussolutions.com>
-Date: Thu, 27 Jul 2023 09:26:23 -0400
+X-Inumbo-ID: d0b9c76f-2c82-11ee-b248-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690465085; x=1691069885;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BLFQhZ4MoAbWExoRt/lnHk9NUwKJAZKhGplxZIedqks=;
+        b=Pz30w7YB/U0NqCbWmQZs4VKFJ0BGGhAKXUIQU7GQCsXuxk785cVcWSLD8B420Exp2F
+         PRp8HgbQAtgdy1/nIGwi1qzbZssmkGP25BpKewPYpObtzWY9FWEePaz+71Eh0dLrb9no
+         e3jWH01LbZnx+XfPuvFSG5XmrMsZhK/7/gi8F2+b+Qupm3975kmHNHfA1fOKkT2tGrmg
+         QMc20rqYrio2IkwcV2p4j2wC3h1t14R9tnIh1ySp8MWrxQq8JZr0Ipd5/QkEQBxE3OCF
+         zpqOEBo+6gXTL7g6KLSq0fTgrAC3Ig9jtTnjhUDjeUuCn7C1NS5AepgUVjuRsdkHXKiw
+         pryQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690465085; x=1691069885;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BLFQhZ4MoAbWExoRt/lnHk9NUwKJAZKhGplxZIedqks=;
+        b=NzoFKuduDjjre7mCI1DSs9senYiSnEUOYLCOscm8Xggi8f55dVC68VCe1HzUhn8k/t
+         wG/Fd4+3ZHyBEfjhpBFRMk0Ve96P0K5bSypTY6hXsnoaKg508ePl7VQZEbZTBVluXPhL
+         sSzeBzUcyWMER4wVsC/pz785YN+iXcRJnDKMapwidlvcHILILaT2b2tCY/ZQhCfZVdp3
+         S6bVdp25DbZDywhvbwsyppoGd/qazHVCFCCxJXnzc//wS6g1JatIN5Hrbuagm+MFS/1n
+         OZiEZZFbTrP36h+xSjHk1KMSYAf0Xec6VBZWV/HUoWdak1IhvaoSQFs3qHKgzO43xcui
+         507w==
+X-Gm-Message-State: ABy/qLZuI8vjFr7EIZm224aIs5HQcsB1qEidZyg+hsrb6Hz3qV9ea0xe
+	X6uKGn5+Qtlr9NMWwPhxuOaXMGNFHLU=
+X-Google-Smtp-Source: APBJJlFlz9hmN+9UTBVRefnETh6kvkgFGGKA9VS6a2AS4Pj4gIDuHKB80DyWydOc+dBOKeVips9xDw==
+X-Received: by 2002:a2e:8182:0:b0:2b9:54e1:6711 with SMTP id e2-20020a2e8182000000b002b954e16711mr1620128ljg.7.1690465084461;
+        Thu, 27 Jul 2023 06:38:04 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v5 0/2] xen/riscv: introduce identity mapping
+Date: Thu, 27 Jul 2023 16:37:59 +0300
+Message-ID: <cover.1690464789.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 03/10] x86 setup: change bootstrap map to accept new boot
- module structures
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, stefano.stabellini@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Luca Fancellu <luca.fancellu@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Rich Persaud <persaur@gmail.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Christopher Clark <christopher.w.clark@gmail.com>
-References: <20230701071835.41599-1-christopher.w.clark@gmail.com>
- <20230701071835.41599-4-christopher.w.clark@gmail.com>
- <alpine.DEB.2.22.394.2307081144340.761183@ubuntu-linux-20-04-desktop>
- <CACMJ4GYE6PW1SY35dhs4XkXd9ru25igrvMCrh4pJMWEBNNz0YQ@mail.gmail.com>
- <CACMJ4Gb_ZwKSjP7qzfQj98YQjSpBdFuWzeGQJUNNqst0GdXCOw@mail.gmail.com>
- <4e0a0fc9-0c1b-4725-5692-de67ee68a980@suse.com>
- <2994c9b8-c803-1fd9-20df-0d25d2b66c49@apertussolutions.com>
- <ca85fd2e-45a5-32c3-cb4b-1042be6c6915@suse.com>
- <32a22c57-1333-47b0-c61d-abff8d7df112@apertussolutions.com>
- <7ab3c4ae-3903-29de-ba32-d328b426d104@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <7ab3c4ae-3903-29de-ba32-d328b426d104@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
+The patch series introduces things necessary to implement identity mapping:
+  1. Make identity mapping for the entire Xen.
+  2. Enable MMU.
+  3. Jump to the virtual address world
+  4. Remove identity mapping.
 
+Also current patch series introduces the calculation of physical offset before
+MMU is enabled as access to physical offset will be calculated wrong after
+MMU will be enabled because access to phys_off variable is PC-relative and
+in the case when linker address != load address, it will cause MMU fault.
 
-On 7/27/23 08:54, Jan Beulich wrote:
-> On 27.07.2023 14:48, Daniel P. Smith wrote:
->> On 7/27/23 07:58, Jan Beulich wrote:
->>> On 27.07.2023 13:46, Daniel P. Smith wrote:
->>>> On 7/21/23 02:14, Jan Beulich wrote:
->>>>> On 21.07.2023 00:12, Christopher Clark wrote:
->>>>>> On Thu, Jul 13, 2023 at 11:51 PM Christopher Clark <
->>>>>> christopher.w.clark@gmail.com> wrote:
->>>>>>> On Sat, Jul 8, 2023 at 11:47 AM Stefano Stabellini <sstabellini@kernel.org>
->>>>>>> wrote:
->>>>>>>> On Sat, 1 Jul 2023, Christopher Clark wrote:
->>>>>>>>> To convert the x86 boot logic from multiboot to boot module structures,
->>>>>>>>> change the bootstrap map function to accept a boot module parameter.
->>>>>>>>>
->>>>>>>>> To allow incremental change from multiboot to boot modules across all
->>>>>>>>> x86 setup logic, provide a temporary inline wrapper that still accepts a
->>>>>>>>> multiboot module parameter and use it where necessary. The wrapper is
->>>>>>>>> placed in a new arch/x86 header <asm/boot.h> to avoid putting a static
->>>>>>>>> inline function into an existing header that has no such functions
->>>>>>>>> already. This new header will be expanded with additional functions in
->>>>>>>>> subsequent patches in this series.
->>>>>>>>>
->>>>>>>>> No functional change intended.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
->>>>>>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>>>>>>>
->>>>>>>>
->>>>>>>> [...]
->>>>>>>>
->>>>>>>>> diff --git a/xen/include/xen/bootinfo.h b/xen/include/xen/bootinfo.h
->>>>>>>>> index b72ae31a66..eb93cc3439 100644
->>>>>>>>> --- a/xen/include/xen/bootinfo.h
->>>>>>>>> +++ b/xen/include/xen/bootinfo.h
->>>>>>>>> @@ -10,6 +10,9 @@
->>>>>>>>>     #endif
->>>>>>>>>
->>>>>>>>>     struct boot_module {
->>>>>>>>> +    paddr_t start;
->>>>>>>>> +    size_t size;
->>>>>>>>
->>>>>>>> I think size should be paddr_t (instead of size_t) to make sure it is
->>>>>>>> the right size on both 64-bit and 32-bit architectures that support
->>>>>>>> 64-bit addresses.
->>>>>>>>
->>>>>>>
->>>>>>> Thanks, that explanation does make sense - ack.
->>>>>>>
->>>>>>
->>>>>> I've come back to reconsider this as it doesn't seem right to me to store a
->>>>>> non-address value (which this will always be) in a type explicitly defined
->>>>>> to hold an address: addresses may have architectural alignment requirements
->>>>>> whereas a size value is just a number of bytes so will not. The point of a
->>>>>> size_t value is that size_t is defined to be large enough to hold the size
->>>>>> of any valid object in memory, so I think this was right as-is.
->>>>>
->>>>> "Any object in memory" implies virtual addresses (or more generally addresses
->>>>> which can be used for accessing objects). This isn't the case when considering
->>>>> physical addresses - there may be far more memory in a system than can be made
->>>>> accessible all in one go.
->>>>
->>>> That is not my understanding of it, but I could be wrong. My
->>>> understanding based on all the debates I have read online around this
->>>> topic is that the intent in the spec is that size_t has to be able to
->>>> hold a value that represents the largest object the CPU can manipulate
->>>> with general purpose operations. From which I understand to mean as
->>>> large as the largest register a CPU instruction may use for a size
->>>> argument to a general purpose instruction. On x86_64, that is a 64bit
->>>> register, as I don't believe the SSE/AVX registers are counted even
->>>> though the are used by compiler/libc implementations to optimize some
->>>> memory operations.
->>>
->>> I can't see how this relates to my earlier remark.
->>
->> Perhaps I misunderstood what your point was then. I thought you were
->> taking the position that size_t could not be used to represent the
->> largest object in memory addressable by a single CPU operation.
-> 
-> No. I was trying to clarify that we're talking about physical addresses
-> here. Which you still seem to have trouble with, ...
+The reason for this patch series can be found here:
+https://lore.kernel.org/xen-devel/4e336121-fc0c-b007-bf7b-430352563d55@citrix.com/
+---
+Changes in V5:
+	- update the algo of identity mapping removing.
+	- introduce IDENT_AREA_SIZE.
+	- introduce turn_on_mmu() function to enable and switch from 1:1 mapping.
+	- fix typo in PGTBL_INITIAL_COUNT define.
+	- update the comment above PGTBL_INITIAL_COUNT.
+	- update prototype of calc_phys_offset(). now it returns phys_offset.
+	- declare phys_offset as static.
+	- save returned value of calc_phys_offset to register s2.
+---
+Changes in V4:
+  - drop patch 	[PATCH v3 1/3] xen/riscv: add SPDX tag to config.h as it was
+    merged to staging
+  - remove definition of ARRAY_SIZE and ROUNDUP as <xen/macors.h> was introduced where these macros are located now.
+	- update definition of PGTBL_INITIAL_COUNT
+	- update the commit message for patch 'xen/riscv: introduce identity mapping'
+	- update the comments in head.S
+  - update the algo of identity mapping removing 
+---
+Changes in V3:
+ - Update the patch series message.
+ - The following patches were merged to staging so droped from the patch series:
+   * xen/riscv: add .sbss section to .bss
+   * xen/riscv: introduce reset_stack() function
+   * xen/riscv: move extern of cpu0_boot_stack to header
+   * xen/riscv: add SPDX tags
+ - move save/restore of a0/a1 registers from patch 4 to patch 2 ( numbers are
+   from the previous patch series version )
+ - add SPDX tag in config.h
+ - update definition of PGTBL_INITIAL_COUNT taking into account identity mapping.
+ - refactor remove_identity_mapping() function.
+ - add explanatory comments in xen.lds.S and mm.c.
+---
+Changes in V2:
+ - update the patch series message.
+ - drop patches from the previous version of the patch series:
+   * xen/riscv: add __ASSEMBLY__ guards". ( merged )
+   * xen/riscv: make sure that identity mapping isn't bigger then page size
+     ( entire Xen is 1:1 mapped so there is no need for the checks from the patch )
+ - add .sbss.* and put it befor .bss* .
+ - move out reset_stack() to .text section.
+ - add '__ro_after_init' for phys_offset variable.
+ - add '__init' for calc_phys_offset().
+ - declaring variable phys_off as non static as it will be used in head.S.
+ - update definition of PGTBL_INITIAL_COUNT and the comment above.
+ - code style fixes.
+ - remove id_addrs array becase entire Xen is mapped.
+ - reverse condition for cycle inside remove_identity_mapping().
+ - fix page table walk in remove_identity_mapping().
+ - save hart_id and dtb_addr before call MMU related C functions
+ - use phys_offset variable instead of doing calcultations to get phys offset
+   in head.S file. ( it can be easily done as entire Xen is 1:1 mapped now )
+ - declare enable_muu() as __init.
+ - Update SPDX tags.
+ - Add Review-By/Suggested-By for some patches.
+ - code style fixes.
 
-No, I perfectly understand what you are saying and am not having 
-difficulties with.
+Oleksii Kurochko (2):
+  xen/riscv: introduce function for physical offset calculation
+  xen/riscv: introduce identity mapping
 
->>>>    From what I have seen for Xen, this is currently reflected in the x86
->>>> code base, as size_t is 32bits for the early 32bit code and 64bits for
->>>> Xen proper.
->>>>
->>>> That aside, another objection I have to the use of paddr_t is that it is
->>>> type abuse. Types are meant to convey context to the intended use of the
->>>> variable and enable the ability to enforce proper usage of the variable,
->>>> otherwise we might as well just use u64/uint64_t and be done. The
->>>> field's purpose is to convey a size of an object,
->>>
->>> You use "object" here again, when in physical address space (with paging
->>> enabled) this isn't an appropriate term.
->>
->> Because that is the language used in the C spec to refer to instances in
->> memory,
->>
->> "Object: region of data storage in the execution environment, the
->> contents of which can represent values"
->>
->> ISO/IEC 9899:1999(E) - 3.14:
->> https://www.dii.uchile.cl/~daespino/files/Iso_C_1999_definition.pdf
->>
->>
->>
->> With the following two interpretations of the spec for size_t to mean
->> (any emphasis being mine),
->>
->>
->> "size_t is an unsigned integer type used to represent the size of any
->> **object** (including arrays) in the particular implementation."
->>
->> Wikipedia - size_t: https://en.wikipedia.org/wiki/C_data_types#stddef.h
->>
->>
->> "size_t can store the maximum size of a theoretically possible
->> **object** of any type (including array)."
->>
->> CPP Ref - size_t: (https://en.cppreference.com/w/c/types/size_t)
-> 
-> ... according to all of this and ...
-> 
->>>> and labeling it a type
->>>> that is intended for physical address objects violates both intents
->>>> behind declaring a type, it asserts an invalid context and enables
->>>> violations of type checking.
->>>
->>> It is type abuse to a certain extent, yes, but what do you do? We could
->>> invent psize_t, but that would (afaics) always match paddr_t. uint64_t
->>> otoh may be too larger for 32-bit platforms which only know a 32-bit
->>> wide physical address space.
->>
->> Why invent a new type? That is the purpose of `size_t`, and it should be
->> of the correct size, otherwise Xen's implementation is incorrect (which
->> it is not).
-> 
-> ... this. What C talks about is what the CPU can address (within a single
-> address space, i.e. normally virtual addresses). With 32-bit addresses
-> you can address at most 4G, when the system you're running on may have
-> much more memory. Yet in an OS or hypervisor you need to deal with this
-> larger amount of memory, no matter that you can't address all of it in
-> one go.
+ xen/arch/riscv/include/asm/config.h |   2 +
+ xen/arch/riscv/include/asm/mm.h     |   7 +-
+ xen/arch/riscv/mm.c                 | 107 ++++++++++++++++------------
+ xen/arch/riscv/riscv64/head.S       |  46 ++++++++++++
+ xen/arch/riscv/setup.c              |  14 +---
+ xen/arch/riscv/xen.lds.S            |  11 +++
+ 6 files changed, 130 insertions(+), 57 deletions(-)
 
-Nothing I said disagrees with your statement.
+-- 
+2.41.0
 
-Let's bring this back to the actual implementation instead of the 
-theoretical. Your position is that Xen's paddr_t is desired because it 
-can store larger values than that of size_t. Now if you look in Xen 
-proper (main 64bit code on x86), paddr_t is a typedef for a 64bit 
-unsigned integer. And if you look at size_t, it is also a typedef to a 
-64bit unsigned integer, they are literally a couple of lines apart in 
-types.h. Thus they are the same size and can only represent the same 
-maximum size. The only area of issue for x86 is during the short bit of 
-code that runs in 32bit mode during startup. In this series, we address 
-this by using a set of macros in the 32bit code to provide 64bit clean 
-definition of the structures. This approach is acceptable because as far 
-as I am aware, x86 is the only platform where the hypervisor has to 
-transition from one bit size to another, e.g. Arm just starts in 64bit 
-mode when on a 64bit device.
-
-At the end of the day, size_t is the same size as paddr_t for the end 
-execution environments and I would levy a guess that should x86 suddenly 
-find itself having a 128bit mode which would likely drive paddr_t to 
-128bits, so would follow size_t.
-
-v/r,
-dps
 
