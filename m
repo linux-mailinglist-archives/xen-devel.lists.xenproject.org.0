@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93449764941
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 09:48:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570814.893012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB841764954
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 09:51:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570816.893021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOvjb-0003jg-2s; Thu, 27 Jul 2023 07:48:31 +0000
+	id 1qOvmN-00058O-Gd; Thu, 27 Jul 2023 07:51:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570814.893012; Thu, 27 Jul 2023 07:48:31 +0000
+Received: by outflank-mailman (output) from mailman id 570816.893021; Thu, 27 Jul 2023 07:51:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOvja-0003gQ-Vz; Thu, 27 Jul 2023 07:48:30 +0000
-Received: by outflank-mailman (input) for mailman id 570814;
- Thu, 27 Jul 2023 07:48:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qOvmN-00055Z-Dx; Thu, 27 Jul 2023 07:51:23 +0000
+Received: by outflank-mailman (input) for mailman id 570816;
+ Thu, 27 Jul 2023 07:51:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SoSB=DN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qOvjZ-0003gK-HT
- for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 07:48:29 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f89849ec-2c51-11ee-8613-37d641c3527e;
- Thu, 27 Jul 2023 09:48:27 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-51e28cac164so3981890a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jul 2023 00:48:27 -0700 (PDT)
-Received: from [192.168.202.116] ([94.75.70.14])
+ <SRS0=6FcI=DN=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1qOvmM-00055T-4J
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 07:51:22 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 601bf925-2c52-11ee-b247-6b7b168915f2;
+ Thu, 27 Jul 2023 09:51:21 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-31758eb5db8so679770f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Jul 2023 00:51:21 -0700 (PDT)
+Received: from [192.168.12.179] (54-240-197-231.amazon.com. [54.240.197.231])
  by smtp.gmail.com with ESMTPSA id
- h19-20020a17090634d300b009890e402a6bsm440946ejb.221.2023.07.27.00.48.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 00:48:25 -0700 (PDT)
+ r1-20020a5d4941000000b00314427091a2sm1172046wrs.98.2023.07.27.00.51.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jul 2023 00:51:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f89849ec-2c51-11ee-8613-37d641c3527e
+X-Inumbo-ID: 601bf925-2c52-11ee-b247-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690444106; x=1691048906;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=U8NLpW781GKymwKVOk2qo+XyaFk+izYC0ZOXPVUGqDM=;
-        b=mL1HeQ6tPfav0tGwbDdw999A+NhFmPi0sRew7Vhv5Y2UcXaRn0ED3N4fYEb6YWLqL8
-         Fdbqff4U9w4EBB9v6hTLLCX/+FHR4tP6HUtQp5vDZJ1DgUAZoIrP+7QtL18LHeK4wGod
-         JwTtmN4Rf0JqBccoxs1EYddyxOkXjci/Ffp+F88PiRr85PHGiQuFkHgw8RUDoCCdmUcr
-         8Akpprmlqrjasy4mtZDl+s0hrFGCAr5v+RbFKnbFPIYkspweeePkj25cCKpofbNc0EUS
-         Mc+/YH5nVMNeUR0y1bxMKzkTHMdoIesIPSh70sssvCfTg2Na7sRd+2HRtzCoD2AUK9OK
-         6YUA==
+        d=gmail.com; s=20221208; t=1690444280; x=1691049080;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cdITa7Wq+4eiw2rue221D0NdRfR3sO7CGc4YXAsZpSM=;
+        b=dfYJocuFX58uoB/lZ0qThGXsuRnYBqoi2FczdSNLnCnSLRkoXQNPGbqscm7s7QXOSN
+         FzoaNjtTp1pw3G8AB/C3WBb/v9Zz3wGvjPSXwnd1tulDZflBAM4cuGfoGR1wdiHy6AFZ
+         5q0vMBOhdGuruljsur4GtxG4GXwZ3LFBQ+M0P42xj2Z/CF4Bp1ugHEu03XySzsE/w6Rv
+         e3tLkfZjHy2gcfPMYGmyNb0TTPZzYIjuHmlBn6DFAGXNUbGNinTQdXCLw9kMAbzGHws0
+         VCKrVaqyn4ggI8nOXizWAKwD2ChUSnPLwNivjjwqz+Yd0tnZLxTXX19ahk1XvABnQXge
+         Zigw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690444106; x=1691048906;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=U8NLpW781GKymwKVOk2qo+XyaFk+izYC0ZOXPVUGqDM=;
-        b=dFkq6B/5DrhD+TIp8VoFTigdcojBCaQv0soTVyBwFygF2lUKMD9tPX/svqK0iKgMgk
-         JisFIQO1wcfYQTtPxUFGQLgMjZKOth+TYquHpqungI0uhbU7tbweiKa7A1+UxnMjs6XH
-         IvbeiWc/6zwqt3oWHFtpSrretu3G7PuAa9BUffqz6b7RaXrVmMLV3H3J2MNudiyyUqeN
-         7Jvci8Ezt8QIdlYUZP/ECi3zBnVSrxyHZHrL56zvQVUlV1I9zChm1mwqog43D0DzF6G6
-         k7G3vtyYl4hAvZ3+STpLEWV3JecTdE16xgPhAVZrkrDRTdEIIaVhsNaHTAQH42dycJHf
-         kaGQ==
-X-Gm-Message-State: ABy/qLZCu9zHBZi3dauptaG7NkuzTOgvrxIvjHKawDAwVDnExDmDcRUy
-	cXCVtOhZYGAR1bg+Xb5i4QQ=
-X-Google-Smtp-Source: APBJJlHm4qASaXxX5+tYRp4+0LkF1r/Lv0BpJWvZPj/BleMR5MwSQlAHgbNhWXQlaz/HnCMUiI3aiw==
-X-Received: by 2002:a17:907:a407:b0:993:da5f:5a9b with SMTP id sg7-20020a170907a40700b00993da5f5a9bmr1574971ejc.8.1690444106274;
-        Thu, 27 Jul 2023 00:48:26 -0700 (PDT)
-Message-ID: <87318bad13fc380dc6de502b290f7263085729db.camel@gmail.com>
-Subject: Re: [PATCH v4 2/2] xen/riscv: introduce identity mapping
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
-	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Thu, 27 Jul 2023 10:48:25 +0300
-In-Reply-To: <53dc4f15-cdff-100e-eeff-f7bad24436a2@suse.com>
-References: <cover.1690191480.git.oleksii.kurochko@gmail.com>
-	 <a8ab1829ab718dda869db3df3348ded211e81967.1690191480.git.oleksii.kurochko@gmail.com>
-	 <a370548e30aaa8c1160ecd5f2eccfcc10002a8f9.camel@gmail.com>
-	 <6675f535-7cf7-dd55-4ebe-82ba486029f7@suse.com>
-	 <4deb8c44cf639af66ad7f5b9b42180554e08d5cf.camel@gmail.com>
-	 <5a40abd4-edc2-0de0-99ed-d23174940d66@suse.com>
-	 <dee3624525f9530aaf3252c6c4fa6eb5262e76cd.camel@gmail.com>
-	 <79b20131-46c2-9e54-e615-18a346b83b8d@suse.com>
-	 <b219699f928b9e86a3b0af9656bfe0e083d3cfdc.camel@gmail.com>
-	 <53dc4f15-cdff-100e-eeff-f7bad24436a2@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+        d=1e100.net; s=20221208; t=1690444280; x=1691049080;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cdITa7Wq+4eiw2rue221D0NdRfR3sO7CGc4YXAsZpSM=;
+        b=ka/VtrLd0y90JHMjG1zZ8AND40FxJAsw9CUZZYGtjbKdOauJWs3MwJRFt6NTyzGC2Z
+         ikSAfBUW/IqhKkrLn5wTPV+Ty9gRRvPJ7RrmtQzNtYWcyBL7MzolhTpBmemHg/mmG2tv
+         MQpk9LvrnhgEL6Djx8EIb/XcnAgd0shvJMUcr4L7wWqZiXDzzuH7+Bfsx+gT1MI53rUq
+         P2tDgMNZkRJx0p2sBFTyd3Y5LzhP6mxPS5+Cl/qqPgHZ7tMha6JHmFgTYdtIf4lQTJ64
+         MFVIdH3UcBnmxoz1r1ohzPDzXYlxQkQBypi5EbGaGzt7fWLXw1xsAWI+ZsUx9nmh003G
+         XdBA==
+X-Gm-Message-State: ABy/qLaHW5yRTa7VOxI7HZ1IDrMgveORKX8sEROSwXzgjRWjU/puTQqz
+	tR8oUFcrpkxdzNRuYblZ3wE=
+X-Google-Smtp-Source: APBJJlGbm9sqXaDx4iRrqGi6MDRxZyjeroAuBLvHzibVYdsWVshwxb9/DgAr9sAx8eQh64NKb/DGLQ==
+X-Received: by 2002:a5d:45cf:0:b0:313:f1c8:a963 with SMTP id b15-20020a5d45cf000000b00313f1c8a963mr1266338wrs.2.1690444280046;
+        Thu, 27 Jul 2023 00:51:20 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <3aaaa43e-b129-35aa-f07d-d50200a4c2ec@xen.org>
+Date: Thu, 27 Jul 2023 08:51:18 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Reply-To: paul@xen.org
+Subject: Re: [PATCH v1] xen-platform: do full PCI reset during unplug of IDE
+ devices
+Content-Language: en-US
+To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org,
+ qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>
+References: <20230720072950.20198-1-olaf@aepfle.de>
+Organization: Xen Project
+In-Reply-To: <20230720072950.20198-1-olaf@aepfle.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2023-07-27 at 09:25 +0200, Jan Beulich wrote:
-> On 26.07.2023 20:39, Oleksii wrote:
-> > On Wed, 2023-07-26 at 17:59 +0200, Jan Beulich wrote:
-> > > On 26.07.2023 17:54, Oleksii wrote:
-> > > > On Wed, 2023-07-26 at 17:00 +0200, Jan Beulich wrote:
-> > > > > On 26.07.2023 15:12, Oleksii wrote:
-> > > > > > On Wed, 2023-07-26 at 13:58 +0200, Jan Beulich wrote:
-> > > > > > > On 26.07.2023 13:23, Oleksii wrote:
-> > > > > > > > I would like to ask for advice on whether it would be
-> > > > > > > > easier,
-> > > > > > > > less
-> > > > > > > > bug-
-> > > > > > > > provoking ( during identity mapping to remove of whole
-> > > > > > > > Xen
-> > > > > > > > ) to
-> > > > > > > > have a
-> > > > > > > > separate identity section that won't be more than
-> > > > > > > > PAGE_SIZE.
-> > > > > > >=20
-> > > > > > > I'm afraid you can't safely do this in C, or at least not
-> > > > > > > without
-> > > > > > > further checking on what the compiler actually did.
-> > > > > > >=20
-> > > > > > > > @@ -264,6 +268,19 @@ void __init enable_mmu(void)
-> > > > > > > > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RV_S=
-TAGE1_MODE << SATP_MODE_SHIFT);
-> > > > > > > > =C2=A0}
-> > > > > > > > =C2=A0
-> > > > > > > > +void __attribute__((naked)) __section(".ident")
-> > > > > > > > turn_on_mmu(unsigned
-> > > > > > > > long ra)
-> > > > > > >=20
-> > > > > > > Did you read what gcc doc says about "naked"? Extended
-> > > > > > > asm()
-> > > > > > > isn't
-> > > > > > > supported there. Since ...
-> > > > > > >=20
-> > > > > > > > +{
-> > > > > > > > + =C2=A0 =C2=A0/* Ensure page table writes precede loading =
-the
-> > > > > > > > SATP
-> > > > > > > > */
-> > > > > > > > + =C2=A0 =C2=A0sfence_vma();
-> > > > > > > > +
-> > > > > > > > + =C2=A0 =C2=A0/* Enable the MMU and load the new pagetable=
- for
-> > > > > > > > Xen
-> > > > > > > > */
-> > > > > > > > + =C2=A0 =C2=A0csr_write(CSR_SATP,
-> > > > > > > > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PFN_DOWN(=
-(unsigned
-> > > > > > > > long)stage1_pgtbl_root) |
-> > > > > > > > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RV_STAGE1=
-_MODE << SATP_MODE_SHIFT);
-> > > > > > > > +
-> > > > > > > > + =C2=A0 =C2=A0asm volatile( "jr %0\n" : : "r"(ra) );
-> > > > > > > > +}
-> > > > > > >=20
-> > > > > > > ... none of this really requires C, I think we're at the
-> > > > > > > point
-> > > > > > > where
-> > > > > > > (iirc) Andrew's and my suggestion wants following, moving
-> > > > > > > this to
-> > > > > > > assembly code (at which point it doesn't need to be a
-> > > > > > > separate
-> > > > > > > function). You can still build page tables in C, of
-> > > > > > > course.
-> > > > > > > (Likely
-> > > > > > > you then also won't need a separate section; some minimal
-> > > > > > > alignment
-> > > > > > > guarantees ought to suffice to make sure the critical
-> > > > > > > code is
-> > > > > > > confined to a single page.)
-> > > > > >=20
-> > > > > > Thanks. I'll move all of this to assembly code.
-> > > > > > Regarding alignment it is needed alignment on start and end
-> > > > > > of
-> > > > > > function:
-> > > > > > =C2=A0=C2=A0=C2=A0 .balign PAGE_SIZE
-> > > > > > =C2=A0=C2=A0=C2=A0 GLOBAL(turn_on_mmu)
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
-> > > > > > =C2=A0=C2=A0=C2=A0 .balign PAGE_SIZE
-> > > > > > =C2=A0=C2=A0=C2=A0 ENDPROC(turn_on_mmu)
-> > > > > >=20
-> > > > > > Does the better way exist?
-> > > > >=20
-> > > > > The function is only going to be a handful of instructions.
-> > > > > Its
-> > > > > alignment doesn't need to be larger than the next power of 2.
-> > > > > I
-> > > > > expect you'll be good with 64-byte alignment. (In no case do
-> > > > > you
-> > > > > need to align the end of the function: Putting other stuff
-> > > > > there
-> > > > > is not a problem at all.) What you want in any event is a
-> > > > > build
-> > > > > time check that the within-a-page constraint is met.
-> > > > But shouldn't be an address be aligned to a boundary equal to
-> > > > page
-> > > > size?
-> > > >=20
-> > > > According to the RISC-V privileged spec:
-> > > > Any level of PTE may be a leaf PTE, so in addition to 4 KiB
-> > > > pages,
-> > > > Sv39
-> > > > supports 2 MiB megapages
-> > > > and 1 GiB gigapages, each of which must be virtually and
-> > > > physically
-> > > > aligned to a boundary equal
-> > > > to its size. A page-fault exception is raised if the physical
-> > > > address
-> > > > is insufficiently aligned.
-> > >=20
-> > > You'd simply map the page containing the chunk, i.e. masking off
-> > > the
-> > > low 12 bits. If far enough away from the Xen virtual range, you
-> > > could
-> > > as well map a 2M page masking off the low 21 bits, or a 1G page
-> > > with
-> > > the low 30 bits of the address cleared.
-> > Agree, then it will work.
-> >=20
-> > But still it doesn't clear what to do if turn_on_mmu will be bigger
-> > then 64 ( ASSERT( (turn_on_mmu_end - turn_on_mmu) <=3D 64 ) somewhere
-> > in
-> > xen.lds.S ). Right now turn_on_mmu() function is 0x22 bytes and it
-> > is
-> > enough ( we are sure that we don't cross 4k boundary ) to be 64-
-> > byte
-> > aligned. But if the size will be more then 64 bytes then the
-> > alignment
-> > need to be changed to 0x128.
-> > Am i right?
->=20
-> Well, to 128 (without 0x), but yes. That function isn't very likely
-> to
-> change much, though.
-Thanks.
+On 20/07/2023 08:29, Olaf Hering wrote:
+> The IDE unplug function needs to reset the entire PCI device, to make
+> sure all state is initialized to defaults. This is done by calling
+> pci_device_reset, which resets not only the chip specific registers, but
+> also all PCI state. This fixes "unplug" in a Xen HVM domU with the
+> modular legacy xenlinux PV drivers.
+> 
+> Commit ee358e919e38 ("hw/ide/piix: Convert reset handler to
+> DeviceReset") changed the way how the the disks are unplugged. Prior
+> this commit the PCI device remained unchanged. After this change,
+> piix_ide_reset is exercised after the "unplug" command, which was not
+> the case prior that commit. This function resets the command register.
+> As a result the ata_piix driver inside the domU will see a disabled PCI
+> device. The generic PCI code will reenable the PCI device. On the qemu
+> side, this runs pci_default_write_config/pci_update_mappings. Here a
+> changed address is returned by pci_bar_address, this is the address
+> which was truncated in piix_ide_reset. In case of a Xen HVM domU, the
+> address changes from 0xc120 to 0xc100. This truncation was a bug in
+> piix_ide_reset, which was fixed in commit 230dfd9257 ("hw/ide/piix:
+> properly initialize the BMIBA register"). If pci_xen_ide_unplug had used
+> pci_device_reset, the PCI registers would have been properly reset, and
+> commit ee358e919e38 would have not introduced a regression for this
+> specific domU environment.
+> 
+> While the unplug is supposed to hide the IDE disks, the changed BMIBA
+> address broke the UHCI device. In case the domU has an USB tablet
+> configured, to recive absolute pointer coordinates for the GUI, it will
+> cause a hang during device discovery of the partly discovered USB hid
+> device. Reading the USBSTS word size register will fail. The access ends
+> up in the QEMU piix-bmdma device, instead of the expected uhci device.
+> Here a byte size request is expected, and a value of ~0 is returned. As
+> a result the UCHI driver sees an error state in the register, and turns
+> off the UHCI controller.
+> 
+> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+> ---
+>   hw/i386/xen/xen_platform.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+> 
 
-~ Oleksii
+Reviewed-by: Paul Durrant <paul@xen.org>
 
 
