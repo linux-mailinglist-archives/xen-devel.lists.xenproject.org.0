@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DFCD7650E6
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 12:21:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570989.893721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 805E3765112
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 12:27:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570991.893732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOy77-00015C-N4; Thu, 27 Jul 2023 10:20:57 +0000
+	id 1qOyDU-0001jd-Dx; Thu, 27 Jul 2023 10:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570989.893721; Thu, 27 Jul 2023 10:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 570991.893732; Thu, 27 Jul 2023 10:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOy77-000130-KP; Thu, 27 Jul 2023 10:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 570989;
- Thu, 27 Jul 2023 10:20:55 +0000
+	id 1qOyDU-0001h7-AT; Thu, 27 Jul 2023 10:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 570991;
+ Thu, 27 Jul 2023 10:27:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1hVV=DN=kernel.org=dlemoal@srs-se1.protection.inumbo.net>)
- id 1qOy75-00012p-Ot
- for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 10:20:55 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43df2f2d-2c67-11ee-b247-6b7b168915f2;
- Thu, 27 Jul 2023 12:20:53 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 44B6761DD3;
- Thu, 27 Jul 2023 10:20:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9266C433C8;
- Thu, 27 Jul 2023 10:20:47 +0000 (UTC)
+ <SRS0=o85N=DN=citrix.com=prvs=5659ebe79=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qOyDS-0001gy-Lv
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 10:27:30 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ee8a21c-2c68-11ee-b247-6b7b168915f2;
+ Thu, 27 Jul 2023 12:27:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,78 +36,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43df2f2d-2c67-11ee-b247-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690453251;
-	bh=Uv0jglg4XDxm5uiOcl1Fs0VDdmS3vnj5J06IHksC3j0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VjGCTE5fXWQGMkstr5mWfG/olGcukHbx9MJ5gIHM1kJfwo/BiFcjiuEaiA2TxQad6
-	 b/CL9D78jYHhDiLBxLD9gCBB6CtR9Pngnq1E4RM+cWQl1ITCzXzhPBEMorh0UStJGb
-	 V5QypMia7H1mT7Yv9W7oIRfkDRB1G3xJIxfo7Y/Lymzj+mXx3lcBAFmRFbWxhh8lk9
-	 h4N9LjcMkMC3/ZfJEah0qCVly/fWQ4ostsbFgLI1m7GG/WQbkHJ87BAgn9cUsNUERW
-	 XrnUyEDaK9+tFU+Iukly/qv+tfC9IZiVkgJJJYsmEkH+2gmJEivzAz4IAcCpkEsNUW
-	 WY8rxT9ubVHrA==
-Message-ID: <ba0868b2-9f90-3d81-1c91-8810057fb3ce@kernel.org>
-Date: Thu, 27 Jul 2023 19:20:46 +0900
+X-Inumbo-ID: 2ee8a21c-2c68-11ee-b247-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1690453648;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bXBuogiBSSXFmWb2iq5w7ozQSgdS58uuxOYhLD+Umro=;
+  b=VyFRl7z2u14EEEZorkqP5QkSWPty22qhVQ3AWYWfC90KgyhP8xqaSVWJ
+   OxruZ6o8pxpUIXsadlFMx+PtkVRI0dxhSLnKkcqLfov4xdvKVtWmhN+/+
+   s0GJtSfOPtQftDh9HmiW/QTvV1jP64frzw4ediABAYJCNbPuSaDmlboIg
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 117502348
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:MX1h2KzydVGschFF6VZ6t+fXxirEfRIJ4+MujC+fZmUNrF6WrkVUn
+ 2BNWjiBbvfcY2b8KN8nPd+y/UhUvcXcydExSANq+CAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw/zF8EoHUMja4mtC5QRhP68T5TcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KWF+0
+ N48CRNOVzGC3NmfzImRTM5Ditt2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
+ ZBAL2MyMlKZOUYn1lQ/UfrSmM+hgGX/dDtJ7kqYv6Mt70DYzRBr0airO93QEjCPbZwMwRvA/
+ DmarwwVBDlBDOa0+zOo70uvqeCUogTmAKICBLO3o6sCbFq7mTVIVUx+uUGAifuwjEKkSs9cA
+ 0MR8ysq66M18SSDXtT7GhG1vnOAlhodQMZLVf037hmXzajZ6BrfAXILJhZebPQ2uclwQiYlv
+ neLkMnuHidHq6CORDSW8bL8hTG4NDURLGQCTTQZVgZD6N7myKkxkxbOQ9BLAKOzyNrvFlnY2
+ CuWpSIzg7ESi88j1Kih+13DxTW2qfDhRxY4/AzNUkq57wlyY8iuYInA1LTAxa8edsDDFADH5
+ SVa3ZHEt4jiEK1higSNcMAvOJCKpM+kMWbnqFJUNZ8G2DiyrivLkZ9r3N1uGKt4Gp9aKGeyM
+ RSD4V85CIx7ZyXzM/IuC26lI4FzlPW7S4y4PhzBRoAWCqWdYjNr682HiaS4+2n22HYhnqgkU
+ XtwWZb9VC1KYUiLIdffegv87VPI7npkrY8rbcqnpylLKJLHDJJvdZ8LMUGVcscy576erQPe/
+ r53bpXbk04ODrehM3KPrub/yGzmy1BhW/gaTOQOKIa+zvdOQjl9W5c9P5t/E2Cao0ilvriRp
+ SzsMqOp4FH+mWfGOW23hoNLMdvSsWJEhStjZ0QEZA/4s0XPlK7ztM/zgbNrJ+h4nAGipNYoJ
+ 8Q4lzKoW6sUEWmWpGxGNvEQbuVKLXyWuO5HBAL9CBBXQnKqb1WhFgPMFuc3yBQzMw==
+IronPort-HdrOrdr: A9a23:xsxAUK3gI/xQjKdhZeG/7AqjBB8kLtp133Aq2lEZdPWaSK2lfq
+ eV7ZImPH7P+VEssRQb8+xoV5PsfZqxz/JICMwqTNSftOePghrVEGgg1/qe/9XYcxeOidK1rJ
+ 0QDZSWaueRMbEKt7ef3ODiKadY/DDvysnB7ts2jU0dLz2CDZsO0+4TMHf/LqQZfmd77LMCZe
+ uhz/sCiTq8WGgdKv+2DmMCWIH41qf2vaOjTx4aJgItrDKDhzOw6LL8DnGjr2wjegIK77c+0H
+ TP1zf07KW7s/2911v12mLJ445N8eGRuedrNYijitU1Nj6psAquaYh7MofyxAwdre209VYsmM
+ TNpRA7Vv4Dm0/sQg==
+X-Talos-CUID: 9a23:XX6YtWOKU6iWGu5DWBlC1mo1OYMcU3yG917cGGW+LkllV+jA
+X-Talos-MUID: 9a23:IP7JQAitF6aUWgWJu7IFM8Mpb/9SyJanJV00kroJ4PajKHRQKyeTg2Hi
+X-IronPort-AV: E=Sophos;i="6.01,234,1684814400"; 
+   d="scan'208";a="117502348"
+Date: Thu, 27 Jul 2023 11:27:21 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v7 04/15] xen/sysctl: Nest cpufreq scaling options
+Message-ID: <5a6365b0-7809-4287-96fa-be7809d664c8@perard>
+References: <20230726170945.34961-1-jandryuk@gmail.com>
+ <20230726170945.34961-5-jandryuk@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 28/49] dm zoned: dynamically allocate the dm-zoned-meta
- shrinker
-Content-Language: en-US
-To: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- dm-devel@redhat.com, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org,
- david@fromorbit.com, tkhai@ya.ru, vbabka@suse.cz, roman.gushchin@linux.dev,
- djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
- steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
- yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
- <20230727080502.77895-29-zhengqi.arch@bytedance.com>
- <baaf7de4-9a0e-b953-2b6a-46e60c415614@kernel.org>
- <56ee1d92-28ee-81cb-9c41-6ca7ea6556b0@bytedance.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <56ee1d92-28ee-81cb-9c41-6ca7ea6556b0@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230726170945.34961-5-jandryuk@gmail.com>
 
-On 7/27/23 17:55, Qi Zheng wrote:
->>>           goto err;
->>>       }
->>>   +    zmd->mblk_shrinker->count_objects = dmz_mblock_shrinker_count;
->>> +    zmd->mblk_shrinker->scan_objects = dmz_mblock_shrinker_scan;
->>> +    zmd->mblk_shrinker->seeks = DEFAULT_SEEKS;
->>> +    zmd->mblk_shrinker->private_data = zmd;
->>> +
->>> +    shrinker_register(zmd->mblk_shrinker);
->>
->> I fail to see how this new shrinker API is better... Why isn't there a
->> shrinker_alloc_and_register() function ? That would avoid adding all this code
->> all over the place as the new API call would be very similar to the current
->> shrinker_register() call with static allocation.
+On Wed, Jul 26, 2023 at 01:09:34PM -0400, Jason Andryuk wrote:
+> Add a union and struct so that most of the scaling variables of struct
+> xen_get_cpufreq_para are within in a binary-compatible layout.  This
+> allows cppc_para to live in the larger union and use uint32_ts - struct
+> xen_cppc_para will be 10 uint32_t's.
 > 
-> In some registration scenarios, memory needs to be allocated in advance.
-> So we continue to use the previous prealloc/register_prepared()
-> algorithm. The shrinker_alloc_and_register() is just a helper function
-> that combines the two, and this increases the number of APIs that
-> shrinker exposes to the outside, so I choose not to add this helper.
+> The new scaling struct is 3 * uint32_t + 16 bytes CPUFREQ_NAME_LEN + 4 *
+> uint32_t for xen_ondemand = 11 uint32_t.  That means the old size is
+> retained, int32_t turbo_enabled doesn't move and it's binary compatible.
+> 
+> The out-of-context memcpy() in xc_get_cpufreq_para() now handles the
+> copying of the fields removed there.
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> NOTE: Jan would like a toolside review / ack because:
+>     Nevertheless I continue to be uncertain about all of this: Parts of
+>     the struct can apparently go out of sync with the sysctl struct, but
+>     other parts have to remain in sync without there being an
+>     appropriate build-time check (checking merely sizes clearly isn't
+>     enough). Therefore I'd really like to have a toolstack side review /
+>     ack here as well.
 
-And that results in more code in many places instead of less code + a simple
-inline helper in the shrinker header file... So not adding that super simple
-helper is not exactly the best choice in my opinion.
+I wish we could just use "struct xen_get_cpufreq_para" instead of
+having to make a copy to replace the XEN_GUEST_HANDLE_*() macro.
+
+Next I guess we could try to have something like the compat layer in xen
+is doing, with plenty of CHECK_FIELD_ and other CHECK_* macro, but that
+would be a lot of work. (xen/include/xen/compat.h and how it's used in
+xen/include/compat/xlat.h)
+
+Unless you feel like adding more build check, I guess the patch is good
+enough like that:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
 
 -- 
-Damien Le Moal
-Western Digital Research
-
+Anthony PERARD
 
