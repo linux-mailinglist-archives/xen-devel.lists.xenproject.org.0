@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B7E76586D
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 18:19:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571225.894575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C62476590F
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 18:45:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571229.894586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP3hq-0000dO-Ji; Thu, 27 Jul 2023 16:19:14 +0000
+	id 1qP470-0004Aj-Mh; Thu, 27 Jul 2023 16:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571225.894575; Thu, 27 Jul 2023 16:19:14 +0000
+Received: by outflank-mailman (output) from mailman id 571229.894586; Thu, 27 Jul 2023 16:45:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP3hq-0000an-GD; Thu, 27 Jul 2023 16:19:14 +0000
-Received: by outflank-mailman (input) for mailman id 571225;
- Thu, 27 Jul 2023 16:19:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qP3hp-0000ad-Lw; Thu, 27 Jul 2023 16:19:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qP3hp-0001Kv-I1; Thu, 27 Jul 2023 16:19:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qP3hp-0000mn-5t; Thu, 27 Jul 2023 16:19:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qP3hp-00015z-5B; Thu, 27 Jul 2023 16:19:13 +0000
+	id 1qP470-00047O-Jh; Thu, 27 Jul 2023 16:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 571229;
+ Thu, 27 Jul 2023 16:45:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=k29T=DN=arm.com=peter.hoyes@srs-se1.protection.inumbo.net>)
+ id 1qP46z-00047I-CB
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 16:45:13 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id f2903357-2c9c-11ee-8613-37d641c3527e;
+ Thu, 27 Jul 2023 18:45:09 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8221D75;
+ Thu, 27 Jul 2023 09:45:51 -0700 (PDT)
+Received: from e125920.cambridge.arm.com (unknown [10.1.199.65])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 820A33F5A1;
+ Thu, 27 Jul 2023 09:45:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +42,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+PzbRLkNn8yIw2EDO9FP1t4KIXRGADNcc0a++OssfAo=; b=U68usy1bpSxHtg6KQnPsayHwse
-	lulDvlNigM+YKlD0QrVx8Clf8FxWeY/tkeSb8uPjXFlBEN4GkG67QJdC9tKO7mWEeia0Nt+ZAG6C+
-	F6taRIkYuqM+h1wmBde28hUjELWoPFJ0WkvWScV5z1qxHyTPKQdsbFmf9q2vbs9c7FLQ=;
+X-Inumbo-ID: f2903357-2c9c-11ee-8613-37d641c3527e
+From: Peter Hoyes <peter.hoyes@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182043-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	luca.fancellu@arm.com,
+	Peter Hoyes <Peter.Hoyes@arm.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v6 0/2] Add escape character argument to Xen console
+Date: Thu, 27 Jul 2023 17:44:47 +0100
+Message-Id: <20230727164450.77640-1-peter.hoyes@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 182043: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=0400946d532ec41bc5d0bedd3e9ef036308ce623
-X-Osstest-Versions-That:
-    xen=baa6ea7003868d1a339d06b17fd32d41b851d571
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 27 Jul 2023 16:19:13 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 182043 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182043/
+From: Peter Hoyes <Peter.Hoyes@arm.com>
 
-Failures :-/ but no regressions.
+Dom0 may be accessed via telnet, meaning the default escape character
+(which is the same as telnet's) cannot be directly used to exit the
+console. It would be helpful to make the escape character customizable
+in such use cases, falling back to the existing value if not set.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Make the necessary changes to the console client, libxl and the xl
+console sub-command to support this.
 
-version targeted for testing:
- xen                  0400946d532ec41bc5d0bedd3e9ef036308ce623
-baseline version:
- xen                  baa6ea7003868d1a339d06b17fd32d41b851d571
+Peter Hoyes (2):
+  tools/console: Add escape argument to configure escape character
+  xl: Add escape character argument to xl console
 
-Last test of basis   182034  2023-07-27 08:02:11 Z    0 days
-Testing same since   182043  2023-07-27 13:00:27 Z    0 days    1 attempts
+ docs/man/xl.1.pod.in             |  8 +++++-
+ tools/console/client/main.c      | 21 +++++++++++++---
+ tools/include/libxl.h            | 43 ++++++++++++++++++++++++++++----
+ tools/libs/light/libxl_console.c | 30 ++++++++++++++++------
+ tools/xl/xl_cmdtable.c           |  3 ++-
+ tools/xl/xl_console.c            | 10 +++++---
+ tools/xl/xl_vmcontrol.c          |  2 +-
+ 7 files changed, 94 insertions(+), 23 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Shawn Anastasio <sanastasio@raptorengineering.com>
+-- 
+2.34.1
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   baa6ea7003..0400946d53  0400946d532ec41bc5d0bedd3e9ef036308ce623 -> smoke
 
