@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04738765C42
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 21:42:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571260.894684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C83DF765DAA
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 23:01:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571262.894695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP6sG-00032o-Dy; Thu, 27 Jul 2023 19:42:12 +0000
+	id 1qP85m-0003Vv-0c; Thu, 27 Jul 2023 21:00:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571260.894684; Thu, 27 Jul 2023 19:42:12 +0000
+Received: by outflank-mailman (output) from mailman id 571262.894695; Thu, 27 Jul 2023 21:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qP6sG-00031A-Ao; Thu, 27 Jul 2023 19:42:12 +0000
-Received: by outflank-mailman (input) for mailman id 571260;
- Thu, 27 Jul 2023 19:42:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oh4O=DN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qP6sF-000312-1q
- for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 19:42:11 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac01c10c-2cb5-11ee-8613-37d641c3527e;
- Thu, 27 Jul 2023 21:42:09 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A5D8E61EF0;
- Thu, 27 Jul 2023 19:42:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F8CC433C7;
- Thu, 27 Jul 2023 19:42:05 +0000 (UTC)
+	id 1qP85l-0003U6-Td; Thu, 27 Jul 2023 21:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 571262;
+ Thu, 27 Jul 2023 21:00:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qP85k-0003U0-KT
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 21:00:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qP85j-00085a-HU; Thu, 27 Jul 2023 21:00:11 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qP85j-0000DO-BV; Thu, 27 Jul 2023 21:00:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,69 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac01c10c-2cb5-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690486927;
-	bh=9qPDHGoxEaEDr7A4BW04hX62T/INSv0+yTyd5V/hDjI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=thEAFTw/rWTIN4fgYkPmaU46FW0/J0TMp756+0DHuF+34xQTNb66OI7sjrqEifc7w
-	 qfgsm9S/Uw/iWEr/foBWLE/H++uVee0hNnbeprxG+KDehNNIrGot6tXDv+i8bLeh65
-	 k7FnQm3lxVOvACzs5isdFdJerPEtEOqenvWDFHnG/DeNUZBDInjM7co+ThXwn/Mpof
-	 KluaGtEi3Py7wJnq9s5b3d25JJDOHeIzXsBDENfW+O+AiWY32jm6RB9ppzIKw/VgD1
-	 aGlYFOXiajeAXLaOwSEPpG14U3Q++l9d9Th+v/scYB5i4+S9e0bSQcxOOKbk7hS0E3
-	 Fy12FxOQP5Fyg==
-Date: Thu, 27 Jul 2023 12:42:04 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH] xen/notifier: address violations of MISRA C:2012
- Rule 8.3
-In-Reply-To: <d362ef56c8c31bcca47d71a430879f087d9a9d04.1690474136.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307271241580.3118466@ubuntu-linux-20-04-desktop>
-References: <d362ef56c8c31bcca47d71a430879f087d9a9d04.1690474136.git.federico.serafini@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=HSDhRqaPsIQySPs6jLqRGkQE44YMxjf86Wusu5y0ios=; b=isM/e/RpKM85ji78FrunxRiajT
+	jmwX8nINrGkFaI9uevsdFq4z/kCyisng2vJ7EFyfLLRJIIJ1Nx8MBPB68AV0ocQDlItz5pD0BmdZC
+	aegZjasKj666Du8rffhEpcpfIJ0wK/gHsmh2wM+904qZ70PpdVvqJ3kVqINTG67fgPxc=;
+Message-ID: <05f067be-f06b-ed1a-844d-15f9e9585500@xen.org>
+Date: Thu, 27 Jul 2023 22:00:09 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH v3 10/25] tools/xenstore: add hashtable_replace() function
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-11-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230724110247.10520-11-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 27 Jul 2023, Federico Serafini wrote:
-> Change parameter names in function declarations to be consistent with
-> the corresponding definitions. This addesses violations of MISRA C:2012
-> Rule 8.3: "All declarations of an object or function shall use the same
-> names and type qualifiers".
+Hi Juergen,
+
+On 24/07/2023 12:02, Juergen Gross wrote:
+> For an effective way to replace a hashtable entry add a new function
+> hashtable_replace().
 > 
-> No functional changes.
+> This is in preparation to replace TDB with a more simple data storage.
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 > ---
->  xen/include/xen/notifier.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> V3:
+> - fix commit message (Julien Grall)
+> - move unrelated change to previous patch (Julien Grall)
+> - make value parameter const
+> ---
+>   tools/xenstore/hashtable.c | 19 +++++++++++++++++++
+>   tools/xenstore/hashtable.h | 16 ++++++++++++++++
+>   2 files changed, 35 insertions(+)
 > 
-> diff --git a/xen/include/xen/notifier.h b/xen/include/xen/notifier.h
-> index 3d6017d4f7..51453c1552 100644
-> --- a/xen/include/xen/notifier.h
-> +++ b/xen/include/xen/notifier.h
-> @@ -37,9 +37,9 @@ struct notifier_head {
->  
->  
->  void notifier_chain_register(
-> -    struct notifier_head *nh, struct notifier_block *nb);
-> +    struct notifier_head *nh, struct notifier_block *n);
->  void notifier_chain_unregister(
-> -    struct notifier_head *nh, struct notifier_block *nb);
-> +    struct notifier_head *nh, struct notifier_block *n);
->  
->  int notifier_call_chain(
->      struct notifier_head *nh, unsigned long val, void *v,
-> -- 
-> 2.34.1
-> 
+> diff --git a/tools/xenstore/hashtable.c b/tools/xenstore/hashtable.c
+> index 0409725060..f85b5a71f1 100644
+> --- a/tools/xenstore/hashtable.c
+> +++ b/tools/xenstore/hashtable.c
+> @@ -205,6 +205,25 @@ void *hashtable_search(const struct hashtable *h, const void *k)
+>       return e ? e->v : NULL;
+>   }
+>   
+> +int hashtable_replace(struct hashtable *h, const void *k, const void *v)
+
+With the const dropped for 'v' and ...
+
+> +{
+> +    struct entry *e;
+> +
+> +    e = hashtable_search_entry(h, k);
+> +    if (!e)
+> +        return ENOENT;
+> +
+> +    if (h->flags & HASHTABLE_FREE_VALUE)
+> +    {
+> +        talloc_free(e->v);
+> +        talloc_steal(e, v);
+> +    }
+> +
+> +    e->v = (void *)v;
+
+... cast:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
