@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CBA76464E
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 07:54:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.570788.892922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8939976464F
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jul 2023 07:55:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.570790.892931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOtx5-0004lX-NL; Thu, 27 Jul 2023 05:54:19 +0000
+	id 1qOtxc-0005Cq-Vn; Thu, 27 Jul 2023 05:54:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 570788.892922; Thu, 27 Jul 2023 05:54:19 +0000
+Received: by outflank-mailman (output) from mailman id 570790.892931; Thu, 27 Jul 2023 05:54:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qOtx5-0004jZ-Jz; Thu, 27 Jul 2023 05:54:19 +0000
-Received: by outflank-mailman (input) for mailman id 570788;
- Thu, 27 Jul 2023 05:54:18 +0000
+	id 1qOtxc-0005As-SG; Thu, 27 Jul 2023 05:54:52 +0000
+Received: by outflank-mailman (input) for mailman id 570790;
+ Thu, 27 Jul 2023 05:54:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PqFe=DN=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qOtx4-0004jT-Hr
- for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 05:54:18 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1qOtxb-0004jT-EE
+ for xen-devel@lists.xenproject.org; Thu, 27 Jul 2023 05:54:51 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0531daae-2c42-11ee-8613-37d641c3527e;
- Thu, 27 Jul 2023 07:54:16 +0200 (CEST)
+ id 191a6f30-2c42-11ee-8613-37d641c3527e;
+ Thu, 27 Jul 2023 07:54:49 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 02B9A1F383;
- Thu, 27 Jul 2023 05:54:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6F00E21B4A;
+ Thu, 27 Jul 2023 05:54:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CF38D1341F;
- Thu, 27 Jul 2023 05:54:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B1C81341F;
+ Thu, 27 Jul 2023 05:54:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bevrMIcGwmR9CQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 27 Jul 2023 05:54:15 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id s8W7CKkGwmS6CQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 27 Jul 2023 05:54:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,72 +51,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0531daae-2c42-11ee-8613-37d641c3527e
+X-Inumbo-ID: 191a6f30-2c42-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1690437256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1690437289; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cTOhp7gzTtljGoWxVjaxLCsraETAq5ShPGu+HEHGneU=;
-	b=kouLPPETSOQji+YuSUZn4VWQKS38RgenGK9AuclG8s5ievjs7AzqDgqsOlJl1+fMqv40FM
-	8EX1svd4id95S4IoS4r4lOHX7tqoGuwy3MCbd+n5t9HUDlBYSontHJhTeeHL8/zEiGcc09
-	d7prEswbfzVVCVah8B615qZWUBsT0+c=
-Message-ID: <a54de6ad-ecbd-4f79-f82a-2f54be38bde7@suse.com>
-Date: Thu, 27 Jul 2023 07:54:15 +0200
+	bh=6FH6OIxXDPjwY8sydASc46G8K1EY8W062wfCfb4fRCg=;
+	b=HqhW8p9pnfIc8hqmnaUp9hzNa5djKaGAydk7hjJ130knCRHZNpY0aXsgitgLTSt/zZRQBu
+	cy7ISdtJ3xNeHUbFtZnD2Mku0dyyGFtwolteWJ7DA9lr/Bm9q9oevlOnCVE5GVw5stMK+S
+	34P2us1ndd5uo7U+ZAgeTG+gkSZC6bk=
+Message-ID: <270ed8f7-c645-502e-39c5-c93823037b9c@suse.com>
+Date: Thu, 27 Jul 2023 07:54:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH] xenbus: check xen_domain in xenbus_probe_initcall
+Subject: Re: [PATCH v3] xen/evtchn: Introduce new IOCTL to bind static evtchn
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org,
- pmladek@suse.com
-References: <alpine.DEB.2.22.394.2307211609140.3118466@ubuntu-linux-20-04-desktop>
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Jane Malalane <jane.malalane@citrix.com>
+References: <ae7329bf1713f83e4aad4f3fa0f316258c40a3e9.1689677042.git.rahul.singh@arm.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2307211609140.3118466@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ae7329bf1713f83e4aad4f3fa0f316258c40a3e9.1689677042.git.rahul.singh@arm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Cr8v2k08dQPD0rbCXOR0kF4U"
+ boundary="------------4Tdk1AVzYvRkV0W5o1dum3uz"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Cr8v2k08dQPD0rbCXOR0kF4U
-Content-Type: multipart/mixed; boundary="------------jEc0T0g0KIX9PQpz0HsSEoCn";
+--------------4Tdk1AVzYvRkV0W5o1dum3uz
+Content-Type: multipart/mixed; boundary="------------JsMbhU8vs3WUa8yM8kUzxvI6";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org,
- pmladek@suse.com
-Message-ID: <a54de6ad-ecbd-4f79-f82a-2f54be38bde7@suse.com>
-Subject: Re: [PATCH] xenbus: check xen_domain in xenbus_probe_initcall
-References: <alpine.DEB.2.22.394.2307211609140.3118466@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2307211609140.3118466@ubuntu-linux-20-04-desktop>
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Jane Malalane <jane.malalane@citrix.com>
+Message-ID: <270ed8f7-c645-502e-39c5-c93823037b9c@suse.com>
+Subject: Re: [PATCH v3] xen/evtchn: Introduce new IOCTL to bind static evtchn
+References: <ae7329bf1713f83e4aad4f3fa0f316258c40a3e9.1689677042.git.rahul.singh@arm.com>
+In-Reply-To: <ae7329bf1713f83e4aad4f3fa0f316258c40a3e9.1689677042.git.rahul.singh@arm.com>
 
---------------jEc0T0g0KIX9PQpz0HsSEoCn
-Content-Type: multipart/mixed; boundary="------------YtQ5G1DImMCnPEcdyeqV0D72"
+--------------JsMbhU8vs3WUa8yM8kUzxvI6
+Content-Type: multipart/mixed; boundary="------------m72s06cVtq9GZZjNVYRxdBq1"
 
---------------YtQ5G1DImMCnPEcdyeqV0D72
+--------------m72s06cVtq9GZZjNVYRxdBq1
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjIuMDcuMjMgMDE6MTMsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gVGhlIHNh
-bWUgd2F5IHdlIGFscmVhZHkgZG8gaW4geGVuYnVzX2luaXQuDQo+IEZpeGVzIHRoZSBmb2xs
-b3dpbmcgd2FybmluZzoNCj4gDQo+IFsgIDM1Mi4xNzU1NjNdIFRyeWluZyB0byBmcmVlIGFs
-cmVhZHktZnJlZSBJUlEgMA0KPiBbICAzNTIuMTc3MzU1XSBXQVJOSU5HOiBDUFU6IDEgUElE
-OiA4OCBhdCBrZXJuZWwvaXJxL21hbmFnZS5jOjE4OTMgZnJlZV9pcnErMHhiZi8weDM1MA0K
-PiBbLi4uXQ0KPiBbICAzNTIuMjEzOTUxXSBDYWxsIFRyYWNlOg0KPiBbICAzNTIuMjE0Mzkw
-XSAgPFRBU0s+DQo+IFsgIDM1Mi4yMTQ3MTddICA/IF9fd2FybisweDgxLzB4MTcwDQo+IFsg
-IDM1Mi4yMTU0MzZdICA/IGZyZWVfaXJxKzB4YmYvMHgzNTANCj4gWyAgMzUyLjIxNTkwNl0g
-ID8gcmVwb3J0X2J1ZysweDEwYi8weDIwMA0KPiBbICAzNTIuMjE2NDA4XSAgPyBwcmJfcmVh
-ZF92YWxpZCsweDE3LzB4MjANCj4gWyAgMzUyLjIxNjkyNl0gID8gaGFuZGxlX2J1ZysweDQ0
-LzB4ODANCj4gWyAgMzUyLjIxNzQwOV0gID8gZXhjX2ludmFsaWRfb3ArMHgxMy8weDYwDQo+
-IFsgIDM1Mi4yMTc5MzJdICA/IGFzbV9leGNfaW52YWxpZF9vcCsweDE2LzB4MjANCj4gWyAg
-MzUyLjIxODQ5N10gID8gZnJlZV9pcnErMHhiZi8weDM1MA0KPiBbICAzNTIuMjE4OTc5XSAg
-PyBfX3BmeF94ZW5idXNfcHJvYmVfdGhyZWFkKzB4MTAvMHgxMA0KPiBbICAzNTIuMjE5NjAw
-XSAgeGVuYnVzX3Byb2JlKzB4N2EvMHg4MA0KPiBbICAzNTIuMjIxMDMwXSAgeGVuYnVzX3By
-b2JlX3RocmVhZCsweDc2LzB4YzANCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFN0ZWZhbm8gU3Rh
-YmVsbGluaSA8c3RlZmFuby5zdGFiZWxsaW5pQGFtZC5jb20+DQo+IFRlc3RlZC1ieTogUGV0
-ciBNbGFkZWsgPHBtbGFkZWtAc3VzZS5jb20+DQoNClB1c2hlZCB0byB4ZW4vdGlwLmdpdCBm
-b3ItbGludXMtNi41YQ0KDQoNCkp1ZXJnZW4NCg0K
---------------YtQ5G1DImMCnPEcdyeqV0D72
+T24gMTguMDcuMjMgMTM6MzEsIFJhaHVsIFNpbmdoIHdyb3RlOg0KPiBYZW4gNC4xNyBzdXBw
+b3J0c8KgdGhlIGNyZWF0aW9uIG9mIHN0YXRpYyBldnRjaG5zLiBUbyBhbGxvdyB1c2VyIHNw
+YWNlDQo+IGFwcGxpY2F0aW9uIHRvIGJpbmQgc3RhdGljIGV2dGNobnMgaW50cm9kdWNlIG5l
+dyBpb2N0bA0KPiAiSU9DVExfRVZUQ0hOX0JJTkRfU1RBVElDIi4gRXhpc3RpbmcgSU9DVEwg
+ZG9pbmcgbW9yZSB0aGFuIGJpbmRpbmcNCj4gdGhhdOKAmXMgd2h5IHdlIG5lZWQgdG8gaW50
+cm9kdWNlIHRoZSBuZXcgSU9DVEwgdG8gb25seSBiaW5kIHRoZSBzdGF0aWMNCj4gZXZlbnQg
+Y2hhbm5lbHMuDQo+IA0KPiBTdGF0aWMgZXZ0Y2hucyB0byBiZSBhdmFpbGFibGUgZm9yIHVz
+ZSBkdXJpbmcgdGhlIGxpZmV0aW1lIG9mIHRoZQ0KPiBndWVzdC4gV2hlbiB0aGUgYXBwbGlj
+YXRpb24gZXhpdHMsIF9fdW5iaW5kX2Zyb21faXJxKCkgZW5kcyB1cCBiZWluZw0KPiBjYWxs
+ZWQgZnJvbSByZWxlYXNlKCkgZmlsZSBvcGVyYXRpb25zIGJlY2F1c2Ugb2YgdGhhdCBzdGF0
+aWMgZXZ0Y2hucw0KPiBhcmUgZ2V0dGluZyBjbG9zZWQuIFRvIGF2b2lkIGNsb3NpbmcgdGhl
+IHN0YXRpYyBldmVudCBjaGFubmVsLCBhZGQgdGhlDQo+IG5ldyBib29sIHZhcmlhYmxlICJp
+c19zdGF0aWMiIGluICJzdHJ1Y3QgaXJxX2luZm8iIHRvIG1hcmsgdGhlIGV2ZW50DQo+IGNo
+YW5uZWwgc3RhdGljIHdoZW4gY3JlYXRpbmcgdGhlIGV2ZW50IGNoYW5uZWwgdG8gYXZvaWQg
+Y2xvc2luZyB0aGUNCj4gc3RhdGljIGV2dGNobi4NCj4gDQo+IEFsc28sIHRha2UgdGhpcyBv
+cHBvcnR1bml0eSB0byByZW1vdmUgdGhlIG9wZW4tY29kZWQgdmVyc2lvbiBvZiB0aGUNCj4g
+ZXZ0Y2huIGNsb3NlIGluIGRyaXZlcnMveGVuL2V2dGNobi5jIGZpbGUgYW5kIHVzZSB4ZW5f
+ZXZ0Y2huX2Nsb3NlKCkuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBSYWh1bCBTaW5naCA8cmFo
+dWwuc2luZ2hAYXJtLmNvbT4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZvci1saW51cy02
+LjVhDQoNCg0KSnVlcmdlbg0KDQo=
+--------------m72s06cVtq9GZZjNVYRxdBq1
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -174,25 +181,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------YtQ5G1DImMCnPEcdyeqV0D72--
+--------------m72s06cVtq9GZZjNVYRxdBq1--
 
---------------jEc0T0g0KIX9PQpz0HsSEoCn--
+--------------JsMbhU8vs3WUa8yM8kUzxvI6--
 
---------------Cr8v2k08dQPD0rbCXOR0kF4U
+--------------4Tdk1AVzYvRkV0W5o1dum3uz
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTCBocFAwAAAAAACgkQsN6d1ii/Ey8N
-hgf/ZULN+ts5xyA7sfl0WnA7tusFl3CDVWcLQVBCAhDSmm29HHTkPjQNbwBNWUKw7lWS5ZBQmGMM
-yhwwtFtRi18vF4Qm7yrnhoL6oEpayrtOxXPfQ4rc1dzdfUEzHOiQ1loxWbrNH962HLqoSp7PaSsN
-Vmq3bokMo+LHLTs26B88ahBbE8NlRncfHA3DvWF+7AIqqX408na6aepoB3bqXCZp1sC5IhN6B92I
-W3cMxkJZGmIF5v9eznj0JFiO4JO+cyWJplHUAH1kL5Q55IALlAI1ZTGWHj/JOBVK9s/x44Pmhfwl
-wC7XPk7IQjdZkcLX4WKaoV3qJEKgK2Ir3alOrn96fQ==
-=9R1l
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTCBqgFAwAAAAAACgkQsN6d1ii/Ey8p
+3Af9HHbe22wpgQFipYJxDkdLtVudyWkHZ3Ao6K1SlQa5Cz+AO/CBQ28CrN2WnxSCfpmnzyhJ1YY/
+1Zk3NcI4Jqs6Aj7vw3LCcpS/t1JpH2p5+xqS6dwW3HsVZ6/NTyT46iQFRnC3CxR+YT8KwsUfN80v
+Ru85mn2Nm41J61JUFJEtJj66VVjeRuF2zVh2zG+/dOA+NsvvezP5RImEpYA8mmGYnUDnNjn0VBVG
+aICgbAYCZ4qgPbJyMu8h8gdYWWUWmDet4yl6IfRhGNAvVSRbUtKdoYHplFPvQfgzmOht50W7XqVD
+s3AoPqpeakiehqZrd9vGVk+sxN8RUCzfoZioTSGDWw==
+=kdGh
 -----END PGP SIGNATURE-----
 
---------------Cr8v2k08dQPD0rbCXOR0kF4U--
+--------------4Tdk1AVzYvRkV0W5o1dum3uz--
 
