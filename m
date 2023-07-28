@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32345766690
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 10:12:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571376.895087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59A1B76669B
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 10:13:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571390.895098 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPIa1-0005Xz-6P; Fri, 28 Jul 2023 08:12:09 +0000
+	id 1qPIbP-0007P0-JB; Fri, 28 Jul 2023 08:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571376.895087; Fri, 28 Jul 2023 08:12:09 +0000
+Received: by outflank-mailman (output) from mailman id 571390.895098; Fri, 28 Jul 2023 08:13:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPIa1-0005VC-3O; Fri, 28 Jul 2023 08:12:09 +0000
-Received: by outflank-mailman (input) for mailman id 571376;
- Fri, 28 Jul 2023 08:12:07 +0000
+	id 1qPIbP-0007MI-ER; Fri, 28 Jul 2023 08:13:35 +0000
+Received: by outflank-mailman (input) for mailman id 571390;
+ Fri, 28 Jul 2023 08:13:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B1pf=DO=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1qPIZy-0004AY-Vw
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 08:12:07 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 7041c0f2-2d1e-11ee-b24d-6b7b168915f2;
- Fri, 28 Jul 2023 10:12:05 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AEB71D75;
- Fri, 28 Jul 2023 01:12:47 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 261613F67D;
- Fri, 28 Jul 2023 01:12:03 -0700 (PDT)
+ <SRS0=OGDP=DO=corigine.com=simon.horman@srs-se1.protection.inumbo.net>)
+ id 1qPIbN-0007Ji-1N
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 08:13:33 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20700.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::700])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a3427921-2d1e-11ee-b24d-6b7b168915f2;
+ Fri, 28 Jul 2023 10:13:31 +0200 (CEST)
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by SJ0PR13MB5269.namprd13.prod.outlook.com (2603:10b6:a03:3e1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Fri, 28 Jul
+ 2023 08:13:25 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::fde7:9821:f2d9:101d]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::fde7:9821:f2d9:101d%7]) with mapi id 15.20.6631.026; Fri, 28 Jul 2023
+ 08:13:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,735 +47,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7041c0f2-2d1e-11ee-b24d-6b7b168915f2
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [RFC PATCH 5/5] xen: Add clang-format configuration
-Date: Fri, 28 Jul 2023 09:11:44 +0100
-Message-Id: <20230728081144.4124309-6-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230728081144.4124309-1-luca.fancellu@arm.com>
-References: <20230728081144.4124309-1-luca.fancellu@arm.com>
+X-Inumbo-ID: a3427921-2d1e-11ee-b24d-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fu7do9vqFCgFsADyZ82hNoY/UZLzKuhqMcOnUosc7CU1gRARx52ZsmX/k3jQqqfWApVRnBmUWRhAjuU7NmXABoUauEcu+4BsFWL+iQvWctsSSd3J+OEl1nuojXV5LqlwQAV4O6Aa5FX6RS4QMHq9VxdUVQf3CIB3Lf+dyRKu2d6M6EqS2PnnmZOCYOXwHbqBewL1o/bOMaDqYjze38jxmFhs/Iv+br8SfT+8RW8ik5NSR8vaP81ZQYcdY76GopywsKtifA+tCByL5Om2pzeazLJ3uYUIjt8/7ob+IWLXdba180/f4usweAh8S07h9TWD5tHXBCqcmjq5lBKUTlV0hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yGPNEOQFiqYcBK63/Om9x23uvQtVmgPahFvNarchGnw=;
+ b=bxOPErCsni0aI6FEntZiPQijAIZDy0MW/IxPv639d8y+dZggkTNWOyuFAO/9SE+UgdXasAOUI3wVhzoH+CfaRJmbUIFqJoyEp9Ec5EP+Ir4UV9u4lZPJYEk9+IPq0p73BQdCtzT9xPvZQzKBaCZlGR3snCZTKSywAEhwAMI82788Emd6bxTcZGrPNH2SHdPb+Dy204vWYszNsqa4acgNtWNqodXyDEw0y7myqVcOxLuUrUTT8tRFt3FWyIgK8HDGppCS6jE0eN7Yc4E+jmEmxhvNTLrtTDOkbhwL/D9jHujspqJpRHY4R5d2byBVhKMu4+i1d28V1eeoN8H1OIizYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yGPNEOQFiqYcBK63/Om9x23uvQtVmgPahFvNarchGnw=;
+ b=m3prTWSXX6KZUhayrV91IRjMJI7ZwF62Kyc+RHKQ5wKJ5j5qAOm8WKXmDTLOzJZexS3MUHCg9Gn6vzAl1zOiXhoEipR2XxPt79A2JuBf25BGhqZ1DaFob4yfuccZFIJJgpycnIR7kUl05XAEhKT1pLB12AmPPln4yziKR08YR+A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Date: Fri, 28 Jul 2023 10:13:14 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+	vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+	brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
+	steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
+	yujie.liu@intel.com, gregkh@linuxfoundation.org,
+	muchun.song@linux.dev, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, x86@kernel.org, kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-erofs@lists.ozlabs.org,
+	linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+	linux-nfs@vger.kernel.org, linux-mtd@lists.infradead.org,
+	rcu@vger.kernel.org, netdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+	dm-devel@redhat.com, linux-raid@vger.kernel.org,
+	linux-bcache@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: Re: [PATCH v3 04/49] mm: shrinker: remove redundant shrinker_rwsem
+ in debugfs operations
+Message-ID: <ZMN4mjsF1QEsvW7D@corigine.com>
+References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
+ <20230727080502.77895-5-zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230727080502.77895-5-zhengqi.arch@bytedance.com>
+X-ClientProxiedBy: AM0PR02CA0114.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28c::11) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|SJ0PR13MB5269:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8611e466-4b59-4307-f46d-08db8f4283c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	pwW465vo9hI5eC/8Ntm80OiPZIBHfs3VML+30ACZ6q1gKIiw07bi63fgQFFRLxhjeMOvYXvKDQCbhdJXvkJtuvlV+CXofrjYF/nUT4dPDX7q3opgHQdml0n1/4JWskU89OGJAciXmkpGNxgq9ry3pQOnhUiBe/rX017qs0avdKvOdhPtlbR+VQVKZn19geR1qa1unKg72RhRR53/MXIMsfQLudax4C3TSjl+Giz2dgx40XXbX34DzfbwIhH5bpBtGAGLaj3zSQAl3qvuVXHTkg909IcoX6oZGllYm2+Eps+5dhGhNgPCU1/7AU4O5pm4wOrjGhtYfZoZ9N02ekDRjKTQ4lquadIeum0uy/WYwMrctBR3EpkOJHSBHPG5+OYlhSGKYRuhxcaOuJyq9NPyXaRtIwoJbm2SQ2E3gbw5UzfYNh4+Zsdlyyf2fqz/nfuTulgnbDZUN06bw3dCKQlgorH/+ohWbaa1SQLbJzCxvKZOx/MJCh1pBm/F2VBIa/so2tKi49EA+ktn349EbCy+bMhrGONwPCzwf2MNJSruQNMUKPHUtE6Ber7adMWlIhvkRQnideoRjxmflS1kiPiAMuBzpM3AyXXbMb1u0RgXupI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR13MB4842.namprd13.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(39840400004)(136003)(376002)(346002)(366004)(451199021)(316002)(6486002)(6666004)(6512007)(38100700002)(66946007)(66476007)(66556008)(4326008)(6916009)(478600001)(83380400001)(44832011)(2616005)(36756003)(2906002)(86362001)(41300700001)(6506007)(186003)(7416002)(7406005)(8676002)(8936002)(5660300002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?EwJcBo/2mvzDAcZlwWvTX9INa/Cd4/lFcnamw+5KB2J69OYpKA3aGp5Wd/XF?=
+ =?us-ascii?Q?Vjt1Q6FMtfkPT96kdcb4hxokRaLTkBreJ1T36jkKBbExivpNKSZ6veIvC/M4?=
+ =?us-ascii?Q?jrCBhciqYx3+6CIDSXOzrvyFcFGYL2Yoe1VQGDJ7NdDD5l0XwHG+93LniBR0?=
+ =?us-ascii?Q?AC3/KSBGGJTCJ06zamH3IV6dDULUlTJhzm/pIZUJ/EWtK7yxw+go6gb+7bsb?=
+ =?us-ascii?Q?GNmIfq+OCxbfIvLSus5tHnhiHP5OesDtsNHLDznFWUW/G/Lmo/+J1OFJzmoH?=
+ =?us-ascii?Q?RITysfiVBMj55kz7cS+ZPLvGIfm8kdkhOghNhMN3NBBLtXwtGwJo5omwrNVG?=
+ =?us-ascii?Q?J1vTaUl7LcWFEq2X1SOaK8K4/6Ia3JWLxWKLRxy3Ww4uBVp7+2i/SZa9mFbj?=
+ =?us-ascii?Q?frtZCGrY28gP1W0cOaS0pH73V5HmSCYk5cbij51ERGBgOpga0ADx0XHxbFwQ?=
+ =?us-ascii?Q?O5taUvqZVD+YUBO09GBwkxw/rXt9bZ3p+tl0GkMzDw3rMPNo5Iiqs8Q7YLtl?=
+ =?us-ascii?Q?QnIGVeXrT9dOvCPEFdcCjIdtTYbOTjdDHfbAbXIwEN2LEHFDx51xljpLnzoj?=
+ =?us-ascii?Q?q6JlISd8nfmBNuAE82FX2Lfg9cjoTaEPWWoVPZG72vP0TPQGCo5rg+N5xg5+?=
+ =?us-ascii?Q?RA9dMJEpTUcVArKtlxNThUjNr/lXLQD2djxQG4SygkFdNSbOIg+Py5fn4KMQ?=
+ =?us-ascii?Q?VM6sDlWNOXcbgtJIHGGZNj7fiUlUPxTpownfc1c4LE42xLPnRHtGXEP9gqSA?=
+ =?us-ascii?Q?snUmINmb3Px4hk0VdGXyakeqY6tNY5w5AGS+MUD7tSY9rFxMbnhmArg+UUZE?=
+ =?us-ascii?Q?i73ij7qu7+jTmwf34+LrI95qmZ0ttNUbtvojB+anPSnSbsSmKyG6GOyDgdDj?=
+ =?us-ascii?Q?1Q8qS+/Pk+qDjwjSV6oDR5KDVg31OLrvNp/zYuvlMlX0IhekWbiJFuhZcDzF?=
+ =?us-ascii?Q?AQLPFRIatsy4f+ShA4r06BfxUfqS9AM3xlDQDA/TuaCkS65hHcKnjG7ssGxV?=
+ =?us-ascii?Q?6wo/p/ORe67hNfAjMWhnJoVU5KB1cJ8ra6ei3E+v+SkG6SmMGtAv/0oPpPuU?=
+ =?us-ascii?Q?fk42VugnI0lugCDN1EQawQHpI+ocrjKTtJgfvf65Gj0bxKANcxVQOqbjWLID?=
+ =?us-ascii?Q?8oXHR6mTmC6ENdB5NHmG42BWQJwcowGxu+i9mU8n3S1/1JXFgKAEOfbrQd/5?=
+ =?us-ascii?Q?Cs8GeKBlj4ogqJ9DEvux/7uYG9mSmkqZBCtfXbYeCmm8POr37MhzLWkvTMRO?=
+ =?us-ascii?Q?TNw+7pHndTN8XIIottGRIXCDjsLjJkNK37QoW2iOVxgkXOaCDs4v/ZPvu2BS?=
+ =?us-ascii?Q?yItjrzpQ7Wv/V/T0mShaQr35yWensUSLg8kwArBLTM+1TpeUjQvlRTRa2QEM?=
+ =?us-ascii?Q?eBhHGQssV3+tngbS/tmYBR8K+ByZIKYtpZzqEUrHnOGBWuMmBorzNjocuLAI?=
+ =?us-ascii?Q?0pmuEP2b4mk3PLcri7AeHoHgZmpbghkq4M/UOwzgrfPl8rOdOFcanX9cAkZ6?=
+ =?us-ascii?Q?9QPpEusH9TeQH4ecp7Cjadc8dwuN5sJzzuVBs840pTrx8rCTXZtCWFBrdxH1?=
+ =?us-ascii?Q?GQ8aV1bM3szxVEZWi1L9tiLEBSSbrR18uuwppQLJFRySYRV8eMAQc/EPvB84?=
+ =?us-ascii?Q?YOmbXUzPIyQOL7toNCW5V83Ij8+QcxN+t1bzFJsRVsd7LA7EUFd9DTAbDPkv?=
+ =?us-ascii?Q?1A2tGA=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8611e466-4b59-4307-f46d-08db8f4283c5
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2023 08:13:24.7088
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZO18g4iU6cCBfbXbdk05XK2h3U98gv1o0RvG8C19b61bZGM6zcodErQeQen1aIioiwU32nm1ls4To/v/MA7i5mi21rgU93wTSzMKCF+aMJ4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR13MB5269
 
-Add a clang format configuration for the Xen Hypervisor.
+On Thu, Jul 27, 2023 at 04:04:17PM +0800, Qi Zheng wrote:
+> The debugfs_remove_recursive() will wait for debugfs_file_put() to return,
+> so the shrinker will not be freed when doing debugfs operations (such as
+> shrinker_debugfs_count_show() and shrinker_debugfs_scan_write()), so there
+> is no need to hold shrinker_rwsem during debugfs operations.
+> 
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>  mm/shrinker_debug.c | 14 --------------
+>  1 file changed, 14 deletions(-)
+> 
+> diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
+> index 3ab53fad8876..f1becfd45853 100644
+> --- a/mm/shrinker_debug.c
+> +++ b/mm/shrinker_debug.c
+> @@ -55,11 +55,6 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
+>  	if (!count_per_node)
+>  		return -ENOMEM;
+>  
+> -	ret = down_read_killable(&shrinker_rwsem);
+> -	if (ret) {
+> -		kfree(count_per_node);
+> -		return ret;
+> -	}
+>  	rcu_read_lock();
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
- xen/.clang-format | 693 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 693 insertions(+)
- create mode 100644 xen/.clang-format
+Hi Qi Zheng,
 
-diff --git a/xen/.clang-format b/xen/.clang-format
-new file mode 100644
-index 000000000000..ccc85a6b854a
---- /dev/null
-+++ b/xen/.clang-format
-@@ -0,0 +1,693 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# clang-format configuration file. Intended for clang-format >= 15.
-+#
-+# For more information, see:
-+#
-+#   Documentation/process/clang-format.rst
-+#   https://clang.llvm.org/docs/ClangFormat.html
-+#   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
-+#
-+---
-+
-+# [not specified]
-+# Align function parameter that goes into a new line, under the open bracket
-+# (supported in clang-format 3.8)
-+AlignAfterOpenBracket: Align
-+
-+# [not specified]
-+# Align array of struct's elements by column and justify
-+# struct test demo[] =
-+# {
-+#     {56, 23,    "hello"},
-+#     {-1, 93463, "world"},
-+#     {7,  5,     "!!"   }
-+# };
-+# (supported in clang-format 13)
-+AlignArrayOfStructures: Left
-+
-+# [not specified]
-+# Align consecutive assignments (supported in clang-format 3.8)
-+AlignConsecutiveAssignments:
-+  Enabled: true
-+  AcrossEmptyLines: true
-+  AcrossComments: false
-+
-+# [not specified]
-+# Do not align consecutive bit fields (supported in clang-format 11)
-+AlignConsecutiveBitFields: None
-+
-+# [not specified]
-+# Do not align values of consecutive declarations
-+# (supported in clang-format 3.8)
-+AlignConsecutiveDeclarations: None
-+
-+# [not specified]
-+# Align values of consecutive macros (supported in clang-format 9)
-+AlignConsecutiveMacros:
-+  Enabled: true
-+  AcrossEmptyLines: true
-+  AcrossComments: true
-+
-+# [not specified]
-+# Align escaped newlines to the right (supported in clang-format 5)
-+AlignEscapedNewlines: Right
-+
-+# [not specified]
-+# Aligns operands of a single expression that needs to be split over multiple
-+# lines (supported in clang-format 3.5)
-+AlignOperands: Align
-+
-+# Do not align trailing consecutive comments (It helps to make clang-format
-+# reproduce the same output when it runs on an already formatted file)
-+# (supported in clang-format 3.7)
-+AlignTrailingComments: false
-+
-+# [not specified]
-+# Do not put all function call arguments on a new line, try to have at least
-+# the first one close to the opening parenthesis (supported in clang-format 9)
-+AllowAllArgumentsOnNextLine: false
-+
-+# [not specified]
-+# Do not put all function declaration parameters on a new line, try to have at
-+# least the first one close to the opening parenthesis
-+# (supported in clang-format 3.3)
-+AllowAllParametersOfDeclarationOnNextLine: false
-+
-+# Bracing condition needs to be respected even if the line is so short that the
-+# final block brace can stay on a single line
-+# (supported in clang-format 3.5)
-+AllowShortBlocksOnASingleLine: Never
-+
-+# (supported in clang-format 3.6)
-+AllowShortCaseLabelsOnASingleLine: false
-+
-+# (supported in clang-format 3.5)
-+AllowShortFunctionsOnASingleLine: None
-+
-+# (supported in clang-format 3.3)
-+AllowShortIfStatementsOnASingleLine: Never
-+
-+# (supported in clang-format 3.7)
-+AllowShortLoopsOnASingleLine: false
-+
-+# [not specified]
-+# Do not add a break after the definition return type
-+# (supported in clang-format 3.8)
-+AlwaysBreakAfterReturnType: None
-+
-+# [not specified]
-+# There is no need to use a break after an assigment to a multiline string
-+# (supported in clang-format 3.4)
-+AlwaysBreakBeforeMultilineStrings: false
-+
-+# (supported in clang-format 3.4)
-+AlwaysBreakTemplateDeclarations: false
-+
-+# Specify Xen's macro attributes (supported in clang-format 12)
-+AttributeMacros:
-+  - '__init'
-+  - '__exit'
-+  - '__initdata'
-+  - '__initconst'
-+  - '__initconstrel'
-+  - '__initdata_cf_clobber'
-+  - '__initconst_cf_clobber'
-+  - '__hwdom_init'
-+  - '__hwdom_initdata'
-+  - '__maybe_unused'
-+  - '__packed'
-+  - '__stdcall'
-+  - '__vfp_aligned'
-+  - '__alt_call_maybe_initdata'
-+  - '__cacheline_aligned'
-+  - '__ro_after_init'
-+  - 'always_inline'
-+  - 'noinline'
-+  - 'noreturn'
-+  - '__weak'
-+  - '__inline__'
-+  - '__attribute_const__'
-+  - '__transparent__'
-+  - '__used'
-+  - '__must_check'
-+  - '__kprobes'
-+
-+# [not specified]
-+# Try always to pack function call arguments on the same line before breaking
-+# (supported in clang-format 3.7)
-+BinPackArguments: true
-+
-+# [not specified]
-+# Try always to pack function declaration parameters on the same line before
-+# breaking (supported in clang-format 3.7)
-+BinPackParameters: true
-+
-+# [not specified]
-+# Do not add a spaces on bitfield 'unsigned bf:2;'
-+# (supported in clang-format 12)
-+BitFieldColonSpacing: None
-+
-+# Xen's coding style does not follow clang-format already available profiles for
-+# breaking before braces, so set it to Custom and specify each case separately
-+# (supported in clang-format 3.8)
-+BraceWrapping:
-+  # Braces ('{' and '}') are usually placed on a line of their own
-+  AfterCaseLabel: true
-+  AfterFunction: true
-+  BeforeElse: true
-+  AfterExternBlock: true
-+  # except for the opening brace in definitions of enum, struct, and union
-+  AfterEnum: false
-+  AfterStruct: false
-+  AfterUnion: false
-+  # This is unlike the Linux coding style and unlike K&R.
-+  #
-+  # if ( condition )
-+  # {
-+  #     /* Do stuff. */
-+  # }
-+  # else
-+  # {
-+  #     /* Other stuff. */
-+  # }
-+  #
-+  # while ( condition )
-+  # {
-+  #     /* Do stuff. */
-+  # }
-+  #
-+  # [non-compliant]
-+  # do-while is not compliant with CODING_STYLE because clang format doesn't
-+  # support different styles for every control statement
-+  # do
-+  # {
-+  #     /* Do stuff. */
-+  # } while ( condition );
-+  AfterControlStatement: Always
-+  BeforeWhile: false
-+  IndentBraces: false
-+  # [not specified]
-+  # Keep empty functions with braces style like this: 'void func() {}' instead
-+  # of breaking the braces
-+  SplitEmptyFunction: false
-+  # Not related to C language, but specified for completeness
-+  AfterClass: false
-+  AfterNamespace: false
-+  AfterObjCDeclaration: false
-+  BeforeCatch: false
-+  BeforeLambdaBody: false
-+  SplitEmptyRecord: true
-+  SplitEmptyNamespace: true
-+
-+# [not specified]
-+# Break only after the operator in case of a long expression
-+# (supported in clang-format 3.6)
-+BreakBeforeBinaryOperators: None
-+
-+# Xen's coding style does not follow clang-format already available profiles for
-+# breaking before braces, so set it to Custom and specify each case separately
-+# (supported in clang-format 3.7)
-+BreakBeforeBraces: Custom
-+
-+# [not specified]
-+# Break before inline ASM colon if the line length is longer than column limit.
-+# (This is a new feature upstreamed by EPAM during its work on clang-format for
-+# Xen)
-+# (supported in clang-format 16)
-+# BreakBeforeInlineASMColon: OnlyMultiline
-+
-+# [not specified]
-+# Ternary operators '?, :' can be put after a line break
-+# (supported in clang-format 3.7)
-+BreakBeforeTernaryOperators: true
-+
-+# (supported in clang-format 5)
-+BreakConstructorInitializers: BeforeComma
-+
-+# User visible strings (e.g., printk() messages) should not be split so they can
-+# be searched for more easily. (supported in clang-format 3.9)
-+BreakStringLiterals: false
-+
-+# Lines should be less than 80 characters in length
-+# (supported in clang-format 3.7)
-+ColumnLimit: 80
-+
-+# (supported in clang-format 3.7)
-+CommentPragmas: '^ IWYU pragma:'
-+
-+# Code within blocks is indented by one extra indent level
-+# (supported in clang-format 3.7)
-+ContinuationIndentWidth: 4
-+
-+# Do not derive pointer alignment style from the file
-+# (supported in clang-format 3.7)
-+DerivePointerAlignment: false
-+
-+# Taken from:
-+# git grep -h -i '^#define [^[:space:]]*for_each[^[:space:]]*(' xen/ \
-+# | sed "s,^#define \([^[:space:]]*for_each[^[:space:]]*\)(.*$,  - '\1',i" \
-+# | LC_ALL=C sort -u
-+# A vector of macros that should be interpreted as foreach loops instead of as
-+# function calls.
-+# (supported in clang-format 3.7)
-+ForEachMacros:
-+  - 'FOR_EACH_IOREQ_SERVER'
-+  - '__list_for_each_rcu'
-+  - 'dt_for_each_child_node'
-+  - 'dt_for_each_device_node'
-+  - 'dt_for_each_property_node'
-+  - 'ebitmap_for_each_positive_bit'
-+  - 'expr_list_for_each_sym'
-+  - 'fdt_for_each_property_offset'
-+  - 'fdt_for_each_subnode'
-+  - 'for_each_affinity_balance_step'
-+  - 'for_each_amd_iommu'
-+  - 'for_each_cfg_sme'
-+  - 'for_each_cpu'
-+  - 'for_each_domain'
-+  - 'for_each_domain_in_cpupool'
-+  - 'for_each_drhd_unit'
-+  - 'for_each_kimage_entry'
-+  - 'for_each_node_mask'
-+  - 'for_each_online_cpu'
-+  - 'for_each_online_node'
-+  - 'for_each_pdev'
-+  - 'for_each_possible_cpu'
-+  - 'for_each_present_cpu'
-+  - 'for_each_rmrr_device'
-+  - 'for_each_sched_unit'
-+  - 'for_each_sched_unit_vcpu'
-+  - 'for_each_set_bit'
-+  - 'for_each_vcpu'
-+  - 'for_each_vp'
-+  - 'hlist_for_each'
-+  - 'hlist_for_each_entry'
-+  - 'hlist_for_each_entry_continue'
-+  - 'hlist_for_each_entry_from'
-+  - 'hlist_for_each_entry_rcu'
-+  - 'hlist_for_each_entry_safe'
-+  - 'hlist_for_each_safe'
-+  - 'list_for_each'
-+  - 'list_for_each_backwards_safe'
-+  - 'list_for_each_continue_rcu'
-+  - 'list_for_each_entry'
-+  - 'list_for_each_entry_continue'
-+  - 'list_for_each_entry_from'
-+  - 'list_for_each_entry_rcu'
-+  - 'list_for_each_entry_reverse'
-+  - 'list_for_each_entry_safe'
-+  - 'list_for_each_entry_safe_continue'
-+  - 'list_for_each_entry_safe_from'
-+  - 'list_for_each_entry_safe_reverse'
-+  - 'list_for_each_prev'
-+  - 'list_for_each_rcu'
-+  - 'list_for_each_safe'
-+  - 'list_for_each_safe_rcu'
-+  - 'page_list_for_each'
-+  - 'page_list_for_each_safe'
-+  - 'page_list_for_each_safe_reverse'
-+
-+# A vector of macros that should be interpreted as conditionals instead of as
-+# function calls. (supported in clang-format 13)
-+#IfMacros:
-+#  - ''
-+
-+# Sort include files by block of includes and not as only one group
-+# (supported in clang-format 6)
-+IncludeBlocks: Preserve
-+
-+# [not specified]
-+# Regular expressions denoting the different #include categories used for
-+# ordering #includes. (supported in clang-format 3.8)
-+#IncludeCategories:
-+#  - Regex: '.*'
-+#    Priority: 1
-+
-+# When guessing whether a #include is the “main” include (to assign category 0,
-+# see above), use this regex of allowed suffixes to the header stem. A partial
-+# match is done, so that: - “” means “arbitrary suffix” - “$” means “no suffix”
-+# For example, if configured to “(_test)?$”, then a header a.h would be seen as
-+# the “main” include in both a.cc and a_test.cc.
-+# (Do we have a main include in Xen?)
-+# (supported in clang-format 3.9)
-+#IncludeIsMainRegex: '(Test)?$'
-+
-+# Non-case labels inside switch() bodies are preferred to be indented the same
-+# as the block's case labels (supported in clang-format 11)
-+IndentCaseBlocks: false
-+
-+# [not specified]
-+# Do not indent case labels in the switch block (supported in clang-format 3.3)
-+IndentCaseLabels: false
-+
-+# [not specified]
-+# Do not indent extern "C" block
-+# (supported in clang-format 11)
-+IndentExternBlock: NoIndent
-+
-+# Due to the behavior of GNU diffutils "diff -p", labels should be indented by
-+# at least one blank (supported in clang-format 10)
-+IndentGotoLabels: true
-+
-+# [not specified]
-+# Do not create indentation for the preprocessor directives
-+# (supported in clang-format 6)
-+IndentPPDirectives: None
-+
-+# An indent level consists of four spaces (supported in clang-format 3.7)
-+IndentWidth: 4
-+
-+# [not specified]
-+# In case a function definition or declaration needs to be wrapped after the
-+# type, do not indent the new line (supported in clang-format 3.7)
-+IndentWrappedFunctionNames: false
-+
-+# Braces should be omitted for blocks with a single statement. e.g.,
-+# if ( condition )
-+#     single_statement();
-+# (supported in clang-format 15)
-+InsertBraces: false
-+
-+# [not specified]
-+# Every file needs to end with a new line
-+# (supported in clang-format 16)
-+# InsertNewlineAtEOF: true
-+
-+# [not specified]
-+# Keep empty lines (up to MaxEmptyLinesToKeep) at end of file
-+# (supported in clang-format 17)
-+# KeepEmptyLinesAtEOF: true
-+
-+# [not specified]
-+# Do not add a new empty line at the start of the block
-+# (supported in clang-format 3.7)
-+KeepEmptyLinesAtTheStartOfBlocks: false
-+
-+# The Xen Hypervisor is written in C language (supported in clang-format 3.5)
-+Language: Cpp
-+
-+# [not specified]
-+# Line ending style is '\n' (supported in clang-format 16)
-+# LineEnding: LF
-+
-+# Specify Xen's macro that starts a block of code
-+# (supported in clang-format 3.7)
-+MacroBlockBegin: '^PLATFORM_START|^DT_DEVICE_START|^ACPI_DEVICE_START'
-+
-+# Specify Xen's macro that ends a block of code (supported in clang-format 3.7)
-+MacroBlockEnd: '^PLATFORM_END|^DT_DEVICE_END|^ACPI_DEVICE_END'
-+
-+# [not specified]
-+# Maximum consecutive empty lines allowed (supported in clang-format 3.7)
-+MaxEmptyLinesToKeep: 1
-+
-+# Parameters to tweak to discourage clang-format to break something
-+# (supported in clang-format 5)
-+PenaltyBreakAssignment: 10
-+# (supported in clang-format 3.7)
-+PenaltyBreakBeforeFirstCallParameter: 30
-+# (supported in clang-format 3.7)
-+PenaltyBreakComment: 10
-+# (supported in clang-format 3.7)
-+PenaltyBreakFirstLessLess: 0
-+# (supported in clang-format 14)
-+PenaltyBreakOpenParenthesis: 100
-+# (supported in clang-format 3.7)
-+PenaltyBreakString: 10
-+# (supported in clang-format 3.7)
-+PenaltyExcessCharacter: 100
-+# (supported in clang-format 12)
-+PenaltyIndentedWhitespace: 0
-+# (supported in clang-format 3.7)
-+PenaltyReturnTypeOnItsOwnLine: 60
-+
-+# [not specified]
-+# Pointer alignment style is on the right 'void *var'
-+# (supported in clang-format 3.7)
-+PointerAlignment: Right
-+
-+# [not specified]
-+# The number of columns to use for indentation of preprocessor statements
-+# When set to -1 (default) IndentWidth is used also for preprocessor statements.
-+# (supported in clang-format 13)
-+PPIndentWidth: -1
-+
-+# [not specified]
-+# (supported in clang-format 14)
-+QualifierAlignment: Custom
-+
-+# Specify in which order the qualifiers should appear 'static const int *var'
-+# (supported in clang-format 14)
-+QualifierOrder: ['static', 'inline', 'const', 'volatile', 'type']
-+
-+# Don't try to reflow comments to respect the column limit (It helps to make
-+# clang-format reproduce the same output when it runs on an already formatted
-+# file)
-+# (supported in clang-format 3.8)
-+ReflowComments: false
-+
-+# [not specified]
-+# Specifies the use of empty lines to separate definition blocks, including
-+# structs, enums, and functions
-+# (supported in clang-format 14)
-+SeparateDefinitionBlocks: Always
-+
-+# [not specified]
-+# Sort the include files by name (supported in clang-format 3.8)
-+# TODO: enabling this will currently break the compilation, maybe fix?
-+SortIncludes: Never
-+
-+# [not specified]
-+# Do not allow a space after a type cast '(type)var'
-+# (supported in clang-format 3.5)
-+SpaceAfterCStyleCast: false
-+
-+# [not specified]
-+# Do not allow a space after the not operator '!var'
-+# (supported in clang-format 9)
-+SpaceAfterLogicalNot: false
-+
-+# Ensure that there is a space after pointer qualifiers, when used with
-+# PointerAlignment of value Right it means 'void *const *x = NULL;'
-+# (supported in clang-format 12)
-+SpaceAroundPointerQualifiers: After
-+
-+# [not specified]
-+# Always have a space after an assign operator or a compound operator, for
-+# example '+=' (supported in clang-format 3.7)
-+SpaceBeforeAssignmentOperators: true
-+
-+# [not specified]
-+# Do not allow a space between the case argument and the final colon 'case 0:'
-+# (supported in clang-format 12)
-+SpaceBeforeCaseColon: false
-+
-+# [not specified]
-+# Have a space before the parenthesis of a control statement, do an exception
-+# for ForEach and If macros
-+SpaceBeforeParens: ControlStatementsExceptForEachMacros
-+
-+# (supported in clang-format 7)
-+SpaceBeforeRangeBasedForLoopColon: true
-+
-+# [not specified]
-+# Do not add a spaces before square brackets 'int a[5];'
-+# (supported in clang-format 10)
-+SpaceBeforeSquareBrackets: false
-+
-+# [not specified]
-+# Do not add a space inside empty parenthesis '()'
-+# (supported in clang-format 3.7)
-+SpaceInEmptyParentheses: false
-+
-+# (supported in clang-format 3.7)
-+SpacesBeforeTrailingComments: 1
-+
-+# Space characters are used to spread out logical statements, such as in the
-+# condition of an if or while 'if ( a )' 'while ( i < 5 )'
-+# (supported in clang-format 10)
-+SpacesInConditionalStatement: true
-+
-+# (supported in clang-format 3.7)
-+SpacesInContainerLiterals: false
-+
-+# [not specified]
-+# Do not add a spaces inside a type cast parenthesis '(int)var'
-+# (supported in clang-format 3.7)
-+SpacesInCStyleCastParentheses: false
-+
-+# [not specified]
-+# Do not insert spaces in empty block '{}'
-+# (supported in clang-format 3.5)
-+SpaceInEmptyBlock: false
-+
-+# Only one space is allowed at the start of a line comment
-+# (supported in clang-format 13)
-+SpacesInLineCommentPrefix:
-+  Minimum: 1
-+  Maximum: -1
-+
-+# [not specified]
-+# Do not add a spaces inside parenthesis '(var & var)'
-+# (supported in clang-format 3.7)
-+SpacesInParentheses: false
-+
-+# [not specified]
-+# Do not add spaces inside square brakets 'int a[5];'
-+# (supported in clang-format 3.7)
-+SpacesInSquareBrackets: false
-+
-+# (supported in clang-format 3.7)
-+Standard: C++03
-+
-+# Macros which are ignored in front of a statement, as if they were an
-+# attribute. So that they are not parsed as identifier
-+# (supported in clang-format 12)
-+# StatementAttributeLikeMacros: ['']
-+
-+# A vector of macros that should be interpreted as complete statements.
-+# Typical macros are expressions, and require a semi-colon to be added;
-+# sometimes this is not the case, and this allows to make clang-format aware of
-+# such cases. (supported in clang-format 8)
-+StatementMacros:
-+  - 'PROGRESS'
-+  - 'PROGRESS_VCPU'
-+  - 'bitop'
-+  - 'guest_bitop'
-+  - 'testop'
-+  - 'guest_testop'
-+  - 'DEFINE_XEN_GUEST_HANDLE'
-+  - '__DEFINE_XEN_GUEST_HANDLE'
-+  - '___DEFINE_XEN_GUEST_HANDLE'
-+  - 'presmp_initcall'
-+  - '__initcall'
-+  - '__exitcall'
-+
-+# An indent level consists of four spaces (supported in clang-format 3.7)
-+TabWidth: 4
-+
-+# A vector of macros that should be interpreted as type declarations instead of
-+# as function calls (supported in clang-format 9)
-+TypenameMacros:
-+  - 'XEN_GUEST_HANDLE'
-+  - 'XEN_GUEST_HANDLE_64'
-+  - 'XEN_GUEST_HANDLE_PARAM'
-+  - 'ELF_HANDLE_DECL'
-+
-+# Indentation is done using spaces, not tabs (supported in clang-format 3.7)
-+UseTab: Never
-+
-+# A vector of macros which are whitespace-sensitive and should not be touched
-+# (supported in clang-format 11)
-+WhitespaceSensitiveMacros:
-+  - '__stringify'
-+
-+## Not related to C language ###################################################
-+
-+# (supported in clang-format 3.3)
-+AccessModifierOffset: -4
-+
-+# (supported in clang-format 9)
-+AllowShortLambdasOnASingleLine: None
-+
-+# (supported in clang-format 16)
-+# BreakAfterAttributes: Never
-+
-+# (supported in clang-format 3.8)
-+BreakAfterJavaFieldAnnotations: false
-+
-+# (supported in clang-format 16)
-+# BreakArrays: false
-+
-+# (supported in clang-format 12)
-+BreakBeforeConceptDeclarations: Never
-+
-+# (supported in clang-format 7)
-+BreakInheritanceList: BeforeColon
-+
-+# (supported in clang-format 5)
-+CompactNamespaces: false
-+
-+# (supported in clang-format 3.7)
-+ConstructorInitializerAllOnOneLineOrOnePerLine: false
-+
-+# (supported in clang-format 3.7)
-+ConstructorInitializerIndentWidth: 4
-+
-+# (supported in clang-format 3.4)
-+Cpp11BracedListStyle: false
-+
-+# (supported in clang-format 13)
-+EmptyLineAfterAccessModifier: Leave
-+
-+# (supported in clang-format 12)
-+EmptyLineBeforeAccessModifier: Leave
-+
-+# (supported in clang-format 5)
-+FixNamespaceComments: false
-+
-+# (supported in clang-format 13)
-+IndentAccessModifiers: false
-+
-+# (supported in clang-format 15)
-+IndentRequiresClause: false
-+
-+# (supported in clang-format 11)
-+InsertTrailingCommas: None
-+
-+# (supported in clang-format 3.9)
-+JavaScriptQuotes: Leave
-+
-+# (supported in clang-format 3.9)
-+JavaScriptWrapImports: true
-+
-+# (supported in clang-format 3.7)
-+NamespaceIndentation: None
-+
-+# (supported in clang-format 7)
-+ObjCBinPackProtocolList: Auto
-+
-+# (supported in clang-format 3.7)
-+ObjCBlockIndentWidth: 4
-+
-+# (supported in clang-format 11)
-+ObjCBreakBeforeNestedBlockParam: false
-+
-+# (supported in clang-format 3.7)
-+ObjCSpaceAfterProperty: true
-+
-+# (supported in clang-format 3.7)
-+ObjCSpaceBeforeProtocolList: true
-+
-+# (supported in clang-format 14)
-+PackConstructorInitializers: Never
-+
-+# (supported in clang-format 7)
-+PenaltyBreakTemplateDeclaration: 0
-+
-+# (supported in clang-format 13)
-+ReferenceAlignment: Right
-+
-+# (supported in clang-format 16)
-+# RemoveSemicolon: false
-+
-+# (supported in clang-format 5)
-+SortUsingDeclarations: false
-+
-+# (supported in clang-format 4)
-+SpaceAfterTemplateKeyword: true
-+
-+# (supported in clang-format 7)
-+SpaceBeforeCpp11BracedList: false
-+
-+# (supported in clang-format 7)
-+SpaceBeforeCtorInitializerColon: true
-+
-+# (supported in clang-format 7)
-+SpaceBeforeInheritanceColon: true
-+
-+# (supported in clang-format 3.4)
-+SpacesInAngles: false
-+
-+...
--- 
-2.34.1
+As can be seen in the next hunk, this function returns 'ret'.
+However, with this change 'ret' is uninitialised unless
+signal_pending() returns non-zero in the while loop below.
 
+This is flagged in a clan-16 W=1 build.
+
+ mm/shrinker_debug.c:87:11: warning: variable 'ret' is used uninitialized whenever 'do' loop exits because its condition is false [-Wsometimes-uninitialized]
+         } while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
+                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ mm/shrinker_debug.c:92:9: note: uninitialized use occurs here
+         return ret;
+                ^~~
+ mm/shrinker_debug.c:87:11: note: remove the condition if it is always true
+         } while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
+                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                  1
+ mm/shrinker_debug.c:77:7: warning: variable 'ret' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+                 if (!memcg_aware) {
+                     ^~~~~~~~~~~~
+ mm/shrinker_debug.c:92:9: note: uninitialized use occurs here
+         return ret;
+                ^~~
+ mm/shrinker_debug.c:77:3: note: remove the 'if' if its condition is always false
+                 if (!memcg_aware) {
+                 ^~~~~~~~~~~~~~~~~~~
+ mm/shrinker_debug.c:52:9: note: initialize the variable 'ret' to silence this warning
+         int ret, nid;
+                ^
+                 = 0
+
+>  
+>  	memcg_aware = shrinker->flags & SHRINKER_MEMCG_AWARE;
+> @@ -92,7 +87,6 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
+>  	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
+>  
+>  	rcu_read_unlock();
+> -	up_read(&shrinker_rwsem);
+>  
+>  	kfree(count_per_node);
+>  	return ret;
+
+...
 
