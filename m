@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 156727666CE
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 10:19:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571393.895108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D9AF766809
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 11:01:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571395.895117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPIgy-0008Go-9H; Fri, 28 Jul 2023 08:19:20 +0000
+	id 1qPJK2-0004L4-9C; Fri, 28 Jul 2023 08:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571393.895108; Fri, 28 Jul 2023 08:19:20 +0000
+Received: by outflank-mailman (output) from mailman id 571395.895117; Fri, 28 Jul 2023 08:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPIgy-0008EK-6S; Fri, 28 Jul 2023 08:19:20 +0000
-Received: by outflank-mailman (input) for mailman id 571393;
- Fri, 28 Jul 2023 08:19:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D0ra=DO=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qPIgx-0008Dt-4u
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 08:19:19 +0000
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [2607:f8b0:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70e485af-2d1f-11ee-8613-37d641c3527e;
- Fri, 28 Jul 2023 10:19:16 +0200 (CEST)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-6748a616e17so437603b3a.1
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jul 2023 01:19:16 -0700 (PDT)
-Received: from [10.70.252.135] ([203.208.167.147])
- by smtp.gmail.com with ESMTPSA id
- j63-20020a638b42000000b005637030d00csm2862658pge.30.2023.07.28.01.19.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Jul 2023 01:19:14 -0700 (PDT)
+	id 1qPJK2-0004J1-6Q; Fri, 28 Jul 2023 08:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 571395;
+ Fri, 28 Jul 2023 08:59:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qPJK0-0004Iv-Ia
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 08:59:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qPJJy-00081v-CC; Fri, 28 Jul 2023 08:59:38 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qPJJy-0006hI-3h; Fri, 28 Jul 2023 08:59:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70e485af-2d1f-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1690532355; x=1691137155;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0Vz5i3f1KwBqEHtOj3kkD+u+idA4hMEDLOXYQ/Zmb7I=;
-        b=L2+elQ31DoTndDMbULUpYhAiCoRfDRGWwRsLhePlw7WW3kXFI6RoGNteAO7MNCCxPK
-         FYWrT0NCxgniYdOvtk354oC7lAaEYLaI5+6nbBgCsJS7Z9F7PQNW+ZUGwlLgRq4XIWCd
-         IlyzJlPUeNX37jF32KJvYLJePzYsZ7ze/fbSuG8EqYw256JXY3KCKzS1wluS9KcnHJgS
-         wVJn5VLovDZDoJav6s/8z2Nev3fZMa4BKzS6r7L/dPmXUhh82k37p3M1JnHGLMc145hK
-         MLBcl9i8u/Uj6MSDKzSJ+fdKEdHQ4PpsFlNhyTOhfKom9VA3y6JlxMc/+2lHqKKi6hTK
-         U83g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690532355; x=1691137155;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Vz5i3f1KwBqEHtOj3kkD+u+idA4hMEDLOXYQ/Zmb7I=;
-        b=PlHRGQWyWMgEgnBFNs2kxR7frgwyOghwEC8PAXitPjubTXWvqIaOdrETLUut62Rlme
-         K9Njo6ae69/ehnWksX4ZpGVYfdQ5NgRjN5vmHWcONENjGfFDaFPr5WhkC/EkoXsHkKM3
-         97LnG+sjFLbBEMaznAFzvm7PavjvgFC8VDGdpoI4AhW4fMl4yz8E2jZdSufH7FiUpfqw
-         Imsyv6zvlbdlZcUzwVLCZ/xIY+DvqRc/Db8I13AvWk1bLr9xTy4gTxhmpMXoXtaGJgS5
-         4xhKJk1VsDibIF00SmjyDWLrU6DfDeugjn2/d7S/HmUZTacFEu/3dMF831T/6iW1SXFh
-         BQYw==
-X-Gm-Message-State: ABy/qLYjS+OvqbB7xg5dfDCT9dNUqdv4rNUtaSY+4isyAR+xIb5QFf+o
-	qIpYPy5Tc40Aaxgj/yteqrGKkg==
-X-Google-Smtp-Source: APBJJlFUUUMvBrf6ibd1LKjgOpEN2XEkSNdXdEqaA3c50PeJDSflhjqiMTE27IMY1LDD8QpZTvY8yg==
-X-Received: by 2002:a05:6a21:329f:b0:134:76d6:7f7 with SMTP id yt31-20020a056a21329f00b0013476d607f7mr2068612pzb.4.1690532355159;
-        Fri, 28 Jul 2023 01:19:15 -0700 (PDT)
-Message-ID: <99d0958d-8446-6fe9-a0fb-f562cb04c7c8@bytedance.com>
-Date: Fri, 28 Jul 2023 16:19:01 +0800
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KwfFLqj9L7gUIV1iKqjrLTQMHrhjTK6yI7PHSe5pwH0=; b=6O+WJ+IC7/H2FoIp+3Q3zq3/dW
+	4T7GtI4sVa/zD2jCSGO4ex15ph2hVcp+DMfOPU7Ke9a6zzCIN/Y22RrRDui7LKHZngON5bRhETkpc
+	YCZb7c7V8xeBWwNH7nW80jNsSUwIaVwJzdaLchM/P7a+k4iqD/U0efChaEiUnShqnmNo=;
+Message-ID: <3cce8892-1494-775f-8d75-80e87f0643cf@xen.org>
+Date: Fri, 28 Jul 2023 09:59:36 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 04/49] mm: shrinker: remove redundant shrinker_rwsem in
- debugfs operations
-Content-Language: en-US
-To: Simon Horman <simon.horman@corigine.com>
-Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com,
- cel@kernel.org, senozhatsky@chromium.org, yujie.liu@intel.com,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- dm-devel@redhat.com, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- Muchun Song <songmuchun@bytedance.com>
-References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
- <20230727080502.77895-5-zhengqi.arch@bytedance.com>
- <ZMN4mjsF1QEsvW7D@corigine.com>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZMN4mjsF1QEsvW7D@corigine.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 17/25] tools/xenstore: rework struct xs_tdb_record_hdr
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-18-jgross@suse.com>
+ <b2d2a346-12c0-8ea4-38a2-b4748396540f@xen.org>
+ <9a6d9c8b-350b-9a3e-4c23-0d7fd312e77a@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <9a6d9c8b-350b-9a3e-4c23-0d7fd312e77a@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Simon,
+Hi Juergen,
 
-On 2023/7/28 16:13, Simon Horman wrote:
-> On Thu, Jul 27, 2023 at 04:04:17PM +0800, Qi Zheng wrote:
->> The debugfs_remove_recursive() will wait for debugfs_file_put() to return,
->> so the shrinker will not be freed when doing debugfs operations (such as
->> shrinker_debugfs_count_show() and shrinker_debugfs_scan_write()), so there
->> is no need to hold shrinker_rwsem during debugfs operations.
+On 28/07/2023 07:23, Juergen Gross wrote:
+> On 27.07.23 23:53, Julien Grall wrote:
+>> Hi Juergen,
 >>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->>   mm/shrinker_debug.c | 14 --------------
->>   1 file changed, 14 deletions(-)
+>> On 24/07/2023 12:02, Juergen Gross wrote:
+>>> Struct xs_tdb_record_hdr is used for nodes stored in the data base.
+>>> When working on a node, struct node is being used, which is including
+>>> the same information as struct xs_tdb_record_hdr, but in a different
+>>> format. Rework struct xs_tdb_record_hdr in order to prepare including
+>>> it in struct node.
+>>>
+>>> Do the following modifications:
+>>>
+>>> - move its definition to xenstored_core.h, as the reason to put it into
+>>>    utils.h are no longer existing
+>>>
+>>> - rename it to struct node_hdr, as the "tdb" in its name has only
+>>>    historical reasons
+>>>
+>>> - replace the empty permission array at the end with a comment about
+>>>    the layout of data in the data base (concatenation of header,
+>>>    permissions, node contents, and children list)
+>>>
+>>> - use narrower types for num_perms and datalen, as those are naturally
+>>>    limited to XENSTORE_PAYLOAD_MAX (childlen is different here, as it is
+>>>    in theory basically unlimited)
 >>
->> diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
->> index 3ab53fad8876..f1becfd45853 100644
->> --- a/mm/shrinker_debug.c
->> +++ b/mm/shrinker_debug.c
->> @@ -55,11 +55,6 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
->>   	if (!count_per_node)
->>   		return -ENOMEM;
->>   
->> -	ret = down_read_killable(&shrinker_rwsem);
->> -	if (ret) {
->> -		kfree(count_per_node);
->> -		return ret;
->> -	}
->>   	rcu_read_lock();
+>> The assumption is XENSTORE_PAYLOAD_MAX will never change and/or always 
+>> apply for all the connection. I am aware of at least one downstream 
+>> use where this is not the case.
+>>
+>> I am happy to use narrower types, but I would at least like some 
+>> checks in Xenstore to ensure the limits are not reached.
 > 
-> Hi Qi Zheng,
-> 
-> As can be seen in the next hunk, this function returns 'ret'.
-> However, with this change 'ret' is uninitialised unless
-> signal_pending() returns non-zero in the while loop below.
+> I will add a BUILD_BUG_ON().
 
-Thanks for your feedback, the 'ret' should be initialized to 0,
-will fix it.
+Initially I was thinking about a runtime check, but I am also fine with 
+a BUILD_BUG_ON() if it is right next to length check in handle_input(). 
+So if someone decided to add different payload size depending on the 
+domain (such as privileged domain could do more), it would be easier to 
+spot what else needs to be changed.
 
-Thanks,
-Qi
+>> OOI, do you have a use case where a node would be shared with more 
+>> than 255 domains?
+> 
+> No, but limiting it wouldn't give any real advantage.
 
-> 
-> This is flagged in a clan-16 W=1 build.
-> 
->   mm/shrinker_debug.c:87:11: warning: variable 'ret' is used uninitialized whenever 'do' loop exits because its condition is false [-Wsometimes-uninitialized]
->           } while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
->                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   mm/shrinker_debug.c:92:9: note: uninitialized use occurs here
->           return ret;
->                  ^~~
->   mm/shrinker_debug.c:87:11: note: remove the condition if it is always true
->           } while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
->                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->                    1
->   mm/shrinker_debug.c:77:7: warning: variable 'ret' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
->                   if (!memcg_aware) {
->                       ^~~~~~~~~~~~
->   mm/shrinker_debug.c:92:9: note: uninitialized use occurs here
->           return ret;
->                  ^~~
->   mm/shrinker_debug.c:77:3: note: remove the 'if' if its condition is always false
->                   if (!memcg_aware) {
->                   ^~~~~~~~~~~~~~~~~~~
->   mm/shrinker_debug.c:52:9: note: initialize the variable 'ret' to silence this warning
->           int ret, nid;
->                  ^
->                   = 0
-> 
->>   
->>   	memcg_aware = shrinker->flags & SHRINKER_MEMCG_AWARE;
->> @@ -92,7 +87,6 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
->>   	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
->>   
->>   	rcu_read_unlock();
->> -	up_read(&shrinker_rwsem);
->>   
->>   	kfree(count_per_node);
->>   	return ret;
-> 
-> ...
+I guess by advantage you mean that the size of the structure would still 
+be the same. I thought this was the rationale but I asked just in case 
+you had something else in mind. For instance, Xen technically supports 
+up to ~32 000 domains. But I think it would be crazy to decide to have 
+more than a few tens permissions on a node :).
+
+Cheers,
+
+-- 
+Julien Grall
 
