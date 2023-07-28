@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94773767591
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 20:38:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571538.895624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF5FE7675A0
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 20:39:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571541.895634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPSLw-0006Sg-GA; Fri, 28 Jul 2023 18:38:16 +0000
+	id 1qPSN9-0006zg-Po; Fri, 28 Jul 2023 18:39:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571538.895624; Fri, 28 Jul 2023 18:38:16 +0000
+Received: by outflank-mailman (output) from mailman id 571541.895634; Fri, 28 Jul 2023 18:39:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPSLw-0006QS-Cg; Fri, 28 Jul 2023 18:38:16 +0000
-Received: by outflank-mailman (input) for mailman id 571538;
- Fri, 28 Jul 2023 18:38:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qPSN9-0006xA-MG; Fri, 28 Jul 2023 18:39:31 +0000
+Received: by outflank-mailman (input) for mailman id 571541;
+ Fri, 28 Jul 2023 18:39:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G4km=DO=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1qPSLu-0006QM-6W
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 18:38:14 +0000
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [2607:f8b0:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e80da097-2d75-11ee-b24e-6b7b168915f2;
- Fri, 28 Jul 2023 20:38:13 +0200 (CEST)
-Received: by mail-pl1-x62f.google.com with SMTP id
- d9443c01a7336-1bbf8cb694aso354045ad.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jul 2023 11:38:13 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- ix13-20020a170902f80d00b001b9d7c8f44dsm3907903plb.182.2023.07.28.11.38.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Jul 2023 11:38:11 -0700 (PDT)
+ <SRS0=I+Wj=DO=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
+ id 1qPSN8-0006x0-9C
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 18:39:30 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1492bd32-2d76-11ee-8613-37d641c3527e;
+ Fri, 28 Jul 2023 20:39:28 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 148DD621DC;
+ Fri, 28 Jul 2023 18:39:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7CCE6C433CB;
+ Fri, 28 Jul 2023 18:39:25 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 693D8C4166F; Fri, 28 Jul 2023 18:39:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,73 +48,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e80da097-2d75-11ee-b24e-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1690569491; x=1691174291;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=33rFVY7OX9UkeWBGFwT8EclqMxrl4R8dedNz9bKvxDQ=;
-        b=By+5JMuD4M/lflc4z2fRv1vZzoxOUZYjHnQN4K1rkcJbvqH88LjT5IBYClmIAOanaS
-         VYATJHuG9lgKZPivIIP6bJwMkVB6vPz1kXw2NHGNdapwyCGyNqIiIuT7eX6J88XUW0UB
-         umgkL6WUPWkNC1tS98P9ChR7CE4/J/0ksMXiQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690569491; x=1691174291;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=33rFVY7OX9UkeWBGFwT8EclqMxrl4R8dedNz9bKvxDQ=;
-        b=Mq9OqnU0WsXVl+wr4ZfvHD0vtyq1pY0ibYkAAOjpnrHHOE7i0826vmo2aXNRCNV+mh
-         rPqeWv/dzuUHoHrtlIzGrkW9Z1NF+AGYSJvc0UY6aCLn8XJWv65KcC0TQ0IqxPf5SmKH
-         F+UYrV0UxGHhvOxy3qs4dOJG9FBuI1p0bYTotsMcyi7bMYDvtcfJokHFb2ce+1bcd2dj
-         Isx/w0/IdsHkwvOWJ6HtRLcH69dvL+wR5bMYmiDPtpkckjh5RQHrc2zdPcpTSskES+aI
-         DO7aqOZmkpvNej9IBZXcoaXIUft4eOZF0sWM7tHf0R9oy7wzxQmCSjtQuf5FFzFnX36p
-         LWcQ==
-X-Gm-Message-State: ABy/qLayuwtJwNJCp6ChjR6WbfxgMGjgcb/7pcvZEWE25UPXjqlFHVFM
-	cVO/Uj3kMF4sh3L9k/Ouo1uYug==
-X-Google-Smtp-Source: APBJJlGs+KiAjovc4Ff5bXdv+1247KNp4pAQW/e6jaoOH3v88JUN99m0BT5bc653vOVDiJeYTmDZgA==
-X-Received: by 2002:a17:903:248:b0:1b9:cf52:2bcf with SMTP id j8-20020a170903024800b001b9cf522bcfmr2621118plh.0.1690569491651;
-        Fri, 28 Jul 2023 11:38:11 -0700 (PDT)
-Date: Fri, 28 Jul 2023 11:38:09 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Justin Stitt <justinstitt@google.com>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	xen-devel@lists.xenproject.org, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: xen-front: refactor deprecated strncpy
-Message-ID: <202307281133.16D4305@keescook>
-References: <20230727-sound-xen-v1-1-89dd161351f1@google.com>
- <ZMNILDgqHEGf8fNF@mattapan.m5p.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZMNILDgqHEGf8fNF@mattapan.m5p.com>
+X-Inumbo-ID: 1492bd32-2d76-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690569565;
+	bh=MvEhmaMP0NQYXaR+ON9JAVE/AlmQzWiuNidmwMzSgiQ=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=D5JhO8NvVg/pM9rZrXqTCxYGIZNXztY3Kwy7yycSFalWSG0jwKMQf4GfZsrMMG/c9
+	 P4zLI61WWjJy8LF/ZbwCTNq6RoNWPkVX5do5W9Gsd+8fngc/7xk59ezSlBLneZd8Dr
+	 Q7B0EPMwYbKvnzEOmPWro9ylU1e8Ikd0Q1t3/SjDp6TBKBeKoAkvLTgobTOVtkAvnh
+	 wxeT4mtX5ICbXiolDyo9O3K2jlMHCW86oYdCN4vr2WCb1/YVcm/5vC3gYQSv8ichYW
+	 IMK7pHVqxN+qEFzDxpvAtGfxMsrqtUt3sEGkn2DOXf3natWeOmswQASuubwiLgXYb0
+	 J+LuiG3mt5AHw==
+Subject: Re: [GIT PULL] xen: branch for v6.5-rc4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20230728131804.10538-1-jgross@suse.com>
+References: <20230728131804.10538-1-jgross@suse.com>
+X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
+X-PR-Tracked-Message-Id: <20230728131804.10538-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.5a-rc4-tag
+X-PR-Tracked-Commit-Id: c04e9894846c663f3278a414f34416e6e45bbe68
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 81eef8909d171bdca6af37028a11a24e011ed312
+Message-Id: <169056956542.21363.18012666636626712275.pr-tracker-bot@kernel.org>
+Date: Fri, 28 Jul 2023 18:39:25 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
 
-On Thu, Jul 27, 2023 at 09:46:36PM -0700, Elliott Mitchell wrote:
-> On Thu, Jul 27, 2023 at 09:53:24PM +0000, Justin Stitt wrote:
-> > Technically, my patch yields subtly different behavior. The original
-> > implementation with `strncpy` would fill the entire destination buffer
-> > with null bytes [3] while `strscpy` will leave the junk, uninitialized
-> > bytes trailing after the _mandatory_ NUL-termination. So, if somehow
-> > `pcm->name` or `card->driver/shortname/longname` require this
-> > NUL-padding behavior then `strscpy_pad` should be used. My
-> > interpretation, though, is that the aforementioned fields are just fine
-> > as NUL-terminated strings. Please correct my assumptions if needed and
-> > I'll send in a v2.
-> 
-> "uninitialized bytes" => "leak of sensitive information" => "security hole"
+The pull request you sent on Fri, 28 Jul 2023 15:18:04 +0200:
 
-For xen_snd_front_alsa_init(), "card" is already zero-initialized in
-snd_card_new().
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.5a-rc4-tag
 
-For new_pcm_instance(), "pcm" is already zero-initialized in
-_snd_pcm_new().
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/81eef8909d171bdca6af37028a11a24e011ed312
 
-So things look good to me!
-
-Reviewed-by: Kees Cook <keescook@chromium.org>
+Thank you!
 
 -- 
-Kees Cook
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
