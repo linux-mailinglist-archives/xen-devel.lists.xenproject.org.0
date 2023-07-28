@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB374766C11
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 13:50:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571439.895294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C77E766C20
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 13:53:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571448.895317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPLzV-0006RA-0U; Fri, 28 Jul 2023 11:50:41 +0000
+	id 1qPM1V-0007yV-Hr; Fri, 28 Jul 2023 11:52:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571439.895294; Fri, 28 Jul 2023 11:50:40 +0000
+Received: by outflank-mailman (output) from mailman id 571448.895317; Fri, 28 Jul 2023 11:52:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPLzU-0006L8-T2; Fri, 28 Jul 2023 11:50:40 +0000
-Received: by outflank-mailman (input) for mailman id 571439;
- Fri, 28 Jul 2023 11:50:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qPM1V-0007w8-FK; Fri, 28 Jul 2023 11:52:45 +0000
+Received: by outflank-mailman (input) for mailman id 571448;
+ Fri, 28 Jul 2023 11:52:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8l51=DO=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qPLzT-0006Fq-Oc
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 11:50:39 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8112332-2d3c-11ee-b24d-6b7b168915f2;
- Fri, 28 Jul 2023 13:50:38 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.163.4.37])
- by support.bugseng.com (Postfix) with ESMTPSA id 32FB04EE0742;
- Fri, 28 Jul 2023 13:50:37 +0200 (CEST)
+ <SRS0=C9jx=DO=arm.com=peter.hoyes@srs-se1.protection.inumbo.net>)
+ id 1qPM1T-0007w0-O8
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 11:52:43 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 4115fa61-2d3d-11ee-8613-37d641c3527e;
+ Fri, 28 Jul 2023 13:52:40 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 005492F4;
+ Fri, 28 Jul 2023 04:53:23 -0700 (PDT)
+Received: from e125920.arm.com (unknown [10.57.89.225])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 415903F6C4;
+ Fri, 28 Jul 2023 04:52:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,142 +42,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8112332-2d3c-11ee-b24d-6b7b168915f2
-From: Federico Serafini <federico.serafini@bugseng.com>
+X-Inumbo-ID: 4115fa61-2d3d-11ee-8613-37d641c3527e
+From: Peter Hoyes <peter.hoyes@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 2/2] x86/IRQ: address violations of MISRA C: 2012 Rules 8.2 and 8.3
-Date: Fri, 28 Jul 2023 13:49:02 +0200
-Message-Id: <da6fc50b926e72b497db251ca640c60244db3632.1690544434.git.federico.serafini@bugseng.com>
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	luca.fancellu@arm.com,
+	Peter Hoyes <Peter.Hoyes@arm.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v7] xl: Add escape character argument to xl console
+Date: Fri, 28 Jul 2023 12:52:21 +0100
+Message-Id: <20230728115221.904230-1-peter.hoyes@arm.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1690544434.git.federico.serafini@bugseng.com>
-References: <cover.1690544434.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Give a name to unnamed parameters thus addressing violations of
-MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
-named parameters").
-Keep consistency between parameter names and types used in function
-declarations and the ones used in the corresponding function
-definitions, thus addressing violations of MISRA C:2012 Rule 8.3
-("All declarations of an object or function shall use the same names
-and type qualifiers").
+From: Peter Hoyes <Peter.Hoyes@arm.com>
 
-No functional changes
+Add -e argument to xl console and pass to new escape_character argument
+of libxl_console_exec.
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+Introduce a new API version to support this new argument and advertise
+the new functionality in libxl.h
+
+In libxl_console_exec, there are currently two call sites to execl,
+which uses varargs, in order to support optionally passing
+'start-notify-fd' to the console client. In order to support passing
+the 'escape' argument optionally too, refactor to instead have a single
+call site to execv, which has the same behavior but takes an array of
+arguments.
+
+If -e is not specified, --escape is not passed to the console client and
+the existing value (^]) is used as a default.
+
+Update the xl docs.
+
+Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
+Changes in v7:
+- Fix comment style in libxl_console_exec again
+
+Changes in v6:
+- Fix the new compatiblity functions to use last presented version
+- Fix the arguments of the existing compatibility function
+
+Changes in v5:
+- Add this changelog
+- Fix comment style in libxl_console_exec
+
+Changes in v4:
+- Document xl console -e argument in xl.1.pod.in
+- Add changes for libxl API version compatibility
+
+Changes in v3:
+- Re-add the Reviewed-By tag accidentally removed in v2
+
 Changes in v2:
-  - use 'pirq' instead of 'irq';
-  - removed changes involving function pointers.
----
- xen/arch/x86/include/asm/irq.h | 30 +++++++++++++++---------------
- xen/arch/x86/irq.c             |  4 ++--
- 2 files changed, 17 insertions(+), 17 deletions(-)
+- Drop the tags intended only for internal use at Arm
 
-diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
-index 3f95dd39b7..ad907fc97f 100644
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -107,12 +107,12 @@ void alloc_direct_apic_vector(
+ docs/man/xl.1.pod.in             |  8 +++++-
+ tools/include/libxl.h            | 43 ++++++++++++++++++++++++++++----
+ tools/libs/light/libxl_console.c | 30 ++++++++++++++++------
+ tools/xl/xl_cmdtable.c           |  3 ++-
+ tools/xl/xl_console.c            | 10 +++++---
+ tools/xl/xl_vmcontrol.c          |  2 +-
+ 6 files changed, 77 insertions(+), 19 deletions(-)
+
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index 101e14241d..9ba22a8fa2 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -222,7 +222,8 @@ Attach to the console of a domain specified by I<domain-id>.  If you've set up
+ your domains to have a traditional login console this will look much like a
+ normal text login screen.
  
- void do_IRQ(struct cpu_user_regs *regs);
+-Use the key combination Ctrl+] to detach from the domain console.
++Use the escape character key combination (default Ctrl+]) to detach from the
++domain console.
  
--void cf_check disable_8259A_irq(struct irq_desc *);
--void cf_check enable_8259A_irq(struct irq_desc *);
-+void cf_check disable_8259A_irq(struct irq_desc *desc);
-+void cf_check enable_8259A_irq(struct irq_desc *desc);
- int i8259A_irq_pending(unsigned int irq);
- void mask_8259A(void);
- void unmask_8259A(void);
--void init_8259A(int aeoi);
-+void init_8259A(int auto_eoi);
- void make_8259A_irq(unsigned int irq);
- bool bogus_8259A_irq(unsigned int irq);
- int i8259A_suspend(void);
-@@ -142,15 +142,15 @@ struct arch_pirq {
- #define pirq_dpci(pirq) ((pirq) ? &(pirq)->arch.hvm.dpci : NULL)
- #define dpci_pirq(pd) container_of(pd, struct pirq, arch.hvm.dpci)
+ B<OPTIONS>
  
--int pirq_shared(struct domain *d , int irq);
-+int pirq_shared(struct domain *d , int pirq);
+@@ -239,6 +240,11 @@ emulated serial for HVM guests and PV console for PV guests.
  
- int map_domain_pirq(struct domain *d, int pirq, int irq, int type,
-                            void *data);
- int unmap_domain_pirq(struct domain *d, int pirq);
- int get_free_pirq(struct domain *d, int type);
--int get_free_pirqs(struct domain *, unsigned int nr);
-+int get_free_pirqs(struct domain *d, unsigned int nr);
- void free_domain_pirqs(struct domain *d);
--int map_domain_emuirq_pirq(struct domain *d, int pirq, int irq);
-+int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq);
- int unmap_domain_pirq_emuirq(struct domain *d, int pirq);
+ Connect to console number I<NUM>. Console numbers start from 0.
  
- /* Reset irq affinities to match the given CPU mask. */
-@@ -168,9 +168,9 @@ int irq_to_vector(int irq);
++=item I<-e escapechar>
++
++Customize the escape sequence used to detach from the domain console to
++I<escapechar>. If not specified, the value "^]" is used.
++
+ =back
+ 
+ =item B<destroy> [I<OPTIONS>] I<domain-id>
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index cac641a7eb..de29f11bc9 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -81,6 +81,15 @@
   */
- int create_irq(nodeid_t node, bool grant_access);
- void destroy_irq(unsigned int irq);
--int assign_irq_vector(int irq, const cpumask_t *);
-+int assign_irq_vector(int irq, const cpumask_t *mask);
+ #define LIBXL_HAVE_CONSOLE_NOTIFY_FD 1
  
--void cf_check irq_complete_move(struct irq_desc *);
-+void cf_check irq_complete_move(struct irq_desc *desc);
++/* LIBXL_HAVE_CONSOLE_ESCAPE_CHARACTER
++ *
++ * If this is defined, libxl_console_exec and
++ * libxl_primary_console_exe take an escape_character parameter. That
++ * parameter will be used to modify the escape sequence used to exit the
++ * console.
++ */
++#define LIBXL_HAVE_CONSOLE_ESCAPE_CHARACTER 1
++
+ /* LIBXL_HAVE_CONST_COPY_AND_LENGTH_FUNCTIONS
+  *
+  * If this is defined, the copy functions have constified src parameter and the
+@@ -790,7 +799,8 @@ typedef struct libxl__ctx libxl_ctx;
+ #if LIBXL_API_VERSION != 0x040200 && LIBXL_API_VERSION != 0x040300 && \
+     LIBXL_API_VERSION != 0x040400 && LIBXL_API_VERSION != 0x040500 && \
+     LIBXL_API_VERSION != 0x040700 && LIBXL_API_VERSION != 0x040800 && \
+-    LIBXL_API_VERSION != 0x041300 && LIBXL_API_VERSION != 0x041400
++    LIBXL_API_VERSION != 0x041300 && LIBXL_API_VERSION != 0x041400 && \
++    LIBXL_API_VERSION != 0x041800
+ #error Unknown LIBXL_API_VERSION
+ #endif
+ #endif
+@@ -1958,7 +1968,8 @@ int libxl_vncviewer_exec(libxl_ctx *ctx, uint32_t domid, int autopass);
+  * the caller that it has connected to the guest console.
+  */
+ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+-                       libxl_console_type type, int notify_fd);
++                       libxl_console_type type, int notify_fd,
++                       char* escape_character);
+ /* libxl_primary_console_exec finds the domid and console number
+  * corresponding to the primary console of the given vm, then calls
+  * libxl_console_exec with the right arguments (domid might be different
+@@ -1968,9 +1979,12 @@ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+  * guests using pygrub.
+  * If notify_fd is not -1, xenconsole will write 0x00 to it to nofity
+  * the caller that it has connected to the guest console.
++ * If escape_character is not NULL, the provided value is used to exit
++ * the guest console.
+  */
+ int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm,
+-                               int notify_fd);
++                               int notify_fd,
++                               char* escape_character);
  
- extern struct irq_desc *irq_desc;
+ #if defined(LIBXL_API_VERSION) && LIBXL_API_VERSION < 0x040800
  
-@@ -179,16 +179,16 @@ void unlock_vector_lock(void);
+@@ -1978,17 +1992,36 @@ static inline int libxl_console_exec_0x040700(libxl_ctx *ctx,
+                                               uint32_t domid, int cons_num,
+                                               libxl_console_type type)
+ {
+-    return libxl_console_exec(ctx, domid, cons_num, type, -1);
++    return libxl_console_exec(ctx, domid, cons_num, type, -1, NULL);
+ }
+ #define libxl_console_exec libxl_console_exec_0x040700
  
- void setup_vector_irq(unsigned int cpu);
+ static inline int libxl_primary_console_exec_0x040700(libxl_ctx *ctx,
+                                                       uint32_t domid_vm)
+ {
+-    return libxl_primary_console_exec(ctx, domid_vm, -1);
++    return libxl_primary_console_exec(ctx, domid_vm, -1, NULL);
+ }
+ #define libxl_primary_console_exec libxl_primary_console_exec_0x040700
  
--void move_native_irq(struct irq_desc *);
--void move_masked_irq(struct irq_desc *);
-+void move_native_irq(struct irq_desc *desc);
-+void move_masked_irq(struct irq_desc *desc);
++#elif defined(LIBXL_API_VERSION) && LIBXL_API_VERSION < 0x041800
++
++static inline int libxl_console_exec_0x041700(libxl_ctx *ctx, uint32_t domid,
++                                              int cons_num,
++                                              libxl_console_type type,
++                                              int notify_fd)
++{
++    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd, NULL);
++}
++#define libxl_console_exec libxl_console_exec_0x041700
++
++static inline int libxl_primary_console_exec_0x041700(libxl_ctx *ctx,
++                                                      uint32_t domid_vm,
++                                                      int notify_fd)
++{
++    return libxl_primary_console_exec(ctx, domid_vm, notify_fd, NULL);
++}
++#define libxl_primary_console_exec libxl_primary_console_exec_0x041700
++
+ #endif
  
--int bind_irq_vector(int irq, int vector, const cpumask_t *);
-+int bind_irq_vector(int irq, int vector, const cpumask_t *mask);
- 
--void cf_check end_nonmaskable_irq(struct irq_desc *, uint8_t vector);
--void irq_set_affinity(struct irq_desc *, const cpumask_t *mask);
-+void cf_check end_nonmaskable_irq(struct irq_desc *desc, uint8_t vector);
-+void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask);
- 
--int init_domain_irq_mapping(struct domain *);
--void cleanup_domain_irq_mapping(struct domain *);
-+int init_domain_irq_mapping(struct domain *d);
-+void cleanup_domain_irq_mapping(struct domain *d);
- 
- #define domain_pirq_to_irq(d, pirq) pirq_field(d, pirq, arch.irq, 0)
- #define domain_irq_to_pirq(d, irq) ({                           \
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 20150b1c7f..6abfd81621 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -177,7 +177,7 @@ static int __init _bind_irq_vector(struct irq_desc *desc, int vector,
-     return 0;
+ /* libxl_console_get_tty retrieves the specified domain's console tty path
+diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_console.c
+index f497be141b..cd7412a327 100644
+--- a/tools/libs/light/libxl_console.c
++++ b/tools/libs/light/libxl_console.c
+@@ -52,7 +52,8 @@ out:
  }
  
--int __init bind_irq_vector(int irq, int vector, const cpumask_t *cpu_mask)
-+int __init bind_irq_vector(int irq, int vector, const cpumask_t *mask)
+ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+-                       libxl_console_type type, int notify_fd)
++                       libxl_console_type type, int notify_fd,
++                       char* escape_character)
  {
-     struct irq_desc *desc = irq_to_desc(irq);
-     unsigned long flags;
-@@ -187,7 +187,7 @@ int __init bind_irq_vector(int irq, int vector, const cpumask_t *cpu_mask)
+     GC_INIT(ctx);
+     char *p = GCSPRINTF("%s/xenconsole", libxl__private_bindir_path());
+@@ -75,15 +76,26 @@ int libxl_console_exec(libxl_ctx *ctx, uint32_t domid, int cons_num,
+         goto out;
+     }
  
-     spin_lock_irqsave(&desc->lock, flags);
-     spin_lock(&vector_lock);
--    ret = _bind_irq_vector(desc, vector, cpu_mask);
-+    ret = _bind_irq_vector(desc, vector, mask);
-     spin_unlock(&vector_lock);
-     spin_unlock_irqrestore(&desc->lock, flags);
++    char *args[] = {
++        p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
++        NULL, NULL, NULL, NULL, /* start-notify-fd, escape */
++        NULL, /* list terminator - do not use */
++    };
++    char **args_extra = args + 6;
++
+     if (notify_fd != -1) {
+         notify_fd_s = GCSPRINTF("%d", notify_fd);
+-        execl(p, p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
+-              "--start-notify-fd", notify_fd_s, (void *)NULL);
+-    } else {
+-        execl(p, p, domid_s, "--num", cons_num_s, "--type", cons_type_s,
+-              (void *)NULL);
++        *args_extra++ = "--start-notify-fd";
++        *args_extra++ = notify_fd_s;
+     }
  
++    if (escape_character) {
++        *args_extra++ = "--escape";
++        *args_extra++ = escape_character;
++    }
++
++    execv(p, args);
++
+ out:
+     GC_FREE;
+     return ERROR_FAIL;
+@@ -156,7 +168,8 @@ out:
+     return rc;
+ }
+ 
+-int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd)
++int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd,
++                               char* escape_character)
+ {
+     uint32_t domid;
+     int cons_num;
+@@ -165,7 +178,8 @@ int libxl_primary_console_exec(libxl_ctx *ctx, uint32_t domid_vm, int notify_fd)
+ 
+     rc = libxl__primary_console_find(ctx, domid_vm, &domid, &cons_num, &type);
+     if ( rc ) return rc;
+-    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd);
++    return libxl_console_exec(ctx, domid, cons_num, type, notify_fd,
++                              escape_character);
+ }
+ 
+ int libxl_primary_console_get_tty(libxl_ctx *ctx, uint32_t domid_vm,
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index ccf4d83584..67604e9536 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -141,7 +141,8 @@ const struct cmd_spec cmd_table[] = {
+       "Attach to domain's console",
+       "[options] <Domain>\n"
+       "-t <type>       console type, pv , serial or vuart\n"
+-      "-n <number>     console number"
++      "-n <number>     console number\n"
++      "-e <escape>     escape character"
+     },
+     { "vncviewer",
+       &main_vncviewer, 0, 0,
+diff --git a/tools/xl/xl_console.c b/tools/xl/xl_console.c
+index b27f9e0136..5633c6f6f7 100644
+--- a/tools/xl/xl_console.c
++++ b/tools/xl/xl_console.c
+@@ -28,8 +28,9 @@ int main_console(int argc, char **argv)
+     int opt = 0, num = 0;
+     libxl_console_type type = 0;
+     const char *console_names = "pv, serial, vuart";
++    char* escape_character = NULL;
+ 
+-    SWITCH_FOREACH_OPT(opt, "n:t:", NULL, "console", 1) {
++    SWITCH_FOREACH_OPT(opt, "n:t:e:", NULL, "console", 1) {
+     case 't':
+         if (!strcmp(optarg, "pv"))
+             type = LIBXL_CONSOLE_TYPE_PV;
+@@ -45,13 +46,16 @@ int main_console(int argc, char **argv)
+     case 'n':
+         num = atoi(optarg);
+         break;
++    case 'e':
++        escape_character = optarg;
++        break;
+     }
+ 
+     domid = find_domain(argv[optind]);
+     if (!type)
+-        libxl_primary_console_exec(ctx, domid, -1);
++        libxl_primary_console_exec(ctx, domid, -1, escape_character);
+     else
+-        libxl_console_exec(ctx, domid, num, type, -1);
++        libxl_console_exec(ctx, domid, num, type, -1, escape_character);
+     fprintf(stderr, "Unable to attach console\n");
+     return EXIT_FAILURE;
+ }
+diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+index 5518c78dc6..03971927e9 100644
+--- a/tools/xl/xl_vmcontrol.c
++++ b/tools/xl/xl_vmcontrol.c
+@@ -643,7 +643,7 @@ static void autoconnect_console(libxl_ctx *ctx_ignored,
+     postfork();
+ 
+     sleep(1);
+-    libxl_primary_console_exec(ctx, bldomid, notify_fd);
++    libxl_primary_console_exec(ctx, bldomid, notify_fd, NULL);
+     /* Do not return. xl continued in child process */
+     perror("xl: unable to exec console client");
+     _exit(1);
 -- 
 2.34.1
 
