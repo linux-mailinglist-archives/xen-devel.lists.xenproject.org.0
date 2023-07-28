@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C029E7676B5
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 22:01:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571555.895694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9347676BE
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 22:07:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571557.895705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPTeB-0002N4-OP; Fri, 28 Jul 2023 20:01:11 +0000
+	id 1qPTk2-00030k-DO; Fri, 28 Jul 2023 20:07:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571555.895694; Fri, 28 Jul 2023 20:01:11 +0000
+Received: by outflank-mailman (output) from mailman id 571557.895705; Fri, 28 Jul 2023 20:07:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPTeB-0002Kt-LM; Fri, 28 Jul 2023 20:01:11 +0000
-Received: by outflank-mailman (input) for mailman id 571555;
- Fri, 28 Jul 2023 20:01:10 +0000
+	id 1qPTk2-0002wx-Ae; Fri, 28 Jul 2023 20:07:14 +0000
+Received: by outflank-mailman (input) for mailman id 571557;
+ Fri, 28 Jul 2023 20:07:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q8mr=DO=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1qPTe9-0002Kn-V6
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 20:01:09 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ (envelope-from <SRS0=0rLm=DO=gmail.com=dunlapg@srs-se1.protection.inumbo.net>)
+ id 1qPTk0-0002wr-Me
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 20:07:12 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c88a9f4-2d81-11ee-8613-37d641c3527e;
- Fri, 28 Jul 2023 22:01:05 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4fbb281eec6so4315502e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jul 2023 13:01:05 -0700 (PDT)
+ id 5579f8b1-2d82-11ee-8613-37d641c3527e;
+ Fri, 28 Jul 2023 22:07:10 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-3fbab0d0b88so25713155e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jul 2023 13:07:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,128 +40,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c88a9f4-2d81-11ee-8613-37d641c3527e
+X-Inumbo-ID: 5579f8b1-2d82-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1690574465; x=1691179265;
+        d=umich.edu; s=google-2016-06-03; t=1690574829; x=1691179629;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=tb+rhFtTeLpWvf8HEvBKSOaO11rK+YCXEiFP+5yw8fY=;
-        b=UTNkohqKIdxdeWWjwMgIqL01pI/sJzUr3NIf+9RmeFmSKPV0mHoJnxSLMxB4xfurmt
-         LyIbH6t/ozmJnVEfYopgOREWqf7IbpoOvX1qnRmtM+r6oSwYeHhX+Rhg+E6P+XZIRPRV
-         9/Q0wC8NmdWb5lldNNM6kZIMh1/k6ATVwarbU=
+        bh=c8kBW59IIrbLMgwPiVreMk5VUmZXeMXnwXr5avrfQTw=;
+        b=IiWNBkM6vEFPcPhh73VtL6nRJlL5auk4PsNvgGu5N0q8LxIVNno3Ga8RGF3GbB1nvw
+         Zduu8ob/gg0lVtTeqocZqxwF+7pAPsSQ8NM1zUTkJJ7T06FrhPJwV7cCpymVav0iHo41
+         CfIoE6U1TIOwFty0o5+VIywXCI+TFR9pySfGwqn9EY77s6DCkEWvvY54ZIsSTPq3S9Wl
+         fPEJI8rCcAh9cXqFfQ8xT8f3CwSytxjqUxsF1RRpGZaaQITouJppXWyy/gzbfHAozlHJ
+         QouaoTKl+z1Jky0MDJTFMSSSvBJEk2iYTB1HGKJyqkpD4IINjT5sChGVb7k10oAoEsyk
+         52sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690574465; x=1691179265;
+        d=1e100.net; s=20221208; t=1690574829; x=1691179629;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=tb+rhFtTeLpWvf8HEvBKSOaO11rK+YCXEiFP+5yw8fY=;
-        b=lDHAuQUJwR7X5Tr0BOwMz2Ue6SrvfOU5fcykyzda2/skf50zKRw1e4k1JhGmAVVQ8H
-         Lo6UI07wtaLfOVirhcXDcIF/X8P2MzuWpAEF+GzcgWPNYpV+cyNMy3oGNl/AGDC9YV1m
-         CGpMvPYKITUaghIVEy9XuhSofraCBBk4zRG8sHtXSb+7YPRW8yMeK6MSgdHcUTi3l5bE
-         KfNVWZxuTbWc22s/N7Q9dI8CoF3lKHpRc9jywDRNZRTP7NMs5SbJbcegIIYs3dqE6vyp
-         Xa0acfwiw3oxA7JHPuKVWThh/WNVZeNTCmjSwVwOzOg5Lv88JZ6IeBQKNNCA61jZEJ3G
-         YFfQ==
-X-Gm-Message-State: ABy/qLaMf/XgPZQL8ypq2xu8oKTNG/n+77IlBnnSpEdl3JEdcFmd7er0
-	PvobJRZAQLfqlO0qN7+jptMlyDK8yBbnDtoaD8hZuw==
-X-Google-Smtp-Source: APBJJlH3A23Koaokb/+28imStinCtcJJQGS0+r19jaDn3IDUwl5xKYIXQTasFJ/sWewQecq9EOAbVAjxUt7NVqgTgcw=
-X-Received: by 2002:a05:6512:210c:b0:4fb:89ad:6651 with SMTP id
- q12-20020a056512210c00b004fb89ad6651mr2368141lfr.28.1690574465297; Fri, 28
- Jul 2023 13:01:05 -0700 (PDT)
+        bh=c8kBW59IIrbLMgwPiVreMk5VUmZXeMXnwXr5avrfQTw=;
+        b=ON860sqnlnn4Ez9sHP7kKDpa80lLUONFtlaJnwqyavjDiLQD4MhTO3oOv4uov6e3m9
+         4kIOI3UvywlaBYoc8GoNaQxJrZnu2/vPciat9P4jy+w4GB7tsvuLZS5Rtm2deo/0ZBTk
+         DPyccnpXEVL0nQ964pDyr//ulZzZxTKpupDx0SwjB0wU91uWj7LMoCdRGU3/OJ3iSi7q
+         bzShq007OUZhFiwetF7Er/eenBNJXwDk/lbEv5dgbkmn8AOY3Iy5RMYPPwpWWUw3es8C
+         m4NkmExppWdC4P2BThjs5bGtbqtkLTXRshCikSqd4MKLbPiy065f84Nx552zKpwsPbuV
+         IP/w==
+X-Gm-Message-State: ABy/qLbA6XrHh4Z/snCwMVm19br4nw6HvlgvifncjsdhLY8JXWsAdpBh
+	HPK0eteAzfhFfABPob1+p4Hq4RRR0UrrFXqKzqA7wtdv
+X-Google-Smtp-Source: APBJJlGbfEczlGplmMMyeNCLUD3nRqClyRJhc6Wg83RLs/1zxkNtijHO2vt3XTG5NvOC0DHLHj+W+FwjWwfZ7GEa4aM=
+X-Received: by 2002:a5d:4cc3:0:b0:317:52ba:81f2 with SMTP id
+ c3-20020a5d4cc3000000b0031752ba81f2mr4681717wrt.16.1690574829219; Fri, 28 Jul
+ 2023 13:07:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230601142742.15489-1-olaf@aepfle.de> <20230601142742.15489-3-olaf@aepfle.de>
- <CA+zSX=bZ5zo9cxWTq9s9QOUGZ-9NMEugewR90z1w8C++sruSVw@mail.gmail.com> <20230728195210.66faf194.olaf@aepfle.de>
-In-Reply-To: <20230728195210.66faf194.olaf@aepfle.de>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Fri, 28 Jul 2023 21:00:54 +0100
-Message-ID: <CA+zSX=Yz7yJRCDm6yyOzFbhuSbkt0h9fZCiLbS9r6KjAh3g-ZQ@mail.gmail.com>
-Subject: Re: [PATCH v1 2/7] xentrace: use correct output format for pit and rtc
+References: <20230601142742.15489-1-olaf@aepfle.de> <20230601142742.15489-2-olaf@aepfle.de>
+In-Reply-To: <20230601142742.15489-2-olaf@aepfle.de>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Fri, 28 Jul 2023 21:06:58 +0100
+Message-ID: <CAFLBxZZJzLNNGVtGYjB+aYuwtSc+ucOzTk7eAn1z-TpxMsJ2Vg@mail.gmail.com>
+Subject: Re: [PATCH v1 1/7] xentrace: remove unimplemented option from man page
 To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>, 
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Content-Type: multipart/alternative; boundary="0000000000007886db0601918a93"
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: multipart/alternative; boundary="00000000000029741a060191a008"
 
---0000000000007886db0601918a93
+--00000000000029741a060191a008
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 28, 2023 at 6:52=E2=80=AFPM Olaf Hering <olaf@aepfle.de> wrote:
+On Thu, Jun 1, 2023 at 3:28=E2=80=AFPM Olaf Hering <olaf@aepfle.de> wrote:
 
-> Fri, 28 Jul 2023 17:47:11 +0100 George Dunlap <george.dunlap@cloud.com>:
+> The documented option --usage worked because every unknown option
+> showed the help.
 >
-> > Just a couple of notes on the whole series.  First, you didn't CC me on
-> 0/7
-> > or 1/7.  Secondly, patch 7 seems to be corrupted (see e.g., Patchew's
-> > attempt to apply the series [1]).
->
-> The cover letter can not be easily fixed, this is a bug in git send-email=
-.
-> It should be able to collect all recipients and put them in the cover
-> letter.
-> I think I already pointed that out a while ago on git-devel...
->
-> I think #1 can be fixed by adjusting the MAINTAINERS file.
-> Not sure why #7 fails to apply.
+> Signed-off-by: Olaf Hering <olaf@aepfle.de>
 >
 
-Running `git am --show-current-patch` reveals a tail that looks like this:
+Reviewed-by: George Dunlap <george.dunlap@cloud.com>
 
-```
-+    [EXIT_REASON_NOTIFY]=3D3D"NOTIFY",
- };
-=3D20
-```
-
-This may again be a known issue with `git am` and base64-encoded files: I
-think `mailsplit` knows how to deal with these sorts of line breaks; and
-`git am` also knows how to decode base64; but it does them in the wrong
-order, so base64-encoded mails don't get handled properly.  I reported it
-to them several years ago [1], and nothing happened.
-
- -George
-
-[1]
-https://lore.kernel.org/git/c44c3958-b0eb-22bd-bc35-04982706162f@citrix.com=
-/
-
---0000000000007886db0601918a93
+--00000000000029741a060191a008
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jul 28, 2023 at 6:52=E2=80=AF=
-PM Olaf Hering &lt;<a href=3D"mailto:olaf@aepfle.de" target=3D"_blank">olaf=
-@aepfle.de</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">Fri, 28 Jul 2023 17:47:11 +0100 George Dunlap &lt;<a href=3D"mai=
-lto:george.dunlap@cloud.com" target=3D"_blank">george.dunlap@cloud.com</a>&=
-gt;:<br>
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jun 1, 2023 at 3:28=E2=80=AFP=
+M Olaf Hering &lt;<a href=3D"mailto:olaf@aepfle.de">olaf@aepfle.de</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The docum=
+ented option --usage worked because every unknown option<br>
+showed the help.<br>
 <br>
-&gt; Just a couple of notes on the whole series.=C2=A0 First, you didn&#39;=
-t CC me on 0/7<br>
-&gt; or 1/7.=C2=A0 Secondly, patch 7 seems to be corrupted (see e.g., Patch=
-ew&#39;s<br>
-&gt; attempt to apply the series [1]).<br>
-<br>
-The cover letter can not be easily fixed, this is a bug in git send-email.<=
-br>
-It should be able to collect all recipients and put them in the cover lette=
-r.<br>
-I think I already pointed that out a while ago on git-devel...<br>
-<br>
-I think #1 can be fixed by adjusting the MAINTAINERS file.<br>
-Not sure why #7 fails to apply.<br></blockquote><div><br></div><div>Running=
-=C2=A0`git am --show-current-patch` reveals a tail that looks like this:</d=
-iv><div><br></div><div>```</div><div>+ =C2=A0 =C2=A0[EXIT_REASON_NOTIFY]=3D=
-3D&quot;NOTIFY&quot;,<br>=C2=A0};<br>=3D20<br></div><div>```</div><div><br>=
-</div><div>This may again be a known issue with `git am` and base64-encoded=
- files: I think `mailsplit` knows how to deal with these sorts of line brea=
-ks; and `git am` also knows how to decode base64; but it does them in the w=
-rong order, so base64-encoded mails don&#39;t get handled properly.=C2=A0 I=
- reported it to them several years ago [1], and nothing happened.</div><div=
-><br></div><div>=C2=A0-George</div><div><br></div><div>[1]=C2=A0<a href=3D"=
-https://lore.kernel.org/git/c44c3958-b0eb-22bd-bc35-04982706162f@citrix.com=
-/">https://lore.kernel.org/git/c44c3958-b0eb-22bd-bc35-04982706162f@citrix.=
-com/</a></div><div>=C2=A0</div></div></div>
+Signed-off-by: Olaf Hering &lt;<a href=3D"mailto:olaf@aepfle.de" target=3D"=
+_blank">olaf@aepfle.de</a>&gt;<br></blockquote><div><br></div><div>Reviewed=
+-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@cloud.com">george.du=
+nlap@cloud.com</a>&gt;</div><div>=C2=A0</div></div></div>
 
---0000000000007886db0601918a93--
+--00000000000029741a060191a008--
 
