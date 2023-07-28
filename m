@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E34E67678E7
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Jul 2023 01:22:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571611.895914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6934D7678FD
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Jul 2023 01:30:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571613.895923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPWmE-0001A1-B4; Fri, 28 Jul 2023 23:21:42 +0000
+	id 1qPWtq-0001rx-2G; Fri, 28 Jul 2023 23:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571611.895914; Fri, 28 Jul 2023 23:21:42 +0000
+Received: by outflank-mailman (output) from mailman id 571613.895923; Fri, 28 Jul 2023 23:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPWmE-00018N-7e; Fri, 28 Jul 2023 23:21:42 +0000
-Received: by outflank-mailman (input) for mailman id 571611;
- Fri, 28 Jul 2023 23:21:40 +0000
+	id 1qPWtp-0001pG-V5; Fri, 28 Jul 2023 23:29:33 +0000
+Received: by outflank-mailman (input) for mailman id 571613;
+ Fri, 28 Jul 2023 23:29:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jbsw=DO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qPWmC-00018H-Oj
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 23:21:40 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1qPWto-0001pA-5T
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 23:29:32 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 804100c6-2d9d-11ee-b24e-6b7b168915f2;
- Sat, 29 Jul 2023 01:21:38 +0200 (CEST)
+ id 980ff52c-2d9e-11ee-b24e-6b7b168915f2;
+ Sat, 29 Jul 2023 01:29:28 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7847E62211;
- Fri, 28 Jul 2023 23:21:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE00C433C8;
- Fri, 28 Jul 2023 23:21:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0C9B7621D4;
+ Fri, 28 Jul 2023 23:29:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2564EC433C8;
+ Fri, 28 Jul 2023 23:29:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,251 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 804100c6-2d9d-11ee-b24e-6b7b168915f2
+X-Inumbo-ID: 980ff52c-2d9e-11ee-b24e-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690586496;
-	bh=Mr5RfcB7qP5uFw9ESrP1TOOJBtOlGkEUG8RmF01Aqug=;
+	s=k20201202; t=1690586966;
+	bh=0gksY2KY/LxlFXG/ONfHd8XHylf6WlReqpJAZ55LZj0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nZkElFFZADeLEWqBH0HCWCk1owlLZxHLneMSydXnMfLR/IwGtNFgs71lmEVyFQpRC
-	 CWI5eJLHMbJtWJ5C/m5EmybWGAt+mI1D3HHvqVUJSfXBN+FJ/9JXbx85e/DVnqUJEr
-	 GH47oCvHzmL/hDAVYx/fA2D5l81ex/Qn27ikic6DymEt6C1vg1Ojp8blAOEpOv9FL4
-	 fIpljOFMOSGtNBBzMctAuMOHAwKXFV8tiIl2s9HllD1WaNCvNh6YIPvoRyj8GYvoK1
-	 AQxwtVt8F9qFUWxm2M+qpP23qT50MBfO/XdVMLF4jioT/wObObymnVDO/wR8UxiKhn
-	 jSdNicDyY5iHQ==
-Date: Fri, 28 Jul 2023 16:21:34 -0700 (PDT)
+	b=n8aXqn0vmRIZ5GRKj+AjKTP6jgUHc0VmnUy5PBdh8CbAsc3zkM2eHaDRpjatUV/Dc
+	 Kgg8C2JCjK32zrOGGFu0M4ihWyX6jq+sKOFPFlWZ0wWDosVDCjVPwiRP1lLUK6zNUK
+	 bQRRhucnyFuYxSIprCrdCtM9bdIRMMWFJ5Fm2BflFmaHFDwN730bTli8K7xxs5swxB
+	 IMAb/9iYFC/Tr9nCq7T3fE5viutOmbmum9tv5b22M/Q7xz6hg9W0ZCvCgOWJtkbEOX
+	 /UkcJ/4qn4W4L5rVYUcx0tbOJxfsZKRuLMXhAWTM1xpOre28dfbxwUqynFrxoecSGH
+	 03bt+BD7ayu+Q==
+Date: Fri, 28 Jul 2023 16:29:23 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, George Dunlap <george.dunlap@citrix.com>, 
-    Dario Faggioli <dfaggioli@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH v3] xen/sched: mechanical renaming to address MISRA
- C:2012 Rule 5.3
-In-Reply-To: <12a21bfd59d85c7b8619631edac93d79d7225c60.1690547599.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307281621260.3118466@ubuntu-linux-20-04-desktop>
-References: <12a21bfd59d85c7b8619631edac93d79d7225c60.1690547599.git.nicola.vetrini@bugseng.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+    Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: Re: [XEN PATCH] IOMMU: address violations of MISRA C:2012 Rules 8.2
+ and 8.3
+In-Reply-To: <ba140642a267791c619dbbe2ba21f880c7e2b53e.1690551759.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2307281626290.3118466@ubuntu-linux-20-04-desktop>
+References: <ba140642a267791c619dbbe2ba21f880c7e2b53e.1690551759.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 28 Jul 2023, Nicola Vetrini wrote:
-> Rule 5.3 has the following headline:
-> "An identifier declared in an inner scope shall not hide an
-> identifier declared in an outer scope"
+On Fri, 28 Jul 2023, Federico Serafini wrote:
+> Give a name to unnamed parameters to address violations of
+> MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+> named parameters").
+> Keep consistency between parameter names and types used in function
+> declarations and the ones used in the corresponding function
+> definitions, thus addressing violations of MISRA C:2012 Rule 8.3
+> ("All declarations of an object or function shall use the same names
+> and type qualifiers").
 > 
-> The renaming s/sched_id/scheduler_id/ of the function defined in
-> 'xen/common/sched/core.c' prevents any hiding of that function
-> by the instances of homonymous function parameters that
-> are defined in inner scopes.
+> No functional changes.
 > 
-> Similarly, the renames
-> - s/ops/operations/ for the static variable in 'xen/common/sched/core.c'
-> - s/do_softirq/needs_softirq/
-> are introduced for variables, to avoid any conflict with homonymous
-> parameters or function identifiers.
-> 
-> Moreover, the variable 'loop' defined at 'xen/common/sched/credit2.c:3887'
-> has been dropped, in favour of the homonymous variable declared in the
-> outer scope. This in turn requires a modification of the printk call that
-> involves it.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> Changes in v3:
-> - removed stray changes to address the remarks
-> Changes in v2:
-> - s/softirq/needs_softirq/
-> - Dropped local variable 'it'
-> - Renamed the 'ops' static variable instead of function parameters
-> in the idle scheduler for coherence.
+>  xen/drivers/passthrough/iommu.c | 10 +++++-----
+>  xen/include/xen/iommu.h         | 30 ++++++++++++++++--------------
+>  2 files changed, 21 insertions(+), 19 deletions(-)
 > 
-> Note: local variable 'j' in xen/common/sched/credit2.c:3812' should
-> probably be unsigned as well, but I saw while editing the patch
-> that it's used as a parameter to 'dump_pcpu', which takes an int.
-> Possibly changing the types of parameters used in these calls is
-> probably a good target for another patch, as it's not relevant
-> w.r.t. Rule 5.3.
-> ---
->  xen/common/sched/core.c    | 28 ++++++++++++++--------------
->  xen/common/sched/credit2.c |  6 +++---
->  xen/common/sysctl.c        |  2 +-
->  xen/include/xen/sched.h    |  2 +-
->  4 files changed, 19 insertions(+), 19 deletions(-)
-> 
-> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-> index 022f548652..12deefa745 100644
-> --- a/xen/common/sched/core.c
-> +++ b/xen/common/sched/core.c
-> @@ -91,7 +91,7 @@ extern const struct scheduler *__start_schedulers_array[], *__end_schedulers_arr
->  #define NUM_SCHEDULERS (__end_schedulers_array - __start_schedulers_array)
->  #define schedulers __start_schedulers_array
-> 
-> -static struct scheduler __read_mostly ops;
-> +static struct scheduler __read_mostly operations;
-> 
->  static bool scheduler_active;
-> 
-> @@ -171,7 +171,7 @@ static inline struct scheduler *dom_scheduler(const struct domain *d)
->       * is the default scheduler that has been, choosen at boot.
->       */
->      ASSERT(is_idle_domain(d));
-> -    return &ops;
-> +    return &operations;
+> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+> index 0e187f6ae3..7bbe3889a2 100644
+> --- a/xen/drivers/passthrough/iommu.c
+> +++ b/xen/drivers/passthrough/iommu.c
+> @@ -25,10 +25,10 @@
+>  unsigned int __read_mostly iommu_dev_iotlb_timeout = 1000;
+>  integer_param("iommu_dev_iotlb_timeout", iommu_dev_iotlb_timeout);
+>  
+> -bool_t __initdata iommu_enable = 1;
+> -bool_t __read_mostly iommu_enabled;
+> -bool_t __read_mostly force_iommu;
+> -bool_t __read_mostly iommu_verbose;
+> +bool __initdata iommu_enable = 1;
+> +bool __read_mostly iommu_enabled;
+> +bool __read_mostly force_iommu;
+> +bool __read_mostly iommu_verbose;
+>  static bool_t __read_mostly iommu_crash_disable;
+>  
+>  #define IOMMU_quarantine_none         0 /* aka false */
+> @@ -57,7 +57,7 @@ int8_t __hwdom_initdata iommu_hwdom_reserved = -1;
+>  bool __read_mostly iommu_hap_pt_share = true;
+>  #endif
+>  
+> -bool_t __read_mostly iommu_debug;
+> +bool __read_mostly iommu_debug;
+>  
+>  DEFINE_PER_CPU(bool_t, iommu_dont_flush_iotlb);
+>  
+> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+> index 405db59971..8c0818cd01 100644
+> --- a/xen/include/xen/iommu.h
+> +++ b/xen/include/xen/iommu.h
+> @@ -52,7 +52,7 @@ static inline bool_t dfn_eq(dfn_t x, dfn_t y)
 >  }
-> 
->  static inline struct scheduler *unit_scheduler(const struct sched_unit *unit)
-> @@ -2040,10 +2040,10 @@ long do_set_timer_op(s_time_t timeout)
->      return 0;
+>  
+>  #ifdef CONFIG_HAS_PASSTHROUGH
+> -extern bool_t iommu_enable, iommu_enabled;
+> +extern bool iommu_enable, iommu_enabled;
+>  extern bool force_iommu, iommu_verbose;
+>  /* Boolean except for the specific purposes of drivers/passthrough/iommu.c. */
+>  extern uint8_t iommu_quarantine;
+> @@ -108,8 +108,8 @@ static inline void clear_iommu_hap_pt_share(void)
+>  #endif
 >  }
-> 
-> -/* sched_id - fetch ID of current scheduler */
-> -int sched_id(void)
-> +/* scheduler_id - fetch ID of current scheduler */
-> +int scheduler_id(void)
->  {
-> -    return ops.sched_id;
-> +    return operations.sched_id;
->  }
-> 
->  /* Adjust scheduling parameter for a given domain. */
-> @@ -2579,7 +2579,7 @@ static void cf_check sched_slave(void)
->      struct sched_unit    *prev = vprev->sched_unit, *next;
->      s_time_t              now;
->      spinlock_t           *lock;
-> -    bool                  do_softirq = false;
-> +    bool                  needs_softirq = false;
->      unsigned int          cpu = smp_processor_id();
-> 
->      ASSERT_NOT_IN_ATOMIC();
-> @@ -2604,7 +2604,7 @@ static void cf_check sched_slave(void)
->              return;
->          }
-> 
-> -        do_softirq = true;
-> +        needs_softirq = true;
->      }
-> 
->      if ( !prev->rendezvous_in_cnt )
-> @@ -2614,7 +2614,7 @@ static void cf_check sched_slave(void)
->          rcu_read_unlock(&sched_res_rculock);
-> 
->          /* Check for failed forced context switch. */
-> -        if ( do_softirq )
-> +        if ( needs_softirq )
->              raise_softirq(SCHEDULE_SOFTIRQ);
-> 
->          return;
-> @@ -3016,14 +3016,14 @@ void __init scheduler_init(void)
->          BUG_ON(!scheduler);
->          printk("Using '%s' (%s)\n", scheduler->name, scheduler->opt_name);
->      }
-> -    ops = *scheduler;
-> +    operations = *scheduler;
-> 
->      if ( cpu_schedule_up(0) )
->          BUG();
->      register_cpu_notifier(&cpu_schedule_nfb);
-> 
-> -    printk("Using scheduler: %s (%s)\n", ops.name, ops.opt_name);
-> -    if ( sched_init(&ops) )
-> +    printk("Using scheduler: %s (%s)\n", operations.name, operations.opt_name);
-> +    if ( sched_init(&operations) )
->          panic("scheduler returned error on init\n");
-> 
->      if ( sched_ratelimit_us &&
-> @@ -3363,7 +3363,7 @@ int schedule_cpu_rm(unsigned int cpu, struct cpu_rm_data *data)
-> 
->  struct scheduler *scheduler_get_default(void)
->  {
-> -    return &ops;
-> +    return &operations;
->  }
-> 
->  struct scheduler *scheduler_alloc(unsigned int sched_id)
-> @@ -3392,7 +3392,7 @@ struct scheduler *scheduler_alloc(unsigned int sched_id)
-> 
->  void scheduler_free(struct scheduler *sched)
->  {
-> -    BUG_ON(sched == &ops);
-> +    BUG_ON(sched == &operations);
->      sched_deinit(sched);
->      xfree(sched);
->  }
-> @@ -3416,7 +3416,7 @@ void schedule_dump(struct cpupool *c)
->      }
->      else
->      {
-> -        sched = &ops;
-> +        sched = &operations;
->          cpus = &cpupool_free_cpus;
->      }
-> 
-> diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-> index 87a1e31ee9..fc583915df 100644
-> --- a/xen/common/sched/credit2.c
-> +++ b/xen/common/sched/credit2.c
-> @@ -3874,7 +3874,7 @@ csched2_dump(const struct scheduler *ops)
-> 
->              lock = unit_schedule_lock(unit);
-> 
-> -            printk("\t%3d: ", ++loop);
-> +            printk("\t%3u: ", ++loop);
->              csched2_dump_unit(prv, svc);
-> 
->              unit_schedule_unlock(lock, unit);
-> @@ -3884,8 +3884,8 @@ csched2_dump(const struct scheduler *ops)
->      list_for_each_entry ( rqd, &prv->rql, rql )
->      {
->          struct list_head *iter, *runq = &rqd->runq;
-> -        int loop = 0;
-> 
-> +        loop = 0;
->          /* We need the lock to scan the runqueue. */
->          spin_lock(&rqd->lock);
-> 
-> @@ -3901,7 +3901,7 @@ csched2_dump(const struct scheduler *ops)
-> 
->              if ( svc )
->              {
-> -                printk("\t%3d: ", loop++);
-> +                printk("\t%3u: ", loop++);
->                  csched2_dump_unit(prv, svc);
->              }
->          }
-> diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-> index 0cbfe8bd44..7cabfb0230 100644
-> --- a/xen/common/sysctl.c
-> +++ b/xen/common/sysctl.c
-> @@ -71,7 +71,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          break;
-> 
->      case XEN_SYSCTL_sched_id:
-> -        op->u.sched_id.sched_id = sched_id();
-> +        op->u.sched_id.sched_id = scheduler_id();
->          break;
-> 
->      case XEN_SYSCTL_getdomaininfolist:
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 854f3e32c0..bfe714d2e2 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -791,7 +791,7 @@ int  sched_init_domain(struct domain *d, unsigned int poolid);
->  void sched_destroy_domain(struct domain *d);
->  long sched_adjust(struct domain *, struct xen_domctl_scheduler_op *);
->  long sched_adjust_global(struct xen_sysctl_scheduler_op *);
-> -int  sched_id(void);
-> +int  scheduler_id(void);
-> 
->  /*
->   * sched_get_id_by_name - retrieves a scheduler id given a scheduler name
-> --
+>  
+> -extern bool_t iommu_debug;
+> -extern bool_t amd_iommu_perdev_intremap;
+> +extern bool iommu_debug;
+> +extern bool amd_iommu_perdev_intremap;
+>  
+>  extern bool iommu_hwdom_strict, iommu_hwdom_passthrough, iommu_hwdom_inclusive;
+>  extern int8_t iommu_hwdom_reserved;
+> @@ -165,10 +165,10 @@ enum
+>   * values indicate partial completion, which is possible only with
+>   * IOMMUF_preempt passed in.
+>   */
+> -long __must_check iommu_map(struct domain *d, dfn_t dfn, mfn_t mfn,
+> +long __must_check iommu_map(struct domain *d, dfn_t dfn0, mfn_t mfn0,
+>                              unsigned long page_count, unsigned int flags,
+>                              unsigned int *flush_flags);
+> -long __must_check iommu_unmap(struct domain *d, dfn_t dfn,
+> +long __must_check iommu_unmap(struct domain *d, dfn_t dfn0,
+>                                unsigned long page_count, unsigned int flags,
+>                                unsigned int *flush_flags);
+>  
+> @@ -197,11 +197,13 @@ bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature);
+>  
+>  #ifdef CONFIG_HAS_PCI
+>  struct pirq;
+> -int hvm_do_IRQ_dpci(struct domain *, struct pirq *);
+> -int pt_irq_create_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
+> -int pt_irq_destroy_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
+> +int hvm_do_IRQ_dpci(struct domain *d, struct pirq *pirq);
+> +int pt_irq_create_bind(struct domain *d,
+> +                       const struct xen_domctl_bind_pt_irq *pt_irq_bind);
+> +int pt_irq_destroy_bind(struct domain *d,
+> +                        const struct xen_domctl_bind_pt_irq *pt_irq_bind);
+>  
+> -struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *);
+> +struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *d);
+>  void free_hvm_irq_dpci(struct hvm_irq_dpci *dpci);
+>  
+>  struct msi_desc;
+> @@ -229,8 +231,8 @@ int iommu_release_dt_devices(struct domain *d);
+>   */
+>  int iommu_add_dt_device(struct dt_device_node *np);
+>  
+> -int iommu_do_dt_domctl(struct xen_domctl *, struct domain *,
+> -                       XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
+> +int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+> +                       XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+>  
+>  #endif /* HAS_DEVICE_TREE */
+>  
+> @@ -386,12 +388,12 @@ static inline int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>  int __must_check iommu_suspend(void);
+>  void iommu_resume(void);
+>  void iommu_crash_shutdown(void);
+> -int iommu_get_reserved_device_memory(iommu_grdm_t *, void *);
+> +int iommu_get_reserved_device_memory(iommu_grdm_t *func, void *ctxt);
+>  int iommu_quarantine_dev_init(device_t *dev);
+>  
+>  #ifdef CONFIG_HAS_PCI
+> -int iommu_do_pci_domctl(struct xen_domctl *, struct domain *d,
+> -                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
+> +int iommu_do_pci_domctl(struct xen_domctl *domctl, struct domain *d,
+> +                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+>  #endif
+>  
+>  void iommu_dev_iotlb_flush_timeout(struct domain *d, struct pci_dev *pdev);
+> -- 
 > 2.34.1
 > 
 
