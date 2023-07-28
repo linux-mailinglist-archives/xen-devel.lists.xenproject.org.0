@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85F48766F18
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 16:14:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571482.895439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFF19766F87
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 16:32:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571486.895451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPOEd-0003Kw-HY; Fri, 28 Jul 2023 14:14:27 +0000
+	id 1qPOVp-0005w0-3y; Fri, 28 Jul 2023 14:32:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571482.895439; Fri, 28 Jul 2023 14:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 571486.895451; Fri, 28 Jul 2023 14:32:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPOEd-0003Gj-Db; Fri, 28 Jul 2023 14:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 571482;
- Fri, 28 Jul 2023 14:14:25 +0000
+	id 1qPOVo-0005uM-W2; Fri, 28 Jul 2023 14:32:12 +0000
+Received: by outflank-mailman (input) for mailman id 571486;
+ Fri, 28 Jul 2023 14:32:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6gb0=DO=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1qPOEb-0003GK-1O
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 14:14:25 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Gg45=DO=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qPOVo-0005uG-0F
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 14:32:12 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0cc76e23-2d51-11ee-8613-37d641c3527e;
- Fri, 28 Jul 2023 16:14:22 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-31763b2c5a4so2233462f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jul 2023 07:14:22 -0700 (PDT)
-Received: from EMEAENGAAD19049. ([2.223.46.215])
- by smtp.gmail.com with ESMTPSA id
- d4-20020adfe884000000b003143cdc5949sm5050822wrm.9.2023.07.28.07.14.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Jul 2023 07:14:21 -0700 (PDT)
+ id 8827952f-2d53-11ee-8613-37d641c3527e;
+ Fri, 28 Jul 2023 16:32:09 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 141B31F8A4;
+ Fri, 28 Jul 2023 14:32:08 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D958B13276;
+ Fri, 28 Jul 2023 14:32:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id z6UgM2fRw2SSKQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 28 Jul 2023 14:32:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +51,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cc76e23-2d51-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1690553662; x=1691158462;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zveqsV0CdVNO13A22Mf5DVV3cMqTKJ94j6oYQIug6SE=;
-        b=kNUHbzl5HIo0Hbo+QbgMSdzFs/08S+/oSkKm3qZMw9hdCJDNy3wautRzq8OfFzuL7W
-         WODa1WHWoCjumZf526EPelQNte92c4gjeI4pe3lehZ67tcuvVCPwpeK47nneP8u18XNn
-         T4aiCGgRqC2Q9Kz+lHuqudnk6RgdilWtFskrM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690553662; x=1691158462;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zveqsV0CdVNO13A22Mf5DVV3cMqTKJ94j6oYQIug6SE=;
-        b=WgAuAplvfklc1G3d4eqhos7Ghe5EIuxmpXeq3x3kY3GTQ7iDBPyB+TGXmjHsfPylF7
-         QPjruzKNeOBmPowxmamwjgZ557cqD5Ad1RpmBGcVSIl6Wu2iOluUqKJIzIAeIwkrL5zU
-         ldbGIyi8JVMFCoI7pTk2cggkKW62H/2VJESK2IOpsWV8/HFt3sJjdPbFqTTPpXO92e72
-         T/0f0ydNABQqXBSXvoB2788NH6fNQSH52m8pln01GggIsn0TRf/UwTvX2yaqJ/UBiokx
-         3l8cKBveVva+OBzhYmnN8PYzkayFd9uFFZ7OXlVejlNSzK7UhmBuGi5H7fFUpUwoU18t
-         LfSQ==
-X-Gm-Message-State: ABy/qLY/Pog8XicrNDEJIDjC2R50DUR7ACqJ/02rOrw/PTAMYebgJr+p
-	bMEahAB2zSEOR3AQ/BzOrVbiRg==
-X-Google-Smtp-Source: APBJJlHv99EQuoAQc62kTaJlK7rz1OfiyKKZBEn4F6t5ciBnSeAa9uMn9E8j2CmVr4m44ALTR6bctw==
-X-Received: by 2002:a05:6000:103:b0:317:60fc:d3c8 with SMTP id o3-20020a056000010300b0031760fcd3c8mr1998905wrx.71.1690553662059;
-        Fri, 28 Jul 2023 07:14:22 -0700 (PDT)
-Message-ID: <64c3cd3d.df0a0220.af633.8875@mx.google.com>
-X-Google-Original-Message-ID: <ZMPNNHsAjJOUE/Ky@EMEAENGAAD19049.>
-Date: Fri, 28 Jul 2023 15:14:12 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
-	wei.chen@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [RFC PATCH 0/5] clang-format for Xen
-References: <20230728081144.4124309-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 8827952f-2d53-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1690554728; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bvmRvG9UQ6Glg+ejYwcpLDsrsWmKKXP/m6tVM8agjko=;
+	b=k1/z24UphHT9SVIupXGK5QRxh3mh9qUl8lVwiupIqajvhX651FHBg6wJOmNkZbysDR2EBX
+	jTlnInaiLW2LO5nduFH5xepL7mos/TcS5In5qz6o2+r/IhObYko65I5B/9bjgO2cupZ68C
+	y16S50gKRnyttHJ5Z7sG7Yk+DkJwdzo=
+Message-ID: <daaf9af4-639e-c6fb-890b-852c0781271c@suse.com>
+Date: Fri, 28 Jul 2023 16:32:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230728081144.4124309-1-luca.fancellu@arm.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-18-jgross@suse.com>
+ <b2d2a346-12c0-8ea4-38a2-b4748396540f@xen.org>
+ <9a6d9c8b-350b-9a3e-4c23-0d7fd312e77a@suse.com>
+ <3cce8892-1494-775f-8d75-80e87f0643cf@xen.org>
+ <a9d55381-df3a-a343-7c4b-c5d5f6e7695b@suse.com>
+ <27ba8831-89cb-9470-0b1c-03ad817e8292@xen.org>
+ <68acbf84-218b-f2f7-9526-d9e07f845f6e@suse.com>
+ <8cea1316-db0b-f29d-c467-6fd5c4a6321c@xen.org>
+ <6a376365-a731-2413-16c7-14ede5224eea@suse.com>
+ <b8b8e733-6be0-a4d9-33b7-d93366ec0091@xen.org>
+ <8a5854d1-2594-ed4f-ace8-e21db4fe4c7b@suse.com>
+ <75dc26f0-0ea7-2097-47b2-1f857e1d7236@xen.org>
+ <4d36876c-e943-06ac-782d-5d94851040e2@suse.com>
+ <ebc61b04-bfc4-592a-df09-7226e32d355b@xen.org>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v3 17/25] tools/xenstore: rework struct xs_tdb_record_hdr
+In-Reply-To: <ebc61b04-bfc4-592a-df09-7226e32d355b@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vAj0gu0xMo6mCvlIGCgtbafQ"
 
-On Fri, Jul 28, 2023 at 09:11:39AM +0100, Luca Fancellu wrote:
-> ## Introduction ################################################################
-> 
-> In this serie, I would like to get feedbacks on the output generated by the
-> configuration of clang-format, unfortunately we can't use only clang-format, but
-> we need to call it using a wrapper, because we need the information of what
-> files need to be excluded from the tool.
-> 
-> Another reason is that clang-format has some limitation when formatting asm()
-> instruction and most of the time it format them in a very ugly way or it breaks
-> the code for example removing spaces that were there for a reason (I don't think
-> it's a tool to format asm), so in the wrapper script we protect all asm()
-> invocation or macros where there are asm() invocation with in-code comments that
-> stops clang-format to act on that section:
-> 
-> /* clang-format off */section/* clang-format on */
-> 
-> I've read the past threads about the brave people who dared to try to introduce
-> clang-format for the xen codebase, some of them from 5 years ago, two points
-> were clear: 1) goto label needs to be indented and 2) do-while loops have the
-> braket in the same line.
-> While point 1) was quite a blocker, it seemd to me that point 2) was less
-> controversial to be changed in the Xen codestyle, so the current wrapper script
-> handles only the point 1 (which is easy), the point 2 can be more tricky to
-> handle.
-> 
-> ## The clang-format configuration ##############################################
-> 
-> In my clang-format configuration I've taken inspiration from EPAM's work, then
-> from the configuration in Linux and finally from the clang-format manual, to try
-> to produce a comprehensive configuration.
-> 
-> Every configuration parameter has on top a comment with the description and
-> when it was supported, finally I've added also a [not specified] if that
-> behavior is not clearly specified in the Xen coding style, I've done that so
-> we could discuss about adding more specification in our CODING_STYLE.
-> Every comment can be stripped out in the final release of the file, but I think
-> that now they are useful for the discussion.
-> 
-> The minimum clang-format version for the file is 15, my ubuntu 22.04 comes with
-> it, we can reason if it's too high, or if we could also use the latest version
-> maybe shipped inside a docker image.
-15 sounds ok \methinks. In practice we'll just stick it in GitLab and let
-it check commits, so we'll be safe even in the case where every developer
-has a slightly different version of the tool. I wouldn't try to make this
-(hard) task harder by trying to retrofit it in an older version.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vAj0gu0xMo6mCvlIGCgtbafQ
+Content-Type: multipart/mixed; boundary="------------DIEBHJyoQsyuPhIMfXIpHhXL";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <daaf9af4-639e-c6fb-890b-852c0781271c@suse.com>
+Subject: Re: [PATCH v3 17/25] tools/xenstore: rework struct xs_tdb_record_hdr
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-18-jgross@suse.com>
+ <b2d2a346-12c0-8ea4-38a2-b4748396540f@xen.org>
+ <9a6d9c8b-350b-9a3e-4c23-0d7fd312e77a@suse.com>
+ <3cce8892-1494-775f-8d75-80e87f0643cf@xen.org>
+ <a9d55381-df3a-a343-7c4b-c5d5f6e7695b@suse.com>
+ <27ba8831-89cb-9470-0b1c-03ad817e8292@xen.org>
+ <68acbf84-218b-f2f7-9526-d9e07f845f6e@suse.com>
+ <8cea1316-db0b-f29d-c467-6fd5c4a6321c@xen.org>
+ <6a376365-a731-2413-16c7-14ede5224eea@suse.com>
+ <b8b8e733-6be0-a4d9-33b7-d93366ec0091@xen.org>
+ <8a5854d1-2594-ed4f-ace8-e21db4fe4c7b@suse.com>
+ <75dc26f0-0ea7-2097-47b2-1f857e1d7236@xen.org>
+ <4d36876c-e943-06ac-782d-5d94851040e2@suse.com>
+ <ebc61b04-bfc4-592a-df09-7226e32d355b@xen.org>
+In-Reply-To: <ebc61b04-bfc4-592a-df09-7226e32d355b@xen.org>
 
-It might be worth stitching a flag in the python script to scream if the
-clang-format version doesn't match. Or it may do a mess of the tree.
+--------------DIEBHJyoQsyuPhIMfXIpHhXL
+Content-Type: multipart/mixed; boundary="------------zp1Hs5eeLgGoIdoRaU6EIV0q"
 
-> 
-> For every [not specified] behavior, I've tried to guess it from the codebase,
-> I've seen that also in that case it's not easy as there is (sometimes) low
-> consistency between modules, so we can discuss on every configurable.
-> 
-> Worth to mention, the public header are all excluded from the format tool,
-> because formatting them breaks the build on X86, because there are scripts for
-> auto-generation that don't handle the formatted headers, I didn't investigate
-> on it, maybe it can be added as technical debt.
-Sounds reasonable to me.
+--------------zp1Hs5eeLgGoIdoRaU6EIV0q
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> 
-> So I've tried building arm32, arm64 and x86_64 with the formatted output and
-> they build, I've used Yocto for that.
-> 
-> ## How to try it? ##############################################################
-> 
-> So how to generate everything? Just invoke the codestyle.py script without
-> parameter and it will format every .c and .h file in the hypervisor codebase.
-> 
-> ./xen/scripts/codestyle.py
-> 
-> Optionally you can also pass one or more relative path from the folder you are
-> invoking the script and it will format only them.
-Worth mentioning that we need a strategy for checking the consistency as
-well. The typical fashion is to invoke clang-format as:
+T24gMjguMDcuMjMgMTY6MDgsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDI4LzA3LzIwMjMgMTQ6MjQsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
+biAyOC4wNy4yMyAxNDo0OCwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpLA0KPj4+DQo+
+Pj4gT24gMjgvMDcvMjAyMyAxMzowNiwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+Pj4gT24g
+MjguMDcuMjMgMTM6MTksIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+Pj4+Pj4+IEluIGNhc2Ug
+b2YgYSBydW50aW1lIGNoZWNrIEkNCj4+Pj4+Pj4+IGFncmVlIHRoYXQgYSBtb3JlIGNlbnRy
+YWwgcGxhY2Ugd291bGQgYmUgcHJlZmVycmVkLg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+IEluIHRo
+ZSBlbmQgSSBkb24ndCBtaW5kIHRoYXQgbXVjaCwgYnV0DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4g
+wqDCoMKgwqDCoEJVSUxEX0JVR19PTihYRU5TVE9SRV9QQVlMT0FEX01BWCA+PQ0KPj4+Pj4+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKHR5cGVvZigoc3RydWN0IG5vZGVfaGRy
+ICopTlVMTC0+ZGF0YWxlbikpKC0xKSk7DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gaXMgYSBsaXR0
+bGUgYml0IGNsdW1zeSBJTUhPLg0KPj4+Pj4+Pg0KPj4+Pj4+PiBBZ3JlZS4gV2UgY291bGQg
+aW50cm9kdWNlIEZJRUxEX1NJWkVPRigpIChhcyBMaW51eCBkaWQpIHRvIGhpZGUgdGhlIA0K
+Pj4+Pj4+PiBjb21wbGV4aXR5LiBUaGUgY29kZSB3b3VsZCB0aGVuIGxvb2sgbGlrZToNCj4+
+Pj4+Pj4NCj4+Pj4+Pj4gwqA+PSAoOCAqIEZJRUxEX1NJWkVPRihzdHJ1Y3Qgbm9kZV9oZHIs
+IGRhdGFsZW4pKQ0KPj4+Pj4+DQo+Pj4+Pj4gT2gsIEkgZ3Vlc3MgeW91IG1lYW4gc2l6ZW9m
+X2ZpZWxkKCkuDQo+Pj4+Pj4NCj4+Pj4+PiBBbmQgZXZlbiB3aXRoIHRoYXQgaXQgd291bGQg
+bG9vayBxdWl0ZSBjbHVtc3k6DQo+Pj4+Pj4NCj4+Pj4+PiDCoMKgwqDCoMKgQlVJTERfQlVH
+X09OKFhFTlNUT1JFX1BBWUxPQURfTUFYID49DQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgKDFVTCA8PCAoOCAqIHNpemVvZl9maWVsZChzdHJ1Y3Qgbm9kZV9oZHIsIGRh
+dGFsZW4pKSkpOw0KPj4+Pj4NCj4+Pj4+IEhvdyBhYm91dCBrZWVwaW5nIHRoZSBCVUlMRF9C
+VUdfT04oKSBpbiB3cml0ZV9ub2RlX3JhdygpIGFuZCBhZGQgdGhlIA0KPj4+Pj4gZm9sbG93
+aW5nIGNvbW1lbnQgb24gdG9wIG9mIGhhbmRsZV9pbnB1dCgpOg0KPj4+Pj4NCj4+Pj4+IFNv
+bWUgZmllbGRzIGluIFhlbnN0b3JlZCBhcmUgc2l6ZWQgYmFzZWQgb24gdGhlIG1heCBwYXls
+b2FkIChzZWUgdmFyaW91cyANCj4+Pj4+IEJVSUxEX0JVR19PTigpKS4gVGhpcyB3b3VsZCBu
+ZWVkIGV4dHJhIHJ1bnRpbWUgY2hlY2sgaWYgd2UgZXZlciBkZWNpZGUgdG8gDQo+Pj4+PiBo
+YXZlIGEgZHluYW1pYyBwYXlsb2FkIHNpemUuDQo+Pj4+DQo+Pj4+IEkgX2NvdWxkXyBkbyB0
+aGF0LCBidXQgd2hlcmUgdG8gc3RvcCBhZGRpbmcgc3VjaCBjb21tZW50cz8NCj4+Pg0KPj4+
+IFdoZW4gc29tZW9uZSBvdGhlciB0aGFuIHRoZSBhdXRob3IgaXMgYWJsZSB0byB1bmRlcnN0
+YW5kIHRoZSBjb2RlIHdpdGhvdXQgdG9vIA0KPj4+IG11Y2ggZWZmb3J0LiBNb3JlIGNvbW1l
+bnRzIG5ldmVyIGh1cnRzLCBsZXNzIHdpbGwgaW4gdGhlIGxvbmdlciBydW4gKHNlZSBiZWxv
+dykuDQo+Pg0KPj4gSSBhZ3JlZSB3aXRoIHRoYXQgc3RhdGVtZW50IGluIGdlbmVyYWwsIGJ1
+dCByZXF1ZXN0aW5nIGEgY29tbWVudCB0byBhaWQgYQ0KPj4gZnV0dXJlIHBvdGVudGlhbCBj
+aGFuZ2UgdmlvbGF0aW5nIHRoZSBYZW5zdG9yZSB3aXJlIHByb3RvY29sIGlzIGEgbGl0dGxl
+IGJpdA0KPj4gd2VpcmQuDQo+IA0KPiBXZWxsLi4uIFRoaXMgaXMgdmlvbGF0aW5nIHRoZSBl
+eGlzdGluZyBwcm90b2NvbCwgYnV0IGl0IGlzIG5vdCBzZXQgaW4gc3RvbmUgYW5kIA0KPiBJ
+IHRoaW5rIHRoaXMgaXMgYWNjZXB0YWJsZSB0byB1cGRhdGUgaXQgd2hlbiB0aGVyZSBpcyBu
+byBjaGFuZ2UgZm9yIHRoZSBWTXMgYW5kIA0KPiBmb3IgbmV3IGZlYXR1cmVzIChlLmcuIExp
+dmUtVXBkYXRlL0xpdmUtTWlncmF0aW9uKS4NCg0KTm8sIEkgZG9uJ3QgdGhpbmsgc28uDQoN
+ClRoaW5rIG9mIFhlbnN0b3JlIGxpdmluZyBpbiBhIHN0dWJkb20uIFRoaXMgbWVhbnMgdGhh
+dCBldmVuIGRvbTAgcmVxdWVzdHMgaGF2ZQ0KdG8gZ28gdmlhIGEgcmluZyBwYWdlLCBhbmQg
+eW91IGFyZSBqdXN0IGFzc3VtaW5nIHRoYXQgdGhlIGtlcm5lbCBzaWRlIGRyaXZlcg0KZm9y
+d2FyZGluZyB0aGUgcmVxdWVzdHMgZnJvbSB1c2VyIG1vZGUgaXMgZmluZSB3aXRoIFhFTlNU
+T1JFX1BBWUxPQURfTUFYIF9ub3RfDQpiZWluZyB0aGUgYWJzb2x1dGUgbWF4aW11bSBvZiBk
+YXRhIHRyYW5zZmVycmVkIHZpYSBhIHNpbmdsZSBjb21tYW5kLiBJIGNvdWxkDQpwZXJmZWN0
+bHkgdW5kZXJzdGFuZCB0aGF0IHRoZSBrZXJuZWwgbWlnaHQgaGF2ZSBhIFhFTlNUT1JFX1BB
+WUxPQURfTUFYIHNpemVkDQpidWZmZXIgZm9yIHRoZSBwYXlsb2FkLCB3aGljaCB3b3VsZCBi
+ZSBub3QgbGFyZ2UgZW5vdWdoIGZvciB5b3VyIHVzZSBjYXNlLg0KDQpTbyB2aW9sYXRpbmcg
+WEVOU1RPUkVfUEFZTE9BRF9NQVggbWlnaHQgYmUgYSBiYWQgaWRlYSB3aXRoIHNvbWUgaW1w
+bGVtZW50YXRpb25zLA0KYXQgbGVhc3QgaW4gdGhlb3J5Lg0KDQpUaGlzIG1lYW5zLCBCVFcs
+IHRoYXQgY2hhbmdpbmcgWEVOU1RPUkVfUEFZTE9BRF9NQVggaXMgYSBiYWQgaWRlYSwgdG9v
+LCBhcyB0aGlzDQp3b3VsZCByZXF1aXJlIHRvIHN5bmMgYmV0d2VlbiBhbGwgY29tcG9uZW50
+cyBrbm93aW5nIGl0cyB2YWx1ZS4NCg0KPj4+PiBUQkgsIEkgcmVhbGx5IGRvbid0IHNlZSB0
+aGUgcG9pbnQgZG9pbmcgdGhhdC4NCj4+Pj4NCj4+Pj4gSW4gY2FzZSBhIHBhdGNoIGNhbWUg
+dXAgdXBzdHJlYW0gdHJ5aW5nIHRvIHZpb2xhdGUgWEVOU1RPUkVfUEFZTE9BRF9NQVggSSB3
+b3VsZA0KPj4+PiBzdXJlbHkgTkFDSyBpdC4NCj4+PiBUaGF0J3MgYXNzdW1pbmcgeW91IHdp
+bGwgc3RpbGwgYmUgYXJvdW5kIHdoZW4gdGhpcyBoYXBwZW5zIDopLiBJIGFtIG5vdCANCj4+
+PiB3aXNoaW5nIGFueXRoaW5nIGJhZCBidXQgdGhlIGNvZGUgd2lsbCBsaWtlbHkgb3V0bGFz
+dCBhbnkgb2YgdXMuDQo+Pg0KPj4gTWF5YmUuIEJ1dCB3b3VsZCB5b3UgcmVhbGx5IEFjayBw
+YXRjaGVzIGFkZGluZyBjb21tZW50cyBsaWtlIHRoYXQgaW4gb3RoZXINCj4+IGFyZWFzPw0K
+PiANCj4gUG90ZW50aWFsbHkgeWVzLiBXZSBoYWQgYSBzaW1pbGFyIGRpc2N1c3Npb24gb24g
+QXJtIHdoZW4gYWxsb3dpbmcgcGFkZHJfdCB0byBiZSANCj4gMzItYml0Lg0KPiANCj4gWy4u
+Ll0NCj4gDQo+Pj4+IEluIGNhc2Ugd2UgbmVlZCBwYXlsb2FkcyBsYXJnZXIgdGhhbiBYRU5T
+VE9SRV9QQVlMT0FEX01BWCB3ZSBzaG91bGQgc3BsaXQgdGhlDQo+Pj4+IHJlbGF0ZWQgb3Bl
+cmF0aW9uIGluIG11bHRpcGxlIHBhcnRzIChzZWUgZS5nLiBYU19ESVJFQ1RPUllfUEFSVCBv
+ciBYU19DT05UUk9MDQo+Pj4+IGZvciB1cGxvYWRpbmcgYSBuZXcga2VybmVsIHRvIFhlbnN0
+b3JlLXN0dWJkb20gZm9yIGxpdmUgdXBkYXRlKS4gV2hpY2ggaXMsIEJUVywNCj4+Pj4gdGhl
+IHdheSBBV1Mgc2hvdWxkIGhhdmUgaGFuZGxlZCB0aGUgbWlncmF0aW9uIHByb2JsZW0gKHRy
+YW5zYWN0aW9ucyBjb21lIHRvIG15DQo+Pj4+IG1pbmQgaW4gdGhpcyBjb250ZXh0KS4NCj4+
+Pg0KPj4+IEkgd2Fzbid0IHBhcnQgb2YgdGhlIG9yaWdpbmFsIGRlc2lnbiwgYnV0IEkgY2Fu
+IHNlZSB3aHkgaXQgd2FzIGRvbmUgbGlrZSB0aGF0Lg0KPj4NCj4+IEkgY2FuIHNlZSB3aHkg
+aXQgd2FzIGRvbmUgdGhhdCB3YXksIGJ1dCB0aGlzIGRvZXNuJ3QgbWVhbiBJIGNhbiB1bmRl
+cnN0YW5kDQo+PiB3aHkgc3VjaCBhIGRlc2lnbiBzaG91bGQgYmUgc3VwcG9ydGVkIGJ5IGFk
+ZGluZyBjb21tZW50cyBoZWxwaW5nIHRvIHJlcGVhdCBzdWNoDQo+PiBhIGJhZCBkZWNpc2lv
+bi4NCj4+DQo+Pj4gVXNpbmcgbXVsdGlwbGUgY29tbWFuZHMgaGFzIGFsc28gaXRzIGRvd25z
+aWRlLiBUaGUgZmlyc3QgdGhhdCBjb21lcyB0byBteSANCj4+PiBtaW5kIGlmIHRoYXQgeW91
+IG5lZWQgdG8ga2VlcCBhcm91bmQgdGhlIGRhdGEuIEJ1dCwgd2l0aCB5b3VyIHByb3Bvc2Fs
+LCB5b3UgDQo+Pj4gd2Ugd291bGRuJ3QgYmUgYWJsZSB0byBzdG9yZSBpdCBpbiB0aGUgZGF0
+YWJhc2UgKGxpa2UgZm9yIHRyYW5zYWN0aW9uIHVwZGF0ZSkgDQo+Pj4gYXMgZGF0YWxlbiBj
+YW4gb25seSBiZSA2NUtCLg0KPj4NCj4+IEkgd2Fzbid0IGF3YXJlIHRoYXQgYSBjb21wbGV0
+ZSB0cmFuc2FjdGlvbiBuZWVkcyB0byBiZSBrZXB0IGluIGEgc2luZ2xlIGRhdGENCj4+IGJh
+c2UgcmVjb3JkLiA6LSkNCj4gDQo+IElJVUMsIHlvdSBhcmUgdGhpbmtpbmcgdGhhdCB0aGUg
+Y2xpZW50IHdpbGwgcmVzdG9yZSBhbGwgdGhlIHN0YXRlIGJpdHMgYnkgYml0cy4gDQo+IEJ1
+dCBpZiB5b3UgbG9vayBhdCB0aGUgZGVzaWduIGluIGRvY3MvZGVzaWducy94ZW5zdG9yZS1t
+aWdyYXRpb24ubWQsIHRoaXMgaXMgYSANCj4gYmxvYi4NCg0KT2YgY291cnNlIGl0IGlzLg0K
+DQpJIHdhcyBuZXZlciBhc3N1bWluZyB0aGF0IHRoZSBzdGF0ZSB3b3VsZCBiZSBhcHBsaWVk
+IHBpZWNlbWVhbCwgdGhpcyBoYXMgdG8NCmhhcHBlbiBhdG9taWNhbGx5Lg0KDQo+PiBJdCB3
+b3VsZCB3b3JrIHBlcmZlY3RseSBmaW5lIHRvIGFsbG9jYXRlIHRoZSBuZWVkZWQgbWVtb3J5
+IHZpYSB0YWxsb2MoKSBhbmQgdG8NCj4+IHJlZmVyZW5jZSBpdCBmcm9tIGEgc3BlY2lhbCBu
+b2RlIGJlaW5nIHBhcnQgb2YgdGhlIHRyYW5zYWN0aW9uLCBvciB0byBub3QgdXNlDQo+PiBh
+IG5vZGUgYXQgYWxsIChzZWUgYWdhaW4gdGhlIFhTX0NPTlRST0wgZXhhbXBsZSkuDQo+IA0K
+PiBJIGFtIG5vdCBjb252aW5jZWQgdGhlIGNvbXBsZXhpdHkgaXMgd29ydGggaXQgaGVyZS4g
+VG8gYmUgaG9uZXN0LCBJIHRoaW5rIHRoZSANCj4gcGF5bG9hZCBsaW1pdCBzaG91bGQgaGF2
+ZSBiZWVuIHJlbGF4ZWQgZm9yIExpdmUtVXBkYXRlIGFzIHdlbGwgYXMgeW91IGRvbid0IGdh
+aW4gDQo+IG11Y2ggdG8gc3BsaXQuIFRoYXQgc2FpZCwgdGhpcyBpcyBsZXNzIGEgY29uY2Vy
+biBiZWNhdXNlIHlvdSBhcmUgbm90IHRpbWUgDQo+IGNvbnN0cmFpbmVkLg0KPiANCj4gWy4u
+Ll0NCj4gDQo+PiBCdXQgbWF5YmUgdGhhdCBjb21tZW50IHdhcyBiYXNlZCBvbiB3cm9uZyBh
+c3N1bXB0aW9ucywgbGlrZSB0aGUgbWVudGlvbmVkDQo+PiBjaGFuZ2Ugbm90IHZpb2xhdGlu
+ZyB0aGUgcHJvdG9jb2wuID4NCj4+PiBJIGFtIGhhcHB5IHRvIHJld3JpdGUgdGhlIGNvbW1l
+bnQgc28gaXQgZG9lc24ndCBsZWFkIHRvIHRoaW5rIHRoYXQgeW91IChhcyANCj4+PiB0aGUg
+bWFpbnRhaW5lcikgYXJlIG9wZW4gdG8gaGF2ZSBhIG1vcmUgcmVsYXggbGVuZ3RoIGNoZWNr
+Lg0KPj4NCj4+IFllcywgcGxlYXNlIG1ha2UgYSBzdWdnZXN0aW9uIGZvciBhIHByb3BlciBj
+b21tZW50IG5vdCBzdWdnZXN0aW5nIHdlIGFyZSBmaW5lDQo+PiB0byB2aW9sYXRlIHRoZSB3
+aXJlIHByb3RvY29sLg0KPiANCj4gSGVyZSB3ZSBnbzoNCj4gDQo+ICJUaGUgcGF5bG9hZCBz
+aXplIGlzIG5vdCBvbmx5IGN1cnJlbnRseSByZXN0cmljdGVkIGJ5IHRoZSBwcm90b2NvbCBi
+dXQgYWxzbyB0aGUgDQo+IGludGVybmFsIGltcGxlbWVudGF0aW9uIChzZWUgdmFyaW91cyBC
+VUlMRF9CVUdfT04oKSkuIg0KDQpIbW0sIEknbSBzdGlsbCBmZWVsaW5nIHVuZWFzeSB0byBp
+bXBseSB0aGF0IHRoZSBwYXlsb2FkIHNpemUgbWlnaHQgYmUgY2hhbmdlZC4NClNlZSBhYm92
+ZSByZWFzb25pbmcuDQoNClRoZSBvbmx5IHdheSBJIGNvdWxkIGltYWdpbmUgdGhpcyBiZWlu
+ZyBwb3NzaWJsZSB3b3VsZCBiZSBhIHBlci1yaW5nLXBhZ2UNCmF0dHJpYnV0ZSB3aXRoIGJv
+dGggc2lkZXMgYWdyZWVpbmcgdG8gdGhlIG1heCBhbGxvd2VkIHNpemUgKHRoZSBtaW5pbXVt
+IGJlaW5nDQp0b2RheSdzIHZhbHVlKS4NCg0KV2l0aCB0aGF0IGluIG1pbmQgSSBjYW4gaGVz
+aXRhbnRseSBhZGQgdGhlIGNvbW1lbnQsIG1heWJlIHdpdGggdGhlIGFkZGl0aW9uOg0KIkFu
+eSBwb3RlbnRpYWwgY2hhbmdlIG9mIHRoZSBtYXhpbXVtIHBheWxvYWQgc2l6ZSBuZWVkcyB0
+byBiZSBuZWdvdGlhdGVkIGJldHdlZW4NCnRoZSBpbnZvbHZlZCBwYXJ0aWVzLiINCg0KDQpK
+dWVyZ2VuDQo=
+--------------zp1Hs5eeLgGoIdoRaU6EIV0q
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-  clang-format -Werrror --dry-run
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Seeing that there's an external script we probably want some plan for
-checking things in CI as well.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> 
-> ## What I expect from this RFC #################################################
-> 
-> I expect feedback on the output, some agreement on what configuration to use,
-> and I expect to find possible blocker before working seriously on this serie,
-> because if there are outstanding blockers on the adoption of the tool and we
-> can't reach an agreement, I won't spend further time on it.
-> 
-> I understand that the release is coming soon and some people are on holiday in
-> this period, so worst case I will ping again after the release.
-> 
-> Luca Fancellu (5):
->   [WIP]misra: add entries to the excluded list
->   [WIP]cppcheck: rework exclusion_file_list.py code
->   [WIP]xen/scripts: add codestyle.py script
->   x86/HVM: protect mm_type_tbl format from clang-format
->   xen: Add clang-format configuration
-> 
->  docs/misra/exclude-list.json                  |  88 +++
->  xen/.clang-format                             | 693 ++++++++++++++++++
->  xen/arch/x86/hvm/mtrr.c                       |   2 +
->  xen/scripts/codestyle.py                      | 261 +++++++
->  xen/scripts/xen_analysis/cppcheck_analysis.py |   6 +-
->  .../xen_analysis/exclusion_file_list.py       |  31 +-
->  6 files changed, 1063 insertions(+), 18 deletions(-)
->  create mode 100644 xen/.clang-format
->  create mode 100755 xen/scripts/codestyle.py
-> 
-> -- 
-> 2.34.1
-> 
-> 
+--------------zp1Hs5eeLgGoIdoRaU6EIV0q--
+
+--------------DIEBHJyoQsyuPhIMfXIpHhXL--
+
+--------------vAj0gu0xMo6mCvlIGCgtbafQ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTD0WcFAwAAAAAACgkQsN6d1ii/Ey+Z
+iwf/anK4SeWdm0wKXmUu8a0779eqK2pYUbL+c2ZStx5qABH5/03Zz+xYa+4UqUhB8Vgw6apOjiLD
+qxT+gS1qbJIMC6mr/QEmBbwmI7mrF6CXGwEZKyP36bIh4FIYVE1tywfcjKNOnbxfdeobbennNJfD
+OcnbCIubwyb0e3aSlOZ1/6qui4N1ywqjfilfryQw/xdTVCVK6UUsIUIMhwPRWRO9Lnza2DR8T7FJ
+JzlSWSmfgAZWxRQ8PuX2b5cVVkg0CgB/0h2QJf06ibGT+mLKwZc1Y7LTI0AccMJm0Crek4uuBgMh
+YKHKduEzyfn2/yh3HT5N4ICkHcWi1FKS9lMcNDdC4Q==
+=68Hm
+-----END PGP SIGNATURE-----
+
+--------------vAj0gu0xMo6mCvlIGCgtbafQ--
 
