@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C7B766D5B
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 14:38:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571460.895357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F982766D95
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 14:48:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571463.895368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPMiG-0005sr-PX; Fri, 28 Jul 2023 12:36:56 +0000
+	id 1qPMtV-0007Te-Rk; Fri, 28 Jul 2023 12:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571460.895357; Fri, 28 Jul 2023 12:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 571463.895368; Fri, 28 Jul 2023 12:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPMiG-0005rB-Mk; Fri, 28 Jul 2023 12:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 571460;
- Fri, 28 Jul 2023 12:36:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RcUX=DO=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qPMiF-0005r5-15
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 12:36:55 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6dd2e548-2d43-11ee-8613-37d641c3527e;
- Fri, 28 Jul 2023 14:36:52 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [37.163.4.37])
- by support.bugseng.com (Postfix) with ESMTPSA id 3ED204EE073F;
- Fri, 28 Jul 2023 14:36:50 +0200 (CEST)
+	id 1qPMtV-0007QP-Om; Fri, 28 Jul 2023 12:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 571463;
+ Fri, 28 Jul 2023 12:48:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qPMtU-0007QJ-9p
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 12:48:32 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qPMtT-0006N9-Ev; Fri, 28 Jul 2023 12:48:31 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qPMtT-0008Gb-8K; Fri, 28 Jul 2023 12:48:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,237 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dd2e548-2d43-11ee-8613-37d641c3527e
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v3] xen/sched: mechanical renaming to address MISRA C:2012 Rule 5.3
-Date: Fri, 28 Jul 2023 14:35:48 +0200
-Message-Id: <12a21bfd59d85c7b8619631edac93d79d7225c60.1690547599.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=vGsebjW1/nRHbE5Cv7b/6FKUwr3fBfJ++NGoQwReRMc=; b=D6Q+7kD3ZlSm7EUw647ImN/8WU
+	982q9Rmb32nZg/9wvj4F6hmaI/o+bq4G6M7OW2aXCe9lv7h5zUWllLPjyaVRambQ6eY1VBDkMBLAG
+	dKfA+41six8+UHrMlqhHVYlKq5Ab68oSUwCA+M4I3yFT3VdVPg9ii29PuK7dW7HU6NTI=;
+Message-ID: <75dc26f0-0ea7-2097-47b2-1f857e1d7236@xen.org>
+Date: Fri, 28 Jul 2023 13:48:29 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 17/25] tools/xenstore: rework struct xs_tdb_record_hdr
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230724110247.10520-1-jgross@suse.com>
+ <20230724110247.10520-18-jgross@suse.com>
+ <b2d2a346-12c0-8ea4-38a2-b4748396540f@xen.org>
+ <9a6d9c8b-350b-9a3e-4c23-0d7fd312e77a@suse.com>
+ <3cce8892-1494-775f-8d75-80e87f0643cf@xen.org>
+ <a9d55381-df3a-a343-7c4b-c5d5f6e7695b@suse.com>
+ <27ba8831-89cb-9470-0b1c-03ad817e8292@xen.org>
+ <68acbf84-218b-f2f7-9526-d9e07f845f6e@suse.com>
+ <8cea1316-db0b-f29d-c467-6fd5c4a6321c@xen.org>
+ <6a376365-a731-2413-16c7-14ede5224eea@suse.com>
+ <b8b8e733-6be0-a4d9-33b7-d93366ec0091@xen.org>
+ <8a5854d1-2594-ed4f-ace8-e21db4fe4c7b@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <8a5854d1-2594-ed4f-ace8-e21db4fe4c7b@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Rule 5.3 has the following headline:
-"An identifier declared in an inner scope shall not hide an
-identifier declared in an outer scope"
+Hi,
 
-The renaming s/sched_id/scheduler_id/ of the function defined in
-'xen/common/sched/core.c' prevents any hiding of that function
-by the instances of homonymous function parameters that
-are defined in inner scopes.
+On 28/07/2023 13:06, Juergen Gross wrote:
+> On 28.07.23 13:19, Julien Grall wrote: 
+>>>>> In case of a runtime check I
+>>>>> agree that a more central place would be preferred.
+>>>>>
+>>>>> In the end I don't mind that much, but
+>>>>>
+>>>>>      BUILD_BUG_ON(XENSTORE_PAYLOAD_MAX >=
+>>>>>               (typeof((struct node_hdr *)NULL->datalen))(-1));
+>>>>>
+>>>>> is a little bit clumsy IMHO.
+>>>>
+>>>> Agree. We could introduce FIELD_SIZEOF() (as Linux did) to hide the 
+>>>> complexity. The code would then look like:
+>>>>
+>>>>  >= (8 * FIELD_SIZEOF(struct node_hdr, datalen))
+>>>
+>>> Oh, I guess you mean sizeof_field().
+>>>
+>>> And even with that it would look quite clumsy:
+>>>
+>>>      BUILD_BUG_ON(XENSTORE_PAYLOAD_MAX >=
+>>>               (1UL << (8 * sizeof_field(struct node_hdr, datalen))));
+>>
+>> How about keeping the BUILD_BUG_ON() in write_node_raw() and add the 
+>> following comment on top of handle_input():
+>>
+>> Some fields in Xenstored are sized based on the max payload (see 
+>> various BUILD_BUG_ON()). This would need extra runtime check if we 
+>> ever decide to have a dynamic payload size.
+> 
+> I _could_ do that, but where to stop adding such comments?
 
-Similarly, the renames
-- s/ops/operations/ for the static variable in 'xen/common/sched/core.c'
-- s/do_softirq/needs_softirq/
-are introduced for variables, to avoid any conflict with homonymous
-parameters or function identifiers.
+When someone other than the author is able to understand the code 
+without too much effort. More comments never hurts, less will in the 
+longer run (see below).
 
-Moreover, the variable 'loop' defined at 'xen/common/sched/credit2.c:3887'
-has been dropped, in favour of the homonymous variable declared in the
-outer scope. This in turn requires a modification of the printk call that
-involves it.
+> 
+> TBH, I really don't see the point doing that.
+> 
+> In case a patch came up upstream trying to violate XENSTORE_PAYLOAD_MAX 
+> I would
+> surely NACK it.
+That's assuming you will still be around when this happens :). I am not 
+wishing anything bad but the code will likely outlast any of us.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Changes in v3:
-- removed stray changes to address the remarks
-Changes in v2:
-- s/softirq/needs_softirq/
-- Dropped local variable 'it'
-- Renamed the 'ops' static variable instead of function parameters
-in the idle scheduler for coherence.
+So we need to make easy for a future maintainers/reviewers to know the 
+assumptions and implications of changing some of the limits.
 
-Note: local variable 'j' in xen/common/sched/credit2.c:3812' should
-probably be unsigned as well, but I saw while editing the patch
-that it's used as a parameter to 'dump_pcpu', which takes an int.
-Possibly changing the types of parameters used in these calls is
-probably a good target for another patch, as it's not relevant
-w.r.t. Rule 5.3.
----
- xen/common/sched/core.c    | 28 ++++++++++++++--------------
- xen/common/sched/credit2.c |  6 +++---
- xen/common/sysctl.c        |  2 +-
- xen/include/xen/sched.h    |  2 +-
- 4 files changed, 19 insertions(+), 19 deletions(-)
+> In case we need payloads larger than XENSTORE_PAYLOAD_MAX we should 
+> split the
+> related operation in multiple parts (see e.g. XS_DIRECTORY_PART or 
+> XS_CONTROL
+> for uploading a new kernel to Xenstore-stubdom for live update). Which 
+> is, BTW,
+> the way AWS should have handled the migration problem (transactions come 
+> to my
+> mind in this context).
 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 022f548652..12deefa745 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -91,7 +91,7 @@ extern const struct scheduler *__start_schedulers_array[], *__end_schedulers_arr
- #define NUM_SCHEDULERS (__end_schedulers_array - __start_schedulers_array)
- #define schedulers __start_schedulers_array
+I wasn't part of the original design, but I can see why it was done like 
+that.
 
--static struct scheduler __read_mostly ops;
-+static struct scheduler __read_mostly operations;
+Using multiple commands has also its downside. The first that comes to 
+my mind if that you need to keep around the data. But, with your 
+proposal, you we wouldn't be able to store it in the database (like for 
+transaction update) as datalen can only be 65KB.
 
- static bool scheduler_active;
+So one command as the advantage to simply a lot the logic in Xenstored.
 
-@@ -171,7 +171,7 @@ static inline struct scheduler *dom_scheduler(const struct domain *d)
-      * is the default scheduler that has been, choosen at boot.
-      */
-     ASSERT(is_idle_domain(d));
--    return &ops;
-+    return &operations;
- }
+Anyway, this is getting a bit off topic. My only request is to write 
+down assumption more explicitly rather than hiding them. A comment on 
+top of the check is a nice way to help the developper to avoid making a 
+"bad" decision.
 
- static inline struct scheduler *unit_scheduler(const struct sched_unit *unit)
-@@ -2040,10 +2040,10 @@ long do_set_timer_op(s_time_t timeout)
-     return 0;
- }
+I am happy to rewrite the comment so it doesn't lead to think that you 
+(as the maintainer) are open to have a more relax length check.
 
--/* sched_id - fetch ID of current scheduler */
--int sched_id(void)
-+/* scheduler_id - fetch ID of current scheduler */
-+int scheduler_id(void)
- {
--    return ops.sched_id;
-+    return operations.sched_id;
- }
+Cheers,
 
- /* Adjust scheduling parameter for a given domain. */
-@@ -2579,7 +2579,7 @@ static void cf_check sched_slave(void)
-     struct sched_unit    *prev = vprev->sched_unit, *next;
-     s_time_t              now;
-     spinlock_t           *lock;
--    bool                  do_softirq = false;
-+    bool                  needs_softirq = false;
-     unsigned int          cpu = smp_processor_id();
-
-     ASSERT_NOT_IN_ATOMIC();
-@@ -2604,7 +2604,7 @@ static void cf_check sched_slave(void)
-             return;
-         }
-
--        do_softirq = true;
-+        needs_softirq = true;
-     }
-
-     if ( !prev->rendezvous_in_cnt )
-@@ -2614,7 +2614,7 @@ static void cf_check sched_slave(void)
-         rcu_read_unlock(&sched_res_rculock);
-
-         /* Check for failed forced context switch. */
--        if ( do_softirq )
-+        if ( needs_softirq )
-             raise_softirq(SCHEDULE_SOFTIRQ);
-
-         return;
-@@ -3016,14 +3016,14 @@ void __init scheduler_init(void)
-         BUG_ON(!scheduler);
-         printk("Using '%s' (%s)\n", scheduler->name, scheduler->opt_name);
-     }
--    ops = *scheduler;
-+    operations = *scheduler;
-
-     if ( cpu_schedule_up(0) )
-         BUG();
-     register_cpu_notifier(&cpu_schedule_nfb);
-
--    printk("Using scheduler: %s (%s)\n", ops.name, ops.opt_name);
--    if ( sched_init(&ops) )
-+    printk("Using scheduler: %s (%s)\n", operations.name, operations.opt_name);
-+    if ( sched_init(&operations) )
-         panic("scheduler returned error on init\n");
-
-     if ( sched_ratelimit_us &&
-@@ -3363,7 +3363,7 @@ int schedule_cpu_rm(unsigned int cpu, struct cpu_rm_data *data)
-
- struct scheduler *scheduler_get_default(void)
- {
--    return &ops;
-+    return &operations;
- }
-
- struct scheduler *scheduler_alloc(unsigned int sched_id)
-@@ -3392,7 +3392,7 @@ struct scheduler *scheduler_alloc(unsigned int sched_id)
-
- void scheduler_free(struct scheduler *sched)
- {
--    BUG_ON(sched == &ops);
-+    BUG_ON(sched == &operations);
-     sched_deinit(sched);
-     xfree(sched);
- }
-@@ -3416,7 +3416,7 @@ void schedule_dump(struct cpupool *c)
-     }
-     else
-     {
--        sched = &ops;
-+        sched = &operations;
-         cpus = &cpupool_free_cpus;
-     }
-
-diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-index 87a1e31ee9..fc583915df 100644
---- a/xen/common/sched/credit2.c
-+++ b/xen/common/sched/credit2.c
-@@ -3874,7 +3874,7 @@ csched2_dump(const struct scheduler *ops)
-
-             lock = unit_schedule_lock(unit);
-
--            printk("\t%3d: ", ++loop);
-+            printk("\t%3u: ", ++loop);
-             csched2_dump_unit(prv, svc);
-
-             unit_schedule_unlock(lock, unit);
-@@ -3884,8 +3884,8 @@ csched2_dump(const struct scheduler *ops)
-     list_for_each_entry ( rqd, &prv->rql, rql )
-     {
-         struct list_head *iter, *runq = &rqd->runq;
--        int loop = 0;
-
-+        loop = 0;
-         /* We need the lock to scan the runqueue. */
-         spin_lock(&rqd->lock);
-
-@@ -3901,7 +3901,7 @@ csched2_dump(const struct scheduler *ops)
-
-             if ( svc )
-             {
--                printk("\t%3d: ", loop++);
-+                printk("\t%3u: ", loop++);
-                 csched2_dump_unit(prv, svc);
-             }
-         }
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index 0cbfe8bd44..7cabfb0230 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -71,7 +71,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-         break;
-
-     case XEN_SYSCTL_sched_id:
--        op->u.sched_id.sched_id = sched_id();
-+        op->u.sched_id.sched_id = scheduler_id();
-         break;
-
-     case XEN_SYSCTL_getdomaininfolist:
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 854f3e32c0..bfe714d2e2 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -791,7 +791,7 @@ int  sched_init_domain(struct domain *d, unsigned int poolid);
- void sched_destroy_domain(struct domain *d);
- long sched_adjust(struct domain *, struct xen_domctl_scheduler_op *);
- long sched_adjust_global(struct xen_sysctl_scheduler_op *);
--int  sched_id(void);
-+int  scheduler_id(void);
-
- /*
-  * sched_get_id_by_name - retrieves a scheduler id given a scheduler name
---
-2.34.1
+-- 
+Julien Grall
 
