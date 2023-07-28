@@ -2,41 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5FE7675A0
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 20:39:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571541.895634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC20876766F
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 21:38:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571543.895644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPSN9-0006zg-Po; Fri, 28 Jul 2023 18:39:31 +0000
+	id 1qPTGf-00051h-Nk; Fri, 28 Jul 2023 19:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571541.895634; Fri, 28 Jul 2023 18:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 571543.895644; Fri, 28 Jul 2023 19:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPSN9-0006xA-MG; Fri, 28 Jul 2023 18:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 571541;
- Fri, 28 Jul 2023 18:39:30 +0000
+	id 1qPTGf-0004zW-Kl; Fri, 28 Jul 2023 19:36:53 +0000
+Received: by outflank-mailman (input) for mailman id 571543;
+ Fri, 28 Jul 2023 19:36:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I+Wj=DO=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1qPSN8-0006x0-9C
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 18:39:30 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=wBqy=DO=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qPTGd-0004zQ-Vz
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 19:36:52 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1492bd32-2d76-11ee-8613-37d641c3527e;
- Fri, 28 Jul 2023 20:39:28 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 148DD621DC;
- Fri, 28 Jul 2023 18:39:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7CCE6C433CB;
- Fri, 28 Jul 2023 18:39:25 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 693D8C4166F; Fri, 28 Jul 2023 18:39:25 +0000 (UTC)
+ id 1803193c-2d7e-11ee-8613-37d641c3527e;
+ Fri, 28 Jul 2023 21:36:48 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-52229f084beso3460581a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jul 2023 12:36:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,43 +40,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1492bd32-2d76-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690569565;
-	bh=MvEhmaMP0NQYXaR+ON9JAVE/AlmQzWiuNidmwMzSgiQ=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=D5JhO8NvVg/pM9rZrXqTCxYGIZNXztY3Kwy7yycSFalWSG0jwKMQf4GfZsrMMG/c9
-	 P4zLI61WWjJy8LF/ZbwCTNq6RoNWPkVX5do5W9Gsd+8fngc/7xk59ezSlBLneZd8Dr
-	 Q7B0EPMwYbKvnzEOmPWro9ylU1e8Ikd0Q1t3/SjDp6TBKBeKoAkvLTgobTOVtkAvnh
-	 wxeT4mtX5ICbXiolDyo9O3K2jlMHCW86oYdCN4vr2WCb1/YVcm/5vC3gYQSv8ichYW
-	 IMK7pHVqxN+qEFzDxpvAtGfxMsrqtUt3sEGkn2DOXf3natWeOmswQASuubwiLgXYb0
-	 J+LuiG3mt5AHw==
-Subject: Re: [GIT PULL] xen: branch for v6.5-rc4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20230728131804.10538-1-jgross@suse.com>
-References: <20230728131804.10538-1-jgross@suse.com>
-X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
-X-PR-Tracked-Message-Id: <20230728131804.10538-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.5a-rc4-tag
-X-PR-Tracked-Commit-Id: c04e9894846c663f3278a414f34416e6e45bbe68
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 81eef8909d171bdca6af37028a11a24e011ed312
-Message-Id: <169056956542.21363.18012666636626712275.pr-tracker-bot@kernel.org>
-Date: Fri, 28 Jul 2023 18:39:25 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+X-Inumbo-ID: 1803193c-2d7e-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690573008; x=1691177808;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aeKpeXqg16TMqrSTrUuvy9GLYPI7wPEenQQCLcLj5aQ=;
+        b=pBRmZ1BgqPvjmdwqVYFirWCABRVLJQVd6lsSlk0/z+pkM++SWywXPuahMf3BdP31vP
+         aDqHmAdvgznih39SSYXW0ekY3KOQArXdiTjp+s+p7hQdOP2SU2yRUP4O2g4wTm32BW+q
+         ya9f2uQ6Ox4hPO3FU5D+qcnB9IBVTC30RqMOiS84qMBv4DlysPDBlyQJOs04/l2RUVPE
+         7yWzOZxvEa5NfvOaoVm6i6B6vcSV8dT2jqh0CpNthWwB9/PHcRo9he9X22Ni/XeNruaW
+         fwTJpirRq5K6yYXkoHbJ3eAj1jU4Y8vkekVUxGHneCmvC2qxAePGtLjFLZzOmI+S+a4N
+         kBTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690573008; x=1691177808;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aeKpeXqg16TMqrSTrUuvy9GLYPI7wPEenQQCLcLj5aQ=;
+        b=GZu/vNMYry2KBa6iE54eLFrksSz48uB4tl2b9afBn9qAoLgFzrK3+FUt6U9vbYMl3R
+         R1SXfoAIGcr33GCkdXo4iJqBAHeR2dn3wZcUaxx/cmUbQsgcPxFkB+bHEYwrcXuOo2hx
+         SbAGvFTy4CvuT3buEjoyRqjCFpd9HQPDG9bryLYxC65ExrBNHbzSdgdGftnhUXsK0H/t
+         artXL7rPZ9tvgfJQm30WVy09TtACSWtOxVs0gDB4m8HgjJ4mUbDm8pNh+c/ixmd+xUSk
+         TJUSDeHyV4Gld47/5IZbWp+o/37p2Bbh0XDVr2Wp2Esurd24yADDszS5tDt9VnuDoBR9
+         qsrw==
+X-Gm-Message-State: ABy/qLao0ZEepImIIGpP5hdao2M7lVAua2T7qQpKvHH41mcTr6u2M64B
+	AKVc6dkXizNpfdnAzQ6IGGCDHW/scK/8ckix574=
+X-Google-Smtp-Source: APBJJlE3xImprInJP5h7TM/E8bj/5lUZ/M1sjGW6RmFmp0QppZxbgucIyaRALCikRxBJE25TYOuSB5h6wlJ7ozIyuKA=
+X-Received: by 2002:a05:6402:10c1:b0:522:200f:cc50 with SMTP id
+ p1-20020a05640210c100b00522200fcc50mr3121302edu.19.1690573008120; Fri, 28 Jul
+ 2023 12:36:48 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230727145447.2701-1-anthony.perard@citrix.com>
+In-Reply-To: <20230727145447.2701-1-anthony.perard@citrix.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 28 Jul 2023 15:36:36 -0400
+Message-ID: <CAKf6xpvLO284aRJ8BcAzFfjRbPEkcJX4DX=QPFAMu5pQf9UguQ@mail.gmail.com>
+Subject: Re: [XEN PATCH v3 0/2] build: reduce number of $(shell) execution on
+ make 4.4
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, George Dunlap <george.dunlap@citrix.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The pull request you sent on Fri, 28 Jul 2023 15:18:04 +0200:
+On Thu, Jul 27, 2023 at 10:55=E2=80=AFAM Anthony PERARD
+<anthony.perard@citrix.com> wrote:
+> Anthony PERARD (2):
+>   build: evaluate XEN_BUILD_* and XEN_DOMAIN immediately
+>   Config.mk: evaluate XEN_COMPILE_ARCH and XEN_OS immediately
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.5a-rc4-tag
+For the series:
+Tested-by: Jason Andryuk <jandryuk@gmail.com>
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/81eef8909d171bdca6af37028a11a24e011ed312
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks,
+Jason
 
