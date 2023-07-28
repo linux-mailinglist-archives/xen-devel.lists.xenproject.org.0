@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F047673F7
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 19:53:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571527.895594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D249776745A
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jul 2023 20:18:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571530.895605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPRde-0000W2-In; Fri, 28 Jul 2023 17:52:30 +0000
+	id 1qPS20-0003Dn-HM; Fri, 28 Jul 2023 18:17:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571527.895594; Fri, 28 Jul 2023 17:52:30 +0000
+Received: by outflank-mailman (output) from mailman id 571530.895605; Fri, 28 Jul 2023 18:17:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPRde-0000Tw-EL; Fri, 28 Jul 2023 17:52:30 +0000
-Received: by outflank-mailman (input) for mailman id 571527;
- Fri, 28 Jul 2023 17:52:29 +0000
+	id 1qPS20-0003C5-CZ; Fri, 28 Jul 2023 18:17:40 +0000
+Received: by outflank-mailman (input) for mailman id 571530;
+ Fri, 28 Jul 2023 18:17:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z7ET=DO=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1qPRdd-0000Tk-7c
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 17:52:29 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [85.215.255.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8357ee8c-2d6f-11ee-b24e-6b7b168915f2;
- Fri, 28 Jul 2023 19:52:26 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.6.6 AUTH)
- with ESMTPSA id jd2f5az6SHqJGEJ
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 28 Jul 2023 19:52:19 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7hHC=DO=citrix.com=prvs=56653927b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qPS1y-0003Bz-LO
+ for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 18:17:38 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 066e8dd2-2d73-11ee-b24e-6b7b168915f2;
+ Fri, 28 Jul 2023 20:17:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,112 +36,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8357ee8c-2d6f-11ee-b24e-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1690566739; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=MLhHZEfki9S1wUCUpAIeq0mEEk7XZry3D6dpefpfZRi/gwh9OHXJFCLt/ES9ODSWnx
-    fqg6+OIYKp2aWy7wGKk2hyl4raltWi3yWt47jd9vE5O2dLgJb5dpYBCICM2jpTG0eQv+
-    r58sfQVxmLT1r37+SWzJJX52AHx8uy2n4zg54sIm52/xVkn/VkOcPJrZzh15+HvUPtcb
-    3ATA9xzLN+RFaxboni0nQ1T8XfbGoBzf+L//djqHCc8Xfc6Y3BEnWPcPouyu/4j7e6Po
-    tUlbpn7x6fhuEu8tG0lDUwyfFcJoSl+wfkbIwPNJwk5SLx9I35H2seakBhk3eJugOShe
-    wHFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1690566739;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=dMqsAPOUePXAb3/kfVDyt+5XInlBaF90fkWPaXo0r9c=;
-    b=LJlKf9lwgR/YZyxb/YKRv1/5y3U+FG/FmYvm7eaXnlemuENYASdLm9gQMzK/DnbYOQ
-    mVbWz2wPb92VmWkXG5aJ2cIGqpz2KwiAzbgWtz5nxUY9gQUS4Ju2bLlC0Ig9GYZmhZad
-    FsLvrWn4L+vqj9ut9+UIWD57K7LIPUwjKljFXBAnjJT9TdxRAh7/Tyyk51/KmrUM0mWW
-    6gGfwoXi0xySFLc7blHMSoT5Y5w+0DckMHRoaPnieX1GF+RFbtnCHrpIJnYcYYuOlCVm
-    dbsQJXvIWSI6XpBr8akIgHHFCk/rd+5e3TfOMsBLzxHmJmtKAMBDJRTOeH4oy2AOxTs1
-    LRkA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1690566739;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=dMqsAPOUePXAb3/kfVDyt+5XInlBaF90fkWPaXo0r9c=;
-    b=g1lOLJUmim9XCsuhe3Oa/rhk3g222Bd+dvOzKgdysolc0aAnPcBtu1l+A8NCGpT/OS
-    iHVVd3ApsRSZ253r4HQlntKGogW7wzgtUuQidYeNHVKMmHscYqr0gyUn13PmUopvhCuJ
-    iceKBFjyYPt7tKdRIgPihLwCQKd2cUwmg8ayykZNrW90ogx2ZQNeEgETqbBakBEwQxe6
-    0hI7iVgzZPL2QX08/h88kDfdcZ03r42Fj8KLjqL5HBVSVPLlry4PtNfTF5T55iJACzXA
-    DLqFLdMjvvjMHRAfsRXCnkHO7yzBMfvk6OPnaYeYrfsmZCqqh/vK7PT9GFgj9ntS9Fja
-    MG9Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1690566739;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=dMqsAPOUePXAb3/kfVDyt+5XInlBaF90fkWPaXo0r9c=;
-    b=AoFSlnqz7lDMqmJBz+eo5QoRHEnmMSNG3+EUKYHydFDdLL7JXkoFA6Aylbn0jtDRT0
-    7jPtj5O8eD/TaGAgQCCA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5U0GIOxzsQPrGAhfM0BJebfTWeDWMtcJLtvI+aQ=="
-Date: Fri, 28 Jul 2023 19:52:10 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Anthony PERARD
- <anthony.perard@citrix.com>
-Subject: Re: [PATCH v1 2/7] xentrace: use correct output format for pit and
- rtc
-Message-ID: <20230728195210.66faf194.olaf@aepfle.de>
-In-Reply-To: <CA+zSX=bZ5zo9cxWTq9s9QOUGZ-9NMEugewR90z1w8C++sruSVw@mail.gmail.com>
-References: <20230601142742.15489-1-olaf@aepfle.de>
-	<20230601142742.15489-3-olaf@aepfle.de>
-	<CA+zSX=bZ5zo9cxWTq9s9QOUGZ-9NMEugewR90z1w8C++sruSVw@mail.gmail.com>
-X-Mailer: Claws Mail 20230724T063118.58ae3d58 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: 066e8dd2-2d73-11ee-b24e-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1690568256;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=53Becd7zOjdCL49sQjmjL6weiFSnrO2dmg85Si+Y4qw=;
+  b=MJMBpc6hkVtpIXdQBsdD0C1TvdmGfCiAOCAXSTuXXSgapZxeP9PtBqnJ
+   zKLGqMZUzujLwo46b0C+Hy6UpwklyFlUQJgENMQwfk5qoXzdUFZCGR5wy
+   cm+Qx0hlDQ2p0rnSm8jOJU5JkKVfgc5Ff4oWb8+0E44n1UZjCiP0THYEy
+   I=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 117824141
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:O+pExqIrBwwCgHh4FE+R0ZUlxSXFcZb7ZxGr2PjKsXjdYENSgzIEm
+ GUdX26EaPqKZmqkL9AlYNiy9hkAsJbWndRlSAplqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrawP9TlK6q4mhA4QZuPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5NPUQW0
+ 9hIdwsIRT+OoPu24J+xFuZF05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJoFxBrB+
+ juuE2LRLRYkb4G+62u+qHOKguvGui/5XIIbLejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
+ XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9F1MnPQkgHVQ+5vLMraYqjjLiRIpsOfvg5jHqIg0c0
+ wxmvQBn2eRL0JBVifvrlbzUq2ny/8aUF2bZ8i2SBzv4tV0hOeZJcqTysTDmAeB8wJF1p7Vrl
+ FwNgICg4e8HFvlhfwTdEbxWTNlFCxtoWQAwYGKD/LF7rVxBA1b5IehtDMhWfS+FyPosdz7ze
+ 1P0sghM/pJVN3bCRfYpMtrtW550nfa7T4uNuhXogjxmOMUZmOivpXEGWKJt9zq1zBhEfV8XZ
+ /93jvpA/V5FUP86nVJats8W0KMxxzBW+I8gbcmT8vhT6pLHPCT9Ye5cYDOzghURsPvsTPP9r
+ 4wOaKNnCnx3DIXDX8Ug2ddCdglTfSBrX8CeRg4+XrfrHzeK0VoJU5f5qY7NsaQ890iJvo8kJ
+ k2AZ3I=
+IronPort-HdrOrdr: A9a23:ykANl6PXskYv3MBcTs+jsMiBIKoaSvp037BL7TEXdfUxSKalfq
+ +V8sjzuSWatN9zYgBDpTnjAtjlfZq0z/ccjbX5W43SPzUO0FHCEGgI1+rfKlPbexEWptQx6U
+ 8jG5IObeHNMQ==
+X-Talos-CUID: =?us-ascii?q?9a23=3A7J2oeGh4qv8Mbc3u9DEgK6UCCTJuSEH4lFH0cxC?=
+ =?us-ascii?q?DDE1GRZqMSX+98v9rup87?=
+X-Talos-MUID: =?us-ascii?q?9a23=3Aif5QSAwKBV+g0u8K4ig+alAKoxaaqIupNhtQsLd?=
+ =?us-ascii?q?XgJOFEyh0MhCRjjC3S7Zyfw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.01,238,1684814400"; 
+   d="scan'208";a="117824141"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/amd: Fix DE_CFG truncation in amd_check_zenbleed()
+Date: Fri, 28 Jul 2023 19:17:30 +0100
+Message-ID: <20230728181730.3065977-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ZuTyVo4HpPE6Ufnyd1xNIdU";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
---Sig_/ZuTyVo4HpPE6Ufnyd1xNIdU
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+This line:
 
-Fri, 28 Jul 2023 17:47:11 +0100 George Dunlap <george.dunlap@cloud.com>:
+	val &= ~chickenbit;
 
-> Just a couple of notes on the whole series.  First, you didn't CC me on 0=
-/7
-> or 1/7.  Secondly, patch 7 seems to be corrupted (see e.g., Patchew's
-> attempt to apply the series [1]).
+ends up truncating val to 32 bits, and turning off various errata workarounds
+in Zen2 systems.
 
-The cover letter can not be easily fixed, this is a bug in git send-email.
-It should be able to collect all recipients and put them in the cover lette=
-r.
-I think I already pointed that out a while ago on git-devel...
+Fixes: f91c5ea97067 ("x86/amd: Mitigations for Zenbleed")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-I think #1 can be fixed by adjusting the MAINTAINERS file.
-Not sure why #7 fails to apply.
+The choice is between int or uint64_t.  This is one case where the insistence
+on using unsigned int as a default data type is genuinely unsafe.
+---
+ xen/arch/x86/cpu/amd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I will rebase and resend next week.
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 3ed06f670491..089038bf62c5 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -909,8 +909,9 @@ void __init detect_zen2_null_seg_behaviour(void)
+ void amd_check_zenbleed(void)
+ {
+ 	const struct cpu_signature *sig = &this_cpu(cpu_sig);
+-	unsigned int good_rev, chickenbit = (1 << 9);
++	unsigned int good_rev;
+ 	uint64_t val, old_val;
++	int chickenbit = (1 << 9);
+ 
+ 	/*
+ 	 * If we're virtualised, we can't do family/model checks safely, and
+-- 
+2.30.2
 
-
-Olaf
-
---Sig_/ZuTyVo4HpPE6Ufnyd1xNIdU
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmTEAEoACgkQ86SN7mm1
-DoBU3w/6AlXjPiyuMYOYm/PNbSiC3/8p8cfHP6UfnFzTLEhCKmny1jDL80ib/nIS
-v4lLFR0EpfTJi6rmPFMjpfxSIpoi7sty3uMHHS4NtryjjV39QcrUPchGencGBmbj
-sz6KqzCs4JC2lWQHiahx9vVZaR3C50SGSQOjPvXAFm+HN1/+pE37hkq+RuwgVbwP
-dmnPCNomvjri/vrM21CF+dxdskpeucovy3Mbgs8qkLbJncL29oVYrJQMxjMDcoAZ
-O4rzr2U2J3KIM3SbzQQVbdZIaYRC5wlEVCiI5LQD+HQXe3dDmILMzxjYwc7v6Ni8
-plyqZoUefIt/P084/DQiyIcqKJ/8d4wNnMoI3/mzyYFRe9Sx8jfhjm7V7P9aH6lT
-sndySqlT9JQU6b7C2ivPtyFkspjjE6Zg5f8OJg/18X92LSprgfRkiDyqj2st6PzW
-lRlceoDTxtHTHrTTUHEuRIsdio4Vwn5eEj8uP6MyXJY3ezoCwOInaD1jU4O417IE
-lrXrFFsFBpPRsW9g885+UPMqiXh5VEit5nI8kPQzPogWrteLdh8NGmEIfIiCQjV7
-Wqbn2p6teDKMhZlSgBH2HfIOPe4QEdZsg2zL3ZiJStFUE7fj0Q/jka4BA2GX7Ztj
-1BM+Y/lTve9u3Nrr9fv88cBAEEkT8DL7J/jBcBtdWAA0fZP5utE=
-=jKFG
------END PGP SIGNATURE-----
-
---Sig_/ZuTyVo4HpPE6Ufnyd1xNIdU--
 
