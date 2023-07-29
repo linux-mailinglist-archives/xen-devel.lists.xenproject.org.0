@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6934D7678FD
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Jul 2023 01:30:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571613.895923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC3C767991
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Jul 2023 02:32:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571618.895933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPWtq-0001rx-2G; Fri, 28 Jul 2023 23:29:34 +0000
+	id 1qPXrR-0001Yy-Bg; Sat, 29 Jul 2023 00:31:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571613.895923; Fri, 28 Jul 2023 23:29:34 +0000
+Received: by outflank-mailman (output) from mailman id 571618.895933; Sat, 29 Jul 2023 00:31:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPWtp-0001pG-V5; Fri, 28 Jul 2023 23:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 571613;
- Fri, 28 Jul 2023 23:29:32 +0000
+	id 1qPXrR-0001X8-90; Sat, 29 Jul 2023 00:31:09 +0000
+Received: by outflank-mailman (input) for mailman id 571618;
+ Sat, 29 Jul 2023 00:31:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jbsw=DO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qPWto-0001pA-5T
- for xen-devel@lists.xenproject.org; Fri, 28 Jul 2023 23:29:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=t5hJ=DP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qPXrP-0001X2-JK
+ for xen-devel@lists.xenproject.org; Sat, 29 Jul 2023 00:31:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 980ff52c-2d9e-11ee-b24e-6b7b168915f2;
- Sat, 29 Jul 2023 01:29:28 +0200 (CEST)
+ id 31dd45b3-2da7-11ee-b24e-6b7b168915f2;
+ Sat, 29 Jul 2023 02:31:02 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0C9B7621D4;
- Fri, 28 Jul 2023 23:29:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2564EC433C8;
- Fri, 28 Jul 2023 23:29:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A71C76221A;
+ Sat, 29 Jul 2023 00:31:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5099CC433C8;
+ Sat, 29 Jul 2023 00:30:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +44,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 980ff52c-2d9e-11ee-b24e-6b7b168915f2
+X-Inumbo-ID: 31dd45b3-2da7-11ee-b24e-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690586966;
-	bh=0gksY2KY/LxlFXG/ONfHd8XHylf6WlReqpJAZ55LZj0=;
+	s=k20201202; t=1690590660;
+	bh=E65BfXo+NNAEtLxoSRkSV8FUnlYv+Yl7ETAAF04F64g=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=n8aXqn0vmRIZ5GRKj+AjKTP6jgUHc0VmnUy5PBdh8CbAsc3zkM2eHaDRpjatUV/Dc
-	 Kgg8C2JCjK32zrOGGFu0M4ihWyX6jq+sKOFPFlWZ0wWDosVDCjVPwiRP1lLUK6zNUK
-	 bQRRhucnyFuYxSIprCrdCtM9bdIRMMWFJ5Fm2BflFmaHFDwN730bTli8K7xxs5swxB
-	 IMAb/9iYFC/Tr9nCq7T3fE5viutOmbmum9tv5b22M/Q7xz6hg9W0ZCvCgOWJtkbEOX
-	 /UkcJ/4qn4W4L5rVYUcx0tbOJxfsZKRuLMXhAWTM1xpOre28dfbxwUqynFrxoecSGH
-	 03bt+BD7ayu+Q==
-Date: Fri, 28 Jul 2023 16:29:23 -0700 (PDT)
+	b=TRonLo+J/H4YTqO6OXlw/pokXvjSoeOCY2CFlxX8qORHlBKv2n8DvzC4iB3693m7Y
+	 lUEnkEtkWfXUD7om2/QmplveX+v5MX2dDHsRvtvi5Yn64pzxU4YiYfUMjYNNa9+iVE
+	 wk6olq0kbiH9OdJVTT3YtLLdvTaNwebDIQ6XkY7/WGDMnhGhaHlNj7kT/6P6a35OPN
+	 CgehopcuTBNMmba6m3Ja8V2pF0Plipm2QzbCpz5FvroSZQYuRnQ6+nYoqZz24xI6Oz
+	 hoddNFBzkELFAkXOrt8KTJMZRPanT4wmZung665xx6VbiPj9x0AtmFLNFBFGRHrngI
+	 uEQaWDdqX1ZWA==
+Date: Fri, 28 Jul 2023 17:30:57 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
-    Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: Re: [XEN PATCH] IOMMU: address violations of MISRA C:2012 Rules 8.2
- and 8.3
-In-Reply-To: <ba140642a267791c619dbbe2ba21f880c7e2b53e.1690551759.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2307281626290.3118466@ubuntu-linux-20-04-desktop>
-References: <ba140642a267791c619dbbe2ba21f880c7e2b53e.1690551759.git.federico.serafini@bugseng.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [RFC PATCH 0/5] clang-format for Xen
+In-Reply-To: <20230728081144.4124309-1-luca.fancellu@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2307281716100.3118466@ubuntu-linux-20-04-desktop>
+References: <20230728081144.4124309-1-luca.fancellu@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 28 Jul 2023, Federico Serafini wrote:
-> Give a name to unnamed parameters to address violations of
-> MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
-> named parameters").
-> Keep consistency between parameter names and types used in function
-> declarations and the ones used in the corresponding function
-> definitions, thus addressing violations of MISRA C:2012 Rule 8.3
-> ("All declarations of an object or function shall use the same names
-> and type qualifiers").
+On Fri, 28 Jul 2023, Luca Fancellu wrote:
+> ## Introduction ################################################################
 > 
-> No functional changes.
+> In this serie, I would like to get feedbacks on the output generated by the
+> configuration of clang-format, unfortunately we can't use only clang-format, but
+> we need to call it using a wrapper, because we need the information of what
+> files need to be excluded from the tool.
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
->  xen/drivers/passthrough/iommu.c | 10 +++++-----
->  xen/include/xen/iommu.h         | 30 ++++++++++++++++--------------
->  2 files changed, 21 insertions(+), 19 deletions(-)
+> Another reason is that clang-format has some limitation when formatting asm()
+> instruction and most of the time it format them in a very ugly way or it breaks
+> the code for example removing spaces that were there for a reason (I don't think
+> it's a tool to format asm), so in the wrapper script we protect all asm()
+> invocation or macros where there are asm() invocation with in-code comments that
+> stops clang-format to act on that section:
 > 
-> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-> index 0e187f6ae3..7bbe3889a2 100644
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -25,10 +25,10 @@
->  unsigned int __read_mostly iommu_dev_iotlb_timeout = 1000;
->  integer_param("iommu_dev_iotlb_timeout", iommu_dev_iotlb_timeout);
+> /* clang-format off */section/* clang-format on */
+> 
+> I've read the past threads about the brave people who dared to try to introduce
+> clang-format for the xen codebase, some of them from 5 years ago, two points
+> were clear: 1) goto label needs to be indented and 2) do-while loops have the
+> braket in the same line.
+> While point 1) was quite a blocker, it seemd to me that point 2) was less
+> controversial to be changed in the Xen codestyle, so the current wrapper script
+> handles only the point 1 (which is easy), the point 2 can be more tricky to
+> handle.
+
+Are these the only 2 points to discuss?
+
+I think as a next step it would be worth listing all the code style
+decision points we need to make as a group and then go over them during
+one of the next calls.
+
+
+> ## The clang-format configuration ##############################################
+> 
+> In my clang-format configuration I've taken inspiration from EPAM's work, then
+> from the configuration in Linux and finally from the clang-format manual, to try
+> to produce a comprehensive configuration.
+> 
+> Every configuration parameter has on top a comment with the description and
+> when it was supported, finally I've added also a [not specified] if that
+> behavior is not clearly specified in the Xen coding style, I've done that so
+> we could discuss about adding more specification in our CODING_STYLE.
+> Every comment can be stripped out in the final release of the file, but I think
+> that now they are useful for the discussion.
+> 
+> The minimum clang-format version for the file is 15, my ubuntu 22.04 comes with
+> it, we can reason if it's too high, or if we could also use the latest version
+> maybe shipped inside a docker image.
+> 
+> For every [not specified] behavior, I've tried to guess it from the codebase,
+> I've seen that also in that case it's not easy as there is (sometimes) low
+> consistency between modules, so we can discuss on every configurable.
+> 
+> Worth to mention, the public header are all excluded from the format tool,
+> because formatting them breaks the build on X86, because there are scripts for
+> auto-generation that don't handle the formatted headers, I didn't investigate
+> on it, maybe it can be added as technical debt.
+> 
+> So I've tried building arm32, arm64 and x86_64 with the formatted output and
+> they build, I've used Yocto for that.
+> 
+> ## How to try it? ##############################################################
+> 
+> So how to generate everything? Just invoke the codestyle.py script without
+> parameter and it will format every .c and .h file in the hypervisor codebase.
+> 
+> ./xen/scripts/codestyle.py
+> 
+> Optionally you can also pass one or more relative path from the folder you are
+> invoking the script and it will format only them.
+
+Thanks for the amazing work Luca. I did as described above and generate
+a 9MB diff patch :-)
+
+I scrolled through it and most of it makes sense but a few things look
+weird. Copy/pasting them here individually not to add a 9MB diff in
+attachment.
+
+> diff --git a/xen/arch/arm/acpi/boot.c b/xen/arch/arm/acpi/boot.c
+> index db5085e15d..398dea92e6 100644
+> --- a/xen/arch/arm/acpi/boot.c
+> +++ b/xen/arch/arm/acpi/boot.c
+> @@ -52,7 +52,7 @@ acpi_map_gic_cpu_interface(struct acpi_madt_generic_interrupt *processor)
+>  {
+>      int i;
+>      int rc;
+> -    u64 mpidr = processor->arm_mpidr & MPIDR_HWID_MASK;
+> +    u64 mpidr    = processor->arm_mpidr & MPIDR_HWID_MASK;
+>      bool enabled = processor->flags & ACPI_MADT_ENABLED;
 >  
-> -bool_t __initdata iommu_enable = 1;
-> -bool_t __read_mostly iommu_enabled;
-> -bool_t __read_mostly force_iommu;
-> -bool_t __read_mostly iommu_verbose;
-> +bool __initdata iommu_enable = 1;
-> +bool __read_mostly iommu_enabled;
-> +bool __read_mostly force_iommu;
-> +bool __read_mostly iommu_verbose;
->  static bool_t __read_mostly iommu_crash_disable;
->  
->  #define IOMMU_quarantine_none         0 /* aka false */
-> @@ -57,7 +57,7 @@ int8_t __hwdom_initdata iommu_hwdom_reserved = -1;
->  bool __read_mostly iommu_hap_pt_share = true;
->  #endif
->  
-> -bool_t __read_mostly iommu_debug;
-> +bool __read_mostly iommu_debug;
->  
->  DEFINE_PER_CPU(bool_t, iommu_dont_flush_iotlb);
->  
-> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> index 405db59971..8c0818cd01 100644
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -52,7 +52,7 @@ static inline bool_t dfn_eq(dfn_t x, dfn_t y)
+>      if ( mpidr == MPIDR_INVALID )
+
+Do we need the = alignment?
+
+
+It is causing other weird looking changes:
+
+>    rsdp = (struct acpi_table_rsdp *)base_ptr;
+>     /* Replace xsdt_physical_address */
+>     rsdp->xsdt_physical_address = tbl_add[TBL_XSDT].start;
+>-    checksum = acpi_tb_checksum(ACPI_CAST_PTR(u8, rsdp), table_size);
+>+    checksum       = acpi_tb_checksum(ACPI_CAST_PTR(u8, rsdp), table_size);
+>     rsdp->checksum = rsdp->checksum - checksum;
+ 
+[...]
+
+>  #ifdef CONFIG_MULTIBOOT
+> -int __init xsm_multiboot_policy_init(
+> -    unsigned long *module_map, const multiboot_info_t *mbi,
+> -    void **policy_buffer, size_t *policy_size)
+> +int __init xsm_multiboot_policy_init(unsigned long *module_map,
+> +                                     const multiboot_info_t *mbi,
+> +                                     void **policy_buffer, size_t *policy_size)
+>  {
+>      int i;
+>      module_t *mod = (module_t *)__va(mbi->mods_addr);
+> -    int rc = 0;
+> +    int rc        = 0;
+>      u32 *_policy_start;
+>      unsigned long _policy_len;
+ 
+Can we take the = alignment out? Without it, most other things look
+good, at least at first glance.
+
+Also this looks a bit unnecessary, but not a blocker for me:
+
+> @@ -908,8 +895,7 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
 >  }
 >  
->  #ifdef CONFIG_HAS_PASSTHROUGH
-> -extern bool_t iommu_enable, iommu_enabled;
-> +extern bool iommu_enable, iommu_enabled;
->  extern bool force_iommu, iommu_verbose;
->  /* Boolean except for the specific purposes of drivers/passthrough/iommu.c. */
->  extern uint8_t iommu_quarantine;
-> @@ -108,8 +108,8 @@ static inline void clear_iommu_hap_pt_share(void)
->  #endif
->  }
->  
-> -extern bool_t iommu_debug;
-> -extern bool_t amd_iommu_perdev_intremap;
-> +extern bool iommu_debug;
-> +extern bool amd_iommu_perdev_intremap;
->  
->  extern bool iommu_hwdom_strict, iommu_hwdom_passthrough, iommu_hwdom_inclusive;
->  extern int8_t iommu_hwdom_reserved;
-> @@ -165,10 +165,10 @@ enum
->   * values indicate partial completion, which is possible only with
->   * IOMMUF_preempt passed in.
->   */
-> -long __must_check iommu_map(struct domain *d, dfn_t dfn, mfn_t mfn,
-> +long __must_check iommu_map(struct domain *d, dfn_t dfn0, mfn_t mfn0,
->                              unsigned long page_count, unsigned int flags,
->                              unsigned int *flush_flags);
-> -long __must_check iommu_unmap(struct domain *d, dfn_t dfn,
-> +long __must_check iommu_unmap(struct domain *d, dfn_t dfn0,
->                                unsigned long page_count, unsigned int flags,
->                                unsigned int *flush_flags);
->  
-> @@ -197,11 +197,13 @@ bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature);
->  
->  #ifdef CONFIG_HAS_PCI
->  struct pirq;
-> -int hvm_do_IRQ_dpci(struct domain *, struct pirq *);
-> -int pt_irq_create_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
-> -int pt_irq_destroy_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
-> +int hvm_do_IRQ_dpci(struct domain *d, struct pirq *pirq);
-> +int pt_irq_create_bind(struct domain *d,
-> +                       const struct xen_domctl_bind_pt_irq *pt_irq_bind);
-> +int pt_irq_destroy_bind(struct domain *d,
-> +                        const struct xen_domctl_bind_pt_irq *pt_irq_bind);
->  
-> -struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *);
-> +struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *d);
->  void free_hvm_irq_dpci(struct hvm_irq_dpci *dpci);
->  
->  struct msi_desc;
-> @@ -229,8 +231,8 @@ int iommu_release_dt_devices(struct domain *d);
->   */
->  int iommu_add_dt_device(struct dt_device_node *np);
->  
-> -int iommu_do_dt_domctl(struct xen_domctl *, struct domain *,
-> -                       XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
-> +int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                       XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
->  
->  #endif /* HAS_DEVICE_TREE */
->  
-> @@ -386,12 +388,12 @@ static inline int iommu_do_domctl(struct xen_domctl *domctl, struct domain *d,
->  int __must_check iommu_suspend(void);
->  void iommu_resume(void);
->  void iommu_crash_shutdown(void);
-> -int iommu_get_reserved_device_memory(iommu_grdm_t *, void *);
-> +int iommu_get_reserved_device_memory(iommu_grdm_t *func, void *ctxt);
->  int iommu_quarantine_dev_init(device_t *dev);
->  
->  #ifdef CONFIG_HAS_PCI
-> -int iommu_do_pci_domctl(struct xen_domctl *, struct domain *d,
-> -                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
-> +int iommu_do_pci_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
->  #endif
->  
->  void iommu_dev_iotlb_flush_timeout(struct domain *d, struct pci_dev *pdev);
-> -- 
-> 2.34.1
-> 
+>  static void __init efi_arch_cpu(void)
+> -{   
+> -}       
+> +{}
+>      
+
+I think we should:
+- identify "weird" changes like the above
+- discuss them as a group, like we do with MISRA, and decide how to
+  address them
+- once everyone is happy with the new format, come up with a plan on how
+  to merge a 9MB patch
 
