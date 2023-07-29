@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EC0C767D51
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Jul 2023 10:48:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.571684.896015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10856767EF7
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Jul 2023 14:02:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.571880.896035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPfcT-00066U-Hs; Sat, 29 Jul 2023 08:48:13 +0000
+	id 1qPicm-00028v-9I; Sat, 29 Jul 2023 12:00:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 571684.896015; Sat, 29 Jul 2023 08:48:13 +0000
+Received: by outflank-mailman (output) from mailman id 571880.896035; Sat, 29 Jul 2023 12:00:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qPfcT-00063g-F2; Sat, 29 Jul 2023 08:48:13 +0000
-Received: by outflank-mailman (input) for mailman id 571684;
- Sat, 29 Jul 2023 08:48:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C7MR=DP=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qPfcR-00063F-GB
- for xen-devel@lists.xenproject.org; Sat, 29 Jul 2023 08:48:11 +0000
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [2607:f8b0:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a452fac3-2dec-11ee-b24f-6b7b168915f2;
- Sat, 29 Jul 2023 10:48:09 +0200 (CEST)
-Received: by mail-pf1-x436.google.com with SMTP id
- d2e1a72fcca58-682ae5d4184so685358b3a.1
- for <xen-devel@lists.xenproject.org>; Sat, 29 Jul 2023 01:48:09 -0700 (PDT)
-Received: from ?IPV6:fdbd:ff1:ce00:1c25:884:3ed:e1db:b610?
- ([240e:694:e21:b::2]) by smtp.gmail.com with ESMTPSA id
- s1-20020a62e701000000b00687087d8bc3sm2935245pfh.141.2023.07.29.01.47.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 29 Jul 2023 01:48:07 -0700 (PDT)
+	id 1qPicm-00025e-6G; Sat, 29 Jul 2023 12:00:44 +0000
+Received: by outflank-mailman (input) for mailman id 571880;
+ Sat, 29 Jul 2023 12:00:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=62PG=DP=suse.de=tiwai@srs-se1.protection.inumbo.net>)
+ id 1qPick-000232-Vi
+ for xen-devel@lists.xenproject.org; Sat, 29 Jul 2023 12:00:43 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 89283d55-2e07-11ee-8613-37d641c3527e;
+ Sat, 29 Jul 2023 14:00:41 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2AEE8216DA;
+ Sat, 29 Jul 2023 12:00:39 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E735713596;
+ Sat, 29 Jul 2023 12:00:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id qrlrN2b/xGThewAAMHmgww
+ (envelope-from <tiwai@suse.de>); Sat, 29 Jul 2023 12:00:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +51,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a452fac3-2dec-11ee-b24f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1690620488; x=1691225288;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AbdgPGpGzwv3Ba9ss/qbC8w4dcIJ6EfJ8tT9+ztVBsQ=;
-        b=DZFLwwmJndUW6zfnORbYzoucbeb9saaQKrl/QBur5VgS6P58gRgdpp8MYduMN550+T
-         ThpBMQd+wqwbcBoSGmvKI7V9Ma4LCpYLWFunl5NiegFEHJNTQE3HPx1j7Fgc5gNqx8Iq
-         YHUiWta6/cfbGMyg9gyEl8Eynz728/mHaw1lMQy+t/GfUp9Wqb7L9kJmHKg93SZhln4L
-         nQEOOjCm3XtItdkVREm8m6+qA283u73jSwvq4ou9Fha1ZKE4dHZmspSiYw7ywEJDGstN
-         q98qzRnKmdM4q9DzoCiLAmxpMakkQvrAM25zQsh718wYNXYSnABRZn4Jdwg4vno9Osq9
-         PVdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690620488; x=1691225288;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AbdgPGpGzwv3Ba9ss/qbC8w4dcIJ6EfJ8tT9+ztVBsQ=;
-        b=QW8gLIczRqlEaOxnzLIfuQchp6d5F39Rl/zwhmd0Cljr02h2rJYCHnxRtiVXneTrVi
-         PBzCpznk5dXo9aA1Mq1X2S5KpDUpNk6+KXgkdEG/YiFhRwEk8q1rIC+jSTJWZpvug7tc
-         bOHBJRhT5v+/SoaMqrbiBLnwd9X8ZILCaWAxRL9+mVILOHZIyCHfPM1OUrJaIaOScDr7
-         axLPqWiwJxauiwG68njoWJxlqMshpmVYCheb+bBieMcXh4RzL6KvXWFRw5R+tHX/YP6H
-         jkE+9BDcMr6bf6XONLhxExlY/o25CtzGWER3sVDStewcj5GW2b5RvGp72a36/z5Q6/Nm
-         t2hA==
-X-Gm-Message-State: ABy/qLZUGm4c6Y3P1sGB0V6NQCj3QKNo+sI0l9fK2/ip2310+J9KRKIk
-	qq/8RMrgutZm4m4+7F2QAAeixQ==
-X-Google-Smtp-Source: APBJJlGU4WvDtIE3roPXfr2RIP3jnPqKjXBKgd99me7vK4BYh3P3V9BBkMbm8JQkpcQK7ib8McexOg==
-X-Received: by 2002:a05:6a00:32c8:b0:67f:7403:1fe8 with SMTP id cl8-20020a056a0032c800b0067f74031fe8mr1763906pfb.3.1690620488142;
-        Sat, 29 Jul 2023 01:48:08 -0700 (PDT)
-Message-ID: <5e50711c-a616-f95f-d6d2-c69627ac3cf0@bytedance.com>
-Date: Sat, 29 Jul 2023 16:47:57 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Subject: Re: [PATCH v3 05/49] mm: shrinker: add infrastructure for dynamically
- allocating shrinker
-Content-Language: en-US
-To: Simon Horman <simon.horman@corigine.com>
-Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com,
- cel@kernel.org, senozhatsky@chromium.org, yujie.liu@intel.com,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- dm-devel@redhat.com, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
-References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
- <20230727080502.77895-6-zhengqi.arch@bytedance.com>
- <ZMOx0y+wdHEATDho@corigine.com>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZMOx0y+wdHEATDho@corigine.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 89283d55-2e07-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1690632039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Og/4urZItaDoPrqR068TFRdUJk+qNCxhcstZwekFiAg=;
+	b=QYGnugli6rutLEo+kJ+ZftYb7EXCKpsSPU7RmEy/7nYr2hO+uHW9UP8K0IDGIbj2FnSb25
+	oGBEqfRtvvIThGze/OFnXY7qL4CUtEBk5QpiL0NfwIuWB5X+xLxiFpNqfJ0DE4uLgF1thh
+	7iJMdZRc5S4EwaCE9xhNVpG9Xbu8Zeo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690632039;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Og/4urZItaDoPrqR068TFRdUJk+qNCxhcstZwekFiAg=;
+	b=QJaimAam/uW1kKz6sI4J6IlBDWgUMY0aTmoM+wWSHaXT6n593FEcE16ddZnk5QcAP+Q8Nb
+	aHA46TInyhT2i2Ag==
+Date: Sat, 29 Jul 2023 14:00:38 +0200
+Message-ID: <87mszfc4gp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Justin Stitt <justinstitt@google.com>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	xen-devel@lists.xenproject.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] ALSA: xen-front: refactor deprecated strncpy
+In-Reply-To: <20230727-sound-xen-v1-1-89dd161351f1@google.com>
+References: <20230727-sound-xen-v1-1-89dd161351f1@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Simon,
+On Thu, 27 Jul 2023 23:53:24 +0200,
+Justin Stitt wrote:
+> 
+> `strncpy` is deprecated for use on NUL-terminated destination strings [1].
+> 
+> A suitable replacement is `strscpy` [2] due to the fact that it
+> guarantees NUL-termination on its destination buffer argument which is
+> _not_ always the case for `strncpy`!
+> 
+> It should be noted that, in this case, the destination buffer has a
+> length strictly greater than the source string. Moreover, the source
+> string is NUL-terminated (and so is the destination) which means there
+> was no real bug happening here. Nonetheless, this patch would get us one
+> step closer to eliminating the `strncpy` API in the kernel, as its use
+> is too ambiguous. We need to favor less ambiguous replacements such as:
+> strscpy, strscpy_pad, strtomem and strtomem_pad (amongst others).
+> 
+> Technically, my patch yields subtly different behavior. The original
+> implementation with `strncpy` would fill the entire destination buffer
+> with null bytes [3] while `strscpy` will leave the junk, uninitialized
+> bytes trailing after the _mandatory_ NUL-termination. So, if somehow
+> `pcm->name` or `card->driver/shortname/longname` require this
+> NUL-padding behavior then `strscpy_pad` should be used. My
+> interpretation, though, is that the aforementioned fields are just fine
+> as NUL-terminated strings. Please correct my assumptions if needed and
+> I'll send in a v2.
+> 
+> [1]: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings
+> [2]: manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html
+> [3]: https://linux.die.net/man/3/strncpy
+> 
+> Link: https://github.com/KSPP/linux/issues/90
+> Signed-off-by: Justin Stitt <justinstitt@google.com>
 
-On 2023/7/28 20:17, Simon Horman wrote:
-> On Thu, Jul 27, 2023 at 04:04:18PM +0800, Qi Zheng wrote:
->> Currently, the shrinker instances can be divided into the following three
->> types:
->>
->> a) global shrinker instance statically defined in the kernel, such as
->>     workingset_shadow_shrinker.
->>
->> b) global shrinker instance statically defined in the kernel modules, such
->>     as mmu_shrinker in x86.
->>
->> c) shrinker instance embedded in other structures.
->>
->> For case a, the memory of shrinker instance is never freed. For case b,
->> the memory of shrinker instance will be freed after synchronize_rcu() when
->> the module is unloaded. For case c, the memory of shrinker instance will
->> be freed along with the structure it is embedded in.
->>
->> In preparation for implementing lockless slab shrink, we need to
->> dynamically allocate those shrinker instances in case c, then the memory
->> can be dynamically freed alone by calling kfree_rcu().
->>
->> So this commit adds the following new APIs for dynamically allocating
->> shrinker, and add a private_data field to struct shrinker to record and
->> get the original embedded structure.
->>
->> 1. shrinker_alloc()
->>
->> Used to allocate shrinker instance itself and related memory, it will
->> return a pointer to the shrinker instance on success and NULL on failure.
->>
->> 2. shrinker_register()
->>
->> Used to register the shrinker instance, which is same as the current
->> register_shrinker_prepared().
->>
->> 3. shrinker_free()
->>
->> Used to unregister (if needed) and free the shrinker instance.
->>
->> In order to simplify shrinker-related APIs and make shrinker more
->> independent of other kernel mechanisms, subsequent submissions will use
->> the above API to convert all shrinkers (including case a and b) to
->> dynamically allocated, and then remove all existing APIs.
->>
->> This will also have another advantage mentioned by Dave Chinner:
->>
->> ```
->> The other advantage of this is that it will break all the existing
->> out of tree code and third party modules using the old API and will
->> no longer work with a kernel using lockless slab shrinkers. They
->> need to break (both at the source and binary levels) to stop bad
->> things from happening due to using uncoverted shrinkers in the new
-> 
-> nit: uncoverted -> unconverted
+Applied now.  Thanks.
 
-Thanks. Will fix.
 
-> 
->> setup.
->> ```
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> ...
-> 
->> diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
->> index f1becfd45853..506257585408 100644
->> --- a/mm/shrinker_debug.c
->> +++ b/mm/shrinker_debug.c
->> @@ -191,6 +191,20 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
->>   	return 0;
->>   }
->>   
->> +int shrinker_debugfs_name_alloc(struct shrinker *shrinker, const char *fmt,
->> +				va_list ap)
->> +{
->> +	shrinker->name = kvasprintf_const(GFP_KERNEL, fmt, ap);
->> +
->> +	return shrinker->name ? 0 : -ENOMEM;
->> +}
->> +
->> +void shrinker_debugfs_name_free(struct shrinker *shrinker)
->> +{
->> +	kfree_const(shrinker->name);
->> +	shrinker->name = NULL;
->> +}
->> +
-> 
-> These functions have no prototype in this file,
-> perhaps internal.h should be included?
-
-The compiler can find these implementations, so I don't think there
-is a need to include internal.h here?
-
-Thanks,
-Qi
-
-> 
->>   int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
->>   {
->>   	struct dentry *entry;
-> 
-> ...
+Takashi
 
