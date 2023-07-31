@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391B4769B12
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 17:47:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573154.897591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09721769B14
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 17:47:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573156.897600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQV6k-00081b-VE; Mon, 31 Jul 2023 15:46:54 +0000
+	id 1qQV7I-00005H-9R; Mon, 31 Jul 2023 15:47:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573154.897591; Mon, 31 Jul 2023 15:46:54 +0000
+Received: by outflank-mailman (output) from mailman id 573156.897600; Mon, 31 Jul 2023 15:47:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQV6k-0007zY-SC; Mon, 31 Jul 2023 15:46:54 +0000
-Received: by outflank-mailman (input) for mailman id 573154;
- Mon, 31 Jul 2023 15:46:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQV7I-0008U9-6C; Mon, 31 Jul 2023 15:47:28 +0000
+Received: by outflank-mailman (input) for mailman id 573156;
+ Mon, 31 Jul 2023 15:47:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bN9S=DR=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qQV6j-0007zS-OF
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 15:46:53 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20621.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::621])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77da0377-2fb9-11ee-b255-6b7b168915f2;
- Mon, 31 Jul 2023 17:46:52 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by VI1PR04MB6813.eurprd04.prod.outlook.com (2603:10a6:803:13c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.42; Mon, 31 Jul
- 2023 15:46:49 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6631.026; Mon, 31 Jul 2023
- 15:46:49 +0000
+ (envelope-from <SRS0=L1gI=DR=suse.de=tiwai@srs-se1.protection.inumbo.net>)
+ id 1qQV7H-0008Pq-4T
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 15:47:27 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8aecb584-2fb9-11ee-8613-37d641c3527e;
+ Mon, 31 Jul 2023 17:47:25 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B35B21F385;
+ Mon, 31 Jul 2023 15:47:23 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 555E51322C;
+ Mon, 31 Jul 2023 15:47:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id aoTYE4vXx2Q3fwAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 15:47:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,156 +51,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77da0377-2fb9-11ee-b255-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=db82hSSl1UDEeKTjexjnaVIrIEDHd5gQR+5hhXRK+KPt3ZSF8wZ/oHNGDOP2rEJQpB/TfqoUtzltMGl1hE8QbJG9Jz9QG0AqUhsxV6YQ4au3LhrDWhESFUQ0LUIEhgsxttrAonZ+ritW/7Zq+j1KoKEPCA1feuNhjuRUKt8Ch+vbX0dptTQ42Lz2bX8yCjQ8KaBNR2NMyF50/q/xp4UtQwknqhep3YrpkM77sHvRzlEg/hdUDAr6Go8jctpWmOXNRKV74N6WeonTIbWSBms3HDy6LLZIQn14AtWSKjM2MdKkIRjMOsNyzBwudSdrkCMsADnz1rfLZ4nFhjQdkn1R8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nvnn/wqgCCgGq4bR//xeCgvLzQHooa7aIMr8XWnl0DM=;
- b=KRJIgoxaQ8O1TPIJOutUhW3EdgabYhBLXEipKvfmMxeBDMWxRTIDc9jYYYcRssNA+/Z1dCQd2hDaGmQ/IEdWYGAcqnS6lfl/tPX5XKg7z93dNREhVUE6CkCEKkSvfaHdzmkoh+Q6AWmY0LqiknjIz1jo+wJ77CgHXio7PtfAzMv+b7u1/VsZYDlaKWV9WFAjtgz9BdkHyEuWK3INybVErSE9FolORbDQH6VHloWiEsBb4A6A++jYFKdMiGTYwTjQ8kSJegvJRF3sZBj3SWOGfi8zPqzJl+7YojT1SC45r1W689Vs5TeDzC/hepUXbI9LEsae3TXkefZ96ZYwhMzJ5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nvnn/wqgCCgGq4bR//xeCgvLzQHooa7aIMr8XWnl0DM=;
- b=X2CT3IuOJ1HPWnPjiIKl20ktJCYjZxIdDVmq6xjev+vD4Z+En4S6MMtF/3BSMqPyavQ0UQ6FzwI1qF1fp7OaJDlov306W+G9x5dRZUCMARZHCdYuUn82w7Ds59P74TDKNHIVXxud654SYBAHp28ai4goqyPS/guF5um8gnsFdDIxutEw8mKc53Y3Yewx0G1kmwCIVUf0nEtgSV7BWJw3TxcCcf9imXDTraQ6pzSAefUqDlL/BlZFNEvbdtFEx2B1w92lyMP/exLDjqdtiaN072sXTIK369mAaNyp7N3mW2JAzxJf6y0E9Br2hN1JsW9xUBAkOINrfVe915lazODJkg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3b6b0984-89fb-268e-970a-0c7eb19a4863@suse.com>
-Date: Mon, 31 Jul 2023 17:46:48 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH 2/3] xen/ppc: Relocate kernel to physical address 0 on
- boot
-Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1690582001.git.sanastasio@raptorengineering.com>
- <0802fad2743526da4fe49f0225e14161464f192e.1690582001.git.sanastasio@raptorengineering.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <0802fad2743526da4fe49f0225e14161464f192e.1690582001.git.sanastasio@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0061.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 8aecb584-2fb9-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1690818443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=t3IBo6+Xh2NmTnvBSm+b5LtxORuubw5R26/pUdx5lvQ=;
+	b=rhCV7DQXwa+unzKT3opzFC6boo5uZYaa4z9NwGfSq4Io7QBHD2ni5op4Z1RNLHOiDDEa2k
+	+KCCws2BT0O1mIOTeJytKqi6Lxmp3k4vkcz4+h9PPq8cwb+RTErNbVqgfUD1hnldMRn4u/
+	Znq7cvbGgSupFudpbC7mCtTWfLq4Oic=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690818443;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=t3IBo6+Xh2NmTnvBSm+b5LtxORuubw5R26/pUdx5lvQ=;
+	b=1hce7oJgp7vNPcAZisDxdfNeDXcXTojPVPAnbeD684LHbINwF/3jcXav44ynQXxRXqVRWa
+	K9EYUuceH80eoDCg==
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mark Brown <broonie@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
+Date: Mon, 31 Jul 2023 17:46:54 +0200
+Message-Id: <20230731154718.31048-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|VI1PR04MB6813:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd806d23-780b-4de4-6416-08db91dd5a4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	FawtxtySCmpKsD+9M59fdZ6tuqixLzapZQgufimGKX1m9697uRmFrE2Bo0pp7IRn8qf6yENXkbRggoqORaaqFQKtdUrVJKC/mv9ilOTqFvdGJnZyy8HuSChRcr3St91XEWPlP823eigSjp8y4rBhoIi8M7+zjeapr6gBexg/dCzN6oz3Jo2tqryMnm6YXwUlJZHSRNO6/LW3ve8R2gD/iAsDhjb4lYI492/LdkW/LZ+06VZ4NZlj7fK0KA5jlMJu/aAStBDc3PYFjwJD+H0atjg52CgWwDFojVhebVa/B+7esddpV4oTPfs9ER97npWftj36aImLzPjF1B4duQ0mD0nuML8rpk2UuoT6Aj6w+gLNztSG3AVSkkIxYfoQ59hZTxUmOEyfOoZC1GjrtSpY0rtePHVLrnIE5ZZMEmA6C3W4HN0nfqFZrlsb0M8dd9nWizYBcS6o8jIWOte/40XzCfCG+x4eRGqZh2SluA8bvcxjGWxYUQrz+yYcqpuppTEEQD2biWfVK1yovuCFIoYrWPxQvcYXfV20SU0hyNkkuv16AP40HqS5olke8xzUUB6Oi0pQW2s+QcbtU4y3xcPH6OAjSt1si09WxpmWrrUzJKNJq+fMBMd/vGSItXHqphr7wAr9nsnKoenq+G237bHTaQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(346002)(396003)(136003)(39860400002)(366004)(451199021)(66476007)(86362001)(31696002)(8676002)(31686004)(8936002)(316002)(4326008)(5660300002)(6916009)(54906003)(41300700001)(66556008)(66946007)(38100700002)(478600001)(2906002)(36756003)(6512007)(6486002)(6506007)(26005)(186003)(53546011)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QmpyUG1zZ2pZK1hGL3YrYmF0UkN1ZHBoQ2VCOFVzNStpdElWSG1nMnNJQkRv?=
- =?utf-8?B?MWdYWXpCY2lHZmc2MFhwQXY5MWtTMFIyR0h1ZXNEalhzZ1ZPQklrQXdwRDhF?=
- =?utf-8?B?cW1rbVZuOVYyaEhDckxuQXpCZGtJYkoyZ2xzbk9oT2ozZWk5WE84Z25wdXAw?=
- =?utf-8?B?MS9nY0hpTUY3Q1hBOUxUdFRWdU1VYVlUb2hKemxmWi9XWnpxSk91NWROK3ZJ?=
- =?utf-8?B?QTFuRUprRHZtRXdHOExZZUJWRVd1bS9OWlFiQ3Z2SGwreFJ0L09CVjNlT2Jh?=
- =?utf-8?B?T0U3cENZUmd3eFUrNzZ4MDlQcjA5N2QxZC96Zkx3VUhoVDVSeDZsMEVvWUNK?=
- =?utf-8?B?aXlmTTdTaWt2TDRzZ1oyN0tSLy92aXZ1UnRZVndOOTN6dG1KeTBYZGlBSDVy?=
- =?utf-8?B?SVJmN1JONzFXSWF5c0hBZThZVzhKZG9Dazl3dEFpQmFZZXBHdHI5MG0rWG14?=
- =?utf-8?B?L3FCVWJIWWZTMWlNUGtaaXdJVForOUtHM3hIRnAxciswY1hZMHNuNUwycks2?=
- =?utf-8?B?VHdBMTdQL1pPVHhjVC9FYzRmTTFna1NJT3I0ZEpjUGxMbkVlSGkrWXJHTkMv?=
- =?utf-8?B?MzVmMVI5SklZMGtZcG9aUER5dEVuQVd1V05jKzFmN1o5UmhBNXRid1hZd0tk?=
- =?utf-8?B?QkRuc2I3eHREeWVqUzQzd3pQUDN1OGhOckNvTzBXMDFVVlRPcitra0hNWHY2?=
- =?utf-8?B?U3NRZy93MFAxT05qZDFNVDVsaGdoeVc2dVYwR0FFOGkzRzBCVmZkTmswYWFE?=
- =?utf-8?B?bmVvK2JyYlU2ZEJOdWZvRlp3NmY3NWhpUmRBZi9sRGhqaWNmT3h6WlN2VVk4?=
- =?utf-8?B?bDVtZnJZUGVaUDlkejZaWUhra2c0YWNXVjBvMXN0NnJ2ZG5vNnVGRXQ2WEYw?=
- =?utf-8?B?Z0ZENFRZcUlmZEFuNEc0L2ZrNFlXOFBZKzhOZWRkamFkZlU2VXkvRVROT2wv?=
- =?utf-8?B?QldYaCtJamRKZnJ1eVFWS2VuMEJBT3BJZ1h3eFlNdmxpZGk1bGNtWjBROG5i?=
- =?utf-8?B?RGhTTFRpWk0zOENQVCs3SDRGdFYzMWtCVS9hdm1HR3laR09iMDhlQnF2ZGNo?=
- =?utf-8?B?RWFmYkIxUVF1TWpxUmhkNXRpNDEyOVpUS2NOOEdwWjgvSmdGeEdxOXhuNG43?=
- =?utf-8?B?ZC8rUDcvVmRrZzN6RkFQdG9oQktpZnloYnA5bzZFYUZzUlRzeEV5Wk5jS1pK?=
- =?utf-8?B?emU5VmwrL0NMMURodFBzZW9wRmRoK1VDVHR0eDVGN3RrNHB4N0RvRU9WYVpR?=
- =?utf-8?B?VzE4bzBwbkl4bTJjN216MkdsOVV0eC8rNE4zZEJWZERLWVJ0WWVzOSt3SXRL?=
- =?utf-8?B?WWgybjdNQnhQOUY0VHFHM2pJSlcvWDBIYWVYTTNqMTFWN0xQc25DbVQ2Rzcr?=
- =?utf-8?B?SmFMYXVHVEQwNktLc1hQY3BSOEh6ZC91U21OalZ6QW81Q0pVWlk3dEJvMkZo?=
- =?utf-8?B?UFYrVUhYMlVyWUFreWRTeFVISmdqVzNQSFlrYkthSkNObFBqWUlHQ0FQRFpD?=
- =?utf-8?B?cldqYldnb2drWUxwQ1JBY0NFek5BMDlSV0xqajh4cityY0FRTGh4bENuNmpL?=
- =?utf-8?B?L3JvUHI1UTh1ZjUxM0J1UWdaTUJiLzI1bGk5UVpPZjlLREgzSlQvTHpNWG5j?=
- =?utf-8?B?VjI4eWd3MmI1bEt0b0kxZHdITXhZZmljTHJiemFQbmVrSXZUdW4xcENsUWFT?=
- =?utf-8?B?SUl6eVFQZ1hLa204MUtPUEx5YTRIdzZpWk83OE81UU9CR0J0YmZPVW9teC9v?=
- =?utf-8?B?V2J4MlgydDFKRHVkZFRxTnh3akwxcWVaTXVOcTFEN0hSaGs0WHd6VXlnVXYx?=
- =?utf-8?B?ZDUzV05TUmpab1A5bTIxbVNxcHF1eXQzdHlnV0hLbG9lWmFnSnFZR2pWWTcr?=
- =?utf-8?B?MDBQeFRMbGVKNWRYUUtvVHBGTHB0aEdNRWZreUhGaXNKTURiM29IQkJ4VTZp?=
- =?utf-8?B?dWNNeE0zdE5xZjBsdU1xZ1ZtK29aQXZENXVyNTRhOGxXdThrL2dlWE1wOU5K?=
- =?utf-8?B?RTg4d3hWMXZIOGdMdE1uaU9SaldVVUc2cDE3S2IvV21rV2dvT2p0cWdJUWZB?=
- =?utf-8?B?cnZYeHUzQ0pwLzVWeUc4bXJWczZzczhXV0lSd0pGRXdycmROdGtVck13Qjg2?=
- =?utf-8?Q?bs58ecnTRhF8AZCOGkYnadPkC?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd806d23-780b-4de4-6416-08db91dd5a4a
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2023 15:46:49.3003
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1PIfKdLTV94C2qCUL1p73FGlB6FFBHPelLgfsbILj4rskswbbXU7GKd2QdxpcHrgN8ROXH9Ix8VB0s6qx3N8Vg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6813
+Content-Transfer-Encoding: 8bit
 
-On 29.07.2023 00:21, Shawn Anastasio wrote:
-> Introduce a small assembly loop in `start` to copy the kernel to
-> physical address 0 before continuing. This ensures that the physical
-> address lines up with XEN_VIRT_START (0xc000000000000000) and allows us
-> to identity map the kernel when the MMU is set up in the next patch.
+Hi,
 
-So PPC guarantees there's always a reasonable amount of memory at 0,
-and that's available for use?
+this is a patch set to clean up the PCM copy ops using sockptr_t as a
+"universal" pointer, inspired by the recent patch from Andy
+Shevchenko:
+  https://lore.kernel.org/r/20230721100146.67293-1-andriy.shevchenko@linux.intel.com
 
-> --- a/xen/arch/ppc/ppc64/head.S
-> +++ b/xen/arch/ppc/ppc64/head.S
-> @@ -18,6 +18,33 @@ ENTRY(start)
->      addis   %r2, %r12, .TOC.-1b@ha
->      addi    %r2, %r2, .TOC.-1b@l
->  
-> +    /*
-> +     * Copy Xen to physical address zero and jump to XEN_VIRT_START
-> +     * (0xc000000000000000). This works because the hardware will ignore the top
-> +     * four address bits when the MMU is off.
-> +     */
-> +    LOAD_REG_ADDR(%r1, start)
+Even though it sounds a bit weird, sockptr_t is a generic type that is
+used already in wide ranges, and it can fit our purpose, too.  With
+sockptr_t, the former split of copy_user and copy_kernel PCM ops can
+be unified again gracefully.
 
-I think you really mean _start here (which is missing from the linker
-script), not start. See also Andrew's recent related RISC-V change.
+The patch set introduces the new PCM ops, converting users, and drops
+the old PCM ops.  Most of conversions are straightforward, simply
+replacing copy_*_user() with copy_*_sockptr() variants.
 
-> +    LOAD_IMM64(%r12, XEN_VIRT_START)
-> +
-> +    /* If we're at the correct address, skip copy */
-> +    cmpld   %r1, %r12
-> +    beq     .L_correct_address
+Note that the conversion in ASoC will fix a potential problem of ASoC
+PCM that has been for long time.  Since ASoC component takes care of
+only copy_user, the conversion form/to kernel space might have been
+missing.  With this patch set, both cases are handled with sockptr_t
+by a single callback.
 
-Can this ever be the case, especially with the MMU-off behavior you
-describe in the comment above? Wouldn't you need to ignore the top
-four bits in the comparison?
+The patches are lightly tested (with a faked PCM copy implementation
+on HD-audio), while most of patches are only compile-tested.
 
-> +    /* Copy bytes until _end */
-> +    LOAD_REG_ADDR(%r11, _end)
-> +    addi    %r1, %r1, -8
-> +    li      %r13, -8
-> +.L_copy_xen:
-> +    ldu     %r10, 8(%r1)
-> +    stdu    %r10, 8(%r13)
-> +    cmpld   %r1, %r11
-> +    blt     .L_copy_xen
-> +
-> +    /* Jump to XEN_VIRT_START */
-> +    mtctr   %r12
-> +    bctr
-> +.L_correct_address:
 
-Can the two regions potentially overlap? Looking at the ELF header
-it's not clear to me what guarantees there are that this can't
-happen.
+Takashi
 
-Jan
+===
+
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andrey Utkin <andrey_utkin@fastmail.com>
+Cc: Anton Sviridenko <anton@corp.bluecherry.net>
+Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Cc: Banajit Goswami <bgoswami@quicinc.com>
+Cc: Bluecherry Maintainers <maintainers@bluecherrydvr.com>
+Cc: Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Ismael Luceno <ismael@iodev.co.uk>
+Cc: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: linux-media@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org
+
+===
+
+Takashi Iwai (24):
+  ALSA: pcm: Add copy ops with universal sockptr_t
+  ALSA: core: Add memory copy helpers between sockptr and iomem
+  ALSA: dummy: Convert to generic PCM copy ops
+  ALSA: gus: Convert to generic PCM copy ops
+  ALSA: emu8000: Convert to generic PCM copy ops
+  ALSA: es1938: Convert to generic PCM copy ops
+  ALSA: korg1212: Convert to generic PCM copy ops
+  ALSA: nm256: Convert to generic PCM copy ops
+  ALSA: rme32: Convert to generic PCM copy ops
+  ALSA: rme96: Convert to generic PCM copy ops
+  ALSA: hdsp: Convert to generic PCM copy ops
+  ALSA: rme9652: Convert to generic PCM copy ops
+  ALSA: sh: Convert to generic PCM copy ops
+  ALSA: xen: Convert to generic PCM copy ops
+  ALSA: pcmtest: Update comment about PCM copy ops
+  media: solo6x10: Convert to generic PCM copy ops
+  ASoC: component: Add generic PCM copy ops
+  ASoC: mediatek: Convert to generic PCM copy ops
+  ASoC: qcom: Convert to generic PCM copy ops
+  ASoC: dmaengine: Convert to generic PCM copy ops
+  ASoC: dmaengine: Use sockptr_t for process callback, too
+  ALSA: doc: Update description for the new PCM copy ops
+  ASoC: pcm: Drop obsoleted PCM copy_user ops
+  ALSA: pcm: Drop obsoleted PCM copy_user and copy_kernel ops
+
+ .../kernel-api/writing-an-alsa-driver.rst     | 59 +++++---------
+ drivers/media/pci/solo6x10/solo6x10-g723.c    | 41 ++--------
+ include/sound/dmaengine_pcm.h                 |  2 +-
+ include/sound/pcm.h                           | 12 +--
+ include/sound/soc-component.h                 | 14 ++--
+ sound/core/memory.c                           | 39 +++++++++
+ sound/core/pcm_lib.c                          | 81 +++++++++----------
+ sound/core/pcm_native.c                       |  2 +-
+ sound/drivers/dummy.c                         | 12 +--
+ sound/drivers/pcmtest.c                       |  2 +-
+ sound/isa/gus/gus_pcm.c                       | 23 +-----
+ sound/isa/sb/emu8000_pcm.c                    | 79 +++++-------------
+ sound/pci/es1938.c                            | 31 ++-----
+ sound/pci/korg1212/korg1212.c                 | 46 +++--------
+ sound/pci/nm256/nm256.c                       | 42 ++--------
+ sound/pci/rme32.c                             | 50 +++---------
+ sound/pci/rme96.c                             | 48 +++--------
+ sound/pci/rme9652/hdsp.c                      | 42 ++--------
+ sound/pci/rme9652/rme9652.c                   | 46 ++---------
+ sound/sh/sh_dac_audio.c                       | 25 +-----
+ sound/soc/atmel/mchp-pdmc.c                   |  2 +-
+ sound/soc/mediatek/common/mtk-btcvsd.c        | 22 ++---
+ sound/soc/qcom/lpass-platform.c               | 12 +--
+ sound/soc/soc-component.c                     | 10 +--
+ sound/soc/soc-generic-dmaengine-pcm.c         | 18 ++---
+ sound/soc/soc-pcm.c                           |  4 +-
+ sound/soc/stm/stm32_sai_sub.c                 |  2 +-
+ sound/xen/xen_snd_front_alsa.c                | 55 +++----------
+ 28 files changed, 251 insertions(+), 570 deletions(-)
+
+-- 
+2.35.3
+
 
