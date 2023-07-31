@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA27676A33E
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 23:47:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573484.898234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1D7376A3EB
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 00:11:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573490.898245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQajP-0004Za-0Q; Mon, 31 Jul 2023 21:47:11 +0000
+	id 1qQb6R-00081O-0C; Mon, 31 Jul 2023 22:10:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573484.898234; Mon, 31 Jul 2023 21:47:10 +0000
+Received: by outflank-mailman (output) from mailman id 573490.898245; Mon, 31 Jul 2023 22:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQajO-0004X8-Tx; Mon, 31 Jul 2023 21:47:10 +0000
-Received: by outflank-mailman (input) for mailman id 573484;
- Mon, 31 Jul 2023 21:47:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQb6Q-0007zV-SV; Mon, 31 Jul 2023 22:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 573490;
+ Mon, 31 Jul 2023 22:10:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8Zpc=DR=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1qQajN-0004X1-Ot
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 21:47:09 +0000
+ id 1qQb6P-0007zP-S9
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 22:10:57 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id caa8674c-2feb-11ee-b257-6b7b168915f2;
- Mon, 31 Jul 2023 23:47:07 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1d47b5ca-2fef-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 00:10:55 +0200 (CEST)
 Received: from [192.168.105.249] ([75.104.94.137]) (authenticated bits=0)
- by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 36VLiSLD3093143
+ by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 36VM7txf3103048
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Mon, 31 Jul 2023 14:44:34 -0700
+ Mon, 31 Jul 2023 15:08:00 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,20 +40,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: caa8674c-2feb-11ee-b257-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 36VLiSLD3093143
+X-Inumbo-ID: 1d47b5ca-2fef-11ee-8613-37d641c3527e
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 36VM7txf3103048
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2023071101; t=1690839952;
-	bh=Hg2XSL3316ANoXYXjd63x+cCNIVtiqBW14cv6sKLqfM=;
+	s=2023071101; t=1690841375;
+	bh=X+M4w9IgqyGhFftvL0ts+Txt2pH1wocbrviAaT7WSp0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OJyzPW65vrM8sDH6eNGy+5kWbcB7PMYBpzWhQpIWkaAZClwYLyiR8q3r0h24DHa+i
-	 plc1tYwGV1X0jnVZoHyMcH21g4d3T5nrZNciwkD9pXyPp9eyd7deKj5//687qepUUN
-	 GajcQAPfiwt5T7KF3w3EDPjhuU+UOb+SXF0Ey3xPLdCdh2vlXfVnIDfD1LR2iQn1Q3
-	 +p5bLyY/BkC4u9rExXSQvakREpl4pn+K6rV/GzfnNnDvo8xR1x7/0XAWYi0JZGxsUi
-	 6sYcbHmh6hzcml78uw2uhAQKsHCzb+/6sFfciH7vXjmIcsvNRtd0H0JUkcPZnEheRh
-	 J+lI/W952JXBg==
-Message-ID: <4ccbf0e9-716d-dfe0-537c-210e5455418c@zytor.com>
-Date: Mon, 31 Jul 2023 14:44:20 -0700
+	b=XFcw8mHtRsl4TcZ5Z+9TuwZ7pfjvdNqSpwDLDpFsAfd/pRi+FbwrTEcqslERWxffC
+	 cgFKch7rqXk7xeaKLgEYkT1cKGAy6lNFxl6xQJ0fbNDJ7sv9zpYGWXBRa8N2lEo5DR
+	 G/GCfDVd/qzoFF9SUxuA7hRU/ROGNY4q6TBtRqRfJXYuVJskDXCrkKAQal43XsJ7PX
+	 PlycbEss3tGY6NKNX7yE7ihX3QPEQjBg9VfjApas+qZFkVyB7AoO2WWrlZ+j8SXiEq
+	 CQq7y33RknpAiyzIOPtVrS0p+SqzFZP4pjxOjHk1xtmUQ70RjsXjOD9F2NjeIVYHD8
+	 KsFoANCn7EDLw==
+Message-ID: <da169e64-9dad-18a8-611b-57ff74006285@zytor.com>
+Date: Mon, 31 Jul 2023 15:07:47 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
@@ -129,38 +129,101 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 7/30/23 23:41, Xin Li wrote:
-> +
-> +static DEFINE_FRED_HANDLER(fred_sw_interrupt_user)
+> +static DEFINE_FRED_HANDLER(fred_other_default)
 > +{
-> +	/*
-> +	 * In compat mode INT $0x80 (32bit system call) is
-> +	 * performance-critical. Handle it first.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_IA32_EMULATION) &&
-> +	    likely(regs->vector == IA32_SYSCALL_VECTOR)) {
-> +		regs->orig_ax = regs->ax;
-> +		regs->ax = -ENOSYS;
-> +		return do_int80_syscall_32(regs);
-> +	}
-
-We can presumably drop the early out here as well...
-
-> +
-> +	/*
-> +	 * Some software exceptions can also be triggered as
-> +	 * int instructions, for historical reasons.
-> +	 */
-> +	switch (regs->vector) {
-> +	case X86_TRAP_BP:
-> +	case X86_TRAP_OF:
-> +		fred_emulate_trap(regs);
-> +		break;
-> +	default:
-> +		regs->vector = X86_TRAP_GP;
-> +		fred_emulate_fault(regs);
-> +		break;
-> +	}
+> +	regs->vector = X86_TRAP_UD;
+> +	fred_emulate_fault(regs);
 > +}
 > +
+> +static DEFINE_FRED_HANDLER(fred_syscall)
+> +{
+> +	regs->orig_ax = regs->ax;
+> +	regs->ax = -ENOSYS;
+> +	do_syscall_64(regs, regs->orig_ax);
+> +}
+> +
+> +#if IS_ENABLED(CONFIG_IA32_EMULATION)
+> +/*
+> + * Emulate SYSENTER if applicable. This is not the preferred system
+> + * call in 32-bit mode under FRED, rather int $0x80 is preferred and
+> + * exported in the vdso.
+> + */
+> +static DEFINE_FRED_HANDLER(fred_sysenter)
+> +{
+> +	regs->orig_ax = regs->ax;
+> +	regs->ax = -ENOSYS;
+> +	do_fast_syscall_32(regs);
+> +}
+> +#else
+> +#define fred_sysenter fred_other_default
+> +#endif
+> +
+> +static DEFINE_FRED_HANDLER(fred_other)
+> +{
+> +	static const fred_handler user_other_handlers[FRED_NUM_OTHER_VECTORS] =
+> +	{
+> +		/*
+> +		 * Vector 0 of the other event type is not used
+> +		 * per FRED spec 5.0.
+> +		 */
+> +		[0]		= fred_other_default,
+> +		[FRED_SYSCALL]	= fred_syscall,
+> +		[FRED_SYSENTER]	= fred_sysenter
+> +	};
+> +
+> +	user_other_handlers[regs->vector](regs);
+> +}
 
+OK, this is wrong.
+
+Dispatching like fred_syscall() is only valid for syscall64, which means 
+you have to check regs->l is set in addition to the correct regs->vector 
+to determine validity.
+
+Similarly, sysenter is only valid if regs->l is clear.
+
+The best way is probably to drop the dispatch table here and just do an 
+if ... else if ... else statement; gcc is smart enough that it will 
+combine the vector test and the L bit test into a single mask and 
+compare. This also allows stubs to be inlined.
+
+However, emulating #UD on events other than wrong mode of SYSCALL and 
+SYSENTER may be a bad idea. It would probably be better to invoke 
+fred_bad_event() in that case.
+
+Something like this:
+
++static DEFINE_FRED_HANDLER(fred_other_default)
++{
++	regs->vector = X86_TRAP_UD;
++	fred_emulate_fault(regs);
++}
+
+1) rename this to fred_emulate_ud (since that is what it actually does.)
+
+... then ...
+
+	/* The compiler can fold these into a single test */
+
+	if (likely(regs->vector == FRED_SYSCALL && regs->l)) {
+		fred_syscall64(regs);
+	} else if (likely(regs->vector == FRED_SYSENTER && !regs->l)) {
+		fred_sysenter32(regs);
+	} else if (regs->vector == FRED_SYSCALL ||
+		   regs->vector == FRED_SYSENTER) {
+		/* Invalid SYSCALL or SYSENTER instruction */
+		fred_emulate_ud(regs);
+	} else {
+		/* Unknown event */
+		fred_bad_event(regs);
+	}
+
+... or the SYSCALL64 and SYSENTER32 can be inlined with the appropriate 
+comment (gcc will do so regardless.)
+
+	-hpa
+
+
+
+	-hpa
 
