@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62B2D76A4B4
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 01:17:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573511.898285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A9276A4ED
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 01:39:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573518.898294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQc8x-0007tD-Lg; Mon, 31 Jul 2023 23:17:39 +0000
+	id 1qQcSd-00024w-AX; Mon, 31 Jul 2023 23:37:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573511.898285; Mon, 31 Jul 2023 23:17:39 +0000
+Received: by outflank-mailman (output) from mailman id 573518.898294; Mon, 31 Jul 2023 23:37:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQc8x-0007sX-Hq; Mon, 31 Jul 2023 23:17:39 +0000
-Received: by outflank-mailman (input) for mailman id 573511;
- Mon, 31 Jul 2023 23:17:38 +0000
+	id 1qQcSd-00022m-7j; Mon, 31 Jul 2023 23:37:59 +0000
+Received: by outflank-mailman (input) for mailman id 573518;
+ Mon, 31 Jul 2023 23:37:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PAQm=DR=flex--seanjc.bounces.google.com=3EEHIZAYKCd8TFBOKDHPPHMF.DPNYFO-EFWFMMJTUT.YFOQSPKFDU.PSH@srs-se1.protection.inumbo.net>)
- id 1qQc8w-0007sR-EG
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 23:17:38 +0000
-Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
- [2607:f8b0:4864:20::b4a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6fa9fcfd-2ff8-11ee-b257-6b7b168915f2;
- Tue, 01 Aug 2023 01:17:37 +0200 (CEST)
-Received: by mail-yb1-xb4a.google.com with SMTP id
- 3f1490d57ef6-d1c693a29a0so5968323276.1
- for <xen-devel@lists.xenproject.org>; Mon, 31 Jul 2023 16:17:37 -0700 (PDT)
+ <SRS0=vA1f=DR=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qQcSb-00022g-Mc
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 23:37:57 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45e79538-2ffb-11ee-b257-6b7b168915f2;
+ Tue, 01 Aug 2023 01:37:55 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 39A3682846BB;
+ Mon, 31 Jul 2023 18:37:54 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id VUFWwWELxJZ0; Mon, 31 Jul 2023 18:37:53 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 4F45082850DA;
+ Mon, 31 Jul 2023 18:37:53 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 4W3dQPQPirl4; Mon, 31 Jul 2023 18:37:53 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id D8EE582846BB;
+ Mon, 31 Jul 2023 18:37:52 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,131 +51,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fa9fcfd-2ff8-11ee-b257-6b7b168915f2
+X-Inumbo-ID: 45e79538-2ffb-11ee-b257-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 4F45082850DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1690845456; x=1691450256;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=A2YbEGxqz9SscBGtet0Gs0ciHUjPL61/tRobVSn5JSc=;
-        b=Aspi3sVz1s4NKlFaJjQOa2DQlODn/JsCKt4eqnvhQolwNg6rVTEqjLQs26sN5J6ZNe
-         3e/etHAaEqvAoxl+oSQQP1bHfmA59RbK7Nu0azx4K+EVcSxVntDfjH8buFsuy2V7KlEw
-         5RZ7h2m65ZZHDqRcD6/spD/JjZaCVH323kw1HLp8C4YPZbjDkNb49TqTz+Z2vaOWATUw
-         n/OnsLadTVEbeeCCi9f1Xp8cRMaUuSd29J6gHrEWBjtkXdfJ7q9euJ/ihFEIWOoOKssN
-         /B9i1WTYQfm0A5NhSpMZHAiVkGnI47YF/h8cE5B0h4DZfCGtUwSF1W1GjS47WDQ5r/1d
-         NbPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690845456; x=1691450256;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=A2YbEGxqz9SscBGtet0Gs0ciHUjPL61/tRobVSn5JSc=;
-        b=GJTGHDJ2YPW8hv2HNXjvPG4FV42KFZhG6DUkgahg+2PkwlsA0AJEa7zUuJpr4+ZyYG
-         F6XfIWOTFmm0Szpgk2st7kOxTgytSYXzgTOFhhOO4QHWAnYzwO6yfsHljARB2u3DITs2
-         SaJ9VwWuNZQSyGvV/kdiTVvEaXbLpsXn/hDpnSKre/PdaGAremHojmhEnMxjE52I6pYc
-         6/JOt58OKX1R3pQTTn9iS2Tt97yXX+oxrXnGVa9F0IYCJ5w+qaLG8qVn4uCFxwuCHVrn
-         wcyjK+BCx96bbjrGdo50XgbjlhjtR3e8UriM9smhThs5hYhzTFnucacLHiYp2SK1folK
-         3HRA==
-X-Gm-Message-State: ABy/qLa2bqWH05mtJWjF9AzPZPWVNQw8fJ4ezKBxuiGv6jzG31eaHZm8
-	LODQYY4VxexPRy92GnWdU9Oz7ZkbgdA=
-X-Google-Smtp-Source: APBJJlETEe4EZ6/j95cQ4sv3ryYhK33RfUu+RWsNUCsL/BaRynxJ5PFVR6kJ5MkvzQvyz83entZG77hN4jM=
-X-Received: from zagreus.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a25:69c7:0:b0:d07:f1ed:521a with SMTP id
- e190-20020a2569c7000000b00d07f1ed521amr63258ybc.4.1690845456129; Mon, 31 Jul
- 2023 16:17:36 -0700 (PDT)
-Date: Mon, 31 Jul 2023 16:17:34 -0700
-In-Reply-To: <SA1PR11MB6734A02EEFD83969F1965A8FA805A@SA1PR11MB6734.namprd11.prod.outlook.com>
-Mime-Version: 1.0
-References: <20230731063317.3720-1-xin3.li@intel.com> <ZMg1sD7IamB0INVs@google.com>
- <SA1PR11MB6734A02EEFD83969F1965A8FA805A@SA1PR11MB6734.namprd11.prod.outlook.com>
-Message-ID: <ZMhBDoTxqghvF7G7@google.com>
-Subject: Re: [PATCH v9 00/36] x86: enable FRED for x86-64
-From: Sean Christopherson <seanjc@google.com>
-To: Xin3 Li <xin3.li@intel.com>
-Cc: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, 
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>, 
-	"H . Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	Tony Luck <tony.luck@intel.com>, "K . Y . Srinivasan" <kys@microsoft.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Wanpeng Li <wanpengli@tencent.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Jurgen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	"Paul E . McKenney" <paulmck@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Kim Phillips <kim.phillips@amd.com>, Hyeonggon Yoo <42.hyeyoo@gmail.com>, 
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	"Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>, Suren Baghdasaryan <surenb@google.com>, 
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Jiaxi Chen <jiaxi.chen@linux.intel.com>, 
-	Babu Moger <babu.moger@amd.com>, Jim Mattson <jmattson@google.com>, 
-	Sandipan Das <sandipan.das@amd.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Hans de Goede <hdegoede@redhat.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Daniel Sneddon <daniel.sneddon@linux.intel.com>, Breno Leitao <leitao@debian.org>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Brian Gerst <brgerst@gmail.com>, 
-	Sami Tolvanen <samitolvanen@google.com>, Alexander Potapenko <glider@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, Kees Cook <keescook@chromium.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Ze Gao <zegao2021@gmail.com>, 
-	Fei1 Li <fei1.li@intel.com>, Conghui <conghui.chen@intel.com>, 
-	Ashok Raj <ashok.raj@intel.com>, "Jason A . Donenfeld" <Jason@zx2c4.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Jacob Pan <jacob.jun.pan@linux.intel.com>, 
-	Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Jane Malalane <jane.malalane@citrix.com>, 
-	David Woodhouse <dwmw@amazon.co.uk>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Arnaldo Carvalho de Melo <acme@redhat.com>, Yantengsi <siyanteng@loongson.cn>, 
-	Christophe Leroy <christophe.leroy@csgroup.eu>, Sathvika Vasireddy <sv@linux.ibm.com>
-Content-Type: text/plain; charset="us-ascii"
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1690846673; bh=SFbRSRktHw+6jWGitffOKn3udjPo8wO6h1ujQG9tglE=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=iiLsatslWnt+tcFRNeoBMH6FbqnlYF4HYSu8TPI7Nfpi1blrAYm3nlTalSvIsGCI2
+	 Fy/nCIydkuu+TPvrC1ta3aCYMw7oOJPbBP0ZhzEZH7PY1CX57+6Qz5sSCDVAGAzudb
+	 qh39Tz0E8L7VgaATkI+MNxiKv+zOYqnd8iHAqvIM=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <428aa0e8-70bb-efb5-2b5a-54229b77c5a3@raptorengineering.com>
+Date: Mon, 31 Jul 2023 18:37:52 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 2/3] xen/ppc: Relocate kernel to physical address 0 on
+ boot
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1690582001.git.sanastasio@raptorengineering.com>
+ <0802fad2743526da4fe49f0225e14161464f192e.1690582001.git.sanastasio@raptorengineering.com>
+ <3b6b0984-89fb-268e-970a-0c7eb19a4863@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <3b6b0984-89fb-268e-970a-0c7eb19a4863@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 31, 2023, Xin3 Li wrote:
-> > > This patch set enables the Intel flexible return and event delivery
-> > > (FRED) architecture for x86-64.
-> > 
-> > ...
-> > 
-> > > --
-> > > 2.34.1
-> > 
-> > What is this based on?
+On 7/31/23 10:46 AM, Jan Beulich wrote:
+> On 29.07.2023 00:21, Shawn Anastasio wrote:
+>> Introduce a small assembly loop in `start` to copy the kernel to
+>> physical address 0 before continuing. This ensures that the physical
+>> address lines up with XEN_VIRT_START (0xc000000000000000) and allows us
+>> to identity map the kernel when the MMU is set up in the next patch.
 > 
-> The tip tree master branch.
-> 
-> > FYI, you're using a version of git that will (mostly)
-> > automatically generate the based, e.g. I do
-> > 
-> >   git format-patch --base=HEAD~$nr ...
-> > 
-> > in my scripts, where $nr is the number of patches I am sending.  My specific
-> > approaches requires HEAD-$nr to be a publicly visible object/commit, but that
-> > should be the case the vast majority of the time anyways.
-> 
-> Are you talking about that you only got a subset of this patch set?
+> So PPC guarantees there's always a reasonable amount of memory at 0,
+> and that's available for use?
 
-No, I'm saying I don't want to waste a bunch of time tracking down exactly which
-commit a 36 patch series is based on.  E.g. I just refreshed tip/master and still
-get:
+Both Linux and FreeBSD rely on this being the case, so it's essentially
+a de facto standard, though I'm not aware of any specification that
+guarantees it.
 
-Applying: x86/idtentry: Incorporate definitions/declarations of the FRED external interrupt handler type
-error: sha1 information is lacking or useless (arch/x86/include/asm/idtentry.h).
-error: could not build fake ancestor
-Patch failed at 0024 x86/idtentry: Incorporate definitions/declarations of the FRED external interrupt handler type
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-
-> HPA told me he only got patches 0-25/36.
+>> --- a/xen/arch/ppc/ppc64/head.S
+>> +++ b/xen/arch/ppc/ppc64/head.S
+>> @@ -18,6 +18,33 @@ ENTRY(start)
+>>      addis   %r2, %r12, .TOC.-1b@ha
+>>      addi    %r2, %r2, .TOC.-1b@l
+>>  
+>> +    /*
+>> +     * Copy Xen to physical address zero and jump to XEN_VIRT_START
+>> +     * (0xc000000000000000). This works because the hardware will ignore the top
+>> +     * four address bits when the MMU is off.
+>> +     */
+>> +    LOAD_REG_ADDR(%r1, start)
 > 
-> And I got several undeliverable email notifications, saying
-> "
-> The following message to <tglx@linutronix.de> was undeliverable.
-> The reason for the problem:
-> 5.x.1 - Maximum number of delivery attempts exceeded. [Default] 450-'4.7.25 Client host rejected: cannot find your hostname, [134.134.136.31]'
-> "
-> 
-> I guess there were some problems with the Intel mail system last night,
-> probably I should resend this patch set later.
+> I think you really mean _start here (which is missing from the linker
+> script),
 
-Yes, lore also appears to be missing patches.  I grabbed the mbox off of KVM's
-patchwork instance.
+The PIC patch series fixes the missing _start definition in the linker
+script. In the cover letter of v2 I'll add a clear note that this series
+is based on that one.
+
+> not start. See also Andrew's recent related RISC-V change.
+
+Good point. In practice this worked because the `start` function was the
+first thing in the first section of the linker script, but of course
+using _start here is more correct.
+
+> 
+>> +    LOAD_IMM64(%r12, XEN_VIRT_START)
+>> +
+>> +    /* If we're at the correct address, skip copy */
+>> +    cmpld   %r1, %r12
+>> +    beq     .L_correct_address
+> 
+> Can this ever be the case, especially with the MMU-off behavior you
+> describe in the comment above? Wouldn't you need to ignore the top
+> four bits in the comparison?
+
+It will always be the case after the code jumps to XEN_VIRT_START after
+the copy takes place. I could have it jump past the copy loop entirely,
+but then I'd need to duplicate the TOC setup.
+
+>> +    /* Copy bytes until _end */
+>> +    LOAD_REG_ADDR(%r11, _end)
+>> +    addi    %r1, %r1, -8
+>> +    li      %r13, -8
+>> +.L_copy_xen:
+>> +    ldu     %r10, 8(%r1)
+>> +    stdu    %r10, 8(%r13)
+>> +    cmpld   %r1, %r11
+>> +    blt     .L_copy_xen
+>> +
+>> +    /* Jump to XEN_VIRT_START */
+>> +    mtctr   %r12
+>> +    bctr
+>> +.L_correct_address:
+> 
+> Can the two regions potentially overlap? Looking at the ELF header
+> it's not clear to me what guarantees there are that this can't
+> happen.
+
+As I understand it, any bootloader that placed the kernel at a low
+enough address for this to be an issue wouldn't be able to boot Linux or
+FreeBSD, so in practice it's a safe bet that this won't be the case.
+
+> Jan
+
+Thanks,
+Shawn
 
