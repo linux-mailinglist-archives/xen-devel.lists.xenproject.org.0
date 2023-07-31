@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D67BA768AD4
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 06:40:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.572581.896421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19A82768AC8
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 06:26:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.572590.896410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQKhW-00030X-0j; Mon, 31 Jul 2023 04:40:10 +0000
+	id 1qQKUI-0000bi-Ps; Mon, 31 Jul 2023 04:26:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 572581.896421; Mon, 31 Jul 2023 04:40:09 +0000
+Received: by outflank-mailman (output) from mailman id 572590.896410; Mon, 31 Jul 2023 04:26:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQKhV-0002yO-T2; Mon, 31 Jul 2023 04:40:09 +0000
-Received: by outflank-mailman (input) for mailman id 572581;
- Mon, 31 Jul 2023 03:00:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EPXn=DR=linux.alibaba.com=yang.lee@srs-se1.protection.inumbo.net>)
- id 1qQJ9K-0000dy-LB
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 03:00:46 +0000
-Received: from out30-119.freemail.mail.aliyun.com
- (out30-119.freemail.mail.aliyun.com [115.124.30.119])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f10b9f4-2f4e-11ee-b254-6b7b168915f2;
- Mon, 31 Jul 2023 05:00:43 +0200 (CEST)
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VoXHf6M_1690772438) by smtp.aliyun-inc.com;
- Mon, 31 Jul 2023 11:00:39 +0800
+	id 1qQKUI-0000a1-Mx; Mon, 31 Jul 2023 04:26:30 +0000
+Received: by outflank-mailman (input) for mailman id 572590;
+ Mon, 31 Jul 2023 04:26:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQKUH-0000Zr-4p; Mon, 31 Jul 2023 04:26:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQKUH-00048D-1v; Mon, 31 Jul 2023 04:26:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQKUG-0002lt-Gu; Mon, 31 Jul 2023 04:26:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQKUG-0006wQ-G3; Mon, 31 Jul 2023 04:26:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,49 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f10b9f4-2f4e-11ee-b254-6b7b168915f2
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018046049;MF=yang.lee@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0VoXHf6M_1690772438;
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: jgross@suse.com,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com
-Cc: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	Yang Li <yang.lee@linux.alibaba.com>,
-	Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH -next] xen: Fix one kernel-doc comment
-Date: Mon, 31 Jul 2023 11:00:37 +0800
-Message-Id: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=jQQVouC3ZsyxTuUoyKJ9ZGm7HJvmt+2Lf77uKHJlZK0=; b=b+8zN4iRbIzHI+ylr/Gfb+sswz
+	EYYfA702sis1UzHxhcFB7WQtB8M9EubhdjsXM2XFt/unxEtmIOyrBQPA1WcQkBVikHPSK2WO4kRXE
+	K0XvmhdS42Y4GxHIDBz63qlaraJCDQB908HMGk2xvFLIFDPCTrs1Ci3Fkxvzh998W6yQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182084-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 182084: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=70f3e62dc73d28962b833373246ef25c865c575e
+X-Osstest-Versions-That:
+    ovmf=c7a7f09c1dfa8896ccf94be2d8c7c8b420257fec
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 31 Jul 2023 04:26:28 +0000
 
-Use colon to separate parameter name from their specific meaning.
-silence the warning:
+flight 182084 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182084/
 
-drivers/xen/grant-table.c:1051: warning: Function parameter or member 'nr_pages' not described in 'gnttab_free_pages'
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 70f3e62dc73d28962b833373246ef25c865c575e
+baseline version:
+ ovmf                 c7a7f09c1dfa8896ccf94be2d8c7c8b420257fec
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6030
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/xen/grant-table.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Last test of basis   182037  2023-07-27 11:40:46 Z    3 days
+Testing same since   182084  2023-07-31 01:44:53 Z    0 days    1 attempts
 
-diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-index f13c3b76ad1e..35659bf70746 100644
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -1044,7 +1044,7 @@ EXPORT_SYMBOL_GPL(gnttab_pages_clear_private);
- 
- /**
-  * gnttab_free_pages - free pages allocated by gnttab_alloc_pages()
-- * @nr_pages; number of pages to free
-+ * @nr_pages: number of pages to free
-  * @pages: the pages
-  */
- void gnttab_free_pages(int nr_pages, struct page **pages)
--- 
-2.20.1.7.g153144c
+------------------------------------------------------------
+People who touched revisions under test:
+  Corvin Köhne <corvink@FreeBSD.org>
+  Peter Grehan <grehan@freebsd.org>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c7a7f09c1d..70f3e62dc7  70f3e62dc73d28962b833373246ef25c865c575e -> xen-tested-master
 
