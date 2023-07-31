@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5122F768CE4
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:04:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.572618.896431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E59768CEC
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:04:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.572619.896438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQMvh-0000uV-W6; Mon, 31 Jul 2023 07:02:57 +0000
+	id 1qQMvi-00010V-Bp; Mon, 31 Jul 2023 07:02:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 572618.896431; Mon, 31 Jul 2023 07:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 572619.896438; Mon, 31 Jul 2023 07:02:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQMvh-0000rJ-SE; Mon, 31 Jul 2023 07:02:57 +0000
-Received: by outflank-mailman (input) for mailman id 572618;
+	id 1qQMvi-0000uJ-5T; Mon, 31 Jul 2023 07:02:58 +0000
+Received: by outflank-mailman (input) for mailman id 572619;
  Mon, 31 Jul 2023 07:02:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8T0J=DR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQMuo-0000hs-Jw
+ id 1qQMup-0000hs-TD
  for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:02:03 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.24])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2339fae7-2f70-11ee-b254-6b7b168915f2;
- Mon, 31 Jul 2023 09:01:59 +0200 (CEST)
+ id 268026c1-2f70-11ee-b254-6b7b168915f2;
+ Mon, 31 Jul 2023 09:02:03 +0200 (CEST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  31 Jul 2023 00:01:50 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:01:50 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:01:51 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,26 +41,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2339fae7-2f70-11ee-b254-6b7b168915f2
+X-Inumbo-ID: 268026c1-2f70-11ee-b254-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690786920; x=1722322920;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=2x+aDBKIgjBRpBNelsbYxqc0kMz8OS2Y/LweincpM90=;
-  b=H1Il0QxFKmEVukGfGJlGVt+DAH8i3zSlyPJwxcakrHstDxuvynKJMpu5
-   HWWtIxAuk+blTaA1RoGOB+UhkPpz/7WzFir4KcqKyvbk3QJw/Ijk7RrUa
-   WlXdze1qwWMo3zokNBMEq+ZCMtTEIJ38itIdH3dSUsSHucLumjuJ5ErMR
-   mi2WiUSlHVRIgPnCUSyk4C14fBLFQ8Pgc7gfNBQz8B/NpLN/mkqaVLhc2
-   M4MUKstUwSQf0kThezJY9gAqgE6+U+K5OjoVc1K1S9gKwW2a/PJ34/MBW
-   7d42/fkHgkyD0nyUdhl5L70Jy1SVjL45zv6rRQ+Y7hL2gn769DahB11fR
+  t=1690786923; x=1722322923;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=6FF6EgUyznIqvHXwn5+F1gytlgvayKLTt5Pzm0+v43k=;
+  b=VIEYLllxZhrrDtJZRSCRijifgJdBrLeSCYIB3/RUjrBU/Si5crQJPia1
+   xAqxuoSl5XwxQUxMPTdCHIdfb8wH+tnnH5AuCRrhMSfcn/mh1Fo8363DJ
+   yqsYzcpTd09vyEywm+XjUYlwhcfz1TRe9dWDUmU7nR55TkDybCBlDsvfc
+   53TQDScVkfWcvwU7nL+g4+5O8p+/rQuVYKqN107w/pbDvN4Suo2dXp95L
+   YWnf7PaaqxcNZ3AHmTuICHlbOD7ruLzQlgVdd5MqQ5UHMHbVRuWpHTOi4
+   bbcX3c8a9xQXJ8mmABBVGeg3mhxmHAC/26bWHMCxhcsMx3IhsQvNxxmr5
    g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371648555"
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371648596"
 X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
-   d="scan'208";a="371648555"
+   d="scan'208";a="371648596"
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; 
-   d="scan'208";a="871543329"
+   d="scan'208";a="871543335"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,242 +137,143 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH v9 00/36] x86: enable FRED for x86-64
-Date: Sun, 30 Jul 2023 23:32:41 -0700
-Message-Id: <20230731063317.3720-1-xin3.li@intel.com>
+Subject: [PATCH v9 01/36] Documentation/x86/64: Add documentation for FRED
+Date: Sun, 30 Jul 2023 23:32:42 -0700
+Message-Id: <20230731063317.3720-2-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230731063317.3720-1-xin3.li@intel.com>
+References: <20230731063317.3720-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This patch set enables the Intel flexible return and event delivery
-(FRED) architecture for x86-64.
+Briefly introduce FRED, its advantages compared to IDT, and its
+Linux enabling.
 
-The FRED architecture defines simple new transitions that change
-privilege level (ring transitions). The FRED architecture was
-designed with the following goals:
-
-1) Improve overall performance and response time by replacing event
-   delivery through the interrupt descriptor table (IDT event
-   delivery) and event return by the IRET instruction with lower
-   latency transitions.
-
-2) Improve software robustness by ensuring that event delivery
-   establishes the full supervisor context and that event return
-   establishes the full user context.
-
-The new transitions defined by the FRED architecture are FRED event
-delivery and, for returning from events, two FRED return instructions.
-FRED event delivery can effect a transition from ring 3 to ring 0, but
-it is used also to deliver events incident to ring 0. One FRED
-instruction (ERETU) effects a return from ring 0 to ring 3, while the
-other (ERETS) returns while remaining in ring 0. Collectively, FRED
-event delivery and the FRED return instructions are FRED transitions.
-
-Search for the latest FRED spec in most search engines with this search pattern:
-
-  site:intel.com FRED (flexible return and event delivery) specification
-
-As of now there is no publicly avaiable CPU supporting FRED, thus the Intel
-Simics® Simulator is used as software development and testing vehicles. And
-it can be downloaded from:
-  https://www.intel.com/content/www/us/en/developer/articles/tool/simics-simulator.html
-
-To enable FRED, the Simics package 8112 QSP-CPU needs to be installed with CPU
-model configured as:
-	$cpu_comp_class = "x86-experimental-fred"
-
-
-Changes since v8:
-* Move the FRED initialization patch after all required changes are in
-  place (Thomas Gleixner).
-* Don't do syscall early out in fred_entry_from_user() before there are
-  proper performance numbers and justifications (Thomas Gleixner).
-* Add the control exception handler to the FRED exception handler table
-  (Thomas Gleixner).
-* Introduce a macro sysvec_install() to derive the asm handler name from
-  a C handler, which simplifies the code and avoids an ugly typecast
-  (Thomas Gleixner).
-* Remove junk code that assumes no local APIC on x86_64 (Thomas Gleixner).
-* Put IDTENTRY changes in a separate patch (Thomas Gleixner).
-* Use high-order 48 bits above the lowest 16 bit SS only when FRED is
-  enabled (Thomas Gleixner).
-* Explain why writing directly to the IA32_KERNEL_GS_BASE MSR is
-  doing the right thing (Thomas Gleixner).
-* Reword some patch descriptions (Thomas Gleixner).
-* Add a new macro VMX_DO_FRED_EVENT_IRQOFF for FRED instead of
-  refactoring VMX_DO_EVENT_IRQOFF (Sean Christopherson).
-* Do NOT use a trampoline, just LEA+PUSH the return RIP, PUSH the error
-  code, and jump to the FRED kernel entry point for NMI or call
-  external_interrupt() for IRQs (Sean Christopherson).
-* Call external_interrupt() only when FRED is enabled, and convert the
-  non-FRED handling to external_interrupt() after FRED lands (Sean
-  Christopherson).
-* Use __packed instead of __attribute__((__packed__)) (Borislav Petkov).
-* Put all comments above the members, like the rest of the file does
-  (Borislav Petkov).
-* Reflect the FRED spec 5.0 change that ERETS and ERETU add 8 to %rsp
-  before popping the return context from the stack.
-* Reflect stack frame definition changes from FRED spec 3.0 to 5.0.
-* Add ENDBR to the FRED_ENTER asm macro after kernel IBT is added to
-  FRED base line in FRED spec 5.0.
-* Add a document which briefly introduces FRED features.
-* Remove 2 patches, "allow FRED systems to use interrupt vectors
-  0x10-0x1f" and "allow dynamic stack frame size", from this patch set,
-  as they are "optimizations" only.
-* Send 2 patches, "header file for event types" and "do not modify the
-  DPL bits for a null selector", as pre-FRED patches.
-
-Changes since v7:
-* Always call external_interrupt() for VMX IRQ handling on x86_64, thus avoid
-  re-entering the noinstr code.
-* Create a FRED stack frame when FRED is compiled-in but not enabled, which
-  uses some extra stack space but simplifies the code.
-* Add a log message when FRED is enabled.
-
-Changes since v6:
-* Add a comment to explain why it is safe to write to a previous FRED stack
-  frame. (Lai Jiangshan).
-* Export fred_entrypoint_kernel(), required when kvm-intel built as a module.
-* Reserve a REDZONE for CALL emulation and Align RSP to a 64-byte boundary
-  before pushing a new FRED stack frame.
-* Replace pt_regs csx flags prefix FRED_CSL_ with FRED_CSX_.
-
-Changes since v5:
-* Initialize system_interrupt_handlers with dispatch_table_spurious_interrupt()
-  instead of NULL to get rid of a branch (Peter Zijlstra).
-* Disallow #DB inside #MCE for robustness sake (Peter Zijlstra).
-* Add a comment for FRED stack level settings (Lai Jiangshan).
-* Move the NMI bit from an invalid stack frame, which caused ERETU to fault,
-  to the fault handler's stack frame, thus to unblock NMI ASAP if NMI is blocked
-  (Lai Jiangshan).
-* Refactor VMX_DO_EVENT_IRQOFF to handle IRQ/NMI in IRQ/NMI induced VM exits
-  when FRED is enabled (Sean Christopherson).
-
-Changes since v4:
-* Do NOT use the term "injection", which in the KVM context means to
-  reinject an event into the guest (Sean Christopherson).
-* Add the explanation of why to execute "int $2" to invoke the NMI handler
-  in NMI caused VM exits (Sean Christopherson).
-* Use cs/ss instead of csx/ssx when initializing the pt_regs structure
-  for calling external_interrupt(), otherwise it breaks i386 build.
-
-Changes since v3:
-* Call external_interrupt() to handle IRQ in IRQ caused VM exits.
-* Execute "int $2" to handle NMI in NMI caused VM exits.
-* Rename csl/ssl of the pt_regs structure to csx/ssx (x for extended)
-  (Andrew Cooper).
-
-Changes since v2:
-* Improve comments for changes in arch/x86/include/asm/idtentry.h.
-
-Changes since v1:
-* call irqentry_nmi_{enter,exit}() in both IDT and FRED debug fault kernel
-  handler (Peter Zijlstra).
-* Initialize a FRED exception handler to fred_bad_event() instead of NULL
-  if no FRED handler defined for an exception vector (Peter Zijlstra).
-* Push calling irqentry_{enter,exit}() and instrumentation_{begin,end}()
-  down into individual FRED exception handlers, instead of in the dispatch
-  framework (Peter Zijlstra).
-
-H. Peter Anvin (Intel) (22):
-  x86/fred: Add Kconfig option for FRED (CONFIG_X86_FRED)
-  x86/fred: Disable FRED support if CONFIG_X86_FRED is disabled
-  x86/cpufeatures: Add the cpu feature bit for FRED
-  x86/opcode: Add ERETU, ERETS instructions to x86-opcode-map
-  x86/objtool: Teach objtool about ERETU and ERETS
-  x86/cpu: Add X86_CR4_FRED macro
-  x86/cpu: Add MSR numbers for FRED configuration
-  x86/fred: Make unions for the cs and ss fields in struct pt_regs
-  x86/fred: Add a new header file for FRED definitions
-  x86/fred: Reserve space for the FRED stack frame
-  x86/fred: Update MSR_IA32_FRED_RSP0 during task switch
-  x86/fred: Let ret_from_fork_asm() jmp to fred_exit_user when FRED is
-    enabled
-  x86/fred: Disallow the swapgs instruction when FRED is enabled
-  x86/fred: No ESPFIX needed when FRED is enabled
-  x86/fred: Allow single-step trap and NMI when starting a new task
-  x86/fred: Add a page fault entry stub for FRED
-  x86/fred: Add a debug fault entry stub for FRED
-  x86/fred: Add a NMI entry stub for FRED
-  x86/traps: Add a system interrupt handler table for system interrupt
-    dispatch
-  x86/traps: Add external_interrupt() to dispatch external interrupts
-  x86/fred: FRED entry/exit and dispatch code
-  x86/fred: FRED initialization code
-
-Xin Li (14):
-  Documentation/x86/64: Add documentation for FRED
-  x86/fred: Define a common function type fred_handler
-  x86/fred: Add a machine check entry stub for FRED
-  x86/fred: Add a double fault entry stub for FRED
-  x86/entry: Remove idtentry_sysvec from entry_{32,64}.S
-  x86/idtentry: Incorporate definitions/declarations of the FRED
-    external interrupt handler type
-  x86/traps: Add sysvec_install() to install a system interrupt handler
-  x86/idtentry: Incorporate declaration/definition of the FRED exception
-    handler type
-  x86/fred: Fixup fault on ERETU by jumping to fred_entrypoint_user
-  x86/traps: Export external_interrupt() for handling IRQ in IRQ induced
-    VM exits
-  x86/fred: Export fred_entrypoint_kernel() for handling NMI in NMI
-    induced VM exits
-  KVM: VMX: Add VMX_DO_FRED_EVENT_IRQOFF for IRQ/NMI handling
-  x86/syscall: Split IDT syscall setup code into idt_syscall_init()
-  x86/fred: Disable FRED by default in its early stage
-
- .../admin-guide/kernel-parameters.txt         |   4 +
- Documentation/arch/x86/x86_64/fred.rst        | 102 ++++++++
- Documentation/arch/x86/x86_64/index.rst       |   1 +
- arch/x86/Kconfig                              |   9 +
- arch/x86/entry/Makefile                       |   5 +-
- arch/x86/entry/entry_32.S                     |   4 -
- arch/x86/entry/entry_64.S                     |  14 +-
- arch/x86/entry/entry_64_fred.S                |  58 +++++
- arch/x86/entry/entry_fred.c                   | 220 ++++++++++++++++++
- arch/x86/entry/vsyscall/vsyscall_64.c         |   2 +-
- arch/x86/include/asm/asm-prototypes.h         |   1 +
- arch/x86/include/asm/cpufeatures.h            |   1 +
- arch/x86/include/asm/disabled-features.h      |   8 +-
- arch/x86/include/asm/extable_fixup_types.h    |   4 +-
- arch/x86/include/asm/fred.h                   | 157 +++++++++++++
- arch/x86/include/asm/idtentry.h               | 115 ++++++++-
- arch/x86/include/asm/msr-index.h              |  13 +-
- arch/x86/include/asm/ptrace.h                 |  57 ++++-
- arch/x86/include/asm/switch_to.h              |  11 +-
- arch/x86/include/asm/thread_info.h            |  12 +-
- arch/x86/include/asm/traps.h                  |  23 ++
- arch/x86/include/uapi/asm/processor-flags.h   |   2 +
- arch/x86/kernel/Makefile                      |   1 +
- arch/x86/kernel/cpu/acrn.c                    |   5 +-
- arch/x86/kernel/cpu/common.c                  |  47 +++-
- arch/x86/kernel/cpu/mce/core.c                |  15 ++
- arch/x86/kernel/cpu/mshyperv.c                |  16 +-
- arch/x86/kernel/espfix_64.c                   |   8 +
- arch/x86/kernel/fred.c                        |  67 ++++++
- arch/x86/kernel/irqinit.c                     |   7 +-
- arch/x86/kernel/kvm.c                         |   2 +-
- arch/x86/kernel/nmi.c                         |  19 ++
- arch/x86/kernel/process_64.c                  |  31 ++-
- arch/x86/kernel/traps.c                       | 153 ++++++++++--
- arch/x86/kvm/vmx/vmenter.S                    |  88 +++++++
- arch/x86/kvm/vmx/vmx.c                        |  19 +-
- arch/x86/lib/x86-opcode-map.txt               |   2 +-
- arch/x86/mm/extable.c                         |  79 +++++++
- arch/x86/mm/fault.c                           |  18 +-
- drivers/xen/events/events_base.c              |   3 +-
- tools/arch/x86/include/asm/cpufeatures.h      |   1 +
- .../arch/x86/include/asm/disabled-features.h  |   8 +-
- tools/arch/x86/include/asm/msr-index.h        |  13 +-
- tools/arch/x86/lib/x86-opcode-map.txt         |   2 +-
- tools/objtool/arch/x86/decode.c               |  19 +-
- 45 files changed, 1348 insertions(+), 98 deletions(-)
+Signed-off-by: Xin Li <xin3.li@intel.com>
+---
+ Documentation/arch/x86/x86_64/fred.rst  | 102 ++++++++++++++++++++++++
+ Documentation/arch/x86/x86_64/index.rst |   1 +
+ 2 files changed, 103 insertions(+)
  create mode 100644 Documentation/arch/x86/x86_64/fred.rst
- create mode 100644 arch/x86/entry/entry_64_fred.S
- create mode 100644 arch/x86/entry/entry_fred.c
- create mode 100644 arch/x86/include/asm/fred.h
- create mode 100644 arch/x86/kernel/fred.c
 
+diff --git a/Documentation/arch/x86/x86_64/fred.rst b/Documentation/arch/x86/x86_64/fred.rst
+new file mode 100644
+index 000000000000..27c980e882ba
+--- /dev/null
++++ b/Documentation/arch/x86/x86_64/fred.rst
+@@ -0,0 +1,102 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=========================================
++Flexible Return and Event Delivery (FRED)
++=========================================
++
++Overview
++========
++
++The FRED architecture defines simple new transitions that change
++privilege level (ring transitions). The FRED architecture was
++designed with the following goals:
++
++1) Improve overall performance and response time by replacing event
++   delivery through the interrupt descriptor table (IDT event
++   delivery) and event return by the IRET instruction with lower
++   latency transitions.
++
++2) Improve software robustness by ensuring that event delivery
++   establishes the full supervisor context and that event return
++   establishes the full user context.
++
++The new transitions defined by the FRED architecture are FRED event
++delivery and, for returning from events, two FRED return instructions.
++FRED event delivery can effect a transition from ring 3 to ring 0, but
++it is used also to deliver events incident to ring 0. One FRED
++instruction (ERETU) effects a return from ring 0 to ring 3, while the
++other (ERETS) returns while remaining in ring 0. Collectively, FRED
++event delivery and the FRED return instructions are FRED transitions.
++
++In addition to these transitions, the FRED architecture defines a new
++instruction (LKGS) for managing the state of the GS segment register.
++The LKGS instruction can be used by 64-bit operating systems that do
++not use the new FRED transitions.
++
++Software based event dispatching
++================================
++
++FRED operates differently from IDT in terms of event handling. Instead
++of directly dispatching an event to its handler based on the event
++vector, FRED requires the software to dispatch an event to its handler
++based on both the event's type and vector. Therefore, an event
++dispatch framework must be implemented to facilitate the
++event-to-handler dispatch process. The FRED event dispatch framework
++assumes control once an event is delivered, starting from two FRED
++entry points, after which several event dispatch tables are introduced
++to facilitate the dispatching.
++
++The first level dispatching is event type based, and two tables need
++to be defined, one for ring 3 event dispatching, and the other
++for ring 0.
++
++The second level dispatching is event vector based, and
++several tables need to be defined, e.g., an exception handler table
++for exception dispatching.
++
++Full supervisor/user context
++============================
++
++FRED event delivery atomically save and restore full supervisor/user
++context upon event delivery and return. Thus it avoids the problem of
++transient states due to %cr2 and/or %dr6, thus it is no longer needed
++to handle all the ugly corner cases caused by half baked CPU states.
++
++FRED allows explicit unblock of NMI with new event return instructions
++ERETS/ERETU, avoiding the mess caused by IRET which unconditionally
++unblocks NMI, when an exception happens during NMI handling.
++
++FRED always restores the full value of %rsp, thus ESPFIX is no longer
++needed when FRED is enabled.
++
++LKGS
++====
++
++LKGS behaves like the MOV to GS instruction except that it loads the
++base address into the IA32_KERNEL_GS_BASE MSR instead of the GS
++segment’s descriptor cache, which is exactly what Linux kernel does
++to load user level GS base. With LKGS, it ends up with avoiding
++mucking with kernel GS.
++
++Because FRED event delivery from ring 3 swaps the value of the GS base
++address and that of the IA32_KERNEL_GS_BASE MSR, and ERETU swaps the
++value of the GS base address and that of the IA32_KERNEL_GS_BASE MSR,
++plus the introduction of LKGS instruction, the SWAPGS instruction is
++no longer needed when FRED is enabled, thus is disallowed (#UD).
++
++Stack levels
++============
++
++4 stack levels 0~3 are introduced to replace the un-reentrant IST for
++handling events. Each stack level could be configured to use a
++dedicated stack.
++
++The current stack level could be unchanged or go higher upon FRED
++event delivery. If unchanged, the CPU keeps using the current event
++stack. If higher, the CPU switches to a new stack specified by the
++stack MSR of the new stack level.
++
++Only execution of a FRED return instruction ERETU or ERETS could lower
++the current stack level, causing the CPU to switch back to the stack
++it was on before a previous event delivery.
++satck.
+diff --git a/Documentation/arch/x86/x86_64/index.rst b/Documentation/arch/x86/x86_64/index.rst
+index a56070fc8e77..ad15e9bd623f 100644
+--- a/Documentation/arch/x86/x86_64/index.rst
++++ b/Documentation/arch/x86/x86_64/index.rst
+@@ -15,3 +15,4 @@ x86_64 Support
+    cpu-hotplug-spec
+    machinecheck
+    fsgs
++   fred
 -- 
 2.34.1
 
