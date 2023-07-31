@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B86769EC4
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 19:08:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573354.898038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 529E1769EF2
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 19:10:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573371.898075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQWNE-0005UL-JI; Mon, 31 Jul 2023 17:08:00 +0000
+	id 1qQWP5-0001RR-04; Mon, 31 Jul 2023 17:09:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573354.898038; Mon, 31 Jul 2023 17:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 573371.898075; Mon, 31 Jul 2023 17:09:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQWNE-0005NH-2o; Mon, 31 Jul 2023 17:08:00 +0000
-Received: by outflank-mailman (input) for mailman id 573354;
- Mon, 31 Jul 2023 17:07:58 +0000
+	id 1qQWP4-0001OM-TB; Mon, 31 Jul 2023 17:09:54 +0000
+Received: by outflank-mailman (input) for mailman id 573371;
+ Mon, 31 Jul 2023 17:09:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d7tO=DR=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
- id 1qQWK4-0008Np-Ul
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 17:04:44 +0000
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [2607:f8b0:4864:20::b2e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5796ca12-2fc4-11ee-8613-37d641c3527e;
- Mon, 31 Jul 2023 19:04:43 +0200 (CEST)
-Received: by mail-yb1-xb2e.google.com with SMTP id
- 3f1490d57ef6-d05a63946e0so4860578276.1
- for <xen-devel@lists.xenproject.org>; Mon, 31 Jul 2023 10:04:43 -0700 (PDT)
-Received: from unknowna0e70b2ca394.attlocal.net ([2600:1700:2f7d:1800::16])
- by smtp.googlemail.com with ESMTPSA id
- x31-20020a25ac9f000000b00c832ad2e2eesm2511833ybi.60.2023.07.31.10.04.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jul 2023 10:04:41 -0700 (PDT)
+ <SRS0=7hZk=DR=chiark.greenend.org.uk=ijackson@srs-se1.protection.inumbo.net>)
+ id 1qQWP2-0001NR-KV
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 17:09:53 +0000
+Received: from chiark.greenend.org.uk (v6.chiark.greenend.org.uk
+ [2001:ba8:1e3::]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0caf9753-2fc5-11ee-8613-37d641c3527e;
+ Mon, 31 Jul 2023 19:09:48 +0200 (CEST)
+Received: by chiark.greenend.org.uk (Debian Exim 4.94.2 #2) with local
+ (return-path ijackson@chiark.greenend.org.uk)
+ id 1qQWOr-0002ds-L1; Mon, 31 Jul 2023 18:09:41 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,220 +39,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5796ca12-2fc4-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690823082; x=1691427882;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ge3Da1dLlbVImV5jdD/HZRx7aISFPvIvfEGvqleo2SA=;
-        b=ioOMbbu3JES3j1Jj+JW3855XW3Ov65AQm8O9lv95JxDcPPS6IwntjHfsaaLCwjHL5b
-         OuA4j3AMcOeG2v6VKrbkSXabyBKoN8KuyYIoDCC1YD5I/RC4KqKt3ITSQwKezbQCp/8J
-         AR8EjEBjRuz0BKnlQIU6Pu2fINdNhuBPDReykf5gMLB8b4rp/cimT4edf9bEDyME9O7d
-         VFOstOotn1+dDzfuistQZkRoPkOh7Uzd/ZqgsVXJ0Zgg3bR5ReggCo1obemCJNhIS+t9
-         Ue+OH0jfGRqmyKjIxlmOMTrVnVAvQzQZxHF6PwZledF5BBiAWirHuHl+9jo5QzXuxUnf
-         6Gng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690823082; x=1691427882;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ge3Da1dLlbVImV5jdD/HZRx7aISFPvIvfEGvqleo2SA=;
-        b=VFa1A77KiddJpPRG7H5abvMMr+Mrvi9XxMCJa8l4GZ96QOVX5M2Vu8u3L2AJMD2lNl
-         PiQpK5E1d1cOEJ7OVobyFd7cEDmGyN3Ao+9Qd5m+zL+O6qbbH7QEadqbFTdKN+r3ztdF
-         9aOiwyPgC6IfyzcznA0bhQZGjrAHI+IjEVopu/ON5dXTdH38x/TpZmcxSPoY+NTtJ1r3
-         ynZv2Kn8tWcIXwvTHCAvfxefuUYkokxQjb4aTSawZFHugIqRJdpMjuffyyXMXyxa+muY
-         JXgCFDKTxGprTqKdY3XgZ1PSA/5j35D2rERqG8kogizu1G5dz0P6dA8Zx/f6f0SwiijQ
-         dAcA==
-X-Gm-Message-State: ABy/qLaPUpjELVXCxIAijlA9cEzfEMC8n4unUrEU53UUtDMAmOc2VZnp
-	J64d054njkCskIbuyF9dzZM=
-X-Google-Smtp-Source: APBJJlF0vgCAeh2GJq7nS2h9EAm5JTHFkJPU6wpVfPXTMfmv7gc4qDUX7Q6WDvp5wiH1WM3Qyv6c4g==
-X-Received: by 2002:a25:d68d:0:b0:d0f:ea4b:1dff with SMTP id n135-20020a25d68d000000b00d0fea4b1dffmr10302787ybg.8.1690823081905;
-        Mon, 31 Jul 2023 10:04:41 -0700 (PDT)
-From: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>
-Cc: linux-mm@kvack.org,
-	linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-hexagon@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org,
-	linux-openrisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	xen-devel@lists.xenproject.org,
-	kvm@vger.kernel.org,
-	Hugh Dickins <hughd@google.com>,
-	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-	Mike Rapoport <rppt@kernel.org>
-Subject: [PATCH mm-unstable v8 31/31] mm: Remove pgtable_{pmd, pte}_page_{ctor, dtor}() wrappers
-Date: Mon, 31 Jul 2023 10:03:32 -0700
-Message-Id: <20230731170332.69404-32-vishal.moola@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230731170332.69404-1-vishal.moola@gmail.com>
-References: <20230731170332.69404-1-vishal.moola@gmail.com>
+X-Inumbo-ID: 0caf9753-2fc5-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=chiark.greenend.org.uk; s=k.chiark; h=DKIM-Signature-Warning:References:
+	In-Reply-To:Subject:Cc:To:Date:Message-ID:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:From:Sender:Reply-To:Content-ID:Content-Description
+	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=kq3C9qdHinQVZt4g5pbFr5nLdggSuLiE7Cy5h/e80Zg=; b=nVIcsoN2NZw4
+	t4niyQw0UBtVPY+ovRrpXqXj7lLH5sP2WdBDMupYBXLq7dowyyxhYsD//uhlw5Q/HSAdEM/uLYapU
+	qmyAxubtVzqdsAO7Y8OT3ywsDXb/+fDJXa+MUDVuW+rwkyKkvgd85mluwnjcCPHX6EPwX2Xq21AZJ
+	6tkjxd2SBjylDBYnVL9eHRt/rNzHdI8o8OI2zrDkRhWlzPPNnUPiqHKcfFjnKhwDo/b0tjcv+cPBs
+	F3R+E8kOTEDMPjj5PnsO8yMSuPNiGPGnmQhNVDe6Zvc9+DsfC/IAlIbKna4LdFC5IUUjYy8Eud68W
+	HaI+2GByL816gphy5JOVuQ==;
+From: Ian Jackson <ijackson@chiark.greenend.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
+Message-ID: <25799.60117.528120.26189@chiark.greenend.org.uk>
+Date: Mon, 31 Jul 2023 18:09:41 +0100
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+    xen-devel@lists.xenproject.org,
+    wl@xen.org,
+    Anthony PERARD <anthony.perard@citrix.com>,
+    Juergen Gross <jgross@suse.com>
+Subject: Re: Python in Domain Configurations
+In-Reply-To: <ZMflj1F5qDydEgbd@mattapan.m5p.com>
+References: <ZKiN80e08QIojRSL@mattapan.m5p.com>
+	<ZL7e6IcJWK38IHU7@mattapan.m5p.com>
+	<ZMcxvdSbpQdWg5/r@mail-itl>
+	<ZMflj1F5qDydEgbd@mattapan.m5p.com>
+X-Mailer: VM 8.2.0b under 27.1 (x86_64-pc-linux-gnu)
+DKIM-Signature-Warning: NOTE REGARDING DKIM KEY COMPROMISE https://www.chiark.greenend.org.uk/dkim-rotate/README.txt https://www.chiark.greenend.org.uk/dkim-rotate/af/afac8f396f88c5d9f7a728135905de4e.pem
 
-These functions are no longer necessary. Remove them and cleanup
-Documentation referencing them.
+Elliott Mitchell writes ("Re: Python in Domain Configurations"):
+> On Mon, Jul 31, 2023 at 05:59:55AM +0200, Marek Marczykowski-G=F3reck=
+i wrote:
+> > So, IMHO reducing config file from a full python (like it used to b=
+e in
+> > xend times) into a static file with well defined syntax was an
+> > improvement. Lets not go backward.
 
-Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
-Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
----
- Documentation/mm/split_page_table_lock.rst    | 12 +++++------
- .../zh_CN/mm/split_page_table_lock.rst        | 14 ++++++-------
- include/linux/mm.h                            | 20 -------------------
- 3 files changed, 13 insertions(+), 33 deletions(-)
+I'm no longer working on this codebase, but since I've been CC'd:
 
-diff --git a/Documentation/mm/split_page_table_lock.rst b/Documentation/mm/split_page_table_lock.rst
-index a834fad9de12..e4f6972eb6c0 100644
---- a/Documentation/mm/split_page_table_lock.rst
-+++ b/Documentation/mm/split_page_table_lock.rst
-@@ -58,7 +58,7 @@ Support of split page table lock by an architecture
- ===================================================
- 
- There's no need in special enabling of PTE split page table lock: everything
--required is done by pgtable_pte_page_ctor() and pgtable_pte_page_dtor(), which
-+required is done by pagetable_pte_ctor() and pagetable_pte_dtor(), which
- must be called on PTE table allocation / freeing.
- 
- Make sure the architecture doesn't use slab allocator for page table
-@@ -68,8 +68,8 @@ This field shares storage with page->ptl.
- PMD split lock only makes sense if you have more than two page table
- levels.
- 
--PMD split lock enabling requires pgtable_pmd_page_ctor() call on PMD table
--allocation and pgtable_pmd_page_dtor() on freeing.
-+PMD split lock enabling requires pagetable_pmd_ctor() call on PMD table
-+allocation and pagetable_pmd_dtor() on freeing.
- 
- Allocation usually happens in pmd_alloc_one(), freeing in pmd_free() and
- pmd_free_tlb(), but make sure you cover all PMD table allocation / freeing
-@@ -77,7 +77,7 @@ paths: i.e X86_PAE preallocate few PMDs on pgd_alloc().
- 
- With everything in place you can set CONFIG_ARCH_ENABLE_SPLIT_PMD_PTLOCK.
- 
--NOTE: pgtable_pte_page_ctor() and pgtable_pmd_page_ctor() can fail -- it must
-+NOTE: pagetable_pte_ctor() and pagetable_pmd_ctor() can fail -- it must
- be handled properly.
- 
- page->ptl
-@@ -97,7 +97,7 @@ trick:
-    split lock with enabled DEBUG_SPINLOCK or DEBUG_LOCK_ALLOC, but costs
-    one more cache line for indirect access;
- 
--The spinlock_t allocated in pgtable_pte_page_ctor() for PTE table and in
--pgtable_pmd_page_ctor() for PMD table.
-+The spinlock_t allocated in pagetable_pte_ctor() for PTE table and in
-+pagetable_pmd_ctor() for PMD table.
- 
- Please, never access page->ptl directly -- use appropriate helper.
-diff --git a/Documentation/translations/zh_CN/mm/split_page_table_lock.rst b/Documentation/translations/zh_CN/mm/split_page_table_lock.rst
-index 4fb7aa666037..a2c288670a24 100644
---- a/Documentation/translations/zh_CN/mm/split_page_table_lock.rst
-+++ b/Documentation/translations/zh_CN/mm/split_page_table_lock.rst
-@@ -56,16 +56,16 @@ Hugetlb特定的辅助函数:
- 架构对分页表锁的支持
- ====================
- 
--没有必要特别启用PTE分页表锁：所有需要的东西都由pgtable_pte_page_ctor()
--和pgtable_pte_page_dtor()完成，它们必须在PTE表分配/释放时被调用。
-+没有必要特别启用PTE分页表锁：所有需要的东西都由pagetable_pte_ctor()
-+和pagetable_pte_dtor()完成，它们必须在PTE表分配/释放时被调用。
- 
- 确保架构不使用slab分配器来分配页表：slab使用page->slab_cache来分配其页
- 面。这个区域与page->ptl共享存储。
- 
- PMD分页锁只有在你有两个以上的页表级别时才有意义。
- 
--启用PMD分页锁需要在PMD表分配时调用pgtable_pmd_page_ctor()，在释放时调
--用pgtable_pmd_page_dtor()。
-+启用PMD分页锁需要在PMD表分配时调用pagetable_pmd_ctor()，在释放时调
-+用pagetable_pmd_dtor()。
- 
- 分配通常发生在pmd_alloc_one()中，释放发生在pmd_free()和pmd_free_tlb()
- 中，但要确保覆盖所有的PMD表分配/释放路径：即X86_PAE在pgd_alloc()中预先
-@@ -73,7 +73,7 @@ PMD分页锁只有在你有两个以上的页表级别时才有意义。
- 
- 一切就绪后，你可以设置CONFIG_ARCH_ENABLE_SPLIT_PMD_PTLOCK。
- 
--注意：pgtable_pte_page_ctor()和pgtable_pmd_page_ctor()可能失败--必
-+注意：pagetable_pte_ctor()和pagetable_pmd_ctor()可能失败--必
- 须正确处理。
- 
- page->ptl
-@@ -90,7 +90,7 @@ page->ptl用于访问分割页表锁，其中'page'是包含该表的页面struc
-    的指针并动态分配它。这允许在启用DEBUG_SPINLOCK或DEBUG_LOCK_ALLOC的
-    情况下使用分页锁，但由于间接访问而多花了一个缓存行。
- 
--PTE表的spinlock_t分配在pgtable_pte_page_ctor()中，PMD表的spinlock_t
--分配在pgtable_pmd_page_ctor()中。
-+PTE表的spinlock_t分配在pagetable_pte_ctor()中，PMD表的spinlock_t
-+分配在pagetable_pmd_ctor()中。
- 
- 请不要直接访问page->ptl - -使用适当的辅助函数。
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index bd3d99d81984..e4e34ecbc2ea 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2913,11 +2913,6 @@ static inline bool pagetable_pte_ctor(struct ptdesc *ptdesc)
- 	return true;
- }
- 
--static inline bool pgtable_pte_page_ctor(struct page *page)
--{
--	return pagetable_pte_ctor(page_ptdesc(page));
--}
--
- static inline void pagetable_pte_dtor(struct ptdesc *ptdesc)
- {
- 	struct folio *folio = ptdesc_folio(ptdesc);
-@@ -2927,11 +2922,6 @@ static inline void pagetable_pte_dtor(struct ptdesc *ptdesc)
- 	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
- }
- 
--static inline void pgtable_pte_page_dtor(struct page *page)
--{
--	pagetable_pte_dtor(page_ptdesc(page));
--}
--
- pte_t *__pte_offset_map(pmd_t *pmd, unsigned long addr, pmd_t *pmdvalp);
- static inline pte_t *pte_offset_map(pmd_t *pmd, unsigned long addr)
- {
-@@ -3038,11 +3028,6 @@ static inline bool pagetable_pmd_ctor(struct ptdesc *ptdesc)
- 	return true;
- }
- 
--static inline bool pgtable_pmd_page_ctor(struct page *page)
--{
--	return pagetable_pmd_ctor(page_ptdesc(page));
--}
--
- static inline void pagetable_pmd_dtor(struct ptdesc *ptdesc)
- {
- 	struct folio *folio = ptdesc_folio(ptdesc);
-@@ -3052,11 +3037,6 @@ static inline void pagetable_pmd_dtor(struct ptdesc *ptdesc)
- 	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
- }
- 
--static inline void pgtable_pmd_page_dtor(struct page *page)
--{
--	pagetable_pmd_dtor(page_ptdesc(page));
--}
--
- /*
-  * No scalability reason to split PUD locks yet, but follow the same pattern
-  * as the PMD locks to make it easier if we decide to.  The VM should not be
--- 
-2.40.1
+I was one of the people who replaced the Python-based config parsing
+with the current arrangements.  We didn't just do this because we were
+replacing xend (whose use of Python as implementation language made it
+appear convenient to just read and execute the configs as Python
+code).
 
+We did it for the reasons Marek gives.  It's true that the existing
+format is not as well specified as it could be.  It was intended as a
+plausible subset of Python literal syntax.  We chose that syntax to
+preserve compatibility with the vast majority of existing config files
+and to provide something familiar.  (And it seems we did achieve those
+goals.)
+
+The disk configuration syntax is particularly warty, but we inherited
+much of that from the Python version.
+
+If we had a free choice today, I might advocate for TOML.  But I don't
+see any value in changing the concrete syntax now.
+
+> > As for your original problem, IIUC you would like to add some data =
+that
+> > would _not_ be interpreted by libxl, right? For that you can use
+> > comments with some specific marker for your script. This approach u=
+sed
+> > to work well for SysV init script, and in fact for a very similar u=
+se case
+> > (ordering and dependencies, among other things).
+>=20
+> That is /not/ the issue.  `xl` simply ignores any variables which it
+> doesn't interpret (this is in fact a Bad Thing).
+
+I forget, but isn't there some kind of scheme for warning about
+unrecognised configuration options ?
+
+>  I need to know what the limits to the syntax are.
+
+I agree that it's not great that the syntax is not 100% documented.
+The parser is in
+  tools/libs/util/libxlu_cfg_y.y
+  tools/libs/util/libxlu_cfg_l.l
+I'm sure patches to improve the docs would be welcome.
+
+Note that it is still a *subset* of Python, so if you wish to use a
+Python interpreter to parse it in your own tooling, you're very
+welcome to do so.
+
+> Notice how many init scripts do `. /etc/default/<somefile>` to load
+> configuration?  I'm thinking it would be very handy to use a similar
+> technique to load domain.cfg files, with Python being the interpreter=
+.
+
+I don't think this is a good idea.  Both because I don't think the
+functionality available in a Python interpreter should be available in
+the libxl configuration, and because Python is a large and complex
+dependency which we don't want to pull in here.
+
+> I also think some portions of the domain.cfg format might work better=
+
+> with full Python syntax.  For example might it be handier to allow:
+>=20
+> disk =3D [
+> =09{
+> =09=09'vdev': 'xvda',
+> =09=09'format': 'raw',
+> =09=09'access': 'rw',
+> =09=09'target': '/dev/disk/by-path/foo-bar-baz',
+> =09},
+> ]
+
+I agree that something like this would be nice.  I don't think it
+should be done by importing Python.  These two files - the main part
+of the existing parser - is only 183 loc including comments.
+Extending it (and the support code in libxlu_cfg.c) to do dictionaries
+as well as lists doesn't seem like it would make it too much bigger.
+
+Thanks,
+Ian.
+
+--=20
+Ian Jackson <ijackson@chiark.greenend.org.uk>   These opinions are my o=
+wn. =20
+
+Pronouns: they/he.  If I emailed you from @fyvzl.net or @evade.org.uk,
+that is a private address which bypasses my fierce spamfilter.
 
