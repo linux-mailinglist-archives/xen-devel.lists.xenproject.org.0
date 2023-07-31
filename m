@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E1EF768CE7
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:04:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.572622.896455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40FF0768CE3
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:04:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.572625.896463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQMvj-0001K8-4P; Mon, 31 Jul 2023 07:02:59 +0000
+	id 1qQMvj-0001Xa-GW; Mon, 31 Jul 2023 07:02:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 572622.896455; Mon, 31 Jul 2023 07:02:59 +0000
+Received: by outflank-mailman (output) from mailman id 572625.896463; Mon, 31 Jul 2023 07:02:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQMvi-00018L-T7; Mon, 31 Jul 2023 07:02:58 +0000
-Received: by outflank-mailman (input) for mailman id 572622;
- Mon, 31 Jul 2023 07:02:05 +0000
+	id 1qQMvj-0001Mc-AG; Mon, 31 Jul 2023 07:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 572625;
+ Mon, 31 Jul 2023 07:02:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8T0J=DR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQMur-0000hs-A7
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:02:05 +0000
+ id 1qQMus-0000hs-AE
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:02:06 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.24])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27813696-2f70-11ee-b254-6b7b168915f2;
+ id 27a5d377-2f70-11ee-b254-6b7b168915f2;
  Mon, 31 Jul 2023 09:02:04 +0200 (CEST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 00:01:53 -0700
+ 31 Jul 2023 00:01:54 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:01:54 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:01:55 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,26 +41,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27813696-2f70-11ee-b254-6b7b168915f2
+X-Inumbo-ID: 27a5d377-2f70-11ee-b254-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690786924; x=1722322924;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=tXI/C++YYSo9nyQMGnRVNwF3YsuprVE9KCho8shF7bg=;
-  b=oKkBY9juQMSzrILzvSiqxxPqUVuXAfq646vitouqi/Nthv0nu1GJqIsz
-   PL/NR53vA7ASniMtqUlBAoUWKMpwb7qDeG1eEBpkcRIC1vZv5sNTV5YKR
-   hc0Zoq6OpgRUNYmBgg4S81pcJojfpiT7M/5anj3rOzO8o3/4we8BIXY4S
-   cUDCVFWaTvRX0QMndSE8EiPmAc1IAa3RTnK6m5pr/6A4YgRrIqPnaCzaM
-   xnJUJ3udwk1Rb3mJrhY3Ny/ZRwe8nTMyMqxyuGg8BJTgkQNgryAlYz083
-   HfU5nsWHMXRxHSG/KbpV/WlXjAyqT7k507s/6KmkybzD7mQymSjs+TgTF
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371648703"
+  bh=F/SemwGNBG6weEZopYj3iIwsf6sy0XGLv5PanieJeUc=;
+  b=Vw2WEwXXcICQqdNT2ae4LolsYzfchslshNDfrPHKeIwSBeIM0fghfq4G
+   sz2FutcpKHx2VUJIEkKWyHQgQ8yGI4vrNPHlVpjPQxECJqKTFL7F03coX
+   hZ9fQeKzySNZD6hrTb6WbYLpkcw8b1FwPvq/2NnyLwjd4eN4X+xOe+HLD
+   Ep4p6hZ+R2A/XGkhFndH+Ipk/I5NDo+iMtKnuPEt1wVK/UzKX/kDfvJ+h
+   cOyOgLfA3QC/IGE9YntxaH8p6yIGRINi4R/gYkvOS5BeIMXjWwZJzTarG
+   LTMa7sZflz/xd/VHes9y97uXLpXLSUurLOMpWVxhKj0cmp4RN3OU3neok
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371648742"
 X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
-   d="scan'208";a="371648703"
+   d="scan'208";a="371648742"
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; 
-   d="scan'208";a="871543352"
+   d="scan'208";a="871543358"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,9 +137,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH v9 04/36] x86/cpufeatures: Add the cpu feature bit for FRED
-Date: Sun, 30 Jul 2023 23:32:45 -0700
-Message-Id: <20230731063317.3720-5-xin3.li@intel.com>
+Subject: [PATCH v9 05/36] x86/opcode: Add ERETU, ERETS instructions to x86-opcode-map
+Date: Sun, 30 Jul 2023 23:32:46 -0700
+Message-Id: <20230731063317.3720-6-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230731063317.3720-1-xin3.li@intel.com>
 References: <20230731063317.3720-1-xin3.li@intel.com>
@@ -148,40 +148,44 @@ Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-Add the CPU feature bit for FRED.
+Add instruction opcodes used by FRED ERETU/ERETS to x86-opcode-map.
+
+Opcode numbers are per FRED spec v5.0.
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/include/asm/cpufeatures.h       | 1 +
- tools/arch/x86/include/asm/cpufeatures.h | 1 +
- 2 files changed, 2 insertions(+)
+ arch/x86/lib/x86-opcode-map.txt       | 2 +-
+ tools/arch/x86/lib/x86-opcode-map.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index cb8ca46213be..fd3ddd5c0283 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -317,6 +317,7 @@
- #define X86_FEATURE_FZRM		(12*32+10) /* "" Fast zero-length REP MOVSB */
- #define X86_FEATURE_FSRS		(12*32+11) /* "" Fast short REP STOSB */
- #define X86_FEATURE_FSRC		(12*32+12) /* "" Fast short REP {CMPSB,SCASB} */
-+#define X86_FEATURE_FRED		(12*32+17) /* Flexible Return and Event Delivery */
- #define X86_FEATURE_LKGS		(12*32+18) /* "" Load "kernel" (userspace) GS */
- #define X86_FEATURE_AMX_FP16		(12*32+21) /* "" AMX fp16 Support */
- #define X86_FEATURE_AVX_IFMA            (12*32+23) /* "" Support for VPMADD52[H,L]UQ */
-diff --git a/tools/arch/x86/include/asm/cpufeatures.h b/tools/arch/x86/include/asm/cpufeatures.h
-index cb8ca46213be..fd3ddd5c0283 100644
---- a/tools/arch/x86/include/asm/cpufeatures.h
-+++ b/tools/arch/x86/include/asm/cpufeatures.h
-@@ -317,6 +317,7 @@
- #define X86_FEATURE_FZRM		(12*32+10) /* "" Fast zero-length REP MOVSB */
- #define X86_FEATURE_FSRS		(12*32+11) /* "" Fast short REP STOSB */
- #define X86_FEATURE_FSRC		(12*32+12) /* "" Fast short REP {CMPSB,SCASB} */
-+#define X86_FEATURE_FRED		(12*32+17) /* Flexible Return and Event Delivery */
- #define X86_FEATURE_LKGS		(12*32+18) /* "" Load "kernel" (userspace) GS */
- #define X86_FEATURE_AMX_FP16		(12*32+21) /* "" AMX fp16 Support */
- #define X86_FEATURE_AVX_IFMA            (12*32+23) /* "" Support for VPMADD52[H,L]UQ */
+diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
+index 5168ee0360b2..7a269e269dc0 100644
+--- a/arch/x86/lib/x86-opcode-map.txt
++++ b/arch/x86/lib/x86-opcode-map.txt
+@@ -1052,7 +1052,7 @@ EndTable
+ 
+ GrpTable: Grp7
+ 0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
+-1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
++1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B) | ERETU (F3),(010),(11B) | ERETS (F2),(010),(11B)
+ 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+ 3: LIDT Ms
+ 4: SMSW Mw/Rv
+diff --git a/tools/arch/x86/lib/x86-opcode-map.txt b/tools/arch/x86/lib/x86-opcode-map.txt
+index 5168ee0360b2..7a269e269dc0 100644
+--- a/tools/arch/x86/lib/x86-opcode-map.txt
++++ b/tools/arch/x86/lib/x86-opcode-map.txt
+@@ -1052,7 +1052,7 @@ EndTable
+ 
+ GrpTable: Grp7
+ 0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
+-1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
++1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B) | ERETU (F3),(010),(11B) | ERETS (F2),(010),(11B)
+ 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+ 3: LIDT Ms
+ 4: SMSW Mw/Rv
 -- 
 2.34.1
 
