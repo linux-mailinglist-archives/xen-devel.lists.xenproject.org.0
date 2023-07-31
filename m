@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95F9768D22
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:07:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.572672.896627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A232768D2B
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:09:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.572693.896691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQN0B-0002Ri-F4; Mon, 31 Jul 2023 07:07:35 +0000
+	id 1qQN1e-0006w0-ME; Mon, 31 Jul 2023 07:09:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 572672.896627; Mon, 31 Jul 2023 07:07:35 +0000
+Received: by outflank-mailman (output) from mailman id 572693.896691; Mon, 31 Jul 2023 07:09:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQN0B-0002Ke-7I; Mon, 31 Jul 2023 07:07:35 +0000
-Received: by outflank-mailman (input) for mailman id 572672;
- Mon, 31 Jul 2023 07:07:33 +0000
+	id 1qQN1e-0006tI-Iw; Mon, 31 Jul 2023 07:09:06 +0000
+Received: by outflank-mailman (input) for mailman id 572693;
+ Mon, 31 Jul 2023 07:09:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8T0J=DR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQMvD-0000hs-FS
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:02:27 +0000
-Received: from mgamail.intel.com (unknown [134.134.136.24])
+ id 1qQN1d-0006t8-01
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:09:05 +0000
+Received: from mgamail.intel.com (unknown [192.55.52.136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34c29131-2f70-11ee-b254-6b7b168915f2;
- Mon, 31 Jul 2023 09:02:26 +0200 (CEST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 00:02:15 -0700
+ id 1f916e0a-2f71-11ee-b254-6b7b168915f2;
+ Mon, 31 Jul 2023 09:09:03 +0200 (CEST)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2023 00:08:58 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:02:16 -0700
+ by orsmga004.jf.intel.com with ESMTP; 31 Jul 2023 00:08:56 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,26 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34c29131-2f70-11ee-b254-6b7b168915f2
+X-Inumbo-ID: 1f916e0a-2f71-11ee-b254-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690786946; x=1722322946;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=X4MZTo9+yUn1bPdeMYVQLWvNe1DyIq6KwUj9R7l5YRg=;
-  b=N5Si3Ws1VMbXxHI8QgjvDAHm4N2jojeHgT97Lr0u2scFwWbCKU5mLzeq
-   oZuefwZ6NzXukcm8AkWX/AfrhtgdlyTgIqQUGPS0kSkH+6teyttLdrqz+
-   wwhNhlcQuSgPXM4Ve/92j1QElbfHc1pN9GrI1hwnzpZOnlFREBmSsi3cA
-   304cqtRWWGZgbJoz774RqtrZqPxpu9bgzI7z4C4SNLU3eFKFcdLkGXJiA
-   YdbRL2ntJVk8SIW18LwKz7n36PwRXMqP6X7ftnKOfJo3QJpcKDSz+j0Q0
-   ZMFkuajhB9VFENUcTNUEtvvG0FNPj4Ga8IN1iTzA2nda1h95kYNYVnmeX
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371649455"
+  t=1690787343; x=1722323343;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=0Vsn6bDzpRkXYLGAG2NP2KMCccOE1uQI/p8GcVukrL0=;
+  b=BsNJME0sFaaDGCxaCoyqKL2b/N7F/ktpYpBNO/adW0ujcyKUc+Mt6z3R
+   A7lJ67624thc4aN0LDXNzJJp40zG5+U0owVg/+SrIU42b0Q9N6rveoW7g
+   0YbEDuEw/EAHa5k27FCPzBIeWKI0+Nk/XJeRmdM84azCLgdxwymQBP5S5
+   23w4pTvMwG0069HRJ3rHUpsuK8HiJUKntjRXi5wqeFlzIiMalvpxUHy8O
+   y3sqpGwUTDWmnAcK1RpKLv6AfaPeomkK2NVSivREK+1ilQGJ9h36TaC6+
+   HaUEUuo1qnAMcaBPIHH7aSLQ8G2IX/Pn2fREI9eKZcfrqj47tTJjKrR5F
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="348538895"
 X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
-   d="scan'208";a="371649455"
+   d="scan'208";a="348538895"
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; 
-   d="scan'208";a="871543489"
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="851922998"
+X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
+   d="scan'208";a="851922998"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,116 +138,175 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH v9 25/36] x86/traps: Add a system interrupt handler table for system interrupt dispatch
-Date: Sun, 30 Jul 2023 23:33:06 -0700
-Message-Id: <20230731063317.3720-26-xin3.li@intel.com>
+Subject: [PATCH v9 26/36] x86/traps: Add sysvec_install() to install a system interrupt handler
+Date: Sun, 30 Jul 2023 23:40:25 -0700
+Message-Id: <20230731064025.3819-1-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230731063317.3720-1-xin3.li@intel.com>
-References: <20230731063317.3720-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
+Add sysvec_install() to install a system interrupt handler into both
+the IDT and system_interrupt_handlers. The latter is used to dispatch
+system interrupts to their respective handlers when FRED is enabled.
 
-On x86, external interrupts can be categorized into two groups:
-  1) System interrupts
-  2) External device interrupts
-
-All external device interrupts are directed to the common_interrupt(),
-which, in turn, dispatches these external device interrupts using a
-per-CPU external device interrupt dispatch table vector_irq.
-
-To handle system interrupts, a system interrupt handler table needs to
-be introduced. This table enables the direct dispatching of a system
-interrupt to its corresponding handler. As a result, a software-based
-dispatch function will be implemented as:
-
-  void external_interrupt(struct pt_regs *regs)
-  {
-    u8 vector = regs->vector;
-    if (is_system_interrupt(vector))
-      system_interrupt_handlers[vector_to_sysvec(vector)](regs);
-    else /* external device interrupt */
-      common_interrupt(regs);
-  }
-
-Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
-Co-developed-by: Xin Li <xin3.li@intel.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
 
 Changes since v8:
-* Remove junk code that assumes no local APIC on x86_64 (Thomas Gleixner).
-
-Changes since v5:
-* Initialize system_interrupt_handlers with dispatch_table_spurious_interrupt()
-  instead of NULL to get rid of any NULL check (Peter Zijlstra).
+* Introduce a macro sysvec_install() to derive the asm handler name from
+  a C handler, which simplifies the code and avoids an ugly typecast
+  (Thomas Gleixner).
 ---
- arch/x86/kernel/traps.c | 50 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ arch/x86/include/asm/traps.h     | 19 +++++++++++++++++++
+ arch/x86/kernel/cpu/acrn.c       |  5 +++--
+ arch/x86/kernel/cpu/mshyperv.c   | 16 ++++++++--------
+ arch/x86/kernel/kvm.c            |  2 +-
+ arch/x86/kernel/traps.c          |  6 ++++++
+ drivers/xen/events/events_base.c |  3 ++-
+ 6 files changed, 39 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
-index 49dd92458eb0..e430a8c47931 100644
---- a/arch/x86/kernel/traps.c
-+++ b/arch/x86/kernel/traps.c
-@@ -1488,6 +1488,56 @@ DEFINE_IDTENTRY_SW(iret_error)
- }
+diff --git a/arch/x86/include/asm/traps.h b/arch/x86/include/asm/traps.h
+index 47ecfff2c83d..cba3e4dfc329 100644
+--- a/arch/x86/include/asm/traps.h
++++ b/arch/x86/include/asm/traps.h
+@@ -47,4 +47,23 @@ void __noreturn handle_stack_overflow(struct pt_regs *regs,
+ 				      struct stack_info *info);
  #endif
  
 +#ifdef CONFIG_X86_64
++inline void set_sysvec_handler(unsigned int i, system_interrupt_handler func);
 +
-+static void dispatch_table_spurious_interrupt(struct pt_regs *regs)
++static inline void sysvec_setup_fred(unsigned int vector, system_interrupt_handler func)
 +{
-+	dispatch_spurious_interrupt(regs, regs->vector);
++	BUG_ON(vector < FIRST_SYSTEM_VECTOR);
++	set_sysvec_handler(vector - FIRST_SYSTEM_VECTOR, func);
++}
++#else
++static inline void sysvec_setup_fred(unsigned int vector, system_interrupt_handler func)
++{
++}
++#endif
++
++#define sysvec_install(vector, func) {					\
++	sysvec_setup_fred(vector, func);				\
++	alloc_intr_gate(vector, asm_##func);				\
 +}
 +
-+#define SYSV(x,y) [(x) - FIRST_SYSTEM_VECTOR] = y
-+
-+static system_interrupt_handler system_interrupt_handlers[NR_SYSTEM_VECTORS] = {
-+	[0 ... NR_SYSTEM_VECTORS-1]		= dispatch_table_spurious_interrupt,
-+#ifdef CONFIG_SMP
-+	SYSV(RESCHEDULE_VECTOR,			dispatch_table_sysvec_reschedule_ipi),
-+	SYSV(CALL_FUNCTION_VECTOR,		dispatch_table_sysvec_call_function),
-+	SYSV(CALL_FUNCTION_SINGLE_VECTOR,	dispatch_table_sysvec_call_function_single),
-+	SYSV(REBOOT_VECTOR,			dispatch_table_sysvec_reboot),
-+#endif
-+
-+#ifdef CONFIG_X86_THERMAL_VECTOR
-+	SYSV(THERMAL_APIC_VECTOR,		dispatch_table_sysvec_thermal),
-+#endif
-+
-+#ifdef CONFIG_X86_MCE_THRESHOLD
-+	SYSV(THRESHOLD_APIC_VECTOR,		dispatch_table_sysvec_threshold),
-+#endif
-+
-+#ifdef CONFIG_X86_MCE_AMD
-+	SYSV(DEFERRED_ERROR_VECTOR,		dispatch_table_sysvec_deferred_error),
-+#endif
-+
-+#ifdef CONFIG_X86_LOCAL_APIC
-+	SYSV(LOCAL_TIMER_VECTOR,		dispatch_table_sysvec_apic_timer_interrupt),
-+	SYSV(X86_PLATFORM_IPI_VECTOR,		dispatch_table_sysvec_x86_platform_ipi),
-+# ifdef CONFIG_HAVE_KVM
-+	SYSV(POSTED_INTR_VECTOR,		dispatch_table_sysvec_kvm_posted_intr_ipi),
-+	SYSV(POSTED_INTR_WAKEUP_VECTOR,		dispatch_table_sysvec_kvm_posted_intr_wakeup_ipi),
-+	SYSV(POSTED_INTR_NESTED_VECTOR,		dispatch_table_sysvec_kvm_posted_intr_nested_ipi),
-+# endif
-+# ifdef CONFIG_IRQ_WORK
-+	SYSV(IRQ_WORK_VECTOR,			dispatch_table_sysvec_irq_work),
-+# endif
-+	SYSV(SPURIOUS_APIC_VECTOR,		dispatch_table_sysvec_spurious_apic_interrupt),
-+	SYSV(ERROR_APIC_VECTOR,			dispatch_table_sysvec_error_interrupt),
-+#endif
-+};
-+
-+#undef SYSV
-+
-+#endif /* CONFIG_X86_64 */
-+
- void __init trap_init(void)
+ #endif /* _ASM_X86_TRAPS_H */
+diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
+index 485441b7f030..a879b4b87740 100644
+--- a/arch/x86/kernel/cpu/acrn.c
++++ b/arch/x86/kernel/cpu/acrn.c
+@@ -18,6 +18,7 @@
+ #include <asm/hypervisor.h>
+ #include <asm/idtentry.h>
+ #include <asm/irq_regs.h>
++#include <asm/traps.h>
+ 
+ static u32 __init acrn_detect(void)
  {
- 	/* Init cpu_entry_area before IST entries are set up */
+@@ -26,8 +27,8 @@ static u32 __init acrn_detect(void)
+ 
+ static void __init acrn_init_platform(void)
+ {
+-	/* Setup the IDT for ACRN hypervisor callback */
+-	alloc_intr_gate(HYPERVISOR_CALLBACK_VECTOR, asm_sysvec_acrn_hv_callback);
++	/* Install system interrupt handler for ACRN hypervisor callback */
++	sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_acrn_hv_callback);
+ 
+ 	x86_platform.calibrate_tsc = acrn_get_tsc_khz;
+ 	x86_platform.calibrate_cpu = acrn_get_tsc_khz;
+diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyperv.c
+index c7969e806c64..134830a7f575 100644
+--- a/arch/x86/kernel/cpu/mshyperv.c
++++ b/arch/x86/kernel/cpu/mshyperv.c
+@@ -28,6 +28,7 @@
+ #include <asm/i8259.h>
+ #include <asm/apic.h>
+ #include <asm/timer.h>
++#include <asm/traps.h>
+ #include <asm/reboot.h>
+ #include <asm/nmi.h>
+ #include <clocksource/hyperv_timer.h>
+@@ -480,19 +481,18 @@ static void __init ms_hyperv_init_platform(void)
+ 	 */
+ 	x86_platform.apic_post_init = hyperv_init;
+ 	hyperv_setup_mmu_ops();
+-	/* Setup the IDT for hypervisor callback */
+-	alloc_intr_gate(HYPERVISOR_CALLBACK_VECTOR, asm_sysvec_hyperv_callback);
+ 
+-	/* Setup the IDT for reenlightenment notifications */
++	/* Install system interrupt handler for hypervisor callback */
++	sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_hyperv_callback);
++
++	/* Install system interrupt handler for reenlightenment notifications */
+ 	if (ms_hyperv.features & HV_ACCESS_REENLIGHTENMENT) {
+-		alloc_intr_gate(HYPERV_REENLIGHTENMENT_VECTOR,
+-				asm_sysvec_hyperv_reenlightenment);
++		sysvec_install(HYPERV_REENLIGHTENMENT_VECTOR, sysvec_hyperv_reenlightenment);
+ 	}
+ 
+-	/* Setup the IDT for stimer0 */
++	/* Install system interrupt handler for stimer0 */
+ 	if (ms_hyperv.misc_features & HV_STIMER_DIRECT_MODE_AVAILABLE) {
+-		alloc_intr_gate(HYPERV_STIMER0_VECTOR,
+-				asm_sysvec_hyperv_stimer0);
++		sysvec_install(HYPERV_STIMER0_VECTOR, sysvec_hyperv_stimer0);
+ 	}
+ 
+ # ifdef CONFIG_SMP
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 1cceac5984da..12c799412c5d 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -829,7 +829,7 @@ static void __init kvm_guest_init(void)
+ 
+ 	if (kvm_para_has_feature(KVM_FEATURE_ASYNC_PF_INT) && kvmapf) {
+ 		static_branch_enable(&kvm_async_pf_enabled);
+-		alloc_intr_gate(HYPERVISOR_CALLBACK_VECTOR, asm_sysvec_kvm_asyncpf_interrupt);
++		sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_kvm_asyncpf_interrupt);
+ 	}
+ 
+ #ifdef CONFIG_SMP
+diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
+index e430a8c47931..9040c7f01c93 100644
+--- a/arch/x86/kernel/traps.c
++++ b/arch/x86/kernel/traps.c
+@@ -1536,6 +1536,12 @@ static system_interrupt_handler system_interrupt_handlers[NR_SYSTEM_VECTORS] = {
+ 
+ #undef SYSV
+ 
++void set_sysvec_handler(unsigned int i, system_interrupt_handler func)
++{
++	BUG_ON(i >= NR_SYSTEM_VECTORS);
++	system_interrupt_handlers[i] = func;
++}
++
+ #endif /* CONFIG_X86_64 */
+ 
+ void __init trap_init(void)
+diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+index c7715f8bd452..16d51338e1f8 100644
+--- a/drivers/xen/events/events_base.c
++++ b/drivers/xen/events/events_base.c
+@@ -45,6 +45,7 @@
+ #include <asm/irq.h>
+ #include <asm/io_apic.h>
+ #include <asm/i8259.h>
++#include <asm/traps.h>
+ #include <asm/xen/cpuid.h>
+ #include <asm/xen/pci.h>
+ #endif
+@@ -2249,7 +2250,7 @@ static __init void xen_alloc_callback_vector(void)
+ 		return;
+ 
+ 	pr_info("Xen HVM callback vector for event delivery is enabled\n");
+-	alloc_intr_gate(HYPERVISOR_CALLBACK_VECTOR, asm_sysvec_xen_hvm_callback);
++	sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_xen_hvm_callback);
+ }
+ #else
+ void xen_setup_callback_vector(void) {}
 -- 
 2.34.1
 
