@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47E59768CEC
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:04:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.572619.896438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294F4768CE5
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:04:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.572626.896471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQMvi-00010V-Bp; Mon, 31 Jul 2023 07:02:58 +0000
+	id 1qQMvj-0001kb-UC; Mon, 31 Jul 2023 07:02:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 572619.896438; Mon, 31 Jul 2023 07:02:58 +0000
+Received: by outflank-mailman (output) from mailman id 572626.896471; Mon, 31 Jul 2023 07:02:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQMvi-0000uJ-5T; Mon, 31 Jul 2023 07:02:58 +0000
-Received: by outflank-mailman (input) for mailman id 572619;
- Mon, 31 Jul 2023 07:02:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQMvj-0001Xs-N8; Mon, 31 Jul 2023 07:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 572626;
+ Mon, 31 Jul 2023 07:02:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8T0J=DR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQMup-0000hs-TD
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:02:03 +0000
+ id 1qQMut-0000iu-99
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:02:07 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.24])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 268026c1-2f70-11ee-b254-6b7b168915f2;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2523ab9f-2f70-11ee-8613-37d641c3527e;
  Mon, 31 Jul 2023 09:02:03 +0200 (CEST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 00:01:50 -0700
+ 31 Jul 2023 00:01:51 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:01:51 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 31 Jul 2023 00:01:52 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,26 +41,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 268026c1-2f70-11ee-b254-6b7b168915f2
+X-Inumbo-ID: 2523ab9f-2f70-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690786923; x=1722322923;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6FF6EgUyznIqvHXwn5+F1gytlgvayKLTt5Pzm0+v43k=;
-  b=VIEYLllxZhrrDtJZRSCRijifgJdBrLeSCYIB3/RUjrBU/Si5crQJPia1
-   xAqxuoSl5XwxQUxMPTdCHIdfb8wH+tnnH5AuCRrhMSfcn/mh1Fo8363DJ
-   yqsYzcpTd09vyEywm+XjUYlwhcfz1TRe9dWDUmU7nR55TkDybCBlDsvfc
-   53TQDScVkfWcvwU7nL+g4+5O8p+/rQuVYKqN107w/pbDvN4Suo2dXp95L
-   YWnf7PaaqxcNZ3AHmTuICHlbOD7ruLzQlgVdd5MqQ5UHMHbVRuWpHTOi4
-   bbcX3c8a9xQXJ8mmABBVGeg3mhxmHAC/26bWHMCxhcsMx3IhsQvNxxmr5
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371648596"
+  bh=7IEqijDovSKiraXkZB5AveXiayuWDixrga5p5CTJEmM=;
+  b=i9EXzr/ww56BPCr/DQJVGab5LZ8bJp/Wn0m1gguF5F8X0hhE8eX5w9BS
+   dCZuuTcVLbGZyhkrTbJuSEVlRzJYNBHYvixzs/X8cuwJUDutpLVXdh2a3
+   EWHikuA8PSeUNMQI7EoeaQx3/Mu3JYysITLxkITyTq3p0DP9+LL/1Ehga
+   quqSTjn+N0eA9seVz/d4f4UZ54P6uSsLcPj1tqAxUK6DUTDAIMkluZ8wp
+   eohEwjDXtpRfHc0+eC4GXDzp/4WB/m5HHsH7B2vLHT6tM/q8+0kLhZPb7
+   t5shmpULDq3JF9f5+RDou3AHAsRkVSIAnNUvD3QxmBa18jBSuaCDIo8UL
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="371648631"
 X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
-   d="scan'208";a="371648596"
+   d="scan'208";a="371648631"
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; 
-   d="scan'208";a="871543335"
+   d="scan'208";a="871543342"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,143 +137,46 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH v9 01/36] Documentation/x86/64: Add documentation for FRED
-Date: Sun, 30 Jul 2023 23:32:42 -0700
-Message-Id: <20230731063317.3720-2-xin3.li@intel.com>
+Subject: [PATCH v9 02/36] x86/fred: Add Kconfig option for FRED (CONFIG_X86_FRED)
+Date: Sun, 30 Jul 2023 23:32:43 -0700
+Message-Id: <20230731063317.3720-3-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230731063317.3720-1-xin3.li@intel.com>
 References: <20230731063317.3720-1-xin3.li@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Briefly introduce FRED, its advantages compared to IDT, and its
-Linux enabling.
+From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
+Add the configuration option CONFIG_X86_FRED to enable FRED.
+
+Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
+Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- Documentation/arch/x86/x86_64/fred.rst  | 102 ++++++++++++++++++++++++
- Documentation/arch/x86/x86_64/index.rst |   1 +
- 2 files changed, 103 insertions(+)
- create mode 100644 Documentation/arch/x86/x86_64/fred.rst
+ arch/x86/Kconfig | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/arch/x86/x86_64/fred.rst b/Documentation/arch/x86/x86_64/fred.rst
-new file mode 100644
-index 000000000000..27c980e882ba
---- /dev/null
-+++ b/Documentation/arch/x86/x86_64/fred.rst
-@@ -0,0 +1,102 @@
-+.. SPDX-License-Identifier: GPL-2.0
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 7422db409770..700d94cb8330 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -494,6 +494,15 @@ config X86_CPU_RESCTRL
+ 
+ 	  Say N if unsure.
+ 
++config X86_FRED
++	bool "Flexible Return and Event Delivery"
++	depends on X86_64
++	help
++	  When enabled, try to use Flexible Return and Event Delivery
++	  instead of the legacy SYSCALL/SYSENTER/IDT architecture for
++	  ring transitions and exception/interrupt handling if the
++	  system supports.
 +
-+=========================================
-+Flexible Return and Event Delivery (FRED)
-+=========================================
-+
-+Overview
-+========
-+
-+The FRED architecture defines simple new transitions that change
-+privilege level (ring transitions). The FRED architecture was
-+designed with the following goals:
-+
-+1) Improve overall performance and response time by replacing event
-+   delivery through the interrupt descriptor table (IDT event
-+   delivery) and event return by the IRET instruction with lower
-+   latency transitions.
-+
-+2) Improve software robustness by ensuring that event delivery
-+   establishes the full supervisor context and that event return
-+   establishes the full user context.
-+
-+The new transitions defined by the FRED architecture are FRED event
-+delivery and, for returning from events, two FRED return instructions.
-+FRED event delivery can effect a transition from ring 3 to ring 0, but
-+it is used also to deliver events incident to ring 0. One FRED
-+instruction (ERETU) effects a return from ring 0 to ring 3, while the
-+other (ERETS) returns while remaining in ring 0. Collectively, FRED
-+event delivery and the FRED return instructions are FRED transitions.
-+
-+In addition to these transitions, the FRED architecture defines a new
-+instruction (LKGS) for managing the state of the GS segment register.
-+The LKGS instruction can be used by 64-bit operating systems that do
-+not use the new FRED transitions.
-+
-+Software based event dispatching
-+================================
-+
-+FRED operates differently from IDT in terms of event handling. Instead
-+of directly dispatching an event to its handler based on the event
-+vector, FRED requires the software to dispatch an event to its handler
-+based on both the event's type and vector. Therefore, an event
-+dispatch framework must be implemented to facilitate the
-+event-to-handler dispatch process. The FRED event dispatch framework
-+assumes control once an event is delivered, starting from two FRED
-+entry points, after which several event dispatch tables are introduced
-+to facilitate the dispatching.
-+
-+The first level dispatching is event type based, and two tables need
-+to be defined, one for ring 3 event dispatching, and the other
-+for ring 0.
-+
-+The second level dispatching is event vector based, and
-+several tables need to be defined, e.g., an exception handler table
-+for exception dispatching.
-+
-+Full supervisor/user context
-+============================
-+
-+FRED event delivery atomically save and restore full supervisor/user
-+context upon event delivery and return. Thus it avoids the problem of
-+transient states due to %cr2 and/or %dr6, thus it is no longer needed
-+to handle all the ugly corner cases caused by half baked CPU states.
-+
-+FRED allows explicit unblock of NMI with new event return instructions
-+ERETS/ERETU, avoiding the mess caused by IRET which unconditionally
-+unblocks NMI, when an exception happens during NMI handling.
-+
-+FRED always restores the full value of %rsp, thus ESPFIX is no longer
-+needed when FRED is enabled.
-+
-+LKGS
-+====
-+
-+LKGS behaves like the MOV to GS instruction except that it loads the
-+base address into the IA32_KERNEL_GS_BASE MSR instead of the GS
-+segment’s descriptor cache, which is exactly what Linux kernel does
-+to load user level GS base. With LKGS, it ends up with avoiding
-+mucking with kernel GS.
-+
-+Because FRED event delivery from ring 3 swaps the value of the GS base
-+address and that of the IA32_KERNEL_GS_BASE MSR, and ERETU swaps the
-+value of the GS base address and that of the IA32_KERNEL_GS_BASE MSR,
-+plus the introduction of LKGS instruction, the SWAPGS instruction is
-+no longer needed when FRED is enabled, thus is disallowed (#UD).
-+
-+Stack levels
-+============
-+
-+4 stack levels 0~3 are introduced to replace the un-reentrant IST for
-+handling events. Each stack level could be configured to use a
-+dedicated stack.
-+
-+The current stack level could be unchanged or go higher upon FRED
-+event delivery. If unchanged, the CPU keeps using the current event
-+stack. If higher, the CPU switches to a new stack specified by the
-+stack MSR of the new stack level.
-+
-+Only execution of a FRED return instruction ERETU or ERETS could lower
-+the current stack level, causing the CPU to switch back to the stack
-+it was on before a previous event delivery.
-+satck.
-diff --git a/Documentation/arch/x86/x86_64/index.rst b/Documentation/arch/x86/x86_64/index.rst
-index a56070fc8e77..ad15e9bd623f 100644
---- a/Documentation/arch/x86/x86_64/index.rst
-+++ b/Documentation/arch/x86/x86_64/index.rst
-@@ -15,3 +15,4 @@ x86_64 Support
-    cpu-hotplug-spec
-    machinecheck
-    fsgs
-+   fred
+ if X86_32
+ config X86_BIGSMP
+ 	bool "Support for big SMP systems with more than 8 CPUs"
 -- 
 2.34.1
 
