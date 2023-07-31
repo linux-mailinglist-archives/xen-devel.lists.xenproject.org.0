@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BFED76A17C
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 21:46:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573453.898165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAF3F76A27A
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 23:14:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573457.898174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQYqY-0005d5-9L; Mon, 31 Jul 2023 19:46:26 +0000
+	id 1qQaC5-0006ef-7d; Mon, 31 Jul 2023 21:12:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573453.898165; Mon, 31 Jul 2023 19:46:26 +0000
+Received: by outflank-mailman (output) from mailman id 573457.898174; Mon, 31 Jul 2023 21:12:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQYqY-0005ax-6Z; Mon, 31 Jul 2023 19:46:26 +0000
-Received: by outflank-mailman (input) for mailman id 573453;
- Mon, 31 Jul 2023 19:46:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B7w7=DR=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
- id 1qQYqW-0005ar-2p
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 19:46:24 +0000
-Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ed102b59-2fda-11ee-b256-6b7b168915f2;
- Mon, 31 Jul 2023 21:46:22 +0200 (CEST)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-b985-910f-39e1-703f.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:b985:910f:39e1:703f])
+	id 1qQaC5-0006bR-4t; Mon, 31 Jul 2023 21:12:45 +0000
+Received: by outflank-mailman (input) for mailman id 573457;
+ Mon, 31 Jul 2023 21:12:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Bj4f=DR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qQaC2-0006bL-V4
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 21:12:43 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa71bd8a-2fe6-11ee-8613-37d641c3527e;
+ Mon, 31 Jul 2023 23:12:39 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id EAA8B178227;
- Mon, 31 Jul 2023 21:46:18 +0200 (CEST)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C9DFB612A4;
+ Mon, 31 Jul 2023 21:12:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DFFEC433C7;
+ Mon, 31 Jul 2023 21:12:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,63 +44,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed102b59-2fda-11ee-b256-6b7b168915f2
-Authentication-Results: mail.tesarici.cz; dmarc=fail (p=none dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
-	t=1690832779; bh=KWGiVMKtI706Wwo+DM5RpfJ8QcAflbLeZoJQleXTj7w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=DCbut2Q1V/o96bevVJ5VH0tsE8RBOG34SkaIN2hyTrDSOvmqWteKWg9WSSEmkSDR/
-	 7zEcP3LPJCP0C30n9bKPAcmiiYpu7Srh/GV83YQ3KdTEhs0WmTtBNg9apNXr3D4vM9
-	 l+cuuubqpoexTeGXas2IjL8jUpRGjQ4lIgZ7qtkkxPLv/dtnfOM4sW9s/NJ/VXCJbW
-	 bPmzFIP6+7hKJ/ThN/ccfBtqYIIyBpGyv67t5YdZ3SQFvyi67polQGKVblNs06g0Hr
-	 I86Dg302FpL39M5+5q5pMGvrRpcg2f/33XsKuUuAZUtFISY1nQ6bvC7px1r0e4AGzy
-	 6AOiYmUbWlVNw==
-Date: Mon, 31 Jul 2023 21:46:18 +0200
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Petr Tesarik <petrtesarik@huaweicloud.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Russell King <linux@armlinux.org.uk>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Gleixner
- <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "maintainer:X86
- ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H. Peter Anvin"
- <hpa@zytor.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Juergen Gross <jgross@suse.com>, Oleksandr
- Tyshchenko <oleksandr_tyshchenko@epam.com>, Marek Szyprowski
- <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, Christoph
- Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>, David Rientjes
- <rientjes@google.com>, Joonsoo Kim <iamjoonsoo.kim@lge.com>, Andrew Morton
- <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@suse.cz>, Roman
- Gushchin <roman.gushchin@linux.dev>, Hyeonggon Yoo <42.hyeyoo@gmail.com>,
- Petr Tesarik <petr.tesarik.ext@huawei.com>, Jonathan Corbet
- <corbet@lwn.net>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Hans
- de Goede <hdegoede@redhat.com>, James Seo <james@equiv.tech>, James Clark
- <james.clark@arm.com>, Kees Cook <keescook@chromium.org>, "moderated
- list:XEN HYPERVISOR ARM" <xen-devel@lists.xenproject.org>, "moderated
- list:ARM PORT" <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>, "open list:MIPS"
- <linux-mips@vger.kernel.org>, "open list:XEN SWIOTLB SUBSYSTEM"
- <iommu@lists.linux.dev>, "open list:SLAB ALLOCATOR" <linux-mm@kvack.org>,
- Roberto Sassu <roberto.sassu@huaweicloud.com>
-Subject: Re: [PATCH v6 0/9] Allow dynamic allocation of software IO TLB
- bounce buffers
-Message-ID: <20230731214618.6e7cde05@meshulam.tesarici.cz>
-In-Reply-To: <20230731160409.GA8991@lst.de>
-References: <cover.1690459412.git.petr.tesarik.ext@huawei.com>
-	<20230731160409.GA8991@lst.de>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-suse-linux-gnu)
+X-Inumbo-ID: fa71bd8a-2fe6-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690837957;
+	bh=WajtNFYzP1iusjY0NiPQ4mUezQSAlj+MmvDIw9KtFDs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=EG4qjLzEgy1ejUcTY1Wg51LebxduVaNUihLApM2X+9y87jXvrXm19AGybwVtgtImF
+	 EohIscr2C2k29YqW8jBs4hSNUEK9xi7hDcsQ9WFSFDQjpZ+jahr2Fque5C2i4jNHq9
+	 lFYjlBHU4L979eV2IwAEYBw/o8jpapJf/Tlw1YlwyKtXD3yJCiUr/sPCBr0yNWiB5t
+	 IQinEGjTlDNCyBb6QXWnLqYyzcZGDcEWkOctH1elfVXsbkBRxG23H7aLgcxjVd5Lkw
+	 TZZl66mLCHj5gS/sRw2UcUiyRUqyePrN+tfgBLZ8TYXJAzT2eyvyE0B5NObos60i3l
+	 FRpsj6QQjdAsQ==
+Date: Mon, 31 Jul 2023 14:12:35 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH] x86/HVM: tidy _hvm_load_entry() for style
+In-Reply-To: <e9035197-b329-af2e-65ed-af31cd0375c2@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2307311412290.3118466@ubuntu-linux-20-04-desktop>
+References: <e9035197-b329-af2e-65ed-af31cd0375c2@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-V Mon, 31 Jul 2023 18:04:09 +0200
-Christoph Hellwig <hch@lst.de> naps=C3=A1no:
+On Mon, 31 Jul 2023, Jan Beulich wrote:
+> The primary goal is to eliminate the Misra-non-compliance of "desc"
+> shadowing at least the local variable in hvm_load(). Suffix both local
+> variables with underscores, while also
+> - dropping leading underscores from parameter names (applying this also
+>   to the two wrapper macros),
+> - correcting indentation,
+> - correcting brace placement,
+> - dropping unnecessary parentheses around parameter uses when those are
+>   passed on as plain arguments.
 
-> I was just going to apply this, but patch 1 seems to have a non-trivial
-> conflict with the is_swiotlb_active removal in pci-dma.c.  Can you resend
-> against the current dma-mapping for-next tree?
+you might want (or not want) to mention the s/1/true/ and s/0/false/
 
-Sure thing, will re-send tomorrow morning.
 
-Petr T
+> No functional change intended.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> --- a/xen/arch/x86/include/asm/hvm/save.h
+> +++ b/xen/arch/x86/include/asm/hvm/save.h
+> @@ -47,30 +47,32 @@ void _hvm_read_entry(struct hvm_domain_c
+>   * Unmarshalling: check, then copy. Evaluates to zero on success. This load
+>   * function requires the save entry to be the same size as the dest structure.
+>   */
+> -#define _hvm_load_entry(_x, _h, _dst, _strict) ({                       \
+> -    int r;                                                              \
+> -    struct hvm_save_descriptor *desc                                    \
+> -        = (struct hvm_save_descriptor *)&(_h)->data[(_h)->cur];         \
+> -    if ( (r = _hvm_check_entry((_h), HVM_SAVE_CODE(_x),                 \
+> -               HVM_SAVE_LENGTH(_x), (_strict))) == 0 )                  \
+> +#define _hvm_load_entry(x, h, dst, strict) ({                           \
+> +    int r_;                                                             \
+> +    struct hvm_save_descriptor *desc_                                   \
+> +        = (struct hvm_save_descriptor *)&(h)->data[(h)->cur];           \
+> +    if ( (r_ = _hvm_check_entry(h, HVM_SAVE_CODE(x),                    \
+> +                                HVM_SAVE_LENGTH(x), strict)) == 0 )     \
+>      {                                                                   \
+> -        _hvm_read_entry((_h), (_dst), HVM_SAVE_LENGTH(_x));             \
+> -        if ( HVM_SAVE_HAS_COMPAT(_x) &&                                 \
+> -             desc->length != HVM_SAVE_LENGTH(_x) )                      \
+> -            r = HVM_SAVE_FIX_COMPAT(_x, (_dst), desc->length);          \
+> +        _hvm_read_entry(h, dst, HVM_SAVE_LENGTH(x));                    \
+> +        if ( HVM_SAVE_HAS_COMPAT(x) &&                                  \
+> +             desc_->length != HVM_SAVE_LENGTH(x) )                      \
+> +            r_ = HVM_SAVE_FIX_COMPAT(x, dst, desc_->length);            \
+>      }                                                                   \
+> -    else if (HVM_SAVE_HAS_COMPAT(_x)                                    \
+> -             && (r = _hvm_check_entry((_h), HVM_SAVE_CODE(_x),          \
+> -                       HVM_SAVE_LENGTH_COMPAT(_x), (_strict))) == 0 ) { \
+> -        _hvm_read_entry((_h), (_dst), HVM_SAVE_LENGTH_COMPAT(_x));      \
+> -        r = HVM_SAVE_FIX_COMPAT(_x, (_dst), desc->length);              \
+> +    else if (HVM_SAVE_HAS_COMPAT(x)                                     \
+> +             && (r_ = _hvm_check_entry(h, HVM_SAVE_CODE(x),             \
+> +                                       HVM_SAVE_LENGTH_COMPAT(x),       \
+> +                                       strict)) == 0 )                  \
+> +    {                                                                   \
+> +        _hvm_read_entry(h, dst, HVM_SAVE_LENGTH_COMPAT(x));             \
+> +        r_ = HVM_SAVE_FIX_COMPAT(x, dst, desc_->length);                \
+>      }                                                                   \
+> -    r; })
+> +    r_; })
+>  
+> -#define hvm_load_entry(_x, _h, _dst)            \
+> -    _hvm_load_entry(_x, _h, _dst, 1)
+> -#define hvm_load_entry_zeroextend(_x, _h, _dst) \
+> -    _hvm_load_entry(_x, _h, _dst, 0)
+> +#define hvm_load_entry(x, h, dst)            \
+> +    _hvm_load_entry(x, h, dst, true)
+> +#define hvm_load_entry_zeroextend(x, h, dst) \
+> +    _hvm_load_entry(x, h, dst, false)
+>  
+>  /* Unmarshalling: what is the instance ID of the next entry? */
+>  static inline unsigned int hvm_load_instance(const struct hvm_domain_context *h)
+> 
 
