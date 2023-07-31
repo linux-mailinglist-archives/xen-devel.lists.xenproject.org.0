@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 529E1769EF2
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 19:10:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573371.898075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2622769F59
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 19:21:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573411.898085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQWP5-0001RR-04; Mon, 31 Jul 2023 17:09:55 +0000
+	id 1qQWZz-00047V-3A; Mon, 31 Jul 2023 17:21:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573371.898075; Mon, 31 Jul 2023 17:09:54 +0000
+Received: by outflank-mailman (output) from mailman id 573411.898085; Mon, 31 Jul 2023 17:21:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQWP4-0001OM-TB; Mon, 31 Jul 2023 17:09:54 +0000
-Received: by outflank-mailman (input) for mailman id 573371;
- Mon, 31 Jul 2023 17:09:53 +0000
+	id 1qQWZy-00044z-W5; Mon, 31 Jul 2023 17:21:10 +0000
+Received: by outflank-mailman (input) for mailman id 573411;
+ Mon, 31 Jul 2023 17:21:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7hZk=DR=chiark.greenend.org.uk=ijackson@srs-se1.protection.inumbo.net>)
- id 1qQWP2-0001NR-KV
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 17:09:53 +0000
-Received: from chiark.greenend.org.uk (v6.chiark.greenend.org.uk
- [2001:ba8:1e3::]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0caf9753-2fc5-11ee-8613-37d641c3527e;
- Mon, 31 Jul 2023 19:09:48 +0200 (CEST)
-Received: by chiark.greenend.org.uk (Debian Exim 4.94.2 #2) with local
- (return-path ijackson@chiark.greenend.org.uk)
- id 1qQWOr-0002ds-L1; Mon, 31 Jul 2023 18:09:41 +0100
+ <SRS0=SXid=DR=kernel.org=broonie@srs-se1.protection.inumbo.net>)
+ id 1qQWZx-00044t-HO
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 17:21:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f9ee3ec-2fc6-11ee-8613-37d641c3527e;
+ Mon, 31 Jul 2023 19:21:03 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6234E6124B;
+ Mon, 31 Jul 2023 17:21:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57DD2C433C8;
+ Mon, 31 Jul 2023 17:20:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,132 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0caf9753-2fc5-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=chiark.greenend.org.uk; s=k.chiark; h=DKIM-Signature-Warning:References:
-	In-Reply-To:Subject:Cc:To:Date:Message-ID:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:From:Sender:Reply-To:Content-ID:Content-Description
-	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=kq3C9qdHinQVZt4g5pbFr5nLdggSuLiE7Cy5h/e80Zg=; b=nVIcsoN2NZw4
-	t4niyQw0UBtVPY+ovRrpXqXj7lLH5sP2WdBDMupYBXLq7dowyyxhYsD//uhlw5Q/HSAdEM/uLYapU
-	qmyAxubtVzqdsAO7Y8OT3ywsDXb/+fDJXa+MUDVuW+rwkyKkvgd85mluwnjcCPHX6EPwX2Xq21AZJ
-	6tkjxd2SBjylDBYnVL9eHRt/rNzHdI8o8OI2zrDkRhWlzPPNnUPiqHKcfFjnKhwDo/b0tjcv+cPBs
-	F3R+E8kOTEDMPjj5PnsO8yMSuPNiGPGnmQhNVDe6Zvc9+DsfC/IAlIbKna4LdFC5IUUjYy8Eud68W
-	HaI+2GByL816gphy5JOVuQ==;
-From: Ian Jackson <ijackson@chiark.greenend.org.uk>
+X-Inumbo-ID: 9f9ee3ec-2fc6-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690824060;
+	bh=mftMsYiz9ZJ4o2udCBL/LK6NqmaRzMvUrLtaxc6+ExM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SIuH/vWC0Z//bAHS2Y+ReRPL+XB6AshDM0VvyslpumMHkUh8btF1eBGmB+FVDNt2W
+	 qm0tF94AwLtjbT/FtCTVDhM46eCHLOAXbsZYUTJtv7LyR/HrEWEphMZnZ7qKlGxkS0
+	 1olJzc+vrxjV93iG+bTpCewIXkEnpr3fmc7cUV+zDrgq77F7ANAF1s+FHa8JxRJTQf
+	 CrczT9BjPicytrwXkddCggE8BewLAKcejC+rpo1OwtcrZN13PtffSpA6r7b7VrYut0
+	 PUhb+fLowx3LEBj6zKV+E8RhBYkBXxXGSeGYfN2RjgUK1+3pzQnmilsKv3Ax/zlPWN
+	 1igMAnbI+UiIw==
+Date: Mon, 31 Jul 2023 18:20:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
+Message-ID: <b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
+References: <20230731154718.31048-1-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: quoted-printable
-Message-ID: <25799.60117.528120.26189@chiark.greenend.org.uk>
-Date: Mon, 31 Jul 2023 18:09:41 +0100
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-    xen-devel@lists.xenproject.org,
-    wl@xen.org,
-    Anthony PERARD <anthony.perard@citrix.com>,
-    Juergen Gross <jgross@suse.com>
-Subject: Re: Python in Domain Configurations
-In-Reply-To: <ZMflj1F5qDydEgbd@mattapan.m5p.com>
-References: <ZKiN80e08QIojRSL@mattapan.m5p.com>
-	<ZL7e6IcJWK38IHU7@mattapan.m5p.com>
-	<ZMcxvdSbpQdWg5/r@mail-itl>
-	<ZMflj1F5qDydEgbd@mattapan.m5p.com>
-X-Mailer: VM 8.2.0b under 27.1 (x86_64-pc-linux-gnu)
-DKIM-Signature-Warning: NOTE REGARDING DKIM KEY COMPROMISE https://www.chiark.greenend.org.uk/dkim-rotate/README.txt https://www.chiark.greenend.org.uk/dkim-rotate/af/afac8f396f88c5d9f7a728135905de4e.pem
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qMccpUQ9T4oLw/AQ"
+Content-Disposition: inline
+In-Reply-To: <20230731154718.31048-1-tiwai@suse.de>
+X-Cookie: Single tasking: Just Say No.
 
-Elliott Mitchell writes ("Re: Python in Domain Configurations"):
-> On Mon, Jul 31, 2023 at 05:59:55AM +0200, Marek Marczykowski-G=F3reck=
-i wrote:
-> > So, IMHO reducing config file from a full python (like it used to b=
-e in
-> > xend times) into a static file with well defined syntax was an
-> > improvement. Lets not go backward.
 
-I'm no longer working on this codebase, but since I've been CC'd:
+--qMccpUQ9T4oLw/AQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I was one of the people who replaced the Python-based config parsing
-with the current arrangements.  We didn't just do this because we were
-replacing xend (whose use of Python as implementation language made it
-appear convenient to just read and execute the configs as Python
-code).
+On Mon, Jul 31, 2023 at 05:46:54PM +0200, Takashi Iwai wrote:
 
-We did it for the reasons Marek gives.  It's true that the existing
-format is not as well specified as it could be.  It was intended as a
-plausible subset of Python literal syntax.  We chose that syntax to
-preserve compatibility with the vast majority of existing config files
-and to provide something familiar.  (And it seems we did achieve those
-goals.)
+> this is a patch set to clean up the PCM copy ops using sockptr_t as a
+> "universal" pointer, inspired by the recent patch from Andy
+> Shevchenko:
+>   https://lore.kernel.org/r/20230721100146.67293-1-andriy.shevchenko@linux.intel.com
 
-The disk configuration syntax is particularly warty, but we inherited
-much of that from the Python version.
+> Even though it sounds a bit weird, sockptr_t is a generic type that is
+> used already in wide ranges, and it can fit our purpose, too.  With
+> sockptr_t, the former split of copy_user and copy_kernel PCM ops can
+> be unified again gracefully.
 
-If we had a free choice today, I might advocate for TOML.  But I don't
-see any value in changing the concrete syntax now.
+It really feels like we ought to rename, or add an alias for, the type
+if we're going to start using it more widely - it's not helping to make
+the code clearer.
 
-> > As for your original problem, IIUC you would like to add some data =
-that
-> > would _not_ be interpreted by libxl, right? For that you can use
-> > comments with some specific marker for your script. This approach u=
-sed
-> > to work well for SysV init script, and in fact for a very similar u=
-se case
-> > (ordering and dependencies, among other things).
->=20
-> That is /not/ the issue.  `xl` simply ignores any variables which it
-> doesn't interpret (this is in fact a Bad Thing).
+--qMccpUQ9T4oLw/AQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I forget, but isn't there some kind of scheme for warning about
-unrecognised configuration options ?
+-----BEGIN PGP SIGNATURE-----
 
->  I need to know what the limits to the syntax are.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTH7XUACgkQJNaLcl1U
+h9DwvAf+MAtXkGii5+gytkR+D3QTsuA6sY3aBk9dt1dWPILYWbXmsLkkIbGCtvq+
+KIRLogTAKw9JbmzspD9GP/aj49lZi+dMH3wj9bfNKb9tJ1kfu5sSa8Bmr73fU/gy
+tSYcApUWSN+uSIqVD6z7zDJj+BOa0gIUUQNbJxaPxp8YfsNTZAgCtB6forR7hI3h
+OrPzmZkmMgkVjA1N/rHbWeubemc68OgSpUdUO1JF8wrGySsBmwXr/5VoVbBex+cK
+Xg1f+g849RnopbiTFg1H7lfkp6wk1nQPWbtdq7y0Ws2HUkNqHS3Kmm4oVamjvlwP
+ZmnL1wekh8FNsZS/jWPCv7xMdle/MQ==
+=2oaj
+-----END PGP SIGNATURE-----
 
-I agree that it's not great that the syntax is not 100% documented.
-The parser is in
-  tools/libs/util/libxlu_cfg_y.y
-  tools/libs/util/libxlu_cfg_l.l
-I'm sure patches to improve the docs would be welcome.
-
-Note that it is still a *subset* of Python, so if you wish to use a
-Python interpreter to parse it in your own tooling, you're very
-welcome to do so.
-
-> Notice how many init scripts do `. /etc/default/<somefile>` to load
-> configuration?  I'm thinking it would be very handy to use a similar
-> technique to load domain.cfg files, with Python being the interpreter=
-.
-
-I don't think this is a good idea.  Both because I don't think the
-functionality available in a Python interpreter should be available in
-the libxl configuration, and because Python is a large and complex
-dependency which we don't want to pull in here.
-
-> I also think some portions of the domain.cfg format might work better=
-
-> with full Python syntax.  For example might it be handier to allow:
->=20
-> disk =3D [
-> =09{
-> =09=09'vdev': 'xvda',
-> =09=09'format': 'raw',
-> =09=09'access': 'rw',
-> =09=09'target': '/dev/disk/by-path/foo-bar-baz',
-> =09},
-> ]
-
-I agree that something like this would be nice.  I don't think it
-should be done by importing Python.  These two files - the main part
-of the existing parser - is only 183 loc including comments.
-Extending it (and the support code in libxlu_cfg.c) to do dictionaries
-as well as lists doesn't seem like it would make it too much bigger.
-
-Thanks,
-Ian.
-
---=20
-Ian Jackson <ijackson@chiark.greenend.org.uk>   These opinions are my o=
-wn. =20
-
-Pronouns: they/he.  If I emailed you from @fyvzl.net or @evade.org.uk,
-that is a private address which bypasses my fierce spamfilter.
+--qMccpUQ9T4oLw/AQ--
 
