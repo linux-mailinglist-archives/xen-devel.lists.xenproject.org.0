@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 477FC76A0E8
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 21:10:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573435.898124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB5276A127
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 21:24:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573439.898135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQYHp-0000No-PJ; Mon, 31 Jul 2023 19:10:33 +0000
+	id 1qQYUu-0001xL-Uk; Mon, 31 Jul 2023 19:24:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573435.898124; Mon, 31 Jul 2023 19:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 573439.898135; Mon, 31 Jul 2023 19:24:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQYHp-0000Lc-MI; Mon, 31 Jul 2023 19:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 573435;
- Mon, 31 Jul 2023 19:10:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vA1f=DR=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qQYHo-0000LT-Jo
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 19:10:32 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea194a2f-2fd5-11ee-b255-6b7b168915f2;
- Mon, 31 Jul 2023 21:10:30 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 8113E828466F;
- Mon, 31 Jul 2023 14:10:29 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id Ll8us8oKiyNv; Mon, 31 Jul 2023 14:10:28 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id BAE1582856A7;
- Mon, 31 Jul 2023 14:10:28 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id zDsMDfKnZ33e; Mon, 31 Jul 2023 14:10:28 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 2F562828466F;
- Mon, 31 Jul 2023 14:10:28 -0500 (CDT)
+	id 1qQYUu-0001uo-RO; Mon, 31 Jul 2023 19:24:04 +0000
+Received: by outflank-mailman (input) for mailman id 573439;
+ Mon, 31 Jul 2023 19:24:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQYUt-0001ue-7X; Mon, 31 Jul 2023 19:24:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQYUt-00015D-4Z; Mon, 31 Jul 2023 19:24:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQYUs-0006VA-Q1; Mon, 31 Jul 2023 19:24:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQYUs-0001yW-Ow; Mon, 31 Jul 2023 19:24:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,48 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea194a2f-2fd5-11ee-b255-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com BAE1582856A7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1690830628; bh=m0zcKQFiB+S7bs/VBJ4VmiE/Y9E4MMVfcn49xchWozY=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=GsyRgg8bOmmmVeKvIuUqL7WyUD5CbdkwFYZ61R/uU70GN3gcrjFRJg769kLWRXk2I
-	 3Gg8CuBDKnrceyGgf+7/Qq731iswbXjN3FxLLrE+j6ICVJeW82HEvdMWTjiOHOKlgC
-	 oHTa1q92qO6+oR90CfetmP349Om2k+3iapEkL938=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <123b9273-c2c8-9fad-786e-e02821c3839e@raptorengineering.com>
-Date: Mon, 31 Jul 2023 14:10:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=O0+IldCfGlBHhAinqCtewLQaARquRYJQ4yMgpkb2fJA=; b=iQheRAurQQFzwblVEZE2btcd9L
+	qHGj5WrGJ4bS28HduqTyuO5+HGSqviOh6D75kOG291kpCCQtQ5IkUqEpCjn29y7+io4cBHV8djE/o
+	4Jfm3r8u/GuNna2iwPgHLxdBnGwvraGeGSH0R2VTPUgawOZIWKDiVyc23zuKPkmiUNR4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182091-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 3/5] xen/ppc: Add OPAL API definition header file
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1690579561.git.sanastasio@raptorengineering.com>
- <7feead05db9baa310feaddd24415774582e88344.1690579561.git.sanastasio@raptorengineering.com>
- <7206fb11-a34e-4c47-3f15-83f5410db37a@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <7206fb11-a34e-4c47-3f15-83f5410db37a@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 182091: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c0dd53b8cbd1e47e9c89873a9265a7170bdc6b4c
+X-Osstest-Versions-That:
+    xen=fff3c99f84589a876fcd8467ea99f2c8d9ff8d21
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 31 Jul 2023 19:24:02 +0000
 
-On 7/31/23 10:59 AM, Jan Beulich wrote:
-> On 28.07.2023 23:35, Shawn Anastasio wrote:
->> OPAL (OpenPower Abstraction Layer) is the interface exposed by firmware
->> on PowerNV (bare metal) systems. Import Linux's header definining the
->> API and related information.
-> 
-> To help future updating, mentioning version (or commit) at which this
-> snapshot was taken would be helpful.
+flight 182091 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182091/
 
-Sounds reasonable. I'll reference the Linux commit that this was pulled
-from in the commit message.
+Failures :-/ but no regressions.
 
-> Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Thanks,
-Shawn
+version targeted for testing:
+ xen                  c0dd53b8cbd1e47e9c89873a9265a7170bdc6b4c
+baseline version:
+ xen                  fff3c99f84589a876fcd8467ea99f2c8d9ff8d21
+
+Last test of basis   182066  2023-07-29 02:00:29 Z    2 days
+Testing same since   182091  2023-07-31 13:00:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   fff3c99f84..c0dd53b8cb  c0dd53b8cbd1e47e9c89873a9265a7170bdc6b4c -> smoke
 
