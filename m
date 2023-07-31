@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F62C768D41
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:10:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.572718.896731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 289CC768D3C
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jul 2023 09:10:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.572719.896741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQN2q-0001TG-0D; Mon, 31 Jul 2023 07:10:20 +0000
+	id 1qQN2r-0001le-Cn; Mon, 31 Jul 2023 07:10:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 572718.896731; Mon, 31 Jul 2023 07:10:19 +0000
+Received: by outflank-mailman (output) from mailman id 572719.896741; Mon, 31 Jul 2023 07:10:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQN2p-0001RD-R8; Mon, 31 Jul 2023 07:10:19 +0000
-Received: by outflank-mailman (input) for mailman id 572718;
- Mon, 31 Jul 2023 07:10:18 +0000
+	id 1qQN2r-0001ij-8i; Mon, 31 Jul 2023 07:10:21 +0000
+Received: by outflank-mailman (input) for mailman id 572719;
+ Mon, 31 Jul 2023 07:10:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8T0J=DR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQN2o-00082R-Hx
- for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:10:18 +0000
+ id 1qQN2p-00082R-IE
+ for xen-devel@lists.xenproject.org; Mon, 31 Jul 2023 07:10:19 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c9907c8-2f71-11ee-b254-6b7b168915f2;
- Mon, 31 Jul 2023 09:10:17 +0200 (CEST)
+ id 4d45415c-2f71-11ee-b254-6b7b168915f2;
+ Mon, 31 Jul 2023 09:10:18 +0200 (CEST)
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  31 Jul 2023 00:10:12 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga004.fm.intel.com with ESMTP; 31 Jul 2023 00:10:05 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 31 Jul 2023 00:10:07 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c9907c8-2f71-11ee-b254-6b7b168915f2
+X-Inumbo-ID: 4d45415c-2f71-11ee-b254-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690787417; x=1722323417;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=U03M3kZ8BDHSBlTSXJIlVDmlKpE5VAGPdolj0bAVLvI=;
-  b=ZogUhnN4h8L/w8eAICP2yYxG60qsKSDIj/dqkrWWbQp2KuZQYlKF+aAa
-   VbJ1FDWPLVclskuN9MsvUAvNjytSV8aSmoKU6J/gx2l2YPaEWtzxfRhw6
-   oQA9f+7dbxU2H/r2os1rPGOYkdChv2uACaR9Ic/rpQTDPljyhcWGqB2Hl
-   wuQX6t3SQjbZeZ4YLGuZ/6y+7qsvmXsuCV5e5IUI8QxrphwVhITFy8WYY
-   tXQymVj72vgnnuXa4Xp9ELspRuJ6OG7YorFE43wWZJK+QV1jRL8gNNZOX
-   ZuPECAULtkWo1Kknof1jjTQeWX/wvB4T6x0j3hVB95wmc1wfhWsoQ2aDn
+  t=1690787418; x=1722323418;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=QJo+FdezOu/7r5CtwRnG6EayDGJs/agjxSi0oClRDik=;
+  b=LfoXMB8r+hnUS/QoVdG9KsBj24ApZYT41lva79JWYPpJFqsbH3//e7Ri
+   ct1Q3BCelxp8i786I4ILda5ygS5ta3um0Nm5P0MxcgPZymcnmBffnMOR6
+   al9dE5Epiv4qK8CYURR2OcnTZStzSxLzGjx5Jl0JlMI4/MgTXPwHaQm84
+   JtifLBFPjG4JhVawC1ikNAng46K5g6/Uiu8Eq8mRa/JejWJHo1gY2sFLa
+   4f43jcoluu03A58dTNcjWyMGMqI8h0f6GO+SgTmC/M/mX6+X6oqbARyvc
+   5Rhbr8zaFDQmjl/p30frqFvSsg3EvoSDB5RuQwQ9rXksOsugaLWvly4Wd
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="432750069"
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="432750104"
 X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
-   d="scan'208";a="432750069"
+   d="scan'208";a="432750104"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="798157778"
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="798157781"
 X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; 
-   d="scan'208";a="798157778"
+   d="scan'208";a="798157781"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -138,186 +138,39 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH v9 30/36] x86/fred: Fixup fault on ERETU by jumping to fred_entrypoint_user
-Date: Sun, 30 Jul 2023 23:41:27 -0700
-Message-Id: <20230731064133.3881-1-xin3.li@intel.com>
+Subject: [PATCH v9 31/36] x86/traps: Export external_interrupt() for handling IRQ in IRQ induced VM exits
+Date: Sun, 30 Jul 2023 23:41:28 -0700
+Message-Id: <20230731064133.3881-2-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230731064133.3881-1-xin3.li@intel.com>
+References: <20230731064133.3881-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the stack frame contains an invalid user context (e.g. due to invalid SS,
-a non-canonical RIP, etc.) the ERETU instruction will trap (#SS or #GP).
+Export external_interrupt() for handling IRQ in IRQ induced VM exits.
 
-From a Linux point of view, this really should be considered a user space
-failure, so use the standard fault fixup mechanism to intercept the fault,
-fix up the exception frame, and redirect execution to fred_entrypoint_user.
-The end result is that it appears just as if the hardware had taken the
-exception immediately after completing the transition to user space.
-
-Suggested-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
+ arch/x86/kernel/traps.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Changes since v8:
-* Reflect the FRED spec 5.0 change that ERETS and ERETU add 8 to %rsp
-  before popping the return context from the stack.
-
-Changes since v6:
-* Add a comment to explain why it is safe to write to the previous FRED stack
-  frame. (Lai Jiangshan).
-
-Changes since v5:
-* Move the NMI bit from an invalid stack frame, which caused ERETU to fault,
-  to the fault handler's stack frame, thus to unblock NMI ASAP if NMI is blocked
-  (Lai Jiangshan).
----
- arch/x86/entry/entry_64_fred.S             |  5 +-
- arch/x86/include/asm/extable_fixup_types.h |  4 +-
- arch/x86/mm/extable.c                      | 79 ++++++++++++++++++++++
- 3 files changed, 86 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
-index 4ae12d557db3..d24bf7f10ac8 100644
---- a/arch/x86/entry/entry_64_fred.S
-+++ b/arch/x86/entry/entry_64_fred.S
-@@ -3,6 +3,7 @@
-  * The actual FRED entry points.
-  */
- 
-+#include <asm/asm.h>
- #include <asm/fred.h>
- 
- #include "calling.h"
-@@ -34,7 +35,9 @@ SYM_CODE_START_NOALIGN(fred_entrypoint_user)
- 	call	fred_entry_from_user
- SYM_INNER_LABEL(fred_exit_user, SYM_L_GLOBAL)
- 	FRED_EXIT
--	ERETU
-+1:	ERETU
-+
-+	_ASM_EXTABLE_TYPE(1b, fred_entrypoint_user, EX_TYPE_ERETU)
- SYM_CODE_END(fred_entrypoint_user)
- 
- .fill fred_entrypoint_kernel - ., 1, 0xcc
-diff --git a/arch/x86/include/asm/extable_fixup_types.h b/arch/x86/include/asm/extable_fixup_types.h
-index 991e31cfde94..1585c798a02f 100644
---- a/arch/x86/include/asm/extable_fixup_types.h
-+++ b/arch/x86/include/asm/extable_fixup_types.h
-@@ -64,6 +64,8 @@
- #define	EX_TYPE_UCOPY_LEN4		(EX_TYPE_UCOPY_LEN | EX_DATA_IMM(4))
- #define	EX_TYPE_UCOPY_LEN8		(EX_TYPE_UCOPY_LEN | EX_DATA_IMM(8))
- 
--#define EX_TYPE_ZEROPAD			20 /* longword load with zeropad on fault */
-+#define	EX_TYPE_ZEROPAD			20 /* longword load with zeropad on fault */
-+
-+#define	EX_TYPE_ERETU			21
- 
- #endif
-diff --git a/arch/x86/mm/extable.c b/arch/x86/mm/extable.c
-index 271dcb2deabc..0874f29e85ef 100644
---- a/arch/x86/mm/extable.c
-+++ b/arch/x86/mm/extable.c
-@@ -6,6 +6,7 @@
- #include <xen/xen.h>
- 
- #include <asm/fpu/api.h>
-+#include <asm/fred.h>
- #include <asm/sev.h>
- #include <asm/traps.h>
- #include <asm/kdebug.h>
-@@ -223,6 +224,80 @@ static bool ex_handler_ucopy_len(const struct exception_table_entry *fixup,
- 	return ex_handler_uaccess(fixup, regs, trapnr, fault_address);
+diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
+index 90fdfcccee7a..6143ad56008e 100644
+--- a/arch/x86/kernel/traps.c
++++ b/arch/x86/kernel/traps.c
+@@ -1560,6 +1560,11 @@ int external_interrupt(struct pt_regs *regs)
+ 	return 0;
  }
  
-+#ifdef CONFIG_X86_FRED
-+static bool ex_handler_eretu(const struct exception_table_entry *fixup,
-+			     struct pt_regs *regs, unsigned long error_code)
-+{
-+	struct pt_regs *uregs = (struct pt_regs *)
-+		(regs->sp - offsetof(struct pt_regs, orig_ax));
-+	unsigned short ss = uregs->ss;
-+	unsigned short cs = uregs->cs;
-+
-+	/*
-+	 * Move the NMI bit from the invalid stack frame, which caused ERETU
-+	 * to fault, to the fault handler's stack frame, thus to unblock NMI
-+	 * with the fault handler's ERETS instruction ASAP if NMI is blocked.
-+	 */
-+	regs->nmi = uregs->nmi;
-+
-+	/*
-+	 * Sync event information to uregs, i.e., the ERETU return frame, but
-+	 * is it safe to write to the ERETU return frame which is just above
-+	 * current event stack frame?
-+	 *
-+	 * The RSP used by FRED to push a stack frame is not the value in %rsp,
-+	 * it is calculated from %rsp with the following 2 steps:
-+	 * 1) RSP = %rsp - (IA32_FRED_CONFIG & 0x1c0)	// Reserve N*64 bytes
-+	 * 2) RSP = RSP & ~0x3f		// Align to a 64-byte cache line
-+	 * when an event delivery doesn't trigger a stack level change.
-+	 *
-+	 * Here is an example with N*64 (N=1) bytes reserved:
-+	 *
-+	 *  64-byte cache line ==>  ______________
-+	 *                         |___Reserved___|
-+	 *                         |__Event_data__|
-+	 *                         |_____SS_______|
-+	 *                         |_____RSP______|
-+	 *                         |_____FLAGS____|
-+	 *                         |_____CS_______|
-+	 *                         |_____IP_______|
-+	 *  64-byte cache line ==> |__Error_code__| <== ERETU return frame
-+	 *                         |______________|
-+	 *                         |______________|
-+	 *                         |______________|
-+	 *                         |______________|
-+	 *                         |______________|
-+	 *                         |______________|
-+	 *                         |______________|
-+	 *  64-byte cache line ==> |______________| <== RSP after step 1) and 2)
-+	 *                         |___Reserved___|
-+	 *                         |__Event_data__|
-+	 *                         |_____SS_______|
-+	 *                         |_____RSP______|
-+	 *                         |_____FLAGS____|
-+	 *                         |_____CS_______|
-+	 *                         |_____IP_______|
-+	 *  64-byte cache line ==> |__Error_code__| <== ERETS return frame
-+	 *
-+	 * Thus a new FRED stack frame will always be pushed below a previous
-+	 * FRED stack frame ((N*64) bytes may be reserved between), and it is
-+	 * safe to write to a previous FRED stack frame as they never overlap.
-+	 */
-+	fred_info(uregs)->edata = fred_event_data(regs);
-+	uregs->ssx = regs->ssx;
-+	uregs->ss = ss;
-+	/* The NMI bit was moved away above */
-+	uregs->nmi = 0;
-+	uregs->csx = regs->csx;
-+	uregs->sl = 0;
-+	uregs->wfe = 0;
-+	uregs->cs = cs;
-+	uregs->orig_ax = error_code;
-+
-+	return ex_handler_default(fixup, regs);
-+}
++#if IS_ENABLED(CONFIG_KVM_INTEL)
++/* For KVM VMX to handle IRQs in IRQ induced VM exits. */
++EXPORT_SYMBOL_GPL(external_interrupt);
 +#endif
 +
- int ex_get_fixup_type(unsigned long ip)
- {
- 	const struct exception_table_entry *e = search_exception_tables(ip);
-@@ -300,6 +375,10 @@ int fixup_exception(struct pt_regs *regs, int trapnr, unsigned long error_code,
- 		return ex_handler_ucopy_len(e, regs, trapnr, fault_addr, reg, imm);
- 	case EX_TYPE_ZEROPAD:
- 		return ex_handler_zeropad(e, regs, fault_addr);
-+#ifdef CONFIG_X86_FRED
-+	case EX_TYPE_ERETU:
-+		return ex_handler_eretu(e, regs, error_code);
-+#endif
- 	}
- 	BUG();
- }
+ #endif /* CONFIG_X86_64 */
+ 
+ void __init trap_init(void)
 -- 
 2.34.1
 
