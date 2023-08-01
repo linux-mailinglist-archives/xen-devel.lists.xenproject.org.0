@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE7B276BF7B
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 23:46:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574549.899922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33C0876BF86
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 23:50:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574554.899933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQxC1-00056q-9l; Tue, 01 Aug 2023 21:46:13 +0000
+	id 1qQxG4-0006Yo-QR; Tue, 01 Aug 2023 21:50:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574549.899922; Tue, 01 Aug 2023 21:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 574554.899933; Tue, 01 Aug 2023 21:50:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQxC1-00053s-77; Tue, 01 Aug 2023 21:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 574549;
- Tue, 01 Aug 2023 21:46:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qQxBz-00053m-PA
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 21:46:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qQxBy-0000OY-R9; Tue, 01 Aug 2023 21:46:10 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qQxBy-00024c-M1; Tue, 01 Aug 2023 21:46:10 +0000
+	id 1qQxG4-0006WU-NU; Tue, 01 Aug 2023 21:50:24 +0000
+Received: by outflank-mailman (input) for mailman id 574554;
+ Tue, 01 Aug 2023 21:50:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w4lv=DS=gmail.com=raj.khem@srs-se1.protection.inumbo.net>)
+ id 1qQxG3-0006WO-Iz
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 21:50:23 +0000
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [2001:4860:4864:20::32])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 69347b35-30b5-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 23:50:21 +0200 (CEST)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-1bba7717d3bso4559742fac.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Aug 2023 14:50:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,119 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=DfN7B1+PFgLt4NmDJOm3OKQ0rnGv+Wa/Cy3yHVp9wdw=; b=mKh8ahpKfBKWs9GK2R+scYK/4V
-	LaCr05ldOgZxVh52+rBO06dKQ4wm1XsWJ7pcs9ILGBIygSYruJ9B/H8RaEG68vqRu7XOTqfWSOvtE
-	tRIOMF+EzVrpSqwsXqdzHXCv19KMzf6SMMjMGXAKfx7nEdsbsZPKjbp8umdaBNA19xug=;
-Message-ID: <eee34bcc-2937-4a1f-b326-4a21c9db2173@xen.org>
-Date: Tue, 1 Aug 2023 22:46:09 +0100
+X-Inumbo-ID: 69347b35-30b5-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690926620; x=1691531420;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d5rCAtpBNZXLPF1OmSD+Axody9pboeWmdmrPPO1MaOI=;
+        b=QF+pguATSKLHX1a7qURHsLDFb43GgVsOkXf+YuzRuMvfzL9u5Lm6/098at+Bo0X0OF
+         psFPWkV9dkhMY3jlc/rMbwXI9UTZiBF/RW+8PRi1lG6+4ghn/8BehNZybrIdpaEH5JEV
+         5pt+N8rDlySShFuIpvdijSW30mWvyqDireSey6RvsweRndchMt8+whuKYgGbmY2sGnV0
+         W81/3ELo1uaMGYSWLnuD5zVt1vYULErJbl3gL/o8D9teaFjxXO4BSYHJNe4ridR97gF0
+         ix99cvJ/CRW3DfSABez1awxLg5qXsUazFs+BzNi+R6PkkrNNCAJkEcOSv+D6rAxybGPa
+         F4cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690926620; x=1691531420;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=d5rCAtpBNZXLPF1OmSD+Axody9pboeWmdmrPPO1MaOI=;
+        b=JHiRUe9R/CKNh6/HssyBOJYAiIvcGNER7wj0pbsid/VXOdS81jhN8JSamFzBZrjNyH
+         2NR+dT+9mTvS1uv4rZ9kUBKEmbwkt2IEDJ4RZZFIHVIgD4lYArxgs5u5+UGzrPvH8rMZ
+         Gda14bDllD9gYEDqh8LvemK294gJ6gAEps0kkQWv5opGNKBq7R53AIkxrGnEEiiTqASU
+         PQUXbIO6aZMeeFPA+tsPeDgfXIKS6gZaUv6DstW1hXnTmR4lg5CiBGscbN3sFFNNrX9s
+         Cvb2E5HHiQWQsnIHQu+JFlxvzzgxCEbhbcwePn4oC1Fovn9P+rZt6CLTm8H2OJwZuaSz
+         7GHw==
+X-Gm-Message-State: ABy/qLYAtvLuvVu3EQWAieXGX/yFZ8kApFxxo1Oj4y98XMGa0u1i57Q/
+	jTDeroRf9RXlhPcPZedAt4hGceUtPBaMc8GFqFg=
+X-Google-Smtp-Source: APBJJlHX6m3nhYISCmTsQNwrp4Xd3U2QurjDzHUUYAgcbCgWYobQ5O1r4hHvwoL383XfwQOaaqHnRgBIJ51SsErIQi4=
+X-Received: by 2002:a05:6870:46a5:b0:1b0:25b4:4b7a with SMTP id
+ a37-20020a05687046a500b001b025b44b7amr17682930oap.51.1690926620049; Tue, 01
+ Aug 2023 14:50:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-21-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v3 20/25] tools/xenstore: alloc new memory in
- domain_adjust_node_perms()
-In-Reply-To: <20230724110247.10520-21-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20230801174930.2995947-1-raj.khem@gmail.com> <18d3b823-22b2-85fc-18d2-09cf102b4506@xen.org>
+In-Reply-To: <18d3b823-22b2-85fc-18d2-09cf102b4506@xen.org>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 1 Aug 2023 14:49:53 -0700
+Message-ID: <CAMKF1srf0h=x7vSv4jF6AwyJfsmeddzyPOjSog7eK7TeF9yjsQ@mail.gmail.com>
+Subject: Re: [PATCH v2] arm32: Avoid using solaris syntax for .section directive
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>, 
+	Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Juergen,
+On Tue, Aug 1, 2023 at 2:03=E2=80=AFPM Julien Grall <julien@xen.org> wrote:
+>
+> Hi,
+>
+> Title: This patch is not arm32 specific anymore. So I would replace
+> 'arm32' with 'arm'. This can be done on commit.
+>
+> On 01/08/2023 18:49, Khem Raj wrote:
+> > Assembler from binutils 2.41 rejects [1] this syntax
+> >
+> > .section "name"[, flags...]
+> >
+> > where flags could be #alloc, #write, #execinstr, #exclude, and #tls [2]
+> >
+> > It is almost like a regression compared to 2.40 or older release,
+>
+> The next word after ',' start with an uppercase. Did you intend to use
+> '.' rather than ','?
+>
+> That said, the documentation has the following:
+>
+> For SPARC ELF targets, the assembler supports another type of .section
+> directive for compatibility with the Solaris assembler:"
+>
+> This leads me to think this is not a regression and instead an intended
+> behavior (even though it breaks older build) even it breaks build.
+>
+> I would suggest to reword the commit message to:
+>
+> "
+> Assembler from binutiles 2.41 will rejects ([1], [2]) the following synta=
+x
+>
+> .section "name", #alloc
+>
+> for any other any target other than ELF SPARC. This means we can't use
+> it in the Arm code.
+>
+> So switch to the GNU syntax
+>
+> .section name [, "flags"[, @type]]
+>
+> [1] https://sourceware.org/bugzilla/show_bug.cgi?id=3D11601
+> [2] https://sourceware.org/binutils/docs-2.41/as.html#Section
+>
+> If you agree with the commit message, I can update it while committing.
 
-On 24/07/2023 12:02, Juergen Gross wrote:
-> In order to avoid modifying the node data in the data base in case a
-> domain is gone, let domain_adjust_node_perms() allocate new memory for
-> the permissions in case they need to be modified. As this should
-> happen only in very rare cases, it is fine to do this even when having
-> copied the node data already.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V3:
-> - new patch
-> ---
->   tools/xenstore/xenstored_core.c   | 10 +++++-----
->   tools/xenstore/xenstored_domain.c | 19 +++++++++++++++----
->   2 files changed, 20 insertions(+), 9 deletions(-)
-> 
-> diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-> index 404ecd0c62..ea3d20a372 100644
-> --- a/tools/xenstore/xenstored_core.c
-> +++ b/tools/xenstore/xenstored_core.c
-> @@ -751,6 +751,11 @@ struct node *read_node(struct connection *conn, const void *ctx,
->   		goto error;
->   	}
->   
-> +	/* Data is binary blob (usually ascii, no nul). */
-> +	node->data = node->perms + hdr->num_perms;
-> +	/* Children is strings, nul separated. */
-> +	node->children = node->data + node->hdr.datalen;
-> +
+LGTM, go ahead.
 
-It took me a while to understand why you move the lines above. I tihnk 
-it would be worth documenting in the code (possibly on top of the 
-declaration domain_adjust_node_perms()) that domain_adjust_node_perms() 
-may re-allocate the permissions.
-
->   	if (domain_adjust_node_perms(node))
->   		goto error;
->   
-> @@ -758,11 +763,6 @@ struct node *read_node(struct connection *conn, const void *ctx,
->   	if (node->acc.domid != get_node_owner(node))
->   		node->acc.memory = 0;
->   
-> -	/* Data is binary blob (usually ascii, no nul). */
-> -	node->data = node->perms + hdr->num_perms;
-> -	/* Children is strings, nul separated. */
-> -	node->children = node->data + node->hdr.datalen;
-> -
->   	if (access_node(conn, node, NODE_ACCESS_READ, NULL))
->   		goto error;
->   
-> diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-> index fdf1095acb..cdef6efef4 100644
-> --- a/tools/xenstore/xenstored_domain.c
-> +++ b/tools/xenstore/xenstored_domain.c
-> @@ -1334,13 +1334,24 @@ int domain_alloc_permrefs(struct node_perms *perms)
->   int domain_adjust_node_perms(struct node *node)
->   {
->   	unsigned int i;
-> +	struct xs_permissions *perms = node->perms;
-> +	bool copied = false;
->   
->   	for (i = 1; i < node->hdr.num_perms; i++) {
-> -		if (node->perms[i].perms & XS_PERM_IGNORE)
-> +		if ((perms[i].perms & XS_PERM_IGNORE) ||
-> +		    chk_domain_generation(perms[i].id, node->hdr.generation))
->   			continue;
-> -		if (!chk_domain_generation(node->perms[i].id,
-> -					   node->hdr.generation))
-> -			node->perms[i].perms |= XS_PERM_IGNORE;
-> +
-> +		if (!copied) {
-
-This wants a coment explain why you need to copy it.
-
-> +			perms = talloc_memdup(node, node->perms,
-> +					node->hdr.num_perms * sizeof(*perms));
-> +			if (!perms)
-> +				return ENOMEM;
-> +			node->perms = perms;
-> +			copied = true;
-> +		}
-> +
-> +		perms[i].perms |= XS_PERM_IGNORE;
->   	}
->   
->   	return 0;
-
-Cheers,
-
--- 
-Julien Grall
+>
+> We should also consider to backport.
+>
+> Cheers,
+>
+> --
+> Julien Grall
 
