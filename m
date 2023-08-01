@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 928A876AB9B
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573852.898900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1C576ABA6
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573854.898916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGe-0007qw-5b; Tue, 01 Aug 2023 09:02:12 +0000
+	id 1qQlGg-0008Tv-Ej; Tue, 01 Aug 2023 09:02:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573852.898900; Tue, 01 Aug 2023 09:02:12 +0000
+Received: by outflank-mailman (output) from mailman id 573854.898916; Tue, 01 Aug 2023 09:02:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGd-0007kx-Bz; Tue, 01 Aug 2023 09:02:11 +0000
-Received: by outflank-mailman (input) for mailman id 573852;
- Tue, 01 Aug 2023 09:02:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQlGf-0008CQ-RX; Tue, 01 Aug 2023 09:02:13 +0000
+Received: by outflank-mailman (input) for mailman id 573854;
+ Tue, 01 Aug 2023 09:02:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlGZ-0005CK-I1
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:07 +0000
+ id 1qQlGb-0005E5-1t
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:09 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16c89ace-304a-11ee-b259-6b7b168915f2;
- Tue, 01 Aug 2023 11:02:06 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 171c33d0-304a-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 11:02:07 +0200 (CEST)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:02:02 -0700
+ 01 Aug 2023 02:02:03 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:02:01 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:02:02 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16c89ace-304a-11ee-b259-6b7b168915f2
+X-Inumbo-ID: 171c33d0-304a-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690880526; x=1722416526;
+  t=1690880527; x=1722416527;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=lZsnH9xZ+sSI0HJfWdXFi2jVveN7fME2POBe5mQbKKE=;
-  b=HcVaThGnaKpuSYErS/ovXzFXKxGhluRl0nl7EgI60sqm1S7xY8hWOQQP
-   IAvuhcFnAVm77Qakw9/mHk3ld8+U+VT7TiIPI7Vd/CAPWoF1M9qLdVlbH
-   lRNdtCWWaAh+N112PZJs0pAfEGHtfIwxd2JwXpDKzS+TIOH0/VmC9Yc2M
-   s+3Lw1iVhDgI/gH6/dzavRxxzyAQukD/x5XdJRiI0jFXLeROPCsuuIOR+
-   idEqYPf8KhcLIb6BEyAi2Hrhj1s6Ol5wiOf10kwlcIKgE9vX9lAntEaug
-   xVWH5Dp+lj6oFn5k8gYmSDD+ubKJaImgPEcKk5XafZOIo1XFlXyN/P6rM
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082432"
+  bh=90z+Db4H8sAaozlh1y54siqgX9Yc5fCU6uoHEAi25BE=;
+  b=cgPYb+Vqk/u9DWUMF9emDccm+N33YOPD1cJCE2EKYkXWAcIE27cF1RzL
+   5Cka8GccwA9hSA1C1jhTQjmbqz3RQF5BG2SstDqQ0E6yCM1PTjm79WNXt
+   t3V3iayFh3gh8WJc3iXfEZCMnX9hBxTO27ekMe4zwguCtxwLGLphxgufe
+   /d8isGqTXrCmjMYAzO7XpUlBhcoYPqGXa8kBuT510d/Jyz+JL/ZSPIomu
+   wZekXFgrfwqfF4+RxK50RXlQ/ntp1nBkAMAjuJn5nm5ARqus0keYtaDF7
+   JWZrnZTSCIbaFzzSPqBFwcxMHTadJHmpSygUrzw8op3rvCPYRi38NtecD
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082467"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="433082432"
+   d="scan'208";a="433082467"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975217021"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975217035"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="975217021"
+   d="scan'208";a="975217035"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,9 +137,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 12/36] x86/fred: Update MSR_IA32_FRED_RSP0 during task switch
-Date: Tue,  1 Aug 2023 01:32:54 -0700
-Message-Id: <20230801083318.8363-13-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 13/36] x86/fred: Let ret_from_fork_asm() jmp to fred_exit_user when FRED is enabled
+Date: Tue,  1 Aug 2023 01:32:55 -0700
+Message-Id: <20230801083318.8363-14-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083318.8363-1-xin3.li@intel.com>
 References: <20230801083318.8363-1-xin3.li@intel.com>
@@ -148,41 +148,33 @@ Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-MSR_IA32_FRED_RSP0 is used during ring 3 event delivery, and needs to
-be updated to point to the top of next task stack during task switch.
-
-Update MSR_IA32_FRED_RSP0 with WRMSR instruction for now, and will use
-WRMSRNS/WRMSRLIST for performance once it gets upstreamed.
+Let ret_from_fork_asm() jmp to fred_exit_user when FRED is enabled,
+otherwise the existing IDT code is chosen.
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/include/asm/switch_to.h | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ arch/x86/entry/entry_64.S | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/x86/include/asm/switch_to.h b/arch/x86/include/asm/switch_to.h
-index f42dbf17f52b..6c911fd400b2 100644
---- a/arch/x86/include/asm/switch_to.h
-+++ b/arch/x86/include/asm/switch_to.h
-@@ -70,9 +70,16 @@ static inline void update_task_stack(struct task_struct *task)
- #ifdef CONFIG_X86_32
- 	this_cpu_write(cpu_tss_rw.x86_tss.sp1, task->thread.sp0);
- #else
--	/* Xen PV enters the kernel on the thread stack. */
--	if (cpu_feature_enabled(X86_FEATURE_XENPV))
-+	if (cpu_feature_enabled(X86_FEATURE_FRED)) {
-+		/*
-+		 * Will use WRMSRNS/WRMSRLIST for performance once it's upstreamed.
-+		 */
-+		wrmsrl(MSR_IA32_FRED_RSP0,
-+		       (unsigned long)task_stack_page(task) + THREAD_SIZE);
-+	} else if (cpu_feature_enabled(X86_FEATURE_XENPV)) {
-+		/* Xen PV enters the kernel on the thread stack. */
- 		load_sp0(task_top_of_stack(task));
-+	}
- #endif
- }
+diff --git a/arch/x86/entry/entry_64.S b/arch/x86/entry/entry_64.S
+index 43606de22511..8069151176f2 100644
+--- a/arch/x86/entry/entry_64.S
++++ b/arch/x86/entry/entry_64.S
+@@ -309,7 +309,13 @@ SYM_CODE_START(ret_from_fork_asm)
+ 	 * and unwind should work normally.
+ 	 */
+ 	UNWIND_HINT_REGS
++
++#ifdef CONFIG_X86_FRED
++	ALTERNATIVE "jmp swapgs_restore_regs_and_return_to_usermode", \
++		    "jmp fred_exit_user", X86_FEATURE_FRED
++#else
+ 	jmp	swapgs_restore_regs_and_return_to_usermode
++#endif
+ SYM_CODE_END(ret_from_fork_asm)
+ .popsection
  
 -- 
 2.34.1
