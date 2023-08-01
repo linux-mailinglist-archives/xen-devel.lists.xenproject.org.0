@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEBAD76AB98
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573846.898851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9816D76AB9F
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573845.898833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGY-0006bp-R5; Tue, 01 Aug 2023 09:02:06 +0000
+	id 1qQlGX-00064e-AK; Tue, 01 Aug 2023 09:02:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573846.898851; Tue, 01 Aug 2023 09:02:06 +0000
+Received: by outflank-mailman (output) from mailman id 573845.898833; Tue, 01 Aug 2023 09:02:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGY-0006Uz-HG; Tue, 01 Aug 2023 09:02:06 +0000
-Received: by outflank-mailman (input) for mailman id 573846;
- Tue, 01 Aug 2023 09:02:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qQlGX-0005yb-2K; Tue, 01 Aug 2023 09:02:05 +0000
+Received: by outflank-mailman (input) for mailman id 573845;
+ Tue, 01 Aug 2023 09:02:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlGW-0005E5-Cy
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:04 +0000
+ id 1qQlGV-0005CK-HQ
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:03 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 144f88ca-304a-11ee-8613-37d641c3527e;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1464ee31-304a-11ee-b259-6b7b168915f2;
  Tue, 01 Aug 2023 11:02:02 +0200 (CEST)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:01:56 -0700
+ 01 Aug 2023 02:01:57 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:01:55 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:01:56 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 144f88ca-304a-11ee-8613-37d641c3527e
+X-Inumbo-ID: 1464ee31-304a-11ee-b259-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690880522; x=1722416522;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=+857ZiZ3kYB9kvyULHXUrCarfExj5Gil+GQ461ib92M=;
-  b=Bhy1h6qqrKd+OmXALsrai/YGgiWTzzDS40jbpoRHJA+m8jg/vgxHjnwL
-   UtnlVosFoAGcw78zS39r3otzyIc2+rbsVTvuxA50kgHjEwAK0JM8vsNsy
-   xiYypTA4w3eXM9cc6WKQggzxhDWhqEXVpMs3Slhec7rlUafQBu8lgfkB2
-   iq83vVmrqGPjipG0eTaCjlJStOhNTgGCkbYqxhmiM3e1oC7wpjHprlYK4
-   T+D9zk+Qv0hRB2bRpfom7Lri0sbaeYgr54qYA0fUjOCo0JY5pXRfuHAf/
-   wUauIm2QfbpIeKAMHdyEbFt0G9sVuLuQiI5j4TerFhKNxBu4SbqwqvATZ
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082232"
+  bh=ks9fQ3QR6UqRMocjQpLz+yk1iYvQPVTbiFl2BDd8yPg=;
+  b=NAPIbyZIKv5DrR7BPINGcZPR/dmN67i6cSKgYGGqixiyqI+NoGjojH9z
+   PRn9oAvSZiQjd0NJ+OpU36zPManyXRvKv7UBrX4OjenF2fB2uD2TKUdDo
+   5S5sfQEi1QEwDO78xWuj6ZXGQLgsyla6QRO9+w5Ru12vC8cQvLquTebNK
+   K2E8CL7KG+aiawEm+W21PestMYHBuWuNBITr8IRzqW/50sFEsuszSeLHT
+   /RsjhDHThtV0OLY+LmtWberNvm1JlbVDJyqwVeAjumoqfvs6PeWREF3cb
+   /gOMFkSpuevXgmECORWuq2gpAq97W3LQkpKI36ShhzEZ+XGICazpUeXFz
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082268"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="433082232"
+   d="scan'208";a="433082268"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975216976"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975216979"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="975216976"
+   d="scan'208";a="975216979"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,9 +137,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 06/36] x86/objtool: Teach objtool about ERETU and ERETS
-Date: Tue,  1 Aug 2023 01:32:48 -0700
-Message-Id: <20230801083318.8363-7-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 07/36] x86/cpu: Add X86_CR4_FRED macro
+Date: Tue,  1 Aug 2023 01:32:49 -0700
+Message-Id: <20230801083318.8363-8-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083318.8363-1-xin3.li@intel.com>
 References: <20230801083318.8363-1-xin3.li@intel.com>
@@ -148,46 +148,83 @@ Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-Update the objtool decoder to know about the ERETU and ERETS
-instructions (type INSN_CONTEXT_SWITCH).
+Add X86_CR4_FRED macro for the FRED bit in %cr4. This bit should be a
+pinned bit, not to be changed after initialization.
+
+CR4 macros are defined in arch/x86/include/uapi/asm/processor-flags.h,
+which is uapi, and thus cannot depend on CONFIG_X86_64.
+
+Using _BITUL() causes build errors on 32 bits, and there is no
+guarantee that user space applications (e.g. something like Qemu)
+might not want to use this declaration even when building for i386 or
+x32.
+
+However, %cr4 is a machine word (unsigned long), so to avoid build
+warnings on 32 bits, explicitly cast the value to unsigned long,
+truncating upper 32 bits.
+
+The other alternative would be to use CONFIG_X86_64 around the
+definition of cr4_pinned_mask. It is probably not desirable to make
+cr4_pinned_mask non-const.
+
+Another option, which may be preferable, to be honest: explicitly
+enumerate the CR4 bits which *may* be changed (a whitelist), instead
+of the ones that may not. That would be a separate, pre-FRED, patch,
+and would automatically resolve this problem as a side effect.
+
+The following flags probably should have been in this set all along,
+as they are all controls affecting the kernel runtime environment as
+opposed to user space:
+
+X86_CR4_DE, X86_CR4_PAE, X86_CR4_PSE, X86_CR4_MCE, X86_CR4_PGE,
+X86_CR4_OSFXSR, X86_CR4_OSXMMEXCPT, X86_CR4_LA57, X86_CR4_PCIDE,
+X86_CR4_LAM_SUP
+
+Possibly X86_CR4_VMXE as well, which seems harmless even if KVM is
+not loaded; X86_CR4_PKE can be fixed as long as the PKE configuration
+registers are at least initialized to disabled.
+
+It is relatively simple to do an audit of which flags are allowed to
+be modified at runtime and whitelist only those. There is no reason
+why we should allow bits in CR4 to be toggled by default.
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- tools/objtool/arch/x86/decode.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ arch/x86/include/uapi/asm/processor-flags.h | 2 ++
+ arch/x86/kernel/cpu/common.c                | 5 +++--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/tools/objtool/arch/x86/decode.c b/tools/objtool/arch/x86/decode.c
-index 2e1caabecb18..a486485cff20 100644
---- a/tools/objtool/arch/x86/decode.c
-+++ b/tools/objtool/arch/x86/decode.c
-@@ -509,11 +509,20 @@ int arch_decode_instruction(struct objtool_file *file, const struct section *sec
+diff --git a/arch/x86/include/uapi/asm/processor-flags.h b/arch/x86/include/uapi/asm/processor-flags.h
+index d898432947ff..ce08c2ca70b5 100644
+--- a/arch/x86/include/uapi/asm/processor-flags.h
++++ b/arch/x86/include/uapi/asm/processor-flags.h
+@@ -138,6 +138,8 @@
+ #define X86_CR4_CET		_BITUL(X86_CR4_CET_BIT)
+ #define X86_CR4_LAM_SUP_BIT	28 /* LAM for supervisor pointers */
+ #define X86_CR4_LAM_SUP		_BITUL(X86_CR4_LAM_SUP_BIT)
++#define X86_CR4_FRED_BIT	32 /* enable FRED kernel entry */
++#define X86_CR4_FRED		_BITULL(X86_CR4_FRED_BIT)
  
- 		if (op2 == 0x01) {
+ /*
+  * x86-64 Task Priority Register, CR8
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 0ba1067f4e5f..331b06d19f7f 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -402,8 +402,9 @@ static __always_inline void setup_umip(struct cpuinfo_x86 *c)
  
--			if (modrm == 0xca)
--				insn->type = INSN_CLAC;
--			else if (modrm == 0xcb)
--				insn->type = INSN_STAC;
--
-+			switch (insn_last_prefix_id(&ins)) {
-+			case INAT_PFX_REPE:
-+			case INAT_PFX_REPNE:
-+				if (modrm == 0xca)
-+					/* eretu/erets */
-+					insn->type = INSN_CONTEXT_SWITCH;
-+				break;
-+			default:
-+				if (modrm == 0xca)
-+					insn->type = INSN_CLAC;
-+				else if (modrm == 0xcb)
-+					insn->type = INSN_STAC;
-+				break;
-+			}
- 		} else if (op2 >= 0x80 && op2 <= 0x8f) {
+ /* These bits should not change their value after CPU init is finished. */
+ static const unsigned long cr4_pinned_mask =
+-	X86_CR4_SMEP | X86_CR4_SMAP | X86_CR4_UMIP |
+-	X86_CR4_FSGSBASE | X86_CR4_CET;
++	(unsigned long)
++	(X86_CR4_SMEP | X86_CR4_SMAP | X86_CR4_UMIP |
++	 X86_CR4_FSGSBASE | X86_CR4_CET | X86_CR4_FRED);
+ static DEFINE_STATIC_KEY_FALSE_RO(cr_pinning);
+ static unsigned long cr4_pinned_bits __ro_after_init;
  
- 			insn->type = INSN_JUMP_CONDITIONAL;
 -- 
 2.34.1
 
