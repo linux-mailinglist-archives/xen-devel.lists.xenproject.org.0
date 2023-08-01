@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B18176AB51
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 10:51:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573831.898775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9F0076AB88
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 10:59:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573835.898784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQl5S-00038k-3i; Tue, 01 Aug 2023 08:50:38 +0000
+	id 1qQlDd-0003nx-Tw; Tue, 01 Aug 2023 08:59:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573831.898775; Tue, 01 Aug 2023 08:50:38 +0000
+Received: by outflank-mailman (output) from mailman id 573835.898784; Tue, 01 Aug 2023 08:59:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQl5S-00036f-0n; Tue, 01 Aug 2023 08:50:38 +0000
-Received: by outflank-mailman (input) for mailman id 573831;
- Tue, 01 Aug 2023 08:50:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qQlDd-0003l0-Qx; Tue, 01 Aug 2023 08:59:05 +0000
+Received: by outflank-mailman (input) for mailman id 573835;
+ Tue, 01 Aug 2023 08:59:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zpAT=DS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qQl5Q-00036Z-MG
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 08:50:36 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a5e2ab2-3048-11ee-8613-37d641c3527e;
- Tue, 01 Aug 2023 10:50:34 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4fe0d5f719dso8918939e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Aug 2023 01:50:34 -0700 (PDT)
-Received: from [192.168.203.100] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- y5-20020a197505000000b004fb738796casm2459971lfe.40.2023.08.01.01.50.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 01:50:32 -0700 (PDT)
+ <SRS0=gjSu=DS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qQlDc-0003ku-Pa
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 08:59:04 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9692204-3049-11ee-b259-6b7b168915f2;
+ Tue, 01 Aug 2023 10:59:03 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 1A9A44EE0737;
+ Tue,  1 Aug 2023 10:59:00 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +39,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a5e2ab2-3048-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690879834; x=1691484634;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=euq1qPdtfnAaXo3+i1yckJxd7MWbpEfx+jqJg8HWVv0=;
-        b=ePa6RAL5LAxnlVC1eUbu8IZbvWhzulAtxvVyDHJ0LGmEWS1gbzRAcjZWKnuS0zGPG7
-         Nd1A3a5UwgVIP0RMYn97Tz7JKhdc8vqcWq4oQKvMz4XDcYpQMrpYs/HmMHdT7OFMipTA
-         EU2CrENjRjAdOEYHElekiGK03MfKFa8zljxj50dWdEE2dHD4b5OMdzC0Ty7ydvU46Y0T
-         HMddIiFIV9au8f8MU7r64qAoZgiF9+RmNWNMC5psj6+Mkj6+0avzZqDCf0ObvsMHgsE1
-         uGGwYCd7EXhPywwu/lQH6C54wBfU4KMajkbo3kvBeGiJpXmU3rXak+KpX5uYYMJvFXok
-         eiIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690879834; x=1691484634;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=euq1qPdtfnAaXo3+i1yckJxd7MWbpEfx+jqJg8HWVv0=;
-        b=foLEKTjH6zgFXYY2rRunswll16nz4Fn+F12hcNC9i+ItmVxBd/eL49axEduz/mZBbF
-         6LtD3XqJwwosLcAWO7KMaTaKscassKMOP9bYpo8f331z8HLFLO870ucAEU0DyCCULjTG
-         MIZBkX56huhYE9yJcoOmSCCXoGKhXQtBb6SvXGPSk/9Ke/HrKh3battYB0QYwFmUe/fN
-         ZwxWgmVmayAuI7rANBrpujsNwJba7AieMUsWPtqn3L0kG8Uu3zqQwl1UJ52GWdQqYKph
-         451IclfksYel0htlL2g8/J9MeL79qeuWA69cMCItwTOBwIEKvKSf6URcb5yb4dasBNA0
-         /mEg==
-X-Gm-Message-State: ABy/qLb1tp73rFtmuamg1moVao3qZNgRijChuXPHB++QFAV7ZL5vpeFb
-	t9HDZq7kSdXaLDd7kKM5am0=
-X-Google-Smtp-Source: APBJJlHAlOnZJh6Sprr38MD3TiMWYKeUD4U5eIteWw0pal75KsZsrE+Oy7ZQgaxhlcIalUHITsaOMQ==
-X-Received: by 2002:a05:6512:b8b:b0:4fe:cc0:348 with SMTP id b11-20020a0565120b8b00b004fe0cc00348mr2130059lfv.66.1690879833536;
-        Tue, 01 Aug 2023 01:50:33 -0700 (PDT)
-Message-ID: <0bcbcb53db1f0c9ae279347c3f5c762e5324dd15.camel@gmail.com>
-Subject: Re: [PATCH v5 2/2] xen/riscv: introduce identity mapping
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
-	 <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Tue, 01 Aug 2023 11:50:32 +0300
-In-Reply-To: <911eba8e-a92b-896c-e5dc-e54dcd570664@suse.com>
-References: <cover.1690464789.git.oleksii.kurochko@gmail.com>
-	 <ab2e719bbe071c3d5c4e3341573c0848dfcee3ee.1690464789.git.oleksii.kurochko@gmail.com>
-	 <911eba8e-a92b-896c-e5dc-e54dcd570664@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+X-Inumbo-ID: a9692204-3049-11ee-b259-6b7b168915f2
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH] x86: mechanically rename to address MISRA C:2012 Rule 5.3
+Date: Tue,  1 Aug 2023 10:58:46 +0200
+Message-Id: <6c421b903cf11e4dafdb0883e0401ebc2d6cb318.1690880275.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-T24gTW9uLCAyMDIzLTA3LTMxIGF0IDE2OjA3ICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
-biAyNy4wNy4yMDIzIDE1OjM4LCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gLS0tIGEveGVu
-L2FyY2gvcmlzY3YvcmlzY3Y2NC9oZWFkLlMKPiA+ICsrKyBiL3hlbi9hcmNoL3Jpc2N2L3Jpc2N2
-NjQvaGVhZC5TCj4gPiBAQCAtMzksNiArMzksMjMgQEAgRU5UUlkoc3RhcnQpCj4gPiDCoMKgwqDC
-oMKgwqDCoMKgIGphbMKgwqDCoMKgIGNhbGNfcGh5c19vZmZzZXQKPiA+IMKgwqDCoMKgwqDCoMKg
-wqAgbXbCoMKgwqDCoMKgIHMyLCBhMAo+ID4gwqAKPiA+ICvCoMKgwqDCoMKgwqDCoCBqYWzCoMKg
-wqDCoCBzZXR1cF9pbml0aWFsX3BhZ2V0YWJsZXMKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoCAv
-KiBDYWxjdWxhdGUgcHJvcGVyIFZBIGFmdGVyIGp1bXAgZnJvbSAxOjEgbWFwcGluZyAqLwo+ID4g
-K8KgwqDCoMKgwqDCoMKgIGxhwqDCoMKgwqDCoCB0MCwgLkxfcHJpbWFyeV9zd2l0Y2hlZAo+ID4g
-K8KgwqDCoMKgwqDCoMKgIHN1YsKgwqDCoMKgIHQwLCB0MCwgczIKPiA+ICsKPiA+ICvCoMKgwqDC
-oMKgwqDCoCBtdsKgwqDCoMKgwqAgYTAsIHQwCj4gPiArwqDCoMKgwqDCoMKgwqAgamFswqDCoMKg
-wqAgdHVybl9vbl9tbXUKPiAKPiBBbnkgcmVhc29uIHlvdSBkb24ndCBkbyB0aGUgY2FsY3VsYXRp
-b24gcmlnaHQgaW4gYTA/ClByb2JhYmx5IGl0IHdhcyBiZWZvcmUuIEJ1dCB5b3UgYXJlIHJpZ2h0
-IHRoZXJlIGlzIG5vIGFueSBzZW5zZSBpbgp1c2luZyBvZiB0MCBpbiB0aGUgY3VycmVudCBjb2Rl
-LgpJJ2xsIHVwZGF0ZSB0aGF0LiBUaGFua3MuCgo+IAo+ID4gQEAgLTU0LDMgKzcxLDE4IEBAIEVO
-VFJZKHJlc2V0X3N0YWNrKQo+ID4gwqAKPiA+IMKgwqDCoMKgwqDCoMKgwqAgcmV0Cj4gPiDCoAo+
-ID4gK8KgwqDCoMKgwqDCoMKgIC5zZWN0aW9uIC50ZXh0LmlkZW50LCAiYXgiLCAlcHJvZ2JpdHMK
-PiA+ICsKPiA+ICtFTlRSWSh0dXJuX29uX21tdSkKPiA+ICvCoMKgwqDCoMKgwqDCoCBzZmVuY2Uu
-dm1hCj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqAgbGnCoMKgwqDCoMKgIHQwLCBSVl9TVEFHRTFf
-TU9ERQo+ID4gK8KgwqDCoMKgwqDCoMKgIGxpwqDCoMKgwqDCoCB0MSwgU0FUUF9NT0RFX1NISUZU
-Cj4gPiArwqDCoMKgwqDCoMKgwqAgc2xswqDCoMKgwqAgdDAsIHQwLCB0MQo+IAo+IENhbid0IHRo
-ZSBsYXN0IHR3byBiZSBmb2xkZWQgdG8KPiAKPiDCoMKgwqDCoMKgwqDCoCBzbGxpwqDCoMKgwqAg
-dDAsIHQwLCBTQVRQX01PREVfU0hJRlQKPiAKPiAoSSBkb24ndCByZWNhbGwgd2hhdCBsaSdzIHZh
-bGlkIHZhbHVlIHJhbmdlIGlzLCBzbyBJJ20gbm90IHN1cmUgaWYKPiAKPiDCoMKgwqDCoMKgwqDC
-oCBsacKgwqDCoMKgwqAgdDAsIFJWX1NUQUdFMV9NT0RFIDw8IFNBVFBfTU9ERV9TSElGVAo+IAo+
-IHdvdWxkIGJlIGFuIG9wdGlvbi4pCkJvdGggb2Ygb3B0aW9ucyB3aWxsIHdvcmsgYnV0IEkgcHJl
-ZmVyIHRvIHVzZSBTTExJIGFzIExJIGV4cGFuZHMgaW50byBhCnBvdGVudGlhbGx5IGxvbmcgYW5k
-IGluZWZmaWNpZW50IHNoaWZ0LWFuZC1hZGQgc2VxdWVuY2UgKCBidXQgaW4gdGhpcwpjYXNlIEkg
-dGhpbmsgdGhpcyBpcyBub3Qgc28gaW1wb3J0YW50ICkuCj4gCj4gRXZlcnl0aGluZyBlbHNlIGxv
-b2tzIGdvb2QgdG8gbWUgbm93LCBidXQgd2lsbCBvZiBjb3Vyc2Ugd2FudCBhCj4gbWFpbnRhaW5l
-ciBsb29raW5nIG92ZXIuCldvdWxkIGl0IGJlIGJldHRlciB0byBzZW5kIGEgbmV3IHZlcnNpb24g
-bm93IG9yIHdhaXQgZm9yIGEgcmVzcG9uc2UKZnJvbSBvdGhlciBtYWludGFpbmVycz8KCn4gT2xl
-a3NpaQo=
+Rule 5.3 has the following headline:
+"An identifier declared in an inner scope shall not hide an
+identifier declared in an outer scope"
+
+The renames done by this patch avoid shadowing from happening.
+They are as follows:
+- s/socket_info/sock_info/ in 'do_write_psr_msrs'
+
+The parameter 'cpu_khz' that causes a violation in 'pit_init'
+is unused, and hence can be removed.
+
+Parameter 'debug_stack_lines' in 'compat_show_guest_stack' is removed,
+since the shadowed static variable has the same purpose.
+
+The declaration of 'init_e820' is renamed to be consistent with its
+definition.
+
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+This patch is the non-controversial part of patch 1/4 from series
+https://lore.kernel.org/xen-devel/cover.1690788513.git.nicola.vetrini@bugseng.com/
+The other part has been dealt with with a patch from Jan Beulich
+(not yet committed at the time of writing)
+https://lore.kernel.org/xen-devel/e9035197-b329-af2e-65ed-af31cd0375c2@suse.com/
+---
+ xen/arch/x86/domain.c              | 2 +-
+ xen/arch/x86/emul-i8254.c          | 2 +-
+ xen/arch/x86/include/asm/e820.h    | 2 +-
+ xen/arch/x86/include/asm/hvm/vpt.h | 2 +-
+ xen/arch/x86/psr.c                 | 4 ++--
+ xen/arch/x86/traps.c               | 5 ++---
+ 6 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 5f66c2ae33..fe86a7f853 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -858,7 +858,7 @@ int arch_domain_create(struct domain *d,
+     }
+ 
+     /* PV/PVH guests get an emulated PIT too for video BIOSes to use. */
+-    pit_init(d, cpu_khz);
++    pit_init(d);
+ 
+     /*
+      * If the FPU does not save FCS/FDS then we can always
+diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
+index a81232fc55..41ec4a1ef1 100644
+--- a/xen/arch/x86/emul-i8254.c
++++ b/xen/arch/x86/emul-i8254.c
+@@ -495,7 +495,7 @@ void pit_reset(struct domain *d)
+     spin_unlock(&pit->lock);
+ }
+ 
+-void pit_init(struct domain *d, unsigned long cpu_khz)
++void pit_init(struct domain *d)
+ {
+     PITState *pit = domain_vpit(d);
+ 
+diff --git a/xen/arch/x86/include/asm/e820.h b/xen/arch/x86/include/asm/e820.h
+index 92f5efa4f5..213d5b5dd2 100644
+--- a/xen/arch/x86/include/asm/e820.h
++++ b/xen/arch/x86/include/asm/e820.h
+@@ -31,7 +31,7 @@ extern int e820_change_range_type(
+     uint32_t orig_type, uint32_t new_type);
+ extern int e820_add_range(
+     struct e820map *, uint64_t s, uint64_t e, uint32_t type);
+-extern unsigned long init_e820(const char *, struct e820map *);
++extern unsigned long init_e820(const char *str, struct e820map *raw);
+ extern void print_e820_memory_map(const struct e820entry *map,
+     unsigned int entries);
+ extern struct e820map e820;
+diff --git a/xen/arch/x86/include/asm/hvm/vpt.h b/xen/arch/x86/include/asm/hvm/vpt.h
+index 2af76ca8dc..feb0bf43f1 100644
+--- a/xen/arch/x86/include/asm/hvm/vpt.h
++++ b/xen/arch/x86/include/asm/hvm/vpt.h
+@@ -179,7 +179,7 @@ void destroy_periodic_time(struct periodic_time *pt);
+ int pv_pit_handler(int port, int data, int write);
+ void pit_reset(struct domain *d);
+ 
+-void pit_init(struct domain *d, unsigned long cpu_khz);
++void pit_init(struct domain *d);
+ void pit_stop_channel0_irq(PITState * pit);
+ void pit_deinit(struct domain *d);
+ void rtc_init(struct domain *d);
+diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
+index a1e0af27c5..90bcb25e60 100644
+--- a/xen/arch/x86/psr.c
++++ b/xen/arch/x86/psr.c
+@@ -1252,7 +1252,7 @@ static void cf_check do_write_psr_msrs(void *data)
+ {
+     const struct cos_write_info *info = data;
+     unsigned int i, index, cos = info->cos;
+-    const struct psr_socket_info *socket_info =
++    const struct psr_socket_info *sock_info =
+         get_socket_info(cpu_to_socket(smp_processor_id()));
+ 
+     /*
+@@ -1261,7 +1261,7 @@ static void cf_check do_write_psr_msrs(void *data)
+      */
+     for ( index = i = 0; i < ARRAY_SIZE(feat_props); i++ )
+     {
+-        struct feat_node *feat = socket_info->features[i];
++        struct feat_node *feat = sock_info->features[i];
+         const struct feat_props *props = feat_props[i];
+         unsigned int cos_num, j;
+ 
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 4229bda159..f11239fd0f 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -195,8 +195,7 @@ void show_code(const struct cpu_user_regs *regs)
+ }
+ 
+ static void compat_show_guest_stack(struct vcpu *v,
+-                                    const struct cpu_user_regs *regs,
+-                                    int debug_stack_lines)
++                                    const struct cpu_user_regs *regs)
+ {
+     unsigned int i, *stack, addr, mask = STACK_SIZE;
+     void *stack_page = NULL;
+@@ -273,7 +272,7 @@ static void show_guest_stack(struct vcpu *v, const struct cpu_user_regs *regs)
+ 
+     if ( is_pv_32bit_vcpu(v) )
+     {
+-        compat_show_guest_stack(v, regs, debug_stack_lines);
++        compat_show_guest_stack(v, regs);
+         return;
+     }
+ 
+-- 
+2.34.1
 
 
