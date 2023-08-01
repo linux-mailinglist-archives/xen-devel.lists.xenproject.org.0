@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7757E76A7D0
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 06:19:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573528.898511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4408E76A7C4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 06:07:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573628.898494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQgqd-00027Y-2s; Tue, 01 Aug 2023 04:19:03 +0000
+	id 1qQgeG-0000Ln-Mb; Tue, 01 Aug 2023 04:06:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573528.898511; Tue, 01 Aug 2023 04:19:03 +0000
+Received: by outflank-mailman (output) from mailman id 573628.898494; Tue, 01 Aug 2023 04:06:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQgqd-0001zc-09; Tue, 01 Aug 2023 04:19:03 +0000
-Received: by outflank-mailman (input) for mailman id 573528;
- Tue, 01 Aug 2023 00:17:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w4lv=DS=gmail.com=raj.khem@srs-se1.protection.inumbo.net>)
- id 1qQd4c-0007cZ-OL
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 00:17:14 +0000
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [2607:f8b0:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c254d0b3-3000-11ee-8613-37d641c3527e;
- Tue, 01 Aug 2023 02:17:12 +0200 (CEST)
-Received: by mail-pl1-x635.google.com with SMTP id
- d9443c01a7336-1bbc87ded50so31646695ad.1
- for <xen-devel@lists.xenproject.org>; Mon, 31 Jul 2023 17:17:12 -0700 (PDT)
-Received: from apollo.hsd1.ca.comcast.net ([2601:646:9100:2cb0::61c9])
- by smtp.gmail.com with ESMTPSA id
- g6-20020a170902740600b001b03842ab78sm9116656pll.89.2023.07.31.17.17.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jul 2023 17:17:10 -0700 (PDT)
+	id 1qQgeG-0000JE-JY; Tue, 01 Aug 2023 04:06:16 +0000
+Received: by outflank-mailman (input) for mailman id 573628;
+ Tue, 01 Aug 2023 04:06:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LgnD=DS=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1qQgeF-0000J8-HT
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 04:06:15 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c0d5a720-3020-11ee-b258-6b7b168915f2;
+ Tue, 01 Aug 2023 06:06:13 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 37145drD098717
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 1 Aug 2023 00:05:44 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 37145aIv098716;
+ Mon, 31 Jul 2023 21:05:36 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +43,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c254d0b3-3000-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690849030; x=1691453830;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZUFItuirOVPJCbtBystcht3mbxhNZnp6hC1vcTbgIWQ=;
-        b=gnQHITvmAqheMxwdIdbSevZa/UKreSmE0N3u9RwQPyLUzc/4qCPfbLDsYKknGqC/Vz
-         O41VPUl2G9yQplzzLsCYaeC5okwzF63JaLtIfUyxB14zOibJk3x0I1B9+dIPIj9388NX
-         CFhTl9G9VXeHg/l+CnixMyMnxZMceEl2vpBhVG6VuEUvmVvnv3Lf7ojk4jL10jj8ylHM
-         8lHJQHgaGyAv5R7W/tU0p1Nlr3t1sXlQOEaF88h7a5q+Wwg7NP2GWIkrvQNj4814HAZb
-         Re86dIqp9XBqfiymMK7kFSnHaISKO8tSQdOspM28iXlcBREf2MDilHB45dxvLZNnamOq
-         eDSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690849030; x=1691453830;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZUFItuirOVPJCbtBystcht3mbxhNZnp6hC1vcTbgIWQ=;
-        b=Fhrif++vlq3n9pW1mGM3w2vnh36WwQLbpx5IZa+mBkxFiMYO1bo0CZkNtWqc64c6Iz
-         9PfmzDexzAGzqACVCzUL7xYBUujrXIE45IaA1Tbf1zcU05r7XVE5O2hQnQThDfdBTgpA
-         HmLFWPLAhf9sCi5LeGhqpBdZP0URXQVRLHTU5R+WNDsiaINPeJdEftGXVI8mKxYrem82
-         XNO9/bDUfX6pR4AOWhh7/tDCfNbsUmWkK9CcnSXZNJ2gSfJ+aMG8DQNFe4eXaKbm6u2r
-         yqnTTmlWJBWbLHlTurvIOp0Tv4r1pLYpKpOwn8ZxhPoUrZ+8wjJs7vpSo1Dtfrz5uarD
-         0Xbw==
-X-Gm-Message-State: ABy/qLazvfwjVH2Wq+rds8cTQtmO7NcPuQULhbIn+TnFEaKY6VjZUbW2
-	S+spEd0/JrvcwUXbhM3BEX2v0Vu93ESYXg==
-X-Google-Smtp-Source: APBJJlGRyDXLqmBGFHOVTybceq4cX5Va+EF/1UdvEwMhbjtfzQKCjrKh38g1Hyg6juqQRfEiMlApbw==
-X-Received: by 2002:a17:902:a40d:b0:1bb:20ee:e29e with SMTP id p13-20020a170902a40d00b001bb20eee29emr10646642plq.1.1690849030465;
-        Mon, 31 Jul 2023 17:17:10 -0700 (PDT)
-From: Khem Raj <raj.khem@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Khem Raj <raj.khem@gmail.com>
-Subject: [PATCH] arm32: Avoid using solaris syntax for .section directive
-Date: Mon, 31 Jul 2023 17:17:07 -0700
-Message-ID: <20230801001707.556040-1-raj.khem@gmail.com>
-X-Mailer: git-send-email 2.41.0
+X-Inumbo-ID: c0d5a720-3020-11ee-b258-6b7b168915f2
+Date: Mon, 31 Jul 2023 21:05:36 -0700
+From: Elliott Mitchell <ehem+undef@m5p.com>
+To: Ian Jackson <ijackson@chiark.greenend.org.uk>
+Cc: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+        xen-devel@lists.xenproject.org, wl@xen.org,
+        Anthony PERARD <anthony.perard@citrix.com>,
+        Juergen Gross <jgross@suse.com>
+Subject: Re: Python in Domain Configurations
+Message-ID: <ZMiEkBrMfXAUvjgL@mattapan.m5p.com>
+References: <ZKiN80e08QIojRSL@mattapan.m5p.com>
+ <ZL7e6IcJWK38IHU7@mattapan.m5p.com>
+ <ZMcxvdSbpQdWg5/r@mail-itl>
+ <ZMflj1F5qDydEgbd@mattapan.m5p.com>
+ <25799.60117.528120.26189@chiark.greenend.org.uk>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <25799.60117.528120.26189@chiark.greenend.org.uk>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-Assembler from binutils 2.41 rejects this syntax
+On Mon, Jul 31, 2023 at 06:09:41PM +0100, Ian Jackson wrote:
+> Elliott Mitchell writes ("Re: Python in Domain Configurations"):
+> > On Mon, Jul 31, 2023 at 05:59:55AM +0200, Marek Marczykowski-Górecki wrote:
+> > > So, IMHO reducing config file from a full python (like it used to be in
+> > > xend times) into a static file with well defined syntax was an
+> > > improvement. Lets not go backward.
+> 
+> I'm no longer working on this codebase, but since I've been CC'd:
+> 
+> I was one of the people who replaced the Python-based config parsing
+> with the current arrangements.  We didn't just do this because we were
+> replacing xend (whose use of Python as implementation language made it
+> appear convenient to just read and execute the configs as Python
+> code).
+> 
+> We did it for the reasons Marek gives.  It's true that the existing
+> format is not as well specified as it could be.  It was intended as a
+> plausible subset of Python literal syntax.  We chose that syntax to
+> preserve compatibility with the vast majority of existing config files
+> and to provide something familiar.  (And it seems we did achieve those
+> goals.)
+> 
+> The disk configuration syntax is particularly warty, but we inherited
+> much of that from the Python version.
 
-.section "name"[, flags...]
+Okay.  I do note allowing full Python does make domain creation by script
+easier.  While I have one use for re-adding the functionality, I'm sure
+someone else would come up with other high-value ones.
 
-where flags could be #alloc, #write, #execstr
-Switch to using ELF syntax
 
-.section name[, "flags"[, @type]]
+> > > As for your original problem, IIUC you would like to add some data that
+> > > would _not_ be interpreted by libxl, right? For that you can use
+> > > comments with some specific marker for your script. This approach used
+> > > to work well for SysV init script, and in fact for a very similar use case
+> > > (ordering and dependencies, among other things).
+> > 
+> > That is /not/ the issue.  `xl` simply ignores any variables which it
+> > doesn't interpret (this is in fact a Bad Thing).
+> 
+> I forget, but isn't there some kind of scheme for warning about
+> unrecognised configuration options ?
 
-[1] https://ftp.gnu.org/old-gnu/Manuals/gas-2.9.1/html_chapter/as_7.html#SEC119
+There certainly should be and there may have been one in the past, but no
+there isn't one now.  One advantage for using Python is processed data
+could be removed when creating the domain and anything left over could be
+warned about.  Though such could be added to the existing parser too.
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
- xen/arch/arm/arm32/proc-v7.S | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> >  I need to know what the limits to the syntax are.
+> 
+> I agree that it's not great that the syntax is not 100% documented.
+> The parser is in
+>   tools/libs/util/libxlu_cfg_y.y
+>   tools/libs/util/libxlu_cfg_l.l
+> I'm sure patches to improve the docs would be welcome.
 
-diff --git a/xen/arch/arm/arm32/proc-v7.S b/xen/arch/arm/arm32/proc-v7.S
-index c90a31d80f..6d3d19b873 100644
---- a/xen/arch/arm/arm32/proc-v7.S
-+++ b/xen/arch/arm/arm32/proc-v7.S
-@@ -29,7 +29,7 @@ brahma15mp_init:
-         mcr   CP32(r0, ACTLR)
-         mov   pc, lr
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_ca15mp_proc_info, #object
- __v7_ca15mp_proc_info:
-         .long 0x410FC0F0             /* Cortex-A15 */
-@@ -38,7 +38,7 @@ __v7_ca15mp_proc_info:
-         .long caxx_processor
-         .size __v7_ca15mp_proc_info, . - __v7_ca15mp_proc_info
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_ca7mp_proc_info, #object
- __v7_ca7mp_proc_info:
-         .long 0x410FC070             /* Cortex-A7 */
-@@ -47,7 +47,7 @@ __v7_ca7mp_proc_info:
-         .long caxx_processor
-         .size __v7_ca7mp_proc_info, . - __v7_ca7mp_proc_info
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_brahma15mp_proc_info, #object
- __v7_brahma15mp_proc_info:
-         .long 0x420F00F0             /* Broadcom Brahma-B15 */
+That is merely the DFA for the grammar.  There is a bunch of extra for
+interfacing with the parser, then there is the layer above.
+
+> Note that it is still a *subset* of Python, so if you wish to use a
+> Python interpreter to parse it in your own tooling, you're very
+> welcome to do so.
+
+Yup, and this will make that simpler.  Having Python dictionaries would
+make some things even easier though.
+
+
+> > Notice how many init scripts do `. /etc/default/<somefile>` to load
+> > configuration?  I'm thinking it would be very handy to use a similar
+> > technique to load domain.cfg files, with Python being the interpreter.
+> 
+> I don't think this is a good idea.  Both because I don't think the
+> functionality available in a Python interpreter should be available in
+> the libxl configuration, and because Python is a large and complex
+> dependency which we don't want to pull in here.
+
+While PvGRUB and Tianocore seem likely to displace PyGRUB, PyGRUB still
+functions on ARM (which PvGRUB isn't ported to yet).  As such there is
+still a dependency.
+
+Too me the greater concern is the daemon process.  Issue is, for the
+daemon process the large amount of functionality built into `xl` is a
+similar liability.  Even the temporary data seems a large liability for
+the daemon.  Additionally if that was a separate executable, then the
+process name could be changed via execve() and make it clearer that
+process was expected to remain behind.
+
+> > I also think some portions of the domain.cfg format might work better
+> > with full Python syntax.  For example might it be handier to allow:
+> > 
+> > disk = [
+> > 	{
+> > 		'vdev': 'xvda',
+> > 		'format': 'raw',
+> > 		'access': 'rw',
+> > 		'target': '/dev/disk/by-path/foo-bar-baz',
+> > 	},
+> > ]
+> 
+> I agree that something like this would be nice.  I don't think it
+> should be done by importing Python.  These two files - the main part
+> of the existing parser - is only 183 loc including comments.
+> Extending it (and the support code in libxlu_cfg.c) to do dictionaries
+> as well as lists doesn't seem like it would make it too much bigger.
+
+That ignores all the interfacing code.  Add in the interfacing and it is
+closer to 2000 lines.  If you merely count the file parser that is only
+1000 lines.
+
+I suspect I could interface to libpython with 200-300 lines.  Those would
+allow far more functionality than what is currently implemented.
+
+
+
+On Mon, Jul 31, 2023 at 05:59:55AM +0200, Marek Marczykowski-Górecki wrote:
+> I don't know full history here, but from my point of view, having a
+> full-fledged script as a config file is undesirable for several reasons:
+>  - it's easy to have unintended side effects of just loading a config
+>    file
+>  - loading config file can no longer be assumed to be "cheap"
+
+If you use full Python functionality in the domain.cfg files, it could 
+indeed do interesting things during config load.  This though is good
+reason not to do those things.
+
+Include in documentation, "please don't use complicated Python
+functionality in domain configurations"?  Guarding against this seems to
+be trying to guard against shooting oneself in the foot.  Users will find
+ways to cause odd situations no matter what you do.
+
+>  - dynamic config file means you can no long rely on file timestamp/hash
+>    to check if anything changed (I don't think it's an issue for the
+>    current xl/libxl, but could be for some higher level tools)
+
+I'm not looking for dynamic configurations.  I'm mostly thinking of
+allowing better configuration constructs.  Both disks and network could
+use Python dictionaries for a better structure.
+
+>  - leads to issues with various sandboxes - for example SELinux policy
+>    allowing scripted config file would be excessively permissive
+
+I suspect someone not using complex Python constructs could have simpler
+SE Linux policy.
+
+Having done a bit of experimentation, it appears libpython can be made to
+disable some functionality during loading.  Notably it appears one could
+restrict Python to mostly dumb assignments during loading.
+
+Further, if this got to the stage of a PoC it should be possible for it
+to live alongside the existing parser for a time.
+
+
 -- 
-2.41.0
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
