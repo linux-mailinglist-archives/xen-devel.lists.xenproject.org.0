@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92FC76ABB7
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573856.898935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CAA276ABB9
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573857.898941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGk-0000gz-71; Tue, 01 Aug 2023 09:02:18 +0000
+	id 1qQlGl-00010F-EZ; Tue, 01 Aug 2023 09:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573856.898935; Tue, 01 Aug 2023 09:02:17 +0000
+Received: by outflank-mailman (output) from mailman id 573857.898941; Tue, 01 Aug 2023 09:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGj-0000KE-1V; Tue, 01 Aug 2023 09:02:17 +0000
-Received: by outflank-mailman (input) for mailman id 573856;
- Tue, 01 Aug 2023 09:02:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQlGk-0000ff-3r; Tue, 01 Aug 2023 09:02:18 +0000
+Received: by outflank-mailman (input) for mailman id 573857;
+ Tue, 01 Aug 2023 09:02:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlGc-0005CK-CJ
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:10 +0000
+ id 1qQlGd-0005E5-FH
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:11 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18475fba-304a-11ee-b259-6b7b168915f2;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 187f4a42-304a-11ee-8613-37d641c3527e;
  Tue, 01 Aug 2023 11:02:09 +0200 (CEST)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:02:06 -0700
+ 01 Aug 2023 02:02:07 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:02:05 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:02:06 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18475fba-304a-11ee-b259-6b7b168915f2
+X-Inumbo-ID: 187f4a42-304a-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690880529; x=1722416529;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=R/F68dINSJ894CWgsWAeNvE3sYeHzSDBLZY+Pavzuys=;
-  b=NiQp2LLPEJBx+Id30oM5Io4k+pFWPqTQHMVFpp0GjQbDmFIjx+oWEznd
-   0b0kvhttO3MwXyTY8LmLcaKsaWsMmA1VC7kaaLi6xU3Gjuk0RYZGVoVjc
-   i4vQA/f1LH4s4S6jWppxLQ+k5gTXtZs9Q7rsiCM3m/fn17S/0F9fBBv/m
-   aKUv73Wtnmcj05Jl8xfYZyhKa/0i0DSxV6K6e4+u1bm186qVA+xFpkcY+
-   uXinsKHplsXtbOB0L53CsQnkKzMywYU22y31w2wy/6K7J7mk3ODdnl9Tl
-   +HwI+C6CqAK/VNIX0dJPDuG8lSLoRNfX0iFl4flvXLlZpXwOdbgnES/b4
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082570"
+  bh=1h9fTPNcW28O8bu/nclSFH4GxPR5CW0Rl9/PbASKNuY=;
+  b=B/5TJEGb5N9Rz832QXoRF6k0AltwEf+rz1bdXMvotOzbLPZF4cOY1Jz1
+   8pKtxnJjDs8lHbGjLdxv32BZ17kGlObkUqRAt6UAlsmoLKEoFwfkYhiCl
+   nM7bi0vblRGfRtkmrmfW9A0cHlZ/YD1xXHeFSGwNiwQw836EtvZ2yzjHt
+   OFxN1Y4Nwy+AcVl3R0cnPgFG0NX6fAdiKhBdZ2G+vzCY40nlhyZJWHTiU
+   qdnvKjJFBWtJ5TAJMSZvewiw53a8zBdKhl7UgpdElHtU6VF9NDjNmxa0D
+   r+vLCF12nJphny0QnH1iIq1/GXu3uLxh6MjO/fO/8Vphzio0LfA58nW3H
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082610"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="433082570"
+   d="scan'208";a="433082610"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975217053"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975217056"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="975217053"
+   d="scan'208";a="975217056"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,90 +137,66 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 16/36] x86/fred: Allow single-step trap and NMI when starting a new task
-Date: Tue,  1 Aug 2023 01:32:58 -0700
-Message-Id: <20230801083318.8363-17-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 17/36] x86/fred: Define a common function type fred_handler
+Date: Tue,  1 Aug 2023 01:32:59 -0700
+Message-Id: <20230801083318.8363-18-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083318.8363-1-xin3.li@intel.com>
 References: <20230801083318.8363-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
+FRED event delivery establishes a full supervisor context by saving
+the essential information about an event to a FRED stack frame, e.g.,
+the faulting linear address of a #PF is saved as event data of a FRED
+stack frame. Thus a struct pt_regs has all the needed data to handle
+an event and it's the only input argument of a FRED event handler.
 
-Entering a new task is logically speaking a return from a system call
-(exec, fork, clone, etc.). As such, if ptrace enables single stepping
-a single step exception should be allowed to trigger immediately upon
-entering user space. This is not optional.
+Define fred_handler, a common function type used in the FRED event
+dispatch framework, which makes it easier to find the entry points
+(via grep), allows the prototype to change if necessary without
+requiring changing changes everywhere, and makes sure that all the
+entry points have the proper decorations (currently noinstr, but
+could change in the future.)
 
-NMI should *never* be disabled in user space. As such, this is an
-optional, opportunistic way to catch errors.
-
-Allow single-step trap and NMI when starting a new task, thus once
-the new task enters user space, single-step trap and NMI are both
-enabled immediately.
-
-Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
-Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
+ arch/x86/include/asm/fred.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Changes since v8:
-* Use high-order 48 bits above the lowest 16 bit SS only when FRED
-  is enabled (Thomas Gleixner).
----
- arch/x86/kernel/process_64.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/arch/x86/kernel/process_64.c b/arch/x86/kernel/process_64.c
-index 6d5fed29f552..0b47871a6141 100644
---- a/arch/x86/kernel/process_64.c
-+++ b/arch/x86/kernel/process_64.c
-@@ -56,6 +56,7 @@
- #include <asm/resctrl.h>
- #include <asm/unistd.h>
- #include <asm/fsgsbase.h>
-+#include <asm/fred.h>
- #ifdef CONFIG_IA32_EMULATION
- /* Not included via unistd.h */
- #include <asm/unistd_32_ia32.h>
-@@ -507,8 +508,18 @@ void x86_gsbase_write_task(struct task_struct *task, unsigned long gsbase)
- static void
- start_thread_common(struct pt_regs *regs, unsigned long new_ip,
- 		    unsigned long new_sp,
--		    unsigned int _cs, unsigned int _ss, unsigned int _ds)
-+		    u16 _cs, u16 _ss, u16 _ds)
- {
-+	/*
-+	 * Paranoia: High-order 48 bits above the lowest 16 bit SS are
-+	 * discarded by the legacy IRET instruction on all Intel, AMD,
-+	 * and Cyrix/Centaur/VIA CPUs, thus can be set unconditionally,
-+	 * even when FRED is not enabled. But we choose the safer side
-+	 * to use these bits only when FRED is enabled.
-+	 */
-+	const unsigned long ssx_flags = cpu_feature_enabled(X86_FEATURE_FRED) ?
-+		(FRED_SSX_SOFTWARE_INITIATED | FRED_SSX_NMI) : 0;
+diff --git a/arch/x86/include/asm/fred.h b/arch/x86/include/asm/fred.h
+index d76e681a806f..b45c1bea5b7f 100644
+--- a/arch/x86/include/asm/fred.h
++++ b/arch/x86/include/asm/fred.h
+@@ -68,6 +68,19 @@
+ #define FRED_SSX_64_BIT_MODE_BIT	57
+ #define FRED_SSX_64_BIT_MODE		_BITUL(FRED_SSX_64_BIT_MODE_BIT)
+ 
++/*
++ * FRED event delivery establishes a full supervisor context by
++ * saving the essential information about an event to a FRED
++ * stack frame, e.g., the faulting linear address of a #PF is
++ * saved as event data of a FRED #PF stack frame. Thus a struct
++ * pt_regs has all the needed data to handle an event and it's
++ * the only input argument of a FRED event handler.
++ *
++ * FRED handlers need to be placed in the noinstr text section.
++ */
++#define DECLARE_FRED_HANDLER(f) void f (struct pt_regs *regs)
++#define DEFINE_FRED_HANDLER(f) noinstr DECLARE_FRED_HANDLER(f)
 +
- 	WARN_ON_ONCE(regs != current_pt_regs());
+ #ifdef CONFIG_X86_FRED
  
- 	if (static_cpu_has(X86_BUG_NULL_SEG)) {
-@@ -522,11 +533,11 @@ start_thread_common(struct pt_regs *regs, unsigned long new_ip,
- 	loadsegment(ds, _ds);
- 	load_gs_index(0);
- 
--	regs->ip		= new_ip;
--	regs->sp		= new_sp;
--	regs->cs		= _cs;
--	regs->ss		= _ss;
--	regs->flags		= X86_EFLAGS_IF;
-+	regs->ip	= new_ip;
-+	regs->sp	= new_sp;
-+	regs->csx	= _cs;
-+	regs->ssx	= _ss | ssx_flags;
-+	regs->flags	= X86_EFLAGS_IF | X86_EFLAGS_FIXED;
+ #ifndef __ASSEMBLY__
+@@ -97,6 +110,8 @@ static __always_inline unsigned long fred_event_data(struct pt_regs *regs)
+ 	return fred_info(regs)->edata;
  }
  
- void
++typedef DECLARE_FRED_HANDLER((*fred_handler));
++
+ #endif /* __ASSEMBLY__ */
+ 
+ #endif /* CONFIG_X86_FRED */
 -- 
 2.34.1
 
