@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A64876B4E5
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 14:40:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574128.899315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 993A876B504
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 14:48:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574137.899330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQof8-0000tl-M4; Tue, 01 Aug 2023 12:39:42 +0000
+	id 1qQonf-0002TJ-PP; Tue, 01 Aug 2023 12:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574128.899315; Tue, 01 Aug 2023 12:39:42 +0000
+Received: by outflank-mailman (output) from mailman id 574137.899330; Tue, 01 Aug 2023 12:48:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQof8-0000rI-JL; Tue, 01 Aug 2023 12:39:42 +0000
-Received: by outflank-mailman (input) for mailman id 574128;
- Tue, 01 Aug 2023 12:39:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qQof7-0000r8-4t; Tue, 01 Aug 2023 12:39:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qQof7-0003qY-2F; Tue, 01 Aug 2023 12:39:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qQof6-0007HI-Ia; Tue, 01 Aug 2023 12:39:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qQof6-0005cZ-I3; Tue, 01 Aug 2023 12:39:40 +0000
+	id 1qQonf-0002PQ-MG; Tue, 01 Aug 2023 12:48:31 +0000
+Received: by outflank-mailman (input) for mailman id 574137;
+ Tue, 01 Aug 2023 12:48:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gjSu=DS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qQond-0002MY-Og
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 12:48:29 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5b11ccd-3069-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 14:48:27 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 9D86E4EE0737;
+ Tue,  1 Aug 2023 14:48:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +39,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=lmAfiUsMHa4WXes13kR2BK2h29MjO/JZpxnYByTClHs=; b=njqxdzqAIWi2rzjNhQof2pFlc8
-	YL23nBL1ZL4Ojm9fMbmSaQlt/9s40wbcrpT4M3ouZUt7FG83QPWyycfwDEiLnCp5aP8sMdmCe+I7c
-	noJStmAAkHCVp4SgTuWasVtTg36lAXy1jF0p+Dh+Do45A+8cGVjlNf15GHR9G/syYDyo=;
+X-Inumbo-ID: b5b11ccd-3069-11ee-8613-37d641c3527e
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182100-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [XEN PATCH v2 0/3] xen: address MISRA C:2012 Rule 5.3
+Date: Tue,  1 Aug 2023 14:47:41 +0200
+Message-Id: <cover.1690893696.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 182100: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c2026b88b58cbb6a84e2885c320a8cfe08f8ffc8
-X-Osstest-Versions-That:
-    xen=70eb862b01023c45b943e8ff92ef4f6a7e9e8950
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 01 Aug 2023 12:39:40 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 182100 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182100/
+Rule 5.3 has the following headline:
+"An identifier declared in an inner scope shall not hide an
+identifier declared in an outer scope".
 
-Failures :-/ but no regressions.
+The following two strategies are adopted to deal with some violations
+of this rule:
+- renaming of local variables, functions or parameters;
+- removal of unnecessary declarations.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+No functional changes.
 
-version targeted for testing:
- xen                  c2026b88b58cbb6a84e2885c320a8cfe08f8ffc8
-baseline version:
- xen                  70eb862b01023c45b943e8ff92ef4f6a7e9e8950
+Changes in v2:
+- Patches 1/4 and 2/4 from the previous version of this patch
+  (https://lore.kernel.org/xen-devel/cover.1690810346.git.nicola.vetrini@bugseng.com/)
+	are already committed to staging, therefore are excluded from this series.
 
-Last test of basis   182098  2023-07-31 20:00:37 Z    0 days
-Testing same since   182100  2023-08-01 10:03:51 Z    0 days    1 attempts
+Nicola Vetrini (3):
+  xen/common: address MISRA C:2012 Rule 5.3
+  drivers/char: address MISRA C:2012 Rule 5.3
+  arm/efi: address MISRA C:2012 Rule 5.3
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Jan Beulich <jbeulich@suse.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+ xen/arch/arm/efi/efi-boot.h  | 84 ++++++++++++++++++------------------
+ xen/common/compat/memory.c   |  7 ++-
+ xen/common/numa.c            | 20 ++++-----
+ xen/drivers/char/ehci-dbgp.c |  4 +-
+ xen/drivers/char/ns16550.c   |  6 +--
+ 5 files changed, 59 insertions(+), 62 deletions(-)
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   70eb862b01..c2026b88b5  c2026b88b58cbb6a84e2885c320a8cfe08f8ffc8 -> smoke
+--
+2.34.1
 
