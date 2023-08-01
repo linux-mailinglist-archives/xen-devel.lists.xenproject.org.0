@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD3576C071
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 00:30:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574569.899953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05AC76C09A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 00:54:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574574.899963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQxrz-0002IW-SJ; Tue, 01 Aug 2023 22:29:35 +0000
+	id 1qQyFp-0005hf-SY; Tue, 01 Aug 2023 22:54:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574569.899953; Tue, 01 Aug 2023 22:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 574574.899963; Tue, 01 Aug 2023 22:54:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQxrz-0002G7-Nl; Tue, 01 Aug 2023 22:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 574569;
- Tue, 01 Aug 2023 22:29:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQyFp-0005fq-Pc; Tue, 01 Aug 2023 22:54:13 +0000
+Received: by outflank-mailman (input) for mailman id 574574;
+ Tue, 01 Aug 2023 22:54:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j6MK=DS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qQxry-0002G1-0d
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 22:29:34 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e20faa3f-30ba-11ee-b25c-6b7b168915f2;
- Wed, 02 Aug 2023 00:29:32 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3520E61696;
- Tue,  1 Aug 2023 22:29:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04990C433C7;
- Tue,  1 Aug 2023 22:29:27 +0000 (UTC)
+ <SRS0=PUJK=DS=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qQyFo-0005fU-5y
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 22:54:12 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 51ea000c-30be-11ee-8613-37d641c3527e;
+ Wed, 02 Aug 2023 00:54:08 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 623B582859F4;
+ Tue,  1 Aug 2023 17:54:06 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Lm04u2qqgvGr; Tue,  1 Aug 2023 17:54:04 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 949408285A2B;
+ Tue,  1 Aug 2023 17:54:04 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id CkcdfIuHHHN4; Tue,  1 Aug 2023 17:54:04 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 2954682859F4;
+ Tue,  1 Aug 2023 17:54:04 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,353 +51,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e20faa3f-30ba-11ee-b25c-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690928969;
-	bh=y7Xj3uYtClikgUD+bLbpt8U+auf0lAO5gADuiw8ZcWM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EHuXYE+ZYSKFBO+sr5dpsomE3370A4lpxngSk+43GmuwhwtUt9n1JlcpE+1BymtNC
-	 NsPdcZBSc2u1yh+gScXJDIkeD6YENbxBTgRh7FBmtWprIx8O4hKxZFczjBTb0yK2Pb
-	 fa4UGenoZNE0zG6fRieLwAAW8FClRGineWPY9GsdOAldrD1Ih2tf7bNZeR0CEJkkyZ
-	 t1p1eh02Cl5LYU66jDc8lYRZ3HW6CqQENh5YX+y+ZY1ioWG0SNHGZjJJrjMp8wFBCO
-	 thzF2mKsjDacoClWKusGINl2KPLPw3sRkx2iJPNsnczzLALVXDUmzlc2XLWyafHm3s
-	 A/wfdBI/zc/4Q==
-Date: Tue, 1 Aug 2023 15:29:26 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [XEN PATCH v2 3/3] arm/efi: address MISRA C:2012 Rule 5.3
-In-Reply-To: <688eea3584d537b6f41bb32f227f8be74ffd2783.1690893696.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308011529150.2127516@ubuntu-linux-20-04-desktop>
-References: <cover.1690893696.git.nicola.vetrini@bugseng.com> <688eea3584d537b6f41bb32f227f8be74ffd2783.1690893696.git.nicola.vetrini@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 51ea000c-30be-11ee-8613-37d641c3527e
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 949408285A2B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1690930444; bh=3/X49LZtB0q8e21PzAIz8wSdVqrP+VUI0RFYwJYNlwA=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=El/x5ogrVjI9rZ0iMhB49KFXlxeyiGpLKoDbGjBPuVqQTOioLljJx8vj2g9UVhCbi
+	 BDhMupQdVgv6RvBTZKCrajGd6YgdSwO9/hvBPbQ9wnvPxPCXRftgM8F2MWPhdtuWef
+	 8uhmRDO18s7uLiCWp66c7z0be/x3C3qBIKFHoW2k=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <f83af545-eb06-5f19-cb89-fc24ef6d9a2f@raptorengineering.com>
+Date: Tue, 1 Aug 2023 17:54:03 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 5/5] xen/ppc: Implement early serial console on PowerNV
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1690579561.git.sanastasio@raptorengineering.com>
+ <3023ad320b42fa3787bb71a9cf83b34965668fe9.1690579561.git.sanastasio@raptorengineering.com>
+ <41b33115-274c-7172-f100-85d6a4f1d538@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <41b33115-274c-7172-f100-85d6a4f1d538@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 1 Aug 2023, Nicola Vetrini wrote:
-> Rule 5.3 has the following headline:
-> "An identifier declared in an inner scope shall not hide an
-> identifier declared in an outer scope"
+On 8/1/23 6:19 AM, Jan Beulich wrote:
+> On 28.07.2023 23:35, Shawn Anastasio wrote:
+>> --- a/xen/arch/ppc/include/asm/asm-defns.h
+>> +++ b/xen/arch/ppc/include/asm/asm-defns.h
+>> @@ -23,6 +23,18 @@
+>>      addis reg,%r2,name@toc@ha;                                               \
+>>      addi  reg,reg,name@toc@l
 > 
-> The file-scope variable 'fdt' is shadowed by function parameters,
-> and thus violates the rule, hence it's renamed to 'fdt_efi'
+> Noticing only now, because of the issue ...
 > 
-> No functional changes.
+>> +/*
+>> + * Declare a global assembly function with a proper TOC setup prologue
+>> + */
+>> +#define _GLOBAL_TOC(name)                                                   \
+>> +    .balign 4;                                                              \
+>> +    .type name,@function;                                                   \
+>> +    .globl name;                                                            \
+>> +name:                                                                       \
+>> +0:  addis %r2,%r12,(.TOC.-0b)@ha;                                           \
+>> +    addi %r2,%r2,(.TOC.-0b)@l;                                              \
+>> +    .localentry name,.-name
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ... being widened - could we gain blanks after the commas? Down here
+> (to match the code in context) another padding blank after "addi"
+> would also be nice.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Sure, will do in v2.
 
-
-
-> ---
-> Changes in v2:
-> - Renamed the file-scope variable instead of removing function parameters.
-> ---
->  xen/arch/arm/efi/efi-boot.h | 84 ++++++++++++++++++-------------------
->  1 file changed, 42 insertions(+), 42 deletions(-)
+>> --- a/xen/arch/ppc/opal.c
+>> +++ b/xen/arch/ppc/opal.c
+>> @@ -8,9 +8,28 @@
+>>  #include <xen/init.h>
+>>  #include <xen/lib.h>
+>>  
+>> -/* Global OPAL struct containing entrypoint and base */
+>> +/* Global OPAL struct containing entrypoint and base used by opal-calls.S */
+>>  struct opal opal;
+>>  
+>> +int64_t opal_console_write(int64_t term_number, uint64_t *length,
+>> +                           uint8_t *buffer);
 > 
-> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index 6126a71400..f24df2abb9 100644
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -49,7 +49,7 @@ static void PrintMessage(const CHAR16 *s);
->  {0xb1b621d5U, 0xf19c, 0x41a5, {0x83, 0x0b, 0xd9, 0x15, 0x2c, 0x69, 0xaa, 0xe0}}
->  
->  static struct file __initdata dtbfile;
-> -static void __initdata *fdt;
-> +static void __initdata *fdt_efi;
->  static void __initdata *memmap;
->  
->  static int __init setup_chosen_node(void *fdt, int *addr_cells, int *size_cells)
-> @@ -383,7 +383,7 @@ static void __init efi_arch_process_memory_map(EFI_SYSTEM_TABLE *SystemTable,
->      if ( EFI_ERROR(status) )
->          blexit(L"EFI memory map processing failed");
->  
-> -    status = fdt_add_uefi_nodes(SystemTable, fdt, map, map_size, desc_size,
-> +    status = fdt_add_uefi_nodes(SystemTable, fdt_efi, map, map_size, desc_size,
->                                  desc_ver);
->      if ( EFI_ERROR(status) )
->          PrintErrMesg(L"Updating FDT failed", status);
-> @@ -395,7 +395,7 @@ static void __init efi_arch_pre_exit_boot(void)
->  
->  static void __init noreturn efi_arch_post_exit_boot(void)
->  {
-> -    efi_xen_start(fdt, fdt_totalsize(fdt));
-> +    efi_xen_start(fdt_efi, fdt_totalsize(fdt_efi));
->  }
->  
->  static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
-> @@ -420,8 +420,8 @@ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
->              efi_bs->FreePool(name.w);
->          }
->      }
-> -    fdt = fdt_increase_size(&dtbfile, cfg.size + EFI_PAGE_SIZE);
-> -    if ( !fdt )
-> +    fdt_efi = fdt_increase_size(&dtbfile, cfg.size + EFI_PAGE_SIZE);
-> +    if ( !fdt_efi )
->          blexit(L"Unable to create new FDT");
->  }
->  
-> @@ -465,7 +465,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
->      int chosen;
->  
->      /* locate chosen node, which is where we add Xen module info. */
-> -    chosen = fdt_subnode_offset(fdt, 0, "chosen");
-> +    chosen = fdt_subnode_offset(fdt_efi, 0, "chosen");
->      if ( chosen < 0 )
->          blexit(L"Unable to find chosen node");
->  
-> @@ -498,7 +498,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
->      else
->      {
->          /* Get xen,xen-bootargs in /chosen if it is specified */
-> -        const char *dt_bootargs_prop = fdt_getprop(fdt, chosen,
-> +        const char *dt_bootargs_prop = fdt_getprop(fdt_efi, chosen,
->                                                     "xen,xen-bootargs", NULL);
->          if ( dt_bootargs_prop )
->          {
-> @@ -526,7 +526,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
->              blexit(L"FDT string overflow");
->      }
->  
-> -    if ( fdt_setprop_string(fdt, chosen, "xen,xen-bootargs", buf) < 0 )
-> +    if ( fdt_setprop_string(fdt_efi, chosen, "xen,xen-bootargs", buf) < 0 )
->          blexit(L"Unable to set xen,xen-bootargs property.");
->  
->      efi_bs->FreePool(buf);
-> @@ -542,7 +542,7 @@ static void __init efi_arch_handle_module(const struct file *file,
->  
->      if ( file == &dtbfile )
->          return;
-> -    chosen = setup_chosen_node(fdt, &addr_len, &size_len);
-> +    chosen = setup_chosen_node(fdt_efi, &addr_len, &size_len);
->      if ( chosen < 0 )
->          blexit(L"Unable to setup chosen node");
->  
-> @@ -551,13 +551,13 @@ static void __init efi_arch_handle_module(const struct file *file,
->          static const char __initconst ramdisk_compat[] = "multiboot,ramdisk\0"
->                                                           "multiboot,module";
->  
-> -        node = fdt_add_subnode(fdt, chosen, "ramdisk");
-> +        node = fdt_add_subnode(fdt_efi, chosen, "ramdisk");
->          if ( node < 0 )
->              blexit(L"Unable to add ramdisk FDT node.");
-> -        if ( fdt_setprop(fdt, node, "compatible", ramdisk_compat,
-> +        if ( fdt_setprop(fdt_efi, node, "compatible", ramdisk_compat,
->                           sizeof(ramdisk_compat)) < 0 )
->              blexit(L"Unable to set compatible property.");
-> -        if ( fdt_set_reg(fdt, node, addr_len, size_len, ramdisk.addr,
-> +        if ( fdt_set_reg(fdt_efi, node, addr_len, size_len, ramdisk.addr,
->                      ramdisk.size) < 0 )
->              blexit(L"Unable to set reg property.");
->      }
-> @@ -566,13 +566,13 @@ static void __init efi_arch_handle_module(const struct file *file,
->          static const char __initconst xsm_compat[] = "xen,xsm-policy\0"
->                                                       "multiboot,module";
->  
-> -        node = fdt_add_subnode(fdt, chosen, "xsm");
-> +        node = fdt_add_subnode(fdt_efi, chosen, "xsm");
->          if ( node < 0 )
->              blexit(L"Unable to add xsm FDT node.");
-> -        if ( fdt_setprop(fdt, node, "compatible", xsm_compat,
-> +        if ( fdt_setprop(fdt_efi, node, "compatible", xsm_compat,
->                           sizeof(xsm_compat)) < 0 )
->              blexit(L"Unable to set compatible property.");
-> -        if ( fdt_set_reg(fdt, node, addr_len, size_len, xsm.addr,
-> +        if ( fdt_set_reg(fdt_efi, node, addr_len, size_len, xsm.addr,
->                      xsm.size) < 0 )
->              blexit(L"Unable to set reg property.");
->      }
-> @@ -581,15 +581,15 @@ static void __init efi_arch_handle_module(const struct file *file,
->          static const char __initconst kernel_compat[] = "multiboot,kernel\0"
->                                                          "multiboot,module";
->  
-> -        node = fdt_add_subnode(fdt, chosen, "kernel");
-> +        node = fdt_add_subnode(fdt_efi, chosen, "kernel");
->          if ( node < 0 )
->              blexit(L"Unable to add dom0 FDT node.");
-> -        if ( fdt_setprop(fdt, node, "compatible", kernel_compat,
-> +        if ( fdt_setprop(fdt_efi, node, "compatible", kernel_compat,
->                           sizeof(kernel_compat)) < 0 )
->              blexit(L"Unable to set compatible property.");
-> -        if ( options && fdt_setprop_string(fdt, node, "bootargs", options) < 0 )
-> +        if ( options && fdt_setprop_string(fdt_efi, node, "bootargs", options) < 0 )
->              blexit(L"Unable to set bootargs property.");
-> -        if ( fdt_set_reg(fdt, node, addr_len, size_len, kernel.addr,
-> +        if ( fdt_set_reg(fdt_efi, node, addr_len, size_len, kernel.addr,
->                           kernel.size) < 0 )
->              blexit(L"Unable to set reg property.");
->      }
-> @@ -719,7 +719,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
->      module_info *file;
->  
->      /* Check if the node is a multiboot,module otherwise return */
-> -    module_compat = fdt_node_check_compatible(fdt, module_node_offset,
-> +    module_compat = fdt_node_check_compatible(fdt_efi, module_node_offset,
->                                                "multiboot,module");
->      if ( module_compat < 0 )
->          /* Error while checking the compatible string */
-> @@ -730,7 +730,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
->          return 0;
->  
->      /* Read xen,uefi-binary property to get the file name. */
-> -    uefi_name_prop = fdt_getprop(fdt, module_node_offset, "xen,uefi-binary",
-> +    uefi_name_prop = fdt_getprop(fdt_efi, module_node_offset, "xen,uefi-binary",
->                                   &uefi_name_len);
->  
->      if ( !uefi_name_prop )
-> @@ -751,13 +751,13 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
->      snprintf(mod_string, sizeof(mod_string), "module@%"PRIx64, file->addr);
->  
->      /* Rename the module to be module@{address} */
-> -    if ( fdt_set_name(fdt, module_node_offset, mod_string) < 0 )
-> +    if ( fdt_set_name(fdt_efi, module_node_offset, mod_string) < 0 )
->      {
->          PrintMessage(L"Unable to modify module node name.");
->          return ERROR_RENAME_MODULE_NAME;
->      }
->  
-> -    if ( fdt_set_reg(fdt, module_node_offset, reg_addr_cells, reg_size_cells,
-> +    if ( fdt_set_reg(fdt_efi, module_node_offset, reg_addr_cells, reg_size_cells,
->                       file->addr, file->size) < 0 )
->      {
->          PrintMessage(L"Unable to set module reg property.");
-> @@ -766,7 +766,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
->  
->      if ( !is_domu_module )
->      {
-> -        if ( (fdt_node_check_compatible(fdt, module_node_offset,
-> +        if ( (fdt_node_check_compatible(fdt_efi, module_node_offset,
->                                      "multiboot,kernel") == 0) )
->          {
->              /*
-> @@ -784,14 +784,14 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
->              kernel.size = file->size;
->          }
->          else if ( ramdisk.addr &&
-> -                  (fdt_node_check_compatible(fdt, module_node_offset,
-> +                  (fdt_node_check_compatible(fdt_efi, module_node_offset,
->                                               "multiboot,ramdisk") == 0) )
->          {
->              PrintMessage(L"Dom0 ramdisk already found in cfg file.");
->              return ERROR_DOM0_RAMDISK_FOUND;
->          }
->          else if ( xsm.addr &&
-> -                  (fdt_node_check_compatible(fdt, module_node_offset,
-> +                  (fdt_node_check_compatible(fdt_efi, module_node_offset,
->                                               "xen,xsm-policy") == 0) )
->          {
->              PrintMessage(L"XSM policy already found in cfg file.");
-> @@ -816,7 +816,7 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
->      unsigned int mb_modules_found = 0;
->  
->      /* Get #address-cells and #size-cells from domain node */
-> -    prop = fdt_get_property(fdt, domain_node, "#address-cells", &len);
-> +    prop = fdt_get_property(fdt_efi, domain_node, "#address-cells", &len);
->      if ( !prop )
->      {
->          PrintMessage(L"#address-cells not found in domain node.");
-> @@ -825,7 +825,7 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
->  
->      addr_cells = fdt32_to_cpu(*((uint32_t *)prop->data));
->  
-> -    prop = fdt_get_property(fdt, domain_node, "#size-cells", &len);
-> +    prop = fdt_get_property(fdt_efi, domain_node, "#size-cells", &len);
->      if ( !prop )
->      {
->          PrintMessage(L"#size-cells not found in domain node.");
-> @@ -835,9 +835,9 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
->      size_cells = fdt32_to_cpu(*((uint32_t *)prop->data));
->  
->      /* Check for nodes compatible with multiboot,module inside this node */
-> -    for ( module_node = fdt_first_subnode(fdt, domain_node);
-> +    for ( module_node = fdt_first_subnode(fdt_efi, domain_node);
->            module_node > 0;
-> -          module_node = fdt_next_subnode(fdt, module_node) )
-> +          module_node = fdt_next_subnode(fdt_efi, module_node) )
->      {
->          int ret = handle_module_node(loaded_image, dir_handle, module_node,
->                                       addr_cells, size_cells, true);
-> @@ -862,7 +862,7 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
->      EFI_FILE_HANDLE dir_handle = NULL;
->  
->      /* Check for the chosen node in the current DTB */
-> -    chosen = setup_chosen_node(fdt, &addr_len, &size_len);
-> +    chosen = setup_chosen_node(fdt_efi, &addr_len, &size_len);
->      if ( chosen < 0 )
->      {
->          PrintMessage(L"Unable to setup chosen node");
-> @@ -870,13 +870,13 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
->      }
->  
->      /* Check for nodes compatible with xen,domain under the chosen node */
-> -    for ( node = fdt_first_subnode(fdt, chosen);
-> +    for ( node = fdt_first_subnode(fdt_efi, chosen);
->            node > 0;
-> -          node = fdt_next_subnode(fdt, node) )
-> +          node = fdt_next_subnode(fdt_efi, node) )
->      {
->          int ret;
->  
-> -        if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
-> +        if ( !fdt_node_check_compatible(fdt_efi, node, "xen,domain") )
->          {
->              /* Found a node with compatible xen,domain; handle this node. */
->              ret = handle_dom0less_domain_node(loaded_image, &dir_handle, node);
-> @@ -951,29 +951,29 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
->       * node to decide whether to skip the UEFI Xen configuration file or not.
->       */
->  
-> -    fdt = lookup_fdt_config_table(SystemTable);
-> -    dtbfile.ptr = fdt;
-> +    fdt_efi = lookup_fdt_config_table(SystemTable);
-> +    dtbfile.ptr = fdt_efi;
->      dtbfile.need_to_free = false; /* Config table memory can't be freed. */
->  
-> -    if ( fdt &&
-> -         (fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0) )
-> +    if ( fdt_efi &&
-> +         (fdt_node_offset_by_compatible(fdt_efi, 0, "multiboot,module") > 0) )
->      {
->          /* Locate chosen node */
-> -        int node = fdt_subnode_offset(fdt, 0, "chosen");
-> +        int node = fdt_subnode_offset(fdt_efi, 0, "chosen");
->          const void *cfg_load_prop;
->          int cfg_load_len;
->  
->          if ( node > 0 )
->          {
->              /* Check if xen,uefi-cfg-load property exists */
-> -            cfg_load_prop = fdt_getprop(fdt, node, "xen,uefi-cfg-load",
-> +            cfg_load_prop = fdt_getprop(fdt_efi, node, "xen,uefi-cfg-load",
->                                          &cfg_load_len);
->              if ( !cfg_load_prop )
->                  load_cfg_file = false;
->          }
->      }
->  
-> -    if ( !fdt || load_cfg_file )
-> +    if ( !fdt_efi || load_cfg_file )
->      {
->          /*
->           * We either have no FDT, or one without modules, so we must have a
-> @@ -983,7 +983,7 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
->      }
->      PrintStr(L"Using modules provided by bootloader in FDT\r\n");
->      /* We have modules already defined in fdt, just add space. */
-> -    fdt = fdt_increase_size(&dtbfile, EFI_PAGE_SIZE);
-> +    fdt_efi = fdt_increase_size(&dtbfile, EFI_PAGE_SIZE);
->  
->      return false;
->  }
-> -- 
-> 2.34.1
+> Would this perhaps better be void *, eliminating the need for casting
+> in calls of this function?
+
+I made it uint8_t to match the official OPAL API documentation (though I
+now see I missed a `const`):
+https://open-power.github.io/skiboot/doc/opal-api/opal-console-read-write-1-2.html#opal-console-write
+
+In this case though, the type information of this parameter might not be
+that important and changing it to void* to avoid the cast is fine with
+me.
+
+>> +int64_t opal_console_flush(int64_t term_number);
+>> +int64_t opal_reinit_cpus(uint64_t flags);
+>> +
+>> +static void opal_putchar(char c)
 > 
+> Can't this be __init?
+
+Unlike OpenFirmware, OPAL calls are expected to be used by the OS during
+its entire lifecycle, not just during early boot, so the full
+(non-early) serial console driver would likely want to use these
+functions as well.
+
+> 
+>> +{
+>> +    uint64_t len;
+>> +    if (c == '\n')
+> 
+> Nit: Blank line please between declaration(s) and statement(s). (At
+> least one more instance below.)
+
+Will fix.
+
+> Also please add the missing blanks in the if(), seeing that otherwise
+> the file is aiming at being Xen style.
+
+Ditto.
+
+>> +    {
+>> +        char buf = '\r';
+>> +        len = cpu_to_be64(1);
+>> +        opal_console_write(0, &len, (uint8_t *) &buf);
+>> +    }
+>> +    len = cpu_to_be64(1);
+>> +    opal_console_write(0, &len, (uint8_t *) &c);
+>> +    opal_console_flush(0);
+>> +}
+>> +
+>>  void __init boot_opal_init(const void *fdt)
+>>  {
+>>      int opal_node;
+>> @@ -45,4 +64,10 @@ void __init boot_opal_init(const void *fdt)
+>>  
+>>      opal.base = be64_to_cpu(*opal_base);
+>>      opal.entry = be64_to_cpu(*opal_entry);
+>> +
+>> +    early_printk_init(opal_putchar);
+>> +
+>> +    /* Ask OPAL to set HID0 for Little Endian interrupts + Radix TLB support */
+>> +    opal_reinit_cpus(OPAL_REINIT_CPUS_HILE_LE | OPAL_REINIT_CPUS_MMU_RADIX
+>> +                     | OPAL_REINIT_CPUS_MMU_HASH);
+> 
+> Nit: operators on continued lines go at the end of the earlier line.
+
+Will fix.
+
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/ppc64/opal-calls.S
+>> @@ -0,0 +1,82 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +/*
+>> + * Adapted from Linux's arch/powerpc/boot/opal-calls.S
+>> + *
+>> + * Copyright (c) 2016 IBM Corporation.
+>> + * Copyright Raptor Engineering, LLC
+>> + */
+>> +
+>> +#include <asm/asm-defns.h>
+>> +#include <asm/asm-offsets.h>
+> 
+> Would it make sense to have asm-defns.h include asm-offsets.h, like
+> x86 and Arm do?
+
+Sure, I'll make this change along with the formatting updates in
+asm-defns.h
+
+>> +#include <asm/opal-api.h>
+>> +#include <asm/msr.h>
+>> +
+>> +    .text
+> 
+> Is any of this code still needed post-init?
+
+Yes, see above.
+
+>> +#define OPAL_CALL(name, token)  \
+>> +    .globl name;                \
+>> +name:                           \
+>> +    li      %r0, token;         \
+>> +    b       opal_call;
+> 
+> I think the trailing semicolon wants omitting.
+
+Will fix.
+
+> Jan
+
+Thanks,
+Shawn
 
