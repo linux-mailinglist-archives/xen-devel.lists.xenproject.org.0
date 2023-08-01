@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30AA76B641
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 15:50:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574230.899495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6F2076B681
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 15:58:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574239.899505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQplp-0001c9-Jk; Tue, 01 Aug 2023 13:50:41 +0000
+	id 1qQptO-0002Wq-An; Tue, 01 Aug 2023 13:58:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574230.899495; Tue, 01 Aug 2023 13:50:41 +0000
+Received: by outflank-mailman (output) from mailman id 574239.899505; Tue, 01 Aug 2023 13:58:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQplp-0001a9-GO; Tue, 01 Aug 2023 13:50:41 +0000
-Received: by outflank-mailman (input) for mailman id 574230;
- Tue, 01 Aug 2023 13:50:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQptO-0002VC-7u; Tue, 01 Aug 2023 13:58:30 +0000
+Received: by outflank-mailman (input) for mailman id 574239;
+ Tue, 01 Aug 2023 13:58:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gjSu=DS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qQpln-0001H0-Pf
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 13:50:39 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 65bcb690-3072-11ee-b25c-6b7b168915f2;
- Tue, 01 Aug 2023 15:50:38 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 58C894EE0737;
- Tue,  1 Aug 2023 15:50:38 +0200 (CEST)
+ <SRS0=nouE=DS=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1qQptM-0002V6-Jr
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 13:58:29 +0000
+Received: from mgamail.intel.com (unknown [192.55.52.88])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7a14cbe0-3073-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 15:58:24 +0200 (CEST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 06:57:59 -0700
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga001.jf.intel.com with ESMTP; 01 Aug 2023 06:57:55 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1qQpsm-005MX9-2k; Tue, 01 Aug 2023 16:57:52 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,71 +44,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65bcb690-3072-11ee-b25c-6b7b168915f2
+X-Inumbo-ID: 7a14cbe0-3073-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690898304; x=1722434304;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZKIy+hH5QB+KBuMy5Vbg4Dhcb8h2GptMzqQNMbJ5fGU=;
+  b=cxaJWq2SuAMDVIwUPtisnAfJnEyWqk6PJGyJI7FgFXdOrOa/uErM27Hp
+   +NqPQWx+qiE16jc8bAHywSdJl0GXb/w4WSMzRTvGpnGs/T3WlG6rHkFBD
+   sFtZ4AYuN7ABb0kUTSZLaT0GEOrd8R1fNlI1H47G0iA3lfYP3d1qzWlty
+   gnrePRbXgjJCMKwY2sjjwnnuGMAOUU2xwxI2J08U1/lQ1ySYI2Xa/Rts6
+   NXojIWQYEwtMHbbLHK46XLgCNipCYBKU0hninmLw+4GsO/CLvK+2cIn9D
+   7lTXDgolHMkUHPbHqB52/LivRnwAgPNDIdOQso51DWr49IEP0IC/+I1eK
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="400250896"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; 
+   d="scan'208";a="400250896"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="763772313"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; 
+   d="scan'208";a="763772313"
+Date: Tue, 1 Aug 2023 16:57:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
+Message-ID: <ZMkPYFblXjxah6Xt@smile.fi.intel.com>
+References: <20230731154718.31048-1-tiwai@suse.de>
+ <b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
+ <87h6pjj2ui.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Date: Tue, 01 Aug 2023 15:50:38 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_P?=
- =?UTF-8?Q?au_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] x86/cpu-policy: justify a violation of MISRA C:2012
- Rule 1.3
-In-Reply-To: <e2d88673-c4dc-1151-182b-07cbd40e924f@suse.com>
-References: <9ec42e01258968d2dc71d59c5ad41da448a7112e.1690895099.git.nicola.vetrini@bugseng.com>
- <e2d88673-c4dc-1151-182b-07cbd40e924f@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <3f9c68649fa1e5ca4151a46a110a8b8c@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87h6pjj2ui.wl-tiwai@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On 01/08/2023 15:40, Jan Beulich wrote:
-> On 01.08.2023 15:06, Nicola Vetrini wrote:
->> The empty feature set 'str_7c1' in 'tools/misc/xen-cpuid.c' causes the
->> struct declaration to have no named members, hence violating
->> Rule 1.3:
->> "There shall be no occurrence of undefined or critical unspecified 
->> behaviour"
->> because it is forbidden by ISO/IEC 9899:1999(E), Section 6.7.2.1.7:
->> "If the struct-declaration-list contains no named
->> members, the behavior is undefined."
->> 
->> It has been assessed that the feature set declaration is intentionally 
->> empty,
->> and that no risk of undesired behaviour stems from it, hence the 
->> struct
->> declaration is marked safe.
->> 
->> No functional changes.
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->> As agreed during the MISRA C group meetings, this violation is dealt
->> with by means of a comment deviation, as future changes may eliminate 
->> the
->> root cause, which is the empty feature set.
->> My justification for the claim and the commit message may need some 
->> adjusting.
+On Mon, Jul 31, 2023 at 09:30:29PM +0200, Takashi Iwai wrote:
+> On Mon, 31 Jul 2023 19:20:54 +0200,
+> Mark Brown wrote:
+> > 
+> > On Mon, Jul 31, 2023 at 05:46:54PM +0200, Takashi Iwai wrote:
+> > 
+> > > this is a patch set to clean up the PCM copy ops using sockptr_t as a
+> > > "universal" pointer, inspired by the recent patch from Andy
+> > > Shevchenko:
+> > >   https://lore.kernel.org/r/20230721100146.67293-1-andriy.shevchenko@linux.intel.com
+> > 
+> > > Even though it sounds a bit weird, sockptr_t is a generic type that is
+> > > used already in wide ranges, and it can fit our purpose, too.  With
+> > > sockptr_t, the former split of copy_user and copy_kernel PCM ops can
+> > > be unified again gracefully.
+> > 
+> > It really feels like we ought to rename, or add an alias for, the type
+> > if we're going to start using it more widely - it's not helping to make
+> > the code clearer.
 > 
-> A reference to the compiler extension would be nice; the use of 
-> extensions
-> (which generally are well-defined, even if not always well-documented)
-> should eliminate the UB that the standard specifies.
-> 
+> That was my very first impression, too, but I changed my mind after
+> seeing the already used code.  An alias might work, either typedef or
+> define genptr_t or such as sockptr_t.  But we'll need to copy the
+> bunch of helper functions, too...
 
-It sure is a good idea to specify this. Since the use of this compiler 
-extension is already
-documented in 'docs/misra/C-language-toolchain.rst' I can just add a 
-reference to that
-in the justification.
+Maybe we should define a genptr_t (in genptr.h) and convert sockptr infra to
+use it (in sockptr.h)? This will leave network and other existing users to
+convert to it step-by-step.
+
+Another approach is to simply copy sockptr.h to genptr.h with changed naming
+scheme and add a deprecation note to the former.
+
+Thank you, Takashi, for doing this!
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+With Best Regards,
+Andy Shevchenko
+
+
 
