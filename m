@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A8E76BBA5
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 19:49:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574460.899739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590C876BBB4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 19:52:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574463.899749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQtV5-0005R9-Pz; Tue, 01 Aug 2023 17:49:39 +0000
+	id 1qQtXN-0006qN-70; Tue, 01 Aug 2023 17:52:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574460.899739; Tue, 01 Aug 2023 17:49:39 +0000
+Received: by outflank-mailman (output) from mailman id 574463.899749; Tue, 01 Aug 2023 17:52:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQtV5-0005P0-N5; Tue, 01 Aug 2023 17:49:39 +0000
-Received: by outflank-mailman (input) for mailman id 574460;
- Tue, 01 Aug 2023 17:49:38 +0000
+	id 1qQtXN-0006oY-3T; Tue, 01 Aug 2023 17:52:01 +0000
+Received: by outflank-mailman (input) for mailman id 574463;
+ Tue, 01 Aug 2023 17:51:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w4lv=DS=gmail.com=raj.khem@srs-se1.protection.inumbo.net>)
- id 1qQtV4-0005Ou-HJ
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 17:49:38 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
+ <SRS0=nouE=DS=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1qQtXL-0006oO-Fx
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 17:51:59 +0000
+Received: from mgamail.intel.com (unknown [192.55.52.120])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6df2ccf-3093-11ee-8613-37d641c3527e;
- Tue, 01 Aug 2023 19:49:35 +0200 (CEST)
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-1bb81809ca8so46969665ad.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Aug 2023 10:49:36 -0700 (PDT)
-Received: from apollo.hsd1.ca.comcast.net ([2601:646:9100:2cb0::94c8])
- by smtp.gmail.com with ESMTPSA id
- c5-20020a170902c1c500b001b85a4821f8sm5012699plc.276.2023.08.01.10.49.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 10:49:33 -0700 (PDT)
+ id 170b10fc-3094-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 19:51:54 +0200 (CEST)
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 10:51:47 -0700
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga008.jf.intel.com with ESMTP; 01 Aug 2023 10:51:43 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1qQtX2-00DKb2-0b; Tue, 01 Aug 2023 20:51:40 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +44,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6df2ccf-3093-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690912175; x=1691516975;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=HD89QJtBs0B8JZHVQe5+HG6SdeeQku6GpLIOjBFTcZg=;
-        b=FIezstmcY3HMWQdOQPd1AuBW9Iyn2ARm4WhVc602oO/wNpI0MrNjQp4zuaM94Xhm7p
-         d/hIQsmzsLHvKFnLwlTTL/R3olmENOAwzeOgTlQSl2HLMmHbFFsJ2b7q6kXPmzP1LEWQ
-         SYa1pL3jC3/Beal0bs2hayYQOTjd2GIjF3RLJ21HW2lQwo9vacEG0UPk7CegBjzQIaM7
-         7iOxjIM5+ZV68XjBgj9uOEzFJ5Lw4ZX2PKQ+5caTlMmbFsRCy3a3cjqAVUU2gd76NVHG
-         vQ9DGao+ZA2eVGVaEbdynMmvjwelkQRW0uBWqZWy05vUh7v58gop6uFEHxSm8e1IJ9Qo
-         HKRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690912175; x=1691516975;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HD89QJtBs0B8JZHVQe5+HG6SdeeQku6GpLIOjBFTcZg=;
-        b=SLU3ELDxE6Ua5wO+yIXCAPQYn0tA0Z7MVqi4uCRDdnpBqDmlQj8fDGljNb2ttwu5Nn
-         V9v0EExVKczzMgGRgQh3pfMWeDcSOPgMZJ0IJlMy5xopNOkpuA9/seK/ycfm4JRYIfxx
-         pmWMVldStGxUsRZq/z18AySi6BLC7vxGFtfsNcCA4NBEuHDVie6ACOim0xMcgTnwhlSY
-         nwU3JMtuJIB/9od/M7TMgYAot8JRW8NDiNjUIZ5uGC4T6Bgry52zMTIJ5cJy+Mjx+bqU
-         tbHCx+820wpfVE0lRsRRFt07t1xEId2WOVNrrjzC+XGb0GtX+SKOnf8UAsCJLmb9cftH
-         LclA==
-X-Gm-Message-State: ABy/qLYsVDjFUtEej+yW+xc1T3Viv9HvIJ4DmJ+wLYAMvStli2cL4Bu3
-	WZGYKMrF1MBSicJ8QJ//7Vq3FGfSGGQk8g==
-X-Google-Smtp-Source: APBJJlGm7gIbbgr3MmRCHl5ITFMri5K7SK1TIt3OY5+nDlwX6uOT0xTOzP7+TH3raQZyU8537vnafw==
-X-Received: by 2002:a17:902:c947:b0:1bb:ab0d:4f76 with SMTP id i7-20020a170902c94700b001bbab0d4f76mr17561709pla.58.1690912174564;
-        Tue, 01 Aug 2023 10:49:34 -0700 (PDT)
-From: Khem Raj <raj.khem@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Khem Raj <raj.khem@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2] arm32: Avoid using solaris syntax for .section directive
-Date: Tue,  1 Aug 2023 10:49:30 -0700
-Message-ID: <20230801174930.2995947-1-raj.khem@gmail.com>
-X-Mailer: git-send-email 2.41.0
+X-Inumbo-ID: 170b10fc-3094-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690912314; x=1722448314;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=23Wc3k0mFLbrQycUcEsHy3FEUV7003iJlGRdyTKc6ms=;
+  b=PCUoIkXMQeK6PgQqyzurFvxhlQkIf3OUGJ1J2qKMomkcrETlAdSnp1GD
+   rU8AiWlWtXaXuWdghcFoEIJ7Yz5CM12CRk/9BrS36Oezi/0NBosa+5/km
+   M7gW3PiDBYp75S/MYFyMe25TtKJPIcj7Ed01Q/0sGaIpCkKa/LSzFXx+U
+   QnTlc+iThqyfcoJBSy5IQgQt23D7H8kQ3PNmTcl+D1ZP4/dp2jiH9A5Pt
+   urMCwDcikMi72miS23C2Ko0SPeV2Gc6ONlnT5IBygkR/hGbC0Ilfj70tY
+   3tm0S41Q+mRy7xVc2J2/rfxPzPk/sQMgWykG4yn80wAVZ6lLAofgzRXYl
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="368273820"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; 
+   d="scan'208";a="368273820"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="758441153"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; 
+   d="scan'208";a="758441153"
+Date: Tue, 1 Aug 2023 20:51:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
+Message-ID: <ZMlGKy7ibjkQ6ii7@smile.fi.intel.com>
+References: <20230731154718.31048-1-tiwai@suse.de>
+ <b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
+ <87h6pjj2ui.wl-tiwai@suse.de>
+ <a02cf5c3-1fac-4ec6-9d9c-f8e8d0c067e0@sirena.org.uk>
+ <87leeugbxm.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87leeugbxm.wl-tiwai@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-Assembler from binutils 2.41 rejects [1] this syntax
+On Tue, Aug 01, 2023 at 02:54:45PM +0200, Takashi Iwai wrote:
+> On Mon, 31 Jul 2023 21:40:20 +0200,
+> Mark Brown wrote:
+> > On Mon, Jul 31, 2023 at 09:30:29PM +0200, Takashi Iwai wrote:
+> > > Mark Brown wrote:
+> > 
+> > > > It really feels like we ought to rename, or add an alias for, the type
+> > > > if we're going to start using it more widely - it's not helping to make
+> > > > the code clearer.
+> > 
+> > > That was my very first impression, too, but I changed my mind after
+> > > seeing the already used code.  An alias might work, either typedef or
+> > > define genptr_t or such as sockptr_t.  But we'll need to copy the
+> > > bunch of helper functions, too...
+> > 
+> > I would predict that if the type becomes more widely used that'll happen
+> > eventually and the longer it's left the more work it'll be.
+> 
+> That's true.  The question is how more widely it'll be used, then.
+> 
+> Is something like below what you had in mind, too?
 
-.section "name"[, flags...]
+I agree with your proposal (uniptr_t also works for me), but see below.
 
-where flags could be #alloc, #write, #execinstr, #exclude, and #tls [2]
+...
 
-It is almost like a regression compared to 2.40 or older release,
-It likely went unnoticed so far because Linux kernel changed
-to GNU syntax already in 5.5, to allow building with Clang's
-integrated assembler.
+> +#include <linux/slab.h>
+> +#include <linux/uaccess.h>
 
-Switch to using GNU syntax
+But let make the list of the headers right this time.
 
-.section name[, "flags"[, @type]]
+It seems to me that
 
-[1] https://sourceware.org/bugzilla/show_bug.cgi?id=11601
-[2] https://sourceware.org/binutils/docs-2.41/as.html#Section
+err.h
+minmax.h // maybe not, see a remark at the bottom
+string.h
+types.h
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
-v1 -> v2:
- - Improvise on commit message
- - Make similar change in xen/arch/arm/dtb.S
+are missing.
 
- xen/arch/arm/arm32/proc-v7.S | 6 +++---
- xen/arch/arm/dtb.S           | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+More below.
 
-diff --git a/xen/arch/arm/arm32/proc-v7.S b/xen/arch/arm/arm32/proc-v7.S
-index c90a31d80f..6d3d19b873 100644
---- a/xen/arch/arm/arm32/proc-v7.S
-+++ b/xen/arch/arm/arm32/proc-v7.S
-@@ -29,7 +29,7 @@ brahma15mp_init:
-         mcr   CP32(r0, ACTLR)
-         mov   pc, lr
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_ca15mp_proc_info, #object
- __v7_ca15mp_proc_info:
-         .long 0x410FC0F0             /* Cortex-A15 */
-@@ -38,7 +38,7 @@ __v7_ca15mp_proc_info:
-         .long caxx_processor
-         .size __v7_ca15mp_proc_info, . - __v7_ca15mp_proc_info
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_ca7mp_proc_info, #object
- __v7_ca7mp_proc_info:
-         .long 0x410FC070             /* Cortex-A7 */
-@@ -47,7 +47,7 @@ __v7_ca7mp_proc_info:
-         .long caxx_processor
-         .size __v7_ca7mp_proc_info, . - __v7_ca7mp_proc_info
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_brahma15mp_proc_info, #object
- __v7_brahma15mp_proc_info:
-         .long 0x420F00F0             /* Broadcom Brahma-B15 */
-diff --git a/xen/arch/arm/dtb.S b/xen/arch/arm/dtb.S
-index c39f3a095c..386f83ba64 100644
---- a/xen/arch/arm/dtb.S
-+++ b/xen/arch/arm/dtb.S
-@@ -1,3 +1,3 @@
--        .section .dtb,#alloc
-+        .section .dtb, "a"
-         GLOBAL(_sdtb)
-         .incbin CONFIG_DTB_FILE
+...
+
+> +	void *p = kmalloc_track_caller(len, GFP_USER | __GFP_NOWARN);
+> +
+> +	if (!p)
+> +		return ERR_PTR(-ENOMEM);
+
+This can use cleanup.h.
+
+> +	if (copy_from_uniptr(p, src, len)) {
+> +		kfree(p);
+> +		return ERR_PTR(-EFAULT);
+> +	}
+> +	return p;
+> +}
+> +
+> +static inline void *memdup_uniptr_nul(uniptr_t src, size_t len)
+> +{
+> +	char *p = kmalloc_track_caller(len + 1, GFP_KERNEL);
+
+Ditto.
+
+> +	if (!p)
+> +		return ERR_PTR(-ENOMEM);
+> +	if (copy_from_uniptr(p, src, len)) {
+> +		kfree(p);
+> +		return ERR_PTR(-EFAULT);
+> +	}
+> +	p[len] = '\0';
+> +	return p;
+> +}
+
+...
+
+> +static inline long strncpy_from_uniptr(char *dst, uniptr_t src, size_t count)
+> +{
+> +	if (uniptr_is_kernel(src)) {
+> +		size_t len = min(strnlen(src.kernel, count - 1) + 1, count);
+
+I didn't get why do we need min()? To check the count == 0 case?
+
+Wouldn't
+
+		size_t len;
+
+		len = strnlen(src.kernel, count);
+		if (len == 0)
+			return 0;
+
+		/* Copy a trailing NUL if found */
+		if (len < count)
+			len++;
+
+be a good equivalent?
+
+> +		memcpy(dst, src.kernel, len);
+> +		return len;
+> +	}
+> +	return strncpy_from_user(dst, src.user, count);
+> +}
+
+...
+
+> +static inline int check_zeroed_uniptr(uniptr_t src, size_t offset, size_t size)
+> +{
+> +	if (!uniptr_is_kernel(src))
+
+Why not to align all the functions to use same conditional (either always
+positive or negative)?
+
+> +		return check_zeroed_user(src.user + offset, size);
+> +	return memchr_inv(src.kernel + offset, 0, size) == NULL;
+> +}
+
+...
+
+Taking all remarks into account I would rather go with sockptr.h being
+untouched for now, just a big
+
+/* DO NOT USE, it's obsolete, use uniptr.h instead! */
+
+to be added.
+
 -- 
-2.41.0
+With Best Regards,
+Andy Shevchenko
+
 
 
