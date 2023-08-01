@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B61576AC55
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:08:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573965.899156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B82176AC4D
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:08:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573930.899085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlMh-0007wB-0q; Tue, 01 Aug 2023 09:08:27 +0000
+	id 1qQlME-0004tp-Iz; Tue, 01 Aug 2023 09:07:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573965.899156; Tue, 01 Aug 2023 09:08:26 +0000
+Received: by outflank-mailman (output) from mailman id 573930.899085; Tue, 01 Aug 2023 09:07:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlMg-0007sy-SA; Tue, 01 Aug 2023 09:08:26 +0000
-Received: by outflank-mailman (input) for mailman id 573965;
- Tue, 01 Aug 2023 09:08:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qQlME-0004rQ-Fc; Tue, 01 Aug 2023 09:07:58 +0000
+Received: by outflank-mailman (input) for mailman id 573930;
+ Tue, 01 Aug 2023 09:07:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlGn-0005E5-0i
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:21 +0000
+ id 1qQlGm-0005CK-0V
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:20 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d523a12-304a-11ee-8613-37d641c3527e;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1e3ff35a-304a-11ee-b259-6b7b168915f2;
  Tue, 01 Aug 2023 11:02:19 +0200 (CEST)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:02:10 -0700
+ 01 Aug 2023 02:02:11 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:02:09 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:02:10 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d523a12-304a-11ee-8613-37d641c3527e
+X-Inumbo-ID: 1e3ff35a-304a-11ee-b259-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690880539; x=1722416539;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dQPbDjEqQWsCazdenr4wm1/cp/YJX7zOnAx3X5niG4Q=;
-  b=n+rYQuhcIvzNJLmsXBEw8Lwsem76O8IpiNHXC+Nr3gsLSUuUdShApJMs
-   vDqLN06+yrUsgLryFPnaC+Xc8GWMeIaVU7lbuhbmce1nybQ8TR9xHE9nX
-   k/mvLKHP7/+m5rrtj/dYUeE1ynS1KMayUTi/siF/crjn7YGkL1fKHVPlQ
-   GmOHsQAufB/AplysljpMC39cfVZLOWmLx0eEXXCx6T4b7cIIqTPY+efwS
-   1XaVjRKAC2vU2E/cwY5eRD8hVduFYOhX4C1tgsoVMb40MVuPwkdBsEDna
-   iD9wwhNx1fS6TyMwHG9GWVRMdcjTAiIoHem+MtO7kOeVStbKxQfgy7CT5
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082746"
+  bh=QeZUtDgMAPwFIrdo9TmaG72+ignP6GGIZpxe8B2aw6k=;
+  b=WQl6TwPrN6Sy0l3M4N9YPr7w8tT645eltV74dGUcBukoP7OtWEQhomST
+   yHhoujrwYNpdqb3LLemUZEHFJHoEdqD/LXMMIIEmhir8yVnBd9f6roMAI
+   ydfKMVXNaKpSfnj51pcIVmyLXPyC2zOW134BHNGT4E04avgYIBIzmpHdX
+   jfGepdVKDTsTNWYCp8/PjAfX21wJ+vudiZc5CrY1ysrVNyhiGTEZIOsiI
+   ojLeEuRHjcw192UTIsbFAZaZ1uIcE3uxzFdWdtgPBHQ+x6V1gztueQEff
+   P5Cy4Erb7RC7+EtLSq5XB5eA6ModcQRbWsN6aPsNPcdnu4Ph4aDStmUX6
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082780"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="433082746"
+   d="scan'208";a="433082780"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975217074"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975217078"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="975217074"
+   d="scan'208";a="975217078"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,73 +137,79 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 21/36] x86/fred: Add a machine check entry stub for FRED
-Date: Tue,  1 Aug 2023 01:33:03 -0700
-Message-Id: <20230801083318.8363-22-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 22/36] x86/fred: Add a double fault entry stub for FRED
+Date: Tue,  1 Aug 2023 01:33:04 -0700
+Message-Id: <20230801083318.8363-23-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083318.8363-1-xin3.li@intel.com>
 References: <20230801083318.8363-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a machine check entry stub for FRED.
+The IDT event delivery of a double fault pushes an error code into the
+orig_ax member of the pt_regs structure, and the error code is passed
+as the second argument of its C-handler exc_double_fault(), although
+the pt_regs structure is already passed as the first argument.
+
+The existing IDT double fault asm entry code does the following
+
+  movq ORIG_RAX(%rsp), %rsi	/* get error code into 2nd argument*/
+  movq $-1, ORIG_RAX(%rsp)	/* no syscall to restart */
+
+to set the orig_ax member to -1 just before calling the C-handler.
+
+X86_TRAP_TS, X86_TRAP_NP, X86_TRAP_SS, X86_TRAP_GP, X86_TRAP_AC and
+X86_TRAP_CP are all handled in the same way because the IDT event
+delivery pushes an error code into their stack frame for them.
+
+The commit d99015b1abbad ("x86: move entry_64.S register saving out of
+the macros") introduced the changes to set orig_ax to -1, but I can't
+see why. Our tests with FRED seem fine if orig_ax is left unchanged
+instead of set to -1. It's probably cleaner and simpler to remove the
+second argument from exc_double_fault() while leave orig_ax unchanged
+to pass the error code inside the first argument, at least on native
+x86_64. That would be a separate, pre-FRED, patch.
+
+For now just add a double fault entry stub for FRED, which simply
+calls the existing exc_double_fault().
 
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
-
-Changes since v5:
-* Disallow #DB inside #MCE for robustness sake (Peter Zijlstra).
----
- arch/x86/include/asm/fred.h    |  1 +
- arch/x86/kernel/cpu/mce/core.c | 15 +++++++++++++++
- 2 files changed, 16 insertions(+)
+ arch/x86/include/asm/fred.h | 1 +
+ arch/x86/kernel/traps.c     | 7 +++++++
+ 2 files changed, 8 insertions(+)
 
 diff --git a/arch/x86/include/asm/fred.h b/arch/x86/include/asm/fred.h
-index 2a7c47dfd733..f559dd9dc4f2 100644
+index f559dd9dc4f2..bd701ac87528 100644
 --- a/arch/x86/include/asm/fred.h
 +++ b/arch/x86/include/asm/fred.h
-@@ -115,6 +115,7 @@ typedef DECLARE_FRED_HANDLER((*fred_handler));
- DECLARE_FRED_HANDLER(fred_exc_nmi);
+@@ -116,6 +116,7 @@ DECLARE_FRED_HANDLER(fred_exc_nmi);
  DECLARE_FRED_HANDLER(fred_exc_debug);
  DECLARE_FRED_HANDLER(fred_exc_page_fault);
-+DECLARE_FRED_HANDLER(fred_exc_machine_check);
+ DECLARE_FRED_HANDLER(fred_exc_machine_check);
++DECLARE_FRED_HANDLER(fred_exc_double_fault);
  
  #endif /* __ASSEMBLY__ */
  
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index b8ad5a5b4026..98456e20f155 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -52,6 +52,7 @@
- #include <asm/mce.h>
- #include <asm/msr.h>
- #include <asm/reboot.h>
-+#include <asm/fred.h>
- 
- #include "internal.h"
- 
-@@ -2118,6 +2119,20 @@ DEFINE_IDTENTRY_MCE_USER(exc_machine_check)
- 	exc_machine_check_user(regs);
- 	local_db_restore(dr7);
+diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
+index b10464966a81..49dd92458eb0 100644
+--- a/arch/x86/kernel/traps.c
++++ b/arch/x86/kernel/traps.c
+@@ -555,6 +555,13 @@ DEFINE_IDTENTRY_DF(exc_double_fault)
+ 	instrumentation_end();
  }
-+
+ 
 +#ifdef CONFIG_X86_FRED
-+DEFINE_FRED_HANDLER(fred_exc_machine_check)
++DEFINE_FRED_HANDLER(fred_exc_double_fault)
 +{
-+	unsigned long dr7;
-+
-+	dr7 = local_db_save();
-+	if (user_mode(regs))
-+		exc_machine_check_user(regs);
-+	else
-+		exc_machine_check_kernel(regs);
-+	local_db_restore(dr7);
++	exc_double_fault(regs, regs->orig_ax);
 +}
 +#endif
- #else
- /* 32bit unified entry point */
- DEFINE_IDTENTRY_RAW(exc_machine_check)
++
+ DEFINE_IDTENTRY(exc_bounds)
+ {
+ 	if (notify_die(DIE_TRAP, "bounds", regs, 0,
 -- 
 2.34.1
 
