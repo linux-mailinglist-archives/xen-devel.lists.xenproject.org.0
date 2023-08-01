@@ -2,59 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C7476BB87
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 19:42:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574455.899729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A8E76BBA5
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 19:49:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574460.899739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQtNS-0004jW-UV; Tue, 01 Aug 2023 17:41:46 +0000
+	id 1qQtV5-0005R9-Pz; Tue, 01 Aug 2023 17:49:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574455.899729; Tue, 01 Aug 2023 17:41:46 +0000
+Received: by outflank-mailman (output) from mailman id 574460.899739; Tue, 01 Aug 2023 17:49:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQtNS-0004ha-QJ; Tue, 01 Aug 2023 17:41:46 +0000
-Received: by outflank-mailman (input) for mailman id 574455;
- Tue, 01 Aug 2023 17:41:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQtNQ-0004hU-DQ
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 17:41:44 +0000
-Received: from mgamail.intel.com (unknown [192.55.52.43])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab53decd-3092-11ee-b25c-6b7b168915f2;
- Tue, 01 Aug 2023 19:41:41 +0200 (CEST)
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 10:41:37 -0700
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga004.fm.intel.com with ESMTP; 01 Aug 2023 10:41:37 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Tue, 1 Aug 2023 10:41:36 -0700
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Tue, 1 Aug 2023 10:41:36 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27 via Frontend Transport; Tue, 1 Aug 2023 10:41:36 -0700
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com (104.47.73.172)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.27; Tue, 1 Aug 2023 10:41:36 -0700
-Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
- by CO1PR11MB5027.namprd11.prod.outlook.com (2603:10b6:303:9d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.40; Tue, 1 Aug
- 2023 17:41:32 +0000
-Received: from SA1PR11MB6734.namprd11.prod.outlook.com
- ([fe80::50e4:2cb8:4529:af04]) by SA1PR11MB6734.namprd11.prod.outlook.com
- ([fe80::50e4:2cb8:4529:af04%7]) with mapi id 15.20.6631.043; Tue, 1 Aug 2023
- 17:41:32 +0000
+	id 1qQtV5-0005P0-N5; Tue, 01 Aug 2023 17:49:39 +0000
+Received: by outflank-mailman (input) for mailman id 574460;
+ Tue, 01 Aug 2023 17:49:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w4lv=DS=gmail.com=raj.khem@srs-se1.protection.inumbo.net>)
+ id 1qQtV4-0005Ou-HJ
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 17:49:38 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c6df2ccf-3093-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 19:49:35 +0200 (CEST)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-1bb81809ca8so46969665ad.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Aug 2023 10:49:36 -0700 (PDT)
+Received: from apollo.hsd1.ca.comcast.net ([2601:646:9100:2cb0::94c8])
+ by smtp.gmail.com with ESMTPSA id
+ c5-20020a170902c1c500b001b85a4821f8sm5012699plc.276.2023.08.01.10.49.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Aug 2023 10:49:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,161 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab53decd-3092-11ee-b25c-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690911701; x=1722447701;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qS4CPA9EKW0OJfbbVJ1lseYCR6nfbdaDN/hUHotm144=;
-  b=EsITI6D3wObpHectKQcbgkv6sZVwRu24fFdDQ62R/v5+6h+jcTfbpNpU
-   TFNdV/GDddW5CuJJX3F+eIGP3dO/cBu82tl+ZWqoatFvM7K5r1Nz6Pp5R
-   08WSD8O50oIgsA/bYWeVP8Rcbb6VhslXsQ0Tdip5GypJT0lU3fmEd/azj
-   meWltgHmnfOWl7chQu2c6FD45E+9e9Y55lWo71STTDT6iAftUhlmQY1xk
-   S1h17LhReIBY3OvRvK8oMptOq8Jp1DvKODVDMDFkioV/9KaFJEvO7REox
-   /LiKrkqfx7qwkEcU/Y+LSk5A82X1qITstaPlFKNwHTUMQGWJduP20M7K/
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="455741882"
-X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; 
-   d="scan'208";a="455741882"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="798769997"
-X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; 
-   d="scan'208";a="798769997"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WwlyRzHtPWPBWGy8ggnGXWwtcrp8MX+Xf1eokRZNd4nAt1o6ipc44ZvEvAkl7YETGQVtvbbVW3050FLPH+zvbdjlXMs7YmqCE+n7AJe5sVTDJoufe21b6tTRUR8wUNo1uyAZVeM/c4nyaRTJJnFXOHJ8/gbIdYY7roS1XxW7gZZioNkk13HzMMDIZYDS/S5hQAuLNlwg82l9Q61r1OiSR+dXf+efQMbV+5z9yb+FnudPM/0VdZyatRBsn8+911E5DLq3n0xmzsoG96/Hfz2s4ncejFsRWCcO2v5DpBOdQBWy45P78tgASpo0/NglAXnKJV/wuC+vDLNY/1hfYpRLQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/oGFI5LY6O1zy/8NOdL5CXeIwuqJxl0Y5UaYhyX0+40=;
- b=HzIbP6eKwQE8AZmyUY533nfBewWcmY1wPA3r+3SyVBdm/hhEffA6OeV/v3Qfth/uEXqmdJ7RVs28m80cyEQbV3YPz09lS2T9RqONhfcqWsHow3m9Cb6m9qempvxwZsCjaHYDycfE3sOSoZ6G2rtoMN7brYMk35sYVzu2Q530hcg9k3Ia/os2ZRg2V6mVrLT2vb/MfNApYKAdD8smK2ONGF/6jA+YM9iQzuBc9GyjfWLxP14NNi1Tt70+3EaY1Cc0UXIu4gLJRuBt5i89zyU5vXyvmERZg4mydGCQGDAo4QT1cjQns97bDbO3nciM+EXSoIKFOgpxrw/+v1vYrj0dMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-From: "Li, Xin3" <xin3.li@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>
-CC: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Jonathan Corbet <corbet@lwn.net>, "Thomas
- Gleixner" <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, "Borislav
- Petkov" <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>, "H . Peter Anvin" <hpa@zytor.com>,
-	"Lutomirski, Andy" <luto@kernel.org>, Oleg Nesterov <oleg@redhat.com>, "Luck,
- Tony" <tony.luck@intel.com>, "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, "Cui,
- Dexuan" <decui@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>, "Wanpeng
- Li" <wanpengli@tencent.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
-	"Christopherson,, Sean" <seanjc@google.com>, "Gross, Jurgen"
-	<jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, "Oleksandr
- Tyshchenko" <oleksandr_tyshchenko@epam.com>, Josh Poimboeuf
-	<jpoimboe@kernel.org>, "Paul E . McKenney" <paulmck@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>, Kim Phillips <kim.phillips@amd.com>,
-	Hyeonggon Yoo <42.hyeyoo@gmail.com>, "Liam R . Howlett"
-	<Liam.Howlett@oracle.com>, Sebastian Reichel
-	<sebastian.reichel@collabora.com>, "Kirill A . Shutemov"
-	<kirill.shutemov@linux.intel.com>, Suren Baghdasaryan <surenb@google.com>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Babu Moger
-	<babu.moger@amd.com>, Jim Mattson <jmattson@google.com>, Sandipan Das
-	<sandipan.das@amd.com>, Lai Jiangshan <jiangshanlai@gmail.com>, Hans de Goede
-	<hdegoede@redhat.com>, "Chatre, Reinette" <reinette.chatre@intel.com>,
-	"Daniel Sneddon" <daniel.sneddon@linux.intel.com>, Breno Leitao
-	<leitao@debian.org>, Nikunj A Dadhania <nikunj@amd.com>, Brian Gerst
-	<brgerst@gmail.com>, "Sami Tolvanen" <samitolvanen@google.com>, Alexander
- Potapenko <glider@google.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Arnd Bergmann <arnd@arndb.de>, "Eric W . Biederman" <ebiederm@xmission.com>,
-	Kees Cook <keescook@chromium.org>, Masami Hiramatsu <mhiramat@kernel.org>,
-	"Masahiro Yamada" <masahiroy@kernel.org>, Ze Gao <zegao2021@gmail.com>, "Li,
- Fei1" <fei1.li@intel.com>, Conghui <conghui.chen@intel.com>, "Raj, Ashok"
-	<ashok.raj@intel.com>, "Jason A . Donenfeld" <Jason@zx2c4.com>, Mark Rutland
-	<mark.rutland@arm.com>, Jacob Pan <jacob.jun.pan@linux.intel.com>, "Jiapeng
- Chong" <jiapeng.chong@linux.alibaba.com>, Jane Malalane
-	<jane.malalane@citrix.com>, "Woodhouse, David" <dwmw@amazon.co.uk>,
-	"Ostrovsky, Boris" <boris.ostrovsky@oracle.com>, Arnaldo Carvalho de Melo
-	<acme@redhat.com>, Yantengsi <siyanteng@loongson.cn>, Christophe Leroy
-	<christophe.leroy@csgroup.eu>, Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: RE: [PATCH RESEND v9 00/36] x86: enable FRED for x86-64
-Thread-Topic: [PATCH RESEND v9 00/36] x86: enable FRED for x86-64
-Thread-Index: AQHZxFK8XA18LlhFCECR8aoFrmHwB6/VQ+oAgAAkVwCAAExQ8A==
-Date: Tue, 1 Aug 2023 17:41:32 +0000
-Message-ID: <SA1PR11MB67343841FFBAB71F005B0440A80AA@SA1PR11MB6734.namprd11.prod.outlook.com>
-References: <20230801083318.8363-1-xin3.li@intel.com>
- <20230801105236.GB79828@hirez.programming.kicks-ass.net>
- <20230801130240.GA80967@hirez.programming.kicks-ass.net>
-In-Reply-To: <20230801130240.GA80967@hirez.programming.kicks-ass.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|CO1PR11MB5027:EE_
-x-ms-office365-filtering-correlation-id: 816e65fe-dfe9-4a81-1eb4-08db92b68b91
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hbZBEgrMrSkukRlhRInro59naLc8vtW89qNg99W/JoEDrg1vZPjqBg/u4FEzRpbdt5HO9n3YhZ+s60rOGWaeJ4JvOlhgRK+NI7ATnneSDZB4P8FcKWam+yYn+En8JNkDAbgqyuyC8QakgKIZA+D2KeDhu2oDW8/ROyrASOQ0qZPC4SM/XL86ffPCul1P99rEXmh2yIGFw4NmyzfwsB53noi5Oztj+ERI1eXQioteUH1Dx9amYk7hAuohNJvRuAPS/Cw/Nn0Wsv8Gq4/j6OJz+tfFCoQdTVI6HdhBphRkuxsen359RArg0aFjQNikQGKVaAdBoZrM6xLtq+9olf4YyDzbCu8Qf5nAnAKU8owMWW0g0sICXRfQ4E9HnBu0TCHEeVybq3g3jaCItPv+dzkyu68aba2LVGF2V+0gcweu8WMWQl8erzUZy8WRgvZ/cZ7GRPjhmkB6xHaMyER/roQfGUOdqQYe8SGUUIDsj2CsdtdJR5qYu30cretfK62yJ1S/V0dF38SEyrrokSZlroSm70S6Xs6cLk2XOaUSqe3FCFdx1vubUU8nImxh+1JwOHanjOveg9TNGYl4WfBQYGv2UmadFzty42nWii5hQE4E0dI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(136003)(396003)(39860400002)(366004)(346002)(451199021)(38100700002)(66476007)(86362001)(316002)(8676002)(8936002)(64756008)(5660300002)(66446008)(4326008)(6916009)(41300700001)(54906003)(7416002)(7366002)(122000001)(33656002)(52536014)(76116006)(66946007)(66556008)(82960400001)(7406005)(38070700005)(478600001)(4744005)(2906002)(71200400001)(966005)(9686003)(7696005)(6506007)(26005)(186003)(55016003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9S376hmpo4BhJC85NLrvpSb+4HNunXLP+7Y/90z2sNCXPaYTJCGYBVP69XP3?=
- =?us-ascii?Q?R38CnDhUy12iDryXj356vd70qWLvkFEPPnKs9QSXPMeQn9e1+2KDwqV5q1Ad?=
- =?us-ascii?Q?UDxSob9WX8WY5Rtl5bQxzb8q43+ay5YjBdtj76fpa8ly1YR79IVBcSwzkpAC?=
- =?us-ascii?Q?ONS0Wt7DqTJVkYUCmW45kipLv/LJEt/VplBKs4VRqiKojV+gFelT8ruP5nju?=
- =?us-ascii?Q?nnf5u+xEQPYQC7ARPBaHqo67gm41GaHZOmBAXDSMqrJkK15mVHhsHS8Q1RcJ?=
- =?us-ascii?Q?9R8DdjEl7GpIFZGQT+UQ6glJDwBAjckQLOFcdegodVfGebaP9eJF0kpni/1I?=
- =?us-ascii?Q?TxkRJCJTi32sMkOsW+MDfkvrCLGohEBY5TiR+5Dd4gofRICcWePlLVn8eK76?=
- =?us-ascii?Q?6VEaCKB+Uo/ItV6nsCtMBinmbMpiYwUs2m6Va1RrhpSpUnKw+II8QMMD+Slv?=
- =?us-ascii?Q?qNZoVjjTb+Gaj8rUaMOevgnXQ46B2zEGomEFpRVrw0VIoQ+sojxKTqfshlJB?=
- =?us-ascii?Q?3xLN4uYWs5jdDjENcukBUdQXmmtkq4AWnYiXUZ9JZBo/dE3dYIve6PWU6U/G?=
- =?us-ascii?Q?JoGzKouwiw/GrEo08HPIsaDkguQnlTgeNW1BypWbTfs5uS+pLoVwgosokYg2?=
- =?us-ascii?Q?eaHu7sk+9s7T9eQSBLZCjSQ7YNvm5oSJiMmBAV77CTZTRTRxtiMY4Y2e6h4M?=
- =?us-ascii?Q?tWHJkxUT2TMBpHX8bp8IMbTv0tzcTSJQG8ZCgHdnQzZudDK0/9g1ZTGziQiL?=
- =?us-ascii?Q?mOPoWDyiAcqbAu1Mxa54pTkvbdivC5ItrM7AQvQt0TG6Cc/Bgg2ZIYV3ZgGK?=
- =?us-ascii?Q?YKvRfjt2S5aPMkboAPOv2U3CZTAHmkyXHKZpqPz+ulJ5sZHaB3BB3rGPLcl5?=
- =?us-ascii?Q?ilQ9REuSRMtvNsq/JFBqm2KRd8RYP9GRxuU25ydzTFzcoOV/uxDEf5NFI0jn?=
- =?us-ascii?Q?mVRrXjWMPe+saQ/jDa7+UUS5l5cAHHgLuOHs0P+RuuLBZqKMotgu/acYbUlE?=
- =?us-ascii?Q?UUiVrd2ERZXQFJWhxcr2SpULzLqLe6ik5r1JB0NTnJ7UuCIxDOSgYDQbVqYm?=
- =?us-ascii?Q?EmdfFu/TTfFaBjUmkoecNcArt3qFdhTkBS/CIjcJPCChqHu3WP0K2p28/5WA?=
- =?us-ascii?Q?hSvl68zkyS+e1TkrvKNYXQ6gGiz5I9c6eVFSgdxPB47mtia4F6L+cKf9QxhM?=
- =?us-ascii?Q?/hgaq9FZsNxiEKICf/WTsNBxI3SF5Y7t28bNWGghrCMEQ/Zdt0Xu1ThATuwp?=
- =?us-ascii?Q?Y8V9WxSVmsqHHf3l6P0jVmEx5RXzwLbnjmxRj0agul8u9RaQtfTPVv3rOS+3?=
- =?us-ascii?Q?RA28LWVNpXQZ8hQs229ahH7zwrWqwyKmb13SCjTGTZZIFQeC8sx4TQI4EXn8?=
- =?us-ascii?Q?tDtzWwZWbU/8KFRZ2dLW6QZQGJN+IRFztg6CZB0aBRP5UNYu9sfwYOFkOuOn?=
- =?us-ascii?Q?I8xzAm74L+de8SMApxaOSFrNIJ+0LmJ5Uq4Z3dyzvyMwXOYkQrzqfC7+z/Sr?=
- =?us-ascii?Q?sitm0GKIm9ob3fuTsribPqNmnLDJOkM8J1XMIM300Vn2svzZIuiCVYdC5tc0?=
- =?us-ascii?Q?c5H/mL8qbblKNUsarks=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: c6df2ccf-3093-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690912175; x=1691516975;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HD89QJtBs0B8JZHVQe5+HG6SdeeQku6GpLIOjBFTcZg=;
+        b=FIezstmcY3HMWQdOQPd1AuBW9Iyn2ARm4WhVc602oO/wNpI0MrNjQp4zuaM94Xhm7p
+         d/hIQsmzsLHvKFnLwlTTL/R3olmENOAwzeOgTlQSl2HLMmHbFFsJ2b7q6kXPmzP1LEWQ
+         SYa1pL3jC3/Beal0bs2hayYQOTjd2GIjF3RLJ21HW2lQwo9vacEG0UPk7CegBjzQIaM7
+         7iOxjIM5+ZV68XjBgj9uOEzFJ5Lw4ZX2PKQ+5caTlMmbFsRCy3a3cjqAVUU2gd76NVHG
+         vQ9DGao+ZA2eVGVaEbdynMmvjwelkQRW0uBWqZWy05vUh7v58gop6uFEHxSm8e1IJ9Qo
+         HKRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690912175; x=1691516975;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HD89QJtBs0B8JZHVQe5+HG6SdeeQku6GpLIOjBFTcZg=;
+        b=SLU3ELDxE6Ua5wO+yIXCAPQYn0tA0Z7MVqi4uCRDdnpBqDmlQj8fDGljNb2ttwu5Nn
+         V9v0EExVKczzMgGRgQh3pfMWeDcSOPgMZJ0IJlMy5xopNOkpuA9/seK/ycfm4JRYIfxx
+         pmWMVldStGxUsRZq/z18AySi6BLC7vxGFtfsNcCA4NBEuHDVie6ACOim0xMcgTnwhlSY
+         nwU3JMtuJIB/9od/M7TMgYAot8JRW8NDiNjUIZ5uGC4T6Bgry52zMTIJ5cJy+Mjx+bqU
+         tbHCx+820wpfVE0lRsRRFt07t1xEId2WOVNrrjzC+XGb0GtX+SKOnf8UAsCJLmb9cftH
+         LclA==
+X-Gm-Message-State: ABy/qLYsVDjFUtEej+yW+xc1T3Viv9HvIJ4DmJ+wLYAMvStli2cL4Bu3
+	WZGYKMrF1MBSicJ8QJ//7Vq3FGfSGGQk8g==
+X-Google-Smtp-Source: APBJJlGm7gIbbgr3MmRCHl5ITFMri5K7SK1TIt3OY5+nDlwX6uOT0xTOzP7+TH3raQZyU8537vnafw==
+X-Received: by 2002:a17:902:c947:b0:1bb:ab0d:4f76 with SMTP id i7-20020a170902c94700b001bbab0d4f76mr17561709pla.58.1690912174564;
+        Tue, 01 Aug 2023 10:49:34 -0700 (PDT)
+From: Khem Raj <raj.khem@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Khem Raj <raj.khem@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: [PATCH v2] arm32: Avoid using solaris syntax for .section directive
+Date: Tue,  1 Aug 2023 10:49:30 -0700
+Message-ID: <20230801174930.2995947-1-raj.khem@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 816e65fe-dfe9-4a81-1eb4-08db92b68b91
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Aug 2023 17:41:32.5745
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Kr0p4GM7rbulXd6menIn/NIkH7YsL0JXwhFRCBBrfmbU0hxYTP9IhCqLJRY2JshGhxJ/9DwLX/odK2AoYSxrYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5027
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-> > I also believe there is a kernel.org service for sending patch series,
-> > but i'm not sure I remember the details.
->=20
-> https://b4.docs.kernel.org/en/latest/contributor/send.html
+Assembler from binutils 2.41 rejects [1] this syntax
 
-It says:
-The kernel.org endpoint can only be used for kernel.org-hosted projects.
-If there are no recognized mailing lists in the to/cc headers, then the
-submission will be rejected.
+.section "name"[, flags...]
 
-If I want to test the email sending service, how could I test it with sendi=
-ng
-just to myself?  Maybe it allows only sending to the sender.
+where flags could be #alloc, #write, #execinstr, #exclude, and #tls [2]
+
+It is almost like a regression compared to 2.40 or older release,
+It likely went unnoticed so far because Linux kernel changed
+to GNU syntax already in 5.5, to allow building with Clang's
+integrated assembler.
+
+Switch to using GNU syntax
+
+.section name[, "flags"[, @type]]
+
+[1] https://sourceware.org/bugzilla/show_bug.cgi?id=11601
+[2] https://sourceware.org/binutils/docs-2.41/as.html#Section
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+v1 -> v2:
+ - Improvise on commit message
+ - Make similar change in xen/arch/arm/dtb.S
+
+ xen/arch/arm/arm32/proc-v7.S | 6 +++---
+ xen/arch/arm/dtb.S           | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/arm/arm32/proc-v7.S b/xen/arch/arm/arm32/proc-v7.S
+index c90a31d80f..6d3d19b873 100644
+--- a/xen/arch/arm/arm32/proc-v7.S
++++ b/xen/arch/arm/arm32/proc-v7.S
+@@ -29,7 +29,7 @@ brahma15mp_init:
+         mcr   CP32(r0, ACTLR)
+         mov   pc, lr
+ 
+-        .section ".proc.info", #alloc
++        .section .proc.info, "a"
+         .type __v7_ca15mp_proc_info, #object
+ __v7_ca15mp_proc_info:
+         .long 0x410FC0F0             /* Cortex-A15 */
+@@ -38,7 +38,7 @@ __v7_ca15mp_proc_info:
+         .long caxx_processor
+         .size __v7_ca15mp_proc_info, . - __v7_ca15mp_proc_info
+ 
+-        .section ".proc.info", #alloc
++        .section .proc.info, "a"
+         .type __v7_ca7mp_proc_info, #object
+ __v7_ca7mp_proc_info:
+         .long 0x410FC070             /* Cortex-A7 */
+@@ -47,7 +47,7 @@ __v7_ca7mp_proc_info:
+         .long caxx_processor
+         .size __v7_ca7mp_proc_info, . - __v7_ca7mp_proc_info
+ 
+-        .section ".proc.info", #alloc
++        .section .proc.info, "a"
+         .type __v7_brahma15mp_proc_info, #object
+ __v7_brahma15mp_proc_info:
+         .long 0x420F00F0             /* Broadcom Brahma-B15 */
+diff --git a/xen/arch/arm/dtb.S b/xen/arch/arm/dtb.S
+index c39f3a095c..386f83ba64 100644
+--- a/xen/arch/arm/dtb.S
++++ b/xen/arch/arm/dtb.S
+@@ -1,3 +1,3 @@
+-        .section .dtb,#alloc
++        .section .dtb, "a"
+         GLOBAL(_sdtb)
+         .incbin CONFIG_DTB_FILE
+-- 
+2.41.0
 
 
