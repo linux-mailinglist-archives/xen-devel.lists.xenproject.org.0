@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4176A76ABFA
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3C576ABFB
 	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:04:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573864.899025 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.573865.899034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlJ2-0008Rw-2J; Tue, 01 Aug 2023 09:04:40 +0000
+	id 1qQlJ4-0000Mk-Fm; Tue, 01 Aug 2023 09:04:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573864.899025; Tue, 01 Aug 2023 09:04:40 +0000
+Received: by outflank-mailman (output) from mailman id 573865.899034; Tue, 01 Aug 2023 09:04:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlJ1-0008OW-U6; Tue, 01 Aug 2023 09:04:39 +0000
-Received: by outflank-mailman (input) for mailman id 573864;
- Tue, 01 Aug 2023 09:04:38 +0000
+	id 1qQlJ4-0000Iv-9d; Tue, 01 Aug 2023 09:04:42 +0000
+Received: by outflank-mailman (input) for mailman id 573865;
+ Tue, 01 Aug 2023 09:04:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlJ0-0007sM-Ak
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:04:38 +0000
+ id 1qQlJ2-0007sM-D1
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:04:40 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6df44d94-304a-11ee-8613-37d641c3527e;
- Tue, 01 Aug 2023 11:04:36 +0200 (CEST)
+ id 7132afa8-304a-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 11:04:38 +0200 (CEST)
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:04:34 -0700
+ 01 Aug 2023 02:04:36 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by orsmga007.jf.intel.com with ESMTP; 01 Aug 2023 02:04:32 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 Aug 2023 02:04:34 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6df44d94-304a-11ee-8613-37d641c3527e
+X-Inumbo-ID: 7132afa8-304a-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690880676; x=1722416676;
+  t=1690880678; x=1722416678;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=QJo+FdezOu/7r5CtwRnG6EayDGJs/agjxSi0oClRDik=;
-  b=LJ3fyLruDPs5uYPMxpUokpiz5GD2N0VvPWAkxd1zkcieDy89uuHZ5Utn
-   G1SUgXRYaPZxQkByR4jv6sGpiMJOf14LZJRm8yhLmp9PX+ucPWLx/sr/A
-   8MkBxGSSdXQDeTOGpiMbSNRqawUBBLLbhOaCo1KAQi9y6GzCphEnIZ6zl
-   WbHqjEyncD8mqNGs48Q3K3paoWSLYD0x2xzX31wXcWXQY7c2xz8f3mnoV
-   KpHKWmaKcCKnk2kb4fX8FQt6Gi/o9u0t+jmBj/a4B8vWgyHDHtyHaD4SX
-   8kjOojzXY64Ro0VJH4Edyz5EywoqQ8LOf/xSBxeR2a+DZOMmvKo8htMK4
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="366713612"
+  bh=0k0T0+NBS4NOJOU0xtkOh6eqcDmcObEt/EaW35o1kMc=;
+  b=MY1FzVtq/L4zjilpun8TivaKg4bfyNcszGLMTse9K/wjuYgPLlJFuZJo
+   1je/wZXJlWRMGXLMKaOOP07o4PRMsblLCmSfXbsq0QbL/srtL61MrQ0So
+   W91aFWFQjWr31KYsgKC3wRHEXrRUTxg6qF6IL9op5CObAXI+3AlM6SPnL
+   6PCi1h1U09aNhDpBl3Oe73Vz+pyD6TS8Mvq/AGgUZsrDYAZI1UyIDxS6u
+   LF1esA5SXQ9TCCMSrswhTUFcBdfd99BdNJIPjyIVA9GpuhiiohRYFyZEC
+   UN7tzEydKxhTawSWfvrMmnJJRQaC7EzeCom/blUN0g7SPzlXzILUVw/bG
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="366713646"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="366713612"
+   d="scan'208";a="366713646"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="722420738"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="722420743"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="722420738"
+   d="scan'208";a="722420743"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,39 +137,40 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 31/36] x86/traps: Export external_interrupt() for handling IRQ in IRQ induced VM exits
-Date: Tue,  1 Aug 2023 01:35:48 -0700
-Message-Id: <20230801083553.8468-5-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 32/36] x86/fred: Export fred_entrypoint_kernel() for handling NMI in NMI induced VM exits
+Date: Tue,  1 Aug 2023 01:35:49 -0700
+Message-Id: <20230801083553.8468-6-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083553.8468-1-xin3.li@intel.com>
 References: <20230801083553.8468-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Export external_interrupt() for handling IRQ in IRQ induced VM exits.
+Export fred_entrypoint_kernel() for handling NMI in NMI induced VM exits.
 
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/kernel/traps.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/x86/entry/entry_64_fred.S | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
-index 90fdfcccee7a..6143ad56008e 100644
---- a/arch/x86/kernel/traps.c
-+++ b/arch/x86/kernel/traps.c
-@@ -1560,6 +1560,11 @@ int external_interrupt(struct pt_regs *regs)
- 	return 0;
- }
+diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
+index d24bf7f10ac8..12063267d2ac 100644
+--- a/arch/x86/entry/entry_64_fred.S
++++ b/arch/x86/entry/entry_64_fred.S
+@@ -4,6 +4,7 @@
+  */
  
-+#if IS_ENABLED(CONFIG_KVM_INTEL)
-+/* For KVM VMX to handle IRQs in IRQ induced VM exits. */
-+EXPORT_SYMBOL_GPL(external_interrupt);
-+#endif
-+
- #endif /* CONFIG_X86_64 */
+ #include <asm/asm.h>
++#include <asm/export.h>
+ #include <asm/fred.h>
  
- void __init trap_init(void)
+ #include "calling.h"
+@@ -54,3 +55,4 @@ SYM_CODE_START_NOALIGN(fred_entrypoint_kernel)
+ 	FRED_EXIT
+ 	ERETS
+ SYM_CODE_END(fred_entrypoint_kernel)
++EXPORT_SYMBOL(fred_entrypoint_kernel)
 -- 
 2.34.1
 
