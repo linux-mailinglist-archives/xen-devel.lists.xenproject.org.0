@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B633176ABF5
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:04:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573861.898995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA7E76ABF9
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:04:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573862.899005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlIx-0007cf-Ss; Tue, 01 Aug 2023 09:04:35 +0000
+	id 1qQlJ0-0007vS-8h; Tue, 01 Aug 2023 09:04:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573861.898995; Tue, 01 Aug 2023 09:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 573862.899005; Tue, 01 Aug 2023 09:04:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlIx-0007Zx-PI; Tue, 01 Aug 2023 09:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 573861;
- Tue, 01 Aug 2023 09:04:35 +0000
+	id 1qQlJ0-0007rX-3f; Tue, 01 Aug 2023 09:04:38 +0000
+Received: by outflank-mailman (input) for mailman id 573862;
+ Tue, 01 Aug 2023 09:04:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlIw-0007Jn-V5
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:04:34 +0000
+ id 1qQlIy-0007Jn-07
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:04:36 +0000
 Received: from mgamail.intel.com (unknown [192.55.52.93])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ddb8c0b-304a-11ee-b259-6b7b168915f2;
- Tue, 01 Aug 2023 11:04:33 +0200 (CEST)
+ id 6d5c006a-304a-11ee-b259-6b7b168915f2;
+ Tue, 01 Aug 2023 11:04:34 +0200 (CEST)
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:04:29 -0700
+ 01 Aug 2023 02:04:30 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by orsmga007.jf.intel.com with ESMTP; 01 Aug 2023 02:04:27 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 Aug 2023 02:04:29 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ddb8c0b-304a-11ee-b259-6b7b168915f2
+X-Inumbo-ID: 6d5c006a-304a-11ee-b259-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690880674; x=1722416674;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Aa5CvA7MmnPHyksJQgqEteFVOvaio1lA17Ke5qS+vL0=;
-  b=ZbDJ0SKnXt8+wU2fjJaPps1juOiC5b4LkUuNS8m4Tq04HWrWXIfGAq7d
-   fkVyEJV/n9iCJHwRZr3DOOVp4p3csR90zalwvsBaM7HDqjKDcJwv7lU9c
-   NOa/8OBNySWoNT/OH4hpGhWZbgYkREUPvII+llIE2ad9xgYMHxHEQK+OQ
-   8XQtDvXkWWYJeMD+7oZski2F1xSCIaL9D9g3ae6bKLgo533/UJ+9ZxIyS
-   2gTq5inFzqKlFVtZ1oFzyJdF938VlknzkIKG/RHUzFSXswyIyr0MiNknD
-   vVQ8U8CapKPaNb9DHU4zFH4GlQihnYmwt2F1SCTJ38gKXptO1C7MzCe41
+  bh=mV4jSKbY2d+wZLYFM+7NRxftfBvXd0NC2fevZMSM55Q=;
+  b=JDNQbvog+RFarXLdldpfUH9JO2BugDHaaiwn7A4PeypqUDKOhjLz2IBz
+   MAa6iZxe5IirGrD7I7/ol/hH4nfLk0TffYp6j+r2zhqNVuJCn6xP1pi/Q
+   wUV92C6cBNj+1w9DG31Zo/NhhdJhI1A6sAZx7rYEuDMXrGIJMss7+oq8D
+   /GWjacpBeSaT+Z9r2UE23sQ/PZqcjaTAOlF497P7kmqQD075sH4w4sRIn
+   XLb1SS5YpmfYA1yrf8uf/pvuf01M/YHK98wiqKDVlCAIFz4RA+vGmG4oD
+   m30aKK/IlYEDgh/E/mLi1u4qHAkiBt8T80xEDkYXAXWzZESEgYPY8HO2I
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="366713490"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="366713522"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="366713490"
+   d="scan'208";a="366713522"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="722420715"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="722420725"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="722420715"
+   d="scan'208";a="722420725"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,90 +137,408 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 28/36] x86/idtentry: Incorporate declaration/definition of the FRED exception handler type
-Date: Tue,  1 Aug 2023 01:35:45 -0700
-Message-Id: <20230801083553.8468-2-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 29/36] x86/fred: FRED entry/exit and dispatch code
+Date: Tue,  1 Aug 2023 01:35:46 -0700
+Message-Id: <20230801083553.8468-3-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083553.8468-1-xin3.li@intel.com>
 References: <20230801083553.8468-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The existing IDT exception C-handlers of X86_TRAP_TS, X86_TRAP_NP,
-X86_TRAP_SS, X86_TRAP_GP, X86_TRAP_AC and X86_TRAP_CP take an error
-code as the second argument, thus their FRED version handlers simply
-call the corresponding existing IDT handlers with orig_ax from the
-pt_regs structure as the second argument.
+From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
+The code to actually handle kernel and event entry/exit using
+FRED. It is split up into two files thus:
+
+- entry_64_fred.S contains the actual entrypoints and exit code, and
+  saves and restores registers.
+- entry_fred.c contains the two-level event dispatch code for FRED.
+  The first-level dispatch is on the event type, and the second-level
+  is on the event vector.
+
+Originally-by: Megha Dey <megha.dey@intel.com>
+Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
+Co-developed-by: Xin Li <xin3.li@intel.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/include/asm/idtentry.h | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
 
+Changes since v8:
+* Don't do syscall early out in fred_entry_from_user() before there are
+  proper performance numbers and justifications (Thomas Gleixner).
+* Add the control exception handler to the FRED exception handler table
+  (Thomas Gleixner).
+* Add ENDBR to the FRED_ENTER asm macro.
+* Reflect the FRED spec 5.0 change that ERETS and ERETU add 8 to %rsp
+  before popping the return context from the stack.
+
+Changes since v1:
+* Initialize a FRED exception handler to fred_bad_event() instead of NULL
+  if no FRED handler defined for an exception vector (Peter Zijlstra).
+* Push calling irqentry_{enter,exit}() and instrumentation_{begin,end}()
+  down into individual FRED exception handlers, instead of in the dispatch
+  framework (Peter Zijlstra).
+---
+ arch/x86/entry/Makefile               |   5 +-
+ arch/x86/entry/entry_64_fred.S        |  53 +++++++
+ arch/x86/entry/entry_fred.c           | 220 ++++++++++++++++++++++++++
+ arch/x86/include/asm/asm-prototypes.h |   1 +
+ arch/x86/include/asm/fred.h           |   4 +
+ arch/x86/include/asm/idtentry.h       |   4 +
+ 6 files changed, 286 insertions(+), 1 deletion(-)
+ create mode 100644 arch/x86/entry/entry_64_fred.S
+ create mode 100644 arch/x86/entry/entry_fred.c
+
+diff --git a/arch/x86/entry/Makefile b/arch/x86/entry/Makefile
+index ca2fe186994b..c93e7f5c2a06 100644
+--- a/arch/x86/entry/Makefile
++++ b/arch/x86/entry/Makefile
+@@ -18,6 +18,9 @@ obj-y				+= vdso/
+ obj-y				+= vsyscall/
+ 
+ obj-$(CONFIG_PREEMPTION)	+= thunk_$(BITS).o
++CFLAGS_entry_fred.o		+= -fno-stack-protector
++CFLAGS_REMOVE_entry_fred.o	+= -pg $(CC_FLAGS_FTRACE)
++obj-$(CONFIG_X86_FRED)		+= entry_64_fred.o entry_fred.o
++
+ obj-$(CONFIG_IA32_EMULATION)	+= entry_64_compat.o syscall_32.o
+ obj-$(CONFIG_X86_X32_ABI)	+= syscall_x32.o
+-
+diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
+new file mode 100644
+index 000000000000..4ae12d557db3
+--- /dev/null
++++ b/arch/x86/entry/entry_64_fred.S
+@@ -0,0 +1,53 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * The actual FRED entry points.
++ */
++
++#include <asm/fred.h>
++
++#include "calling.h"
++
++	.code64
++	.section ".noinstr.text", "ax"
++
++.macro FRED_ENTER
++	UNWIND_HINT_END_OF_STACK
++	ENDBR
++	PUSH_AND_CLEAR_REGS
++	movq	%rsp, %rdi	/* %rdi -> pt_regs */
++.endm
++
++.macro FRED_EXIT
++	UNWIND_HINT_REGS
++	POP_REGS
++.endm
++
++/*
++ * The new RIP value that FRED event delivery establishes is
++ * IA32_FRED_CONFIG & ~FFFH for events that occur in ring 3.
++ * Thus the FRED ring 3 entry point must be 4K page aligned.
++ */
++	.align 4096
++
++SYM_CODE_START_NOALIGN(fred_entrypoint_user)
++	FRED_ENTER
++	call	fred_entry_from_user
++SYM_INNER_LABEL(fred_exit_user, SYM_L_GLOBAL)
++	FRED_EXIT
++	ERETU
++SYM_CODE_END(fred_entrypoint_user)
++
++.fill fred_entrypoint_kernel - ., 1, 0xcc
++
++/*
++ * The new RIP value that FRED event delivery establishes is
++ * (IA32_FRED_CONFIG & ~FFFH) + 256 for events that occur in
++ * ring 0, i.e., fred_entrypoint_user + 256.
++ */
++	.org fred_entrypoint_user+256
++SYM_CODE_START_NOALIGN(fred_entrypoint_kernel)
++	FRED_ENTER
++	call	fred_entry_from_kernel
++	FRED_EXIT
++	ERETS
++SYM_CODE_END(fred_entrypoint_kernel)
+diff --git a/arch/x86/entry/entry_fred.c b/arch/x86/entry/entry_fred.c
+new file mode 100644
+index 000000000000..1688e7e09370
+--- /dev/null
++++ b/arch/x86/entry/entry_fred.c
+@@ -0,0 +1,220 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * This contains the dispatch functions called from the entry point
++ * assembly.
++ */
++
++#include <linux/kernel.h>
++#include <linux/kdebug.h>
++#include <linux/nospec.h>
++
++#include <asm/fred.h>
++#include <asm/idtentry.h>
++#include <asm/syscall.h>
++#include <asm/trapnr.h>
++#include <asm/traps.h>
++#include <asm/kdebug.h>
++
++static DEFINE_FRED_HANDLER(fred_bad_event)
++{
++	irqentry_state_t irq_state = irqentry_nmi_enter(regs);
++
++	instrumentation_begin();
++
++	/* Panic on events from a high stack level */
++	if (regs->sl > 0) {
++		pr_emerg("PANIC: invalid or fatal FRED event; event type %u "
++			 "vector %u error 0x%lx aux 0x%lx at %04x:%016lx\n",
++			 regs->type, regs->vector, regs->orig_ax,
++			 fred_event_data(regs), regs->cs, regs->ip);
++		die("invalid or fatal FRED event", regs, regs->orig_ax);
++		panic("invalid or fatal FRED event");
++	} else {
++		unsigned long flags = oops_begin();
++		int sig = SIGKILL;
++
++		pr_alert("BUG: invalid or fatal FRED event; event type %u "
++			 "vector %u error 0x%lx aux 0x%lx at %04x:%016lx\n",
++			 regs->type, regs->vector, regs->orig_ax,
++			 fred_event_data(regs), regs->cs, regs->ip);
++
++		if (__die("Invalid or fatal FRED event", regs, regs->orig_ax))
++			sig = 0;
++
++		oops_end(flags, regs, sig);
++	}
++
++	instrumentation_end();
++	irqentry_nmi_exit(regs, irq_state);
++}
++
++static DEFINE_FRED_HANDLER(fred_exception)
++{
++	/*
++	 * Exceptions that cannot happen on FRED h/w are set to fred_bad_event().
++	 */
++	static const fred_handler exception_handlers[NUM_EXCEPTION_VECTORS] = {
++		[0 ... NUM_EXCEPTION_VECTORS-1] = fred_bad_event,
++
++		[X86_TRAP_DE]		= exc_divide_error,
++		[X86_TRAP_DB]		= fred_exc_debug,
++		[X86_TRAP_BP]		= exc_int3,
++		[X86_TRAP_OF]		= exc_overflow,
++		[X86_TRAP_BR]		= exc_bounds,
++		[X86_TRAP_UD]		= exc_invalid_op,
++		[X86_TRAP_NM]		= exc_device_not_available,
++		[X86_TRAP_DF]		= fred_exc_double_fault,
++		[X86_TRAP_TS]		= fred_exc_invalid_tss,
++		[X86_TRAP_NP]		= fred_exc_segment_not_present,
++		[X86_TRAP_SS]		= fred_exc_stack_segment,
++		[X86_TRAP_GP]		= fred_exc_general_protection,
++		[X86_TRAP_PF]		= fred_exc_page_fault,
++		[X86_TRAP_MF]		= exc_coprocessor_error,
++		[X86_TRAP_AC]		= fred_exc_alignment_check,
++		[X86_TRAP_MC]		= fred_exc_machine_check,
++		[X86_TRAP_XF]		= exc_simd_coprocessor_error,
++		[X86_TRAP_CP]		= fred_exc_control_protection,
++	};
++
++	exception_handlers[regs->vector](regs);
++}
++
++static __always_inline void fred_emulate_trap(struct pt_regs *regs)
++{
++	regs->orig_ax = 0;
++	fred_exception(regs);
++}
++
++static __always_inline void fred_emulate_fault(struct pt_regs *regs)
++{
++	regs->ip -= regs->instr_len;
++	fred_emulate_trap(regs);
++}
++
++static DEFINE_FRED_HANDLER(fred_sw_interrupt_user)
++{
++	/*
++	 * In compat mode INT $0x80 (32bit system call) is
++	 * performance-critical. Handle it first.
++	 */
++	if (IS_ENABLED(CONFIG_IA32_EMULATION) &&
++	    likely(regs->vector == IA32_SYSCALL_VECTOR)) {
++		regs->orig_ax = regs->ax;
++		regs->ax = -ENOSYS;
++		return do_int80_syscall_32(regs);
++	}
++
++	/*
++	 * Some software exceptions can also be triggered as
++	 * int instructions, for historical reasons.
++	 */
++	switch (regs->vector) {
++	case X86_TRAP_BP:
++	case X86_TRAP_OF:
++		fred_emulate_trap(regs);
++		break;
++	default:
++		regs->vector = X86_TRAP_GP;
++		fred_emulate_fault(regs);
++		break;
++	}
++}
++
++static DEFINE_FRED_HANDLER(fred_other_default)
++{
++	regs->vector = X86_TRAP_UD;
++	fred_emulate_fault(regs);
++}
++
++static DEFINE_FRED_HANDLER(fred_syscall)
++{
++	regs->orig_ax = regs->ax;
++	regs->ax = -ENOSYS;
++	do_syscall_64(regs, regs->orig_ax);
++}
++
++#if IS_ENABLED(CONFIG_IA32_EMULATION)
++/*
++ * Emulate SYSENTER if applicable. This is not the preferred system
++ * call in 32-bit mode under FRED, rather int $0x80 is preferred and
++ * exported in the vdso.
++ */
++static DEFINE_FRED_HANDLER(fred_sysenter)
++{
++	regs->orig_ax = regs->ax;
++	regs->ax = -ENOSYS;
++	do_fast_syscall_32(regs);
++}
++#else
++#define fred_sysenter fred_other_default
++#endif
++
++static DEFINE_FRED_HANDLER(fred_other)
++{
++	static const fred_handler user_other_handlers[FRED_NUM_OTHER_VECTORS] =
++	{
++		/*
++		 * Vector 0 of the other event type is not used
++		 * per FRED spec 5.0.
++		 */
++		[0]		= fred_other_default,
++		[FRED_SYSCALL]	= fred_syscall,
++		[FRED_SYSENTER]	= fred_sysenter
++	};
++
++	user_other_handlers[regs->vector](regs);
++}
++
++static DEFINE_FRED_HANDLER(fred_hw_interrupt)
++{
++	irqentry_state_t state = irqentry_enter(regs);
++
++	instrumentation_begin();
++	external_interrupt(regs);
++	instrumentation_end();
++	irqentry_exit(regs, state);
++}
++
++__visible noinstr void fred_entry_from_user(struct pt_regs *regs)
++{
++	static const fred_handler user_handlers[FRED_EVENT_TYPE_COUNT] =
++	{
++		[EVENT_TYPE_HWINT]	= fred_hw_interrupt,
++		[EVENT_TYPE_RESERVED]	= fred_bad_event,
++		[EVENT_TYPE_NMI]	= fred_exc_nmi,
++		[EVENT_TYPE_SWINT]	= fred_sw_interrupt_user,
++		[EVENT_TYPE_HWFAULT]	= fred_exception,
++		[EVENT_TYPE_SWFAULT]	= fred_exception,
++		[EVENT_TYPE_PRIVSW]	= fred_exception,
++		[EVENT_TYPE_OTHER]	= fred_other
++	};
++
++	/*
++	 * FRED employs a two-level event dispatch mechanism, with the
++	 * first-level on the type of an event and the second-level on
++	 * its vector. Here is the first-level dispatch for ring 3 events.
++	 */
++	user_handlers[regs->type](regs);
++}
++
++__visible noinstr void fred_entry_from_kernel(struct pt_regs *regs)
++{
++	static const fred_handler kernel_handlers[FRED_EVENT_TYPE_COUNT] =
++	{
++		[EVENT_TYPE_HWINT]	= fred_hw_interrupt,
++		[EVENT_TYPE_RESERVED]	= fred_bad_event,
++		[EVENT_TYPE_NMI]	= fred_exc_nmi,
++		[EVENT_TYPE_SWINT]	= fred_bad_event,
++		[EVENT_TYPE_HWFAULT]	= fred_exception,
++		[EVENT_TYPE_SWFAULT]	= fred_exception,
++		[EVENT_TYPE_PRIVSW]	= fred_exception,
++		[EVENT_TYPE_OTHER]	= fred_bad_event
++	};
++
++	/*
++	 * FRED employs a two-level event dispatch mechanism, with the
++	 * first-level on the type of an event and the second-level on
++	 * its vector. Here is the first-level dispatch for ring 0 events.
++	 */
++	kernel_handlers[regs->type](regs);
++}
+diff --git a/arch/x86/include/asm/asm-prototypes.h b/arch/x86/include/asm/asm-prototypes.h
+index b1a98fa38828..36505b991f88 100644
+--- a/arch/x86/include/asm/asm-prototypes.h
++++ b/arch/x86/include/asm/asm-prototypes.h
+@@ -13,6 +13,7 @@
+ #include <asm/preempt.h>
+ #include <asm/asm.h>
+ #include <asm/gsseg.h>
++#include <asm/fred.h>
+ 
+ #ifndef CONFIG_X86_CMPXCHG64
+ extern void cmpxchg8b_emu(void);
+diff --git a/arch/x86/include/asm/fred.h b/arch/x86/include/asm/fred.h
+index bd701ac87528..3c91f0eae62e 100644
+--- a/arch/x86/include/asm/fred.h
++++ b/arch/x86/include/asm/fred.h
+@@ -118,6 +118,10 @@ DECLARE_FRED_HANDLER(fred_exc_page_fault);
+ DECLARE_FRED_HANDLER(fred_exc_machine_check);
+ DECLARE_FRED_HANDLER(fred_exc_double_fault);
+ 
++/* The actual assembly entry point for ring 3 and 0 */
++extern asmlinkage __visible void fred_entrypoint_user(void);
++extern asmlinkage __visible void fred_entrypoint_kernel(void);
++
+ #endif /* __ASSEMBLY__ */
+ 
+ #endif /* CONFIG_X86_FRED */
 diff --git a/arch/x86/include/asm/idtentry.h b/arch/x86/include/asm/idtentry.h
-index e67d111bf932..3b743c3fbe91 100644
+index 3b743c3fbe91..0df3a3cc7e0f 100644
 --- a/arch/x86/include/asm/idtentry.h
 +++ b/arch/x86/include/asm/idtentry.h
-@@ -11,6 +11,7 @@
- #include <linux/entry-common.h>
- #include <linux/hardirq.h>
+@@ -661,6 +661,8 @@ DECLARE_IDTENTRY_RAW(X86_TRAP_MC,	exc_machine_check);
+ #ifdef CONFIG_XEN_PV
+ DECLARE_IDTENTRY_RAW(X86_TRAP_MC,	xenpv_exc_machine_check);
+ #endif
++#else
++#define fred_exc_machine_check		fred_bad_event
+ #endif
  
-+#include <asm/fred.h>
- #include <asm/irq_stack.h>
+ /* NMI */
+@@ -699,6 +701,8 @@ DECLARE_IDTENTRY_RAW_ERRORCODE(X86_TRAP_DF,	xenpv_exc_double_fault);
+ /* #CP */
+ #ifdef CONFIG_X86_KERNEL_IBT
+ DECLARE_IDTENTRY_ERRORCODE(X86_TRAP_CP,	exc_control_protection);
++#else
++#define fred_exc_control_protection	fred_bad_event
+ #endif
  
- /**
-@@ -67,13 +68,16 @@ static __always_inline void __##func(struct pt_regs *regs)
- 
- /**
-  * DECLARE_IDTENTRY_ERRORCODE - Declare functions for simple IDT entry points
-+ *				and their corresponding software based
-+ *				dispatch handler
-  *				Error code pushed by hardware
-  * @vector:	Vector number (ignored for C)
-  * @func:	Function name of the entry point
-  *
-- * Declares three functions:
-+ * Declares four functions:
-  * - The ASM entry point: asm_##func
-  * - The XEN PV trap entry point: xen_##func (maybe unused)
-+ * - The C handler called from the FRED event dispatch framework
-  * - The C handler called from the ASM entry point
-  *
-  * Same as DECLARE_IDTENTRY, but has an extra error_code argument for the
-@@ -82,14 +86,19 @@ static __always_inline void __##func(struct pt_regs *regs)
- #define DECLARE_IDTENTRY_ERRORCODE(vector, func)			\
- 	asmlinkage void asm_##func(void);				\
- 	asmlinkage void xen_asm_##func(void);				\
-+	__visible DECLARE_FRED_HANDLER(fred_##func);			\
- 	__visible void func(struct pt_regs *regs, unsigned long error_code)
- 
- /**
-  * DEFINE_IDTENTRY_ERRORCODE - Emit code for simple IDT entry points
-+ *			       and their corresponding software based
-+ *			       dispatch handler
-  *			       Error code pushed by hardware
-  * @func:	Function name of the entry point
-  *
-- * Same as DEFINE_IDTENTRY, but has an extra error_code argument
-+ * Same as DEFINE_IDTENTRY, but has an extra error_code argument. The
-+ * fred_func() simply calls func() with passing orig_ax as its second
-+ * argument.
-  */
- #define DEFINE_IDTENTRY_ERRORCODE(func)					\
- static __always_inline void __##func(struct pt_regs *regs,		\
-@@ -106,6 +115,11 @@ __visible noinstr void func(struct pt_regs *regs,			\
- 	irqentry_exit(regs, state);					\
- }									\
- 									\
-+__visible DEFINE_FRED_HANDLER(fred_##func)				\
-+{									\
-+	func(regs, regs->orig_ax);					\
-+}									\
-+									\
- static __always_inline void __##func(struct pt_regs *regs,		\
- 				     unsigned long error_code)
- 
+ /* #VC */
 -- 
 2.34.1
 
