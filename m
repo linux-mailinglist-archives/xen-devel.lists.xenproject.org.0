@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B16D76A589
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 02:29:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573534.898324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE3B76A660
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 03:32:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573540.898334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQdG2-0000oV-1Q; Tue, 01 Aug 2023 00:29:02 +0000
+	id 1qQeE0-0001kJ-IV; Tue, 01 Aug 2023 01:31:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573534.898324; Tue, 01 Aug 2023 00:29:02 +0000
+Received: by outflank-mailman (output) from mailman id 573540.898334; Tue, 01 Aug 2023 01:31:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQdG1-0000lt-Uv; Tue, 01 Aug 2023 00:29:01 +0000
-Received: by outflank-mailman (input) for mailman id 573534;
- Tue, 01 Aug 2023 00:29:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w4lv=DS=gmail.com=raj.khem@srs-se1.protection.inumbo.net>)
- id 1qQdG0-0000ln-QZ
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 00:29:00 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68160a1b-3002-11ee-b257-6b7b168915f2;
- Tue, 01 Aug 2023 02:29:00 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-1bb9e6c2a90so40601765ad.1
- for <xen-devel@lists.xenproject.org>; Mon, 31 Jul 2023 17:28:59 -0700 (PDT)
-Received: from apollo.hsd1.ca.comcast.net ([2601:646:9100:2cb0::61c9])
- by smtp.gmail.com with ESMTPSA id
- b3-20020a170902d50300b001b8a1a25e6asm9149965plg.128.2023.07.31.17.28.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jul 2023 17:28:57 -0700 (PDT)
+	id 1qQeE0-0001jA-Fm; Tue, 01 Aug 2023 01:31:00 +0000
+Received: by outflank-mailman (input) for mailman id 573540;
+ Tue, 01 Aug 2023 01:30:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQeDy-0001j0-Lo; Tue, 01 Aug 2023 01:30:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQeDy-0003fv-KY; Tue, 01 Aug 2023 01:30:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQeDx-0006QT-So; Tue, 01 Aug 2023 01:30:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qQeDx-0007jf-QJ; Tue, 01 Aug 2023 01:30:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68160a1b-3002-11ee-b257-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690849738; x=1691454538;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZUFItuirOVPJCbtBystcht3mbxhNZnp6hC1vcTbgIWQ=;
-        b=XIl6OORM6QViPbSsB8vdQHQ5jKGtvOvmtjAqv6s5n79Zs2LF6apiC/C3f7f7r548Us
-         44vy2nLA3lZ/tEbKRfI4GWm8Xb65epwCKpQuhI+AVXtbxJnuQCxBuUBYT9Q2Q3E75OHL
-         18E8rt1Vc/ElSO3g+Fgzx5H04gfalZ+JMCeHYB0gvyGFsrGkqNZBqYgAVIntM0cbnEHX
-         k6VHo40qel93AK/0KaYX1V3nrs/Ti3aHtx6mzvZr31/Hm0XZVdLUVw9eHfg4v4LJO9X9
-         QYLCLiKvRuZ5+2r1Q68DhQUBoBphtM/vI5WqMFpwn2U43Ju+JmGbaQckF1YrQLDMHegD
-         H0Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690849738; x=1691454538;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZUFItuirOVPJCbtBystcht3mbxhNZnp6hC1vcTbgIWQ=;
-        b=YXifrjvRNHyokL9wShQDUWRENahaJNIW+XVigYCo3LgDNe94o0LYuod6pkNlT8xeRl
-         zjiYndPUwmOYvNK55kacx4QulzmLbud1eUfH43EoNrkaRzSF3gUtgFuixlyAI64g1EMO
-         j9M5xfmsSEK2sJ+RclS9XnfQOfgBs749/+hqj0/kw6YIlcA5aLzUIUQvG9x552LpCE33
-         vRwnMjvIYsROBIghWn28uFpIGRxr9cl7XhBxXLd38WU03kQuISp9wZmTJ0Yh9BAUIiCG
-         aTDC4azI1NSxo/Q0OqGKGFzDdTVG0uROhI7cfC+0grEL+95eOrVfnlB7IJd0qFUm1rjy
-         o9Tw==
-X-Gm-Message-State: ABy/qLZ6bUGXjMiAg7wd3S8n21I8HtuRv89llO6lNkBPyMtPD4btm023
-	e3ABxqYZoD0p2qOsCoFUA6qPLpuMtB1KRQ==
-X-Google-Smtp-Source: APBJJlH8mFsahdzWs1O/MKEG+Yb+4fpKs0mVP3E1LNzhodBuxy2d5/cW8hqdB5TDegC4n2TuUWn1xQ==
-X-Received: by 2002:a17:903:228f:b0:1b9:be2e:2b40 with SMTP id b15-20020a170903228f00b001b9be2e2b40mr13912641plh.50.1690849738015;
-        Mon, 31 Jul 2023 17:28:58 -0700 (PDT)
-From: Khem Raj <raj.khem@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=pG7+NkIZrVACfGKWFpUuKo459PHNBvRnvjhCRfuodSo=; b=xEX9KR3NnYGadOVhhVV2IDGVnj
+	9w1h3NFAxpmBk+uWio0tKEGES6DZHnyxTsg3r34MB46Vy3zKBI6i5V3m0zEZM2NztyOBebiOr6ZiS
+	IHJc9UeNu5NfGqVvYeiqCnTJlfdrMMp0ALHuUqGTyJWsTbaLCuvUSKjKHLP14sQVjqoE=;
 To: xen-devel@lists.xenproject.org
-Cc: Khem Raj <raj.khem@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] arm32: Avoid using solaris syntax for .section directive
-Date: Mon, 31 Jul 2023 17:28:53 -0700
-Message-ID: <20230801002853.556437-1-raj.khem@gmail.com>
-X-Mailer: git-send-email 2.41.0
-MIME-Version: 1.0
+Message-ID: <osstest-182098-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 182098: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=70eb862b01023c45b943e8ff92ef4f6a7e9e8950
+X-Osstest-Versions-That:
+    xen=c0dd53b8cbd1e47e9c89873a9265a7170bdc6b4c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 01 Aug 2023 01:30:57 +0000
 
-Assembler from binutils 2.41 rejects this syntax
+flight 182098 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182098/
 
-.section "name"[, flags...]
+Failures :-/ but no regressions.
 
-where flags could be #alloc, #write, #execstr
-Switch to using ELF syntax
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-.section name[, "flags"[, @type]]
+version targeted for testing:
+ xen                  70eb862b01023c45b943e8ff92ef4f6a7e9e8950
+baseline version:
+ xen                  c0dd53b8cbd1e47e9c89873a9265a7170bdc6b4c
 
-[1] https://ftp.gnu.org/old-gnu/Manuals/gas-2.9.1/html_chapter/as_7.html#SEC119
+Last test of basis   182091  2023-07-31 13:00:28 Z    0 days
+Testing same since   182098  2023-07-31 20:00:37 Z    0 days    1 attempts
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
- xen/arch/arm/arm32/proc-v7.S | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Federico Serafini <federico.serafini@bugseng.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+  Peter Hoyes <Peter.Hoyes@arm.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-diff --git a/xen/arch/arm/arm32/proc-v7.S b/xen/arch/arm/arm32/proc-v7.S
-index c90a31d80f..6d3d19b873 100644
---- a/xen/arch/arm/arm32/proc-v7.S
-+++ b/xen/arch/arm/arm32/proc-v7.S
-@@ -29,7 +29,7 @@ brahma15mp_init:
-         mcr   CP32(r0, ACTLR)
-         mov   pc, lr
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_ca15mp_proc_info, #object
- __v7_ca15mp_proc_info:
-         .long 0x410FC0F0             /* Cortex-A15 */
-@@ -38,7 +38,7 @@ __v7_ca15mp_proc_info:
-         .long caxx_processor
-         .size __v7_ca15mp_proc_info, . - __v7_ca15mp_proc_info
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_ca7mp_proc_info, #object
- __v7_ca7mp_proc_info:
-         .long 0x410FC070             /* Cortex-A7 */
-@@ -47,7 +47,7 @@ __v7_ca7mp_proc_info:
-         .long caxx_processor
-         .size __v7_ca7mp_proc_info, . - __v7_ca7mp_proc_info
- 
--        .section ".proc.info", #alloc
-+        .section .proc.info, "a"
-         .type __v7_brahma15mp_proc_info, #object
- __v7_brahma15mp_proc_info:
-         .long 0x420F00F0             /* Broadcom Brahma-B15 */
--- 
-2.41.0
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   c0dd53b8cb..70eb862b01  70eb862b01023c45b943e8ff92ef4f6a7e9e8950 -> smoke
 
