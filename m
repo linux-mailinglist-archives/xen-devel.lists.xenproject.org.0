@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 239E176B505
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 14:48:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574139.899344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D08D976B53C
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 14:55:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574158.899364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQong-0002mf-HN; Tue, 01 Aug 2023 12:48:32 +0000
+	id 1qQotn-0005Wx-47; Tue, 01 Aug 2023 12:54:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574139.899344; Tue, 01 Aug 2023 12:48:32 +0000
+Received: by outflank-mailman (output) from mailman id 574158.899364; Tue, 01 Aug 2023 12:54:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQong-0002eB-CZ; Tue, 01 Aug 2023 12:48:32 +0000
-Received: by outflank-mailman (input) for mailman id 574139;
- Tue, 01 Aug 2023 12:48:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gjSu=DS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qQone-0002MS-Th
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 12:48:31 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b72c0eff-3069-11ee-b25a-6b7b168915f2;
- Tue, 01 Aug 2023 14:48:30 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 0193A4EE0743;
- Tue,  1 Aug 2023 14:48:28 +0200 (CEST)
+	id 1qQotn-0005VM-16; Tue, 01 Aug 2023 12:54:51 +0000
+Received: by outflank-mailman (input) for mailman id 574158;
+ Tue, 01 Aug 2023 12:54:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kVoi=DS=suse.de=tiwai@srs-se1.protection.inumbo.net>)
+ id 1qQotl-0005VG-SR
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 12:54:50 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 981b27ce-306a-11ee-8613-37d641c3527e;
+ Tue, 01 Aug 2023 14:54:47 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BBEB01FD7C;
+ Tue,  1 Aug 2023 12:54:46 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 600F1139BD;
+ Tue,  1 Aug 2023 12:54:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id sr9XFpYAyWQSNAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 01 Aug 2023 12:54:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,340 +51,359 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b72c0eff-3069-11ee-b25a-6b7b168915f2
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [XEN PATCH v2 3/3] arm/efi: address MISRA C:2012 Rule 5.3
-Date: Tue,  1 Aug 2023 14:47:44 +0200
-Message-Id: <688eea3584d537b6f41bb32f227f8be74ffd2783.1690893696.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1690893696.git.nicola.vetrini@bugseng.com>
-References: <cover.1690893696.git.nicola.vetrini@bugseng.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 981b27ce-306a-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1690894486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1+eWlQeeVC2euHUSOeWbcjmCz76Xb9mTKJnw2WhwjLg=;
+	b=t7s75b7DrHPYfkCXw7FDYSyFbZ+eFfBMn15m7OYOVuSyyLrlrCbVEtuSsgMFKIyIvv5Ho5
+	CXs2jrmvNmzRG22y9IPvSJeuTYeoARHIdanewOkoZNAj1zOai/qIhM0+qzi/l1cfU0dgBj
+	nlIvHEHnHQqn+SrpvAfOym8rWB7ZtPY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690894486;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1+eWlQeeVC2euHUSOeWbcjmCz76Xb9mTKJnw2WhwjLg=;
+	b=L/+EhMg6JTslMiA7SDZmOv5ox9H011tP9374Q3zbVOlIKn4lUfyKLSfdapnaVSEAMmM1w9
+	gR5xSz+JTBsoWoDg==
+Date: Tue, 01 Aug 2023 14:54:45 +0200
+Message-ID: <87leeugbxm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
+In-Reply-To: <a02cf5c3-1fac-4ec6-9d9c-f8e8d0c067e0@sirena.org.uk>
+References: <20230731154718.31048-1-tiwai@suse.de>
+	<b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
+	<87h6pjj2ui.wl-tiwai@suse.de>
+	<a02cf5c3-1fac-4ec6-9d9c-f8e8d0c067e0@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 
-Rule 5.3 has the following headline:
-"An identifier declared in an inner scope shall not hide an
-identifier declared in an outer scope"
+On Mon, 31 Jul 2023 21:40:20 +0200,
+Mark Brown wrote:
+> 
+> On Mon, Jul 31, 2023 at 09:30:29PM +0200, Takashi Iwai wrote:
+> > Mark Brown wrote:
+> 
+> > > It really feels like we ought to rename, or add an alias for, the type
+> > > if we're going to start using it more widely - it's not helping to make
+> > > the code clearer.
+> 
+> > That was my very first impression, too, but I changed my mind after
+> > seeing the already used code.  An alias might work, either typedef or
+> > define genptr_t or such as sockptr_t.  But we'll need to copy the
+> > bunch of helper functions, too...
+> 
+> I would predict that if the type becomes more widely used that'll happen
+> eventually and the longer it's left the more work it'll be.
 
-The file-scope variable 'fdt' is shadowed by function parameters,
-and thus violates the rule, hence it's renamed to 'fdt_efi'
+That's true.  The question is how more widely it'll be used, then.
 
-No functional changes.
+Is something like below what you had in mind, too?
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] Introduce uniptr_t as replacement of sockptr_t
+
+Although sockptr_t is used already in several places as a "universal"
+pointer, it's still too confusing as if were related with network
+stuff.
+
+Make a more generic type, uniptr_t, that does exactly as same as
+sockptr_t for a wider use.  sockptr_t becomes now alias to uniptr_t.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
-Changes in v2:
-- Renamed the file-scope variable instead of removing function parameters.
----
- xen/arch/arm/efi/efi-boot.h | 84 ++++++++++++++++++-------------------
- 1 file changed, 42 insertions(+), 42 deletions(-)
+ include/linux/sockptr.h | 124 +++++-----------------------------------
+ include/linux/uniptr.h  | 117 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 132 insertions(+), 109 deletions(-)
+ create mode 100644 include/linux/uniptr.h
 
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 6126a71400..f24df2abb9 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -49,7 +49,7 @@ static void PrintMessage(const CHAR16 *s);
- {0xb1b621d5U, 0xf19c, 0x41a5, {0x83, 0x0b, 0xd9, 0x15, 0x2c, 0x69, 0xaa, 0xe0}}
+diff --git a/include/linux/sockptr.h b/include/linux/sockptr.h
+index bae5e2369b4f..dc803989a4d6 100644
+--- a/include/linux/sockptr.h
++++ b/include/linux/sockptr.h
+@@ -1,118 +1,24 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ /*
+- * Copyright (c) 2020 Christoph Hellwig.
+- *
+- * Support for "universal" pointers that can point to either kernel or userspace
+- * memory.
++ * Aliases for the old sockptr_t and its helpers for the new uniptr_t
+  */
+ #ifndef _LINUX_SOCKPTR_H
+ #define _LINUX_SOCKPTR_H
  
- static struct file __initdata dtbfile;
--static void __initdata *fdt;
-+static void __initdata *fdt_efi;
- static void __initdata *memmap;
+-#include <linux/slab.h>
+-#include <linux/uaccess.h>
++#include <linux/uniptr.h>
  
- static int __init setup_chosen_node(void *fdt, int *addr_cells, int *size_cells)
-@@ -383,7 +383,7 @@ static void __init efi_arch_process_memory_map(EFI_SYSTEM_TABLE *SystemTable,
-     if ( EFI_ERROR(status) )
-         blexit(L"EFI memory map processing failed");
+-typedef struct {
+-	union {
+-		void		*kernel;
+-		void __user	*user;
+-	};
+-	bool		is_kernel : 1;
+-} sockptr_t;
+-
+-static inline bool sockptr_is_kernel(sockptr_t sockptr)
+-{
+-	return sockptr.is_kernel;
+-}
+-
+-static inline sockptr_t KERNEL_SOCKPTR(void *p)
+-{
+-	return (sockptr_t) { .kernel = p, .is_kernel = true };
+-}
+-
+-static inline sockptr_t USER_SOCKPTR(void __user *p)
+-{
+-	return (sockptr_t) { .user = p };
+-}
+-
+-static inline bool sockptr_is_null(sockptr_t sockptr)
+-{
+-	if (sockptr_is_kernel(sockptr))
+-		return !sockptr.kernel;
+-	return !sockptr.user;
+-}
+-
+-static inline int copy_from_sockptr_offset(void *dst, sockptr_t src,
+-		size_t offset, size_t size)
+-{
+-	if (!sockptr_is_kernel(src))
+-		return copy_from_user(dst, src.user + offset, size);
+-	memcpy(dst, src.kernel + offset, size);
+-	return 0;
+-}
+-
+-static inline int copy_from_sockptr(void *dst, sockptr_t src, size_t size)
+-{
+-	return copy_from_sockptr_offset(dst, src, 0, size);
+-}
+-
+-static inline int copy_to_sockptr_offset(sockptr_t dst, size_t offset,
+-		const void *src, size_t size)
+-{
+-	if (!sockptr_is_kernel(dst))
+-		return copy_to_user(dst.user + offset, src, size);
+-	memcpy(dst.kernel + offset, src, size);
+-	return 0;
+-}
+-
+-static inline int copy_to_sockptr(sockptr_t dst, const void *src, size_t size)
+-{
+-	return copy_to_sockptr_offset(dst, 0, src, size);
+-}
+-
+-static inline void *memdup_sockptr(sockptr_t src, size_t len)
+-{
+-	void *p = kmalloc_track_caller(len, GFP_USER | __GFP_NOWARN);
+-
+-	if (!p)
+-		return ERR_PTR(-ENOMEM);
+-	if (copy_from_sockptr(p, src, len)) {
+-		kfree(p);
+-		return ERR_PTR(-EFAULT);
+-	}
+-	return p;
+-}
+-
+-static inline void *memdup_sockptr_nul(sockptr_t src, size_t len)
+-{
+-	char *p = kmalloc_track_caller(len + 1, GFP_KERNEL);
+-
+-	if (!p)
+-		return ERR_PTR(-ENOMEM);
+-	if (copy_from_sockptr(p, src, len)) {
+-		kfree(p);
+-		return ERR_PTR(-EFAULT);
+-	}
+-	p[len] = '\0';
+-	return p;
+-}
+-
+-static inline long strncpy_from_sockptr(char *dst, sockptr_t src, size_t count)
+-{
+-	if (sockptr_is_kernel(src)) {
+-		size_t len = min(strnlen(src.kernel, count - 1) + 1, count);
+-
+-		memcpy(dst, src.kernel, len);
+-		return len;
+-	}
+-	return strncpy_from_user(dst, src.user, count);
+-}
+-
+-static inline int check_zeroed_sockptr(sockptr_t src, size_t offset,
+-				       size_t size)
+-{
+-	if (!sockptr_is_kernel(src))
+-		return check_zeroed_user(src.user + offset, size);
+-	return memchr_inv(src.kernel + offset, 0, size) == NULL;
+-}
++#define sockptr_t		uniptr_t
++#define sockptr_is_kernel	uniptr_is_kernel
++#define KERNEL_SOCKPTR		KERNEL_UNIPTR
++#define USER_SOCKPTR		USER_UNIPTR
++#define sockptr_is_null		uniptr_is_null
++#define copy_from_sockptr_offset copy_from_uniptr_offset
++#define copy_from_sockptr	copy_from_uniptr
++#define copy_to_sockptr_offset	copy_to_uniptr_offset
++#define copy_to_sockptr		copy_to_uniptr
++#define memdup_sockptr		memdup_uniptr
++#define memdup_sockptr_nul	memdup_uniptr_nul
++#define strncpy_from_sockptr	strncpy_from_uniptr
++#define check_zeroed_sockptr	check_zeroed_uniptr
  
--    status = fdt_add_uefi_nodes(SystemTable, fdt, map, map_size, desc_size,
-+    status = fdt_add_uefi_nodes(SystemTable, fdt_efi, map, map_size, desc_size,
-                                 desc_ver);
-     if ( EFI_ERROR(status) )
-         PrintErrMesg(L"Updating FDT failed", status);
-@@ -395,7 +395,7 @@ static void __init efi_arch_pre_exit_boot(void)
- 
- static void __init noreturn efi_arch_post_exit_boot(void)
- {
--    efi_xen_start(fdt, fdt_totalsize(fdt));
-+    efi_xen_start(fdt_efi, fdt_totalsize(fdt_efi));
- }
- 
- static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
-@@ -420,8 +420,8 @@ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
-             efi_bs->FreePool(name.w);
-         }
-     }
--    fdt = fdt_increase_size(&dtbfile, cfg.size + EFI_PAGE_SIZE);
--    if ( !fdt )
-+    fdt_efi = fdt_increase_size(&dtbfile, cfg.size + EFI_PAGE_SIZE);
-+    if ( !fdt_efi )
-         blexit(L"Unable to create new FDT");
- }
- 
-@@ -465,7 +465,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
-     int chosen;
- 
-     /* locate chosen node, which is where we add Xen module info. */
--    chosen = fdt_subnode_offset(fdt, 0, "chosen");
-+    chosen = fdt_subnode_offset(fdt_efi, 0, "chosen");
-     if ( chosen < 0 )
-         blexit(L"Unable to find chosen node");
- 
-@@ -498,7 +498,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
-     else
-     {
-         /* Get xen,xen-bootargs in /chosen if it is specified */
--        const char *dt_bootargs_prop = fdt_getprop(fdt, chosen,
-+        const char *dt_bootargs_prop = fdt_getprop(fdt_efi, chosen,
-                                                    "xen,xen-bootargs", NULL);
-         if ( dt_bootargs_prop )
-         {
-@@ -526,7 +526,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
-             blexit(L"FDT string overflow");
-     }
- 
--    if ( fdt_setprop_string(fdt, chosen, "xen,xen-bootargs", buf) < 0 )
-+    if ( fdt_setprop_string(fdt_efi, chosen, "xen,xen-bootargs", buf) < 0 )
-         blexit(L"Unable to set xen,xen-bootargs property.");
- 
-     efi_bs->FreePool(buf);
-@@ -542,7 +542,7 @@ static void __init efi_arch_handle_module(const struct file *file,
- 
-     if ( file == &dtbfile )
-         return;
--    chosen = setup_chosen_node(fdt, &addr_len, &size_len);
-+    chosen = setup_chosen_node(fdt_efi, &addr_len, &size_len);
-     if ( chosen < 0 )
-         blexit(L"Unable to setup chosen node");
- 
-@@ -551,13 +551,13 @@ static void __init efi_arch_handle_module(const struct file *file,
-         static const char __initconst ramdisk_compat[] = "multiboot,ramdisk\0"
-                                                          "multiboot,module";
- 
--        node = fdt_add_subnode(fdt, chosen, "ramdisk");
-+        node = fdt_add_subnode(fdt_efi, chosen, "ramdisk");
-         if ( node < 0 )
-             blexit(L"Unable to add ramdisk FDT node.");
--        if ( fdt_setprop(fdt, node, "compatible", ramdisk_compat,
-+        if ( fdt_setprop(fdt_efi, node, "compatible", ramdisk_compat,
-                          sizeof(ramdisk_compat)) < 0 )
-             blexit(L"Unable to set compatible property.");
--        if ( fdt_set_reg(fdt, node, addr_len, size_len, ramdisk.addr,
-+        if ( fdt_set_reg(fdt_efi, node, addr_len, size_len, ramdisk.addr,
-                     ramdisk.size) < 0 )
-             blexit(L"Unable to set reg property.");
-     }
-@@ -566,13 +566,13 @@ static void __init efi_arch_handle_module(const struct file *file,
-         static const char __initconst xsm_compat[] = "xen,xsm-policy\0"
-                                                      "multiboot,module";
- 
--        node = fdt_add_subnode(fdt, chosen, "xsm");
-+        node = fdt_add_subnode(fdt_efi, chosen, "xsm");
-         if ( node < 0 )
-             blexit(L"Unable to add xsm FDT node.");
--        if ( fdt_setprop(fdt, node, "compatible", xsm_compat,
-+        if ( fdt_setprop(fdt_efi, node, "compatible", xsm_compat,
-                          sizeof(xsm_compat)) < 0 )
-             blexit(L"Unable to set compatible property.");
--        if ( fdt_set_reg(fdt, node, addr_len, size_len, xsm.addr,
-+        if ( fdt_set_reg(fdt_efi, node, addr_len, size_len, xsm.addr,
-                     xsm.size) < 0 )
-             blexit(L"Unable to set reg property.");
-     }
-@@ -581,15 +581,15 @@ static void __init efi_arch_handle_module(const struct file *file,
-         static const char __initconst kernel_compat[] = "multiboot,kernel\0"
-                                                         "multiboot,module";
- 
--        node = fdt_add_subnode(fdt, chosen, "kernel");
-+        node = fdt_add_subnode(fdt_efi, chosen, "kernel");
-         if ( node < 0 )
-             blexit(L"Unable to add dom0 FDT node.");
--        if ( fdt_setprop(fdt, node, "compatible", kernel_compat,
-+        if ( fdt_setprop(fdt_efi, node, "compatible", kernel_compat,
-                          sizeof(kernel_compat)) < 0 )
-             blexit(L"Unable to set compatible property.");
--        if ( options && fdt_setprop_string(fdt, node, "bootargs", options) < 0 )
-+        if ( options && fdt_setprop_string(fdt_efi, node, "bootargs", options) < 0 )
-             blexit(L"Unable to set bootargs property.");
--        if ( fdt_set_reg(fdt, node, addr_len, size_len, kernel.addr,
-+        if ( fdt_set_reg(fdt_efi, node, addr_len, size_len, kernel.addr,
-                          kernel.size) < 0 )
-             blexit(L"Unable to set reg property.");
-     }
-@@ -719,7 +719,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
-     module_info *file;
- 
-     /* Check if the node is a multiboot,module otherwise return */
--    module_compat = fdt_node_check_compatible(fdt, module_node_offset,
-+    module_compat = fdt_node_check_compatible(fdt_efi, module_node_offset,
-                                               "multiboot,module");
-     if ( module_compat < 0 )
-         /* Error while checking the compatible string */
-@@ -730,7 +730,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
-         return 0;
- 
-     /* Read xen,uefi-binary property to get the file name. */
--    uefi_name_prop = fdt_getprop(fdt, module_node_offset, "xen,uefi-binary",
-+    uefi_name_prop = fdt_getprop(fdt_efi, module_node_offset, "xen,uefi-binary",
-                                  &uefi_name_len);
- 
-     if ( !uefi_name_prop )
-@@ -751,13 +751,13 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
-     snprintf(mod_string, sizeof(mod_string), "module@%"PRIx64, file->addr);
- 
-     /* Rename the module to be module@{address} */
--    if ( fdt_set_name(fdt, module_node_offset, mod_string) < 0 )
-+    if ( fdt_set_name(fdt_efi, module_node_offset, mod_string) < 0 )
-     {
-         PrintMessage(L"Unable to modify module node name.");
-         return ERROR_RENAME_MODULE_NAME;
-     }
- 
--    if ( fdt_set_reg(fdt, module_node_offset, reg_addr_cells, reg_size_cells,
-+    if ( fdt_set_reg(fdt_efi, module_node_offset, reg_addr_cells, reg_size_cells,
-                      file->addr, file->size) < 0 )
-     {
-         PrintMessage(L"Unable to set module reg property.");
-@@ -766,7 +766,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
- 
-     if ( !is_domu_module )
-     {
--        if ( (fdt_node_check_compatible(fdt, module_node_offset,
-+        if ( (fdt_node_check_compatible(fdt_efi, module_node_offset,
-                                     "multiboot,kernel") == 0) )
-         {
-             /*
-@@ -784,14 +784,14 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
-             kernel.size = file->size;
-         }
-         else if ( ramdisk.addr &&
--                  (fdt_node_check_compatible(fdt, module_node_offset,
-+                  (fdt_node_check_compatible(fdt_efi, module_node_offset,
-                                              "multiboot,ramdisk") == 0) )
-         {
-             PrintMessage(L"Dom0 ramdisk already found in cfg file.");
-             return ERROR_DOM0_RAMDISK_FOUND;
-         }
-         else if ( xsm.addr &&
--                  (fdt_node_check_compatible(fdt, module_node_offset,
-+                  (fdt_node_check_compatible(fdt_efi, module_node_offset,
-                                              "xen,xsm-policy") == 0) )
-         {
-             PrintMessage(L"XSM policy already found in cfg file.");
-@@ -816,7 +816,7 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
-     unsigned int mb_modules_found = 0;
- 
-     /* Get #address-cells and #size-cells from domain node */
--    prop = fdt_get_property(fdt, domain_node, "#address-cells", &len);
-+    prop = fdt_get_property(fdt_efi, domain_node, "#address-cells", &len);
-     if ( !prop )
-     {
-         PrintMessage(L"#address-cells not found in domain node.");
-@@ -825,7 +825,7 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
- 
-     addr_cells = fdt32_to_cpu(*((uint32_t *)prop->data));
- 
--    prop = fdt_get_property(fdt, domain_node, "#size-cells", &len);
-+    prop = fdt_get_property(fdt_efi, domain_node, "#size-cells", &len);
-     if ( !prop )
-     {
-         PrintMessage(L"#size-cells not found in domain node.");
-@@ -835,9 +835,9 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
-     size_cells = fdt32_to_cpu(*((uint32_t *)prop->data));
- 
-     /* Check for nodes compatible with multiboot,module inside this node */
--    for ( module_node = fdt_first_subnode(fdt, domain_node);
-+    for ( module_node = fdt_first_subnode(fdt_efi, domain_node);
-           module_node > 0;
--          module_node = fdt_next_subnode(fdt, module_node) )
-+          module_node = fdt_next_subnode(fdt_efi, module_node) )
-     {
-         int ret = handle_module_node(loaded_image, dir_handle, module_node,
-                                      addr_cells, size_cells, true);
-@@ -862,7 +862,7 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
-     EFI_FILE_HANDLE dir_handle = NULL;
- 
-     /* Check for the chosen node in the current DTB */
--    chosen = setup_chosen_node(fdt, &addr_len, &size_len);
-+    chosen = setup_chosen_node(fdt_efi, &addr_len, &size_len);
-     if ( chosen < 0 )
-     {
-         PrintMessage(L"Unable to setup chosen node");
-@@ -870,13 +870,13 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
-     }
- 
-     /* Check for nodes compatible with xen,domain under the chosen node */
--    for ( node = fdt_first_subnode(fdt, chosen);
-+    for ( node = fdt_first_subnode(fdt_efi, chosen);
-           node > 0;
--          node = fdt_next_subnode(fdt, node) )
-+          node = fdt_next_subnode(fdt_efi, node) )
-     {
-         int ret;
- 
--        if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
-+        if ( !fdt_node_check_compatible(fdt_efi, node, "xen,domain") )
-         {
-             /* Found a node with compatible xen,domain; handle this node. */
-             ret = handle_dom0less_domain_node(loaded_image, &dir_handle, node);
-@@ -951,29 +951,29 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
-      * node to decide whether to skip the UEFI Xen configuration file or not.
-      */
- 
--    fdt = lookup_fdt_config_table(SystemTable);
--    dtbfile.ptr = fdt;
-+    fdt_efi = lookup_fdt_config_table(SystemTable);
-+    dtbfile.ptr = fdt_efi;
-     dtbfile.need_to_free = false; /* Config table memory can't be freed. */
- 
--    if ( fdt &&
--         (fdt_node_offset_by_compatible(fdt, 0, "multiboot,module") > 0) )
-+    if ( fdt_efi &&
-+         (fdt_node_offset_by_compatible(fdt_efi, 0, "multiboot,module") > 0) )
-     {
-         /* Locate chosen node */
--        int node = fdt_subnode_offset(fdt, 0, "chosen");
-+        int node = fdt_subnode_offset(fdt_efi, 0, "chosen");
-         const void *cfg_load_prop;
-         int cfg_load_len;
- 
-         if ( node > 0 )
-         {
-             /* Check if xen,uefi-cfg-load property exists */
--            cfg_load_prop = fdt_getprop(fdt, node, "xen,uefi-cfg-load",
-+            cfg_load_prop = fdt_getprop(fdt_efi, node, "xen,uefi-cfg-load",
-                                         &cfg_load_len);
-             if ( !cfg_load_prop )
-                 load_cfg_file = false;
-         }
-     }
- 
--    if ( !fdt || load_cfg_file )
-+    if ( !fdt_efi || load_cfg_file )
-     {
-         /*
-          * We either have no FDT, or one without modules, so we must have a
-@@ -983,7 +983,7 @@ static bool __init efi_arch_use_config_file(EFI_SYSTEM_TABLE *SystemTable)
-     }
-     PrintStr(L"Using modules provided by bootloader in FDT\r\n");
-     /* We have modules already defined in fdt, just add space. */
--    fdt = fdt_increase_size(&dtbfile, EFI_PAGE_SIZE);
-+    fdt_efi = fdt_increase_size(&dtbfile, EFI_PAGE_SIZE);
- 
-     return false;
- }
+ #endif /* _LINUX_SOCKPTR_H */
+diff --git a/include/linux/uniptr.h b/include/linux/uniptr.h
+new file mode 100644
+index 000000000000..3ca9fc8eab4e
+--- /dev/null
++++ b/include/linux/uniptr.h
+@@ -0,0 +1,117 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2020 Christoph Hellwig.
++ *
++ * Support for "universal" pointers that can point to either kernel or userspace
++ * memory.
++ */
++#ifndef _LINUX_UNIPTR_H
++#define _LINUX_UNIPTR_H
++
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++
++typedef struct {
++	union {
++		void		*kernel;
++		void __user	*user;
++	};
++	bool		is_kernel : 1;
++} uniptr_t;
++
++static inline bool uniptr_is_kernel(uniptr_t uniptr)
++{
++	return uniptr.is_kernel;
++}
++
++static inline uniptr_t KERNEL_UNIPTR(void *p)
++{
++	return (uniptr_t) { .kernel = p, .is_kernel = true };
++}
++
++static inline uniptr_t USER_UNIPTR(void __user *p)
++{
++	return (uniptr_t) { .user = p };
++}
++
++static inline bool uniptr_is_null(uniptr_t uniptr)
++{
++	if (uniptr_is_kernel(uniptr))
++		return !uniptr.kernel;
++	return !uniptr.user;
++}
++
++static inline int copy_from_uniptr_offset(void *dst, uniptr_t src,
++					  size_t offset, size_t size)
++{
++	if (!uniptr_is_kernel(src))
++		return copy_from_user(dst, src.user + offset, size);
++	memcpy(dst, src.kernel + offset, size);
++	return 0;
++}
++
++static inline int copy_from_uniptr(void *dst, uniptr_t src, size_t size)
++{
++	return copy_from_uniptr_offset(dst, src, 0, size);
++}
++
++static inline int copy_to_uniptr_offset(uniptr_t dst, size_t offset,
++					const void *src, size_t size)
++{
++	if (!uniptr_is_kernel(dst))
++		return copy_to_user(dst.user + offset, src, size);
++	memcpy(dst.kernel + offset, src, size);
++	return 0;
++}
++
++static inline int copy_to_uniptr(uniptr_t dst, const void *src, size_t size)
++{
++	return copy_to_uniptr_offset(dst, 0, src, size);
++}
++
++static inline void *memdup_uniptr(uniptr_t src, size_t len)
++{
++	void *p = kmalloc_track_caller(len, GFP_USER | __GFP_NOWARN);
++
++	if (!p)
++		return ERR_PTR(-ENOMEM);
++	if (copy_from_uniptr(p, src, len)) {
++		kfree(p);
++		return ERR_PTR(-EFAULT);
++	}
++	return p;
++}
++
++static inline void *memdup_uniptr_nul(uniptr_t src, size_t len)
++{
++	char *p = kmalloc_track_caller(len + 1, GFP_KERNEL);
++
++	if (!p)
++		return ERR_PTR(-ENOMEM);
++	if (copy_from_uniptr(p, src, len)) {
++		kfree(p);
++		return ERR_PTR(-EFAULT);
++	}
++	p[len] = '\0';
++	return p;
++}
++
++static inline long strncpy_from_uniptr(char *dst, uniptr_t src, size_t count)
++{
++	if (uniptr_is_kernel(src)) {
++		size_t len = min(strnlen(src.kernel, count - 1) + 1, count);
++
++		memcpy(dst, src.kernel, len);
++		return len;
++	}
++	return strncpy_from_user(dst, src.user, count);
++}
++
++static inline int check_zeroed_uniptr(uniptr_t src, size_t offset, size_t size)
++{
++	if (!uniptr_is_kernel(src))
++		return check_zeroed_user(src.user + offset, size);
++	return memchr_inv(src.kernel + offset, 0, size) == NULL;
++}
++
++#endif /* _LINUX_UNIPTR_H */
 -- 
-2.34.1
+2.35.3
+
 
 
