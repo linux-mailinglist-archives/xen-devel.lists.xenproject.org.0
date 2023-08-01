@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8273A76A8AE
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 08:09:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573654.898544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFB8976A8F3
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 08:26:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573658.898555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQiZ2-0006kr-CO; Tue, 01 Aug 2023 06:09:00 +0000
+	id 1qQip2-0000lY-LA; Tue, 01 Aug 2023 06:25:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573654.898544; Tue, 01 Aug 2023 06:09:00 +0000
+Received: by outflank-mailman (output) from mailman id 573658.898555; Tue, 01 Aug 2023 06:25:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQiZ2-0006jD-9g; Tue, 01 Aug 2023 06:09:00 +0000
-Received: by outflank-mailman (input) for mailman id 573654;
- Tue, 01 Aug 2023 06:08:58 +0000
+	id 1qQip2-0000il-Hq; Tue, 01 Aug 2023 06:25:32 +0000
+Received: by outflank-mailman (input) for mailman id 573658;
+ Tue, 01 Aug 2023 06:25:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OOcM=DS=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qQiZ0-0006j7-S3
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 06:08:58 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2088.outbound.protection.outlook.com [40.107.13.88])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Jaq7=DS=huaweicloud.com=petrtesarik@srs-se1.protection.inumbo.net>)
+ id 1qQip0-0000ia-QA
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 06:25:30 +0000
+Received: from frasgout11.his.huawei.com (unknown [14.137.139.23])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6947f01-3031-11ee-b258-6b7b168915f2;
- Tue, 01 Aug 2023 08:08:57 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PAWPR04MB9909.eurprd04.prod.outlook.com (2603:10a6:102:385::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.43; Tue, 1 Aug
- 2023 06:08:28 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6631.026; Tue, 1 Aug 2023
- 06:08:28 +0000
+ id 32bb0e4a-3034-11ee-b258-6b7b168915f2;
+ Tue, 01 Aug 2023 08:25:25 +0200 (CEST)
+Received: from mail02.huawei.com (unknown [172.18.147.228])
+ by frasgout11.his.huawei.com (SkyGuard) with ESMTP id 4RFPv71K5Nz9xqcV
+ for <xen-devel@lists.xenproject.org>; Tue,  1 Aug 2023 14:13:55 +0800 (CST)
+Received: from A2101119013HW2.china.huawei.com (unknown [10.81.220.249])
+ by APP1 (Coremail) with SMTP id LxC2BwCHOroapchkgAwYAA--.27948S2;
+ Tue, 01 Aug 2023 07:24:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,151 +42,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6947f01-3031-11ee-b258-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gWrbfhe9GHv1x+iFTPRndnrpcADcqsf/5vjs5LaxYzHkolZNZcXasR7/bDy80lc8410KmY10KPmx9cWupWATHS6WWg5njYRRW9q1fRawTcU/PVzQEztNYXfZNi6RB0qGNHgINaDNW5jfnjhRik0F9mo57TxPb3C4ifwjfP4invisnoJV2Ca+i2BUhqnlWnO5dZUq382mg6VBZ73nCktODnfcsS2TCEfXtJwTve5N1Qp5uMgVdqzekAKsa1kttKDSXcLbqZRyOnL9sA14xXKGBEckIIrczDwUzawu53qE7QXBvLEcy41vwH/WW0lnyJ694bdWx7/IMcGKYrnvU/952g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MIfs5hKDkqyiT/bwRsOXNBcxi8l2PnB/lLqev8A8das=;
- b=U4XM2hwxeV9seoLA/iOOor4FHexbNmHR0Qf391u89RK0kmxvSwoY9CHij/79X0CnJB8hCWI/yk+OAV+Z6UdvtoSXOH7fpIR0ZM7MKKF/JWo390vANEwd8Lx9SfYzPC+6bZ4u4nR6vw3XGHdrFBHZYzhMz2aQtiqIlngdWpFTHtVU17wUYvBbkndH1zdAJQi1Nv57Q/jNijGrLIHQs+4WaNetywASsfkpFxIExbQkboE0jXU4BliTBfVZ3HshwfxUX4IWkQva9ib8AbvnuHrurggbsRQUxWm1N6Rt3RAIbpexWfwe2Z5DsTZVAi8mkeTf06TNS4k4ovhMIdRfBNnejA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MIfs5hKDkqyiT/bwRsOXNBcxi8l2PnB/lLqev8A8das=;
- b=lyL0SwspmZkUH5ZShiYFThuv3uST9Z1k/0yIQIZB+ukHti61hKPj5B7zZQ5uz6U8J2jMC9mOJzjjTfIGA3oryGq7j7N+slC77+V2t6G5iRR8CnJkCuc4vcaRFUj7YhBZYYGntrudoaFvjFrkTuc2LE2UOhSODrj4kI49TuYEKH+3svGqrFCjMgm/+X/mRm4fijdAVtVWdeslsx/F7iUYHuz7374Bvc9dOsI67MmxyAZw29sRNHvTtZSLLvuJ7yHpe5ISObMdRjZlTzhoBwfVRBhMhVqOoEz9rrY9V+DHbm0yZy010hOP0588lak/WV/tpUQ+vEHi2puolzZHQk+RmQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f62e5ac7-500a-6909-90f2-4580c14e2a18@suse.com>
-Date: Tue, 1 Aug 2023 08:08:26 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH 2/3] xen/ppc: Relocate kernel to physical address 0 on
- boot
-Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1690582001.git.sanastasio@raptorengineering.com>
- <0802fad2743526da4fe49f0225e14161464f192e.1690582001.git.sanastasio@raptorengineering.com>
- <3b6b0984-89fb-268e-970a-0c7eb19a4863@suse.com>
- <428aa0e8-70bb-efb5-2b5a-54229b77c5a3@raptorengineering.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <428aa0e8-70bb-efb5-2b5a-54229b77c5a3@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0180.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 32bb0e4a-3034-11ee-b258-6b7b168915f2
+From: Petr Tesarik <petrtesarik@huaweicloud.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Christoph Lameter <cl@linux.com>,
+	Pekka Enberg <penberg@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Hyeonggon Yoo <42.hyeyoo@gmail.com>,
+	Petr Tesarik <petr.tesarik.ext@huawei.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	James Seo <james@equiv.tech>,
+	James Clark <james.clark@arm.com>,
+	Kees Cook <keescook@chromium.org>,
+	xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR ARM),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM PORT),
+	linux-kernel@vger.kernel.org (open list),
+	linux-mips@vger.kernel.org (open list:MIPS),
+	iommu@lists.linux.dev (open list:XEN SWIOTLB SUBSYSTEM),
+	linux-mm@kvack.org (open list:SLAB ALLOCATOR)
+Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>,
+	petr@tesarici.cz
+Subject: [PATCH v7 0/9] Allow dynamic allocation of software IO TLB bounce buffers
+Date: Tue,  1 Aug 2023 08:23:55 +0200
+Message-Id: <cover.1690871004.git.petr.tesarik.ext@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAWPR04MB9909:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c96a3b5-132d-4ec9-7857-08db9255b954
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GB0tnogLCahuieDJ/Wa8T944Y8T8MUfMzeOAksBgeWHjaY3N7XYK8EYYYhI5hzkH8/ccb4zEAQiKuh12B2uqqODlEaeHcP/qFidAVK21IkzivpydXBxgyFMMnyibrn91qzYJLD2XRofilaMXgnvN7L36QxBetFI1GnrJTO8l5Q+HKvjfCgsJWVD9gPfVclO4TRdoWjh/olgcnxjn0E2bzNj3JDbYAb2niaUGcZ9Da7tj30lRAWn9QY5VNcdsX0W6XErrs+fKlThmOvc+0HEluqitEu+GN+koVMs6f6lfyczgy51wE2PpAGqbH31dFkAbL9J1qU7b5GDd7O8PTiHK+h1+6eb5+Q0rtKk4fKfucjx86bPhdx+xuJrrWMrhDlRMiapx4HaAEvXrXzwWzItISULYeGbYE0/MLMrE0+W81AwxA3WngNv0DtaQNbKeNmXwVexATdmCFOtPB3RVMSafsWg4QYLwKYE95whxK3fZtZl39CMfY102m5WK2w+oOE5oQJtdaILOTWD1YTqPu5r4EjCxY5vpPutb6oXKdcrvzUuOXI3MWxuw4HqgmZCeaAmV4cIc+OGCX6qhZr+pJe9l2+F4Cir+qtFxg1CmA+iJTizvIcxTah6YZen625ZyGxu9TVoj3YErDdux5BAiqLAKwA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199021)(6512007)(6486002)(36756003)(2616005)(53546011)(6506007)(26005)(186003)(66946007)(66556008)(54906003)(41300700001)(38100700002)(31696002)(86362001)(66476007)(316002)(5660300002)(6916009)(4326008)(8676002)(8936002)(31686004)(2906002)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1psS3V2SDVFeTViNkdNNS8xUm9obUxzcUNub1I1Q0FiQUZaMDh5ZmpIMUwz?=
- =?utf-8?B?VHFuUFRoRzlXSk5zVk9rVVpKQzNTekpGV2kzaW1lY1ErT3hwd1l4bjFualZL?=
- =?utf-8?B?enRCVDRGVDRZcllZajFkdnNZUnNHQSs3OGNVbkpBTDExRlZEVFY4c2xQNlJE?=
- =?utf-8?B?d0pPWHdLNXlPcGc1Y2VUZlRINFdtVXBNZlJYeHg5T0V5M3ZxR0J3TTF3YmZj?=
- =?utf-8?B?MTl2WTViYU5ZcUduUnozZHR0bG9vRGFvM3BBWlhqQklFbGZpWjRqa1QxN3FI?=
- =?utf-8?B?Yjk4eVovNlYzNHNUTGZEL1pzMW0raTFxallycDQ2UDhGd3E3M3htMTUrYmJa?=
- =?utf-8?B?c2ZuV1UyRFlEa3JvUGdCSVQ4bmlJcGgwb3kxVUkvQ0VMRjRJcWVYcDhjdFZo?=
- =?utf-8?B?R1lYeENkQy9WdGQ1U1g1dklJRGR3WWFpSWZLVHNOdzRsbFNWemJWK0cyZDVq?=
- =?utf-8?B?d2NBMzFMdTdHN0VXQ29XYWRtdUJrQkpzWmMreWpjRVFFYVRwd1ZhT3VzbU1M?=
- =?utf-8?B?bWVoWGNyaGEwaEdNbVlzK090dnpmQ2xUOUdtYytjMHM1Nms3aVA5Rm5rb251?=
- =?utf-8?B?RnJHdlc2Z2t0RWZNclIyY3hDUWtRem5LNVJ6bkhPZHplK3JBWXErRmxlcWt1?=
- =?utf-8?B?UWVXZE5nUzBpcmRnVURnQzlUMTd3ZFFEeFVCSVZHeE5Va015MTlnL01HUnV2?=
- =?utf-8?B?MzNNL2Z3SWlaUVBpNTVta3BnUllyQS94VmxaaG41TFBoNHhHaGdvSjVEdVlo?=
- =?utf-8?B?UkYyS2tMVWwvWit2ZThCVFBQc29nUnNPbmprTWk2NUlHWXYva1hhNGdJUDBG?=
- =?utf-8?B?YjR6ZHlpVG4zRzRrdzFMQzRETmVxcnJtRWpTVVJmT0NNSUF3UWFKWHVFS1Fa?=
- =?utf-8?B?MWRFY3FzTkU0ZXVEeTdvdE96dWxFaTlxckpXR3gyYVcyNVFiTzY3cUN1ZVNH?=
- =?utf-8?B?WjNFNStyblRRTksyRzJkV1FhV1JQY2s4TDFLY0tuQ2Q5ZjJjWVEraHJhLzNy?=
- =?utf-8?B?cmdOV3R5RWFVRlRSWEMvekExYXByT0NsYnlWZDM1Z2xrTzV0QkU5ZXVQN05S?=
- =?utf-8?B?WFIwajdFVDZkdCsyY2Q4RWxHR3ppck50anFDVDBCUXNXeGhFdWwvVVp4OTJY?=
- =?utf-8?B?UVVISmtNd3AvZ083UlBQd1JxcG0yTGZYMkI5cTFJZkNLajdXbjYzUjY4dlk1?=
- =?utf-8?B?SmhKN2R3UzBOYlRDcFhHYmdBbnZOdWZqU1YwUDRUc3Yyb1czczlSOWRIbXhR?=
- =?utf-8?B?TTQ5RnUyZnBPd0NuQ2RLYnBlbUdCU3NXK3N3eisveE41RzRmMWtCTjFGbGh4?=
- =?utf-8?B?cWcxejRWdXhFcmRmK0ZBTllMbWZka0ZNS3NDSk56RFJtWUJaSUh2dmtUZnRL?=
- =?utf-8?B?NW9jZFA5TDlYRmpXMHdOU1NNcHV2YTFXRWRLK1V4elhTcnNaNHpPL3NiZDNM?=
- =?utf-8?B?U2FoVzhvdHJOSFdncGtYQXRoeDJjb0dHditvSFNVZDdVM3FNbzRXc3B5UWZz?=
- =?utf-8?B?TFBLajloOWxmdFJZMklFNEhZREt4RkNseHE3SnJTTlpvNHRaMit6MUtSOGEx?=
- =?utf-8?B?dVVRZDRyMG53dUdwVjlSVmNsc2FXWXNjaTZkQ3hwL2xoL0pVdWQ5WW4yczB0?=
- =?utf-8?B?REs0UlVNeWNXTWRuS0ljNHZVUnRqc3p5ZU9CVitjbGZZZlJIaWJMdUswWHRl?=
- =?utf-8?B?c0dZcjcxRUVlVmxPaVlhVDR0aGRvQlVKanhUTU1MWkVrVGZYc21VNGZyMlNO?=
- =?utf-8?B?dTZLV1lTWnRIYWFTcC8xclVJYy9nME1QVXdIVFJDUzMwT3l6Z2YrZ0x2LzBl?=
- =?utf-8?B?MWZaOTl1VFZuejBVTGpsVlJHU05oTWpMdE5BSVFsNGhLNVBQc0RKS1ViMm4r?=
- =?utf-8?B?SkduWWdkVmN5TXNUWG0zaVlGWEo2UE94SXpvTXFxMUMwRWZHMXlGUVFUN3FG?=
- =?utf-8?B?NzJXRE9RLytwT0hGUFM4R0wvVnRLdU9CTU02S1JZZmc5dkRpWFhmTGtLZXZM?=
- =?utf-8?B?bUNtZjVyUzdnVERBck96RjdtTGVuMHpyS3poUkIxTFdZejUzd1pFbXpQZE5T?=
- =?utf-8?B?SFRuTDRpOU5PSU52TTVFaU5jaEtMaFJnQ3JwdmNNb2EvZENhTXhWUXBVNjBP?=
- =?utf-8?Q?3UiQa+s9MbX3VjudvH1qlUTcZ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c96a3b5-132d-4ec9-7857-08db9255b954
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2023 06:08:28.3523
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GcKqoaRt/VA7G/fNVOeFL94bbVD7HuhWbyGiUFdqsP79puBT5PQlCEtLDANr7lqYf+GH2OE7t7U7m6NTXGZnpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9909
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:LxC2BwCHOroapchkgAwYAA--.27948S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Wr1Dtw1rJr47Aw4kKrykZrb_yoWDGrWfpF
+	WrKryftF4qqryxA3s7Ca18GFyrKa1kGrW5GrWFvryrur13Cr1j93WktayrXFW7Gr40vF12
+	qFyYvw13uw1DZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBK14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY1x0264kExVAvwVAq07x20xyl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrw
+	CI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42
+	IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUjFksDUUUUU=
+	=
+X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
+X-CFilter-Loop: Reflected
 
-On 01.08.2023 01:37, Shawn Anastasio wrote:
-> On 7/31/23 10:46 AM, Jan Beulich wrote:
->> On 29.07.2023 00:21, Shawn Anastasio wrote:
->>> +    /* If we're at the correct address, skip copy */
->>> +    cmpld   %r1, %r12
->>> +    beq     .L_correct_address
->>
->> Can this ever be the case, especially with the MMU-off behavior you
->> describe in the comment above? Wouldn't you need to ignore the top
->> four bits in the comparison?
-> 
-> It will always be the case after the code jumps to XEN_VIRT_START after
-> the copy takes place.
+From: Petr Tesarik <petr.tesarik.ext@huawei.com>
 
-Well, of course.
+Motivation
+==========
 
-> I could have it jump past the copy loop entirely,
-> but then I'd need to duplicate the TOC setup.
+The software IO TLB was designed with these assumptions:
 
-I don't think I understand this part of your reply: .L_correct_address
-_is_ past the copy loop.
+1) It would not be used much. Small systems (little RAM) don't need it, and
+   big systems (lots of RAM) would have modern DMA controllers and an IOMMU
+   chip to handle legacy devices.
+2) A small fixed memory area (64 MiB by default) is sufficient to
+   handle the few cases which require a bounce buffer.
+3) 64 MiB is little enough that it has no impact on the rest of the
+   system.
+4) Bounce buffers require large contiguous chunks of low memory. Such
+   memory is precious and can be allocated only early at boot.
 
->>> +    /* Copy bytes until _end */
->>> +    LOAD_REG_ADDR(%r11, _end)
->>> +    addi    %r1, %r1, -8
->>> +    li      %r13, -8
->>> +.L_copy_xen:
->>> +    ldu     %r10, 8(%r1)
->>> +    stdu    %r10, 8(%r13)
->>> +    cmpld   %r1, %r11
->>> +    blt     .L_copy_xen
->>> +
->>> +    /* Jump to XEN_VIRT_START */
->>> +    mtctr   %r12
->>> +    bctr
->>> +.L_correct_address:
->>
->> Can the two regions potentially overlap? Looking at the ELF header
->> it's not clear to me what guarantees there are that this can't
->> happen.
-> 
-> As I understand it, any bootloader that placed the kernel at a low
-> enough address for this to be an issue wouldn't be able to boot Linux or
-> FreeBSD, so in practice it's a safe bet that this won't be the case.
+It turns out they are not always true:
 
-Fair enough then.
+1) Embedded systems may have more than 4GiB RAM but no IOMMU and legacy
+   32-bit peripheral busses and/or DMA controllers.
+2) CoCo VMs use bounce buffers for all I/O but may need substantially more
+   than 64 MiB.
+3) Embedded developers put as many features as possible into the available
+   memory. A few dozen "missing" megabytes may limit what features can be
+   implemented.
+4) If CMA is available, it can allocate large continuous chunks even after
+   the system has run for some time.
 
-Jan
+Goals
+=====
+
+The goal of this work is to start with a small software IO TLB at boot and
+expand it later when/if needed.
+
+Design
+======
+
+This version of the patch series retains the current slot allocation
+algorithm with multiple areas to reduce lock contention, but additional
+slots can be added when necessary.
+
+These alternatives have been considered:
+
+- Allocate and free buffers as needed using direct DMA API. This works
+  quite well, except in CoCo VMs where each allocation/free requires
+  decrypting/encrypting memory, which is a very expensive operation.
+
+- Allocate a very large software IO TLB at boot, but allow to migrate pages
+  to/from it (like CMA does). For systems with CMA, this would mean two big
+  allocations at boot. Finding the balance between CMA, SWIOTLB and rest of
+  available RAM can be challenging. More importantly, there is no clear
+  benefit compared to allocating SWIOTLB memory pools from the CMA.
+
+Implementation Constraints
+==========================
+
+These constraints have been taken into account:
+
+1) Minimize impact on devices which do not benefit from the change.
+2) Minimize the number of memory decryption/encryption operations.
+3) Avoid contention on a lock or atomic variable to preserve parallel
+   scalability.
+
+Additionally, the software IO TLB code is also used to implement restricted
+DMA pools. These pools are restricted to a pre-defined physical memory
+region and must not use any other memory. In other words, dynamic
+allocation of memory pools must be disabled for restricted DMA pools.
+
+Data Structures
+===============
+
+The existing struct io_tlb_mem is the central type for a SWIOTLB allocator,
+but it now contains multiple memory pools::
+
+  io_tlb_mem
+  +---------+   io_tlb_pool
+  | SWIOTLB | 	+-------+   +-------+   +-------+
+  |allocator|-->|default|-->|dynamic|-->|dynamic|-->...
+  |    	    |  	|memory |   |memory |   |memory |
+  +---------+ 	| pool  |   | pool  |   | pool  |
+	      	+-------+   +-------+   +-------+
+
+The allocator structure contains global state (such as flags and counters)
+and structures needed to schedule new allocations. Each memory pool
+contains the actual buffer slots and metadata. The first memory pool in the
+list is the default memory pool allocated statically at early boot.
+
+New memory pools are allocated from a kernel worker thread. That's because
+bounce buffers are allocated when mapping a DMA buffer, which may happen in
+interrupt context where large atomic allocations would probably fail.
+Allocation from process context is much more likely to succeed, especially
+if it can use CMA.
+
+Nonetheless, the onset of a load spike may fill up the SWIOTLB before the
+worker has a chance to run. In that case, try to allocate a small transient
+memory pool to accommodate the request. If memory is encrypted and the
+device cannot do DMA to encrypted memory, this buffer is allocated from the
+coherent atomic DMA memory pool. Reducing the size of SWIOTLB may therefore
+require increasing the size of the coherent pool with the "coherent_pool"
+command-line parameter.
+
+Performance
+===========
+
+All testing compared a vanilla v6.4-rc6 kernel with a fully patched
+kernel. The kernel was booted with "swiotlb=force" to allow stress-testing
+the software IO TLB on a high-performance device that would otherwise not
+need it. CONFIG_DEBUG_FS was set to 'y' to match the configuration of
+popular distribution kernels; it is understood that parallel workloads
+suffer from contention on the recently added debugfs atomic counters.
+
+These benchmarks were run:
+
+- small: single-threaded I/O of 4 KiB blocks,
+- big: single-threaded I/O of 64 KiB blocks,
+- 4way: 4-way parallel I/O of 4 KiB blocks.
+
+In all tested cases, the default 64 MiB SWIOTLB would be sufficient (but
+wasteful). The "default" pair of columns shows performance impact when
+booted with 64 MiB SWIOTLB (i.e. current state). The "growing" pair of
+columns shows the impact when booted with a 1 MiB initial SWIOTLB, which
+grew to 5 MiB at run time. The "var" column in the tables below is the
+coefficient of variance over 5 runs of the test, the "diff" column is the
+difference in read-write I/O bandwidth (MiB/s). The very first column is
+the coefficient of variance in the results of the base unpatched kernel.
+
+First, on an x86 VM against a QEMU virtio SATA driver backed by a RAM-based
+block device on the host:
+
+	base	   default	   growing
+	var	var	diff	var	diff
+small	1.96%	0.47%	-1.5%	0.52%	-2.2%
+big	2.03%	1.35%	+0.9%	2.22%	+2.9%
+4way	0.80%	0.45%	-0.7%	1.22%	<0.1%
+
+Second, on a Raspberry Pi4 with 8G RAM and a class 10 A1 microSD card:
+
+	base	   default	   growing
+	var	var	diff	var	diff
+small	1.09%	1.69%	+0.5%	2.14%	-0.2%
+big	0.03%	0.28%	-0.5%	0.03%	-0.1%
+4way	5.15%	2.39%	+0.2%	0.66%	<0.1%
+
+Third, on a CoCo VM. This was a bigger system, so I also added a 24-thread
+parallel I/O test:
+
+	base	   default	   growing
+	var	var	diff	var	diff
+small	2.41%	6.02%	+1.1%	10.33%	+6.7%
+big	9.20%	2.81%	-0.6%	16.84%	-0.2%
+4way	0.86%	2.66%	-0.1%	 2.22%	-4.9%
+24way	3.19%	6.19%	+4.4%	 4.08%	-5.9%
+
+Note the increased variance of the CoCo VM, although the host was not
+otherwise loaded. These are caused by the first run, which includes the
+overhead of allocating additional bounce buffers and sharing them with the
+hypervisor. The system was not rebooted between successive runs.
+
+Parallel tests suffer from a reduced number of areas in the dynamically
+allocated memory pools. This can be improved by allocating a larger pool
+from CMA (not implemented in this series yet).
+
+I have no good explanation for the increase in performance of the
+24-thread I/O test with the default (non-growing) memory pool. Although the
+difference is within variance, it seems to be real. The average bandwidth
+is consistently above that of the unpatched kernel.
+
+To sum it up:
+
+- All workloads benefit from reduced memory footprint.
+- No performance regressions have been observed with the default size of
+  the software IO TLB.
+- Most workloads retain their former performance even if the software IO
+  TLB grows at run time.
+
+Changelog
+=========
+
+Changes from v6:
+- Rebase on dma-mapping for-next tree. Drop changes to pci-dma.c.
+
+Changes from v5:
+- Re-introduce is_swiotlb_allocated(), now again required because of commit
+  b035f5a6d852 ("mm: slab: reduce the kmalloc() minimum alignment if DMA
+  bouncing possible").
+
+Changes from v4:
+- Guard the code with a CONFIG_SWIOTLB_DYNAMIC option
+- Remove is_swiotlb_allocated(); instead, prevent repeated initialization
+  in swiotlb_init_late()
+- Rename default_swiotlb_start() to default_swiotlb_base()
+- Embed the default struct io_tlb_pool into struct io_tlb_mem
+- Do not re-introduce struct io_tlb_pool.used
+
+Changes from v3:
+- Provide swiotlb_is_allocated() instead of extending swiotlb_is_active().
+- Do not grow SWIOTLB if its address has been queried (affects Octeon).
+- Do not grow SWIOTLB if a remap function is used (affects Xen PV).
+- Use dma_mask instead of coherent_dma_mask.
+- Replace complex ternary operators with if-else blocks.
+
+Changes from v2:
+- Complete rewrite using dynamically allocated memory pools rather
+  than a list of individual buffers
+- Depend on other SWIOTLB fixes (already sent)
+- Fix Xen and MIPS Octeon builds
+
+Changes from RFC:
+- Track dynamic buffers per device instead of per swiotlb
+- Use a linked list instead of a maple tree
+- Move initialization of swiotlb fields of struct device to a
+  helper function
+- Rename __lookup_dyn_slot() to lookup_dyn_slot_locked()
+- Introduce per-device flag if dynamic buffers are in use
+- Add one more user of DMA_ATTR_MAY_SLEEP
+- Add kernel-doc comments for new (and some old) code
+- Properly escape '*' in dma-attributes.rst
+
+Petr Tesarik (9):
+  swiotlb: bail out of swiotlb_init_late() if swiotlb is already
+    allocated
+  swiotlb: make io_tlb_default_mem local to swiotlb.c
+  swiotlb: add documentation and rename swiotlb_do_find_slots()
+  swiotlb: separate memory pool data from other allocator data
+  swiotlb: add a flag whether SWIOTLB is allowed to grow
+  swiotlb: if swiotlb is full, fall back to a transient memory pool
+  swiotlb: determine potential physical address limit
+  swiotlb: allocate a new memory pool when existing pools are full
+  swiotlb: search the software IO TLB only if the device makes use of it
+
+ arch/arm/xen/mm.c           |  10 +-
+ arch/mips/pci/pci-octeon.c  |   2 +-
+ drivers/base/core.c         |   4 +-
+ drivers/xen/swiotlb-xen.c   |   2 +-
+ include/linux/device.h      |  10 +-
+ include/linux/dma-mapping.h |   2 +
+ include/linux/swiotlb.h     | 131 +++++--
+ kernel/dma/Kconfig          |  13 +
+ kernel/dma/direct.c         |   2 +-
+ kernel/dma/swiotlb.c        | 683 ++++++++++++++++++++++++++++++++----
+ mm/slab_common.c            |   5 +-
+ 11 files changed, 764 insertions(+), 100 deletions(-)
+
+-- 
+2.25.1
+
 
