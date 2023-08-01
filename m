@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE88776AB9A
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.573848.898866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEBAD76AB98
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Aug 2023 11:02:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.573846.898851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGa-00073G-7R; Tue, 01 Aug 2023 09:02:08 +0000
+	id 1qQlGY-0006bp-R5; Tue, 01 Aug 2023 09:02:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 573848.898866; Tue, 01 Aug 2023 09:02:08 +0000
+Received: by outflank-mailman (output) from mailman id 573846.898851; Tue, 01 Aug 2023 09:02:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQlGa-0006ot-1r; Tue, 01 Aug 2023 09:02:08 +0000
-Received: by outflank-mailman (input) for mailman id 573848;
- Tue, 01 Aug 2023 09:02:05 +0000
+	id 1qQlGY-0006Uz-HG; Tue, 01 Aug 2023 09:02:06 +0000
+Received: by outflank-mailman (input) for mailman id 573846;
+ Tue, 01 Aug 2023 09:02:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L1iX=DS=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qQlGX-0005E5-8S
- for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:05 +0000
+ id 1qQlGW-0005E5-Cy
+ for xen-devel@lists.xenproject.org; Tue, 01 Aug 2023 09:02:04 +0000
 Received: from mgamail.intel.com (unknown [134.134.136.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 144b77da-304a-11ee-8613-37d641c3527e;
+ id 144f88ca-304a-11ee-8613-37d641c3527e;
  Tue, 01 Aug 2023 11:02:02 +0200 (CEST)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:01:55 -0700
+ 01 Aug 2023 02:01:56 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:01:54 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 01 Aug 2023 02:01:55 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 144b77da-304a-11ee-8613-37d641c3527e
+X-Inumbo-ID: 144f88ca-304a-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1690880522; x=1722416522;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=F/SemwGNBG6weEZopYj3iIwsf6sy0XGLv5PanieJeUc=;
-  b=PTf1qI/ntclSmq1E2/3athJC4+4Uw8AXodqtZ1ZdAzqdFaR+P44xWfaN
-   NKBFci8grUrleWddGCMdr7nLnVeDndsQmaiQebxXxxW18oOrQpgTLGBiV
-   o7KVaO9UCuhVhD1aaEFrtTNbEAYti3xqOCXHSxzlAekNz96NJBdHVQZkM
-   JIV5HQqjLFrWnLq98+xyULmBkylJwlcdInYiMoVqvDcq7irkjzogvMlAs
-   K23NPVPsatH0RhwsKtcPK5V/OzXnaKB325gasMLMjlPSQBaEY1TtLNA+g
-   yl3lRyLsYKJvBHXWW2nc9PdT3YogRGKI24D1AwZA84Fx2tIC07d9NJuby
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082199"
+  bh=+857ZiZ3kYB9kvyULHXUrCarfExj5Gil+GQ461ib92M=;
+  b=Bhy1h6qqrKd+OmXALsrai/YGgiWTzzDS40jbpoRHJA+m8jg/vgxHjnwL
+   UtnlVosFoAGcw78zS39r3otzyIc2+rbsVTvuxA50kgHjEwAK0JM8vsNsy
+   xiYypTA4w3eXM9cc6WKQggzxhDWhqEXVpMs3Slhec7rlUafQBu8lgfkB2
+   iq83vVmrqGPjipG0eTaCjlJStOhNTgGCkbYqxhmiM3e1oC7wpjHprlYK4
+   T+D9zk+Qv0hRB2bRpfom7Lri0sbaeYgr54qYA0fUjOCo0JY5pXRfuHAf/
+   wUauIm2QfbpIeKAMHdyEbFt0G9sVuLuQiI5j4TerFhKNxBu4SbqwqvATZ
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="433082232"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="433082199"
+   d="scan'208";a="433082232"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975216963"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="975216976"
 X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; 
-   d="scan'208";a="975216963"
+   d="scan'208";a="975216976"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -137,9 +137,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Yantengsi <siyanteng@loongson.cn>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Sathvika Vasireddy <sv@linux.ibm.com>
-Subject: [PATCH RESEND v9 05/36] x86/opcode: Add ERETU, ERETS instructions to x86-opcode-map
-Date: Tue,  1 Aug 2023 01:32:47 -0700
-Message-Id: <20230801083318.8363-6-xin3.li@intel.com>
+Subject: [PATCH RESEND v9 06/36] x86/objtool: Teach objtool about ERETU and ERETS
+Date: Tue,  1 Aug 2023 01:32:48 -0700
+Message-Id: <20230801083318.8363-7-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230801083318.8363-1-xin3.li@intel.com>
 References: <20230801083318.8363-1-xin3.li@intel.com>
@@ -148,44 +148,46 @@ Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-Add instruction opcodes used by FRED ERETU/ERETS to x86-opcode-map.
-
-Opcode numbers are per FRED spec v5.0.
+Update the objtool decoder to know about the ERETU and ERETS
+instructions (type INSN_CONTEXT_SWITCH).
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/lib/x86-opcode-map.txt       | 2 +-
- tools/arch/x86/lib/x86-opcode-map.txt | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ tools/objtool/arch/x86/decode.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
-index 5168ee0360b2..7a269e269dc0 100644
---- a/arch/x86/lib/x86-opcode-map.txt
-+++ b/arch/x86/lib/x86-opcode-map.txt
-@@ -1052,7 +1052,7 @@ EndTable
+diff --git a/tools/objtool/arch/x86/decode.c b/tools/objtool/arch/x86/decode.c
+index 2e1caabecb18..a486485cff20 100644
+--- a/tools/objtool/arch/x86/decode.c
++++ b/tools/objtool/arch/x86/decode.c
+@@ -509,11 +509,20 @@ int arch_decode_instruction(struct objtool_file *file, const struct section *sec
  
- GrpTable: Grp7
- 0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
--1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
-+1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B) | ERETU (F3),(010),(11B) | ERETS (F2),(010),(11B)
- 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
- 3: LIDT Ms
- 4: SMSW Mw/Rv
-diff --git a/tools/arch/x86/lib/x86-opcode-map.txt b/tools/arch/x86/lib/x86-opcode-map.txt
-index 5168ee0360b2..7a269e269dc0 100644
---- a/tools/arch/x86/lib/x86-opcode-map.txt
-+++ b/tools/arch/x86/lib/x86-opcode-map.txt
-@@ -1052,7 +1052,7 @@ EndTable
+ 		if (op2 == 0x01) {
  
- GrpTable: Grp7
- 0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
--1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
-+1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B) | ERETU (F3),(010),(11B) | ERETS (F2),(010),(11B)
- 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
- 3: LIDT Ms
- 4: SMSW Mw/Rv
+-			if (modrm == 0xca)
+-				insn->type = INSN_CLAC;
+-			else if (modrm == 0xcb)
+-				insn->type = INSN_STAC;
+-
++			switch (insn_last_prefix_id(&ins)) {
++			case INAT_PFX_REPE:
++			case INAT_PFX_REPNE:
++				if (modrm == 0xca)
++					/* eretu/erets */
++					insn->type = INSN_CONTEXT_SWITCH;
++				break;
++			default:
++				if (modrm == 0xca)
++					insn->type = INSN_CLAC;
++				else if (modrm == 0xcb)
++					insn->type = INSN_STAC;
++				break;
++			}
+ 		} else if (op2 >= 0x80 && op2 <= 0x8f) {
+ 
+ 			insn->type = INSN_JUMP_CONDITIONAL;
 -- 
 2.34.1
 
