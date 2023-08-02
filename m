@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C7B76DB39
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 01:03:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575859.901331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B1F76DB2E
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 01:03:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575863.901370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRKsE-0002Zd-BV; Wed, 02 Aug 2023 23:03:22 +0000
+	id 1qRKsH-0003Yk-Ut; Wed, 02 Aug 2023 23:03:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575859.901331; Wed, 02 Aug 2023 23:03:22 +0000
+Received: by outflank-mailman (output) from mailman id 575863.901370; Wed, 02 Aug 2023 23:03:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRKsE-0002Xr-8l; Wed, 02 Aug 2023 23:03:22 +0000
-Received: by outflank-mailman (input) for mailman id 575859;
- Wed, 02 Aug 2023 23:03:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qRKsH-0003Vo-Q4; Wed, 02 Aug 2023 23:03:25 +0000
+Received: by outflank-mailman (input) for mailman id 575863;
+ Wed, 02 Aug 2023 23:03:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SOIS=DT=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qRKsC-0002Xg-Vq
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 23:03:21 +0000
+ id 1qRKsF-0002ha-K9
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 23:03:23 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c461511c-3188-11ee-b265-6b7b168915f2;
- Thu, 03 Aug 2023 01:03:18 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c48f3022-3188-11ee-8613-37d641c3527e;
+ Thu, 03 Aug 2023 01:03:19 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 20C018285570;
+ by mail.rptsys.com (Postfix) with ESMTP id 8476682854B3;
  Wed,  2 Aug 2023 18:03:17 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id L50En6x9HQe5; Wed,  2 Aug 2023 18:03:15 -0500 (CDT)
+ with ESMTP id aZx53xWMIUrw; Wed,  2 Aug 2023 18:03:16 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id D5AB982853DD;
- Wed,  2 Aug 2023 18:03:15 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 5A90282857CC;
+ Wed,  2 Aug 2023 18:03:16 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 2FNVpzo_oeqE; Wed,  2 Aug 2023 18:03:15 -0500 (CDT)
+ with ESMTP id KeZPv3Og7xUN; Wed,  2 Aug 2023 18:03:16 -0500 (CDT)
 Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 694448285570;
+ by mail.rptsys.com (Postfix) with ESMTPSA id ECB318285755;
  Wed,  2 Aug 2023 18:03:15 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,15 +51,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c461511c-3188-11ee-b265-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com D5AB982853DD
+X-Inumbo-ID: c48f3022-3188-11ee-8613-37d641c3527e
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 5A90282857CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1691017395; bh=E+ZWgBHexIIC5drESkxQIt9+akyKQK9mOXv/LPhfb4Q=;
+	t=1691017396; bh=/NqBjJ2QqrMRxqfD0TktMNubuD+Oy6q5OiAFylCvLXw=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=pjB+X0hSerN2rUHKxTcnAfmizRMpvZMhGE7AQBDKKqHFNnbg/6czAiGEOl41rxIxT
-	 FrrVzUYoUnLeYvKKS8KubPQxSIBYqxhnrISMfeT9cCCyCKH/QaQ6tKQCnVcQeA2zPB
-	 TC/YoWujZn/nJ6ATFkINIV7dx0rvwFYYeoRmG810=
+	b=NvDnMh3sMDwd8EfBcxA5F5FsRtP8g0Ve+fM0s3yIte6Yy23dwnX5IaCZC2Z10ygI1
+	 1YZDZDWBqSIqdqiNNTUq3hkEAMUx4pg09L/jNejXqO2G18nFZd1QAGxTcmW+xFgqNg
+	 wjkeTJ5Pd1ddx93S1kDo1i6p/QlwgO0EXMFbA3DM=
 X-Virus-Scanned: amavisd-new at rptsys.com
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
 To: xen-devel@lists.xenproject.org
@@ -67,102 +67,188 @@ Cc: Timothy Pearson <tpearson@raptorengineering.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 1/9] xen/common: Add missing #includes treewide
-Date: Wed,  2 Aug 2023 18:02:57 -0500
-Message-Id: <2c9eb4fc175a1bdd21293f2e2611d8e21991636d.1691016993.git.sanastasio@raptorengineering.com>
+Subject: [PATCH 2/9] xen/ppc: Add public/arch-ppc.h
+Date: Wed,  2 Aug 2023 18:02:58 -0500
+Message-Id: <14d8455ca49f69a56e87aad5d4e20cf8f77e55cd.1691016993.git.sanastasio@raptorengineering.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1691016993.git.sanastasio@raptorengineering.com>
 References: <cover.1691016993.git.sanastasio@raptorengineering.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-A few files treewide depend on defininitions in headers that they
-don't include. This works when arch headers end up including the
-required headers by chance, but broke on ppc64 with only minimal/stub
-arch headers.
-
 Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
- xen/common/memory.c       | 1 +
- xen/common/symbols.c      | 1 +
- xen/common/xmalloc_tlsf.c | 1 +
- xen/include/xen/domain.h  | 1 +
- xen/include/xen/iommu.h   | 1 +
- xen/include/xen/sched.h   | 1 +
- 6 files changed, 6 insertions(+)
+ xen/include/public/arch-ppc.h | 140 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
+ create mode 100644 xen/include/public/arch-ppc.h
 
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index c206fa4808..1b185b00e4 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -28,6 +28,7 @@
- #include <asm/current.h>
- #include <asm/hardirq.h>
- #include <asm/p2m.h>
-+#include <asm/page.h>
- #include <public/memory.h>
- #include <xsm/xsm.h>
-=20
-diff --git a/xen/common/symbols.c b/xen/common/symbols.c
-index 9377f41424..691e617925 100644
---- a/xen/common/symbols.c
-+++ b/xen/common/symbols.c
-@@ -19,6 +19,7 @@
- #include <xen/virtual_region.h>
- #include <public/platform.h>
- #include <xen/guest_access.h>
-+#include <xen/errno.h>
-=20
- #ifdef SYMBOLS_ORIGIN
- extern const unsigned int symbols_offsets[];
-diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
-index c603c39bb9..349b31cb4c 100644
---- a/xen/common/xmalloc_tlsf.c
-+++ b/xen/common/xmalloc_tlsf.c
-@@ -27,6 +27,7 @@
- #include <xen/mm.h>
- #include <xen/pfn.h>
- #include <asm/time.h>
-+#include <asm/page.h>
-=20
- #define MAX_POOL_NAME_LEN       16
-=20
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index d35af34841..767127b440 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -4,6 +4,7 @@
-=20
- #include <xen/types.h>
-=20
-+#include <public/domctl.h>
- #include <public/xen.h>
- #include <asm/domain.h>
- #include <asm/numa.h>
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 405db59971..ef817efec9 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -24,6 +24,7 @@
- #include <xen/page-defs.h>
- #include <xen/pci.h>
- #include <xen/spinlock.h>
-+#include <xen/errno.h>
- #include <public/domctl.h>
- #include <public/hvm/ioreq.h>
- #include <asm/device.h>
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 854f3e32c0..6a96534a45 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -21,6 +21,7 @@
- #include <xen/smp.h>
- #include <xen/perfc.h>
- #include <asm/atomic.h>
-+#include <asm/current.h>
- #include <xen/vpci.h>
- #include <xen/wait.h>
- #include <public/xen.h>
+diff --git a/xen/include/public/arch-ppc.h b/xen/include/public/arch-ppc.=
+h
+new file mode 100644
+index 0000000000..0eb7ce4208
+--- /dev/null
++++ b/xen/include/public/arch-ppc.h
+@@ -0,0 +1,140 @@
++/*
++ * Permission is hereby granted, free of charge, to any person obtaining=
+ a copy
++ * of this software and associated documentation files (the "Software"),=
+ to
++ * deal in the Software without restriction, including without limitatio=
+n the
++ * rights to use, copy, modify, merge, publish, distribute, sublicense, =
+and/or
++ * sell copies of the Software, and to permit persons to whom the Softwa=
+re is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be includ=
+ed in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHA=
+LL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHE=
+R
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISI=
+NG
++ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++ * DEALINGS IN THE SOFTWARE.
++ *
++ * Copyright (C) IBM Corp. 2005, 2006
++ * Copyright (C) Raptor Engineering, LLC 2023
++ *
++ * Authors: Hollis Blanchard <hollisb@us.ibm.com>
++ *          Timothy Pearson <tpearson@raptorengineering.com>
++ */
++
++#ifndef __XEN_PUBLIC_ARCH_PPC64_H__
++#define __XEN_PUBLIC_ARCH_PPC64_H__
++
++#define  int64_aligned_t  int64_t __attribute__((aligned(8)))
++#define uint64_aligned_t uint64_t __attribute__((aligned(8)))
++
++#ifndef __ASSEMBLY__
++#define ___DEFINE_XEN_GUEST_HANDLE(name, type)                  \
++    typedef union { type *p; unsigned long q; }                 \
++        __guest_handle_ ## name;                                \
++    typedef union { type *p; uint64_aligned_t q; }              \
++        __guest_handle_64_ ## name
++
++#define __DEFINE_XEN_GUEST_HANDLE(name, type) \
++    ___DEFINE_XEN_GUEST_HANDLE(name, type);   \
++    ___DEFINE_XEN_GUEST_HANDLE(const_##name, const type)
++#define DEFINE_XEN_GUEST_HANDLE(name)   __DEFINE_XEN_GUEST_HANDLE(name, =
+name)
++#define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ## name
++#define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
++#define XEN_GUEST_HANDLE_PARAM(name)    __guest_handle_ ## name
++#define set_xen_guest_handle_raw(hnd, val)                  \
++    do {                                                    \
++        __typeof__(&(hnd)) _sxghr_tmp =3D &(hnd);             \
++        _sxghr_tmp->q =3D 0;                                  \
++        _sxghr_tmp->p =3D val;                                \
++    } while ( 0 )
++#define set_xen_guest_handle(hnd, val) set_xen_guest_handle_raw(hnd, val=
+)
++
++#ifdef __XEN_TOOLS__
++#define get_xen_guest_handle(val, hnd)  do { val =3D (hnd).p; } while (0=
+)
++#endif
++
++typedef uint64_t xen_pfn_t;
++#define PRI_xen_pfn PRIx64
++#define PRIu_xen_pfn PRIu64
++
++/*
++ * Maximum number of virtual CPUs in legacy multi-processor guests.
++ * Only one. All other VCPUS must use VCPUOP_register_vcpu_info.
++ */
++#define XEN_LEGACY_MAX_VCPUS 1
++
++typedef uint64_t xen_ulong_t;
++#define PRI_xen_ulong PRIx64
++#endif
++
++/*
++ * Pointers and other address fields inside interface structures are pad=
+ded to
++ * 64 bits. This means that field alignments aren't different between 32=
+- and
++ * 64-bit architectures.
++ */
++/* NB. Multi-level macro ensures __LINE__ is expanded before concatenati=
+on. */
++#define __MEMORY_PADDING(_X)
++#define _MEMORY_PADDING(_X)  __MEMORY_PADDING(_X)
++#define MEMORY_PADDING       _MEMORY_PADDING(__LINE__)
++
++/* And the trap vector is... */
++#define TRAP_INSTR "li 0,-1; sc" /* XXX just "sc"? */
++
++#ifndef __ASSEMBLY__
++
++#define XENCOMM_INLINE_FLAG (1UL << 63)
++
++typedef uint64_t xen_ulong_t;
++
++/* User-accessible registers: nost of these need to be saved/restored
++ * for every nested Xen invocation. */
++struct vcpu_guest_core_regs
++{
++    uint64_t gprs[32];
++    uint64_t lr;
++    uint64_t ctr;
++    uint64_t srr0;
++    uint64_t srr1;
++    uint64_t pc;
++    uint64_t msr;
++    uint64_t fpscr;             /* XXX Is this necessary */
++    uint64_t xer;
++    uint64_t hid4;              /* debug only */
++    uint64_t dar;               /* debug only */
++    uint32_t dsisr;             /* debug only */
++    uint32_t cr;
++    uint32_t __pad;             /* good spot for another 32bit reg */
++    uint32_t entry_vector;
++};
++typedef struct vcpu_guest_core_regs vcpu_guest_core_regs_t;
++
++typedef uint64_t tsc_timestamp_t; /* RDTSC timestamp */ /* XXX timebase =
+*/
++
++/* ONLY used to communicate with dom0! See also struct exec_domain. */
++struct vcpu_guest_context {
++    vcpu_guest_core_regs_t user_regs;         /* User-level CPU register=
+s     */
++    uint64_t sdr1;                     /* Pagetable base               *=
+/
++    /* XXX etc */
++};
++typedef struct vcpu_guest_context vcpu_guest_context_t;
++DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
++
++struct arch_shared_info {
++    uint64_t boot_timebase;
++};
++
++struct arch_vcpu_info {
++};
++
++struct xen_arch_domainconfig {
++};
++
++typedef struct xen_pmu_arch { uint8_t dummy; } xen_pmu_arch_t;
++
++/* Support for multi-processor guests. */
++#endif
++
++#endif
 --=20
 2.30.2
 
