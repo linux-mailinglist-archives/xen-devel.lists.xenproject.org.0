@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE6776D88D
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 22:22:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575169.900993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F44976D936
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 23:09:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575241.901045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRIM6-0002Ae-FT; Wed, 02 Aug 2023 20:22:02 +0000
+	id 1qRJ67-0000Ie-Ha; Wed, 02 Aug 2023 21:09:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575169.900993; Wed, 02 Aug 2023 20:22:02 +0000
+Received: by outflank-mailman (output) from mailman id 575241.901045; Wed, 02 Aug 2023 21:09:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRIM6-00028t-BX; Wed, 02 Aug 2023 20:22:02 +0000
-Received: by outflank-mailman (input) for mailman id 575169;
- Wed, 02 Aug 2023 20:22:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F9x3=DT=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qRIM4-00028n-Lg
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 20:22:00 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a42c37f-3172-11ee-8613-37d641c3527e;
- Wed, 02 Aug 2023 22:21:58 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691007707481648.6787527259322;
- Wed, 2 Aug 2023 13:21:47 -0700 (PDT)
+	id 1qRJ67-0000G1-Ez; Wed, 02 Aug 2023 21:09:35 +0000
+Received: by outflank-mailman (input) for mailman id 575241;
+ Wed, 02 Aug 2023 21:09:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qRJ65-0000Fv-LM
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 21:09:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRJ61-0005Oi-Bm; Wed, 02 Aug 2023 21:09:29 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRJ61-0007NH-5y; Wed, 02 Aug 2023 21:09:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +39,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a42c37f-3172-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691007709; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Zz0MjaajDsFBonzv5hWRfcG9dn1TVzO9pufGPhBA74mSIgGTw05Sb7Rp8nD71psO3wHZ+RnBlvkwnDD3yR66XNO6sfGbSBIWgPphDy+A+AWOfgoDTlElrxta+CI0wToaFi8b3cUYZaeAt+gh6VuZmuRPnfconff4hhaGE17Zw3c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691007709; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=Po1VrRofBB295pCEpyxAkDJUrJEKqzaejllOsbYbV7c=; 
-	b=LmQWkSNdj7efhEpCmyRHzc4fNfu72rEBiRF0uw65VhpT4F0X6AMrXGYvfdheZ7deaHFW44z5xBlXsaj+HLBHRXFHE2uDVaX4jhPjce1JA6yYlLIYL7edIU7WjV9cuKLtqVfwMuqKY/2rjt1rpzFM9pWnzZV/V91XaJzNNcAMFPU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691007709;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Po1VrRofBB295pCEpyxAkDJUrJEKqzaejllOsbYbV7c=;
-	b=UVHOcOLXVo2d6UQW28XFDE8dMLmvk45dYFhGBEPozIHnXkXur4D6ZSNkeXuSuCfB
-	GrhGHgYcC71fNESgHWMv/faCio7u4mb2IbQFyOR+v4KRBWflm8GCaaTPORGr5Rgq0Jm
-	bfz2FNijYNszDjK+RJr8AdDSMGiBuJsPDhgve9QM=
-Message-ID: <d21df242-d42f-1304-8163-bac45bbedc3b@apertussolutions.com>
-Date: Wed, 2 Aug 2023 16:21:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=NakkT8skXSoyT0IxvsaSFsYRCvpGqz0PGAqwjJn4Rec=; b=Pc9DO3TXie9PzBRUoQiOyt1juF
+	oJ3jKGrNKU5DgC0qbncPhBcHRqh7JCIB+pYAQdSghGmNtzC/8X/NjTtDJ4EoLOTmHrpIOgpjoChYl
+	UFs3syDmvXmhspTL52RxI6J+RiO33PaCBTkJX3rFHZfCatakY/gWHPbJ18rF1l5UZMQE=;
+Message-ID: <78c71235-a4f8-ecce-cd58-56d3cc44e88f@xen.org>
+Date: Wed, 2 Aug 2023 22:09:27 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 2/2] fdt: make fdt handling reusable across arch
-Content-Language: en-US
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH v2] arm32: Avoid using solaris syntax for .section
+ directive
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Michal Orzel <michal.orzel@amd.com>, Khem Raj <raj.khem@gmail.com>,
  xen-devel@lists.xenproject.org
-References: <20230801161409.25905-1-dpsmith@apertussolutions.com>
- <20230801161409.25905-3-dpsmith@apertussolutions.com>
- <6ce3a936-e35e-caf6-b197-66441292bb9b@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <6ce3a936-e35e-caf6-b197-66441292bb9b@suse.com>
+References: <20230801174930.2995947-1-raj.khem@gmail.com>
+ <18d3b823-22b2-85fc-18d2-09cf102b4506@xen.org>
+ <f7501e7b-2064-38dd-af32-738e01a830c5@suse.com>
+ <c75870a3-d7b4-891f-7c93-c62e97b25fdb@xen.org>
+ <a56b1da7-05c1-fcd0-d39f-0e528ea066a6@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <a56b1da7-05c1-fcd0-d39f-0e528ea066a6@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 8/2/23 03:27, Jan Beulich wrote:
-> On 01.08.2023 18:14, Daniel P. Smith wrote:
->> This refactors reusable code from Arm's bootfdt.c and device-tree.h that is
->> general fdt handling code.  The Kconfig parameter CORE_DEVICE_TREE is
->> introduced for when the ability of parsing DTB files is needed by a capability
->> such as hyperlaunch.
+Hi Jan,
+
+On 02/08/2023 09:01, Jan Beulich wrote:
+> On 02.08.2023 09:54, Julien Grall wrote:
+>> On 02/08/2023 08:22, Jan Beulich wrote:
+>>> On 01.08.2023 23:02, Julien Grall wrote:
+>>>> Title: This patch is not arm32 specific anymore. So I would replace
+>>>> 'arm32' with 'arm'. This can be done on commit.
+>>>>
+>>>> On 01/08/2023 18:49, Khem Raj wrote:
+>>>>> Assembler from binutils 2.41 rejects [1] this syntax
+>>>>>
+>>>>> .section "name"[, flags...]
+>>>>>
+>>>>> where flags could be #alloc, #write, #execinstr, #exclude, and #tls [2]
+>>>>>
+>>>>> It is almost like a regression compared to 2.40 or older release,
+>>>>
+>>>> The next word after ',' start with an uppercase. Did you intend to use
+>>>> '.' rather than ','?
+>>>>
+>>>> That said, the documentation has the following:
+>>>>
+>>>> For SPARC ELF targets, the assembler supports another type of .section
+>>>> directive for compatibility with the Solaris assembler:"
+>>>
+>>> But note that "SPARC" was added there only by the commit introducing the
+>>> perceived regression.
 >>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   MAINTAINERS                   |   2 +
->>   xen/arch/arm/bootfdt.c        | 141 +------------------------------
->>   xen/common/Kconfig            |   4 +
->>   xen/common/Makefile           |   3 +-
->>   xen/common/fdt.c              | 153 ++++++++++++++++++++++++++++++++++
->>   xen/include/xen/device_tree.h |  50 +----------
->>   xen/include/xen/fdt.h         |  79 ++++++++++++++++++
->>   7 files changed, 242 insertions(+), 190 deletions(-)
->>   create mode 100644 xen/common/fdt.c
->>   create mode 100644 xen/include/xen/fdt.h
+>> Yes, I noticed it while replying yesterday. I still would not describe
+>> it as a regression mainly because I am not convinced binutils will
+>> revert the change and it feels like a good move.
 > 
-> The filename here ...
+> I agree as to it being unlikely that the change is going to be (partly)
+> reverted, unless someone strongly advocated for it. It also wouldn't be
+> of much use to us, unless a 2.41.1 was cut very soon.
 > 
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -303,7 +303,9 @@ F:	xen/common/libfdt/
->>   F:	xen/common/device_tree.c
->>   F:	xen/include/xen/libfdt/
->>   F:	xen/include/xen/device_tree.h
->> +F:	include/xen/fdt.h
->>   F:	xen/drivers/passthrough/device_tree.c
->> +F:	common/fdt.c
+>> Also, regarding your point about older tree on the bug report. I don't
+>> think we guarantee that stable works all new toolchain without any change.
 > 
-> ... don't match the additions here. Also please insert in alphabetically
-> sorted order, ignoring the previously misplaced final entry (entries),
-> unless you want to take the opportunity and get things properly sorted
-> again in this section.
+> We don't guarantee that, no, but I think it is in our own interest to
+> keep things building with the newest tool chains. When build-testing
+> stable tree commits before pushing, I don't want to always have to
+> remember to force the build to use an older tool chain, when normally
+> my build rune would default to a pretty up-to-date one.
 
-Ack, will fix along with ensuring they are properly sorted.
+This is where gitlab would definitely help because we can keep 
+containers around to build older Xen versions.
 
-v/r,
-dps
+>  This is also
+> why for this specific class of changes I typically prefer to see them
+> also go onto the security-only stable trees.
+
+I am ok if this is backported to older tree. This is trivial enough.
+
+Cheers,
+
+-- 
+Julien Grall
 
