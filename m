@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C1E76D38B
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 18:20:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575076.900825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72CC876D3B8
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 18:32:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575083.900837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qREZC-0002PM-0N; Wed, 02 Aug 2023 16:19:18 +0000
+	id 1qREls-0004n6-60; Wed, 02 Aug 2023 16:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575076.900825; Wed, 02 Aug 2023 16:19:17 +0000
+Received: by outflank-mailman (output) from mailman id 575083.900837; Wed, 02 Aug 2023 16:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qREZB-0002N1-Tu; Wed, 02 Aug 2023 16:19:17 +0000
-Received: by outflank-mailman (input) for mailman id 575076;
- Wed, 02 Aug 2023 16:19:16 +0000
+	id 1qREls-0004jW-2g; Wed, 02 Aug 2023 16:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 575083;
+ Wed, 02 Aug 2023 16:32:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rdMi=DT=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
- id 1qREZ9-0002Mt-SP
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 16:19:16 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J7gP=DT=huaweicloud.com=petrtesarik@srs-se1.protection.inumbo.net>)
+ id 1qRElr-0004jQ-C2
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 16:32:23 +0000
+Received: from frasgout12.his.huawei.com (unknown [14.137.139.154])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 528be2e0-3150-11ee-b262-6b7b168915f2;
- Wed, 02 Aug 2023 18:19:14 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-3fe2bc2701bso241745e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Aug 2023 09:19:14 -0700 (PDT)
-Received: from [192.168.2.1] (82-64-138-184.subs.proxad.net. [82.64.138.184])
- by smtp.googlemail.com with ESMTPSA id
- 22-20020a05600c22d600b003fbb618f7adsm2069195wmg.15.2023.08.02.09.19.09
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Aug 2023 09:19:11 -0700 (PDT)
+ id 2627c717-3152-11ee-b262-6b7b168915f2;
+ Wed, 02 Aug 2023 18:32:20 +0200 (CEST)
+Received: from mail02.huawei.com (unknown [172.18.147.229])
+ by frasgout12.his.huawei.com (SkyGuard) with ESMTP id 4RGHGc4KMvz9xFbJ
+ for <xen-devel@lists.xenproject.org>; Thu,  3 Aug 2023 00:18:48 +0800 (CST)
+Received: from A2101119013HW2.china.huawei.com (unknown [10.81.207.228])
+ by APP1 (Coremail) with SMTP id LxC2BwCnWbn9hMpkgNcsAA--.36049S2;
+ Wed, 02 Aug 2023 17:32:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,118 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 528be2e0-3150-11ee-b262-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rabbit-lu.20221208.gappssmtp.com; s=20221208; t=1690993154; x=1691597954;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uOrjw3OVIELigHd6J8onu3wawRYKujsftrlpLv+TAgM=;
-        b=Sk24tqc+5FebLHoamkHyQEzK2ViGxDcERwYLQhqe952i3HuExmq1Lu6XmQEJKX8z1p
-         fOF/Wo4Qex4X6t8seClEDBcW1GJINe7Am7ICiyv41/egw5ocX8VPEheeQ1/lsDvDytOp
-         IrWV1G8OrPTAKnjS3ZjvBOimO4j9xordBAIQznq5tSd9N9F6p5V3ux24yhlMTR15kkRm
-         5eDqSKGVsTqjMtae40yEOtx1FrEc2X4GrQa+ylNt9OHovAkm9K1MzqXS5m5NXgdeXj05
-         EnZExh4B+4/hk8f/ffM06iN5LD3lZLBgWTaM6tyOo3ynfO1W2QjiNEErnOyfG4aCaPQ5
-         0Abw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690993154; x=1691597954;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=uOrjw3OVIELigHd6J8onu3wawRYKujsftrlpLv+TAgM=;
-        b=EYUB60TuuyT4bKXIeKb1qA/vfygNkl7nldajRzOuStkKCn8a8/IjSle5pKFjsyXxUL
-         HRHZDcbGLQQcATxSO8Cqu+P+7GCHIJ/9qKOQ/ASO+xERHnsc42QkTJDF5hLbuyIWqdVC
-         Ln+5U4SO1uxlwvsRNMLti9emWNb9n3Vp73FtjDM/2aO+GqNXrsVai/tN/f5/4AF9n9Z9
-         Dp5A3yKGCS4lGaJ7CYrnfmjQ4vjTsPi9d4Ul7A163lo2IOD4WpezPCmPUOk5RDNhzkmk
-         Bq48zhxakrEZb8nk3nAnAtOrEeHDBlVMcg+9/HOEu5tFh8e8E3DQxgq4gXpI3/XmIFWM
-         HitQ==
-X-Gm-Message-State: ABy/qLbZp0RaL/AN6V/J18ATzkkUFY8S0XDWVK+fGfQnSh8PdcUMSjLw
-	rTsJVF5sNHU5p+MGxykSiFJX+DWq1zt3JN6XU40=
-X-Google-Smtp-Source: APBJJlEh6fCrXDrhqN2eTIB19YNxuRiNTr5vrGAEBDadKq1INRMdqQzX/2Zqt4AkPatzS3HByMvBRg==
-X-Received: by 2002:a1c:7c03:0:b0:3fe:2140:f504 with SMTP id x3-20020a1c7c03000000b003fe2140f504mr5553845wmc.20.1690993154130;
-        Wed, 02 Aug 2023 09:19:14 -0700 (PDT)
-Message-ID: <f3d98514-0dbf-d6fd-c0da-cda4fca6152c@rabbit.lu>
-Date: Wed, 2 Aug 2023 18:19:08 +0200
+X-Inumbo-ID: 2627c717-3152-11ee-b262-6b7b168915f2
+From: Petr Tesarik <petrtesarik@huaweicloud.com>
+To: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+	"H. Peter Anvin" <hpa@zytor.com>,
+	xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR X86),
+	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT))
+Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>,
+	petr@tesarici.cz
+Subject: [PATCH v1] xen: remove a confusing comment on auto-translated guest I/O
+Date: Wed,  2 Aug 2023 18:31:51 +0200
+Message-Id: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Content-Language: en-US
-To: xen-devel@lists.xenproject.org
-From: zithro <slack@rabbit.lu>
-Subject: Network interfaces naming changes in domUs with >10 vifs (Debian bug
- 1042842)
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:LxC2BwCnWbn9hMpkgNcsAA--.36049S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruw1fCF1DKFy5Ary3AFyUGFg_yoWDKwcE9F
+	4xZF48Ww45tr93X34UKr4avaySyan3trWF9Fn2y34YyFWxXFs7XFs2g3Z0kw4xXFWrCrZx
+	XF9xXry7Jw40kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbSAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc7CjxVAKzI0EY4vE52x082I5MxAIw28Icx
+	kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
+	xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42
+	IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
+	6xAIw20EY4v20xvaj40_Zr0_Wr1UMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
+	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUxUUUUUUUU=
+X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
+X-CFilter-Loop: Reflected
 
-Hello all,
+From: Petr Tesarik <petr.tesarik.ext@huawei.com>
 
-I report here following a discussion on #xen-devel about Debian bug 
-1042842 (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1042842).
+After removing the conditional return from xen_create_contiguous_region(),
+the accompanying comment was left in place, but it now precedes an
+unrelated conditional and confuses readers.
 
-When using more than 10 vifs in a domU on Xen 4.14 (deb11), the 
-attributions are like :
+Fixes: 989513a735f5 ("xen: cleanup pvh leftovers from pv-only sources")
+Signed-off-by: Petr Tesarik <petr.tesarik.ext@huawei.com>
+---
+ arch/x86/xen/mmu_pv.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-vifX.0 <> eth0
-vifX.1 <> eth1
-vifX.2 <> eth2
-[...]
-vifX.10 <> eth10
+diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
+index e0a975165de7..804a5441324c 100644
+--- a/arch/x86/xen/mmu_pv.c
++++ b/arch/x86/xen/mmu_pv.c
+@@ -2310,12 +2310,6 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+ 	int            success;
+ 	unsigned long vstart = (unsigned long)phys_to_virt(pstart);
+ 
+-	/*
+-	 * Currently an auto-translated guest will not perform I/O, nor will
+-	 * it require PAE page directories below 4GB. Therefore any calls to
+-	 * this function are redundant and can be ignored.
+-	 */
+-
+ 	if (unlikely(order > MAX_CONTIG_ORDER))
+ 		return -ENOMEM;
+ 
+-- 
+2.25.1
 
-With Xen 4.17 (deb12), it changes to :
-
-vifX.0 <> eth0
-vifX.1 <> eth1
-vifX.10 <> eth2
-vifX.2 <> eth3
-[...]
-
-Both tests are using oxenstored (the default in Debian 11/12), I don't 
-know for the bug reporter. I didn't try cxenstored.
-The bug reporter mentionned commit 
-"http://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=fce6999", I don't 
-know if it's related or not.
-For now, he's using "/etc/network/interfaces" to force the attribution.
-
-If I understood correctly, all people who answered on IRC think this is 
-"not-a-Xen bug", but I was asked to post here for all to discuss.
-
-For more context, I extracted some comments from IRC (I removed 
-usernames as I didn't know if I was allowed to quote them).
-
-Thanks !
-
---------------
-IRC DISCUSSION
---------------
-
-- AFAIK, there is no sorting in Xenstored. And you should not expect 
-that even if libxl sorted properly it will be seen in the same order on 
-the other end.
-- is the ethN number in domU related to vif number in xenstore, or to 
-device detection order?
-- there's no order to eth names at all. they're allocated 
-first-come-first-serve, so it entirely depends on how parallel the 
-probing of nic drivers are. even if netfront is serialised around 
-xenstore accesses, it probably allocates in the order that XS_DIRECTORY 
-comes back with
-- from simple tests, it looks like VIFs are created in Xenstore in the 
-order of the config file, but if you "xenstore-ls /[...]/vif", you can 
-see vifs are ordered like vif1,vif10,vif11,vif2,etc
-- the order is different between Xen 4.14 and 4.17 (ie. the "expected" 
-order works on 4.14, not 4.17)
-- But really, Debian should have never relied on how the nodes are 
-ordered. This is not something we guarantee in the Xenstored API
-- the last big batch of XSA content for the xenstoreds did some major 
-rearranging of oxenstored. We dropped a NIH second garbage collector, 
-and a NIH weakref system IIRC. I could entirely believe that the 
-apparent sort order changed as a result
-- generally, I think Linux world established quite some time ago that 
-ethN names are not stable
-- It's definitely a complicated issue.  Perhaps best to post to 
-xen-devel so we can have a discussion. I expect the answer is not-a-Xen 
-bug, but I don't think we have a clear understanding of the problem yet
-
-
---
-zithro / Cyril
 
