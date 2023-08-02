@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5B9076D978
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 23:27:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575423.901145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C39576D94D
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 23:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575245.901056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRJNb-0007We-I2; Wed, 02 Aug 2023 21:27:39 +0000
+	id 1qRJCe-0001mr-AR; Wed, 02 Aug 2023 21:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575423.901145; Wed, 02 Aug 2023 21:27:39 +0000
+Received: by outflank-mailman (output) from mailman id 575245.901056; Wed, 02 Aug 2023 21:16:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRJNb-0007Tn-9w; Wed, 02 Aug 2023 21:27:39 +0000
-Received: by outflank-mailman (input) for mailman id 575423;
- Wed, 02 Aug 2023 21:27:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qRJCe-0001js-6y; Wed, 02 Aug 2023 21:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 575245;
+ Wed, 02 Aug 2023 21:16:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=w0qL=DT=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1qRJJ7-0004vP-OS
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 21:23:01 +0000
+ id 1qRJCc-0001jm-Q3
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 21:16:18 +0000
 Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1bf85c8-317a-11ee-b263-6b7b168915f2;
- Wed, 02 Aug 2023 23:23:01 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cfd17f12-3179-11ee-8613-37d641c3527e;
+ Wed, 02 Aug 2023 23:16:15 +0200 (CEST)
 Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 372LMpRt008400
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 372LFrXm008271
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 2 Aug 2023 17:22:57 -0400 (EDT) (envelope-from ehem@m5p.com)
+ Wed, 2 Aug 2023 17:15:59 -0400 (EDT) (envelope-from ehem@m5p.com)
 Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 372LMphh008399;
- Wed, 2 Aug 2023 14:22:51 -0700 (PDT) (envelope-from ehem)
+ by m5p.com (8.16.1/8.15.2/Submit) id 372LFrg0008270;
+ Wed, 2 Aug 2023 14:15:53 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,155 +43,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1bf85c8-317a-11ee-b263-6b7b168915f2
-Message-Id: <cdd94e122d92f65b6df668faac3f8d2b25eddb0a.1690990427.git.ehem+xen@m5p.com>
-In-Reply-To: <cover.1690990427.git.ehem+xen@m5p.com>
-References: <cover.1690990427.git.ehem+xen@m5p.com>
+X-Inumbo-ID: cfd17f12-3179-11ee-8613-37d641c3527e
+Message-Id: <cover.1690990427.git.ehem+xen@m5p.com>
 From: Elliott Mitchell <ehem+xen@m5p.com>
 To: xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>
 Cc: Anthony PERARD <anthony.perard@citrix.com>
 Cc: Juergen Gross <jgross@suse.com>
-Date: Sat, 29 Jul 2023 17:03:47 -0700
-Subject: [PATCH 08/22] tools/utils: Bison: switch from name-prefix to
- api.prefix
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
+Date: Wed, 2 Aug 2023 08:33:47 -0700
+Subject: [PATCH 00/22] Cleanup and splitting of xl.cfg parsing
+X-Spam-Status: No, score=1.5 required=10.0 tests=DATE_IN_PAST_03_06,
+	KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-bison -Wall declares %name-prefix deprecated.  The suggested replacement
-is "api.prefix".  "api.prefix" though effects rather a lot more places
-than %name-prefix does.  As a result, rename YYLTYPE/YYSTYPE to match.
+Is there a freeze on that I'm unaware of?  Is there so much traffic from
+other developers that smaller output ones are being missed?  I'm
+wondering about the initial revision of this series not getting any
+feedback:
+https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg01264.html
 
-As a quick workaround #define YYLTYPE/YYSTYPE to convince flex to
-interface correctly.
 
-Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
----
-According to the documentation api.prefix was introduced in Bison 2.6,
-while braces became recommended with Bison 3.0.  This seems sufficiently
-in the past to be worth adopting now.
+Due to the lack of news on the first thread, I've done some looking to
+assess the feasibility.  The xl.cfg parser looks a bit jumbled.  Too many
+things are visible to too many places.  In general some pieces have
+really needed some TLC for a long time.
 
-A better workaround for flex is needed.
----
- tools/libs/util/libxlu_cfg.c      |  9 +++++----
- tools/libs/util/libxlu_cfg_y.y    | 13 +++++++++----
- tools/libs/util/libxlu_internal.h |  8 ++++----
- 3 files changed, 18 insertions(+), 12 deletions(-)
+Note, some portions of this are semi-WIP.  The first 5 patches are simply
+overdue maintenance.  Not particularly urgent, but should probably be
+done.
 
-diff --git a/tools/libs/util/libxlu_cfg.c b/tools/libs/util/libxlu_cfg.c
-index 7e9eec550d..20534343f4 100644
---- a/tools/libs/util/libxlu_cfg.c
-+++ b/tools/libs/util/libxlu_cfg.c
-@@ -388,7 +388,7 @@ const char *xlu_cfg_get_listitem(const XLU_ConfigList *list, int entry) {
- 
- 
- XLU_ConfigValue *xlu__cfg_string_mk(CfgParseContext *ctx, char *atom,
--                                    YYLTYPE *loc)
-+                                    XLU__CFG_YYLTYPE *loc)
- {
-     XLU_ConfigValue *value = NULL;
- 
-@@ -412,7 +412,7 @@ XLU_ConfigValue *xlu__cfg_string_mk(CfgParseContext *ctx, char *atom,
- 
- XLU_ConfigValue *xlu__cfg_list_mk(CfgParseContext *ctx,
-                                   XLU_ConfigValue *val,
--                                  YYLTYPE *loc)
-+                                  XLU__CFG_YYLTYPE *loc)
- {
-     XLU_ConfigValue *value = NULL;
-     XLU_ConfigValue **values = NULL;
-@@ -667,13 +667,14 @@ char *xlu__cfgl_dequote(CfgParseContext *ctx, const char *src) {
- }
- 
- void xlu__cfgl_lexicalerror(CfgParseContext *ctx, char const *msg) {
--    YYLTYPE loc;
-+    XLU__CFG_YYLTYPE loc;
-     loc.first_line= xlu__cfg_yyget_lineno(ctx->scanner);
-     xlu__cfg_yyerror(&loc, ctx, msg);
-     ctx->lexerrlineno= loc.first_line;
- }
- 
--void xlu__cfg_yyerror(YYLTYPE *loc, CfgParseContext *ctx, char const *msg) {
-+void xlu__cfg_yyerror(XLU__CFG_YYLTYPE *loc, CfgParseContext *ctx,
-+        char const *msg) {
-     const char *text, *newline;
-     int len, lineno;
- 
-diff --git a/tools/libs/util/libxlu_cfg_y.y b/tools/libs/util/libxlu_cfg_y.y
-index e796066941..adbb74ff11 100644
---- a/tools/libs/util/libxlu_cfg_y.y
-+++ b/tools/libs/util/libxlu_cfg_y.y
-@@ -26,10 +26,10 @@ void xlu__cfg_set_store(CfgParseContext*, char *name,
-                         enum XLU_Operation op,
-                         XLU_ConfigValue *val, int lineno);
- XLU_ConfigValue *xlu__cfg_string_mk(CfgParseContext *ctx,
--                                    char *atom, YYLTYPE *loc);
-+                                    char *atom, XLU__CFG_YYLTYPE *loc);
- XLU_ConfigValue *xlu__cfg_list_mk(CfgParseContext *ctx,
-                                   XLU_ConfigValue *val,
--                                  YYLTYPE *loc);
-+                                  XLU__CFG_YYLTYPE *loc);
- void xlu__cfg_list_append(CfgParseContext *ctx,
-                           XLU_ConfigValue *list,
-                           XLU_ConfigValue *val);
-@@ -37,10 +37,15 @@ void xlu__cfg_value_free(XLU_ConfigValue *value);
- char *xlu__cfgl_strdup(CfgParseContext*, const char *src);
- char *xlu__cfgl_dequote(CfgParseContext*, const char *src);
- 
--void xlu__cfg_yyerror(YYLTYPE *locp, CfgParseContext*, char const *msg);
-+void xlu__cfg_yyerror(XLU__CFG_YYLTYPE *locp, CfgParseContext*,
-+                      char const *msg);
- void xlu__cfgl_lexicalerror(CfgParseContext*, char const *msg);
- 
- void xlu__cfgl_likely_python(CfgParseContext *ctx);
-+
-+/* issue of name-prefix versus api.prefix and Flex Bison-bridge */
-+#define YYLTYPE XLU__CFG_YYLTYPE
-+#define YYSTYPE XLU__CFG_YYSTYPE
- }
- 
- %{
-@@ -58,7 +63,7 @@ void xlu__cfgl_likely_python(CfgParseContext *ctx);
- %define api.pure
- %defines
- %define parse.error verbose
--%name-prefix "xlu__cfg_yy"
-+%define api.prefix {xlu__cfg_yy}
- %parse-param { CfgParseContext *ctx }
- %lex-param { ctx_scanner }
- 
-diff --git a/tools/libs/util/libxlu_internal.h b/tools/libs/util/libxlu_internal.h
-index 1f7559ecd9..01fe073069 100644
---- a/tools/libs/util/libxlu_internal.h
-+++ b/tools/libs/util/libxlu_internal.h
-@@ -31,14 +31,14 @@ struct XLU_ConfigList {
-     XLU_ConfigValue **values;
- };
- 
--typedef struct YYLTYPE
-+typedef struct XLU__CFG_YYLTYPE
- {
-   int first_line;
-   int first_column;
-   int last_line;
-   int last_column;
--} YYLTYPE;
--#define YYLTYPE_IS_DECLARED
-+} XLU__CFG_YYLTYPE;
-+#define XLU__CFG_YYLTYPE_IS_DECLARED
- 
- struct XLU_ConfigValue {
-     enum XLU_ConfigValueType type;
-@@ -46,7 +46,7 @@ struct XLU_ConfigValue {
-         char *string;
-         XLU_ConfigList list;
-     } u;
--    YYLTYPE loc;
-+    XLU__CFG_YYLTYPE loc;
- };
- 
- typedef struct XLU_ConfigSetting { /* transparent */
+Patch #06 is rather more urgent maintenance.  While it might not explode
+soon, that is a landmine.
+
+Patch #07 is the first big issue.  The roles of the various headers had
+never been sorted out.  The underlying issue was more the contents of
+"libxlu_cfg_i.h" needed to be merged into "libxlu_cfg_y.h".  Bison 2.3
+may not have had the ability to embedded things into its header in 2010,
+but the functionality appears to have been present in Bison 3.3.
+
+There is an issue of what level of indentation should be used in
+libxlu_cfg_y.y?  Normally the sections being added wouldn't be indented,
+but normally they would be directly in headers.  I'm unsure of which
+direction to go here.
+
+Patch #08 seemed best to leave after #07 due to overlap and difficulty
+with reordering.  I'm a bit worried about the interfacing with flex.
+
+
+Then comes the issue of moving things out of libxlu_internal.h which
+should never have been there.  The XLU_Config* values should have been
+placed in libxlu_cfg_i.h instead.  Since I'm doing a thorough job,
+they're instead moving to libxlu_cfg.c.
+
+I'm unsure splitting libxlu_cfg.c is worthwhile.  The resultant reusable
+libxlu_cfg.c is rather small.  Yet avoiding the need to reimplement the
+small portion is handy.
+
+
+Is the decision to keep in-tree copies of current Flex/Bison output still
+valid?  I would be awful tempted to remove them from main/master, even
+if copies are maintained on release branches.
+
+
+Elliott Mitchell (22):
+  tools/utils: cleanup formatting of libxlutil.h
+  tools/utils: rename "n" arguments to "key"
+  tools/utils: remove old declaration of xlu__cfg_yyparse()
+  tools/utils: enable all Bison warnings
+  tools/utils: update Bison parser directives
+  tools/utils: remove libxlu_cfg_i.h from libxlu_disk.c
+  tools/utils: merge contents of libxlu_cfg_i.h to libxlu_cfg_y.y
+  tools/utils: Bison: switch from name-prefix to api.prefix
+  tools/utils: move CfgParseContext to top of libxlu_cfg_y.y
+  tools/utils: move XLU_ConfigSetting to libxl_cfg.c
+  tools/utils: move XLU_ConfigValue to libxl_cfg.c
+  tools/utils: remove YYLTYPE definition from libxlu_internal.h
+  tools/utils: move XLU_ConfigList to libxl_cfg.c
+  tools/utils: introduce xlu_cfg_printf() function
+  tools/utils: move XLU_Config to libxlu_cfg.c
+  tools/utils: move XLU_Operation to libxlu_cfg_y.h
+  tools/utils: move setting free loop to xlu__cfg_set_free()
+  tools/utils: spread xlu_cfg_printf() over libxlu_cfg.c
+  tools/utils: add pointer to in-progress settings to CfgParseContext
+  tools/utils: add wrapper for readfile()/readdata() functions
+  tools/utils: add settings get function
+  tools/utils: break flex/bison parser away from main config file
+
+ tools/include/libxlutil.h                     |  31 +-
+ tools/libs/util/Makefile                      |   3 +-
+ tools/libs/util/libxlu_cfg.c                  | 679 ++----------------
+ .../util/{libxlu_cfg.c => libxlu_cfg_i.c}     | 196 +++--
+ tools/libs/util/libxlu_cfg_i.h                |  59 --
+ tools/libs/util/libxlu_cfg_l.l                |   2 +-
+ tools/libs/util/libxlu_cfg_y.y                |  58 +-
+ tools/libs/util/libxlu_disk.c                 |  15 +-
+ tools/libs/util/libxlu_internal.h             |  59 +-
+ tools/libs/util/libxlu_pci.c                  |  11 +-
+ tools/libs/util/libxlu_vif.c                  |   4 +-
+ 11 files changed, 223 insertions(+), 894 deletions(-)
+ copy tools/libs/util/{libxlu_cfg.c => libxlu_cfg_i.c} (78%)
+ delete mode 100644 tools/libs/util/libxlu_cfg_i.h
+
 -- 
 (\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
  \BS (    |       ehem+sigmsg@m5p.com      PGP 87145445       |    )   /
