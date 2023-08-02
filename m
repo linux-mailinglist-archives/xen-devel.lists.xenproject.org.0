@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 952A976C163
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 02:11:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574614.900074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6209376C164
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 02:11:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574612.900059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQzSl-0003yy-R6; Wed, 02 Aug 2023 00:11:39 +0000
+	id 1qQzSk-0003bz-SH; Wed, 02 Aug 2023 00:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574614.900074; Wed, 02 Aug 2023 00:11:39 +0000
+Received: by outflank-mailman (output) from mailman id 574612.900059; Wed, 02 Aug 2023 00:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qQzSl-0003r4-Me; Wed, 02 Aug 2023 00:11:39 +0000
-Received: by outflank-mailman (input) for mailman id 574614;
- Wed, 02 Aug 2023 00:11:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qQzSk-0003YO-LL; Wed, 02 Aug 2023 00:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 574612;
+ Wed, 02 Aug 2023 00:11:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SOIS=DT=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qQzSk-0003Fc-0J
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 00:11:38 +0000
+ id 1qQzSj-0003Fo-4K
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 00:11:37 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24b88c23-30c9-11ee-b25c-6b7b168915f2;
- Wed, 02 Aug 2023 02:11:36 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23bf799c-30c9-11ee-8613-37d641c3527e;
+ Wed, 02 Aug 2023 02:11:34 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 80E598285BEB;
- Tue,  1 Aug 2023 19:11:35 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id E16608285393;
+ Tue,  1 Aug 2023 19:11:33 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id ytrMOHAsggp4; Tue,  1 Aug 2023 19:11:32 -0500 (CDT)
+ with ESMTP id jmLuI6QSiIjo; Tue,  1 Aug 2023 19:11:32 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 26F8882860D8;
+ by mail.rptsys.com (Postfix) with ESMTP id AE9DD82865A8;
  Tue,  1 Aug 2023 19:11:32 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id z9G1bl3ezzIu; Tue,  1 Aug 2023 19:11:31 -0500 (CDT)
+ with ESMTP id ksnYdg15_S0P; Tue,  1 Aug 2023 19:11:32 -0500 (CDT)
 Received: from raptor-ewks-026.lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 74A98828574A;
+ by mail.rptsys.com (Postfix) with ESMTPSA id 074B282860C6;
  Tue,  1 Aug 2023 19:11:31 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,15 +51,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24b88c23-30c9-11ee-b25c-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 26F8882860D8
+X-Inumbo-ID: 23bf799c-30c9-11ee-8613-37d641c3527e
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com AE9DD82865A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1690935092; bh=fdyVe894HHgk3h8xSGSF2mcH94BslBHZiYxBadv73ms=;
+	t=1690935092; bh=O7tKNlbYGTBKU34+OS6G3eEZ3bNtT5+tgy+g2otdYhY=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=BTcPUHaGK03OzgC5KnVPQsovwzg51MZfMf9h+LWDgW01CWSg6ePWsRoKfsnxlVc24
-	 Ogw7Wg1SGVNuFoayiBSbtFQvVirwRIqr/vjVh+In8IQr6VmY624LiCGGK7RHUDQLSk
-	 KmvFLfMpynvU4y4Ta8gvFZDMEi0FmmMD3UraFnR8=
+	b=V/3EqYNrKKtMm/16ssB2zqoK89/dcxqBADN4KXTDJAOOLV73GByo4nUzisq/nL/ym
+	 kb1QDaOsd6x972vpY6m4Zb9QwcyMKV5hTFpwdzGgDnLZHJQUAHMVON1DXPuIlQnjBZ
+	 1G8boDVthyNjJDi5p3dcMydwTS27PAu5xnnuEq4M=
 X-Virus-Scanned: amavisd-new at rptsys.com
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
 To: xen-devel@lists.xenproject.org
@@ -67,1233 +67,282 @@ Cc: Timothy Pearson <tpearson@raptorengineering.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 2/4] xen/ppc: Add OPAL API definition header file
-Date: Tue,  1 Aug 2023 19:11:04 -0500
-Message-Id: <398ef92c0103fbc70f53b26403fa6596ac73ec0c.1690934409.git.sanastasio@raptorengineering.com>
+Subject: [PATCH 3/4] xen/ppc: Parse device tree for OPAL node on PowerNV
+Date: Tue,  1 Aug 2023 19:11:05 -0500
+Message-Id: <7026e54897e360d935d065c7ec904dc3f6082857.1690934409.git.sanastasio@raptorengineering.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1690934409.git.sanastasio@raptorengineering.com>
 References: <cover.1690934409.git.sanastasio@raptorengineering.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-OPAL (OpenPower Abstraction Layer) is the interface exposed by firmware
-on PowerNV (bare metal) systems. Import Linux's header definining the
-API and related information.
+Communication with firmware boot services on PowerNV requires parsing
+the fdt blob passed by the bootloader in order to obtain the firmware
+entrypoint. Use Xen's libfdt to do this and store the information
+required for firmware calls, to be implemented in a future patch.
 
-From Linux commit 5321d1b1afb9a17302c6cec79f0cbf823eb0d3fc
+The full xen/common build doesn't yet work, but libfdt and its xen/lib
+dependency can be made to build by defining a few stub headers.
 
 Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
 Changed in v2:
-  - Add Linux commit reference to commit message
+  - Remove ALL_LIBS-y override
 
- xen/arch/ppc/include/asm/opal-api.h | 1190 +++++++++++++++++++++++++++
- 1 file changed, 1190 insertions(+)
- create mode 100644 xen/arch/ppc/include/asm/opal-api.h
+ xen/arch/ppc/Kconfig                 |  1 +
+ xen/arch/ppc/Makefile                |  1 +
+ xen/arch/ppc/arch.mk                 |  3 +-
+ xen/arch/ppc/include/asm/boot.h      | 16 +++++++++-
+ xen/arch/ppc/include/asm/bug.h       | 18 +++++++++++
+ xen/arch/ppc/include/asm/cache.h     |  6 ++++
+ xen/arch/ppc/include/asm/processor.h | 13 +++++++-
+ xen/arch/ppc/include/asm/string.h    |  6 ++++
+ xen/arch/ppc/include/asm/system.h    |  6 ++++
+ xen/arch/ppc/opal.c                  | 48 ++++++++++++++++++++++++++++
+ xen/arch/ppc/setup.c                 |  9 ++++--
+ 11 files changed, 121 insertions(+), 6 deletions(-)
+ create mode 100644 xen/arch/ppc/include/asm/bug.h
+ create mode 100644 xen/arch/ppc/include/asm/cache.h
+ create mode 100644 xen/arch/ppc/include/asm/string.h
+ create mode 100644 xen/arch/ppc/include/asm/system.h
+ create mode 100644 xen/arch/ppc/opal.c
 
-diff --git a/xen/arch/ppc/include/asm/opal-api.h b/xen/arch/ppc/include/a=
-sm/opal-api.h
+diff --git a/xen/arch/ppc/Kconfig b/xen/arch/ppc/Kconfig
+index a2ade2ecf4..b32dce39b8 100644
+--- a/xen/arch/ppc/Kconfig
++++ b/xen/arch/ppc/Kconfig
+@@ -1,5 +1,6 @@
+ config PPC
+ 	def_bool y
++	select HAS_DEVICE_TREE
+
+ config PPC64
+ 	def_bool y
+diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
+index 098a4dd0a9..0c0a7884a1 100644
+--- a/xen/arch/ppc/Makefile
++++ b/xen/arch/ppc/Makefile
+@@ -2,6 +2,7 @@ obj-$(CONFIG_PPC64) +=3D ppc64/
+
+ obj-y +=3D boot-of.init.o
+ obj-$(CONFIG_EARLY_PRINTK) +=3D early_printk.init.o
++obj-y +=3D opal.o
+ obj-y +=3D setup.o
+
+ $(TARGET): $(TARGET)-syms
+diff --git a/xen/arch/ppc/arch.mk b/xen/arch/ppc/arch.mk
+index 0183b9ac6a..3bf79bac37 100644
+--- a/xen/arch/ppc/arch.mk
++++ b/xen/arch/ppc/arch.mk
+@@ -10,5 +10,4 @@ CFLAGS +=3D -mstrict-align -mcmodel=3Dmedium -mabi=3Del=
+fv2 -fPIC -mno-altivec -mno-vsx
+ LDFLAGS +=3D -m elf64lppc
+
+ # TODO: Drop override when more of the build is working
+-override ALL_OBJS-y =3D arch/$(SRCARCH)/built_in.o
+-override ALL_LIBS-y =3D
++override ALL_OBJS-y =3D arch/$(SRCARCH)/built_in.o common/libfdt/built_i=
+n.o lib/built_in.o
+diff --git a/xen/arch/ppc/include/asm/boot.h b/xen/arch/ppc/include/asm/b=
+oot.h
+index 9b8a7c43c2..296539cd9e 100644
+--- a/xen/arch/ppc/include/asm/boot.h
++++ b/xen/arch/ppc/include/asm/boot.h
+@@ -4,7 +4,10 @@
+
+ #include <xen/types.h>
+
+-/* a collection of interfaces used during boot. */
++/*
++ * OpenFirmware boot interfaces
++ */
++
+ enum {
+     OF_FAILURE =3D -1,
+     OF_SUCCESS =3D 0,
+@@ -20,4 +23,15 @@ struct of_service {
+ int enter_of(struct of_service *args, unsigned long entry);
+ void boot_of_init(unsigned long vec);
+
++/*
++ * OPAL boot interfaces
++ */
++
++struct opal {
++    uint64_t base;
++    uint64_t entry;
++};
++
++void boot_opal_init(const void *fdt);
++
+ #endif /* _ASM_PPC_BOOT_H */
+diff --git a/xen/arch/ppc/include/asm/bug.h b/xen/arch/ppc/include/asm/bu=
+g.h
 new file mode 100644
-index 0000000000..75100eda83
+index 0000000000..e5e874b31c
 --- /dev/null
-+++ b/xen/arch/ppc/include/asm/opal-api.h
-@@ -0,0 +1,1190 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * OPAL API definitions.
-+ *
-+ * Copyright 2011-2015 IBM Corp.
-+ */
++++ b/xen/arch/ppc/include/asm/bug.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+#ifndef __OPAL_API_H
-+#define __OPAL_API_H
++#ifndef _ASM_PPC_BUG_H
++#define _ASM_PPC_BUG_H
 +
-+/****** OPAL APIs ******/
-+
-+/* Return codes */
-+#define OPAL_SUCCESS		0
-+#define OPAL_PARAMETER		-1
-+#define OPAL_BUSY		-2
-+#define OPAL_PARTIAL		-3
-+#define OPAL_CONSTRAINED	-4
-+#define OPAL_CLOSED		-5
-+#define OPAL_HARDWARE		-6
-+#define OPAL_UNSUPPORTED	-7
-+#define OPAL_PERMISSION		-8
-+#define OPAL_NO_MEM		-9
-+#define OPAL_RESOURCE		-10
-+#define OPAL_INTERNAL_ERROR	-11
-+#define OPAL_BUSY_EVENT		-12
-+#define OPAL_HARDWARE_FROZEN	-13
-+#define OPAL_WRONG_STATE	-14
-+#define OPAL_ASYNC_COMPLETION	-15
-+#define OPAL_EMPTY		-16
-+#define OPAL_I2C_TIMEOUT	-17
-+#define OPAL_I2C_INVALID_CMD	-18
-+#define OPAL_I2C_LBUS_PARITY	-19
-+#define OPAL_I2C_BKEND_OVERRUN	-20
-+#define OPAL_I2C_BKEND_ACCESS	-21
-+#define OPAL_I2C_ARBT_LOST	-22
-+#define OPAL_I2C_NACK_RCVD	-23
-+#define OPAL_I2C_STOP_ERR	-24
-+#define OPAL_XIVE_PROVISIONING	-31
-+#define OPAL_XIVE_FREE_ACTIVE	-32
-+#define OPAL_TIMEOUT		-33
-+
-+/* API Tokens (in r0) */
-+#define OPAL_INVALID_CALL		       -1
-+#define OPAL_TEST				0
-+#define OPAL_CONSOLE_WRITE			1
-+#define OPAL_CONSOLE_READ			2
-+#define OPAL_RTC_READ				3
-+#define OPAL_RTC_WRITE				4
-+#define OPAL_CEC_POWER_DOWN			5
-+#define OPAL_CEC_REBOOT				6
-+#define OPAL_READ_NVRAM				7
-+#define OPAL_WRITE_NVRAM			8
-+#define OPAL_HANDLE_INTERRUPT			9
-+#define OPAL_POLL_EVENTS			10
-+#define OPAL_PCI_SET_HUB_TCE_MEMORY		11
-+#define OPAL_PCI_SET_PHB_TCE_MEMORY		12
-+#define OPAL_PCI_CONFIG_READ_BYTE		13
-+#define OPAL_PCI_CONFIG_READ_HALF_WORD  	14
-+#define OPAL_PCI_CONFIG_READ_WORD		15
-+#define OPAL_PCI_CONFIG_WRITE_BYTE		16
-+#define OPAL_PCI_CONFIG_WRITE_HALF_WORD		17
-+#define OPAL_PCI_CONFIG_WRITE_WORD		18
-+#define OPAL_SET_XIVE				19
-+#define OPAL_GET_XIVE				20
-+#define OPAL_GET_COMPLETION_TOKEN_STATUS	21 /* obsolete */
-+#define OPAL_REGISTER_OPAL_EXCEPTION_HANDLER	22
-+#define OPAL_PCI_EEH_FREEZE_STATUS		23
-+#define OPAL_PCI_SHPC				24
-+#define OPAL_CONSOLE_WRITE_BUFFER_SPACE		25
-+#define OPAL_PCI_EEH_FREEZE_CLEAR		26
-+#define OPAL_PCI_PHB_MMIO_ENABLE		27
-+#define OPAL_PCI_SET_PHB_MEM_WINDOW		28
-+#define OPAL_PCI_MAP_PE_MMIO_WINDOW		29
-+#define OPAL_PCI_SET_PHB_TABLE_MEMORY		30
-+#define OPAL_PCI_SET_PE				31
-+#define OPAL_PCI_SET_PELTV			32
-+#define OPAL_PCI_SET_MVE			33
-+#define OPAL_PCI_SET_MVE_ENABLE			34
-+#define OPAL_PCI_GET_XIVE_REISSUE		35
-+#define OPAL_PCI_SET_XIVE_REISSUE		36
-+#define OPAL_PCI_SET_XIVE_PE			37
-+#define OPAL_GET_XIVE_SOURCE			38
-+#define OPAL_GET_MSI_32				39
-+#define OPAL_GET_MSI_64				40
-+#define OPAL_START_CPU				41
-+#define OPAL_QUERY_CPU_STATUS			42
-+#define OPAL_WRITE_OPPANEL			43 /* unimplemented */
-+#define OPAL_PCI_MAP_PE_DMA_WINDOW		44
-+#define OPAL_PCI_MAP_PE_DMA_WINDOW_REAL		45
-+#define OPAL_PCI_RESET				49
-+#define OPAL_PCI_GET_HUB_DIAG_DATA		50
-+#define OPAL_PCI_GET_PHB_DIAG_DATA		51
-+#define OPAL_PCI_FENCE_PHB			52
-+#define OPAL_PCI_REINIT				53
-+#define OPAL_PCI_MASK_PE_ERROR			54
-+#define OPAL_SET_SLOT_LED_STATUS		55
-+#define OPAL_GET_EPOW_STATUS			56
-+#define OPAL_SET_SYSTEM_ATTENTION_LED		57
-+#define OPAL_RESERVED1				58
-+#define OPAL_RESERVED2				59
-+#define OPAL_PCI_NEXT_ERROR			60
-+#define OPAL_PCI_EEH_FREEZE_STATUS2		61
-+#define OPAL_PCI_POLL				62
-+#define OPAL_PCI_MSI_EOI			63
-+#define OPAL_PCI_GET_PHB_DIAG_DATA2		64
-+#define OPAL_XSCOM_READ				65
-+#define OPAL_XSCOM_WRITE			66
-+#define OPAL_LPC_READ				67
-+#define OPAL_LPC_WRITE				68
-+#define OPAL_RETURN_CPU				69
-+#define OPAL_REINIT_CPUS			70
-+#define OPAL_ELOG_READ				71
-+#define OPAL_ELOG_WRITE				72
-+#define OPAL_ELOG_ACK				73
-+#define OPAL_ELOG_RESEND			74
-+#define OPAL_ELOG_SIZE				75
-+#define OPAL_FLASH_VALIDATE			76
-+#define OPAL_FLASH_MANAGE			77
-+#define OPAL_FLASH_UPDATE			78
-+#define OPAL_RESYNC_TIMEBASE			79
-+#define OPAL_CHECK_TOKEN			80
-+#define OPAL_DUMP_INIT				81
-+#define OPAL_DUMP_INFO				82
-+#define OPAL_DUMP_READ				83
-+#define OPAL_DUMP_ACK				84
-+#define OPAL_GET_MSG				85
-+#define OPAL_CHECK_ASYNC_COMPLETION		86
-+#define OPAL_SYNC_HOST_REBOOT			87
-+#define OPAL_SENSOR_READ			88
-+#define OPAL_GET_PARAM				89
-+#define OPAL_SET_PARAM				90
-+#define OPAL_DUMP_RESEND			91
-+#define OPAL_ELOG_SEND				92	/* Deprecated */
-+#define OPAL_PCI_SET_PHB_CAPI_MODE		93
-+#define OPAL_DUMP_INFO2				94
-+#define OPAL_WRITE_OPPANEL_ASYNC		95
-+#define OPAL_PCI_ERR_INJECT			96
-+#define OPAL_PCI_EEH_FREEZE_SET			97
-+#define OPAL_HANDLE_HMI				98
-+#define OPAL_CONFIG_CPU_IDLE_STATE		99
-+#define OPAL_SLW_SET_REG			100
-+#define OPAL_REGISTER_DUMP_REGION		101
-+#define OPAL_UNREGISTER_DUMP_REGION		102
-+#define OPAL_WRITE_TPO				103
-+#define OPAL_READ_TPO				104
-+#define OPAL_GET_DPO_STATUS			105
-+#define OPAL_OLD_I2C_REQUEST			106	/* Deprecated */
-+#define OPAL_IPMI_SEND				107
-+#define OPAL_IPMI_RECV				108
-+#define OPAL_I2C_REQUEST			109
-+#define OPAL_FLASH_READ				110
-+#define OPAL_FLASH_WRITE			111
-+#define OPAL_FLASH_ERASE			112
-+#define OPAL_PRD_MSG				113
-+#define OPAL_LEDS_GET_INDICATOR			114
-+#define OPAL_LEDS_SET_INDICATOR			115
-+#define OPAL_CEC_REBOOT2			116
-+#define OPAL_CONSOLE_FLUSH			117
-+#define OPAL_GET_DEVICE_TREE			118
-+#define OPAL_PCI_GET_PRESENCE_STATE		119
-+#define OPAL_PCI_GET_POWER_STATE		120
-+#define OPAL_PCI_SET_POWER_STATE		121
-+#define OPAL_INT_GET_XIRR			122
-+#define	OPAL_INT_SET_CPPR			123
-+#define OPAL_INT_EOI				124
-+#define OPAL_INT_SET_MFRR			125
-+#define OPAL_PCI_TCE_KILL			126
-+#define OPAL_NMMU_SET_PTCR			127
-+#define OPAL_XIVE_RESET				128
-+#define OPAL_XIVE_GET_IRQ_INFO			129
-+#define OPAL_XIVE_GET_IRQ_CONFIG		130
-+#define OPAL_XIVE_SET_IRQ_CONFIG		131
-+#define OPAL_XIVE_GET_QUEUE_INFO		132
-+#define OPAL_XIVE_SET_QUEUE_INFO		133
-+#define OPAL_XIVE_DONATE_PAGE			134
-+#define OPAL_XIVE_ALLOCATE_VP_BLOCK		135
-+#define OPAL_XIVE_FREE_VP_BLOCK			136
-+#define OPAL_XIVE_GET_VP_INFO			137
-+#define OPAL_XIVE_SET_VP_INFO			138
-+#define OPAL_XIVE_ALLOCATE_IRQ			139
-+#define OPAL_XIVE_FREE_IRQ			140
-+#define OPAL_XIVE_SYNC				141
-+#define OPAL_XIVE_DUMP				142
-+#define OPAL_XIVE_GET_QUEUE_STATE		143
-+#define OPAL_XIVE_SET_QUEUE_STATE		144
-+#define OPAL_SIGNAL_SYSTEM_RESET		145
-+#define OPAL_NPU_INIT_CONTEXT			146
-+#define OPAL_NPU_DESTROY_CONTEXT		147
-+#define OPAL_NPU_MAP_LPAR			148
-+#define OPAL_IMC_COUNTERS_INIT			149
-+#define OPAL_IMC_COUNTERS_START			150
-+#define OPAL_IMC_COUNTERS_STOP			151
-+#define OPAL_GET_POWERCAP			152
-+#define OPAL_SET_POWERCAP			153
-+#define OPAL_GET_POWER_SHIFT_RATIO		154
-+#define OPAL_SET_POWER_SHIFT_RATIO		155
-+#define OPAL_SENSOR_GROUP_CLEAR			156
-+#define OPAL_PCI_SET_P2P			157
-+#define OPAL_QUIESCE				158
-+#define OPAL_NPU_SPA_SETUP			159
-+#define OPAL_NPU_SPA_CLEAR_CACHE		160
-+#define OPAL_NPU_TL_SET				161
-+#define OPAL_SENSOR_READ_U64			162
-+#define OPAL_SENSOR_GROUP_ENABLE		163
-+#define OPAL_PCI_GET_PBCQ_TUNNEL_BAR		164
-+#define OPAL_PCI_SET_PBCQ_TUNNEL_BAR		165
-+#define OPAL_HANDLE_HMI2			166
-+#define	OPAL_NX_COPROC_INIT			167
-+#define OPAL_XIVE_GET_VP_STATE			170
-+#define OPAL_MPIPL_UPDATE			173
-+#define OPAL_MPIPL_REGISTER_TAG			174
-+#define OPAL_MPIPL_QUERY_TAG			175
-+#define OPAL_SECVAR_GET				176
-+#define OPAL_SECVAR_GET_NEXT			177
-+#define OPAL_SECVAR_ENQUEUE_UPDATE		178
-+#define OPAL_LAST				178
-+
-+#define QUIESCE_HOLD			1 /* Spin all calls at entry */
-+#define QUIESCE_REJECT			2 /* Fail all calls with OPAL_BUSY */
-+#define QUIESCE_LOCK_BREAK		3 /* Set to ignore locks. */
-+#define QUIESCE_RESUME			4 /* Un-quiesce */
-+#define QUIESCE_RESUME_FAST_REBOOT	5 /* Un-quiesce, fast reboot */
-+
-+/* Device tree flags */
++#include <xen/stringify.h>
 +
 +/*
-+ * Flags set in power-mgmt nodes in device tree describing
-+ * idle states that are supported in the platform.
++ * Power ISA guarantees that an instruction consisting of all zeroes is
++ * illegal.
 + */
++#define BUG_OPCODE  0x00000000
 +
-+#define OPAL_PM_TIMEBASE_STOP		0x00000002
-+#define OPAL_PM_LOSE_HYP_CONTEXT	0x00002000
-+#define OPAL_PM_LOSE_FULL_CONTEXT	0x00004000
-+#define OPAL_PM_NAP_ENABLED		0x00010000
-+#define OPAL_PM_SLEEP_ENABLED		0x00020000
-+#define OPAL_PM_WINKLE_ENABLED		0x00040000
-+#define OPAL_PM_SLEEP_ENABLED_ER1	0x00080000 /* with workaround */
-+#define OPAL_PM_STOP_INST_FAST		0x00100000
-+#define OPAL_PM_STOP_INST_DEEP		0x00200000
++#define BUG_INSTR ".long " __stringify(BUG_OPCODE)
 +
++#define BUG_FN_REG r0
++
++#endif /* _ASM_PPC_BUG_H */
+diff --git a/xen/arch/ppc/include/asm/cache.h b/xen/arch/ppc/include/asm/=
+cache.h
+new file mode 100644
+index 0000000000..8a0a6b7b17
+--- /dev/null
++++ b/xen/arch/ppc/include/asm/cache.h
+@@ -0,0 +1,6 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef _ASM_PPC_CACHE_H
++#define _ASM_PPC_CACHE_H
++
++#endif /* _ASM_PPC_CACHE_H */
+diff --git a/xen/arch/ppc/include/asm/processor.h b/xen/arch/ppc/include/=
+asm/processor.h
+index 838d279508..2300640787 100644
+--- a/xen/arch/ppc/include/asm/processor.h
++++ b/xen/arch/ppc/include/asm/processor.h
+@@ -133,6 +133,17 @@ struct cpu_user_regs
+     uint32_t entry_vector;
+ };
+
+-#endif
 +/*
-+ * OPAL_CONFIG_CPU_IDLE_STATE parameters
++ * panic() isn't available at the moment so an infinite loop will be
++ * used temporarily.
++ * TODO: change it to panic()
 + */
-+#define OPAL_CONFIG_IDLE_FASTSLEEP	1
-+#define OPAL_CONFIG_IDLE_UNDO		0
-+#define OPAL_CONFIG_IDLE_APPLY		1
-+
-+#ifndef __ASSEMBLY__
-+
-+#include <xen/types.h>
-+
-+/* Other enums */
-+enum OpalFreezeState {
-+	OPAL_EEH_STOPPED_NOT_FROZEN =3D 0,
-+	OPAL_EEH_STOPPED_MMIO_FREEZE =3D 1,
-+	OPAL_EEH_STOPPED_DMA_FREEZE =3D 2,
-+	OPAL_EEH_STOPPED_MMIO_DMA_FREEZE =3D 3,
-+	OPAL_EEH_STOPPED_RESET =3D 4,
-+	OPAL_EEH_STOPPED_TEMP_UNAVAIL =3D 5,
-+	OPAL_EEH_STOPPED_PERM_UNAVAIL =3D 6
-+};
-+
-+enum OpalEehFreezeActionToken {
-+	OPAL_EEH_ACTION_CLEAR_FREEZE_MMIO =3D 1,
-+	OPAL_EEH_ACTION_CLEAR_FREEZE_DMA =3D 2,
-+	OPAL_EEH_ACTION_CLEAR_FREEZE_ALL =3D 3,
-+
-+	OPAL_EEH_ACTION_SET_FREEZE_MMIO =3D 1,
-+	OPAL_EEH_ACTION_SET_FREEZE_DMA  =3D 2,
-+	OPAL_EEH_ACTION_SET_FREEZE_ALL  =3D 3
-+};
-+
-+enum OpalPciStatusToken {
-+	OPAL_EEH_NO_ERROR	=3D 0,
-+	OPAL_EEH_IOC_ERROR	=3D 1,
-+	OPAL_EEH_PHB_ERROR	=3D 2,
-+	OPAL_EEH_PE_ERROR	=3D 3,
-+	OPAL_EEH_PE_MMIO_ERROR	=3D 4,
-+	OPAL_EEH_PE_DMA_ERROR	=3D 5
-+};
-+
-+enum OpalPciErrorSeverity {
-+	OPAL_EEH_SEV_NO_ERROR	=3D 0,
-+	OPAL_EEH_SEV_IOC_DEAD	=3D 1,
-+	OPAL_EEH_SEV_PHB_DEAD	=3D 2,
-+	OPAL_EEH_SEV_PHB_FENCED	=3D 3,
-+	OPAL_EEH_SEV_PE_ER	=3D 4,
-+	OPAL_EEH_SEV_INF	=3D 5
-+};
-+
-+enum OpalErrinjectType {
-+	OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR	=3D 0,
-+	OPAL_ERR_INJECT_TYPE_IOA_BUS_ERR64	=3D 1,
-+};
-+
-+enum OpalErrinjectFunc {
-+	/* IOA bus specific errors */
-+	OPAL_ERR_INJECT_FUNC_IOA_LD_MEM_ADDR	=3D 0,
-+	OPAL_ERR_INJECT_FUNC_IOA_LD_MEM_DATA	=3D 1,
-+	OPAL_ERR_INJECT_FUNC_IOA_LD_IO_ADDR	=3D 2,
-+	OPAL_ERR_INJECT_FUNC_IOA_LD_IO_DATA	=3D 3,
-+	OPAL_ERR_INJECT_FUNC_IOA_LD_CFG_ADDR	=3D 4,
-+	OPAL_ERR_INJECT_FUNC_IOA_LD_CFG_DATA	=3D 5,
-+	OPAL_ERR_INJECT_FUNC_IOA_ST_MEM_ADDR	=3D 6,
-+	OPAL_ERR_INJECT_FUNC_IOA_ST_MEM_DATA	=3D 7,
-+	OPAL_ERR_INJECT_FUNC_IOA_ST_IO_ADDR	=3D 8,
-+	OPAL_ERR_INJECT_FUNC_IOA_ST_IO_DATA	=3D 9,
-+	OPAL_ERR_INJECT_FUNC_IOA_ST_CFG_ADDR	=3D 10,
-+	OPAL_ERR_INJECT_FUNC_IOA_ST_CFG_DATA	=3D 11,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_RD_ADDR	=3D 12,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_RD_DATA	=3D 13,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_RD_MASTER	=3D 14,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_RD_TARGET	=3D 15,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_WR_ADDR	=3D 16,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_WR_DATA	=3D 17,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_WR_MASTER	=3D 18,
-+	OPAL_ERR_INJECT_FUNC_IOA_DMA_WR_TARGET	=3D 19,
-+};
-+
-+enum OpalMmioWindowType {
-+	OPAL_M32_WINDOW_TYPE =3D 1,
-+	OPAL_M64_WINDOW_TYPE =3D 2,
-+	OPAL_IO_WINDOW_TYPE  =3D 3
-+};
-+
-+enum OpalExceptionHandler {
-+	OPAL_MACHINE_CHECK_HANDLER	    =3D 1,
-+	OPAL_HYPERVISOR_MAINTENANCE_HANDLER =3D 2,
-+	OPAL_SOFTPATCH_HANDLER		    =3D 3
-+};
-+
-+enum OpalPendingState {
-+	OPAL_EVENT_OPAL_INTERNAL   =3D 0x1,
-+	OPAL_EVENT_NVRAM	   =3D 0x2,
-+	OPAL_EVENT_RTC		   =3D 0x4,
-+	OPAL_EVENT_CONSOLE_OUTPUT  =3D 0x8,
-+	OPAL_EVENT_CONSOLE_INPUT   =3D 0x10,
-+	OPAL_EVENT_ERROR_LOG_AVAIL =3D 0x20,
-+	OPAL_EVENT_ERROR_LOG	   =3D 0x40,
-+	OPAL_EVENT_EPOW		   =3D 0x80,
-+	OPAL_EVENT_LED_STATUS	   =3D 0x100,
-+	OPAL_EVENT_PCI_ERROR	   =3D 0x200,
-+	OPAL_EVENT_DUMP_AVAIL	   =3D 0x400,
-+	OPAL_EVENT_MSG_PENDING	   =3D 0x800,
-+};
-+
-+enum OpalThreadStatus {
-+	OPAL_THREAD_INACTIVE =3D 0x0,
-+	OPAL_THREAD_STARTED =3D 0x1,
-+	OPAL_THREAD_UNAVAILABLE =3D 0x2 /* opal-v3 */
-+};
-+
-+enum OpalPciBusCompare {
-+	OpalPciBusAny	=3D 0,	/* Any bus number match */
-+	OpalPciBus3Bits	=3D 2,	/* Match top 3 bits of bus number */
-+	OpalPciBus4Bits	=3D 3,	/* Match top 4 bits of bus number */
-+	OpalPciBus5Bits	=3D 4,	/* Match top 5 bits of bus number */
-+	OpalPciBus6Bits	=3D 5,	/* Match top 6 bits of bus number */
-+	OpalPciBus7Bits	=3D 6,	/* Match top 7 bits of bus number */
-+	OpalPciBusAll	=3D 7,	/* Match bus number exactly */
-+};
-+
-+enum OpalDeviceCompare {
-+	OPAL_IGNORE_RID_DEVICE_NUMBER =3D 0,
-+	OPAL_COMPARE_RID_DEVICE_NUMBER =3D 1
-+};
-+
-+enum OpalFuncCompare {
-+	OPAL_IGNORE_RID_FUNCTION_NUMBER =3D 0,
-+	OPAL_COMPARE_RID_FUNCTION_NUMBER =3D 1
-+};
-+
-+enum OpalPeAction {
-+	OPAL_UNMAP_PE =3D 0,
-+	OPAL_MAP_PE =3D 1
-+};
-+
-+enum OpalPeltvAction {
-+	OPAL_REMOVE_PE_FROM_DOMAIN =3D 0,
-+	OPAL_ADD_PE_TO_DOMAIN =3D 1
-+};
-+
-+enum OpalMveEnableAction {
-+	OPAL_DISABLE_MVE =3D 0,
-+	OPAL_ENABLE_MVE =3D 1
-+};
-+
-+enum OpalM64Action {
-+	OPAL_DISABLE_M64 =3D 0,
-+	OPAL_ENABLE_M64_SPLIT =3D 1,
-+	OPAL_ENABLE_M64_NON_SPLIT =3D 2
-+};
-+
-+enum OpalPciResetScope {
-+	OPAL_RESET_PHB_COMPLETE		=3D 1,
-+	OPAL_RESET_PCI_LINK		=3D 2,
-+	OPAL_RESET_PHB_ERROR		=3D 3,
-+	OPAL_RESET_PCI_HOT		=3D 4,
-+	OPAL_RESET_PCI_FUNDAMENTAL	=3D 5,
-+	OPAL_RESET_PCI_IODA_TABLE	=3D 6
-+};
-+
-+enum OpalPciReinitScope {
-+	/*
-+	 * Note: we chose values that do not overlap
-+	 * OpalPciResetScope as OPAL v2 used the same
-+	 * enum for both
-+	 */
-+	OPAL_REINIT_PCI_DEV =3D 1000
-+};
-+
-+enum OpalPciResetState {
-+	OPAL_DEASSERT_RESET =3D 0,
-+	OPAL_ASSERT_RESET   =3D 1
-+};
-+
-+enum OpalPciSlotPresence {
-+	OPAL_PCI_SLOT_EMPTY	=3D 0,
-+	OPAL_PCI_SLOT_PRESENT	=3D 1
-+};
-+
-+enum OpalPciSlotPower {
-+	OPAL_PCI_SLOT_POWER_OFF	=3D 0,
-+	OPAL_PCI_SLOT_POWER_ON	=3D 1,
-+	OPAL_PCI_SLOT_OFFLINE	=3D 2,
-+	OPAL_PCI_SLOT_ONLINE	=3D 3
-+};
-+
-+enum OpalSlotLedType {
-+	OPAL_SLOT_LED_TYPE_ID =3D 0,	/* IDENTIFY LED */
-+	OPAL_SLOT_LED_TYPE_FAULT =3D 1,	/* FAULT LED */
-+	OPAL_SLOT_LED_TYPE_ATTN =3D 2,	/* System Attention LED */
-+	OPAL_SLOT_LED_TYPE_MAX =3D 3
-+};
-+
-+enum OpalSlotLedState {
-+	OPAL_SLOT_LED_STATE_OFF =3D 0,	/* LED is OFF */
-+	OPAL_SLOT_LED_STATE_ON =3D 1	/* LED is ON */
-+};
-+
-+/*
-+ * Address cycle types for LPC accesses. These also correspond
-+ * to the content of the first cell of the "reg" property for
-+ * device nodes on the LPC bus
-+ */
-+enum OpalLPCAddressType {
-+	OPAL_LPC_MEM	=3D 0,
-+	OPAL_LPC_IO	=3D 1,
-+	OPAL_LPC_FW	=3D 2,
-+};
-+
-+enum opal_msg_type {
-+	OPAL_MSG_ASYNC_COMP	=3D 0,	/* params[0] =3D token, params[1] =3D rc,
-+					 * additional params function-specific
-+					 */
-+	OPAL_MSG_MEM_ERR	=3D 1,
-+	OPAL_MSG_EPOW		=3D 2,
-+	OPAL_MSG_SHUTDOWN	=3D 3,	/* params[0] =3D 1 reboot, 0 shutdown */
-+	OPAL_MSG_HMI_EVT	=3D 4,
-+	OPAL_MSG_DPO		=3D 5,
-+	OPAL_MSG_PRD		=3D 6,
-+	OPAL_MSG_OCC		=3D 7,
-+	OPAL_MSG_PRD2		=3D 8,
-+	OPAL_MSG_TYPE_MAX,
-+};
-+
-+struct opal_msg {
-+	__be32 msg_type;
-+	__be32 reserved;
-+	__be64 params[8];
-+};
-+
-+/* System parameter permission */
-+enum OpalSysparamPerm {
-+	OPAL_SYSPARAM_READ  =3D 0x1,
-+	OPAL_SYSPARAM_WRITE =3D 0x2,
-+	OPAL_SYSPARAM_RW    =3D (OPAL_SYSPARAM_READ | OPAL_SYSPARAM_WRITE),
-+};
-+
-+enum {
-+	OPAL_IPMI_MSG_FORMAT_VERSION_1 =3D 1,
-+};
-+
-+struct opal_ipmi_msg {
-+	uint8_t version;
-+	uint8_t netfn;
-+	uint8_t cmd;
-+	uint8_t data[];
-+};
-+
-+/* FSP memory errors handling */
-+enum OpalMemErr_Version {
-+	OpalMemErr_V1 =3D 1,
-+};
-+
-+enum OpalMemErrType {
-+	OPAL_MEM_ERR_TYPE_RESILIENCE	=3D 0,
-+	OPAL_MEM_ERR_TYPE_DYN_DALLOC,
-+};
-+
-+/* Memory Reilience error type */
-+enum OpalMemErr_ResilErrType {
-+	OPAL_MEM_RESILIENCE_CE		=3D 0,
-+	OPAL_MEM_RESILIENCE_UE,
-+	OPAL_MEM_RESILIENCE_UE_SCRUB,
-+};
-+
-+/* Dynamic Memory Deallocation type */
-+enum OpalMemErr_DynErrType {
-+	OPAL_MEM_DYNAMIC_DEALLOC	=3D 0,
-+};
-+
-+struct OpalMemoryErrorData {
-+	enum OpalMemErr_Version	version:8;	/* 0x00 */
-+	enum OpalMemErrType	type:8;		/* 0x01 */
-+	__be16			flags;		/* 0x02 */
-+	uint8_t			reserved_1[4];	/* 0x04 */
-+
-+	union {
-+		/* Memory Resilience corrected/uncorrected error info */
-+		struct {
-+			enum OpalMemErr_ResilErrType	resil_err_type:8;
-+			uint8_t				reserved_1[7];
-+			__be64				physical_address_start;
-+			__be64				physical_address_end;
-+		} resilience;
-+		/* Dynamic memory deallocation error info */
-+		struct {
-+			enum OpalMemErr_DynErrType	dyn_err_type:8;
-+			uint8_t				reserved_1[7];
-+			__be64				physical_address_start;
-+			__be64				physical_address_end;
-+		} dyn_dealloc;
-+	} u;
-+};
-+
-+/* HMI interrupt event */
-+enum OpalHMI_Version {
-+	OpalHMIEvt_V1 =3D 1,
-+	OpalHMIEvt_V2 =3D 2,
-+};
-+
-+enum OpalHMI_Severity {
-+	OpalHMI_SEV_NO_ERROR =3D 0,
-+	OpalHMI_SEV_WARNING =3D 1,
-+	OpalHMI_SEV_ERROR_SYNC =3D 2,
-+	OpalHMI_SEV_FATAL =3D 3,
-+};
-+
-+enum OpalHMI_Disposition {
-+	OpalHMI_DISPOSITION_RECOVERED =3D 0,
-+	OpalHMI_DISPOSITION_NOT_RECOVERED =3D 1,
-+};
-+
-+enum OpalHMI_ErrType {
-+	OpalHMI_ERROR_MALFUNC_ALERT	=3D 0,
-+	OpalHMI_ERROR_PROC_RECOV_DONE,
-+	OpalHMI_ERROR_PROC_RECOV_DONE_AGAIN,
-+	OpalHMI_ERROR_PROC_RECOV_MASKED,
-+	OpalHMI_ERROR_TFAC,
-+	OpalHMI_ERROR_TFMR_PARITY,
-+	OpalHMI_ERROR_HA_OVERFLOW_WARN,
-+	OpalHMI_ERROR_XSCOM_FAIL,
-+	OpalHMI_ERROR_XSCOM_DONE,
-+	OpalHMI_ERROR_SCOM_FIR,
-+	OpalHMI_ERROR_DEBUG_TRIG_FIR,
-+	OpalHMI_ERROR_HYP_RESOURCE,
-+	OpalHMI_ERROR_CAPP_RECOVERY,
-+};
-+
-+enum OpalHMI_XstopType {
-+	CHECKSTOP_TYPE_UNKNOWN	=3D	0,
-+	CHECKSTOP_TYPE_CORE	=3D	1,
-+	CHECKSTOP_TYPE_NX	=3D	2,
-+	CHECKSTOP_TYPE_NPU	=3D	3
-+};
-+
-+enum OpalHMI_CoreXstopReason {
-+	CORE_CHECKSTOP_IFU_REGFILE		=3D 0x00000001,
-+	CORE_CHECKSTOP_IFU_LOGIC		=3D 0x00000002,
-+	CORE_CHECKSTOP_PC_DURING_RECOV		=3D 0x00000004,
-+	CORE_CHECKSTOP_ISU_REGFILE		=3D 0x00000008,
-+	CORE_CHECKSTOP_ISU_LOGIC		=3D 0x00000010,
-+	CORE_CHECKSTOP_FXU_LOGIC		=3D 0x00000020,
-+	CORE_CHECKSTOP_VSU_LOGIC		=3D 0x00000040,
-+	CORE_CHECKSTOP_PC_RECOV_IN_MAINT_MODE	=3D 0x00000080,
-+	CORE_CHECKSTOP_LSU_REGFILE		=3D 0x00000100,
-+	CORE_CHECKSTOP_PC_FWD_PROGRESS		=3D 0x00000200,
-+	CORE_CHECKSTOP_LSU_LOGIC		=3D 0x00000400,
-+	CORE_CHECKSTOP_PC_LOGIC			=3D 0x00000800,
-+	CORE_CHECKSTOP_PC_HYP_RESOURCE		=3D 0x00001000,
-+	CORE_CHECKSTOP_PC_HANG_RECOV_FAILED	=3D 0x00002000,
-+	CORE_CHECKSTOP_PC_AMBI_HANG_DETECTED	=3D 0x00004000,
-+	CORE_CHECKSTOP_PC_DEBUG_TRIG_ERR_INJ	=3D 0x00008000,
-+	CORE_CHECKSTOP_PC_SPRD_HYP_ERR_INJ	=3D 0x00010000,
-+};
-+
-+enum OpalHMI_NestAccelXstopReason {
-+	NX_CHECKSTOP_SHM_INVAL_STATE_ERR	=3D 0x00000001,
-+	NX_CHECKSTOP_DMA_INVAL_STATE_ERR_1	=3D 0x00000002,
-+	NX_CHECKSTOP_DMA_INVAL_STATE_ERR_2	=3D 0x00000004,
-+	NX_CHECKSTOP_DMA_CH0_INVAL_STATE_ERR	=3D 0x00000008,
-+	NX_CHECKSTOP_DMA_CH1_INVAL_STATE_ERR	=3D 0x00000010,
-+	NX_CHECKSTOP_DMA_CH2_INVAL_STATE_ERR	=3D 0x00000020,
-+	NX_CHECKSTOP_DMA_CH3_INVAL_STATE_ERR	=3D 0x00000040,
-+	NX_CHECKSTOP_DMA_CH4_INVAL_STATE_ERR	=3D 0x00000080,
-+	NX_CHECKSTOP_DMA_CH5_INVAL_STATE_ERR	=3D 0x00000100,
-+	NX_CHECKSTOP_DMA_CH6_INVAL_STATE_ERR	=3D 0x00000200,
-+	NX_CHECKSTOP_DMA_CH7_INVAL_STATE_ERR	=3D 0x00000400,
-+	NX_CHECKSTOP_DMA_CRB_UE			=3D 0x00000800,
-+	NX_CHECKSTOP_DMA_CRB_SUE		=3D 0x00001000,
-+	NX_CHECKSTOP_PBI_ISN_UE			=3D 0x00002000,
-+};
-+
-+struct OpalHMIEvent {
-+	uint8_t		version;	/* 0x00 */
-+	uint8_t		severity;	/* 0x01 */
-+	uint8_t		type;		/* 0x02 */
-+	uint8_t		disposition;	/* 0x03 */
-+	uint8_t		reserved_1[4];	/* 0x04 */
-+
-+	__be64		hmer;
-+	/* TFMR register. Valid only for TFAC and TFMR_PARITY error type. */
-+	__be64		tfmr;
-+
-+	/* version 2 and later */
-+	union {
-+		/*
-+		 * checkstop info (Core/NX).
-+		 * Valid for OpalHMI_ERROR_MALFUNC_ALERT.
-+		 */
-+		struct {
-+			uint8_t	xstop_type;	/* enum OpalHMI_XstopType */
-+			uint8_t reserved_1[3];
-+			__be32  xstop_reason;
-+			union {
-+				__be32 pir;	/* for CHECKSTOP_TYPE_CORE */
-+				__be32 chip_id;	/* for CHECKSTOP_TYPE_NX */
-+			} u;
-+		} xstop_error;
-+	} u;
-+};
-+
-+/* OPAL_HANDLE_HMI2 out_flags */
-+enum {
-+	OPAL_HMI_FLAGS_TB_RESYNC	=3D (1ull << 0), /* Timebase has been resynced=
- */
-+	OPAL_HMI_FLAGS_DEC_LOST		=3D (1ull << 1), /* DEC lost, needs to be repr=
-ogrammed */
-+	OPAL_HMI_FLAGS_HDEC_LOST	=3D (1ull << 2), /* HDEC lost, needs to be rep=
-rogrammed */
-+	OPAL_HMI_FLAGS_TOD_TB_FAIL	=3D (1ull << 3), /* TOD/TB recovery failed. =
-*/
-+	OPAL_HMI_FLAGS_NEW_EVENT	=3D (1ull << 63), /* An event has been created=
- */
-+};
-+
-+enum {
-+	OPAL_P7IOC_DIAG_TYPE_NONE	=3D 0,
-+	OPAL_P7IOC_DIAG_TYPE_RGC	=3D 1,
-+	OPAL_P7IOC_DIAG_TYPE_BI		=3D 2,
-+	OPAL_P7IOC_DIAG_TYPE_CI		=3D 3,
-+	OPAL_P7IOC_DIAG_TYPE_MISC	=3D 4,
-+	OPAL_P7IOC_DIAG_TYPE_I2C	=3D 5,
-+	OPAL_P7IOC_DIAG_TYPE_LAST	=3D 6
-+};
-+
-+struct OpalIoP7IOCErrorData {
-+	__be16 type;
-+
-+	/* GEM */
-+	__be64 gemXfir;
-+	__be64 gemRfir;
-+	__be64 gemRirqfir;
-+	__be64 gemMask;
-+	__be64 gemRwof;
-+
-+	/* LEM */
-+	__be64 lemFir;
-+	__be64 lemErrMask;
-+	__be64 lemAction0;
-+	__be64 lemAction1;
-+	__be64 lemWof;
-+
-+	union {
-+		struct OpalIoP7IOCRgcErrorData {
-+			__be64 rgcStatus;	/* 3E1C10 */
-+			__be64 rgcLdcp;		/* 3E1C18 */
-+		}rgc;
-+		struct OpalIoP7IOCBiErrorData {
-+			__be64 biLdcp0;		/* 3C0100, 3C0118 */
-+			__be64 biLdcp1;		/* 3C0108, 3C0120 */
-+			__be64 biLdcp2;		/* 3C0110, 3C0128 */
-+			__be64 biFenceStatus;	/* 3C0130, 3C0130 */
-+
-+			uint8_t biDownbound;	/* BI Downbound or Upbound */
-+		}bi;
-+		struct OpalIoP7IOCCiErrorData {
-+			__be64 ciPortStatus;	/* 3Dn008 */
-+			__be64 ciPortLdcp;	/* 3Dn010 */
-+
-+			uint8_t ciPort;		/* Index of CI port: 0/1 */
-+		}ci;
-+	};
-+};
-+
-+/**
-+ * This structure defines the overlay which will be used to store PHB er=
-ror
-+ * data upon request.
-+ */
-+enum {
-+	OPAL_PHB_ERROR_DATA_VERSION_1 =3D 1,
-+};
-+
-+enum {
-+	OPAL_PHB_ERROR_DATA_TYPE_P7IOC =3D 1,
-+	OPAL_PHB_ERROR_DATA_TYPE_PHB3 =3D 2,
-+	OPAL_PHB_ERROR_DATA_TYPE_PHB4 =3D 3
-+};
-+
-+enum {
-+	OPAL_P7IOC_NUM_PEST_REGS =3D 128,
-+	OPAL_PHB3_NUM_PEST_REGS =3D 256,
-+	OPAL_PHB4_NUM_PEST_REGS =3D 512
-+};
-+
-+struct OpalIoPhbErrorCommon {
-+	__be32 version;
-+	__be32 ioType;
-+	__be32 len;
-+};
-+
-+struct OpalIoP7IOCPhbErrorData {
-+	struct OpalIoPhbErrorCommon common;
-+
-+	__be32 brdgCtl;
-+
-+	// P7IOC utl regs
-+	__be32 portStatusReg;
-+	__be32 rootCmplxStatus;
-+	__be32 busAgentStatus;
-+
-+	// P7IOC cfg regs
-+	__be32 deviceStatus;
-+	__be32 slotStatus;
-+	__be32 linkStatus;
-+	__be32 devCmdStatus;
-+	__be32 devSecStatus;
-+
-+	// cfg AER regs
-+	__be32 rootErrorStatus;
-+	__be32 uncorrErrorStatus;
-+	__be32 corrErrorStatus;
-+	__be32 tlpHdr1;
-+	__be32 tlpHdr2;
-+	__be32 tlpHdr3;
-+	__be32 tlpHdr4;
-+	__be32 sourceId;
-+
-+	__be32 rsv3;
-+
-+	// Record data about the call to allocate a buffer.
-+	__be64 errorClass;
-+	__be64 correlator;
-+
-+	//P7IOC MMIO Error Regs
-+	__be64 p7iocPlssr;                // n120
-+	__be64 p7iocCsr;                  // n110
-+	__be64 lemFir;                    // nC00
-+	__be64 lemErrorMask;              // nC18
-+	__be64 lemWOF;                    // nC40
-+	__be64 phbErrorStatus;            // nC80
-+	__be64 phbFirstErrorStatus;       // nC88
-+	__be64 phbErrorLog0;              // nCC0
-+	__be64 phbErrorLog1;              // nCC8
-+	__be64 mmioErrorStatus;           // nD00
-+	__be64 mmioFirstErrorStatus;      // nD08
-+	__be64 mmioErrorLog0;             // nD40
-+	__be64 mmioErrorLog1;             // nD48
-+	__be64 dma0ErrorStatus;           // nD80
-+	__be64 dma0FirstErrorStatus;      // nD88
-+	__be64 dma0ErrorLog0;             // nDC0
-+	__be64 dma0ErrorLog1;             // nDC8
-+	__be64 dma1ErrorStatus;           // nE00
-+	__be64 dma1FirstErrorStatus;      // nE08
-+	__be64 dma1ErrorLog0;             // nE40
-+	__be64 dma1ErrorLog1;             // nE48
-+	__be64 pestA[OPAL_P7IOC_NUM_PEST_REGS];
-+	__be64 pestB[OPAL_P7IOC_NUM_PEST_REGS];
-+};
-+
-+struct OpalIoPhb3ErrorData {
-+	struct OpalIoPhbErrorCommon common;
-+
-+	__be32 brdgCtl;
-+
-+	/* PHB3 UTL regs */
-+	__be32 portStatusReg;
-+	__be32 rootCmplxStatus;
-+	__be32 busAgentStatus;
-+
-+	/* PHB3 cfg regs */
-+	__be32 deviceStatus;
-+	__be32 slotStatus;
-+	__be32 linkStatus;
-+	__be32 devCmdStatus;
-+	__be32 devSecStatus;
-+
-+	/* cfg AER regs */
-+	__be32 rootErrorStatus;
-+	__be32 uncorrErrorStatus;
-+	__be32 corrErrorStatus;
-+	__be32 tlpHdr1;
-+	__be32 tlpHdr2;
-+	__be32 tlpHdr3;
-+	__be32 tlpHdr4;
-+	__be32 sourceId;
-+
-+	__be32 rsv3;
-+
-+	/* Record data about the call to allocate a buffer */
-+	__be64 errorClass;
-+	__be64 correlator;
-+
-+	/* PHB3 MMIO Error Regs */
-+	__be64 nFir;			/* 000 */
-+	__be64 nFirMask;		/* 003 */
-+	__be64 nFirWOF;		/* 008 */
-+	__be64 phbPlssr;		/* 120 */
-+	__be64 phbCsr;		/* 110 */
-+	__be64 lemFir;		/* C00 */
-+	__be64 lemErrorMask;		/* C18 */
-+	__be64 lemWOF;		/* C40 */
-+	__be64 phbErrorStatus;	/* C80 */
-+	__be64 phbFirstErrorStatus;	/* C88 */
-+	__be64 phbErrorLog0;		/* CC0 */
-+	__be64 phbErrorLog1;		/* CC8 */
-+	__be64 mmioErrorStatus;	/* D00 */
-+	__be64 mmioFirstErrorStatus;	/* D08 */
-+	__be64 mmioErrorLog0;		/* D40 */
-+	__be64 mmioErrorLog1;		/* D48 */
-+	__be64 dma0ErrorStatus;	/* D80 */
-+	__be64 dma0FirstErrorStatus;	/* D88 */
-+	__be64 dma0ErrorLog0;		/* DC0 */
-+	__be64 dma0ErrorLog1;		/* DC8 */
-+	__be64 dma1ErrorStatus;	/* E00 */
-+	__be64 dma1FirstErrorStatus;	/* E08 */
-+	__be64 dma1ErrorLog0;		/* E40 */
-+	__be64 dma1ErrorLog1;		/* E48 */
-+	__be64 pestA[OPAL_PHB3_NUM_PEST_REGS];
-+	__be64 pestB[OPAL_PHB3_NUM_PEST_REGS];
-+};
-+
-+struct OpalIoPhb4ErrorData {
-+	struct OpalIoPhbErrorCommon common;
-+
-+	__be32 brdgCtl;
-+
-+	/* PHB4 cfg regs */
-+	__be32 deviceStatus;
-+	__be32 slotStatus;
-+	__be32 linkStatus;
-+	__be32 devCmdStatus;
-+	__be32 devSecStatus;
-+
-+	/* cfg AER regs */
-+	__be32 rootErrorStatus;
-+	__be32 uncorrErrorStatus;
-+	__be32 corrErrorStatus;
-+	__be32 tlpHdr1;
-+	__be32 tlpHdr2;
-+	__be32 tlpHdr3;
-+	__be32 tlpHdr4;
-+	__be32 sourceId;
-+
-+	/* PHB4 ETU Error Regs */
-+	__be64 nFir;				/* 000 */
-+	__be64 nFirMask;			/* 003 */
-+	__be64 nFirWOF;				/* 008 */
-+	__be64 phbPlssr;			/* 120 */
-+	__be64 phbCsr;				/* 110 */
-+	__be64 lemFir;				/* C00 */
-+	__be64 lemErrorMask;			/* C18 */
-+	__be64 lemWOF;				/* C40 */
-+	__be64 phbErrorStatus;			/* C80 */
-+	__be64 phbFirstErrorStatus;		/* C88 */
-+	__be64 phbErrorLog0;			/* CC0 */
-+	__be64 phbErrorLog1;			/* CC8 */
-+	__be64 phbTxeErrorStatus;		/* D00 */
-+	__be64 phbTxeFirstErrorStatus;		/* D08 */
-+	__be64 phbTxeErrorLog0;			/* D40 */
-+	__be64 phbTxeErrorLog1;			/* D48 */
-+	__be64 phbRxeArbErrorStatus;		/* D80 */
-+	__be64 phbRxeArbFirstErrorStatus;	/* D88 */
-+	__be64 phbRxeArbErrorLog0;		/* DC0 */
-+	__be64 phbRxeArbErrorLog1;		/* DC8 */
-+	__be64 phbRxeMrgErrorStatus;		/* E00 */
-+	__be64 phbRxeMrgFirstErrorStatus;	/* E08 */
-+	__be64 phbRxeMrgErrorLog0;		/* E40 */
-+	__be64 phbRxeMrgErrorLog1;		/* E48 */
-+	__be64 phbRxeTceErrorStatus;		/* E80 */
-+	__be64 phbRxeTceFirstErrorStatus;	/* E88 */
-+	__be64 phbRxeTceErrorLog0;		/* EC0 */
-+	__be64 phbRxeTceErrorLog1;		/* EC8 */
-+
-+	/* PHB4 REGB Error Regs */
-+	__be64 phbPblErrorStatus;		/* 1900 */
-+	__be64 phbPblFirstErrorStatus;		/* 1908 */
-+	__be64 phbPblErrorLog0;			/* 1940 */
-+	__be64 phbPblErrorLog1;			/* 1948 */
-+	__be64 phbPcieDlpErrorLog1;		/* 1AA0 */
-+	__be64 phbPcieDlpErrorLog2;		/* 1AA8 */
-+	__be64 phbPcieDlpErrorStatus;		/* 1AB0 */
-+	__be64 phbRegbErrorStatus;		/* 1C00 */
-+	__be64 phbRegbFirstErrorStatus;		/* 1C08 */
-+	__be64 phbRegbErrorLog0;		/* 1C40 */
-+	__be64 phbRegbErrorLog1;		/* 1C48 */
-+
-+	__be64 pestA[OPAL_PHB4_NUM_PEST_REGS];
-+	__be64 pestB[OPAL_PHB4_NUM_PEST_REGS];
-+};
-+
-+enum {
-+	OPAL_REINIT_CPUS_HILE_BE	=3D (1 << 0),
-+	OPAL_REINIT_CPUS_HILE_LE	=3D (1 << 1),
-+
-+	/* These two define the base MMU mode of the host on P9
-+	 *
-+	 * On P9 Nimbus DD2.0 and Cumlus (and later), KVM can still
-+	 * create hash guests in "radix" mode with care (full core
-+	 * switch only).
-+	 */
-+	OPAL_REINIT_CPUS_MMU_HASH	=3D (1 << 2),
-+	OPAL_REINIT_CPUS_MMU_RADIX	=3D (1 << 3),
-+
-+	OPAL_REINIT_CPUS_TM_SUSPEND_DISABLED =3D (1 << 4),
-+};
-+
-+typedef struct oppanel_line {
-+	__be64 line;
-+	__be64 line_len;
-+} oppanel_line_t;
-+
-+enum opal_prd_msg_type {
-+	OPAL_PRD_MSG_TYPE_INIT =3D 0,	/* HBRT --> OPAL */
-+	OPAL_PRD_MSG_TYPE_FINI,		/* HBRT/kernel --> OPAL */
-+	OPAL_PRD_MSG_TYPE_ATTN,		/* HBRT <-- OPAL */
-+	OPAL_PRD_MSG_TYPE_ATTN_ACK,	/* HBRT --> OPAL */
-+	OPAL_PRD_MSG_TYPE_OCC_ERROR,	/* HBRT <-- OPAL */
-+	OPAL_PRD_MSG_TYPE_OCC_RESET,	/* HBRT <-- OPAL */
-+};
-+
-+struct opal_prd_msg_header {
-+	uint8_t		type;
-+	uint8_t		pad[1];
-+	__be16		size;
-+};
-+
-+struct opal_prd_msg;
-+
-+#define OCC_RESET                       0
-+#define OCC_LOAD                        1
-+#define OCC_THROTTLE                    2
-+#define OCC_MAX_THROTTLE_STATUS         5
-+
-+struct opal_occ_msg {
-+	__be64 type;
-+	__be64 chip;
-+	__be64 throttle_status;
-+};
-+
-+/*
-+ * SG entries
-+ *
-+ * WARNING: The current implementation requires each entry
-+ * to represent a block that is 4k aligned *and* each block
-+ * size except the last one in the list to be as well.
-+ */
-+struct opal_sg_entry {
-+	__be64 data;
-+	__be64 length;
-+};
-+
-+/*
-+ * Candidate image SG list.
-+ *
-+ * length =3D VER | length
-+ */
-+struct opal_sg_list {
-+	__be64 length;
-+	__be64 next;
-+	struct opal_sg_entry entry[];
-+};
-+
-+/*
-+ * Dump region ID range usable by the OS
-+ */
-+#define OPAL_DUMP_REGION_HOST_START		0x80
-+#define OPAL_DUMP_REGION_LOG_BUF		0x80
-+#define OPAL_DUMP_REGION_HOST_END		0xFF
-+
-+/* CAPI modes for PHB */
-+enum {
-+	OPAL_PHB_CAPI_MODE_PCIE		=3D 0,
-+	OPAL_PHB_CAPI_MODE_CAPI		=3D 1,
-+	OPAL_PHB_CAPI_MODE_SNOOP_OFF    =3D 2,
-+	OPAL_PHB_CAPI_MODE_SNOOP_ON	=3D 3,
-+	OPAL_PHB_CAPI_MODE_DMA		=3D 4,
-+	OPAL_PHB_CAPI_MODE_DMA_TVT1	=3D 5,
-+};
-+
-+/* OPAL I2C request */
-+struct opal_i2c_request {
-+	uint8_t	type;
-+#define OPAL_I2C_RAW_READ	0
-+#define OPAL_I2C_RAW_WRITE	1
-+#define OPAL_I2C_SM_READ	2
-+#define OPAL_I2C_SM_WRITE	3
-+	uint8_t flags;
-+#define OPAL_I2C_ADDR_10	0x01	/* Not supported yet */
-+	uint8_t	subaddr_sz;		/* Max 4 */
-+	uint8_t reserved;
-+	__be16 addr;			/* 7 or 10 bit address */
-+	__be16 reserved2;
-+	__be32 subaddr;		/* Sub-address if any */
-+	__be32 size;			/* Data size */
-+	__be64 buffer_ra;		/* Buffer real address */
-+};
-+
-+/*
-+ * EPOW status sharing (OPAL and the host)
-+ *
-+ * The host will pass on OPAL, a buffer of length OPAL_SYSEPOW_MAX
-+ * with individual elements being 16 bits wide to fetch the system
-+ * wide EPOW status. Each element in the buffer will contain the
-+ * EPOW status in it's bit representation for a particular EPOW sub
-+ * class as defined here. So multiple detailed EPOW status bits
-+ * specific for any sub class can be represented in a single buffer
-+ * element as it's bit representation.
-+ */
-+
-+/* System EPOW type */
-+enum OpalSysEpow {
-+	OPAL_SYSEPOW_POWER	=3D 0,	/* Power EPOW */
-+	OPAL_SYSEPOW_TEMP	=3D 1,	/* Temperature EPOW */
-+	OPAL_SYSEPOW_COOLING	=3D 2,	/* Cooling EPOW */
-+	OPAL_SYSEPOW_MAX	=3D 3,	/* Max EPOW categories */
-+};
-+
-+/* Power EPOW */
-+enum OpalSysPower {
-+	OPAL_SYSPOWER_UPS	=3D 0x0001, /* System on UPS power */
-+	OPAL_SYSPOWER_CHNG	=3D 0x0002, /* System power config change */
-+	OPAL_SYSPOWER_FAIL	=3D 0x0004, /* System impending power failure */
-+	OPAL_SYSPOWER_INCL	=3D 0x0008, /* System incomplete power */
-+};
-+
-+/* Temperature EPOW */
-+enum OpalSysTemp {
-+	OPAL_SYSTEMP_AMB	=3D 0x0001, /* System over ambient temperature */
-+	OPAL_SYSTEMP_INT	=3D 0x0002, /* System over internal temperature */
-+	OPAL_SYSTEMP_HMD	=3D 0x0004, /* System over ambient humidity */
-+};
-+
-+/* Cooling EPOW */
-+enum OpalSysCooling {
-+	OPAL_SYSCOOL_INSF	=3D 0x0001, /* System insufficient cooling */
-+};
-+
-+/* Argument to OPAL_CEC_REBOOT2() */
-+enum {
-+	OPAL_REBOOT_NORMAL		=3D 0,
-+	OPAL_REBOOT_PLATFORM_ERROR	=3D 1,
-+	OPAL_REBOOT_FULL_IPL		=3D 2,
-+	OPAL_REBOOT_MPIPL		=3D 3,
-+	OPAL_REBOOT_FAST		=3D 4,
-+};
-+
-+/* Argument to OPAL_PCI_TCE_KILL */
-+enum {
-+	OPAL_PCI_TCE_KILL_PAGES,
-+	OPAL_PCI_TCE_KILL_PE,
-+	OPAL_PCI_TCE_KILL_ALL,
-+};
-+
-+/* The xive operation mode indicates the active "API" and
-+ * corresponds to the "mode" parameter of the opal_xive_reset()
-+ * call
-+ */
-+enum {
-+	OPAL_XIVE_MODE_EMU	=3D 0,
-+	OPAL_XIVE_MODE_EXPL	=3D 1,
-+};
-+
-+/* Flags for OPAL_XIVE_GET_IRQ_INFO */
-+enum {
-+	OPAL_XIVE_IRQ_TRIGGER_PAGE	=3D 0x00000001,
-+	OPAL_XIVE_IRQ_STORE_EOI		=3D 0x00000002,
-+	OPAL_XIVE_IRQ_LSI		=3D 0x00000004,
-+	OPAL_XIVE_IRQ_SHIFT_BUG		=3D 0x00000008, /* P9 DD1.0 workaround */
-+	OPAL_XIVE_IRQ_MASK_VIA_FW	=3D 0x00000010, /* P9 DD1.0 workaround */
-+	OPAL_XIVE_IRQ_EOI_VIA_FW	=3D 0x00000020, /* P9 DD1.0 workaround */
-+	OPAL_XIVE_IRQ_STORE_EOI2	=3D 0x00000040,
-+};
-+
-+/* Flags for OPAL_XIVE_GET/SET_QUEUE_INFO */
-+enum {
-+	OPAL_XIVE_EQ_ENABLED		=3D 0x00000001,
-+	OPAL_XIVE_EQ_ALWAYS_NOTIFY	=3D 0x00000002,
-+	OPAL_XIVE_EQ_ESCALATE		=3D 0x00000004,
-+};
-+
-+/* Flags for OPAL_XIVE_GET/SET_VP_INFO */
-+enum {
-+	OPAL_XIVE_VP_ENABLED		=3D 0x00000001,
-+	OPAL_XIVE_VP_SINGLE_ESCALATION	=3D 0x00000002,
-+};
-+
-+/* "Any chip" replacement for chip ID for allocation functions */
-+enum {
-+	OPAL_XIVE_ANY_CHIP		=3D 0xffffffff,
-+};
-+
-+/* Xive sync options */
-+enum {
-+	/* This bits are cumulative, arg is a girq */
-+	XIVE_SYNC_EAS			=3D 0x00000001, /* Sync irq source */
-+	XIVE_SYNC_QUEUE			=3D 0x00000002, /* Sync irq target */
-+};
-+
-+/* Dump options */
-+enum {
-+	XIVE_DUMP_TM_HYP	=3D 0,
-+	XIVE_DUMP_TM_POOL	=3D 1,
-+	XIVE_DUMP_TM_OS		=3D 2,
-+	XIVE_DUMP_TM_USER	=3D 3,
-+	XIVE_DUMP_VP		=3D 4,
-+	XIVE_DUMP_EMU_STATE	=3D 5,
-+};
-+
-+/* "type" argument options for OPAL_IMC_COUNTERS_* calls */
-+enum {
-+	OPAL_IMC_COUNTERS_NEST =3D 1,
-+	OPAL_IMC_COUNTERS_CORE =3D 2,
-+	OPAL_IMC_COUNTERS_TRACE =3D 3,
-+};
-+
-+
-+/* PCI p2p descriptor */
-+#define OPAL_PCI_P2P_ENABLE		0x1
-+#define OPAL_PCI_P2P_LOAD		0x2
-+#define OPAL_PCI_P2P_STORE		0x4
-+
-+/* MPIPL update operations */
-+enum opal_mpipl_ops {
-+	OPAL_MPIPL_ADD_RANGE			=3D 0,
-+	OPAL_MPIPL_REMOVE_RANGE			=3D 1,
-+	OPAL_MPIPL_REMOVE_ALL			=3D 2,
-+	OPAL_MPIPL_FREE_PRESERVED_MEMORY	=3D 3,
-+};
-+
-+/* Tag will point to various metadata area. Kernel will
-+ * use tag to get metadata value.
-+ */
-+enum opal_mpipl_tags {
-+	OPAL_MPIPL_TAG_CPU	=3D 0,
-+	OPAL_MPIPL_TAG_OPAL	=3D 1,
-+	OPAL_MPIPL_TAG_KERNEL	=3D 2,
-+	OPAL_MPIPL_TAG_BOOT_MEM	=3D 3,
-+};
-+
-+/* Preserved memory details */
-+struct opal_mpipl_region {
-+	__be64	src;
-+	__be64	dest;
-+	__be64	size;
-+};
-+
-+/* Structure version */
-+#define OPAL_MPIPL_VERSION		0x01
-+
-+struct opal_mpipl_fadump {
-+	u8	version;
-+	u8	reserved[7];
-+	__be32	crashing_pir;	/* OPAL crashing CPU PIR */
-+	__be32	cpu_data_version;
-+	__be32	cpu_data_size;
-+	__be32	region_cnt;
-+	struct	opal_mpipl_region region[];
-+} __packed;
++static inline void noreturn die(void)
++{
++    for ( ; ; )
++        HMT_very_low();
++}
 +
 +#endif /* __ASSEMBLY__ */
+
+ #endif /* _ASM_PPC_PROCESSOR_H */
+diff --git a/xen/arch/ppc/include/asm/string.h b/xen/arch/ppc/include/asm=
+/string.h
+new file mode 100644
+index 0000000000..7a420e05e4
+--- /dev/null
++++ b/xen/arch/ppc/include/asm/string.h
+@@ -0,0 +1,6 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+#endif /* __OPAL_API_H */
++#ifndef _ASM_PPC_STRING_H
++#define _ASM_PPC_STRING_H
++
++#endif /* _ASM_PPC_STRING_H */
+diff --git a/xen/arch/ppc/include/asm/system.h b/xen/arch/ppc/include/asm=
+/system.h
+new file mode 100644
+index 0000000000..94091df644
+--- /dev/null
++++ b/xen/arch/ppc/include/asm/system.h
+@@ -0,0 +1,6 @@
++#ifndef _ASM_SYSTEM_H_
++#define _ASM_SYSTEM_H_
++
++#define smp_wmb() __asm__ __volatile__ ( "lwsync" : : : "memory" )
++
++#endif /* _ASM_SYSTEM_H */
+diff --git a/xen/arch/ppc/opal.c b/xen/arch/ppc/opal.c
+new file mode 100644
+index 0000000000..251de8ac23
+--- /dev/null
++++ b/xen/arch/ppc/opal.c
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#include <asm/boot.h>
++#include <asm/early_printk.h>
++#include <asm/opal-api.h>
++#include <asm/processor.h>
++#include <xen/types.h>
++#include <xen/libfdt/libfdt.h>
++#include <xen/init.h>
++#include <xen/lib.h>
++
++/* Global OPAL struct containing entrypoint and base */
++struct opal opal;
++
++void __init boot_opal_init(const void *fdt)
++{
++    int opal_node;
++    const __be64 *opal_base;
++    const __be64 *opal_entry;
++
++    if ( fdt_check_header(fdt) < 0 )
++    {
++        /*
++         * NOTE: This won't actually print since the early serial
++         * console isn't set up yet.
++         */
++        early_printk("Booted without valid FDT pointer in r3!\n");
++        die();
++    }
++
++    opal_node =3D fdt_path_offset(fdt, "/ibm,opal");
++    if ( opal_node < 0 )
++    {
++        early_printk("Unable to find ibm,opal node!\n");
++        die();
++    }
++
++    opal_base =3D fdt_getprop(fdt, opal_node, "opal-base-address", NULL)=
+;
++    opal_entry =3D fdt_getprop(fdt, opal_node, "opal-entry-address", NUL=
+L);
++    if ( !opal_base || !opal_entry )
++    {
++        early_printk("Failed to get opal-base-address/opal-entry-address=
+ "
++                     "property from DT!\n");
++        die();
++    }
++
++    opal.base =3D be64_to_cpu(*opal_base);
++    opal.entry =3D be64_to_cpu(*opal_entry);
++}
+diff --git a/xen/arch/ppc/setup.c b/xen/arch/ppc/setup.c
+index 7c623a49f5..bacd6d1acd 100644
+--- a/xen/arch/ppc/setup.c
++++ b/xen/arch/ppc/setup.c
+@@ -18,8 +18,13 @@ void __init noreturn start_xen(unsigned long r3, unsig=
+ned long r4,
+     }
+     else
+     {
+-        /* kexec boot: Unimplemented */
+-        __builtin_trap();
++        /*
++         * kexec boot protocol
++         *
++         * TODO: This currently assumes an OPAL/PowerNV system, but it's=
+ also
++         * possible to be kexec'd on an OF system.
++         */
++        boot_opal_init((void *) r3);
+     }
+
+     early_printk("Hello, ppc64le!\n");
 --
 2.30.2
 
