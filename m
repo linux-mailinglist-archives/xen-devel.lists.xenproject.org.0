@@ -2,64 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFEE376CF10
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 15:44:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574948.900594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F117476CF3E
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 15:54:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574953.900603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRC8x-0008FP-M5; Wed, 02 Aug 2023 13:44:03 +0000
+	id 1qRCIf-0001Ku-HY; Wed, 02 Aug 2023 13:54:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574948.900594; Wed, 02 Aug 2023 13:44:03 +0000
+Received: by outflank-mailman (output) from mailman id 574953.900603; Wed, 02 Aug 2023 13:54:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRC8x-0008DM-IZ; Wed, 02 Aug 2023 13:44:03 +0000
-Received: by outflank-mailman (input) for mailman id 574948;
- Wed, 02 Aug 2023 13:44:03 +0000
+	id 1qRCIf-0001JB-En; Wed, 02 Aug 2023 13:54:05 +0000
+Received: by outflank-mailman (input) for mailman id 574953;
+ Wed, 02 Aug 2023 13:54:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F4LG=DT=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
- id 1qRC8w-0008DG-QV
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 13:44:02 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2079.outbound.protection.outlook.com [40.107.7.79])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a213386f-313a-11ee-8613-37d641c3527e;
- Wed, 02 Aug 2023 15:43:59 +0200 (CEST)
-Received: from AS4P192CA0029.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5e1::14)
- by DU0PR08MB7787.eurprd08.prod.outlook.com (2603:10a6:10:3b8::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.19; Wed, 2 Aug
- 2023 13:43:24 +0000
-Received: from AM7EUR03FT056.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:5e1:cafe::f) by AS4P192CA0029.outlook.office365.com
- (2603:10a6:20b:5e1::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45 via Frontend
- Transport; Wed, 2 Aug 2023 13:43:24 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT056.mail.protection.outlook.com (100.127.140.107) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6631.45 via Frontend Transport; Wed, 2 Aug 2023 13:43:24 +0000
-Received: ("Tessian outbound d7adc65d10b4:v145");
- Wed, 02 Aug 2023 13:43:24 +0000
-Received: from 0fe65365a262.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 3798346E-7498-4EA4-AA87-B1F5C51D0A84.1; 
- Wed, 02 Aug 2023 13:43:17 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0fe65365a262.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 02 Aug 2023 13:43:17 +0000
-Received: from AS8PR08MB7158.eurprd08.prod.outlook.com (2603:10a6:20b:404::24)
- by GV1PR08MB7874.eurprd08.prod.outlook.com (2603:10a6:150:5d::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45; Wed, 2 Aug
- 2023 13:43:15 +0000
-Received: from AS8PR08MB7158.eurprd08.prod.outlook.com
- ([fe80::4560:65a:d8e2:719c]) by AS8PR08MB7158.eurprd08.prod.outlook.com
- ([fe80::4560:65a:d8e2:719c%4]) with mapi id 15.20.6631.045; Wed, 2 Aug 2023
- 13:43:15 +0000
+ <SRS0=gGWG=DT=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1qRCIe-0001J5-0p
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 13:54:04 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 08958414-313c-11ee-8613-37d641c3527e;
+ Wed, 02 Aug 2023 15:54:01 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91D9D113E;
+ Wed,  2 Aug 2023 06:54:43 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 75D893F5A1;
+ Wed,  2 Aug 2023 06:53:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,132 +42,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a213386f-313a-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pH3bkCIKuTVL3DEWeAq83+jifAYz5QQcYRZXgDudh9o=;
- b=9YI2vjXMulWiI2h0aKhWfS5vdlW4lQAFs/oGD4l7O/hiW64iIbGWtV+vQBvDMrRT+nhD5l/EO87HgG4E4nANtTTFwV7kyb4jU//mfsG80hJe9o1Xq0OmgKVdtnYmpM2himo9RKyuz6oGT1pIm/NSKXOpXLduw/1T5Ln/lG1EXPA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: defbb318eaf48460
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NJl2nDPo5fg2hg0Zt8KnunawWc0VWZQnBixHtdKqm1NfRQKJglask/48OGsxJj8lYIa4/U4bxPjnoNvyXc6Tnrz1YGuglgjnPD3gBT3v4bwBNB3TNJlEiV2H0b5ic5sN2henElRV/TL54JrGuhu/GsYP7DvDBsg8NEvsSw7Z3y06rOXAxr2+dsyqa4PmSfBSSticPI1cWNixLA79xOzWRysAdDb9JOlkKUcBMyqz6fVJbTGochlA8Su73Hp/KayBoTSCvya2aNgBlbAPiOx2Olz8VP7+FRnzBu6atcdRcZVuwFPwdkyov7WxsT8/UVyR7vQZk18+6vdXFI74cnNDKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pH3bkCIKuTVL3DEWeAq83+jifAYz5QQcYRZXgDudh9o=;
- b=mTJ6mc+tr25rFk2VhNELclXvhanAqHGyCnlAr+cV6GM/rqTldqgGndKPkQU2mYtGDHgfn83qIn+4D0Yu3EK9/DCjVW+OZZ2+Uo1KPjoF/KjVV7QjUpUZb21dPP215BKZ9XDdr3JOPKXG5s8UfaH8CfbVQc9EgszmG7l6UQvljUeynWJrrHMTv2ON/FV/43QOOrzYYV6WRNQeSKBJz4mKa0VXYCr0gx/RO3TmLkvGvY8T65/eP7/pRAWFqMWkR6ZJVRgmHnJgJ2DY6ObaWKU+2ACT8OaNQHluykKDr4PoaZV6tTP0lRYca9F1eeAtOkWZj+94nS14mvxFOf7Z07NhJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pH3bkCIKuTVL3DEWeAq83+jifAYz5QQcYRZXgDudh9o=;
- b=9YI2vjXMulWiI2h0aKhWfS5vdlW4lQAFs/oGD4l7O/hiW64iIbGWtV+vQBvDMrRT+nhD5l/EO87HgG4E4nANtTTFwV7kyb4jU//mfsG80hJe9o1Xq0OmgKVdtnYmpM2himo9RKyuz6oGT1pIm/NSKXOpXLduw/1T5Ln/lG1EXPA=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Yue Haibing <yuehaibing@huawei.com>
-CC: Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, "oleksandr_tyshchenko@epam.com"
-	<oleksandr_tyshchenko@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH -next] xen/evtchn: Remove unused function declaration
- xen_set_affinity_evtchn()
-Thread-Topic: [PATCH -next] xen/evtchn: Remove unused function declaration
- xen_set_affinity_evtchn()
-Thread-Index: AQHZxIgYKn4PxeouQUGx1NvFxt0zwq/XBWqA
-Date: Wed, 2 Aug 2023 13:43:14 +0000
-Message-ID: <A433CFA7-7DDA-4E17-96F7-1B6C254A9B36@arm.com>
-References: <20230801145413.40684-1-yuehaibing@huawei.com>
-In-Reply-To: <20230801145413.40684-1-yuehaibing@huawei.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7158:EE_|GV1PR08MB7874:EE_|AM7EUR03FT056:EE_|DU0PR08MB7787:EE_
-X-MS-Office365-Filtering-Correlation-Id: cea9dbd8-298a-429e-baed-08db935e7187
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- MKcNWW86242y84aKVs4eI/wpBzyJngqjRj4k3KQUytlLa22KspP/lde6WAoL4gCaR6clbbWosFEFiuEkWX4Hc+UoSmnoWauHIzYu41F34kDXj9UzTpD////PCsCdMYQQxbbN5zHPjyyw+SCr6vUVd4wh2nbmt1xvqz0MsRFY+rmco8DGadj64ExszH6AaHydt1j3W7GhOR+VballePgmhNz5n/OvoTKdS6feurki9g9tpdwOMaLYyZrYMBTy/ltJbYJieB7E9TykHs0Yx+PivsT4eXmyeHvlowQiLg7s0kA8TsB7NwfybCl3Hq2QvfGSjVwof6dyCC7ngvHMNmP8UupZIX3h8ykJ4k6dOIoEb+0wS7eQjMdw4pNO64Wa0dz2FwQkL+Jf8bsUFmVQYE+K8loFmabZpZ+09eZle8Bq1p90CiBJgMmT+8M4sAJJKuqvNXei8YhrF/GO7bT9zE1yrolS9uEkXCY60gLmydRBUKdHzbUI2bcod0oZE1SjJ8/dtMIBuXg5cJrD3czGCDCWRkO1CE5Cr7BN9p2Ukz9ckynQtDth337S7FajI35x3u2ohiz3amL/dowHW8PgH3I+7lZT8QvfyK7VHDQoo8QW91d9ejAEa9qa/tumJfB3RQk3R5lzY4RBvFIFgDyNP6nY2Q==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7158.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(366004)(396003)(346002)(136003)(451199021)(41300700001)(36756003)(71200400001)(86362001)(33656002)(478600001)(6512007)(316002)(6486002)(66446008)(66556008)(76116006)(66946007)(64756008)(91956017)(4326008)(6916009)(66476007)(5660300002)(26005)(8676002)(8936002)(6506007)(38070700005)(53546011)(186003)(54906003)(4744005)(2616005)(38100700002)(2906002)(122000001)(83380400001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <FBD42BE14DD97041807DD902243D5163@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 08958414-313c-11ee-8613-37d641c3527e
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [RFC PATCH] arm/gicv2: make GICv2 driver and vGICv2 optional
+Date: Wed,  2 Aug 2023 14:53:50 +0100
+Message-Id: <20230802135350.745251-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7874
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT056.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	764144d6-9545-4a8d-2f6e-08db935e6bc2
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	YH/iUHCXV48rjkEatsu5HjgSAa0c91E+SaYggz0ziNoesbWNNvK1kThVGW5doc7hiN2GpzUy8wBSHGPFBzgd4VYVA+U6o2JXCL6xwfO4ppY5r7Gnh+C8IxMkBpZdPl9+fTaGoN/vh0QaZMNrrEYMhUWcf67hBwPdxxVVn7h/EXEyo6dOAY5Q/k3pqDB8TyWHR8VyrfIlAjY05eoFAxOWr537tejf4aVB49yrVfRpiXolqa9PQRWTdITQF/2kJtP65BUm8IUGdfrvITTfOYdHoiefXu29wDiM1walTlCfbFWnzEPzPaez1XmhDNUDQ9ePz0AdpO03zet2sx4GC+EKy04yVfast9iQLjgqi0ODJknPiKZUa7FKospUkl3nPzDZaWBWuutIbH0XQ8S1jjeYcSKnsnm3BR9763GeiAbRH4LvmExeBocU049Tc23gfMeiiVFUymyBNrDtjr0GQ5Ow4UaTWzhWlH5mNBKVfD7mbfDZa86CD/Pr8PMZHoDqxpzPGk/iCSdkOEFt8yWCjJmVjjSGJiC3lQg5U0eh67nm3iyH4VJcjwMwEkOMTYfCyMieqcH46h84yyAGMM4Ch4is1wkNMikH+bi0rDaP0ttM49cx1zUzVzcNTadpxI7jHEXSYAdaK7D3T0JAZr7Zy25S0YuGN3vzVMnj0AsfSF3TMFjslN5PTOZFi0NoMvidoP4SUp4Mt1WaEyQW7N1PqEhkBzjfLH7n9ghJZorbM61frs8X2dGqRWwt3LKfDCcK3B/7
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199021)(82310400008)(46966006)(36840700001)(40470700004)(4744005)(33656002)(36756003)(40480700001)(86362001)(478600001)(6512007)(6486002)(8676002)(6862004)(8936002)(41300700001)(316002)(5660300002)(4326008)(40460700003)(36860700001)(47076005)(83380400001)(54906003)(2906002)(70586007)(70206006)(26005)(81166007)(356005)(82740400003)(2616005)(186003)(6506007)(336012)(53546011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 13:43:24.3361
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cea9dbd8-298a-429e-baed-08db935e7187
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT056.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7787
+Content-Transfer-Encoding: 8bit
 
-Hi Yue,
+Introduce Kconfig GICV2 to be able to compile the GICv2 driver only
+when needed, the option is active by default.
 
-> On 1 Aug 2023, at 3:54 pm, Yue Haibing <yuehaibing@huawei.com> wrote:
->=20
-> Commit 67473b8194bc ("xen/events: Remove disfunct affinity spreading")
-> leave this unused declaration.
->=20
-> Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+Introduce Kconfig VGICV2 that depends on GICV2 or GICV3 and compiles
+the GICv2 emulation for guests, it is required only when using GICV2
+driver, otherwise using GICV3 it is optional and can be deselected
+if the user doesn't want to offer the vGICv2 interface to guests or
+maybe its GICv3 hardware can't offer the GICv2 compatible mode.
 
-Reviewed-by: Rahul Singh <rahul.singh@arm.com>
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+ xen/arch/arm/Kconfig        | 13 +++++++++++++
+ xen/arch/arm/Makefile       |  4 ++--
+ xen/arch/arm/domain_build.c |  4 ++++
+ xen/arch/arm/gic-v3.c       |  4 ++++
+ xen/arch/arm/vgic.c         |  2 ++
+ 5 files changed, 25 insertions(+), 2 deletions(-)
 
-Regards,
-Rahul Singh
-
-> ---
-> include/xen/events.h | 1 -
-> 1 file changed, 1 deletion(-)
->=20
-> diff --git a/include/xen/events.h b/include/xen/events.h
-> index 95970a2f7695..95d5e28de324 100644
-> --- a/include/xen/events.h
-> +++ b/include/xen/events.h
-> @@ -75,7 +75,6 @@ void evtchn_put(evtchn_port_t evtchn);
->=20
-> void xen_send_IPI_one(unsigned int cpu, enum ipi_vector vector);
-> void rebind_evtchn_irq(evtchn_port_t evtchn, int irq);
-> -int xen_set_affinity_evtchn(struct irq_desc *desc, unsigned int tcpu);
->=20
-> static inline void notify_remote_via_evtchn(evtchn_port_t port)
-> {
-> --=20
-> 2.34.1
->=20
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index fd57a82dd284..dc702f08ace7 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -78,6 +78,14 @@ config ARM_EFI
+ 	  UEFI firmware. A UEFI stub is provided to allow Xen to
+ 	  be booted as an EFI application.
+ 
++config GICV2
++	bool "GICv2 driver"
++	default y
++	select VGICV2
++	help
++	  Driver for the ARM Generic Interrupt Controller v2.
++	  If unsure, say Y
++
+ config GICV3
+ 	bool "GICv3 driver"
+ 	depends on !NEW_VGIC
+@@ -92,6 +100,11 @@ config HAS_ITS
+         bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
+         depends on GICV3 && !NEW_VGIC && !ARM_32
+ 
++config VGICV2
++	bool "vGICv2 interface for guests"
++	default y
++	depends on (GICV2 || GICV3) && !NEW_VGIC
++
+ config HVM
+         def_bool y
+ 
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 7bf07e992046..81c31c36fc3d 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -22,7 +22,7 @@ obj-y += domctl.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += efi/
+ obj-y += gic.o
+-obj-y += gic-v2.o
++obj-$(CONFIG_GICV2) += gic-v2.o
+ obj-$(CONFIG_GICV3) += gic-v3.o
+ obj-$(CONFIG_HAS_ITS) += gic-v3-its.o
+ obj-$(CONFIG_HAS_ITS) += gic-v3-lpi.o
+@@ -57,7 +57,7 @@ obj-$(CONFIG_NEW_VGIC) += vgic/
+ ifneq ($(CONFIG_NEW_VGIC),y)
+ obj-y += gic-vgic.o
+ obj-y += vgic.o
+-obj-y += vgic-v2.o
++obj-$(CONFIG_VGICV2) += vgic-v2.o
+ obj-$(CONFIG_GICV3) += vgic-v3.o
+ obj-$(CONFIG_HAS_ITS) += vgic-v3-its.o
+ endif
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 39b4ee03a505..b2b609eb0c2d 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2775,6 +2775,7 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+     return res;
+ }
+ 
++#ifdef CONFIG_VGICV2
+ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+ {
+     void *fdt = kinfo->fdt;
+@@ -2826,6 +2827,7 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+ 
+     return res;
+ }
++#endif
+ 
+ #ifdef CONFIG_GICV3
+ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+@@ -2901,8 +2903,10 @@ static int __init make_gic_domU_node(struct kernel_info *kinfo)
+     case GIC_V3:
+         return make_gicv3_domU_node(kinfo);
+ #endif
++#ifdef CONFIG_VGICV2
+     case GIC_V2:
+         return make_gicv2_domU_node(kinfo);
++#endif
+     default:
+         panic("Unsupported GIC version\n");
+     }
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index 95e4f020febe..d18a3317ccc4 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1334,6 +1334,7 @@ static paddr_t __initdata dbase = INVALID_PADDR;
+ static paddr_t __initdata vbase = INVALID_PADDR, vsize = 0;
+ static paddr_t __initdata cbase = INVALID_PADDR, csize = 0;
+ 
++#ifdef CONFIG_VGICV2
+ /* If the GICv3 supports GICv2, initialize it */
+ static void __init gicv3_init_v2(void)
+ {
+@@ -1359,6 +1360,9 @@ static void __init gicv3_init_v2(void)
+ 
+     vgic_v2_setup_hw(dbase, cbase, csize, vbase, 0);
+ }
++#else
++static inline void gicv3_init_v2(void) { }
++#endif
+ 
+ static void __init gicv3_ioremap_distributor(paddr_t dist_paddr)
+ {
+diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+index 97d6f6106638..86fa8bc7e894 100644
+--- a/xen/arch/arm/vgic.c
++++ b/xen/arch/arm/vgic.c
+@@ -95,10 +95,12 @@ int domain_vgic_register(struct domain *d, int *mmio_count)
+            return -ENODEV;
+         break;
+ #endif
++#ifdef CONFIG_VGICV2
+     case GIC_V2:
+         if ( vgic_v2_init(d, mmio_count) )
+             return -ENODEV;
+         break;
++#endif
+     default:
+         printk(XENLOG_G_ERR "d%d: Unknown vGIC version %u\n",
+                d->domain_id, d->arch.vgic.version);
+-- 
+2.34.1
 
 
