@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C8976D792
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 21:16:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575140.900945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CD3776D795
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 21:17:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575143.900953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRHJh-0001RO-NF; Wed, 02 Aug 2023 19:15:29 +0000
+	id 1qRHL9-0001xo-Vs; Wed, 02 Aug 2023 19:16:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575140.900945; Wed, 02 Aug 2023 19:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 575143.900953; Wed, 02 Aug 2023 19:16:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRHJh-0001OW-JG; Wed, 02 Aug 2023 19:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 575140;
- Wed, 02 Aug 2023 19:15:27 +0000
+	id 1qRHL9-0001wD-T1; Wed, 02 Aug 2023 19:16:59 +0000
+Received: by outflank-mailman (input) for mailman id 575143;
+ Wed, 02 Aug 2023 19:16:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qRHJf-0001OQ-Qw
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 19:15:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRHL8-0001w3-Me; Wed, 02 Aug 2023 19:16:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRHJd-0002X8-Qs; Wed, 02 Aug 2023 19:15:25 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.26.206]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRHJd-0002tN-JG; Wed, 02 Aug 2023 19:15:25 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRHL8-0002Yn-Lo; Wed, 02 Aug 2023 19:16:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRHL8-00038A-Dm; Wed, 02 Aug 2023 19:16:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRHL8-0006F7-DK; Wed, 02 Aug 2023 19:16:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=d1wLjcJg9FiEWaX/Xn3WopQJZQYBCLitG5chy4hwaxs=; b=sMTpKGAKHprp63kxop31AE9YrV
-	E8K/w80G/j6Lf1RVUtIhRSyV9reZSIg43m/lkjsDfq+DDzIGVCGUEMfW1LNDZ9DSTa3x3s4mo4he0
-	WTMkflFLNryJlf0zJxYZe0MEDj5lp6DkOFaGZkejFFEHzVaotZoVE/4Gmq96WBmgEtCs=;
-Message-ID: <cf83ca05-2942-0509-9677-dc97b9dc604e@xen.org>
-Date: Wed, 2 Aug 2023 20:15:23 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] arm/gicv2: make GICv2 driver and vGICv2 optional
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Michal Orzel <michal.orzel@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230802135350.745251-1-luca.fancellu@arm.com>
- <17bc595a-dc30-9e76-4d31-aad62f9c9672@amd.com>
- <3ED442CB-0569-4C9C-9770-39D2FE4852A0@arm.com>
- <8c8f2564-935b-e3c8-ad15-348135140a53@amd.com>
- <92AE30B2-B2CE-465F-A6FC-A86961BED85A@arm.com>
- <9d40bd81-dc3a-0288-8f8a-1de62dc30d1d@xen.org>
- <9B62D8DC-2425-42A4-A95F-BC41FA27238D@arm.com>
- <46a985da-03e9-b05d-0107-7c54526c71f9@xen.org>
- <E90F9075-3578-472A-AF42-6495F8E5456B@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <E90F9075-3578-472A-AF42-6495F8E5456B@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/A9jcQgu82W2daKxACbEoJxl2WtNy9GipRlWvoJMxTw=; b=JCWGJ3/6b/JF/KPB4454yOHZwA
+	S+GzNKwZkW7nwtdvoGtvjNIsJ3Ktwr070pTrOS2gh9u3+TMtr0bF5q1oOlvRO1vJwBUw+Z5qfgHWE
+	0WgOnXGsub+urwoUf8hYB8agga82Rj6bsTFwuO/eCuLOMLIIOOo/RJ5Ud62HBdouvT3o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182124-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 182124: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=da55d9dc919752e092e591a74ab54c2f7d5adfab
+X-Osstest-Versions-That:
+    xen=51588938e0cd0e02dbc1d6d8c697c577135ff666
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 02 Aug 2023 19:16:58 +0000
 
-Hi Luca,
+flight 182124 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182124/
 
-On 02/08/2023 19:48, Luca Fancellu wrote:
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 5cdba07df964..93309cd49144 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -18,6 +18,7 @@ config ARM
->          select HAS_PMAP
->          select HAS_UBSAN
->          select IOMMU_FORCE_PT_SHARE
-> +       select GICV2 if !GICV3 && !NEW_VGIC
->   
->   config ARCH_DEFCONFIG
->          string
-> 
-> If I’ve played a bit with the menuconfig and it selects GICv2 if no other gic driver is selected, so basically
-> as before when gicv2 was always enabled.
-> If everyone agrees I can use this solution and include it in the next push
+Failures :-/ but no regressions.
 
-I am not thrilled with this approach. I understand that the default 
-today is GICv2, but why should it continue to be like that?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Even if we were switching to GICv3, it feels rather a odd approach 
-because you would make it work for one set of the users but not the others.
+version targeted for testing:
+ xen                  da55d9dc919752e092e591a74ab54c2f7d5adfab
+baseline version:
+ xen                  51588938e0cd0e02dbc1d6d8c697c577135ff666
 
-Cheers,
+Last test of basis   182112  2023-08-02 09:00:26 Z    0 days
+Testing same since   182124  2023-08-02 16:10:28 Z    0 days    1 attempts
 
--- 
-Julien Grall
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   51588938e0..da55d9dc91  da55d9dc919752e092e591a74ab54c2f7d5adfab -> smoke
 
