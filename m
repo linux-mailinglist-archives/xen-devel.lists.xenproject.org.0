@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCC1476C6CC
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 09:28:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574739.900294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ED4476C725
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 09:39:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574749.900315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qR6Gm-0004vE-1d; Wed, 02 Aug 2023 07:27:44 +0000
+	id 1qR6Rz-00073N-Fa; Wed, 02 Aug 2023 07:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574739.900294; Wed, 02 Aug 2023 07:27:44 +0000
+Received: by outflank-mailman (output) from mailman id 574749.900315; Wed, 02 Aug 2023 07:39:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qR6Gl-0004tX-V1; Wed, 02 Aug 2023 07:27:43 +0000
-Received: by outflank-mailman (input) for mailman id 574739;
- Wed, 02 Aug 2023 07:27:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qR6Rz-00070u-Cj; Wed, 02 Aug 2023 07:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 574749;
+ Wed, 02 Aug 2023 07:39:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IFyk=DT=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qR6Gj-0004tL-M1
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 07:27:41 +0000
+ <SRS0=a4RV=DT=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qR6Ry-00070T-0I
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 07:39:18 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fc73d92-3106-11ee-b25e-6b7b168915f2;
- Wed, 02 Aug 2023 09:27:40 +0200 (CEST)
-Received: from Dell.homenet.telecomitalia.it
- (host-87-5-121-62.retail.telecomitalia.it [87.5.121.62])
- by support.bugseng.com (Postfix) with ESMTPSA id 676644EE0737;
- Wed,  2 Aug 2023 09:27:39 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ae6d6273-3107-11ee-8613-37d641c3527e;
+ Wed, 02 Aug 2023 09:39:15 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 502164EE0737;
+ Wed,  2 Aug 2023 09:39:15 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,89 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fc73d92-3106-11ee-b25e-6b7b168915f2
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH] xen/string: add missing parameter names
-Date: Wed,  2 Aug 2023 09:27:32 +0200
-Message-Id: <e771afd1e1f6906a440883f4e6ee94847cbc7f7e.1690961143.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: ae6d6273-3107-11ee-8613-37d641c3527e
 MIME-Version: 1.0
+Date: Wed, 02 Aug 2023 09:39:15 +0200
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
+ consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH 3/4] automation/eclair: add scheduled pipelines
+Reply-To: simone.ballarin@bugseng.com
+In-Reply-To: <alpine.DEB.2.22.394.2308011708240.2127516@ubuntu-linux-20-04-desktop>
+References: <cover.1690881495.git.simone.ballarin@bugseng.com>
+ <76f3cdddcba485e8124659566b2f992b3b14da17.1690881495.git.simone.ballarin@bugseng.com>
+ <alpine.DEB.2.22.394.2308011545350.2127516@ubuntu-linux-20-04-desktop>
+ <ZMmdvllVvfDz3T92@mail-itl>
+ <alpine.DEB.2.22.394.2308011708240.2127516@ubuntu-linux-20-04-desktop>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <3b62d7e9d7d630e2bc31f0579d3bdb1f@bugseng.com>
+X-Sender: simone.ballarin@bugseng.com
+Organization: BUGSENG Srl
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 
-Add missing parameter names to address violations of MISRA C:2012
-Rule 8.2 ("Function types shall be in prototype form with named
-parameters").
+Il 02/08/2023 02:08 Stefano Stabellini ha scritto:
+> On Wed, 2 Aug 2023, Marek Marczykowski-Górecki wrote:
+>> On Tue, Aug 01, 2023 at 03:55:20PM -0700, Stefano Stabellini wrote:
+>> > On Tue, 1 Aug 2023, Simone Ballarin wrote:
+>> > > This patch introduces six new ECLAIR jobs that run only
+>> > > when triggered by a GitLab scheduled pipeline.
+>> > >
+>> > > Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+>> > > ---
+>> > > +.eclair-analysis:on-schedule:
+>> > > +  extends: .eclair-analysis
+>> > > +  rules:
+>> > > +    - if: $CI_PIPELINE_SOURCE == "schedule"
+>> >
+>> > If I understand this right, the idea is that someone would schedule a
+>> > pipeline (Build -> "Pipeline Schedules") and as part of that, they would
+>> > also define the variable "CI_PIPELINE_SOURCE" to schedule.
+>> 
+>> No, this is pre-defined variable in gitlab:
+>> https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+> 
+> Even better! Thanks! Then no need for a comment and the patch is OK as
+> is.
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-No functional changes.
+Here is a link with the instructions for creating scheduled pipelines:
+https://docs.gitlab.com/ee/ci/pipelines/schedules.html
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
- xen/include/xen/string.h | 42 ++++++++++++++++++++--------------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
-
-diff --git a/xen/include/xen/string.h b/xen/include/xen/string.h
-index b4d2217a96..805947d82b 100644
---- a/xen/include/xen/string.h
-+++ b/xen/include/xen/string.h
-@@ -12,27 +12,27 @@
- #define strncpy __xen_has_no_strncpy__
- #define strncat __xen_has_no_strncat__
- 
--size_t strlcpy(char *, const char *, size_t);
--size_t strlcat(char *, const char *, size_t);
--int strcmp(const char *, const char *);
--int strncmp(const char *, const char *, size_t);
--int strcasecmp(const char *, const char *);
--int strncasecmp(const char *, const char *, size_t);
--char *strchr(const char *, int);
--char *strrchr(const char *, int);
--char *strstr(const char *, const char *);
--size_t strlen(const char *);
--size_t strnlen(const char *, size_t);
--char *strpbrk(const char *, const char *);
--char *strsep(char **, const char *);
--size_t strspn(const char *, const char *);
--
--void *memset(void *, int, size_t);
--void *memcpy(void *, const void *, size_t);
--void *memmove(void *, const void *, size_t);
--int memcmp(const void *, const void *, size_t);
--void *memchr(const void *, int, size_t);
--void *memchr_inv(const void *, int, size_t);
-+size_t strlcpy(char *dest, const char *src, size_t size);
-+size_t strlcat(char *dest, const char *src, size_t size);
-+int strcmp(const char *cs, const char *ct);
-+int strncmp(const char *cs, const char *ct, size_t count);
-+int strcasecmp(const char *s1, const char *s2);
-+int strncasecmp(const char *s1, const char *s2, size_t len);
-+char *strchr(const char *s, int c);
-+char *strrchr(const char *s, int c);
-+char *strstr(const char *s1, const char *s2);
-+size_t strlen(const char *s);
-+size_t strnlen(const char *s, size_t count);
-+char *strpbrk(const char *cs, const char *ct);
-+char *strsep(char **s, const char *ct);
-+size_t strspn(const char *s, const char *accept);
-+
-+void *memset(void *s, int c, size_t n);
-+void *memcpy(void *dest, const void *src, size_t count);
-+void *memmove(void *dest, const void *src, size_t count);
-+int memcmp(const void *cs, const void *ct, size_t count);
-+void *memchr(const void *s, int c, size_t n);
-+void *memchr_inv(const void *s, int c, size_t n);
- 
- #include <asm/string.h>
- 
 -- 
-2.34.1
+Simone Ballarin, M.Sc.
 
+Field Application Engineer, BUGSENG (https://bugseng.com)
 
