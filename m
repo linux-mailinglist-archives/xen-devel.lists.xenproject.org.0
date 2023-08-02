@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D334F76D03F
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 16:39:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.574975.900666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A2F76D033
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 16:38:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.574976.900674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRCzs-0007fK-Dd; Wed, 02 Aug 2023 14:38:44 +0000
+	id 1qRCzt-0007mI-0C; Wed, 02 Aug 2023 14:38:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 574975.900666; Wed, 02 Aug 2023 14:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 574976.900674; Wed, 02 Aug 2023 14:38:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRCzs-0007cn-8W; Wed, 02 Aug 2023 14:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 574975;
+	id 1qRCzs-0007fA-LB; Wed, 02 Aug 2023 14:38:44 +0000
+Received: by outflank-mailman (input) for mailman id 574976;
  Wed, 02 Aug 2023 14:38:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YIS5=DT=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qRCzp-0006bO-WE
+ id 1qRCzq-0006bO-QF
  for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 14:38:42 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 465e692a-3142-11ee-b260-6b7b168915f2;
- Wed, 02 Aug 2023 16:38:41 +0200 (CEST)
+ id 46b8c10b-3142-11ee-b260-6b7b168915f2;
+ Wed, 02 Aug 2023 16:38:42 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 978C14EE0744;
- Wed,  2 Aug 2023 16:38:40 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 5E2AE4EE0745;
+ Wed,  2 Aug 2023 16:38:41 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 465e692a-3142-11ee-b260-6b7b168915f2
+X-Inumbo-ID: 46b8c10b-3142-11ee-b260-6b7b168915f2
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -48,12 +48,10 @@ Cc: sstabellini@kernel.org,
 	ayan.kumar.halder@amd.com,
 	consulting@bugseng.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH 05/11] drivers/pci: move variable definitions to address MISRA C:2012 Rule 2.1
-Date: Wed,  2 Aug 2023 16:38:11 +0200
-Message-Id: <99f434f5d8b9c8eca275f23799a642ba34e79eb8.1690985045.git.nicola.vetrini@bugseng.com>
+	Paul Durrant <paul@xen.org>
+Subject: [XEN PATCH 06/11] xen/ioreq: move variable declaration to address MISRA C:2012 Rule 2.1
+Date: Wed,  2 Aug 2023 16:38:12 +0200
+Message-Id: <587d42fef7a0fc3fb3e7e5ef3deed6617b84cf03.1690985045.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1690985045.git.nicola.vetrini@bugseng.com>
 References: <cover.1690985045.git.nicola.vetrini@bugseng.com>
@@ -69,57 +67,30 @@ scope, near other variable definitions.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/drivers/passthrough/pci.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ xen/common/ioreq.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 33452791a8..3f5fa5beef 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -315,6 +315,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
-     struct pci_dev *pdev;
-     unsigned int pos;
-     int rc;
-+    unsigned int cap, sec_bus, sub_bus;
+diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+index 7cb717f7a2..5044f43b81 100644
+--- a/xen/common/ioreq.c
++++ b/xen/common/ioreq.c
+@@ -1111,6 +1111,7 @@ struct ioreq_server *ioreq_server_select(struct domain *d,
+     FOR_EACH_IOREQ_SERVER(d, id, s)
+     {
+         struct rangeset *r;
++        unsigned long start, end;
  
-     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
-         if ( pdev->bus == bus && pdev->devfn == devfn )
-@@ -343,8 +344,6 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
-     /* update bus2bridge */
-     switch ( pdev->type = pdev_type(pseg->nr, bus, devfn) )
-     {
--        unsigned int cap, sec_bus, sub_bus;
--
-         case DEV_TYPE_PCIe2PCI_BRIDGE:
-         case DEV_TYPE_LEGACY_PCI_BRIDGE:
-             sec_bus = pci_conf_read8(pdev->sbdf, PCI_SECONDARY_BUS);
-@@ -424,11 +423,11 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
+         if ( !s->enabled )
+             continue;
+@@ -1119,8 +1120,6 @@ struct ioreq_server *ioreq_server_select(struct domain *d,
  
- static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
- {
-+    unsigned int sec_bus, sub_bus;
-+
-     /* update bus2bridge */
-     switch ( pdev->type )
-     {
--        unsigned int sec_bus, sub_bus;
+         switch ( type )
+         {
+-            unsigned long start, end;
 -
-         case DEV_TYPE_PCIe2PCI_BRIDGE:
-         case DEV_TYPE_LEGACY_PCI_BRIDGE:
-             sec_bus = pci_conf_read8(pdev->sbdf, PCI_SECONDARY_BUS);
-@@ -1555,11 +1554,10 @@ int iommu_do_pci_domctl(
-     u8 bus, devfn;
-     int ret = 0;
-     uint32_t machine_sbdf;
-+    unsigned int flags;
- 
-     switch ( domctl->cmd )
-     {
--        unsigned int flags;
--
-     case XEN_DOMCTL_get_device_group:
-     {
-         u32 max_sdevs;
+         case XEN_DMOP_IO_RANGE_PORT:
+             start = addr;
+             end = start + p->size - 1;
 -- 
 2.34.1
 
