@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72CC876D3B8
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 18:32:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575083.900837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E0AE76D5B0
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Aug 2023 19:41:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575095.900855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qREls-0004n6-60; Wed, 02 Aug 2023 16:32:24 +0000
+	id 1qRFp4-0003Mc-4l; Wed, 02 Aug 2023 17:39:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575083.900837; Wed, 02 Aug 2023 16:32:24 +0000
+Received: by outflank-mailman (output) from mailman id 575095.900855; Wed, 02 Aug 2023 17:39:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qREls-0004jW-2g; Wed, 02 Aug 2023 16:32:24 +0000
-Received: by outflank-mailman (input) for mailman id 575083;
- Wed, 02 Aug 2023 16:32:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J7gP=DT=huaweicloud.com=petrtesarik@srs-se1.protection.inumbo.net>)
- id 1qRElr-0004jQ-C2
- for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 16:32:23 +0000
-Received: from frasgout12.his.huawei.com (unknown [14.137.139.154])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2627c717-3152-11ee-b262-6b7b168915f2;
- Wed, 02 Aug 2023 18:32:20 +0200 (CEST)
-Received: from mail02.huawei.com (unknown [172.18.147.229])
- by frasgout12.his.huawei.com (SkyGuard) with ESMTP id 4RGHGc4KMvz9xFbJ
- for <xen-devel@lists.xenproject.org>; Thu,  3 Aug 2023 00:18:48 +0800 (CST)
-Received: from A2101119013HW2.china.huawei.com (unknown [10.81.207.228])
- by APP1 (Coremail) with SMTP id LxC2BwCnWbn9hMpkgNcsAA--.36049S2;
- Wed, 02 Aug 2023 17:32:06 +0100 (CET)
+	id 1qRFp4-0003KY-1C; Wed, 02 Aug 2023 17:39:46 +0000
+Received: by outflank-mailman (input) for mailman id 575095;
+ Wed, 02 Aug 2023 17:39:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qRFp2-0003KQ-Cn
+ for xen-devel@lists.xenproject.org; Wed, 02 Aug 2023 17:39:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRFp1-00006W-Nq; Wed, 02 Aug 2023 17:39:43 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=[192.168.26.206]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRFp1-0007Mz-Dm; Wed, 02 Aug 2023 17:39:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +39,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2627c717-3152-11ee-b262-6b7b168915f2
-From: Petr Tesarik <petrtesarik@huaweicloud.com>
-To: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR X86),
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT))
-Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>,
-	petr@tesarici.cz
-Subject: [PATCH v1] xen: remove a confusing comment on auto-translated guest I/O
-Date: Wed,  2 Aug 2023 18:31:51 +0200
-Message-Id: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
-X-Mailer: git-send-email 2.25.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=amogQHwyZFPdalebZNK/V3bo9V+QlBmSGFdST+gtu+E=; b=ahyk85dEVp7/fQb/rzogO2sTV0
+	tVxhlyhZJtOfE0XwVaV+UbFQhoed3qhmSMGiE40dbPR0ypuZFAw56epgPN/njpjlqPtt+zKm0RYVV
+	edAhYkt1kuxvlwwcjdFJ/PxbHEnc8OtjBNzKovEKAErFScJ+XLYw4sQBYOlOYsNQeMig=;
+Message-ID: <9d40bd81-dc3a-0288-8f8a-1de62dc30d1d@xen.org>
+Date: Wed, 2 Aug 2023 18:39:41 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] arm/gicv2: make GICv2 driver and vGICv2 optional
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230802135350.745251-1-luca.fancellu@arm.com>
+ <17bc595a-dc30-9e76-4d31-aad62f9c9672@amd.com>
+ <3ED442CB-0569-4C9C-9770-39D2FE4852A0@arm.com>
+ <8c8f2564-935b-e3c8-ad15-348135140a53@amd.com>
+ <92AE30B2-B2CE-465F-A6FC-A86961BED85A@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <92AE30B2-B2CE-465F-A6FC-A86961BED85A@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:LxC2BwCnWbn9hMpkgNcsAA--.36049S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruw1fCF1DKFy5Ary3AFyUGFg_yoWDKwcE9F
-	4xZF48Ww45tr93X34UKr4avaySyan3trWF9Fn2y34YyFWxXFs7XFs2g3Z0kw4xXFWrCrZx
-	XF9xXry7Jw40kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbSAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc7CjxVAKzI0EY4vE52x082I5MxAIw28Icx
-	kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
-	xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42
-	IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
-	6xAIw20EY4v20xvaj40_Zr0_Wr1UMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUxUUUUUUUU=
-X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
-X-CFilter-Loop: Reflected
 
-From: Petr Tesarik <petr.tesarik.ext@huawei.com>
+Hi Luca,
 
-After removing the conditional return from xen_create_contiguous_region(),
-the accompanying comment was left in place, but it now precedes an
-unrelated conditional and confuses readers.
+On 02/08/2023 16:05, Luca Fancellu wrote:
+>> On 2 Aug 2023, at 15:48, Michal Orzel <michal.orzel@amd.com> wrote:
+>>
+>> Hi,
+>>
+>> On 02/08/2023 16:42, Luca Fancellu wrote:
+>>>
+>>>
+>>>> On 2 Aug 2023, at 15:26, Michal Orzel <michal.orzel@amd.com> wrote:
+>>>>
+>>>> Hi Luca,
+>>>>
+>>>> On 02/08/2023 15:53, Luca Fancellu wrote:
+>>>>>
+>>>>>
+>>>>> Introduce Kconfig GICV2 to be able to compile the GICv2 driver only
+>>>>> when needed, the option is active by default.
+>>>>>
+>>>>> Introduce Kconfig VGICV2 that depends on GICV2 or GICV3 and compiles
+>>>>> the GICv2 emulation for guests, it is required only when using GICV2
+>>>>> driver, otherwise using GICV3 it is optional and can be deselected
+>>>>> if the user doesn't want to offer the vGICv2 interface to guests or
+>>>>> maybe its GICv3 hardware can't offer the GICv2 compatible mode.
+>>>>>
+>>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>>> ---
+>>>>> xen/arch/arm/Kconfig        | 13 +++++++++++++
+>>>>> xen/arch/arm/Makefile       |  4 ++--
+>>>>> xen/arch/arm/domain_build.c |  4 ++++
+>>>>> xen/arch/arm/gic-v3.c       |  4 ++++
+>>>>> xen/arch/arm/vgic.c         |  2 ++
+>>>>> 5 files changed, 25 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>>>> index fd57a82dd284..dc702f08ace7 100644
+>>>>> --- a/xen/arch/arm/Kconfig
+>>>>> +++ b/xen/arch/arm/Kconfig
+>>>>> @@ -78,6 +78,14 @@ config ARM_EFI
+>>>>>          UEFI firmware. A UEFI stub is provided to allow Xen to
+>>>>>          be booted as an EFI application.
+>>>>>
+>>>>> +config GICV2
+>>>> So, now it would be possible to deselect both GIC drivers and Xen would not complain when building.
+>>>> This means that Xen would fail on boot without any message as it happens before serial driver initialization.
+>>>> Since having GIC driver built in is a must-have I think we need to make sure that at least one is enabled.
+>>>
+>>> Hi Michal,
+>>>
+>>> I tried and I had:
+>>>
+>>> Starting kernel ...
+>>>
+>>> - UART enabled -
+>>> - Boot CPU booting -
+>>> - Current EL 0000000000000008 -
+>>> - Initialize CPU -
+>>> - Turning on paging -
+>>> - Zero BSS -
+>>> - Ready -
+>>> (XEN) Checking for initrd in /chosen
+>>> (XEN) RAM: 0000000080000000 - 00000000feffffff
+>>> (XEN) RAM: 0000000880000000 - 00000008ffffffff
+>>> (XEN)
+>>> (XEN) MODULE[0]: 0000000084000000 - 000000008415d000 Xen
+>>> (XEN) MODULE[1]: 00000000fd6c5000 - 00000000fd6c8000 Device Tree
+>>> (XEN) MODULE[2]: 0000000080080000 - 00000000814f1a00 Kernel
+>>> (XEN)  RESVD[0]: 0000000080000000 - 0000000080010000
+>>> (XEN)  RESVD[1]: 0000000018000000 - 00000000187fffff
+>>> (XEN)
+>>> (XEN)
+>>> (XEN) Command line: noreboot dom0_mem=1024M console=dtuart dtuart=serial0 bootscrub=0
+>>> (XEN) PFN compression on bits 20...22
+>>> (XEN) Domain heap initialised
+>>> (XEN) Booting using Device Tree
+>>> (XEN) Platform: Generic System
+>>> (XEN)
+>>> (XEN) ****************************************
+>>> (XEN) Panic on CPU 0:
+>>> (XEN) Unable to find compatible GIC in the device tree
+>>> (XEN) ****************************************
+>>> (XEN)
+>>> (XEN) Manual reset required ('noreboot' specified)
+>> Having early printk enabled all the time is not common and not enabled in release builds FWIK.
 
-Fixes: 989513a735f5 ("xen: cleanup pvh leftovers from pv-only sources")
-Signed-off-by: Petr Tesarik <petr.tesarik.ext@huawei.com>
----
- arch/x86/xen/mmu_pv.c | 6 ------
- 1 file changed, 6 deletions(-)
+There are a lot of information printed before the console is properly 
+brought up. I wonder if we should look at adding early console like 
+Linux does?
 
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index e0a975165de7..804a5441324c 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -2310,12 +2310,6 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
- 	int            success;
- 	unsigned long vstart = (unsigned long)phys_to_virt(pstart);
- 
--	/*
--	 * Currently an auto-translated guest will not perform I/O, nor will
--	 * it require PAE page directories below 4GB. Therefore any calls to
--	 * this function are redundant and can be ignored.
--	 */
--
- 	if (unlikely(order > MAX_CONTIG_ORDER))
- 		return -ENOMEM;
- 
+>> So in general, user would just see "Starting kernel" from u-boot and had to debug what's going on.
+>>
+>>>
+>>> Wouldn’t be enough to suggest the user that at least one GIC needs to be selected? In the help it
+>>> also states “if unsure, say Y"
+>> I always think it is better to meet the users needs by preventing unwise mistakes like unselecting both drivers.
+>> As always, it is up to maintainers.
+> 
+> Anyway I understand your point, do you think something like that could be ok? I’ve checked and it works, it
+> compile only if at least one GIC driver is enabled
+> 
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 264d2f2d4b09..85b4a7f08932 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -1096,6 +1096,9 @@ void __init start_xen(unsigned long boot_phys_offset,
+>   
+>       preinit_xen_time();
+>   
+> +    /* Don't build if at least one GIC driver is enabled */
+> +    BUILD_BUG_ON(!(IS_ENABLED(CONFIG_GICV3) || IS_ENABLED(CONFIG_GICV2)
+> +                 || IS_ENABLED(CONFIG_NEW_VGIC)));
+randconfig in gitlab will now randomly fail compilation. If we want to 
+encode the dependency then it should be done in Kconfig. But I haven't 
+looked at how to do that.
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
