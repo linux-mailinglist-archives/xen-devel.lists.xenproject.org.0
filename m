@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3BE76EC92
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 16:33:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576433.902565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF89F76ECE0
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 16:41:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576438.902575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRZNu-0000NX-Ix; Thu, 03 Aug 2023 14:33:02 +0000
+	id 1qRZVb-00020l-FS; Thu, 03 Aug 2023 14:40:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576433.902565; Thu, 03 Aug 2023 14:33:02 +0000
+Received: by outflank-mailman (output) from mailman id 576438.902575; Thu, 03 Aug 2023 14:40:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRZNu-0000Ka-Fa; Thu, 03 Aug 2023 14:33:02 +0000
-Received: by outflank-mailman (input) for mailman id 576433;
- Thu, 03 Aug 2023 14:33:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Dmgz=DU=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qRZNs-0000KR-VT
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 14:33:00 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a4ff73b6-320a-11ee-b268-6b7b168915f2;
- Thu, 03 Aug 2023 16:32:59 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3AE91218F2;
- Thu,  3 Aug 2023 14:32:59 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0867D1333C;
- Thu,  3 Aug 2023 14:32:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lVYJOJq6y2RBEwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 03 Aug 2023 14:32:58 +0000
+	id 1qRZVb-0001z5-Bb; Thu, 03 Aug 2023 14:40:59 +0000
+Received: by outflank-mailman (input) for mailman id 576438;
+ Thu, 03 Aug 2023 14:40:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3G/A=DU=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1qRZVa-0001yz-Bl
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 14:40:58 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id c09ac3a8-320b-11ee-8613-37d641c3527e;
+ Thu, 03 Aug 2023 16:40:55 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C4861113E;
+ Thu,  3 Aug 2023 07:41:37 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E56AF3F5A1;
+ Thu,  3 Aug 2023 07:40:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,137 +42,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4ff73b6-320a-11ee-b268-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1691073179; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bXPJxjEovYG3jMTipgyUB6iBPTKA9WkxlkLusXF5wew=;
-	b=pdF9E/CUjg4zwoPIJKP7lmm9R2mkY61mEcebQwi2f8/Sx3Tp524nDhabawfqF3u/WSuEyH
-	B6CJ6ENdoEs25k4VH2XeOUXOdvA1dCMYgMYsaYm03sKiHvw8yrAUYRwE1x2d9uhPGWIfC7
-	no/yfQ6aQ0dGyRmTItG8+jUTjIRXPas=
-Message-ID: <90f011cd-5c85-0480-2e47-be6f229800f6@suse.com>
-Date: Thu, 3 Aug 2023 16:32:58 +0200
+X-Inumbo-ID: c09ac3a8-320b-11ee-8613-37d641c3527e
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] arm/gicv2: make GICv2 driver and vGICv2 optional
+Date: Thu,  3 Aug 2023 15:40:35 +0100
+Message-Id: <20230803144035.4071610-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 0/2] libxl: build fixes for recent CPUID work
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <226f087d-34b1-1a27-4048-f9c6ce3d2d76@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <226f087d-34b1-1a27-4048-f9c6ce3d2d76@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Lglzt0XgzXqqI36w0tBsigth"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Lglzt0XgzXqqI36w0tBsigth
-Content-Type: multipart/mixed; boundary="------------lsSYJsxx6fc0Z7StpvowAp7L";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Message-ID: <90f011cd-5c85-0480-2e47-be6f229800f6@suse.com>
-Subject: Re: [PATCH 0/2] libxl: build fixes for recent CPUID work
-References: <226f087d-34b1-1a27-4048-f9c6ce3d2d76@suse.com>
-In-Reply-To: <226f087d-34b1-1a27-4048-f9c6ce3d2d76@suse.com>
+Introduce Kconfig GICV2 to be able to compile the GICv2 driver only
+when needed, the option is active by default.
 
---------------lsSYJsxx6fc0Z7StpvowAp7L
-Content-Type: multipart/mixed; boundary="------------aHvNczKhbVNWJLB0y1PCCugf"
+Introduce Kconfig VGICV2 that compiles the Generic Interrupt
+Controller v2 emulation for domains, it is required only when using
+GICv2 driver, otherwise using the GICv3 driver it is optional and can
+be deselected if the user doesn't want to offer the v2 emulation to
+domains or maybe its GICv3 hardware can't offer the GICv2 compatible
+mode.
 
---------------aHvNczKhbVNWJLB0y1PCCugf
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+Changes from RFC:
+ - removed dependency on (GICV2 || GICV3) && !NEW_VGIC from VGICV2 symbol,
+   add help for that following Julien's suggestion and changed "guests" for
+   "domains" in its prompt.
+   Now NEW_VGIC selects GICV2 because it provides only v2 emulation, changed
+   the vgic/Makefile accordingly.
+   Reworded the commit message.
+---
+ xen/arch/arm/Kconfig        | 19 +++++++++++++++++++
+ xen/arch/arm/Makefile       |  4 ++--
+ xen/arch/arm/domain_build.c |  4 ++++
+ xen/arch/arm/gic-v3.c       |  4 ++++
+ xen/arch/arm/vgic.c         |  2 ++
+ xen/arch/arm/vgic/Makefile  |  4 ++--
+ 6 files changed, 33 insertions(+), 4 deletions(-)
 
-T24gMDMuMDguMjMgMTY6MTMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiAxOiBhdm9pZCBzaGFk
-b3dpbmcgb2YgaW5kZXgoKQ0KPiAyOiBhbGxvdyBidWlsZGluZyB3aXRoIG9sZCBnY2MgYWdh
-aW4NCj4gDQo+IEphbg0KDQpGb3IgdGhlIHNlcmllczoNCg0KUmV2aWV3ZWQtYnk6IEp1ZXJn
-ZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------aHvNczKhbVNWJLB0y1PCCugf
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index fd57a82dd284..03ec1247ad4c 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -78,6 +78,14 @@ config ARM_EFI
+ 	  UEFI firmware. A UEFI stub is provided to allow Xen to
+ 	  be booted as an EFI application.
+ 
++config GICV2
++	bool "GICv2 driver"
++	default y
++	select VGICV2
++	help
++	  Driver for the ARM Generic Interrupt Controller v2.
++	  If unsure, say Y
++
+ config GICV3
+ 	bool "GICv3 driver"
+ 	depends on !NEW_VGIC
+@@ -92,11 +100,22 @@ config HAS_ITS
+         bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
+         depends on GICV3 && !NEW_VGIC && !ARM_32
+ 
++config VGICV2
++	bool "vGICv2 interface for domains"
++	default y
++	help
++	  Allow Xen to expose a Generic Interrupt Controller version 2 like to Xen
++	  domains. This can be configured at the domain creation.
++	  This option is mandatory when using GICv2.
++	  For GICv3, this allows domain to use GICv2 when the hardware supports it.
++	  If unsure say Y.
++
+ config HVM
+         def_bool y
+ 
+ config NEW_VGIC
+ 	bool "Use new VGIC implementation"
++	select GICV2
+ 	---help---
+ 
+ 	This is an alternative implementation of the ARM GIC interrupt
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 7bf07e992046..81c31c36fc3d 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -22,7 +22,7 @@ obj-y += domctl.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += efi/
+ obj-y += gic.o
+-obj-y += gic-v2.o
++obj-$(CONFIG_GICV2) += gic-v2.o
+ obj-$(CONFIG_GICV3) += gic-v3.o
+ obj-$(CONFIG_HAS_ITS) += gic-v3-its.o
+ obj-$(CONFIG_HAS_ITS) += gic-v3-lpi.o
+@@ -57,7 +57,7 @@ obj-$(CONFIG_NEW_VGIC) += vgic/
+ ifneq ($(CONFIG_NEW_VGIC),y)
+ obj-y += gic-vgic.o
+ obj-y += vgic.o
+-obj-y += vgic-v2.o
++obj-$(CONFIG_VGICV2) += vgic-v2.o
+ obj-$(CONFIG_GICV3) += vgic-v3.o
+ obj-$(CONFIG_HAS_ITS) += vgic-v3-its.o
+ endif
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 39b4ee03a505..b2b609eb0c2d 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2775,6 +2775,7 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+     return res;
+ }
+ 
++#ifdef CONFIG_VGICV2
+ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+ {
+     void *fdt = kinfo->fdt;
+@@ -2826,6 +2827,7 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+ 
+     return res;
+ }
++#endif
+ 
+ #ifdef CONFIG_GICV3
+ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+@@ -2901,8 +2903,10 @@ static int __init make_gic_domU_node(struct kernel_info *kinfo)
+     case GIC_V3:
+         return make_gicv3_domU_node(kinfo);
+ #endif
++#ifdef CONFIG_VGICV2
+     case GIC_V2:
+         return make_gicv2_domU_node(kinfo);
++#endif
+     default:
+         panic("Unsupported GIC version\n");
+     }
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index 95e4f020febe..d18a3317ccc4 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1334,6 +1334,7 @@ static paddr_t __initdata dbase = INVALID_PADDR;
+ static paddr_t __initdata vbase = INVALID_PADDR, vsize = 0;
+ static paddr_t __initdata cbase = INVALID_PADDR, csize = 0;
+ 
++#ifdef CONFIG_VGICV2
+ /* If the GICv3 supports GICv2, initialize it */
+ static void __init gicv3_init_v2(void)
+ {
+@@ -1359,6 +1360,9 @@ static void __init gicv3_init_v2(void)
+ 
+     vgic_v2_setup_hw(dbase, cbase, csize, vbase, 0);
+ }
++#else
++static inline void gicv3_init_v2(void) { }
++#endif
+ 
+ static void __init gicv3_ioremap_distributor(paddr_t dist_paddr)
+ {
+diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+index 97d6f6106638..86fa8bc7e894 100644
+--- a/xen/arch/arm/vgic.c
++++ b/xen/arch/arm/vgic.c
+@@ -95,10 +95,12 @@ int domain_vgic_register(struct domain *d, int *mmio_count)
+            return -ENODEV;
+         break;
+ #endif
++#ifdef CONFIG_VGICV2
+     case GIC_V2:
+         if ( vgic_v2_init(d, mmio_count) )
+             return -ENODEV;
+         break;
++#endif
+     default:
+         printk(XENLOG_G_ERR "d%d: Unknown vGIC version %u\n",
+                d->domain_id, d->arch.vgic.version);
+diff --git a/xen/arch/arm/vgic/Makefile b/xen/arch/arm/vgic/Makefile
+index 806826948e20..60cbf7f2f94a 100644
+--- a/xen/arch/arm/vgic/Makefile
++++ b/xen/arch/arm/vgic/Makefile
+@@ -1,5 +1,5 @@
+ obj-y += vgic.o
+-obj-y += vgic-v2.o
++obj-$(CONFIG_VGICV2) += vgic-v2.o
+ obj-y += vgic-mmio.o
+-obj-y += vgic-mmio-v2.o
++obj-$(CONFIG_VGICV2) += vgic-mmio-v2.o
+ obj-y += vgic-init.o
+-- 
+2.34.1
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------aHvNczKhbVNWJLB0y1PCCugf--
-
---------------lsSYJsxx6fc0Z7StpvowAp7L--
-
---------------Lglzt0XgzXqqI36w0tBsigth
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTLupoFAwAAAAAACgkQsN6d1ii/Ey+Q
-GAf/ZW0m+eZI0kPDSBFcrQ3TZ8YXge88+wNQhflYrZE+eaIiyPsqPWRGXToHt0SgiqfST0FEfrex
-iZUzekwtV+7eA70Wy8QPDtZeXl7fd7DKIDNvtaW9VsoogIkwGAmhoCorb/7dSocWf75NooQzgWz3
-TNxtT3Tq33prZqXoPdrvCQelSLiUOdNtMbnhIC8l2GhBJw3MsygWqxKKpsWvViDMOKuWIgKjjc7I
-vOUIbKKTMGm06mfwJ7W/pWcERC3Z4iNZL+bhy5cJ+Lu5xG1cV9OGMSDx6XapKFFdjWZ1d19LUZcc
-TVM+M/AJSIgYdlqcnHrMKEPfAOMFnVsQS17c5XsFgA==
-=tpkv
------END PGP SIGNATURE-----
-
---------------Lglzt0XgzXqqI36w0tBsigth--
 
