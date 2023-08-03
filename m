@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEAEE76E7CE
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 14:05:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576304.902282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 639E876E7CC
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 14:05:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576305.902287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRX58-0003AZ-Oc; Thu, 03 Aug 2023 12:05:30 +0000
+	id 1qRX59-0003IF-3A; Thu, 03 Aug 2023 12:05:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576304.902282; Thu, 03 Aug 2023 12:05:30 +0000
+Received: by outflank-mailman (output) from mailman id 576305.902287; Thu, 03 Aug 2023 12:05:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRX58-00037k-IV; Thu, 03 Aug 2023 12:05:30 +0000
-Received: by outflank-mailman (input) for mailman id 576304;
- Thu, 03 Aug 2023 12:05:28 +0000
+	id 1qRX58-0003B0-T7; Thu, 03 Aug 2023 12:05:30 +0000
+Received: by outflank-mailman (input) for mailman id 576305;
+ Thu, 03 Aug 2023 12:05:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DEIV=DU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qRX56-0002sc-D0
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 12:05:28 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ id 1qRX57-0002sc-36
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 12:05:29 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 080a0305-31f6-11ee-8613-37d641c3527e;
+ id 084ba611-31f6-11ee-8613-37d641c3527e;
  Thu, 03 Aug 2023 14:05:26 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4fe216edaf7so2512093e87.0
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-4fe2de785e7so1579671e87.1
  for <xen-devel@lists.xenproject.org>; Thu, 03 Aug 2023 05:05:26 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- e22-20020ac25476000000b004fdfefdf4acsm3304557lfn.39.2023.08.03.05.05.24
+ e22-20020ac25476000000b004fdfefdf4acsm3304557lfn.39.2023.08.03.05.05.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Aug 2023 05:05:24 -0700 (PDT)
+ Thu, 03 Aug 2023 05:05:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 080a0305-31f6-11ee-8613-37d641c3527e
+X-Inumbo-ID: 084ba611-31f6-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691064325; x=1691669125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EMex7KAok8kJ3fYDsnZYNrb6j4rgrDMOCX/LkNSGack=;
-        b=oKHyysyJy6wfxFmYBZqHe723s/tEjI0XJyms8bL2CcRzoJ/oh7Aeb00IMF9/LIZ6YT
-         DIKLkjbc/ppHtGgzXmc5wISbu9P79n0AbaHclrnOO6cjoyxmSltOGML2pk3kuOL+vySH
-         0H3E278eN59PX0Qy7vEYStNVWwUUH9OMVzKZVBbbH1EApbHo8dehl9CCitfsIN1tZ47/
-         3VYS5S92PHNqBWXHsu432QME5s7Vl8XFxXLtnD+A8pF+AmXhJRsErzyL/kRqrDjmQsuH
-         JnmyAAg4K88eQGfPAR6ZZUqmI+SFsGrkmrVO+UPJ7bgGMblhsKbabd+2CjZobTNpv+P/
-         NHaQ==
+        d=gmail.com; s=20221208; t=1691064326; x=1691669126;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xJtJCMw7fy83NnUSxcXJn4fOwoFlzc9n7K+NQt3JNLk=;
+        b=RNWNGd0waEqqsrrlGRF6VMWNTiCqywapKS5vo7BDm/+3b5nQYmkZLLkCFu+QhGUnCI
+         A3mkbvy/dM7C31HgETx5n8dfAM2ieUsPJ75KPDq34gzwYkKpibRifIyqzKh9tbAcC2wb
+         FzLAgrAq0BSwkJAGEgh/krJdAZ53EqRqQfki7kt9+MdkNdyy0jFqbzGJ4PNJPoDCioFV
+         ZWvzf6YQxuqJ+A6s6+uDZFIlrFYSODlraxDAa7vJZGVNttm5r54eJMASsoCKj0uvtbFC
+         8TxuzXpx7a8n5/aUv94EYHpsxqQDES986incGMJPV9DnoPFDLIwflke/HNChmXsyeM8N
+         know==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691064325; x=1691669125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EMex7KAok8kJ3fYDsnZYNrb6j4rgrDMOCX/LkNSGack=;
-        b=Pn9HM4BQgY1opPCs2iCoAX/k6fiRsye9ovR5N9ct3rIPmy2tAazPBM0FcBQncYRS86
-         xLaow9wRhMXTzgb1PYzw11xRGmNI3SawVNqlcGuVNX4CRxy+rKfVSed23+8Sxc1KbqsC
-         kArdW7IaEhVjAUMcKYeQhTblWhfYuov0eMQGSG9oR7CVm/ci6G6iTdvyYJecBE8eUsDO
-         jC43R/IOa7mtg6IltQTIaJaYeiSLZIGEIv5RalwjQxUZCISigYNBvwq8oVPgWrHeTKpZ
-         9Z+/IrRXfVjJb07qxBM9GUm7X0iGdALyr6xVXBFVCMGd0+CA9aaHt9R4ART7wTSJHzRo
-         4s4A==
-X-Gm-Message-State: ABy/qLYANt+q2XMnfzNRHC567ocO5A9Us7qjqRVxqWpZvaP4CrIG+NWb
-	14Emk6GmXaTqa04okM/1GTlloFKBDbE=
-X-Google-Smtp-Source: APBJJlHmIBGtGsUqFlzSiGadFsBF/jw2fizwPFT8rf5AF+V/B47QKdC/GnZj4w7iQbfuuyX3B0vvnA==
-X-Received: by 2002:a05:6512:e83:b0:4fe:3291:6b50 with SMTP id bi3-20020a0565120e8300b004fe32916b50mr3287761lfb.7.1691064325111;
+        d=1e100.net; s=20221208; t=1691064326; x=1691669126;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xJtJCMw7fy83NnUSxcXJn4fOwoFlzc9n7K+NQt3JNLk=;
+        b=UXE2H3ruglHdDd2KB9wyZ54dxrHlikIDOBZR4VpyciFgzMaa/Q6cvTQTMJOtSZxiW8
+         rl0OLkrVGcHRyC05bXf40MWRa299S8/5VekpHIGfQ9Du6QxeFyJ/JKk94W4Dpd6pDagT
+         68kWtCqygGNRqqmo5m7I1yNHxdemlRjela4Woouy++lOqTfLI23jsHmU3RIAVW929uM5
+         Z8hBOhrCGwOCZqDxtRHnM/vloCSLDtJaOx9yXZzePNBoP9zAFp2ml/MLWuwHuP7sESGZ
+         lUgfZEioTlmQBWOF4DIXyl02I7NNLjVpXxe0kJ+Oojvvz70Z4llJGXJ0uFi97CSD41gF
+         hAyA==
+X-Gm-Message-State: ABy/qLa9TdQ2Zh+DrG5UaRgNCdd1+iLzcCbNLdBDctqikXx+15w5wXIT
+	lsCjguoHr/3zVi/Do9f2rGYWZsCvW/I=
+X-Google-Smtp-Source: APBJJlHetGi4rKmwdsyTXvWMkMyAuaRKX7fJZoGlpHhx8H9/f9PpXxsZXR+gKwxg7MV/tlVe56k1+g==
+X-Received: by 2002:a05:6512:2009:b0:4f8:6560:6436 with SMTP id a9-20020a056512200900b004f865606436mr6501358lfb.9.1691064325827;
         Thu, 03 Aug 2023 05:05:25 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -81,150 +82,205 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v7 0/6] RISCV basic exception handling implementation
-Date: Thu,  3 Aug 2023 15:05:16 +0300
-Message-ID: <cover.1691063432.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v7 1/6] xen/riscv: introduce temporary printk stuff
+Date: Thu,  3 Aug 2023 15:05:17 +0300
+Message-ID: <4fbdbbb3bf2bf2ebee2709bbb52be02c89a4a55a.1691063432.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <cover.1691063432.git.oleksii.kurochko@gmail.com>
+References: <cover.1691063432.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch series is based on:
-    xen/riscv: introduce identity mapping [1]
-which haven't been merged yet.
+The patch introdcuces printk related stuff which should be deleted
+after Xen common code will be available.
 
-The patch series provides a basic implementation of exception handling.
-It can do only basic things such as decode a cause of an exception,
-save/restore registers and execute "wfi" instruction if an exception
-can not be handled.
-
-To verify that exception handling works well it was implemented macros
-from <asm/bug.h> such as BUG/WARN/run_in_exception/assert_failed.
-The implementation of macros is used "ebreak" instruction and set up bug
-frame tables for each type of macros.
-Also it was implemented register save/restore to return and continue work
-after WARN/run_in_exception.
-Not all functionality of the macros was implemented as some of them
-require hard-panic the system which is not available now. Instead of
-hard-panic 'wfi' instruction is used but it should be definitely changed
-in the neareset future.
-It wasn't implemented show_execution_state() and stack trace discovering
-as it's not necessary now.
-
-[1] https://lore.kernel.org/xen-devel/cover.1690899325.git.oleksii.kurochko@gmail.com/
-
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V7:
- - Update the depenency ( mentioned in the cover letter message ) of the current
-   patch series.
- - clean up comments.
- - code style fixes.
- - move definition of cast_to_bug_frame() from patch 4 to 5.
+ - only rebase was done.
 ---
 Changes in V6:
- - Update the cover letter message: the patch set is based on MMU patch series.
- - Introduce new patch with temporary printk functionality. ( it will be
-   removed when Xen common code will be ready )
- - Change early_printk() to printk().
- - Remove usage of LINK_TO_LOAD() due to the MMU being enabled first.
- - Add additional explanatory comments.
- - Remove patch "xen/riscv: initialize boot_info structure" from the patch
-   series.
+ - the patch was introduced in the current patch series (V6)
 ---
-Changes in V5:
- - Rebase on top of [1] and [2]
- - Add new patch which introduces stub for <asm/bug.h> to keep Xen compilable
-   as in the patch [xen/riscv: introduce decode_cause() stuff] is used
-   header <xen/lib.h> which requires <asm/bug.h>.
- - Remove <xen/error.h> from riscv/traps/c as nothing would require
-   inclusion.
- - decode_reserved_interrupt_cause(), decode_interrupt_cause(),
-   decode_cause, do_unexpected_trap() were made as static they are expected
-   to be used only in traps.c
- - Remove "#include <xen/types.h>" from <asm/bug.h> as there is no any need in it anymore
- - Update macros GET_INSN_LENGTH: remove UL and 'unsigned int len;' from it
- - Remove " include <xen/bug.h>" from risc/setup.c. it is not needed in the current version of
-   the patch
- - change an argument type from vaddr_t to uint32_t for is_valid_bugaddr and introduce 
-   read_instr() to read instruction properly as the length of qinstruction can be
-   either 32 or 16 bits.
- - Code style fixes
- - update the comments before do_bug_frame() in riscv/trap.c
- - [[PATCH v4 5/5] automation: modify RISC-V smoke test ] was dropped as it was provided
-   more simple solution by Andrew.  CI: Simplify RISCV smoke testing
- - Refactor is_valid_bugaddr() function.
- - 2 new patches ([PATCH v5 {1-2}/7]) were introduced, the goal of which is to recalculate
-   addresses used in traps.c, which can be linker time relative. It is needed as we don't
-   have enabled MMU yet.
----
-Changes in V4:
-  - Rebase the patch series on top of new version of [introduce generic
-    implementation of macros from bug.h] patch series.
-  - Update the cover letter message as 'Early printk' was merged and
-    the current one patch series is based only on [introduce generic
-    implementation of macros from bug.h] which hasn't been commited yet.
-  - The following patches of the patch series were merged to staging:
-      [PATCH v3 01/14] xen/riscv: change ISA to r64G
-      [PATCH v3 02/14] xen/riscv: add <asm/asm.h> header
-      [PATCH v3 03/14] xen/riscv: add <asm/riscv_encoding.h header
-      [PATCH v3 04/14] xen/riscv: add <asm/csr.h> header
-      [PATCH v3 05/14] xen/riscv: introduce empty <asm/string.h>
-      [PATCH v3 06/14] xen/riscv: introduce empty <asm/cache.h>
-      [PATCH v3 07/14] xen/riscv: introduce exception context
-      [PATCH v3 08/14] xen/riscv: introduce exception handlers implementation
-      [PATCH v3 10/14] xen/riscv: mask all interrupts
-  - Fix addressed comments in xen-devel mailing list.
+ xen/arch/riscv/early_printk.c | 168 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 168 insertions(+)
 
----
-Changes in V3:
-  - Change the name of config RISCV_ISA_RV64IMA to RISCV_ISA_RV64G
-    as instructions from Zicsr and Zifencei extensions aren't part of
-    I extension any more.
-  - Rebase the patch "xen/riscv: introduce an implementation of macros
-    from <asm/bug.h>" on top of patch series [introduce generic implementation
-    of macros from bug.h]
-  - Update commit messages
----
-Changes in V2:
-  - take the latest riscv_encoding.h from OpenSBI, update it with Xen
-    related changes, and update the commit message with "Origin:"
-    tag and the commit message itself.
-  - add "Origin:" tag to the commit messag of the patch
-    [xen/riscv: add <asm/csr.h> header].
-  - Remove the patch [xen/riscv: add early_printk_hnum() function] as the
-    functionality provided by the patch isn't used now.
-  - Refactor prcoess.h: move structure offset defines to asm-offsets.c,
-    change register_t to unsigned long.
-  - Refactor entry.S to use offsets defined in asm-offsets.C
-  - Rename {__,}handle_exception to handle_trap() and do_trap() to be more
-    consistent with RISC-V spec.
-  - Merge the pathc which introduces do_unexpected_trap() with the patch
-    [xen/riscv: introduce exception handlers implementation].
-  - Rename setup_trap_handler() to trap_init() and update correspondingly
-    the patches in the patch series.
-  - Refactor bug.h, remove bug_instr_t type from it.
-  - Refactor decode_trap_cause() function to be more optimization-friendly.
-  - Add two new empty headers: <cache.h> and <string.h> as they are needed to
-    include <xen/lib.h> which provides ARRAY_SIZE and other macros.
-  - Code style fixes.
----
-
-Oleksii Kurochko (6):
-  xen/riscv: introduce temporary printk stuff
-  xen/riscv: introduce dummy <asm/bug.h>
-  xen/riscv: introduce decode_cause() stuff
-  xen/riscv: introduce trap_init()
-  xen/riscv: introduce an implementation of macros from <asm/bug.h>
-  xen/riscv: test basic handling stuff
-
- xen/arch/riscv/early_printk.c      | 168 ++++++++++++++++++++++
- xen/arch/riscv/include/asm/bug.h   |  37 +++++
- xen/arch/riscv/include/asm/traps.h |   1 +
- xen/arch/riscv/setup.c             |  20 +++
- xen/arch/riscv/traps.c             | 224 ++++++++++++++++++++++++++++-
- xen/arch/riscv/xen.lds.S           |  10 ++
- 6 files changed, 459 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/riscv/include/asm/bug.h
-
+diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
+index 610c814f54..60742a042d 100644
+--- a/xen/arch/riscv/early_printk.c
++++ b/xen/arch/riscv/early_printk.c
+@@ -40,3 +40,171 @@ void early_printk(const char *str)
+         str++;
+     }
+ }
++
++/*
++ * The following #if 1 ... #endif should be removed after printk
++ * and related stuff are ready.
++ */
++#if 1
++
++#include <xen/stdarg.h>
++#include <xen/string.h>
++
++/**
++ * strlen - Find the length of a string
++ * @s: The string to be sized
++ */
++size_t (strlen)(const char * s)
++{
++    const char *sc;
++
++    for (sc = s; *sc != '\0'; ++sc)
++        /* nothing */;
++    return sc - s;
++}
++
++/**
++ * memcpy - Copy one area of memory to another
++ * @dest: Where to copy to
++ * @src: Where to copy from
++ * @count: The size of the area.
++ *
++ * You should not use this function to access IO space, use memcpy_toio()
++ * or memcpy_fromio() instead.
++ */
++void *(memcpy)(void *dest, const void *src, size_t count)
++{
++    char *tmp = (char *) dest, *s = (char *) src;
++
++    while (count--)
++        *tmp++ = *s++;
++
++    return dest;
++}
++
++int vsnprintf(char* str, size_t size, const char* format, va_list args)
++{
++    size_t i = 0; /* Current position in the output string */
++    size_t written = 0; /* Total number of characters written */
++    char* dest = str;
++
++    while ( format[i] != '\0' && written < size - 1 )
++    {
++        if ( format[i] == '%' )
++        {
++            i++;
++
++            if ( format[i] == '\0' )
++                break;
++
++            if ( format[i] == '%' )
++            {
++                if ( written < size - 1 )
++                {
++                    dest[written] = '%';
++                    written++;
++                }
++                i++;
++                continue;
++            }
++
++            /*
++             * Handle format specifiers.
++             * For simplicity, only %s and %d are implemented here.
++             */
++
++            if ( format[i] == 's' )
++            {
++                char* arg = va_arg(args, char*);
++                size_t arglen = strlen(arg);
++
++                size_t remaining = size - written - 1;
++
++                if ( arglen > remaining )
++                    arglen = remaining;
++
++                memcpy(dest + written, arg, arglen);
++
++                written += arglen;
++                i++;
++            }
++            else if ( format[i] == 'd' )
++            {
++                int arg = va_arg(args, int);
++
++                /* Convert the integer to string representation */
++                char numstr[32]; /* Assumes a maximum of 32 digits */
++                int numlen = 0;
++                int num = arg;
++                size_t remaining;
++
++                if ( arg < 0 )
++                {
++                    if ( written < size - 1 )
++                    {
++                        dest[written] = '-';
++                        written++;
++                    }
++
++                    num = -arg;
++                }
++
++                do
++                {
++                    numstr[numlen] = '0' + num % 10;
++                    num = num / 10;
++                    numlen++;
++                } while ( num > 0 );
++
++                /* Reverse the string */
++                for (int j = 0; j < numlen / 2; j++)
++                {
++                    char tmp = numstr[j];
++                    numstr[j] = numstr[numlen - 1 - j];
++                    numstr[numlen - 1 - j] = tmp;
++                }
++
++                remaining = size - written - 1;
++
++                if ( numlen > remaining )
++                    numlen = remaining;
++
++                memcpy(dest + written, numstr, numlen);
++
++                written += numlen;
++                i++;
++            }
++        }
++        else
++        {
++            if ( written < size - 1 )
++            {
++                dest[written] = format[i];
++                written++;
++            }
++            i++;
++        }
++    }
++
++    if ( size > 0 )
++        dest[written] = '\0';
++
++    return written;
++}
++
++void printk(const char *format, ...)
++{
++    static char buf[1024];
++
++    va_list args;
++    va_start(args, format);
++
++    (void)vsnprintf(buf, sizeof(buf), format, args);
++
++    early_printk(buf);
++
++    va_end(args);
++}
++
++#endif
++
 -- 
 2.41.0
 
