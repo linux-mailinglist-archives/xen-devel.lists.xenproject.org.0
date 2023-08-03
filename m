@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF89F76ECE0
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 16:41:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576438.902575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F8AF76ECE4
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 16:41:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576441.902585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRZVb-00020l-FS; Thu, 03 Aug 2023 14:40:59 +0000
+	id 1qRZW9-0002Ul-NK; Thu, 03 Aug 2023 14:41:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576438.902575; Thu, 03 Aug 2023 14:40:59 +0000
+Received: by outflank-mailman (output) from mailman id 576441.902585; Thu, 03 Aug 2023 14:41:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRZVb-0001z5-Bb; Thu, 03 Aug 2023 14:40:59 +0000
-Received: by outflank-mailman (input) for mailman id 576438;
- Thu, 03 Aug 2023 14:40:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3G/A=DU=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1qRZVa-0001yz-Bl
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 14:40:58 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id c09ac3a8-320b-11ee-8613-37d641c3527e;
- Thu, 03 Aug 2023 16:40:55 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C4861113E;
- Thu,  3 Aug 2023 07:41:37 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E56AF3F5A1;
- Thu,  3 Aug 2023 07:40:53 -0700 (PDT)
+	id 1qRZW9-0002TL-Iw; Thu, 03 Aug 2023 14:41:33 +0000
+Received: by outflank-mailman (input) for mailman id 576441;
+ Thu, 03 Aug 2023 14:41:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRZW8-0002T7-1d; Thu, 03 Aug 2023 14:41:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRZW7-0000XK-UW; Thu, 03 Aug 2023 14:41:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRZW7-0002e0-K3; Thu, 03 Aug 2023 14:41:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRZW7-00052S-Ji; Thu, 03 Aug 2023 14:41:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,195 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c09ac3a8-320b-11ee-8613-37d641c3527e
-From: Luca Fancellu <luca.fancellu@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=kEN7E0A0R9BectnqzN5zkKubAURTbeXuq6ryJY1d0rQ=; b=mslqW90c6TnfQwiCpOq+a7Iiqy
+	GpEpLHFZVPWriLPrJPoug4ok+KdjMvj8Zerdf3yCjw0jE7u8/BIp9Zli9eICCwMkBSf1zEQ5s3oJp
+	4peSYfgfhtlDBK/Ict9uLtC120HF9z+5PeuKZRz93xcy+3l2cMNN81Hg2sbLHQhy1smA=;
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] arm/gicv2: make GICv2 driver and vGICv2 optional
-Date: Thu,  3 Aug 2023 15:40:35 +0100
-Message-Id: <20230803144035.4071610-1-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Message-ID: <osstest-182163-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 182163: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=7672d1cca58228b0cb7f099e8863aa3a44ae45db
+X-Osstest-Versions-That:
+    ovmf=fa789cc68a85a5781c18c64b9112c779750b2125
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 03 Aug 2023 14:41:31 +0000
 
-Introduce Kconfig GICV2 to be able to compile the GICv2 driver only
-when needed, the option is active by default.
+flight 182163 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182163/
 
-Introduce Kconfig VGICV2 that compiles the Generic Interrupt
-Controller v2 emulation for domains, it is required only when using
-GICv2 driver, otherwise using the GICv3 driver it is optional and can
-be deselected if the user doesn't want to offer the v2 emulation to
-domains or maybe its GICv3 hardware can't offer the GICv2 compatible
-mode.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 7672d1cca58228b0cb7f099e8863aa3a44ae45db
+baseline version:
+ ovmf                 fa789cc68a85a5781c18c64b9112c779750b2125
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes from RFC:
- - removed dependency on (GICV2 || GICV3) && !NEW_VGIC from VGICV2 symbol,
-   add help for that following Julien's suggestion and changed "guests" for
-   "domains" in its prompt.
-   Now NEW_VGIC selects GICV2 because it provides only v2 emulation, changed
-   the vgic/Makefile accordingly.
-   Reworded the commit message.
----
- xen/arch/arm/Kconfig        | 19 +++++++++++++++++++
- xen/arch/arm/Makefile       |  4 ++--
- xen/arch/arm/domain_build.c |  4 ++++
- xen/arch/arm/gic-v3.c       |  4 ++++
- xen/arch/arm/vgic.c         |  2 ++
- xen/arch/arm/vgic/Makefile  |  4 ++--
- 6 files changed, 33 insertions(+), 4 deletions(-)
+Last test of basis   182121  2023-08-02 15:40:44 Z    0 days
+Testing same since   182163  2023-08-03 12:42:25 Z    0 days    1 attempts
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index fd57a82dd284..03ec1247ad4c 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -78,6 +78,14 @@ config ARM_EFI
- 	  UEFI firmware. A UEFI stub is provided to allow Xen to
- 	  be booted as an EFI application.
- 
-+config GICV2
-+	bool "GICv2 driver"
-+	default y
-+	select VGICV2
-+	help
-+	  Driver for the ARM Generic Interrupt Controller v2.
-+	  If unsure, say Y
-+
- config GICV3
- 	bool "GICv3 driver"
- 	depends on !NEW_VGIC
-@@ -92,11 +100,22 @@ config HAS_ITS
-         bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
-         depends on GICV3 && !NEW_VGIC && !ARM_32
- 
-+config VGICV2
-+	bool "vGICv2 interface for domains"
-+	default y
-+	help
-+	  Allow Xen to expose a Generic Interrupt Controller version 2 like to Xen
-+	  domains. This can be configured at the domain creation.
-+	  This option is mandatory when using GICv2.
-+	  For GICv3, this allows domain to use GICv2 when the hardware supports it.
-+	  If unsure say Y.
-+
- config HVM
-         def_bool y
- 
- config NEW_VGIC
- 	bool "Use new VGIC implementation"
-+	select GICV2
- 	---help---
- 
- 	This is an alternative implementation of the ARM GIC interrupt
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 7bf07e992046..81c31c36fc3d 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -22,7 +22,7 @@ obj-y += domctl.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += efi/
- obj-y += gic.o
--obj-y += gic-v2.o
-+obj-$(CONFIG_GICV2) += gic-v2.o
- obj-$(CONFIG_GICV3) += gic-v3.o
- obj-$(CONFIG_HAS_ITS) += gic-v3-its.o
- obj-$(CONFIG_HAS_ITS) += gic-v3-lpi.o
-@@ -57,7 +57,7 @@ obj-$(CONFIG_NEW_VGIC) += vgic/
- ifneq ($(CONFIG_NEW_VGIC),y)
- obj-y += gic-vgic.o
- obj-y += vgic.o
--obj-y += vgic-v2.o
-+obj-$(CONFIG_VGICV2) += vgic-v2.o
- obj-$(CONFIG_GICV3) += vgic-v3.o
- obj-$(CONFIG_HAS_ITS) += vgic-v3-its.o
- endif
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 39b4ee03a505..b2b609eb0c2d 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2775,6 +2775,7 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-     return res;
- }
- 
-+#ifdef CONFIG_VGICV2
- static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
- {
-     void *fdt = kinfo->fdt;
-@@ -2826,6 +2827,7 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
- 
-     return res;
- }
-+#endif
- 
- #ifdef CONFIG_GICV3
- static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
-@@ -2901,8 +2903,10 @@ static int __init make_gic_domU_node(struct kernel_info *kinfo)
-     case GIC_V3:
-         return make_gicv3_domU_node(kinfo);
- #endif
-+#ifdef CONFIG_VGICV2
-     case GIC_V2:
-         return make_gicv2_domU_node(kinfo);
-+#endif
-     default:
-         panic("Unsupported GIC version\n");
-     }
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 95e4f020febe..d18a3317ccc4 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -1334,6 +1334,7 @@ static paddr_t __initdata dbase = INVALID_PADDR;
- static paddr_t __initdata vbase = INVALID_PADDR, vsize = 0;
- static paddr_t __initdata cbase = INVALID_PADDR, csize = 0;
- 
-+#ifdef CONFIG_VGICV2
- /* If the GICv3 supports GICv2, initialize it */
- static void __init gicv3_init_v2(void)
- {
-@@ -1359,6 +1360,9 @@ static void __init gicv3_init_v2(void)
- 
-     vgic_v2_setup_hw(dbase, cbase, csize, vbase, 0);
- }
-+#else
-+static inline void gicv3_init_v2(void) { }
-+#endif
- 
- static void __init gicv3_ioremap_distributor(paddr_t dist_paddr)
- {
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 97d6f6106638..86fa8bc7e894 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -95,10 +95,12 @@ int domain_vgic_register(struct domain *d, int *mmio_count)
-            return -ENODEV;
-         break;
- #endif
-+#ifdef CONFIG_VGICV2
-     case GIC_V2:
-         if ( vgic_v2_init(d, mmio_count) )
-             return -ENODEV;
-         break;
-+#endif
-     default:
-         printk(XENLOG_G_ERR "d%d: Unknown vGIC version %u\n",
-                d->domain_id, d->arch.vgic.version);
-diff --git a/xen/arch/arm/vgic/Makefile b/xen/arch/arm/vgic/Makefile
-index 806826948e20..60cbf7f2f94a 100644
---- a/xen/arch/arm/vgic/Makefile
-+++ b/xen/arch/arm/vgic/Makefile
-@@ -1,5 +1,5 @@
- obj-y += vgic.o
--obj-y += vgic-v2.o
-+obj-$(CONFIG_VGICV2) += vgic-v2.o
- obj-y += vgic-mmio.o
--obj-y += vgic-mmio-v2.o
-+obj-$(CONFIG_VGICV2) += vgic-mmio-v2.o
- obj-y += vgic-init.o
--- 
-2.34.1
+------------------------------------------------------------
+People who touched revisions under test:
+  Dandan Bi <dandan.bi@intel.com>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   fa789cc68a..7672d1cca5  7672d1cca58228b0cb7f099e8863aa3a44ae45db -> xen-tested-master
 
