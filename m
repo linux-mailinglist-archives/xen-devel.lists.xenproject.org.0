@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63C276DDDC
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 04:08:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575964.901565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3363376DDE2
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 04:14:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575969.901578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRNlT-0000jD-Cp; Thu, 03 Aug 2023 02:08:35 +0000
+	id 1qRNqH-0002AN-Vt; Thu, 03 Aug 2023 02:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575964.901565; Thu, 03 Aug 2023 02:08:35 +0000
+Received: by outflank-mailman (output) from mailman id 575969.901578; Thu, 03 Aug 2023 02:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRNlT-0000gV-AB; Thu, 03 Aug 2023 02:08:35 +0000
-Received: by outflank-mailman (input) for mailman id 575964;
- Thu, 03 Aug 2023 02:08:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qRNqH-00028J-TF; Thu, 03 Aug 2023 02:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 575969;
+ Thu, 03 Aug 2023 02:13:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hVX3=DU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qRNlR-0000gL-L5
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 02:08:33 +0000
+ id 1qRNqG-00028D-Vv
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 02:13:32 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3fa6c0f-31a2-11ee-8613-37d641c3527e;
- Thu, 03 Aug 2023 04:08:31 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 570b0f5c-31a3-11ee-b267-6b7b168915f2;
+ Thu, 03 Aug 2023 04:13:31 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B748F61A55;
- Thu,  3 Aug 2023 02:08:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B98C433C8;
- Thu,  3 Aug 2023 02:08:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BF50761069;
+ Thu,  3 Aug 2023 02:13:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AF7C433C8;
+ Thu,  3 Aug 2023 02:13:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,18 +45,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3fa6c0f-31a2-11ee-8613-37d641c3527e
+X-Inumbo-ID: 570b0f5c-31a3-11ee-b267-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691028509;
-	bh=aA4v9h6t6gO/CizV6u27fPJ0WGPVWaL/wPZimXZ9TTk=;
+	s=k20201202; t=1691028809;
+	bh=mHiAOK+yWX5612sP3VmpYF6Q8GiD9sWY3VWtK0hgF7w=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AZ5jQHaSAx8zb39wSfyXbgqcZx/tMUjunnIR7lpJoLCByPab88TkYaVbZpREGYpTD
-	 nnufxQ6hIVQoNZjNEzuHlZTes+9G5ydPwH7Ik7ly/ax+7AXM6Gc3Paglo5b8U9i9hc
-	 G6PAaAiIyiO7mBgGHGdSBbRUn/BeE3chFOEgmWCb5AFbdAxsUmpc/4RMa1xPaLTUBD
-	 TXkS7jrXJ+9yCHoJtKfOS2xOqDwmOW4RyNGbpBshpU9wxTCVqunJPTxgeeihfCCE0d
-	 odTZvybce7JkxMHnxiemGWsnrR2znRU6ndpbA8mOiPHuJzWu54Qy3ZcnAvXgntRS5J
-	 S/XNi6SyGAVkg==
-Date: Wed, 2 Aug 2023 19:08:26 -0700 (PDT)
+	b=skQgGv7XFoePf6wxt5S7WJikW/sEbGi3/IxuB4l4IhuLmjR2qtJBBT8FSAJ6Ny6sl
+	 fLJ+x5Vm9Tsa6QGrlpT1+ujh3ukKGhia1TfLcsW57ZnLDQ5qdPe1jYMM70JMPuaY12
+	 +i5LQd46uT9eyfVZxW4BZC5nnt27UPoKRUhQ5FCXLRSTfEfVt2sN5NGz6uJxy3TB/a
+	 KWHVZY6RoEhiQ7cz4OzixlkE4XdMbJ0+pIMMgJxMhZ5fFTk1dhtXCZJrUJkKF9qDcm
+	 yjhRZI4At9C5h7dG2XTKm2Stj5L8QRf8khzzIlSSe3eS27HxCJLdWj57BvIAyckcKZ
+	 uCTqJYZy3+WDg==
+Date: Wed, 2 Aug 2023 19:13:26 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
@@ -66,60 +66,151 @@ cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 01/11] x86/efi: move variable declaration to address
- MISRA C:2012 Rule 2.1
-In-Reply-To: <aa72e3371fa4ab4806cd866c569718d766d3142e.1690985045.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308021906530.2127516@ubuntu-linux-20-04-desktop>
-References: <cover.1690985045.git.nicola.vetrini@bugseng.com> <aa72e3371fa4ab4806cd866c569718d766d3142e.1690985045.git.nicola.vetrini@bugseng.com>
+Subject: Re: [XEN PATCH 02/11] x86: move declarations to address MISRA C:2012
+ Rule 2.1
+In-Reply-To: <204bf3ffcdda04d6d6cf072c42b78720e1e85b4d.1690985045.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2308021910030.2127516@ubuntu-linux-20-04-desktop>
+References: <cover.1690985045.git.nicola.vetrini@bugseng.com> <204bf3ffcdda04d6d6cf072c42b78720e1e85b4d.1690985045.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 2 Aug 2023, Nicola Vetrini wrote:
-> The variable declaration is moved where it's actually used, rather
-> than being declared in the switch before any clause, thus being
-> classified as unreachable code.
+> Variable declarations between a switch statement guard and before
+> any case label are unreachable code, and hence violate Rule 2.1:
+> "A project shall not contain unreachable code".
 > 
-> No functional changes.
+> Therefore the declarations are moved in the smallest enclosing
+> scope, near other variable definitions.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > ---
->  xen/arch/x86/efi/efi-boot.h | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  xen/arch/x86/cpuid.c  |  3 +--
+>  xen/arch/x86/domain.c | 23 +++++++++++------------
+>  xen/arch/x86/irq.c    |  3 +--
+>  xen/arch/x86/msr.c    |  3 +--
+>  4 files changed, 14 insertions(+), 18 deletions(-)
 > 
-> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> index 92f4cfe8bd..b00441b1a2 100644
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -390,8 +390,6 @@ static void __init efi_arch_edd(void)
->          {
->              switch ( DevicePathType(devp.DevPath) )
->              {
-> -                const u8 *p;
+> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+> index 455a09b2dd..90e1370e90 100644
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -37,6 +37,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>  {
+>      const struct domain *d = v->domain;
+>      const struct cpu_policy *p = d->arch.cpu_policy;
+> +    const struct cpu_user_regs *regs;
+>  
+>      *res = EMPTY_LEAF;
+>  
+> @@ -136,8 +137,6 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+>       */
+>      switch ( leaf )
+>      {
+> -        const struct cpu_user_regs *regs;
 > -
->              case ACPI_DEVICE_PATH:
->                  if ( state != root || boot_edd_info_nr > EDD_INFO_MAX )
->                      break;
-> @@ -463,7 +461,8 @@ static void __init efi_arch_edd(void)
->                  params->device_path_info_length =
->                      sizeof(struct edd_device_params) -
->                      offsetof(struct edd_device_params, key);
-> -                for ( p = (const u8 *)&params->key; p < &params->checksum; ++p )
-> +                for ( const u8 *p = (const u8 *)&params->key;
-> +                      p < &params->checksum; ++p )
+>      case 0x1:
+>          /* TODO: Rework topology logic. */
+>          res->b &= 0x00ffffffu;
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 5f66c2ae33..015f7b14ab 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -2268,6 +2268,17 @@ int domain_relinquish_resources(struct domain *d)
+>  {
+>      int ret;
+>      struct vcpu *v;
+> +    enum {
+> +        PROG_iommu_pagetables = 1,
+> +        PROG_shared,
+> +        PROG_paging,
+> +        PROG_vcpu_pagetables,
+> +        PROG_xen,
+> +        PROG_l4,
+> +        PROG_l3,
+> +        PROG_l2,
+> +        PROG_done,
+> +    };
+>  
+>      BUG_ON(!cpumask_empty(d->dirty_cpumask));
+>  
+> @@ -2291,18 +2302,6 @@ int domain_relinquish_resources(struct domain *d)
+>  #define PROGRESS(x)                                                     \
+>          d->arch.rel_priv = PROG_ ## x; /* Fallthrough */ case PROG_ ## x
+>  
+> -        enum {
+> -            PROG_iommu_pagetables = 1,
+> -            PROG_shared,
+> -            PROG_paging,
+> -            PROG_vcpu_pagetables,
+> -            PROG_xen,
+> -            PROG_l4,
+> -            PROG_l3,
+> -            PROG_l2,
+> -            PROG_done,
+> -        };
+> -
+>      case 0:
+>          ret = pci_release_devices(d);
+>          if ( ret )
+> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+> index 6abfd81621..4fd0cc163d 100644
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -1135,6 +1135,7 @@ static void cf_check irq_guest_eoi_timer_fn(void *data)
+>      struct irq_desc *desc = data;
+>      unsigned int i, irq = desc - irq_desc;
+>      irq_guest_action_t *action;
+> +    cpumask_t *cpu_eoi_map;
+>  
+>      spin_lock_irq(&desc->lock);
+>      
+> @@ -1169,8 +1170,6 @@ static void cf_check irq_guest_eoi_timer_fn(void *data)
+>  
+>      switch ( action->ack_type )
+>      {
+> -        cpumask_t *cpu_eoi_map;
 
-In Xen we don't mix declaration and code. So the following is not
-something we use:
-
-  for (int i = 0; i < 10; i++)
-
-I think you'd have to introduce another block under case
-MESSAGING_DEVICE_PATH so that you can moved const u8 *p there
+It is only used by case ACKTYPE_EOI so it can be moved there (with a new
+block):
 
 
->                      params->checksum -= *p;
->                  break;
->              case MEDIA_DEVICE_PATH:
+    case ACKTYPE_EOI:
+    {
+        cpumask_t *cpu_eoi_map = this_cpu(scratch_cpumask);
+        cpumask_copy(cpu_eoi_map, action->cpu_eoi_map);
+        spin_unlock_irq(&desc->lock);
+        on_selected_cpus(cpu_eoi_map, set_eoi_ready, desc, 0);
+        return;
+    }
+    }
+
+
+>      case ACKTYPE_UNMASK:
+>          if ( desc->handler->end )
+>              desc->handler->end(desc, 0);
+> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+> index ecf126566d..0e61e0fe4e 100644
+> --- a/xen/arch/x86/msr.c
+> +++ b/xen/arch/x86/msr.c
+> @@ -335,11 +335,10 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+>      const struct cpu_policy *cp = d->arch.cpu_policy;
+>      struct vcpu_msrs *msrs = v->arch.msrs;
+>      int ret = X86EMUL_OKAY;
+> +    uint64_t rsvd;
+>  
+>      switch ( msr )
+>      {
+> -        uint64_t rsvd;
+> -
+
+It is only used by case MSR_INTEL_MISC_FEATURES_ENABLES so it can be
+moved there
+
+
+>          /* Read-only */
+>      case MSR_IA32_PLATFORM_ID:
+>      case MSR_CORE_CAPABILITIES:
 > -- 
 > 2.34.1
 > 
