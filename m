@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D939E76F07B
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B11A76F07A
 	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 19:17:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576531.902769 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.576533.902778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRbwR-0002fB-9e; Thu, 03 Aug 2023 17:16:51 +0000
+	id 1qRbwz-00037I-Ik; Thu, 03 Aug 2023 17:17:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576531.902769; Thu, 03 Aug 2023 17:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 576533.902778; Thu, 03 Aug 2023 17:17:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRbwR-0002cJ-6H; Thu, 03 Aug 2023 17:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 576531;
- Thu, 03 Aug 2023 17:16:49 +0000
+	id 1qRbwz-00034W-Et; Thu, 03 Aug 2023 17:17:25 +0000
+Received: by outflank-mailman (input) for mailman id 576533;
+ Thu, 03 Aug 2023 17:17:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D5Ec=DU=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qRbwP-0002bQ-Hi
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 17:16:49 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 86a68162-3221-11ee-b269-6b7b168915f2;
- Thu, 03 Aug 2023 19:16:48 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 5D49C82852F1;
- Thu,  3 Aug 2023 12:16:46 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id IrDwIyeYSX4W; Thu,  3 Aug 2023 12:16:45 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 737FA8285416;
- Thu,  3 Aug 2023 12:16:45 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id EPQiwLxHX71q; Thu,  3 Aug 2023 12:16:45 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 1F12C82852F1;
- Thu,  3 Aug 2023 12:16:45 -0500 (CDT)
+ <SRS0=0usr=DU=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qRbwx-00033Z-NR
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 17:17:23 +0000
+Received: from sender3-of-o59.zoho.com (sender3-of-o59.zoho.com
+ [136.143.184.59]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9a175a9b-3221-11ee-b269-6b7b168915f2;
+ Thu, 03 Aug 2023 19:17:22 +0200 (CEST)
+Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1691083031153710.1109667925965;
+ Thu, 3 Aug 2023 10:17:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,97 +40,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86a68162-3221-11ee-b269-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 737FA8285416
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1691083005; bh=kOK47EPTNtM3IAKsvYQKRr4Q8E0gVq5NmMdRgtphQa4=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=rA5belChoe4thu0NT5lVVisIB89PwzTAkCj4Eb5B2jjfIeoOxwUae7lv1hpwsl6dw
-	 EeLWA1YYcY1jS8IdNBMSGlTm7JvrXUcC+VEoHndqj6hk//Td6JTzBNhVtG0Vi4bBKo
-	 Pp+is4bVlhVnkwxfkoqVHbS+bCj3DuVnO0QOUTwc=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <31a31730-583e-6a22-48f2-44539202ef2d@raptorengineering.com>
-Date: Thu, 3 Aug 2023 12:16:44 -0500
+X-Inumbo-ID: 9a175a9b-3221-11ee-b269-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1691083032; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=gz4cRN/UxO1k9s/AeHLVWvWE7UGRKSMCOvgsJYYJMPiD7a7TPQqI5n4ZTpVu1uU1XvLCHgV+Maty7ymb0pL7PslJP7bgT7gtkYsStEz4mBbxGbwXHhN4aAZLtm1ZEhKWNFZub1aXbDq08EoyTcQUBqphT8Zi1zQeEeAMob03nw4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1691083032; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=AmEf/+ki1UJIP4coeTooEdy1afIkuTFZimjus8hcjZc=; 
+	b=N2X5Yd9Mx4hU2ZaPbKyUtia56cA9xJPr8mpLDByH8dmw3g+t95jn8zLwRzXJL+zJTVCqbVIbfd2xUuNLU+im25EweqVk7cvfgaWOrqDw/BwZIrvEH2t59/sMKH91LY/+wikBVYl6YZdusncEG9AkrxwNlxKjiDtDXT7A9NQDqDE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691083032;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=AmEf/+ki1UJIP4coeTooEdy1afIkuTFZimjus8hcjZc=;
+	b=hmEKx9wCh+NW3rupnWwk4ZGDvlaNQ6mlgDuvxsIekmSYdognA3tBw05jWmLL9VaB
+	ZDtWVvs5/VhnQSu1xzJHTsxUEeI39yGcx6IXCYAa8KrwPnEVmB1M7gfF6YdHW9Lymnl
+	ciUB/qoV/ES2lxQ+coYNqIE/E/gatLg1o02N5qAg=
+Message-ID: <b9fdd60a-e847-76a8-f29e-a431fae6d9ba@apertussolutions.com>
+Date: Thu, 3 Aug 2023 13:17:09 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 2/3] xen/ppc: Relocate kernel to physical address 0 on
- boot
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 1/2] docs: update hyperlaunch device tree
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1690582001.git.sanastasio@raptorengineering.com>
- <0802fad2743526da4fe49f0225e14161464f192e.1690582001.git.sanastasio@raptorengineering.com>
- <3b6b0984-89fb-268e-970a-0c7eb19a4863@suse.com>
- <428aa0e8-70bb-efb5-2b5a-54229b77c5a3@raptorengineering.com>
- <f62e5ac7-500a-6909-90f2-4580c14e2a18@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <f62e5ac7-500a-6909-90f2-4580c14e2a18@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20230803104438.24720-1-dpsmith@apertussolutions.com>
+ <20230803104438.24720-2-dpsmith@apertussolutions.com>
+ <52a02ef3-80a7-9000-4644-38adbb5a2573@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <52a02ef3-80a7-9000-4644-38adbb5a2573@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 8/1/23 1:08 AM, Jan Beulich wrote:
-> On 01.08.2023 01:37, Shawn Anastasio wrote:
->> On 7/31/23 10:46 AM, Jan Beulich wrote:
->>> On 29.07.2023 00:21, Shawn Anastasio wrote:
->>>> +    /* If we're at the correct address, skip copy */
->>>> +    cmpld   %r1, %r12
->>>> +    beq     .L_correct_address
->>>
->>> Can this ever be the case, especially with the MMU-off behavior you
->>> describe in the comment above? Wouldn't you need to ignore the top
->>> four bits in the comparison?
->>
->> It will always be the case after the code jumps to XEN_VIRT_START after
->> the copy takes place.
+On 8/3/23 08:19, Jan Beulich wrote:
+> On 03.08.2023 12:44, Daniel P. Smith wrote:
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -332,6 +332,15 @@ M:	Nick Rosbrook <rosbrookn@gmail.com>
+>>   S:	Maintained
+>>   F:	tools/golang
+>>   
+>> +HYPERLAUNCH
+>> +M:	Daniel P. Smith <dpsmith@apertussolutions.com>
+>> +M:	Christopher Clark <christopher.w.clark@gmail.com>
+>> +W:	https://wiki.xenproject.org/wiki/Hyperlaunch
+>> +S:	Supported
+>> +F:	docs/design/launch/hyperlaunch.rst
+>> +F:	docs/design/launch/hyperlaunch-devicetree.rst
+>> +F:	xen/common/domain-builder/
 > 
-> Well, of course.
-> 
->> I could have it jump past the copy loop entirely,
->> but then I'd need to duplicate the TOC setup.
-> 
-> I don't think I understand this part of your reply: .L_correct_address
-> _is_ past the copy loop.
+> I would generally suggest that maintainership changes come in a separate
+> patch. Furthermore aiui lots of stuff is going to be moved from elsewhere,
+> and such code may better stay under its original maintainership (unless
+> it was agreed that it would shift). So initially maybe best to name the
+> original maintainers here under M: and add the two of you with R: ?
 
-Sorry, let me elaborate. I meant that I could have the end of the copy
-loop (the mtctr + btctr preceeding .L_correct_address) jump to
-(XEN_VIRT_START + .L_correct_address) as opposed to XEN_VIRT_START so
-that the address comparison you originally commented on wouldn't be hit
-again.
+I can do this as a separate patch and mark it as fix for `d4f3125f1b 
+docs/designs/launch: Hyperlaunch design document` where Christopher and 
+I are the original authors of the only existing files covered under this 
+new MAINTAINERSHIP entry currently.
 
-This would mean adding another TOC setup block at .L_correct_address,
-though, since we'd be skipping over the one at the beginning of the
-routine and the TOC needs to be reconfigured after the relocation.
+As far as code moving here, the dom0less rebranding proposal called for 
+an additional MAINTAINERS section titled HYPERLAUNCH DOM0LESS 
+COMPATIBILITY that would retain the maintainers (or new ones if Arm 
+wanted to propose others) from the ARM section.
 
->>>> +    /* Copy bytes until _end */
->>>> +    LOAD_REG_ADDR(%r11, _end)
->>>> +    addi    %r1, %r1, -8
->>>> +    li      %r13, -8
->>>> +.L_copy_xen:
->>>> +    ldu     %r10, 8(%r1)
->>>> +    stdu    %r10, 8(%r13)
->>>> +    cmpld   %r1, %r11
->>>> +    blt     .L_copy_xen
->>>> +
->>>> +    /* Jump to XEN_VIRT_START */
->>>> +    mtctr   %r12
->>>> +    bctr
->>>> +.L_correct_address:
->>>
->>> Can the two regions potentially overlap? Looking at the ELF header
->>> it's not clear to me what guarantees there are that this can't
->>> happen.
->>
->> As I understand it, any bootloader that placed the kernel at a low
->> enough address for this to be an issue wouldn't be able to boot Linux or
->> FreeBSD, so in practice it's a safe bet that this won't be the case.
-> 
-> Fair enough then.
-> 
-> Jan
+The purpose of putting Christopher and I at the top are for several reasons,
 
-Thanks,
-Shawn
+  - The code in v1 was conglomerations of reuses/relocated code and a 
+substantial amount of new code around it.
+
+- As mentioned regarding the HYPERLAUNCH DOM0LESS COMPATIBILITY section, 
+there may be paths below HYPERLAUNCH that are owned by others, but 
+ultimately we conceived, designed, and created the capability. So it 
+falls on us to ensure anything done in sub-feature, doesn't break or 
+violate the larger design we sought to achieve while also not letting it 
+fall back on THE REST.
+
+> I also don't think it makes sense to include a not-yet-populated path
+> here; who knows what this is going to change to by the time things get
+> committed.
+
+Well, if my proposed plan is executed as I suggested, hopefully there 
+would be a series very soon that would move the dom0less device tree 
+parsing under that path. Now to be inline with the above and address 
+your concern, as the HYPERLAUNCH DOM0LESS COMPATIBILITY section is added 
+to cover the file(s) the series adds, the HYPERLAUNCH section could then 
+be updated with the top level path.
+
+v/r,
+dps
 
