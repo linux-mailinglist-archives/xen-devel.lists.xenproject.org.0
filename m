@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09EEB76F35F
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 21:23:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576575.902860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B16C76F362
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 21:27:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576581.902868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRdur-0003Vm-1d; Thu, 03 Aug 2023 19:23:21 +0000
+	id 1qRdyG-0004AP-Jt; Thu, 03 Aug 2023 19:26:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576575.902860; Thu, 03 Aug 2023 19:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 576581.902868; Thu, 03 Aug 2023 19:26:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRduq-0003SR-To; Thu, 03 Aug 2023 19:23:20 +0000
-Received: by outflank-mailman (input) for mailman id 576575;
- Thu, 03 Aug 2023 19:23:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qRdyG-00047d-H3; Thu, 03 Aug 2023 19:26:52 +0000
+Received: by outflank-mailman (input) for mailman id 576581;
+ Thu, 03 Aug 2023 19:26:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hVX3=DU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qRduo-0003SL-PG
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 19:23:18 +0000
+ id 1qRdyF-00047X-Gh
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 19:26:51 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 325e9f33-3233-11ee-b269-6b7b168915f2;
- Thu, 03 Aug 2023 21:23:17 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b07a597f-3233-11ee-8613-37d641c3527e;
+ Thu, 03 Aug 2023 21:26:48 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D998E61E74;
- Thu,  3 Aug 2023 19:23:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3C7BC433C7;
- Thu,  3 Aug 2023 19:23:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C26D260C5B;
+ Thu,  3 Aug 2023 19:26:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80AAC433C8;
+ Thu,  3 Aug 2023 19:26:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,83 +44,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 325e9f33-3233-11ee-b269-6b7b168915f2
+X-Inumbo-ID: b07a597f-3233-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691090595;
-	bh=z4qx1DqzuV8mewQK3Q52hDDHbYVBzLiY4UAtU22xVTA=;
+	s=k20201202; t=1691090807;
+	bh=ah2EhQb8tvf85Ee3ASO1btgn1Wfur/rLCfALJfIjU2U=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aQyvmJDcFC4bcszu2E0BKIsRxkk1ftrB0Jr2lafTgzkVkZIaPoFl9attiIK066Q3I
-	 o09E/R5l7zxdqzPLuknLttDyfB5RgfkXsUHv2+C3roZ6pU7l8DtWWg8b8PQ7UzTiTZ
-	 9O0AzHs0fi/MHP1L059i9ZXkpFJpObzVaDpWUTFH+CFtZGxhlHGZKGM2/t8hY3WNzj
-	 b1lCXUmxAPjg1Xl41VhHGGbcnFkY5GJIxLKcGnqil/4PUJt9KASi+89QTEM2K6KA0o
-	 PTSVhcGIpZUX4H7kv4n7fbZ16749d93Fh/6+CirNnexfIPALo88TcyIf5opoP4aCbk
-	 V7SfIqr+DjInQ==
-Date: Thu, 3 Aug 2023 12:23:12 -0700 (PDT)
+	b=HzMVsUDxB6LFSXW5SK/huZHYbEaXxfvW/vN5EJdQ38jlVXFt3sHkIS42lsHdJ5+gi
+	 k5HDbBc87lA1wTbTLK9s5MZPrwroJlfSi98VIiQhNMgR2mM2xtQ77gL9ieTIiR23HQ
+	 Lls1t0RVfO0mDR5UF/GXQRTR6LLlszwH6oxCENSGLg4gZQryM6SANneZhYEI65flHX
+	 AhivZcS9i0cL4Aw++i/wFFQ6JQkfbLgkJxKC+V013g3LbKtxGy0cFqC4OyxplcoP+6
+	 kWdXamwTQBlvnCqDlnjKwfF7ZwZWJKXMAn0c3NexFXu8yryT6GBFLYtYHaZiVkScqp
+	 JrgeMphwMtJWA==
+Date: Thu, 3 Aug 2023 12:26:44 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 02/11] x86: move declarations to address MISRA C:2012
- Rule 2.1
-In-Reply-To: <6a5260299c5822abfbd74749ebea8f8f@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308031221440.2127516@ubuntu-linux-20-04-desktop>
-References: <cover.1690985045.git.nicola.vetrini@bugseng.com> <204bf3ffcdda04d6d6cf072c42b78720e1e85b4d.1690985045.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2308021910030.2127516@ubuntu-linux-20-04-desktop> <ad838567-fde6-defa-77b6-b5887c8438b6@suse.com>
- <6a5260299c5822abfbd74749ebea8f8f@bugseng.com>
+To: Julien Grall <julien@xen.org>
+cc: Luca Fancellu <Luca.Fancellu@arm.com>, 
+    Federico Serafini <federico.serafini@bugseng.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    "consulting@bugseng.com" <consulting@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH v2] xen/string: add missing parameter names
+In-Reply-To: <1e2d06ab-ad3a-4e5a-ac78-d20bad28bb20@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2308031226010.2127516@ubuntu-linux-20-04-desktop>
+References: <16c5362b740ed66100b55b528881cb26c1430f15.1691050900.git.federico.serafini@bugseng.com> <B1F3B24C-15FC-4A0F-BFB9-8C3C33E8FEB5@arm.com> <e2ab464c-f14a-4d7e-ba25-c88fad9c5d23@xen.org> <4FE67D84-A5AC-4EA1-BCF4-212E4B916BD2@arm.com>
+ <1e2d06ab-ad3a-4e5a-ac78-d20bad28bb20@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-764670787-1691090807=:2127516"
 
-On Thu, 3 Aug 2023, Nicola Vetrini wrote:
-> On 03/08/2023 11:01, Jan Beulich wrote:
-> > On 03.08.2023 04:13, Stefano Stabellini wrote:
-> > > On Wed, 2 Aug 2023, Nicola Vetrini wrote:
-> > > > @@ -1169,8 +1170,6 @@ static void cf_check irq_guest_eoi_timer_fn(void
-> > > > *data)
-> > > > 
-> > > >      switch ( action->ack_type )
-> > > >      {
-> > > > -        cpumask_t *cpu_eoi_map;
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-764670787-1691090807=:2127516
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 3 Aug 2023, Julien Grall wrote:
+> On 03/08/2023 12:52, Luca Fancellu wrote:
+> > > On 3 Aug 2023, at 12:46, Julien Grall <julien@xen.org> wrote:
 > > > 
-> > > It is only used by case ACKTYPE_EOI so it can be moved there (with a new
-> > > block):
+> > > Hi Luca,
 > > > 
+> > > On 03/08/2023 11:28, Luca Fancellu wrote:
+> > > > > On 3 Aug 2023, at 09:26, Federico Serafini
+> > > > > <federico.serafini@bugseng.com> wrote:
+> > > > > 
+> > > > > Add missing parameter names to address violation of MISRA C:2012
+> > > > > rule 8.2 ("Function types shall be in prototype form with named
+> > > > > parameters").
+> > > > > 
+> > > > > No functional changes.
+> > > > > 
+> > > > > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> > > > > ---
+> > > > > Changes in v2:
+> > > > >   - memset() adjusted.
+> > > > > ---
+> > > > > xen/include/xen/string.h | 42 ++++++++++++++++++++--------------------
+> > > > > 1 file changed, 21 insertions(+), 21 deletions(-)
+> > > > > 
+> > > > > diff --git a/xen/include/xen/string.h b/xen/include/xen/string.h
+> > > > > index b4d2217a96..e91e3112e0 100644
+> > > > > --- a/xen/include/xen/string.h
+> > > > > +++ b/xen/include/xen/string.h
+> > > > > @@ -12,27 +12,27 @@
+> > > > > #define strncpy __xen_has_no_strncpy__
+> > > > > #define strncat __xen_has_no_strncat__
+> > > > > 
+> > > > > -size_t strlcpy(char *, const char *, size_t);
+> > > > > -size_t strlcat(char *, const char *, size_t);
+> > > > > -int strcmp(const char *, const char *);
+> > > > > -int strncmp(const char *, const char *, size_t);
+> > > > > -int strcasecmp(const char *, const char *);
+> > > > > -int strncasecmp(const char *, const char *, size_t);
+> > > > > -char *strchr(const char *, int);
+> > > > > -char *strrchr(const char *, int);
+> > > > > -char *strstr(const char *, const char *);
+> > > > > -size_t strlen(const char *);
+> > > > > -size_t strnlen(const char *, size_t);
+> > > > > -char *strpbrk(const char *, const char *);
+> > > > > -char *strsep(char **, const char *);
+> > > > > -size_t strspn(const char *, const char *);
+> > > > > -
+> > > > > -void *memset(void *, int, size_t);
+> > > > > -void *memcpy(void *, const void *, size_t);
+> > > > > -void *memmove(void *, const void *, size_t);
+> > > > > -int memcmp(const void *, const void *, size_t);
+> > > > > -void *memchr(const void *, int, size_t);
+> > > > > -void *memchr_inv(const void *, int, size_t);
+> > > > > +size_t strlcpy(char *dest, const char *src, size_t size);
+> > > > > +size_t strlcat(char *dest, const char *src, size_t size);
+> > > > > +int strcmp(const char *cs, const char *ct);
+> > > > > +int strncmp(const char *cs, const char *ct, size_t count);
+> > > > > +int strcasecmp(const char *s1, const char *s2);
+> > > > > +int strncasecmp(const char *s1, const char *s2, size_t len);
+> > > > > +char *strchr(const char *s, int c);
+> > > > > +char *strrchr(const char *s, int c);
+> > > > > +char *strstr(const char *s1, const char *s2);
+> > > > > +size_t strlen(const char *s);
+> > > > > +size_t strnlen(const char *s, size_t count);
+> > > > > +char *strpbrk(const char *cs, const char *ct);
+> > > > > +char *strsep(char **s, const char *ct);
+> > > > > +size_t strspn(const char *s, const char *accept);
+> > > > > +
+> > > > > +void *memset(void *s, int c, size_t count);
+> > > > > +void *memcpy(void *dest, const void *src, size_t count);
+> > > > There is a comment in arch/arm/rm32/lib/memcpy.S with this:
+> > > > /* Prototype: void *memcpy(void *dest, const void *src, size_t n); */
+> > > > > +void *memmove(void *dest, const void *src, size_t count);
+> > > > There is a comment in arch/arm/rm32/lib/memmove.S with this:
+> > > >   * Prototype: void *memmove(void *dest, const void *src, size_t n);
+> > > > > +int memcmp(const void *cs, const void *ct, size_t count);
+> > > > > +void *memchr(const void *s, int c, size_t n);
+> > > > > +void *memchr_inv(const void *s, int c, size_t n);
+> > > > @Stefano: would it make sense to remove it as part of this patch or
+> > > > maybe not?
 > > > 
-> > >     case ACKTYPE_EOI:
-> > >     {
-> > >         cpumask_t *cpu_eoi_map = this_cpu(scratch_cpumask);
-> > >         cpumask_copy(cpu_eoi_map, action->cpu_eoi_map);
-> > >         spin_unlock_irq(&desc->lock);
-> > >         on_selected_cpus(cpu_eoi_map, set_eoi_ready, desc, 0);
-> > >         return;
-> > >     }
-> > >     }
+> > > They are a verbatim copy of the Linux code. So I would rather no touch it.
 > > 
-> > This pattern (two closing braces at the same level) is why switch scope
-> > variable declarations were introduced (at least as far as introductions
-> > by me go). If switch scope variables aren't okay (which I continue to
-> > consider questionable), then this stylistic aspect needs sorting first
-> > (if everyone else thinks the above style is okay - with the missing
-> > blank line inserted -, then so be it).
-> > 
-> > Jan
+> > Oh I see! Thank you for pointing that out, then I’m wondering if it’s there
+> > a reason why we
+> > are using ‘count’ instead of ’n’ as third parameter name, I know Stefano
+> > suggested that, so
+> > It’s just a curiosity. Maybe it’s for clarity?
 > 
-> Actually, they can be deviated because they don't result in wrong code being
-> generated.
-> This, modulo the review comments received, is what most of the code would look
-> like if
-> they weren't, with the biggest pain point being that in many cases the choice
-> is either
-> the pattern with blocks for certain clauses or moving them in the enclosing
-> scope, which may
-> be several hundred lines above. If there's agreement on deviating them, I can
-> drop the patches
-> dealing with switches and do a v2 with just the other modifications.
+> I guess because the generic implementation of memset (see xen/lib/memset.c) is
+> using 'count' rather than 'n'.
 
-I think we should deviate them. Good idea to remove them in v2.
+Yep
+
+
+> Given what Andrew said, I would say we should rename the parameter to 'n'.
+
+Yes, either way works. I was only trying to be consistent with
+xen/lib/memset.c. It is also fine to change xen/lib/memset.c instead.
+--8323329-764670787-1691090807=:2127516--
 
