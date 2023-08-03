@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2445676EF94
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 18:35:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576503.902714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2AE476EFB1
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 18:37:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576507.902724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRbHe-0004Fs-1H; Thu, 03 Aug 2023 16:34:42 +0000
+	id 1qRbKM-0004qS-EI; Thu, 03 Aug 2023 16:37:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576503.902714; Thu, 03 Aug 2023 16:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 576507.902724; Thu, 03 Aug 2023 16:37:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRbHd-0004DP-Ue; Thu, 03 Aug 2023 16:34:41 +0000
-Received: by outflank-mailman (input) for mailman id 576503;
- Thu, 03 Aug 2023 16:34:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qRbHc-0004DH-Ry
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 16:34:40 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRbHV-0003rn-Iv; Thu, 03 Aug 2023 16:34:33 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.22.21]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRbHV-00074k-AZ; Thu, 03 Aug 2023 16:34:33 +0000
+	id 1qRbKM-0004pX-Bg; Thu, 03 Aug 2023 16:37:30 +0000
+Received: by outflank-mailman (input) for mailman id 576507;
+ Thu, 03 Aug 2023 16:37:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J7Gs=DU=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1qRbKK-0004pL-G9
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 16:37:28 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 079ecf4c-321c-11ee-8613-37d641c3527e;
+ Thu, 03 Aug 2023 18:37:26 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-3fe45481edfso1267375e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Aug 2023 09:37:26 -0700 (PDT)
+Received: from [192.168.23.238] (54-240-197-238.amazon.com. [54.240.197.238])
+ by smtp.gmail.com with ESMTPSA id
+ e13-20020a05600c218d00b003fe2bea77ccsm310591wme.5.2023.08.03.09.37.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Aug 2023 09:37:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,76 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=dvvBXxjniH/IlgE1ej5FHuyiI4F6RPdmj66rQM7XZek=; b=xd7pmytFP9/Dgy0tf8IZUqmY/g
-	+jy1eMy/ld8p6q6ODKP4I8OX1RP5bUaVmWRYrndZ7gXvb10apbXICtqfuFXuhjc47Q1S7a3yMrPkQ
-	C4E2vtom8ofGCyfdhaJCINuuTrfApqslh3+Mv98PHuz/Ys6y61ehhblCak92Mp04h15o=;
-Message-ID: <8074634d-fd76-43fc-8e0f-4c3a70ea5360@xen.org>
-Date: Thu, 3 Aug 2023 17:34:31 +0100
+X-Inumbo-ID: 079ecf4c-321c-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1691080646; x=1691685446;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vL19yjeY0vCMtRBqOHZepEaKWa9q/fOl1WB+ypjiWzo=;
+        b=VswwiWhCpaAA/nAaW58Gl+e9P0fTofSI4xljCW1yc/tyfxUxSqCO/8TnkG9b3s3TQf
+         yVKHWJ7oqE3q8d6zU4HKT30aNuIyOEez7KLgBkJkPgT9Z72abG1FkdMx+9vUq0w/1J7E
+         R9DHrMHfP5ECNJc34nbO2gij2n2T2TY9oE1IT+5HnqG7PKztpgpiD3+45oLzXaeUFdZp
+         D4/lt5VCvKrCiincpz6jiorfjuvzFt2FTEbqaIOGYjUlM7Pouw68jGkXuIQpvHqMGQBl
+         7bqH7a1JETEAYAY9uIP5I+n+3cCEnAn9HDkpGsm7K5fbbS6/d7FhG4Ysp7/u1avWKHMq
+         oNwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691080646; x=1691685446;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vL19yjeY0vCMtRBqOHZepEaKWa9q/fOl1WB+ypjiWzo=;
+        b=DFcOf42tNUJfXhBL8Z7uF3oGDxqCv9FMSZdcww8YKExMIw1e8pxZ3DYUUQX5tFdIq9
+         srWm2iv8MKEVzClXlD9RvnMit9oIaeg9nI9rmocCDrRulN7IlTcmYvXiUBxqA+j/iEoU
+         FyOWWexlaJTneTzcWZdy2c9BchaV4L6m7wdizdXfJa1rkdezqrgnkzRJAxM+hUarTC2v
+         at8KrtyTgCKpniOzvpv5umy9yDzOyyfGAtF6m8wt7aae/dyXHsE9/HftzGfLHNEvrOS4
+         9raZX+2gHE67oGZlvFv+epuMs6dZNUNEUJYqVYp9ANNHQYrKMwhUx0+ER1r3EbF6c4gV
+         Qv0A==
+X-Gm-Message-State: ABy/qLacxNnOKSqcvj4xDext2zdfVT/CByMWuJcJhi/BJ0hTnbgy0Bpt
+	m0yG+1n/1mls9AXsDhjqXPw=
+X-Google-Smtp-Source: APBJJlHgqNyyzAgqI3bStyQ5BWKGoNks90Mb5QHinX8EbDmAxrooUb9Hd7VWeuYxH2won5req5en4Q==
+X-Received: by 2002:a05:600c:219a:b0:3fe:2108:eb8e with SMTP id e26-20020a05600c219a00b003fe2108eb8emr7731597wme.34.1691080645588;
+        Thu, 03 Aug 2023 09:37:25 -0700 (PDT)
+Message-ID: <cd7b8657-be12-5550-82a3-5a1d07d60f50@gmail.com>
+Date: Thu, 3 Aug 2023 17:37:23 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/22] Cleanup and splitting of xl.cfg parsing
-Content-Language: en-GB
-To: Elliott Mitchell <ehem+xen@m5p.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <cover.1690990427.git.ehem+xen@m5p.com>
- <673c6ba4-6d1e-6e51-0da4-fb8996cde4a2@suse.com>
- <ZMvSHuEQzGYyVJ49@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZMvSHuEQzGYyVJ49@mattapan.m5p.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Reply-To: paul@xen.org
+Subject: Re: Ping: [PATCH] x86/HVM: drop dead assignments from
+ hvmemul_rep_{movs,stos}()
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <32e33a0b-d572-ea7f-b1a8-3263711582e5@suse.com>
+ <alpine.DEB.2.22.394.2307271141500.3118466@ubuntu-linux-20-04-desktop>
+ <97527049-e3ac-9d8e-806c-2204ed7f68dd@suse.com>
+From: "Durrant, Paul" <xadimgnik@gmail.com>
+In-Reply-To: <97527049-e3ac-9d8e-806c-2204ed7f68dd@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Elliott,
-
-On 03/08/2023 17:13, Elliott Mitchell wrote:
-> On Thu, Aug 03, 2023 at 10:35:53AM +0200, Jan Beulich wrote:
+On 03/08/2023 12:46, Jan Beulich wrote:
+> On 27.07.2023 20:41, Stefano Stabellini wrote:
+>> On Thu, 27 Jul 2023, Jan Beulich wrote:
+>>> In the latter case the variable altogether is then unused and hence gets
+>>> dropped, eliminating a Misra Rule 5.3 violation. I'm afraid I mistakenly
+>>> introduced both assignments in 57a57465daaf ("x86/HVM: use available
+>>> linear->phys translations in REP MOVS/STOS handling"), likely as a
+>>> result of some re-work on the patch.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>
->> Some of the patches looks to have been posted previously as a 7-patch
->> series. It would have been nice if therefore this one was marked as
->> v2, indicating in a revision log what the differences are. It appears
->> as if at least one out of those 7 earlier patches was dropped (or
->> maybe assimilated into another one).
+>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 > 
-> Indeed.  Problem is several tags could potentially have been used.
-> Should I have used all of them simultaneously?  Should I have used only
-> some of them?  Which subset?
+> Paul - any chance of an ack?
 > 
-> Several were mildly adjusted, so it could have been marked "v2".
-> 
-> No one responded at all to the previous round, so this could have been
-> marked "RESEND".
-> 
-> Yet the refinements and general changes are large enough for the series
-> to be pretty distinct.
-> 
-> I didn't know which way to go, so with no idea which option to choose the
-> last one ended up winning out.  Perhaps that was wrong yet I've still no
-> feedback on the actual patches.
 
-Not sure if this is related to the lack of answer. But I didn't receive 
-any of your patches via xen-devel (I received your replies). Skimming 
-through the bounce for the xenproject mail server, I noticed a lot of 
-the following:
+Sure.
 
-     host gmail-smtp-in.l.google.com [142.250.123.26]
-     SMTP error from remote mail server after pipelined end of data:
-     550-5.7.1 This message is not RFC 5322 compliant. There are 
-multiple Cc headers.
-     550-5.7.1 To reduce the amount of spam sent to Gmail, this message 
-has been
-     550-5.7.1 blocked. Please visit
-     550 5.7.1 
-https://support.google.com/mail/?p=RfcMessageNonCompliant 
-t7-20020a81e447000000b005839e8b595dsi12027284ywl.554 - gsmtp
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-It might be possible that other mail server are not happy with your e-mails.
 
-Cheers,
-
--- 
-Julien Grall
 
