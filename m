@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF5CA76DD5F
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 03:41:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.575928.901498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E0D376DD62
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 03:42:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.575935.901506 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRNKk-0002to-Qh; Thu, 03 Aug 2023 01:40:58 +0000
+	id 1qRNLX-0003gQ-78; Thu, 03 Aug 2023 01:41:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 575928.901498; Thu, 03 Aug 2023 01:40:58 +0000
+Received: by outflank-mailman (output) from mailman id 575935.901506; Thu, 03 Aug 2023 01:41:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRNKk-0002qO-MN; Thu, 03 Aug 2023 01:40:58 +0000
-Received: by outflank-mailman (input) for mailman id 575928;
- Thu, 03 Aug 2023 01:40:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hVX3=DU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qRNKj-0002pl-6H
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 01:40:57 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8cfc42a-319e-11ee-8613-37d641c3527e;
- Thu, 03 Aug 2023 03:40:54 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 97E4161B71;
- Thu,  3 Aug 2023 01:40:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61382C433C7;
- Thu,  3 Aug 2023 01:40:51 +0000 (UTC)
+	id 1qRNLX-0003dy-4H; Thu, 03 Aug 2023 01:41:47 +0000
+Received: by outflank-mailman (input) for mailman id 575935;
+ Thu, 03 Aug 2023 01:41:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRNLV-0003di-CU; Thu, 03 Aug 2023 01:41:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRNLV-0006Ff-9x; Thu, 03 Aug 2023 01:41:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRNLU-00006n-QJ; Thu, 03 Aug 2023 01:41:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qRNLU-0005Y5-Oz; Thu, 03 Aug 2023 01:41:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,57 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8cfc42a-319e-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691026853;
-	bh=Czl4qfeCMTghZNpoaiNGcIqLh3cNDFfqV69KFZU3Np4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pGXLQ0umjDkCzhAPdSjgnRlBjt8qJiwmf5oB7tAbz7FDXFFFyBOlnxbnU77B/4yz6
-	 DCAGDPb2IwqRJW58PYTIhEbrWpMUWqPluQXiC0uqsYJ7/cCz3MgQVwDks4MmTaxzY/
-	 8X8JOLVMDJwvZwx9Xhww2FiJMG8bHqEgpTT+tBWGwlhq8gAGEk5KhSBNPFrs1nQJb2
-	 LiXw1He8NwmRx2GhzW5XmVNK6WG2riheQpidO0ynPvIyFxReYZgM1EFV4yxQkXSeLx
-	 owzy3XgDkdF2+G24vJffLLFrfDAi93IaZfLL21q3e/FIdUVWMc0EhHlIRcsz63SXPh
-	 8VRjF/2lLE80Q==
-Date: Wed, 2 Aug 2023 18:40:50 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, xen-devel@dornerworks.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, Nathan Studer <nathan.studer@dornerworks.com>, 
-    Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>, 
-    roberto.bagnara@bugseng.com, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [RFC 1/6] dom0: replace explict zero checks
-In-Reply-To: <3f4c0430-42ce-bb2c-3755-d5f6af8e3b40@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2308021840220.2127516@ubuntu-linux-20-04-desktop>
-References: <20230801202006.20322-1-dpsmith@apertussolutions.com> <20230801202006.20322-2-dpsmith@apertussolutions.com> <alpine.DEB.2.22.394.2308011721030.2127516@ubuntu-linux-20-04-desktop> <3f4c0430-42ce-bb2c-3755-d5f6af8e3b40@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zcBrDb/1JD1tQpkMHOjb4SEB1AjHA6uTCSCpAGuFrCk=; b=fCtLN8dS2cBdBF3tasmKU4l8te
+	tzrVZZmPFn/DXqnavpYKIfgz7nRYbGoIJAZ6W/gnGULMg/igDU1yIl03n9KpH20qzZiCxBjt+6Zqq
+	dFskGBzaBJrUueUVeAXZ7W9XTiqYv8xs1aKxKknqJ/D54QGmwGuK7Zts5xBx0VcjfIXw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182136-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 182136: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=dfc490a3740bb7d6889939934afadcb58891fbce
+X-Osstest-Versions-That:
+    xen=da55d9dc919752e092e591a74ab54c2f7d5adfab
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 03 Aug 2023 01:41:44 +0000
 
-On Wed, 2 Aug 2023, Jan Beulich wrote:
-> On 02.08.2023 02:24, Stefano Stabellini wrote:
-> > On Tue, 1 Aug 2023, Daniel P. Smith wrote:
-> >> --- a/xen/include/xen/sched.h
-> >> +++ b/xen/include/xen/sched.h
-> >> @@ -1058,6 +1058,13 @@ void scheduler_disable(void);
-> >>  void watchdog_domain_init(struct domain *d);
-> >>  void watchdog_domain_destroy(struct domain *d);
-> >>  
-> >> +static always_inline bool is_initial_domain(const struct domain *d)
-> > 
-> > I know you used always_inline only because is_hardware_domain just below
-> > also uses it, but I wonder if we need it.
-> > 
-> > Also, Robero, it looks like always_inline is missing from
-> > docs/misra/C-language-toolchain.rst? Or do we plan to get rid of it?
-> 
-> Under "Non-standard tokens" we have both __inline__ and __attribute__
-> listed, which I think is enough to cover this specific case as well?
+flight 182136 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182136/
 
-I think we should add always_inline explicitely to
-docs/misra/C-language-toolchain.rst to avoid any doubts about it
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  dfc490a3740bb7d6889939934afadcb58891fbce
+baseline version:
+ xen                  da55d9dc919752e092e591a74ab54c2f7d5adfab
+
+Last test of basis   182124  2023-08-02 16:10:28 Z    0 days
+Testing same since   182136  2023-08-02 22:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Khem Raj <raj.khem@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   da55d9dc91..dfc490a374  dfc490a3740bb7d6889939934afadcb58891fbce -> smoke
 
