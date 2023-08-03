@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2016976E58F
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 12:23:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576181.902068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAFB876E58C
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 12:23:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576180.902060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRVUM-0005Zw-8W; Thu, 03 Aug 2023 10:23:26 +0000
+	id 1qRVUL-0005WU-R8; Thu, 03 Aug 2023 10:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576181.902068; Thu, 03 Aug 2023 10:23:26 +0000
+Received: by outflank-mailman (output) from mailman id 576180.902060; Thu, 03 Aug 2023 10:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRVUM-0005Wh-0K; Thu, 03 Aug 2023 10:23:26 +0000
-Received: by outflank-mailman (input) for mailman id 576181;
+	id 1qRVUL-0005Tu-NI; Thu, 03 Aug 2023 10:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 576180;
  Thu, 03 Aug 2023 10:23:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nYgs=DU=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qRVUJ-0005QX-Lm
+ id 1qRVUJ-0004Rp-Ja
  for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 10:23:23 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c587ec01-31e7-11ee-8613-37d641c3527e;
- Thu, 03 Aug 2023 12:23:21 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c64a8d92-31e7-11ee-b268-6b7b168915f2;
+ Thu, 03 Aug 2023 12:23:23 +0200 (CEST)
 Received: from beta.station (net-188-218-251-179.cust.vodafonedsl.it
  [188.218.251.179])
- by support.bugseng.com (Postfix) with ESMTPSA id 217904EE0741;
- Thu,  3 Aug 2023 12:23:21 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 765244EE0737;
+ Thu,  3 Aug 2023 12:23:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,19 +40,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c587ec01-31e7-11ee-8613-37d641c3527e
+X-Inumbo-ID: c64a8d92-31e7-11ee-b268-6b7b168915f2
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Gianluca Luparini <gianluca.luparini@bugseng.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [XEN PATCH 03/13] xen/arm: address violations of MISRA C:2012 Rule 7.3
-Date: Thu,  3 Aug 2023 12:22:18 +0200
-Message-Id: <c39836607097b09119a4f4480c77506295333a55.1691053438.git.simone.ballarin@bugseng.com>
+Subject: [XEN PATCH 04/13] x86/IOMMU: address violations of MISRA C:2012 Rule 7.3
+Date: Thu,  3 Aug 2023 12:22:19 +0200
+Message-Id: <ba2605e168cb65ca7f2e4fcc6b957b5ae0b3062a.1691053438.git.simone.ballarin@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1691053438.git.simone.ballarin@bugseng.com>
 References: <cover.1691053438.git.simone.ballarin@bugseng.com>
@@ -73,40 +72,34 @@ The changes in this patch are mechanical.
 Signed-off-by: Gianluca	Luparini <gianluca.luparini@bugseng.com>
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 ---
- xen/arch/arm/include/asm/processor.h | 6 +++---
- xen/arch/arm/vtimer.c                | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ xen/drivers/passthrough/x86/iommu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index 7e42ff8811..8e02410465 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -521,9 +521,9 @@ extern register_t __cpu_logical_map[];
- #define CNTKCTL_EL1_EL0PTEN  (1u<<9) /* Expose phys timer registers to EL0 */
+diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+index d290855959..c85549ccad 100644
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -576,16 +576,16 @@ struct page_info *iommu_alloc_pgtable(struct domain_iommu *hd,
  
- /* Timer control registers */
--#define CNTx_CTL_ENABLE   (1ul<<0)  /* Enable timer */
--#define CNTx_CTL_MASK     (1ul<<1)  /* Mask IRQ */
--#define CNTx_CTL_PENDING  (1ul<<2)  /* IRQ pending */
-+#define CNTx_CTL_ENABLE   (1UL<<0)  /* Enable timer */
-+#define CNTx_CTL_MASK     (1UL<<1)  /* Mask IRQ */
-+#define CNTx_CTL_PENDING  (1UL<<2)  /* IRQ pending */
+         ASSERT((CONTIG_LEVEL_SHIFT & (contig_mask >> shift)) == CONTIG_LEVEL_SHIFT);
  
- /* Timer frequency mask */
- #define CNTFRQ_MASK       GENMASK(31, 0)
-diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
-index 48f2daa907..c54360e202 100644
---- a/xen/arch/arm/vtimer.c
-+++ b/xen/arch/arm/vtimer.c
-@@ -206,7 +206,7 @@ static bool vtimer_cntp_tval(struct cpu_user_regs *regs, register_t *r,
+-        p[0] = (CONTIG_LEVEL_SHIFT + 0ull) << shift;
++        p[0] = (CONTIG_LEVEL_SHIFT + 0ULL) << shift;
+         p[1] = 0;
+-        p[2] = 1ull << shift;
++        p[2] = 1ULL << shift;
+         p[3] = 0;
  
-     if ( read )
-     {
--        *r = (uint32_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffull);
-+        *r = (uint32_t)((v->arch.phys_timer.cval - cntpct) & 0xffffffffULL);
+         for ( i = 4; i < PAGE_SIZE / sizeof(*p); i += 4 )
+         {
+-            p[i + 0] = (find_first_set_bit(i) + 0ull) << shift;
++            p[i + 0] = (find_first_set_bit(i) + 0ULL) << shift;
+             p[i + 1] = 0;
+-            p[i + 2] = 1ull << shift;
++            p[i + 2] = 1ULL << shift;
+             p[i + 3] = 0;
+         }
      }
-     else
-     {
 -- 
 2.34.1
 
