@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AAA276E460
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 11:30:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576143.901957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B363276E4DC
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 11:47:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576148.901967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRUf4-0003aH-K4; Thu, 03 Aug 2023 09:30:26 +0000
+	id 1qRUuS-00059v-RO; Thu, 03 Aug 2023 09:46:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576143.901957; Thu, 03 Aug 2023 09:30:26 +0000
+Received: by outflank-mailman (output) from mailman id 576148.901967; Thu, 03 Aug 2023 09:46:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRUf4-0003Xk-G8; Thu, 03 Aug 2023 09:30:26 +0000
-Received: by outflank-mailman (input) for mailman id 576143;
- Thu, 03 Aug 2023 09:30:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PRme=DU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qRUf2-0003Xe-BL
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 09:30:24 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e6316d3-31e0-11ee-8613-37d641c3527e;
- Thu, 03 Aug 2023 11:30:22 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id A6EBA4EE0737;
- Thu,  3 Aug 2023 11:30:21 +0200 (CEST)
+	id 1qRUuS-00057a-Oc; Thu, 03 Aug 2023 09:46:20 +0000
+Received: by outflank-mailman (input) for mailman id 576148;
+ Thu, 03 Aug 2023 09:46:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qRUuR-00057U-Gl
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 09:46:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRUuR-00021n-1L; Thu, 03 Aug 2023 09:46:19 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.22.21]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRUuQ-00058N-PS; Thu, 03 Aug 2023 09:46:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,82 +39,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e6316d3-31e0-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=uKQlEQh2f1FeMdUq8Ub6MJCuP8O/rZdEBeih/oP3A3E=; b=q8FONRsff89uU1OBGVDHOSB7Qu
+	qVPHuQclpkcD41010jtrWAPOSR+SH6Pv1EkIutuFvgOzqOxykgoYeVcn3r68Bvy5JxthUVcz2rrFa
+	1yW0tHlgeJ+cyrGkrNuMH68thdB88SzOpE0Tz1JBdxtB1kMOHOpd8U3XBXzPCMaesE3k=;
+Message-ID: <15e52d9f-8d45-fd22-71bc-fbc71ff39470@xen.org>
+Date: Thu, 3 Aug 2023 10:46:16 +0100
 MIME-Version: 1.0
-Date: Thu, 03 Aug 2023 11:30:21 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
- <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 11/11] x86/mm: Add assertion to address MISRA C:2012
- Rule 2.1
-In-Reply-To: <0ba36273-33ad-753c-06a5-be117b6658e0@suse.com>
-References: <cover.1690985045.git.nicola.vetrini@bugseng.com>
- <91b2f2c9e728c1f19f7baab301299d995a074279.1690985045.git.nicola.vetrini@bugseng.com>
- <0ba36273-33ad-753c-06a5-be117b6658e0@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <d506555fb3653322703f50d8756f3560@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] arm/gicv2: make GICv2 driver and vGICv2 optional
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Michal Orzel <michal.orzel@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230802135350.745251-1-luca.fancellu@arm.com>
+ <17bc595a-dc30-9e76-4d31-aad62f9c9672@amd.com>
+ <3ED442CB-0569-4C9C-9770-39D2FE4852A0@arm.com>
+ <8c8f2564-935b-e3c8-ad15-348135140a53@amd.com>
+ <92AE30B2-B2CE-465F-A6FC-A86961BED85A@arm.com>
+ <9d40bd81-dc3a-0288-8f8a-1de62dc30d1d@xen.org>
+ <1a364aa9-4549-80b9-4319-d91551f228bd@amd.com>
+ <8516a6bb-8321-fc84-c7ce-10a7b41ecb59@xen.org>
+ <33DCC5E2-7190-464C-B25A-68BC68CA4021@arm.com>
+ <3942c22a-80e1-29bd-4bd8-15d4bc43d220@xen.org>
+ <BD156163-5EA0-4497-9A44-F32CB257DA4C@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <BD156163-5EA0-4497-9A44-F32CB257DA4C@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/08/2023 11:20, Jan Beulich wrote:
-> On 02.08.2023 16:38, Nicola Vetrini wrote:
->> --- a/xen/arch/x86/mm.c
->> +++ b/xen/arch/x86/mm.c
->> @@ -4879,6 +4879,7 @@ long arch_memory_op(unsigned long cmd, 
->> XEN_GUEST_HANDLE_PARAM(void) arg)
->>          return subarch_memory_op(cmd, arg);
->>      }
->> 
->> +    ASSERT_UNREACHABLE();
->>      return 0;
->>  }
-> 
-> I'd prefer to instead switch earlier "return 0" to "break".
+Hi,
 
-Ok
+On 03/08/2023 09:39, Luca Fancellu wrote:
+> I would like to ask if you see this one going forwards or not (as it is), because I have a set of patches to isolate and Kconfig-out
+> the dom0less code, that is depending on this one (for a small bit) and before sending them I need to understand if this one can
+> see the light or not.
 
-> 
->> --- a/xen/arch/x86/mm/p2m-pod.c
->> +++ b/xen/arch/x86/mm/p2m-pod.c
->> @@ -1045,6 +1045,7 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const 
->> gfn_t *gfns, unsigned int count
->>      }
->> 
->>      return;
->> +    ASSERT_UNREACHABLE();
->> 
->>  out_unmap:
->>      /*
-> 
-> In the description you say "before", but here you add something _after_
-> "return". What's the deal?
-> 
-> Jan
+In principle, I have no issues with trying to disable some part of Xen 
+code. I will still need to look at each one to confirm I am happy with 
+the changes.
 
-In this case the unreachable part is that after the label (looking at it 
-now, I should have
-put the assert after the label to make it clear), because earlier all 
-jumps to
-'out_unmap' are like this:
+For this case, I will have a look in a bit.
 
-   ASSERT_UNREACHABLE();
-   domain_crash(d);
-   goto out_unmap;
-
-As I understood it, this is a defensive coding measure, preventing pages 
-to remain mapped if,
-for some reason the above code actually executes. Am I correct?
-
-Regards,
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
