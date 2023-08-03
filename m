@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563F576F084
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 19:23:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576541.902789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2285276F0A9
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 19:30:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576547.902799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRc2I-0004js-AY; Thu, 03 Aug 2023 17:22:54 +0000
+	id 1qRc8w-0005No-0l; Thu, 03 Aug 2023 17:29:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576541.902789; Thu, 03 Aug 2023 17:22:54 +0000
+Received: by outflank-mailman (output) from mailman id 576547.902799; Thu, 03 Aug 2023 17:29:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRc2I-0004hG-7B; Thu, 03 Aug 2023 17:22:54 +0000
-Received: by outflank-mailman (input) for mailman id 576541;
- Thu, 03 Aug 2023 17:22:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qRc2G-0004h6-Vj; Thu, 03 Aug 2023 17:22:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qRc2G-0004z8-R3; Thu, 03 Aug 2023 17:22:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qRc2G-0001gw-BB; Thu, 03 Aug 2023 17:22:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qRc2G-0005Jq-Af; Thu, 03 Aug 2023 17:22:52 +0000
+	id 1qRc8v-0005L6-UO; Thu, 03 Aug 2023 17:29:45 +0000
+Received: by outflank-mailman (input) for mailman id 576547;
+ Thu, 03 Aug 2023 17:29:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0usr=DU=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qRc8u-0005L0-HG
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 17:29:44 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 530f6042-3223-11ee-8613-37d641c3527e;
+ Thu, 03 Aug 2023 19:29:41 +0200 (CEST)
+Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1691083774724241.91618186962626;
+ Thu, 3 Aug 2023 10:29:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,275 +40,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dXnUyBBcOVecn+RAjV02UWsgn95A5LZvR6wsmIlgkLA=; b=pU1OxnFvQr8u1wN5cYBKrI708b
-	pE79GMNleoqOSaWT1uC1TIi9U6sw+4RLqpusgst4dB3vPNmhkUkrcOOxpQCijACgd9Wk3s9dB68T0
-	agQOhkfnvYwPOjS6gbWnN9PfIzZLvK2hCQmqMdTzO4NlfBPoVW37b+f/0eSz71ezamaw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182114-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 530f6042-3223-11ee-8613-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1691083776; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mrMqGmqY1Toa3lpPDrAw0S2wyoznZsujWLJHpJtEfkWy9m5ZPwN5oJ/S9JcXWacZ73E5kjVWjd5ZChWGp4W8VzY1QDQ3FZAvspoAa42iP7ylLMRRuH4jcuW3AUiY9P+RFxh74VhDBbHU2C4VGca5F3s3PariPewE0AvsHgk0UKc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1691083776; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=GXeUjwwr+A8yvrvDsQGAKvZOE1KzahYN6RE+9FJ12L4=; 
+	b=D3fzz4PC4xZFNK380u2gpHeRmIOAsv6+vIDQ45re/1obvHF6MowFFxl63XRLnFvlcgmPt3EKs6kup6WnaQuLlo9QSr9xccerslX++UnNJ7ABtyWDFPtpQk9dwRs+rBARz7yKcXxbiZhSRrlZwBdd6s4Z7OF2uHstOCCUYGoAu2M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691083776;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GXeUjwwr+A8yvrvDsQGAKvZOE1KzahYN6RE+9FJ12L4=;
+	b=eBOoCQlmqM1QMbMAjcApXLiJTR2vdd8WhaZC8k7b1aezpydhKhfGcpAZRUO+b/ja
+	7PFYEtr0R29mRIR8W+i8VvpYED9KwBT4ehE+GQ0HguzVJ3xBH0wDXMneJrW/ESvPsIK
+	SkL0OYTavsXKXynBaT4f6qIir40dl73EgdnN5xLU=
+Message-ID: <956a8409-a02f-41f0-5ddd-051d47907ad9@apertussolutions.com>
+Date: Thu, 3 Aug 2023 13:29:30 -0400
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 182114: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-i386-xl-vhd:xen-install:fail:heisenbug
-    qemu-mainline:test-armhf-armhf-xl-vhd:xen-boot:fail:heisenbug
-    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=38a6de80b917b2a822cff0e38d83563ab401c890
-X-Osstest-Versions-That:
-    qemuu=ccb86f079a9e4d94918086a9df18c1844347aff8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 03 Aug 2023 17:22:52 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 2/2] fdt: make fdt handling reusable across arch
+Content-Language: en-US
+To: Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20230803104438.24720-1-dpsmith@apertussolutions.com>
+ <20230803104438.24720-3-dpsmith@apertussolutions.com>
+ <476e5c13-2b4f-d115-7237-d5220ec13cf2@amd.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <476e5c13-2b4f-d115-7237-d5220ec13cf2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-flight 182114 qemu-mainline real [real]
-flight 182169 qemu-mainline real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182114/
-http://logs.test-lab.xenproject.org/osstest/logs/182169/
+On 8/3/23 08:48, Michal Orzel wrote:
+> Hi Daniel,
+> 
+> On 03/08/2023 12:44, Daniel P. Smith wrote:
+>>
+>>
+>> This refactors reusable code from Arm's bootfdt.c and device-tree.h that is
+>> general fdt handling code.  The Kconfig parameter CORE_DEVICE_TREE is
+> IIUC, you just try to untangle the code for fdt from dt (unflattened). CORE_DEVICE_TREE is
+> a bit ambiguous in my opinion, so maybe just CONFIG_FDT, especially since you use it to guard libfdt/?
 
-Failures :-/ but no regressions.
+Untangle is a very good way to phrase it. ( ^_^)
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-xl-vhd        7 xen-install         fail pass in 182169-retest
- test-armhf-armhf-xl-vhd       8 xen-boot            fail pass in 182169-retest
+Yes, I don't see any reason why CONFIG_FDT could be used instead.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-vhd     14 migrate-support-check fail in 182169 never pass
- test-armhf-armhf-xl-vhd 15 saverestore-support-check fail in 182169 never pass
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182067
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182067
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182067
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 182067
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182067
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182067
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182067
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 182067
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+>> introduced for when the ability of parsing DTB files is needed by a capability
+>> such as hyperlaunch.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   MAINTAINERS                      |   8 +-
+>>   xen/arch/arm/bootfdt.c           | 141 +---------------------------
+>>   xen/arch/arm/domain_build.c      |   1 +
+>>   xen/arch/arm/include/asm/setup.h |   6 --
+>>   xen/common/Kconfig               |   4 +
+>>   xen/common/Makefile              |   3 +-
+>>   xen/common/fdt.c                 | 153 +++++++++++++++++++++++++++++++
+>>   xen/include/xen/device_tree.h    |  50 +---------
+>>   xen/include/xen/fdt.h            |  79 ++++++++++++++++
+>>   9 files changed, 246 insertions(+), 199 deletions(-)
+>>   create mode 100644 xen/common/fdt.c
+>>   create mode 100644 xen/include/xen/fdt.h
+>>
+> [...]
+> 
+>> diff --git a/xen/common/fdt.c b/xen/common/fdt.c
+>> new file mode 100644
+>> index 0000000000..8d7acaaa43
+>> --- /dev/null
+>> +++ b/xen/common/fdt.c
+>> @@ -0,0 +1,153 @@
+>> +/*
+> SPDX missing for a new file
 
-version targeted for testing:
- qemuu                38a6de80b917b2a822cff0e38d83563ab401c890
-baseline version:
- qemuu                ccb86f079a9e4d94918086a9df18c1844347aff8
+Ack.
 
-Last test of basis   182067  2023-07-29 02:34:52 Z    5 days
-Failing since        182096  2023-07-31 15:38:52 Z    3 days    2 attempts
-Testing same since   182114  2023-08-02 10:38:51 Z    1 days    1 attempts
+>> + * Flattened Device Tree
+>> + *
+>> + * Copyright (C) 2012-2014 Citrix Systems, Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License version 2 as
+>> + * published by the Free Software Foundation.
+>> + */
+>> +#include <xen/fdt.h>
+>> +#include <xen/init.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/libfdt/libfdt.h>
+>> +#include <xen/types.h>
+>> +
+>> +bool __init device_tree_node_matches(
+>> +    const void *fdt, int node, const char *match)
+> FWICS, this code style (that you use for every function in this patch) is rather uncommon in Xen so maybe better to follow the generic style.
+> Also, this would avoid changing the style of functions/prototypes you move.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Akihiko Odaki <akihiko.odaki@daynix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Cédric Le Goater <clg@redhat.com>
-  David Woodhouse <dwmw@amazon.co.uk>
-  Gavin Shan <gshan@redhat.com>
-  Helge Deller <deller@gmx.de>
-  Joel Stanley <joel@jms.id.au>
-  Klaus Jensen <k.jensen@samsung.com>
-  Nicholas Piggin <npiggin@gmail.com>
-  Olaf Hering <olaf@aepfle.de>
-  Peter Maydell <peter.maydell@linaro.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Warner Losh <imp@bsdimp.com>
+Um, my understanding is that this is the official style for Xen function 
+definitions, unless it has changed due to MISRA, and that anytime a 
+function definition is changed that the style should be corrected to 
+this form.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      fail    
- test-amd64-i386-xl-vhd                                       fail    
+Another coding style change I have been pinged on in the past that I 
+surprised I have not been pinged on for this series is allowing the use 
+of the short hand notation for ints, e.g. u8, u16, and u32.
 
+> [...]
+> 
+>> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+>> index 1d79e23b28..82db38b140 100644
+>> --- a/xen/include/xen/device_tree.h
+>> +++ b/xen/include/xen/device_tree.h
+>> @@ -14,13 +14,12 @@
+>>   #include <asm/device.h>
+>>   #include <public/xen.h>
+>>   #include <public/device_tree_defs.h>
+>> +#include <xen/fdt.h>
+>>   #include <xen/kernel.h>
+>>   #include <xen/string.h>
+>>   #include <xen/types.h>
+>>   #include <xen/list.h>
+>>
+>> -#define DEVICE_TREE_MAX_DEPTH 16
+>> -
+>>   /*
+>>    * Struct used for matching a device
+>>    */
+>> @@ -159,17 +158,8 @@ struct dt_raw_irq {
+>>       u32 specifier[DT_MAX_IRQ_SPEC];
+>>   };
+>>
+>> -typedef int (*device_tree_node_func)(const void *fdt,
+>> -                                     int node, const char *name, int depth,
+>> -                                     u32 address_cells, u32 size_cells,
+>> -                                     void *data);
+>> -
+>>   extern const void *device_tree_flattened;
+>>
+>> -int device_tree_for_each_node(const void *fdt, int node,
+>> -                              device_tree_node_func func,
+>> -                              void *data);
+>> -
+>>   /**
+>>    * dt_unflatten_host_device_tree - Unflatten the host device tree
+>>    *
+>> @@ -214,14 +204,6 @@ extern const struct dt_device_node *dt_interrupt_controller;
+>>   struct dt_device_node *
+>>   dt_find_interrupt_controller(const struct dt_device_match *matches);
+>>
+>> -#define dt_prop_cmp(s1, s2) strcmp((s1), (s2))
+>> -#define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
+>> -#define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
+>> -
+>> -/* Default #address and #size cells */
+>> -#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
+>> -#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
+>> -
+>>   #define dt_for_each_property_node(dn, pp)                   \
+>>       for ( pp = (dn)->properties; (pp) != NULL; pp = (pp)->next )
+>>
+>> @@ -231,16 +213,6 @@ dt_find_interrupt_controller(const struct dt_device_match *matches);
+>>   #define dt_for_each_child_node(dt, dn)                      \
+>>       for ( dn = (dt)->child; (dn) != NULL; dn = (dn)->sibling )
+>>
+>> -/* Helper to read a big number; size is in cells (not bytes) */
+>> -static inline u64 dt_read_number(const __be32 *cell, int size)
+>> -{
+>> -    u64 r = 0;
+>> -
+>> -    while ( size-- )
+>> -        r = (r << 32) | be32_to_cpu(*(cell++));
+>> -    return r;
+>> -}
+>> -
+>>   /* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
+>>   static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
+> Shouldn't this also go to fdt.h as it is just a wrapper for dt_read_number() you moved?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This patch came from hyperlaunch v1 series were I only moved what I 
+needed, not necessarily everything that could reasonably be moved. I 
+will gladly incorporate any additional macros, inlines, and functions 
+that is felt is general enough to be included.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+v/r,
+dps
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   ccb86f079a..38a6de80b9  38a6de80b917b2a822cff0e38d83563ab401c890 -> upstream-tested
 
