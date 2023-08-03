@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AABE476EEB0
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 17:53:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576473.902645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B19EB76EECD
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 17:57:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576476.902655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRacb-0004IY-9J; Thu, 03 Aug 2023 15:52:17 +0000
+	id 1qRah7-0004sY-RG; Thu, 03 Aug 2023 15:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576473.902645; Thu, 03 Aug 2023 15:52:17 +0000
+Received: by outflank-mailman (output) from mailman id 576476.902655; Thu, 03 Aug 2023 15:56:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRacb-0004Fm-6K; Thu, 03 Aug 2023 15:52:17 +0000
-Received: by outflank-mailman (input) for mailman id 576473;
- Thu, 03 Aug 2023 15:52:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0usr=DU=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qRacZ-0004Fg-GV
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 15:52:15 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b509199b-3215-11ee-8613-37d641c3527e;
- Thu, 03 Aug 2023 17:52:12 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691077926722381.80389769675753;
- Thu, 3 Aug 2023 08:52:06 -0700 (PDT)
+	id 1qRah7-0004qi-NN; Thu, 03 Aug 2023 15:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 576476;
+ Thu, 03 Aug 2023 15:56:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VY8U=DU=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qRah6-0004qa-AD
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 15:56:56 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0604.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::604])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e426eb4-3216-11ee-b268-6b7b168915f2;
+ Thu, 03 Aug 2023 17:56:55 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB9140.eurprd04.prod.outlook.com (2603:10a6:102:22f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.47; Thu, 3 Aug
+ 2023 15:56:52 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6631.046; Thu, 3 Aug 2023
+ 15:56:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,274 +47,385 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b509199b-3215-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691077929; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=n5M8sqadDbqBUdBJEiWrFCCVrTZKJh/6Myif8ERn3W12V/7HuN2KZ+Hr/6tLyWeX8yyKiYdQSaRk0JDCXZUibAZMufZDTp+u0aN3IdCMtCKwfBX+GUx+OyYgou74O3HYVn8v0SO75wk23TsPiUy1956MUIHfHSFqfooDrL85C20=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691077929; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=ahXMxxfMvQJXeEM/uNzmE/KllU0VmrymEtqJirpqvIU=; 
-	b=HnAcRxYooYPVtptwdjW3QnXfCiNXQcqdZfYgtGASimtW6DmjuNf2hy4oNlvMcZAKBqEHI0zHb6DXh5/EpJapyrzTyTh53s1DN24hqDhJvLkO03ZpX3hWhacUmaDn/cVCXx8QHk2K8g+QjVxD0vcARqwWPUgmyuQi9hG5ovSwQ+w=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691077929;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=ahXMxxfMvQJXeEM/uNzmE/KllU0VmrymEtqJirpqvIU=;
-	b=LnuvRrGqhRUPrE6rrzwkZe0Q+tnvrQhyyKeYPX6xG6LZjF4xvqRfMWEpPut/MvCY
-	Zb5FDnruOHGRZrRRiY4+sU5rihvugfWFDJ2FYsHEvg2MjC5S2Q+GkYYmQ2aF00eIioW
-	ZBtsr96QdfYCt6F4hsDKTBbTF2qNYAapONMiFpqs=
-Message-ID: <2a651c80-7e44-1ff9-bb63-989605960c72@apertussolutions.com>
-Date: Thu, 3 Aug 2023 11:52:04 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [RFC 6/6] capabilities: convert attach debugger into a capability
+X-Inumbo-ID: 5e426eb4-3216-11ee-b268-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hFIbRyhlIZeZmlMX0xhIuNY76qzgsPuI+tRHMT2h9mv1E3GxO1dTGI29iDu5HD5xPxuVPOiXE2wvLvi7E5g0Ho59MS8GDZ77sfTAdqsFHJ81gKHVzu1ONVtsa1dpKwXGyOHYlN1cZqv+RaKfAB4GCqIMK/l0kMxKpGAy0MITNljegwEPjDxEdEJCGq0Xm1Tb4e/teP3eCrYdFEZb6xoOOppu8WCFQGiEAcIrHI8KF8ipVGGDEbh0wsbxPy3HIoWIpoh9fAIAYGr5Bj7Yam35iAo6wcQAZJ8rUR5rd7LMzXa2So88Ly5zGWHLGlH23Nshxq8xSCGLIaQ81gy3bClKLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7z++OH64X4v10TV4JneKLO7NZHCTtV+E1pdVc36zSq4=;
+ b=XsUGyBMupMxLxuzL7yZKVlFvkVj1EySOOXWwTGZcrFtNhwpImgqQkaJW/E6g8uPgbXQbdAhPU1wWLT6QzOrrfyjvOuSYPS79sZMARwj37YIXGAb3Wlnu9p7F5IQDOuGQXENSEDLBOk3giqkN4KT6G/b7eLKtsWgGkBlisXbSY4rB1+bFGUmfVaVTpiVIa2o9Bv1GSc3e4roVaHLBAJ+MqJKVpXpoy+LBS1dAuPR57URHeUXfE4bdgxr/xVrFoe4ywr4BKJclqHx2rqdaUkXbBGCGYTLejPlEFh2SQyt59ewOKiuH4UBx5V7di08GdK0UznGwlkFCrhGD+mzhjAZhtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7z++OH64X4v10TV4JneKLO7NZHCTtV+E1pdVc36zSq4=;
+ b=2tek5Z/BnkSnu/CLQVA4vXnkvP9eVDkE0H+Rfwd+OK1ZhB1fTO0jUxtrTNBvMCWHqTq/TRL32etJvTVwVRrXGaMwz3I1RWysz+EX0EGIbfY0ElNyGUpvesHETvmJdKg/V0pKdoQO8MpOZt5H8WjZEun3wSEcokbvhXYHH8SkBnLjbeq+ZKlj7qF6uLPtItAtXNAImKN6u7FKL18h2NrgM19GHoZ+SZl0lhWdXbSe5EL5dNZUDq1sd8Wqh1beQZsm3+wtE7GgG4H7BcH0MSbMIrVhjvW6unJ7zfalHVHbGDV3InjX4caRVTa1qskcxNh/oI0FNA3eWNyO4EwGQWTVyQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <01a80d4c-f19b-98ec-805e-e648e752d6b1@suse.com>
+Date: Thu, 3 Aug 2023 17:56:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: [PATCH] console: generalize the ability for domU access
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Christopher Clark <christopher.w.clark@gmail.com>,
+ Luca Fancellu <luca.fancellu@arm.com>, Henry Wang <Henry.Wang@arm.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-References: <20230801202006.20322-1-dpsmith@apertussolutions.com>
- <20230801202006.20322-7-dpsmith@apertussolutions.com>
- <alpine.DEB.2.22.394.2308011802401.2127516@ubuntu-linux-20-04-desktop>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <alpine.DEB.2.22.394.2308011802401.2127516@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20230801160608.19219-1-dpsmith@apertussolutions.com>
+ <3b889079-571a-a83a-0cba-c30cf2ce0b1b@suse.com>
+ <d90cc238-87ef-d0d0-b06f-58e89d24eaca@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <d90cc238-87ef-d0d0-b06f-58e89d24eaca@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-ClientProxiedBy: FR2P281CA0173.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB9140:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60e618fc-b1c4-4b9e-1c3e-08db943a3d18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	lndacWCb6HXCarskpn9KnziVdPBIv1oGHqbx8zdI2K0v2BeGOi8R39LZtc/QoF61UIiSTnQNgQSs2x6aRADjtCYAhiOciUp/Njzj7/vyVFeP6OFS5XtArimPb+T1clBQFkzybH78dmERzLgm9A/AZrbs1JKujM4638pvw7njW4b/ifIgwFpqUGjs2MFuO4CH4KJNWk9wWoIjSePXmBUkjokrvTyMs2BNyvNPRq9B3tgbQsjj/uHWHr9k01cwi6M0fuQgb62WxbMcdkPQTlz4ihN43aLfRaCbky0d0vbfRTFkkmQlX8OSu8ILfZlYqyrfCIX2TxWAAX31LNwJYjGu2JC3evHqNM3qrfYmz3OWTNCDWImYN/HW0DwJ8QjPsG+mpMGJwMH/0M64qYCh/aXuhJm510EPbTqoK5SJ6QENkbyAqlIDvcZzy5OrugDAdBhZ4eiOXce+6MKPXYYZT7z6ObEoZfx3gM1uunrRfQNuIytu8TxCTQ34HGpcybNZmAiiN0jJjNu5gpARmPB51JXEx0DG2gRgsU0KAjXsoJgawsm9H2UhvdyMKBjjmwQBs8zQYTvWPIS4l05V4fkZd+bbIElJzTPteu0WPZlPKJCpKzfVFeZTZTQc/dxnOPqRz4ANaTOs2Uk0Jnx6rL+onDatSw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(346002)(136003)(376002)(366004)(39860400002)(451199021)(66556008)(41300700001)(6916009)(316002)(2906002)(66946007)(4326008)(66476007)(8936002)(8676002)(5660300002)(26005)(36756003)(53546011)(186003)(6506007)(86362001)(83380400001)(2616005)(31696002)(38100700002)(478600001)(6512007)(54906003)(6486002)(7416002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eVgzdzRVVWE0T0NvQUZibnVxc3VxRmVtazRnSWkyeEwzWUJkTjJyMWpVazA2?=
+ =?utf-8?B?bjBMbjd2S0ZnNmpybXg0VitFNU0wUTdNdGdydzF2S3VkTFVyaE5DN2lTU1B0?=
+ =?utf-8?B?YXJvT21yYjdPd2wxS2tUbVBmUVI1Rmc0NjVBMWxSL3dmeXRKME50eUVtU2N3?=
+ =?utf-8?B?T01yYzNIN1VPOXFFcWM4My95Q2hyZUZNVjg1Y0JXMUJTTGtBNkw0clo1Wm5l?=
+ =?utf-8?B?L3dtYnBqVmRKRkpiSmZVdVpnUDAvU2RtWU9GTnJUWjFDVzVxdERza0IwNjlZ?=
+ =?utf-8?B?cHZZdURTRGRkanZLd2hOVWZielFPdjZiQW1IOFhVR2UvV0R3aEhNd080N3A0?=
+ =?utf-8?B?bmhhVE9PVkpnUFJrVmlETndlak5lakc1MHRBUnhuVGlMN0hHWGZyNm5nMHFT?=
+ =?utf-8?B?bUQybGYyQ2ptRGwvQjVlbWtuMkRZQmVGVDQxYUp0ZDJWMXFDMFNZOUNPSDZm?=
+ =?utf-8?B?cDh6V0dOTjhnaVRPZFdSajBKT3hmYytTYTlqKzdUMndhUlU2WThlclhwK2Mv?=
+ =?utf-8?B?T0ZVRGpvR1ZZRkp1dXF5Wjc0WWpEeVF2K0ZVWnNVWWdpQlJHRHhHdEZIN2Z2?=
+ =?utf-8?B?dHZyeHRWZnJLNUFodTJPUGxaNVM5NEtNRkJqemIvZm9LM3RjaW9jYUhNdGZy?=
+ =?utf-8?B?aVdCbDFnOHhXT04rSXB5UFRVS3pyaEI1VERwWmNmWVZSK0E3T0NjL05XUFRw?=
+ =?utf-8?B?Rk9YZFc5ZFpMZ1ZSLyt2M1I0YW1EdHZYaStBUGZoTFF4aGk1aVYzS0RFMkIr?=
+ =?utf-8?B?RGtuUElKTHpCalBhenhnMW9oQ2gzakx1M1VBNk9Nay9PYXA1QTJaOHV3aGZN?=
+ =?utf-8?B?OEV0UVhyYmtYWGp6djZCYjhkYng5RTIyMVdEWitpZWhSd0ZzTDVMV0paZ0t1?=
+ =?utf-8?B?NDdSVHFMSVZDTzEyelJWZmFJeWM1TVdrV2Y3aG5OdnN1N0srbFhQM082MEVl?=
+ =?utf-8?B?WkgyWFNYTC9ZWUVCdkJVdzArNmc4U1lxU3AxK01Ib2REbkZwN0NabkN0MzZr?=
+ =?utf-8?B?Y1ZzNzFjL3g2UWNKYWpxQWZzeDBXMG0xVXJTcTZPanFKL3RpZmVBV1JoM0l5?=
+ =?utf-8?B?RUs1STRwT05xYzlmaU9ORHdhKzQrTWY4SVFmbXo3NzRNT3Zjbkk1dmZzUHB1?=
+ =?utf-8?B?QlpDb1M0VUpnUjlBWFlrbVVFVUE5QUFvd2RsUnk3QXJYSUxFaGsxM2hwSEM5?=
+ =?utf-8?B?K200NFVtZWpZaUUvanhiUjZyY0VaZytML1VySlVUUDFzWjdBTmowTE0zM0xS?=
+ =?utf-8?B?aXJKTTBpZUxPb1UwaUZKQUhnbVJ3NkQyZkdLQ2IySm5VT0o5NVBzSUs4dGRk?=
+ =?utf-8?B?V1VKb2M0NTV6MzBhR3JtQUtqcndEWjAxWnk0Z0RwOURPZnhzZ3JINmVoclBs?=
+ =?utf-8?B?bWZweVJ1NzdUd2taZlI1aEJKS0E2WncwV0l6Q1FwcjBoM3N0a1pXdU9zZ0NI?=
+ =?utf-8?B?SVIxdW5PUUxhMkxJa3FPYnJ4cXlvdTdJSnRjTlVKQWVLVThaM25md0RCQnZx?=
+ =?utf-8?B?cUgzM2JxaWFpZS94RVQ0eWpJZ2QrZEU1NTc3MnQ1NFdWMnU2Yk55VSt3S3lX?=
+ =?utf-8?B?cnhSdDh1NU13enNRS3hjdXFtK05MT3NtLzFFN3k5OEtmVndsTEhWV2d1Nm5h?=
+ =?utf-8?B?OWR6UDlVcEx6S0IzbmVrQ0hqL3h1Y1V5VTFwL2dkbnNrU0pEWDJzdmRMb2ov?=
+ =?utf-8?B?dXc3d0l4SGc4R3NlbGJCanpnYitvbXhseEs1SENjYmRqOWQ1TTVPYUhGRDhE?=
+ =?utf-8?B?M3lCVUVGR2lzYTFDbTdMNTNwcXhUYy9xemlkNS81bTd0azFFQ0k3WUtHNEhT?=
+ =?utf-8?B?eWZ6ZjllSUpaRzlmVFkvcXJyQ2VjcjlyeUhHdUhUaWtMNm5mMGdnandIRkRy?=
+ =?utf-8?B?UWp2UnJ4TitBekJhYWFiY3V2dSsrMzZ5b25wbGl1bktmKzR1WEd6WE0yMjVO?=
+ =?utf-8?B?UHV2cG84NlFxaFlPcXBDMGEyb3VreHZzdTlqMm5Ba3NEcFNuSkVscVhtRnY1?=
+ =?utf-8?B?bUV4UFBGRlR3VmxDVW53NkdoNHVzSlorMmpFTSs4R0tKSWRQYkMwTENzeEtZ?=
+ =?utf-8?B?UHl0Q3lqNkxUYzZKZDF6elQ2cE9ad2NaUEhXdHgrOEFwSHBvWmpLVVpDc3BO?=
+ =?utf-8?Q?5z/a/QSSs7rl7wdce62K/lPy2?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60e618fc-b1c4-4b9e-1c3e-08db943a3d18
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2023 15:56:45.8037
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z5XYevfJ3S0aw/Y9JU8HVw/ATcAD/qIHbiOkKf9MRwaBdB8oKV67TKTAvsOHPj0Dir/iRhSYuCbZ+xmwbp6t4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9140
 
-On 8/1/23 21:06, Stefano Stabellini wrote:
-> On Tue, 1 Aug 2023, Daniel P. Smith wrote:
->> Expresses the ability to attach a debugger as a capability that a domain can be
->> provisioned.
+On 03.08.2023 14:56, Daniel P. Smith wrote:
+> On 8/2/23 07:01, Jan Beulich wrote:
+>> On 01.08.2023 18:06, Daniel P. Smith wrote:
+>>> +        if ( hardware_domain )
+>>> +        {
+>>> +            console_rx = hardware_domain->domain_id + 1;
+>>> +            printk("*** Serial input to DOM%d", CON_RX_DOMID);
 >>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/hvm/svm/svm.c      |  8 ++++----
->>   xen/arch/x86/hvm/vmx/realmode.c |  2 +-
->>   xen/arch/x86/hvm/vmx/vmcs.c     |  2 +-
->>   xen/arch/x86/hvm/vmx/vmx.c      | 10 +++++-----
->>   xen/arch/x86/traps.c            |  6 ++++--
->>   xen/common/domctl.c             |  6 ++++--
->>   xen/include/xen/sched.h         |  9 ++++++---
->>   7 files changed, 25 insertions(+), 18 deletions(-)
->>
->> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
->> index 27170213ae..9872804d39 100644
->> --- a/xen/arch/x86/hvm/svm/svm.c
->> +++ b/xen/arch/x86/hvm/svm/svm.c
->> @@ -999,7 +999,7 @@ static void noreturn cf_check svm_do_resume(void)
->>   {
->>       struct vcpu *v = current;
->>       struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
->> -    bool debug_state = (v->domain->debugger_attached ||
->> +    bool debug_state = (domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) ||
->>                           v->domain->arch.monitor.software_breakpoint_enabled ||
->>                           v->domain->arch.monitor.debug_exception_enabled);
->>       bool_t vcpu_guestmode = 0;
->> @@ -1335,7 +1335,7 @@ static void cf_check svm_inject_event(const struct x86_event *event)
->>           }
->>           /* fall through */
->>       case X86_EXC_BP:
->> -        if ( curr->domain->debugger_attached )
->> +        if ( domain_has_cap(curr->domain, CAP_DEBUGGER_ATTACH) )
->>           {
->>               /* Debug/Int3: Trap to debugger. */
->>               domain_pause_for_debugger();
->> @@ -2732,7 +2732,7 @@ void svm_vmexit_handler(void)
->>   
->>       case VMEXIT_ICEBP:
->>       case VMEXIT_EXCEPTION_DB:
->> -        if ( !v->domain->debugger_attached )
->> +        if ( !domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) )
->>           {
->>               unsigned int trap_type;
->>   
->> @@ -2769,7 +2769,7 @@ void svm_vmexit_handler(void)
->>           if ( insn_len == 0 )
->>                break;
->>   
->> -        if ( v->domain->debugger_attached )
->> +        if ( domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) )
->>           {
->>               /* AMD Vol2, 15.11: INT3, INTO, BOUND intercepts do not update RIP. */
->>               __update_guest_eip(regs, insn_len);
->> diff --git a/xen/arch/x86/hvm/vmx/realmode.c b/xen/arch/x86/hvm/vmx/realmode.c
->> index ff44ddcfa6..f761026a9d 100644
->> --- a/xen/arch/x86/hvm/vmx/realmode.c
->> +++ b/xen/arch/x86/hvm/vmx/realmode.c
->> @@ -121,7 +121,7 @@ void vmx_realmode_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt)
->>   
->>       if ( rc == X86EMUL_EXCEPTION )
->>       {
->> -        if ( unlikely(curr->domain->debugger_attached) &&
->> +        if ( unlikely(domain_has_cap(curr->domain, CAP_DEBUGGER_ATTACH)) &&
->>                ((hvmemul_ctxt->ctxt.event.vector == X86_EXC_DB) ||
->>                 (hvmemul_ctxt->ctxt.event.vector == X86_EXC_BP)) )
->>           {
->> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
->> index 13719cc923..9474869018 100644
->> --- a/xen/arch/x86/hvm/vmx/vmcs.c
->> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
->> @@ -1912,7 +1912,7 @@ void cf_check vmx_do_resume(void)
->>           hvm_asid_flush_vcpu(v);
->>       }
->>   
->> -    debug_state = v->domain->debugger_attached
->> +    debug_state = domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH)
->>                     || v->domain->arch.monitor.software_breakpoint_enabled
->>                     || v->domain->arch.monitor.singlestep_enabled;
->>   
->> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
->> index 7ec44018d4..5069e3cbf3 100644
->> --- a/xen/arch/x86/hvm/vmx/vmx.c
->> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->> @@ -2041,7 +2041,7 @@ static void cf_check vmx_inject_event(const struct x86_event *event)
->>               break;
->>           /* fall through */
->>       case X86_EXC_BP:
->> -        if ( curr->domain->debugger_attached )
->> +        if ( domain_has_cap(curr->domain, CAP_DEBUGGER_ATTACH) )
->>           {
->>               /* Debug/Int3: Trap to debugger. */
->>               domain_pause_for_debugger();
->> @@ -2121,7 +2121,7 @@ static void cf_check vmx_set_info_guest(struct vcpu *v)
->>        * immediately vmexit and hence make no progress.
->>        */
->>       __vmread(GUEST_INTERRUPTIBILITY_INFO, &intr_shadow);
->> -    if ( v->domain->debugger_attached &&
->> +    if ( domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) &&
->>            (v->arch.user_regs.eflags & X86_EFLAGS_TF) &&
->>            (intr_shadow & VMX_INTR_SHADOW_STI) )
->>       {
->> @@ -4283,7 +4283,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
->>                   }
->>               }
->>   
->> -            if ( !v->domain->debugger_attached )
->> +            if ( !domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) )
->>               {
->>                   unsigned long insn_len = 0;
->>                   int rc;
->> @@ -4307,7 +4307,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
->>               break;
->>           case X86_EXC_BP:
->>               HVMTRACE_1D(TRAP, vector);
->> -            if ( !v->domain->debugger_attached )
->> +            if ( !domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) )
->>               {
->>                   unsigned long insn_len;
->>                   int rc;
->> @@ -4647,7 +4647,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
->>                                 HVM_MONITOR_SINGLESTEP_BREAKPOINT,
->>                                 0, 0, 0);
->>   
->> -            if ( v->domain->debugger_attached )
->> +            if ( domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) )
->>                   domain_pause_for_debugger();
->>           }
->>   
->> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
->> index 4229bda159..041ced35ea 100644
->> --- a/xen/arch/x86/traps.c
->> +++ b/xen/arch/x86/traps.c
->> @@ -1214,7 +1214,8 @@ void do_int3(struct cpu_user_regs *regs)
->>           return;
->>       }
->>   
->> -    if ( guest_kernel_mode(curr, regs) && curr->domain->debugger_attached )
->> +    if ( guest_kernel_mode(curr, regs) &&
->> +         domain_has_cap(curr->domain, CAP_DEBUGGER_ATTACH) )
->>       {
->>           curr->arch.gdbsx_vcpu_event = X86_EXC_BP;
->>           domain_pause_for_debugger();
->> @@ -1995,7 +1996,8 @@ void do_debug(struct cpu_user_regs *regs)
->>       v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
->>       v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
->>   
->> -    if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
->> +    if ( guest_kernel_mode(v, regs) &&
->> +         domain_has_cap(v->domain, CAP_DEBUGGER_ATTACH) )
->>       {
->>           domain_pause_for_debugger();
->>           return;
->> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
->> index 505e29c0dc..895ddf0600 100644
->> --- a/xen/common/domctl.c
->> +++ b/xen/common/domctl.c
->> @@ -99,7 +99,8 @@ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
->>           ((d->is_dying == DOMDYING_dead) ? XEN_DOMINF_dying     : 0) |
->>           (d->is_shut_down                ? XEN_DOMINF_shutdown  : 0) |
->>           (d->controller_pause_count > 0  ? XEN_DOMINF_paused    : 0) |
->> -        (d->debugger_attached           ? XEN_DOMINF_debugged  : 0) |
->> +        (domain_has_cap(d, CAP_DEBUGGER_ATTACH) ?
->> +                                          XEN_DOMINF_debugged  : 0) |
->>           (is_xenstore_domain(d)          ? XEN_DOMINF_xs_domain : 0) |
->>           (is_hvm_domain(d)               ? XEN_DOMINF_hvm_guest : 0) |
->>           d->shutdown_code << XEN_DOMINF_shutdownshift;
->> @@ -643,7 +644,8 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->>           else
->>           {
->>               domain_pause(d);
->> -            d->debugger_attached = !!op->u.setdebugging.enable;
->> +            if ( !!op->u.setdebugging.enable )
->> +                domain_set_cap(d, CAP_DEBUGGER_ATTACH);
->>               domain_unpause(d); /* causes guest to latch new status */
->>           }
->>           break;
->> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
->> index ebfe65cd73..47eadb5008 100644
->> --- a/xen/include/xen/sched.h
->> +++ b/xen/include/xen/sched.h
->> @@ -474,9 +474,8 @@ struct domain
->>       uint8_t          role;
->>   #define CAP_CONSOLE_IO         (1U<<0)
->>   #define CAP_DISABLE_CPU_FAULT  (1U<<1)
->> -    uint8_t          capabilities;
->> -    /* Is this guest being debugged by dom0? */
->> -    bool             debugger_attached;
->> +#define CAP_DEBUGGER_ATTACH    (1U<<2)
->> +    uint16_t         capabilities;
+>> Here and elsewhere - why %d when original code properly used %u? I also
+>> think there are now quite a few too many of these all identical
+>> printk()s.
 > 
-> No need to switch to uint16_t just yet?
+> Good question, I did not write the line, it was copy/paste from 
+> elsewhere in the file and then continued to replicate from there.
 
-I know space is tight in struct domain, wanted to reclaim the freed 
-space into capabilities (or roles). One thing I was considering if 
-enough space could be found is instead replace it all with a pointer to 
-a new struct that held these values. It would allow using heap space and 
-future growth of the structure. As of this patch, it is consuming 5 
-bytes and would need to find an additional 3 bytes. Is there a 
-willingness to entertain such an approach?
+There's exactly one such line right now, using DOM%u. If I'm not
+mistaken, it's not all that long ago that this was changed, so I
+would suspect an incomplete rebase.
 
->>       /*
->>        * Set to true at the very end of domain creation, when the domain is
->>        * unpaused for the first time by the systemcontroller.
->> @@ -1166,6 +1165,10 @@ static always_inline bool domain_set_cap(
->>           if ( is_pv_domain(d) && is_control_domain(d) )
->>               d->capabilities |= cap;
->>           break;
->> +    case CAP_DEBUGGER_ATTACH:
->> +        if ( !is_control_domain(d) )
->> +            d->capabilities |= cap;
-> 
-> I take it is not possible to attach it to dom0? I am not familiar with
-> XEN_DOMCTL_setdebugging but the hypercall doesn't seem to have such
-> restriction.
-
-Good question, on first glance I can't see why I added this. Going to 
-walk through it again and see if I can figure out why, otherwise I will 
-drop it.
-
->> +        break;
->>       default:
->>           return false;
->>       }
->> -- 
->> 2.20.1
+>>> +            goto out; //print switch_code statement & newline
 >>
+>> Leftover development comment? (There's at least one more.)
+> 
+> Yes and no, the comment came from elsewhere in the file
+
+Did it?
+
+> and early in 
+> development it I place it here to later decide if it should stay (and 
+> get converted into a compliant comment). I will drop it in the next 
+> iteration.
+
+Thanks.
+
+>>> +        }
+>>> +        else
+>>
+>> Please avoid "else" after an if() that ends in "return", "goto", or
+>> alike.
+> 
+> Really? How would you propose handling common finalization when
+> completion happens during the execution of two branches of the logical 
+> purpose of the function? Do you want to see two separate if statements 
+> of `if ( condition A )` and `if ( ! condition A )`?
+
+What would you need the 2nd if() for when the first one ends in "return",
+"goto", or alike?
+
+>>> +        {
+>>> +            for_each_domain(next)
+>>
+>> What guarantees that the list won't change behind your back? You don't
+>> hold domlist_read_lock here afaict. It might be that you're safe because
+>> that lock is an RCU one and this function is only invoked at init time
+>> or from some form of interrupt handler. But that's far from obvious and
+>> will hence need both properly confirming and stating in a comment. (It
+>> is actually this concern, iirc, which so far had us avoid iterating the
+>> domain list here.)
+> 
+> It is better to error on the side of caution instead of assuming this 
+> will always be invoked in a safe manner. I will add a read lock for the 
+> domain list.
+
+I'm not firm enough in RCU to be certain whether acquiring that lock is
+permissible here.
+
+>>> +            {
+>>> +                if ( xsm_console_io(XSM_OTHER, next, CONSOLEIO_read) == 0 )
+>>> +                {
+>>> +                    console_rx = next->domain_id + 1;
+>>> +                    printk("*** Serial input to DOM%d", CON_RX_DOMID);
+>>> +                    goto out; //print switch_code statement & newline
+>>> +                }
+>>> +            }
+>>>   
+>>> -        if ( next_rx++ >= max_console_rx )
+>>> +            console_rx = 0;
+>>> +            printk("*** Serial input to Xen");
+>>> +            goto out;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    for ( next = rcu_dereference(d->next_in_list); next != NULL;
+>>> +          next = rcu_dereference(next->next_in_list) )
+>>
+>> This looks like an open-coded continuation of for_each_domain() - I'm
+>> afraid I'm wary of introducing anything like this.
+> 
+> Not exactly, for_each_domain() always starts with beginning of the 
+> domain list and walks from that point forward.
+
+Right, hence my use of the word "continuation".
+
+> This open coded version 
+> stats at domain d and walks from there to the end of the list. Which is 
+> why there is logic below, which uses for_each_domain(), to walk from the 
+> beginning of the list until the next domain with console_io or the 
+> hardware domain, whichever occurs first.
+> 
+> What I did not want to do is potentially waste a lot of cycles doing 
+> for_each_domain() with a continue until it reached the current domain 
+> and then start checking for the privilege.
+> 
+> I could take this and introduce a new macro, for_each_domain_from (or a 
+> better name if there are suggestions) and use it here.
+
+That's effectively what I would like to be done, yes.
+
+>>> +    {
+>>> +        if ( hardware_domain && next == hardware_domain )
+>>>           {
+>>>               console_rx = 0;
+>>>               printk("*** Serial input to Xen");
+>>> -            break;
+>>> +            goto out;
+>>
+>> Since you use "goto" anyway, this wants introducing a 2nd label (maybe
+>> "xen"?) ahead of the identical code you add further down (immediately
+>> ahead of the "out" label), to avoid code duplication.
+> 
+> Ack.
+> 
+>>>           }
+>>>   
+>>> -        d = rcu_lock_domain_by_id(next_rx - 1);
+>>> -        if ( d )
+>>> +        if ( xsm_console_io(XSM_OTHER, next, CONSOLEIO_read) == 0 )
+>>>           {
+>>> -            rcu_unlock_domain(d);
+>>> -            console_rx = next_rx;
+>>> -            printk("*** Serial input to DOM%u", next_rx - 1);
+>>> -            break;
+>>> +            console_rx = next->domain_id + 1;
+>>> +            printk("*** Serial input to DOM%d", CON_RX_DOMID);
+>>> +            goto out;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Hit the end of the domain list and instead of assuming that the
+>>> +     * hardware domain is the first in the list, get the first domain
+>>> +     * in the domain list and then if it is not the hardware domain or
+>>> +     * does not have console privilege, iterate the list until we find
+>>> +     * the hardware domain or a domain with console privilege.
+>>> +     */
+>>> +    if ( next == NULL )
+>>> +    {
+>>> +        for_each_domain(next)
+>>> +        {
+>>> +            if ( hardware_domain && next == hardware_domain )
+>>> +            {
+>>> +                console_rx = 0;
+>>> +                printk("*** Serial input to Xen");
+>>> +                goto out;
+>>> +            }
+>>> +
+>>> +            if ( xsm_console_io(XSM_OTHER, next, CONSOLEIO_read) == 0 )
+>>> +            {
+>>> +                console_rx = next->domain_id + 1;
+>>> +                printk("*** Serial input to DOM%d", CON_RX_DOMID);
+>>> +                goto out;
+>>> +            }
+>>>           }
+>>>       }
+>>>   
+>>> +    /*
+>>> +     * If we got here, could not find a domain with console io privilege.
+>>> +     * Default to Xen.
+>>> +     */
+>>
+>> "Default to" is a little odd when there are no other options.
+> 
+> Fallback to?
+
+Yes.
+
+>>> @@ -538,31 +594,37 @@ static void __serial_rx(char c, struct cpu_user_regs *regs)
+>>>            * getting stuck.
+>>>            */
+>>>           send_global_virq(VIRQ_CONSOLE);
+>>> -        break;
+>>> -
+>>> -#ifdef CONFIG_SBSA_VUART_CONSOLE
+>>> -    default:
+>>> +    }
+>>> +    else
+>>>       {
+>>> -        struct domain *d = rcu_lock_domain_by_id(console_rx - 1);
+>>> +        struct domain *d = rcu_lock_domain_by_any_id(CON_RX_DOMID);
+>>>   
+>>> +        if ( d == NULL )
+>>> +            goto unlock_out;
+>>> +
+>>> +#ifdef CONFIG_SBSA_VUART_CONSOLE
+>>>           /*
+>>>            * If we have a properly initialized vpl011 console for the
+>>>            * domain, without a full PV ring to Dom0 (in that case input
+>>>            * comes from the PV ring), then send the character to it.
+>>>            */
+>>> -        if ( d != NULL &&
+>>> -             !d->arch.vpl011.backend_in_domain &&
+>>> +        if ( !d->arch.vpl011.backend_in_domain &&
+>>>                d->arch.vpl011.backend.xen != NULL )
+>>> +        {
+>>>               vpl011_rx_char_xen(d, c);
+>>> -        else
+>>> -            printk("Cannot send chars to Dom%d: no UART available\n",
+>>> -                   console_rx - 1);
+>>> +            goto unlock_out;
+>>> +        }
+>>> +#endif
+>>> +
+>>> +        if ( (serial_rx_prod - serial_rx_cons) != SERIAL_RX_SIZE )
+>>> +            serial_rx_ring[SERIAL_RX_MASK(serial_rx_prod++)] = c;
+>>
+>> This is Dom0's buffer; I don't think sharing with DomU-s is correct.
+> 
+> I would disagree, it is the hypervisor's buffer that it decides to share 
+> with domains it trust. It just so happens that it always trusts the 
+> hardware domain. This is why I explicitly changed this to the XSM call, 
+> to express that when the system manager, by enabling this privilege on 
+> the domain, has decided to trust these domains to have access to the 
+> hypervisor's buffer.
+
+I don't think such trust can be assumed to allow the domains to see e.g.
+each others root passwords.
+
+>>> @@ -717,6 +779,8 @@ long do_console_io(
+>>>           rc = -E2BIG;
+>>>           if ( count > INT_MAX )
+>>>               break;
+>>> +        if ( CON_RX_DOMID != current->domain->domain_id )
+>>> +            return 0;
+>>>   
+>>>           rc = 0;
+>>>           while ( (serial_rx_cons != serial_rx_prod) && (rc < count) )
+>>
+>> ... assume that by the time this hypercall is invoked input focus
+>> hasn't switched. I think there's no way around a per-domain input
+>> buffer, which of course would need setting up only for console-io-
+>> capable domains.
+> 
+> Let's explore the exact concern here, the scenarios as far as I can see 
+> it is as follows.
+> 
+> A person at the serial/console types keys for the current console domain 
+> (domA), then enters the console switch sequence, switching to another 
+> domain (domB). DomA's CONSOLEIO_read hypercall arrives after the switch 
+> and thus is not sent the rx buffer contents. Then domB's CONSOLEIO_read 
+> arrives and then because `serial_rx_cons` and `serial_rx_prod` are not 
+> the same, domB is sent the bytes that were intended for domA.
+> 
+> While a per domain console_io buffer would address this issue, I believe 
+> there is a simpler solution that can be extended depending on whether it 
+> is acceptable for the undelivered bytes to be dropped or not.
+> 
+> Simply upon switching, if serial_rx_cons and serial_rx_prod are set the 
+> same, then no bytes will be leaked to domB from domA above. An extra 
+> precaution could be taken to zero the serial_rx buffer. If guaranteed 
+> delivery is desired, a list of buffer remnants could be drained on 
+> hypercall and console switching.
+> 
+> IMHO I believe the reality is while there is potential that the scenario 
+> could happen, the probability is low. Doing a per domain buffer will 
+> always incur the resource overhead even if the event never happens, 
+> while the above approach would only incur the resource overhead when the 
+> situation occurs.
+
+Which, afaict, would then result in stuff typed in for one domain being
+discarded, without there being any indication how much of it was discarded
+(and hence would need typing again).
+
+I don't share the resource concern: If an admin wants multiple domains
+to take input this way, they can't assume this comes at no price at all.
+
+Jan
 
