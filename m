@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D6A376ED2E
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 16:50:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576449.902595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4862476ED3A
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Aug 2023 16:55:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576454.902604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRZeF-0003E0-HV; Thu, 03 Aug 2023 14:49:55 +0000
+	id 1qRZjA-0004fs-3v; Thu, 03 Aug 2023 14:55:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576449.902595; Thu, 03 Aug 2023 14:49:55 +0000
+Received: by outflank-mailman (output) from mailman id 576454.902604; Thu, 03 Aug 2023 14:55:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRZeF-0003CF-EB; Thu, 03 Aug 2023 14:49:55 +0000
-Received: by outflank-mailman (input) for mailman id 576449;
- Thu, 03 Aug 2023 14:49:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qRZjA-0004eB-0y; Thu, 03 Aug 2023 14:55:00 +0000
+Received: by outflank-mailman (input) for mailman id 576454;
+ Thu, 03 Aug 2023 14:54:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=k1st=DU=tibco.com=kecho@srs-se1.protection.inumbo.net>)
- id 1qRZdZ-0003BH-D6
- for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 14:49:13 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8e255c9-320c-11ee-b268-6b7b168915f2;
- Thu, 03 Aug 2023 16:49:12 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4fe07f0636bso1845244e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Aug 2023 07:49:12 -0700 (PDT)
+ (envelope-from <SRS0=VY8U=DU=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qRZj8-0004ca-35
+ for xen-devel@lists.xenproject.org; Thu, 03 Aug 2023 14:54:58 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0623.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::623])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b35c4832-320d-11ee-8613-37d641c3527e;
+ Thu, 03 Aug 2023 16:54:52 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DU2PR04MB8533.eurprd04.prod.outlook.com (2603:10a6:10:2d4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.20; Thu, 3 Aug
+ 2023 14:54:50 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6631.046; Thu, 3 Aug 2023
+ 14:54:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,133 +47,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8e255c9-320c-11ee-b268-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1691074151; x=1691678951;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=LtTQGZNo5YSjoPnpB3y/JCSf673ZWqc5kxtsocf7clY=;
-        b=EdBWOU/8ZnyKuo8MAcOfcoO/f35LQ2pcQfn87HkvsSbt+A6X2kPFV5gguIZla4W9CB
-         6r6AUF5fdojgppa5aN2vRBPSte6rxfPsmDR2dzf7kOHhhjeD6xiZtgCZ/Sv0cyICFddu
-         uEcklozGVKGVqg9Suf3dL4JsqPis0k82+TboA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691074151; x=1691678951;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LtTQGZNo5YSjoPnpB3y/JCSf673ZWqc5kxtsocf7clY=;
-        b=OYENOSShAYbWZagWR4xubkGJ0JvlqTjid+Hs9t7NGRnYjvvW79D4sCDUluKedmqpSB
-         msCDyYv/DIwaAFH12Wn5bLvLCp/eA4hZ3cAUeLsVF9BQS1RqaPj5DQXvw76DXBsNjyVh
-         cASExxiCx4AnKV7PxPZVlX1MBJFbB1tr9oQ9ML41fFEZdXbFqNEM7BWY36bKGl1fxNMJ
-         BjZ9QrCBRZXNC3AmUN32ocMsvYZDbusmQPdvZHUFTS34J958RNeAQkfqv1WaPw4po115
-         /EMNKAcxG/KRmL1nEWYruUA3NqNEQIC/6dB9kjcp29OhRuj2P7Tz7H5Ava1LuiplKz4K
-         rhMQ==
-X-Gm-Message-State: ABy/qLZo6XRlIMFN0+hqSnYsdVNg610SL7qsIC9B/R83BRwacI+rfEiT
-	HuCG4lkEcY2O+XQEbasLnP4AkQDP1I1f6kudWttvVqHzeSoKnPvMnxwyRIFy9Gf62A==
-X-Google-Smtp-Source: APBJJlEz825szI+9GBb01xYOoTAD2buEEi9Y2nDZmnt6/Id3lSKe/rHLLYg7Q+b+DnaKtCWKxd8hUU26FA7vTWAFm60=
-X-Received: by 2002:a19:8c5c:0:b0:4fb:cabd:2a66 with SMTP id
- i28-20020a198c5c000000b004fbcabd2a66mr7113632lfj.21.1691074151428; Thu, 03
- Aug 2023 07:49:11 -0700 (PDT)
+X-Inumbo-ID: b35c4832-320d-11ee-8613-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LBE6Ojih0w7RL0+3LZ3AXb1RnbSz5/tVm3LTSZ6/axMXXw6nVe3YDlEsFrNrqyOdpJje/fUolfaY7csnJ3zUGkVhwN2BCA22GSNFxkMscKPPGSQ6967FhD59gYxfoJ+A0lYnPr9rd3BNsl3cCZM2pttDj8w8HofiWOqHZnNfNQXpprR8QXtl9kOyamx6PtcsBSY9ojJxe9YwI3PlafOlB+ExJKrmSQZGsuTsV6LAjTIhb6yuON0W7u6tCSgqyZswXwJ9gOk8VpDsvMcZ1vE4+TYHDRhA50euv6C/7ROaFotnZEvXAHyGLJL5Vt4MtrYxqehpz2KicZr42qlcAM/AhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L7bkNJqp3St7fRuY7Bj4G78GKIHC1TqIMBw5kretX/U=;
+ b=BeOwfBRfXGSW0R0klIwMNBg8LJBnr6ddjq7ugjsbh2LCXe3VE8oYEX9cBAVUIvQAkPzK+dyWIaGxA86Rmr7xmrAeVWRgMUQxwveo2Fv6FwoRULLS09PD/8E0EetdJb7zwB/SGQWUX6iA7MO9MF7/Ec6lp2UBfZhBqT8Y6txvuW0QDP7g4SQCdAh0tSEEFt/7WnOFaRmx4RF1C10clL+cJqkmEPiAo2+OmNEiMpehopdxo9ItnZ8+Ct57wEx9TW/qiufrfYeTaR6sPmHhn+rvulXEePRBwbdV2w4cfFQOOtdgxQ8uipHvHk+TV5XM1Kjgg6iEcFq2QJ0ERG7ABk/0Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L7bkNJqp3St7fRuY7Bj4G78GKIHC1TqIMBw5kretX/U=;
+ b=OBLoa30Y+GUcvC8zfqs8A+PG58GEbILFdpoIjoPfmrwH2NVehedOEMRJ50OlsO8RHhdEGDwLX7fPoYV0+MPdahW0x3TvQhjhG4Rqw0s7zTP+yJLsMFVQGi54ZWr5jMgL6ITzzGZ9D/j/AshnlG0sXSdnOmbcg8APpDaE2QnLGhomsj9Bqyj4Msgbl187CmidHId1E80TPecrqG5uk8EloVMVgkDmL0yb8BFOeqIrnzH2KrvixlXWQi38FBn4sIe0l/bJoyyYUBEjq1IjSVuFbQBlxs78NmlsugPFOYUKXe8jeDnBLTGVok7glSoHdF0xEvHrUtQcVpQUTCIwYCUCFA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <7bbe2f11-981b-5e0f-8bf4-b8d0b4a2ccc9@suse.com>
+Date: Thu, 3 Aug 2023 16:54:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: Call for agenda items for 03/08/23 Community Call @ 1500 UTC
+Content-Language: en-US
+To: Kelly Choi <kelly.choi@cloud.com>
+References: <CAO-mL=yUogtHyY6jgBo_6W4WfhypmoF8wsJDA3TOzPV74+j8Eg@mail.gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <CAO-mL=yUogtHyY6jgBo_6W4WfhypmoF8wsJDA3TOzPV74+j8Eg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0183.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::12) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Thu, 3 Aug 2023 15:48:36 +0100
-Message-ID: <CAO-mL=yUogtHyY6jgBo_6W4WfhypmoF8wsJDA3TOzPV74+j8Eg@mail.gmail.com>
-Subject: Call for agenda items for 03/08/23 Community Call @ 1500 UTC
-To: undisclosed-recipients:;
-Content-Type: multipart/alternative; boundary="00000000000015cdb4060205e2d7"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56e49c69-8539-40b8-ba50-08db94319698
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XCeBqCfZGO1sZxo6utfnBdEMi1jqov6z6I4X0kOwn7WgjNNH0LCw1T4DD/hnmOuq7tD2MMXwW6Qppdtitce7HhBg0Ya+QWkxN43ZfZocQBjBLzWyd+coquiKnGYssX7R50g3OWVExyv2CQc9E+xHg+delXB7KkG6DmI3Oyr58hAJ8cP8a8R9a7aU7bpUkmaZMnVT1/fwlicL0pKx/7gNZyJ3VFtxsGIrJyA60PiJNezZkfOQkxQHXM8Y0re+ILUxoXWRfsQfMM+6QBPwv+kjtkLzyM1jlxvnAknnntCkpoQ3yvP7gGvz70pBC1NbOE+vUy32FtUnDyeVYIAPlrzaVG6WQxmu6Uwj+r72sAkhoB3ja2Cf0psKTJ0uzMLi6xiGZrkLGZWK+BJWhzzx8U3QLTVMDgK1SpaicClO3+CtX4cmnw5yiWRXKN2odfCRCfA0bLzZ54n0f4uNzZFa/+lVM0iqFphNRNjtgXqH2B2vSgZAxLx4zX5QDgWFPrD+Y1NshCN/SFmHqEdsv7uIR2zZT8PJSnyTclA7ud8wGvDf7ZdY8AC2e0CpjSpSBCz7wthDLtGRN6f7rF58W5czlEObDgfRr4NF+1jkshOqQ5hbZec4ObJUJgu4hncwlI2UX/StcvR05pM7sGJLCbtQbD+qpXZpf/QFEYbqDeZ9dYZr8yg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(39860400002)(136003)(346002)(376002)(366004)(451199021)(2906002)(4744005)(2616005)(86362001)(31696002)(38100700002)(36756003)(41300700001)(31686004)(6486002)(6512007)(966005)(66476007)(316002)(6916009)(4326008)(66946007)(66556008)(26005)(6506007)(53546011)(5660300002)(478600001)(186003)(8936002)(8676002)(221023011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YTVmc2Y5Vmo5RFA3MkRHdFlFS3o2Tm9weHNSMFZ1cUVYeTRNZ1hPZmFYWmFW?=
+ =?utf-8?B?emtjODFiOUwrY2JkK1c3ZnJxcVdFNnFzSUFaV1BUaFlCdzZCUlFUTkdVVzFk?=
+ =?utf-8?B?MnJhUUkwOVUxelg4WmdEVkpvdXAxcDFKeXlmTjlXRlpjV1VkcGxaLzg0eWFy?=
+ =?utf-8?B?WHZrdzhMUFZxM295ZUsrOGpaUUZCajQ4QlJET29wakx2UXJ4bzhjYllqdEUy?=
+ =?utf-8?B?Zk5UR3FmNGJrdTE4RzdGZHQzNUlsUjhmN3AxeWE4WjM5QTFHbkczNWE2QTc4?=
+ =?utf-8?B?T3pRRFV3R21TWHBqQVovczN0d3hPRDJWYzJVUUlaQlZkVVFWam5tUS9wYk1U?=
+ =?utf-8?B?NTBGNHlWcGxrQm9jMjV2T0R6WmZSd3ZsSW41cFFhUGR2dmdON3ZpZUlnbi84?=
+ =?utf-8?B?OHBndGFZaEhSc2V1ZVNuS3c5elBMMHFIZllKY0JxZCt1R2R2QWVzaHBDOTgr?=
+ =?utf-8?B?U0pIbWpac1J5bWdZQ2dHMWhoZllXeEdvbzFQRG04ZTlyR3RxVFRnTDdPaGRP?=
+ =?utf-8?B?Mnhyb1QzN3FubXhrc21haGtma3k0czFzS0Q1MFNEcEpuT2NUSlozN1lpTzMv?=
+ =?utf-8?B?M0RRSytPL3hQUmNFelJZRGltaHVVclFPaU02VEJXQkZySWsxb084SGU4bytp?=
+ =?utf-8?B?QVhkZmxvRjNLTVpHUjI0WnJwTU1kLzlzdUszWFR1cHJWczNHZm9xb1pEZENx?=
+ =?utf-8?B?Uk9ZOUkyNmhyT1Ewcjl5N0JncnBhU29hRXdybGtXTGg5RXZCVkxOQkVxTWZ0?=
+ =?utf-8?B?Sm1ZQjc3WEh1UnI4SjZ6bFBuU1VZK01DU0hiOHp2bHZxK3Z0ZHlCVVM3UWFV?=
+ =?utf-8?B?bEtLTDN5bDFoNWM5aWhxMmhtYnBmN3c5QXNENmdiTDNkUXFkYlZCbDg2UlRh?=
+ =?utf-8?B?WnVTSzRJbHY2V2NCTVEvSHdiQ3NiSTNRZ3Z2enRQcmxSeFBKSERvd3hIVzRC?=
+ =?utf-8?B?RFhxdVF0enoydThpNE1OK1ZDVTRwNTV2N2VpT1Bxd2VXWHdCQkhKYjRpY0pa?=
+ =?utf-8?B?dmZ2cUxVUW1IRHE1UjBxSzhWUzBRTThtRUxHc2tUa3ZTK1g2K21vUTlXLzYy?=
+ =?utf-8?B?bGNEU01GUDU1Tm1XVTF6WFJGVE5xcG9UVWtScTIzVkRBNW9PRXovL1J4Rzdj?=
+ =?utf-8?B?YVg3Q0kwWHpKV3hwQ01oOU1tdVp6S0lQNmwyODg3S3hUM01PMVZva09WeFBH?=
+ =?utf-8?B?UmF4b3VKckt5bHh1cFk0emdvd3JOVzhHL3FIakYyS1kxV1Z6YVg0ditQbW1H?=
+ =?utf-8?B?amRyd09paTNxSnZOaHMwYVh0dkpUOWZrdmRiSXhPTU9KdE95YkpkSm5ZbGdn?=
+ =?utf-8?B?VHo5TVRDeWppWEI0NjVZY2EwYWlsclJHTjdDeENabEFVY1pWamZaalpoWkk4?=
+ =?utf-8?B?Snc5NTFjMXFlTWU5U2J2aUhsaGJERzZwb1VibGYxMG12S0Vtcks5YzEveERQ?=
+ =?utf-8?B?QWxLa0sxc3o5UHlkOEVGOWhtR2EzRG9Ud3poRFd4M0p0M2dEMllYR1BIWmNB?=
+ =?utf-8?B?Y3dyZGRIWXRHWlU4T3B4RGNNTUkwM0pvZUhpZ0pPUU05YnVZdWloUGk1NU1Z?=
+ =?utf-8?B?NjVqbTJrcEkyNTBZS2lHOCtJSHBIQTJ3dFlIMWtQYjQyMWpzYjdURCtIM0h0?=
+ =?utf-8?B?NldsTWRSbC9oSDFmYmJjZllWTm1mZFArbUlsYng4RnBsRXBLNmJqaTFIYThG?=
+ =?utf-8?B?QkoyRDdNNytNSTljNmhramtkUEEyemZ3M3NGdzdWY2J1MWc5b0VvaURZZ05o?=
+ =?utf-8?B?bDJsWlFoM1ZCTExyU0xCVkd6V1F2YmhHbVRjdWxldHRSYWFNUnpUSmRoYmFF?=
+ =?utf-8?B?V3VwMVZTS3c1MDVvN0Y4aUFqOUlDdjh2VkxtclBNKzA2eHJzYTJrbUhSU3By?=
+ =?utf-8?B?VWltRm0xTDhBc1lvYmRQbFJ0VVVldTlKVElKbmxjeHpuMmY1dDBVZmh3Sk1X?=
+ =?utf-8?B?S0R2L2hqTTVPTmozN0srRGVyN2puMGdSbGJ4OWJ1R0JQZ1hDdEFCV1cweU9S?=
+ =?utf-8?B?bHNMNmRrcVR1a1JXWHlLLzBJV0svYysvdWdydUdkUTlaelIrTENFd0oxSG9F?=
+ =?utf-8?B?T2pFSVBoSHVnLzBYdjdXeTdQdXcwYVZoQW5jZG5KRzIrU3l2M0czVEpFNmpr?=
+ =?utf-8?Q?h5byGTSqMZPykQuNxIDm4mXU/?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56e49c69-8539-40b8-ba50-08db94319698
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2023 14:54:50.6199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YI/jCWtN3bdeU2iG/kUjVo6s6/Z4PnLNvUUtjDnpEX/cB9LGZqXPAyZ2D/Fs5yn8KcB9jWlAd+3cnGtKPy0aOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8533
 
---00000000000015cdb4060205e2d7
-Content-Type: text/plain; charset="UTF-8"
+On 03.08.2023 16:48, Kelly Choi wrote:
+> The proposed agenda is in this link
+> <https://cryptpad.fr/pad/#/2/pad/edit/vQgbgUdA3hhXYK2XS79CAgEs/>and you can
+> edit to add items.  Alternatively, you can reply to this mail directly.
 
-Hi all,
+Just to mention it: George has previously pointed at
 
-The proposed agenda is in this link
-<https://cryptpad.fr/pad/#/2/pad/edit/vQgbgUdA3hhXYK2XS79CAgEs/>and you can
-edit to add items.  Alternatively, you can reply to this mail directly.
+https://cryptpad.fr/pad/#/2/pad/edit/Rk5kDLwcc7CrqFm6O7xq2Jci/ 
 
-Agenda items appreciated a few days before the call: please put your name
-besides items if you edit the document.
-
-Note the following administrative conventions for the call:
-* Unless, agreed in the previous meeting otherwise, the call is on the 1st
-Thursday of each month at 1600 British Time (either GMT or BST)
-* I usually send out a meeting reminder a few days before with a
-provisional agenda
-
-* To allow time to switch between meetings, we'll plan on starting the
-agenda at 16:05 sharp.  Aim to join by 16:03 if possible to allocate time
-to sort out technical difficulties &c
-
-* If you want to be CC'ed please add or remove yourself from the
-sign-up-sheet at
-https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
-
-*George is on PTO this week, so I will be hosting this call with the help
-from the community.
-
-== Dial-in Information ==
-## Meeting time
-16:00 - 17:00 British time
-Further International meeting times:
-<https://www.timeanddate.com/worldclock/meetingdetails.html?year=2020&month=4&day=2&hour=15&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179>
-<https://www.timeanddate.com/worldclock/meetingdetails.html?year=2021&month=04&day=8&hour=15&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179>
-https://www.timeanddate.com/worldclock/meetingdetails.html?year=2023&month=5&day=4&hour=15&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
-
-
-## Dial in details
-Web: https://meet.jit.si/XenProjectCommunityCall
-
-Dial-in info and pin can be found here:
-
-https://meet.jit.si/static/dialInInfo.html?room=XenProjectCommunityCall
-Many thanks,
-Kelly Choi
-
-Open Source Community Manager, XenServer
-Cloud Software Group
-
---00000000000015cdb4060205e2d7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p>Hi all,</p><p>The proposed agenda is in this<a href=3D"=
-https://cryptpad.fr/pad/#/2/pad/edit/vQgbgUdA3hhXYK2XS79CAgEs/"> link </a>a=
-nd you can edit to add items.=C2=A0 Alternatively, you can reply to this ma=
-il directly.<br></p><p>Agenda items appreciated a few days before the call:=
- please put your name besides items if you edit the document.<br></p><p>Not=
-e the following administrative conventions for the call:<br>* Unless, agree=
-d in the previous meeting otherwise, the call is on the 1st Thursday of eac=
-h month at 1600 British Time (either GMT or BST)<br>* I usually send out a =
-meeting reminder a few days before with a provisional agenda<br></p><p>* To=
- allow time to switch between meetings, we&#39;ll plan on starting the agen=
-da at 16:05 sharp.=C2=A0 Aim to join by 16:03 if possible to allocate time =
-to sort out technical difficulties &amp;c</p><p>* If you want to be CC&#39;=
-ed please add or remove yourself from the sign-up-sheet at=C2=A0<a href=3D"=
-https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/">https://cry=
-ptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/</a><br></p><p>*George i=
-s on PTO this week, so I will be hosting this call with the help from the c=
-ommunity.=C2=A0</p><p>=3D=3D Dial-in Information =3D=3D<br>## Meeting time<=
-br>16:00 - 17:00 British time<br>Further International meeting times:=C2=A0=
-<a href=3D"https://www.timeanddate.com/worldclock/meetingdetails.html?year=
-=3D2020&amp;month=3D4&amp;day=3D2&amp;hour=3D15&amp;min=3D0&amp;sec=3D0&amp=
-;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D179"></a><a href=3D"https://ww=
-w.timeanddate.com/worldclock/meetingdetails.html?year=3D2021&amp;month=3D04=
-&amp;day=3D8&amp;hour=3D15&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D3=
-7&amp;p3=3D224&amp;p4=3D179"></a><a href=3D"https://www.timeanddate.com/wor=
-ldclock/meetingdetails.html?year=3D2023&amp;month=3D5&amp;day=3D4&amp;hour=
-=3D15&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=
-=3D179">https://www.timeanddate.com/worldclock/meetingdetails.html?year=3D2=
-023&amp;month=3D5&amp;day=3D4&amp;hour=3D15&amp;min=3D0&amp;sec=3D0&amp;p1=
-=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D179</a><br></p><p><br>## Dial in =
-details<br>Web:=C2=A0<a href=3D"https://meet.jit.si/XenProjectCommunityCall=
-">https://meet.jit.si/XenProjectCommunityCall</a><br></p><p>Dial-in info an=
-d pin can be found here:<br></p><p><a href=3D"https://meet.jit.si/static/di=
-alInInfo.html?room=3DXenProjectCommunityCall">https://meet.jit.si/static/di=
-alInInfo.html?room=3DXenProjectCommunityCall</a></p><div><div dir=3D"ltr" c=
-lass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr=
-"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div styl=
-e=3D"color:rgb(136,136,136)">Open Source Community Manager, XenServer</div>=
-<div style=3D"color:rgb(136,136,136)">Cloud Software Group</div></div></div=
-></div></div></div>
-
---00000000000015cdb4060205e2d7--
+Jan
 
