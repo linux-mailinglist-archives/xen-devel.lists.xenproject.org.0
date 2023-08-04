@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8081576FE98
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 12:35:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577091.903962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E31776FED7
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 12:48:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577096.903972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRs9Y-0003Qr-3v; Fri, 04 Aug 2023 10:35:28 +0000
+	id 1qRsLy-00050F-77; Fri, 04 Aug 2023 10:48:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577091.903962; Fri, 04 Aug 2023 10:35:28 +0000
+Received: by outflank-mailman (output) from mailman id 577096.903972; Fri, 04 Aug 2023 10:48:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRs9Y-0003Nd-1C; Fri, 04 Aug 2023 10:35:28 +0000
-Received: by outflank-mailman (input) for mailman id 577091;
- Fri, 04 Aug 2023 10:35:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qRsLy-0004xg-43; Fri, 04 Aug 2023 10:48:18 +0000
+Received: by outflank-mailman (input) for mailman id 577096;
+ Fri, 04 Aug 2023 10:48:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+Hv6=DV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qRs9W-0003NU-9q
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 10:35:26 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f280a3b-32b2-11ee-b26b-6b7b168915f2;
- Fri, 04 Aug 2023 12:35:25 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D339C1F8AC;
- Fri,  4 Aug 2023 10:35:24 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72C45133B5;
- Fri,  4 Aug 2023 10:35:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3leVGmzUzGSKOAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 04 Aug 2023 10:35:24 +0000
+ (envelope-from <julien@xen.org>) id 1qRsLx-0004xa-AJ
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 10:48:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRsLw-0008F4-L4; Fri, 04 Aug 2023 10:48:16 +0000
+Received: from 54-240-197-228.amazon.com ([54.240.197.228] helo=[10.95.104.46])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRsLw-0000jf-Ed; Fri, 04 Aug 2023 10:48:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,153 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f280a3b-32b2-11ee-b26b-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1691145324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dOrns3aHmALo5VEFClwKv4k5zfS2WAJjPptWmdcbyC4=;
-	b=nJUBH/vfKgOAOX/DrcQxg/3LON8/S2QVTGUFTNj5TmMPsot0C2MVuZQ9oOIwVO6fXvdBWP
-	P3WvqOKjRaXncnPnz0rjg252GKsyKWyMXKSIW9Xodd03iKD0nnpLnnBvD1REeSAZPY1+Vj
-	m4AdwaH0KjPfGUS9OmT4o+uKILaY7rc=
-Message-ID: <f3c20dd0-9914-f646-0aaa-400dffd2bb2b@suse.com>
-Date: Fri, 4 Aug 2023 12:35:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=54NkfgdlCAe4IBkP3+xatAn/Ck3HRr4zZ5qA60Udh9c=; b=aogGuu+z39Rw/JW857l4zF+05z
+	R7flRj2VKYK10gLbb2WeHzN9rQ4V2bRkAB2CJumB4YHLs0GQbSqIkOAD7Kd1bQ1Ll1EateDwgV7gj
+	UXs0h/bOwVSnZ2gMqXxiAKnpmgtipjFTWvHdVGgbBzab/gEHF2p2VkCvb6jNn9EHA1nY=;
+Message-ID: <58d49a0e-d6e0-43fa-9fa6-22965862a2e2@xen.org>
+Date: Fri, 4 Aug 2023 11:48:14 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xin Li <xin3.li@intel.com>,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <20230804075734.8372-1-xin3.li@intel.com>
- <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [RFC PATCH 1/1] x86/traps: Get rid of exception handlers' second
- argument error code
-In-Reply-To: <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------RIwth9b5TBuxUuYcpfetUToe"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------RIwth9b5TBuxUuYcpfetUToe
-Content-Type: multipart/mixed; boundary="------------YNwf55S3kJowPLPrhqJxF54y";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xin Li <xin3.li@intel.com>,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <f3c20dd0-9914-f646-0aaa-400dffd2bb2b@suse.com>
-Subject: Re: [RFC PATCH 1/1] x86/traps: Get rid of exception handlers' second
- argument error code
-References: <20230804075734.8372-1-xin3.li@intel.com>
- <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
-In-Reply-To: <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
-
---------------YNwf55S3kJowPLPrhqJxF54y
-Content-Type: multipart/mixed; boundary="------------FpShGNDVei6igLcFbXS9kvzt"
-
---------------FpShGNDVei6igLcFbXS9kvzt
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2] x86/mm: address violations of MISRA C:2012 Rules
+ 8.2 and 8.3
+Content-Language: en-GB
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>
+References: <c690d653a6fc2dd9cd0d1aa3b204d6ac7fb12ed6.1691141621.git.federico.serafini@bugseng.com>
+ <c74bd41e-20e3-2616-f077-f213bf115dbc@citrix.com>
+ <3c642d70-1b1a-5b09-fb34-127172f96118@bugseng.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3c642d70-1b1a-5b09-fb34-127172f96118@bugseng.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMDQuMDguMjMgMTI6MjUsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDA0LzA4LzIw
-MjMgODo1NyBhbSwgWGluIExpIHdyb3RlOg0KPj4gSSBoYXZlbid0IGNoZWNrZWQgWGVuIGlt
-cGxpY2F0aW9ucyB3aXRoIHRoaXMgY2hhbmdlLCBpLmUuLCBkb2VzIFhlbg0KPj4gaHlwZXJ2
-aXNvciBuZWVkIHRvIGFkanVzdCBob3cgaXQgcGFzc2VzIGFyZ3VtZW50cyB0byBQViBndWVz
-dHM/DQo+IA0KPiBUaGlzIGlzIGFuIGludGVybmFsIGRldGFpbCBvZiBob3cgTGludXggaGFu
-ZGxlcyBkYXRhIG9uIGl0J3Mgc3RhY2tzLA0KPiBpc24ndCBpdD8NCj4gDQo+IFRoZSBYZW4g
-Y29kZSBpbiBMaW51eCB3aWxsIG5lZWQgYWRqdXN0bWVudCB0byBtYXRjaCwgYnV0IHRoaXMg
-aXMgbm90IGENCj4gaHlwZXJ2aXNvciBBQkkgKHdoaWNoIG9idmlvdXNseSBjYW4ndCBhbmQg
-d29uJ3QgY2hhbmdlKS4NCg0KVGhlIG9ubHkgYWRhcHRpb24gb2YgWGVuIGNvZGUgd2lsbCBu
-ZWVkIHRvIGhhcHBlbiBmb3IgdGhlIG9ubHkgdXNlIG9mDQpERUZJTkVfSURURU5UUllfUkFX
-X0VSUk9SQ09ERSgpIHRoZXJlLCBhbmQgdGhpcyB5b3UgaGF2ZSBjb3ZlcmVkIGluIHlvdXIN
-CnBhdGNoIGFscmVhZHkuDQoNCg0KSnVlcmdlbg0KDQo=
---------------FpShGNDVei6igLcFbXS9kvzt
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi Federico,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 04/08/2023 11:29, Federico Serafini wrote:
+> On 04/08/23 11:47, Andrew Cooper wrote:
+>> On 04/08/2023 10:38 am, Federico Serafini wrote:
+>>> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+>>> index be2b10a391..e1d9b94007 100644
+>>> --- a/xen/arch/x86/mm.c
+>>> +++ b/xen/arch/x86/mm.c
+>>> @@ -5591,7 +5591,7 @@ int __init populate_pt_range(unsigned long 
+>>> virt, unsigned long nr_mfns)
+>>>    *
+>>>    * It is an error to call with present flags over an unpopulated 
+>>> range.
+>>>    */
+>>> -int modify_xen_mappings(unsigned long s, unsigned long e, unsigned 
+>>> int nf)
+>>> +int modify_xen_mappings(unsigned long s, unsigned long e, unsigned 
+>>> int flags)
+>>
+>> I think both of these examples want to stay as nf (new flags).  Flags on
+>> its own is ambiguous in context, and nf is a common shorthand in our
+>> pagetable code.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I guess you mean x86 code? I agree that 'flags' is ambiguous but...
 
---------------FpShGNDVei6igLcFbXS9kvzt--
+>>
+>> And it will make the patch rather shorter.
+>>
+>> ~Andrew
+> 
+> The arm code has its own implementation of modify_xen_mappings()
+> which uses `flags`.
+> I put Stefano and Julien in CC, so that if everyone likes `nf` I can 
+> propagate the change.
 
---------------YNwf55S3kJowPLPrhqJxF54y--
+... I would not say I like the name 'nf'. I would prefer 'new_flags'.
 
---------------RIwth9b5TBuxUuYcpfetUToe
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Anyway, unlike arm, the x86 version of modify_xen_mappings() is quite 
+large. So I would be OK to switch the Arm code to use 'nf' (only in 
+modify_xen_mappings()) for the sake of avoid too much code churn.
 
------BEGIN PGP SIGNATURE-----
+Cheers,
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTM1GsFAwAAAAAACgkQsN6d1ii/Ey98
-xQf/eHKCtZfr2yrcxk/rSFLFayb4L8I2VDcv5ljxLHvPEsCm8nzjl/H3tOqNecMOjI1ezu16HS9m
-xVE6gTW2KDa17ZVxjXsuJlTpiaHhe13bXyJ957jDIW0gfEvbB342HmfFKeUe+8wSNvERvtPfXorE
-B9cPpNrQsn1Be8G2QWHtMNNrWtsMvLp+IjyQzIH2G8DRx30nd/rJT3YX3lrNOekp1Tj3V4IuX6e7
-DUYHW0EUklkXexzsQfCzyznT63ZwWkydOS0UPXn4IfTKYTY3WIxqnZPkn5fjGZXGsd279avPYUYe
-G5NbUK4Dhj6mrxyFsQITsf+0ZR/REp/7CRUjaRHvgw==
-=HCZR
------END PGP SIGNATURE-----
-
---------------RIwth9b5TBuxUuYcpfetUToe--
+-- 
+Julien Grall
 
