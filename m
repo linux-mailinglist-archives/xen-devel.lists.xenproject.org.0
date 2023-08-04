@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F95A76FA24
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 08:32:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576890.903552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C4976FA25
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 08:32:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576892.903561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRoMF-0006H0-9b; Fri, 04 Aug 2023 06:32:19 +0000
+	id 1qRoMg-0006lw-HO; Fri, 04 Aug 2023 06:32:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576890.903552; Fri, 04 Aug 2023 06:32:19 +0000
+Received: by outflank-mailman (output) from mailman id 576892.903561; Fri, 04 Aug 2023 06:32:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRoMF-0006ER-6N; Fri, 04 Aug 2023 06:32:19 +0000
-Received: by outflank-mailman (input) for mailman id 576890;
- Fri, 04 Aug 2023 06:32:18 +0000
+	id 1qRoMg-0006kF-EB; Fri, 04 Aug 2023 06:32:46 +0000
+Received: by outflank-mailman (input) for mailman id 576892;
+ Fri, 04 Aug 2023 06:32:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VoTD=DV=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qRoME-0006EL-O9
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 06:32:18 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2083.outbound.protection.outlook.com [40.107.7.83])
+ id 1qRoMf-0006EL-5j
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 06:32:45 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2061b.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::61b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a84a7ed9-3290-11ee-b26a-6b7b168915f2;
- Fri, 04 Aug 2023 08:32:17 +0200 (CEST)
+ id b82b4042-3290-11ee-b26a-6b7b168915f2;
+ Fri, 04 Aug 2023 08:32:44 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PA4PR04MB7549.eurprd04.prod.outlook.com (2603:10a6:102:e0::21)
+ by AS4PR04MB9242.eurprd04.prod.outlook.com (2603:10a6:20b:4ca::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.20; Fri, 4 Aug
- 2023 06:31:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.48; Fri, 4 Aug
+ 2023 06:32:42 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6631.046; Fri, 4 Aug 2023
- 06:31:48 +0000
+ 06:32:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,29 +47,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a84a7ed9-3290-11ee-b26a-6b7b168915f2
+X-Inumbo-ID: b82b4042-3290-11ee-b26a-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BE8IazFiMcKlt9EJxkTDglsHSdtX1En1Utjyrg3afWbPKgs8Rcd93/EIhld5TOWfCIWjbXX7OeK/BVWUv5ZcqqzEy7+TpvHWvqjzukfBdTu7wbv7xSpuq21DS5BJ+M59hwfmSHc7d+XBp/J1yHclJXTuloan5JH6/vr2NUQDUAZJZ6nlw6MAU9fTxsxZkLSlZiKXkAcU7SyPtNttungAWfhVV42CHqWCziLIeFWA+FRk7F9BuZR5HqPRjnYRl5/+owP5yN1Hd0yhMkwah2TKPEBReBfBRQ3uqFmgbwI3cuJM9J1+voGFYZPxckXxZc32HgwCou0a4fhGAx6Z5prFCQ==
+ b=ausqHzoCmVVOMvAxHlOil+uf59t1vqcGTrHPaCncvU1n/cyQeSMeynLEz/jnpKNOqjIIdJg016Mb40wZGw03z95N4pVWwwk8pHD6X55vZJxpJ4QlmC03R2i2sCCZ+KHof2OxuPsx6VcdPEKTZ3fenVh7uZ0Ds4kRXsLakaE+o7cCy8f6KIbzfon2zls9Gls/EmzoFSfbTYSvPhOHZ62AGRSqtlzzg6TZesxlTILGznKtSO3sxWhdOsZPqcIsx+CsI5cUb2tf6N9fBU71hyYDE+DMeIVaDmWxV2tjmiPT/WctXMIqwnhTutBsIm2VZ0CkzobrjxTUh0nh6Y1+bJxLnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r8ESduLaN901hoKEazmFjnm9TC717oIo0zL1AjWTDiI=;
- b=TZMSoqhzDlqo8z2+yG1eVTIeXzqzMpdUDHHGtDDCnIWZDntQrHkQDq6Nle5KI9r2KRPHP1ZOEIw3FZAGn1S/lQDqHQ0Nmlh9M3qblS5D+uH5R/URZKk+i+Ha6ZVVX4FUk135OXqLCz+/N0mFzNSQ3ErcONNwq9wCJlq63N2uQq37jzUUfhGevVSpJgRQ+NYOFdWSOwKMneInKZH/LFIHSoN8XujxqPMN5LKwTC7W/51p+MzrD+Qe5tqQ7FWScQ94bk0vp5YAkCo1/+9ekmVUzXX2003t9oBULppVtEXuNvcQvM1Rk8ndKIHXlGF9h3lgalsGIfJgTE+7jlz0qfkdmQ==
+ bh=JYd+Ywgcxb1lA7p76Cb3f57FcBHVU4ae7hWXTzcbzcI=;
+ b=NJNWBBQfjY9hbizmc2j8x3xidKkJ7dyI/RmUsxKreDb9ciShBpdbCAHyIhpi9+ski6DxC60G6hmHGALjLBSwj8nxAoCHb9D+eXjLUQbnKc2d9hbVR9HW3OliwnznUI5GVhO73H1mDedvsrgtujhh5RPLcYjwQiXXra9zxKJVRAmdk1hpHBQ/i3KWOW1iAxTVSX3O+/qMaKHW8dPgzjhFlf9Fdo+p8CcqWz4GwPiHusjyC9Jad5DUY+iBU34lgN0BLqhwohwu0sg9RGEyGyqUB2MUf9wEtRWOpX4jjrk65Ee8Jd05rC4wKq93CD81lkN+zMWDJyNWVg5QpeUHOHNtdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r8ESduLaN901hoKEazmFjnm9TC717oIo0zL1AjWTDiI=;
- b=rl3zp4Y+kxfANDy6gJJaRy2qAPulxXM6RdBSKvC5csSmUqDvJzbARBOkC6klPf65Ptm5RZZNCtUufXzQsNFlfPJX/5UdtfCBtBxiJ6KkhrkP7UxNEtJXkkuCPO4KZCS+BwS8PFMCClalAWAJTlYwHWGml6Ok3k9JIgHx2rwC+r3cyp0+Lfzt6DgODTtTEBUkDb1nb4Ece0hEbtEwbJ64UCFZjK4WodTEFdgeFCd0P/vlxN3oWezQBG7M4sg0YseWCZHFYLdkDByW7hDuzkE8YUz0WqrTocr6mbPodjZ6D1sVvNKFWc7AJLwxENTZAvLZve95FIFREPZvWrWugPGuWw==
+ bh=JYd+Ywgcxb1lA7p76Cb3f57FcBHVU4ae7hWXTzcbzcI=;
+ b=OXwCqSVf6arXcfZx58JIwM8Zsoxbub/BKASRLMddLmL8LnomtFTlED+TQILUUxJfivM20HBIp9cUYfgn9CEWylA54bmi/7Q8nAXaBNKlBN2fvdiff5YLbJjS7AlrWLL+B91QYf8M0uxaWV6YMVgAwwk7U3bxvvq196E1s+kXsFr4mkq2uGR4K3OJvuWVC9bVn6swmRb5buFkZNuV4KRJprGhBCdGvRgdJOqIfSR3W0sC1XE/AML0kzmIfgxWPD5AOY88muKb0Fkac1W4plJYDyHXqxgCVTM6q3SIZKHHPCUzbqASV54TgWYedtVgbwNtsbrob3F6rt5E06UJB6k+DA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <fb27543a-a059-e9ac-5373-255a8f6edc14@suse.com>
-Date: Fri, 4 Aug 2023 08:31:45 +0200
+Message-ID: <cd775e7f-c06e-63f6-a4ac-4904133000d2@suse.com>
+Date: Fri, 4 Aug 2023 08:32:40 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: [PATCH v4 8/8] common: honor CONFIG_CC_SPLIT_SECTIONS also for
- assembly functions
+Subject: Re: [PATCH v4 0/8] annotate entry points with type and size
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -87,225 +87,86 @@ References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
 In-Reply-To: <bfc597f3-c61c-727a-159a-859f57997d02@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0117.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB7549:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b5d8f3f-4935-408d-cb3d-08db94b47ad8
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS4PR04MB9242:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1acb9389-e93c-43ac-059f-08db94b49b45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	LRTipeec2RrFtz2YmC2S3V75mz6J9IVrn8Cz6aEK2EgsbF1KXjISQJCcd/taM70zyOjMAI076W5ePPMThodJMnGkB1r+EjUSiZZQzy0JZ5Rha2e8ill4++Nm6ZtEWDMm86KY9A5ODu7DsqcVUdQ6zwOO1CBfqha6B+j6Y6jWIVVixJFCDnEveFq4XH8wbO1H7sOC9JOKiIywmmatIORRM2ef+XjfmJ4NYcIAQudDWaS2k3gUbq5jf9fDaposn+z9eLQz83HU7He+wFGmoY6FCsNyty+F1dch/MGxINqyh8ADKezpeoRw+5LkpIEvusv8YBQBVkJeePuF2lVjdG8Z3x0sCztApDX36GZWIm9OUe67AdiuSbUuR+xUab1gU3qmMss5u6jq1exnnkAPQ2GDbTJ3R+Yh5cMy51znEyAuhIWZAbsPINdrnB09hGPuWffWVZVA1woivJ1T5pY6fHf4SWLu2LNIraldcOFz/pPnmQLdkWPcd3x1RGc+Hnx6CTikzJ357sEMVvOYeqRegqQbd2s5FjXsgx8x7vAZmjeuBwECTRrW7MN1+33pEvN1jP0kz1ff15NZXCTltTxWXf1e0/qL2nrcfPW/bfW9nZJv4yZC4sk8sd9ARs2Ma9uQoYtvo5j1p748nLHebn9RROhwYQ==
+	8v/d2sE4EV0s6hbiO7Ar641x1+7C6hjeCzIC28OeRA+OkGY6tbhaTHijS5XOBEmuzszsGfKGwnXqoQ26EgnP2jBE7UiJ3xVfB+CRWia5NnTDpMJqiLeT/iO2QRGMD8AIynq2csi1qLPuKWkZ/sgO6zR4NgAj6FMAlgbZmzKMs0ND/laNZFAXgwM+Mbe4tmidUyY2mfZyRu9uYXUh0li44D+JxrJtGiOa1B8wZjR30FGU1Va+Z/Tgc8yuaAranRPGZBCyB471oIdLYkv9IqNMPVWbl9qBRViqRse6oALEcRcWK+s0Pt2dgwMkXCZZ2YLbhWjA0vv/aSynqNLj+0Ls6vUP4MgEDg4MUmibfI5nT3vKvodEqHoTf4Bu8NiFlxsZBFdoK6YjnobWCZsIbmKwLdzSx4nEubwPMQO9jbEWov8T9MY2ve1Sfy5G4OqsmiEfqxl8ECnPO8yK9uyYfnZDBIIV1H31GPz3Bb/ZrI9JS+1bZ4PsxDXfhzEw9u0o3A8M9o+sj7Ope+yvTaD/6qqaynvgEFUlZhBk3NK5tPwQ4WOnsDGkqCixlm9CDA/nZXrr009UHjPiJNFD47YeghplreJVHRzg2d6wl8wCjAFmYy5s7YdXdeW+85qLw4Lc98kJ/EXT8iHrsBeTaknlKNZaCA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(396003)(366004)(39860400002)(376002)(346002)(451199021)(1800799003)(186006)(4326008)(6916009)(316002)(2616005)(66946007)(66476007)(66556008)(5660300002)(26005)(41300700001)(7416002)(6506007)(8676002)(8936002)(31696002)(54906003)(6666004)(6512007)(6486002)(478600001)(31686004)(38100700002)(2906002)(86362001)(36756003)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(396003)(366004)(136003)(346002)(376002)(451199021)(1800799003)(186006)(316002)(478600001)(2616005)(5660300002)(86362001)(7416002)(83380400001)(2906002)(31696002)(38100700002)(4744005)(36756003)(53546011)(6506007)(26005)(6512007)(41300700001)(6486002)(8936002)(8676002)(6916009)(4326008)(54906003)(66946007)(66556008)(66476007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b2FLTmNKazJndVBrMXY4MDY3aXQrMmo5N3hITmN5TmowT2xHU25oaGltS0tm?=
- =?utf-8?B?YjRBRnByNldrWDZWSHB1UHBvVHd6U2xuekdSYXRyNlVZbW9NenFHdWNPdVBH?=
- =?utf-8?B?ajFzam00ZTI5YTkxb3V1WlFEdm9TdEZ5anRocG9vOEhUVUd0TW02em1MeXd4?=
- =?utf-8?B?aEFUalFtL0kwbzl1VkhPeEUwMERUU3hHWThxYjVhajlKYnFBaUR1Uzd0Q1Zj?=
- =?utf-8?B?NzJQbVdPSTBPQ0ZhNEZkOXIzMjhkYUZ0em1DVnEwRGxFdmtKVTZrZlVJZFg2?=
- =?utf-8?B?K2Y3bkFVN25YWHMyUW1xa1Jid0ZLUDkwZ0hFZkRqK0Yrd3B3N1VrZWNnVXpK?=
- =?utf-8?B?aUNHa0d4azN6RFJ4Mkg0ZTVhQi8vNWM3Sjc3NXpLNFNmakc1eitZMFpLVTBO?=
- =?utf-8?B?TUFNaWxOQzl0NHJMZHUvVjJHc2xsSnFiWHhYR0NBeTdxeWI2azdvcTkwL05B?=
- =?utf-8?B?ZlJWMmIrY0l6VXQrQnJwWmR5TEVDd09lWHpUTEVtYVRjMlp1c2pqQ3ZTWHhW?=
- =?utf-8?B?NjBMRUhrWlJxdGVzTU83VDJ0VnM2SXR5QlVYUXZJczQ3SDNhQXFtUWlUZ3Bs?=
- =?utf-8?B?Z0lhVTZtTzhpRmhuRndSN3R2cDl5bHV4dE40Vktydm5WWXI0clg3MDB3N3Av?=
- =?utf-8?B?V1hwZVBLUHRyQkRXOEIxRVl1b3E3TWpObkVVdW9DdVFwUE1kQ3VlU0ZLRFRD?=
- =?utf-8?B?bmJlclNMQzFIbUR4RUROam9UTnJkN3VtQWRpempZQnYyQ1dIRGo3bTlzbWNs?=
- =?utf-8?B?ejZweXQzZnZ0YkFnSWpqeFlHa1NFYVluV2xwdVZKYkc1dmtXcDBBWUZUVDl5?=
- =?utf-8?B?Vld6M3VXT1hHNEljbHVjMHlRYkt6T1YxbEZsZjcvVzNKUzNjK2N6ZUdESS9v?=
- =?utf-8?B?YU40eHQySjVXVFN1SDNKaWtUVW1IQWE5ZzBJTnFzbE11ZUlOcUtGMmhCZjRP?=
- =?utf-8?B?NWl2QVdpbkgyR0trMG5JUUxSN21FWHhRMldrTXQzcGFYS2hTSFl0QUM3SGR1?=
- =?utf-8?B?VklUU01BUFZpSDYzOUR3cGRFdnBJQVpjTFEvd3lCQitGbUFNeEFBWDc0V1lT?=
- =?utf-8?B?MzR3NWlPdVI2eWhFSnJ0emloY3ljczJMbVYraytlZmkrVHZQYkpwSGtQZG5S?=
- =?utf-8?B?cE16UG45M0xDMGpITDF1QmVoWG1ETzlPZkYvSjNDSnNGYUNXbXlOaDBIeFJv?=
- =?utf-8?B?Zmxsc2RBelVqdk9KZjZyMDNtU1hSbjBZdjI0N1ZkREswQ3kva3RhaGNpYWRM?=
- =?utf-8?B?cFFReXl1RGREdUxXQTBBa2NkTVFuM0JZeWRXT2cyNW1BQ1pMNmkyWHdpOHBJ?=
- =?utf-8?B?K3J4a2U3cWRrbk81VmJwcjBKVU5VNWVaMitISUFFcGlFdEFFTTVwb1RURDgy?=
- =?utf-8?B?Z3lFT3g0K0hRUDRCd28zLzB0ZEFkdGlDeXVqNVh4Qk96c3kyQk0vZlFxNnE2?=
- =?utf-8?B?UWZ0VjFOUmI1NVVjUmVsVUV1YWVIWFI3OGhGU0NXb1dydm41cTdyREpmZDZS?=
- =?utf-8?B?dnNlL3lhcmhKcTdGMnFlVFBKMVBnOXJWaVRlL09MeUFYVTZlVVMybDJIcklx?=
- =?utf-8?B?NkZYUW1oK3RxR3o3RVkyNEV2WVNGSUZ3QlRwL2w5YXB2anNBcCtCWUJ0QXBt?=
- =?utf-8?B?N01QWHA0Mm8yV3RnT0d6WFdwODRQcXFkK0hIU3E4REFpSnkvNXhrVmVwNENX?=
- =?utf-8?B?aS8xZU94cDB3T2tjRDM3U2ZJMi80Z21zTVljN0FHYVdwWjNHUFQwS0pCbHkv?=
- =?utf-8?B?UDFwbHVKWFlCMm54YnhjUW5XSEFEQTZOTkVLSWQzTTQvK0h1TFdQbGNQRHN3?=
- =?utf-8?B?ai8rbjRkT05KWEFMTFNTM0JGYUZCWFJBS2ZYRWJZMlFwcDVzU2hlV2ovZ1pF?=
- =?utf-8?B?b3BYSk5LbG9tWlRjWE9iOHllSWRPNTFWMGtlZW5SLzN6RXlTWmEvclZuTVBv?=
- =?utf-8?B?bGZrTjIwMUx0STh6RXlHejRSdjlLb3E3YzNvZVozTkFtdzQ3bm9sNSswditU?=
- =?utf-8?B?ckkvU1d0eEcvRjhoVTh6YW5qRkExZmlsbjdETWJDbm5yemR2WUpZUDFML21C?=
- =?utf-8?B?OUpOc1NQSUdlazBOTk90SkZ2dXlmYTRWY1NHZUQvZG5xeGZjQklSZG5MRVhS?=
- =?utf-8?Q?E6GMYFG9kdobM9Oae9VA/V3Lp?=
+	=?utf-8?B?czVTSlhJWUVpaTEzMkpOSFVSQ2JzL2wwYU5YeHpTVGM2a0dXT0JodWlsRzVQ?=
+ =?utf-8?B?K1RiZWcwM1FrajdwTVZSOEprWFdhUlU2YlhUaUtyc1dFbUc2SGp5KzV4Yklp?=
+ =?utf-8?B?V2FXRnNONTlmL21qVU9Bb2owMmh4Z0lrTE0wMUUxcG02TnQrN3Jld0lySEk1?=
+ =?utf-8?B?L3RzdnJ3MXhlZFgyMEJjbGRETFB2VUNxQm0rSXhUQkNReFlRQ3JyTXZTMFRX?=
+ =?utf-8?B?R1lIV200OG41Y2tPcWlXTmt1dFFjbUROMFBFQkhsR3hhaGUyL1NabkRQZ1lO?=
+ =?utf-8?B?blpQZVZIUThYUElTQXh2Zit0M2kvd3RlUytQeGk0NXBHdkwyZDlZeEUwSGdz?=
+ =?utf-8?B?OGUwdDJhMEgydVdiR2Q0bFJ2bUdweGRvd1ZTNG8wZERKY0lxRnV3Z3RoMm1z?=
+ =?utf-8?B?Z01yZERyWk5nbVVBUEVYdElwbzZsaS9jY2FaV3YrYklSVlhwdUlyQkYxaXM4?=
+ =?utf-8?B?NjRiZ21Ld2h2WThoWE9NcldMV3h6dElIWFJ4THgvQUxGZjNPWGMxQ2hDeW43?=
+ =?utf-8?B?NmJBWDJSS29tLytRU1Y2TGdXWFBTamRRMnAxdHphRS9vMlZGdDQyYVB1NzMv?=
+ =?utf-8?B?T1NVMk5xanJNekFOcWxMb1U5NmllZWovd2h4bnJjcFU4NWdJUUpraDZpd0dF?=
+ =?utf-8?B?KzZOWHlLelAwL1AxVnhHdlBGVDdLQWZLUzhJU1Z2U216WnhCZmxRM0VhdE03?=
+ =?utf-8?B?UnVOdzhlL2JYWGdTeWZlYlQvc2I3NUVBOGQ2cVhhWEJiRDM1a1VHM2JpN2pv?=
+ =?utf-8?B?dkswWXA2dnlFck1HdGtGYXU1NUpseGp3YWlXUUh2OWR6ZjhpaVBpb1VGRXVn?=
+ =?utf-8?B?RW55NmlTbDdDdGJOMnVrakNyYjlYT1FhbzdrY2RKVC9OSHlFeGRRRnNXMWVa?=
+ =?utf-8?B?ZkkxQU1ObXpQYmJ3bjN5T240cVYrZlI0d3B4K3VWTUg5Wkc1N1JmWm9wTnVi?=
+ =?utf-8?B?cENia0ZRV2l5MFAwUFEzOFE5Tyt2SXA0cWlBVURrNFM1bGVGc2M3WWt0cXRY?=
+ =?utf-8?B?NDNERm1LUEttbXNCL1dDWHRIL1lhUnJEODRlZ3Y0eSszYUlKMmlSZWY2aDhE?=
+ =?utf-8?B?eFlKeE04QWQzaWxzUHQyS1pTUS9FSTR2ZE41Z3FXdlI1YzhUTmV1eUhsQ0Nl?=
+ =?utf-8?B?elBuNGxPZmN0OWE0NFMzU3ZJRFEyVGJjRHRPREt2Vmk3ODViVkc2S0VJL1hp?=
+ =?utf-8?B?b1o4Wm00bnFVNDN5UkNRR01SdFRndEVpQkt1c01KM2R6b0pHeU02d2VxbjIv?=
+ =?utf-8?B?blUxcGV1VG9Nenl3T0hlVGw5bVllZUZrK1c0WDJ1WEhXZFp3RXpVWVpEWDc2?=
+ =?utf-8?B?MWJ1am5qTDdEVHMzQlpUcTM5QVFjeTMxSlhWbUdyOG00VXZGNHVMNFRDSmtO?=
+ =?utf-8?B?RWd1WlM3ZWxlVTkySlpXOGZ6ZWRndFkrc2dvNEltY3JvVi9IQVFKV1M0QkVX?=
+ =?utf-8?B?bHFSL2lCbXVvRVRCMUlwS0NITEZ6ZUNydnFDZ212N3ZpMG5OU1p4S1ZmM1FK?=
+ =?utf-8?B?M0xUM1BzUkg1Sm85WUJrWWswSEoxQ2xTNFR5WlMxRXhFenIxVTRlTlRCcVcx?=
+ =?utf-8?B?MUdaV1VaUjdPT1JiK0R5REhrRnlHNERCazZ2aWgrL29lWG5uUHk5OURyd0lu?=
+ =?utf-8?B?bS9rNUVsdDMyZ0xNWldVTW9iUVhtRU1Ta2FPNTNDUE9WYkhVSlBpZUh1ekhy?=
+ =?utf-8?B?aXlPbUJid1h6OU8wb2IyV2Z0YzRIUkhjSEhjM3BYbVVIU2JBdDFtMCtDOEk2?=
+ =?utf-8?B?OGwvUENxeUJmanZrTWVYd3hqMW1sNUdBZDA4NUxwWWZtcGNPdWlUTWpsN21m?=
+ =?utf-8?B?VEN5bEtkOTNWWVRUZ1FtbVNsNU8zUmtwdmlhSUIwN09NZVd0NERob0ZRRFlN?=
+ =?utf-8?B?bm4xSmFPQ0pIdStEQjFPTHllNXhQbE5NN2dQQzJrQ0NtU29iS3QzNEtnV0N1?=
+ =?utf-8?B?ejYxRkxJL2NVNm8yK3pMT1ZhZmY2aVJ4Y3BrbG9jUTIyUi9CTHZ2SnQxU2RC?=
+ =?utf-8?B?NWpLSHprNlJLZmhnVlgrbXVQSDZxaXAwbEdUR25HR3RXRGZmVWtDdmx1SERv?=
+ =?utf-8?B?VmI4ZllwK081NTdsU1doZldYSjFSd2FLb1grL0NDWWRJd2IvMXl4MU9TNzdi?=
+ =?utf-8?Q?/t7EsvpUfuinURuTg8h4IFORT?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b5d8f3f-4935-408d-cb3d-08db94b47ad8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1acb9389-e93c-43ac-059f-08db94b49b45
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 06:31:48.0233
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 06:32:42.4165
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F9TZGOuYH95OnhlSGTOwIFYrkRapOM9067qrSi2f29oS+b17cfaF8fOgy2C+31Aa3LjdjWqW+Tvv7MK9Uaim9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7549
+X-MS-Exchange-CrossTenant-UserPrincipalName: KF6w60+3MH7NfOTaaFpiCuoqZoCDJOR06Ki+PTVBTbI9sdEZ1NQ3SzGkyV1S6H2d/5OqOlPPW+lh8mu3tIcopQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9242
 
-Leverage the new infrastructure in xen/linkage.h to also switch to per-
-function sections (when configured), deriving the specific name from the
-"base" section in use at the time FUNC() is invoked.
+On 04.08.2023 08:24, Jan Beulich wrote:
+> The model introduced in patch 1 is now arch-agnostic, and all arch-es
+> are being switched at least partly (to at least give examples of how
+> things will look like); PPC and RISC-V are still small enough to switch
+> completely in one go.
+> 
+> 1: common: assembly entry point type/size annotations
+> 2: x86: annotate entry points with type and size
+> 3: x86: also mark assembler globals hidden
+> 4: Arm: annotate entry points with type and size
+> 5: RISC-V: annotate entry points with type and size
+> 6: PPC: switch entry point annotations to common model
+> 7: tools/binfile: switch to common annotations model
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-TBD: Since we use .subsection in UNLIKELY_START(), a perhaps not really
-     wanted side effect of this change is that respective out-of-line
-     code now moves much closer to its original (invoking) code.
+I'm sorry, I notice I screwed up with the numbering of patches 6 and 7.
+I hope things are still clear enough.
 
-TBD: Of course something with the same overall effect, but less
-     impactful might do in Config.mk. E.g. $(filter-out -D%,$(3))
-     instead of $(firstword (3)).
-
-Note that we'd need to split DATA() in order to separate r/w and r/o
-contributions. Further splitting might be needed to also support more
-advanced attributes (e.g. merge), hence why this isn't done right here.
-Sadly while a new section's name can be derived from the presently in
-use, its attributes cannot be. Perhaps the only thing we can do is give
-DATA() a 2nd mandatory parameter. Then again I guess most data
-definitions could be moved to C anyway.
----
-v4: Re-base.
-v2: Make detection properly fail on old gas (by adjusting
-    cc-option-add-closure).
-
---- a/Config.mk
-+++ b/Config.mk
-@@ -102,7 +102,7 @@ cc-option = $(shell if test -z "`echo 'v
- # Usage: $(call cc-option-add CFLAGS,CC,-march=winchip-c6)
- cc-option-add = $(eval $(call cc-option-add-closure,$(1),$(2),$(3)))
- define cc-option-add-closure
--    ifneq ($$(call cc-option,$$($(2)),$(3),n),n)
-+    ifneq ($$(call cc-option,$$($(2)),$(firstword $(3)),n),n)
-         $(1) += $(3)
-     endif
- endef
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -407,6 +407,9 @@ AFLAGS += -D__ASSEMBLY__
- 
- $(call cc-option-add,AFLAGS,CC,-Wa$(comma)--noexecstack)
- 
-+# Check to see whether the assmbler supports the --sectname-subst option.
-+$(call cc-option-add,AFLAGS,CC,-Wa$$(comma)--sectname-subst -DHAVE_AS_SECTNAME_SUBST)
-+
- LDFLAGS-$(call ld-option,--warn-rwx-segments) += --no-warn-rwx-segments
- 
- CFLAGS += $(CFLAGS-y)
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -154,6 +154,9 @@ SECTIONS
-   .init.text : {
-        _sinittext = .;
-        *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+       *(.init.text.*)
-+#endif
-        _einittext = .;
-        . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
-        *(.altinstr_replacement)
---- a/xen/arch/ppc/xen.lds.S
-+++ b/xen/arch/ppc/xen.lds.S
-@@ -90,6 +90,9 @@ SECTIONS
-     .init.text : {
-         _sinittext = .;
-         *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+        *(.init.text.*)
-+#endif
-         _einittext = .;
-         . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
-     } :text
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -89,6 +89,9 @@ SECTIONS
-     .init.text : {
-         _sinittext = .;
-         *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+        *(.init.text.*)
-+#endif
-         _einittext = .;
-         . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
-     } :text
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -86,6 +86,9 @@ SECTIONS
-        . = ALIGN(PAGE_SIZE);
-        _stextentry = .;
-        *(.text.entry)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+       *(.text.entry.*)
-+#endif
-        . = ALIGN(PAGE_SIZE);
-        _etextentry = .;
- 
-@@ -214,6 +217,9 @@ SECTIONS
- #endif
-        _sinittext = .;
-        *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+       *(.init.text.*)
-+#endif
-        *(.text.startup)
-        _einittext = .;
-        /*
---- a/xen/include/xen/linkage.h
-+++ b/xen/include/xen/linkage.h
-@@ -21,6 +21,14 @@
- 
- #define SYM_ALIGN(algn...) .balign algn
- 
-+#if defined(HAVE_AS_SECTNAME_SUBST) && defined(CONFIG_CC_SPLIT_SECTIONS)
-+# define SYM_PUSH_SECTION(name, attr) \
-+         .pushsection %S.name, attr, %progbits; \
-+         .equ .Lsplit_section, 1
-+#else
-+# define SYM_PUSH_SECTION(name, attr)
-+#endif
-+
- #define SYM_L_GLOBAL(name) .globl name; .hidden name
- #define SYM_L_WEAK(name)   .weak name
- #define SYM_L_LOCAL(name)  /* nothing */
-@@ -35,7 +43,14 @@
-         SYM_ALIGN(algn);                          \
-         name:
- 
--#define END(name) .size name, . - name
-+#define END(name) \
-+        .size name, . - name; \
-+        .ifdef .Lsplit_section; \
-+            .if .Lsplit_section; \
-+                .popsection; \
-+                .equ .Lsplit_section, 0; \
-+            .endif; \
-+        .endif
- 
- /*
-  * CODE_FILL in particular may need to expand to nothing (e.g. for RISC-V), in
-@@ -49,6 +64,7 @@
- #endif
- 
- #define FUNC(name, algn...) \
-+        SYM_PUSH_SECTION(name, "ax"); \
-         SYM(name, FUNC, GLOBAL, DO_CODE_ALIGN(algn))
- #define LABEL(name, algn...) \
-         SYM(name, NONE, GLOBAL, DO_CODE_ALIGN(algn))
-@@ -56,6 +72,7 @@
-         SYM(name, DATA, GLOBAL, LASTARG(DATA_ALIGN, ## algn), DATA_FILL)
- 
- #define FUNC_LOCAL(name, algn...) \
-+        SYM_PUSH_SECTION(name, "ax"); \
-         SYM(name, FUNC, LOCAL, DO_CODE_ALIGN(algn))
- #define LABEL_LOCAL(name, algn...) \
-         SYM(name, NONE, LOCAL, DO_CODE_ALIGN(algn))
-
+Jan
 
