@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C66C476FCAE
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 10:56:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576993.903751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2F4476FCC5
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:03:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576999.903761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRqbJ-00072V-Qb; Fri, 04 Aug 2023 08:56:01 +0000
+	id 1qRqiG-00005o-HV; Fri, 04 Aug 2023 09:03:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576993.903751; Fri, 04 Aug 2023 08:56:01 +0000
+Received: by outflank-mailman (output) from mailman id 576999.903761; Fri, 04 Aug 2023 09:03:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRqbJ-0006zS-Nk; Fri, 04 Aug 2023 08:56:01 +0000
-Received: by outflank-mailman (input) for mailman id 576993;
- Fri, 04 Aug 2023 08:56:00 +0000
+	id 1qRqiG-0008UY-Eu; Fri, 04 Aug 2023 09:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 576999;
+ Fri, 04 Aug 2023 09:03:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qRqbI-0006zI-RX; Fri, 04 Aug 2023 08:56:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qRqiF-0008US-49
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:03:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qRqbI-0005jR-Ne; Fri, 04 Aug 2023 08:56:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qRqbI-000633-5E; Fri, 04 Aug 2023 08:56:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qRqbI-0000eN-4r; Fri, 04 Aug 2023 08:56:00 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qRqiE-0005sO-3B; Fri, 04 Aug 2023 09:03:10 +0000
+Received: from 54-240-197-228.amazon.com ([54.240.197.228] helo=[10.95.104.46])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qRqiD-0004g7-Qw; Fri, 04 Aug 2023 09:03:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,249 +39,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=P2PBGBnBXowxWyvx0omohco/W7SZ624YGgAt4kyPGXw=; b=bgo1nMaKsw+NwzBpnMkQy+edOz
-	Q6ABX0u6Dv375UUBPVpcQLqc9rl7beBrhsm5VyKAB3bGWvX0+6nXCkhGpnLeuYTIQIKauFR3Cx7FS
-	NRWJup1CjscrzO973tIKLLTJxm2PZgVp+YOrMDPPdPMUqGsUieJYbJAe0WtxKrghT5lU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182138-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=+dhv7Xz6G0hkrYUySzHtu1LHHXk+PnYz26B7+9SAGWc=; b=LWhL/Wom9fUevXyJP728xdOzPA
+	x0z8Zk48naKY19QBX+/K9pE+yzRyRkiuDtj2XfofyHVKTWAfwHtwTdyRFAGZhPk34PwpzCDD4qbXI
+	5TUo/oINoNMmiYS7Lyjk28q8BckhM1LGPdUaWLwjfQbZmIPrDONnTJIFA4gan0Gq2b8M=;
+Message-ID: <3ddab6ee-54fc-49a0-8f14-79ca258d04af@xen.org>
+Date: Fri, 4 Aug 2023 10:03:07 +0100
 MIME-Version: 1.0
-Subject: [linux-linus test] 182138: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-localmigrate/x10:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-localmigrate/x10:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-start.2:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-localmigrate/x10:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:guest-start/debianhvm.repeat:fail:heisenbug
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=4b954598a47ba07034aab9af8ddd485bdc3d5b16
-X-Osstest-Versions-That:
-    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Aug 2023 08:56:00 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] docs: update hyperlaunch device tree
+Content-Language: en-GB
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20230803104438.24720-1-dpsmith@apertussolutions.com>
+ <20230803104438.24720-2-dpsmith@apertussolutions.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230803104438.24720-2-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 182138 linux-linus real [real]
-flight 182178 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182138/
-http://logs.test-lab.xenproject.org/osstest/logs/182178/
+Hi Daniel,
 
-Regressions :-(
+On 03/08/2023 11:44, Daniel P. Smith wrote:
+> +compatible
+> +  Identifies which hypervisors the configuration is compatible. Required.
+>   
+> -    hypervisor {
+> -        compatible = “hypervisor,xen”
+> +  Format: "hypervisor,<hypervisor name>", e.g "hypervisor,xen"
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-freebsd12-amd64 19 guest-localmigrate/x10 fail REGR. vs. 180278
- test-arm64-arm64-libvirt-raw 13 guest-start              fail REGR. vs. 180278
- test-arm64-arm64-xl-vhd      13 guest-start              fail REGR. vs. 180278
+I read "e.g" as "for example". You don't explicitely say which 
+compatible will be supported by Xen, so one could write "hypervisor,foo" 
+and expect to work.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-freebsd12-amd64  8 xen-boot     fail in 182178 pass in 182138
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 18 guest-localmigrate/x10 fail pass in 182178-retest
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 21 guest-start.2 fail pass in 182178-retest
- test-amd64-amd64-xl-qemut-ws16-amd64 18 guest-localmigrate/x10 fail pass in 182178-retest
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 20 guest-start/debianhvm.repeat fail pass in 182178-retest
+Also, it is not fully clear why you need both the hypervisor and each 
+domain node to have a compatible with the hypervisor name in it.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt   16 saverestore-support-check fail blocked in 180278
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 180278
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail blocked in 180278
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop  fail in 182178 like 180278
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+[...]
 
-version targeted for testing:
- linux                4b954598a47ba07034aab9af8ddd485bdc3d5b16
-baseline version:
- linux                6c538e1adbfc696ac4747fb10d63e704344f763d
+> +compatible
+> +  Identifies the hypervisor the confiugration is intended. Required.
 
-Last test of basis   180278  2023-04-16 19:41:46 Z  109 days
-Failing since        180281  2023-04-17 06:24:36 Z  109 days  198 attempts
-Testing same since   182138  2023-08-02 22:48:54 Z    1 days    1 attempts
+Also typo: s/confiugration/configuration/
 
-------------------------------------------------------------
-3878 people touched revisions under test,
-not listing them all
+>   
+> -The modules that would be supplied when using the above config would be:
+> +  Format: "<hypervisor name>,config", e.g "xen,config"
+>   
+> -* (the above config, compiled into hardware tree)
+> -* CPU microcode
+> -* XSM policy
+> -* kernel for boot domain
+> -* ramdisk for boot domain
+> -* boot domain configuration file
+> -* kernel for the classic dom0 domain
+> -* ramdisk for the classic dom0 domain
+> +bootargs
+> +  This is used to provide the boot params for Xen.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      pass    
+How is this different from the command line parameter chosen? And if you 
+want to keep both, what is the expected priority if a user provides both?
 
+>   
+> -The hypervisor device tree would be compiled into the hardware device tree and
+> -provided to Xen using the standard method currently in use. The remaining
+> -modules would need to be loaded in the respective addresses specified in the
+> -`module-addr` property.
+> +  Format: String, e.g. "flask=silo"
+>   
+> +Child Nodes
+> +"""""""""""
+>   
+> -The Hypervisor node
+> --------------------
+> +* module
+>   
+> -The hypervisor node is a top level container for the domains that will be built
+> -by hypervisor on start up. On the ``hypervisor`` node the ``compatible``
+> -property is used to identify the type of hypervisor node present..
+> +Domain Node
+> +-----------
+>   
+> -compatible
+> -  Identifies the type of node. Required.
+> +A ``domain`` node is for describing the construction of a domain. Since there
+> +may be one or more domain nodes, each one requires a unique, DTB compliant name
+> +and a ``compatible`` property to identify as a domain node.
+>   
+> -The Config node
+> ----------------
+> +A ``domain`` node  may provide a ``domid`` property which will be used as the
+> +requested domain id for the domain with a value of “0” signifying to use the
+> +next available domain id, which is the default behavior if omitted. It should
+> +be noted that a domain configuration is not able to request a domid of “0”
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Why do you need this restriction? And more importantly how would you 
+describe dom0 in hyperlaunch?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> +Beyond that, a domain node may have any of the following optional properties.
+>   
+> -A config node is for detailing any modules that are of interest to Xen itself.
+> -For example this would be where Xen would be informed of microcode or XSM
+> -policy locations. If the modules are multiboot modules and are able to be
+> -located by index within the module chain, the ``mb-index`` property should be
+> -used to specify the index in the multiboot module chain.. If the module will be
+> -located by physical memory address, then the ``module-addr`` property should be
+> -used to identify the location and size of the module.
+> +Properties
+> +""""""""""
+>   
+>   compatible
+> -  Identifies the type of node. Required.
+> -
+> -The Domain node
+> ----------------
+> +  Identifies the node as a domain node and for which hypervisor. Required.
+>   
+> -A domain node is for describing the construction of a domain. It may provide a
+> -domid property which will be used as the requested domain id for the domain
+> -with a value of “0” signifying to use the next available domain id, which is
+> -the default behavior if omitted. A domain configuration is not able to request
+> -a domid of “0”. After that a domain node may have any of the following
+> -parameters,
+> -
+> -compatible
+> -  Identifies the type of node. Required.
+> +  Format: "<hypervisor name>,domain", e.g "xen,domain"
+>   
+>   domid
+> -  Identifies the domid requested to assign to the domain. Required.
+> +  Identifies the domid requested to assign to the domain.
+>   
+> -permissions
+> +  Format: Integer, e.g <0>
+> +
+> +role
+>     This sets what Discretionary Access Control permissions
+>     a domain is assigned. Optional, default is none.
+>   
+> -functions
+> -  This identifies what system functions a domain will fulfill.
+> +  Format: Bitfield, e.g <3> or <0x00000003>
+> +
+> +          ROLE_NONE                (0)
+> +          ROLE_UNBOUNDED_DOMAIN    (1U<<0)
+> +          ROLE_CONTROL_DOMAIN      (1U<<1)
+> +          ROLE_HARDWARE_DOMAIN     (1U<<2)
+> +          ROLE_XENSTORE_DOMAIN     (1U<<3)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Please describe what each roles are meant for.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> +
+> +capability
+> +  This identifies what system capabilities a domain may have beyond the role it
+> +  was assigned.
+>     Optional, the default is none.
+>   
+> -.. note::  The `functions` bits that have been selected to indicate
+> -   ``FUNCTION_XENSTORE`` and ``FUNCTION_LEGACY_DOM0`` are the last two bits
+> -   (30, 31) such that should these features ever be fully retired, the flags may
+> -   be dropped without leaving a gap in the flag set.
+> +  Format: Bitfield, e.g <3221225487> or <0xC0000007>
 
+I thik we should favor the hexadecimal version because this will be 
+somewhat easier to read.
 
-Not pushing.
+Also, the Device-Tree values work in term of 32-bit cell. Also, how do 
+you plan to handle the case where you have more than 32 capabilities?
 
-(No revision log; it would be 651608 lines long.)
+> +
+> +          CAP_NONE            (0)
+> +          CAP_CONSOLE_IO      (1U<<0)
+
+Please describe the capabilities.
+
+>   
+>   mode
+>     The mode the domain will be executed under. Required.
+>   
+> +  Format: Bitfield, e.g <5> or <0x00000005>
+> +
+> +          MODE_PARAVIRTUALIZED     (1 << 0) PV | PVH/HVM
+> +          MODE_ENABLE_DEVICE_MODEL (1 << 1) HVM | PVH
+> +          MODE_LONG                (1 << 2) 64 BIT | 32 BIT
+> +
+>   domain-uuid
+>     A globally unique identifier for the domain. Optional,
+>     the default is NULL.
+>   
+> +  Format: Byte Array, e.g [B3 FB 98 FB 8F 9F 67 A3]
+> +
+>   cpus
+>     The number of vCPUs to be assigned to the domain. Optional,
+>     the default is “1”.
+>   
+> +  Format: Integer, e.g <0>
+
+This is odd to suggest to give '0' as an example. Wouldn't Xen throw an 
+error if a user provide it?
+
+> +
+>   memory
+> -  The amount of memory to assign to the domain, in KBs.
+> +  The amount of memory to assign to the domain, in KBs. This field uses a DTB
+> +  Reg which contains a start and size. For memory allocation start may or may
+> +  not have significance but size will always be used for the amount of memory
+>     Required.
+
+The description doesn't match...
+
+>   
+> +  Format: String  min:<sz> | max:<sz> | <sz>, e.g. "256M"
+
+... the format. But strings are difficult to parse. If you want to 
+provide 3 different values (possibly optional), then it would be best to 
+have 3 different properties.
+
+I will continue to review the rest later.
+
+Cheers,
+
+-- 
+Julien Grall
 
