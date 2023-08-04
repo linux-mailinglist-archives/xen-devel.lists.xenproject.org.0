@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0387704A5
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 17:28:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577193.904184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5537704AA
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 17:28:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577195.904204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRwiu-0000Yy-A9; Fri, 04 Aug 2023 15:28:16 +0000
+	id 1qRwiv-00016I-Si; Fri, 04 Aug 2023 15:28:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577193.904184; Fri, 04 Aug 2023 15:28:16 +0000
+Received: by outflank-mailman (output) from mailman id 577195.904204; Fri, 04 Aug 2023 15:28:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRwiu-0000WF-2x; Fri, 04 Aug 2023 15:28:16 +0000
-Received: by outflank-mailman (input) for mailman id 577193;
- Fri, 04 Aug 2023 15:28:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qRwiv-00010p-Oy; Fri, 04 Aug 2023 15:28:17 +0000
+Received: by outflank-mailman (input) for mailman id 577195;
+ Fri, 04 Aug 2023 15:28:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BlMS=DV=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qRwis-00080a-36
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 15:28:14 +0000
+ id 1qRwit-00080Z-Vc
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 15:28:15 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 86b2be7b-32db-11ee-b26d-6b7b168915f2;
- Fri, 04 Aug 2023 17:28:13 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 872664d2-32db-11ee-8613-37d641c3527e;
+ Fri, 04 Aug 2023 17:28:14 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id A877E4EE0744;
- Fri,  4 Aug 2023 17:28:12 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 7446F4EE0745;
+ Fri,  4 Aug 2023 17:28:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86b2be7b-32db-11ee-b26d-6b7b168915f2
+X-Inumbo-ID: 872664d2-32db-11ee-8613-37d641c3527e
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -52,120 +52,96 @@ Cc: sstabellini@kernel.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 5/6] x86/xstate: address MISRA C:2012 Rule 5.3
-Date: Fri,  4 Aug 2023 17:27:48 +0200
-Message-Id: <1ea70e5f8293fdca2bb69ec75f532722136e52a5.1691162261.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH 6/6] x86: refactor macros in 'xen-mca.h' to address MISRA C:2012 Rule 5.3
+Date: Fri,  4 Aug 2023 17:27:49 +0200
+Message-Id: <9d89a58ef016d96da7c3f329fb367f99d169cae6.1691162261.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1691162261.git.nicola.vetrini@bugseng.com>
 References: <cover.1691162261.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rename the local variables to avoid clashing with function 'xstate'
-defined below, but declared in the corresponding header file.
+The macros defined 'xen/include/public/arch-x86/xen-mca.h' have needless
+underscore prefixes for parameter names and variable names that cause
+shadowing with e.g. the variable 'i' in function 'mce_action'.
+Therefore, the renaming aims to resolve present shadowing issues and
+lessen the probability of future ones.
 
-No functional changes.
+No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/x86/xstate.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+The spirit of this patch is similar to this one [1] made by Jan that arose from
+a violation of this rule.
 
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index 3d566252ea..180455b26d 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -174,10 +174,10 @@ static void setup_xstate_comp(uint16_t *comp_offsets,
+[1] https://gitlab.com/xen-project/xen/-/commit/c0579c65f6bef794cd449fbc946feacccf485f2e
+---
+ xen/include/public/arch-x86/xen-mca.h | 38 +++++++++++++--------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/xen/include/public/arch-x86/xen-mca.h b/xen/include/public/arch-x86/xen-mca.h
+index b897536ec5..55b999ab21 100644
+--- a/xen/include/public/arch-x86/xen-mca.h
++++ b/xen/include/public/arch-x86/xen-mca.h
+@@ -280,39 +280,39 @@ DEFINE_XEN_GUEST_HANDLE(xen_mc_logical_cpu_t);
+ /* Prototype:
+  *    uint32_t x86_mcinfo_nentries(struct mc_info *mi);
   */
- void expand_xsave_states(const struct vcpu *v, void *dest, unsigned int size)
- {
--    const struct xsave_struct *xsave = v->arch.xsave_area;
-+    const struct xsave_struct *xsave_area = v->arch.xsave_area;
-     const void *src;
-     uint16_t comp_offsets[sizeof(xfeature_mask)*8];
--    u64 xstate_bv = xsave->xsave_hdr.xstate_bv;
-+    u64 xstate_bv = xsave_area->xsave_hdr.xstate_bv;
-     u64 valid;
- 
-     /* Check there is state to serialise (i.e. at least an XSAVE_HDR) */
-@@ -185,19 +185,19 @@ void expand_xsave_states(const struct vcpu *v, void *dest, unsigned int size)
-     /* Check there is the correct room to decompress into. */
-     BUG_ON(size != xstate_ctxt_size(v->arch.xcr0_accum));
- 
--    if ( !(xsave->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED) )
-+    if ( !(xsave_area->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED) )
-     {
--        memcpy(dest, xsave, size);
-+        memcpy(dest, xsave_area, size);
-         return;
-     }
- 
--    ASSERT(xsave_area_compressed(xsave));
--    setup_xstate_comp(comp_offsets, xsave->xsave_hdr.xcomp_bv);
-+    ASSERT(xsave_area_compressed(xsave_area));
-+    setup_xstate_comp(comp_offsets, xsave_area->xsave_hdr.xcomp_bv);
- 
-     /*
-      * Copy legacy XSAVE area and XSAVE hdr area.
-      */
--    memcpy(dest, xsave, XSTATE_AREA_MIN_SIZE);
-+    memcpy(dest, xsave_area, XSTATE_AREA_MIN_SIZE);
-     memset(dest + XSTATE_AREA_MIN_SIZE, 0, size - XSTATE_AREA_MIN_SIZE);
- 
-     ((struct xsave_struct *)dest)->xsave_hdr.xcomp_bv =  0;
-@@ -206,7 +206,7 @@ void expand_xsave_states(const struct vcpu *v, void *dest, unsigned int size)
-      * Copy each region from the possibly compacted offset to the
-      * non-compacted offset.
-      */
--    src = xsave;
-+    src = xsave_area;
-     valid = xstate_bv & ~XSTATE_FP_SSE;
-     while ( valid )
-     {
-@@ -239,7 +239,7 @@ void expand_xsave_states(const struct vcpu *v, void *dest, unsigned int size)
+-#define x86_mcinfo_nentries(_mi)    \
+-    (_mi)->mi_nentries
++#define x86_mcinfo_nentries(mi)    \
++    (mi)->mi_nentries
+ /* Prototype:
+  *    struct mcinfo_common *x86_mcinfo_first(struct mc_info *mi);
   */
- void compress_xsave_states(struct vcpu *v, const void *src, unsigned int size)
- {
--    struct xsave_struct *xsave = v->arch.xsave_area;
-+    struct xsave_struct *xsave_area = v->arch.xsave_area;
-     void *dest;
-     uint16_t comp_offsets[sizeof(xfeature_mask)*8];
-     u64 xstate_bv, valid;
-@@ -252,7 +252,7 @@ void compress_xsave_states(struct vcpu *v, const void *src, unsigned int size)
- 
-     if ( !(v->arch.xcr0_accum & XSTATE_XSAVES_ONLY) )
-     {
--        memcpy(xsave, src, size);
-+        memcpy(xsave_area, src, size);
-         return;
-     }
- 
-@@ -260,19 +260,19 @@ void compress_xsave_states(struct vcpu *v, const void *src, unsigned int size)
-      * Copy legacy XSAVE area, to avoid complications with CPUID
-      * leaves 0 and 1 in the loop below.
-      */
--    memcpy(xsave, src, FXSAVE_SIZE);
-+    memcpy(xsave_area, src, FXSAVE_SIZE);
- 
-     /* Set XSTATE_BV and XCOMP_BV.  */
--    xsave->xsave_hdr.xstate_bv = xstate_bv;
--    xsave->xsave_hdr.xcomp_bv = v->arch.xcr0_accum | XSTATE_COMPACTION_ENABLED;
-+    xsave_area->xsave_hdr.xstate_bv = xstate_bv;
-+    xsave_area->xsave_hdr.xcomp_bv = v->arch.xcr0_accum | XSTATE_COMPACTION_ENABLED;
- 
--    setup_xstate_comp(comp_offsets, xsave->xsave_hdr.xcomp_bv);
-+    setup_xstate_comp(comp_offsets, xsave_area->xsave_hdr.xcomp_bv);
- 
-     /*
-      * Copy each region from the non-compacted offset to the
-      * possibly compacted offset.
-      */
--    dest = xsave;
-+    dest = xsave_area;
-     valid = xstate_bv & ~XSTATE_FP_SSE;
-     while ( valid )
-     {
--- 
+-#define x86_mcinfo_first(_mi)       \
+-    ((struct mcinfo_common *)(_mi)->mi_data)
++#define x86_mcinfo_first(mi)       \
++    ((struct mcinfo_common *)(mi)->mi_data)
+ /* Prototype:
+  *    struct mcinfo_common *x86_mcinfo_next(struct mcinfo_common *mic);
+  */
+-#define x86_mcinfo_next(_mic)       \
+-    ((struct mcinfo_common *)((uint8_t *)(_mic) + (_mic)->size))
++#define x86_mcinfo_next(mic)       \
++    ((struct mcinfo_common *)((uint8_t *)(mic) + (mic)->size))
+
+ /* Prototype:
+- *    void x86_mcinfo_lookup(void *ret, struct mc_info *mi, uint16_t type);
++ *    void x86_mcinfo_lookup(void *ret, struct mc_info *mi, uint16_t mc_type);
+  */
+-#define x86_mcinfo_lookup(_ret, _mi, _type)    \
++#define x86_mcinfo_lookup(ret, mi, mc_type)                     \
+     do {                                                        \
+-        uint32_t found, i;                                      \
+-        struct mcinfo_common *_mic;                             \
++        uint32_t found_, i_;                                    \
++        struct mcinfo_common *mic_;                             \
+                                                                 \
+-        found = 0;                                              \
+-        (_ret) = NULL;                                          \
+-        if (_mi == NULL) break;                                 \
+-        _mic = x86_mcinfo_first(_mi);                           \
+-        for (i = 0; i < x86_mcinfo_nentries(_mi); i++) {        \
+-            if (_mic->type == (_type)) {                        \
+-                found = 1;                                      \
++        found_ = 0;                                             \
++        (ret) = NULL;                                           \
++        if (mi == NULL) break;                                  \
++        mic_ = x86_mcinfo_first(mi);                            \
++        for (i_ = 0; i_ < x86_mcinfo_nentries(mi); i_++) {      \
++            if (mic_->type == (mc_type)) {                      \
++                found_ = 1;                                     \
+                 break;                                          \
+             }                                                   \
+-            _mic = x86_mcinfo_next(_mic);                       \
++            mic_ = x86_mcinfo_next(mic_);                         \
+         }                                                       \
+-        (_ret) = found ? _mic : NULL;                           \
++        (ret) = found_ ? mic_ : NULL;                            \
+     } while (0)
+
+
+--
 2.34.1
-
 
