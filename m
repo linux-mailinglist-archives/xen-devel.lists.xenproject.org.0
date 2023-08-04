@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2F4476FCC5
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:03:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576999.903761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9323376FCD2
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:06:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577002.903772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRqiG-00005o-HV; Fri, 04 Aug 2023 09:03:12 +0000
+	id 1qRqkr-0000gs-Vr; Fri, 04 Aug 2023 09:05:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576999.903761; Fri, 04 Aug 2023 09:03:12 +0000
+Received: by outflank-mailman (output) from mailman id 577002.903772; Fri, 04 Aug 2023 09:05:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRqiG-0008UY-Eu; Fri, 04 Aug 2023 09:03:12 +0000
-Received: by outflank-mailman (input) for mailman id 576999;
- Fri, 04 Aug 2023 09:03:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qRqiF-0008US-49
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:03:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRqiE-0005sO-3B; Fri, 04 Aug 2023 09:03:10 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228] helo=[10.95.104.46])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRqiD-0004g7-Qw; Fri, 04 Aug 2023 09:03:09 +0000
+	id 1qRqkr-0000eb-S5; Fri, 04 Aug 2023 09:05:53 +0000
+Received: by outflank-mailman (input) for mailman id 577002;
+ Fri, 04 Aug 2023 09:05:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HS9z=DV=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qRqkq-0000eV-Po
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:05:52 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c1d1c3e-32a6-11ee-b26b-6b7b168915f2;
+ Fri, 04 Aug 2023 11:05:51 +0200 (CEST)
+Received: from Dell.homenet.telecomitalia.it
+ (host-79-35-203-138.retail.telecomitalia.it [79.35.203.138])
+ by support.bugseng.com (Postfix) with ESMTPSA id A9A974EE0737;
+ Fri,  4 Aug 2023 11:05:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,231 +40,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=+dhv7Xz6G0hkrYUySzHtu1LHHXk+PnYz26B7+9SAGWc=; b=LWhL/Wom9fUevXyJP728xdOzPA
-	x0z8Zk48naKY19QBX+/K9pE+yzRyRkiuDtj2XfofyHVKTWAfwHtwTdyRFAGZhPk34PwpzCDD4qbXI
-	5TUo/oINoNMmiYS7Lyjk28q8BckhM1LGPdUaWLwjfQbZmIPrDONnTJIFA4gan0Gq2b8M=;
-Message-ID: <3ddab6ee-54fc-49a0-8f14-79ca258d04af@xen.org>
-Date: Fri, 4 Aug 2023 10:03:07 +0100
+X-Inumbo-ID: 1c1d1c3e-32a6-11ee-b26b-6b7b168915f2
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH] x86/mm: address violations of MISRA C:2012 Rules 8.2 and 8.3
+Date: Fri,  4 Aug 2023 11:05:41 +0200
+Message-Id: <7f4d7be410aecaab6e356947bb79e703037f4101.1691139867.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] docs: update hyperlaunch device tree
-Content-Language: en-GB
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20230803104438.24720-1-dpsmith@apertussolutions.com>
- <20230803104438.24720-2-dpsmith@apertussolutions.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230803104438.24720-2-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Daniel,
+Give a name to unnamed parameters to address violations of
+MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+named parameters").
+Keep consistency between parameter names used in function
+declarations and the ones used in the corresponding function
+definitions, thus addressing violations of MISRA C:2012 Rule 8.3
+("All declarations of an object or function shall use the same names
+and type qualifiers").
 
-On 03/08/2023 11:44, Daniel P. Smith wrote:
-> +compatible
-> +  Identifies which hypervisors the configuration is compatible. Required.
->   
-> -    hypervisor {
-> -        compatible = “hypervisor,xen”
-> +  Format: "hypervisor,<hypervisor name>", e.g "hypervisor,xen"
+No functional changes.
 
-I read "e.g" as "for example". You don't explicitely say which 
-compatible will be supported by Xen, so one could write "hypervisor,foo" 
-and expect to work.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/arch/x86/include/asm/mm.h | 20 ++++++++++----------
+ xen/arch/x86/mm.c             | 33 ++++++++++++++++++---------------
+ xen/include/xen/mm.h          |  2 +-
+ 3 files changed, 29 insertions(+), 26 deletions(-)
 
-Also, it is not fully clear why you need both the hypervisor and each 
-domain node to have a compatible with the hypervisor name in it.
-
-[...]
-
-> +compatible
-> +  Identifies the hypervisor the confiugration is intended. Required.
-
-Also typo: s/confiugration/configuration/
-
->   
-> -The modules that would be supplied when using the above config would be:
-> +  Format: "<hypervisor name>,config", e.g "xen,config"
->   
-> -* (the above config, compiled into hardware tree)
-> -* CPU microcode
-> -* XSM policy
-> -* kernel for boot domain
-> -* ramdisk for boot domain
-> -* boot domain configuration file
-> -* kernel for the classic dom0 domain
-> -* ramdisk for the classic dom0 domain
-> +bootargs
-> +  This is used to provide the boot params for Xen.
-
-How is this different from the command line parameter chosen? And if you 
-want to keep both, what is the expected priority if a user provides both?
-
->   
-> -The hypervisor device tree would be compiled into the hardware device tree and
-> -provided to Xen using the standard method currently in use. The remaining
-> -modules would need to be loaded in the respective addresses specified in the
-> -`module-addr` property.
-> +  Format: String, e.g. "flask=silo"
->   
-> +Child Nodes
-> +"""""""""""
->   
-> -The Hypervisor node
-> --------------------
-> +* module
->   
-> -The hypervisor node is a top level container for the domains that will be built
-> -by hypervisor on start up. On the ``hypervisor`` node the ``compatible``
-> -property is used to identify the type of hypervisor node present..
-> +Domain Node
-> +-----------
->   
-> -compatible
-> -  Identifies the type of node. Required.
-> +A ``domain`` node is for describing the construction of a domain. Since there
-> +may be one or more domain nodes, each one requires a unique, DTB compliant name
-> +and a ``compatible`` property to identify as a domain node.
->   
-> -The Config node
-> ----------------
-> +A ``domain`` node  may provide a ``domid`` property which will be used as the
-> +requested domain id for the domain with a value of “0” signifying to use the
-> +next available domain id, which is the default behavior if omitted. It should
-> +be noted that a domain configuration is not able to request a domid of “0”
-
-Why do you need this restriction? And more importantly how would you 
-describe dom0 in hyperlaunch?
-
-> +Beyond that, a domain node may have any of the following optional properties.
->   
-> -A config node is for detailing any modules that are of interest to Xen itself.
-> -For example this would be where Xen would be informed of microcode or XSM
-> -policy locations. If the modules are multiboot modules and are able to be
-> -located by index within the module chain, the ``mb-index`` property should be
-> -used to specify the index in the multiboot module chain.. If the module will be
-> -located by physical memory address, then the ``module-addr`` property should be
-> -used to identify the location and size of the module.
-> +Properties
-> +""""""""""
->   
->   compatible
-> -  Identifies the type of node. Required.
-> -
-> -The Domain node
-> ----------------
-> +  Identifies the node as a domain node and for which hypervisor. Required.
->   
-> -A domain node is for describing the construction of a domain. It may provide a
-> -domid property which will be used as the requested domain id for the domain
-> -with a value of “0” signifying to use the next available domain id, which is
-> -the default behavior if omitted. A domain configuration is not able to request
-> -a domid of “0”. After that a domain node may have any of the following
-> -parameters,
-> -
-> -compatible
-> -  Identifies the type of node. Required.
-> +  Format: "<hypervisor name>,domain", e.g "xen,domain"
->   
->   domid
-> -  Identifies the domid requested to assign to the domain. Required.
-> +  Identifies the domid requested to assign to the domain.
->   
-> -permissions
-> +  Format: Integer, e.g <0>
-> +
-> +role
->     This sets what Discretionary Access Control permissions
->     a domain is assigned. Optional, default is none.
->   
-> -functions
-> -  This identifies what system functions a domain will fulfill.
-> +  Format: Bitfield, e.g <3> or <0x00000003>
-> +
-> +          ROLE_NONE                (0)
-> +          ROLE_UNBOUNDED_DOMAIN    (1U<<0)
-> +          ROLE_CONTROL_DOMAIN      (1U<<1)
-> +          ROLE_HARDWARE_DOMAIN     (1U<<2)
-> +          ROLE_XENSTORE_DOMAIN     (1U<<3)
-
-Please describe what each roles are meant for.
-
-> +
-> +capability
-> +  This identifies what system capabilities a domain may have beyond the role it
-> +  was assigned.
->     Optional, the default is none.
->   
-> -.. note::  The `functions` bits that have been selected to indicate
-> -   ``FUNCTION_XENSTORE`` and ``FUNCTION_LEGACY_DOM0`` are the last two bits
-> -   (30, 31) such that should these features ever be fully retired, the flags may
-> -   be dropped without leaving a gap in the flag set.
-> +  Format: Bitfield, e.g <3221225487> or <0xC0000007>
-
-I thik we should favor the hexadecimal version because this will be 
-somewhat easier to read.
-
-Also, the Device-Tree values work in term of 32-bit cell. Also, how do 
-you plan to handle the case where you have more than 32 capabilities?
-
-> +
-> +          CAP_NONE            (0)
-> +          CAP_CONSOLE_IO      (1U<<0)
-
-Please describe the capabilities.
-
->   
->   mode
->     The mode the domain will be executed under. Required.
->   
-> +  Format: Bitfield, e.g <5> or <0x00000005>
-> +
-> +          MODE_PARAVIRTUALIZED     (1 << 0) PV | PVH/HVM
-> +          MODE_ENABLE_DEVICE_MODEL (1 << 1) HVM | PVH
-> +          MODE_LONG                (1 << 2) 64 BIT | 32 BIT
-> +
->   domain-uuid
->     A globally unique identifier for the domain. Optional,
->     the default is NULL.
->   
-> +  Format: Byte Array, e.g [B3 FB 98 FB 8F 9F 67 A3]
-> +
->   cpus
->     The number of vCPUs to be assigned to the domain. Optional,
->     the default is “1”.
->   
-> +  Format: Integer, e.g <0>
-
-This is odd to suggest to give '0' as an example. Wouldn't Xen throw an 
-error if a user provide it?
-
-> +
->   memory
-> -  The amount of memory to assign to the domain, in KBs.
-> +  The amount of memory to assign to the domain, in KBs. This field uses a DTB
-> +  Reg which contains a start and size. For memory allocation start may or may
-> +  not have significance but size will always be used for the amount of memory
->     Required.
-
-The description doesn't match...
-
->   
-> +  Format: String  min:<sz> | max:<sz> | <sz>, e.g. "256M"
-
-... the format. But strings are difficult to parse. If you want to 
-provide 3 different values (possibly optional), then it would be best to 
-have 3 different properties.
-
-I will continue to review the rest later.
-
-Cheers,
-
+diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+index db29e3e205..1e2d8c1a65 100644
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -408,7 +408,7 @@ void put_page_type(struct page_info *page);
+ int  get_page_type(struct page_info *page, unsigned long type);
+ int  put_page_type_preemptible(struct page_info *page);
+ int  get_page_type_preemptible(struct page_info *page, unsigned long type);
+-int  put_old_guest_table(struct vcpu *);
++int  put_old_guest_table(struct vcpu *v);
+ int  get_page_from_l1e(
+     l1_pgentry_t l1e, struct domain *l1e_owner, struct domain *pg_owner);
+ void put_page_from_l1e(l1_pgentry_t l1e, struct domain *l1e_owner);
+@@ -559,7 +559,7 @@ void audit_domains(void);
+ 
+ void make_cr3(struct vcpu *v, mfn_t mfn);
+ void update_cr3(struct vcpu *v);
+-int vcpu_destroy_pagetables(struct vcpu *);
++int vcpu_destroy_pagetables(struct vcpu *v);
+ void *do_page_walk(struct vcpu *v, unsigned long addr);
+ 
+ /* Allocator functions for Xen pagetables. */
+@@ -574,20 +574,20 @@ int __sync_local_execstate(void);
+ /* Arch-specific portion of memory_op hypercall. */
+ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+ long subarch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+-int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void));
+-int compat_subarch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void));
++int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
++int compat_subarch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ #define NIL(type) ((type *)-sizeof(type))
+ #define IS_NIL(ptr) (!((uintptr_t)(ptr) + sizeof(*(ptr))))
+ 
+-int create_perdomain_mapping(struct domain *, unsigned long va,
+-                             unsigned int nr, l1_pgentry_t **,
+-                             struct page_info **);
+-void destroy_perdomain_mapping(struct domain *, unsigned long va,
++int create_perdomain_mapping(struct domain *d, unsigned long va,
++                             unsigned int nr, l1_pgentry_t **pl1tab,
++                             struct page_info **ppg);
++void destroy_perdomain_mapping(struct domain *d, unsigned long va,
+                                unsigned int nr);
+-void free_perdomain_mappings(struct domain *);
++void free_perdomain_mappings(struct domain *d);
+ 
+-void __iomem *ioremap_wc(paddr_t, size_t);
++void __iomem *ioremap_wc(paddr_t pa, size_t len);
+ 
+ extern int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm);
+ 
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index be2b10a391..e1d9b94007 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -5591,7 +5591,7 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
+  *
+  * It is an error to call with present flags over an unpopulated range.
+  */
+-int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
++int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int flags)
+ {
+     bool locking = system_state > SYS_STATE_boot;
+     l3_pgentry_t *pl3e = NULL;
+@@ -5604,7 +5604,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+ 
+     /* Set of valid PTE bits which may be altered. */
+ #define FLAGS_MASK (_PAGE_NX|_PAGE_DIRTY|_PAGE_ACCESSED|_PAGE_RW|_PAGE_PRESENT)
+-    nf &= FLAGS_MASK;
++    flags &= FLAGS_MASK;
+ 
+     ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+     ASSERT(IS_ALIGNED(e, PAGE_SIZE));
+@@ -5628,7 +5628,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+         if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
+         {
+             /* Confirm the caller isn't trying to create new mappings. */
+-            ASSERT(!(nf & _PAGE_PRESENT));
++            ASSERT(!(flags & _PAGE_PRESENT));
+ 
+             v += 1UL << L3_PAGETABLE_SHIFT;
+             v &= ~((1UL << L3_PAGETABLE_SHIFT) - 1);
+@@ -5645,9 +5645,10 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                  ((e - v) >= (1UL << L3_PAGETABLE_SHIFT)) )
+             {
+                 /* PAGE1GB: whole superpage is modified. */
+-                l3_pgentry_t nl3e = !(nf & _PAGE_PRESENT) ? l3e_empty()
++                l3_pgentry_t nl3e = !(flags & _PAGE_PRESENT) ? l3e_empty()
+                     : l3e_from_pfn(l3e_get_pfn(*pl3e),
+-                                   (l3e_get_flags(*pl3e) & ~FLAGS_MASK) | nf);
++                                   (l3e_get_flags(*pl3e) & ~FLAGS_MASK) |
++                                    flags);
+ 
+                 l3e_write_atomic(pl3e, nl3e);
+                 v += 1UL << L3_PAGETABLE_SHIFT;
+@@ -5691,7 +5692,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+         if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
+         {
+             /* Confirm the caller isn't trying to create new mappings. */
+-            ASSERT(!(nf & _PAGE_PRESENT));
++            ASSERT(!(flags & _PAGE_PRESENT));
+ 
+             v += 1UL << L2_PAGETABLE_SHIFT;
+             v &= ~((1UL << L2_PAGETABLE_SHIFT) - 1);
+@@ -5704,9 +5705,10 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                  ((e-v) >= (1UL << L2_PAGETABLE_SHIFT)) )
+             {
+                 /* PSE: whole superpage is modified. */
+-                l2_pgentry_t nl2e = !(nf & _PAGE_PRESENT) ? l2e_empty()
++                l2_pgentry_t nl2e = !(flags & _PAGE_PRESENT) ? l2e_empty()
+                     : l2e_from_pfn(l2e_get_pfn(*pl2e),
+-                                   (l2e_get_flags(*pl2e) & ~FLAGS_MASK) | nf);
++                                   (l2e_get_flags(*pl2e) & ~FLAGS_MASK) |
++                                    flags);
+ 
+                 l2e_write_atomic(pl2e, nl2e);
+                 v += 1UL << L2_PAGETABLE_SHIFT;
+@@ -5756,11 +5758,11 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+ 
+             /* Confirm the caller isn't trying to create new mappings. */
+             if ( !(l1e_get_flags(*pl1e) & _PAGE_PRESENT) )
+-                ASSERT(!(nf & _PAGE_PRESENT));
++                ASSERT(!(flags & _PAGE_PRESENT));
+ 
+-            nl1e = !(nf & _PAGE_PRESENT) ? l1e_empty()
++            nl1e = !(flags & _PAGE_PRESENT) ? l1e_empty()
+                 : l1e_from_pfn(l1e_get_pfn(*pl1e),
+-                               (l1e_get_flags(*pl1e) & ~FLAGS_MASK) | nf);
++                               (l1e_get_flags(*pl1e) & ~FLAGS_MASK) | flags);
+ 
+             l1e_write_atomic(pl1e, nl1e);
+             UNMAP_DOMAIN_PAGE(pl1e);
+@@ -5770,7 +5772,8 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+              * If we are not destroying mappings, or not done with the L2E,
+              * skip the empty&free check.
+              */
+-            if ( (nf & _PAGE_PRESENT) || ((v != e) && (l1_table_offset(v) != 0)) )
++            if ( (flags & _PAGE_PRESENT) ||
++                 ((v != e) && (l1_table_offset(v) != 0)) )
+                 continue;
+             if ( locking )
+                 spin_lock(&map_pgdir_lock);
+@@ -5817,7 +5820,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+          * If we are not destroying mappings, or not done with the L3E,
+          * skip the empty&free check.
+          */
+-        if ( (nf & _PAGE_PRESENT) ||
++        if ( (flags & _PAGE_PRESENT) ||
+              ((v != e) && (l2_table_offset(v) + l1_table_offset(v) != 0)) )
+             continue;
+         if ( locking )
+@@ -5892,14 +5895,14 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+  * a problem.
+  */
+ void init_or_livepatch modify_xen_mappings_lite(
+-    unsigned long s, unsigned long e, unsigned int _nf)
++    unsigned long s, unsigned long e, unsigned int flags)
+ {
+     unsigned long v = s, fm, nf;
+ 
+     /* Set of valid PTE bits which may be altered. */
+ #define FLAGS_MASK (_PAGE_NX|_PAGE_DIRTY|_PAGE_ACCESSED|_PAGE_RW|_PAGE_PRESENT)
+     fm = put_pte_flags(FLAGS_MASK);
+-    nf = put_pte_flags(_nf & FLAGS_MASK);
++    nf = put_pte_flags(flags & FLAGS_MASK);
+ #undef FLAGS_MASK
+ 
+     ASSERT(nf & _PAGE_PRESENT);
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 962ef216fd..4ed5fc4230 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -549,7 +549,7 @@ union add_to_physmap_extra {
+ 
+ int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
+                               union add_to_physmap_extra extra,
+-                              unsigned long idx, gfn_t gfn);
++                              unsigned long idx, gfn_t gpfn);
+ 
+ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
+                           unsigned int start);
 -- 
-Julien Grall
+2.34.1
+
 
