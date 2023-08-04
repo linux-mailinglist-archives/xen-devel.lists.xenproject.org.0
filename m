@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9407276F9CE
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 08:08:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.576846.903452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 700F776F9D8
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 08:09:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.576850.903461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRnzD-00061T-3I; Fri, 04 Aug 2023 06:08:31 +0000
+	id 1qRnzm-0006bT-Dc; Fri, 04 Aug 2023 06:09:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 576846.903452; Fri, 04 Aug 2023 06:08:31 +0000
+Received: by outflank-mailman (output) from mailman id 576850.903461; Fri, 04 Aug 2023 06:09:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRnzC-0005zm-Vn; Fri, 04 Aug 2023 06:08:30 +0000
-Received: by outflank-mailman (input) for mailman id 576846;
- Fri, 04 Aug 2023 06:08:29 +0000
+	id 1qRnzm-0006Ze-Ay; Fri, 04 Aug 2023 06:09:06 +0000
+Received: by outflank-mailman (input) for mailman id 576850;
+ Fri, 04 Aug 2023 06:09:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VoTD=DV=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qRnzB-0005ze-3k
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 06:08:29 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2061a.outbound.protection.outlook.com
- [2a01:111:f400:fe13::61a])
+ id 1qRnzl-0005ze-Gw
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 06:09:05 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0601.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 541563b6-328d-11ee-b26a-6b7b168915f2;
- Fri, 04 Aug 2023 08:08:28 +0200 (CEST)
+ id 69c19f88-328d-11ee-b26a-6b7b168915f2;
+ Fri, 04 Aug 2023 08:09:04 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PAXPR04MB9277.eurprd04.prod.outlook.com (2603:10a6:102:2b9::13)
+ by DU2PR04MB9067.eurprd04.prod.outlook.com (2603:10a6:10:2f2::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.47; Fri, 4 Aug
- 2023 06:08:26 +0000
+ 2023 06:09:02 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6631.046; Fri, 4 Aug 2023
- 06:08:26 +0000
+ 06:09:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,29 +47,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 541563b6-328d-11ee-b26a-6b7b168915f2
+X-Inumbo-ID: 69c19f88-328d-11ee-b26a-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RJkieJVClUbZuo7frihDEx3R3KUmhCzBKkL0k9bMRB41nR2Y91ENGmZTdwk3SwqkuioM4C+ZKt3D2r6U2uJanDgDkz9paIPAAS4ZsE0W+6B+W8/yrqrBKug1nzgX1zkW0j3Q7vnPsKW2aNDGKZ+lDzmaLtUuJ/zBoheyUGN3rfheM3Gvo6WCXMoBFAS6s7lo+GYrAJl4wdcN3/BImXl7HY6wREs8KQvhnFHY+MidUXtxivUUMECsJRpVHVktUEuKMmetK1pNU/rs51pg8I1TRCS5cCaeVgF8BkQSUW0V8Ne+6DzTBTcqEctYZIM0YnU3izGo/sE9kAdwh7BqX3sSFQ==
+ b=DvX/PiIT/n9WMVHXRKgP/fAdTfzLiPzqQnAwg6I2YuRGAsmBCqvaPJkqJ0JffHk/wzV7Uno74L64d6BEpQKU4i7Q8UfUU7v+fYsPY+H/uFA0vpjsnlFQDLc2rkkV/YtoRrIpAOghlcS+LG0kaQF+5ntmfp9/3LuIn8cDFOIB4rdTtlguyyJebYFMh/utAljyGr7ySfNa7mW6QZlYxZuoRyazM+O1t/0bLiC1Tf6+huAM3jThqL4YPPRJk6cBVGb99RGKqd9EpanKyV5mv7O+0V+pycfxC4XS4zWBTouGq4dRBqII0ILSrPtaU0yUGmcCFQq+2TCn7Q1fFymbFW5VgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cf6ROw1N7SDrNgirVisezrz+LJOsU87Fio6c0G9uOlc=;
- b=gxKje1uPdMp8oe+7XZRKFmRbJMzki1IXg+4pffnQ/6brrPMxyXqUuYXJFAv9FOJ8z+MPrHAFLyDV11tcBI6QNi5xtMQ9kQX6ta1TaNqLS9Q6GO3ATy+Iuu6kOup1Q3Aq7BQdMyw9NTquwtepi2JXhJziHqOUptDsjEWJY79VFYG+xPCYj5iTon4B+HwFt3yp02xXc7xEde71RfQ6j40iEipUNZlq9WDuw+wpMHFxN3IwwZ5XhKRxATtGf0N19uwy6i6USU1oSQU7edvNt2lD1esSEzm4xY920cMuY2cmiY6olyhddBpeUFo+Avd7xAGCS6SlA6EmKQMznpsNhpLi0A==
+ bh=6kl6RWXn5uemkd7ASmE2X55x5oFAeTzP12gxwiwAjek=;
+ b=cJiXg6n3czBBLkW2iObgOkT9OnaSdxKm7IHEso0Pnkdt7ALp/81m0tDPPm69ZnV8GefOBjh5Ah4A1vwLkSA8dwJCRiFBbL3+Qm1nthus/q7zyfgjDICvqG3pPrwfdZwR7FYlyLRAjZAJUYMjGtDvwNhy0NxjQZoxRiy7GRZHELQhWm9N2RLwjk6su+WHgY8aAHG5+IVICaan8kpmMnLNPuNABdUcscW5QfKmz96Cesik9+81TLYb6dHDJ6Umy615pG0z9004A4eJXlBGLFqEawefaQRShkyUsTv+03orfCIg10NyByOdklE4iaM/93hPa55ueJWKQKWVs/WrK8xmFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cf6ROw1N7SDrNgirVisezrz+LJOsU87Fio6c0G9uOlc=;
- b=2wF2+gAWWDW3lDGsScHjVG0HQ7Vi2xKHrj/xXr4h5EZUJ//0+XrPhsdonaOhfEBFU4ObLV6gvYuDhLUJaVT0O9ZB71c7LdA5Mmhd1tg9tzXlcRaeJpvLsO25y9plztEB1hJcy/PVQmuNekicqV+1UedV7nhRaQ24EffCQkjiUcK6xDy14coXGA46PcadazlT4Czm+97xlkooUKVhWneLwgKHUtoMM0DTcRwW/FmB4MrevW/5QgSn1Z2O2fwciakzboqFvNLQ0hguQOGmxFYqBI70wgRa9gjoIw6ZOk6QSxZ6TtLbvowezTIGS1o5GMaE65b2dp0hJPDorRrabwsIpA==
+ bh=6kl6RWXn5uemkd7ASmE2X55x5oFAeTzP12gxwiwAjek=;
+ b=anxPElsUaRztEXyJINxqzMAzz8zGhj96bY8aS9Gcd2B0SvaUJjeqSWy4HJV4bFk94ZEttoa3aFcZZzXOh4RUpwinKVxYb4ALFiu2UvVX+VuIhXBaXsbMksrCEusR00MvdvEaNtJyTxYnfm11Zh2z5WnVP7weII/DalZ9InO/tMLmNjKPzaKsoDaY9mGUohXGMMBKaY43eYdfnCN1OMclaahU034bZXuM6sN3Yu362b1FtXhLckN9qtyAgVeFpt/XYv0c8ZIYdwu8qeCYQxcHYxfyJnk69zjgQmew+yanqzF3p1eHYQzeOFZrppj+MOzDC17G7ZLvEe0scu/uLt8ekQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c641b981-54b8-d3ca-26a4-28331dc79ca5@suse.com>
-Date: Fri, 4 Aug 2023 08:08:23 +0200
+Message-ID: <dfd4e7b8-f994-f33b-d158-e698e8e8799a@suse.com>
+Date: Fri, 4 Aug 2023 08:08:58 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: [PATCH v2 1/2] common: move Linux-inherited fixed width type decls to
- common header
+Subject: [PATCH v2 2/2] common: __u8 is history
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -88,309 +87,101 @@ References: <652ef09f-3654-548a-37d7-bbc46cbda177@suse.com>
 In-Reply-To: <652ef09f-3654-548a-37d7-bbc46cbda177@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0060.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0056.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::6) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB9277:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0256e4b0-3583-4741-b550-08db94b13765
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB9067:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4547ea30-f847-4196-b5d1-08db94b14c24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	cN2NIV13AO3bVqdgqDW9LFGKx1Y/nGEXzYuaazpOuX9ogF5RD2Y8B1E4A9SQT221SVjpgOMH97iz/Th+eIi8FI+jIgEENc9ZNF0J9Z72SunJ5EkTWdA8BeDti1T0X5QrhQ7PzTkvMCBX/e+1ATxh70M55b/NSt+olkhoHKgQaN/fauFc30YqAC/4FHhz22gzx/Xm2xOd/b05y7W2nKdRw5CFy9lIjvV4xNOynuj1n4GBDI8IzdkZcHp2ZAAqcitTLI+WiQZr0FXI9Zokx+PDeLjgi2aY3Z4H0+4L2PRgFC4X8mfFl/6W/IHvo+Wstwg6pGBbMc/5tddfhP1iuSut2TV1Hw3AC0uf1PjpxiE62vpXSIy0UNPu0ePazRjWJ1uC2z2GMld8gTjk7MG6tOAHC3xqTx/H7TE227Y0x1NtF6cIAWPFkiR8OqzugYzqPpsA08FJZ++oU+Nsa5Oiy/bA6L0qWjQVPhzlbRJ4+RZIIw9+UaYumayqzz5d8mhDWiks3sFi/s545GFL1ij12jRq4F8BRJ4Qa6D5Bhgxf1pNxWFu8f0wUjm8PEcD0XhO2YXPUVjxhNEjLfqdoLqPh4ohe7ArX+3fBf9wX0JixroVVxcQ1RWrZn4336ggn0oKeVv4JloxKkv9yFEjz28doYUxmw==
+	IuYf+6Y6kagyl28TrjhEr80LTPWKvhlSJX+S39SjgAWH24WgPdrl8r5KLsfqjfRA8HK/0wmlE3fE38l31bv2CCSh8kr/8HRjH9sxkB1Xe88xcYAvAspnWRbtL50qGUMBZLxcs7NRYFJs5xn095Cw01Oq+v8hK+vcbpD6436CjgpxPsaAt2u1hy1bP5e6n9XOtqpLf9DcCUi7kZW8JSCXVAgI4A4SvoPjaZBnj5+HbgAdGJgw+C25wWBsq1IgAvS7ClLkQfoAFYcnUptmkDtshvyHGrlGkBvuG/4Eq76eX2XJZK/Jys/93Ggq3T5J59XFidvoUV8T0pDJc6W6CILFZZYbmkUHhMdRiJ8/rYa5k5ffQHmS1CkIhC1xHgiqINaSlZdNli/IZuNB01t3/znN/ybEwylnjtRT02B7IwUNTHYrvFENq8g6u6hJ7KJvl0yTu+Fb6KRGtBMZEtlZifHPmYGmpaizybEWUgJ5tVTy81hEGiveM2F+l2Jto5G/JnOXqVRdhlvFYXutFfatNnQkw+zBCTaZcYgAphVgEU3RnG22E/x3D9OPxI7t6a33sxP3Cun0+Ms5PTnEVmieDujyRTf+9QV08ndqOhbJ9aq60/y0k6yFUdvDyGf9nNAD9dzz5m/Y46s25qCcYQoySeQ50A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(136003)(396003)(39860400002)(376002)(346002)(1800799003)(451199021)(186006)(2616005)(8676002)(26005)(6506007)(83380400001)(66476007)(2906002)(316002)(4326008)(66946007)(5660300002)(6916009)(66556008)(8936002)(7416002)(41300700001)(6666004)(6486002)(6512007)(478600001)(54906003)(38100700002)(31696002)(36756003)(86362001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(396003)(39860400002)(136003)(376002)(366004)(451199021)(1800799003)(186006)(2616005)(83380400001)(26005)(6506007)(8676002)(66556008)(316002)(2906002)(66946007)(5660300002)(66476007)(6916009)(4326008)(7416002)(41300700001)(8936002)(6486002)(6512007)(6666004)(4744005)(54906003)(478600001)(38100700002)(31696002)(86362001)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXlnL3FIMUpzdlBJVjYzdEpxVmxCQ3pZL2hZSnlvdENKUWkvcXp5MlFBSDNT?=
- =?utf-8?B?ZDF4cUhMUHRCRyt5NFRQVlp5TUlBeDJ0d0Z3V2x0bzZURzR0Y2JUUWJ2QUhM?=
- =?utf-8?B?aHhTNGhZT3FRc29aRHBqcWtwMkFQS0hhK2hQVldldHE5d2NBcmJMbTJqM1R6?=
- =?utf-8?B?UUNzN0d3elhIVm90akdNbmhIZ2Y5KzZkMEZxODBzQk15MU5QRmVTR0hNU282?=
- =?utf-8?B?WHh6ckdaS0tUT1U5ZStqdnhGSjMvY2JHc084T01NM3ZUQkRIaXE3N01PSnRl?=
- =?utf-8?B?Sk1QSXVpQnNQRVVzbFQzeEF0U24wRE5GcFIzenFKVWVzbTVaK0VKMGZQQ0Uy?=
- =?utf-8?B?eE9Ic2ZBalAwUEpiS1hFOVV2YUtzbTU3N3QwdlcyK1VTWDRsMGtYV3pDYmVm?=
- =?utf-8?B?QVZDUzdYdE5WbytPT2JTalZtVkJlQ3Y3TjdzS29nUzBjYnNReGx1dkZVeUlQ?=
- =?utf-8?B?QkgvOXNuaENVNmxjN2FQU05KdU9YU25jNEd5aEtOcnc4RllMWHdPb3BxeE91?=
- =?utf-8?B?dENxcG1VNHFqYURaenF4ajUyeDNBU2l4blYyNUdCK093MGdwVEdJMDRnUGp1?=
- =?utf-8?B?MG9jTjlUQ0xPbzF1UVNoajlXNjR2T21uNzQ4RDkvaG84MlBsdFFMNWgxT2NI?=
- =?utf-8?B?NE03WXd0am50cGEwTDRhY1pJVGRRUmdldWhXVWwwc2xEQTdyYzdSckRIY0Y5?=
- =?utf-8?B?TXdQT0pmRnRsSk5zWUsrZ2VLRHpQNUdGWUhTWkZVOVhUVnNMTlVOWFZXVysx?=
- =?utf-8?B?WVhUbHUyT2VKVEtsVXpoMWs3N2JkS25uTmVyVmdxemltZ1dOS1lndWdFU0gw?=
- =?utf-8?B?Y1VjRkcyUjVDWEMybWIzbzFRTzBXMVBVczJFbWZ5WjBhOXhsRk85TWFVQlRU?=
- =?utf-8?B?MEV6cDdkejhaOVFsSE9UTTRiOXB6aUg4UHZyVU5jMTBjamk4T3hkcGVkMG1J?=
- =?utf-8?B?NmJmeEkvSWk5L2k2dGVuNmp2TTF2L1IxbzNOT2RmSEhrTU0yb0hkbnU4R09K?=
- =?utf-8?B?VVZMTnk4MzcvdStCSURsNFAzMXNidE1DamdweFZrazZSVFpUWkZHN2ZRS1Jr?=
- =?utf-8?B?VFZxVnNDSzBFTjd5QVRtQjNiNXd2N0F5bFNoOW1rNXdXNmdOdjlQOTJweVVp?=
- =?utf-8?B?Y3hGLzg4a2VTWVpWdWhGeVNRdk5maldoTmdOMlVDVUQ0SVdoR3JJSHhXR3pl?=
- =?utf-8?B?d1ozQVBMeXNxQ25YM0ZYdFV2Z0srK0NpeERNYmt5RWVLVENSVjRDK2VpRjdp?=
- =?utf-8?B?em52VUowR0tYL1IzZ3JrMGduRFE5S0ZOa1JGNCtGcmRBN2Y3TURoQm4wK1hp?=
- =?utf-8?B?bmNubS9lR29nNkU0YzUxanZxSVBncHRPbEV1V3dLUmh4ZmlweVFZdTRCZkor?=
- =?utf-8?B?UjRKOThoZXE3eXFxeWE2TlVzRk41YlhWeWh6RmFNclMzZjZzaUtVOHR3cU10?=
- =?utf-8?B?K20zM0RWaEhEVGxWNmhUSGhzeDNFSlVYamZhaDdHc3hjYmo4WUFxY1NaWFhQ?=
- =?utf-8?B?aEtlOVpwRFVzMktpdU1pS0x5bitFcXJKV2VBRkkyanZjR1A4cUZSbmxxUEJT?=
- =?utf-8?B?N0J5dmJaUHpHbHhhZ296YWdoZ3hhT1RQZTdWN3lwakRwVm1SM1owbnBCSGt3?=
- =?utf-8?B?b1hlVzdpT2dmVXM2NDRseHJPRUd3WmlPeEtsc0VpbkFqTFlJdWtaKzZCV3NG?=
- =?utf-8?B?d0EzQVdOSW5aY0p3MVF2djM0T3RpMkdaTzM1TzJudXdTcnJjdVRFaDNkREpJ?=
- =?utf-8?B?STloSEN3eHkrV0NrVWVwbkJlVTlPbGJPSTFJbWlma1BiT3NzTjZFalo3RHA1?=
- =?utf-8?B?SnRhdlZBOFE1T1ZqWWQrRnhOdm1EVXgyRFM3b0VGcGNiQXk4M1ZXUzl0ZGw1?=
- =?utf-8?B?dHJaTm9JNnc0aENrdWc5WGx0LzQ2WndUOWFSUmV0SGk2bkF3bXVZOVIxRG4w?=
- =?utf-8?B?bE9FSzF2SWJ4Tml2bktBUVl3Z2ZRbXJpc3FZek9VcHU4UXVLSXJsYzVDQmw0?=
- =?utf-8?B?UlZkbGVYNHk3Q1BnY1RKMVlzVmROSkRKN3NQRC9FdXdST0pWNUVSTTFMZFE2?=
- =?utf-8?B?cHZlSXI3WkJndkEvZ2J5UjZRUFNDYW9aQVlzb0xiQzdMNUpwWS81RVVSelZY?=
- =?utf-8?Q?IWQdniOgnGIy6QLfFKqrAa50u?=
+	=?utf-8?B?NDNJa3hWZzNxWnpNQU43OHgrTjlURUU2YUdZK21PWjlvQmhGZ1VtUC9Fc2Nm?=
+ =?utf-8?B?YVl6eE05VzJXRTluaG91N2ttYzVNOGhvVUpEMU1HSTAxMEZocmdNUERyRW0r?=
+ =?utf-8?B?RG1rbWx0SjN4UFBPYm1sNzRWMEEwaGZYRVVrdEN5MVFNL0h5UG9qazlmSjRJ?=
+ =?utf-8?B?c1Y1YjBVUCtPMitGL29HODIybURDdzRBekhMWXZaNnowT1VSOWZ5SFp2Uita?=
+ =?utf-8?B?QStoNy8weFpDQythYmpJUm5VbUVwUEhkNnc4dTJQclZXTmJBNDFlTzR2ZnZD?=
+ =?utf-8?B?RkIvbmFWWVhFSmJTWXVzbDdIaklpSlQzR0VsWWplcDlyQ3ZjZFlTdXRUU0tv?=
+ =?utf-8?B?K0tTUm9TYVM1RHpVRExRVXhrZUdVczZJVFVDbkFYR0xpWStnazJoR2REeUVK?=
+ =?utf-8?B?c1RsSEJ5ZnBBdjU0VVU4SHpxekZQZ2RuTy9ZYlB5em56ZFlYSlBnbFNST3h4?=
+ =?utf-8?B?Z2lMYjF3Z2FzYU5LbnROdnl5SE9XZ0dxUUVMZzlmSTlCT3FlZml1NHlYMWFv?=
+ =?utf-8?B?SU9TZUpYYU1XZnlwT04wRU81d29xWVpuUDdTZ0RvdlhpWEdqWlpzL2VWS2Vi?=
+ =?utf-8?B?cDFvNHpTZHBlZGZUY1JWZkZUVHJpKzlKYmtUT0FWZWVjcVc0Q2pCZ1FrZXpo?=
+ =?utf-8?B?RzJNdi9TTE1EMzBWMzAxWWE1NTlHWUlrU3lkYXpBVVFnZkhxVHdpNjB4QTJJ?=
+ =?utf-8?B?OGowdUlTeXJRd25hSnpFYTJJUGdiSm1lcDBVS3pKQ3FHSnNDbGc2UXUxSEo1?=
+ =?utf-8?B?eXM2MFJzaEVMbWpvNEtCaWVsMEtZV3EyNWJWRTdkWGxDYWIyYUxKRUVqeTM2?=
+ =?utf-8?B?aEE4WnFlR25IQmp6dlhNSS85NGJ1M2NvaUtQUWswdVJCWDhBdUxmamdqY1Z3?=
+ =?utf-8?B?MDJKYStMWVVoUDZXZEs5eWI5ZDI1YkFpOFdSWHZKWlFrMDVOcjJjM2J2MnhG?=
+ =?utf-8?B?VjJpNVhHWWpRYjQzcmhEWVZlUHNLTjBtSVpQN0kwelpNaXhLdnN6WkIyMWY5?=
+ =?utf-8?B?MWFNUWF4RXZJbnlBSTZFOVhjYlp2b0M2Rzg0SklvaTltdEFzc25ubDNyT0NM?=
+ =?utf-8?B?cGlqZ2lRQnZSa0NNNXF4QXRYQWthdFFhQzFWR3JFQmp2WmtBWUdJakN1bVJP?=
+ =?utf-8?B?a0pyQ1RVb0QvUTc5WHdWaWxwb1ExN0NOOURrekF4T1hsb2RCb296TEJxTmlE?=
+ =?utf-8?B?cCtMa3g4UWtPVFV1UFVUWDNvNFNaS3lkejUrT09OS2JGd1o0Zml0MnNRaWVC?=
+ =?utf-8?B?Tm5JdzIyWUsxSUsrU1FRVHpNY3VTeGRwYUVmSDBOclVjVUZMazQ0NXJidmh6?=
+ =?utf-8?B?Z2c1VEw2VDcrRUxxVDdRYTY2QmpZMjJXTUF1UndCWTFHd0xOUnUvWlZIMGFv?=
+ =?utf-8?B?Q3kwa3plRXIyZ0FUSU5IMGVyK0dUMC9EQmFsWHlGMHpBU3N2VjMrNE9tUHg1?=
+ =?utf-8?B?MnNEblppMmVCbTVESENqRjQ2dnB2TE5vbTgwVnFmbDJCenp1VW40eEU4REZz?=
+ =?utf-8?B?akVrZHdiOGtsb25XakQwVkdTQURDaHNOZ1ZzS3M0WlprbzQ5K3FvTGk4dVBu?=
+ =?utf-8?B?dm40ZDk2R08wMzNDSkNhSFFtN1V6WHN0YXJPeE5BaHNLU0FUZlF5RHVJNlRh?=
+ =?utf-8?B?LzlYNVJ5eTNsTWtkaEUwb0V3YWMzS3RDOWhqWmFxOE45NW1rS2p5Tm9yNUhP?=
+ =?utf-8?B?ZFFjR1pYMEZpMFJGY1dNbXNpZ2lCWjY5dWRzZk1Nenc1V1djWWN6S3A2UGhl?=
+ =?utf-8?B?TUkwOTZjdGt3TUFlbnBFNFRBdFROUEVRRDRKbWEvMm8rMTlrT3Q0QzBldmc1?=
+ =?utf-8?B?d3Y5dDZaMUdoV29aNGdHUTlhVVdrY2VVRE9VZ2k2MDZDTWFHbXBQK3dPWjFo?=
+ =?utf-8?B?VFdIa1o1YzFXWmM5SU53cTlVMmw3Y25GK09zVy9oZ0s0WUxwRkQrU2UzcTZi?=
+ =?utf-8?B?ZjBZcUpLUC94MUxNcDRtcXNlcEFoZzM1eThTTHFYVmVaQUNpWnRyMlNGbXdG?=
+ =?utf-8?B?cEU2RkJoVEtYOFZGSzduMVUvSGs3RGFKNGFHUGt5TEFGM1gxRlFYTG9pS0pu?=
+ =?utf-8?B?USt6ZnFHZ1VTWkNkU0xoSnlyV2NkdVZUQXcrL29Uc0hWNEV2cmRnYUgvUnh4?=
+ =?utf-8?Q?zxeh9yKovNod16W55mDJ4Hd89?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0256e4b0-3583-4741-b550-08db94b13765
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4547ea30-f847-4196-b5d1-08db94b14c24
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 06:08:26.3890
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 06:09:01.5550
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C3L8aJVwy++JCkCzTAcjbl9ITevmNNtfWf1yEpbIn7fhhOKclLze4n6FyqGjxOr/El4xc/k3eU84wJobD3yKRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9277
+X-MS-Exchange-CrossTenant-UserPrincipalName: bDwcK2szC59YV0gKoJFdEIHEjEdE3JRm/6WGzMtI+CKx+q3pUu0Qw8D7AUgDjkLNa04xwkvG7cTi/hrY71Y+qQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9067
 
-Have these in one place, for all architectures to use. Also use the C99
-types as the "original" ones, and derive the Linux compatible ones
-(which we're trying to phase out). For __s<N>, seeing that no uses exist
-anymore, move them to a new Linux compatibility header (as an act of
-precaution - as said, we don't have any uses of these types right now).
-
-In some Flask sources inclusion of asm/byteorder.h needs moving later.
+With the last uses gone, move the type to linux-compat.h.
 
 No functional change intended.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-v2: This is the residual (extended to PPC) of an earlier larger patch
-    which was partly replaced by introducing xen/stdint.h.
+The primary use of __u{16,32,64} is in the byte-order headers. Iirc
+there is a series re-working part of that, so I guess before touching
+the logic there that other series would better land first.
 
---- a/xen/arch/arm/include/asm/types.h
-+++ b/xen/arch/arm/include/asm/types.h
-@@ -1,18 +1,7 @@
- #ifndef __ARM_TYPES_H__
- #define __ARM_TYPES_H__
- 
--typedef signed char s8;
--typedef unsigned char u8;
--
--typedef signed short s16;
--typedef unsigned short u16;
--
--typedef signed int s32;
--typedef unsigned int u32;
--
- #if defined(CONFIG_ARM_32)
--typedef signed long long s64;
--typedef unsigned long long u64;
- typedef u32 vaddr_t;
- #define PRIvaddr PRIx32
- #if defined(CONFIG_PHYS_ADDR_T_32)
-@@ -34,9 +23,9 @@ typedef u64 paddr_t;
- #endif
- typedef u32 register_t;
- #define PRIregister "08x"
--#elif defined (CONFIG_ARM_64)
--typedef signed long s64;
--typedef unsigned long u64;
-+
-+#elif defined(CONFIG_ARM_64)
-+
- typedef u64 vaddr_t;
- #define PRIvaddr PRIx64
- typedef u64 paddr_t;
-@@ -44,6 +33,7 @@ typedef u64 paddr_t;
- #define PRIpaddr "016lx"
- typedef u64 register_t;
- #define PRIregister "016lx"
-+
- #endif
- 
- #endif /* __ARM_TYPES_H__ */
---- a/xen/arch/ppc/include/asm/types.h
-+++ b/xen/arch/ppc/include/asm/types.h
-@@ -3,17 +3,6 @@
- #ifndef _ASM_PPC_TYPES_H
- #define _ASM_PPC_TYPES_H
- 
--typedef signed char s8;
--typedef unsigned char u8;
--
--typedef signed short s16;
--typedef unsigned short u16;
--
--typedef signed int s32;
--typedef unsigned int u32;
--
--typedef signed long s64;
--typedef unsigned long u64;
- typedef unsigned long paddr_t;
- #define INVALID_PADDR (~0UL)
- #define PRIpaddr "016lx"
---- a/xen/arch/riscv/include/asm/types.h
-+++ b/xen/arch/riscv/include/asm/types.h
-@@ -3,19 +3,8 @@
- #ifndef __RISCV_TYPES_H__
- #define __RISCV_TYPES_H__
- 
--typedef signed char s8;
--typedef unsigned char u8;
--
--typedef signed short s16;
--typedef unsigned short u16;
--
--typedef signed int s32;
--typedef unsigned int u32;
--
- #if defined(CONFIG_RISCV_32)
- 
--typedef signed long long s64;
--typedef unsigned long long u64;
- typedef u32 vaddr_t;
- #define PRIvaddr PRIx32
- typedef u64 paddr_t;
-@@ -26,8 +15,6 @@ typedef u32 register_t;
- 
- #elif defined (CONFIG_RISCV_64)
- 
--typedef signed long s64;
--typedef unsigned long u64;
- typedef u64 vaddr_t;
- #define PRIvaddr PRIx64
- typedef u64 paddr_t;
---- a/xen/arch/x86/include/asm/types.h
-+++ b/xen/arch/x86/include/asm/types.h
-@@ -1,17 +1,6 @@
- #ifndef __X86_TYPES_H__
- #define __X86_TYPES_H__
- 
--typedef signed char s8;
--typedef unsigned char u8;
--
--typedef signed short s16;
--typedef unsigned short u16;
--
--typedef signed int s32;
--typedef unsigned int u32;
--
--typedef signed long s64;
--typedef unsigned long u64;
- typedef unsigned long paddr_t;
- #define INVALID_PADDR (~0UL)
- #define PRIpaddr "016lx"
---- /dev/null
+--- a/xen/include/xen/linux-compat.h
 +++ b/xen/include/xen/linux-compat.h
-@@ -0,0 +1,19 @@
-+/******************************************************************************
-+ * linux-compat.h
-+ *
-+ * Container for types and other definitions use in Linux (and hence in files
-+ * we "steal" from there), but which shouldn't be used (anymore) in normal Xen
-+ * files.
-+ */
-+
-+#ifndef __XEN_LINUX_COMPAT_H__
-+#define __XEN_LINUX_COMPAT_H__
-+
-+#include <xen/types.h>
-+
-+typedef int8_t  __s8;
-+typedef int16_t __s16;
-+typedef int32_t __s32;
-+typedef int64_t __s64;
-+
-+#endif /* __XEN_LINUX_COMPAT_H__ */
+@@ -12,6 +12,7 @@
+ #include <xen/types.h>
+ 
+ typedef int8_t  __s8;
++typedef uint8_t __u8;
+ typedef int16_t __s16;
+ typedef int32_t __s32;
+ typedef int64_t __s64;
 --- a/xen/include/xen/types.h
 +++ b/xen/include/xen/types.h
-@@ -4,6 +4,16 @@
- #include <xen/stdbool.h>
- #include <xen/stdint.h>
+@@ -6,7 +6,7 @@
  
-+/* Linux inherited types which are being phased out */
-+typedef int8_t s8;
-+typedef uint8_t u8, __u8;
-+typedef int16_t s16;
-+typedef uint16_t u16, __u16;
-+typedef int32_t s32;
-+typedef uint32_t u32, __u32;
-+typedef int64_t s64;
-+typedef uint64_t u64, __u64;
-+
- #include <asm/types.h>
- 
- typedef __SIZE_TYPE__ size_t;
-@@ -40,15 +50,6 @@ typedef __PTRDIFF_TYPE__ ptrdiff_t;
- #define LONG_MIN        (-LONG_MAX - 1)
- #define ULONG_MAX       (~0UL)
- 
--typedef uint8_t         __u8;
--typedef int8_t          __s8;
--typedef uint16_t        __u16;
--typedef int16_t         __s16;
--typedef uint32_t        __u32;
--typedef int32_t         __s32;
--typedef uint64_t        __u64;
--typedef int64_t         __s64;
--
- typedef __u16 __le16;
- typedef __u16 __be16;
- typedef __u32 __le32;
---- a/xen/xsm/flask/ss/conditional.c
-+++ b/xen/xsm/flask/ss/conditional.c
-@@ -9,7 +9,6 @@
- 
- /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
- 
--#include <asm/byteorder.h>
- #include <xen/lib.h>
- #include <xen/types.h>
- #include <xen/errno.h>
-@@ -17,6 +16,8 @@
- #include <xen/spinlock.h>
- #include <xen/xmalloc.h>
- 
-+#include <asm/byteorder.h>
-+
- #include "security.h"
- #include "conditional.h"
- 
---- a/xen/xsm/flask/ss/ebitmap.c
-+++ b/xen/xsm/flask/ss/ebitmap.c
-@@ -10,12 +10,14 @@
- 
- /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
- 
--#include <asm/byteorder.h>
- #include <xen/lib.h>
- #include <xen/xmalloc.h>
- #include <xen/errno.h>
- #include <xen/spinlock.h>
- #include <xen/bitmap.h>
-+
-+#include <asm/byteorder.h>
-+
- #include "ebitmap.h"
- #include "policydb.h"
- 
---- a/xen/xsm/flask/ss/policydb.c
-+++ b/xen/xsm/flask/ss/policydb.c
-@@ -22,12 +22,14 @@
- 
- /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
- 
--#include <asm/byteorder.h>
- #include <xen/lib.h>
- #include <xen/types.h>
- #include <xen/xmalloc.h>
- #include <xen/string.h>
- #include <xen/errno.h>
-+
-+#include <asm/byteorder.h>
-+
- #include <conditional.h>
- #include "security.h"
- 
+ /* Linux inherited types which are being phased out */
+ typedef int8_t s8;
+-typedef uint8_t u8, __u8;
++typedef uint8_t u8;
+ typedef int16_t s16;
+ typedef uint16_t u16, __u16;
+ typedef int32_t s32;
 
 
