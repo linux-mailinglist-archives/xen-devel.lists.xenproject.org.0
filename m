@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9E2770293
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 16:09:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577176.904125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BC0A7702B2
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 16:12:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577183.904135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRvUJ-0007QY-Qi; Fri, 04 Aug 2023 14:09:07 +0000
+	id 1qRvXH-0000QU-7I; Fri, 04 Aug 2023 14:12:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577176.904125; Fri, 04 Aug 2023 14:09:07 +0000
+Received: by outflank-mailman (output) from mailman id 577183.904135; Fri, 04 Aug 2023 14:12:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRvUJ-0007O3-N9; Fri, 04 Aug 2023 14:09:07 +0000
-Received: by outflank-mailman (input) for mailman id 577176;
- Fri, 04 Aug 2023 14:09:06 +0000
+	id 1qRvXH-0000Nr-3q; Fri, 04 Aug 2023 14:12:11 +0000
+Received: by outflank-mailman (input) for mailman id 577183;
+ Fri, 04 Aug 2023 14:12:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BlMS=DV=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qRvUI-0007Nx-4F
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 14:09:06 +0000
+ <SRS0=HS9z=DV=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qRvXF-0000Nl-K6
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 14:12:09 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 77e71c1b-32d0-11ee-8613-37d641c3527e;
- Fri, 04 Aug 2023 16:09:04 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id B27DB4EE0737;
- Fri,  4 Aug 2023 16:09:03 +0200 (CEST)
+ id e5139f66-32d0-11ee-8613-37d641c3527e;
+ Fri, 04 Aug 2023 16:12:07 +0200 (CEST)
+Received: from Dell.homenet.telecomitalia.it
+ (host-79-35-203-138.retail.telecomitalia.it [79.35.203.138])
+ by support.bugseng.com (Postfix) with ESMTPSA id CFB8D4EE0737;
+ Fri,  4 Aug 2023 16:12:06 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77e71c1b-32d0-11ee-8613-37d641c3527e
+X-Inumbo-ID: e5139f66-32d0-11ee-8613-37d641c3527e
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [XEN PATCH] x86: Address violations of MISRA C:2012 and drop bool_t
+Date: Fri,  4 Aug 2023 16:11:59 +0200
+Message-Id: <2cd78bd0d39b36fe73e87cd1011658a54c2c729d.1691158092.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Date: Fri, 04 Aug 2023 16:09:03 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
- <stefano.stabellini@amd.com>, Michal Orzel <michal.orzel@amd.com>,
- xenia.ragiadakou@amd.com, Ayan Kumar Halder <ayankuma@amd.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, Julien
- Grall <julien@xen.org>, George Dunlap <george.dunlap@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: Address MISRA C:2012 Rule 8.4
-In-Reply-To: <95a6d085-cbb9-ecb6-134d-6e4d994bfd35@suse.com>
-References: <786d24b044bfa503a73a36d2a01eae8c@bugseng.com>
- <alpine.DEB.2.22.394.2308031733380.2127516@ubuntu-linux-20-04-desktop>
- <00fb1a58849ec08534465df2f8ca2284@bugseng.com>
- <95a6d085-cbb9-ecb6-134d-6e4d994bfd35@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <f5443fc1f3e56c79e3149fac42e060ef@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
->> 3. Variables that are either extern or not, such as 'acpi_gbl_FADT' in
->> 'xen/include/acpi/acglobal.h', depending on
->>     DEFINE_ACPI_GLOBALS
->> 
->> Below are the proposed resolution strategies:
+Give a name to unnamed parameters to address violations of
+MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+named parameters").
+Keep consistency between object and function declarations thus
+addressing violations of MISRA C:2012 Rule 8.3 ("All declarations of an
+object or function shall use the same names and type qualifiers").
+Replace the occurrences of bool_t with bool.
 
-> 
->> 3. One possible resolution pattern is including 'acglobal.h' twice
->> (either directly or indirectly trough acpi.h, if
->>     the latter does not cause other issues) like so:
->> 
->>     (assuming DEFINE_ACPI_GLOBALS is undefined here)
->>     #include "acglobal.h"
->>     #define DEFINE_ACPI_GLOBALS
->>     #include  "acglobal.h"
->> 
->>    this way, the rule is followed properly, though it's not the 
->> prettiest
->> pattern and also clashes with the objectives
->>    of D4.10 ("Precautions shall be taken in order to prevent the 
->> contents
->> of a header file being included
->>    more than once"), but then a motivated exception is allowed there.
-> 
-> Not really sure about this one.
-> 
-> Jan
+No functional change.
 
-If you can tell me more about why that header is defined the way it is 
-(i.e. why it's used twice with
-DEFINE_ACPI_GLOBALS #defined and the other times without), maybe we can 
-come up
-with better alternatives.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/arch/x86/cpu/common.c            |  6 +++---
+ xen/arch/x86/include/asm/processor.h | 16 ++++++++--------
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index cfcdaace12..5f29148416 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -26,11 +26,11 @@
+ 
+ bool __read_mostly opt_dom0_cpuid_faulting = true;
+ 
+-bool_t opt_arat = 1;
++bool opt_arat = 1;
+ boolean_param("arat", opt_arat);
+ 
+ /* pku: Flag to enable Memory Protection Keys (default on). */
+-static bool_t opt_pku = 1;
++static bool opt_pku = 1;
+ boolean_param("pku", opt_pku);
+ 
+ unsigned int opt_cpuid_mask_ecx = ~0u;
+@@ -208,7 +208,7 @@ void ctxt_switch_levelling(const struct vcpu *next)
+ 		alternative_vcall(ctxt_switch_masking, next);
+ }
+ 
+-bool_t opt_cpu_info;
++bool opt_cpu_info;
+ boolean_param("cpuinfo", opt_cpu_info);
+ 
+ int get_model_name(struct cpuinfo_x86 *c)
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 0989748be6..8d1909f73d 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -96,7 +96,7 @@ extern bool probe_cpuid_faulting(void);
+ extern void ctxt_switch_levelling(const struct vcpu *next);
+ extern void (*ctxt_switch_masking)(const struct vcpu *next);
+ 
+-extern bool_t opt_cpu_info;
++extern bool opt_cpu_info;
+ extern u32 trampoline_efer;
+ extern u64 trampoline_misc_enable_off;
+ 
+@@ -109,17 +109,17 @@ extern unsigned int vaddr_bits;
+ 
+ extern const struct x86_cpu_id *x86_match_cpu(const struct x86_cpu_id table[]);
+ 
+-extern void identify_cpu(struct cpuinfo_x86 *);
+-extern void setup_clear_cpu_cap(unsigned int);
+-extern void setup_force_cpu_cap(unsigned int);
+-extern bool is_forced_cpu_cap(unsigned int);
++extern void identify_cpu(struct cpuinfo_x86 *c);
++extern void setup_clear_cpu_cap(unsigned int cap);
++extern void setup_force_cpu_cap(unsigned int cap);
++extern bool is_forced_cpu_cap(unsigned int cap);
+ extern void print_cpu_info(unsigned int cpu);
+ extern void init_intel_cacheinfo(struct cpuinfo_x86 *c);
+ 
+ #define cpu_to_core(_cpu)   (cpu_data[_cpu].cpu_core_id)
+ #define cpu_to_socket(_cpu) (cpu_data[_cpu].phys_proc_id)
+ 
+-unsigned int apicid_to_socket(unsigned int);
++unsigned int apicid_to_socket(unsigned int apicid);
+ 
+ static inline int cpu_nr_siblings(unsigned int cpu)
+ {
+@@ -410,12 +410,12 @@ void show_registers(const struct cpu_user_regs *regs);
+ #define dump_execution_state() \
+     run_in_exception_handler(show_execution_state_nonconst)
+ void show_page_walk(unsigned long addr);
+-void noreturn fatal_trap(const struct cpu_user_regs *regs, bool_t show_remote);
++void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
+ 
+ extern void mtrr_ap_init(void);
+ extern void mtrr_bp_init(void);
+ 
+-void mcheck_init(struct cpuinfo_x86 *c, bool_t bsp);
++void mcheck_init(struct cpuinfo_x86 *c, bool bsp);
+ 
+ void do_nmi(const struct cpu_user_regs *regs);
+ void do_machine_check(const struct cpu_user_regs *regs);
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.34.1
+
 
