@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F09776FE94
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 12:34:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577088.903952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8081576FE98
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 12:35:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577091.903962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRs7U-0002q4-N8; Fri, 04 Aug 2023 10:33:20 +0000
+	id 1qRs9Y-0003Qr-3v; Fri, 04 Aug 2023 10:35:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577088.903952; Fri, 04 Aug 2023 10:33:20 +0000
+Received: by outflank-mailman (output) from mailman id 577091.903962; Fri, 04 Aug 2023 10:35:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRs7U-0002oK-KP; Fri, 04 Aug 2023 10:33:20 +0000
-Received: by outflank-mailman (input) for mailman id 577088;
- Fri, 04 Aug 2023 10:33:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qRs9Y-0003Nd-1C; Fri, 04 Aug 2023 10:35:28 +0000
+Received: by outflank-mailman (input) for mailman id 577091;
+ Fri, 04 Aug 2023 10:35:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qRs7S-0002oE-L5
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 10:33:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRs7R-0007zJ-MG; Fri, 04 Aug 2023 10:33:17 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228] helo=[10.95.104.46])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRs7R-00006G-Fs; Fri, 04 Aug 2023 10:33:17 +0000
+ (envelope-from <SRS0=+Hv6=DV=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qRs9W-0003NU-9q
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 10:35:26 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9f280a3b-32b2-11ee-b26b-6b7b168915f2;
+ Fri, 04 Aug 2023 12:35:25 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D339C1F8AC;
+ Fri,  4 Aug 2023 10:35:24 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72C45133B5;
+ Fri,  4 Aug 2023 10:35:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3leVGmzUzGSKOAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 04 Aug 2023 10:35:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,178 +51,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=i5i3A0jW9drB3euuJ61j+0z5/5MW6KwEZ/0NENb6JkM=; b=Iz2GQ0CrK+47yFKEig/WYl5Wy2
-	USAUWqIX/UNw/Ja++/Z4F9lGBj3BKX7Z9zbCkAQgHvMV5qhoYOMSA1ipgQqtnypfg+vdFzNv0mRXy
-	j6p9NpN6eXi9167b82S1jp2mSlS+QsSbKLr6ym7HOOdxXrk2fTHY+limQV8mA7WV73B8=;
-Message-ID: <8e7d18a0-0130-4ae5-adac-cfc122d6fb16@xen.org>
-Date: Fri, 4 Aug 2023 11:33:15 +0100
+X-Inumbo-ID: 9f280a3b-32b2-11ee-b26b-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1691145324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dOrns3aHmALo5VEFClwKv4k5zfS2WAJjPptWmdcbyC4=;
+	b=nJUBH/vfKgOAOX/DrcQxg/3LON8/S2QVTGUFTNj5TmMPsot0C2MVuZQ9oOIwVO6fXvdBWP
+	P3WvqOKjRaXncnPnz0rjg252GKsyKWyMXKSIW9Xodd03iKD0nnpLnnBvD1REeSAZPY1+Vj
+	m4AdwaH0KjPfGUS9OmT4o+uKILaY7rc=
+Message-ID: <f3c20dd0-9914-f646-0aaa-400dffd2bb2b@suse.com>
+Date: Fri, 4 Aug 2023 12:35:23 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 23/25] tools/xenstore: merge is_valid_nodename() into
- canonicalize()
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-24-jgross@suse.com>
- <dab986c3-e875-75a9-849c-954fb84edff7@xen.org>
- <99a76ceb-df27-3a37-296b-9fcf1671472e@suse.com>
- <e3b4e4c0-f188-4b7c-ad47-8c6d60532969@xen.org>
- <6193da26-c348-dcd2-b3ef-7b75ce4da376@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <6193da26-c348-dcd2-b3ef-7b75ce4da376@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xin Li <xin3.li@intel.com>,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <20230804075734.8372-1-xin3.li@intel.com>
+ <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [RFC PATCH 1/1] x86/traps: Get rid of exception handlers' second
+ argument error code
+In-Reply-To: <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------RIwth9b5TBuxUuYcpfetUToe"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------RIwth9b5TBuxUuYcpfetUToe
+Content-Type: multipart/mixed; boundary="------------YNwf55S3kJowPLPrhqJxF54y";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xin Li <xin3.li@intel.com>,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <f3c20dd0-9914-f646-0aaa-400dffd2bb2b@suse.com>
+Subject: Re: [RFC PATCH 1/1] x86/traps: Get rid of exception handlers' second
+ argument error code
+References: <20230804075734.8372-1-xin3.li@intel.com>
+ <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
+In-Reply-To: <f0077c58-9192-9c81-6c2d-df845bfb7815@citrix.com>
+
+--------------YNwf55S3kJowPLPrhqJxF54y
+Content-Type: multipart/mixed; boundary="------------FpShGNDVei6igLcFbXS9kvzt"
+
+--------------FpShGNDVei6igLcFbXS9kvzt
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-Hi Juergen,
+T24gMDQuMDguMjMgMTI6MjUsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDA0LzA4LzIw
+MjMgODo1NyBhbSwgWGluIExpIHdyb3RlOg0KPj4gSSBoYXZlbid0IGNoZWNrZWQgWGVuIGlt
+cGxpY2F0aW9ucyB3aXRoIHRoaXMgY2hhbmdlLCBpLmUuLCBkb2VzIFhlbg0KPj4gaHlwZXJ2
+aXNvciBuZWVkIHRvIGFkanVzdCBob3cgaXQgcGFzc2VzIGFyZ3VtZW50cyB0byBQViBndWVz
+dHM/DQo+IA0KPiBUaGlzIGlzIGFuIGludGVybmFsIGRldGFpbCBvZiBob3cgTGludXggaGFu
+ZGxlcyBkYXRhIG9uIGl0J3Mgc3RhY2tzLA0KPiBpc24ndCBpdD8NCj4gDQo+IFRoZSBYZW4g
+Y29kZSBpbiBMaW51eCB3aWxsIG5lZWQgYWRqdXN0bWVudCB0byBtYXRjaCwgYnV0IHRoaXMg
+aXMgbm90IGENCj4gaHlwZXJ2aXNvciBBQkkgKHdoaWNoIG9idmlvdXNseSBjYW4ndCBhbmQg
+d29uJ3QgY2hhbmdlKS4NCg0KVGhlIG9ubHkgYWRhcHRpb24gb2YgWGVuIGNvZGUgd2lsbCBu
+ZWVkIHRvIGhhcHBlbiBmb3IgdGhlIG9ubHkgdXNlIG9mDQpERUZJTkVfSURURU5UUllfUkFX
+X0VSUk9SQ09ERSgpIHRoZXJlLCBhbmQgdGhpcyB5b3UgaGF2ZSBjb3ZlcmVkIGluIHlvdXIN
+CnBhdGNoIGFscmVhZHkuDQoNCg0KSnVlcmdlbg0KDQo=
+--------------FpShGNDVei6igLcFbXS9kvzt
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 04/08/2023 11:17, Juergen Gross wrote:
-> On 04.08.23 12:00, Julien Grall wrote:
->> Hi,
->>
->> On 04/08/2023 10:35, Juergen Gross wrote:
->>> On 03.08.23 23:46, Julien Grall wrote:
->>>> Hi,
->>>>
->>>> On 24/07/2023 12:02, Juergen Gross wrote:
->>>>> Today is_valid_nodename() is always called directly after calling
->>>>> canonicalize(), with the exception of do_unwatch(), where the call
->>>>> is missing (which is not correct, but results just in a wrong error
->>>>> reason being returned).
->>>>
->>>> While this change makes sense...
->>>>
->>>>>
->>>>> Merge is_valid_nodename() into canonicalize(). While at it merge
->>>>> valid_chars() into it, too.
->>>>
->>>> ... I am not in favor of folding the code is_valid_nodename() and 
->>>> valid_chars() into canonicalize() because the code is now more 
->>>> difficult to read. Also, the keeping the split would allow to free 
->>>> the 'name' in case of an error without adding too much goto in the 
->>>> code.
->>>
->>> I don't think we can easily free name in an error case, at that would 
->>> require
->>> to keep knowledge that name was just allocated in the non-canonical 
->>> case.
->>
->> How about this:
->>
->> const char *canonicalize(struct connection *conn, const void *ctx,
->>                           const char *node, bool allow_special)
->> {
->>          const char *prefix;
->>          const char *name;
->>
->>          if (!node)
->>                  return NULL;
->>
->>          if (node[0] == '@' && !allow_special)
->>                  return NULL;
->>
->>          if (!node || (node[0] == '/') || (node[0] == '@'))
->>                  return node;
->>          prefix = get_implicit_path(conn);
->>          if (prefix) {
->>                  name = talloc_asprintf(ctx, "%s/%s", prefix, node);
->>                  if (name)
->>                          return NULL;
->>          } else
->>                  name = node;
->>
->>          if (!is_valid_nodename(conn, node, allow_special)) {
->>                  /* Release the memory if 'name' was allocated by us */
->>                  if ( name != node )
->>                          talloc_free(name);
->>                  return NULL;
->>          }
->>
->>          return name;
->> }
->>
->> And before you ask, I don't see the benefits to partially validate the 
->> name before allocating. Hence why I suggest to keep 
->> is_valid_nodename() as this keep the function small.
-> 
-> Partially validating before doing the allocation is a benefit as it doesn't
-> spend cycles on validating the known good prefix.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Which is pretty much a drop in the ocean in the context of Xenstored :). 
-In reality most of the validation can be done before the allocation with 
-a bit of work.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> 
-> Additionally your example won't validate an absolute pathname at all.
+--------------FpShGNDVei6igLcFbXS9kvzt--
 
-That's an error in the logic. This can be sorted out.
+--------------YNwf55S3kJowPLPrhqJxF54y--
 
-> 
-> What about this variant:
+--------------RIwth9b5TBuxUuYcpfetUToe
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-I still don't see the value of folding is_valid_node_name(). But if the 
-other agrees with you then...
+-----BEGIN PGP SIGNATURE-----
 
-> 
-> const char *canonicalize(struct connection *conn, const void *ctx,
->                           const char *node, bool allow_special)
-> {
->          const char *name;
->          int local_off = 0;
->          unsigned int domid;
-> 
->          /*
->           * Invalid if any of:
->           * - no node at all
->           * - illegal character in node
->           * - starts with '@' but no special node allowed
->           */
->          errno = EINVAL;
->          if (!node ||
->              strspn(node, 
-> "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
->                           "0123456789-/_@") != strlen(node) ||
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTM1GsFAwAAAAAACgkQsN6d1ii/Ey98
+xQf/eHKCtZfr2yrcxk/rSFLFayb4L8I2VDcv5ljxLHvPEsCm8nzjl/H3tOqNecMOjI1ezu16HS9m
+xVE6gTW2KDa17ZVxjXsuJlTpiaHhe13bXyJ957jDIW0gfEvbB342HmfFKeUe+8wSNvERvtPfXorE
+B9cPpNrQsn1Be8G2QWHtMNNrWtsMvLp+IjyQzIH2G8DRx30nd/rJT3YX3lrNOekp1Tj3V4IuX6e7
+DUYHW0EUklkXexzsQfCzyznT63ZwWkydOS0UPXn4IfTKYTY3WIxqnZPkn5fjGZXGsd279avPYUYe
+G5NbUK4Dhj6mrxyFsQITsf+0ZR/REp/7CRUjaRHvgw==
+=HCZR
+-----END PGP SIGNATURE-----
 
-... I would rather keep calling valid_chars() here. The rest looks fine 
-even though this is definitely not my preference.
-
->              (node[0] == '@' && !allow_special))
->                  return NULL;
-> 
->          if (node[0] != '/' && node[0] != '@') {
->                  name = talloc_asprintf(ctx, "%s/%s", 
-> get_implicit_path(conn),
->                                         node);
->                  if (!name)
->                          return NULL;
->          } else
->                  name = node;
-> 
->          if (sscanf(name, "/local/domain/%5u/%n", &domid, &local_off) != 1)
->                  local_off = 0;
-> 
->          /*
->           * Only valid if:
->           * - doesn't end in / (unless it's just "/")
->           * - no double //
->           * - not violating max allowed path length
->           */
->          if (!(strends(name, "/") && !streq(name, "/")) &&
->              !strstr(name, "//") &&
->              !domain_max_chk(conn, ACC_PATHLEN, strlen(name) - local_off))
->                  return name;
-> 
->          /* Release the memory if 'name' was allocated by us. */
->          if (name != node)
->                  talloc_free(name);
->          return NULL;
-> }
-
-Cheers,
-
--- 
-Julien Grall
+--------------RIwth9b5TBuxUuYcpfetUToe--
 
