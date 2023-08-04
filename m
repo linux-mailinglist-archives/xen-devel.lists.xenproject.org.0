@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B9F7708E2
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 21:19:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577294.904301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 910347708FD
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 21:24:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577298.904312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qS0Kc-0006K8-Uh; Fri, 04 Aug 2023 19:19:26 +0000
+	id 1qS0PT-0007oC-Ge; Fri, 04 Aug 2023 19:24:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577294.904301; Fri, 04 Aug 2023 19:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 577298.904312; Fri, 04 Aug 2023 19:24:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qS0Kc-0006IT-Rt; Fri, 04 Aug 2023 19:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 577294;
- Fri, 04 Aug 2023 19:19:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qS0PT-0007mW-D3; Fri, 04 Aug 2023 19:24:27 +0000
+Received: by outflank-mailman (input) for mailman id 577298;
+ Fri, 04 Aug 2023 19:24:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zgx5=DV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qS0Kb-0006IN-0E
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 19:19:25 +0000
+ id 1qS0PR-0007mQ-Ob
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 19:24:25 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0b0a1c1-32fb-11ee-8613-37d641c3527e;
- Fri, 04 Aug 2023 21:19:22 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 839ecebe-32fc-11ee-b271-6b7b168915f2;
+ Fri, 04 Aug 2023 21:24:22 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A8805620F9;
- Fri,  4 Aug 2023 19:19:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25950C433C7;
- Fri,  4 Aug 2023 19:19:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EB44E620B2;
+ Fri,  4 Aug 2023 19:24:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BFEC433C7;
+ Fri,  4 Aug 2023 19:24:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,52 +44,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0b0a1c1-32fb-11ee-8613-37d641c3527e
+X-Inumbo-ID: 839ecebe-32fc-11ee-b271-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691176760;
-	bh=apUVt5yHL5/JjzyZ1TVPnIPul2cJTe3/wdu6vBwZRDY=;
+	s=k20201202; t=1691177060;
+	bh=1scds7z8WNp0wU1Ynx2S061QaMbUsIDz+VM1EtTlCcc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=s4zUD85T/SQ/hK/Fuer+JmtdB5L7KTyljYWxK4UX4KDKry53SCZV38Ju+2W1oLOQx
-	 2hdIoKj1qjHWBM0En+rjgTBRIE2QeXpVXuPc3dRIy+AQoOLDbtXNT1QbJyeeY53aHI
-	 0Wl3hPBlmWvpKnE1i/FZbCFFR8zPiS8mqI9tpO+sF7mcDhiWH7C5jV+/UK5Uffhdc3
-	 SYZnrEbSqp4ZAaS4xq7thAvueJE8yzD3PnXMQbN6XMGOs+pxRmMJfV6xaTj7WFYJJl
-	 L6EiHsgOukLqwHsLv7RjxvnpXlJJ7GeiKmtEZ0XbdobO6A+t1ucRhW+gpFqL9a4Uf2
-	 rhzzsdgtf6Gdw==
-Date: Fri, 4 Aug 2023 12:19:17 -0700 (PDT)
+	b=kapeWdutUvjKza/FRgrvXs/aJDpt+nsdUzZh5B2hfDCByE+JkSRIXt3TS/q6H5PAs
+	 2hvYn9Q/xZeoAzoipru2vB6YJR9OGOnMMEV4UQeKAe41Q8cmSl9pbdrFfQ0ZXLYvq+
+	 7EcOs4WUjgdgr2VDXiB1MpQErZLffjle/R/mptQk8EyPqJS1/B1GylgTcnf0+LDTnY
+	 bxlHZKybsY9txmKtl1ZWhFNH67YitV8DanwuQufUvOwOFgCi6aVfC4QsMzLwnzF81C
+	 GF7LUJz9KWp0RYAEhzgcmCOryocmolYEmsa5s5xJjgSr822E6wmk1AXjTO4VKyKgar
+	 gi/Xdd7+Bp1wA==
+Date: Fri, 4 Aug 2023 12:24:17 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, cardoe@cardoe.com, 
-    andrew.cooper3@citrix.com, simone.ballarin@bugseng.com, 
-    xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: Re: [PATCH] automation: add missing "needs"
-In-Reply-To: <c2a229d2-8df0-8ca3-1484-f3da55b988f1@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2308041219120.2127516@ubuntu-linux-20-04-desktop>
-References: <20230804011018.2888869-1-sstabellini@kernel.org> <c2a229d2-8df0-8ca3-1484-f3da55b988f1@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Federico Serafini <federico.serafini@bugseng.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Luca Fancellu <Luca.Fancellu@arm.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    "consulting@bugseng.com" <consulting@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH v2] xen/string: add missing parameter names
+In-Reply-To: <82f93d14-fd6e-417c-a970-645fd0719d3a@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2308041224110.2127516@ubuntu-linux-20-04-desktop>
+References: <16c5362b740ed66100b55b528881cb26c1430f15.1691050900.git.federico.serafini@bugseng.com> <B1F3B24C-15FC-4A0F-BFB9-8C3C33E8FEB5@arm.com> <e2ab464c-f14a-4d7e-ba25-c88fad9c5d23@xen.org> <4FE67D84-A5AC-4EA1-BCF4-212E4B916BD2@arm.com>
+ <1e2d06ab-ad3a-4e5a-ac78-d20bad28bb20@xen.org> <alpine.DEB.2.22.394.2308031226010.2127516@ubuntu-linux-20-04-desktop> <49fc793e-d0a3-7d9b-b501-d7a72dd9c736@bugseng.com> <82f93d14-fd6e-417c-a970-645fd0719d3a@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-779768781-1691177060=:2127516"
 
-On Fri, 3 Aug 2023, Michal Orzel wrote:
-> On 04/08/2023 03:10, Stefano Stabellini wrote:
-> > 
-> > 
-> > From: Stefano Stabellini <stefano.stabellini@amd.com>
-> > 
-> > The test artifacts export jobs don't need prerequisites, so we should
-> > specify "needs" with an empty array for them. That way, they are not
-> > going to fruitlessly wait for previous jobs (ECLAIR jobs) to complete
-> > before continuing.
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Thanks!
+--8323329-779768781-1691177060=:2127516
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-> Looking at the whole pipeline, I can see that now only ECLAIR jobs do not specify needs.
-> Shouldn't we also add "needs: []" for them?
-
-Yes it could be good for consistency and future-proofness, but
-technically it is not required now because the ECLAIR jobs come first.
+On Fri, 4 Aug 2023, Jan Beulich wrote:
+> On 04.08.2023 09:55, Federico Serafini wrote:
+> > On 03/08/23 21:26, Stefano Stabellini wrote:
+> >> On Thu, 3 Aug 2023, Julien Grall wrote:
+> >>> On 03/08/2023 12:52, Luca Fancellu wrote:
+> >>>>> On 3 Aug 2023, at 12:46, Julien Grall <julien@xen.org> wrote:
+> >>>>>
+> >>>>> Hi Luca,
+> >>>>>
+> >>>>> On 03/08/2023 11:28, Luca Fancellu wrote:
+> >>>>>>> On 3 Aug 2023, at 09:26, Federico Serafini
+> >>>>>>> <federico.serafini@bugseng.com> wrote:
+> >>>>>>>
+> >>>>>>> Add missing parameter names to address violation of MISRA C:2012
+> >>>>>>> rule 8.2 ("Function types shall be in prototype form with named
+> >>>>>>> parameters").
+> >>>>>>>
+> >>>>>>> No functional changes.
+> >>>>>>>
+> >>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> >>>>>>> ---
+> >>>>>>> Changes in v2:
+> >>>>>>>    - memset() adjusted.
+> >>>>>>> ---
+> >>>>>>> xen/include/xen/string.h | 42 ++++++++++++++++++++--------------------
+> >>>>>>> 1 file changed, 21 insertions(+), 21 deletions(-)
+> >>>>>>>
+> >>>>>>> +void *memset(void *s, int c, size_t count);
+> >>>>>>> +void *memcpy(void *dest, const void *src, size_t count);
+> >>>>>> There is a comment in arch/arm/rm32/lib/memcpy.S with this:
+> >>>>>> /* Prototype: void *memcpy(void *dest, const void *src, size_t n); */
+> >>>>>>> +void *memmove(void *dest, const void *src, size_t count);
+> >>>>>> There is a comment in arch/arm/rm32/lib/memmove.S with this:
+> >>>>>>    * Prototype: void *memmove(void *dest, const void *src, size_t n);
+> >>>>>>> +int memcmp(const void *cs, const void *ct, size_t count);
+> >>>>>>> +void *memchr(const void *s, int c, size_t n);
+> >>>>>>> +void *memchr_inv(const void *s, int c, size_t n);
+> >>>>>> @Stefano: would it make sense to remove it as part of this patch or
+> >>>>>> maybe not?
+> >>>>>
+> >>>>> They are a verbatim copy of the Linux code. So I would rather no touch it.
+> >>>>
+> >>>> Oh I see! Thank you for pointing that out, then I’m wondering if it’s there
+> >>>> a reason why we
+> >>>> are using ‘count’ instead of ’n’ as third parameter name, I know Stefano
+> >>>> suggested that, so
+> >>>> It’s just a curiosity. Maybe it’s for clarity?
+> >>>
+> >>> I guess because the generic implementation of memset (see xen/lib/memset.c) is
+> >>> using 'count' rather than 'n'.
+> >>
+> >> Yep
+> >>
+> >>
+> >>> Given what Andrew said, I would say we should rename the parameter to 'n'.
+> >>
+> >> Yes, either way works. I was only trying to be consistent with
+> >> xen/lib/memset.c. It is also fine to change xen/lib/memset.c instead.
+> > 
+> > If you want to be consistent compared to the C99 Standard,
+> > then other parameter names need to be changed, for example all the `cs`
+> > and `ct` should become `s1` and `s2`, respectively.
+> > The same goes for `dest` and `src`.
+> > If you agree, I can propose a v3 that takes care of that.
+> 
+> Personally I'd prefer if we could limit code churn. Functions that need
+> touching anyway can certainly be brought in line with names the standard
+> uses (albeit I don't see a strong need for this). But function which
+> won't otherwise be touched could easily be left alone.
+ 
++1
+--8323329-779768781-1691177060=:2127516--
 
