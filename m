@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C2C276FDFD
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 12:00:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577065.903901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E4C76FE3A
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 12:14:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577069.903911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRrbb-0005WG-9S; Fri, 04 Aug 2023 10:00:23 +0000
+	id 1qRroc-000757-Dk; Fri, 04 Aug 2023 10:13:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577065.903901; Fri, 04 Aug 2023 10:00:23 +0000
+Received: by outflank-mailman (output) from mailman id 577069.903911; Fri, 04 Aug 2023 10:13:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRrbb-0005Tc-6R; Fri, 04 Aug 2023 10:00:23 +0000
-Received: by outflank-mailman (input) for mailman id 577065;
- Fri, 04 Aug 2023 10:00:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qRrbZ-0005TW-EL
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 10:00:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRrbY-0007Gr-O0; Fri, 04 Aug 2023 10:00:20 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228] helo=[10.95.104.46])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRrbY-0007Gi-GN; Fri, 04 Aug 2023 10:00:20 +0000
+	id 1qRroc-00072j-B5; Fri, 04 Aug 2023 10:13:50 +0000
+Received: by outflank-mailman (input) for mailman id 577069;
+ Fri, 04 Aug 2023 10:13:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xMif=DV=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1qRroY-00072d-U4
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 10:13:48 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95a5c82e-32af-11ee-8613-37d641c3527e;
+ Fri, 04 Aug 2023 12:13:44 +0200 (CEST)
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qRroA-009Hn5-6s; Fri, 04 Aug 2023 10:13:22 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 400A730020C;
+ Fri,  4 Aug 2023 12:13:21 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 1F03F2107C447; Fri,  4 Aug 2023 12:13:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,227 +50,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=AUdSYoW/av4g7UYR5WlJMgpsOl6GS4o3nE3JsCZ1kXo=; b=wbwSTmDgiQG0f2IcN4nHhic7A5
-	Q8eFriT8GR62CMXHb4dFgXz+lxn+4qIgBsJ8hFukaYxc+iuh2HYemvBPc7Ts4O95L5th5ePCD+YRz
-	8HZT8OgPLCDFqH6CIBzmTEj/Dn4WGnhXEy6auBGPKyr+TNVeUEAxQBbqV9TByLPeajzk=;
-Message-ID: <e3b4e4c0-f188-4b7c-ad47-8c6d60532969@xen.org>
-Date: Fri, 4 Aug 2023 11:00:18 +0100
+X-Inumbo-ID: 95a5c82e-32af-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=GYK9+OGfxviHr18NI+B7bkONaqcCERrPUSZDWZMRPEQ=; b=Si4qEE3c+HJrS2LkWUpXkEpwIY
+	z2QG84d95tw+UddPI6rUzadRriq2PDZYJ6XXgw1x4zVAysI26DpGR+v731iLeXUZpRG2lgIbPY72I
+	85Z6xFBogTIWFnZfNZ3S5QtL+ki4RcsOQiafmnH+Ad4fikMc2BFW263jmaF+Yq1RI6wmtI2QFGM9e
+	ynZc/AAqQWPF0jP6VORFQ68/nqLS5sz5Lw9voBgJBLLNR9+ghPabvhaxhVI/lrVi2pG/Art4rrfjP
+	Ipm/2XkF12gk117ch8cTn0cq83XETEzdbxKMmrQET7kTOkjlN6SKIYhgKMGA8v/MhBhxLtLPW2cf8
+	KqI33mSw==;
+Date: Fri, 4 Aug 2023 12:13:21 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Xin Li <xin3.li@intel.com>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [RFC PATCH 1/1] x86/traps: Get rid of exception handlers' second
+ argument error code
+Message-ID: <20230804101321.GH214207@hirez.programming.kicks-ass.net>
+References: <20230804075734.8372-1-xin3.li@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 23/25] tools/xenstore: merge is_valid_nodename() into
- canonicalize()
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-24-jgross@suse.com>
- <dab986c3-e875-75a9-849c-954fb84edff7@xen.org>
- <99a76ceb-df27-3a37-296b-9fcf1671472e@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <99a76ceb-df27-3a37-296b-9fcf1671472e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230804075734.8372-1-xin3.li@intel.com>
 
-Hi,
-
-On 04/08/2023 10:35, Juergen Gross wrote:
-> On 03.08.23 23:46, Julien Grall wrote:
->> Hi,
->>
->> On 24/07/2023 12:02, Juergen Gross wrote:
->>> Today is_valid_nodename() is always called directly after calling
->>> canonicalize(), with the exception of do_unwatch(), where the call
->>> is missing (which is not correct, but results just in a wrong error
->>> reason being returned).
->>
->> While this change makes sense...
->>
->>>
->>> Merge is_valid_nodename() into canonicalize(). While at it merge
->>> valid_chars() into it, too.
->>
->> ... I am not in favor of folding the code is_valid_nodename() and 
->> valid_chars() into canonicalize() because the code is now more 
->> difficult to read. Also, the keeping the split would allow to free the 
->> 'name' in case of an error without adding too much goto in the code.
+On Fri, Aug 04, 2023 at 12:57:34AM -0700, Xin Li wrote:
+> The IDT event delivery of X86_TRAP_DF, X86_TRAP_TS, X86_TRAP_NP,
+> X86_TRAP_SS, X86_TRAP_GP, X86_TRAP_AC and X86_TRAP_CP pushes an error
+> code into the orig_ax member of the pt_regs structure, and the error
+> code is passed as the second argument of their C-handlers, although
+> the pt_regs structure is already passed as the first argument.
 > 
-> I don't think we can easily free name in an error case, at that would 
-> require
-> to keep knowledge that name was just allocated in the non-canonical case.
-
-How about this:
-
-const char *canonicalize(struct connection *conn, const void *ctx,
-                          const char *node, bool allow_special)
-{
-         const char *prefix;
-         const char *name;
-
-         if (!node)
-                 return NULL;
-
-         if (node[0] == '@' && !allow_special)
-                 return NULL;
-
-         if (!node || (node[0] == '/') || (node[0] == '@'))
-                 return node;
-         prefix = get_implicit_path(conn);
-         if (prefix) {
-                 name = talloc_asprintf(ctx, "%s/%s", prefix, node);
-                 if (name)
-                         return NULL;
-         } else
-                 name = node;
-
-         if (!is_valid_nodename(conn, node, allow_special)) {
-                 /* Release the memory if 'name' was allocated by us */
-                 if ( name != node )
-                         talloc_free(name);
-                 return NULL;
-         }
-
-         return name;
-}
-
-And before you ask, I don't see the benefits to partially validate the 
-name before allocating. Hence why I suggest to keep is_valid_nodename() 
-as this keep the function small.
-
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> V3:
->>> - new patch
->>> ---
->>>   tools/xenstore/xenstored_core.c  | 89 ++++++++++++++------------------
->>>   tools/xenstore/xenstored_core.h  |  6 +--
->>>   tools/xenstore/xenstored_watch.c | 16 ++----
->>>   3 files changed, 45 insertions(+), 66 deletions(-)
->>>
->>> diff --git a/tools/xenstore/xenstored_core.c 
->>> b/tools/xenstore/xenstored_core.c
->>> index ea5a1a9cce..ec20bc042d 100644
->>> --- a/tools/xenstore/xenstored_core.c
->>> +++ b/tools/xenstore/xenstored_core.c
->>> @@ -1210,42 +1210,6 @@ void send_ack(struct connection *conn, enum 
->>> xsd_sockmsg_type type)
->>>       send_reply(conn, type, "OK", sizeof("OK"));
->>>   }
->>> -static bool valid_chars(const char *node)
->>> -{
->>> -    /* Nodes can have lots of crap. */
->>> -    return (strspn(node,
->>> -               "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
->>> -               "abcdefghijklmnopqrstuvwxyz"
->>> -               "0123456789-/_@") == strlen(node));
->>> -}
->>> -
->>> -bool is_valid_nodename(const struct connection *conn, const char *node,
->>> -               bool allow_special)
->>> -{
->>> -    int local_off = 0;
->>> -    unsigned int domid;
->>> -
->>> -    /* Must start in / or - if special nodes are allowed - in @. */
->>> -    if (!strstarts(node, "/") && (!allow_special || !strstarts(node, 
->>> "@")))
->>> -        return false;
->>> -
->>> -    /* Cannot end in / (unless it's just "/"). */
->>> -    if (strends(node, "/") && !streq(node, "/"))
->>> -        return false;
->>> -
->>> -    /* No double //. */
->>> -    if (strstr(node, "//"))
->>> -        return false;
->>> -
->>> -    if (sscanf(node, "/local/domain/%5u/%n", &domid, &local_off) != 1)
->>> -        local_off = 0;
->>> -
->>> -    if (domain_max_chk(conn, ACC_PATHLEN, strlen(node) - local_off))
->>> -        return false;
->>> -
->>> -    return valid_chars(node);
->>> -}
->>> -
->>>   /* We expect one arg in the input: return NULL otherwise.
->>>    * The payload must contain exactly one nul, at the end.
->>>    */
->>> @@ -1279,16 +1243,46 @@ static char *perms_to_strings(const void 
->>> *ctx, const struct node_perms *perms,
->>>   }
->>>   const char *canonicalize(struct connection *conn, const void *ctx,
->>> -             const char *node)
->>> +             const char *node, bool allow_special)
->>>   {
->>> -    const char *prefix;
->>> +    char *name;
->>> +    int local_off = 0;
->>> +    unsigned int domid;
->>> -    if (!node || (node[0] == '/') || (node[0] == '@'))
->>> -        return node;
->>> -    prefix = get_implicit_path(conn);
->>> -    if (prefix)
->>> -        return talloc_asprintf(ctx, "%s/%s", prefix, node);
->>> -    return node;
->>> +    errno = EINVAL;
->>> +    if (!node)
->>> +        return NULL;
->>> +
->>> +    if (strspn(node, 
->>> "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
->>> +             "0123456789-/_@") != strlen(node))
->>> +        return NULL;
->>> +
->>> +    if (node[0] == '@' && !allow_special)
->>> +        return NULL;
->>> +
->>> +    if (node[0] != '/' && node[0] != '@') {
->>> +        name = talloc_asprintf(ctx, "%s/%s", get_implicit_path(conn),
->>> +                       node);
->>
->> This is allocated but not freed on error. I understand this is part of 
->> the 'ctxt' and therefore will be free later on. But this means 
->> temporary memory will be allocated for longer. So best to clean-up 
->> when you can.
+> The asm entry code of such faults does the following
 > 
-> Really?
-
-Let me reply with a different question. Why should we keep the memory 
-allocated longer than necessary?
-
+>   movq ORIG_RAX(%rsp), %rsi	/* get error code into 2nd argument*/
+>   movq $-1, ORIG_RAX(%rsp)	/* no syscall to restart */
 > 
-> It is possible, of course, but it is adding more code churn. Remember that
-> "name" is allocated only in case of a relative path, so freeing it needs
-> to be conditional, too (yes, it would be possible via comparing name to 
-> node).
-
-See above, a proposal.
-
+> to set the orig_ax member to -1 just before calling the C-handler.
 > 
-> In case you want me to go this route, I can rearrange the code in order to
-> avoid multiple error exits by having only one large if () testing for all
-> possible violations.
+> In addition, the IRQ entry code uses the second error code argument
+> as its IRQ vector, as the IRQ asm entry code pushes its IRQ vector
+> into the orig_ax member.
 > 
->>
->>> +        if (!name)
->>> +            return NULL;
->>> +    } else
->>> +        name = (char *)node;
->>
->> Why does name need to be const?
-> 
-> I think the question was posed in a wrong way. :-)
+> The commit d99015b1abbad ("x86: move entry_64.S register saving out of
+> the macros") introduced the changes to set orig_ax to -1, but I can't
+> see why it's required. Our tests on x86_64 and x86_32 seem fine if
+> orig_ax is left unchanged instead of set to -1.
 
-Whoops yes.
-
-> 
-> I'll change name to be const char *.
-
-Cheers,
-
--- 
-Julien Grall
+That means that SYSCALL_NUM(regs) get to be garbage; or something like
+that.
 
