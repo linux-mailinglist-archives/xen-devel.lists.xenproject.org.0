@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F258276FD6C
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:35:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577029.903832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB9D76FD83
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:38:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577035.903842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRrDE-0006yX-Jo; Fri, 04 Aug 2023 09:35:12 +0000
+	id 1qRrGe-0007c7-3e; Fri, 04 Aug 2023 09:38:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577029.903832; Fri, 04 Aug 2023 09:35:12 +0000
+Received: by outflank-mailman (output) from mailman id 577035.903842; Fri, 04 Aug 2023 09:38:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRrDE-0006vb-Gm; Fri, 04 Aug 2023 09:35:12 +0000
-Received: by outflank-mailman (input) for mailman id 577029;
- Fri, 04 Aug 2023 09:35:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+Hv6=DV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qRrDC-0006Nv-5a
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:35:10 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33418d94-32aa-11ee-8613-37d641c3527e;
- Fri, 04 Aug 2023 11:35:08 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 02A6121850;
- Fri,  4 Aug 2023 09:35:08 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CA9A613904;
- Fri,  4 Aug 2023 09:35:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fhTQL0vGzGTiGgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 04 Aug 2023 09:35:07 +0000
+	id 1qRrGd-0007aO-Vr; Fri, 04 Aug 2023 09:38:43 +0000
+Received: by outflank-mailman (input) for mailman id 577035;
+ Fri, 04 Aug 2023 09:38:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HS9z=DV=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qRrGd-0007aI-AQ
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:38:43 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b2c867a7-32aa-11ee-b26b-6b7b168915f2;
+ Fri, 04 Aug 2023 11:38:42 +0200 (CEST)
+Received: from Dell.homenet.telecomitalia.it
+ (host-79-35-203-138.retail.telecomitalia.it [79.35.203.138])
+ by support.bugseng.com (Postfix) with ESMTPSA id 5F7C54EE0737;
+ Fri,  4 Aug 2023 11:38:41 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,231 +40,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33418d94-32aa-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1691141708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w7LLnOp8LCthZbY696Byjs4KFF/n5P3CrUO7UZIttrU=;
-	b=Gp/pROm+/dKAhCOylqHdW9J8GJ2JgVIZ9b+e+ymcIKHXQRBooV1vHDk+flluSRebowQCAU
-	Den/CEnvaV9FQwSx6co5HoVaE2pUpEeVYCRiowb71LFpZIIpoadipdmdTFzlvVpdZgMzHp
-	cUU+sv3ygol6jN7Smu2KuM+jh3TdKlA=
-Message-ID: <99a76ceb-df27-3a37-296b-9fcf1671472e@suse.com>
-Date: Fri, 4 Aug 2023 11:35:07 +0200
+X-Inumbo-ID: b2c867a7-32aa-11ee-b26b-6b7b168915f2
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v2] x86/mm: address violations of MISRA C:2012 Rules 8.2 and 8.3
+Date: Fri,  4 Aug 2023 11:38:35 +0200
+Message-Id: <c690d653a6fc2dd9cd0d1aa3b204d6ac7fb12ed6.1691141621.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-24-jgross@suse.com>
- <dab986c3-e875-75a9-849c-954fb84edff7@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3 23/25] tools/xenstore: merge is_valid_nodename() into
- canonicalize()
-In-Reply-To: <dab986c3-e875-75a9-849c-954fb84edff7@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------MSBXNsa07h0I5Zi0x2e2rg42"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------MSBXNsa07h0I5Zi0x2e2rg42
-Content-Type: multipart/mixed; boundary="------------GqtWKLDOehE7LWmdWF8ZYshW";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <99a76ceb-df27-3a37-296b-9fcf1671472e@suse.com>
-Subject: Re: [PATCH v3 23/25] tools/xenstore: merge is_valid_nodename() into
- canonicalize()
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-24-jgross@suse.com>
- <dab986c3-e875-75a9-849c-954fb84edff7@xen.org>
-In-Reply-To: <dab986c3-e875-75a9-849c-954fb84edff7@xen.org>
+Give a name to unnamed parameters to address violations of
+MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+named parameters").
+Keep consistency between parameter names used in function
+declarations and the ones used in the corresponding function
+definitions, thus addressing violations of MISRA C:2012 Rule 8.3
+("All declarations of an object or function shall use the same names
+and type qualifiers").
 
---------------GqtWKLDOehE7LWmdWF8ZYshW
-Content-Type: multipart/mixed; boundary="------------lovGiV5xcwSCiRO9WbGhT5zC"
+No functional changes.
 
---------------lovGiV5xcwSCiRO9WbGhT5zC
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/arch/x86/include/asm/mm.h | 20 ++++++++++----------
+ xen/arch/x86/mm.c             | 33 ++++++++++++++++++---------------
+ 2 files changed, 28 insertions(+), 25 deletions(-)
 
-T24gMDMuMDguMjMgMjM6NDYsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGksDQo+IA0KPiBP
-biAyNC8wNy8yMDIzIDEyOjAyLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gVG9kYXkgaXNf
-dmFsaWRfbm9kZW5hbWUoKSBpcyBhbHdheXMgY2FsbGVkIGRpcmVjdGx5IGFmdGVyIGNhbGxp
-bmcNCj4+IGNhbm9uaWNhbGl6ZSgpLCB3aXRoIHRoZSBleGNlcHRpb24gb2YgZG9fdW53YXRj
-aCgpLCB3aGVyZSB0aGUgY2FsbA0KPj4gaXMgbWlzc2luZyAod2hpY2ggaXMgbm90IGNvcnJl
-Y3QsIGJ1dCByZXN1bHRzIGp1c3QgaW4gYSB3cm9uZyBlcnJvcg0KPj4gcmVhc29uIGJlaW5n
-IHJldHVybmVkKS4NCj4gDQo+IFdoaWxlIHRoaXMgY2hhbmdlIG1ha2VzIHNlbnNlLi4uDQo+
-IA0KPj4NCj4+IE1lcmdlIGlzX3ZhbGlkX25vZGVuYW1lKCkgaW50byBjYW5vbmljYWxpemUo
-KS4gV2hpbGUgYXQgaXQgbWVyZ2UNCj4+IHZhbGlkX2NoYXJzKCkgaW50byBpdCwgdG9vLg0K
-PiANCj4gLi4uIEkgYW0gbm90IGluIGZhdm9yIG9mIGZvbGRpbmcgdGhlIGNvZGUgaXNfdmFs
-aWRfbm9kZW5hbWUoKSBhbmQgdmFsaWRfY2hhcnMoKSANCj4gaW50byBjYW5vbmljYWxpemUo
-KSBiZWNhdXNlIHRoZSBjb2RlIGlzIG5vdyBtb3JlIGRpZmZpY3VsdCB0byByZWFkLiBBbHNv
-LCB0aGUgDQo+IGtlZXBpbmcgdGhlIHNwbGl0IHdvdWxkIGFsbG93IHRvIGZyZWUgdGhlICdu
-YW1lJyBpbiBjYXNlIG9mIGFuIGVycm9yIHdpdGhvdXQgDQo+IGFkZGluZyB0b28gbXVjaCBn
-b3RvIGluIHRoZSBjb2RlLg0KDQpJIGRvbid0IHRoaW5rIHdlIGNhbiBlYXNpbHkgZnJlZSBu
-YW1lIGluIGFuIGVycm9yIGNhc2UsIGF0IHRoYXQgd291bGQgcmVxdWlyZQ0KdG8ga2VlcCBr
-bm93bGVkZ2UgdGhhdCBuYW1lIHdhcyBqdXN0IGFsbG9jYXRlZCBpbiB0aGUgbm9uLWNhbm9u
-aWNhbCBjYXNlLg0KDQo+IA0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3Mg
-PGpncm9zc0BzdXNlLmNvbT4NCj4+IC0tLQ0KPj4gVjM6DQo+PiAtIG5ldyBwYXRjaA0KPj4g
-LS0tDQo+PiDCoCB0b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfY29yZS5jwqAgfCA4OSArKysr
-KysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLQ0KPj4gwqAgdG9vbHMveGVuc3RvcmUveGVu
-c3RvcmVkX2NvcmUuaMKgIHzCoCA2ICstLQ0KPj4gwqAgdG9vbHMveGVuc3RvcmUveGVuc3Rv
-cmVkX3dhdGNoLmMgfCAxNiArKy0tLS0NCj4+IMKgIDMgZmlsZXMgY2hhbmdlZCwgNDUgaW5z
-ZXJ0aW9ucygrKSwgNjYgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL3Rvb2xz
-L3hlbnN0b3JlL3hlbnN0b3JlZF9jb3JlLmMgYi90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRf
-Y29yZS5jDQo+PiBpbmRleCBlYTVhMWE5Y2NlLi5lYzIwYmMwNDJkIDEwMDY0NA0KPj4gLS0t
-IGEvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvcmUuYw0KPj4gKysrIGIvdG9vbHMveGVu
-c3RvcmUveGVuc3RvcmVkX2NvcmUuYw0KPj4gQEAgLTEyMTAsNDIgKzEyMTAsNiBAQCB2b2lk
-IHNlbmRfYWNrKHN0cnVjdCBjb25uZWN0aW9uICpjb25uLCBlbnVtIA0KPj4geHNkX3NvY2tt
-c2dfdHlwZSB0eXBlKQ0KPj4gwqDCoMKgwqDCoCBzZW5kX3JlcGx5KGNvbm4sIHR5cGUsICJP
-SyIsIHNpemVvZigiT0siKSk7DQo+PiDCoCB9DQo+PiAtc3RhdGljIGJvb2wgdmFsaWRfY2hh
-cnMoY29uc3QgY2hhciAqbm9kZSkNCj4+IC17DQo+PiAtwqDCoMKgIC8qIE5vZGVzIGNhbiBo
-YXZlIGxvdHMgb2YgY3JhcC4gKi8NCj4+IC3CoMKgwqAgcmV0dXJuIChzdHJzcG4obm9kZSwN
-Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJBQkNERUZHSElKS0xNTk9QUVJT
-VFVWV1hZWiINCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJhYmNkZWZnaGlq
-a2xtbm9wcXJzdHV2d3h5eiINCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICIw
-MTIzNDU2Nzg5LS9fQCIpID09IHN0cmxlbihub2RlKSk7DQo+PiAtfQ0KPj4gLQ0KPj4gLWJv
-b2wgaXNfdmFsaWRfbm9kZW5hbWUoY29uc3Qgc3RydWN0IGNvbm5lY3Rpb24gKmNvbm4sIGNv
-bnN0IGNoYXIgKm5vZGUsDQo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBib29s
-IGFsbG93X3NwZWNpYWwpDQo+PiAtew0KPj4gLcKgwqDCoCBpbnQgbG9jYWxfb2ZmID0gMDsN
-Cj4+IC3CoMKgwqAgdW5zaWduZWQgaW50IGRvbWlkOw0KPj4gLQ0KPj4gLcKgwqDCoCAvKiBN
-dXN0IHN0YXJ0IGluIC8gb3IgLSBpZiBzcGVjaWFsIG5vZGVzIGFyZSBhbGxvd2VkIC0gaW4g
-QC4gKi8NCj4+IC3CoMKgwqAgaWYgKCFzdHJzdGFydHMobm9kZSwgIi8iKSAmJiAoIWFsbG93
-X3NwZWNpYWwgfHwgIXN0cnN0YXJ0cyhub2RlLCAiQCIpKSkNCj4+IC3CoMKgwqDCoMKgwqDC
-oCByZXR1cm4gZmFsc2U7DQo+PiAtDQo+PiAtwqDCoMKgIC8qIENhbm5vdCBlbmQgaW4gLyAo
-dW5sZXNzIGl0J3MganVzdCAiLyIpLiAqLw0KPj4gLcKgwqDCoCBpZiAoc3RyZW5kcyhub2Rl
-LCAiLyIpICYmICFzdHJlcShub2RlLCAiLyIpKQ0KPj4gLcKgwqDCoMKgwqDCoMKgIHJldHVy
-biBmYWxzZTsNCj4+IC0NCj4+IC3CoMKgwqAgLyogTm8gZG91YmxlIC8vLiAqLw0KPj4gLcKg
-wqDCoCBpZiAoc3Ryc3RyKG5vZGUsICIvLyIpKQ0KPj4gLcKgwqDCoMKgwqDCoMKgIHJldHVy
-biBmYWxzZTsNCj4+IC0NCj4+IC3CoMKgwqAgaWYgKHNzY2FuZihub2RlLCAiL2xvY2FsL2Rv
-bWFpbi8lNXUvJW4iLCAmZG9taWQsICZsb2NhbF9vZmYpICE9IDEpDQo+PiAtwqDCoMKgwqDC
-oMKgwqAgbG9jYWxfb2ZmID0gMDsNCj4+IC0NCj4+IC3CoMKgwqAgaWYgKGRvbWFpbl9tYXhf
-Y2hrKGNvbm4sIEFDQ19QQVRITEVOLCBzdHJsZW4obm9kZSkgLSBsb2NhbF9vZmYpKQ0KPj4g
-LcKgwqDCoMKgwqDCoMKgIHJldHVybiBmYWxzZTsNCj4+IC0NCj4+IC3CoMKgwqAgcmV0dXJu
-IHZhbGlkX2NoYXJzKG5vZGUpOw0KPj4gLX0NCj4+IC0NCj4+IMKgIC8qIFdlIGV4cGVjdCBv
-bmUgYXJnIGluIHRoZSBpbnB1dDogcmV0dXJuIE5VTEwgb3RoZXJ3aXNlLg0KPj4gwqDCoCAq
-IFRoZSBwYXlsb2FkIG11c3QgY29udGFpbiBleGFjdGx5IG9uZSBudWwsIGF0IHRoZSBlbmQu
-DQo+PiDCoMKgICovDQo+PiBAQCAtMTI3OSwxNiArMTI0Myw0NiBAQCBzdGF0aWMgY2hhciAq
-cGVybXNfdG9fc3RyaW5ncyhjb25zdCB2b2lkICpjdHgsIGNvbnN0IA0KPj4gc3RydWN0IG5v
-ZGVfcGVybXMgKnBlcm1zLA0KPj4gwqAgfQ0KPj4gwqAgY29uc3QgY2hhciAqY2Fub25pY2Fs
-aXplKHN0cnVjdCBjb25uZWN0aW9uICpjb25uLCBjb25zdCB2b2lkICpjdHgsDQo+PiAtwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnN0IGNoYXIgKm5vZGUpDQo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGNvbnN0IGNoYXIgKm5vZGUsIGJvb2wgYWxsb3dfc3BlY2lhbCkN
-Cj4+IMKgIHsNCj4+IC3CoMKgwqAgY29uc3QgY2hhciAqcHJlZml4Ow0KPj4gK8KgwqDCoCBj
-aGFyICpuYW1lOw0KPj4gK8KgwqDCoCBpbnQgbG9jYWxfb2ZmID0gMDsNCj4+ICvCoMKgwqAg
-dW5zaWduZWQgaW50IGRvbWlkOw0KPj4gLcKgwqDCoCBpZiAoIW5vZGUgfHwgKG5vZGVbMF0g
-PT0gJy8nKSB8fCAobm9kZVswXSA9PSAnQCcpKQ0KPj4gLcKgwqDCoMKgwqDCoMKgIHJldHVy
-biBub2RlOw0KPj4gLcKgwqDCoCBwcmVmaXggPSBnZXRfaW1wbGljaXRfcGF0aChjb25uKTsN
-Cj4+IC3CoMKgwqAgaWYgKHByZWZpeCkNCj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gdGFs
-bG9jX2FzcHJpbnRmKGN0eCwgIiVzLyVzIiwgcHJlZml4LCBub2RlKTsNCj4+IC3CoMKgwqAg
-cmV0dXJuIG5vZGU7DQo+PiArwqDCoMKgIGVycm5vID0gRUlOVkFMOw0KPj4gK8KgwqDCoCBp
-ZiAoIW5vZGUpDQo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIE5VTEw7DQo+PiArDQo+PiAr
-wqDCoMKgIGlmIChzdHJzcG4obm9kZSwgIkFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJj
-ZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoiDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-ICIwMTIzNDU2Nzg5LS9fQCIpICE9IHN0cmxlbihub2RlKSkNCj4+ICvCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gTlVMTDsNCj4+ICsNCj4+ICvCoMKgwqAgaWYgKG5vZGVbMF0gPT0gJ0AnICYm
-ICFhbGxvd19zcGVjaWFsKQ0KPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBOVUxMOw0KPj4g
-Kw0KPj4gK8KgwqDCoCBpZiAobm9kZVswXSAhPSAnLycgJiYgbm9kZVswXSAhPSAnQCcpIHsN
-Cj4+ICvCoMKgwqDCoMKgwqDCoCBuYW1lID0gdGFsbG9jX2FzcHJpbnRmKGN0eCwgIiVzLyVz
-IiwgZ2V0X2ltcGxpY2l0X3BhdGgoY29ubiksDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbm9kZSk7DQo+IA0KPiBUaGlzIGlzIGFsbG9jYXRl
-ZCBidXQgbm90IGZyZWVkIG9uIGVycm9yLiBJIHVuZGVyc3RhbmQgdGhpcyBpcyBwYXJ0IG9m
-IHRoZSANCj4gJ2N0eHQnIGFuZCB0aGVyZWZvcmUgd2lsbCBiZSBmcmVlIGxhdGVyIG9uLiBC
-dXQgdGhpcyBtZWFucyB0ZW1wb3JhcnkgbWVtb3J5IHdpbGwgDQo+IGJlIGFsbG9jYXRlZCBm
-b3IgbG9uZ2VyLiBTbyBiZXN0IHRvIGNsZWFuLXVwIHdoZW4geW91IGNhbi4NCg0KUmVhbGx5
-Pw0KDQpJdCBpcyBwb3NzaWJsZSwgb2YgY291cnNlLCBidXQgaXQgaXMgYWRkaW5nIG1vcmUg
-Y29kZSBjaHVybi4gUmVtZW1iZXIgdGhhdA0KIm5hbWUiIGlzIGFsbG9jYXRlZCBvbmx5IGlu
-IGNhc2Ugb2YgYSByZWxhdGl2ZSBwYXRoLCBzbyBmcmVlaW5nIGl0IG5lZWRzDQp0byBiZSBj
-b25kaXRpb25hbCwgdG9vICh5ZXMsIGl0IHdvdWxkIGJlIHBvc3NpYmxlIHZpYSBjb21wYXJp
-bmcgbmFtZSB0byBub2RlKS4NCg0KSW4gY2FzZSB5b3Ugd2FudCBtZSB0byBnbyB0aGlzIHJv
-dXRlLCBJIGNhbiByZWFycmFuZ2UgdGhlIGNvZGUgaW4gb3JkZXIgdG8NCmF2b2lkIG11bHRp
-cGxlIGVycm9yIGV4aXRzIGJ5IGhhdmluZyBvbmx5IG9uZSBsYXJnZSBpZiAoKSB0ZXN0aW5n
-IGZvciBhbGwNCnBvc3NpYmxlIHZpb2xhdGlvbnMuDQoNCj4gDQo+PiArwqDCoMKgwqDCoMKg
-wqAgaWYgKCFuYW1lKQ0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIE5VTEw7
-DQo+PiArwqDCoMKgIH0gZWxzZQ0KPj4gK8KgwqDCoMKgwqDCoMKgIG5hbWUgPSAoY2hhciAq
-KW5vZGU7DQo+IA0KPiBXaHkgZG9lcyBuYW1lIG5lZWQgdG8gYmUgY29uc3Q/DQoNCkkgdGhp
-bmsgdGhlIHF1ZXN0aW9uIHdhcyBwb3NlZCBpbiBhIHdyb25nIHdheS4gOi0pDQoNCkknbGwg
-Y2hhbmdlIG5hbWUgdG8gYmUgY29uc3QgY2hhciAqLg0KDQoNCkp1ZXJnZW4NCg0K
---------------lovGiV5xcwSCiRO9WbGhT5zC
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+index db29e3e205..1e2d8c1a65 100644
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -408,7 +408,7 @@ void put_page_type(struct page_info *page);
+ int  get_page_type(struct page_info *page, unsigned long type);
+ int  put_page_type_preemptible(struct page_info *page);
+ int  get_page_type_preemptible(struct page_info *page, unsigned long type);
+-int  put_old_guest_table(struct vcpu *);
++int  put_old_guest_table(struct vcpu *v);
+ int  get_page_from_l1e(
+     l1_pgentry_t l1e, struct domain *l1e_owner, struct domain *pg_owner);
+ void put_page_from_l1e(l1_pgentry_t l1e, struct domain *l1e_owner);
+@@ -559,7 +559,7 @@ void audit_domains(void);
+ 
+ void make_cr3(struct vcpu *v, mfn_t mfn);
+ void update_cr3(struct vcpu *v);
+-int vcpu_destroy_pagetables(struct vcpu *);
++int vcpu_destroy_pagetables(struct vcpu *v);
+ void *do_page_walk(struct vcpu *v, unsigned long addr);
+ 
+ /* Allocator functions for Xen pagetables. */
+@@ -574,20 +574,20 @@ int __sync_local_execstate(void);
+ /* Arch-specific portion of memory_op hypercall. */
+ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+ long subarch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+-int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void));
+-int compat_subarch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void));
++int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
++int compat_subarch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ #define NIL(type) ((type *)-sizeof(type))
+ #define IS_NIL(ptr) (!((uintptr_t)(ptr) + sizeof(*(ptr))))
+ 
+-int create_perdomain_mapping(struct domain *, unsigned long va,
+-                             unsigned int nr, l1_pgentry_t **,
+-                             struct page_info **);
+-void destroy_perdomain_mapping(struct domain *, unsigned long va,
++int create_perdomain_mapping(struct domain *d, unsigned long va,
++                             unsigned int nr, l1_pgentry_t **pl1tab,
++                             struct page_info **ppg);
++void destroy_perdomain_mapping(struct domain *d, unsigned long va,
+                                unsigned int nr);
+-void free_perdomain_mappings(struct domain *);
++void free_perdomain_mappings(struct domain *d);
+ 
+-void __iomem *ioremap_wc(paddr_t, size_t);
++void __iomem *ioremap_wc(paddr_t pa, size_t len);
+ 
+ extern int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm);
+ 
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index be2b10a391..e1d9b94007 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -5591,7 +5591,7 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
+  *
+  * It is an error to call with present flags over an unpopulated range.
+  */
+-int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
++int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int flags)
+ {
+     bool locking = system_state > SYS_STATE_boot;
+     l3_pgentry_t *pl3e = NULL;
+@@ -5604,7 +5604,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+ 
+     /* Set of valid PTE bits which may be altered. */
+ #define FLAGS_MASK (_PAGE_NX|_PAGE_DIRTY|_PAGE_ACCESSED|_PAGE_RW|_PAGE_PRESENT)
+-    nf &= FLAGS_MASK;
++    flags &= FLAGS_MASK;
+ 
+     ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+     ASSERT(IS_ALIGNED(e, PAGE_SIZE));
+@@ -5628,7 +5628,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+         if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
+         {
+             /* Confirm the caller isn't trying to create new mappings. */
+-            ASSERT(!(nf & _PAGE_PRESENT));
++            ASSERT(!(flags & _PAGE_PRESENT));
+ 
+             v += 1UL << L3_PAGETABLE_SHIFT;
+             v &= ~((1UL << L3_PAGETABLE_SHIFT) - 1);
+@@ -5645,9 +5645,10 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                  ((e - v) >= (1UL << L3_PAGETABLE_SHIFT)) )
+             {
+                 /* PAGE1GB: whole superpage is modified. */
+-                l3_pgentry_t nl3e = !(nf & _PAGE_PRESENT) ? l3e_empty()
++                l3_pgentry_t nl3e = !(flags & _PAGE_PRESENT) ? l3e_empty()
+                     : l3e_from_pfn(l3e_get_pfn(*pl3e),
+-                                   (l3e_get_flags(*pl3e) & ~FLAGS_MASK) | nf);
++                                   (l3e_get_flags(*pl3e) & ~FLAGS_MASK) |
++                                    flags);
+ 
+                 l3e_write_atomic(pl3e, nl3e);
+                 v += 1UL << L3_PAGETABLE_SHIFT;
+@@ -5691,7 +5692,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+         if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
+         {
+             /* Confirm the caller isn't trying to create new mappings. */
+-            ASSERT(!(nf & _PAGE_PRESENT));
++            ASSERT(!(flags & _PAGE_PRESENT));
+ 
+             v += 1UL << L2_PAGETABLE_SHIFT;
+             v &= ~((1UL << L2_PAGETABLE_SHIFT) - 1);
+@@ -5704,9 +5705,10 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                  ((e-v) >= (1UL << L2_PAGETABLE_SHIFT)) )
+             {
+                 /* PSE: whole superpage is modified. */
+-                l2_pgentry_t nl2e = !(nf & _PAGE_PRESENT) ? l2e_empty()
++                l2_pgentry_t nl2e = !(flags & _PAGE_PRESENT) ? l2e_empty()
+                     : l2e_from_pfn(l2e_get_pfn(*pl2e),
+-                                   (l2e_get_flags(*pl2e) & ~FLAGS_MASK) | nf);
++                                   (l2e_get_flags(*pl2e) & ~FLAGS_MASK) |
++                                    flags);
+ 
+                 l2e_write_atomic(pl2e, nl2e);
+                 v += 1UL << L2_PAGETABLE_SHIFT;
+@@ -5756,11 +5758,11 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+ 
+             /* Confirm the caller isn't trying to create new mappings. */
+             if ( !(l1e_get_flags(*pl1e) & _PAGE_PRESENT) )
+-                ASSERT(!(nf & _PAGE_PRESENT));
++                ASSERT(!(flags & _PAGE_PRESENT));
+ 
+-            nl1e = !(nf & _PAGE_PRESENT) ? l1e_empty()
++            nl1e = !(flags & _PAGE_PRESENT) ? l1e_empty()
+                 : l1e_from_pfn(l1e_get_pfn(*pl1e),
+-                               (l1e_get_flags(*pl1e) & ~FLAGS_MASK) | nf);
++                               (l1e_get_flags(*pl1e) & ~FLAGS_MASK) | flags);
+ 
+             l1e_write_atomic(pl1e, nl1e);
+             UNMAP_DOMAIN_PAGE(pl1e);
+@@ -5770,7 +5772,8 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+              * If we are not destroying mappings, or not done with the L2E,
+              * skip the empty&free check.
+              */
+-            if ( (nf & _PAGE_PRESENT) || ((v != e) && (l1_table_offset(v) != 0)) )
++            if ( (flags & _PAGE_PRESENT) ||
++                 ((v != e) && (l1_table_offset(v) != 0)) )
+                 continue;
+             if ( locking )
+                 spin_lock(&map_pgdir_lock);
+@@ -5817,7 +5820,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+          * If we are not destroying mappings, or not done with the L3E,
+          * skip the empty&free check.
+          */
+-        if ( (nf & _PAGE_PRESENT) ||
++        if ( (flags & _PAGE_PRESENT) ||
+              ((v != e) && (l2_table_offset(v) + l1_table_offset(v) != 0)) )
+             continue;
+         if ( locking )
+@@ -5892,14 +5895,14 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+  * a problem.
+  */
+ void init_or_livepatch modify_xen_mappings_lite(
+-    unsigned long s, unsigned long e, unsigned int _nf)
++    unsigned long s, unsigned long e, unsigned int flags)
+ {
+     unsigned long v = s, fm, nf;
+ 
+     /* Set of valid PTE bits which may be altered. */
+ #define FLAGS_MASK (_PAGE_NX|_PAGE_DIRTY|_PAGE_ACCESSED|_PAGE_RW|_PAGE_PRESENT)
+     fm = put_pte_flags(FLAGS_MASK);
+-    nf = put_pte_flags(_nf & FLAGS_MASK);
++    nf = put_pte_flags(flags & FLAGS_MASK);
+ #undef FLAGS_MASK
+ 
+     ASSERT(nf & _PAGE_PRESENT);
+-- 
+2.34.1
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------lovGiV5xcwSCiRO9WbGhT5zC--
-
---------------GqtWKLDOehE7LWmdWF8ZYshW--
-
---------------MSBXNsa07h0I5Zi0x2e2rg42
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTMxksFAwAAAAAACgkQsN6d1ii/Ey/K
-rwf/YVlysIoK7vmG25Q4w5hor18SofMcxfmWcHGB/uikDke82b56ZnvvUQ1t50LeZBIpfrJBqXlT
-Z0aw9yaVCjpDa3HMTttx17UpiCqiKIoOVR/mJv2WIwmUWgLU4uK9ZQCwPHogiSH5DJI/eqYudggr
-EkdOM2Yq8Cpzl2xc1cBGYIY9ee6j7TfdvkWpCSy9CUvWylEt81+dcduR8i1G5kWoM1Dl4j8YE25v
-EBjtpO7wjAH4X/ExBImw4tLF/zI14pkMNGo65uB6ourwC7N0IcG7w7mbXUzHqQB/U4bvqMx716Mc
-LMP0Wx35Ip6rV/2WLdzG5eQGfIIfKiB3PzRDDpc7ww==
-=mtdd
------END PGP SIGNATURE-----
-
---------------MSBXNsa07h0I5Zi0x2e2rg42--
 
