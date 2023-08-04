@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE50F76FD20
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:21:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577013.903791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3850F76FD24
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 11:22:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577016.903801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRqzy-0003iA-Ky; Fri, 04 Aug 2023 09:21:30 +0000
+	id 1qRr13-0004Fd-U4; Fri, 04 Aug 2023 09:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577013.903791; Fri, 04 Aug 2023 09:21:30 +0000
+Received: by outflank-mailman (output) from mailman id 577016.903801; Fri, 04 Aug 2023 09:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qRqzy-0003gX-IA; Fri, 04 Aug 2023 09:21:30 +0000
-Received: by outflank-mailman (input) for mailman id 577013;
- Fri, 04 Aug 2023 09:21:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qRqzx-0003gR-6Q
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:21:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRqzw-0006LR-BE; Fri, 04 Aug 2023 09:21:28 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228] helo=[10.95.104.46])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qRqzw-0005Le-5H; Fri, 04 Aug 2023 09:21:28 +0000
+	id 1qRr13-0004Di-RP; Fri, 04 Aug 2023 09:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 577016;
+ Fri, 04 Aug 2023 09:22:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HS9z=DV=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qRr12-0004Dc-WA
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 09:22:36 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72583f47-32a8-11ee-8613-37d641c3527e;
+ Fri, 04 Aug 2023 11:22:35 +0200 (CEST)
+Received: from [192.168.1.15] (host-79-35-203-138.retail.telecomitalia.it
+ [79.35.203.138])
+ by support.bugseng.com (Postfix) with ESMTPSA id 4FDC64EE0737;
+ Fri,  4 Aug 2023 11:22:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +40,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=r61StbouY/C8r/7hrH1QcobJYI1Q2gBAA4aCPWNc/p8=; b=oN/4IkcclgFRBGMC2yr2BfUQae
-	yFBgl51xcNNkYCb8dHpNMA40NYwWNDBwvWjiH85DcpshVKb6fI/klyad1JjpZ7k8TzBSUqyxaKcjT
-	MNhGv9Ux3fbVk7vrCOlDTCKpUcq9ECPy354Pqdmmcq9p/ii6rmQt4PWLCy7/CAgo/UIo=;
-Message-ID: <c7e32b8c-9f89-4560-961a-a3c258bba3ee@xen.org>
-Date: Fri, 4 Aug 2023 10:21:25 +0100
+X-Inumbo-ID: 72583f47-32a8-11ee-8613-37d641c3527e
+Message-ID: <a32cd7f5-7efa-39b1-ba09-09fd4ca01049@bugseng.com>
+Date: Fri, 4 Aug 2023 11:22:34 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 22/25] tools/xenstore: merge get_spec_node() into
- get_node_canonicalized()
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230724110247.10520-1-jgross@suse.com>
- <20230724110247.10520-23-jgross@suse.com>
- <bf77f848-498f-ce8a-ab4a-23995636ca81@xen.org>
- <014c1c12-ffba-97fa-d07a-ca2e82179c70@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <014c1c12-ffba-97fa-d07a-ca2e82179c70@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [XEN PATCH] x86/mm: address violations of MISRA C:2012 Rules 8.2
+ and 8.3
+Content-Language: en-US, it
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <7f4d7be410aecaab6e356947bb79e703037f4101.1691139867.git.federico.serafini@bugseng.com>
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <7f4d7be410aecaab6e356947bb79e703037f4101.1691139867.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi,
 
-On 04/08/2023 10:17, Juergen Gross wrote:
-> On 03.08.23 23:36, Julien Grall wrote:
->> Hi,
->>
->> On 24/07/2023 12:02, Juergen Gross wrote:
->>> diff --git a/tools/xenstore/xenstored_watch.c 
->>> b/tools/xenstore/xenstored_watch.c
->>> index 86cf8322b4..2662a3fa49 100644
->>> --- a/tools/xenstore/xenstored_watch.c
->>> +++ b/tools/xenstore/xenstored_watch.c
->>> @@ -166,19 +166,12 @@ static int destroy_watch(void *_watch)
->>>   static int check_watch_path(struct connection *conn, const void *ctx,
->>>                   const char **path, bool *relative)
->>>   {
->>> -    /* Check if valid event. */
->>> -    if (strstarts(*path, "@")) {
->>> -        *relative = false;
->>> -        if (strlen(*path) > XENSTORE_REL_PATH_MAX)
->>> -            goto inval;
->>
->> I can't find an exact matching check in is_valid_nodename(). The call 
->> also seems to put more restriction on '@' node. Can you clarify?
+
+On 04/08/23 11:05, Federico Serafini wrote:
+> Give a name to unnamed parameters to address violations of
+> MISRA C:2012 Rule 8.2 ("Function types shall be in prototype form with
+> named parameters").
+> Keep consistency between parameter names used in function
+> declarations and the ones used in the corresponding function
+> definitions, thus addressing violations of MISRA C:2012 Rule 8.3
+> ("All declarations of an object or function shall use the same names
+> and type qualifiers").
 > 
-> The call of domain_max_chk() in is_valid_nodename() will check the length
-> of the node name (at least for unprivileged callers, which is the important
-> case).
-
-Right, but from my understanding, this may not check against 
-XENSTORE_REL_PATH_MAX but whatever limit the user set.
-
-This is a change of behavior that you ought to be explained.
-
+> No functional changes.
 > 
-> The additional restrictions for special nodes are:
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> ---
+>   xen/arch/x86/include/asm/mm.h | 20 ++++++++++----------
+>   xen/arch/x86/mm.c             | 33 ++++++++++++++++++---------------
+>   xen/include/xen/mm.h          |  2 +-
+>   3 files changed, 29 insertions(+), 26 deletions(-)
 > 
-> - they can't end with "/"
-> - they can't contain "//"
-> - they can't contain characters other than the ones allowed for normal 
-> nodes
-> 
-> None of those restrictions are problematic. I can add something to the
-> commit message if you want.
 
-Yes please.
+>   
+>   int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
+>                                 union add_to_physmap_extra extra,
+> -                              unsigned long idx, gfn_t gfn);
+> +                              unsigned long idx, gfn_t gpfn);
 
-Cheers,
+I am seeing now that this will cause a violation in the arm code,
+I will propose a v2.
 
 -- 
-Julien Grall
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
