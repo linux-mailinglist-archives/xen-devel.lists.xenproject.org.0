@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6611D770AC1
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 23:25:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577348.904432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ADE8770AE3
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Aug 2023 23:27:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577352.904442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qS2Hy-0001FJ-SO; Fri, 04 Aug 2023 21:24:50 +0000
+	id 1qS2Jz-0001rl-8b; Fri, 04 Aug 2023 21:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577348.904432; Fri, 04 Aug 2023 21:24:50 +0000
+Received: by outflank-mailman (output) from mailman id 577352.904442; Fri, 04 Aug 2023 21:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qS2Hy-0001Cd-P6; Fri, 04 Aug 2023 21:24:50 +0000
-Received: by outflank-mailman (input) for mailman id 577348;
- Fri, 04 Aug 2023 21:24:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qS2Jz-0001oS-5L; Fri, 04 Aug 2023 21:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 577352;
+ Fri, 04 Aug 2023 21:26:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zgx5=DV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qS2Hx-0001CX-J4
- for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 21:24:49 +0000
+ id 1qS2Jx-0001oM-3w
+ for xen-devel@lists.xenproject.org; Fri, 04 Aug 2023 21:26:53 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56c27a8a-330d-11ee-b271-6b7b168915f2;
- Fri, 04 Aug 2023 23:24:48 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9fa6038d-330d-11ee-8613-37d641c3527e;
+ Fri, 04 Aug 2023 23:26:51 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8AC40620AE;
- Fri,  4 Aug 2023 21:24:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 849BAC433C7;
- Fri,  4 Aug 2023 21:24:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6F64662117;
+ Fri,  4 Aug 2023 21:26:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8708BC433C8;
+ Fri,  4 Aug 2023 21:26:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +44,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56c27a8a-330d-11ee-b271-6b7b168915f2
+X-Inumbo-ID: 9fa6038d-330d-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691184287;
-	bh=3jc8Tl1pBILA3Kk15KkbYw1ZW5lrkn+/IBolYaQsCZo=;
+	s=k20201202; t=1691184408;
+	bh=nFwmOqD17s+/h0puhgViKWCxH+gDjmT1UKWq/VvIl7M=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eNU5IF4X4xfMDqPI6FRs4eKig48aCUGtHprrR8Ez1FfHYBdW2ECjVffj50I8ivjZw
-	 iwfCKi7OGOshKAqh1/bsaHElDHlczOLYpPSqPNQxFIbdd/o4Jp/kGSbaNhtlOUloD9
-	 bqAo18SvhAwnvSMGkMF4us3kXzK7sunwpxD1NEYYQlBt6dT0PsLMhJOx9DY4klI7sr
-	 BHhE65pFlsy0NlwPcqzFM+7b3zCHI46DlGYnfC/7tmtQDciwvHi7ZVCsl16RtRmQDT
-	 Dj0G2RFt99Ytqz3EjtKWCf4HteluKoMG8lYpu+ji7Ibx0m3EQnQ1VhVb3AWaIrAJIr
-	 zVJKlEem4fU8g==
-Date: Fri, 4 Aug 2023 14:24:44 -0700 (PDT)
+	b=L20NbbGhz7rdTNiTW7Ngt+zhACtWMMu4w+pgTg3qKNXsYqanWt7X/mE4fLAcVK3pE
+	 19ruBu+zNaKhCSz0CCVBIQH3I1I2ay1Ons4GG4mgkbn7ZCDNThIFh34PMBOQGHSYUz
+	 HFhLAFj4mxFKH4n++Qf9bEVU20SbrA/UE5Dguo1tHsDyCTGL4S4QZURtFn1CG3rUgK
+	 SuWU3GT14qnUHimgn2oWJQRiU/V67udpcRKxdFSwLQ4y4Bi7dusTDFL32XsXA4ULY5
+	 /heeCE7a0zNoMCd1PC0smssWVgNwNlgqqECwkwWIv12GwBs/sEN9cV1xX2Uo0J5Xdy
+	 umfg32m6MvW5Q==
+Date: Fri, 4 Aug 2023 14:26:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
@@ -65,45 +65,21 @@ cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 4/6] x86/include: address MISRA C:2012 Rule 5.3.
-In-Reply-To: <40823fbaa9e0a9b026e5ff3b01af9d83583889fd.1691162261.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308041424240.2127516@ubuntu-linux-20-04-desktop>
-References: <cover.1691162261.git.nicola.vetrini@bugseng.com> <40823fbaa9e0a9b026e5ff3b01af9d83583889fd.1691162261.git.nicola.vetrini@bugseng.com>
+Subject: Re: [XEN PATCH 5/6] x86/xstate: address MISRA C:2012 Rule 5.3
+In-Reply-To: <1ea70e5f8293fdca2bb69ec75f532722136e52a5.1691162261.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2308041426390.2127516@ubuntu-linux-20-04-desktop>
+References: <cover.1691162261.git.nicola.vetrini@bugseng.com> <1ea70e5f8293fdca2bb69ec75f532722136e52a5.1691162261.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 4 Aug 2023, Nicola Vetrini wrote:
-> s/mpc_default_type/mpc_default in 'xen/arch/x86/include/asm/mpspec.h'
-> to avoid clashing with function parameter names in 'mpparse.c'.
+> Rename the local variables to avoid clashing with function 'xstate'
+> defined below, but declared in the corresponding header file.
 > 
 > No functional changes.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> Even though the global variable does not seem to be used anywhere and is
-> perhaps better to remove it entirely.
 
-Please remove it
-
-> ---
->  xen/arch/x86/include/asm/mpspec.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/x86/include/asm/mpspec.h b/xen/arch/x86/include/asm/mpspec.h
-> index 1246eece0b..cc96ee63bd 100644
-> --- a/xen/arch/x86/include/asm/mpspec.h
-> +++ b/xen/arch/x86/include/asm/mpspec.h
-> @@ -15,7 +15,7 @@ extern void get_smp_config (void);
->  extern unsigned char apic_version [MAX_APICS];
->  extern int mp_irq_entries;
->  extern struct mpc_config_intsrc mp_irqs [MAX_IRQ_SOURCES];
-> -extern int mpc_default_type;
-> +extern int mpc_default;
->  extern unsigned long mp_lapic_addr;
->  extern bool pic_mode;
->  
-> -- 
-> 2.34.1
-> 
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
