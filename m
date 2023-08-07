@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48102772768
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 16:17:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578509.906038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D50F772767
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 16:17:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578511.906045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT12e-0001tA-Qd; Mon, 07 Aug 2023 14:17:04 +0000
+	id 1qT12f-00020k-54; Mon, 07 Aug 2023 14:17:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578509.906038; Mon, 07 Aug 2023 14:17:04 +0000
+Received: by outflank-mailman (output) from mailman id 578511.906045; Mon, 07 Aug 2023 14:17:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT12e-0001r4-Nj; Mon, 07 Aug 2023 14:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 578509;
- Mon, 07 Aug 2023 14:14:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qT12f-0001tl-1D; Mon, 07 Aug 2023 14:17:05 +0000
+Received: by outflank-mailman (input) for mailman id 578511;
+ Mon, 07 Aug 2023 14:16:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jNKM=DY=joelfernandes.org=joel@srs-se1.protection.inumbo.net>)
- id 1qT10a-0001nV-OT
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 14:14:56 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c7c08f84-352c-11ee-b280-6b7b168915f2;
- Mon, 07 Aug 2023 16:14:55 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2b9bb097c1bso70380181fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 07:14:54 -0700 (PDT)
+ id 1qT11n-0001q7-MS
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 14:16:11 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f46e693b-352c-11ee-8613-37d641c3527e;
+ Mon, 07 Aug 2023 16:16:09 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2b9ba3d6157so73207501fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 07:16:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,41 +40,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7c08f84-352c-11ee-b280-6b7b168915f2
+X-Inumbo-ID: f46e693b-352c-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=joelfernandes.org; s=google; t=1691417694; x=1692022494;
+        d=joelfernandes.org; s=google; t=1691417769; x=1692022569;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=miXhKIkPE3lmozcU/B+jO2gbohIQfxtvXQrL6JQrLaA=;
-        b=rUbGf+JZcp35dmq7w8slw0nHgKluYcuW30g35dHvkRNE8GAplx/bmohiweQc5R1m+t
-         n8zrOL6x18GLNviLyBdF1SBbwknD+YT0R92Z3r7ozf/LbxR/ZX+oGNC6AweYXTnFy1Td
-         qjM3KL4IzdURsMRiax7oRl3ig1sdRDyJ5+2Ck=
+        bh=mVE/GJTe1IuiufpABjiYZn1olHI1ifx/I1TivYEBHQg=;
+        b=KDeUHSfDD3L4EI9ZDbXXnOCIgf36k4kTiyHRIIffaGRG3HCFl39GcfvKDi2APyBxt9
+         uIkOV41JjBWzvcfkl4hWbMoMF6B7yW2N6o4toZetNa+16q9cwIbk8dhp8WLMlbMnqtzs
+         lrCcsJN2ho/fqPCpmMmUqd/p18Lc2P1XhR9Zc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691417694; x=1692022494;
+        d=1e100.net; s=20221208; t=1691417769; x=1692022569;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=miXhKIkPE3lmozcU/B+jO2gbohIQfxtvXQrL6JQrLaA=;
-        b=CP6jlHg3e20+fXL3dQRiTWA/QacVmTeoRotK/6PzTz+epFyaECn/E/giPkUKVUNhAM
-         mVvqZ5gP77YaK2u7qfRy9I8/M1y1A0iNp5IgK/kJY7ZTCJ+5U//z/Fkv5N96RW2uqHkk
-         14kGteuFMQnOklZ77DnBJXdNxOpulzxIC4iBlY3CJT/JViUfl4fg6DO7znJy/g5PdcEs
-         MQq9yU+Q1fu1w/KU2cbJ8dz2jqQwKLoP+g7tE7shbzjB5ZZgNs2VEl4R6fGHDrIm8vXe
-         xFsQDUZTHfAcmwQmkKF3j5Yffpcgu5eTz+Ov4HB5uSCzSPT7An/O6ftvtmqqx1+gVIGb
-         +BpA==
-X-Gm-Message-State: AOJu0Yy26obgSDXuBfMpRyox5PgQc8bcQlezfBqR/JRnCE3+cRrs8+/A
-	EIgxrVqiZL4E59nH0Qaf27cdEh47U7DazOLABdH7Sg==
-X-Google-Smtp-Source: AGHT+IEUzxQ8uhfef4Gwj5w4R2S1a/fG2YmFdaAnrERcAODuTjnUg5MW8ffcyCI3WwFTK01hsv/WyE2OTkrmMwFZBOU=
-X-Received: by 2002:a2e:9254:0:b0:2b6:dfef:d526 with SMTP id
- v20-20020a2e9254000000b002b6dfefd526mr6547671ljg.11.1691417693488; Mon, 07
- Aug 2023 07:14:53 -0700 (PDT)
+        bh=mVE/GJTe1IuiufpABjiYZn1olHI1ifx/I1TivYEBHQg=;
+        b=Fyz0LdMT+XDtd8qUGL0u1pk3J9VOlmpNgSrVQ40CsOmi6sqNJD8+c8EfpPLHZnUwTp
+         HkMOgh4q+AQqRMTG4LA6IkcabBx1OhssIqYLVYzI7lSlDSFNbXC3llVdZQQA3/X3q0eR
+         sep0363xb1kOlW0v55qLKcr1kTrVnpj06jpxAOAPiffmAl94DFKgj/CZZK7IIEYKakDG
+         o/xVoOUpmJK7DZkMTdGNiVhzpZ4LaXTPkLTgZtiCHGVo7IgGQpetLpqKO2w6UdQRddwA
+         RP8tEUtrNsG0UbcG0gLpwtx/VDGUbthGRjH4olsCJa8sjpOiYfbQIeIyy7Y3rxKD5Dj8
+         bVEw==
+X-Gm-Message-State: AOJu0YzM/AGaD0mG8upaxKKPI6maFxjTFTg+b0TlCycA+zKdev1NLpjX
+	4uWnJpVnaukqXvhxl4neOigkwazQa+koHdxbNJVmvw==
+X-Google-Smtp-Source: AGHT+IGOrJUhdG+ahMA8bObfIwJouhmkY47ZzUfvTwinDgzhZuBpH+4Q7OaueJuZRAHK8xn8XVlTzjWWvAUYbt+ovvQ=
+X-Received: by 2002:a2e:b166:0:b0:2b9:dd3b:cf43 with SMTP id
+ a6-20020a2eb166000000b002b9dd3bcf43mr6572529ljm.13.1691417768626; Mon, 07 Aug
+ 2023 07:16:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230807110936.21819-1-zhengqi.arch@bytedance.com> <20230807110936.21819-20-zhengqi.arch@bytedance.com>
-In-Reply-To: <20230807110936.21819-20-zhengqi.arch@bytedance.com>
+References: <20230807110936.21819-1-zhengqi.arch@bytedance.com> <20230807110936.21819-19-zhengqi.arch@bytedance.com>
+In-Reply-To: <20230807110936.21819-19-zhengqi.arch@bytedance.com>
 From: Joel Fernandes <joel@joelfernandes.org>
-Date: Mon, 7 Aug 2023 10:14:48 -0400
-Message-ID: <CAEXW_YQHGBE2kKupLf12BGOEU5GnQsBUtVQcyMnzxUZ4y48QFA@mail.gmail.com>
-Subject: Re: [PATCH v4 19/48] rcu: dynamically allocate the rcu-kfree shrinker
+Date: Mon, 7 Aug 2023 10:16:03 -0400
+Message-ID: <CAEXW_YTKHUeZHWtzeSG5Tt7MscNKjVTScBWkVDkC4Orisa7w=Q@mail.gmail.com>
+Subject: Re: [PATCH v4 18/48] rcu: dynamically allocate the rcu-lazy shrinker
 To: Qi Zheng <zhengqi.arch@bytedance.com>
 Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru, 
 	vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org, 
@@ -94,10 +94,10 @@ Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 7, 2023 at 7:17=E2=80=AFAM Qi Zheng <zhengqi.arch@bytedance.com=
+On Mon, Aug 7, 2023 at 7:36=E2=80=AFAM Qi Zheng <zhengqi.arch@bytedance.com=
 > wrote:
 >
-> Use new APIs to dynamically allocate the rcu-kfree shrinker.
+> Use new APIs to dynamically allocate the rcu-lazy shrinker.
 >
 > Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
@@ -110,58 +110,57 @@ thanks,
 
 
 > ---
->  kernel/rcu/tree.c | 22 +++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
+>  kernel/rcu/tree_nocb.h | 20 +++++++++++---------
+>  1 file changed, 11 insertions(+), 9 deletions(-)
 >
-> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> index 7c79480bfaa0..3b20fc46c514 100644
-> --- a/kernel/rcu/tree.c
-> +++ b/kernel/rcu/tree.c
-> @@ -3449,13 +3449,6 @@ kfree_rcu_shrink_scan(struct shrinker *shrink, str=
-uct shrink_control *sc)
->         return freed =3D=3D 0 ? SHRINK_STOP : freed;
+> diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
+> index 5598212d1f27..e1c59c33738a 100644
+> --- a/kernel/rcu/tree_nocb.h
+> +++ b/kernel/rcu/tree_nocb.h
+> @@ -1396,13 +1396,6 @@ lazy_rcu_shrink_scan(struct shrinker *shrink, stru=
+ct shrink_control *sc)
+>
+>         return count ? count : SHRINK_STOP;
 >  }
->
-> -static struct shrinker kfree_rcu_shrinker =3D {
-> -       .count_objects =3D kfree_rcu_shrink_count,
-> -       .scan_objects =3D kfree_rcu_shrink_scan,
+> -
+> -static struct shrinker lazy_rcu_shrinker =3D {
+> -       .count_objects =3D lazy_rcu_shrink_count,
+> -       .scan_objects =3D lazy_rcu_shrink_scan,
 > -       .batch =3D 0,
 > -       .seeks =3D DEFAULT_SEEKS,
 > -};
-> -
->  void __init kfree_rcu_scheduler_running(void)
->  {
->         int cpu;
-> @@ -4931,6 +4924,7 @@ static void __init kfree_rcu_batch_init(void)
->  {
->         int cpu;
->         int i, j;
-> +       struct shrinker *kfree_rcu_shrinker;
+>  #endif // #ifdef CONFIG_RCU_LAZY
 >
->         /* Clamp it to [0:100] seconds interval. */
->         if (rcu_delay_page_cache_fill_msec < 0 ||
-> @@ -4962,8 +4956,18 @@ static void __init kfree_rcu_batch_init(void)
->                 INIT_DELAYED_WORK(&krcp->page_cache_work, fill_page_cache=
-_func);
->                 krcp->initialized =3D true;
->         }
-> -       if (register_shrinker(&kfree_rcu_shrinker, "rcu-kfree"))
-> -               pr_err("Failed to register kfree_rcu() shrinker!\n");
+>  void __init rcu_init_nohz(void)
+> @@ -1410,6 +1403,7 @@ void __init rcu_init_nohz(void)
+>         int cpu;
+>         struct rcu_data *rdp;
+>         const struct cpumask *cpumask =3D NULL;
+> +       struct shrinker * __maybe_unused lazy_rcu_shrinker;
+>
+>  #if defined(CONFIG_NO_HZ_FULL)
+>         if (tick_nohz_full_running && !cpumask_empty(tick_nohz_full_mask)=
+)
+> @@ -1436,8 +1430,16 @@ void __init rcu_init_nohz(void)
+>                 return;
+>
+>  #ifdef CONFIG_RCU_LAZY
+> -       if (register_shrinker(&lazy_rcu_shrinker, "rcu-lazy"))
+> -               pr_err("Failed to register lazy_rcu shrinker!\n");
+> +       lazy_rcu_shrinker =3D shrinker_alloc(0, "rcu-lazy");
+> +       if (!lazy_rcu_shrinker) {
+> +               pr_err("Failed to allocate lazy_rcu shrinker!\n");
+> +       } else {
+> +               lazy_rcu_shrinker->count_objects =3D lazy_rcu_shrink_coun=
+t;
+> +               lazy_rcu_shrinker->scan_objects =3D lazy_rcu_shrink_scan;
+> +               lazy_rcu_shrinker->seeks =3D DEFAULT_SEEKS;
 > +
-> +       kfree_rcu_shrinker =3D shrinker_alloc(0, "rcu-kfree");
-> +       if (!kfree_rcu_shrinker) {
-> +               pr_err("Failed to allocate kfree_rcu() shrinker!\n");
-> +               return;
+> +               shrinker_register(lazy_rcu_shrinker);
 > +       }
-> +
-> +       kfree_rcu_shrinker->count_objects =3D kfree_rcu_shrink_count;
-> +       kfree_rcu_shrinker->scan_objects =3D kfree_rcu_shrink_scan;
-> +       kfree_rcu_shrinker->seeks =3D DEFAULT_SEEKS;
-> +
-> +       shrinker_register(kfree_rcu_shrinker);
->  }
+>  #endif // #ifdef CONFIG_RCU_LAZY
 >
->  void __init rcu_init(void)
+>         if (!cpumask_subset(rcu_nocb_mask, cpu_possible_mask)) {
 > --
 > 2.30.2
 >
