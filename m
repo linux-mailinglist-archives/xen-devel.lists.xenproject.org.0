@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75B8377206B
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 13:15:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578067.905324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0890A77207E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 13:15:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578072.905334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSyD0-0000ca-7r; Mon, 07 Aug 2023 11:15:34 +0000
+	id 1qSyDE-0001Dm-Gk; Mon, 07 Aug 2023 11:15:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578067.905324; Mon, 07 Aug 2023 11:15:34 +0000
+Received: by outflank-mailman (output) from mailman id 578072.905334; Mon, 07 Aug 2023 11:15:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSyD0-0000YT-4j; Mon, 07 Aug 2023 11:15:34 +0000
-Received: by outflank-mailman (input) for mailman id 578067;
- Mon, 07 Aug 2023 11:15:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qSyDE-00019u-D4; Mon, 07 Aug 2023 11:15:48 +0000
+Received: by outflank-mailman (input) for mailman id 578072;
+ Mon, 07 Aug 2023 11:15:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qSgZ=DY=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qSyCy-0006s9-Eh
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 11:15:32 +0000
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [2607:f8b0:4864:20::d35])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8862dfb-3513-11ee-b27d-6b7b168915f2;
- Mon, 07 Aug 2023 13:15:31 +0200 (CEST)
-Received: by mail-io1-xd35.google.com with SMTP id
- ca18e2360f4ac-760dff4b701so48560539f.0
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 04:15:31 -0700 (PDT)
+ id 1qSyDC-000610-Hv
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 11:15:46 +0000
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [2607:f8b0:4864:20::1036])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c03400fe-3513-11ee-8613-37d641c3527e;
+ Mon, 07 Aug 2023 13:15:45 +0200 (CEST)
+Received: by mail-pj1-x1036.google.com with SMTP id
+ 98e67ed59e1d1-268663fb09cso631555a91.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 04:15:44 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.15.18
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.15.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:15:30 -0700 (PDT)
+ Mon, 07 Aug 2023 04:15:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8862dfb-3513-11ee-b27d-6b7b168915f2
+X-Inumbo-ID: c03400fe-3513-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1691406930; x=1692011730;
+        d=bytedance.com; s=google; t=1691406943; x=1692011743;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8Rfav5Nxe+GtybemfHCRLQWJ1Wm1Jr8phC3oTaQ6f/s=;
-        b=RhTNRytlTa20t4Y4eQDAbFdSU2B3iJZ1UGQvbDrNgMxM2lZyl06oD16eY7UnwOu7/z
-         lhfBO1aEb+iaxXm7zjPBY7hPV/HGsazWxYGeChIQ5BZqNHrYc42N83Qpez7ydwipu9EJ
-         dl8ebrZJyA2dXTCWIRLJ5KrUEadehbntFp8yZr0t1mcATZxSPZjFq4Ii0bOe708GiDDw
-         sbmlI1kieYrCzo2Qbsl1zLM+PYAlt09SHmpbPtNn98Tc607U0WsJTYx77KWhrtfG5gTM
-         J9JKFlnKyLN5gCahSDRWLwC9lXHkDS1fNn6g8aIOpZaiEnR0eJG9fj8gxoamq0eWdy8p
-         EjpQ==
+        bh=qDCHIUUJzhdUAQEb2C7RW/Dwv8wB1L4nNlzD+13VK1U=;
+        b=BoRgxmNUDtxzbmTK8+NbyH+07KYCd+Dr+oKPPa6V2FtEa17D0GvDQxjGlpnMkhmfxh
+         v95DV47NbKABEXmmquIWadBnc0OBxkEOLW5WkwOTzTf/BxgV/A3wBC3uAtz5110v+hzE
+         Ab8A6lWD76Mq+5DiKmh8yjejLb6xJUC09A5jGZ8oJIUHv3JYqq06sjhL7prumjkiRo3O
+         qB570Dus+/9+aUH0B/0q8kHN6EW2eaOwjl0xOlzT2kA7NW6hf0e/OVGGbp1TjXoLyoWq
+         aNUKJyMjC1sbPHUX4hmJJ6cJvGihC8n4kqK2Irls4fBt7l8WiF7MHJ0n9oTLuTvoH1vN
+         CZ3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691406930; x=1692011730;
+        d=1e100.net; s=20221208; t=1691406943; x=1692011743;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8Rfav5Nxe+GtybemfHCRLQWJ1Wm1Jr8phC3oTaQ6f/s=;
-        b=CtOqtqkSFEd0W2WM8ot5iNufYcHVs2y07VikikEzx2/fIeFLvE2Re941tPO5pyguTO
-         J4FzsStpv18ORtzb91Px+BC6j5blEnNBlSrN3Jfmud+rPICiRhhgqcLhM48PMlnA1DJx
-         x2DI0sn3dNH7lgbDoA4QpkxhgDc5llua/EKAZb//hJ6rEomQHxc4nT9LX8QOM30ZNjL2
-         rGdhqbExCgnlogZE1ldbzYN5CSD2M/oUF2YPtwU/W33qs6No2dYkqCBtRaa9MA/PrO26
-         PGE2nt4hxuh0dcMAezxH+AYGU1wgWJEXzysM0IUvq/6aYS8yme0HL9um9ey+zac63FJh
-         LAaQ==
-X-Gm-Message-State: AOJu0YxGAQJdPtrsjhgNnrD7Sd5dSsR3bS43B3jCRnlgpMrGIWzNK4St
-	TNubOHFFpj5ImY53AEcnQUfCEw==
-X-Google-Smtp-Source: AGHT+IFWvaKty2qg3Zp4xukmaRzjC+XhBT002dXZP422OqSqCh0qrR2HTT2eLu1rJ18Y9R5+7t84vA==
-X-Received: by 2002:a92:6408:0:b0:349:5c87:e712 with SMTP id y8-20020a926408000000b003495c87e712mr5356429ilb.1.1691406930655;
-        Mon, 07 Aug 2023 04:15:30 -0700 (PDT)
+        bh=qDCHIUUJzhdUAQEb2C7RW/Dwv8wB1L4nNlzD+13VK1U=;
+        b=jr/Q9sNyQxT8KIPuaN6TW6uu1MMsFisS4+TUobW/9cI2Mg2yj3uKE3H0NYviwBDtf2
+         Zhs7faOcGGh9K3pCLcpn6ONPtFJeOnowt0QSfNX0c17aL7xxnY3DE69ijXzsh8W1dc/d
+         B29lI2341vYIjmUBUv1DDopg9MDNkM/F55FrMKYdgY9krsBkJyhjz3Lzl+cZjuhZIUAf
+         dnnTlJk9g2wA5+qjqPAKCj8yCFNbXrQmA6/cAnLEjM9R4ZLrOBKr4jFVmhGLPQfFNcYQ
+         AU7SXXLYACV6SxD/XovjxcqnAh4CqNIcJT1PQ0fQHj9CNz5I7iDAIkzabDRQpLSEXKHe
+         2HDQ==
+X-Gm-Message-State: ABy/qLaQfNbesHR4zbNQ6KHkLPPlZIEpvRq86QMbppWmjkLlJtdO5ciH
+	Thon+2+aP/sbmP+Rvk7eVeO2iw==
+X-Google-Smtp-Source: APBJJlEUCHWWWNXSTNLHQrmZRIrp+biqETFoyppqOsbwjUrAqcyZvOjgkWFuVkSEp/5UbdP5i9KhZA==
+X-Received: by 2002:a17:90a:6c97:b0:263:730b:f568 with SMTP id y23-20020a17090a6c9700b00263730bf568mr23067993pjj.3.1691406943426;
+        Mon, 07 Aug 2023 04:15:43 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org,
 	david@fromorbit.com,
@@ -117,9 +117,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-btrfs@vger.kernel.org,
 	Qi Zheng <zhengqi.arch@bytedance.com>,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v4 26/48] dm: dynamically allocate the dm-bufio shrinker
-Date: Mon,  7 Aug 2023 19:09:14 +0800
-Message-Id: <20230807110936.21819-27-zhengqi.arch@bytedance.com>
+Subject: [PATCH v4 27/48] dm zoned: dynamically allocate the dm-zoned-meta shrinker
+Date: Mon,  7 Aug 2023 19:09:15 +0800
+Message-Id: <20230807110936.21819-28-zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
@@ -127,84 +127,89 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the dm-bufio shrinker, so that it can be freed
+dynamically allocate the dm-zoned-meta shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct dm_bufio_client.
+read-side critical section when releasing the struct dmz_metadata.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- drivers/md/dm-bufio.c | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+ drivers/md/dm-zoned-metadata.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index bc309e41d074..62eb27639c9b 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -963,7 +963,7 @@ struct dm_bufio_client {
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 9d3cca8e3dc9..bbb0e69a7908 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -187,7 +187,7 @@ struct dmz_metadata {
+ 	struct rb_root		mblk_rbtree;
+ 	struct list_head	mblk_lru_list;
+ 	struct list_head	mblk_dirty_list;
+-	struct shrinker		mblk_shrinker;
++	struct shrinker		*mblk_shrinker;
  
- 	sector_t start;
- 
--	struct shrinker shrinker;
-+	struct shrinker *shrinker;
- 	struct work_struct shrink_work;
- 	atomic_long_t need_shrink;
- 
-@@ -2368,7 +2368,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
+ 	/* Zone allocation management */
+ 	struct mutex		map_lock;
+@@ -615,7 +615,7 @@ static unsigned long dmz_shrink_mblock_cache(struct dmz_metadata *zmd,
+ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
+ 					       struct shrink_control *sc)
  {
- 	struct dm_bufio_client *c;
+-	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
++	struct dmz_metadata *zmd = shrink->private_data;
  
--	c = container_of(shrink, struct dm_bufio_client, shrinker);
-+	c = shrink->private_data;
- 	atomic_long_add(sc->nr_to_scan, &c->need_shrink);
- 	queue_work(dm_bufio_wq, &c->shrink_work);
- 
-@@ -2377,7 +2377,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
- 
- static unsigned long dm_bufio_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
+ 	return atomic_read(&zmd->nr_mblks);
+ }
+@@ -626,7 +626,7 @@ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
+ static unsigned long dmz_mblock_shrinker_scan(struct shrinker *shrink,
+ 					      struct shrink_control *sc)
  {
--	struct dm_bufio_client *c = container_of(shrink, struct dm_bufio_client, shrinker);
-+	struct dm_bufio_client *c = shrink->private_data;
- 	unsigned long count = cache_total(&c->cache);
- 	unsigned long retain_target = get_retain_buffers(c);
- 	unsigned long queued_for_cleanup = atomic_long_read(&c->need_shrink);
-@@ -2490,14 +2490,20 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	INIT_WORK(&c->shrink_work, shrink_work);
- 	atomic_long_set(&c->need_shrink, 0);
+-	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
++	struct dmz_metadata *zmd = shrink->private_data;
+ 	unsigned long count;
  
--	c->shrinker.count_objects = dm_bufio_shrink_count;
--	c->shrinker.scan_objects = dm_bufio_shrink_scan;
--	c->shrinker.seeks = 1;
--	c->shrinker.batch = 0;
--	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
--			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
--	if (r)
-+	c->shrinker = shrinker_alloc(0, "dm-bufio:(%u:%u)",
-+				     MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
-+	if (!c->shrinker) {
-+		r = -ENOMEM;
- 		goto bad;
-+	}
+ 	spin_lock(&zmd->mblk_lock);
+@@ -2936,19 +2936,24 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	 */
+ 	zmd->min_nr_mblks = 2 + zmd->nr_map_blocks + zmd->zone_nr_bitmap_blocks * 16;
+ 	zmd->max_nr_mblks = zmd->min_nr_mblks + 512;
+-	zmd->mblk_shrinker.count_objects = dmz_mblock_shrinker_count;
+-	zmd->mblk_shrinker.scan_objects = dmz_mblock_shrinker_scan;
+-	zmd->mblk_shrinker.seeks = DEFAULT_SEEKS;
+ 
+ 	/* Metadata cache shrinker */
+-	ret = register_shrinker(&zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
+-				MAJOR(dev->bdev->bd_dev),
+-				MINOR(dev->bdev->bd_dev));
+-	if (ret) {
+-		dmz_zmd_err(zmd, "Register metadata cache shrinker failed");
++	zmd->mblk_shrinker = shrinker_alloc(0,  "dm-zoned-meta:(%u:%u)",
++					    MAJOR(dev->bdev->bd_dev),
++					    MINOR(dev->bdev->bd_dev));
++	if (!zmd->mblk_shrinker) {
++		ret = -ENOMEM;
++		dmz_zmd_err(zmd, "Allocate metadata cache shrinker failed");
+ 		goto err;
+ 	}
+ 
++	zmd->mblk_shrinker->count_objects = dmz_mblock_shrinker_count;
++	zmd->mblk_shrinker->scan_objects = dmz_mblock_shrinker_scan;
++	zmd->mblk_shrinker->seeks = DEFAULT_SEEKS;
++	zmd->mblk_shrinker->private_data = zmd;
 +
-+	c->shrinker->count_objects = dm_bufio_shrink_count;
-+	c->shrinker->scan_objects = dm_bufio_shrink_scan;
-+	c->shrinker->seeks = 1;
-+	c->shrinker->batch = 0;
-+	c->shrinker->private_data = c;
++	shrinker_register(zmd->mblk_shrinker);
 +
-+	shrinker_register(c->shrinker);
- 
- 	mutex_lock(&dm_bufio_clients_lock);
- 	dm_bufio_client_count++;
-@@ -2537,7 +2543,7 @@ void dm_bufio_client_destroy(struct dm_bufio_client *c)
- 
- 	drop_buffers(c);
- 
--	unregister_shrinker(&c->shrinker);
-+	shrinker_free(c->shrinker);
- 	flush_work(&c->shrink_work);
- 
- 	mutex_lock(&dm_bufio_clients_lock);
+ 	dmz_zmd_info(zmd, "DM-Zoned metadata version %d", zmd->sb_version);
+ 	for (i = 0; i < zmd->nr_devs; i++)
+ 		dmz_print_dev(zmd, i);
+@@ -2995,7 +3000,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+  */
+ void dmz_dtr_metadata(struct dmz_metadata *zmd)
+ {
+-	unregister_shrinker(&zmd->mblk_shrinker);
++	shrinker_free(zmd->mblk_shrinker);
+ 	dmz_cleanup_metadata(zmd);
+ 	kfree(zmd);
+ }
 -- 
 2.30.2
 
