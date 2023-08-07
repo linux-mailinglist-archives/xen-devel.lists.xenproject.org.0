@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2C0C7724C1
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 14:55:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578375.905844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 401927724C2
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 14:55:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578376.905853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSzlb-0007hm-SD; Mon, 07 Aug 2023 12:55:23 +0000
+	id 1qSzli-0007xU-3K; Mon, 07 Aug 2023 12:55:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578375.905844; Mon, 07 Aug 2023 12:55:23 +0000
+Received: by outflank-mailman (output) from mailman id 578376.905853; Mon, 07 Aug 2023 12:55:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSzlb-0007fw-P0; Mon, 07 Aug 2023 12:55:23 +0000
-Received: by outflank-mailman (input) for mailman id 578375;
- Mon, 07 Aug 2023 12:55:22 +0000
+	id 1qSzli-0007vl-0S; Mon, 07 Aug 2023 12:55:30 +0000
+Received: by outflank-mailman (input) for mailman id 578376;
+ Mon, 07 Aug 2023 12:55:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LmzZ=DY=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1qSzla-0007fq-O6
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 12:55:22 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a95b6fe6-3521-11ee-b27f-6b7b168915f2;
- Mon, 07 Aug 2023 14:55:20 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 470965C00FD;
- Mon,  7 Aug 2023 08:55:18 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 07 Aug 2023 08:55:18 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Aug 2023 08:55:16 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/Szp=DY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qSzlg-0007fq-6j
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 12:55:28 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20602.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::602])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae8342ca-3521-11ee-b27f-6b7b168915f2;
+ Mon, 07 Aug 2023 14:55:27 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.25; Mon, 7 Aug
+ 2023 12:55:25 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6652.025; Mon, 7 Aug 2023
+ 12:55:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,188 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a95b6fe6-3521-11ee-b27f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1691412918; x=1691499318; bh=LgWoJWa6DXZKfZ0hLk5ZMf1RQyRN75OdScV
-	RO3aOCTE=; b=aNtPYSb3yopTaCktF8VCYp8h/q8zZoGJ9iXpS+8uXBQTxI6Zbly
-	1Jbw7DDOaIQSv/505drGiDyLhTZaDV7H4uXioLdTwTwP5ewe1AVTcAwfGnNBeFDP
-	qjNeZRBVc144zZC307uhkBqXOBngqtC/IG+NLL/RxBG8SIMPaZDlkea0+QBh62do
-	BsdTK354zL+zElrcd+sxQlxxth/cRU+N86Mlq1EI+d2FQynbAGbT/AJvHgdg43Nx
-	ngzsuz9uAEPHgDFysKGwcwd0qPZMUHq1fyXmftR4d7Iw6LapIdA0ixmtIq7/MqTP
-	mvwMLoTlqrSPpVxBwfH9m1X6wdi4FZjNd8w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1691412918; x=1691499318; bh=LgWoJWa6DXZKf
-	Z0hLk5ZMf1RQyRN75OdScVRO3aOCTE=; b=eoHVU3elWaYsiRpQiyf+tBBcGFSuy
-	035/KeyOKJ6VoNYygDwXvtZ9E38qwlm9JyE40Lyehnrln8FLOieh/oMKF76Lq0Fc
-	mp0WiIrX7CDl+H8jhd4HAzegWFpRfz938M7gpmUtFCiV17xdr7da2vd8g/EEbhBL
-	Fu6vuvESUypbEnjPJM1ePwwBV93Ej9J3QByRSaA3Up55VXiBnEe5SyxVOkGrqnhy
-	yMKqbarihLw6pJKxNfxfFTnJEDmq9OS4avVaevBSu69u51uHwCwmtk6zl7KVO7mY
-	qihOVaU6frPCSOfWr3pFs05tIUPvbCNyl+Ecy4K3ZD6wY9MPnhsjpTbuQ==
-X-ME-Sender: <xms:tunQZMk-ovNnniymDB_0HpiMvtj1mYlcb4Oxe6i0wPL7RXBGtslOBQ>
-    <xme:tunQZL1tv_cE1dUxwjIVeIvp3yReycQEpsl3rMGIU0oRo44l2SHqRSdunldUzoal_
-    0CkSnB5Cuwtf1Q>
-X-ME-Received: <xmr:tunQZKrftYB02avPFxCCtq2V6jYHaBm1EOyFMRFxyFKDN_ATWQUfeV5axfgLpOv-tBSFyiKYprlhTw17cmE8K50>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrledtgdehiecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhhonhcu
-    ifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
-    hmqeenucggtffrrghtthgvrhhnpeekueffiedtgeffleeglefhledtfefgiedtveeiffeg
-    hffgledtveehhfdugfetveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
-    grihhlfhhrohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
-    mh
-X-ME-Proxy: <xmx:tunQZIlj_hUFNNFL_htnRNRj0WTjZXsF9WAi0lbDQY127VRVtuia2A>
-    <xmx:tunQZK07Tbfgy8ZQ2BjcSAmUOmqgserpPW6voofO_pCjEllxXdwF1Q>
-    <xmx:tunQZPty4vknxZTCBkOSGhJ2Br7pn6cK6eGV1o5cf3ILTVtavODkiw>
-    <xmx:tunQZPwcikQjRLNL74-QYSQ7bIWNWIgyD8fprjMi7VA4PbCnmM6MMA>
-Feedback-ID: idc5945a3:Fastmail
-Message-ID: <2c97ff5b-03b0-3c17-c7f0-9bc8c9317762@invisiblethingslab.com>
-Date: Mon, 7 Aug 2023 14:55:01 +0200
-MIME-Version: 1.0
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
+X-Inumbo-ID: ae8342ca-3521-11ee-b27f-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Dp/mVhC4pjUiEL2c/qt60WwX5Yi0+BxHThRDxiGs9v+5MjwGH5R/OrUUiCSID23vaCogNWOMavGsCSqCgRPOWPM1xYzdKfwSGAoh6KEaUsywpFHm9K/tBwg5KjX8IM+O47tFMWuqfB4b9/AV1PKWWxtTgSldIHzxcxJqLW8vMxBdWhVs+LYocWKmNl/SZvEffr+rpZyTdOS9ns2UIm6zHD/U+IbRZ1nJXXb7jGMPrIJUXuLiZpPKH9ObgJU1X60h9cR3mXPvLLnFpAOkbZBrPgHuE7foogMSid1PfyiS4PDouPIq6Vgvv5JPY8JfO3MxdwHLBSKpg3ZDZcUYgXXNBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=714EprljTvlE97Mb6c7roih6QuC6/NDH9mWbJEMKvWM=;
+ b=QKsOQEvv0e9G7s/07JsFAKGbrBf366nR9dFFxzCNYAKHK+Dio2hhjJgVTqnYKMkgPP3LMp4JLw0ljjJcsWoBwDe1nuENEhAygLb0tRyRFJxBhcfA8IFIa1qPZMYl2D4Dvsm0u/8h0Hobx2O1EaAmKiXt12jT+vJ9ca8iLFbMRZOxVfNFYl1/G70hyMWDn6lI3/4oft6A9WF6eD8PRHNNZ48HyRMswz4vqinot8382NqTmdS5uJ1YtFF4MXwgQVRYB+4AXc9ROklj0rKylXlwWk8CcHhrBErqmLZgJxCZIepixnygZ3GT2WAqv2gUoMtb+IUS592lhirTfRx8Zc3wmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=714EprljTvlE97Mb6c7roih6QuC6/NDH9mWbJEMKvWM=;
+ b=tvIE5hfjy+93teI9b3E6XISYnO69tLYfP5pw2oe+v2/HmAPRMqAvwL6/fzeLgofGAH9r1n/NjCf811N8+RPGPTbqq56ko8ZuMAibtFGor12sxwz1O7sSmHmZCVCLdzsKoZRWZchLUktk/xQ3mVwwHh6aOGF6qLtpIFhMtEvDl2VY+GfMuBi1y5GIG3Ug4eAZ0WZrYV4l2BVYRRo7VbD7WrGdO0zMLWLrW0fVPlgRW7KiyBlGpeKGG2wdjSrDhH0p6ei6x+btUmFB+nwBIaKLkbBMwZQE1L3B+8JXy+abhereUZESOVY5anyClL0MnHGUb3dz1wqDp2nSLgrIOdsXQQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <19928768-b24d-3e40-937d-9460e7f06a9f@suse.com>
+Date: Mon, 7 Aug 2023 14:55:23 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [XEN PATCH v2 3/4] x86/irq: rename variable to address MISRA
+ C:2012 Rule 5.3
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
- <0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com>
-From: Simon Gaiser <simon@invisiblethingslab.com>
-In-Reply-To: <0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------BB4oHImKZJOc4Owo0BGCP5bb"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------BB4oHImKZJOc4Owo0BGCP5bb
-Content-Type: multipart/mixed; boundary="------------rHN26FGsWBurFzrDYQkb1Gdw";
- protected-headers="v1"
-From: Simon Gaiser <simon@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Message-ID: <2c97ff5b-03b0-3c17-c7f0-9bc8c9317762@invisiblethingslab.com>
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
- <0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com>
-In-Reply-To: <0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com>
-
---------------rHN26FGsWBurFzrDYQkb1Gdw
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1691135862.git.nicola.vetrini@bugseng.com>
+ <987ebd142ebd69ed062d74f7eb69c23759c51636.1691135862.git.nicola.vetrini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <987ebd142ebd69ed062d74f7eb69c23759c51636.1691135862.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0134.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::18) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS4PR04MB9338:EE_
+X-MS-Office365-Filtering-Correlation-Id: d09f74fc-bdce-4ad5-eb0d-08db974591a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	bl63A/PA09EcAyz4cpgukivElEZ7vIVx3D3ztX+MR6qnRGCfmuA4OChClbRgsxe07tGTFlrzyIKkqjEhaKcVhHqKHC//WbszuJHLOP/Qzw2wk695b0O+uGXGeOdQhF6MXMybisU/cZpywmyD8A8aJO2XXgIft/jnO4B3yFVJB4P/vRLXjbMUzl6M0x/2t99jP7wAGPFEXfTLEO1Xl6EnRXo7Ed8WHV+2l1bjTEngpw/vWFG4Si4kc6Zl6w4MEFYKTPCdwFHrLbtVim9x7F24Le2X9oFdH26saxVJzf0MHNKXc+SNsGB6flq0YIOZhwXzAx9YOdAoQpE2dpjMZRuHif6oq/xMK1gVbS0vXRDeRqwZXWVfqu4tEvHGgWpwvZ4v7GFwmWxpmgKBbXTjRU/xu/6oQ5PFj3HQgwsyPtVQpKSbJIkf5Sd/jJldktHfOKIH8EUxOxW9SLPNdMuURSwaY93LouB7v0d3owGpGvImanoDhUvgEzAUmeCo30DQO7nonmZJ7NrIhAbIuz1FfqOzKsPY5bzbhkWMhvkiZGUuQBbiWRA+vdGA4ZkctbL8aksm9nY/SAoVr+8Ck/x2XfPfZMdv47pM4YfrXfHK/xYsAp7R/0x6ohOX7E4NehLsmTwlVXeLtqpKeUF3lERdDkaNaQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(136003)(376002)(366004)(396003)(39860400002)(451199021)(1800799003)(186006)(6512007)(26005)(6506007)(53546011)(36756003)(54906003)(38100700002)(5660300002)(7416002)(86362001)(31696002)(4326008)(2906002)(6916009)(66556008)(66476007)(41300700001)(66946007)(8676002)(316002)(8936002)(478600001)(2616005)(6486002)(31686004)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dVpkQys0WGxVRmtGOFFTZHAremdTTG5uSTNkbWhLY0VMakxJNzAyNmpnNFpJ?=
+ =?utf-8?B?TVdxVFBWb3BjaFVwQkdYMzZLNm5HWXplRk9zbkZqdldCTER4bVpxa0tuem0v?=
+ =?utf-8?B?WEh1anAwbXhmWGF2RkRGbEFNSzBNVzQxaXBidllXd2lwcmhUUEVPU3NCUUQ5?=
+ =?utf-8?B?ZjVzVzNidHYyK3B5T0EycjFBbGN2ZVdXbkpaTWRIa3hLNG8xMHRjL2lXcUx3?=
+ =?utf-8?B?bnZhVkJqa0IyQWdkKzQzeTNQMHZCYVBwbzlnVWpFdlpmb2x5WTBFVWhMamZ3?=
+ =?utf-8?B?UkN4aWNJWkJucEVTcmtJWEVVRlU0QzZDWE5ORE83SHRLNFlLbmwxSnhoWm5p?=
+ =?utf-8?B?OFllWVVGSU8xVTgzT3dCY1lvTVRKT3BrWS91WVJRQ1h1ZXMyRWlQN0Vybkl2?=
+ =?utf-8?B?ZnRTVENkdUhEQ29nUEw2bnpvTVRDY1lUSjF2QzRtQ1VWWEVVQUdFSGxTOUxI?=
+ =?utf-8?B?MVptRER6Z0t6TnM5eWZxUG02ekZGVE1zakhjM0FLb2I2dFNabEdYQjBlN2tX?=
+ =?utf-8?B?VEFMcGZPVVJKM3JSTVpqYVVHYUxUK3BUSU5sSGhua251UnZYZkxBSFJnYStj?=
+ =?utf-8?B?Z3Ard1N6dkJrT0tQdkxiUjhvUEp5Wk1YZEpQT0lONGpVYWZJckZmUWxXSkhP?=
+ =?utf-8?B?YnIrMFBZZXdCMkN3Q2d3VDJrVjBkeURIaDJ6aDlrM29qLzZkU0NjSEdJRHEx?=
+ =?utf-8?B?NjBQU3M5Qmh5OEgrR05BUW91VlJDeHVocEd6RkcvOU5HQUhCdE5vNW9rVlFz?=
+ =?utf-8?B?K1NQU1JhRmtDaFRTanBHaFc4Y0xEc1hOOGFTRW1wNjVTZHN3S04raUZRMmlH?=
+ =?utf-8?B?dm04bmE1QnZaU1R2NWlVSG9pSE5rQis3NUVYTGpWY2tCMlFTdyt5dFBHRTBJ?=
+ =?utf-8?B?bVhocngzT1pXMHhuM3FLTVVnQUhla1o2RUd6QjZYc3o0Mnp4d1RpWDczZjFy?=
+ =?utf-8?B?Z0ZwRnBRSnR6bGVUcWhqTWIwaXVEaGtobHp6Z2cwNHpyRnFDNlIrb0duYU5K?=
+ =?utf-8?B?Z3ZwdkJpL3IwREFJaGdET3VRTGtWMzI3TmtoZmZaY2NZWXZZTXR0REtuenh0?=
+ =?utf-8?B?SDNzaks4a3FXQUVoTUlGMjFUVlhBaC9MS3NQSTN5NVJMaUpBVkIyb09uRGE4?=
+ =?utf-8?B?c0pNM2JrUTJQVWVFZkVCM28yZE9zWUdnVHp0azl1eDR6WkJadHBiQ2ptVTB5?=
+ =?utf-8?B?Z2FxMm5sbEg1SHFxRjNGbXJTQVR2c1piYjUvbGtHRjJqTkhMTGpEWTQ5TXlk?=
+ =?utf-8?B?MVJxTkx4ZkxLU3RQZEYxaU9SWmRBQjhZNXV6NkgrVGI0NVlTRnMrMWdrbUtl?=
+ =?utf-8?B?cEl0MHZGOGMrS0thUFUwVmpGeVpsNUQ0anJBZlRDNHUzZUZVd0FJOFZNNFFx?=
+ =?utf-8?B?MlJpcXA3UXJkOVpiSkJlV2twWXZBeUYvZmx3c2JlcTUwZUs1VmdLbGcvNHI4?=
+ =?utf-8?B?NU5LNkRzbFFTbHVZUnJ0ZXhTaWtCUUhhNjAwSW9NUThkS1QyTVRlWUVzdDRJ?=
+ =?utf-8?B?S0lPazRnSEc0UGUyTW8xVUNySnRZdTM4TE5ObVNnT3VUaE1rRHVmWEtWWlZ0?=
+ =?utf-8?B?dldXL2RZVUpzdXRvTDRwSFRQNGFwMUcrZENlNnBld3B6VFc4Q2tvYmFzeERj?=
+ =?utf-8?B?Rm8rWmxUaUdQNTFsbkRLdXlvaDRMUlJRUVRnT2VjalFlbVVlZzFISHFoMWVG?=
+ =?utf-8?B?T0htY0Y1MTBQdHBHRnBGbkdUK2FXWWc1NE5FRnFyS3d4TjN4YmFKdDNRKy9p?=
+ =?utf-8?B?eEtoTXVmOGlnTk9DRmVEL29MaVlWYzhseVp2YTE5MmlHTDY5dW9YRVdmeUZ6?=
+ =?utf-8?B?ZHBpS1VQL1VSRWJKUXFIaDJCT1ZJVStXQ1FNV2ZmRzFQY0xEVld5THlFaHZK?=
+ =?utf-8?B?c2NURTc2eW1CdW5TaFZDeUxIekxzUWdyWHlwL0tyNnNoV2QrRXM5MElEVUkz?=
+ =?utf-8?B?ai9xcW5VbkdhMlNPZ1I3SzNiQ3BmM28xWXpwWkE4ckxFL3BRcEtBYURMUG1s?=
+ =?utf-8?B?Q0VWVmE1ay91ekhrb2ZaNFp6dWNxMC9aV05qZzV5VEs0cHV4T0tJOFNZbzFM?=
+ =?utf-8?B?SDFwWFdOWTl0TVFnMWpYbEF3R2t4ejh3SG44WTB5dmowVUhtM2pHWnZtbFRy?=
+ =?utf-8?Q?st9XxKg/v7QgfuqSd/S8/y++u?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d09f74fc-bdce-4ad5-eb0d-08db974591a1
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 12:55:25.5815
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6OysXwvVhbMCEar9ZnouS7fhp6LBukYf7o7ZhtcKT1pSbNEvHwBJrT6p5nmkFGzf4+bF52K6JT9fkpnMZsr73g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9338
 
-Jan Beulich:
-> On 07.08.2023 11:38, Simon Gaiser wrote:
->> It seems some firmwares put dummy entries in the ACPI MADT table for n=
-on
->> existing processors. On my NUC11TNHi5 those have the invalid APIC ID
->> 0xff. Linux already has code to handle those cases both in
->> acpi_parse_lapic [1] as well as in acpi_parse_x2apic [2]. So add the
->> same check to Xen.
->=20
-> I'm afraid it doesn't become clear to me what problem you're trying to
-> solve.
+On 04.08.2023 10:03, Nicola Vetrini wrote:
+> The extern variable 'irq_desc' defined in 'irq.h' is shadowed by
+> local variables in the changed file. To avoid this, the variable is
+> renamed to 'irq_description'.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c         |  2 +-
+>  xen/arch/x86/include/asm/irq.h |  2 +-
+>  xen/arch/x86/io_apic.c         | 10 +++++-----
+>  xen/arch/x86/irq.c             | 12 ++++++------
+>  xen/arch/x86/msi.c             |  4 ++--
+>  xen/include/xen/irq.h          |  2 +-
+>  6 files changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 2180abeb33..ca5bb96388 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -474,7 +474,7 @@ void hvm_migrate_pirq(struct hvm_pirq_dpci *pirq_dpci, const struct vcpu *v)
+>  
+>          if ( !desc )
+>              return;
+> -        ASSERT(MSI_IRQ(desc - irq_desc));
+> +        ASSERT(MSI_IRQ(desc - irq_descriptor));
+>          irq_set_affinity(desc, cpumask_of(v->processor));
+>          spin_unlock_irq(&desc->lock);
+>      }
+> diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+> index ad907fc97f..f6df977170 100644
+> --- a/xen/arch/x86/include/asm/irq.h
+> +++ b/xen/arch/x86/include/asm/irq.h
+> @@ -172,7 +172,7 @@ int assign_irq_vector(int irq, const cpumask_t *mask);
+>  
+>  void cf_check irq_complete_move(struct irq_desc *desc);
+>  
+> -extern struct irq_desc *irq_desc;
+> +extern struct irq_desc *irq_descriptor;
 
-I want Xen to not think there are possible CPUs that actually never can
-be there.
+In Arm code you'll find
 
-Without ignoring those dummy entries Xen thinks my NUC has 2 sockets and
-that there are 8 logical CPUs that are currently disabled but could be
-hotplugged.
+static irq_desc_t irq_desc[NR_IRQS];
 
-I'm moderately sure that soldering in another CPU is not supported, even
-less so at runtime ;]
+It's static there right now, yes, but we don't want to introduce arch
+differences here. Therefore the global wants leaving alone, and "desc"
+wants using where function parameters collide. (Arm uses either "desc"
+or "irqd" everywhere afaics.)
 
->> --- a/xen/arch/x86/acpi/boot.c
->> +++ b/xen/arch/x86/acpi/boot.c
->> @@ -87,14 +87,17 @@ acpi_parse_x2apic(struct acpi_subtable_header *hea=
-der, const unsigned long end)
->>  	if (BAD_MADT_ENTRY(processor, end))
->>  		return -EINVAL;
->> =20
->> +	/* Ignore entries with invalid apicid */
->> +	if (processor->local_apic_id =3D=3D 0xffffffff)
->> +		return 0;
->> +
->>  	/* Don't register processors that cannot be onlined. */
->>  	if (madt_revision >=3D 5 &&
->>  	    !(processor->lapic_flags & ACPI_MADT_ENABLED) &&
->>  	    !(processor->lapic_flags & ACPI_MADT_ONLINE_CAPABLE))
->>  		return 0;
->> =20
->> -	if ((processor->lapic_flags & ACPI_MADT_ENABLED) ||
->> -	    processor->local_apic_id !=3D 0xffffffff || opt_cpu_info) {
->> +	if ((processor->lapic_flags & ACPI_MADT_ENABLED) || opt_cpu_info) {
->>  		acpi_table_print_madt_entry(header);
->>  		log =3D true;
->>  	}
->=20
-> In particular you're now suppressing log messages which may be relevant=
-=2E
-
-I intentionally mirrored the behavior of the check directly below.
-Unlike the the version in Linux the existing code didn't log ignored
-entries. So I did the same for the entries with an invalid ID.
-
-> The one issue that I'm aware of (and that I use a local hack to deal
-> with; see bottom) is excess verbosity.
->=20
-> Jan
->=20
-> --- unstable.orig/xen/arch/x86/mpparse.c
-> +++ unstable/xen/arch/x86/mpparse.c
-> @@ -809,8 +809,13 @@ int mp_register_lapic(u32 id, bool enabl
->  	};
->  =09
->  	if (MAX_APICS <=3D id) {
-> -		printk(KERN_WARNING "Processor #%d invalid (max %d)\n",
-> -			id, MAX_APICS);
-> +		static u32 max_warn =3D -1;
-> +
-> +		if (id <=3D max_warn) {
-> +			printk(KERN_WARNING "Processor #%d invalid (max %d)\n",
-> +			       id, MAX_APICS);
-> +			max_warn =3D id - 1;
-> +		}
->  		return -EINVAL;
->  	}
-> =20
-
---------------rHN26FGsWBurFzrDYQkb1Gdw--
-
---------------BB4oHImKZJOc4Owo0BGCP5bb
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmTQ6acACgkQkO9xfO/x
-ly9Q/RAAy3oKVGf3/ubS9NcmyzMrbssJ7eT2C9voXCECuVB+778CTwJc0eWKNnSb
-BHzMVBtVtci0UsvYpSKW4Q9RrDiu+6YPzjQs073tN4XsczxIX+dfx+08W2bvLrTf
-cz4auBtrCPKD9Y0b81JviMK+SzUDDH8WF1A0wfApWp3GFZP9D7SifJG6t+f8HaFP
-F4zNo0JThdDxsGzB9VDlWR0L5qZDMKUV4xZhSg2ihOMBXiLgp4S3fwOv2JHkVjK+
-E4Z6mEjqiAsDQg+FSg7I/CBf4SiYFET1TZoEjBEsmEVrmvP5fO80kyB6D+kO5i9X
-i4416BraJ04zTsaPilnL7YA5lau3g/rvvQD+m2BBl50qOBbD89vNPOY5uSUv94G4
-kgfQWLNn6dFIb27s4oH1kSGS6G/PxPUevaZXc+uQO+cPHVZWHQJcljsSnUUEgDDp
-8+lRRsabHzVMohSkuJY570q6oW2VBH6edefnSYGCKHgUBsAKGQamVnVusQIDRj4v
-5TH3NpcnKY+Y/m9c4JZ8OLJZjKzTpKARbQhWBwrAqnjnsBRKB3GigakLCvwA96Tr
-balhrGHM2xJFhfbQJEqYj0DZqOEHckkr0QvbKcb/fmSFz7qyB8ZHnQe6rDtrTqxy
-IIAGOpSvh+suYv9gcHe9FLR/Lb9XHv3p0pnHxjZAUNlznUpjPIQ=
-=1Mke
------END PGP SIGNATURE-----
-
---------------BB4oHImKZJOc4Owo0BGCP5bb--
+Jan
 
