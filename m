@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C3B37720E2
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 13:17:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578118.905509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E78447720EC
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 13:18:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578121.905525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSyFB-0000QA-5i; Mon, 07 Aug 2023 11:17:49 +0000
+	id 1qSyFD-00018m-LG; Mon, 07 Aug 2023 11:17:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578118.905509; Mon, 07 Aug 2023 11:17:49 +0000
+Received: by outflank-mailman (output) from mailman id 578121.905525; Mon, 07 Aug 2023 11:17:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSyFA-0000CR-Jc; Mon, 07 Aug 2023 11:17:48 +0000
-Received: by outflank-mailman (input) for mailman id 578118;
- Mon, 07 Aug 2023 11:17:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qSyFD-0000fh-0E; Mon, 07 Aug 2023 11:17:51 +0000
+Received: by outflank-mailman (input) for mailman id 578121;
+ Mon, 07 Aug 2023 11:17:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qSgZ=DY=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qSyAj-0002Ee-4h
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 11:13:13 +0000
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [2607:f8b0:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6567a3f8-3513-11ee-b27d-6b7b168915f2;
- Mon, 07 Aug 2023 13:13:12 +0200 (CEST)
-Received: by mail-pg1-x52a.google.com with SMTP id
- 41be03b00d2f7-51f64817809so360317a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 04:13:12 -0700 (PDT)
+ id 1qSyAw-00018O-Mz
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 11:13:26 +0000
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [2607:f8b0:4864:20::d2e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6cfbef2d-3513-11ee-8613-37d641c3527e;
+ Mon, 07 Aug 2023 13:13:25 +0200 (CEST)
+Received: by mail-io1-xd2e.google.com with SMTP id
+ ca18e2360f4ac-790b9d7d643so44487739f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 04:13:25 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.12.58
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.13.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:13:10 -0700 (PDT)
+ Mon, 07 Aug 2023 04:13:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6567a3f8-3513-11ee-b27d-6b7b168915f2
+X-Inumbo-ID: 6cfbef2d-3513-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1691406791; x=1692011591;
+        d=bytedance.com; s=google; t=1691406804; x=1692011604;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=urGrhHBCGKwKuhIkQmOHRuysXuy1mToQA+AaHWoY6PY=;
-        b=gvEcin7S0wJ5rW0wtj9WnWp/4gO3FOqyEc5Qy3KVjjCOMIdl063r7goatTKMU5K63u
-         IABDDkTZbyMiPq/rwoG72XrgfLWlV6/YJwymkZtRfBVcrDOzJOk+V88T6EEEXGW6nfh0
-         le0xVwnZY7As0nXjZy+hSjIWRCXvYGRHiEKZrDZnQb7QflVpjM7uq/81aSxj3traKDGt
-         VXa/baYLLxxBhWBawSSBHT4dMsZ/NRoyUnn0XTD8JWz4/O0ULe9Suh4wohOUxiotc5cA
-         +kJEwQbIJfS1Vrk1T3/Loi8TKjO+pow/TrGBcBE2xp4OSLxBFU0bCUPycoGAdA8SsoOk
-         yeOw==
+        bh=4VJlLpDqVGiuvI83ez+3bl7yR5bVuWalBgtTU2vfBLE=;
+        b=i2oZ2Se5RaRdFd0q9t3NqBTv/dUkxD/p2SyHpAjMjg/XHGqyx1ejwAfepurqt3olXd
+         4JrDoh1Y9dLDoFntnleeQjfq8XZjg4nTjOSD4Duga+gvfwhzkhg3QVfdrOJlicPQaYUD
+         v5DwTanMH6RhkvK4rWOetuDFETnSCGxcV41PCfrrWGGU2b+vPg8IYLTIauqtUI6qQnyf
+         JDKJFxqA5C/eh/Oo8gwkHqwPIIO1pJg4e68ItW2uJIdbbavFER6b/PwVILGTxzeWrF6b
+         lEtQmpfrwSnO090W7cEUPihusqog8pTCjc32QMYuqZWzqkk8YiBOx308Pfsd+2Yt04OK
+         T2NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691406791; x=1692011591;
+        d=1e100.net; s=20221208; t=1691406804; x=1692011604;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=urGrhHBCGKwKuhIkQmOHRuysXuy1mToQA+AaHWoY6PY=;
-        b=RXUFXd7NwT2/evqnMyQEMgGHNkZjUnvwOFbWFEJn1owNtp/RxAQXXWAY5WOebYQ2oW
-         3yDFydkYV4+f0I2irfQ7dfGYWWd/mx3cfMyYEtkkNztYpVqfDW9TR1KG/O0OVN/eRCqf
-         Lhm8jCwsdNPjjdbKPLKq0GgFyRGYkZX/0be+q2HlQdOizcGZ44yQpz08pjdzhYfU+9J0
-         GpziJoxSjr42YYLSt3Z1lGa/HmZIp7ZcNtEyMrPybfzWNmIxiFH7984o6L/4bHtbn22x
-         L2yLkqIUc28xLoPN3M6tTmCA6Dm/ilP5z2Q5C01sflULTR2MJqEZV1Beg/w47+yPJPiG
-         PkKg==
-X-Gm-Message-State: ABy/qLYlWKW8uG9ND+nWs6W8szU9K7ZfqWbZwPHOyL3/s8kd6WK1+rhR
-	Ho4ElCBZPGlbQ6GUA6/tgHpi5g==
-X-Google-Smtp-Source: APBJJlGG9fl/KZM7Wu/aB3nA3qPBXzAgCls0ii/X4UboFM2rQSd7zbDq190u8vBbdPOZ8QFUsdy1lw==
-X-Received: by 2002:a17:90a:faf:b0:268:abc:83d5 with SMTP id 44-20020a17090a0faf00b002680abc83d5mr23478200pjz.4.1691406791204;
-        Mon, 07 Aug 2023 04:13:11 -0700 (PDT)
+        bh=4VJlLpDqVGiuvI83ez+3bl7yR5bVuWalBgtTU2vfBLE=;
+        b=CUnagC+IRunxI2I+HWCzEVGaZSYwKqtSxXMk8im0u2rFHCPdhY6JheJr2nC+tOGBI5
+         efPqCsH5oio4qUsHDG7mxgk5A7/y/fXhioCGNOO85zB/JBq9qX5APfJ9aYDH4cWa47t3
+         WxJQvZbmhJadS25MyJFXaXMYj24ZOqk9XhjEpo17/qQLPihm+Zuhn3nzS0FOIe6EDj+a
+         CGBIAPnRtyHUv6vkn4x3WUNrGNQQ8J0FLqigRFDFHq9EMuGn0b2rLPDw4UgUYMgl2sjp
+         usK4dannFYg6re5yv8VSYqfeUzHDORaUx8Hekhbf+OFcrgT1xvPoN8Pbmcas3Env0JOc
+         0oSQ==
+X-Gm-Message-State: ABy/qLYZse8gTekHOX8ovMuUEZfnGlD8yFygrts/pO3R1ha1DCoO0Wu4
+	OxH9i2oXsqE/6t0nnHTQRIXTxQ==
+X-Google-Smtp-Source: APBJJlG6KxjpSP18cuDMGPLwCal+2Q6XOYkRmOlR+93TSEU+QOz0TNU1VRvfHZPrdEq648UTFq+gsw==
+X-Received: by 2002:a92:d944:0:b0:349:3c78:fd14 with SMTP id l4-20020a92d944000000b003493c78fd14mr13499018ilq.1.1691406803912;
+        Mon, 07 Aug 2023 04:13:23 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org,
 	david@fromorbit.com,
@@ -117,81 +117,66 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-btrfs@vger.kernel.org,
 	Qi Zheng <zhengqi.arch@bytedance.com>,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v4 15/48] nfsd: dynamically allocate the nfsd-filecache shrinker
-Date: Mon,  7 Aug 2023 19:09:03 +0800
-Message-Id: <20230807110936.21819-16-zhengqi.arch@bytedance.com>
+Subject: [PATCH v4 16/48] quota: dynamically allocate the dquota-cache shrinker
+Date: Mon,  7 Aug 2023 19:09:04 +0800
+Message-Id: <20230807110936.21819-17-zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use new APIs to dynamically allocate the nfsd-filecache shrinker.
+Use new APIs to dynamically allocate the dquota-cache shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- fs/nfsd/filecache.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ fs/quota/dquot.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
-index ee9c923192e0..9c62b4502539 100644
---- a/fs/nfsd/filecache.c
-+++ b/fs/nfsd/filecache.c
-@@ -521,11 +521,7 @@ nfsd_file_lru_scan(struct shrinker *s, struct shrink_control *sc)
- 	return ret;
+diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+index 9e72bfe8bbad..c303cffdf433 100644
+--- a/fs/quota/dquot.c
++++ b/fs/quota/dquot.c
+@@ -791,12 +791,6 @@ dqcache_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
+ 	percpu_counter_read_positive(&dqstats.counter[DQST_FREE_DQUOTS]));
  }
  
--static struct shrinker	nfsd_file_shrinker = {
--	.scan_objects = nfsd_file_lru_scan,
--	.count_objects = nfsd_file_lru_count,
--	.seeks = 1,
+-static struct shrinker dqcache_shrinker = {
+-	.count_objects = dqcache_shrink_count,
+-	.scan_objects = dqcache_shrink_scan,
+-	.seeks = DEFAULT_SEEKS,
 -};
-+static struct shrinker *nfsd_file_shrinker;
+-
+ /*
+  * Safely release dquot and put reference to dquot.
+  */
+@@ -2956,6 +2950,7 @@ static int __init dquot_init(void)
+ {
+ 	int i, ret;
+ 	unsigned long nr_hash, order;
++	struct shrinker *dqcache_shrinker;
  
- /**
-  * nfsd_file_cond_queue - conditionally unhash and queue a nfsd_file
-@@ -746,12 +742,19 @@ nfsd_file_cache_init(void)
- 		goto out_err;
- 	}
+ 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
  
--	ret = register_shrinker(&nfsd_file_shrinker, "nfsd-filecache");
--	if (ret) {
--		pr_err("nfsd: failed to register nfsd_file_shrinker: %d\n", ret);
-+	nfsd_file_shrinker = shrinker_alloc(0, "nfsd-filecache");
-+	if (!nfsd_file_shrinker) {
-+		ret = -ENOMEM;
-+		pr_err("nfsd: failed to allocate nfsd_file_shrinker\n");
- 		goto out_lru;
- 	}
+@@ -2990,8 +2985,15 @@ static int __init dquot_init(void)
+ 	pr_info("VFS: Dquot-cache hash table entries: %ld (order %ld,"
+ 		" %ld bytes)\n", nr_hash, order, (PAGE_SIZE << order));
  
-+	nfsd_file_shrinker->count_objects = nfsd_file_lru_count;
-+	nfsd_file_shrinker->scan_objects = nfsd_file_lru_scan;
-+	nfsd_file_shrinker->seeks = 1;
+-	if (register_shrinker(&dqcache_shrinker, "dquota-cache"))
+-		panic("Cannot register dquot shrinker");
++	dqcache_shrinker = shrinker_alloc(0, "dquota-cache");
++	if (!dqcache_shrinker)
++		panic("Cannot allocate dquot shrinker");
 +
-+	shrinker_register(nfsd_file_shrinker);
++	dqcache_shrinker->count_objects = dqcache_shrink_count;
++	dqcache_shrinker->scan_objects = dqcache_shrink_scan;
++	dqcache_shrinker->seeks = DEFAULT_SEEKS;
 +
- 	ret = lease_register_notifier(&nfsd_file_lease_notifier);
- 	if (ret) {
- 		pr_err("nfsd: unable to register lease notifier: %d\n", ret);
-@@ -774,7 +777,7 @@ nfsd_file_cache_init(void)
- out_notifier:
- 	lease_unregister_notifier(&nfsd_file_lease_notifier);
- out_shrinker:
--	unregister_shrinker(&nfsd_file_shrinker);
-+	shrinker_free(nfsd_file_shrinker);
- out_lru:
- 	list_lru_destroy(&nfsd_file_lru);
- out_err:
-@@ -891,7 +894,7 @@ nfsd_file_cache_shutdown(void)
- 		return;
++	shrinker_register(dqcache_shrinker);
  
- 	lease_unregister_notifier(&nfsd_file_lease_notifier);
--	unregister_shrinker(&nfsd_file_shrinker);
-+	shrinker_free(nfsd_file_shrinker);
- 	/*
- 	 * make sure all callers of nfsd_file_lru_cb are done before
- 	 * calling nfsd_file_cache_purge
+ 	return 0;
+ }
 -- 
 2.30.2
 
