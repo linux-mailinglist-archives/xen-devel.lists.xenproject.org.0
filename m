@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 636C4772E2F
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 20:52:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578805.906559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 358D8772E31
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 20:52:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578806.906569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5L1-0008DE-Ng; Mon, 07 Aug 2023 18:52:19 +0000
+	id 1qT5L5-0000Kc-1V; Mon, 07 Aug 2023 18:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578805.906559; Mon, 07 Aug 2023 18:52:19 +0000
+Received: by outflank-mailman (output) from mailman id 578806.906569; Mon, 07 Aug 2023 18:52:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5L1-0008Ae-Io; Mon, 07 Aug 2023 18:52:19 +0000
-Received: by outflank-mailman (input) for mailman id 578805;
- Mon, 07 Aug 2023 18:52:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qT5L4-0000Hw-SG; Mon, 07 Aug 2023 18:52:22 +0000
+Received: by outflank-mailman (input) for mailman id 578806;
+ Mon, 07 Aug 2023 18:52:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qk11=DY=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qT5L0-0004GT-Pg
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 18:52:18 +0000
-Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
- [2607:f8b0:4864:20::f31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 873a5ef7-3553-11ee-8613-37d641c3527e;
- Mon, 07 Aug 2023 20:52:16 +0200 (CEST)
-Received: by mail-qv1-xf31.google.com with SMTP id
- 6a1803df08f44-63d2b7d77bfso33900716d6.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 11:52:16 -0700 (PDT)
+ id 1qT5L3-0004lg-Fp
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 18:52:21 +0000
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [2607:f8b0:4864:20::c30])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89533fb3-3553-11ee-b280-6b7b168915f2;
+ Mon, 07 Aug 2023 20:52:20 +0200 (CEST)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-56ca4d7079aso3310667eaf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 11:52:20 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com
  (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
  [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
- l3-20020a0ce503000000b00635fcd30ff9sm3077278qvm.40.2023.08.07.11.52.14
+ l3-20020a0ce503000000b00635fcd30ff9sm3077278qvm.40.2023.08.07.11.52.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 11:52:14 -0700 (PDT)
+ Mon, 07 Aug 2023 11:52:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,83 +46,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 873a5ef7-3553-11ee-8613-37d641c3527e
+X-Inumbo-ID: 89533fb3-3553-11ee-b280-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691434335; x=1692039135;
+        d=gmail.com; s=20221208; t=1691434339; x=1692039139;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8DT7oP40QgonifT7RMQUN+ralNpmx0+TMvzxcNwj95c=;
-        b=o79SYks5IRvTS4g7YFj3Lu/26R982JYey+le3GNqqQ9vr75f+fceIelAaAy0n1d36i
-         rK/yTGhB7hJSpPR3VQxG/o3k9fFPuc1wQmpjhXNnZ09CsNsAPu7VpGvhoT96iPlhvZ3z
-         FMX9BATYxLRLpjtHVyRSkl9cGWiaitofv5EyDzOpSC/1XjZUDlG9kRDl/TGJK150lJA0
-         7OEvIYAwZAvLXkOFMxd/6vtr6UP9lcwzqCbqo3YoeD3EFRswCQYfnock849n2/+dgVb9
-         7N51deTZQNkjCEV62PwG5owEBvj/y6aXb/ExKR7SMkvYFGQ4YpDXMFtnOhejB0+ne+Pr
-         3PAA==
+        bh=u8YY0cMbSt93RGcC2b1IS+Yfu6uCEeREtdnIWAGkVWs=;
+        b=GYWW5JX4pXnd3+DLhH12t6E5X7ni1FxzUuRMa1pwAj58O14rcveuPnkf8ddsYil1bg
+         /W7kjcE1lJFd1OexBkUESi9KAaguNkDuL9n7WJ0Qj96karMvJ9LsBCvWGl6E5BhqQSTs
+         g/IbyLBh1RC10mAfYXllHqhvKZOGpSlV10BrHRgh3uwo+YwDsN564CHxhD9u+1w/IZ/L
+         qHVqnZaukjwds/uomKxmmITyBQuPEgyuuDm7mXOieVRIGiS8PWZcSJf1v6wv32CTcfHg
+         /Ts3HpaKR8PNoDtOZd0mxvRj4U+xDPX1mI7ZllF8j0EimHiJjelyBL9Klm7GKPT8WBwA
+         wMzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691434335; x=1692039135;
+        d=1e100.net; s=20221208; t=1691434339; x=1692039139;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8DT7oP40QgonifT7RMQUN+ralNpmx0+TMvzxcNwj95c=;
-        b=fYANuRHKG/ZBSL1w6D3EZxupuKJl4Vo9Oq1ppvBb6X8cwplzHvdvZW7eyXdUCfdhES
-         eFJc976KPP01dsFzE4YINs27jMEkU497VfDzI0hCC0VWPpzEQ1t/IwfpSHpO7rgOCsg1
-         ap5as4p3XJpe9uDkf2lEFHPJ5x8G3+74ZRsVBo1c10DhobLgPbvWNwYzz4aJNPzLTjOk
-         roZA+4EYG83V2Ld35ejyvzgZoY//Ugfk6VDF1+dF9TEvDcJtYtTXUoc7R8ngsBFrMnEh
-         j7WC6RQPwEHSucX1Uk9SGbiqtqi2Z32JD7bE4Eno9gRwqQt/LcDdkJ5787JYlcyltmZu
-         jTTw==
-X-Gm-Message-State: AOJu0YyVQojfsuuT/oCOQyAA91swqX84y9I2RHIbHYAttyzcmZcwgHau
-	U6RQKWzcVCw3kDYljYUD0/XyhGVIcJM=
-X-Google-Smtp-Source: AGHT+IH6T9fI4HBdZOk6EGgyAMl2tDC+osINgoctgIjiNWPu28mxxHWGK9Mo3xSHhjGMkqPBMVY6yw==
-X-Received: by 2002:a0c:e549:0:b0:63d:4a9b:b29f with SMTP id n9-20020a0ce549000000b0063d4a9bb29fmr10472878qvm.65.1691434335348;
-        Mon, 07 Aug 2023 11:52:15 -0700 (PDT)
+        bh=u8YY0cMbSt93RGcC2b1IS+Yfu6uCEeREtdnIWAGkVWs=;
+        b=MxYWnl1oEYYaSFsh8a595kPrgRf5/fm6a4kYR8O5OXcbx/dpwt39eBuY32Ce/3v9Pq
+         GMVCH8BDSKRompoDOhcHWfMdaZlONa6xQX/GjpyHyeF4ZUztE22qDyk/YxtqJnE4hzB6
+         o4kSCzlJIWyDFpMc3XMz1Hry8U/nkIXxPECVhjwqtduYe4UaDmM04hVQwP0qm6I6J8Mg
+         TaJSn5CspInEOIad3/q7KVPtrV3fysZ2DCQAP5xhTrUI5Fu0dIS3AF+2D5uexG6iHD3K
+         an/4DPzhwFfhJ4OuETFun5T+kiOvuHoqbs2/F8nO7HxcETRK8tjKqggha0tfGp7qNc6h
+         PTWA==
+X-Gm-Message-State: AOJu0Yzu40o2i6lxsMYjX3xjIbaewr/TLnpXwGeF9I4A0fHHdMo1f4vK
+	tQKtYLg8nxELO77EvB1m2DARTxwXDzk=
+X-Google-Smtp-Source: AGHT+IEgaCDlSduv/RvPBK6XMI+y0QAxWUnpQ54azRZXBg+BliJoQMDaz8dLyZ2DSoZcqwCXAbZbdQ==
+X-Received: by 2002:a05:6358:4285:b0:134:eed0:3bc5 with SMTP id s5-20020a056358428500b00134eed03bc5mr7203855rwc.9.1691434338972;
+        Mon, 07 Aug 2023 11:52:18 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v8 10/15] libxc: Include cppc_para in definitions
-Date: Mon,  7 Aug 2023 14:51:14 -0400
-Message-ID: <20230807185119.98333-11-jandryuk@gmail.com>
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v8 11/15] xenpm: Print HWP/CPPC parameters
+Date: Mon,  7 Aug 2023 14:51:15 -0400
+Message-ID: <20230807185119.98333-12-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230807185119.98333-1-jandryuk@gmail.com>
 References: <20230807185119.98333-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Expose the cppc_para fields through libxc.
+Print HWP-specific parameters.  Some are always present, but others
+depend on hardware support.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-v4:
-Rename hwp to cppc
-Add Anthony's Ack
----
- tools/include/xenctrl.h | 2 ++
- 1 file changed, 2 insertions(+)
+v2:
+Style fixes
+Declare i outside loop
+Replace repearted hardware/configured limits with spaces
+Fixup for hw_ removal
+Use XEN_HWP_GOVERNOR
+Use HWP_ACT_WINDOW_EXPONENT_*
+Remove energy_perf hw autonomous - 0 doesn't mean autonomous
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index de03cfb117..5824394125 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1909,6 +1909,7 @@ int xc_smt_disable(xc_interface *xch);
-  */
- typedef struct xen_userspace xc_userspace_t;
- typedef struct xen_ondemand xc_ondemand_t;
-+typedef struct xen_cppc_para xc_cppc_para_t;
+v4:
+Return activity_window from calculate_hwp_activity_window
+Use blanks instead of _ in output
+Use MASK_EXTR
+Check XEN_HWP_DRIVER name since governor is no longer returned
+s/hwp/cppc
+
+v5:
+Add Jan's Reviewed-by
+
+v8:
+Switch from "if ( !hwp )" to "if ( hwp )" and re-org code.
+Use %PRIu32 instead of %u - this lengthens some strings past 80 chars
+---
+ tools/misc/xenpm.c | 68 +++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 67 insertions(+), 1 deletion(-)
+
+diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+index 3f5b2afcea..688529b59d 100644
+--- a/tools/misc/xenpm.c
++++ b/tools/misc/xenpm.c
+@@ -708,6 +708,46 @@ void start_gather_func(int argc, char *argv[])
+     pause();
+ }
  
- struct xc_get_cpufreq_para {
-     /* IN/OUT variable */
-@@ -1940,6 +1941,7 @@ struct xc_get_cpufreq_para {
-                 xc_ondemand_t ondemand;
-             } u;
-         } s;
-+        xc_cppc_para_t cppc_para;
-     } u;
++static unsigned int calculate_activity_window(const xc_cppc_para_t *cppc,
++                                              const char **units)
++{
++    unsigned int mantissa = MASK_EXTR(cppc->activity_window,
++                                      XEN_CPPC_ACT_WINDOW_MANTISSA_MASK);
++    unsigned int exponent = MASK_EXTR(cppc->activity_window,
++                                      XEN_CPPC_ACT_WINDOW_EXPONENT_MASK);
++    unsigned int multiplier = 1;
++    unsigned int i;
++
++    /*
++     * SDM only states a 0 register is hardware selected, and doesn't mention
++     * a 0 mantissa with a non-0 exponent.  Only special case a 0 register.
++     */
++    if ( cppc->activity_window == 0 )
++    {
++        *units = "hardware selected";
++
++        return 0;
++    }
++
++    if ( exponent >= 6 )
++    {
++        *units = "s";
++        exponent -= 6;
++    }
++    else if ( exponent >= 3 )
++    {
++        *units = "ms";
++        exponent -= 3;
++    }
++    else
++        *units = "us";
++
++    for ( i = 0; i < exponent; i++ )
++        multiplier *= 10;
++
++    return mantissa * multiplier;
++}
++
+ /* print out parameters about cpu frequency */
+ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
+ {
+@@ -733,7 +773,33 @@ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
  
-     int32_t turbo_enabled;
+     printf("scaling_driver       : %s\n", p_cpufreq->scaling_driver);
+ 
+-    if ( !hwp )
++    if ( hwp )
++    {
++        const xc_cppc_para_t *cppc = &p_cpufreq->u.cppc_para;
++
++        printf("cppc variables       :\n");
++        printf("  hardware limits    : lowest [%"PRIu32"] lowest nonlinear [%"PRIu32"]\n",
++               cppc->lowest, cppc->lowest_nonlinear);
++        printf("                     : nominal [%"PRIu32"] highest [%"PRIu32"]\n",
++               cppc->nominal, cppc->highest);
++        printf("  configured limits  : min [%"PRIu32"] max [%"PRIu32"] energy perf [%"PRIu32"]\n",
++               cppc->minimum, cppc->maximum, cppc->energy_perf);
++
++        if ( cppc->features & XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW )
++        {
++            unsigned int activity_window;
++            const char *units;
++
++            activity_window = calculate_activity_window(cppc, &units);
++            printf("                     : activity_window [%"PRIu32" %s]\n",
++                   activity_window, units);
++        }
++
++        printf("                     : desired [%"PRIu32"%s]\n",
++               cppc->desired,
++               cppc->desired ? "" : " hw autonomous");
++    }
++    else
+     {
+         printf("scaling_avail_gov    : %s\n",
+                p_cpufreq->scaling_available_governors);
 -- 
 2.41.0
 
