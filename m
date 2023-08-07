@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FEBE771D43
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 11:40:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.577935.905063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9257771D5E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 11:48:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.577942.905073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSwip-0002Kz-Bh; Mon, 07 Aug 2023 09:40:19 +0000
+	id 1qSwpo-000322-32; Mon, 07 Aug 2023 09:47:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 577935.905063; Mon, 07 Aug 2023 09:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 577942.905073; Mon, 07 Aug 2023 09:47:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSwip-0002Ir-94; Mon, 07 Aug 2023 09:40:19 +0000
-Received: by outflank-mailman (input) for mailman id 577935;
- Mon, 07 Aug 2023 09:40:17 +0000
+	id 1qSwpo-0002zr-0I; Mon, 07 Aug 2023 09:47:32 +0000
+Received: by outflank-mailman (input) for mailman id 577942;
+ Mon, 07 Aug 2023 09:47:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LmzZ=DY=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1qSwin-0002Ij-GS
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 09:40:17 +0000
+ id 1qSwpm-0002zc-EO
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 09:47:30 +0000
 Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
  [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 679d72dc-3506-11ee-b27d-6b7b168915f2;
- Mon, 07 Aug 2023 11:40:15 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 431FF3200583;
- Mon,  7 Aug 2023 05:40:10 -0400 (EDT)
+ id 6bb0d336-3507-11ee-b27d-6b7b168915f2;
+ Mon, 07 Aug 2023 11:47:29 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id A42DF320090F;
+ Mon,  7 Aug 2023 05:47:26 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 07 Aug 2023 05:40:10 -0400
+ by compute5.internal (MEProxy); Mon, 07 Aug 2023 05:47:27 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Aug 2023 05:40:07 -0400 (EDT)
+ 7 Aug 2023 05:47:24 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,127 +43,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 679d72dc-3506-11ee-b27d-6b7b168915f2
+X-Inumbo-ID: 6bb0d336-3507-11ee-b27d-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1691401209; x=1691487609; bh=CQofn4kIIMGyS3oRnZGe7L+ew6Ute4sCDJJ
-	Fql2/Wzo=; b=VoQvsoUsTgoYMIcsh1iIBzf9FfYI7JymX5ew1jXBGtJGRkgzp8+
-	BzR5ji4sK+cscLabQPEW9W0Bfzsoa8f8TRAExLhnHA0L6z1UCKDhOIl/Xg206cAK
-	afofzpilWyFdoDcdaz6XIhLgsDiGH+8icS2uSeehCGgl3y6DN1PQGRhAeGiIGkhH
-	N6A4I4cz1e6ScUrXS81ZA+Z48a3AEs9F8ZoXpBs8kZVhiBAk3wm9Kq77pTM2gejm
-	0kptXcV+GWxqqJ3efFihK17LeHIfSGHpKPM3rYQ0DSqMXOR+xMajLSvhlg5mPRDD
-	J5Nlu9lyjhsi20U1+7MLo1YrLFbuLUEW33Q==
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1691401646; x=1691488046; bh=oyiuSl6ubAxDMpNDLfcH1Iyv9puo3tY1ocC
+	wH/6+1ao=; b=awSgKozHJ8gpF9Ml+ivW1Gc6X9hJIUDhyG/pPTgN9nKuvgwNYdE
+	EmHSolBZVYIa8NdYQuE1PEFsLrAdJVaywVYayNdgBt+GFRdpqM/xXi/cry/ts8LT
+	dmEiuYz3z9zEm7oZ9PWnjppjqeNSHTBNMXiFEH/bI2mGtpKFFpCNJ4E2c5Ur/VU3
+	ZcJTXLWTPmxb6OfTdS8P7LlDYnw5LficKbBX5Oi9+9DOf+x1VCI9RcriH/0t1lQx
+	XYNA5zWSSZbfrPpystFaE9WRQKHu9OHttfQHArYtThRGDULtgjwbgY6MtUcsuoVf
+	H0YYZ+T7XQ5SFQ7CXqhq4Gm88wC37q+ecBg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1691401209; x=1691487609; bh=CQofn4kIIMGyS
-	3oRnZGe7L+ew6Ute4sCDJJFql2/Wzo=; b=bLP2urWte1cys9qMwAxSC/kFcKFAV
-	NlwqlsP+9BROhFDF+k4ZTxEXmrv8GiQma3zZCD9BGraox8+yJ0svJeE8B1NN2J/c
-	jgIIyEgEZZAtnNITJgPgoFLwshGQj1Esjf0MzC2UrjjIX+InbS3pv1EpCUESEQQg
-	PZ7z8fj2U2iYxdL5P0XJ9aC6LD2rTFj1WlsyjSKI6EIeJfTF3i3LxJorWTJGUsfV
-	rx7kGSclO964m0LEFLve+bAfRDK87vGyWjtMiC8YpsAUjXQVsuxpwdo/7joWT7s7
-	niK7WnWsFoNgiN35JvU8iYgKVr6jLuEXH3PRol4vz1n6JHfPnXqEZt0Bw==
-X-ME-Sender: <xms:-bvQZPKPao04tQiQ95OhYgJQdJpX_V8EmVOOhZ2VLNZd6VJBxzQhmQ>
-    <xme:-bvQZDLSwMqqPzuHBqa3C5osSMEfr4qiC-ghc1NkhYG79hC6fUxBAct2Dc7I6oABl
-    jbHp_OPUyJrYSU>
-X-ME-Received: <xmr:-bvQZHvDaqpwxC8bxqZyET2gkOpv8OcSKH-EzIHKbu50_-MT77l2N_r8_-_9>
+	:x-sasl-enc; s=fm3; t=1691401646; x=1691488046; bh=oyiuSl6ubAxDM
+	pNDLfcH1Iyv9puo3tY1ocCwH/6+1ao=; b=12Cw/hnCNLV0rCBbhAG9xsSnstNac
+	KyChLLEDIQZu8q5ZL70Y0ebtHA4jeZd2ZvtBalDi4s0cqHmY4OE5fyFnCcvcWVfq
+	6uWW+s3MA8mgP7Zmjp8BqSRcj7oPnS6tgUCdnGybaCw/fk/2EQjQ5SVfwAn+TATl
+	mscQXWLFonCXE3IZIXtVraMnXhKp8pHaB3DXvA98VFbDRYTk7RGKQ2T7XzgdUCpT
+	fKFr+Pbwmlh3wFkLb1LGDZ9UwXpbVci/ExjlmFP33scM9oS5kT28ODX+a3jF1zL2
+	R8Hnbxa13nKFbNshSw9cx15YmcndL5BMa7GP+xS9sD/AedmniNxwLzHag==
+X-ME-Sender: <xms:rb3QZPYRLCPUw13MPhWnNZVoQ11OB_66S0AMrdXJn0Vh85KMkVtHKQ>
+    <xme:rb3QZObFpLzm9ulPm9ioJUctJf83fYDFGHw_RA8SoTKB2RfrY9hMN6D7lq1FktmDM
+    OI2v-5Cacqjs2k>
+X-ME-Received: <xmr:rb3QZB8_XTfXQWs5DTSbpqaG9r5HMQfe29rz0_0K7x_Fq8CVgCcNCCvq2AsymtY>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrledtgddujecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefuihhmohhnucfi
-    rghishgvrhcuoehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    eqnecuggftrfgrthhtvghrnhepueevheegtdefgeefuddvfeduueduffffffejveeugeef
-    udefiedugedugeevudfgnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsihhmohhnsehinhhv
-    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:-bvQZIYpXZ8IND_tayfTvOQ40EFGs724YiV_7IQHXZ5M4t2E_ch8EQ>
-    <xmx:-bvQZGbWxEX2QwMz6wLyewJZ3y3SZsvUrJsVNgpMtmEKcCpZqahnNg>
-    <xmx:-bvQZMCJXSjIPXqhjM9h_daz19s9g1Hq4Tmz2GbgON8nhxa4mVlSBQ>
-    <xmx:-bvQZNXJLeBi12si7ffSybkG7jMv5W43edqNDKNGUAlEaUGyIBMlpA>
+    fjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhhonhcu
+    ifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+    hmqeenucggtffrrghtthgvrhhnpeekueffiedtgeffleeglefhledtfefgiedtveeiffeg
+    hffgledtveehhfdugfetveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+    grihhlfhhrohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
+    mh
+X-ME-Proxy: <xmx:rr3QZFom4bBfjFteGv-EDtLvv_zgyu8LbbZrGo2GRGxDDQfhwDmoUQ>
+    <xmx:rr3QZKr0jTupbCJHlpCMGbwpWBikdBgiRDw6E_PikZnhZnxR2TzM9w>
+    <xmx:rr3QZLSE4F4u_O_ZPQXSCv5pZM55LzWFnxyYwPKT5h5ux-Z8KQvUCg>
+    <xmx:rr3QZNVMCY01EqwXmAvoS4dYoolUraWsrx6S8M4MFPeGniCi-XieXw>
 Feedback-ID: idc5945a3:Fastmail
-From: Simon Gaiser <simon@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Simon Gaiser <simon@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when parsing MADT
-Date: Mon,  7 Aug 2023 11:38:25 +0200
-Message-Id: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
-X-Mailer: git-send-email 2.40.1
+Message-ID: <16d5ea81-b12d-df4c-bbbb-0d9cdc2df8f0@invisiblethingslab.com>
+Date: Mon, 7 Aug 2023 11:47:12 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [XEN PATCH v2] x86/hpet: Disable legacy replacement mode after
+ IRQ test
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <a112f0fbbb333fc29a35d0a81853d59409a33fde.1690798460.git.simon@invisiblethingslab.com>
+ <8757d4b8-7765-e50f-73d2-34c7c34acaa5@suse.com>
+From: Simon Gaiser <simon@invisiblethingslab.com>
+In-Reply-To: <8757d4b8-7765-e50f-73d2-34c7c34acaa5@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------FqNyTuaOB7wvgh5boHzi1Prp"
 
-It seems some firmwares put dummy entries in the ACPI MADT table for non
-existing processors. On my NUC11TNHi5 those have the invalid APIC ID
-0xff. Linux already has code to handle those cases both in
-acpi_parse_lapic [1] as well as in acpi_parse_x2apic [2]. So add the
-same check to Xen.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------FqNyTuaOB7wvgh5boHzi1Prp
+Content-Type: multipart/mixed; boundary="------------bzYp4zvEK8XxHai1001cssK7";
+ protected-headers="v1"
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Message-ID: <16d5ea81-b12d-df4c-bbbb-0d9cdc2df8f0@invisiblethingslab.com>
+Subject: Re: [XEN PATCH v2] x86/hpet: Disable legacy replacement mode after
+ IRQ test
+References: <a112f0fbbb333fc29a35d0a81853d59409a33fde.1690798460.git.simon@invisiblethingslab.com>
+ <8757d4b8-7765-e50f-73d2-34c7c34acaa5@suse.com>
+In-Reply-To: <8757d4b8-7765-e50f-73d2-34c7c34acaa5@suse.com>
 
-Note that on some older (2nd gen Core i) laptop of mine I also saw dummy
-entries with a valid APIC ID. Linux would still ignore those because
-they have !ACPI_MADT_ENABLED && !ACPI_MADT_ONLINE_CAPABLE. But in Xen
-this check is only active for madt_revision >= 5. But since this version
-check seems to be intentionally I leave that alone.
+--------------bzYp4zvEK8XxHai1001cssK7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f3bf1dbe64b62a2058dd1944c00990df203e8e7a # [1]
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=10daf10ab154e31237a8c07242be3063fb6a9bf4 # [2]
-Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
----
- xen/arch/x86/acpi/boot.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+Jan Beulich:
+> On 31.07.2023 12:32, Simon Gaiser wrote:
+>> --- a/xen/arch/x86/io_apic.c
+>> +++ b/xen/arch/x86/io_apic.c
+>> @@ -1967,6 +1967,8 @@ static void __init check_timer(void)
+>> =20
+>>              if ( timer_irq_works() )
+>>              {
+>> +                printk(XENLOG_INFO "IRQ test with HPET Legacy Replace=
+ment Mode worked. Disabling it again.\n");
+>> +                hpet_disable_legacy_replacement_mode();
+>>                  local_irq_restore(flags);
+>>                  return;
+>>              }
+>=20
+> I'm not sure of the value of the log message. Furthermore, considering
+> plans to make XENLOG_INFO visible by default in release builds, when
+> not purely a debugging message. I'm curious what other x86 maintainers
+> think ...
 
-diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
-index 54b72d716b..4a62822fa9 100644
---- a/xen/arch/x86/acpi/boot.c
-+++ b/xen/arch/x86/acpi/boot.c
-@@ -87,14 +87,17 @@ acpi_parse_x2apic(struct acpi_subtable_header *header, const unsigned long end)
- 	if (BAD_MADT_ENTRY(processor, end))
- 		return -EINVAL;
- 
-+	/* Ignore entries with invalid apicid */
-+	if (processor->local_apic_id == 0xffffffff)
-+		return 0;
-+
- 	/* Don't register processors that cannot be onlined. */
- 	if (madt_revision >= 5 &&
- 	    !(processor->lapic_flags & ACPI_MADT_ENABLED) &&
- 	    !(processor->lapic_flags & ACPI_MADT_ONLINE_CAPABLE))
- 		return 0;
- 
--	if ((processor->lapic_flags & ACPI_MADT_ENABLED) ||
--	    processor->local_apic_id != 0xffffffff || opt_cpu_info) {
-+	if ((processor->lapic_flags & ACPI_MADT_ENABLED) || opt_cpu_info) {
- 		acpi_table_print_madt_entry(header);
- 		log = true;
- 	}
-@@ -143,14 +146,17 @@ acpi_parse_lapic(struct acpi_subtable_header * header, const unsigned long end)
- 	if (BAD_MADT_ENTRY(processor, end))
- 		return -EINVAL;
- 
-+	/* Ignore entries with invalid apicid */
-+	if (processor->id == 0xff)
-+		return 0;
-+
- 	/* Don't register processors that cannot be onlined. */
- 	if (madt_revision >= 5 &&
- 	    !(processor->lapic_flags & ACPI_MADT_ENABLED) &&
- 	    !(processor->lapic_flags & ACPI_MADT_ONLINE_CAPABLE))
- 		return 0;
- 
--	if ((processor->lapic_flags & ACPI_MADT_ENABLED) ||
--	    processor->id != 0xff || opt_cpu_info)
-+	if ((processor->lapic_flags & ACPI_MADT_ENABLED) || opt_cpu_info)
- 		acpi_table_print_madt_entry(header);
- 
- 	/* Record local apic id only when enabled */
--- 
-2.40.1
+As far as I can see nobody has so far voiced an opinion. How about you
+tell me the level and message you would prefer and I send a new version
+of the patch with it.
 
+Simon
+
+--------------bzYp4zvEK8XxHai1001cssK7--
+
+--------------FqNyTuaOB7wvgh5boHzi1Prp
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmTQvaIACgkQkO9xfO/x
+ly9Dxg//Tj8yrK7W8agNBrnli7aYzzXSQCczKzZwwSVAzl9Aszchm4zBwDuOil0H
+LgnRkZSMr+4GtynGUANcentVO2CDymlChTmf72l2u39xlYuyP3SxUyJpo4BrD9Pt
+ExEkGgz3ELJf0nnawInhomL6v6I/m8zDKVsNZllRL9UvOykPchB9VUNMzQlj2oi/
+vdO2BOldbZ+OyUbeG3SWXgNNG9gQm1h0OT6oCpNwY/LxmUJ1fAiKEu+i6MDeF37R
+mUsdlLX9pH+bXm16CVN8vJKXT06pwtBNh1gYizBl+9iHtN3b+FMPtpH4ecrxJiHB
+yAnzfwPKbEbrFxD+76ENa0y6JtdqqaCJ5aC0m75nNzqBt/wec5pfJSpM+uDJod+P
+qrNiFyhodp65DdttD2XHvoL6xLWKobquElyPtqZSzRtLkJKw/vHd3Al4/th5Ic0d
+6o7/7ThRqxnPnHLX1muocg/vQVOBv1h+BI13HKUEapM5346W0h66o3RXz0MzJhHk
+6/45d5t7WQ1wgtYrEGBsQa00Q8Wy4Ahqi91qk7U9NYKXBe9D+vGHVgsuOm9hvZEF
+Ea7w/eiS1IoAO5YcBHO5oU42ilCF1nl6gIkvONpOoJVh594tQG6U06PGp+bgdvWs
+H5KuAgYwcjGH0qja5RusdeN3ykFhBaseLc0KRUUj9IRV6TrlPqU=
+=qSzw
+-----END PGP SIGNATURE-----
+
+--------------FqNyTuaOB7wvgh5boHzi1Prp--
 
