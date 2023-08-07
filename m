@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04C3A772E97
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 21:22:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578911.906658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A43BF772E9D
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 21:25:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578916.906669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5np-0001oS-Dq; Mon, 07 Aug 2023 19:22:05 +0000
+	id 1qT5qX-0002NQ-R2; Mon, 07 Aug 2023 19:24:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578911.906658; Mon, 07 Aug 2023 19:22:05 +0000
+Received: by outflank-mailman (output) from mailman id 578916.906669; Mon, 07 Aug 2023 19:24:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5np-0001mM-B2; Mon, 07 Aug 2023 19:22:05 +0000
-Received: by outflank-mailman (input) for mailman id 578911;
- Mon, 07 Aug 2023 19:22:04 +0000
+	id 1qT5qX-0002Ll-OD; Mon, 07 Aug 2023 19:24:53 +0000
+Received: by outflank-mailman (input) for mailman id 578916;
+ Mon, 07 Aug 2023 19:24:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qk11=DY=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qT5no-0001mG-85
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 19:22:04 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=aC6Z=DY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qT5qW-0002Lf-EE
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 19:24:52 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b03dd26d-3557-11ee-b280-6b7b168915f2;
- Mon, 07 Aug 2023 21:22:03 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-52307552b03so6756295a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 12:22:03 -0700 (PDT)
+ id 139c6502-3558-11ee-b280-6b7b168915f2;
+ Mon, 07 Aug 2023 21:24:50 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1D1D96216A;
+ Mon,  7 Aug 2023 19:24:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F89C433C7;
+ Mon,  7 Aug 2023 19:24:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,64 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b03dd26d-3557-11ee-b280-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691436122; x=1692040922;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BuCRkyKda8YWgOZqK5+ahsUV1F3t/tbQ+gtgKZ/2cZM=;
-        b=YoXuPmyIUWvzKVGMNJOMvRR2rqwx1pTl4u8VhjYNCtdHhd6isx/cIcT0WycrVkjV3b
-         HP8wMBVaZR3BwjULGAuXLV5uTJ7LkISUxMiUGvzdjFLcYXSoTBxiLaa/HxJqW0IE9wqN
-         ecI14tsJA66jHxzPiEwM4oLOrtfFeYtwc0U6iKJnTV4Ac0ALW+MMsp7+uo1AeRJVTicI
-         3D6Z64xlbfiprv9PttD81bwyagfAGpydyJuTSJUg3+a7MbEtyvZc3bERZkeDKabktP0K
-         GUCdTxJZ16pKZSRtSYgJwK7QqBoc4tB6R8QUWgCbHKW9HFotixEAgR02xEbTxaeYI5A0
-         cKkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691436122; x=1692040922;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BuCRkyKda8YWgOZqK5+ahsUV1F3t/tbQ+gtgKZ/2cZM=;
-        b=Mp47MgXeOTH8Tned/4F4DQgy1LBz2av5ltqetVhq0x7RINoOgJdMpLOFjPq89R1oEx
-         WGl7TByiYZrKkEDQ2IQ28DO5yws9Y9UQLXn5r4mUGVrkB+19vRJW9L814/kzbkg/JcoT
-         JNoL+Cb9judbZlQM02IN7JtA3FJH4/3aBenTLwxN3Il7PscC+llV2+v5lN8ffr/3bdIZ
-         6/4M8gvL4VTBOySbp2yDNqYLfUb+bsDG2hUTo12ikh7H3S90bOn8UAVVVnHyHYuIBySY
-         2IudVXZiIt8dwCrs8fcAS4Ixg6iSwnNkUAkqZQK1fzN52IWdYk+wW99ISQbzxQf9IcYO
-         PnIA==
-X-Gm-Message-State: AOJu0YxdM3HmLwd+3HHYkBIZAoNbYXIrtMbtC6fmE2GxZgiST+0zursS
-	wwJYk5CEOuwBXmFBdqBoic1w82jChQ6jC1ogZZo=
-X-Google-Smtp-Source: AGHT+IFacaM2BJDDKzxw+pVOfKCW4EIimknet/GNgHUe6qHo7FXGBs9SqdY5cBX0gWqIrid577hldRoEEbzQ7NTcQhQ=
-X-Received: by 2002:aa7:d358:0:b0:51d:f5bd:5a88 with SMTP id
- m24-20020aa7d358000000b0051df5bd5a88mr8602875edr.38.1691436122534; Mon, 07
- Aug 2023 12:22:02 -0700 (PDT)
+X-Inumbo-ID: 139c6502-3558-11ee-b280-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691436288;
+	bh=ShzSncWkK1q8EFrv8kW0nziCl3BTWaxfOq7SLvNC8Ig=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=SSjYMqoCsffrsoGxAQYfHlrN1G9QhvnVUJenCxVfrwgwbwq+5b7sOPvmFdDchGxFh
+	 Z28YrElnMcU6Kqbw73o9ViZYSnRW8QCi1L6dwyNAAqnSvQG4P+bOYo+R3viF8vFOli
+	 HajyptAYgcWKT4lk3i8b7LI+X1LzkRp1C12D4jw8haZA8OVvF7A4TNdYMEhjRsoJiS
+	 r3wXbZ7fV2hvqMud11n0KX/ISy8sMK533iQu9GRgrD1ymu3RN6YTlUwfbTMHf+nNpt
+	 NdugpIUheEv5ME4cw9KoO8V/mT1MkIIAuloQ+/EqKOh1XFlQGd0V0MyfGVXjxIT1Ba
+	 wqLLOvFK4tJRg==
+Date: Mon, 7 Aug 2023 12:24:45 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Henry Wang <Henry.Wang@arm.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "community.manager@xenproject.org" <community.manager@xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Julien Grall <julien@xen.org>, 
+    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: Xen 4.18 release: Reminder about last posting date
+In-Reply-To: <AS8PR08MB79911746BC3D82A6341EDA6F920CA@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2308071209470.2127516@ubuntu-linux-20-04-desktop>
+References: <AS8PR08MB79911746BC3D82A6341EDA6F920CA@AS8PR08MB7991.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <10ce72fb-4fb7-67de-41ec-7291dbac0038@suse.com> <367db8f8-3287-d694-e591-efcffaf9ee99@suse.com>
-In-Reply-To: <367db8f8-3287-d694-e591-efcffaf9ee99@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 7 Aug 2023 15:21:50 -0400
-Message-ID: <CAKf6xpu-PhzfkbCsKto-VSisU6E81dtpF=HqwVtwmNoVsVTBFg@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] x86: short-circuit certain cpu_has_* when
- x86-64-v{2,3} are in effect
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Jul 26, 2023 at 6:35=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> Certain fallback code can be made subject to DCE this way. Note that
-> CX16 has no compiler provided manifest constant, so CONFIG_* are used
-> there instead. Note also that we don't have cpu_has_movbe nor
-> cpu_has_lzcnt (aka cpu_has_abm).
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Mon, 7 Aug 2023, Henry Wang wrote:
+> Hi everyone,
+> 
+> Following the release schedule discussion in in April, I am sending this email
+> to remind that according to the release schedule [1], August 11 (this Friday)
+> will be the last posting date, when patches adding new features are expected
+> to be posted to the mailing list by this date.
+> 
+> Also, note that we currently have 1 release blocker [2] which might need
+> some attention.
+> 
+> [1] https://lore.kernel.org/xen-devel/AS8PR08MB79919F9CE0B2BF80E7103FB592609@AS8PR08MB7991.eurprd08.prod.outlook.com/
+> [2] https://gitlab.com/xen-project/xen/-/issues/114
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+We have another release blocker in my option:
+https://marc.info/?l=xen-devel&m=168312468808977
+https://marc.info/?l=xen-devel&m=168312687610283
 
-Thanks,
-Jason
+Andrew, would you OK with making it a release blocker? We already have a
+tentative fix from Julien.
 
