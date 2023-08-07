@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E012772E90
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 21:19:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578906.906648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04C3A772E97
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 21:22:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578911.906658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5kX-0000Oe-0i; Mon, 07 Aug 2023 19:18:41 +0000
+	id 1qT5np-0001oS-Dq; Mon, 07 Aug 2023 19:22:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578906.906648; Mon, 07 Aug 2023 19:18:40 +0000
+Received: by outflank-mailman (output) from mailman id 578911.906658; Mon, 07 Aug 2023 19:22:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5kW-0000M2-UB; Mon, 07 Aug 2023 19:18:40 +0000
-Received: by outflank-mailman (input) for mailman id 578906;
- Mon, 07 Aug 2023 19:18:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qT5np-0001mM-B2; Mon, 07 Aug 2023 19:22:05 +0000
+Received: by outflank-mailman (input) for mailman id 578911;
+ Mon, 07 Aug 2023 19:22:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qk11=DY=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qT5kV-0000Lw-PB
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 19:18:39 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35d67885-3557-11ee-8613-37d641c3527e;
- Mon, 07 Aug 2023 21:18:37 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-523100882f2so5766070a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 12:18:37 -0700 (PDT)
+ id 1qT5no-0001mG-85
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 19:22:04 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b03dd26d-3557-11ee-b280-6b7b168915f2;
+ Mon, 07 Aug 2023 21:22:03 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-52307552b03so6756295a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 12:22:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +40,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35d67885-3557-11ee-8613-37d641c3527e
+X-Inumbo-ID: b03dd26d-3557-11ee-b280-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691435917; x=1692040717;
+        d=gmail.com; s=20221208; t=1691436122; x=1692040922;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EnVVq0gFmpSLJc7Ra4hKzgPMN6I3sQVjfRFG+ziAaNQ=;
-        b=DQLUER5+ML7/Yo2Em24FN3v9IrFyVp9+kNy+QKr3hfyBbFCATqwg2jiQSC44U8Rwbp
-         ohZdcGuPwgfhdIkJaqfhrDmkld31NXLQUqk5qVB6rl7IDKF+YmLmSP9bD5k8Jy8IXnda
-         yRs28Sj2jFziSyuzf7LoKNoMBH7aJLAbH5eNRXGmB9EyC8Bm1GgwXzllomajYw4E6v6O
-         9iKln5hHxHu2XHMPsQRuFQEiQHDSjeU/rUPS+CKa33w5ks+zvlIfafz0hN1E8Rmx0vXL
-         huehtudTV8TsAQt2iYlHpVhbyGlNSFgqtmZMlYpEpdezSK3gP/bkO86KmkK87QiO7mZl
-         xnyQ==
+        bh=BuCRkyKda8YWgOZqK5+ahsUV1F3t/tbQ+gtgKZ/2cZM=;
+        b=YoXuPmyIUWvzKVGMNJOMvRR2rqwx1pTl4u8VhjYNCtdHhd6isx/cIcT0WycrVkjV3b
+         HP8wMBVaZR3BwjULGAuXLV5uTJ7LkISUxMiUGvzdjFLcYXSoTBxiLaa/HxJqW0IE9wqN
+         ecI14tsJA66jHxzPiEwM4oLOrtfFeYtwc0U6iKJnTV4Ac0ALW+MMsp7+uo1AeRJVTicI
+         3D6Z64xlbfiprv9PttD81bwyagfAGpydyJuTSJUg3+a7MbEtyvZc3bERZkeDKabktP0K
+         GUCdTxJZ16pKZSRtSYgJwK7QqBoc4tB6R8QUWgCbHKW9HFotixEAgR02xEbTxaeYI5A0
+         cKkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691435917; x=1692040717;
+        d=1e100.net; s=20221208; t=1691436122; x=1692040922;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EnVVq0gFmpSLJc7Ra4hKzgPMN6I3sQVjfRFG+ziAaNQ=;
-        b=HkZ+4mNLrD2lCJXsO8hbsEKf//pqQMOMewc90ElkNYUAn9pBvYYun7zZD5fXJcTrV9
-         zpRdIJ3OjzuJIVpC/RIIOr94gPVLCG/BkyUk/6SdunMGF0PRWwfKTBqOaRNTgL8e31Rr
-         dMGwMJW24kl2vSTPi9GQc1gqAAGSSakgMFvg/cJIkqGL53DzpcJkXQOSL94EOY60x34J
-         4jvJ/uJ7egLhCxh6HBEkJIxTcjlTk0iUxiCxnB1YJDZlpyNJjhbp1Hs/9qX3QlMbFk3f
-         TnNoY5UR8tKTADT6kJzYgTLOYsyws+jGSe3XIe94dRxsKyQb46aPSr96+P/TgnT7+MNW
-         54lQ==
-X-Gm-Message-State: AOJu0YxPNfg2tNo+hqvZuU2wX/86RQKtK5qWqP7dC4cpNp4FZrXFgO07
-	PwvJN3zihtbQLnXdEkwenMtwOpBpvJ0pjnZ0KOg=
-X-Google-Smtp-Source: AGHT+IG+m4XVxDF/Rm2u1rgJr/aS2zRCOZc7kHVJfbVidAgv8rP7YyRISpzYUtQC0FpCnYYhZlYTRHPd/fQ/HHcIjhk=
-X-Received: by 2002:aa7:d807:0:b0:523:9c4:67ba with SMTP id
- v7-20020aa7d807000000b0052309c467bamr8027044edq.6.1691435917089; Mon, 07 Aug
- 2023 12:18:37 -0700 (PDT)
+        bh=BuCRkyKda8YWgOZqK5+ahsUV1F3t/tbQ+gtgKZ/2cZM=;
+        b=Mp47MgXeOTH8Tned/4F4DQgy1LBz2av5ltqetVhq0x7RINoOgJdMpLOFjPq89R1oEx
+         WGl7TByiYZrKkEDQ2IQ28DO5yws9Y9UQLXn5r4mUGVrkB+19vRJW9L814/kzbkg/JcoT
+         JNoL+Cb9judbZlQM02IN7JtA3FJH4/3aBenTLwxN3Il7PscC+llV2+v5lN8ffr/3bdIZ
+         6/4M8gvL4VTBOySbp2yDNqYLfUb+bsDG2hUTo12ikh7H3S90bOn8UAVVVnHyHYuIBySY
+         2IudVXZiIt8dwCrs8fcAS4Ixg6iSwnNkUAkqZQK1fzN52IWdYk+wW99ISQbzxQf9IcYO
+         PnIA==
+X-Gm-Message-State: AOJu0YxdM3HmLwd+3HHYkBIZAoNbYXIrtMbtC6fmE2GxZgiST+0zursS
+	wwJYk5CEOuwBXmFBdqBoic1w82jChQ6jC1ogZZo=
+X-Google-Smtp-Source: AGHT+IFacaM2BJDDKzxw+pVOfKCW4EIimknet/GNgHUe6qHo7FXGBs9SqdY5cBX0gWqIrid577hldRoEEbzQ7NTcQhQ=
+X-Received: by 2002:aa7:d358:0:b0:51d:f5bd:5a88 with SMTP id
+ m24-20020aa7d358000000b0051df5bd5a88mr8602875edr.38.1691436122534; Mon, 07
+ Aug 2023 12:22:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230807140620.47221-1-anthony.perard@citrix.com>
-In-Reply-To: <20230807140620.47221-1-anthony.perard@citrix.com>
+References: <10ce72fb-4fb7-67de-41ec-7291dbac0038@suse.com> <367db8f8-3287-d694-e591-efcffaf9ee99@suse.com>
+In-Reply-To: <367db8f8-3287-d694-e591-efcffaf9ee99@suse.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 7 Aug 2023 15:18:25 -0400
-Message-ID: <CAKf6xpveoJLrk-hU9Z3qHRgaaTFdMcD8MU6m61h+f0WAssu2Rg@mail.gmail.com>
-Subject: Re: [XEN PATCH] libxl: Use XEN_LIB_DIR to store bootloader from pygrub
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-	Juergen Gross <jgross@suse.com>
+Date: Mon, 7 Aug 2023 15:21:50 -0400
+Message-ID: <CAKf6xpu-PhzfkbCsKto-VSisU6E81dtpF=HqwVtwmNoVsVTBFg@mail.gmail.com>
+Subject: Re: [PATCH v3 5/5] x86: short-circuit certain cpu_has_* when
+ x86-64-v{2,3} are in effect
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 7, 2023 at 10:07=E2=80=AFAM Anthony PERARD
-<anthony.perard@citrix.com> wrote:
+On Wed, Jul 26, 2023 at 6:35=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> In osstest, the jobs using pygrub on arm64 on the branch linux-linus
-> started to fails with:
->     [Errno 28] No space left on device
->     Error writing temporary copy of ramdisk
+> Certain fallback code can be made subject to DCE this way. Note that
+> CX16 has no compiler provided manifest constant, so CONFIG_* are used
+> there instead. Note also that we don't have cpu_has_movbe nor
+> cpu_has_lzcnt (aka cpu_has_abm).
 >
-> This is because /var/run is small when dom0 has only 512MB to work
-> with, /var/run is only 40MB. The size of both kernel and ramdisk on
-> this jobs is now about 42MB, so not enough space in /var/run.
->
-> So, to avoid writing a big binairy in ramfs, we will use /var/lib
-
-binary
-
-> instead, like we already do when saving the device model state on
-> migration.
->
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
