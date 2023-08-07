@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A567722CF
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 13:39:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578296.905724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77D3377224D
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 13:32:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578273.905704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSyaB-0000sU-DK; Mon, 07 Aug 2023 11:39:31 +0000
+	id 1qSySj-0007nx-8p; Mon, 07 Aug 2023 11:31:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578296.905724; Mon, 07 Aug 2023 11:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 578273.905704; Mon, 07 Aug 2023 11:31:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qSyaB-0000q5-A9; Mon, 07 Aug 2023 11:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 578296;
- Mon, 07 Aug 2023 11:39:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qSySj-0007lW-58; Mon, 07 Aug 2023 11:31:49 +0000
+Received: by outflank-mailman (input) for mailman id 578273;
+ Mon, 07 Aug 2023 11:31:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LmzZ=DY=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1qSyPu-00024C-KR
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 11:28:54 +0000
+ id 1qSySh-0007lO-Pd
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 11:31:47 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94f2039a-3515-11ee-8613-37d641c3527e;
- Mon, 07 Aug 2023 13:28:52 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id BA0DC3200948;
- Mon,  7 Aug 2023 07:28:48 -0400 (EDT)
+ [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc634c14-3515-11ee-b27e-6b7b168915f2;
+ Mon, 07 Aug 2023 13:31:45 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id EF6EB3200805;
+ Mon,  7 Aug 2023 07:31:42 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 07 Aug 2023 07:28:49 -0400
+ by compute5.internal (MEProxy); Mon, 07 Aug 2023 07:31:43 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Aug 2023 07:28:44 -0400 (EDT)
+ 7 Aug 2023 07:31:39 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94f2039a-3515-11ee-8613-37d641c3527e
+X-Inumbo-ID: fc634c14-3515-11ee-b27e-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:from:from:in-reply-to:message-id
 	:mime-version:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1691407728; x=1691494128; bh=V1p5A9ACqsnl2tgeoDxtsmzUi6y8s5WkawP
-	sN/O3EGU=; b=pRpj3enyACb/haiSdwNnxdJ+CfbcUP2+lhuc2IGeMNLynwF0DPc
-	SGtCvuZpUEST2aW4JF6Q+/aP+ol6dwSdKcV3OddWPfBKvWsgYl16oY4zxLEUwUec
-	Pcs654y3N21UOJzNnTUUHEy2oRC6MTO6m7JpK/OOeH0vk5lbLC2o+roSVq7VmnUK
-	jtTxJD309QKNk1CvJzKfe7ksl1oK5mixaLbFMCkL6Ulq+tGpq47ncz+YehE+qzR+
-	YOQtqNafgFKKc8PHoZ4kKKNQVCa0UF+x7hL7EqvXdbs9id/hyLiy6jKX+jrfJLuK
-	PQEJ3EGVS75PF/p5saqjFbhSfJr14JIFXIw==
+	1691407902; x=1691494302; bh=EQktl1UmnPQWszn8MIvvHFMFVHPf0iSLyrT
+	r85I0YoQ=; b=gJA1d9lmVVFeiMPgC3M3B5lphOg/DRKSgYnM//6j3gqxPH39PIv
+	2tznLZm1Q10X5OiPgWKslNMQONwpcaBR0KriMTPyWAQHtxQl2qt0SnBQ5nEv4YVn
+	Y5rR0OMpK0cnMWtg1dGH/8i3nVpSNqIjApVYPvsPj4sLqGu0QDd5+H1UsFxLrUlL
+	sMmd283ZlCL9SS4cYeNmtQSwq+vyelIhmWN1zcO43BamgXcs+HgC7PvZsltwmi6Y
+	xIVGNBk/KGZde20rxjnPMGHKLuTlrCkAnbV6tk2BCMmMIuhUPy0cGltSSdPR5wd8
+	vCA3pXfNWCALJ2SzEqc1teVb0AAvMODZxJg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:message-id:mime-version:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1691407728; x=1691494128; bh=V1p5A9ACqsnl2
-	tgeoDxtsmzUi6y8s5WkawPsN/O3EGU=; b=naXg0GIwmibCTbs1OcPrEs16htIJc
-	kY0qVYxANqvGVM3+Mi9AbdDJDu1ojzOEo8d+rBtfxHxoerJxhdWYSrnzNrTTVk36
-	FDjUi3lWaSfGceEQqwZ8axIEzXZw5pca/w3LsabJjYa9EA6mR4tafPgRk9Y8JXGX
-	pkm9hPKohSezAseRAMCFiKFiC6jFod9dorqd78GAZs5mnsiLuaBVNBKZe7fpTUFB
-	zNiahTPagtgSKOM2AicojV8oHwgmBq+ZJglhsx/pbCQvQskSdP0ECJ0Ofm2RJP6W
-	HwSAC4IJKMi4Ypvs0226t7PS2w8U6xHi1lUbcPspwyDrbvcWy37/FGCsg==
-X-ME-Sender: <xms:b9XQZKU7SbnVYnzoOjKjzl7Zjjky0CyBcSSWhTuFjvNZEIfhGaU34Q>
-    <xme:b9XQZGm_1glR0eU73UwUk774mDXs-lVIJS9CRjmMtJgVl7HSKkDuylScpIBOzJ8xc
-    mK6DOpaYrpDDeA>
-X-ME-Received: <xmr:b9XQZOYtlJpWvke40tQRen0_QFRWSBukD0odwDBYGOb2rBfPqaPnI2zL>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrledtgdeflecutefuodetggdotefrodftvf
+	:x-sasl-enc; s=fm3; t=1691407902; x=1691494302; bh=EQktl1UmnPQWs
+	zn8MIvvHFMFVHPf0iSLyrTr85I0YoQ=; b=Sn7IUvYWJ1YpoVCYY7jMHDcq/RqMv
+	Ea/hvsvLBD+5aXhNz8KvpvkcTo2LdOHIUEsnGeIwlWuOHg7ysJM14wFIe2muZL4K
+	5v4hyM3RZMoQPr73izqEt1RTt6febNtPWhojBPAr4E7huv32Oi4mGj4tdRQPe+tI
+	hwCMV6mI9QZF7+SaLi9yOIpQSjlNLAG+8MxCwQhku9YpuDl8+Q/om3DyEHGoel6t
+	4jhg3Je79Kx8wo0AqTh5O1vw6GJ2fyKnxa3d1BCTf6AzGtuTPRmC7qo9VdtGU3ld
+	avhxtsqtBbATo8IUhySMHCJ84Ga6cRDix3YzJT4QnqWOs66/CgRUHWigA==
+X-ME-Sender: <xms:HtbQZLsmp9TBOc3Pfn6L8IT6i8o8_4_TDIFLAUKyDXHplJSnSxxetw>
+    <xme:HtbQZMebUd4ctFhv6U2LkFc4ScydZn_m1C1LSEUyEMg509p2Qoiy5eutyBatdJWx2
+    xjpOrSS6MZm1es>
+X-ME-Received: <xmr:HtbQZOx1iB_0VAHM7RfZYxbN9rI53sR55TnCbSi1B0GqqxRhpMpsxvEt>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrledtgdegtdcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
     fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefuihhmohhnucfi
@@ -80,10 +80,10 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrledtgdeflecutefuodetggdote
     udefiedugedugeevudfgnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhush
     htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsihhmohhnsehinhhv
     ihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:b9XQZBWbP_s0r4tASYPqECq9Y0MLh5J2fJ0vVkLeib1adot-NmErRw>
-    <xmx:b9XQZEmqCYkcUtcJLrSTv-unCPsLsAbT_tHKmscHHzepqtk1rTzoxw>
-    <xmx:b9XQZGezTdJPOEL1oGn2mqNBtrDhkScHLn1ZCPDcId9eFG-1EQFpnQ>
-    <xmx:cNXQZFAY-i3_vWVEVgEZyEQbG66JqCicS5X5SHqFP6bRmlxHJxk9Yw>
+X-ME-Proxy: <xmx:HtbQZKOpf6lAijKpW9_Pr5yh4mpl_iCTzBgrhcpAOyqca533SltT9g>
+    <xmx:HtbQZL9wS9Z9002ex4WucQCmSHmAxdvTCQlirII3AaFzjwWEAITBwg>
+    <xmx:HtbQZKU3ZRgTDM9Ai7kUHsVfzYsJYzLE3p_7jTh8PzzSy1Ble7Bv8Q>
+    <xmx:HtbQZHbBkCxW26ZBhFU0s_ZnRoDekvMn0n6XNXlI1C3mGO1-ChrD4g>
 Feedback-ID: idc5945a3:Fastmail
 From: Simon Gaiser <simon@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -94,8 +94,8 @@ Cc: Simon Gaiser <simon@invisiblethingslab.com>,
 	Wei Liu <wl@xen.org>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Subject: [XEN PATCH v3] x86/hpet: Disable legacy replacement mode after IRQ test
-Date: Mon,  7 Aug 2023 13:28:22 +0200
-Message-Id: <a112f0fbbb333fc29a35d0a81853d59409a33fde.1690798460.git.simon@invisiblethingslab.com>
+Date: Mon,  7 Aug 2023 13:31:17 +0200
+Message-Id: <20230807113117.1277-1-simon@invisiblethingslab.com>
 X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -111,6 +111,8 @@ Link: https://lore.kernel.org/xen-devel/cb408368-077d-edb5-b4ad-f80086db48c1@inv
 Link: https://lore.kernel.org/xen-devel/20230718122603.2002-1-simon@invisiblethingslab.com/ # [2]
 Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
 ---
+
+[ Resending v3, now with a unique Message-ID, sorry. ]
 
 Changes in v3:
 
