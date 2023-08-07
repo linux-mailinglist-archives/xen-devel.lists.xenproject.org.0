@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79798772545
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 15:17:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578397.905874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 056D3772549
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 15:18:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578400.905884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT06w-0003DL-9Q; Mon, 07 Aug 2023 13:17:26 +0000
+	id 1qT07Y-0003he-JP; Mon, 07 Aug 2023 13:18:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578397.905874; Mon, 07 Aug 2023 13:17:26 +0000
+Received: by outflank-mailman (output) from mailman id 578400.905884; Mon, 07 Aug 2023 13:18:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT06w-0003A8-6J; Mon, 07 Aug 2023 13:17:26 +0000
-Received: by outflank-mailman (input) for mailman id 578397;
- Mon, 07 Aug 2023 13:17:25 +0000
+	id 1qT07Y-0003f7-Fb; Mon, 07 Aug 2023 13:18:04 +0000
+Received: by outflank-mailman (input) for mailman id 578400;
+ Mon, 07 Aug 2023 13:18:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/Szp=DY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qT06v-0003A2-BL
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 13:17:25 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on20631.outbound.protection.outlook.com
- [2a01:111:f400:fe12::631])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g2NL=DY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qT07X-0003f1-Gy
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 13:18:03 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::61d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be8f740e-3524-11ee-8613-37d641c3527e;
- Mon, 07 Aug 2023 15:17:23 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB9100.eurprd04.prod.outlook.com (2603:10a6:10:2f3::10)
+ id d4de8776-3524-11ee-8613-37d641c3527e;
+ Mon, 07 Aug 2023 15:18:01 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by LV8PR12MB9449.namprd12.prod.outlook.com (2603:10b6:408:204::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.25; Mon, 7 Aug
- 2023 13:17:21 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6652.025; Mon, 7 Aug 2023
- 13:17:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.26; Mon, 7 Aug
+ 2023 13:17:57 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::4541:2a3d:737d:b194]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::4541:2a3d:737d:b194%5]) with mapi id 15.20.6652.025; Mon, 7 Aug 2023
+ 13:17:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,173 +47,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be8f740e-3524-11ee-8613-37d641c3527e
+X-Inumbo-ID: d4de8776-3524-11ee-8613-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VYg+aHr8kYlWRO64YP4JH8Job/4szQcM2Im00spGlCHsWqu1AM9IS48gD7PZP6MNL3G5/K0r5Q+mifVm8KDMcJMiYUsvYYT6+GsfUUSWTiPnCMg/j0oYU5om+xYRTLjeyzUkxs6mG1kDTUtZsl3nDNabZIgqDW2/dKM0vDZpveLwzSEeY2/Gqsr9DCBaPmiF1aWeq/y0ZAH+6MaxgtAdkBaujoHGK5bf5ki6f4oFQO3IuBICgge2Suub9GApK2+58caznsw9wTTRFn+NBUHUyGZe9hjwsNBOI8a/EaAFxDWKCFEZtTvH6pVUBlCgIYNJ1PgTypvrgmU5vJrU0jxQvQ==
+ b=SyB8Odyutmt1zWUMzkwMoGMMH9ZicfPxzqKzl7mQ2iA2GN1LeSqBJYXVpdfCR4e9TcF4nGqC5jAH94PxLFEjH5Cm8EJcpZFKQ1WOEDbVrl0ojjbtFx056oWpLYBlEipOn7yPPRCNu+CoSIfsEdDZx8owJ69CeUa2LJn//K47+NnKUoSDHIAahHuHeYPI7VumQDYrWpDrMB+uM4GRWHGz5P9tNUC0kNd+V6YcSaTEvdkAthGYKwktFeXqJM/qpkH8/c4nKP+jkt1jxLRAJdU0ICCm2E4f9AKPQn+/FnVMmjgUzXSmFefKDaYHFx/LuSR8efCb4jzLMSUsnL0ymAcRSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T/SCxTU+aK2lFTFgepLV71s72ZZnKyo6fCuV6V7d+4Q=;
- b=ZF783xnS6UMck/laOXDYH5s5J38e/kb1Zp571/kmBreiTuPCEuE1IwyfOailJB+rasu0ccBleO36iosTm4W5r6BdTaxRCzPn8Fl3bSNDdsrVJFY7jAOYU6Bcp0NlRXBBQvtHZ8NAGavLpmZD3OfLyZOoQUmrDCQ/j1/mGLBtti+N/xZYKF9s+1D6IjldAx18lhjqEy8Z6Z3eWd0IVJVAysyAGORu8zj9yFZRxJqwVjVIQpO7K8d8kaiTTCYiot4TtKU1/VqRswYgDaNJRhlR3IKUouMvnjgv26rQkyAe0HTirAKFvNB3Qskp5v8dJNyKFHHo48AEA78FlONztc2xlA==
+ bh=eQjljf0GrI0GEV5K85/Ec4Yt7l2YjEXQ+Dx6GkfqNxY=;
+ b=hmeTWojeXPc3ic4UBllxeua2yCqe2MnNdQIJpZlIc/spvMRzRZIFJkMGAoS98pHhwh8GVpyV8mRcZUjbFRV/Ivqm40Nr4JqVVAKaTbZJvWZ3dfhd2qjTn7e5PECeBGBgwrp2F+JLwwdQDzAQn9rZwDTGmgqakQJUVk0jEc+SHblHk80NvApaDC+iRD0XLIMES2MG47qTgNOhZIdmQjccPZsKcHIEbol/18e/C1D3UryQttOv44DdOPvZy5lZvYJ7KIwKJzkPqpq8ca+y3g2ywvB/oeksRRm+qX2g051IC3DUX2zsw6bhVolIgztkJqhiqjX0ezQ70IY1IMnwii6nYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T/SCxTU+aK2lFTFgepLV71s72ZZnKyo6fCuV6V7d+4Q=;
- b=RfBoUfGe02q2Y4dZp4hE0ClTGB7lcMqGf6FyuQ6bUEGCJkQP/5F3td5gt/zW0di8mtmX++L9jVO+QFAPT4LJUMI6dgMrDItE7n0nDcQCuNmHZNBmtQNiK1Ynivplx8LotGXn9KuY7jGkVlUtN7/wHEgFHR/56FkJaqx+pfGpaUr+YUJR64cqC0GldZ/esFHEWL4ghZ0DOwCSUVi6oV5zD9kB1/zXIweeYYsLV8vYVEBZ7SIswTQHuMwsrwvCg1e+qVmQPMSH2UBWJjaFsl6hIgyb5JY4X2FyRLPTgz5n4i1TNQjRoB45HQY0k6xKByVtFEEvTDdgJXIRp8uxd81KCQ==
+ bh=eQjljf0GrI0GEV5K85/Ec4Yt7l2YjEXQ+Dx6GkfqNxY=;
+ b=g7AO/XiP3d0oxY2vzpJO29JkHFsf49tOOEZSgMT7MHCmsv/WNKvEfWzy5WrjawsTs082fO4H4l3I3pMCNMwhVM+OWJHCHNqQ3iImfjeE5wDn2gqvb8RX5XmmPROm+IshaygdZv5agxrNEmTVEk/H7evX60t0IXcVLL5A96Sfbvc=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <cecbeec3-57cb-c8de-be06-bf8f6e9cc5f5@suse.com>
-Date: Mon, 7 Aug 2023 15:17:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-Content-Language: en-US
-To: Simon Gaiser <simon@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
- <0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com>
- <2c97ff5b-03b0-3c17-c7f0-9bc8c9317762@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <2c97ff5b-03b0-3c17-c7f0-9bc8c9317762@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <d6ef94ff-0477-bc23-fa09-454287bcf19d@amd.com>
+Date: Mon, 7 Aug 2023 14:17:50 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH v4 02/13] xen/arm: Introduce 'choice' for memory system
+ architecture
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Wei Chen <wei.chen@arm.com>, Penny Zheng <penny.zheng@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <jgrall@amazon.com>
+References: <20230801034419.2047541-1-Henry.Wang@arm.com>
+ <20230801034419.2047541-3-Henry.Wang@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <20230801034419.2047541-3-Henry.Wang@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0086.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-ClientProxiedBy: LO2P265CA0348.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:d::24) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB9100:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd1554d1-3bbb-42f3-0e50-08db9748a19e
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|LV8PR12MB9449:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1507a9bb-febf-4e84-062d-08db9748b741
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Kroh1qSMPknClRd9c8xDjPKVL2Y2SGv2JHxjhjBWyicWZiDkQASnsnW2atUn3RMzND9jWK4UUR0imZdBoRp8VTIDI/Fq3wdQPgtCxNpGrM2mTqZwM5m8+HflTx5tteGdGp0PbE1Q5VavpZABJT16F8JCLO9tcMYFlBkCB5aHq5jAov9/Go9Lv5sO95r1ZlwEVg0uH7IdbQ3Lw1u7/9JfmE/4mQ97mawy6mAgqSk76/u5k5bkiHj4fRAaNPJIhKXXdFtqVMNhH18hJr+jBFA5QNbFLOqew7eV6sSFHoI80ZvCS8/a1zHwq0Zu7A1/33+/wdqnyvT7BCDm4oZPmoPWI8xFRqoT1p8VLkGFNz3QFmLIKi9/Ha/4OVxMKoIMG1vbBYa5c5aIXyTbo8ZlJVFTo270NvQ5TPzVIAsUcw7k3eppiP6n1gCc5P5oQJ5zjJpMtWhtzU0IOCbDAB9+GPV88xlh/C3wzwZ7TPafNZveGG32f2iIA2a36doJhPHZfmW7przGOynBf2wuAXVDMQlnmfHj+4O0ljSk3o+0NyxES6B3Uvp2Un4JG0Tbq8bAGJKiFcakbNpda4Ud5vcvRiViqUpS/rIX4TfJEKCXBoaTzeXtd/cOrdbN3wftu3KBxZx5xt8f/J9Qupkagedf3FozIQ==
+	t/H2lqS1q7ZujHPmFbCz3GgRSvaeQDKQe0qaukueGQzeIVaJPHuPBst/QPZP0trS6Q+o2IGjF7n8ANRV5eip7Cr+JY3wkLANt1CGqP1WbegCh/DDNkUGLyy88H8fkQOLoRO6N29FY6k8IS34sH+Hxr3SX4jnpAYI8kAY3sJ7fSqX+uopwizxzPe5Tdks3/lgT9MIdc0AQy/Qf62v1IeGlEZr5zyqhudcqBLogG0ij1zQhhppbgOHclqwvfGQeWqaIBeF67LuRG9dsmFhzRPzY2xUw/sR8j9JZGTXKHIA6gR83QavGUjDebOAwuWevdnssu8kjPId+jnXocXi/yf4yjlculdBne12yFPNXVJQc6G3Vn8Lq5APSvGgCVri6I39Sn8/hTaYaHbf1JZDQdGLnc3oxZxy/NAMyAw73rvZrhKyTGjjKwHziPSSzUpcCTnAoUzP2MfnIoyQeCew8g4nTTvVi8IEIVQHu1JPc1SIepFll+118b0+Fgq8QdlczsCVd4YCL3GNnkQGyof1DuJsKPNFKJODRcinZd0elZs2P4qlgmPpDM1eEi0JA66gQkJETcK3h6VLKF46PawASihPorszFNG69+J0MPjzmymCih1PTBV+XMJkIBPUo5ZRmNd/Y0CreKdEBUC4Mr8uxD8zwg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(39850400004)(346002)(396003)(376002)(136003)(451199021)(186006)(1800799003)(2906002)(83380400001)(36756003)(5660300002)(2616005)(54906003)(6666004)(38100700002)(6486002)(66476007)(66556008)(6916009)(66946007)(6512007)(4326008)(316002)(31686004)(41300700001)(86362001)(31696002)(8936002)(8676002)(26005)(6506007)(478600001)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(346002)(366004)(376002)(136003)(451199021)(1800799003)(186006)(2616005)(6486002)(6666004)(478600001)(31696002)(6512007)(26005)(36756003)(6506007)(53546011)(41300700001)(8936002)(5660300002)(316002)(8676002)(54906003)(2906002)(4326008)(66946007)(66556008)(66476007)(38100700002)(83380400001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WjIzU3E0K21HakJrbVZiZWtoSW12bnRYWWgvdDJPbnJNTGU4MktvZzFiaCtX?=
- =?utf-8?B?RnNjTklKblJ3Q3ViY3pwYVNvbjdJc3d2TUhYNFZ1VkQ3amJTN0tYYVJCVDcw?=
- =?utf-8?B?bFp4WjYrRzIvZmxpWU5mM01iU0JTWGd1M2N5OTVvRlluQzdhS2V4dksrYVJK?=
- =?utf-8?B?SlRkcFlZTk1vdjRLWG1qSGEwbFUrS0lMa2o4UjAxRUJuRER4UGJhMXpJdG9z?=
- =?utf-8?B?d1dFVTdWUzNsM0hxcTkzTFZSbzdaODd5d3hWRFF5UGtqZm0rS0crcWUrQTJO?=
- =?utf-8?B?SnFyek0xK2JTenVPR2NzN0xXdk15R1JqTHdLc2hUYlc4WnZrem1KMnJjTG1v?=
- =?utf-8?B?dVdhVGM3SnVYREhKTFNqU1NZcG9sZUI4b1Fja3BWYkVPVnJnODFoODh3Z0hs?=
- =?utf-8?B?S093bVBrTXZnNEQvK1F4NW5FZHJEY2pMZmprZEh4cXV1dlU4aUhkUjUyT3ht?=
- =?utf-8?B?eXBXeGg0Q0VtVktjMnp6WkN2c0lRTjFWTEIvY3lNQ2k3TjNobVFCZGRZdnRK?=
- =?utf-8?B?Um9WMkpGRG11RDdqTFFhdEZRbjU5ZkVlVHpGMWtWRnhqMWhSNWJrMW84MENm?=
- =?utf-8?B?YTRyUzNHQU5Hdk9aVG43bDlMeUFLTFIzNWxkb1ViRzVRS0JNa21Xck03NEZD?=
- =?utf-8?B?M0JWaklUc040NHArWjJJSEVZMmZaL21zMFVtYmdEaldacEZ0Uk1wVjVrenFR?=
- =?utf-8?B?cWV1QVJXTVM5NmhzYVArOU5nUnhFMXUwSTFCVks1YWRpMnpJdmZ1b2E1Z1pl?=
- =?utf-8?B?a0hvbE1oUFQvd2NYUmpkUTRCeFRDYVVVWCs4WWFob1UwZWx6elRrQmVSK0Y0?=
- =?utf-8?B?cUpxbEw0SjJyQi91TWMvOTV1ZXYwaXQ5VkovRDZySGptbFpRU3ZMQzZXU1Nl?=
- =?utf-8?B?WWRBbHNjN2htblFSUm1YVXpNb3VsU2JWcVZMWnVPTFZOVnRyVk5WTlh3Q1ZL?=
- =?utf-8?B?aDl4UUpXK2tUQ0lZZU1GSTE3UE1XVTRKWTFMblgxZkF1Qy91NExVQTdqOUpw?=
- =?utf-8?B?T3MwYzhlWkpYSFBoZ3NEWTdTOWY4Q2F0bmJnemorQ2c0NGRpaE5LdzJqMlh3?=
- =?utf-8?B?allzVWZsNkk0bFM5Z1NKMUNMdkdXU2U1RmNhblpnWSt4SjJkWFREbEFHNUVM?=
- =?utf-8?B?c3AzL2NtVGg3UmVmZmFHak05amc0MDgxR2FRNnN3NGM2S0trRlNKNm82WFZS?=
- =?utf-8?B?RnNYeTRHa1lhdTNzK0UybktqYyt2ZS91cStVWEdHTXBQdkxmQUM4cTFjRVpC?=
- =?utf-8?B?d2NZVTQzRlk0VWxhRFdOVFMvUE1BSExrL1FKU0Nobm1STGdzNy82VmhNNmh2?=
- =?utf-8?B?cTNDVXFTWWVlQnJFZ2dsRnJnZkU3VlhSYVJkR1N2dytpSVpadDVaZ0poUjNV?=
- =?utf-8?B?UTlVbWlxQlRvaUxsVm8yUjZvTHlJNnY4bXNldnU2ei9XVjJLUEQ3N3k0WEdS?=
- =?utf-8?B?TFpxL0dqOHpqNXVISHd1d3h2UEErNiswWTBHeElXVzdFazhVZG5EVjg2M3l0?=
- =?utf-8?B?KzBvSkNlbDN4NFhGT0x4WXZnL2ZVWS82Mk5MNlFMaTQzbTVqbjNVNXpIR2Fk?=
- =?utf-8?B?L0pvNzh5Wnc5SW9uMUFJTjE4SGVmM0l0Q3ZVc2ZDaXhYdFZJQXFDNEt3UkhZ?=
- =?utf-8?B?ZkF5R1llREdOdzR1Y2pvSGpKK21uWVc5UndKUklCUWdmK0txcFhDa1VSOTZ2?=
- =?utf-8?B?U0JIMU1sNXVYQWhaOEpISjdxZDk3VmtQWStkdkZJZzV5Y091SWVrOUd5M20w?=
- =?utf-8?B?UlcyOFQwRGRGUXRvalF4ZXRsZlAza1ZGdGhtcncrQ2xIUmVibzY1NlcxSVlY?=
- =?utf-8?B?SjRETkZ5TFlOZGVraXhUeFJsR25PVFAwd05nN2RHcjBiOUFqSm5UdWdsaGRL?=
- =?utf-8?B?b3ZudFdUZTBEcmd0c0tpU2F5K3NzVVdLNjdpbjAreEh3RmI1TWR5ZnI3Wi9j?=
- =?utf-8?B?WEYyNDhaeUViY3ZIV1RIalpNOGExcFNoLzlyemRSTytRbkFaK2FZN2hvcytz?=
- =?utf-8?B?b0Q2RDhFRGo5cWRlckRoY2UzM0tPbDROYnJuMVY1Y29lb2hnbFFJVkhKVzNn?=
- =?utf-8?B?S2d5UEpHemwyU0pmWlFXaEpOR3A1Z0phcjluejlZbHhDc1owckN5bmRxdlp3?=
- =?utf-8?Q?laDPazdBo+Mkr7nIMBW5dX00R?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd1554d1-3bbb-42f3-0e50-08db9748a19e
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+	=?utf-8?B?eURNUjRiQTkwcWpGTWJvazhtN3BQV2tFZTljTE5tUjBqaGtyanRiZlBvMFA1?=
+ =?utf-8?B?cWZHbVdUbHFMMHMxWHhjS1FWakpsbWszeGVQUEduaGxUclQ3Mi85eURjODcw?=
+ =?utf-8?B?SDBhMGErVDM0V2taM0VtRk8vR1BhOFRHNC9oWGNaTm1PaDhYdkROVUF6blQ0?=
+ =?utf-8?B?SnZQekdkSFRrekI1Vjh5YjBpNFh0eVpYTXFWa283S09Bc0VOMTBTeS96d1Rr?=
+ =?utf-8?B?VjEyWmthbjlTNldNZXV2NjNXbVVKRFFHb3V6dDhQcG45L0RUWlRPSVA1RndI?=
+ =?utf-8?B?VGRVM3hxQ2FQZFcyVEh2YSt1YVdrcGRocnFvbEppY0FQOGZ2RDlIZS9MU2xZ?=
+ =?utf-8?B?THM3aVJYY2dwQm1VWXRET1UyaU9UUmIyNnBhZ1NnclNZUENaS1BYcUlCRXp1?=
+ =?utf-8?B?aEJQeWl6SVpQS01vNzdmQWNxcnhhK0pscDRoM2t4V1ZnYmQ5eVd0ZS9hd2E4?=
+ =?utf-8?B?VEExRlVYRElacDlkdlh4cnJZWXZmY3htNUpjRnVURXlxc2p5N2h5ZFR5dWww?=
+ =?utf-8?B?YVZjSGFxc0JVVmp0bjBCZlpYQXFBYmlySHhIUlF2ZjJpL1BDMk9JRldGeGtl?=
+ =?utf-8?B?UXMyUFZsUyt2akhUeVRidXM5VG44UDZHOGJIRGo0Z28vSzM4NmlGZVdOY25x?=
+ =?utf-8?B?ZHVOSnAxd0xFK3ZwNkE0UWVWcjg1SjZuNTZhdHZRWmQwcHpNUXJpYzBVN0Va?=
+ =?utf-8?B?UlZ4Y0pBdFlKRnNxOGplM3BPVTJXd1k3Q0xPVkVKK3k1SGFZOWpmNW1YWmYr?=
+ =?utf-8?B?QUdwTjA5MDdQTkUxMDl3SUEwOXFrcWFZRG5teDZ4VnVNQ0dVREhWSjNXU1hC?=
+ =?utf-8?B?NEUyUzhlUHpPRzlXZkptR2lYZ1hjNVZlTExNRkkyN2ZXa3JQeWZnVXlvT0FH?=
+ =?utf-8?B?b0kxcE91R01HNXl4RmQ5STBhQXN6clRtZ2RxQlNDTFBmWnlYV0dVRmNicFhW?=
+ =?utf-8?B?T0taMHp1Tml6VVIwbmZVeWU1RmVGWUFaemlIYW9rZk53TWQ1QTRVdW16UVda?=
+ =?utf-8?B?Znc4TW5YWkJpSXdhTU1EamsxNFJJK202WUlkMTRWcDVVRkxoeFFtS29CM1I2?=
+ =?utf-8?B?QW50enF3aDY5Y2xWQWhmN2tOTEx1MDJFU29hRU5hYWFub2JudnBaTGhuVnB4?=
+ =?utf-8?B?eFJIbjk5WXdvL1c0TFpVanFTNVQ0Y3lOTktZQ2ZINEpaNU51aWhCS3luaDdW?=
+ =?utf-8?B?ditMV3VsalByT1FWRDZzWkFaSVJEWWJNM3hGMnFydndFWm85SEZNY2hNNkxG?=
+ =?utf-8?B?T1VoTnNhNnR1Y1ZsQkJINldWL3Nxc0wza0drSWtQaVZRZ3hNY1QxczFxZHRF?=
+ =?utf-8?B?a29wRXFjbGpjeGdLT1BYSkllc21wVzF6d251aUt4Nk9PQ2VKaU9aRHpzTkZ6?=
+ =?utf-8?B?b2ZqUW4vZmw4NWNaNlpFeFU5ZTJaT0txeDkyK2V4dDJBQ2tuR3pnK3AwT2V4?=
+ =?utf-8?B?R0x4KzgvM0FBZVY2bjBIa2h3K2p2eHBWeTZuQUFJV0ZoVUhIVGJlbHM4cWpX?=
+ =?utf-8?B?eHJBZ1FhdmR2eFIrZTB4eFc2OThpZTZoRXY5WlN2RS9uaWZ1QTMyaFBjS1lh?=
+ =?utf-8?B?ZmlDZjZRbHJ2cjZHZEZ4TlJrcEpPZk5BK2d3Q1FmdURpSnpOcWluQkRKNWdK?=
+ =?utf-8?B?SXAyVVBVeVdXRWQ3eGdwVm9GNldyRGRldUZaa09iT3BIL1BBajV6VTB0N2dG?=
+ =?utf-8?B?cEs2dCtOQVo1eEpPUTlXZHIyNkxKTnJvUjlqeDkrQmtaOFVQZVg1M2hKdDNX?=
+ =?utf-8?B?K1RTdmZjcW1aOHFHZFpyQkwrZHhaU1E2QXNqN0g0dnZvWEhOWUtaM2NGVTZR?=
+ =?utf-8?B?YlB2bjZoSkQ1WWFEVFYyM2dUdWRJTE1pYUppTGZoMnBoR2RtVElmMnVZTkpK?=
+ =?utf-8?B?QlVrbHhKdTl5bHZxZWVTYUtVcmdOSGNYQWlvcnJrOWRzT1JEeXRiMW5aMUFG?=
+ =?utf-8?B?czJyOXI0OWUwNkc5Y2piZjJJRDhPcktDWkovSk5ZUlVIZmJubVg0ZGRqM29Z?=
+ =?utf-8?B?WnkzNllPaG5XanRUbzhkSjlRRHovRkVZck9Yd2tWNWRvaXRyZVpnd2VZMmVv?=
+ =?utf-8?B?ejR2b1dkeUlkSEppUUd0YmcrSGdYTGpBdDIvalA0Y1dVd003Mmd0YzcxSWho?=
+ =?utf-8?Q?zjICOfVN8Z9dTQElMjvQHiurn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1507a9bb-febf-4e84-062d-08db9748b741
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 13:17:20.9302
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 13:17:57.3163
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B34ypUbo9rKxuq4597T9Z8Ryxf7mLqUf0lyNEV/lAvSfx6YsXg5u7liCRQlFyPm/v2zSExpv1N9+hod4qCcI4w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9100
+X-MS-Exchange-CrossTenant-UserPrincipalName: jgzCLpULLIyWlu72Lxo7SpPkezYwjEqba77ALeRoCjM2PkoGJ6FciQ0MUZKzzYmGAFPtOIJuQ0RvB/YpIC2eHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9449
 
-On 07.08.2023 14:55, Simon Gaiser wrote:
-> Jan Beulich:
->> On 07.08.2023 11:38, Simon Gaiser wrote:
->>> It seems some firmwares put dummy entries in the ACPI MADT table for non
->>> existing processors. On my NUC11TNHi5 those have the invalid APIC ID
->>> 0xff. Linux already has code to handle those cases both in
->>> acpi_parse_lapic [1] as well as in acpi_parse_x2apic [2]. So add the
->>> same check to Xen.
->>
->> I'm afraid it doesn't become clear to me what problem you're trying to
->> solve.
-> 
-> I want Xen to not think there are possible CPUs that actually never can
-> be there.
+Hi Henry,
 
-Did you try using "maxcpus=" on the command line? If that doesn't work
-well enough (perhaps because of causing undesirable log messages), maybe
-we need some way to say "no CPU hotplug" on the command line.
+On 01/08/2023 04:44, Henry Wang wrote:
+> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
+>
+>
+> There are two types of memory system architectures available for
+> Arm-based systems, namely the Virtual Memory System Architecture (VMSA)
+> and the Protected Memory System Architecture (PMSA). According to
+> ARM DDI 0487G.a, A VMSA provides a Memory Management Unit (MMU) that
+> controls address translation, access permissions, and memory attribute
+> determination and checking, for memory accesses made by the PE. And
+> refer to ARM DDI 0600A.c, the PMSA supports a unified memory protection
+> scheme where an Memory Protection Unit (MPU) manages instruction and
+> data access. Currently, Xen only suuports VMSA.
+>
+> As a preparation of the Xen MPU (PMSA) support. Introduce a Kconfig
+> choice under the "Architecture Features" menu for user to choose the
+> memory system architecture for the system. Since currently only VMSA
+> is supported, only add the bool CONFIG_HAS_MMU to keep consistent with
+> the default behavior. User can choose either VMSA or PMSA but not both
+> in the future after PMSA/MPU is supported in Xen.
+>
+> Suggested-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 
-> Without ignoring those dummy entries Xen thinks my NUC has 2 sockets and
-> that there are 8 logical CPUs that are currently disabled but could be
-> hotplugged.
+The patch looks good, but it does not cleanly apply
 
-Yet it's exactly this which ACPI is telling us here (with some vagueness,
-which isn't easy to get around; see below).
+b4 mbox 20230801034419.2047541-3-Henry.Wang@arm.com
 
-> I'm moderately sure that soldering in another CPU is not supported, even
-> less so at runtime ;]
+git am ./20230801034419.2047541-3-Henry.Wang@arm.com.mbx
 
-On your system. What about others, which are hotplug-capable?
+Applying: xen/arm: Introduce 'choice' for memory system architecture
+error: xen/arch/arm/Kconfig: does not match index
+Patch failed at 0001 xen/arm: Introduce 'choice' for memory system 
+architecture
 
->>> --- a/xen/arch/x86/acpi/boot.c
->>> +++ b/xen/arch/x86/acpi/boot.c
->>> @@ -87,14 +87,17 @@ acpi_parse_x2apic(struct acpi_subtable_header *header, const unsigned long end)
->>>  	if (BAD_MADT_ENTRY(processor, end))
->>>  		return -EINVAL;
->>>  
->>> +	/* Ignore entries with invalid apicid */
->>> +	if (processor->local_apic_id == 0xffffffff)
->>> +		return 0;
->>> +
->>>  	/* Don't register processors that cannot be onlined. */
->>>  	if (madt_revision >= 5 &&
->>>  	    !(processor->lapic_flags & ACPI_MADT_ENABLED) &&
->>>  	    !(processor->lapic_flags & ACPI_MADT_ONLINE_CAPABLE))
->>>  		return 0;
->>>  
->>> -	if ((processor->lapic_flags & ACPI_MADT_ENABLED) ||
->>> -	    processor->local_apic_id != 0xffffffff || opt_cpu_info) {
->>> +	if ((processor->lapic_flags & ACPI_MADT_ENABLED) || opt_cpu_info) {
->>>  		acpi_table_print_madt_entry(header);
->>>  		log = true;
->>>  	}
->>
->> In particular you're now suppressing log messages which may be relevant.
-> 
-> I intentionally mirrored the behavior of the check directly below.
-> Unlike the the version in Linux the existing code didn't log ignored
-> entries. So I did the same for the entries with an invalid ID.
+- Ayan
 
-I'm afraid I can't bring in line the check you add early in the function
-with what is "directly below" [here]. I'm only inferring the "here" from
-the placement of your reply. Maybe instead you meant the rev >= 5 one,
-in which case I'm afraid the two are too different to compare: That
-rev >= 5 one tells us that the entry isn't going to be hotpluggable. The
-APIC ID check you add makes no such guarantees. That's why the new flag
-was actually added in v5.
-
-Jan
+> ---
+> v4:
+> - Completely rework "[v3,06/52] xen/arm: introduce CONFIG_HAS_MMU"
+> ---
+>   xen/arch/arm/Kconfig | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
+>
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index fd57a82dd2..0e38e9ba17 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -59,6 +59,20 @@ config PADDR_BITS
+>          default 40 if ARM_PA_BITS_40
+>          default 48 if ARM_64
+>
+> +choice
+> +       prompt "Memory system architecture"
+> +       default HAS_MMU
+> +       help
+> +         User can choose the memory system architecture.
+> +         A Virtual Memory System Architecture (VMSA) provides a Memory Management
+> +         Unit (MMU) that controls address translation, access permissions, and
+> +         memory attribute determination and checking, for memory accesses made by
+> +         the PE.
+> +
+> +config HAS_MMU
+> +       bool "MMU for a VMSA system"
+> +endchoice
+> +
+>   source "arch/Kconfig"
+>
+>   config ACPI
+> --
+> 2.25.1
+>
+>
 
