@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88735772E8C
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 21:14:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.578898.906638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E012772E90
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Aug 2023 21:19:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.578906.906648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5fj-0008Ac-FL; Mon, 07 Aug 2023 19:13:43 +0000
+	id 1qT5kX-0000Oe-0i; Mon, 07 Aug 2023 19:18:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 578898.906638; Mon, 07 Aug 2023 19:13:43 +0000
+Received: by outflank-mailman (output) from mailman id 578906.906648; Mon, 07 Aug 2023 19:18:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qT5fj-00088a-Bn; Mon, 07 Aug 2023 19:13:43 +0000
-Received: by outflank-mailman (input) for mailman id 578898;
- Mon, 07 Aug 2023 19:13:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qT5kW-0000M2-UB; Mon, 07 Aug 2023 19:18:40 +0000
+Received: by outflank-mailman (input) for mailman id 578906;
+ Mon, 07 Aug 2023 19:18:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qk11=DY=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qT5fi-000888-AU
- for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 19:13:42 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8423dd5c-3556-11ee-b280-6b7b168915f2;
- Mon, 07 Aug 2023 21:13:40 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-52328e96869so3623949a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 12:13:40 -0700 (PDT)
+ id 1qT5kV-0000Lw-PB
+ for xen-devel@lists.xenproject.org; Mon, 07 Aug 2023 19:18:39 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 35d67885-3557-11ee-8613-37d641c3527e;
+ Mon, 07 Aug 2023 21:18:37 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-523100882f2so5766070a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 12:18:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,68 +40,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8423dd5c-3556-11ee-b280-6b7b168915f2
+X-Inumbo-ID: 35d67885-3557-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691435619; x=1692040419;
+        d=gmail.com; s=20221208; t=1691435917; x=1692040717;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RXxMEtzIXtzgrrtBXu1NPeueyjZJ8BAJ7BaiSiWCnkU=;
-        b=OHkY0nOSdqh/FIrYL07zgHYHXA4M9yfec4cgL0/ZsTlcubZRB09Xmz7RAsFYTDvSUD
-         AIrFcWGG8A1EHy8UX4+S0MunsXDXkcsZDmvFNO74lORRx0XcQwlvz/pq7DDVy7zEpkD4
-         gGZ+kTuqRHu3cFAjgMbD1v+PAThmofi0mfUR9jlTq4dvC+/HjsdRiV/D8DGada/tUo3s
-         m8RR103hx0vpw/WaC4KsXMSjfBOj6xKT6omnGTwlyERjSPFFw7y+WQlSYXugwR1InnCZ
-         YDHb7moHW5qR5Ky+PlbDyhErLvnI/8lWqBRjrOTCmK0BTW7NeJcAOBOfGBKLjIABMwjO
-         YkfQ==
+        bh=EnVVq0gFmpSLJc7Ra4hKzgPMN6I3sQVjfRFG+ziAaNQ=;
+        b=DQLUER5+ML7/Yo2Em24FN3v9IrFyVp9+kNy+QKr3hfyBbFCATqwg2jiQSC44U8Rwbp
+         ohZdcGuPwgfhdIkJaqfhrDmkld31NXLQUqk5qVB6rl7IDKF+YmLmSP9bD5k8Jy8IXnda
+         yRs28Sj2jFziSyuzf7LoKNoMBH7aJLAbH5eNRXGmB9EyC8Bm1GgwXzllomajYw4E6v6O
+         9iKln5hHxHu2XHMPsQRuFQEiQHDSjeU/rUPS+CKa33w5ks+zvlIfafz0hN1E8Rmx0vXL
+         huehtudTV8TsAQt2iYlHpVhbyGlNSFgqtmZMlYpEpdezSK3gP/bkO86KmkK87QiO7mZl
+         xnyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691435619; x=1692040419;
+        d=1e100.net; s=20221208; t=1691435917; x=1692040717;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RXxMEtzIXtzgrrtBXu1NPeueyjZJ8BAJ7BaiSiWCnkU=;
-        b=CzcT+ZHPr9L/F6r0p5skN8Hy8+p4Nfhmv2gohABpk6RVh2zBsNgbDDZw0cKJgVaNjL
-         m1pvv9bWAeYsfOrV3KpcsC3PylDLnz86vsUVb+YMZSY2qd8dQ8SOH+NKPe02/AdmmyKp
-         /2KNvhuQWn0mbQ6IPpLZ9qh3LwmXOUcYMWM68ZYTiErA4knhLUecxiCSTBABGBbpb6Jm
-         ku3AMgZEQUhQZ9SSKRyZno/dEeTsAvXcJznQkWPgB5TMS9PaUu/a+OBcvP7Rxw1L06/e
-         wAz+L569o31PGKHZWBbeICTcOOAIJ0Iy0otsgkzxje6yL+3mrWYQB23Zyex9AvblwjQp
-         N0IQ==
-X-Gm-Message-State: AOJu0YzqWDloJEP3HTN0ukIlo1AZNdHQz4f3Qipx+6n028ARxLu/j76E
-	3IsLopM2Rue+sn0vlyJXyZNLMG+t0BMjb3IdOGJWu6Ac
-X-Google-Smtp-Source: AGHT+IGsJrdTF/VBHdSRUmI4G2FG/S8Tsgk5Kcx9xzUfrGQCqDzRZjKLnlj+b0BYpoyfSrQwCHwCYZlxGCEYBJuP6iM=
-X-Received: by 2002:aa7:c2c9:0:b0:523:3e4f:1ff8 with SMTP id
- m9-20020aa7c2c9000000b005233e4f1ff8mr1983673edp.16.1691435619009; Mon, 07 Aug
- 2023 12:13:39 -0700 (PDT)
+        bh=EnVVq0gFmpSLJc7Ra4hKzgPMN6I3sQVjfRFG+ziAaNQ=;
+        b=HkZ+4mNLrD2lCJXsO8hbsEKf//pqQMOMewc90ElkNYUAn9pBvYYun7zZD5fXJcTrV9
+         zpRdIJ3OjzuJIVpC/RIIOr94gPVLCG/BkyUk/6SdunMGF0PRWwfKTBqOaRNTgL8e31Rr
+         dMGwMJW24kl2vSTPi9GQc1gqAAGSSakgMFvg/cJIkqGL53DzpcJkXQOSL94EOY60x34J
+         4jvJ/uJ7egLhCxh6HBEkJIxTcjlTk0iUxiCxnB1YJDZlpyNJjhbp1Hs/9qX3QlMbFk3f
+         TnNoY5UR8tKTADT6kJzYgTLOYsyws+jGSe3XIe94dRxsKyQb46aPSr96+P/TgnT7+MNW
+         54lQ==
+X-Gm-Message-State: AOJu0YxPNfg2tNo+hqvZuU2wX/86RQKtK5qWqP7dC4cpNp4FZrXFgO07
+	PwvJN3zihtbQLnXdEkwenMtwOpBpvJ0pjnZ0KOg=
+X-Google-Smtp-Source: AGHT+IG+m4XVxDF/Rm2u1rgJr/aS2zRCOZc7kHVJfbVidAgv8rP7YyRISpzYUtQC0FpCnYYhZlYTRHPd/fQ/HHcIjhk=
+X-Received: by 2002:aa7:d807:0:b0:523:9c4:67ba with SMTP id
+ v7-20020aa7d807000000b0052309c467bamr8027044edq.6.1691435917089; Mon, 07 Aug
+ 2023 12:18:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <10ce72fb-4fb7-67de-41ec-7291dbac0038@suse.com> <3c819879-d113-facd-b025-b062e68bb6a1@suse.com>
-In-Reply-To: <3c819879-d113-facd-b025-b062e68bb6a1@suse.com>
+References: <20230807140620.47221-1-anthony.perard@citrix.com>
+In-Reply-To: <20230807140620.47221-1-anthony.perard@citrix.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 7 Aug 2023 15:13:26 -0400
-Message-ID: <CAKf6xpvGL-WNKeU6WvWgf0TGU9Kz0OVp+x7gYBKanHQq-O9c_g@mail.gmail.com>
-Subject: Re: [PATCH v3 3/5] x86: allow Kconfig control over psABI level
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Date: Mon, 7 Aug 2023 15:18:25 -0400
+Message-ID: <CAKf6xpveoJLrk-hU9Z3qHRgaaTFdMcD8MU6m61h+f0WAssu2Rg@mail.gmail.com>
+Subject: Re: [XEN PATCH] libxl: Use XEN_LIB_DIR to store bootloader from pygrub
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+	Juergen Gross <jgross@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 26, 2023 at 6:34=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
+On Mon, Aug 7, 2023 at 10:07=E2=80=AFAM Anthony PERARD
+<anthony.perard@citrix.com> wrote:
 >
-> Newer hardware offers more efficient and/or flexible and/or capable
-> instructions, some of which we can make good use of in the hypervisor
-> as well. Allow a basic way (no alternatives patching) of enabling their
-> use. Of course this means that hypervisors thus built won't work
-> anymore on older, less capable hardware.
+> In osstest, the jobs using pygrub on arm64 on the branch linux-linus
+> started to fails with:
+>     [Errno 28] No space left on device
+>     Error writing temporary copy of ramdisk
 >
-> Since older compilers (apparently gcc10 / clang11 and older) won't
-> recognize -march=3Dx86-64-v2 etc, also addd fallback logic passing
-> -mpopcnt and alike explicitly.
+> This is because /var/run is small when dom0 has only 512MB to work
+> with, /var/run is only 40MB. The size of both kernel and ramdisk on
+> this jobs is now about 42MB, so not enough space in /var/run.
 >
-> Note that in efi_arch_cpu() the filling of 7c0 and 7d0 are forward-
-> looking; we only require 7b0, but we need to use cpuid_count() anyway.
+> So, to avoid writing a big binairy in ramfs, we will use /var/lib
+
+binary
+
+> instead, like we already do when saving the device model state on
+> migration.
 >
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
