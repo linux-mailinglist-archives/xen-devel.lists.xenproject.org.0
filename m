@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD809773894
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 09:27:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.579334.907266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EEE87738BD
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 09:51:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.579342.907279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTH7y-0001TI-Fv; Tue, 08 Aug 2023 07:27:38 +0000
+	id 1qTHUD-0004rM-AO; Tue, 08 Aug 2023 07:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 579334.907266; Tue, 08 Aug 2023 07:27:38 +0000
+Received: by outflank-mailman (output) from mailman id 579342.907279; Tue, 08 Aug 2023 07:50:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTH7y-0001Rd-D9; Tue, 08 Aug 2023 07:27:38 +0000
-Received: by outflank-mailman (input) for mailman id 579334;
- Tue, 08 Aug 2023 07:27:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/GY6=DZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qTH7w-0001RX-C6
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 07:27:36 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0607.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0aacba6f-35bd-11ee-8613-37d641c3527e;
- Tue, 08 Aug 2023 09:27:34 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by GV1PR04MB9199.eurprd04.prod.outlook.com (2603:10a6:150:2a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.26; Tue, 8 Aug
- 2023 07:27:30 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6652.025; Tue, 8 Aug 2023
- 07:27:30 +0000
+	id 1qTHUD-0004oa-7q; Tue, 08 Aug 2023 07:50:37 +0000
+Received: by outflank-mailman (input) for mailman id 579342;
+ Tue, 08 Aug 2023 07:50:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UQsq=DZ=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
+ id 1qTHUC-0004oU-6L
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 07:50:36 +0000
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [2607:f8b0:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40a8ba4a-35c0-11ee-b280-6b7b168915f2;
+ Tue, 08 Aug 2023 09:50:33 +0200 (CEST)
+Received: by mail-pg1-x532.google.com with SMTP id
+ 41be03b00d2f7-55b78bf0423so522687a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Aug 2023 00:50:33 -0700 (PDT)
+Received: from [10.70.252.135] ([203.208.167.146])
+ by smtp.gmail.com with ESMTPSA id
+ u4-20020a17090a410400b00263154aab24sm7244870pjf.57.2023.08.08.00.50.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Aug 2023 00:50:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,150 +45,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aacba6f-35bd-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fnzI7vYF/6vtpJQ3Gdfdm5SonW9mWy+Bl103XgymBNzrrz/5qdx1azfsvXK5fGusFq+QFJKIYTKRU+iUu1q24+JSgHJ+z6Itckw/KRC8ZECx+lyU9PnDNpEPrTenrDz7trCcn5+ftdiIRtFaBViwEnyNSjuRDZUq91tvV6Emz8OwyZWyQ37zd7bU4SuUnNFkkgmAdviBnMO3vuBUC12aOKZzXb88FFOhrH1sOYLWUxIv6d5uJmuD4uB6XxR9RJGlT1szlXnfgkY6xkIh3KPxbLnn4s5UETphWmDeqKp8WHLrA6KuPi4e+W1VlCupvJwloJgi7wxYOCKFwuHMWAyK3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H1CR+QH2QRjA3s8fhRSnMYrugfzzVYpsSu4bpcG0fP4=;
- b=buS4HUvG0RtpUSdKKKR7S+2vpPwHAW72Lpjk9AHtS1czhCH5AlDLzuXhq2r0YxX8535tfBzGdncswMigAY4HexVOOmRZvigFHQu5Or1Oz3QbmjptR3h57OciYrKjwDi8BHRBXPW5vmncMKZOb+k/Iy/jwjjo2t71HqDReOTUqpF3J9KdLkqdlGWXIXAMkpHUiNVu5uFEED/BzWepgSl1iCyV3IgQfSvvX25S50E6skw26CyjbBvONDnaC0M//d8wOUebDWQzC/IF2889lGm7yfDhlIHXcnu0iyVJnc0mEMxSJhcSkvVxSfONhTrBqyIHdRp2vW6wHHzc9bzWID+n0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H1CR+QH2QRjA3s8fhRSnMYrugfzzVYpsSu4bpcG0fP4=;
- b=axJrtm3+9oAS9F5CkW5hJ7VZPQCg2230TiKS/L9fyhsflgfasSkPaA03m5HzPjm03vSdWZC0mPjdl6GZCIOYHSjDhBvoiJz9kV6eeN/AgFgfHYXy3Hak0D7+3VCjyUOi3YH/pzFzQlmXAoEvNjS/w4AECLmLOhQ3PW/3JbAk0tLuk9D8aQCdxBF8OG0wJ2FuNoa+AWNiH5032NzAptF5F9tMKR8/w2lWTK7Wp6Wd0ygn7/OOIow54Gjc1IIheK9RaJbV60r7lQLIH+8U5kKcxLvv/Rikjb1NcAD3HgEwDAlszMSKEPArLpw/5BXChKFTKFh7FcekmQCurp+selpRhQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4722cb01-2e0a-6a12-b398-0ddd024b50bd@suse.com>
-Date: Tue, 8 Aug 2023 09:27:28 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [XEN PATCH] xen: change parameter name in monitor_domctl()
- declaration
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, federico.serafini@bugseng.com,
- tamas@tklengyel.com
-References: <6a25e9d729e85ba5712fd00f9c0514a459bb7631.1690471420.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2308041438170.2127516@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2308041438170.2127516@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0039.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 40a8ba4a-35c0-11ee-b280-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1691481032; x=1692085832;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wpg6aIffbYjICJhycB3Bph3fxU0UaKYZ32RPKTrhmtc=;
+        b=FcXFQj7o5xQr1tbRw7Pn9UcrCi1B232+uajLTiNwX9TdfSjMFaRRVdHzMiOaxlryr4
+         TqsRZGIMtiNm6ZippcajS5s8BFNszaSa/g6yFRgc1b4Nrb+clf9RoWeRHJwEtReG4gDh
+         LBwyybjoJjy6Q47GUlBU0hOxHJ5B5n+H+unsOBMRFGW3IeVtuYALwNVCTH0vLIY9qjFM
+         CyLNGOebqxclIqP3q4eqEvOWKbqhuuoRiG1QYUPJbHFervGiVpOZhfBMii4BWNV8TQee
+         jZz6YmXfb9rl1Oy5qXM+JWmVZktQ1qA2f5FKoSylWcG/GIFy7RhDcwYEdv8PeGx8L8zA
+         uA1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691481032; x=1692085832;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wpg6aIffbYjICJhycB3Bph3fxU0UaKYZ32RPKTrhmtc=;
+        b=Hsl9IieWPdk6hsCBxKyCRb3uz+AD5z33/p0ANisaQT2HTb7eOEmKJ5m1ZzdVTe/oTm
+         TvcMP/nzVr23BWsCuJZ+N/VmznMC/n3/YfBL+XWzqEj4zKxlGNGqmjT2qff04R0upna3
+         7Cf5cE75GKcCX1gmSSF+2d6L935jnjSuJNyjtfcxIRzlJS//OaJmhsxWINgZW0PsZO1B
+         Yj1Z5lU4GwyItuxYLy7r2eqByZH6zl7qBsqLM2Zx2+rHiivzvgsuJM/aQFci/7KMeGnN
+         FbGCOz5YCCVkE/UkrcdSgHu30LdfzgsHJybPhT4jKTHGR6/8IxFtpVcRgdCPgSAVjAIt
+         QF7A==
+X-Gm-Message-State: ABy/qLa1Dqkx5nLTZ69iu9Y8xIWZWn+fPEf0YxwaFwp/kY13uoquf4ME
+	VEcqOnJKOiyAOaw/reW8ZRSC7g==
+X-Google-Smtp-Source: APBJJlEd8UgUmVjTGODajLkItGQ9rG+lZy4ypLT00ATvxhzy6MYHUWJPNACQWVHeXI8Weqa+eylbDA==
+X-Received: by 2002:a17:90a:6c97:b0:263:730b:f568 with SMTP id y23-20020a17090a6c9700b00263730bf568mr25207579pjj.3.1691481032358;
+        Tue, 08 Aug 2023 00:50:32 -0700 (PDT)
+Message-ID: <5757e341-b261-14de-e052-46606d530460@bytedance.com>
+Date: Tue, 8 Aug 2023 15:50:18 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|GV1PR04MB9199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21054775-db59-47ab-1d46-08db97e0ec99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	287e/WZ3Rd4lsywnxGdrrRZRceE1JjEN+wSa70zOhNGFwsTO+pM+3fi9jK5nHiVxmv2yd5HrTVtum2+ilFcwTbWiZlszXHLeJMYVp8xk0AorFguse6eIIZVuS1EPWLwEcKAN2WMzEXpx9nQLfhOuUVfhl0LtH/TPqduDDUUBuMsp7KtnTG2n/1OdRfYU7Sp1a3JzTx6VPTWvGRyDdjasODhNxbcMp/ChJ3XPPtEyxTOgaH1tR7/WTGyPVM8Zuzae5wHAoaq/xsC8WSTmsbyhuawn3MSBdCayjRZE7IjvZTcJdAFz3+O0A6wsZ8L/OUeo4ubJ7CsU2vhniJJjk4EzLPNFsvxpBFiiKPEysXzfKyXbI1K4RJGP9DMgDq0FNzLmWyKNauI8FAQU1Bersb5nqeGWrqgTmeJ1s3hnsjowTxV1bsVnyggKeROc0pN1w4z7OchYKlXLtkyQfgrQHWyyeCw+M/NnvldX/5IFilN0qj5u4ZDIRC0Y1Rv+y5MXaXWOAlAvNNT6SvkyjcydthloLPdQ7a2usaVkZ7OOwtTOjobQVCcTazHxfW7A+dOimShDXB2RCAJTzCMloIKmBpI4quGQnb9NGZM+HR3CDsMRgyAVetJ0iL0bIOUW9lcXqxpUMKe8xUBlhTFCiyyLuooxAp6iJrxyTv+j/Jn59rK4GXzw+ZK+dRpiKNK4bvQre9kxv1h4jf05z0rb+OqHSI6VUQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(39860400002)(366004)(376002)(136003)(346002)(90021799007)(451199021)(1800799003)(186006)(90011799007)(6512007)(26005)(6506007)(53546011)(36756003)(54906003)(38100700002)(5660300002)(86362001)(31696002)(4326008)(2906002)(6916009)(66476007)(41300700001)(66946007)(66556008)(316002)(8936002)(8676002)(478600001)(2616005)(6486002)(31686004)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d3plSnRHTmJuR1pQcmNxNitTT0pnR0xpUE9aSFA3YnB3Z3Ria09NVSsxS1JU?=
- =?utf-8?B?T0hWWEhvakZsUWNrQ3hreFlMeURzMGxRNEZLL1FvbUZRMVBXOG5KVkh6d2J0?=
- =?utf-8?B?ODh3R1J1Y3VKS0VlcjhVWGlRUmFCclJWbCsvQXdxRFpRVXJsZ201NkVObnpy?=
- =?utf-8?B?bjFjalBXSmYxek90ZjkydkJJcVB0bjFSMldKZ2prbFZZcTdCQ2w4VUhBRFVD?=
- =?utf-8?B?SHd4WjZCc2hrV1paU0xsUDBZS3dHWFd5RzRudnZwemlRYzZRaEdKaHVMS1FB?=
- =?utf-8?B?d013cHh5MUplQ1BOamNZNWdoUjhqMmp6OHNmQVcvQVdJSTRkaFBLNmtlMFNa?=
- =?utf-8?B?NnNWeHVLeXhOWHd4M2paRElUR003SFh4alB4Yzdvb29XdHg4ajhraXh6M2Ni?=
- =?utf-8?B?QVRnU2NISXBrMjd0UmlBMXhCYlE0b1RoYjd5Z2I0T2ZLWk90RTZhRXZVMU5E?=
- =?utf-8?B?YTkyNyt5Ris5RkNWTFRsMHUraVhyRSt5eW04dVNMZk1RSTFmVDlqU25GMjds?=
- =?utf-8?B?RFZBL0JOUy83dFkxYWpYQk1SejVaeVU4R1p3ZEdlTnlVQnc1TjBZT2dxUHVQ?=
- =?utf-8?B?bjd5aU04d1lJZ1I1elFYOURVSFc3cU9hZXd3MkdFcWt0WHl6WXJscHRlS1RT?=
- =?utf-8?B?S2ZoeXdqL3VKM0lKRGtacjBZVGVhTTNlcTdieFB5MlBCOVpTSm5nTkdBcGZU?=
- =?utf-8?B?SkduU2w2QW5MMlJnanJnODhxTFpwY3lHRTdacnY5OUtGWVF0TnBsMFRVb2J2?=
- =?utf-8?B?VGVtY05sTHdqYUhYdzNGQ2JQeGoxN2IvSXN6enhSVE9nL1YvZjNRL2dJMjhX?=
- =?utf-8?B?aUZKS3JNaUhYajhveEMwOUdlZmhIczdPbjErVWU0ZWxmclhiN25xNkpIYThP?=
- =?utf-8?B?YXV2YzlJc1FiQ1RXZkFqdktVNDQ5MjZMNGh0YzE2V2dxTFhhbEtwN1gzbUtq?=
- =?utf-8?B?dGFzRlp2eWhrVXl6cVBBYXdpcG1iaUtsYXhpVXdpVjVhMzU2UEU1eGFGQnJT?=
- =?utf-8?B?cWo3VGJWSlRBTmN2RmJLYVVjUEJlK2djZVVnY2Zxdm9ndk1GbCsrSXFTU3Uz?=
- =?utf-8?B?a2dyeThUUVFaTGZhZksvRHp6SVBmdURycXArQmFSR21pUTVib05HN1hSU1hZ?=
- =?utf-8?B?bVVCRFdhc1IxdzV5OEtGdndYME9WZGtGeXNEbUJqV1RHNzZqYTljdzNpbjRk?=
- =?utf-8?B?Z2dUeWIrUEI2TlFjeFBuMFVVRktZVDRuWXBscFZBZXI4Vm8zTFFvUWJoTHNN?=
- =?utf-8?B?YzVIam9CK3FnaTFVZGUxSlR1amIyMGVmZmZJd3hpZzNZdkh0bnpxdFhweXMv?=
- =?utf-8?B?SmZwcm85dmc5YWR1Q2QramFtLzNnd1ZNWVVFUXE5Z0hQWjJwTGljTVBvKytV?=
- =?utf-8?B?SWdIWlcxbTBoeFU3TkQ5dXZCZENhbWdORXVGWTZsRFNtaEUrVEVwTkNjeEsr?=
- =?utf-8?B?ek9JNVQ2T1AzMlhvbU5VU0laYjU4RlNvdnZ0T1VmVnowU1BROWZiYnJycnNV?=
- =?utf-8?B?MHB5aTg2Y1ErMUdIZlVBcUNPSi92MmVxWUR2dEhBdUF6RGppd3V6TjhKK2p5?=
- =?utf-8?B?OWJTdzlPU2ZmY2tJK2ZmSFcrUzM2YWYrTUZjKzhOM2lGMFpHYytLb0Fyd1ZW?=
- =?utf-8?B?S2I2cjVIaHBtbnF3c0RydVcxVlJTVFgwUlQ2TSs3MXRPbXVOenM4NVlJcTFa?=
- =?utf-8?B?SVZTRmtCdG9pZkFvenM1ME9GUHpObzVvT2xqdGVHeWNYY0lrK0NPaVgxZlFt?=
- =?utf-8?B?bGhTR3ZCVTFFazlDRExEMkIvZWZNRkg3bWY5OUZCYUNVT2JkeE1kczR6a0NW?=
- =?utf-8?B?T1U1M296d1Q4dGdQaGFCTHNsdnFEYkhyUXZMdGtabjA3YVB6VS9YeFFEV0xH?=
- =?utf-8?B?ZUJCbERTN2tRSk1rcWc4eTR6WjlGYzRYbzA4Ung0SDFmL0RzR3d4dEFBYXBV?=
- =?utf-8?B?aDRTRS8zbnVNOFJ4UDBTQ3drQTBwa09nbHpZNk5uYkJyaTRQTkE3eWM2RWZr?=
- =?utf-8?B?bGQyQXZJQmZqbTZYaUQ4bGdXRWdkL2NzckNGY3N3NFhKMVcvOVY3NVgwNFJ1?=
- =?utf-8?B?UGF1MXI0Y2xudk85YVp6SkFBcTZEdzc3WHdmNHJ6YWc5RGFTUTNtT2hNc1VP?=
- =?utf-8?Q?4vwI0GiYqUN2BPpVkVGaNTQCH?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21054775-db59-47ab-1d46-08db97e0ec99
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2023 07:27:30.2620
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QmnpoLTs5xJAvWDSywn+6pepvZ/82dBNBalzVrxDV5xIfEqqfUGa2ODGthNX5gqMEAEwFSwngw0FLe20B5OeNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9199
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.14.0
+Subject: Re: [PATCH v4 46/48] mm: shrinker: make memcg slab shrink lockless
+Content-Language: en-US
+To: Dave Chinner <david@fromorbit.com>
+Cc: akpm@linux-foundation.org, tkhai@ya.ru, vbabka@suse.cz,
+ roman.gushchin@linux.dev, djwong@kernel.org, brauner@kernel.org,
+ paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com, cel@kernel.org,
+ senozhatsky@chromium.org, yujie.liu@intel.com, gregkh@linuxfoundation.org,
+ muchun.song@linux.dev, simon.horman@corigine.com, dlemoal@kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
+ linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ dm-devel@redhat.com, linux-raid@vger.kernel.org,
+ linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
+References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
+ <20230807110936.21819-47-zhengqi.arch@bytedance.com>
+ <ZNGr+1orhHaBORJG@dread.disaster.area>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <ZNGr+1orhHaBORJG@dread.disaster.area>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 04.08.2023 23:39, Stefano Stabellini wrote:
-> Hi Tamas,
-> 
-> May I have your ack on this change?
+Hi Dave,
 
-I see you committed this, and there is an ack in the commit, but I can't
-see any ack on list (incl when checking mail archives, to exclude an
-issue with my mailbox).
+On 2023/8/8 10:44, Dave Chinner wrote:
+> On Mon, Aug 07, 2023 at 07:09:34PM +0800, Qi Zheng wrote:
+>> Like global slab shrink, this commit also uses refcount+RCU method to make
+>> memcg slab shrink lockless.
+> 
+> This patch does random code cleanups amongst the actual RCU changes.
+> Can you please move the cleanups to a spearate patch to reduce the
+> noise in this one?
 
-Jan
+Sure, will do.
 
-> On Thu, 27 Jul 2023, Federico Serafini wrote:
->> Change parameter name in monitor_domctl() declaration for
->> consistency with the corresponding definition.
->> This addresses a violation of MISRA C:2012 Rule 8.3: "All declarations
->> of an object or function shall use the same names and type qualifiers".
->>
->> No functional changes.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>> diff --git a/mm/shrinker.c b/mm/shrinker.c
+>> index d318f5621862..fee6f62904fb 100644
+>> --- a/mm/shrinker.c
+>> +++ b/mm/shrinker.c
+>> @@ -107,6 +107,12 @@ static struct shrinker_info *shrinker_info_protected(struct mem_cgroup *memcg,
+>>   					 lockdep_is_held(&shrinker_rwsem));
+>>   }
+>>   
+>> +static struct shrinker_info *shrinker_info_rcu(struct mem_cgroup *memcg,
+>> +					       int nid)
+>> +{
+>> +	return rcu_dereference(memcg->nodeinfo[nid]->shrinker_info);
+>> +}
 > 
-> 
->> ---
->>  xen/include/xen/monitor.h | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/xen/include/xen/monitor.h b/xen/include/xen/monitor.h
->> index 6b17a93071..713d54f7c1 100644
->> --- a/xen/include/xen/monitor.h
->> +++ b/xen/include/xen/monitor.h
->> @@ -27,7 +27,7 @@
->>  struct domain;
->>  struct xen_domctl_monitor_op;
->>  
->> -int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *op);
->> +int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *mop);
->>  void monitor_guest_request(void);
->>  
->>  int monitor_traps(struct vcpu *v, bool sync, vm_event_request_t *req);
->> -- 
->> 2.34.1
->>
->>
-> 
+> This helper doesn't add value. It doesn't tell me that
+> rcu_read_lock() needs to be held when it is called, for one....
 
+How about adding a comment or an assertion here?
+
+> 
+>>   static int expand_one_shrinker_info(struct mem_cgroup *memcg, int new_size,
+>>   				    int old_size, int new_nr_max)
+>>   {
+>> @@ -198,7 +204,7 @@ void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int shrinker_id)
+>>   		struct shrinker_info_unit *unit;
+>>   
+>>   		rcu_read_lock();
+>> -		info = rcu_dereference(memcg->nodeinfo[nid]->shrinker_info);
+>> +		info = shrinker_info_rcu(memcg, nid);
+> 
+> ... whilst the original code here was obviously correct.
+> 
+>>   		unit = info->unit[shriner_id_to_index(shrinker_id)];
+>>   		if (!WARN_ON_ONCE(shrinker_id >= info->map_nr_max)) {
+>>   			/* Pairs with smp mb in shrink_slab() */
+>> @@ -211,7 +217,7 @@ void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int shrinker_id)
+>>   
+>>   static DEFINE_IDR(shrinker_idr);
+>>   
+>> -static int prealloc_memcg_shrinker(struct shrinker *shrinker)
+>> +static int shrinker_memcg_alloc(struct shrinker *shrinker)
+> 
+> Cleanups in a separate patch.
+
+OK.
+
+> 
+>> @@ -253,10 +258,15 @@ static long xchg_nr_deferred_memcg(int nid, struct shrinker *shrinker,
+>>   {
+>>   	struct shrinker_info *info;
+>>   	struct shrinker_info_unit *unit;
+>> +	long nr_deferred;
+>>   
+>> -	info = shrinker_info_protected(memcg, nid);
+>> +	rcu_read_lock();
+>> +	info = shrinker_info_rcu(memcg, nid);
+>>   	unit = info->unit[shriner_id_to_index(shrinker->id)];
+>> -	return atomic_long_xchg(&unit->nr_deferred[shriner_id_to_offset(shrinker->id)], 0);
+>> +	nr_deferred = atomic_long_xchg(&unit->nr_deferred[shriner_id_to_offset(shrinker->id)], 0);
+>> +	rcu_read_unlock();
+>> +
+>> +	return nr_deferred;
+>>   }
+> 
+> This adds two rcu_read_lock() sections to every call to
+> do_shrink_slab(). It's not at all clear ifrom any of the other code
+> that do_shrink_slab() now has internal rcu_read_lock() sections....
+
+The xchg_nr_deferred_memcg() will only be called in shrink_slab_memcg(),
+so other code doesn't need to know that information?
+
+> 
+>> @@ -464,18 +480,23 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>>   	if (!mem_cgroup_online(memcg))
+>>   		return 0;
+>>   
+>> -	if (!down_read_trylock(&shrinker_rwsem))
+>> -		return 0;
+>> -
+>> -	info = shrinker_info_protected(memcg, nid);
+>> +again:
+>> +	rcu_read_lock();
+>> +	info = shrinker_info_rcu(memcg, nid);
+>>   	if (unlikely(!info))
+>>   		goto unlock;
+>>   
+>> -	for (; index < shriner_id_to_index(info->map_nr_max); index++) {
+>> +	if (index < shriner_id_to_index(info->map_nr_max)) {
+>>   		struct shrinker_info_unit *unit;
+>>   
+>>   		unit = info->unit[index];
+>>   
+>> +		/*
+>> +		 * The shrinker_info_unit will not be freed, so we can
+>> +		 * safely release the RCU lock here.
+>> +		 */
+>> +		rcu_read_unlock();
+> 
+> Why - what guarantees that the shrinker_info_unit exists at this
+> point? We hold no reference to it, we hold no reference to any
+> shrinker, etc. What provides this existence guarantee?
+
+The shrinker_info_unit is never freed unless the memcg is destroyed.
+Here we hold the refcount of this memcg (mem_cgroup_iter() -->
+css_tryget()), so the shrinker_info_unit will not be freed.
+
+> 
+>> +
+>>   		for_each_set_bit(offset, unit->map, SHRINKER_UNIT_BITS) {
+>>   			struct shrink_control sc = {
+>>   				.gfp_mask = gfp_mask,
+>> @@ -485,12 +506,14 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>>   			struct shrinker *shrinker;
+>>   			int shrinker_id = calc_shrinker_id(index, offset);
+>>   
+>> +			rcu_read_lock();
+>>   			shrinker = idr_find(&shrinker_idr, shrinker_id);
+>> -			if (unlikely(!shrinker || !(shrinker->flags & SHRINKER_REGISTERED))) {
+>> -				if (!shrinker)
+>> -					clear_bit(offset, unit->map);
+>> +			if (unlikely(!shrinker || !shrinker_try_get(shrinker))) {
+>> +				clear_bit(offset, unit->map);
+>> +				rcu_read_unlock();
+>>   				continue;
+>>   			}
+>> +			rcu_read_unlock();
+>>   
+>>   			/* Call non-slab shrinkers even though kmem is disabled */
+>>   			if (!memcg_kmem_online() &&
+>> @@ -523,15 +546,20 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>>   					set_shrinker_bit(memcg, nid, shrinker_id);
+>>   			}
+>>   			freed += ret;
+>> -
+>> -			if (rwsem_is_contended(&shrinker_rwsem)) {
+>> -				freed = freed ? : 1;
+>> -				goto unlock;
+>> -			}
+>> +			shrinker_put(shrinker);
+> 
+> Ok, so why is this safe to call without holding the rcu read lock?
+> The global shrinker has to hold the rcu_read_lock() whilst calling
+> shrinker_put() to guarantee the validity of the list next pointer,
+> but we don't hold off RCU here so what guarantees a racing global
+> shrinker walk doesn't trip over this shrinker_put() call dropping
+> the refcount to zero and freeing occuring in a different context...
+
+This will not be a problem, even if shrinker::refcount is reduced to
+0 here, the racing global shrinker walk already holds the rcu lock.
+
+         shrink_slab            shrink_slab_memcg
+         ===========            =================
+
+         rcu_read_lock()
+         shrinker_put()
+                                shrinker_put()
+
+And in shrink_slab_memcg(), the shrinker is not required to traverse the
+next bit in the shrinker_info_unit::map, so there is no need to hold the
+rcu lock to ensure the existence of this shrinker.
+
+> 
+> 
+>> +		/*
+>> +		 * We have already exited the read-side of rcu critical section
+>> +		 * before calling do_shrink_slab(), the shrinker_info may be
+>> +		 * released in expand_one_shrinker_info(), so reacquire the
+>> +		 * shrinker_info.
+>> +		 */
+>> +		index++;
+>> +		goto again;
+> 
+> With that, what makes the use of shrinker_info in
+> xchg_nr_deferred_memcg() in do_shrink_slab() coherent and valid?
+
+Holding rcu lock can ensure that the old shrinker_info will not be
+freed, and the shrinker_info_unit::nr_deferred can also be indexed from
+the old shrinker_info::unit[x], so the updated nr_deferred will not be
+lost.
+
+Thanks,
+Qi
+
+> 
+> -Dave.
 
