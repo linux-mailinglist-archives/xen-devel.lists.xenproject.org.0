@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9A7773F2E
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 18:44:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580108.908408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0911773F89
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 18:49:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580116.908418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTPo2-0003lL-5w; Tue, 08 Aug 2023 16:43:38 +0000
+	id 1qTPtP-0004Rj-Ua; Tue, 08 Aug 2023 16:49:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580108.908408; Tue, 08 Aug 2023 16:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 580116.908418; Tue, 08 Aug 2023 16:49:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTPo2-0003iq-2e; Tue, 08 Aug 2023 16:43:38 +0000
-Received: by outflank-mailman (input) for mailman id 580108;
- Tue, 08 Aug 2023 16:43:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qTPtP-0004PG-Rz; Tue, 08 Aug 2023 16:49:11 +0000
+Received: by outflank-mailman (input) for mailman id 580116;
+ Tue, 08 Aug 2023 16:49:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTPo0-0003ik-O3
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 16:43:36 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b5683846-360a-11ee-8613-37d641c3527e;
- Tue, 08 Aug 2023 18:43:34 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691513003720900.7514399342488;
- Tue, 8 Aug 2023 09:43:23 -0700 (PDT)
+ <SRS0=K7Oi=DZ=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qTPtN-0004PA-LP
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 16:49:09 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7cb120c0-360b-11ee-b280-6b7b168915f2;
+ Tue, 08 Aug 2023 18:49:07 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 6204A8285619;
+ Tue,  8 Aug 2023 11:49:05 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id vzE_jrHoXU42; Tue,  8 Aug 2023 11:49:04 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id A916982856A2;
+ Tue,  8 Aug 2023 11:49:04 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 7jmK_WrnR538; Tue,  8 Aug 2023 11:49:04 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 03AD28285619;
+ Tue,  8 Aug 2023 11:49:03 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,67 +51,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5683846-360a-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691513005; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Ars4vVcGhiDHxCU36qEhp85KzI5ev7jsJ+KagjOKqLneQlqX6GYkJrhrW5QpkCIHJ0i8cMA2cmFWEGQJNufWPYybhEfxp4lbwzh2wohA1lP4OxprJ/PdY1vSN9BxQsPmcAbnnrxD0KxPf+q2ZbJ4bARqCklTyqxjKhnadSqac/M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691513005; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=52txK7ESKDZok3A5srdKuASszxGqFqTYvgKIv0vR6sY=; 
-	b=V8eP5AtnJCYb3ogGRO169JXpHwbkeO8PydthFx2231tpBhrYRzyR7BnJTZTcsoGMgdPR843KHtZLzmolmURxDkmlHbSML15kUTwqTbBJGBCNMAw6gUzZnn8x5Qd/jcGiiMoNVk2ojaK4DIWCiyt79b9RQiLe1glCVYp4Y4X71Fo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691513005;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=52txK7ESKDZok3A5srdKuASszxGqFqTYvgKIv0vR6sY=;
-	b=I8oEGcCW3cTdLAS0A7IXI/XyKwm8pvtniAPKCh7va/pC/xLtEjfmmIuZEsRStlOY
-	hyRGqvm2aO9Zte/Nb5aUF8HNhYol5vQC62m5B56kfHFa0PWS0du2dfgXpmzCyffRQi8
-	HlJQfn1xJtC8dVsxAzofEJ/QatifnbP61kK0XH0E=
-Message-ID: <4ee78808-5807-58e8-2054-016486607713@apertussolutions.com>
-Date: Tue, 8 Aug 2023 12:43:15 -0400
+X-Inumbo-ID: 7cb120c0-360b-11ee-b280-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A916982856A2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1691513344; bh=p6+9yv2csDBijRpJzkd92jEcGbqUYM/6By887NKnwKc=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=IU1HUA0t8um28VpddkG/oEySeGen62eAG2SyFwDZ30R0c5AVWEFFllY1ccnxuBo11
+	 4mKJyRMMNfg0UIfXlApXSwAFef8T/70FgbWQae2uCRy+lZ/u1Z8PdEH3vd2bvaAR5b
+	 c0SY4uuIPCVv0LwGkA3QspwJJgtX+Vj7YAHUvFI4=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <7e77b8ed-2c0e-b814-6ce2-c6b2cf47bec9@raptorengineering.com>
+Date: Tue, 8 Aug 2023 11:49:03 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH v2 1/2] common: move Linux-inherited fixed width type
- decls to common header
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Bobby Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <652ef09f-3654-548a-37d7-bbc46cbda177@suse.com>
- <c641b981-54b8-d3ca-26a4-28331dc79ca5@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 1/9] xen/common: Add missing #includes treewide
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <c641b981-54b8-d3ca-26a4-28331dc79ca5@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <cover.1691016993.git.sanastasio@raptorengineering.com>
+ <2c9eb4fc175a1bdd21293f2e2611d8e21991636d.1691016993.git.sanastasio@raptorengineering.com>
+ <af751f31-5e8d-2b1d-e878-148e08d9264b@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <af751f31-5e8d-2b1d-e878-148e08d9264b@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 8/4/23 02:08, Jan Beulich wrote:
-> Have these in one place, for all architectures to use. Also use the C99
-> types as the "original" ones, and derive the Linux compatible ones
-> (which we're trying to phase out). For __s<N>, seeing that no uses exist
-> anymore, move them to a new Linux compatibility header (as an act of
-> precaution - as said, we don't have any uses of these types right now).
+On 8/7/23 10:39 AM, Jan Beulich wrote:
+> On 03.08.2023 01:02, Shawn Anastasio wrote:
+>> A few files treewide depend on defininitions in headers that they
+>> don't include. This works when arch headers end up including the
+>> required headers by chance, but broke on ppc64 with only minimal/stub
+>> arch headers.
+>>
+>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 > 
-> In some Flask sources inclusion of asm/byteorder.h needs moving later.
+> I'm okay with the changes in principle, but I'd like to ask a question
+> nevertheless, perhaps also for other REST maintainers (whom you should
+> have Cc-ed, btw) to chime in.
+> 
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -28,6 +28,7 @@
+>>  #include <asm/current.h>
+>>  #include <asm/hardirq.h>
+>>  #include <asm/p2m.h>
+>> +#include <asm/page.h>
+>>  #include <public/memory.h>
+>>  #include <xsm/xsm.h>
+> 
+> I realize there are several asm/*.h being included here already. Yet
+> generally I think common .c files would better not include any of
+> them directly; only xen/*.h ones should (and even there one might see
+> possible restrictions on what's "legitimate"). Do you recall what it
+> was that's needed from asm/page.h here ...
 
-I just did a test build against staging for x86 with all asm/byteorder.h 
-includes removed from FLASK and it built successfully. If there are no 
-object to a small non-functional change patch, I can clean up include 
-ordering as well and submit it to xen-devel.
+The references to invalidate_icache (memory.c:310), clear_page
+(memory.c:1867), and copy_page (memory.c:1876) all need asm/page.h to be
+included somehow. I'm not sure which file ends up including asm/page.h
+for build to work on x86/arm, but with my minimal PPC headers it wasn't
+getting incidentally included and build was failing.
 
-v/r,
-dps
+> 
+>> --- a/xen/common/xmalloc_tlsf.c
+>> +++ b/xen/common/xmalloc_tlsf.c
+>> @@ -27,6 +27,7 @@
+>>  #include <xen/mm.h>
+>>  #include <xen/pfn.h>
+>>  #include <asm/time.h>
+>> +#include <asm/page.h>
+> 
+> ... and here?
+
+Here it's the PAGE_ALIGN used at xmalloc_tlsf.c:549
+
+> 
+>> --- a/xen/include/xen/domain.h
+>> +++ b/xen/include/xen/domain.h
+>> @@ -4,6 +4,7 @@
+>>  
+>>  #include <xen/types.h>
+>>  
+>> +#include <public/domctl.h>
+>>  #include <public/xen.h>
+> 
+> While following our sorting guidelines, this still looks a little odd.
+> We typically would include public/xen.h first, but then almost all other
+> public headers include it anyway. So I'm inclined to suggest to replace
+> (rather than amend) the existing #include here.
+
+To be clear, you're suggesting replacing the include of <public/xen.h>
+to <public/domctl.h>? I've tested this and it works fine, as expected.
+
+> 
+> Then again I wonder why this include is needed. xen/domain.h is
+> effectively included everywhere, yet I would have hoped public/domctl.h
+> isn't.
+
+domctl.h is required because of the reference to `struct
+xen_domctl_createdomain` on domain.h:84. Alternatively, we could get
+away with a forward declaration of the struct.
+
+> Jan
+
+Thanks,
+Shawn
 
