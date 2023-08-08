@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B7C2774EA2
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 00:49:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580569.908890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12F1774F43
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 01:23:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580576.908900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTVVv-0004RG-54; Tue, 08 Aug 2023 22:49:19 +0000
+	id 1qTW1g-0000QJ-O6; Tue, 08 Aug 2023 23:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580569.908890; Tue, 08 Aug 2023 22:49:19 +0000
+Received: by outflank-mailman (output) from mailman id 580576.908900; Tue, 08 Aug 2023 23:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTVVv-0004Nw-1u; Tue, 08 Aug 2023 22:49:19 +0000
-Received: by outflank-mailman (input) for mailman id 580569;
- Tue, 08 Aug 2023 22:49:17 +0000
+	id 1qTW1g-0000O2-LZ; Tue, 08 Aug 2023 23:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 580576;
+ Tue, 08 Aug 2023 23:22:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTVVt-0004No-LW
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 22:49:17 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cbed0d3d-363d-11ee-b280-6b7b168915f2;
- Wed, 09 Aug 2023 00:49:15 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691534949515220.7474258351242;
- Tue, 8 Aug 2023 15:49:09 -0700 (PDT)
+ <SRS0=OiCO=DZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qTW1f-0000Nw-LS
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 23:22:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62b838b3-3642-11ee-b280-6b7b168915f2;
+ Wed, 09 Aug 2023 01:22:05 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E29F762DEE;
+ Tue,  8 Aug 2023 23:22:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C84C433C7;
+ Tue,  8 Aug 2023 23:22:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,190 +44,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbed0d3d-363d-11ee-b280-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1691534952; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bLuua5r1LGNNx9rs9d8ELD99e5LrC+mFsCiHru+q1Li8jWTDNs+sZ0kkoSwnWDp4Ffrf0DLH0vPfJGX4dWk/jzGdSdE5D25T0y9zUiAbUjm8PTpuXaDBS0tiqZWL3mteZln2cMQZJRHRbTnPjtuBV5CczyoEityoC9e3pvrpGhM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691534952; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=WgoM135m2U7UBiCaQNsuLm8Ol43KKt1u10XOAsqh1Jg=; 
-	b=MqaUT7gohEQ9H+UhBjd5Uyugu+kJyCdfw6RlzprwBUm5KH6FrVifgUPmBXUusnT8Rb0W+RVrMNTxZeOtFqbgdpuRbzvDuvqOV0qgVvWC1xodgSxRE0tDkpE1Oax36cjqQh4CkNdWxAhZxMxO/EV7uv1wD9/Sjz7ippx9/GR7hLI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691534952;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=WgoM135m2U7UBiCaQNsuLm8Ol43KKt1u10XOAsqh1Jg=;
-	b=L/VMeVVlrVWPRTcgIcaIIwIBM+ix1ERKqxFvnMeDsCzQZdfljupnN46upoLbW15X
-	lsaHaZEM69xRN6DUmo6GQX9hIm/hbaFZAKdqJeGGNF5iX2qXOnWuG1+LWggxcNrqNqh
-	x72ThNy3TDGTbutGrpJO7FPZHGbCEKS8jlwaROfc=
-Message-ID: <7a10af10-27c7-257e-9564-2716c67bb400@apertussolutions.com>
-Date: Tue, 8 Aug 2023 18:49:07 -0400
+X-Inumbo-ID: 62b838b3-3642-11ee-b280-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691536923;
+	bh=wkz4QDdS6EOodgWlT5pB8X3kXd5cGOfsF6oFMIZTu7g=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JXwyk83Fmf7HArs2ZHTXy+zLOn8eCzpOpXYsX1YVRzYowkcy0+ZQA59aWIlgtZQ+h
+	 RyJ/k5ORouWq4WwsEB18DkEsqNfaXXu6s7wCpem2PrLN4lVDkhF3sjfJT7+paltzYt
+	 c00Kom/qEta3wjLJIHCaAah5zKJAw+TGXW5pnqyyUfdVleLq8Fh+jssjrbtfg95ikR
+	 I+JgUTDGVWgTvm5PbXxn/moFJ9kLnm0g6hyCChqjiawNB4zuQw0posAmQiLtLVLDki
+	 GsVUkpUN/nY6fa7lFGeL5csE3IbOAFDCkdmBnox2au8KOTAGp97bLNdU/iaQomYnGo
+	 ehEjoejLC3JGQ==
+Date: Tue, 8 Aug 2023 16:22:00 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Federico Serafini <federico.serafini@bugseng.com>, jgross@suse.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    "consulting@bugseng.com" <consulting@bugseng.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: MISRA violations in hypercall-defs
+In-Reply-To: <01fbd921-8092-aedd-33ec-ef170d8ec6fc@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2308081457530.2127516@ubuntu-linux-20-04-desktop>
+References: <5972799c-99a6-73f5-eff2-b24469f7428d@bugseng.com> <01fbd921-8092-aedd-33ec-ef170d8ec6fc@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [RFC 4/6] capabilities: introduce console io as a domain
- capability
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20230801202006.20322-1-dpsmith@apertussolutions.com>
- <20230801202006.20322-5-dpsmith@apertussolutions.com>
- <8951f722-6949-b2b5-f6d4-2d515f085cde@xen.org>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <8951f722-6949-b2b5-f6d4-2d515f085cde@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
 
-On 8/3/23 17:03, Julien Grall wrote:
-> Hi,
-
-Greetings
-
-> On 01/08/2023 21:20, Daniel P. Smith wrote:
->> The field `is_console` suggests that the field represents a state of 
->> being or
->> posession, not that it reflects the privilege to access the console. 
->> In this
->> patch the field is renamed to capabilities to encapsulate the 
->> capabilities a
->> domain has been granted. The first capability being the ability to 
->> read/write
->> the Xen console.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/arm/domain_build.c |  4 +++-
->>   xen/include/xen/sched.h     | 25 +++++++++++++++++++++++--
->>   xen/include/xsm/dummy.h     |  2 +-
->>   3 files changed, 27 insertions(+), 4 deletions(-)
->>
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index 51b4daefe1..ad7432b029 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -4076,7 +4076,9 @@ void __init create_domUs(void)
->>               panic("Error creating domain %s (rc = %ld)\n",
->>                     dt_node_name(node), PTR_ERR(d));
->> -        d->is_console = true;
->> +        if ( ! domain_set_cap(d, CAP_CONSOLE_IO) )
+On Tue, 8 Aug 2023, Jan Beulich wrote:
+> On 08.08.2023 10:47, Federico Serafini wrote:
+> > Hello everyone.
+> > 
+> > I would like to to ask your opinion about the auto-generated file
+> > xen/include/xen/hypercall-defs.h which contains some violations of
+> > MISRA C:2012 Rule 8.3:
+> > "All declarations of an object or function shall use the same names and
+> > type qualifiers".
+> > 
+> > Such violations can be seen at the following links
+> > (copy and paste the link on you browser, including also the characters
+> > after the '#'):
+> > 
+> > - arm
+> > https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/origin/staging/ARM64-Set1/218/PROJECT.ecd;/by_service/MC3R1.R8.3.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":true,"selector":{"enabled":true,"negated":false,"kind":2,"children":[{"enabled":true,"negated":false,"kind":0,"domain":"file","inputs":[{"enabled":true,"text":"xen/include/xen/hypercall-defs.h"}]}]}}}
+> > 
+> > - x86
+> > https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/origin/staging/X86_64-Set1/218/PROJECT.ecd;/by_service/MC3R1.R8.3.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":true,"selector":{"enabled":true,"negated":false,"kind":2,"children":[{"enabled":true,"negated":false,"kind":0,"domain":"file","inputs":[{"enabled":true,"text":"xen/include/xen/hypercall-defs.h"}]}]}}}
+> > 
+> > Some of the violations are due to mismatches on the return types
+> > and the use of `ret_t`.
 > 
-> Coding style: We don't usually add a space after '!'.
+> We already said that ret_t will need deviating. For parameter names
+> it ought to be possible to suitably rename, like done elsewhere. Whether
+> that means renaming in the generator script or in the definitions likely
+> again needs judging on a case-by-case basis.
 
-Ack.
+Is it the case that ret_t is purposedly defined as 'long' for 64-bit x86
+guests and 'int' for 32-bit x86 guests?
 
->> +            printk("failed setting console_io on %pd\n", d);
-> 
-> I find a bit odd that we would continue even if the cap cannot be set. 
-> Can you clarify?
-
-This is the construction of a domU, so the system is very much capable 
-of coming up and reviewing the hypervisor messages from dom0 to discover 
-the issue. I am hard pressed to believe the hypervisor should be 
-panicked because the domU is not allowed to use the hypervisor's console.
-
-g>> +
->>           dt_device_set_used_by(node, d->domain_id);
->>           rc = construct_domU(d, node);
->> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
->> index ec0f9baff6..b04fbe0565 100644
->> --- a/xen/include/xen/sched.h
->> +++ b/xen/include/xen/sched.h
->> @@ -472,8 +472,8 @@ struct domain
->>   #define ROLE_HARDWARE_DOMAIN   (1U<<2)
->>   #define ROLE_XENSTORE_DOMAIN   (1U<<3)
->>       uint8_t          role;
->> -    /* Can this guest access the Xen console? */
->> -    bool             is_console;
->> +#define CAP_CONSOLE_IO  (1U<<0)
-> Coding style: Space before and after <<.
-
-Ack.
-
->> +    uint8_t          capabilities;
->>       /* Is this guest being debugged by dom0? */
->>       bool             debugger_attached;
->>       /*
->> @@ -1146,6 +1146,27 @@ static always_inline bool is_hvm_vcpu(const 
->> struct vcpu *v)
->>       return is_hvm_domain(v->domain);
->>   }
->> +static always_inline bool domain_has_cap(
->> +    const struct domain *d, uint8_t cap)
-> 
-> Coding style: We don't usually wrap the arguments this way. See 
-> domain_create() for an example.
-
-I was informed it was[1], also, please see next_domain_in_cpupool() 
-amongst many others further below.
-
-[1] 
-https://lists.xenproject.org/archives/html/xen-devel/2021-07/msg01133.html
-
->> +{
->> +    return d->capabilities & cap;
->> +}
->> +
->> +static always_inline bool domain_set_cap(
->> +    struct domain *d, uint8_t cap)
-> 
-> Same about the coding style here.
-
-Ditto.
-
-> Also, do you expect the cap to be set only when the domain is created? 
-> If not, would you prevent potentially concurrent update to d->capabilities?
-
-Currently the only means being devise to set this is via hyperlaunch 
-domain creation. If a domctl op was added to be able to manipulate the 
-caps, then yes a lock on the domain would be advised to block. With that 
-said, if we switch over to CAP_CTRL/HW, then it might be good to grab a 
-lock on the domain for the late hardware domain case.
-
->> +{
->> +    switch ( cap )
->> +    {
->> +    case CAP_CONSOLE_IO:
->> +        d->capabilities |= cap;
->> +        break;
->> +    default:
-> 
-> Is this meant to be reached? If not, maybe add ASSERT_UNREACHABLE()?
-
-Yah, that would be a good idea.
-
->> +        return false;
->> +    }
->> +
->> +    return domain_has_cap(d, cap);
->> +} > +
->>   static always_inline bool hap_enabled(const struct domain *d)
->>   {
->>       /* sanitise_domain_config() rejects HAP && !HVM */
->> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
->> index 18f1ddd127..067ff1d111 100644
->> --- a/xen/include/xsm/dummy.h
->> +++ b/xen/include/xsm/dummy.h
->> @@ -268,7 +268,7 @@ static XSM_INLINE int cf_check xsm_console_io(
->>       XSM_DEFAULT_ARG struct domain *d, int cmd)
->>   {
->>       XSM_ASSERT_ACTION(XSM_OTHER);
->> -    if ( d->is_console )
->> +    if ( domain_has_cap(d, CAP_CONSOLE_IO) )
->>           return xsm_default_action(XSM_HOOK, d, NULL);
->>   #ifdef CONFIG_VERBOSE_DEBUG
->>       if ( cmd == CONSOLEIO_write )
-
-
-v/r,
-dps
+I am asking because it looks like we don't use ret_t at all on ARM and
+on the public interfaces.
 
