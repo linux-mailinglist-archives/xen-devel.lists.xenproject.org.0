@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33ABF773A23
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 14:28:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.579774.907888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47DB2773A53
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 15:03:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.579781.907897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTLpI-0007Cp-4S; Tue, 08 Aug 2023 12:28:40 +0000
+	id 1qTMMC-0003Md-Qg; Tue, 08 Aug 2023 13:02:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 579774.907888; Tue, 08 Aug 2023 12:28:40 +0000
+Received: by outflank-mailman (output) from mailman id 579781.907897; Tue, 08 Aug 2023 13:02:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTLpI-0007AU-16; Tue, 08 Aug 2023 12:28:40 +0000
-Received: by outflank-mailman (input) for mailman id 579774;
- Tue, 08 Aug 2023 12:28:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qTLpG-0007AO-Ai
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 12:28:38 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qTLpE-0003NM-E6; Tue, 08 Aug 2023 12:28:36 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.31.116]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qTLpE-00013Q-7d; Tue, 08 Aug 2023 12:28:36 +0000
+	id 1qTMMC-0003Kb-ND; Tue, 08 Aug 2023 13:02:40 +0000
+Received: by outflank-mailman (input) for mailman id 579781;
+ Tue, 08 Aug 2023 13:02:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Gjkb=DZ=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1qTMMB-0003KL-Iy
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 13:02:39 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d91e1864-35eb-11ee-b280-6b7b168915f2;
+ Tue, 08 Aug 2023 15:02:37 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3159d5e409dso4036857f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Aug 2023 06:02:37 -0700 (PDT)
+Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ y15-20020a5d4acf000000b003144b50034esm13567072wrs.110.2023.08.08.06.02.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Aug 2023 06:02:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,82 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=EYaOroeVFlJM9DpgQl2/n4FQhpOoYKJb12BcVk4ofpU=; b=nioaxZiF7EzxSXQLk7D4M6Qv6b
-	rnUMLD6UzwqC36spkmCoIrXEWPtfJU1dB0KLEJr2paS1JhcLM5wjSeX/zIOecC7uxj/QN+vg2jrMo
-	0V/5aXmy54ayPr/gdLuo2eiyKL7TJGiz2pZwkOhpHn5xwVP8qgs3RRO5RPHQEODl9PzM=;
-Message-ID: <2c9ec464-954a-4404-973d-4d7b6ab7be54@xen.org>
-Date: Tue, 8 Aug 2023 13:28:33 +0100
+X-Inumbo-ID: d91e1864-35eb-11ee-b280-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1691499756; x=1692104556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Ec8TrED3aRx0vHHIlwtP34Rk7pkdy6yKzk82FFTpTU=;
+        b=A4j17B4b2jzh//qNnMqga7eCrHZs2Jw1UYsnbiWt3xd8XJcyYPydS0t9Qeu8vxa/qh
+         czKVfN4U67bQfk6yCDBhLlocAoOMmyMcBY6S3N/l6gaXuQd63nr7yYRYrf6JIpHPE9Os
+         XjvlZwT+EReBjnyQriH/3CfB31O0KxIfrLskU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691499756; x=1692104556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5Ec8TrED3aRx0vHHIlwtP34Rk7pkdy6yKzk82FFTpTU=;
+        b=BbKmf1oAFYN4IkTpynm4XYNprmjzaei1srDHORL2S6yU0Lfv8f9yEJC62NuIrPci7l
+         nzCTvgu/F4epy5EXYzEEXGVhJOD9wR9nSwgR0PDjeYd0gLVQ4v1d4PCTKXka+bLw7N2y
+         YoHeu5iZ0IlbFIZ58I0MgjFgWMzYCa+4mGBtjgGwrchrdmUx4bc+HX9LitnoQ/NYSf4c
+         D4J2KFyBUzhrrRCakLxN9LeJ518lJ35+CXVmVWQTZTxVve6w537PzdgwhNaB0QG3wUbc
+         Lp6SryV+tAC5Rw0C3OZ09Njrn6Zr3Fi01Kfs1i2qgFbZO7by9CNV9dFq0YvcxU2wOGmt
+         8okQ==
+X-Gm-Message-State: AOJu0YyIuCK/KAP9uOKvh0bmvTi9Mjku+sxlJtiXlIbmz+QtLiWjm7/A
+	kZfQqz6IUEAlHpHOB2Q3yDgK84sDamxtxxvTOLI=
+X-Google-Smtp-Source: AGHT+IGuOT4NkLxsFpYqnMTa9TMufD+Y5HiN4gkF8fGCGqZ7rhUYxvJWxrng6ui1k+L/XEgE0fvhqQ==
+X-Received: by 2002:adf:edcc:0:b0:314:314e:fdda with SMTP id v12-20020adfedcc000000b00314314efddamr8294825wro.23.1691499756436;
+        Tue, 08 Aug 2023 06:02:36 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3 0/4]  Make PDX compression optional
+Date: Tue,  8 Aug 2023 14:02:16 +0100
+Message-Id: <20230808130220.27891-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/IOMMU: Switch bool_t to bool
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, Stefano Stabellini <stefano@stabellini.net>
-References: <20230807165830.6719-1-andrew.cooper3@citrix.com>
- <504749e9-1782-f031-e015-d36c538e80cc@suse.com>
- <b2551bf8-06de-c098-77e8-ed1a01ef6319@citrix.com>
- <a5649355-e441-0de0-0189-c7ec5863ede6@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <a5649355-e441-0de0-0189-c7ec5863ede6@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Currently there's a CONFIG_HAS_PDX Kconfig option, but it's impossible to
+disable it because the whole codebase performs unconditional
+compression/decompression operations on addresses. This has the
+unfortunate side effect that systems without a need for compression still
+have to pay the performance impact of juggling bits on every pfn<->pdx
+conversion (this requires reading several global variables). This series
+attempts to:
 
-On 08/08/2023 13:12, Jan Beulich wrote:
-> On 08.08.2023 14:06, Andrew Cooper wrote:
->> On 08/08/2023 8:54 am, Jan Beulich wrote:
->>> On 07.08.2023 18:58, Andrew Cooper wrote:
->>>> ... as part of cleaning up the types used.  Minor style cleanup on some
->>>> altered lines.
->>>>
->>>> No functional change.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>
->>>> ---
->>>> CC: Jan Beulich <JBeulich@suse.com>
->>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>> CC: Wei Liu <wl@xen.org>
->>>> ---
->>>>   xen/drivers/passthrough/amd/iommu.h         |  4 ++--
->>>>   xen/drivers/passthrough/amd/iommu_acpi.c    |  6 +++---
->>>>   xen/drivers/passthrough/amd/iommu_init.c    |  6 +++---
->>>>   xen/drivers/passthrough/amd/pci_amd_iommu.c |  2 +-
->>>>   xen/drivers/passthrough/ats.c               |  2 +-
->>>>   xen/drivers/passthrough/ats.h               |  2 +-
->>>>   xen/drivers/passthrough/device_tree.c       |  4 ++--
->>> This will want a DEVICE TREE ack; Cc-ing respective maintainers here
->>> (and therefore preserving full context).
->>>
->>>>   xen/drivers/passthrough/iommu.c             |  8 ++++----
->>>>   xen/drivers/passthrough/pci.c               | 16 ++++++++--------
->>> For these and ats.? you would also have wanted to Cc Paul.
->>
->> This very much qualifies as tree-wide.
-> 
-> Certainly. Question is what follows from this. In Prague we discussed
-> whether to weaken the required-acks model, and if I'm not mistaken we
-> said we'd first try whether we can't really get chasing acks to work
-> (i.e. for people to respond in a timely fashion, ideally not really
-> requiring any "chasing").
-> 
-> That said, it certainly remains up to you whether to wait of whether
-> to commit. Yet even if already at submission time you know you're not
-> going to wait, I think relevant maintainers should still be Cc-ed.
+  * Leave the state of pdx and pdx compression documented
+  * Factor out compression so it _can_ be removed through Kconfig
+  * Make it so compression is disabled on x86 and enabled on both Aarch32
+    and Aarch64 by default.
 
-+1. Nowadays, it is also not very difficult to CC the relevant 
-maintainers. scripts/add_maintainers.pl will add all of them 
-automatically for you.
+Series summary:
 
-Cheers,
+Patch 1 Moves hard-coded compression-related logic to helper functions
+Patch 2 Refactors all instances of regions being validated for pdx
+        compression conformance so it's done through a helper
+Patch 3 Non-functional reorder in order to simplify the patch 8 diff
+Patch 4 Adds new Kconfig option to compile out PDX compression and removes
+        the old CONFIG_HAS_PDX, as it was non removable
+
+Already committed:
+
+v1/patch 1 documents the current general understanding of the pdx concept and
+           pdx compression in particular
+v1/patch 3 Marks the pdx compression globals as ro_after_init
+v2/patch 1 Documents the differences between arm32 and arm64 directmaps
+
+Alejandro Vallejo (4):
+  mm: Factor out the pdx compression logic in ma/va converters
+  mm/pdx: Standardize region validation wrt pdx compression
+  pdx: Reorder pdx.[ch]
+  pdx: Add CONFIG_PDX_COMPRESSION as a common Kconfig option
+
+ xen/arch/arm/Kconfig                   |   1 -
+ xen/arch/arm/include/asm/mm.h          |   3 +-
+ xen/arch/x86/Kconfig                   |   1 -
+ xen/arch/x86/domain.c                  |  19 ++--
+ xen/arch/x86/include/asm/x86_64/page.h |  28 +++---
+ xen/arch/x86/x86_64/mm.c               |   6 +-
+ xen/common/Kconfig                     |  13 ++-
+ xen/common/Makefile                    |   2 +-
+ xen/common/efi/boot.c                  |  13 ++-
+ xen/common/pdx.c                       |  76 +++++++++------
+ xen/include/xen/pdx.h                  | 127 +++++++++++++++++++------
+ 11 files changed, 193 insertions(+), 96 deletions(-)
 
 -- 
-Julien Grall
+2.34.1
+
 
