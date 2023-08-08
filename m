@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7CF6773828
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 08:17:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.579262.907166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A4A77383B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 08:33:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.579268.907176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTG1t-0005ky-81; Tue, 08 Aug 2023 06:17:17 +0000
+	id 1qTGHQ-0008DN-Gb; Tue, 08 Aug 2023 06:33:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 579262.907166; Tue, 08 Aug 2023 06:17:17 +0000
+Received: by outflank-mailman (output) from mailman id 579268.907176; Tue, 08 Aug 2023 06:33:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTG1t-0005j3-3y; Tue, 08 Aug 2023 06:17:17 +0000
-Received: by outflank-mailman (input) for mailman id 579262;
- Tue, 08 Aug 2023 06:17:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/GY6=DZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qTG1r-0005ix-OP
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 06:17:15 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20611.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::611])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 375ab3a3-35b3-11ee-b280-6b7b168915f2;
- Tue, 08 Aug 2023 08:17:14 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM8PR04MB7858.eurprd04.prod.outlook.com (2603:10a6:20b:237::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Tue, 8 Aug
- 2023 06:17:11 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6652.025; Tue, 8 Aug 2023
- 06:17:11 +0000
+	id 1qTGHQ-0008Ar-Dw; Tue, 08 Aug 2023 06:33:20 +0000
+Received: by outflank-mailman (input) for mailman id 579268;
+ Tue, 08 Aug 2023 06:33:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UQsq=DZ=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
+ id 1qTGHO-0008Al-0C
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 06:33:18 +0000
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [2607:f8b0:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72ca329d-35b5-11ee-8613-37d641c3527e;
+ Tue, 08 Aug 2023 08:33:13 +0200 (CEST)
+Received: by mail-pf1-x434.google.com with SMTP id
+ d2e1a72fcca58-6873f64a290so1465073b3a.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Aug 2023 23:33:13 -0700 (PDT)
+Received: from [10.70.252.135] ([203.208.167.146])
+ by smtp.gmail.com with ESMTPSA id
+ ff12-20020a056a002f4c00b0067f2f7eccdcsm7204570pfb.193.2023.08.07.23.32.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Aug 2023 23:33:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,146 +45,395 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 375ab3a3-35b3-11ee-b280-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ip19fuEGKZ8hRXwRXWtUsmloZB2qXC+ou8kbZaZj3u4OjaKIzrWUXmz2wuHRPeaNH7pbnVr3JOKpnYH8vyPocR2tz9pelhPnyKHC/zKQ50Pp8mj6co6OTznD3yul5xEOOiYL/OVb2FKgh9N8CQfDCKZaKUYx/ii+DQXdyZMtF4mHWwGXT4cYEpLpBQ4Mf2lJilc+pCCnmyfCGmo1Aw5j1Ejx118qFQjLWq/4F+en52C3Pv53JHxWAYiESiOkrTw46SP305jAhmkQhM0v1sll3+GbOPUP4o7Yn4ShRD2C2vhf0jtKp9cZPvCWH3E9dllrZBS+K6V1sZIZgphu7l8X0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DLRrvUKXB/O7RFFHnmwCd+qmJOIipN2/PdpFVANAkR4=;
- b=UGFGanwCMymYUf+kXwqzMuzRpUkAQyzJMckcjMpnOubk2oVo0L56vMKqhYgeTeWBLIj7Sw4hhHtXfFR9IR2o60Un/ErAvKLmIdd3IdCWUVM9YxksEsZ9g3p2xq9L/XPvrYqGNYzKDgvpzpLjF1LgdkTHzs9Cgy1pyLknltSna2O+7fF/u/m/H0RJfq6Cum2Ka9+U7bjVMpGaa9ILXAwnS9OULNPLbmiKhlHN2KNoxVcO4+DfruYMXbURF0zFUFvyI/VJup0bmVucDadUxFY71XbAmq0nrB2FqM/BV8PrpTaH680wzxKLSf2ZKne8/cnB4+xDZWCqZyOV7eVDtU/q4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DLRrvUKXB/O7RFFHnmwCd+qmJOIipN2/PdpFVANAkR4=;
- b=TuCjCGH39nHddx8Z7MZ1J1SMBDFm+Ur7Es5R8NFF3hd7pzrbAwKKFbgldv4Ylk0qgnczOLDdUrAYKpExFQB0LuGv8FXrJ/xMNcuM49KlY9UUGFb3l0eyeRYYQc1yyXRebOJZr3n/ZBsFT2Xp0zodxs8qB5/bES8cRE7ktNgr5ruEJwcxkjfiwn7KuY6N/TYBtOkldAlVHOp0bFAIc9SjhJzkYokUrXTVj6ULQNe+5yiXfwX47qsMA0tNyf1bNxaLPMbbyYS+OGe3tmmlusL8NWzl2skMHheT7t3Os0StEUwkXQ/aCZCio+zZBZOxAETmUUau1Y8DWs+s1CXCfsyBeA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <02de9a1f-87d2-1a7c-a475-a83a6ce998cf@suse.com>
-Date: Tue, 8 Aug 2023 08:17:08 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v2 5/5] pdx: Add CONFIG_HAS_PDX_COMPRESSION as a common
- Kconfig option
-Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230728075903.7838-1-alejandro.vallejo@cloud.com>
- <20230728075903.7838-6-alejandro.vallejo@cloud.com>
- <9f0b7ab4-090f-21ea-2cf8-6ecdc7c02225@citrix.com>
- <3470bc26-3cbc-e0de-53ae-203449493b51@citrix.com>
- <06a3f79e-4345-7a4b-be57-728a8b01befd@suse.com>
- <67b5c363-a653-3f5c-ea3a-f52bfac3dc49@citrix.com>
- <75a70fa0-ab40-e2b0-685d-db752c943a7d@suse.com>
- <64d11674.7b0a0220.ec9d0.7073@mx.google.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <64d11674.7b0a0220.ec9d0.7073@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0173.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 72ca329d-35b5-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1691476392; x=1692081192;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=m1STCrinczuq8FuoUgLs8N4vldOealvmees85dm6MPY=;
+        b=DHsGX8t2DlnQTZ3P5OI9n7d2eKbW76xN4tTGVVJSGRA1IM8FeS8yeKRc7hPuylIUq6
+         Vn6fFj0Cv1x6zxvq6HdiZeD3sss54GzeWb8hF97LFXrHomN7WJ9YcJ4yAlUPs8k8HgNL
+         jvDOSB+a6LFcWjcXHBVF7wtFqF14I5u1bMgCHhYO6BYyHXF5r6kcqyvIScTKejNj9azo
+         Dlxz0pBdKdmaGIcMiIhQ+2FswwrIXK2CIvDeChsrdQ0sCkYtUwWfiT2WKOfkpBIAGKTy
+         jKW26xAUSVtB349qP1v3gjKBFhibzKHRUcGcdDNMBlsrboMdDTLiQvbJMlgqGN2hazF3
+         /EiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691476392; x=1692081192;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=m1STCrinczuq8FuoUgLs8N4vldOealvmees85dm6MPY=;
+        b=H1jYq2PhU+e6C5LxQXIUHGgvSdLt2DyHxZ8wOP8yAvSK9xHup7Ujc8CKlAKddif76q
+         uMlhUnW/ovJ6546XyDfulCxoUOHZ7su/2Z2z3wdckZLfROwgxjSb0H80FqHqBNNvnK/w
+         lFxZTOEKeDj/mGVJ2n2L+9PcaPLmhjDlyEAE9GSK1JzGME7sXfOW1ebGhgbB+eK1nhNX
+         id3FfrS5AI4diZVMGkoOUMOu37Llxt+DFFAGFSTYdSz6AIknRGLbiE0tealMAPJbnVdj
+         AucSR5Z4RpUyUdC6m+Q3aJX3n4zQWalyRjTWHp0HmtMu9P/cDxpCP+Wdp83oVL+DfEHE
+         eeOQ==
+X-Gm-Message-State: ABy/qLYHS2sZQ5eHT8ktvjxXEHFWHRXEh8TAHK4O1mm3NrVe8ROr2Hpg
+	Nn1zdyn5aN3hSPaMdH3JC+w4Cg==
+X-Google-Smtp-Source: APBJJlEAHd7r+M3vyCUQDMAxEjMveuzSqb/Q6wUuSUNAB0Ns9zs1qKL/YECIY4J9DtcJjA3HpA/s7A==
+X-Received: by 2002:a05:6a21:998c:b0:13d:1ebf:5dfc with SMTP id ve12-20020a056a21998c00b0013d1ebf5dfcmr38062815pzb.5.1691476391828;
+        Mon, 07 Aug 2023 23:33:11 -0700 (PDT)
+Message-ID: <0e7b16ce-19f9-0c70-4a94-f05cbfee613a@bytedance.com>
+Date: Tue, 8 Aug 2023 14:32:55 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM8PR04MB7858:EE_
-X-MS-Office365-Filtering-Correlation-Id: fab78cda-7570-47c0-8891-08db97d719de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	yk6sYKl0S52BQpjnX/h8bBakIRMvj8wWIsmI5pFVAibvzhUdLyM7Cjaj6GF5kv7wQUsNgXsDdlk0T4NtmhI1ny11ctfkxBR9693FOcUGArQnegczwrScUisMsACI3e9Ce+kA+rxHssElyEVvOTg/m5INQWfaQUkEPzMLv/Iq2C+yN73IUzNy/PabMhsK242/pVLM3e5dzheyh5MDp/b9JL53k7KWFQdNcCZcv85GniaIiy2Nl8gJ0QhbJZwIatMy/OkX8/jKXh+b8T4Q+rLFXh/8oM/AxBqctWFClMoXxjHrJXOac2OhvJ+rRQVGhOiJbieXCZfG1xH8hSonMbOAv8CZsqe6UYhyxu6mhl+nJZw+cbZm+9ES8Zs4OFzdmfGCbhBmBg5o9Ssop6ul0cZa0XXhvxM5EKEPlb7zBTtV2kpcpXg+K8Z/+oc3ClDMoAeG47DnHfYOzPBVoDHiq3TfD9Cw/nWuB1ThWMH9LEv/wi04RK2A+mSxcsJvhElsB67PJmlhCpb0/6V7B6W6NlTex4gz9lPZBwHHOZL9s0OjJb1gkV0yIbzsGYOEk/fDiO/NKrDNBAdLY5dm/NXA1e3YXL/inmbam9hKBws3DCVvH1OK6sYwvBeYDmT19l3KNmNDWBdVF6aBQYmrzUYvsZ2WdxR7dU+ycs7J9Q/HknG5YheNLWMtFoDPk6SNMsWq+Er3ep4SlN4LsA07JQ/5Uoeh0A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(366004)(376002)(39860400002)(136003)(396003)(90011799007)(1800799003)(186006)(90021799007)(451199021)(38100700002)(54906003)(478600001)(6666004)(6486002)(6512007)(6916009)(41300700001)(316002)(5660300002)(8676002)(66946007)(66556008)(66476007)(8936002)(4326008)(83380400001)(2616005)(53546011)(26005)(6506007)(86362001)(31696002)(36756003)(7416002)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ckx0OHlQWUVFdFZPQzBWejExVVlsU1ZUNEkvcG5HQW82MTBkQXFUTHpubDVX?=
- =?utf-8?B?NnpWYzUzQ1FiU2s5bnc5NzZOQXlzeU1XVWV0enhyMGwvNFV6dWdjcCtSaFV2?=
- =?utf-8?B?OFdnTHBndnZUNlduVytwZkhtaG5SUEF2STc2bnorUkZkUVRPQVBUVmlOT2M5?=
- =?utf-8?B?UTQ0cEY0MFo4ZnhnWFhwUjRYSXcvekI1SnF2TTRlWUNUTnZpMmJ4U0xiSjBx?=
- =?utf-8?B?cFBOcGZKWitBc0FiQjVkK3JoU2FyVUtqYjNnL2ordC9xMUI3UDgwMVhjOWJh?=
- =?utf-8?B?R244a1VSTStmNHFqZHlhV0ZkakhORUxod1dvditJUldPd3Rpa012SFViUEZ0?=
- =?utf-8?B?bEpUUE5QcTBhR1lPK2lxVmtzcHRaelVUWElyaVpXU21IbHlGb0hRTmY4ZlJm?=
- =?utf-8?B?Z3hXQy9EcXhwdTdNN0RDNXN4YUhzU2hyVlRTT3RTWWNjL0VxeTVmQXNBNHk3?=
- =?utf-8?B?RGNORlBwZzBCZTlId3JGODlka0dwUmhLY0RyL0tlU3BycnA2RjJqOEEweTlq?=
- =?utf-8?B?c3IxVUNrOUV4Y0J3R29UYjFsWEtGQi8zSnlJaGtBMTJYdU9BSXZxN3EwNUMw?=
- =?utf-8?B?WGdsaUtXWEp1aUpscUFjUTBJSXhIclVGblRPVjkwcjB3dmN4UGp6bzB2SVJF?=
- =?utf-8?B?T3F2LzVKOGNYNkprSWFPVG5TbnQvYjVMUnNqUHdRWDEzb29TQkg2M09qSnFT?=
- =?utf-8?B?cVh5VHZ6V1N4UmM3R2x4dnZVMElzVW56cFc0Zmp4MzBtK0lZRFFhT3c4NlpV?=
- =?utf-8?B?MUp4N1pKNXdRdHI5aGorcnkySVA3S0JXL3l1ZDZiRE5oT3NZWGZXUUsyZWZW?=
- =?utf-8?B?d09HRGh5L1Ard01ucmtOY1VSOFozMmcrY054Q0dOZldQZlBWb0xpc1R5OERs?=
- =?utf-8?B?M0duSWxoeWVMQWQxT1dNSnVzSld5SHpWalpuYXg2MTVLdndmVStMeDZ4U2xL?=
- =?utf-8?B?SHhhdE0vMVY2YVE1Y1ZMWnltZkhUWE56Y2hNcmlRZDRQTWFtWXFoa0hMNHdn?=
- =?utf-8?B?Y2JsNFFaZDMzUXpzT2tEWDZ2SWM1L1dYYmxSMHhmWXpwQVlTK21YZGxjNHR2?=
- =?utf-8?B?czMzWFArRHhvZ3Y3YnRnalNkNk5TV0Fzdkg4L1NaOEkrOSt5emIxS0ltNWR2?=
- =?utf-8?B?KzYwSVRBVGNod25uZXZac1FDU1BJbUdCcUE2N2ZUU2M4ZXIzRlFvSThHOVht?=
- =?utf-8?B?NThXQjluUUtmWHJxb291anhHRFRlZlpidUU2bDlrdmkwVHBUYnlTd1VGTkFU?=
- =?utf-8?B?dzludjE2cnlQTkxxbUNLTWo0MzZ1YUxrYVg3NnpqdlprS0tmaW9qSGdUVHpB?=
- =?utf-8?B?TGF4RkEzTmpnSmdUbTkwU1ZodWsvYTdhakdtbVREZEVUd3lTQ0d1NGI3cjhJ?=
- =?utf-8?B?NWxGUnFCZ1lDbkJWaXpXcjI2UHU5R1VKNzVBTXdMbmxLbFFjWWRzL2Y2WFAz?=
- =?utf-8?B?S01ZbExiVWg1S2Z2cFFyREI2VzRZci90SG1YMjlZNU1rZUtpVWU0bnpsVVlq?=
- =?utf-8?B?Tyt3NGpic2tITG5VTDROZG5Rc29wS0xCdDIzQVQxZUhGWm5neGh6Yk5FMUtZ?=
- =?utf-8?B?RlZTRUVudlZwbG1BbEhyQkRBOE9jZXUvZlVjV0NhMHpvWWg1UnF5a3pNRDBT?=
- =?utf-8?B?SCs2NHVPdGxBbXpXTHdDWktiODRDOTlLSCs4cWhIVjNiL3Y4cWxyeDJGZWtC?=
- =?utf-8?B?S2tucEM0Sk1aN3FtSno0UTFDcStXVTJSYktIYzJtNm5Idk0rNWNxYXk4YkFl?=
- =?utf-8?B?V3RrcmZsdlNaV1lhWDl5ZXNjYy8wTUpPcURaTFU4ZXVHUDZSUWFreW5YMWhG?=
- =?utf-8?B?Mk0veUVXMlcyVnJaSEwzeE8yMDFEK0Eva3VhSU9sUExhSjduMzVPVmllSzZD?=
- =?utf-8?B?eG44cnA5anpQRzlaUW9pTUYySUNEQVJWWlM0NFErektZdGgzYjZwLzRtQ0xw?=
- =?utf-8?B?c25VenFKRVk3Qko0ZVR6eEJ0bWduTVBYNnlVVGJ5b3Q2TEdURFdyUzI3ell6?=
- =?utf-8?B?OUR1enRMYUttaUNaZmJNV3plbWNwQmNiZ0hYdXlmeENadDRwRlVvZW1udlVQ?=
- =?utf-8?B?U0crVUwvbUZCZXQycUxvUmxzN3Y2U2Frd0hZcUErME10c2tER09SelJ6Y3U2?=
- =?utf-8?Q?EaYXOsWvS+M0d7Hik8R1DQISU?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fab78cda-7570-47c0-8891-08db97d719de
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2023 06:17:11.2276
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jt/G6c1r4aG0m25LFcXny73/J92BKz0Xhr8P6wAUH5Tj5HSTSw9EnnxXVxlzl76ZKysBHcIMVrchhFjD0ZOqkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7858
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.14.0
+Subject: Re: [PATCH v4 44/48] mm: shrinker: add a secondary array for
+ shrinker_info::{map, nr_deferred}
+To: Dave Chinner <david@fromorbit.com>
+Cc: akpm@linux-foundation.org, tkhai@ya.ru, vbabka@suse.cz,
+ roman.gushchin@linux.dev, djwong@kernel.org, brauner@kernel.org,
+ paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com, cel@kernel.org,
+ senozhatsky@chromium.org, yujie.liu@intel.com, gregkh@linuxfoundation.org,
+ muchun.song@linux.dev, simon.horman@corigine.com, dlemoal@kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
+ linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ dm-devel@redhat.com, linux-raid@vger.kernel.org,
+ linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ Muchun Song <songmuchun@bytedance.com>
+References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
+ <20230807110936.21819-45-zhengqi.arch@bytedance.com>
+ <ZNGkcp3Dh8hOiFpk@dread.disaster.area>
+Content-Language: en-US
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <ZNGkcp3Dh8hOiFpk@dread.disaster.area>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 07.08.2023 18:06, Alejandro Vallejo wrote:
-> An alt-patching series can probably make it very close to the perf win of
-> this patch as long as it transforms the conversion hunks into no-ops when
-> there's no hole. I looked into the 2018 patch, and I don't think it tried
-> to go that far (afaics it's purpose is to inline the compression parameters
-> into the code stream). I highly suspect it would still noticiably
-> underperform compared to this one, but I admit it's guesswork and I'd be
-> happy to be proven wrong through benchmarks.
+Hi Dave,
 
-The alt-patching certainly will have some residual overhead; if for nothing
-else then for the long clobber lists in some of the alternatives.
+On 2023/8/8 10:12, Dave Chinner wrote:
+> On Mon, Aug 07, 2023 at 07:09:32PM +0800, Qi Zheng wrote:
+>> Currently, we maintain two linear arrays per node per memcg, which are
+>> shrinker_info::map and shrinker_info::nr_deferred. And we need to resize
+>> them when the shrinker_nr_max is exceeded, that is, allocate a new array,
+>> and then copy the old array to the new array, and finally free the old
+>> array by RCU.
+>>
+>> For shrinker_info::map, we do set_bit() under the RCU lock, so we may set
+>> the value into the old map which is about to be freed. This may cause the
+>> value set to be lost. The current solution is not to copy the old map when
+>> resizing, but to set all the corresponding bits in the new map to 1. This
+>> solves the data loss problem, but bring the overhead of more pointless
+>> loops while doing memcg slab shrink.
+>>
+>> For shrinker_info::nr_deferred, we will only modify it under the read lock
+>> of shrinker_rwsem, so it will not run concurrently with the resizing. But
+>> after we make memcg slab shrink lockless, there will be the same data loss
+>> problem as shrinker_info::map, and we can't work around it like the map.
+>>
+>> For such resizable arrays, the most straightforward idea is to change it
+>> to xarray, like we did for list_lru [1]. We need to do xa_store() in the
+>> list_lru_add()-->set_shrinker_bit(), but this will cause memory
+>> allocation, and the list_lru_add() doesn't accept failure. A possible
+>> solution is to pre-allocate, but the location of pre-allocation is not
+>> well determined.
+> 
+> So you implemented a two level array that preallocates leaf
+> nodes to work around it? It's remarkable complex for what it does,
 
-> Summary:
->   * While alt-patching is an attractive alternative this series doesn't do
->     that and in the spirit of keeping things simple I'd really rather keep
->     it that way. Does this sound reasonable?
->   * For the topic of when to disable compression by default on x86, I
->     genuinely think now's as good a time as any. If we were to do it in 2
->     steps any project downstream may very well not notice until 2 releases
->     down the line, at which point they simply must turn compression back
->     on, which is what they would have to do now anyway.
->   * For the topic of allowing or not the option to be selectable, I think
->     it would be a mistake to preclude it because while we don't know of
->     physical memory maps with big holes on (publicly available) x86, Xen
->     may be itself virtualized with arbitrary memory maps. Unlikely and far
->     fetched as it is, it's IMO worth being at least cautious about. Gating
->     the feature on EXPERT=y and adding a big warning should be good enough
->     to avoid foot-shootouts.
+Yes, here I have implemented a two level array like the following:
 
-I could live with this as a compromise; really my main objection is to not
-allowing the functionality at all on x86. Beyond that I'm obviously not
-overly happy with how things are moving here, but so be it.
++---------------+--------+--------+-----+
+| shrinker_info | unit 0 | unit 1 | ... | (secondary array)
++---------------+--------+--------+-----+
+                      ^
+                      |
+                 +---------------+-----+
+                 | nr_deferred[] | map | (leaf array)
+                 +---------------+-----+
+                 (shrinker_info_unit)
 
-Jan
+The leaf array is never freed unless the memcg is destroyed. The
+secondary array will be resized every time the shrinker id exceeds
+shrinker_nr_max.
+
+> I can't help but think a radix tree using a special holder for
+> nr_deferred values of zero would end up being simpler...
+
+I tried. If the shrinker uses list_lru, then we can preallocate
+xa node where list_lru_one is pre-allocated. But for other types of
+shrinkers, the location of pre-allocation is not easy to determine
+(Such as deferred_split_shrinker). And we can't force all memcg aware
+shrinkers to use list_lru, so I gave up using xarray and implemented the 
+above two-level array.
+
+> 
+>> Therefore, this commit chooses to introduce a secondary array for
+>> shrinker_info::{map, nr_deferred}, so that we only need to copy this
+>> secondary array every time the size is resized. Then even if we get the
+>> old secondary array under the RCU lock, the found map and nr_deferred are
+>> also true, so no data is lost.
+> 
+> I don't understand what you are trying to describe here. If we get
+> the old array, then don't we get either a stale nr_deferred value,
+> or the update we do gets lost because the next shrinker lookup will
+> find the new array and os the deferred value stored to the old one
+> is never seen again?
+
+As shown above, the leaf array will not be freed when shrinker_info is
+expanded, so the shrinker_info_unit can be indexed from both the old
+and the new shrinker_info->unit[x]. So the updated nr_deferred and map
+will not be lost.
+
+> 
+>>
+>> [1]. https://lore.kernel.org/all/20220228122126.37293-13-songmuchun@bytedance.com/
+>>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+> .....
+>> diff --git a/mm/shrinker.c b/mm/shrinker.c
+>> index a27779ed3798..1911c06b8af5 100644
+>> --- a/mm/shrinker.c
+>> +++ b/mm/shrinker.c
+>> @@ -12,15 +12,50 @@ DECLARE_RWSEM(shrinker_rwsem);
+>>   #ifdef CONFIG_MEMCG
+>>   static int shrinker_nr_max;
+>>   
+>> -/* The shrinker_info is expanded in a batch of BITS_PER_LONG */
+>> -static inline int shrinker_map_size(int nr_items)
+>> +static inline int shrinker_unit_size(int nr_items)
+>>   {
+>> -	return (DIV_ROUND_UP(nr_items, BITS_PER_LONG) * sizeof(unsigned long));
+>> +	return (DIV_ROUND_UP(nr_items, SHRINKER_UNIT_BITS) * sizeof(struct shrinker_info_unit *));
+>>   }
+>>   
+>> -static inline int shrinker_defer_size(int nr_items)
+>> +static inline void shrinker_unit_free(struct shrinker_info *info, int start)
+>>   {
+>> -	return (round_up(nr_items, BITS_PER_LONG) * sizeof(atomic_long_t));
+>> +	struct shrinker_info_unit **unit;
+>> +	int nr, i;
+>> +
+>> +	if (!info)
+>> +		return;
+>> +
+>> +	unit = info->unit;
+>> +	nr = DIV_ROUND_UP(info->map_nr_max, SHRINKER_UNIT_BITS);
+>> +
+>> +	for (i = start; i < nr; i++) {
+>> +		if (!unit[i])
+>> +			break;
+>> +
+>> +		kvfree(unit[i]);
+>> +		unit[i] = NULL;
+>> +	}
+>> +}
+>> +
+>> +static inline int shrinker_unit_alloc(struct shrinker_info *new,
+>> +				       struct shrinker_info *old, int nid)
+>> +{
+>> +	struct shrinker_info_unit *unit;
+>> +	int nr = DIV_ROUND_UP(new->map_nr_max, SHRINKER_UNIT_BITS);
+>> +	int start = old ? DIV_ROUND_UP(old->map_nr_max, SHRINKER_UNIT_BITS) : 0;
+>> +	int i;
+>> +
+>> +	for (i = start; i < nr; i++) {
+>> +		unit = kvzalloc_node(sizeof(*unit), GFP_KERNEL, nid);
+> 
+> A unit is 576 bytes. Why is this using kvzalloc_node()?
+
+Ah, will use kzalloc_node() in the next version.
+
+> 
+>> +		if (!unit) {
+>> +			shrinker_unit_free(new, start);
+>> +			return -ENOMEM;
+>> +		}
+>> +
+>> +		new->unit[i] = unit;
+>> +	}
+>> +
+>> +	return 0;
+>>   }
+>>   
+>>   void free_shrinker_info(struct mem_cgroup *memcg)
+>> @@ -32,6 +67,7 @@ void free_shrinker_info(struct mem_cgroup *memcg)
+>>   	for_each_node(nid) {
+>>   		pn = memcg->nodeinfo[nid];
+>>   		info = rcu_dereference_protected(pn->shrinker_info, true);
+>> +		shrinker_unit_free(info, 0);
+>>   		kvfree(info);
+>>   		rcu_assign_pointer(pn->shrinker_info, NULL);
+>>   	}
+> 
+> Why is this safe? The info and maps are looked up by RCU, so why is
+> freeing them without a RCU grace period expiring safe?
+
+The free_shrinker_info() will be called in alloc_shrinker_info() and
+mem_cgroup_css_free().
+
+In alloc_shrinker_info(), it will only be called in the error path, so
+shrinker_info_unit and shrinker_info can be safely freed.
+
+In mem_cgroup_css_free(), when we get here, the traversal of this memcg
+has ended and will not be found again. That is to say, the corresponding
+shrink_slab() is also over, so shrinker_info_unit and shrinker_info can
+also be safely freed here.
+
+> 
+> Yes, it was safe to do this when it was all under a semaphore, but
+> now the lookup and use is under RCU, so this freeing isn't
+> serialised against lookups anymore...
+> 
+> 
+>> @@ -40,28 +76,27 @@ void free_shrinker_info(struct mem_cgroup *memcg)
+>>   int alloc_shrinker_info(struct mem_cgroup *memcg)
+>>   {
+>>   	struct shrinker_info *info;
+>> -	int nid, size, ret = 0;
+>> -	int map_size, defer_size = 0;
+>> +	int nid, ret = 0;
+>> +	int array_size = 0;
+>>   
+>>   	down_write(&shrinker_rwsem);
+>> -	map_size = shrinker_map_size(shrinker_nr_max);
+>> -	defer_size = shrinker_defer_size(shrinker_nr_max);
+>> -	size = map_size + defer_size;
+>> +	array_size = shrinker_unit_size(shrinker_nr_max);
+>>   	for_each_node(nid) {
+>> -		info = kvzalloc_node(sizeof(*info) + size, GFP_KERNEL, nid);
+>> -		if (!info) {
+>> -			free_shrinker_info(memcg);
+>> -			ret = -ENOMEM;
+>> -			break;
+>> -		}
+>> -		info->nr_deferred = (atomic_long_t *)(info + 1);
+>> -		info->map = (void *)info->nr_deferred + defer_size;
+>> +		info = kvzalloc_node(sizeof(*info) + array_size, GFP_KERNEL, nid);
+>> +		if (!info)
+>> +			goto err;
+>>   		info->map_nr_max = shrinker_nr_max;
+>> +		if (shrinker_unit_alloc(info, NULL, nid))
+>> +			goto err;
+> 
+> That's going to now do a lot of small memory allocation when we have
+> lots of shrinkers active....
+> 
+>> @@ -150,17 +175,34 @@ static int expand_shrinker_info(int new_id)
+>>   	return ret;
+>>   }
+>>   
+>> +static inline int shriner_id_to_index(int shrinker_id)
+> 
+> shrinker_id_to_index
+
+Will fix.
+
+> 
+>> +{
+>> +	return shrinker_id / SHRINKER_UNIT_BITS;
+>> +}
+>> +
+>> +static inline int shriner_id_to_offset(int shrinker_id)
+> 
+> shrinker_id_to_offset
+
+Will fix.
+
+> 
+>> +{
+>> +	return shrinker_id % SHRINKER_UNIT_BITS;
+>> +}
+> 
+> ....
+>> @@ -209,26 +251,31 @@ static long xchg_nr_deferred_memcg(int nid, struct shrinker *shrinker,
+>>   				   struct mem_cgroup *memcg)
+>>   {
+>>   	struct shrinker_info *info;
+>> +	struct shrinker_info_unit *unit;
+>>   
+>>   	info = shrinker_info_protected(memcg, nid);
+>> -	return atomic_long_xchg(&info->nr_deferred[shrinker->id], 0);
+>> +	unit = info->unit[shriner_id_to_index(shrinker->id)];
+>> +	return atomic_long_xchg(&unit->nr_deferred[shriner_id_to_offset(shrinker->id)], 0);
+>>   }
+>>   
+>>   static long add_nr_deferred_memcg(long nr, int nid, struct shrinker *shrinker,
+>>   				  struct mem_cgroup *memcg)
+>>   {
+>>   	struct shrinker_info *info;
+>> +	struct shrinker_info_unit *unit;
+>>   
+>>   	info = shrinker_info_protected(memcg, nid);
+>> -	return atomic_long_add_return(nr, &info->nr_deferred[shrinker->id]);
+>> +	unit = info->unit[shriner_id_to_index(shrinker->id)];
+>> +	return atomic_long_add_return(nr, &unit->nr_deferred[shriner_id_to_offset(shrinker->id)]);
+>>   }
+>>   
+>>   void reparent_shrinker_deferred(struct mem_cgroup *memcg)
+>>   {
+>> -	int i, nid;
+>> +	int nid, index, offset;
+>>   	long nr;
+>>   	struct mem_cgroup *parent;
+>>   	struct shrinker_info *child_info, *parent_info;
+>> +	struct shrinker_info_unit *child_unit, *parent_unit;
+>>   
+>>   	parent = parent_mem_cgroup(memcg);
+>>   	if (!parent)
+>> @@ -239,9 +286,13 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
+>>   	for_each_node(nid) {
+>>   		child_info = shrinker_info_protected(memcg, nid);
+>>   		parent_info = shrinker_info_protected(parent, nid);
+>> -		for (i = 0; i < child_info->map_nr_max; i++) {
+>> -			nr = atomic_long_read(&child_info->nr_deferred[i]);
+>> -			atomic_long_add(nr, &parent_info->nr_deferred[i]);
+>> +		for (index = 0; index < shriner_id_to_index(child_info->map_nr_max); index++) {
+>> +			child_unit = child_info->unit[index];
+>> +			parent_unit = parent_info->unit[index];
+>> +			for (offset = 0; offset < SHRINKER_UNIT_BITS; offset++) {
+>> +				nr = atomic_long_read(&child_unit->nr_deferred[offset]);
+>> +				atomic_long_add(nr, &parent_unit->nr_deferred[offset]);
+>> +			}
+>>   		}
+>>   	}
+>>   	up_read(&shrinker_rwsem);
+>> @@ -407,7 +458,7 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>>   {
+>>   	struct shrinker_info *info;
+>>   	unsigned long ret, freed = 0;
+>> -	int i;
+>> +	int offset, index = 0;
+>>   
+>>   	if (!mem_cgroup_online(memcg))
+>>   		return 0;
+>> @@ -419,56 +470,63 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
+>>   	if (unlikely(!info))
+>>   		goto unlock;
+>>   
+>> -	for_each_set_bit(i, info->map, info->map_nr_max) {
+>> -		struct shrink_control sc = {
+>> -			.gfp_mask = gfp_mask,
+>> -			.nid = nid,
+>> -			.memcg = memcg,
+>> -		};
+>> -		struct shrinker *shrinker;
+>> +	for (; index < shriner_id_to_index(info->map_nr_max); index++) {
+>> +		struct shrinker_info_unit *unit;
+> 
+> This adds another layer of indent to shrink_slab_memcg(). Please
+> factor it first so that the code ends up being readable. Doing that
+> first as a separate patch will also make the actual algorithm
+> changes in this patch be much more obvious - this huge hunk of
+> diff is pretty much impossible to review...
+
+OK, I will send this patch together with PATCH v4 01/02/03/43 as
+a single cleanup patchset.
+
+Thanks,
+Qi
+
+> 
+> -Dave.
 
