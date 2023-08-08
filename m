@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59B85774964
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 21:54:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580409.908607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1F5774A12
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 22:15:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580417.908616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTSmO-0000Z3-3k; Tue, 08 Aug 2023 19:54:08 +0000
+	id 1qTT70-0003JZ-Qu; Tue, 08 Aug 2023 20:15:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580409.908607; Tue, 08 Aug 2023 19:54:08 +0000
+Received: by outflank-mailman (output) from mailman id 580417.908616; Tue, 08 Aug 2023 20:15:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTSmO-0000WY-0O; Tue, 08 Aug 2023 19:54:08 +0000
-Received: by outflank-mailman (input) for mailman id 580409;
- Tue, 08 Aug 2023 19:54:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qTT70-0003Gy-OC; Tue, 08 Aug 2023 20:15:26 +0000
+Received: by outflank-mailman (input) for mailman id 580417;
+ Tue, 08 Aug 2023 20:15:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTSmM-0000WS-7p
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 19:54:06 +0000
-Received: from sender3-of-o58.zoho.com (sender3-of-o58.zoho.com
- [136.143.184.58]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52fcd48e-3625-11ee-b280-6b7b168915f2;
- Tue, 08 Aug 2023 21:54:04 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691524439090360.089032463114;
- Tue, 8 Aug 2023 12:53:59 -0700 (PDT)
+ <SRS0=OiCO=DZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qTT6y-0003Gs-Ot
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 20:15:24 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4cde2426-3628-11ee-8613-37d641c3527e;
+ Tue, 08 Aug 2023 22:15:22 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5DE2A618C5;
+ Tue,  8 Aug 2023 20:15:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93401C433C7;
+ Tue,  8 Aug 2023 20:15:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,111 +44,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52fcd48e-3625-11ee-b280-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1691524440; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OSRsXbbEZoXLkhFyYOoWxl1EkyA0chm2kkoBnLzViYFyN73Codh5pub56Gek2XfZ/lTe8U+hKPh2TnASxvLMiSjmF4LBOXum/k6jrRoJeySdoXhVeVGI/GPIt1d+c5UxTYutOVWbhHyVgZfB1xw7RNHd37uFs4N8L6y9cqZjhsU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691524440; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=DmZPxTSfNhc0mZHMD+7OFVxhiA+rfHCfTf2zgwRrq7M=; 
-	b=dAqToByapNa/zpK3lpbUmx+jNPvKKpXu7tvNSqwbqmsGV16VVNiO8U9atfxpBETJmaKjGPiEgjedTO9fGD5LXyOpo4hBuBM9gpVw8Bm8axWyh174COptFTu/ASQg3Y9vcuKXGaEG59mGOjd1IWUZw5/eJ/G5yslsY88tzGYLhVI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691524440;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=DmZPxTSfNhc0mZHMD+7OFVxhiA+rfHCfTf2zgwRrq7M=;
-	b=JWOj4FFIgOSdp9I0u0stIOt89U+BY0WiKkIRp68S7W6LPSijR4hJEpWSF4nia+EE
-	tdJ9IgT6O3EXuZ/IvmjRZAonbl4mL6ZdDuEsCedbvu5Bo0zMjSDAKGpvb2fbyf8RLzg
-	FRq/3sZHH9vfncE4mdy6mUoicMrZD13ZTzbbISrY=
-Message-ID: <fc91ad7b-df94-a1ec-abe1-9472337024b6@apertussolutions.com>
-Date: Tue, 8 Aug 2023 15:53:57 -0400
+X-Inumbo-ID: 4cde2426-3628-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691525719;
+	bh=DzLqUjHIokBCqXIWi41GI1OSvOB+/1CmJeF1xpqRA1o=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=mHjFWk9kEWjBv0s7LnAjrn3S+o24epM9JdKOgT4GNrfjJu+UoKvHh8jhYkE8HkMJ2
+	 rH1ePgfidumnwmdkeHfhquXihP4G9+LATeRgXhdU44LaN9lTywqNLJJx0LHNET167b
+	 ycCoBju7Y7ZAADzHmNlllw4n55+sCYMLi72cKpYGCQDXQkXBMvygLcLIGAjBcWf48h
+	 uuwYfuGKfvf5fOd6gso5mL7dXdbm9iHhiw/n+4DH4bB5+yoPpYGVR3eA26/Gso3QxZ
+	 5B+Ar7INTGWJpvqWApNGAOKLJlv0dEaOG+HSawRwM/ws7K+pkHGpFIhkbSurvTp1E3
+	 fsEtIIX3QBj1Q==
+Date: Tue, 8 Aug 2023 13:15:17 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Alexandru Isaila <aisaila@bitdefender.com>, 
+    Petre Pircalabu <ppircalabu@bitdefender.com>, 
+    federico.serafini@bugseng.com, tamas@tklengyel.com, 
+    george.dunlap@cloud.com
+Subject: Re: [XEN PATCH] xen: change parameter name in monitor_domctl()
+ declaration
+In-Reply-To: <4722cb01-2e0a-6a12-b398-0ddd024b50bd@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2308081313100.2127516@ubuntu-linux-20-04-desktop>
+References: <6a25e9d729e85ba5712fd00f9c0514a459bb7631.1690471420.git.federico.serafini@bugseng.com> <alpine.DEB.2.22.394.2308041438170.2127516@ubuntu-linux-20-04-desktop> <4722cb01-2e0a-6a12-b398-0ddd024b50bd@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH v2 1/2] docs: update hyperlaunch device tree
-Content-Language: en-US
+Content-Type: multipart/mixed; BOUNDARY="8323329-1365989943-1691525642=:2127516"
+Content-ID: <alpine.DEB.2.22.394.2308081314030.2127516@ubuntu-linux-20-04-desktop>
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1365989943-1691525642=:2127516
+Content-Type: text/plain; CHARSET=US-ASCII
+Content-ID: <alpine.DEB.2.22.394.2308081314031.2127516@ubuntu-linux-20-04-desktop>
+
+On Tue, 8 Aug 2023, Jan Beulich wrote:
+> On 04.08.2023 23:39, Stefano Stabellini wrote:
+> > Hi Tamas,
+> > 
+> > May I have your ack on this change?
+> 
+> I see you committed this, and there is an ack in the commit, but I can't
+> see any ack on list (incl when checking mail archives, to exclude an
+> issue with my mailbox).
+
+That is strange! Something appears to be wrong with xen-devel. Adding
+George in CC and attaching Tamas' reply.
+
+
+> > On Thu, 27 Jul 2023, Federico Serafini wrote:
+> >> Change parameter name in monitor_domctl() declaration for
+> >> consistency with the corresponding definition.
+> >> This addresses a violation of MISRA C:2012 Rule 8.3: "All declarations
+> >> of an object or function shall use the same names and type qualifiers".
+> >>
+> >> No functional changes.
+> >>
+> >> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> > 
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > 
+> > 
+> >> ---
+> >>  xen/include/xen/monitor.h | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/xen/include/xen/monitor.h b/xen/include/xen/monitor.h
+> >> index 6b17a93071..713d54f7c1 100644
+> >> --- a/xen/include/xen/monitor.h
+> >> +++ b/xen/include/xen/monitor.h
+> >> @@ -27,7 +27,7 @@
+> >>  struct domain;
+> >>  struct xen_domctl_monitor_op;
+> >>  
+> >> -int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *op);
+> >> +int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *mop);
+> >>  void monitor_guest_request(void);
+> >>  
+> >>  int monitor_traps(struct vcpu *v, bool sync, vm_event_request_t *req);
+> >> -- 
+> >> 2.34.1
+> >>
+> >>
+> > 
+> 
+--8323329-1365989943-1691525642=:2127516
+Content-Type: message/rfc822; NAME=tamas.eml
+Content-Transfer-Encoding: BINARY
+Content-ID: <alpine.DEB.2.22.394.2308081314560.2127516@ubuntu-linux-20-04-desktop>
+Content-Description: 
+Content-Disposition: ATTACHMENT; FILENAME=tamas.eml
+
+>From tamas@tklengyel.com Sat Aug  5 04:06:33 2023
+Return-Path: <SRS0=apUu=DW=tklengyel.com=bounce+b5c693.cd840-sstabellini=kernel.org@kernel.org>
+Delivered-To: stefano-oss@posteo.net
+Received: from posteo.de [185.67.36.169]
+	by ubuntu-linux-20-04-desktop with IMAP (fetchmail-6.4.2)
+	for <sstabellini@localhost> (single-drop); Sat, 05 Aug 2023 04:06:33 -0700 (PDT)
+Received: from proxy02.posteo.name ([127.0.0.1])
+	by dovecot15.posteo.name (Dovecot) with LMTP id OD0XKygrzmTfMAIAB3Nl4w
+	for <stefano-oss@posteo.net>; Sat, 05 Aug 2023 13:06:14 +0200
+Received: from proxy02.posteo.de ([127.0.0.1])
+	by proxy02.posteo.name (Dovecot) with LMTP id fqefNzspzmTX4QAAGFAyLg
+	; Sat, 05 Aug 2023 13:06:14 +0200
+Received: from mailin02.posteo.de (unknown [10.0.0.62])
+	by proxy02.posteo.de (Postfix) with ESMTPS id 4RJ0BL2G6Jz12M6
+	for <stefano-oss@posteo.net>; Sat,  5 Aug 2023 13:06:02 +0200 (CEST)
+Received: from mx01.posteo.de (mailin02.posteo.de [127.0.0.1])
+	by mailin02.posteo.de (Postfix) with ESMTPS id 3ED26216E2
+	for <stefano-oss@posteo.net>; Sat,  5 Aug 2023 13:06:02 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at posteo.de
+X-Spam-Flag: NO
+X-Spam-Score: -4.75
+X-Spam-Level: 
+X-Spam-Status: No, score=-4.75 tagged_above=-1000 required=5
+	tests=[HEADER_FROM_DIFFERENT_DOMAINS=0.249, HTML_MESSAGE=0.001,
+	RCVD_IN_DNSWL_HI=-5, T_POSTEO_TLSINY=0.01,
+	T_RCVD_IN_ABUSIX_WHITE=-0.01] autolearn=disabled
+X-Posteo-Antispam-Signature: v=1; e=base64; a=aes-256-gcm; d=p4jeoLx8GSVfXysvUQMETnPVZwsS1NCfRrCQ+OIfXMVkjhIZ6cJqJzQ2xsxWawG5B4emcNKFyaO0uF37H3jKNhljpy3WUd4kJSdvfddciH4VZJrlRmkPTO3n77X06CxEC2ZK2K7g
+Authentication-Results: posteo.de; dmarc=none (p=none dis=none) header.from=tklengyel.com
+Authentication-Results: posteo.de; spf=pass smtp.mailfrom=kernel.org
+Authentication-Results: posteo.de;
+	dkim=pass (2048-bit key) header.d=tklengyel.com header.i=@tklengyel.com header.b=NZXhVc+1;
+	dkim-atps=neutral
+X-Posteo-TLS-Received-Status: TLSv1.3
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by mx01.posteo.de (Postfix) with ESMTPS id 4RJ0BK3q2Lz11g3
+	for <stefano-oss@posteo.net>; Sat,  5 Aug 2023 13:06:01 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 748A3601D0
+	for <stefano-oss@posteo.net>; Sat,  5 Aug 2023 11:06:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix)
+	id E997BC433C9; Sat,  5 Aug 2023 11:05:59 +0000 (UTC)
+Delivered-To: sstabellini@kernel.org
+Received: from so254-35.mailgun.net (so254-35.mailgun.net [198.61.254.35])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 348A5C433C8
+	for <sstabellini@kernel.org>; Sat,  5 Aug 2023 11:05:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.kernel.org 348A5C433C8
+Authentication-Results: smtp.kernel.org; dmarc=none (p=none dis=none) header.from=tklengyel.com
+Authentication-Results: smtp.kernel.org; spf=pass smtp.mailfrom=tklengyel.com
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; s=mailo; t=1691233557; x=1691240757; h=Content-Type: Cc: To: To:
+ Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
+ MIME-Version: Sender: Sender;
+ bh=XEy1vcTg986vcuRn0cPfqtUGQoVn71aO6yXWNPsDcxk=;
+ b=NZXhVc+1LvgtFz3pZo5eY/1oI+bvlQ3bB+A78sFqnfnLDKJHOLEuyKq99mzA6xhCmle23OzwhRXlfjR0LhB5pn4eVXXoV+/SIXHrUd4/yX/JPwvz03PB7MiA4ori9XJ88+EjC4BEJaniSPsz3G3hc0L/niZXBBzOJZXVCwR5K+cwaW4TECmqvXDAdvOiTkyfmU9df3JW7qSdw6+0SbtvQcTI06VFiROAHiBn2TGDwSzxYtEA43P3JHEw2zvukbN+VqO8dj6dDMAVtyYPimJ79CPesn6HYDDmsR0kTptCyFBgHLT7Gm2rFb1qoh1feNUtlH6rw4kZnH21KTHw7io5ZQ==
+X-Mailgun-Sending-Ip: 198.61.254.35
+X-Mailgun-Sid: WyI2MzhkZCIsInNzdGFiZWxsaW5pQGtlcm5lbC5vcmciLCJjZDg0MCJd
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171]) by
+ aba04b98da0a with SMTP id 64ce2d1544e01654935e5a3b (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Sat, 05 Aug 2023 11:05:57 GMT
+Sender: tamas@tklengyel.com
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-586a3159588so25627287b3.0
+        for <sstabellini@kernel.org>; Sat, 05 Aug 2023 04:05:57 -0700 (PDT)
+X-Gm-Message-State: AOJu0YziM/EzIuEAzcUpHfY7hNhb9pGl+eZvYLzSfl2n7nkjDlH48XUp
+	6O8gexWJG+sWR/f3n9EugmCpOnFYliZVhHKlcr4=
+X-Google-Smtp-Source: AGHT+IHeaTodq61jc8nt4YGs/RkXrtsDT5KZst1gZHUjz80gQXJivp4tUcqwXUIDc+OnFE93Mhgqw4csAoe7ZxG3rV0=
+X-Received: by 2002:a81:6c45:0:b0:586:9384:ffd7 with SMTP id
+ h66-20020a816c45000000b005869384ffd7mr2473174ywc.9.1691233556109; Sat, 05 Aug
+ 2023 04:05:56 -0700 (PDT)
+MIME-Version: 1.0
+References: <6a25e9d729e85ba5712fd00f9c0514a459bb7631.1690471420.git.federico.serafini@bugseng.com>
+ <alpine.DEB.2.22.394.2308041438170.2127516@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2308041438170.2127516@ubuntu-linux-20-04-desktop>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Sat, 5 Aug 2023 13:05:44 +0200
+X-Gmail-Original-Message-ID: <CABfawh=r2Ad6ZvHqjH3UpGGx2wjjuurhcOabby=Xv=E2zK0TsA@mail.gmail.com>
+Message-ID: <CABfawh=r2Ad6ZvHqjH3UpGGx2wjjuurhcOabby=Xv=E2zK0TsA@mail.gmail.com>
+Subject: Re: [XEN PATCH] xen: change parameter name in monitor_domctl() declaration
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-References: <20230803104438.24720-1-dpsmith@apertussolutions.com>
- <20230803104438.24720-2-dpsmith@apertussolutions.com>
- <cec087cd-7ac7-5680-b931-feabe7aef261@amd.com>
- <65e62111-7997-de4d-cf12-15d89ec87471@apertussolutions.com>
- <alpine.DEB.2.22.394.2308031620160.2127516@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2308031709070.2127516@ubuntu-linux-20-04-desktop>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <alpine.DEB.2.22.394.2308031709070.2127516@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, consulting@bugseng.com, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	Federico Serafini <federico.serafini@bugseng.com>
+Content-Type: multipart/alternative; boundary="0000000000005822c306022aff56"
 
-On 8/3/23 20:09, Stefano Stabellini wrote:
-> On Thu, 3 Aug 2023, Stefano Stabellini wrote:
->> On Thu, 3 Aug 2023, Daniel P. Smith wrote:
->>>> Also, what is the plan for the existing dom0less dt properties?
->>>> Will they need to be moved to new /hypervisor node or we will have to parse
->>>> both /chosen and /hypervisor nodes?
->>>
->>> In the proposal I sent to xen-devel in response to Luca's RFC for rebranding
->>> dom0less features under hyperlaunch, that is the purpose of this commit. Get
->>> this document up to date with what was done in v1 along with what we are
->>> planning/working on for hyperlaunch. One could think of this as effectively
->>> the API to the capabilities hyperlaunch will provide. Not just how to
->>> construct a domain, but what kinds of domains can be constructed by
->>> hyperlaunch. Step one of the proposal is to publish a patch upon which we all
->>> can iterate over and get to an agreement on a suitable interface for all. The
->>> next step would be the introduction of hyperlaunch dom0less compatibility
->>> mode, that would see the moving of the parsing logic for the existing dom0less
->>> nodes under /xen/common/domain-builder. It would continue to exist there even
->>> after hyperlaunch proper is merged and can remain there for backward
->>> compatibility until there is a decision to retire the compatibility interface.
->>
->> I like this plan. The two interfaces are so similar that it is basically
->> one interface with a couple of tiny differences.
->>
->> So I expect we would move the existing dom0less parsing code to common/,
->> add a couple of extensions (such as parsing /hypervisor in addition to
->> /chosen) and use it as it.
->>
->> Later on, after a few years of using /hypervisor instead of /chosen, if
->> nobody is using /chosen anymore, we could retire /chosen completely. But
->> this is just one DT node/property that gets retired (there are a couple
->> of others). I don't imagine we'll have a full new implementation of the
->> DT parsing logic that supersedes the existing implementation of it
->> (especially considering the difficulty of maintaining 2 different parsing
->> logics in the hypervisor for similar interfaces).
->>
->> Same thing for the DT interface documentation. I don't think we need two
->> DT interface docs? We could start with the existing dom0less interface
->> (docs/misc/arm/device-tree/booting.txt), and move it somewhere common
->> like docs/misc/device-tree.
->>
->> Then add any changes or extensions required by other architecture, such
->> as x86 and RISC-V.
->>
->> For sure for x86 we need "module-index". I don't know if anything else
->> is must-have to get it to work on x86 but if there is, we should add
->> those too.
-> 
-> 
-> For clarity, I think we should definitely have
-> docs/design/launch/hyperlaunch.rst, and maybe we should also have
-> hyperlaunch-devicetree.rst as an overview description and user guide.
-> That's useful.
-> 
-> But in terms of official device tree bindings interface description
-> (basically what in Linux would go under
-> Documentation/devicetree/bindings/), I think it would be best to only
-> have a single document. The current one is
-> docs/misc/arm/device-tree/booting.txt.
+<div dir="auto"><div><br><br><div class="gmail_quote"><div dir="ltr" class="gmail_attr">On Fri, Aug 4, 2023, 11:39 PM Stefano Stabellini &lt;<a href="mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Tamas,<br>
+<br>
+May I have your ack on this change?<br>
+<br>
+<br>
+On Thu, 27 Jul 2023, Federico Serafini wrote:<br>
+&gt; Change parameter name in monitor_domctl() declaration for<br>
+&gt; consistency with the corresponding definition.<br>
+&gt; This addresses a violation of MISRA C:2012 Rule 8.3: &quot;All declarations<br>
+&gt; of an object or function shall use the same names and type qualifiers&quot;.<br>
+&gt; <br>
+&gt; No functional changes.<br>
+&gt; <br>
+&gt; Signed-off-by: Federico Serafini &lt;<a href="mailto:federico.serafini@bugseng.com" target="_blank" rel="noreferrer">federico.serafini@bugseng.com</a>&gt;<br>
+<br>
+Reviewed-by: Stefano Stabellini &lt;<a href="mailto:sstabellini@kernel.org" target="_blank" rel="noreferrer">sstabellini@kernel.org</a>&gt;<br></blockquote></div></div><div dir="auto"><br></div><div dir="auto">Acked-by: Tamas K Lengyel &lt;<a href="mailto:tamas@tklengyel.com">tamas@tklengyel.com</a>&gt;</div><div dir="auto"><div class="gmail_quote"><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+</blockquote></div></div></div>
 
-Does the proposal to your first message align with your follow-up here?
-
-v/r,
-dps
+--8323329-1365989943-1691525642=:2127516--
 
