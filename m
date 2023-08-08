@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 223B7774E2E
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 00:22:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580528.908780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E04B774E42
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 00:32:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580535.908790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTV5K-0008D0-HX; Tue, 08 Aug 2023 22:21:50 +0000
+	id 1qTVEw-0001Lv-IC; Tue, 08 Aug 2023 22:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580528.908780; Tue, 08 Aug 2023 22:21:50 +0000
+Received: by outflank-mailman (output) from mailman id 580535.908790; Tue, 08 Aug 2023 22:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTV5K-0008AM-Dz; Tue, 08 Aug 2023 22:21:50 +0000
-Received: by outflank-mailman (input) for mailman id 580528;
- Tue, 08 Aug 2023 22:21:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qTVEw-0001KD-Fb; Tue, 08 Aug 2023 22:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 580535;
+ Tue, 08 Aug 2023 22:31:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTV5I-0008AG-9y
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 22:21:48 +0000
+ id 1qTVEv-0001K7-6H
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 22:31:45 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4d1e5f9-3639-11ee-8613-37d641c3527e;
- Wed, 09 Aug 2023 00:21:45 +0200 (CEST)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 593e7257-363b-11ee-b280-6b7b168915f2;
+ Wed, 09 Aug 2023 00:31:43 +0200 (CEST)
 Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 169153329184280.73507637940781;
- Tue, 8 Aug 2023 15:21:31 -0700 (PDT)
+ with SMTPS id 1691533898593224.91657336270953;
+ Tue, 8 Aug 2023 15:31:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,82 +40,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4d1e5f9-3639-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691533294; cv=none; 
+X-Inumbo-ID: 593e7257-363b-11ee-b280-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1691533899; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=S5UbPESoyGc4fJ9i3MzznzVVl8DXErgTlpt56beSU85PhS55JSwlsYOUH+AMkWx3ADoSoE9U9pi2pxYvTT4kty3a05N93HYqrSbhXcbqTvBFYSDX7tKcgI3qmp8xTkZOnp99BZ4jJy1R8Y2jGsH840LXglaCYh/O2gZyBEoWF9Q=
+	b=eGWJ45Z2fb64MaWqGYJLo/rxei9X9M2+d4WskopTEu4DFJ9r113JWJ3THa3o+ZQEhsQchQ/WQ8rDeSfwVQ3zcELzXw+K3KLgB8qd4QAhkool96aIrzRMrmNOQeh4B1ae48f6VHpdGDMOBzrJK9bikLP0qlOxkDXHhLFmYJChoIY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691533294; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=88j7gu/5pbiHC2iyQK4RrtMPtJazFeuz6Ak0rV88tXc=; 
-	b=m2WjCTUlCpe0wKwFNb1dHj+o/l1R+gSpfaU7PWZU0GVoxE/2pk4e1hpV+bXRAW/2fx5fHMIfMKwaOUi0o6KREiHG56vSXRlRQv4PKuMpcTKp7JAGr2FJxi/W/mXDDEBMpRYm4tpH752+c7yN/RzctsqxZmkZVGS8k0ECBKhWRgc=
+	t=1691533899; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=4UzpQ0OMpp/sjYWeLMxe4Hy3t+xUFbjxQS08RimHyQ8=; 
+	b=ZM/q5OLf+XNDDg5E6AYyxZ7JyxGDEueTCyxP9etDCDE9OKkYiBlAXXO6wbOMGTNF5WKoasBBSR7So2wT7VIz+Q/u8srhTWZ+ptuOtb/rpCuOKpPYtBS1PoIe4k+k4F4KZPopgZxyk2VFlWXJtj2kQmVN+8ipDU4JTjaipO0Dcbo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691533294;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691533899;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=88j7gu/5pbiHC2iyQK4RrtMPtJazFeuz6Ak0rV88tXc=;
-	b=XJ9QxwP1vHqD28YG9/xJUoIpe6ZbeIt5+yXIHczlCZW1YUqmO5eFLKb+oVjMC8uL
-	a37LdDQWNimp6eDD8O0VQy0BlagAgAQLwCNoJ5lx4et6gv6Kl8KRBs8aAwibFlgjeKF
-	pgov/DVQLqBwgh8j44ByZT+2zjcjd2TiHyazWPdM=
-Message-ID: <cccaff98-9ab0-7fa6-8d49-239e1c9c381a@apertussolutions.com>
-Date: Tue, 8 Aug 2023 18:21:29 -0400
+	bh=4UzpQ0OMpp/sjYWeLMxe4Hy3t+xUFbjxQS08RimHyQ8=;
+	b=VBx/6geEBP9wzVMco7zzVOyWhUA4yyAe2IaYBX8Me86jZ73mRtsnXB/qSwYE5VCo
+	KNsOSx63Vvcqv5OGvbkP8kh2GOzp3qJAJYbf3RVk4hGoo0pJlS+hqmianc1QHZAvZnV
+	WRvK/ZM4Uyw1U5LGIz6CgWbr1K5FgWq1RdQuEEy8=
+Message-ID: <3decc6de-8d82-a862-36a8-9ddcd94fac4f@apertussolutions.com>
+Date: Tue, 8 Aug 2023 18:31:36 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: Re: [RFC 2/6] roles: provide abstraction for the possible domain
- roles
+Subject: Re: [RFC 4/6] capabilities: introduce console io as a domain
+ capability
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
 References: <20230801202006.20322-1-dpsmith@apertussolutions.com>
- <20230801202006.20322-3-dpsmith@apertussolutions.com>
- <e178e8f0-312e-961f-6f09-84305f07d528@suse.com>
+ <20230801202006.20322-5-dpsmith@apertussolutions.com>
+ <alpine.DEB.2.22.394.2308011757400.2127516@ubuntu-linux-20-04-desktop>
+ <14346689-8276-3c26-91e1-59bc2328518e@apertussolutions.com>
+ <423f86e7-10ee-134e-7683-e15f7e2c64ed@xen.org>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <e178e8f0-312e-961f-6f09-84305f07d528@suse.com>
+In-Reply-To: <423f86e7-10ee-134e-7683-e15f7e2c64ed@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 8/8/23 11:15, Jan Beulich wrote:
-> On 01.08.2023 22:20, Daniel P. Smith wrote:
->> @@ -1076,7 +1076,8 @@ static always_inline bool is_hardware_domain(const struct domain *d)
->>       if ( IS_ENABLED(CONFIG_PV_SHIM_EXCLUSIVE) )
->>           return false;
->>   
->> -    return evaluate_nospec(d == hardware_domain);
->> +    return evaluate_nospec(((d->role & ROLE_HARDWARE_DOMAIN) ||
->> +        is_initial_domain(d)) && (d == hardware_domain));
->>   }
->>   
->>   /* This check is for functionality specific to a control domain */
->> @@ -1085,7 +1086,8 @@ static always_inline bool is_control_domain(const struct domain *d)
->>       if ( IS_ENABLED(CONFIG_PV_SHIM_EXCLUSIVE) )
->>           return false;
->>   
->> -    return evaluate_nospec(d->is_privileged);
->> +    return evaluate_nospec((d->role & ROLE_CONTROL_DOMAIN) ||
->> +        is_initial_domain(d));
->>   }
+
+
+On 8/3/23 17:24, Julien Grall wrote:
+> Hi Daniel,
 > 
-> Why these complicated conditions, and not just the check of the single
-> relevant role bit? (Also note that indentation used here doesn't really
-> match our expectations, but there are other style issues in the patch
-> as well, which I assume is okay for an RFC.)
+> On 03/08/2023 16:41, Daniel P. Smith wrote:
+>> On 8/1/23 21:01, Stefano Stabellini wrote:
+>>> On Tue, 1 Aug 2023, Daniel P. Smith wrote:
+>>>> patch the field is renamed to capabilities to encapsulate the 
+>>>> capabilities a
+>>>> domain has been granted. The first capability being the ability to 
+>>>> read/write
+>>>> the Xen console.
+>>>>
+>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>
+>>> Patch looks fine to me aside the two minor nits. I am not sure I
+>>> understand 100% the difference between capabilities and roles but I am
+>>> OK with the patch. I'd like to hear Julien's feedback on this as well.
+>>
+>> This might be worth a section in the hypervisor-guide. As mentioned in 
+>> the cover letter, this was originally proposed as being under XSM. A 
+>> challenge I ran into is that, depending on your view, the 
+>> `is_privileged` field and `hardware_domain` global were either abused 
+>> as a function check and a non-resource privilege check or are just 
+>> multifaceted variables. This is why the concept of the role was struck 
+>> upon, it is more intuitive (for me at least) that have a role is 
+>> something that imparts accesses (privilege checks) and dictates 
+>> hypervisor behaviors when handling the domain (function checks). This 
+>> then brings us to an access or behavior that may be inherent to some 
+>> role(s) but may want to grant on an individually to a guest. A prime 
+>> example of this is console_io, for which it is inherent that the 
+>> hardware domain role will have access but may want to grant to a guest 
+>> without granting it an entire role. This is why I provided for 
+>> identifying these capabilities so that they may be assigned 
+>> individually to a domain.
+> 
+> Thanks for the explanation. Just to confirm my understanding, what you 
+> are suggesting is that for a given role, a domain will at least have the 
+> matching capabilities (more could be granted). Is that correct?
+> 
+> If so, this wouldn't this mean we can remove d->role and simply use 
+> d->capabilities?
 
-They go away with suggestion to move ROLE_UNBOUNDED a concatenation of 
-all the other roles.
+We could start out with CAP_CTRL and CAP_HW, but it is a little 
+illogical. For instance, control domain has many capabilities, they just 
+have never been fully broken out. XSM did some, but the focus there was 
+just on system resources. Similar with the hardware domain. You are 
+right that it would better deal with the limited number of bits 
+currently available.
 
-Ack on the style.
+>>
+>> While the role/capability is a natural progression from how the 
+>> hypervisor currently operates. Another approach that could be consider 
+>> to deliver a similar experience would be to break down every access 
+>> and function into a capability and then define the standard roles as a 
+>> conglomeration of certain capabilities.
+> 
+> At least from the explanation above, I think it would make sense to 
+> break down role to multiple capabilities.
 
-v/r,
-dps
-
+Would it be acceptable to do this incrementally over time as we are able 
+to determine what needs to be broken out as a distinct capability?
 
