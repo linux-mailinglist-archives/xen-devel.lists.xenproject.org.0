@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59A9B774BFA
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 23:02:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580452.908660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 235B1774C54
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 23:05:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580457.908671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTTpZ-000271-15; Tue, 08 Aug 2023 21:01:29 +0000
+	id 1qTTtS-0002hg-Gs; Tue, 08 Aug 2023 21:05:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580452.908660; Tue, 08 Aug 2023 21:01:29 +0000
+Received: by outflank-mailman (output) from mailman id 580457.908671; Tue, 08 Aug 2023 21:05:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTTpY-00024e-Ud; Tue, 08 Aug 2023 21:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 580452;
- Tue, 08 Aug 2023 21:01:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qTTtS-0002fQ-E2; Tue, 08 Aug 2023 21:05:30 +0000
+Received: by outflank-mailman (input) for mailman id 580457;
+ Tue, 08 Aug 2023 21:05:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTTpX-00024Y-IP
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 21:01:27 +0000
+ id 1qTTtR-0002fI-5A
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 21:05:29 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb4a5146-362e-11ee-8613-37d641c3527e;
- Tue, 08 Aug 2023 23:01:24 +0200 (CEST)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4bca816e-362f-11ee-b280-6b7b168915f2;
+ Tue, 08 Aug 2023 23:05:27 +0200 (CEST)
 Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691528480253457.4882144624638;
- Tue, 8 Aug 2023 14:01:20 -0700 (PDT)
+ with SMTPS id 1691528722397254.1191249886159;
+ Tue, 8 Aug 2023 14:05:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,95 +40,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb4a5146-362e-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691528482; cv=none; 
+X-Inumbo-ID: 4bca816e-362f-11ee-b280-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1691528723; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=oDxGIUnDD2zuyfOt4Zo4f8PqvknzjOvSA5/MM5Y214JiN3//6QyOP9jR6KvaXm2VOMdb4tMUSAN4xXRF6tU4gvPHrsj8KedgKxDKntlTKA0ERyCl31mxReT/XcpTB9z8459f9kaOkdMO29uKIGexncUcqqB1AkWsCx7iy38AoH0=
+	b=X79NqvruxQcjF7y4zKUaPB18AMYaNHef6SWu2Uog+5qshRzGAlC4OS/VrpwDX8FP1oMgMJgUwuX26LkIexnrEi7Cq9O18VR6UIRzXAdU1o/c65Knz8Rjpsjjw+J0QMhKpjNL+z35H3jEVNLD7MVcpyYwqZpyGdQiQEqa1JzyIaQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691528482; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=GCt+oDOouAj+Db+dnF97vVixLfO0dNuLruGV9RVi4O0=; 
-	b=V7YprwBu/R62Cf3aVCRW/KeZEEl8pKG+6HyANiviIZiP4wEMUd4WHvpiT2zaAOuCdJEM1pA2pOwr53L06z4r8WbGE6Mc77HcmLnuy5ZH+yf6Ky7pICxMFqpTGCjVXtQXxUuvytZeLIzeCiNbTSnZxuDQlNeMZ6bSRbx1WWL28jQ=
+	t=1691528723; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=+KTa3ESM4PEr3LYAF4nERwcd7tDhYndVrIOZUj8bCJE=; 
+	b=JG29pazNLMBhn2hVCC9SWnTS73YCtvl5ZS+dC0IQEf24Z9StUvlTbFYoFNx2YCJwcjF95nOI/aoDHTraShXNGQ79wp1ayGdP4PNkspIh0ddMnltLxA6cpeaG+TasBQDJQVtUEm4xIiZw8PZaNH+Dh3lQXqweAlp2MeZ8MjNZhOs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691528482;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691528723;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=GCt+oDOouAj+Db+dnF97vVixLfO0dNuLruGV9RVi4O0=;
-	b=Jv9V/JnYHXU//vGjuG1jRBXPzTGAfEfF3m0PkcC2Axu5lsmJmFJhmZ7GjEV2mcaB
-	PkWXHa/DWckgSWfRl6YYwof0VLpzK5xMtxNZAXzcrXsEkCj570fQOzWrfTYwNuKUuaq
-	RM74PR9Y7MGVnK9JrZsA6tRgD+zTSTEugRLQ3iFA=
-Message-ID: <577f5e19-a54c-955c-581d-ac35145911be@apertussolutions.com>
-Date: Tue, 8 Aug 2023 17:01:18 -0400
+	bh=+KTa3ESM4PEr3LYAF4nERwcd7tDhYndVrIOZUj8bCJE=;
+	b=Ry4cwZaShiZKTU/eskUcbtNSDlw/+Ba1g9ewsYuT4yz9NGxL1FiLLBupbvZr+1WP
+	cvORJ3XJOHUIj1FrpjKSBG5wBR+/LX2Q8SpNfKnTnCE5tna5ozWWO13295IYaaTHr+t
+	DY6VbrMF/E4tOuKuFQYQa5qDgv4co1dDCZc6jBk8=
+Message-ID: <90656f0f-0597-31ed-190e-d697e081d4b5@apertussolutions.com>
+Date: Tue, 8 Aug 2023 17:05:20 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
 Subject: Re: [PATCH v2 2/2] fdt: make fdt handling reusable across arch
 Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Henry Wang <Henry.Wang@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
 References: <20230803104438.24720-1-dpsmith@apertussolutions.com>
  <20230803104438.24720-3-dpsmith@apertussolutions.com>
- <CA8E22A7-D7E4-43E8-BE4E-D2C2B41D921C@arm.com>
- <8a51be9e-0131-0590-9aea-bbec146ce239@apertussolutions.com>
- <2E1A5918-A475-4055-A5A5-DE0CE30C061A@arm.com>
+ <AS8PR08MB79912C0FD1E3B1AA5988175B9209A@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <2E1A5918-A475-4055-A5A5-DE0CE30C061A@arm.com>
+In-Reply-To: <AS8PR08MB79912C0FD1E3B1AA5988175B9209A@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
 
 
-On 8/3/23 16:37, Luca Fancellu wrote:
-> 
+On 8/4/23 00:10, Henry Wang wrote:
+> Hi Daniel,
+
+Hey Henry!
+
+>> -----Original Message-----
+>> Subject: [PATCH v2 2/2] fdt: make fdt handling reusable across arch
 >>
->>> Regarding the coding style, I think it’s better to keep the style you’ve found in the original file,
->>> and change only some bits when the code is not following it.
->>> I know there is nothing enforcing parameters on the same line of the function definition at the
->>> moment, but it is how it’s done from the original file so I would stick with it.
->>> Regarding the u32/u64 types, maybe since you are moving the code it can be the occasion to
->>> convert them, but check with the maintainer before.
+>> This refactors reusable code from Arm's bootfdt.c and device-tree.h that is
+>> general fdt handling code.  The Kconfig parameter CORE_DEVICE_TREE is
+>> introduced for when the ability of parsing DTB files is needed by a capability
+>> such as hyperlaunch.
 >>
->> I can leave the main code as is, but I do think header decl's should be styled correctly as there is no need to have them churn in the future over purely style changes.
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 > 
-> Uhm, when you say “styled correctly” do you mean as below?
-
-I am retracting that after going back to review my notes, see below.
-
->>>> +bool __init device_tree_node_matches(
->>>> +    const void *fdt, int node, const char *match)
->>>> +{
+> As said yesterday, I tested this patch and can confirm this patch will not
+> break any of the boards we used for our testing. So
 > 
-> 
-> If that’s the case, it seems to me that there is nothing like that in the codebase,
-> in my work with clang-format I’ve configured it to match as much as I can the
-> Xen style and this function would be formatted as the old style that it had.
-> 
-> Can I ask you where did you find instruction to style in that way?
-> 
+> Tested-by: Henry Wang <Henry.Wang@arm.com>
 
-I went back to my old notes on styling to make sure I was correct. Turns 
-out I was incorrect and do apologies. There are two accepted styles for 
-function declarations[1] and the one I used in this patch was the one 
-that I got a recommendation to use. I have gotten so use to that style, 
-that I must have lost track the other was valid. As was pointed out 
-elsewhere, I should use the form that the maintainer desires. As XSM 
-maintainer, I use the one I submitted here and would ask for a style 
-correct if someone submitted a patch using the form that is desired here.
+Thank your for running it through your tests.
 
-I will roll back the declaration styling for now and per the prior 
-guidance[1], I will flip the linux-compat int over C spec fixed width 
-int notation, unless there is objection to it happening during the move.
+> (But I saw there are some comments from Michal and Luca about this
+> patch so I think these comments need to be addressed)
 
-[1] 
-https://lists.xenproject.org/archives/html/xen-devel/2021-07/msg01133.html
+So far the changes are style and a few mechanical. While unlikely to 
+cause a functional change that could break, probably best to hold off 
+adding your Tb for now.
 
 v/r
 dps
