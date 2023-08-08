@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8118A773A81
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 15:36:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.579906.908098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D846773A86
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 15:38:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.579911.908107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTMsw-0000to-TG; Tue, 08 Aug 2023 13:36:30 +0000
+	id 1qTMuk-0001T3-7I; Tue, 08 Aug 2023 13:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 579906.908098; Tue, 08 Aug 2023 13:36:30 +0000
+Received: by outflank-mailman (output) from mailman id 579911.908107; Tue, 08 Aug 2023 13:38:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTMsw-0000rF-Pz; Tue, 08 Aug 2023 13:36:30 +0000
-Received: by outflank-mailman (input) for mailman id 579906;
- Tue, 08 Aug 2023 13:36:28 +0000
+	id 1qTMuk-0001R4-4h; Tue, 08 Aug 2023 13:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 579911;
+ Tue, 08 Aug 2023 13:38:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Yw+Y=DZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qTMsu-0000r9-G2
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 13:36:28 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aYul=DZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qTMuj-0001Qy-A9
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 13:38:21 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 929126a5-35f0-11ee-8613-37d641c3527e;
- Tue, 08 Aug 2023 15:36:26 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C1E321F854;
- Tue,  8 Aug 2023 13:36:25 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A8B8139D1;
- Tue,  8 Aug 2023 13:36:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +ovSH9lE0mRCGwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 08 Aug 2023 13:36:25 +0000
+ id d584da4c-35f0-11ee-8613-37d641c3527e;
+ Tue, 08 Aug 2023 15:38:18 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 3442E4EE0737;
+ Tue,  8 Aug 2023 15:38:18 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,183 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 929126a5-35f0-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1691501785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0ckaGPw0PFzbyaDdJQH9XsD1EFVVmcqY46PcHTcVJLQ=;
-	b=BUqNRunkAhJF99kz4nyGd48XKDLtdgvqb2x2jtJUnel/MbFHCoWf3AOhxIW+tN4uEcjl5+
-	5oXU5C4IZTz6Y1KmuTgSC+Aw1ZgkdamxpAYg6pnBHkuuokHM8ICicMSiE4HQwCzjkFCTQg
-	vZf7DaMeqaycZ27x0AVgq0SH1yjtZYc=
-Message-ID: <726d0de5-bf4c-1fff-78ea-a52a7c84b635@suse.com>
-Date: Tue, 8 Aug 2023 15:36:24 +0200
+X-Inumbo-ID: d584da4c-35f0-11ee-8613-37d641c3527e
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] tools/xl: reject bootloader=pygrub in case pygrub
- is disabled
-Content-Language: en-US
+Date: Tue, 08 Aug 2023 15:38:18 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20230808132219.6422-1-jgross@suse.com>
- <20230808132219.6422-4-jgross@suse.com>
- <f8907fe4-be0a-7045-38e8-7dde8970ecb5@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <f8907fe4-be0a-7045-38e8-7dde8970ecb5@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------nYerczBihkqmIErMosPxaIm0"
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v3 1/2] x86/vmsi: rename variables to address MISRA
+ C:2012 Rule 5.3
+In-Reply-To: <9e5f208e-7419-b16d-c705-592959dc0ea1@suse.com>
+References: <cover.1691488505.git.nicola.vetrini@bugseng.com>
+ <605687eff99db7181ef6c05bce671e20f194b46b.1691488505.git.nicola.vetrini@bugseng.com>
+ <9e5f208e-7419-b16d-c705-592959dc0ea1@suse.com>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <e86dc812f4e365d8f23a14f9edcc2852@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------nYerczBihkqmIErMosPxaIm0
-Content-Type: multipart/mixed; boundary="------------xJwvjweMnJ3grugNFWNdJYwy";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Message-ID: <726d0de5-bf4c-1fff-78ea-a52a7c84b635@suse.com>
-Subject: Re: [PATCH v2 3/3] tools/xl: reject bootloader=pygrub in case pygrub
- is disabled
-References: <20230808132219.6422-1-jgross@suse.com>
- <20230808132219.6422-4-jgross@suse.com>
- <f8907fe4-be0a-7045-38e8-7dde8970ecb5@suse.com>
-In-Reply-To: <f8907fe4-be0a-7045-38e8-7dde8970ecb5@suse.com>
+On 08/08/2023 15:22, Jan Beulich wrote:
+> On 08.08.2023 14:22, Nicola Vetrini wrote:
+>> The local variables 'irq_desc' shadow the homonymous global variable,
+>> declared in 'xen/arch/x86/include/asm/irq.h', therefore they are 
+>> renamed
+>> 'irqd' for consistency with ARM code. Other variables of the same type
+>> in the file are also renamed 'irqd' for consistency.
+> 
+> I'm pretty sure I pointed out that Arm uses a mix of "desc" and "irqd".
+> So "consistency with ARM code" doesn't ...
+> 
+>> --- a/xen/arch/x86/hvm/vmsi.c
+>> +++ b/xen/arch/x86/hvm/vmsi.c
+>> @@ -281,7 +281,7 @@ static int msixtbl_write(struct vcpu *v, unsigned 
+>> long address,
+>>      unsigned int nr_entry, index;
+>>      int r = X86EMUL_UNHANDLEABLE;
+>>      unsigned long flags;
+>> -    struct irq_desc *desc;
+>> +    struct irq_desc *irqd;
+> 
+> ... require e.g. this rename. As mentioned before: Let's limit code
+> churn where possible, and where going beyond what's strictly necessary
+> isn't otherwise useful; there's already enough of it with all these not
+> really helpful Misra changes.
+> 
+>> @@ -462,7 +462,7 @@ static void del_msixtbl_entry(struct msixtbl_entry 
+>> *entry)
+>> 
+>>  int msixtbl_pt_register(struct domain *d, struct pirq *pirq, uint64_t 
+>> gtable)
+>>  {
+>> -    struct irq_desc *irq_desc;
+>> +    struct irq_desc *irqd;
+> 
+> This one indeed wants renaming, but then - consistent within the file -
+> to "desc". At least that's my view.
+> 
+> Jan
 
---------------xJwvjweMnJ3grugNFWNdJYwy
-Content-Type: multipart/mixed; boundary="------------dmgwq7DJcOJNB2qYbqfUNYNP"
+Well, but having
 
---------------dmgwq7DJcOJNB2qYbqfUNYNP
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+struct irq_desc *desc;
+struct msi_desc *msi_desc;
 
-T24gMDguMDguMjMgMTU6MzIsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwOC4wOC4yMDIz
-IDE1OjIyLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEvdG9vbHMveGwveGxfcGFy
-c2UuYw0KPj4gKysrIGIvdG9vbHMveGwveGxfcGFyc2UuYw0KPj4gQEAgLTE2OTIsNiArMTY5
-MiwxNSBAQCB2b2lkIHBhcnNlX2NvbmZpZ19kYXRhKGNvbnN0IGNoYXIgKmNvbmZpZ19zb3Vy
-Y2UsDQo+PiAgICAgICB4bHVfY2ZnX2dldF9kZWZib29sKGNvbmZpZywgImFjcGkiLCAmYl9p
-bmZvLT5hY3BpLCAwKTsNCj4+ICAgDQo+PiAgICAgICB4bHVfY2ZnX3JlcGxhY2Vfc3RyaW5n
-IChjb25maWcsICJib290bG9hZGVyIiwgJmJfaW5mby0+Ym9vdGxvYWRlciwgMCk7DQo+PiAr
-I2lmbmRlZiBIQVZFX1BZR1JVQg0KPj4gKyAgICBpZiAoYl9pbmZvLT5ib290bG9hZGVyICYm
-DQo+PiArICAgICAgICAoIXN0cmNtcChiX2luZm8tPmJvb3Rsb2FkZXIsICJweWdydWIiKSB8
-fA0KPj4gKwkgIXN0cmNtcChiX2luZm8tPmJvb3Rsb2FkZXIsICIvdXNyL2Jpbi9weWdydWIi
-KSkpIHsNCj4gDQo+IEFuZCBubyBvdGhlciBwYXRoIGNvbWJpbmF0aW9ucyBjYW4gb2NjdXI/
-IHN0cnN0cigpIGlzIHBlcmhhcHMgdG9vIGxheCwNCj4gYnV0IHdoYXQgYWJvdXQgZmluZGlu
-ZyB0aGUgbGFzdCBzbGFzaCAoaWYgYW55KSBhbmQgY29tcGFyaW5nIHRoZSByZXN0DQo+IG9m
-IHRoZSBzdHJpbmcgKHRoZSBmdWxsIHN0cmluZyB3aGVuIHRoZXJlJ3Mgbm8gc2xhc2gpIGFn
-YWluc3QgInB5Z3J1YiI/DQoNCiJweWdydWIiIGlzIHRoZSBwcmVmZXJyZWQgdmFyaWFudCwg
-Ii91c3IvYmluL3B5Z3J1YiIgc2VlbXMgdG8gYmUgdGhlDQpsZWdhY3kgdmFyaWFudCwgd2hp
-Y2ggd2lsbCByZXN1bHQgaW4gYSB3YXJuaW5nIHRvIHVzZSAicHlncnViIiBvbmx5DQooaW4g
-Y2FzZSBweWdydWIgaXMgZW5hYmxlZCwgb2YgY291cnNlKS4NCg0KSSBkb24ndCB0aGluayB3
-ZSBzaG91bGQgdGVzdCBmb3Igb3RoZXIgbm9uLXN0YW5kYXJkIHBhdGhzLg0KDQo+IA0KPj4g
-KyAgICAgICAgZnByaW50ZihzdGRlcnIsICJFUlJPUjogdGhpcyBpbnN0YW5jZSBvZiBYZW4g
-aGFzIGJlZW4gYnVpbHQgd2l0aG91dCBzdXBwb3J0IG9mIFwicHlncnViXCIuXG4iKTsNCj4g
-DQo+IFRoZSBvdGhlciBxdWVzdGlvbiAoSSdtIHNvcnJ5IGZvciBteSBpZ25vcmFuY2UgaGVy
-ZSkgaXMgd2hldGhlciBweWdydWINCj4gY291bGQgY29tZSBmcm9tIGFueXdoZXJlIGVsc2Uu
-DQoNCkl0IHdvdWxkIGJlIHBvc3NpYmxlIHRvIHVzZSB0aGF0IGluIGNhc2UgaXQgaXMgZS5n
-LiBpbnN0YWxsZWQgaW4NCi91c3IvbG9jYWwvYmluL3B5Z3J1YiAoYXNzdW1pbmcgdGhlIGNo
-ZWNrIGFib3ZlIGlzbid0IG1vZGlmaWVkKS4NCg0KDQpKdWVyZ2VuDQo=
---------------dmgwq7DJcOJNB2qYbqfUNYNP
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+and then using them both within the function doesn't seem that readable, 
+but if you
+prefer "desc" I have no objection (just two local variables that need to 
+be changed).
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------dmgwq7DJcOJNB2qYbqfUNYNP--
-
---------------xJwvjweMnJ3grugNFWNdJYwy--
-
---------------nYerczBihkqmIErMosPxaIm0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTSRNkFAwAAAAAACgkQsN6d1ii/Ey+y
-Gwf/YHtbldXkWDfZF65rh+cMUVcRTs6CFKJBgQ6qEdyfEj9iDxrxkTdup13/m2YFlLU7Krp7H54o
-HkqY4X0eXMHaGM3vSnlb2sahDZqeR/1BOavLAS8gtgj3Ch2WlgjDOLJ/hCIMfjA5G1Qm7t99p58u
-Pgd29G49ZaCPQxQCA7/NU4ozI5hcXc8bqvBz4SLp67asb6xf7tifpnWWxXcSt5YhcIGKPo+AOOYr
-hYGkxRKMovHgjiflwxvJtdBnvDiwgXGAebXgarHVoK4k1uZMGS0HBCMMu07DNEpI+AACHSUlyTfD
-OXsnt7aJnsUibeQ7Hqzazt0lxxkA/cCvxYRZAqY3VQ==
-=LYp1
------END PGP SIGNATURE-----
-
---------------nYerczBihkqmIErMosPxaIm0--
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
