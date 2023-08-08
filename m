@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52F75773931
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 10:56:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.579468.907454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04E9773936
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 11:04:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.579480.907465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTIW1-0004DX-M4; Tue, 08 Aug 2023 08:56:33 +0000
+	id 1qTIcu-0005i5-FY; Tue, 08 Aug 2023 09:03:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 579468.907454; Tue, 08 Aug 2023 08:56:33 +0000
+Received: by outflank-mailman (output) from mailman id 579480.907465; Tue, 08 Aug 2023 09:03:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTIW1-0004Ac-J9; Tue, 08 Aug 2023 08:56:33 +0000
-Received: by outflank-mailman (input) for mailman id 579468;
- Tue, 08 Aug 2023 08:56:32 +0000
+	id 1qTIcu-0005fu-CI; Tue, 08 Aug 2023 09:03:40 +0000
+Received: by outflank-mailman (input) for mailman id 579480;
+ Tue, 08 Aug 2023 09:03:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6lST=DZ=citrix.com=prvs=577b0fef7=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1qTIW0-0004AW-Ar
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 08:56:32 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76cd6391-35c9-11ee-b280-6b7b168915f2;
- Tue, 08 Aug 2023 10:56:30 +0200 (CEST)
+ <SRS0=aYul=DZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qTIcs-0005fo-Gd
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 09:03:38 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 759aa5e8-35ca-11ee-b280-6b7b168915f2;
+ Tue, 08 Aug 2023 11:03:37 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 7A1C64EE0737;
+ Tue,  8 Aug 2023 11:03:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,77 +39,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76cd6391-35c9-11ee-b280-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1691484990;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=G8sksAySfdqgLV99gZYQwtewml6bcB/hzhA07cdtiU4=;
-  b=KIjbINkxdIqvHx+OkNPtE7PGcf3+V9e1adf1aoTMIa8u7dL5A4qFJGVA
-   YUcuz1ffn5dhaKYQ27PpqeBrtljvT5mPts8cdvi81KUej5CoDh4jYfEiB
-   itulO4NjNaocKB09O77XWCFWm71euBXphrzNLkuIAw/SwOYIEbtTd9B7N
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 118703922
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:HZPbHKrncK69rNGWTD8w3q6HI6BeBmInZRIvgKrLsJaIsI4StFCzt
- garIBmFP6neM2f8etwiaom3oUMP6MSBz4QwQVRpqy80FClD85uZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GpwUmAWP6gR5weOzyZNVvrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAAsmPwGgm9uO+rS2S/FPif17LfG6O4xK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
- jufrzuhWUBAbrRzzxLG/0qQr9b+hxnGSaUtS5KCzO9W2wCckzl75Bo+CgLg/KjRZlSFc9BWL
- UAO6zcthac3/U2vCNL6WnWQsHOC+xIRRddUO+k78x2WjLrZ5R6DAWoJRSIHb8Yp3OcpQRQ62
- 1nPmMnmbRRturCITXOW9p+PsCi/fyMSKAcqbDcJVwIf7/H/oYs4iVTESdMLLUKupoSrQ3eqm
- WnM9XVgwexJ1qbnyplX43j8qGO9hYTwdjQz6wTPfW2ctgJBNYmqMtnABUfg0d5MK4OQT1+kt
- XcCmtSD4O1mMaxhhBBhU81WQuj3uq/t3Cn0xAc2QsJ/r2jFF2uLJ9g43d1oGKt+3i/okxfNa
- VSbhw5e7YQ70JCCPf4uONLZ5yjHIMHd+TXZuhL8NIImjntZLlXvEMRSiam4gQjQfLAEy/1XB
- HtiWZ/E4YwmIapm1iGqYOwWzKUmwCszrUuKG8Gik0/8i+vCNCfFIVvgDLdpRrpghJ5oXS2Pq
- 4oPXyd040o3vBLCjtn/rtdIcAFiwYkTDpHqsc1HHtNv0SI/cFzN/8T5mOt7E6Q8xvQ9qws91
- i3lMqOu4Aal1CKvxMTjQiwLVY4Dqr4l8CtqbXZyYwrws5XhCK72hJoim1IMVeFP3IReITRcF
- pHpp+3o7ixzdwn6
-IronPort-HdrOrdr: A9a23:sEci+qHTGYGGqOYGpLqE0ceALOsnbusQ8zAXPidKOHlom62j5q
- KTdZEgvnXJYVkqNU3I5urwXpVoLUmxyXcN2+ks1NSZLWrbUQmTQ72KhLGKqwEIcBeOkdK1u5
- 0QF5SWcOeQMbEAt6jHCQCDYq8d/OU=
-X-Talos-CUID: 9a23:TXE0tmNThfTA5u5DYwI25W0II/gfdHDc1FTfGhe5MTduR+jA
-X-Talos-MUID: =?us-ascii?q?9a23=3AgTOYnA76nVhF4GJ1qdxhdTr7xowr7pySIXk8i68?=
- =?us-ascii?q?7qu67agNKASah12m4F9o=3D?=
-X-IronPort-AV: E=Sophos;i="6.01,263,1684814400"; 
-   d="scan'208";a="118703922"
-Date: Tue, 8 Aug 2023 09:56:19 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Jan Beulich
-	<jbeulich@suse.com>
-Subject: Re: [PATCH v8 11/15] xenpm: Print HWP/CPPC parameters
-Message-ID: <b8a4778b-896a-481d-9f17-66b1882ebd55@perard>
-References: <20230807185119.98333-1-jandryuk@gmail.com>
- <20230807185119.98333-12-jandryuk@gmail.com>
+X-Inumbo-ID: 759aa5e8-35ca-11ee-b280-6b7b168915f2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230807185119.98333-12-jandryuk@gmail.com>
+Date: Tue, 08 Aug 2023 11:03:36 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 07/11] xen: address MISRA C:2012 Rule 2.1
+In-Reply-To: <3a6ab847-fd31-60e4-2558-feed71d670dd@suse.com>
+References: <cover.1690985045.git.nicola.vetrini@bugseng.com>
+ <7f8cbd8c8ad64cd3a0d099f31cb4d3fad48aa63b.1690985045.git.nicola.vetrini@bugseng.com>
+ <e2d71138-e714-3c19-d5b9-94b322a47191@suse.com>
+ <alpine.DEB.2.22.394.2308031648340.2127516@ubuntu-linux-20-04-desktop>
+ <3a6ab847-fd31-60e4-2558-feed71d670dd@suse.com>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <b0581f49ac01c923809c0e15c1a1dfed@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 07, 2023 at 02:51:15PM -0400, Jason Andryuk wrote:
-> Print HWP-specific parameters.  Some are always present, but others
-> depend on hardware support.
+On 04/08/2023 08:42, Jan Beulich wrote:
+> On 04.08.2023 01:50, Stefano Stabellini wrote:
+>> On Thu, 3 Aug 2023, Jan Beulich wrote:
+>>> On 02.08.2023 16:38, Nicola Vetrini wrote:
+>>>> Rule 2.1 states: "A project shall not contain unreachable code".
+>>>> 
+>>>> The functions
+>>>> - machine_halt
+>>>> - maybe_reboot
+>>>> - machine_restart
+>>>> are not supposed to return, hence the following break statement
+>>>> is marked as intentionally unreachable with the ASSERT_UNREACHABLE()
+>>>> macro to justify the violation of the rule.
+>>> 
+>>> During the discussion it was mentioned that this won't help with
+>>> release builds, where right now ASSERT_UNREACHABLE() expands to
+>>> effectively nothing. You want to clarify here how release builds
+>>> are to be taken care of, as those are what eventual certification
+>>> will be run against.
+>> 
+>> Something along these lines:
+>> 
+>> ASSERT_UNREACHABLE(), not only is used in non-release builds to 
+>> actually
+>> assert and detect errors, but it is also used as a marker to tag
+>> unreachable code. In release builds ASSERT_UNREACHABLE() doesn't 
+>> resolve
+>> into an assert, but retains its role of a code marker.
+>> 
+>> Does it work?
 > 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v8:
-> Switch from "if ( !hwp )" to "if ( hwp )" and re-org code.
-> Use %PRIu32 instead of %u - this lengthens some strings past 80 chars
+> Well, it states what is happening, but I'm not convinced it satisfies
+> rule 2.1. There's then still code there which isn't reachable, and
+> which a scanner will spot and report.
+> 
+> Jan
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-Thanks,
+It's not clear to me whether you dislike the patch itself or the commit
+message. If it's the latter, how about:
+"ASSERT_UNREACHABLE() is used as a marker for intentionally unreachable 
+code, which
+constitutes a motivated deviation from Rule 2.1. Additionally, in 
+non-release
+builds, this macro performs a failing assertion to detect errors."
 
 -- 
-Anthony PERARD
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
