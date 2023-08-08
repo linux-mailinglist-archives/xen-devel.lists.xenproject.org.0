@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D528B774CFE
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 23:25:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580488.908720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4817C774D0E
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 23:28:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580495.908731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTUCH-0007Qa-35; Tue, 08 Aug 2023 21:24:57 +0000
+	id 1qTUF8-000834-HC; Tue, 08 Aug 2023 21:27:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580488.908720; Tue, 08 Aug 2023 21:24:57 +0000
+Received: by outflank-mailman (output) from mailman id 580495.908731; Tue, 08 Aug 2023 21:27:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTUCH-0007Oj-0J; Tue, 08 Aug 2023 21:24:57 +0000
-Received: by outflank-mailman (input) for mailman id 580488;
- Tue, 08 Aug 2023 21:24:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qTUF8-00081P-E5; Tue, 08 Aug 2023 21:27:54 +0000
+Received: by outflank-mailman (input) for mailman id 580495;
+ Tue, 08 Aug 2023 21:27:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OiCO=DZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qTUCE-0007Od-N3
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 21:24:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03564a8f-3632-11ee-b280-6b7b168915f2;
- Tue, 08 Aug 2023 23:24:53 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6BA29623F5;
- Tue,  8 Aug 2023 21:24:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF61C433C7;
- Tue,  8 Aug 2023 21:24:50 +0000 (UTC)
+ <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qTUF7-00081J-Th
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 21:27:53 +0000
+Received: from sender3-of-o58.zoho.com (sender3-of-o58.zoho.com
+ [136.143.184.58]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6cd524e5-3632-11ee-8613-37d641c3527e;
+ Tue, 08 Aug 2023 23:27:51 +0200 (CEST)
+Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1691530062954947.7218140859737;
+ Tue, 8 Aug 2023 14:27:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +40,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03564a8f-3632-11ee-b280-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691529891;
-	bh=MAnf6uILt51JRzdHgEubOjKoMNQhgU70wc2+sfWOBmE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cL5YtVd0iLwdhQFLwhbnKoeOstGxGn106cqQI/zlmphVzLAxBcMLEAYiwnJKWaPf3
-	 zvH5qKqT11axw8i3kUwYuX4e1v3PbwGrNEM7dHBmmJugGOqHbAljheWzvtyD/PsQAn
-	 675m+1CuBPSFevRpUGrrNGRe4UH5TedJoaRPTXootGoYAGXyYmarqH3tjGiDdoM2D3
-	 0IAoy6BRFYlmLpMPz+gX9p4ld57jtATaMcVLiUYLm9wm0JytefNwxX3KbNyFMKwdi0
-	 vFS2BWe/ooCOWajWOr3VGoyuU3Va7g/1LKt8wkeyq9u8mictiuUg7njm23+SayYR4E
-	 +wbV/f6dPKDow==
-Date: Tue, 8 Aug 2023 14:24:49 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 1/6] x86: rename variable 'e820' to address MISRA
- C:2012 Rule 5.3
-In-Reply-To: <alpine.DEB.2.22.394.2308081417240.2127516@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2308081424330.2127516@ubuntu-linux-20-04-desktop>
-References: <cover.1691162261.git.nicola.vetrini@bugseng.com> <896a2235560fd348f79eded33731609c5d2e74ab.1691162261.git.nicola.vetrini@bugseng.com> <9e2b0b7d-2c9c-b4db-fb91-1a43ba8e8294@suse.com> <838a53b9ef4a8d258feceabb4c811534@bugseng.com>
- <742f4a4a-5938-82f5-7e76-1189a2519063@suse.com> <55599ec7a1c6d07af6093920fe3f9125@bugseng.com> <0164b934-cf15-9e45-28b7-b3c9ac2038da@suse.com> <alpine.DEB.2.22.394.2308081417240.2127516@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 6cd524e5-3632-11ee-8613-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1691530064; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Gg82p8SFLAS85ZsR5VgvXpPM5slIHZcXyDhNHVe6WG1wEPmXvIDXWa4hyC+P1TXHPJ+Y8kxmBIt3K30ISVo2dTMRMDcsFxfJ9j9sTPbnfusiB2ojsQjmyaQcMAjhR9ytQDmfAbae/JeYOHzP5hUi5bcm0L8AM2SqoDr59ZGqiHM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1691530064; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=qhdsCcqLV5gPF6Pj1XWQJS4sDgk8TWD9gM81TQ2vS6s=; 
+	b=lX9FY0HK/kuELKZ++w7P8LcLIQ4WvaQw5SZt9+L65sBMMJeUaBVXjcoG7qwd5IbIFV9URH+VLANEXCDccD8ICLNPGvVmDcu7gHlxfUZQx43OCu9h69sCj7GEG2XT0+Z/BerWh7mf0eMpM09xv94lWuyf/oK790ayGSLBmB4p5bU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691530064;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=qhdsCcqLV5gPF6Pj1XWQJS4sDgk8TWD9gM81TQ2vS6s=;
+	b=qQbUSFf4udCXycZVO7oCT9DhkrXsPh9WAn5ZO7QdbN5rsKTf2qbSFMv0jL9ANfJb
+	Jung7bwd95VNhxgGL/2nOKo6xIopypKgUmqd5r0OUrCVOOo4sVdSPjWynMA9BnT6kWM
+	2dORYAKI+HbzNygZveea8asLuXvIlGl04oXBtaWI=
+Message-ID: <a6348a98-30bb-8a03-7ed7-9e965be119eb@apertussolutions.com>
+Date: Tue, 8 Aug 2023 17:27:41 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: [PATCH] subdom: Fix -Werror=address failure in tmp_emulator
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+ <julien@xen.org>, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Jason Andryuk <jandryuk@gmail.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>
+References: <20230803203650.1474936-1-andrew.cooper3@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20230803203650.1474936-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Tue, 8 Aug 2023, Stefano Stabellini wrote:
-> On Tue, 8 Aug 2023, Jan Beulich wrote:
-> > On 08.08.2023 09:08, Nicola Vetrini wrote:
-> > > On 07/08/2023 11:10, Jan Beulich wrote:
-> > >> On 07.08.2023 10:59, Nicola Vetrini wrote:
-> > >>> On 07/08/2023 10:09, Jan Beulich wrote:
-> > >>>> On 04.08.2023 17:27, Nicola Vetrini wrote:
-> > >>>>> The variable declared in the header file
-> > >>>>> 'xen/arch/x86/include/asm/e820.h'
-> > >>>>> is shadowed by many function parameters, so it is renamed to avoid
-> > >>>>> these
-> > >>>>> violations.
-> > >>>>>
-> > >>>>> No functional changes.
-> > >>>>>
-> > >>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > >>>>> ---
-> > >>>>> This patch is similar to other renames done on previous patches, and
-> > >>>>> the
-> > >>>>> preferred strategy there was to rename the global variable. This one
-> > >>>>> has more occurrences that are spread in various files, but
-> > >>>>> the general pattern is the same.
-> > >>>>
-> > >>>> Still I think it would be better done the other way around, and 
-> > >>>> perhaps
-> > >>>> in
-> > >>>> more than a single patch. It looks like "many == 3", i.e.
-> > >>>> - e820_add_range(), which is only ever called with "e820" as its
-> > >>>> argument,
-> > >>>>   and hence the parameter could be dropped,
-> > > 
-> > > I see another downside with this approach (I should have spotted this 
-> > > sooner):
-> > > Since e820_add_range and the other functions expected e820 as a pointer, 
-> > > they are
-> > > written like this:
-> > > 
-> > > for ( i = 0; i < e820->nr_map; ++i )
-> > >      {
-> > >          uint64_t rs = e820->map[i].addr;
-> > >          uint64_t re = rs + e820->map[i].size;
-> > > 
-> > >          if ( rs == e && e820->map[i].type == type )
-> > >          {
-> > >              e820->map[i].addr = s;
-> > >              return 1;
-> > >          }
-> > > ...
-> > > 
-> > > Dropping the parameter would either mean
-> > > 1. Use a local parameter that stores the address of e820, which kind of
-> > >     nullifies the purpose of dropping the parameter imho;
-> > 
-> > This isn't an unusual thing to do; it is only the name being short which
-> > may make it look "unnecessary" here. But especially if the local variable
-> > was made of type struct e820entry * (and updated in the for()) I think
-> > this could be useful overall.
-> > 
-> > > 2. Rewrite it so that it operates on a "struct e820map", which would 
-> > > mean
-> > >     substantial churn;
-> > > 3. Make the global a pointer, which is reminiscent of (1)
-> > > 
-> > > All in all, I do like the global renaming approach more, because it 
-> > > lessens
-> > > the amount of code that needs to change to accomodate a case of 
-> > > shadowing.
-> > 
-> > Well, to go that route you need to come up with a suitable new name (no
-> > prior proposal was really meeting that requirement) and you'd need to
-> > convince at least one of the x86 maintainers.
+On 8/3/23 16:36, Andrew Cooper wrote:
+> The opensuse-tumbleweed build jobs currently fail with:
 > 
-> Would you be OK with your previous suggestion:
+>    /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c: In function 'rsa_private':
+>    /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:7: error: the comparison will always evaluate as 'true' for the address of 'p' will never be NULL [-Werror=address]
+>       56 |   if (!key->p || !key->q || !key->u) {
+>          |       ^
+>    In file included from /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c:17:
+>    /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.h:28:12: note: 'p' declared here
+>       28 |   tpm_bn_t p;
+>          |            ^
 > 
-> > Alternatively, if we really were to change the name of the global, we'd
-> > want to take a more complete approach: Right now we have e820_raw[],
-> > boot_e820[], and e820[]. We'd want them to follow a uniform naming scheme
-> > then (e820_ first or _e820 last), with the other part of the name suitably
-> > describing the purpose (which "map" doesn't do).
+> This is because all tpm_bn_t's are 1-element arrays (of either a GMP or
+> OpenSSL BIGNUM flavour).  The author was probably meaning to do value checks,
+> but that's not what the code does.
 > 
-> So:
+> Adjust it to compile.  No functional change.
 > 
-> e820_raw -> unchanged
-> boot_e820 -> e820_boot
-> e820 -> e820_table (or e820_list or e820_ranges)?
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Juergen Gross <jgross@suse.com>
+> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> CC: Jason Andryuk <jandryuk@gmail.com>
+> CC: Daniel Smith <dpsmith@apertussolutions.com>
+> CC: Christopher Clark <christopher.w.clark@gmail.com>
+> 
+> While I've confirmed this to fix the build issue:
+> 
+>    https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/955160430
+> 
+> I'm -1 overall to the change, and would prefer to disable vtpm-stubdom
+> entirely.
+> 
+> It's TPM 1.2 only, using decades-old libs, and some stuff in the upstream
+> https://github.com/PeterHuewe/tpm-emulator (which is still abandaonded as of
+> 2018) is just as concerning as the basic error here in rsa_private().
 
-Nevermind, I saw now the updated patch
+For semantics sake, the Guest PV interface is 1.2 compliant but the PV 
+backend, vtpmmgr, is capable of using TPM2.0.
+
+> vtpm-stubdom isn't credibly component of a Xen system, and we're wasting loads
+> of CI cycles testing it...
+
+Unfortunately, I cannot disagree here. This is the only proper vTPM, 
+from a trustworthy architecture perspective, that I know of existing 
+today. Until I can find someone willing to fund updating the 
+implementation and moving it to being an emulated vTPM and not a PV 
+interface, it is likely to stay in this state for some time.
+
+v/r,
+dps
 
