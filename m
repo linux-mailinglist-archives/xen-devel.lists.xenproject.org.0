@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C016774017
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 18:59:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580122.908427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D6D774034
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 19:00:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580129.908441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTQ2c-0005wf-RR; Tue, 08 Aug 2023 16:58:42 +0000
+	id 1qTQ4D-0007Nj-71; Tue, 08 Aug 2023 17:00:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580122.908427; Tue, 08 Aug 2023 16:58:42 +0000
+Received: by outflank-mailman (output) from mailman id 580129.908441; Tue, 08 Aug 2023 17:00:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTQ2c-0005uL-Oq; Tue, 08 Aug 2023 16:58:42 +0000
-Received: by outflank-mailman (input) for mailman id 580122;
- Tue, 08 Aug 2023 16:58:41 +0000
+	id 1qTQ4D-0007M3-3n; Tue, 08 Aug 2023 17:00:21 +0000
+Received: by outflank-mailman (input) for mailman id 580129;
+ Tue, 08 Aug 2023 17:00:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTQ2b-0005uF-Ac
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 16:58:41 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d060796c-360c-11ee-8613-37d641c3527e;
- Tue, 08 Aug 2023 18:58:37 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691513907885492.6306990381539;
- Tue, 8 Aug 2023 09:58:27 -0700 (PDT)
+ <SRS0=T7Ie=DZ=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1qTQ4B-0007KP-Nd
+ for xen-devel@lists.xen.org; Tue, 08 Aug 2023 17:00:19 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b054daf-360d-11ee-8613-37d641c3527e;
+ Tue, 08 Aug 2023 19:00:15 +0200 (CEST)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1qTQ3w-0002Cv-Ig; Tue, 08 Aug 2023 17:00:04 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.92)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1qTQ3w-0002JL-FQ; Tue, 08 Aug 2023 17:00:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,94 +43,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d060796c-360c-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691513910; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hhuK0tKhf9t493M/8GRmbr0aXPGUKF1JM5ZG9yg7eHtPWYBGsifdHMgMA5xxxF+/R0lmjakz2HpVdzWP78n8u6V/Z+jp6H9jTkS6bbqKFW30zTbGJVBDpOksupGHsqosYtevRSmEjp+PWnNcpFADkSDLKZMrxsCUY7tlWR9wlJc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691513910; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=3dUJBOjuqqWLjpxfBkSfndZTHDMoM6dCP9+ndRkRl/Y=; 
-	b=Pythcn5vYe714EREOI5XkhnYFP/FwmCn0oXHsFHgm6WI1cY8QrEloTui/B4VZzNfUdC2vMyQa/qL+oNt1tPFBBNXvGAtHry5Cniq5kcCN9ps9JLPYIu233afcs8D7XS2DU3d5hpS5vHe8Ivu6U0Y5maEeSPQzOMs7JoPcyLunTw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691513910;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=3dUJBOjuqqWLjpxfBkSfndZTHDMoM6dCP9+ndRkRl/Y=;
-	b=a0pIBflVFGXlGAlzBuQH+nOZar2uWMFQJPvH2+fdhMl55fs2zewOfMyl9o8f/Drj
-	fKo04+mUQXUo0bvQ5SunV/MmUljfcPI6a5dauGP7BIkRDO3NbZnoiCMRUAhqXSI+osB
-	C2BsmZWwU6I9tgz0pTRkLHU5ojw1XhkKZ0bQ+nRE=
-Message-ID: <72274554-5942-294e-aa1f-a594ae2e37e9@apertussolutions.com>
-Date: Tue, 8 Aug 2023 12:58:25 -0400
+X-Inumbo-ID: 0b054daf-360d-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
+	Content-Transfer-Encoding:Content-Type;
+	bh=hx/b/ysblgOZvwHoYIpAdSgwsVEOYjRPfsd5/+vNC9k=; b=0DBpqTbjDr8PJUmiugsxaL363J
+	ZWHE8GoyZaK4fHSBjk6bca98y80xB/RKuSadVHblLGpj3ceLkOooIBE0JnLHN53OQnNq6adHxxj7j
+	8slVTZJRPziCiSVbeKyPB4RhCqNOfuK5hDimQIdAsL1aq4MpWX8qOecTwdslljwwWrjI=;
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH] console: generalize the ability for domU access
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Christopher Clark <christopher.w.clark@gmail.com>,
- Luca Fancellu <luca.fancellu@arm.com>, Henry Wang <Henry.Wang@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230801160608.19219-1-dpsmith@apertussolutions.com>
- <3b889079-571a-a83a-0cba-c30cf2ce0b1b@suse.com>
- <d90cc238-87ef-d0d0-b06f-58e89d24eaca@apertussolutions.com>
- <01a80d4c-f19b-98ec-805e-e648e752d6b1@suse.com>
- <e1554020-a605-8df2-619a-eda86d86c50a@apertussolutions.com>
- <2ded224f-0b8b-90fe-367a-91762d1f25d5@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <2ded224f-0b8b-90fe-367a-91762d1f25d5@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Mailer: MIME-tools 5.509 (Entity 5.509)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 432 v2 (CVE-2023-34319) - Linux: buffer
+ overrun in netback due to unusual packet
+Message-Id: <E1qTQ3w-0002JL-FQ@xenbits.xenproject.org>
+Date: Tue, 08 Aug 2023 17:00:04 +0000
+
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 8/4/23 03:49, Jan Beulich wrote:
-> On 03.08.2023 18:31, Daniel P. Smith wrote:
->> On 8/3/23 11:56, Jan Beulich wrote:
->>> On 03.08.2023 14:56, Daniel P. Smith wrote:
->>>> On 8/2/23 07:01, Jan Beulich wrote:
->>>>> On 01.08.2023 18:06, Daniel P. Smith wrote:
->>>>>> +        {
->>>>>> +            for_each_domain(next)
->>>>>
->>>>> What guarantees that the list won't change behind your back? You don't
->>>>> hold domlist_read_lock here afaict. It might be that you're safe because
->>>>> that lock is an RCU one and this function is only invoked at init time
->>>>> or from some form of interrupt handler. But that's far from obvious and
->>>>> will hence need both properly confirming and stating in a comment. (It
->>>>> is actually this concern, iirc, which so far had us avoid iterating the
->>>>> domain list here.)
->>>>
->>>> It is better to error on the side of caution instead of assuming this
->>>> will always be invoked in a safe manner. I will add a read lock for the
->>>> domain list.
->>>
->>> I'm not firm enough in RCU to be certain whether acquiring that lock is
->>> permissible here.
->>
->> Same and I took your statements to suggest that I should.
-> 
-> Actually I wasn't paying close enough attention here: The code already
-> uses rcu_lock_domain_by_id(), which acquires domlist_read_lock.
-> 
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-Right, it grabs the lock while iterating through domain_hash[], I 
-thought your concern was with regard to the iterating with 
-for_each_domain and the embedded open coded version. Because of your 
-inquiry, I have been thinking about it and I should be grabbing the lock 
-as I iterate to be sure that I don't get deceived into believing the end 
-of list was hit because a domain was being removed as I walked the list. 
-And if it so happens that the context is always safe, then there should 
-be no contention on grabbing the lock. Do you disagree?
+            Xen Security Advisory CVE-2023-34319 / XSA-432
+                               version 2
 
-v/r,
-dps
+        Linux: buffer overrun in netback due to unusual packet
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+The fix for XSA-423 added logic to Linux'es netback driver to deal with
+a frontend splitting a packet in a way such that not all of the headers
+would come in one piece.  Unfortunately the logic introduced there
+didn't account for the extreme case of the entire packet being split
+into as many pieces as permitted by the protocol, yet still being
+smaller than the area that's specially dealt with to keep all (possible)
+headers together.  Such an unusual packet would therefore trigger a
+buffer overrun in the driver.
+
+IMPACT
+======
+
+An unprivileged guest can cause Denial of Service (DoS) of the host by
+sending network packets to the backend, causing the backend to crash.
+
+Data corruption or privilege escalation seem unlikely but have not been
+ruled out.
+
+VULNERABLE SYSTEMS
+==================
+
+All systems using a Linux based network backend with kernel 3.19 and
+newer are vulnerable, on the assumption that the fix for XSA-423 was
+taken.  Systems using other network backends are not known to be
+vulnerable.
+
+MITIGATION
+==========
+
+Using another PV network backend (e.g. the qemu based "qnic" backend)
+will mitigate the problem.
+
+Using a dedicated network driver domain per guest will mitigate the
+problem.
+
+CREDITS
+=======
+
+This issue was discovered by Ross Lagerwall of Citrix.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+xsa432-linux.patch           Linux 6.3 - 6.5-rc
+
+$ sha256sum xsa432*
+bf7acd23be1d185c40aca8b4f7700e25afd482d9ac8671ae22b021380b059091  xsa432-linux.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmTSZKYMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZv9YH+wSW/H8BRo3hat2ssz4GOkNf/okVzOFyde0n6rsI
+uPeRbRqjnd9f+rvHFIYhi9sa2MUSZ9Lg/WwmZ1YdTFXB1PBZw1iDujB1HvDu7Xlm
+E0f6IkdhC17YaiBnmsUOwGhE/1wj0KOF86t92VX5skWK9NQ2OMOSYsBxHLFkNmBd
+VNHApva8ICfSfUA4pXuh3Zgaw2yw8k2ZcyFN8Aixd+1Vrxq7jfZ/PUL6hfLaNjLs
+a5xdj/b5+RuwRMqOI8jCFQXSgZLPDtZIIAFRi93ZMtUraARSjiN0tLpoRXsKp1u+
+0T1sgTApHJGTm7jgPAz3WMCh2innRBkEVvU55hRKZ4INIbc=
+=mMq6
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa432-linux.patch"
+Content-Disposition: attachment; filename="xsa432-linux.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogUm9zcyBMYWdlcndhbGwgPHJvc3MubGFnZXJ3YWxsQGNpdHJpeC5j
+b20+ClN1YmplY3Q6IHhlbi9uZXRiYWNrOiBGaXggYnVmZmVyIG92ZXJydW4g
+dHJpZ2dlcmVkIGJ5IHVudXN1YWwgcGFja2V0CgpJdCBpcyBwb3NzaWJsZSB0
+aGF0IGEgZ3Vlc3QgY2FuIHNlbmQgYSBwYWNrZXQgdGhhdCBjb250YWlucyBh
+IGhlYWQgKyAxOApzbG90cyBhbmQgeWV0IGhhcyBhIGxlbiA8PSBYRU5fTkVU
+QkFDS19UWF9DT1BZX0xFTi4gVGhpcyBjYXVzZXMgbnJfc2xvdHMKdG8gdW5k
+ZXJmbG93IGluIHhlbnZpZl9nZXRfcmVxdWVzdHMoKSB3aGljaCB0aGVuIGNh
+dXNlcyB0aGUgc3Vic2VxdWVudApsb29wJ3MgdGVybWluYXRpb24gY29uZGl0
+aW9uIHRvIGJlIHdyb25nLCBjYXVzaW5nIGEgYnVmZmVyIG92ZXJydW4gb2YK
+cXVldWUtPnR4X21hcF9vcHMuCgpSZXdvcmsgdGhlIGNvZGUgdG8gYWNjb3Vu
+dCBmb3IgdGhlIGV4dHJhIGZyYWdfb3ZlcmZsb3cgc2xvdHMuCgpUaGlzIGlz
+IENWRS0yMDIzLTM0MzE5IC8gWFNBLTQzMi4KCkZpeGVzOiBhZDdmNDAyYWU0
+ZjQgKCJ4ZW4vbmV0YmFjazogRW5zdXJlIHByb3RvY29sIGhlYWRlcnMgZG9u
+J3QgZmFsbCBpbiB0aGUgbm9uLWxpbmVhciBhcmVhIikKU2lnbmVkLW9mZi1i
+eTogUm9zcyBMYWdlcndhbGwgPHJvc3MubGFnZXJ3YWxsQGNpdHJpeC5jb20+
+ClJldmlld2VkLWJ5OiBQYXVsIER1cnJhbnQgPHBhdWxAeGVuLm9yZz4KUmV2
+aWV3ZWQtYnk6IFdlaSBMaXUgPHdlaS5saXVAa2VybmVsLm9yZz4KLS0tCiBk
+cml2ZXJzL25ldC94ZW4tbmV0YmFjay9uZXRiYWNrLmMgfCAxNSArKysrKysr
+KysrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA1
+IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3hlbi1u
+ZXRiYWNrL25ldGJhY2suYyBiL2RyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL25l
+dGJhY2suYwppbmRleCBjMTUwMWY0MWUyZDguLjcyMDkxYjMzMTk2MyAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svbmV0YmFjay5jCisr
+KyBiL2RyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL25ldGJhY2suYwpAQCAtMzk2
+LDcgKzM5Niw3IEBAIHN0YXRpYyB2b2lkIHhlbnZpZl9nZXRfcmVxdWVzdHMo
+c3RydWN0IHhlbnZpZl9xdWV1ZSAqcXVldWUsCiAJc3RydWN0IGdudHRhYl9t
+YXBfZ3JhbnRfcmVmICpnb3AgPSBxdWV1ZS0+dHhfbWFwX29wcyArICptYXBf
+b3BzOwogCXN0cnVjdCB4ZW5fbmV0aWZfdHhfcmVxdWVzdCAqdHhwID0gZmly
+c3Q7CiAKLQlucl9zbG90cyA9IHNoaW5mby0+bnJfZnJhZ3MgKyAxOworCW5y
+X3Nsb3RzID0gc2hpbmZvLT5ucl9mcmFncyArIGZyYWdfb3ZlcmZsb3cgKyAx
+OwogCiAJY29weV9jb3VudChza2IpID0gMDsKIAlYRU5WSUZfVFhfQ0Ioc2ti
+KS0+c3BsaXRfbWFzayA9IDA7CkBAIC00NjIsOCArNDYyLDggQEAgc3RhdGlj
+IHZvaWQgeGVudmlmX2dldF9yZXF1ZXN0cyhzdHJ1Y3QgeGVudmlmX3F1ZXVl
+ICpxdWV1ZSwKIAkJfQogCX0KIAotCWZvciAoc2hpbmZvLT5ucl9mcmFncyA9
+IDA7IHNoaW5mby0+bnJfZnJhZ3MgPCBucl9zbG90czsKLQkgICAgIHNoaW5m
+by0+bnJfZnJhZ3MrKywgZ29wKyspIHsKKwlmb3IgKHNoaW5mby0+bnJfZnJh
+Z3MgPSAwOyBucl9zbG90cyA+IDAgJiYgc2hpbmZvLT5ucl9mcmFncyA8IE1B
+WF9TS0JfRlJBR1M7CisJICAgICBzaGluZm8tPm5yX2ZyYWdzKyssIGdvcCsr
+LCBucl9zbG90cy0tKSB7CiAJCWluZGV4ID0gcGVuZGluZ19pbmRleChxdWV1
+ZS0+cGVuZGluZ19jb25zKyspOwogCQlwZW5kaW5nX2lkeCA9IHF1ZXVlLT5w
+ZW5kaW5nX3JpbmdbaW5kZXhdOwogCQl4ZW52aWZfdHhfY3JlYXRlX21hcF9v
+cChxdWV1ZSwgcGVuZGluZ19pZHgsIHR4cCwKQEAgLTQ3NiwxMiArNDc2LDEy
+IEBAIHN0YXRpYyB2b2lkIHhlbnZpZl9nZXRfcmVxdWVzdHMoc3RydWN0IHhl
+bnZpZl9xdWV1ZSAqcXVldWUsCiAJCQl0eHArKzsKIAl9CiAKLQlpZiAoZnJh
+Z19vdmVyZmxvdykgeworCWlmIChucl9zbG90cyA+IDApIHsKIAogCQlzaGlu
+Zm8gPSBza2Jfc2hpbmZvKG5za2IpOwogCQlmcmFncyA9IHNoaW5mby0+ZnJh
+Z3M7CiAKLQkJZm9yIChzaGluZm8tPm5yX2ZyYWdzID0gMDsgc2hpbmZvLT5u
+cl9mcmFncyA8IGZyYWdfb3ZlcmZsb3c7CisJCWZvciAoc2hpbmZvLT5ucl9m
+cmFncyA9IDA7IHNoaW5mby0+bnJfZnJhZ3MgPCBucl9zbG90czsKIAkJICAg
+ICBzaGluZm8tPm5yX2ZyYWdzKyssIHR4cCsrLCBnb3ArKykgewogCQkJaW5k
+ZXggPSBwZW5kaW5nX2luZGV4KHF1ZXVlLT5wZW5kaW5nX2NvbnMrKyk7CiAJ
+CQlwZW5kaW5nX2lkeCA9IHF1ZXVlLT5wZW5kaW5nX3JpbmdbaW5kZXhdOwpA
+QCAtNDkyLDYgKzQ5MiwxMSBAQCBzdGF0aWMgdm9pZCB4ZW52aWZfZ2V0X3Jl
+cXVlc3RzKHN0cnVjdCB4ZW52aWZfcXVldWUgKnF1ZXVlLAogCQl9CiAKIAkJ
+c2tiX3NoaW5mbyhza2IpLT5mcmFnX2xpc3QgPSBuc2tiOworCX0gZWxzZSBp
+ZiAobnNrYikgeworCQkvKiBBIGZyYWdfbGlzdCBza2Igd2FzIGFsbG9jYXRl
+ZCBidXQgaXQgaXMgbm8gbG9uZ2VyIG5lZWRlZAorCQkgKiBiZWNhdXNlIGVu
+b3VnaCBzbG90cyB3ZXJlIGNvbnZlcnRlZCB0byBjb3B5IG9wcyBhYm92ZS4K
+KwkJICovCisJCWtmcmVlX3NrYihuc2tiKTsKIAl9CiAKIAkoKmNvcHlfb3Bz
+KSA9IGNvcCAtIHF1ZXVlLT50eF9jb3B5X29wczsK
+
+--=separator--
 
