@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 782D477388C
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 09:22:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.579312.907236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 927BB773892
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Aug 2023 09:23:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.579318.907246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTH2W-00086z-9x; Tue, 08 Aug 2023 07:22:00 +0000
+	id 1qTH3e-0000Be-JI; Tue, 08 Aug 2023 07:23:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 579312.907236; Tue, 08 Aug 2023 07:22:00 +0000
+Received: by outflank-mailman (output) from mailman id 579318.907246; Tue, 08 Aug 2023 07:23:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTH2W-00084D-6j; Tue, 08 Aug 2023 07:22:00 +0000
-Received: by outflank-mailman (input) for mailman id 579312;
- Tue, 08 Aug 2023 07:21:59 +0000
+	id 1qTH3e-00009l-GG; Tue, 08 Aug 2023 07:23:10 +0000
+Received: by outflank-mailman (input) for mailman id 579318;
+ Tue, 08 Aug 2023 07:23:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/GY6=DZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qTH2V-000847-Eo
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 07:21:59 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2059.outbound.protection.outlook.com [40.107.7.59])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UQsq=DZ=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
+ id 1qTH3c-00008I-O6
+ for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 07:23:08 +0000
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [2607:f8b0:4864:20::130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4291032c-35bc-11ee-b280-6b7b168915f2;
- Tue, 08 Aug 2023 09:21:58 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM8PR04MB7970.eurprd04.prod.outlook.com (2603:10a6:20b:24f::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Tue, 8 Aug
- 2023 07:21:29 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6652.025; Tue, 8 Aug 2023
- 07:21:29 +0000
+ id 6b2c26fc-35bc-11ee-b280-6b7b168915f2;
+ Tue, 08 Aug 2023 09:23:07 +0200 (CEST)
+Received: by mail-il1-x130.google.com with SMTP id
+ e9e14a558f8ab-346434c7793so5314945ab.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Aug 2023 00:23:07 -0700 (PDT)
+Received: from [10.70.252.135] ([203.208.167.146])
+ by smtp.gmail.com with ESMTPSA id
+ s15-20020a63af4f000000b00564ca424f79sm4948391pgo.48.2023.08.08.00.22.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Aug 2023 00:23:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,179 +45,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4291032c-35bc-11ee-b280-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jYcyGT6CiDUyxag7eSOL8Ie6m1wsdZKFjAIcOQSr0WZTUxGj5cTaMCvvy2hH4cFGdLC5HbYOxC60P/7VCrcLvX4JnMf+BzproeaH5xYU6Q8CeYqLlmjCAp4bphGJbBXG50tuWbw1PDQnAzBXutBqydHXaJdizbWQ6wBFB2CMHEeItDT7zALKFErVue6aoUQPTa/WBhxdprhW3VtM0v6phRAUOblyVs8rJv52yPTWuzsA+W5wssJeIxNscj+xB4ED/zsfaNT++9aBrYFn1VfYNs5zu3Yyaaj0Kk4dg1Xpc9S1LU1Q8Kctybd29NZoSUdFpvnhHcLB8mU+aRAV3Gel7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jpm7zzJKhEBlzZOTLSH5wysuwemJIRZ5GAovXG2lyus=;
- b=ZFyD1XTTEGKjwDY/bittyeSJq1J6xyRyQUgQA0/wva2qUTxLygNpZmannFVU2fMZg+UQcdmbpAF723Ff2k2Kywe/46Z0UsFzN0H9xnrmQiDIQOhi66NcUbM1HC/uSKFt5chMA8PoC+ups9+D7LOgEty0vQ1UvkFx78V6NTIqyITF96UR3rfu6wAzA/MC0vtwJH9jMPXb5/nF3wmcag/b8QrNzJ1K17UzrEXNlI+daFRfygZsllcgRLeCcjAcmafdklbzAMdWWoXCz9duMZ9fVGXP2k3b5mCs8ISPhLVrSXnxtcJ7QSqb7LImHXSNcmA0vxaBzzMx84NxDKhvFchOLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jpm7zzJKhEBlzZOTLSH5wysuwemJIRZ5GAovXG2lyus=;
- b=1EDCVz9h0Bxb7DlwN52N+DWu/EN6KTynmdNydG/tyNjGcmjnc0363c2gwSFnI9+RtcH4qwd1dkElXqDj1FkJFWanDDuuoX6RyL8NDdbdG2GXVkCehD7u+zp+HTnJjDiCL4g7gMKWfSaI/QR5rSHqKOrjKceoWN9JTcfWXt/bbLlXn2kXHEGWiZri9vvjPGSvCDzTv53RGc5+8c4zPdaahPuMqHr+wa98J2JeTBriw7qH7EDIN8RHI/iUAo8ZlOh4Gd7aAF++NrSCGCK3gL3iXucjpHVjltGTiNA9KNPhysT33ba/V2F1gMSHtZfV8oy8tzjR7jMa5HUz0aLtfY/y9w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0164b934-cf15-9e45-28b7-b3c9ac2038da@suse.com>
-Date: Tue, 8 Aug 2023 09:21:26 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [XEN PATCH 1/6] x86: rename variable 'e820' to address MISRA
- C:2012 Rule 5.3
-Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1691162261.git.nicola.vetrini@bugseng.com>
- <896a2235560fd348f79eded33731609c5d2e74ab.1691162261.git.nicola.vetrini@bugseng.com>
- <9e2b0b7d-2c9c-b4db-fb91-1a43ba8e8294@suse.com>
- <838a53b9ef4a8d258feceabb4c811534@bugseng.com>
- <742f4a4a-5938-82f5-7e76-1189a2519063@suse.com>
- <55599ec7a1c6d07af6093920fe3f9125@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <55599ec7a1c6d07af6093920fe3f9125@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0084.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 6b2c26fc-35bc-11ee-b280-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1691479386; x=1692084186;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=if5VWB18nVWwRp6UCb6aPEiH47g9I/o9CGJnGCggs6I=;
+        b=Mnl0X9gAUC+TX6mJR8mVBxy4/YY9ZnsIqqbI3Lfyi8wyHvx1vCgiMQzro/5+MvPtg7
+         rXoES6uNYyqB6hAadoK+JhiLrRJcV2a1SauK74Fo+QgskggrpKST7Q5+m6teYvR8e4tA
+         dcZeOtaDf0Rd9+kc+LJz513/LAkTal/IYIX9DnJ4z84K6HpsLIJ90Jamw7qS1U2+fb2T
+         E2X5y4E7mVpGf6lSS7nOAzl3gvR6+Jw0hw4oEJ+kBhol+PlGk5o70522UKHLTkm0KAg0
+         ZhNaOymrQBqWDvmGRTs6Q0O1Bt27v7iPkeiHC47LN5BEMRNJZINNo5Ho/St2M7DsfprN
+         6jkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691479386; x=1692084186;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=if5VWB18nVWwRp6UCb6aPEiH47g9I/o9CGJnGCggs6I=;
+        b=cDmCdkz9KLvqzmQCuruwTClKVDj3dUVlTVqLXOpKRsHXDOxaQMn2x1oCJIJbtMKU6V
+         /U4emRmjAsE5LqPadad2aQnvXmGClEts+clQLtZBoCcfPzbTHGqWSnIRQVu637PQ9xFo
+         TVCzvyhVgAPs623agMf+UK8Bvdi+HBnJw4pUmF0gx+vcAPE8RYlF3ywbfz6x+vqvFjiW
+         NPnAd+9Nxn0DcEQcjna4gi+tsY7gfbDyHNNATB4waQsTQsY/apiejou2DR6yGr4/5jEk
+         RXwW1GDrYpPsOQd19jtee5FpF9pYqbWM5KvTHPTRNjxJhIDWCYTs9CKQaGmefM6t/7nO
+         Hlmw==
+X-Gm-Message-State: AOJu0YwBDTDb7tkSwp8FQX0QZmJhr7JvR0Wru5qj2Cn0aGTQStITxb4K
+	Rhrx5VEdHF4zQHZokjkkdE90+Q==
+X-Google-Smtp-Source: AGHT+IGrIAD/R1XG8iT7hZdid4m31qfruz9y309af9L0+sAELwy0z1r+YzLKvbiH8nyqlY1j6mrYWw==
+X-Received: by 2002:a92:2802:0:b0:349:7518:4877 with SMTP id l2-20020a922802000000b0034975184877mr3215795ilf.0.1691479385787;
+        Tue, 08 Aug 2023 00:23:05 -0700 (PDT)
+Message-ID: <0fdb926c-0d61-d81f-1a52-4ef634b51804@bytedance.com>
+Date: Tue, 8 Aug 2023 15:22:51 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM8PR04MB7970:EE_
-X-MS-Office365-Filtering-Correlation-Id: b45fa1c7-73e7-4155-ea7b-08db97e01557
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	iSc1aSeeSiTj7XtnIHcQiUiT4mHTxxee0Tyy4tkHx64NyOuMk/UgzsyDI+XFqf+kmwiGQVkY8HyyWllqsCVjTl26jWPvnsIjyOs8b8t5s4bUGxLrr3cd6NMDjT3l5BxDqrsk3X5pZqxskBRDzZ/j3HABrCgQWIVVrr1OgpV59Sg9TllEZa5LfzIH6lHlPumpULPLm3hEAzudqsttpEpO/9j4itzHrjZN+2Wxp+5a8kSOpAekr6WznEQwZXK2hHuOAtwVFS+ds2aRdr53pOtm15wiEDyxlZDPTp+QFYCR9T6pxKOAU0O6wKIP/v3Ee0bsMUiGCntKsZ4sf5kighX7JQfyZMAT+1cFNPWAlILZ33y3QHf3NEdkeXt+AU/5As1P9gD5nHBHbIL0AIbt47VunBMh/MtyIEYWsTDHb3goH8kFrEQVYaTg2RHh6SB6IUonmletxVuAUx03RAFPLMnyTgLnt1945Sb+FZjwAZ6cUBEKssUCbhHWZisjdoNdzazdTS038gDX8gOatWV9wfAVTqL98ToKhD8GzMJPaQCiLbgXIuFQMEJizTD3Eu+LI3DZKLyovTmwn1b5C2A03kEYzKv6KDplTF42yqz33a6x2IDXqjx3E/whrIpRfufinxCRCLNOFgz6RudOeXSZ2iU/eNzNSgeZhswz/i6lEAAwuwA7kogC12xjhczwTxxHO/283t+GOfEp+/BO7nUlAQ30uQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(366004)(136003)(396003)(376002)(1800799003)(186006)(90021799007)(451199021)(90011799007)(6486002)(478600001)(83380400001)(31686004)(2616005)(6512007)(26005)(53546011)(6506007)(8936002)(66476007)(66556008)(66946007)(316002)(41300700001)(4326008)(8676002)(31696002)(2906002)(6916009)(6666004)(36756003)(54906003)(38100700002)(86362001)(5660300002)(7416002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MWx4Z3VBNXdzV1pSaTZwNWl0cTJYMjU1bnhxRllEdytrQzVNdko3b25VanNL?=
- =?utf-8?B?cnN6bTlrWTBLZmZhSS9ZaEdyK3BhZkUzWHh1K1k0WUpPR3daaG4vemlnaE1U?=
- =?utf-8?B?eVhZeUlmL0JGLy9JOU1QaVhpczRZd0dLVnpDVXZhK1Y5eVRQNk1oTVZ2dUFP?=
- =?utf-8?B?bHd3alBUb0pTSXBzNlRaYkEzSkYwMW9aenc2eCtSNUM1WXptWGw1YjE2ZXBB?=
- =?utf-8?B?dTdLZTJDb01uTjFYYk1rMEtPR05ZSngwS1RIbkxreFBFR0RybHJpQXNqVU5H?=
- =?utf-8?B?MWFvVXozQ3RaMEhGZUNmbGc0WTFSNEpucDlOcEFwNU5tdjA5Zlc1Q29SYUdn?=
- =?utf-8?B?MjlxY21IbmVNVTkxOUNZdUxUQzAzRFB3V093eTRLeVlnTnhCZzVtZ3ZQZkZL?=
- =?utf-8?B?WkFONHM2cWVwWTJOMkxOM0pIclFGZG9rRm51U2VHb2VLc2pUakZuMnd6VjJv?=
- =?utf-8?B?RmtqTkNKMGQ0VUJ2VGRpck5IdTgrVnJDOUliUC95bzlOS0w5SnAvWE03clJs?=
- =?utf-8?B?Z1I0eGs5dDc0QUpkWDRhZVpQdnhkL2dqbFg0UGl0M1orZEQ2YzhYRFlKRXdH?=
- =?utf-8?B?WHR4TTdQVVlIV0NwSWplcm9xZWxCNHZCSUwrTUczRGs4dE9rdThkZkNzQU9H?=
- =?utf-8?B?UU1BR20ydHA3SUpPRGdmT2pFajl1TjVockpQQUFWNUR3bXE4U3N6alRGZUlo?=
- =?utf-8?B?RnlYSEFab2dRTU5Ebk9rZkVzQ25aTUFjSXM2ajcvcmFuMU9OVi9hQzZZdlAr?=
- =?utf-8?B?Tm1KdU1Ha1hvUlU4K01WdkV6NVZ2QlJXSWlxOUxGTkJzTmxmOFU2TG9IVnFk?=
- =?utf-8?B?NHZBc2E2ZHFsU1VzM3R4T1hpMCtIVWJzWTAyRndHaXc4T05ZWWNPS1ZHdkhn?=
- =?utf-8?B?L2tKcGgwa2NQYVlHZ0trcHloTHczL0M3UUFOc09MbmpXVUo1MHdLZUsrK1RM?=
- =?utf-8?B?K3o2ZkZPa0daK1BVZlJOaWdXUDY0eWlHdjAwbVN3eGdQYTBzcFNUYmRkNzNL?=
- =?utf-8?B?YVF3ek54UEI0cGhLZUtYalFnenZBNHgvZVhwbkpsSnpGWHQ3SHJ6Z25xdENH?=
- =?utf-8?B?YlhWUEZBcGxYZzBmRE9EUGpJbEI2WUlsaXM4T0c1UVJUR25rMnduQkRnNld5?=
- =?utf-8?B?dEt3MWQ0clFYTm9RMFhtNHAxQm5aRXNGTGZEUEV2amNjOGpZVjRxSy9GYzVC?=
- =?utf-8?B?LzVsMXExUDhJWjI4QnR1Tm9DQ2Z2SmQxQStGY3NBanNJQmtrd1RoZnRZbTU3?=
- =?utf-8?B?YklKMTRLRGdyMU5CV2JJWGtSa2ZiVXJ3TFJiYXJRYkh1SHJhTS9LQm81Tm9h?=
- =?utf-8?B?WWsxNlVHaS9hNm1QaUlRNjRtVzF3T1VyaFJ5cHFsdytObjI0TXVHSWtJL1Z3?=
- =?utf-8?B?d0N4U2lJZFhkNUUyTjlWYTM2bUtYUUVvOHFqcVFhNDgrVldnQjkzeGVYT2t5?=
- =?utf-8?B?NVdCVUQxUmtsN0xWY3R4eUFrcTFJTDg4bmxDcU1xVDlyb0NtdXZncXpmVlA5?=
- =?utf-8?B?QTRBUlBzYVFBNmxLVHF0eU5HTGdrNVg0a2wxWlNxaS9qRzEwRDR0dUxCWWZT?=
- =?utf-8?B?STU3YkJXMmxoQ1BUYVFSRndhWjFHQ0pmNER3N2FmSEJmZm1wYmE2ejloejJ2?=
- =?utf-8?B?bXhQa2QrS0lUemNtM2h2RzAwRzZRV2VZZjdGMW5SanhBQnM3THBYS040dHBa?=
- =?utf-8?B?ZkM4TEo1SEZWYXdKaHpjRGlVQk5WNGtOSGd6M2Q0NGpIczhMYWdaK3lvWXFz?=
- =?utf-8?B?Q2QweUpmZERuSUdKMkdwZDFFRU9OUkJScUxFQlN1ck5tRnM5amphUEMwWmN3?=
- =?utf-8?B?Ty9pTFdBbjQvQTRQcXZqZVpQNHhuT0h2TkYzTUV4bHYxUzhPeDlHMWlRRENt?=
- =?utf-8?B?S0FMbEk0SElpYTU3cTBVN2EzbHZKSm5IYy85ZkpEdmo4cVZhaUpYR0NFemdz?=
- =?utf-8?B?d3Y1cmtxeDRPN0tlS3Ixc25HQ3pMMytxM3QrUkpYa2Vsck9EZlNBUmZMcVlt?=
- =?utf-8?B?SCtiMk9NQnlxN05VR0grZzAyRU1KejhReTh5RXZBeStPTVJIcUF1bW9yeHVI?=
- =?utf-8?B?d0I2dW1FamNOdzVOcW51OU1ta1F6c3FMb3VoQUc2dm5kVjJGQzd5SWdKWHZt?=
- =?utf-8?Q?jErA4/a7gIag6jokxWhwNFo5a?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b45fa1c7-73e7-4155-ea7b-08db97e01557
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2023 07:21:29.0849
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pet60bjFxa2vUOkXw5oVi+TpV6jOzvXSU3H2b/YBFXF++nGTtfWEfefOzmoPwsOWvmIT2JhX6VbRTXlXVB8Zhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7970
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.14.0
+Subject: Re: [PATCH v4 45/48] mm: shrinker: make global slab shrink lockless
+Content-Language: en-US
+To: Dave Chinner <david@fromorbit.com>
+Cc: akpm@linux-foundation.org, tkhai@ya.ru, vbabka@suse.cz,
+ roman.gushchin@linux.dev, djwong@kernel.org, brauner@kernel.org,
+ paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com, cel@kernel.org,
+ senozhatsky@chromium.org, yujie.liu@intel.com, gregkh@linuxfoundation.org,
+ muchun.song@linux.dev, simon.horman@corigine.com, dlemoal@kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, x86@kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, linux-nfs@vger.kernel.org,
+ linux-mtd@lists.infradead.org, rcu@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ dm-devel@redhat.com, linux-raid@vger.kernel.org,
+ linux-bcache@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org
+References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
+ <20230807110936.21819-46-zhengqi.arch@bytedance.com>
+ <ZNGnSbiPN0lDLpSW@dread.disaster.area>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <ZNGnSbiPN0lDLpSW@dread.disaster.area>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 08.08.2023 09:08, Nicola Vetrini wrote:
-> On 07/08/2023 11:10, Jan Beulich wrote:
->> On 07.08.2023 10:59, Nicola Vetrini wrote:
->>> On 07/08/2023 10:09, Jan Beulich wrote:
->>>> On 04.08.2023 17:27, Nicola Vetrini wrote:
->>>>> The variable declared in the header file
->>>>> 'xen/arch/x86/include/asm/e820.h'
->>>>> is shadowed by many function parameters, so it is renamed to avoid
->>>>> these
->>>>> violations.
->>>>>
->>>>> No functional changes.
->>>>>
->>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>> ---
->>>>> This patch is similar to other renames done on previous patches, and
->>>>> the
->>>>> preferred strategy there was to rename the global variable. This one
->>>>> has more occurrences that are spread in various files, but
->>>>> the general pattern is the same.
->>>>
->>>> Still I think it would be better done the other way around, and 
->>>> perhaps
->>>> in
->>>> more than a single patch. It looks like "many == 3", i.e.
->>>> - e820_add_range(), which is only ever called with "e820" as its
->>>> argument,
->>>>   and hence the parameter could be dropped,
-> 
-> I see another downside with this approach (I should have spotted this 
-> sooner):
-> Since e820_add_range and the other functions expected e820 as a pointer, 
-> they are
-> written like this:
-> 
-> for ( i = 0; i < e820->nr_map; ++i )
->      {
->          uint64_t rs = e820->map[i].addr;
->          uint64_t re = rs + e820->map[i].size;
-> 
->          if ( rs == e && e820->map[i].type == type )
->          {
->              e820->map[i].addr = s;
->              return 1;
->          }
-> ...
-> 
-> Dropping the parameter would either mean
-> 1. Use a local parameter that stores the address of e820, which kind of
->     nullifies the purpose of dropping the parameter imho;
+Hi Dave,
 
-This isn't an unusual thing to do; it is only the name being short which
-may make it look "unnecessary" here. But especially if the local variable
-was made of type struct e820entry * (and updated in the for()) I think
-this could be useful overall.
-
-> 2. Rewrite it so that it operates on a "struct e820map", which would 
-> mean
->     substantial churn;
-> 3. Make the global a pointer, which is reminiscent of (1)
+On 2023/8/8 10:24, Dave Chinner wrote:
+> On Mon, Aug 07, 2023 at 07:09:33PM +0800, Qi Zheng wrote:
+>> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+>> index eb342994675a..f06225f18531 100644
+>> --- a/include/linux/shrinker.h
+>> +++ b/include/linux/shrinker.h
+>> @@ -4,6 +4,8 @@
+>>   
+>>   #include <linux/atomic.h>
+>>   #include <linux/types.h>
+>> +#include <linux/refcount.h>
+>> +#include <linux/completion.h>
+>>   
+>>   #define SHRINKER_UNIT_BITS	BITS_PER_LONG
+>>   
+>> @@ -87,6 +89,10 @@ struct shrinker {
+>>   	int seeks;	/* seeks to recreate an obj */
+>>   	unsigned flags;
+>>   
+>> +	refcount_t refcount;
+>> +	struct completion done;
+>> +	struct rcu_head rcu;
 > 
-> All in all, I do like the global renaming approach more, because it 
-> lessens
-> the amount of code that needs to change to accomodate a case of 
-> shadowing.
+> Documentation, please. What does the refcount protect, what does the
+> completion provide, etc.
 
-Well, to go that route you need to come up with a suitable new name (no
-prior proposal was really meeting that requirement) and you'd need to
-convince at least one of the x86 maintainers.
+How about the following:
 
-Jan
+	/*
+	 * reference count of this shrinker, holding this can guarantee
+	 * that the shrinker will not be released.
+	 */
+	refcount_t refcount;
+	/*
+	 * Wait for shrinker::refcount to reach 0, that is, no shrinker
+	 * is running or will run again.
+	 */
+	struct completion done;
+
+> 
+>> +
+>>   	void *private_data;
+>>   
+>>   	/* These are for internal use */
+>> @@ -120,6 +126,17 @@ struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...);
+>>   void shrinker_register(struct shrinker *shrinker);
+>>   void shrinker_free(struct shrinker *shrinker);
+>>   
+>> +static inline bool shrinker_try_get(struct shrinker *shrinker)
+>> +{
+>> +	return refcount_inc_not_zero(&shrinker->refcount);
+>> +}
+>> +
+>> +static inline void shrinker_put(struct shrinker *shrinker)
+>> +{
+>> +	if (refcount_dec_and_test(&shrinker->refcount))
+>> +		complete(&shrinker->done);
+>> +}
+>> +
+>>   #ifdef CONFIG_SHRINKER_DEBUG
+>>   extern int __printf(2, 3) shrinker_debugfs_rename(struct shrinker *shrinker,
+>>   						  const char *fmt, ...);
+>> diff --git a/mm/shrinker.c b/mm/shrinker.c
+>> index 1911c06b8af5..d318f5621862 100644
+>> --- a/mm/shrinker.c
+>> +++ b/mm/shrinker.c
+>> @@ -2,6 +2,7 @@
+>>   #include <linux/memcontrol.h>
+>>   #include <linux/rwsem.h>
+>>   #include <linux/shrinker.h>
+>> +#include <linux/rculist.h>
+>>   #include <trace/events/vmscan.h>
+>>   
+>>   #include "internal.h"
+>> @@ -577,33 +578,42 @@ unsigned long shrink_slab(gfp_t gfp_mask, int nid, struct mem_cgroup *memcg,
+>>   	if (!mem_cgroup_disabled() && !mem_cgroup_is_root(memcg))
+>>   		return shrink_slab_memcg(gfp_mask, nid, memcg, priority);
+>>   
+>> -	if (!down_read_trylock(&shrinker_rwsem))
+>> -		goto out;
+>> -
+>> -	list_for_each_entry(shrinker, &shrinker_list, list) {
+>> +	rcu_read_lock();
+>> +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
+>>   		struct shrink_control sc = {
+>>   			.gfp_mask = gfp_mask,
+>>   			.nid = nid,
+>>   			.memcg = memcg,
+>>   		};
+>>   
+>> +		if (!shrinker_try_get(shrinker))
+>> +			continue;
+>> +
+>> +		/*
+>> +		 * We can safely unlock the RCU lock here since we already
+>> +		 * hold the refcount of the shrinker.
+>> +		 */
+>> +		rcu_read_unlock();
+>> +
+>>   		ret = do_shrink_slab(&sc, shrinker, priority);
+>>   		if (ret == SHRINK_EMPTY)
+>>   			ret = 0;
+>>   		freed += ret;
+>> +
+>>   		/*
+>> -		 * Bail out if someone want to register a new shrinker to
+>> -		 * prevent the registration from being stalled for long periods
+>> -		 * by parallel ongoing shrinking.
+>> +		 * This shrinker may be deleted from shrinker_list and freed
+>> +		 * after the shrinker_put() below, but this shrinker is still
+>> +		 * used for the next traversal. So it is necessary to hold the
+>> +		 * RCU lock first to prevent this shrinker from being freed,
+>> +		 * which also ensures that the next shrinker that is traversed
+>> +		 * will not be freed (even if it is deleted from shrinker_list
+>> +		 * at the same time).
+>>   		 */
+> 
+> This needs to be moved to the head of the function, and document
+> the whole list walk, get, put and completion parts of the algorithm
+> that make it safe. There's more to this than "we hold a reference
+> count", especially the tricky "we might see the shrinker before it
+> is fully initialised" case....
+
+How about moving these documents to before list_for_each_entry_rcu(),
+and then go to the head of shrink_slab_memcg() to explain the memcg
+slab shrink case.
+
+> 
+> 
+> .....
+>>   void shrinker_free(struct shrinker *shrinker)
+>>   {
+>>   	struct dentry *debugfs_entry = NULL;
+>> @@ -686,9 +712,18 @@ void shrinker_free(struct shrinker *shrinker)
+>>   	if (!shrinker)
+>>   		return;
+>>   
+>> +	if (shrinker->flags & SHRINKER_REGISTERED) {
+>> +		shrinker_put(shrinker);
+>> +		wait_for_completion(&shrinker->done);
+>> +	}
+> 
+> Needs a comment explaining why we need to wait here...
+
+/*
+  * Wait for all lookups of the shrinker to complete, after that, no
+  * shrinker is running or will run again, then we can safely free
+  * the structure where the shrinker is located, such as super_block
+  * etc.
+  */
+
+>> +
+>>   	down_write(&shrinker_rwsem);
+>>   	if (shrinker->flags & SHRINKER_REGISTERED) {
+>> -		list_del(&shrinker->list);
+>> +		/*
+>> +		 * Lookups on the shrinker are over and will fail in the future,
+>> +		 * so we can now remove it from the lists and free it.
+>> +		 */
+> 
+> .... rather than here after the wait has been done and provided the
+> guarantee that no shrinker is running or will run again...
+
+With the above comment, how about simplifying the comment here to the
+following:
+
+/*
+  * Now we can safely remove it from the shrinker_list and free it.
+  */
+
+Thanks,
+Qi
+
+> 
+> -Dave.
 
