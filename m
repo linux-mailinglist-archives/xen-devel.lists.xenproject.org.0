@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8FA77569B
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 11:42:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580810.909231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B54477569E
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 11:44:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580815.909241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTfhr-0008T4-Qk; Wed, 09 Aug 2023 09:42:19 +0000
+	id 1qTfk8-0000Zs-6M; Wed, 09 Aug 2023 09:44:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580810.909231; Wed, 09 Aug 2023 09:42:19 +0000
+Received: by outflank-mailman (output) from mailman id 580815.909241; Wed, 09 Aug 2023 09:44:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTfhr-0008QJ-N7; Wed, 09 Aug 2023 09:42:19 +0000
-Received: by outflank-mailman (input) for mailman id 580810;
- Wed, 09 Aug 2023 09:42:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qTfk8-0000YG-38; Wed, 09 Aug 2023 09:44:40 +0000
+Received: by outflank-mailman (input) for mailman id 580815;
+ Wed, 09 Aug 2023 09:44:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yOKN=D2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qTfhq-0008QD-B9
- for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 09:42:18 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06650817-3699-11ee-8613-37d641c3527e;
- Wed, 09 Aug 2023 11:42:16 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B351921836;
- Wed,  9 Aug 2023 09:42:15 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93132133B5;
- Wed,  9 Aug 2023 09:42:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kCURIndf02RZGAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 09 Aug 2023 09:42:15 +0000
+ (envelope-from <julien@xen.org>) id 1qTfk6-0000Y8-ML
+ for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 09:44:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qTfk3-00044a-Ug; Wed, 09 Aug 2023 09:44:35 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.16.102]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qTfk3-00078e-Jf; Wed, 09 Aug 2023 09:44:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,192 +39,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06650817-3699-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1691574135; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=aJf+gy5hzHlvoLiAoq6+3TVdJV6SqJynVwap+TW+0E4=;
-	b=dVXwxNLntQlmyAP45Lf67JVbZsy4QL8ZM3tazkZVWSsFn5wRg49XYzP8Vmrki+vpfw/9BN
-	z38iVswDxyMy/FUxmW9nci/ZOzybRPeXUKS4u6A78iSlZKXWHxXZICgQXaerF4i8vrEwW7
-	3hUSccT+GYF9C0shZj3IZMa1LgZDxvs=
-Message-ID: <6300d166-621e-83bf-0ac2-70ea89b75492@suse.com>
-Date: Wed, 9 Aug 2023 11:42:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=D3TUk0fVtuJ/htEceC83j6Ej9T9H0oui2/i6dkCkfgo=; b=kYcOaJ7urvmOyu6YfKEd5a5TNh
+	5t0ZLDDWkQc+UbDoCAl+sBFFxd9mZZR60NjbsL1vJAI7KtGkp0kKXZ7zpKTRDtxRPjBACnb+bgTy4
+	jW5rMEKyj3ngeTT4W1XUu76GugYKAKkOpLdJaHnho+HimlLMAu4npaKNRgXTVqVaxtCE=;
+Message-ID: <7e578cfd-b74c-45d6-9b90-9963cff2c8e3@xen.org>
+Date: Wed, 9 Aug 2023 10:44:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/public: fix flexible array definitions
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20230725135557.20518-1-jgross@suse.com>
- <5ba647c0-fc74-595e-5fe3-658f4662f16e@suse.com>
- <f54fcb50-15c5-aa72-60fa-6370547bb9f2@citrix.com>
- <6cd0c3e2-ecae-971a-5c86-cf408591bee9@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <6cd0c3e2-ecae-971a-5c86-cf408591bee9@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0nDYHTuWUPQqKRfboFyLpVSh"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0nDYHTuWUPQqKRfboFyLpVSh
-Content-Type: multipart/mixed; boundary="------------UEuCEY2Du6AFMDYN7ex7sBPj";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Message-ID: <6300d166-621e-83bf-0ac2-70ea89b75492@suse.com>
-Subject: Re: [PATCH] xen/public: fix flexible array definitions
-References: <20230725135557.20518-1-jgross@suse.com>
- <5ba647c0-fc74-595e-5fe3-658f4662f16e@suse.com>
- <f54fcb50-15c5-aa72-60fa-6370547bb9f2@citrix.com>
- <6cd0c3e2-ecae-971a-5c86-cf408591bee9@suse.com>
-In-Reply-To: <6cd0c3e2-ecae-971a-5c86-cf408591bee9@suse.com>
-
---------------UEuCEY2Du6AFMDYN7ex7sBPj
-Content-Type: multipart/mixed; boundary="------------hmWWbqZGtNCbE2iju17w3Kpw"
-
---------------hmWWbqZGtNCbE2iju17w3Kpw
+Subject: Re: [RFC 4/6] capabilities: introduce console io as a domain
+ capability
+Content-Language: en-GB
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20230801202006.20322-1-dpsmith@apertussolutions.com>
+ <20230801202006.20322-5-dpsmith@apertussolutions.com>
+ <8951f722-6949-b2b5-f6d4-2d515f085cde@xen.org>
+ <7a10af10-27c7-257e-9564-2716c67bb400@apertussolutions.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <7a10af10-27c7-257e-9564-2716c67bb400@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMjYuMDcuMjMgMDc6NTIsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNS4wNy4yMDIz
-IDE4OjU5LCBBbmRyZXcgQ29vcGVyIHdyb3RlOg0KPj4gT24gMjUvMDcvMjAyMyA1OjE2IHBt
-LCBKYW4gQmV1bGljaCB3cm90ZToNCj4+PiBPbiAyNS4wNy4yMDIzIDE1OjU1LCBKdWVyZ2Vu
-IEdyb3NzIHdyb3RlOg0KPj4+PiBGbGV4aWJsZSBhcnJheXMgaW4gcHVibGljIGhlYWRlcnMg
-Y2FuIGJlIHByb2JsZW1hdGljIHdpdGggc29tZQ0KPj4+PiBjb21waWxlcnMuDQo+Pj4+DQo+
-Pj4+IFJlcGxhY2UgdGhlbSB3aXRoIGFycltYRU5fRkxFWF9BUlJBWV9ESU1dIGluIG9yZGVy
-IHRvIGF2b2lkIGNvbXBpbGF0aW9uDQo+Pj4+IGVycm9ycy4NCj4+Pj4NCj4+Pj4gVGhpcyBp
-bmNsdWRlcyBhcnJheXMgZGVmaW5lZCBhcyAiYXJyWzFdIiwgYXMgc2VlbiB3aXRoIGEgcmVj
-ZW50IExpbnV4DQo+Pj4+IGtlcm5lbCBbMV0uDQo+Pj4+DQo+Pj4+IFsxXTogaHR0cHM6Ly9i
-dWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMTc2OTMNCj4+Pj4NCj4+Pj4g
-U2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPj4+IEkg
-dGhpbmsgd2UgbmVlZCB0byBiZSBjYXJlZnVsIGhlcmU6IFdoYXQgaWYgc29tZW9uZSBzb21l
-d2hlcmUgYXBwbGllcw0KPj4+IHNpemVvZigpIHRvIGFueSBvZiB0aGUgdHlwZXMgeW91IGFs
-dGVyPw0KPj4NCj4+IFRoZW4gdGhlIGNvZGUgd2FzIG1vc3QgbGlrZWx5IHdyb25nIGFscmVh
-ZHkuDQo+IA0KPiBUaGF0J3MgcG9zc2libGUgdG8ganVkZ2Ugb25seSB3aGVuIHNlZWluZyB0
-aGUgY29kZSBpbiBxdWVzdGlvbi4NCj4gDQo+Pj4gICBUaGUgcmVzdWx0aW5nIHZhbHVlIHdv
-dWxkDQo+Pj4gY2hhbmdlIHdpdGggdGhlIGNoYW5nZXMgeW91IHByb3Bvc2UsIHdoaWNoIHdl
-IGNhbm5vdCBhbGxvdyB0byBoYXBwZW4NCj4+PiBpbiBhIHN0YWJsZSBpbnRlcmZhY2UuIFRo
-ZXJlZm9yZSBpbW8gaXQgY2FuIG9ubHkgYmUgYW4gb3B0LWluIGZlYXR1cmUNCj4+PiB0byBo
-YXZlIHRoZXNlIGFycmF5cyBubyBsb25nZXIgYmUgb25lLWVsZW1lbnQgb25lcy4NCj4+DQo+
-PiBJIGRvbid0IGNvbnNpZGVyIHRoaXMgYW4gaXNzdWUuDQo+Pg0KPj4gSWYgcGVvcGxlIHRh
-a2UgYW4gdXBkYXRlIHRvIHRoZSBoZWFkZXJzIGFuZCB0aGVpciBjb2RlIHN0b3BzIGNvbXBp
-bGluZywNCj4+IHRoZW4gb2YgY291cnNlIHRoZXkgZml4IHRoZSBjb21waWxhdGlvbiBpc3N1
-ZS7CoCBUaGF0J3Mgbm9ybWFsLg0KPiANCj4gVGhlIGNvZGUgbWF5IGNvbnRpbnVlIHRvIGNv
-bXBpbGUgZmluZSwgYW5kIGV2ZW4gYXBwZWFyIHRvIHdvcmsgaW5pdGlhbGx5Lg0KPiANCj4+
-IEl0J3MgdW5yZWFzb25hYmxlIHRvIHRha2Ugb3B0LWluIGZlYXR1cmVzIHRvIGEgc2V0IG9m
-IGhlYWRlcnMgaW50ZW5kZWQNCj4+IHRvIGJlIHZlbmRvcmVkIGluIHRoZSBmaXJzdCBwbGFj
-ZSwgdG8gd29yayBhcm91bmQgYSBjb3JuZXIgY2FzZSB0aGF0J3MNCj4+IGxpa2VseSBidWdn
-eSBhbHJlYWR5Lg0KPiANCj4gVGhlIG9yaWdpbmFsIGludGVudGlvbiBjbGVhcmx5IHdhcyB0
-byBhbGxvdyB1c2Ugb2YgdGhlc2UgaGVhZGVycyBhcyBpcy4NCj4gQW55d2F5LCBJJ3ZlIHZv
-aWNlZCBteSB2aWV3LCB5ZXQgaWYgdGhlcmUgYXJlIGVub3VnaCBwZW9wbGUgYWdyZWVpbmcN
-Cj4gd2l0aCB5b3UsIHRoZW4gc28gYmUgaXQuDQoNCkFueSBmdXJ0aGVyIHRob3VnaHRzPw0K
-DQpJIGhhdmUgY2hlY2tlZCB0aGUgY29kZSBpbiB0aGUgTGludXgga2VybmVsIG1lYW53aGls
-ZS4gVGhlcmUgc2hvdWxkIGJlIG5vDQpmYWxsb3V0IHJlc3VsdGluZyBmcm9tIHRoaXMgY2hh
-bmdlLCBidXQgSSB0aGluayB0aGVyZSBhcmUgc29tZSB1c2VyIG1vZGUNCmJhY2tlbmRzIG91
-dHNpZGUgb2YgcWVtdSB3aGljaCBhcmUgcHJvYmFibHkgdXNpbmcgYWZmZWN0ZWQgc3RydWN0
-cy4NCg0KDQpKdWVyZ2VuDQo=
---------------hmWWbqZGtNCbE2iju17w3Kpw
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi Daniel,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 08/08/2023 23:49, Daniel P. Smith wrote:
+> On 8/3/23 17:03, Julien Grall wrote:
+>> On 01/08/2023 21:20, Daniel P. Smith wrote:
+>>> The field `is_console` suggests that the field represents a state of 
+>>> being or
+>>> posession, not that it reflects the privilege to access the console. 
+>>> In this
+>>> patch the field is renamed to capabilities to encapsulate the 
+>>> capabilities a
+>>> domain has been granted. The first capability being the ability to 
+>>> read/write
+>>> the Xen console.
+>>>
+>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>> ---
+>>>   xen/arch/arm/domain_build.c |  4 +++-
+>>>   xen/include/xen/sched.h     | 25 +++++++++++++++++++++++--
+>>>   xen/include/xsm/dummy.h     |  2 +-
+>>>   3 files changed, 27 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>> index 51b4daefe1..ad7432b029 100644
+>>> --- a/xen/arch/arm/domain_build.c
+>>> +++ b/xen/arch/arm/domain_build.c
+>>> @@ -4076,7 +4076,9 @@ void __init create_domUs(void)
+>>>               panic("Error creating domain %s (rc = %ld)\n",
+>>>                     dt_node_name(node), PTR_ERR(d));
+>>> -        d->is_console = true;
+>>> +        if ( ! domain_set_cap(d, CAP_CONSOLE_IO) )
+>>
+>> Coding style: We don't usually add a space after '!'.
+> 
+> Ack.
+> 
+>>> +            printk("failed setting console_io on %pd\n", d);
+>>
+>> I find a bit odd that we would continue even if the cap cannot be set. 
+>> Can you clarify?
+> 
+> This is the construction of a domU, so the system is very much capable 
+> of coming up and reviewing the hypervisor messages from dom0 to discover 
+> the issue. I am hard pressed to believe the hypervisor should be 
+> panicked because the domU is not allowed to use the hypervisor's console.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I understand the system may be able to boot. However, the problem is 
+that it may take a while to discover that the console is not working 
+properly (the more if you only use it for error logging).
 
---------------hmWWbqZGtNCbE2iju17w3Kpw--
+So on Arm, we have so always decided to fail early rather than late in 
+order to help debugging. So I would rather not change the behavior even 
+if this is "just" for the console.
 
---------------UEuCEY2Du6AFMDYN7ex7sBPj--
+If you expect the console to be disabled, then we should provide a 
+property in the Device-Tree to select/deselect. It should not be hidden.
 
---------------0nDYHTuWUPQqKRfboFyLpVSh
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> 
+> g>> +
+>>>           dt_device_set_used_by(node, d->domain_id);
+>>>           rc = construct_domU(d, node);
+>>> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+>>> index ec0f9baff6..b04fbe0565 100644
+>>> --- a/xen/include/xen/sched.h
+>>> +++ b/xen/include/xen/sched.h
+>>> @@ -472,8 +472,8 @@ struct domain
+>>>   #define ROLE_HARDWARE_DOMAIN   (1U<<2)
+>>>   #define ROLE_XENSTORE_DOMAIN   (1U<<3)
+>>>       uint8_t          role;
+>>> -    /* Can this guest access the Xen console? */
+>>> -    bool             is_console;
+>>> +#define CAP_CONSOLE_IO  (1U<<0)
+>> Coding style: Space before and after <<.
+> 
+> Ack.
+> 
+>>> +    uint8_t          capabilities;
+>>>       /* Is this guest being debugged by dom0? */
+>>>       bool             debugger_attached;
+>>>       /*
+>>> @@ -1146,6 +1146,27 @@ static always_inline bool is_hvm_vcpu(const 
+>>> struct vcpu *v)
+>>>       return is_hvm_domain(v->domain);
+>>>   }
+>>> +static always_inline bool domain_has_cap(
+>>> +    const struct domain *d, uint8_t cap)
+>>
+>> Coding style: We don't usually wrap the arguments this way. See 
+>> domain_create() for an example.
+> 
+> I was informed it was[1], also, please see next_domain_in_cpupool() 
+> amongst many others further below.
 
------BEGIN PGP SIGNATURE-----
+The unwritten coding style strike again... I am not sure where the 
+agreement comes from. At least on Arm, we have been using the first 
+version in that thread and if it can't be wrapped to 80 characters, then 
+move the "static inline void " on its own line.
 
-wsB4BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTTX3cFAwAAAAAACgkQsN6d1ii/Ey9d
-Ugf3YTXXAVakgcWvErp4nV8F8vW9Cfa2idmRis5yDuCqVZSN+Xf/oTpyg2lOzmVti7tDQtirsiZu
-D3EgofzOF6Y3xwdf9m5NaaynyB55LQPpYTC8G7ZLIHFlFTg3LKoTxTfUKKnjXvVRkzloVOxPx802
-684gDeS3x3NDZOoH6EL5QgXoIH4Q+BwCPTC1Bh3kfWfUDcQPcrazVQzQxDULBWUEdj1PPQFKN9/3
-QM51Tcd93YDsie0fBNR0VjhtcXK1P1VX/2pykkVGSEs+gLQtmsQsYxjJQWPl544t2z7NbJQN9pn5
-1KJSTfqHjfk61gwIWKRaQfPcbas5EoG82Db6EIkh
-=cM8Q
------END PGP SIGNATURE-----
+The advantage with the Arm approach is that parameters are always 
+indented the same way. Anyway, the way you wrote is not my personal 
+preference but I am also not up to bikeshed too much on it. Hopefully 
+this sort of style discussion will be resolved with clang-format.
 
---------------0nDYHTuWUPQqKRfboFyLpVSh--
+[...]
+
+> 
+>> Also, do you expect the cap to be set only when the domain is created? 
+>> If not, would you prevent potentially concurrent update to 
+>> d->capabilities?
+> 
+> Currently the only means being devise to set this is via hyperlaunch 
+> domain creation. If a domctl op was added to be able to manipulate the 
+> caps, then yes a lock on the domain would be advised to block.
+
+Loking at patch #6, you are using domctl there.
+
+> With that 
+> said, if we switch over to CAP_CTRL/HW, then it might be good to grab a 
+> lock on the domain for the late hardware domain case.
+
+Are you planning to clear the caps? If not, then using set_bit() and 
+test_bit() should be enough.
+
+Cheers,
+
+-- 
+Julien Grall
 
