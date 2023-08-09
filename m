@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC107759C8
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 13:03:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580904.909441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE12775ABA
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 13:11:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580962.909461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTgy0-0000jX-3J; Wed, 09 Aug 2023 11:03:04 +0000
+	id 1qTh5D-0004yO-NS; Wed, 09 Aug 2023 11:10:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580904.909441; Wed, 09 Aug 2023 11:03:04 +0000
+Received: by outflank-mailman (output) from mailman id 580962.909461; Wed, 09 Aug 2023 11:10:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTgxz-0000c3-Tj; Wed, 09 Aug 2023 11:03:03 +0000
-Received: by outflank-mailman (input) for mailman id 580904;
- Wed, 09 Aug 2023 11:03:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hYF7=D2=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qTgxy-0007K6-83
- for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 11:03:02 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4df2377e-36a4-11ee-8613-37d641c3527e;
- Wed, 09 Aug 2023 13:03:00 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id D6AA94EE0748;
- Wed,  9 Aug 2023 13:02:59 +0200 (CEST)
+	id 1qTh5D-0004vo-KK; Wed, 09 Aug 2023 11:10:31 +0000
+Received: by outflank-mailman (input) for mailman id 580962;
+ Wed, 09 Aug 2023 11:10:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qTh5B-0004vd-RM
+ for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 11:10:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qTh5B-0006AR-5F; Wed, 09 Aug 2023 11:10:29 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.16.102]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qTh5A-0002zf-Tt; Wed, 09 Aug 2023 11:10:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,52 +39,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4df2377e-36a4-11ee-8613-37d641c3527e
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 8/8] x86/nmi: address MISRA C:2012 Rule 8.4
-Date: Wed,  9 Aug 2023 13:02:41 +0200
-Message-Id: <cb600b79b3f603302a58198c1f5e84488441b736.1691575243.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1691575243.git.nicola.vetrini@bugseng.com>
-References: <cover.1691575243.git.nicola.vetrini@bugseng.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=CxnjCleyFkTE+K7wEWE78iYHYZLHMNKCnrJLJ5Tn36o=; b=W+5/hgBgCrdIDZzNGR78VmLpsG
+	87TNU+EUwCXQZ4Tixg7DW/+L6PRLwMaGCBqnDRIC9xVnBlS6/umMbiaUa9AkFCoBMFwbi4PzfHPIV
+	Oo0SFiKHAdS/D5UfAFnQMhze1McR5BqcR/HjCC0pJjooVNmti/AQ36p+j6BCe7m3Xwuk=;
+Message-ID: <deb954e3-5eb2-4764-bce5-b20585a92111@xen.org>
+Date: Wed, 9 Aug 2023 12:10:25 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 2/2] xen/delay: address MISRA C:2012 Rule 5.3.
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <cover.1691567429.git.nicola.vetrini@bugseng.com>
+ <47e2c8770e38ab064cbcdfaafa8467c5e733f11d.1691567429.git.nicola.vetrini@bugseng.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <47e2c8770e38ab064cbcdfaafa8467c5e733f11d.1691567429.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Include an additional header to make the declarations for
-functions 'watchdog_*' visible prior to their definition in
-the file, thereby resolving the violations of Rule 8.4.
+Hi Nicola,
 
-No functional change.
+On 09/08/2023 08:55, Nicola Vetrini wrote:
+> The variable 'msec' declared in the macro shadows the local
+> variable in 'ehci_dbgp_bios_handoff', but to prevent any
+> future clashes with other functions the macro is converted to
+> a static inline function.
+> 
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- xen/arch/x86/nmi.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
-index 104e366bd3..dc79c25e3f 100644
---- a/xen/arch/x86/nmi.c
-+++ b/xen/arch/x86/nmi.c
-@@ -24,6 +24,7 @@
- #include <xen/console.h>
- #include <xen/smp.h>
- #include <xen/keyhandler.h>
-+#include <xen/watchdog.h>
- #include <xen/cpu.h>
- #include <asm/current.h>
- #include <asm/mc146818rtc.h>
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
