@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89B9C774FA2
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 02:00:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580595.908931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0933774FA9
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 02:03:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580601.908941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTWc2-00056l-0e; Tue, 08 Aug 2023 23:59:42 +0000
+	id 1qTWf6-0007DU-0g; Wed, 09 Aug 2023 00:02:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580595.908931; Tue, 08 Aug 2023 23:59:41 +0000
+Received: by outflank-mailman (output) from mailman id 580601.908941; Wed, 09 Aug 2023 00:02:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTWc1-000552-U0; Tue, 08 Aug 2023 23:59:41 +0000
-Received: by outflank-mailman (input) for mailman id 580595;
- Tue, 08 Aug 2023 23:59:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7Ml=DZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1qTWbz-00054w-MT
- for xen-devel@lists.xenproject.org; Tue, 08 Aug 2023 23:59:39 +0000
-Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
- [136.143.184.57]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9fa2066b-3647-11ee-8613-37d641c3527e;
- Wed, 09 Aug 2023 01:59:36 +0200 (CEST)
-Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1691539168302242.3678362872048;
- Tue, 8 Aug 2023 16:59:28 -0700 (PDT)
+	id 1qTWf5-0007B2-TL; Wed, 09 Aug 2023 00:02:51 +0000
+Received: by outflank-mailman (input) for mailman id 580601;
+ Wed, 09 Aug 2023 00:02:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qTWf4-0007Aq-HC; Wed, 09 Aug 2023 00:02:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qTWf4-00046v-Cj; Wed, 09 Aug 2023 00:02:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qTWf3-0005U7-V4; Wed, 09 Aug 2023 00:02:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qTWf3-0001VE-Sc; Wed, 09 Aug 2023 00:02:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,199 +42,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fa2066b-3647-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1691539169; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=E97/EQ4Rd/ItcjCrL9baRh8iy1jdUfPcjAYrphTDuSppIPSIHZdmennI8yA5RTuH8/NrJk13eXmO7KLQMfLJcUeDQ+vh6YVZUtnsw/CxfXVADXCVwR24ahX9QFwHuJtcEm7pHW6sqiNr8U1XoR4NR/n1yj6UZuj5GunXSOjULfk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1691539169; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=b7arqanQZaKrseLp8T3E5x22B2H7nmPRA4KWnM7oBUo=; 
-	b=PXSE+j55WkuaAiU5vqA2xHecWxUSl918r/GctxvbCtSqF9tsHjDJ1k7KkoLoxXX+/lGxhk/FWc9lVJPcVPCN/NI1ToB3S6NeA85UeCESouGZkyWvMsQghYsnaa0NMnLdS5mUqj7iMyZUDjemHHEfSh65yyeAYPcUTwa3GezgIQM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691539169;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=b7arqanQZaKrseLp8T3E5x22B2H7nmPRA4KWnM7oBUo=;
-	b=GChef75QLMo+fqpJY/F7pTWyK7WEO+Z98V6szlB0fb8J7xIjrK5/ecc63Jxdorzo
-	2Dy7uTEHfC3EA/nDZMPM95nqthv5qvyPEPjgKKrMF5I1byu3QIi9h1mlI/xwFPGYoMH
-	iu6KyhpegGwCr46VELlKRujbSv19Hf/t0UGgwiIk=
-Message-ID: <331ee5de-3c90-2e3f-ef1c-914a2cbf14cf@apertussolutions.com>
-Date: Tue, 8 Aug 2023 19:59:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ka2tyQOcPIx3SgHL41bYctcFHxq/yKWfxBdN7nbEmfo=; b=ldXW5bRhAXM9GUiQqXfMjolJON
+	9CAC8P0BKZP+JR67hiUOGUTll2jV1xheRQk1MMgm6g5wxyLJJUbUGnQ/EXR9kJ/oXq1sooLemAWD0
+	U7uP2yEeEyDFsF/TvLwvZbABEu4EUa5eQVo/gItBw0888q9goMdVdwG3E898hsWM5Z+o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182231-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [RFC 5/6] capabilities: add dom0 cpu faulting disable
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230801202006.20322-1-dpsmith@apertussolutions.com>
- <20230801202006.20322-6-dpsmith@apertussolutions.com>
- <93750d64-07b3-2a92-4851-bcd5bda9a0a5@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <93750d64-07b3-2a92-4851-bcd5bda9a0a5@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Subject: [qemu-mainline test] 182231: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=0450cf08976f9036feaded438031b4cba94f6452
+X-Osstest-Versions-That:
+    qemuu=e0e5dca517a5964d407f48bdfccbea88113b2736
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Aug 2023 00:02:49 +0000
 
-On 8/8/23 11:30, Jan Beulich wrote:
-> On 01.08.2023 22:20, Daniel P. Smith wrote:
->> --- a/xen/arch/x86/cpu/common.c
->> +++ b/xen/arch/x86/cpu/common.c
->> @@ -164,48 +164,46 @@ static void set_cpuid_faulting(bool enable)
->>   
->>   void ctxt_switch_levelling(const struct vcpu *next)
->>   {
->> -	const struct domain *nextd = next ? next->domain : NULL;
->> -	bool enable_cpuid_faulting;
->> -
->> -	if (cpu_has_cpuid_faulting ||
->> -	    boot_cpu_has(X86_FEATURE_CPUID_USER_DIS)) {
->> -		/*
->> -		 * No need to alter the faulting setting if we are switching
->> -		 * to idle; it won't affect any code running in idle context.
->> -		 */
->> -		if (nextd && is_idle_domain(nextd))
->> -			return;
->> -		/*
->> -		 * We *should* be enabling faulting for PV control domains.
->> -		 *
->> -		 * The domain builder has now been updated to not depend on
->> -		 * seeing host CPUID values.  This makes it compatible with
->> -		 * PVH toolstack domains, and lets us enable faulting by
->> -		 * default for all PV domains.
->> -		 *
->> -		 * However, as PV control domains have never had faulting
->> -		 * enforced on them before, there might plausibly be other
->> -		 * dependenices on host CPUID data.  Therefore, we have left
->> -		 * an interim escape hatch in the form of
->> -		 * `dom0=no-cpuid-faulting` to restore the older behaviour.
->> -		 */
->> -		enable_cpuid_faulting = nextd && (opt_dom0_cpuid_faulting ||
->> -		                                  !is_control_domain(nextd) ||
->> -		                                  !is_pv_domain(nextd)) &&
->> -		                        (is_pv_domain(nextd) ||
->> -		                         next->arch.msrs->
->> -		                         misc_features_enables.cpuid_faulting);
->> -
->> -		if (cpu_has_cpuid_faulting)
->> -			set_cpuid_faulting(enable_cpuid_faulting);
->> -		else
->> -			amd_set_cpuid_user_dis(enable_cpuid_faulting);
->> -
->> -		return;
->> -	}
->> -
->> -	if (ctxt_switch_masking)
->> -		alternative_vcall(ctxt_switch_masking, next);
->> +    const struct domain *nextd = next ? next->domain : NULL;
->> +    bool enable_cpuid_faulting;
->> +
->> +    if ( cpu_has_cpuid_faulting ||
->> +         boot_cpu_has(X86_FEATURE_CPUID_USER_DIS) ) {
->> +        /*
->> +        * No need to alter the faulting setting if we are switching
->> +        * to idle; it won't affect any code running in idle context.
->> +        */
->> +        if (nextd && is_idle_domain(nextd))
->> +            return;
->> +        /*
->> +        * We *should* be enabling faulting for PV control domains.
->> +        *
->> +        * The domain builder has now been updated to not depend on
->> +        * seeing host CPUID values.  This makes it compatible with
->> +        * PVH toolstack domains, and lets us enable faulting by
->> +        * default for all PV domains.
->> +        *
->> +        * However, as PV control domains have never had faulting
->> +        * enforced on them before, there might plausibly be other
->> +        * dependenices on host CPUID data.  Therefore, we have left
->> +        * an interim escape hatch in the form of
->> +        * `dom0=no-cpuid-faulting` to restore the older behaviour.
->> +        */
->> +        enable_cpuid_faulting = nextd &&
->> +            domain_has_cap(nextd, CAP_DISABLE_CPU_FAULT) &&
->> +            (is_pv_domain(nextd) ||
->> +            next->arch.msrs->misc_features_enables.cpuid_faulting);
->> +
->> +        if (cpu_has_cpuid_faulting)
->> +            set_cpuid_faulting(enable_cpuid_faulting);
->> +        else
->> +            amd_set_cpuid_user_dis(enable_cpuid_faulting);
->> +
->> +        return;
->> +    }
->> +
->> +    if (ctxt_switch_masking)
->> +        alternative_vcall(ctxt_switch_masking, next);
->>   }
-> 
-> I don't think I can spot what exactly changes here. Please avoid re-
-> indenting the entire function.
+flight 182231 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182231/
 
-Oh, that was not intentional. I must have done a retab as that entire 
-function is indented using hardtabs.
+Failures :-/ but no regressions.
 
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -907,6 +907,10 @@ static struct domain *__init create_dom0(const module_t *image,
->>   
->>       d->role |= ROLE_UNBOUNDED_DOMAIN;
->>   
->> +    if ( !opt_dom0_cpuid_faulting &&
->> +         !domain_set_cap(d, CAP_DISABLE_CPU_FAULT) )
->> +        printk(XENLOG_WARNING "failed to set CPU faulting on Dom %pd\n", d);
-> 
-> No "Dom" please when you use %pd. Also I don't think you mean "set". Plus
-> we commonly use "%pd: xyz failed\n".
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182222
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182222
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 182222
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182222
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182222
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182222
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182222
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 182222
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-Ack on the "Dom" removal and "%pd:".
+version targeted for testing:
+ qemuu                0450cf08976f9036feaded438031b4cba94f6452
+baseline version:
+ qemuu                e0e5dca517a5964d407f48bdfccbea88113b2736
 
-As for set, it failed to set the capability on the domain. You could say 
-enable but that is nothing more than synonyms, not changing the meaning 
-of the statement.
+Last test of basis   182222  2023-08-07 20:38:59 Z    1 days
+Testing same since   182231  2023-08-08 08:51:50 Z    0 days    1 attempts
 
->> --- a/xen/include/xen/sched.h
->> +++ b/xen/include/xen/sched.h
->> @@ -472,7 +472,8 @@ struct domain
->>   #define ROLE_HARDWARE_DOMAIN   (1U<<2)
->>   #define ROLE_XENSTORE_DOMAIN   (1U<<3)
->>       uint8_t          role;
->> -#define CAP_CONSOLE_IO  (1U<<0)
->> +#define CAP_CONSOLE_IO         (1U<<0)
->> +#define CAP_DISABLE_CPU_FAULT  (1U<<1)
->>       uint8_t          capabilities;
->>       /* Is this guest being debugged by dom0? */
->>       bool             debugger_attached;
->> @@ -1160,6 +1161,11 @@ static always_inline bool domain_set_cap(
->>       case CAP_CONSOLE_IO:
->>           d->capabilities |= cap;
->>           break;
->> +    case CAP_DISABLE_CPU_FAULT:
->> +        /* Disabling cpu faulting is only allowed for a PV control domain. */
->> +        if ( is_pv_domain(d) && is_control_domain(d) )
->> +            d->capabilities |= cap;
->> +        break;
-> 
-> How do you express the x86-ness of this? Plus shouldn't this fail when
-> either of the two conditions isn't met?
+------------------------------------------------------------
+People who touched revisions under test:
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Dongli Zhang <dongli.zhang@oracle.com>
+  Dongwon Kim <dongwon.kim@intel.com>
+  Luca Bonissi <qemu@bonslack.org>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Richard Henderson <richard.henderson@linaro.org>
+  Zongmin Zhou <zhouzongmin@kylinos.cn>
+  Zongmin Zhou<zhouzongmin@kylinos.cn>
 
-You are correct, since this moves an x86 capability out into common, it 
-should be ifdef'ed for x86.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
-Correct me if I am wrong here, but in the original check it would 
-evaluate that all three conditions to be true. All this change did is 
-effectively move the last two conditions into domain_set_cap(). Thus 
-storing the evaluation of the first two conditions during dom0 
-capability setup for the result to later be evaluated during dom0 cpuid 
-policy setup as it was done before.
 
-v/r,
-dps
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   e0e5dca517..0450cf0897  0450cf08976f9036feaded438031b4cba94f6452 -> upstream-tested
 
