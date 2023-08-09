@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AE4775B13
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 13:14:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580974.909481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BEF3775BCB
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 13:21:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580981.909490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTh8X-00065l-De; Wed, 09 Aug 2023 11:13:57 +0000
+	id 1qThFB-0007eL-3v; Wed, 09 Aug 2023 11:20:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580974.909481; Wed, 09 Aug 2023 11:13:57 +0000
+Received: by outflank-mailman (output) from mailman id 580981.909490; Wed, 09 Aug 2023 11:20:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTh8X-00062u-AR; Wed, 09 Aug 2023 11:13:57 +0000
-Received: by outflank-mailman (input) for mailman id 580974;
- Wed, 09 Aug 2023 11:13:56 +0000
+	id 1qThFB-0007bZ-0o; Wed, 09 Aug 2023 11:20:49 +0000
+Received: by outflank-mailman (input) for mailman id 580981;
+ Wed, 09 Aug 2023 11:20:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qTh8W-00062o-12
- for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 11:13:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qThF9-0007bP-GS; Wed, 09 Aug 2023 11:20:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qTh8U-0006FW-My; Wed, 09 Aug 2023 11:13:54 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.16.102]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qTh8U-0003DF-Gn; Wed, 09 Aug 2023 11:13:54 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qThF9-0006WY-7o; Wed, 09 Aug 2023 11:20:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qThF8-0005g2-VV; Wed, 09 Aug 2023 11:20:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qThF8-0004nh-Se; Wed, 09 Aug 2023 11:20:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,46 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=yciX83DpxqrFk9CyGdNw2PmMRLfLuq1v2HCUB9ydSXw=; b=kk0AfUlGwtPInjlqadg6jgkDWS
-	yUWSJTVYTKU5zuAljIhbygMXUuCPQZx/Am3+/TWPQoCNgKaLhgjn48R+EQ69dyH5xDAdsDoXEh+gf
-	yGvGtCzloc2LTuy37Oh8YUGyGV4sxOF2VgLsrUBj0F2lg9FVbQ8qWxQphDSYM+xAiKok=;
-Message-ID: <94a5862e-d1c0-432b-9864-90a43945bc9b@xen.org>
-Date: Wed, 9 Aug 2023 12:13:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=16bR4ACa46+9uZQ7/SgKau2SbNhjoov988R4IoJFMfA=; b=nqknTgkyfey8gcArpopP0c7kFF
+	Q1sOShzPzLvyd8A9EYIzZSs/dj8SYOTWyibAYJzbdoH1oIpuN9TjXeNHW349q2xPV5ZIjhEf1KR2G
+	SNYmZj6a+E4uiLpUOOTc/zae2v0nCVfHV5kRn8Tx+EYpYW4/dfIrgl+IQdTpHUOnyabU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182246-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] common: asm/desc.h is an x86-only header
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <1ea0cd2e-1821-541d-068f-a18309d1823c@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <1ea0cd2e-1821-541d-068f-a18309d1823c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 182246: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a8a7c33e7dd684966d7df66058f2397995dbae31
+X-Osstest-Versions-That:
+    xen=76c243b1bc59660e3a643c17bff72fe674782564
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Aug 2023 11:20:46 +0000
 
-Hi Jan,
+flight 182246 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182246/
 
-On 08/08/2023 10:42, Jan Beulich wrote:
->  From briefly going over 9062553a0dc1 it looks like the #include in what
-> was ac_timer.c was added there for no reason. It's unneeded now in any
-> event, and it is the sole reason for Arm to have that dummy header.
-> Purge that, thus avoiding PPC to also gain one.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Failures :-/ but no regressions.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Cheers,
+version targeted for testing:
+ xen                  a8a7c33e7dd684966d7df66058f2397995dbae31
+baseline version:
+ xen                  76c243b1bc59660e3a643c17bff72fe674782564
 
--- 
-Julien Grall
+Last test of basis   182243  2023-08-09 02:04:34 Z    0 days
+Testing same since   182246  2023-08-09 08:02:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   76c243b1bc..a8a7c33e7d  a8a7c33e7dd684966d7df66058f2397995dbae31 -> smoke
 
