@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0261775064
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 03:34:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.580642.909000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA84177506E
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 03:37:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.580647.909010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTY4l-0004gO-Vr; Wed, 09 Aug 2023 01:33:27 +0000
+	id 1qTY85-0005HI-CC; Wed, 09 Aug 2023 01:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 580642.909000; Wed, 09 Aug 2023 01:33:27 +0000
+Received: by outflank-mailman (output) from mailman id 580647.909010; Wed, 09 Aug 2023 01:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTY4l-0004em-P9; Wed, 09 Aug 2023 01:33:27 +0000
-Received: by outflank-mailman (input) for mailman id 580642;
- Wed, 09 Aug 2023 01:33:25 +0000
+	id 1qTY85-0005F3-7L; Wed, 09 Aug 2023 01:36:53 +0000
+Received: by outflank-mailman (input) for mailman id 580647;
+ Wed, 09 Aug 2023 01:36:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JRC9=D2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qTY4j-0004eg-Ks
- for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 01:33:25 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1qTY84-0005Ep-BM
+ for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 01:36:52 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba57a726-3654-11ee-b280-6b7b168915f2;
- Wed, 09 Aug 2023 03:33:23 +0200 (CEST)
+ id 361a42c4-3655-11ee-b280-6b7b168915f2;
+ Wed, 09 Aug 2023 03:36:51 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0E39562EA4;
- Wed,  9 Aug 2023 01:33:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5C0C433C8;
- Wed,  9 Aug 2023 01:33:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A97B9624E5;
+ Wed,  9 Aug 2023 01:36:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F47AC433C7;
+ Wed,  9 Aug 2023 01:36:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,252 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba57a726-3654-11ee-b280-6b7b168915f2
+X-Inumbo-ID: 361a42c4-3655-11ee-b280-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691544801;
-	bh=qGY73qrlSIzq7u5mbmYNyXsFJt6vFXG6r9EIUsbT6WU=;
+	s=k20201202; t=1691545009;
+	bh=Hqo0K274CWnED+YLh7Sffcn/xf+hdeJU5GsOxxHi3hA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mbTodNKQPxalCMvoh65i6wUivV5kYPF+ryG88bp3EztOCCqJt5FNpHdHPHqn3VC1p
-	 4iMCOqbN9afHFLW8sbYlhwdD5S8iaMSbdc8AYjKCWGPME7PHiIuy4V07pjvI4d+uk2
-	 eZ/YtUjdOBqXMQn0D1SZcdxg7SaeX38QHHMcbENbduU6M0IPXBWg3ipkDN+m7lnuZD
-	 CACpYCtwAH/WpzLsMe5LNWH6vwtq83EbO0QC9AQY9gDwbCq4elPQ68298/5R/w+22s
-	 S6kH5vUfYWnHQaOduUgkEzjxPXjZIP4WrjCAZPQOYOWprRon3uUyM4TleYRcw6wrA7
-	 Cu2ItL3KqecLw==
-Date: Tue, 8 Aug 2023 18:33:18 -0700 (PDT)
+	b=XBgnvoPflLXaHsIucJ9SrsAXzmnDd6SGSUbjNUPPjgo7J4Sk1uBDHHkzcLSVxKW13
+	 VeRvqktDvD901EdTpeCadCzS4qqaKCsBqTwSpLt4MNTLKN650IuflXixv9cqqkhnzH
+	 Hot+gjrkQF40ZV8b7OF8XTJ/eXiPfa4CwN9Kt0hz6bH8lyvgXoPGBwnDZKXjp2QZH2
+	 +9p445r5mF8PuiF6pevOx99lHjHx9cl6fyDjXf0U4nbEYOOHJFz+ZyhfnFkV7dVGp+
+	 h+Ct6wBgtJVsNm+VT3an/D8/FKJBE1fAY56QIYeMsGOUoiNbHDioBWBHl0KokDqeyz
+	 ApufED00n95xg==
+Date: Tue, 8 Aug 2023 18:36:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
     George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v2 1/2] docs: update hyperlaunch device tree
-In-Reply-To: <14e22832-6e40-43a4-8dea-1f9b2141b2b4@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2308081819550.2127516@ubuntu-linux-20-04-desktop>
-References: <20230803104438.24720-1-dpsmith@apertussolutions.com> <20230803104438.24720-2-dpsmith@apertussolutions.com> <14e22832-6e40-43a4-8dea-1f9b2141b2b4@xen.org>
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [RFC 2/6] roles: provide abstraction for the possible domain
+ roles
+In-Reply-To: <961664b6-ede3-c803-293a-0aeb5792990d@apertussolutions.com>
+Message-ID: <alpine.DEB.2.22.394.2308081835570.2127516@ubuntu-linux-20-04-desktop>
+References: <20230801202006.20322-1-dpsmith@apertussolutions.com> <20230801202006.20322-3-dpsmith@apertussolutions.com> <alpine.DEB.2.22.394.2308011726170.2127516@ubuntu-linux-20-04-desktop> <c747c66c-a08d-ce0c-5d1c-25b594ac5f5e@apertussolutions.com>
+ <alpine.DEB.2.22.394.2308031247430.2127516@ubuntu-linux-20-04-desktop> <119710f3-82b1-2066-5fa0-164bd293836e@apertussolutions.com> <alpine.DEB.2.22.394.2308081629220.2127516@ubuntu-linux-20-04-desktop>
+ <961664b6-ede3-c803-293a-0aeb5792990d@apertussolutions.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-986984340-1691544801=:2127516"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-986984340-1691544801=:2127516
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 8 Aug 2023, Julien Grall wrote:
-> > +
-> > +                    role = <9>;
+On Tue, 8 Aug 2023, Daniel P. Smith wrote:
+> > Thanks for the example, it is finally clear!
+> > 
+> > I don't think we should add hardware_dom=1 to the command line (I don't
+> > know if it was just an example to make it easier to understand for me).
+> > Instead it should a property on device tree. hardware_dom=1 is not great
+> > because it is tied to the order of domain construction. Instead it
+> > should be a device tree property under the specific domain. That way you
+> > can clearly specify which one is tradition dom0, or which is
+> > hardware_domain and which is control_domain.
 > 
-> Reading this, I wonder if using number is actually a good idea. While this is
-> machine friendly, this is not human friendly.
+> I was describing with today's code, how you would launch a late hardware
+> domain. The logic to trigger the hardware transfer from dom0 to the hardware
+> domain is triggered by the command line parameter `hardware-dom`. With
+> hyperlaunch, this can eventually be retired and separate control domain and
+> hardware domain can be constructed at launch as we expose access to
+> roles/capabilities through its DT interface.
 
 +1
 
 
-> The most human friendly interface would be to use string, but I understand
-> this is more complex to parse. So maybe we could use some pre-processing (like
-> Linux does) to ease the creation of the hyperlaunch DT.
+> > > > which I don't understand
+> > > 
+> > > Did the above help?
+> > 
+> > A lot, thanks!
 > 
-> Bertrand, Stefano, what do you think?
+> Your welcome, glad I was able to articulate it better this time.
 
-I think that some preprocessing (e.g. ImageBuilder) is very likely required.
-At the same time I think that "role" could make sense as a string and parsed
-as a string without issues. I am happy either way.
-
-
-> > +                    mode = <12>;
-> > +
-> > +                    domain-uuid = [B3 FB 98 FB 8F 9F 67 A3 8A 6E 62 5A 09
-> > 13 F0 8C];
-> > +
-> > +                    cpus = <1>;
-> > +                    memory = "1024M";
-> > +
-> > +                    kernel {
-> > +                        compatible = "module,kernel", "module,index";
-> > +                        module-index = <1>;
-> > +                    };
-> > +
-> > +                    initrd {
-> > +                        compatible = "module,ramdisk", "module,index";
-> > +                        module-index = <2>;
-> > +                    };
-> > +                };
-> > +
-> > +                dom1 {
-> > +                    compatible = "xen,domain";
-> > +                    domid = <1>;
-> > +                    role = <0>;
-> > +                    capability = <1>;
-> > +                    mode = <12>;
-> > +                    domain-uuid = [C2 5D 91 CB 60 4B 45 75 89 04 FF 09 64
-> > 54 1A 74];
-> > +                    cpus = <1>;
-> > +                    memory = "1024M";
-> > +
-> > +                    kernel {
-> > +                        compatible = "module,kernel", "module,index";
-> > +                        module-index = <3>;
-> > +                        bootargs = "console=hvc0 earlyprintk=xen
-> > root=/dev/ram0 rw";
-> > +                    };
-> > +
-> > +                    initrd {
-> > +                        compatible = "module,ramdisk", "module,index";
-> > +                        module-index = <4>;
-> > +                    };
-> > +                };
-
-
-I think dom1 should be written as follows:
-
-    dom1 {
-        compatible = "xen,domain";
-
-        domid = <1>;
-        role = <0>;
-        capability = <1>;
-        mode = <12>;
-        domain-uuid = [C2 5D 91 CB 60 4B 45 75 89 04 FF 09 64
-
-        cpus = <1>;
-        memory = <0 1048576>;
-
-        kernel {
-            compatible = "multiboot,kernel" "multiboot,module";
-            module-index = <3>;
-            bootargs = "console=hvc0 earlyprintk=xen0 rw";
-        };
-
-        initrd {
-            compatible = "multiboot,ramdisk" "multiboot,module"
-            module-index = <4>;
-        };
-    };
-
-
-
-> > +            };
-> > +        };
-> > +    };
-> > +
-> > +
-> > +
-> > +The multiboot modules supplied when using the above config would be, in
-> > order:
-> > +
-> > +* (the above config, compiled)
-> > +* kernel for PVH unbounded domain
-> > +* ramdisk for PVH unbounded domain
-> > +* kernel for PVH guest domain
-> > +* ramdisk for PVH guest domain
-> > +
-> > +Module Arm Configuration:
-> > +"""""""""""""""""""""""""
-> > +
-> > +::
-> > +
-> > +    /dts-v1/;
-> > +
-> > +    / {
-> > +        chosen {
-> > +            hypervisor {
-> > +                compatible = “hypervisor,xen”
-> > +
-> > +                // Configuration container
-> > +                config {
-> > +                    compatible = "xen,config";
-> > +
-> > +                    module {
-> > +                        compatible = "module,xsm-policy";
-> > +                        module-addr = <0x0000ff00 0x80>;
-> > +
-> > +                    };
-> > +                };
-> > +
-> > +                // Unbounded Domain definition
-> > +                dom0 {
-> > +                    compatible = "xen,domain";
-> > +
-> > +                    domid = <0>;
-> > +
-> > +                    role = <9>;
-> > +
-> > +                    mode = <12>; /* 64 BIT, PVH */
-> 
-> Arm guest have similar feature compare to PVH guest but they are strictly not
-> the same. So we have been trying to avoid using the term on Arm.
-> 
-> I would prefer if we continue to avoid using the word 'PVH' to describe Arm.
-> Lets just call them 'Arm guest'.
-> 
-> > +
-> > +                    memory = <0x0 0x20000>;
-> 
-> Here you use the integer version, but AFAICT this wasn't described in the
-> binding above.
-> 
-> > +                    security-id = “dom0_t”;
-> > +
-> > +                    module {
-> > +                        compatible = "module,kernel";
-> > +                        module-addr = <0x0000ff00 0x80>;
-> 
-> Reading the binding, this is suggest that the first cell is the start address
-> and the second is the size. Cells are 32-bits. So what if you have a 64-bit
-> address?
-> 
-> For 'reg' property, the DT addressed this by using #address-cells and
-> #size-cells to indicate the number of cells for each.
-
-I would not deviate from the dom0less spec on this one, which uses reg
-for modules addresses and sizes.
-
-
-> > +                        bootargs = "console=hvc0";
-> > +                    };
-> > +                    module {
-> > +                        compatible = "module,ramdisk";
-> > +                        module-addr = <0x0000ff00 0x80>;
-> > +                    };
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > +
-> > +The modules that would be supplied when using the above config would be:
-> > +
-> > +* (the above config, compiled into hardware tree)
-> > +* XSM policy
-> > +* kernel for unbounded domain
-> > +* ramdisk for unbounded domain
-> > +* kernel for guest domain
-> > +* ramdisk for guest domain
-> > +
-> > +The hypervisor device tree would be compiled into the hardware device tree
-> > and
-> > +provided to Xen using the standard method currently in use. 
-> 
-> It is not clear what you mean by 'compiled in'. Do you mean the /hypervisor
-> node will be present in the device-tree provided to Xen?
-
-That is the way I read it as well. I think this statement is unnecessary
-as we assume there is only 1 device tree passed to Xen, so this
-specification would cover the relevant part of it.
-
-
-> > The remaining
-> > +modules would need to be loaded in the respective addresses specified in
-> > the
-> > +`module-addr` property.
-> 
-> Cheers,
-> 
-> -- 
-> Julien Grall
-> 
---8323329-986984340-1691544801=:2127516--
+Thanks for the explanation, it all looks good to me.
 
