@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D41776AE0
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 23:21:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.581377.910044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FDEA776B30
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Aug 2023 23:44:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.581383.910054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTqbr-0006gH-8T; Wed, 09 Aug 2023 21:20:51 +0000
+	id 1qTqy4-0000xx-2V; Wed, 09 Aug 2023 21:43:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 581377.910044; Wed, 09 Aug 2023 21:20:51 +0000
+Received: by outflank-mailman (output) from mailman id 581383.910054; Wed, 09 Aug 2023 21:43:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qTqbr-0006eb-5E; Wed, 09 Aug 2023 21:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 581377;
- Wed, 09 Aug 2023 21:20:49 +0000
+	id 1qTqy3-0000vn-VG; Wed, 09 Aug 2023 21:43:47 +0000
+Received: by outflank-mailman (input) for mailman id 581383;
+ Wed, 09 Aug 2023 21:43:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3djk=D2=lwn.net=corbet@srs-se1.protection.inumbo.net>)
- id 1qTqbp-0006eV-CV
- for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 21:20:49 +0000
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JRC9=D2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qTqy2-0000vh-5a
+ for xen-devel@lists.xenproject.org; Wed, 09 Aug 2023 21:43:46 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a8def81-36fa-11ee-b281-6b7b168915f2;
- Wed, 09 Aug 2023 23:20:47 +0200 (CEST)
-Received: from localhost (unknown [IPv6:2601:281:8300:73::5f6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id cf8d7409-36fd-11ee-b281-6b7b168915f2;
+ Wed, 09 Aug 2023 23:43:44 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ms.lwn.net (Postfix) with ESMTPSA id 5DF4E218;
- Wed,  9 Aug 2023 21:20:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8705D64A8A;
+ Wed,  9 Aug 2023 21:43:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0A2C433C8;
+ Wed,  9 Aug 2023 21:43:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,175 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a8def81-36fa-11ee-b281-6b7b168915f2
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 5DF4E218
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1691616044; bh=D3OCzS/TjQzlx859sDe4uhCo8ItizHSPamS05kU7M/E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=NXwT7fNZt30FAE6/rsWNAIxKfZAnHdE0QNzpPAfTcuuLXJv/8sSeNpRi/YYa5NjJC
-	 JPc/pZIj2m1/iKfmCA6z6g2y88sFf4ZH/bH/4XDB2qcRK5jWAwzLmabxM5iXzuAYwc
-	 gdH4oIFqQIHil75Is17wCUwIlXkrwODoldc2N5n5BFNAkaN5JRNZKvsISIklyJvP2F
-	 4+b3s2bgvKX3Qdk1NsvqoUWqBFM5kFpduA+bStZQdIeCWxvmzzb6PeCz24WoTHyNsu
-	 hckvkWe4mo+JyUGpbBEyCK3lFgQYmdeewhQkWR1ZSjYdvGexm2T+wCrOys5KDkkoTp
-	 DAFJ4ZWqDCc4Q==
-From: Jonathan Corbet <corbet@lwn.net>
-To: Petr Tesarik <petrtesarik@huaweicloud.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Russell King <linux@armlinux.org.uk>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Gleixner
- <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "maintainer:X86
- ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H. Peter Anvin"
- <hpa@zytor.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Juergen Gross <jgross@suse.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Christoph Hellwig
- <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
- <robin.murphy@arm.com>, Christoph Lameter <cl@linux.com>, Pekka Enberg
- <penberg@kernel.org>, David Rientjes <rientjes@google.com>, Joonsoo Kim
- <iamjoonsoo.kim@lge.com>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@suse.cz>, Roman Gushchin
- <roman.gushchin@linux.dev>, Hyeonggon Yoo <42.hyeyoo@gmail.com>, Petr
- Tesarik <petr.tesarik.ext@huawei.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Hans de Goede <hdegoede@redhat.com>,
- James Seo <james@equiv.tech>, James Clark <james.clark@arm.com>, Kees Cook
- <keescook@chromium.org>, "moderated list:XEN HYPERVISOR ARM"
- <xen-devel@lists.xenproject.org>, "moderated list:ARM PORT"
- <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>, "open list:MIPS"
- <linux-mips@vger.kernel.org>, "open list:XEN SWIOTLB SUBSYSTEM"
- <iommu@lists.linux.dev>, "open list:SLAB ALLOCATOR" <linux-mm@kvack.org>
-Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>, petr@tesarici.cz
-Subject: Re: [PATCH v7 9/9] swiotlb: search the software IO TLB only if the
- device makes use of it
-In-Reply-To: <adea71bd1fa8660d4c3157a562431ad8127016d4.1690871004.git.petr.tesarik.ext@huawei.com>
-References: <cover.1690871004.git.petr.tesarik.ext@huawei.com>
- <adea71bd1fa8660d4c3157a562431ad8127016d4.1690871004.git.petr.tesarik.ext@huawei.com>
-Date: Wed, 09 Aug 2023 15:20:43 -0600
-Message-ID: <87a5uz3ob8.fsf@meer.lwn.net>
+X-Inumbo-ID: cf8d7409-36fd-11ee-b281-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691617422;
+	bh=qy3g1xe0C13bmZblWwqNR7H1+t/fCpycJnO7iRGfc7Q=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=j8Dplpqah295g0lnfVn8vNMPOHMM9nlmMaSFkIFMaQYplD24Q3b2boruuVCXpSaUF
+	 CAlyaV/hksOhNkpCXMrj+JAHRI5CBQFppS3m63lM3dYOPXhHQyFAoM0qYH2un2+7qJ
+	 f4qVsK2EP1aW5gsXC3XmrGsOEz7Ku4/8sTs6SAQOvRlwJWAIK12/lEmXlphOA7XTRV
+	 1OV5d21X/KCjt0g7dHLj38VLwnKUO53F2da5A1EB6OMOOF7EFZqCRt4enO+M1UIUb1
+	 Dwe5aTE8zt5kEzpir1hSF73We9WR0OqA4W3MfDXYP8PTuGumAO0F4FdJuhFgdtj66b
+	 eqzAuyPzVe4ag==
+Date: Wed, 9 Aug 2023 14:43:39 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Henry Wang <Henry.Wang@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "community.manager@xenproject.org" <community.manager@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Julien Grall <julien@xen.org>, 
+    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: Xen 4.18 release: Reminder about last posting date
+In-Reply-To: <ec8e75da-743b-50dc-4665-854c446c974e@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2308091437200.2127516@ubuntu-linux-20-04-desktop>
+References: <AS8PR08MB79911746BC3D82A6341EDA6F920CA@AS8PR08MB7991.eurprd08.prod.outlook.com> <ec8e75da-743b-50dc-4665-854c446c974e@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-Petr Tesarik <petrtesarik@huaweicloud.com> writes:
+On Wed, 9 Aug 2023, Andrew Cooper wrote:
+> On 07/08/2023 2:24 am, Henry Wang wrote:
+> > Hi everyone,
+> >
+> > Following the release schedule discussion in in April, I am sending this email
+> > to remind that according to the release schedule [1], August 11 (this Friday)
+> > will be the last posting date, when patches adding new features are expected
+> > to be posted to the mailing list by this date.
+> >
+> > Also, note that we currently have 1 release blocker [2] which might need
+> > some attention.
+> >
+> > [1] https://lore.kernel.org/xen-devel/AS8PR08MB79919F9CE0B2BF80E7103FB592609@AS8PR08MB7991.eurprd08.prod.outlook.com/
+> > [2] https://gitlab.com/xen-project/xen/-/issues/114
+> 
+> Off the top of my head.
+> 
+> There are still unaddressed Gitlab bugs from the Eclair integration
 
-> From: Petr Tesarik <petr.tesarik.ext@huawei.com>
->
-> Skip searching the software IO TLB if a device has never used it, making
-> sure these devices are not affected by the introduction of multiple IO TLB
-> memory pools.
->
-> Additional memory barrier is required to ensure that the new value of the
-> flag is visible to other CPUs after mapping a new bounce buffer. For
-> efficiency, the flag check should be inlined, and then the memory barrier
-> must be moved to is_swiotlb_buffer(). However, it can replace the existing
-> barrier in swiotlb_find_pool(), because all callers use is_swiotlb_buffer()
-> first to verify that the buffer address belongs to the software IO TLB.
->
-> Signed-off-by: Petr Tesarik <petr.tesarik.ext@huawei.com>
-> ---
+The bug you managed to find it is now fixed (commit e55146071de9). I am
+all for fixing Gitlab bugs so let me know if you find anything else! I
+am not aware of any other issue with Eclair at the moment.
 
-Excuse me if this is a silly question, but I'm not able to figure it out
-on my own...
 
->  include/linux/device.h  |  2 ++
->  include/linux/swiotlb.h |  7 ++++++-
->  kernel/dma/swiotlb.c    | 14 ++++++--------
->  3 files changed, 14 insertions(+), 9 deletions(-)
->
-> diff --git a/include/linux/device.h b/include/linux/device.h
-> index 5fd89c9d005c..6fc808d22bfd 100644
-> --- a/include/linux/device.h
-> +++ b/include/linux/device.h
-> @@ -628,6 +628,7 @@ struct device_physical_location {
->   * @dma_io_tlb_mem: Software IO TLB allocator.  Not for driver use.
->   * @dma_io_tlb_pools:	List of transient swiotlb memory pools.
->   * @dma_io_tlb_lock:	Protects changes to the list of active pools.
-> + * @dma_uses_io_tlb: %true if device has used the software IO TLB.
->   * @archdata:	For arch-specific additions.
->   * @of_node:	Associated device tree node.
->   * @fwnode:	Associated device node supplied by platform firmware.
-> @@ -737,6 +738,7 @@ struct device {
->  #ifdef CONFIG_SWIOTLB_DYNAMIC
->  	struct list_head dma_io_tlb_pools;
->  	spinlock_t dma_io_tlb_lock;
-> +	bool dma_uses_io_tlb;
+> and other Gitlab bugs (use of unstable containers) which I'd unwilling
+> to let 4.18 be released with, given the pain we've had on the stable
+> trees trying to keep CI working.
 
-You add this new member here, fine...
+That is fair enough. To make this more concrete and easier to track, the
+following would need to be changed to using stable containers:
 
->  #endif
->  	/* arch specific additions */
->  	struct dev_archdata	archdata;
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index 8371c92a0271..b4536626f8ff 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -172,8 +172,13 @@ static inline bool is_swiotlb_buffer(struct device *dev, phys_addr_t paddr)
->  	if (!mem)
->  		return false;
->  
-> -	if (IS_ENABLED(CONFIG_SWIOTLB_DYNAMIC))
-> +	if (IS_ENABLED(CONFIG_SWIOTLB_DYNAMIC)) {
-> +		/* Pairs with smp_wmb() in swiotlb_find_slots() and
-> +		 * swiotlb_dyn_alloc(), which modify the RCU lists.
-> +		 */
-> +		smp_rmb();
->  		return swiotlb_find_pool(dev, paddr);
-> +	}
->  	return paddr >= mem->defpool.start && paddr < mem->defpool.end;
->  }
->  
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index adf80dec42d7..d7eac84f975b 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -730,7 +730,7 @@ static void swiotlb_dyn_alloc(struct work_struct *work)
->  
->  	add_mem_pool(mem, pool);
->  
-> -	/* Pairs with smp_rmb() in swiotlb_find_pool(). */
-> +	/* Pairs with smp_rmb() in is_swiotlb_buffer(). */
->  	smp_wmb();
->  }
->  
-> @@ -764,11 +764,6 @@ struct io_tlb_pool *swiotlb_find_pool(struct device *dev, phys_addr_t paddr)
->  	struct io_tlb_mem *mem = dev->dma_io_tlb_mem;
->  	struct io_tlb_pool *pool;
->  
-> -	/* Pairs with smp_wmb() in swiotlb_find_slots() and
-> -	 * swiotlb_dyn_alloc(), which modify the RCU lists.
-> -	 */
-> -	smp_rmb();
-> -
->  	rcu_read_lock();
->  	list_for_each_entry_rcu(pool, &mem->pools, node) {
->  		if (paddr >= pool->start && paddr < pool->end)
-> @@ -813,6 +808,7 @@ void swiotlb_dev_init(struct device *dev)
->  #ifdef CONFIG_SWIOTLB_DYNAMIC
->  	INIT_LIST_HEAD(&dev->dma_io_tlb_pools);
->  	spin_lock_init(&dev->dma_io_tlb_lock);
-> +	dev->dma_uses_io_tlb = false;
+- .qemu-arm64
+- .qemu-arm32
+(I am not counting .qemu-riscv64)
 
-...here you initialize it, fine...
-
->  #endif
->  }
->  
-> @@ -1157,9 +1153,11 @@ static int swiotlb_find_slots(struct device *dev, phys_addr_t orig_addr,
->  	list_add_rcu(&pool->node, &dev->dma_io_tlb_pools);
->  	spin_unlock_irqrestore(&dev->dma_io_tlb_lock, flags);
->  
-> -	/* Pairs with smp_rmb() in swiotlb_find_pool(). */
-> -	smp_wmb();
->  found:
-> +	dev->dma_uses_io_tlb = true;
-> +	/* Pairs with smp_rmb() in is_swiotlb_buffer() */
-> +	smp_wmb();
-> +
-
-...and here you set it if swiotlb is used.
-
-But, as far as I can tell, you don't actually *use* this field anywhere.
-What am I missing?
-
-Thanks,
-
-jon
+Andrew, is that what you meant? Am I missing anything?
 
