@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4F9777C74
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Aug 2023 17:41:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.582128.911726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8088E777CC2
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Aug 2023 17:53:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.582136.911736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qU7md-0004Er-Pt; Thu, 10 Aug 2023 15:41:07 +0000
+	id 1qU7yF-0005uh-W2; Thu, 10 Aug 2023 15:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 582128.911726; Thu, 10 Aug 2023 15:41:07 +0000
+Received: by outflank-mailman (output) from mailman id 582136.911736; Thu, 10 Aug 2023 15:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qU7md-0004D9-Mx; Thu, 10 Aug 2023 15:41:07 +0000
-Received: by outflank-mailman (input) for mailman id 582128;
- Thu, 10 Aug 2023 15:41:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MZIv=D3=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qU7mc-0004D1-1n
- for xen-devel@lists.xenproject.org; Thu, 10 Aug 2023 15:41:06 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50778b4c-3794-11ee-b284-6b7b168915f2;
- Thu, 10 Aug 2023 17:41:04 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 0B21C4EE073F;
- Thu, 10 Aug 2023 17:41:02 +0200 (CEST)
+	id 1qU7yF-0005si-T8; Thu, 10 Aug 2023 15:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 582136;
+ Thu, 10 Aug 2023 15:53:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=oMcx=D3=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qU7yE-0005sZ-9d
+ for xen-devel@lists.xenproject.org; Thu, 10 Aug 2023 15:53:06 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2053.outbound.protection.outlook.com [40.107.13.53])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd8c59b4-3795-11ee-8613-37d641c3527e;
+ Thu, 10 Aug 2023 17:53:04 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB8413.eurprd04.prod.outlook.com (2603:10a6:20b:3ec::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Thu, 10 Aug
+ 2023 15:52:34 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::e5cf:5743:ab60:b14e%5]) with mapi id 15.20.6652.025; Thu, 10 Aug 2023
+ 15:52:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,364 +46,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50778b4c-3794-11ee-b284-6b7b168915f2
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: [XEN PATCH] x86: address MISRA C:2012 Rule 5.3
-Date: Thu, 10 Aug 2023 17:40:35 +0200
-Message-Id: <bb162480acf030d31cff63f07d576967189ca2a9.1691681734.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: fd8c59b4-3795-11ee-8613-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fy1yztWJnftEHBxbd++hiCIHnNmE/TNxQVuVWTliGY9pSe03gVIrdpKJ0ISIbSZ9fLnQKkOpaq55576jr2iDKCVIN5uP/9pNJeWjGhKB6omAvHgVVgpeB22QxBabwZc+IDsjvYM4W4eK/Lra8X1w8xsvWg7J0Wzj3kH1vmtSJy5ZgQYSGRkBEt0redIHIO5falcpJKHvekaAsjWJ8R6WSONffD1gdhq4bg9qBG2OuiG3xTKKEbICiPZdq4ccezi+3kBbVrGTdq3+1QS9U1/CT06+zKuAOF2OAv3ZIvY/U8jHkfYiQghrnZwiNLxtTcg2PswxbAxT55HJoMjOJLP3uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z60Ti2fMSVeqHGDewhZxhZipQmInqV1YQBGZbZPUA8Q=;
+ b=IuLn4xS5zooENP/UkYm2aVSArWR5dqVfjxYNk2OWq88uxLFvLzIXKdbCtpeJPZM5o+/ecQU+N1XqpdSUuJXrfRERAC92YuCb+9PgSEKtRmZXZ0OOjR+B5jmEGdKCBVRZn4WydsLPfpIBq7Qmzl1KMQVx0qLllS45QYU+apqcpfaOcY7TEXuqgCFD+7cfcUuqyxwCGBqOwipvbrwmwdL0yJ1IBRaYW/HKXazc+sHjZy4o7g7ESQYPC59kWMAAdY0pBXf2S+EtYeDsy2OZynWFc9s9BRkcO8n13McSCRR3Inc3+31ji8RslxG840ewS3+aWywUYrPvwfnH8Mo6UpM52w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z60Ti2fMSVeqHGDewhZxhZipQmInqV1YQBGZbZPUA8Q=;
+ b=PGuNas/Ppk6s00uVKvFp42BFp6nlTlKEDw7cKL7ZXacS1bJV5EwL4FQ82uTPBfcC9XEg9nPzPjE2GL7oFYZEfMbjn0nyLXq/4twfwmk8A5fNqas4astbWksaTXJdVk0c/oeT2lMKl0fWeOd64DZ6AtDQ3TDXGPnSmTJ0ch7fnpTXijmKQZ33TQUAoRY8DKJj/Lo+0meGEgPvXHRducpWYPaolp/84O7N11Ts+Vb3V4HqMhLc5u64XReaG5DIWTGKs+Tx6gqJrJAHSTK9M2qGX/uSYmP2r5kcICv8WT42r1I5KlXG3MYAxSRe9CleGoIg3r0XF70gpYGDH2M40I//Hg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <b8f28fc2-df77-96a4-a3b7-11cfaceff596@suse.com>
+Date: Thu, 10 Aug 2023 17:52:32 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [XEN PATCH] x86: address MISRA C:2012 Rule 5.3
+Content-Language: en-US
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <bb162480acf030d31cff63f07d576967189ca2a9.1691681734.git.nicola.vetrini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <bb162480acf030d31cff63f07d576967189ca2a9.1691681734.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0080.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8413:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0035d7a7-ed07-41dc-4415-08db99b9d025
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	uFHWzIMDcigwwM3YDYvbZ0tlUIRql7fHG/UJIiPG1vkE83FRuF1B1n+FUzgVaob5exaClqXu0k0S7MJGXeU3R38dDzkApZlJNaRtUm30aQgrYY7JqmaNfFIm5luSe/fbdppTUtJ6pcKKDOUDMJPo1mQd5lhVn0kUGDgAEpt5KDUaenktxjRziZzjMtiE3x2pf/aoq6UcwcnKm50r0ZKQKrwhgACSV1RPJMxVkvPQSbctLZ3f3mBdWqk1h17z4aX5NFUZbAjUjfY0Jpyxpg/DxQoqKBjSmQ3jY0J8Gsc8CqOBnA+eb/DYQHy4irXmtiK3bBfXTr39fH1Yn1w6l+r4Tj0heTYdhgBPZDxLCNI/F2bpbebN68o7na6mxW4g2P6+B7e0GjTiIrSTpKX14CN3RTKzWDrVvgzTocdZUj+zO70/gYTvSxI3ohcxx3jDR9GMzleHBeP2gY08shttUA+IggRfHnkSKDzhqp/knNSxt1VsVfrREvFry83F6ajnTqYQFgqJ4ne2rr2SlhxsV8I2gV3hKlgiChAgb42pyk+YaqufoyzMyESjKuVU7gwFbcVPKPPIz/A2A/BCrj56w0XckXMZxsygu4CmnwOj/FjixjH637RjANjqp4Ga0mNpohmu68lW1I9bhfkmY54qEAEzsQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(366004)(346002)(136003)(376002)(396003)(186006)(1800799006)(451199021)(36756003)(86362001)(66946007)(478600001)(53546011)(66556008)(66476007)(6916009)(54906003)(26005)(6486002)(6506007)(6512007)(2906002)(41300700001)(7416002)(316002)(4326008)(8936002)(5660300002)(31696002)(8676002)(38100700002)(83380400001)(2616005)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NlJ6Ynh6UmZvUDZRRVlXY3phTS9OMmQ4RHhmTnZGenBxU3Z5TWdKREFNS3Ja?=
+ =?utf-8?B?RlNTcGt5SDNQMks4N3VjbkU3cGNiQnhoZXVNdjUrancyWSswc3RLSUl6RmFm?=
+ =?utf-8?B?MVhXVzdPdWk1MUNpZGNYd3grbjUvcEFRaTBpNThDOEhPeFJtbncrWVhZdU9i?=
+ =?utf-8?B?aUZNejYxMkhEMndYOVVpV2l4MHo5RVl4cUgvb3RKZEVBTW53R21Ic0NiSG5q?=
+ =?utf-8?B?RmpCV3VRUG5NWnZXUml6dXY1SUdSajRYYUpVM0phTVJhcXNkOGpqZk11cVJV?=
+ =?utf-8?B?ZXNBcmdsd0NYc09tWmo3SGg3OERUWm1ka1NJNTVmaU5jM1FvYmh4bE5lQ2x2?=
+ =?utf-8?B?TVF6T25vZG01ZzRxMndLSU41Ky9mQWFtRmEvUW1UNTl3d3lYVFd2RmV3cHow?=
+ =?utf-8?B?aktNdVZFNDZ5WkRBU24zSWhrRDZuaS9JaWhqSCtHZHBFMzdUa216STZqaTBZ?=
+ =?utf-8?B?QS9mTkZHOHhnaGI0RjFzRUc1ZU5vVHN2cGNOeHhsOWRaa1NYS0hJZGpsdlQ4?=
+ =?utf-8?B?ZEF3czVXRHozUkJXSDlZQnVsSnRQVXdzRmNRaUM5c05hNHBuQU9qTzRCVFVl?=
+ =?utf-8?B?VnNGZEUrcDVybEEwMTEvNVdkSFRIVlJUOXpXL2ZyblNaTHFjd2tqUjlhWFhs?=
+ =?utf-8?B?enU2TkFmTE9PM0hTbXNiaHM3ZkRiK3dEWCtudVJ4YTl2WHBlV1VjTGRUOVJq?=
+ =?utf-8?B?TW5BbEJLNEdiNXZOdElzSGpyMnBhSldFU0VjVnlETmR0clVkU29reWFOQnZo?=
+ =?utf-8?B?bm5uMGxuT1dIWGRGUVRoYm5ENHdvcE9yOWxQVFgwU0M2WXpsTVp0QVVFTmQ5?=
+ =?utf-8?B?VXVNSTZORHl4cjlPbUdpYUlLYzBHdVE0c2xiSDk1RjdxWWJTSXE3TmJZWjMv?=
+ =?utf-8?B?bUlYb3JXY1E3MnpzbTVxNHhXanR5WGFHekVJUjUyUm40NUlEeW1FZ3JPSEhT?=
+ =?utf-8?B?Yk9YRy94SDNRRklEdEFYUzJzVEw3Y0NRd1AxTU5XWU54LzdpUG1MOVcvcVR3?=
+ =?utf-8?B?WFdMbnNFU1R3eTI2Y3ZrZ29sV1AvNjByWGtiOGdhRmh0SWZrdXVBR0QybkVT?=
+ =?utf-8?B?bHhLT1ZudUJpVXlDNVYrNVowazljTDE3WS9RS0REYUV4VWRBWXhoN29qbllW?=
+ =?utf-8?B?S0JRVGN4SlZXTVFtemwzSUtnekJ0ZXk2NkZOaFM3ZEZCMnR1bFlGb2VRUlh2?=
+ =?utf-8?B?THFtVWswckV2L205UjFPc3ErcjdHWUpnR3NxYUd4dU5wdG1mWkZsRTJKVHdM?=
+ =?utf-8?B?NG5ZWGNna0xiRk4wdHNNK3JTS3p0aGVUNzlramw5VE1vUEs1aitVQkRFRXNT?=
+ =?utf-8?B?dUhDNk1LSHVvZ01aT3k2T2hjeVluYy9KbDh5WmRqK0tBbkdlOGFCK3ZRc2tE?=
+ =?utf-8?B?bklkc1A1TG5ZUlMwN0c3dTVHRmd2dmJVL1NJQ0w1NklZbUIxbXZ4MC9JeUFM?=
+ =?utf-8?B?MUJlRTNTT29GcmNwN082TUw4dWkrc1U1R0Z0T3BhTWpad3pEWTlRYlowTytR?=
+ =?utf-8?B?cUIweFV6ZTFKdmQzQStqeGtHMEsxVzNhclhsekpmMVNIaGNBbTdaOUhZUm94?=
+ =?utf-8?B?aWxibXU5Q3FkQnJEclZqV3NJanVvNkVhdWdQQjM2L1BjelNEejI2bmxiTUxy?=
+ =?utf-8?B?cGFCMXY4RHM0cFlleEtwQnNYRlMrUnUrWG9yOWNsZ3lwTGpWSXRPSDV0VlZH?=
+ =?utf-8?B?bjVVRW92b0taUXZmVHhPRzZkR2hCbkM0c2ZGd2pRZTJiTVphWW5DTVZ6SW1I?=
+ =?utf-8?B?Zys4dzhid1FTMFVPYlcxWm1LSmJiSytyc3F0ZHYyVWlnTGFYYjVHaWhnM0h3?=
+ =?utf-8?B?RlJYVUhXd3ZJWEF1QmNXWmRQZVNQQm1QWW1kTDdUTnVXcE84M2ZwYXlCekFh?=
+ =?utf-8?B?c09SN3RCa1ZKSU8zWDRlN3ljbUFMUisvS3lGVWxjNXJXbjZQd1FTRTBKYmN1?=
+ =?utf-8?B?TFJrOGhoTUFITkRYZUp1MlJacUFnY1BhdWxFYTh3eTAwTFVMVmdIYnhIVDRo?=
+ =?utf-8?B?bjc5OHJEUWx1bkxIejYraGFRa2dWTWxoN0tvc3ljZnB6NFdrVWs3d1hrTGJO?=
+ =?utf-8?B?WlJMN2kvTWxhYUFXV0Y1bzEwa2dwK0tMUGJFMC9jY296M1ljUzVHSFFEcVdG?=
+ =?utf-8?Q?k4ivFy9aiuTAOYYCRJAhbP7s5?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0035d7a7-ed07-41dc-4415-08db99b9d025
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2023 15:52:34.4868
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ICy40V4m9TYSClGd+bgGVrLIRB7ouwX+7leZvPrBLUqKlSjcQKK50JChYYuswErEvX7VP47koN9h1OaWGwOX+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8413
 
-Address some occurrences of shadowing between the global
-variable 'e820' in 'xen/arch/x86/e820.c' and the function
-parameter name of 'e820_add_range'.
+On 10.08.2023 17:40, Nicola Vetrini wrote:
+> Address some occurrences of shadowing between the global
+> variable 'e820' in 'xen/arch/x86/e820.c' and the function
+> parameter name of 'e820_add_range'.
+> 
+> Since the function is only ever called with the global variable
+> as the actual parameter, so there is no need to have it as a parameter
+> because both are defined in the same file (mentioned above).
+> This in turn causes several other functions to lose their parameter
+> 'e820' because they are involved in the call chain that leads to
+> 'e820_add_range'.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Since the function is only ever called with the global variable
-as the actual parameter, so there is no need to have it as a parameter
-because both are defined in the same file (mentioned above).
-This in turn causes several other functions to lose their parameter
-'e820' because they are involved in the call chain that leads to
-'e820_add_range'.
+The changes look okay to me now, but ...
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Other occurrences of shadowing on the same global in
-'e820_change_range_type' and 'reserve_e820_ram' are not addressed in
-this patch and will be the subject of a future one, as the parameter
-needs to be renamed instead, and could potentially be part of a general
-name refactoring for consistency around e820.
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -686,7 +686,7 @@ static void __init parse_video_info(void)
+>  #endif
+>  }
+> 
+> -static void __init kexec_reserve_area(struct e820map *e820)
+> +static void __init kexec_reserve_area(void)
+>  {
+>  #ifdef CONFIG_KEXEC
+>      unsigned long kdump_start = kexec_crash_area.start;
+> @@ -700,7 +700,7 @@ static void __init kexec_reserve_area(struct e820map *e820)
+> 
+>      is_reserved = true;
+> 
+> -    if ( !reserve_e820_ram(e820, kdump_start, kdump_start + kdump_size) )
+> +    if ( !reserve_e820_ram(&boot_e820, kdump_start, kdump_start + kdump_size) )
+>      {
+>          printk("Kdump: DISABLED (failed to reserve %luMB (%lukB) at %#lx)"
+>                 "\n", kdump_size >> 20, kdump_size >> 10, kdump_start);
+> @@ -1308,7 +1308,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          if ( e820.map[i].type == E820_RAM )
+>              nr_pages += e820.map[i].size >> PAGE_SHIFT;
+>      set_kexec_crash_area_size((u64)nr_pages << PAGE_SHIFT);
+> -    kexec_reserve_area(&boot_e820);
+> +    kexec_reserve_area();
+> 
+>      initial_images = mod;
+>      nr_initial_images = mbi->mods_count;
+> @@ -1495,7 +1495,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>          reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
+> 
+>      /* Late kexec reservation (dynamic start address). */
+> -    kexec_reserve_area(&boot_e820);
+> +    kexec_reserve_area();
+> 
+>      setup_max_pdx(raw_max_page);
+>      if ( highmem_start )
 
-The following threads are useful to have more context about this patch, which
-was previously part of a series of changes related to the same MISRA Rule.
-- https://lore.kernel.org/xen-devel/3a9db416c6f8b2d5a549d49ff02238eb408cc905.1691492441.git.nicola.vetrini@bugseng.com/
-- https://lore.kernel.org/xen-devel/896a2235560fd348f79eded33731609c5d2e74ab.1691162261.git.nicola.vetrini@bugseng.com/
----
- xen/arch/x86/e820.c                         | 38 ++++++++++-----------
- xen/arch/x86/guest/hyperv/hyperv.c          |  4 +--
- xen/arch/x86/guest/hypervisor.c             |  4 +--
- xen/arch/x86/guest/xen/xen.c                |  4 +--
- xen/arch/x86/include/asm/e820.h             |  3 +-
- xen/arch/x86/include/asm/guest/hypervisor.h |  6 ++--
- xen/arch/x86/include/asm/pv/shim.h          |  4 +--
- xen/arch/x86/pv/shim.c                      | 10 +++---
- xen/arch/x86/setup.c                        |  8 ++---
- xen/arch/x86/x86_64/mmconf-fam10h.c         |  2 +-
- xen/drivers/passthrough/amd/iommu_acpi.c    |  2 +-
- 11 files changed, 42 insertions(+), 43 deletions(-)
+... this isolated set of changes wants either breaking out into a separate
+patch (as suggested before) or at least needs mentioning in the description.
 
-diff --git a/xen/arch/x86/e820.c b/xen/arch/x86/e820.c
-index 4911e64b8cf4..6a3ce7e0a07f 100644
---- a/xen/arch/x86/e820.c
-+++ b/xen/arch/x86/e820.c
-@@ -543,27 +543,27 @@ static void __init machine_specific_memory_setup(struct e820map *raw)
-         clip_to_limit(top_of_ram, "MTRRs do not cover all of memory.");
- }
-
--/* This function relies on the passed in e820->map[] being sorted. */
--int __init e820_add_range(
--    struct e820map *e820, uint64_t s, uint64_t e, uint32_t type)
-+/* This function relies on the global e820->map[] being sorted. */
-+int __init e820_add_range(uint64_t s, uint64_t e, uint32_t type)
- {
-     unsigned int i;
-+    struct e820entry *ei = e820.map;
-
--    for ( i = 0; i < e820->nr_map; ++i )
-+    for ( i = 0; i < e820.nr_map; ++i )
-     {
--        uint64_t rs = e820->map[i].addr;
--        uint64_t re = rs + e820->map[i].size;
-+        uint64_t rs = ei[i].addr;
-+        uint64_t re = rs + ei[i].size;
-
--        if ( rs == e && e820->map[i].type == type )
-+        if ( rs == e && ei[i].type == type )
-         {
--            e820->map[i].addr = s;
-+            ei[i].addr = s;
-             return 1;
-         }
-
--        if ( re == s && e820->map[i].type == type &&
--             (i + 1 == e820->nr_map || e820->map[i + 1].addr >= e) )
-+        if ( re == s && ei[i].type == type &&
-+             (i + 1 == e820.nr_map || ei[i + 1].addr >= e) )
-         {
--            e820->map[i].size += e - s;
-+            ei[i].size += e - s;
-             return 1;
-         }
-
-@@ -574,20 +574,20 @@ int __init e820_add_range(
-             return 0;
-     }
-
--    if ( e820->nr_map >= ARRAY_SIZE(e820->map) )
-+    if ( e820.nr_map >= ARRAY_SIZE(e820.map) )
-     {
-         printk(XENLOG_WARNING "E820: overflow while adding region"
-                " %"PRIx64"-%"PRIx64"\n", s, e);
-         return 0;
-     }
-
--    memmove(e820->map + i + 1, e820->map + i,
--            (e820->nr_map - i) * sizeof(*e820->map));
-+    memmove(ei + i + 1, ei + i,
-+            (e820.nr_map - i) * sizeof(*e820.map));
-
--    e820->nr_map++;
--    e820->map[i].addr = s;
--    e820->map[i].size = e - s;
--    e820->map[i].type = type;
-+    e820.nr_map++;
-+    ei[i].addr = s;
-+    ei[i].size = e - s;
-+    ei[i].type = type;
-
-     return 1;
- }
-@@ -694,7 +694,7 @@ unsigned long __init init_e820(const char *str, struct e820map *raw)
-     machine_specific_memory_setup(raw);
-
-     if ( cpu_has_hypervisor )
--        hypervisor_e820_fixup(&e820);
-+        hypervisor_e820_fixup();
-
-     printk("%s RAM map:\n", str);
-     print_e820_memory_map(e820.map, e820.nr_map);
-diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
-index aacc7a61670b..912099564ec4 100644
---- a/xen/arch/x86/guest/hyperv/hyperv.c
-+++ b/xen/arch/x86/guest/hyperv/hyperv.c
-@@ -187,11 +187,11 @@ static int cf_check ap_setup(void)
-     return setup_vp_assist();
- }
-
--static void __init cf_check e820_fixup(struct e820map *e820)
-+static void __init cf_check e820_fixup(void)
- {
-     uint64_t s = HV_HCALL_MFN << PAGE_SHIFT;
-
--    if ( !e820_add_range(e820, s, s + PAGE_SIZE, E820_RESERVED) )
-+    if ( !e820_add_range(s, s + PAGE_SIZE, E820_RESERVED) )
-         panic("Unable to reserve Hyper-V hypercall range\n");
- }
-
-diff --git a/xen/arch/x86/guest/hypervisor.c b/xen/arch/x86/guest/hypervisor.c
-index b8549a131a5a..e0b046cc6c89 100644
---- a/xen/arch/x86/guest/hypervisor.c
-+++ b/xen/arch/x86/guest/hypervisor.c
-@@ -60,10 +60,10 @@ void hypervisor_resume(void)
-         ops.resume();
- }
-
--void __init hypervisor_e820_fixup(struct e820map *e820)
-+void __init hypervisor_e820_fixup(void)
- {
-     if ( ops.e820_fixup )
--        ops.e820_fixup(e820);
-+        ops.e820_fixup();
- }
-
- int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
-diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
-index f93dfc89f724..2eed32fe46c7 100644
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -306,10 +306,10 @@ static void cf_check resume(void)
-         pv_console_init();
- }
-
--static void __init cf_check e820_fixup(struct e820map *e820)
-+static void __init cf_check e820_fixup(void)
- {
-     if ( pv_shim )
--        pv_shim_fixup_e820(e820);
-+        pv_shim_fixup_e820();
- }
-
- static int cf_check flush_tlb(
-diff --git a/xen/arch/x86/include/asm/e820.h b/xen/arch/x86/include/asm/e820.h
-index 213d5b5dd227..af90085d65d1 100644
---- a/xen/arch/x86/include/asm/e820.h
-+++ b/xen/arch/x86/include/asm/e820.h
-@@ -29,8 +29,7 @@ extern int reserve_e820_ram(struct e820map *e820, uint64_t s, uint64_t e);
- extern int e820_change_range_type(
-     struct e820map *e820, uint64_t s, uint64_t e,
-     uint32_t orig_type, uint32_t new_type);
--extern int e820_add_range(
--    struct e820map *, uint64_t s, uint64_t e, uint32_t type);
-+extern int e820_add_range(uint64_t s, uint64_t e, uint32_t type);
- extern unsigned long init_e820(const char *str, struct e820map *raw);
- extern void print_e820_memory_map(const struct e820entry *map,
-     unsigned int entries);
-diff --git a/xen/arch/x86/include/asm/guest/hypervisor.h b/xen/arch/x86/include/asm/guest/hypervisor.h
-index 4cffea386609..c8f18a035ee6 100644
---- a/xen/arch/x86/include/asm/guest/hypervisor.h
-+++ b/xen/arch/x86/include/asm/guest/hypervisor.h
-@@ -22,7 +22,7 @@ struct hypervisor_ops {
-     /* Resume from suspension */
-     void (*resume)(void);
-     /* Fix up e820 map */
--    void (*e820_fixup)(struct e820map *e820);
-+    void (*e820_fixup)(void);
-     /* L0 assisted TLB flush */
-     int (*flush_tlb)(const cpumask_t *mask, const void *va, unsigned int flags);
- };
-@@ -33,7 +33,7 @@ const char *hypervisor_probe(void);
- void hypervisor_setup(void);
- int hypervisor_ap_setup(void);
- void hypervisor_resume(void);
--void hypervisor_e820_fixup(struct e820map *e820);
-+void hypervisor_e820_fixup(void);
- /*
-  * L0 assisted TLB flush.
-  * mask: cpumask of the dirty vCPUs that should be flushed.
-@@ -52,7 +52,7 @@ static inline const char *hypervisor_probe(void) { return NULL; }
- static inline void hypervisor_setup(void) { ASSERT_UNREACHABLE(); }
- static inline int hypervisor_ap_setup(void) { return 0; }
- static inline void hypervisor_resume(void) { ASSERT_UNREACHABLE(); }
--static inline void hypervisor_e820_fixup(struct e820map *e820) {}
-+static inline void hypervisor_e820_fixup(void) {}
- static inline int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
-                                        unsigned int flags)
- {
-diff --git a/xen/arch/x86/include/asm/pv/shim.h b/xen/arch/x86/include/asm/pv/shim.h
-index 5625b90b72bd..6153e2700598 100644
---- a/xen/arch/x86/include/asm/pv/shim.h
-+++ b/xen/arch/x86/include/asm/pv/shim.h
-@@ -33,7 +33,7 @@ void pv_shim_online_memory(unsigned int nr, unsigned int order);
- void pv_shim_offline_memory(unsigned int nr, unsigned int order);
- domid_t get_initial_domain_id(void);
- uint64_t pv_shim_mem(uint64_t avail);
--void pv_shim_fixup_e820(struct e820map *e820);
-+void pv_shim_fixup_e820(void);
- const struct platform_bad_page *pv_shim_reserved_pages(unsigned int *size);
- typeof(do_event_channel_op) pv_shim_event_channel_op;
- typeof(do_grant_table_op) pv_shim_grant_table_op;
-@@ -85,7 +85,7 @@ static inline uint64_t pv_shim_mem(uint64_t avail)
-     ASSERT_UNREACHABLE();
-     return 0;
- }
--static inline void pv_shim_fixup_e820(struct e820map *e820)
-+static inline void pv_shim_fixup_e820(void)
- {
-     ASSERT_UNREACHABLE();
- }
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index 404408711972..ca0e639db323 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -98,17 +98,17 @@ uint64_t pv_shim_mem(uint64_t avail)
-     return shim_nrpages;
- }
-
--static void __init mark_pfn_as_ram(struct e820map *e820, uint64_t pfn)
-+static void __init mark_pfn_as_ram(uint64_t pfn)
- {
--    if ( !e820_add_range(e820, pfn << PAGE_SHIFT,
-+    if ( !e820_add_range(pfn << PAGE_SHIFT,
-                          (pfn << PAGE_SHIFT) + PAGE_SIZE, E820_RAM) &&
--         !e820_change_range_type(e820, pfn << PAGE_SHIFT,
-+         !e820_change_range_type(&e820, pfn << PAGE_SHIFT,
-                                  (pfn << PAGE_SHIFT) + PAGE_SIZE,
-                                  E820_RESERVED, E820_RAM) )
-         panic("Unable to add/change memory type of pfn %#lx to RAM\n", pfn);
- }
-
--void __init pv_shim_fixup_e820(struct e820map *e820)
-+void __init pv_shim_fixup_e820(void)
- {
-     uint64_t pfn = 0;
-     unsigned int i = 0;
-@@ -120,7 +120,7 @@ void __init pv_shim_fixup_e820(struct e820map *e820)
-     rc = xen_hypercall_hvm_get_param(p, &pfn);  \
-     if ( rc )                                   \
-         panic("Unable to get " #p "\n");        \
--    mark_pfn_as_ram(e820, pfn);                 \
-+    mark_pfn_as_ram(pfn);                       \
-     ASSERT(i < ARRAY_SIZE(reserved_pages));     \
-     reserved_pages[i++].mfn = pfn;              \
- })
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 80ae973d64e4..03f9a0318058 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -686,7 +686,7 @@ static void __init parse_video_info(void)
- #endif
- }
-
--static void __init kexec_reserve_area(struct e820map *e820)
-+static void __init kexec_reserve_area(void)
- {
- #ifdef CONFIG_KEXEC
-     unsigned long kdump_start = kexec_crash_area.start;
-@@ -700,7 +700,7 @@ static void __init kexec_reserve_area(struct e820map *e820)
-
-     is_reserved = true;
-
--    if ( !reserve_e820_ram(e820, kdump_start, kdump_start + kdump_size) )
-+    if ( !reserve_e820_ram(&boot_e820, kdump_start, kdump_start + kdump_size) )
-     {
-         printk("Kdump: DISABLED (failed to reserve %luMB (%lukB) at %#lx)"
-                "\n", kdump_size >> 20, kdump_size >> 10, kdump_start);
-@@ -1308,7 +1308,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-         if ( e820.map[i].type == E820_RAM )
-             nr_pages += e820.map[i].size >> PAGE_SHIFT;
-     set_kexec_crash_area_size((u64)nr_pages << PAGE_SHIFT);
--    kexec_reserve_area(&boot_e820);
-+    kexec_reserve_area();
-
-     initial_images = mod;
-     nr_initial_images = mbi->mods_count;
-@@ -1495,7 +1495,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-         reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
-
-     /* Late kexec reservation (dynamic start address). */
--    kexec_reserve_area(&boot_e820);
-+    kexec_reserve_area();
-
-     setup_max_pdx(raw_max_page);
-     if ( highmem_start )
-diff --git a/xen/arch/x86/x86_64/mmconf-fam10h.c b/xen/arch/x86/x86_64/mmconf-fam10h.c
-index a834ab3149be..36b32eb769e1 100644
---- a/xen/arch/x86/x86_64/mmconf-fam10h.c
-+++ b/xen/arch/x86/x86_64/mmconf-fam10h.c
-@@ -135,7 +135,7 @@ static void __init get_fam10h_pci_mmconf_base(void)
- 	return;
-
- out:
--	if (e820_add_range(&e820, start, start + SIZE, E820_RESERVED))
-+	if (e820_add_range(start, start + SIZE, E820_RESERVED))
- 		fam10h_pci_mmconf_base = start;
- }
-
-diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
-index 3b577c9b390c..db993d6df275 100644
---- a/xen/drivers/passthrough/amd/iommu_acpi.c
-+++ b/xen/drivers/passthrough/amd/iommu_acpi.c
-@@ -418,7 +418,7 @@ static int __init parse_ivmd_block(const struct acpi_ivrs_memory *ivmd_block)
-
-             if ( type == RAM_TYPE_UNKNOWN )
-             {
--                if ( e820_add_range(&e820, addr, addr + PAGE_SIZE,
-+                if ( e820_add_range(addr, addr + PAGE_SIZE,
-                                     E820_RESERVED) )
-                     continue;
-                 AMD_IOMMU_ERROR("IVMD: page at %lx couldn't be reserved\n",
---
-2.34.1
+Jan
 
