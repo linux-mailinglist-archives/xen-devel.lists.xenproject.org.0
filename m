@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76EB5777321
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FAF9777323
 	for <lists+xen-devel@lfdr.de>; Thu, 10 Aug 2023 10:40:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.581924.911406 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.581926.911431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qU1DI-0005gN-Q6; Thu, 10 Aug 2023 08:40:12 +0000
+	id 1qU1DL-0006Pd-Ej; Thu, 10 Aug 2023 08:40:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 581924.911406; Thu, 10 Aug 2023 08:40:12 +0000
+Received: by outflank-mailman (output) from mailman id 581926.911431; Thu, 10 Aug 2023 08:40:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qU1DI-0005XO-JX; Thu, 10 Aug 2023 08:40:12 +0000
-Received: by outflank-mailman (input) for mailman id 581924;
- Thu, 10 Aug 2023 08:40:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qU1DL-0006Nx-4c; Thu, 10 Aug 2023 08:40:15 +0000
+Received: by outflank-mailman (input) for mailman id 581926;
+ Thu, 10 Aug 2023 08:40:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MZIv=D3=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qU1DH-0005MW-AQ
- for xen-devel@lists.xenproject.org; Thu, 10 Aug 2023 08:40:11 +0000
+ id 1qU1DJ-0005Mc-0J
+ for xen-devel@lists.xenproject.org; Thu, 10 Aug 2023 08:40:13 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 844667fe-3759-11ee-b283-6b7b168915f2;
- Thu, 10 Aug 2023 10:40:10 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7e89fe20-3759-11ee-8613-37d641c3527e;
+ Thu, 10 Aug 2023 10:40:01 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id B79434EE0743;
- Thu, 10 Aug 2023 10:40:09 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 97BB84EE0744;
+ Thu, 10 Aug 2023 10:40:10 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 844667fe-3759-11ee-b283-6b7b168915f2
+X-Inumbo-ID: 7e89fe20-3759-11ee-8613-37d641c3527e
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -48,61 +48,62 @@ Cc: sstabellini@kernel.org,
 	ayan.kumar.halder@amd.com,
 	consulting@bugseng.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 3/7] xen/include: make a declaration of 'get_sec' visible where needed
-Date: Thu, 10 Aug 2023 10:39:43 +0200
-Message-Id: <37fed394315c24e7b7419e564696a534886f0d53.1691655814.git.nicola.vetrini@bugseng.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH v2 4/7] xen/arm: make declarations visible before function definitions
+Date: Thu, 10 Aug 2023 10:39:44 +0200
+Message-Id: <05f4dd673312ddd52dcbc8a3b7bcf0ee84993d6e.1691655814.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1691655814.git.nicola.vetrini@bugseng.com>
 References: <cover.1691655814.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A declaration for 'get_sec' is added in 'xen/include/xen/time.h' to
-be available for every call site (in particular 'cper.h').
-This also resolves a violation of MISRA C:2012 Rule 8.4.
+'xen/hypercall.h' is included in 'xen/arch/arm/setup.c' to allow
+the declaration of 'arch_get_xen_caps' to be visible when
+defining the function.
+
+The header 'xen/delay.h' is included in 'xen/arch/arm/time.c'
+to allow the declaration of 'udelay' to be visible.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Fixes: c8cb30cfc87a ("mce: Provide ERST interface")
+Fixes: 7cfc339cbc2f ("arm: Implement arch_get_xen_caps")
+Fixes: 335ba242c55c ("arm: implement udelay()")
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes in v2:
 - Revised commit message
 - Split patch
 ---
- xen/include/xen/cper.h | 3 +--
- xen/include/xen/time.h | 1 +
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ xen/arch/arm/setup.c | 1 +
+ xen/arch/arm/time.c  | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/xen/include/xen/cper.h b/xen/include/xen/cper.h
-index 7c6a4c45ce32..de8f385bdd5c 100644
---- a/xen/include/xen/cper.h
-+++ b/xen/include/xen/cper.h
-@@ -23,8 +23,7 @@
- 
- #include <xen/types.h>
- #include <xen/string.h>
--
--extern unsigned long get_sec(void);
-+#include <xen/time.h>
- 
- typedef struct {
- 	uint8_t b[16];
-diff --git a/xen/include/xen/time.h b/xen/include/xen/time.h
-index 5aafdda4f392..67c586b7369c 100644
---- a/xen/include/xen/time.h
-+++ b/xen/include/xen/time.h
-@@ -36,6 +36,7 @@ s_time_t get_s_time_fixed(u64 at_tick);
- s_time_t get_s_time(void);
- unsigned long get_localtime(struct domain *d);
- uint64_t get_localtime_us(struct domain *d);
-+unsigned long get_sec(void);
- 
- struct tm {
-     int     tm_sec;         /* seconds */
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index bbf72b69aae6..44ccea03ca14 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -32,6 +32,7 @@
+ #include <xen/libfdt/libfdt-xen.h>
+ #include <xen/acpi.h>
+ #include <xen/warning.h>
++#include <xen/hypercall.h>
+ #include <asm/alternative.h>
+ #include <asm/page.h>
+ #include <asm/current.h>
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index 0b482d7db30c..3535bd8ac7c7 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -17,6 +17,7 @@
+ #include <xen/softirq.h>
+ #include <xen/sched.h>
+ #include <xen/time.h>
++#include <xen/delay.h>
+ #include <xen/sched.h>
+ #include <xen/event.h>
+ #include <xen/acpi.h>
 -- 
 2.34.1
 
