@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11CAC779324
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 17:31:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.582587.912421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAF64779354
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 17:38:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.582593.912432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUU5z-0000oX-I4; Fri, 11 Aug 2023 15:30:35 +0000
+	id 1qUUDa-0001T5-99; Fri, 11 Aug 2023 15:38:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 582587.912421; Fri, 11 Aug 2023 15:30:35 +0000
+Received: by outflank-mailman (output) from mailman id 582593.912432; Fri, 11 Aug 2023 15:38:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUU5z-0000lo-FJ; Fri, 11 Aug 2023 15:30:35 +0000
-Received: by outflank-mailman (input) for mailman id 582587;
- Fri, 11 Aug 2023 15:30:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qUUDa-0001RO-6L; Fri, 11 Aug 2023 15:38:26 +0000
+Received: by outflank-mailman (input) for mailman id 582593;
+ Fri, 11 Aug 2023 15:38:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zNma=D4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qUU5y-0000lg-NL
- for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 15:30:34 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01b0cecc-385c-11ee-8613-37d641c3527e;
- Fri, 11 Aug 2023 17:30:31 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2b703a0453fso32312851fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 11 Aug 2023 08:30:31 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- s10-20020a2e2c0a000000b002b70a64d4desm912846ljs.46.2023.08.11.08.30.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Aug 2023 08:30:29 -0700 (PDT)
+ <SRS0=uWpM=D4=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
+ id 1qUUDY-0001RI-Lj
+ for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 15:38:24 +0000
+Received: from mail-ua1-x92d.google.com (mail-ua1-x92d.google.com
+ [2607:f8b0:4864:20::92d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 197f9380-385d-11ee-b284-6b7b168915f2;
+ Fri, 11 Aug 2023 17:38:22 +0200 (CEST)
+Received: by mail-ua1-x92d.google.com with SMTP id
+ a1e0cc1a2514c-79a2216a2d1so671046241.2
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Aug 2023 08:38:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,288 +40,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01b0cecc-385c-11ee-8613-37d641c3527e
+X-Inumbo-ID: 197f9380-385d-11ee-b284-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691767830; x=1692372630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fI2ZVaMDrZpSyLwoDOVGG7fcDBhoygERsDrcPH8BubI=;
-        b=stoH+GNigL6REBlzbEEp65g+2vfqIAY6MED6LGambanWDO2LbEb/w6YRO9ev6OqD29
-         HVfK12F/V3CT5+V23rUzveUdM6gFCBrraz1bhyiEYQpBvvCoP937YS4NkGMuc7Js/USz
-         yhSgxprlWaqF7hh9wf/kSzfit2uLman7Grxj36LmBitiKwwifsU4pv0oVnP/cSyh/rsu
-         Ypz7ZcHc2jeVyvJVRC3pVV6sPJIPWbtkDSZIYHVxNylrhoaYue0tRnDhB7pkv/blNdfT
-         4uogYOFlSVrU5CUwZezSrYcGICWWLRZOMhjoT+jL9gy+thO228tQoqtmGQTroiulTiHF
-         ryLQ==
+        d=gmail.com; s=20221208; t=1691768300; x=1692373100;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9XGamp700wXZqjrGNGxGsuhukXPjOXx3yqeJ++UGSjs=;
+        b=gV4ANlNq4ThfTY9nco4/TtowpxN6zn926/pMGu/SzLX4dc+Cd3k82JSntXrVPf+P4I
+         eZrATFqQPkZl30q/iIfaiJjjw+kCz3HVpEdQL5F78NYEXR9p+ggc7Qhxq/TXVDyD4rHg
+         N1+63ZO857GAaoHcT/uIYTsE6oLi5NvYPFwA40UdyCd5cyj7qhBM5glYuqNYs+oce+o6
+         f5REzpO6BEboaePLwTukWkqJ1Chq9lk0BTuyhBriUBkbzGAOZ0Af+UUL0fZTwcM0o4PB
+         uSVeBa/0JoKzGjzY+pkfIY8NklteQXSlkyCfLYexWgv3i418g+Qqa1JIa35tlZdX/Zsx
+         mrUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691767830; x=1692372630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fI2ZVaMDrZpSyLwoDOVGG7fcDBhoygERsDrcPH8BubI=;
-        b=Qtntrpwuh6WDy8QlXYYY/zx6OPEMMt1y2hJgSCbuPT2N5liOVQlFa6c1FtU/evv3qQ
-         L7v+3zUQW9ClEkBkkHL25iM88U9j5TM2GM7nszvQzbJua8anfoB5DR9+EzQ74rHD6ZN5
-         MFl3JlPNuaTWVEu7thAUBiPK1x4PPm671ll3yp5YTLNM7FJ6iJOEVrxbd4lEB0HWFIAu
-         J2LiRmbAQJlZ0/1qjeNWRK90WurAYM0yc0OaYslWoHGXVSfuykR2vaULEvwbVl/2+cAg
-         nAcfJ1plEdDf4JHkqRBkLTACaU01STnZ1llUljrQkWKK3xqK0qJz51ImOtfUv10Ld6AU
-         s3Dg==
-X-Gm-Message-State: AOJu0YxtpZcFISJbNz+DlLjTxBR6AaQw9gyN75mM5pmZrYz4tbVqaRGc
-	G1PTgr9xX/bbOZHHFL0rhIcZEvbY45k=
-X-Google-Smtp-Source: AGHT+IESiU2Ql+sIRa/B2v/frnFoa91tdeDLibsC9cgtfMLrIjQgxt8/GqomXHDzQ9c424c2XCHrwQ==
-X-Received: by 2002:a2e:7412:0:b0:2b6:c2e4:a57a with SMTP id p18-20020a2e7412000000b002b6c2e4a57amr1811158ljc.38.1691767830163;
-        Fri, 11 Aug 2023 08:30:30 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] ns16550: add support for polling mode when device tree is used
-Date: Fri, 11 Aug 2023 18:30:27 +0300
-Message-ID: <88bd54876c745ef45eb740274fd36d747c7db471.1691767729.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.41.0
+        d=1e100.net; s=20221208; t=1691768300; x=1692373100;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9XGamp700wXZqjrGNGxGsuhukXPjOXx3yqeJ++UGSjs=;
+        b=WagJTscjAxJ3BW/+xYP4UQWGpCPOLqHwvGOFphYn/3hn2EWHRazNWEAFTURKhr8CPh
+         R1rLQ4ZJWauGOYwFA04TgZM/N7S/u3btJq2xAePDI+HnuMp9qMsWq+Aq9LftUSQJAtbL
+         A6DgYETQQBoxF+6vzg5BuLhPZO1xBlCLhxzQtKPWHp2Jjm3sMBI/8Sl10uEZHU9tMNlm
+         KdZScL8ni4jDT19Y23HcFmkJZsbgg9eR/h6EVWxDcAx1BeQYJ2tPj6LhviZ4IN2UX/LD
+         0t/JWrEg0f5gi/Bravc6ejWAFRK+GZTyt0+8phk4N5bNq+OWiz/oADU595c8HxKQ2G4T
+         jzAg==
+X-Gm-Message-State: AOJu0YwgEmOuPEokHwLNvAvE8OqeFOv0OTZXaK/jFhRcF9kP2rZCH9f4
+	px0j1hEDIVWLC8Jolz0Pe5Yqw/HWomM7y6ppKqU=
+X-Google-Smtp-Source: AGHT+IGDkDmwvbrD5+ctQu7jfktng6tRxd7Nn40CNdO7YVLNpobIbaSHPQmFwe++AcR02VyIk2gu8P/+BkPSP4MBM2Q=
+X-Received: by 2002:a05:6102:3014:b0:440:c4fb:f257 with SMTP id
+ s20-20020a056102301400b00440c4fbf257mr1889703vsa.0.1691768300256; Fri, 11 Aug
+ 2023 08:38:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1691763757.git.oleksii.kurochko@gmail.com> <4d986a1083f35ab66eba6ffde964af3b4453b216.1691763757.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <4d986a1083f35ab66eba6ffde964af3b4453b216.1691763757.git.oleksii.kurochko@gmail.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Fri, 11 Aug 2023 11:37:54 -0400
+Message-ID: <CAKmqyKOOX2Yxj9pJabiZfQ9=FduuW9QWCOH0nwv00swyJO-UBQ@mail.gmail.com>
+Subject: Re: [PATCH v8 1/6] xen/riscv: introduce temporary printk stuff
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Alistair Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-RISC-V doesn't support interrupts for the time being, so it would be nice to
-have polling mode.
+On Fri, Aug 11, 2023 at 10:33=E2=80=AFAM Oleksii Kurochko
+<oleksii.kurochko@gmail.com> wrote:
+>
+> The patch introdcuces printk related stuff which should be deleted
+> after Xen common code will be available.
+>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-To force poll mode it was added parsing of new 'poll' property under "com1="
+Acked-by: Alistair Francis <alistair.francis@wdc.com>
 
-If there is no interrupt property in UART node, then polling will be used.
-According to 4.2.2 National Semiconductor 16450/16550 Compatible UART
-Requirements from The Devicetree Specification v0.4
-( https://www.devicetree.org/specifications/ ) the interrupt property is
-optional.
+Alistair
 
-Also, it is possible that interrupt '0' can be used for some architectures as
-an legal UART interrupt number ( according to dts files in Linux kernel ), so
-the check of the return value of platform_get_irq() was updated in case of when
-device tree is used for UART initialization.
-For example:
-https://github.com/torvalds/linux/blob/master/arch/powerpc/boot/dts/ebony.dts#L197
-
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in V5:
- - Update xen-command-line.pandoc.
- - move poll check to ns16550_uart_dt_init as in case of device tree
-   initialization it is needed only to check if 'poll' is present in com1.
- - Don't init uart->irq in case when platform_get_irq() return negative value.
----
-Changes in V4:
- - fix code style for ns16550_irq().
- - partially revert changes in pci_uart_config().
- - add check of "poll" property under "com<N>=" instead of "console=".
- - remove seting of polling mode in parsing of msi in parse_positional().
- - update comment above opt_com1 about Configuration string of serial port.
----
- docs/misc/xen-command-line.pandoc |  7 +++-
- xen/drivers/char/ns16550.c        | 67 ++++++++++++++++++++-----------
- 2 files changed, 49 insertions(+), 25 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 4060ebdc5d..67e355dab8 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -331,9 +331,12 @@ Interrupts.  Specifying zero disables CMCI handling.
- Flag to indicate whether to probe for a CMOS Real Time Clock irrespective of
- ACPI indicating none to be there.
- 
-+### com1 (device tree based initialization)
-+> `= [poll]`
-+
- ### com1 (x86)
- ### com2 (x86)
--> `= <baud>[/<base-baud>][,[DPS][,[<io-base>|pci|amt][,[<irq>|msi][,[<port-bdf>][,[<bridge-bdf>]]]]]]`
-+> `= <baud>[/<base-baud>][,[DPS][,[<io-base>|pci|amt][,[<irq>|msi|poll][,[<port-bdf>][,[<bridge-bdf>]]]]]]`
- 
- Both option `com1` and `com2` follow the same format.
- 
-@@ -353,7 +356,7 @@ Both option `com1` and `com2` follow the same format.
-   * `S` is an integer 1 or 2 for the number of stop bits.
- * `<io-base>` is an integer which specifies the IO base port for UART
-   registers.
--* `<irq>` is the IRQ number to use, or `0` to use the UART in poll
-+* `<irq>` is the IRQ number to use, or `poll` to use the UART in poll
-   mode only, or `msi` to set up a Message Signaled Interrupt.
- * `<port-bdf>` is the PCI location of the UART, in
-   `<bus>:<device>.<function>` notation.
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 2aed6ec707..d8cfbbfae4 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -58,7 +58,11 @@ static struct ns16550 {
-     struct timer timer;
-     struct timer resume_timer;
-     unsigned int timeout_ms;
--    bool_t intr_works;
-+    enum {
-+        intr_off,
-+        intr_on,
-+        polling,
-+    } intr_works;
-     bool_t dw_usr_bsy;
- #ifdef NS16550_PCI
-     /* PCI card parameters. */
-@@ -112,6 +116,19 @@ struct ns16550_config_param {
- static void enable_exar_enhanced_bits(const struct ns16550 *uart);
- #endif
- 
-+/*
-+ * Configure serial port with a string:
-+ *   <baud>[/<base_baud>][,DPS[,<io-base>[,<irq>|msi|poll[,<port-bdf>[,<bridge-bdf>]]]]].
-+ * The tail of the string can be omitted if platform defaults are sufficient.
-+ * If the baud rate is pre-configured, perhaps by a bootloader, then 'auto'
-+ * can be specified in place of a numeric baud rate. Polled mode is specified
-+ * by poll property.
-+ */
-+static char __initdata opt_com1[128] = "";
-+static char __initdata opt_com2[128] = "";
-+string_param("com1", opt_com1);
-+string_param("com2", opt_com2);
-+
- static void cf_check ns16550_delayed_resume(void *data);
- 
- static u8 ns_read_reg(const struct ns16550 *uart, unsigned int reg)
-@@ -181,7 +198,7 @@ static void cf_check ns16550_interrupt(
-     struct serial_port *port = dev_id;
-     struct ns16550 *uart = port->uart;
- 
--    uart->intr_works = 1;
-+    uart->intr_works = intr_on;
- 
-     while ( !(ns_read_reg(uart, UART_IIR) & UART_IIR_NOINT) )
-     {
-@@ -212,7 +229,7 @@ static void cf_check __ns16550_poll(struct cpu_user_regs *regs)
-     struct serial_port *port = this_cpu(poll_port);
-     struct ns16550 *uart = port->uart;
- 
--    if ( uart->intr_works )
-+    if ( uart->intr_works == intr_on )
-         return; /* Interrupts work - no more polling */
- 
-     while ( ns_read_reg(uart, UART_LSR) & UART_LSR_DR )
-@@ -305,7 +322,8 @@ static void ns16550_setup_preirq(struct ns16550 *uart)
-     unsigned char lcr;
-     unsigned int  divisor;
- 
--    uart->intr_works = 0;
-+    if ( uart->intr_works != polling )
-+        uart->intr_works = intr_off;
- 
-     pci_serial_early_init(uart);
- 
-@@ -394,7 +412,7 @@ static void __init cf_check ns16550_init_irq(struct serial_port *port)
- 
- static void ns16550_setup_postirq(struct ns16550 *uart)
- {
--    if ( uart->irq > 0 )
-+    if ( uart->intr_works != polling )
-     {
-         /* Master interrupt enable; also keep DTR/RTS asserted. */
-         ns_write_reg(uart,
-@@ -473,6 +491,7 @@ static void __init cf_check ns16550_init_postirq(struct serial_port *port)
-                 if ( rc )
-                 {
-                     uart->irq = 0;
-+                    uart->intr_works = polling;
-                     if ( msi_desc )
-                         msi_free_irq(msi_desc);
-                     else
-@@ -488,7 +507,7 @@ static void __init cf_check ns16550_init_postirq(struct serial_port *port)
-     }
- #endif
- 
--    if ( uart->irq > 0 )
-+    if ( uart->intr_works != polling )
-     {
-         uart->irqaction.handler = ns16550_interrupt;
-         uart->irqaction.name    = "ns16550";
-@@ -595,7 +614,8 @@ static void __init cf_check ns16550_endboot(struct serial_port *port)
- static int __init cf_check ns16550_irq(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
--    return ((uart->irq > 0) ? uart->irq : -1);
-+
-+    return ((uart->intr_works != polling) ? uart->irq : -1);
- }
- 
- static void cf_check ns16550_start_tx(struct serial_port *port)
-@@ -1333,9 +1353,13 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
-                     uart->irq = 0;
- #endif
-                 if ( !uart->irq )
-+                {
-+                    uart->intr_works = polling;
-+
-                     printk(XENLOG_INFO
-                            "ns16550: %pp: no legacy IRQ, using poll mode\n",
-                            &PCI_SBDF(0, b, d, f));
-+                }
- 
-                 return 0;
-             }
-@@ -1374,19 +1398,6 @@ static void enable_exar_enhanced_bits(const struct ns16550 *uart)
- 
- #endif /* CONFIG_HAS_PCI */
- 
--/*
-- * Configure serial port with a string:
-- *   <baud>[/<base_baud>][,DPS[,<io-base>[,<irq>[,<port-bdf>[,<bridge-bdf>]]]]].
-- * The tail of the string can be omitted if platform defaults are sufficient.
-- * If the baud rate is pre-configured, perhaps by a bootloader, then 'auto'
-- * can be specified in place of a numeric baud rate. Polled mode is specified
-- * by requesting irq 0.
-- */
--static char __initdata opt_com1[128] = "";
--static char __initdata opt_com2[128] = "";
--string_param("com1", opt_com1);
--string_param("com2", opt_com2);
--
- enum serial_param_type {
-     baud,
-     clock_hz,
-@@ -1555,6 +1566,9 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
-         }
-         else
- #endif
-+        if ( strncmp(conf, "poll", 4) == 0 )
-+            uart->intr_works = polling;
-+        else
-             uart->irq = simple_strtol(conf, &conf, 10);
-     }
- 
-@@ -1760,6 +1774,9 @@ static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
- 
-     ns16550_init_common(uart);
- 
-+    if ( strstr(opt_com1, "poll") )
-+        uart->intr_works = polling;
-+
-     uart->baud      = BAUD_AUTO;
-     uart->data_bits = 8;
-     uart->parity    = UART_PARITY_NONE;
-@@ -1791,9 +1808,13 @@ static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
-     }
- 
-     res = platform_get_irq(dev, 0);
--    if ( ! res )
--        return -EINVAL;
--    uart->irq = res;
-+    if ( res < 0 )
-+    {
-+        printk("there is no interrupt property, polling will be used\n");
-+        uart->intr_works = polling;
-+    }
-+    else
-+        uart->irq = res;
- 
-     uart->dw_usr_bsy = dt_device_is_compatible(dev, "snps,dw-apb-uart");
- 
--- 
-2.41.0
-
+> ---
+> Changes in V8:
+>  - only rebase was done.
+> ---
+> Changes in V7:
+>  - only rebase was done.
+> ---
+> Changes in V6:
+>  - the patch was introduced in the current patch series (V6)
+> ---
+>  xen/arch/riscv/early_printk.c | 168 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 168 insertions(+)
+>
+> diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.=
+c
+> index 610c814f54..60742a042d 100644
+> --- a/xen/arch/riscv/early_printk.c
+> +++ b/xen/arch/riscv/early_printk.c
+> @@ -40,3 +40,171 @@ void early_printk(const char *str)
+>          str++;
+>      }
+>  }
+> +
+> +/*
+> + * The following #if 1 ... #endif should be removed after printk
+> + * and related stuff are ready.
+> + */
+> +#if 1
+> +
+> +#include <xen/stdarg.h>
+> +#include <xen/string.h>
+> +
+> +/**
+> + * strlen - Find the length of a string
+> + * @s: The string to be sized
+> + */
+> +size_t (strlen)(const char * s)
+> +{
+> +    const char *sc;
+> +
+> +    for (sc =3D s; *sc !=3D '\0'; ++sc)
+> +        /* nothing */;
+> +    return sc - s;
+> +}
+> +
+> +/**
+> + * memcpy - Copy one area of memory to another
+> + * @dest: Where to copy to
+> + * @src: Where to copy from
+> + * @count: The size of the area.
+> + *
+> + * You should not use this function to access IO space, use memcpy_toio(=
+)
+> + * or memcpy_fromio() instead.
+> + */
+> +void *(memcpy)(void *dest, const void *src, size_t count)
+> +{
+> +    char *tmp =3D (char *) dest, *s =3D (char *) src;
+> +
+> +    while (count--)
+> +        *tmp++ =3D *s++;
+> +
+> +    return dest;
+> +}
+> +
+> +int vsnprintf(char* str, size_t size, const char* format, va_list args)
+> +{
+> +    size_t i =3D 0; /* Current position in the output string */
+> +    size_t written =3D 0; /* Total number of characters written */
+> +    char* dest =3D str;
+> +
+> +    while ( format[i] !=3D '\0' && written < size - 1 )
+> +    {
+> +        if ( format[i] =3D=3D '%' )
+> +        {
+> +            i++;
+> +
+> +            if ( format[i] =3D=3D '\0' )
+> +                break;
+> +
+> +            if ( format[i] =3D=3D '%' )
+> +            {
+> +                if ( written < size - 1 )
+> +                {
+> +                    dest[written] =3D '%';
+> +                    written++;
+> +                }
+> +                i++;
+> +                continue;
+> +            }
+> +
+> +            /*
+> +             * Handle format specifiers.
+> +             * For simplicity, only %s and %d are implemented here.
+> +             */
+> +
+> +            if ( format[i] =3D=3D 's' )
+> +            {
+> +                char* arg =3D va_arg(args, char*);
+> +                size_t arglen =3D strlen(arg);
+> +
+> +                size_t remaining =3D size - written - 1;
+> +
+> +                if ( arglen > remaining )
+> +                    arglen =3D remaining;
+> +
+> +                memcpy(dest + written, arg, arglen);
+> +
+> +                written +=3D arglen;
+> +                i++;
+> +            }
+> +            else if ( format[i] =3D=3D 'd' )
+> +            {
+> +                int arg =3D va_arg(args, int);
+> +
+> +                /* Convert the integer to string representation */
+> +                char numstr[32]; /* Assumes a maximum of 32 digits */
+> +                int numlen =3D 0;
+> +                int num =3D arg;
+> +                size_t remaining;
+> +
+> +                if ( arg < 0 )
+> +                {
+> +                    if ( written < size - 1 )
+> +                    {
+> +                        dest[written] =3D '-';
+> +                        written++;
+> +                    }
+> +
+> +                    num =3D -arg;
+> +                }
+> +
+> +                do
+> +                {
+> +                    numstr[numlen] =3D '0' + num % 10;
+> +                    num =3D num / 10;
+> +                    numlen++;
+> +                } while ( num > 0 );
+> +
+> +                /* Reverse the string */
+> +                for (int j =3D 0; j < numlen / 2; j++)
+> +                {
+> +                    char tmp =3D numstr[j];
+> +                    numstr[j] =3D numstr[numlen - 1 - j];
+> +                    numstr[numlen - 1 - j] =3D tmp;
+> +                }
+> +
+> +                remaining =3D size - written - 1;
+> +
+> +                if ( numlen > remaining )
+> +                    numlen =3D remaining;
+> +
+> +                memcpy(dest + written, numstr, numlen);
+> +
+> +                written +=3D numlen;
+> +                i++;
+> +            }
+> +        }
+> +        else
+> +        {
+> +            if ( written < size - 1 )
+> +            {
+> +                dest[written] =3D format[i];
+> +                written++;
+> +            }
+> +            i++;
+> +        }
+> +    }
+> +
+> +    if ( size > 0 )
+> +        dest[written] =3D '\0';
+> +
+> +    return written;
+> +}
+> +
+> +void printk(const char *format, ...)
+> +{
+> +    static char buf[1024];
+> +
+> +    va_list args;
+> +    va_start(args, format);
+> +
+> +    (void)vsnprintf(buf, sizeof(buf), format, args);
+> +
+> +    early_printk(buf);
+> +
+> +    va_end(args);
+> +}
+> +
+> +#endif
+> +
+> --
+> 2.41.0
+>
+>
 
