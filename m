@@ -2,32 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0CF0778C1B
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 12:32:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.582375.912118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B6B778CD9
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 13:05:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.582382.912137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUPRJ-0004ZF-PN; Fri, 11 Aug 2023 10:32:17 +0000
+	id 1qUPx8-00009n-Eq; Fri, 11 Aug 2023 11:05:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 582375.912118; Fri, 11 Aug 2023 10:32:17 +0000
+Received: by outflank-mailman (output) from mailman id 582382.912137; Fri, 11 Aug 2023 11:05:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUPRJ-0004Vt-M8; Fri, 11 Aug 2023 10:32:17 +0000
-Received: by outflank-mailman (input) for mailman id 582375;
- Fri, 11 Aug 2023 10:32:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qUPx8-00007N-BZ; Fri, 11 Aug 2023 11:05:10 +0000
+Received: by outflank-mailman (input) for mailman id 582382;
+ Fri, 11 Aug 2023 11:05:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qUPRI-0004Vn-Nc
- for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 10:32:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qUPRH-00084u-Ie; Fri, 11 Aug 2023 10:32:15 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.207.66]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qUPRH-0002MW-Bn; Fri, 11 Aug 2023 10:32:15 +0000
+ (envelope-from <SRS0=fQ3J=D4=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1qUPx6-0008Js-Hv
+ for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 11:05:08 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ed8acbc8-3836-11ee-b284-6b7b168915f2;
+ Fri, 11 Aug 2023 13:05:06 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 554E921867;
+ Fri, 11 Aug 2023 11:05:05 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40B5313592;
+ Fri, 11 Aug 2023 11:05:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id kdy/D+EV1mQuRQAAMHmgww
+ (envelope-from <jack@suse.cz>); Fri, 11 Aug 2023 11:05:05 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id B94BAA076F; Fri, 11 Aug 2023 13:05:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,145 +53,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ktTYnxaJliQmP6svwaLVJ0Ml4z0+NKivmbjfpX2UNjg=; b=wS0bj8eDd1I8kpL3ndrziL62KM
-	fiQmnYd7K8Yy7bc979XbOiQlYTjA7IguhY9Rq/b1fXWhvOs7imx8xUBgY1B6pGru29WjXIQBrdBBk
-	gKvNdaADgUCROotrzLY00gOwmbo63wKImfL+ThxcjWiCkNNPUGdvE76TAxLVbb1Q2Zcw=;
-Message-ID: <63f1ba1f-05ec-4400-9804-43948989d550@xen.org>
-Date: Fri, 11 Aug 2023 11:32:13 +0100
+X-Inumbo-ID: ed8acbc8-3836-11ee-b284-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1691751905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5tRGa7YNpy5azfO2DILJGaxnHQqIrHRIuX4HPJpenrQ=;
+	b=nS0o04Ko2eofWDhOvWx6o3T36EV25HqbUFvkN9WMKumyZo3DU5IiWgMskXfjyH4OXEiKYl
+	IITYxvL5Q8pMKkFc8O6biwC3K3TxmcmnzVR3W1NQhsfgztirbY49kzZoor0HytOQKCBlyL
+	GV3cB78+BIPaD5P0M4y2xB0Q495MkAo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1691751905;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5tRGa7YNpy5azfO2DILJGaxnHQqIrHRIuX4HPJpenrQ=;
+	b=PRu3LFGsOROMaty7jNH51X1wMClD6ZMlY5AdbxYnc0QwtMHxNWZ8s/wVfL1uImLDOQT/Rl
+	cDHfO/YvLXNV1tAw==
+From: Jan Kara <jack@suse.cz>
+To: <linux-fsdevel@vger.kernel.org>
+Cc: <linux-block@vger.kernel.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Alasdair Kergon <agk@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Chao Yu <chao@kernel.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Dave Kleikamp <shaggy@kernel.org>,
+	David Sterba <dsterba@suse.com>,
+	dm-devel@redhat.com,
+	drbd-dev@lists.linbit.com,
+	Gao Xiang <xiang@kernel.org>,
+	Jack Wang <jinpu.wang@ionos.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	jfs-discussion@lists.sourceforge.net,
+	Joern Engel <joern@lazybastard.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Kent Overstreet <kent.overstreet@gmail.com>,
+	linux-bcache@vger.kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-mm@kvack.org,
+	linux-mtd@lists.infradead.org,
+	linux-nfs@vger.kernel.org,
+	linux-nilfs@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Minchan Kim <minchan@kernel.org>,
+	ocfs2-devel@oss.oracle.com,
+	reiserfs-devel@vger.kernel.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Song Liu <song@kernel.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	target-devel@vger.kernel.org,
+	Ted Tso <tytso@mit.edu>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2 0/29] block: Make blkdev_get_by_*() return handle
+Date: Fri, 11 Aug 2023 13:04:31 +0200
+Message-Id: <20230810171429.31759-1-jack@suse.cz>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] tools/light: Revoke permissions when a PCI detach for
- HVM domain
-Content-Language: en-GB
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20230809103305.30561-1-julien@xen.org>
- <20230809103305.30561-3-julien@xen.org>
- <CAKf6xpvLtOTH-WVz8B6df=WF5M=Cng8BBWTvOOJ3C1N8QbqWWA@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAKf6xpvLtOTH-WVz8B6df=WF5M=Cng8BBWTvOOJ3C1N8QbqWWA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3218; i=jack@suse.cz; h=from:subject:message-id; bh=8um6o7br1koHMcykRc7ml18Y2BSCm69vwpPmgjRXxkk=; b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBk1hW86qklK68Z0G139b8b61UzO/oV2Y6qvJg1uvDC +JKlEZuJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCZNYVvAAKCRCcnaoHP2RA2epoB/ 9Sgdf//aomv8tBKGEg1kRzItWS+CXbN/cjy5B6uL3IUWhEY6vxFg7DsN+znMmPFPOp7X1w/e2PExiA dGNvKiX2BNUyl6ZLFstCZUiXyzlig8pnDHrmrN4lbx3SIS3BHdNJ8igPArMWVDYXlZuosexzFn3fIW ELsTpVpNLZdp6BAxZg4925E1qscyN11eFDJecvW+IrpMA1nHR12Y/AX4zqXWcBT8MPUEiJD1Cnfxfa Leji+h3vOG0k2IQAyfN6R1cj/0POs0zJWvSVK9bZM8IYFIOHr+jpYHi0KEVh62q6NLoQxbMBVEzn9K JsmkBplP7UobjvtEWvfH0EwVENii9z
+X-Developer-Key: i=jack@suse.cz; a=openpgp; fpr=93C6099A142276A28BBE35D815BC833443038D8C
 Content-Transfer-Encoding: 8bit
 
-Hi Jason,
+Hello,
 
-On 10/08/2023 21:02, Jason Andryuk wrote:
-> On Wed, Aug 9, 2023 at 6:34 AM Julien Grall <julien@xen.org> wrote:
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Currently, libxl will grant IOMEM, I/O port and IRQ permissions when
->> a PCI is attached (see pci_add_dm_done()) for all domain types. However,
->> the permissions are only revoked for non-HVM domain (see do_pci_remove()).
->>
->> This means that HVM domains will be left with extra permissions. While
->> this look bad on the paper, the IRQ permissions should be revoked
->> when the Device Model call xc_physdev_unmap_pirq() and such domain
->> cannot directly mapped I/O port and IOMEM regions. Instead, this has to
->> be done by a Device Model.
->>
->> The Device Model can only run in dom0 or PV stubdomain (upstream libxl
->> doesn't have support for HVM/PVH stubdomain).
->>
->> For PV/PVH stubdomain, the permission are properly revoked, so there is
->> no security concern.
->>
->> This leaves dom0. There are two cases:
->>    1) Privileged: Anyone gaining access to the Device Model would already
->>       have large control on the host.
->>    2) Deprivileged: PCI passthrough require PHYSDEV operations which
->>       are not accessible when the Device Model is restricted.
->>
->> So overall, it is believed that the extra permissions cannot be exploited.
->>
->> Rework the code so the permissions are all removed for HVM domains.
->> This needs to happen after the QEMU has detached the device. So
->> the revocation is now moved in a separate function which is called
->> from pci_remove_detached().
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+this is a v2 of the patch series which implements the idea of blkdev_get_by_*()
+calls returning bdev_handle which is then passed to blkdev_put() [1]. This
+makes the get and put calls for bdevs more obviously matching and allows us to
+propagate context from get to put without having to modify all the users
+(again!).  In particular I need to propagate used open flags to blkdev_put() to
+be able count writeable opens and add support for blocking writes to mounted
+block devices. I'll send that series separately.
 
-Thanks for the review!
+The series is based on Christian's vfs tree as of yesterday as there is quite
+some overlap. Patches have passed some reasonable testing - I've tested block
+changes, md, dm, bcache, xfs, btrfs, ext4, swap. This obviously doesn't cover
+everything so I'd like to ask respective maintainers to review / test their
+changes. Thanks! I've pushed out the full branch to:
 
-> 
-> With one suggestion below
-> 
->> ---
->>
->> TODO: I am getting a bit confused with the async work in libxl. I am
->> not entirely sure whether pci_remove_detached() is the correct place
->> to revoke.
-> 
-> I think the location is fine.
-> 
->> TODO: For HVM, we are now getting the following error on detach:
->> libxl: error: libxl_pci.c:2009:pci_revoke_permissions: Domain 3:xc_physdev_unmap_pirq irq=23: Invalid argument
->>
->> This is because the IRQ was unmapped by QEMU. It doesn't feel
->> right to skip the call. So maybe we can ignore the error?
-> 
-> Sounds reasonable.  Would be better if we could clearly differentiate
-> between QEMU already unmapped and some other EINVAL error.
+git://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs.git bdev_handle
 
-The only way I could think is to have a distinct errno in Xen to 
-indicate the PIRQ is not mapped. CCing the x86 maintainers to check if 
-they would be ok with that.
+to ease review / testing.
 
-> 
->> ---
->>   tools/libs/light/libxl_pci.c | 142 ++++++++++++++++++++---------------
->>   1 file changed, 80 insertions(+), 62 deletions(-)
->>
->> diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
->> index 7f5f170e6eb0..f5a4b88eb2c0 100644
->> --- a/tools/libs/light/libxl_pci.c
->> +++ b/tools/libs/light/libxl_pci.c
->> @@ -1943,6 +1943,79 @@ static void pci_remove_stubdom_done(libxl__egc *egc,
->>   static void pci_remove_done(libxl__egc *egc,
->>       pci_remove_state *prs, int rc);
->>
->> +static void pci_revoke_permissions(libxl__egc *egc, pci_remove_state *prs)
->> +{
->> +    STATE_AO_GC(prs->aodev->ao);
->> +    libxl_ctx *ctx = libxl__gc_owner(gc);
->> +    const libxl_device_pci *pci = &prs->pci;
->> +    const char *sysfs_path;
->> +    uint32_t domid = prs->domid;
->> +    FILE *f;
->> +    unsigned int start = 0, end = 0, flags = 0, size = 0;
-> 
-> These variables ...
-> 
->> +    int irq = 0;
->> +    int i, rc;
->> +
->> +    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/resource",
->> +                           pci->domain, pci->bus, pci->dev, pci->func);
->> +
->> +    f = fopen(sysfs_path, "r");
->> +    if (f == NULL) {
->> +        LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
->> +        goto skip_bar;
->> +    }
->> +
->> +    for (i = 0; i < PROC_PCI_NUM_RESOURCES; i++) {
-> 
-> ... could move into the loop here.
+Changes since v1:
+* Rebased on top of current vfs tree
+* Renamed final functions to bdev_open_by_*() and bdev_release()
+* Fixed detection of exclusive open in blkdev_ioctl() and blkdev_fallocate()
+* Fixed swap conversion to properly reinitialize swap_info->bdev_handle
+* Fixed xfs conversion to not oops with rtdev without logdev
+* Couple other minor fixups
 
-You are right. I will respin the patch with this change and whatever we 
-decide for the unmap error.
+								Honza
 
-Cheers,
+[1] https://lore.kernel.org/all/ZJGNsVDhZx0Xgs2H@infradead.org
 
--- 
-Julien Grall
+CC: Alasdair Kergon <agk@redhat.com>
+CC: Andrew Morton <akpm@linux-foundation.org>
+CC: Anna Schumaker <anna@kernel.org>
+CC: Chao Yu <chao@kernel.org>
+CC: Christian Borntraeger <borntraeger@linux.ibm.com>
+CC: Coly Li <colyli@suse.de
+CC: "Darrick J. Wong" <djwong@kernel.org>
+CC: Dave Kleikamp <shaggy@kernel.org>
+CC: David Sterba <dsterba@suse.com>
+CC: dm-devel@redhat.com
+CC: drbd-dev@lists.linbit.com
+CC: Gao Xiang <xiang@kernel.org>
+CC: Jack Wang <jinpu.wang@ionos.com>
+CC: Jaegeuk Kim <jaegeuk@kernel.org>
+CC: jfs-discussion@lists.sourceforge.net
+CC: Joern Engel <joern@lazybastard.org>
+CC: Joseph Qi <joseph.qi@linux.alibaba.com>
+CC: Kent Overstreet <kent.overstreet@gmail.com>
+CC: linux-bcache@vger.kernel.org
+CC: linux-btrfs@vger.kernel.org
+CC: linux-erofs@lists.ozlabs.org
+CC: <linux-ext4@vger.kernel.org>
+CC: linux-f2fs-devel@lists.sourceforge.net
+CC: linux-mm@kvack.org
+CC: linux-mtd@lists.infradead.org
+CC: linux-nfs@vger.kernel.org
+CC: linux-nilfs@vger.kernel.org
+CC: linux-nvme@lists.infradead.org
+CC: linux-pm@vger.kernel.org
+CC: linux-raid@vger.kernel.org
+CC: linux-s390@vger.kernel.org
+CC: linux-scsi@vger.kernel.org
+CC: linux-xfs@vger.kernel.org
+CC: "Md. Haris Iqbal" <haris.iqbal@ionos.com>
+CC: Mike Snitzer <snitzer@kernel.org>
+CC: Minchan Kim <minchan@kernel.org>
+CC: ocfs2-devel@oss.oracle.com
+CC: reiserfs-devel@vger.kernel.org
+CC: Sergey Senozhatsky <senozhatsky@chromium.org>
+CC: Song Liu <song@kernel.org>
+CC: Sven Schnelle <svens@linux.ibm.com>
+CC: target-devel@vger.kernel.org
+CC: Ted Tso <tytso@mit.edu>
+CC: Trond Myklebust <trond.myklebust@hammerspace.com>
+CC: xen-devel@lists.xenproject.org
+
+Previous versions:
+Link: http://lore.kernel.org/r/20230629165206.383-1-jack@suse.cz # v1
 
