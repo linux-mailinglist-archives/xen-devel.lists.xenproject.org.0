@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B34277791C7
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 16:26:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.582474.912269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AD387791ED
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 16:32:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.582499.912296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUT5K-0002F1-6K; Fri, 11 Aug 2023 14:25:50 +0000
+	id 1qUTBc-0004WU-6p; Fri, 11 Aug 2023 14:32:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 582474.912269; Fri, 11 Aug 2023 14:25:50 +0000
+Received: by outflank-mailman (output) from mailman id 582499.912296; Fri, 11 Aug 2023 14:32:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUT5K-0002CL-2F; Fri, 11 Aug 2023 14:25:50 +0000
-Received: by outflank-mailman (input) for mailman id 582474;
- Fri, 11 Aug 2023 14:25:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qUT5I-0002CF-5W
- for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 14:25:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qUT5H-0004vG-GE; Fri, 11 Aug 2023 14:25:47 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.207.66]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qUT5H-0003iG-Ai; Fri, 11 Aug 2023 14:25:47 +0000
+	id 1qUTBc-0004T9-33; Fri, 11 Aug 2023 14:32:20 +0000
+Received: by outflank-mailman (input) for mailman id 582499;
+ Fri, 11 Aug 2023 14:32:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hSUX=D4=citrix.com=prvs=58088f632=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qUTBa-00049h-IO
+ for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 14:32:18 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de3e8300-3853-11ee-b284-6b7b168915f2;
+ Fri, 11 Aug 2023 16:32:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,82 +36,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=SPsgltvDA8z/JJONlXDL9LYdMxxYlziR+D6/oBYEwgA=; b=ei7vSTzUJ9ZFk7a6TE8uIUfz8C
-	viWv2V/mXaIR4o3SG1KsOmku2+Uiwa82azMS7tIigrv8sJvxdrkcK+Hlu2NVeXePU5DwODLRMJLcT
-	8M6rEHywWBtE6WJRADlY0Or0AXUSU/T+jgVWjZhqCcwCPoMPCzChB/5b6MqyYr0o0m+Q=;
-Message-ID: <50bfd7e1-2e5b-468e-aa25-6f9fae302ba2@xen.org>
-Date: Fri, 11 Aug 2023 15:25:45 +0100
+X-Inumbo-ID: de3e8300-3853-11ee-b284-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1691764337;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QSD97pX4rIQFsdB9WrmfNuasn0tkdiTxkR97JAfxjbA=;
+  b=cTYLzgDZfY8/5VtNDc2RbcapHhPZrh65Wdan+g2YGmkdz/q7jzyx6LXO
+   LI5WBtYW4maVVwn2npwgcw0RsglvT8CFSU8iwjFwlVUlVHvxLyLsJio5G
+   OdIvmTxKLlysJk59jfLPeu4T/kRj2FpwlFROHn87B3XHXjZdWZfnUUFAw
+   Q=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 117921539
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:CSxFn6gz7kTBmiZVRPtkpF4GX161sBAKZh0ujC45NGQN5FlHY01je
+ htvXmGAPK7fMDP2fN5/Po/joRgOscOEzNNkQFNk+Hg0Engb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyr0N8klgZmP6sT7AaHzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQFdm8iXDCEm9iP3a28YeQxtOExHdPkadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27B/
+ z2XpT2kWUBy2Nq31QSqyniOl+P1thjbB7s+Hpme5qcxqQjGroAUIEJPDgbqyRWjsWa8Ud9CL
+ 00f+gI1sLM/skesS7HVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQkqcs3SDoCx
+ lKP2dTzClRHq6aJQHiQ8rOVqzKaOiUPK2IGIygeQmMt/N3LsIw1yBXVQb5LGba4lNTvFRnsw
+ jqBq241gLB7sCIQ//zlpxad2Wvq/8WXCFdvvW07Q15J8CtkOtGKVayv9WLi8OlHB4vEfHyTj
+ WILzp32AP81MbmBkymEQeMoFb6v5uqYPDC0vWODD6XN5Bz2pSf9INk4DCVWYR4wb51aIWOBj
+ Fr741s52XNFAJe9gUabiaqVAt9i86XvHM+Nuhv8PosXOcgZmONqEUhTia+sM4LFyhREfUIXY
+ 83znSOQ4ZEyWMxaIMKeHbt17FPS7nlWKZnvbZ761Q+79rGVeWSYT7wIWHPXMLFgsvLe+lqEr
+ YsEXydv9/m5eLehCsUw2dRJRW3m0FBhXcymwyCpXrHrzvVa9JEJVKaKnOJJl31NlKVJjObYl
+ kxRqWcBoGcTcUbvcF3QAlg6MeOHYHqKhS5jVcDaFQryiidLjEfGxPt3SqbbipF7rbQ8nKQoH
+ 6JZEyhCa9wWIgn6F/0mRcGVhORfmN6D31nm0/aNCNTnQ6Ndeg==
+IronPort-HdrOrdr: A9a23:pLkEaK74nPGkI6W+mwPXwMjXdLJyesId70hD6qhwISY6TiW9rb
+ HLoB17726QtN9/YhwdcLy7VJVoBEmskqKdgrNhX4tKPjOHhILAFugLhuHfKn/bak7DH4ZmpM
+ FdmsNFaeEYY2IUsfrH
+X-Talos-CUID: 9a23:NAw1YG8AjX9LGI26TBiVv1NKRe8XUnrB9k7NPEiTBDtbba+kU1DFrQ==
+X-Talos-MUID: =?us-ascii?q?9a23=3AWIopSg0GcWaokUxif+76HUdYpTUj/5qBMEovgJk?=
+ =?us-ascii?q?8kPKkahVcMRO7nG3sa9py?=
+X-IronPort-AV: E=Sophos;i="6.01,165,1684814400"; 
+   d="scan'208";a="117921539"
+Date: Fri, 11 Aug 2023 15:31:58 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] build: correct gas --noexecstack check
+Message-ID: <ad590b68-ba27-412e-ae9d-e6104c104cf4@perard>
+References: <e5b54663-77c3-5be1-ea54-3f18246bf77f@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] xen/arm: Add asm/domain.h include to kernel.h
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Rahul Singh <Rahul.Singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230808080010.3858575-1-luca.fancellu@arm.com>
- <20230808080010.3858575-3-luca.fancellu@arm.com>
- <b9d88e5a-91d1-43b7-becd-8a742698e1c8@xen.org>
- <3C46ADAD-477D-46BB-BCCB-81C3198517E5@arm.com>
- <10ba4d0b-d5c1-4d86-bed3-9628203e3dac@xen.org>
- <019B593E-D59A-4C45-8C7C-BD9F19C8B2A6@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <019B593E-D59A-4C45-8C7C-BD9F19C8B2A6@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <e5b54663-77c3-5be1-ea54-3f18246bf77f@suse.com>
 
-Hi,
-
-On 11/08/2023 15:22, Luca Fancellu wrote:
->> On 11 Aug 2023, at 15:13, Julien Grall <julien@xen.org> wrote:
->> On 11/08/2023 14:40, Luca Fancellu wrote:
->>>> On 11 Aug 2023, at 13:56, Julien Grall <julien@xen.org> wrote:
->>>>
->>>> Hi Luca,
->>>>
->>>> On 08/08/2023 09:00, Luca Fancellu wrote:
->>>>> Add asm/domain.h that is defining the type 'enum domain_type', it
->>>>> is needed on arm64 build where this type is used for a member of
->>>>> the structure kernel_info.
->>>>
->>>> I read "needed" as in it Xen build is broken. But AFAIK, this is more a latent issue if someone else want to include the header. Is that correct?
->>> Yes correct
->>>>
->>>> If so, how about:
->>>>
->>>> The 'enum domain_type' is defined by 'asm/domain.h' which is not included (directly or indirectly) by 'asm/kernel.h'.
->>>>
->>>> This currently doesn't break the compilation because asm/domain.h will included by the user of 'kernel.h'. But it would be better to avoid relying on it. So add the include in 'asm/domain.h'.
->>> Yeah much better, should I push a v2?
->>
->> No. I can deal with it on commit.
+On Wed, Jul 12, 2023 at 04:23:22PM +0200, Jan Beulich wrote:
+> The check was missing an escape for the inner $, thus breaking things
+> in the unlikely event that the underlying assembler doesn't support this
+> option.
 > 
-> Ok thank you for doing that
-> 
->>
->>>>
->>>>> Fixes: 66e994a5e74f ("xen: arm64: add guest type to domain field.")
->>>>
->>>> While we aim to have header self-contained, this has never been a guarantee in Xen. So I would argue this is not a fix in the sense it someone would want to ingest it in there tree.
->>> Ok I see, I thought it could be linked to the issue about sorting headers that led to build breakage, but I’ve
->>
->> I am probably missing something here. Which issue are you referring to? Is it a follow-up patch that will sort headers?
-> 
-> It’s an issue I’ve faced when trying to sort automatically the include using clang-format, I’ve seen issues building domain_build.c after sorting the headers in the way we expect from coding style, I thought was related to some headers not being self-contained.
+> Fixes: 62d22296a95d ("build: silence GNU ld warning about executable stacks")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Ah I understand now. Usually, we would batch the re-ordering and the 
-additional include in the same patch because they are tightly coupled 
-together and it is easier to confirm it is necessary.
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Anyway, this one is easy, so I am happy to commit this one in advance.
-
-Cheers,
+Thanks,
 
 -- 
-Julien Grall
+Anthony PERARD
 
