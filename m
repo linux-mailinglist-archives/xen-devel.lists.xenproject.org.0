@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8578778F83
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 14:28:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.582405.912163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F8C3778FFB
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 14:57:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.582411.912173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qURFY-0001BT-Iv; Fri, 11 Aug 2023 12:28:16 +0000
+	id 1qURhA-0004by-Oq; Fri, 11 Aug 2023 12:56:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 582405.912163; Fri, 11 Aug 2023 12:28:16 +0000
+Received: by outflank-mailman (output) from mailman id 582411.912173; Fri, 11 Aug 2023 12:56:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qURFY-000188-Fc; Fri, 11 Aug 2023 12:28:16 +0000
-Received: by outflank-mailman (input) for mailman id 582405;
- Fri, 11 Aug 2023 12:28:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yrYi=D4=bombadil.srs.infradead.org=BATV+10530082ca17b6f7899b+7292+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1qURFU-000182-2V
- for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 12:28:15 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87ccd938-3842-11ee-b284-6b7b168915f2;
- Fri, 11 Aug 2023 14:28:10 +0200 (CEST)
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qUREm-00Abyw-17; Fri, 11 Aug 2023 12:27:28 +0000
+	id 1qURhA-0004Yo-Lq; Fri, 11 Aug 2023 12:56:48 +0000
+Received: by outflank-mailman (input) for mailman id 582411;
+ Fri, 11 Aug 2023 12:56:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qURh8-0004Yi-T5
+ for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 12:56:46 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qURh8-0002sY-Gi; Fri, 11 Aug 2023 12:56:46 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.207.66]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qURh8-0007rc-8t; Fri, 11 Aug 2023 12:56:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,64 +39,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87ccd938-3842-11ee-b284-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=96Jyxa0hgrG24aZgu2ilDmsPaDJbIFT8CvAcqFGq7ak=; b=Lt8QMt/qiwPklQXJKNxAAayl50
-	ejm5z3TauQQgWXDYeiy6ev7CoxuktCUjLml+tQTXB0FrmwYo9bGjhm2G8bwiVtr2qWkYfM3c8FNl1
-	cPDaz7ayPa6vktH3ev1ZeHUse0hr9sV3dSKzn62142iTuA8TTM4tDaiYAHOFhJAm7nP3aQxRbODoe
-	cl8s2GHmVFeXScu6jrXcZHGDTmN2udO8XZ0pPwfpsd5QoOiRLOiFHXD6KYR9f2MEyvA/KeT9RzHmF
-	DIvDgADu/AxqynsuMYC3hcwdLyXOsBeZQBLnrFNVOoRqDCMnS+8kcWICKZ1ml8I/4TT3bYAOcmKWy
-	N15IsxAA==;
-Date: Fri, 11 Aug 2023 05:27:28 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Anna Schumaker <anna@kernel.org>, Chao Yu <chao@kernel.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Kleikamp <shaggy@kernel.org>, David Sterba <dsterba@suse.com>,
-	dm-devel@redhat.com, drbd-dev@lists.linbit.com,
-	Gao Xiang <xiang@kernel.org>, Jack Wang <jinpu.wang@ionos.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	jfs-discussion@lists.sourceforge.net,
-	Joern Engel <joern@lazybastard.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
-	linux-bcache@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
-	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-pm@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
-	ocfs2-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Song Liu <song@kernel.org>, Sven Schnelle <svens@linux.ibm.com>,
-	target-devel@vger.kernel.org, Ted Tso <tytso@mit.edu>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 0/29] block: Make blkdev_get_by_*() return handle
-Message-ID: <ZNYpMPM5o4q1xcIt@infradead.org>
-References: <20230810171429.31759-1-jack@suse.cz>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=VmQAQAWH4nWRtdIo8DizpFUyoelXvU2eEqiSTFWHJYM=; b=RcWBvXDQuJ7TnFR/gimuJEqNXy
+	d9aF/i8cgoWaUD4fuJwAFtfrFqBSOxjtsT/nddAvRr0Hiz1Ws9UCt2+O0ptphKIzu90XJZD+QSD1Z
+	YjgV685AJ4xm9oc4TkN5jko2v0eODLyy3+7+bTbLNVUCl9I93khaejJULTFmffpLMCGk=;
+Message-ID: <b9d88e5a-91d1-43b7-becd-8a742698e1c8@xen.org>
+Date: Fri, 11 Aug 2023 13:56:44 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230810171429.31759-1-jack@suse.cz>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] xen/arm: Add asm/domain.h include to kernel.h
+Content-Language: en-GB
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, rahul.singh@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230808080010.3858575-1-luca.fancellu@arm.com>
+ <20230808080010.3858575-3-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230808080010.3858575-3-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Except for a mostly cosmetic nitpick this looks good to me:
+Hi Luca,
 
-Acked-by: Christoph Hellwig <hch@lst.de>
+On 08/08/2023 09:00, Luca Fancellu wrote:
+> Add asm/domain.h that is defining the type 'enum domain_type', it
+> is needed on arm64 build where this type is used for a member of
+> the structure kernel_info.
 
-That's not eactly the deep review I'd like to do, but as I'm about to
-head out for vacation that's probably as good as it gets.
+I read "needed" as in it Xen build is broken. But AFAIK, this is more a 
+latent issue if someone else want to include the header. Is that correct?
+
+If so, how about:
+
+The 'enum domain_type' is defined by 'asm/domain.h' which is not 
+included (directly or indirectly) by 'asm/kernel.h'.
+
+This currently doesn't break the compilation because asm/domain.h will 
+included by the user of 'kernel.h'. But it would be better to avoid 
+relying on it. So add the include in 'asm/domain.h'.
+
+> Fixes: 66e994a5e74f ("xen: arm64: add guest type to domain field.")
+
+While we aim to have header self-contained, this has never been a 
+guarantee in Xen. So I would argue this is not a fix in the sense it 
+someone would want to ingest it in there tree.
+
+Cheers,
+
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+>   xen/arch/arm/include/asm/kernel.h | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 4617cdc83bac..0a23e86c2d37 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -7,6 +7,7 @@
+>   #define __ARCH_ARM_KERNEL_H__
+>   
+>   #include <xen/device_tree.h>
+> +#include <asm/domain.h>
+>   #include <asm/setup.h>
+>   
+>   /*
+
+-- 
+Julien Grall
 
