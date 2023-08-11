@@ -2,32 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54AF779731
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 20:42:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.582621.912481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD33E779A0D
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Aug 2023 23:59:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.582658.912517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUX5M-00061k-Tg; Fri, 11 Aug 2023 18:42:08 +0000
+	id 1qUa8S-0005no-NZ; Fri, 11 Aug 2023 21:57:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 582621.912481; Fri, 11 Aug 2023 18:42:08 +0000
+Received: by outflank-mailman (output) from mailman id 582658.912517; Fri, 11 Aug 2023 21:57:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qUX5M-0005zj-QS; Fri, 11 Aug 2023 18:42:08 +0000
-Received: by outflank-mailman (input) for mailman id 582621;
- Fri, 11 Aug 2023 18:42:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qUX5L-0005zd-FA
- for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 18:42:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qUX5F-0002fn-OF; Fri, 11 Aug 2023 18:42:01 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.207.66]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qUX5F-0002zO-G0; Fri, 11 Aug 2023 18:42:01 +0000
+	id 1qUa8S-0005kZ-JU; Fri, 11 Aug 2023 21:57:32 +0000
+Received: by outflank-mailman (input) for mailman id 582658;
+ Fri, 11 Aug 2023 21:57:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Wg3T=D4=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1qUa8R-0005kM-I6
+ for xen-devel@lists.xenproject.org; Fri, 11 Aug 2023 21:57:31 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20626.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::626])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0f2b9a59-3892-11ee-8613-37d641c3527e;
+ Fri, 11 Aug 2023 23:57:27 +0200 (CEST)
+Received: from AS9PR05CA0143.eurprd05.prod.outlook.com (2603:10a6:20b:497::27)
+ by GV1PR08MB8129.eurprd08.prod.outlook.com (2603:10a6:150:93::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Fri, 11 Aug
+ 2023 21:57:21 +0000
+Received: from AM7EUR03FT016.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:497:cafe::3a) by AS9PR05CA0143.outlook.office365.com
+ (2603:10a6:20b:497::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.31 via Frontend
+ Transport; Fri, 11 Aug 2023 21:57:20 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT016.mail.protection.outlook.com (100.127.140.106) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6699.10 via Frontend Transport; Fri, 11 Aug 2023 21:57:19 +0000
+Received: ("Tessian outbound b5a0f4347031:v175");
+ Fri, 11 Aug 2023 21:57:19 +0000
+Received: from de4377cdc3a7.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 482FFFBE-B529-4533-A286-9095368E74EE.1; 
+ Fri, 11 Aug 2023 21:57:13 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id de4377cdc3a7.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 11 Aug 2023 21:57:13 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by DU0PR08MB9799.eurprd08.prod.outlook.com (2603:10a6:10:444::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Fri, 11 Aug
+ 2023 21:57:11 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::4c7d:6a1:e742:3b1a]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::4c7d:6a1:e742:3b1a%4]) with mapi id 15.20.6678.022; Fri, 11 Aug 2023
+ 21:57:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,116 +72,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kdQaYnEum4p7jEr0WZXY0shFRjePUR5maVA/N7BPryw=; b=I0ukBYz6aZb0xaZCvQjGiAkQmV
-	yPrZOZIDQPCQAvqTlj1GmNgKDp6Ih/7864zcEwiVuVaG7F0UShmC2XSMJXusXCMhab8IFpjWj6pPk
-	JI20pHcRbozLNu6W0J+a4+LHsNoKrzd6U5IKmTsWyUIV3ZS3V/pifFXj9APP7nO4fsEw=;
-Message-ID: <3c6964b5-e31e-49e3-ad05-c19853fdbf4a@xen.org>
-Date: Fri, 11 Aug 2023 19:41:59 +0100
+X-Inumbo-ID: 0f2b9a59-3892-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bEGS0wRdx8UI0U7Kbc3vxJthrwcG88bohMK6eHHTDQo=;
+ b=HhN2zorEYadotpKQS1swl2kL6EWafYc6dLqXsz31wUWasN9/suY+7BcxMP4FGUk0gQrRFymhm3VUpPabexHKM33KI+kcif39eq6AgJ2ErM3Wt658tUT7NB5wiT0B6N7LaeTyzUS3o0zs00vefr1g5PCkihyB3m3igx5Awuc2M/k=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: a5bc18ca2b006142
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i/CW5TIzt0KP7bR6Y4VOeBd1IYJcF99FN1TQfcYbgYWhI1/oPwaTh+CR0VIBQTX20aH6U90LyCC6Ej/FnnldHaEdzeOEQxEEpwXkdlSdcONRIQNKfNQhYhN6xJOpowRxAxgY4UnBi1oez3ekyKqjWhh8BVoora0Xh+ETaopnrO/9mrkpvhYfhxJixccnc/LWFEW553j7qI4rSETG/LjovJruzu01Lno5XmCsK+Jxq3jz1pdUsGDBThMVqhx2XPpbxmDGomsu4XNLIhDuyRDwVF4POicmK0w3Tv89wxZ8GRcAGMzU+S4OzuE9GdI9WhqC9LS5U4oLHLYqDq00UFT9cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bEGS0wRdx8UI0U7Kbc3vxJthrwcG88bohMK6eHHTDQo=;
+ b=nDOyTkzyhi/gGiN7+aURlPlHH6BQ5iUjEvCjUH24HkItP9GJGI4O4svUgASukdscx3DoUEQ6tZteYsstrganwj9yiL2dBkGlJtSHFs2S1G3GuNGacNWzoi2MBw5U3VvX5pHjXONRZOCdbQ8q86c40R7a1hzLbDM+JBpZx8m52okF6wKld/WJKGRYOywlhZT1gr+gt0oBMtn+J5wJfkmKx4uL37sUBVEdSvNL9l6pcfOVPxM9sBnGSb9FPU3cPunpbzbGng8eQxyd0Cdxpoh5xkWYe/kjVOGH9nMy9LJwaJAy07cmvyuygQwpw/sVEGknPhugkoqzUh7ngzsyWMTFxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bEGS0wRdx8UI0U7Kbc3vxJthrwcG88bohMK6eHHTDQo=;
+ b=HhN2zorEYadotpKQS1swl2kL6EWafYc6dLqXsz31wUWasN9/suY+7BcxMP4FGUk0gQrRFymhm3VUpPabexHKM33KI+kcif39eq6AgJ2ErM3Wt658tUT7NB5wiT0B6N7LaeTyzUS3o0zs00vefr1g5PCkihyB3m3igx5Awuc2M/k=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+	Rahul Singh <Rahul.Singh@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 4/5] xen/arm: Move static memory build code in separate
+ modules
+Thread-Topic: [PATCH 4/5] xen/arm: Move static memory build code in separate
+ modules
+Thread-Index: AQHZyc55L9ICjabsSUqgCKAf+BkgTa/la64AgAA+NwA=
+Date: Fri, 11 Aug 2023 21:57:10 +0000
+Message-ID: <41482347-A5C2-4CFC-A473-8425716A25CD@arm.com>
+References: <20230808080010.3858575-1-luca.fancellu@arm.com>
+ <20230808080010.3858575-5-luca.fancellu@arm.com>
+ <27ef6978-ce23-45ba-b136-4ad9c8913751@xen.org>
+In-Reply-To: <27ef6978-ce23-45ba-b136-4ad9c8913751@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.700.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3749:EE_|DU0PR08MB9799:EE_|AM7EUR03FT016:EE_|GV1PR08MB8129:EE_
+X-MS-Office365-Filtering-Correlation-Id: c08d67d0-dc09-4f76-6a16-08db9ab5ef3a
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ CBERLl00HoyBJ+xUzl10GxEdlh1lksIpWs/OTl16fYHC8IrQKhna6YqIzVixniQaSNVsCvfKOgcc/bAFIg+ixBdKSKjn8zXjfH43D14yRNTw802mfhDTu2sesoxSZ7glrItS/22whYpJ9zG89LiDszBJfmJN9mDwuZo9x977iKSiROqjuE/gnJ0cKFP1h9qijtn3eUan8irLLv7pn+DFAmmZBj8CnzeZuPvGCS/MnIqpdmz8DyXmDPSJD+tLRmtCpfEDWIehkYmxYROEe0gRWnw2AcTNIRCS7Uyoae6RMtGyisMEfkROBoa2LuvN7hwjiNMZfNBCPmx+qIm94luUZJXR4fQf66jrd2MKCHETrj08lWxSxoxm8PMcX865yW5+92zgeuia9h73nKtx/UaIu7N/hYtB4uTPx/Qb3hCRDvav2vBnHkX9wIr2hzbfyhkxBoP+Sft/NDxVsaPfXSUWbADTs08FRpPfHE4M4KDyeq0tS2FhVZnzqspH4yNJwp0yoDQNGJC47BqsEC/wcAuo16mojQ/V4ZFW9jRLspxO+vkQWZRHHomaAqk3oAegOqyUk1WcqTWGousd2q4GydALLUZ91vdNUqTp2OOHt3JFHiqyJz+XqvL/sA0jQycMz2Q57EM54Kb3deQPSiWhFfvN1g==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(366004)(376002)(346002)(39860400002)(186006)(1800799006)(451199021)(86362001)(33656002)(38070700005)(2906002)(36756003)(6916009)(26005)(53546011)(2616005)(6506007)(4326008)(54906003)(122000001)(38100700002)(478600001)(8936002)(91956017)(5660300002)(66446008)(66556008)(64756008)(66476007)(76116006)(66946007)(41300700001)(71200400001)(6486002)(316002)(8676002)(6512007)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <6EB611BB432AA143A6653A6D0F0C24A4@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 10/11] xen/sched: add ASSERT_UNREACHABLE() to address
- MISRA C:2012 Rule 2.1
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Jan Beulich <jbeulich@suse.com>, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
- <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-References: <cover.1690985045.git.nicola.vetrini@bugseng.com>
- <3f1385f2ddb151a53ca092ea1caeac5d12fd80f5.1690985045.git.nicola.vetrini@bugseng.com>
- <db2ac35e-b371-4537-9d56-8703e3648abe@xen.org>
- <5135e7ac-1025-3a45-7cf6-d049a15b8df5@suse.com>
- <be588477-cafd-4875-aeef-9b17206a5cc5@xen.org>
- <cde2ae86db8ba9a86ce5afdb9f47a4e4@bugseng.com>
- <6aac7add-544b-4c8a-b397-2a6b6c6b766c@xen.org>
- <alpine.DEB.2.22.394.2308081401400.2127516@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2308081401400.2127516@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9799
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT016.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	a7695303-6911-4382-87f7-08db9ab5e9f3
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	iiCZ7PBn69U0QCT1rByrv+lSwnJh0W0IJYI5OEQqkZcfGonrBrnmohq2nw3JQC8kceoGbjSFbqiuPmkGIWOoVbwhd98ncOXRZ4khIJfh5k89W/Nuq4mY0CjOecDdOXTsBONs621zhYIHCdEj4klip2hrN0c7IoahgqaCDm+THmHmrOflHnbVr0LBtMdbOOt5F2xADZoXUrkhCnlUSyvimhLiZDOJdAtWNAzoHbWuoYV2x7hBXKsNQwSaBSRl0XCKjHoskRWZT3/tjhrnolQSNmNHq7giigeRvsb7spybUUD2H9voA/0wLG2uxA+IIzER0UXHpZ0VXRtZodsZr6Gl638koTgwRHXDjXibhEa0H7r3WztNfxNtMApMSCgOfHvzHdn/o+A6AJO31l2n6WwSGbhJa9QMYmjW1oMDEdADnfft4thMQj5hPtaZzfRGrsSqXSAsfWbtIf8ODfIL+JG8IeoJ4G22HEegO1COQhX566y192DxOOuieXSaWTkM0/tzxFLR+kXly3dLXxD4anHF0MyY3eSBdocaX20LJZXfSkC4Dwt43mArwuxHBrS1HLTss1IKeXN4VM6+tdtOlRqGg+E4NxSeDFrIZVlxdjJKraFfFEwVFmYgUijXsi/0mTHArwamRqomIxgiuo9TLBVB5Iu8fYj18La//LVnW7m+SM62oRgxdmHccK7PRQR+ARKBQ+AnSictJpC66WjdbMLhwos/UC8E6PgCU+QDxkTXTBkt3XdnAe8rhlDuquuWTcut
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(136003)(82310400008)(186006)(451199021)(1800799006)(46966006)(40470700004)(36840700001)(6506007)(53546011)(82740400003)(26005)(40460700003)(2906002)(36756003)(336012)(356005)(81166007)(40480700001)(54906003)(2616005)(36860700001)(6486002)(5660300002)(316002)(6512007)(478600001)(8936002)(41300700001)(33656002)(8676002)(86362001)(4326008)(70206006)(70586007)(6862004)(47076005)(107886003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 21:57:19.5929
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c08d67d0-dc09-4f76-6a16-08db9ab5ef3a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT016.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8129
 
-Hi Stefano,
+Hi Julien,
 
-On 08/08/2023 22:14, Stefano Stabellini wrote:
-> On Tue, 8 Aug 2023, Julien Grall wrote:
->> On 08/08/2023 16:53, Nicola Vetrini wrote:
->>>>> ... "return" alone already tells the compiler that "break" is
->>>>> unreachable. You don't need unreachable() for that. As said before,
->>>>> "break" like this simply want purging (and Misra is wrong to demand
->>>>> "break" everywhere - it should instead demand no [unannotated]
->>>>> fall-through, which can also be achieved by return, continue, and
->>>>> goto).
->>>>
->>>> My suggestion was in the context of this series where we add
->>>> ASSERT_UNREACHABLE() before break. From my understanding, we don't
->>>> have a lot of leeway here because, from what Nicola wrote, rule 16.3
->>>> is mandatory.
->>>>
->>>> So I think using unreachable is better if we every decide to use break
->>>> after return.
->>>>
->>>> Cheers,
->>>
->>> 16.3 is not Mandatory, just Required.
->>
->> Ah I misread what you wrote. In that case...
->>
->>> I was just reluctant to knowingly add one more violation
->>> while fixing another before submitting the patch. If indeed 16.3 won't
->>> likely be adopted by Xen,
->>> then that break should indeed go away.
->>>
->>> However, the main thing that's holding me back from doing a slimmed-down v2
->>> here is that
->>> evidently there's no consensus even on the ASSERT_UNREACHABLE() patches.
->>
->> ... I agree with the following statement from Jan:
->>
->> "it should instead demand no [unannotated] fall-through, which can also be
->> achieved by return, continue, and goto"
-> 
-> I also think it is a better idea to have no unannotated fall-through in
-> switch statements (unless we have a "case" with nothing underneath, so
-> two cases next to each other). In other words the following are all OK
-> in my view:
-> 
->    case A:
->      do();
->      break;
->    case B:
->      do();
->      return true;
->    case Ca:
->    case Cb:
->      goto fail;
->    case D:
->      i++;
->      continue;
->    case E:
->      do();
->      /* fall-through */
->    case F:
->      do();
->      break;
-> 
-> While the following is not OK:
-> 
->    case A:
->      do();
->    case B:
->      do();
-> 
-> This should be what we already do in Xen, although it is not documented
-> properly. Jan, Julien do you agree?
+> On 11 Aug 2023, at 19:14, Julien Grall <julien@xen.org> wrote:
+>=20
+> Hi Luca,
+>=20
+> On IRC, you suggest to skip the review for the patches moving out some co=
+de. However, I still have one remark.
+>=20
+> On 08/08/2023 09:00, Luca Fancellu wrote:
+>> Move static memory and static shared memory code in separate modules
+>> so that they are included only when the corresponding feature is
+>> enabled, doing that we modularise the features and we remove some
+>> ifdefs from the code to improve readability.
+>> Move process_shm_node function from bootfdt module and make it
+>> externally visible.
+>> The visibility of the functions allocate_static_memory and
+>> assign_static_memory_11 is changed during the move from the
+>> dom0less-build module to the static-memory module, now they are
+>> externally visible.
+>> A static inline helper called process_shm_chosen is introduced, it
+>> will call the process_shm function for the '/chosen' node, and will
+>> be used by the funciton construct_dom0 instead of using directly
+>> process_shm, allowing some #ifdef to be removed.
+>> No functional changes are intended.
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> ---
+>>  xen/arch/arm/Makefile                     |   2 +
+>>  xen/arch/arm/bootfdt.c                    | 161 +-----
+>>  xen/arch/arm/dom0less-build.c             | 646 +---------------------
+>=20
+> This file was created in the previous patch but now you are moving out th=
+e code again. Please try to move the code only once within the series to ea=
+se the review.
 
-I agree.
+Sure, in the next push I will do the moving to different modules in one pat=
+ch.
 
-Cheers,
 
--- 
-Julien Grall
+>=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
+
 
