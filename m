@@ -2,42 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D6CF77BDA6
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 18:10:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583741.914038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4890077BDB9
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 18:15:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583748.914048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVa93-0007u1-V6; Mon, 14 Aug 2023 16:10:17 +0000
+	id 1qVaDy-0008Vx-Ij; Mon, 14 Aug 2023 16:15:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583741.914038; Mon, 14 Aug 2023 16:10:17 +0000
+Received: by outflank-mailman (output) from mailman id 583748.914048; Mon, 14 Aug 2023 16:15:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVa93-0007rY-SG; Mon, 14 Aug 2023 16:10:17 +0000
-Received: by outflank-mailman (input) for mailman id 583741;
- Mon, 14 Aug 2023 16:10:16 +0000
+	id 1qVaDy-0008U3-EJ; Mon, 14 Aug 2023 16:15:22 +0000
+Received: by outflank-mailman (input) for mailman id 583748;
+ Mon, 14 Aug 2023 16:15:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4tgG=D7=citrix.com=prvs=583eff3b4=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qVa91-0007rS-R6
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 16:10:16 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0bd61372-3abd-11ee-8613-37d641c3527e;
- Mon, 14 Aug 2023 18:10:13 +0200 (CEST)
-Received: from mail-bn7nam10lp2107.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.107])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 14 Aug 2023 12:10:10 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by SN7PR03MB7230.namprd03.prod.outlook.com (2603:10b6:806:2e6::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.20; Mon, 14 Aug
- 2023 16:10:08 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::afa:50df:158a:a912]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::afa:50df:158a:a912%5]) with mapi id 15.20.6678.022; Mon, 14 Aug 2023
- 16:10:08 +0000
+ <SRS0=H/QH=D7=amazon.co.uk=prvs=583beea50=hakor@srs-se1.protection.inumbo.net>)
+ id 1qVaDw-0008Tx-Tb
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 16:15:20 +0000
+Received: from smtp-fw-52003.amazon.com (smtp-fw-52003.amazon.com
+ [52.119.213.152]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c206824e-3abd-11ee-8613-37d641c3527e;
+ Mon, 14 Aug 2023 18:15:18 +0200 (CEST)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1a-m6i4x-bbc6e425.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-52003.iad7.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2023 16:15:16 +0000
+Received: from EX19D017EUA002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-iad-1a-m6i4x-bbc6e425.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 3D3748048C; Mon, 14 Aug 2023 16:15:14 +0000 (UTC)
+Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
+ EX19D017EUA002.ant.amazon.com (10.252.50.137) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.30; Mon, 14 Aug 2023 16:15:13 +0000
+Received: from dev-dsk-hakor-1a-9589d7a9.eu-west-1.amazon.com (172.19.124.154)
+ by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP Server
+ id
+ 15.2.1118.30 via Frontend Transport; Mon, 14 Aug 2023 16:15:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,171 +50,243 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bd61372-3abd-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1692029413;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=yoiOotd2DUkhYSX8dKlclJZ8qgieJZ+JBUUNmKMEblk=;
-  b=ZZDcZWreBVE912MYtfy7MJwQzs+1gogM3c8eSAPRFcB7MVE3g2XeLuK5
-   Mc2QgSv2yEXAgD3d7gtjNeZJhb91TATsPh7ZrbeHCpb1whW1jaynTfjo4
-   MCWC6gP6Qyg6CfDm9X52v5V29tE+75Gx+Juc8uuMHrFiZg6kvv9f8A+FT
-   c=;
-X-IronPort-RemoteIP: 104.47.70.107
-X-IronPort-MID: 119465445
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:/6QKQaxyWwM0yFgxKh56t+cuxyrEfRIJ4+MujC+fZmUNrF6WrkUBz
- GJMDTqEaP+PN2ugf490OYTl8EME6pPUyddmTlZsriAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw/zF8EoHUMja4mtC5QRuPKwT5jcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KX5A1
- aMxdwpUVwugpOa6+o2+dMlUif12eaEHPKtH0p1h5RfwKK9+BLrlHODN79Ie2yosjMdTG/qYf
- 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvDCVlVQuuFTuGIO9ltiibMNZhEuH4
- EnB+Hz0GEoyP92D0zuVtHmrg4cjmAuiAdNOSuDkqqMCbFu7yUo6NQwtXmSAhvy6jVSzQNd0B
- XUr0397xUQ13AnxJjXnZDW6qnOZuh8XW/JLDvY3rgqKz8L88wufQ2QJUDNFQNgnr9MtAywn0
- EeTmNHkDiApt6eaIU9x7Z+RpDK2fCITcmkLYHZcSRNfuoG85oYukhjIU9BvVravicH4Ei3xx
- DbMqzUig7IUjogA0KDTEU37vg9Ab6PhFmYdjjg7lEr8hu+lTOZJv7CV1GU=
-IronPort-HdrOrdr: A9a23:/1jhYaC0DF54OC3lHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
- nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
- 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
- GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
-X-Talos-CUID: 9a23:dRWoO25uWbjj7/AkmNss60A0Rel6SCTk11TzJ0OCNmNXaIWacArF
-X-Talos-MUID: 9a23:Jwlq8gkcP8wqGB/o1RsMdnptEu5V8p+lN3sqlJYBocSfMAdeAgi02WE=
-X-IronPort-AV: E=Sophos;i="6.01,173,1684814400"; 
-   d="scan'208";a="119465445"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PjGgEggIRHqrmmljuHi1fjpzfb4W3IebkQgtHskX7ngHqPCurdggoRaP1wrlaGJ3YuhuFfLTo647t745tw147FfZPTlQbFtqq9h8QqDZUHp2xQRsMplQfXhwS6ljG2lZeasHZXhG8BnfD3+uftJ1+Ak6LEW2ULmUy/2bHdL9goOf5lGDhWCot3EAMatBNMx7fkyZ+a1VTj0SQsIOTRvePm8GM9maPlQpyDuomnROq5ABfq6A2qg0YXoPFrPCK6vM6jPc2BshINA1uj+hoSHleH3vWQaGGXNs4rWRauiwNOzQNYMtZQEO6WIRN26Q7bcd16Qh1F+cO7axGhk2AHcm8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yoiOotd2DUkhYSX8dKlclJZ8qgieJZ+JBUUNmKMEblk=;
- b=TJDMQ2cpkZqou0TZaM94z86uYNSVMggEgVO0bbm3T7vihaXmF+WTDAx7pDCKm0lq3tRw4WMj+PpOsAWOyNgrZR2PXVtgymjFbX9OWEp4uo4acxLsBh4IJLeE3ReKw0cr0WRXOWDR8JfFijp1Cp0Gd3ICRO/eSOynLVPN5BjIE8PteU1CSqhJ+BwJAh1CIAdAhQwXym6U+oCoclZWH2bqSE0sOUwC+nmH/quR5YSIfnyxVSB81ewVr9CB5S992jMwst3kwxIrxCzlwu/1ObUIOc+UeA6oCUNGMpw7VeP2dMYO9Js9eYtJcFO/r+RaiTH1gx5vE346tgYwuDaVmTIn6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: c206824e-3abd-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yoiOotd2DUkhYSX8dKlclJZ8qgieJZ+JBUUNmKMEblk=;
- b=YgfDdn2BEpF6pYbT+/qPVMyh+/x6V13Q9in63p7paAylkwhkzTdbsFDW33tNdQcuOmIXmKZPYlyml9wX7S4PZgfP9nFinHDuDKCPILWii+UCgtH2iZJT8Ql+CME3NivgDij5Vqm9dHQwpCqQXd6RMsITtwZAKOFF77M6Q4PBJpM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <24e3ffa0-12fc-1cea-c937-76a64c97d236@citrix.com>
-Date: Mon, 14 Aug 2023 17:10:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Build errors with fuzz/x86_instruction_emulator harness
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <d4826ecd-fabc-03e9-2ec3-788877a560b1@citrix.com>
- <7c99ef09-cde3-e35c-f9f0-00c06b754786@suse.com>
- <13be7a9c-0619-b691-a364-b5aa7a110fb0@citrix.com>
- <fa3faf14-84e8-5fdf-8cf9-a5960a16beab@suse.com>
-In-Reply-To: <fa3faf14-84e8-5fdf-8cf9-a5960a16beab@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0466.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1aa::21) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1692029719; x=1723565719;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=2SdF+oaPyEI3IdiS2ivOLJcGT7YZznHgotV+6Qx3WJg=;
+  b=psv494HE/d8aBX2VPmHD0f2S0DTbpM+eLMy3Lqf22vU2GtQ3YZT4GdmH
+   JBy4Er71tIc+F1LvmvUj3uArtDSqEJ49dOHxlwS2iJUmjXAURPUKDT8UT
+   9i7OAfH9G6qpF0jXZixUPUqpPb/AaTfWUowx7rbFAxfiwFnp57KRlbhIg
+   M=;
+X-IronPort-AV: E=Sophos;i="6.01,173,1684800000"; 
+   d="scan'208";a="601888521"
+From: Ruben Hakobyan <hakor@amazon.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.com>, Ruben Hakobyan <hakor@amazon.com>, Jan
+ Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH v2] x86/msi: dynamically map pages for MSI-X tables
+Date: Mon, 14 Aug 2023 16:15:02 +0000
+Message-ID: <20230814161502.88394-1-hakor@amazon.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|SN7PR03MB7230:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12cf225c-5983-44bf-a0c9-08db9ce0ed86
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	73oSHR8R4maNJF/EKtsViU/hG7Ll2o9WeMnf42+9k4C3i+KBrRLhmjUagoYRNrUujbsD6fGFY6Sw+TLEAtjI4VqYsZxRzrEl7JbfLHLmAvZgwU/oKJlm8A54Ju/1ZL7kwnu3VRzrM20kJp+jznu6p8PVuuyWdoM1+rQRoOD0rXddNuthm1KbUWxL5in9eF7B5mhUqG/+WCo1/pr5VD/+9LTMb+gSgBmqI6srx8KMd+dUpQo1qXNmhfxKglwDMPzcVnqwb3+oPSc4pux6/dpSWYYylWGO8sNEFofSTz/WP4O18S6mcSd3uv82AgIGTlSyQ8KIA1sZ2IYBd7S+OsxDoZulpvrvreLgLvAFNoMCX0WUnnysNSpQGhxvBLlZ2mHRqWyPXEEQrgKGN3Hklyflvb60cbB/y2siCzl4UDL1IaCNf3I3riK0QbsCBVjx56PhRgqwLVa8SYsMtXKJsIwdRWQlGiC2ddU9y+EhxTAinodxrHBO1z2tK6wNbJsHd3fFT8ruo50b9blQN9lyDX9bg2NeszgEdm1Ia5OPjrevXmYx9r1PG4/vo99IPG71EDN00piOsBKk1MAL15AjBdctB1pEC/v0ER5VUk4JVZzj8AxWblLDxdIyt7GFodv4jD/JcanQA1uIMrzan3uFKXhOIw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(136003)(346002)(396003)(39860400002)(376002)(186006)(1800799006)(451199021)(66476007)(2906002)(4744005)(5660300002)(66946007)(41300700001)(8936002)(4326008)(8676002)(6916009)(478600001)(6666004)(6486002)(2616005)(53546011)(6506007)(107886003)(6512007)(26005)(54906003)(31686004)(316002)(66556008)(38100700002)(36756003)(31696002)(86362001)(82960400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dGJ0RmRtUkcxYWtPZ2djeWNBVnlONzdsdEhCRW5IcWFrSWJRenRQVnZyQmlS?=
- =?utf-8?B?Q0tSN2s1VnpYZ3lVYVBlL0NnVGYyUWJBSWo3aGNHa0cxb1hBeE1kS1ZSejdJ?=
- =?utf-8?B?czgzMElsSk0zcDluSWkzQnU0eFhsSmlTU3FHR3JLME4ybGc2MXpiOTR1ME5K?=
- =?utf-8?B?dk5HdmNhQytWUndqdGd1UWgrenpsNXFYOXEwSzNpZFAvNzVEZFpBL0pTRWda?=
- =?utf-8?B?YlF4QndEY3FEamVRTVZSdGRVZFNEVlFrbHh4VmJDaDlGT3pET3FjeHlJcWs4?=
- =?utf-8?B?ZVBPZmF5NnU0UURkNDM5WEZRZU52aDllNVlVWFd6M3NjSGhQaGtyY1RPeGxV?=
- =?utf-8?B?VHlJV3o1TG5vRXoveVVQcTJ6VWcxTUNnVDFHNXMzYzBCNEZIeEM0U0dzN1U4?=
- =?utf-8?B?UmZRVmpId09UZFBIOVdZUXZhRk8zVDlpd25vOXBFeGxmQngvNGY3MTU5aVQw?=
- =?utf-8?B?RVd1TElheEUyZmRQcTdwNzlBb1dueDRyWExVL2FtdmJhRHFnUEdPTCtycG05?=
- =?utf-8?B?b3Q1M1o2L0NEcnA0dFJYTHYrdkRSNkk2L01DUXJQWmxNUVQxZWhFS3RDdnpy?=
- =?utf-8?B?M2ZwTUN2TEdHSHkzQU4yQTJBaGhzYVkyNkExM3oxTlZmbEY2UVU0U3I3MWhN?=
- =?utf-8?B?WDRaSVJkR0w3UWVUSXZFVW5ZMEE4YmRCZ2xKNmhlTTVMTWladG54T2NnY29D?=
- =?utf-8?B?eDJEMDh3ZStVRTdkZmx1TUhKdHovZ0ZUZHRaWlVYOURqdHFsbjVjWHlaRnhi?=
- =?utf-8?B?bGIrMnZOOEhUSklKNHRkM0RyOFVaNEZlcUNxOHY0bUR5VUFUVEFxQW5TdEx3?=
- =?utf-8?B?WnRzNnJJdWU4YkZ4NjVLSVMrVVpRdTJxY0Q4RDZ1WitQOXpPRjY4U2lneGFL?=
- =?utf-8?B?S2c1a3dtRlp4Qy9DU2JSZmVsRGhlWVp2OC9adG1aNGFjejJBQVpkN1VISUs0?=
- =?utf-8?B?Z282S25qeU9YaTVEWTliUE9rYWJVenRMTkt2RzJ0UERtVnFRaFZyRDBsK1dI?=
- =?utf-8?B?WVQ1VlorN00xWTRWNy9jcXdhZStCaFlGeEpRMnl3OXo0Tlh4dm8rVmJBeHRs?=
- =?utf-8?B?ZGo3aENqcVNtSTlqTkU3dHVjMnloV0V3VVQrUWdiR2tzVWI2NnlrN0gxNlFx?=
- =?utf-8?B?WGhYZHRSNm9UZ1hMMjlpaFduenZQZU1rRk9PMWtuOWVuTExNUFFiaXZYd2pj?=
- =?utf-8?B?VEc0cnNyaTR1WW9IaTB4SGJsbkNQaG1ncVdpUlc3RGFUUi95T2tpTlp5WG5p?=
- =?utf-8?B?d2ExTzdDUTNTRWJwV205d0ozZDI3a3JWaGNRUjIzazd2bk9zTHV6NndSRkx6?=
- =?utf-8?B?NUlvUWhJOWlwSFVUOWUrZEt0cEFVeEsyMTE1V01jRkl0MmZnYWtndGtreGlB?=
- =?utf-8?B?ejdWQ2lvZlJZRkwyN2NmTW9IV2diVDZxSk9MRmpDMmpGYm5hSERRb1pUVlVa?=
- =?utf-8?B?L0lRMzJHT2JlQ1Q2eDA2ZXhDamxxMU9hd0F0OWhYY0V3SmVZa2FSSG5vMnRK?=
- =?utf-8?B?Qkp3NFJRR3NBMncyWUFlanExblEwK2FuRmhQQ2tPNGYrazNGNUQ2L21JVnlU?=
- =?utf-8?B?R0t1Umtjc0hmTExEb1BVblNaYUdlQ0dnU3N2bll3MktXbE1lTXk5QmdmTG02?=
- =?utf-8?B?cXhhM3I1aG1FeDBJUTBSRmJNOHhYZW4rTWFvS3E4Lzk5THFhQU42SG5waXFF?=
- =?utf-8?B?ME9vdE04eHdodVNpa1BTL1FPSnlaVUhqSjlIZy81KzB5eEZDTjkrM2tieEVk?=
- =?utf-8?B?bThlVGdhUUpESmQ4NmNIYXhPOGxrR0Q2dURBaEk1dS9MTU83dzZ1bzhaMVVU?=
- =?utf-8?B?U0UvRGtEUjVxVGREcmFSdFUxZm9ubE92Yk5zODNiZEFYYVpEd2JVSlMzRG5v?=
- =?utf-8?B?VGdHYzJ5b09FYkVxNnBEeUdmU2Y5ZXlyN2JCY1UwRzg4VUlPQjBRVlp1L3d5?=
- =?utf-8?B?d1JPRThzOXhtTmx6VXJPMDZySXZyemdrWFp6ZWNmVXpPcERlSGNYalVBOFU4?=
- =?utf-8?B?L2FwL2kwcW9MbXVQa0RhU3VQaUNOYnlma0pZWkx6dmswUXdTN2NxamJ0THNL?=
- =?utf-8?B?Zkl5Ykphd29sVS9LS0QwVG9iOXdFZ0lRVUJwSXc4T3NxcUk4OE16b2ZTTVpq?=
- =?utf-8?B?RXZHbmRSQmgwNW16Q3pNM3FlQ2VVWHo3c2VpQ09laWlwNCtZellMNUZWWmlU?=
- =?utf-8?B?Q3c9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	mm2ubRoH9bxwPfFAdVpnCZBdY7YVlu+VfbcxvV94o51m+GlSGBzCsjScyRgz0TeLnRoclwCDO+DwbSF4mZtd69rbMJjW8TM+t+n6Q33zdb0f/e13xXcsZZLFmMRvfzZf9wx1hcvkVBEoP5scMh+6fAxoM5NhSnt9RWffy40k48F5rx3eF06Ar09ksgD20MrjV9aLsUACIkeDV7pKYewu1ajJo7//VeR8eIuQbbIxS6yeQu0DqUnMoPZ398PM8zQ5vOBV/ATvdESZVsqs6mWJVVVgvfdFA0P5gWvn4+Zify0BZL0qWY9SfM0ivx7loR458Q0hymPQq3nmh8pBE8QQSbXLVObuoZzCKuCMbhsGAMSIGCAe2JtT05a8tfsAJ1JrtLfJihdOq/CjmEgWjRHtcILC5aT3+Av9Ol8/ZBbt8uyh7QSPce2dCnCcUlZzKk2LbMVlgNUMGveIMRYItcpUvoPzC2oCY/sCJgrhyITCB3K/fivBn1o3ml0AL89WSYsBLBBbQ6ETvARpgg8cos7E8C5HmCyXBfENJ789zpKHpqJ71IeLfp3DQCgyLvGJtXgU8j4WX7f7nVYuuxXZ0Qr/1Xh0/6lpGK0ndzghy6tFgCf5cGCVhOlZmDmVd8uDf16sNhXPtE6mqsNULj4W2V9aJJS9Dz27EaTKKKRaAFP/U1H8Ki3yyVaT+TALefAr0Ql09UqAHSqHGf6O7walnR2vbVWq9LMc8wOsQeCv/llWZrHLHWUkMBb9Z1+JcQYFNIebr6pW+hoYO2BFTpaUhiDTik3ksAFiRl48A4wH35bjmqE=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12cf225c-5983-44bf-a0c9-08db9ce0ed86
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2023 16:10:07.8607
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SPeDZVU+N03y05uqbRNxiqi1KUn2HGT4UuuefYg+QEIDvENt8SY83NkyZOEoqnmoXBR75OdiKUJqk0DwwZk9mMLdfvupymJtafS5PgxPFH8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7230
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Precedence: Bulk
 
-On 14/08/2023 5:04 pm, Jan Beulich wrote:
-> On 14.08.2023 17:34, Andrew Cooper wrote:
->> On 14/08/2023 4:21 pm, Jan Beulich wrote:
->>> Question therefore is whether we can find a way of effecting the needed
->>> overrides (including for compiler generated calls) without resorting to
->>> emitting .equ (or alike), and hence without doing it fully behind the
->>> compiler's back.
->> --wrap= each symbol, except when compiling wrappers.c ?
->>
->> This seems to be the normal way to mock out functions including malloc()
->> and friends.
-> What is --wrap= ?
+Xen reserves a constant number of pages that can be used for mapping
+MSI-X tables. This limit is defined by FIX_MSIX_MAX_PAGES in fixmap.h.
 
--Wl,--wrap=foo
+Reserving a fixed number of pages could result in an -ENOMEM if a
+device requests a new page when the fixmap limit is exhausted and will
+necessitate manually adjusting the limit before compilation.
 
-It's a staple of C unit-testing frameworks.
+To avoid the issues with the current fixmap implementation, we modify
+the MSI-X page mapping logic to instead dynamically map new pages when
+they are needed by making use of ioremap().
 
-From the LD manual,
+Note that this approach is not suitable for 32-bit architectures, where
+the virtual address space is considerably smaller.
 
---wrap=symbol
-    Use a wrapper function for symbol.  Any undefined reference
-    to symbol will be resolved to "__wrap_symbol".  Any undefined
-    reference to "__real_symbol" will be resolved to symbol.
+Signed-off-by: Ruben Hakobyan <hakor@amazon.com>
+---
+Changelog:
+ * v2:
+  - Updated the commit message to talk about the potential use on 32-bit architectures
+  - Addressed the various comments for improving the code
+---
+ xen/arch/x86/include/asm/fixmap.h |  2 -
+ xen/arch/x86/include/asm/msi.h    |  5 +--
+ xen/arch/x86/msi.c                | 69 ++++++++-----------------------
+ 3 files changed, 18 insertions(+), 58 deletions(-)
 
-~Andrew
+diff --git a/xen/arch/x86/include/asm/fixmap.h b/xen/arch/x86/include/asm/fixmap.h
+index 516ec3fa6c..139c3e2dcc 100644
+--- a/xen/arch/x86/include/asm/fixmap.h
++++ b/xen/arch/x86/include/asm/fixmap.h
+@@ -61,8 +61,6 @@ enum fixed_addresses {
+     FIX_ACPI_END = FIX_ACPI_BEGIN + NUM_FIXMAP_ACPI_PAGES - 1,
+     FIX_HPET_BASE,
+     FIX_TBOOT_SHARED_BASE,
+-    FIX_MSIX_IO_RESERV_BASE,
+-    FIX_MSIX_IO_RESERV_END = FIX_MSIX_IO_RESERV_BASE + FIX_MSIX_MAX_PAGES -1,
+     FIX_TBOOT_MAP_ADDRESS,
+     FIX_APEI_RANGE_BASE,
+     FIX_APEI_RANGE_END = FIX_APEI_RANGE_BASE + FIX_APEI_RANGE_MAX -1,
+diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
+index a53ade95c9..16c80c9883 100644
+--- a/xen/arch/x86/include/asm/msi.h
++++ b/xen/arch/x86/include/asm/msi.h
+@@ -55,9 +55,6 @@
+ #define	 MSI_ADDR_DEST_ID_MASK		0x00ff000
+ #define  MSI_ADDR_DEST_ID(dest)		(((dest) << MSI_ADDR_DEST_ID_SHIFT) & MSI_ADDR_DEST_ID_MASK)
+ 
+-/* MAX fixed pages reserved for mapping MSIX tables. */
+-#define FIX_MSIX_MAX_PAGES              512
+-
+ struct msi_info {
+     pci_sbdf_t sbdf;
+     int irq;
+@@ -213,7 +210,7 @@ struct arch_msix {
+         unsigned long first, last;
+     } table, pba;
+     int table_refcnt[MAX_MSIX_TABLE_PAGES];
+-    int table_idx[MAX_MSIX_TABLE_PAGES];
++    void __iomem *table_va[MAX_MSIX_TABLE_PAGES];
+     spinlock_t table_lock;
+     bool host_maskall, guest_maskall;
+     domid_t warned;
+diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+index d0bf63df1d..57a84b394a 100644
+--- a/xen/arch/x86/msi.c
++++ b/xen/arch/x86/msi.c
+@@ -24,7 +24,6 @@
+ #include <asm/smp.h>
+ #include <asm/desc.h>
+ #include <asm/msi.h>
+-#include <asm/fixmap.h>
+ #include <asm/p2m.h>
+ #include <mach_apic.h>
+ #include <io_ports.h>
+@@ -39,75 +38,45 @@ boolean_param("msi", use_msi);
+ 
+ static void __pci_disable_msix(struct msi_desc *);
+ 
+-/* bitmap indicate which fixed map is free */
+-static DEFINE_SPINLOCK(msix_fixmap_lock);
+-static DECLARE_BITMAP(msix_fixmap_pages, FIX_MSIX_MAX_PAGES);
+-
+-static int msix_fixmap_alloc(void)
+-{
+-    int i, rc = -ENOMEM;
+-
+-    spin_lock(&msix_fixmap_lock);
+-    for ( i = 0; i < FIX_MSIX_MAX_PAGES; i++ )
+-        if ( !test_bit(i, &msix_fixmap_pages) )
+-            break;
+-    if ( i == FIX_MSIX_MAX_PAGES )
+-        goto out;
+-    rc = FIX_MSIX_IO_RESERV_BASE + i;
+-    set_bit(i, &msix_fixmap_pages);
+-
+- out:
+-    spin_unlock(&msix_fixmap_lock);
+-    return rc;
+-}
+-
+-static void msix_fixmap_free(int idx)
+-{
+-    spin_lock(&msix_fixmap_lock);
+-    if ( idx >= FIX_MSIX_IO_RESERV_BASE )
+-        clear_bit(idx - FIX_MSIX_IO_RESERV_BASE, &msix_fixmap_pages);
+-    spin_unlock(&msix_fixmap_lock);
+-}
+-
+-static int msix_get_fixmap(struct arch_msix *msix, u64 table_paddr,
++static void __iomem *msix_get_entry(struct arch_msix *msix, u64 table_paddr,
+                            u64 entry_paddr)
+ {
+     long nr_page;
+-    int idx;
++    void __iomem *va = NULL;
+ 
+     nr_page = (entry_paddr >> PAGE_SHIFT) - (table_paddr >> PAGE_SHIFT);
+ 
+     if ( nr_page < 0 || nr_page >= MAX_MSIX_TABLE_PAGES )
+-        return -EINVAL;
++        return NULL;
+ 
+     spin_lock(&msix->table_lock);
+     if ( msix->table_refcnt[nr_page]++ == 0 )
+     {
+-        idx = msix_fixmap_alloc();
+-        if ( idx < 0 )
++        va = ioremap(round_pgdown(entry_paddr), PAGE_SIZE);
++        if ( va == NULL )
+         {
+             msix->table_refcnt[nr_page]--;
+             goto out;
+         }
+-        set_fixmap_nocache(idx, entry_paddr);
+-        msix->table_idx[nr_page] = idx;
++        msix->table_va[nr_page] = va;
+     }
+     else
+-        idx = msix->table_idx[nr_page];
++        va = msix->table_va[nr_page];
+ 
+  out:
+     spin_unlock(&msix->table_lock);
+-    return idx;
++    return va + (entry_paddr & ~PAGE_MASK);
+ }
+ 
+-static void msix_put_fixmap(struct arch_msix *msix, int idx)
++static void msix_put_entry(struct arch_msix *msix, const void __iomem *entry_va)
+ {
+     int i;
++    void __iomem *va = (void*)round_pgdown((unsigned long)entry_va);
+ 
+     spin_lock(&msix->table_lock);
+     for ( i = 0; i < MAX_MSIX_TABLE_PAGES; i++ )
+     {
+-        if ( msix->table_idx[i] == idx )
++        if ( msix->table_va[i] == va )
+             break;
+     }
+     if ( i == MAX_MSIX_TABLE_PAGES )
+@@ -115,9 +84,8 @@ static void msix_put_fixmap(struct arch_msix *msix, int idx)
+ 
+     if ( --msix->table_refcnt[i] == 0 )
+     {
+-        clear_fixmap(idx);
+-        msix_fixmap_free(idx);
+-        msix->table_idx[i] = 0;
++        iounmap(va);
++        msix->table_va[i] = NULL;
+     }
+ 
+  out:
+@@ -568,8 +536,7 @@ int msi_free_irq(struct msi_desc *entry)
+     }
+ 
+     if ( entry->msi_attrib.type == PCI_CAP_ID_MSIX )
+-        msix_put_fixmap(entry->dev->msix,
+-                        virt_to_fix((unsigned long)entry->mask_base));
++        msix_put_entry(entry->dev->msix, entry->mask_base);
+ 
+     list_del(&entry->list);
+     xfree(entry);
+@@ -892,10 +859,9 @@ static int msix_capability_init(struct pci_dev *dev,
+     {
+         /* Map MSI-X table region */
+         u64 entry_paddr = table_paddr + msi->entry_nr * PCI_MSIX_ENTRY_SIZE;
+-        int idx = msix_get_fixmap(msix, table_paddr, entry_paddr);
+-        void __iomem *base;
++        void __iomem *base = msix_get_entry(msix, table_paddr, entry_paddr);
+ 
+-        if ( idx < 0 )
++        if ( base == NULL )
+         {
+             if ( zap_on_error )
+             {
+@@ -907,9 +873,8 @@ static int msix_capability_init(struct pci_dev *dev,
+ 
+             pci_conf_write16(dev->sbdf, msix_control_reg(pos), control);
+             xfree(entry);
+-            return idx;
++            return -ENOMEM;
+         }
+-        base = fix_to_virt(idx) + (entry_paddr & (PAGE_SIZE - 1));
+ 
+         /* Mask interrupt here */
+         writel(1, base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
+-- 
+2.40.1
+
 
