@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB3677B78F
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 13:26:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583556.913799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BB4C77B79B
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 13:31:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583563.913810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVVi5-00080Z-9c; Mon, 14 Aug 2023 11:26:09 +0000
+	id 1qVVml-00014t-Rd; Mon, 14 Aug 2023 11:30:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583556.913799; Mon, 14 Aug 2023 11:26:09 +0000
+Received: by outflank-mailman (output) from mailman id 583563.913810; Mon, 14 Aug 2023 11:30:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVVi5-0007xb-6A; Mon, 14 Aug 2023 11:26:09 +0000
-Received: by outflank-mailman (input) for mailman id 583556;
- Mon, 14 Aug 2023 11:26:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qVVml-00012r-Om; Mon, 14 Aug 2023 11:30:59 +0000
+Received: by outflank-mailman (input) for mailman id 583563;
+ Mon, 14 Aug 2023 11:30:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=80nZ=D7=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1qVVi2-0007xV-Qq
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 11:26:06 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5955f45f-3a95-11ee-b288-6b7b168915f2;
- Mon, 14 Aug 2023 13:26:01 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4fe457ec6e7so6647488e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 14 Aug 2023 04:26:01 -0700 (PDT)
+ (envelope-from <SRS0=NzbS=D7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qVVmk-00012l-RC
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 11:30:58 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 08f13517-3a96-11ee-8613-37d641c3527e;
+ Mon, 14 Aug 2023 13:30:56 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2FFF51F7AB;
+ Mon, 14 Aug 2023 11:30:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F3FC3138E2;
+ Mon, 14 Aug 2023 11:30:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vQAtOm8Q2mQMJQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 14 Aug 2023 11:30:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,227 +51,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5955f45f-3a95-11ee-b288-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1692012361; x=1692617161;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=UBfGjado5ykuU8PXg/caM32XsiigilSzYP0189TZzXM=;
-        b=ERo8QqU/EMZEIi50tIyNUCQw5W6aVa0wVTjNj/ipICDEgzowQMOZn7mfX4Bp6fCWDs
-         u8wjF4w8A5EbfsPSxvs6MOPTbOz5f4kxq+jxiMzj22MZJHugfeD3GdeSrE9A5ti313V3
-         wDadsjbc4fDXYo8MFW7sHP0SvhEDZrsTAx55o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692012361; x=1692617161;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UBfGjado5ykuU8PXg/caM32XsiigilSzYP0189TZzXM=;
-        b=k0kRkh5cR0EMr/Fl/3yHs+hHMn7uvL6etXs+ESzG+uRAXBQBC73LvlMwaI+wj4CSQK
-         dB25OCaG4KXtSriQClOEB3SnyhG9r2Y9kMH2DnTc5E5c/B6AvCWQSfEGyNhOfjG4gMqz
-         ejxvMpGcYmf6ItjUg/SnPIAfS4U2QhgOURKOICFBeqe8W1/FojsGznBt5j2J32zyxd3X
-         b61mMlsLq+TA4En2YyhNJzXnkS6SOTLPWIB2csv7ChOFOEHUPZ7/WQWLP2rvMOcUH1MH
-         CmNWRfZjUf6ZQ3MsUJkKpFoZb/+xj83Gq9djjw1WHhAn591XJsENJy0vQjxPag3dVyqC
-         uqUg==
-X-Gm-Message-State: AOJu0YzVMsT+33QtUMlnJ67oKtQqDPmTPKXMYoD3vwmbe+npX6xKksTD
-	7+6tYTHCuFZbbJDsIVx7yyCh/eCZ84w8OCruO+lKsA==
-X-Google-Smtp-Source: AGHT+IFib+4JFmUGDCbfvnwkOBX5hSF6w0OjopvFFLXYcEDL3KVAz8Txh3zjtnvRf0rTHY5hn0YGiJSFTIHpWYcLWiY=
-X-Received: by 2002:a05:6512:39d1:b0:4fe:7e64:3c1a with SMTP id
- k17-20020a05651239d100b004fe7e643c1amr7030761lfu.2.1692012361092; Mon, 14 Aug
- 2023 04:26:01 -0700 (PDT)
+X-Inumbo-ID: 08f13517-3a96-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1692012656; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CeqcVN8Fulyk9Z+PcpxTuSckE3rwYokVuOESWA+GRNI=;
+	b=KR1TTPJF3KJjOA4xo+o05/F1sS1mI7FXCXjTfUkMBlfKZLj4PYuWE6DaG8u4D91fZhAisq
+	qO0J/IgllTs8Owdsv9cufXWqGbFFXMW38rWqdSkBKXd5UwP9OVXvZ/upV0lIT0xwmxhx3N
+	BZ4ULeS5E2dZeC5vQnW0QrwfSSRIoNE=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH v4.1 18/19] tools/config: add XEN_RUN_STORED to config.h
+Date: Mon, 14 Aug 2023 13:30:54 +0200
+Message-Id: <20230814113054.5515-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20230814074707.27696-19-jgross@suse.com>
+References: <20230814074707.27696-19-jgross@suse.com>
 MIME-Version: 1.0
-References: <20230803203650.1474936-1-andrew.cooper3@citrix.com> <a6348a98-30bb-8a03-7ed7-9e965be119eb@apertussolutions.com>
-In-Reply-To: <a6348a98-30bb-8a03-7ed7-9e965be119eb@apertussolutions.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 14 Aug 2023 12:25:50 +0100
-Message-ID: <CA+zSX=ZajaUSD=AcqwjNL_HHeZm6kf1pHVDKU9nyZtsxS2N8qw@mail.gmail.com>
-Subject: Re: [PATCH] subdom: Fix -Werror=address failure in tmp_emulator
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
-	George Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>, 
-	Juergen Gross <jgross@suse.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Jason Andryuk <jandryuk@gmail.com>, Christopher Clark <christopher.w.clark@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000bd2b050602e053be"
+Content-Transfer-Encoding: 8bit
 
---000000000000bd2b050602e053be
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Instead of adding the definition of XEN_RUN_STORED to CFLAGS in
+multiple Makefiles, let configure add it to tools/config.h instead.
 
-On Tue, Aug 8, 2023 at 10:27=E2=80=AFPM Daniel P. Smith <
-dpsmith@apertussolutions.com> wrote:
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+V4:
+- new patch
+V4.1:
+- drop XEN_RUN_STORED from config/Paths.mk.in (Anthony PERARD)
+---
+ config/Paths.mk.in             | 1 -
+ configure                      | 5 +++++
+ m4/paths.m4                    | 1 +
+ tools/config.h.in              | 3 +++
+ tools/configure                | 5 +++++
+ tools/libs/store/Makefile      | 1 -
+ tools/xenstore/Makefile.common | 1 -
+ 7 files changed, 14 insertions(+), 3 deletions(-)
 
-> On 8/3/23 16:36, Andrew Cooper wrote:
-> > The opensuse-tumbleweed build jobs currently fail with:
-> >
-> >    /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c: In
-> function 'rsa_private':
-> >
-> /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:7:
-> error: the comparison will always evaluate as 'true' for the address of '=
-p'
-> will never be NULL [-Werror=3Daddress]
-> >       56 |   if (!key->p || !key->q || !key->u) {
-> >          |       ^
-> >    In file included from
-> /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c:17:
-> >
-> /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.h:28:12:
-> note: 'p' declared here
-> >       28 |   tpm_bn_t p;
-> >          |            ^
-> >
-> > This is because all tpm_bn_t's are 1-element arrays (of either a GMP or
-> > OpenSSL BIGNUM flavour).  The author was probably meaning to do value
-> checks,
-> > but that's not what the code does.
-> >
-> > Adjust it to compile.  No functional change.
-> >
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > ---
-> > CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> > CC: Jan Beulich <JBeulich@suse.com>
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Wei Liu <wl@xen.org>
-> > CC: Julien Grall <julien@xen.org>
-> > CC: Juergen Gross <jgross@suse.com>
-> > CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> > CC: Jason Andryuk <jandryuk@gmail.com>
-> > CC: Daniel Smith <dpsmith@apertussolutions.com>
-> > CC: Christopher Clark <christopher.w.clark@gmail.com>
-> >
-> > While I've confirmed this to fix the build issue:
-> >
-> >
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/955160430
-> >
-> > I'm -1 overall to the change, and would prefer to disable vtpm-stubdom
-> > entirely.
-> >
-> > It's TPM 1.2 only, using decades-old libs, and some stuff in the upstre=
-am
-> > https://github.com/PeterHuewe/tpm-emulator (which is still abandaonded
-> as of
-> > 2018) is just as concerning as the basic error here in rsa_private().
->
-> For semantics sake, the Guest PV interface is 1.2 compliant but the PV
-> backend, vtpmmgr, is capable of using TPM2.0.
->
-> > vtpm-stubdom isn't credibly component of a Xen system, and we're wastin=
-g
-> loads
-> > of CI cycles testing it...
->
-> Unfortunately, I cannot disagree here. This is the only proper vTPM,
-> from a trustworthy architecture perspective, that I know of existing
-> today. Until I can find someone willing to fund updating the
-> implementation and moving it to being an emulated vTPM and not a PV
-> interface, it is likely to stay in this state for some time.
->
+diff --git a/config/Paths.mk.in b/config/Paths.mk.in
+index 44bab1d748..38b1bb6b1f 100644
+--- a/config/Paths.mk.in
++++ b/config/Paths.mk.in
+@@ -41,7 +41,6 @@ MAN8DIR                  := $(mandir)/man8
+ XEN_RUN_DIR              := @XEN_RUN_DIR@
+ XEN_LOG_DIR              := @XEN_LOG_DIR@
+ XEN_LIB_DIR              := @XEN_LIB_DIR@
+-XEN_RUN_STORED           := @XEN_RUN_STORED@
+ 
+ CONFIG_DIR               := @CONFIG_DIR@
+ INITD_DIR                := @INITD_DIR@
+diff --git a/configure b/configure
+index 99f8434cbf..dd05f314f6 100755
+--- a/configure
++++ b/configure
+@@ -2079,6 +2079,11 @@ _ACEOF
+ XEN_RUN_STORED=$rundir_path/xenstored
+ 
+ 
++cat >>confdefs.h <<_ACEOF
++#define XEN_RUN_STORED "$XEN_RUN_STORED"
++_ACEOF
++
++
+ XEN_LIB_DIR=$localstatedir/lib/xen
+ 
+ 
+diff --git a/m4/paths.m4 b/m4/paths.m4
+index e4104bcce0..3f94c62efb 100644
+--- a/m4/paths.m4
++++ b/m4/paths.m4
+@@ -138,6 +138,7 @@ AC_DEFINE_UNQUOTED([XEN_LOG_DIR], ["$XEN_LOG_DIR"], [Xen's log dir])
+ 
+ XEN_RUN_STORED=$rundir_path/xenstored
+ AC_SUBST(XEN_RUN_STORED)
++AC_DEFINE_UNQUOTED([XEN_RUN_STORED], ["$XEN_RUN_STORED"], [Xenstore's runstate path])
+ 
+ XEN_LIB_DIR=$localstatedir/lib/xen
+ AC_SUBST(XEN_LIB_DIR)
+diff --git a/tools/config.h.in b/tools/config.h.in
+index 3071cb3998..41014a65ed 100644
+--- a/tools/config.h.in
++++ b/tools/config.h.in
+@@ -153,6 +153,9 @@
+ /* Xen's script dir */
+ #undef XEN_SCRIPT_DIR
+ 
++/* Xenstore's runstate path */
++#undef XEN_RUN_STORED
++
+ /* Enable large inode numbers on Mac OS X 10.5.  */
+ #ifndef _DARWIN_USE_64_BIT_INODE
+ # define _DARWIN_USE_64_BIT_INODE 1
+diff --git a/tools/configure b/tools/configure
+index 52b4717d01..5c05fa5ea1 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -4060,6 +4060,11 @@ _ACEOF
+ XEN_RUN_STORED=$rundir_path/xenstored
+ 
+ 
++cat >>confdefs.h <<_ACEOF
++#define XEN_RUN_STORED "$XEN_RUN_STORED"
++_ACEOF
++
++
+ XEN_LIB_DIR=$localstatedir/lib/xen
+ 
+ 
+diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
+index c1a1508713..0649cf8307 100644
+--- a/tools/libs/store/Makefile
++++ b/tools/libs/store/Makefile
+@@ -18,7 +18,6 @@ include ../libs.mk
+ # Include configure output (config.h)
+ CFLAGS += -include $(XEN_ROOT)/tools/config.h
+ CFLAGS += $(CFLAGS_libxentoolcore)
+-CFLAGS += -DXEN_RUN_STORED="\"$(XEN_RUN_STORED)\""
+ 
+ xs.opic: CFLAGS += -DUSE_PTHREAD
+ ifeq ($(CONFIG_Linux),y)
+diff --git a/tools/xenstore/Makefile.common b/tools/xenstore/Makefile.common
+index 3259ab51e6..41973a8a5e 100644
+--- a/tools/xenstore/Makefile.common
++++ b/tools/xenstore/Makefile.common
+@@ -16,7 +16,6 @@ CFLAGS += $(CFLAGS_libxenevtchn)
+ CFLAGS += $(CFLAGS_libxenctrl)
+ CFLAGS += $(CFLAGS_libxenguest)
+ CFLAGS += $(CFLAGS_libxentoolcore)
+-CFLAGS += -DXEN_RUN_STORED="\"$(XEN_RUN_STORED)\""
+ 
+ ifdef CONFIG_STUBDOM
+ CFLAGS += -DNO_SOCKETS=1
+-- 
+2.35.3
 
-Did you mean "I cannot *agree* here"?  "Cannot disagree" means you agree
-that we're "wasting loads of CI cycles testing it", but the second sentence
-seems to imply that it's (currently) irreplacable.
-
- -George
-
---000000000000bd2b050602e053be
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Aug 8, 2023 at 10:27=E2=80=AF=
-PM Daniel P. Smith &lt;<a href=3D"mailto:dpsmith@apertussolutions.com">dpsm=
-ith@apertussolutions.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">On 8/3/23 16:36, Andrew Cooper wrote:<br>
-&gt; The opensuse-tumbleweed build jobs currently fail with:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypt=
-o/rsa.c: In function &#39;rsa_private&#39;:<br>
-&gt;=C2=A0 =C2=A0 /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypt=
-o/rsa.c:56:7: error: the comparison will always evaluate as &#39;true&#39; =
-for the address of &#39;p&#39; will never be NULL [-Werror=3Daddress]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A056 |=C2=A0 =C2=A0if (!key-&gt;p || !key-&gt;=
-q || !key-&gt;u) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
-&gt;=C2=A0 =C2=A0 In file included from /builds/xen-project/xen/stubdom/tpm=
-_emulator-x86_64/crypto/rsa.c:17:<br>
-&gt;=C2=A0 =C2=A0 /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypt=
-o/rsa.h:28:12: note: &#39;p&#39; declared here<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A028 |=C2=A0 =C2=A0tpm_bn_t p;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 ^<br>
-&gt; <br>
-&gt; This is because all tpm_bn_t&#39;s are 1-element arrays (of either a G=
-MP or<br>
-&gt; OpenSSL BIGNUM flavour).=C2=A0 The author was probably meaning to do v=
-alue checks,<br>
-&gt; but that&#39;s not what the code does.<br>
-&gt; <br>
-&gt; Adjust it to compile.=C2=A0 No functional change.<br>
-&gt; <br>
-&gt; Signed-off-by: Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citr=
-ix.com" target=3D"_blank">andrew.cooper3@citrix.com</a>&gt;<br>
-&gt; ---<br>
-&gt; CC: George Dunlap &lt;<a href=3D"mailto:George.Dunlap@eu.citrix.com" t=
-arget=3D"_blank">George.Dunlap@eu.citrix.com</a>&gt;<br>
-&gt; CC: Jan Beulich &lt;<a href=3D"mailto:JBeulich@suse.com" target=3D"_bl=
-ank">JBeulich@suse.com</a>&gt;<br>
-&gt; CC: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" t=
-arget=3D"_blank">sstabellini@kernel.org</a>&gt;<br>
-&gt; CC: Wei Liu &lt;<a href=3D"mailto:wl@xen.org" target=3D"_blank">wl@xen=
-.org</a>&gt;<br>
-&gt; CC: Julien Grall &lt;<a href=3D"mailto:julien@xen.org" target=3D"_blan=
-k">julien@xen.org</a>&gt;<br>
-&gt; CC: Juergen Gross &lt;<a href=3D"mailto:jgross@suse.com" target=3D"_bl=
-ank">jgross@suse.com</a>&gt;<br>
-&gt; CC: Marek Marczykowski-G=C3=B3recki &lt;<a href=3D"mailto:marmarek@inv=
-isiblethingslab.com" target=3D"_blank">marmarek@invisiblethingslab.com</a>&=
-gt;<br>
-&gt; CC: Jason Andryuk &lt;<a href=3D"mailto:jandryuk@gmail.com" target=3D"=
-_blank">jandryuk@gmail.com</a>&gt;<br>
-&gt; CC: Daniel Smith &lt;<a href=3D"mailto:dpsmith@apertussolutions.com" t=
-arget=3D"_blank">dpsmith@apertussolutions.com</a>&gt;<br>
-&gt; CC: Christopher Clark &lt;<a href=3D"mailto:christopher.w.clark@gmail.=
-com" target=3D"_blank">christopher.w.clark@gmail.com</a>&gt;<br>
-&gt; <br>
-&gt; While I&#39;ve confirmed this to fix the build issue:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 <a href=3D"https://gitlab.com/xen-project/people/andyhhp/=
-xen/-/pipelines/955160430" rel=3D"noreferrer" target=3D"_blank">https://git=
-lab.com/xen-project/people/andyhhp/xen/-/pipelines/955160430</a><br>
-&gt; <br>
-&gt; I&#39;m -1 overall to the change, and would prefer to disable vtpm-stu=
-bdom<br>
-&gt; entirely.<br>
-&gt; <br>
-&gt; It&#39;s TPM 1.2 only, using decades-old libs, and some stuff in the u=
-pstream<br>
-&gt; <a href=3D"https://github.com/PeterHuewe/tpm-emulator" rel=3D"noreferr=
-er" target=3D"_blank">https://github.com/PeterHuewe/tpm-emulator</a> (which=
- is still abandaonded as of<br>
-&gt; 2018) is just as concerning as the basic error here in rsa_private().<=
-br>
-<br>
-For semantics sake, the Guest PV interface is 1.2 compliant but the PV <br>
-backend, vtpmmgr, is capable of using TPM2.0.<br>
-<br>
-&gt; vtpm-stubdom isn&#39;t credibly component of a Xen system, and we&#39;=
-re wasting loads<br>
-&gt; of CI cycles testing it...<br>
-<br>
-Unfortunately, I cannot disagree here. This is the only proper vTPM, <br>
-from a trustworthy architecture perspective, that I know of existing <br>
-today. Until I can find someone willing to fund updating the <br>
-implementation and moving it to being an emulated vTPM and not a PV <br>
-interface, it is likely to stay in this state for some time.<br></blockquot=
-e><div><br></div><div>Did you mean &quot;I cannot *agree* here&quot;?=C2=A0=
- &quot;Cannot disagree&quot; means you agree that we&#39;re &quot;wasting l=
-oads of CI cycles testing it&quot;, but the second sentence seems to imply =
-that it&#39;s (currently) irreplacable.</div><div><br></div><div>=C2=A0-Geo=
-rge=C2=A0</div></div></div>
-
---000000000000bd2b050602e053be--
 
