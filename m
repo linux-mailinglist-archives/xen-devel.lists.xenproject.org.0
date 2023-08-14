@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0C677B39D
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 10:14:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583479.913699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A1DB77B517
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 11:06:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583486.913740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVShA-0000OG-Qf; Mon, 14 Aug 2023 08:13:00 +0000
+	id 1qVTWx-0007SY-9B; Mon, 14 Aug 2023 09:06:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583479.913699; Mon, 14 Aug 2023 08:13:00 +0000
+Received: by outflank-mailman (output) from mailman id 583486.913740; Mon, 14 Aug 2023 09:06:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVShA-0000Me-KV; Mon, 14 Aug 2023 08:13:00 +0000
-Received: by outflank-mailman (input) for mailman id 583479;
- Mon, 14 Aug 2023 08:12:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qVTWx-0007Q0-5i; Mon, 14 Aug 2023 09:06:31 +0000
+Received: by outflank-mailman (input) for mailman id 583486;
+ Mon, 14 Aug 2023 08:46:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q53I=D7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qVSh8-0000MY-7A
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 08:12:58 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2078.outbound.protection.outlook.com [40.107.13.78])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fabef3d-3a7a-11ee-b288-6b7b168915f2;
- Mon, 14 Aug 2023 10:12:56 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB9000.eurprd04.prod.outlook.com (2603:10a6:10:2e3::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.24; Mon, 14 Aug
- 2023 08:12:27 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::79a:54ba:8003:fbe7]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::79a:54ba:8003:fbe7%6]) with mapi id 15.20.6678.022; Mon, 14 Aug 2023
- 08:12:27 +0000
+ (envelope-from <SRS0=bJaN=D7=kernel.org=hawk@srs-se1.protection.inumbo.net>)
+ id 1qVTDF-0003rl-IJ
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 08:46:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff0f225a-3a7e-11ee-8613-37d641c3527e;
+ Mon, 14 Aug 2023 10:46:03 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 55A6763064;
+ Mon, 14 Aug 2023 08:46:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9824C433C7;
+ Mon, 14 Aug 2023 08:45:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,129 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fabef3d-3a7a-11ee-b288-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R0HUthNGrPKj/0sv9V5I941dR4dNaDMbqqtGj7mOSEyG+n7e28Vyk+y0GvRseg0zVYJDqkNVJ0GwUMwshgAXGxLB767lqysG49k25E6PWbAzPjaAxBEItOT5eR7XspgRteVruPTi63mHjzrCEiPT2bvyFIrMvnbB54HAJ8dshcsqxe7Kr/yaTZCUwOb0sAwduIUbSWkNdhcDX/wyzlotLs1mxFpQFR4e/TtlsZ4hBQwabcd7kjJ9mjeUxC92Jt8fkNvhUPQj/xLxyBdqfuoLlCAMJwg1XtsC5vueubJSIuFJj7fBuDjC9cWed1j/9AyK9c0dbRoLeqAqns+K5lrFLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i+lz7iz1mLjgFVXCKycP+9u0HBGICLNhuwosAPgaU5g=;
- b=aLry7Yfpu8y+Bfgs5MVKRQnvhLHqZnmVF1PWs2pnb/4OHEJINjOEef6nl9WH9Oi4G1OjjBaNlRFMoGYMHt6YwgQQCDQP82e3i+5uouxBFpOIA3cAocoIkvyphgwWaBrq1JjvmrkgIRaRyQfy8ILdG6C1WYgo2eI7zXtst82ijC0WXSdb8rJJRaMRyqE/A9l3/CJjbwnq+dqgrKfyRwQdU6WQg7gb4r3sS+3LMttMtcZkgkMPYOAfpAge3ucIiW4/w+U4LEGNbsUPkNbxmx+e23LSEkGwUmkMd/VH8+CPRn+WBtNIpWdhM9ywq7b2Ijb/tm1DWRLPzQPZqInEIRhNOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i+lz7iz1mLjgFVXCKycP+9u0HBGICLNhuwosAPgaU5g=;
- b=uqSZ8nUSsBka23TK4agz8WXbEhHKLd6G7WA3e9ezvSoGH3QNdmFfUftU4cx9ldXmJM704Oe89tu36IWadzggJ7ypmMkoNq2D+jegjcex9FvLsiACS3v1t8g2pUuAHv1iuDQf6a5KET9f3COvezQMEdo6M0zwDJhZapX5WnrLhS+vT1HnBT5CqB2ganvAI82PlsHsSyZTT05IwcL0icGVeJIoGCTvSA/nVfQSVyUTCkPAPFNewOoof4fzDX+pMzNFVPvtHRvxATsVSF51mnA4iGpVfLpzF2OVLt4mYjIa1nUD4YLsQJcrQQkA8UPJvNgb2ozmN1nju81+04/qL6rOyw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <71a796d3-6808-460f-7abf-10adc07f4329@suse.com>
-Date: Mon, 14 Aug 2023 10:12:29 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [XEN PATCH 6/6] drivers/video: make declarations of defined
- functions available
-Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- xen-devel@lists.xenproject.org
-References: <cover.1691676251.git.nicola.vetrini@bugseng.com>
- <a50cc0f60c536554591834da660c540fcb77faf8.1691676251.git.nicola.vetrini@bugseng.com>
- <d021c6a0-6826-351b-1613-82ec9ad85868@suse.com>
- <fe1c5eeeb01cb2690d80acec2bfdf721@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <fe1c5eeeb01cb2690d80acec2bfdf721@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: ff0f225a-3a7e-11ee-8613-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692002760;
+	bh=B3y8EHsDG3ckVBJqhMu+4wNcutKVET22OPIzB3BHlZ0=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=IAwz4csbyfvh6Sc60rY3F4KQBQhcpuI6oJ+2qyYb1X2EbPWPD3nk515LAGsCCsdua
+	 /RrfgQ8LZe60yxmHXmLqV2iNhQXTZt2yJNHTUAdt5j2LnL1x91+2f5crAXVuXr7I+M
+	 4yclnHX6puLJ4n3dhyx6fFlKoAJrUyCEJEOmcFpwYcb5oz6hDBAECRGUtxHoU2pTIO
+	 MFGXP339tDE3ExQFau5AQwyOMqlNhNAVCuVXJbJGJti/5BtYxFL5HOtTmPoxvb3ZI5
+	 /6NUgd6v072+ZFgYjyLs9xp0kxcFYsd108Ld5M+KyiFrmZ+S1cmRAt8Vy6EnHsgF6C
+	 14tNDLeY82NTw==
+Message-ID: <cceef8a4-6f38-bfd4-4f77-5dffa558b287@kernel.org>
+Date: Mon, 14 Aug 2023 10:45:42 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: d62bae7c-1a60-4a70-6d77-08db9c9e32cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	hmv90O7pfj9p3PnMbYoVhBIPTRAsj2lHa9R1RYz+Yepa0hsN2sAQnTItmEQspIWWgDxprNypofCKLk0lfDz0NF3YdlAN8zM+XieBaRfPfRQyDTrd72ymZDRL2JhlaDFyHSchLfzJsJmThbsODKOVRLZ8kJ1BDTjvg3Mx/ccmcZMFI5Ccz4nnrsTh7WRQHgXmQRpikLgEK8avWDYI4KSoMPC0PtgyxVFnh4kE85MBvMbvBijQnz/C5F7gb+ZzYyFthdriQr9oDQWHSdnAmZ6V6fvAo31NNhw/oZea5aqiY3LRD0MXoh6OukqAej1Fdi/KvLciAB9EErbHC9FToA/lZ61PNz7HDw1a7QEgwfYvT48NGfSjzFl/mrzV2NSgXOJFGUEKIz2+EhpAoz+PTEjvapypbX2Y1cvwtQJ6Al5nvKvFGawhjx2A9CeRPUZEf++vVa8VKBV4aCeEZ3AMNEpGTRucqL5Pi4rdT76uzGMOkIDAGxBma8IieoPk8sd7vhRyldpMCHOLDQl2780b5gPm4z3wMu4LRvfQVJB7iuWhlP4XvNFseXaq9nGJqouwNHhIJ+gYmdltIq29IJNJ1K8w0WlOdfq4LGGPLYpViRZ/XU5vRy5S346PR0Ycr8XnMIn7xdyEZDyo96j0YsV0LEU9iw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(376002)(396003)(346002)(39850400004)(136003)(186006)(1800799006)(451199021)(478600001)(8676002)(8936002)(4326008)(316002)(66556008)(6916009)(41300700001)(66946007)(66476007)(38100700002)(83380400001)(53546011)(6486002)(6506007)(26005)(2616005)(6512007)(86362001)(4744005)(31696002)(2906002)(5660300002)(36756003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?di9EblpzVGxqakNtR0poNm1HY3NwaCtvOTNpQ0tablJkMjUvWVBXV0lReE5M?=
- =?utf-8?B?dXhGSHZ1ZFdGcmpuS2J1UkdKMXRHU0ljU2N5aEJZVTBKclZSZVhMYVgwRXpJ?=
- =?utf-8?B?Nmw2V2JPeEFPRXg0Skl6Sm42OHFsc2RVRUhybUxYNmNlemJXanppcDdjaW9N?=
- =?utf-8?B?QW5DWFJnTTFkYjhPK2d6ek51MStadEtRYjZscHAxbVpHcjFuYlArNXk5Mm9I?=
- =?utf-8?B?dFVPU1o3RldyMGs4MU1qZURUV3dYaXA4K2Fsc0VCa0ZiNGU0c3NOc1hBamk1?=
- =?utf-8?B?OExCYWlSM3l3RlVDM1REbFpyMWkrWWYzelVkNC9ZOThDM2VTZzg4eHA1S3px?=
- =?utf-8?B?bUtQK3dUWXVHN216OVE3bGd5K2FPL3JBVitid0d2VTE2b0hOSStmZitud014?=
- =?utf-8?B?YmZMeFgzWFVMNi9GbllScDRLTzJKSU9Nb1QyVjQ1MWJnRGx2em9Dc0FVUERB?=
- =?utf-8?B?NDJGdXA5M1lVQmh3bmpaOGNRaTZWRDNtOFpLT0dHeW9VSkh1ekNhc3pNRkRr?=
- =?utf-8?B?WjBxTEtJQVp4cHB6OUdmQjZkWXhhSjN5Ulk4VEVVWUpzaUdlVk1VaGJ5dG1M?=
- =?utf-8?B?anBxMUlHN3E1Q2FmR3RENDZFYkEybFl5bFo4RkdzZUUrVXpiS1hMYjlRVEt6?=
- =?utf-8?B?OVpLVWg0QnBjNHV5MHFwcHZnNEN4NjFGNGZkUmNhejdYL0FuclJ5TklvSllB?=
- =?utf-8?B?Znd3ai8zbGpkSTBSbVZQS0ovL2htUy9vYXpMSHlHOGJXaUN5NTB0MmYxc1Zx?=
- =?utf-8?B?bXdML1k4ZkhkZzFsU0lvRDE2QnRFa3N4Mk5RNjJVRHo1emxQbVMzSkFXby9a?=
- =?utf-8?B?RHdMMFFTL2U1VWRzRWErRjRMdkN1aHc4Y25iUlNUbDRoQm15UER2cEgwUURk?=
- =?utf-8?B?UXFFR2tsQ0RmeEdSa3ZlRTNqa2tXbkVkVFlyZzBUS25YeFJCcm5RcFdqQ3k5?=
- =?utf-8?B?YmVSYm1taEhCWFpwVFFra21RNmhxSnVwUFFwQnBuRDg5d2psdnNNeDVzWGE4?=
- =?utf-8?B?YXZTTjc5bG4wK3ZaN3E5WWVHRUo2bkU5RkRiZW82bkp0SzMwWTMvaU51Mllu?=
- =?utf-8?B?UU5JN2lHR2NkNVpHU3RKOVorMWp2Z2MwUVJ5SG1pQ1JMb3JCeUtaM0crb2Jo?=
- =?utf-8?B?SjJXVkMwY1liaHVVc3NnNCtXR281SndWdExJYXp6dHY3OGZUUGJleEpYREJi?=
- =?utf-8?B?anFCSWtFQXlvSEIvcVFqS0lNYmxOUGhmZ3NsM3J5d1AzR3lCK3RYTW1CTDBO?=
- =?utf-8?B?M3NtY2xmQmZhK0ltRmVUcmorSmFSZ1ljb0tka3NhQXpTWUVhN1NkUkNORytT?=
- =?utf-8?B?Wk9EQ2tOL3o2V3I5aWt0RTc1ZGs4QVFUMWJGL0lXZG9NbEp0cnFUZ0s2SXZi?=
- =?utf-8?B?UGhxbEQ3V09NVHVxYXpiajNnWkZQN3ZoUjV1aUV4dUl5Smo1NjNEdXZLYXcv?=
- =?utf-8?B?WHdvbktKVUpqU2JvUUNJUUdLekVFUTQ3MDlWQ3JyR2R1aEcrMG9DV0ZwU21M?=
- =?utf-8?B?RVRLNDBXcjByMjZsU1FjcDU4ckU1cC9uQTB2bmo5V2NuV24rNnZmMkxRWURM?=
- =?utf-8?B?aGtVMjhPRlNpTjZtSUhObkZWM1FzZnVENVRDYnFjK3JVbXB6Y1pLYjdZVFZs?=
- =?utf-8?B?bllpZTkyWVVQVzE3cWQrN0l1VGVFZWVWV1NjK3NDR2JlK0Z6Z3NKNkYrVFNE?=
- =?utf-8?B?U0ovbUxGR2IvaHdpZmkyUmk0N3VVdXdNR1d5VzE2R294NVRwSjlXOUZ1VkFR?=
- =?utf-8?B?bDFZZlpuUUN5TGgzU01PZE83bGlvajZUOXlOdnQ0L2ZjS3VTVjlIWlQzaDFF?=
- =?utf-8?B?dVhoNS9TNzdKeXhGZzZUNXl1UVkzVTYrT0NxTFRDajF3dGJlNGJka1NzWUlU?=
- =?utf-8?B?azg1SEN3ZUtkR3FkVUtxYldjL0tYWHNwbHliNjNBSU5ZYzFKZ1AwQUxXbFll?=
- =?utf-8?B?dmRPZnRYUWpkaDJ6L2l4clFuMFZOaU1yRnFzeW1kdFBzd095em1aTVJrZHBv?=
- =?utf-8?B?RE1UNmI0VmJqK2tiYnlhaVU3QmREZGdtUkpMbVNVUktjeXlBa2EveHhaUTFG?=
- =?utf-8?B?Z3BrYlBidW94ZmljcWl6TnptcHBPOHZjckg2MmI5dUNOYnQvcmhzdldkbi96?=
- =?utf-8?Q?mGu5S7PkT7DDhAy9ZscFn6Mk0?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d62bae7c-1a60-4a70-6d77-08db9c9e32cb
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2023 08:12:27.5039
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rprGlap4+NIzyXcN4FTkdHuKiP7kbbB5TG9/YpKgUeqj9mPNabEN1eF8zrGx1vksVe70gsFkxA5sIqRrYWUZlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Cc: hawk@kernel.org, "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
+ <pabeni@redhat.com>, "ast@kernel.org" <ast@kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "john.fastabend@gmail.com" <john.fastabend@gmail.com>,
+ "jiawenwu@trustnetic.com" <jiawenwu@trustnetic.com>,
+ "mengyuanlou@net-swift.com" <mengyuanlou@net-swift.com>,
+ "yang.lee@linux.alibaba.com" <yang.lee@linux.alibaba.com>,
+ "error27@gmail.com" <error27@gmail.com>,
+ "linyunsheng@huawei.com" <linyunsheng@huawei.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "kys@microsoft.com" <kys@microsoft.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "longli@microsoft.com" <longli@microsoft.com>,
+ "shradhagupta@linux.microsoft.com" <shradhagupta@linux.microsoft.com>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "michael.chan@broadcom.com" <michael.chan@broadcom.com>,
+ "richardcochran@gmail.com" <richardcochran@gmail.com>,
+ "jdelvare@suse.com" <jdelvare@suse.com>,
+ "linux@roeck-us.net" <linux@roeck-us.net>,
+ "yisen.zhuang@huawei.com" <yisen.zhuang@huawei.com>,
+ "salil.mehta@huawei.com" <salil.mehta@huawei.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "nbd@nbd.name" <nbd@nbd.name>, "john@phrozen.org" <john@phrozen.org>,
+ "sean.wang@mediatek.com" <sean.wang@mediatek.com>,
+ "Mark-MC.Lee@mediatek.com" <Mark-MC.Lee@mediatek.com>,
+ "lorenzo@kernel.org" <lorenzo@kernel.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "saeedm@nvidia.com" <saeedm@nvidia.com>, "leon@kernel.org"
+ <leon@kernel.org>,
+ "gerhard@engleder-embedded.com" <gerhard@engleder-embedded.com>,
+ "maciej.fijalkowski@intel.com" <maciej.fijalkowski@intel.com>,
+ "alexanderduyck@fb.com" <alexanderduyck@fb.com>,
+ "wei.fang@nxp.com" <wei.fang@nxp.com>,
+ "shenwei.wang@nxp.com" <shenwei.wang@nxp.com>,
+ "xiaoning.wang@nxp.com" <xiaoning.wang@nxp.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "jaswinder.singh@linaro.org" <jaswinder.singh@linaro.org>,
+ "ilias.apalodimas@linaro.org" <ilias.apalodimas@linaro.org>,
+ "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
+ "horatiu.vultur@microchip.com" <horatiu.vultur@microchip.com>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
+ "simon.horman@corigine.com" <simon.horman@corigine.com>,
+ "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>,
+ "aleksander.lobakin@intel.com" <aleksander.lobakin@intel.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "thomas.petazzoni@bootlin.com" <thomas.petazzoni@bootlin.com>,
+ "mw@semihalf.com" <mw@semihalf.com>,
+ Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+ Geethasowjanya Akula <gakula@marvell.com>,
+ Subbaraya Sundeep Bhatta <sbhatta@marvell.com>,
+ Hariprasad Kelam <hkelam@marvell.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "ryder.lee@mediatek.com" <ryder.lee@mediatek.com>,
+ "shayne.chen@mediatek.com" <shayne.chen@mediatek.com>,
+ "kvalo@kernel.org" <kvalo@kernel.org>, "andrii@kernel.org"
+ <andrii@kernel.org>, "martin.lau@linux.dev" <martin.lau@linux.dev>,
+ "song@kernel.org" <song@kernel.org>,
+ "yonghong.song@linux.dev" <yonghong.song@linux.dev>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>, "sdf@google.com"
+ <sdf@google.com>, "haoluo@google.com" <haoluo@google.com>,
+ "jolsa@kernel.org" <jolsa@kernel.org>
+Subject: Re: [EXT] Re: [PATCH v1 net] page_pool: Cap queue size to 32k.
+Content-Language: en-US
+To: Ratheesh Kannoth <rkannoth@marvell.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20230814060411.2401817-1-rkannoth@marvell.com>
+ <8c6d19da5c4c38062b7a4e500de1d5dc1280fbc8.camel@sipsolutions.net>
+ <MWHPR1801MB1918230E007D7B2C5A768B37D317A@MWHPR1801MB1918.namprd18.prod.outlook.com>
+From: Jesper Dangaard Brouer <hawk@kernel.org>
+In-Reply-To: <MWHPR1801MB1918230E007D7B2C5A768B37D317A@MWHPR1801MB1918.namprd18.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 14.08.2023 09:56, Nicola Vetrini wrote:
-> On 14/08/2023 09:47, Jan Beulich wrote:
->> On 11.08.2023 09:19, Nicola Vetrini wrote:
->>> --- a/xen/drivers/video/vga.c
->>> +++ b/xen/drivers/video/vga.c
->>> @@ -9,6 +9,7 @@
->>>  #include <xen/mm.h>
->>>  #include <xen/param.h>
->>>  #include <xen/vga.h>
->>> +#include <xen/console.h>
->>
->> xen/vga.h, which you move the declarations to, is already included 
->> here.
->> Why the need for xen/console.h?
+
+
+On 14/08/2023 10.05, Ratheesh Kannoth wrote:
+>> From: Johannes Berg <johannes@sipsolutions.net>
+>> Subject: [EXT] Re: [PATCH v1 net] page_pool: Cap queue size to 32k.
+>>> Please find discussion at
+>>> https://urldefense.proofpoint.com/v2/url?u=https-3A__lore.kernel.org_l
+>>>
+>> I'm not the one who's going to apply this, but honestly, I don't think that will
+>> work as a commit message for such a change ...
+>> Sure, link to it by all means, but also summarize it and make sense of it for
+>> the commit message?
 > 
-> vga.c needs a declaration for fill_console_start_info, which is declared 
-> in console.h, as
-> stated in the commit message (it could be clarified perhaps).
+> Why do you think it will not work ?. There is a long discussion about pros and cons of different approaches by
+> Page pool maintainers in the discussion link.  However I  summarize it here, as commit message, it will
+> Lead to some more questions by reviewers.
+> 
 
-Ah, I see. It's not very fortunate mixing of two separate adjustments.
-But then I'm inclined to ask: When fill_console_start_info() is
-defined in vga.c, wouldn't it make sense to move its declaration to
-vga.h? The more considering the type of its parameter?
+I agree with Johannes, this commit message is too thin.
 
-Jan
+It makes sense to give a summary of the discussion, because it show us
+(page_pool maintainers) what you concluded for the discussion.
+
+Further more, you also send another patch:
+  - "[PATCH net-next] page_pool: Set page pool size"
+  - 
+https://lore.kernel.org/all/20230809021920.913324-1-rkannoth@marvell.com/
+
+That patch solves the issue for your driver marvell/octeontx2 and I like
+than change.
+
+Why did you conclude that PP core should also change?
+
+--Jesper
+(p.s. Cc/To list have gotten excessive with 89 recipients)
+
+
+
 
