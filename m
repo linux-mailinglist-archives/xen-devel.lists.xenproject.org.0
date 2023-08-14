@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF9677B314
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 09:56:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583357.913569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1BF977B313
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 09:56:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583356.913560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVSRT-0001Bb-F0; Mon, 14 Aug 2023 07:56:47 +0000
+	id 1qVSRR-0000vy-7J; Mon, 14 Aug 2023 07:56:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583357.913569; Mon, 14 Aug 2023 07:56:47 +0000
+Received: by outflank-mailman (output) from mailman id 583356.913560; Mon, 14 Aug 2023 07:56:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVSRT-00018q-Bh; Mon, 14 Aug 2023 07:56:47 +0000
-Received: by outflank-mailman (input) for mailman id 583357;
- Mon, 14 Aug 2023 07:56:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qVSRR-0000tG-4l; Mon, 14 Aug 2023 07:56:45 +0000
+Received: by outflank-mailman (input) for mailman id 583356;
+ Mon, 14 Aug 2023 07:56:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WLPj=D7=sipsolutions.net=johannes@srs-se1.protection.inumbo.net>)
- id 1qVSRR-0000tF-4K
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 07:56:46 +0000
-Received: from sipsolutions.net (s3.sipsolutions.net [2a01:4f8:242:246e::2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1b6ec8aa-3a78-11ee-8613-37d641c3527e;
+ <SRS0=DK7P=D7=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qVSRQ-0000t7-12
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 07:56:44 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1bc2a17c-3a78-11ee-b288-6b7b168915f2;
  Mon, 14 Aug 2023 09:56:43 +0200 (CEST)
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.96) (envelope-from <johannes@sipsolutions.net>)
- id 1qVSQ8-006VTj-1d; Mon, 14 Aug 2023 09:55:24 +0200
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id F0F1A4EE0737;
+ Mon, 14 Aug 2023 09:56:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,78 +39,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b6ec8aa-3a78-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=2P1CtK0EpHYNB0bkUEbNbkfg4BjOcYJ3BMKesAvDyvc=;
-	t=1691999803; x=1693209403; b=WKNykBHqv/J0FfY04pWh1bZQ0pnJYL70gG91iyZM4huSCGx
-	aVhEeCd3d+yUEUQvhqQ+zEp9jfMhZcX4+kY6EkGuAtKIWJg0G6ufSMcisVY9fXV/kwjPLIbCdOMg+
-	ebimUe+Vv3ZT5cbPbVfKpqB+1JOElzS+/Gfy7MJGg68Vj4prjKKHDXnWgLPTPdTy0aMj2oVtwLSrr
-	N1arGzClyg0SqnwDYt1t+1ciiM1+LgA/xa86z2VXAnK9PLVikw9ou60+ZruT/LFTQHsQu2d1ntFwy
-	VHSAf3nYw4s+yOZwLB5hG0CrvAfp9SoC5QmMEx/g/T4V42Bt22cqxgXzW4X0Ks1Q==;
-Message-ID: <8c6d19da5c4c38062b7a4e500de1d5dc1280fbc8.camel@sipsolutions.net>
-Subject: Re: [PATCH v1 net] page_pool: Cap queue size to 32k.
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Ratheesh Kannoth <rkannoth@marvell.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com,  ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com,  jiawenwu@trustnetic.com,
- mengyuanlou@net-swift.com, yang.lee@linux.alibaba.com,  error27@gmail.com,
- linyunsheng@huawei.com, linux-hyperv@vger.kernel.org,  kys@microsoft.com,
- haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com, 
- longli@microsoft.com, shradhagupta@linux.microsoft.com, 
- linux-hwmon@vger.kernel.org, michael.chan@broadcom.com,
- richardcochran@gmail.com,  jdelvare@suse.com, linux@roeck-us.net,
- yisen.zhuang@huawei.com,  salil.mehta@huawei.com,
- linux-arm-kernel@lists.infradead.org,  linux-mediatek@lists.infradead.org,
- nbd@nbd.name, john@phrozen.org,  sean.wang@mediatek.com,
- Mark-MC.Lee@mediatek.com, lorenzo@kernel.org,  matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com,  linux@armlinux.org.uk,
- linux-rdma@vger.kernel.org, saeedm@nvidia.com,  leon@kernel.org,
- gerhard@engleder-embedded.com, maciej.fijalkowski@intel.com, 
- alexanderduyck@fb.com, wei.fang@nxp.com, shenwei.wang@nxp.com, 
- xiaoning.wang@nxp.com, linux-imx@nxp.com, lgirdwood@gmail.com,
- broonie@kernel.org,  jaswinder.singh@linaro.org,
- ilias.apalodimas@linaro.org,  UNGLinuxDriver@microchip.com,
- horatiu.vultur@microchip.com,  linux-omap@vger.kernel.org,
- grygorii.strashko@ti.com, simon.horman@corigine.com, 
- vladimir.oltean@nxp.com, aleksander.lobakin@intel.com, 
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com, 
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, p.zabel@pengutronix.de, 
- thomas.petazzoni@bootlin.com, mw@semihalf.com, sgoutham@marvell.com, 
- gakula@marvell.com, sbhatta@marvell.com, hkelam@marvell.com, 
- xen-devel@lists.xenproject.org, jgross@suse.com, sstabellini@kernel.org, 
- oleksandr_tyshchenko@epam.com, linux-wireless@vger.kernel.org, 
- ryder.lee@mediatek.com, shayne.chen@mediatek.com, kvalo@kernel.org, 
- andrii@kernel.org, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev,  kpsingh@kernel.org, sdf@google.com,
- haoluo@google.com, jolsa@kernel.org
-Date: Mon, 14 Aug 2023 09:54:56 +0200
-In-Reply-To: <20230814060411.2401817-1-rkannoth@marvell.com>
-References: <20230814060411.2401817-1-rkannoth@marvell.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+X-Inumbo-ID: 1bc2a17c-3a78-11ee-b288-6b7b168915f2
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Date: Mon, 14 Aug 2023 09:56:42 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 6/6] drivers/video: make declarations of defined
+ functions available
+In-Reply-To: <d021c6a0-6826-351b-1613-82ec9ad85868@suse.com>
+References: <cover.1691676251.git.nicola.vetrini@bugseng.com>
+ <a50cc0f60c536554591834da660c540fcb77faf8.1691676251.git.nicola.vetrini@bugseng.com>
+ <d021c6a0-6826-351b-1613-82ec9ad85868@suse.com>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <fe1c5eeeb01cb2690d80acec2bfdf721@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2023-08-14 at 11:34 +0530, Ratheesh Kannoth wrote:
-> Clamp to 32k instead of returning error.
->=20
-> Please find discussion at
-> https://lore.kernel.org/lkml/
-> CY4PR1801MB1911E15D518A77535F6E51E2D308A@CY4PR1801MB1911.
-> namprd18.prod.outlook.com/T/
->=20
+On 14/08/2023 09:47, Jan Beulich wrote:
+> On 11.08.2023 09:19, Nicola Vetrini wrote:
+>> --- a/xen/drivers/video/vga.c
+>> +++ b/xen/drivers/video/vga.c
+>> @@ -9,6 +9,7 @@
+>>  #include <xen/mm.h>
+>>  #include <xen/param.h>
+>>  #include <xen/vga.h>
+>> +#include <xen/console.h>
+> 
+> xen/vga.h, which you move the declarations to, is already included 
+> here.
+> Why the need for xen/console.h?
+> 
+> Jan
 
-I'm not the one who's going to apply this, but honestly, I don't think
-that will work as a commit message for such a change ...
+vga.c needs a declaration for fill_console_start_info, which is declared 
+in console.h, as
+stated in the commit message (it could be clarified perhaps).
 
-Sure, link to it by all means, but also summarize it and make sense of
-it for the commit message?
-
-johannes
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
