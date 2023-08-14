@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855EC77B2E9
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 09:48:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583329.913520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CACC77B2F0
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 09:48:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583330.913530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVSIq-0005AX-Fh; Mon, 14 Aug 2023 07:47:52 +0000
+	id 1qVSIw-0005fy-PB; Mon, 14 Aug 2023 07:47:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583329.913520; Mon, 14 Aug 2023 07:47:52 +0000
+Received: by outflank-mailman (output) from mailman id 583330.913530; Mon, 14 Aug 2023 07:47:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVSIq-00057o-CB; Mon, 14 Aug 2023 07:47:52 +0000
-Received: by outflank-mailman (input) for mailman id 583329;
- Mon, 14 Aug 2023 07:47:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qVSIw-0005bQ-Kj; Mon, 14 Aug 2023 07:47:58 +0000
+Received: by outflank-mailman (input) for mailman id 583330;
+ Mon, 14 Aug 2023 07:47:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NzbS=D7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qVSIo-0002SK-Pk
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 07:47:50 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ddd89b19-3a76-11ee-b288-6b7b168915f2;
- Mon, 14 Aug 2023 09:47:50 +0200 (CEST)
+ id 1qVSIv-0001Z5-8A
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 07:47:57 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e1294d9b-3a76-11ee-8613-37d641c3527e;
+ Mon, 14 Aug 2023 09:47:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A5C442195D;
- Mon, 14 Aug 2023 07:47:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 424161FD60;
+ Mon, 14 Aug 2023 07:47:55 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7976F138EE;
- Mon, 14 Aug 2023 07:47:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 14AC4138EE;
+ Mon, 14 Aug 2023 07:47:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OYhOHCXc2WTnQQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 14 Aug 2023 07:47:49 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id dZygAyvc2WTsQQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 14 Aug 2023 07:47:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,113 +51,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddd89b19-3a76-11ee-b288-6b7b168915f2
+X-Inumbo-ID: e1294d9b-3a76-11ee-8613-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1691999269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1691999275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7fhN47uhVKwt7gKu3+NNZ/ZsErsC4Q4pzFPHtw7oHuU=;
-	b=Y9dISKFO+RNFWPY0Ark9I6RXWHrDFVwAcwB9L6ZNKx6cjUfa0W97gpolwN360SW1+mCtxE
-	/xRhPuwmjT6JYM28+mX7aWa9ZRxtgf0bsoYN10lfiE5ppkABAeUkmQwxPr6aTXaXLYxrzm
-	awF3gDcXF20YlGpPONd+npnq7UO9DKk=
+	bh=dH1h2NgsanT/KSOLBiOeGPIqJ6MvlgxSpBNMRTKunaQ=;
+	b=E+KDO0j5VOyQTerByqDkQUs2sCsuKI2511MGY/lrNjJCoUTkA80lcsVK0FK+ZFaNDSs1Ea
+	9X8NOSRKIQs0yU95v0SWh4VzClsZodBBNs7ExF7R1lxkUK0YRCEcBfcJKInntCG8JtTFzC
+	EDpCQvvihpTWD8j0qL/0ebVtT2LLBRg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v4 07/19] tools/xenstore: change talloc_free() to take a const pointer
-Date: Mon, 14 Aug 2023 09:46:55 +0200
-Message-Id: <20230814074707.27696-8-jgross@suse.com>
+Subject: [PATCH v4 08/19] tools/xenstore: move copying of node data out of db_fetch()
+Date: Mon, 14 Aug 2023 09:46:56 +0200
+Message-Id: <20230814074707.27696-9-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230814074707.27696-1-jgross@suse.com>
 References: <20230814074707.27696-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With talloc_free() and related functions not taking a pointer to const
-it is tedious to use the const attribute for talloc()-ed memory in
-many cases.
+Today the node data is copied in db_fetch() on each data base read in
+order to avoid accidental data base modifications when working on a
+node.
 
-Change the related prototypes to use "const void *" instead of
-"void *".
+read_node() is the only caller of db_fetch() which isn't freeing the
+returned data area immediately after using it. The other callers don't
+modify the returned data, so they don't need the data to be copied.
+
+Move copying of the data into read_node(), resulting in a speedup of
+the other callers due to no memory allocation and no copying being
+needed anymore.
+
+This allows to let db_fetch() return a pointer to const data.
+
+As db_fetch() can't return any error other than ENOENT now, error
+handling for the callers can be simplified.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V3:
+V2:
 - new patch
+V3:
+- modify return type of db_fetch() to return a pointer to const
+  (Julien Grall)
+- drop stale comment (Julien Grall)
+- fix transaction handling
 V4:
-- add comment (Julien Grall)
+- don't drop const attribute for hdr (Julien Grall)
 ---
- tools/xenstore/talloc.c | 10 ++++++----
- tools/xenstore/talloc.h |  4 ++--
- 2 files changed, 8 insertions(+), 6 deletions(-)
+ tools/xenstore/xenstored_core.c        | 43 ++++++++++----------------
+ tools/xenstore/xenstored_core.h        |  2 +-
+ tools/xenstore/xenstored_transaction.c | 23 +++++++++-----
+ 3 files changed, 34 insertions(+), 34 deletions(-)
 
-diff --git a/tools/xenstore/talloc.c b/tools/xenstore/talloc.c
-index 23c3a23b19..e42c7d4471 100644
---- a/tools/xenstore/talloc.c
-+++ b/tools/xenstore/talloc.c
-@@ -319,7 +319,7 @@ static int talloc_unreference(const void *context, const void *ptr)
-   remove a specific parent context from a pointer. This is a more
-   controlled varient of talloc_free()
- */
--int talloc_unlink(const void *context, void *ptr)
-+int talloc_unlink(const void *context, const void *ptr)
- {
- 	struct talloc_chunk *tc_p, *new_p;
- 	void *new_parent;
-@@ -499,7 +499,7 @@ void *talloc_init(const char *fmt, ...)
-   should probably not be used in new code. It's in here to keep the talloc
-   code consistent across Samba 3 and 4.
- */
--static void talloc_free_children(void *ptr)
-+static void talloc_free_children(const void *ptr)
- {
- 	struct talloc_chunk *tc;
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index a08962c3ea..53e29aeb9a 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -555,10 +555,9 @@ static void initialize_fds(int *p_sock_pollfd_idx, int *ptimeout)
+ 	}
+ }
  
-@@ -539,7 +539,7 @@ static void talloc_free_children(void *ptr)
-    will not be freed if the ref_count is > 1 or the destructor (if
-    any) returns non-zero
- */
--int talloc_free(void *ptr)
-+int talloc_free(const void *ptr)
+-struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
++const struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
  {
- 	int saved_errno = errno;
- 	struct talloc_chunk *tc;
-@@ -571,7 +571,9 @@ int talloc_free(void *ptr)
- 			goto err;
+ 	const struct xs_tdb_record_hdr *hdr;
+-	struct xs_tdb_record_hdr *p;
+ 
+ 	hdr = hashtable_search(nodes, db_name);
+ 	if (!hdr) {
+@@ -569,22 +568,15 @@ struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size)
+ 	*size = sizeof(*hdr) + hdr->num_perms * sizeof(hdr->perms[0]) +
+ 		hdr->datalen + hdr->childlen;
+ 
+-	/* Return a copy, avoiding a potential modification in the DB. */
+-	p = talloc_memdup(NULL, hdr, *size);
+-	if (!p) {
+-		errno = ENOMEM;
+-		return NULL;
+-	}
+-
+ 	trace_tdb("read %s size %zu\n", db_name, *size + strlen(db_name));
+ 
+-	return p;
++	return hdr;
+ }
+ 
+ static void get_acc_data(const char *name, struct node_account_data *acc)
+ {
+ 	size_t size;
+-	struct xs_tdb_record_hdr *hdr;
++	const struct xs_tdb_record_hdr *hdr;
+ 
+ 	if (acc->memory < 0) {
+ 		hdr = db_fetch(name, &size);
+@@ -595,7 +587,6 @@ static void get_acc_data(const char *name, struct node_account_data *acc)
+ 			acc->memory = size;
+ 			acc->domid = hdr->perms[0].id;
  		}
- 		tc->destructor = (talloc_destructor_t)-1;
--		if (d(ptr) == -1) {
+-		talloc_free(hdr);
+ 	}
+ }
+ 
+@@ -708,7 +699,7 @@ struct node *read_node(struct connection *conn, const void *ctx,
+ 		       const char *name)
+ {
+ 	size_t size;
+-	struct xs_tdb_record_hdr *hdr;
++	const struct xs_tdb_record_hdr *hdr;
+ 	struct node *node;
+ 	const char *db_name;
+ 	int err;
+@@ -729,30 +720,30 @@ struct node *read_node(struct connection *conn, const void *ctx,
+ 	hdr = db_fetch(db_name, &size);
+ 
+ 	if (hdr == NULL) {
+-		if (errno == ENOENT) {
+-			node->generation = NO_GENERATION;
+-			err = access_node(conn, node, NODE_ACCESS_READ, NULL);
+-			errno = err ? : ENOENT;
+-		} else {
+-			log("DB error on read: %s", strerror(errno));
+-			errno = EIO;
+-		}
++		node->generation = NO_GENERATION;
++		err = access_node(conn, node, NODE_ACCESS_READ, NULL);
++		errno = err ? : ENOENT;
+ 		goto error;
+ 	}
+ 
+ 	node->parent = NULL;
+-	talloc_steal(node, hdr);
+ 
+ 	/* Datalen, childlen, number of permissions */
+ 	node->generation = hdr->generation;
+ 	node->perms.num = hdr->num_perms;
+ 	node->datalen = hdr->datalen;
+ 	node->childlen = hdr->childlen;
+-
+-	/* Permissions are struct xs_permissions. */
+-	node->perms.p = hdr->perms;
+-	node->acc.domid = get_node_owner(node);
++	node->acc.domid = hdr->perms[0].id;
+ 	node->acc.memory = size;
 +
-+		/* The destructor needs to be able to change the object! */
-+		if (d((void *)ptr) == -1) {
- 			tc->destructor = d;
- 			goto err;
++	/* Copy node data to new memory area, starting with permissions. */
++	size -= sizeof(*hdr);
++	node->perms.p = talloc_memdup(node, hdr->perms, size);
++	if (node->perms.p == NULL) {
++		errno = ENOMEM;
++		goto error;
++	}
++
+ 	if (domain_adjust_node_perms(node))
+ 		goto error;
+ 
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index e1aeb4aecd..4a370f766f 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -362,7 +362,7 @@ extern xengnttab_handle **xgt_handle;
+ int remember_string(struct hashtable *hash, const char *str);
+ 
+ /* Data base access functions. */
+-struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size);
++const struct xs_tdb_record_hdr *db_fetch(const char *db_name, size_t *size);
+ int db_write(struct connection *conn, const char *db_name, void *data,
+ 	     size_t size, struct node_account_data *acc,
+ 	     enum write_node_mode mode, bool no_quota_check);
+diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
+index fbcea3663e..a90283dcc5 100644
+--- a/tools/xenstore/xenstored_transaction.c
++++ b/tools/xenstore/xenstored_transaction.c
+@@ -357,20 +357,17 @@ static int finalize_transaction(struct connection *conn,
+ {
+ 	struct accessed_node *i, *n;
+ 	size_t size;
+-	struct xs_tdb_record_hdr *hdr;
++	const struct xs_tdb_record_hdr *hdr;
+ 	uint64_t gen;
+ 
+ 	list_for_each_entry_safe(i, n, &trans->accessed, list) {
+ 		if (i->check_gen) {
+ 			hdr = db_fetch(i->node, &size);
+ 			if (!hdr) {
+-				if (errno != ENOENT)
+-					return errno;
+ 				gen = NO_GENERATION;
+ 			} else {
+ 				gen = hdr->generation;
+ 			}
+-			talloc_free(hdr);
+ 			if (i->generation != gen)
+ 				return EAGAIN;
  		}
-diff --git a/tools/xenstore/talloc.h b/tools/xenstore/talloc.h
-index 518fcac151..32cee63d4d 100644
---- a/tools/xenstore/talloc.h
-+++ b/tools/xenstore/talloc.h
-@@ -92,7 +92,7 @@ void *_talloc(const void *context, size_t size);
- void talloc_set_destructor(const void *ptr, int (*destructor)(void *));
- void talloc_increase_ref_count(const void *ptr);
- void *talloc_reference(const void *context, const void *ptr);
--int talloc_unlink(const void *context, void *ptr);
-+int talloc_unlink(const void *context, const void *ptr);
- void talloc_set_name(const void *ptr, const char *fmt, ...) PRINTF_ATTRIBUTE(2,3);
- void talloc_set_name_const(const void *ptr, const char *name);
- void *talloc_named(const void *context, size_t size, 
-@@ -103,7 +103,7 @@ void *talloc_check_name(const void *ptr, const char *name);
- void talloc_report_depth(const void *ptr, FILE *f, int depth);
- void *talloc_parent(const void *ptr);
- void *talloc_init(const char *fmt, ...) PRINTF_ATTRIBUTE(1,2);
--int talloc_free(void *ptr);
-+int talloc_free(const void *ptr);
- void *_talloc_realloc(const void *context, void *ptr, size_t size, const char *name);
- void *talloc_steal(const void *new_ctx, const void *ptr);
- off_t talloc_total_size(const void *ptr);
+@@ -388,14 +385,26 @@ static int finalize_transaction(struct connection *conn,
+ 		if (i->ta_node) {
+ 			hdr = db_fetch(i->trans_name, &size);
+ 			if (hdr) {
++				/*
++				 * Delete transaction entry and write it as
++				 * no-TA entry. As we only hold a reference
++				 * to the data, increment its ref count, then
++				 * delete it from the DB. Now we own it and can
++				 * drop the const attribute for changing the
++				 * generation count.
++				 */
+ 				enum write_node_mode mode;
++				struct xs_tdb_record_hdr *own;
+ 
+-				hdr->generation = ++generation;
++				talloc_increase_ref_count(hdr);
++				db_delete(conn, i->trans_name, NULL);
++
++				own = (struct xs_tdb_record_hdr *)hdr;
++				own->generation = ++generation;
+ 				mode = (i->generation == NO_GENERATION)
+ 				       ? NODE_CREATE : NODE_MODIFY;
+-				*is_corrupt |= db_write(conn, i->node, hdr,
++				*is_corrupt |= db_write(conn, i->node, own,
+ 							size, NULL, mode, true);
+-				db_delete(conn, i->trans_name, NULL);
+ 			} else {
+ 				*is_corrupt = true;
+ 			}
 -- 
 2.35.3
 
