@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7807F77BC34
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 16:58:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583694.913978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1A5377BCE2
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 17:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583700.913988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVZ1H-0004fj-L7; Mon, 14 Aug 2023 14:58:11 +0000
+	id 1qVZOF-00082s-C8; Mon, 14 Aug 2023 15:21:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583694.913978; Mon, 14 Aug 2023 14:58:11 +0000
+Received: by outflank-mailman (output) from mailman id 583700.913988; Mon, 14 Aug 2023 15:21:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVZ1H-0004dh-Hy; Mon, 14 Aug 2023 14:58:11 +0000
-Received: by outflank-mailman (input) for mailman id 583694;
- Mon, 14 Aug 2023 14:58:10 +0000
+	id 1qVZOF-00081C-98; Mon, 14 Aug 2023 15:21:55 +0000
+Received: by outflank-mailman (input) for mailman id 583700;
+ Mon, 14 Aug 2023 15:21:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q53I=D7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qVZ1G-0004db-0Y
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 14:58:10 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20628.outbound.protection.outlook.com
- [2a01:111:f400:7d00::628])
+ id 1qVZOD-000813-Mr
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 15:21:53 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2050.outbound.protection.outlook.com [40.107.7.50])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb03b864-3ab2-11ee-b289-6b7b168915f2;
- Mon, 14 Aug 2023 16:58:08 +0200 (CEST)
+ id 4b7912db-3ab6-11ee-b289-6b7b168915f2;
+ Mon, 14 Aug 2023 17:21:52 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DUZPR04MB9782.eurprd04.prod.outlook.com (2603:10a6:10:4b1::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DB9PR04MB8348.eurprd04.prod.outlook.com (2603:10a6:10:25c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.24; Mon, 14 Aug
- 2023 14:58:05 +0000
+ 2023 15:21:23 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::79a:54ba:8003:fbe7]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::79a:54ba:8003:fbe7%6]) with mapi id 15.20.6678.022; Mon, 14 Aug 2023
- 14:58:05 +0000
+ 15:21:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,206 +46,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb03b864-3ab2-11ee-b289-6b7b168915f2
+X-Inumbo-ID: 4b7912db-3ab6-11ee-b289-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xy9mgw/OnG42oGMyOPEr4qE1dNbTpSsNuSTHOCmpDj10ytRORHKXj3raGm9Sc8PkG79idoYwnj9xrxKJAwuhgfu3o/ceegwAKlULDvT1wBb01AKcVWdWBl/w5Z9CgUPHwJfxvzGpXG3PCyW6aOV8H2FO0HlouEVBFIkk1QJtMMI9KmIprkvJJAnE0lTAJ8CwQoBXwse0fzsE+Vpqx4RMKP3xWlCTJ0cPdmH+uO27XPD/OgK7jjyOPffw8KSNow9VTnwyRaNClX6LWMur839aEmPYJTCdXCGHqexOhML+ca1fcewO5qb0KiTZsbuWPwskt+H8dD4LNmajNKa1+/gJfg==
+ b=J2n9i/CIPa6pmBYhqOAAX69nPHhxKRmxQslOEtfW8RwjgZVYccoL6srnmOFhBX0htT5bjWogURNvmDSCUUOuiJTPfhN4ah3v1SKM8usGXBjHInqHa+cjBuooJM9UUSVTyJh8HHsFJC9LPBh4i8gbkK5C6+MtIcxVta/F9J2tXoR87lZEvOLh3VHXk6RUpwTg+6j2deo0sdtwAEOx2WYQzX3nXDkgfwbtwQGRTDUkbeu62pNGueqo25W3nHz+/FNL8Ja2vrBSQD/HITS2h6EBzAj/QHHncz73IFVg7AtavbhXmLlif6SsC/W65Mx0sun/W/ZNC5Q1OU8+KuEBPZwC5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IxTTRlsxaVj3fTFIAi7otFLprYSJ2Iniq0rD1iMefOc=;
- b=Akjs4ERdJZqoJymSeIV3OfXeN5mP35Nq4xTyHcdB1O5+Bccdui4TmHAQx7REhhascJRgspHKIj86qq/cgdsmdNoQySALufG1iVDvOph+zl5Ec8khqi9yGkSQ0PoEdaarl4qxUa7GhcAMvzSwLJvvTsKRqjzTc7k35JIia53x/b8AF/V5JaPFYG0BrGRuUHQAXhDnp4TFQSgrR1bY7v5OPqXNnGdJFAFFXkcEfBrUg8OsO08cUU5XNEkv4q1N9EhxVHpeEp92WT9Xh/SbKoSB9pvHXuR0tvfal7s0E+1j6LssGooF6UPBB1KD8W73VkSzOTin+nUo9HcYN7zdsxxnlQ==
+ bh=qMuCYPjsq/uoaxkV5cQCo+ZFI//TVApCj/i8xWKO1bg=;
+ b=Ve/pGRqxRoISxlMex4q/7o+IQaQ22Fsj64c0PcORWvK0E/lPPRi5SHCIOllJjf1ipJP+Xr0de46DSzzPZvKwAFeJp3ga+r5kfnxtCed/HlFTleoXYy266kcun3U9Gy9MA9SpdO67pT1xUcSq+TJ1nRWITFASdC/uTlZW07isbZLNCCV8KaMZa7g0ddF3Ciq8N5iUwrAcxJIVTwdp/v8wtrKUxdfODe3wxjDD26LdKW5uOnAsmryNoMrnjju7ZYXFQFWp+crpwZ/qHWvFcZOMzpOmmlq9gsDaoOOmFBbMheyc8D8htPdJ0w0yj7KqtZwbdHfx6UmmDUXwJQv+OxC5gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IxTTRlsxaVj3fTFIAi7otFLprYSJ2Iniq0rD1iMefOc=;
- b=YJ0E34sUWFL683lzPn9NPJlQP0n3XjNV3+Y7qO1yukYUMcbsJBjKsnyzQWO4y5Hmt5OJDhLVeie71O+r3IGbBFDQkcv4eRlJMSL1CmMXq0/gPRvqx+gJ0zdHky71zuhlhbQ7D0xfQmujkN0/YsfoKJd4IAcTkRav3ShnowryM2I0DA14U8EeM9cwWsfREUo9JH5plaN3WJGaSpSQe5uc5d39F9nYpd3ovG3nQUVyHU4c5iDcoteLbt4IOO+dCegvaQM2l9ysEqQXAjNSWCclfdplyLx79x5UUV4+zju7iEoFOEae2KI4LTFDQTQGotb67r5OZ4CNos0aoPQEjQXLFg==
+ bh=qMuCYPjsq/uoaxkV5cQCo+ZFI//TVApCj/i8xWKO1bg=;
+ b=sXQJY2/xAniuf5cm5hzPKkcy6X2eR/56q3AI0s7T7TpbX/UIZeLrArcYW3zrc22LqAonjSX6eC4TMlJr/FAiYPqyOZxvQ2tN7nfJsMMjsinPP622qVQc1yrHh9KWXKD2jqqnNbIUbcMbj/0xewoSHuu9JAemSvlSb8HHikqKLSzGT/slIKuk9N+Uf1PW2VC8Sqp0rleMAiJ8/8rXKotKKW2kaLDBlRzOKdhwbQ6bFyDKrUBQYrrmpyEwt41+mGuIh5x0nDbnR0H18N/0lSNfWfRIbW9jzgtbV1EhGmNz5NGieq1W1fCx7m/9KCS+qRp5Re8ooY30UsXUtaEeRQ5LHQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <29d82586-550b-6e9f-f967-a2855d1c81a2@suse.com>
-Date: Mon, 14 Aug 2023 16:58:03 +0200
+Message-ID: <7c99ef09-cde3-e35c-f9f0-00c06b754786@suse.com>
+Date: Mon, 14 Aug 2023 17:21:20 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.14.0
-Subject: Re: [PATCH v1 3/3] xen/vpci: header: filter PCI capabilities
+Subject: Re: Build errors with fuzz/x86_instruction_emulator harness
 Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20230810191312.644235-1-stewart.hildebrand@amd.com>
- <20230810191312.644235-4-stewart.hildebrand@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <d4826ecd-fabc-03e9-2ec3-788877a560b1@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230810191312.644235-4-stewart.hildebrand@amd.com>
+In-Reply-To: <d4826ecd-fabc-03e9-2ec3-788877a560b1@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0076.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0085.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::22) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DUZPR04MB9782:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5f8f858-24b9-489b-2dc2-08db9cd6dcff
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB8348:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d99e63e-fb3d-45c4-e36e-08db9cda1e46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	80FbvIzNvs7EGO636jkghFelMrONMkQRfQh4leqMlolqYDZxX2Qzo56gpZdep/2mk2Vf1y5Zas6e0wYKoRz1GOv/tPkNT03Sjf8fnMDofRAPXJPlnJBLwXs/b/SghGf9lziHgsvxt+TkkNdmxD3QPSrmEKAF9snSuWjuN3Se3JLi/0RWDiduDjXdvnMd3GoWgw496kbYo0DOmTp98pDbFn+qYEoARfyWTanWYQjJCnXDhyE/XmS70QvTh28uWlHizdr7OO4vltLt3FSc/9vn5k5nciUkjcyXrnlJcQ/pacXOQq/x0hwAfrI6TFzm80iwVYilx+v2njsnWygpYT0M5fqYQRYbiYN2gROlZRBk3MAVaE7zrTFsF+rGmP8ryZyLvSlwDPQA/2Un1hp8l2eeDHzHR6fSETjjKeO+XuKhLph4SbcP+wMzFCB60ht5lAgFnn+coQPm35X1FlO/IzEgPgbUfeky35ULmPMHBhBSsDkYP5HfA3K50YYxPVhpFEUveJiaH5YQa7OXafysiAZjbRwsZQFy25M2MkLmoSxx21AKZ7aayR5wLqEQHR89da9B+mayk0IP852HEHVFrrq38wZuKc8uVATKEZg9p4IhTJc9h+NccMUk3UmlKlQl4KaHifyV1LLZzD/eE0+wNkfIaQ==
+	olc8WzMp0kijkCg9mHSi4e9vPS4hJ6YypUS75kFjqsTdrQ6BXOlVNdVk1bnWru4dG3l1HYUH+e8OQPI9stWuadzT3beSaWyUIFyeRwt+rnaPRSLg9Y3w4ATPkZj8zewRnjD13RgQnlqwRexyxPUybVuPDk3N3Ooo9uN6AkIPL3OvJ0OpOMGPVcdd4Y7ok9xCXKDNRcV6KHPIt1JuC1c6Mpi2rydmF+RcrSQaED8k/Yi0np6GB4mH9sX9IY7HVfjqNDXkC6XNReSmG0uMnAEsJY1vvZkbIQCUBHojsVX5d4sxdznzAcpr3C/OT4onMSnCvjqZeWnFf/m3sudTlt5nrIQTcYFCp38RI7/4w4OnwuXfLI1gzX9xWt1aJcofPoSvxQ0PVmw/e7oUuP5780Z8N2ZEAFFE34RnOOBmJYl+x+BqejUYDq1eBrIZ7m1qyewKHMR1KoXqfLQXGec3m7Tnqq2Sb3j1RsqwjBr8zkXax3iMnOE0ZYeS8Zd8HDf4jMZ74QaPf8+xjaj4cA1/OKnDnnylkEMANh/auFoQCtvg8C1eUvw3eyDQ9lOTXowXE8mcnkUu+6T7hfZJCNaKAs3vm+I2GcK8LJiyEybR+CcXdP6hQHYRSPIeTHuFCXzwp+/RHILVJ1ZwWYFZ8GXpiucUsw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(366004)(376002)(346002)(39860400002)(396003)(1800799006)(186006)(451199021)(478600001)(6486002)(6506007)(26005)(6512007)(2616005)(53546011)(66946007)(2906002)(8676002)(66476007)(6916009)(66556008)(316002)(4326008)(8936002)(41300700001)(5660300002)(38100700002)(36756003)(31696002)(86362001)(83380400001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(366004)(376002)(136003)(396003)(1800799006)(186006)(451199021)(83380400001)(41300700001)(8936002)(66476007)(66556008)(66946007)(8676002)(316002)(6512007)(31686004)(2616005)(53546011)(26005)(6506007)(6486002)(54906003)(478600001)(38100700002)(31696002)(36756003)(86362001)(6916009)(4326008)(5660300002)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Yjk3SkVRc3NlVm9rYVpCZGVsNjdUOTh2UWtnRzR1cUpTNHlReHBiZUpRbmEv?=
- =?utf-8?B?WEYyYXFOUmFzY1c1RzQ2RVhtZUtseFZndDdSUzlIdkRRYllmU0dVRzJMenZv?=
- =?utf-8?B?MUdRUDdLbnNiNStONmo0S1JPbVdlV3lEelV1bEJrNURTNTVBVm5QVVR3Z3RP?=
- =?utf-8?B?OHlqeDRZKzZ0RjJuSWdhNnhLUkk5YzhyTC9oWlJ4bXNCV3VsU1dvK3A5UnRR?=
- =?utf-8?B?SGVaZUhvMW1UTjBFd3EyYjJjREt4ZHEzcFZpUEdaQzVTS3VKUTFDUER3WWk2?=
- =?utf-8?B?dWYzUFplT0hMUjdQZGdSZ3I0ODRtRmFQZGF6amo0WEFrUXlCTm5uVUs4cnJY?=
- =?utf-8?B?OEtqMlg3M0pSenNmalBaeWRXRFZHUUl2WFEyRHV5RVpNVWJuTWliSjM3MHFk?=
- =?utf-8?B?Y1dGRUttVHVOWityZHFqSzI3N0hFdkVXRVA1dDZNSEhFekFmeWd5Z0NSQit6?=
- =?utf-8?B?aHpQQzZiVFZiOFlDblZudkZvWDJVVnpxQ0dndzhMMjl4L1U3NDdoWlRaZGlR?=
- =?utf-8?B?MXdHRDU5Vm5nTTZ2RzV3OVlvcGZ0b05vL2I3SExhWnA0WGRqSGp5VTJUWXRw?=
- =?utf-8?B?WFQ2cFpWaXlaMUJPS3UrUnQybTg2V1pVa1QveTc2RjVWSC9HbkFQanZCSDJH?=
- =?utf-8?B?VlY1TlRYdXhMRjRvd05DVTJWR09LRFJDaU5WZ0hKUXFhQmd5RW80M2xROFZS?=
- =?utf-8?B?YWhhNFJvRVB1bHAwRG1MdTRHbWcvTC9MMXZLQklqbU1aNFJwK3hQRU91d1Ja?=
- =?utf-8?B?N0VXbi9SMVdjV2FXZEFQQ1JuWlpoQ0k0ai8yeW1KTFE4RUlOOGpEOG0wQUxM?=
- =?utf-8?B?bVhzam5RSmFDVGFZRVFpWkN4cHVFQmtwQ0lFK3VBQW9yKzluU1MzV2J3M0Jh?=
- =?utf-8?B?QjgvaWVtVFdReGxOVVA3elhVbElNaW1GS2EydlBXQitkM3dHYWpaUFI2L1VK?=
- =?utf-8?B?OFBlbFBHenltRlhZSzVkdjFKZU1TRUpCazlZWnlaRXNmZThNdTVFbjIvTnNa?=
- =?utf-8?B?ZzNOK0psZjNEOUVhYzBaajJoS1dzc0Y0OEpiUTBzVVFtT0JOS1lxaFZRZTBY?=
- =?utf-8?B?b0tKdmx1QlVlTjh6bEFUcEtaOCtPOCszZWUrWVQrZ3BlOFgvcEFGSGxGcWl1?=
- =?utf-8?B?SUNNamdlZyswbFdYL2V3WWp4OUhFUDQ5dy9PSmFHWlA5T1NpRXNRM2t5bXRL?=
- =?utf-8?B?eGVIU0FOaGJJdVBZN2sxWFNXT0YrdHd3Y25GNldTOUVnS0ZpZys5SnFUK3JK?=
- =?utf-8?B?a2wzUjdYeDZIK0lqZGh0MVcyU1h0N1IvNi8rZFlxQlRkNXFlKzZRbDV3MGdt?=
- =?utf-8?B?OGdBaFBIUVVTYThFeHZhUFlML2d2NmR1TzdYNE1jN1pmSk1FbmNpZm1tQ1V3?=
- =?utf-8?B?ZDN4cGRXUGV0SzgyR3RSNlNMdk5sdUlWaVNxTzFVc3FVOEw1dWx1RFNIRGJy?=
- =?utf-8?B?YUFYUmZEWWxYR254SDVBeUpVV3B2aWlLOG9KUitzV0g3RzNreWhhbnhNc1lM?=
- =?utf-8?B?cENWTGZzVnVDa0ozb2QyT3VlWWdoQWhtdnc2L0hwcXg1QmJKSDNRM0ZMb0hO?=
- =?utf-8?B?WnZvV2RlK2t1YUR5alI1UExoZ2ZPZDZpUlNoZHJUOE5HRUVyd09nREpQY1pK?=
- =?utf-8?B?K2p3anZCYmZSMVdka2NPWkZqN2RIb1dWTnZOVy9mWUZUNzdGVGZjOWl6UmVn?=
- =?utf-8?B?V2JVS1M1c3hSYzl1NXdTMEc5am9OK0ZuZm43N3hxaWdaNDdWZ1NrYk1CNVAz?=
- =?utf-8?B?RGswWWdsekllR2JQZVJ0dWl4bzVMcTk1VVNEeUxhNGdaREdveWJ0T3JlNDdE?=
- =?utf-8?B?RGVySnZpMmZMQXY1aUZtOE5TK3ovQUppTUNkOTJ2bkVSN2g1czMwMU8ycDI1?=
- =?utf-8?B?MDRVVmlKZTNBUmV1SDdDVWoyN2pWbHhrZ1dFeFpJYWZJbnlqYTJLNnZCMkF3?=
- =?utf-8?B?am1uRXA5OGgrdjcxbFZ0N3ZIcXdVSFNwWW5tek9LSlVpbkxjUjdrTlVlZzNQ?=
- =?utf-8?B?cldwQlRLcCtCZHd0Y1RvMUxCWlBic2VIR2hkUmE3TFgyZkt4RTIxWFpOcjJV?=
- =?utf-8?B?RXpaUHVVQkJUUUo3cnM2UWxnc1lJcWtuRmJxQVlKQUhYV0l3bXpNWUtUREsr?=
- =?utf-8?Q?Dqu+FIFrsrxG5DOv942KPOQ6r?=
+	=?utf-8?B?Tld0aGl5NjN5RFhmcVcvaDZRQTB0dG1QVGdTakMySHdXTkFxU0RPQ3ZDLzhX?=
+ =?utf-8?B?QXc1TDRxTnJuWWk1K2NIS2FvNnVuQjd0bDZhR0ZrZXByMFR1SmFoT1B1RG52?=
+ =?utf-8?B?Q3p0MnZqbGFMZUl3SjJYODNtQWNFZnlBUDhOZmhpNkxDK3p3VVRFczVmRGJQ?=
+ =?utf-8?B?UnM2MDZiNUlyZ2pBdGhKRGtHSFdUWEhGaVNmdXlRQXExcjkyK2xNU0hkQlhT?=
+ =?utf-8?B?ZFR0cS95eTZjMUExY0ZBQUtwZlhpdTRpekpDQ0RsMmJxYzl4TnFZTVZqQmpU?=
+ =?utf-8?B?YS9sQk1BWUZNc2FtOFRUZ3ZZM3BvRStISDFxT0hwOElpS0E3Zk1wQmpHcE1G?=
+ =?utf-8?B?bHgzR1pYY3FEYTFCOHFHMTBmVHZ6d0IwTWFxRFhCMHJrV1dNNDk1TWNZS25u?=
+ =?utf-8?B?YUpDRmpyVU5hdGxyNjlTZG84d0R6ZmkvT1dLL3BaMHI5WkRUWmx6YUwreVlL?=
+ =?utf-8?B?OXhydnBValFUaTZlcXltcy8xQnhIQm96Ykt3ZGJoOEZMK1JhTTcvUEd1VFY0?=
+ =?utf-8?B?Sll1U1pWckhzbFdkQTZPNXNacTdvWG9CZmhER3BkSHBDTWN3NGtUVGk0NDRK?=
+ =?utf-8?B?aUdOZ2pJbTNiU1haaUpsVWxaakxTY3FHRHRDQlFRS1RVazk3cHFld1VjWTgr?=
+ =?utf-8?B?MjV4RkpTSjBtUTlZUUh3NVh0ZDh0Y2N4Rzh1OHdnbGFHY1BtU2htbWZNVTlK?=
+ =?utf-8?B?TnFMRzRtY1RnK3BHb1BYSEw0akxvb1RtT2lHUVdxcERnYWF1QzR1Y3JUYnQ3?=
+ =?utf-8?B?WDdna25UTmtESG1naUJpVWNRcWxNNEk1dC9CUW44NXFxTUt2MDAvUGVRZzBI?=
+ =?utf-8?B?Q2xWdXNldGFSb3ZXSDBSSW4zZy9icEZqZzRTY0ZlTDdrbTNqcEdHNURrNXNi?=
+ =?utf-8?B?WmtDRm92TEd1a0h6Z3NHRFd3enFvVzdiRGlCVWNBbDF3UDdWdHhqRDFRK3A3?=
+ =?utf-8?B?dXNZOG5TK1lVMTVZcTBUUU9OWUVOc2xSdkMzMUtGVXVmaGQ3OFlrb0VBQkl2?=
+ =?utf-8?B?MTh4dGoxRndBVHBzL0h0dkQyUElqVWlDM3JxMGx2eFVMblNqbXRVQVRYNUky?=
+ =?utf-8?B?amlaWHdpTDdVNUNFWDNDdkhtME9ydFBSS081K0FQMUJNWDBodXdvZ3kxSzh6?=
+ =?utf-8?B?MDRjbzJuWUVJRDFTTGtPVkxSZFFxUkFqcXduR1R4ejNucmYzem9UaVJ6OXoy?=
+ =?utf-8?B?dEpsNWRKTjBwampHUDhZRVFrdGJ4VWo3SXJBZS9wNlhNalFTZWVWdkdCMlVS?=
+ =?utf-8?B?M0x2NmdIVCs0MTB5UmxSOUhwNTdlSkdYSjhBcjgwYzBnODNyMm9DYWZLYTNx?=
+ =?utf-8?B?WkxCdFEzSnAwcHU2U2psR2JmSG5KQ0ErYjAvWk1iNjIyaDV0Q0tuU2xwcFVG?=
+ =?utf-8?B?YW9PN1NHNktQTHpCajVudmZKbGNjNXdqanlFRmpjNWhyeWZnRXNidVNmRVJU?=
+ =?utf-8?B?bDJrbk5ERGwyc09uY25jL0I3blFNTmd0WnVkVCsyS3JTRWVqWG5UQUVhRW9u?=
+ =?utf-8?B?eE1uQWQ2MWg2RnhiYklnU1YzZ2tKR05idTRYeWFzamFMbVJXWDJyQndubmtZ?=
+ =?utf-8?B?ZDlPZEovR2RCc3BNc1NNL3JmdTF1bXNhNE5hK0xhZHloRUw2U0pzOWVnL3BE?=
+ =?utf-8?B?aGpEQWlCNnBSZmlKUjlGRmc2R3ZRbTJCcWR5KzVmN0NxbFJFa1V6TXUxaytm?=
+ =?utf-8?B?N0FOeVBxaU80UFlINU1VbjdMWldZTGlGb2IzWU9RVW1VV0QrZldlWk02Lytm?=
+ =?utf-8?B?ZmlJZm5zV2pzb0QyOFl0ZUIyZDJjdElTRFJwUTFxb3JXZFBBb2Nydng2MXlu?=
+ =?utf-8?B?MWNFY2IzYUdXdUdCUUlGRW1IWE5kTkFZL29LTmlWSlpEZnF0ZDk3VWdwMmZS?=
+ =?utf-8?B?UG1ieVFvZ3c5ajlDZjJSUjV0di9XZ3ZJRnQ0NklvQitzM2xOMkt3QnV4L0tZ?=
+ =?utf-8?B?NXVoZWtDL0hRMGUzM3J6M1FqRlhsbzdkNG1Ub0syelR6U1R3eXJzQjNTMlM5?=
+ =?utf-8?B?NEI0akdySEdEV3crUWg4UVp3eVcwVGtJVkpCV3YxN2pRT0NxV05CV0srQWFn?=
+ =?utf-8?B?WDY3TEx2ZE56QXNCTVk1emVYVVZnM0NYdmdYMSs4TEJCRGtFd3FqZFluOUtl?=
+ =?utf-8?Q?USzAjk55tt1EAH0o+QlN5MdWI?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5f8f858-24b9-489b-2dc2-08db9cd6dcff
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d99e63e-fb3d-45c4-e36e-08db9cda1e46
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2023 14:58:04.9530
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2023 15:21:22.9023
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KpKxZ9AzByoC/ciz5/2VZXlgoJ6evAp6cDlUipY7EP8VX2jnKZ0KZIo1OQWagWi0bi+KND/r2HywJZVynmpZ/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9782
+X-MS-Exchange-CrossTenant-UserPrincipalName: OliZ1JA8TJdxG3W42N/Bq9xo5GkM9oVWXULpu5crJnx/YwKJUKC+GO09OOqcs6b/k9tIHK0xQawDf1JbhQh2dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8348
 
-On 10.08.2023 21:12, Stewart Hildebrand wrote:
-> Xen vPCI only supports virtualizing the MSI and MSI-X capabilities, so all other
-> PCI capabilities should be hidden from a domU for now.
+On 14.08.2023 16:52, Andrew Cooper wrote:
+> See the attached log snippet.  This is current staging, with a GCC 13
+> toolchain.
+> 
+> First of all, a minor issue.  Counting the number of
+> `-D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__`'s, we
+> have included CFLAGS on the CC line 4 times.  This is something that
+> appears to be in common with all of tools/ and is probably the primary
+> contributor to exceeding the Gitlab CI 4M log limit...
+> 
+> Next the error.  This doesn't build when CFLAGS coming in from the
+> packaging environment include `-flto=auto`.
+> 
+> Clearly our wrapping trick doesn't work with LTO, but it's not obvious why.
+> 
+> readelf -Wa tools/fuzz/x86_instruction_emulator/wrappers.o | grep emul_
+>   [223] .gnu.lto_emul_fwrite.38.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01c2ec 000194 00   E  0   0  1
+>   [224] .gnu.lto_emul_memcmp.39.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01c480 0001a7 00   E  0   0  1
+>   [225] .gnu.lto_emul_memcpy.40.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01c627 000175 00   E  0   0  1
+>   [226] .gnu.lto_emul_memset.41.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01c79c 000186 00   E  0   0  1
+>   [227] .gnu.lto_emul_printf.42.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01c922 0002cd 00   E  0   0  1
+>   [228] .gnu.lto_emul_putchar.43.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01cbef 000216 00   E  0   0  1
+>   [229] .gnu.lto_emul_puts.44.43da3a7fd30cc0a1 PROGBITS       
+> 0000000000000000 01ce05 000180 00   E  0   0  1
+> 
+> shows that there's something relevant in the object file.
 
-I'm not sure about "should"; imo this would need evaluating for every cap
-type separately. I'm okay though to take this as a starting point. What
-needs considering (and mentioning here) is that there may be (iirc: are)
-drivers which depend on being able to find/access certain capabilities.
+But only sections, no symbols. Doing a simple test with a trivial source
+file, I observe that no actual code is emitted at all, and hence also no
+symbols. Which means our trick - working entirely behind the back of the
+compiler by inserting .equ in the assembly output - takes no effect on
+our own sources. And really the errors in the log fragment you provided
+all point back to standard library headers, where (just a guess)
+something may be done that cause _some_ code to be emitted, for which
+our overrides then take effect.
 
-Also - what about extended capabilities? Don't we want to hide them all
-then as well (by returning 0 for the 32-bit value at 0x100)?
+> Manual poking about in the build environment indicates that
+> tools/tests/x86_instruction_emulator is similarly impacted.
+> 
+> Any ideas?
+> 
+> Obviously we can inhibit LTO for the x86_emul userspace, but that ought
+> to be a last resort.
 
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -513,6 +513,36 @@ static void cf_check rom_write(
->          rom->addr = val & PCI_ROM_ADDRESS_MASK;
->  }
->  
-> +static uint8_t vpci_find_next_cap(pci_sbdf_t sbdf, uint8_t pos)
-> +{
-> +    uint8_t id;
-> +    int ttl;
-> +
-> +    if ( pos < 0x40 )
-> +        pos = pci_conf_read8(sbdf, PCI_CAPABILITY_LIST);
-> +    else
-> +        pos = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_NEXT);
+To get the build issue addressed, merely suppressing LTO for wrappers.o
+may suffice (provided such mixing is permitted in the first place).
+However, due to our overrides not taking effect (as per above) I can't
+see how the resulting binaries then would work correctly.
 
-How about avoiding the if/else by having the caller pass in a useful
-value, rather than PCI_CAPABILITY_LIST? I.e.
-
-#define PCI_CAP_LIST_FIRST (PCI_CAPABILITY_LIST - PCI_CAP_LIST_NEXT)
-
-> +    for ( ttl = 48; ttl > 0; ttl-- )
-> +    {
-> +        if ( pos < 0x40 )
-> +            break;
-> +
-> +        pos &= ~3;
-> +        id = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_ID);
-> +
-> +        if ( id == 0xff )
-> +            break;
-> +
-> +        if ( id == PCI_CAP_ID_MSI ||
-> +             id == PCI_CAP_ID_MSIX )
-> +            return pos;
-
-Can this please start out as switch() right away?
-
-> +        pos = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_NEXT);
-> +    }
-> +    return 0;
-> +}
-
-Nit: Blank line please ahead of main function return point.
-
-I also notice that the function isn't really vPCI-specific in any way
-(except for the specific PCI_CAP_ID_* compared against). Would it
-perhaps make sense to have it be a general utility function, living in
-xen/drivers/pci/pci.c next to its relatives?
-
-> @@ -544,6 +574,54 @@ static int cf_check init_bars(struct pci_dev *pdev)
->      if ( rc )
->          return rc;
->  
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        if ( (pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST)
-> +             == 0 )
-> +        {
-> +            /* RAZ/WI */
-> +            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-> +                                   PCI_CAPABILITY_LIST, 1, NULL);
-> +            if ( rc )
-> +                return rc;
-> +        }
-> +        else
-> +        {
-> +            /* Only expose capabilities to the guest that vPCI can handle. */
-> +            uint8_t next, ttl;
-> +
-> +            next = vpci_find_next_cap(pdev->sbdf, PCI_CAPABILITY_LIST);
-> +
-> +            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-> +                                   PCI_CAPABILITY_LIST, 1,
-> +                                   (void *)(uintptr_t)next);
-
-In vpci_find_next_cap() the low 2 bits were masked off. While reserved
-at present, I wonder whether we wouldn't be better off passing them
-"through".
-
-> +            if ( rc )
-> +                return rc;
-> +
-> +            for ( ttl = 48; ttl > 0; ttl-- )
-
-vpci_find_next_cap() already bounds its loops; you effectively allow for
-48*48 iterations here. It would seem better if the ttl applied globally,
-and would hence want to be an in/out for vpci_find_next_cap().
-
-Also note that according to ./CODING_STYLE ttl shouldn't be uint<N>_t
-(this likely extends to other uses of such types here), and plain int
-also isn't really appropriate for a value which can't go negative.
+Question therefore is whether we can find a way of effecting the needed
+overrides (including for compiler generated calls) without resorting to
+emitting .equ (or alike), and hence without doing it fully behind the
+compiler's back.
 
 Jan
 
