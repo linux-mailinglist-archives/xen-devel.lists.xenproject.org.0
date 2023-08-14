@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 411D477B755
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 13:08:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583550.913790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB3677B78F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 13:26:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583556.913799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVVQE-0005WZ-PA; Mon, 14 Aug 2023 11:07:42 +0000
+	id 1qVVi5-00080Z-9c; Mon, 14 Aug 2023 11:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583550.913790; Mon, 14 Aug 2023 11:07:42 +0000
+Received: by outflank-mailman (output) from mailman id 583556.913799; Mon, 14 Aug 2023 11:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVVQE-0005UL-MY; Mon, 14 Aug 2023 11:07:42 +0000
-Received: by outflank-mailman (input) for mailman id 583550;
- Mon, 14 Aug 2023 11:07:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qVVi5-0007xb-6A; Mon, 14 Aug 2023 11:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 583556;
+ Mon, 14 Aug 2023 11:26:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NzbS=D7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qVVQC-0005UF-OB
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 11:07:40 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7860e2a-3a92-11ee-8613-37d641c3527e;
- Mon, 14 Aug 2023 13:07:38 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E286921992;
- Mon, 14 Aug 2023 11:07:37 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B85BB138E2;
- Mon, 14 Aug 2023 11:07:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 36SoK/kK2mTzGgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 14 Aug 2023 11:07:37 +0000
+ (envelope-from <SRS0=80nZ=D7=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1qVVi2-0007xV-Qq
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 11:26:06 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5955f45f-3a95-11ee-b288-6b7b168915f2;
+ Mon, 14 Aug 2023 13:26:01 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4fe457ec6e7so6647488e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Aug 2023 04:26:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,166 +40,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7860e2a-3a92-11ee-8613-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692011257; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+e6NJV8c/LBHh7J8ISQko0qkIreqCKvxCU1dzISpicQ=;
-	b=Suspf/lufKpGg7XvIpLsrOKSxV8wc+kD9US6gmC7fadZOCQy/zAGtPMsYbE8beL47yrhh6
-	AD7Ta1veDgj+2gpAEDBxIf8IbqTAwmZwd1FQ1IpnCJFYBZTEtveba9ZnYCg3z2HFrd87Di
-	nTRmf+N9xcJ8DFpuxLvJGeGdUNXAibw=
-Message-ID: <7def701e-98f5-4dd2-a5d6-18fd3ad78ff1@suse.com>
-Date: Mon, 14 Aug 2023 13:07:36 +0200
+X-Inumbo-ID: 5955f45f-3a95-11ee-b288-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1692012361; x=1692617161;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=UBfGjado5ykuU8PXg/caM32XsiigilSzYP0189TZzXM=;
+        b=ERo8QqU/EMZEIi50tIyNUCQw5W6aVa0wVTjNj/ipICDEgzowQMOZn7mfX4Bp6fCWDs
+         u8wjF4w8A5EbfsPSxvs6MOPTbOz5f4kxq+jxiMzj22MZJHugfeD3GdeSrE9A5ti313V3
+         wDadsjbc4fDXYo8MFW7sHP0SvhEDZrsTAx55o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692012361; x=1692617161;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UBfGjado5ykuU8PXg/caM32XsiigilSzYP0189TZzXM=;
+        b=k0kRkh5cR0EMr/Fl/3yHs+hHMn7uvL6etXs+ESzG+uRAXBQBC73LvlMwaI+wj4CSQK
+         dB25OCaG4KXtSriQClOEB3SnyhG9r2Y9kMH2DnTc5E5c/B6AvCWQSfEGyNhOfjG4gMqz
+         ejxvMpGcYmf6ItjUg/SnPIAfS4U2QhgOURKOICFBeqe8W1/FojsGznBt5j2J32zyxd3X
+         b61mMlsLq+TA4En2YyhNJzXnkS6SOTLPWIB2csv7ChOFOEHUPZ7/WQWLP2rvMOcUH1MH
+         CmNWRfZjUf6ZQ3MsUJkKpFoZb/+xj83Gq9djjw1WHhAn591XJsENJy0vQjxPag3dVyqC
+         uqUg==
+X-Gm-Message-State: AOJu0YzVMsT+33QtUMlnJ67oKtQqDPmTPKXMYoD3vwmbe+npX6xKksTD
+	7+6tYTHCuFZbbJDsIVx7yyCh/eCZ84w8OCruO+lKsA==
+X-Google-Smtp-Source: AGHT+IFib+4JFmUGDCbfvnwkOBX5hSF6w0OjopvFFLXYcEDL3KVAz8Txh3zjtnvRf0rTHY5hn0YGiJSFTIHpWYcLWiY=
+X-Received: by 2002:a05:6512:39d1:b0:4fe:7e64:3c1a with SMTP id
+ k17-20020a05651239d100b004fe7e643c1amr7030761lfu.2.1692012361092; Mon, 14 Aug
+ 2023 04:26:01 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/19] tools/config: add XEN_RUN_STORED to config.h
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <20230814074707.27696-1-jgross@suse.com>
- <20230814074707.27696-19-jgross@suse.com>
- <afcc7e49-1e7b-4b62-9b2c-97f3b7784ad3@perard>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <afcc7e49-1e7b-4b62-9b2c-97f3b7784ad3@perard>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------pUTTuIJiYQ3J5dwdwAUiNO12"
+References: <20230803203650.1474936-1-andrew.cooper3@citrix.com> <a6348a98-30bb-8a03-7ed7-9e965be119eb@apertussolutions.com>
+In-Reply-To: <a6348a98-30bb-8a03-7ed7-9e965be119eb@apertussolutions.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Mon, 14 Aug 2023 12:25:50 +0100
+Message-ID: <CA+zSX=ZajaUSD=AcqwjNL_HHeZm6kf1pHVDKU9nyZtsxS2N8qw@mail.gmail.com>
+Subject: Re: [PATCH] subdom: Fix -Werror=address failure in tmp_emulator
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	George Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>, 
+	Juergen Gross <jgross@suse.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Jason Andryuk <jandryuk@gmail.com>, Christopher Clark <christopher.w.clark@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000bd2b050602e053be"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------pUTTuIJiYQ3J5dwdwAUiNO12
-Content-Type: multipart/mixed; boundary="------------HS5T7nHhvQAPOJCVTL0phRS1";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-Message-ID: <7def701e-98f5-4dd2-a5d6-18fd3ad78ff1@suse.com>
-Subject: Re: [PATCH v4 18/19] tools/config: add XEN_RUN_STORED to config.h
-References: <20230814074707.27696-1-jgross@suse.com>
- <20230814074707.27696-19-jgross@suse.com>
- <afcc7e49-1e7b-4b62-9b2c-97f3b7784ad3@perard>
-In-Reply-To: <afcc7e49-1e7b-4b62-9b2c-97f3b7784ad3@perard>
-
---------------HS5T7nHhvQAPOJCVTL0phRS1
-Content-Type: multipart/mixed; boundary="------------iIA5mUbuPvGNOpp9r63NuJPG"
-
---------------iIA5mUbuPvGNOpp9r63NuJPG
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTQuMDguMjMgMTI6MzQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBPbiBNb24sIEF1
-ZyAxNCwgMjAyMyBhdCAwOTo0NzowNkFNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-Pj4gSW5zdGVhZCBvZiBhZGRpbmcgdGhlIGRlZmluaXRpb24gb2YgWEVOX1JVTl9TVE9SRUQg
-dG8gQ0ZMQUdTIGluDQo+PiBtdWx0aXBsZSBNYWtlZmlsZXMsIGxldCBjb25maWd1cmUgYWRk
-IGl0IHRvIHRvb2xzL2NvbmZpZy5oIGluc3RlYWQuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTog
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPiANCj4gSSB0aGluayB3aXRoIHRo
-aXMgY2hhbmdlLCB5b3UgY291bGQgcHJvYmFibHkgcmVtb3ZlIFhFTl9SVU5fU1RPUkVEIGZy
-b20NCj4gImNvbmZpZy9QYXRocy5tay5pbiIuDQoNCkFoLCBpbmRlZWQuIEknbGwgc2VuZCBh
-biB1cGRhdGVkIHBhdGNoIChWNC4xKS4NCg0KPiANCj4gSW4gYW55IGNhc2UsIHBhdGNoIGxv
-b2tzIGZpbmU6DQo+IFJldmlld2VkLWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJh
-cmRAY2l0cml4LmNvbT4NCg0KVGhhbmtzLA0KDQoNCkp1ZXJnZW4NCg0K
---------------iIA5mUbuPvGNOpp9r63NuJPG
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--000000000000bd2b050602e053be
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Tue, Aug 8, 2023 at 10:27=E2=80=AFPM Daniel P. Smith <
+dpsmith@apertussolutions.com> wrote:
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> On 8/3/23 16:36, Andrew Cooper wrote:
+> > The opensuse-tumbleweed build jobs currently fail with:
+> >
+> >    /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c: In
+> function 'rsa_private':
+> >
+> /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:7:
+> error: the comparison will always evaluate as 'true' for the address of '=
+p'
+> will never be NULL [-Werror=3Daddress]
+> >       56 |   if (!key->p || !key->q || !key->u) {
+> >          |       ^
+> >    In file included from
+> /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.c:17:
+> >
+> /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypto/rsa.h:28:12:
+> note: 'p' declared here
+> >       28 |   tpm_bn_t p;
+> >          |            ^
+> >
+> > This is because all tpm_bn_t's are 1-element arrays (of either a GMP or
+> > OpenSSL BIGNUM flavour).  The author was probably meaning to do value
+> checks,
+> > but that's not what the code does.
+> >
+> > Adjust it to compile.  No functional change.
+> >
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > ---
+> > CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> > CC: Jan Beulich <JBeulich@suse.com>
+> > CC: Stefano Stabellini <sstabellini@kernel.org>
+> > CC: Wei Liu <wl@xen.org>
+> > CC: Julien Grall <julien@xen.org>
+> > CC: Juergen Gross <jgross@suse.com>
+> > CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> > CC: Jason Andryuk <jandryuk@gmail.com>
+> > CC: Daniel Smith <dpsmith@apertussolutions.com>
+> > CC: Christopher Clark <christopher.w.clark@gmail.com>
+> >
+> > While I've confirmed this to fix the build issue:
+> >
+> >
+> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/955160430
+> >
+> > I'm -1 overall to the change, and would prefer to disable vtpm-stubdom
+> > entirely.
+> >
+> > It's TPM 1.2 only, using decades-old libs, and some stuff in the upstre=
+am
+> > https://github.com/PeterHuewe/tpm-emulator (which is still abandaonded
+> as of
+> > 2018) is just as concerning as the basic error here in rsa_private().
+>
+> For semantics sake, the Guest PV interface is 1.2 compliant but the PV
+> backend, vtpmmgr, is capable of using TPM2.0.
+>
+> > vtpm-stubdom isn't credibly component of a Xen system, and we're wastin=
+g
+> loads
+> > of CI cycles testing it...
+>
+> Unfortunately, I cannot disagree here. This is the only proper vTPM,
+> from a trustworthy architecture perspective, that I know of existing
+> today. Until I can find someone willing to fund updating the
+> implementation and moving it to being an emulated vTPM and not a PV
+> interface, it is likely to stay in this state for some time.
+>
 
---------------iIA5mUbuPvGNOpp9r63NuJPG--
+Did you mean "I cannot *agree* here"?  "Cannot disagree" means you agree
+that we're "wasting loads of CI cycles testing it", but the second sentence
+seems to imply that it's (currently) irreplacable.
 
---------------HS5T7nHhvQAPOJCVTL0phRS1--
+ -George
 
---------------pUTTuIJiYQ3J5dwdwAUiNO12
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+--000000000000bd2b050602e053be
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNATURE-----
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Aug 8, 2023 at 10:27=E2=80=AF=
+PM Daniel P. Smith &lt;<a href=3D"mailto:dpsmith@apertussolutions.com">dpsm=
+ith@apertussolutions.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex">On 8/3/23 16:36, Andrew Cooper wrote:<br>
+&gt; The opensuse-tumbleweed build jobs currently fail with:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypt=
+o/rsa.c: In function &#39;rsa_private&#39;:<br>
+&gt;=C2=A0 =C2=A0 /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypt=
+o/rsa.c:56:7: error: the comparison will always evaluate as &#39;true&#39; =
+for the address of &#39;p&#39; will never be NULL [-Werror=3Daddress]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A056 |=C2=A0 =C2=A0if (!key-&gt;p || !key-&gt;=
+q || !key-&gt;u) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt;=C2=A0 =C2=A0 In file included from /builds/xen-project/xen/stubdom/tpm=
+_emulator-x86_64/crypto/rsa.c:17:<br>
+&gt;=C2=A0 =C2=A0 /builds/xen-project/xen/stubdom/tpm_emulator-x86_64/crypt=
+o/rsa.h:28:12: note: &#39;p&#39; declared here<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A028 |=C2=A0 =C2=A0tpm_bn_t p;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 ^<br>
+&gt; <br>
+&gt; This is because all tpm_bn_t&#39;s are 1-element arrays (of either a G=
+MP or<br>
+&gt; OpenSSL BIGNUM flavour).=C2=A0 The author was probably meaning to do v=
+alue checks,<br>
+&gt; but that&#39;s not what the code does.<br>
+&gt; <br>
+&gt; Adjust it to compile.=C2=A0 No functional change.<br>
+&gt; <br>
+&gt; Signed-off-by: Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citr=
+ix.com" target=3D"_blank">andrew.cooper3@citrix.com</a>&gt;<br>
+&gt; ---<br>
+&gt; CC: George Dunlap &lt;<a href=3D"mailto:George.Dunlap@eu.citrix.com" t=
+arget=3D"_blank">George.Dunlap@eu.citrix.com</a>&gt;<br>
+&gt; CC: Jan Beulich &lt;<a href=3D"mailto:JBeulich@suse.com" target=3D"_bl=
+ank">JBeulich@suse.com</a>&gt;<br>
+&gt; CC: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" t=
+arget=3D"_blank">sstabellini@kernel.org</a>&gt;<br>
+&gt; CC: Wei Liu &lt;<a href=3D"mailto:wl@xen.org" target=3D"_blank">wl@xen=
+.org</a>&gt;<br>
+&gt; CC: Julien Grall &lt;<a href=3D"mailto:julien@xen.org" target=3D"_blan=
+k">julien@xen.org</a>&gt;<br>
+&gt; CC: Juergen Gross &lt;<a href=3D"mailto:jgross@suse.com" target=3D"_bl=
+ank">jgross@suse.com</a>&gt;<br>
+&gt; CC: Marek Marczykowski-G=C3=B3recki &lt;<a href=3D"mailto:marmarek@inv=
+isiblethingslab.com" target=3D"_blank">marmarek@invisiblethingslab.com</a>&=
+gt;<br>
+&gt; CC: Jason Andryuk &lt;<a href=3D"mailto:jandryuk@gmail.com" target=3D"=
+_blank">jandryuk@gmail.com</a>&gt;<br>
+&gt; CC: Daniel Smith &lt;<a href=3D"mailto:dpsmith@apertussolutions.com" t=
+arget=3D"_blank">dpsmith@apertussolutions.com</a>&gt;<br>
+&gt; CC: Christopher Clark &lt;<a href=3D"mailto:christopher.w.clark@gmail.=
+com" target=3D"_blank">christopher.w.clark@gmail.com</a>&gt;<br>
+&gt; <br>
+&gt; While I&#39;ve confirmed this to fix the build issue:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 <a href=3D"https://gitlab.com/xen-project/people/andyhhp/=
+xen/-/pipelines/955160430" rel=3D"noreferrer" target=3D"_blank">https://git=
+lab.com/xen-project/people/andyhhp/xen/-/pipelines/955160430</a><br>
+&gt; <br>
+&gt; I&#39;m -1 overall to the change, and would prefer to disable vtpm-stu=
+bdom<br>
+&gt; entirely.<br>
+&gt; <br>
+&gt; It&#39;s TPM 1.2 only, using decades-old libs, and some stuff in the u=
+pstream<br>
+&gt; <a href=3D"https://github.com/PeterHuewe/tpm-emulator" rel=3D"noreferr=
+er" target=3D"_blank">https://github.com/PeterHuewe/tpm-emulator</a> (which=
+ is still abandaonded as of<br>
+&gt; 2018) is just as concerning as the basic error here in rsa_private().<=
+br>
+<br>
+For semantics sake, the Guest PV interface is 1.2 compliant but the PV <br>
+backend, vtpmmgr, is capable of using TPM2.0.<br>
+<br>
+&gt; vtpm-stubdom isn&#39;t credibly component of a Xen system, and we&#39;=
+re wasting loads<br>
+&gt; of CI cycles testing it...<br>
+<br>
+Unfortunately, I cannot disagree here. This is the only proper vTPM, <br>
+from a trustworthy architecture perspective, that I know of existing <br>
+today. Until I can find someone willing to fund updating the <br>
+implementation and moving it to being an emulated vTPM and not a PV <br>
+interface, it is likely to stay in this state for some time.<br></blockquot=
+e><div><br></div><div>Did you mean &quot;I cannot *agree* here&quot;?=C2=A0=
+ &quot;Cannot disagree&quot; means you agree that we&#39;re &quot;wasting l=
+oads of CI cycles testing it&quot;, but the second sentence seems to imply =
+that it&#39;s (currently) irreplacable.</div><div><br></div><div>=C2=A0-Geo=
+rge=C2=A0</div></div></div>
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTaCvkFAwAAAAAACgkQsN6d1ii/Ey9/
-fAf+MllHNn1Ami4RmeBOd6oqNc2sZ0HBIeDFKE2+Jk/YrM9UWWNqSjO2ApzMm4t8zAIxJbz178hD
-oxxEqOC7XtTCPOxRIOnHrwSbU6j5U0KLGv7Q8Kr3J7uLpMXdgqOvlLNRU5O0SS+sgibXaVacRQnu
-KkoVz+003AWvw7+4CUU7SS/NHBrVlPkSDAtoZT2ZCAB6S+clHvjbAjvpbaUIlzZMUmeLjJk1LK7+
-dXe3AJ0f0X4josZxLq/7ctAUP9bGEYE0D9Cuiwv9wk8sPHBatci/fwodeYfvizz63g2HNI49Mlul
-j8BnyZM8h+wUJ5bUP4hXNdaBj/fpTmvKZebvyfx0Bg==
-=XJr+
------END PGP SIGNATURE-----
-
---------------pUTTuIJiYQ3J5dwdwAUiNO12--
+--000000000000bd2b050602e053be--
 
