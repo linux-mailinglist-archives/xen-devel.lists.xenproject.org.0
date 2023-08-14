@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36FB77B062
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 06:26:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583073.913150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18BF477B06E
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 06:27:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583097.913183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVP9y-0005Jv-FW; Mon, 14 Aug 2023 04:26:30 +0000
+	id 1qVPAu-0007eO-Ap; Mon, 14 Aug 2023 04:27:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583073.913150; Mon, 14 Aug 2023 04:26:30 +0000
+Received: by outflank-mailman (output) from mailman id 583097.913183; Mon, 14 Aug 2023 04:27:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVP9y-0005FL-A0; Mon, 14 Aug 2023 04:26:30 +0000
-Received: by outflank-mailman (input) for mailman id 583073;
- Mon, 14 Aug 2023 04:26:28 +0000
+	id 1qVPAu-0007UU-1b; Mon, 14 Aug 2023 04:27:28 +0000
+Received: by outflank-mailman (input) for mailman id 583097;
+ Mon, 14 Aug 2023 04:27:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8M3t=D7=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qVP9w-0002FE-Oh
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 04:26:28 +0000
+ id 1qVPA2-0002FE-7S
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 04:26:34 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id bc838aec-3a5a-11ee-b288-6b7b168915f2;
- Mon, 14 Aug 2023 06:26:28 +0200 (CEST)
+ id beca3769-3a5a-11ee-b288-6b7b168915f2;
+ Mon, 14 Aug 2023 06:26:32 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A7B41063;
- Sun, 13 Aug 2023 21:27:10 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D13F92F4;
+ Sun, 13 Aug 2023 21:27:13 -0700 (PDT)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D5F703F64C;
- Sun, 13 Aug 2023 21:26:24 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 989773F64C;
+ Sun, 13 Aug 2023 21:26:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc838aec-3a5a-11ee-b288-6b7b168915f2
+X-Inumbo-ID: beca3769-3a5a-11ee-b288-6b7b168915f2
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Penny Zheng <penny.zheng@arm.com>,
@@ -53,9 +53,9 @@ Cc: Penny Zheng <penny.zheng@arm.com>,
 	Wei Chen <wei.chen@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Henry Wang <Henry.Wang@arm.com>
-Subject: [PATCH v5 08/13] xen/arm: Fold pmap and fixmap into MMU system
-Date: Mon, 14 Aug 2023 12:25:31 +0800
-Message-Id: <20230814042536.878720-9-Henry.Wang@arm.com>
+Subject: [PATCH v5 09/13] xen/arm: mm: Use generic variable/function names for extendability
+Date: Mon, 14 Aug 2023 12:25:32 +0800
+Message-Id: <20230814042536.878720-10-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230814042536.878720-1-Henry.Wang@arm.com>
 References: <20230814042536.878720-1-Henry.Wang@arm.com>
@@ -64,81 +64,270 @@ Content-Transfer-Encoding: 8bit
 
 From: Penny Zheng <penny.zheng@arm.com>
 
-fixmap and pmap are MMU-specific features, so fold them to MMU system.
-Do the folding for pmap by moving the HAS_PMAP Kconfig selection under
-HAS_MMU. Do the folding for fixmap by moving the implementation of
-virt_to_fix() to mmu/mm.c, so that unnecessary stubs can be avoided.
+As preparation for MPU support, which will use some variables/functions
+for both MMU and MPU system, We rename the affected variable/function
+to more generic names:
+- init_ttbr -> init_mm,
+- mmu_init_secondary_cpu() -> mm_init_secondary_cpu()
+- init_secondary_pagetables() -> init_secondary_mm()
+- Add a wrapper update_mm_mapping() for MMU system's
+  update_identity_mapping()
+
+Modify the related in-code comment to reflect above changes, take the
+opportunity to fix the incorrect coding style of the in-code comments.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 ---
 v5:
-- Rebase on top of xen/arm: Introduce CONFIG_MMU Kconfig option
+- Rebase on top of xen/arm: mm: add missing extern variable declaration
 v4:
-- Rework "[v3,11/52] xen/arm: mmu: fold FIXMAP into MMU system",
-  change the order of this patch and avoid introducing stubs.
+- Extract the renaming part from the original patch:
+  "[v3,13/52] xen/mmu: extract mmu-specific codes from mm.c/mm.h"
 ---
- xen/arch/arm/Kconfig              | 2 +-
- xen/arch/arm/include/asm/fixmap.h | 7 +------
- xen/arch/arm/mmu/mm.c             | 7 +++++++
- 3 files changed, 9 insertions(+), 7 deletions(-)
+ xen/arch/arm/arm32/head.S           |  4 ++--
+ xen/arch/arm/arm64/mmu/head.S       |  2 +-
+ xen/arch/arm/arm64/mmu/mm.c         | 11 ++++++++---
+ xen/arch/arm/arm64/smpboot.c        |  6 +++---
+ xen/arch/arm/include/asm/arm64/mm.h |  7 ++++---
+ xen/arch/arm/include/asm/mm.h       | 12 +++++++-----
+ xen/arch/arm/mmu/mm.c               | 20 ++++++++++----------
+ xen/arch/arm/smpboot.c              |  4 ++--
+ 8 files changed, 37 insertions(+), 29 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index eb0413336b..8a7b79b4b5 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -15,7 +15,6 @@ config ARM
- 	select HAS_DEVICE_TREE
- 	select HAS_PASSTHROUGH
- 	select HAS_PDX
--	select HAS_PMAP
- 	select HAS_UBSAN
- 	select IOMMU_FORCE_PT_SHARE
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index 33b038e7e0..03ab68578a 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -238,11 +238,11 @@ GLOBAL(init_secondary)
+ secondary_switched:
+         /*
+          * Non-boot CPUs need to move on to the proper pagetables, which were
+-         * setup in init_secondary_pagetables.
++         * setup in init_secondary_mm.
+          *
+          * XXX: This is not compliant with the Arm Arm.
+          */
+-        mov_w r4, init_ttbr          /* VA of HTTBR value stashed by CPU 0 */
++        mov_w r4, init_mm            /* VA of HTTBR value stashed by CPU 0 */
+         ldrd  r4, r5, [r4]           /* Actual value */
+         dsb
+         mcrr  CP64(r4, r5, HTTBR)
+diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+index ba2ddd7e67..58d91c9088 100644
+--- a/xen/arch/arm/arm64/mmu/head.S
++++ b/xen/arch/arm/arm64/mmu/head.S
+@@ -302,7 +302,7 @@ ENDPROC(enable_mmu)
+ ENTRY(enable_secondary_cpu_mm)
+         mov   x5, lr
  
-@@ -61,6 +60,7 @@ config PADDR_BITS
+-        load_paddr x0, init_ttbr
++        load_paddr x0, init_mm
+         ldr   x0, [x0]
  
- config MMU
- 	def_bool y
-+	select HAS_PMAP
- 
- source "arch/Kconfig"
- 
-diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
-index 734eb9b1d4..5d5de6995a 100644
---- a/xen/arch/arm/include/asm/fixmap.h
-+++ b/xen/arch/arm/include/asm/fixmap.h
-@@ -36,12 +36,7 @@ extern void clear_fixmap(unsigned int map);
- 
- #define fix_to_virt(slot) ((void *)FIXMAP_ADDR(slot))
- 
--static inline unsigned int virt_to_fix(vaddr_t vaddr)
--{
--    BUG_ON(vaddr >= FIXADDR_TOP || vaddr < FIXADDR_START);
--
--    return ((vaddr - FIXADDR_START) >> PAGE_SHIFT);
--}
-+extern unsigned int virt_to_fix(vaddr_t vaddr);
- 
- #endif /* __ASSEMBLY__ */
- 
-diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
-index b70982e9d6..1d6267e6c5 100644
---- a/xen/arch/arm/mmu/mm.c
-+++ b/xen/arch/arm/mmu/mm.c
-@@ -1136,6 +1136,13 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
-     return xen_pt_update(virt, INVALID_MFN, nr_mfns, _PAGE_POPULATE);
+         bl    enable_mmu
+diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+index 78b7c7eb00..ed0fc5ff7b 100644
+--- a/xen/arch/arm/arm64/mmu/mm.c
++++ b/xen/arch/arm/arm64/mmu/mm.c
+@@ -106,7 +106,7 @@ void __init arch_setup_page_tables(void)
+     prepare_runtime_identity_mapping();
  }
  
-+unsigned int virt_to_fix(vaddr_t vaddr)
+-void update_identity_mapping(bool enable)
++static void update_identity_mapping(bool enable)
+ {
+     paddr_t id_addr = virt_to_maddr(_start);
+     int rc;
+@@ -120,6 +120,11 @@ void update_identity_mapping(bool enable)
+     BUG_ON(rc);
+ }
+ 
++void update_mm_mapping(bool enable)
 +{
-+    BUG_ON(vaddr >= FIXADDR_TOP || vaddr < FIXADDR_START);
-+
-+    return ((vaddr - FIXADDR_START) >> PAGE_SHIFT);
++    update_identity_mapping(enable);
 +}
 +
+ extern void switch_ttbr_id(uint64_t ttbr);
+ 
+ typedef void (switch_ttbr_fn)(uint64_t ttbr);
+@@ -131,7 +136,7 @@ void __init switch_ttbr(uint64_t ttbr)
+     lpae_t pte;
+ 
+     /* Enable the identity mapping in the boot page tables */
+-    update_identity_mapping(true);
++    update_mm_mapping(true);
+ 
+     /* Enable the identity mapping in the runtime page tables */
+     pte = pte_of_xenaddr((vaddr_t)switch_ttbr_id);
+@@ -148,7 +153,7 @@ void __init switch_ttbr(uint64_t ttbr)
+      * Note it is not necessary to disable it in the boot page tables
+      * because they are not going to be used by this CPU anymore.
+      */
+-    update_identity_mapping(false);
++    update_mm_mapping(false);
+ }
+ 
  /*
-  * Local variables:
-  * mode: C
+diff --git a/xen/arch/arm/arm64/smpboot.c b/xen/arch/arm/arm64/smpboot.c
+index 9637f42469..2b1d086a1e 100644
+--- a/xen/arch/arm/arm64/smpboot.c
++++ b/xen/arch/arm/arm64/smpboot.c
+@@ -111,18 +111,18 @@ int arch_cpu_up(int cpu)
+     if ( !smp_enable_ops[cpu].prepare_cpu )
+         return -ENODEV;
+ 
+-    update_identity_mapping(true);
++    update_mm_mapping(true);
+ 
+     rc = smp_enable_ops[cpu].prepare_cpu(cpu);
+     if ( rc )
+-        update_identity_mapping(false);
++        update_mm_mapping(false);
+ 
+     return rc;
+ }
+ 
+ void arch_cpu_up_finish(void)
+ {
+-    update_identity_mapping(false);
++    update_mm_mapping(false);
+ }
+ 
+ /*
+diff --git a/xen/arch/arm/include/asm/arm64/mm.h b/xen/arch/arm/include/asm/arm64/mm.h
+index e0bd23a6ed..7a389c4b21 100644
+--- a/xen/arch/arm/include/asm/arm64/mm.h
++++ b/xen/arch/arm/include/asm/arm64/mm.h
+@@ -15,13 +15,14 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+ void arch_setup_page_tables(void);
+ 
+ /*
+- * Enable/disable the identity mapping in the live page-tables (i.e.
+- * the one pointed by TTBR_EL2).
++ * In MMU system, enable/disable the identity mapping in the live
++ * page-tables (i.e. the one pointed by TTBR_EL2) through
++ * update_identity_mapping().
+  *
+  * Note that nested call (e.g. enable=true, enable=true) is not
+  * supported.
+  */
+-void update_identity_mapping(bool enable);
++void update_mm_mapping(bool enable);
+ 
+ #endif /* __ARM_ARM64_MM_H__ */
+ 
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index dc1458b047..8084c62c01 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -170,7 +170,7 @@ struct page_info
+ #define PGC_need_scrub    PGC_allocated
+ 
+ /* Non-boot CPUs use this to find the correct pagetables. */
+-extern uint64_t init_ttbr;
++extern uint64_t init_mm;
+ 
+ #ifdef CONFIG_ARM_32
+ #define is_xen_heap_page(page) is_xen_heap_mfn(page_to_mfn(page))
+@@ -205,11 +205,13 @@ extern void setup_pagetables(unsigned long boot_phys_offset);
+ extern void *early_fdt_map(paddr_t fdt_paddr);
+ /* Remove early mappings */
+ extern void remove_early_mappings(void);
+-/* Allocate and initialise pagetables for a secondary CPU. Sets init_ttbr to the
+- * new page table */
+-extern int init_secondary_pagetables(int cpu);
++/*
++ * Allocate and initialise pagetables for a secondary CPU. Sets init_mm to the
++ * new page table
++ */
++extern int init_secondary_mm(int cpu);
+ /* Switch secondary CPUS to its own pagetables and finalise MMU setup */
+-extern void mmu_init_secondary_cpu(void);
++extern void mm_init_secondary_cpu(void);
+ /* Map a frame table to cover physical addresses ps through pe */
+ extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
+ /* map a physical range in virtual memory */
+diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
+index 1d6267e6c5..7486c35ec0 100644
+--- a/xen/arch/arm/mmu/mm.c
++++ b/xen/arch/arm/mmu/mm.c
+@@ -106,7 +106,7 @@ DEFINE_BOOT_PAGE_TABLE(xen_fixmap);
+ static DEFINE_PAGE_TABLES(xen_xenmap, XEN_NR_ENTRIES(2));
+ 
+ /* Non-boot CPUs use this to find the correct pagetables. */
+-uint64_t init_ttbr;
++uint64_t init_mm;
+ 
+ static paddr_t phys_offset;
+ 
+@@ -492,18 +492,18 @@ static void clear_boot_pagetables(void)
+ }
+ 
+ #ifdef CONFIG_ARM_64
+-int init_secondary_pagetables(int cpu)
++int init_secondary_mm(int cpu)
+ {
+     clear_boot_pagetables();
+ 
+-    /* Set init_ttbr for this CPU coming up. All CPus share a single setof
++    /* Set init_mm for this CPU coming up. All CPus share a single setof
+      * pagetables, but rewrite it each time for consistency with 32 bit. */
+-    init_ttbr = (uintptr_t) xen_pgtable + phys_offset;
+-    clean_dcache(init_ttbr);
++    init_mm = (uintptr_t) xen_pgtable + phys_offset;
++    clean_dcache(init_mm);
+     return 0;
+ }
+ #else
+-int init_secondary_pagetables(int cpu)
++int init_secondary_mm(int cpu)
+ {
+     lpae_t *first;
+ 
+@@ -529,16 +529,16 @@ int init_secondary_pagetables(int cpu)
+ 
+     clear_boot_pagetables();
+ 
+-    /* Set init_ttbr for this CPU coming up */
+-    init_ttbr = __pa(first);
+-    clean_dcache(init_ttbr);
++    /* Set init_mm for this CPU coming up */
++    init_mm = __pa(first);
++    clean_dcache(init_mm);
+ 
+     return 0;
+ }
+ #endif
+ 
+ /* MMU setup for secondary CPUS (which already have paging enabled) */
+-void mmu_init_secondary_cpu(void)
++void mm_init_secondary_cpu(void)
+ {
+     xen_pt_enforce_wnx();
+ }
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index e107b86b7b..8bcdbea66c 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -359,7 +359,7 @@ void start_secondary(void)
+      */
+     update_system_features(&current_cpu_data);
+ 
+-    mmu_init_secondary_cpu();
++    mm_init_secondary_cpu();
+ 
+     gic_init_secondary_cpu();
+ 
+@@ -448,7 +448,7 @@ int __cpu_up(unsigned int cpu)
+ 
+     printk("Bringing up CPU%d\n", cpu);
+ 
+-    rc = init_secondary_pagetables(cpu);
++    rc = init_secondary_mm(cpu);
+     if ( rc < 0 )
+         return rc;
+ 
 -- 
 2.25.1
 
