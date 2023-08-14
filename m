@@ -2,46 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52EDD77B4E2
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 10:57:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583494.913719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A2F77B516
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 11:06:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583511.913729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVTNf-0005SR-20; Mon, 14 Aug 2023 08:56:55 +0000
+	id 1qVTWa-00073d-0J; Mon, 14 Aug 2023 09:06:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583494.913719; Mon, 14 Aug 2023 08:56:55 +0000
+Received: by outflank-mailman (output) from mailman id 583511.913729; Mon, 14 Aug 2023 09:06:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVTNe-0005PB-VU; Mon, 14 Aug 2023 08:56:54 +0000
-Received: by outflank-mailman (input) for mailman id 583494;
- Mon, 14 Aug 2023 08:56:54 +0000
+	id 1qVTWZ-00071N-To; Mon, 14 Aug 2023 09:06:07 +0000
+Received: by outflank-mailman (input) for mailman id 583511;
+ Mon, 14 Aug 2023 09:06:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h9nZ=D7=marvell.com=rkannoth@srs-se1.protection.inumbo.net>)
- id 1qVTNd-0005P2-SW
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 08:56:54 +0000
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com
- [67.231.148.174]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80bf141c-3a80-11ee-8613-37d641c3527e;
- Mon, 14 Aug 2023 10:56:50 +0200 (CEST)
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
- by mx0a-0016f401.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37E7juZ7011729; Mon, 14 Aug 2023 01:55:20 -0700
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2102.outbound.protection.outlook.com [104.47.70.102])
- by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3sfg1pr6ff-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Aug 2023 01:55:18 -0700
-Received: from MWHPR1801MB1918.namprd18.prod.outlook.com
- (2603:10b6:301:68::33) by BN9PR18MB4218.namprd18.prod.outlook.com
- (2603:10b6:408:137::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Mon, 14 Aug
- 2023 08:55:15 +0000
-Received: from MWHPR1801MB1918.namprd18.prod.outlook.com
- ([fe80::9ee9:35fc:cabe:11a1]) by MWHPR1801MB1918.namprd18.prod.outlook.com
- ([fe80::9ee9:35fc:cabe:11a1%6]) with mapi id 15.20.6678.022; Mon, 14 Aug 2023
- 08:55:15 +0000
+ <SRS0=DK7P=D7=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qVTWY-00071H-5z
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 09:06:06 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cb2d292a-3a81-11ee-8613-37d641c3527e;
+ Mon, 14 Aug 2023 11:06:03 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 8E66F4EE0737;
+ Mon, 14 Aug 2023 11:06:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,503 +39,372 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80bf141c-3a80-11ee-8613-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bkAZ+W/lcO2EAbCs+P1+p0m2cT6KHZyIW9nZUfVtZj/yaS9kX9fSSriJKG/5O/QOcVUMf2bvp3SbKWdDKsqeXozU3PVl+IfSV8M97QmAtTrGW6SHpoNM4B8c17OkUp7+yvNpY2Z0XXTwGgOu8eha4AEwLW9cYQQgm53GOwaEgPRNENBpvkE1+NydQ//wGFXSaogGO1jyBAyphFRsPVRZZE0M2dEtBs7tyZmNK37WZr92CMAzQi6u/jmIAKCook2OxirPB06tMDUA4HcAi/Eu/Nj9BwwD3FPS9A7HXHIu3zY4RItWtE9v798pRFGlhSAx8rvAry+L7LHKy7p/o+g/9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pKlbzCrY1DtBhUGV1M+DO81GolN0fk0rkI9WgvE6w74=;
- b=JfejF8wIyOlLVvzz3JYixBaVKCVBDmLM5W7mwwcVGxCrZcGAVbI4CLhmamy1KHljPqgL2M/wG4H14D4G51vNmjWYx4/yNq2DtcHSQ+T/g1YU6y7q52Z+EZnDwEjRlIxNVEDTuTBFevSKsdD9Rj16Y8yXgGwL9cKw7XogRZplbfpYvTQbj01/wMAWiKvGHucuyLIZQnpyAeO7cpV/pJm4BysfbcJ7wcbk7RPPgDPVdpqLktWQodPltG1ympFoEBD+NOwB/vKSTlqN0fqxhQLFITKYdVTB6qFhG8StD5xMGiNB2w6Z7F/01pbUa0v6f7ogDoQLYwOdRnuTHggJyLzFRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
- dkim=pass header.d=marvell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marvell.onmicrosoft.com; s=selector1-marvell-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pKlbzCrY1DtBhUGV1M+DO81GolN0fk0rkI9WgvE6w74=;
- b=cEN1Mlb9YziNR8pu0Zx5zNgYERC4KvFlvhFb2F07Bz7dfoZ8a8WdcjvTGpp8ZALUYiK4pqvlEci5MfmAvJyM9ToQV1MFCXSBOg4C/p+9YiMhNJbYHbSujI1R5DdMFGZ7wPP7crr/5Cft6HseQPdxL/6Wk6qMklhX/he+1pdKmtY=
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: Jesper Dangaard Brouer <hawk@kernel.org>,
-        Johannes Berg
-	<johannes@sipsolutions.net>,
-        "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-CC: "davem@davemloft.net" <davem@davemloft.net>,
-        "edumazet@google.com"
-	<edumazet@google.com>,
-        "kuba@kernel.org" <kuba@kernel.org>,
-        "pabeni@redhat.com" <pabeni@redhat.com>,
-        "ast@kernel.org" <ast@kernel.org>,
-        "daniel@iogearbox.net" <daniel@iogearbox.net>,
-        "john.fastabend@gmail.com"
-	<john.fastabend@gmail.com>,
-        "jiawenwu@trustnetic.com"
-	<jiawenwu@trustnetic.com>,
-        "mengyuanlou@net-swift.com"
-	<mengyuanlou@net-swift.com>,
-        "yang.lee@linux.alibaba.com"
-	<yang.lee@linux.alibaba.com>,
-        "error27@gmail.com" <error27@gmail.com>,
-        "linyunsheng@huawei.com" <linyunsheng@huawei.com>,
-        "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-        "kys@microsoft.com" <kys@microsoft.com>,
-        "haiyangz@microsoft.com"
-	<haiyangz@microsoft.com>,
-        "wei.liu@kernel.org" <wei.liu@kernel.org>,
-        "decui@microsoft.com" <decui@microsoft.com>,
-        "longli@microsoft.com"
-	<longli@microsoft.com>,
-        "shradhagupta@linux.microsoft.com"
-	<shradhagupta@linux.microsoft.com>,
-        "linux-hwmon@vger.kernel.org"
-	<linux-hwmon@vger.kernel.org>,
-        "michael.chan@broadcom.com"
-	<michael.chan@broadcom.com>,
-        "richardcochran@gmail.com"
-	<richardcochran@gmail.com>,
-        "jdelvare@suse.com" <jdelvare@suse.com>,
-        "linux@roeck-us.net" <linux@roeck-us.net>,
-        "salil.mehta@huawei.com"
-	<salil.mehta@huawei.com>,
-        "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-        "linux-mediatek@lists.infradead.org"
-	<linux-mediatek@lists.infradead.org>,
-        "nbd@nbd.name" <nbd@nbd.name>, "john@phrozen.org" <john@phrozen.org>,
-        "sean.wang@mediatek.com"
-	<sean.wang@mediatek.com>,
-        "Mark-MC.Lee@mediatek.com"
-	<Mark-MC.Lee@mediatek.com>,
-        "lorenzo@kernel.org" <lorenzo@kernel.org>,
-        "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-        "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>,
-        "linux@armlinux.org.uk"
-	<linux@armlinux.org.uk>,
-        "linux-rdma@vger.kernel.org"
-	<linux-rdma@vger.kernel.org>,
-        "saeedm@nvidia.com" <saeedm@nvidia.com>,
-        "leon@kernel.org" <leon@kernel.org>,
-        "gerhard@engleder-embedded.com"
-	<gerhard@engleder-embedded.com>,
-        "maciej.fijalkowski@intel.com"
-	<maciej.fijalkowski@intel.com>,
-        "alexanderduyck@fb.com"
-	<alexanderduyck@fb.com>,
-        "wei.fang@nxp.com" <wei.fang@nxp.com>,
-        "shenwei.wang@nxp.com" <shenwei.wang@nxp.com>,
-        "xiaoning.wang@nxp.com"
-	<xiaoning.wang@nxp.com>,
-        "linux-imx@nxp.com" <linux-imx@nxp.com>,
-        "yisen.zhuang@huawei.com" <yisen.zhuang@huawei.com>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>,
-        "broonie@kernel.org" <broonie@kernel.org>,
-        "jaswinder.singh@linaro.org" <jaswinder.singh@linaro.org>,
-        "ilias.apalodimas@linaro.org" <ilias.apalodimas@linaro.org>,
-        "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
-        "horatiu.vultur@microchip.com" <horatiu.vultur@microchip.com>,
-        "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
-        "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
-        "simon.horman@corigine.com" <simon.horman@corigine.com>,
-        "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>,
-        "aleksander.lobakin@intel.com" <aleksander.lobakin@intel.com>,
-        "linux-stm32@st-md-mailman.stormreply.com"
-	<linux-stm32@st-md-mailman.stormreply.com>,
-        "alexandre.torgue@foss.st.com"
-	<alexandre.torgue@foss.st.com>,
-        "joabreu@synopsys.com"
-	<joabreu@synopsys.com>,
-        "mcoquelin.stm32@gmail.com"
-	<mcoquelin.stm32@gmail.com>,
-        "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>,
-        "thomas.petazzoni@bootlin.com"
-	<thomas.petazzoni@bootlin.com>,
-        "mw@semihalf.com" <mw@semihalf.com>,
-        Sunil
- Kovvuri Goutham <sgoutham@marvell.com>,
-        Geethasowjanya Akula
-	<gakula@marvell.com>,
-        Subbaraya Sundeep Bhatta <sbhatta@marvell.com>,
-        Hariprasad Kelam <hkelam@marvell.com>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>,
-        "jgross@suse.com" <jgross@suse.com>,
-        "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        "oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
-        "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-        "ryder.lee@mediatek.com" <ryder.lee@mediatek.com>,
-        "shayne.chen@mediatek.com"
-	<shayne.chen@mediatek.com>,
-        "kvalo@kernel.org" <kvalo@kernel.org>,
-        "andrii@kernel.org" <andrii@kernel.org>,
-        "martin.lau@linux.dev"
-	<martin.lau@linux.dev>,
-        "song@kernel.org" <song@kernel.org>,
-        "yonghong.song@linux.dev" <yonghong.song@linux.dev>,
-        "kpsingh@kernel.org"
-	<kpsingh@kernel.org>,
-        "sdf@google.com" <sdf@google.com>,
-        "haoluo@google.com"
-	<haoluo@google.com>,
-        "jolsa@kernel.org" <jolsa@kernel.org>
-Subject: RE: [EXT] Re: [PATCH v1 net] page_pool: Cap queue size to 32k.
-Thread-Topic: [EXT] Re: [PATCH v1 net] page_pool: Cap queue size to 32k.
-Thread-Index: AQHZznU+ZcDNaqRkgEScX+JwHjZ6da/pbFAAgAAB4aCAAAxOAIAAARQQ
-Date: Mon, 14 Aug 2023 08:55:14 +0000
-Message-ID: 
- <MWHPR1801MB19182915C64A7C7611F326F7D317A@MWHPR1801MB1918.namprd18.prod.outlook.com>
-References: <20230814060411.2401817-1-rkannoth@marvell.com>
- <8c6d19da5c4c38062b7a4e500de1d5dc1280fbc8.camel@sipsolutions.net>
- <MWHPR1801MB1918230E007D7B2C5A768B37D317A@MWHPR1801MB1918.namprd18.prod.outlook.com>
- <cceef8a4-6f38-bfd4-4f77-5dffa558b287@kernel.org>
-In-Reply-To: <cceef8a4-6f38-bfd4-4f77-5dffa558b287@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-dg-rorf: true
-x-dg-ref: 
- =?utf-8?B?UEcxbGRHRStQR0YwSUc1dFBTSmliMlI1TG5SNGRDSWdjRDBpWXpwY2RYTmxj?=
- =?utf-8?B?bk5jY210aGJtNXZkR2hjWVhCd1pHRjBZVnh5YjJGdGFXNW5YREE1WkRnME9X?=
- =?utf-8?B?STJMVE15WkRNdE5HRTBNQzA0TldWbExUWmlPRFJpWVRJNVpUTTFZbHh0YzJk?=
- =?utf-8?B?elhHMXpaeTAwTmpjd05XUTRPQzB6WVRnd0xURXhaV1V0WWpabU55MDRNRE00?=
- =?utf-8?B?Wm1KbU1tTTJNakpjWVcxbExYUmxjM1JjTkRZM01EVmtPR0V0TTJFNE1DMHhN?=
- =?utf-8?B?V1ZsTFdJMlpqY3RPREF6T0daaVpqSmpOakl5WW05a2VTNTBlSFFpSUhONlBT?=
- =?utf-8?B?SXhNek13SWlCMFBTSXhNek16TmpRM05qa3hNVGN4T1RnNE1qY2lJR2c5SW1w?=
- =?utf-8?B?d1pWZFBaR3RRWjBWd1QwTk9lRUUyY1ZjcmNqZEZjRU5QTUQwaUlHbGtQU0lp?=
- =?utf-8?B?SUdKc1BTSXdJaUJpYnowaU1TSWdZMms5SW1OQlFVRkJSVkpJVlRGU1UxSlZS?=
- =?utf-8?B?azVEWjFWQlFVZEpWMEZCUkhKWFkyZEphbU0zV2tGWGQwNHdjMkZWUTI5VFNt?=
- =?utf-8?B?SkJNMU40Y0ZGTGFFbHJXa0ZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRklRVUZCUVVKMVJIZEJRVE5uT0VGQlNWRkhRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGRlFVRlJSVUpCUVVGQlNUZHhWSEJCUTBGQlVVRkJRVUZCUVVGQlFVRkJT?=
- =?utf-8?B?alJCUVVGQ2FFRkhVVUZhUVVKNVFVZFZRV04zUW5wQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVWQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlowRkJRVUZCUVc1blFVRkJSMDFCWkZGQ2VrRklVVUZpZDBKMFFVWTRRV05C?=
- =?utf-8?B?UW14QlNFbEJZM2RDZGtGSE5FRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRlJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRMEZCUVVGQlFVTmxRVUZCUVZsM1FqRkJTRTFCWkVGQ2Rr?=
- =?utf-8?B?RkhNRUZZZDBKM1FVZG5RV0ozUW5WQlIxVkJZbWRDTVVGSE1FRlpaMEpzUVVo?=
- =?utf-8?B?SlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZDUVVGQlFVRkJRVUZCUVVsQlFVRkJRVUZLTkVGQlFVSnFRVWhW?=
- =?utf-8?B?UVdOM1FqQkJSemhCWWxGQ1prRklUVUZqZDBKMVFVWTRRVnBCUW1oQlNFMUJZ?=
- =?utf-8?B?VUZDWmtGSVdVRk5RVUY1UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?Q?FBQUFB?=
-x-dg-refone: 
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlJVRkJRVUZCUVVGQlFVRm5RVUZCUVVGQmJtZEJRVUZI?=
- =?utf-8?B?VFVGa1VVSjZRVWhSUVdKM1FuUkJSamhCWTNkQ2VrRkhORUZZZDBKeVFVZFZR?=
- =?utf-8?B?V1ZSUWpOQlJ6aEJZMmRDYTBGSVRVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVkZCUVVGQlFVRkJRVUZEUVVGQlFV?=
- =?utf-8?B?RkJRMlZCUVVGQldYZENNVUZJVFVGa1FVSjJRVWN3UVZoM1FucEJTRTFCWW1k?=
- =?utf-8?B?Q1prRkhORUZpZDBKclFVZFZRV0pCUW5CQlJ6QkJZVkZDTUVGSFZVRmpaMEpt?=
- =?utf-8?B?UVVoWlFVMUJRWGxCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVKQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlNVRkJRVUZCUVVvMFFVRkJRbXBCU0ZWQlkzZENNRUZIT0VGaVVVSm1R?=
- =?utf-8?B?VWhOUVdOM1FuVkJSamhCWTNkQ2QwRkhSVUZaZDBKc1FVWTRRV1JuUVhkQlJF?=
- =?utf-8?B?bEJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkZRVUZCUVVGQlFVRkJRV2RCUVVGQlFVRnVaMEZCUVVkUlFXSkJRbmRCUmpo?=
- =?utf-8?B?QlkzZENja0ZJYTBGalFVSnNRVVk0UVZsM1FtOUJSMFZCWkVGQ1prRkhNRUZh?=
- =?utf-8?B?VVVKNlFVaE5RVmxSUW01QlIxVkJXSGRDTWtGRVFVRk5aMEZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCVVVGQlFVRkJRVUZCUVVOQlFVRkJRVUZEWlVGQlFVRmFR?=
- =?utf-8?B?VUp6UVVoQlFWaDNRbnBCUjNkQldWRkNha0ZIYzBGWWQwSnFRVWRuUVZsUlFq?=
- =?utf-8?B?QkJSamhCWWxGQ2JFRklUVUZqZDBKb1FVZGpRVnBSUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?Q?FBQUFB?=
-x-dg-reftwo: 
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFrRkJRVUZCUVVGQlFVRkpRVUZCUVVGQlNqUkJR?=
- =?utf-8?B?VUZDYTBGSGQwRmpRVUptUVVoUlFWcFJRbWhCUnpCQlkzZENaa0ZIT0VGaVow?=
- =?utf-8?B?SnNRVWRSUVdOblFuQkJTRmxCV2xGQ1prRkhXVUZoVVVKelFVZFZRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVVZCUVVGQlFVRkJRVUZCWjBG?=
- =?utf-8?B?QlFVRkJRVzVuUVVGQlIxVkJZbEZDYUVGSGEwRmlRVUptUVVkRlFWcEJRbXRC?=
- =?utf-8?B?U0VsQldsRkNla0ZJVFVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFXZEJRVUZCUVVGQlFVRkJRVUZCUVVGUlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlEwRkJRVUZCUVVObFFVRkJRV0pSUW1oQlNFbEJaR2RDYkVGSGQw?=
- =?utf-8?B?RllkMEozUVVoSlFXSjNRbkZCUjFWQldYZENNRUZHT0VGaVowSm9RVWN3UVZw?=
- =?utf-8?B?UlFucEJSamhCV1hkQ2RrRkhORUZhWjBKd1FVZFJRVnBSUW5WQlNGRkJZVkZD?=
- =?utf-8?B?YUVGSGQwRllkMEpvUVVkM1FXSjNRblZCUjFWQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkNRVUZCUVVGQlFVRkJRVWxCUVVGQlFVRktORUZCUVVKMFFVZEZRV05u?=
- =?utf-8?B?UWpKQlIxVkJZa0ZDWmtGSVFVRmpaMEoyUVVkdlFWcFJRbXBCU0ZGQldIZENk?=
- =?utf-8?B?VUZIUlVGaVVVSnNRVWhOUVZoM1FubEJSMVZCWTNkQ01FRklTVUZoVVVKcVFV?=
- =?utf-8?B?aFJRVnBSUW10QlJqaEJXVkZDYzBGSE9FRmlaMEpzUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUlVGQlFVRkJRVUZCUVVGblFVRkJRVUZCYm1kQlFV?=
- =?utf-8?B?RkhNRUZaVVVKNVFVaFpRVnBSUW5OQlJqaEJZMEZDZVVGSE9FRmhaMEpzUVVk?=
- =?utf-8?B?TlFXUkJRbVpCUnpSQldWRkNkRUZIVlVGamQwSm1RVWhKUVZwUlFucEJTRkZC?=
- =?utf-8?B?WTJkQ2NFRkhUVUZrUVVKc1FVZFJRVmgzUW05QlIxVkJaVUZDYWtGSE9FRmFR?=
- =?utf-8?B?VUpzUVVoTlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFWRkJRVUZCUVVGQlFVRkRRVUZC?=
- =?utf-8?B?UVVGQlEyVkJRVUZCWWxGQ2FFRklTVUZrWjBKc1FVZDNRV0pCUW1aQlIwVkJZ?=
- =?utf-8?B?MmRDZEVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?Q?FBQUFB?=
-x-dg-refthree: 
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUpCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?U1VGQlFVRkJRVW8wUVVGQlFuUkJSMFZCWTJkQ01rRkhWVUZpUVVKelFVWTRR?=
- =?utf-8?B?VnAzUW5aQlJ6aEJXbmRDYzBGSFZVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGRlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFXZEJRVUZCUVVGdVowRkJRVWN3UVZsUlFubEJTRmxCV2xG?=
- =?utf-8?B?Q2MwRkhkMEZZZDBKM1FVaEpRV0ozUW5GQlIxVkJXWGRDTUVGR09FRlpkMEoy?=
- =?utf-8?B?UVVkUlFWcFJRbnBCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJVVUZCUVVGQlFVRkJRVU5CUVVGQlFVRkRaVUZCUVVGaVVVSm9R?=
- =?utf-8?B?VWhKUVdSblFteEJSM2RCWWtGQ1prRklRVUZqWjBKMlFVZHZRVnBSUW1wQlNG?=
- =?utf-8?B?RkJXSGRDYWtGSE9FRmFRVUpzUVVoTlFWaDNRbXRCUjJ0QldYZENNRUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUWtGQlFVRkJRVUZCUVVGSlFVRkJRVUZCU2pS?=
- =?utf-8?B?QlFVRkNkRUZIUlVGalowSXlRVWRWUVdKQlFuTkJSamhCWTBGQ2VVRkhPRUZo?=
- =?utf-8?B?WjBKc1FVZE5RV1JCUW1aQlJ6UkJXVkZDZEVGSFZVRmpkMEptUVVkTlFXSjNR?=
- =?utf-8?B?blZCUjFsQllWRkNhMEZIVlVGaVowSXdRVWRyUVZsUlFuTkJSamhCWWxGQ2FF?=
- =?utf-8?B?RklTVUZrWjBKc1FVZDNRV0pCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVVkJRVUZCUVVGQlFVRkJa?=
- =?utf-8?B?MEZCUVVGQlFXNW5RVUZCUnpCQldWRkNlVUZJV1VGYVVVSnpRVWQzUVZoM1Fu?=
- =?utf-8?B?ZEJTRWxCWW5kQ2NVRkhWVUZaZDBJd1FVWTRRV0puUW1oQlJ6QkJXbEZDZWtG?=
- =?utf-8?B?R09FRlpkMEoyUVVjMFFWcG5RbkJCUjFGQldsRkNkVUZJVVVGaFVVSm9RVWQz?=
- =?utf-8?B?UVZoM1FuUkJSMFZCWTJkQ01rRkhWVUZpUVVKelFVWTRRV0ozUW5sQlJqaEJX?=
- =?utf-8?B?VkZDZVVGSE1FRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?Q?FBQUFB?=
-x-dg-reffour: 
- =?utf-8?B?UVVGQlFVRkJRVUZCUVdkQlFVRkJRVUZCUVVGQlFVRkJRVUZSUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUTBGQlFVRkJRVU5sUVVGQlFXSlJRbWhCU0VsQlpHZENiRUZIZDBGaVFV?=
- =?utf-8?B?Sm1RVWhCUVdOblFuWkJSMjlCV2xGQ2FrRklVVUZZZDBKMVFVZEZRV0pSUW14?=
- =?utf-8?B?QlNFMUJXSGRDYWtGSE9FRmlaMEp0UVVkclFWcEJRbXhCUnpSQlpFRkNjRUZI?=
- =?utf-8?B?UlVGaVFVSm1RVWN3UVZsUlFubEJTRmxCV2xGQ2MwRkhkMEZZZDBKMlFVaEpR?=
- =?utf-8?B?VmgzUW01QlJ6aEJZbmRDYmtGSGQwRmFVVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?Q1FVRkJRVUZCUVVGQlFVbEJRVUZCUVVGS05FRkJRVUowUVVkRlFXTm5RakpC?=
- =?utf-8?B?UjFWQllrRkNjMEZHT0VGalFVSjVRVWM0UVdGblFteEJSMDFCWkVGQ1prRkhO?=
- =?utf-8?B?RUZaVVVKMFFVZFZRV04zUW1aQlNFbEJXbEZDZWtGSVVVRmpaMEp3UVVkTlFX?=
- =?utf-8?B?UkJRbXhCUjFGQldIZENkRUZIUlVGalowSXlRVWRWUVdKQlFuTkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJSVUZCUVVGQlFVRkJRVUZuUVVGQlFVRkJibWRCUVVGSE1F?=
- =?utf-8?B?RlpVVUo1UVVoWlFWcFJRbk5CUjNkQldIZENkMEZJU1VGaWQwSnhRVWRWUVZs?=
- =?utf-8?B?M1FqQkJSamhCWW1kQ2FFRkhNRUZhVVVKNlFVWTRRV05uUW14QlNFMUJaRUZD?=
- =?utf-8?B?ZVVGSGEwRlpkMEl3UVVkVlFWcEJRbVpCUnpCQldWRkNlVUZJV1VGYVVVSnpR?=
- =?utf-8?B?VWQzUVZoM1FuWkJTRWxCV0hkQ2FFRklTVUZpVVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVZGQlFVRkJRVUZCUVVGRFFVRkJRVUZC?=
- =?utf-8?B?UTJWQlFVRkJZbEZDYUVGSVNVRmtaMEpzUVVkM1FXSkJRbVpCU0ZGQldsRkNl?=
- =?utf-8?B?VUZITUVGaFVVSjFRVWhWUVdOM1FVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVSkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJTVUZCUVVGQlFVbzBRVUZCUW5SQlIwVkJZMmRDTWtGSFZVRmlRVUp6UVVZ?=
- =?utf-8?B?NFFXUjNRblpCU0VsQldrRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVWQlFVRkJRVUZCUVVGQlFVRkJRVUZG?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVdkQlFVRkJRVUZvUVZsQlFVRkJRVUZCUVdOQlFVRkJR?=
- =?utf-8?B?VkZCUVVGQlFVRkJRVU5zVGtaRGRUZDBkRk5UY1hWR2JuVkJTazlsTlVSSVFV?=
- =?utf-8?Q?FBQUFF?=
-x-dg-reffive: 
- =?utf-8?B?UVVGQlFVRkJRVUZCTVRCblptTmlNVXh6YTJWUVQzSTFTSFpRUlRGeGVXOUJR?=
- =?utf-8?B?VUZCUWtGQlFVRkpaMEZCUVVGQlFVRkJRbXBCUnpoQlltZENiVUZIYTBGYVFV?=
- =?utf-8?B?SnNRVWMwUVdSQlFuQkJSMFZCWWtGQlFVRkNiMGRCUVVGYVFVRkJRVWRCUVVG?=
- =?utf-8?B?QlFVRkJRVUZDYUVGSFVVRmFRVUo1UVVkVlFXTjNRbnBCUVVGQlNrRkJRVUZC?=
- =?utf-8?B?UVVGQlFVSnFRVWhWUVdOM1FqQkJSemhCWWxGQ1prRklRVUZhVVVKNVFVaE5R?=
- =?utf-8?B?V0ozUW5WQlFVRkJUR2RCUVVGQlFVRkJRVUpxUVVoVlFXTjNRakJCUnpoQlls?=
- =?utf-8?B?RkNaa0ZJUVVGaFFVSjJRVWMwUVZwUlFuVkJTRlZCWWxGQ2FVRkhWVUZqWjBG?=
- =?utf-8?B?QlFVUkJRVUZCUVVGQlFVRkJXWGRDTVVGSVRVRmtRVUoyUVVjd1FWaDNRbnBC?=
- =?utf-8?B?U0UxQlltZENaa0ZIVVVGWlVVSjZRVWRuUVZoM1FqSkJSRUZCVFdkQlFVRkVR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVmwzUWpGQlNFMUJaRUZDZGtGSE1FRllkMEo2UVVoTlFX?=
- =?utf-8?B?Sm5RbVpCUjNOQldsRkNOVUZJWTBGaWQwSjVRVWRSUVdOM1FVRkJSRFJCUVVG?=
- =?utf-8?B?QlFVRkJRVUZaZDBJeFFVaE5RV1JCUW5aQlJ6QkJXSGRDZWtGSVRVRmlaMEpt?=
- =?utf-8?B?UVVjMFFXSjNRbXRCUjFWQllrRkNjRUZITUVGaFVVSXdRVWRWUVdOblFtWkJT?=
- =?utf-8?B?RmxCVFVGQmVVRkJRVUZOWjBGQlFVRkJRVUZCUW1wQlNGVkJZM2RDTUVGSE9F?=
- =?utf-8?B?RmlVVUptUVVoTlFXTjNRblZCUmpoQlkzZENkMEZIUlVGWmQwSnNRVVk0UVdS?=
- =?utf-8?B?blFYZEJSRWxCUVVGQkswRkJRVUZCUVVGQlFVZFJRV0pCUW5kQlJqaEJZM2RD?=
- =?utf-8?B?Y2tGSWEwRmpRVUpzUVVZNFFWbDNRbTlCUjBWQlpFRkNaa0ZITUVGYVVVSjZR?=
- =?utf-8?B?VWhOUVZsUlFtNUJSMVZCV0hkQ01rRkVRVUZOWjBGQlFVUlpRVUZCUVVGQlFV?=
- =?utf-8?B?RkJXa0ZDYzBGSVFVRllkMEo2UVVkM1FWbFJRbXBCUjNOQldIZENha0ZIWjBG?=
- =?utf-8?B?WlVVSXdRVVk0UVdKUlFteEJTRTFCWTNkQ2FFRkhZMEZhVVVGQlFVUm5RVUZC?=
- =?utf-8?B?UVVGQlFVRkJXa0ZDYzBGSVFVRllkMEl3UVVkVlFWbFJRblJCU0UxQldIZENk?=
- =?utf-8?B?a0ZITkVGYVVVSnJRVWhKUVdGUlFqSkJSMVZCV0hkQ2JVRkhhMEZpUVVKc1FV?=
- =?utf-8?B?RkJRVXBCUVVGQlFVbEJRVUZDYkVGSE1FRlpVVUp3UVVkM1FWaDNRbWhCUjFG?=
- =?utf-8?B?QldrRkNlVUZIVlVGamQwSjZRVUZCUVZkQlFVRkJRVUZCUVVGQ2RFRkhSVUZq?=
- =?utf-8?B?WjBJeVFVZFZRV0pCUW1aQlNFRkJZMmRDZGtGSGIwRmFVVUpxUVVoUlFWaDNR?=
- =?utf-8?B?blZCUjBWQllsRkNiRUZJVFVGWWQwSnFRVWM0UVdKblFtMUJSMnRCV2tGQ2JF?=
- =?utf-8?B?RkhORUZrUVVKd1FVZEZRV0pCUW1aQlIwVkJZa0ZDZGtGSE5FRmFVVUZCUVVa?=
- =?utf-8?B?UlFVRkJRVUZCUVVGQllsRkNhRUZJU1VGa1owSnNRVWQzUVZoM1FuZEJTRWxC?=
- =?utf-8?B?WW5kQ2NVRkhWVUZaZDBJd1FVWTRRV0puUW1oQlJ6QkJXbEZDZWtGR09FRmpa?=
- =?utf-8?B?MEpzUVVoTlFXUkJRbmxCUjJ0QldYZENNRUZIVlVGYVFVSm1RVWRGUVdKQlFu?=
- =?utf-8?B?WkJSelJCV2xGQlFVRkdiMEZCUVVGQlFVRkJRV0pSUW1oQlNFbEJaR2RDYkVG?=
- =?utf-8?B?SGQwRllkMEozUVVoSlFXSjNRbkZCUjFWQldYZENNRUZHT0VGaVowSm9RVWN3?=
- =?utf-8?B?UVZwUlFucEJSamhCWTJkQ2JFRklUVUZrUVVKNVFVZHJRVmwzUWpCQlIxVkJX?=
- =?utf-8?B?a0ZDWmtGSFowRmFVVUkwUVVkTlFXSjNRbXRCUjFWQlkzZEJRVUZEUVVGQlFV?=
- =?utf-8?Q?FBQUFB?=
-x-dg-tag-bcast: {BB38C8B4-BBDA-40C5-8168-0013E523D1A2}
-x-dg-refsix: 
- =?utf-8?B?UVdKUlFtaEJTRWxCWkdkQ2JFRkhkMEZpUVVKbVFVZEZRV05uUW5SQlFVRkJT?=
- =?utf-8?B?bWRCUVVGQlFVRkJRVUowUVVkRlFXTm5RakpCUjFWQllrRkNjMEZHT0VGYWQw?=
- =?utf-8?B?SjJRVWM0UVZwM1FuTkJSMVZCUVVGQk1FRkJRVUZCUVVGQlFVY3dRVmxSUW5s?=
- =?utf-8?B?QlNGbEJXbEZDYzBGSGQwRllkMEozUVVoSlFXSjNRbkZCUjFWQldYZENNRUZH?=
- =?utf-8?B?T0VGWmQwSjJRVWRSUVZwUlFucEJRVUZCVUdkQlFVRkJRVUZCUVVKMFFVZEZR?=
- =?utf-8?B?V05uUWpKQlIxVkJZa0ZDYzBGR09FRmpRVUo1UVVjNFFXRm5RbXhCUjAxQlpF?=
- =?utf-8?B?RkNaa0ZIVFVGaWQwSnJRVWRWUVdOM1FtWkJSMUZCWVZGQ2FrRklVVUZCUVVK?=
- =?utf-8?B?bFFVRkJRVUZCUVVGQlJ6QkJXVkZDZVVGSVdVRmFVVUp6UVVkM1FWaDNRbmRC?=
- =?utf-8?B?U0VsQlluZENjVUZIVlVGWmQwSXdRVVk0UVdKblFtaEJSekJCV2xGQ2VrRkdP?=
- =?utf-8?B?RUZaZDBKMlFVYzBRVnBuUW5CQlIxRkJXbEZDZFVGSVVVRmhVVUpvUVVkM1FW?=
- =?utf-8?B?aDNRblJCUjBWQlkyZENNa0ZIVlVGaVFVSnpRVUZCUVdKQlFVRkJRVWxCUVVG?=
- =?utf-8?B?Q2RFRkhSVUZqWjBJeVFVZFZRV0pCUW5OQlJqaEJZMEZDZVVGSE9FRmhaMEpz?=
- =?utf-8?B?UVVkTlFXUkJRbVpCUnpSQldWRkNkRUZIVlVGamQwSm1RVWROUVdKM1FuVkJS?=
- =?utf-8?B?MWxCWVZGQ2EwRkhWVUZpWjBJd1FVZHJRVmxSUW5OQlJqaEJZbEZDYUVGSVNV?=
- =?utf-8?B?RmtaMEpzUVVkM1FXSkJRbVpCUnpoQlkyZENaa0ZIUlVGalowSjBRVUZCUVdO?=
- =?utf-8?B?blFVRkJRVUZCUVVGQ2RFRkhSVUZqWjBJeVFVZFZRV0pCUW5OQlJqaEJZMEZD?=
- =?utf-8?B?ZVVGSE9FRmhaMEpzUVVkTlFXUkJRbVpCUnpSQldWRkNkRUZIVlVGamQwSm1R?=
- =?utf-8?B?VWROUVdKM1FuVkJSMWxCWVZGQ2EwRkhWVUZpWjBJd1FVZHJRVmxSUW5OQlJq?=
- =?utf-8?B?aEJZbEZDYUVGSVNVRmtaMEpzUVVkM1FXSkJRbVpCUnpoQlkyZENaa0ZIWTBG?=
- =?utf-8?B?aWQwSjJRVWRqUVdKQlFteEJRVUZCVjJkQlFVRkJRVUZCUVVKMFFVZEZRV05u?=
- =?utf-8?B?UWpKQlIxVkJZa0ZDYzBGR09FRmpRVUo1UVVjNFFXRm5RbXhCUjAxQlpFRkNa?=
- =?utf-8?B?a0ZITkVGWlVVSjBRVWRWUVdOM1FtWkJTRWxCV2xGQ2VrRklVVUZqWjBKd1FV?=
- =?utf-8?B?ZE5RV1JCUW14QlIxRkJXSGRDZEVGSFJVRmpaMEl5UVVkVlFXSkJRbk5CUVVG?=
- =?utf-8?B?QllVRkJRVUZCUVVGQlFVSjBRVWRGUVdOblFqSkJSMVZCWWtGQ2MwRkdPRUZq?=
- =?utf-8?B?UVVKNVFVYzRRV0ZuUW14QlIwMUJaRUZDWmtGSE5FRlpVVUowUVVkVlFXTjNR?=
- =?utf-8?B?bVpCU0VsQldsRkNla0ZJVVVGalowSndRVWROUVdSQlFteEJSMUZCV0hkQ2RF?=
- =?utf-8?B?RkhSVUZqWjBJeVFVZFZRV0pCUW5OQlJqaEJZbmRDZVVGR09FRlpVVUo1UVVj?=
- =?utf-8?B?d1FVRkJRWEZCUVVGQlFVRkJRVUZITUVGWlVVSjVRVWhaUVZwUlFuTkJSM2RC?=
- =?utf-8?B?V0hkQ01FRkhWVUZqWjBKMFFVZHJRV0puUWpGQlNFMUJRVUZCYVVGQlFVRkJV?=
- =?utf-8?B?VUZCUVVjd1FWbFJRbmxCU0ZsQldsRkNjMEZIZDBGWWQwSXpRVWM0UVdOblFt?=
- =?utf-8?B?dEJRVUZCSWk4K1BDOXRaWFJoUGc9PQ==?=
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MWHPR1801MB1918:EE_|BN9PR18MB4218:EE_
-x-ms-office365-filtering-correlation-id: 1403d4c5-3f1d-4d7b-3036-08db9ca42d32
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- ervs2b5XDRxVhM7rIo7ZxE2daA9hNUTaNJQjc7UkVWiF/WzwK+Hw8NiyGsmq2AcxA5VkdR2m2qroXF144gzIiAdBmZWoVKg1uJo3sJg8Y78AUa1oYdEZkfCRszMt/RCupYzBDfl9QEkOrzJoHOxbq4FXe8jNUmhzU15ofcyf13uUm7qdtKIGigQEoYOfhOs3zSLhbnUL0i3d5IPfQ5AFBRf0jE498Z9D/kS3o4s84k2jwJWbbADgwgNWXJNVqsxWROIPSUPTmT1uyR2z5fAUI3H1MV3fwQnp+NRwB2TMgqV4/7AAYRt3olew/QDtypB6H1tg21LqiVnGBIumvbJiNWLOgE3CT9KBnYDB2RqkZAlqG2n+IS9l0kuDC3bGD41cHBI18gCtNYc38rakl4SX1cmlDP8cJBc1rVJrQL6Z4SGGpo9nlqxWFK/43TB2MG36JaWxEYrMNPjJCW0lgO3pSrlCOYgcji3niSDDU3JUKt4C/Rj64jeVYL7vofrc4DQhqaDa1jB5rTNzatjbyC43hSWPZCUsXuNCyPvHoYzHQSvOqCe+xkCbP8loFt/BYmUx3RxtqJ9yUPCeyLf6r8r9QR72xDRQMF2LwuXOWjeHe6JDDV8DRbs6tJ4adL+06j0jDPHZpe+RpgZucHwxZDaQUA==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1801MB1918.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(136003)(376002)(346002)(39860400002)(451199021)(1800799006)(186006)(38100700002)(55016003)(54906003)(110136005)(19627235002)(7696005)(71200400001)(478600001)(122000001)(7336002)(7416002)(7366002)(7406005)(52536014)(38070700005)(5660300002)(2906002)(33656002)(86362001)(4326008)(64756008)(66446008)(66476007)(66556008)(66946007)(76116006)(41300700001)(8936002)(8676002)(316002)(55236004)(6506007)(26005)(83380400001)(9686003)(966005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?eElUNFE3M2lTanJEcExZWStKZitJVTFZMDQ5NGN2aXBHSUk3ZExZVmZ6RDNH?=
- =?utf-8?B?NGxjS0F6YjhmNm5HNGszWlcydlZ5RUtGWTlVbDFzdG1DS1NLaEVyWmFvN1Fk?=
- =?utf-8?B?QmVxa3pKWGtodEZZZHAxMktFeVk0djBsNlBNSEM5M0QrdnNJNUdpQzVEWjhK?=
- =?utf-8?B?UVgwaDhKWk5CRDdMT0ZsV3VoNklsVHp4RWRpRGFuZlY1ajA3MGNXcUM1T044?=
- =?utf-8?B?eis5WkU1dHJDT3FEb04wQ2J6RVNKY1RTTGlRUW9TamFvWFlQMExDditVcEhL?=
- =?utf-8?B?K0R4NDlFWVBEMHhDY3VKeG8zOXJzclRVK1E3KzRsbDBydStvUmpjdlNDM0t3?=
- =?utf-8?B?N2RndTlKTTIrdXNJdXJFNUZZWE5LNEx5amVpbTJTT01iMFJSYzY1ODdQdkJz?=
- =?utf-8?B?YlZZS2YrUXpNdGtuNWdKUDNHaDQ4QWsza3lLMW1ReXJsbm5ZOU55YWpqVU8y?=
- =?utf-8?B?QzdKVm5qU2lndlA3TXh0bUkvNHJXSWttWGZTMEFPSzdvdXZlZjBXUVZvSTZs?=
- =?utf-8?B?a1RXcjRaVlg4MzhjNmNUbTVEV3BnTnVScjhOUFQ4OHZicVd4c2Jzd3YwWHF0?=
- =?utf-8?B?Slp0dHZmczB1VXYvS0tSSlNTd1Y2anZwbUNkMWNLV0dsenNxSGNaVURsY2oz?=
- =?utf-8?B?Z2xmMmExTC9iNUxpSm8yM3NQa2Vua0VTUnkzeGZBVm8wd0xVZmhPNGZ5c3Zv?=
- =?utf-8?B?MjhQKzQwMzRHUDJUMlVaUGRSZEU4NU0yUXJZek8weXNMeTQ0bHR3UG9OSUxo?=
- =?utf-8?B?Y1A4Q0VPUjRLektUT01FazZzejBmVjRLbzVkdzhVSjZQVklJbjBNSURHbFRn?=
- =?utf-8?B?dzBXWVhiaTg5SHVnSWI3WUs4RHRsY1I3dG5xY2Q3ajFFbFRNK3NFdUFiV1hZ?=
- =?utf-8?B?UVRLR3pHVTRCUmJ6Zmg0R0t1d2J6d3N1ZGFLd29jWDBnODE5N2pIc0hpUmxU?=
- =?utf-8?B?d2kyNzRzdTg4d25wblZjT2hKeW05b3N1cmJaejZIaW9BUHBYeDlhV0VZemRZ?=
- =?utf-8?B?RFBiRFJUdExmOG50Tys1eXRNOW4xbjQ2Z3hXT2VocVdCU3BzMWQ5WmVQZEtv?=
- =?utf-8?B?QVhIM3U2TUNWNllzZURVa3RtS2gwV3JUVFVHaUh3RzhrYVZpTzlCRHA4a21U?=
- =?utf-8?B?YUUxbGRyRUFPZ3Q2SXZkemYwUUNkcElZOXc3SytuTFR1MkdxQ09ISDY4NTBl?=
- =?utf-8?B?TmVyTXVEK0QwRTJoY1pXQzNYNUNFd0VmdlRpWW9vNko3cTBnTXhiaU9NOUNs?=
- =?utf-8?B?eTVLZHZJRzQ5VldtaWJZcFR6RFQxV1MwVzlvdFVtNmllWnYyQWZUREdFRG1n?=
- =?utf-8?B?UldOM2pNS0hMR0NlNnQ4aWVEMEU5RDlNVktMQlE1QUV2VnFGMG1NNEZXRHU5?=
- =?utf-8?B?dVR2NFNlZFJCdTcxd05nNCs0UTd3aURST1B2LzgxdDNYZEJEZG5NSktYUW94?=
- =?utf-8?B?NWtrMWhldEM0WEcxc3E4Y0hLR05CcXlGSlA1b3hZM0dmelArckRyTTNVeVlV?=
- =?utf-8?B?VFBtSlZHSE5aYjA5TmhvdmFLOXBBZjdQOWs3RmJici8zd1V5MzlBaGZ5K2pC?=
- =?utf-8?B?TXk5YXdrUDNlNS95MGcxTWlMUmhXeEVXenJjQmxGZHkzSzRBSGxsUVF0c08v?=
- =?utf-8?B?Y1dFS0dsbzFySW1SUDNBNDF2MFFBbThOZ08xWFN6UVlzd1FQYUp6aFNNL051?=
- =?utf-8?B?SVNPLzhRZmIrdjUrT1JNcjMyWFpTWmVtT05ERldaRi8yRGlUZHRFZVp5T0ZV?=
- =?utf-8?B?YUR3Yktham84cjdFbFY4REk5R3FvbE41NEdHbkoyaldBTUhDckZTVWg2MjJo?=
- =?utf-8?B?TUlHUTN5TGhrWTRkcmR3Q0V3RFNmN0ZVZUZiV0Jrd1dXOXdyMDlRdFpaeW9k?=
- =?utf-8?B?dWJYMFhOV1UxZzNLNUtGVTc1bERraEJVdmpUcldSQ25vaStzL2FIdzVUVXJ2?=
- =?utf-8?B?b3Fzd2o2cEt0dElkT2dDQkdmRUUxdFVrb1M0VjJKNGdLeVV3YWp3ZGZQRHQ0?=
- =?utf-8?B?Q0lhM0JYNi9peUc4QUZNTTlQMzVXNEpQSUdBVW1uT0V3cVErVnc3cjQ2QnlE?=
- =?utf-8?B?a3J6cEJvbXhOdFVFc3pHNjNuN2RoMzB4Y0Vsc1pPTWlSV096U0RPdjIxeEoz?=
- =?utf-8?Q?tuKvMuDdvGt9m09ftYBhIGbKV?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: cb2d292a-3a81-11ee-8613-37d641c3527e
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>
+Subject: [XEN PATCH v2] x86: address MISRA C:2012 Rule 5.3
+Date: Mon, 14 Aug 2023 11:05:30 +0200
+Message-Id: <c0bb67b18e1ad158a8af059abd1436c36eb8edf6.1692003656.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-OriginatorOrg: marvell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1801MB1918.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1403d4c5-3f1d-4d7b-3036-08db9ca42d32
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2023 08:55:14.9683
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tEQ2Lj2R5COsWOyoJVNnUSmF9cho/4qEBN2oS9h/PIyBPLfwWDhz0C1//gKEciGE2Rla/akpatL/YvZhr5ZNwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR18MB4218
-X-Proofpoint-ORIG-GUID: VKSPZR_T51MpOOi_5HyduhDxSjK4c4Ug
-X-Proofpoint-GUID: VKSPZR_T51MpOOi_5HyduhDxSjK4c4Ug
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-14_03,2023-08-10_01,2023-05-22_02
+Content-Transfer-Encoding: 8bit
 
-PiBGcm9tOiBKZXNwZXIgRGFuZ2FhcmQgQnJvdWVyIDxoYXdrQGtlcm5lbC5vcmc+DQo+IFN1Ympl
-Y3Q6IFJlOiBbRVhUXSBSZTogW1BBVENIIHYxIG5ldF0gcGFnZV9wb29sOiBDYXAgcXVldWUgc2l6
-ZSB0byAzMmsuDQoNCg0KPiBJIGFncmVlIHdpdGggSm9oYW5uZXMsIHRoaXMgY29tbWl0IG1lc3Nh
-Z2UgaXMgdG9vIHRoaW4uDQpBQ0suDQoNCiANCj4gSXQgbWFrZXMgc2Vuc2UgdG8gZ2l2ZSBhIHN1
-bW1hcnkgb2YgdGhlIGRpc2N1c3Npb24sIGJlY2F1c2UgaXQgc2hvdyB1cw0KPiAocGFnZV9wb29s
-IG1haW50YWluZXJzKSB3aGF0IHlvdSBjb25jbHVkZWQgZm9yIHRoZSBkaXNjdXNzaW9uLg0KR290
-IGl0LiBUaGFua3MuIA0KDQo+IEZ1cnRoZXIgbW9yZSwgeW91IGFsc28gc2VuZCBhbm90aGVyIHBh
-dGNoOg0KPiAgIC0gIltQQVRDSCBuZXQtbmV4dF0gcGFnZV9wb29sOiBTZXQgcGFnZSBwb29sIHNp
-emUiDQpPa2F5LiANCg0KPiAgIC0NCj4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29t
-L3YyL3VybD91PWh0dHBzLQ0KPiAzQV9fbG9yZS5rZXJuZWwub3JnX2FsbF8yMDIzMDgwOTAyMTky
-MC45MTMzMjQtMkQxLTJEcmthbm5vdGgtDQo+IDQwbWFydmVsbC5jb21fJmQ9RHdJQ2FRJmM9bktq
-V2VjMmI2UjBtT3lQYXo3eHRmUSZyPWFla2NzeUJDSDAwDQo+IF9MZXdyRURjUUJ6c1J3OEtDcFVS
-MHZaYl9hdVRIazRNJm09dXZWX3Z0X2NOeVFJdFREOTBqRjFMZEtvdlANCj4gN2o3Rll0bnI3STM4
-X19uWVk2d0h0RkhTb3pZb1JTU3ZDSTE0bmgmcz12R2d0MmNjR2RpUlRFaGozTW9HVngtDQo+IEVY
-SG1CMDN2NkkzVUlJWTFmRWIyNCZlPQ0KPiANCj4gVGhhdCBwYXRjaCBzb2x2ZXMgdGhlIGlzc3Vl
-IGZvciB5b3VyIGRyaXZlciBtYXJ2ZWxsL29jdGVvbnR4MiBhbmQgSSBsaWtlIHRoYW4NCj4gY2hh
-bmdlLg0KT2theS4gDQoNCj4gV2h5IGRpZCB5b3UgY29uY2x1ZGUgdGhhdCBQUCBjb3JlIHNob3Vs
-ZCBhbHNvIGNoYW5nZT8NCkkgY291bGQgbm90ICBhbnN3ZXIgSmFjdWIncyBxdWVzdGlvbiBhdCBo
-dHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYvMjAyMzA4MTAwMjQ0MjIuMTc4MTMxMi0xLXJr
-YW5ub3RoQG1hcnZlbGwuY29tL1QvIA0KDQo+IChwLnMuIENjL1RvIGxpc3QgaGF2ZSBnb3R0ZW4g
-ZXhjZXNzaXZlIHdpdGggODkgcmVjaXBpZW50cykNCkkgYWRkZWQgbWFpbnRhaW50ZXJzIG9mIGFs
-bCBmaWxlcyB3aGljaCB1c2VkIHBhZ2VfcG9vbF9pbml0KCkuIA0KDQo=
+Address some occurrences of shadowing between the global
+variable 'e820' in 'xen/arch/x86/e820.c' and the function
+parameter name of 'e820_add_range'.
+
+Since the function is only ever called with the global variable
+as the actual parameter, so there is no need to have it as a parameter
+because both are defined in the same file (mentioned above).
+This in turn causes several other functions to lose their parameter
+'e820' because they are involved in the call chain that leads to
+'e820_add_range'.
+
+Similarly, 'kexec_reserve_area' is only ever called with the static
+variable 'boot_e820' as a parameter, which is defined in the same file
+as the function, thus it does not need that parameter, which is a cause
+of shadowing, as explained above.
+
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- Mention 'kexec_reserve_area' in the commit message.
+
+Other occurrences of shadowing on the same global in
+'e820_change_range_type' and 'reserve_e820_ram' are not addressed in
+this patch and will be the subject of a future one, as the parameter
+needs to be renamed instead, and could potentially be part of a general
+name refactoring for consistency around e820.
+
+The following threads are useful to have more context about this patch, which
+was previously part of a series of changes related to the same MISRA Rule.
+- https://lore.kernel.org/xen-devel/3a9db416c6f8b2d5a549d49ff02238eb408cc905.1691492441.git.nicola.vetrini@bugseng.com/
+- https://lore.kernel.org/xen-devel/896a2235560fd348f79eded33731609c5d2e74ab.1691162261.git.nicola.vetrini@bugseng.com/
+---
+ xen/arch/x86/e820.c                         | 38 ++++++++++-----------
+ xen/arch/x86/guest/hyperv/hyperv.c          |  4 +--
+ xen/arch/x86/guest/hypervisor.c             |  4 +--
+ xen/arch/x86/guest/xen/xen.c                |  4 +--
+ xen/arch/x86/include/asm/e820.h             |  3 +-
+ xen/arch/x86/include/asm/guest/hypervisor.h |  6 ++--
+ xen/arch/x86/include/asm/pv/shim.h          |  4 +--
+ xen/arch/x86/pv/shim.c                      | 10 +++---
+ xen/arch/x86/setup.c                        |  8 ++---
+ xen/arch/x86/x86_64/mmconf-fam10h.c         |  2 +-
+ xen/drivers/passthrough/amd/iommu_acpi.c    |  2 +-
+ 11 files changed, 42 insertions(+), 43 deletions(-)
+
+diff --git a/xen/arch/x86/e820.c b/xen/arch/x86/e820.c
+index 4911e64b8cf4..6a3ce7e0a07f 100644
+--- a/xen/arch/x86/e820.c
++++ b/xen/arch/x86/e820.c
+@@ -543,27 +543,27 @@ static void __init machine_specific_memory_setup(struct e820map *raw)
+         clip_to_limit(top_of_ram, "MTRRs do not cover all of memory.");
+ }
+
+-/* This function relies on the passed in e820->map[] being sorted. */
+-int __init e820_add_range(
+-    struct e820map *e820, uint64_t s, uint64_t e, uint32_t type)
++/* This function relies on the global e820->map[] being sorted. */
++int __init e820_add_range(uint64_t s, uint64_t e, uint32_t type)
+ {
+     unsigned int i;
++    struct e820entry *ei = e820.map;
+
+-    for ( i = 0; i < e820->nr_map; ++i )
++    for ( i = 0; i < e820.nr_map; ++i )
+     {
+-        uint64_t rs = e820->map[i].addr;
+-        uint64_t re = rs + e820->map[i].size;
++        uint64_t rs = ei[i].addr;
++        uint64_t re = rs + ei[i].size;
+
+-        if ( rs == e && e820->map[i].type == type )
++        if ( rs == e && ei[i].type == type )
+         {
+-            e820->map[i].addr = s;
++            ei[i].addr = s;
+             return 1;
+         }
+
+-        if ( re == s && e820->map[i].type == type &&
+-             (i + 1 == e820->nr_map || e820->map[i + 1].addr >= e) )
++        if ( re == s && ei[i].type == type &&
++             (i + 1 == e820.nr_map || ei[i + 1].addr >= e) )
+         {
+-            e820->map[i].size += e - s;
++            ei[i].size += e - s;
+             return 1;
+         }
+
+@@ -574,20 +574,20 @@ int __init e820_add_range(
+             return 0;
+     }
+
+-    if ( e820->nr_map >= ARRAY_SIZE(e820->map) )
++    if ( e820.nr_map >= ARRAY_SIZE(e820.map) )
+     {
+         printk(XENLOG_WARNING "E820: overflow while adding region"
+                " %"PRIx64"-%"PRIx64"\n", s, e);
+         return 0;
+     }
+
+-    memmove(e820->map + i + 1, e820->map + i,
+-            (e820->nr_map - i) * sizeof(*e820->map));
++    memmove(ei + i + 1, ei + i,
++            (e820.nr_map - i) * sizeof(*e820.map));
+
+-    e820->nr_map++;
+-    e820->map[i].addr = s;
+-    e820->map[i].size = e - s;
+-    e820->map[i].type = type;
++    e820.nr_map++;
++    ei[i].addr = s;
++    ei[i].size = e - s;
++    ei[i].type = type;
+
+     return 1;
+ }
+@@ -694,7 +694,7 @@ unsigned long __init init_e820(const char *str, struct e820map *raw)
+     machine_specific_memory_setup(raw);
+
+     if ( cpu_has_hypervisor )
+-        hypervisor_e820_fixup(&e820);
++        hypervisor_e820_fixup();
+
+     printk("%s RAM map:\n", str);
+     print_e820_memory_map(e820.map, e820.nr_map);
+diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
+index aacc7a61670b..912099564ec4 100644
+--- a/xen/arch/x86/guest/hyperv/hyperv.c
++++ b/xen/arch/x86/guest/hyperv/hyperv.c
+@@ -187,11 +187,11 @@ static int cf_check ap_setup(void)
+     return setup_vp_assist();
+ }
+
+-static void __init cf_check e820_fixup(struct e820map *e820)
++static void __init cf_check e820_fixup(void)
+ {
+     uint64_t s = HV_HCALL_MFN << PAGE_SHIFT;
+
+-    if ( !e820_add_range(e820, s, s + PAGE_SIZE, E820_RESERVED) )
++    if ( !e820_add_range(s, s + PAGE_SIZE, E820_RESERVED) )
+         panic("Unable to reserve Hyper-V hypercall range\n");
+ }
+
+diff --git a/xen/arch/x86/guest/hypervisor.c b/xen/arch/x86/guest/hypervisor.c
+index b8549a131a5a..e0b046cc6c89 100644
+--- a/xen/arch/x86/guest/hypervisor.c
++++ b/xen/arch/x86/guest/hypervisor.c
+@@ -60,10 +60,10 @@ void hypervisor_resume(void)
+         ops.resume();
+ }
+
+-void __init hypervisor_e820_fixup(struct e820map *e820)
++void __init hypervisor_e820_fixup(void)
+ {
+     if ( ops.e820_fixup )
+-        ops.e820_fixup(e820);
++        ops.e820_fixup();
+ }
+
+ int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
+diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
+index f93dfc89f724..2eed32fe46c7 100644
+--- a/xen/arch/x86/guest/xen/xen.c
++++ b/xen/arch/x86/guest/xen/xen.c
+@@ -306,10 +306,10 @@ static void cf_check resume(void)
+         pv_console_init();
+ }
+
+-static void __init cf_check e820_fixup(struct e820map *e820)
++static void __init cf_check e820_fixup(void)
+ {
+     if ( pv_shim )
+-        pv_shim_fixup_e820(e820);
++        pv_shim_fixup_e820();
+ }
+
+ static int cf_check flush_tlb(
+diff --git a/xen/arch/x86/include/asm/e820.h b/xen/arch/x86/include/asm/e820.h
+index 213d5b5dd227..af90085d65d1 100644
+--- a/xen/arch/x86/include/asm/e820.h
++++ b/xen/arch/x86/include/asm/e820.h
+@@ -29,8 +29,7 @@ extern int reserve_e820_ram(struct e820map *e820, uint64_t s, uint64_t e);
+ extern int e820_change_range_type(
+     struct e820map *e820, uint64_t s, uint64_t e,
+     uint32_t orig_type, uint32_t new_type);
+-extern int e820_add_range(
+-    struct e820map *, uint64_t s, uint64_t e, uint32_t type);
++extern int e820_add_range(uint64_t s, uint64_t e, uint32_t type);
+ extern unsigned long init_e820(const char *str, struct e820map *raw);
+ extern void print_e820_memory_map(const struct e820entry *map,
+     unsigned int entries);
+diff --git a/xen/arch/x86/include/asm/guest/hypervisor.h b/xen/arch/x86/include/asm/guest/hypervisor.h
+index 4cffea386609..c8f18a035ee6 100644
+--- a/xen/arch/x86/include/asm/guest/hypervisor.h
++++ b/xen/arch/x86/include/asm/guest/hypervisor.h
+@@ -22,7 +22,7 @@ struct hypervisor_ops {
+     /* Resume from suspension */
+     void (*resume)(void);
+     /* Fix up e820 map */
+-    void (*e820_fixup)(struct e820map *e820);
++    void (*e820_fixup)(void);
+     /* L0 assisted TLB flush */
+     int (*flush_tlb)(const cpumask_t *mask, const void *va, unsigned int flags);
+ };
+@@ -33,7 +33,7 @@ const char *hypervisor_probe(void);
+ void hypervisor_setup(void);
+ int hypervisor_ap_setup(void);
+ void hypervisor_resume(void);
+-void hypervisor_e820_fixup(struct e820map *e820);
++void hypervisor_e820_fixup(void);
+ /*
+  * L0 assisted TLB flush.
+  * mask: cpumask of the dirty vCPUs that should be flushed.
+@@ -52,7 +52,7 @@ static inline const char *hypervisor_probe(void) { return NULL; }
+ static inline void hypervisor_setup(void) { ASSERT_UNREACHABLE(); }
+ static inline int hypervisor_ap_setup(void) { return 0; }
+ static inline void hypervisor_resume(void) { ASSERT_UNREACHABLE(); }
+-static inline void hypervisor_e820_fixup(struct e820map *e820) {}
++static inline void hypervisor_e820_fixup(void) {}
+ static inline int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
+                                        unsigned int flags)
+ {
+diff --git a/xen/arch/x86/include/asm/pv/shim.h b/xen/arch/x86/include/asm/pv/shim.h
+index 5625b90b72bd..6153e2700598 100644
+--- a/xen/arch/x86/include/asm/pv/shim.h
++++ b/xen/arch/x86/include/asm/pv/shim.h
+@@ -33,7 +33,7 @@ void pv_shim_online_memory(unsigned int nr, unsigned int order);
+ void pv_shim_offline_memory(unsigned int nr, unsigned int order);
+ domid_t get_initial_domain_id(void);
+ uint64_t pv_shim_mem(uint64_t avail);
+-void pv_shim_fixup_e820(struct e820map *e820);
++void pv_shim_fixup_e820(void);
+ const struct platform_bad_page *pv_shim_reserved_pages(unsigned int *size);
+ typeof(do_event_channel_op) pv_shim_event_channel_op;
+ typeof(do_grant_table_op) pv_shim_grant_table_op;
+@@ -85,7 +85,7 @@ static inline uint64_t pv_shim_mem(uint64_t avail)
+     ASSERT_UNREACHABLE();
+     return 0;
+ }
+-static inline void pv_shim_fixup_e820(struct e820map *e820)
++static inline void pv_shim_fixup_e820(void)
+ {
+     ASSERT_UNREACHABLE();
+ }
+diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
+index 404408711972..ca0e639db323 100644
+--- a/xen/arch/x86/pv/shim.c
++++ b/xen/arch/x86/pv/shim.c
+@@ -98,17 +98,17 @@ uint64_t pv_shim_mem(uint64_t avail)
+     return shim_nrpages;
+ }
+
+-static void __init mark_pfn_as_ram(struct e820map *e820, uint64_t pfn)
++static void __init mark_pfn_as_ram(uint64_t pfn)
+ {
+-    if ( !e820_add_range(e820, pfn << PAGE_SHIFT,
++    if ( !e820_add_range(pfn << PAGE_SHIFT,
+                          (pfn << PAGE_SHIFT) + PAGE_SIZE, E820_RAM) &&
+-         !e820_change_range_type(e820, pfn << PAGE_SHIFT,
++         !e820_change_range_type(&e820, pfn << PAGE_SHIFT,
+                                  (pfn << PAGE_SHIFT) + PAGE_SIZE,
+                                  E820_RESERVED, E820_RAM) )
+         panic("Unable to add/change memory type of pfn %#lx to RAM\n", pfn);
+ }
+
+-void __init pv_shim_fixup_e820(struct e820map *e820)
++void __init pv_shim_fixup_e820(void)
+ {
+     uint64_t pfn = 0;
+     unsigned int i = 0;
+@@ -120,7 +120,7 @@ void __init pv_shim_fixup_e820(struct e820map *e820)
+     rc = xen_hypercall_hvm_get_param(p, &pfn);  \
+     if ( rc )                                   \
+         panic("Unable to get " #p "\n");        \
+-    mark_pfn_as_ram(e820, pfn);                 \
++    mark_pfn_as_ram(pfn);                       \
+     ASSERT(i < ARRAY_SIZE(reserved_pages));     \
+     reserved_pages[i++].mfn = pfn;              \
+ })
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 2bfc1fd00f8c..3358d9a0ff63 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -688,7 +688,7 @@ static void __init parse_video_info(void)
+ #endif
+ }
+
+-static void __init kexec_reserve_area(struct e820map *e820)
++static void __init kexec_reserve_area(void)
+ {
+ #ifdef CONFIG_KEXEC
+     unsigned long kdump_start = kexec_crash_area.start;
+@@ -702,7 +702,7 @@ static void __init kexec_reserve_area(struct e820map *e820)
+
+     is_reserved = true;
+
+-    if ( !reserve_e820_ram(e820, kdump_start, kdump_start + kdump_size) )
++    if ( !reserve_e820_ram(&boot_e820, kdump_start, kdump_start + kdump_size) )
+     {
+         printk("Kdump: DISABLED (failed to reserve %luMB (%lukB) at %#lx)"
+                "\n", kdump_size >> 20, kdump_size >> 10, kdump_start);
+@@ -1310,7 +1310,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         if ( e820.map[i].type == E820_RAM )
+             nr_pages += e820.map[i].size >> PAGE_SHIFT;
+     set_kexec_crash_area_size((u64)nr_pages << PAGE_SHIFT);
+-    kexec_reserve_area(&boot_e820);
++    kexec_reserve_area();
+
+     initial_images = mod;
+     nr_initial_images = mbi->mods_count;
+@@ -1497,7 +1497,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
+
+     /* Late kexec reservation (dynamic start address). */
+-    kexec_reserve_area(&boot_e820);
++    kexec_reserve_area();
+
+     setup_max_pdx(raw_max_page);
+     if ( highmem_start )
+diff --git a/xen/arch/x86/x86_64/mmconf-fam10h.c b/xen/arch/x86/x86_64/mmconf-fam10h.c
+index a834ab3149be..36b32eb769e1 100644
+--- a/xen/arch/x86/x86_64/mmconf-fam10h.c
++++ b/xen/arch/x86/x86_64/mmconf-fam10h.c
+@@ -135,7 +135,7 @@ static void __init get_fam10h_pci_mmconf_base(void)
+ 	return;
+
+ out:
+-	if (e820_add_range(&e820, start, start + SIZE, E820_RESERVED))
++	if (e820_add_range(start, start + SIZE, E820_RESERVED))
+ 		fam10h_pci_mmconf_base = start;
+ }
+
+diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
+index 3b577c9b390c..db993d6df275 100644
+--- a/xen/drivers/passthrough/amd/iommu_acpi.c
++++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+@@ -418,7 +418,7 @@ static int __init parse_ivmd_block(const struct acpi_ivrs_memory *ivmd_block)
+
+             if ( type == RAM_TYPE_UNKNOWN )
+             {
+-                if ( e820_add_range(&e820, addr, addr + PAGE_SIZE,
++                if ( e820_add_range(addr, addr + PAGE_SIZE,
+                                     E820_RESERVED) )
+                     continue;
+                 AMD_IOMMU_ERROR("IVMD: page at %lx couldn't be reserved\n",
+--
+2.34.1
 
