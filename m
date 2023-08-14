@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA8977B7E7
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 13:56:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.583569.913820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2203377B7E6
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Aug 2023 13:56:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.583570.913830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVWAl-0003da-Nf; Mon, 14 Aug 2023 11:55:47 +0000
+	id 1qVWAs-0003sx-Uj; Mon, 14 Aug 2023 11:55:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 583569.913820; Mon, 14 Aug 2023 11:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 583570.913830; Mon, 14 Aug 2023 11:55:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVWAl-0003al-Jq; Mon, 14 Aug 2023 11:55:47 +0000
-Received: by outflank-mailman (input) for mailman id 583569;
- Mon, 14 Aug 2023 11:55:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qVWAs-0003qf-RK; Mon, 14 Aug 2023 11:55:54 +0000
+Received: by outflank-mailman (input) for mailman id 583570;
+ Mon, 14 Aug 2023 11:55:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=f6hq=D7=suse.de=tiwai@srs-se1.protection.inumbo.net>)
- id 1qVWAj-0003af-Px
- for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 11:55:45 +0000
+ id 1qVWAr-0003q6-Ty
+ for xen-devel@lists.xenproject.org; Mon, 14 Aug 2023 11:55:53 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e0a2445-3a99-11ee-8613-37d641c3527e;
- Mon, 14 Aug 2023 13:55:41 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 844ed475-3a99-11ee-b288-6b7b168915f2;
+ Mon, 14 Aug 2023 13:55:52 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 17ED721995;
- Mon, 14 Aug 2023 11:55:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D7937219A1;
+ Mon, 14 Aug 2023 11:55:51 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A12A1138EE;
- Mon, 14 Aug 2023 11:55:40 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AAF42138EE;
+ Mon, 14 Aug 2023 11:55:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id POobJjwW2mRnMAAAMHmgww
- (envelope-from <tiwai@suse.de>); Mon, 14 Aug 2023 11:55:40 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id qC3jKEcW2mRnMAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Mon, 14 Aug 2023 11:55:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,148 +51,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e0a2445-3a99-11ee-8613-37d641c3527e
+X-Inumbo-ID: 844ed475-3a99-11ee-b288-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1692014141; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=XQeGJoZiwS+WxYkVBoqLRdA0cljITB4QdfMyE6lbFFs=;
-	b=kFp/+CRCPGtee7m/HHJG6RlkE9iBkGLiItLiaZXJaSHCOFJVefxmV49Io8esHULi2dSTmx
-	dkZvny408ZbpCYDNUxDK9iduT8PasgOnmWZQrRNzDBf6v/T2EKwgDtULSDfIPCePUN7veC
-	W7/6+AabVtw/UyAbvOPTJ0Q5KJVfFP0=
+	t=1692014151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qzlxAU1XSkzR3XPjbJVOWpV2hz5S7Z3vbPhCeirTcv4=;
+	b=quiF4tq/eE5i+5CxgUSEBXtEQkYHSLt2QDgJPiFJpiau4p1G2BsMfcBFSHBTY9fTHYmo73
+	U6alWrXa3GIQej/g1COubPoXKecXeFaOGkpFDLdjuv/3Y9kQSbx/hDlFAhi7HlK2brgzq1
+	2PtNesfj+OeWGqgZl4h4vhPOQuvOwJ0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692014141;
+	s=susede2_ed25519; t=1692014151;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=XQeGJoZiwS+WxYkVBoqLRdA0cljITB4QdfMyE6lbFFs=;
-	b=J0FDoDKgkoTfK6W8B1m8B3Sq8+mKHrYih3FmIaCWeumyUMJoNkdmZeZPdu1jqCS3GM1WoU
-	/fQKa10s4LX6IjCQ==
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qzlxAU1XSkzR3XPjbJVOWpV2hz5S7Z3vbPhCeirTcv4=;
+	b=4cxNHhcBpU4rDaUthyZ/Fc6HCW2HJ78Nzov/mMICTpF1A0gqlWDJgi9VOgn89ABwPnzPRi
+	hyIYNuAUp2PBZZAQ==
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org,
 	Takashi Iwai <tiwai@suse.de>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andrey Utkin <andrey_utkin@fastmail.com>,
-	Anton Sviridenko <anton@corp.bluecherry.net>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Ismael Luceno <ismael@iodev.co.uk>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Mark Brown <broonie@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	linux-media@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH 00/25] ALSA: Generic PCM copy ops using iov_iter
-Date: Mon, 14 Aug 2023 13:54:58 +0200
-Message-Id: <20230814115523.15279-1-tiwai@suse.de>
+Subject: [PATCH 15/25] ALSA: xen: Convert to generic PCM copy ops
+Date: Mon, 14 Aug 2023 13:55:13 +0200
+Message-Id: <20230814115523.15279-16-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20230814115523.15279-1-tiwai@suse.de>
+References: <20230814115523.15279-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+This patch converts the xen frontend driver code to use the new
+unified PCM copy callback.  It's a straightforward conversion from
+*_user() to *_iter() variants.
 
-this is a revised patch set for cleaning up the PCM copy ops using
-iov_iter to deal with kernel / user-space pointers consistently.
+Note that copy_from/to_iter() returns the copied bytes, hence the
+error condition is inverted from copy_from/to_user().
 
-The previous patch set was based on sockptr_t:
-  https://lore.kernel.org/r/20230731154718.31048-1-tiwai@suse.de
-But this approach was NAK'ed as iov_iter is a preferred way for
-achieving the purpose:
-  https://lore.kernel.org/r/87edkce118.wl-tiwai@suse.de
-
-The patch set starts with the missing export of import_ubuf()
-function, followed by the new copy_ops using iov_iter, extensions of
-some helpers and replacements of the existing code.  It resulted in a
-good amount of code reduction.
-
-
-Takashi
-
-===
-
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andrey Utkin <andrey_utkin@fastmail.com>
-Cc: Anton Sviridenko <anton@corp.bluecherry.net>
-Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Cc: Banajit Goswami <bgoswami@quicinc.com>
-Cc: Bluecherry Maintainers <maintainers@bluecherrydvr.com>
-Cc: Claudiu Beznea <claudiu.beznea@microchip.com>
-Cc: Ismael Luceno <ismael@iodev.co.uk>
-Cc: Lars-Peter Clausen <lars@metafoo.de>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: linux-media@vger.kernel.org
 Cc: xen-devel@lists.xenproject.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/xen/xen_snd_front_alsa.c | 55 +++++++---------------------------
+ 1 file changed, 10 insertions(+), 45 deletions(-)
 
-===
-
-Takashi Iwai (25):
-  iov_iter: Export import_ubuf()
-  ALSA: pcm: Add copy ops with iov_iter
-  ALSA: core: Add memory copy helpers between iov_iter and iomem
-  ALSA: dummy: Convert to generic PCM copy ops
-  ALSA: gus: Convert to generic PCM copy ops
-  ALSA: emu8000: Convert to generic PCM copy ops
-  ALSA: es1938: Convert to generic PCM copy ops
-  ALSA: korg1212: Convert to generic PCM copy ops
-  ALSA: nm256: Convert to generic PCM copy ops
-  ALSA: rme32: Convert to generic PCM copy ops
-  ALSA: rme96: Convert to generic PCM copy ops
-  ALSA: hdsp: Convert to generic PCM copy ops
-  ALSA: rme9652: Convert to generic PCM copy ops
-  ALSA: sh: Convert to generic PCM copy ops
-  ALSA: xen: Convert to generic PCM copy ops
-  ALSA: pcmtest: Update comment about PCM copy ops
-  media: solo6x10: Convert to generic PCM copy ops
-  ASoC: component: Add generic PCM copy ops
-  ASoC: mediatek: Convert to generic PCM copy ops
-  ASoC: qcom: Convert to generic PCM copy ops
-  ASoC: dmaengine: Convert to generic PCM copy ops
-  ASoC: dmaengine: Use iov_iter for process callback, too
-  ALSA: doc: Update description for the new PCM copy ops
-  ASoC: pcm: Drop obsoleted PCM copy_user ops
-  ALSA: pcm: Drop obsoleted PCM copy_user and copy_kernel ops
-
- .../kernel-api/writing-an-alsa-driver.rst     | 58 ++++-------
- drivers/media/pci/solo6x10/solo6x10-g723.c    | 38 +-------
- include/sound/dmaengine_pcm.h                 |  2 +-
- include/sound/pcm.h                           | 13 ++-
- include/sound/soc-component.h                 | 14 +--
- lib/iov_iter.c                                |  1 +
- sound/core/memory.c                           | 56 +++++++++--
- sound/core/pcm_lib.c                          | 95 ++++++++++---------
- sound/core/pcm_native.c                       |  2 +-
- sound/drivers/dummy.c                         | 12 +--
- sound/drivers/pcmtest.c                       |  2 +-
- sound/isa/gus/gus_pcm.c                       | 23 +----
- sound/isa/sb/emu8000_pcm.c                    | 74 ++++-----------
- sound/pci/es1938.c                            | 30 +-----
- sound/pci/korg1212/korg1212.c                 | 50 +++-------
- sound/pci/nm256/nm256.c                       | 42 ++------
- sound/pci/rme32.c                             | 50 +++-------
- sound/pci/rme96.c                             | 42 ++------
- sound/pci/rme9652/hdsp.c                      | 42 ++------
- sound/pci/rme9652/rme9652.c                   | 46 ++-------
- sound/sh/sh_dac_audio.c                       | 25 +----
- sound/soc/atmel/mchp-pdmc.c                   |  2 +-
- sound/soc/mediatek/common/mtk-btcvsd.c        | 23 ++---
- sound/soc/qcom/lpass-platform.c               | 13 +--
- sound/soc/soc-component.c                     | 10 +-
- sound/soc/soc-generic-dmaengine-pcm.c         | 18 ++--
- sound/soc/soc-pcm.c                           |  4 +-
- sound/soc/stm/stm32_sai_sub.c                 |  2 +-
- sound/xen/xen_snd_front_alsa.c                | 55 ++---------
- 29 files changed, 263 insertions(+), 581 deletions(-)
-
+diff --git a/sound/xen/xen_snd_front_alsa.c b/sound/xen/xen_snd_front_alsa.c
+index db917453a473..363351bff264 100644
+--- a/sound/xen/xen_snd_front_alsa.c
++++ b/sound/xen/xen_snd_front_alsa.c
+@@ -602,38 +602,24 @@ static snd_pcm_uframes_t alsa_pointer(struct snd_pcm_substream *substream)
+ 	return (snd_pcm_uframes_t)atomic_read(&stream->hw_ptr);
+ }
+ 
+-static int alsa_pb_copy_user(struct snd_pcm_substream *substream,
+-			     int channel, unsigned long pos, void __user *src,
+-			     unsigned long count)
++static int alsa_pb_copy(struct snd_pcm_substream *substream,
++			int channel, unsigned long pos, struct iov_iter *src,
++			unsigned long count)
+ {
+ 	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
+ 
+ 	if (unlikely(pos + count > stream->buffer_sz))
+ 		return -EINVAL;
+ 
+-	if (copy_from_user(stream->buffer + pos, src, count))
++	if (!copy_from_iter(stream->buffer + pos, count, src))
+ 		return -EFAULT;
+ 
+ 	return xen_snd_front_stream_write(&stream->evt_pair->req, pos, count);
+ }
+ 
+-static int alsa_pb_copy_kernel(struct snd_pcm_substream *substream,
+-			       int channel, unsigned long pos, void *src,
+-			       unsigned long count)
+-{
+-	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
+-
+-	if (unlikely(pos + count > stream->buffer_sz))
+-		return -EINVAL;
+-
+-	memcpy(stream->buffer + pos, src, count);
+-
+-	return xen_snd_front_stream_write(&stream->evt_pair->req, pos, count);
+-}
+-
+-static int alsa_cap_copy_user(struct snd_pcm_substream *substream,
+-			      int channel, unsigned long pos, void __user *dst,
+-			      unsigned long count)
++static int alsa_cap_copy(struct snd_pcm_substream *substream,
++			 int channel, unsigned long pos, struct iov_iter *dst,
++			 unsigned long count)
+ {
+ 	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
+ 	int ret;
+@@ -645,29 +631,10 @@ static int alsa_cap_copy_user(struct snd_pcm_substream *substream,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return copy_to_user(dst, stream->buffer + pos, count) ?
++	return !copy_to_iter(stream->buffer + pos, count, dst) ?
+ 		-EFAULT : 0;
+ }
+ 
+-static int alsa_cap_copy_kernel(struct snd_pcm_substream *substream,
+-				int channel, unsigned long pos, void *dst,
+-				unsigned long count)
+-{
+-	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
+-	int ret;
+-
+-	if (unlikely(pos + count > stream->buffer_sz))
+-		return -EINVAL;
+-
+-	ret = xen_snd_front_stream_read(&stream->evt_pair->req, pos, count);
+-	if (ret < 0)
+-		return ret;
+-
+-	memcpy(dst, stream->buffer + pos, count);
+-
+-	return 0;
+-}
+-
+ static int alsa_pb_fill_silence(struct snd_pcm_substream *substream,
+ 				int channel, unsigned long pos,
+ 				unsigned long count)
+@@ -697,8 +664,7 @@ static const struct snd_pcm_ops snd_drv_alsa_playback_ops = {
+ 	.prepare	= alsa_prepare,
+ 	.trigger	= alsa_trigger,
+ 	.pointer	= alsa_pointer,
+-	.copy_user	= alsa_pb_copy_user,
+-	.copy_kernel	= alsa_pb_copy_kernel,
++	.copy		= alsa_pb_copy,
+ 	.fill_silence	= alsa_pb_fill_silence,
+ };
+ 
+@@ -710,8 +676,7 @@ static const struct snd_pcm_ops snd_drv_alsa_capture_ops = {
+ 	.prepare	= alsa_prepare,
+ 	.trigger	= alsa_trigger,
+ 	.pointer	= alsa_pointer,
+-	.copy_user	= alsa_cap_copy_user,
+-	.copy_kernel	= alsa_cap_copy_kernel,
++	.copy		= alsa_cap_copy,
+ };
+ 
+ static int new_pcm_instance(struct xen_snd_front_card_info *card_info,
 -- 
 2.35.3
 
