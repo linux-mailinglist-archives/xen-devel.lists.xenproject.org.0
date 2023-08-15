@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D5F77D4D5
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Aug 2023 23:07:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584057.914523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1766677D4D7
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Aug 2023 23:07:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584058.914540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qW1Fx-0006Vy-Qw; Tue, 15 Aug 2023 21:07:13 +0000
+	id 1qW1Fz-00073s-G4; Tue, 15 Aug 2023 21:07:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584057.914523; Tue, 15 Aug 2023 21:07:13 +0000
+Received: by outflank-mailman (output) from mailman id 584058.914540; Tue, 15 Aug 2023 21:07:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qW1Fx-0006MY-I4; Tue, 15 Aug 2023 21:07:13 +0000
-Received: by outflank-mailman (input) for mailman id 584057;
- Tue, 15 Aug 2023 21:07:11 +0000
+	id 1qW1Fz-0006wV-8a; Tue, 15 Aug 2023 21:07:15 +0000
+Received: by outflank-mailman (input) for mailman id 584058;
+ Tue, 15 Aug 2023 21:07:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nTNg=EA=citrix.com=prvs=584bb2eab=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qW1Fv-0004ge-FK
- for xen-devel@lists.xenproject.org; Tue, 15 Aug 2023 21:07:11 +0000
+ id 1qW1Fx-0004ge-OZ
+ for xen-devel@lists.xenproject.org; Tue, 15 Aug 2023 21:07:13 +0000
 Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
  [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b19ffeec-3baf-11ee-9b0c-b553b5be7939;
- Tue, 15 Aug 2023 23:07:09 +0200 (CEST)
+ id b3a99d6a-3baf-11ee-9b0c-b553b5be7939;
+ Tue, 15 Aug 2023 23:07:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,55 +36,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b19ffeec-3baf-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: b3a99d6a-3baf-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1692133629;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=t9pwPtJaxOY2AoSDfaabseyGopwlTK4SCWzM4uvG2Xw=;
-  b=OUBYpU7tW0Dr92jGcMvG3AFGUlYufGLAb0AfINwVp8CCHA0rnYifqfMM
-   Ki2sj62I1ChtXWMp0kyXqAyRgJGHze86qGkMZbyp5KFyF/CQ8Crm/cm6p
-   abGazJxqdtd1mlRsIv/cEGpP3pRoJmJdlxtsLGeW/LJ4yAnWd9M6WYCOw
-   8=;
+  d=citrix.com; s=securemail; t=1692133631;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=T+zneU/ODd9BEL6CProAShU+q6Ysw7Qx5ZvQuObYDv8=;
+  b=fL+kq3irB6oK5cXs86k341plqlccLVufi5zKnRxd/N+Q/YlQ8Lc0jaOf
+   6ro+ZXsW0kXr97ht/RvEHSoxvCalu/Y4pZd1xwHkOLIsyb0WRMce1/8Kf
+   rk2dlPCiA3ncDnbHEsRZw1RYqKL8aQQ8BuSyxtRNH5axK+A+/H96WVf+9
+   c=;
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 118253077
+X-MesageID: 118253079
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:zbibmqwLDi3/72PY/wZ6t+cdwSrEfRIJ4+MujC+fZmUNrF6WrkVSx
- 2ceWT+FPKmDNmD0fd11atu38xsCvJPXyt41HFA9/iAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw/zF8EoHUMja4mtC5QRuPK0T5jcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KWtJ1
- b8cFjlKVFOGjPqr/by8EbJQo+12eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
- ZBAL2MyMlKZOUYn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwMzhzF/
- TqZoAwVBDkTENi+4CSJ8E6wl9CRlAzUWr0DOuaRo6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0QMFMGuc37AWMzKv84AuDAGUACDlbZ7QOq8seVTEsk
- FiTkLvBByFrsbCTYWKQ8PGTtzzaERYSKWgOdCoVVzwv6tPooJwwph/XR9MlG6mw5vXuEDf52
- CyDtyk5r68aldIMzai98lHBjj+2p57GCAUy423/VG+/8hlwYoLjYoWy8EXa9t5JNoPfRV6E1
- FAkls6E/aYxBJeCvCWXRaMGG7TBz/qKPDDTm1dHA4gq9zPr/WWqO49X/llWKF9yN8cYeRfge
- ELJpR5K/5hXIWeraqlsJYm2DqwCyqztFs/kV7bXc8BJaZhycyeI+ShvYQib2GWFuEoll60lK
- IqYWcmpBHceT69gyVKeZc0QzLsqzSAW3n7ISNbwyBHP+biRfnmOUp8eLUCDKOs+6cusrAzL/
- v5FOsCNyhEZV/fxChQ76qZKcwpMdyJiQ8mr9YoOLLXrzhda9H8JAfjxgrcfcstf3KFejvr18
- HbmAXN94Q+q7ZHYEjmiZndmYbLpeJ9wq3MnICAhVWqVN2gfjZWHt/lGKcZuFVUz3Kk6lKMvE
- aFZEymVKq4XIgkr7QjxenUUQGZKUB2wzTyDMCO+CNTUV84xHleZkjMIk+aGycXvMsZVnZFjy
- 1FD/lmBKXbme+iFJJ+PAM9DN3vr4RAgdBtaBiMk2OV7dkT265RNICfslPIxKMxkAUydl2HDj
- VrKUEhI/LmlT2oJHD7h3/zskmtUO7EmQhoy85fzvN5ayhU2DkL8mNQdAY5kjBjWVX/u+bXKW
- Amm56iUDRHzp34T69AUO+8yncoDCy7H++cyIvJMQC+aMDxGy9pIfhG74CW4nvYQm+IF4VHoB
- RrnFxszEezhBf4J2WU5fGINBtlvH9lO8tUOxZzZ+HnH2RI=
-IronPort-HdrOrdr: A9a23:tvTdDqzCsY2jS9Cp5H+OKrPxaeskLtp133Aq2lEZdPU1SL3sqy
- nKpp906faaslYssQ4b6Ky90cW7IE80lqQFkrX5Q43SPjUO0VHAROtfBODZsl7d8kPFh4tgPa
- wJSdkANDWZZ2IXsS6QijPWLz7uquPrzImYwd77i1NRZUVSbadkhj0JeDpy0CdNNXd77V5SLu
- vt2iKDzQDQCEj/Ff7LYkUtbqz4vtjWk5CjSQcebiRXkTWmvHeT8bvnFBrd9QsfVj4n+8ZezU
- H11zbh47mlsbWdwhvRvlWjiKh+qZ/a095eA87JrNYTJi6EsHfPWK1RH4eauSwzoqWUyHtCqq
- i1nz4Qe/5r7m/XfCWOrQDz1xLG2DIjgkWSsmOwsD/YuMnkQzB/NMZbn4JedXLimjAdgO0=
-X-Talos-CUID: 9a23:ktlbiG2PrzOnP4l0sFAFsLxfEMcFMXnjxTDqYEqzEXtURrrOEmO10fYx
-X-Talos-MUID: =?us-ascii?q?9a23=3AZsr5ZAxs3poDoR7asFzGXr9RmY+aqK2KDGEkj5k?=
- =?us-ascii?q?Eh9WVCnJ5FBifsyWZGaZyfw=3D=3D?=
+IronPort-Data: A9a23:FoW9dqAbQG759xVW/2jkw5YqxClBgxIJ4kV8jS/XYbTApG4l1jVRx
+ mZND2qCPanYYWPxLd92bdyy9E0DvceEzNIxQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbCRMsspvlDs15K6p4GNB4wRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw8OFXQmVw/
+ LsiazUGdg2+ieXtm46eY7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4XaH5gOxhnJz
+ o7A1zTDU0krHdrP8AS+0imi2sifvXLBWo1HQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFamlBMBX9tbE8Uh9RqAjKHT5m6xHXMYRzRMbNgnss4eRjEw0
+ FKN2dTzClRHr7m9WX+bsLCOoluaOzURLGIETT8JS00C+daLiL80ihXDX9NyCpmfh9f+GSzz6
+ z2SpS14jLIW5eYM06i45lHGxTGxvJ/CTg0yzgrSV2OhqAh+YeaNfIWu4EPH5O1BK66DR0Gdu
+ 2IJncef6u0DF5CLm2qGR+BlNLuk/eqfOTvQx1tmBYA89i+F8mSmO4tX5VlWBEpvKNdCRjbvb
+ 2faowYX75hWVEZGdocuPdj3UZ5zi/G9S5K8DKu8gsdyjoZZfginvyVQbAmqnGXmiFURn6ZkY
+ qu+WJP5ZZoFMphPwD2zTuYb9LYkwCEi2G/eLazGIwSbPam2PyDMF+pcWLeaRqVgtf7f/l2Jm
+ zpKH5HSoyizRtESdcU+HWQ7CVkRZUY2CpntwyC8Xr7Se1E2cI3N5hK4/F/AR2CHt/4I/gsr1
+ ivnMqO99LYYrSSeQThmklg5NNvSsW9X9BrXxxAEM1eywGQEao2y9qoZfJZfVeB5pbY6l6IoH
+ qZVIpXo7hFzptPvoWh1UHUAhNY6KETDafymbkJJnwTTj7Y/HleUq7cIjyPk9TUUDzrfiCfNi
+ +TI6+8verJaH14KJJ+POJqSI6aZ4SB1dBRaAxGZfbG+uSzErOBXFsAGpqRqfpxQcU+dmWPyO
+ sT/KU5wmNQharQdqLHh7Z1oZa/yeweiNiK2x1Xm0Is=
+IronPort-HdrOrdr: A9a23:AUFtM6gLq5abiX9dJqlp8Do1lHBQX5913DAbv31ZSRFFG/Fw9v
+ re6cjzsCWe5gr5N0tBpTn+Atj9fZqxz/9ICOoqTMSftXfdyQmVxehZhOOJ/9SKIVycygcy79
+ YET0B0YOeAcmST5azBjDVReLwbr+VuP8qT6Nv2/jNVaUVPVokl1gF+D2+gYz9LrMstP+tGKH
+ JZjPA31wZJvB4sH7WG7wI+Loz+juyOrovifRkFQzY/8WC1/EqVwY+/KQGcwhAdFxhSwbIumF
+ K17jDR1+GYqvSmzR2Z8GfW4/1t6bzc4+oGPtWIls8WbhPzjQqyDb4RPYGqjXQOueSy71Rvqv
+ ngyi1QR/hb2jfqZ2Sophmo4QX6zzo0zHfnxTaj8ADeiP28fis+F81Cwb1UaQHY7U1IhqAH7J
+ 52
+X-Talos-CUID: =?us-ascii?q?9a23=3AJv/u5mjvJT4nqUfBge6LarJIrjJueHr9j3PuKgi?=
+ =?us-ascii?q?CSmNiUKCoR1jLo59Bup87?=
+X-Talos-MUID: 9a23:X+/gTgYKHLx0kOBT5wW93ABLMpdR3Z+OU05RtsUm6vOGOnkl
 X-IronPort-AV: E=Sophos;i="6.01,175,1684814400"; 
-   d="scan'208";a="118253077"
+   d="scan'208";a="118253079"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -93,58 +92,204 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, Henry Wang <Henry.Wang@arm.com>, "Daniel
- De Graaf" <dgdegra@tycho.nsa.gov>, Daniel Smith
-	<dpsmith@apertussolutions.com>, Jason Andryuk <jandryuk@gmail.com>, "Anthony
- PERARD" <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>, David Scott
-	<dave@recoil.org>, Edwin Torok <edvin.torok@citrix.com>, Rob Hoes
-	<Rob.Hoes@citrix.com>
-Subject: [PATCH v3 for-4.18 00/10] Non-truncating XENVER_* subops
-Date: Tue, 15 Aug 2023 22:06:40 +0100
-Message-ID: <20230815210650.2735671-1-andrew.cooper3@citrix.com>
+	<sanastasio@raptorengineering.com>, Henry Wang <Henry.Wang@arm.com>
+Subject: [PATCH v3 01/10] xen/version: Calculate xen_capabilities_info once at boot
+Date: Tue, 15 Aug 2023 22:06:41 +0100
+Message-ID: <20230815210650.2735671-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230815210650.2735671-1-andrew.cooper3@citrix.com>
+References: <20230815210650.2735671-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/968728976
-https://cirrus-ci.com/build/6741556116324352
+The arch_get_xen_caps() infrastructure is horribly inefficient for something
+that is constant after features have been resolved on boot.
 
-Posting both parts, as there has been minor rebasing in all of them.
+Every instance used snprintf() to format constants into a string (which gets
+shorter when %d gets resolved!), and which get double buffered on the stack.
 
-Andrew Cooper (10):
-  xen/version: Calculate xen_capabilities_info once at boot
-  xen/version: Introduce non-truncating deterministically-signed XENVER_* subops
-  xen/version: Fold build_id handling into xenver_varbuf_op()
-  xen/version: Misc style fixes
-  tools/libxc: Move xc_version() out of xc_private.c into its own file
-  tools: Introduce a non-truncating xc_xenver_extraversion()
-  tools: Introduce a non-truncating xc_xenver_capabilities()
-  tools: Introduce a non-truncating xc_xenver_changeset()
-  tools: Introduce a non-truncating xc_xenver_cmdline()
-  tools: Introduce a xc_xenver_buildid() wrapper
+Switch to using string literals with the "3.0" inserted - these numbers
+haven't changed in 18 years (The Xen 3.0 release was Dec 5th 2005).
 
- tools/include/xenctrl.h             |  10 ++
- tools/libs/ctrl/Makefile.common     |   1 +
- tools/libs/ctrl/xc_private.c        |  66 ---------
- tools/libs/ctrl/xc_private.h        |   7 -
- tools/libs/ctrl/xc_version.c        | 206 ++++++++++++++++++++++++++++
- tools/libs/light/libxl.c            |  61 +-------
- tools/ocaml/libs/xc/xenctrl_stubs.c |  46 ++++---
- xen/arch/arm/setup.c                |  20 +--
- xen/arch/x86/setup.c                |  31 ++---
- xen/common/kernel.c                 | 119 ++++++++++------
- xen/common/version.c                |   4 +-
- xen/include/public/version.h        |  68 ++++++++-
- xen/include/xen/hypercall.h         |   2 -
- xen/include/xen/version.h           |   2 +
- xen/include/xlat.lst                |   1 +
- xen/include/xsm/dummy.h             |   3 +
- xen/xsm/flask/hooks.c               |   4 +
- 17 files changed, 425 insertions(+), 226 deletions(-)
- create mode 100644 tools/libs/ctrl/xc_version.c
+Use initcalls to format the data into xen_cap_info, which is deliberately not
+of type xen_capabilities_info_t because a 1k array is a silly overhead for
+storing a maximum of 77 chars (the x86 version) and isn't liable to need any
+more space in the forseeable future.
 
+This speeds up the the XENVER_capabilities hypercall, but the purpose of the
+change is to allow us to introduce a better XENVER_* API that doesn't force
+the use of a 1k buffer on the stack.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: Henry Wang <Henry.Wang@arm.com>
+
+v3:
+ * CC new-arch folks so they're aware
+v2:
+ * New
+
+Moving to __initcall() also allows new architectures to not implement this
+API, and I'm going to recommend strongly that they dont.  Its a very dubious
+way of signalling about 3 bits of info to the toolstack, and inefficient to
+use (the toolstack has to do string parsing on the result figure out if
+PV64/PV32/HVM is available).
+---
+ xen/arch/arm/setup.c        | 20 +++++++-------------
+ xen/arch/x86/setup.c        | 31 ++++++++++---------------------
+ xen/common/kernel.c         |  3 ++-
+ xen/include/xen/hypercall.h |  2 --
+ xen/include/xen/version.h   |  2 ++
+ 5 files changed, 21 insertions(+), 37 deletions(-)
+
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 44ccea03ca14..3592c9ebc1cd 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -27,6 +27,7 @@
+ #include <xen/cpu.h>
+ #include <xen/pfn.h>
+ #include <xen/virtual_region.h>
++#include <xen/version.h>
+ #include <xen/vmap.h>
+ #include <xen/trace.h>
+ #include <xen/libfdt/libfdt-xen.h>
+@@ -1286,24 +1287,17 @@ void __init start_xen(unsigned long boot_phys_offset,
+     switch_stack_and_jump(idle_vcpu[0]->arch.cpu_info, init_done);
+ }
+ 
+-void arch_get_xen_caps(xen_capabilities_info_t *info)
++static int __init init_xen_cap_info(void)
+ {
+-    /* Interface name is always xen-3.0-* for Xen-3.x. */
+-    int major = 3, minor = 0;
+-    char s[32];
+-
+-    (*info)[0] = '\0';
+-
+ #ifdef CONFIG_ARM_64
+-    snprintf(s, sizeof(s), "xen-%d.%d-aarch64 ", major, minor);
+-    safe_strcat(*info, s);
++    safe_strcat(xen_cap_info, "xen-3.0-aarch64 ");
+ #endif
+     if ( cpu_has_aarch32 )
+-    {
+-        snprintf(s, sizeof(s), "xen-%d.%d-armv7l ", major, minor);
+-        safe_strcat(*info, s);
+-    }
++        safe_strcat(xen_cap_info, "xen-3.0-armv7l ");
++
++    return 0;
+ }
++__initcall(init_xen_cap_info);
+ 
+ /*
+  * Local variables:
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 2bfc1fd00f8c..206f0c50a136 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -2049,35 +2049,24 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+     unreachable();
+ }
+ 
+-void arch_get_xen_caps(xen_capabilities_info_t *info)
++static int __init cf_check init_xen_cap_info(void)
+ {
+-    /* Interface name is always xen-3.0-* for Xen-3.x. */
+-    int major = 3, minor = 0;
+-    char s[32];
+-
+-    (*info)[0] = '\0';
+-
+     if ( IS_ENABLED(CONFIG_PV) )
+     {
+-        snprintf(s, sizeof(s), "xen-%d.%d-x86_64 ", major, minor);
+-        safe_strcat(*info, s);
++        safe_strcat(xen_cap_info, "xen-3.0-x86_64 ");
+ 
+         if ( opt_pv32 )
+-        {
+-            snprintf(s, sizeof(s), "xen-%d.%d-x86_32p ", major, minor);
+-            safe_strcat(*info, s);
+-        }
++            safe_strcat(xen_cap_info, "xen-3.0-x86_32p ");
+     }
+     if ( hvm_enabled )
+-    {
+-        snprintf(s, sizeof(s), "hvm-%d.%d-x86_32 ", major, minor);
+-        safe_strcat(*info, s);
+-        snprintf(s, sizeof(s), "hvm-%d.%d-x86_32p ", major, minor);
+-        safe_strcat(*info, s);
+-        snprintf(s, sizeof(s), "hvm-%d.%d-x86_64 ", major, minor);
+-        safe_strcat(*info, s);
+-    }
++        safe_strcat(xen_cap_info,
++                    "hvm-3.0-x86_32 "
++                    "hvm-3.0-x86_32p "
++                    "hvm-3.0-x86_64 ");
++
++    return 0;
+ }
++__initcall(init_xen_cap_info);
+ 
+ int __hwdom_init xen_in_range(unsigned long mfn)
+ {
+diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+index 52aa28762782..f822480a8ef3 100644
+--- a/xen/common/kernel.c
++++ b/xen/common/kernel.c
+@@ -30,6 +30,7 @@ enum system_state system_state = SYS_STATE_early_boot;
+ 
+ static xen_commandline_t saved_cmdline;
+ static const char __initconst opt_builtin_cmdline[] = CONFIG_CMDLINE;
++char __ro_after_init xen_cap_info[128];
+ 
+ static int assign_integer_param(const struct kernel_param *param, uint64_t val)
+ {
+@@ -537,7 +538,7 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ 
+         memset(info, 0, sizeof(info));
+         if ( !deny )
+-            arch_get_xen_caps(&info);
++            safe_strcpy(info, xen_cap_info);
+ 
+         if ( copy_to_guest(arg, info, ARRAY_SIZE(info)) )
+             return -EFAULT;
+diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
+index f307dfb59760..15b6be6ec818 100644
+--- a/xen/include/xen/hypercall.h
++++ b/xen/include/xen/hypercall.h
+@@ -56,6 +56,4 @@ common_vcpu_op(int cmd,
+     struct vcpu *v,
+     XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+-void arch_get_xen_caps(xen_capabilities_info_t *info);
+-
+ #endif /* __XEN_HYPERCALL_H__ */
+diff --git a/xen/include/xen/version.h b/xen/include/xen/version.h
+index 93c58773630c..4856ad1b446d 100644
+--- a/xen/include/xen/version.h
++++ b/xen/include/xen/version.h
+@@ -19,6 +19,8 @@ const char *xen_deny(void);
+ const char *xen_build_info(void);
+ int xen_build_id(const void **p, unsigned int *len);
+ 
++extern char xen_cap_info[128];
++
+ #ifdef BUILD_ID
+ void xen_build_init(void);
+ int xen_build_id_check(const Elf_Note *n, unsigned int n_sz,
 -- 
 2.30.2
 
