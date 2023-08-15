@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD08077D1D2
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Aug 2023 20:28:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584020.914409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EAAC77D2C4
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Aug 2023 21:02:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584029.914420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVylL-0003Ne-9o; Tue, 15 Aug 2023 18:27:27 +0000
+	id 1qVzId-0007qF-2t; Tue, 15 Aug 2023 19:01:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584020.914409; Tue, 15 Aug 2023 18:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 584029.914420; Tue, 15 Aug 2023 19:01:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVylL-0003La-6K; Tue, 15 Aug 2023 18:27:27 +0000
-Received: by outflank-mailman (input) for mailman id 584020;
- Tue, 15 Aug 2023 18:27:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qVzId-0007nX-06; Tue, 15 Aug 2023 19:01:51 +0000
+Received: by outflank-mailman (input) for mailman id 584029;
+ Tue, 15 Aug 2023 19:01:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qVylJ-0003LA-FN; Tue, 15 Aug 2023 18:27:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qVylJ-0002Td-Ct; Tue, 15 Aug 2023 18:27:25 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qVylI-0007yQ-SL; Tue, 15 Aug 2023 18:27:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qVylI-0006Kz-S2; Tue, 15 Aug 2023 18:27:24 +0000
+ (envelope-from <SRS0=4Gn6=EA=suse.de=tiwai@srs-se1.protection.inumbo.net>)
+ id 1qVzIb-0007nM-1V
+ for xen-devel@lists.xenproject.org; Tue, 15 Aug 2023 19:01:49 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2f06fa33-3b9e-11ee-8776-cb3800f73035;
+ Tue, 15 Aug 2023 21:01:47 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 353B5211B8;
+ Tue, 15 Aug 2023 19:01:47 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C9CCC1353E;
+ Tue, 15 Aug 2023 19:01:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id XZIxL5rL22QTVAAAMHmgww
+ (envelope-from <tiwai@suse.de>); Tue, 15 Aug 2023 19:01:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,148 +51,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1gM3bn+sbAL403UaXw/JnP8XnU9l8piDFkH8gq2+Nik=; b=v4RH0AXuv36bYXb+UAHUbLk/6n
-	pH0iGSfQvuHfPGY1VveM+MHFa+weDJ8U88H5Fi+9QLp15kWRJMiiS1gzGVdJ4YSJm5KFwtrQziG+T
-	iYALaidnAUbxhXAkj0wDRkuwilNihhg66s+bw24O+BmaduFcM3jvZXgowUyc7+2k8mGE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182337-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2f06fa33-3b9e-11ee-8776-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1692126107; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=//6lpnW6sCl4feNuAFbqi6XUsXoCWMdVSeRR25UImmk=;
+	b=lKC4tZf7WG38nR/+S7P0hfukLxRpFMGV/R/rtIcnNlUGsWOO0WmwaXvEWgThkvB1ihsRXm
+	HWmdV0Mo0Bwu13DaVDZt15C+28SU66ST57i/9JfQIAcomGTW0DEn3qM/Z7mh70VWRyUI0a
+	tvIAUJZX0m1q1PB+9pcimyQjlw5iWL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692126107;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=//6lpnW6sCl4feNuAFbqi6XUsXoCWMdVSeRR25UImmk=;
+	b=7bAEkFaYSkQrYTqFUCvdJZuyzgiU44+C+bBhhQFbDIcKL7WJ0SParPiABaClmft1Gfd6Kg
+	2o7jLFBIu41otZBQ==
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org,
+	Takashi Iwai <tiwai@suse.de>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mark Brown <broonie@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2 00/25] ALSA: Generic PCM copy ops using iov_iter
+Date: Tue, 15 Aug 2023 21:01:11 +0200
+Message-Id: <20230815190136.8987-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [libvirt test] 182337: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    libvirt:test-arm64-arm64-libvirt-qcow2:guest-start.2:fail:heisenbug
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=ca083a49aa0946e590167628611fd3c5b2f224da
-X-Osstest-Versions-That:
-    libvirt=9c9848f955fd2b42e7f258b945cd90aacd2c114e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Aug 2023 18:27:24 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 182337 libvirt real [real]
-flight 182349 libvirt real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182337/
-http://logs.test-lab.xenproject.org/osstest/logs/182349/
+Hi,
 
-Failures :-/ but no regressions.
+this is a v2 patch set for cleaning up the PCM copy ops using
+iov_iter to deal with kernel / user-space pointers consistently.
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-libvirt-qcow2 18 guest-start.2     fail pass in 182349-retest
+v1->v2:
+* The error condition checks of copy_to/from_iter() are changed to
+  be more strictly
+* Put Acked and Reviewed tags
+* The indents in the patch in dmaengine was slightly changed
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182278
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182278
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182278
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              ca083a49aa0946e590167628611fd3c5b2f224da
-baseline version:
- libvirt              9c9848f955fd2b42e7f258b945cd90aacd2c114e
-
-Last test of basis   182278  2023-08-11 14:56:18 Z    4 days
-Testing same since   182337  2023-08-15 04:20:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  김인수 <simmon@nplob.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+v1:
+  https://lore.kernel.org/r/20230814115523.15279-1-tiwai@suse.de
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Takashi
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+===
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andrey Utkin <andrey_utkin@fastmail.com>
+Cc: Anton Sviridenko <anton@corp.bluecherry.net>
+Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Cc: Banajit Goswami <bgoswami@quicinc.com>
+Cc: Bluecherry Maintainers <maintainers@bluecherrydvr.com>
+Cc: Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Ismael Luceno <ismael@iodev.co.uk>
+Cc: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: linux-media@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+===
 
+Takashi Iwai (25):
+  iov_iter: Export import_ubuf()
+  ALSA: pcm: Add copy ops with iov_iter
+  ALSA: core: Add memory copy helpers between iov_iter and iomem
+  ALSA: dummy: Convert to generic PCM copy ops
+  ALSA: gus: Convert to generic PCM copy ops
+  ALSA: emu8000: Convert to generic PCM copy ops
+  ALSA: es1938: Convert to generic PCM copy ops
+  ALSA: korg1212: Convert to generic PCM copy ops
+  ALSA: nm256: Convert to generic PCM copy ops
+  ALSA: rme32: Convert to generic PCM copy ops
+  ALSA: rme96: Convert to generic PCM copy ops
+  ALSA: hdsp: Convert to generic PCM copy ops
+  ALSA: rme9652: Convert to generic PCM copy ops
+  ALSA: sh: Convert to generic PCM copy ops
+  ALSA: xen: Convert to generic PCM copy ops
+  ALSA: pcmtest: Update comment about PCM copy ops
+  media: solo6x10: Convert to generic PCM copy ops
+  ASoC: component: Add generic PCM copy ops
+  ASoC: mediatek: Convert to generic PCM copy ops
+  ASoC: qcom: Convert to generic PCM copy ops
+  ASoC: dmaengine: Convert to generic PCM copy ops
+  ASoC: dmaengine: Use iov_iter for process callback, too
+  ALSA: doc: Update description for the new PCM copy ops
+  ASoC: pcm: Drop obsoleted PCM copy_user ops
+  ALSA: pcm: Drop obsoleted PCM copy_user and copy_kernel ops
 
-Pushing revision :
+ .../kernel-api/writing-an-alsa-driver.rst     | 58 ++++-------
+ drivers/media/pci/solo6x10/solo6x10-g723.c    | 39 ++------
+ include/sound/dmaengine_pcm.h                 |  2 +-
+ include/sound/pcm.h                           | 13 ++-
+ include/sound/soc-component.h                 | 14 +--
+ lib/iov_iter.c                                |  1 +
+ sound/core/memory.c                           | 56 +++++++++--
+ sound/core/pcm_lib.c                          | 95 ++++++++++---------
+ sound/core/pcm_native.c                       |  2 +-
+ sound/drivers/dummy.c                         | 12 +--
+ sound/drivers/pcmtest.c                       |  2 +-
+ sound/isa/gus/gus_pcm.c                       | 23 +----
+ sound/isa/sb/emu8000_pcm.c                    | 74 ++++-----------
+ sound/pci/es1938.c                            | 30 +-----
+ sound/pci/korg1212/korg1212.c                 | 50 +++-------
+ sound/pci/nm256/nm256.c                       | 42 ++------
+ sound/pci/rme32.c                             | 50 +++-------
+ sound/pci/rme96.c                             | 42 ++------
+ sound/pci/rme9652/hdsp.c                      | 42 ++------
+ sound/pci/rme9652/rme9652.c                   | 46 ++-------
+ sound/sh/sh_dac_audio.c                       | 25 +----
+ sound/soc/atmel/mchp-pdmc.c                   |  2 +-
+ sound/soc/mediatek/common/mtk-btcvsd.c        | 27 ++----
+ sound/soc/qcom/lpass-platform.c               | 13 +--
+ sound/soc/soc-component.c                     | 16 ++--
+ sound/soc/soc-generic-dmaengine-pcm.c         | 18 ++--
+ sound/soc/soc-pcm.c                           |  4 +-
+ sound/soc/stm/stm32_sai_sub.c                 |  2 +-
+ sound/xen/xen_snd_front_alsa.c                | 56 +++--------
+ 29 files changed, 269 insertions(+), 587 deletions(-)
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   9c9848f955..ca083a49aa  ca083a49aa0946e590167628611fd3c5b2f224da -> xen-tested-master
+-- 
+2.35.3
+
 
