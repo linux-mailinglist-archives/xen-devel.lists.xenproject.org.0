@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED8B77D2C3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Aug 2023 21:02:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584030.914429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BFAF77D344
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Aug 2023 21:20:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584042.914440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVzIe-000852-Ae; Tue, 15 Aug 2023 19:01:52 +0000
+	id 1qVzaB-0001gU-OH; Tue, 15 Aug 2023 19:19:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584030.914429; Tue, 15 Aug 2023 19:01:52 +0000
+Received: by outflank-mailman (output) from mailman id 584042.914440; Tue, 15 Aug 2023 19:19:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qVzIe-00082G-7E; Tue, 15 Aug 2023 19:01:52 +0000
-Received: by outflank-mailman (input) for mailman id 584030;
- Tue, 15 Aug 2023 19:01:50 +0000
+	id 1qVzaB-0001eb-LQ; Tue, 15 Aug 2023 19:19:59 +0000
+Received: by outflank-mailman (input) for mailman id 584042;
+ Tue, 15 Aug 2023 19:19:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4Gn6=EA=suse.de=tiwai@srs-se1.protection.inumbo.net>)
- id 1qVzIc-0007nM-C7
- for xen-devel@lists.xenproject.org; Tue, 15 Aug 2023 19:01:50 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 303d9e29-3b9e-11ee-8776-cb3800f73035;
- Tue, 15 Aug 2023 21:01:49 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 736141FD6A;
- Tue, 15 Aug 2023 19:01:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4B7221390C;
- Tue, 15 Aug 2023 19:01:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wFeVEZ3L22QTVAAAMHmgww
- (envelope-from <tiwai@suse.de>); Tue, 15 Aug 2023 19:01:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BVlh=EA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qVzaA-0001eV-2e
+ for xen-devel@lists.xenproject.org; Tue, 15 Aug 2023 19:19:58 +0000
+Received: from sender3-of-o59.zoho.com (sender3-of-o59.zoho.com
+ [136.143.184.59]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b6b321b1-3ba0-11ee-8776-cb3800f73035;
+ Tue, 15 Aug 2023 21:19:55 +0200 (CEST)
+Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 169212719094347.38102617187451;
+ Tue, 15 Aug 2023 12:19:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,154 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 303d9e29-3b9e-11ee-8776-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1692126109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K/BgMI8FuOi/5pmBMZAtt3gp913bmnjYvQcbxzOHfHE=;
-	b=nhabCSKsWkx41NfRqAxKgh8FQUXjbeOAtxOYCVMoXsAyxByAjesTZHGSNbtuRbYe9rWpob
-	l/pgaU9eAKtGUJ+w5zfo5Qky1TpOVwKv1YoiTfvx4KZQwdlLea7GH114OMQV9Gjib9bFB0
-	9JbVbJgcn5fjiqGxhu56qkfvsNm1M/w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692126109;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K/BgMI8FuOi/5pmBMZAtt3gp913bmnjYvQcbxzOHfHE=;
-	b=+XKBo0gra+U9kLyDt5tVYGNJHRwve2LRNG7LL5QlEl7517QnhuahhelIchrFC0AdbhSepj
-	n3JcgCWw5rBcIkAQ==
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: linux-kernel@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.de>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 15/25] ALSA: xen: Convert to generic PCM copy ops
-Date: Tue, 15 Aug 2023 21:01:26 +0200
-Message-Id: <20230815190136.8987-16-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230815190136.8987-1-tiwai@suse.de>
-References: <20230815190136.8987-1-tiwai@suse.de>
+X-Inumbo-ID: b6b321b1-3ba0-11ee-8776-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; t=1692127193; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mSnMzPq7+sdaxlojyTmhiSKToReqbOKU3hGCAevbOjcLL8Wjf05VimrM+C4FZNZrS5uKbMFyG29UIMcVgoN6eFUfkqadZmvA7hzy54bBldgdTH4S+OGew5On7JEmqtJdtYSAC7RdWWVVyJcBWPTgPhiPzgcTJRFtAC3AzIYJOYQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1692127193; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=rwzP4TaIwcHatVRrjDzhTH0GjGPudFzkLSV2NYiflIY=; 
+	b=D1WJXz+EkURLfFS4NBOrSMwaK53z00i9z3yzxJKNvtYKsuUtmSIHYC8ik+afQ0ardZ9rHDVVmtaAfVLPMcySMC4c9ZMKv5AK6bylG6AgEacUSbz+gXn8XN/IL9J7/2O7tBZ2/55lsCk/gwYQBN1ShBpHIKd0PYSYqqXouXuIYXo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1692127193;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=rwzP4TaIwcHatVRrjDzhTH0GjGPudFzkLSV2NYiflIY=;
+	b=iI/z7rX9wyKdHO76Yv5+88XmiDQnI3RieeV4MWk5cl/D6TW3wXpmBT5ImYXGzgGw
+	V8jvq3w6rNVfu+FsC1lwGokdq32QO1CGCci2NM9cl9H0PjoxEgCI+DgnnRbjJUz5Mab
+	4Y4kv7UvYt2LrCpDzVR+MBoxQsIiRUupLbz/3Rqk=
+Message-ID: <c3a2059d-4601-f881-cafb-1bd4c4f74e42@apertussolutions.com>
+Date: Tue, 15 Aug 2023 15:19:48 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH] tboot: Disable CET at shutdown
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ =?UTF-8?Q?Mateusz_M=c3=b3wka?= <mateusz.mowka@intel.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20230815161120.33007-1-jandryuk@gmail.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20230815161120.33007-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-This patch converts the xen frontend driver code to use the new
-unified PCM copy callback.  It's a straightforward conversion from
-*_user() to *_iter() variants.
+On 8/15/23 12:11, Jason Andryuk wrote:
+> tboot_shutdown() calls into tboot to perform the actual system shutdown.
+> tboot isn't built with endbr annotations, and Xen has CET-IBT enabled on
+> newer hardware.  shutdown_entry isn't annotated with endbr and Xen
+> faults:
+> 
+> Panic on CPU 0:
+> CONTROL-FLOW PROTECTION FAULT: #CP[0003] endbranch
+> 
+> And Xen hangs at this point.
+> 
+> Disabling CET-IBT let Xen and tboot power off, but reboot was
+> perfoming a poweroff instead of a warm reboot.  Disabling all of CET,
+> i.e. shadow stacks as well, lets tboot reboot properly.
+> 
+> Fixes: cdbe2b0a1aec ("x86: Enable CET Indirect Branch Tracking")
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+> Without this fix, Xen subsequently hangs:
+> 
+> Reboot in five seconds...
+> [VT-D] IOMMU1: QI wait descriptor taking too long
+>   IQA = 484897000
+>   IQH = 0
+>   IQT = 820
+> 
+> with no futher output.
+> ---
+>   xen/arch/x86/tboot.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
+> diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
+> index 90f6e805a9..86c4c22cac 100644
+> --- a/xen/arch/x86/tboot.c
+> +++ b/xen/arch/x86/tboot.c
+> @@ -353,6 +353,16 @@ void tboot_shutdown(uint32_t shutdown_type)
+>           tboot_gen_xenheap_integrity(g_tboot_shared->s3_key, &xenheap_mac);
+>       }
+>   
+> +    /*
+> +     * Disable CET - tboot may not be built with endbr, and it doesn't support
+> +     * shadow stacks.
+> +     */
+> +    if ( read_cr4() & X86_CR4_CET )
+> +    {
+> +        wrmsrl(MSR_S_CET, 0);
+> +        write_cr4(read_cr4() & ~X86_CR4_CET);
+> +    }
+> +
+>       /*
+>        * During early boot, we can be called by panic before idle_vcpu[0] is
+>        * setup, but in that case we don't need to change page tables.
 
-Note that copy_from/to_iter() returns the copied bytes, hence the
-error condition is adjusted accordingly.
-
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/xen/xen_snd_front_alsa.c | 56 +++++++---------------------------
- 1 file changed, 11 insertions(+), 45 deletions(-)
-
-diff --git a/sound/xen/xen_snd_front_alsa.c b/sound/xen/xen_snd_front_alsa.c
-index db917453a473..bfae303633ef 100644
---- a/sound/xen/xen_snd_front_alsa.c
-+++ b/sound/xen/xen_snd_front_alsa.c
-@@ -602,38 +602,24 @@ static snd_pcm_uframes_t alsa_pointer(struct snd_pcm_substream *substream)
- 	return (snd_pcm_uframes_t)atomic_read(&stream->hw_ptr);
- }
- 
--static int alsa_pb_copy_user(struct snd_pcm_substream *substream,
--			     int channel, unsigned long pos, void __user *src,
--			     unsigned long count)
-+static int alsa_pb_copy(struct snd_pcm_substream *substream,
-+			int channel, unsigned long pos, struct iov_iter *src,
-+			unsigned long count)
- {
- 	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
- 
- 	if (unlikely(pos + count > stream->buffer_sz))
- 		return -EINVAL;
- 
--	if (copy_from_user(stream->buffer + pos, src, count))
-+	if (copy_from_iter(stream->buffer + pos, count, src) != count)
- 		return -EFAULT;
- 
- 	return xen_snd_front_stream_write(&stream->evt_pair->req, pos, count);
- }
- 
--static int alsa_pb_copy_kernel(struct snd_pcm_substream *substream,
--			       int channel, unsigned long pos, void *src,
--			       unsigned long count)
--{
--	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
--
--	if (unlikely(pos + count > stream->buffer_sz))
--		return -EINVAL;
--
--	memcpy(stream->buffer + pos, src, count);
--
--	return xen_snd_front_stream_write(&stream->evt_pair->req, pos, count);
--}
--
--static int alsa_cap_copy_user(struct snd_pcm_substream *substream,
--			      int channel, unsigned long pos, void __user *dst,
--			      unsigned long count)
-+static int alsa_cap_copy(struct snd_pcm_substream *substream,
-+			 int channel, unsigned long pos, struct iov_iter *dst,
-+			 unsigned long count)
- {
- 	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
- 	int ret;
-@@ -645,26 +631,8 @@ static int alsa_cap_copy_user(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		return ret;
- 
--	return copy_to_user(dst, stream->buffer + pos, count) ?
--		-EFAULT : 0;
--}
--
--static int alsa_cap_copy_kernel(struct snd_pcm_substream *substream,
--				int channel, unsigned long pos, void *dst,
--				unsigned long count)
--{
--	struct xen_snd_front_pcm_stream_info *stream = stream_get(substream);
--	int ret;
--
--	if (unlikely(pos + count > stream->buffer_sz))
--		return -EINVAL;
--
--	ret = xen_snd_front_stream_read(&stream->evt_pair->req, pos, count);
--	if (ret < 0)
--		return ret;
--
--	memcpy(dst, stream->buffer + pos, count);
--
-+	if (copy_to_iter(stream->buffer + pos, count, dst) != count)
-+		return -EFAULT;
- 	return 0;
- }
- 
-@@ -697,8 +665,7 @@ static const struct snd_pcm_ops snd_drv_alsa_playback_ops = {
- 	.prepare	= alsa_prepare,
- 	.trigger	= alsa_trigger,
- 	.pointer	= alsa_pointer,
--	.copy_user	= alsa_pb_copy_user,
--	.copy_kernel	= alsa_pb_copy_kernel,
-+	.copy		= alsa_pb_copy,
- 	.fill_silence	= alsa_pb_fill_silence,
- };
- 
-@@ -710,8 +677,7 @@ static const struct snd_pcm_ops snd_drv_alsa_capture_ops = {
- 	.prepare	= alsa_prepare,
- 	.trigger	= alsa_trigger,
- 	.pointer	= alsa_pointer,
--	.copy_user	= alsa_cap_copy_user,
--	.copy_kernel	= alsa_cap_copy_kernel,
-+	.copy		= alsa_cap_copy,
- };
- 
- static int new_pcm_instance(struct xen_snd_front_card_info *card_info,
--- 
-2.35.3
-
+Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
