@@ -2,64 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A526D77DD82
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 11:43:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584245.914743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E7FD77DD86
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 11:44:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584251.914753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWD3E-0001hX-0Q; Wed, 16 Aug 2023 09:42:52 +0000
+	id 1qWD4H-0002G6-8x; Wed, 16 Aug 2023 09:43:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584245.914743; Wed, 16 Aug 2023 09:42:51 +0000
+Received: by outflank-mailman (output) from mailman id 584251.914753; Wed, 16 Aug 2023 09:43:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWD3D-0001fT-Ts; Wed, 16 Aug 2023 09:42:51 +0000
-Received: by outflank-mailman (input) for mailman id 584245;
- Wed, 16 Aug 2023 09:42:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ht1Y=EB=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1qWD3C-0001bp-2j
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 09:42:50 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2070.outbound.protection.outlook.com [40.107.7.70])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 433ad24b-3c19-11ee-8779-cb3800f73035;
- Wed, 16 Aug 2023 11:42:49 +0200 (CEST)
-Received: from AS9PR05CA0162.eurprd05.prod.outlook.com (2603:10a6:20b:496::11)
- by DU0PR08MB7415.eurprd08.prod.outlook.com (2603:10a6:10:353::15)
+	id 1qWD4H-0002EQ-67; Wed, 16 Aug 2023 09:43:57 +0000
+Received: by outflank-mailman (input) for mailman id 584251;
+ Wed, 16 Aug 2023 09:43:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8IcS=EB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qWD4F-00022r-HV
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 09:43:55 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on061a.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::61a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 691759f6-3c19-11ee-9b0c-b553b5be7939;
+ Wed, 16 Aug 2023 11:43:53 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB9490.eurprd04.prod.outlook.com (2603:10a6:102:2c2::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
- 2023 09:42:19 +0000
-Received: from AM7EUR03FT020.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:496:cafe::bd) by AS9PR05CA0162.outlook.office365.com
- (2603:10a6:20b:496::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
- Transport; Wed, 16 Aug 2023 09:42:19 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT020.mail.protection.outlook.com (100.127.140.196) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 09:42:19 +0000
-Received: ("Tessian outbound 30c9f5e988c5:v175");
- Wed, 16 Aug 2023 09:42:19 +0000
-Received: from 408c78ffa2da.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- DA346EA8-73BC-4270-A637-FB6F33D81D81.1; 
- Wed, 16 Aug 2023 09:42:12 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 408c78ffa2da.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 16 Aug 2023 09:42:12 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DU0PR08MB7995.eurprd08.prod.outlook.com (2603:10a6:10:3e2::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
- 2023 09:42:10 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::3cb8:2053:e853:92fe%4]) with mapi id 15.20.6678.029; Wed, 16 Aug 2023
- 09:42:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.29; Wed, 16 Aug
+ 2023 09:43:50 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::79a:54ba:8003:fbe7]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::79a:54ba:8003:fbe7%6]) with mapi id 15.20.6678.029; Wed, 16 Aug 2023
+ 09:43:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,322 +47,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 433ad24b-3c19-11ee-8779-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yyc5k0f3wuC+i2n7CFbAc9WmyIlwAhkTyIiR9LtlzpQ=;
- b=ocU8nwZ0LjgeuKr43Nc1sZhz0nWkNB5G5lRkDm/u/dA95ZUDAs/6tqL9La2wGCIq4GPFwOzEFt45hnCV/zjj+Uo5GvUOw2ob5saCHV6F7IZXZ8syRCmYr3byGKbAgGVJR4tVvGqcnPWf+yik8+phxHs2NS7b1WcwtwPc/5+cTOk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 340ccf021bb13d36
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 691759f6-3c19-11ee-9b0c-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k8NE3T9wYzy0Zl4bMUblNUaS/BMz39T6j+NKPE5ebEFVINex4Ym6OwWu54q+t1JA60HEWs2LbYNnx+QLtvbIkZbztY9MDJYRVYqY15jkd06LTYPKlQCIjU/8wDFwitGpqAmDVEyOeGooqo6SioOpBHe0X5hlg5N0w2OrI9LK4yCU1i8pmApyBtVVElVpFY9/DRmf1JrCiTz22iyQnH3X6AgH+r0aJUC7P2QxpXYd/EBieNFtz1OHV2hcP2k5iwSjz4KA/lEfNZDHaQQI4v8yTLtVo19zx2EEtZRh0bS1mzcgoW6uWAwHYQLwvgR7Bv9HqciaDwIzVvkcutIqHusVWQ==
+ b=AZhKK8I1MTME1KEQhIYYsQOoYT3m69BtFOtZuBztWNqH79GaTvsAX2SdxPtQFH/iJGRj6uU9CtTPJ0ua+Pbl3hLgQq8nind0zTMV4BzM48I3QP6XXulCgpWtWcDlx1ChGySAgafiSK4TxiMveBR7v3orD1WUp0LJDqg8Fch/cLn5c+nPJv5niIFzrSpyYs9NRcWXuHXgjtdCt/rIXCdR6IbNok6SVN+NxAHBPhrNzvvQyf8AW1uOi0x96KUpF9mSRT3BFpXN3rWhFAoKWrRzjFrwbsgqNBq6eqrTo9OMJ//ODUUP/DlTl4C6KPGHbDdCDQy8tFg4rfNfLn3hMi194Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yyc5k0f3wuC+i2n7CFbAc9WmyIlwAhkTyIiR9LtlzpQ=;
- b=IYvFcHS1y2Wk6njLc7kwJSLAPh8HcnX83ALveT9soTBGc6Hxd5WGoBtGSZmC47yje95u+B8i288Xe2DVcqG1Zbp0ho8e6PSsJEoP6hxMYjE1QORPduanul8PrDAC0ikPssh8uHWzEuVmBpNm6opRwzcO1dZk/cstEaMzeiK9k2q5H7DKcnEFZf7OuJP/cyO+Z32zwz4SxyJzuP8agernz3Ul7VNFmVRWYhChcUtIQ39KdH0PGz3vqv1x75zN/CJtnYTd+X3jg2lseXWsfHenooBjdMwZJfXmhxbTLo03y9XDLmvERKgVYJHTGWABUQAP6ct5jepkF26ABS7Ju6GmdA==
+ bh=Gz3o66yl8RDUKGn9Fa6/Tsve9mzBz8tlnUmY4mSO8P0=;
+ b=cIqTT3zR4Awe+Y/X4QeV/eXXtVYIFmctBh9M3GmpaSmcYE8Xm9CpZuhde9HaS08ePTKav8AxZm08OZDwL486s0xas3N9yqxwKxeQBTtnMbPShxHQsOPLl62trZ6YqAOs3zWbfZvtf8RmMcxcDzJZ2wXx4QHhjr5vIo8uf5be7bsJ5hxhHZAy8ZGczGzVJCXqjDmJ1RY75NaaiNSair75eDk7NUsPZqePptSpVhPek/6sfooUVKZRLROo2Y8bJqd/yfcSv+2ORKHJXUbj6An9tjpTZHo1BA2frEAlnokt+21WtvZ531jVC0HHldHECwHLVAa0tfQQlhd6XcB7kmTLfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yyc5k0f3wuC+i2n7CFbAc9WmyIlwAhkTyIiR9LtlzpQ=;
- b=ocU8nwZ0LjgeuKr43Nc1sZhz0nWkNB5G5lRkDm/u/dA95ZUDAs/6tqL9La2wGCIq4GPFwOzEFt45hnCV/zjj+Uo5GvUOw2ob5saCHV6F7IZXZ8syRCmYr3byGKbAgGVJR4tVvGqcnPWf+yik8+phxHs2NS7b1WcwtwPc/5+cTOk=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici
-	<Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk
-	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [XEN PATCH v11 05/14] xen/arm: ffa: support guest
- FFA_PARTITION_INFO_GET
-Thread-Topic: [XEN PATCH v11 05/14] xen/arm: ffa: support guest
- FFA_PARTITION_INFO_GET
-Thread-Index: AQHZw6jC4h4BaZ+kAkGxoWym/HzFj6/sxH0A
-Date: Wed, 16 Aug 2023 09:42:10 +0000
-Message-ID: <88FFE10A-73C6-43BB-B0A2-2A1AB1D9320A@arm.com>
-References: <20230731121536.934239-1-jens.wiklander@linaro.org>
- <20230731121536.934239-6-jens.wiklander@linaro.org>
-In-Reply-To: <20230731121536.934239-6-jens.wiklander@linaro.org>
-Accept-Language: en-GB, en-US
+ bh=Gz3o66yl8RDUKGn9Fa6/Tsve9mzBz8tlnUmY4mSO8P0=;
+ b=WGmuVqSN3gSIDsEtcIuwDYjc3n31fQCrfyi4YWA5AnsCef8+lWO+rtpFWRi+KIJCM/zvngzGdamQ06zIuJm2Ccj4KklfATpNR/UhV0HthCH78hDcHk4iIoSfRKgwnKOMCQUL4QoQegnmVOdk5VXXG1PNZnq7XcOWcwmaQ2/78uKycDSq+qSF+zb8gJhYPM4xOA6PxkwpO5QkHWZdZ3QB7egO60bWVMJIhmLLmsKTkUcSOp+iyxD6ZQJt5e6GOsgasEJlUvVv/or6ZpvctLSgoIkwHJjnm8TENBs+LivEBHUcg1ar48S0cJ0V7IARiuA9b/m/b11KG7oP4KXOFrMeLw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f8d43f0e-bceb-674d-c3d9-ddca4fd491df@suse.com>
+Date: Wed, 16 Aug 2023 11:43:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v3 0/4] Make PDX compression optional
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.700.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|DU0PR08MB7995:EE_|AM7EUR03FT020:EE_|DU0PR08MB7415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15d942a3-f495-4778-51ad-08db9e3d1577
-x-checkrecipientrouted: true
-nodisclaimer: true
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230808130220.27891-1-alejandro.vallejo@cloud.com>
+ <64dc988b.df0a0220.d6d82.abb3@mx.google.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <64dc988b.df0a0220.d6d82.abb3@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0188.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::20) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB9490:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b0d166f-1ded-41c3-ef57-08db9e3d4b87
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- I6o43J9ELTKxJLvL5A+6Hwm+tNCCZdCA3G8HlpnBEdsQcGHSWNOYDeIiFUcdIKNG1cA+twmUEjMyHE6XU7Z3kC9bXMHm/f939h9mMdAE0gnaqMAlwzkn3JXJQHipWXtZQ5KOSUpq49Bhdeg17fsMwhuLxEaU6TUXrpmTxoweZDvnhOMwfifyyv9AljiQ4meLAU/lSEYeWvxM/zRlJiZPT+pyZJFk19psKnPLMRIZiuCrlozSf0Ylh7wr7rzvqoTbs0kZED7w8b8pDPlHOftSO3XXOnsqUO040wGfwxVw4BomkiJ3bfSJ1p/qpMngK9BS9ntGxcDVbZ2JtExsofUFvWqWwXmuSgckuLA244UXsQ9GPeG8GkM+UyjDik/mxKf/Svmb1KtOkNn5TNPop4pTEUFavHh5Tc1Scz0CVJrFejJh8qg0crdat0K/AOeLotrAu5cxXqwRPiBdTe9F0XvKJEEghs7c3Bl2l5TVDy/9BHJGKuk8FesV5lzOx49pCovDi/NxA9TBYN2AwDvsrRSzi+89AV4zqx0echkktyUM6qV8hFlC/oI43pdJhz7GTLpDZJ7a3qU5IieSh8Fr+kQIFIgH+LkgiRg/7qea62yirKANkAwPlJHNOzU88AQOMrFCbNx11h0W2Iy1tELDUwxV4g==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(396003)(136003)(376002)(39860400002)(1800799009)(451199024)(186009)(2906002)(83380400001)(86362001)(478600001)(36756003)(2616005)(6486002)(6506007)(71200400001)(33656002)(6512007)(53546011)(5660300002)(41300700001)(122000001)(6916009)(316002)(54906003)(66946007)(66556008)(66476007)(66446008)(64756008)(91956017)(76116006)(4326008)(8676002)(8936002)(38100700002)(38070700005)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <329820456DE16F4DAC16F2061688E1CB@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7995
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT020.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d312227d-354e-4358-2730-08db9e3d1049
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	y9THdGjHWbnoipN/Yd7JB4ZeHPzDqu7BeK4uOqwLm1mG3qH9C/qlvCHPg85LXoj9nr6cUMKiNCRsoL1JLd9n4dKOJ6Ehh44+QQs9m+NKtDvtwfgLiJ6CbTuEGOjRGD9ZowleOzJafHFCnTy4BArFYrl/MPCDh3dn7vZpEPJbj3tb/mXUlCI1pYySluy5tODaCgPgih+g9e2sz4EF5dW2pt+II8Q9IhHEOxtBSVb+4wKCVILAj4D8wuRR9eBP4or6Cj2SP6dZE2ayHr5/hbcFliDDcJ6jwqTH5ta3ewtigbw9IjhcuJxyE95m44fgcf9xxy56N1uBmyJ42WeFrBynGwdPWMi0QBPIgMbZLQhnCEiNSXeIMuBjkyXPVRh5e2LOz1x9rHrDA9NZIkUUjbHLaNg3WqJk75740XaLKfazgnMK88xJryBrWhEVdMqCMKvQtPqz+b4puXUsiGDGKl50lsGogfN5/DeytQUagz3x07uGbGez+ksqizb2FJu/j3NzuDleKWWnzz+9qlY44DS96piGwLN8gitXcNfmpVeJY16/7si8qPg5ELn0sORzQpMVKw8ssbMqkRKReQxifhBv7cd7tUZjb6WX9jDaZG0h0eL2WuQNJfviehgQWb1x0o9uCfce+VXzqjs8gL2c5YjKSrcWAC+edHmpPD0zehE3EOIP4pMRqUnY71TJJwSkZcLnDgSuI9NKAdwfdVWDzX79HQvZ+EGYsGG/w+TsnCmWUTWUr1tRx356IGZE1JfzW6nZ
+	4Vjb00B2U1XVXstPZAPhjxVNRMfE4vR39przIMDzHrdb1N0s3inlSaDRMc+Ny7yDY/1/AWS8NDz1xh4H85g3HuppKGWmz8ubCllPjDdr8H7sr0z59SnOXT2v1fi6HZwIM8gts+EsJCfrMZ55+bQJAUUhun3oJIAIILUPztmenMSfaE0/9kzh/WmN3FcFMgSLNyK+wPIWHODJwlmHsqpYlrug7UbnW0ctTpHoFLqfMMRFEIeOSuN56Nc9We2icxkYsudZhXSremt/cYIgecC3PB0fH5+69Otxm+EK/3bNF2uDWNzF64RZdiN4PF70r8eSv66rUsrEwaSdOWbWMcvpxegmutMlKVwfeCy1ulCPCY1E2toLknYB2recpo+JbEiYkiGaJe1EICjr8QN8utCplbkvP3xFRrW/TllTOGNNYRu0zIsbLtq9ibqDuH8rUsmZyxkc23QNnNRVpaaS7FtNaOAbFLJpZrOreKnrws/yASnMAvUaMfQvWGApCjV2dfquIBTsvjbsvDcEIKtNS34e9PIHfYIxh8u6JQoumS5D7aQmTDRG5TOzJbLBjyXcsHR2/VBUrKQo9jSJiInFb7iFs/T609rlZit9Sdi6IY3Qj17xp8JJlUu7w1BJlzg5h0Zwlm2qGlAatkLlqUKBuKV09Q==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(136003)(376002)(39860400002)(1800799009)(451199024)(82310400011)(186009)(46966006)(36840700001)(40470700004)(40460700003)(2906002)(83380400001)(86362001)(478600001)(40480700001)(336012)(36756003)(2616005)(6486002)(6506007)(33656002)(6512007)(53546011)(26005)(5660300002)(41300700001)(36860700001)(82740400003)(316002)(54906003)(356005)(81166007)(70206006)(70586007)(4326008)(6862004)(8676002)(8936002)(47076005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 09:42:19.2767
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(396003)(136003)(376002)(39860400002)(1800799009)(451199024)(186009)(2906002)(83380400001)(7416002)(86362001)(478600001)(31696002)(36756003)(2616005)(6486002)(6506007)(6666004)(6512007)(53546011)(26005)(5660300002)(41300700001)(6916009)(316002)(54906003)(66946007)(66556008)(66476007)(4326008)(8676002)(8936002)(31686004)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bnQwU0JOL05VTkpZc1dhamZSV2l6bUZxSkg2OHVaVmZzcHlYZjZFRENZN1NN?=
+ =?utf-8?B?TWFrbzR4SXU4UXBVSmVmWTNGVm1aL2pGcFJmL1NmdEZRMUVhUXVwZVFLUzhv?=
+ =?utf-8?B?UzV6WmpFVFFJMEZOMWhtaUNiRjV4RWUxWlJMRitsWjBFUDBlR0JuWHM4QTVl?=
+ =?utf-8?B?T1hyYVN5MWdXY3RBM01NSlg5QWs1N1dPTjRXT2RzUFJ3UzZ6VGxQckZmS2pP?=
+ =?utf-8?B?MTN3b01VT0JmZ2g4YWE3WWdmWDVZRXNDUnF5WjNFWThYYWNxWm1aaWpnZHFE?=
+ =?utf-8?B?MFdnc05rMkNvYW5XcVcxVE5pZHEwS3Zvd1hsUnR0d1c0VXA4Z1dueUVLZkNj?=
+ =?utf-8?B?TXpwanVRK0xxeFpucThnVlVtWTNJWHl3emlTczVJUHE3Nzl4ZXBnUURhQVg3?=
+ =?utf-8?B?RXpzNnBBWUc0VlVxMGZxOWphWE1LU3RxbFByYVBMVmExQUhBTVdYVEtCMHJ4?=
+ =?utf-8?B?ci9GL0hlTjRkRzFXSSt6Y2pEVnk0N1ZCeGdFcFcvSmN6d3k4dkxEQ2FNcEFI?=
+ =?utf-8?B?QTVaRHlxbng1Y08xYkh2bXYrSTVvZnBYbmJHTGpHdHZEQnVTdm53QnFCcnZC?=
+ =?utf-8?B?UDlYRGJ3TGtoNFl6WnJuelJVVi8vMlp6YzRROS9KZC9yeStiMkIrWXJUYzJF?=
+ =?utf-8?B?S2RXYmRLcTljSU5aTURyWGJNelF1V1hVdkdrZVZTc281ZnBtZk5HVnVmd2Vk?=
+ =?utf-8?B?c2pzNUphS0hNQmpibHdWSTBYSm8yTWVWT2tiSWU4YzJBMTB1NEg0WG5zTTJM?=
+ =?utf-8?B?R2M1NWgrRzE2M1hCYWVrTk1jZnFhcE5VTUVaQVBMUlo4ZkszOGp3YU5uUDlu?=
+ =?utf-8?B?UjBWN0wrRzE1c3FmVHlmc0lWSGtWa1QwZE9tZ1hKZjEweVZVOFBvckd1YnVt?=
+ =?utf-8?B?cnNxZzhlNmoyTWZqZ1JWcEdlUUxGdVlPdkM1NzRDOXVqVjI3UEtqSFFMNjhH?=
+ =?utf-8?B?WThKOVhEbTdSU1dwdXQ1SkdaUTl3MGJQVGdLVUY4bjlnTzR5R2RqUmpqSFR0?=
+ =?utf-8?B?N200SlZaRWYwSzBLMkFtRk9rekZrdkJmRTlra09pQjJZUmZpOC9hOHpMSzlU?=
+ =?utf-8?B?K0xYRlpta2ROaUVObEFZYWdSRWVzeGduR0VxWDF5ckJnbW0zUU1ETE13ME9N?=
+ =?utf-8?B?TkdrWEdWcEsvVFkxUWJ5bnNacEhTQnd5RUYzNnl4Ri9rOHM2b252UUJUeHUx?=
+ =?utf-8?B?Z1pkWWYwVHJNa29Lc0xiSWRMM3NvNGc0NzFJUk1WVWlDa2FGM2RqOXFBeSto?=
+ =?utf-8?B?UFBiek9Fak81NlIvU1pHYXdyeGdRNWxJQVg0a21WYUhEbmJVQi9BbGlhaFlk?=
+ =?utf-8?B?V1NnUWRPV1NOazRtSkd4Y1N1WGhYTkMyRnkxeW53UHpOQnNNcXRpTW5rOXp4?=
+ =?utf-8?B?ZDRMVHExTC9qRmpmMngxUXljYVlVQmt4MHJtNjdzcHpBblMwZXBiRjQzYk5U?=
+ =?utf-8?B?NnlRL051a0gxcDhPZFpxMUtjN2VGLzlpVk9nNjNyblVlbmliaTd2V0ZjVFlp?=
+ =?utf-8?B?VTNnTlpjajVlRDN5WFdMV3JlU0FoWDF6ZW9wRWRvWS8rMVZEZHB1VnFwZkwz?=
+ =?utf-8?B?eVRzZDR1bVRxbkRkV2dxc2NkUmlhcTZTbXY2MUNHcThacDBVWWUxby9YcEJt?=
+ =?utf-8?B?S1ZnL0NHc3ZCd1FZYUE1TDhVVFJrT3R5cTRnL1l4dFhRM1h2UStOVHNPeHJa?=
+ =?utf-8?B?TkZ5NUhrdm9tYnVUN1owWjNVdnI3SndpaHk1eGxQc2x0U2d5SExET2xXNXdQ?=
+ =?utf-8?B?Y2tSZk1XcUZ0OGowMEpGTCtnbWcvN3ZhSmV0VFlkeER0VFNEWkFNZERnQ2tE?=
+ =?utf-8?B?bTRLOWh2MGlOMXQ4VGY5ajl5UEhTRzFDanIyazNqVklHb2JMRWVwb1g1T0dt?=
+ =?utf-8?B?WnQyWENXSUxtd1E2TW14U25rdEE2Nk9JTFdzbGhtKzRLY3dDRU8xanhLSWxP?=
+ =?utf-8?B?cEpPRlp6bDZqbGI0b1dvOFFMd2tJTVlHcVIwZnpqTXIySmhpbE9pT0h6Wkhm?=
+ =?utf-8?B?UktkT1ZNSWJMYnU0TlZmYzVaZDE2WTNnMTJCLzlXcFV0bmFmaEZzV3Ewai9m?=
+ =?utf-8?B?d2pldWIyK3FmS3BNOUpRN0VMeTduUlMxa0lWSWZxWnVXSkduRFBiOG1VZklv?=
+ =?utf-8?Q?Ea+zbMa7H5kHVwrujHfrOIyyW?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b0d166f-1ded-41c3-ef57-08db9e3d4b87
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 09:43:50.1958
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15d942a3-f495-4778-51ad-08db9e3d1577
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT020.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7415
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tRC1qlXGL2CJ76q2imMekXpewn4TaoxvSJJkpb2B9np2PQRNJlpIKEOau9XMRhRgJK+WJibelv+KvV+0wEJnng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9490
 
-Hi Jens,
+On 16.08.2023 11:36, Alejandro Vallejo wrote:
+> On Tue, Aug 08, 2023 at 02:02:16PM +0100, Alejandro Vallejo wrote:
+>> Currently there's a CONFIG_HAS_PDX Kconfig option, but it's impossible to
+>> disable it because the whole codebase performs unconditional
+>> compression/decompression operations on addresses. This has the
+>> unfortunate side effect that systems without a need for compression still
+>> have to pay the performance impact of juggling bits on every pfn<->pdx
+>> conversion (this requires reading several global variables). This series
+>> attempts to:
+>>
+>>   * Leave the state of pdx and pdx compression documented
+>>   * Factor out compression so it _can_ be removed through Kconfig
+>>   * Make it so compression is disabled on x86 and enabled on both Aarch32
+>>     and Aarch64 by default.
+>>
+>> Series summary:
+>>
+>> Patch 1 Moves hard-coded compression-related logic to helper functions
+>> Patch 2 Refactors all instances of regions being validated for pdx
+>>         compression conformance so it's done through a helper
+>> Patch 3 Non-functional reorder in order to simplify the patch 8 diff
+>> Patch 4 Adds new Kconfig option to compile out PDX compression and removes
+>>         the old CONFIG_HAS_PDX, as it was non removable
+>>
+>> Already committed:
+>>
+>> v1/patch 1 documents the current general understanding of the pdx concept and
+>>            pdx compression in particular
+>> v1/patch 3 Marks the pdx compression globals as ro_after_init
+>> v2/patch 1 Documents the differences between arm32 and arm64 directmaps
+>>
+>> Alejandro Vallejo (4):
+>>   mm: Factor out the pdx compression logic in ma/va converters
+>>   mm/pdx: Standardize region validation wrt pdx compression
+>>   pdx: Reorder pdx.[ch]
+>>   pdx: Add CONFIG_PDX_COMPRESSION as a common Kconfig option
+> 
+> @Jan: Just making sure, are you generally ok with this series as-is?
 
-> On 31 Jul 2023, at 14:15, Jens Wiklander <jens.wiklander@linaro.org> wrot=
-e:
->=20
-> Adds support in the mediator to handle FFA_PARTITION_INFO_GET requests
-> from a guest. The requests are forwarded to the SPMC and the response is
-> translated according to the FF-A version in use by the guest.
->=20
-> Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to the
-> caller (the guest in this case), so once it is done with the buffer it
-> must be released using FFA_RX_RELEASE before another call can be made.
->=20
-> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+Well, okay would be too strong; I still don't see why my runtime patching
+series isn't re-considered. But I don't mind it going in the way it is now.
+I won't ack any part of it, though (in case that wasn't obvious), so it'll
+be up to Andrew or Roger to supply the necessary x86 acks.
 
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Cheers
-Bertrand
-
-> ---
-> v10->v11
-> - Fixing a typo in a comment and adding another comment as requested
-> ---
-> xen/arch/arm/tee/ffa.c | 134 +++++++++++++++++++++++++++++++++++++++++
-> 1 file changed, 134 insertions(+)
->=20
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 6c76c9885774..6c889bf97002 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -166,7 +166,18 @@
-> #define FFA_MSG_SEND                    0x8400006EU
-> #define FFA_MSG_POLL                    0x8400006AU
->=20
-> +/*
-> + * Structs below ending with _1_0 are defined in FF-A-1.0-REL and
-> + * structs ending with _1_1 are defined in FF-A-1.1-REL0.
-> + */
-> +
-> /* Partition information descriptor */
-> +struct ffa_partition_info_1_0 {
-> +    uint16_t id;
-> +    uint16_t execution_context;
-> +    uint32_t partition_properties;
-> +};
-> +
-> struct ffa_partition_info_1_1 {
->     uint16_t id;
->     uint16_t execution_context;
-> @@ -189,6 +200,7 @@ struct ffa_ctx {
->      */
->     uint16_t create_signal_count;
->     bool rx_is_free;
-> +    spinlock_t lock;
-> };
->=20
-> /* Negotiated FF-A version to use with the SPMC */
-> @@ -203,9 +215,15 @@ static uint16_t subscr_vm_destroyed_count __read_mos=
-tly;
-> /*
->  * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
->  * number of pages used in each of these buffers.
-> + *
-> + * The RX buffer is protected from concurrent usage with ffa_rx_buffer_l=
-ock.
-> + * Note that the SPMC is also tracking the ownership of our RX buffer so
-> + * for calls which uses our RX buffer to deliver a result we must call
-> + * ffa_rx_release() to let the SPMC know that we're done with the buffer=
-.
->  */
-> static void *ffa_rx __read_mostly;
-> static void *ffa_tx __read_mostly;
-> +static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
->=20
-> static bool ffa_get_version(uint32_t *vers)
-> {
-> @@ -512,6 +530,103 @@ static uint32_t handle_rxtx_unmap(void)
->     return FFA_RET_OK;
-> }
->=20
-> +static int32_t handle_partition_info_get(uint32_t w1, uint32_t w2, uint3=
-2_t w3,
-> +                                         uint32_t w4, uint32_t w5,
-> +                                         uint32_t *count)
-> +{
-> +    int32_t ret =3D FFA_RET_DENIED;
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +
-> +    /*
-> +     * FF-A v1.0 has w5 MBZ while v1.1 allows
-> +     * FFA_PARTITION_INFO_GET_COUNT_FLAG to be non-zero.
-> +     *
-> +     * FFA_PARTITION_INFO_GET_COUNT is only using registers and not the
-> +     * rxtx buffer so do the partition_info_get directly.
-> +     */
-> +    if ( w5 =3D=3D FFA_PARTITION_INFO_GET_COUNT_FLAG &&
-> +         ctx->guest_vers =3D=3D FFA_VERSION_1_1 )
-> +        return ffa_partition_info_get(w1, w2, w3, w4, w5, count);
-> +    if ( w5 )
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    if ( !ffa_rx )
-> +        return FFA_RET_DENIED;
-> +
-> +    spin_lock(&ctx->lock);
-> +    if ( !ctx->page_count || !ctx->rx_is_free )
-> +        goto out;
-> +    spin_lock(&ffa_rx_buffer_lock);
-> +    ret =3D ffa_partition_info_get(w1, w2, w3, w4, w5, count);
-> +    if ( ret )
-> +        goto out_rx_buf_unlock;
-> +    /*
-> +     * ffa_partition_info_get() succeeded so we now own the RX buffer we
-> +     * share with the SPMC. We must give it back using ffa_rx_release()
-> +     * once we've copied the content.
-> +     */
-> +
-> +    if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 )
-> +    {
-> +        size_t n;
-> +        struct ffa_partition_info_1_1 *src =3D ffa_rx;
-> +        struct ffa_partition_info_1_0 *dst =3D ctx->rx;
-> +
-> +        if ( ctx->page_count * FFA_PAGE_SIZE < *count * sizeof(*dst) )
-> +        {
-> +            ret =3D FFA_RET_NO_MEMORY;
-> +            goto out_rx_release;
-> +        }
-> +
-> +        for ( n =3D 0; n < *count; n++ )
-> +        {
-> +            dst[n].id =3D src[n].id;
-> +            dst[n].execution_context =3D src[n].execution_context;
-> +            dst[n].partition_properties =3D src[n].partition_properties;
-> +        }
-> +    }
-> +    else
-> +    {
-> +        size_t sz =3D *count * sizeof(struct ffa_partition_info_1_1);
-> +
-> +        if ( ctx->page_count * FFA_PAGE_SIZE < sz )
-> +        {
-> +            ret =3D FFA_RET_NO_MEMORY;
-> +            goto out_rx_release;
-> +        }
-> +
-> +
-> +        memcpy(ctx->rx, ffa_rx, sz);
-> +    }
-> +    ctx->rx_is_free =3D false;
-> +out_rx_release:
-> +    ffa_rx_release();
-> +out_rx_buf_unlock:
-> +    spin_unlock(&ffa_rx_buffer_lock);
-> +out:
-> +    spin_unlock(&ctx->lock);
-> +
-> +    return ret;
-> +}
-> +
-> +static int32_t handle_rx_release(void)
-> +{
-> +    int32_t ret =3D FFA_RET_DENIED;
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +
-> +    spin_lock(&ctx->lock);
-> +    if ( !ctx->page_count || ctx->rx_is_free )
-> +        goto out;
-> +    ret =3D FFA_RET_OK;
-> +    ctx->rx_is_free =3D true;
-> +out:
-> +    spin_unlock(&ctx->lock);
-> +
-> +    return ret;
-> +}
-> +
-> static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32=
-_t fid)
-> {
->     struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
-> @@ -568,6 +683,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
-s)
->     uint32_t fid =3D get_user_reg(regs, 0);
->     struct domain *d =3D current->domain;
->     struct ffa_ctx *ctx =3D d->arch.tee;
-> +    uint32_t count;
->     int e;
->=20
->     if ( !ctx )
-> @@ -597,6 +713,24 @@ static bool ffa_handle_call(struct cpu_user_regs *re=
-gs)
->         else
->             set_regs_success(regs, 0, 0);
->         return true;
-> +    case FFA_PARTITION_INFO_GET:
-> +        e =3D handle_partition_info_get(get_user_reg(regs, 1),
-> +                                      get_user_reg(regs, 2),
-> +                                      get_user_reg(regs, 3),
-> +                                      get_user_reg(regs, 4),
-> +                                      get_user_reg(regs, 5), &count);
-> +        if ( e )
-> +            set_regs_error(regs, e);
-> +        else
-> +            set_regs_success(regs, count, 0);
-> +        return true;
-> +    case FFA_RX_RELEASE:
-> +        e =3D handle_rx_release();
-> +        if ( e )
-> +            set_regs_error(regs, e);
-> +        else
-> +            set_regs_success(regs, 0, 0);
-> +        return true;
->     case FFA_MSG_SEND_DIRECT_REQ_32:
->     case FFA_MSG_SEND_DIRECT_REQ_64:
->         handle_msg_send_direct_req(regs, fid);
-> --=20
-> 2.34.1
->=20
-
+Jan
 
