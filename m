@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E923A77E519
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 17:26:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584805.915639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D25D77E51F
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 17:28:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584811.915650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWIPF-0004cs-G6; Wed, 16 Aug 2023 15:25:57 +0000
+	id 1qWIRK-0005B2-RV; Wed, 16 Aug 2023 15:28:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584805.915639; Wed, 16 Aug 2023 15:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 584811.915650; Wed, 16 Aug 2023 15:28:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWIPF-0004aR-DN; Wed, 16 Aug 2023 15:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 584805;
- Wed, 16 Aug 2023 15:25:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hDLr=EB=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qWIPE-0004aL-Ne
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 15:25:56 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30bd91ff-3c49-11ee-9b0c-b553b5be7939;
- Wed, 16 Aug 2023 17:25:54 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id F293A4EE0737;
- Wed, 16 Aug 2023 17:25:53 +0200 (CEST)
+	id 1qWIRK-00059L-Od; Wed, 16 Aug 2023 15:28:06 +0000
+Received: by outflank-mailman (input) for mailman id 584811;
+ Wed, 16 Aug 2023 15:28:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qWIRJ-00059F-JK
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 15:28:05 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qWIRI-00037A-Rg; Wed, 16 Aug 2023 15:28:04 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=[192.168.5.61])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qWIRI-0004G2-J3; Wed, 16 Aug 2023 15:28:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +39,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30bd91ff-3c49-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=JCUI9GTdwu32oXbCuZ+3Qj8k6VZ1ahZmyXyVCFOdZbo=; b=XYf3bp2kn9VOzo3SlfGjgibIUD
+	aSmTH3ZV4scx4LPl08o7IOjuLXCXnBFpEKId0nu16Wd0JDGWxYmusnNzU8eIqgunvF08yoo0qRzYg
+	5NVA5OShiXTUoJy3PVIvCz+ReTKh5vcLx20+8fpNAJJ2qDv7IEfoYGpfnyX7KBuULOCg=;
+Message-ID: <85fa02a8-7a19-4bca-89d7-6036038def4d@xen.org>
+Date: Wed, 16 Aug 2023 16:28:02 +0100
 MIME-Version: 1.0
-Date: Wed, 16 Aug 2023 17:25:53 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: "stefano.stabellini@amd.com" <sstabellini@kernel.org>, Michal Orzel
- <michal.orzel@amd.com>, xenia.ragiadakou@amd.com, Ayan Kumar Halder
- <ayankuma@amd.com>, consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, roger.pau@citrix.com, Julien
- Grall <julien@xen.org>, George Dunlap <george.dunlap@citrix.com>, Wei Liu
- <wl@xen.org>
-Subject: Placing of the documentation for MISRA C:2012 Directive 4.1
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <95a86d69e97eb127a26f65cceb87e3bf@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: Remove unused function 'do_trap_fiq'
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <21c76788cbf4b79d4b77721cbdb956ca@bugseng.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <21c76788cbf4b79d4b77721cbdb956ca@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+
+
+
+On 16/08/2023 16:18, Nicola Vetrini wrote:
+> Hi,
 
 Hi,
 
-it has been agreed during past MISRA meetings that Directive 4.1
-("Run-time failures shall be minimized") shall be dealt with by 
-documenting
-how in Xen such runtime failures are prevented, so by preparing a 
-document analogous to
-docs/misra/C-language-toolchain.rst.
+> the function mentioned in the subject, defined in 'xen/arch/arm/traps.c' 
+> seems to have no
+> caller (either from C code or from asm code), so I think it can be 
+> safely removed, unless
+> there's a reason for it to remain in Xen.
 
-A common way to deal with this in ECLAIR is to create an header file
-and include it in at least one file that is part of the analyzed build, 
-so that the
-checker can see it.
+This is used by the arm32 code in arm32/head.S:
 
-One obvious candidate for this is having a .h file inside docs/misra 
-that is included
-either by a dummy .c file inside the same directory (and then build the 
-docs in the analyzed
-configuration) or somewhere else (I came up with no
-good places where to include it).
-It could also be a standalone .c file somewhere else, but I don't think 
-this would be the preferred way.
+trap_fiq:
+    vector fiq
 
-You can see a possible draft of the structure of this file here [1], but 
-providing the content
-here would require a substantial amount of collaboration with people 
-having a broader
-knowledge about Xen and its practices to prevent the runtime errors 
-delineated here, so
-a possibility is making an RFC patch to gather some inputs to fill the 
-sections appropriately.
+where the macro vector will call do_trap_fiq.
 
-As a side note, the directive should be added to docs/misra/rules.rst. 
-It can be part of
-the patch addressing the violations, tough.
+So we need to keep the function around and a definition. Although we can 
+move the function to arm32/traps.c but this is somewhat unrelated.
 
-[1] 
-https://github.com/BUGSENG/eclair_demo/blob/main/ECLAIR/MISRA_C_2012_doc.h
+Cheers,
+
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
