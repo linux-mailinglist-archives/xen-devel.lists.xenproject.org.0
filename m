@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B438B77DECB
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:32:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584507.915406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3975677DEB0
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:31:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584421.915158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWDpD-00072D-JY; Wed, 16 Aug 2023 10:32:27 +0000
+	id 1qWDnj-0002aE-Lv; Wed, 16 Aug 2023 10:30:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584507.915406; Wed, 16 Aug 2023 10:32:27 +0000
+Received: by outflank-mailman (output) from mailman id 584421.915158; Wed, 16 Aug 2023 10:30:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWDpC-0006lM-Pk; Wed, 16 Aug 2023 10:32:26 +0000
-Received: by outflank-mailman (input) for mailman id 584507;
- Wed, 16 Aug 2023 10:32:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qWDnj-0002Xi-Cn; Wed, 16 Aug 2023 10:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 584421;
+ Wed, 16 Aug 2023 10:30:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aIlC=EB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qWDe4-0003R9-Jh
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:20:56 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94a37645-3c1e-11ee-8779-cb3800f73035;
- Wed, 16 Aug 2023 12:20:53 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2bb9a063f26so4877431fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 16 Aug 2023 03:20:53 -0700 (PDT)
+ id 1qWDeF-0003RA-3Z
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:21:07 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 952015ea-3c1e-11ee-9b0c-b553b5be7939;
+ Wed, 16 Aug 2023 12:20:54 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-3fe12820bffso57889045e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Aug 2023 03:20:54 -0700 (PDT)
 Received: from 192.168.1.26 ([151.25.98.127]) by smtp.gmail.com with ESMTPSA id
  g5-20020adfe405000000b0031773a8e5c4sm20877843wrm.37.2023.08.16.03.20.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Aug 2023 03:20:52 -0700 (PDT)
+ Wed, 16 Aug 2023 03:20:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +44,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94a37645-3c1e-11ee-8779-cb3800f73035
+X-Inumbo-ID: 952015ea-3c1e-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692181253; x=1692786053;
+        d=gmail.com; s=20221208; t=1692181254; x=1692786054;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a5o/J0Yhy4zQnMbYIdMWJX60W2Yerk1IC1deMjRe2no=;
-        b=sr51+ZqaNCC8F3FLT++AiEX4BmivgASgkqfxYcbwMmvh93OejrpnbMnEV3BiIK1q5q
-         hI4/sKh3UHlNh4p7t2YMKUl5JephP+022eEB2tSz61A9OXsq6wxLE0CNnAgLV6nuIuAE
-         9OjU4PLZZgGpihmiI9RUohX6DHrSJ5/m+Hbho8jEl9gQWRFogMPoDt2OdbZ31CdYcaV1
-         lf1QaDa4bMUP1rxlvlGvib4ecvDnJnekiiimZGKa/gmgnub50WmF53L3p+fq1QvO1Ycx
-         yNdPPzSxMLegLlghV//+Y7cUlKEUygQ5vIzRW9RWuektsugMR+8z4Uqhuil1jj1eW5nd
-         kfYg==
+        bh=pWgznkgkDSshrAfNbytlr6AV1H8ztUkA/H/Hf0rQB3M=;
+        b=LSPfHBYC6q/1n9/pJaDTOaUXTe+bqBrU3MNFwS3erS5DxSVY4qVhe8Gbp9U41b8BFe
+         kISATESXoQxpqCTHDqol7IiLs73kghoLMwMwxfJ+n3/0uSr+/50sIOO40/ICWHpad4Kd
+         bEuENkWODZNTaVZwIfCFtmJRx+98kxfQlz+QL3JmdWKsZaTV0VIOzlapS2qUppUD9mbX
+         qEaj0ayuQXwmqx6SHbSL4uXZZXD1nSWxzGD9lISx5ep8yeARCoCMees6GPpu7bn74xka
+         3kUPzkwr2WiWGcJt3gxq9gjLOBVVPAJ5q0e1xL7gDOMytW8vpRvqdRMFuoJc2r0oz03i
+         eolQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692181253; x=1692786053;
+        d=1e100.net; s=20221208; t=1692181254; x=1692786054;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a5o/J0Yhy4zQnMbYIdMWJX60W2Yerk1IC1deMjRe2no=;
-        b=C/uo5pt0vtTN0E3FlRbKSN4KxexLT+0RE57j6jVjRsaMtY/1vahixxWUJUb/VNVwSe
-         6fIemtcM/fr53ttzi9E9fUM2vruZ+JmDHe/xOWX2R37AGTDHNywjM/MAUXzJDPEYAf6j
-         9LIyDv3wYD+dJ5AgN1mTKkmHoUg+Z77W6gWe6r9nraUXYpaz+pY7kGuIdXtXLi6rWNl6
-         4fLzmAN0Jk8fOenUi1OfgB66HSxsCCOYL/Xwg5jEw5D/oog2kVvppcPdZHl4hqeXqcX9
-         38inGOL6bYC17FI+B/gnI4zDasHYsh9AK8QoExWmmG3T+XUCozDkaOpB+1+qchEs/Lvo
-         a1oQ==
-X-Gm-Message-State: AOJu0YxbB7QHvCGTjJ08ofj3iKuxSW7oXH2VS51QzNPU+92EPv+Qo+BP
-	0vtQdD+q+46bl9jBrtXgFo9ceP3mX4VyK5KU
-X-Google-Smtp-Source: AGHT+IGc4HRQkUQ4oizER2Lxid9+s3toHPwW+S5C/FlXgrPoF7uyRY4LwRlLNBqL31IvVoUed0+3IQ==
-X-Received: by 2002:a2e:8341:0:b0:2b9:e053:79d8 with SMTP id l1-20020a2e8341000000b002b9e05379d8mr1071162ljh.18.1692181252829;
-        Wed, 16 Aug 2023 03:20:52 -0700 (PDT)
+        bh=pWgznkgkDSshrAfNbytlr6AV1H8ztUkA/H/Hf0rQB3M=;
+        b=HMK1gyyR0FRltZVmzX/nU9ecvZ4XhWL12johaYCnpQy4DpYr2Vir4WG0OoAt/lQuE+
+         G31KcT4F05enSMaKOM+LKahLBP0o/bAOKdWTvec9yQa0ilU0M4bnKWuL5Js9ODUB8pBp
+         YiLtMulCZ1JQHYCwUOLixkoD4/OK1iHIkKMfO7Yk9uWYCg7JTypYBKR62WZ28CyBWDO2
+         ccULl00m5j3nZIiG7u+gkJQ0YJdL2JNR+T39Fg/BK1s+IHAom1msxxDyPGxAjboDAylv
+         pe5sKTIwx40ZpA+9DKCbYV7YJnG6sHkVCoGDUCFxoGj/ppx2rOLiASnrQbVAbuggH6BM
+         nVYg==
+X-Gm-Message-State: AOJu0YwyKXV6olGuWcqV7s24l9vj7aJ/X1WQPJnzrjL5hkiKWGaqUwkx
+	IekHkKZcgYLDeWLHEGLf2xSZfdD0eIWmbB9S
+X-Google-Smtp-Source: AGHT+IHfKBICqnt18KsAWotBgPULnHOZ7+IYwE4eAY/DTUER3Wf6rQjOa3JW/PJtPCA/8XGaeIrBbA==
+X-Received: by 2002:a5d:43ca:0:b0:317:7330:bd82 with SMTP id v10-20020a5d43ca000000b003177330bd82mr1159786wrr.8.1692181253716;
+        Wed, 16 Aug 2023 03:20:53 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v1 46/57] xen/riscv: define an address of frame table
-Date: Wed, 16 Aug 2023 13:19:59 +0300
-Message-ID: <8d3a615afbcff9681aa0ba8e2272d7e7e26251d1.1692181079.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 47/57] xen/riscv: add required things to asm/current.h
+Date: Wed, 16 Aug 2023 13:20:00 +0300
+Message-ID: <c70a50df2e7dda1081a2464f84c4671fe0e66bf0.1692181079.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1692181079.git.oleksii.kurochko@gmail.com>
 References: <cover.1692181079.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Also the patchs adds some helpful macros.
+Add minimal requied things to be able to build full Xen.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/config.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ xen/arch/riscv/include/asm/current.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index fa90ae0898..63ddcae1f9 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -77,12 +77,31 @@
-   name:
- #endif
+diff --git a/xen/arch/riscv/include/asm/current.h b/xen/arch/riscv/include/asm/current.h
+index d84f15dc50..d03d172f14 100644
+--- a/xen/arch/riscv/include/asm/current.h
++++ b/xen/arch/riscv/include/asm/current.h
+@@ -3,6 +3,21 @@
+ #ifndef __ASM_CURRENT_H
+ #define __ASM_CURRENT_H
  
-+#define VPN_BITS    (9)
-+#define OFFSET_BITS (12)
++#include <xen/percpu.h>
 +
- #ifdef CONFIG_RISCV_64
++#ifndef __ASSEMBLY__
 +
-+#define SLOTN_ENTRY_BITS        (HYP_PT_ROOT_LEVEL * VPN_BITS + OFFSET_BITS)
-+#define SLOTN(slot)             (_AT(vaddr_t,slot) << SLOTN_ENTRY_BITS)
-+#define SLOTN_ENTRY_SIZE        SLOTN(1)
++struct vcpu;
 +
- #define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL) + 1 - GB(1)) */
++/* Which VCPU is "current" on this PCPU. */
++DECLARE_PER_CPU(struct vcpu *, curr_vcpu);
 +
-+#define FRAMETABLE_VIRT_START   SLOTN(196)
-+#define FRAMETABLE_SIZE         GB(3)
-+#define FRAMETABLE_NR           (FRAMETABLE_SIZE / sizeof(*frame_table))
-+#define FRAMETABLE_VIRT_END     (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
++#define current            (this_cpu(curr_vcpu))
++#define set_current(vcpu)  do { current = (vcpu); } while (0)
++#define get_cpu_current(cpu)  (per_cpu(curr_vcpu, cpu))
 +
-+#define VMAP_VIRT_START         SLOTN(194)
-+#define VMAP_VIRT_SIZE          GB(1)
++#define guest_cpu_user_regs() (0)
 +
- #else
- #error "RV32 isn't supported"
- #endif
+ #define switch_stack_and_jump(stack, fn) do {               \
+     asm volatile (                                          \
+             "mv sp, %0\n"                                   \
+@@ -10,4 +25,6 @@
+     unreachable();                                          \
+ } while ( false )
  
-+#define HYPERVISOR_VIRT_START XEN_VIRT_START
++#endif /* __ASSEMBLY__ */
 +
- #define SMP_CACHE_BYTES (1 << 6)
- 
- #define STACK_SIZE PAGE_SIZE
-@@ -95,6 +114,8 @@
- #define RV_STAGE1_MODE SATP_MODE_SV32
- #endif
- 
-+#define HYP_PT_ROOT_LEVEL (CONFIG_PAGING_LEVELS - 1)
-+
- #endif /* __RISCV_CONFIG_H__ */
- /*
-  * Local variables:
+ #endif /* __ASM_CURRENT_H */
 -- 
 2.41.0
 
