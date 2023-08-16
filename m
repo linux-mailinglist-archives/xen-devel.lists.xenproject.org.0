@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D8E777EE00
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 01:58:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584963.915887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46BC877EE02
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 01:59:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584970.915898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWQPH-0003Bm-Qw; Wed, 16 Aug 2023 23:58:31 +0000
+	id 1qWQQR-0003mp-79; Wed, 16 Aug 2023 23:59:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584963.915887; Wed, 16 Aug 2023 23:58:31 +0000
+Received: by outflank-mailman (output) from mailman id 584970.915898; Wed, 16 Aug 2023 23:59:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWQPH-00039L-NQ; Wed, 16 Aug 2023 23:58:31 +0000
-Received: by outflank-mailman (input) for mailman id 584963;
- Wed, 16 Aug 2023 23:58:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qWQQR-0003ky-4G; Wed, 16 Aug 2023 23:59:43 +0000
+Received: by outflank-mailman (input) for mailman id 584970;
+ Wed, 16 Aug 2023 23:59:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CG9s=EB=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qWQPG-00039D-Ed
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 23:58:30 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062b.outbound.protection.outlook.com
- [2a01:111:f400:7e8b::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca836e81-3c90-11ee-8779-cb3800f73035;
- Thu, 17 Aug 2023 01:58:28 +0200 (CEST)
+ id 1qWQQP-0003ks-VS
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 23:59:41 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20624.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::624])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f57c991f-3c90-11ee-9b0c-b553b5be7939;
+ Thu, 17 Aug 2023 01:59:39 +0200 (CEST)
 Received: from MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
  by PH0PR12MB5645.namprd12.prod.outlook.com (2603:10b6:510:140::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.30; Wed, 16 Aug
- 2023 23:58:23 +0000
+ 2023 23:59:34 +0000
 Received: from MW3PR12MB4409.namprd12.prod.outlook.com
  ([fe80::1280:3c61:6568:3908]) by MW3PR12MB4409.namprd12.prod.outlook.com
  ([fe80::1280:3c61:6568:3908%5]) with mapi id 15.20.6678.029; Wed, 16 Aug 2023
- 23:58:23 +0000
+ 23:59:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,193 +47,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca836e81-3c90-11ee-8779-cb3800f73035
+X-Inumbo-ID: f57c991f-3c90-11ee-9b0c-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jBoFE1aiRh8UNh+E8+XsG4I15LmBaSyYbJMtSpm5CGAV77LpbqaP9uUmXXe7FOzai1ALaHSRo6YEItVnJbwTKCW5h/eD+0mD0YRpjuMts4AH9Sa56KU30MDJqBPeV5Kcf2yYWleF9yZ0Zt85AUcp/vjwfwBY7fqFMKtZqIsWGl29JEYtmZkamEGUJoJDyFCy+8q+/XkyC6Enzfn9+JE8C6PsqSljtOU5c+X/YPA/RMXm1OBT/CYmKMpVTD3iKxpnPXuRjiPexdOEALWGmEBDH+XnSd4kjWsD8Q7Uy29mhspxJacA/V5qYklOFAIydsOzQlDPuUO81gGwvnBQReelbQ==
+ b=I67ik43iutKnhJiwiL6NDUwO8cFPF86T8WDEQktuyD9mvQUqAE1GiRMkUmeWOmWEJVfjnxnTkgx+6medivtRe2W/SO+w4PgKqQs0TejIg7/K1C3eZH9IhlT0Qy2UyINmOO9MNr78ffChTqvVUQGeFLwGLwrdP3QeZgwcK3OrdxVpucVV9XglCvusNiUJhChLXf74kJ75ZlOE0CpA6lRwGvczUzNEH4+2xYNivAixtf2S0+ke6KP5f937vRuCZB01h/UckeUnFbFulBchjfcs3ZZGQ4bjwZEwHTMH2QJWJP68W6QGbnc+98Wvv2EZTwdGy4hJhgNgqIDiKuWiSWBrug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CxpUVP2qWoQZBP9+wzeqy+5arL0STd0dmyUZ9D3fmn8=;
- b=MeeOuZ+4yoWyjbUH8rG9tFaWjnZBo503DI3Bi7e/0OWRcc6EDFklJv35hLTaDoO4B/0JvTNOmgSMAm1t4qa4y4e8LUgFG3l3VZXFAVz+sdi+7npRVVks5U5aWaSJH3ajjMWrIpEKDc8Xb/SJ/TVihxGNi68RctReQFHkLGH2BhtO25KiVJPzMIVatNutAzT1XuYyHU1auh7oxrMvmrGwwscugDbdron7K4FQknFcvb8l7dt9/IUXb/+OZ1VahYiEhTWuqGeOFmkLj3uQ5+H2Ppq5Xa65GDDIL1XLaaeOp8W7TEgQBUt8zQhgo2Jtb1KvqvshQNVkH3lyX1fP3w8vlQ==
+ bh=H5TVXQkLYBwgN5LfKFT3rt8q1/lXissJsVvieSoB4F8=;
+ b=Rh9ovsVDkPVve72ZqYFEIQcbzbKDBBW53zhTFqnfzZ1x8pqi1ZiVjC1nGn/TCMjQayDBWqkLwYYKP4ffLYg8KU1/eyZ5STmzKnT/Zx8AtqbqKj2ZUAzb9pmbBK9r3uMufFT1Pwg5bMjhmnue1PumwzeXq4748y+n3VRaMqEXZeLGlMld5I2qRY8JmCCtU1vcl6kMn1PEJVmMeuNV/DIs3sfw2lrmGs7hhFnG4x2G3Ls05psENgn33myoxoIOowsmBTzaSpm/672reGOQStO+HlkH3PcRl7DhC06N1ZII9EVvAcI7EuCQ+JxxVMcxt2zMxOsglWZT7vLcCVqd6If2QQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CxpUVP2qWoQZBP9+wzeqy+5arL0STd0dmyUZ9D3fmn8=;
- b=cBb8vQrbRjRQl8h5B3osQ049AUaN/GpEVJcuWXlYO+xNPQ0mrAUAeSM84Efuw4282RVvjajd0xFmuf3UDsqzezbV81tlzxgOiEKzgc0hrpQ8yiDUIW6CgjYDx8avqCMus3Ch57VDkgwBLYdcwtAFx2u2nTOA3S7iXd3kE6d4ckk=
+ bh=H5TVXQkLYBwgN5LfKFT3rt8q1/lXissJsVvieSoB4F8=;
+ b=DdgwxlPCifElr3W2LC040CD8z2nrSsY0IKNK6jo7ycyFwQyihYTFFGK4/ffl65clTt0eKwUtAOwDHPLowNqdfUrC3qEEwhDmWr44Qk9ZC5pto2k50t9WqiTFFjAMycmauSWAM/dSNiiIhP5oKW1J2Sy1kqW/RmPtBG+Sgpos9eo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Wed, 16 Aug 2023 16:58:19 -0700
+Date: Wed, 16 Aug 2023 16:59:31 -0700
 From: Vikram Garhwal <vikram.garhwal@amd.com>
 To: Julien Grall <julien@xen.org>
 Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
-	sstabellini@kernel.org, jbeulich@suse.com,
-	Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [XEN][PATCH v7 11/19] xen/iommu: Introduce
- iommu_remove_dt_device()
-Message-ID: <ZN1im4gtMaPGwkjJ@amd.com>
+	sstabellini@kernel.org, jbeulich@suse.com
+Subject: Re: [XEN][PATCH v7 14/19] common/device_tree: Add rwlock for dt_host
+Message-ID: <ZN1i41j7JD9yheTy@amd.com>
 References: <20230602004824.20731-1-vikram.garhwal@amd.com>
- <20230602004824.20731-12-vikram.garhwal@amd.com>
- <dc5c6d44-32f5-9d16-af1d-a7b1f197b7b5@xen.org>
+ <20230602004824.20731-15-vikram.garhwal@amd.com>
+ <6e15489a-5213-3b8e-0b99-277c0ba989c3@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <dc5c6d44-32f5-9d16-af1d-a7b1f197b7b5@xen.org>
-X-ClientProxiedBy: SA0PR11CA0161.namprd11.prod.outlook.com
- (2603:10b6:806:1bb::16) To MW3PR12MB4409.namprd12.prod.outlook.com
+In-Reply-To: <6e15489a-5213-3b8e-0b99-277c0ba989c3@xen.org>
+X-ClientProxiedBy: BYAPR02CA0024.namprd02.prod.outlook.com
+ (2603:10b6:a02:ee::37) To MW3PR12MB4409.namprd12.prod.outlook.com
  (2603:10b6:303:2d::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:EE_|PH0PR12MB5645:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb34a6d5-9236-4584-c309-08db9eb4acf4
+X-MS-Office365-Filtering-Correlation-Id: 6b4c4a82-063c-4d29-31dd-08db9eb4d723
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	A7fEnus+AIro1Ox74MOow/kNxaEETO2B++/BiweJRQKOuEHAI/Ksm6ZhU0HnnIniVJrKHTkCklEly1oiXuIYLkVWQusQMlJxd5/lxUiSB71njqOgBRi1q8E3P7KR3ic9e5VwNBp5XH+I2oN9zwanKscm29i4mY7iwYjFb6JIH3RuHiSjHfvXERIed88Q/eGFc4dDySDy/J7KRAuTtsW3xwqibuV4mULA1SCmj0/nUOSovDpJS7aiTdo0ZSxBS7mIk1PZaeYSz5EOP+/sM15j/m8hk3sMaNP/wONyYlK9kBqm8xhFY6XkfSOyvOBzroaRS97/0VocgbBE/uzq1BhqbLcv7UHdIkNFzxjwVagxHxQ65n1ClHIAqZroz9J7FOOfrrMoUN+Z15EBBEEOy36ripmBzS0Yw+gLkYbWnCSbw18vhkjT07f9KoLESD6Zk+nd4Lcgl2DodGquE/cqxK5+ONX3FgkEvjdMw9cyHzKAFv1PNZOVPXoAMH1PmX3ofZICnRx06f9gkxJeM2UCVBTZ36vIQb/WaInIw1OiQqprDpGNtYIjm7yVODx4sBjo0eGJ
+	N/SbRH8jirY7ycSfVoESeefJb5Y26RQ8yrQHRIRtwwILU6pexTU6ybA4RLTagEDVyOSie9PPZX9bgkqTyHl0HThfWXmiJM39iNEmGXauCle3VuxwGA8zbALX2Y6NiXbHY1Y1yNVq1af0haOeeH+5QvzVKl8psITuHKgKYUKR6A20iekGxRT3QGfV7OVx2MhDiFyvzi8Cadzm83GFKOGjIDbqH5sZZ4AT27zPIj2tqPDZ9WQt/7TCPxyZEv7iAiQylu/+JkwHGa4AUKcBAa2KCyJP0JiqiQfPAfwg38UoGca2bXPuja/gJAKfrdgRL9x4FrqQajGBpoImdDMcxQRh50btKst+TsayfPLavImT5U8gMOTfVWdaPNsSz3o+Yyi8lg7giD8Qpy89vz1ewdzsd+14kzKmcP/7x8vrB+hfw8ArCY3G4R7mzW1rHa/koBEQcVUgBxstPaOGfhqLqkplAw6ysSegWu2rUr2xP+LZJkjcZT9qMkDlugjRBIuEbAiQfSIrM0UbqqS2rzBzjDuAqlBSDxdZd87HJ2m+FvRfwYNNygO23DQmXb42qLAgPmps
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(136003)(346002)(366004)(376002)(451199024)(1800799009)(186009)(316002)(54906003)(6916009)(66556008)(66946007)(66476007)(5660300002)(41300700001)(44832011)(38100700002)(8676002)(4326008)(8936002)(2906002)(83380400001)(26005)(478600001)(86362001)(53546011)(6512007)(36756003)(6506007)(6666004)(6486002)(2616005);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(136003)(346002)(366004)(376002)(451199024)(1800799009)(186009)(316002)(6916009)(66556008)(66946007)(66476007)(5660300002)(41300700001)(44832011)(38100700002)(8676002)(4326008)(8936002)(2906002)(83380400001)(26005)(478600001)(86362001)(53546011)(6512007)(36756003)(6506007)(6666004)(6486002)(2616005);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmxXWGZOWHVOcHl3M0ZyNCtGV0dOUVRZajhVWjJoOWpqZDkvNWdKeCtob3lL?=
- =?utf-8?B?U3ltc01QZXAzSGIwKzFwQ1ZVYkNvVWF1N3pSUmtyeUR4bXd3Vm9IVGNIUGlv?=
- =?utf-8?B?NTF4dzZaeU80TzJveXJvMWNmN1RaUW9WSFUxOE5udmpMRDY4MVdEWkNjUGZ1?=
- =?utf-8?B?bUVwbExtYTdVRm5SRytvMms4T2pFaHkzYk5Pb3c1elpZTlJ5eVdjQzVja2lQ?=
- =?utf-8?B?c2Y4Y2x0RHVqKzkzMzVZY05Ed3BoMFdnbVF1ZTZTdzZ2bUJJbEd4UVp5bXhy?=
- =?utf-8?B?bE9Wc1BLNVJlWEpHc3FwQ3pHNG5RS1lzV1Bzb2Y1UnVieVpPZkhBZ1J2b01Y?=
- =?utf-8?B?eVVEdDUvVU9ST3JQWEpBNnZsVENUWXdEa3p0dE9ybGsrdVkyeWFRL2lSSGIr?=
- =?utf-8?B?YWVaMGUwMXdXaThxQktTYmUvdE9jTGdGTmo0eE1rTERaTmpZM3dBWURVZjkw?=
- =?utf-8?B?NkRNMUVvSjRYaElxVEtRc1hCN3pKY3lEakJ3aFc0NjcrRWxRb2FRVXg2NUNT?=
- =?utf-8?B?Wk5OdmJhMXZOZDFXeWt1M3hnWEMwR1p1aU54RkMxazRUY01FWTlESm5MWkFw?=
- =?utf-8?B?QVRwdkNUcnN2N0tCSTRZV2J5QTVqY1ZoOStFc3MydUxXcVFaeTJyTWJuQjA0?=
- =?utf-8?B?cTlzbDh5VnY0VXVmaWcrMkhCbW1DRGZvVkhmcFUwWlRsUjQvWXh5cUVnZGVw?=
- =?utf-8?B?VVZENDgyQkk4WFU0c1RMNlB5c0VkUjhpL0diQnZQN0ZqTFNIMm52RXB6WEQ3?=
- =?utf-8?B?eFdRSkFSODZHYW9vNUtpcTVMOUt3SURNVHFGNEI1R1I0cGhFVXhCdTQrR2lN?=
- =?utf-8?B?OG9Lb0o0SFllaFRCdVB6Y3N5VndwMXRxTEVSVzNITzQyWkN6dEF0NEEyM0hL?=
- =?utf-8?B?bnJkOTl2dXludVB0VjNQMGVLUGdSTzV0NFNSZFN1Tyt2Z0oranh0Vk1TaTlY?=
- =?utf-8?B?NnZML2htbDhQMnVqREdMaExJSG1jWXAvRzAvdUxXNUZEY1FPeUxyenVEaDMy?=
- =?utf-8?B?THFtMmZDdENFQ3FVZVVLN2RJSzdnajl4VHBjN0dPdmRFdytNUHZjVkJwbWlj?=
- =?utf-8?B?TW1oQUQycU1YMWJ1Yy8wSW85SHNycXMwSGgvWlhJblZXTVRDYjZ2RmtKcmpi?=
- =?utf-8?B?U1VQem1TUlN3K1NlbzRiU05ZNmhMUDU4Vnc0NWxrT1ZVUzBxejdtZm0zazJw?=
- =?utf-8?B?Umg5NW1xam1sWStVMFk4MStrajh0dHRmaFZqcndsd0NUOVljcVBXY0c1M0pJ?=
- =?utf-8?B?aG5aaGZiUWoyV25oRmJoaHgyUGtIcjJmRExpazRkRW13SmJpd09adnJsZk5B?=
- =?utf-8?B?bkJLa0xBQzREVTArTmRVSWpTM0t1anJ3bUZQdlM0SzdKS2d5WEVyWm55ZGxL?=
- =?utf-8?B?bjBnb0dXV0QraVlWZTRnMm81c3Z3bmNDUmhCU2R3MDVCd1FzL0kzUkdhWFkw?=
- =?utf-8?B?UEU2cjJDMEZPUStrOVB1a1BLR0JVdlBrWDJhSVBQSlo0V2NWeUswdGVaMHlt?=
- =?utf-8?B?TWpVMjZTSWhtYllabHM3OHR1eXJrZ1IrMWVTNGc1VnV0cGVYOXlsYlJ6and3?=
- =?utf-8?B?RlMwdFhadDZIYXo2QWMwV2VpRTFwNURhL3lQWFhqU3VobFo0S2txU2hoS3FH?=
- =?utf-8?B?TmNQUllnZzdzODhuR3lQMHVKcW9ZZW9kYWY1d0tkaWhhaVo3bklYbTA2ZFA4?=
- =?utf-8?B?TDVVL1RIUVBXcHZYd253ZGFvNFRhS29DRWVRdlRmZE9ObmlFYmhNTWdiOWxK?=
- =?utf-8?B?QndBTGxNL255Smh4T01pYUdEcFZvSDR0emFIS3lxYmxOUk9PaUZPMk5sQ2xT?=
- =?utf-8?B?UGROL01ySXAzUS90MnNOajAwZkd3NkRVaXRoYlV0VFNwZ3pWRzFNT1NzOVov?=
- =?utf-8?B?TEd5dFUxeXNYN0hQa1MzdjVpUmducGlOendiUVJ1dFIvK05KZExwSHpWcFhq?=
- =?utf-8?B?cklucEtFS0hiL0VuSEEveVVIT0dmV1JFNHR3dy9DZzBibDdZK0hXVVB4U1Bi?=
- =?utf-8?B?cUJXdndKOEwwSUt5SVpXTXFvaGI0cU91NW1qaTMrTHg3Rm1BS2tGc3F3RUZZ?=
- =?utf-8?B?bXZ4VkNXSjZ5RDBsY0ttRWRNd2NJZlhUTmFISHc5Tm84WUpoSGt0Q1RBeVo1?=
- =?utf-8?Q?63Tw62o7t9uHQo6r5noT6GDHR?=
+	=?utf-8?B?bTd3cTRySlVzcDlEMXdxTHFiQkJudjdHOTRhYi9XRi9aclhmWE9CeS9VTmpV?=
+ =?utf-8?B?T1hqRlM1bnd0cGxtRHJkTEZsYUhJL2VQRVRqZmthZ09hZXBBa0lxWXRpMURh?=
+ =?utf-8?B?d3k4QlZUNnRPYXhUYjVEWjdkRlg0cGRZdHAvenNXaXhLRjR0ZXMwWExKd2dV?=
+ =?utf-8?B?RDRTaENpNlB2bmovc0JGMlpQZVF4RVZaTWZXN0lzQTdiWHF2VkhabGFIMlZV?=
+ =?utf-8?B?ZC9lWkhWWm43UnBQQnhEcTgwVG1uK2tRZ2xaNk1mN1hzczdnN1VxV0lBQmhO?=
+ =?utf-8?B?RWlNRk9STFJZR2Q3TFFYdklvdzhFeXJDWlJnR3E0YUw2TUxQMHR4WTk2RXEx?=
+ =?utf-8?B?WWJwNHUvSk5obXhjdXE2Y0RWYjBFOERJd1o3ajhVWncyL29qOWRIM0QybE5C?=
+ =?utf-8?B?cEQ2bGdtMjlGSjRYeTl4QjA2RnpFK1B2QkdRdmVROGJ5d1FiRkdicFFpR2pJ?=
+ =?utf-8?B?Vkl6WSttQk9vOGNmaTRmYU94c25wOS85UEZLQ1lTaG5TK0gvMXR4ZHZPUnU3?=
+ =?utf-8?B?eEpRZW5KNGg3djM4VEtLZSsvQk5XZUdTbFVhYmo3SlVRbml1UlVvd2lkN011?=
+ =?utf-8?B?Vjh4TE5EOXFjK0NKbVNvVEsyTHpRc01BcHluMnNJSkFJb3J6RjNPSE1FK0dx?=
+ =?utf-8?B?T3NXWWl2c2doNnNXWlZvU2NmUXd5akhVMlNBNEhreFlxeVExTE1VdHZjZU5k?=
+ =?utf-8?B?YUg5N3ZsZjJXSGZqd2xTdUZrZWpkcDExaGNTd1IzdDJoUVlUZ2ZPZU14UE9i?=
+ =?utf-8?B?UWg0TlYvbTRvRStFdmlraUI5S29mek1CemZHN09OejlVdnVLbDlGZUduYlgv?=
+ =?utf-8?B?c2lHblVkaTFlWWRVYk94TDZldlZDQ0pFZVliOFZkSERDc2puenZzT0JJY2hD?=
+ =?utf-8?B?VDFRK1pTM3dhMWhQeU5uM1ZOSDcvT293S1kyaDIvN3NFNm1TMENmc3U2VEZH?=
+ =?utf-8?B?NDBQazNiV3BhOUxIeXBmZk5HVEpudXdiNkZ6Z0d6OG1IcldROS9EMmk3Z1l4?=
+ =?utf-8?B?bWRucTZHNGJOUXBtUVdETDdYQlM2R0lOK2NCOVN6Q3RtTmpvRE91dXJkMGdW?=
+ =?utf-8?B?NTJCKzR4Q1NLVVE2SlA0WGNqOVNmcHZsa1VicUpmZ1hNSUZlcDNnRW1wSk0r?=
+ =?utf-8?B?clZCamFyZm5tNWl4dGd3QkdQbmNGNUh4a3lnVDFmbEM3MDVMakQ2bklMUWNF?=
+ =?utf-8?B?OFg4bDZ5TWJURmhqaVE4dElMMWdoeEJVYW50ZklHV29ESnZJZVFKNmpGNklZ?=
+ =?utf-8?B?WWFxYmJPaU1ycXRVdEdnYWE3TlNZazR1d1lGZ1BuMy9GWVhMRDhDMGduUkpm?=
+ =?utf-8?B?MlRmc1hVK2haSHlSdFpqUkFlNWxKazRDQXFSRGFyYmJ1UEJzVmxiM21SREVB?=
+ =?utf-8?B?OUhLK1FjMlJzSW1Kek15SVpDTzBlOUdrcTMyMnUzUlRieVhlNzlQK3I4MVd6?=
+ =?utf-8?B?MkthRklRN2x5d0Q2YjEzTzA4YnZsaHZvKzdiWkZySFNzS3RnVW55L3I0Unhu?=
+ =?utf-8?B?SkI5VU5QZCthQXJsVW5LelpVNzVvVTdNZ1I3SzdUQWg1MFk5MkI2S1hBL1Vn?=
+ =?utf-8?B?YjkxeWlzeFAvR21SanBPOGRQb3BaaVFQREVsdEtEcEF4RDFyZW5ERzhsNWNP?=
+ =?utf-8?B?RXF2b1ZtVExoNmtHOUM2K09PT1ZCY2VjTHRKM3JJTUJWUE01Q0NDbHVwSVg2?=
+ =?utf-8?B?SXdyUzVHSUNnOXFLaE45aHdBeUM2emhjKytOUEFWaE1PaGdJblpXYndRdW4z?=
+ =?utf-8?B?eHpuREpKZ2ppMmZaSVNLaUkwVGJOdFdxVWNpY001ZCtsV3BtUHNDcEZiOEJX?=
+ =?utf-8?B?QXpCcHEzZGlnOFVTOE00L3FoekdPOWd6Qk1FT0swcEdiYmFXZFc4WWxpNHpB?=
+ =?utf-8?B?ZXcrRTJ6dGpLdG1WNWM4RC9QUTkwZVFVWDRkOHBVcFZ1a0JVNGx6RTh4YXBj?=
+ =?utf-8?B?ZWc0UzgrREhyRHloZ1g2MjBLemdMSi8xaHppRm51MVM0WDdPVDRnNmVWREdI?=
+ =?utf-8?B?VFRWOFNYMWF5WDJ6S1ZnQVY0dzdlVlpBYnJ1blNqOHpwSkJqTTExQ2gxZ1hs?=
+ =?utf-8?B?djFzc3kxRFAvY21hRHZBdmZUb1hrUHpFVUtTVFVYNW5ZNWZvcWpSS1RjTlNj?=
+ =?utf-8?Q?bdMY/n8HiXvRZ11UJ7CccXED7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb34a6d5-9236-4584-c309-08db9eb4acf4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b4c4a82-063c-4d29-31dd-08db9eb4d723
 X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4409.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 23:58:23.8214
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 23:59:34.5494
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BYao4y5D94kGNGLLO2ISV9lrJKaW9L0QwhaFKZeU6RXB7JXjmSjKnEF7Ft+wY6W1r2XCVsjtbpqy7LiWlnKCFg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: r7g9qZ1bV9BtKvxgESpfmwZhx6W8T8TaDysSbGeu67phd3GEO9zad4mov6I+9DcRIgVJbqZt6nlmRtPQsTJPmg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5645
 
-On Mon, Jun 05, 2023 at 08:37:03PM +0100, Julien Grall wrote:
+On Mon, Jun 05, 2023 at 08:52:17PM +0100, Julien Grall wrote:
 > Hi,
 > 
 > On 02/06/2023 01:48, Vikram Garhwal wrote:
-> > Remove master device from the IOMMU. This will be helpful when removing the
-> > overlay nodes using dynamic programming during run time.
+> >   Dynamic programming ops will modify the dt_host and there might be other
+> >   function which are browsing the dt_host at the same time. To avoid the race
+> >   conditions, adding rwlock for browsing the dt_host during runtime.
+> Please explain that writer will be added in a follow-up patch.
+> 
+> > 
+> >   Reason behind adding rwlock instead of spinlock:
+> >      For now, dynamic programming is the sole modifier of dt_host in Xen during
+> >          run time. All other access functions like iommu_release_dt_device() are
+> >          just reading the dt_host during run-time. So, there is a need to protect
+> >          others from browsing the dt_host while dynamic programming is modifying
+> >          it. rwlock is better suitable for this task as spinlock won't be able to
+> >          differentiate between read and write access.
 > > 
 > > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> > Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> > Acked-by: Jan Beulich <jbeulich@suse.com>
-> > ---
-> >   xen/drivers/passthrough/device_tree.c | 41 +++++++++++++++++++++++++++
-> >   xen/include/xen/iommu.h               |  2 ++
-> >   2 files changed, 43 insertions(+)
 > > 
+> > ---
+> > Changes from v6:
+> >      Remove redundant "read_unlock(&dt_host->lock);" in the following case:
+> >           XEN_DOMCTL_deassign_device
+> > ---
+> >   xen/common/device_tree.c              |  4 ++++
+> >   xen/drivers/passthrough/device_tree.c | 15 +++++++++++++++
+> >   xen/include/xen/device_tree.h         |  6 ++++++
+> >   3 files changed, 25 insertions(+)
+> > 
+> > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> > index c5250a1644..c8fcdf8fa1 100644
+> > --- a/xen/common/device_tree.c
+> > +++ b/xen/common/device_tree.c
+> > @@ -2146,7 +2146,11 @@ int unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes)
+> >       dt_dprintk(" <- unflatten_device_tree()\n");
+> > +    /* Init r/w lock for host device tree. */
+> > +    rwlock_init(&dt_host->lock);
+> > +
+> >       return 0;
+> > +
+> >   }
+> >   static void dt_alias_add(struct dt_alias_prop *ap,
 > > diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> > index 8cc413f867..301a5bcd97 100644
+> > index 301a5bcd97..f4d9deb624 100644
 > > --- a/xen/drivers/passthrough/device_tree.c
 > > +++ b/xen/drivers/passthrough/device_tree.c
-> > @@ -126,6 +126,47 @@ int iommu_release_dt_devices(struct domain *d)
+> > @@ -112,6 +112,8 @@ int iommu_release_dt_devices(struct domain *d)
+> >       if ( !is_iommu_enabled(d) )
+> >           return 0;
+> > +    read_lock(&dt_host->lock);
+> > +
+> >       list_for_each_entry_safe(dev, _dev, &hd->dt_devices, domain_list)
+> >       {
+> >           rc = iommu_deassign_dt_device(d, dev);
+> > @@ -119,10 +121,14 @@ int iommu_release_dt_devices(struct domain *d)
+> >           {
+> >               dprintk(XENLOG_ERR, "Failed to deassign %s in domain %u\n",
+> >                       dt_node_full_name(dev), d->domain_id);
+> > +
+> > +            read_unlock(&dt_host->lock);
+> >               return rc;
+> >           }
+> >       }
+> > +    read_unlock(&dt_host->lock);
+> > +
 > >       return 0;
 > >   }
-> > +int iommu_remove_dt_device(struct dt_device_node *np)
-> > +{
-> > +    const struct iommu_ops *ops = iommu_get_ops();
-> > +    struct device *dev = dt_to_dev(np);
-> > +    int rc;
+> > @@ -246,6 +252,8 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+> >       int ret;
+> >       struct dt_device_node *dev;
+> > +    read_lock(&dt_host->lock);
 > > +
-> 
-> iommu_add_dt_device() checks if the IOMMU is enabled. I think you should do
-> the same here as well and return 0 if it is disabled.
-Added iommu_enabled check in v8.
-> 
-> > +    if ( !ops )
-> > +        return -EOPNOTSUPP;
-> > +
-> > +    spin_lock(&dtdevs_lock);
-> > +
-> > +    if ( iommu_dt_device_is_assigned_locked(np) )
-> > +    {
-> > +        rc = -EBUSY;
-> > +        goto fail;
-> > +    }
+> >       switch ( domctl->cmd )
+> >       {
+> >       case XEN_DOMCTL_assign_device:
+> > @@ -295,7 +303,10 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+> >           spin_unlock(&dtdevs_lock);
+> >           if ( d == dom_io )
+> > +        {
+> > +            read_unlock(&dt_host->lock);
+> >               return -EINVAL;
+> > +        }
+> >           ret = iommu_add_dt_device(dev);
+> >           if ( ret < 0 )
+> > @@ -333,7 +344,10 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+> >               break;
+> >           if ( d == dom_io )
+> > +        {
+> > +            read_unlock(&dt_host->lock);
+> >               return -EINVAL;
+> > +        }
+> >           ret = iommu_deassign_dt_device(d, dev);
+> > @@ -348,5 +362,6 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+> >           break;
+> >       }
+> > +    read_unlock(&dt_host->lock);
+> >       return ret;
+> >   }
+> > diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> > index e239f7de26..dee40d2ea3 100644
+> > --- a/xen/include/xen/device_tree.h
+> > +++ b/xen/include/xen/device_tree.h
+> > @@ -18,6 +18,7 @@
+> >   #include <xen/string.h>
+> >   #include <xen/types.h>
+> >   #include <xen/list.h>
+> > +#include <xen/rwlock.h>
+> >   #define DEVICE_TREE_MAX_DEPTH 16
+> > @@ -106,6 +107,11 @@ struct dt_device_node {
+> >       struct list_head domain_list;
+> >       struct device dev;
 > > +
 > > +    /*
-> > +     * The driver which supports generic IOMMU DT bindings must have this
-> > +     * callback implemented.
+> > +     * Lock that protects r/w updates to unflattened device tree i.e. dt_host.
 > > +     */
 > 
-> It is not clear to me why you want to mandate remove_device when using the
-> generic IOMMU DT bindings.
+> From the description, it sounds like the rwlock will only be used to protect
+> the entire device-tree rather than a single node. So it doesn't seem to be
+> sensible to increase each node structure (there are a lot) by 12 bytes.
 > 
-> But if this is really necessary, then I think the comment should be placed
-> on top of the callback definition rather than in the caller.
-Added a comment on top of remove_generic in smmu.c
+> Can you outline your plan?
+Yeah, so intent is to protect the dt_host as whole instead of each node.
+I moved it out of struct and kept a single lock for dt_host.
 > 
-> > +    if ( !ops->remove_device )
-> > +    {
-> > +        rc = -EOPNOTSUPP;
-> > +        goto fail;
-> > +    }
-> > +
-> > +    /*
-> > +     * Remove master device from the IOMMU if latter is present and available.
-> > +     * The driver is responsible for removing is_protected flag.
-> > +     */
-> > +    rc = ops->remove_device(0, dev);
-> > +
-> > +    if ( !rc )
-> > +        iommu_fwspec_free(dev);
-> > +
-> > +fail:
-> > +    spin_unlock(&dtdevs_lock);
-> > +    return rc;
-> > +}
-> > +
-> >   int iommu_add_dt_device(struct dt_device_node *np)
-> >   {
-> >       const struct iommu_ops *ops = iommu_get_ops();
-> > diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> > index 405db59971..0d7924821b 100644
-> > --- a/xen/include/xen/iommu.h
-> > +++ b/xen/include/xen/iommu.h
-> > @@ -229,6 +229,8 @@ int iommu_release_dt_devices(struct domain *d);
-> >    */
-> >   int iommu_add_dt_device(struct dt_device_node *np);
-> > +int iommu_remove_dt_device(struct dt_device_node *np);
-> > +
-> >   int iommu_do_dt_domctl(struct xen_domctl *, struct domain *,
-> >                          XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
+> > +    rwlock_t lock;
+> >   };
+> >   #define dt_to_dev(dt_node)  (&(dt_node)->dev)
 > 
 > Cheers,
 > 
