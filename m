@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C1F77DE73
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:20:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584328.914974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84EA977DE7D
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:20:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584330.914987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWDdb-00060Y-VK; Wed, 16 Aug 2023 10:20:27 +0000
+	id 1qWDdd-0006FB-4c; Wed, 16 Aug 2023 10:20:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584328.914974; Wed, 16 Aug 2023 10:20:27 +0000
+Received: by outflank-mailman (output) from mailman id 584330.914987; Wed, 16 Aug 2023 10:20:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWDdb-0005uQ-Jm; Wed, 16 Aug 2023 10:20:27 +0000
-Received: by outflank-mailman (input) for mailman id 584328;
- Wed, 16 Aug 2023 10:20:24 +0000
+	id 1qWDdc-00065W-IU; Wed, 16 Aug 2023 10:20:28 +0000
+Received: by outflank-mailman (input) for mailman id 584330;
+ Wed, 16 Aug 2023 10:20:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aIlC=EB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qWDdY-0003RA-N2
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:20:24 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1qWDdZ-0003RA-NG
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:20:25 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8276962a-3c1e-11ee-9b0c-b553b5be7939;
- Wed, 16 Aug 2023 12:20:23 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-31768ce2e81so5612683f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Aug 2023 03:20:23 -0700 (PDT)
+ id 82fe95de-3c1e-11ee-9b0c-b553b5be7939;
+ Wed, 16 Aug 2023 12:20:24 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-3fe1fc8768aso63586685e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Aug 2023 03:20:24 -0700 (PDT)
 Received: from 192.168.1.26 ([151.25.98.127]) by smtp.gmail.com with ESMTPSA id
- g5-20020adfe405000000b0031773a8e5c4sm20877843wrm.37.2023.08.16.03.20.21
+ g5-20020adfe405000000b0031773a8e5c4sm20877843wrm.37.2023.08.16.03.20.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 16 Aug 2023 03:20:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,45 +44,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8276962a-3c1e-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: 82fe95de-3c1e-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692181222; x=1692786022;
+        d=gmail.com; s=20221208; t=1692181223; x=1692786023;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RhAu67sMwHty1r+zQnhkcx9wQhoHYp8AlTSR9BpKnOg=;
-        b=BZK1Qbn60qwsyRjemBEVOp4EIS1rYEYdpTgey/bDNK8gMJIBURKO39gh0it5Vii+PU
-         3zTYqtXEnRfpD4E4PQQSTaRvfigcslFKUgDLOzckClQSkl4xVmVAeKQcDQfnnZyPyIOs
-         eIcMV3ps+xVL2abMJHSmCL0bUz4ouvRAaY+hYJyX8gPsbVvcJ/huBv3kkiKz1ShX6Ox7
-         UeLZfZj3lRt/Ua9UyJpdjAPF84al5ElTQK0s4ryY44VyGNmBveLNbHqbYuj5FDkvxUB4
-         LOsXzmDH8IvvF4bLllWHgFdHy6+YFwk80JErr4UK+kv85j84AEY4IoQzFT1YFzv9PirL
-         Mpow==
+        bh=q2Jdx+KwZKJQ07SwetjGwa6e6quzsbm65vjFWJ2VZjE=;
+        b=asmzzdIeUYaKf4aosTs0YvHKz5h7T3WODoTTlyhSNgMp8Xn1Mr8DPR/QQ2Gw4EKrKp
+         oCTFUhLqP7q3RKZXqb+Dw7rU5TzFwrnRu4ee9cIV2QgSztO/7mJiOw/lS7JplzcQA8IS
+         jrXPTzHuEj5WdzpzDpbcxz6hvNwEyEbDfPcSKRhfXzs8A/CRtyDrupHScX5HFAFSOgts
+         0EFnHOxSqY5DJF6wlMx7OBI9qxxKC0FdeLBAbS0051pz88Y1RJaJepMjitvFweQCrgsx
+         zup7xiZITFUrvHykJfELZJDhIjS8g63F1pM2awpVuNMX0ezJhhdSa4MP8sesanDrJGWa
+         Op7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692181222; x=1692786022;
+        d=1e100.net; s=20221208; t=1692181223; x=1692786023;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RhAu67sMwHty1r+zQnhkcx9wQhoHYp8AlTSR9BpKnOg=;
-        b=g7oC0rR7r4VVMBrEx+zXdnJMDt+ZpYNF/EAhaEv3BftidJ16+CL74O5ns3U3wFP5Kp
-         aaRl8HLuUnXWCNKpFlhRU4e0J/vzmJhfBd/TVl7DaGjTOOrRTpUSoryBtx7AOE4U337D
-         RihhZ+MxF8V8sgBlhO5lVRB6T9xQhKQeTNGa+8mBiU2OmMidwIBM1qxGjtMdXbOYG8lw
-         hLgE6hPgRam2n+p1ZBizFiTqnRQOOhOiT9vgvef3OmtmC++rODPBekT92+6QdQwmck2w
-         z4sVCqbs9zLhsSI03WZab9X49MFhphtkYgRcVu/6fNHf7a7JDhVzeFN3WW4Amhu7l9Wi
-         PHAA==
-X-Gm-Message-State: AOJu0YyIB6IAcvh8VkW1QoVSmq33X/gb+5FpYtGdzzlg5n3UcVHptn6/
-	Y2kAOnCs2/rXQM9hY70fbnU8uQFq28/UGGzf
-X-Google-Smtp-Source: AGHT+IEqo1y2+vTE6x7fi404GmyxDTZnaB5k4zqpLpHzhDCJXGR1h4TK/nnO1+VMiVcp0Refwtrpow==
-X-Received: by 2002:a5d:5303:0:b0:317:6348:8a9d with SMTP id e3-20020a5d5303000000b0031763488a9dmr1276628wrv.66.1692181222440;
-        Wed, 16 Aug 2023 03:20:22 -0700 (PDT)
+        bh=q2Jdx+KwZKJQ07SwetjGwa6e6quzsbm65vjFWJ2VZjE=;
+        b=T52ke+FhYLnl82nneaAlzEMKPI6VU5zCXgf0trwzHlVONR7LXFueVngjWAm+iHHx2y
+         GopXENJ8dyZYLWq/FJOPXLIrfNxn8o0MiIbj1cEu98y9hjWgEG8tkKKjf/YCDgYXkEsT
+         +bKizPadbqboDl/Rlj9DuQ/egM8KUMlse8WD3Y5Spwjjhg5nDeLf6rgZX3AShhA9Kcp8
+         Y92adVAEiI/eUZQMGfOZIw+QfRPPkCaGfEY/SZjaTylgti4I2D2pgSVM//twBIP7+ifa
+         gi2PmRmlXMJsV4pPl8cWi2YZYRnssVtew6v1WG9Fs0OUks6Nk3eyKdbN+h8oKdp/mBk8
+         fSHQ==
+X-Gm-Message-State: AOJu0YzvK8J7OZc2bqeddDVro8I3CdGcLWmP/bnvuDoMaXwar6iatvYW
+	sVa5XCSjN5jaOQQIb5fPF4aFOQ2zxWNyJG/Q
+X-Google-Smtp-Source: AGHT+IGgRaih8qQzEUvaYYV8ogI066zpN5T/FNlUkpZ7LcSBI3lFTX3yUhO3gzqTNs8Z8KHcwRstVA==
+X-Received: by 2002:a5d:6386:0:b0:317:6849:2d39 with SMTP id p6-20020a5d6386000000b0031768492d39mr1098757wru.10.1692181223330;
+        Wed, 16 Aug 2023 03:20:23 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v1 10/57] xen/riscv: introduce asm/grant_table.h
-Date: Wed, 16 Aug 2023 13:19:20 +0300
-Message-ID: <55a562f81b7bc6d308a1f2008daad6c5e0de0562.1692181079.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 11/57] xen/riscv: introduce asm/guest_atomics.h
+Date: Wed, 16 Aug 2023 13:19:21 +0300
+Message-ID: <02e2850d01d0184b9a1f0c643de4879773c5ad49.1692181079.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1692181079.git.oleksii.kurochko@gmail.com>
 References: <cover.1692181079.git.oleksii.kurochko@gmail.com>
@@ -91,21 +91,65 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/grant_table.h | 4 ++++
- 1 file changed, 4 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/grant_table.h
+ xen/arch/riscv/include/asm/guest_atomics.h | 49 ++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/guest_atomics.h
 
-diff --git a/xen/arch/riscv/include/asm/grant_table.h b/xen/arch/riscv/include/asm/grant_table.h
+diff --git a/xen/arch/riscv/include/asm/guest_atomics.h b/xen/arch/riscv/include/asm/guest_atomics.h
 new file mode 100644
-index 0000000000..600fb10669
+index 0000000000..71b0b11a25
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/grant_table.h
-@@ -0,0 +1,4 @@
-+#ifndef __ASM_RISCV_GRANTTABLE_H__
-+#define __ASM_RISCV_GRANTTABLE_H__
++++ b/xen/arch/riscv/include/asm/guest_atomics.h
+@@ -0,0 +1,49 @@
++#ifndef __ASM_RISCV_GUEST_ATOMICS_H
++#define __ASM_RISCV_GUEST_ATOMICS_H
 +
-+#endif /* __ASM_RISCV_GRANTTABLE_H__ */
-\ No newline at end of file
++/*
++ * TODO: implement guest atomics
++ */
++
++#define guest_testop(name)                                                  \
++static inline int guest_##name(struct domain *d, int nr, volatile void *p)  \
++{                                                                           \
++    (void) d;       \
++    (void) nr;      \
++    (void) p;       \
++                                                                            \
++    return 0;                                                               \
++}
++
++#define guest_bitop(name)                                                   \
++static inline void guest_##name(struct domain *d, int nr, volatile void *p) \
++{                                                                           \
++    (void) d;                                                               \
++    (void) nr;                                                              \
++    (void) p;                                                               \
++}
++
++guest_bitop(set_bit)
++guest_bitop(clear_bit)
++guest_bitop(change_bit)
++
++#undef guest_bitop
++
++guest_testop(test_and_set_bit)
++guest_testop(test_and_clear_bit)
++guest_testop(test_and_change_bit)
++
++#undef guest_testop
++
++
++#define guest_test_bit(d, nr, p) ((void)(d), test_bit(nr, p))
++
++#endif /* __ASM_RISCV_GUEST_ATOMICS_H */
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.41.0
 
