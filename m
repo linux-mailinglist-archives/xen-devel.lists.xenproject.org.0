@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1CD77DEB6
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:31:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584445.915203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B13977DEB3
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:31:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584425.915163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWDnv-0004R3-04; Wed, 16 Aug 2023 10:31:07 +0000
+	id 1qWDnk-0002gW-2y; Wed, 16 Aug 2023 10:30:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584445.915203; Wed, 16 Aug 2023 10:31:06 +0000
+Received: by outflank-mailman (output) from mailman id 584425.915163; Wed, 16 Aug 2023 10:30:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWDnu-0004Na-QJ; Wed, 16 Aug 2023 10:31:06 +0000
-Received: by outflank-mailman (input) for mailman id 584445;
- Wed, 16 Aug 2023 10:31:04 +0000
+	id 1qWDnj-0002a3-PF; Wed, 16 Aug 2023 10:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 584425;
+ Wed, 16 Aug 2023 10:30:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aIlC=EB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qWDeH-0003RA-3d
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:21:09 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1qWDeI-0003RA-3f
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:21:10 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96013628-3c1e-11ee-9b0c-b553b5be7939;
+ id 9670406e-3c1e-11ee-9b0c-b553b5be7939;
  Wed, 16 Aug 2023 12:20:56 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3197f632449so2046386f8f.1
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3198d2745feso785374f8f.1
  for <xen-devel@lists.xenproject.org>; Wed, 16 Aug 2023 03:20:56 -0700 (PDT)
 Received: from 192.168.1.26 ([151.25.98.127]) by smtp.gmail.com with ESMTPSA id
- g5-20020adfe405000000b0031773a8e5c4sm20877843wrm.37.2023.08.16.03.20.54
+ g5-20020adfe405000000b0031773a8e5c4sm20877843wrm.37.2023.08.16.03.20.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Aug 2023 03:20:54 -0700 (PDT)
+ Wed, 16 Aug 2023 03:20:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,45 +44,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96013628-3c1e-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: 9670406e-3c1e-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692181255; x=1692786055;
+        d=gmail.com; s=20221208; t=1692181256; x=1692786056;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xyGs7CnsViwgB5MgcxTTzAGPB+T2Y8tFCTpCN8v2198=;
-        b=V6Uc5dIpcKOHvGRRdn03XFm2/DIWrt0Ocxwq/2Pli5zGu5WgX0hl3knnAUUzxtdUc3
-         lKPWGC45zDXJsJrmCIdgA1cw14Jbc1PcgnYAGxnab16D2UhOS12fdE2BALxl4p2bhLac
-         dqtRuMZDuIsjtPpu6X1zjmilArdZGL1nuQeYJHEWhCNGyjTJ75FkD7eDGT/C4T2URkWl
-         RmGC4hHRRg0qVCQNc5Hd63ha+EgvRwLEj2aIp8N3PL/9YOk+Imy/J02MKp3kr1kCp5f8
-         d1VdEWrVSABdcZqH46/DNnigsUHkpSQvvFFmMk2FOqG1NPNMa4LaFe1gbaN1wum3OHHl
-         lqYQ==
+        bh=9Th+HXmOUTihkm6COBZKzRk12S72/2zGUHfBHrZen34=;
+        b=O7Q3e8g1zj0SNztlb963hJ4I9gdbh1yRquiQIJG9cmB+IS1LSfXwvh5nr3WBNEd04q
+         ldOhEBo07tTyE053Cozzd7f2A3FE8QYhD890L4r9Pbbc0F5E2Y1C5W837s8B/ES9n7fn
+         gKTxQsDghbV5PxgOd1j1kaloje+7Hjkf7XT5KZmCFuOS0+rmvqXLcSyT85kyugbpGmTj
+         7Z8k9xSkC4lJLuN5Ck3Ivb6HqqgHmH22u77+Rw3cFkNri01HSOQQBPU+uRGqHeMt4T1E
+         g9kW09cui+WAH3yi4lz76GIlOmfjCMS/IbW5NfcZDR/xWZZ2jaM0zvju8v5wzFz9TOTA
+         uScQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692181255; x=1692786055;
+        d=1e100.net; s=20221208; t=1692181256; x=1692786056;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xyGs7CnsViwgB5MgcxTTzAGPB+T2Y8tFCTpCN8v2198=;
-        b=Nug94O/Tznb/vMSUqN5+2v3edeH6GsFOLMZ1znAXn5VRA7s7hGqfKGnRmrixO76/Aq
-         UyABtsvQhf9NgcwMzWiqJSDZJPsIAeRViUxOvXvR6Sw5xrKcfDOYaSg+MS+74zX5etPr
-         PCjGnGMIRDxhvIeEPATt7YDdarbJFBBuWBRUg/BcwWTWsoLUoeW9oayDDI9FSv9WiReR
-         aWBIteNIpRWAQPBIVFLnpqjwQF6fbFUisWHQp/6KClztwNjimOxUvBBE2/RwZOFZO0Hx
-         KnaNDuoP4j9dea91PmDYVhUTTJkL1KXM9CFX7X1nqAt0LjpSuyENG0cPIJIh2099Ubry
-         iTBg==
-X-Gm-Message-State: AOJu0Yw2Gy9SVeDs+/qD+vf2PoUxjZB2FXgOyhcNVeuXNK/fpF5b316Y
-	D1EBVixvTSzydAkLEvx726inuSq3tlKHZYSh
-X-Google-Smtp-Source: AGHT+IF4I3zhVFFCcSCP5RHe/vVkgg0jJN/B9mkw4/3wZ2J4n42ccn5NtIwS8/C983cGRiIQN1i8Hw==
-X-Received: by 2002:a5d:440f:0:b0:319:6e58:7095 with SMTP id z15-20020a5d440f000000b003196e587095mr1050171wrq.66.1692181255210;
-        Wed, 16 Aug 2023 03:20:55 -0700 (PDT)
+        bh=9Th+HXmOUTihkm6COBZKzRk12S72/2zGUHfBHrZen34=;
+        b=KKmy9SxOZhCFX/V9ortHqoxfIXJnlUCdNColkKXqu1TY++p+ZFORPD8Ax2vdGaf5Tv
+         TmvS6g0XT4WWTQ4kC5j1Hfqt+kbmLr89h8ImnYDPe03A0+WyP7vWV3ToXSPb6iqdpWRZ
+         5qqhh0cMwX53t2fmq74/HgnpBuN8+0cw99ahnlZvNPGOrwNS7vW3HNmmznNNM+dBtukv
+         R8eFU1tXL3WTC/cgnnquxCbVOZuhYCCzFRmEdIqn4RkS5jZehKMYrf1E2dpCpCZjtzUy
+         cxD+zJ4LU/p8ptq1WvY3AESD518IcjYMvqUdkuR1nZW5WSKcNrYG2kED51Hj+QIJC9TQ
+         7ddw==
+X-Gm-Message-State: AOJu0Yw4W08OqPQy5IcKnU7UWKfegE8iX+g/2RkZufBJs5felv58XLGs
+	aUs4rkC/77Fc0LgRnHUFmGuR02grK8amryOy
+X-Google-Smtp-Source: AGHT+IGU23Oide7DSqToldRQIVmPVCxgXi8QZJLwiuAyYb5Y9TlduUogHkb6QnmNVeT0YndnqO1UFg==
+X-Received: by 2002:a05:6000:128c:b0:319:72f8:7249 with SMTP id f12-20020a056000128c00b0031972f87249mr1172802wrx.66.1692181256009;
+        Wed, 16 Aug 2023 03:20:56 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v1 49/57] xen/riscv: add minimal stuff to asm/processor.h to build full Xen
-Date: Wed, 16 Aug 2023 13:20:02 +0300
-Message-ID: <49fc04992808963a17321e4f34b8310a4b3077fb.1692181079.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 50/57] xen/riscv: add minimal stuff to asm/smp.h to build full Xen
+Date: Wed, 16 Aug 2023 13:20:03 +0300
+Message-ID: <5df4e523937312bd6240acf0be9ad29273545fc6.1692181079.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1692181079.git.oleksii.kurochko@gmail.com>
 References: <cover.1692181079.git.oleksii.kurochko@gmail.com>
@@ -91,42 +91,22 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/processor.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ xen/arch/riscv/include/asm/smp.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
-index 6db681d805..b6218a00a7 100644
---- a/xen/arch/riscv/include/asm/processor.h
-+++ b/xen/arch/riscv/include/asm/processor.h
-@@ -12,6 +12,9 @@
- 
- #ifndef __ASSEMBLY__
+diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
+index cc8dd18254..a7b4f94ce4 100644
+--- a/xen/arch/riscv/include/asm/smp.h
++++ b/xen/arch/riscv/include/asm/smp.h
+@@ -17,4 +17,7 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+  */
+ #define park_offline_cpus false
  
 +/* TODO: need to be implemeted */
-+#define get_processor_id() 0
++#define smp_processor_id() (0)
 +
- /* On stack VCPU state */
- struct cpu_user_regs
- {
-@@ -53,6 +56,18 @@ struct cpu_user_regs
-     unsigned long pregs;
- };
- 
-+/* TODO: need to implement */
-+#define cpu_to_core(_cpu)   (0)
-+#define cpu_to_socket(_cpu) (0)
-+
-+static inline void cpu_relax(void)
-+{
-+	int dummy;
-+	/* In lieu of a halt instruction, induce a long-latency stall. */
-+	__asm__ __volatile__ ("div %0, %0, zero" : "=r" (dummy));
-+	barrier();
-+}
-+
- static inline void wfi(void)
- {
-     __asm__ __volatile__ ("wfi");
+ #endif
+\ No newline at end of file
 -- 
 2.41.0
 
