@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A086777DF97
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 12:48:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584639.915486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA01B77E008
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 13:12:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584719.915507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWE3r-0007hx-MG; Wed, 16 Aug 2023 10:47:35 +0000
+	id 1qWERf-0005Z9-W4; Wed, 16 Aug 2023 11:12:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584639.915486; Wed, 16 Aug 2023 10:47:35 +0000
+Received: by outflank-mailman (output) from mailman id 584719.915507; Wed, 16 Aug 2023 11:12:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWE3r-0007fk-Jj; Wed, 16 Aug 2023 10:47:35 +0000
-Received: by outflank-mailman (input) for mailman id 584639;
- Wed, 16 Aug 2023 10:47:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hDLr=EB=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qWE3q-0007fb-3R
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 10:47:34 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4d39e916-3c22-11ee-9b0c-b553b5be7939;
- Wed, 16 Aug 2023 12:47:31 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 6D6F84EE0737;
- Wed, 16 Aug 2023 12:47:31 +0200 (CEST)
+	id 1qWERf-0005WK-Sl; Wed, 16 Aug 2023 11:12:11 +0000
+Received: by outflank-mailman (input) for mailman id 584719;
+ Wed, 16 Aug 2023 11:12:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qWERe-0005WE-Nv
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 11:12:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qWERZ-0005WP-3n; Wed, 16 Aug 2023 11:12:05 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=[192.168.5.61])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qWERY-0007KG-Oo; Wed, 16 Aug 2023 11:12:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d39e916-3c22-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=PGG43ayjpTn7cHKSLO9WWQqLyhtnEzsdAOOaOeNYq4k=; b=2+0kzO/TKPVXMzvbQQioYlE9wZ
+	FGxyEp0w36JfGnO0ajdJOxjfucLjggvdm2SNDokhQJ/jgfkGRm7ZsxFep8COJtqrqjaoL+0Ml5+ph
+	kPE7WDlaRQwpYXWMY86Eg8KF3L0GK9BPLPOHBRRPr5n8linmfAXI+ya0P7O+4ouma4eI=;
+Message-ID: <0912c8ed-f2a3-4fdd-a210-f015c0e3f48f@xen.org>
+Date: Wed, 16 Aug 2023 12:12:02 +0100
 MIME-Version: 1.0
-Date: Wed, 16 Aug 2023 12:47:31 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 07/11] xen: address MISRA C:2012 Rule 2.1
-In-Reply-To: <2b26baf0-6a82-0bff-99b5-ade067e0d74d@suse.com>
-References: <cover.1690985045.git.nicola.vetrini@bugseng.com>
- <7f8cbd8c8ad64cd3a0d099f31cb4d3fad48aa63b.1690985045.git.nicola.vetrini@bugseng.com>
- <e2d71138-e714-3c19-d5b9-94b322a47191@suse.com>
- <alpine.DEB.2.22.394.2308031648340.2127516@ubuntu-linux-20-04-desktop>
- <3a6ab847-fd31-60e4-2558-feed71d670dd@suse.com>
- <b0581f49ac01c923809c0e15c1a1dfed@bugseng.com>
- <6e1dbf093687e5fa66295621ce67e4dc@bugseng.com>
- <2b26baf0-6a82-0bff-99b5-ade067e0d74d@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <c9197dca7802b08765c0b2b6800e548c@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] Make PDX compression optional
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230808130220.27891-1-alejandro.vallejo@cloud.com>
+ <64dc988b.df0a0220.d6d82.abb3@mx.google.com>
+ <f8d43f0e-bceb-674d-c3d9-ddca4fd491df@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <f8d43f0e-bceb-674d-c3d9-ddca4fd491df@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 16/08/2023 12:31, Jan Beulich wrote:
-> On 16.08.2023 12:01, Nicola Vetrini wrote:
->> Hi,
->> 
->> On 08/08/2023 11:03, Nicola Vetrini wrote:
->>> On 04/08/2023 08:42, Jan Beulich wrote:
->>>> On 04.08.2023 01:50, Stefano Stabellini wrote:
->>>>> On Thu, 3 Aug 2023, Jan Beulich wrote:
->>>>>> On 02.08.2023 16:38, Nicola Vetrini wrote:
->>>>>>> Rule 2.1 states: "A project shall not contain unreachable code".
->>>>>>> 
->>>>>>> The functions
->>>>>>> - machine_halt
->>>>>>> - maybe_reboot
->>>>>>> - machine_restart
->>>>>>> are not supposed to return, hence the following break statement
->>>>>>> is marked as intentionally unreachable with the
->>>>>>> ASSERT_UNREACHABLE()
->>>>>>> macro to justify the violation of the rule.
->>>>>> 
->>>>>> During the discussion it was mentioned that this won't help with
->>>>>> release builds, where right now ASSERT_UNREACHABLE() expands to
->>>>>> effectively nothing. You want to clarify here how release builds
->>>>>> are to be taken care of, as those are what eventual certification
->>>>>> will be run against.
->>>>> 
->>>>> Something along these lines:
->>>>> 
->>>>> ASSERT_UNREACHABLE(), not only is used in non-release builds to
->>>>> actually
->>>>> assert and detect errors, but it is also used as a marker to tag
->>>>> unreachable code. In release builds ASSERT_UNREACHABLE() doesn't
->>>>> resolve
->>>>> into an assert, but retains its role of a code marker.
->>>>> 
->>>>> Does it work?
->>>> 
->>>> Well, it states what is happening, but I'm not convinced it 
->>>> satisfies
->>>> rule 2.1. There's then still code there which isn't reachable, and
->>>> which a scanner will spot and report.
->>> 
->>> It's not clear to me whether you dislike the patch itself or the 
->>> commit
->>> message. If it's the latter, how about:
->>> "ASSERT_UNREACHABLE() is used as a marker for intentionally
->>> unreachable code, which
->>> constitutes a motivated deviation from Rule 2.1. Additionally, in
->>> non-release
->>> builds, this macro performs a failing assertion to detect errors."
->> 
->> Any feedback on this (with one edit: s/a failing assertion/an
->> assertion/)
-> 
-> The patch here is kind of okay, but I'm afraid I view my earlier 
-> question
-> as not addressed: How will the proposed change prevent the scanner from
-> spotting issues here in release builds? Just stating in the description
-> that there's a deviation is not going to help that.
-> 
-> Jan
+Hi Jan,
 
-There is a deviation already in place. At the moment it just ignores 
-anything below an unreachable ASSERT_UNREACHABLE(), no matter what that 
-macro will expand to.
+On 16/08/2023 10:43, Jan Beulich wrote:
+> On 16.08.2023 11:36, Alejandro Vallejo wrote:
+>> On Tue, Aug 08, 2023 at 02:02:16PM +0100, Alejandro Vallejo wrote:
+>>> Currently there's a CONFIG_HAS_PDX Kconfig option, but it's impossible to
+>>> disable it because the whole codebase performs unconditional
+>>> compression/decompression operations on addresses. This has the
+>>> unfortunate side effect that systems without a need for compression still
+>>> have to pay the performance impact of juggling bits on every pfn<->pdx
+>>> conversion (this requires reading several global variables). This series
+>>> attempts to:
+>>>
+>>>    * Leave the state of pdx and pdx compression documented
+>>>    * Factor out compression so it _can_ be removed through Kconfig
+>>>    * Make it so compression is disabled on x86 and enabled on both Aarch32
+>>>      and Aarch64 by default.
+>>>
+>>> Series summary:
+>>>
+>>> Patch 1 Moves hard-coded compression-related logic to helper functions
+>>> Patch 2 Refactors all instances of regions being validated for pdx
+>>>          compression conformance so it's done through a helper
+>>> Patch 3 Non-functional reorder in order to simplify the patch 8 diff
+>>> Patch 4 Adds new Kconfig option to compile out PDX compression and removes
+>>>          the old CONFIG_HAS_PDX, as it was non removable
+>>>
+>>> Already committed:
+>>>
+>>> v1/patch 1 documents the current general understanding of the pdx concept and
+>>>             pdx compression in particular
+>>> v1/patch 3 Marks the pdx compression globals as ro_after_init
+>>> v2/patch 1 Documents the differences between arm32 and arm64 directmaps
+>>>
+>>> Alejandro Vallejo (4):
+>>>    mm: Factor out the pdx compression logic in ma/va converters
+>>>    mm/pdx: Standardize region validation wrt pdx compression
+>>>    pdx: Reorder pdx.[ch]
+>>>    pdx: Add CONFIG_PDX_COMPRESSION as a common Kconfig option
+>>
+>> @Jan: Just making sure, are you generally ok with this series as-is?
+> 
+> Well, okay would be too strong; I still don't see why my runtime patching
+> series isn't re-considered.
+
+Do you have a pointer to the series? I would be interested to have a look.
+
+That said... the problem with alt-patching is this is architectural 
+specific. Right now, this seems to be a bit unnecessary given that we 
+believe that virtually no-one will have a platform (I know we talked 
+about a potential one...) where PDX is compressing.
+
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
