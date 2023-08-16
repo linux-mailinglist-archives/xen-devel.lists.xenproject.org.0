@@ -2,38 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7870F77D6FF
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 02:20:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.584147.914600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88EB477D74B
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Aug 2023 02:59:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.584154.914610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qW4Fl-00009v-Ep; Wed, 16 Aug 2023 00:19:13 +0000
+	id 1qW4re-0004no-6p; Wed, 16 Aug 2023 00:58:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 584147.914600; Wed, 16 Aug 2023 00:19:13 +0000
+Received: by outflank-mailman (output) from mailman id 584154.914610; Wed, 16 Aug 2023 00:58:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qW4Fl-00008A-Av; Wed, 16 Aug 2023 00:19:13 +0000
-Received: by outflank-mailman (input) for mailman id 584147;
- Wed, 16 Aug 2023 00:19:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qW4re-0004l8-2P; Wed, 16 Aug 2023 00:58:22 +0000
+Received: by outflank-mailman (input) for mailman id 584154;
+ Wed, 16 Aug 2023 00:58:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8vYs=EB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qW4Fj-000084-5S
- for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 00:19:11 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83ae5799-3bca-11ee-8776-cb3800f73035;
- Wed, 16 Aug 2023 02:19:08 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B5B626370A;
- Wed, 16 Aug 2023 00:19:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21AEC433C8;
- Wed, 16 Aug 2023 00:19:04 +0000 (UTC)
+ <SRS0=vkqM=EB=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1qW4rc-0004l2-BO
+ for xen-devel@lists.xenproject.org; Wed, 16 Aug 2023 00:58:20 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0628.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::628])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fbd759d5-3bcf-11ee-9b0c-b553b5be7939;
+ Wed, 16 Aug 2023 02:58:17 +0200 (CEST)
+Received: from AS9PR06CA0685.eurprd06.prod.outlook.com (2603:10a6:20b:49c::33)
+ by DU0PR08MB9934.eurprd08.prod.outlook.com (2603:10a6:10:402::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Wed, 16 Aug
+ 2023 00:58:13 +0000
+Received: from AM7EUR03FT036.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:49c:cafe::6f) by AS9PR06CA0685.outlook.office365.com
+ (2603:10a6:20b:49c::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
+ Transport; Wed, 16 Aug 2023 00:58:12 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT036.mail.protection.outlook.com (100.127.140.93) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 00:58:11 +0000
+Received: ("Tessian outbound c99fbc01d472:v175");
+ Wed, 16 Aug 2023 00:58:11 +0000
+Received: from fa0c28a5558a.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 708FC8DC-AAE4-4E36-86F7-2C4A622B3988.1; 
+ Wed, 16 Aug 2023 00:57:44 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id fa0c28a5558a.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 16 Aug 2023 00:57:44 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by AS2PR08MB10111.eurprd08.prod.outlook.com (2603:10a6:20b:62d::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
+ 2023 00:57:42 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::7083:22dc:6b5f:5965]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::7083:22dc:6b5f:5965%7]) with mapi id 15.20.6678.025; Wed, 16 Aug 2023
+ 00:57:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,322 +72,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83ae5799-3bca-11ee-8776-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692145146;
-	bh=DfOFoL0liQgxTIxrGZTx4i3Hf4t1wTeXEA/ZgN5hlyM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Zq4NNwz2/i6QhAJb7Dx69xXWhSAnwHINyI+ZCH0YVYW629n8RA8kAEZKGgAI4cd96
-	 wX7TA0UTA6qS0VaPwy+T2zBHMgBfDCkVnk/tmgojJ/HWs6+Zw2x096if3LsWwDd782
-	 ubX0rJGpj05JiQ4o28JgHwsS4DGdPvGvdTD+bUUwIySmn0AVxnEf2E39/jDi6I1/kq
-	 W+XS3IbsmWli7vIYGzaqffbqf/Lz04yY0N/HyWsFBoS0NJKh6asMyx3dMDFHfhHIFb
-	 ZztMaPxoLkleCfO1KRYyH/pCLYnRao71sZp9cegN1ZjwaP3XdTX1WNdEnwu1Mz/HXu
-	 tIHhUTI7CqHlQ==
-Date: Tue, 15 Aug 2023 17:19:03 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+X-Inumbo-ID: fbd759d5-3bcf-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QSI45SNvnP3HvoyGKGqZ0gBT0ZWUDBLe3XlpjiZhIfQ=;
+ b=me6JKm76k4X8WwKsBbNJOgZCuWSXhdoS+aJ9EQQzAEW9AxPDLeMaAHUW86/YH33MA3MqIddK76bc2nOA6rT/mNVvzs0aFpsC7SEImBMPtzklb4bO49tWbVQchgK7ktMwD9AG8t61BdO+qGxOIapvngbpZFHUWIfmrk2GwbQhgLM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d76b5464bc56474f
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M3qM4SMRKH2d7DFfkzi/ho8DlHorT6Ff3zy+HGXwo4SoGR02i56HNhV8LGwXL57xgPBZZTb71mzPZ7seEKZYHfcgD00O4Cf5LFqbJxU8CRQUlTOT6aPxT2TYSU0WE2rEuxsFU+SiXfw/A0YCwG6LmwBtW/b/NmP0mCA8+3dY0CCMyUCNZl14v3olcrlVKdeWlf8g4EOwXg/RT33D/bm2KdT6r1X/yrO9fmWtsbJhmuP3zVEzeCm2JrR+/DP9fI6DMQ/LIYGBdCrIPAdi6J+rkKBQmd3fjoUc0iDn7+Lr8/55saYBvZ5QhYr9dnLNRlmtqla1FOloMEgAj7Iq9DDraQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QSI45SNvnP3HvoyGKGqZ0gBT0ZWUDBLe3XlpjiZhIfQ=;
+ b=mSBPjEAnPjcl2MyhrV55z8wUMNnPkqHyEYEsmuC6Db05KeojuqtsAmPFONTib45Ya2Uaa5orSNz2AxWNKB4iT3qg4CeMLdapLyrPfyPZjMTOmV8XOrVzUYcvw4YZZP3jd7mwWbcp0z8KWgxRLftfxFGnCv8yewMn19wLWHoFQpVqytQwPshx+B+RByaWw3E3vrM7zKkrAjqDTNF83j0ULA2TpZ5e2zByvyTOScinwbA04C8aqJeJVTXqg4kOkI2a+/5BfG9q5DplN7AoT/ZtGK+7Hi3oQGJi7EfS3XFx8lkm4odwkDyvp4PMTIQLAY5B5bGPwzsezSGA+YhrCgE2bQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QSI45SNvnP3HvoyGKGqZ0gBT0ZWUDBLe3XlpjiZhIfQ=;
+ b=me6JKm76k4X8WwKsBbNJOgZCuWSXhdoS+aJ9EQQzAEW9AxPDLeMaAHUW86/YH33MA3MqIddK76bc2nOA6rT/mNVvzs0aFpsC7SEImBMPtzklb4bO49tWbVQchgK7ktMwD9AG8t61BdO+qGxOIapvngbpZFHUWIfmrk2GwbQhgLM=
+From: Henry Wang <Henry.Wang@arm.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jason Andryuk <jandryuk@gmail.com>, 
-    George Dunlap <George.Dunlap@eu.citrix.com>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Julien Grall <julien@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
-    Daniel Smith <dpsmith@apertussolutions.com>, 
-    Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH v3 02/10] xen/version: Introduce non-truncating
- deterministically-signed XENVER_* subops
-In-Reply-To: <20230815210650.2735671-3-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2308151708070.6458@ubuntu-linux-20-04-desktop>
-References: <20230815210650.2735671-1-andrew.cooper3@citrix.com> <20230815210650.2735671-3-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+CC: Xen-devel <xen-devel@lists.xenproject.org>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>
+Subject: Re: [PATCH] docs: Drop warning about 2M limit for ARM
+Thread-Topic: [PATCH] docs: Drop warning about 2M limit for ARM
+Thread-Index: AQHZz5OxHT8OQs1H9kWyKs1vVdMBdK/sGhuA
+Date: Wed, 16 Aug 2023 00:57:41 +0000
+Message-ID: <F246E5B1-CDDA-4E2B-860A-F966E3096F7D@arm.com>
+References: <20230815161425.2202782-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20230815161425.2202782-1-andrew.cooper3@citrix.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.700.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|AS2PR08MB10111:EE_|AM7EUR03FT036:EE_|DU0PR08MB9934:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26c74b2a-e109-4778-9c8e-08db9df3dd1a
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ EVb2CO0+eCfAaef/Ky0jScnscau/jkqQm/UMYVEgqvMpiI+xnKBII2FhGNIqoss9wbcwoEJvKV2UL6sGbyMM5MBJ7z6V/nLC3Vx6DVhs3yCIf33yl9NnzjicuKvAaV0nY1P54mmGxYqJBDrkxSarsFDT0+tB3HH6dNw6Tn0L5FLrnN3YBk8v5JBaS8wQT37sEoPamgLfoJv5SIr7tSfyrOanO7LEfB+cSwpBM8TCJMG/R6/MuKPBBkcnuOIbeTyzs+RQh3J9q38VrI7RbtU8yxPnA2sT+o8d8WDCZjNbcX49Aouq6qP23z9xkkxyFVkG+tXeY7GMvi/UAUXdUm+cetUMcTzFh+GjCbz7ib3EhlhXAmQqre77NiWNjQYsEgZWO/0XANRFFsesYQ+wM/Fug7t1UG357n0cgIeKGdxzTEmc3KkgSL5J+SK/Y+odUOuiKJ+AXQtZEyp/dO+cNx05Qh/dB8fEwFNwq3kFAFpvmAesO7uks1ZJy+oVpFWqdxjv7v67/vjJrJFoNsT6TNx2/dN8Skm0zyvCH0oXIjl4OLbbyF1JWgnyjTIIFKCn/n49pXctJ0m/X3hvb96gyS0hrMeAXWQYNkcLFYq24YEmh6kMnCG1tTZfH8oZC3SSWOesAsW+9B9+GuEhJjrQJrBmIQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(346002)(39860400002)(366004)(136003)(451199024)(186009)(1800799009)(122000001)(66476007)(478600001)(5660300002)(6512007)(76116006)(26005)(38070700005)(8936002)(6486002)(66556008)(558084003)(53546011)(38100700002)(6506007)(2616005)(316002)(71200400001)(91956017)(66946007)(54906003)(6916009)(64756008)(66446008)(8676002)(86362001)(2906002)(41300700001)(4326008)(36756003)(33656002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <7A0A87CA125995438A70E3D2806305E7@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB10111
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT036.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	8df8b7a8-86b7-471c-b011-08db9df3cb3a
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SqGa3owv2qRZHWSwQRGguC+9DiTuvn7KSac1466fi5z578lyufF/ePUDFRaAqhv2qIJkXUcwOJZGJFVBeIeH70uhfRSP22RFhcbFBGGCM/T7vAesmVYYBosWo814tfdMhmAiX/q8eMLnXjiYrC3OGzFnjUh7lFx2klRJFdgR+BLIujvoe4aRwrvgBOPhftPaeFFa80rquYjFiho4G5zI/0L1agjjjm/dKmUujxzH3vodKrDiaR8X5AHksLBx6qCcgxE7A+kA9QLYR+vc4dwm9uhEuDVUy8P/Kmt1Xm3UuaSCAqgX8J61CDCkPpOtkIi5jxb7fcCT2MySJhtR7EIr1g5SLrMN/BWybrQWpCzr825xYocaKWKq5DhpyBQdhSG6SWAqfRfqD2ZhexJmqbQiZH5SkT+t7auUEfvAZv0jPlgVDwtAaBerIWBQV/rRTWB2i9clhfn5LO/gw5PRrbITUvdUg8wr0RJ3wqIuaunBraxekiaWUjh5T+qQgqAsn3KLXOdDNsU/eiVOXp7iVLM/wK15/O87ZnmkiXKjYIPNpGukHMK8F8AbvC8kxVOjGSpHzh96DZPEwElxMTbJYr8ZLiidBkg25tbQHQ2GU21B/4DqLtdptrrnnblwXx978blQrq5hSbNKBKFgtvCO1x8dahdoRWea4EnBvLyn0j8CfGqH1nkkJ8e3txlQZBai8k4rlBln3rCy+U39dSLNslOe5Lm5bJVpOKlh0SjpKIpjduQJHMGtIQ4fZcre6jIq3bgG
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199024)(186009)(1800799009)(82310400011)(46966006)(40470700004)(36840700001)(33656002)(5660300002)(54906003)(41300700001)(8676002)(81166007)(2906002)(47076005)(70586007)(40480700001)(82740400003)(6862004)(36860700001)(26005)(316002)(36756003)(70206006)(4326008)(558084003)(8936002)(6486002)(6506007)(356005)(53546011)(86362001)(478600001)(40460700003)(336012)(6512007)(2616005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 00:58:11.4554
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26c74b2a-e109-4778-9c8e-08db9df3dd1a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT036.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9934
 
-On Tue, 15 Aug 2023, Andrew Cooper wrote:
-> Recently in XenServer, we have encountered problems caused by both
-> XENVER_extraversion and XENVER_commandline having fixed bounds.
-> 
-> More than just the invariant size, the APIs/ABIs also broken by typedef-ing an
-> array, and using an unqualified 'char' which has implementation-specific
-> signed-ness.
-> 
-> Provide brand new ops, which are capable of expressing variable length
-> strings, and mark the older ops as broken.
-> 
-> This fixes all issues around XENVER_extraversion being longer than 15 chars.
-> Further work beyond just this API is needed to remove other assumptions about
-> XENVER_commandline being 1023 chars long.
-> 
+Hi Andrew,
+
+> On Aug 16, 2023, at 00:14, Andrew Cooper <andrew.cooper3@citrix.com> wrot=
+e:
+>=20
+> This issue has been addressed in the 4.18 timeframe.
+>=20
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-> CC: Daniel Smith <dpsmith@apertussolutions.com>
-> CC: Jason Andryuk <jandryuk@gmail.com>
-> CC: Henry Wang <Henry.Wang@arm.com>
-> 
-> v3:
->  * Modify dummy.h's xsm_xen_version() in the same way as flask.
-> v2:
->  * Remove xen_capabilities_info_t from the stack now that arch_get_xen_caps()
->    has gone.
->  * Use an arbitrary limit check much lower than INT_MAX.
->  * Use "buf" rather than "string" terminology.
->  * Expand the API comment.
-> 
-> Tested by forcing XENVER_extraversion to be 20 chars long, and confirming that
-> an untruncated version can be obtained.
-> ---
->  xen/common/kernel.c          | 62 +++++++++++++++++++++++++++++++++++
->  xen/include/public/version.h | 63 ++++++++++++++++++++++++++++++++++--
->  xen/include/xlat.lst         |  1 +
->  xen/include/xsm/dummy.h      |  3 ++
->  xen/xsm/flask/hooks.c        |  4 +++
->  5 files changed, 131 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-> index f822480a8ef3..79c008c7ee5f 100644
-> --- a/xen/common/kernel.c
-> +++ b/xen/common/kernel.c
-> @@ -24,6 +24,7 @@
->  CHECK_build_id;
->  CHECK_compile_info;
->  CHECK_feature_info;
-> +CHECK_varbuf;
->  #endif
->  
->  enum system_state system_state = SYS_STATE_early_boot;
-> @@ -498,6 +499,59 @@ static int __init cf_check param_init(void)
->  __initcall(param_init);
->  #endif
->  
-> +static long xenver_varbuf_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-> +{
-> +    struct xen_varbuf user_str;
-> +    const char *str = NULL;
-> +    size_t sz;
-> +
-> +    switch ( cmd )
-> +    {
-> +    case XENVER_extraversion2:
-> +        str = xen_extra_version();
-> +        break;
-> +
-> +    case XENVER_changeset2:
-> +        str = xen_changeset();
-> +        break;
-> +
-> +    case XENVER_commandline2:
-> +        str = saved_cmdline;
-> +        break;
-> +
-> +    case XENVER_capabilities2:
-> +        str = xen_cap_info;
-> +        break;
-> +
-> +    default:
-> +        ASSERT_UNREACHABLE();
-> +        return -ENODATA;
-> +    }
-> +
-> +    sz = strlen(str);
-> +
-> +    if ( sz > KB(64) ) /* Arbitrary limit.  Avoid long-running operations. */
-> +        return -E2BIG;
 
-Realistically do we want this buffer to cross page boundaries? We could
-use KB(4) here or even KB(4)-4 (size of len).
+Reviewed-by: Henry Wang <Henry.Wang@arm.com>
 
-
-
-> +    if ( guest_handle_is_null(arg) ) /* Length request */
-> +        return sz;
-> +
-> +    if ( copy_from_guest(&user_str, arg, 1) )
-> +        return -EFAULT;
-> +
-> +    if ( user_str.len == 0 )
-> +        return -EINVAL;
-> +
-> +    if ( sz > user_str.len )
-> +        return -ENOBUFS;
-> +
-> +    if ( copy_to_guest_offset(arg, offsetof(struct xen_varbuf, buf),
-> +                              str, sz) )
-> +        return -EFAULT;
-> +
-> +    return sz;
-> +}
-> +
->  long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->  {
->      bool_t deny = !!xsm_xen_version(XSM_OTHER, cmd);
-> @@ -711,6 +765,14 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->  
->          return sz;
->      }
-> +
-> +    case XENVER_extraversion2:
-> +    case XENVER_capabilities2:
-> +    case XENVER_changeset2:
-> +    case XENVER_commandline2:
-> +        if ( deny )
-> +            return -EPERM;
-> +        return xenver_varbuf_op(cmd, arg);
->      }
->  
->      return -ENOSYS;
-> diff --git a/xen/include/public/version.h b/xen/include/public/version.h
-> index cbc4ef7a46e6..0dd6bbcb43cc 100644
-> --- a/xen/include/public/version.h
-> +++ b/xen/include/public/version.h
-> @@ -19,12 +19,20 @@
->  /* arg == NULL; returns major:minor (16:16). */
->  #define XENVER_version      0
->  
-> -/* arg == xen_extraversion_t. */
-> +/*
-> + * arg == xen_extraversion_t.
-> + *
-> + * This API/ABI is broken.  Use XENVER_extraversion2 where possible.
-
-Like Jan and Julien I also don't like the word "broken" especially
-without explanation of why it is broken next to it.
-
-Instead, I would say:
-
-"XENVER_extraversion is deprecated. Please use XENVER_extraversion2."
-
-If you want to convey the message that the API has problems, then I would
-say:
-
-"XENVER_extraversion might cause truncation. Please use XENVER_extraversion2."
-
-Or even:
-
-"XENVER_extraversion has problems. Please use XENVER_extraversion2."
-
-
-
-> + */
->  #define XENVER_extraversion 1
->  typedef char xen_extraversion_t[16];
->  #define XEN_EXTRAVERSION_LEN (sizeof(xen_extraversion_t))
->  
-> -/* arg == xen_compile_info_t. */
-> +/*
-> + * arg == xen_compile_info_t.
-> + *
-> + * This API/ABI is broken and truncates data.
-
-"XENVER_compile_info is deprecated and can truncate data."
-
-
-> + */
->  #define XENVER_compile_info 2
->  struct xen_compile_info {
->      char compiler[64];
-> @@ -34,10 +42,20 @@ struct xen_compile_info {
->  };
->  typedef struct xen_compile_info xen_compile_info_t;
->  
-> +/*
-> + * arg == xen_capabilities_info_t.
-> + *
-> + * This API/ABI is broken.  Use XENVER_capabilities2 where possible.
-
-"XENVER_capabilities is deprecated. Please use XENVER_capabilities2."
-
-
-> + */
->  #define XENVER_capabilities 3
->  typedef char xen_capabilities_info_t[1024];
->  #define XEN_CAPABILITIES_INFO_LEN (sizeof(xen_capabilities_info_t))
->  
-> +/*
-> + * arg == xen_changeset_info_t.
-> + *
-> + * This API/ABI is broken.  Use XENVER_changeset2 where possible.
-
-"XENVER_changeset is deprecated. Please use XENVER_changeset2."
-
-
-> + */
->  #define XENVER_changeset 4
->  typedef char xen_changeset_info_t[64];
->  #define XEN_CHANGESET_INFO_LEN (sizeof(xen_changeset_info_t))
-> @@ -95,6 +113,11 @@ typedef struct xen_feature_info xen_feature_info_t;
->   */
->  #define XENVER_guest_handle 8
->  
-> +/*
-> + * arg == xen_commandline_t.
-> + *
-> + * This API/ABI is broken.  Use XENVER_commandline2 where possible.
-
-"XENVER_commandline is deprecated. Please use XENVER_commandline2."
-
-
-> + */
->  #define XENVER_commandline 9
->  typedef char xen_commandline_t[1024];
->  
-> @@ -110,6 +133,42 @@ struct xen_build_id {
->  };
->  typedef struct xen_build_id xen_build_id_t;
->  
-> +/*
-> + * Container for an arbitrary variable length buffer.
-> + */
-> +struct xen_varbuf {
-> +    uint32_t len;                          /* IN:  size of buf[] in bytes. */
-> +    unsigned char buf[XEN_FLEX_ARRAY_DIM]; /* OUT: requested data.         */
-
-I realize that you just copied struct xen_build_id but I recall from
-MISRA C training that we should use plain "char" for strings for good
-reasons, not "unsigned char"?
-
-If this is meant to be generic data, I think we should use uint8_t
-instead.
-
-
-> +};
-> +typedef struct xen_varbuf xen_varbuf_t;
-> +
-> +/*
-> + * arg == xen_varbuf_t
-> + *
-> + * Equivalent to the original ops, but with a non-truncating API/ABI.
-> + *
-> + * These hypercalls can fail for a number of reasons.  All callers must handle
-> + * -XEN_xxx return values appropriately.
-> + *
-> + * Passing arg == NULL is a request for size, which will be signalled with a
-> + * non-negative return value.  Note: a return size of 0 may be legitimate for
-> + * the requested subop.
-> + *
-> + * Otherwise, the input xen_varbuf_t provides the size of the following
-> + * buffer.  Xen will fill the buffer, and return the number of bytes written
-> + * (e.g. if the input buffer was longer than necessary).
-> + *
-> + * Some subops may return binary data.  Some subops may be expected to return
-> + * textural data.  These are returned without a NUL terminator, and while the
-> + * contents is expected to be ASCII/UTF-8, Xen makes no guarentees to this
-> + * effect.  e.g. Xen has no control over the formatting used for the command
-> + * line.
-> + */
-> +#define XENVER_extraversion2 11
-> +#define XENVER_capabilities2 12
-> +#define XENVER_changeset2    13
-> +#define XENVER_commandline2  14
-> +
->  #endif /* __XEN_PUBLIC_VERSION_H__ */
->  
->  /*
+Kind regards,
+Henry
 
