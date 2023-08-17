@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6287477FB70
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 18:04:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585527.916697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B6D377FD15
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 19:36:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585538.916708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWfTx-0001kn-MD; Thu, 17 Aug 2023 16:04:21 +0000
+	id 1qWgto-0003Mk-TJ; Thu, 17 Aug 2023 17:35:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585527.916697; Thu, 17 Aug 2023 16:04:21 +0000
+Received: by outflank-mailman (output) from mailman id 585538.916708; Thu, 17 Aug 2023 17:35:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWfTx-0001i0-JZ; Thu, 17 Aug 2023 16:04:21 +0000
-Received: by outflank-mailman (input) for mailman id 585527;
- Thu, 17 Aug 2023 16:04:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0n1I=EC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qWfTx-0001hu-5v
- for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 16:04:21 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b93440fb-3d17-11ee-877d-cb3800f73035;
- Thu, 17 Aug 2023 18:04:19 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 3C91F4EE0737;
- Thu, 17 Aug 2023 18:04:19 +0200 (CEST)
+	id 1qWgto-0003Ke-QV; Thu, 17 Aug 2023 17:35:08 +0000
+Received: by outflank-mailman (input) for mailman id 585538;
+ Thu, 17 Aug 2023 17:35:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qWgtn-0003KT-TM; Thu, 17 Aug 2023 17:35:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qWgtn-00038s-Ol; Thu, 17 Aug 2023 17:35:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qWgtn-0000Dz-By; Thu, 17 Aug 2023 17:35:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qWgtn-0005OZ-BU; Thu, 17 Aug 2023 17:35:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,49 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b93440fb-3d17-11ee-877d-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=lmYOJYyadFFJyeMQaQWIK2A4K8kiguT4F72lHnSvjcI=; b=LL8CFBk0l+ZtaoNyvVfPlFNN3a
+	ODJZdnUFh+i4H/qPu1XtUDyMxc2U6wtQ0nmj3W+BlEiU9jucCEh2m+YVxM9IaP/Xhlz9DJaN+Ghip
+	eWChm51C2sHVutRN9NkF8LlBmOiT9qiIECKoWdX714Y1U9nBkPypZ7z5teABX6c5DopE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182370-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Thu, 17 Aug 2023 18:04:19 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 3/3] drivers/video: make declarations of defined
- functions available
-In-Reply-To: <b6827156-70bb-c8b3-c4d0-a8906fd0e7a2@suse.com>
-References: <cover.1692275359.git.nicola.vetrini@bugseng.com>
- <cc46049dbdf86cad33f6a9f7ae79851b54cecea1.1692275359.git.nicola.vetrini@bugseng.com>
- <111382a3-0845-99b5-1efa-dfc505084c66@suse.com>
- <b61b9659a790701ec0b20e6c92dfb701@bugseng.com>
- <b6827156-70bb-c8b3-c4d0-a8906fd0e7a2@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <58efe262cd21797df64ea62c1d6d711c@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 182370: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=38ba0466a1e262edd031500d24919fbf4e48c794
+X-Osstest-Versions-That:
+    xen=d0eabe3eaf0db5b78843095a2918d50961e99e96
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 17 Aug 2023 17:35:07 +0000
+
+flight 182370 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182370/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  38ba0466a1e262edd031500d24919fbf4e48c794
+baseline version:
+ xen                  d0eabe3eaf0db5b78843095a2918d50961e99e96
+
+Last test of basis   182353  2023-08-15 19:03:41 Z    1 days
+Testing same since   182370  2023-08-17 15:03:44 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
->> 
->> Are you saying that CONFIG_VGA implies CONFIG_VIDEO and therefore
->> "#ifdef CONFIG_VGA"
->> at line 14 of vga.h can be used instead of the #ifdefs inherited from
->> the original locations
->> to wrap all the declarations that are being moved?
-> 
-> Yes - see drivers/video/Kconfig.
-> 
-> Jan
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Ok then. I guess I can make a standalone patch with this modification
-if the other patches of this series go in as is.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   d0eabe3eaf..38ba0466a1  38ba0466a1e262edd031500d24919fbf4e48c794 -> smoke
 
