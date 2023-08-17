@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F1577F688
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 14:40:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585377.916495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DA6677F6BD
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 14:50:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585402.916504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWcIB-00015p-FD; Thu, 17 Aug 2023 12:39:59 +0000
+	id 1qWcRk-0003bp-9x; Thu, 17 Aug 2023 12:49:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585377.916495; Thu, 17 Aug 2023 12:39:59 +0000
+Received: by outflank-mailman (output) from mailman id 585402.916504; Thu, 17 Aug 2023 12:49:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWcIB-000133-Az; Thu, 17 Aug 2023 12:39:59 +0000
-Received: by outflank-mailman (input) for mailman id 585377;
- Thu, 17 Aug 2023 12:39:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qWcRk-0003ZP-79; Thu, 17 Aug 2023 12:49:52 +0000
+Received: by outflank-mailman (input) for mailman id 585402;
+ Thu, 17 Aug 2023 12:49:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0n1I=EC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qWcI9-0000KH-OT
- for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 12:39:57 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b84098b-3cfb-11ee-9b0c-b553b5be7939;
- Thu, 17 Aug 2023 14:39:56 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 183814EE073A;
- Thu, 17 Aug 2023 14:39:55 +0200 (CEST)
+ <SRS0=mWEV=EC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1qWcRi-0003ZJ-2A
+ for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 12:49:50 +0000
+Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
+ [136.143.184.57]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b706ffa-3cfc-11ee-877b-cb3800f73035;
+ Thu, 17 Aug 2023 14:49:47 +0200 (CEST)
+Received: from [10.10.1.156] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 169227657688440.538902891930206;
+ Thu, 17 Aug 2023 05:49:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,165 +40,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b84098b-3cfb-11ee-9b0c-b553b5be7939
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>
-Subject: [XEN PATCH v2 3/3] drivers/video: make declarations of defined functions available
-Date: Thu, 17 Aug 2023 14:39:28 +0200
-Message-Id: <cc46049dbdf86cad33f6a9f7ae79851b54cecea1.1692275359.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1692275359.git.nicola.vetrini@bugseng.com>
-References: <cover.1692275359.git.nicola.vetrini@bugseng.com>
+X-Inumbo-ID: 8b706ffa-3cfc-11ee-877b-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; t=1692276584; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lbDVtzI2goGDLp+DmV19JHBb1/G5QzjaRvsbn1KXrGGjFPKYefpPj8vTXWh1q3HofhKfNuhbVWb9SioL7owHhrxf/n8ouTLTUuumY0CeEhRMvy5xBbg8MQlWi4YboKCKYmnS8Bnree6pYoHCxkfub+4e9N+VULYTMP4RDK/nwP0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1692276584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5EqkT65579FjVu/OBxRV0FrblhMFppyH/DGRi6f53II=; 
+	b=S/8U8gkCSTJuVxKgdJzpVNbnQzb0cDl0SrqDAKFIv22TR19V2VSlhGE4ESizhOzHjivOn0A0BR66Xey1+YfdzGjruhP3EBFu/yXzdxZdeO2Hj5k6SJjw57yy5VRcz12PekeW3AvAXAgwokBsphiHqvM9+cYyLbWUTse1bRKK2RM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1692276584;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=5EqkT65579FjVu/OBxRV0FrblhMFppyH/DGRi6f53II=;
+	b=EjB/n+g6LWxz4mxNgxhLKYVCTkwzChrCQFnxBXsedJpYW6p/6EtyKBhvcDMlP8Bg
+	6bGF4WILLe2pMiN4TtzrbLvv/V/Ub3Wd+1blgxzzTkQ24rtcxMNNNvHhWu5vr0Ek2zc
+	3CqtgDKNvQ8fo9d1Rz3kXtdLp9rlLrxbZOEWTNBk=
+Message-ID: <958bfe58-200b-0ea5-22f8-fce393eb69b2@apertussolutions.com>
+Date: Thu, 17 Aug 2023 08:49:35 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH] xsm: removing inclusion of byteorder.h
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+References: <20230816190425.8160-1-dpsmith@apertussolutions.com>
+ <CAKf6xpvpHq5vBHm20snGr+fgu78Kviiwne2JVcxrESXStDs2Mw@mail.gmail.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <CAKf6xpvpHq5vBHm20snGr+fgu78Kviiwne2JVcxrESXStDs2Mw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-The declarations for 'vesa_{init,early_init,endboot}' needed by
-'xen/drivers/video/vesa.c' and 'fill_console_start_info' in 'vga.c'
-are now available by moving the relative code inside 'vga.h'.
-The latter is moved from 'xen/console.h' because of its close relation with vga.
-This also resolves violations of MISRA C:2012 Rule 8.4.
+On 8/17/23 08:17, Jason Andryuk wrote:
+> On Wed, Aug 16, 2023 at 3:05 PM Daniel P. Smith
+> <dpsmith@apertussolutions.com> wrote:
+>>
+>> This is to complement patch 'common: move Linux-inherited fixed width type
+>> decls to common header' by removing the unnecessary include of
+>> 'asm/byteorder.h'. In the process of removing these includes, the ordering was
+>> corrected to comply with current coding style.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/xsm/flask/ss/avtab.c       | 3 +--
+>>   xen/xsm/flask/ss/conditional.c | 9 ++++-----
+>>   xen/xsm/flask/ss/ebitmap.c     | 8 ++++----
+>>   xen/xsm/flask/ss/policydb.c    | 9 ++++-----
+>>   4 files changed, 13 insertions(+), 16 deletions(-)
+> 
+> These four files all call le32_to_cpu(), so AFAICT, you are trading an
+> explicit dependency for an implicit one.  Is that what you want?
 
-Fixes: 6d9199bd0f22 ("x86-64: enable hypervisor output on VESA frame buffer")
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Changes in v2:
-- Moved fill_console_start_info to vga.h
-  (21bee1787021 introduced this function)
----
- xen/arch/x86/include/asm/setup.h  |  6 ------
- xen/arch/x86/platform_hypercall.c |  2 +-
- xen/arch/x86/pv/dom0_build.c      |  2 +-
- xen/drivers/video/vga.c           |  8 --------
- xen/include/xen/console.h         |  2 --
- xen/include/xen/vga.h             | 16 ++++++++++++++++
- 6 files changed, 18 insertions(+), 18 deletions(-)
+In fact, no. You comment here caused me to go back and try to see why 
+Jan said they needed to move. I realized there was a misunderstanding 
+about his commit message. He was not saying later, at a point in the 
+future, they need to be moved, but that as a result of his change the 
+inclusion ordering had to be changed. The former is what I understood 
+and thus attempted a build without them to see if it would work. I was 
+not expecting that conversions would have been able to be implicitly 
+resolved.
 
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index b0e6a39e2365..dfdd9e555149 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -25,12 +25,6 @@ void subarch_init_memory(void);
+Since I already rebased to latest stable, I can resubmit a v2 with 
+correcting the inclusion order but with byteoder.h inclusion remaining. 
+Though that would render this down to simply a style change patch. Would 
+that still be acceptable Jan?
 
- void init_IRQ(void);
-
--#ifdef CONFIG_VIDEO
--void vesa_init(void);
--#else
--static inline void vesa_init(void) {};
--#endif
--
- int construct_dom0(
-     struct domain *d,
-     const module_t *image, unsigned long image_headroom,
-diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
-index 9ff2da8fc324..9469de9045c7 100644
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -14,7 +14,6 @@
- #include <xen/event.h>
- #include <xen/domain_page.h>
- #include <xen/trace.h>
--#include <xen/console.h>
- #include <xen/iocap.h>
- #include <xen/guest_access.h>
- #include <xen/hypercall.h>
-@@ -24,6 +23,7 @@
- #include <xen/pmstat.h>
- #include <xen/irq.h>
- #include <xen/symbols.h>
-+#include <xen/vga.h>
- #include <asm/current.h>
- #include <public/platform.h>
- #include <acpi/cpufreq/processor_perf.h>
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index 909ee9a899a4..5bbed3a36a21 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -4,7 +4,6 @@
-  * Copyright (c) 2002-2005, K A Fraser
-  */
-
--#include <xen/console.h>
- #include <xen/domain.h>
- #include <xen/domain_page.h>
- #include <xen/init.h>
-@@ -13,6 +12,7 @@
- #include <xen/pfn.h>
- #include <xen/sched.h>
- #include <xen/softirq.h>
-+#include <xen/vga.h>
-
- #include <asm/bzimage.h>
- #include <asm/dom0_build.h>
-diff --git a/xen/drivers/video/vga.c b/xen/drivers/video/vga.c
-index 0a03508bee60..18b590cdf072 100644
---- a/xen/drivers/video/vga.c
-+++ b/xen/drivers/video/vga.c
-@@ -54,14 +54,6 @@ string_param("vga", opt_vga);
- static unsigned int columns, lines;
- #define ATTRIBUTE   7
-
--#ifdef CONFIG_X86
--void vesa_early_init(void);
--void vesa_endboot(bool_t keep);
--#else
--#define vesa_early_init() ((void)0)
--#define vesa_endboot(x)   ((void)0)
--#endif
--
- void __init video_init(void)
- {
-     char *p;
-diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
-index 53c56191ba9e..ab5c30c0daf2 100644
---- a/xen/include/xen/console.h
-+++ b/xen/include/xen/console.h
-@@ -20,8 +20,6 @@ void console_init_postirq(void);
- void console_endboot(void);
- int console_has(const char *device);
-
--int fill_console_start_info(struct dom0_vga_console_info *);
--
- unsigned long console_lock_recursive_irqsave(void);
- void console_unlock_recursive_irqrestore(unsigned long flags);
- void console_force_unlock(void);
-diff --git a/xen/include/xen/vga.h b/xen/include/xen/vga.h
-index f72b63d446b1..1d53f0149433 100644
---- a/xen/include/xen/vga.h
-+++ b/xen/include/xen/vga.h
-@@ -15,4 +15,20 @@
- extern struct xen_vga_console_info vga_console_info;
- #endif
-
-+int fill_console_start_info(struct dom0_vga_console_info *);
-+
-+#ifdef CONFIG_X86
-+void vesa_early_init(void);
-+void vesa_endboot(bool_t keep);
-+#else
-+#define vesa_early_init() ((void)0)
-+#define vesa_endboot(x)   ((void)0)
-+#endif
-+
-+#ifdef CONFIG_VIDEO
-+void vesa_init(void);
-+#else
-+static inline void vesa_init(void) {};
-+#endif
-+
- #endif /* _XEN_VGA_H */
---
-2.34.1
+v/r,
+dps
 
