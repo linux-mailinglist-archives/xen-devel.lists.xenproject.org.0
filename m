@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF1977F1E9
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 10:15:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585212.916261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8325F77F396
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 11:37:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585220.916272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWY9P-0004Zv-I1; Thu, 17 Aug 2023 08:14:39 +0000
+	id 1qWZPv-0004bl-8E; Thu, 17 Aug 2023 09:35:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585212.916261; Thu, 17 Aug 2023 08:14:39 +0000
+Received: by outflank-mailman (output) from mailman id 585220.916272; Thu, 17 Aug 2023 09:35:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWY9P-0004Xw-FM; Thu, 17 Aug 2023 08:14:39 +0000
-Received: by outflank-mailman (input) for mailman id 585212;
- Thu, 17 Aug 2023 08:14:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qWY9N-0004Xq-RT
- for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 08:14:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qWY9N-00060H-C0; Thu, 17 Aug 2023 08:14:37 +0000
-Received: from [54.239.6.180] (helo=[192.168.0.78])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qWY9N-0002Ud-5V; Thu, 17 Aug 2023 08:14:37 +0000
+	id 1qWZPv-0004Zl-5i; Thu, 17 Aug 2023 09:35:47 +0000
+Received: by outflank-mailman (input) for mailman id 585220;
+ Thu, 17 Aug 2023 09:35:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0n1I=EC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qWZPt-0004Zf-PS
+ for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 09:35:45 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f707ccd-3ce1-11ee-8779-cb3800f73035;
+ Thu, 17 Aug 2023 11:35:43 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id A13EC4EE0737;
+ Thu, 17 Aug 2023 11:35:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=6pXTCqWpBzO5bqXPNupDBkZB7Nlyca1tVjdjjq/IqZI=; b=FuxqDFNbBLxPUtni2rLq6ZiIAr
-	QpQIThuy6EJfn02Q4Rrgev5757wfzTWSvVRxkImxz0jcFJveKou6fGRAAtgP2YHzxfhV3tIHCmH/Z
-	EFS5pLMhUu0QptRGnrAd1XeSdrW5brAonCe9GznHps+8HqiwdFbpCSok9wq2c3i/W8MY=;
-Message-ID: <1c0b49be-c024-4475-94f4-05e97dcbfce4@xen.org>
-Date: Thu, 17 Aug 2023 09:14:34 +0100
+X-Inumbo-ID: 6f707ccd-3ce1-11ee-8779-cb3800f73035
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v7 15/19] xen/arm: Implement device tree node removal
- functionalities
-Content-Language: en-GB
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- sstabellini@kernel.org, jbeulich@suse.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230602004824.20731-1-vikram.garhwal@amd.com>
- <20230602004824.20731-16-vikram.garhwal@amd.com>
- <e1597b22-a756-5141-e7d9-5fd60a9a05ff@xen.org> <ZN1qaMn+5GONuzmS@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZN1qaMn+5GONuzmS@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Thu, 17 Aug 2023 11:35:42 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: Remove unused function 'do_trap_fiq'
+In-Reply-To: <85fa02a8-7a19-4bca-89d7-6036038def4d@xen.org>
+References: <21c76788cbf4b79d4b77721cbdb956ca@bugseng.com>
+ <85fa02a8-7a19-4bca-89d7-6036038def4d@xen.org>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <303c6a31510b90f9f37f18ec080acbb5@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 16/08/2023 17:28, Julien Grall wrote:
+> On 16/08/2023 16:18, Nicola Vetrini wrote:
+>> Hi,
+> 
+> Hi,
+> 
+>> the function mentioned in the subject, defined in 
+>> 'xen/arch/arm/traps.c' seems to have no
+>> caller (either from C code or from asm code), so I think it can be 
+>> safely removed, unless
+>> there's a reason for it to remain in Xen.
+> 
+> This is used by the arm32 code in arm32/head.S:
+> 
+> trap_fiq:
+>    vector fiq
+> 
+> where the macro vector will call do_trap_fiq.
+> 
+> So we need to keep the function around and a definition. Although we
+> can move the function to arm32/traps.c but this is somewhat unrelated.
+> 
+> Cheers,
 
-On 17/08/2023 01:31, Vikram Garhwal wrote:
-> On Mon, Jun 05, 2023 at 10:07:48PM +0100, Julien Grall wrote:
->>> +{
->>> +    int rc = 0;
->>> +    struct domain *d = hardware_domain;
->>> +    domid_t domid;
->>> +    unsigned int naddr, len;
->>> +    unsigned int i, nirq;
->>> +
->>> +    domid = dt_device_used_by(device_node);
->>
->> Looking at the caller, it is not clear to me which lock is preventing the
->> device to be assigned whilst you remove it.
-> So, this is on user to make sure the domain is not using the device.
-
-It is not clear what you mean by user. Is it someone external to Xen? If 
-not, which function is responsible? If yes, then we can't rely on an 
-entity outside of Xen to do the right thing.
-
->>> +    if ( domid != 0 && domid != DOMID_IO )
->>> +    {
->>> +        printk(XENLOG_ERR "Device %s is being used by domain %u. Removing nodes failed\n",
->>> +               device_node->full_name, domid);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    dt_dprintk("Removing node: %s\n", device_node->full_name);
->>> +
->>> +    nirq = dt_number_of_irq(device_node); > +
->>> +    /* Remove IRQ permission */
->>> +    for ( i = 0; i < nirq; i++ )
->>> +    {
->>> +        rc = platform_get_irq(device_node, i);
->>
->> As I mentioned in [1], I think that parsing the Device-Tree again when
->> removing any interrupts/mappings is a bit odd as there are more possible
->> failures and is more complex than necessary. I have proposed a way to do it
->> with rangeset, but I can't find any reason why this wasn't done. Can you
->> explain?
-> IIUC, range sets can work if we have only one level of node i.e. no children.
-> I tried in previous version to use range but it's complicated to get info in
-> correct order using rangeset. Example, we have three nodes, node A, B and C. A
-> has three child A_a, A_b and A_c. While adding the nodes, we add A first then
-> A_a, A_b, A_c and finally B and C. And rangeset is updated in same order but
-> when we remove node, first A_c is removed followed by A_b and A_a and then A.
-> So, this was the problem for me on how to keep track which interrupt belong to
-> which node.
-
- From my understanding, all the nodes added together will have to be 
-removed together. IOW, it is not possible to remove A_c in one hypercall 
-by not A_b.
-
-It is not clear to me why you need to know which interrupt belong to 
-which node. On removal, it should be sufficient to revert all the 
-permissions in one go and then all the nodes.
-
->>> +            return -EINVAL;
->>> +        }
->>> +        /*
->>> +         * TODO: We don't handle shared IRQs for now. So, it is assumed that
->>> +         * the IRQs was not shared with another devices.
->>> +         */
->>> +        rc = irq_deny_access(d, rc);
->>> +        if ( rc )
->>> +        {
->>> +            printk(XENLOG_ERR "unable to revoke access for irq %u for %s\n",
->>> +                   i, device_node->full_name);
->>> +            return rc;
->>> +        }
->>
->> You don't reverse the change in the routing. What would happen if the next
->> overlay is updated to now pass the same device to a guest?
->>
->> I would be OK if this is not handled in this series. But it should be marked
->> as a TODO.
-> So, i explained the reason behind this in v4:
-
-I couldn't find the appropriate summary in this series. Can you point me 
-to it?
-
-Cheers,
+Ok. Would you mind if a declaration was supplied in an appropriate 
+header file for this function,
+to fully comply with Rule 8.4? This not only serves as useful 
+documentation to developers
+that will touch the asm files, as Stefano mentioned some time ago in the 
+preliminary thread
+on R8.4, but also prevents an avoidable violation of the Rule, and
+hence yet another deviation to keep track of.
 
 -- 
-Julien Grall
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
