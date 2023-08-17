@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1804977FD59
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 19:56:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585552.916727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EF077FD67
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 20:01:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585560.916738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWhEE-0006Ly-Ox; Thu, 17 Aug 2023 17:56:14 +0000
+	id 1qWhIe-00081D-9e; Thu, 17 Aug 2023 18:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585552.916727; Thu, 17 Aug 2023 17:56:14 +0000
+Received: by outflank-mailman (output) from mailman id 585560.916738; Thu, 17 Aug 2023 18:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWhEE-0006JT-M5; Thu, 17 Aug 2023 17:56:14 +0000
-Received: by outflank-mailman (input) for mailman id 585552;
- Thu, 17 Aug 2023 17:56:13 +0000
+	id 1qWhIe-0007yx-6a; Thu, 17 Aug 2023 18:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 585560;
+ Thu, 17 Aug 2023 18:00:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C1L6=EC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qWhED-0006JI-0w
- for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 17:56:13 +0000
+ id 1qWhIc-0007yr-Tu
+ for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 18:00:46 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 57397f5c-3d27-11ee-877d-cb3800f73035;
- Thu, 17 Aug 2023 19:56:08 +0200 (CEST)
+ id fcaba502-3d27-11ee-877d-cb3800f73035;
+ Thu, 17 Aug 2023 20:00:45 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D04C36261C;
- Thu, 17 Aug 2023 17:56:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04915C433C8;
- Thu, 17 Aug 2023 17:56:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1A882636E4;
+ Thu, 17 Aug 2023 18:00:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62BF9C433C8;
+ Thu, 17 Aug 2023 18:00:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,73 +44,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57397f5c-3d27-11ee-877d-cb3800f73035
+X-Inumbo-ID: fcaba502-3d27-11ee-877d-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692294966;
-	bh=8pPsKjWrw2M5j2gWS8jQb1zqcGnZPgQHzlyvyCWIDLQ=;
+	s=k20201202; t=1692295243;
+	bh=q+X11AJmd6T2WJlrCSX5q5KLEJjvKVYu6RniQC/RcY4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=B5uqvWwD1is7B0s8lmisHxUwgjmeEcPB9e1KDgjkXu92shrUjO+QbAPb7QpjVd36V
-	 3StAoy79B5gEIIU1GKFx13pUPhUOmF7bWsG7yHRk45jB6vWaxylcKD/kClLc+aNAbE
-	 0nI8qWrc62C8WRLQ/gvNrh2pVqQWypW9IVIsZqdVoMvPjkGsZZyOdexF6+NkBl2nwc
-	 orPscdcsA74NkNdi5i+lDkAGqjn74Dy6Rki3Ksil6nmUWSfe+LwDRADGJlZMfWaxfO
-	 ZYg+clTPPTeoRJ23ZPltjKFRdABHcaWwvW30pKeOQsy8xW777I+pjCgs6HTT+vHgTO
-	 CUfqaYT/CfGYA==
-Date: Thu, 17 Aug 2023 10:56:03 -0700 (PDT)
+	b=U9LYNousMO2F55fr+d35Lu9B51z4Y0Ehe/NsPDAUQU9b1cA2Fvn2HReDkOvtyD7SI
+	 esRIUkM260vhHluWlNNBzjFTdhsdZMrJXMkaQs5JDdye/gEaar6LOQIirKdJ1R56iN
+	 DlL9E25/G9SbEKksTf9cWexUuUWlfT5v00jebhD3bAJl/eN2bA1nAgD0ZTJG/+tFh5
+	 Pcccv6l3dk+hgnF+aQjqMavT/6tiIpGfcVhrD4Wu+F9NRXH2nMcoNlq7Q9WcoyjoLY
+	 lAcrMA4sXVvJGMOAAZiIxA5WElzeZ50mwmzl696ouxNIpMI3f6GleVC8MExVm2CO77
+	 5Jh5h/lWLPpjg==
+Date: Thu, 17 Aug 2023 11:00:40 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Tamas K Lengyel <tamas@tklengyel.com>, 
+    Alexandru Isaila <aisaila@bitdefender.com>, 
+    Petre Pircalabu <ppircalabu@bitdefender.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH v2] misra: add more entires to exclude-list.json
-In-Reply-To: <186af44774dc4670cb1ca0d8238e0620c3d0fc2f.1692266054.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308171055570.6458@ubuntu-linux-20-04-desktop>
-References: <186af44774dc4670cb1ca0d8238e0620c3d0fc2f.1692266054.git.federico.serafini@bugseng.com>
+Subject: Re: [XEN PATCH v2 1/3] vm_event: rework inclusions to use arch-indipendent
+ header
+In-Reply-To: <6ef8207eee081e2c9a3914a14025077fc72b19e6.1692275359.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2308171100320.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1692275359.git.nicola.vetrini@bugseng.com> <6ef8207eee081e2c9a3914a14025077fc72b19e6.1692275359.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 17 Aug 2023, Federico Serafini wrote:
-> Add entries to the exclude-list.json for those files that need to be
-> excluded from the analysis scan.
+On Thu, 17 Aug 2023, Nicola Vetrini wrote:
+> The arch-specific header <asm/vm_event.h> should be included by the
+> common header <xen/vm_event.h>, so that the latter can be included
+> in the source files.
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> This also resolves violations of MISRA C:2012 Rule 8.4 that were
+> caused by declarations for
+> 'vm_event_{fill_regs,set_registers,monitor_next_interrupt}'
+> in <asm/vm_event.h> not being visible when
+> defining functions in 'xen/arch/x86/vm_event.c'
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
 > Changes in v2:
-> - fixed indentation.
-> ---
->  docs/misra/exclude-list.json | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+> - Include the arch-specific header in the common one, and only include
+>   the latter in source files.
 > 
-> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
-> index ca1e2dd678..575ed22a7f 100644
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -181,6 +181,18 @@
->              "rel_path": "drivers/video/font_*",
->              "comment": "Imported from Linux, ignore for now"
->          },
-> +        {
-> +            "rel_path": "include/acpi/acpiosxf.h",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "include/acpi/acpixf.h",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "include/xen/acpi.h",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
->          {
->              "rel_path": "lib/list-sort.c",
->              "comment": "Imported from Linux, ignore for now"
+> The following functions have been mainly touched by the following commits,
+> but the present commit does not solve a problem introduced by one of them per se, except perhaps the first one mentioned, which is why I didn't put a Fixes tag in this v2:
+> - 975efd3baa8d ("introduce VM_EVENT_FLAG_SET_REGISTERS")
+> - adc75eba8b15 ("x86/vm_event: consolidate hvm_event_fill_regs and p2m_vm_event_fill_regs")
+> - 9864841914c2 ("x86/vm_event: add support for VM_EVENT_REASON_INTERRUPT")
+> ---
+>  xen/arch/arm/include/asm/vm_event.h | 1 -
+>  xen/arch/arm/vm_event.c             | 2 +-
+>  xen/arch/x86/vm_event.c             | 2 +-
+>  xen/include/xen/vm_event.h          | 1 +
+>  4 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/vm_event.h b/xen/arch/arm/include/asm/vm_event.h
+> index abe7db1970ca..4d861373b38d 100644
+> --- a/xen/arch/arm/include/asm/vm_event.h
+> +++ b/xen/arch/arm/include/asm/vm_event.h
+> @@ -20,7 +20,6 @@
+>  #define __ASM_ARM_VM_EVENT_H__
+>  
+>  #include <xen/sched.h>
+> -#include <xen/vm_event.h>
+>  #include <public/domctl.h>
+>  
+>  static inline int vm_event_init_domain(struct domain *d)
+> diff --git a/xen/arch/arm/vm_event.c b/xen/arch/arm/vm_event.c
+> index ba99f56eb20c..ccfd25bbbca9 100644
+> --- a/xen/arch/arm/vm_event.c
+> +++ b/xen/arch/arm/vm_event.c
+> @@ -8,7 +8,7 @@
+>   */
+>  
+>  #include <xen/sched.h>
+> -#include <asm/vm_event.h>
+> +#include <xen/vm_event.h>
+>  
+>  void vm_event_fill_regs(vm_event_request_t *req)
+>  {
+> diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
+> index 7027c08a926b..e6c7ad5337dd 100644
+> --- a/xen/arch/x86/vm_event.c
+> +++ b/xen/arch/x86/vm_event.c
+> @@ -20,7 +20,7 @@
+>  
+>  #include <xen/sched.h>
+>  #include <xen/mem_access.h>
+> -#include <asm/vm_event.h>
+> +#include <xen/vm_event.h>
+>  
+>  /* Implicitly serialized by the domctl lock. */
+>  int vm_event_init_domain(struct domain *d)
+> diff --git a/xen/include/xen/vm_event.h b/xen/include/xen/vm_event.h
+> index 92811d9110e5..9a86358b42ae 100644
+> --- a/xen/include/xen/vm_event.h
+> +++ b/xen/include/xen/vm_event.h
+> @@ -25,6 +25,7 @@
+>  
+>  #include <xen/sched.h>
+>  #include <public/vm_event.h>
+> +#include <asm/vm_event.h>
+>  
+>  struct vm_event_domain
+>  {
 > -- 
 > 2.34.1
 > 
