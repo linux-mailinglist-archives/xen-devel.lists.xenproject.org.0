@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87EE677F476
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 12:49:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585282.916363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F83E77F47C
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 12:51:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585288.916371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWaXw-0008Ch-Af; Thu, 17 Aug 2023 10:48:08 +0000
+	id 1qWab9-0001Bg-OX; Thu, 17 Aug 2023 10:51:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585282.916363; Thu, 17 Aug 2023 10:48:08 +0000
+Received: by outflank-mailman (output) from mailman id 585288.916371; Thu, 17 Aug 2023 10:51:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWaXw-00089M-7u; Thu, 17 Aug 2023 10:48:08 +0000
-Received: by outflank-mailman (input) for mailman id 585282;
- Thu, 17 Aug 2023 10:48:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qWab9-00019D-LY; Thu, 17 Aug 2023 10:51:27 +0000
+Received: by outflank-mailman (input) for mailman id 585288;
+ Thu, 17 Aug 2023 10:51:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+wLb=EC=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qWaXu-00089G-ND
- for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 10:48:06 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b7a9a04-3ceb-11ee-877a-cb3800f73035;
- Thu, 17 Aug 2023 12:48:05 +0200 (CEST)
-Received: from [192.168.1.15] (host-79-55-201-67.retail.telecomitalia.it
- [79.55.201.67])
- by support.bugseng.com (Postfix) with ESMTPSA id 7A1A54EE0737;
- Thu, 17 Aug 2023 12:48:04 +0200 (CEST)
+ <SRS0=xKJa=EC=citrix.com=prvs=586b2f634=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qWab7-000197-PK
+ for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 10:51:26 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0097ea06-3cec-11ee-9b0c-b553b5be7939;
+ Thu, 17 Aug 2023 12:51:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,64 +36,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b7a9a04-3ceb-11ee-877a-cb3800f73035
-Message-ID: <3ad5c4fb-9322-825d-2347-bdd5e900c598@bugseng.com>
-Date: Thu, 17 Aug 2023 12:48:04 +0200
+X-Inumbo-ID: 0097ea06-3cec-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1692269482;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=V5WOe4yk5HeIxVGmnhq2Jv7FJIe93jWc3o7VNRyDTV4=;
+  b=Up2lfpWaQoVW7fZslTHRE+3YLZ1NX9/wqL/fqngoVppFpasRsLmbGtzO
+   YoYXJZ2e6UIhltoM76jZ32els7XdFA7Q8qSM3iFJVTsbub3ccN4/RAm7j
+   O9C+wvlb5Fk1K4DYru+f/XUOXBYVzpZiIRgIf4jLJULkzFhzsxkFz7Rks
+   c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 120193595
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Mx49/K2TIXHEadsAVfbD5dZxkn2cJEfYwER7XKvMYLTBsI5bpzEDy
+ zEaXWuOPv2MYzb0Kd5waNi28hgF7JfSzNFjTwJspC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8teTb8XuDgNyo4GlD5gxnOqgS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfJ0xP/
+ 6xIb3c2QyunmLruz+u5SeJhiZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
+ ZNfMGcxKk2aOHWjOX9OYH46tO6umnn4dSwesF+PrLA7y2PS0BZwwP7mN9+9ltmiHJ8NxxfD+
+ zObl4j/KiFGHtaTlAG/zmD2mPDTpy/AftMpBoTto5aGh3XMnzdOWXX6T2CTsfS/z0KzRd9bA
+ 0gV4TY167g/8lSxSdvwVAH+p2SL1iPwQPIJTbd8slvUjPOJvUDAXDNsoiN9hMIOkuI3T2x6k
+ RiysujNGmQ3v+SXSnmQ+eLBxd+tAhQ9IWgHbC4CaAIK5dj/vY0+5i7yosZf/L2d1YOsR2ypq
+ 9yehG1n3uhI05ZXv0mu1Qqf6w9AsKQlWeLcCu//emu+pj10a4e+D2BDwQiKtK0QRGp1o7Tog
+ ZTlpyR8xLpTZX1uvHbXKAnoIF1Pz6zYWNE7qQc2d6TNDxz3pxaekXl4uVmS3ntBPMceYiPOa
+ 0TOow5X75I7FCL0PPUtOtrvW5tylfiI+THZuhb8NIsmjn9ZLlPvwc2TTRTIgzCFfLYEwMnTx
+ qt3ge7zVC1HWMyLPRK9RvsH0K9D+8zN7Tq7eHwP9Dz+ieD2TCfMGd843K6mMrhRAFWs/F+Er
+ L6y9qKil31ibQEJSnOMrddLcwlRfRDWx/ne8qRqSwJKGSI+cElJNhMb6ehJl1BN90iNqtr1w
+ w==
+IronPort-HdrOrdr: A9a23:g/cQjKmQf9xO2o1nx5dtxUc0bmLpDfLr3DAbv31ZSRFFG/FwyP
+ re/sjzhCWVtN9OYgBCpTnyAtjwfZq6z+8A3WBxB8bWYOCCggqVxe5ZnOzfKlHbal7DHgA079
+ YYT0BRYOeAdWSSp/yKhjVRKr4bsaK6GErBv5al854Vd3AWV0gC1XYHNu/4KDwTeOAuP/NQf/
+ DwiaQ3wgZIVk5nEvhTbUN1LdQryee75K4OLSR2eSLPhTPjsQ+V
+X-Talos-CUID: =?us-ascii?q?9a23=3AURNyB2gdDAg9At6c7MNDUvSrRjJuVFDcxieAZAi?=
+ =?us-ascii?q?DJF1NV+XNRgaS+6hpnJ87?=
+X-Talos-MUID: 9a23:eeS3LQkREtKDKXnWvo1XdnpSaO1i7/mVMnwfy4sZp/OIDgohACWk2WE=
+X-IronPort-AV: E=Sophos;i="6.01,179,1684814400"; 
+   d="scan'208";a="120193595"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: [XTF PATCH] xtf-runner: python3 fix
+Date: Thu, 17 Aug 2023 11:51:11 +0100
+Message-ID: <20230817105111.4413-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [XEN PATCH 2/2] misra: add more entires to exclude-list.json
-Content-Language: en-US, it
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <cover.1692261955.git.federico.serafini@bugseng.com>
- <ce1bf98508d9d66b3e903a7ce19c0a2ee2420fc2.1692261955.git.federico.serafini@bugseng.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <ce1bf98508d9d66b3e903a7ce19c0a2ee2420fc2.1692261955.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+issue:
+  File "/home/xtf/xtf-runner", line 410, in interpret_selection
+    if not line.startswith("xen_caps"):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: startswith first arg must be bytes or a tuple of bytes, not str
 
+Adding `universal_newlines` open stdout as text file, so line should
+be a `str`. `universal_newlines` is available on python 2.7. A new
+alias `text` is only available in python 3.7.
 
-On 17/08/23 11:42, Federico Serafini wrote:
-> Add entries to the exclude-list.json for those files that need to be
-> excluded from the analysis scan.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> ---
->   docs/misra/exclude-list.json | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
-> 
-> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
-> index ca1e2dd678..3be9421e4d 100644
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -181,6 +181,18 @@
->               "rel_path": "drivers/video/font_*",
->               "comment": "Imported from Linux, ignore for now"
->           },
-> +        {
-> +          "rel_path": "include/acpi/acpiosxf.h",
-> +          "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +          "rel_path": "include/acpi/acpixf.h",
-> +          "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +          "rel_path": "include/xen/acpi.h",
-> +          "comment": "Imported from Linux, ignore for now"
-> +        },
->           {
->               "rel_path": "lib/list-sort.c",
->               "comment": "Imported from Linux, ignore for now"
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
 
-Wrong indentation, a v2 of this patch has already been sent.
+Notes:
+    I've only tested the patch on Debian Bookworm, with python-is-python3
+    package (python symlink) as osstest run `./xtf-runner ...`.
+    
+    I haven't tried python2.7.
 
-Reviewed-by: Federico Serafini <federico.serafini@bugseng.com>
+ xtf-runner | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xtf-runner b/xtf-runner
+index 6352a5b..5741e64 100755
+--- a/xtf-runner
++++ b/xtf-runner
+@@ -403,7 +403,7 @@ def interpret_selection(opts):
+ 
+         host_envs = []
+ 
+-        cmd = Popen(['xl', 'info'], stdout = PIPE)
++        cmd = Popen(['xl', 'info'], stdout = PIPE, universal_newlines=True)
+         stdout, _ = cmd.communicate()
+ 
+         for line in stdout.splitlines():
+-- 
+Anthony PERARD
 
 
