@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 088BF77F1A0
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 09:59:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585202.916252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF1977F1E9
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Aug 2023 10:15:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585212.916261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWXub-0001ZZ-V7; Thu, 17 Aug 2023 07:59:21 +0000
+	id 1qWY9P-0004Zv-I1; Thu, 17 Aug 2023 08:14:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585202.916252; Thu, 17 Aug 2023 07:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 585212.916261; Thu, 17 Aug 2023 08:14:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWXub-0001WP-Rx; Thu, 17 Aug 2023 07:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 585202;
- Thu, 17 Aug 2023 07:59:20 +0000
+	id 1qWY9P-0004Xw-FM; Thu, 17 Aug 2023 08:14:39 +0000
+Received: by outflank-mailman (input) for mailman id 585212;
+ Thu, 17 Aug 2023 08:14:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qWXua-0001WJ-Hj
- for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 07:59:20 +0000
+ (envelope-from <julien@xen.org>) id 1qWY9N-0004Xq-RT
+ for xen-devel@lists.xenproject.org; Thu, 17 Aug 2023 08:14:37 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qWXua-00053J-BK; Thu, 17 Aug 2023 07:59:20 +0000
+ id 1qWY9N-00060H-C0; Thu, 17 Aug 2023 08:14:37 +0000
 Received: from [54.239.6.180] (helo=[192.168.0.78])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qWXua-0001W9-3b; Thu, 17 Aug 2023 07:59:20 +0000
+ id 1qWY9N-0002Ud-5V; Thu, 17 Aug 2023 08:14:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,132 +42,112 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RhXZs2jhoUZBrfs7DNiYHsFDGHrOJnI6XTpynwyhjh0=; b=fQBPy9WUrqZZCLW2M7z8JaTCtt
-	l8q8Sjq41O34zbSgMaYYPblUEn3qea5vEhN032bplnZ1+1GqrLQ60o01QmWyG9sKb6JC81wHCrlRH
-	cVmkYVjwRNR59pjFZ034Fn2SPvKF1ruJ/R3PydeJLg9VEDDdTtpPM5EvLiMUwf+UDlf8=;
-Message-ID: <48272b15-8fe1-4dfe-a02c-acdfd8ff9c62@xen.org>
-Date: Thu, 17 Aug 2023 08:59:18 +0100
+	bh=6pXTCqWpBzO5bqXPNupDBkZB7Nlyca1tVjdjjq/IqZI=; b=FuxqDFNbBLxPUtni2rLq6ZiIAr
+	QpQIThuy6EJfn02Q4Rrgev5757wfzTWSvVRxkImxz0jcFJveKou6fGRAAtgP2YHzxfhV3tIHCmH/Z
+	EFS5pLMhUu0QptRGnrAd1XeSdrW5brAonCe9GznHps+8HqiwdFbpCSok9wq2c3i/W8MY=;
+Message-ID: <1c0b49be-c024-4475-94f4-05e97dcbfce4@xen.org>
+Date: Thu, 17 Aug 2023 09:14:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v7 04/19] common/device_tree: change
- __unflatten_device_tree() type
+Subject: Re: [XEN][PATCH v7 15/19] xen/arm: Implement device tree node removal
+ functionalities
 Content-Language: en-GB
-To: Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, sstabellini@kernel.org, jbeulich@suse.com
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ sstabellini@kernel.org, jbeulich@suse.com,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
 References: <20230602004824.20731-1-vikram.garhwal@amd.com>
- <20230602004824.20731-5-vikram.garhwal@amd.com>
- <ad9c88a0-bbbb-1ef7-0104-d201468897e0@xen.org>
- <308f68a8-9eb5-87d3-aaf0-61a6af33fd33@amd.com> <ZN1ge4pmAmcllhov@amd.com>
+ <20230602004824.20731-16-vikram.garhwal@amd.com>
+ <e1597b22-a756-5141-e7d9-5fd60a9a05ff@xen.org> <ZN1qaMn+5GONuzmS@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZN1ge4pmAmcllhov@amd.com>
+In-Reply-To: <ZN1qaMn+5GONuzmS@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 17/08/2023 00:49, Vikram Garhwal wrote:
-> On Tue, Jun 06, 2023 at 12:09:35PM -0700, Vikram Garhwal wrote:
->> Hi Julien,
->> Will update the commit message regarding why we need to export this for dtbo
->> programming.
+On 17/08/2023 01:31, Vikram Garhwal wrote:
+> On Mon, Jun 05, 2023 at 10:07:48PM +0100, Julien Grall wrote:
+>>> +{
+>>> +    int rc = 0;
+>>> +    struct domain *d = hardware_domain;
+>>> +    domid_t domid;
+>>> +    unsigned int naddr, len;
+>>> +    unsigned int i, nirq;
+>>> +
+>>> +    domid = dt_device_used_by(device_node);
 >>
->> On 6/5/23 12:04 PM, Julien Grall wrote:
->>> Hi,
->>>
->>> Title:
->>>
->>> 'type' is a bit confusing here. How about "Export
->>> __unflatten_device_tre()"?
->>>
->>> On 02/06/2023 01:48, Vikram Garhwal wrote:
->>>> Following changes are done to __unflatten_device_tree():
->>>>       1. __unflatten_device_tree() is renamed to unflatten_device_tree().
->>>>       2. Remove __init and static function type.
->>>
->>> As there is no external caller yet, please explain why you want to
->>> export the function.
-> Update the commit message in v8.
->>>
->>> Cheers,
->>>
->>>>
->>>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
->>>> Reviewed-by: Henry Wang <Henry.Wang@arm.com>
->>>> ---
->>>>    xen/common/device_tree.c      | 9 ++++-----
->>>>    xen/include/xen/device_tree.h | 5 +++++
->>>>    2 files changed, 9 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
->>>> index bbdab07596..16b4b4e946 100644
->>>> --- a/xen/common/device_tree.c
->>>> +++ b/xen/common/device_tree.c
->>>> @@ -2083,7 +2083,7 @@ static unsigned long unflatten_dt_node(const
->>>> void *fdt,
->>>>    }
->>>>      /**
->>>> - * __unflatten_device_tree - create tree of device_nodes from flat blob
->>>> + * unflatten_device_tree - create tree of device_nodes from flat blob
->>>>     *
->>>>     * unflattens a device-tree, creating the
->>>>     * tree of struct device_node. It also fills the "name" and "type"
->>>> @@ -2092,8 +2092,7 @@ static unsigned long unflatten_dt_node(const
->>>> void *fdt,
->>>>     * @fdt: The fdt to expand
->>>>     * @mynodes: The device_node tree created by the call
->>>>     */
->>>> -static int __init __unflatten_device_tree(const void *fdt,
->>>> -                                          struct dt_device_node
->>>> **mynodes)
->>>> +int unflatten_device_tree(const void *fdt, struct dt_device_node
->>>> **mynodes)
->>>>    {
->>>>        unsigned long start, mem, size;
->>>>        struct dt_device_node **allnextp = mynodes;
->>>> @@ -2230,10 +2229,10 @@ dt_find_interrupt_controller(const struct
->>>> dt_device_match *matches)
->>>>      void __init dt_unflatten_host_device_tree(void)
->>>>    {
->>>> -    int error = __unflatten_device_tree(device_tree_flattened,
->>>> &dt_host);
->>>> +    int error = unflatten_device_tree(device_tree_flattened, &dt_host);
->>>>          if ( error )
->>>> -        panic("__unflatten_device_tree failed with error %d\n", error);
->>>> +        panic("unflatten_device_tree failed with error %d\n", error);
->>>>          dt_alias_scan();
->>>
->>> This function doesn't seem to be called in the case of the overlay
->>> device-tree. Does this mean that it will never contain any alias?
->>>
-> I haven't seen any overlay example for FPGA use cases where alias are added.
-> I have added a TODO in patch 16/19 where we are calling unflatten_device_tree().
->>>>    }
->>>> diff --git a/xen/include/xen/device_tree.h
->>>> b/xen/include/xen/device_tree.h
->>>> index c2eada7489..2c35c0d391 100644
->>>> --- a/xen/include/xen/device_tree.h
->>>> +++ b/xen/include/xen/device_tree.h
->>>> @@ -178,6 +178,11 @@ int device_tree_for_each_node(const void *fdt,
->>>> int node,
->>>>     */
->>>>    void dt_unflatten_host_device_tree(void);
->>>>    +/**
->>>> + * unflatten any device tree.
->>>
->>> Most of the exported function in device_tre.h have documentation. Can
->>> you do the same here?
-> Done!
->>>
->>>> + */
->>>> +int unflatten_device_tree(const void *fdt, struct dt_device_node
->>>> **mynodes);
->>>
->>> NIT: From an external interface perspective, do we actually need to pass
->>> an extra pointer? Can't we instead, return the pointer?
-> We will also need the error from the function. So, that's why i kept it as it is.
+>> Looking at the caller, it is not clear to me which lock is preventing the
+>> device to be assigned whilst you remove it.
+> So, this is on user to make sure the domain is not using the device.
 
-This can be achieved by using the ERR_PTR() infrastructure which I would 
-rather prefer over passing an extra pointer here.
+It is not clear what you mean by user. Is it someone external to Xen? If 
+not, which function is responsible? If yes, then we can't rely on an 
+entity outside of Xen to do the right thing.
+
+>>> +    if ( domid != 0 && domid != DOMID_IO )
+>>> +    {
+>>> +        printk(XENLOG_ERR "Device %s is being used by domain %u. Removing nodes failed\n",
+>>> +               device_node->full_name, domid);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    dt_dprintk("Removing node: %s\n", device_node->full_name);
+>>> +
+>>> +    nirq = dt_number_of_irq(device_node); > +
+>>> +    /* Remove IRQ permission */
+>>> +    for ( i = 0; i < nirq; i++ )
+>>> +    {
+>>> +        rc = platform_get_irq(device_node, i);
+>>
+>> As I mentioned in [1], I think that parsing the Device-Tree again when
+>> removing any interrupts/mappings is a bit odd as there are more possible
+>> failures and is more complex than necessary. I have proposed a way to do it
+>> with rangeset, but I can't find any reason why this wasn't done. Can you
+>> explain?
+> IIUC, range sets can work if we have only one level of node i.e. no children.
+> I tried in previous version to use range but it's complicated to get info in
+> correct order using rangeset. Example, we have three nodes, node A, B and C. A
+> has three child A_a, A_b and A_c. While adding the nodes, we add A first then
+> A_a, A_b, A_c and finally B and C. And rangeset is updated in same order but
+> when we remove node, first A_c is removed followed by A_b and A_a and then A.
+> So, this was the problem for me on how to keep track which interrupt belong to
+> which node.
+
+ From my understanding, all the nodes added together will have to be 
+removed together. IOW, it is not possible to remove A_c in one hypercall 
+by not A_b.
+
+It is not clear to me why you need to know which interrupt belong to 
+which node. On removal, it should be sufficient to revert all the 
+permissions in one go and then all the nodes.
+
+>>> +            return -EINVAL;
+>>> +        }
+>>> +        /*
+>>> +         * TODO: We don't handle shared IRQs for now. So, it is assumed that
+>>> +         * the IRQs was not shared with another devices.
+>>> +         */
+>>> +        rc = irq_deny_access(d, rc);
+>>> +        if ( rc )
+>>> +        {
+>>> +            printk(XENLOG_ERR "unable to revoke access for irq %u for %s\n",
+>>> +                   i, device_node->full_name);
+>>> +            return rc;
+>>> +        }
+>>
+>> You don't reverse the change in the routing. What would happen if the next
+>> overlay is updated to now pass the same device to a guest?
+>>
+>> I would be OK if this is not handled in this series. But it should be marked
+>> as a TODO.
+> So, i explained the reason behind this in v4:
+
+I couldn't find the appropriate summary in this series. Can you point me 
+to it?
 
 Cheers,
 
