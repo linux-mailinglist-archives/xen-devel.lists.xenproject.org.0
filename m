@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41600780A9A
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 13:00:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.586005.917235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A024780ABC
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 13:07:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.586051.917257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWxD0-00089b-IJ; Fri, 18 Aug 2023 11:00:02 +0000
+	id 1qWxIt-0002Gt-Ih; Fri, 18 Aug 2023 11:06:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 586005.917235; Fri, 18 Aug 2023 11:00:02 +0000
+Received: by outflank-mailman (output) from mailman id 586051.917257; Fri, 18 Aug 2023 11:06:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWxD0-000867-EK; Fri, 18 Aug 2023 11:00:02 +0000
-Received: by outflank-mailman (input) for mailman id 586005;
- Fri, 18 Aug 2023 11:00:00 +0000
+	id 1qWxIt-0002En-G5; Fri, 18 Aug 2023 11:06:07 +0000
+Received: by outflank-mailman (input) for mailman id 586051;
+ Fri, 18 Aug 2023 11:06:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qWxCy-0007vE-MB
- for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 11:00:00 +0000
+ (envelope-from <julien@xen.org>) id 1qWxIr-0002Eh-IW
+ for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 11:06:05 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qWxCy-0006tG-0x; Fri, 18 Aug 2023 11:00:00 +0000
+ id 1qWxIq-00071G-M3; Fri, 18 Aug 2023 11:06:04 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qWxCx-0002yD-R1; Fri, 18 Aug 2023 10:59:59 +0000
+ id 1qWxIq-0003Pk-H0; Fri, 18 Aug 2023 11:06:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,33 +42,32 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=yQ1KAL5oF8boTAVDVf7pFRq1qPvbWnazAOogj+XRm/g=; b=0BtIIYq3edpVhdO+lELxS7U6t5
-	A+rbF0MOHMSQAUdGylBcAbhAdf5MzfNZ6TlGgBQMVDhpJPu7QxwwcVgAxKvWiq2xSKM0VYXBxLdDX
-	hO0jj41zm+w49t/nPra/VxcVHFtKMmWYuTWXHu6SYmTT4HhOQTXCE1OQ4oTJKCEddw+I=;
-Message-ID: <b893f08d-04e6-4194-90ef-812a782cbf19@xen.org>
-Date: Fri, 18 Aug 2023 11:59:58 +0100
+	bh=lKp0ogqW5jTUcwPlCsqGmQJXR+Yeay6HmJWt+p3mHV0=; b=0wJwx7p7586VHuWZiR37pdI8Z7
+	2rUjIgPmYtFZSPjegN9hQ4tcTy92z+B4TtY899F2NsjjMSqZvHvR41KE7XIWIH0sytoePSHBPlFOb
+	cJMscYzvqexwR6xfJgow7ndlBlFbBshYzAtA94yAn/YruzvHWTMDUrsFADDqt9v0Z8Hw=;
+Message-ID: <b4ed3b32-2b1b-43b3-bec5-83f46a7ca3b4@xen.org>
+Date: Fri, 18 Aug 2023 12:06:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/19]tools/xenstore: alloc new memory in
- domain_adjust_node_perms()
+Subject: Re: [PATCH v4 13/19] tools/xenstore: introduce read_node_const()
 Content-Language: en-GB
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20230814074707.27696-1-jgross@suse.com>
- <20230814074707.27696-13-jgross@suse.com>
+ <20230814074707.27696-14-jgross@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230814074707.27696-13-jgross@suse.com>
+In-Reply-To: <20230814074707.27696-14-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Juergen,
 
 On 14/08/2023 08:47, Juergen Gross wrote:
-> In order to avoid modifying the node data in the data base in case a
-> domain is gone, let domain_adjust_node_perms() allocate new memory for
-> the permissions in case they need to be modified. As this should
-> happen only in very rare cases, it is fine to do this even when having
-> copied the node data already.
+> Introduce a read_node() variant returning a pointer to const struct
+> node, which doesn't do a copy of the node data after retrieval from
+> the data base.
+> 
+> Call this variant where appropriate.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
