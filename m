@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101B6780C33
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 14:58:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.586215.917445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 224AD780C31
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 14:58:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.586204.917435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWz3x-0000Ju-LJ; Fri, 18 Aug 2023 12:58:49 +0000
+	id 1qWz3J-0007yT-DI; Fri, 18 Aug 2023 12:58:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 586215.917445; Fri, 18 Aug 2023 12:58:49 +0000
+Received: by outflank-mailman (output) from mailman id 586204.917435; Fri, 18 Aug 2023 12:58:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWz3x-0000HE-I7; Fri, 18 Aug 2023 12:58:49 +0000
-Received: by outflank-mailman (input) for mailman id 586215;
- Fri, 18 Aug 2023 12:58:47 +0000
+	id 1qWz3J-0007vY-A4; Fri, 18 Aug 2023 12:58:09 +0000
+Received: by outflank-mailman (input) for mailman id 586204;
+ Fri, 18 Aug 2023 12:58:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OTTw=ED=citrix.com=prvs=587dba071=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qWz3v-0007Sb-RJ
- for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 12:58:47 +0000
+ id 1qWz3I-0007Sb-8e
+ for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 12:58:08 +0000
 Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
  [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f7160129-3dc6-11ee-877e-cb3800f73035;
- Fri, 18 Aug 2023 14:58:46 +0200 (CEST)
+ id e050a167-3dc6-11ee-877e-cb3800f73035;
+ Fri, 18 Aug 2023 14:58:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,55 +36,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7160129-3dc6-11ee-877e-cb3800f73035
+X-Inumbo-ID: e050a167-3dc6-11ee-877e-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1692363526;
+  d=citrix.com; s=securemail; t=1692363487;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=57I9Q/U+6E375af+JHdMMxAsFMIEGopCo6I6/NQDaCg=;
-  b=DUmatWUWCMxslT/DTK7occCAlMxS70vddUzbVsPhz+DsqjfldKN/mFMr
-   m6AE5hQK0MQT3fZrVarhMWY5Jq/fyodqOHLHD5wB+DYeQaHTRZJ6KlufU
-   i4qtyfftcZBnWlBWXWYBz4kNr1GPjjQeDPpGHvIkS51w6DiZSQil9KA29
-   0=;
+  bh=UNpEWxE+6YUF+fqP3uFTyRb6vwEhgZuthRJrbK+bZlA=;
+  b=J/MoZBTROHzY/f4ikqvrnICaattLDHTyBG0z0hFtrUv6s7YHWRdsiJQr
+   bEek8jutmhNzKGjp09T5p031U2Fdy73vjMP2LX5hl1Brxo+/jaUI6UAqP
+   4Q/KmsTquEn1D7AEbN6sLZPS4K6K+jxto/cRWImT6hXMBUYIUDjE7RMkr
+   4=;
 Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 119911584
+X-MesageID: 119911553
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:sVCptqKElXHoKg31FE+Rz5UlxSXFcZb7ZxGr2PjKsXjdYENSgjYBn
- GIcWGGEOPuONGT9L9AlPI2+9UkBu5GAzdJrTwplqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrawP9TlK6q4mhA7gVuPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5pX2ZE+
- 8w6Bgs/RT2/2c2E3Ly0acBj05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJQExx/F9
- j6uE2LRCTEnO+eZkRe+sX/yo8nKkC/rWIdLLejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
- XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9MzEFbyE0byU+0fLOnN8cvA7BQfVKH/vg5jHqIg3Yz
- zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yTzFWyzyGskTKuMDirjUWaxC
- HI/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvJVXdrX42NBfLgT6FfK0QfUcXY
- 8fznSGEVypyNEia5GDuG7d1PUEDl0jSOl8/tbiklk/6gNJylVaeSKsfMUvmUwzKxPrsnekhy
- P4Gb5Hi40wGAIXDjtz/rdZ7waYicSJqWvgbaqV/Koa+H+aRMDh6UqWMm+x8ItwNcmY8vr6gw
- 0xRk3RwkDLX7UAr4y3TMhiPtJuHsU5DkE8G
-IronPort-HdrOrdr: A9a23:44YQV6yaJnGnPzO76SSgKrPwFL1zdoMgy1knxilNoRw8SKKlfq
- eV7Y0mPH7P+VAssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
- 4JSdkHNDSaNzlHZKjBjzVQa+xQouW6zA==
-X-Talos-CUID: =?us-ascii?q?9a23=3Ahsea3GnL16kdmpOxUUse7Gh81RbXOWODy33eE22?=
- =?us-ascii?q?WMlRCZYHLZm2M9qxHusU7zg=3D=3D?=
-X-Talos-MUID: 9a23:IyZRQAquOWfEmSHmdOEezzpCCchT5fyDMwMAz7AgvsSIJSx1Yg7I2Q==
+IronPort-Data: A9a23:aZMsfKpx09XxLq/ai4+feyHoSjdeBmIHZRIvgKrLsJaIsI4StFCzt
+ garIBmOMqqOa2P2fNkiaImz9kNQ6sXSyoRiGQNppX1jQXgW9ZuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GpwUmAWP6gR5weOzilNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXACgkfhWIvOOt+euUTeB2q8IYKebnHKpK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
+ jufrjWgW0xHb7RzzxKH7Sj9lMPjgB/4c9osFL7o6uBMm0Gqkzl75Bo+CgLg/KjRZlSFc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNAybSwn0
+ BmOhdyBONB0mOTLEzTHrO7S9G7sf3FPdgfueBPoUyMdysnmq7oylSuWYdFqCoOztdjaFRHZl
+ mXiQDcFu50fissC1qOe9F/Bgi6xqpWhcjPZ9jk7TUr+sFonOdfNi5iArAGCsK0edNrxokyp5
+ iBspiSI0AwZ4XhhfgSpSf5FIrym7u3t3Nb00Q82RMlJG9hAFheekWFsDNNWfhcB3iUsI2WBj
+ KrvVeR5vcc7AZdSRfUrC79d8uxzpUQaKfzrV+rPcv1FaYVreQmM8UlGPBDBhTq8zxB9yPphZ
+ /93lPpA615AWcyLKxLsG48gPUIDnHhilQs/u7iqp/hY7VZuTCHMEupUWLd/Rus48LmFsG3oH
+ yV3bqO3J+FkeLSmOEH/qNdDRW3m2FBnXfgaXeQLLL/cSuencUl9Y8LsLUQJItc8xfkPybqRr
+ hlQmCZwkTLCuJEOEi3SAlgLVV8ldc8XQa4TVcD0AWuV5g==
+IronPort-HdrOrdr: A9a23:dxkxu6FH/YGuq9Q1pLqEHseALOsnbusQ8zAXPiBKJCC9vPb5qy
+ nOpoV86faQslwssR4b9uxoVJPvfZqYz+8W3WBzB8bEYOCFghrKEGgK1+KLrwEIWReOk9K1vZ
+ 0KT0EUMqyVMbEVt6fHCAnTKade/DGEmprY+9s3GR1WPHBXg6IL1XYINu6CeHcGPTWvnfACZe
+ ehDswsnUvZRV0nKv6VK1MiROb5q9jChPvdEGI7705O0nj0sduwgoSKaSSl4g==
+X-Talos-CUID: 9a23:nSEkkGD27VEIvRX6EzFO5EsfIcE+SyTyy37KDkmDDEllaJTAHA==
+X-Talos-MUID: 9a23:GnM6WQWdUirRR9Dq/D3z3mBwGOt136eFUH4NksUape+fKRUlbg==
 X-IronPort-AV: E=Sophos;i="6.01,183,1684814400"; 
-   d="scan'208";a="119911584"
+   d="scan'208";a="119911553"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 1/2] rombios: Avoid using K&R function syntax
-Date: Fri, 18 Aug 2023 13:57:52 +0100
-Message-ID: <20230818125753.876699-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] rombiosn: Remove the use of egrep
+Date: Fri, 18 Aug 2023 13:57:53 +0100
+Message-ID: <20230818125753.876699-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230818125753.876699-1-andrew.cooper3@citrix.com>
 References: <20230818125753.876699-1-andrew.cooper3@citrix.com>
@@ -92,8 +92,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-The declarations for these functions in 32bitprotos.h are already Ansi
-compatible.  Update the definitions to match.
+As Alpine 3.18 container notes:
+
+  egrep: warning: egrep is obsolescent; using grep -E
+
+Adjust it.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -101,58 +104,22 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- tools/firmware/rombios/32bit/tcgbios/tcgbios.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ tools/firmware/rombios/32bit/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/firmware/rombios/32bit/tcgbios/tcgbios.c b/tools/firmware/rombios/32bit/tcgbios/tcgbios.c
-index fa22c4460aac..ad0eac0d20c2 100644
---- a/tools/firmware/rombios/32bit/tcgbios/tcgbios.c
-+++ b/tools/firmware/rombios/32bit/tcgbios/tcgbios.c
-@@ -595,7 +595,7 @@ static void tcpa_add_measurement(uint32_t pcrIndex,
- /*
-  * Add measurement to log about call of int 19h
-  */
--void tcpa_calling_int19h()
-+void tcpa_calling_int19h(void)
- {
- 	tcpa_add_measurement(4, EV_ACTION, 0);
- }
-@@ -603,7 +603,7 @@ void tcpa_calling_int19h()
- /*
-  * Add measurement to log about retuning from int 19h
-  */
--void tcpa_returned_int19h()
-+void tcpa_returned_int19h(void)
- {
- 	tcpa_add_measurement(4, EV_ACTION, 1);
- }
-@@ -611,7 +611,7 @@ void tcpa_returned_int19h()
- /*
-  * Add event separators for PCRs 0 to 7; specs 8.2.3
-  */
--void tcpa_add_event_separators()
-+void tcpa_add_event_separators(void)
- {
- 	uint32_t pcrIndex = 0;
- 	while (pcrIndex <= 7) {
-@@ -624,7 +624,7 @@ void tcpa_add_event_separators()
- /*
-  * Add a wake event to the log
-  */
--void tcpa_wake_event()
-+void tcpa_wake_event(void)
- {
- 	tcpa_add_measurement_to_log(6,
- 	                            EV_ACTION,
-@@ -659,7 +659,7 @@ void tcpa_add_bootdevice(uint32_t bootcd, uint32_t bootdrv)
-  * Add measurement to the log about option rom scan
-  * 10.4.3 : action 14
-  */
--void tcpa_start_option_rom_scan()
-+void tcpa_start_option_rom_scan(void)
- {
- 	tcpa_add_measurement(2, EV_ACTION, 14);
- }
+diff --git a/tools/firmware/rombios/32bit/Makefile b/tools/firmware/rombios/32bit/Makefile
+index c058c715514c..50d45647c23d 100644
+--- a/tools/firmware/rombios/32bit/Makefile
++++ b/tools/firmware/rombios/32bit/Makefile
+@@ -26,7 +26,7 @@ $(TARGET): 32bitbios_all.o
+ 32bitbios_all.o: 32bitbios.o tcgbios/tcgbiosext.o util.o pmm.o
+ 	$(LD) $(LDFLAGS_DIRECT) -s -r $^ -o 32bitbios_all.o
+ 	@nm 32bitbios_all.o |                                \
+-	  egrep '^ +U ' >/dev/null && {                      \
++	  grep -E '^ +U ' >/dev/null && {                    \
+ 	    echo "There are undefined symbols in the BIOS:"; \
+ 	    nm -u 32bitbios_all.o;                           \
+ 	    exit 11;                                         \
 -- 
 2.30.2
 
