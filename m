@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E3C78082E
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 11:21:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.585893.917097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BBE47808B1
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 11:36:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.585901.917109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWvfU-0007T2-Ap; Fri, 18 Aug 2023 09:21:20 +0000
+	id 1qWvty-0000mi-NO; Fri, 18 Aug 2023 09:36:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 585893.917097; Fri, 18 Aug 2023 09:21:20 +0000
+Received: by outflank-mailman (output) from mailman id 585901.917109; Fri, 18 Aug 2023 09:36:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qWvfU-0007QP-7N; Fri, 18 Aug 2023 09:21:20 +0000
-Received: by outflank-mailman (input) for mailman id 585893;
- Fri, 18 Aug 2023 09:21:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qWvfS-0007QJ-El
- for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 09:21:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qWvfP-0004eC-75; Fri, 18 Aug 2023 09:21:15 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qWvfP-00075P-15; Fri, 18 Aug 2023 09:21:15 +0000
+	id 1qWvty-0000jN-K3; Fri, 18 Aug 2023 09:36:18 +0000
+Received: by outflank-mailman (input) for mailman id 585901;
+ Fri, 18 Aug 2023 09:36:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JdLL=ED=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qWvtw-0000jH-VQ
+ for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 09:36:17 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id accd6f63-3daa-11ee-877e-cb3800f73035;
+ Fri, 18 Aug 2023 11:36:15 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-4fe61ae020bso951881e87.2
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Aug 2023 02:36:14 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ w5-20020ac254a5000000b004fe142afd1esm268360lfk.152.2023.08.18.02.36.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Aug 2023 02:36:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +45,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=a6XTjDpfImIKT+U4vCBdxjejt1utfX8FRUxz2mSr8uU=; b=a8twulTwM4mSa8e4F8oxfzXtYJ
-	au98NW2BjSbIDPNlanvuCZyPB2kXxXt3mwAuFeVJ01MmkDIvsbm0zRACOY9uoyVgJiyKbds8Eadxx
-	gr8p8IZNjIfnBCISXigjoHfU0tP51VpF+ZQbi3mJbyjZoaUYjYBgeQRAOaXMVCPLYRdo=;
-Message-ID: <891eb740-6777-4cad-8bb9-2b1a554b3563@xen.org>
-Date: Fri, 18 Aug 2023 10:21:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] xen/public: arch-arm: All PSR_* defines should be
- unsigned
-Content-Language: en-GB
+X-Inumbo-ID: accd6f63-3daa-11ee-877e-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1692351374; x=1692956174;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=4MDiBvR5doqcFrcgVA6jJZk89eGPiqIy4GVoh8CypNo=;
+        b=mA1uLE+0clYXKGNxMA066clRA8QbqXuaJbBzHYpCMNSnGGcQ+Zr49G1J8qWsNXqKoC
+         s4wb941XTKDQE1wzozyMbO8gdUmF44Vs0KhpXWKs9RAyOmM9t60M63hkx/V6IpskVnji
+         uigIF6WkqJggq3EAZwAbx0WYpn6mXrVhADfQ1g+1dW4yg+nfjaLMxUEzXW6koO1UoF9U
+         pr4ofGuA3rdM0fiarS09kmPIrK0HoAoF3+Xgd7CBeXJlvbu84gb58KZkr9DRtx28cgf3
+         fMNOlKKw439GfooshxfFx9hrhdv1zVyQsCOZiS3evh84xLhBF9Lk2di3jIJ7eb1cdXcC
+         TxJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692351374; x=1692956174;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4MDiBvR5doqcFrcgVA6jJZk89eGPiqIy4GVoh8CypNo=;
+        b=blLr/WC1yhwhAP42/tsTHayXk4vXj45IXKoN0T/ouSo9N8U2tlRQTywKZxpShz0Xio
+         P70l00DlwZ4Z1dseza9HUaa59xKB+FnvwCODpXlwHdQwJkBuCBW6Fjbr7k4Y50HDZWN1
+         bQz0+Hf3ooMNpyZZIA9TVgY8/YDG16LAbLKQhLPdHaIwT7y1SKorNQpVRSDZJIH6ZJqq
+         LQYFZiJIb5iq2KBFxRHZIAhyppID5tTzT7ANZr168hJlxRqECCBNtPVqHXscjQm9pgt6
+         7rld0AZQJ+7naGLAwRQGCf3rmB1BANUZWiX/3cClZ3Hsgzg9nR8CSE8cb1YwC8TH6l34
+         KiFQ==
+X-Gm-Message-State: AOJu0YzW8O3OD/20rJ/RCMo0pJXGwRw3rkiErHHsRVAgqwz8uHwEQvWz
+	EBBaE+/SHYHRVxbVq7hM9w8=
+X-Google-Smtp-Source: AGHT+IGsVOgM9Ra4AVUsZd1rc2WHRcSdPtXQZzoWfY6wUPLVudQcEYC6eTYT0+4aG93Jk1vLX0ZaiQ==
+X-Received: by 2002:a05:6512:3494:b0:4fe:3724:fdae with SMTP id v20-20020a056512349400b004fe3724fdaemr1045543lfr.66.1692351373927;
+        Fri, 18 Aug 2023 02:36:13 -0700 (PDT)
+Message-ID: <f6d459f7c6736dde859ef3f508cdb9e0d626fcd1.camel@gmail.com>
+Subject: Re: [PATCH v1 02/57] xen/riscv: add public arch-riscv.h
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20230817214356.47174-1-julien@xen.org>
- <20230817214356.47174-4-julien@xen.org>
- <93ccb2c0-fa2c-3e84-35bf-3d86aef7a2bd@suse.com>
- <2b86f83a-6352-4b43-835b-6c56ad8260ba@xen.org>
- <58ecfdf4-c0ce-be56-8686-d6fcf06f9609@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <58ecfdf4-c0ce-be56-8686-d6fcf06f9609@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Fri, 18 Aug 2023 12:36:13 +0300
+In-Reply-To: <2b9cd73c-8ad2-9c82-bdfa-4b9af41f967f@suse.com>
+References: <cover.1692181079.git.oleksii.kurochko@gmail.com>
+	 <d9721f72f4a51b1240ba180e33193c551b987251.1692181079.git.oleksii.kurochko@gmail.com>
+	 <2b9cd73c-8ad2-9c82-bdfa-4b9af41f967f@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
 
-Hi Jan,
+On Thu, 2023-08-17 at 17:00 +0200, Jan Beulich wrote:
+> On 16.08.2023 12:19, Oleksii Kurochko wrote:
+> > --- /dev/null
+> > +++ b/xen/include/public/arch-riscv.h
+> > @@ -0,0 +1,90 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> > +/*
+> > + * Guest OS interface to RISC-V Xen.
+> > + * Initially based on the ARM implementation.
+> > + */
+> > +
+> > +#ifndef __XEN_PUBLIC_ARCH_RISCV_H__
+> > +#define __XEN_PUBLIC_ARCH_RISCV_H__
+> > +
+> > +#define=C2=A0 int64_aligned_t=C2=A0 int64_t __attribute__((__aligned__=
+(8)))
+> > +#define uint64_aligned_t uint64_t __attribute__((__aligned__(8)))
+> > +
+> > +#ifndef __ASSEMBLY__
+> > +#define ___DEFINE_XEN_GUEST_HANDLE(name, type)=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 \
+> > +=C2=A0=C2=A0=C2=A0 typedef union { type *p; unsigned long q; }=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __guest_handle_ ## name;=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0 typedef union { type *p; uint64_aligned_t q; }=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __guest_handle_64_ ## name
+> > +
+> > +/*
+> > + * XEN_GUEST_HANDLE represents a guest pointer, when passed as a
+> > field
+> > + * in a struct in memory. On RISCV is always 8 bytes sizes and 8
+> > bytes
+> > + * aligned.
+> > + * XEN_GUEST_HANDLE_PARAM represents a guest pointer, when passed
+> > as an
+> > + * hypercall argument. It is 4 bytes on aarch32 and 8 bytes on
+> > aarch64.
+>=20
+> Nit: aarch{32,64}?
+Thanks. It should be updated to RISC-V.
+>=20
+> > + */
+> > +#define __DEFINE_XEN_GUEST_HANDLE(name, type) \
+> > +=C2=A0=C2=A0=C2=A0 ___DEFINE_XEN_GUEST_HANDLE(name, type);=C2=A0=C2=A0=
+ \
+> > +=C2=A0=C2=A0=C2=A0 ___DEFINE_XEN_GUEST_HANDLE(const_##name, const type=
+)
+> > +#define DEFINE_XEN_GUEST_HANDLE(name)=C2=A0=C2=A0
+> > __DEFINE_XEN_GUEST_HANDLE(name, name)
+> > +#define __XEN_GUEST_HANDLE(name)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 __guest_handle_64_ ## name
+> > +#define XEN_GUEST_HANDLE(name)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 __XEN_GUEST_HANDLE(name)
+> > +#define XEN_GUEST_HANDLE_PARAM(name)=C2=A0=C2=A0=C2=A0 __guest_handle_=
+ ## name
+> > +#define set_xen_guest_handle_raw(hnd, val)=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ \
+> > +=C2=A0=C2=A0=C2=A0 do {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 typeof(&(hnd)) _sxghr_tmp =
+=3D &(hnd);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _sxghr_tmp->q =3D 0;=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _sxghr_tmp->p =3D (val);=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0 } while ( 0 )
+>=20
+> While I realize you simply took this from Arm, in new code I think it
+> would be helpful to avoid name space violations from the beginning.
+> Hence no leading underscore please for macro local variables.
+> Trailing
+> underscores is what we mean to use instead.
+>=20
+> It's also not really valid to use a gcc extension here, but I guess
+> that's hard to avoid.
+Thank you. Understood. I'll make the update.
+>=20
+> > +#define set_xen_guest_handle(hnd, val)
+> > set_xen_guest_handle_raw(hnd, val)
+> > +
+> > +typedef uint64_t xen_pfn_t;
+> > +#define PRI_xen_pfn PRIx64
+> > +#define PRIu_xen_pfn PRIu64
+> > +
+> > +typedef uint64_t xen_ulong_t;
+> > +#define PRI_xen_ulong PRIx64
+> > +
+> > +#if defined(__XEN__) || defined(__XEN_TOOLS__)
+> > +
+> > +struct vcpu_guest_context {
+> > +};
+> > +typedef struct vcpu_guest_context vcpu_guest_context_t;
+> > +DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+> > +
+> > +struct xen_arch_domainconfig {
+> > +};
+>=20
+> While these are okay to remain empty, ...
+>=20
+> > +#endif
+> > +
+> > +struct arch_vcpu_info {
+> > +};
+> > +typedef struct arch_vcpu_info arch_vcpu_info_t;
+> > +
+> > +struct arch_shared_info {
+> > +};
+> > +typedef struct arch_shared_info arch_shared_info_t;
+>=20
+> ... these two need to gain a "todo" marker so that we won't forget
+> to at least add a placeholder entry if no real ones surface.
+I'll make the update. Thanks.
 
-On 18/08/2023 09:14, Jan Beulich wrote:
-> On 18.08.2023 09:39, Julien Grall wrote:
->> On 18/08/2023 07:33, Jan Beulich wrote:
->>> As an aside I wonder why they're here: They look like definitions of
->>> processor registers, which aren't under our (Xen's) control.
->>
->> I agree they are not under Xen's control. However, they are used by the
->> toolstack and IIRC back then they were not available in any other headers.
->>
->> Note that they are only available by the tools and the hypervisor (see
->> #ifdef above).
-> 
-> Yes, I did notice that (or else I would have used stronger wording).
-> 
->>> I ask in
->>> part because the presence of such constants may then be taken as
->>> justification to add similar things in new ports. Yet such definitions
->>> shouldn't be put here.
->>
->>   From my understanding we are using the public headers to provide
->> macros/defines that are used by both the toolstack and the hypervisor.
->> If they are not meant to be exposed to the guest, then they will be
->> protected with "#if defined(__XEN__) || defined(__XEN_TOOLS__)".
->>
->> I think we are in a similar situation here. So it is not clear where
->> they should be put if we need to share them between the hypervisor and
->> the toolstack.
-> 
-> On x86 we simply arrange for certain hypervisor headers to be re-usable
-> from the toolstack. See in particular arch/x86/include/asm/x86-*.h. And
-> of course everything under include/xen/lib/x86/, but those are our own
-> definitions, not ones meant to solely express relevant hw spec aspects.
+>=20
+> > +/* Maximum number of virtual CPUs in legacy multi-processor
+> > guests. */
+> > +/* Only one. All other VCPUS must use VCPUOP_register_vcpu_info */
+>=20
+> Nit: Style (missing full stop). And quite likely the two comments
+> could
+> be joined to a single one.
+I'll take it into account.
+>=20
+> > +#define XEN_LEGACY_MAX_VCPUS 1
+> > +
+> > +#endif /* __ASSEMBLY__ */
+> > +
+> > +#ifndef __ASSEMBLY__
+>=20
+> Why not continue the earlier !__ASSEMBLY__ section?
+Sure, we can continue the earlier !__ASSEBLY__ section. I'll update
+this part.
 
-Even if they are defined by the HW, we still need them to easily create 
-some hypercalls field.
-
-If we are planning to have a stable toolstack ABI (as Juergen 
-suggested), then I would find a bit odd that onewould need to include 
-lib/ (or provide their own header) in order to update the fields.
-
-Anyway, I am not planning to do any re-ordering anytime soon for the 
-public. But I would be happy to take part of the discussion if there are 
-a general agreement to split further and someone wants to write patches.
-
-Cheers,
-
--- 
-Julien Grall
+~ Oleksii
 
