@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D640A780D94
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 16:09:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.586347.917566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C4C8780DF4
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Aug 2023 16:22:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.586355.917575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qX09o-0006pk-4p; Fri, 18 Aug 2023 14:08:56 +0000
+	id 1qX0M1-0000zK-9u; Fri, 18 Aug 2023 14:21:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 586347.917566; Fri, 18 Aug 2023 14:08:56 +0000
+Received: by outflank-mailman (output) from mailman id 586355.917575; Fri, 18 Aug 2023 14:21:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qX09o-0006mN-1J; Fri, 18 Aug 2023 14:08:56 +0000
-Received: by outflank-mailman (input) for mailman id 586347;
- Fri, 18 Aug 2023 14:08:54 +0000
+	id 1qX0M1-0000xI-68; Fri, 18 Aug 2023 14:21:33 +0000
+Received: by outflank-mailman (input) for mailman id 586355;
+ Fri, 18 Aug 2023 14:21:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aZyU=ED=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qX09m-0006mH-4z
- for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 14:08:54 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1bb875f-3dd0-11ee-9b0c-b553b5be7939;
- Fri, 18 Aug 2023 16:08:51 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 395751F8A8;
- Fri, 18 Aug 2023 14:08:50 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBA3F13441;
- Fri, 18 Aug 2023 14:08:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OfckNHF732QKOAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 18 Aug 2023 14:08:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OTTw=ED=citrix.com=prvs=587dba071=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qX0Lz-0000xC-Ia
+ for xen-devel@lists.xenproject.org; Fri, 18 Aug 2023 14:21:31 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84471c94-3dd2-11ee-9b0c-b553b5be7939;
+ Fri, 18 Aug 2023 16:21:28 +0200 (CEST)
+Received: from mail-bn8nam12lp2172.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.172])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 18 Aug 2023 10:21:00 -0400
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by BY5PR03MB5171.namprd03.prod.outlook.com (2603:10b6:a03:220::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Fri, 18 Aug
+ 2023 14:20:58 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::afa:50df:158a:a912]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::afa:50df:158a:a912%5]) with mapi id 15.20.6678.029; Fri, 18 Aug 2023
+ 14:20:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,678 +49,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1bb875f-3dd0-11ee-9b0c-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692367730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=x0k/xmMcEMB3HG/re1U02md6JsJVh4sxDz/E/SC1Hhs=;
-	b=cW0Yh+wO08rS1WrPmlKVWUo+TdS863sU5+NkKBdER9omNWpBpbVYQmj9n+m2qd/yuWU45h
-	j4+6KMXydJBvuoxVcxCvqUd499yqeEjN1pTvhMdz5UMf+TdFr/KlTqwxCdWQ8TBzCqspPh
-	ZYnEswplPVW+fXzKIhsFfJa+NM9PmNk=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v5] tools/xenstore: move xenstored sources into dedicated directory
-Date: Fri, 18 Aug 2023 16:08:48 +0200
-Message-Id: <20230818140848.20220-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
+X-Inumbo-ID: 84471c94-3dd2-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1692368488;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=LfvPsHmQ3LVO/GDhLV3Vl++BnfPzrONlXaHfSsz3y/4=;
+  b=QR9v10S4ccJKs9A696MaGR2UxxME5QirpBjPQCzlyM6JyErBxAtFiZuQ
+   8LA0zg0P03CF3rBkHgu7jqSF4Geuf03aQSd7qz5KgB4tXRCTXItprgzzH
+   Q0sQUL6Fr3a0LAwdz4/eUPltZagu4lP/B52CykwOzoWaXK0NgUTCDexju
+   8=;
+X-IronPort-RemoteIP: 104.47.55.172
+X-IronPort-MID: 119177917
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:KR1fsqlBIk8t+y2Jp3Itkono5gwEJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIbDTzSPP+PY2ekLdx/YIq/9k4PvsfdyYRnTwpvrno2FCMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE0p5K2aVA8w5ARkPqgb5Q+GzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ dJJEDtXaD+MveCv47akbNZKr845FeC+aevzulk4pd3YJdAPZMmZBo/stZpf1jp2gd1SF/HDY
+ cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkVE3iee3WDbWUoXiqcF9t0CUv
+ G/ZuU/+BQkXLoe3wjuZ6HO8wOTImEsXXapLTezhqaE72QL7Kmo7OgNOD2G6ob6Dg1eSCtN9L
+ WhJ9hAHhP1nnKCsZpynN/Gim1aGsQQbQMF4CPAh5UeGza+8yxaUAC0IQyBMbPQitdQqXno62
+ 1mRhdTrCDdz9rqPRhq19L2ZsDezMig9NnIZaGkPSg5ty9v+pIA+iDrfQ9AlF7S65vXuAi35y
+ T2OqCk4hp0QgNQN2qH9+krI6xqzorDZQwhz4R/YNkq+5wZkaYrje4yp41HG6epoIYCCC12Qu
+ 35CnNKRhN3iFrmInS2JBe8LTLeg4q/fNCWG2AE1WZ486z6q5nivO5hK5y1zL1toNcBCfiL1Z
+ EjUukVa45o70GaWUJKbqrmZU6wCpZUM3/y5Dpg4svImjkBNSTK6
+IronPort-HdrOrdr: A9a23:oDbQGK/ECJBcsv7OhIJuk+DbI+orL9Y04lQ7vn2ZKCYlEfBw8v
+ rEoB1173XJYUkqKRYdcLy7VJVoOEmskaKdgrNwAV7BZmTbUQKTRelfBeGI+UyEJ8SZzIFgPM
+ xbEpSWZuefMbAW5vyKgjWFLw==
+X-Talos-CUID: 9a23:wK04EGOmCsTVle5Ddnhf/xQSNc8fcGT+yGj2HGmRA3xQYejA
+X-Talos-MUID: 9a23:rxmQaQYV8LNnJOBThSG03gtjNIBS6r2CWUEvl7Fbt/OtHHkl
+X-IronPort-AV: E=Sophos;i="6.01,183,1684814400"; 
+   d="scan'208";a="119177917"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g8wysZi9umJeOtJ0a3JpPJhJFdB5goGtBNh87XGtdn0zLpts7IecPG7p0RP8sq6wgg4Wj2GILDIEMlLDTjTaZQQ9Bso5vX+3XdYM6VF2ue+eYD0QFoE9PWBaDORQ/Z3PAlJ+MXC7aBG0wQ+k7LwkCMR0AJMBtvnnSWDW6qKn2NwatwcjFxa5YJC+f87lgu5zc+p7+M5kl0T6tF3P8VH9Z6cVPA5rnqm8g7E6dU+XuoUC04VR7BjeNecFUoqcyzsK6iB5iviMyjiVG2BU29OIWSfTW+2b9OQY1gg0n6uLJvhm/j7Pn5XWVw3zc2mImy7qItlaN2Is2bQONHZUpDgdiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=faGpFtZljD00vfnDU73PgDPa3RSBzMPdsIfANGoV1JY=;
+ b=bjsePqy9J+nCWHjDlPLk0R1i54cqzrCSURVg9IXviX+/ZhUDF6BY7VI4GWOHVEF52z8Jcnb6P47jrVyw90rSt7rNrUkv06pyuOD7fhGhIrD/5bN77wVsnogB9Q/gkjr5iiXd1EWJJGyjOn8640aWD/Fj8I0gQ3QIEhfd46BC2qARCpHnav9vQZ93Tpgd+Uln1gMpVIM+VwzB3Iu0XJJ935ntFgYP/YGjXFs5GBEeqtIAEf3Uf2dapyMuNBQR+yJCjLPjubSukpBoWZcILZ7goMhwyVrLMfjQqr4yT0Ko4eRj4HGP+Q6htYK62LpKwQXSMPlDIlMpOly7lc6dYaxM3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=faGpFtZljD00vfnDU73PgDPa3RSBzMPdsIfANGoV1JY=;
+ b=tTIMtj5uktXWJGi4v9CCSesx8rbnyG+F3wGhFqF4MieK69CxVnFOM45y3/ZQKTqslILmIHvKHU7cHaTGJv2MJsPBFrglprBOY2UJkDBwzdu934HrrrXCks+dbrVGmVvciqwfKGh4FRNXWQyfmmHdjhUi3dGmowvlXHmvHlMyK3c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <53982682-c49c-6f3e-87c1-f4bd0ab385ce@citrix.com>
+Date: Fri, 18 Aug 2023 15:20:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v5] tools/xenstore: move xenstored sources into dedicated
+ directory
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
+References: <20230818140848.20220-1-jgross@suse.com>
+In-Reply-To: <20230818140848.20220-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0322.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:390::16) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|BY5PR03MB5171:EE_
+X-MS-Office365-Filtering-Correlation-Id: ceb3d2df-4eb1-424b-cc2d-08db9ff656eb
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	QpDuskBMGDL2sEWZO4mqHZ4fuS87oV6Yoqpl15kOZb/TjWkGIDUZN8AiSFrqBPoEcL6FtfdOcYntwT+UfRI/4edSdBFjZNSoobhjQ3dMiBXeJ6UMAuaHZ55+gjPqKHwyKhcviNlqD8PlpHEfkN1N1neeh7a4U8donz2emYhzw03jCDn9ZJGKsr89H0F01C5TvQmRnCbJ7oNcRIrevADoZyXyFNwGKJKANf75RxqeXyMlP/TflzHzL5GXe0FLcGd/boOTYOMATgYOEYGI1f6rGTiTgJa7q0/QKrzmA1OO2zRQiSVKmxK2p+lX5dX7QwW9k9qnOIuXiqCHwVor01je21iD02d5GrKqoO8PK1Q9Pmk3H488vwytWy9+t2zstAPXugUmcRzOUg2qfh4ExC0CbUvWjo1sdmIiSPJaskN6x5lq4bfbUQ/LywdeBP5GzZOaLe0O+4oh9Uwh6l4Vw/0G9bz6R659KcHmsdLPPEWeSNEKjRz+B7GKKPOaOrn+/c3awZ9F9Dqt2FYXrn7Ax3Ry/zVb6nhnyGP65RoHEYNzR7sfpSkEta486RVAGHLSJ8/SLCtq9SF2BVHnYKfwtoSMLLG08ecaojKtRk9Yn7LQ0Ez7z8f4RMWz+pKX4DX6Kw5ejqS4M1PHB09rb+WHnQeWdA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(376002)(366004)(396003)(39860400002)(451199024)(186009)(1800799009)(2616005)(26005)(6666004)(6486002)(6512007)(6506007)(53546011)(5660300002)(8936002)(8676002)(4326008)(2906002)(478600001)(41300700001)(66946007)(54906003)(66476007)(66556008)(316002)(38100700002)(82960400001)(31696002)(86362001)(36756003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T25VdFNUQWRNdXppSjZMZWpBbld1c0xMUDArdVUzL2NmMllzWWRXWVYwT3l1?=
+ =?utf-8?B?NzBVOXJ1V01mdUlVYVFVcXlQTDhpS1o4VUVKWEE0Q2psR0F6b1JiSzR4WDR3?=
+ =?utf-8?B?NDgvR0dsYjd1QnFoSWVqdE5BQzNDV1hsdmdTcFJhaU5GQWMvVE9GNnF2VjhI?=
+ =?utf-8?B?ekJaY21NMmUzaXR5RHhuZVBOQWNzUHdWZzh5VzU0L2xYNGFGbkI0NTJPYUhY?=
+ =?utf-8?B?clhrQTZnS1VKd2NHRHd5cUhONnRvZkxISE1JRkJEbUtob1NwVkFtWVptalBE?=
+ =?utf-8?B?bWJEWkc5emhBcU9IOC94ZGxqSHZQRjRXSXZWM0hxQS9XcjVVNnRWL281RTJX?=
+ =?utf-8?B?WkNNc0VxZkI2MFdOaWt6S1FXRkRtdm8zQ2IydGcyZXFFYktRNm1FR3pQN0ht?=
+ =?utf-8?B?d0w4YTVsUFV1ZlBGUzN3cUhNeko0VTd5WWlYRjZrVTBkOVpXMzZjWmVYNnBB?=
+ =?utf-8?B?d1JsbjIyVk9aZ0I2ZHQ0cXBGL1FXL0F3YkJJK01xY3lEdlMvQTc5SVFFNDhh?=
+ =?utf-8?B?TVpMZnBidm1UbEEvZUxPRkFZQVhxeWh2TFNaVDhSRDU0U3pxdHY2M2FRQkN4?=
+ =?utf-8?B?SllZOVRiQk1YdDI4Sm1xRmQzNzJQREZORnVvL1o2bXU3YnpjRTN1dDdudnM3?=
+ =?utf-8?B?c29HdnRKV2QrL01nTUl6RnFST0RBZlpTMkFVME9UWGcyUFlJQzNyWTRBVjFF?=
+ =?utf-8?B?Sm5XQ081RHZlM0lTZkg3RmtncXhNeWEyaUdpSlpJQ2hqazh3ZzZiNElXcEcx?=
+ =?utf-8?B?Q0FJUlk2WHhDaWxmNWJId2hTdG9JNTNydVVpRVp1aERUYkhMRld1WUN4NDZ3?=
+ =?utf-8?B?QkViU1VrVDlTcHI1bm56bFMyeXRudk5NL2tIUU1BZFdlTE96OXA2U2pvLy84?=
+ =?utf-8?B?M2VubUlXQ0FWTkhrUnVVUWplOHJjcEw0T1VnUG9VTHpRQ1M1dkZWTVlqMGl2?=
+ =?utf-8?B?NzNXenRJYVdMdXdFN01qK2RZMjVxSVFRd0d6eTVyTTNRall6M2NETytVOHNp?=
+ =?utf-8?B?cTd5UGJ3b095eHJYTURFY0lVcXZ3OW9ZV3Fxd25GRkQ1T2hoaG5LTHBFYkhj?=
+ =?utf-8?B?bzBJUzREVHNGb0kwSWoza0ttSTQ2ZFNsUy9RUzRYNmk3TldGUzFmbXZNRUIy?=
+ =?utf-8?B?VU1hTElTZnhKUlpJdml1QUR6SkN0RTR1QkdMcnBxU0ozU3ZKT29MWXlxOGty?=
+ =?utf-8?B?UkxCRGxDZWRDa0hyQjV2bHJEWDhtV0hqbEZkMjJuYk9RanlLYnE4Q2I2VGNQ?=
+ =?utf-8?B?R2VvRWpqSEN6RTJxbXI4NEZuL2VnWSs2alV0U0VyZmd3bWUrWENjWTNNak5O?=
+ =?utf-8?B?QzBhanI3MHdCc3FZV0puVVlqUU5nV3JXNnY2THFDQ3F2TS9kamZ2dlF4N2xB?=
+ =?utf-8?B?RS9KQ05WNExoVzgvejVJUWRXZy9wejRxaVAyZ0xnOEVyL1RLU1haRzlNQm43?=
+ =?utf-8?B?a0tRZmVWcVdYQVNxeVpoUW1tdkRybEo3RTlqeGdRVDFuNFp4OVBjb0svbkZF?=
+ =?utf-8?B?a2YvbkZlQm53WnZKeXNtcmhhN3FudXNPS0pKaGgvVlRtbmNQNEFQcmpoYW5X?=
+ =?utf-8?B?eXN1UjJhZ2ZCUW54TEcydlBMakE2Vi93Wno0Nk9yOTNuYk0xdUR2Z25DMCs0?=
+ =?utf-8?B?N21yaERwaWdHNVM3Y3Q4M1RLSEx1eG5HWGNsTjNGMmk5a1NIT3lFUHRXK1g4?=
+ =?utf-8?B?VFJuOVdtdmdCT2VWdU92ZnA0TE53bDV4Z2pQejNaQVJISGJsMWhLeWx5NVdP?=
+ =?utf-8?B?SnhCakk3cHRQTmNCeDdQbUxhUiswdGNGOTU3R1BvZWVENTVlVHE0Q3NCSUNa?=
+ =?utf-8?B?YUZXaHNZQks5Z3E4S2xVeEZkbGtJVHUrK2ZubDVtY0VFOU1xbjhubTc1VExM?=
+ =?utf-8?B?Z2tuUzNxZEp1SldYd3pxeVh6cGd6a3RXWnlmUUxTZDdoeWRkVXRCcXNyTXMz?=
+ =?utf-8?B?WjdlM0pNZUZjWkVhbkRXWHFmejBRNWpIY1VIODVTa29QYVFSbVpsOVdYMURu?=
+ =?utf-8?B?NGhHSlNrTEU1NFZudlFjM05Xbjh6N01GTG5JamhMWXgrRWIrYk53QlVjc21u?=
+ =?utf-8?B?OXFqeUI1bTZpcXJTZVRMMlV0bkdad09Fa0RPZE00Sm53NE1ma3NqRW5LT2JH?=
+ =?utf-8?B?VHJSSWNjNmFGSmZMcUdEK1kwaVFDK3YrajBQWE5PUXkvdXoyMHVpMVRLVUNL?=
+ =?utf-8?B?Mmc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	qHl436ldKO6plthjxnQAkoXElWjATg8H304TVajB6HHn0V/fHud8GPyEABlZNUAx4AnO+VcM6sALzyDgTe+LPd7u9bXCW8aOyTeKiQYAeQ/wQeV91iPvU4Ka/hH1G7kkzoxEhNQjp3aWqK+lb08iozpaLIOgJNywo2gISuDRD7TC0B1rYLlzIuMtL+8qA5Rl+te8r5F2WFzabBeX7FVVp3+wZlhkQQ7x74/UVoWNOlUZf6X7RbjVjKreJ6b8mv2pUpHYuf0dqz4A/fxbhyDv6VSB+h1ZIJe4Ro6TUeL5xS/mVrkodfLO85WXzJhpUz4EbdbGkdBA1dkYPgVdPInLobn/J9V9H1OZmE9PZcPWAmevl8KdUCApG4V26wpAChTA1mLPweywonFoyK7jC30Rh8Go4Ic9nh8EVXTcSj2XK3h4sHxcGrsVBrSxbgCPrbXwRVwPvCa16ZJMm8xtW6B69or/Fu8Jo/VvHHW1h1vfNZsCzx8K5HdxuL9tzb0xKnhJ/v56CjU4yrx5d6y52U427aHMor36lKzdVPHf5GsEbwOasE5v+Q6GOMJGavreZNgo4AtZx7j6nkHxZX5l1oZyfvs9t931Ihe/P2JumDzqigxWmkQ0jJIumiGT33AD2shUvbmYwP5MJyevId0DrryO/RNn4POEXz8h1kSTdnswVkn3cnW0GGiOhwZzDR17380WXSmfzETpKzYGRlLtAfSlXEEKxp1OydXYGn6xnJSy2UpjYleHltZrHl6lJmUnv/+zd/tLHCSu9eGP6GheZeA++Ki20So1xfXD2+QsQbNtfu7GwW+MddufjtEpZDyoSXpXFAqKNhbLVqlpJzP/8Sq3jilLnFcbq92P574Sp/fu2jwRjywzn0xZJ/uPySTTPFnH
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ceb3d2df-4eb1-424b-cc2d-08db9ff656eb
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2023 14:20:57.4805
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GadUZ/2OaGHOo1IXVWlStGE8eXM4jSs255gSDebXIOeb0fu4z6/IJS8weGch5H0M2jeKEV2v6aixDuZXduANS6z1OLFMruH1oa6VqTFre9Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5171
 
-In tools/xenstore there are living xenstored and xenstore clients.
-They are no longer sharing anything apart from the "xenstore" in their
-names.
+On 18/08/2023 3:08 pm, Juergen Gross wrote:
+> diff --git a/.gitignore b/.gitignore
+> index c1b73b0968..c6489c4e70 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -237,22 +237,22 @@ tools/xenmon/xentrace_setmask
+>  tools/xenmon/xenbaked
+>  tools/xenpaging/xenpaging
+>  tools/xenpmd/xenpmd
+> -tools/xenstore/xenstore
+> -tools/xenstore/xenstore-chmod
+> -tools/xenstore/xenstore-control
+> -tools/xenstore/xenstore-exists
+> -tools/xenstore/xenstore-list
+> -tools/xenstore/xenstore-ls
+> -tools/xenstore/xenstore-read
+> -tools/xenstore/xenstore-rm
+> -tools/xenstore/xenstore-watch
+> -tools/xenstore/xenstore-write
+> -tools/xenstore/xenstored
+> +tools/xenstored/xenstored
+>  tools/xentop/xentop
+>  tools/xentrace/xentrace_setsize
+>  tools/xentrace/tbctl
+>  tools/xentrace/xenctx
+>  tools/xentrace/xentrace
+> +tools/xs-clients/xenstore
+> +tools/xs-clients/xenstore-chmod
+> +tools/xs-clients/xenstore-control
+> +tools/xs-clients/xenstore-exists
+> +tools/xs-clients/xenstore-list
+> +tools/xs-clients/xenstore-ls
+> +tools/xs-clients/xenstore-read
+> +tools/xs-clients/xenstore-rm
+> +tools/xs-clients/xenstore-watch
+> +tools/xs-clients/xenstore-write
+>  xen/**/*.i
+>  xen/**/*.s
+>  xen/.banner
 
-Move the xenstored sources into a new directory tools/xenstored while
-dropping the "xenstored_" prefix from their names. This will make it
-clearer that xenstore clients and xenstored are independent from each
-other.
+Please take the opportunity to move these into local .gitignore files. 
+One less area of churn in future renaming.  Probably can be fixed on
+commit as its only mechanical.
 
-In order to avoid two very similar named directories below tools,
-rename tools/xenstore to tools/xs-clients.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-After the large overhaul of xenstored I think such a reorg would make
-sense to go into the same Xen version. Delaying it until the next
-version would make potential backports for 4.18 harder.
-V4:
-- new patch
-V5:
-- rename xenstore directory to xs-clients (Julien Grall)
----
- .gitignore                                    | 22 ++++-----
- MAINTAINERS                                   |  3 +-
- stubdom/Makefile                              |  4 +-
- tools/Makefile                                |  3 +-
- tools/xenstored/Makefile                      | 48 +++++++++++++++++++
- tools/{xenstore => xenstored}/Makefile.common | 13 +++--
- tools/{xenstore => xenstored}/README          |  0
- .../control.c}                                |  8 ++--
- .../control.h}                                |  0
- .../xenstored_core.c => xenstored/core.c}     | 14 +++---
- .../xenstored_core.h => xenstored/core.h}     |  0
- .../xenstored_domain.c => xenstored/domain.c} | 10 ++--
- .../xenstored_domain.h => xenstored/domain.h} |  0
- tools/{xenstore => xenstored}/hashtable.c     |  0
- tools/{xenstore => xenstored}/hashtable.h     |  0
- tools/{xenstore => xenstored}/list.h          |  0
- .../xenstored_lu.c => xenstored/lu.c}         |  8 ++--
- .../xenstored_lu.h => xenstored/lu.h}         |  0
- .../lu_daemon.c}                              |  4 +-
- .../lu_minios.c}                              |  2 +-
- .../xenstored_minios.c => xenstored/minios.c} |  2 +-
- .../xenstored_osdep.h => xenstored/osdep.h}   |  0
- .../xenstored_posix.c => xenstored/posix.c}   |  4 +-
- tools/{xenstore => xenstored}/talloc.c        |  0
- tools/{xenstore => xenstored}/talloc.h        |  0
- .../{xenstore => xenstored}/talloc_guide.txt  |  0
- .../transaction.c}                            |  6 +--
- .../transaction.h}                            |  2 +-
- tools/{xenstore => xenstored}/utils.c         |  0
- tools/{xenstore => xenstored}/utils.h         |  0
- .../xenstored_watch.c => xenstored/watch.c}   |  6 +--
- .../xenstored_watch.h => xenstored/watch.h}   |  2 +-
- .../include => xenstored}/xenstore_state.h    |  0
- tools/{xenstore => xs-clients}/Makefile       | 30 ++----------
- .../xenstore_client.c                         |  0
- .../xenstore_control.c                        |  0
- 36 files changed, 110 insertions(+), 81 deletions(-)
- create mode 100644 tools/xenstored/Makefile
- rename tools/{xenstore => xenstored}/Makefile.common (50%)
- rename tools/{xenstore => xenstored}/README (100%)
- rename tools/{xenstore/xenstored_control.c => xenstored/control.c} (98%)
- rename tools/{xenstore/xenstored_control.h => xenstored/control.h} (100%)
- rename tools/{xenstore/xenstored_core.c => xenstored/core.c} (99%)
- rename tools/{xenstore/xenstored_core.h => xenstored/core.h} (100%)
- rename tools/{xenstore/xenstored_domain.c => xenstored/domain.c} (99%)
- rename tools/{xenstore/xenstored_domain.h => xenstored/domain.h} (100%)
- rename tools/{xenstore => xenstored}/hashtable.c (100%)
- rename tools/{xenstore => xenstored}/hashtable.h (100%)
- rename tools/{xenstore => xenstored}/list.h (100%)
- rename tools/{xenstore/xenstored_lu.c => xenstored/lu.c} (98%)
- rename tools/{xenstore/xenstored_lu.h => xenstored/lu.h} (100%)
- rename tools/{xenstore/xenstored_lu_daemon.c => xenstored/lu_daemon.c} (97%)
- rename tools/{xenstore/xenstored_lu_minios.c => xenstored/lu_minios.c} (98%)
- rename tools/{xenstore/xenstored_minios.c => xenstored/minios.c} (97%)
- rename tools/{xenstore/xenstored_osdep.h => xenstored/osdep.h} (100%)
- rename tools/{xenstore/xenstored_posix.c => xenstored/posix.c} (98%)
- rename tools/{xenstore => xenstored}/talloc.c (100%)
- rename tools/{xenstore => xenstored}/talloc.h (100%)
- rename tools/{xenstore => xenstored}/talloc_guide.txt (100%)
- rename tools/{xenstore/xenstored_transaction.c => xenstored/transaction.c} (99%)
- rename tools/{xenstore/xenstored_transaction.h => xenstored/transaction.h} (98%)
- rename tools/{xenstore => xenstored}/utils.c (100%)
- rename tools/{xenstore => xenstored}/utils.h (100%)
- rename tools/{xenstore/xenstored_watch.c => xenstored/watch.c} (98%)
- rename tools/{xenstore/xenstored_watch.h => xenstored/watch.h} (98%)
- rename tools/{xenstore/include => xenstored}/xenstore_state.h (100%)
- rename tools/{xenstore => xs-clients}/Makefile (74%)
- rename tools/{xenstore => xs-clients}/xenstore_client.c (100%)
- rename tools/{xenstore => xs-clients}/xenstore_control.c (100%)
-
-diff --git a/.gitignore b/.gitignore
-index c1b73b0968..c6489c4e70 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -237,22 +237,22 @@ tools/xenmon/xentrace_setmask
- tools/xenmon/xenbaked
- tools/xenpaging/xenpaging
- tools/xenpmd/xenpmd
--tools/xenstore/xenstore
--tools/xenstore/xenstore-chmod
--tools/xenstore/xenstore-control
--tools/xenstore/xenstore-exists
--tools/xenstore/xenstore-list
--tools/xenstore/xenstore-ls
--tools/xenstore/xenstore-read
--tools/xenstore/xenstore-rm
--tools/xenstore/xenstore-watch
--tools/xenstore/xenstore-write
--tools/xenstore/xenstored
-+tools/xenstored/xenstored
- tools/xentop/xentop
- tools/xentrace/xentrace_setsize
- tools/xentrace/tbctl
- tools/xentrace/xenctx
- tools/xentrace/xentrace
-+tools/xs-clients/xenstore
-+tools/xs-clients/xenstore-chmod
-+tools/xs-clients/xenstore-control
-+tools/xs-clients/xenstore-exists
-+tools/xs-clients/xenstore-list
-+tools/xs-clients/xenstore-ls
-+tools/xs-clients/xenstore-read
-+tools/xs-clients/xenstore-rm
-+tools/xs-clients/xenstore-watch
-+tools/xs-clients/xenstore-write
- xen/**/*.i
- xen/**/*.s
- xen/.banner
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a0805d35cd..bf71ac144c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -669,7 +669,8 @@ F:	tools/include/xenstore.h
- F:	tools/include/xenstore_lib.h
- F:	tools/include/xen-tools/xenstore-common.h
- F:	tools/libs/store/
--F:	tools/xenstore/
-+F:	tools/xenstored/
-+F:	tools/xs-clients/
- 
- XENTRACE
- M:	George Dunlap <george.dunlap@citrix.com>
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index d5fb354e7e..52bf7f0e21 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -371,10 +371,10 @@ endef
- 
- $(foreach lib,$(STUB_LIBS),$(eval $(call BUILD_lib,$(lib))))
- 
--xenstore/stamp: $(XEN_ROOT)/tools/xenstore/Makefile.common
-+xenstore/stamp: $(XEN_ROOT)/tools/xenstored/Makefile.common
- 	$(do_links)
- 
--xenstorepvh/stamp: $(XEN_ROOT)/tools/xenstore/Makefile.common
-+xenstorepvh/stamp: $(XEN_ROOT)/tools/xenstored/Makefile.common
- 	$(do_links)
- 
- LINK_DIRS := xenstore xenstorepvh $(foreach dir,$(STUB_LIBS),libs-$(XEN_TARGET_ARCH)/$(dir))
-diff --git a/tools/Makefile b/tools/Makefile
-index 311a9098d7..3a510663a0 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -8,7 +8,8 @@ SUBDIRS-y :=
- SUBDIRS-y += libs
- SUBDIRS-y += flask
- SUBDIRS-y += fuzz
--SUBDIRS-y += xenstore
-+SUBDIRS-y += xs-clients
-+SUBDIRS-$(XENSTORE_XENSTORED) += xenstored
- SUBDIRS-y += misc
- SUBDIRS-y += examples
- SUBDIRS-y += hotplug
-diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
-new file mode 100644
-index 0000000000..f3bd3d43c4
---- /dev/null
-+++ b/tools/xenstored/Makefile
-@@ -0,0 +1,48 @@
-+XEN_ROOT=$(CURDIR)/../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+include Makefile.common
-+
-+xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
-+xenstored: LDLIBS += $(LDLIBS_libxengnttab)
-+xenstored: LDLIBS += $(LDLIBS_libxenctrl)
-+xenstored: LDLIBS += -lrt
-+xenstored: LDLIBS += $(SOCKET_LIBS)
-+
-+ifeq ($(CONFIG_SYSTEMD),y)
-+$(XENSTORED_OBJS-y): CFLAGS += $(SYSTEMD_CFLAGS)
-+xenstored: LDLIBS += $(SYSTEMD_LIBS)
-+endif
-+
-+TARGETS += xenstored
-+
-+.PHONY: all
-+all: $(TARGETS)
-+
-+xenstored: $(XENSTORED_OBJS-y)
-+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@ $(APPEND_LDFLAGS)
-+
-+.PHONY: clean
-+clean::
-+	$(RM) $(TARGETS) $(DEPS_RM)
-+
-+.PHONY: distclean
-+distclean: clean
-+
-+.PHONY: TAGS
-+TAGS:
-+	etags `find . -name '*.[ch]'`
-+
-+.PHONY: install
-+install: all
-+	$(INSTALL_DIR) $(DESTDIR)$(sbindir)
-+	$(INSTALL_PROG) xenstored $(DESTDIR)$(sbindir)
-+
-+.PHONY: uninstall
-+uninstall:
-+	rm -f $(DESTDIR)$(sbindir)/xenstored
-+	if [ -d $(DESTDIR)$(includedir)/xenstore-compat ]; then \
-+		rmdir --ignore-fail-on-non-empty $(DESTDIR)$(includedir)/xenstore-compat; \
-+	fi
-+
-+-include $(DEPS_INCLUDE)
-diff --git a/tools/xenstore/Makefile.common b/tools/xenstored/Makefile.common
-similarity index 50%
-rename from tools/xenstore/Makefile.common
-rename to tools/xenstored/Makefile.common
-index 41973a8a5e..189ab81b8d 100644
---- a/tools/xenstore/Makefile.common
-+++ b/tools/xenstored/Makefile.common
-@@ -1,17 +1,16 @@
- # Makefile shared with stubdom
- 
--XENSTORED_OBJS-y := xenstored_core.o xenstored_watch.o xenstored_domain.o
--XENSTORED_OBJS-y += xenstored_transaction.o xenstored_control.o xenstored_lu.o
-+XENSTORED_OBJS-y := core.o watch.o domain.o
-+XENSTORED_OBJS-y += transaction.o control.o lu.o
- XENSTORED_OBJS-y += talloc.o utils.o hashtable.o
- 
--XENSTORED_OBJS-$(CONFIG_Linux) += xenstored_posix.o xenstored_lu_daemon.o
--XENSTORED_OBJS-$(CONFIG_NetBSD) += xenstored_posix.o xenstored_lu_daemon.o
--XENSTORED_OBJS-$(CONFIG_FreeBSD) += xenstored_posix.o xenstored_lu_daemon.o
--XENSTORED_OBJS-$(CONFIG_MiniOS) += xenstored_minios.o xenstored_lu_minios.o
-+XENSTORED_OBJS-$(CONFIG_Linux) += posix.o lu_daemon.o
-+XENSTORED_OBJS-$(CONFIG_NetBSD) += posix.o lu_daemon.o
-+XENSTORED_OBJS-$(CONFIG_FreeBSD) += posix.o lu_daemon.o
-+XENSTORED_OBJS-$(CONFIG_MiniOS) += minios.o lu_minios.o
- 
- # Include configure output (config.h)
- CFLAGS += -include $(XEN_ROOT)/tools/config.h
--CFLAGS += -I./include
- CFLAGS += $(CFLAGS_libxenevtchn)
- CFLAGS += $(CFLAGS_libxenctrl)
- CFLAGS += $(CFLAGS_libxenguest)
-diff --git a/tools/xenstore/README b/tools/xenstored/README
-similarity index 100%
-rename from tools/xenstore/README
-rename to tools/xenstored/README
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstored/control.c
-similarity index 98%
-rename from tools/xenstore/xenstored_control.c
-rename to tools/xenstored/control.c
-index 3bdf2edc34..b2f64d674f 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstored/control.c
-@@ -27,10 +27,10 @@
- 
- #include "utils.h"
- #include "talloc.h"
--#include "xenstored_core.h"
--#include "xenstored_control.h"
--#include "xenstored_domain.h"
--#include "xenstored_lu.h"
-+#include "core.h"
-+#include "control.h"
-+#include "domain.h"
-+#include "lu.h"
- 
- struct cmd_s {
- 	char *cmd;
-diff --git a/tools/xenstore/xenstored_control.h b/tools/xenstored/control.h
-similarity index 100%
-rename from tools/xenstore/xenstored_control.h
-rename to tools/xenstored/control.h
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstored/core.c
-similarity index 99%
-rename from tools/xenstore/xenstored_core.c
-rename to tools/xenstored/core.c
-index 7de4df2f28..092de76a2e 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstored/core.c
-@@ -47,12 +47,12 @@
- #include "utils.h"
- #include "list.h"
- #include "talloc.h"
--#include "xenstored_core.h"
--#include "xenstored_watch.h"
--#include "xenstored_transaction.h"
--#include "xenstored_domain.h"
--#include "xenstored_control.h"
--#include "xenstored_lu.h"
-+#include "core.h"
-+#include "watch.h"
-+#include "transaction.h"
-+#include "domain.h"
-+#include "control.h"
-+#include "lu.h"
- 
- #ifndef NO_SOCKETS
- #if defined(HAVE_SYSTEMD)
-@@ -64,7 +64,7 @@
- #include <systemd/sd-daemon.h>
- #endif
- 
--extern xenevtchn_handle *xce_handle; /* in xenstored_domain.c */
-+extern xenevtchn_handle *xce_handle; /* in domain.c */
- static int xce_pollfd_idx = -1;
- static struct pollfd *fds;
- static unsigned int current_array_size;
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstored/core.h
-similarity index 100%
-rename from tools/xenstore/xenstored_core.h
-rename to tools/xenstored/core.h
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstored/domain.c
-similarity index 99%
-rename from tools/xenstore/xenstored_domain.c
-rename to tools/xenstored/domain.c
-index 1bf138c8b1..a6cd199fdc 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstored/domain.c
-@@ -27,11 +27,11 @@
- 
- #include "utils.h"
- #include "talloc.h"
--#include "xenstored_core.h"
--#include "xenstored_domain.h"
--#include "xenstored_transaction.h"
--#include "xenstored_watch.h"
--#include "xenstored_control.h"
-+#include "core.h"
-+#include "domain.h"
-+#include "transaction.h"
-+#include "watch.h"
-+#include "control.h"
- 
- #include <xenevtchn.h>
- #include <xenctrl.h>
-diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstored/domain.h
-similarity index 100%
-rename from tools/xenstore/xenstored_domain.h
-rename to tools/xenstored/domain.h
-diff --git a/tools/xenstore/hashtable.c b/tools/xenstored/hashtable.c
-similarity index 100%
-rename from tools/xenstore/hashtable.c
-rename to tools/xenstored/hashtable.c
-diff --git a/tools/xenstore/hashtable.h b/tools/xenstored/hashtable.h
-similarity index 100%
-rename from tools/xenstore/hashtable.h
-rename to tools/xenstored/hashtable.h
-diff --git a/tools/xenstore/list.h b/tools/xenstored/list.h
-similarity index 100%
-rename from tools/xenstore/list.h
-rename to tools/xenstored/list.h
-diff --git a/tools/xenstore/xenstored_lu.c b/tools/xenstored/lu.c
-similarity index 98%
-rename from tools/xenstore/xenstored_lu.c
-rename to tools/xenstored/lu.c
-index f7f76acbf9..2f41d10c95 100644
---- a/tools/xenstore/xenstored_lu.c
-+++ b/tools/xenstored/lu.c
-@@ -13,10 +13,10 @@
- #include <time.h>
- 
- #include "talloc.h"
--#include "xenstored_core.h"
--#include "xenstored_domain.h"
--#include "xenstored_lu.h"
--#include "xenstored_watch.h"
-+#include "core.h"
-+#include "domain.h"
-+#include "lu.h"
-+#include "watch.h"
- 
- #ifndef NO_LIVE_UPDATE
- struct live_update *lu_status;
-diff --git a/tools/xenstore/xenstored_lu.h b/tools/xenstored/lu.h
-similarity index 100%
-rename from tools/xenstore/xenstored_lu.h
-rename to tools/xenstored/lu.h
-diff --git a/tools/xenstore/xenstored_lu_daemon.c b/tools/xenstored/lu_daemon.c
-similarity index 97%
-rename from tools/xenstore/xenstored_lu_daemon.c
-rename to tools/xenstored/lu_daemon.c
-index 8c7522b0e1..71bcabadd3 100644
---- a/tools/xenstore/xenstored_lu_daemon.c
-+++ b/tools/xenstored/lu_daemon.c
-@@ -13,8 +13,8 @@
- #include <xen-tools/xenstore-common.h>
- 
- #include "talloc.h"
--#include "xenstored_core.h"
--#include "xenstored_lu.h"
-+#include "core.h"
-+#include "lu.h"
- 
- #ifndef NO_LIVE_UPDATE
- void lu_get_dump_state(struct lu_dump_state *state)
-diff --git a/tools/xenstore/xenstored_lu_minios.c b/tools/xenstored/lu_minios.c
-similarity index 98%
-rename from tools/xenstore/xenstored_lu_minios.c
-rename to tools/xenstored/lu_minios.c
-index ae0483575e..ede8b4dd47 100644
---- a/tools/xenstore/xenstored_lu_minios.c
-+++ b/tools/xenstored/lu_minios.c
-@@ -14,7 +14,7 @@
- #include <xen-tools/common-macros.h>
- 
- #include "talloc.h"
--#include "xenstored_lu.h"
-+#include "lu.h"
- 
- /* Mini-OS only knows about MAP_ANON. */
- #ifndef MAP_ANONYMOUS
-diff --git a/tools/xenstore/xenstored_minios.c b/tools/xenstored/minios.c
-similarity index 97%
-rename from tools/xenstore/xenstored_minios.c
-rename to tools/xenstored/minios.c
-index aa384e50c8..b5c3a205e6 100644
---- a/tools/xenstore/xenstored_minios.c
-+++ b/tools/xenstored/minios.c
-@@ -17,7 +17,7 @@
- */
- #include <sys/types.h>
- #include <sys/mman.h>
--#include "xenstored_core.h"
-+#include "core.h"
- #include <xen/grant_table.h>
- 
- void write_pidfile(const char *pidfile)
-diff --git a/tools/xenstore/xenstored_osdep.h b/tools/xenstored/osdep.h
-similarity index 100%
-rename from tools/xenstore/xenstored_osdep.h
-rename to tools/xenstored/osdep.h
-diff --git a/tools/xenstore/xenstored_posix.c b/tools/xenstored/posix.c
-similarity index 98%
-rename from tools/xenstore/xenstored_posix.c
-rename to tools/xenstored/posix.c
-index b20504d1b6..6ac45fdb45 100644
---- a/tools/xenstore/xenstored_posix.c
-+++ b/tools/xenstored/posix.c
-@@ -24,8 +24,8 @@
- #include <sys/mman.h>
- 
- #include "utils.h"
--#include "xenstored_core.h"
--#include "xenstored_osdep.h"
-+#include "core.h"
-+#include "osdep.h"
- 
- void write_pidfile(const char *pidfile)
- {
-diff --git a/tools/xenstore/talloc.c b/tools/xenstored/talloc.c
-similarity index 100%
-rename from tools/xenstore/talloc.c
-rename to tools/xenstored/talloc.c
-diff --git a/tools/xenstore/talloc.h b/tools/xenstored/talloc.h
-similarity index 100%
-rename from tools/xenstore/talloc.h
-rename to tools/xenstored/talloc.h
-diff --git a/tools/xenstore/talloc_guide.txt b/tools/xenstored/talloc_guide.txt
-similarity index 100%
-rename from tools/xenstore/talloc_guide.txt
-rename to tools/xenstored/talloc_guide.txt
-diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstored/transaction.c
-similarity index 99%
-rename from tools/xenstore/xenstored_transaction.c
-rename to tools/xenstored/transaction.c
-index 1f892b002d..167cd597fd 100644
---- a/tools/xenstore/xenstored_transaction.c
-+++ b/tools/xenstored/transaction.c
-@@ -30,9 +30,9 @@
- #include <unistd.h>
- #include "talloc.h"
- #include "list.h"
--#include "xenstored_transaction.h"
--#include "xenstored_watch.h"
--#include "xenstored_domain.h"
-+#include "transaction.h"
-+#include "watch.h"
-+#include "domain.h"
- #include "xenstore_lib.h"
- #include "utils.h"
- 
-diff --git a/tools/xenstore/xenstored_transaction.h b/tools/xenstored/transaction.h
-similarity index 98%
-rename from tools/xenstore/xenstored_transaction.h
-rename to tools/xenstored/transaction.h
-index b196b1ab07..90435b4fc9 100644
---- a/tools/xenstore/xenstored_transaction.h
-+++ b/tools/xenstored/transaction.h
-@@ -17,7 +17,7 @@
- */
- #ifndef _XENSTORED_TRANSACTION_H
- #define _XENSTORED_TRANSACTION_H
--#include "xenstored_core.h"
-+#include "core.h"
- 
- enum node_access_type {
-     NODE_ACCESS_READ,
-diff --git a/tools/xenstore/utils.c b/tools/xenstored/utils.c
-similarity index 100%
-rename from tools/xenstore/utils.c
-rename to tools/xenstored/utils.c
-diff --git a/tools/xenstore/utils.h b/tools/xenstored/utils.h
-similarity index 100%
-rename from tools/xenstore/utils.h
-rename to tools/xenstored/utils.h
-diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstored/watch.c
-similarity index 98%
-rename from tools/xenstore/xenstored_watch.c
-rename to tools/xenstored/watch.c
-index 7d4d097cf9..b66a9f1a39 100644
---- a/tools/xenstore/xenstored_watch.c
-+++ b/tools/xenstored/watch.c
-@@ -25,11 +25,11 @@
- #include <assert.h>
- #include "talloc.h"
- #include "list.h"
--#include "xenstored_watch.h"
-+#include "watch.h"
- #include "xenstore_lib.h"
- #include "utils.h"
--#include "xenstored_domain.h"
--#include "xenstored_transaction.h"
-+#include "domain.h"
-+#include "transaction.h"
- 
- struct watch
- {
-diff --git a/tools/xenstore/xenstored_watch.h b/tools/xenstored/watch.h
-similarity index 98%
-rename from tools/xenstore/xenstored_watch.h
-rename to tools/xenstored/watch.h
-index ea247997ad..d9ac6a334a 100644
---- a/tools/xenstore/xenstored_watch.h
-+++ b/tools/xenstored/watch.h
-@@ -19,7 +19,7 @@
- #ifndef _XENSTORED_WATCH_H
- #define _XENSTORED_WATCH_H
- 
--#include "xenstored_core.h"
-+#include "core.h"
- 
- int do_watch(const void *ctx, struct connection *conn,
- 	     struct buffered_data *in);
-diff --git a/tools/xenstore/include/xenstore_state.h b/tools/xenstored/xenstore_state.h
-similarity index 100%
-rename from tools/xenstore/include/xenstore_state.h
-rename to tools/xenstored/xenstore_state.h
-diff --git a/tools/xenstore/Makefile b/tools/xs-clients/Makefile
-similarity index 74%
-rename from tools/xenstore/Makefile
-rename to tools/xs-clients/Makefile
-index dc39b6cb31..1c5740450a 100644
---- a/tools/xenstore/Makefile
-+++ b/tools/xs-clients/Makefile
-@@ -1,18 +1,11 @@
- XEN_ROOT=$(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--include Makefile.common
--
--xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
--xenstored: LDLIBS += $(LDLIBS_libxengnttab)
--xenstored: LDLIBS += $(LDLIBS_libxenctrl)
--xenstored: LDLIBS += -lrt
--xenstored: LDLIBS += $(SOCKET_LIBS)
--
--ifeq ($(CONFIG_SYSTEMD),y)
--$(XENSTORED_OBJS-y): CFLAGS += $(SYSTEMD_CFLAGS)
--xenstored: LDLIBS += $(SYSTEMD_LIBS)
--endif
-+CFLAGS += -include $(XEN_ROOT)/tools/config.h
-+CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenguest)
-+CFLAGS += $(CFLAGS_libxentoolcore)
-+CFLAGS += $(CFLAGS_libxenstore)
- 
- xenstore: LDLIBS += $(LDLIBS_libxenstore)
- xenstore: LDLIBS += $(LDLIBS_libxentoolcore)
-@@ -28,9 +21,6 @@ CLIENTS := xenstore-exists xenstore-list xenstore-read xenstore-rm xenstore-chmo
- CLIENTS += xenstore-write xenstore-ls xenstore-watch
- 
- TARGETS := xenstore $(CLIENTS) xenstore-control
--ifeq ($(XENSTORE_XENSTORED),y)
--TARGETS += xenstored
--endif
- 
- .PHONY: all
- all: $(TARGETS)
-@@ -38,9 +28,6 @@ all: $(TARGETS)
- .PHONY: clients
- clients: xenstore $(CLIENTS) xenstore-control
- 
--xenstored: $(XENSTORED_OBJS-y)
--	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@ $(APPEND_LDFLAGS)
--
- $(CLIENTS): xenstore
- 	ln -f xenstore $@
- 
-@@ -64,10 +51,6 @@ TAGS:
- .PHONY: install
- install: all
- 	$(INSTALL_DIR) $(DESTDIR)$(bindir)
--ifeq ($(XENSTORE_XENSTORED),y)
--	$(INSTALL_DIR) $(DESTDIR)$(sbindir)
--	$(INSTALL_PROG) xenstored $(DESTDIR)$(sbindir)
--endif
- 	$(INSTALL_PROG) xenstore-control $(DESTDIR)$(bindir)
- 	$(INSTALL_PROG) xenstore $(DESTDIR)$(bindir)
- 	set -e ; for c in $(CLIENTS) ; do \
-@@ -79,9 +62,6 @@ uninstall:
- 	rm -f $(addprefix $(DESTDIR)$(bindir)/, $(CLIENTS))
- 	rm -f $(DESTDIR)$(bindir)/xenstore
- 	rm -f $(DESTDIR)$(bindir)/xenstore-control
--ifeq ($(XENSTORE_XENSTORED),y)
--	rm -f $(DESTDIR)$(sbindir)/xenstored
--endif
- 	if [ -d $(DESTDIR)$(includedir)/xenstore-compat ]; then \
- 		rmdir --ignore-fail-on-non-empty $(DESTDIR)$(includedir)/xenstore-compat; \
- 	fi
-diff --git a/tools/xenstore/xenstore_client.c b/tools/xs-clients/xenstore_client.c
-similarity index 100%
-rename from tools/xenstore/xenstore_client.c
-rename to tools/xs-clients/xenstore_client.c
-diff --git a/tools/xenstore/xenstore_control.c b/tools/xs-clients/xenstore_control.c
-similarity index 100%
-rename from tools/xenstore/xenstore_control.c
-rename to tools/xs-clients/xenstore_control.c
--- 
-2.35.3
-
+~Andrew
 
