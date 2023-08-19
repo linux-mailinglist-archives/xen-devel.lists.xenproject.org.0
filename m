@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 258F878161A
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Aug 2023 02:33:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.586766.918106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6C48781667
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Aug 2023 03:24:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.586843.918136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qX9tu-0004JX-S0; Sat, 19 Aug 2023 00:33:10 +0000
+	id 1qXAhP-00067h-7J; Sat, 19 Aug 2023 01:24:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 586766.918106; Sat, 19 Aug 2023 00:33:10 +0000
+Received: by outflank-mailman (output) from mailman id 586843.918136; Sat, 19 Aug 2023 01:24:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qX9tu-0004Gb-Ov; Sat, 19 Aug 2023 00:33:10 +0000
-Received: by outflank-mailman (input) for mailman id 586766;
- Sat, 19 Aug 2023 00:33:09 +0000
+	id 1qXAhP-00065A-3J; Sat, 19 Aug 2023 01:24:19 +0000
+Received: by outflank-mailman (input) for mailman id 586843;
+ Sat, 19 Aug 2023 01:24:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IgEN=EE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qX9tt-0004GV-NN
- for xen-devel@lists.xenproject.org; Sat, 19 Aug 2023 00:33:09 +0000
+ id 1qXAhO-00064o-Cf
+ for xen-devel@lists.xenproject.org; Sat, 19 Aug 2023 01:24:18 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f74f6ab4-3e27-11ee-877e-cb3800f73035;
- Sat, 19 Aug 2023 02:33:08 +0200 (CEST)
+ id 1c6497c2-3e2f-11ee-877e-cb3800f73035;
+ Sat, 19 Aug 2023 03:24:16 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2D27062D25;
- Sat, 19 Aug 2023 00:33:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F10FC433C7;
- Sat, 19 Aug 2023 00:33:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 28AC361B69;
+ Sat, 19 Aug 2023 01:24:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52016C433C7;
+ Sat, 19 Aug 2023 01:24:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,17 +44,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f74f6ab4-3e27-11ee-877e-cb3800f73035
+X-Inumbo-ID: 1c6497c2-3e2f-11ee-877e-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692405185;
-	bh=+9TMKciaReS23IR9bUxPYz6n0wY3XsTXpnj5G81lttM=;
+	s=k20201202; t=1692408254;
+	bh=me7zOvwgCZOIaCP/W20OevzMLC8uORPtHBEeZ9iyYpY=;
 	h=From:To:Cc:Subject:Date:From;
-	b=QtQEO1G1yqIlSwHY7W5g4OG+lfOhExzLIuarEu0t+RzziQwPuoRN0yOd+uJF8/uqp
-	 NaNDyrdKmdIsVPP0Sn2fQ4FSa86+OyotNkluyK7SdrCUZBhj3/Y7q0jm+MUX0xp3+Y
-	 CUscC7lvGddx3jiQgIDGOjz2n+a90uUIgCglc85uiNo1/yvyfsKS6BcfmlT51FRCfS
-	 WCcwkXt2XDo0I7UWiYe2pCENdU4BOurCCLsGrS904a6vCkfGOWlyS0ThquenQLpq27
-	 axXfdBPScJPaDKBRH9KDBeEu5l9inUFx9YuEzZYW304TXLjaPi+/Uiv6ABjRnAyu6S
-	 EmUVhxUkENTuw==
+	b=PndH/HpZ0fyqVRyO6rB9171Y7bnL5hbkoIIq8v62nNdmYh39LwFkCk7U2ReTa8/Xc
+	 XI7svsjQQL/FeSrMzI5pvSjHNkU8bH3fNCKHF7OuhZAXY39F+ssVdTiZXo7oL4Nz7m
+	 b+ZL4/MVGAj45cs1XQU2Onu4A1CyyZ2LR9JgoLTS4Yu/TGqbXVHxDELHEmH/qDX/8c
+	 SXyymYxO7J3kiBBLf+Rip2+T6AX+ac8m7W7qCdtIJml6no/HTnxjOznbeMCQaHzMtT
+	 qPrRglEpXe0Fwe81jVr+lOWfb8+VP6oNC+4ci+eitnUbusSLyJ9tz1pFrGeELntg+Q
+	 RrCUTkPcLYDqw==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -63,43 +63,130 @@ Cc: sstabellini@kernel.org,
 	roger.pau@citrix.com,
 	julien@xen.org,
 	bertrand.marquis@arm.com,
+	nicola.vetrini@bugseng.com,
 	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH] docs/misra: document gcc-specific behavior with shifting signed integers
-Date: Fri, 18 Aug 2023 17:33:03 -0700
-Message-Id: <20230819003303.1744466-1-sstabellini@kernel.org>
+Subject: [PATCH] docs/misra: add exceptions to rules
+Date: Fri, 18 Aug 2023 18:24:10 -0700
+Message-Id: <20230819012410.1754839-1-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Stefano Stabellini <stefano.stabellini@amd.com>
 
+During the discussions that led to the acceptable of the Rules, we
+decided on a few exceptions that were not properly recorded in
+rules.rst. Other times, the exceptions were decided later when it came
+to enabling a rule in ECLAIR.
+
+Either way, update rules.rst with appropriate notes.
+
 Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 ---
-Changes in v2:
-- use "shift" instead of << or >>
-- use All Architectures (I haven't changed all the other instances of
-x86/arm in the file yet)
+Note that there might be more to add, but the below look correct to me
 ---
- docs/misra/C-language-toolchain.rst | 6 ++++++
- 1 file changed, 6 insertions(+)
+ docs/misra/rules.rst | 41 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 8 deletions(-)
 
-diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
-index 785aed1eaf..f5ca7bd2c8 100644
---- a/docs/misra/C-language-toolchain.rst
-+++ b/docs/misra/C-language-toolchain.rst
-@@ -200,6 +200,12 @@ The table columns are as follows:
-      - ARM64, X86_64
-      - See Section "6.29 Designated Initializers" of GCC_MANUAL
+diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+index 8f0e4d3f25..ecbb04da96 100644
+--- a/docs/misra/rules.rst
++++ b/docs/misra/rules.rst
+@@ -59,7 +59,8 @@ maintainers if you want to suggest a change.
+      - Required
+      - Precautions shall be taken in order to prevent the contents of a
+        header file being included more than once
+-     -
++     - Files that are intended to be included more than once do not need to
++       conform to the directive (e.g. autogenerated or empty header files)
  
-+   * - Signed shift acts on negative numbers by sign extension
-+     - All architectures
-+     - See Section "4.5 Integers" of GCC_MANUAL. As an extension to the
-+       C language, GCC does not use the latitude given in C99 and C11
-+       only to treat certain aspects of signed shift as undefined.
-+
+    * - `Dir 4.11 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_11.c>`_
+      - Required
+@@ -106,7 +107,23 @@ maintainers if you want to suggest a change.
+    * - `Rule 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_01_1.c>`_
+      - Required
+      - A project shall not contain unreachable code
+-     -
++     - The following are allowed:
++         - Invariantly constant conditions (e.g. while(0) { S; })
++         - Switch with a controlling value incompatible with labeled
++           statements
++         - Functions that are intended to be never referenced from C
++           code, or are referenced in builds not under analysis (e.g.
++           'do_trap_fiq' for the former and 'check_for_unexpected_msi'
++           for the latter)
++         - Unreachability caused by the following macros/functions is
++           deliberate: BUG, assert_failed, ERROR_EXIT, ERROR_EXIT_DOM,
++           PIN_FAIL, __builtin_unreachable, panic, do_unexpected_trap,
++           machine_halt, machine_restart, machine_reboot,
++           ASSERT_UNREACHABLE
++         - asm-offsets.c, as they are not linked deliberately, because
++           they are used to generate definitions for asm modules
++         - pure declarations (i.e. declarations without
++           initialization) are safe, as they are not executed
  
- Translation Limits
- __________________
+    * - `Rule 2.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_06.c>`_
+      - Advisory
+@@ -117,7 +134,7 @@ maintainers if you want to suggest a change.
+      - Required
+      - The character sequences /* and // shall not be used within a
+        comment
+-     -
++     - Comments containing hyperlinks inside C-style block comments are safe
+ 
+    * - `Rule 3.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_03_02.c>`_
+      - Required
+@@ -167,7 +184,7 @@ maintainers if you want to suggest a change.
+    * - `Rule 5.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_06.c>`_
+      - Required
+      - A typedef name shall be a unique identifier
+-     -
++     - BOOLEAN, UINT{8,32,64} and INT{8,32,64} are allowed
+ 
+    * - `Rule 6.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_06_01.c>`_
+      - Required
+@@ -183,7 +200,10 @@ maintainers if you want to suggest a change.
+    * - `Rule 7.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_01.c>`_
+      - Required
+      - Octal constants shall not be used
+-     -
++     - Usage of the following constants is safe, since they are given
++       as-is in the inflate algorithm specification and there is
++       therefore no risk of them being interpreted as decimal constants:
++       ^0(007|37|070|213|236|300|321|330|331|332|333|334|335|337|371)$
+ 
+    * - `Rule 7.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_02.c>`_
+      - Required
+@@ -239,13 +259,16 @@ maintainers if you want to suggest a change.
+      - Required
+      - All declarations of an object or function shall use the same
+        names and type qualifiers
+-     -
++     - The type ret_t is deliberately used and defined as int or long
++       depending on the architecture
+ 
+    * - `Rule 8.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_04.c>`_
+      - Required
+      - A compatible declaration shall be visible when an object or
+        function with external linkage is defined
+-     -
++     - Allowed exceptions: asm-offsets.c (definitions for asm modules
++       not called from C code), gcov_base.c (definitions only used in
++       non-release builds)
+ 
+    * - `Rule 8.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_05_2.c>`_
+      - Required
+@@ -369,7 +392,9 @@ maintainers if you want to suggest a change.
+      - Required
+      - Expressions resulting from the expansion of macro parameters
+        shall be enclosed in parentheses
+-     -
++     - Extra parentheses are not required when macro parameters are used
++       as function arguments, as macro arguments, array indices, lhs in
++       assignments
+ 
+    * - `Rule 20.13 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_20_13.c>`_
+      - Required
 -- 
 2.25.1
 
