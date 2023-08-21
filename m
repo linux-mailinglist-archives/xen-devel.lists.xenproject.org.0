@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8888782D18
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 17:19:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587650.919004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866E9782D9B
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 17:56:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587659.919015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY6gp-0002A4-1y; Mon, 21 Aug 2023 15:19:35 +0000
+	id 1qY7Fd-00071J-Lw; Mon, 21 Aug 2023 15:55:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587650.919004; Mon, 21 Aug 2023 15:19:35 +0000
+Received: by outflank-mailman (output) from mailman id 587659.919015; Mon, 21 Aug 2023 15:55:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY6go-00027e-TG; Mon, 21 Aug 2023 15:19:34 +0000
-Received: by outflank-mailman (input) for mailman id 587650;
- Mon, 21 Aug 2023 15:19:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5Cwo=EG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qY6gn-00027T-KA
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 15:19:33 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 206b3715-4036-11ee-9b0c-b553b5be7939;
- Mon, 21 Aug 2023 17:19:31 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AC9BD1F459;
- Mon, 21 Aug 2023 15:19:30 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5AB0D13421;
- Mon, 21 Aug 2023 15:19:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +4OrFIKA42QrGgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 21 Aug 2023 15:19:30 +0000
+	id 1qY7Fd-0006yO-Hw; Mon, 21 Aug 2023 15:55:33 +0000
+Received: by outflank-mailman (input) for mailman id 587659;
+ Mon, 21 Aug 2023 15:55:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0mH9=EG=gmail.com=jinoh.kang.kr@srs-se1.protection.inumbo.net>)
+ id 1qY7Fb-0006yI-OL
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 15:55:31 +0000
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [2607:f8b0:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 26ef79c6-403b-11ee-8782-cb3800f73035;
+ Mon, 21 Aug 2023 17:55:30 +0200 (CEST)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1bddac1b7bfso23465095ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Aug 2023 08:55:30 -0700 (PDT)
+Received: from [10.137.0.57] ([14.33.99.107]) by smtp.gmail.com with ESMTPSA id
+ b13-20020a170902d50d00b001b87bedcc6fsm7184127plg.93.2023.08.21.08.55.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Aug 2023 08:55:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,214 +44,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 206b3715-4036-11ee-9b0c-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692631170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OfitHrWONvJzfnaXscuUap/3KxxQtEEPcKDFsJm5GAU=;
-	b=ZatmB3w/b0bhM7CONpNqIKOv1JDKpERiREwYkdIXVgFe2jYTmRsbueVe4E13YW+42Jj/Sz
-	BF/mqVZAwL8W3ymvbtCd3xcED/OsKDVWLqRUG9Dam7VNfckWiUVGdj48YUMggUd9ZgF0pf
-	Nd31+eOQtnT1MiJPNXpJERxZwRn1xqg=
-Message-ID: <6d165116-6c55-4fa1-a378-92f1a7a444b4@suse.com>
-Date: Mon, 21 Aug 2023 17:19:29 +0200
+X-Inumbo-ID: 26ef79c6-403b-11ee-8782-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1692633329; x=1693238129;
+        h=content-transfer-encoding:content-language:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cgX30HPBwkajxdCYjchpvUkjDfUAn1RqgjLWM9un3z8=;
+        b=O1gx1bMmfDE+q/6LYeXwsjxfF3yQC/dVV6fcwNNDMYns/e9bQWZzFSA9c8rlhaipr5
+         UcY9xWWc/nvLb4oll0E5WxzNbv/swoJk4eLluchbFR2s5jwKwOlQnUTy5ZM2b0Tw0VC2
+         adHgy0wkoOL5XR7vU1MK6nj7wyVKe4J5vfU7ZHJOybEXpBHWNTq/lJ7CbbBpiboJCcAa
+         k4N9uovhHqvLOJIgfVIlulmqpPbxpp3QZp9XsoitSWg2NFa3r9FiRjfOcEnEsDvUIIPR
+         tUUT42QHR5NF+i/e3KeUV3uiuPi9/dw+r2bC73HZx0MjAQWR9Lk2q3a13PB0KmF5n2s8
+         VMeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692633329; x=1693238129;
+        h=content-transfer-encoding:content-language:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=cgX30HPBwkajxdCYjchpvUkjDfUAn1RqgjLWM9un3z8=;
+        b=ABbR5TjP81nwpz88kTWjr8PnMBeqYLusbEnv9RKeyS6epd9QGb41c/LzkVEYE6xfv8
+         K71vx42U/usnmTsH6DUIaoXveffVvQFT91TZA/ctlLzGXOovNzKyZZogQABbwi5ArAwN
+         P/BE6SODp1lTFz5a68AVYq1EvCygJXvlOlmujvkDP3HpJVzcmWjN7Jy/V1+jRNN+QXTr
+         JX0XFjTpUoXaWKol3BCFj9hCsOXjqvnJpjsq0XA3Nu3UeNOg81+gIJGjyurZCe/v98qX
+         T4xYerFDXHnh16DdoqDmF3A+MrvSFjyMHrEMwmILpk4smTRbEQ/KDTlhjfPkcmUVRaBD
+         aLAQ==
+X-Gm-Message-State: AOJu0YwVWF+pP1Tfh6NqoD50q8iUu8Rsg2ScE19bDsOxfs7HkgM0KEw4
+	rHTUtVIvZl17gMRLzZ1dF7uNNWWaUkxPdQ==
+X-Google-Smtp-Source: AGHT+IHViJ0ZnM1f6vuui1YBKch1ckFECFCcL4hqfwU4L0vevGnGthMaj64SKPQb8WI9qHiM6YFdlQ==
+X-Received: by 2002:a17:903:41d1:b0:1bf:193a:70b6 with SMTP id u17-20020a17090341d100b001bf193a70b6mr10831284ple.5.1692633328877;
+        Mon, 21 Aug 2023 08:55:28 -0700 (PDT)
+Message-ID: <5fa229fc-9514-abc6-5e72-2447a2c637d0@gmail.com>
+Date: Tue, 22 Aug 2023 00:55:22 +0900
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] tools/xenstore: move xenstored sources into dedicated
- directory
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+From: Jinoh Kang <jinoh.kang.kr@gmail.com>
+Subject: [PATCH 0/5] Fixes to debugging facilities
+To: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Tim Deegan <tim@xen.org>, Razvan Cojocaru <rcojocaru@bitdefender.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>
 Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Julien Grall <jgrall@amazon.com>
-References: <20230821081422.17027-1-jgross@suse.com>
- <9c10e5ba-6b5a-4d97-bce2-908a588729f6@perard>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <9c10e5ba-6b5a-4d97-bce2-908a588729f6@perard>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------unbuT9EIY144VzHm0EYOK6fd"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------unbuT9EIY144VzHm0EYOK6fd
-Content-Type: multipart/mixed; boundary="------------Cb52yfbrUwjjo0B0F00frywm";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Julien Grall <jgrall@amazon.com>
-Message-ID: <6d165116-6c55-4fa1-a378-92f1a7a444b4@suse.com>
-Subject: Re: [PATCH v6] tools/xenstore: move xenstored sources into dedicated
- directory
-References: <20230821081422.17027-1-jgross@suse.com>
- <9c10e5ba-6b5a-4d97-bce2-908a588729f6@perard>
-In-Reply-To: <9c10e5ba-6b5a-4d97-bce2-908a588729f6@perard>
+This is a rebased version of Andrew Cooper's debugging facilities patch:
+https://lore.kernel.org/xen-devel/1528120755-17455-1-git-send-email-andrew.cooper3@citrix.com/
 
---------------Cb52yfbrUwjjo0B0F00frywm
-Content-Type: multipart/mixed; boundary="------------w5vRfPOuPvc0qfDRu9DK2Pa0"
+> So this started as a small fix for the vmentry failure (penultimate patch),
+> and has snowballed...
+>
+> I'm fairly confident that everything involving DEBUGCTL.BTF is broken, and
+> there are definitely bugs with configuring DEBUGCTL.RTM (which really isn't
+> helped by the fact that the GCC TSX intrinsics render the resulting code
+> un-debuggable.)  I'll defer fixing these swamps for now.
+>
+> The first 4 patches probably want backporting to the stable trees, so I've
+> taken care to move them ahead of patch 6 for backport reasons.  While all
+> fixes would ideally be backported, I can't find a way of fixing %dr6 merging
+> (as it needs to be done precicely once) without a behavioural change in the
+> monitor subsystem.
+>
+> Patch 8 probably breaks introspection, so can't be taken at this point.  See
+> that patch for discussion of the problem and my best guess at a solution.
 
---------------w5vRfPOuPvc0qfDRu9DK2Pa0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+6 out of 11 patches from the 2018 patch series above, including the
+vmentry failure fix, have already been committed.  This covers the
+remaining 5 patches.
 
-T24gMjEuMDguMjMgMTc6MTcsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBPbiBNb24sIEF1
-ZyAyMSwgMjAyMyBhdCAxMDoxNDoyMkFNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3hlbnN0b3JlZC8uZ2l0aWdub3JlIGIvdG9vbHMveGVu
-c3RvcmVkLy5naXRpZ25vcmUNCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+PiBpbmRleCAw
-MDAwMDAwMDAwLi5lZGJiNWQ3OWZlDQo+PiAtLS0gL2Rldi9udWxsDQo+PiArKysgYi90b29s
-cy94ZW5zdG9yZWQvLmdpdGlnbm9yZQ0KPj4gQEAgLTAsMCArMSBAQA0KPj4gK3hlbnN0b3Jl
-ZA0KPiANCj4gQ291bGQgeW91IHdyaXRlIHRoYXQgIi94ZW5zdG9yZWQiID8gVGhlIHByZWZp
-eCAiLyIganVzdCBtYWtlcyBzdXJlIHRoYXQNCj4gb25seSB0aGUgZmlsZSBpbiB0aGUgY3Vy
-cmVudCBkaXJlY3RvcnkgaXMgaWdub3JlZCwgYW5kIG5vdCBhbnkNCj4gInhlbnN0b3JlZCIg
-aW4gc3ViZGlyZWN0b3J5LiBKdXN0IGluIGNhc2UuDQoNCk9rYXkuDQoNCj4gDQo+PiBkaWZm
-IC0tZ2l0IGEvdG9vbHMveGVuc3RvcmVkL01ha2VmaWxlIGIvdG9vbHMveGVuc3RvcmVkL01h
-a2VmaWxlDQo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4gaW5kZXggMDAwMDAwMDAwMC4u
-ZjNiZDNkNDNjNA0KPj4gLS0tIC9kZXYvbnVsbA0KPj4gKysrIGIvdG9vbHMveGVuc3RvcmVk
-L01ha2VmaWxlDQo+PiBAQCAtMCwwICsxLDQ4IEBADQo+PiArWEVOX1JPT1Q9JChDVVJESVIp
-Ly4uLy4uDQo+PiAraW5jbHVkZSAkKFhFTl9ST09UKS90b29scy9SdWxlcy5taw0KPj4gKw0K
-Pj4gK2luY2x1ZGUgTWFrZWZpbGUuY29tbW9uDQo+PiArDQo+PiAreGVuc3RvcmVkOiBMRExJ
-QlMgKz0gJChMRExJQlNfbGlieGVuZXZ0Y2huKQ0KPj4gK3hlbnN0b3JlZDogTERMSUJTICs9
-ICQoTERMSUJTX2xpYnhlbmdudHRhYikNCj4+ICt4ZW5zdG9yZWQ6IExETElCUyArPSAkKExE
-TElCU19saWJ4ZW5jdHJsKQ0KPj4gK3hlbnN0b3JlZDogTERMSUJTICs9IC1scnQNCj4+ICt4
-ZW5zdG9yZWQ6IExETElCUyArPSAkKFNPQ0tFVF9MSUJTKQ0KPj4gKw0KPj4gK2lmZXEgKCQo
-Q09ORklHX1NZU1RFTUQpLHkpDQo+PiArJChYRU5TVE9SRURfT0JKUy15KTogQ0ZMQUdTICs9
-ICQoU1lTVEVNRF9DRkxBR1MpDQo+PiAreGVuc3RvcmVkOiBMRExJQlMgKz0gJChTWVNURU1E
-X0xJQlMpDQo+PiArZW5kaWYNCj4+ICsNCj4+ICtUQVJHRVRTICs9IHhlbnN0b3JlZA0KPiAN
-Cj4gQ291bGQgeW91IGNoYW5nZSB0aGF0IHRvIDo9IGluc3RlYWQgb2YgKz0gPyBUQVJHRVRT
-IGlzIGN1cnJlbnRseQ0KPiBpbnRyb2R1Y2VkIHdpdGggYSA6PSAoaW4gdG9vbHMveGVuc3Rv
-cmUvTWFrZWZpbGUpLg0KDQpGaW5lIHdpdGggbWUuDQoNCj4gDQo+PiBkaWZmIC0tZ2l0IGEv
-dG9vbHMveHMtY2xpZW50cy8uZ2l0aWdub3JlIGIvdG9vbHMveHMtY2xpZW50cy8uZ2l0aWdu
-b3JlDQo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4gaW5kZXggMDAwMDAwMDAwMC4uMjMz
-ZmQ4MjI4YQ0KPj4gLS0tIC9kZXYvbnVsbA0KPj4gKysrIGIvdG9vbHMveHMtY2xpZW50cy8u
-Z2l0aWdub3JlDQo+PiBAQCAtMCwwICsxLDEwIEBADQo+PiAreGVuc3RvcmUNCj4+ICt4ZW5z
-dG9yZS1jaG1vZA0KPj4gK3hlbnN0b3JlLWNvbnRyb2wNCj4+ICt4ZW5zdG9yZS1leGlzdHMN
-Cj4+ICt4ZW5zdG9yZS1saXN0DQo+PiAreGVuc3RvcmUtbHMNCj4+ICt4ZW5zdG9yZS1yZWFk
-DQo+PiAreGVuc3RvcmUtcm0NCj4+ICt4ZW5zdG9yZS13YXRjaA0KPj4gK3hlbnN0b3JlLXdy
-aXRlDQo+IA0KPiBTYW1lIHRoaW5nIGhlcmUsIGNvdWxkIHlvdSBwcmVmaXggYWxsIHRob3Nl
-IGVudHJpZXMgd2l0aCAiLyI/DQoNClllcy4NCg0KPiANCj4+IGRpZmYgLS1naXQgYS90b29s
-cy94ZW5zdG9yZS9NYWtlZmlsZSBiL3Rvb2xzL3hzLWNsaWVudHMvTWFrZWZpbGUNCj4+IHNp
-bWlsYXJpdHkgaW5kZXggNzQlDQo+PiByZW5hbWUgZnJvbSB0b29scy94ZW5zdG9yZS9NYWtl
-ZmlsZQ0KPj4gcmVuYW1lIHRvIHRvb2xzL3hzLWNsaWVudHMvTWFrZWZpbGUNCj4+IGluZGV4
-IGRjMzliNmNiMzEuLjFjNTc0MDQ1MGEgMTAwNjQ0DQo+PiAtLS0gYS90b29scy94ZW5zdG9y
-ZS9NYWtlZmlsZQ0KPj4gKysrIGIvdG9vbHMveHMtY2xpZW50cy9NYWtlZmlsZQ0KPiANCj4g
-SSdtIHRlbXB0ZWQgdG8gYXNrIGZvciB0aGUgdGFyZ2V0cyAiY2xpZW50cy1pbnN0YWxsIiBh
-bmQNCj4gImNsaWVudHMtdW5pbnN0YWxsIiB0byBiZSByZW1vdmVkIGZyb20gdGhpcyBtYWtl
-ZmlsZS4gTm90aGluZyBpcyBjYWxsaW5nDQo+IHRoZW0gaW4gb3VyIGJ1aWxkIHN5c3RlbSBh
-bmQgc29tZXRoaW5nIG91dHNpZGUgdGhlIGdpdCB0cmVlIHRoYXQgcmVseSBvbg0KPiB0aGF0
-IHdvdWxkIG5lZWQgdG8gYmUgYWRqdXN0ZWQgdG8gdGhlIG5ldyBkaXJlY3RvcnkuIEJ1dCBt
-YXliZSB0aGF0IGNhbg0KPiBiZSBkb25lIGluIGEgZm9sbG93dXAgcGF0Y2ggYXMgaXQgd291
-bGQgaGVscCB3aXRoIHJldmVydGluZyBpdCBpZiB0aGUNCj4gdGFyZ2V0cyBhcmUgYWN0dWFs
-bHkgdXNlZnVsLg0KDQpJJ2xsIHJlbW92ZSB0aG9zZS4NCg0KPiANCj4gDQo+IEluIGFueSBj
-YXNlLCB0aGUgcGF0Y2ggaXMgYWxyZWFkeSBnb29kOg0KPiBBY2tlZC1ieTogQW50aG9ueSBQ
-RVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+DQoNClRoYW5rcywNCg0KSnVlcmdl
-bg0KDQo=
---------------w5vRfPOuPvc0qfDRu9DK2Pa0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+One particular bug that the patch series fixes involves simultaneous
+hardware breakpoint exception and single-stepping exception occurring at
+the same PC (IP).  Xen blindly sets singlestep (DR6.BS := 1) in this
+case, which interferes with userland debugging and allows (otherwise
+restricted) usermode programs to detect Xen HVM (or PVH).  The following
+Linux x86-64 program demonstrates the bug:
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+-----------------------------------8<-----------------------------------
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+#include <stddef.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/ptrace.h>
+#include <sys/wait.h>
+#include <sys/user.h>
+#include <stdio.h>
 
---------------w5vRfPOuPvc0qfDRu9DK2Pa0--
+#define ABORT_ON_ERR(x) if ((x) == -1) abort();
 
---------------Cb52yfbrUwjjo0B0F00frywm--
+int main(void)
+{
+    unsigned long cur_rip, cur_eflags, cur_dr6;
+    int wstatus, exit_code;
+    pid_t pid;
 
---------------unbuT9EIY144VzHm0EYOK6fd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+    ABORT_ON_ERR(pid = fork());
+    if (pid == 0) {
+        ABORT_ON_ERR(ptrace(PTRACE_TRACEME, 0, NULL, NULL));
+        ABORT_ON_ERR(raise(SIGSTOP));
+        _exit(0);
+    }
 
------BEGIN PGP SIGNATURE-----
+    /* Wait for first ptrace event */
+    if (waitpid(pid, &wstatus, 0) != pid) abort();
+    if (!WIFSTOPPED(wstatus)) abort();
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTjgIEFAwAAAAAACgkQsN6d1ii/Ey8A
-Iwf5AY/GTLPZlVkNj3gYO6QfBqCzPezV7f8LBNxxV/06HkBknunWRQSrivGIHU5MZUQ7pUuRwtul
-HtbeGSPuaFTTVHxdELVqm3LqUh19WaIIXcTcPmEDG7LTAUyh4GmkF/avwRiEiJmD2rkrys1kHux9
-MtLFTn3iCPjktrZCFrz87T9J5FAyHeX3u+5h3AgGPrFhLtr6CY+TqvjrqBVfRvKnRzFmFZG/c1Vi
-VzwRwxQ27e91LhuXTEom8hJAT+DG8KpYMbsFQzQtnt5U07R4kjAWjuFVfLQlRx+1y4GJMr8tYUb5
-/s9bQtWPbVgUycjSIQbWJhYf6M5+2yHzVCE6l4g9Xw==
-=6pP3
------END PGP SIGNATURE-----
+    /* Obtain current RIP value and perform sanity check */
+    cur_rip = ptrace(PTRACE_PEEKUSER, pid, (void *)offsetof(struct user, regs.rip), &cur_rip);
+    cur_dr6 = ptrace(PTRACE_PEEKUSER, pid, (void *)offsetof(struct user, u_debugreg[6]), &cur_dr6);
+    assert(cur_dr6 == 0xffff0ff0UL);
 
---------------unbuT9EIY144VzHm0EYOK6fd--
+    /* Set up debug registers and set EFLAGS.TF */
+    cur_eflags = ptrace(PTRACE_PEEKUSER, pid, (void *)offsetof(struct user, regs.eflags), &cur_eflags);
+    ABORT_ON_ERR(ptrace(PTRACE_POKEUSER, pid, (void *)offsetof(struct user, regs.eflags), (void *)(cur_eflags | 0x100UL)));
+    ABORT_ON_ERR(ptrace(PTRACE_POKEUSER, pid, (void *)offsetof(struct user, u_debugreg[0]), (void *)cur_rip));
+    ABORT_ON_ERR(ptrace(PTRACE_POKEUSER, pid, (void *)offsetof(struct user, u_debugreg[7]), (void *)1L));
+
+    /* Continue execution to trigger hardware breakpoint */
+    ABORT_ON_ERR(ptrace(PTRACE_CONT, pid, NULL, (unsigned long)0));
+    if (waitpid(pid, &wstatus, 0) != pid) abort();
+    if (!(WIFSTOPPED(wstatus) && WSTOPSIG(wstatus) == SIGTRAP)) abort();
+
+    /* Detect if Xen has tampered with DR6 */
+    cur_dr6 = ptrace(PTRACE_PEEKUSER, pid, (void *)offsetof(struct user, u_debugreg[6]), &cur_dr6);
+    fprintf(stderr, "DR6 = 0x%08lx\n", cur_dr6);
+    if (cur_dr6 == 0xffff0ff1UL)
+    {
+        fputs("Running on bare-metal, Xen PV, or non-Xen VMM\n", stdout);
+        exit_code = EXIT_FAILURE;
+    }
+    else
+    {
+        fputs("Running on Xen HVM\n", stdout);
+        exit_code = EXIT_SUCCESS;
+    }
+
+    /* Tear down debug registers and unset EFLAGS.TF */
+    cur_eflags = ptrace(PTRACE_PEEKUSER, pid, (void *)offsetof(struct user, regs.eflags), &cur_eflags);
+    ABORT_ON_ERR(ptrace(PTRACE_POKEUSER, pid, (void *)offsetof(struct user, regs.eflags), (void *)(cur_eflags & ~0x100UL)));
+    ABORT_ON_ERR(ptrace(PTRACE_POKEUSER, pid, (void *)offsetof(struct user, u_debugreg[7]), (void *)0L));
+
+    /* Continue execution to let child process exit */
+    ABORT_ON_ERR(ptrace(PTRACE_CONT, pid, NULL, (unsigned long)0));
+    if (waitpid(pid, &wstatus, 0) != pid) abort();
+    if (!(WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)) abort();
+
+    return exit_code;
+}
+
+-----------------------------------8<-----------------------------------
+
+Andrew Cooper (5):
+  x86: Fix calculation of %dr6/7 reserved bits
+  x86/emul: Add pending_dbg field to x86_event
+  x86/hvm: RFC - PROBABLY BROKEN - Defer all debugging/monitor actions
+    to {svm,vmx}_inject_event()
+  x86: Fix merging of new status bits into %dr6
+  x86/dbg: Cleanup of legacy dr6 constants
+
+ xen/arch/x86/domain.c                  |   7 +-
+ xen/arch/x86/hvm/emulate.c             |   3 +-
+ xen/arch/x86/hvm/hvm.c                 |   8 +-
+ xen/arch/x86/hvm/svm/svm.c             | 126 ++++++++++++++-----------
+ xen/arch/x86/hvm/vmx/vmx.c             | 112 ++++++++++------------
+ xen/arch/x86/include/asm/debugreg.h    |  94 +++++++++++++-----
+ xen/arch/x86/include/asm/domain.h      |  12 +++
+ xen/arch/x86/include/asm/hvm/hvm.h     |  15 ++-
+ xen/arch/x86/include/asm/x86-defns.h   |  10 --
+ xen/arch/x86/mm/shadow/multi.c         |   5 +-
+ xen/arch/x86/pv/emul-priv-op.c         |  13 ++-
+ xen/arch/x86/pv/emulate.c              |   6 +-
+ xen/arch/x86/pv/misc-hypercalls.c      |  16 +---
+ xen/arch/x86/pv/ro-page-fault.c        |   3 +-
+ xen/arch/x86/pv/traps.c                |  17 +++-
+ xen/arch/x86/traps.c                   |   8 +-
+ xen/arch/x86/x86_emulate/x86_emulate.h |   5 +-
+ 17 files changed, 262 insertions(+), 198 deletions(-)
+
+-- 
+2.41.0
+
 
