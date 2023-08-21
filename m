@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F2C7782F0B
+	by mail.lfdr.de (Postfix) with ESMTPS id 01300782F0A
 	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 19:05:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587771.919164 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.587772.919174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY8Kj-0007Dt-4e; Mon, 21 Aug 2023 17:04:53 +0000
+	id 1qY8L7-0007dP-DE; Mon, 21 Aug 2023 17:05:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587771.919164; Mon, 21 Aug 2023 17:04:53 +0000
+Received: by outflank-mailman (output) from mailman id 587772.919174; Mon, 21 Aug 2023 17:05:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY8Kj-0007CI-1Z; Mon, 21 Aug 2023 17:04:53 +0000
-Received: by outflank-mailman (input) for mailman id 587771;
- Mon, 21 Aug 2023 17:04:51 +0000
+	id 1qY8L7-0007aa-AQ; Mon, 21 Aug 2023 17:05:17 +0000
+Received: by outflank-mailman (input) for mailman id 587772;
+ Mon, 21 Aug 2023 17:05:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qY8Kh-0007BI-MG
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 17:04:51 +0000
+ (envelope-from <julien@xen.org>) id 1qY8L5-0007ZG-W9
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 17:05:15 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qY8Kg-00049Y-Rm; Mon, 21 Aug 2023 17:04:50 +0000
+ id 1qY8L5-0004A6-J8; Mon, 21 Aug 2023 17:05:15 +0000
 Received: from [54.239.6.178] (helo=[192.168.0.85])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qY8Kg-0004IE-Jk; Mon, 21 Aug 2023 17:04:50 +0000
+ id 1qY8L5-0004IE-Dd; Mon, 21 Aug 2023 17:05:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,65 +42,56 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=xMKydJGaHlyLJycJp0kcQ3ufIr0iXqXRlwyyBW+2SWM=; b=kddMa857fHNVT5NRmFRHsaMEMr
-	CQaUg4Hu0j4/uLgeEvmkBhqxkPqifM98rrGRTRp4Md4Ozq6xYlhbWMoMcK5IwqBp8a0B5fPHqnJAp
-	lWas8jbmufg9ZcmCI6KHcx0k+l1aAkedziWvodGYTq5Z8Z0C9baAebs8g/cCdefoaEK0=;
-Message-ID: <b027d568-8ca7-4fb6-a010-a42e7336ee53@xen.org>
-Date: Mon, 21 Aug 2023 18:04:48 +0100
+	bh=0uaJAuBw8+GJ1203pkCBmdfcFb2P4R9LcXNaH4Q1ERI=; b=JYQHhR3bkTCbS0KnJHG4B1Rh0K
+	rBsQtf7kcL/YeEut3OtAYRGNp9Mh2FOy6K96a9HMrGnTbdQTHdKtQIw9oA2srWgwcO2IE1/Mb+3Mt
+	gETVDpeT7InMMaDmTk8gU2YOr8fX2IeDJl38USVA2t5dFHtOe4nXRuM+5mRsGOb2IQCo=;
+Message-ID: <8f4c4974-a348-47f4-828e-d13df953900a@xen.org>
+Date: Mon, 21 Aug 2023 18:05:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/13] xen/arm64: prepare for moving MMU related code
- from head.S
+Subject: Re: [PATCH 0/3] xen/arm: Some clean-up found with -Wconversion and
+ -Warith-conversion
 Content-Language: en-GB
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+To: xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Penny Zheng <Penny.Zheng@arm.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- Julien Grall <jgrall@amazon.com>
-References: <20230814042536.878720-1-Henry.Wang@arm.com>
- <20230814042536.878720-4-Henry.Wang@arm.com>
- <d6afb536-e0b6-42fd-81ea-cc37c00192f7@xen.org>
- <0D2191B5-C084-4AE7-852E-A18A555C93CB@arm.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230817214356.47174-1-julien@xen.org>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <0D2191B5-C084-4AE7-852E-A18A555C93CB@arm.com>
+In-Reply-To: <20230817214356.47174-1-julien@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Henry,
+Hi,
 
-On 21/08/2023 09:54, Henry Wang wrote:
->> On Aug 21, 2023, at 16:44, Julien Grall <julien@xen.org> wrote:
->> On 14/08/2023 05:25, Henry Wang wrote:
->>> From: Wei Chen <wei.chen@arm.com>
->>> We want to reuse head.S for MPU systems, but there are some
->>> code are implemented for MMU systems only. We will move such
->>> code to another MMU specific file. But before that we will
->>> do some indentations fix in this patch to make them be easier
->>> for reviewing:
->>> 1. Fix the indentations and incorrect style of code comments.
->>> 2. Fix the indentations for .text.header section.
->>> 3. Rename puts() to asm_puts() for global export
->>> Signed-off-by: Wei Chen <wei.chen@arm.com>
->>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
->>> Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> Reviewed-by: Julien Grall <jgrall@amazon.com>
->>
->> Is this patch depends on the first two? If not, I will commit it before v6.
+On 17/08/2023 22:43, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Good point, no this patch is independent from the first two. Also I just
-> tested applying this patch on top of staging and building with and without
-> Earlyprintk. Xen and Dom0 boot fine on FVP for both cases.
-
-Thanks for confirming. It is now ...
-
+> Hi all,
 > 
-> So please commit this patch if you have time. Thanks!
+> This is a small series to fix some of the issues found while playing
+> with -Wconversion and -Warith-conversion.
+> 
+> There are a lot more but the bulk are in
+>   - bitmap
+>   - cpumask
+>   - nodemask
+>   - bitops/atomics
+>   - find_*
+> 
+> Some are not too difficult to address but other there are even
+> prototype conflicts between arm x86.
+> 
+> Cheers,
+> 
+> Julien Grall (3):
+>    xen/arm: vmmio: The number of entries cannot be negative
+>    xen/arm: vgic: Use 'unsigned int' rather than 'int' whenever it is
+>      possible
+>    xen/public: arch-arm: All PSR_* defines should be unsigned
 
-... committed.
+I have committed the series.
 
 Cheers,
 
