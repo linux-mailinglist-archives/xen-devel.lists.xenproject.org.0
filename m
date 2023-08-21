@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9665C78221A
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 06:01:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587212.918593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCB8E7823B2
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 08:28:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587280.918614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qXw6m-0005n5-FC; Mon, 21 Aug 2023 04:01:40 +0000
+	id 1qXyNn-0006b0-7I; Mon, 21 Aug 2023 06:27:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587212.918593; Mon, 21 Aug 2023 04:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 587280.918614; Mon, 21 Aug 2023 06:27:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qXw6m-0005kT-BE; Mon, 21 Aug 2023 04:01:40 +0000
-Received: by outflank-mailman (input) for mailman id 587212;
- Mon, 21 Aug 2023 04:01:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qXyNn-0006Xo-4W; Mon, 21 Aug 2023 06:27:23 +0000
+Received: by outflank-mailman (input) for mailman id 587280;
+ Mon, 21 Aug 2023 06:27:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Scea=EG=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1qXw6l-0003VX-5m
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 04:01:39 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 6caa1f95-3fd7-11ee-9b0c-b553b5be7939;
- Mon, 21 Aug 2023 06:01:37 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 37E501FB;
- Sun, 20 Aug 2023 21:02:17 -0700 (PDT)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C50573F7CE;
- Sun, 20 Aug 2023 21:01:33 -0700 (PDT)
+ <SRS0=/hii=EG=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1qXyNm-0006Xi-3F
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 06:27:22 +0000
+Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com
+ [2607:f8b0:4864:20::929])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c807f069-3feb-11ee-8782-cb3800f73035;
+ Mon, 21 Aug 2023 08:27:20 +0200 (CEST)
+Received: by mail-ua1-x929.google.com with SMTP id
+ a1e0cc1a2514c-799761430c2so832983241.2
+ for <xen-devel@lists.xenproject.org>; Sun, 20 Aug 2023 23:27:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,157 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6caa1f95-3fd7-11ee-9b0c-b553b5be7939
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v3 8/8] xen/docs: refine docs about static shared memory
-Date: Mon, 21 Aug 2023 12:00:46 +0800
-Message-Id: <20230821040046.2965665-9-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230821040046.2965665-1-Penny.Zheng@arm.com>
-References: <20230821040046.2965665-1-Penny.Zheng@arm.com>
+X-Inumbo-ID: c807f069-3feb-11ee-8782-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1692599239; x=1693204039;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d3HEhziiMoRq8W+iz0cEqn9W08+Qli95DYLv6cEuSnY=;
+        b=X5paJG+12fla41xVVoY7NvDb6EtN/SVGH2deq6rIztGbwz3pthUAAPC/2J7ik0brKd
+         DRsJnlT1nthvz6krd5SBg2HSqXuV0kimoaGqiWfKFFg5Gorw1LbbBve+Cbh4Ii1fxAHs
+         QvVrtQdyZ1FNd01gAqDAJVt/Yd+TFbvEmrvVdhc+0tuNF/YUT7FDfpMDW5lm7cfad1RR
+         si4TDmNg/La2IZDQNod8IExo+2YpiQfU3wg8hhbO1o3ZliO0lTndkkvbw3+0LmOYXo8l
+         12y3SpyYznkngnURKxda8b19pNixgw557SZsg14mjubBsn0TnfAu9iRTy1nVVVqXlVMk
+         rncQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692599239; x=1693204039;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=d3HEhziiMoRq8W+iz0cEqn9W08+Qli95DYLv6cEuSnY=;
+        b=Vws2qKN8/y1eEQLXZy7kGqJS1Okz7DzZpPcuZWWRBi9U2lx64aOoWENHgqi70adC+z
+         9qaJcjcB5T/4t4oxt+WWTvN9HxRyqQfTrBt5Edi0/0913wrknf2YtatRBhmo6yrhhBEr
+         Vfj2kb6eQkD2DXTYC+3CDkZsXOjS6mBGsEahUjPZFVr+OrbhaPhDbuVJykUQVeyWoJS5
+         MQN81OP7VlztbEMfEmwWl91tOE3wQc8s8QhCh9Rkl20p4uw2+QhlBdtbUKD/6W+jcNUz
+         075pkXuTNt706Zmtfme2IawDvRemVm3ENnTyg60LQaxTcz1bJzEWUZsrEPIAsfJhC+IK
+         2Utw==
+X-Gm-Message-State: AOJu0YxVfUaTaSk1co/kyTEnvt2WIx+Ueiore8rHJmw7lruRnRYrZlXy
+	wSQpVf41AEwdu3KsdMsJuDEc3+Fjl4R1IkbHmJdXMQ==
+X-Google-Smtp-Source: AGHT+IEBFaw+H2Pu/Q7Qzq8+pmK3GmRwVJC5nABLokpWQnMzwL0+z6jwMQBoHsv+0Hgk2AEyAU6mJTJINMNy4akm0Kw=
+X-Received: by 2002:a67:f603:0:b0:445:1e73:3742 with SMTP id
+ k3-20020a67f603000000b004451e733742mr4748077vso.4.1692599239679; Sun, 20 Aug
+ 2023 23:27:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20230731121536.934239-1-jens.wiklander@linaro.org> <e4b538d7-447b-4b4d-8c3a-bfb452cb76a8@xen.org>
+In-Reply-To: <e4b538d7-447b-4b4d-8c3a-bfb452cb76a8@xen.org>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 21 Aug 2023 08:27:08 +0200
+Message-ID: <CAHUa44ERDnPw_0E=KAGn7x77utObEzD7Z5q20ZNkRhgxCWKTzg@mail.gmail.com>
+Subject: Re: [XEN PATCH v11 00/14] Xen FF-A mediator
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
+	Marc Bonnici <marc.bonnici@arm.com>, Achin Gupta <achin.gupta@arm.com>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Henry Wang <Henry.Wang@arm.com>, Community Manager <community.manager@xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This commit amends docs(docs/misc/arm/device-tree/booting.txt) to include the
-new scenario where host address is not provided in "xen,shared-mem" property,
-and we also add a new example to explain in detail.
+Hi Julien,
 
-We also fix some buggy info in the docs, like SHMID is "my-shared-mem-1",
-not "0x1".
+On Fri, Aug 18, 2023 at 10:32=E2=80=AFAM Julien Grall <julien@xen.org> wrot=
+e:
+>
+> Hi Jens,
+>
+> On 31/07/2023 13:15, Jens Wiklander wrote:
+> > Jens Wiklander (14):
+> >    xen/arm: ffa: add direct request support
+> >    xen/arm: ffa: map SPMC rx/tx buffers
+> >    xen/arm: ffa: send guest events to Secure Partitions
+> >    xen/arm: ffa: support mapping guest RX/TX buffers
+> >    xen/arm: ffa: support guest FFA_PARTITION_INFO_GET
+> >    xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h
+> >    xen/arm: ffa: add defines for sharing memory
+> >    xen/arm: ffa: add ABI structs for sharing memory
+> >    xen/arm: ffa: support sharing memory
+> >    xen/arm: ffa: add support to reclaim shared memory
+> >    xen/arm: ffa: improve lock granularity
+> >    xen/arm: ffa: list current limitations
+> >    tools: add Arm FF-A mediator
+> >    docs: add Arm FF-A mediator
+>
+> The series is now committed. Note, I had to resolve a context conflict
+> in the CHANGELOG.md.
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
----
-v1 -> v2:
-- no new changes
----
-v2 -> v3
-- rebase and no change
----
- docs/misc/arm/device-tree/booting.txt | 52 ++++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 13 deletions(-)
+Thanks for the update, and a big thank you to all of you who have
+helped me to get this into a committable state.
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index bbd955e9c2..ac4bad6fe5 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -590,7 +590,7 @@ communication.
-     An array takes a physical address, which is the base address of the
-     shared memory region in host physical address space, a size, and a guest
-     physical address, as the target address of the mapping.
--    e.g. xen,shared-mem = < [host physical address] [guest address] [size] >
-+    e.g. xen,shared-mem = < [host physical address] [guest address] [size] >;
- 
-     It shall also meet the following criteria:
-     1) If the SHM ID matches with an existing region, the address range of the
-@@ -601,8 +601,8 @@ communication.
-     The number of cells for the host address (and size) is the same as the
-     guest pseudo-physical address and they are inherited from the parent node.
- 
--    Host physical address is optional, when missing Xen decides the location
--    (currently unimplemented).
-+    Host physical address is optional, when missing Xen decides the location.
-+    e.g. xen,shared-mem = < [guest address] [size] >;
- 
- - role (Optional)
- 
-@@ -629,7 +629,7 @@ chosen {
-         role = "owner";
-         xen,shm-id = "my-shared-mem-0";
-         xen,shared-mem = <0x10000000 0x10000000 0x10000000>;
--    }
-+    };
- 
-     domU1 {
-         compatible = "xen,domain";
-@@ -640,25 +640,36 @@ chosen {
-         vpl011;
- 
-         /*
--         * shared memory region identified as 0x0(xen,shm-id = <0x0>)
--         * is shared between Dom0 and DomU1.
-+         * shared memory region "my-shared-mem-0" is shared
-+         * between Dom0 and DomU1.
-          */
-         domU1-shared-mem@10000000 {
-             compatible = "xen,domain-shared-memory-v1";
-             role = "borrower";
-             xen,shm-id = "my-shared-mem-0";
-             xen,shared-mem = <0x10000000 0x50000000 0x10000000>;
--        }
-+        };
- 
-         /*
--         * shared memory region identified as 0x1(xen,shm-id = <0x1>)
--         * is shared between DomU1 and DomU2.
-+         * shared memory region "my-shared-mem-1" is shared between
-+         * DomU1 and DomU2.
-          */
-         domU1-shared-mem@50000000 {
-             compatible = "xen,domain-shared-memory-v1";
-             xen,shm-id = "my-shared-mem-1";
-             xen,shared-mem = <0x50000000 0x60000000 0x20000000>;
--        }
-+        };
-+
-+        /*
-+         * shared memory region "my-shared-mem-2" is shared between
-+         * DomU1 and DomU2.
-+         */
-+        domU1-shared-mem-2 {
-+            compatible = "xen,domain-shared-memory-v1";
-+            xen,shm-id = "my-shared-mem-2";
-+            role = "owner";
-+            xen,shared-mem = <0x80000000 0x20000000>;
-+        };
- 
-         ......
- 
-@@ -672,14 +683,21 @@ chosen {
-         cpus = <1>;
- 
-         /*
--         * shared memory region identified as 0x1(xen,shm-id = <0x1>)
--         * is shared between domU1 and domU2.
-+         * shared memory region "my-shared-mem-1" is shared between
-+         * domU1 and domU2.
-          */
-         domU2-shared-mem@50000000 {
-             compatible = "xen,domain-shared-memory-v1";
-             xen,shm-id = "my-shared-mem-1";
-             xen,shared-mem = <0x50000000 0x70000000 0x20000000>;
--        }
-+        };
-+
-+        domU2-shared-mem-2 {
-+            compatible = "xen,domain-shared-memory-v1";
-+            xen,shm-id = "my-shared-mem-2";
-+            role = "borrower";
-+            xen,shared-mem = <0x90000000 0x20000000>;
-+        };
- 
-         ......
-     };
-@@ -699,3 +717,11 @@ shared between DomU1 and DomU2. It will get mapped at 0x60000000 in DomU1 guest
- physical address space, and at 0x70000000 in DomU2 guest physical address space.
- DomU1 and DomU2 are both the borrower domain, the owner domain is the default
- owner domain DOMID_IO.
-+
-+For the static shared memory region "my-shared-mem-2", since host physical
-+address is not provided by user, Xen will automatically allocate 512MB
-+from heap as static shared memory to be shared between DomU1 and DomU2.
-+The automatically allocated static shared memory will get mapped at
-+0x80000000 in DomU1 guest physical address space, and at 0x90000000 in DomU2
-+guest physical address space. DomU1 is explicitly defined as the owner domain,
-+and DomU2 is the borrower domain.
--- 
-2.25.1
+Cheers,
+Jens
 
+>
+> Cheers,
+>
+> --
+> Julien Grall
 
