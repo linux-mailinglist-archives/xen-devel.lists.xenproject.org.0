@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4117278283A
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 13:51:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587566.918944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5EA782AA8
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 15:37:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587630.918974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY3Qb-0002sV-0q; Mon, 21 Aug 2023 11:50:37 +0000
+	id 1qY54G-0006dB-5z; Mon, 21 Aug 2023 13:35:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587566.918944; Mon, 21 Aug 2023 11:50:36 +0000
+Received: by outflank-mailman (output) from mailman id 587630.918974; Mon, 21 Aug 2023 13:35:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY3Qa-0002qq-TQ; Mon, 21 Aug 2023 11:50:36 +0000
-Received: by outflank-mailman (input) for mailman id 587566;
- Mon, 21 Aug 2023 11:50:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qY54G-0006bJ-2T; Mon, 21 Aug 2023 13:35:40 +0000
+Received: by outflank-mailman (input) for mailman id 587630;
+ Mon, 21 Aug 2023 13:35:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qY3QZ-0002qg-Ir; Mon, 21 Aug 2023 11:50:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qY3QZ-0004uS-3M; Mon, 21 Aug 2023 11:50:35 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qY3QY-0004M7-Jr; Mon, 21 Aug 2023 11:50:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qY3QY-0003uj-JG; Mon, 21 Aug 2023 11:50:34 +0000
+ (envelope-from <SRS0=5Cwo=EG=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qY54E-0006b5-1g
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 13:35:38 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9c1df651-4027-11ee-8782-cb3800f73035;
+ Mon, 21 Aug 2023 15:35:36 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8F61822C40;
+ Mon, 21 Aug 2023 13:35:35 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5CDDD1330D;
+ Mon, 21 Aug 2023 13:35:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ksFyFSdo42RkYgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 21 Aug 2023 13:35:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,358 +51,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=h7rDDzohI+3Ki4XYZ1CSxL5ZHsH1u1RJdBdEkdSS+aM=; b=yRN1wphZ2EJ3C1+RKsXrAhL9CJ
-	YZnBs6w0vvpAZz38gbgDzC0HDIEAni/ZUWPP4WKhingfldpNhtmQjyIzpilvd1ra6gf92W95D6co7
-	Re0+N8KazJKOSpfc9H3vYwlAnWCUzFy4HPw271mDmWx/sb8fA+rseCuNsxc87KDMmGZ8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182408-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9c1df651-4027-11ee-8782-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1692624935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RemgPkzn7YV1gXlFYwOOcos1TiBldSzEgE7RNTyAxDk=;
+	b=HvcB9UZF4OBtvlqu8DRi1fr3RXwFQH+IhdAgRas3xUzUCro1WkccaSyu+mE733GirVXRaL
+	bboby3uL1yz+pStj3bOIh0PkABaB2Iv3e+sNYmpInP03AncxogCBGxwtV/NUcAy4oqyE6E
+	aYUTiA1EvvnvJUamFldhLPLy5BDFu10=
+Message-ID: <70e1051e-b884-4c9b-8d14-698e3309ec19@suse.com>
+Date: Mon, 21 Aug 2023 15:35:34 +0200
 MIME-Version: 1.0
-Subject: [linux-linus test] 182408: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:guest-localmigrate/x10:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:guest-start.2:fail:regression
-    linux-linus:build-arm64-pvops:kernel-build:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=f7757129e3dea336c407551c98f50057c22bb266
-X-Osstest-Versions-That:
-    linux=706a741595047797872e669b3101429ab8d378ef
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 21 Aug 2023 11:50:34 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH -next] xen: Fix one kernel-doc comment
+To: Yang Li <yang.lee@linux.alibaba.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Abaci Robot <abaci@linux.alibaba.com>
+References: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------VofV00Z07tqJ5TyUB5S4lBcJ"
 
-flight 182408 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182408/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------VofV00Z07tqJ5TyUB5S4lBcJ
+Content-Type: multipart/mixed; boundary="------------CwEoT0Z79133mqqF0V4FVYM6";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Yang Li <yang.lee@linux.alibaba.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Abaci Robot <abaci@linux.alibaba.com>
+Message-ID: <70e1051e-b884-4c9b-8d14-698e3309ec19@suse.com>
+Subject: Re: [PATCH -next] xen: Fix one kernel-doc comment
+References: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
+In-Reply-To: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
 
-Regressions :-(
+--------------CwEoT0Z79133mqqF0V4FVYM6
+Content-Type: multipart/mixed; boundary="------------3JSiEzVSTlz0P2aZHbUua5em"
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemut-debianhvm-amd64 18 guest-localmigrate/x10 fail REGR. vs. 182405
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 21 guest-start.2 fail REGR. vs. 182405
- build-arm64-pvops             6 kernel-build             fail REGR. vs. 182405
+--------------3JSiEzVSTlz0P2aZHbUua5em
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 182405
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182405
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182405
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182405
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182405
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 182405
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182405
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182405
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+T24gMzEuMDcuMjMgMDU6MDAsIFlhbmcgTGkgd3JvdGU6DQo+IFVzZSBjb2xvbiB0byBzZXBh
+cmF0ZSBwYXJhbWV0ZXIgbmFtZSBmcm9tIHRoZWlyIHNwZWNpZmljIG1lYW5pbmcuDQo+IHNp
+bGVuY2UgdGhlIHdhcm5pbmc6DQo+IA0KPiBkcml2ZXJzL3hlbi9ncmFudC10YWJsZS5jOjEw
+NTE6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ25yX3BhZ2VzJyBu
+b3QgZGVzY3JpYmVkIGluICdnbnR0YWJfZnJlZV9wYWdlcycNCj4gDQo+IFJlcG9ydGVkLWJ5
+OiBBYmFjaSBSb2JvdCA8YWJhY2lAbGludXguYWxpYmFiYS5jb20+DQo+IENsb3NlczogaHR0
+cHM6Ly9idWd6aWxsYS5vcGVuYW5vbGlzLmNuL3Nob3dfYnVnLmNnaT9pZD02MDMwDQo+IFNp
+Z25lZC1vZmYtYnk6IFlhbmcgTGkgPHlhbmcubGVlQGxpbnV4LmFsaWJhYmEuY29tPg0KDQpB
+Y2tlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4N
+Cg0K
+--------------3JSiEzVSTlz0P2aZHbUua5em
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-version targeted for testing:
- linux                f7757129e3dea336c407551c98f50057c22bb266
-baseline version:
- linux                706a741595047797872e669b3101429ab8d378ef
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Last test of basis   182405  2023-08-20 18:11:48 Z    0 days
-Testing same since   182408  2023-08-21 05:42:03 Z    0 days    1 attempts
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Pavel Skripkin <paskripkin@gmail.com>
+--------------3JSiEzVSTlz0P2aZHbUua5em--
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            fail    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     blocked 
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      blocked 
- test-armhf-armhf-xl-vhd                                      pass    
+--------------CwEoT0Z79133mqqF0V4FVYM6--
 
+--------------VofV00Z07tqJ5TyUB5S4lBcJ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-----BEGIN PGP SIGNATURE-----
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTjaCYFAwAAAAAACgkQsN6d1ii/Ey+u
+ewf/cPDX6wzZma+BesKwqu1RmlzkpnotXi9XFxI0q9Xj+EO6INBetVXZi27d3/5hI32gx+k93uWc
+rFw5lS13qUR3nttCD/9UiiHVEOKwJika8XOfxV/3LgYs2U7vTaEmu2UeEp326hu4PTCb+P0Sjzwn
+3a1tG3ZpHrNvJzbwiEiRwcTd5YWu8fC118DKP6aL0gdmNVc57JPad3jG8a8HekxLbQaGEnwhY15y
+Yi997Hpzyola8FdpamPdwszzljaWA8NUmOzhFA6sPYnXulXJgxAqHB/jCbaeWXGytwPRcvpsErlE
+0r9yDMtbmqNyULzLpI4QSOC5dOLBjC3CH961i2H5IA==
+=FbZy
+-----END PGP SIGNATURE-----
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f7757129e3dea336c407551c98f50057c22bb266
-Merge: 4542057e18ca 080aa61e370b
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon Aug 21 07:02:21 2023 +0200
-
-    Merge tag 'v6.5-p3' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6
-    
-    Pull crypto fixes from Herbert Xu:
-     "Fix a regression in the caam driver and af_alg"
-    
-    * tag 'v6.5-p3' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6:
-      crypto: fix uninit-value in af_alg_free_resources
-      Revert "crypto: caam - adjust RNG timing to support more devices"
-
-commit 4542057e18caebe5ebaee28f0438878098674504
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon Aug 21 06:11:33 2023 +0200
-
-    mm: avoid 'might_sleep()' in get_mmap_lock_carefully()
-    
-    This might_sleep() goes back a long time: it was originally introduced
-    way back when by commit 010060741ad3 ("x86: add might_sleep() to
-    do_page_fault()"), and made it into the generic VM code when the x86
-    fault path got re-organized and generalized in commit c2508ec5a58d ("mm:
-    introduce new 'lock_mm_and_find_vma()' page fault helper").
-    
-    However, it turns out that the placement of that might_sleep() has
-    always been rather questionable simply because it's not only a debug
-    statement to warn about sleeping in contexts that shouldn't sleep (which
-    was the original reason for adding it), but it also implies a voluntary
-    scheduling point.
-    
-    That, in turn, is less than desirable for two reasons:
-    
-     (a) it ends up being done after we successfully got the mmap_lock, so
-         just as we got the lock we will now eagerly schedule away and
-         increase lock contention
-    
-    and
-    
-     (b) this is all very possibly part of the "oops, things went horribly
-         wrong" path and we just haven't figured that out yet
-    
-    After all, the whole _reason_ for having that get_mmap_lock_carefully()
-    rather than just doing the obvious mmap_read_lock() is because this code
-    wants to deal somewhat gracefully with potential kernel wild pointer
-    bugs.
-    
-    So then a voluntary scheduling point here is simply not a good idea.
-    
-    We could certainly turn the 'might_sleep()' into a '__might_sleep()' and
-    make it be just the debug check that it was originally intended to be.
-    
-    But even that seems questionable in the wild kernel pointer case - which
-    again is part of the whole point of this code.  The problem wouldn't be
-    about the _sleeping_ part of the page fault, but about a bad kernel
-    access.  The fact that that bad kernel access might happen in a section
-    that you shouldn't sleep in is secondary.
-    
-    So it really ends up being the case that this is simply entirely the
-    wrong place to do this debug check and related scheduling point at all.
-    
-    So let's just remove the check entirely.  It's been around for over a
-    decade, it has served its purpose.
-    
-    The re-schedule will happen at return to user space anyway for the
-    normal case, and the warning - if we even need it - might be better off
-    done as a special case for "page fault from kernel mode" once we've
-    dealt with any potential kernel oopses where the oops is the relevant
-    thing, not some artificial "scheduling while atomic" test.
-    
-    Reported-by: Mateusz Guzik <mjguzik@gmail.com>
-    Link: https://lore.kernel.org/lkml/20230820104303.2083444-1-mjguzik@gmail.com/
-    Cc: Matthew Wilcox <willy@infradead.org>
-    Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-
-commit 080aa61e370b9c5cafe71cacadbfe0e72db4d6df
-Author: Pavel Skripkin <paskripkin@gmail.com>
-Date:   Mon Aug 14 21:03:41 2023 +0300
-
-    crypto: fix uninit-value in af_alg_free_resources
-    
-    Syzbot was able to trigger use of uninitialized memory in
-    af_alg_free_resources.
-    
-    Bug is caused by missing initialization of rsgl->sgl.need_unpin before
-    adding to rsgl_list. Then in case of extract_iter_to_sg() failure, rsgl
-    is left with uninitialized need_unpin which is read during clean up
-    
-    BUG: KMSAN: uninit-value in af_alg_free_sg crypto/af_alg.c:545 [inline]
-    BUG: KMSAN: uninit-value in af_alg_free_areq_sgls crypto/af_alg.c:778 [inline]
-    BUG: KMSAN: uninit-value in af_alg_free_resources+0x3d1/0xf60 crypto/af_alg.c:1117
-     af_alg_free_sg crypto/af_alg.c:545 [inline]
-     af_alg_free_areq_sgls crypto/af_alg.c:778 [inline]
-     af_alg_free_resources+0x3d1/0xf60 crypto/af_alg.c:1117
-     _skcipher_recvmsg crypto/algif_skcipher.c:144 [inline]
-    ...
-    
-    Uninit was created at:
-     slab_post_alloc_hook+0x12f/0xb70 mm/slab.h:767
-     slab_alloc_node mm/slub.c:3470 [inline]
-     __kmem_cache_alloc_node+0x536/0x8d0 mm/slub.c:3509
-     __do_kmalloc_node mm/slab_common.c:984 [inline]
-     __kmalloc+0x121/0x3c0 mm/slab_common.c:998
-     kmalloc include/linux/slab.h:586 [inline]
-     sock_kmalloc+0x128/0x1c0 net/core/sock.c:2683
-     af_alg_alloc_areq+0x41/0x2a0 crypto/af_alg.c:1188
-     _skcipher_recvmsg crypto/algif_skcipher.c:71 [inline]
-    
-    Fixes: c1abe6f570af ("crypto: af_alg: Use extract_iter_to_sg() to create scatterlists")
-    Reported-and-tested-by: syzbot+cba21d50095623218389@syzkaller.appspotmail.com
-    Closes: https://syzkaller.appspot.com/bug?extid=cba21d50095623218389
-    Signed-off-by: Pavel Skripkin <paskripkin@gmail.com>
-    Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-
-commit 83874b8e97f895e62d9ab03223318176d5e78203
-Author: Herbert Xu <herbert@gondor.apana.org.au>
-Date:   Fri Aug 18 16:47:02 2023 +0800
-
-    Revert "crypto: caam - adjust RNG timing to support more devices"
-    
-    This reverts commit ef492d080302913e85122a2d92efa2ca174930f8.
-    
-    This patch breaks the RNG on i.MX8MM.
-    
-    Reported-by: Bastian Krause <bst@pengutronix.de>
-    Link: https://lore.kernel.org/all/e1f3f073-9d5e-1bae-f4f8-08dc48adad62@pengutronix.de/
-    Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+--------------VofV00Z07tqJ5TyUB5S4lBcJ--
 
