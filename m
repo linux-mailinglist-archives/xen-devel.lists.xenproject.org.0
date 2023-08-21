@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D9CF782788
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 13:05:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587518.918906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EF557827CF
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 13:23:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587528.918916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY2ij-00040m-Bs; Mon, 21 Aug 2023 11:05:17 +0000
+	id 1qY2zU-0006aR-JR; Mon, 21 Aug 2023 11:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587518.918906; Mon, 21 Aug 2023 11:05:17 +0000
+Received: by outflank-mailman (output) from mailman id 587528.918916; Mon, 21 Aug 2023 11:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY2ij-0003yJ-8g; Mon, 21 Aug 2023 11:05:17 +0000
-Received: by outflank-mailman (input) for mailman id 587518;
- Mon, 21 Aug 2023 11:02:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qY2zU-0006YV-Ge; Mon, 21 Aug 2023 11:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 587528;
+ Mon, 21 Aug 2023 11:22:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=drCj=EG=ovn.org=i.maximets@srs-se1.protection.inumbo.net>)
- id 1qY2ft-0003rZ-Bn
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 11:02:21 +0000
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31ee5831-4012-11ee-9b0c-b553b5be7939;
- Mon, 21 Aug 2023 13:02:18 +0200 (CEST)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D6B7D60005;
- Mon, 21 Aug 2023 11:02:14 +0000 (UTC)
+ <SRS0=M4ew=EG=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1qY2zS-0006YI-QM
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 11:22:34 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 05e2a41f-4015-11ee-8782-cb3800f73035;
+ Mon, 21 Aug 2023 13:22:33 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4ff8f2630e3so5008151e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Aug 2023 04:22:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,190 +40,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31ee5831-4012-11ee-9b0c-b553b5be7939
-Message-ID: <85341edc-ff82-79d2-7156-9623485a8c1c@ovn.org>
-Date: Mon, 21 Aug 2023 13:02:43 +0200
+X-Inumbo-ID: 05e2a41f-4015-11ee-8782-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1692616953; x=1693221753;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=pZDyCJOde/gelft6O61wieu2JY4LrUvkiV9x/AK6pmM=;
+        b=hpPKeFfvOSpZP3UPXZ1DUT/T7JeDzUKHkRrvWQDKgukoH8ms9qqYR+KQBBhWhGd4Q+
+         3B9jPKxd+QndZk0IMWEB9FOXEdgnRUQV5O0TYkJUVf4wktgonHCJJqbkPu1vpIYk68HG
+         PRs8aRkZB6kf0BabXZkrDKZIN/pXavjnhfEDw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692616953; x=1693221753;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pZDyCJOde/gelft6O61wieu2JY4LrUvkiV9x/AK6pmM=;
+        b=ZtzCh8L8X3KFkwmQpT0r5s71ve5kOBu7XE85tUeYtvO8jO8Z2/2siePIlOFGE/cXd4
+         8VTgHURo8/gTMdtID6YWmvCGtHZt6RnCJ/mIm1dNLRlGF1QKQt3QHxizMWRXdsg7quv+
+         8114uIUir1IbLnO/oO+N3Rw+Vd9di4fYvecJqryYENlSGtjX7YZ6/srimOnyIDD9ntUO
+         9AhT6BoAYctw90Lf70mypaijbhysdj/v7GFqcblAcpgjQmQnSaIpO2mwIjO/Si0MBpsK
+         H5cs8bPGjgjDomp50l97gZzaCdZcue/Le17oFBqJPD1U6VOsCxBmLKO2COCq1DE9MOiy
+         PiOw==
+X-Gm-Message-State: AOJu0YypciaGw7nbRxt27ls3jxw7cAUmTtIyBqBN822HptjP5qUMQjYH
+	SF653BaboeOj4gJvf2djQVYp9MawcA04TQQkHkCBow==
+X-Google-Smtp-Source: AGHT+IFFtfpDj4/w2gpsm5zS+q5CqzU+spid68a5U920DlCEwpjlpemReBgXvOybvVDQTNKvx2EaaNoylaNlJc661ck=
+X-Received: by 2002:a05:6512:318a:b0:4fe:1d88:2c61 with SMTP id
+ i10-20020a056512318a00b004fe1d882c61mr5190971lfe.32.1692616952724; Mon, 21
+ Aug 2023 04:22:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Cc: i.maximets@ovn.org, qemu-block@nongnu.org, Fam Zheng <fam@euphon.net>,
- xen-devel@lists.xenproject.org, Anthony Perard <anthony.perard@citrix.com>,
- Hanna Reitz <hreitz@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
- Julia Suvorova <jusual@redhat.com>, Stefano Garzarella
- <sgarzare@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Aarushi Mehta <mehta.aaru20@gmail.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 3/4] virtio: use defer_call() in virtio_irqfd_notify()
-To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
-References: <20230817155847.3605115-1-stefanha@redhat.com>
- <20230817155847.3605115-4-stefanha@redhat.com>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-In-Reply-To: <20230817155847.3605115-4-stefanha@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: i.maximets@ovn.org
+References: <CAO-mL=zqZjGhPB7wDxcGM=FxU0-JCcc9AY7YSrPKV5Kpv3pDDw@mail.gmail.com>
+ <ca3df86a-2204-441a-1b75-406f166fdf2f@netscape.net>
+In-Reply-To: <ca3df86a-2204-441a-1b75-406f166fdf2f@netscape.net>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Mon, 21 Aug 2023 12:22:00 +0100
+Message-ID: <CAO-mL=x=8g0eGFXp_euGF=V+rWg+tK2X80OVumg2jwDFytYE_Q@mail.gmail.com>
+Subject: Re: Community Manager update - August 2023
+To: Chuck Zmudzinski <brchuckz@netscape.net>
+Cc: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000003555b706036d1877"
 
-On 8/17/23 17:58, Stefan Hajnoczi wrote:
-> virtio-blk and virtio-scsi invoke virtio_irqfd_notify() to send Used
-> Buffer Notifications from an IOThread. This involves an eventfd
-> write(2) syscall. Calling this repeatedly when completing multiple I/O
-> requests in a row is wasteful.
-> 
-> Use the defer_call() API to batch together virtio_irqfd_notify() calls
-> made during thread pool (aio=threads), Linux AIO (aio=native), and
-> io_uring (aio=io_uring) completion processing.
-> 
-> Behavior is unchanged for emulated devices that do not use
-> defer_call_begin()/defer_call_end() since defer_call() immediately
-> invokes the callback when called outside a
-> defer_call_begin()/defer_call_end() region.
-> 
-> fio rw=randread bs=4k iodepth=64 numjobs=8 IOPS increases by ~9% with a
-> single IOThread and 8 vCPUs. iodepth=1 decreases by ~1% but this could
-> be noise. Detailed performance data and configuration specifics are
-> available here:
-> https://gitlab.com/stefanha/virt-playbooks/-/tree/blk_io_plug-irqfd
-> 
-> This duplicates the BH that virtio-blk uses for batching. The next
-> commit will remove it.
-> 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> ---
->  block/io_uring.c   |  6 ++++++
->  block/linux-aio.c  |  4 ++++
->  hw/virtio/virtio.c | 11 ++++++++++-
->  util/thread-pool.c |  5 +++++
->  4 files changed, 25 insertions(+), 1 deletion(-)
-> 
-> diff --git a/block/io_uring.c b/block/io_uring.c
-> index 3a1e1f45b3..7cdd00e9f1 100644
-> --- a/block/io_uring.c
-> +++ b/block/io_uring.c
-> @@ -125,6 +125,9 @@ static void luring_process_completions(LuringState *s)
->  {
->      struct io_uring_cqe *cqes;
->      int total_bytes;
-> +
-> +    defer_call_begin();
-> +
->      /*
->       * Request completion callbacks can run the nested event loop.
->       * Schedule ourselves so the nested event loop will "see" remaining
-> @@ -217,7 +220,10 @@ end:
->              aio_co_wake(luringcb->co);
->          }
->      }
-> +
->      qemu_bh_cancel(s->completion_bh);
-> +
-> +    defer_call_end();
->  }
->  
->  static int ioq_submit(LuringState *s)
-> diff --git a/block/linux-aio.c b/block/linux-aio.c
-> index 62380593c8..ab607ade6a 100644
-> --- a/block/linux-aio.c
-> +++ b/block/linux-aio.c
-> @@ -205,6 +205,8 @@ static void qemu_laio_process_completions(LinuxAioState *s)
->  {
->      struct io_event *events;
->  
-> +    defer_call_begin();
-> +
->      /* Reschedule so nested event loops see currently pending completions */
->      qemu_bh_schedule(s->completion_bh);
->  
-> @@ -231,6 +233,8 @@ static void qemu_laio_process_completions(LinuxAioState *s)
->       * own `for` loop.  If we are the last all counters droped to zero. */
->      s->event_max = 0;
->      s->event_idx = 0;
-> +
-> +    defer_call_end();
->  }
->  
->  static void qemu_laio_process_completions_and_submit(LinuxAioState *s)
-> diff --git a/hw/virtio/virtio.c b/hw/virtio/virtio.c
-> index 309038fd46..5eb1f91b41 100644
-> --- a/hw/virtio/virtio.c
-> +++ b/hw/virtio/virtio.c
-> @@ -15,6 +15,7 @@
->  #include "qapi/error.h"
->  #include "qapi/qapi-commands-virtio.h"
->  #include "trace.h"
-> +#include "qemu/defer-call.h"
->  #include "qemu/error-report.h"
->  #include "qemu/log.h"
->  #include "qemu/main-loop.h"
-> @@ -28,6 +29,7 @@
->  #include "hw/virtio/virtio-bus.h"
->  #include "hw/qdev-properties.h"
->  #include "hw/virtio/virtio-access.h"
-> +#include "sysemu/block-backend.h"
+--0000000000003555b706036d1877
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An artifact from the previous version.
+Hey Chuck,
 
->  #include "sysemu/dma.h"
->  #include "sysemu/runstate.h"
->  #include "virtio-qmp.h"
-> @@ -2426,6 +2428,13 @@ static bool virtio_should_notify(VirtIODevice *vdev, VirtQueue *vq)
->      }
->  }
->  
-> +/* Batch irqs while inside a defer_call_begin()/defer_call_end() section */
-> +static void virtio_notify_irqfd_deferred_fn(void *opaque)
-> +{
-> +    EventNotifier *notifier = opaque;
-> +    event_notifier_set(notifier);
-> +}
-> +
->  void virtio_notify_irqfd(VirtIODevice *vdev, VirtQueue *vq)
->  {
->      WITH_RCU_READ_LOCK_GUARD() {
-> @@ -2452,7 +2461,7 @@ void virtio_notify_irqfd(VirtIODevice *vdev, VirtQueue *vq)
->       * to an atomic operation.
->       */
->      virtio_set_isr(vq->vdev, 0x1);
-> -    event_notifier_set(&vq->guest_notifier);
-> +    defer_call(virtio_notify_irqfd_deferred_fn, &vq->guest_notifier);
+Thanks for your feedback and highlighting this to me.
+You're correct, they did rebrand so I will update this to 'IBM Cloud'.
 
-Should we move the trace from this function to deferred one?
-Or maybe add a new trace?
+Many thanks,
+Kelly Choi
 
->  }
->  
->  static void virtio_irq(VirtQueue *vq)
-> diff --git a/util/thread-pool.c b/util/thread-pool.c
-> index e3d8292d14..d84961779a 100644
-> --- a/util/thread-pool.c
-> +++ b/util/thread-pool.c
-> @@ -15,6 +15,7 @@
->   * GNU GPL, version 2 or (at your option) any later version.
->   */
->  #include "qemu/osdep.h"
-> +#include "qemu/defer-call.h"
->  #include "qemu/queue.h"
->  #include "qemu/thread.h"
->  #include "qemu/coroutine.h"
-> @@ -175,6 +176,8 @@ static void thread_pool_completion_bh(void *opaque)
->      ThreadPool *pool = opaque;
->      ThreadPoolElement *elem, *next;
->  
-> +    defer_call_begin(); /* cb() may use defer_call() to coalesce work */
-> +
->  restart:
->      QLIST_FOREACH_SAFE(elem, &pool->head, all, next) {
->          if (elem->state != THREAD_DONE) {
-> @@ -208,6 +211,8 @@ restart:
->              qemu_aio_unref(elem);
->          }
->      }
-> +
-> +    defer_call_end();
->  }
->  
->  static void thread_pool_cancel(BlockAIOCB *acb)
+Open Source Community Manager, XenServer
+Cloud Software Group
 
+
+On Sat, Aug 19, 2023 at 12:34=E2=80=AFAM Chuck Zmudzinski <brchuckz@netscap=
+e.net>
+wrote:
+
+> On 8/18/2023 6:55 AM, Kelly Choi wrote:
+> > Hi everyone! :)
+> >
+> > I hope you're all well.
+> >
+> > If we haven't met before, I'd like to introduce myself. I'm Kelly, the
+> Community Manager for The Xen Project. My role is to support everyone and
+> make sure the project is healthy and thriving.
+> >
+> > *The latest update below requires your attention:*
+> > *
+> > *
+> >
+> >   * *We will be moving IRC channels fully to Matrix in September 2023.
+> Once the channels have been created, further information will be shared. =
+*
+> >   * *New Mission Statement, goals, and purpose is attached to this emai=
+l
+> and will be shared publicly.*
+> >
+> > *Should anyone have any concerns or feedback, please let me know*
+> >
+> > Many thanks,
+> > Kelly Choi
+> >
+> > Open Source Community Manager, XenServer
+> > Cloud Software Group
+>
+> This looks good, but I thought IBM rebranded Softlayer as IBM Cloud
+> several years ago. Maybe IBM Softlayer should be changed to IBM Cloud?
+> Thanks.
+>
+> Chuck
+>
+
+--0000000000003555b706036d1877
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hey Chuck,<div><br></div><div>Thanks for your feedback and=
+ highlighting this to me.=C2=A0</div><div>You&#39;re correct, they did rebr=
+and so I will update this to &#39;IBM Cloud&#39;.</div><div><br clear=3D"al=
+l"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_=
+signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><di=
+v><br></div><div><div style=3D"color:rgb(136,136,136)">Open Source Communit=
+y Manager, XenServer</div><div style=3D"color:rgb(136,136,136)">Cloud Softw=
+are Group</div></div></div></div></div><br></div></div><br><div class=3D"gm=
+ail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Aug 19, 2023 at 12=
+:34=E2=80=AFAM Chuck Zmudzinski &lt;<a href=3D"mailto:brchuckz@netscape.net=
+">brchuckz@netscape.net</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">On 8/18/2023 6:55 AM, Kelly Choi wrote:<br>
+&gt; Hi everyone! :)=C2=A0<br>
+&gt; <br>
+&gt; I hope you&#39;re all well.=C2=A0<br>
+&gt; <br>
+&gt; If we haven&#39;t met before, I&#39;d like to introduce myself. I&#39;=
+m Kelly, the Community=C2=A0Manager for The Xen Project. My role is to supp=
+ort everyone and make sure the project is healthy and thriving.=C2=A0<br>
+&gt; <br>
+&gt; *The latest update below requires your attention:*<br>
+&gt; *<br>
+&gt; *<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0* *We will be moving IRC channels fully to Matrix in Septe=
+mber 2023. Once the channels have been created, further information will be=
+ shared.=C2=A0*<br>
+&gt;=C2=A0 =C2=A0* *New Mission Statement, goals, and purpose is attached t=
+o this email and will be shared publicly.*<br>
+&gt; <br>
+&gt; *Should anyone have any concerns or feedback, please=C2=A0let me know*=
+<br>
+&gt; <br>
+&gt; Many thanks,<br>
+&gt; Kelly Choi<br>
+&gt; <br>
+&gt; Open Source Community Manager, XenServer<br>
+&gt; Cloud Software Group<br>
+<br>
+This looks good, but I thought IBM rebranded Softlayer as IBM Cloud several=
+ years ago. Maybe IBM Softlayer should be changed to IBM Cloud? Thanks.<br>
+<br>
+Chuck<br>
+</blockquote></div>
+
+--0000000000003555b706036d1877--
 
