@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8CE782CD7
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 17:00:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587637.918984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 486E6782D13
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 17:17:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587644.918994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY6NT-0007J9-6M; Mon, 21 Aug 2023 14:59:35 +0000
+	id 1qY6eV-0001Zh-KU; Mon, 21 Aug 2023 15:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587637.918984; Mon, 21 Aug 2023 14:59:35 +0000
+Received: by outflank-mailman (output) from mailman id 587644.918994; Mon, 21 Aug 2023 15:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY6NT-0007HG-39; Mon, 21 Aug 2023 14:59:35 +0000
-Received: by outflank-mailman (input) for mailman id 587637;
- Mon, 21 Aug 2023 14:59:34 +0000
+	id 1qY6eV-0001Xv-Gg; Mon, 21 Aug 2023 15:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 587644;
+ Mon, 21 Aug 2023 15:17:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=phPX=EG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qY6NS-0007H8-BA
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 14:59:34 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20613.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::613])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WiRE=EG=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1qY6eU-0001Xn-1i
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 15:17:10 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5400432f-4033-11ee-9b0c-b553b5be7939;
- Mon, 21 Aug 2023 16:59:29 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DBAPR04MB7352.eurprd04.prod.outlook.com (2603:10a6:10:1a8::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Mon, 21 Aug
- 2023 14:59:26 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::79a:54ba:8003:fbe7]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::79a:54ba:8003:fbe7%6]) with mapi id 15.20.6678.029; Mon, 21 Aug 2023
- 14:59:26 +0000
+ id caebbee8-4035-11ee-9b0c-b553b5be7939;
+ Mon, 21 Aug 2023 17:17:07 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-3fed6c2a5cfso28824005e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Aug 2023 08:17:07 -0700 (PDT)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ q1-20020a056000136100b003180027d67asm12637489wrz.19.2023.08.21.08.17.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Aug 2023 08:17:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,184 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5400432f-4033-11ee-9b0c-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jUp9prpbGLGvWfMuH2KsB8Tx3QLQv95zp5FIuTd9H8gKFMqAoWNkjxIVZBnhzqEsdmNLtDUaF1fQ4Pbi++XI4ky4kXR26DqcfWM/OxyVOrZRxHpzHbblVGyi1DPl/OMift7GaLAgUqnPDPbQjPKyY7qZUYXNg8pOj/RK9Eg3JjkTn2Zdt8JFk8UyEBzsmccZMoXNVCk0E/Sfz7t20FxgR21ndGFrArbjj/eIDJkylFX+K6M+bNuBuI7YHpxgdYWkwV6h9/cji1Xz/dBfpUs7mO5WZBcu1TDsIVI96EktbECkTIpVcjfGSWiLgkqOfsefFyyt8Zhx0YppwpyKWSKSig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+r66bocOA0UbS6mOD9eyfcR2PTGKLa0wDuycQBVmTXU=;
- b=GSR20QT3RTGSofOWcXhAhKizLiLbs75xA9x4KGCB9/aWxWQwEtKULoGEorE15lMJ4Uqce+RQ/jWdIAKOYIF+M0prmTLLBEEASn32RZ4Z1mlol9qHjbgm8vvsmfEcVunFEbh7c7udFfHiXCf7ZvuQykfQyZhNmQIlA9dU+foEiElZha4I29iblq0JzvxGo+pLLg6Q1A5d7AFmi+y+d+gVcXDCyRVAFxDWqsHn3cQjXuQWvWoFiQ95Av9a25zE3tmH+sF82ZR31AOmVQyfLaXeN/PymGOzHV6p74CA3bcn0sC2kloFtTMoCSDwabfZw8s2Y8ba5Ntse+zrELFAG3ErYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+r66bocOA0UbS6mOD9eyfcR2PTGKLa0wDuycQBVmTXU=;
- b=3/UrRNfg3IhfP1RZ5ylRMUOIe/XIYCrJ7WNVAvVGUGNCljRxbDBLmQRZrZlb85fDo1U1gD6SjK5FhR+x5ychNlV5FGtVUI6USvmpPTN30vGbFVO6Rq3Qtd4dLpLXsjSeW6G9aCVzYGOE8fWAxjc0nV2bDjuSkITQeLX9+knvBPG4DFOoVAM3XZ6n6FNgAkIYjTMgpoR0Cy0Nq7h450FZ5c9LM1BaQEel+CqGIO3x7QAY7KhpoD1nEONd3hRKek3/m4FtxA4yn7G3ADaU/pdtRL6WIkFi1HLogue8+nRlNqDe5qYdHLIduvFdSBqWhKfQM4xvmuaAgE6IKTlas/Da9w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <57ced9f0-95b8-a560-cac9-08d58e2f0b86@suse.com>
-Date: Mon, 21 Aug 2023 16:59:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Ping: [PATCH] mem-sharing: move (x86) / drop (Arm)
- arch_dump_shared_mem_info()
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b0a49d20-8e82-8264-8241-86a108139682@suse.com>
-In-Reply-To: <b0a49d20-8e82-8264-8241-86a108139682@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0018.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::28)
- To DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+X-Inumbo-ID: caebbee8-4035-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1692631027; x=1693235827;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YzQdfYs6xmhhgJ7jfDYbEyX3/BYgph1r4B5q0WoGV1U=;
+        b=VjZcet6KE8z4c6eioLO3mkaxLCvzsdZySEekr8gZPnMNUzuIBLGy1sVO5aFno4YsYl
+         L7Z1HYw13ch6w81pd0Nk/34ghBBUm6WRoa7uGQ4vyPCxs+n9oynqnygA8EHDJl0XDUSt
+         BSjGj/ZLWxB2dM6leJIUug4r/L01tGMIZjvr4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692631027; x=1693235827;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YzQdfYs6xmhhgJ7jfDYbEyX3/BYgph1r4B5q0WoGV1U=;
+        b=Sq69hFaiQrkHddHuOTynG4PCAWKymaCR4JRAcVWEKHr2ly2zQotR64rI2Bza5eRVio
+         salDHZY7UIilH9lcSDi4L63d6y9fU9ZCbGpUu0IPhAzg0HQHKSKNF+g2hFZHYIW+6m0D
+         le9HaM8PwiyMsvEW+dIoaQiszu7+B7l9nAMyAeuXXXnOFNN2Fi0Hip/ugkr9U8yAUJ6f
+         VKwvHyfrad3hTLDEvX2MclqOynlPlKMhRbtkRhf87TaNmPp5Ocdlyi7f8g6uUW0cfW/I
+         pCHPR9qQjeb7A1FhJ1CO+sIF2ZZ6KCPrMZDxqKMsusXqzQecJ/Kt6hKjc5wlc48lbNmG
+         wVdg==
+X-Gm-Message-State: AOJu0Yyn4Xob4Tar50Xn6n7viiMSUzDTRtXVVojiEjzQR+IYMz6tWrbB
+	Y+1cK7S5NSvSRN8m9C7WzmprjA==
+X-Google-Smtp-Source: AGHT+IHgq/biSP89vVpL+IzoTIhTw7cJ9hlCS/ZumIEiMHSVf4xoOdnxzT6JtyKx4d6mMiDngaOd5A==
+X-Received: by 2002:a1c:4b0e:0:b0:3fe:c7fe:206c with SMTP id y14-20020a1c4b0e000000b003fec7fe206cmr5241849wma.23.1692631027295;
+        Mon, 21 Aug 2023 08:17:07 -0700 (PDT)
+Date: Mon, 21 Aug 2023 16:17:06 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH v6] tools/xenstore: move xenstored sources into dedicated
+ directory
+Message-ID: <9c10e5ba-6b5a-4d97-bce2-908a588729f6@perard>
+References: <20230821081422.17027-1-jgross@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBAPR04MB7352:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5143953-2bd9-434c-545c-08dba257368e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	xbb/eFjddi309NuV1z0XkeO/dOsd7PDohlWaGyC9FYNHkaGxsBeJSOQKJkftaM+j5zlwAA83i95lwEleCEyVvl4dET3pqAKAty0q6jd6inOEsaWoGL8ey25ezygpb4hgHT96dtPUQ0q6FPjIjSZiomaftsAu3dngFbdKAB3Sl2C5aXbOWN+QUpS5uA4MVMji/048vyaI4A7Gz5NXqMSArbSvgVe0xJiWwSJ9qqQ/kVeP3ziDrXeR2e2KdJnJqO4zrJmkj+fQTWmI9hULqCzemVYtu9gfBbopMP/IjZNZ47ZGlFjTKPpFxBN6Zqwhn5vHwt9sEzxmwYVLM/50tCjhRsRg07bHbTx046RE85I3ZYwJ4KMesHLQFZYDYK00aiKuHrpxhoB0sGUIGYYLoR1aNNmwjBAATky9MN9u3E33Vbnro1Pkc6d3JKSQ5gJ2tI9IDLbZH+dslLBEENu2zleAToqit4g5VwrOkGKF89kzpUoM+STefsNoCS5+hsdBhidX+lmvguliCOTDgnJS+28tngzqPsrGVh5dMOQ1H3cs7PYYQixGeZBKgB6FzrAE6uqDeDSNrZsBOPO7uyYSHnw63Lq7vtIGta+llNyDV/eKjzMATW4G0nF/rsJJ78bDHh3hvRzvw8PTMFJS6P3se40PRg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39850400004)(366004)(376002)(136003)(396003)(451199024)(186009)(1800799009)(2906002)(7416002)(53546011)(38100700002)(6506007)(6486002)(83380400001)(5660300002)(26005)(86362001)(31686004)(31696002)(8676002)(2616005)(8936002)(4326008)(316002)(66946007)(6512007)(54906003)(6916009)(66556008)(66476007)(478600001)(36756003)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3FWc3NRNXBJZnlOU21rTE5LR2tkN3QwUXdSYzJybmpBNDBTb2xsQkpBTStT?=
- =?utf-8?B?WkxETks0eGNrUncvQnVKZ01vQ2lkUTZRQ2daaHJJbU9Mam5nay9tbGVvSGdq?=
- =?utf-8?B?TlFpZGRUYjJGZENHQnZmWm4vcnorUS9BNkcxU05NQ3lpUkJuTXB2T3J3Q2lP?=
- =?utf-8?B?UUY3NXd1c2g5Rk0rNkMwRG8rM3dBNXpFWVQyS0dNTkVuNm43RVZ3cFlaVVRI?=
- =?utf-8?B?aDlXakdWSktEVjl4TmRWQ3JjVGpSMHZ1MERhZDk5NVpJZDlYZnNDSjlpL01a?=
- =?utf-8?B?c0N2eVgwdXpHYXJxN1YwVTJldFFoZFNOaC9nVExUem1XdGlrRGdvYkwwbmZD?=
- =?utf-8?B?a3BMekZFMVUwcGhsbzZ6Tkt0OHdNZGxnRHdlazF5TndWSGd6YjZIN2FuRm9q?=
- =?utf-8?B?aDVFSDJ1ZnJmY2Fkd3hlMW9UdDMxWDNGOXNuSEpBVWR2NlVINFVia1FNbVFJ?=
- =?utf-8?B?ZDF3aUJxWjl2YUxiN3pONGg0RE8xQURNaFJrcmg2Qjh0N1o4dER4QWxqU1dy?=
- =?utf-8?B?VjN1S29adUtUYlpxQXhWYS9TSWxFNFdJQzNXdVFRbnRYSVdFTE15WU9CUXBJ?=
- =?utf-8?B?ZzZ4N0d1UHBRejhwbTZVdEhqNDJoTVZXaHcyMWNkUnA5LzVKbWkxZkNWUkpC?=
- =?utf-8?B?V0pJY2lERVlBWFV3YW56UGI2QU8vK1V4WWQ2TEliYzJjTXhhbi9hdzV4elQw?=
- =?utf-8?B?VHNOMzZhcm1JR0RWNmxzekRRQlh3d2NEc2IrQXcyK05BdHBaT3NBRlFJL1BW?=
- =?utf-8?B?QVd1NFVSeTJLb1BiSjNjUE5JYWc2eU9idDltTU1lbFhsa1FlK0ViLzFFRVEv?=
- =?utf-8?B?RXZzdjJ5R2Iycjl4TFJoaFRzeWZMNnkxSXgrYmRkVHVkZWJEMDM1Q2tHci8w?=
- =?utf-8?B?c3BMNlU5SndaQkhna2tPaFE1OGc5ekVHbXdpUC9QcHdXQXdzZTRLdVVSaTBa?=
- =?utf-8?B?QnB1cWo4OEtFWUppVkNvZGtjR2F2RUJSM0V2VDJ5bmJPL3dKVlEwTUw2ZmMz?=
- =?utf-8?B?NUUzV2lzZ2hlRnltTXFiOHB4MnNobVJ1Z29MWE5wVnFoL1RRNkNkVFFzVmtU?=
- =?utf-8?B?VTNZTGpzYnlvTXBLQ2FHVm5zdHU1TTBXaEhoRmJpcjZXSjFZd1JRYkpKMXZT?=
- =?utf-8?B?OURqY1RIT3ZGNG84TTk4b3J1eFFkbFY0V3BTQ3Z3c3oyUFVkalJaaTlKaGpv?=
- =?utf-8?B?OWdXR0dZSXpHSnNEaWhkcEcySGw5a2wzdUVLdTJ5eEtncW14OTN4YkRYcnYw?=
- =?utf-8?B?TWVRTUFPNVlKakFFaS94dFNMcE1DSmpZUmYzMWpsZis0NHp0L0g4TksrdExx?=
- =?utf-8?B?KzJ3QWx6MEY3Y0xKYlNnNnhXdFh6c3FtTUpIMS92K0xyY0tKcXlpQnpxYTA5?=
- =?utf-8?B?azN5aUZ1ZWtaaHhDNDhNNlNzN0w4TFJoYXJsTTFRQmdZU2NjNm5pUS9NWUcr?=
- =?utf-8?B?VW5LMDF3SElKNi9jZFFLN1R4V0grczh0QnJWekRxc2FzT1RiR09RelZVWFJ1?=
- =?utf-8?B?RVA5cGU5bElGTGVSQnlJcmNIdUNyWmJYYXQ3RFhiazF3YUhKdzRRbnpDMHpt?=
- =?utf-8?B?MlFPYjFSQ2gwWXdBMGF1L0ZiS2JSRDAvdFBEN0ZrM2hLd0hhTzNzR3pScDNF?=
- =?utf-8?B?UmRzQXdBd1ZSZ0ZFR3JGMjM5VXM3bDZoSU1tZUhaQ1NYSURmeVdPVDFBeTda?=
- =?utf-8?B?eHhQbWNORjljc0dDenhWS0tja01ENytMZG9rR25rd3VyVWtMNndWUmpLQWRi?=
- =?utf-8?B?VnhGTFZJMnFOSlJjY1B6NWc0QTBZcWNYUmp1WFhyRVh0SjBHblNXN2F5ZWV4?=
- =?utf-8?B?ZXZJcUlNUkZqM2NnNnZuZVhrUlBOdTQwMzhXZWM4N0xnSjg3VVVudmdjUU41?=
- =?utf-8?B?ZFJXNWJzZVlkZm5MRVNWMkJjRS9ielE0a2xYOWZaSlpUSkhXdm9pMFIyWXMx?=
- =?utf-8?B?YVRyNk5qWXBxd1ZtZlFvM3lHQWdNVEc2bk0rMEVEdE1PRE1meWUwdVkwdVkz?=
- =?utf-8?B?TWRRQXVpM01hbHl4aWxDK1o5WFEzUXZMSkJUZmhaTFpJRjNlNmp5TW4xVm5L?=
- =?utf-8?B?OFJmT0xUekU1N0grRVlHa0dkekcwT2RibzIzRmdobE5LU1ltQmZiUVVwbDdB?=
- =?utf-8?Q?tTPg+UsJJcobKEul12fpriDCQ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5143953-2bd9-434c-545c-08dba257368e
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 14:59:26.6512
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XxolXgZHIzdQavrJFnFFcohvNmfgWWjQKwVdrhTYp4gGbvqzAdlUqNPm6ez+iyZK2BmsRpKDLfaieAvEhmaheA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7352
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230821081422.17027-1-jgross@suse.com>
 
-On 08.08.2023 14:02, Jan Beulich wrote:
-> When !MEM_SHARING no useful output is produced. Move the function into
-> mm/mem_sharing.c while conditionalizing the call to it, thus allowing to
-> drop it altogether from Arm (and eliminating the need to introduce stubs
-> on PPC and RISC-V).
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Aug 21, 2023 at 10:14:22AM +0200, Juergen Gross wrote:
+> diff --git a/tools/xenstored/.gitignore b/tools/xenstored/.gitignore
+> new file mode 100644
+> index 0000000000..edbb5d79fe
+> --- /dev/null
+> +++ b/tools/xenstored/.gitignore
+> @@ -0,0 +1 @@
+> +xenstored
 
-Tamas - any chance of an ack?
+Could you write that "/xenstored" ? The prefix "/" just makes sure that
+only the file in the current directory is ignored, and not any
+"xenstored" in subdirectory. Just in case.
 
-Thanks, Jan
-
-> ---
-> I wasn't really sure whether introducing a stub in xen/mm.h would be any
-> better than adding the (further) #ifdef to dump_domains().
-> 
-> We could go further and also eliminate the need for the stub variants
-> of mem_sharing_get_nr_{shared,saved}_mfns() by moving the
-> XENMEM_get_sharing_{shared,freed}_pages cases in
-> {,compat_}arch_memory_op() into the already existing #ifdef-s there.
-> Returning an error for those sub-ops may be slightly more appropriate
-> than returning 0 when !MEM_SHARING.
-> 
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -1297,10 +1297,6 @@ void free_init_memory(void)
->      printk("Freed %ldkB init memory.\n", (long)(__init_end-__init_begin)>>10);
->  }
->  
-> -void arch_dump_shared_mem_info(void)
-> -{
-> -}
-> -
->  int steal_page(
->      struct domain *d, struct page_info *page, unsigned int memflags)
->  {
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -6265,13 +6265,6 @@ void memguard_unguard_stack(void *p)
->      map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, PAGE_HYPERVISOR_RW);
->  }
->  
-> -void arch_dump_shared_mem_info(void)
-> -{
-> -    printk("Shared frames %u -- Saved frames %u\n",
-> -            mem_sharing_get_nr_shared_mfns(),
-> -            mem_sharing_get_nr_saved_mfns());
-> -}
-> -
->  const struct platform_bad_page *__init get_platform_badpages(unsigned int *array_size)
->  {
->      u32 igd_id;
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -2329,3 +2329,10 @@ int mem_sharing_domctl(struct domain *d,
->  
->      return rc;
->  }
+> diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
+> new file mode 100644
+> index 0000000000..f3bd3d43c4
+> --- /dev/null
+> +++ b/tools/xenstored/Makefile
+> @@ -0,0 +1,48 @@
+> +XEN_ROOT=$(CURDIR)/../..
+> +include $(XEN_ROOT)/tools/Rules.mk
 > +
-> +void arch_dump_shared_mem_info(void)
-> +{
-> +    printk("Shared frames %u -- Saved frames %u\n",
-> +            mem_sharing_get_nr_shared_mfns(),
-> +            mem_sharing_get_nr_saved_mfns());
-> +}
-> --- a/xen/common/keyhandler.c
-> +++ b/xen/common/keyhandler.c
-> @@ -365,7 +365,9 @@ static void cf_check dump_domains(unsign
->          }
->      }
->  
-> +#ifdef CONFIG_MEM_SHARING
->      arch_dump_shared_mem_info();
-> +#endif
->  
->      rcu_read_unlock(&domlist_read_lock);
->  }
-> 
+> +include Makefile.common
+> +
+> +xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
+> +xenstored: LDLIBS += $(LDLIBS_libxengnttab)
+> +xenstored: LDLIBS += $(LDLIBS_libxenctrl)
+> +xenstored: LDLIBS += -lrt
+> +xenstored: LDLIBS += $(SOCKET_LIBS)
+> +
+> +ifeq ($(CONFIG_SYSTEMD),y)
+> +$(XENSTORED_OBJS-y): CFLAGS += $(SYSTEMD_CFLAGS)
+> +xenstored: LDLIBS += $(SYSTEMD_LIBS)
+> +endif
+> +
+> +TARGETS += xenstored
 
+Could you change that to := instead of += ? TARGETS is currently
+introduced with a := (in tools/xenstore/Makefile).
+
+> diff --git a/tools/xs-clients/.gitignore b/tools/xs-clients/.gitignore
+> new file mode 100644
+> index 0000000000..233fd8228a
+> --- /dev/null
+> +++ b/tools/xs-clients/.gitignore
+> @@ -0,0 +1,10 @@
+> +xenstore
+> +xenstore-chmod
+> +xenstore-control
+> +xenstore-exists
+> +xenstore-list
+> +xenstore-ls
+> +xenstore-read
+> +xenstore-rm
+> +xenstore-watch
+> +xenstore-write
+
+Same thing here, could you prefix all those entries with "/"?
+
+> diff --git a/tools/xenstore/Makefile b/tools/xs-clients/Makefile
+> similarity index 74%
+> rename from tools/xenstore/Makefile
+> rename to tools/xs-clients/Makefile
+> index dc39b6cb31..1c5740450a 100644
+> --- a/tools/xenstore/Makefile
+> +++ b/tools/xs-clients/Makefile
+
+I'm tempted to ask for the targets "clients-install" and
+"clients-uninstall" to be removed from this makefile. Nothing is calling
+them in our build system and something outside the git tree that rely on
+that would need to be adjusted to the new directory. But maybe that can
+be done in a followup patch as it would help with reverting it if the
+targets are actually useful.
+
+
+In any case, the patch is already good:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
+
+-- 
+Anthony PERARD
 
