@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17459782DB6
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 18:03:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587695.919064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47463782DA1
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 17:57:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587666.919033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY7MC-0003AI-DN; Mon, 21 Aug 2023 16:02:20 +0000
+	id 1qY7HI-0007qQ-88; Mon, 21 Aug 2023 15:57:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587695.919064; Mon, 21 Aug 2023 16:02:20 +0000
+Received: by outflank-mailman (output) from mailman id 587666.919033; Mon, 21 Aug 2023 15:57:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY7MC-00037Y-A7; Mon, 21 Aug 2023 16:02:20 +0000
-Received: by outflank-mailman (input) for mailman id 587695;
- Mon, 21 Aug 2023 16:02:18 +0000
+	id 1qY7HI-0007oS-5C; Mon, 21 Aug 2023 15:57:16 +0000
+Received: by outflank-mailman (input) for mailman id 587666;
+ Mon, 21 Aug 2023 15:57:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0mH9=EG=gmail.com=jinoh.kang.kr@srs-se1.protection.inumbo.net>)
- id 1qY7MA-00037S-Mc
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 16:02:18 +0000
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [2607:f8b0:4864:20::f30])
+ id 1qY7HH-0007T4-Dh
+ for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 15:57:15 +0000
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [2607:f8b0:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 191a2662-403c-11ee-8782-cb3800f73035;
- Mon, 21 Aug 2023 18:02:16 +0200 (CEST)
-Received: by mail-qv1-xf30.google.com with SMTP id
- 6a1803df08f44-64f383be0d4so11292386d6.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Aug 2023 09:02:16 -0700 (PDT)
+ id 64b76b61-403b-11ee-8782-cb3800f73035;
+ Mon, 21 Aug 2023 17:57:14 +0200 (CEST)
+Received: by mail-pl1-x62e.google.com with SMTP id
+ d9443c01a7336-1bf0b24d925so20967405ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Aug 2023 08:57:14 -0700 (PDT)
 Received: from [10.137.0.57] ([14.33.99.107]) by smtp.gmail.com with ESMTPSA id
- w24-20020aa78598000000b0068892a66b5csm6326109pfn.77.2023.08.21.08.57.01
+ f9-20020a170902ce8900b001ae0a4b1d3fsm7191686plg.153.2023.08.21.08.57.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Aug 2023 08:57:04 -0700 (PDT)
+ Mon, 21 Aug 2023 08:57:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,48 +44,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 191a2662-403c-11ee-8782-cb3800f73035
+X-Inumbo-ID: 64b76b61-403b-11ee-8782-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692633735; x=1693238535;
+        d=gmail.com; s=20221208; t=1692633432; x=1693238232;
         h=content-transfer-encoding:in-reply-to:content-language:references
          :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=rcvI6BZjybNsQpnXFA/kOhrlUplNszr0VzIfXd6lzuc=;
-        b=o0AEj9FV+uPHAhr5gDF077SdH56OuNRVmYupSAxDBzuFAMrSv7QmEDSgbdavflm1Po
-         1RZXL00JNYwdUsmPudsPhG09nqrfZ1ipfaSL8gKztUPa6SiBkIHHVOSh67C1qAnE8Rnj
-         aunrj4pb1EQiNfdJHWv5I818JFS0gFYi8E0G/51tWaYKrecjZGsGupK2OiN/Zgto4ToQ
-         LINvd0KwyOFmpUQceQhoWpseFe1R35sgdt0DGd4AILC2cZ8EaMoo4oGqXwJC7BpobiX2
-         VpXken/E6+41S0Sn6JzO/IuUFQYdRXT+C/k9WI+tc+YtvNiZTyxFA5FBZgoRVOER3aLs
-         1eDw==
+        bh=hSh7CjYmh4pzgCRYpqWLhaZZ/JE6zO58mEjCpiQd2qI=;
+        b=f76C1e8xFy+qyoOxihP2DN4q0r9qi06GSdUr8g9MSCelkUNXFBjGQ6tIMjsy5uh+rZ
+         zGJjr1vxNSO1fXU3CNqmO+rIUkphjLiSra6DbmiPHfrDnecvnPJqmCGbVnEcdOl6MEDP
+         xExA6UKPcrkr+wf0j5vGKSyvccA9K9Z+cQjmi8oo3wgGMUIgZybVii7ttSui7ig4HVER
+         JB2UFK2KReg3YmdHyOag1zoEf9gjYHGbYiUQ0jU0jxKRbUQxmjisy8nQBJSnAU29VapZ
+         klCzlI4tWqsx8CrGYmj+4CSyfXxn64vHGWkUsKFH2ZpCHDKVEo8t3QIrKQ/BrMX8XqE2
+         hJQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692633735; x=1693238535;
+        d=1e100.net; s=20221208; t=1692633432; x=1693238232;
         h=content-transfer-encoding:in-reply-to:content-language:references
          :cc:to:subject:from:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rcvI6BZjybNsQpnXFA/kOhrlUplNszr0VzIfXd6lzuc=;
-        b=RHdbw0a2hI94xhTiG5qoH8x2ShlXaKZkViu+EyXWiBNcd18+uFAhoLefZfJ5pgj94N
-         iXgfZfHNHFYG1zLNoQ9UljrCNQEPAfEfNeQuVzr6oqnhvzi4CvV2CAPdep85fQmiIioz
-         5cow7LXDgnZLfn2SjlF9UC3aVa7hIlpqR9hE/4xxwRy/RvLveKt2rmyKaKO2e08orht+
-         TBNve4B2ok4lZ8yA+Ogh6AIropV/MP1C0W47evmNPs4O1+xj7cnJR+zA2X/S3czW34IM
-         F+MsMyqp29pAbf8v7wutXEkgHCsAqr4PTeCqTvboJWbcoPLpkVst7m0upPoosP0QdWGD
-         SN6w==
-X-Gm-Message-State: AOJu0YxRT2nakYuGF3A1jrPoiOhP79d2oboLf5yW7fV0c7NAY2k8+rlH
-	phUZt713FqWk+Tb7zA7hZYx0/DeQs64Ghw==
-X-Google-Smtp-Source: AGHT+IG9nzyYO7XWBCTfZ/MQCvZngajnf3c6sN3apWr2WuD5z1MrMNP2t6ssgvevRZYfN+Lfykthmw==
-X-Received: by 2002:a05:6870:470e:b0:1c0:1caf:3324 with SMTP id b14-20020a056870470e00b001c01caf3324mr9797661oaq.44.1692633425056;
-        Mon, 21 Aug 2023 08:57:05 -0700 (PDT)
-Message-ID: <49f8d2f3-c468-774c-11d1-04a08169620d@gmail.com>
-Date: Tue, 22 Aug 2023 00:57:00 +0900
+        bh=hSh7CjYmh4pzgCRYpqWLhaZZ/JE6zO58mEjCpiQd2qI=;
+        b=LY/XLpq92NFEsJCv9+W8BODtdfdgWtE3/wp2wyYXNibBWkVs7asH0NzLOBdk2xDW5S
+         K+Qtnpp81p82SGbwdE9NOTqxmIViOjKi8xmdMhVFuvxjzFzc13yfLXiRdfBVWDl2mcJQ
+         Va6yuKDSjccdvzOP1sO90d+X6vNFT5ZYaMUjdcCwC9bf8QIpornJKBxUPVuQ5XY7H/MY
+         gdZ8h1fWusQORGKHYw9RBBFBt/yteLu+HfsOLEYI2AGc5SqkmHyqsZH0fC7Y76HDHBho
+         eYY/thSz4irbq+XEyJaNgPhjGHYLKoVz7kidd3W074p6GYuhBpVKWci+VpMRKMg1kCe6
+         F90A==
+X-Gm-Message-State: AOJu0YwB82J7AKz3lM+4NL7JqD0Wk/WI8mMkpdSa4Br4MwC6NE6Am1RT
+	kMZdVcRP0mgSIC4PYO68/NdwZC0kHBAmSA==
+X-Google-Smtp-Source: AGHT+IGRQ+QsQ9szgfNdvXXaxuwNTqett1/4eESHiEzQvtoF2kdaWBk+HuAZFyNgb48bAI7hq0cqlQ==
+X-Received: by 2002:a17:902:dac2:b0:1bb:99d3:6a53 with SMTP id q2-20020a170902dac200b001bb99d36a53mr5646803plx.20.1692633432525;
+        Mon, 21 Aug 2023 08:57:12 -0700 (PDT)
+Message-ID: <aa422104-be1b-dd6e-8c02-00b90ef2e64c@gmail.com>
+Date: Tue, 22 Aug 2023 00:57:07 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 From: Jinoh Kang <jinoh.kang.kr@gmail.com>
-Subject: [PATCH 2/5] x86/emul: Add pending_dbg field to x86_event
+Subject: [PATCH 3/5] x86/hvm: RFC - PROBABLY BROKEN - Defer all
+ debugging/monitor actions to {svm,vmx}_inject_event()
 To: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Tim Deegan <tim@xen.org>
+ Razvan Cojocaru <rcojocaru@bitdefender.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>
 References: <5fa229fc-9514-abc6-5e72-2447a2c637d0@gmail.com>
 Content-Language: en-US
 In-Reply-To: <5fa229fc-9514-abc6-5e72-2447a2c637d0@gmail.com>
@@ -94,27 +96,21 @@ Content-Transfer-Encoding: 8bit
 
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 
-All #DB exceptions result in an update of %dr6, but this isn't captured in
-Xen's handling.
+Currently, there is a lot of functionality in the #DB intercepts, and some
+repeated functionality in the *_inject_event() logic.
 
-PV guests generally work by modifying %dr6 before raising #DB, whereas HVM
-guests do nothing and have a single-step special case in the lowest levels of
-{vmx,svm}_inject_event().  All of this is buggy, but in particular, task
-switches with the trace flag never end up signalling BT in %dr6.
+The gdbsx code is implemented at both levels (albeit differently for #BP,
+which is presumably due to the fact that the old emulator behaviour used to be
+to move %rip forwards for traps), while the monitor behaviour only exists at
+the intercept level.
 
-To begin resolving this issue, add a new pending_dbg field to x86_event
-(unioned with cr2 to avoid taking any extra space), and introduce
-{pv,hvm}_inject_debug_exn() helpers to replace the current callers using
-{pv,hvm}_inject_hw_exception().
+Updating of %dr6 is implemented (buggily) at both levels, but having it at
+both levels is problematic to implement correctly.
 
-A key property is that pending_dbg is taken with positive polarity to deal
-with RTM sensibly.  Most callers pass in a constant, but callers passing in a
-hardware %dr6 value need to xor the value with X86_DR6_DEFAULT to flip the
-polarity of RTM and reserved fields.
-
-For PV guests, move the ad-hoc updating of %dr6 into pv_inject_event().  This
-in principle breaks the handing of RTM in do_debug(), but PV guests can't
-actually enable MSR_DEBUGCTL.RTM yet, so this doesn't matter in practice.
+Rearrange the logic to have nothing interesting at the intercept level, and
+everything implemented at the injection level.  Amongst other things, this
+means that the monitor subsystem will pick up debug actions from emulated
+events.
 
 Signed-off-by: Jinoh Kang <jinoh.kang.kr@gmail.com>
 ---
@@ -123,400 +119,348 @@ CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Jun Nakajima <jun.nakajima@intel.com>
 CC: Kevin Tian <kevin.tian@intel.com>
-CC: Tim Deegan <tim@xen.org>
----
- xen/arch/x86/hvm/emulate.c             |  3 ++-
- xen/arch/x86/hvm/hvm.c                 |  2 +-
- xen/arch/x86/hvm/svm/svm.c             |  9 ++++++---
- xen/arch/x86/hvm/vmx/vmx.c             | 13 ++++++++-----
- xen/arch/x86/include/asm/debugreg.h    |  3 +++
- xen/arch/x86/include/asm/domain.h      | 12 ++++++++++++
- xen/arch/x86/include/asm/hvm/hvm.h     | 15 ++++++++++++++-
- xen/arch/x86/mm/shadow/multi.c         |  5 +++--
- xen/arch/x86/pv/emul-priv-op.c         | 11 +++++------
- xen/arch/x86/pv/emulate.c              |  6 ++----
- xen/arch/x86/pv/ro-page-fault.c        |  3 ++-
- xen/arch/x86/pv/traps.c                | 16 ++++++++++++----
- xen/arch/x86/traps.c                   |  6 +-----
- xen/arch/x86/x86_emulate/x86_emulate.h |  5 ++++-
- 14 files changed, 75 insertions(+), 34 deletions(-)
+CC: Razvan Cojocaru <rcojocaru@bitdefender.com>
+CC: Tamas K Lengyel <tamas@tklengyel.com>
 
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index 9b6e4c8bc6..129403ad90 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -16,6 +16,7 @@
- #include <xen/paging.h>
- #include <xen/trace.h>
- #include <xen/vm_event.h>
-+#include <asm/debugreg.h>
- #include <asm/event.h>
- #include <asm/i387.h>
- #include <asm/xstate.h>
-@@ -2673,7 +2674,7 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
-     }
- 
-     if ( hvmemul_ctxt->ctxt.retire.singlestep )
--        hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+        hvm_inject_debug_exn(X86_DR6_BS);
- 
-     new_intr_shadow = hvmemul_ctxt->intr_shadow;
- 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 66ead0b878..c3d46841c2 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -3229,7 +3229,7 @@ void hvm_task_switch(
-     }
- 
-     if ( (tss.trace & 1) && !exn_raised )
--        hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+        hvm_inject_debug_exn(X86_DR6_BT);
- 
-  out:
-     hvm_unmap_entry(optss_desc);
+This is RFC because it probably breaks introspection, as injection replies
+from the introspection engine will (probably, but I haven't confirmed) trigger
+new monitor events.
+
+First of all, monitoring emulated debug events is a change in behaviour,
+although IMO it is more of a bugfix than a new feature.  Also, similar changes
+will happen to other monitored events as we try to unify the
+intercept/emulation paths.
+
+As for the recursive triggering of monitor events, I was considering extending
+the monitor infrastructure to have a "in monitor reply" boolean which causes
+hvm_monitor_debug() to ignore the recursive request.
+
+Does this plan sound ok, or have I missed something more subtle with monitor
+handling?
+---
+ xen/arch/x86/hvm/svm/svm.c | 126 ++++++++++++++++++++-----------------
+ xen/arch/x86/hvm/vmx/vmx.c | 102 +++++++++++++-----------------
+ 2 files changed, 110 insertions(+), 118 deletions(-)
+
 diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 01dd592d9b..ac3123c56f 100644
+index ac3123c56f..bd3adde0ec 100644
 --- a/xen/arch/x86/hvm/svm/svm.c
 +++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -96,7 +96,7 @@ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len)
-     curr->arch.hvm.svm.vmcb->int_stat.intr_shadow = 0;
- 
-     if ( regs->eflags & X86_EFLAGS_TF )
--        hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+        hvm_inject_debug_exn(X86_DR6_BS);
- }
- 
- static void cf_check svm_cpu_down(void)
-@@ -2755,7 +2755,10 @@ void svm_vmexit_handler(void)
-                 goto unexpected_exit_type;
-             if ( !rc )
-                 hvm_inject_exception(X86_EXC_DB,
--                                     trap_type, insn_len, X86_EVENT_NO_EC);
-+                                     trap_type, insn_len, X86_EVENT_NO_EC,
-+                                     exit_reason == VMEXIT_ICEBP ? 0 :
-+                                     /* #DB - Hardware already updated dr6. */
-+                                     vmcb_get_dr6(vmcb) ^ X86_DR6_DEFAULT);
-         }
-         else
-             domain_pause_for_debugger();
-@@ -2785,7 +2788,7 @@ void svm_vmexit_handler(void)
-            if ( !rc )
-                hvm_inject_exception(X86_EXC_BP,
-                                     X86_EVENTTYPE_SW_EXCEPTION,
--                                    insn_len, X86_EVENT_NO_EC);
-+                                    insn_len, X86_EVENT_NO_EC, 0 /* N/A */);
-         }
-         break;
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 7ec44018d4..716115332b 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3068,7 +3068,7 @@ void update_guest_eip(void)
-     }
- 
-     if ( regs->eflags & X86_EFLAGS_TF )
--        hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+        hvm_inject_debug_exn(X86_DR6_BS);
- }
- 
- static void cf_check vmx_fpu_dirty_intercept(void)
-@@ -3911,7 +3911,7 @@ static int vmx_handle_eoi_write(void)
-  * It is the callers responsibility to ensure that this function is only used
-  * in the context of an appropriate vmexit.
-  */
--static void vmx_propagate_intr(unsigned long intr)
-+static void vmx_propagate_intr(unsigned long intr, unsigned long pending_dbg)
- {
-     struct x86_event event = {
-         .vector = MASK_EXTR(intr, INTR_INFO_VECTOR_MASK),
-@@ -3935,6 +3935,9 @@ static void vmx_propagate_intr(unsigned long intr)
-     else
-         event.insn_len = 0;
- 
-+    if ( event.vector == X86_EXC_DB )
-+        event.pending_dbg = pending_dbg;
-+
-     hvm_inject_event(&event);
- }
- 
-@@ -4300,7 +4303,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-                 if ( rc < 0 )
-                     goto exit_and_crash;
-                 if ( !rc )
--                    vmx_propagate_intr(intr_info);
-+                    vmx_propagate_intr(intr_info, exit_qualification);
-             }
-             else
-                 domain_pause_for_debugger();
-@@ -4321,7 +4324,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-                 if ( rc < 0 )
-                     goto exit_and_crash;
-                 if ( !rc )
--                    vmx_propagate_intr(intr_info);
-+                    vmx_propagate_intr(intr_info, 0 /* N/A */);
-             }
-             else
-             {
-@@ -4361,7 +4364,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-             break;
-         case X86_EXC_AC:
-             HVMTRACE_1D(TRAP, vector);
--            vmx_propagate_intr(intr_info);
-+            vmx_propagate_intr(intr_info, 0 /* N/A */);
-             break;
-         case X86_EXC_NMI:
-             if ( MASK_EXTR(intr_info, INTR_INFO_INTR_TYPE_MASK) !=
-diff --git a/xen/arch/x86/include/asm/debugreg.h b/xen/arch/x86/include/asm/debugreg.h
-index 8be60910b4..a1df74c02e 100644
---- a/xen/arch/x86/include/asm/debugreg.h
-+++ b/xen/arch/x86/include/asm/debugreg.h
-@@ -83,6 +83,9 @@
-     asm volatile ( "mov %%db" #reg ",%0" : "=r" (__val) );  \
-     __val;                                                  \
- })
-+
-+struct vcpu;
-+
- long set_debugreg(struct vcpu *, unsigned int reg, unsigned long value);
- void activate_debugregs(const struct vcpu *);
- 
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index c2d9fc333b..eba11adf33 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -729,6 +729,18 @@ static inline void pv_inject_hw_exception(unsigned int vector, int errcode)
-     pv_inject_event(&event);
- }
- 
-+static inline void pv_inject_debug_exn(unsigned long pending_dbg)
-+{
-+    struct x86_event event = {
-+        .vector      = X86_EXC_DB,
-+        .type        = X86_EVENTTYPE_HW_EXCEPTION,
-+        .error_code  = X86_EVENT_NO_EC,
-+        .pending_dbg = pending_dbg,
-+    };
-+
-+    pv_inject_event(&event);
-+}
-+
- static inline void pv_inject_page_fault(int errcode, unsigned long cr2)
- {
-     const struct x86_event event = {
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 6d53713fc3..43989f1681 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -503,13 +503,14 @@ hvm_get_cpl(struct vcpu *v)
- 
- static inline void hvm_inject_exception(
-     unsigned int vector, unsigned int type,
--    unsigned int insn_len, int error_code)
-+    unsigned int insn_len, int error_code, unsigned long extra)
- {
-     struct x86_event event = {
-         .vector = vector,
-         .type = type,
-         .insn_len = insn_len,
-         .error_code = error_code,
-+        .cr2 = extra, /* Any union field will do. */
-     };
- 
-     hvm_inject_event(&event);
-@@ -526,6 +527,18 @@ static inline void hvm_inject_hw_exception(unsigned int vector, int errcode)
-     hvm_inject_event(&event);
- }
- 
-+static inline void hvm_inject_debug_exn(unsigned long pending_dbg)
-+{
-+    struct x86_event event = {
-+        .vector      = X86_EXC_DB,
-+        .type        = X86_EVENTTYPE_HW_EXCEPTION,
-+        .error_code  = X86_EVENT_NO_EC,
-+        .pending_dbg = pending_dbg,
-+    };
-+
-+    hvm_inject_event(&event);
-+}
-+
- static inline void hvm_inject_page_fault(int errcode, unsigned long cr2)
- {
-     struct x86_event event = {
-diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-index cf74fdf5dd..6056626912 100644
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -15,6 +15,7 @@
- #include <xen/perfc.h>
- #include <xen/domain_page.h>
- #include <xen/iocap.h>
-+#include <asm/debugreg.h>
- #include <xsm/xsm.h>
- #include <asm/page.h>
- #include <asm/current.h>
-@@ -2788,7 +2789,7 @@ static int cf_check sh_page_fault(
- #endif
- 
-     if ( emul_ctxt.ctxt.retire.singlestep )
--        hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+        hvm_inject_debug_exn(X86_DR6_BS);
- 
- #if GUEST_PAGING_LEVELS == 3 /* PAE guest */
-     /*
-@@ -2829,7 +2830,7 @@ static int cf_check sh_page_fault(
-                 TRACE_SHADOW_PATH_FLAG(TRCE_SFLAG_EMULATION_LAST_FAILED);
- 
-                 if ( emul_ctxt.ctxt.retire.singlestep )
--                    hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+                    hvm_inject_debug_exn(X86_DR6_BS);
- 
-                 break; /* Don't emulate again if we failed! */
-             }
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 142bc4818c..72d0514e74 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -1360,12 +1360,11 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
-     case X86EMUL_OKAY:
-         if ( ctxt.ctxt.retire.singlestep )
-             ctxt.bpmatch |= DR_STEP;
--        if ( ctxt.bpmatch )
+@@ -1328,19 +1328,50 @@ static void cf_check svm_inject_event(const struct x86_event *event)
+     switch ( _event.vector | -(_event.type == X86_EVENTTYPE_SW_INTERRUPT) )
+     {
+     case X86_EXC_DB:
+-        if ( regs->eflags & X86_EFLAGS_TF )
 -        {
--            curr->arch.dr6 |= ctxt.bpmatch | DR_STATUS_RESERVED_ONE;
--            if ( !(curr->arch.pv.trap_bounce.flags & TBF_EXCEPTION) )
--                pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+-            __restore_debug_registers(vmcb, curr);
+-            vmcb_set_dr6(vmcb, vmcb_get_dr6(vmcb) | DR_STEP);
 -        }
-+
-+        if ( ctxt.bpmatch &&
-+             !(curr->arch.pv.trap_bounce.flags & TBF_EXCEPTION) )
-+            pv_inject_debug_exn(ctxt.bpmatch);
++        /*
++         * On AMD hardware, a #DB exception:
++         *  1) Merges new status bits into %dr6
++         *  2) Clears %dr7.gd and MSR_DEBUGCTL.{LBR,BTF}
++         *
++         * Item 1 is done by hardware before a #DB intercepted vmexit, but we
++         * may end up here from emulation so have to repeat it ourselves.
++         * Item 2 is done by hardware when injecting a #DB exception.
++         */
++        __restore_debug_registers(vmcb, curr);
++        vmcb_set_dr6(vmcb, vmcb_get_dr6(vmcb) | _event.pending_dbg);
 +
          /* fall through */
-     case X86EMUL_RETRY:
-         return EXCRET_fault_fixed;
-diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
-index e7a1c0a2cc..aa8af96c30 100644
---- a/xen/arch/x86/pv/emulate.c
-+++ b/xen/arch/x86/pv/emulate.c
-@@ -71,11 +71,9 @@ void pv_emul_instruction_done(struct cpu_user_regs *regs, unsigned long rip)
- {
-     regs->rip = rip;
-     regs->eflags &= ~X86_EFLAGS_RF;
+     case X86_EXC_BP:
+         if ( curr->domain->debugger_attached )
+         {
+             /* Debug/Int3: Trap to debugger. */
++            if ( _event.vector == X86_EXC_BP )
++            {
++                /* N.B. Can't use __update_guest_eip() for risk of recusion. */
++                regs->rip += _event.insn_len;
++                regs->eflags &= ~X86_EFLAGS_RF;
++                curr->arch.gdbsx_vcpu_event = X86_EXC_BP;
++            }
 +
-     if ( regs->eflags & X86_EFLAGS_TF )
--    {
--        current->arch.dr6 |= DR_STEP | DR_STATUS_RESERVED_ONE;
--        pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
--    }
-+        pv_inject_debug_exn(X86_DR6_BS);
- }
+             domain_pause_for_debugger();
+             return;
+         }
++        else
++        {
++            int rc = hvm_monitor_debug(regs->rip,
++                                       _event.vector == X86_EXC_DB
++                                       ? HVM_MONITOR_DEBUG_EXCEPTION
++                                       : HVM_MONITOR_SOFTWARE_BREAKPOINT,
++                                       _event.type, _event.insn_len,
++                                       _event.pending_dbg);
++            if ( rc < 0 )
++            {
++                gprintk(XENLOG_ERR, "Monitor debug error %d\n", rc);
++                return svm_crash_or_fault(curr);
++            }
++            if ( rc )
++                return; /* VCPU paused.  Wait for monitor. */
++        }
+         break;
  
- uint64_t pv_get_reg(struct vcpu *v, unsigned int reg)
-diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
-index cad28ef928..50c37fbd25 100644
---- a/xen/arch/x86/pv/ro-page-fault.c
-+++ b/xen/arch/x86/pv/ro-page-fault.c
-@@ -9,6 +9,7 @@
-  */
+     case X86_EXC_PF:
+@@ -2730,67 +2761,46 @@ void svm_vmexit_handler(void)
  
- #include <asm/pv/trace.h>
-+#include <asm/debugreg.h>
- #include <asm/shadow.h>
- 
- #include "emulate.h"
-@@ -390,7 +391,7 @@ int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs)
-         /* Fallthrough */
-     case X86EMUL_OKAY:
-         if ( ctxt.retire.singlestep )
--            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+            pv_inject_debug_exn(X86_DR6_BS);
- 
-         /* Fallthrough */
-     case X86EMUL_RETRY:
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index 74f333da7e..4f5641a47c 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -13,6 +13,7 @@
- #include <xen/softirq.h>
- 
- #include <asm/pv/trace.h>
-+#include <asm/debugreg.h>
- #include <asm/shared.h>
- #include <asm/traps.h>
- #include <irq_vectors.h>
-@@ -50,9 +51,9 @@ void pv_inject_event(const struct x86_event *event)
-     tb->cs    = ti->cs;
-     tb->eip   = ti->address;
- 
--    if ( event->type == X86_EVENTTYPE_HW_EXCEPTION &&
--         vector == X86_EXC_PF )
-+    switch ( vector | -(event->type == X86_EVENTTYPE_SW_INTERRUPT) )
-     {
-+    case X86_EXC_PF:
-         curr->arch.pv.ctrlreg[2] = event->cr2;
-         arch_set_cr2(curr, event->cr2);
- 
-@@ -62,9 +63,16 @@ void pv_inject_event(const struct x86_event *event)
-             error_code |= PFEC_user_mode;
- 
-         trace_pv_page_fault(event->cr2, error_code);
--    }
--    else
-+        break;
+     case VMEXIT_ICEBP:
+     case VMEXIT_EXCEPTION_DB:
+-        if ( !v->domain->debugger_attached )
++    case VMEXIT_EXCEPTION_BP:
++    {
++        unsigned int vec, type, len, extra;
 +
-+    case X86_EXC_DB:
-+        curr->arch.dr6 |= event->pending_dbg;
-+        /* Fallthrough */
-+
-+    default:
-         trace_pv_trap(vector, regs->rip, use_error_code, error_code);
-+        break;
++        switch ( exit_reason )
+         {
+-            unsigned int trap_type;
++        case VMEXIT_ICEBP:
++            vec   = X86_EXC_DB;
++            type  = X86_EVENTTYPE_PRI_SW_EXCEPTION;
++            len   = svm_get_insn_len(v, INSTR_ICEBP);
++            extra = 0;
++            break;
+ 
+-            if ( likely(exit_reason != VMEXIT_ICEBP) )
+-            {
+-                trap_type = X86_EVENTTYPE_HW_EXCEPTION;
+-                insn_len = 0;
+-            }
+-            else
+-            {
+-                trap_type = X86_EVENTTYPE_PRI_SW_EXCEPTION;
+-                insn_len = svm_get_insn_len(v, INSTR_ICEBP);
++        case VMEXIT_EXCEPTION_DB:
++            vec   = X86_EXC_DB;
++            type  = X86_EVENTTYPE_HW_EXCEPTION;
++            len   = 0;
++            /* #DB - Hardware has already updated %dr6 for us. */
++            extra = vmcb_get_dr6(vmcb) ^ X86_DR6_DEFAULT;
++            break;
+ 
+-                if ( !insn_len )
+-                    break;
+-            }
++        case VMEXIT_EXCEPTION_BP:
++            vec   = X86_EXC_BP;
++            type  = X86_EVENTTYPE_SW_EXCEPTION;
++            len   = svm_get_insn_len(v, INSTR_INT3);
++            extra = 0; /* N/A */
++            break;
+ 
+-            rc = hvm_monitor_debug(regs->rip,
+-                                   HVM_MONITOR_DEBUG_EXCEPTION,
+-                                   trap_type, insn_len, 0);
+-            if ( rc < 0 )
+-                goto unexpected_exit_type;
+-            if ( !rc )
+-                hvm_inject_exception(X86_EXC_DB,
+-                                     trap_type, insn_len, X86_EVENT_NO_EC,
+-                                     exit_reason == VMEXIT_ICEBP ? 0 :
+-                                     /* #DB - Hardware already updated dr6. */
+-                                     vmcb_get_dr6(vmcb) ^ X86_DR6_DEFAULT);
++        default:
++            ASSERT_UNREACHABLE();
++            goto unexpected_exit_type;
+         }
+-        else
+-            domain_pause_for_debugger();
+-        break;
+ 
+-    case VMEXIT_EXCEPTION_BP:
+-        insn_len = svm_get_insn_len(v, INSTR_INT3);
+-
+-        if ( insn_len == 0 )
+-             break;
++        /* svm_get_insn_len() failure.  #GP queued up. */
++        if ( type >= X86_EVENTTYPE_SW_INTERRUPT && !len )
++            break;
+ 
+-        if ( v->domain->debugger_attached )
+-        {
+-            /* AMD Vol2, 15.11: INT3, INTO, BOUND intercepts do not update RIP. */
+-            __update_guest_eip(regs, insn_len);
+-            current->arch.gdbsx_vcpu_event = X86_EXC_BP;
+-            domain_pause_for_debugger();
+-        }
+-        else
+-        {
+-           rc = hvm_monitor_debug(regs->rip,
+-                                  HVM_MONITOR_SOFTWARE_BREAKPOINT,
+-                                  X86_EVENTTYPE_SW_EXCEPTION,
+-                                  insn_len, 0);
+-           if ( rc < 0 )
+-               goto unexpected_exit_type;
+-           if ( !rc )
+-               hvm_inject_exception(X86_EXC_BP,
+-                                    X86_EVENTTYPE_SW_EXCEPTION,
+-                                    insn_len, X86_EVENT_NO_EC, 0 /* N/A */);
+-        }
++        hvm_inject_exception(vec, type, len, X86_EVENT_NO_EC, extra);
+         break;
 +    }
  
-     if ( use_error_code )
-     {
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index a898e1f2d7..640b60e0e5 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1989,17 +1989,13 @@ void do_debug(struct cpu_user_regs *regs)
-         return;
-     }
+     case VMEXIT_EXCEPTION_NM:
+         svm_fpu_dirty_intercept();
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 716115332b..65166348f1 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2018,15 +2018,21 @@ static void cf_check vmx_inject_event(const struct x86_event *event)
+     unsigned long intr_info;
+     struct vcpu *curr = current;
+     struct x86_event _event = *event;
++    struct cpu_user_regs *regs = guest_cpu_user_regs();
  
--    /* Save debug status register where guest OS can peek at it */
--    v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
--    v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
+     switch ( _event.vector | -(_event.type == X86_EVENTTYPE_SW_INTERRUPT) )
+     {
+     case X86_EXC_DB:
+-        if ( guest_cpu_user_regs()->eflags & X86_EFLAGS_TF )
+-        {
+-            __restore_debug_registers(curr);
+-            write_debugreg(6, read_debugreg(6) | DR_STEP);
+-        }
++        /*
++         * On Intel hardware, a #DB exception:
++         *  1) Merges new status bits into %dr6
++         *  2) Clears %dr7.gd and MSR_DEBUGCTL.LBR
++         *
++         * All actions are left up to the hypervisor to perform.
++         */
++        __restore_debug_registers(curr);
++        write_debugreg(6, read_debugreg(6) | event->pending_dbg);
++
+         if ( !nestedhvm_vcpu_in_guestmode(curr) ||
+              !nvmx_intercepts_exception(curr, X86_EXC_DB, _event.error_code) )
+         {
+@@ -2037,16 +2043,39 @@ static void cf_check vmx_inject_event(const struct x86_event *event)
+             __vmread(GUEST_IA32_DEBUGCTL, &val);
+             __vmwrite(GUEST_IA32_DEBUGCTL, val & ~IA32_DEBUGCTLMSR_LBR);
+         }
+-        if ( cpu_has_monitor_trap_flag )
+-            break;
++
+         /* fall through */
+     case X86_EXC_BP:
+         if ( curr->domain->debugger_attached )
+         {
+             /* Debug/Int3: Trap to debugger. */
++            if ( _event.vector == X86_EXC_BP )
++            {
++                /* N.B. Can't use __update_guest_eip() for risk of recusion. */
++                regs->rip += _event.insn_len;
++                regs->eflags &= ~X86_EFLAGS_RF;
++                curr->arch.gdbsx_vcpu_event = X86_EXC_BP;
++            }
++
+             domain_pause_for_debugger();
+             return;
+         }
++        else
++        {
++            int rc = hvm_monitor_debug(regs->rip,
++                                       _event.vector == X86_EXC_DB
++                                       ? HVM_MONITOR_DEBUG_EXCEPTION
++                                       : HVM_MONITOR_SOFTWARE_BREAKPOINT,
++                                       _event.type, _event.insn_len, 0);
++            if ( rc < 0 )
++            {
++                gprintk(XENLOG_ERR, "Monitor debug error %d\n", rc);
++                domain_crash(curr->domain);
++                return;
++            }
++            if ( rc )
++                return; /* VCPU paused.  Wait for monitor. */
++        }
+         break;
+ 
+     case X86_EXC_PF:
+@@ -4242,14 +4271,8 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+         switch ( vector )
+         {
+         case X86_EXC_DB:
+-            /*
+-             * Updates DR6 where debugger can peek (See 3B 23.2.1,
+-             * Table 23-1, "Exit Qualification for Debug Exceptions").
+-             */
+             __vmread(EXIT_QUALIFICATION, &exit_qualification);
+             HVMTRACE_1D(TRAP_DEBUG, exit_qualification);
+-            __restore_debug_registers(v);
+-            write_debugreg(6, exit_qualification | DR_STATUS_RESERVED_ONE);
+ 
+             /*
+              * Work around SingleStep + STI/MovSS VMEntry failures.
+@@ -4286,53 +4309,15 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+                 }
+             }
+ 
+-            if ( !v->domain->debugger_attached )
+-            {
+-                unsigned long insn_len = 0;
+-                int rc;
+-                unsigned long trap_type = MASK_EXTR(intr_info,
+-                                                    INTR_INFO_INTR_TYPE_MASK);
 -
-     if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
-     {
-         domain_pause_for_debugger();
-         return;
-     }
+-                if ( trap_type >= X86_EVENTTYPE_SW_INTERRUPT )
+-                    __vmread(VM_EXIT_INSTRUCTION_LEN, &insn_len);
+-
+-                rc = hvm_monitor_debug(regs->rip,
+-                                       HVM_MONITOR_DEBUG_EXCEPTION,
+-                                       trap_type, insn_len, 0);
+-
+-                if ( rc < 0 )
+-                    goto exit_and_crash;
+-                if ( !rc )
+-                    vmx_propagate_intr(intr_info, exit_qualification);
+-            }
+-            else
+-                domain_pause_for_debugger();
++            vmx_propagate_intr(intr_info, exit_qualification);
+             break;
++
+         case X86_EXC_BP:
++        case X86_EXC_AC:
+             HVMTRACE_1D(TRAP, vector);
+-            if ( !v->domain->debugger_attached )
+-            {
+-                unsigned long insn_len;
+-                int rc;
+-
+-                __vmread(VM_EXIT_INSTRUCTION_LEN, &insn_len);
+-                rc = hvm_monitor_debug(regs->rip,
+-                                       HVM_MONITOR_SOFTWARE_BREAKPOINT,
+-                                       X86_EVENTTYPE_SW_EXCEPTION,
+-                                       insn_len, 0);
+-
+-                if ( rc < 0 )
+-                    goto exit_and_crash;
+-                if ( !rc )
+-                    vmx_propagate_intr(intr_info, 0 /* N/A */);
+-            }
+-            else
+-            {
+-                update_guest_eip(); /* Safe: INT3 */
+-                v->arch.gdbsx_vcpu_event = X86_EXC_BP;
+-                domain_pause_for_debugger();
+-            }
++            vmx_propagate_intr(intr_info, 0 /* N/A */);
+             break;
++
+         case X86_EXC_NM:
+             HVMTRACE_1D(TRAP, vector);
+             vmx_fpu_dirty_intercept();
+@@ -4362,10 +4347,7 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
  
--    pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+    pv_inject_debug_exn(dr6 ^ X86_DR6_DEFAULT);
- }
- 
- void do_entry_CP(struct cpu_user_regs *regs)
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-index 698750267a..e348e3c1d3 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.h
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-@@ -78,7 +78,10 @@ struct x86_event {
-     uint8_t       type;         /* X86_EVENTTYPE_* */
-     uint8_t       insn_len;     /* Instruction length */
-     int32_t       error_code;   /* X86_EVENT_NO_EC if n/a */
--    unsigned long cr2;          /* Only for X86_EXC_PF h/w exception */
-+    union {
-+        unsigned long cr2;         /* #PF */
-+        unsigned long pending_dbg; /* #DB (new DR6 bits, positive polarity) */
-+    };
- };
- 
- /*
+             hvm_inject_page_fault(regs->error_code, exit_qualification);
+             break;
+-        case X86_EXC_AC:
+-            HVMTRACE_1D(TRAP, vector);
+-            vmx_propagate_intr(intr_info, 0 /* N/A */);
+-            break;
++
+         case X86_EXC_NMI:
+             if ( MASK_EXTR(intr_info, INTR_INFO_INTR_TYPE_MASK) !=
+                  X86_EVENTTYPE_NMI )
 -- 
 2.41.0
 
