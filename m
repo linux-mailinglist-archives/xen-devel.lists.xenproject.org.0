@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EF557827CF
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 13:23:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587528.918916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4117278283A
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Aug 2023 13:51:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587566.918944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY2zU-0006aR-JR; Mon, 21 Aug 2023 11:22:36 +0000
+	id 1qY3Qb-0002sV-0q; Mon, 21 Aug 2023 11:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587528.918916; Mon, 21 Aug 2023 11:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 587566.918944; Mon, 21 Aug 2023 11:50:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qY2zU-0006YV-Ge; Mon, 21 Aug 2023 11:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 587528;
- Mon, 21 Aug 2023 11:22:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M4ew=EG=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1qY2zS-0006YI-QM
- for xen-devel@lists.xenproject.org; Mon, 21 Aug 2023 11:22:34 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05e2a41f-4015-11ee-8782-cb3800f73035;
- Mon, 21 Aug 2023 13:22:33 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4ff8f2630e3so5008151e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 21 Aug 2023 04:22:33 -0700 (PDT)
+	id 1qY3Qa-0002qq-TQ; Mon, 21 Aug 2023 11:50:36 +0000
+Received: by outflank-mailman (input) for mailman id 587566;
+ Mon, 21 Aug 2023 11:50:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qY3QZ-0002qg-Ir; Mon, 21 Aug 2023 11:50:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qY3QZ-0004uS-3M; Mon, 21 Aug 2023 11:50:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qY3QY-0004M7-Jr; Mon, 21 Aug 2023 11:50:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qY3QY-0003uj-JG; Mon, 21 Aug 2023 11:50:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,149 +42,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05e2a41f-4015-11ee-8782-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1692616953; x=1693221753;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=pZDyCJOde/gelft6O61wieu2JY4LrUvkiV9x/AK6pmM=;
-        b=hpPKeFfvOSpZP3UPXZ1DUT/T7JeDzUKHkRrvWQDKgukoH8ms9qqYR+KQBBhWhGd4Q+
-         3B9jPKxd+QndZk0IMWEB9FOXEdgnRUQV5O0TYkJUVf4wktgonHCJJqbkPu1vpIYk68HG
-         PRs8aRkZB6kf0BabXZkrDKZIN/pXavjnhfEDw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692616953; x=1693221753;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pZDyCJOde/gelft6O61wieu2JY4LrUvkiV9x/AK6pmM=;
-        b=ZtzCh8L8X3KFkwmQpT0r5s71ve5kOBu7XE85tUeYtvO8jO8Z2/2siePIlOFGE/cXd4
-         8VTgHURo8/gTMdtID6YWmvCGtHZt6RnCJ/mIm1dNLRlGF1QKQt3QHxizMWRXdsg7quv+
-         8114uIUir1IbLnO/oO+N3Rw+Vd9di4fYvecJqryYENlSGtjX7YZ6/srimOnyIDD9ntUO
-         9AhT6BoAYctw90Lf70mypaijbhysdj/v7GFqcblAcpgjQmQnSaIpO2mwIjO/Si0MBpsK
-         H5cs8bPGjgjDomp50l97gZzaCdZcue/Le17oFBqJPD1U6VOsCxBmLKO2COCq1DE9MOiy
-         PiOw==
-X-Gm-Message-State: AOJu0YypciaGw7nbRxt27ls3jxw7cAUmTtIyBqBN822HptjP5qUMQjYH
-	SF653BaboeOj4gJvf2djQVYp9MawcA04TQQkHkCBow==
-X-Google-Smtp-Source: AGHT+IFFtfpDj4/w2gpsm5zS+q5CqzU+spid68a5U920DlCEwpjlpemReBgXvOybvVDQTNKvx2EaaNoylaNlJc661ck=
-X-Received: by 2002:a05:6512:318a:b0:4fe:1d88:2c61 with SMTP id
- i10-20020a056512318a00b004fe1d882c61mr5190971lfe.32.1692616952724; Mon, 21
- Aug 2023 04:22:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAO-mL=zqZjGhPB7wDxcGM=FxU0-JCcc9AY7YSrPKV5Kpv3pDDw@mail.gmail.com>
- <ca3df86a-2204-441a-1b75-406f166fdf2f@netscape.net>
-In-Reply-To: <ca3df86a-2204-441a-1b75-406f166fdf2f@netscape.net>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 21 Aug 2023 12:22:00 +0100
-Message-ID: <CAO-mL=x=8g0eGFXp_euGF=V+rWg+tK2X80OVumg2jwDFytYE_Q@mail.gmail.com>
-Subject: Re: Community Manager update - August 2023
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000003555b706036d1877"
-
---0000000000003555b706036d1877
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=h7rDDzohI+3Ki4XYZ1CSxL5ZHsH1u1RJdBdEkdSS+aM=; b=yRN1wphZ2EJ3C1+RKsXrAhL9CJ
+	YZnBs6w0vvpAZz38gbgDzC0HDIEAni/ZUWPP4WKhingfldpNhtmQjyIzpilvd1ra6gf92W95D6co7
+	Re0+N8KazJKOSpfc9H3vYwlAnWCUzFy4HPw271mDmWx/sb8fA+rseCuNsxc87KDMmGZ8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182408-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 182408: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:guest-localmigrate/x10:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:guest-start.2:fail:regression
+    linux-linus:build-arm64-pvops:kernel-build:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=f7757129e3dea336c407551c98f50057c22bb266
+X-Osstest-Versions-That:
+    linux=706a741595047797872e669b3101429ab8d378ef
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 21 Aug 2023 11:50:34 +0000
 
-Hey Chuck,
+flight 182408 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182408/
 
-Thanks for your feedback and highlighting this to me.
-You're correct, they did rebrand so I will update this to 'IBM Cloud'.
+Regressions :-(
 
-Many thanks,
-Kelly Choi
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 18 guest-localmigrate/x10 fail REGR. vs. 182405
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 21 guest-start.2 fail REGR. vs. 182405
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 182405
 
-Open Source Community Manager, XenServer
-Cloud Software Group
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 182405
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182405
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182405
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182405
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182405
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 182405
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182405
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182405
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ linux                f7757129e3dea336c407551c98f50057c22bb266
+baseline version:
+ linux                706a741595047797872e669b3101429ab8d378ef
+
+Last test of basis   182405  2023-08-20 18:11:48 Z    0 days
+Testing same since   182408  2023-08-21 05:42:03 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Pavel Skripkin <paskripkin@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-On Sat, Aug 19, 2023 at 12:34=E2=80=AFAM Chuck Zmudzinski <brchuckz@netscap=
-e.net>
-wrote:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> On 8/18/2023 6:55 AM, Kelly Choi wrote:
-> > Hi everyone! :)
-> >
-> > I hope you're all well.
-> >
-> > If we haven't met before, I'd like to introduce myself. I'm Kelly, the
-> Community Manager for The Xen Project. My role is to support everyone and
-> make sure the project is healthy and thriving.
-> >
-> > *The latest update below requires your attention:*
-> > *
-> > *
-> >
-> >   * *We will be moving IRC channels fully to Matrix in September 2023.
-> Once the channels have been created, further information will be shared. =
-*
-> >   * *New Mission Statement, goals, and purpose is attached to this emai=
-l
-> and will be shared publicly.*
-> >
-> > *Should anyone have any concerns or feedback, please let me know*
-> >
-> > Many thanks,
-> > Kelly Choi
-> >
-> > Open Source Community Manager, XenServer
-> > Cloud Software Group
->
-> This looks good, but I thought IBM rebranded Softlayer as IBM Cloud
-> several years ago. Maybe IBM Softlayer should be changed to IBM Cloud?
-> Thanks.
->
-> Chuck
->
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---0000000000003555b706036d1877
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-<div dir=3D"ltr">Hey Chuck,<div><br></div><div>Thanks for your feedback and=
- highlighting this to me.=C2=A0</div><div>You&#39;re correct, they did rebr=
-and so I will update this to &#39;IBM Cloud&#39;.</div><div><br clear=3D"al=
-l"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_=
-signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><di=
-v><br></div><div><div style=3D"color:rgb(136,136,136)">Open Source Communit=
-y Manager, XenServer</div><div style=3D"color:rgb(136,136,136)">Cloud Softw=
-are Group</div></div></div></div></div><br></div></div><br><div class=3D"gm=
-ail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Aug 19, 2023 at 12=
-:34=E2=80=AFAM Chuck Zmudzinski &lt;<a href=3D"mailto:brchuckz@netscape.net=
-">brchuckz@netscape.net</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">On 8/18/2023 6:55 AM, Kelly Choi wrote:<br>
-&gt; Hi everyone! :)=C2=A0<br>
-&gt; <br>
-&gt; I hope you&#39;re all well.=C2=A0<br>
-&gt; <br>
-&gt; If we haven&#39;t met before, I&#39;d like to introduce myself. I&#39;=
-m Kelly, the Community=C2=A0Manager for The Xen Project. My role is to supp=
-ort everyone and make sure the project is healthy and thriving.=C2=A0<br>
-&gt; <br>
-&gt; *The latest update below requires your attention:*<br>
-&gt; *<br>
-&gt; *<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0* *We will be moving IRC channels fully to Matrix in Septe=
-mber 2023. Once the channels have been created, further information will be=
- shared.=C2=A0*<br>
-&gt;=C2=A0 =C2=A0* *New Mission Statement, goals, and purpose is attached t=
-o this email and will be shared publicly.*<br>
-&gt; <br>
-&gt; *Should anyone have any concerns or feedback, please=C2=A0let me know*=
-<br>
-&gt; <br>
-&gt; Many thanks,<br>
-&gt; Kelly Choi<br>
-&gt; <br>
-&gt; Open Source Community Manager, XenServer<br>
-&gt; Cloud Software Group<br>
-<br>
-This looks good, but I thought IBM rebranded Softlayer as IBM Cloud several=
- years ago. Maybe IBM Softlayer should be changed to IBM Cloud? Thanks.<br>
-<br>
-Chuck<br>
-</blockquote></div>
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---0000000000003555b706036d1877--
+
+Not pushing.
+
+------------------------------------------------------------
+commit f7757129e3dea336c407551c98f50057c22bb266
+Merge: 4542057e18ca 080aa61e370b
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Mon Aug 21 07:02:21 2023 +0200
+
+    Merge tag 'v6.5-p3' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6
+    
+    Pull crypto fixes from Herbert Xu:
+     "Fix a regression in the caam driver and af_alg"
+    
+    * tag 'v6.5-p3' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6:
+      crypto: fix uninit-value in af_alg_free_resources
+      Revert "crypto: caam - adjust RNG timing to support more devices"
+
+commit 4542057e18caebe5ebaee28f0438878098674504
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Mon Aug 21 06:11:33 2023 +0200
+
+    mm: avoid 'might_sleep()' in get_mmap_lock_carefully()
+    
+    This might_sleep() goes back a long time: it was originally introduced
+    way back when by commit 010060741ad3 ("x86: add might_sleep() to
+    do_page_fault()"), and made it into the generic VM code when the x86
+    fault path got re-organized and generalized in commit c2508ec5a58d ("mm:
+    introduce new 'lock_mm_and_find_vma()' page fault helper").
+    
+    However, it turns out that the placement of that might_sleep() has
+    always been rather questionable simply because it's not only a debug
+    statement to warn about sleeping in contexts that shouldn't sleep (which
+    was the original reason for adding it), but it also implies a voluntary
+    scheduling point.
+    
+    That, in turn, is less than desirable for two reasons:
+    
+     (a) it ends up being done after we successfully got the mmap_lock, so
+         just as we got the lock we will now eagerly schedule away and
+         increase lock contention
+    
+    and
+    
+     (b) this is all very possibly part of the "oops, things went horribly
+         wrong" path and we just haven't figured that out yet
+    
+    After all, the whole _reason_ for having that get_mmap_lock_carefully()
+    rather than just doing the obvious mmap_read_lock() is because this code
+    wants to deal somewhat gracefully with potential kernel wild pointer
+    bugs.
+    
+    So then a voluntary scheduling point here is simply not a good idea.
+    
+    We could certainly turn the 'might_sleep()' into a '__might_sleep()' and
+    make it be just the debug check that it was originally intended to be.
+    
+    But even that seems questionable in the wild kernel pointer case - which
+    again is part of the whole point of this code.  The problem wouldn't be
+    about the _sleeping_ part of the page fault, but about a bad kernel
+    access.  The fact that that bad kernel access might happen in a section
+    that you shouldn't sleep in is secondary.
+    
+    So it really ends up being the case that this is simply entirely the
+    wrong place to do this debug check and related scheduling point at all.
+    
+    So let's just remove the check entirely.  It's been around for over a
+    decade, it has served its purpose.
+    
+    The re-schedule will happen at return to user space anyway for the
+    normal case, and the warning - if we even need it - might be better off
+    done as a special case for "page fault from kernel mode" once we've
+    dealt with any potential kernel oopses where the oops is the relevant
+    thing, not some artificial "scheduling while atomic" test.
+    
+    Reported-by: Mateusz Guzik <mjguzik@gmail.com>
+    Link: https://lore.kernel.org/lkml/20230820104303.2083444-1-mjguzik@gmail.com/
+    Cc: Matthew Wilcox <willy@infradead.org>
+    Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+
+commit 080aa61e370b9c5cafe71cacadbfe0e72db4d6df
+Author: Pavel Skripkin <paskripkin@gmail.com>
+Date:   Mon Aug 14 21:03:41 2023 +0300
+
+    crypto: fix uninit-value in af_alg_free_resources
+    
+    Syzbot was able to trigger use of uninitialized memory in
+    af_alg_free_resources.
+    
+    Bug is caused by missing initialization of rsgl->sgl.need_unpin before
+    adding to rsgl_list. Then in case of extract_iter_to_sg() failure, rsgl
+    is left with uninitialized need_unpin which is read during clean up
+    
+    BUG: KMSAN: uninit-value in af_alg_free_sg crypto/af_alg.c:545 [inline]
+    BUG: KMSAN: uninit-value in af_alg_free_areq_sgls crypto/af_alg.c:778 [inline]
+    BUG: KMSAN: uninit-value in af_alg_free_resources+0x3d1/0xf60 crypto/af_alg.c:1117
+     af_alg_free_sg crypto/af_alg.c:545 [inline]
+     af_alg_free_areq_sgls crypto/af_alg.c:778 [inline]
+     af_alg_free_resources+0x3d1/0xf60 crypto/af_alg.c:1117
+     _skcipher_recvmsg crypto/algif_skcipher.c:144 [inline]
+    ...
+    
+    Uninit was created at:
+     slab_post_alloc_hook+0x12f/0xb70 mm/slab.h:767
+     slab_alloc_node mm/slub.c:3470 [inline]
+     __kmem_cache_alloc_node+0x536/0x8d0 mm/slub.c:3509
+     __do_kmalloc_node mm/slab_common.c:984 [inline]
+     __kmalloc+0x121/0x3c0 mm/slab_common.c:998
+     kmalloc include/linux/slab.h:586 [inline]
+     sock_kmalloc+0x128/0x1c0 net/core/sock.c:2683
+     af_alg_alloc_areq+0x41/0x2a0 crypto/af_alg.c:1188
+     _skcipher_recvmsg crypto/algif_skcipher.c:71 [inline]
+    
+    Fixes: c1abe6f570af ("crypto: af_alg: Use extract_iter_to_sg() to create scatterlists")
+    Reported-and-tested-by: syzbot+cba21d50095623218389@syzkaller.appspotmail.com
+    Closes: https://syzkaller.appspot.com/bug?extid=cba21d50095623218389
+    Signed-off-by: Pavel Skripkin <paskripkin@gmail.com>
+    Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+
+commit 83874b8e97f895e62d9ab03223318176d5e78203
+Author: Herbert Xu <herbert@gondor.apana.org.au>
+Date:   Fri Aug 18 16:47:02 2023 +0800
+
+    Revert "crypto: caam - adjust RNG timing to support more devices"
+    
+    This reverts commit ef492d080302913e85122a2d92efa2ca174930f8.
+    
+    This patch breaks the RNG on i.MX8MM.
+    
+    Reported-by: Bastian Krause <bst@pengutronix.de>
+    Link: https://lore.kernel.org/all/e1f3f073-9d5e-1bae-f4f8-08dc48adad62@pengutronix.de/
+    Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 
