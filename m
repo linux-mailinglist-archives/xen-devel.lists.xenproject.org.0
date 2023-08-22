@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422C6783982
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:51:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588082.919540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4262E783983
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:51:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588086.919550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKIE-0002yy-1g; Tue, 22 Aug 2023 05:51:06 +0000
+	id 1qYKIe-0003ZL-Dz; Tue, 22 Aug 2023 05:51:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588082.919540; Tue, 22 Aug 2023 05:51:06 +0000
+Received: by outflank-mailman (output) from mailman id 588086.919550; Tue, 22 Aug 2023 05:51:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKID-0002w4-Ul; Tue, 22 Aug 2023 05:51:05 +0000
-Received: by outflank-mailman (input) for mailman id 588082;
- Tue, 22 Aug 2023 05:51:04 +0000
+	id 1qYKIe-0003WP-AT; Tue, 22 Aug 2023 05:51:32 +0000
+Received: by outflank-mailman (input) for mailman id 588086;
+ Tue, 22 Aug 2023 05:51:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qkm5=EH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qYKIC-0000WF-IB
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:51:04 +0000
+ id 1qYKIc-0000WF-Th
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:51:30 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1536d4d-40af-11ee-8782-cb3800f73035;
- Tue, 22 Aug 2023 07:51:04 +0200 (CEST)
+ id f118db15-40af-11ee-8782-cb3800f73035;
+ Tue, 22 Aug 2023 07:51:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CABF522C44;
- Tue, 22 Aug 2023 05:51:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 466BE22C2B;
+ Tue, 22 Aug 2023 05:51:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9F7E713251;
- Tue, 22 Aug 2023 05:51:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 11A4B13251;
+ Tue, 22 Aug 2023 05:51:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6NFNJcdM5GQeMwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:51:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id iCOYAuJM5GQeMwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:51:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1536d4d-40af-11ee-8782-cb3800f73035
+X-Inumbo-ID: f118db15-40af-11ee-8782-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692683463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1692683490; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=J0kb2HgsMQTUDxkWR/e9dtVAmo24C7b7oYSAi/cCx8A=;
-	b=HvrByRce8Rs33tR9cpT4SXmzkb3jjdR7E3+ADAva5c23bvRHILta4qhO7xCeyLbaXLeOZ2
-	APhyVWSAln+Q59sVJySpmC508BpGYKJlXAZFzjbM8M7pOyDiusnvw+VWsEo16dAI8WpyS4
-	x1nSvmgLyUs1DaoDM+DGEbmXoZcczSo=
-Message-ID: <462b0ab1-216a-4a1e-a398-abe1b76927d9@suse.com>
-Date: Tue, 22 Aug 2023 07:51:03 +0200
+	bh=H4r5qnbgplaQDVPufEaAmcFTZyAmufvVPkRYkzTfdw4=;
+	b=BGyapUm1I2PZRKgB5crgWOTRaSrzgLWHM73zaNwicQ/ylZ5O6UMIx10Dx2J35lNRP9awP5
+	sAht9RFodB+WoU71HCUC5XrUSr3BbpdX3bqzjfF1EQWm7Ls6OKuV/xCHUMx+vGOOGv7qpr
+	ugae5TcQs7JgitYtmsblozrR0M6aWmE=
+Message-ID: <cfad343e-b91d-47af-baa3-68c8c860057f@suse.com>
+Date: Tue, 22 Aug 2023 07:51:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next] xen: Switch to use kmemdup() helper
+Subject: Re: [PATCH -next] xen: xenbus: Use helper function IS_ERR_OR_NULL()
 Content-Language: en-US
-To: Ruan Jinjie <ruanjinjie@huawei.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20230815092434.1206386-1-ruanjinjie@huawei.com>
+To: Li Zetao <lizetao1@huawei.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com, wsa+renesas@sang-engineering.com
+Cc: gregkh@linuxfoundation.org, xen-devel@lists.xenproject.org
+References: <20230817014736.3094289-1-lizetao1@huawei.com>
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
@@ -94,37 +94,37 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230815092434.1206386-1-ruanjinjie@huawei.com>
+In-Reply-To: <20230817014736.3094289-1-lizetao1@huawei.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------R2t0G9BLzasWdHt3C7nsxUXI"
+ boundary="------------s7u97frKj3tdP8j4Nr2h6mep"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------R2t0G9BLzasWdHt3C7nsxUXI
-Content-Type: multipart/mixed; boundary="------------N6PvwfWY9Vl1qTi3NBarqYZW";
+--------------s7u97frKj3tdP8j4Nr2h6mep
+Content-Type: multipart/mixed; boundary="------------W7g2QzyOgTEwWZFqJ9aQj0GS";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Ruan Jinjie <ruanjinjie@huawei.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Message-ID: <462b0ab1-216a-4a1e-a398-abe1b76927d9@suse.com>
-Subject: Re: [PATCH -next] xen: Switch to use kmemdup() helper
-References: <20230815092434.1206386-1-ruanjinjie@huawei.com>
-In-Reply-To: <20230815092434.1206386-1-ruanjinjie@huawei.com>
+To: Li Zetao <lizetao1@huawei.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com, wsa+renesas@sang-engineering.com
+Cc: gregkh@linuxfoundation.org, xen-devel@lists.xenproject.org
+Message-ID: <cfad343e-b91d-47af-baa3-68c8c860057f@suse.com>
+Subject: Re: [PATCH -next] xen: xenbus: Use helper function IS_ERR_OR_NULL()
+References: <20230817014736.3094289-1-lizetao1@huawei.com>
+In-Reply-To: <20230817014736.3094289-1-lizetao1@huawei.com>
 
---------------N6PvwfWY9Vl1qTi3NBarqYZW
-Content-Type: multipart/mixed; boundary="------------JXBeq7Q7HzIA7m4lmK1CmLzY"
+--------------W7g2QzyOgTEwWZFqJ9aQj0GS
+Content-Type: multipart/mixed; boundary="------------0TlLMSgCYl80cQIkGQ8lqIoJ"
 
---------------JXBeq7Q7HzIA7m4lmK1CmLzY
+--------------0TlLMSgCYl80cQIkGQ8lqIoJ
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTUuMDguMjMgMTE6MjQsIFJ1YW4gSmluamllIHdyb3RlOg0KPiBVc2Uga21lbWR1cCgp
-IGhlbHBlciBpbnN0ZWFkIG9mIG9wZW4tY29kaW5nIHRvDQo+IHNpbXBsaWZ5IHRoZSBjb2Rl
-Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogUnVhbiBKaW5qaWUgPHJ1YW5qaW5qaWVAaHVhd2Vp
-LmNvbT4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZvci1saW51cy02LjYNCg0KDQpKdWVy
-Z2VuDQoNCg==
---------------JXBeq7Q7HzIA7m4lmK1CmLzY
+T24gMTcuMDguMjMgMDM6NDcsIExpIFpldGFvIHdyb3RlOg0KPiBVc2UgSVNfRVJSX09SX05V
+TEwoKSB0byBkZXRlY3QgYW4gZXJyb3IgcG9pbnRlciBvciBhIG51bGwgcG9pbnRlcg0KPiBv
+cGVuLWNvZGluZyB0byBzaW1wbGlmeSB0aGUgY29kZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6
+IExpIFpldGFvIDxsaXpldGFvMUBodWF3ZWkuY29tPg0KDQpQdXNoZWQgdG8geGVuL3RpcC5n
+aXQgZm9yLWxpbnVzLTYuNg0KDQoNCkp1ZXJnZW4NCg0K
+--------------0TlLMSgCYl80cQIkGQ8lqIoJ
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -182,25 +182,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------JXBeq7Q7HzIA7m4lmK1CmLzY--
+--------------0TlLMSgCYl80cQIkGQ8lqIoJ--
 
---------------N6PvwfWY9Vl1qTi3NBarqYZW--
+--------------W7g2QzyOgTEwWZFqJ9aQj0GS--
 
---------------R2t0G9BLzasWdHt3C7nsxUXI
+--------------s7u97frKj3tdP8j4Nr2h6mep
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTMcFAwAAAAAACgkQsN6d1ii/Ey8m
-rwf9FpIf7oHounDtXxKZazrpOaPBX2+GV1xDeVAklUAYDOdkJd98qCHovm5miTcGvkgZMN63Eocl
-Q+NeV7YI8+08sn7X2hsgT+Y9dj+F/MhXTwcLvy7v/qNMixIm+xDbwNpm9jmm8a59MxcYkigg0Wu6
-oBJ9NQM1Oq1pSLIFESPdCQhuxz5qq01t19xHFu2xEJB3qi12XhD8hGtzQAl80Crtpv5aulNw9RTk
-xXK/6OYZnQk5N4cv1orWR916g+JEOgUyGHRaBbGG3pl4NdoY8TX/tv/vj1GvLaINjhttgFt9yLX+
-WcLCPKXbSCbFleYM/X8CXzrlIFDu4EdjIZMDDR8Zxw==
-=/h00
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTOIFAwAAAAAACgkQsN6d1ii/Ey93
+0wgAnlxxtiz0pKq6C05OzwWbRQOi9BUFWMpx7hJRQT5EyZkHkbwqQkCl0svtztf6ipTvoqvlXUcz
+cUJyhDFoMvei4laFiHQdHG8m5dIiRmDFk4tgNVGwtchpo6e3VsiZDKFna/p7t6GC8r2BMJVwod9w
+sz9iH1IWS2T61Zj1YpvwPjZYyzx8HiXjf00Zwjv+qC8R8Tw2bcG9eAf8FOO6qEFjaMplZLTI7R8q
+Ei+M72dxlyp0qQoiAAf1zQ111shPBZvw38+Fw4F40gSedR8PB3OEnnmXLUAIh4r9KvYrPiTVEyEU
+iIessuiy0/RYotzdE1ebMJfuuxT2uJZyU20P9FM+hw==
+=1Tbd
 -----END PGP SIGNATURE-----
 
---------------R2t0G9BLzasWdHt3C7nsxUXI--
+--------------s7u97frKj3tdP8j4Nr2h6mep--
 
