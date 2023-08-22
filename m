@@ -2,44 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A416A783985
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:52:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588090.919559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A897783B5D
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 10:02:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588208.919690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKJ4-00046a-LP; Tue, 22 Aug 2023 05:51:58 +0000
+	id 1qYMLT-00028F-9I; Tue, 22 Aug 2023 08:02:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588090.919559; Tue, 22 Aug 2023 05:51:58 +0000
+Received: by outflank-mailman (output) from mailman id 588208.919690; Tue, 22 Aug 2023 08:02:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKJ4-000448-Id; Tue, 22 Aug 2023 05:51:58 +0000
-Received: by outflank-mailman (input) for mailman id 588090;
- Tue, 22 Aug 2023 05:51:56 +0000
+	id 1qYMLT-00026G-5V; Tue, 22 Aug 2023 08:02:35 +0000
+Received: by outflank-mailman (input) for mailman id 588208;
+ Tue, 22 Aug 2023 08:02:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Qkm5=EH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qYKJ2-0000WF-Al
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:51:56 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=z6jt=EH=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1qYMLS-000267-5X
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 08:02:34 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on060c.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::60c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 003d1c58-40b0-11ee-8782-cb3800f73035;
- Tue, 22 Aug 2023 07:51:55 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A857522C2B;
- Tue, 22 Aug 2023 05:51:55 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 728A713251;
- Tue, 22 Aug 2023 05:51:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uPAjGvtM5GQeMwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:51:55 +0000
+ id 3f514b81-40c2-11ee-8782-cb3800f73035;
+ Tue, 22 Aug 2023 10:02:32 +0200 (CEST)
+Received: from DB7PR02CA0015.eurprd02.prod.outlook.com (2603:10a6:10:52::28)
+ by DU0PR08MB10368.eurprd08.prod.outlook.com (2603:10a6:10:408::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Tue, 22 Aug
+ 2023 08:02:24 +0000
+Received: from DBAEUR03FT051.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:52:cafe::3a) by DB7PR02CA0015.outlook.office365.com
+ (2603:10a6:10:52::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
+ Transport; Tue, 22 Aug 2023 08:02:24 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT051.mail.protection.outlook.com (100.127.142.148) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6723.15 via Frontend Transport; Tue, 22 Aug 2023 08:02:24 +0000
+Received: ("Tessian outbound 5c548696a0e7:v175");
+ Tue, 22 Aug 2023 08:02:24 +0000
+Received: from 9e832e56ebb2.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 62993AA9-62AD-4E1F-9B23-0D7804273A15.1; 
+ Tue, 22 Aug 2023 05:32:14 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 9e832e56ebb2.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 22 Aug 2023 05:32:14 +0000
+Received: from DB7PR05CA0072.eurprd05.prod.outlook.com (2603:10a6:10:2e::49)
+ by GV1PR08MB7362.eurprd08.prod.outlook.com (2603:10a6:150:21::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Tue, 22 Aug
+ 2023 05:32:12 +0000
+Received: from DBAEUR03FT020.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:2e:cafe::74) by DB7PR05CA0072.outlook.office365.com
+ (2603:10a6:10:2e::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
+ Transport; Tue, 22 Aug 2023 05:32:11 +0000
+Received: from nebula.arm.com (40.67.248.234) by
+ DBAEUR03FT020.mail.protection.outlook.com (100.127.143.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6723.15 via Frontend Transport; Tue, 22 Aug 2023 05:32:11 +0000
+Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX04.Arm.com
+ (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 22 Aug
+ 2023 05:32:11 +0000
+Received: from [10.169.172.116] (10.169.172.116) by mail.arm.com
+ (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27 via Frontend
+ Transport; Tue, 22 Aug 2023 05:32:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,162 +85,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 003d1c58-40b0-11ee-8782-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692683515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qH5PR/Av96/YJomkJW2WBOpclnIbtmQt1tZwl1VOhWo=;
-	b=Nq1bAugO2DPJe7D0NOE/lRWhjrnbx2R15cxdWjnSo1oH7EebNlyG/xSKEEmGVwKZT5vzW/
-	BZdwFez0wx+R4ueD6BfxhWssgyruhUwvhPZPwQq/QNbfpakyuuTYQNZcKz0RpElhQU/MBx
-	78NM/hgVWMgDzSKD8yNk5RNsGh1F7sw=
-Message-ID: <3884ae8a-f445-42ab-bb37-e21edf61e35a@suse.com>
-Date: Tue, 22 Aug 2023 07:51:55 +0200
+X-Inumbo-ID: 3f514b81-40c2-11ee-8782-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LsS4oWBA9/vtIEFbwcGqI3MGXfMc95jve6vSxzHI7NQ=;
+ b=bzdXKcYtK93D72iwQ0nMPdIW+Khz0LHV15roCXFQGCxikbxDMj+Qv88b0VS+0yQHwm19E1BXQPo5h+Z74vduSQ1f2C93qA0/n5oGPqSKCfQiXGExFVCp81OhIJbwRYDliephvmncrm0A2Qt6G5DgtSEl9I29wEhwIi1838S7Tzk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 756c036c4ccdaba3
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K3wUPdqNB9mE61T1Pc3GxBSsjI+94o4kWxKPF1FJI3RhbsRjOHlYJwqdBu06ZW0Fa0qhrPN1Hkl5417WvMyCecAAd8Pzufbu8pVD+Yxz7y0ceX3w9CqaCyOip8gcbPcg8Bf7A1WQ3sVTsuCn718Oln5+UW7iVGYBVQY/kyd9xWx8cQjzuGj54+YSJqwhsUVdmpTv2u/TbD/Sg/iRhGvy49w2VXpHEss/Ef6ZHC/IIlkBGGfxfCpjM/IMulkz6t6lZDVIxU8iTCvHrKXI/XR6azucHwCIAjjM+9WPuWzhFxAzk3fIyTGVPRgYM96MxsdxlxIncHV4Vldbzr67efqRQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LsS4oWBA9/vtIEFbwcGqI3MGXfMc95jve6vSxzHI7NQ=;
+ b=YurdAJ264dQ5HryUKK4JyA/X0njn0H6lzQoZ5M1IfbTEuTiY0T4Pdh1fRZxoTLwYeoGaWUxGQ8TnDUL7EXej0UiU31o1SS3PuY2/WdwYbinBpp+ulU1+MilBcc/YhHkTa8bs6vdmJ8kS8Sv1nLqLKtcCWzEafvPevZfYEemEDfs7bFZij9I7xbA4g0bOJb3emOxxfR0/0Dm+tZlRVud8OT+VmrL/WN3LRlq84DeMv4XDH9K94vX+TO+O5v6Kq39hrrSZ4clVCfgJueuRhZHMZ+KzropzL/KqpmNgqmcn0q+uFGjhhXe5YmFXBz4SxlQykFq/yYO9pe6ASNL8I6glzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 40.67.248.234) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LsS4oWBA9/vtIEFbwcGqI3MGXfMc95jve6vSxzHI7NQ=;
+ b=bzdXKcYtK93D72iwQ0nMPdIW+Khz0LHV15roCXFQGCxikbxDMj+Qv88b0VS+0yQHwm19E1BXQPo5h+Z74vduSQ1f2C93qA0/n5oGPqSKCfQiXGExFVCp81OhIJbwRYDliephvmncrm0A2Qt6G5DgtSEl9I29wEhwIi1838S7Tzk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
+ smtp.mailfrom=arm.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=40.67.248.234; helo=nebula.arm.com; pr=C
+Message-ID: <1fae4dde-f1b5-fa13-d021-3bdde7184fbe@arm.com>
+Date: Tue, 22 Aug 2023 13:32:05 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next] xen: Fix one kernel-doc comment
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: [PATCH v3 0/8] Follow-up static shared memory PART I
+To: Michal Orzel <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
+CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230821040046.2965665-1-Penny.Zheng@arm.com>
+ <6fcbab6a-7126-21ee-e1bc-aa7ba2b07fc0@amd.com>
 Content-Language: en-US
-To: Yang Li <yang.lee@linux.alibaba.com>, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Abaci Robot <abaci@linux.alibaba.com>
-References: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------N6hqAAMF2Z7b3teUToTiC0cm"
+From: Penny Zheng <penny.zheng@arm.com>
+In-Reply-To: <6fcbab6a-7126-21ee-e1bc-aa7ba2b07fc0@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 1
+X-MS-TrafficTypeDiagnostic:
+	DBAEUR03FT020:EE_|GV1PR08MB7362:EE_|DBAEUR03FT051:EE_|DU0PR08MB10368:EE_
+X-MS-Office365-Filtering-Correlation-Id: c33fb604-d59f-4d30-787b-08dba2e61ec2
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ tw2dDOqpMPzH7Id2EildTfhZ9eoNLfvxC1PwQ16bRYWRfY9gOLJiJkHcYRqzh12jEY/oDjIS+jf/pKuK/nnRibHS38ffUJFUR6OY23WITPoWDYOofLwSfVfKLIxoTgQ4pVQryBGcHtaOBlLfFG44pnAIz0PLF3Gk8m2+piYI0q/aIyKb0r+0qm7PCQDZzCkzEZ7PcAUk7hGUbXiCIdqYZW+zbrWwCQrAeeSFTAjnv1nYkgIMPgBP3Vfx6Xo4hLa367mlqogFUKaPxCTW85Cy34CnHAmLGPYPJcKzyAH3B7Gol5Wh3GzIRa5UGbLCSm1Jyi5pAAjWZNsQGmV3Bw9P8Jhk1vHZ5wgUjxb1jeO3bg3d5snfJfTL9cddYNbrHCtE1rIyqyeUSWO6EAE/Z1BLZdjMWA+xxB7PW0GdL0LZdYPSmODdT9nTcQGBTKR8gGa9JwRBMOSwAjFgiTCDywCm/rWkZ50nSpqPsLyfkFVibmuAzPEGw8PSK7dIHYuyHSDlTZSYRkF/ZOYDX5vEFyGEZI54XrgOEqgdWGxZB/qYDPLC3JEHdOlm3IzfD3uuoVfYabk9Ssx1uI2JWzucp53VGGDSUdwCTHLETbtfYB4Y98GuBGqJptOW7gibPKYzL3abXU3IGiEnYviOCPNVSUQEAo+riPkyC7L4+zvqKfe28Yh/TmdeekNC4YLo2r6kS3eQGnWweYaqfSjuTbxyjBOdb9jfJzU8GCc2XhlmFmcoc21lmRyaOC4Q/rcoFtK7ZpSyOTUrfTz5H1aN0xZlVI5zCDr2SKqdblQq8jA+W7XwGu6cJz/Rg6wCzC+GTGBFx0d32rShO0n8NSxIdKtLljUZVw0b0Dgw0AqCT+/ldSb5sJo=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(396003)(346002)(376002)(186009)(1800799009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(54906003)(70206006)(16576012)(316002)(70586007)(110136005)(8676002)(8936002)(2616005)(4326008)(40460700003)(36756003)(41300700001)(356005)(82740400003)(81166007)(966005)(478600001)(6666004)(53546011)(40480700001)(83380400001)(2906002)(86362001)(31686004)(47076005)(36860700001)(31696002)(336012)(44832011)(426003)(5660300002)(26005)(3940600001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7362
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT051.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	6853238c-6a18-4af0-acb8-08dba2d122c0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fXkLQAARRhFtX83TBlGsefrC3Drk88Fj9OPfvklYmc9BprDDBTUbZTju5a+cAvi8fzk4Z+hdCqZZfg10PlAxnCR1rcaK4TW3P7xcsg2qvy7AgQeSYOfDlj6+KufWdkh4b+SR/MICsaaVF9YCx5myLAUHJrw4Nw42cF8fGcO7ZHQW6aK3C2vT/Si1EjE7QKmkfwihBtwdhLciklNN2QIWhan1d29UX9VQNR1G7GQnalmsHM41Zk3heRulYMfVczPilvKwEERjtWA6N6awvwouEy55mhdQ7KGyXX9Nj7X5x/WUdkNUo9CE1bYF7eGAYZUvdPJe6NlNSK5R3RAlZXAlv89x5TRyxoaZ/fvRA+geYGBs/uVFX7lWRL9Ra5gHO5+u+xtJP0hERhTb2/qZXvl3zpzQJ3kBtesF+FDdRAhjik3oDyvOYy+cYs92tZ12ztguwkTUcN2Hb9AiLq1A70xgEC2yCDelTmuftEp7cUVAESMp9UWqEPX1OflQOO+IeoxEMz5OaJZjdoOxZnOCh6EHoPZ+kgyqmRc9aiXmADCdlt0gqLCYYVJoB2fqNe6pyIadZLFG+SOxE2QnjOumfRpinlxiBRP5qW4v8OVuaYKihsEZzTDlXA3L7GOD75ZQR977ptWK/EKhlwEPVVTcCyxEQIZQ/9hbDVA2Pc/ZVHOd7rppuory4o9qgvupUpJLz4NpJYAYxZaHNNwBK6I/8FqZ3pIqWAgMAtJKdRW1VgqIAEteIp8cBYQN3CdGWmTcOICX2MbcROMgCkeZCZsmg9DxIzx5vZw9eL35mjD8dersMgpVCK7C+BzqGUR/Yzq32QdgnIxWhyQFrrwlEBcnQaAx7A==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(346002)(376002)(39860400002)(396003)(82310400011)(186009)(1800799009)(451199024)(46966006)(36840700001)(40470700004)(6666004)(53546011)(40460700003)(31696002)(426003)(36860700001)(336012)(40480700001)(107886003)(83380400001)(36756003)(26005)(82740400003)(47076005)(81166007)(41300700001)(2616005)(2906002)(316002)(16576012)(54906003)(70206006)(110136005)(86362001)(5660300002)(70586007)(44832011)(478600001)(8676002)(8936002)(4326008)(31686004)(966005)(3940600001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 08:02:24.5140
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c33fb604-d59f-4d30-787b-08dba2e61ec2
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT051.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB10368
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------N6hqAAMF2Z7b3teUToTiC0cm
-Content-Type: multipart/mixed; boundary="------------NCqL5uJisiGEQtR4tNY6IDHP";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Yang Li <yang.lee@linux.alibaba.com>, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Abaci Robot <abaci@linux.alibaba.com>
-Message-ID: <3884ae8a-f445-42ab-bb37-e21edf61e35a@suse.com>
-Subject: Re: [PATCH -next] xen: Fix one kernel-doc comment
-References: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
-In-Reply-To: <20230731030037.123946-1-yang.lee@linux.alibaba.com>
+Hi, michal
 
---------------NCqL5uJisiGEQtR4tNY6IDHP
-Content-Type: multipart/mixed; boundary="------------F3ieuJJNDev20AObTU4IKMde"
+On 2023/8/21 18:49, Michal Orzel wrote:
+> Hi Penny,
+> 
+> On 21/08/2023 06:00, Penny Zheng wrote:
+>>
+>>
+>> There are some unsolving issues on current 4.17 static shared memory
+>> feature[1], including:
+>> - In order to avoid keeping growing 'membank', having the shared memory
+>> info in separate structures is preferred.
+>> - Missing implementation on having the host address optional in
+>> "xen,shared-mem" property
+>> - Removing static shared memory from extended regions
+>> - Missing reference release on foreign superpage
+>> - Missing "xen,offset" feature, which is introduced in Linux DOC[2]
+>>
+>> All above objects have been divided into two parts to complete. And this
+>> patch serie is PART I.
+>>
+>> [1] https://lore.kernel.org/all/20220908135513.1800511-1-Penny.Zheng@arm.com/
+>> [2] https://www.kernel.org/doc/Documentation/devicetree/bindings/reserved-memory/xen%2Cshared-memory.txt
+> 
+> It looks like there is a problem with the changes introduced in this series.
+> The gitlab static shared memory tests failed:
+> https://gitlab.com/xen-project/patchew/xen/-/pipelines/973985190
+> No Xen logs meaning the failure occurred before serial console initialization.
+> 
+> Now, I would like to share some observations after playing around with the current static shared mem code today.
+> 1) Static shared memory region is advertised to a domain by creating a child node under reserved-memory.
+> /reserved-memory is nothing but a way to carve out a region from the normal memory specified in /memory node.
+> For me, such regions should be described in domain's /memory node as well. This is not the case at the moment
+> for static shm unlike to other sub-nodes of /reserved-memory (present in host dtb) for which Xen creates separate
+> /memory nodes.
+> 
 
---------------F3ieuJJNDev20AObTU4IKMde
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Hmm, correct me if I'm wrong,
+If we describe twice in domain's /memory node too, it will be treated as 
+normal memory, then any application could use it. The reason why we put 
+static shm under /reserved-memory is that we only hope special driver, 
+like static shm linux driver, could access it.
 
-T24gMzEuMDcuMjMgMDU6MDAsIFlhbmcgTGkgd3JvdGU6DQo+IFVzZSBjb2xvbiB0byBzZXBh
-cmF0ZSBwYXJhbWV0ZXIgbmFtZSBmcm9tIHRoZWlyIHNwZWNpZmljIG1lYW5pbmcuDQo+IHNp
-bGVuY2UgdGhlIHdhcm5pbmc6DQo+IA0KPiBkcml2ZXJzL3hlbi9ncmFudC10YWJsZS5jOjEw
-NTE6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ25yX3BhZ2VzJyBu
-b3QgZGVzY3JpYmVkIGluICdnbnR0YWJfZnJlZV9wYWdlcycNCj4gDQo+IFJlcG9ydGVkLWJ5
-OiBBYmFjaSBSb2JvdCA8YWJhY2lAbGludXguYWxpYmFiYS5jb20+DQo+IENsb3NlczogaHR0
-cHM6Ly9idWd6aWxsYS5vcGVuYW5vbGlzLmNuL3Nob3dfYnVnLmNnaT9pZD02MDMwDQo+IFNp
-Z25lZC1vZmYtYnk6IFlhbmcgTGkgPHlhbmcubGVlQGxpbnV4LmFsaWJhYmEuY29tPg0KDQpQ
-dXNoZWQgdG8geGVuL3RpcC5naXQgZm9yLWxpbnVzLTYuNg0KDQoNCkp1ZXJnZW4NCg0K
---------------F3ieuJJNDev20AObTU4IKMde
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+If you track down in make_memory_node(), only memory range that is 
+reserved for device (or firmware) will be described twice as normal 
+memory in Dom0. Memory like static shm, will get passed.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> 2) Domain dtb parsing issue with two /reserved-memory nodes present.
+> In case there is a /reserved-memory node already present in the host dtb, Xen would create yet another /reserved-memory
+> node for the static shm (to be observed in case of dom0). This is a bug as there can be only one /reserved-memory node.
+> This leads to an error when dumping with dtc and leads to a shm node not being visible to a domain (guest OS relies on
+> a presence of a single /reserved-memory node). The issue is because in make_resv_memory_node(), you are not checking if
+> such node already exists.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Yes, you're true.
+In Dom0, we could see two /reserved-memory nodes. I think, if there is a 
+/reserved-memory node already present in the host dtb, we shall reserve 
+it in kinfo for make_resv_memory_node().
 
---------------F3ieuJJNDev20AObTU4IKMde--
-
---------------NCqL5uJisiGEQtR4tNY6IDHP--
-
---------------N6hqAAMF2Z7b3teUToTiC0cm
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTPsFAwAAAAAACgkQsN6d1ii/Ey8v
-wgf7BCVRXGfMVpBlcRB+eWC4t4BD4ZRhDnkAWkEzbEZ5D71cPiemhlIA33Pov7fUlhapsaNKWJw4
-GtIditm/7IfEO1Yzsp1iMnjq2HTInkaGPh196S8xSLxB4kHLaK5DsmVZLp1TcUtgVtWGIt9hYb6h
-a2ueRiIONE2KpRup6H1PCrsp4bZhABMkdLs2cX4vTBd1yeSkXTbVIo2A/EmI/YQPHvLLE/da1g38
-XgGWhaoI58M+qH6oZ1KwWKIqOd5fvvJmXfRO1CExIZJmzh/bJffejDygPMJa5nmWqUH9q8sIbWeh
-4qG0JLfMdR4qzkvxPoESejRsDZVXFOOfhMjyNh8UoQ==
-=vjKn
------END PGP SIGNATURE-----
-
---------------N6hqAAMF2Z7b3teUToTiC0cm--
+> 
+> I haven't looked closely at this series yet. It might be that these issues are fixed. If not, I would definitely
+> suggest to fix them in the first place.
+> 
+> ~Michal
 
