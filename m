@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBC07849F9
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 21:10:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588682.920254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66CFF784A4B
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 21:21:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588691.920264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYWlX-0004XK-Fz; Tue, 22 Aug 2023 19:10:11 +0000
+	id 1qYWwK-0006Fd-GN; Tue, 22 Aug 2023 19:21:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588682.920254; Tue, 22 Aug 2023 19:10:11 +0000
+Received: by outflank-mailman (output) from mailman id 588691.920264; Tue, 22 Aug 2023 19:21:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYWlX-0004U6-Cs; Tue, 22 Aug 2023 19:10:11 +0000
-Received: by outflank-mailman (input) for mailman id 588682;
- Tue, 22 Aug 2023 19:10:09 +0000
+	id 1qYWwK-0006Cu-DI; Tue, 22 Aug 2023 19:21:20 +0000
+Received: by outflank-mailman (input) for mailman id 588691;
+ Tue, 22 Aug 2023 19:21:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qYWlV-0004U0-R7
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 19:10:09 +0000
+ (envelope-from <julien@xen.org>) id 1qYWwJ-0006Co-QM
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 19:21:19 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qYWlT-00049M-GE; Tue, 22 Aug 2023 19:10:07 +0000
+ id 1qYWwJ-0004W0-D4; Tue, 22 Aug 2023 19:21:19 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qYWlT-000333-AU; Tue, 22 Aug 2023 19:10:07 +0000
+ id 1qYWwJ-0003VD-7r; Tue, 22 Aug 2023 19:21:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,111 +42,125 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=FPOe5mcQ0YlWrGpVUZp7DR+CBYOvNUr5HZkuKLLmcYI=; b=P8psgXvHZg0nl58NXLYtDGcSHO
-	SKmnlqyBWFdukkS4A8XZdJHiWxUK3cIHs7cDSwDTZJJyFPFHSP9UyqE0WM3ZR9LLeL35S/misN+F8
-	cmmZ1peLkWTG69dNM7ltXsvXpXeKIgjYJV8PXfuQxCRIJvztgspLr6Nx3oudBxU9yFOs=;
-Message-ID: <5c38c1da-8d7f-45cf-98b7-c80a55557b36@xen.org>
-Date: Tue, 22 Aug 2023 20:10:05 +0100
+	bh=7dlJyCUWxd/FO4FA7hNRogTRseOCS5sG9YhbqorsCpM=; b=J0wE6VBGsNYmolFF7zXyWRgXTV
+	xVT/OQyIVacmzpdTY6dKmYD3bMjtrcZW16GB+VxKHukXeQuMYjX+9fATheIaVghw1csS/KXrIRCkX
+	t/Mi7QI1R2E2gSohDMZgdnOb3vp+269R9KWElDM/g0cpcVz3yYKQcPNt++AFpcTccsSc=;
+Message-ID: <b18ef35f-a4df-4121-9b3c-aa96a8002d87@xen.org>
+Date: Tue, 22 Aug 2023 20:21:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v9 05/19] xen/arm: Add CONFIG_OVERLAY_DTB
+Subject: Re: [XEN][PATCH v9 08/19] xen/device-tree: Add
+ device_tree_find_node_by_path() to find nodes in device tree
 Content-Language: en-GB
 To: Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, sstabellini@kernel.org, jbeulich@suse.com,
- Henry Wang <Henry.Wang@arm.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: michal.orzel@amd.com, sstabellini@kernel.org, jbeulich@suse.com
 References: <20230819002850.32349-1-vikram.garhwal@amd.com>
- <20230819002850.32349-6-vikram.garhwal@amd.com>
+ <20230819002850.32349-9-vikram.garhwal@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230819002850.32349-6-vikram.garhwal@amd.com>
+In-Reply-To: <20230819002850.32349-9-vikram.garhwal@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Vikram,
 
 On 19/08/2023 01:28, Vikram Garhwal wrote:
-> Introduce a config option where the user can enable support for adding/removing
-> device tree nodes using a device tree binary overlay.
+> Add device_tree_find_node_by_path() to find a matching node with path for a
+> dt_device_node.
 > 
-> Update SUPPORT.md and CHANGELOG.md to state the Device Tree Overlays support for
-> Arm.
-> 
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> Acked-by: Henry Wang <Henry.Wang@arm.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> 
-> ---
-> Changes from v7:
->      Add this feature as "experimental support" in CHANGELOG.md
-> ---
-> ---
->   CHANGELOG.md         | 3 ++-
->   SUPPORT.md           | 6 ++++++
->   xen/arch/arm/Kconfig | 5 +++++
->   3 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 7d7e0590f8..47098dbfca 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -24,7 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->    - xl/libxl can customize SMBIOS strings for HVM guests.
->    - Add support for AVX512-FP16 on x86.
->    - On Arm, Xen supports guests running SVE/SVE2 instructions. (Tech Preview)
-> -
-> + - On Arm, experimental support for dynamic addition/removal of Xen device tree
-> +   nodes using a device tree overlay binary(.dtbo).
+> Reason behind this function:
+>      Each time overlay nodes are added using .dtbo, a new fdt(memcpy of
 
 Typo: missing space before (.
 
->   
->   ## [4.17.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.17.0) - 2022-12-12
->   
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index 35a6249e03..8eb006565c 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -844,6 +844,12 @@ No support for QEMU backends in a 16K or 64K domain.
->   
->       Status: Supported
->   
-> +### Device Tree Overlays
-> +
-> +Add/Remove device tree nodes using a device tree overlay binary(.dtbo).
+>      device_tree_flattened) is created and updated with overlay nodes. This
+>      updated fdt is further unflattened to a dt_host_new. Next, we need to find
+>      the overlay nodes in dt_host_new, find the overlay node's parent in dt_host
+>      and add the nodes as child under their parent in the dt_host. Thus we need
+>      this function to search for node in different unflattened device trees.
+> 
+> Also, make dt_find_node_by_path() static inline.
+> 
+> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
 
-Same here. I don't suggest to handle it on commit because this is not 
-something I want to merge without the rest of the series.
-
-> +
-> +    Status, ARM: Experimental
-> +
->   ### ARM: Guest ACPI support
+> ---
+> Changes from v7:
+>      Rename device_tree_find_node_by_path() to dt_find_node_by_path_from().
+>      Fix indentation.
+> ---
+> ---
+>   xen/common/device_tree.c      |  5 +++--
+>   xen/include/xen/device_tree.h | 18 ++++++++++++++++--
+>   2 files changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> index 67e9b6de3e..0f10037745 100644
+> --- a/xen/common/device_tree.c
+> +++ b/xen/common/device_tree.c
+> @@ -358,11 +358,12 @@ struct dt_device_node *dt_find_node_by_type(struct dt_device_node *from,
+>       return np;
+>   }
 >   
->       Status: Supported
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index fd57a82dd2..02c4796438 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -92,6 +92,11 @@ config HAS_ITS
->           bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
->           depends on GICV3 && !NEW_VGIC && !ARM_32
+> -struct dt_device_node *dt_find_node_by_path(const char *path)
+> +struct dt_device_node *dt_find_node_by_path_from(struct dt_device_node *from,
+> +                                                 const char *path)
+
+Any change this both 'from' and the return can be const?
+
+>   {
+>       struct dt_device_node *np;
 >   
-> +config OVERLAY_DTB
-> +	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
-> +	help
-> +	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
+> -    dt_for_each_device_node(dt_host, np)
+> +    dt_for_each_device_node(from, np)
+>           if ( np->full_name && (dt_node_cmp(np->full_name, path) == 0) )
+>               break;
+>   
+> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> index 5941599eff..e507658b23 100644
+> --- a/xen/include/xen/device_tree.h
+> +++ b/xen/include/xen/device_tree.h
+> @@ -568,13 +568,27 @@ struct dt_device_node *dt_find_node_by_type(struct dt_device_node *from,
+>   struct dt_device_node *dt_find_node_by_alias(const char *alias);
+>   
+>   /**
+> - * dt_find_node_by_path - Find a node matching a full DT path
+> + * dt_find_node_by_path_from - Generic function to find a node matching the
+> + * full DT path for any given unflatten device tree
+> + * @from: The device tree node to start searching from
+>    * @path: The full path to match
+>    *
+>    * Returns a node pointer.
+>    */
+> -struct dt_device_node *dt_find_node_by_path(const char *path);
+> +struct dt_device_node *
+> +                    dt_find_node_by_path_from(struct dt_device_node *from,
+> +                                                  const char *path);
 
-Do we have any documentation in the tree of the limitations and how this 
-works?
+Coding style: The indentation look rather odd. I am not sure it will 
+render properly here. But one style that is closer to the rest of the 
+file and Xen is:
 
-The reason I am asking is the wording here suggests that it would be 
-possible to remove nodes from the original Device-Tree. AFAIU this is 
-not possible with the implementation and you are not planning to handle 
-it. Correct?
+struct dt_device_node *dt_find_node_by_path_from(struct dt_device_node 
+*from,
+                                                  const char *path);
+
+Where the return type, function name and first parameter is one line and 
+the second parameter is on the second line with the type aligned with 
+the type of the first parameter.
+
+>   
+> +/**
+> + * dt_find_node_by_path - Find a node matching a full DT path in dt_host
+> + * @path: The full path to match
+> + *
+> + * Returns a node pointer.
+> + */
+> +static inline struct dt_device_node *dt_find_node_by_path(const char *path)
+> +{
+> +    return dt_find_node_by_path_from(dt_host, path);
+> +}
+>   
+>   /**
+>    * dt_find_node_by_gpath - Same as dt_find_node_by_path but retrieve the
 
 Cheers,
 
