@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D49E78397A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:49:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588058.919500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80F2578397C
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:49:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588062.919510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKGJ-0008Ez-Rf; Tue, 22 Aug 2023 05:49:07 +0000
+	id 1qYKGn-0000IC-54; Tue, 22 Aug 2023 05:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588058.919500; Tue, 22 Aug 2023 05:49:07 +0000
+Received: by outflank-mailman (output) from mailman id 588062.919510; Tue, 22 Aug 2023 05:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKGJ-0008Cs-Oo; Tue, 22 Aug 2023 05:49:07 +0000
-Received: by outflank-mailman (input) for mailman id 588058;
- Tue, 22 Aug 2023 05:49:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qYKGn-0000G7-0O; Tue, 22 Aug 2023 05:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 588062;
+ Tue, 22 Aug 2023 05:49:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qkm5=EH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qYKGI-0008CU-Bu
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:49:06 +0000
+ id 1qYKGl-0000EN-DM
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:49:35 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99d9719a-40af-11ee-8782-cb3800f73035;
- Tue, 22 Aug 2023 07:49:04 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab8eac36-40af-11ee-9b0c-b553b5be7939;
+ Tue, 22 Aug 2023 07:49:33 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B3D5522C44;
- Tue, 22 Aug 2023 05:49:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9444022C2B;
+ Tue, 22 Aug 2023 05:49:33 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89A6F13251;
- Tue, 22 Aug 2023 05:49:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E0E413251;
+ Tue, 22 Aug 2023 05:49:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QN6yH09M5GQeMwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:49:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id iAT5C21M5GQeMwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:49:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,26 +51,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99d9719a-40af-11ee-8782-cb3800f73035
+X-Inumbo-ID: ab8eac36-40af-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692683343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1692683373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=vXl13OYwzqP3btuTipb1YwlJ+A0lerjLj9pWdPMs6q4=;
-	b=KatofwXdVgnZ4llciBDlpPDVUsMUZ8ajkfL0/YjHGrGtfJrjiX4x4q3HaqqENXW0s2IwlZ
-	rRgJoTzxWsfXKcZ3VCuHpiy3uUO7wwR9mfaj2tbd4Efpt24j6HA5ea1J2w/nBHFjlEwBMk
-	6nnQkjNW4P10sW7Wwt/gcRyKMpFyfqY=
-Message-ID: <9a0faba7-8e89-4e00-befa-01771b3227e5@suse.com>
-Date: Tue, 22 Aug 2023 07:49:03 +0200
+	bh=3ceUnHM3MdAboschXSSic0CfMj7VA6Ed3vzqg3V8bWo=;
+	b=r0QWl8MQ2PpEZSuUec7KxlQmpC7zOVtYaisok1uvNX4PWPYsYo9HpI7nXSNqk6dpIWfetw
+	ggMZ6uOQ4Lv5sXjtj72Dh3b5yAFM/7BVo3Q4A0+3ugASBpbxg/R5ddPDsRZgsK1NSUO2WJ
+	1w8h5muSN6MVyWahw5OHWqF3Ibb+WG0=
+Message-ID: <85e1244c-b657-43a9-abac-bf7464d4794d@suse.com>
+Date: Tue, 22 Aug 2023 07:49:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next] xen/evtchn: Remove unused function declaration
- xen_set_affinity_evtchn()
+Subject: Re: [PATCH v1] xen: remove a confusing comment on auto-translated
+ guest I/O
 Content-Language: en-US
-To: Yue Haibing <yuehaibing@huawei.com>, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, rahul.singh@arm.com
-Cc: xen-devel@lists.xenproject.org
-References: <20230801145413.40684-1-yuehaibing@huawei.com>
+To: Petr Tesarik <petrtesarik@huaweicloud.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "moderated list:XEN HYPERVISOR X86" <xen-devel@lists.xenproject.org>,
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>
+Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>, petr@tesarici.cz
+References: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
@@ -95,38 +102,50 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230801145413.40684-1-yuehaibing@huawei.com>
+In-Reply-To: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------IiVbKgMhg1y0SyDgf2EceUgD"
+ boundary="------------qqJIlfO7HnRrDj42ICzZODzZ"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------IiVbKgMhg1y0SyDgf2EceUgD
-Content-Type: multipart/mixed; boundary="------------Aa4wk0Nm4aC1400VXa8emzGB";
+--------------qqJIlfO7HnRrDj42ICzZODzZ
+Content-Type: multipart/mixed; boundary="------------z6xVhrRcDMnGURa8ckUK80ba";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Yue Haibing <yuehaibing@huawei.com>, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, rahul.singh@arm.com
-Cc: xen-devel@lists.xenproject.org
-Message-ID: <9a0faba7-8e89-4e00-befa-01771b3227e5@suse.com>
-Subject: Re: [PATCH -next] xen/evtchn: Remove unused function declaration
- xen_set_affinity_evtchn()
-References: <20230801145413.40684-1-yuehaibing@huawei.com>
-In-Reply-To: <20230801145413.40684-1-yuehaibing@huawei.com>
+To: Petr Tesarik <petrtesarik@huaweicloud.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "moderated list:XEN HYPERVISOR X86" <xen-devel@lists.xenproject.org>,
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>
+Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>, petr@tesarici.cz
+Message-ID: <85e1244c-b657-43a9-abac-bf7464d4794d@suse.com>
+Subject: Re: [PATCH v1] xen: remove a confusing comment on auto-translated
+ guest I/O
+References: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
+In-Reply-To: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
 
---------------Aa4wk0Nm4aC1400VXa8emzGB
-Content-Type: multipart/mixed; boundary="------------C9H4KsFCflFajjfWQe19plPw"
+--------------z6xVhrRcDMnGURa8ckUK80ba
+Content-Type: multipart/mixed; boundary="------------388wybnVcA7JyfyYrCXYzNND"
 
---------------C9H4KsFCflFajjfWQe19plPw
+--------------388wybnVcA7JyfyYrCXYzNND
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDEuMDguMjMgMTY6NTQsIFl1ZSBIYWliaW5nIHdyb3RlOg0KPiBDb21taXQgNjc0NzNi
-ODE5NGJjICgieGVuL2V2ZW50czogUmVtb3ZlIGRpc2Z1bmN0IGFmZmluaXR5IHNwcmVhZGlu
-ZyIpDQo+IGxlYXZlIHRoaXMgdW51c2VkIGRlY2xhcmF0aW9uLg0KPiANCj4gU2lnbmVkLW9m
-Zi1ieTogWXVlIEhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4NCg0KUHVzaGVkIHRv
-IHhlbi90aXAuZ2l0IGZvci1saW51cy02LjYNCg0KDQpKdWVyZ2VuDQoNCg==
---------------C9H4KsFCflFajjfWQe19plPw
+T24gMDIuMDguMjMgMTg6MzEsIFBldHIgVGVzYXJpayB3cm90ZToNCj4gRnJvbTogUGV0ciBU
+ZXNhcmlrIDxwZXRyLnRlc2FyaWsuZXh0QGh1YXdlaS5jb20+DQo+IA0KPiBBZnRlciByZW1v
+dmluZyB0aGUgY29uZGl0aW9uYWwgcmV0dXJuIGZyb20geGVuX2NyZWF0ZV9jb250aWd1b3Vz
+X3JlZ2lvbigpLA0KPiB0aGUgYWNjb21wYW55aW5nIGNvbW1lbnQgd2FzIGxlZnQgaW4gcGxh
+Y2UsIGJ1dCBpdCBub3cgcHJlY2VkZXMgYW4NCj4gdW5yZWxhdGVkIGNvbmRpdGlvbmFsIGFu
+ZCBjb25mdXNlcyByZWFkZXJzLg0KPiANCj4gRml4ZXM6IDk4OTUxM2E3MzVmNSAoInhlbjog
+Y2xlYW51cCBwdmggbGVmdG92ZXJzIGZyb20gcHYtb25seSBzb3VyY2VzIikNCj4gU2lnbmVk
+LW9mZi1ieTogUGV0ciBUZXNhcmlrIDxwZXRyLnRlc2FyaWsuZXh0QGh1YXdlaS5jb20+DQoN
+ClB1c2hlZCB0byB4ZW4vdGlwLmdpdCBmb3ItbGludXMtNi42DQoNCg0KSnVlcmdlbg0KDQo=
+
+--------------388wybnVcA7JyfyYrCXYzNND
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -184,25 +203,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C9H4KsFCflFajjfWQe19plPw--
+--------------388wybnVcA7JyfyYrCXYzNND--
 
---------------Aa4wk0Nm4aC1400VXa8emzGB--
+--------------z6xVhrRcDMnGURa8ckUK80ba--
 
---------------IiVbKgMhg1y0SyDgf2EceUgD
+--------------qqJIlfO7HnRrDj42ICzZODzZ
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTE8FAwAAAAAACgkQsN6d1ii/Ey/s
-5wf/SihVjv+qe3pKB6BbUQUTUYZvqab4hTB4YvgkLsY0lLQuArRVljn1Mq7cDrHFDlh0xzPpc+F8
-9zVYXBI5LY2V1RBqMyjlscpyK+mW7iQ/SXfusuws+VTAVoBYVdFmad8Rxc6VD/kLv7mXpNFR78r/
-Iqp2eK25ecyHR6qTgFUhvKW6X+hq+ELINgZZtw4yPHT6GBx6gT6CcOxIMO8pJoO4zMzZ/n7mkGus
-OqyMcCTMfhAkX6hWYAnLfPdxDzVBNu04shI5bTh8O0oECLXBDXh65p7F6TqfErkwupVznindSPsj
-1szc1vZ45XVR63ZiSdzjw2NzNPtc/tVFqR5eQ+KpYw==
-=jzAn
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTG0FAwAAAAAACgkQsN6d1ii/Ey/r
+Gwf7B24NQTsBPH9af8qpXPWkUhCCsrh0JTzZVIAf8g1oaPltvUBqfLPHOLDVTHxvP0xxJfmGcFpw
+HG4LBYBgCsGWd3tCErZHv3YKxKQrmvXYIZ5fzk+4NqDwDgVwnnWbndeZsC7PHjDHQl+zzSosXKWQ
+BDm6WONS4pJ0aHDFl3VJSIpAeF/IeXAjCpeRzKoOJLS70jzOt0OWar838yY/G1rttL1fIOvdTc43
+e7jI0jn6CGcbrqsTQFU7x/tN1B2rz1mX9XuLfiXMuErrgC17g9aqkgNEsNbHrnni9XLA+mIfv0dn
+bm9yLiHn56LOsFD1VWKRd4y0ohpX8IQNpE89Y/fuZA==
+=MlBP
 -----END PGP SIGNATURE-----
 
---------------IiVbKgMhg1y0SyDgf2EceUgD--
+--------------qqJIlfO7HnRrDj42ICzZODzZ--
 
