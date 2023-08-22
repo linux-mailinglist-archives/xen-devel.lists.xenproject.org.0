@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDE7978371A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 02:46:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.587946.919347 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F2778372C
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 03:02:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.587960.919357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYFWg-0007ha-2a; Tue, 22 Aug 2023 00:45:42 +0000
+	id 1qYFmp-0004SU-Hy; Tue, 22 Aug 2023 01:02:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 587946.919347; Tue, 22 Aug 2023 00:45:42 +0000
+Received: by outflank-mailman (output) from mailman id 587960.919357; Tue, 22 Aug 2023 01:02:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYFWf-0007eH-VY; Tue, 22 Aug 2023 00:45:41 +0000
-Received: by outflank-mailman (input) for mailman id 587946;
- Tue, 22 Aug 2023 00:45:40 +0000
+	id 1qYFmp-0004Pk-Er; Tue, 22 Aug 2023 01:02:23 +0000
+Received: by outflank-mailman (input) for mailman id 587960;
+ Tue, 22 Aug 2023 01:02:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gk3p=EH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qYFWe-0007P4-Fm
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 00:45:40 +0000
+ id 1qYFmn-0004Pe-Nd
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 01:02:21 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36c014c5-4085-11ee-8782-cb3800f73035;
- Tue, 22 Aug 2023 02:45:39 +0200 (CEST)
+ id 8b2a5354-4087-11ee-8782-cb3800f73035;
+ Tue, 22 Aug 2023 03:02:20 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 82B5660C08;
- Tue, 22 Aug 2023 00:45:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1939AC433C8;
- Tue, 22 Aug 2023 00:45:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CCBE66270F;
+ Tue, 22 Aug 2023 01:02:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE35C433C8;
+ Tue, 22 Aug 2023 01:02:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,125 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36c014c5-4085-11ee-8782-cb3800f73035
+X-Inumbo-ID: 8b2a5354-4087-11ee-8782-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692665137;
-	bh=qoLgfJQBWiPHTzycW67/vN/z3+TsS+y7d+PacMcrhnY=;
+	s=k20201202; t=1692666138;
+	bh=9IaAwidUTFekLCuEocezif/1Reboazonr9m+Bz5jBUA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=PKwFWqy4qynyI1zaCBqO4CJ6aTYQe8/EvWMlTJ9cvyQd7TBLGpwkN8tCAhxUCOxKD
-	 peqxajrpgYUnLWFyvSbN+VoWLK7dvPaBrpIYLRJpv8l+68r9Vkt+8Xcg38YtSLFMQ2
-	 trhykHEy1k1OvFNnuzaZHZtWCGV1VudiAhR3sdNYEBx++CdknGlQiICzaIaB0Bk3AW
-	 q3LGqB6BN/g1fFFN4dR4n10lCvc1ysznKapoBbLtbt9Cwe8rWZGNOBD4z+XPY6i6xG
-	 cVHZwLBXXY6XAkpE0YfL7zTscf5NRRAPX5XDEHOwlRBsFAj4ZP6ayb2H8CKNZiDCW4
-	 VJiUfJEtKR3LA==
-Date: Mon, 21 Aug 2023 17:45:35 -0700 (PDT)
+	b=UYjTFzUqaMLMMYX0ienjFbYcMkXQGqNOUVux8WrBRN2MyFgtGHKznwZ1oX1Gifu8g
+	 7g3Hm5clKS979LguZYO/czLIaLhluV989LWDBdKzhzGIjIy9wkIAldd47MZmiY2DxI
+	 KgyYLwdYXZFD+J0AX9nphVJ+Aev0oew/D+MIsHlK0zAj54k/Yo/I4iS6KzRI+5JCo2
+	 214pGIC8G7wNDjgEO6gVIHUQFSyMAdLahgDeoQWixk9Jzo6KTyR3CMcP1MkuN6u8rP
+	 w1UWN5rOtBeSzn6WopkSvFRr9BKrHMX81/pYEykbvopTdQ9OnIHUBLmtsScxG8MnXY
+	 DjxcbaooyKF/A==
+Date: Mon, 21 Aug 2023 18:02:15 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    andrew.cooper3@citrix.com, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v2 2/2] automation: avoid pipelines on specific
- branches
-In-Reply-To: <8ca21d49e7b95e788a4c092c1b8dcd3d1245d638.1692607487.git.simone.ballarin@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308211744110.6458@ubuntu-linux-20-04-desktop>
-References: <cover.1692607487.git.simone.ballarin@bugseng.com> <8ca21d49e7b95e788a4c092c1b8dcd3d1245d638.1692607487.git.simone.ballarin@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, julien@xen.org, bertrand.marquis@arm.com, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] docs/misra: document gcc-specific behavior with shifting
+ signed integers
+In-Reply-To: <d52880c4-96e1-58de-d51e-8a5fbd784de7@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2308211802060.6458@ubuntu-linux-20-04-desktop>
+References: <20230819003303.1744466-1-sstabellini@kernel.org> <d52880c4-96e1-58de-d51e-8a5fbd784de7@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 21 Aug 2023, Simone Ballarin wrote:
-> This patch avoids the execution of pipelines in the
-> following branches:
-> - master
-> - smoke
-> - coverirty-tested/.*
-> - stable-.*
+On Mon, 21 Aug 2023, Jan Beulich wrote:
+> On 19.08.2023 02:33, Stefano Stabellini wrote:
+> > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > ---
+> > Changes in v2:
+> > - use "shift" instead of << or >>
+> > - use All Architectures (I haven't changed all the other instances of
+> > x86/arm in the file yet)
+> > ---
+> >  docs/misra/C-language-toolchain.rst | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+> > index 785aed1eaf..f5ca7bd2c8 100644
+> > --- a/docs/misra/C-language-toolchain.rst
+> > +++ b/docs/misra/C-language-toolchain.rst
+> > @@ -200,6 +200,12 @@ The table columns are as follows:
+> >       - ARM64, X86_64
+> >       - See Section "6.29 Designated Initializers" of GCC_MANUAL
+> >  
+> > +   * - Signed shift acts on negative numbers by sign extension
+> > +     - All architectures
+> > +     - See Section "4.5 Integers" of GCC_MANUAL. As an extension to the
+> > +       C language, GCC does not use the latitude given in C99 and C11
+> > +       only to treat certain aspects of signed shift as undefined.
 > 
-> The job-level exclusions have been removed as they are
-> pointless with this new workspace-level exclusion.
-> 
-> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> I'm sorry, but that's still not what the doc says. Replacing << and >> by
+> "shifts" was imo wrong. What's needed instead is that either this is split
+> into two top-level bullet points (one for << and one for >>), or the first
+> sub-bullet-point (which acts as kind of the title) be generalized, with
+> the << and >> details fully moved to the "explanatory" sub-bullet-point.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Changes in v2:
-> - remove useless except clause in .yocto-test.
-> ---
->  .gitlab-ci.yml                  |  6 ++++++
->  automation/gitlab-ci/build.yaml | 11 -----------
->  automation/gitlab-ci/test.yaml  |  5 -----
->  3 files changed, 6 insertions(+), 16 deletions(-)
-> 
-> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> index ee5430b8b7..ef4484e09a 100644
-> --- a/.gitlab-ci.yml
-> +++ b/.gitlab-ci.yml
-> @@ -1,3 +1,9 @@
-> +workflow:
-> +  rules:
-> +    - if: $CI_COMMIT_BRANCH =~ /^(master|smoke|^coverity-tested\/.*|stable-.*)$/
-> +      when: never
-> +    - when: always
-> +
->  stages:
->    - analyze
->    - build
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 1a4a5e490d..b633facff4 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -12,11 +12,6 @@
->        - '*/*.log'
->      when: always
->    needs: []
-> -  except:
-> -    - master
-> -    - smoke
-> -    - /^coverity-tested\/.*/
-> -    - /^stable-.*/
->  
->  .gcc-tmpl:
->    variables: &gcc
-> @@ -214,11 +209,6 @@
->  .yocto-test:
->    stage: build
->    image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> -  except:
-> -    - master
-> -    - smoke
-> -    - /^coverity-tested\/.*/
-> -    - /^stable-.*/
->    script:
->      - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD} ${YOCTO_OUTPUT}
->    variables:
-> @@ -269,7 +259,6 @@
->  .test-jobs-artifact-common:
->    stage: build
->    needs: []
-> -  except: !reference [.test-jobs-common, except]
->  
->  # Arm test artifacts
->  
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 810631bc46..8737f367c8 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -1,11 +1,6 @@
->  .test-jobs-common:
->    stage: test
->    image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> -  except:
-> -    - master
-> -    - smoke
-> -    - /^coverity-tested\/.*/
-> -    - /^stable-.*/
->  
->  .arm64-test-needs: &arm64-test-needs
->    - alpine-3.18-arm64-rootfs-export
-> -- 
-> 2.34.1
-> 
+I think I got your point now
 
