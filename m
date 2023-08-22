@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DB47784508
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 17:08:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588583.920124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2732E78450A
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 17:09:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588585.920134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYSzt-00043s-UO; Tue, 22 Aug 2023 15:08:45 +0000
+	id 1qYT07-0004Pf-5g; Tue, 22 Aug 2023 15:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588583.920124; Tue, 22 Aug 2023 15:08:45 +0000
+Received: by outflank-mailman (output) from mailman id 588585.920134; Tue, 22 Aug 2023 15:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYSzt-00041b-Qb; Tue, 22 Aug 2023 15:08:45 +0000
-Received: by outflank-mailman (input) for mailman id 588583;
- Tue, 22 Aug 2023 15:08:44 +0000
+	id 1qYT07-0004NK-1n; Tue, 22 Aug 2023 15:08:59 +0000
+Received: by outflank-mailman (input) for mailman id 588585;
+ Tue, 22 Aug 2023 15:08:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0QVw=EH=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1qYSzs-000408-AV
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 15:08:44 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ <SRS0=Uya+=EH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qYT05-000408-DH
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 15:08:57 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c811edc2-40fd-11ee-9b0c-b553b5be7939;
- Tue, 22 Aug 2023 17:08:42 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-3fef2f05356so18860725e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 22 Aug 2023 08:08:42 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- p1-20020a05600c204100b003fefaf299b6sm1946868wmg.38.2023.08.22.08.08.41
+ id d01174ed-40fd-11ee-9b0c-b553b5be7939;
+ Tue, 22 Aug 2023 17:08:55 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5298e43bb67so8268422a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Aug 2023 08:08:55 -0700 (PDT)
+Received: from [192.168.100.67] ([78.152.69.193])
+ by smtp.gmail.com with ESMTPSA id
+ e14-20020a50fb8e000000b00523653295f9sm7808426edq.94.2023.08.22.08.08.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Aug 2023 08:08:41 -0700 (PDT)
+ Tue, 22 Aug 2023 08:08:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c811edc2-40fd-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: d01174ed-40fd-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1692716922; x=1693321722;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ksES7XdW7KICYuNCB7I+pKc0l0fFKB6dLx+Z80Hvio0=;
-        b=mGkECUiVOIoN/RaqZB+Bu5AJzPtM+XYZLw8ge9yYbtoG8cyW4fksojA0RWPmCTXgIK
-         a3L64n9Wj7GpEaOkuy7BRb2+EnGswI0U0lZOOX/e01SDClIzfefw0mRVZOu9pkOI0qpD
-         g5BTyXf9mSDpGpB13DyFaiQjiMcnVXDqlgGvU=
+        d=gmail.com; s=20221208; t=1692716935; x=1693321735;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FvSmEK7PSI6jrlAj0aRA1PIieG5kdHGSz+t9CsxkGlM=;
+        b=N3nHErNaC8x2GmOcdI+3I69HRY/pQHqcWvEmBLu6ysbJDrEG3k8xyGzIqE2YJEnX0A
+         oMiteVcWMLZbQ3IwNWMDMw0cbqULtSXEQqLI3YGEhkNhPhqFKeI1l5x1J5v6kiCaKgRo
+         WtqDl0NmkQy4qH22TCmJp/Cf1ufyF7Ah/BX1nQmGmH0LgAKvkYPsJ78dUWPU+HnUPwvs
+         9hCaiYB4jNcrBc50vuu7ht/2I7AhjnoZZ+IJPSnvK32EVF8WOTiV8RcmD8YDCUXL502b
+         6DIE6SCGOUiIYMxK9oaDxBK1QP5DrBUdwEPkaKXQA7qLHsXsolnxJPX8CS1ch544bybd
+         DSGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692716922; x=1693321722;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ksES7XdW7KICYuNCB7I+pKc0l0fFKB6dLx+Z80Hvio0=;
-        b=Abi0sR/acEo1CzncbF9hNlIi8raqNleXc4RBWlRaRMVOOpL11v5gV54QcY6HBOss7O
-         I6FGZWIStCQuietxJeQvDWAuaU0fiXhefqjR3p5rBoHvNIFmpobBV8cy0pRJQFTlljQ2
-         8TxTFsyez5N0d3pNaRINmxVyyXewYCbD4MrYiqGny8N710iHyDcGET1etbvr4fjbpfE8
-         Gh+aasmDBCaN1mZlnIICasnuixKDI1WJN6n7m/UcK7wOzZ4g3J/gG95xYdibF/TmLwRc
-         fDRL95OyMjbkLgWx9ipcfyq56JSj5fGnc8nb+yQxgrjxeuyVwc8AYk5CwQJYCCb5DeGd
-         4fDA==
-X-Gm-Message-State: AOJu0Yxnsv87TAEssJy7aXje7xhSjn7oabQgnREihWq1CyxWoorbce/T
-	+0C//dY/BGTGmmIPQAp6jhKQfA==
-X-Google-Smtp-Source: AGHT+IGdk8jmzCqco1gqvTwIYeNT1kY53kKjAs7QMbN9SUgOvWWhP4bkGhPDSEqFguNaNUqeCtcw/g==
-X-Received: by 2002:a1c:7707:0:b0:3fe:179d:d42e with SMTP id t7-20020a1c7707000000b003fe179dd42emr7871662wmi.23.1692716921762;
-        Tue, 22 Aug 2023 08:08:41 -0700 (PDT)
-Date: Tue, 22 Aug 2023 16:08:40 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
-	michal.orzel@amd.com, xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com, consulting@bugseng.com,
-	Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH 2/3] docs: make the docs for MISRA C:2012 Dir 4.1
- visible to ECLAIR
-Message-ID: <8d17e090-720d-4887-8650-4e7e6b3e4c44@perard>
-References: <cover.1692636338.git.nicola.vetrini@bugseng.com>
- <857dd398240accabea73e5660ae77f3925727ee9.1692636338.git.nicola.vetrini@bugseng.com>
+        d=1e100.net; s=20221208; t=1692716935; x=1693321735;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FvSmEK7PSI6jrlAj0aRA1PIieG5kdHGSz+t9CsxkGlM=;
+        b=Fvfe4yBZb8Vf5cF9YV9BGKB7rmEr3UpUM/wItGy3tUOb8T5uyx0TgrjApiVzj30KjX
+         4ucH6R48jNoskfON7D9WIrXMykZVwzI8eCjszY5/KsoTs24Ykj7uU4l7RBsqBqc4Q03e
+         L0/ssSQJ9upAYWxxLgLyX1g6ZSeQMZIcnaay3wv1JtIfo8Ucjburlwcf4aH02uVbE7Wq
+         y1jVlHMU5lTa2BXitnivOHuFAExlFNCvVywTnGhzHvujAH7d2ugqCr/ZOXeX2BIEP9iQ
+         Sg4GoefZuLQuWHfqnwMWppNHBwM5w9Hlw7fcqqC6EBjbK+IdnyXLhG9av+ZzWRXxu5w1
+         hz4A==
+X-Gm-Message-State: AOJu0YzenMJT4/hyfj6QcyBg4NuwIpantvVqNQyTfT5mnclYvh3+vFjD
+	BvGEZCe+XuWK0fMjW9VURaY=
+X-Google-Smtp-Source: AGHT+IEGGBwCYxNbpcwHRs2kO1TSCRAFeYalt1swJ02P4DHn9uncgZB4rkShjDvF9IboU3LtZusmLg==
+X-Received: by 2002:aa7:d952:0:b0:528:9284:61c6 with SMTP id l18-20020aa7d952000000b00528928461c6mr12997074eds.0.1692716935047;
+        Tue, 22 Aug 2023 08:08:55 -0700 (PDT)
+Message-ID: <e208383afc3580ca8c0ca739128649912caea1e6.camel@gmail.com>
+Subject: Re: [PATCH v1 44/57] xen/riscv: introduce asm/vm_event.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Bob Eshleman <bobbyeshleman@gmail.com>, 
+ Alistair Francis <alistair.francis@wdc.com>, Connor Davis
+ <connojdavis@gmail.com>
+Date: Tue, 22 Aug 2023 18:08:54 +0300
+In-Reply-To: <CABfawhm3NrjsNYK77uFNQZWS9a5nJQWo3+0VXvGkit2YzCdVQg@mail.gmail.com>
+References: <cover.1692181079.git.oleksii.kurochko@gmail.com>
+	 <5e9219fb6c5e3d0ad921d7d050abc2a802d1742b.1692181079.git.oleksii.kurochko@gmail.com>
+	 <CABfawhm3NrjsNYK77uFNQZWS9a5nJQWo3+0VXvGkit2YzCdVQg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <857dd398240accabea73e5660ae77f3925727ee9.1692636338.git.nicola.vetrini@bugseng.com>
 
-On Mon, Aug 21, 2023 at 06:54:38PM +0200, Nicola Vetrini wrote:
-> diff --git a/docs/misra/Makefile b/docs/misra/Makefile
-> new file mode 100644
-> index 000000000000..f62cd936bfcc
-> --- /dev/null
-> +++ b/docs/misra/Makefile
-> @@ -0,0 +1,36 @@
-> +XEN_ROOT=$(CURDIR)/../..
-> +include $(XEN_ROOT)/Config.mk
-> +-include $(XEN_ROOT)/config/Docs.mk
-> +
-> +
-> +TARGETS := $(addprefix C-runtime-failures,.c .o)
-> +
-> +all: $(TARGETS)
-> +
-> +define MISRA_HEADER
-> +/*
-> +
-> +endef
-> +
-> +define MISRA_FOOTER
-> +
-> +*/
-> +
-> +endef
-> +export MISRA_HEADER
-> +export MISRA_FOOTER
-> +
-> +C-runtime-failures.c: C-runtime-failures.rst
+On Mon, 2023-08-21 at 18:43 +0200, Tamas K Lengyel wrote:
+> On Wed, Aug 16, 2023 at 12:30=E2=80=AFPM Oleksii Kurochko
+> <oleksii.kurochko@gmail.com> wrote:
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0xen/arch/riscv/include/asm/vm_event.h | 52
+> > +++++++++++++++++++++++++++
+> > =C2=A01 file changed, 52 insertions(+)
+> > =C2=A0create mode 100644 xen/arch/riscv/include/asm/vm_event.h
+>=20
+> I don't think we ought to replicate this header for every arch when
+> clearly the functions in them are only relevant for specific
+> architectures. Would make more sense to me to just conditionalize the
+> caller side to the specific archs where these functions are actually
+> defined, which would largely just be CONFIG_X86.
 
-Any reason not to use "%.c: %.rst" ? You could even write
-    "C-runtime-failures.c: %.c: %.rst"
-(Or even $(TARGETS:.o=.c): %.c %.rst", if TARGETS only had the .o, and
-if we expect all *.c to be generated from *.rst in this Makefile)
+Thanks. I'll take it into account.
 
-> +# sed is used in place of cat to prevent occurrences of '*/'
-> +# in the .rst from breaking the compilation
+~ Oleksii
 
-I think I'd like this comment just before the rule, rather than between
-the target line and the recipe. That just push the recipe far way from
-the target due to the indentation.
-
-> +	( \
-> +	  echo "$${MISRA_HEADER}"; \
-
-Would it be ok to just do `echo "/*"` here instead of defining a make
-variable and using it via the environment? I'd like to try to avoid the
-dollar escape $$ which make shell code harder to read when written in
-makefile.
-
-> +	  sed -e 's|*/|*//*|' $<; \
-
-The first '*' in this command is awkward, as its a special character.
-I'd rather not rely on `sed` to convert it to non-special, so could you
-escape it?
-
-Also, this pattern only takes care of the first occurrence of '*/' on a
-line, but they could be more than one.
-
-> +	  echo "$${MISRA_FOOTER}" \
-> +	) > $@
-> +
-> +%.o: %.c
-> +	$(CC) -c $< -o $@
-> +
-> +clean:
-> +	rm -f *.c *.o
-
-This `rm -f *.c` is prone to mistake. I hope no one is going to write a
-C file in this directory, run `make clean` and lost their source. Or,
-copy this makefile somewhere else. Would it be ok to just spell out all
-the .c files that are expected to be generated by this makefile?
-
-Cheers,
-
--- 
-Anthony PERARD
 
