@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D541A783DD3
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 12:26:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588384.919896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 173A5783DD5
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 12:27:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588390.919906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYOaX-0003WU-UW; Tue, 22 Aug 2023 10:26:17 +0000
+	id 1qYObV-00043Z-7p; Tue, 22 Aug 2023 10:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588384.919896; Tue, 22 Aug 2023 10:26:17 +0000
+Received: by outflank-mailman (output) from mailman id 588390.919906; Tue, 22 Aug 2023 10:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYOaX-0003U6-RD; Tue, 22 Aug 2023 10:26:17 +0000
-Received: by outflank-mailman (input) for mailman id 588384;
- Tue, 22 Aug 2023 10:26:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0QVw=EH=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1qYOaW-0003U0-Nk
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 10:26:16 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5269c09b-40d6-11ee-9b0c-b553b5be7939;
- Tue, 22 Aug 2023 12:26:14 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-31977ace1c8so3923664f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Aug 2023 03:26:14 -0700 (PDT)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l13-20020a5d410d000000b003142e438e8csm15449156wrp.26.2023.08.22.03.26.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Aug 2023 03:26:13 -0700 (PDT)
+	id 1qYObV-00040x-40; Tue, 22 Aug 2023 10:27:17 +0000
+Received: by outflank-mailman (input) for mailman id 588390;
+ Tue, 22 Aug 2023 10:27:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MJFy=EH=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qYObT-0003zz-O5
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 10:27:15 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0626.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::626])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7662a5bc-40d6-11ee-8782-cb3800f73035;
+ Tue, 22 Aug 2023 12:27:15 +0200 (CEST)
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
+ by PAXPR04MB8605.eurprd04.prod.outlook.com (2603:10a6:102:218::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Tue, 22 Aug
+ 2023 10:27:12 +0000
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::9d93:f481:7a9b:345d]) by AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::9d93:f481:7a9b:345d%5]) with mapi id 15.20.6678.031; Tue, 22 Aug 2023
+ 10:27:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +47,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5269c09b-40d6-11ee-9b0c-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1692699974; x=1693304774;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=SKYeOORBZ1RJnca57QBYDVsctt9Qy/3uL0qeoMx/vcc=;
-        b=StdNGFd4pVG/Pa8dL13kTxIP97eKDIIOhVgsmUv0mr4ky1HCg7/J/k7DtLZIHheTWW
-         25SQYJ9HcoiJlb/TzgJDqY5MXlsqZw1D5Vsg/Ijmy44RqdvkN8ypyympChqMxNsQvNLz
-         +T20OCG4u2tWj3lEfcC1j8ypmZZQ7He6Y54Wc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692699974; x=1693304774;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SKYeOORBZ1RJnca57QBYDVsctt9Qy/3uL0qeoMx/vcc=;
-        b=WzXfyQR1drjp8YuUxYPPmA1xw3QTUMmdiX0E8X28V3873FxIe7XKD86lw0zLeykIZV
-         aDo0XZU1o/fpLexzJs9+OT1mI42ST/2UU9uWj97u5zoYhB75BclR5dJEQ+s6rUjyFEBw
-         KsMjuPOgsqHZJO6qmxQpEPNWhWxry/RPMk+fNHE2yMgSEaVQ2aLMu9vtAwmQWVoPKgbm
-         CDjsQwv9tQJgJto5MSjcak/dKq1DjKjb+3w3b3VBGHjZN5qcr4HezyynS70B7uYjxk3y
-         e7AtV4FPxFLM0czUmoDcxP3O8KnZ1B1IMvEs889ND35sX9Fa3eDBK9zIanyXcEPtvICg
-         dBAg==
-X-Gm-Message-State: AOJu0Ywlkba2erMKqp6eOlFh7zi8D4nDJtYA2L0zHn1FndZjihmzH8ue
-	/Y+1PgC4i5MPtbafatLH6lCwNnkHGeJkIhucmhjVVg==
-X-Google-Smtp-Source: AGHT+IFLswrSj3VDOqj78mvZi5n4OncOfAJbxrKZ+Ej09Ub1HdNycPHI/Dl+40twUz7iSdYMu1JG0A==
-X-Received: by 2002:adf:f6cc:0:b0:313:fbd0:9813 with SMTP id y12-20020adff6cc000000b00313fbd09813mr5868160wrp.28.1692699973995;
-        Tue, 22 Aug 2023 03:26:13 -0700 (PDT)
-Date: Tue, 22 Aug 2023 11:26:13 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 1/5] build: make cc-option properly deal with
- unrecognized sub-options
-Message-ID: <917c0f5f-f664-4631-9464-29f22d61a05c@perard>
-References: <10ce72fb-4fb7-67de-41ec-7291dbac0038@suse.com>
- <60da37cf-abec-be58-d433-e98eec0c59bd@suse.com>
- <9dd1134b-8bc8-4fea-a2d7-dd20bd6af9c5@perard>
- <7aa1ecac-6978-ef52-ccad-a71ff878e42a@suse.com>
+X-Inumbo-ID: 7662a5bc-40d6-11ee-8782-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cJMkrhUJdcjR35JIwpDp0/thvPggDAHQHjZoXgCWirgds6JDKVz89k9tLFTDNhftUyO2tjOv1XdoGfwxWmo6Q/wXbvgR4P12ipYB4+GOh5TX7fkOeoqhl3k7jFx0rNnue9wtmVAXRhrgnBWZXSOlcU2gFDt5PCuP+eFzNVUHRFwynnQeCdIc5M9CxFV0uXoG/rC+nqzUpCbHjgJdo/sN2SE1F3sKQcYa8KnkcJ1TN/41GrEx+irKrTFR3q6T51Rb+PEOSH0+ksPbHddC8IsvaNdRqiggLvUUZxot5uwE4szRgED/RFIuP5ewGx63sjs7eVDRj8rigauzvDK3pSqJqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xrxqIlHykt0KIFQ9pGDd8kFqyJME4x89aJa7B5TbtfM=;
+ b=N7/zTNZCyZQpXmb5g3KToIrMqIja4luG6uyo0q+ZaIeV6J412YXS8jFk4iYzYmO5J3MYYAjlsLCdp1WehtTl6l09kV+W7eV/51899I0G4HILW083r931UCTnLsxuVfB40Hry36NqeS8hvtIfcrkpriLanWWTA1bs/II3pBnUMRk+RF2DLS3XX10W5yGh8/6oicNYz6yvWua/qO0NdnsvBw8Rvf5gPB7VaPQ9HAGUXE6KDZV2SSWXYH0t7sDu9UG7yhS7iANYLVqSHv9fOMQrqo+Bs0YfYvZFtxBwoZv6u7a7bEaczY/ah9ACQFmCUE+V7wICNW3sxOeVc2Slcl/mag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xrxqIlHykt0KIFQ9pGDd8kFqyJME4x89aJa7B5TbtfM=;
+ b=KMwZiLQxwROnJ+IjmzDXa8kaideuG1lPNEOUi+NpUgSixoAcc6fHUEluo9TXHUIf/VjVIvwScf+YMqeMomjBH4XQSAi8kap75jdeJHTdmM1Fm2xffbGRWTYplfqP9i444/JhCdAEMHWit2WScw9epkc7V0irAHG+MeNsTEjodFe7XVv/AaVYtPKSRx8PNstQjVaPW5KA4ddiZATfMvigFSfvwDpl/3DQvpDmfmPDuonW0QoFgsHLXHv0CaRczC86K/Iwi/3W5RZ05mnjI4YdAxVx0syAqc01uWJanX+MUaOkfKql9Il2G25aJCHt/h6UlSwCfWcwjOG8bt5tcarrBg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <2256ee98-e34e-2229-66ac-baf2337d7c30@suse.com>
+Date: Tue, 22 Aug 2023 12:27:10 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v4 5/6] libxl: use the cpuid feature names from
+ cpufeatureset.h
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20230725130558.58094-1-roger.pau@citrix.com>
+ <20230725130558.58094-6-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230725130558.58094-6-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0186.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::16) To AS8PR04MB8788.eurprd04.prod.outlook.com
+ (2603:10a6:20b:42f::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7aa1ecac-6978-ef52-ccad-a71ff878e42a@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|PAXPR04MB8605:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46769caa-18a5-4e29-a7fe-08dba2fa58e6
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	rBNPeBWZFHmnBlGQmxuZfGH1GIVnh+UC4KV6HZzexTrAvxObt4oGoKcvqIFZy2MEyQT2lEAse4SVnZwdV+LGumSXq+KzhywMz8JAE4os6BMLVkmBGN4jWs4S4JkUu36g04qtBSQgDkPD+s7yPgd+lAsz1nXpII/etbIwKAJSb+i4xrv+qTlzgxEjAG9RxOVYRT0zjR1pxeJ50Z/0OJnMfOvw9FdcamFGyHORRGJcaqNRqZB5Uc5wIaka3rw+UHb2+nnWWDfr1+Rs7v962/p/u+xceVOjLvul3nzVzzEpOGO9UkoUpl98qeKNQMYBMWyx9L5iwSyaj4eOww9UGCdjNAARBEj3qNhUoi497bgIPWs40RCsZHfRFIod5sCfvgL4msa7ytusSvQA0DPAp+dMTkTR3gIZhi+L+rpifs9qTYAY4Fb+WnBxB/2NUpi8tmbiS5Uhz3z0URqsAZfCtLQoUiahqn3wwoui9uLJ50d7fHyj24rY7+EKBbxWcsnzKAHxOPy1Ihl1pXvNQ88wkAtUVQBWcdx0b1znZdsw2cbOxyvzp0B9qnyQRTkOjvz+oeA85C0N3a1c5C3+bFQg9k1pwvQ+J3v0fgaCO1QueHDVDJ0AQ/I7ZNXNsZ3iPQJhhQnm1mfbRv4JEcYGvP50a2R0yA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(376002)(366004)(396003)(39860400002)(1800799009)(186009)(451199024)(8676002)(8936002)(4326008)(5660300002)(53546011)(86362001)(38100700002)(2616005)(31696002)(6506007)(6512007)(6486002)(26005)(66574015)(478600001)(41300700001)(66556008)(66476007)(66946007)(36756003)(54906003)(316002)(6916009)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZC9oV25YMm5DVGp6aTViQ3MyVUpoOTJwcmsvNWlvTWtiWkxQSWhma0xsMWV1?=
+ =?utf-8?B?MDR6MDl1dEdaSStGNU1UTlNYclB0QnNJLzhOWmh3Q1RKTllvRDMvY3dkOEQ0?=
+ =?utf-8?B?QUhOaVJTbThnWmZUNWVOS0RlRmY3QmZKSVoySzMwb084VEpwZ2JObVAwNWJX?=
+ =?utf-8?B?WmFaRmNEREFJMTJlREJZN0U3NHhQamVnVm1FaTd0TXZoRjc3OWxGeEwzeUUr?=
+ =?utf-8?B?VmM4STdTNTR0eVFwNmU2UTFZancrREFqdWpwSVlSR0FrSXZ2bnZnSUlkT3FW?=
+ =?utf-8?B?N1lHS0k1RmpoNnBwTGpDQlJ0cE5aREZqR3lvVFRLSXBJUWNkRStaRFdpQlFT?=
+ =?utf-8?B?QnFyUGx3V3RxSjY1aEpwcUJiWFdoNS92R1IzTFJaaUF4bXRtTk1GUlRHWFIv?=
+ =?utf-8?B?dUlqSmJ3Wk5HaHBqbVFqNXA0K1VrNmNYVUhzd2o1ekl2a2pmSVVBWGFvS0pv?=
+ =?utf-8?B?R09VNlo4UlY3SUxmSFFHRlRjTzBEaE5FS3VXcTRLNXQ4aWpiazEzQy91TFpn?=
+ =?utf-8?B?L29mbE13cGxySmcrc1VkMWpJTHVVSTdMdnVQS3BBMUlHTDNYVHlIVDY2OHpW?=
+ =?utf-8?B?eThqQXNadE5sNm5oS2t0OCs0ZGUyaEZJZlkrbHdqV3dEcnRxU2RaQzcrbUFN?=
+ =?utf-8?B?Rnhqayt3d0ljbFY0M1BUbXVoS3UxRC9kcXpsN3llVzdGZjhrdHY2M3Y3M0FP?=
+ =?utf-8?B?a2lQcU5HTmtJa0VqbVEyQW82enBFM3BOdEM3ODdwUVpPekpGaEdFbTJtZWJz?=
+ =?utf-8?B?d21kc0ZMZmdxWGZ2U3hOU3IwMTVZOVgwKzU0NElxMWdBK3dXR3ViczR3ZExq?=
+ =?utf-8?B?THFERHhOa3VvUHQwWWJwbEZ1a3BSdlIxaWc0bUZub2tDVUV3eTNzTmxrMmpQ?=
+ =?utf-8?B?Qmc2YnVLc0ZzTzVUbm9nbnVKaHJiMXo3M3l0eDNFQVA2T3NBOXJlaFdkYm15?=
+ =?utf-8?B?bmFjbGJMWGZoNmFULzczTlpRVytRZFN5K0FHVTJTd28zQ2dBZzQ1TGtVdmtV?=
+ =?utf-8?B?TGFiYVUrLzFGMlRDRXZGREEyUTdIamxPalJMWURMVTloNGx3UHlUSkZmV0cz?=
+ =?utf-8?B?VzdSOTVGZDlnT255S0tiRXNvWHl1eGlpVVkxL0VYS1YvTDlNN252NzM3SExl?=
+ =?utf-8?B?U1oxOUlaY3ErNG1iWnloNFo3R2hWVVJLUVRZNUgxS2RpL1V6dXFueXpDS2lP?=
+ =?utf-8?B?SitBNisxYTFWUU1iZVR3ckozZS9ZWXR5dVBjWGNscWp6YkYwNHpUd3FpbkFy?=
+ =?utf-8?B?NzluQUJxRG5VYU80QmlpU3NCQXh5SnpPTzJBSmhkbTEwK0lHQ1FWNW94aUdy?=
+ =?utf-8?B?djh3RlZ4Q2ZBaTVjWXAvemkvS3QveHI0ajdtRjBxcXFUV1hJd01ISDRVcVhy?=
+ =?utf-8?B?aFV1ZFhQMEkzU2IxWVZTMkpIa2RyYnIwaGpVcGNLUWgvL3VXcEpFVkRaMVRq?=
+ =?utf-8?B?N2V5aFRJYitKRVBSUUtKWU8xTDM0bS9FcnVDU0VNcllzY05lN2JyUWgxUkNO?=
+ =?utf-8?B?b0dBcXRLUmgvMzB1UXk0K1BjR21rSmJEZzZEa2M4VVFJTjZiYnpRd29pN1J1?=
+ =?utf-8?B?c0JqUXZnU0NnUjEyT2hjYWNTWmcxUG5Zc2VjNGlUcGZKU24vMWRVUU51Q1ZV?=
+ =?utf-8?B?eEdVTytQRFVoelRpVmZMczNxK1pPcC95VWFYUkxTcjEwTzRhODg2OW80VUpN?=
+ =?utf-8?B?WWt5RFA4cklLWmllbHA0KzdmNXh0empaZDU5OGl3aTJ6Ym1BS0ZpbDY0blYw?=
+ =?utf-8?B?VU9xa3R0NExMVXVCUGN1em1FeXJ6SG5lZjdxc3VlUFlYNmVJS3Jxd052MkNp?=
+ =?utf-8?B?SWlKVHlpRmxjelZJbGNybkR4TFUwaEVodzlpQUUzSFRFYWROMmlONUxNQUpS?=
+ =?utf-8?B?SnVWSnV4dHI5R2MxaUJKSGFxYU51NGh4NGRiVUtteW5wMVZKbkR6dE10UGV0?=
+ =?utf-8?B?RGZYNlBmS0tqRXpmaDV6bHNlUUV6c241K0lPSUlWdFBIWjNBN3h6a0ZhRk5p?=
+ =?utf-8?B?bDIyYThrZ2YyczhPbWl5b0VUUzRqUzQwYzRmRC9RY0grMlk4Rmp5akZuL202?=
+ =?utf-8?B?T3dxQTcvZXQ2Lzc2SUZQZGJzbzVXemxSV2Jja0htL2dLQ0l5UXJ4L2Z4S0tz?=
+ =?utf-8?Q?xFnlANxKtHpeyUkgMjPaX+tzg?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46769caa-18a5-4e29-a7fe-08dba2fa58e6
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 10:27:12.1577
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3DHYn9SllacW3BlQVi1YGvseS6zpW8D4vt2lHcoKvb1YWjaU3ekoIr5yIRKMCVNqHA3xnDypHV2aG0JIvnHt9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8605
 
-On Wed, Aug 16, 2023 at 08:06:52AM +0200, Jan Beulich wrote:
-> On 11.08.2023 15:48, Anthony PERARD wrote:
-> > But isn't it doing doing pattern matching on an error message going to
-> > lead sometime to false positive? Linux's build system seems to works
-> > fine by just using the exit value. They've got a few trick to deal with
-> > -Wno-* and with clang.
-> > 
-> > For -Wno-$(warning), they test -W$(warning) instead. For clang, they've
-> > enable additional warnings:
-> >     -Werror=unknown-warning-option
-> >     -Werror=ignored-optimization-argument
-> >     -Werror=option-ignored
-> >     -Werror=unused-command-line-argument
-> 
-> I think using just -Werror is going to be enough. The completely changed
-
-Yes, looks like -Werror is enough. I'm not sure why Linux has them
-because they tests flags with -Werror in most cases.
-
-> patch below appears to be doing fine, but of course requires me to drop
-> ...
-> 
-> > In any case, the patch is fine.
-> > Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-> 
-> ... this.
-> 
-> Jan
-> 
-> --- a/Config.mk
-> +++ b/Config.mk
-> @@ -81,17 +81,17 @@ PYTHON_PREFIX_ARG ?= --prefix="$(prefix)
+On 25.07.2023 15:05, Roger Pau Monne wrote:
+>          {"invtsc",       0x80000007, NA, CPUID_REG_EDX,  8,  1},
 >  
->  # cc-option: Check if compiler supports first option, else fall back to second.
->  #
-> -# This is complicated by the fact that unrecognised -Wno-* options:
-> +# This is complicated by the fact that with most gcc versions unrecognised
-> +# -Wno-* options:
->  #   (a) are ignored unless the compilation emits a warning; and
->  #   (b) even then produce a warning rather than an error
-> -# To handle this we do a test compile, passing the option-under-test, on a code
-> -# fragment that will always produce a warning (integer assigned to pointer).
-> -# We then grep for the option-under-test in the compiler's output, the presence
-> -# of which would indicate an "unrecognized command-line option" warning/error.
-> +# Further Clang also only warns for unrecognised -W* options.  To handle this
-> +# we do a test compile, substituting -Wno-* by -W* and adding -Werror.  This
-> +# way all unrecognised options are diagnosed uniformly, allowing us to merely
-> +# check exit status.
->  #
->  # Usage: cflags-y += $(call cc-option,$(CC),-march=winchip-c6,-march=i586)
-> -cc-option = $(shell if test -z "`echo 'void*p=1;' | \
-> -              $(1) $(2) -c -o /dev/null -x c - 2>&1 | grep -- $(2:-Wa$(comma)%=%) -`"; \
-> +cc-option = $(shell if $(1) $(2:-Wno-%=-W%) -Werror -c -o /dev/null -x c /dev/null >/dev/null 2>&1; \
->                then echo "$(2)"; else echo "$(3)"; fi ;)
+> -        {"clzero",       0x80000008, NA, CPUID_REG_EBX,  0,  1},
+> -        {"rstr-fp-err-ptrs", 0x80000008, NA, CPUID_REG_EBX, 2, 1},
+> -        {"wbnoinvd",     0x80000008, NA, CPUID_REG_EBX,  9,  1},
+> -        {"ibpb",         0x80000008, NA, CPUID_REG_EBX, 12,  1},
+> -        {"ibrs",         0x80000008, NA, CPUID_REG_EBX, 14,  1},
+> -        {"amd-stibp",    0x80000008, NA, CPUID_REG_EBX, 15,  1},
+> -        {"ibrs-always",  0x80000008, NA, CPUID_REG_EBX, 16,  1},
+> -        {"stibp-always", 0x80000008, NA, CPUID_REG_EBX, 17,  1},
+> -        {"ibrs-fast",    0x80000008, NA, CPUID_REG_EBX, 18,  1},
+> -        {"ibrs-same-mode", 0x80000008, NA, CPUID_REG_EBX, 19,  1},
+> -        {"no-lmsl",      0x80000008, NA, CPUID_REG_EBX, 20,  1},
+>          {"ppin",         0x80000008, NA, CPUID_REG_EBX, 23,  1},
+> -        {"amd-ssbd",     0x80000008, NA, CPUID_REG_EBX, 24,  1},
+> -        {"virt-ssbd",    0x80000008, NA, CPUID_REG_EBX, 25,  1},
+> -        {"ssb-no",       0x80000008, NA, CPUID_REG_EBX, 26,  1},
+> -        {"psfd",         0x80000008, NA, CPUID_REG_EBX, 28,  1},
+>          {"btc-no",       0x80000008, NA, CPUID_REG_EBX, 29,  1},
+> -        {"ibpb-ret",     0x80000008, NA, CPUID_REG_EBX, 30,  1},
 
-I've try to compare the result of cc-option with and without this change
-in the gitlab CI, and it seems that the result is the same for the flags
-we tests. So this change looks fine:
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Noticing only now, while doing further backports: Why was btc-no kept
+here?
 
-Thanks,
-
--- 
-Anthony PERARD
+Jan
 
