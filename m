@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573A078397F
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:50:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588071.919519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED295783980
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:50:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588075.919531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKHK-0001vd-FD; Tue, 22 Aug 2023 05:50:10 +0000
+	id 1qYKHl-0002S7-PM; Tue, 22 Aug 2023 05:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588071.919519; Tue, 22 Aug 2023 05:50:10 +0000
+Received: by outflank-mailman (output) from mailman id 588075.919531; Tue, 22 Aug 2023 05:50:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKHK-0001se-CY; Tue, 22 Aug 2023 05:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 588071;
- Tue, 22 Aug 2023 05:50:08 +0000
+	id 1qYKHl-0002Nz-Lo; Tue, 22 Aug 2023 05:50:37 +0000
+Received: by outflank-mailman (input) for mailman id 588075;
+ Tue, 22 Aug 2023 05:50:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qkm5=EH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qYKHI-0000WF-8J
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:50:08 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1qYKHk-0000WF-Aj
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:50:36 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfbe7c36-40af-11ee-8782-cb3800f73035;
- Tue, 22 Aug 2023 07:50:07 +0200 (CEST)
+ id d07e8330-40af-11ee-8782-cb3800f73035;
+ Tue, 22 Aug 2023 07:50:35 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 752471F85D;
- Tue, 22 Aug 2023 05:50:07 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9053722C44;
+ Tue, 22 Aug 2023 05:50:35 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E59113251;
- Tue, 22 Aug 2023 05:50:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B7DA13251;
+ Tue, 22 Aug 2023 05:50:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aMvCCY9M5GQeMwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:50:07 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id YMSaGKtM5GQeMwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:50:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,28 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfbe7c36-40af-11ee-8782-cb3800f73035
+X-Inumbo-ID: d07e8330-40af-11ee-8782-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692683407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1692683435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=zWPx0WthQYn2Gk8iCQpP4fzg+K4ErLNanF/wDoeH9pc=;
-	b=rvoX4bUtSYAlnvfkOWOf7PDD6blrBC/ye5oa+cpEScose/nYUXWE7A24kakuJjDdQHohzd
-	BCp7v4G8ivNapRUmE9cCr9QoDAPFkcLQnTro/gtGHWXfRPagZKUo3kqh8hlV/GscGplmJW
-	f4aT4LL9rq5+WPW79vW4E0JalyjglL4=
-Message-ID: <f7423d4e-b24b-4bf4-8ec9-39107a09590c@suse.com>
-Date: Tue, 22 Aug 2023 07:50:06 +0200
+	bh=qC+IxPdh0tpsdRXJ4F86vv4wtwOlEu7B4ocSrRdw/io=;
+	b=iP06WW9xMLXXaCL3p82fGiU7VkbPdnH/K45loxrLFhUI+gmL+x9WDo0WD52jgN+/bFg8Hb
+	oH+FkQK3Amur7gayQzDQEnffNdjGCybXpclP5iOC2tjOIjZjbkguos7M83g8dhHnh0qYOh
+	ezL3lfRdWHZXcfZJTeJoqq4k86SpThk=
+Message-ID: <80442a00-72a2-44d6-a584-cf5339ce96ae@suse.com>
+Date: Tue, 22 Aug 2023 07:50:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen: Make virt_to_pfn() a static inline
+Subject: Re: [PATCH -next] xen-pciback: Remove unused function declarations
 Content-Language: en-US
-To: Linus Walleij <linus.walleij@linaro.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
+To: Yue Haibing <yuehaibing@huawei.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com
+Cc: xen-devel@lists.xenproject.org
+References: <20230808150912.43416-1-yuehaibing@huawei.com>
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
@@ -97,49 +94,38 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
+In-Reply-To: <20230808150912.43416-1-yuehaibing@huawei.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------AVuXEM9h6sZbNt7MZV2r00hd"
+ boundary="------------qfrej7kHvhrgFDiwj5JfWN7f"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------AVuXEM9h6sZbNt7MZV2r00hd
-Content-Type: multipart/mixed; boundary="------------OsVmAI6DUB6lxOWEF6gTunUP";
+--------------qfrej7kHvhrgFDiwj5JfWN7f
+Content-Type: multipart/mixed; boundary="------------XBicS01S0Z0pnC0U5twB6lj1";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Linus Walleij <linus.walleij@linaro.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <f7423d4e-b24b-4bf4-8ec9-39107a09590c@suse.com>
-Subject: Re: [PATCH] x86/xen: Make virt_to_pfn() a static inline
-References: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
-In-Reply-To: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
+To: Yue Haibing <yuehaibing@huawei.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com
+Cc: xen-devel@lists.xenproject.org
+Message-ID: <80442a00-72a2-44d6-a584-cf5339ce96ae@suse.com>
+Subject: Re: [PATCH -next] xen-pciback: Remove unused function declarations
+References: <20230808150912.43416-1-yuehaibing@huawei.com>
+In-Reply-To: <20230808150912.43416-1-yuehaibing@huawei.com>
 
---------------OsVmAI6DUB6lxOWEF6gTunUP
-Content-Type: multipart/mixed; boundary="------------0VLF67F0FSd0a6UOSN96QXqu"
+--------------XBicS01S0Z0pnC0U5twB6lj1
+Content-Type: multipart/mixed; boundary="------------OXJqkWW5yT7NcAUgeQVlXG05"
 
---------------0VLF67F0FSd0a6UOSN96QXqu
+--------------OXJqkWW5yT7NcAUgeQVlXG05
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTAuMDguMjMgMDk6MjcsIExpbnVzIFdhbGxlaWogd3JvdGU6DQo+IE1ha2luZyB2aXJ0
-X3RvX3BmbigpIGEgc3RhdGljIGlubGluZSB0YWtpbmcgYSBzdHJvbmdseSB0eXBlZA0KPiAo
-Y29uc3Qgdm9pZCAqKSBtYWtlcyB0aGUgY29udHJhY3Qgb2YgYSBwYXNzaW5nIGEgcG9pbnRl
-ciBvZiB0aGF0DQo+IHR5cGUgdG8gdGhlIGZ1bmN0aW9uIGV4cGxpY2l0IGFuZCBleHBvc2Vz
-IGFueSBtaXN1c2Ugb2YgdGhlDQo+IG1hY3JvIHZpcnRfdG9fcGZuKCkgYWN0aW5nIHBvbHlt
-b3JwaGljIGFuZCBhY2NlcHRpbmcgbWFueSB0eXBlcw0KPiBzdWNoIGFzICh2b2lkICopLCAo
-dW5pdHB0cl90KSBvciAodW5zaWduZWQgbG9uZykgYXMgYXJndW1lbnRzDQo+IHdpdGhvdXQg
-d2FybmluZ3MuDQo+IA0KPiBBbHNvIGZpeCBhbGwgb2ZmZW5kaW5nIGNhbGwgc2l0ZXMgdG8g
-cGFzcyBhICh2b2lkICopIHJhdGhlcg0KPiB0aGFuIGFuIHVuc2lnbmVkIGxvbmcuIFNpbmNl
-IHZpcnRfdG9fbWZuKCkgaXMgd3JhcHBpbmcNCj4gdmlydF90b19wZm4oKSB0aGlzIGZ1bmN0
-aW9uIGhhcyBiZWNvbWUgcG9seW1vcnBoaWMgYXMgd2VsbA0KPiBzbyB0aGUgdXNhZ2UgbmVl
-ZCB0byBiZSBmaXhlZCB1cC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IExpbnVzIFdhbGxlaWog
-PGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZv
-ci1saW51cy02LjYNCg0KDQpKdWVyZ2VuDQoNCg==
---------------0VLF67F0FSd0a6UOSN96QXqu
+T24gMDguMDguMjMgMTc6MDksIFl1ZSBIYWliaW5nIHdyb3RlOg0KPiBDb21taXQgYTkyMzM2
+YTExNzZiICgieGVuL3BjaWJhY2s6IERyb3AgdHdvIGJhY2tlbmRzLCBzcXVhc2ggYW5kIGNs
+ZWFudXAgc29tZSBjb2RlLiIpDQo+IGRlY2xhcmVkIGJ1dCBuZXZlciBpbXBsZW1lbnRlZCB0
+aGVzZSBmdW5jdGlvbnMuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBZdWUgSGFpYmluZyA8eXVl
+aGFpYmluZ0BodWF3ZWkuY29tPg0KDQpQdXNoZWQgdG8geGVuL3RpcC5naXQgZm9yLWxpbnVz
+LTYuNg0KDQoNCkp1ZXJnZW4NCg0K
+--------------OXJqkWW5yT7NcAUgeQVlXG05
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -197,25 +183,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------0VLF67F0FSd0a6UOSN96QXqu--
+--------------OXJqkWW5yT7NcAUgeQVlXG05--
 
---------------OsVmAI6DUB6lxOWEF6gTunUP--
+--------------XBicS01S0Z0pnC0U5twB6lj1--
 
---------------AVuXEM9h6sZbNt7MZV2r00hd
+--------------qfrej7kHvhrgFDiwj5JfWN7f
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTI8FAwAAAAAACgkQsN6d1ii/Ey8G
-kQgAluqlNq78cnIv+VtU5Mmleim5Y5qQsaY6O8bWhojVBO4qZYKzgR614WGHXfO27x0T1yLBGqXM
-UpHup9X0aVjzGAHQsHNxSnKCgpb+kTTrj6m5sB+SfIcLSBiBIfvw53O0umMGZ0Fk0CIu+JqJcwaz
-kkLHO5ZtcqSFQI9S60f5hg4avIkzdElJmyprH78hvCaiiRuuRWkWh/TpMZMQxF43K401zbBnHewJ
-8cDy4iNrDWlDRLQByrVmkihWnH3wl7MDKeTROaCV36nVLTrpgcZ/5+k5S9E3AUM4/kKDPaid6ird
-dWnzFLf9il4a6BCVk7nZX1qaJfKvoZkSALRWVQh8zA==
-=iA+x
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTKsFAwAAAAAACgkQsN6d1ii/Ey9z
+cgf/dNFtptY3FvJ//tqzoTBWhvbDeh2gd1dGBAcF/1d2kcyVInwgKrFr9BlKVSW4/OROGxnp9rtj
+ScPq12831tmvqQt+BZVXLaqmjUJR7z8M/q2nWId1b4GlzzZJzD7JKVFxZETzaTTVQHlNp920LZzb
+X4jOj7CkvvS5OtKFTNnZepwkQwy4ejwhQKpBlNI61Kt/USzUMHJmPvhNnb6SpywJRZonNsa2SIBY
+6b16DWmEg7iK77BsUSwILjHqLsT38I2iZFb/M2iHML207BhoWR9EZsGC4+0ACCL/ReIlUxUfzJ9C
+KU7G7gpXHMzh5ZVkVhBgu9jk3xBb30s601CRyKIuSg==
+=U9MW
 -----END PGP SIGNATURE-----
 
---------------AVuXEM9h6sZbNt7MZV2r00hd--
+--------------qfrej7kHvhrgFDiwj5JfWN7f--
 
