@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E246F7847DD
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 18:40:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588630.920183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 250B9784910
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 20:02:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588639.920193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYUPm-00012l-DJ; Tue, 22 Aug 2023 16:39:34 +0000
+	id 1qYVh4-0002KU-7n; Tue, 22 Aug 2023 18:01:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588630.920183; Tue, 22 Aug 2023 16:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 588639.920193; Tue, 22 Aug 2023 18:01:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYUPm-000116-AV; Tue, 22 Aug 2023 16:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 588630;
- Tue, 22 Aug 2023 16:39:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qYVh4-0002Ik-4v; Tue, 22 Aug 2023 18:01:30 +0000
+Received: by outflank-mailman (input) for mailman id 588639;
+ Tue, 22 Aug 2023 18:01:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=THXG=EH=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
- id 1qYUPl-000110-4D
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 16:39:33 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77e9b007-410a-11ee-8782-cb3800f73035;
- Tue, 22 Aug 2023 18:39:31 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-3fef56f7223so15254125e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Aug 2023 09:39:31 -0700 (PDT)
-Received: from [192.168.2.1] (82-64-138-184.subs.proxad.net. [82.64.138.184])
- by smtp.googlemail.com with ESMTPSA id
- b19-20020a05600c06d300b003fe24df4182sm862813wmn.1.2023.08.22.09.39.30
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Aug 2023 09:39:30 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1qYVh2-0002Ie-8l
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 18:01:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qYVgl-0002ag-UV; Tue, 22 Aug 2023 18:01:11 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qYVgl-0008Sm-Pz; Tue, 22 Aug 2023 18:01:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,69 +39,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77e9b007-410a-11ee-8782-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rabbit-lu.20221208.gappssmtp.com; s=20221208; t=1692722371; x=1693327171;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/eLWOQSsrvP+WahVtJLlPd0HyX+o2lHO9vBjYk2y7kQ=;
-        b=CaVbX7m5jTSsK9CA4YoZ6zQfCVlVm56WfrcYVXomyZgo/L0mSdTYXa8bW6QWeu7KqK
-         LXq5cVwwZXtyBWKF5kuubA0bwKA8c/SM8LcfUX7sVin1CTg5S+8tI8NlhUu/jfNz6jRM
-         CdUDy2EKz1FwO8o88tHT8ZSj8d1O1XrY1wYJBh1sXWRDxRPhr3acMRchR0UkkeLRoDjS
-         N/cU2+GxtCiGQ5MUcxzM9QGOoeyT1b3ygbszkMB4LHcCG//1iqMP7z+Z3WJqYZwbThZx
-         mjh4yJISSFdtSN3PtXsuQvsb9ac+yYiSVSbKzws5SQ6ACdbN+BGPwqzE+uFcSDtcyOyP
-         Bgtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692722371; x=1693327171;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/eLWOQSsrvP+WahVtJLlPd0HyX+o2lHO9vBjYk2y7kQ=;
-        b=iUieqvsk3eXNjqeKdak8lljOL7IfnTZWtVI13An12QnBkV4qVJIHOA+qYEwP473VY3
-         Eu7yiGHW39gfTjp3NRaH181rCGiX0CIHDm3FI+6YPI+jk/IcE2Hqlnigt4GayISJ2Myd
-         5PmmOcL4H1LL8XXosD4TkXxHxI4hL/HitZ5UjNKQs+B6zmwORM6vmr0r5RbVPLL/1rM8
-         XgFTiD0u+kFmY1HwEmLsojPGq4P6+xiUlLIht6a3IX2TRLf3D/fQTQhffxt6BgKHlyo/
-         z69q2ihctQZ5dtJ8RcY6n3LNn6/s5+Cd1UQfeWa+SDI06zzIMzShVCKGz9w5DAgD8Cgi
-         HnfQ==
-X-Gm-Message-State: AOJu0YxdoDOrAVUY408Fvm2JaHt2PLamDAyClkdYIoAvU6fHsLaBbSE9
-	0EW6/EcpbFX+k4ULO5SlnPeDcGcTA4p1vcAWnevcug==
-X-Google-Smtp-Source: AGHT+IFPYwidEJt5spFUnLWIFziv5NXZRefT0pLZH3PCgW+bi8ZRaJh+1TFsyZLgBuBF3tlgca9cNA==
-X-Received: by 2002:a7b:c7c3:0:b0:3f9:b748:ff37 with SMTP id z3-20020a7bc7c3000000b003f9b748ff37mr7983545wmk.20.1692722370681;
-        Tue, 22 Aug 2023 09:39:30 -0700 (PDT)
-Message-ID: <ad821a92-04d7-b744-c491-9c8fd71ff349@rabbit.lu>
-Date: Tue, 22 Aug 2023 18:39:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=2nZN30c0T8+kEB6r3uJXpTg0wzd12OJ4cIiiJX07xSM=; b=w2/d/ES8thZJcaYYXwtVv1j8qO
+	FJcGO4bzqfFQ94xYWZhIezkwdvrNNp8zQGNzqnqpMQ9ZmlCSyK76TGwVstidBdSlojF+tb34YmYXx
+	DnAy/GATuoZLbS+KZ8tdh72dzIYo1gOKSKqOb1v92yWmfB1qI5xY3C18yWGqXBGosT7U=;
+Message-ID: <5356f905-4b14-46b4-b5b4-c236989e1ec8@xen.org>
+Date: Tue, 22 Aug 2023 19:01:10 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Content-Language: en-US
-To: xen-devel@lists.xenproject.org
-From: zithro <slack@rabbit.lu>
-Subject: [RFC] network hotplug scripts - set qlen 1000 by default
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/13] xen/arm: mmu: move MMU specific P2M code to
+ mmu/p2m.{c,h}
+Content-Language: en-GB
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Penny Zheng <penny.zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
+References: <20230814042536.878720-1-Henry.Wang@arm.com>
+ <20230814042536.878720-12-Henry.Wang@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230814042536.878720-12-Henry.Wang@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hello all,
+Hi Henry,
 
-would it be useful and/or right to add ...
-   ip link set dev ${dev} qlen 1000
-... to one of the hotplug scripts ?
+On 14/08/2023 05:25, Henry Wang wrote:
+> From: Penny Zheng <penny.zheng@arm.com>
+> 
+> Current P2M implementation is designed for MMU system only.
+> We move the MMU-specific codes into mmu/p2m.c, and only keep generic
+> codes in p2m.c, like VMID allocator, etc. We also move MMU-specific
+> definitions and declarations to mmu/p2m.h, such as p2m_tlb_flush_sync().
+> Also expose previously static functions p2m_vmid_allocator_init(),
+> p2m_alloc_vmid(), __p2m_set_entry() and setup_virt_paging_one()
 
-For now, all vifs are created with "qlen 32", but (most?) domUs use 1000 
-by default.
+Looking at the code, it seemsm that you need to keep expose 
+__p2m_set_entry() because of p2m_relinquish_mapping(). However, it is 
+not clear how this code is supposed to work for the MPU. So should we 
+instead from p2m_relinquish_mapping() to mmu/p2m.c?
 
-I can propose the patch.
+Other functions which doesn't seem to make sense in p2m.c are:
+   * p2m_clear_root_pages(): AFAIU there is no concept of root in the 
+MPU. This also means that we possibly want to move out anything specific 
+to the MMU from 'struct p2m'. This could be done separately.
+   * p2m_flush_vm(): This is built with MMU in mind as we can use the 
+page-table to track access pages. You don't have that fine granularity 
+in the MPU.
 
-I tested locally by putting :
-   ip link set dev ${dev} qlen 1000
-in "xen-network-common.sh" on line 140 (right after "ip link set dev 
-${dev} up").
+> for futher MPU usage.
 
-What do you think ?
+typo: futher/further/
 
-Thanks,
+> 
+> With the code movement, global variable max_vmid is used in multiple
+> files instead of a single file (and will be used in MPU P2M
+> implementation), declare it in the header and remove the "static" of
+> this variable.
+> 
+> Add #ifdef CONFIG_HAS_MMU to p2m_write_unlock() since future MPU
+> work does not need p2m_tlb_flush_sync().
+
+And there are no specific barrier required? Overall, I am not sure I 
+like the #ifdef rather than providing a stub helper.
+
+If the other like the idea of the #ifdef. I think a comment on top would 
+be necessary to explain why there is nothing to do in the context of the 
+MPU.
+
+Cheers,
 
 -- 
-++
-zithro / Cyril
+Julien Grall
 
