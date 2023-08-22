@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F2578397C
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:49:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588062.919510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 573A078397F
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Aug 2023 07:50:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588071.919519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKGn-0000IC-54; Tue, 22 Aug 2023 05:49:37 +0000
+	id 1qYKHK-0001vd-FD; Tue, 22 Aug 2023 05:50:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588062.919510; Tue, 22 Aug 2023 05:49:37 +0000
+Received: by outflank-mailman (output) from mailman id 588071.919519; Tue, 22 Aug 2023 05:50:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYKGn-0000G7-0O; Tue, 22 Aug 2023 05:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 588062;
- Tue, 22 Aug 2023 05:49:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qYKHK-0001se-CY; Tue, 22 Aug 2023 05:50:10 +0000
+Received: by outflank-mailman (input) for mailman id 588071;
+ Tue, 22 Aug 2023 05:50:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qkm5=EH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qYKGl-0000EN-DM
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:49:35 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab8eac36-40af-11ee-9b0c-b553b5be7939;
- Tue, 22 Aug 2023 07:49:33 +0200 (CEST)
+ id 1qYKHI-0000WF-8J
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 05:50:08 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bfbe7c36-40af-11ee-8782-cb3800f73035;
+ Tue, 22 Aug 2023 07:50:07 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9444022C2B;
- Tue, 22 Aug 2023 05:49:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 752471F85D;
+ Tue, 22 Aug 2023 05:50:07 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E0E413251;
- Tue, 22 Aug 2023 05:49:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E59113251;
+ Tue, 22 Aug 2023 05:50:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iAT5C21M5GQeMwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:49:33 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id aMvCCY9M5GQeMwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 22 Aug 2023 05:50:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,33 +51,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab8eac36-40af-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: bfbe7c36-40af-11ee-8782-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1692683373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1692683407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3ceUnHM3MdAboschXSSic0CfMj7VA6Ed3vzqg3V8bWo=;
-	b=r0QWl8MQ2PpEZSuUec7KxlQmpC7zOVtYaisok1uvNX4PWPYsYo9HpI7nXSNqk6dpIWfetw
-	ggMZ6uOQ4Lv5sXjtj72Dh3b5yAFM/7BVo3Q4A0+3ugASBpbxg/R5ddPDsRZgsK1NSUO2WJ
-	1w8h5muSN6MVyWahw5OHWqF3Ibb+WG0=
-Message-ID: <85e1244c-b657-43a9-abac-bf7464d4794d@suse.com>
-Date: Tue, 22 Aug 2023 07:49:32 +0200
+	bh=zWPx0WthQYn2Gk8iCQpP4fzg+K4ErLNanF/wDoeH9pc=;
+	b=rvoX4bUtSYAlnvfkOWOf7PDD6blrBC/ye5oa+cpEScose/nYUXWE7A24kakuJjDdQHohzd
+	BCp7v4G8ivNapRUmE9cCr9QoDAPFkcLQnTro/gtGHWXfRPagZKUo3kqh8hlV/GscGplmJW
+	f4aT4LL9rq5+WPW79vW4E0JalyjglL4=
+Message-ID: <f7423d4e-b24b-4bf4-8ec9-39107a09590c@suse.com>
+Date: Tue, 22 Aug 2023 07:50:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen: remove a confusing comment on auto-translated
- guest I/O
+Subject: Re: [PATCH] x86/xen: Make virt_to_pfn() a static inline
 Content-Language: en-US
-To: Petr Tesarik <petrtesarik@huaweicloud.com>,
+To: Linus Walleij <linus.walleij@linaro.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>,
- "moderated list:XEN HYPERVISOR X86" <xen-devel@lists.xenproject.org>,
- "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
- <linux-kernel@vger.kernel.org>
-Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>, petr@tesarici.cz
-References: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
@@ -102,50 +97,49 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
+In-Reply-To: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------qqJIlfO7HnRrDj42ICzZODzZ"
+ boundary="------------AVuXEM9h6sZbNt7MZV2r00hd"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qqJIlfO7HnRrDj42ICzZODzZ
-Content-Type: multipart/mixed; boundary="------------z6xVhrRcDMnGURa8ckUK80ba";
+--------------AVuXEM9h6sZbNt7MZV2r00hd
+Content-Type: multipart/mixed; boundary="------------OsVmAI6DUB6lxOWEF6gTunUP";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Petr Tesarik <petrtesarik@huaweicloud.com>,
+To: Linus Walleij <linus.walleij@linaro.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>,
- "moderated list:XEN HYPERVISOR X86" <xen-devel@lists.xenproject.org>,
- "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
- <linux-kernel@vger.kernel.org>
-Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>, petr@tesarici.cz
-Message-ID: <85e1244c-b657-43a9-abac-bf7464d4794d@suse.com>
-Subject: Re: [PATCH v1] xen: remove a confusing comment on auto-translated
- guest I/O
-References: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
-In-Reply-To: <20230802163151.1486-1-petrtesarik@huaweicloud.com>
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <f7423d4e-b24b-4bf4-8ec9-39107a09590c@suse.com>
+Subject: Re: [PATCH] x86/xen: Make virt_to_pfn() a static inline
+References: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
+In-Reply-To: <20230810-virt-to-phys-x86-xen-v1-1-9e966d333e7a@linaro.org>
 
---------------z6xVhrRcDMnGURa8ckUK80ba
-Content-Type: multipart/mixed; boundary="------------388wybnVcA7JyfyYrCXYzNND"
+--------------OsVmAI6DUB6lxOWEF6gTunUP
+Content-Type: multipart/mixed; boundary="------------0VLF67F0FSd0a6UOSN96QXqu"
 
---------------388wybnVcA7JyfyYrCXYzNND
+--------------0VLF67F0FSd0a6UOSN96QXqu
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDIuMDguMjMgMTg6MzEsIFBldHIgVGVzYXJpayB3cm90ZToNCj4gRnJvbTogUGV0ciBU
-ZXNhcmlrIDxwZXRyLnRlc2FyaWsuZXh0QGh1YXdlaS5jb20+DQo+IA0KPiBBZnRlciByZW1v
-dmluZyB0aGUgY29uZGl0aW9uYWwgcmV0dXJuIGZyb20geGVuX2NyZWF0ZV9jb250aWd1b3Vz
-X3JlZ2lvbigpLA0KPiB0aGUgYWNjb21wYW55aW5nIGNvbW1lbnQgd2FzIGxlZnQgaW4gcGxh
-Y2UsIGJ1dCBpdCBub3cgcHJlY2VkZXMgYW4NCj4gdW5yZWxhdGVkIGNvbmRpdGlvbmFsIGFu
-ZCBjb25mdXNlcyByZWFkZXJzLg0KPiANCj4gRml4ZXM6IDk4OTUxM2E3MzVmNSAoInhlbjog
-Y2xlYW51cCBwdmggbGVmdG92ZXJzIGZyb20gcHYtb25seSBzb3VyY2VzIikNCj4gU2lnbmVk
-LW9mZi1ieTogUGV0ciBUZXNhcmlrIDxwZXRyLnRlc2FyaWsuZXh0QGh1YXdlaS5jb20+DQoN
-ClB1c2hlZCB0byB4ZW4vdGlwLmdpdCBmb3ItbGludXMtNi42DQoNCg0KSnVlcmdlbg0KDQo=
-
---------------388wybnVcA7JyfyYrCXYzNND
+T24gMTAuMDguMjMgMDk6MjcsIExpbnVzIFdhbGxlaWogd3JvdGU6DQo+IE1ha2luZyB2aXJ0
+X3RvX3BmbigpIGEgc3RhdGljIGlubGluZSB0YWtpbmcgYSBzdHJvbmdseSB0eXBlZA0KPiAo
+Y29uc3Qgdm9pZCAqKSBtYWtlcyB0aGUgY29udHJhY3Qgb2YgYSBwYXNzaW5nIGEgcG9pbnRl
+ciBvZiB0aGF0DQo+IHR5cGUgdG8gdGhlIGZ1bmN0aW9uIGV4cGxpY2l0IGFuZCBleHBvc2Vz
+IGFueSBtaXN1c2Ugb2YgdGhlDQo+IG1hY3JvIHZpcnRfdG9fcGZuKCkgYWN0aW5nIHBvbHlt
+b3JwaGljIGFuZCBhY2NlcHRpbmcgbWFueSB0eXBlcw0KPiBzdWNoIGFzICh2b2lkICopLCAo
+dW5pdHB0cl90KSBvciAodW5zaWduZWQgbG9uZykgYXMgYXJndW1lbnRzDQo+IHdpdGhvdXQg
+d2FybmluZ3MuDQo+IA0KPiBBbHNvIGZpeCBhbGwgb2ZmZW5kaW5nIGNhbGwgc2l0ZXMgdG8g
+cGFzcyBhICh2b2lkICopIHJhdGhlcg0KPiB0aGFuIGFuIHVuc2lnbmVkIGxvbmcuIFNpbmNl
+IHZpcnRfdG9fbWZuKCkgaXMgd3JhcHBpbmcNCj4gdmlydF90b19wZm4oKSB0aGlzIGZ1bmN0
+aW9uIGhhcyBiZWNvbWUgcG9seW1vcnBoaWMgYXMgd2VsbA0KPiBzbyB0aGUgdXNhZ2UgbmVl
+ZCB0byBiZSBmaXhlZCB1cC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IExpbnVzIFdhbGxlaWog
+PGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZv
+ci1saW51cy02LjYNCg0KDQpKdWVyZ2VuDQoNCg==
+--------------0VLF67F0FSd0a6UOSN96QXqu
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -203,25 +197,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------388wybnVcA7JyfyYrCXYzNND--
+--------------0VLF67F0FSd0a6UOSN96QXqu--
 
---------------z6xVhrRcDMnGURa8ckUK80ba--
+--------------OsVmAI6DUB6lxOWEF6gTunUP--
 
---------------qqJIlfO7HnRrDj42ICzZODzZ
+--------------AVuXEM9h6sZbNt7MZV2r00hd
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTG0FAwAAAAAACgkQsN6d1ii/Ey/r
-Gwf7B24NQTsBPH9af8qpXPWkUhCCsrh0JTzZVIAf8g1oaPltvUBqfLPHOLDVTHxvP0xxJfmGcFpw
-HG4LBYBgCsGWd3tCErZHv3YKxKQrmvXYIZ5fzk+4NqDwDgVwnnWbndeZsC7PHjDHQl+zzSosXKWQ
-BDm6WONS4pJ0aHDFl3VJSIpAeF/IeXAjCpeRzKoOJLS70jzOt0OWar838yY/G1rttL1fIOvdTc43
-e7jI0jn6CGcbrqsTQFU7x/tN1B2rz1mX9XuLfiXMuErrgC17g9aqkgNEsNbHrnni9XLA+mIfv0dn
-bm9yLiHn56LOsFD1VWKRd4y0ohpX8IQNpE89Y/fuZA==
-=MlBP
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmTkTI8FAwAAAAAACgkQsN6d1ii/Ey8G
+kQgAluqlNq78cnIv+VtU5Mmleim5Y5qQsaY6O8bWhojVBO4qZYKzgR614WGHXfO27x0T1yLBGqXM
+UpHup9X0aVjzGAHQsHNxSnKCgpb+kTTrj6m5sB+SfIcLSBiBIfvw53O0umMGZ0Fk0CIu+JqJcwaz
+kkLHO5ZtcqSFQI9S60f5hg4avIkzdElJmyprH78hvCaiiRuuRWkWh/TpMZMQxF43K401zbBnHewJ
+8cDy4iNrDWlDRLQByrVmkihWnH3wl7MDKeTROaCV36nVLTrpgcZ/5+k5S9E3AUM4/kKDPaid6ird
+dWnzFLf9il4a6BCVk7nZX1qaJfKvoZkSALRWVQh8zA==
+=iA+x
 -----END PGP SIGNATURE-----
 
---------------qqJIlfO7HnRrDj42ICzZODzZ--
+--------------AVuXEM9h6sZbNt7MZV2r00hd--
 
