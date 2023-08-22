@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9431F784D58
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 01:32:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588787.920394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BA4B784D61
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 01:34:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588793.920404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYarN-0006Lb-Oq; Tue, 22 Aug 2023 23:32:29 +0000
+	id 1qYatD-0006uP-3t; Tue, 22 Aug 2023 23:34:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588787.920394; Tue, 22 Aug 2023 23:32:29 +0000
+Received: by outflank-mailman (output) from mailman id 588793.920404; Tue, 22 Aug 2023 23:34:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYarN-0006Ji-M3; Tue, 22 Aug 2023 23:32:29 +0000
-Received: by outflank-mailman (input) for mailman id 588787;
- Tue, 22 Aug 2023 23:32:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qYatD-0006rv-0T; Tue, 22 Aug 2023 23:34:23 +0000
+Received: by outflank-mailman (input) for mailman id 588793;
+ Tue, 22 Aug 2023 23:34:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gk3p=EH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qYarM-0006Jc-TR
- for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 23:32:28 +0000
+ id 1qYatB-0006rp-Ac
+ for xen-devel@lists.xenproject.org; Tue, 22 Aug 2023 23:34:21 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 269e8362-4144-11ee-9b0c-b553b5be7939;
- Wed, 23 Aug 2023 01:32:26 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6a4a1fe9-4144-11ee-8782-cb3800f73035;
+ Wed, 23 Aug 2023 01:34:20 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 05277639FC;
- Tue, 22 Aug 2023 23:32:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387E2C433C8;
- Tue, 22 Aug 2023 23:32:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B154463A52;
+ Tue, 22 Aug 2023 23:34:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0326C433C7;
+ Tue, 22 Aug 2023 23:34:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,79 +44,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 269e8362-4144-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: 6a4a1fe9-4144-11ee-8782-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692747144;
-	bh=/LmPNMp2lqWs2FiJacKfkAUWQLIiik16dBKmml8Bqb8=;
+	s=k20201202; t=1692747258;
+	bh=eI3DM2SXl024x9UIB0LpBIHV2IXfh7qFJua/gY5uHbE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=abw1XUk345OKKiB1u5rlbGdnkm8Y4PNCGcJUofLneoTDXy/8t74OE2J0Ii+91QD92
-	 MNMfxdbAd7eSHeFIQqPGnPT1Dj93jv0Cc7A0407yIfNY24EtvfOIh2drwa/08uBT4A
-	 /N1ENkzljzD+AG1vHx/2IMQENGP8PRLhTRJTu8W8nJfp+SmAZodIhoA9m2DJMy2nvW
-	 QqT2V+Nb04RZ49vknC2IOwvMR89ek9E1yuI7sef4+ab5YpSv4upqmdjJo0YCTGqlAe
-	 4ZWzAYmT/kMrh2tu9XCHBdBcq6mo6baovPjMHGWbhmv/BVcZaR+oNLSKNd/5Xz3YPW
-	 qpBWCKlxGaHbg==
-Date: Tue, 22 Aug 2023 16:32:21 -0700 (PDT)
+	b=Mx+4fXCydDJJuPV14CcDlUmv4nBib7X9m1qtEpe9nJLRiNWNGrxMg8PG+X8/scIvs
+	 p6o37sJBZyQLZSuKi8dARY1V11jMLNyvnmuUFK6TlDxP0Cq1tUF0lCdal4R0B2xYJ6
+	 QhTbKM7/LRZA6rq15s7wZm+7l3rYtGtvFkNjF9txcMxVbJ7HwSkcT+ygR50mWoS5x0
+	 3cED19srgjVt32N2KxMSBVzc2K93SaWpz4tSPWzeZlHuY8Xn5MdfhyiJFSsZXhcPBo
+	 RTEqI5qQXxsLSs0Rs4uqKt47UUDp1lBXwGZl3KiuVDxDFh6Firv61JBY0we6bolBha
+	 UkIpVZsd6wzyg==
+Date: Tue, 22 Aug 2023 16:34:15 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, jbeulich@suse.com, 
-    andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com, 
-    nicola.vetrini@bugseng.com, 
-    Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: Re: [PATCH v2] docs/misra: document gcc-specific behavior with
- shifting signed integers
-In-Reply-To: <de59a660-1566-44eb-8fd8-b99499e97e99@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2308221624280.6458@ubuntu-linux-20-04-desktop>
-References: <20230822010228.2517542-1-sstabellini@kernel.org> <de59a660-1566-44eb-8fd8-b99499e97e99@xen.org>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [RFC PATCH 3/3] automation/eclair: build docs/misra to address
+ MISRA C:2012 Dir 4.1
+In-Reply-To: <fc8a60f5224f4285f674c83c42cff5b3681c29cd.1692636338.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2308221634090.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1692636338.git.nicola.vetrini@bugseng.com> <fc8a60f5224f4285f674c83c42cff5b3681c29cd.1692636338.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 22 Aug 2023, Julien Grall wrote:
-> Hi Stefano,
+On Mon, 21 Aug 2023, Nicola Vetrini wrote:
+> The documentation pertaining Directive 4.1 is contained in docs/misra.
+> The build script driving the analysis is amended to allow ECLAIR to
+> find it and thus resolving violations of the directive.
 > 
-> On 22/08/2023 02:02, Stefano Stabellini wrote:
-> > From: Stefano Stabellini <stefano.stabellini@amd.com>
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > ---
-> > v2:
-> > - split << and >>
-> > - do not use the word "shift" instead of << or >>
-> > ---
-> >   docs/misra/C-language-toolchain.rst | 9 +++++++++
-> >   1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/docs/misra/C-language-toolchain.rst
-> > b/docs/misra/C-language-toolchain.rst
-> > index 785aed1eaf..4c4942a113 100644
-> > --- a/docs/misra/C-language-toolchain.rst
-> > +++ b/docs/misra/C-language-toolchain.rst
-> > @@ -200,6 +200,15 @@ The table columns are as follows:
-> >        - ARM64, X86_64
-> >        - See Section "6.29 Designated Initializers" of GCC_MANUAL
-> >   +   * - Signed << compiler-defined behavior
-> > +     - All architectures
-> > +     - See Section "4.5 Integers" of GCC_MANUAL. As an extension to the
-> > +       C language, GCC does not use the latitude given in C99 and C11
-> > +       only to treat certain aspects of signed << as undefined.
-> > +
-> > +   * - Signed >> acts on negative numbers by sign extension
-> > +     - All architectures
-> > +     - See Section "4.5 Integers" of GCC_MANUAL.
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+>  automation/eclair_analysis/build.sh   | 10 ++++++++--
+>  automation/eclair_analysis/prepare.sh |  1 +
+>  2 files changed, 9 insertions(+), 2 deletions(-)
 > 
-> I noticed that all this document is referring to GCC. But we also support
-> CLang. Did you confirm that CLang abide with this behavior?
-
-Hi Julien,
-
-No, only GCC. The analysis and documentation so far has been done only
-for GCC, as you can see from all the various mentions and pointers to
-the GCC manual scattered through C-language-toolchain.rst. Actually I
-think it would be very useful for our users to do the same also for
-CLang, given that some safety compilers are based on CLang. And it would
-be very useful to know if there are any difference. If collectively we
-start to find corresponding references to the CLang manual we could add
-them one by one to C-language-toolchain.rst as we find them.
+> diff --git a/automation/eclair_analysis/build.sh b/automation/eclair_analysis/build.sh
+> index ec087dd822fa..a0433eedeb4d 100755
+> --- a/automation/eclair_analysis/build.sh
+> +++ b/automation/eclair_analysis/build.sh
+> @@ -34,8 +34,14 @@ else
+>  fi
+>  
+>  (
+> -  cd xen
+> -
+> +  cd docs
+> +  make "-j${PROCESSORS}" "-l${PROCESSORS}.0"    \
+> +       "CROSS_COMPILE=${CROSS_COMPILE}"         \
+> +       "CC=${CROSS_COMPILE}gcc-12"              \
+> +       "CXX=${CROSS_COMPILE}g++-12"             \
+> +       "XEN_TARGET_ARCH=${XEN_TARGET_ARCH}"     \
+> +       misra
+> +  cd ../xen
+>    make "-j${PROCESSORS}" "-l${PROCESSORS}.0"    \
+>         "CROSS_COMPILE=${CROSS_COMPILE}"         \
+>         "CC=${CROSS_COMPILE}gcc-12"              \
+> diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+> index 275a1a3f517c..10854741790e 100755
+> --- a/automation/eclair_analysis/prepare.sh
+> +++ b/automation/eclair_analysis/prepare.sh
+> @@ -35,6 +35,7 @@ else
+>  fi
+>  
+>  (
+> +    ./configure
+>      cd xen
+>      cp "${CONFIG_FILE}" .config
+>      make clean
+> -- 
+> 2.34.1
+> 
 
