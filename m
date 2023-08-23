@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E2A78612E
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 22:08:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589517.921497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0478786195
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 22:31:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589578.921541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYu8j-0005ip-57; Wed, 23 Aug 2023 20:07:41 +0000
+	id 1qYuV9-0004w2-Oi; Wed, 23 Aug 2023 20:30:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589517.921497; Wed, 23 Aug 2023 20:07:41 +0000
+Received: by outflank-mailman (output) from mailman id 589578.921541; Wed, 23 Aug 2023 20:30:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYu8i-0005cc-VX; Wed, 23 Aug 2023 20:07:40 +0000
-Received: by outflank-mailman (input) for mailman id 589517;
- Wed, 23 Aug 2023 20:07:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qYuV9-0004uL-Kl; Wed, 23 Aug 2023 20:30:51 +0000
+Received: by outflank-mailman (input) for mailman id 589578;
+ Wed, 23 Aug 2023 20:30:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z2Dg=EI=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qYu8h-0004Vt-AL
- for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 20:07:39 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b332a71c-41f0-11ee-9b0c-b553b5be7939;
- Wed, 23 Aug 2023 22:07:35 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id B8ED582869C3;
- Wed, 23 Aug 2023 15:07:34 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id i6-Th2QQ6sdT; Wed, 23 Aug 2023 15:07:34 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 0B02782869DC;
- Wed, 23 Aug 2023 15:07:34 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id ClzfHwa3dJBs; Wed, 23 Aug 2023 15:07:33 -0500 (CDT)
-Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id B696982869C8;
- Wed, 23 Aug 2023 15:07:33 -0500 (CDT)
+ <SRS0=0q6w=EI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qYuV8-0004uF-Ny
+ for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 20:30:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f1439a16-41f3-11ee-8783-cb3800f73035;
+ Wed, 23 Aug 2023 22:30:48 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 46A1F62194;
+ Wed, 23 Aug 2023 20:30:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCF8C433C8;
+ Wed, 23 Aug 2023 20:30:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b332a71c-41f0-11ee-9b0c-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 0B02782869DC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1692821254; bh=5754nu+iJhBZxY2tO6d/yrG6Rc1radbJWoxq94901VU=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=f22hjpPz42WvZjFyJa3bBUWF1e2GRayw9/iLIcXAQXfQGRI+u/SDwvbW8RJcnRV4n
-	 RjpGUPAIRZNnTcnqiySQtb7uxhioippfdHgKEhEzsCpfIhuhO1EIbJA8ZIuahulRrp
-	 FM4IF53Z+6DGdgkreRp3sFJja3Pc7s1rq7HYztVQ=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v2 8/8] xen/ppc: Enable full Xen build
-Date: Wed, 23 Aug 2023 15:07:19 -0500
-Message-Id: <95e3590bb5d70ff718a3e13999d86beda27d8066.1692816595.git.sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1692816595.git.sanastasio@raptorengineering.com>
-References: <cover.1692816595.git.sanastasio@raptorengineering.com>
+X-Inumbo-ID: f1439a16-41f3-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692822646;
+	bh=X8Cci+LH2FhyFEZkBXMrsneCOKhkqIjvkuxBMSUYfHQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ShsFKm3okSb0lpTqyy/Ll0goXzZP9SP+uu30OoDBRTOV42UI8tcBOghbrQ+M9hGiP
+	 PDsX9HOfiULQr0D/5F5fWY5FJziC8Jr/mxQphOXCvcQf71+jNYbTDa1SQok7FeCGv+
+	 1pDCyFfNN5lfp9hT1rPv5eqTiQpzTL/Vkmsxd2EZfwP+6Op5iBuC8y2U0HusTMs+2y
+	 afT3MBscUgVghy1dXGVIXGR68Hi84SZ022515pft+JrGS9Fj7/bxtonV2FsL59sOlk
+	 PJfCY+xOOma9EcYziy0ejzB+whIe/+6/G8ZGy8aL9oUxne2ycXIjWITzctgCaTzf0b
+	 w0OaHc1FUdBMg==
+Date: Wed, 23 Aug 2023 13:30:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH] arm64/vfp: address MISRA C:2012 Dir 4.3
+In-Reply-To: <59fad669-afc2-45e2-b647-8a0878774ba8@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2308231327570.6458@ubuntu-linux-20-04-desktop>
+References: <998ecebdda92f1704fa35e8692b1f7e37b674d16.1692800477.git.nicola.vetrini@bugseng.com> <a0a4a13a-3ada-4586-81cf-86a9e583fc60@xen.org> <3b4d895999ad4fc51f280c8f7e854cab@bugseng.com> <59fad669-afc2-45e2-b647-8a0878774ba8@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-Bring ppc's Makefile and arch.mk in line with arm and x86 to disable the
-build overrides and enable the full Xen build.
+On Wed, 23 Aug 2023, Julien Grall wrote:
+> Hi Nicola,
+> 
+> On 23/08/2023 17:09, Nicola Vetrini wrote:
+> > On 23/08/2023 16:59, Julien Grall wrote:
+> > > Hi,
+> > > 
+> > > On 23/08/2023 15:27, Nicola Vetrini wrote:
+> > > > Directive 4.3 prescribes the following:
+> > > > "Assembly language shall be encapsulated and isolated",
+> > > > on the grounds of improved readability and ease of maintenance.
+> > > > The Directive is violated in this case by asm code in between C code.
+> > > > 
+> > > > A macro is the chosen encapsulation mechanism.
+> > > 
+> > > I would rather prefer if we use a static inline.
+> > 
+> > Just to prevent an possible back and forth on a similar patch:
+> > is it ok to adopt the same approach with the inline asm in
+> > xen/arch/arm/arm64/lib/bitops.c in the definition of the macros
+> > 'bitop' and 'testop'?
+> 
+> So, in the VFP I agree that moving the assembly part outside of vfp_*_state()
+> makes sense even without MISRA. But I don't agree with moving the assembly
+> code out as the C function is tightly coupled with the assembly code.
+> 
+> So this would please MISRA but IHMO would make the code more difficult to
+> understand. So I think we should deviate for the bitops.
+> 
+> Bertrand, Stefano, what do you think?
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/ppc/Makefile | 16 +++++++++++++++-
- xen/arch/ppc/arch.mk  |  3 ---
- 2 files changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
-index 969910b3b6..7b68b5ace2 100644
---- a/xen/arch/ppc/Makefile
-+++ b/xen/arch/ppc/Makefile
-@@ -12,10 +12,24 @@ $(TARGET): $(TARGET)-syms
- 	cp -f $< $@
-
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
--	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) -o $@
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-+	$(NM) -pa --format=3Dsysv $(dot-target).0 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).0.S
-+	$(MAKE) $(build)=3D$(@D) $(dot-target).0.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(dot-target).0.o -o $(dot-target).1
-+	$(NM) -pa --format=3Dsysv $(dot-target).1 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).1.S
-+	$(MAKE) $(build)=3D$(@D) $(dot-target).1.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
-+	    $(dot-target).1.o -o $@
- 	$(NM) -pa --format=3Dsysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
-+	rm -f $(@D)/.$(@F).[0-9]*
-
- $(obj)/xen.lds: $(src)/xen.lds.S FORCE
- 	$(call if_changed_dep,cpp_lds_S)
-diff --git a/xen/arch/ppc/arch.mk b/xen/arch/ppc/arch.mk
-index d05cbf1df5..917ad0e6a8 100644
---- a/xen/arch/ppc/arch.mk
-+++ b/xen/arch/ppc/arch.mk
-@@ -7,6 +7,3 @@ CFLAGS +=3D -m64 -mlittle-endian -mcpu=3D$(ppc-march-y)
- CFLAGS +=3D -mstrict-align -mcmodel=3Dmedium -mabi=3Delfv2 -fPIC -mno-al=
-tivec -mno-vsx -msoft-float
-
- LDFLAGS +=3D -m elf64lppc
--
--# TODO: Drop override when more of the build is working
--override ALL_OBJS-y =3D arch/$(SRCARCH)/built_in.o common/libfdt/built_i=
-n.o lib/built_in.o
---
-2.30.2
-
+I agree. I think bitops.c is already encapsulated and introducing
+additional macros or functions is likely to make the code worse. testop
+and bitop are the encapsulating functions, as you can see there is very
+little else other than the asm volatile and a do/while loop.
 
