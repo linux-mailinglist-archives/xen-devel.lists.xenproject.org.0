@@ -2,39 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5AB9784F06
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 05:01:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.588861.920484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B156784F0C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 05:03:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.588868.920495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYe6A-0002Fv-RT; Wed, 23 Aug 2023 02:59:58 +0000
+	id 1qYe9P-0003si-B4; Wed, 23 Aug 2023 03:03:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 588861.920484; Wed, 23 Aug 2023 02:59:58 +0000
+Received: by outflank-mailman (output) from mailman id 588868.920495; Wed, 23 Aug 2023 03:03:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYe6A-0002Dj-Oh; Wed, 23 Aug 2023 02:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 588861;
- Wed, 23 Aug 2023 02:59:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qYe9P-0003pN-84; Wed, 23 Aug 2023 03:03:19 +0000
+Received: by outflank-mailman (input) for mailman id 588868;
+ Wed, 23 Aug 2023 03:03:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9eHo=EI=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qYe68-0002CX-G9
- for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 02:59:56 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f71b7e0-4161-11ee-9b0c-b553b5be7939;
- Wed, 23 Aug 2023 04:59:50 +0200 (CEST)
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-1befe39630bso9174945ad.0
- for <xen-devel@lists.xenproject.org>; Tue, 22 Aug 2023 19:59:49 -0700 (PDT)
-Received: from ?IPV6:fdbd:ff1:ce00:1c25:884:3ed:e1db:b610?
- ([2408:8000:b001:1:1f:58ff:f102:103])
- by smtp.gmail.com with ESMTPSA id
- z2-20020a17090a1fc200b00262ca945cecsm11045048pjz.54.2023.08.22.19.59.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Aug 2023 19:59:47 -0700 (PDT)
+ <SRS0=dNfX=EI=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1qYe9N-0003pD-Qk
+ for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 03:03:17 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20605.outbound.protection.outlook.com
+ [2a01:111:f400:7e8b::605])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 990e0d1d-4161-11ee-8782-cb3800f73035;
+ Wed, 23 Aug 2023 05:03:15 +0200 (CEST)
+Received: from SA0PR11CA0181.namprd11.prod.outlook.com (2603:10b6:806:1bc::6)
+ by BY5PR12MB4886.namprd12.prod.outlook.com (2603:10b6:a03:1c5::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Wed, 23 Aug
+ 2023 03:03:10 +0000
+Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
+ (2603:10b6:806:1bc:cafe::f8) by SA0PR11CA0181.outlook.office365.com
+ (2603:10b6:806:1bc::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
+ Transport; Wed, 23 Aug 2023 03:03:09 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.15 via Frontend Transport; Wed, 23 Aug 2023 03:03:09 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 22 Aug
+ 2023 22:03:08 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 22 Aug
+ 2023 20:03:07 -0700
+Received: from [172.22.191.126] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Tue, 22 Aug 2023 22:03:06 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,190 +63,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f71b7e0-4161-11ee-9b0c-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1692759588; x=1693364388;
-        h=content-transfer-encoding:in-reply-to:cc:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bhgEqLuvf9ApSnTvUwn1L76c2o2W1Ei/QD6yE6yt7Vo=;
-        b=RzbIwpF/0rWWCHIbil/kmvbYsiH+zzV8cteo0NeX4iqS5Th3aMObOrBBZ5QIYYiYNO
-         EzLvxXnwaU3C6HJ66DVx0SYeH6DBUUXE/parOT0tZRTGaLZHY6BYCVv0BWvKsae2+Z4V
-         HEkSBtQA++hJt6hjIX8coUzQJXYdSMU0EhPZnC3wJk9rsU5aMcdQM2J2gdrxRnnAl7ZG
-         8NIlks8SUC7HZyd+TSNVs6GUNYerNVLSzTLDuAq02G7Vh6n7NQtQV5W2S/tTxnIxqdnK
-         Yk0AUrfOj+V8sxulrYV9L4sfBNDgKCkzUecP9KTfiIS3EGmzpdtRXoZ4mpHHvApm3vtv
-         04iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692759588; x=1693364388;
-        h=content-transfer-encoding:in-reply-to:cc:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bhgEqLuvf9ApSnTvUwn1L76c2o2W1Ei/QD6yE6yt7Vo=;
-        b=boOsQ/WwxbK6V8bSZ3AwFs6Xp99ItCHFUaAOXjTP5C9pyussbioR3YS6ewHHKNo4dP
-         zmYUK0/wuEQ47SNDVUhib9f/WRVjJnT0zYylzbvQBC+fMHZ5g5WXxY1cqcWmHiMmDDxr
-         K6CdE6TcepvAA2Ne+6Xgy8tArQzIiaqYqD9S4wgPTuHkgkUNzJaitpCmTGx7oJld8wn0
-         c+l0MCFtC5595DzhjwkfrBhoLGUzBmXp2aE98rukDxQj2ZxxpH3do2P13Neol6kw6Czb
-         DkOyUXi+9ZpbHce93Za5JufhYlIWU92KRQ62c+0TcMcg+4VY4Zjl+ZSYwujVW8gbIVRD
-         Yo+A==
-X-Gm-Message-State: AOJu0YzmJyjNxk9rTM8YvtWNezpv6v/VGGWYhYRUpBO6jXGmKoTf//gK
-	qkGYjo/qr5s8qURtHKSuutAsmw==
-X-Google-Smtp-Source: AGHT+IEfrTZGJtg+pRH2EfLUkWhGiT4SJbELosEEcEbXeeoUMWHqtsVXqJsCto+j1ri8qfTaL4v/sQ==
-X-Received: by 2002:a17:90a:2f41:b0:26d:4ade:fcf0 with SMTP id s59-20020a17090a2f4100b0026d4adefcf0mr10521410pjd.4.1692759588304;
-        Tue, 22 Aug 2023 19:59:48 -0700 (PDT)
-Message-ID: <63dc1d86-2a15-6b7e-f63a-63fccb25eae2@bytedance.com>
-Date: Wed, 23 Aug 2023 10:59:34 +0800
+X-Inumbo-ID: 990e0d1d-4161-11ee-8782-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VlychS8lp8pw471MySgtXYN4ThGDwsODfDrnE37kG3yOKHoxVTCJp83zFLX7sbs3hT8jNTxbs2qpDLYk5ULWMHGDhwFVwI01lTK+4dHBsF7YL03tuKd/MN6u3/mdif5dgJnWqhvJSDF77oc50nVLC0ys81HtiYGHJeMXfH76enTiOyDJh7boI0jjFl6oJd1wTBIwBddNoY/aorEYLxfLrYzg9zD8ll2LOZ9pCw0hYjOMp/RQC88R5J/ZjdXgtKh5BNX1/E4ipvWlVG3i33Bre+u/pGqMaUAqilgWNRZQl0JDqcCgbzep1q6N/KVFA6cxr+G1Oyr/p4JzLb4EcNP6zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Y5GmR1bldnGn180PaYbi+W9QCk0oY72SxkDRaeWjZs=;
+ b=l9mdYp2J1WejXsZMtDb7sM8sYWdBd8h7rIB7oTLxCS8ftQGa6j1ZZZcHAdubMM5X/J30jJ+L9/VP9dOZaXCR/CTRDUCZinDzAkIlHB+tX6ajZfQAwV1jwcDTm+RnGW5f/ox7rdaKOK56r+ruz6uL1PHpBYSSfzALY3DPhwsv7x5I/+h//0O1BoOMO3DGDa7NKT1xpnH9NeXkKZfnsO9kcNpLf/q2IsEguDfCuGd6LF08J6VFiaG7sbgritlryklV/CL6w2uqI0DSnH+CTL304C8vSjg3JyCradolhreNUFyAvbE+iJlwzpmzTYeIyGzU+2PjmHtFwQwB7tUsvx9Rqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Y5GmR1bldnGn180PaYbi+W9QCk0oY72SxkDRaeWjZs=;
+ b=djbz3apwEMSlt0rkDtb0txS2ItRLUj6RcooMoAhXzcVbFSaOXlEfFBaY6jTfzO0Hb3nKk5+EVPY5xJhXKnbz1yZwkhJ7ZrEMZKfkVjwYl4B98xXcriY+bM975dEuLFxHDtEV2oV+uT8OzXYCnz74TB6HO8ob3UjN27MfHVqKpNY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <e5bedf64-aeeb-2e10-7684-7e46590e92e8@amd.com>
+Date: Tue, 22 Aug 2023 23:03:05 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-Subject: Re: [PATCH v4 43/48] drm/ttm: introduce pool_shrink_rwsem
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3 2/4] xen/pci: convert pci_find_*cap* to pci_sbdf_t
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant
+	<paul@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20230822012955.312930-1-stewart.hildebrand@amd.com>
+ <20230822012955.312930-3-stewart.hildebrand@amd.com>
+ <31d4ae2d-1b25-b272-a5c1-2fef3dffb7af@suse.com>
 Content-Language: en-US
-To: daniel@ffwll.ch
-References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
- <20230807110936.21819-44-zhengqi.arch@bytedance.com>
- <ZOS+g51Yx9PsYkGU@phenom.ffwll.local>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com,
- cel@kernel.org, senozhatsky@chromium.org, yujie.liu@intel.com,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- simon.horman@corigine.com, dlemoal@kernel.org, kvm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
- x86@kernel.org, cluster-devel@redhat.com, xen-devel@lists.xenproject.org,
- linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- rcu@vger.kernel.org, linux-bcache@vger.kernel.org,
- Muchun Song <songmuchun@bytedance.com>, linux-raid@vger.kernel.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org,
- daniel.vetter@ffwll.ch
-In-Reply-To: <ZOS+g51Yx9PsYkGU@phenom.ffwll.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <31d4ae2d-1b25-b272-a5c1-2fef3dffb7af@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|BY5PR12MB4886:EE_
+X-MS-Office365-Filtering-Correlation-Id: c578f59b-1d24-4fd0-ed9c-08dba3857b49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	MbW7AVGALtYiuq4e0jol+Z2Bc628hNrheoIC/NXqDSKGxviSIrapnw27ljtBQCLKANohifLeF4IE0DA5XPTnZqjJm2hrWoqllOD3rTWfzxxPYtgGobEx2zzNnJy9QvjhMhpi7QPF5lZKEZorgJ1ZQr/Rs8cFlzzrrP0H4YWcjgZkQKJ7cZSls/KMzdlF/73t/hvhZfJiIWeJ25p7P+CrHI54CrS14/Gryt0V5G9Utvhsd/YcGz0KRpvRc9CRn1cLN9lLZ8WbaTOMuEWknbfq+U+gXZP7vgONIDttG97UEA/RvhOZKhPlX4F7q5xzF1C6gZfXwlQF+1nC012LT7W1PGshAaQNq49Z+Zv5EODYhvJ/AKLabyIIV9aQnAkqiw8hp4O+wdCTkgnd8Yl0Vq/njSQVfDl37WaSOaowvlPte6m3DscBXH6nd87uxk/YOI2WZsY/OjO5WarHbNMYpxgiGADNUmkU7ba04eAay1hi67brfhyJ2zSM/xiO007IPfXd38vyoFYNtQmj2x2s58u2JbXeelc5cTz6MruCcfHBugSfqh4WSX3OJ64wbvxUrbD/9Y/G5cDke7YTYhUeNnVnSDPRleqmqXPbiFxesov/VLAUNJyblUfars8LJArnFM1IR6HenU4OtwWV7QA3DAs33Zy0sappdCSAWOK4rdg0iT+bbf1CU/bdbTHmOLMAOc0BNnYFXIZWslM0KSpuyi6vU3vb+y8Nifx6Bbvcc2y4Az8tGkDlDmQxwMWSaRHsNxGuSHjouMMHSCQJMR4yqEe+fPME2jGvhFgy4RB9QJm96fU0KYZAdHZa4fhXyf71au5Y
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199024)(82310400011)(1800799009)(186009)(36840700001)(40470700004)(46966006)(2906002)(7416002)(40480700001)(53546011)(83380400001)(5660300002)(44832011)(426003)(336012)(26005)(31686004)(36860700001)(31696002)(86362001)(47076005)(8676002)(2616005)(8936002)(4326008)(70586007)(316002)(6916009)(54906003)(16576012)(66899024)(70206006)(478600001)(356005)(81166007)(82740400003)(40460700003)(36756003)(41300700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 03:03:09.6852
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c578f59b-1d24-4fd0-ed9c-08dba3857b49
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000252A0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4886
 
-Hi Daniel,
-
-On 2023/8/22 21:56, Daniel Vetter wrote:
-> On Mon, Aug 07, 2023 at 07:09:31PM +0800, Qi Zheng wrote:
->> Currently, the synchronize_shrinkers() is only used by TTM pool. It only
->> requires that no shrinkers run in parallel.
->>
->> After we use RCU+refcount method to implement the lockless slab shrink,
->> we can not use shrinker_rwsem or synchronize_rcu() to guarantee that all
->> shrinker invocations have seen an update before freeing memory.
->>
->> So we introduce a new pool_shrink_rwsem to implement a private
->> synchronize_shrinkers(), so as to achieve the same purpose.
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+On 8/22/23 08:53, Jan Beulich wrote:
+> On 22.08.2023 03:29, Stewart Hildebrand wrote:
+>> @@ -291,12 +291,9 @@ static void msi_set_enable(struct pci_dev *dev, int enable)
+>>  static void msix_set_enable(struct pci_dev *dev, int enable)
+>>  {
+>>      int pos;
+>> -    u16 control, seg = dev->seg;
+>> -    u8 bus = dev->bus;
+>> -    u8 slot = PCI_SLOT(dev->devfn);
+>> -    u8 func = PCI_FUNC(dev->devfn);
+>> +    u16 control;
 > 
-> On the 5 drm patches (I counted 2 ttm and 3 drivers) for merging through
-> some other tree (since I'm assuming that's how this will land):
+> As you touch such places, it would be nice to also switch to uint16_t at
+> the same time. (Similarly when you touch "pos" declarations anyway,
+> converting them to unsigned int when they're wrongly plain int would also
+> be nice.)
 
-Yeah, there are 5 drm patches: PATCH v4 07/48 23/48 24/48 25/48 43/48.
+OK. For clarity's sake (and for my own sake), I'll bound the scope of these changes to lines/statements/declarations that are being modified anyway as a result of the switch to pci_sbdf_t. Also, with the s/int/unsigned int/ changes, I will remove "No functional change" from the commit description (not sure it should have been there in the first place).
 
-> 
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-Thanks for your review!
-
-Qi
-
-> 
->> ---
->>   drivers/gpu/drm/ttm/ttm_pool.c | 15 +++++++++++++++
->>   include/linux/shrinker.h       |  2 --
->>   mm/shrinker.c                  | 15 ---------------
->>   3 files changed, 15 insertions(+), 17 deletions(-)
+>> @@ -318,17 +315,12 @@ static bool msi_set_mask_bit(struct irq_desc *desc, bool host, bool guest)
+>>  {
+>>      struct msi_desc *entry = desc->msi_desc;
+>>      struct pci_dev *pdev;
+>> -    u16 seg, control;
+>> -    u8 bus, slot, func;
+>> +    u16 control;
+>>      bool flag = host || guest, maskall;
 >>
->> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
->> index c9c9618c0dce..38b4c280725c 100644
->> --- a/drivers/gpu/drm/ttm/ttm_pool.c
->> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
->> @@ -74,6 +74,7 @@ static struct ttm_pool_type global_dma32_uncached[MAX_ORDER + 1];
->>   static spinlock_t shrinker_lock;
->>   static struct list_head shrinker_list;
->>   static struct shrinker *mm_shrinker;
->> +static DECLARE_RWSEM(pool_shrink_rwsem);
->>   
->>   /* Allocate pages of size 1 << order with the given gfp_flags */
->>   static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
->> @@ -317,6 +318,7 @@ static unsigned int ttm_pool_shrink(void)
->>   	unsigned int num_pages;
->>   	struct page *p;
->>   
->> +	down_read(&pool_shrink_rwsem);
->>   	spin_lock(&shrinker_lock);
->>   	pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
->>   	list_move_tail(&pt->shrinker_list, &shrinker_list);
->> @@ -329,6 +331,7 @@ static unsigned int ttm_pool_shrink(void)
->>   	} else {
->>   		num_pages = 0;
->>   	}
->> +	up_read(&pool_shrink_rwsem);
->>   
->>   	return num_pages;
->>   }
->> @@ -572,6 +575,18 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
->>   }
->>   EXPORT_SYMBOL(ttm_pool_init);
->>   
->> +/**
->> + * synchronize_shrinkers - Wait for all running shrinkers to complete.
->> + *
->> + * This is useful to guarantee that all shrinker invocations have seen an
->> + * update, before freeing memory, similar to rcu.
->> + */
->> +static void synchronize_shrinkers(void)
->> +{
->> +	down_write(&pool_shrink_rwsem);
->> +	up_write(&pool_shrink_rwsem);
->> +}
->> +
->>   /**
->>    * ttm_pool_fini - Cleanup a pool
->>    *
->> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
->> index c55c07c3f0cb..025c8070dd86 100644
->> --- a/include/linux/shrinker.h
->> +++ b/include/linux/shrinker.h
->> @@ -103,8 +103,6 @@ struct shrinker *shrinker_alloc(unsigned int flags, const char *fmt, ...);
->>   void shrinker_register(struct shrinker *shrinker);
->>   void shrinker_free(struct shrinker *shrinker);
->>   
->> -extern void synchronize_shrinkers(void);
->> -
->>   #ifdef CONFIG_SHRINKER_DEBUG
->>   extern int __printf(2, 3) shrinker_debugfs_rename(struct shrinker *shrinker,
->>   						  const char *fmt, ...);
->> diff --git a/mm/shrinker.c b/mm/shrinker.c
->> index 3ab301ff122d..a27779ed3798 100644
->> --- a/mm/shrinker.c
->> +++ b/mm/shrinker.c
->> @@ -650,18 +650,3 @@ void shrinker_free(struct shrinker *shrinker)
->>   	kfree(shrinker);
->>   }
->>   EXPORT_SYMBOL_GPL(shrinker_free);
->> -
->> -/**
->> - * synchronize_shrinkers - Wait for all running shrinkers to complete.
->> - *
->> - * This is equivalent to calling unregister_shrink() and register_shrinker(),
->> - * but atomically and with less overhead. This is useful to guarantee that all
->> - * shrinker invocations have seen an update, before freeing memory, similar to
->> - * rcu.
->> - */
->> -void synchronize_shrinkers(void)
->> -{
->> -	down_write(&shrinker_rwsem);
->> -	up_write(&shrinker_rwsem);
->> -}
->> -EXPORT_SYMBOL(synchronize_shrinkers);
->> -- 
->> 2.30.2
->>
+>>      ASSERT(spin_is_locked(&desc->lock));
+>>      BUG_ON(!entry || !entry->dev);
+>>      pdev = entry->dev;
+>> -    seg = pdev->seg;
+>> -    bus = pdev->bus;
+>> -    slot = PCI_SLOT(pdev->devfn);
+>> -    func = PCI_FUNC(pdev->devfn);
+>>      switch ( entry->msi_attrib.type )
+>>      {
+>>      case PCI_CAP_ID_MSI:
 > 
+> You don't further alter the function, so this looks like an unrelated
+> (but still desirable for at least Misra) change.
+
+Right. These instances of -Wunused-but-set-variable warnings were the result of a previous pci_sbdf_t conversion. I'll split it into a separate patch, perhaps with a fixes tag:
+Fixes: 0c38c61aad21 ("pci: switch pci_conf_write32 to use pci_sbdf_t")
+
+>> @@ -685,8 +674,8 @@ static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
+>>      {
+>>          struct pci_dev *pdev = pci_get_pdev(NULL,
+>>                                              PCI_SBDF(seg, bus, slot, func));
+> 
+> With this, ...
+> 
+>> -        unsigned int pos = pci_find_ext_capability(seg, bus,
+>> -                                                   PCI_DEVFN(slot, func),
+>> +        unsigned int pos = pci_find_ext_capability(PCI_SBDF(seg, bus, slot,
+>> +                                                            func),
+>>                                                     PCI_EXT_CAP_ID_SRIOV);
+> 
+> ... please use pdev->sbdf here. Albeit I guess some further re-arrangement
+> is wanted here, to eliminate all of those PCI_SBDF() (and then also dealing
+> with the otherwise necessary NULL check). IOW perhaps fine the way you have
+> it, and then to be subject to a follow-on change.
+
+OK. I'll keep it as-is in this patch, then create a follow-on patch that: uses pdev->sbdf instead of PCI_SBDF inside this code block, and moves the NULL check earlier.
+
+>> --- a/xen/include/xen/pci.h
+>> +++ b/xen/include/xen/pci.h
+>> @@ -193,11 +193,10 @@ int pci_mmcfg_read(unsigned int seg, unsigned int bus,
+>>                     unsigned int devfn, int reg, int len, u32 *value);
+>>  int pci_mmcfg_write(unsigned int seg, unsigned int bus,
+>>                      unsigned int devfn, int reg, int len, u32 value);
+>> -int pci_find_cap_offset(u16 seg, u8 bus, u8 dev, u8 func, u8 cap);
+>> -int pci_find_next_cap(u16 seg, u8 bus, unsigned int devfn, u8 pos, int cap);
+>> -int pci_find_ext_capability(int seg, int bus, int devfn, int cap);
+>> -int pci_find_next_ext_capability(int seg, int bus, int devfn, int start,
+>> -                                 int cap);
+>> +int pci_find_cap_offset(pci_sbdf_t sbdf, u8 cap);
+>> +int pci_find_next_cap(pci_sbdf_t sbdf, u8 pos, int cap);
+>> +int pci_find_ext_capability(pci_sbdf_t sbdf, int cap);
+>> +int pci_find_next_ext_capability(pci_sbdf_t sbdf, int start, int cap);
+> 
+> The remaining types want converting, too: Neither fixed-width nor plain int
+> are appropriate here. (It's a few too many type adjustments to make, for me
+> to offer doing so while committing.)
+
+Understood, I'm happy to make the change for v4. Is the following what you'd expect it to look like?
+
+unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap);
+unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+                               unsigned int cap);
+unsigned int pci_find_ext_capability(pci_sbdf_t sbdf, unsigned int cap);
+unsigned int pci_find_next_ext_capability(pci_sbdf_t sbdf, unsigned int start,
+                                          unsigned int cap);
 
