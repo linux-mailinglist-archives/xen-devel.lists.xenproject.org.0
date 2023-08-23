@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0478786195
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 22:31:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589578.921541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B426D786235
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 23:19:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589587.921556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYuV9-0004w2-Oi; Wed, 23 Aug 2023 20:30:51 +0000
+	id 1qYvEl-0001Pl-2t; Wed, 23 Aug 2023 21:17:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589578.921541; Wed, 23 Aug 2023 20:30:51 +0000
+Received: by outflank-mailman (output) from mailman id 589587.921556; Wed, 23 Aug 2023 21:17:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYuV9-0004uL-Kl; Wed, 23 Aug 2023 20:30:51 +0000
-Received: by outflank-mailman (input) for mailman id 589578;
- Wed, 23 Aug 2023 20:30:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0q6w=EI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qYuV8-0004uF-Ny
- for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 20:30:50 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f1439a16-41f3-11ee-8783-cb3800f73035;
- Wed, 23 Aug 2023 22:30:48 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 46A1F62194;
- Wed, 23 Aug 2023 20:30:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCF8C433C8;
- Wed, 23 Aug 2023 20:30:45 +0000 (UTC)
+	id 1qYvEl-0001Nb-0M; Wed, 23 Aug 2023 21:17:59 +0000
+Received: by outflank-mailman (input) for mailman id 589587;
+ Wed, 23 Aug 2023 21:17:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qYvEj-0001NR-DN
+ for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 21:17:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qYvEj-00041i-11; Wed, 23 Aug 2023 21:17:57 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qYvEi-0000kM-Qd; Wed, 23 Aug 2023 21:17:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,67 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1439a16-41f3-11ee-8783-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692822646;
-	bh=X8Cci+LH2FhyFEZkBXMrsneCOKhkqIjvkuxBMSUYfHQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ShsFKm3okSb0lpTqyy/Ll0goXzZP9SP+uu30OoDBRTOV42UI8tcBOghbrQ+M9hGiP
-	 PDsX9HOfiULQr0D/5F5fWY5FJziC8Jr/mxQphOXCvcQf71+jNYbTDa1SQok7FeCGv+
-	 1pDCyFfNN5lfp9hT1rPv5eqTiQpzTL/Vkmsxd2EZfwP+6Op5iBuC8y2U0HusTMs+2y
-	 afT3MBscUgVghy1dXGVIXGR68Hi84SZ022515pft+JrGS9Fj7/bxtonV2FsL59sOlk
-	 PJfCY+xOOma9EcYziy0ejzB+whIe/+6/G8ZGy8aL9oUxne2ycXIjWITzctgCaTzf0b
-	 w0OaHc1FUdBMg==
-Date: Wed, 23 Aug 2023 13:30:43 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH] arm64/vfp: address MISRA C:2012 Dir 4.3
-In-Reply-To: <59fad669-afc2-45e2-b647-8a0878774ba8@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2308231327570.6458@ubuntu-linux-20-04-desktop>
-References: <998ecebdda92f1704fa35e8692b1f7e37b674d16.1692800477.git.nicola.vetrini@bugseng.com> <a0a4a13a-3ada-4586-81cf-86a9e583fc60@xen.org> <3b4d895999ad4fc51f280c8f7e854cab@bugseng.com> <59fad669-afc2-45e2-b647-8a0878774ba8@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=ZRGDpuTDRWxPz1UzcFTFV1/LWNpLfTxqICK17Db/Uyw=; b=NDlQ+2RE+T+x1YUfxSXtMua+BX
+	tvLVJe9WJ1wb2eqvH4wGWe2fs8b1Vlld7kxKSiXPaPiV1ZVWQCdC/sWnaZ/ODn1QCU3Tv95kWeFV/
+	/ECJmq/5dwHqBtgSGj/+5qKF+wezxaWuhD/1wP4+02BPAwzsLTQVjbwWmj0jWGUhPRLM=;
+Message-ID: <352bd670-ad44-4cf1-b73c-2f050a6b9a17@xen.org>
+Date: Wed, 23 Aug 2023 22:17:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 11/13] xen/arm: mmu: move MMU specific P2M code to
+ mmu/p2m.{c,h}
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <Wei.Chen@arm.com>
+References: <20230814042536.878720-1-Henry.Wang@arm.com>
+ <20230814042536.878720-12-Henry.Wang@arm.com>
+ <5356f905-4b14-46b4-b5b4-c236989e1ec8@xen.org>
+ <AD09B38F-EE24-4163-8443-B6A86550F24D@arm.com>
+ <9a0273a3-b7c0-46c9-8ba6-bfeaf57b91cb@xen.org>
+In-Reply-To: <9a0273a3-b7c0-46c9-8ba6-bfeaf57b91cb@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Aug 2023, Julien Grall wrote:
-> Hi Nicola,
-> 
-> On 23/08/2023 17:09, Nicola Vetrini wrote:
-> > On 23/08/2023 16:59, Julien Grall wrote:
-> > > Hi,
-> > > 
-> > > On 23/08/2023 15:27, Nicola Vetrini wrote:
-> > > > Directive 4.3 prescribes the following:
-> > > > "Assembly language shall be encapsulated and isolated",
-> > > > on the grounds of improved readability and ease of maintenance.
-> > > > The Directive is violated in this case by asm code in between C code.
-> > > > 
-> > > > A macro is the chosen encapsulation mechanism.
-> > > 
-> > > I would rather prefer if we use a static inline.
-> > 
-> > Just to prevent an possible back and forth on a similar patch:
-> > is it ok to adopt the same approach with the inline asm in
-> > xen/arch/arm/arm64/lib/bitops.c in the definition of the macros
-> > 'bitop' and 'testop'?
-> 
-> So, in the VFP I agree that moving the assembly part outside of vfp_*_state()
-> makes sense even without MISRA. But I don't agree with moving the assembly
-> code out as the C function is tightly coupled with the assembly code.
-> 
-> So this would please MISRA but IHMO would make the code more difficult to
-> understand. So I think we should deviate for the bitops.
-> 
-> Bertrand, Stefano, what do you think?
+Hi,
 
-I agree. I think bitops.c is already encapsulated and introducing
-additional macros or functions is likely to make the code worse. testop
-and bitop are the encapsulating functions, as you can see there is very
-little else other than the asm volatile and a do/while loop.
+On 23/08/2023 19:08, Julien Grall wrote:
+>>>> With the code movement, global variable max_vmid is used in multiple
+>>>> files instead of a single file (and will be used in MPU P2M
+>>>> implementation), declare it in the header and remove the "static" of
+>>>> this variable.
+>>>> Add #ifdef CONFIG_HAS_MMU to p2m_write_unlock() since future MPU
+>>>> work does not need p2m_tlb_flush_sync().
+>>>
+>>> And there are no specific barrier required? Overall, I am not sure I 
+>>> like the #ifdef rather than providing a stub helper.
+>>
+>> I think for MPU systems we don’t need to flush the TLB, hence the #ifdef.
+> 
+> I wasn't necessarily thinking about a TLB flush but instead a DSB/DMB. 
+> At least for the MMU case, I think that in theory we need a DSB when the 
+> there is no TLB flush to ensure new entry in the page-tables are seen 
+> before p2m_write_unlock() completes.
+> 
+> So far we are getting away because write_pte() always have a barrier 
+> after. But at some point, I would like to remove it as this is a massive 
+> hammer.
+> 
+>> Do you mean we should
+>> provide a stub helper of p2m_tlb_flush_sync() for MPU? If so I think 
+>> maybe the naming of this stub
+>> helper is not really ideal?
+> 
+> See above. I am trying to understand the expected sequence when updating 
+> the MPU tables. Are you going to add barriers after every update to the 
+> entry?
+
+I have looked at your branch mpu_v5. In theory the P2M can be modified 
+at any point of the life-cycle of the domain. This means that another 
+pCPU may have the regions loaded.
+
+If that's the case then you would likely want to ensure the entries are 
+synchronized. The easiest way would be to pause/unpause the domain when 
+taking/releasing the lock. There might be other way, but this indicates 
+that helper would be needed for the MPU.
+
+That said, it is not clear to me if there is any use-case where you 
+would want to update the P2M at runtime. If you have known, then you 
+might be able to simply return an error if the P2M is modified after the 
+domain was created.
+
+Cheers,
+
+-- 
+Julien Grall
 
