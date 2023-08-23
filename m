@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26BFB786131
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 22:08:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589512.921455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76BD9786134
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 22:08:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589514.921478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYu8d-0004eA-Vb; Wed, 23 Aug 2023 20:07:35 +0000
+	id 1qYu8h-0005JQ-MN; Wed, 23 Aug 2023 20:07:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589512.921455; Wed, 23 Aug 2023 20:07:35 +0000
+Received: by outflank-mailman (output) from mailman id 589514.921478; Wed, 23 Aug 2023 20:07:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYu8d-0004Y5-R7; Wed, 23 Aug 2023 20:07:35 +0000
-Received: by outflank-mailman (input) for mailman id 589512;
- Wed, 23 Aug 2023 20:07:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qYu8h-0005I0-Gt; Wed, 23 Aug 2023 20:07:39 +0000
+Received: by outflank-mailman (input) for mailman id 589514;
+ Wed, 23 Aug 2023 20:07:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Z2Dg=EI=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qYu8c-0004Vf-Tu
- for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 20:07:34 +0000
+ id 1qYu8f-0004Vt-25
+ for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 20:07:37 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b209b77c-41f0-11ee-8783-cb3800f73035;
- Wed, 23 Aug 2023 22:07:33 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b283a07a-41f0-11ee-9b0c-b553b5be7939;
+ Wed, 23 Aug 2023 22:07:34 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id B772182867AA;
- Wed, 23 Aug 2023 15:07:32 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 8F0E582854AE;
+ Wed, 23 Aug 2023 15:07:33 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id bA0joZWNG15C; Wed, 23 Aug 2023 15:07:31 -0500 (CDT)
+ with ESMTP id YTJzfzVQV2hR; Wed, 23 Aug 2023 15:07:32 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A3E95828673D;
- Wed, 23 Aug 2023 15:07:31 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 2F7E682869C8;
+ Wed, 23 Aug 2023 15:07:32 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id zdPqsOnk9JTT; Wed, 23 Aug 2023 15:07:31 -0500 (CDT)
+ with ESMTP id 6s5iL9zWkkxd; Wed, 23 Aug 2023 15:07:32 -0500 (CDT)
 Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 3BF4F8285AAD;
+ by mail.rptsys.com (Postfix) with ESMTPSA id A7A2B82867AA;
  Wed, 23 Aug 2023 15:07:31 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,174 +51,556 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b209b77c-41f0-11ee-8783-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A3E95828673D
+X-Inumbo-ID: b283a07a-41f0-11ee-9b0c-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 2F7E682869C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1692821251; bh=9nVzFL8mf98lW8LMjk2/1F+wWeQACbM53mGneF01BrE=;
+	t=1692821252; bh=XCBWqK2VpcokHzQVBLv4ZPgd/MF7ZgElAFHIz8B9Ncc=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=vf4FuqWQv59VlnJBhvvYQra6ycKaFSkoZ3LdMjp0DuwanfGhKDTtUNRoHKjmwcYGt
-	 3qqarE4Te+s9TDwmjGqiJAO84oWoADx/SsMdvr68QfRlcqXnmzlh+kULp9/HRTKmQ7
-	 osNf3Yu307zYQuhJ9GrnOaOHn/8xY/Bbu0oNL8fE=
+	b=Z4GIiAUk6EbG+TlS14V8exhvwUovzAOF0xu18NZiBRAnGRoyd+yF7zkA40YlKKA03
+	 mav32eNkWx745nWrDNG0bX9JBOuM1AzGgBXZDt4TxAReN0idTZZUiFb0ObrHBDlJ0i
+	 2EMvp2pm72gGxjJXP23bUPnUAwpjEAsiyN+H81CU=
 X-Virus-Scanned: amavisd-new at rptsys.com
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
 To: xen-devel@lists.xenproject.org
 Cc: Timothy Pearson <tpearson@raptorengineering.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/8] xen/ppc: Add public/arch-ppc.h
-Date: Wed, 23 Aug 2023 15:07:13 -0500
-Message-Id: <85bc5f57ad41a54f84ac9fa118ff0d9e02b71461.1692816595.git.sanastasio@raptorengineering.com>
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH v2 3/8] xen/ppc: Implement atomic.h
+Date: Wed, 23 Aug 2023 15:07:14 -0500
+Message-Id: <6d97bdeb1c114026105e72c6ee6e1b024565bf95.1692816595.git.sanastasio@raptorengineering.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1692816595.git.sanastasio@raptorengineering.com>
 References: <cover.1692816595.git.sanastasio@raptorengineering.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
+Implement atomic.h for PPC, based off of the original Xen 3.2
+implementation.
+
 Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
 v2:
-  - Drop full license text in favor of SPDX header
-  - Fix include guard naming (s/PPC64/PPC/g)
-  - Use __aligned__ instead of aligned keyword
-  - Fix macro naming conventions (use trailing underscore)
-  - Drop unused MEMORY_PADDING, TRAP_INSTR definitions
-  - Drop XENCOMM_INLINE_FLAG definition
-  - Fix vcpu_guest_core_regs comment styling and spelling
-  - Drop trailing comment at bottom of file
+  - Fix style of asm block constraints to include required spaces
+  - Fix macro local variable naming (use trailing underscore instead of
+    leading)
+  - Drop unnecessary parens in __atomic_add_unless
 
- xen/include/public/arch-ppc.h | 110 ++++++++++++++++++++++++++++++++++
- 1 file changed, 110 insertions(+)
- create mode 100644 xen/include/public/arch-ppc.h
+ xen/arch/ppc/include/asm/atomic.h | 390 ++++++++++++++++++++++++++++++
+ xen/arch/ppc/include/asm/memory.h |  34 +++
+ 2 files changed, 424 insertions(+)
+ create mode 100644 xen/arch/ppc/include/asm/atomic.h
+ create mode 100644 xen/arch/ppc/include/asm/memory.h
 
-diff --git a/xen/include/public/arch-ppc.h b/xen/include/public/arch-ppc.=
-h
+diff --git a/xen/arch/ppc/include/asm/atomic.h b/xen/arch/ppc/include/asm=
+/atomic.h
 new file mode 100644
-index 0000000000..b7864b67ef
+index 0000000000..43febda7ab
 --- /dev/null
-+++ b/xen/include/public/arch-ppc.h
-@@ -0,0 +1,110 @@
++++ b/xen/arch/ppc/include/asm/atomic.h
+@@ -0,0 +1,390 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/*
-+ * Copyright (C) IBM Corp. 2005, 2006
-+ * Copyright (C) Raptor Engineering, LLC 2023
++ * PowerPC64 atomic operations
 + *
-+ * Authors: Hollis Blanchard <hollisb@us.ibm.com>
-+ *          Timothy Pearson <tpearson@raptorengineering.com>
-+ *          Shawn Anastasio <sanastasio@raptorengineering.com>
++ * Copyright (C) 2001 Paul Mackerras <paulus@au.ibm.com>, IBM
++ * Copyright (C) 2001 Anton Blanchard <anton@au.ibm.com>, IBM
++ * Copyright Raptor Engineering LLC
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
 + */
 +
-+#ifndef __XEN_PUBLIC_ARCH_PPC_H__
-+#define __XEN_PUBLIC_ARCH_PPC_H__
++#ifndef _ASM_PPC64_ATOMIC_H_
++#define _ASM_PPC64_ATOMIC_H_
 +
-+#define  int64_aligned_t  int64_t __attribute__((__aligned__(8)))
-+#define uint64_aligned_t uint64_t __attribute__((__aligned__(8)))
++#include <xen/atomic.h>
 +
-+#ifndef __ASSEMBLY__
-+#define ___DEFINE_XEN_GUEST_HANDLE(name, type)                  \
-+    typedef union { type *p; unsigned long q; }                 \
-+        __guest_handle_ ## name;                                \
-+    typedef union { type *p; uint64_aligned_t q; }              \
-+        __guest_handle_64_ ## name
++#include <asm/memory.h>
++#include <asm/system.h>
 +
-+#define __DEFINE_XEN_GUEST_HANDLE(name, type) \
-+    ___DEFINE_XEN_GUEST_HANDLE(name, type);   \
-+    ___DEFINE_XEN_GUEST_HANDLE(const_##name, const type)
-+#define DEFINE_XEN_GUEST_HANDLE(name)   __DEFINE_XEN_GUEST_HANDLE(name, =
-name)
-+#define __XEN_GUEST_HANDLE(name)        __guest_handle_64_ ## name
-+#define XEN_GUEST_HANDLE(name)          __XEN_GUEST_HANDLE(name)
-+#define XEN_GUEST_HANDLE_PARAM(name)    __guest_handle_ ## name
-+#define set_xen_guest_handle_raw(hnd, val)                  \
-+    do {                                                    \
-+        __typeof__(&(hnd)) sxghr_tmp_ =3D &(hnd);             \
-+        sxghr_tmp_->q =3D 0;                                  \
-+        sxghr_tmp_->p =3D (val);                                \
-+    } while ( 0 )
-+#define set_xen_guest_handle(hnd, val) set_xen_guest_handle_raw(hnd, val=
-)
-+
-+#ifdef __XEN_TOOLS__
-+#define get_xen_guest_handle(val, hnd)  do { val =3D (hnd).p; } while (0=
-)
-+#endif
-+
-+typedef uint64_t xen_pfn_t;
-+#define PRI_xen_pfn PRIx64
-+#define PRIu_xen_pfn PRIu64
-+
-+/*
-+ * Maximum number of virtual CPUs in legacy multi-processor guests.
-+ * Only one. All other VCPUS must use VCPUOP_register_vcpu_info.
-+ */
-+#define XEN_LEGACY_MAX_VCPUS 1
-+
-+typedef uint64_t xen_ulong_t;
-+#define PRI_xen_ulong PRIx64
-+#endif
-+
-+#ifndef __ASSEMBLY__
-+
-+typedef uint64_t xen_ulong_t;
-+
-+/*
-+ * User-accessible registers: most of these need to be saved/restored
-+ * for every nested Xen invocation.
-+ */
-+struct vcpu_guest_core_regs
++static inline int atomic_read(const atomic_t *v)
 +{
-+    uint64_t gprs[32];
-+    uint64_t lr;
-+    uint64_t ctr;
-+    uint64_t srr0;
-+    uint64_t srr1;
-+    uint64_t pc;
-+    uint64_t msr;
-+    uint64_t fpscr;             /* XXX Is this necessary */
-+    uint64_t xer;
-+    uint64_t hid4;              /* debug only */
-+    uint64_t dar;               /* debug only */
-+    uint32_t dsisr;             /* debug only */
-+    uint32_t cr;
-+    uint32_t __pad;             /* good spot for another 32bit reg */
-+    uint32_t entry_vector;
-+};
-+typedef struct vcpu_guest_core_regs vcpu_guest_core_regs_t;
++    return *(volatile int *)&v->counter;
++}
 +
-+typedef uint64_t tsc_timestamp_t; /* RDTSC timestamp */ /* XXX timebase =
-*/
++static inline int _atomic_read(atomic_t v)
++{
++    return v.counter;
++}
 +
-+/* ONLY used to communicate with dom0! See also struct exec_domain. */
-+struct vcpu_guest_context {
-+    vcpu_guest_core_regs_t user_regs;         /* User-level CPU register=
-s     */
-+    uint64_t sdr1;                     /* Pagetable base               *=
-/
-+    /* XXX etc */
-+};
-+typedef struct vcpu_guest_context vcpu_guest_context_t;
-+DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
++static inline void atomic_set(atomic_t *v, int i)
++{
++    v->counter =3D i;
++}
 +
-+struct arch_shared_info {
-+    uint64_t boot_timebase;
-+};
++static inline void _atomic_set(atomic_t *v, int i)
++{
++    v->counter =3D i;
++}
 +
-+struct arch_vcpu_info {
-+};
++void __bad_atomic_read(const volatile void *p, void *res);
++void __bad_atomic_size(void);
 +
-+struct xen_arch_domainconfig {
-+};
++#define build_atomic_read(name, insn, type)                             =
+       \
++    static inline type name(const volatile type *addr)                  =
+       \
++    {                                                                   =
+       \
++        type ret;                                                       =
+       \
++        asm volatile ( insn "%U1%X1 %0,%1" : "=3Dr" (ret) : "m<>" (*addr=
+) );     \
++        return ret;                                                     =
+       \
++    }
 +
-+typedef struct xen_pmu_arch { uint8_t dummy; } xen_pmu_arch_t;
++#define build_atomic_write(name, insn, type)                            =
+       \
++    static inline void name(volatile type *addr, type val)              =
+       \
++    {                                                                   =
+       \
++        asm volatile ( insn "%U0%X0 %1,%0" : "=3Dm<>" (*addr) : "r" (val=
+) );     \
++    }
 +
++#define build_add_sized(name, ldinsn, stinsn, type)                     =
+       \
++    static inline void name(volatile type *addr, type val)              =
+       \
++    {                                                                   =
+       \
++        type t;                                                         =
+       \
++        asm volatile ( "1: " ldinsn " %0,0,%3\n"                        =
+       \
++                       "add%I2 %0,%0,%2\n"                              =
+       \
++                       stinsn " %0,0,%3 \n"                             =
+       \
++                       "bne- 1b\n"                                      =
+       \
++                       : "=3D&r" (t), "+m" (*addr)                      =
+         \
++                       : "r" (val), "r" (addr)                          =
+       \
++                       : "cc" );                                        =
+       \
++    }
++
++build_atomic_read(read_u8_atomic, "lbz", uint8_t)
++build_atomic_read(read_u16_atomic, "lhz", uint16_t)
++build_atomic_read(read_u32_atomic, "lwz", uint32_t)
++build_atomic_read(read_u64_atomic, "ldz", uint64_t)
++
++build_atomic_write(write_u8_atomic, "stb", uint8_t)
++build_atomic_write(write_u16_atomic, "sth", uint16_t)
++build_atomic_write(write_u32_atomic, "stw", uint32_t)
++build_atomic_write(write_u64_atomic, "std", uint64_t)
++
++build_add_sized(add_u8_sized, "lbarx", "stbcx.",uint8_t)
++build_add_sized(add_u16_sized, "lharx", "sthcx.", uint16_t)
++build_add_sized(add_u32_sized, "lwarx", "stwcx.", uint32_t)
++
++#undef build_atomic_read
++#undef build_atomic_write
++#undef build_add_sized
++
++static always_inline void read_atomic_size(const volatile void *p, void =
+*res,
++                                           unsigned int size)
++{
++    ASSERT(IS_ALIGNED((vaddr_t) p, size));
++    switch ( size )
++    {
++    case 1:
++        *(uint8_t *)res =3D read_u8_atomic(p);
++        break;
++    case 2:
++        *(uint16_t *)res =3D read_u16_atomic(p);
++        break;
++    case 4:
++        *(uint32_t *)res =3D read_u32_atomic(p);
++        break;
++    case 8:
++        *(uint64_t *)res =3D read_u64_atomic(p);
++        break;
++    default:
++        __bad_atomic_read(p, res);
++        break;
++    }
++}
++
++static always_inline void write_atomic_size(volatile void *p, void *val,
++                                            unsigned int size)
++{
++    ASSERT(IS_ALIGNED((vaddr_t) p, size));
++    switch ( size )
++    {
++    case 1:
++        write_u8_atomic(p, *(uint8_t *)val);
++        break;
++    case 2:
++        write_u16_atomic(p, *(uint16_t *)val);
++        break;
++    case 4:
++        write_u32_atomic(p, *(uint32_t *)val);
++        break;
++    case 8:
++        write_u64_atomic(p, *(uint64_t *)val);
++        break;
++    default:
++        __bad_atomic_size();
++        break;
++    }
++}
++
++#define read_atomic(p)                                                  =
+       \
++    ({                                                                  =
+       \
++        union {                                                         =
+       \
++            typeof(*(p)) val;                                           =
+       \
++            char c[0];                                                  =
+       \
++        } x_;                                                           =
+       \
++        read_atomic_size(p, x_.c, sizeof(*(p)));                        =
+       \
++        x_.val;                                                         =
+       \
++    })
++
++#define write_atomic(p, x)                                              =
+       \
++    do                                                                  =
+       \
++    {                                                                   =
+       \
++        typeof(*(p)) x_ =3D (x);                                        =
+         \
++        write_atomic_size(p, &x_, sizeof(*(p)));                        =
+       \
++    } while ( 0 )
++
++#define add_sized(p, x)                                                 =
+       \
++    ({                                                                  =
+       \
++        typeof(*(p)) x_ =3D (x);                                        =
+        \
++        switch ( sizeof(*(p)) )                                         =
+       \
++        {                                                               =
+       \
++        case 1:                                                         =
+       \
++            add_u8_sized((uint8_t *) (p), x_);                          =
+      \
++            break;                                                      =
+       \
++        case 2:                                                         =
+       \
++            add_u16_sized((uint16_t *) (p), x_);                        =
+      \
++            break;                                                      =
+       \
++        case 4:                                                         =
+       \
++            add_u32_sized((uint32_t *) (p), x_);                        =
+      \
++            break;                                                      =
+       \
++        default:                                                        =
+       \
++            __bad_atomic_size();                                        =
+       \
++            break;                                                      =
+       \
++        }                                                               =
+       \
++    })
++
++static inline void atomic_add(int a, atomic_t *v)
++{
++    int t;
++
++    asm volatile ( "1: lwarx %0,0,%3\n"
++                   "add %0,%2,%0\n"
++                   "stwcx. %0,0,%3\n"
++                   "bne- 1b"
++                   : "=3D&r" (t), "+m" (v->counter)
++                   : "r" (a), "r" (&v->counter)
++                   : "cc" );
++}
++
++static inline int atomic_add_return(int a, atomic_t *v)
++{
++    int t;
++
++    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
++                   "1: lwarx %0,0,%2\n"
++                   "add %0,%1,%0\n"
++                   "stwcx. %0,0,%2\n"
++                   "bne- 1b"
++                   PPC_ATOMIC_EXIT_BARRIER
++                   : "=3D&r" (t)
++                   : "r" (a), "r" (&v->counter)
++                   : "cc", "memory" );
++
++    return t;
++}
++
++static inline void atomic_sub(int a, atomic_t *v)
++{
++    int t;
++
++    asm volatile ( "1: lwarx %0,0,%3\n"
++                   "subf %0,%2,%0\n"
++                   "stwcx. %0,0,%3\n"
++                   "bne- 1b"
++                   : "=3D&r" (t), "=3Dm" (v->counter)
++                   : "r" (a), "r" (&v->counter), "m" (v->counter)
++                   : "cc" );
++}
++
++static inline int atomic_sub_return(int a, atomic_t *v)
++{
++    int t;
++
++    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
++                   "1: lwarx %0,0,%2\n"
++                   "subf %0,%1,%0\n"
++                   "stwcx. %0,0,%2\n"
++                   "bne- 1b"
++                   PPC_ATOMIC_EXIT_BARRIER
++                   : "=3D&r" (t)
++                   : "r" (a), "r" (&v->counter)
++                   : "cc", "memory" );
++
++    return t;
++}
++
++static inline void atomic_inc(atomic_t *v)
++{
++    int t;
++
++    asm volatile ( "1: lwarx %0,0,%2\n"
++                   "addic %0,%0,1\n"
++                   "stwcx. %0,0,%2\n"
++                   "bne- 1b"
++                   : "=3D&r" (t), "=3Dm" (v->counter)
++                   : "r" (&v->counter), "m" (v->counter)
++                   : "cc" );
++}
++
++static inline int atomic_inc_return(atomic_t *v)
++{
++    int t;
++
++    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
++                   "1: lwarx %0,0,%1\n"
++                   "addic %0,%0,1\n"
++                   "stwcx. %0,0,%1\n"
++                   "bne- 1b"
++                   PPC_ATOMIC_EXIT_BARRIER
++                   : "=3D&r" (t)
++                   : "r" (&v->counter)
++                   : "cc", "memory" );
++
++    return t;
++}
++
++static inline void atomic_dec(atomic_t *v)
++{
++    int t;
++
++    asm volatile ( "1: lwarx %0,0,%2\n"
++                   "addic %0,%0,-1\n"
++                   "stwcx. %0,0,%2\n"
++                   "bne- 1b"
++                   : "=3D&r" (t), "=3Dm" (v->counter)
++                   : "r" (&v->counter), "m" (v->counter)
++                   : "cc" );
++}
++
++static inline int atomic_dec_return(atomic_t *v)
++{
++    int t;
++
++    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
++                   "1: lwarx %0,0,%1\n"
++                   "addic %0,%0,-1\n"
++                   "stwcx. %0,0,%1\n"
++                   "bne- 1b"
++                   PPC_ATOMIC_EXIT_BARRIER
++                   : "=3D&r" (t)
++                   : "r" (&v->counter)
++                   : "cc", "memory" );
++
++    return t;
++}
++
++/*
++ * Atomically test *v and decrement if it is greater than 0.
++ * The function returns the old value of *v minus 1.
++ */
++static inline int atomic_dec_if_positive(atomic_t *v)
++{
++    int t;
++
++    asm volatile( PPC_ATOMIC_ENTRY_BARRIER
++                  "1: lwarx %0,0,%1 # atomic_dec_if_positive\n"
++                  "addic. %0,%0,-1\n"
++                  "blt- 2f\n"
++                  "stwcx. %0,0,%1\n"
++                  "bne- 1b\n"
++                  PPC_ATOMIC_EXIT_BARRIER
++                  "2:"
++                  : "=3D&r" (t)
++                  : "r" (&v->counter)
++                  : "cc", "memory" );
++
++    return t;
++}
++
++static inline atomic_t atomic_compareandswap(atomic_t old, atomic_t new,
++                                             atomic_t *v)
++{
++    atomic_t rc;
++    rc.counter =3D __cmpxchg(&v->counter, old.counter, new.counter, size=
+of(int));
++    return rc;
++}
++
++#define arch_cmpxchg(ptr, o, n)                                         =
+       \
++    ({                                                                  =
+       \
++        __typeof__(*(ptr)) o_ =3D (o);                                  =
+        \
++        __typeof__(*(ptr)) n_ =3D (n);                                  =
+        \
++        (__typeof__(*(ptr))) __cmpxchg((ptr), (unsigned long) o_,       =
+      \
++                                       (unsigned long) n_, sizeof(*(ptr)=
+));   \
++    })
++
++static inline int atomic_cmpxchg(atomic_t *v, int old, int new)
++{
++    return arch_cmpxchg(&v->counter, old, new);
++}
++
++#define ATOMIC_OP(op, insn, suffix, sign) \
++    static inline void atomic_##op(int a, atomic_t *v)                  =
+         \
++    {                                                                   =
+         \
++        int t;                                                          =
+         \
++        asm volatile ( "1: lwarx %0,0,%3\n"                             =
+         \
++                       insn "%I2" suffix " %0,%0,%2\n"                  =
+         \
++                       "stwcx. %0,0,%3 \n"                              =
+         \
++                       "bne- 1b\n"                                      =
+         \
++                       : "=3D&r" (t), "+m" (v->counter)                 =
+           \
++                       : "r" #sign (a), "r" (&v->counter)               =
+         \
++                       : "cc" );                                        =
+         \
++    }
++
++ATOMIC_OP(and, "and", ".", K)
++
++static inline int atomic_sub_and_test(int i, atomic_t *v)
++{
++    return atomic_sub_return(i, v) =3D=3D 0;
++}
++
++static inline int atomic_inc_and_test(atomic_t *v)
++{
++    return atomic_add_return(1, v) =3D=3D 0;
++}
++
++static inline int atomic_dec_and_test(atomic_t *v)
++{
++    return atomic_sub_return(1, v) =3D=3D 0;
++}
++
++static inline int atomic_add_negative(int i, atomic_t *v)
++{
++    return atomic_add_return(i, v) < 0;
++}
++
++static inline int __atomic_add_unless(atomic_t *v, int a, int u)
++{
++	int c, old;
++
++	c =3D atomic_read(v);
++	while (c !=3D u && (old =3D atomic_cmpxchg(v, c, c + a)) !=3D c)
++		c =3D old;
++	return c;
++}
++
++static inline int atomic_add_unless(atomic_t *v, int a, int u)
++{
++    return __atomic_add_unless(v, a, u);
++}
++
++#endif /* _ASM_PPC64_ATOMIC_H_ */
+diff --git a/xen/arch/ppc/include/asm/memory.h b/xen/arch/ppc/include/asm=
+/memory.h
+new file mode 100644
+index 0000000000..7b12e01b1a
+--- /dev/null
++++ b/xen/arch/ppc/include/asm/memory.h
+@@ -0,0 +1,34 @@
++/*
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, =
+USA.
++ *
++ * Copyright (C) IBM Corp. 2005
++ *
++ * Authors: Jimi Xenidis <jimix@watson.ibm.com>
++ */
++
++#ifndef _ASM_MEMORY_H_
++#define _ASM_MEMORY_H_
++
++#include <xen/config.h>
++
++#ifdef CONFIG_SMP
++#define PPC_ATOMIC_ENTRY_BARRIER "sync\n"
++#define PPC_ATOMIC_EXIT_BARRIER  "sync\n"
++#else
++#define PPC_ATOMIC_ENTRY_BARRIER
++#define PPC_ATOMIC_EXIT_BARRIER
 +#endif
 +
-+#endif /* __XEN_PUBLIC_ARCH_PPC_H__ */
++#endif
 --
 2.30.2
 
