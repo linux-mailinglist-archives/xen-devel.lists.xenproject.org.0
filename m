@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD54785F3C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 20:08:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589486.921418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6127C785FF2
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Aug 2023 20:40:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589495.921427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYsHU-0007Iw-5x; Wed, 23 Aug 2023 18:08:36 +0000
+	id 1qYslI-0002f8-FH; Wed, 23 Aug 2023 18:39:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589486.921418; Wed, 23 Aug 2023 18:08:36 +0000
+Received: by outflank-mailman (output) from mailman id 589495.921427; Wed, 23 Aug 2023 18:39:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qYsHU-0007HB-2D; Wed, 23 Aug 2023 18:08:36 +0000
-Received: by outflank-mailman (input) for mailman id 589486;
- Wed, 23 Aug 2023 18:08:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qYsHR-0007H3-Uu
- for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 18:08:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qYsHR-0007qZ-FY; Wed, 23 Aug 2023 18:08:33 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.29.180]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qYsHR-00018G-97; Wed, 23 Aug 2023 18:08:33 +0000
+	id 1qYslI-0002cK-CO; Wed, 23 Aug 2023 18:39:24 +0000
+Received: by outflank-mailman (input) for mailman id 589495;
+ Wed, 23 Aug 2023 18:39:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z2Dg=EI=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qYslH-0002cE-QC
+ for xen-devel@lists.xenproject.org; Wed, 23 Aug 2023 18:39:23 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5fdeb993-41e4-11ee-8783-cb3800f73035;
+ Wed, 23 Aug 2023 20:39:21 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id CAF7F82853FB;
+ Wed, 23 Aug 2023 13:39:19 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id KaieLyvc8Qos; Wed, 23 Aug 2023 13:39:18 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C849082855C8;
+ Wed, 23 Aug 2023 13:39:18 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id BcM9rDYdRGd1; Wed, 23 Aug 2023 13:39:18 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 6F10582853FB;
+ Wed, 23 Aug 2023 13:39:18 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,108 +51,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=X9QysCVU4jEQ1r6HHLD2aOKevcyJ4y/i7C2dwJg9yjA=; b=VocTMWmmZXSktw7u3Yq1G3jTCv
-	BKCcUFAcAvgbrWGmx7tbdhrbtyjBvJx7OrwyVl4e3q7cHJ6ES40WwAY0ZSPyqBnWaMvrcmNUeHqFo
-	OwsTYoRCePD0tMKPppN2Z/AfLizphFOf6yrrFPjpAEZxic0lSZd48DvFyIaNPs3t4VXI=;
-Message-ID: <9a0273a3-b7c0-46c9-8ba6-bfeaf57b91cb@xen.org>
-Date: Wed, 23 Aug 2023 19:08:31 +0100
+X-Inumbo-ID: 5fdeb993-41e4-11ee-8783-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com C849082855C8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1692815958; bh=mB0pDrmvGRu9sIiaCknPr8DjB0toCXd0cLbTYaV0q7g=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=VSUh/gWsrOPXiK+xJ4lonCuNzIgR0bQZpvFg9keUkNLOnXmDTt87dFAUTwPcRGqx7
+	 NZeHKZl7Rk+8zHyzeVdzKBi8QI+MRTDwqHFgP+z79rfDWfcZ4lEfd1V/5cn22pA27V
+	 fWE237Xqw0uHW0WrxXNqxak7ybQLFZ4TpQCA7T9U=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <b24f0eb8-5dd3-8fba-fd05-e98bcf45c60a@raptorengineering.com>
+Date: Wed, 23 Aug 2023 13:39:18 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 11/13] xen/arm: mmu: move MMU specific P2M code to
- mmu/p2m.{c,h}
-Content-Language: en-GB
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <Wei.Chen@arm.com>
-References: <20230814042536.878720-1-Henry.Wang@arm.com>
- <20230814042536.878720-12-Henry.Wang@arm.com>
- <5356f905-4b14-46b4-b5b4-c236989e1ec8@xen.org>
- <AD09B38F-EE24-4163-8443-B6A86550F24D@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AD09B38F-EE24-4163-8443-B6A86550F24D@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH 8/9] xen/ppc: Add stub function and symbol definitions
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1691016993.git.sanastasio@raptorengineering.com>
+ <2702cfa486aa92e82fccd6393519073f10f4c40c.1691016993.git.sanastasio@raptorengineering.com>
+ <1866073f-9611-f5bb-9b5b-05ad463650e6@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <1866073f-9611-f5bb-9b5b-05ad463650e6@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 23/08/2023 02:41, Henry Wang wrote:
-> Hi Julien,
-
-Hi Henry,
-
->> On Aug 23, 2023, at 02:01, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Henry,
->>
->> On 14/08/2023 05:25, Henry Wang wrote:
->>> From: Penny Zheng <penny.zheng@arm.com>
->>> Current P2M implementation is designed for MMU system only.
->>> We move the MMU-specific codes into mmu/p2m.c, and only keep generic
->>> codes in p2m.c, like VMID allocator, etc. We also move MMU-specific
->>> definitions and declarations to mmu/p2m.h, such as p2m_tlb_flush_sync().
->>> Also expose previously static functions p2m_vmid_allocator_init(),
->>> p2m_alloc_vmid(), __p2m_set_entry() and setup_virt_paging_one()
->>
->> Looking at the code, it seemsm that you need to keep expose __p2m_set_entry() because of p2m_relinquish_mapping(). However, it is not clear how this code is supposed to work for the MPU. So should we instead from p2m_relinquish_mapping() to mmu/p2m.c?
+On 8/8/23 5:27 AM, Jan Beulich wrote:
+> On 03.08.2023 01:03, Shawn Anastasio wrote:
+>> --- a/xen/arch/ppc/mm-radix.c
+>> +++ b/xen/arch/ppc/mm-radix.c
+>> @@ -266,3 +266,47 @@ void __init setup_initial_pagetables(void)
+>>      /* Turn on the MMU */
+>>      enable_mmu();
+>>  }
+>> +
+>> +
 > 
-> Sure, I will try that.
+> Nit: No double blank lines please.
+>
+
+Will fix.
+
+>> +/*
+>> + * TODO: Implement the functions below
+>> + */
+>> +unsigned long total_pages;
 > 
->>
->> Other functions which doesn't seem to make sense in p2m.c are:
->>   * p2m_clear_root_pages(): AFAIU there is no concept of root in the MPU. This also means that we possibly want to move out anything specific to the MMU from 'struct p2m'. This could be done separately.
->>   * p2m_flush_vm(): This is built with MMU in mind as we can use the page-table to track access pages. You don't have that fine granularity in the MPU.
+> Hmm, yet one more prereq patch for me to make: There should be no need
+> for every arch to have a definition, when common code requires the
+> variable. While looking there I found max_page, which common code
+> references as well. I'm surprised you get away without. I guess I'll
+> learn why that is when making the patch moving both.
+>
+
+Since your patch for this has gone though, I'll drop this in v2.
+
+>> +unsigned long frametable_base_pdx __read_mostly;
 > 
-> I agree, will also move these to mmu/ in v6.
+> While we still have many instances like this, we prefer this form:
 > 
->>
->>> for futher MPU usage.
->>
->> typo: futher/further/
+> unsigned long __read_mostly frametable_base_pdx;
+>
+
+Will update.
+
+>> +
+>> +void put_page(struct page_info *p)
+>> +{
+>> +    BUG();
+>> +}
+>> +
+>> +void arch_dump_shared_mem_info(void)
+>> +{
+>> +    BUG();
+>> +}
 > 
-> Thanks, will fix.
+> And perhaps one further prereq patch to avoid the need for this.
+>
+
+Will remove from this series pending merge of your prereq patch.
+
+>> +int xenmem_add_to_physmap_one(struct domain *d,
+>> +                              unsigned int space,
+>> +                              union add_to_physmap_extra extra,
+>> +                              unsigned long idx,
+>> +                              gfn_t gfn)
+>> +{
+>> +    BUG();
+>> +}
+>> +
+>> +int destroy_xen_mappings(unsigned long s, unsigned long e)
+>> +{
+>> +    BUG();
+>> +}
+>> +
+>> +int map_pages_to_xen(unsigned long virt,
+>> +                     mfn_t mfn,
+>> +                     unsigned long nr_mfns,
+>> +                     unsigned int flags)
 > 
->>
->>> With the code movement, global variable max_vmid is used in multiple
->>> files instead of a single file (and will be used in MPU P2M
->>> implementation), declare it in the header and remove the "static" of
->>> this variable.
->>> Add #ifdef CONFIG_HAS_MMU to p2m_write_unlock() since future MPU
->>> work does not need p2m_tlb_flush_sync().
->>
->> And there are no specific barrier required? Overall, I am not sure I like the #ifdef rather than providing a stub helper.
+> There's a patch in flight regarding the naming of this last parameter.
+> I guess PPC would best be in sync right away.
+>
+
+I can't seem to find the patch in question and it doesn't seem like it
+has been merged in the meantime. Could you provide a link?
+
+>> --- a/xen/arch/ppc/setup.c
+>> +++ b/xen/arch/ppc/setup.c
+>> @@ -1,5 +1,8 @@
+>>  /* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +#include <xen/lib.h>
+>>  #include <xen/init.h>
+>> +#include <xen/mm.h>
+>> +#include <public/version.h>
+>>  #include <asm/boot.h>
+>>  #include <asm/early_printk.h>
+>>  #include <asm/processor.h>
 > 
-> I think for MPU systems we don’t need to flush the TLB, hence the #ifdef.
+> There's no need for xen/lib.h to come ahead of xen/init.h, is there?
+>
 
-I wasn't necessarily thinking about a TLB flush but instead a DSB/DMB. 
-At least for the MMU case, I think that in theory we need a DSB when the 
-there is no TLB flush to ensure new entry in the page-tables are seen 
-before p2m_write_unlock() completes.
+There is not -- I'll fix the ordering.
 
-So far we are getting away because write_pte() always have a barrier 
-after. But at some point, I would like to remove it as this is a massive 
-hammer.
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/stubs.c
+>> @@ -0,0 +1,351 @@
+>> [...]
+>> +static void ack_none(struct irq_desc *irq)
+>> +{
+>> +    BUG();
+>> +}
+>> +
+>> +static void end_none(struct irq_desc *irq)
+>> +{
+>> +    BUG();
+>> +}
+>> +
+>> +hw_irq_controller no_irq_type = {
+>> +    .typename = "none",
+>> +    .startup = irq_startup_none,
+>> +    .shutdown = irq_shutdown_none,
+>> +    .enable = irq_enable_none,
+>> +    .disable = irq_disable_none,
+>> +    .ack = ack_none,
+>> +    .end = end_none
+>> +};
+> 
+> I would recommend to avoid filling pointers (and hence having private
+> hook functions) where it's not clear whether they'll be required. "end",
+> for example, is an optional hook on x86. Iirc common code doesn't use
+> any of the hooks.
+>
 
-> Do you mean we should
-> provide a stub helper of p2m_tlb_flush_sync() for MPU? If so I think maybe the naming of this stub
-> helper is not really ideal?
+Alright, I'll drop the `end_none` stub and leave the .end pointer as
+NULL.
 
-See above. I am trying to understand the expected sequence when updating 
-the MPU tables. Are you going to add barriers after every update to the 
-entry?
+> Jan
 
-Having an helper would also be a good place to explain why some 
-synchronization is not needed. I am not sure about a name though.
-
-Maybe p2m_sync() and p2m_force_sync()?
-
-Cheers,
-
--- 
-Julien Grall
+Thanks,
+Shawn
 
