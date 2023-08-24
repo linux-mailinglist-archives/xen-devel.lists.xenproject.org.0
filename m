@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0E478686F
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 09:37:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589790.921825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590E078688E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 09:38:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589797.921836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ4sf-0005UB-Bv; Thu, 24 Aug 2023 07:35:49 +0000
+	id 1qZ4uh-000617-NR; Thu, 24 Aug 2023 07:37:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589790.921825; Thu, 24 Aug 2023 07:35:49 +0000
+Received: by outflank-mailman (output) from mailman id 589797.921836; Thu, 24 Aug 2023 07:37:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ4sf-0005RS-9L; Thu, 24 Aug 2023 07:35:49 +0000
-Received: by outflank-mailman (input) for mailman id 589790;
- Thu, 24 Aug 2023 07:35:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qZ4uh-0005zA-Ko; Thu, 24 Aug 2023 07:37:55 +0000
+Received: by outflank-mailman (input) for mailman id 589797;
+ Thu, 24 Aug 2023 07:37:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EWrD=EJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qZ4sd-0005RM-TE
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 07:35:47 +0000
+ id 1qZ4uh-0005z2-0D
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 07:37:55 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5ec62ad-4250-11ee-8783-cb3800f73035;
- Thu, 24 Aug 2023 09:35:45 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 838CD4EE0737;
- Thu, 24 Aug 2023 09:35:44 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2201cdbf-4251-11ee-9b0c-b553b5be7939;
+ Thu, 24 Aug 2023 09:37:52 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id C7CE54EE0737;
+ Thu, 24 Aug 2023 09:37:51 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,73 +39,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5ec62ad-4250-11ee-8783-cb3800f73035
-MIME-Version: 1.0
-Date: Thu, 24 Aug 2023 09:35:44 +0200
+X-Inumbo-ID: 2201cdbf-4251-11ee-9b0c-b553b5be7939
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH] arm64/vfp: address MISRA C:2012 Dir 4.3
-In-Reply-To: <alpine.DEB.2.22.394.2308231327570.6458@ubuntu-linux-20-04-desktop>
-References: <998ecebdda92f1704fa35e8692b1f7e37b674d16.1692800477.git.nicola.vetrini@bugseng.com>
- <a0a4a13a-3ada-4586-81cf-86a9e583fc60@xen.org>
- <3b4d895999ad4fc51f280c8f7e854cab@bugseng.com>
- <59fad669-afc2-45e2-b647-8a0878774ba8@xen.org>
- <alpine.DEB.2.22.394.2308231327570.6458@ubuntu-linux-20-04-desktop>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <cda5d3116f4218a42c26fbe8b2b026c4@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH v2] arm64/vfp: address MISRA C:2012 Dir 4.3
+Date: Thu, 24 Aug 2023 09:37:34 +0200
+Message-Id: <140f450d4f4f88096158e54522fc2734367a90cb.1692807017.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 23/08/2023 22:30, Stefano Stabellini wrote:
-> On Wed, 23 Aug 2023, Julien Grall wrote:
->> Hi Nicola,
->> 
->> On 23/08/2023 17:09, Nicola Vetrini wrote:
->> > On 23/08/2023 16:59, Julien Grall wrote:
->> > > Hi,
->> > >
->> > > On 23/08/2023 15:27, Nicola Vetrini wrote:
->> > > > Directive 4.3 prescribes the following:
->> > > > "Assembly language shall be encapsulated and isolated",
->> > > > on the grounds of improved readability and ease of maintenance.
->> > > > The Directive is violated in this case by asm code in between C code.
->> > > >
->> > > > A macro is the chosen encapsulation mechanism.
->> > >
->> > > I would rather prefer if we use a static inline.
->> >
->> > Just to prevent an possible back and forth on a similar patch:
->> > is it ok to adopt the same approach with the inline asm in
->> > xen/arch/arm/arm64/lib/bitops.c in the definition of the macros
->> > 'bitop' and 'testop'?
->> 
->> So, in the VFP I agree that moving the assembly part outside of 
->> vfp_*_state()
->> makes sense even without MISRA. But I don't agree with moving the 
->> assembly
->> code out as the C function is tightly coupled with the assembly code.
->> 
->> So this would please MISRA but IHMO would make the code more difficult 
->> to
->> understand. So I think we should deviate for the bitops.
->> 
->> Bertrand, Stefano, what do you think?
-> 
-> I agree. I think bitops.c is already encapsulated and introducing
-> additional macros or functions is likely to make the code worse. testop
-> and bitop are the encapsulating functions, as you can see there is very
-> little else other than the asm volatile and a do/while loop.
+Directive 4.3 prescribes the following:
+"Assembly language shall be encapsulated and isolated",
+on the grounds of improved readability and ease of maintenance.
 
-Ok, thanks.
+A static inline function is the chosen encapsulation mechanism.
 
+No functional change.
+
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- Switched to a static inline function
+---
+ xen/arch/arm/arm64/vfp.c | 78 ++++++++++++++++++++++------------------
+ 1 file changed, 44 insertions(+), 34 deletions(-)
+
+diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
+index 2d0d7c2e6ddb..5c884380ee42 100644
+--- a/xen/arch/arm/arm64/vfp.c
++++ b/xen/arch/arm/arm64/vfp.c
+@@ -4,6 +4,48 @@
+ #include <asm/vfp.h>
+ #include <asm/arm64/sve.h>
+ 
++static inline void save_state(uint64_t *fpregs)
++{
++    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
++                 "stp q2, q3, [%1, #16 * 2]\n\t"
++                 "stp q4, q5, [%1, #16 * 4]\n\t"
++                 "stp q6, q7, [%1, #16 * 6]\n\t"
++                 "stp q8, q9, [%1, #16 * 8]\n\t"
++                 "stp q10, q11, [%1, #16 * 10]\n\t"
++                 "stp q12, q13, [%1, #16 * 12]\n\t"
++                 "stp q14, q15, [%1, #16 * 14]\n\t"
++                 "stp q16, q17, [%1, #16 * 16]\n\t"
++                 "stp q18, q19, [%1, #16 * 18]\n\t"
++                 "stp q20, q21, [%1, #16 * 20]\n\t"
++                 "stp q22, q23, [%1, #16 * 22]\n\t"
++                 "stp q24, q25, [%1, #16 * 24]\n\t"
++                 "stp q26, q27, [%1, #16 * 26]\n\t"
++                 "stp q28, q29, [%1, #16 * 28]\n\t"
++                 "stp q30, q31, [%1, #16 * 30]\n\t"
++                 : "=Q" (*fpregs) : "r" (fpregs));
++}
++
++static inline void restore_state(uint64_t *fpregs)
++{
++    asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
++                 "ldp q2, q3, [%1, #16 * 2]\n\t"
++                 "ldp q4, q5, [%1, #16 * 4]\n\t"
++                 "ldp q6, q7, [%1, #16 * 6]\n\t"
++                 "ldp q8, q9, [%1, #16 * 8]\n\t"
++                 "ldp q10, q11, [%1, #16 * 10]\n\t"
++                 "ldp q12, q13, [%1, #16 * 12]\n\t"
++                 "ldp q14, q15, [%1, #16 * 14]\n\t"
++                 "ldp q16, q17, [%1, #16 * 16]\n\t"
++                 "ldp q18, q19, [%1, #16 * 18]\n\t"
++                 "ldp q20, q21, [%1, #16 * 20]\n\t"
++                 "ldp q22, q23, [%1, #16 * 22]\n\t"
++                 "ldp q24, q25, [%1, #16 * 24]\n\t"
++                 "ldp q26, q27, [%1, #16 * 26]\n\t"
++                 "ldp q28, q29, [%1, #16 * 28]\n\t"
++                 "ldp q30, q31, [%1, #16 * 30]\n\t"
++                 : : "Q" (*fpregs), "r" (fpregs));
++}
++
+ void vfp_save_state(struct vcpu *v)
+ {
+     if ( !cpu_has_fp )
+@@ -13,23 +55,7 @@ void vfp_save_state(struct vcpu *v)
+         sve_save_state(v);
+     else
+     {
+-        asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
+-                     "stp q2, q3, [%1, #16 * 2]\n\t"
+-                     "stp q4, q5, [%1, #16 * 4]\n\t"
+-                     "stp q6, q7, [%1, #16 * 6]\n\t"
+-                     "stp q8, q9, [%1, #16 * 8]\n\t"
+-                     "stp q10, q11, [%1, #16 * 10]\n\t"
+-                     "stp q12, q13, [%1, #16 * 12]\n\t"
+-                     "stp q14, q15, [%1, #16 * 14]\n\t"
+-                     "stp q16, q17, [%1, #16 * 16]\n\t"
+-                     "stp q18, q19, [%1, #16 * 18]\n\t"
+-                     "stp q20, q21, [%1, #16 * 20]\n\t"
+-                     "stp q22, q23, [%1, #16 * 22]\n\t"
+-                     "stp q24, q25, [%1, #16 * 24]\n\t"
+-                     "stp q26, q27, [%1, #16 * 26]\n\t"
+-                     "stp q28, q29, [%1, #16 * 28]\n\t"
+-                     "stp q30, q31, [%1, #16 * 30]\n\t"
+-                     : "=Q" (*v->arch.vfp.fpregs) : "r" (v->arch.vfp.fpregs));
++        save_state(v->arch.vfp.fpregs);
+     }
+ 
+     v->arch.vfp.fpsr = READ_SYSREG(FPSR);
+@@ -47,23 +73,7 @@ void vfp_restore_state(struct vcpu *v)
+         sve_restore_state(v);
+     else
+     {
+-        asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
+-                     "ldp q2, q3, [%1, #16 * 2]\n\t"
+-                     "ldp q4, q5, [%1, #16 * 4]\n\t"
+-                     "ldp q6, q7, [%1, #16 * 6]\n\t"
+-                     "ldp q8, q9, [%1, #16 * 8]\n\t"
+-                     "ldp q10, q11, [%1, #16 * 10]\n\t"
+-                     "ldp q12, q13, [%1, #16 * 12]\n\t"
+-                     "ldp q14, q15, [%1, #16 * 14]\n\t"
+-                     "ldp q16, q17, [%1, #16 * 16]\n\t"
+-                     "ldp q18, q19, [%1, #16 * 18]\n\t"
+-                     "ldp q20, q21, [%1, #16 * 20]\n\t"
+-                     "ldp q22, q23, [%1, #16 * 22]\n\t"
+-                     "ldp q24, q25, [%1, #16 * 24]\n\t"
+-                     "ldp q26, q27, [%1, #16 * 26]\n\t"
+-                     "ldp q28, q29, [%1, #16 * 28]\n\t"
+-                     "ldp q30, q31, [%1, #16 * 30]\n\t"
+-                     : : "Q" (*v->arch.vfp.fpregs), "r" (v->arch.vfp.fpregs));
++        restore_state(v->arch.vfp.fpregs);
+     }
+ 
+     WRITE_SYSREG(v->arch.vfp.fpsr, FPSR);
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.34.1
+
 
