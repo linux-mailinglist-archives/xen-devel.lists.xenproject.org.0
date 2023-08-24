@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0382787A49
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 23:22:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590326.922581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3367787A9A
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 23:38:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590333.922590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZHmS-00030e-0y; Thu, 24 Aug 2023 21:22:16 +0000
+	id 1qZI1K-0004kL-8s; Thu, 24 Aug 2023 21:37:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590326.922581; Thu, 24 Aug 2023 21:22:15 +0000
+Received: by outflank-mailman (output) from mailman id 590333.922590; Thu, 24 Aug 2023 21:37:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZHmR-0002xI-Ts; Thu, 24 Aug 2023 21:22:15 +0000
-Received: by outflank-mailman (input) for mailman id 590326;
- Thu, 24 Aug 2023 21:22:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qZI1K-0004if-5b; Thu, 24 Aug 2023 21:37:38 +0000
+Received: by outflank-mailman (input) for mailman id 590333;
+ Thu, 24 Aug 2023 21:37:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J8VH=EJ=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1qZHmQ-0002xA-5s
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 21:22:14 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 48700a96-42c4-11ee-9b0c-b553b5be7939;
- Thu, 24 Aug 2023 23:22:10 +0200 (CEST)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37OJEUiS007529; Thu, 24 Aug 2023 21:21:36 GMT
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3sn1yvw403-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Aug 2023 21:21:36 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 37OJvZ2F033219; Thu, 24 Aug 2023 21:21:35 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2105.outbound.protection.outlook.com [104.47.58.105])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3sn1yx18an-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Aug 2023 21:21:34 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by SN7PR10MB7001.namprd10.prod.outlook.com (2603:10b6:806:345::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Thu, 24 Aug
- 2023 21:21:33 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::878c:8797:8568:4f1a]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::878c:8797:8568:4f1a%3]) with mapi id 15.20.6699.028; Thu, 24 Aug 2023
- 21:21:33 +0000
+ <SRS0=zFvq=EJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qZI1H-0004iY-RW
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 21:37:35 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6eb2e37b-42c6-11ee-8783-cb3800f73035;
+ Thu, 24 Aug 2023 23:37:33 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D6C8F625C0;
+ Thu, 24 Aug 2023 21:37:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC416C433C8;
+ Thu, 24 Aug 2023 21:37:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,172 +45,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48700a96-42c4-11ee-9b0c-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2023-03-30;
- bh=8IOXY/559ecw9U1jCzyYxMLUmrCdKat7AmmLCDKrkJc=;
- b=vVvTuWdtONMmE4VzQdsBIhBmhLBeUQcidurIGYRB+g60XJiykEarG7Bc70IpGddi2E2Z
- yluQWqRKQdHbXELYaHm+tnteo0dmTFvwZDP65Ul1AsXsMiUQCuDVkuO0Isyp1vrFQaXI
- nqzAYIrxXqSaUJerMgRgTtHdm3kKkBRBDTL1Sg/fVo4LFXIwkPH7S6PxFCWiumXdLYb9
- sB0NX5JKztoy640XKGPQ7Lh3Oi2L7+i5+0BRXdl50t5ITCp3k7/1m8V1XfeIcaIx1svK
- I/uzKrZU1yK4ocLLc2Rcqfd6g2y3Ac+sCp9DFFllu5wVcIm+V8Pk8A67E3BWGw/CbSH4 6w== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H194qvcrO++Kul6lG6slHdqZu7Dg+RS+epSIGmgGNQBRVBGlbrxNpNOZM5sK3ty1oQTW1KuUMltA9zpBxUJE5DMqCDBkzTWoA8jLXkNKDmVx8W+pIKn2K81JAm8XEwT4rprxGr08HbEnN4mVvHCpiq6C7NpNrDeE+ep2+C4p4dLv2PoLqRkINkcV18OkmKKDkySrkEN/rySmwE4dj2vugbk+OCC8OOyOWasHulAjRbGhAHX2EIQWSyiQgdIdYLjuoCujfVt7S9V91Wg9VOIB+5A22g/kXOljlv21zFWmGvsQuniMyCg5s5J31HcDXfcDCuCimCJzYh1OeX3Y3lRIiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8IOXY/559ecw9U1jCzyYxMLUmrCdKat7AmmLCDKrkJc=;
- b=AbeL1mcSYgkCMYKr6Xr28MANlq6TJIJR6vrDalbu07tlvdKOKT7V33GQACVVMrbfLMXQW7zKO6iscjPjyfYAjxDyimhvcWRdxhDPHuTph25Fx9jU3O9lbeyUUNYVJQBL7bLW+lzjn7bN0vVzY6fThAYIp6zXtaZwlw1gv1BCn+GW4gmRIBGC9c8sC0xEuV9CBgCo/VezfoMbQethJKEXgr5s9mSYiQGkw+zVPg8dSGG4ETSOHc9bZlAp1pKcyiO3fRz2Gkhs1O7qp99OsuBIEUOTHgcWVmDfSQFbnUEF1vve8YzGT7P1Oo3uOSkqQuP8PmsoJtQ34pMPh4DxpzqBVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8IOXY/559ecw9U1jCzyYxMLUmrCdKat7AmmLCDKrkJc=;
- b=VEupMkrHRsmdhI7pyoAO5Yux7e0vfFNDianHmPN438OTy6fU/1M44NVFVqNDbEWboxYCPV1/ZHa8Vxr2ZwIZ5YN8tAH/Y9Lt/WUV1lTooTrahPpyWHStju/LwmF+c6dd8SRjXWgT3B5kCpNDKGWYy7dY/GjROa5yyT4aJ9A884Y=
-Message-ID: <48676a7d-2100-c0d1-4e03-788cb6982fee@oracle.com>
-Date: Thu, 24 Aug 2023 17:21:27 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-Subject: Re: [PATCH] xen: simplify evtchn_do_upcall() call maze
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
-        x86@kernel.org
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "H. Peter Anvin" <hpa@zytor.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        xen-devel@lists.xenproject.org
-References: <20230824154106.14799-1-jgross@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20230824154106.14799-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9PR11CA0002.namprd11.prod.outlook.com
- (2603:10b6:806:6e::7) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 6eb2e37b-42c6-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692913051;
+	bh=aQXBuYMvPVZfXsWe9nTY1athPdGWi1r3x5hqaCM1Hk0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=NhFsCYnhDhfHoCHFlOfaG/Jm6udLtx1Gnj3Pw+hSSzQEhRcf+Q8yXy7tmpxjbCJut
+	 V+RSzWuwZYDM4l7kzob4sHekHwYyZoYd2cH1CeHCnvGZuAK6TeDFkLa3u8MSVx24lY
+	 +zDufjKxuphB86kRO5tgevJckTHRvH4w8qvMsoU0Mr3OHfVUU74/+tXWN9O+xoFu4v
+	 XYogieyv65v1pSeDUlenBCPaM7QH4rhBLAanToPZJAN1KcW+kzF4IAoYeXLExhMAkr
+	 StjFM+TBk5+vAa9SW5ehAzWBVp6rjKEoGQ/9n+MU6+LaL8Ux7gntrprz69I+Tsy7Lu
+	 QMW2sxkwBavLg==
+Date: Thu, 24 Aug 2023 14:37:27 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: tamas@tklengyel.com
+cc: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org, 
+    consulting@bugseng.com, jbeulich@suse.com, 
+    Gianluca Luparini <gianluca.luparini@bugseng.com>, 
+    Alexandru Isaila <aisaila@bitdefender.com>, 
+    Petre Pircalabu <ppircalabu@bitdefender.com>, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH 06/13] xen/mem_access: address violations of MISRA
+ C:2012 Rule 7.3
+In-Reply-To: <14f3796e-d591-1eb0-7188-8bb44bc582b9@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2308241437230.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1691053438.git.simone.ballarin@bugseng.com> <7e4ff67a24206177c5a304055f395cc2983bb994.1691053438.git.simone.ballarin@bugseng.com> <alpine.DEB.2.22.394.2308031746340.2127516@ubuntu-linux-20-04-desktop>
+ <14f3796e-d591-1eb0-7188-8bb44bc582b9@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BLAPR10MB5009:EE_|SN7PR10MB7001:EE_
-X-MS-Office365-Filtering-Correlation-Id: e97abc27-3d4f-4ca9-9c1a-08dba4e816ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	4qYojLlnQurTdZLs4noVuBvlfrkBZkStppnKh7SXX/KsK9MBsTWnB44zXWPjG3gnWq6GFXGBipKXpa3cpeLn5lF2lw05K1b9dMZhDR/Ph1QWIqsaOBbYTazU27SHJqArh2QCpeSzEY0Vqpey2V8bHqA+ga8LEGpTzbnuwILx/oMNudYiNeOZigq2gJmKmvQG5aEmC5yEYlLNoOAvD8WjdH0Gipe2Y31pterwIO6eoWOkv9p7ltwnU3QsM71PZiB1oMSf14ZLtGi5lBQAL132E/0Vk2h+vX78q64zWWve38gTY8cd4QLr1SWThp+0BdMdeayEXKyfhOVAt5SDQDsZdRxhLvQ+chcIvEUJ4L0bxVRKKXQb9j1Jhp8gG1EFQJBxy4utL7SPTq74ozCHOrnDALlWs0gX4YwhUI6D49U/Rv++/JFYoVYRYxaABWtAGvhtxpHp94+oD0KhwqidYWM/LjS4BHQq3RgKoh03ulDai+WhdaeGrkbuxJqPYd6235DCikGbzK1KFrVoTe7bHLbL3f4JbItzeBx6tH9XFikTpBg0FqdmKRMKGM+ysZpwk3jDMAlfVu3tDyqlnpedmbMk+0lQnSgJn/O/lXeYnlSUeyvAe5C4EM3vanOjoxG43k4uIwoHJaUXvInsL9BsviDbeg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(39860400002)(396003)(376002)(136003)(186009)(1800799009)(451199024)(66946007)(26005)(6512007)(53546011)(2616005)(41300700001)(4744005)(66556008)(7416002)(66476007)(54906003)(2906002)(316002)(5660300002)(44832011)(8936002)(4326008)(8676002)(478600001)(6486002)(6506007)(6666004)(31696002)(86362001)(38100700002)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?REIrOGIzMHpFUktrTG9nZmlxbjNvbFNqZDRvU0F5OHp3R0x1cU9NZWtBWVdn?=
- =?utf-8?B?d3kzMkdRWFYrUmhVbndWZERBQ2trUWJBdDJUb0hLTUFvc3ZWaHN1NnNKd3Yr?=
- =?utf-8?B?MWpUQTFrOFFHR3VjU3NMRGZjMXRXK2dCY2x5VkRpQU5oZlJscE5YVXVsTUlK?=
- =?utf-8?B?dWZxLy9rcFl0SWVNblVkSENqU1RVZ3RFOWFmV0hLaXpiVDFmbGlORzVFSWtS?=
- =?utf-8?B?Q3NzUjVNRlMvTkRtUFI2Yk45c0d6TXpGUUNWdkZCbzVHcXJGZUtPaWFXNnFI?=
- =?utf-8?B?akRuVmZwMCtXYmNkK3NrNWVLajlvUVNxSDRWL3ZERHRFWFFzSUI3WXhlK1lt?=
- =?utf-8?B?MlQ0S0UrTG02U0I1U0JURllFVkxoalRIbmFmQVd3aGRwdEE2aEhDMnFmS09q?=
- =?utf-8?B?WVJKb25qcm5Ya1ZkbG9wWHExbFU5ZEZyeFRpZXlQMnV4aE5nMUNSY1E5K0JG?=
- =?utf-8?B?T1hweFR3ZDZIeFh5N2RVTlpYYjVHMTllQXRrUWFoRXA5RVZ0MWlNZ01wcUlZ?=
- =?utf-8?B?UTg0YzhaZlJIMWdvZHhaU2YvYkhxc05oQWI4cHlDMXdYWDA5TlNpQ2p3bXNs?=
- =?utf-8?B?S3B2Uno1MThVZEQwSE1pR0cxZFg0RlN3emgwYkYxampjR1ZHU2V1RzVaMWFX?=
- =?utf-8?B?ci8ydjl1RWdBZWlsWWVOQnJGVjRhZ2VOVGZhb25xN1Z0UmdiSmovTDlrK3pL?=
- =?utf-8?B?c29rK3dFMDhwTGo3SGEwZFZEeEZmOGYzNnJLaFBFSGR3ZzhuendDanFmZjZG?=
- =?utf-8?B?RWhhUnZ4dUE4WGxpdUovYlBMeWdxejRLS2pETFUzYlZzSUxNeVVNbUxRVjZW?=
- =?utf-8?B?MFZ1YWNLU0h6OVZ4YkZESEhsdnpCQjNRODFKN29PN2NhbkdDZW10cmRJSUR2?=
- =?utf-8?B?aGZ6YmdXWi9PSkRyMmhUblJ5YXZYbXhIQjZBUGx3RVIzbElibXNJRTZsb1FP?=
- =?utf-8?B?TU12ZkF5Sy9zUDAxNWIwdTdMT0FQNDEvK3d5c3ZpSEE1a2U0TDlNb1hreXEy?=
- =?utf-8?B?bnQyT1dac21LTmpzSFhkV096Vk9FNHFlQ1dwb0p3SmhGc2dWdlBwc3BjVWxr?=
- =?utf-8?B?SVduaTUyV0tkV28xeWg0UmNoWlQwOS80T1NBUTh1L0Q3RG01QUxWeS9yNmda?=
- =?utf-8?B?alFGbXVYcmd3NTFLTkJUcGMxdVpYRHprZVNrUE5DYiswcy9JV0N1N0FaREpD?=
- =?utf-8?B?bkdwdEhqeTI1UTV2Yk1KeTBxaGRVUnVaNFViQktJR2p4Sjc5TkZjbWQ2UDd4?=
- =?utf-8?B?aVBNRHpScG5ORnY5a1NVaHMxMk5DbzhaNnI1WFRmdFVOaG5xcS80cndqY1JK?=
- =?utf-8?B?dG53Wk5XZ2FrSGs3dU0wUGlCSXljUkUzQ3RjcldzU3BjVGNVOHBZNm0rQmRW?=
- =?utf-8?B?WUp2UnNMSVN6MWI3UmZPQmhZYURBRXd5aHNtZ0xTQ3RMdFBsaEhvU3J5QW9p?=
- =?utf-8?B?QnloZktENSt1RksxT0dFaCtXZUJuRDdBQlhzNWI4YlZjMGp3N2dLYXc4b3h1?=
- =?utf-8?B?cjhzZ21uWUZuSWIrWHVXb0RBcXJLL1VGMXNaeXlqQndVR2N3UVM1bEFxWVBD?=
- =?utf-8?B?SWlVRDNURlJQY0JQdk01UlI4WC9RZi9UM0dkZW9Eb00zYjZGL1lNUVBVOG83?=
- =?utf-8?B?cjR3cGtuSjFLSDdMckpaUytiMURJeVNCeVc0VnA5QkVub2tCM1RpZlNvMjBI?=
- =?utf-8?B?emYwaEJWTGZLcHlOVmdTZHl5akJHU2dqbm91anBOeUFMckMrSnFMY2t6VnN3?=
- =?utf-8?B?akxVNHRSK1VjTCtlTTcyalFCMnNNVmdUT1hVZTdYT1IvSTQreTNPVU9DcVVO?=
- =?utf-8?B?VWhlYjBrUmJlNFVicCs5QUsyc2M5OTVGdElGQnJ6QmlNU0ZhK25oWURhWFlX?=
- =?utf-8?B?UytOMDJaRElPQXZGdWUwN2t2M0c3VGVKb0RYT000UTVGMm1pK3AreGVVTlNo?=
- =?utf-8?B?RnBZaEpJRHBaRDJJUWZpbVg3UTJ3UElmVXlYWXUvL0x3bC9PMU5XempBNGRP?=
- =?utf-8?B?c0hWMVd3UlUxaHlJTUl1eDAwVVA4U3Ewa2xON05Ta29Ed3E1MnR1M3o5NzBw?=
- =?utf-8?B?amJqejg5RlJ1eC80RVkvcnV3MERLTVo5alFLbVhrQU1kMmdkaytKVzNQQzhJ?=
- =?utf-8?B?WUR4RGxXOWkxRnBqL24zMkk2THcyYXhEOFB4bUViS2pjdTVPQjRyVFpvVVVB?=
- =?utf-8?B?NXc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
-	=?utf-8?B?S0ZPUzdNWFZwM2hFV0JHdVJFeThLMncwVmlBMy80MjVJK2pHTHVRcGw0MjFJ?=
- =?utf-8?B?WkZyTDRZVG1ZemhHWkhIR3Q4SEZFQ1NtWWRua2RZYXNBRmdjVHM4VnNUNU9r?=
- =?utf-8?B?SEU1enY1RWFwd1ZPZW54K2NWNWhSN0pYZklqeDQ2Q2xiV3A3WmI3Ny8wbE5h?=
- =?utf-8?B?YXhDTnhqckZsbTVTTlJjWmRNcTdubG9ISnZDVVBBb3dLQ1NGcXNEYnFLNWpo?=
- =?utf-8?B?eEdoMkR6ZTVadjdvVlk4dDB0VDlTSk11WW9IY01wWU4rL0REbnRjUzFyUVMy?=
- =?utf-8?B?TU5hRlAxWk43YTVCRHFvRmtnY0xxMm1HSTJnUVUyK2JLY1Y3V2JRNStkWVVj?=
- =?utf-8?B?MlV3TmVaUmRURy9JS3B5L2p2MG5pODMvYzhoR0Z4bE1xazk4VE9xRXlhbXB6?=
- =?utf-8?B?Y21VSEhqSFJmUHh5UU1UVWl2STdHUXR0VTI2UEJkSXZPTnRrQm83UDRWL2p2?=
- =?utf-8?B?M0t0Y2NIRHhpSzAyRzcxNktTbTVHRmw2UWRSR2hkUWNCYWg4bmFYaHJ1R2pp?=
- =?utf-8?B?dDYwYTZrZGpUaVNySFVOQTdXZW9BeDVOZTJveFdEcGxCd1FLZkV3RWRFZ0Fu?=
- =?utf-8?B?UWxTMmFVWHR0UnhOaUxCODR5c3gwQit4Wi9maEI4MmduSVpMbEUrenNmWlgy?=
- =?utf-8?B?Y0M1SHJhNkZtTU1LbmlVSmxta3ZPVFlsRTluS1duRUZJSlZtSVppM0M2c2hJ?=
- =?utf-8?B?VVlyb09rdUU1VVhaUlQyeGFZdVp3S1NSTEJtY3RzSml6OHZqOGhnSEcrRllz?=
- =?utf-8?B?cmNFNlU5L0NRMUZaZEtPM1FDd1oveTFRcytiWFpLQXE4eTI4N1ZiVVVXWUU1?=
- =?utf-8?B?a0lLbkJVSjl4b1R0alV4Y1k1aXlIa1FNRkptYUt0M1lwVE5ZSDJhS1piTFpx?=
- =?utf-8?B?RktHSVg1SEw0Ri9teXJ3RW1rYVprekxNbGdLKzZxelI5aEd1QnNha3lPN081?=
- =?utf-8?B?Ti9BWXhLUC9DbGoyTm4wWFdiYVgvYXNUb2Z2ZmUzUXFXUjMvbWpsZnk0dWlp?=
- =?utf-8?B?Z2RscTVmVWw1OXowdDJuazJlMVJWd21xeVhSZmNoaVdRa2R2R2VYa3BZUzRL?=
- =?utf-8?B?bE5JUFRxNDdXTm5yaVRhMW5tUjJGN3ZSZkdudDU5RzdtUEoxVEM3b0ZlLzN3?=
- =?utf-8?B?MnJEOUloVDBLckZFcXpKSFR6aXZ6NExKRzdscEZIUjRGZ29PQnViZndWcWYx?=
- =?utf-8?B?QXVRTTk3SWxQa2paN0FvR3Z5OUpzVGZuZGVNV3Fzc0FMY1BNVE9kekJsZWk3?=
- =?utf-8?B?MlYzRDF4Tm1sbzlyWDZ2Q0psNlVDZFdhRlJTcjBjVlFkMGgvelpXTWhraVdL?=
- =?utf-8?B?TEFlQnlVdEZydkFBOG9IMXl2U2FYaWpCZlZQN3hTdDI3SE1La25sV1ZyM2Nv?=
- =?utf-8?B?MUp4Zmd3QWlGVmpvM1JRTUdxakkwdE0rcU94NDF3aVpPOWRINzlUU0dRUXN2?=
- =?utf-8?Q?oCCKyGP5?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e97abc27-3d4f-4ca9-9c1a-08dba4e816ed
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2023 21:21:32.9149
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LG7oR1DoMERka+xPxmzD5KIlj1pHmBJEuPmfeYrKaHMRI611qM82iL5vWKP8GDf6k5qliJtnJ+wdUZcrl2yjoDNtlWMha6SzNrOC5/D2NeA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB7001
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-24_18,2023-08-24_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 spamscore=0 bulkscore=0
- suspectscore=0 mlxscore=0 malwarescore=0 adultscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2308100000
- definitions=main-2308240185
-X-Proofpoint-ORIG-GUID: EObIrr3DLyruPIkbt_lLa0OfcTVSbU3g
-X-Proofpoint-GUID: EObIrr3DLyruPIkbt_lLa0OfcTVSbU3g
+Content-Type: text/plain; charset=US-ASCII
+
+Tamas, is it possible that you are not actually subscribed to xen-devel
+with your email tamas@tklengyel.com  ?
+
+Sorry for top-posting I wanted to make sure Tamas saw this.
 
 
+On Thu, 24 Aug 2023, Jan Beulich wrote:
+> On 04.08.2023 02:47, Stefano Stabellini wrote:
+> > On Thu, 3 Aug 2023, Simone Ballarin wrote:
+> >> From: Gianluca Luparini <gianluca.luparini@bugseng.com>
+> >>
+> >> The xen sources contain violations of MISRA C:2012 Rule 7.3 whose headline
+> >> states:
+> >> "The lowercase character 'l' shall not be used in a literal suffix".
+> >>
+> >> Use the "L" suffix instead of the "l" suffix, to avoid potential ambiguity.
+> >> If the "u" suffix is used near "L", use the "U" suffix instead, for consistency.
+> >>
+> >> The changes in this patch are mechanical.
+> >>
+> >> Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
+> >> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> > 
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> I notice this again was committed with an ack by Tamas which has never appeared
+> on list. At that time I pointed out that the reason may have been connected to
+> the mail (as you had forwarded) having been a HTML one.
+> 
+> Yet then looks like the same has happened to me, with "Re: Ping: [PATCH]
+> mem-sharing: move (x86) / drop (Arm) arch_dump_shared_mem_info()". I can't find
+> record of this in the list archive. And that mail, from all I can tell, was a
+> plain text one.
+> 
+> George, for the earlier instance Stefano had Cc-ed you, apparently on the
+> assumption that you might be able to do something about this, or initiate that
+> something be done. Is there anything that was found out? Just in case I'll
+> attach the mail I did receive.
+> 
+> I also wonder what other mails from you, Tamas, may not have appeared on list,
+> and instead were (presumably) only delivered to people explicitly Cc-ed.
 
-On 8/24/23 11:41 AM, Juergen Gross wrote:
-> There are several functions involved for performing the functionality
-> of evtchn_do_upcall():
-> 
-> - __xen_evtchn_do_upcall() doing the real work
-> - xen_hvm_evtchn_do_upcall() just being a wrapper for
->    __xen_evtchn_do_upcall(), exposed for external callers
-> - xen_evtchn_do_upcall() calling __xen_evtchn_do_upcall(), too, but
->    without any user
-> 
-> Simplify this maze by:
-> 
-> - removing the unused xen_evtchn_do_upcall()
-> - removing xen_hvm_evtchn_do_upcall() as the only left caller of
->    __xen_evtchn_do_upcall(), while renaming __xen_evtchn_do_upcall() to
->    xen_evtchn_do_upcall()
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
