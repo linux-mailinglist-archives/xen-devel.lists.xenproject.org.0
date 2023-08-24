@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837A3786774
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 08:25:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589783.921815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE0E478686F
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 09:37:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589790.921825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ3ll-0005WX-GC; Thu, 24 Aug 2023 06:24:37 +0000
+	id 1qZ4sf-0005UB-Bv; Thu, 24 Aug 2023 07:35:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589783.921815; Thu, 24 Aug 2023 06:24:37 +0000
+Received: by outflank-mailman (output) from mailman id 589790.921825; Thu, 24 Aug 2023 07:35:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ3ll-0005Uq-DN; Thu, 24 Aug 2023 06:24:37 +0000
-Received: by outflank-mailman (input) for mailman id 589783;
- Thu, 24 Aug 2023 06:24:35 +0000
+	id 1qZ4sf-0005RS-9L; Thu, 24 Aug 2023 07:35:49 +0000
+Received: by outflank-mailman (input) for mailman id 589790;
+ Thu, 24 Aug 2023 07:35:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Lin=EJ=bytedance.com=zhengqi.arch@srs-se1.protection.inumbo.net>)
- id 1qZ3li-0005Uk-PU
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 06:24:35 +0000
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [2607:f8b0:4864:20::432])
+ <SRS0=EWrD=EJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qZ4sd-0005RM-TE
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 07:35:47 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1a9b9a8-4246-11ee-8783-cb3800f73035;
- Thu, 24 Aug 2023 08:24:31 +0200 (CEST)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-68bbd45d0d5so331618b3a.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Aug 2023 23:24:31 -0700 (PDT)
-Received: from [10.70.252.135] ([203.208.167.146])
- by smtp.gmail.com with ESMTPSA id
- ey6-20020a056a0038c600b00686f048bb9dsm6577558pfb.74.2023.08.23.23.24.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Aug 2023 23:24:28 -0700 (PDT)
+ id d5ec62ad-4250-11ee-8783-cb3800f73035;
+ Thu, 24 Aug 2023 09:35:45 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 838CD4EE0737;
+ Thu, 24 Aug 2023 09:35:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1a9b9a8-4246-11ee-8783-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1692858269; x=1693463069;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YAWLL6d+tB1TW/sa+M7W81IeOtWmeLLF2BjX95heF8Y=;
-        b=WC7DtczIl2huODCCK2FUQBPFySR8Fgdq+0RzN3EpYCF6xc5qlgt5yYNUyGMzGD3Vfd
-         sCmovMwZKx7eCaX+kb4GhOATxvPvZalq8HdXwztGZ/H374MK4JcYUpPJJsgpKNLIKxot
-         DmBT4zE6v8oseL1JDCpoVcqcxZf5N5NE7wvMO3NRJDeqxBq3NCwRJPiax64qfPuWSob5
-         mcJU3k0lorHBX5pSNWGBJw+GJKMZc4VAy8jbjqfXszKYvDjyOYUFsPD/PZLQycXFE2uX
-         l6MCDqrZ3yavMHHn+nS97IILA+7i5RFenYBam2Bp94XJlGvvguZGUp/ZdPOc/jOY5cia
-         xE5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692858269; x=1693463069;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YAWLL6d+tB1TW/sa+M7W81IeOtWmeLLF2BjX95heF8Y=;
-        b=TdugXXk7dzMjTrX8UEYVaPREdqC0Ft4dWNhKzUgFM7wPCU5LVVAPXDgUKBtbNUpIit
-         CMidQahg+H0Y+8NsW8d0d213dyWtxaGl7rW1M0spf2hApHAWwgew/WQT9SY6RG55S/UA
-         XKZqyRrUAh1mpllgewCky2msTRy4dnlnondkYw2KP1BX7liBlIstwF2yVjBuX1B7kmvd
-         t9IPTNS+lXNv/77XU7fD5562TP10poOMaDgB07+NH8A1YrmLgq96n0L1evnkKtOZgnhD
-         +MiIUMrgyM5ZFGjVugEjJIb0JizNcXuv34T5vhGGT6hzZ+Cu4d2cU3j3gXdTlU1r4iZv
-         0npQ==
-X-Gm-Message-State: AOJu0YzQUbkvmTQ2c6O6HgB6UegW0aEVeriU84t22qDuos8EgapgjT2R
-	YmoqUloDY0XJ2SKyq/iOA8WCSg==
-X-Google-Smtp-Source: AGHT+IEs+IcDk16YZ3T8sMPMS+c78NyGGAK7cNqbsAY3c0HgSGha1qj1+0CJyvlKa4AYIkTewnV0cA==
-X-Received: by 2002:a05:6a20:8e19:b0:13e:1d49:723c with SMTP id y25-20020a056a208e1900b0013e1d49723cmr15644854pzj.2.1692858269010;
-        Wed, 23 Aug 2023 23:24:29 -0700 (PDT)
-Message-ID: <144fd7ac-154f-79b9-5483-56b15941f62f@bytedance.com>
-Date: Thu, 24 Aug 2023 14:24:16 +0800
+X-Inumbo-ID: d5ec62ad-4250-11ee-8783-cb3800f73035
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-Subject: Re: [PATCH v5 05/45] xenbus/backend: dynamically allocate the
- xen-backend shrinker
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu, steven.price@arm.com,
- cel@kernel.org, senozhatsky@chromium.org, yujie.liu@intel.com,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, Muchun Song <songmuchun@bytedance.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20230824034304.37411-1-zhengqi.arch@bytedance.com>
- <20230824034304.37411-6-zhengqi.arch@bytedance.com>
- <d07d52b1-6e6d-4b29-a9ce-7e325e7b1f11@suse.com>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <d07d52b1-6e6d-4b29-a9ce-7e325e7b1f11@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Thu, 24 Aug 2023 09:35:44 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH] arm64/vfp: address MISRA C:2012 Dir 4.3
+In-Reply-To: <alpine.DEB.2.22.394.2308231327570.6458@ubuntu-linux-20-04-desktop>
+References: <998ecebdda92f1704fa35e8692b1f7e37b674d16.1692800477.git.nicola.vetrini@bugseng.com>
+ <a0a4a13a-3ada-4586-81cf-86a9e583fc60@xen.org>
+ <3b4d895999ad4fc51f280c8f7e854cab@bugseng.com>
+ <59fad669-afc2-45e2-b647-8a0878774ba8@xen.org>
+ <alpine.DEB.2.22.394.2308231327570.6458@ubuntu-linux-20-04-desktop>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <cda5d3116f4218a42c26fbe8b2b026c4@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Juergen,
-
-On 2023/8/24 14:00, Juergen Gross wrote:
-> On 24.08.23 05:42, Qi Zheng wrote:
->> Use new APIs to dynamically allocate the xen-backend shrinker.
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
->> CC: Juergen Gross <jgross@suse.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> CC: xen-devel@lists.xenproject.org
+On 23/08/2023 22:30, Stefano Stabellini wrote:
+> On Wed, 23 Aug 2023, Julien Grall wrote:
+>> Hi Nicola,
+>> 
+>> On 23/08/2023 17:09, Nicola Vetrini wrote:
+>> > On 23/08/2023 16:59, Julien Grall wrote:
+>> > > Hi,
+>> > >
+>> > > On 23/08/2023 15:27, Nicola Vetrini wrote:
+>> > > > Directive 4.3 prescribes the following:
+>> > > > "Assembly language shall be encapsulated and isolated",
+>> > > > on the grounds of improved readability and ease of maintenance.
+>> > > > The Directive is violated in this case by asm code in between C code.
+>> > > >
+>> > > > A macro is the chosen encapsulation mechanism.
+>> > >
+>> > > I would rather prefer if we use a static inline.
+>> >
+>> > Just to prevent an possible back and forth on a similar patch:
+>> > is it ok to adopt the same approach with the inline asm in
+>> > xen/arch/arm/arm64/lib/bitops.c in the definition of the macros
+>> > 'bitop' and 'testop'?
+>> 
+>> So, in the VFP I agree that moving the assembly part outside of 
+>> vfp_*_state()
+>> makes sense even without MISRA. But I don't agree with moving the 
+>> assembly
+>> code out as the C function is tightly coupled with the assembly code.
+>> 
+>> So this would please MISRA but IHMO would make the code more difficult 
+>> to
+>> understand. So I think we should deviate for the bitops.
+>> 
+>> Bertrand, Stefano, what do you think?
 > 
-> Acked-by: Juergen Gross <jgross@suse.com>
+> I agree. I think bitops.c is already encapsulated and introducing
+> additional macros or functions is likely to make the code worse. testop
+> and bitop are the encapsulating functions, as you can see there is very
+> little else other than the asm volatile and a do/while loop.
 
-Thanks for your review!
+Ok, thanks.
 
-> 
-> Just one note: it seems as if most users will set seeks to DEFAULT_SEEKS.
-> Wouldn't it be better to do this in shrinker_alloc() and let only callers
-> who want a different value overwrite that?
-
-I think it makes sense, will do.
-
-Thanks,
-Qi
-
-> 
-> 
-> Juergen
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
