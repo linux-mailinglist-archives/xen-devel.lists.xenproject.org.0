@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04258786CAA
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 12:20:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589902.921968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFCDB786CC6
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 12:29:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589910.921982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ7RH-0005vC-Ce; Thu, 24 Aug 2023 10:19:43 +0000
+	id 1qZ7aI-0007YU-A3; Thu, 24 Aug 2023 10:29:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589902.921968; Thu, 24 Aug 2023 10:19:43 +0000
+Received: by outflank-mailman (output) from mailman id 589910.921982; Thu, 24 Aug 2023 10:29:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ7RH-0005tW-9r; Thu, 24 Aug 2023 10:19:43 +0000
-Received: by outflank-mailman (input) for mailman id 589902;
- Thu, 24 Aug 2023 10:19:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qZ7RF-0005tA-W4
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 10:19:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZ7RF-0001Vp-DS; Thu, 24 Aug 2023 10:19:41 +0000
-Received: from [15.248.3.1] (helo=[10.24.67.25])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZ7RF-0001nt-0p; Thu, 24 Aug 2023 10:19:41 +0000
+	id 1qZ7aI-0007Vc-6f; Thu, 24 Aug 2023 10:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 589910;
+ Thu, 24 Aug 2023 10:29:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EWrD=EJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qZ7aH-0007VW-0V
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 10:29:01 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 08b9afde-4269-11ee-9b0c-b553b5be7939;
+ Thu, 24 Aug 2023 12:28:58 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id B2D684EE0737;
+ Thu, 24 Aug 2023 12:28:57 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,130 +39,336 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=4tio7x7gjKyKmzA8ydq+PPVyZdbnTYhDHdqXEqJbErI=; b=I6O7azqUh3pUhVmijHo/gdN8sF
-	pGzsUxx+IHkDG/boSBKUNgjavfLzwFLZq6GRpXVmI7bEpf5gJLOhpl4cRNu2/1T00K3YPDsu2yPw6
-	p4NY9jI58zdXpeQrimEUkkcKrsqPFh2ZSvdZQPk2B10IStASEO4d2TinhOEcjgtqELL0=;
-Message-ID: <33e90d86-973f-4a32-941f-140db9aaa90c@xen.org>
-Date: Thu, 24 Aug 2023 11:19:37 +0100
+X-Inumbo-ID: 08b9afde-4269-11ee-9b0c-b553b5be7939
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/13] xen/arm: mm: Use generic variable/function names
- for extendability
-Content-Language: en-GB
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230814042536.878720-1-Henry.Wang@arm.com>
- <20230814042536.878720-10-Henry.Wang@arm.com>
- <c039015f-43d4-491f-b44c-8ece186e08e4@xen.org>
- <FBF340E4-5927-48E0-A23B-7D2F8DC8C33C@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <FBF340E4-5927-48E0-A23B-7D2F8DC8C33C@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Date: Thu, 24 Aug 2023 12:28:57 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Gianluca
+ Luparini <gianluca.luparini@bugseng.com>, Jun Nakajima
+ <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, Jan Beulich
+ <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH v4 1/4] x86/vmx: address violations of MISRA C:2012
+ Rule 7.2
+In-Reply-To: <6c2473a29d60460bf69382fd1e983752634b6992.1690368810.git.simone.ballarin@bugseng.com>
+References: <cover.1690368810.git.simone.ballarin@bugseng.com>
+ <6c2473a29d60460bf69382fd1e983752634b6992.1690368810.git.simone.ballarin@bugseng.com>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <3c68a16a3e2e6f552c5fd41b24c901d6@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Henry,
-
-On 24/08/2023 10:46, Henry Wang wrote:
->> On Aug 22, 2023, at 02:32, Julien Grall <julien@xen.org> wrote:
->>
->> Hi,
->>
->> On 14/08/2023 05:25, Henry Wang wrote:
->>> From: Penny Zheng <penny.zheng@arm.com>
->>> As preparation for MPU support, which will use some variables/functions
->>> for both MMU and MPU system, We rename the affected variable/function
->>> to more generic names:
->>> - init_ttbr -> init_mm,
->>
->> You moved init_ttbr to mm/mmu.c. So why does this need to be renamed?
->>
->> And if you really planned to use it for the MPU code. Then init_ttbr should not have been moved.
+On 26/07/2023 13:03, Simone Ballarin wrote:
+> From: Gianluca Luparini <gianluca.luparini@bugseng.com>
 > 
-> You are correct. I think we need to use the “init_mm” for MPU SMP support,
-> so I would not move this variable in v6.
-
-Your branch mpu_v5 doesn't seem to contain any use. But I would expect 
-that the common is never going to use the variable. Also, at the moment 
-it is 64-bit but I don't see why it would be necessary to be bigger than 
-32-bit on 32-bit.
-
-So I think it would be preferable if init_ttbr is move in mm/mmu.c. You
-can then introduce an MPU specific variable.
-
-In general, only variables that will be used by common code should be 
-defined in common. All the rest should be defined in their specific 
-directory.
-
->>> - mmu_init_secondary_cpu() -> mm_init_secondary_cpu()
->>> - init_secondary_pagetables() -> init_secondary_mm()
->>
->> The original naming were not great but the new one are a lot more confusing as they seem to just be a reshuffle of word.
->>
->> mm_init_secondary_cpu() is only setting the WxN bit. For the MMU, I think it can be done much earlier. Do you have anything to add in it? If not, then I would consider to get rid of it.
+> The xen sources contains violations of MISRA C:2012 Rule 7.2 whose
+> headline states:
+> "A 'u' or 'U' suffix shall be applied to all integer constants
+> that are represented in an unsigned type".
 > 
-> I’ve got rid of mmu_init_secondary_cpu() function in my local v6 as it is now
-> folded to the assembly code.
+> Add the 'U' suffix to integers literals with unsigned type.
 > 
->>
->> For init_secondary_mm(), I would renamed it to prepare_secondary_mm().
+> For the sake of uniformity, the following changes are made:
+> - add the 'U' suffix to macros near
+>   'CPU_BASED_ACTIVATE_SECONDARY_CONTROLS' and
+>   'SECONDARY_EXEC_NOTIFY_VM_EXITING' macros in 'vmcs.h'
+> - add the 'U' suffix to macros near 'INTR_INFO_VALID_MASK'
+>   macro in 'vmx.h'
 > 
-> Sure, thanks for the name suggestion.
+> Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
+> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Changes in v4:
+> - change commit headline
 > 
->>
->>>   -void update_identity_mapping(bool enable)
->>> +static void update_identity_mapping(bool enable)
->>
->> Why not simply renaming this function to update_mm_mapping()? But...
->>
->>>   {
->>>       paddr_t id_addr = virt_to_maddr(_start);
->>>       int rc;
->>> @@ -120,6 +120,11 @@ void update_identity_mapping(bool enable)
->>>       BUG_ON(rc);
->>>   }
->>>   +void update_mm_mapping(bool enable)
->>
->> ... the new name it quite confusing. What is the mapping it is referring to?
+> Changes in v3:
+> - change 'Signed-off-by' ordering
+> - change commit message
+> - remove unnecessary changes in 'vvmx.c'
+> - add 'uint32_t' casts in 'vvmx.c'
+> - add missing 'U' in 'vmcs.h' macros
+> - change macro to '(1u << 31)' in 'vmx.h'
+> - remove unnecessary changes to 'vmx.h'
 > 
-> So I checked the MPU SMP support code and now I think I understand the reason
-> why update_mm_mapping() was introduced:
+> Changes in v2:
+> - minor change to commit title
+> - change commit message
+> - remove unnecessary changes in 'vpmu_intel.c' and 'vmx.h'
+> - add 'ULL' suffix in 'vpmu_intel.c'
+> - add zero-padding to constants in 'vmx.h'
+> - add missing 'U' in 'vmx.h'
+> ---
+>  xen/arch/x86/cpu/vpmu_intel.c           |  2 +-
+>  xen/arch/x86/hvm/vmx/vmcs.c             |  6 +-
+>  xen/arch/x86/hvm/vmx/vvmx.c             |  8 +--
+>  xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 84 ++++++++++++-------------
+>  xen/arch/x86/include/asm/hvm/vmx/vmx.h  | 16 ++---
+>  5 files changed, 58 insertions(+), 58 deletions(-)
 > 
-> In the future we eventually need to support SMP for MMU systems, which means
-> we need to call arch_cpu_up() and arch_cpu_up_finish(). These two functions call
-> update_identity_mapping(). Since we believe "identity mapping" is a MMU concept,
-> we changed this to generic name "mm mapping” as arch_cpu_up() and
-> arch_cpu_up_finish() is a shared path between MMU and MPU.
-
-The function is today called "update_identity_mapping()" because this is 
-what the implementation does on arm64. But the goal of this function is 
-to make sure that any mapping necessary for bring-up secondary CPUs are 
-present.
-
-So if you don't need similar work for the MPU then I would go with...
-
+> diff --git a/xen/arch/x86/cpu/vpmu_intel.c 
+> b/xen/arch/x86/cpu/vpmu_intel.c
+> index fa5b40c65c..6330c89b47 100644
+> --- a/xen/arch/x86/cpu/vpmu_intel.c
+> +++ b/xen/arch/x86/cpu/vpmu_intel.c
+> @@ -945,7 +945,7 @@ const struct arch_vpmu_ops *__init 
+> core2_vpmu_init(void)
+>      fixed_counters_mask = ~((1ull << core2_get_bitwidth_fix_count()) - 
+> 1);
+>      global_ctrl_mask = ~((((1ULL << fixed_pmc_cnt) - 1) << 32) |
+>                           ((1ULL << arch_pmc_cnt) - 1));
+> -    global_ovf_ctrl_mask = ~(0xC000000000000000 |
+> +    global_ovf_ctrl_mask = ~(0xC000000000000000ULL |
+>                               (((1ULL << fixed_pmc_cnt) - 1) << 32) |
+>                               ((1ULL << arch_pmc_cnt) - 1));
+>      if ( version > 2 )
+> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+> index 13719cc923..6cefb88aec 100644
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -911,7 +911,7 @@ void vmx_clear_msr_intercept(struct vcpu *v,
+> unsigned int msr,
+>          if ( type & VMX_MSR_W )
+>              clear_bit(msr, msr_bitmap->write_low);
+>      }
+> -    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
+> +    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+>      {
+>          msr &= 0x1fff;
+>          if ( type & VMX_MSR_R )
+> @@ -939,7 +939,7 @@ void vmx_set_msr_intercept(struct vcpu *v, unsigned 
+> int msr,
+>          if ( type & VMX_MSR_W )
+>              set_bit(msr, msr_bitmap->write_low);
+>      }
+> -    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
+> +    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+>      {
+>          msr &= 0x1fff;
+>          if ( type & VMX_MSR_R )
+> @@ -957,7 +957,7 @@ bool vmx_msr_is_intercepted(struct vmx_msr_bitmap
+> *msr_bitmap,
+>      if ( msr <= 0x1fff )
+>          return test_bit(msr, is_write ? msr_bitmap->write_low
+>                                        : msr_bitmap->read_low);
+> -    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
+> +    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+>          return test_bit(msr & 0x1fff, is_write ? 
+> msr_bitmap->write_high
+>                                                 : 
+> msr_bitmap->read_high);
+>      else
+> diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+> index 16b0ef82b6..b7be424afb 100644
+> --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> @@ -263,7 +263,7 @@ uint64_t get_vvmcs_virtual(void *vvmcs, uint32_t
+> vmcs_encoding)
+>              res >>= 32;
+>          break;
+>      case VVMCS_WIDTH_32:
+> -        res &= 0xffffffff;
+> +        res = (uint32_t)res;
+>          break;
+>      case VVMCS_WIDTH_NATURAL:
+>      default:
+> @@ -315,14 +315,14 @@ void set_vvmcs_virtual(void *vvmcs, uint32_t
+> vmcs_encoding, uint64_t val)
+>      case VVMCS_WIDTH_64:
+>          if ( enc.access_type )
+>          {
+> -            res &= 0xffffffff;
+> +            res = (uint32_t)res;
+>              res |= val << 32;
+>          }
+>          else
+>              res = val;
+>          break;
+>      case VVMCS_WIDTH_32:
+> -        res = val & 0xffffffff;
+> +        res = (uint32_t)val;
+>          break;
+>      case VVMCS_WIDTH_NATURAL:
+>      default:
+> @@ -2306,7 +2306,7 @@ int nvmx_msr_read_intercept(unsigned int msr,
+> u64 *msr_content)
+>          break;
+>      case MSR_IA32_VMX_CR0_FIXED1:
+>          /* allow 0-settings for all bits */
+> -        data = 0xffffffff;
+> +        data = 0xffffffffU;
+>          break;
+>      case MSR_IA32_VMX_CR4_FIXED0:
+>          /* VMXE bit must be 1 in VMX operation */
+> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> index d07fcb2bc9..e056643993 100644
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> @@ -187,27 +187,27 @@ bool_t __must_check vmx_vmcs_try_enter(struct 
+> vcpu *v);
+>  void vmx_vmcs_exit(struct vcpu *v);
+>  void vmx_vmcs_reload(struct vcpu *v);
 > 
-> But I think MPU won’t use update_mm_mapping() function at all, so I wonder do
-> you prefer creating an empty stub update_identity_mapping() for MPU? Or use #ifdef
-> as suggested in your previous email...
+> -#define CPU_BASED_VIRTUAL_INTR_PENDING        0x00000004
+> -#define CPU_BASED_USE_TSC_OFFSETING           0x00000008
+> -#define CPU_BASED_HLT_EXITING                 0x00000080
+> -#define CPU_BASED_INVLPG_EXITING              0x00000200
+> -#define CPU_BASED_MWAIT_EXITING               0x00000400
+> -#define CPU_BASED_RDPMC_EXITING               0x00000800
+> -#define CPU_BASED_RDTSC_EXITING               0x00001000
+> -#define CPU_BASED_CR3_LOAD_EXITING            0x00008000
+> -#define CPU_BASED_CR3_STORE_EXITING           0x00010000
+> -#define CPU_BASED_CR8_LOAD_EXITING            0x00080000
+> -#define CPU_BASED_CR8_STORE_EXITING           0x00100000
+> -#define CPU_BASED_TPR_SHADOW                  0x00200000
+> -#define CPU_BASED_VIRTUAL_NMI_PENDING         0x00400000
+> -#define CPU_BASED_MOV_DR_EXITING              0x00800000
+> -#define CPU_BASED_UNCOND_IO_EXITING           0x01000000
+> -#define CPU_BASED_ACTIVATE_IO_BITMAP          0x02000000
+> -#define CPU_BASED_MONITOR_TRAP_FLAG           0x08000000
+> -#define CPU_BASED_ACTIVATE_MSR_BITMAP         0x10000000
+> -#define CPU_BASED_MONITOR_EXITING             0x20000000
+> -#define CPU_BASED_PAUSE_EXITING               0x40000000
+> -#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000
+> +#define CPU_BASED_VIRTUAL_INTR_PENDING        0x00000004U
+> +#define CPU_BASED_USE_TSC_OFFSETING           0x00000008U
+> +#define CPU_BASED_HLT_EXITING                 0x00000080U
+> +#define CPU_BASED_INVLPG_EXITING              0x00000200U
+> +#define CPU_BASED_MWAIT_EXITING               0x00000400U
+> +#define CPU_BASED_RDPMC_EXITING               0x00000800U
+> +#define CPU_BASED_RDTSC_EXITING               0x00001000U
+> +#define CPU_BASED_CR3_LOAD_EXITING            0x00008000U
+> +#define CPU_BASED_CR3_STORE_EXITING           0x00010000U
+> +#define CPU_BASED_CR8_LOAD_EXITING            0x00080000U
+> +#define CPU_BASED_CR8_STORE_EXITING           0x00100000U
+> +#define CPU_BASED_TPR_SHADOW                  0x00200000U
+> +#define CPU_BASED_VIRTUAL_NMI_PENDING         0x00400000U
+> +#define CPU_BASED_MOV_DR_EXITING              0x00800000U
+> +#define CPU_BASED_UNCOND_IO_EXITING           0x01000000U
+> +#define CPU_BASED_ACTIVATE_IO_BITMAP          0x02000000U
+> +#define CPU_BASED_MONITOR_TRAP_FLAG           0x08000000U
+> +#define CPU_BASED_ACTIVATE_MSR_BITMAP         0x10000000U
+> +#define CPU_BASED_MONITOR_EXITING             0x20000000U
+> +#define CPU_BASED_PAUSE_EXITING               0x40000000U
+> +#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000U
+>  extern u32 vmx_cpu_based_exec_control;
+> 
+>  #define PIN_BASED_EXT_INTR_MASK         0x00000001
+> @@ -238,26 +238,26 @@ extern u32 vmx_vmexit_control;
+>  #define VM_ENTRY_LOAD_BNDCFGS           0x00010000
+>  extern u32 vmx_vmentry_control;
+> 
+> -#define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001
+> -#define SECONDARY_EXEC_ENABLE_EPT               0x00000002
+> -#define SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITING 0x00000004
+> -#define SECONDARY_EXEC_ENABLE_RDTSCP            0x00000008
+> -#define SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE   0x00000010
+> -#define SECONDARY_EXEC_ENABLE_VPID              0x00000020
+> -#define SECONDARY_EXEC_WBINVD_EXITING           0x00000040
+> -#define SECONDARY_EXEC_UNRESTRICTED_GUEST       0x00000080
+> -#define SECONDARY_EXEC_APIC_REGISTER_VIRT       0x00000100
+> -#define SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY    0x00000200
+> -#define SECONDARY_EXEC_PAUSE_LOOP_EXITING       0x00000400
+> -#define SECONDARY_EXEC_ENABLE_INVPCID           0x00001000
+> -#define SECONDARY_EXEC_ENABLE_VM_FUNCTIONS      0x00002000
+> -#define SECONDARY_EXEC_ENABLE_VMCS_SHADOWING    0x00004000
+> -#define SECONDARY_EXEC_ENABLE_PML               0x00020000
+> -#define SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS   0x00040000
+> -#define SECONDARY_EXEC_XSAVES                   0x00100000
+> -#define SECONDARY_EXEC_TSC_SCALING              0x02000000
+> -#define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
+> -#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
+> +#define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001U
+> +#define SECONDARY_EXEC_ENABLE_EPT               0x00000002U
+> +#define SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITING 0x00000004U
+> +#define SECONDARY_EXEC_ENABLE_RDTSCP            0x00000008U
+> +#define SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE   0x00000010U
+> +#define SECONDARY_EXEC_ENABLE_VPID              0x00000020U
+> +#define SECONDARY_EXEC_WBINVD_EXITING           0x00000040U
+> +#define SECONDARY_EXEC_UNRESTRICTED_GUEST       0x00000080U
+> +#define SECONDARY_EXEC_APIC_REGISTER_VIRT       0x00000100U
+> +#define SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY    0x00000200U
+> +#define SECONDARY_EXEC_PAUSE_LOOP_EXITING       0x00000400U
+> +#define SECONDARY_EXEC_ENABLE_INVPCID           0x00001000U
+> +#define SECONDARY_EXEC_ENABLE_VM_FUNCTIONS      0x00002000U
+> +#define SECONDARY_EXEC_ENABLE_VMCS_SHADOWING    0x00004000U
+> +#define SECONDARY_EXEC_ENABLE_PML               0x00020000U
+> +#define SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS   0x00040000U
+> +#define SECONDARY_EXEC_XSAVES                   0x00100000U
+> +#define SECONDARY_EXEC_TSC_SCALING              0x02000000U
+> +#define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000U
+> +#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000U
+>  extern u32 vmx_secondary_exec_control;
+> 
+>  #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
+> @@ -346,7 +346,7 @@ extern u64 vmx_ept_vpid_cap;
+>  #define cpu_has_vmx_notify_vm_exiting \
+>      (vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
+> 
+> -#define VMCS_RID_TYPE_MASK              0x80000000
+> +#define VMCS_RID_TYPE_MASK              0x80000000U
+> 
+>  /* GUEST_INTERRUPTIBILITY_INFO flags. */
+>  #define VMX_INTR_SHADOW_STI             0x00000001
+> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> index c84acc221d..d4b335a2bc 100644
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> @@ -137,7 +137,7 @@ static inline void pi_clear_sn(struct pi_desc 
+> *pi_desc)
+>  /*
+>   * Exit Reasons
+>   */
+> -#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000
+> +#define VMX_EXIT_REASONS_FAILED_VMENTRY (1u << 31)
+>  #define VMX_EXIT_REASONS_BUS_LOCK       (1u << 26)
+> 
+>  #define EXIT_REASON_EXCEPTION_NMI       0
+> @@ -209,12 +209,12 @@ static inline void pi_clear_sn(struct pi_desc 
+> *pi_desc)
+>   * Note INTR_INFO_NMI_UNBLOCKED_BY_IRET is also used with Exit 
+> Qualification
+>   * field for EPT violations, PML full and SPP-related event vmexits.
+>   */
+> -#define INTR_INFO_VECTOR_MASK           0xff            /* 7:0 */
+> -#define INTR_INFO_INTR_TYPE_MASK        0x700           /* 10:8 */
+> -#define INTR_INFO_DELIVER_CODE_MASK     0x800           /* 11 */
+> -#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x1000          /* 12 */
+> -#define INTR_INFO_VALID_MASK            0x80000000      /* 31 */
+> -#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000
+> +#define INTR_INFO_VECTOR_MASK           0x000000ffU     /* 7:0 */
+> +#define INTR_INFO_INTR_TYPE_MASK        0x00000700U     /* 10:8 */
+> +#define INTR_INFO_DELIVER_CODE_MASK     0x00000800U     /* 11 */
+> +#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x00001000U     /* 12 */
+> +#define INTR_INFO_VALID_MASK            0x80000000U     /* 31 */
+> +#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000U
+> 
+>  /*
+>   * Exit Qualifications for NOTIFY VM EXIT
+> @@ -607,7 +607,7 @@ static inline void vmx_pi_hooks_assign(struct 
+> domain *d) {}
+>  static inline void vmx_pi_hooks_deassign(struct domain *d) {}
+>  #endif
+> 
+> -#define APIC_INVALID_DEST           0xffffffff
+> +#define APIC_INVALID_DEST           0xffffffffU
+> 
+>  /* EPT violation qualifications definitions */
+>  typedef union ept_qual {
 
-
-... #ifdef. I have some preliminary work where the call to 
-update_identity_mapping() may end up to be moved somewhere else as the 
-page-tables would not be shared between pCPU anymore. So the logic will 
-not some rework (see [1]).
-
-Cheers,
-
-
-[1] https://lore.kernel.org/all/20221216114853.8227-21-julien@xen.org/
+I checked that this patch still applies cleanly on the current staging 
+branch.
+Can this get an ack from the VT-X maintainer(s)?
 
 -- 
-Julien Grall
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
