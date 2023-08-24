@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3163786CDC
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 12:35:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589919.921992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B58786CF2
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 12:40:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.589927.922002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ7g6-0000hQ-1W; Thu, 24 Aug 2023 10:35:02 +0000
+	id 1qZ7lQ-0002DV-Ip; Thu, 24 Aug 2023 10:40:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589919.921992; Thu, 24 Aug 2023 10:35:02 +0000
+Received: by outflank-mailman (output) from mailman id 589927.922002; Thu, 24 Aug 2023 10:40:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ7g5-0000es-UO; Thu, 24 Aug 2023 10:35:01 +0000
-Received: by outflank-mailman (input) for mailman id 589919;
- Thu, 24 Aug 2023 10:35:00 +0000
+	id 1qZ7lQ-0002BX-G3; Thu, 24 Aug 2023 10:40:32 +0000
+Received: by outflank-mailman (input) for mailman id 589927;
+ Thu, 24 Aug 2023 10:40:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EWrD=EJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qZ7g4-0000em-Oj
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 10:35:00 +0000
+ id 1qZ7lP-0002BR-3a
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 10:40:31 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dfaf2505-4269-11ee-9b0c-b553b5be7939;
- Thu, 24 Aug 2023 12:34:58 +0200 (CEST)
+ id a483bc2a-426a-11ee-9b0c-b553b5be7939;
+ Thu, 24 Aug 2023 12:40:29 +0200 (CEST)
 Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 6665E4EE0737;
- Thu, 24 Aug 2023 12:34:58 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPA id 98A994EE0737;
+ Thu, 24 Aug 2023 12:40:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,23 +39,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfaf2505-4269-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: a483bc2a-426a-11ee-9b0c-b553b5be7939
 MIME-Version: 1.0
-Date: Thu, 24 Aug 2023 12:34:58 +0200
+Date: Thu, 24 Aug 2023 12:40:28 +0200
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Gianluca
- Luparini <gianluca.luparini@bugseng.com>, Paul Durrant <paul@xen.org>, Wei
- Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v4 3/4] x86/viridian: address violations of MISRA
- C:2012 Rule 7.2
-In-Reply-To: <3007febabe8a13259dc10b566d23a27a89b75358.1690368810.git.simone.ballarin@bugseng.com>
+ Luparini <gianluca.luparini@bugseng.com>, =?UTF-8?Q?Roger_Pau_Monn?=
+ =?UTF-8?Q?=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [XEN PATCH v4 2/4] xen/vpci: address violations of MISRA C:2012
+ Rule 7.2
+In-Reply-To: <2cb770d946c4bf858a41271fd7b9985f789ca149.1690368810.git.simone.ballarin@bugseng.com>
 References: <cover.1690368810.git.simone.ballarin@bugseng.com>
- <3007febabe8a13259dc10b566d23a27a89b75358.1690368810.git.simone.ballarin@bugseng.com>
+ <2cb770d946c4bf858a41271fd7b9985f789ca149.1690368810.git.simone.ballarin@bugseng.com>
 User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <fb8c98c3e0450dc5a30a02ea2e477865@bugseng.com>
+Message-ID: <1b4e6569c0c8d17c73341e43ed46c232@bugseng.com>
 X-Sender: nicola.vetrini@bugseng.com
 Organization: BUGSENG s.r.l.
 Content-Type: text/plain; charset=US-ASCII;
@@ -84,20 +83,24 @@ On 26/07/2023 13:03, Simone Ballarin wrote:
 > ---
 > Changes in v4:
 > - change commit headline
-> - add Reviewed-by
 > 
 > Changes in v3:
-> - create this commit for 'viridian.c' and 'hyperv-tlfs.h'
+> - change 'Signed-off-by' ordering
+> - add 'uint32_t' casts in 'msi.c' and 'msix.c'
+> 
+> Changes in v2:
+> - minor change to commit title
+> - change commit message
 > ---
->  xen/arch/x86/hvm/viridian/viridian.c         |  2 +-
->  xen/arch/x86/include/asm/guest/hyperv-tlfs.h | 28 ++++++++++----------
->  2 files changed, 15 insertions(+), 15 deletions(-)
+>  xen/drivers/vpci/msi.c  | 2 +-
+>  xen/drivers/vpci/msix.c | 2 +-
+>  xen/drivers/vpci/vpci.c | 6 +++---
+>  3 files changed, 5 insertions(+), 5 deletions(-)
 > 
 
-This patch has perhaps slipped by since its submission. As it can be 
-applied on top of
-staging without conflicts, then it probably needs an ack from the x86 
-viridian maintainers.
+Like other patches in this series, this one could also benefit from an 
+ack from
+VPCI maintainers to get committed, as it does apply cleanly on staging.
 
 -- 
 Nicola Vetrini, BSc
