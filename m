@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8DD787B24
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 00:04:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590340.922600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC2F787B26
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 00:04:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590346.922609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZIQV-0000C7-A7; Thu, 24 Aug 2023 22:03:39 +0000
+	id 1qZIRW-0000iQ-I8; Thu, 24 Aug 2023 22:04:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590340.922600; Thu, 24 Aug 2023 22:03:39 +0000
+Received: by outflank-mailman (output) from mailman id 590346.922609; Thu, 24 Aug 2023 22:04:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZIQV-00008x-5n; Thu, 24 Aug 2023 22:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 590340;
- Thu, 24 Aug 2023 22:03:38 +0000
+	id 1qZIRW-0000gD-Eq; Thu, 24 Aug 2023 22:04:42 +0000
+Received: by outflank-mailman (input) for mailman id 590346;
+ Thu, 24 Aug 2023 22:04:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zFvq=EJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qZIQU-00008r-7f
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 22:03:38 +0000
+ id 1qZIRV-0000fp-E8
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 22:04:41 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12c2a6dd-42ca-11ee-8783-cb3800f73035;
- Fri, 25 Aug 2023 00:03:36 +0200 (CEST)
+ id 3897baee-42ca-11ee-8783-cb3800f73035;
+ Fri, 25 Aug 2023 00:04:40 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7E1F466117;
- Thu, 24 Aug 2023 22:03:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B54CC433C8;
- Thu, 24 Aug 2023 22:03:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 32DF165737;
+ Thu, 24 Aug 2023 22:04:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECDA6C433C8;
+ Thu, 24 Aug 2023 22:04:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,39 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12c2a6dd-42ca-11ee-8783-cb3800f73035
+X-Inumbo-ID: 3897baee-42ca-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692914614;
-	bh=ltLdf+HLq8NBHuWCGX1yJy0cSUQvInVFhPwJr8IXKxY=;
+	s=k20201202; t=1692914678;
+	bh=6Q9tCkGlNn3BIxdOpVWm3RCL2D6MjsrULS845ohWoHs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gdUJBLpF6quuHfYyPtYZrAQ3cIZNKJCOaassAw+TbHszEZPX2SPtj/xzL5znFpdl+
-	 p/P7ugZwhcCy//qFflQwO2NNGRPZ8Qpr++tT2JmO7GKZ2RkvojzakrXWUAk2S5wGSs
-	 zaUYhIw5VxG/R3AphaYYYB8QKRWNGOZeS4DLRsm1JACrSbhzu4gfx9dbwp2hVWsBNL
-	 x9lONUDRkz2V3silvd88gaLGPKFIqlIJfDEZeTxgwMz9Ydi/OiolA3mWTrcnBFk84f
-	 bIWXKYS7Tn7mdg0ELbxOjQ2URoq4Q0CqDkLWfRkSpZfvgHQpxGW8WKW9PLYXCtn5oS
-	 EiNxV/xaKNPoA==
-Date: Thu, 24 Aug 2023 15:03:30 -0700 (PDT)
+	b=bJeN95K9z+q9z9ixPglxnjtVk7C4QOvdZmlgiR2Na1fucbmT2veEds9yQu/gMud3f
+	 z8EO0Vl8ymz0483V/XWijUuWWtMVxrD9A45BHlwsRraFpcn1Cr0o+wbVWZ43pQcKPY
+	 q7Lox+4zZWZ9BxWoxjuNE8orlN6je+mMkdKZob7fYVD+FtrSQzkkHLOPAPiB9iyfJx
+	 dNmCPQ4g5pUBP3BGMmtytAc88rfFTpWoOam9cgQYX/936P3FhEdtlTxEzlpDg6VWrg
+	 uADGR4m7bqXsGAbPa1NHR0lL/DSLzw1j/h2Ww2e/11t1S0Xf11l55HhrQZfetiq7Uq
+	 LtEO5P5IfTinw==
+Date: Thu, 24 Aug 2023 15:04:34 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: paul@xen.org, wl@xen.org
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 cc: Simone Ballarin <simone.ballarin@bugseng.com>, 
     xen-devel@lists.xenproject.org, consulting@bugseng.com, 
     Gianluca Luparini <gianluca.luparini@bugseng.com>, 
-    Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>, 
+    Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
     Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, nicola.vetrini@bugseng.com
-Subject: Need Ack, Re: [XEN PATCH v4 3/4] x86/viridian: address violations
- of MISRA C:2012 Rule 7.2
-In-Reply-To: <fb8c98c3e0450dc5a30a02ea2e477865@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308241503050.6458@ubuntu-linux-20-04-desktop>
-References: <cover.1690368810.git.simone.ballarin@bugseng.com> <3007febabe8a13259dc10b566d23a27a89b75358.1690368810.git.simone.ballarin@bugseng.com> <fb8c98c3e0450dc5a30a02ea2e477865@bugseng.com>
+    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH v4 1/4] x86/vmx: address violations of MISRA C:2012
+ Rule 7.2
+In-Reply-To: <3c68a16a3e2e6f552c5fd41b24c901d6@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2308241503380.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1690368810.git.simone.ballarin@bugseng.com> <6c2473a29d60460bf69382fd1e983752634b6992.1690368810.git.simone.ballarin@bugseng.com> <3c68a16a3e2e6f552c5fd41b24c901d6@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-
-Paul, Wei, can we have an ack?
-
 
 On Thu, 24 Aug 2023, Nicola Vetrini wrote:
 > On 26/07/2023 13:03, Simone Ballarin wrote:
@@ -87,34 +84,297 @@ On Thu, 24 Aug 2023, Nicola Vetrini wrote:
 > > "A 'u' or 'U' suffix shall be applied to all integer constants
 > > that are represented in an unsigned type".
 > > 
-> > Add the 'U' suffix to integers literals with unsigned type and also to other
-> > literals used in the same contexts or near violations, when their positive
-> > nature is immediately clear. The latter changes are done for the sake of
-> > uniformity.
+> > Add the 'U' suffix to integers literals with unsigned type.
+> > 
+> > For the sake of uniformity, the following changes are made:
+> > - add the 'U' suffix to macros near
+> >   'CPU_BASED_ACTIVATE_SECONDARY_CONTROLS' and
+> >   'SECONDARY_EXEC_NOTIFY_VM_EXITING' macros in 'vmcs.h'
+> > - add the 'U' suffix to macros near 'INTR_INFO_VALID_MASK'
+> >   macro in 'vmx.h'
 > > 
 > > Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
 > > Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > > ---
 > > Changes in v4:
 > > - change commit headline
-> > - add Reviewed-by
 > > 
 > > Changes in v3:
-> > - create this commit for 'viridian.c' and 'hyperv-tlfs.h'
-> > ---
-> >  xen/arch/x86/hvm/viridian/viridian.c         |  2 +-
-> >  xen/arch/x86/include/asm/guest/hyperv-tlfs.h | 28 ++++++++++----------
-> >  2 files changed, 15 insertions(+), 15 deletions(-)
+> > - change 'Signed-off-by' ordering
+> > - change commit message
+> > - remove unnecessary changes in 'vvmx.c'
+> > - add 'uint32_t' casts in 'vvmx.c'
+> > - add missing 'U' in 'vmcs.h' macros
+> > - change macro to '(1u << 31)' in 'vmx.h'
+> > - remove unnecessary changes to 'vmx.h'
 > > 
+> > Changes in v2:
+> > - minor change to commit title
+> > - change commit message
+> > - remove unnecessary changes in 'vpmu_intel.c' and 'vmx.h'
+> > - add 'ULL' suffix in 'vpmu_intel.c'
+> > - add zero-padding to constants in 'vmx.h'
+> > - add missing 'U' in 'vmx.h'
+> > ---
+> >  xen/arch/x86/cpu/vpmu_intel.c           |  2 +-
+> >  xen/arch/x86/hvm/vmx/vmcs.c             |  6 +-
+> >  xen/arch/x86/hvm/vmx/vvmx.c             |  8 +--
+> >  xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 84 ++++++++++++-------------
+> >  xen/arch/x86/include/asm/hvm/vmx/vmx.h  | 16 ++---
+> >  5 files changed, 58 insertions(+), 58 deletions(-)
+> > 
+> > diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+> > index fa5b40c65c..6330c89b47 100644
+> > --- a/xen/arch/x86/cpu/vpmu_intel.c
+> > +++ b/xen/arch/x86/cpu/vpmu_intel.c
+> > @@ -945,7 +945,7 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
+> >      fixed_counters_mask = ~((1ull << core2_get_bitwidth_fix_count()) - 1);
+> >      global_ctrl_mask = ~((((1ULL << fixed_pmc_cnt) - 1) << 32) |
+> >                           ((1ULL << arch_pmc_cnt) - 1));
+> > -    global_ovf_ctrl_mask = ~(0xC000000000000000 |
+> > +    global_ovf_ctrl_mask = ~(0xC000000000000000ULL |
+> >                               (((1ULL << fixed_pmc_cnt) - 1) << 32) |
+> >                               ((1ULL << arch_pmc_cnt) - 1));
+> >      if ( version > 2 )
+> > diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+> > index 13719cc923..6cefb88aec 100644
+> > --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> > +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> > @@ -911,7 +911,7 @@ void vmx_clear_msr_intercept(struct vcpu *v,
+> > unsigned int msr,
+> >          if ( type & VMX_MSR_W )
+> >              clear_bit(msr, msr_bitmap->write_low);
+> >      }
+> > -    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
+> > +    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+> >      {
+> >          msr &= 0x1fff;
+> >          if ( type & VMX_MSR_R )
+> > @@ -939,7 +939,7 @@ void vmx_set_msr_intercept(struct vcpu *v, unsigned int
+> > msr,
+> >          if ( type & VMX_MSR_W )
+> >              set_bit(msr, msr_bitmap->write_low);
+> >      }
+> > -    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
+> > +    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+> >      {
+> >          msr &= 0x1fff;
+> >          if ( type & VMX_MSR_R )
+> > @@ -957,7 +957,7 @@ bool vmx_msr_is_intercepted(struct vmx_msr_bitmap
+> > *msr_bitmap,
+> >      if ( msr <= 0x1fff )
+> >          return test_bit(msr, is_write ? msr_bitmap->write_low
+> >                                        : msr_bitmap->read_low);
+> > -    else if ( (msr >= 0xc0000000) && (msr <= 0xc0001fff) )
+> > +    else if ( (msr >= 0xc0000000U) && (msr <= 0xc0001fffU) )
+> >          return test_bit(msr & 0x1fff, is_write ? msr_bitmap->write_high
+> >                                                 : msr_bitmap->read_high);
+> >      else
+> > diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+> > index 16b0ef82b6..b7be424afb 100644
+> > --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> > +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> > @@ -263,7 +263,7 @@ uint64_t get_vvmcs_virtual(void *vvmcs, uint32_t
+> > vmcs_encoding)
+> >              res >>= 32;
+> >          break;
+> >      case VVMCS_WIDTH_32:
+> > -        res &= 0xffffffff;
+> > +        res = (uint32_t)res;
+> >          break;
+> >      case VVMCS_WIDTH_NATURAL:
+> >      default:
+> > @@ -315,14 +315,14 @@ void set_vvmcs_virtual(void *vvmcs, uint32_t
+> > vmcs_encoding, uint64_t val)
+> >      case VVMCS_WIDTH_64:
+> >          if ( enc.access_type )
+> >          {
+> > -            res &= 0xffffffff;
+> > +            res = (uint32_t)res;
+> >              res |= val << 32;
+> >          }
+> >          else
+> >              res = val;
+> >          break;
+> >      case VVMCS_WIDTH_32:
+> > -        res = val & 0xffffffff;
+> > +        res = (uint32_t)val;
+> >          break;
+> >      case VVMCS_WIDTH_NATURAL:
+> >      default:
+> > @@ -2306,7 +2306,7 @@ int nvmx_msr_read_intercept(unsigned int msr,
+> > u64 *msr_content)
+> >          break;
+> >      case MSR_IA32_VMX_CR0_FIXED1:
+> >          /* allow 0-settings for all bits */
+> > -        data = 0xffffffff;
+> > +        data = 0xffffffffU;
+> >          break;
+> >      case MSR_IA32_VMX_CR4_FIXED0:
+> >          /* VMXE bit must be 1 in VMX operation */
+> > diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> > b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> > index d07fcb2bc9..e056643993 100644
+> > --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> > +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> > @@ -187,27 +187,27 @@ bool_t __must_check vmx_vmcs_try_enter(struct vcpu
+> > *v);
+> >  void vmx_vmcs_exit(struct vcpu *v);
+> >  void vmx_vmcs_reload(struct vcpu *v);
+> > 
+> > -#define CPU_BASED_VIRTUAL_INTR_PENDING        0x00000004
+> > -#define CPU_BASED_USE_TSC_OFFSETING           0x00000008
+> > -#define CPU_BASED_HLT_EXITING                 0x00000080
+> > -#define CPU_BASED_INVLPG_EXITING              0x00000200
+> > -#define CPU_BASED_MWAIT_EXITING               0x00000400
+> > -#define CPU_BASED_RDPMC_EXITING               0x00000800
+> > -#define CPU_BASED_RDTSC_EXITING               0x00001000
+> > -#define CPU_BASED_CR3_LOAD_EXITING            0x00008000
+> > -#define CPU_BASED_CR3_STORE_EXITING           0x00010000
+> > -#define CPU_BASED_CR8_LOAD_EXITING            0x00080000
+> > -#define CPU_BASED_CR8_STORE_EXITING           0x00100000
+> > -#define CPU_BASED_TPR_SHADOW                  0x00200000
+> > -#define CPU_BASED_VIRTUAL_NMI_PENDING         0x00400000
+> > -#define CPU_BASED_MOV_DR_EXITING              0x00800000
+> > -#define CPU_BASED_UNCOND_IO_EXITING           0x01000000
+> > -#define CPU_BASED_ACTIVATE_IO_BITMAP          0x02000000
+> > -#define CPU_BASED_MONITOR_TRAP_FLAG           0x08000000
+> > -#define CPU_BASED_ACTIVATE_MSR_BITMAP         0x10000000
+> > -#define CPU_BASED_MONITOR_EXITING             0x20000000
+> > -#define CPU_BASED_PAUSE_EXITING               0x40000000
+> > -#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000
+> > +#define CPU_BASED_VIRTUAL_INTR_PENDING        0x00000004U
+> > +#define CPU_BASED_USE_TSC_OFFSETING           0x00000008U
+> > +#define CPU_BASED_HLT_EXITING                 0x00000080U
+> > +#define CPU_BASED_INVLPG_EXITING              0x00000200U
+> > +#define CPU_BASED_MWAIT_EXITING               0x00000400U
+> > +#define CPU_BASED_RDPMC_EXITING               0x00000800U
+> > +#define CPU_BASED_RDTSC_EXITING               0x00001000U
+> > +#define CPU_BASED_CR3_LOAD_EXITING            0x00008000U
+> > +#define CPU_BASED_CR3_STORE_EXITING           0x00010000U
+> > +#define CPU_BASED_CR8_LOAD_EXITING            0x00080000U
+> > +#define CPU_BASED_CR8_STORE_EXITING           0x00100000U
+> > +#define CPU_BASED_TPR_SHADOW                  0x00200000U
+> > +#define CPU_BASED_VIRTUAL_NMI_PENDING         0x00400000U
+> > +#define CPU_BASED_MOV_DR_EXITING              0x00800000U
+> > +#define CPU_BASED_UNCOND_IO_EXITING           0x01000000U
+> > +#define CPU_BASED_ACTIVATE_IO_BITMAP          0x02000000U
+> > +#define CPU_BASED_MONITOR_TRAP_FLAG           0x08000000U
+> > +#define CPU_BASED_ACTIVATE_MSR_BITMAP         0x10000000U
+> > +#define CPU_BASED_MONITOR_EXITING             0x20000000U
+> > +#define CPU_BASED_PAUSE_EXITING               0x40000000U
+> > +#define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000U
+> >  extern u32 vmx_cpu_based_exec_control;
+> > 
+> >  #define PIN_BASED_EXT_INTR_MASK         0x00000001
+> > @@ -238,26 +238,26 @@ extern u32 vmx_vmexit_control;
+> >  #define VM_ENTRY_LOAD_BNDCFGS           0x00010000
+> >  extern u32 vmx_vmentry_control;
+> > 
+> > -#define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001
+> > -#define SECONDARY_EXEC_ENABLE_EPT               0x00000002
+> > -#define SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITING 0x00000004
+> > -#define SECONDARY_EXEC_ENABLE_RDTSCP            0x00000008
+> > -#define SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE   0x00000010
+> > -#define SECONDARY_EXEC_ENABLE_VPID              0x00000020
+> > -#define SECONDARY_EXEC_WBINVD_EXITING           0x00000040
+> > -#define SECONDARY_EXEC_UNRESTRICTED_GUEST       0x00000080
+> > -#define SECONDARY_EXEC_APIC_REGISTER_VIRT       0x00000100
+> > -#define SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY    0x00000200
+> > -#define SECONDARY_EXEC_PAUSE_LOOP_EXITING       0x00000400
+> > -#define SECONDARY_EXEC_ENABLE_INVPCID           0x00001000
+> > -#define SECONDARY_EXEC_ENABLE_VM_FUNCTIONS      0x00002000
+> > -#define SECONDARY_EXEC_ENABLE_VMCS_SHADOWING    0x00004000
+> > -#define SECONDARY_EXEC_ENABLE_PML               0x00020000
+> > -#define SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS   0x00040000
+> > -#define SECONDARY_EXEC_XSAVES                   0x00100000
+> > -#define SECONDARY_EXEC_TSC_SCALING              0x02000000
+> > -#define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
+> > -#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
+> > +#define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001U
+> > +#define SECONDARY_EXEC_ENABLE_EPT               0x00000002U
+> > +#define SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITING 0x00000004U
+> > +#define SECONDARY_EXEC_ENABLE_RDTSCP            0x00000008U
+> > +#define SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE   0x00000010U
+> > +#define SECONDARY_EXEC_ENABLE_VPID              0x00000020U
+> > +#define SECONDARY_EXEC_WBINVD_EXITING           0x00000040U
+> > +#define SECONDARY_EXEC_UNRESTRICTED_GUEST       0x00000080U
+> > +#define SECONDARY_EXEC_APIC_REGISTER_VIRT       0x00000100U
+> > +#define SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY    0x00000200U
+> > +#define SECONDARY_EXEC_PAUSE_LOOP_EXITING       0x00000400U
+> > +#define SECONDARY_EXEC_ENABLE_INVPCID           0x00001000U
+> > +#define SECONDARY_EXEC_ENABLE_VM_FUNCTIONS      0x00002000U
+> > +#define SECONDARY_EXEC_ENABLE_VMCS_SHADOWING    0x00004000U
+> > +#define SECONDARY_EXEC_ENABLE_PML               0x00020000U
+> > +#define SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS   0x00040000U
+> > +#define SECONDARY_EXEC_XSAVES                   0x00100000U
+> > +#define SECONDARY_EXEC_TSC_SCALING              0x02000000U
+> > +#define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000U
+> > +#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000U
+> >  extern u32 vmx_secondary_exec_control;
+> > 
+> >  #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
+> > @@ -346,7 +346,7 @@ extern u64 vmx_ept_vpid_cap;
+> >  #define cpu_has_vmx_notify_vm_exiting \
+> >      (vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
+> > 
+> > -#define VMCS_RID_TYPE_MASK              0x80000000
+> > +#define VMCS_RID_TYPE_MASK              0x80000000U
+> > 
+> >  /* GUEST_INTERRUPTIBILITY_INFO flags. */
+> >  #define VMX_INTR_SHADOW_STI             0x00000001
+> > diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> > b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> > index c84acc221d..d4b335a2bc 100644
+> > --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> > +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> > @@ -137,7 +137,7 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
+> >  /*
+> >   * Exit Reasons
+> >   */
+> > -#define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000
+> > +#define VMX_EXIT_REASONS_FAILED_VMENTRY (1u << 31)
+> >  #define VMX_EXIT_REASONS_BUS_LOCK       (1u << 26)
+> > 
+> >  #define EXIT_REASON_EXCEPTION_NMI       0
+> > @@ -209,12 +209,12 @@ static inline void pi_clear_sn(struct pi_desc
+> > *pi_desc)
+> >   * Note INTR_INFO_NMI_UNBLOCKED_BY_IRET is also used with Exit
+> > Qualification
+> >   * field for EPT violations, PML full and SPP-related event vmexits.
+> >   */
+> > -#define INTR_INFO_VECTOR_MASK           0xff            /* 7:0 */
+> > -#define INTR_INFO_INTR_TYPE_MASK        0x700           /* 10:8 */
+> > -#define INTR_INFO_DELIVER_CODE_MASK     0x800           /* 11 */
+> > -#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x1000          /* 12 */
+> > -#define INTR_INFO_VALID_MASK            0x80000000      /* 31 */
+> > -#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000
+> > +#define INTR_INFO_VECTOR_MASK           0x000000ffU     /* 7:0 */
+> > +#define INTR_INFO_INTR_TYPE_MASK        0x00000700U     /* 10:8 */
+> > +#define INTR_INFO_DELIVER_CODE_MASK     0x00000800U     /* 11 */
+> > +#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x00001000U     /* 12 */
+> > +#define INTR_INFO_VALID_MASK            0x80000000U     /* 31 */
+> > +#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000U
+> > 
+> >  /*
+> >   * Exit Qualifications for NOTIFY VM EXIT
+> > @@ -607,7 +607,7 @@ static inline void vmx_pi_hooks_assign(struct domain *d)
+> > {}
+> >  static inline void vmx_pi_hooks_deassign(struct domain *d) {}
+> >  #endif
+> > 
+> > -#define APIC_INVALID_DEST           0xffffffff
+> > +#define APIC_INVALID_DEST           0xffffffffU
+> > 
+> >  /* EPT violation qualifications definitions */
+> >  typedef union ept_qual {
 > 
-> This patch has perhaps slipped by since its submission. As it can be applied
-> on top of
-> staging without conflicts, then it probably needs an ack from the x86 viridian
-> maintainers.
-> 
-> -- 
-> Nicola Vetrini, BSc
-> Software Engineer, BUGSENG srl (https://bugseng.com)
-> 
+> I checked that this patch still applies cleanly on the current staging branch.
+> Can this get an ack from the VT-X maintainer(s)?
+
+Jan having acked this patch already, and the VT-X maintainers being not
+always fast in reviews, I imagine Jan will commit the patch on his own
+in a few days if nobody speaks up.
 
