@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9D5F787B31
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 00:06:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590360.922639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8454787B73
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 00:25:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590378.922650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZISy-0002DF-I5; Thu, 24 Aug 2023 22:06:12 +0000
+	id 1qZIlI-0005YS-37; Thu, 24 Aug 2023 22:25:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590360.922639; Thu, 24 Aug 2023 22:06:12 +0000
+Received: by outflank-mailman (output) from mailman id 590378.922650; Thu, 24 Aug 2023 22:25:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZISy-0002Bo-Ec; Thu, 24 Aug 2023 22:06:12 +0000
-Received: by outflank-mailman (input) for mailman id 590360;
- Thu, 24 Aug 2023 22:06:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZISx-0002BN-OG; Thu, 24 Aug 2023 22:06:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZISx-0003W9-Hn; Thu, 24 Aug 2023 22:06:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZISx-0003f2-2v; Thu, 24 Aug 2023 22:06:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qZISx-0003de-2R; Thu, 24 Aug 2023 22:06:11 +0000
+	id 1qZIlH-0005Wq-VZ; Thu, 24 Aug 2023 22:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 590378;
+ Thu, 24 Aug 2023 22:25:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zFvq=EJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qZIlF-0005Wj-W8
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 22:25:05 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12002c01-42cd-11ee-8783-cb3800f73035;
+ Fri, 25 Aug 2023 00:25:04 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A0629622BB;
+ Thu, 24 Aug 2023 22:25:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59527C433C7;
+ Thu, 24 Aug 2023 22:25:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +44,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rBUVonCSa8ziJsqppx2o4/6g686KteO9ffXRQBVyxuA=; b=4srygFG0N8lrn1LIHwuWOhvk0G
-	rQV8xjI6ss9QMCaIEXfbpu9B5rkRUHjs4v1yKHa6+L67Kr73WU3t1oDQoh9QRntmFfW5RcgQeAWnV
-	h+AFfix4OGHKe3+15FHV2oxeSgB8tC43INzNp6qrAMydWgwJNM/mQttHTdiA3AghLMxE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182510-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 12002c01-42cd-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692915902;
+	bh=rxl1EOik2RvNuNs4XWPNerc7crzYgkyv7EgWMDrh4QM=;
+	h=Date:From:To:cc:Subject:From;
+	b=hgtwEJRcfhxz5Q2vjxv2EDsQ8HuG8t570/B3Rc2nVVgYakeKZ8bAjn1rndVHZ2G/d
+	 UR2LQu6sWcMv9ipSNr4ovQh7wT/7lO16CoOIEtoovRR+HzD1HlQJPfu+XaziQqI1S1
+	 BMUVGup64TTDbsI6bW7AV/E2isbsyRIhJprvYxndBNjuYgs2S9Y9T5Qc6WW5yUMbFJ
+	 FbskvgWPhzrfcGXZHQ3zLBzpiHrMhQTbdLU8nur4gAVjDCwOryMTzUQwIfnnfx9Oft
+	 bHGxpqodtLBwy+0nRFmr8jR3cQMXokfGyDSNcPmsTZ31oiGxPdXj74W/e7ONS0o3EF
+	 TIQCjEIQOxUHw==
+Date: Thu, 24 Aug 2023 15:24:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: luca.fancellu@arm.com
+cc: sstabellini@kernel.org, nicola.vetrini@bugseng.com, 
+    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com
+Subject: xen-analysis ECLAIR support
+Message-ID: <alpine.DEB.2.22.394.2308241453470.6458@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 182510: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=ec272d8d4c5de1a143f3cec50e3f22d0f783f39b
-X-Osstest-Versions-That:
-    xen=11d9f3ddf501d3a68b06fe8258795c44e1dc32d1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Aug 2023 22:06:11 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 182510 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182510/
+Hi Luca,
 
-Failures :-/ but no regressions.
+We are looking into adding ECLAIR support for xen-analysis so that we
+can use the SAF-n-safe tags also with ECLAIR.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+One question that came up is about multi-line statements. For instance,
+in a case like the following:
 
-version targeted for testing:
- xen                  ec272d8d4c5de1a143f3cec50e3f22d0f783f39b
-baseline version:
- xen                  11d9f3ddf501d3a68b06fe8258795c44e1dc32d1
-
-Last test of basis   182504  2023-08-24 11:02:28 Z    0 days
-Testing same since   182510  2023-08-24 19:00:26 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Christian Lindig <christian.lindig@cloud.com>
-  Edwin Török <edwin.torok@cloud.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+diff --git a/xen/common/inflate.c b/xen/common/inflate.c
+index 8fa4b96d12..8bdc9208da 100644
+--- a/xen/common/inflate.c
++++ b/xen/common/inflate.c
+@@ -1201,6 +1201,7 @@ static int __init gunzip(void)
+     magic[1] = NEXTBYTE();
+     method   = NEXTBYTE();
+ 
++    /* SAF-1-safe */
+     if (magic[0] != 037 ||
+         ((magic[1] != 0213) && (magic[1] != 0236))) {
+         error("bad gzip magic numbers");
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Would SAF-1-safe cover both 037, and also 0213 and 0213?
+Or would it cover only 037?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+We haven't use SAFE-n-safe extensively through the codebase yet but
+my understanding is that SAFE-n-safe would cover the entire statement of
+the following line, even if it is multi-line. Is that also your
+understanding? Does it work like that with cppcheck?
 
 
-Pushing revision :
+It looks like ECLAIR requires a written-down number of lines of code to
+deviate if it is more than 1 line. In this example it would be 2 lines:
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   11d9f3ddf5..ec272d8d4c  ec272d8d4c5de1a143f3cec50e3f22d0f783f39b -> smoke
+     /* SAF-1-safe 2 */
+     if (magic[0] != 037 ||
+         ((magic[1] != 0213) && (magic[1] != 0236))) {
+
+One option that I was thinking about is whether we can add the number of
+lines automatically in xen-analysis based on the number of lines of the
+next statement. What do you think?
+
+It seems fragile to actually keep the number of lines inside the SAF
+comment in the code. I am afraid it could get out of sync due to code
+style refactoring or other mechanical changes.
+
+Cheers,
+
+Stefano
 
