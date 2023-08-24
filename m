@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C92A786FCD
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 15:00:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590072.922177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A578786FDA
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 15:03:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590085.922188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ9wd-0001cl-Cf; Thu, 24 Aug 2023 13:00:15 +0000
+	id 1qZ9zO-0002aC-TL; Thu, 24 Aug 2023 13:03:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590072.922177; Thu, 24 Aug 2023 13:00:15 +0000
+Received: by outflank-mailman (output) from mailman id 590085.922188; Thu, 24 Aug 2023 13:03:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ9wd-0001bG-9d; Thu, 24 Aug 2023 13:00:15 +0000
-Received: by outflank-mailman (input) for mailman id 590072;
- Thu, 24 Aug 2023 13:00:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ9wc-0001az-8K; Thu, 24 Aug 2023 13:00:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ9wc-0005NW-4L; Thu, 24 Aug 2023 13:00:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ9wb-0008Oi-S2; Thu, 24 Aug 2023 13:00:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ9wb-0004p2-Rc; Thu, 24 Aug 2023 13:00:13 +0000
+	id 1qZ9zO-0002YX-Q5; Thu, 24 Aug 2023 13:03:06 +0000
+Received: by outflank-mailman (input) for mailman id 590085;
+ Thu, 24 Aug 2023 13:03:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EWrD=EJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qZ9zM-0002YK-Fo
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 13:03:04 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8eebe84b-427e-11ee-8783-cb3800f73035;
+ Thu, 24 Aug 2023 15:03:03 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 51C184EE0737;
+ Thu, 24 Aug 2023 15:03:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,110 +39,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xlvCN+lYqdwGI8BVdg3ri9UFPGSpbSePRuRY866pFUk=; b=odpD5e2/5LWx2a36g3wMV50mmJ
-	jpuYYiSEY06x8JJ4sp+Hmk2E2fqfNW17mPavAMqKrP7SeZhq0VmUjiRzHXmdMxhK04ct1Ar+92DG1
-	A/VYSLBXS3pL8aPfHcocx3ZjtXUSqEHEZ0xss4p/Mi/QBdzq7Te3vwm15IibYCbk1yU8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182501-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8eebe84b-427e-11ee-8783-cb3800f73035
 MIME-Version: 1.0
-Subject: [seabios test] 182501: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    seabios=774a823a966cdc5d31ddc11af2b7b4f2c250ffdd
-X-Osstest-Versions-That:
-    seabios=1281e340ad1d90c0cc8e8d902bb34f1871eb48cf
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Aug 2023 13:00:13 +0000
+Date: Thu, 24 Aug 2023 15:03:02 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH v2] arm64/vfp: address MISRA C:2012 Dir 4.3
+In-Reply-To: <707b09d3-c69e-4212-be64-7e2bde73d4af@xen.org>
+References: <140f450d4f4f88096158e54522fc2734367a90cb.1692807017.git.nicola.vetrini@bugseng.com>
+ <941f9188-6d59-12a6-9868-daa39b51687a@amd.com>
+ <387d99d2066e1f07b7d5d04ff54a0ac9@bugseng.com>
+ <707b09d3-c69e-4212-be64-7e2bde73d4af@xen.org>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <9a86952af47d7911941b1df765cb1101@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 182501 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182501/
+On 24/08/2023 13:20, Julien Grall wrote:
+> Hi Nicola,
+> 
+> On 24/08/2023 12:11, Nicola Vetrini wrote:
+>> On 24/08/2023 10:01, Michal Orzel wrote:
+>>> Hi Nicola,
+>>> 
+>>> On 24/08/2023 09:37, Nicola Vetrini wrote:
+>>>> 
+>>>> 
+>>>> Directive 4.3 prescribes the following:
+>>>> "Assembly language shall be encapsulated and isolated",
+>>>> on the grounds of improved readability and ease of maintenance.
+>>>> 
+>>>> A static inline function is the chosen encapsulation mechanism.
+>>>> 
+>>>> No functional change.
+>>>> 
+>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>> ---
+>>>> Changes in v2:
+>>>> - Switched to a static inline function
+>>>> ---
+>>>>  xen/arch/arm/arm64/vfp.c | 78 
+>>>> ++++++++++++++++++++++------------------
+>>>>  1 file changed, 44 insertions(+), 34 deletions(-)
+>>>> 
+>>>> diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
+>>>> index 2d0d7c2e6ddb..5c884380ee42 100644
+>>>> --- a/xen/arch/arm/arm64/vfp.c
+>>>> +++ b/xen/arch/arm/arm64/vfp.c
+>>>> @@ -4,6 +4,48 @@
+>>>>  #include <asm/vfp.h>
+>>>>  #include <asm/arm64/sve.h>
+>>>> 
+>>>> +static inline void save_state(uint64_t *fpregs)
+>>>> +{
+>>>> +    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
+>>>> +                 "stp q2, q3, [%1, #16 * 2]\n\t"
+>>>> +                 "stp q4, q5, [%1, #16 * 4]\n\t"
+>>>> +                 "stp q6, q7, [%1, #16 * 6]\n\t"
+>>>> +                 "stp q8, q9, [%1, #16 * 8]\n\t"
+>>>> +                 "stp q10, q11, [%1, #16 * 10]\n\t"
+>>>> +                 "stp q12, q13, [%1, #16 * 12]\n\t"
+>>>> +                 "stp q14, q15, [%1, #16 * 14]\n\t"
+>>>> +                 "stp q16, q17, [%1, #16 * 16]\n\t"
+>>>> +                 "stp q18, q19, [%1, #16 * 18]\n\t"
+>>>> +                 "stp q20, q21, [%1, #16 * 20]\n\t"
+>>>> +                 "stp q22, q23, [%1, #16 * 22]\n\t"
+>>>> +                 "stp q24, q25, [%1, #16 * 24]\n\t"
+>>>> +                 "stp q26, q27, [%1, #16 * 26]\n\t"
+>>>> +                 "stp q28, q29, [%1, #16 * 28]\n\t"
+>>>> +                 "stp q30, q31, [%1, #16 * 30]\n\t"
+>>>> +                 : "=Q" (*fpregs) : "r" (fpregs));
+>>>> +}
+>>>> +
+>>>> +static inline void restore_state(uint64_t *fpregs)
+>>> This can be const as you are loading data from fpregs into registers
+>>> 
+>> 
+>> I wonder whether this would make a difference, given that the return 
+>> type is void.
+> 
+> It is telling the reader that the function is not supposed to modify
+> the 'fpregs'. A compiler will also be able to throw an error if a
+> developper broke this assumption.
+> 
+> I have been pushing quite a lot recently to add 'const' when a pointer
+> is not supposed to be modified. And before someone mention it, I know
+> that 'const' is not perfect in C as if a field points to another area,
+> that area would not be const (unless the definition of the field
+> contains const). But that's better than nothing :).
+> 
+> Cheers,
 
-Failures :-/ but no regressions.
+Ah, yes indeed. I wasn't paying enough attention before.
+Thanks,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 181546
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 181546
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 181546
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 181546
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 181546
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
-
-version targeted for testing:
- seabios              774a823a966cdc5d31ddc11af2b7b4f2c250ffdd
-baseline version:
- seabios              1281e340ad1d90c0cc8e8d902bb34f1871eb48cf
-
-Last test of basis   181546  2023-06-22 02:12:18 Z   63 days
-Testing same since   182501  2023-08-24 08:42:05 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Tony Titus <tonydt@amazon.com>
-  Tony Titus via SeaBIOS <seabios@seabios.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   1281e34..774a823  774a823a966cdc5d31ddc11af2b7b4f2c250ffdd -> xen-tested-master
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
