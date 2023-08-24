@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F886786E0C
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 13:34:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590002.922095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F841786E3D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 13:46:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590014.922108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ8bR-0004XB-CS; Thu, 24 Aug 2023 11:34:17 +0000
+	id 1qZ8nG-0006C9-Gt; Thu, 24 Aug 2023 11:46:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590002.922095; Thu, 24 Aug 2023 11:34:17 +0000
+Received: by outflank-mailman (output) from mailman id 590014.922108; Thu, 24 Aug 2023 11:46:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ8bR-0004Uc-97; Thu, 24 Aug 2023 11:34:17 +0000
-Received: by outflank-mailman (input) for mailman id 590002;
- Thu, 24 Aug 2023 11:34:15 +0000
+	id 1qZ8nG-0006AU-DH; Thu, 24 Aug 2023 11:46:30 +0000
+Received: by outflank-mailman (input) for mailman id 590014;
+ Thu, 24 Aug 2023 11:46:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ8bP-0004US-T8; Thu, 24 Aug 2023 11:34:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qZ8nE-0006AO-Sm
+ for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 11:46:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ8bP-0003Eo-Mv; Thu, 24 Aug 2023 11:34:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ8bP-0004EZ-97; Thu, 24 Aug 2023 11:34:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qZ8bP-0007Ct-8j; Thu, 24 Aug 2023 11:34:15 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qZ8nE-0003ci-8h; Thu, 24 Aug 2023 11:46:28 +0000
+Received: from [15.248.3.1] (helo=[10.24.67.25])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qZ8nE-0005lp-1x; Thu, 24 Aug 2023 11:46:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,143 +39,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=SDaVltgbn3wcyPkv4j4gnO8tLp5iPCQ6NmBXzux/21A=; b=AnCNmUlp4K7udfq1x4xw6ka/y5
-	XiGJdzFQ8ebdXoh6safias8TRUnkPh6fAHYEYcxUrYiRseHHS/wa50G53GJ70Lw4wHj6fVk0jopv5
-	gYi4NMrBV2icqD5rhFpmCWccLgtYMkeyekaaetIOvubIGXW302unMMLRaUlijloJ1BoA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182498-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ycKZETRTqkNzSfyQdPAx/QvdCySAxTDZ7ru8pPs0+aQ=; b=T3yboQVsst6h1Ogh5ssQP9e5E9
+	HS3GnPkczb91F3pVcGLhEj3Cma4+eram9d6Y0DHYHX+s27AGi6d5surGZwAP3VkPPPAcawat3IZA1
+	erOZGjMoA3SIO0ETJkC2Ty9IyrTcp/dbe64dNuSK6lndpw14zb+iZGIOjwg7uQapmDY8=;
+Message-ID: <0076d7e6-f099-473b-b81b-9ce8d5e18b7a@xen.org>
+Date: Thu, 24 Aug 2023 12:46:26 +0100
 MIME-Version: 1.0
-Subject: [libvirt test] 182498: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=2aa5c0789c54195a2b7f712a12c4e78548657d15
-X-Osstest-Versions-That:
-    libvirt=cb3bc96e6759d447181bc874563afb489ddb19d4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Aug 2023 11:34:15 +0000
-
-flight 182498 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182498/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182426
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182426
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182426
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              2aa5c0789c54195a2b7f712a12c4e78548657d15
-baseline version:
- libvirt              cb3bc96e6759d447181bc874563afb489ddb19d4
-
-Last test of basis   182426  2023-08-23 04:22:02 Z    1 days
-Testing same since   182498  2023-08-24 04:18:48 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs/misra: add rule 2.1 exceptions
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ george.dunlap@citrix.com, bertrand.marquis@arm.com,
+ nicola.vetrini@bugseng.com, Stefano Stabellini <stefano.stabellini@amd.com>
+References: <20230823223942.2981782-1-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230823223942.2981782-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 23/08/2023 23:39, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> During the discussions that led to the acceptance of Rule 2.1, we
+> decided on a few exceptions that were not properly recorded in
+> rules.rst. Add them now.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Note that safe.json and the codebase are not yet updated with an
+> appropriate tag for BUG, panic and friends.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I think it should be updated with at least one of them. Otherwise...
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> 
+> v2:
+> - fix typo in commit message
+> - use "only referenced from assembly"
+> - use "Deliberate unreachability caused by"
+> - add "See safe.json"
+> - add acked-by (although I also added "See safe.json")
+> ---
+>   docs/misra/rules.rst | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 8f0e4d3f25..4f33ed4ba6 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -106,7 +106,18 @@ maintainers if you want to suggest a change.
+>      * - `Rule 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_01_1.c>`_
+>        - Required
+>        - A project shall not contain unreachable code
+> -     -
+> +     - The following are allowed:
+> +         - Invariantly constant conditions, e.g. if(IS_ENABLED(CONFIG_HVM)) { S; }
+> +         - Switch with a controlling value statically determined not to
+> +           match one or more case statements
+> +         - Functions that are intended to be referenced only from
+> +           assembly code (e.g. 'do_trap_fiq')
+> +         - Deliberate unreachability caused by certain macros/functions,
+> +           e.g. BUG, assert_failed, panic, etc. See safe.json.
 
+... someone reading this and then reading safe.json will wonder why none 
+are present.
 
-Pushing revision :
+The list would then only contain the one(s) currently added in 
+safe.json. But there should be no expectation that the examples will 
+grow everytime one is added in safe.json.
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   cb3bc96e67..2aa5c0789c  2aa5c0789c54195a2b7f712a12c4e78548657d15 -> xen-tested-master
+> +         - asm-offsets.c, as they are not linked deliberately, because
+> +           they are used to generate definitions for asm modules
+> +         - Declarations without initializer are safe, as they are not
+> +           executed
+>   
+>      * - `Rule 2.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_06.c>`_
+>        - Advisory
+
+Cheers,
+
+-- 
+Julien Grall
 
