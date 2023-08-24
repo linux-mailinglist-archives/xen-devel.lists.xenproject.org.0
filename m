@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA763786E59
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 13:48:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590020.922117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0FED786ED7
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 14:16:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590038.922128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ8of-0006jZ-PJ; Thu, 24 Aug 2023 11:47:57 +0000
+	id 1qZ9FZ-0002Ia-3g; Thu, 24 Aug 2023 12:15:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590020.922117; Thu, 24 Aug 2023 11:47:57 +0000
+Received: by outflank-mailman (output) from mailman id 590038.922128; Thu, 24 Aug 2023 12:15:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ8of-0006hb-Mf; Thu, 24 Aug 2023 11:47:57 +0000
-Received: by outflank-mailman (input) for mailman id 590020;
- Thu, 24 Aug 2023 11:47:56 +0000
+	id 1qZ9FY-0002Hj-VL; Thu, 24 Aug 2023 12:15:44 +0000
+Received: by outflank-mailman (input) for mailman id 590038;
+ Thu, 24 Aug 2023 12:15:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qZ8oe-0006hR-Ak
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 11:47:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ9FY-0002HJ-1r; Thu, 24 Aug 2023 12:15:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZ8od-0003eM-K2; Thu, 24 Aug 2023 11:47:55 +0000
-Received: from [15.248.3.1] (helo=[10.24.67.25])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZ8od-0005lp-CZ; Thu, 24 Aug 2023 11:47:55 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ9FX-0004Ou-Lx; Thu, 24 Aug 2023 12:15:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ9FX-0006Ce-6e; Thu, 24 Aug 2023 12:15:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ9FX-0005FM-6D; Thu, 24 Aug 2023 12:15:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +42,468 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=pCC+w70JGjmfpFtvRorlNBO+2pIN+V/RUWDmW3kQwSI=; b=nvdm53e/xYKw4qGiQU7ZzEAwXj
-	3M2vyPuM6+4RgNMGyzQrFgfHcxl/Rcl5kxZHeOpNQeD6zdkeIl8OHhzq0H5idof7/hZuvRJOpTRdT
-	6E9Bgf4yy2HTAmS33GOTawd2hDiVPx9o4goTHYd/LGdQ//dxLmO/ACalJNbGG3eEzPFo=;
-Message-ID: <0cd5f18b-2da4-4f36-b6eb-c151965a0f64@xen.org>
-Date: Thu, 24 Aug 2023 12:47:54 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs/misra: add rule 2.1 exceptions
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com,
- george.dunlap@citrix.com, bertrand.marquis@arm.com,
- nicola.vetrini@bugseng.com, Stefano Stabellini <stefano.stabellini@amd.com>
-References: <20230823223942.2981782-1-sstabellini@kernel.org>
- <0076d7e6-f099-473b-b81b-9ce8d5e18b7a@xen.org>
-In-Reply-To: <0076d7e6-f099-473b-b81b-9ce8d5e18b7a@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4mJWBDe6zN5n5dc1p0tvlLG8Mq0i/jz+0y+jlC6k1tQ=; b=S46LdL10P3p3+Z8Lm9IRSAQVqX
+	5RPZti34R9l60KroJGjgE1iJv290WoFz3UGoRZSU4xrdltNBn9BfsXUyLNpB6UE+hLKp3yFgz+xUe
+	45CIIm+Ka1NSjzXF4zjc9ymKzj5chF9jsZ1xEGVLm2LLACNWB91T/yXy2rDZeligax5I=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182499-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 182499: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:build-arm64:xen-build:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:guest-start.2:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:guest-start/debianhvm.repeat:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=93f5de5f648d2b1ce3540a4ac71756d4a852dc23
+X-Osstest-Versions-That:
+    linux=53663f4103ff6738e4697004d6f84864d052333d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 24 Aug 2023 12:15:43 +0000
 
-On 24/08/2023 12:46, Julien Grall wrote:
-> On 23/08/2023 23:39, Stefano Stabellini wrote:
->> ---
->>   docs/misra/rules.rst | 13 ++++++++++++-
->>   1 file changed, 12 insertions(+), 1 deletion(-)
->>
->> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
->> index 8f0e4d3f25..4f33ed4ba6 100644
->> --- a/docs/misra/rules.rst
->> +++ b/docs/misra/rules.rst
->> @@ -106,7 +106,18 @@ maintainers if you want to suggest a change.
->>      * - `Rule 2.1 
->> <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_01_1.c>`_
->>        - Required
->>        - A project shall not contain unreachable code
->> -     -
->> +     - The following are allowed:
->> +         - Invariantly constant conditions, e.g. 
->> if(IS_ENABLED(CONFIG_HVM)) { S; }
->> +         - Switch with a controlling value statically determined not to
->> +           match one or more case statements
->> +         - Functions that are intended to be referenced only from
->> +           assembly code (e.g. 'do_trap_fiq')
->> +         - Deliberate unreachability caused by certain macros/functions,
->> +           e.g. BUG, assert_failed, panic, etc. See safe.json.
-> 
-> ... someone reading this and then reading safe.json will wonder why none 
-> are present.
-> 
-> The list would then only contain the one(s) currently added in 
-> safe.json. But there should be no expectation that the examples will 
-> grow everytime one is added in safe.json.
+flight 182499 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182499/
 
-I forgot to mention that the rest of the exceptions look good to me. So 
-if you prefer, if you could remove this exception and commit the rest.
+Regressions :-(
 
-Cheers,
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 182424
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 182424
+ build-arm64                   6 xen-build                fail REGR. vs. 182424
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 15 guest-start.2 fail REGR. vs. 182424
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 20 guest-start/debianhvm.repeat fail REGR. vs. 182424
 
--- 
-Julien Grall
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182424
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182424
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182424
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182424
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 182424
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182424
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182424
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ linux                93f5de5f648d2b1ce3540a4ac71756d4a852dc23
+baseline version:
+ linux                53663f4103ff6738e4697004d6f84864d052333d
+
+Last test of basis   182424  2023-08-22 18:10:18 Z    1 days
+Failing since        182452  2023-08-23 10:10:33 Z    1 days    2 attempts
+Testing same since   182499  2023-08-24 05:04:50 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  André Apitzsch <git@apitzsch.eu>
+  Hans de Goede <hdegoede@redhat.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Peng Fan <peng.fan@nxp.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Rik van Riel <riel@surriel.com>
+  Rob Herring <robh@kernel.org>
+  Shih-Yi Chen <shihyic@nvidia.com>
+  Swapnil Devesh <me@sidevesh.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 93f5de5f648d2b1ce3540a4ac71756d4a852dc23
+Merge: a5e505a99ca7 453b014e2c29
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Wed Aug 23 14:28:19 2023 -0700
+
+    Merge tag 'acpi-6.5-rc8' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm
+    
+    Pull ACPI fix from Rafael Wysocki:
+     "Make an existing ACPI IRQ override quirk for PCSpecialist Elimina Pro
+      16 M work as intended (Hans de Goede)"
+    
+    * tag 'acpi-6.5-rc8' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm:
+      ACPI: resource: Fix IRQ override quirk for PCSpecialist Elimina Pro 16 M
+
+commit a5e505a99ca748583dbe558b691be1b26f05d678
+Merge: 89bf6209cad6 0848cab765c6
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Wed Aug 23 08:32:52 2023 -0700
+
+    Merge tag 'platform-drivers-x86-v6.5-5' of git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86
+    
+    Pull x86 platform driver fixes from Hans de Goede:
+     "Final set of three small fixes for 6.5"
+    
+    * tag 'platform-drivers-x86-v6.5-5' of git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86:
+      platform/mellanox: Fix mlxbf-tmfifo not handling all virtio CONSOLE notifications
+      platform/x86: ideapad-laptop: Add support for new hotkeys found on ThinkBook 14s Yoga ITL
+      platform/x86: lenovo-ymc: Add Lenovo Yoga 7 14ACN6 to ec_trigger_quirk_dmi_table
+
+commit 0848cab765c634597636810bf76d0934003cce28
+Author: Shih-Yi Chen <shihyic@nvidia.com>
+Date:   Mon Aug 21 11:06:27 2023 -0400
+
+    platform/mellanox: Fix mlxbf-tmfifo not handling all virtio CONSOLE notifications
+    
+    rshim console does not show all entries of dmesg.
+    
+    Fixed by setting MLXBF_TM_TX_LWM_IRQ for every CONSOLE notification.
+    
+    Signed-off-by: Shih-Yi Chen <shihyic@nvidia.com>
+    Reviewed-by: Liming Sung <limings@nvidia.com>
+    Reviewed-by: David Thompson <davthompson@nvidia.com>
+    Link: https://lore.kernel.org/r/20230821150627.26075-1-shihyic@nvidia.com
+    Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+    Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+commit 89bf6209cad66214d3774dac86b6bbf2aec6a30d
+Merge: 53663f4103ff 7882541ca06d
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Tue Aug 22 11:16:23 2023 -0700
+
+    Merge tag 'devicetree-fixes-for-6.5-2' of git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux
+    
+    Pull devicetree fixes from Rob Herring:
+    
+     - Fix DT node refcount when creating platform devices
+    
+     - Fix deadlock in changeset code due to printing with devtree_lock held
+    
+     - Fix unittest EXPECT strings for parse_phandle_with_args_map() test
+    
+     - Fix IMA kexec memblock freeing
+    
+    * tag 'devicetree-fixes-for-6.5-2' of git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux:
+      of/platform: increase refcount of fwnode
+      of: dynamic: Refactor action prints to not use "%pOF" inside devtree_lock
+      of: unittest: Fix EXPECT for parse_phandle_with_args_map() test
+      mm,ima,kexec,of: use memblock_free_late from ima_free_kexec_buffer
+
+commit 7882541ca06d51a6c12d687827176c16d5e05f65
+Author: Peng Fan <peng.fan@nxp.com>
+Date:   Mon Aug 21 10:39:28 2023 +0800
+
+    of/platform: increase refcount of fwnode
+    
+    commit 0f8e5651095b
+    ("of/platform: Propagate firmware node by calling device_set_node()")
+    use of_fwnode_handle to replace of_node_get, which introduces a side
+    effect that the refcount is not increased. Then the out of tree
+    jailhouse hypervisor enable/disable test will trigger kernel dump in
+    of_overlay_remove, with the following sequence
+    "
+       of_changeset_revert(&overlay_changeset);
+       of_changeset_destroy(&overlay_changeset);
+       of_overlay_remove(&overlay_id);
+    "
+    
+    So increase the refcount to avoid issues.
+    
+    This patch also release the refcount when releasing amba device to avoid
+    refcount leakage.
+    
+    Fixes: 0f8e5651095b ("of/platform: Propagate firmware node by calling device_set_node()")
+    Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+    Signed-off-by: Peng Fan <peng.fan@nxp.com>
+    Link: https://lore.kernel.org/r/20230821023928.3324283-2-peng.fan@oss.nxp.com
+    Signed-off-by: Rob Herring <robh@kernel.org>
+
+commit 914d9d831e6126a6e7a92e27fcfaa250671be42c
+Author: Rob Herring <robh@kernel.org>
+Date:   Fri Aug 18 15:40:57 2023 -0500
+
+    of: dynamic: Refactor action prints to not use "%pOF" inside devtree_lock
+    
+    While originally it was fine to format strings using "%pOF" while
+    holding devtree_lock, this now causes a deadlock.  Lockdep reports:
+    
+        of_get_parent from of_fwnode_get_parent+0x18/0x24
+        ^^^^^^^^^^^^^
+        of_fwnode_get_parent from fwnode_count_parents+0xc/0x28
+        fwnode_count_parents from fwnode_full_name_string+0x18/0xac
+        fwnode_full_name_string from device_node_string+0x1a0/0x404
+        device_node_string from pointer+0x3c0/0x534
+        pointer from vsnprintf+0x248/0x36c
+        vsnprintf from vprintk_store+0x130/0x3b4
+    
+    Fix this by moving the printing in __of_changeset_entry_apply() outside
+    the lock. As the only difference in the multiple prints is the action
+    name, use the existing "action_names" to refactor the prints into a
+    single print.
+    
+    Fixes: a92eb7621b9fb2c2 ("lib/vsprintf: Make use of fwnode API to obtain node names and separators")
+    Cc: stable@vger.kernel.org
+    Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+    Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+    Link: https://lore.kernel.org/r/20230801-dt-changeset-fixes-v3-2-5f0410e007dd@kernel.org
+    Signed-off-by: Rob Herring <robh@kernel.org>
+
+commit 0aeae3788e28f64ccb95405d4dc8cd80637ffaea
+Author: Rob Herring <robh@kernel.org>
+Date:   Fri Aug 18 15:40:56 2023 -0500
+
+    of: unittest: Fix EXPECT for parse_phandle_with_args_map() test
+    
+    Commit 12e17243d8a1 ("of: base: improve error msg in
+    of_phandle_iterator_next()") added printing of the phandle value on
+    error, but failed to update the unittest.
+    
+    Fixes: 12e17243d8a1 ("of: base: improve error msg in of_phandle_iterator_next()")
+    Cc: stable@vger.kernel.org
+    Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+    Link: https://lore.kernel.org/r/20230801-dt-changeset-fixes-v3-1-5f0410e007dd@kernel.org
+    Signed-off-by: Rob Herring <robh@kernel.org>
+
+commit a260f7d726fde52c0278bd3fa085a758639bcee2
+Author: André Apitzsch <git@apitzsch.eu>
+Date:   Sat Aug 19 09:12:15 2023 +0200
+
+    platform/x86: ideapad-laptop: Add support for new hotkeys found on ThinkBook 14s Yoga ITL
+    
+    The Lenovo Thinkbook 14s Yoga ITL has 4 new symbols/shortcuts on their
+    F9-F11 and PrtSc keys:
+    
+    F9:    Has a symbol of a head with a headset, the manual says "Service key"
+    F10:   Has a symbol of a telephone horn which has been picked up from the
+           receiver, the manual says: "Answer incoming calls"
+    F11:   Has a symbol of a telephone horn which is resting on the receiver,
+           the manual says: "Reject incoming calls"
+    PrtSc: Has a symbol of a siccor and a dashed ellipse, the manual says:
+           "Open the Windows 'Snipping' Tool app"
+    
+    This commit adds support for these 4 new hkey events.
+    
+    Signed-off-by: André Apitzsch <git@apitzsch.eu>
+    Link: https://lore.kernel.org/r/20230819-lenovo_keys-v1-1-9d34eac88e0a@apitzsch.eu
+    Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+    Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+commit db35610a181c18f7a521a2e157f7acdef7ce425f
+Author: Swapnil Devesh <me@sidevesh.com>
+Date:   Fri Aug 18 18:09:47 2023 +0530
+
+    platform/x86: lenovo-ymc: Add Lenovo Yoga 7 14ACN6 to ec_trigger_quirk_dmi_table
+    
+    This adds my laptop Lenovo Yoga 7 14ACN6, with Product Name: 82N7
+    (from `dmidecode -t1 | grep "Product Name"`) to
+    the ec_trigger_quirk_dmi_table, have tested that this is required
+    for the YMC driver to work correctly on this model.
+    
+    Signed-off-by: Swapnil Devesh <me@sidevesh.com>
+    Reviewed-by: Gergő Köteles <soyer@irl.hu>
+    Link: https://lore.kernel.org/r/18a08a8b173.895ef3b250414.1213194126082324071@sidevesh.com
+    Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+    Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+commit 453b014e2c294abf762d3bce12e91ce4b34055e6
+Author: Hans de Goede <hdegoede@redhat.com>
+Date:   Mon Aug 21 11:09:27 2023 +0200
+
+    ACPI: resource: Fix IRQ override quirk for PCSpecialist Elimina Pro 16 M
+    
+    It turns out that some PCSpecialist Elimina Pro 16 M models
+    have "GM6BGEQ" as DMI product-name instead of "Elimina Pro 16 M",
+    causing the existing DMI quirk to not work on these models.
+    
+    The DMI board-name is always "GM6BGEQ", so match on that instead.
+    
+    Fixes: 56fec0051a69 ("ACPI: resource: Add IRQ override quirk for PCSpecialist Elimina Pro 16 M")
+    Link: https://bugzilla.kernel.org/show_bug.cgi?id=217394#c36
+    Cc: All applicable <stable@vger.kernel.org>
+    Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+    Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+commit f0362a253606e2031f8d61c74195d4d6556e12a4
+Author: Rik van Riel <riel@surriel.com>
+Date:   Thu Aug 17 13:57:59 2023 -0400
+
+    mm,ima,kexec,of: use memblock_free_late from ima_free_kexec_buffer
+    
+    The code calling ima_free_kexec_buffer runs long after the memblock
+    allocator has already been torn down, potentially resulting in a use
+    after free in memblock_isolate_range.
+    
+    With KASAN or KFENCE, this use after free will result in a BUG
+    from the idle task, and a subsequent kernel panic.
+    
+    Switch ima_free_kexec_buffer over to memblock_free_late to avoid
+    that issue.
+    
+    Fixes: fee3ff99bc67 ("powerpc: Move arch independent ima kexec functions to drivers/of/kexec.c")
+    Cc: stable@kernel.org
+    Signed-off-by: Rik van Riel <riel@surriel.com>
+    Suggested-by: Mike Rappoport <rppt@kernel.org>
+    Link: https://lore.kernel.org/r/20230817135759.0888e5ef@imladris.surriel.com
+    Signed-off-by: Rob Herring <robh@kernel.org>
 
