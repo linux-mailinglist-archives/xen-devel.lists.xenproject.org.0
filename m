@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3371786D9B
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 13:20:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.589991.922082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F886786E0C
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Aug 2023 13:34:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590002.922095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ8Nv-0002mm-Ae; Thu, 24 Aug 2023 11:20:19 +0000
+	id 1qZ8bR-0004XB-CS; Thu, 24 Aug 2023 11:34:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 589991.922082; Thu, 24 Aug 2023 11:20:19 +0000
+Received: by outflank-mailman (output) from mailman id 590002.922095; Thu, 24 Aug 2023 11:34:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZ8Nv-0002jn-79; Thu, 24 Aug 2023 11:20:19 +0000
-Received: by outflank-mailman (input) for mailman id 589991;
- Thu, 24 Aug 2023 11:20:17 +0000
+	id 1qZ8bR-0004Uc-97; Thu, 24 Aug 2023 11:34:17 +0000
+Received: by outflank-mailman (input) for mailman id 590002;
+ Thu, 24 Aug 2023 11:34:15 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qZ8Nt-0002je-Mn
- for xen-devel@lists.xenproject.org; Thu, 24 Aug 2023 11:20:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ8bP-0004US-T8; Thu, 24 Aug 2023 11:34:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZ8Ns-0002wP-V8; Thu, 24 Aug 2023 11:20:16 +0000
-Received: from [15.248.3.1] (helo=[10.24.67.25])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZ8Ns-0004dT-O1; Thu, 24 Aug 2023 11:20:16 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ8bP-0003Eo-Mv; Thu, 24 Aug 2023 11:34:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ8bP-0004EZ-97; Thu, 24 Aug 2023 11:34:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qZ8bP-0007Ct-8j; Thu, 24 Aug 2023 11:34:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +42,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ZykbmVQszRsygAsCHDc8Vv95XoLP1uzCO001hCtbmv4=; b=qKJu1Jy7OhrujfSKhQTZ5HDgB7
-	UAWfogvjSkKUvrglHiOPSUKyzcTXHdWqwlkThUR34s7OEQ80B2TXeIXFuM83UWxu/bQSATAMYouUt
-	KwmdfVzMdfg6jn5R5GFZ9gcILWXI8lMTMMr/HFnuDvI2bmy/Y+aoLsIeElwdiSwuO/hM=;
-Message-ID: <707b09d3-c69e-4212-be64-7e2bde73d4af@xen.org>
-Date: Thu, 24 Aug 2023 12:20:14 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] arm64/vfp: address MISRA C:2012 Dir 4.3
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <140f450d4f4f88096158e54522fc2734367a90cb.1692807017.git.nicola.vetrini@bugseng.com>
- <941f9188-6d59-12a6-9868-daa39b51687a@amd.com>
- <387d99d2066e1f07b7d5d04ff54a0ac9@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <387d99d2066e1f07b7d5d04ff54a0ac9@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=SDaVltgbn3wcyPkv4j4gnO8tLp5iPCQ6NmBXzux/21A=; b=AnCNmUlp4K7udfq1x4xw6ka/y5
+	XiGJdzFQ8ebdXoh6safias8TRUnkPh6fAHYEYcxUrYiRseHHS/wa50G53GJ70Lw4wHj6fVk0jopv5
+	gYi4NMrBV2icqD5rhFpmCWccLgtYMkeyekaaetIOvubIGXW302unMMLRaUlijloJ1BoA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182498-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 182498: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=2aa5c0789c54195a2b7f712a12c4e78548657d15
+X-Osstest-Versions-That:
+    libvirt=cb3bc96e6759d447181bc874563afb489ddb19d4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 24 Aug 2023 11:34:15 +0000
 
-Hi Nicola,
+flight 182498 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182498/
 
-On 24/08/2023 12:11, Nicola Vetrini wrote:
-> On 24/08/2023 10:01, Michal Orzel wrote:
->> Hi Nicola,
->>
->> On 24/08/2023 09:37, Nicola Vetrini wrote:
->>>
->>>
->>> Directive 4.3 prescribes the following:
->>> "Assembly language shall be encapsulated and isolated",
->>> on the grounds of improved readability and ease of maintenance.
->>>
->>> A static inline function is the chosen encapsulation mechanism.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>> ---
->>> Changes in v2:
->>> - Switched to a static inline function
->>> ---
->>>  xen/arch/arm/arm64/vfp.c | 78 ++++++++++++++++++++++------------------
->>>  1 file changed, 44 insertions(+), 34 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
->>> index 2d0d7c2e6ddb..5c884380ee42 100644
->>> --- a/xen/arch/arm/arm64/vfp.c
->>> +++ b/xen/arch/arm/arm64/vfp.c
->>> @@ -4,6 +4,48 @@
->>>  #include <asm/vfp.h>
->>>  #include <asm/arm64/sve.h>
->>>
->>> +static inline void save_state(uint64_t *fpregs)
->>> +{
->>> +    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
->>> +                 "stp q2, q3, [%1, #16 * 2]\n\t"
->>> +                 "stp q4, q5, [%1, #16 * 4]\n\t"
->>> +                 "stp q6, q7, [%1, #16 * 6]\n\t"
->>> +                 "stp q8, q9, [%1, #16 * 8]\n\t"
->>> +                 "stp q10, q11, [%1, #16 * 10]\n\t"
->>> +                 "stp q12, q13, [%1, #16 * 12]\n\t"
->>> +                 "stp q14, q15, [%1, #16 * 14]\n\t"
->>> +                 "stp q16, q17, [%1, #16 * 16]\n\t"
->>> +                 "stp q18, q19, [%1, #16 * 18]\n\t"
->>> +                 "stp q20, q21, [%1, #16 * 20]\n\t"
->>> +                 "stp q22, q23, [%1, #16 * 22]\n\t"
->>> +                 "stp q24, q25, [%1, #16 * 24]\n\t"
->>> +                 "stp q26, q27, [%1, #16 * 26]\n\t"
->>> +                 "stp q28, q29, [%1, #16 * 28]\n\t"
->>> +                 "stp q30, q31, [%1, #16 * 30]\n\t"
->>> +                 : "=Q" (*fpregs) : "r" (fpregs));
->>> +}
->>> +
->>> +static inline void restore_state(uint64_t *fpregs)
->> This can be const as you are loading data from fpregs into registers
->>
-> 
-> I wonder whether this would make a difference, given that the return 
-> type is void.
+Failures :-/ but no regressions.
 
-It is telling the reader that the function is not supposed to modify the 
-'fpregs'. A compiler will also be able to throw an error if a developper 
-broke this assumption.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182426
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182426
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182426
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-I have been pushing quite a lot recently to add 'const' when a pointer 
-is not supposed to be modified. And before someone mention it, I know 
-that 'const' is not perfect in C as if a field points to another area, 
-that area would not be const (unless the definition of the field 
-contains const). But that's better than nothing :).
+version targeted for testing:
+ libvirt              2aa5c0789c54195a2b7f712a12c4e78548657d15
+baseline version:
+ libvirt              cb3bc96e6759d447181bc874563afb489ddb19d4
 
-Cheers,
+Last test of basis   182426  2023-08-23 04:22:02 Z    1 days
+Testing same since   182498  2023-08-24 04:18:48 Z    0 days    1 attempts
 
--- 
-Julien Grall
+------------------------------------------------------------
+People who touched revisions under test:
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   cb3bc96e67..2aa5c0789c  2aa5c0789c54195a2b7f712a12c4e78548657d15 -> xen-tested-master
 
