@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98681788171
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:03:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590547.922873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C5B788178
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:03:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590552.922917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRmd-0007VO-46; Fri, 25 Aug 2023 08:03:07 +0000
+	id 1qZRmi-0000G1-Fo; Fri, 25 Aug 2023 08:03:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590547.922873; Fri, 25 Aug 2023 08:03:07 +0000
+Received: by outflank-mailman (output) from mailman id 590552.922917; Fri, 25 Aug 2023 08:03:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRmc-0007RB-QH; Fri, 25 Aug 2023 08:03:06 +0000
-Received: by outflank-mailman (input) for mailman id 590547;
- Fri, 25 Aug 2023 08:03:05 +0000
+	id 1qZRmi-00008K-2S; Fri, 25 Aug 2023 08:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 590552;
+ Fri, 25 Aug 2023 08:03:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+VXW=EK=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qZRmb-0007GZ-6u
- for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:03:05 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060e.outbound.protection.outlook.com
- [2a01:111:f400:7e88::60e])
+ id 1qZRmg-0007GZ-F8
+ for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:03:10 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2060c.outbound.protection.outlook.com
+ [2a01:111:f400:7e8b::60c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0a40d40-431d-11ee-8783-cb3800f73035;
- Fri, 25 Aug 2023 10:03:04 +0200 (CEST)
-Received: from MW4PR03CA0037.namprd03.prod.outlook.com (2603:10b6:303:8e::12)
- by IA1PR12MB8496.namprd12.prod.outlook.com (2603:10b6:208:446::10)
+ id d4a91944-431d-11ee-8783-cb3800f73035;
+ Fri, 25 Aug 2023 10:03:09 +0200 (CEST)
+Received: from MW4PR03CA0264.namprd03.prod.outlook.com (2603:10b6:303:b4::29)
+ by SJ2PR12MB7918.namprd12.prod.outlook.com (2603:10b6:a03:4cc::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Fri, 25 Aug
- 2023 08:02:58 +0000
-Received: from CO1PEPF000044FB.namprd21.prod.outlook.com
- (2603:10b6:303:8e:cafe::f6) by MW4PR03CA0037.outlook.office365.com
- (2603:10b6:303:8e::12) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 08:03:03 +0000
+Received: from CO1PEPF000044F8.namprd21.prod.outlook.com
+ (2603:10b6:303:b4:cafe::f9) by MW4PR03CA0264.outlook.office365.com
+ (2603:10b6:303:b4::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.30 via Frontend
- Transport; Fri, 25 Aug 2023 08:02:58 +0000
+ Transport; Fri, 25 Aug 2023 08:03:03 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000044FB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ CO1PEPF000044F8.mail.protection.outlook.com (10.167.241.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.2 via Frontend Transport; Fri, 25 Aug 2023 08:02:58 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ 15.20.6745.2 via Frontend Transport; Fri, 25 Aug 2023 08:03:03 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 25 Aug
- 2023 03:02:58 -0500
+ 2023 03:02:59 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 25 Aug
+ 2023 03:02:59 -0500
 Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Fri, 25 Aug 2023 03:02:57 -0500
+ Transport; Fri, 25 Aug 2023 03:02:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0a40d40-431d-11ee-8783-cb3800f73035
+X-Inumbo-ID: d4a91944-431d-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CgumGq9aZCLCsioaDumg9l1ra1WH63XNss7bY8kPvTXG22l0TOwp/q3jWnHJbFPD2mG9YdxxxPDyBHmjo74mfU06S7Fz/sdMVOopAYl5UowekfoIYnJCN/9rj7lLB6ZRvXzuAJgcsUfi0HQkOSkhdajfNZepnFGBL8/BHD3ol4TT8nq2mKf7J6NdRJuff8De6DUC/mh+3QPiJeIzZVQ0lqgkeclvekN309O8ryx5y89BoajL47BraBg9NDEE6ctqHo3ePNqFI4gsP7J0d9bfDSMfn5S2CEEjCFVLEdnS3wSqyWE6oJRioVEpjWuRRpYx64Y1x443V9vtxFC97jYvxw==
+ b=n67aMB/jNGb4O2l3h0DzFCtBu4gaimzVYooU90TY2wRtXYDx/Nu6OFwxwOqFFU4t7QLtr9yiLiTnrQEk6yNYd5qC6ccJTyT6HTmJ9wCnUg69EcS8a1Fn499Erjn7fB/qMbmuo9aSuEZ5XNrUB6jUBTew1vVrVGWVSmBOiq/rV1t34tjsu0kLujgBcKuyATK6MeXiTnsnQG9xp0O8jgmju24upDwQgi9POBF7HRJEJbF7fLZQxO6ePeVsXOwvMaF6gqvuJ8odB19deWMAUFNT1pqwNLzgUTpSu8e53QFg9uFiBiqZpcNEAD7vVxG8chSEQJjGtoHNU7QWgBpAyw34Hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N48gpSlC0ul9Dgr5X4IgXaGnFeuJhzDtng9Ayqa//1E=;
- b=foEjyy0NPEwpDfiwJw/N96j6IlrTtxty8iW7Xb+vfjGZMVLKKLIt90jr0vzSSTXEJP8JRx6g2mo5YnlU9jMg/Z0A8ZFqU5AiciuY+AmZMRdo0S22VLf8+I3Q0J2OAvfJATU+A+kA20rkNCvlM0Ojh+tKR7rEFIHxqqzsTWtnH6s7rryKbFFAfRQpTUC7mzyAK5hR7x3Cg0G1KT4jEGYmdqzj3Rjw3m4Y1iFnqkdbbIMmMZKD/X6p82iwKEKL6RzGmBc4YlwKvcs7Dkt7gOyY07FoxsAMFySSEwOWPZvh8MgHKhanO89GncIP5fZgZoqfTJwi2EwBefxqPpBF26pEKQ==
+ bh=nKGY0SzVAnGU2fYrb6mmbdoZbAtWP+ycGZ0v+ZHO7vU=;
+ b=iQAoSBrG+qYyXn1vK/AO2zbtU199auRrroGKyi4Wfc9BGn6qt9lV2XBnBd/1uo8UbmOe+k9SyDg/Fr0vfEuBZSIzxqV9gklTMpxpCgBGW3nxUCPAHoeeF8Mp5FijiFkr7nJlIZF5X3oQpO7uMFXp02Dtlzy0MI/wXwXYlzZMZifKdu+h1/R9cKIKDnt3eERTB+CCBui2tAHD7cidncvp4Q8vv3v9VPF8pODc6ZEbVUBaVZeJtcnvnyrwwykOehgNVSl7lhDkTbYCCc9pGIf7INJ9+WFQK66EvSySrPfFYBwbBFACNGY9Oxcurz+FzVeGsFdwUVPnmKUivTTMtLdInQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N48gpSlC0ul9Dgr5X4IgXaGnFeuJhzDtng9Ayqa//1E=;
- b=U5lQyWoIPj714eCMMBBWlHCbVtlrHEUTzdlS4upIGEsQfYZPzscuTcRyxZZ6Voin52grovV4qrBKSoE+KvAV2nq0yTaouLUuDFhsWvOX58rktslRLEJuSzLCa8ew4/bImsy5MKOqqoVa6Lu3CrVO3lOMXZOwV3SjrvhcAAQpzcM=
+ bh=nKGY0SzVAnGU2fYrb6mmbdoZbAtWP+ycGZ0v+ZHO7vU=;
+ b=Bp6Sk4PPdkFV1WQA5qAi896aPv2DqeM/+9VFr91IOM4TdpqBJolzelos4R3ZH7f+IRCZ28WdbUsGitThHVYwhf4eGO+gh4vmPIDDOrDwBJoC0zA/HF1Mqjs4nH2b/ylq8BUqgfX1SFvo/bzltdBgh5fBHfqEqIdLqxWTUSRXK84=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -84,10 +88,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Vikram Garhwal <vikram.garhwal@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <michal.orzel@amd.com>, <sstabellini@kernel.org>,
-	<vikram.garhwal@amd.com>, <julien@xen.org>
-Subject: [XEN][PATCH v10 04/20] common/device_tree: Export __unflatten_device_tree()
-Date: Fri, 25 Aug 2023 01:02:06 -0700
-Message-ID: <20230825080222.14247-5-vikram.garhwal@amd.com>
+	<vikram.garhwal@amd.com>, <julien@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+	Community Manager <community.manager@xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN][PATCH v10 05/20] xen/arm: Add CONFIG_OVERLAY_DTB
+Date: Fri, 25 Aug 2023 01:02:07 -0700
+Message-ID: <20230825080222.14247-6-vikram.garhwal@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230825080222.14247-1-vikram.garhwal@amd.com>
 References: <20230825080222.14247-1-vikram.garhwal@amd.com>
@@ -95,112 +103,96 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FB:EE_|IA1PR12MB8496:EE_
-X-MS-Office365-Filtering-Correlation-Id: 537abbab-683b-413a-1e03-08dba541b25c
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F8:EE_|SJ2PR12MB7918:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dae1290-8fb8-4e49-b57b-08dba541b549
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	QYjgEMkYOgrV7ptUCqmB/PJckNRAgoc8nhwvUqlAwkBtBTTNUCxcq7ZWs1sml+4+rn2C6DdBysmzPaw9gp0uKf0RTBHN1msq3BrJvEFg3uQtYgxsTs6sCDVNlf3YUaU2uCJw002jOLmVnG8yTf16b9ViR8VhhhYAKMv/+kDk7exfaIy0vLmE4LvB0zlOri0cnc6nKhPbpXNeRZz+mruSUFBqpHDiaOLxdtbs4d/fwKnF74++CSIdHEmjQJe9IXaKa2CAd9LKnxusnNAhIgbV/HqiBHSGQfR9SRoZm558a4tWI/u8awthhiIt8GVy4aFGp+m5kKckziXWH3ro7QNqKS5H4wJgWkjS0riBYfnxxAu6ShdHAgpqCWaQmnBc/n92ycf3lV6Z0kzB3SNss5OTyGDaj4MG+U6RECmKd0wcUPP7VBahp6zOLjbukYB2gl4d+bOusLtUSIQrYjHJc3wX+IUT3HgKPTH9HIwIE6m33noYAF3ualORpcJ7pMZ+agJSokx1Dxwv8TZL1MmG/mn4wQqikg3mdH9R6kZaJE1qo0AOX9ig3isaXwvQty4eUZH9g1Q1LYXFF5vIF772eI5ZYJcGPTI89h3DjG2cTjIMMxQbDza3yD3/Sir/8JPu2nRxRm3EKzibQ5UwriYcl8EpG5Qu+FjwHxQujJkI2NR9Xo+lxasjfL8QZ8bk/qRTGi737UvSeIJyntuSiLPRd/CPeOEBhvsHSDnbPUmBtliqbhjgXDMkos/4EA0BIViUm7q/9JZVlf6UxVc7FA2u5BcAlA==
+	MSoVzKIgJKPR6vfmmJjgA2L07q+ktwg5RO7INS3bLDm11IYK3ji8+jrE5ii/V5bd8XNGkISBDqJExPXC76tQMBxUOBMnUwnAyckUD/6Y6EkwYt//CWP2z40l3Nv8mg5no3uofUAjWmb9X6iQ7g8RFrzfZjBAtRkkCOK5yvBrux53I/bB4YNOj3gTkLOq2eRicvMevrWq1GWymxu3PfdWL/cd0+m7jpNkixkFb2dJEnFoH3Jnvp1RhFIKuVg+m5bJKWQgFQ/FIqvFOPUKwWrz1InVps+NpbOeAXCulbFP2tITxz69LFg1lz6+g+4yChrrdKfS++RJU5rWKfkcHb95BzXSS7Y5cFhS1F2hstuduybOwJ3fQ53Nt5MWD+XTdQTJrek4CAQrHyUM5JUd+wDnQWRdckAvidllsDO837YyHDcTloeQ3rTnEj48QE9hKhtpT/W0YGtMpFO1sJofx/Q1FAss4ixwOm3v0CXcDM29nN5/2B2ste4k1X2mwx6OA5+ruw3/+alnIxPotmR2CpGPi56aWGDlxXjzNRHHE8NfpmA2guw4McYLF0yJR+z16ijxjSkjDw84tTSJG/SnEKmzIYZ524Y6ojl2zAQOn1WsUwWCfEKZRkv/MWEuyfU2InKxvJK5/chsZt0q9niPuAjpqLOFe+cdMRM7HWCTj81FdfqjPmE7ZPcb65/RMMWV89EZgCUJU3WrG6fHTPWMZvIdQQmqk6y61NMegri0vrWB17i9dP2+Xi1Te6tgxXRpv72dhqV1EqFM1MViJQ1nFpQjWkyVECgWgBYOiO0X6E4kUm4=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(136003)(396003)(376002)(186009)(1800799009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(54906003)(70586007)(70206006)(316002)(6916009)(81166007)(478600001)(40480700001)(26005)(6666004)(82740400003)(41300700001)(86362001)(2906002)(356005)(4326008)(8676002)(8936002)(83380400001)(2616005)(40460700003)(5660300002)(47076005)(44832011)(1076003)(426003)(336012)(36756003)(36860700001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199024)(1800799009)(82310400011)(186009)(40470700004)(46966006)(36840700001)(356005)(82740400003)(86362001)(81166007)(36756003)(40460700003)(478600001)(4001150100001)(5660300002)(70206006)(316002)(6916009)(2906002)(54906003)(4326008)(8676002)(44832011)(6666004)(8936002)(70586007)(40480700001)(426003)(336012)(83380400001)(26005)(36860700001)(47076005)(7416002)(41300700001)(1076003)(2616005)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 08:02:58.5489
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 08:03:03.4458
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 537abbab-683b-413a-1e03-08dba541b25c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dae1290-8fb8-4e49-b57b-08dba541b549
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044FB.namprd21.prod.outlook.com
+	CO1PEPF000044F8.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8496
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7918
 
-Following changes are done to __unflatten_device_tree():
-    1. __unflatten_device_tree() is renamed to unflatten_device_tree().
-    2. Remove __init and static function type.
+Introduce a config option where the user can enable support for adding/removing
+device tree nodes using a device tree binary overlay.
 
-The changes are done to make this function useable for dynamic node programming
-where new device tree overlay nodes are added to fdt and further unflattend to
-update xen device tree during runtime.
+Update SUPPORT.md and CHANGELOG.md to state the Device Tree Overlays support for
+Arm.
 
 Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
+Acked-by: Henry Wang <Henry.Wang@arm.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
 ---
+Changes from v9:
+    Fix style.
 Changes from v7:
-    Update the commit with why unflatten_device_tree() is changed.
-    Move function documentation to device_tree.h
+    Add this feature as "experimental support" in CHANGELOG.md
 ---
 ---
- xen/common/device_tree.c      | 19 +++----------------
- xen/include/xen/device_tree.h | 14 ++++++++++++++
- 2 files changed, 17 insertions(+), 16 deletions(-)
+ CHANGELOG.md         | 3 ++-
+ SUPPORT.md           | 6 ++++++
+ xen/arch/arm/Kconfig | 5 +++++
+ 3 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index fccf98f94e..b8ef1c7ae2 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -2082,20 +2082,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
-     return mem;
- }
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 7d7e0590f8..f6f4c351c9 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -24,7 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+  - xl/libxl can customize SMBIOS strings for HVM guests.
+  - Add support for AVX512-FP16 on x86.
+  - On Arm, Xen supports guests running SVE/SVE2 instructions. (Tech Preview)
+-
++ - On Arm, experimental support for dynamic addition/removal of Xen device tree
++   nodes using a device tree overlay binary (.dtbo).
  
--/**
-- * __unflatten_device_tree - create tree of device_nodes from flat blob
-- *
-- * unflattens a device-tree, creating the
-- * tree of struct device_node. It also fills the "name" and "type"
-- * pointers of the nodes so the normal device-tree walking functions
-- * can be used.
-- * @fdt: The fdt to expand
-- * @mynodes: The device_node tree created by the call
-- *
-- * Returns 0 on success and a negative number on error
-- */
--static int __init __unflatten_device_tree(const void *fdt,
--                                          struct dt_device_node **mynodes)
-+int unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes)
- {
-     unsigned long start, mem, size;
-     struct dt_device_node **allnextp = mynodes;
-@@ -2234,10 +2221,10 @@ dt_find_interrupt_controller(const struct dt_device_match *matches)
+ ## [4.17.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.17.0) - 2022-12-12
  
- void __init dt_unflatten_host_device_tree(void)
- {
--    int error = __unflatten_device_tree(device_tree_flattened, &dt_host);
-+    int error = unflatten_device_tree(device_tree_flattened, &dt_host);
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 35a6249e03..8ec272eabd 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -844,6 +844,12 @@ No support for QEMU backends in a 16K or 64K domain.
  
-     if ( error )
--        panic("__unflatten_device_tree failed with error %d\n", error);
-+        panic("unflatten_device_tree failed with error %d\n", error);
+     Status: Supported
  
-     dt_alias_scan();
- }
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 1d79e23b28..a518310a62 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -178,6 +178,20 @@ int device_tree_for_each_node(const void *fdt, int node,
-  */
- void dt_unflatten_host_device_tree(void);
- 
-+/**
-+ * unflatten_device_tree - create tree of device_nodes from flat blob
-+ *
-+ * unflattens a device-tree, creating the
-+ * tree of struct device_node. It also fills the "name" and "type"
-+ * pointers of the nodes so the normal device-tree walking functions
-+ * can be used.
-+ * @fdt: The fdt to expand
-+ * @mynodes: The device_node tree created by the call
-+ *
-+ * Returns 0 on success and a negative number on error
-+ */
-+int unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes);
++### Device Tree Overlays
 +
- /**
-  * IRQ translation callback
-  * TODO: For the moment we assume that we only have ONE
++Add/Remove device tree nodes using a device tree overlay binary (.dtbo).
++
++    Status, ARM: Experimental
++
+ ### ARM: Guest ACPI support
+ 
+     Status: Supported
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index fd57a82dd2..02c4796438 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -92,6 +92,11 @@ config HAS_ITS
+         bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
+         depends on GICV3 && !NEW_VGIC && !ARM_32
+ 
++config OVERLAY_DTB
++	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
++	help
++	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
++
+ config HVM
+         def_bool y
+ 
 -- 
 2.17.1
 
