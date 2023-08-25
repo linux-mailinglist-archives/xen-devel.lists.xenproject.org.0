@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE46B7890B2
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 23:49:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590999.923387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 177C77890C6
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 23:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591013.923396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZefm-0002S9-Tb; Fri, 25 Aug 2023 21:48:54 +0000
+	id 1qZejW-0004LM-CF; Fri, 25 Aug 2023 21:52:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590999.923387; Fri, 25 Aug 2023 21:48:54 +0000
+Received: by outflank-mailman (output) from mailman id 591013.923396; Fri, 25 Aug 2023 21:52:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZefm-0002P8-Qc; Fri, 25 Aug 2023 21:48:54 +0000
-Received: by outflank-mailman (input) for mailman id 590999;
- Fri, 25 Aug 2023 21:48:53 +0000
+	id 1qZejW-0004Iu-9f; Fri, 25 Aug 2023 21:52:46 +0000
+Received: by outflank-mailman (input) for mailman id 591013;
+ Fri, 25 Aug 2023 21:52:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bmKO=EK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qZefk-0002OB-Us
- for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 21:48:52 +0000
+ id 1qZejU-0004Io-V6
+ for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 21:52:44 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2bba93ef-4391-11ee-9b0c-b553b5be7939;
- Fri, 25 Aug 2023 23:48:48 +0200 (CEST)
+ id b75dcaf0-4391-11ee-9b0c-b553b5be7939;
+ Fri, 25 Aug 2023 23:52:43 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 78868631DB;
- Fri, 25 Aug 2023 21:48:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F709C433C8;
- Fri, 25 Aug 2023 21:48:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C7563647F3;
+ Fri, 25 Aug 2023 21:52:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E4F7C433C8;
+ Fri, 25 Aug 2023 21:52:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,116 +44,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bba93ef-4391-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: b75dcaf0-4391-11ee-9b0c-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693000126;
-	bh=yQDxjk542wIydwKqstyY8m1srjngnP+Iju4uYgiIt0I=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gLL0Gc/NsSvUbMEEopgZm7xfgGAIUhCudrTi31YgLNy7agZfxHzJoOOesA60TCKw9
-	 OgbNBmXH9l3zTufaz9zVcLMzF1+/muivWSD75dzZNQ8X3k9c2uuURChYNODB10o++q
-	 bze4IAJOxSNfvAmVk1XWgycPwfBjupdbdDU65VDZa5S25qL7JyA+wz+JTr8WyUGyRx
-	 Lfwp7/3mP6MuWIFsUQIITKsVN7FAu8LpckitX525givjUK9QWiuU1it0G+zhU6K17N
-	 twSpA+1xH8b6Xng9JJuGb86cyIjzSaplDTe4yLxikMC3JXuRHSzv0WkoBsCd99jPGm
-	 /oXBmV1ah3NlQ==
+	s=k20201202; t=1693000361;
+	bh=PwMJLmZrGwJD0f3gjcP9ZJU83u5dBsH0BlhB5NdXjNQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=UwAMOkERwqgGBTbXbzlm/qRmgTu3hlMVKFYBY9ruJBfBud6YxlR27zzBEom0L0OQe
+	 3RZ8JenoSE3oV0YQDl3xNeMgzV1OEGtGXU4LoA/ryk+zjV9U+QXE00jnuYXpuHsmIl
+	 CDe1PE6cmIp5WurbneCk4hYbWLJcE6+khy7pRDNbu3+543m9idjkw0JZb/xszyWzMG
+	 0/JKQq8ecyK4nYoHw3VIXLksqLLoZHhnXCs0ScJE/3dJABkDnpkh/vRYugiZasDP/+
+	 tkojRjMjChoNZqWH6EDNbfROoooXbcRE7tAYlswb+MSVZfA1OxKMzpZtNYYr9SF2Eh
+	 rP3DYfuug6oig==
+Date: Fri, 25 Aug 2023 14:52:38 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	julien@xen.org,
-	sstabellini@kernel.org,
-	george.dunlap@citrix.com,
-	bertrand.marquis@arm.com,
-	nicola.vetrini@bugseng.com,
-	roberto.bagnara@bugseng.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v2] docs/misra: add rules 10.1 10.2 10.3 10.4
-Date: Fri, 25 Aug 2023 14:48:42 -0700
-Message-Id: <20230825214842.3467599-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, luca.fancellu@arm.com, 
+    nicola.vetrini@bugseng.com, xen-devel@lists.xenproject.org, 
+    bertrand.marquis@arm.com
+Subject: Re: xen-analysis ECLAIR support
+In-Reply-To: <aec70a33-b5b7-0bcb-52db-15162407c8bb@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2308251450370.6458@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2308241453470.6458@ubuntu-linux-20-04-desktop> <aec70a33-b5b7-0bcb-52db-15162407c8bb@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-
-10.1 with several caveats, described in the notes.
-10.3 and 10.4 as "aspirational" guidelines, as clarified in the notes.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-v2:
-- typo fix
-- Implicit conversions to boolean for conditionals and logical operators
-- make -C xen
----
- docs/misra/rules.rst | 53 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
-
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index db30632b93..34916e266a 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -310,6 +310,59 @@ maintainers if you want to suggest a change.
-      - An element of an object shall not be initialized more than once
-      -
+On Fri, 25 Aug 2023, Michal Orzel wrote:
+> Hi Stefano,
+> 
+> On 25/08/2023 00:24, Stefano Stabellini wrote:
+> > 
+> > 
+> > Hi Luca,
+> > 
+> > We are looking into adding ECLAIR support for xen-analysis so that we
+> > can use the SAF-n-safe tags also with ECLAIR.
+> > 
+> > One question that came up is about multi-line statements. For instance,
+> > in a case like the following:
+> > 
+> > diff --git a/xen/common/inflate.c b/xen/common/inflate.c
+> > index 8fa4b96d12..8bdc9208da 100644
+> > --- a/xen/common/inflate.c
+> > +++ b/xen/common/inflate.c
+> > @@ -1201,6 +1201,7 @@ static int __init gunzip(void)
+> >      magic[1] = NEXTBYTE();
+> >      method   = NEXTBYTE();
+> > 
+> > +    /* SAF-1-safe */
+> >      if (magic[0] != 037 ||
+> >          ((magic[1] != 0213) && (magic[1] != 0236))) {
+> >          error("bad gzip magic numbers");
+> > 
+> > 
+> > Would SAF-1-safe cover both 037, and also 0213 and 0213?
+> > Or would it cover only 037?
+> > 
+> > We haven't use SAFE-n-safe extensively through the codebase yet but
+> > my understanding is that SAFE-n-safe would cover the entire statement of
+> > the following line, even if it is multi-line. Is that also your
+> > understanding? Does it work like that with cppcheck?
+> Looking at the docs and the actual script, only the single line below SAF comment is excluded.
+> So in your case you would require:
+> 
+> /* SAF-1-safe */
+> if (magic[0] != 037 ||
+>     /* SAF-1-safe */
+>     ((magic[1] != 0213) && (magic[1] != 0236))) {
+>     error("bad gzip magic numbers");
+> 
+> I guess this was done so that it is clear that someone took all the parts of the statements into account
+> and all of them fall into the same justification (which might not be the case).
  
-+   * - `Rule 10.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_01.c>`_
-+     - Required
-+     - Operands shall not be of an inappropriate essential type
-+     - The following are allowed:
-+         - Value-preserving conversions of integer constants
-+         - Bitwise and, or, xor, one's complement, bitwise and assignment,
-+           bitwise or assignment, bitwise xor assignment (bitwise and, or, xor
-+           are safe on non-negative integers; also Xen assumes two's complement
-+           representation)
-+         - Left shift, right shift, left shift assignment, right shift
-+           assignment (see C-language-toolchain.rst for uses of
-+           compilers' extensions)
-+         - Implicit conversions to boolean for conditionals (?: if while
-+           for) and logical operators (! || &&)
-+
-+   * - `Rule 10.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_02.c>`_
-+     - Required
-+     - Expressions of essentially character type shall not be used
-+       inappropriately in addition and subtraction operations
-+     -
-+
-+   * - `Rule 10.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_03.c>`_
-+     - Required
-+     - The value of an expression shall not be assigned to an object
-+       with a narrower essential type or of a different essential type
-+       category
-+     - Please beware that this rule has many violations in the Xen
-+       codebase today, and its adoption is aspirational. However, when
-+       submitting new patches please try to decrease the number of
-+       violations when possible.
-+
-+       gcc has a helpful warning that can help you spot and remove
-+       violations of this kind: conversion. For instance, you can use
-+       it as follows:
-+
-+       CFLAGS="-Wconversion -Wno-error=sign-conversion -Wno-error=conversion" make -C xen
-+
-+   * - `Rule 10.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_04.c>`_
-+     - Required
-+     - Both operands of an operator in which the usual arithmetic
-+       conversions are performed shall have the same essential type
-+       category
-+     - Please beware that this rule has many violations in the Xen
-+       codebase today, and its adoption is aspirational. However, when
-+       submitting new patches please try to decrease the number of
-+       violations when possible.
-+
-+       gcc has a helpful warning that can help you spot and remove
-+       violations of this kind: arith-conversion. For instance, you
-+       can use it as follows:
-+
-+       CFLAGS="-Warith-conversion -Wno-error=arith-conversion" make -C xen
-+
-    * - `Rule 12.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_12_05.c>`_
-      - Mandatory
-      - The sizeof operator shall not have an operand which is a function
--- 
-2.25.1
+Ops! In that case there is no difference between xen-analysis, cppcheck
+and ECLAIR behaviors.
 
+
+> BTW. I don't think we have also covered the case where there is more than one violation in a single line
+> that we want to deviate (e.g. sth like /* SAF-1-safe, SAF-2-safe */
+
+Good point. Yes we need to make sure that case is covered as well
+one way or the other.
 
