@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3C287881A4
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:11:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590659.923039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D3BF7881DA
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:15:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590724.923100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRuF-0002Tj-BM; Fri, 25 Aug 2023 08:10:59 +0000
+	id 1qZRyF-0006UC-97; Fri, 25 Aug 2023 08:15:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590659.923039; Fri, 25 Aug 2023 08:10:59 +0000
+Received: by outflank-mailman (output) from mailman id 590724.923100; Fri, 25 Aug 2023 08:15:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRuF-0002RV-8j; Fri, 25 Aug 2023 08:10:59 +0000
-Received: by outflank-mailman (input) for mailman id 590659;
- Fri, 25 Aug 2023 08:10:58 +0000
+	id 1qZRyF-0006SU-4v; Fri, 25 Aug 2023 08:15:07 +0000
+Received: by outflank-mailman (input) for mailman id 590724;
+ Fri, 25 Aug 2023 08:15:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sFgK=EK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qZRuE-0002RN-30
- for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:10:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=lrQz=EK=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1qZRyC-0006SO-V9
+ for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:15:05 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea567098-431e-11ee-9b0c-b553b5be7939;
- Fri, 25 Aug 2023 10:10:55 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 3FFF84EE0737;
- Fri, 25 Aug 2023 10:10:55 +0200 (CEST)
+ id 7d9ebba6-431f-11ee-9b0c-b553b5be7939;
+ Fri, 25 Aug 2023 10:15:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,97 +36,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea567098-431e-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: 7d9ebba6-431f-11ee-9b0c-b553b5be7939
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1692951301;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=60tr9aFEHnjsY9mPcHCSATo81fQ6Yc8CRVNAxGD2+3k=;
+	b=YnaVCUEgDycspjQv7rUeW7YDHio+7YJzQzDuZpXqlnbIF4cYwLoKMV5zHbYZmRshvhQvDS
+	qKopvVKCqWmCE3BxpVTUqh91SYjk/3OL0CMRpGkVuXcCI1mGvGI0llynxDDu00LL2CTZop
+	cylgXO5mCbf3YkCZyzvXbZPkgYZlShEJ2ha6qQuUCHiYFjJXWVt1jipesLmOUCPSDNk92u
+	rO6uZgPq7TDTm8pv897aZVhVjDt+zA2sD/MjXlSQDeL9OeUYi0+v4z/a9KZ5+tXTluvx0b
+	vWw3vaYBaGu1ykC0QpCw60MbAHBC+Ib5VRzd95tKmaApz7PQlajiSvkfwfbPpA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1692951301;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=60tr9aFEHnjsY9mPcHCSATo81fQ6Yc8CRVNAxGD2+3k=;
+	b=X6xRv7vR6eT/uVXsSMwtU6aa6uPDDy6BM5+YIcmQnhQSZ6/Jl22kApnV1hn7KNppx9PVnU
+	mncP4HVMIYZcN2CA==
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+Cc: Juergen Gross <jgross@suse.com>, Andy Lutomirski <luto@kernel.org>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen: simplify evtchn_do_upcall() call maze
+In-Reply-To: <20230824154106.14799-1-jgross@suse.com>
+References: <20230824154106.14799-1-jgross@suse.com>
+Date: Fri, 25 Aug 2023 10:15:01 +0200
+Message-ID: <87zg2fbksa.ffs@tglx>
 MIME-Version: 1.0
-Date: Fri, 25 Aug 2023 10:10:55 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: luca.fancellu@arm.com, xen-devel@lists.xenproject.org,
- bertrand.marquis@arm.com
-Subject: Re: xen-analysis ECLAIR support
-In-Reply-To: <alpine.DEB.2.22.394.2308241453470.6458@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2308241453470.6458@ubuntu-linux-20-04-desktop>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <da8dce5678814f7e0805522a5111b09e@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 25/08/2023 00:24, Stefano Stabellini wrote:
-> Hi Luca,
-> 
-> We are looking into adding ECLAIR support for xen-analysis so that we
-> can use the SAF-n-safe tags also with ECLAIR.
-> 
-> One question that came up is about multi-line statements. For instance,
-> in a case like the following:
-> 
-> diff --git a/xen/common/inflate.c b/xen/common/inflate.c
-> index 8fa4b96d12..8bdc9208da 100644
-> --- a/xen/common/inflate.c
-> +++ b/xen/common/inflate.c
-> @@ -1201,6 +1201,7 @@ static int __init gunzip(void)
->      magic[1] = NEXTBYTE();
->      method   = NEXTBYTE();
-> 
-> +    /* SAF-1-safe */
->      if (magic[0] != 037 ||
->          ((magic[1] != 0213) && (magic[1] != 0236))) {
->          error("bad gzip magic numbers");
-> 
-> 
-> Would SAF-1-safe cover both 037, and also 0213 and 0213?
-> Or would it cover only 037?
-> 
-> We haven't use SAFE-n-safe extensively through the codebase yet but
-> my understanding is that SAFE-n-safe would cover the entire statement 
-> of
-> the following line, even if it is multi-line. Is that also your
-> understanding? Does it work like that with cppcheck?
-> 
-> 
-> It looks like ECLAIR requires a written-down number of lines of code to
-> deviate if it is more than 1 line. In this example it would be 2 lines:
-> 
->      /* SAF-1-safe 2 */
->      if (magic[0] != 037 ||
->          ((magic[1] != 0213) && (magic[1] != 0236))) {
-> 
-> One option that I was thinking about is whether we can add the number 
-> of
-> lines automatically in xen-analysis based on the number of lines of the
-> next statement. What do you think?
-> 
-> It seems fragile to actually keep the number of lines inside the SAF
-> comment in the code. I am afraid it could get out of sync due to code
-> style refactoring or other mechanical changes.
-> 
+On Thu, Aug 24 2023 at 17:41, Juergen Gross wrote:
+> There are several functions involved for performing the functionality
+> of evtchn_do_upcall():
+>
+> - __xen_evtchn_do_upcall() doing the real work
+> - xen_hvm_evtchn_do_upcall() just being a wrapper for
+>   __xen_evtchn_do_upcall(), exposed for external callers
+> - xen_evtchn_do_upcall() calling __xen_evtchn_do_upcall(), too, but
+>   without any user
+>
+> Simplify this maze by:
+>
+> - removing the unused xen_evtchn_do_upcall()
+> - removing xen_hvm_evtchn_do_upcall() as the only left caller of
+>   __xen_evtchn_do_upcall(), while renaming __xen_evtchn_do_upcall() to
+>   xen_evtchn_do_upcall()
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Having the number of lines automatically inferred from the code 
-following the comment
-does not seem that robust either, given the minimal information in the 
-SAF comments
-(e.g., what if the whole if statement needs to be deviated, rather
-than the controlling expression?).
-
-An alternative proposal could be the following:
-       /* SAF-n-safe begin */
-       if (magic[0] != 037 ||
-           ((magic[1] != 0213) && (magic[1] != 0236))) {
-       /* SAF-n-safe end */
-
-which is translated, for ECLAIR, into:
-
-     /* -E> safe <Rule ID> 2 <free text> */
-     if (magic[0] != 037 ||
-           ((magic[1] != 0213) && (magic[1] != 0236))) {
-
-this will deviate however many lines are between the begin and end 
-markers.
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Reviewed-by: Thomas Gleixner <tglx@linutronix.de>
 
