@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05E0278819B
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:09:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590623.923030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C287881A4
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:11:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590659.923039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRsN-0000WO-0w; Fri, 25 Aug 2023 08:09:03 +0000
+	id 1qZRuF-0002Tj-BM; Fri, 25 Aug 2023 08:10:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590623.923030; Fri, 25 Aug 2023 08:09:02 +0000
+Received: by outflank-mailman (output) from mailman id 590659.923039; Fri, 25 Aug 2023 08:10:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRsM-0000UQ-UB; Fri, 25 Aug 2023 08:09:02 +0000
-Received: by outflank-mailman (input) for mailman id 590623;
- Fri, 25 Aug 2023 08:09:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qZRsM-0000UJ-0J
- for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:09:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZRsL-0004hX-HF; Fri, 25 Aug 2023 08:09:01 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qZRsL-0005Wd-CH; Fri, 25 Aug 2023 08:09:01 +0000
+	id 1qZRuF-0002RV-8j; Fri, 25 Aug 2023 08:10:59 +0000
+Received: by outflank-mailman (input) for mailman id 590659;
+ Fri, 25 Aug 2023 08:10:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sFgK=EK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qZRuE-0002RN-30
+ for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:10:58 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ea567098-431e-11ee-9b0c-b553b5be7939;
+ Fri, 25 Aug 2023 10:10:55 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 3FFF84EE0737;
+ Fri, 25 Aug 2023 10:10:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,57 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=VcW9Y6nYLPyfEiNtS91SPBgNeX6ChFtrIvsmgaE58gs=; b=ruEce1ypeLcmRuosFA64mvPtjb
-	3Zt3D4KOY0+O8yqwmObr0KXIYjgQSwP//Uwy1ug4uKEApqI2TCSyKBLhwZo4OQWB6t/+jX1LSaTQy
-	KE7JenJ2ifr2qrGdnRO2CfNUYMd5H68uGOaUw8f/FvBL5uDVE2qNsn4kWU8SR/+JFXF4=;
-Message-ID: <27de10c0-07f2-4e2f-900f-e563e9b07d9a@xen.org>
-Date: Fri, 25 Aug 2023 09:09:00 +0100
+X-Inumbo-ID: ea567098-431e-11ee-9b0c-b553b5be7939
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v9 10/19] xen/iommu: protect iommu_add_dt_device()
- with dtdevs_lock
-Content-Language: en-GB
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- sstabellini@kernel.org, jbeulich@suse.com
-References: <20230819002850.32349-1-vikram.garhwal@amd.com>
- <20230819002850.32349-11-vikram.garhwal@amd.com>
- <62c19920-cfe4-405d-9294-7ed426b3a99f@xen.org> <ZOgxwG_0kfhDPFZl@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZOgxwG_0kfhDPFZl@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Fri, 25 Aug 2023 10:10:55 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: luca.fancellu@arm.com, xen-devel@lists.xenproject.org,
+ bertrand.marquis@arm.com
+Subject: Re: xen-analysis ECLAIR support
+In-Reply-To: <alpine.DEB.2.22.394.2308241453470.6458@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2308241453470.6458@ubuntu-linux-20-04-desktop>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <da8dce5678814f7e0805522a5111b09e@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 25/08/2023 00:24, Stefano Stabellini wrote:
+> Hi Luca,
+> 
+> We are looking into adding ECLAIR support for xen-analysis so that we
+> can use the SAF-n-safe tags also with ECLAIR.
+> 
+> One question that came up is about multi-line statements. For instance,
+> in a case like the following:
+> 
+> diff --git a/xen/common/inflate.c b/xen/common/inflate.c
+> index 8fa4b96d12..8bdc9208da 100644
+> --- a/xen/common/inflate.c
+> +++ b/xen/common/inflate.c
+> @@ -1201,6 +1201,7 @@ static int __init gunzip(void)
+>      magic[1] = NEXTBYTE();
+>      method   = NEXTBYTE();
+> 
+> +    /* SAF-1-safe */
+>      if (magic[0] != 037 ||
+>          ((magic[1] != 0213) && (magic[1] != 0236))) {
+>          error("bad gzip magic numbers");
+> 
+> 
+> Would SAF-1-safe cover both 037, and also 0213 and 0213?
+> Or would it cover only 037?
+> 
+> We haven't use SAFE-n-safe extensively through the codebase yet but
+> my understanding is that SAFE-n-safe would cover the entire statement 
+> of
+> the following line, even if it is multi-line. Is that also your
+> understanding? Does it work like that with cppcheck?
+> 
+> 
+> It looks like ECLAIR requires a written-down number of lines of code to
+> deviate if it is more than 1 line. In this example it would be 2 lines:
+> 
+>      /* SAF-1-safe 2 */
+>      if (magic[0] != 037 ||
+>          ((magic[1] != 0213) && (magic[1] != 0236))) {
+> 
+> One option that I was thinking about is whether we can add the number 
+> of
+> lines automatically in xen-analysis based on the number of lines of the
+> next statement. What do you think?
+> 
+> It seems fragile to actually keep the number of lines inside the SAF
+> comment in the code. I am afraid it could get out of sync due to code
+> style refactoring or other mechanical changes.
+> 
 
+Having the number of lines automatically inferred from the code 
+following the comment
+does not seem that robust either, given the minimal information in the 
+SAF comments
+(e.g., what if the whole if statement needs to be deviated, rather
+than the controlling expression?).
 
-On 25/08/2023 05:44, Vikram Garhwal wrote:
-> Hi Julien,
-> On Tue, Aug 22, 2023 at 08:47:10PM +0100, Julien Grall wrote:
->> Hi Vikram,
->>
->> On 19/08/2023 01:28, Vikram Garhwal wrote:
->>> Protect iommu_add_dt_device() with dtdevs_lock to prevent concurrent access
->>> to add/remove/assign/deassign.
->>> With addition of dynamic programming feature(follow-up patches in this series),
->>
->> Typo: missing space before '('.
->>
->>> this function can be concurrently access by pci device assign/deassign and also
->>
->> I couldn't find any use of this function in the PCI code. So are you talking
->> about not yet upstreamed patches?
-> So, this assign and deassign is also used by pci-assignable-add from xl which
-> "Make a device assignable for pci-passthru"
+An alternative proposal could be the following:
+       /* SAF-n-safe begin */
+       if (magic[0] != 037 ||
+           ((magic[1] != 0213) && (magic[1] != 0236))) {
+       /* SAF-n-safe end */
 
-Hmmm... But this is not something we currently support on Arm and in 
-fact this is not plumbed. So please remove any reference to PCI because 
-this is misleading.
+which is translated, for ECLAIR, into:
 
-Cheers,
+     /* -E> safe <Rule ID> 2 <free text> */
+     if (magic[0] != 037 ||
+           ((magic[1] != 0213) && (magic[1] != 0236))) {
+
+this will deviate however many lines are between the begin and end 
+markers.
 
 -- 
-Julien Grall
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
