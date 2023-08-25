@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25627788F41
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 21:30:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590989.923366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A389C7890B3
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 23:49:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590998.923376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZcUv-0004Dg-3R; Fri, 25 Aug 2023 19:29:33 +0000
+	id 1qZefa-00028z-IR; Fri, 25 Aug 2023 21:48:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590989.923366; Fri, 25 Aug 2023 19:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 590998.923376; Fri, 25 Aug 2023 21:48:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZcUv-0004B3-0r; Fri, 25 Aug 2023 19:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 590989;
- Fri, 25 Aug 2023 19:29:32 +0000
+	id 1qZefa-00026u-Ff; Fri, 25 Aug 2023 21:48:42 +0000
+Received: by outflank-mailman (input) for mailman id 590998;
+ Fri, 25 Aug 2023 21:48:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bmKO=EK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qZcUu-0004Ax-Cn
- for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 19:29:32 +0000
+ id 1qZefZ-00026o-03
+ for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 21:48:41 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b65edd3d-437d-11ee-8783-cb3800f73035;
- Fri, 25 Aug 2023 21:29:31 +0200 (CEST)
+ id 259134b7-4391-11ee-8783-cb3800f73035;
+ Fri, 25 Aug 2023 23:48:38 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E96C4632D1;
- Fri, 25 Aug 2023 19:29:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB29C433C7;
- Fri, 25 Aug 2023 19:29:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 16FA960DCA;
+ Fri, 25 Aug 2023 21:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A198C433C8;
+ Fri, 25 Aug 2023 21:48:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,94 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b65edd3d-437d-11ee-8783-cb3800f73035
+X-Inumbo-ID: 259134b7-4391-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692991769;
-	bh=9RtSLDNlElR7PXfB5tfoae8x9KpviYuLGYWC0rmRJuc=;
+	s=k20201202; t=1693000116;
+	bh=0RKeHqcgICz/i4KvJh6skJ/6xRFfHJBAp4GqXfDGvVA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DMM6CKKreU8t85WDNf1GU8UarftvnqbAbb0siIKw8e0BlPUYI7YunzExaknf2yyL0
-	 7h5grbm1ogWp1XmYx0RiyVu3/VdGlCzLCDfUgNcHedhcIQbmerhFt6bcpkmGJGuM/p
-	 Myyb3KG75bLC6/hMTAsePoBRBaSMuMZ9lQ5qx0T54CxOlcEEbWsFjb8TUAAzoKgWsx
-	 x0fJfKnOdZwGwYnmdwImylLpRCa40YVP2l/7toWKepD3jA5RA2PLtpD44XqoWy6dra
-	 Il010dsuNbJFFACMjglIOSPoabghrdV72n6hoArNrEvSlyHuczaUGGeYd3Zi9tuT+N
-	 5WIKznctG/7wA==
-Date: Fri, 25 Aug 2023 12:29:26 -0700 (PDT)
+	b=WcHIb7ma9YpuFwHizVziGiTN9grIbYaweTGrNW5MCZz0hTmKGSGcxhVXocUqb0whL
+	 0Y6aG7k2FAy1SV2p3CJdqu4xyLg7hrYtsGcqylvpDmmXRennmBLOYtzf2qpCM8bNEC
+	 glCZ5yMCqHODU7vA53ivcP0bsgMOiinC23qMqykw3wGnV4syylTJU2XcpuguznQxy9
+	 cg7yvNkEQzEvavVlEw4mmWKkBkez6X9wU50OhsX1fW5b8tB/B4NQj4LWP+jD+XizVN
+	 KBVZ46KdtCb8K4oQuXS6xpgXmslZSWFj/Vr4DEP5UwJGrtI+IDZWqWMFgFrYAUaFzM
+	 evBBfNaNvSYFA==
+Date: Fri, 25 Aug 2023 14:48:33 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Paul Durrant <paul@xen.org>
-Subject: Re: [XEN PATCH] ioreq: include arch-specific ioreq header in
- <xen/ioreq.h>
-In-Reply-To: <e5f13920dfcb9f828abb4a36dd410d342f4c0939.1692974235.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308251229210.6458@ubuntu-linux-20-04-desktop>
-References: <e5f13920dfcb9f828abb4a36dd410d342f4c0939.1692974235.git.nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, julien@xen.org, george.dunlap@citrix.com, 
+    bertrand.marquis@arm.com, nicola.vetrini@bugseng.com, 
+    roberto.bagnara@bugseng.com, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] docs/misra: add rules 10.1 10.2 10.3 10.4
+In-Reply-To: <4cf3053a-504e-514d-e940-a47e9498b1c4@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2308251437290.6458@ubuntu-linux-20-04-desktop>
+References: <20230823231451.2989262-1-sstabellini@kernel.org> <4cf3053a-504e-514d-e940-a47e9498b1c4@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 25 Aug 2023, Nicola Vetrini wrote:
-> The common header file for ioreq should include the arch-specific one.
-> This also addresses violations of MISRA C:2012 Rule 8.4 caused by the missing
-> inclusion of <asm/ioreq.h> in the arm implementation file.
+On Fri, 25 Aug 2023, Jan Beulich wrote:
+> On 24.08.2023 01:14, Stefano Stabellini wrote:
+> > --- a/docs/misra/rules.rst
+> > +++ b/docs/misra/rules.rst
+> > @@ -318,6 +318,58 @@ maintainers if you want to suggest a change.
+> >       - An element of an object shall not be initialized more than once
+> >       -
+> >  
+> > +   * - `Rule 10.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_01.c>`_
+> > +     - Required
+> > +     - Operands shall not be of an inappropriate essential type
+> > +     - The following are allowed:
+> > +         - Value-preserving conversions of integer constants
+> > +         - Bitwise and, or, xor, one's complement, bitwise and assignment,
+> > +           bitwise or assignment, bitwise xor assignment (bitwise and, or, xor
+> > +           are safe on non-negative integers; also Xen assumes two's complement
+> > +           representation)
+> > +         - Left shift, right shift, left shift assignment, right shift
+> > +           assignment (see C-language-toolchain.rst for assumptions on
+> > +           compilers' extensions)
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Is "assumptions" the right term here? We don't just assume these are there,
+> we actually checked their doc and behavior. Maybe simply "uses of" instead?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+yes, I'll use "uses of"
 
 
-> ---
-> - The deleted includes are therefore no longer necessary, since
->  <xen/ioreq.h> is sufficient.
-> - The functions (possibly) missing a visible declaration prior to their definition
->   currently are 'handle_ioserv' and 'try_fwd_ioserv'
-> ---
->  xen/arch/arm/io.c       | 1 -
->  xen/common/ioreq.c      | 1 -
->  xen/include/xen/ioreq.h | 1 +
->  3 files changed, 1 insertion(+), 2 deletions(-)
+> > +         - Implicit conversions to boolean for logical operators' arguments
 > 
-> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> index 96c740d5636c..13ae1fed5718 100644
-> --- a/xen/arch/arm/io.c
-> +++ b/xen/arch/arm/io.c
-> @@ -14,7 +14,6 @@
->  #include <xen/sort.h>
->  #include <asm/cpuerrata.h>
->  #include <asm/current.h>
-> -#include <asm/ioreq.h>
->  #include <asm/mmio.h>
->  #include <asm/traps.h>
+> What is "logical operators" here? Perhaps this wants to be "conditionals"
+> instead, to cover all of ?:, if(), while(), for() (did I forget any?), of
+> which only the first is an operator?
+
+There are also ! || && which are the logical operators
+
+I'll write it as follows:
+
+Implicit conversions to boolean for conditionals (?: if
+while for) and logical operators (! || &&)
+
+
+> > +   * - `Rule 10.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_03.c>`_
+> > +     - Required
+> > +     - The value of an expression shall not be assigned to an object
+> > +       with a narrower essential type or of a dierent essential type
 > 
-> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-> index 7cb717f7a2a4..bde1a1f4eaa1 100644
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -28,7 +28,6 @@
->  #include <xen/trace.h>
+> Nit: ff missing?
+
+yep, thanks
+
+
+> > +       category
+> > +     - Please beware that this rule has many violations in the Xen
+> > +       codebase today, and its adoption is aspirational. However, when
+> > +       submitting new patches please try to decrease the number of
+> > +       violations when possible.
+> > +
+> > +       gcc has a helpful warning that can help you spot and remove
+> > +       violations of this kind: conversion. For instance, you can use
+> > +       it as follows:
+> > +
+> > +       cd xen; CFLAGS="-Wconversion -Wno-error=sign-conversion -Wno-error=conversion" make
 > 
->  #include <asm/guest_atomics.h>
-> -#include <asm/ioreq.h>
+> Maybe slightly shorter as
 > 
->  #include <public/hvm/ioreq.h>
->  #include <public/hvm/params.h>
-> diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
-> index a26614d331e3..d85477c665e9 100644
-> --- a/xen/include/xen/ioreq.h
-> +++ b/xen/include/xen/ioreq.h
-> @@ -20,6 +20,7 @@
->  #define __XEN_IOREQ_H__
+> CFLAGS="-Wconversion -Wno-error=sign-conversion -Wno-error=conversion" make -C xen
 > 
->  #include <xen/sched.h>
-> +#include <asm/ioreq.h>
-> 
->  #include <public/hvm/dm_op.h>
-> 
-> --
-> 2.34.1
-> 
+> ?
+
+I'll make the change here and also in the other instance of the same
 
