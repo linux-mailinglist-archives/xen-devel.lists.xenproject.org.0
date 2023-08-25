@@ -2,53 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3470678817C
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:03:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.590554.922948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9510578817F
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Aug 2023 10:03:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.590562.922993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRmm-0001E1-07; Fri, 25 Aug 2023 08:03:16 +0000
+	id 1qZRms-0002id-F2; Fri, 25 Aug 2023 08:03:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 590554.922948; Fri, 25 Aug 2023 08:03:15 +0000
+Received: by outflank-mailman (output) from mailman id 590562.922993; Fri, 25 Aug 2023 08:03:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qZRml-00012w-GE; Fri, 25 Aug 2023 08:03:15 +0000
-Received: by outflank-mailman (input) for mailman id 590554;
- Fri, 25 Aug 2023 08:03:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qZRmr-0002VD-H0; Fri, 25 Aug 2023 08:03:21 +0000
+Received: by outflank-mailman (input) for mailman id 590562;
+ Fri, 25 Aug 2023 08:03:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+VXW=EK=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qZRmh-0007GZ-Ie
- for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:03:11 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20619.outbound.protection.outlook.com
- [2a01:111:f400:7eb2::619])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4df1a39-431d-11ee-8783-cb3800f73035;
- Fri, 25 Aug 2023 10:03:10 +0200 (CEST)
-Received: from MW4PR03CA0255.namprd03.prod.outlook.com (2603:10b6:303:b4::20)
- by SN7PR12MB6813.namprd12.prod.outlook.com (2603:10b6:806:267::20)
+ id 1qZRmk-0007G4-P1
+ for xen-devel@lists.xenproject.org; Fri, 25 Aug 2023 08:03:14 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061f.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::61f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d5cc5d26-431d-11ee-9b0c-b553b5be7939;
+ Fri, 25 Aug 2023 10:03:13 +0200 (CEST)
+Received: from MW4PR03CA0296.namprd03.prod.outlook.com (2603:10b6:303:b5::31)
+ by SJ2PR12MB9005.namprd12.prod.outlook.com (2603:10b6:a03:53d::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Fri, 25 Aug
- 2023 08:03:07 +0000
-Received: from CO1PEPF000044F8.namprd21.prod.outlook.com
- (2603:10b6:303:b4:cafe::8b) by MW4PR03CA0255.outlook.office365.com
- (2603:10b6:303:b4::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.30 via Frontend
- Transport; Fri, 25 Aug 2023 08:03:07 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000044F8.mail.protection.outlook.com (10.167.241.198) with Microsoft
+ 2023 08:03:08 +0000
+Received: from CO1PEPF000044EF.namprd05.prod.outlook.com
+ (2603:10b6:303:b5:cafe::42) by MW4PR03CA0296.outlook.office365.com
+ (2603:10b6:303:b5::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.26 via Frontend
+ Transport; Fri, 25 Aug 2023 08:03:08 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044EF.mail.protection.outlook.com (10.167.241.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.2 via Frontend Transport; Fri, 25 Aug 2023 08:03:07 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6699.15 via Frontend Transport; Fri, 25 Aug 2023 08:03:07 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 25 Aug
- 2023 03:03:06 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 25 Aug
- 2023 01:03:06 -0700
+ 2023 03:03:07 -0500
 Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
  Transport; Fri, 25 Aug 2023 03:03:06 -0500
@@ -63,35 +59,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4df1a39-431d-11ee-8783-cb3800f73035
+X-Inumbo-ID: d5cc5d26-431d-11ee-9b0c-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X0J80O5mkwUxvK9/OtW0ThLME+hmLP4Y2mYSFuQ1I5NpprJFE296CTPc0yHU42GagpAl/F7YLsU/4yR6uXd4TgoPo8PYqLVsXx6cKoq2/muVFDAI+d5/PFMJd/fGHSp8yZPj704R7lBtm62SPihIMIQieExi2B1dCka+AQnQ8+VBC/xtBbvrDjuh0LCnOMmMz6ttM9lmG+Is6bk6tz1/drYmJrYSqK7qlUsWTGLx0zW1Q9k6HTPVYaVeKtCDOmGaYPyjYxzrKfc0QygsMRwfRsLk3Pf1+KInF4LxawDTZ8DiJDWWAyWRQMpyVE8uFKOJ2E+t05NRCC+yyePAhTasnA==
+ b=eSsOTsv5SYkcalJtf1erOn8A0zxKP7qkGcOMnuhdQEbq2fn8KSO3+B829NqxuGywbWClB/pR8l9hKRimYaqpcdO48Eg+ve+BeblvGDY4vs6WxTtKZvcJ0+odIRV/bMhu0N6liBXZRyPEHqWQ5CODZMwNiQpmvnzXu9v0RsFYcuOmke7tTtX54S3KFYiWBEMi0XUQ7DdkLZks92rpim5gqwFb8K3T0hAEUxoRaGKqkDQGQGVqC0KSaQOh18FheRm05zUzzGpSq6rQFVUQ2VrHEN2srFLVkwiYkt1+u0q344YilNcylTMqPhCDNywS9r1gz7Zun7QlugweZ5CmGsd9JA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vRgubDfFnAvFwagyB0ghhVyfbsrh9DPQoCEwaYuA3Nk=;
- b=MakoNwa62UL+2x6QFtUHTvtaz7795NG5CWtm7dvh2EcfKySCrmtIZuYNZQDmosooyBcyywOFok8C5g8jnKLeO53r2xapmTDHaCXxPFiuLidWSSp6POpW+65IJSKAg4vZO4uU0rrv40lt9iX+/tjFqPgQCiPs/OhWtSM98ZIB8V7TgJKz5qjVZMSWOohdvAiMc1zVjTV0JuquYiDT+ibs5wAvVVkLiq7/eyhvAm58V4bZMy2qa9sNH2UR7kA3LfAoaCaaD5LUa2OzTlgxhssQxIjq0cFr/9QqCBrk8n38xHnsxC469XF1E32A3tJgspRMj4La+URELhOo2W1i0wC7lA==
+ bh=xLOhd+eCdzsILcS2OSpdjdN9Er/z7fDSt3+c00KeABo=;
+ b=PKJAFiY0PDzzDqhxfyOKTzrkVgqqOljxXLtiVr2SIpAbZIzvRXrlToN5VaDcjqRHkx31XTL2S9UR/CRR0Nv1o3gJljTIgRO+s4JWedAwqGqcbl7ht1OUFUY5xlJABMJdKo6T7plk/F3znaluSEBGoCap6Z8HTA8Gxs5s7IX9xYKpE80ibDmTZPpaTUyJ2QtuNdmaxA+u1HEsdpywDYC4GnedmHJPfAAvpORPuEeq2b1jglcfKqdxK918dqgu5hSct/H8BJSNU8XA0nDxwdtvtKJrtIrvtdryiVkvYGvFfgX50q7OAnVcsJ/oGO+J+TsBq0hv29ZswHo9wv79xaKHeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vRgubDfFnAvFwagyB0ghhVyfbsrh9DPQoCEwaYuA3Nk=;
- b=vuH3Tf04k3cUtCoYTKDu72U3B5cNMIxNYZA9sujHGKxHwlg1HYx5I+Wke7KMFN+brUzgLVLEiSQf7Ni7K041uFRiyRPeI2pDxvOuOlM3sMLsB9bXmGalMfa327LNORWIlh98fYcKqggJD9LbuNk7o6oJJHpiK66hAy4vMCeZ0YE=
+ bh=xLOhd+eCdzsILcS2OSpdjdN9Er/z7fDSt3+c00KeABo=;
+ b=qVKo3AqFfsJZ3Dph5zczmfQOO2xkJQYOuIWWyKPCnYMegxFJpO2G5j4R08/j3+r8wtbGjNOT9rvzqArpgi7RqaMfG+hPQQi5OKeVr0Yu/K6nDeLWu8CAP/hZJO52PsPcdvGRruhw5zzwbSq7fLI5mjru3uiba5tf7tsrHaqsEZI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Vikram Garhwal <vikram.garhwal@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <michal.orzel@amd.com>, <sstabellini@kernel.org>,
-	<vikram.garhwal@amd.com>, <julien@xen.org>
-Subject: [XEN][PATCH v10 14/20] common/device_tree: Add rwlock for dt_host
-Date: Fri, 25 Aug 2023 01:02:16 -0700
-Message-ID: <20230825080222.14247-15-vikram.garhwal@amd.com>
+	<vikram.garhwal@amd.com>, <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN][PATCH v10 15/20] arm/asm/setup.h: Update struct map_range_data to add rangeset.
+Date: Fri, 25 Aug 2023 01:02:17 -0700
+Message-ID: <20230825080222.14247-16-vikram.garhwal@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230825080222.14247-1-vikram.garhwal@amd.com>
 References: <20230825080222.14247-1-vikram.garhwal@amd.com>
@@ -99,183 +96,195 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F8:EE_|SN7PR12MB6813:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17ee52d9-2f6c-4647-bf61-08dba541b7bc
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044EF:EE_|SJ2PR12MB9005:EE_
+X-MS-Office365-Filtering-Correlation-Id: d63acfd1-83ff-439a-b564-08dba541b7e2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	e6bRD0fDwtMPzLm2MFmo+Z9Nr8YBtasXxBrf/RaZ/1ATv5O2btgYpTQfI1tVTyvIfkpgm0YiIsSvKsL8jZyeyHPuJzyTgDx9tyJWhj2f8cVGmW7MB8Z3pLrfHQzWIjozZEnV3w3yj7ymSVpv9eoCNKAYG1Z8aLoM43NBB1GVCrQq+cyQyP/MtvBsw2LeIMGFoXFmcB9pE98IJyw+Fx8W7PetVlL/EGayFgRrw8/uw0nADbxIdaubPFl2YgpQoTkCtd2C1NO/yHzmX54sYB0MhQJ4u5pWQbUPVOtcI8sjpCuzpst6SBqyz77WISOiaJh1BcjwzC3zIMvCtTeJnjLT8kpDrHu5FfRVbjm6b3xyhTz4l2MWUpFcDw1uEBJamMMOH4UXGFJY96wDG9/0JBTdJyNXsqQSiEtkKRMJ1pIJDX6yS3wKFx9uAx+NngevcarijtMOfKrsdRpCkiqDespHAo7PkKEn87eEWh5LUo3iMbtIOaBWQuYs68kHOY4Ltb+aqIMYTc90uzSpLO0y/U95mBXUwWMT+S4oTUJDSDv25K2CsjofN4JGWYWrEnbODwpAKQdNTBYR8AI4vBsc80SqL2bLbGDY8amqVOj7DwDc+y+9TaiqYqj5kDFO7yA3Q4S7isIwTYpTjUQJH0BehUm+4XToR3gAzd3bBNw7kllgI89SxQJV43eJzfk/VCGC/XLCezZkK+ypmrjFTYEJwt5j3sJySVpQz1NFkX/P1xik3j3L553kF9nPYaZObotRbZFteX6VfMrrlYDyofab0haq1A==
+	g9X/AsVV56MBJoI6K9WkCBJaEb1tkn/mw27WNB3jZleSVN6H52MuzvEeqOTNTAnNCxvsGFsam4+Jg7l31Gs04LylPCzi/fNMdkI/sFbj9clE9QQ0VD5sHnN8TF5TG1vsE9ZKPDpcDzDc60P8yniVpJIWwHRuLV2Hs6P/ZRicbKTlqzedCdhEdNCnzOI8ffUaTnNSKktWnWLo0WpYoNitx2/TVy/BQCED3W+HSC4RtkmTaWEiK0V6EJqbIsNLzGIT4G5E0QXdZxHd5rQu5zz8a+MStUZHSzDvgtx5lq/7egnhp/FsRD1YoGhgKKHTowt+k1myQA6rtq13YLQgl2pT4sULznmr296qonGb4x+dzHEQwHj9Wrp6iWMxSjFbQFCvKGbZ+Qm3vQj2XgJSoAvpp0shQVqYC8lVlameRxVimX7G3ga3jKQTW8hPF9lS7AnxV8CR680Zle5u/oOddVl10tzsMk2uKT319gbvrF27iQFHXpDTIZFxSpo4iFNwoG3TiV7Uwguxy5wLK80Fji2CUX8To/ED5791PqWMFvb40nWFdLGvGo/05DZld4jYrotaor6JP5/E0NePn33wAuD/v1RhRP8D18luCpmhQstSfm2ERCZgk8wi/cAHFC45l62u0QK37SFnVo8o82DSy/vxZGEQudwPsTbrYmpcu9ymttrP1t9BZNXyJOPLodwt/chMG1VlhpeFQkqRr3dm1oGau+jIL5j0SOJlUYcfMZG3ptZYLS9fVJnjiTKMF/0IX0Sb4mfc4nqrw5BJd0JI/MOVaQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(136003)(396003)(376002)(186009)(1800799009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(54906003)(70586007)(70206006)(316002)(6916009)(81166007)(478600001)(40480700001)(26005)(6666004)(82740400003)(41300700001)(86362001)(2906002)(356005)(4326008)(8676002)(8936002)(83380400001)(2616005)(40460700003)(5660300002)(47076005)(44832011)(1076003)(426003)(336012)(36756003)(36860700001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(136003)(346002)(376002)(396003)(186009)(82310400011)(451199024)(1800799009)(46966006)(36840700001)(40470700004)(54906003)(70586007)(70206006)(316002)(81166007)(6916009)(478600001)(26005)(40480700001)(6666004)(82740400003)(41300700001)(86362001)(2906002)(356005)(8676002)(8936002)(83380400001)(2616005)(40460700003)(4326008)(5660300002)(47076005)(44832011)(1076003)(426003)(336012)(36756003)(36860700001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 08:03:07.5708
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 08:03:07.8196
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17ee52d9-2f6c-4647-bf61-08dba541b7bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: d63acfd1-83ff-439a-b564-08dba541b7e2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F8.namprd21.prod.outlook.com
+	CO1PEPF000044EF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6813
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9005
 
-Dynamic programming ops will modify the dt_host and there might be other
-functions which are browsing the dt_host at the same time. To avoid the race
-conditions, adding rwlock for browsing the dt_host during runtime. dt_host
-writer will be added in the follow-up patch for device tree overlay
-functionalities."
+Add rangesets for IRQs and IOMEMs. This was done to accommodate dynamic overlay
+node addition/removal operations. With overlay operations, new IRQs and IOMEMs
+are added in dt_host and routed. While removing overlay nodes, nodes are remove
+from dt_host and their IRQs and IOMEMs routing is also removed. Storing IRQs and
+IOMEMs in the rangeset will avoid re-parsing the device tree nodes to get the
+IOMEM and IRQ ranges for overlay remove ops.
 
-Reason behind adding rwlock instead of spinlock:
-   For now, dynamic programming is the sole modifier of dt_host in Xen during
-       run time. All other access functions like iommu_release_dt_device() are
-       just reading the dt_host during run-time. So, there is a need to protect
-       others from browsing the dt_host while dynamic programming is modifying
-       it. rwlock is better suitable for this task as spinlock won't be able to
-       differentiate between read and write access.
+Dynamic overlay node add/remove will be introduced in follow-up patches.
 
 Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+---
+ xen/arch/arm/device.c            | 43 +++++++++++++++++++++++++-------
+ xen/arch/arm/domain_build.c      |  4 +--
+ xen/arch/arm/include/asm/setup.h |  5 +++-
+ 3 files changed, 40 insertions(+), 12 deletions(-)
 
----
-Changes from v9:
-    Update commit message and fix indentation.
-    Add ASSERT() for iommu_deassign_dt_device() and iommu_remove_dt_device().
-    Fix code styles.
-    Remove rwlock_init in unflatten_device_tree() and do DEFINE_RWLOCK in
-        device-tree.c
-Changes from v7:
-    Keep one lock for dt_host instead of lock for each node under dt_host.
----
----
- xen/common/device_tree.c              |  1 +
- xen/drivers/passthrough/device_tree.c | 24 ++++++++++++++++++++++--
- xen/include/xen/device_tree.h         |  7 +++++++
- 3 files changed, 30 insertions(+), 2 deletions(-)
-
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index f38f51ec0b..b1c2952951 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -31,6 +31,7 @@ dt_irq_xlate_func dt_irq_xlate;
- struct dt_device_node *dt_host;
- /* Interrupt controller node*/
- const struct dt_device_node *dt_interrupt_controller;
-+DEFINE_RWLOCK(dt_host_lock);
+diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
+index 857f171a27..9df37abac8 100644
+--- a/xen/arch/arm/device.c
++++ b/xen/arch/arm/device.c
+@@ -165,6 +165,14 @@ int map_range_to_domain(const struct dt_device_node *dev,
+     dt_dprintk("  - MMIO: %010"PRIx64" - %010"PRIx64" P2MType=%x\n",
+                addr, addr + len, mr_data->p2mt);
  
- /**
-  * struct dt_alias_prop - Alias property in 'aliases' node
-diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-index 3fad65fb69..b81dab5a48 100644
---- a/xen/drivers/passthrough/device_tree.c
-+++ b/xen/drivers/passthrough/device_tree.c
-@@ -62,6 +62,8 @@ int iommu_deassign_dt_device(struct domain *d, struct dt_device_node *dev)
-     const struct domain_iommu *hd = dom_iommu(d);
-     int rc;
- 
-+    ASSERT(rw_is_locked(&dt_host_lock));
-+
-     if ( !is_iommu_enabled(d) )
-         return -EINVAL;
- 
-@@ -114,6 +116,8 @@ int iommu_release_dt_devices(struct domain *d)
-     if ( !is_iommu_enabled(d) )
-         return 0;
- 
-+    read_lock(&dt_host_lock);
-+
-     list_for_each_entry_safe(dev, _dev, &hd->dt_devices, domain_list)
-     {
-         rc = iommu_deassign_dt_device(d, dev);
-@@ -121,10 +125,14 @@ int iommu_release_dt_devices(struct domain *d)
-         {
-             dprintk(XENLOG_ERR, "Failed to deassign %s in domain %u\n",
-                     dt_node_full_name(dev), d->domain_id);
-+            read_unlock(&dt_host_lock);
-+
-             return rc;
-         }
-     }
- 
-+    read_unlock(&dt_host_lock);
++    if ( mr_data->iomem_ranges )
++    {
++        res = rangeset_add_range(mr_data->iomem_ranges, paddr_to_pfn(addr),
++                                 paddr_to_pfn(PAGE_ALIGN(addr + len - 1)));
++        if ( res )
++            return res;
++    }
 +
      return 0;
  }
  
-@@ -134,6 +142,8 @@ int iommu_remove_dt_device(struct dt_device_node *np)
-     struct device *dev = dt_to_dev(np);
-     int rc;
+@@ -178,9 +186,10 @@ int map_range_to_domain(const struct dt_device_node *dev,
+  */
+ int handle_device_interrupts(struct domain *d,
+                              struct dt_device_node *dev,
+-                             bool need_mapping)
++                             bool need_mapping,
++                             struct rangeset *irq_ranges)
+ {
+-    unsigned int i, nirq;
++    unsigned int i, nirq, irq;
+     int res;
+     struct dt_raw_irq rirq;
  
-+    ASSERT(rw_is_locked(&dt_host_lock));
+@@ -208,17 +217,24 @@ int handle_device_interrupts(struct domain *d,
+             continue;
+         }
+ 
+-        res = platform_get_irq(dev, i);
+-        if ( res < 0 )
++        irq = platform_get_irq(dev, i);
++        if ( irq < 0 )
+         {
+             printk(XENLOG_ERR "Unable to get irq %u for %s\n",
+                    i, dt_node_full_name(dev));
+-            return res;
++            return irq;
+         }
+ 
+-        res = map_irq_to_domain(d, res, need_mapping, dt_node_name(dev));
++        res = map_irq_to_domain(d, irq, need_mapping, dt_node_name(dev));
+         if ( res )
+             return res;
 +
-     if ( !iommu_enabled )
-         return 1;
- 
-@@ -251,6 +261,8 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-     int ret;
-     struct dt_device_node *dev;
- 
-+    read_lock(&dt_host_lock);
-+
-     switch ( domctl->cmd )
-     {
-     case XEN_DOMCTL_assign_device:
-@@ -294,7 +306,10 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-         spin_unlock(&dtdevs_lock);
- 
-         if ( d == dom_io )
--            return -EINVAL;
++        if ( irq_ranges )
 +        {
-+            ret = -EINVAL;
-+            break;
++            res = rangeset_add_singleton(irq_ranges, irq);
++            if ( res )
++                return res;
 +        }
- 
-         ret = iommu_add_dt_device(dev);
-         if ( ret < 0 )
-@@ -332,7 +347,10 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-             break;
- 
-         if ( d == dom_io )
--            return -EINVAL;
-+        {
-+            ret = -EINVAL;
-+            break;
-+        }
- 
-         ret = iommu_deassign_dt_device(d, dev);
- 
-@@ -347,5 +365,7 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-         break;
      }
  
-+    read_unlock(&dt_host_lock);
+     return 0;
+@@ -249,6 +265,11 @@ static int map_dt_irq_to_domain(const struct dt_device_node *dev,
+     }
+ 
+     res = map_irq_to_domain(d, irq, !mr_data->skip_mapping, dt_node_name(dev));
++    if ( res )
++        return res;
 +
-     return ret;
++    if ( mr_data->irq_ranges )
++        res = rangeset_add_singleton(mr_data->irq_ranges, irq);
+ 
+     return res;
  }
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 44d315c8ba..a262bba2ed 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -18,6 +18,7 @@
- #include <xen/string.h>
- #include <xen/types.h>
- #include <xen/list.h>
-+#include <xen/rwlock.h>
- 
- #define DEVICE_TREE_MAX_DEPTH 16
- 
-@@ -218,6 +219,12 @@ extern struct dt_device_node *dt_host;
+@@ -289,7 +310,8 @@ static int map_device_children(const struct dt_device_node *dev,
+  *  - Assign the device to the guest if it's protected by an IOMMU
+  *  - Map the IRQs and iomem regions to DOM0
   */
- extern const struct dt_device_node *dt_interrupt_controller;
+-int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt)
++int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
++                  struct rangeset *iomem_ranges, struct rangeset *irq_ranges)
+ {
+     unsigned int naddr;
+     unsigned int i;
+@@ -304,10 +326,13 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt)
+      *     pci_host_bridge_mappings().
+      */
+     struct map_range_data mr_data = {
++        .d = d,
+         .p2mt = p2mt,
+         .skip_mapping = !own_device ||
+                         (is_pci_passthrough_enabled() &&
+-                        (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE))
++                        (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE)),
++        .iomem_ranges = iomem_ranges,
++        .irq_ranges = irq_ranges
+     };
  
-+/*
-+ * Lock that protects r/w updates to unflattened device tree i.e. dt_host during
-+ * runtime. Lock may not be taken for boot only code.
-+ */
-+extern rwlock_t dt_host_lock;
-+
- /**
-  * Find the interrupt controller
-  * For the moment we handle only one interrupt controller: the first
+     naddr = dt_number_of_address(dev);
+@@ -341,7 +366,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt)
+         }
+     }
+ 
+-    res = handle_device_interrupts(d, dev, own_device);
++    res = handle_device_interrupts(d, dev, own_device, irq_ranges);
+     if ( res < 0 )
+         return res;
+ 
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 63ca9ea5fe..8e9dd0c373 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2401,7 +2401,7 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+                "WARNING: Path %s is reserved, skip the node as we may re-use the path.\n",
+                path);
+ 
+-    res = handle_device(d, node, p2mt);
++    res = handle_device(d, node, p2mt, NULL, NULL);
+     if ( res)
+         return res;
+ 
+@@ -2744,7 +2744,7 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+         return -EINVAL;
+     }
+ 
+-    res = handle_device_interrupts(kinfo->d, node, true);
++    res = handle_device_interrupts(kinfo->d, node, true, NULL);
+     if ( res < 0 )
+         return res;
+ 
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 1a052ed924..2dc6d4c1a6 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -113,6 +113,9 @@ struct map_range_data
+     p2m_type_t p2mt;
+     /* Set if mapping of the memory ranges must be skipped. */
+     bool skip_mapping;
++    /* Rangeset to store IRQs and IOMEM for overlay nodes. */
++    struct rangeset *iomem_ranges;
++    struct rangeset *irq_ranges;
+ };
+ 
+ extern struct bootinfo bootinfo;
+@@ -169,7 +172,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+                   struct rangeset *iomem_ranges, struct rangeset *irq_ranges);
+ 
+ int handle_device_interrupts(struct domain *d, struct dt_device_node *dev,
+-                             bool need_mapping);
++                             bool need_mapping, struct rangeset *irq_ranges);
+ 
+ int map_range_to_domain(const struct dt_device_node *dev,
+                         uint64_t addr, uint64_t len, void *data);
 -- 
 2.17.1
 
