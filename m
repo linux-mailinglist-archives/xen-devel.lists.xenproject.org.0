@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA9078A00F
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Aug 2023 17:46:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.591183.923557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 906B878A2C3
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 00:34:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591192.923566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaHw5-0004fz-QJ; Sun, 27 Aug 2023 15:44:21 +0000
+	id 1qaOJL-0004m7-2W; Sun, 27 Aug 2023 22:32:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 591183.923557; Sun, 27 Aug 2023 15:44:21 +0000
+Received: by outflank-mailman (output) from mailman id 591192.923566; Sun, 27 Aug 2023 22:32:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaHw5-0004cd-MF; Sun, 27 Aug 2023 15:44:21 +0000
-Received: by outflank-mailman (input) for mailman id 591183;
- Sun, 27 Aug 2023 15:44:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zlf5=EM=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1qaHw4-0004cX-Ht
- for xen-devel@lists.xenproject.org; Sun, 27 Aug 2023 15:44:20 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94c937da-44f0-11ee-8783-cb3800f73035;
- Sun, 27 Aug 2023 17:44:18 +0200 (CEST)
+	id 1qaOJK-0004kE-Vz; Sun, 27 Aug 2023 22:32:46 +0000
+Received: by outflank-mailman (input) for mailman id 591192;
+ Sun, 27 Aug 2023 22:32:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qaOJJ-0004k4-Su; Sun, 27 Aug 2023 22:32:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qaOJJ-0001x0-F7; Sun, 27 Aug 2023 22:32:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qaOJI-0006o6-Tn; Sun, 27 Aug 2023 22:32:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qaOJI-0006QY-TO; Sun, 27 Aug 2023 22:32:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,115 +42,337 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94c937da-44f0-11ee-8783-cb3800f73035
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1693151056;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cRQEINcYa2yNYEV4sab13106Suw4qQaydMPfTPHS8R4=;
-	b=Q5evRsFkrTRQZkx4xBJCOs1vcqNYweuw1mnmhlR398Is39arbD2EurHpUbLinkq22B7q+d
-	r2iV2/fA9u2PnJOZQmw/QYxpWkS3hQmtC4/Z+9AVsGFyrnWLFuVa2u53fjgZjam7h5GYCv
-	co79dw4l2mYs2p3VwPnjpnSUU1QD/0wnF6W/rJr0gUuFWSqBiBpf/RhtxF10w3WTCERS+0
-	w9wJvCNfUegmJLVPWMLlsfpVs0so7WHwK4OxznQIK/ts61K1rHkWRMyQaN9LtsxfJgOTk3
-	tpJQUGRsjtoP0N6HY72Cswgo4o+t54/qtaT6YvLM5wUUfQx5GZUj+wyyBOaZOg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1693151056;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cRQEINcYa2yNYEV4sab13106Suw4qQaydMPfTPHS8R4=;
-	b=0TdOoIzfPeWMwI/NJHmRVLSEvZMxgXj+AvA1mxqq3dA7rBQwuOpmqTqAU3LjON8MEm5nDw
-	mmRf4xOGjbGkOPCA==
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Marek
- =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
- xen-devel@lists.xenproject.org, Simon Gaiser
- <simon@invisiblethingslab.com>
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-In-Reply-To: <26c50dc7-adf3-dbf1-253b-ce333d31911c@suse.com>
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
- <0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com>
- <2c97ff5b-03b0-3c17-c7f0-9bc8c9317762@invisiblethingslab.com>
- <cecbeec3-57cb-c8de-be06-bf8f6e9cc5f5@suse.com>
- <298af911-f4f0-165d-c493-90407d649945@citrix.com>
- <cfc853dc-0512-da20-5bf3-968a38d7a759@suse.com>
- <635f0055-7001-f68c-9274-6c078d07a22a@citrix.com>
- <26c50dc7-adf3-dbf1-253b-ce333d31911c@suse.com>
-Date: Sun, 27 Aug 2023 17:44:15 +0200
-Message-ID: <87jztga3sg.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7dnjHhlV9gBeDxq1pvDmVH22ruMViyfpIWQ28h4qbnQ=; b=ooPZfq3D1Er+JiJ2Nyw+jqUA3d
+	QaOm3DinQkL4Koz6vL49Kl3KWc1slV4aJwF4xvpRxpe+SGvvTUikLet3xCSUndq01xjyo4H6tpiD/
+	FYUSiSliX8Yb3Nz1mNmB35TTiYV/AS70GxnE1LiDGaO/8nF6icCZI0RzjyOH7ZnYG+hA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182529-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [linux-linus test] 182529: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-start/debianhvm.repeat:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-localmigrate/x10:fail:heisenbug
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start/debian.repeat:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=85eb043618bb17124050197d71c453d4a1f556e5
+X-Osstest-Versions-That:
+    linux=28f20a19294da7df158dfca259d0e2b5866baaf9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 27 Aug 2023 22:32:44 +0000
 
-On Wed, Aug 23 2023 at 14:56, Jan Beulich wrote:
-> On 23.08.2023 11:21, Andrew Cooper wrote:
->> In the spec, exactly where you'd expect to find them...
->>=20
->> "OSPM does not expect the information provided in this table to be
->> updated if the processor information changes during the lifespan of an
->> OS boot."
->
-> I don't think this tells us anything about the ID not possibly changing.
-> It merely tells us that OSPM is not expected to parse this table again
-> (IOW firmware updating just this table isn't going to be enough). IDs
-> possibly changing is expressed by (a) the "if the processor information
-> changes", and (b) the next sentence, forbidding them to change while the
-> system is asleep: "While in the sleeping state, logical processors must
-> not be added or removed, nor can their ... ID or ... Flags change."
->
->> Which is wordsmithing for "Some firmware was found to be modifying them
->> and this was deemed to be illegal under the spec".
->
-> That's your reading of it; I certainly don't infer such from that
-> sentence.
+flight 182529 linux-linus real [real]
+flight 182530 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182529/
+http://logs.test-lab.xenproject.org/osstest/logs/182530/
 
-The APIC/X2APIC description of MADT specifies flags:
+Regressions :-(
 
-Enabled        	If this bit is set the processor is ready for use. If
-		this bit is clear and the Online Capable bit is set,
-		system hardware supports enabling this processor during
-		OS runtime. If this bit is clear and the Online Capable
-		bit is also clear, this processor is unusable, and OSPM
-		shall ignore the contents of the Processor Local APIC
-		Structure.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 20 guest-start/debianhvm.repeat fail in 182530 REGR. vs. 182526
 
-Online Capable	The information conveyed by this bit depends on the
-		value of the Enabled bit. If the Enabled bit is set,
-		this bit is reserved and must be zero. Otherwise, if
-		this this bit is set, system hardware supports enabling
-		this processor during OS runtime.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 18 guest-localmigrate/x10 fail pass in 182530-retest
 
-This is also related to SRAT which defines the proximity of memory to
-processors at boot time with a similar set of flags.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail blocked in 182526
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 182526
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182526
+ test-amd64-amd64-xl-credit1  22 guest-start/debian.repeat    fail  like 182526
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182526
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182526
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182526
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 182526
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182526
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-Also 8.4 says:
+version targeted for testing:
+ linux                85eb043618bb17124050197d71c453d4a1f556e5
+baseline version:
+ linux                28f20a19294da7df158dfca259d0e2b5866baaf9
 
-  Each processor in the system must be declared in the ACPI namespace in
-  the \_SB scope. .... A Device definition for a processor is declared
-  using the ACPI0007 hardware identifier (HID). Processor configuration
-  information is provided exclusively by objects in the processor
-  device=E2=80=99s object list.
+Last test of basis   182526  2023-08-26 21:10:35 Z    1 days
+Testing same since   182529  2023-08-27 14:41:39 Z    0 days    1 attempts
 
-  When the platform uses the APIC interrupt model, UID object values
-  under a processor device are used to associate processor devices with
-  entries in the MADT.
+------------------------------------------------------------
+People who touched revisions under test:
+  "Bao D. Nguyen" <quic_nguyenb@quicinc.com>
+  Bao D. Nguyen <quic_nguyenb@quicinc.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Manivannan Sadhasivam <mani@kernel.org>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Neil Armstrong <neil.armstrong@linaro.org>
+  Zhu Wang <wangzhu9@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-MADT is the authoritative table for processor enumeration, whether
-present or not. This is required because that's the only way to size
-resources, which depend on the possible maximum topology.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Otherwise you'd end up with a CPU hotplugged which is outside of the
-resource space allocated during init.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Thanks,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-        tglx
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+------------------------------------------------------------
+commit 85eb043618bb17124050197d71c453d4a1f556e5
+Merge: 28f20a19294d 1bd3a76880b2
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Sun Aug 27 07:33:54 2023 -0700
+
+    Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi
+    
+    Pull SCSI fixes from James Bottomley:
+     "Three small driver fixes and one larger unused function set removal in
+      the raid class (so no external impact)"
+    
+    * tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi:
+      scsi: snic: Fix double free in snic_tgt_create()
+      scsi: core: raid_class: Remove raid_component_add()
+      scsi: ufs: ufs-qcom: Clear qunipro_g4_sel for HW major version > 5
+      scsi: ufs: mcq: Fix the search/wrap around logic
+
+commit 1bd3a76880b2bce017987cf53780b372cf59528e
+Author: Zhu Wang <wangzhu9@huawei.com>
+Date:   Sat Aug 19 08:39:41 2023 +0000
+
+    scsi: snic: Fix double free in snic_tgt_create()
+    
+    Commit 41320b18a0e0 ("scsi: snic: Fix possible memory leak if device_add()
+    fails") fixed the memory leak caused by dev_set_name() when device_add()
+    failed. However, it did not consider that 'tgt' has already been released
+    when put_device(&tgt->dev) is called. Remove kfree(tgt) in the error path
+    to avoid double free of 'tgt' and move put_device(&tgt->dev) after the
+    removed kfree(tgt) to avoid a use-after-free.
+    
+    Fixes: 41320b18a0e0 ("scsi: snic: Fix possible memory leak if device_add() fails")
+    Signed-off-by: Zhu Wang <wangzhu9@huawei.com>
+    Link: https://lore.kernel.org/r/20230819083941.164365-1-wangzhu9@huawei.com
+    Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+commit 60c5fd2e8f3c42a5abc565ba9876ead1da5ad2b7
+Author: Zhu Wang <wangzhu9@huawei.com>
+Date:   Tue Aug 22 01:52:54 2023 +0000
+
+    scsi: core: raid_class: Remove raid_component_add()
+    
+    The raid_component_add() function was added to the kernel tree via patch
+    "[SCSI] embryonic RAID class" (2005). Remove this function since it never
+    has had any callers in the Linux kernel. And also raid_component_release()
+    is only used in raid_component_add(), so it is also removed.
+    
+    Signed-off-by: Zhu Wang <wangzhu9@huawei.com>
+    Link: https://lore.kernel.org/r/20230822015254.184270-1-wangzhu9@huawei.com
+    Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+    Fixes: 04b5b5cb0136 ("scsi: core: Fix possible memory leak if device_add() fails")
+    Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+commit c422fbd5cb58c9a078172ae1e9750971b738a197
+Author: Neil Armstrong <neil.armstrong@linaro.org>
+Date:   Mon Aug 21 14:11:21 2023 +0200
+
+    scsi: ufs: ufs-qcom: Clear qunipro_g4_sel for HW major version > 5
+    
+    The qunipro_g4_sel clear is also needed for new platforms with major
+    version > 5. Fix the version check to take this into account.
+    
+    Fixes: 9c02aa24bf40 ("scsi: ufs: ufs-qcom: Clear qunipro_g4_sel for HW version major 5")
+    Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+    Reviewed-by: Nitin Rawat <quic_nitirawa@quicinc.com>
+    Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+    Link: https://lore.kernel.org/r/20230821-topic-sm8x50-upstream-ufs-major-5-plus-v2-1-f42a4b712e58@linaro.org
+    Reviewed-by: "Bao D. Nguyen" <quic_nguyenb@quicinc.com>
+    Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+commit d0c89af3130eb4ff962266bb7597690a696f1cbc
+Author: Bao D. Nguyen <quic_nguyenb@quicinc.com>
+Date:   Tue Aug 15 18:38:29 2023 -0700
+
+    scsi: ufs: mcq: Fix the search/wrap around logic
+    
+    The search and wrap around logic in the ufshcd_mcq_sqe_search() function
+    does not work correctly when the hwq's queue depth is not a power of two
+    number. Correct it so that any queue depth with a positive integer value
+    within the supported range would work.
+    
+    Signed-off-by: "Bao D. Nguyen" <quic_nguyenb@quicinc.com>
+    Link: https://lore.kernel.org/r/ff49c15be205135ed3ec186f3086694c02867dbd.1692149603.git.quic_nguyenb@quicinc.com
+    Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+    Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ abort")
+    Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 
