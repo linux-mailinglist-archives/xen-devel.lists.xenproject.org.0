@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B37B278A3F4
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 03:33:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.591206.923575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B2BA78A3EF
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 03:33:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591207.923586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaR7R-0000kC-6U; Mon, 28 Aug 2023 01:32:41 +0000
+	id 1qaR7V-00011L-Hb; Mon, 28 Aug 2023 01:32:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 591206.923575; Mon, 28 Aug 2023 01:32:41 +0000
+Received: by outflank-mailman (output) from mailman id 591207.923586; Mon, 28 Aug 2023 01:32:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaR7R-0000iV-0Z; Mon, 28 Aug 2023 01:32:41 +0000
-Received: by outflank-mailman (input) for mailman id 591206;
- Mon, 28 Aug 2023 01:32:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qaR7V-0000xy-D3; Mon, 28 Aug 2023 01:32:45 +0000
+Received: by outflank-mailman (input) for mailman id 591207;
+ Mon, 28 Aug 2023 01:32:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nwb3=EN=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qaR7O-0000i9-Vt
- for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 01:32:38 +0000
+ id 1qaR7U-0000xW-0J
+ for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 01:32:44 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id c42f5cc7-4542-11ee-8783-cb3800f73035;
- Mon, 28 Aug 2023 03:32:36 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id c6a5c786-4542-11ee-9b0c-b553b5be7939;
+ Mon, 28 Aug 2023 03:32:40 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82AC22F4;
- Sun, 27 Aug 2023 18:33:15 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD15C2F4;
+ Sun, 27 Aug 2023 18:33:19 -0700 (PDT)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 66B243F740;
- Sun, 27 Aug 2023 18:32:32 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 60AA53F740;
+ Sun, 27 Aug 2023 18:32:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +43,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c42f5cc7-4542-11ee-8783-cb3800f73035
+X-Inumbo-ID: c6a5c786-4542-11ee-9b0c-b553b5be7939
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
+Cc: Wei Chen <wei.chen@arm.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Wei Chen <wei.chen@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v6 00/13] xen/arm: Split MMU code as the prepration of MPU work
-Date: Mon, 28 Aug 2023 09:32:11 +0800
-Message-Id: <20230828013224.669433-1-Henry.Wang@arm.com>
+	Henry Wang <Henry.Wang@arm.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v6 01/13] xen/arm64: head.S: Introduce enable_{boot,secondary}_cpu_mm()
+Date: Mon, 28 Aug 2023 09:32:12 +0800
+Message-Id: <20230828013224.669433-2-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230828013224.669433-1-Henry.Wang@arm.com>
+References: <20230828013224.669433-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Based on the discussion in the Xen Summit [1], sending this series out after
-addressing the comments in v5 [2] as the preparation work to add MPU support.
-The series passed the GitLab CI check in [3].
+From: Wei Chen <wei.chen@arm.com>
 
-Mostly code movement and function folding, with some of Kconfig and build
-system (mainly Makefiles) adjustment.
+At the moment, on MMU system, enable_mmu() will return to an
+address in the 1:1 mapping, then each path is responsible to
+switch to virtual runtime mapping. Then remove_identity_mapping()
+is called on the boot CPU to remove all 1:1 mapping.
 
-This series is based on:
-ec272d8d4c CI: Always move the bisect build log back
+Since remove_identity_mapping() is not necessary on Non-MMU system,
+and we also avoid creating empty function for Non-MMU system, trying
+to keep only one codeflow in arm64/head.S, we move path switch and
+remove_identity_mapping() in enable_mmu() on MMU system.
 
-[1] https://lore.kernel.org/xen-devel/AS8PR08MB799122F8B0CB841DED64F4819226A@AS8PR08MB7991.eurprd08.prod.outlook.com/
-[2] https://lore.kernel.org/xen-devel/20230814042536.878720-1-Henry.Wang@arm.com/
-[3] https://gitlab.com/xen-project/people/henryw/xen/-/pipelines/982592897
+As the remove_identity_mapping should only be called for the boot
+CPU only, so we introduce enable_boot_cpu_mm() for boot CPU and
+enable_secondary_cpu_mm() for secondary CPUs in this patch.
 
-Henry Wang (9):
-  xen/arm: Introduce CONFIG_MMU Kconfig option
-  xen/arm64: Split and move MMU-specific head.S to mmu/head.S
-  xen/arm64: Fold setup_fixmap() to create_page_tables()
-  xen/arm: Split page table related code to mmu/pt.c
-  xen/arm: Split MMU system SMP MM bringup code to mmu/smpboot.c
-  xen/arm: Fold mmu_init_secondary_cpu() to head.S
-  xen/arm: Extract MMU-specific MM code
-  xen/arm: Split MMU-specific setup_mm() and related code out
-  xen/arm: Fold pmap and fixmap into MMU system
+Signed-off-by: Wei Chen <wei.chen@arm.com>
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+---
+v6:
+- Add Julien's Reviewed-by tag.
+v5:
+- Add missing "()" in title.
+- Use more generic comment in enable_{boot,secondary}_cpu_mm() to
+  mention function will return to the vaddr requested by the caller.
+- Move 'mov lr, x5' closer to 'b remove_identity_mapping'.
+- Drop the 'b fail' for unreachable code in enable_boot_cpu_mm().
+v4:
+- Clarify remove_identity_mapping() is called on boot CPU and keep
+  the function/proc format consistent in commit msg.
+- Drop inaccurate (due to the refactor) in-code comment.
+- Rename enable_{boot,runtime}_mmu to enable_{boot,secondary}_cpu_mm.
+- Reword the in-code comment on top of enable_{boot,secondary}_cpu_mm.
+- Call "fail" for unreachable code.
+v3:
+- new patch
+---
+ xen/arch/arm/arm64/head.S | 83 ++++++++++++++++++++++++++++++---------
+ 1 file changed, 64 insertions(+), 19 deletions(-)
 
-Penny Zheng (2):
-  xen/arm: Rename init_secondary_pagetables() to prepare_secondary_mm()
-  xen/arm: mmu: move MMU specific P2M code to mmu/p2m.{c,h}
-
-Wei Chen (2):
-  xen/arm64: head.S: Introduce enable_{boot,secondary}_cpu_mm()
-  xen/arm: Move MMU related definitions from config.h to mmu/layout.h
-
- xen/arch/arm/Kconfig                    |    5 +-
- xen/arch/arm/Makefile                   |    1 +
- xen/arch/arm/arm32/Makefile             |    1 +
- xen/arch/arm/arm32/head.S               |   22 +-
- xen/arch/arm/arm32/mmu/Makefile         |    1 +
- xen/arch/arm/arm32/mmu/mm.c             |  301 ++++
- xen/arch/arm/arm64/Makefile             |    2 +-
- xen/arch/arm/arm64/head.S               |  460 +-----
- xen/arch/arm/arm64/mmu/Makefile         |    2 +
- xen/arch/arm/arm64/mmu/head.S           |  481 ++++++
- xen/arch/arm/arm64/{ => mmu}/mm.c       |   84 ++
- xen/arch/arm/include/asm/arm32/mm.h     |    1 +
- xen/arch/arm/include/asm/arm64/macros.h |   36 +
- xen/arch/arm/include/asm/config.h       |  132 +-
- xen/arch/arm/include/asm/mm.h           |   28 +-
- xen/arch/arm/include/asm/mmu/layout.h   |  146 ++
- xen/arch/arm/include/asm/mmu/mm.h       |   41 +
- xen/arch/arm/include/asm/mmu/p2m.h      |   18 +
- xen/arch/arm/include/asm/p2m.h          |   26 +-
- xen/arch/arm/include/asm/page.h         |   15 -
- xen/arch/arm/include/asm/setup.h        |    5 +
- xen/arch/arm/kernel.c                   |   28 -
- xen/arch/arm/mm.c                       | 1212 ---------------
- xen/arch/arm/mmu/Makefile               |    4 +
- xen/arch/arm/mmu/p2m.c                  | 1736 +++++++++++++++++++++
- xen/arch/arm/mmu/pt.c                   |  743 +++++++++
- xen/arch/arm/mmu/setup.c                |  372 +++++
- xen/arch/arm/mmu/smpboot.c              |  121 ++
- xen/arch/arm/p2m.c                      | 1837 +----------------------
- xen/arch/arm/setup.c                    |  324 +---
- xen/arch/arm/smpboot.c                  |    4 +-
- xen/arch/arm/xen.lds.S                  |    1 +
- 32 files changed, 4222 insertions(+), 3968 deletions(-)
- create mode 100644 xen/arch/arm/arm32/mmu/Makefile
- create mode 100644 xen/arch/arm/arm32/mmu/mm.c
- create mode 100644 xen/arch/arm/arm64/mmu/Makefile
- create mode 100644 xen/arch/arm/arm64/mmu/head.S
- rename xen/arch/arm/arm64/{ => mmu}/mm.c (60%)
- create mode 100644 xen/arch/arm/include/asm/mmu/layout.h
- create mode 100644 xen/arch/arm/include/asm/mmu/mm.h
- create mode 100644 xen/arch/arm/include/asm/mmu/p2m.h
- create mode 100644 xen/arch/arm/mmu/Makefile
- create mode 100644 xen/arch/arm/mmu/p2m.c
- create mode 100644 xen/arch/arm/mmu/pt.c
- create mode 100644 xen/arch/arm/mmu/setup.c
- create mode 100644 xen/arch/arm/mmu/smpboot.c
-
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index 5029013a14..f25a41d36c 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -325,21 +325,11 @@ real_start_efi:
+ 
+         bl    check_cpu_mode
+         bl    cpu_init
+-        bl    create_page_tables
+-        load_paddr x0, boot_pgtable
+-        bl    enable_mmu
+ 
+-        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+-        ldr   x0, =primary_switched
+-        br    x0
++        ldr   lr, =primary_switched
++        b     enable_boot_cpu_mm
++
+ primary_switched:
+-        /*
+-         * The 1:1 map may clash with other parts of the Xen virtual memory
+-         * layout. As it is not used anymore, remove it completely to
+-         * avoid having to worry about replacing existing mapping
+-         * afterwards.
+-         */
+-        bl    remove_identity_mapping
+         bl    setup_fixmap
+ #ifdef CONFIG_EARLY_PRINTK
+         /* Use a virtual address to access the UART. */
+@@ -384,13 +374,10 @@ GLOBAL(init_secondary)
+ #endif
+         bl    check_cpu_mode
+         bl    cpu_init
+-        load_paddr x0, init_ttbr
+-        ldr   x0, [x0]
+-        bl    enable_mmu
+ 
+-        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+-        ldr   x0, =secondary_switched
+-        br    x0
++        ldr   lr, =secondary_switched
++        b     enable_secondary_cpu_mm
++
+ secondary_switched:
+ #ifdef CONFIG_EARLY_PRINTK
+         /* Use a virtual address to access the UART. */
+@@ -748,6 +735,64 @@ enable_mmu:
+         ret
+ ENDPROC(enable_mmu)
+ 
++/*
++ * Enable mm (turn on the data cache and the MMU) for secondary CPUs.
++ * The function will return to the virtual address provided in LR (e.g. the
++ * runtime mapping).
++ *
++ * Inputs:
++ *   lr : Virtual address to return to.
++ *
++ * Clobbers x0 - x5
++ */
++enable_secondary_cpu_mm:
++        mov   x5, lr
++
++        load_paddr x0, init_ttbr
++        ldr   x0, [x0]
++
++        bl    enable_mmu
++        mov   lr, x5
++
++        /* Return to the virtual address requested by the caller. */
++        ret
++ENDPROC(enable_secondary_cpu_mm)
++
++/*
++ * Enable mm (turn on the data cache and the MMU) for the boot CPU.
++ * The function will return to the virtual address provided in LR (e.g. the
++ * runtime mapping).
++ *
++ * Inputs:
++ *   lr : Virtual address to return to.
++ *
++ * Clobbers x0 - x5
++ */
++enable_boot_cpu_mm:
++        mov   x5, lr
++
++        bl    create_page_tables
++        load_paddr x0, boot_pgtable
++
++        bl    enable_mmu
++
++        /*
++         * The MMU is turned on and we are in the 1:1 mapping. Switch
++         * to the runtime mapping.
++         */
++        ldr   x0, =1f
++        br    x0
++1:
++        mov   lr, x5
++        /*
++         * The 1:1 map may clash with other parts of the Xen virtual memory
++         * layout. As it is not used anymore, remove it completely to avoid
++         * having to worry about replacing existing mapping afterwards.
++         * Function will return to the virtual address requested by the caller.
++         */
++        b     remove_identity_mapping
++ENDPROC(enable_boot_cpu_mm)
++
+ /*
+  * Remove the 1:1 map from the page-tables. It is not easy to keep track
+  * where the 1:1 map was mapped, so we will look for the top-level entry
 -- 
 2.25.1
 
