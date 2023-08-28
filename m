@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AE3078B374
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 16:45:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.591532.924033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA44778B36E
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 16:45:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591533.924040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qadUM-00013S-9c; Mon, 28 Aug 2023 14:45:10 +0000
+	id 1qadUM-00019b-JS; Mon, 28 Aug 2023 14:45:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 591532.924033; Mon, 28 Aug 2023 14:45:10 +0000
+Received: by outflank-mailman (output) from mailman id 591533.924040; Mon, 28 Aug 2023 14:45:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qadUM-00011g-6k; Mon, 28 Aug 2023 14:45:10 +0000
-Received: by outflank-mailman (input) for mailman id 591532;
- Mon, 28 Aug 2023 13:36:30 +0000
+	id 1qadUM-00013N-En; Mon, 28 Aug 2023 14:45:10 +0000
+Received: by outflank-mailman (input) for mailman id 591533;
+ Mon, 28 Aug 2023 13:36:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RJ5s=EN=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qacPu-0004gK-UA
- for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 13:36:30 +0000
+ id 1qacPv-0004gK-K3
+ for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 13:36:31 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7ca1d81-45a5-11ee-9b0c-b553b5be7939;
+ id a8090660-45a5-11ee-9b0c-b553b5be7939;
  Mon, 28 Aug 2023 15:20:28 +0200 (CEST)
 Received: from beta.station (net-93-66-137-131.cust.vodafonedsl.it
  [93.66.137.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 943794EE073A;
- Mon, 28 Aug 2023 15:20:27 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 3C6744EE073C;
+ Mon, 28 Aug 2023 15:20:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,74 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7ca1d81-45a5-11ee-9b0c-b553b5be7939
+X-Inumbo-ID: a8090660-45a5-11ee-9b0c-b553b5be7939
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	sstabellini@kernel.org,
 	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 01/13] misra: add deviation for headers that explicitly avoid guards
-Date: Mon, 28 Aug 2023 15:19:58 +0200
-Message-Id: <9b8165105c28f8e684844f56814726498e34c46e.1693228255.git.simone.ballarin@bugseng.com>
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [XEN PATCH 02/13] automation/eclair: add text-based deviation for empty headers
+Date: Mon, 28 Aug 2023 15:19:59 +0200
+Message-Id: <96e9ca524ed8191bfd5ee1230e8d581c50e299f5.1693228255.git.simone.ballarin@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1693228255.git.simone.ballarin@bugseng.com>
 References: <cover.1693228255.git.simone.ballarin@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some headers, under specific circumstances (documented in a comment at
-the beginning of the file), explicitly avoid inclusion guards: the caller
-is responsible for including them correctly.
+This patch adds a text-based deviation for Directive 4.10:
+"Precautions shall be taken in order to prevent the contents of
+a header file being included more than once"
 
-These files are not supposed to comply with Directive 4.10:
-"Precautions shall be taken in order to prevent the contents of a header
-file being included more than once"
+Headers starting with the following comment are not supposed to
+comply with the directive:
+"/* empty */"
 
-This patch adds a deviation for all headers that contain the following
-in a comment text:
-"In this case, no inclusion guards apply and the caller is responsible"
+These headers should be empty, therefore they pose no risk if included
+more than once.
 
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 ---
- automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++++
- docs/misra/rules.rst                             | 3 ++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index d8170106b4..5f068377fa 100644
+index 5f068377fa..2681a4cff5 100644
 --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
 +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -91,6 +91,10 @@ conform to the directive."
- -config=MC3R1.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
- -doc_end
+@@ -80,6 +80,7 @@ inline functions."
  
-+-doc_begin="Some headers, under specific circumstances, explicitly avoid inclusion guards."
-+-config=MC3R1.D4.10,reports+={safe, "first_area(text(^ \\* In this case, no inclusion guards apply and the caller is responsible.*\\*/$, begin-1))"}
-+-doc_end
-+
- #
- # Series 5.
- #
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index db30632b93..4b1a7b02b6 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -60,7 +60,8 @@ maintainers if you want to suggest a change.
-      - Precautions shall be taken in order to prevent the contents of a
-        header file being included more than once
-      - Files that are intended to be included more than once do not need to
--       conform to the directive
-+       conform to the directive. Files that explicitly avoid inclusion guards
-+       under specific circumstances do not need to conform the directive.
- 
-    * - `Dir 4.11 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_11.c>`_
-      - Required
+ -doc_begin="This header file is autogenerated or empty, therefore it poses no
+ risk if included more than once."
++-config=MC3R1.D4.10,reports+={safe, "first_area(text(^/\\* empty \\*/$, begin-1))"}
+ -file_tag+={empty_header, "^xen/arch/arm/efi/runtime\\.h$"}
+ -file_tag+={autogen_headers, "^xen/include/xen/compile\\.h$||^xen/include/generated/autoconf.h$||^xen/include/xen/hypercall-defs.h$"}
+ -config=MC3R1.D4.10,reports+={safe, "all_area(all_loc(file(empty_header||autogen_headers)))"}
 -- 
 2.34.1
 
