@@ -2,36 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 259E878A9AE
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 12:12:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.591424.923823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73FA978A9B2
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 12:15:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591432.923833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaZDl-0002de-I2; Mon, 28 Aug 2023 10:11:45 +0000
+	id 1qaZGn-0003Hv-47; Mon, 28 Aug 2023 10:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 591424.923823; Mon, 28 Aug 2023 10:11:45 +0000
+Received: by outflank-mailman (output) from mailman id 591432.923833; Mon, 28 Aug 2023 10:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaZDl-0002av-FD; Mon, 28 Aug 2023 10:11:45 +0000
-Received: by outflank-mailman (input) for mailman id 591424;
- Mon, 28 Aug 2023 10:11:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qaZGn-0003FU-1L; Mon, 28 Aug 2023 10:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 591432;
+ Mon, 28 Aug 2023 10:14:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RJ5s=EN=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qaZDk-0002ap-PG
- for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 10:11:44 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 486d1662-458b-11ee-8783-cb3800f73035;
- Mon, 28 Aug 2023 12:11:41 +0200 (CEST)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
- [209.85.221.169])
- by support.bugseng.com (Postfix) with ESMTPSA id 05D034EE074E
- for <xen-devel@lists.xenproject.org>; Mon, 28 Aug 2023 12:11:41 +0200 (CEST)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-48d10c504a8so1182100e0c.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Aug 2023 03:11:40 -0700 (PDT)
+ <SRS0=EvBp=EN=citrix.com=prvs=597328b26=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qaZGl-0003FO-2v
+ for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 10:14:51 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b65c469c-458b-11ee-9b0c-b553b5be7939;
+ Mon, 28 Aug 2023 12:14:48 +0200 (CEST)
+Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 28 Aug 2023 06:14:40 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by BY5PR03MB5127.namprd03.prod.outlook.com (2603:10b6:a03:1f0::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.34; Mon, 28 Aug
+ 2023 10:14:38 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::7b93:d9b3:b043:8c8a]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::7b93:d9b3:b043:8c8a%6]) with mapi id 15.20.6699.034; Mon, 28 Aug 2023
+ 10:14:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,432 +49,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 486d1662-458b-11ee-8783-cb3800f73035
-X-Gm-Message-State: AOJu0Yz/+I6s4pKRenFzRHP7L7SB0/XoyVyr8WPdtpMyN1WJcAU7bN8n
-	AZiWMjJA/Z3Tu0umlxc4Ofw3A21+J7LQR6BSyws=
-X-Google-Smtp-Source: AGHT+IFS/kfS0Yg8QBXnPirkUnUUBjFVDnp2YymJcKzMbffbiuQ7RxjGY+obi1/scnt8wYZE9VH2NoBNqpC/Xugt3tE=
-X-Received: by 2002:a05:6102:291f:b0:44e:d6c3:51d4 with SMTP id
- cz31-20020a056102291f00b0044ed6c351d4mr502593vsb.18.1693217499727; Mon, 28
- Aug 2023 03:11:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1690368810.git.simone.ballarin@bugseng.com> <6c2473a29d60460bf69382fd1e983752634b6992.1690368810.git.simone.ballarin@bugseng.com>
-In-Reply-To: <6c2473a29d60460bf69382fd1e983752634b6992.1690368810.git.simone.ballarin@bugseng.com>
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-Date: Mon, 28 Aug 2023 12:11:28 +0200
-X-Gmail-Original-Message-ID: <CAFHJcJugNy_dp8tiUz52Z4Vus+saYX-=sqgG+-dLvrg=7PngHw@mail.gmail.com>
-Message-ID: <CAFHJcJugNy_dp8tiUz52Z4Vus+saYX-=sqgG+-dLvrg=7PngHw@mail.gmail.com>
-Subject: Re: [XEN PATCH v4 1/4] x86/vmx: address violations of MISRA C:2012
- Rule 7.2
+X-Inumbo-ID: b65c469c-458b-11ee-9b0c-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1693217688;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=RM3JJYLAwCt9s1inxB9kM6Gmn0yTZt0dWasVu9CDpwM=;
+  b=S5u6Ela7LoH9mtFhJpU/OidOaYde+zdiJEAL2qJ8e8EXNHBFL7tcNs5c
+   xJxrpIwxkWbXjv5aS8RSIj3iLFsuPUhJ0h90kMKKPPgVOem0HETM6S04N
+   cfboBTXbt6j1JBqO/hwruZEUNkGPev5QJuQCYPZS9GwhugWv650WqpxZV
+   M=;
+X-IronPort-RemoteIP: 104.47.58.169
+X-IronPort-MID: 119507280
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:2gsgRqt+1LAeFXxUWI3YFGFEl+fnVHBfMUV32f8akzHdYApBsoF/q
+ tZmKTyCPaqPYzPyf9ogYIi+9hsB7ZPTx9JjSAo9rCkyFHhD+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4rKq4lv0gnRkPaoQ5A+ExyFMZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwNQ4fbTen1seNx6+HbNl0tsEpa8+6I9ZK0p1g5Wmx4fcOZ7nmGvyPz/kImTA6i4ZJAOrUY
+ NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0osgP60bou9lt+iHK25mm6Co
+ W3L5SLhCwwyP92D0zuVtHmrg4cjmAuiAdNPTOLipqYCbFu74ksdJiw7a1SBgfSTtGe0d9tmO
+ XAs9X97xUQ13AnxJjXnZDWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOnM08SCEu1
+ 1SJt8j0HjEpu7qQIVqC8p+EoDX0PjIaRVLufgcBRAoBptPl8Ic6i0uWSs45SfDkyNroBTv33
+ jaG6jAkgKkehtIK0KP9+k3bhzWrpd7CSQtdChjrY19JJzhRPOaND7FEI3CBhRqcBO51lmW8g
+ UU=
+IronPort-HdrOrdr: A9a23:aWvuzqASgG5Z88flHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
+ nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
+ 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
+ GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
+X-Talos-CUID: 9a23:+qVw+m8iWvvmazqstPOVv1MqCMMCViz493DNH2mIEVZsQvqTGEDFrQ==
+X-Talos-MUID: =?us-ascii?q?9a23=3AapAxqA8x+uzQWVbRYM5uNPWQf+NP7YqfJX4Cq7U?=
+ =?us-ascii?q?LkfetPwB5AiWhtDviFw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.02,207,1688443200"; 
+   d="scan'208";a="119507280"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I5wkLuybbZLGFaUfNlqU4tNuTpMC3Po3DPncBaCQD2zDmFCg7n6Zzh5nS6NjX7E3kiKeXWtgUcKYjMBPaM+AjI/FxI/ggAuw42iZdjS7a23QDO8nVJqBhAp+B1ANUK7J6mvHlFoXtvaF4u7LaphrkO5JovJlUkO0C0nI5RIIGAqCSmJL6pVIQj8gcTd7SHVn12Hdompy6+wonPjpeNLtI7ARoBWN7yPwCnbE01ow49g0CV4KWAFnGPUsHVrQnlgEkByYDR3T+C57Bk5SD/ea5B0N/5TYddnD/OWMyFyW2EmF8BS5QK3fQ7zvM0IK3H6Fo11hfD6AmkuLvXQCf85sWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5irB92Gz/kcvpAShOyJkwSI1E6gMkky+BAEgmvv+xlQ=;
+ b=QpbYogUfCe5s2GI6tgvKg+LMWOo8wbAwdFnxOcoOKpxroTGdInKqWPSXaSUjYER9Uk4SNUtfDT+kZp7brkWfqgPC1GoPXDimjdKfXcPmDeBH9R8e2hbLZvPyNptY/2wtcsLihY5seqzmIy6dVGDjyw9F47FFBpw9IbcofYFG3U9jp7HVPoM80FMxRYIkKrWxTQM3fqBTH/LSGPgU1cTw2lYjA2BJUqET1Izl+MH6RvOJZQydrpP3fZg+AVfl8oxDG6LHgtHfGPlCb/k+vIUzJAbrByaT7wv99OHQuksDWJAhq8DZQ0YJlAb2FgPXJArw0dDS6/RLeSIHqxMoXT9VMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5irB92Gz/kcvpAShOyJkwSI1E6gMkky+BAEgmvv+xlQ=;
+ b=N0cfpqpRsrbkIo1dwgfUS2pE6/Jts/VTw2BN0lfqRyUSiwBP23ul//E6sq2xvwNxs+mzNTerwZ97DJfutYPeynhWiOSJRM008qqa+oVDzrs4TkRUn86nwXtLkhSWPaAcDooPCwDJgyTWXbNhdY5fm3ke1nSUPnkWPxtgWR8l1Ks=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Gianluca Luparini <gianluca.luparini@bugseng.com>, 
-	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: multipart/alternative; boundary="000000000000994e5e0603f8eb9e"
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/irq: fix reporting of spurious i8259 interrupts
+Date: Mon, 28 Aug 2023 12:14:27 +0200
+Message-ID: <20230828101428.23579-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.41.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0120.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::7) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BY5PR03MB5127:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60909be5-3350-4b0b-7da4-08dba7af95b5
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	FFdAvxOgQQbdetw5BGINnxXPajBeaMMA1/ZX+OYovMIUbqNfnYg0JuKrdTaDZhifgaEV808vJbjJlybbOWi+0RBEa8xbW04UYiMpRDrJx8fDI0t+bYHk3y/yHK14MUgr9T7TcSornP4R4DhMexpUzQVCBAAgsm2q5MgvtinAvZv2Cyt++RH7Vn9cLa6NtJ82YFJA/wUBAnBnHReVJ0hHfH8YSvCSA7a31eDlfBkMtqsaHPZeS2TT4qzLYevUHsNDQfvrBTGoP2jrVJrCHJgjj+Hm38UDo2v1ZRvqsN+XzJdBI6QogSp6ciGECT5ZPnNdV6eAvYrPRXJCxzJ9/0UJJd4vXmslTklIKTc65DAnYPEkaXcKMmqL5NqrFEiOletFJu+4YJnNYF4SALarsnYe2wg0kjCKJfCNIiO6XmR+DIxkMFmbgEQGxrZ5V7oD72GA1kqwrrr+Yu1bsRddabisf5d/Sg63JFH0jqXT8qg0sUr7jdmJFYMhEeRPL0/AqDS6OprVAL41Mi+iNtpWBlrtVRupV0uWzIhKrxm63nDibKXD+ciQS6aA04lRGl+/rduL
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(366004)(136003)(396003)(346002)(186009)(1800799009)(451199024)(6512007)(6666004)(6506007)(6486002)(2616005)(1076003)(2906002)(5660300002)(86362001)(82960400001)(4744005)(6916009)(4326008)(8676002)(8936002)(54906003)(66946007)(66556008)(36756003)(66476007)(41300700001)(316002)(38100700002)(478600001)(83380400001)(26005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SSsvV1lFVjM0cWRKaDBUNVpFQXlzZld3T3JhSlEyL1BnMkxPUTIzNHBDb0cx?=
+ =?utf-8?B?V1d5UG5qWUlLOHpFV3RzUzQ0eFVkeTZvQ1J6T1dPajUyQVVaMnF0dFhIRjE4?=
+ =?utf-8?B?Ty8vcEE2WU9qYkQ5MWU4U1U1K1RBbHNTVUwxMGlkYmRwTWN0TThiOC82S2Np?=
+ =?utf-8?B?cWN3K0dlejNqNjA5dHZCSW82NE5DV2ZOYjFiVEk1TnB1SWNGSTdJSVpUR1BP?=
+ =?utf-8?B?bzdEdFVLUkFxYllMNDMrY1dmdEpMTW5hZEEvQmRTRWViKzcvVElLS1c3ODdC?=
+ =?utf-8?B?emVaOXZkS2oxQXF0WEdmRlExREJvY2tZQ2NTRENlMXNhSnA2dWdORjdVSy85?=
+ =?utf-8?B?eXFkeGQxcXBkREZ6aGlZUExBYTJmMWlDb28zamVtVUx1eGRHTUU0QTVOKzRu?=
+ =?utf-8?B?bjcxWFp1MTV3dm9QMExWY1RlWkhDWnp0U2tUR1ZwcldWQmRKajZHdGlHRmg5?=
+ =?utf-8?B?OU9hK245RlhQSnNMT0JJdFNIbHpwbjhXR01IL0hjYnpXd1F6RFY2VzRmVkgv?=
+ =?utf-8?B?cktHODgwQ1IzSHplN2tYR2JiLzJ6V2s3SGUySGVZdEFWdjBrc1IxbkNhTXVq?=
+ =?utf-8?B?ZWVhVllNYllkTllOVVJhbjZMTjlMNzRvRWtBMHgxZlgxdklXeCtBU1lzekN5?=
+ =?utf-8?B?NXFxdlNxWFZUaUJlWGRucWc0azJLSU1VNHRwSDBhcFBZa2RSTlJ5dkJyc2ZW?=
+ =?utf-8?B?eTEyblJnRUpGTWRWOU5mcGpJa3BWb0RjUmhEckZQNytDK20yVGM0V29LR0NS?=
+ =?utf-8?B?OTdHZ1JLOEQ0K2NXNHowWUlqcFkxNmFYdGRyV3VmWElaTFJoalAvbjBpby9G?=
+ =?utf-8?B?bmx0RzNpaW14ZlRUSVFYL21pbWUvVmtxSm5NekZjbFBlUjFwOER3UVlaUkZs?=
+ =?utf-8?B?bCt4bVBwSVZQb3FpUHpzS3hWckxlTzdlVHE3K1BDT3ZDQmtuRWVKL1RhVkds?=
+ =?utf-8?B?bDZaTDVQcTBDbUxmMlF5aVM5R3ZYY3k5aUxCZmQxN2hQa3hNQXBQRzRVdm5r?=
+ =?utf-8?B?OFI1NXVSbVpobldGTjIxYzVyQzh2bXRaQmxDWnJQY1VudTFwWXVsREtmK1kv?=
+ =?utf-8?B?Z3I4OW5WcjBzUmZ6WTRBanREb2tYZFNQRE9WajlGcHRwSXVGZW9lM3ZoUXc3?=
+ =?utf-8?B?bjNuTUF6UFpWeGViaVBNN09ZN2ZKSU9ZTXZLYVBNeGZBRkhZMG83ZlUxUGJQ?=
+ =?utf-8?B?YTExSXB5MXN0eXJGZTlVeGY2L29uZ09VVDlLZEhVT2Z5NHlkaTZ3eWRaNUpw?=
+ =?utf-8?B?NkVVU0FRUmVSN1cyVzE4SWd2eUNoOU5CYm1GdkxUMEE2N0JIT2ZVbkZlU3BX?=
+ =?utf-8?B?NVd2SVEvZ20vV2tPamxCVVhiRzBBVitnQ25DT255S2k4TFh0amlJKzdPZEN3?=
+ =?utf-8?B?TXZpMVFHN1p6eWt3aHVGbXgxWWp4RTcrbFRIVUVINTBmRVlhNkpycWo1b3lL?=
+ =?utf-8?B?L3dLNzFaZG1pR0JjeXJnR1VpekpuVndBK0pqNUlCWVhjR2JNUWMzNTNzUGk1?=
+ =?utf-8?B?YUFKb0xCS2JjZjJ0TUF6UzlLME5pODZCY1BLTHNhM2J6cDNjNW5TUG9iZ292?=
+ =?utf-8?B?aVFHSWs1MzJ1VXNPdGd5WHlrbHUyenhBakw3a2JYUjFjSjJFcGc2NGdnRSt4?=
+ =?utf-8?B?VXJwNGFlUXJCVm0vSkxQNVJ0VU40ODB1RUhuMS9iTmRZc01wQmVlR2VVc1Vs?=
+ =?utf-8?B?TjNxMTVOUHBXR09BV0lQczExUDNvRmVrbk9WVmVlR3VtZk1RcUY1MEtTWDVG?=
+ =?utf-8?B?eHhRTW1Vbi9KRXMxQmFmK05PZkpzaXNqbHpob213RXc5Z0lpRitVRG52Tlpa?=
+ =?utf-8?B?eFlUUUZvTTFjTE1vbE1PYjA3b1orQTIwSnR2RlZIcWVYU254L2ZkUFkzYVhp?=
+ =?utf-8?B?RjdhaGlXR3JsTU9zVXY3bUdLYWFHdE0yNXlXSXBLSFdGdlNPY1dzYXFKM0da?=
+ =?utf-8?B?cng3bXUyR2pTRVpMM3IvcThTeFR3SGFzdzRZeUFVM1ZldTI5c0FUYS9KT1F2?=
+ =?utf-8?B?VlpkN0xoeTRqUWpEWDdna1JjTGhKYkY0T2Rpak8xVzh3eUtoa3k0YXozS3F4?=
+ =?utf-8?B?anVLM21IdnhwdGpZcDJGcFhHWUlmRFVZRXRJRzJKSzl1SHhQQTJFUlk1N3Fh?=
+ =?utf-8?Q?mRYbsypnmSCvHYQZsvbsXdDzG?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	zh69TyflqLfMPQjy1w0ox3K2qafgu1qvaLgVRcmR00deFB3gm1qITqSqFwphkXhwi+D4V3FomofTKldYfq2RvI/yjOUjfklXGanLgbA7Vh2N2aRUjq8Bz3dW1Y8ywQy+OanyZom1NmJMmCe8/Q/9i9ENqsDyR5fNW+GsHk947u94MDQAYRS4Hp/dkkEJuw8NNzwkDt63CJho9aQNtJ+o9LHG/bz2gih6hIhFIvhO1WKdzTgb6GrjGaGNYO+w3aUjVBaBHfJjnlM5/gdjnuG4z13ywa0H63tZgDkvM+3RYbEpSBzqK44ClMahKM2gf+jZ+2bLFjgkM4PeRR5WyCAeED5JwQm9ZJJ4oDjMG5ahfjWmvyTRDwdT7gZcmYF+9dt/jue67ECoW796n6a9T23jzP76V0JTmQplqTtL6t1bs6CqPHQIVdJJ2yfr9i96jI2wsEudmcV0ga8R2Gz7VNwY4mJ6WeLwHkAVHM3fyxE9ArINuefPx1Bk2StMC7ZfRZiGxmb3M7Hx4P7tMmDijrqUQwZucjpaC5mDLwZFe6puKGBP85Ygj9j0Mw7W31n2Om8J5NXwNtQP08UEnwPGRBtFMS+77SRu2/C0GsF6X58GyIOVfPtBI4bkyi4xq95nyr4mj6J+nTEpiZezl7xqAESv9Mcok986cW8TKWYEjyaMTCL1HZcYMeozUu1h56vHvyUSSV8zJVrfpvdLr5woyIhYbdLYEbnUJkd1bguPDrx4NmqVlRI3uSYvR2e3uusk2EXUf8ODsOARTVxexq6Ujbwna4aaoC4gp+XyYQ+qflRO/oB21u+qZyqvukJmp1wEgfMRr/btesui80RAldSi1vzz1g==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60909be5-3350-4b0b-7da4-08dba7af95b5
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2023 10:14:38.1163
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7WoFEIUpm/kjhER0uHAdBLzTfzJqoZ9u+jKaS1NOnOiouBKm50g9/ugnzUg8Z7eFHtLfFMloOqQzCeZGwyYk0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5127
 
---000000000000994e5e0603f8eb9e
-Content-Type: text/plain; charset="UTF-8"
+The return value of bogus_8259A_irq() is wrong: the function will
+return `true` when the IRQ is real and `false` when it's a spurious
+IRQ.  This causes the "No irq handler for vector ..." message in
+do_IRQ() to be printed for spurious i8259 interrupts which is not
+intended (and not helpful).
 
-On 27 Jul 2023, Jan Beulich wrote:
+Fix by inverting the return value of bogus_8259A_irq().
 
-On 26.07.2023 13:03, Simone Ballarin wrote:
-> >* @@ -70,15 +70,15 @@ static const uint8_t sr_mask[8] = {*
-> >*  };*
-> >
-> >*  static const uint8_t gr_mask[9] = {*
-> >* -    (uint8_t)~0xf0, /* 0x00 */*
-> >* -    (uint8_t)~0xf0, /* 0x01 */*
-> >* -    (uint8_t)~0xf0, /* 0x02 */*
-> >* -    (uint8_t)~0xe0, /* 0x03 */*
-> >* -    (uint8_t)~0xfc, /* 0x04 */*
-> >* -    (uint8_t)~0x84, /* 0x05 */*
-> >* -    (uint8_t)~0xf0, /* 0x06 */*
-> >* -    (uint8_t)~0xf0, /* 0x07 */*
-> >* -    (uint8_t)~0x00, /* 0x08 */*
-> >* +    (uint8_t)~0xf0,*
-> >* +    (uint8_t)~0xf0,*
-> >* +    (uint8_t)~0xf0,*
-> >* +    (uint8_t)~0xe0,*
-> >* +    (uint8_t)~0xfc,*
-> >* +    (uint8_t)~0x84,*
-> >* +    (uint8_t)~0xf0,*
-> >* +    (uint8_t)~0xf0,*
-> >* +    (uint8_t)~0x00,*
-> >*  };*
->
-> Hmm, this stray change is _still_ there.
->
-> Ok. Sorry for that.
+Fixes: 132906348a14 ('x86/i8259: Handle bogus spurious interrupts more quietly')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/i8259.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> >* --- a/xen/arch/x86/include/asm/hvm/trace.h*
-> >* +++ b/xen/arch/x86/include/asm/hvm/trace.h*
-> >* @@ -58,7 +58,7 @@*
-> >*  #define DO_TRC_HVM_VLAPIC           DEFAULT_HVM_MISC*
-> >
-> >
-> >* -#define TRC_PAR_LONG(par) ((par)&0xFFFFFFFF),((par)>>32)*
-> >* +#define TRC_PAR_LONG(par) ((uint32_t)par), ((par) >> 32)*
->
-> You've lost parentheses around "par".
->
-> >* @@ -93,7 +93,7 @@*
-> >*      HVMTRACE_ND(evt, 0, 0)*
-> >
-> >*  #define HVMTRACE_LONG_1D(evt, d1)                  \*
-> >* -                   HVMTRACE_2D(evt ## 64, (d1) & 0xFFFFFFFF, (d1) >> 32)*
-> >* +                   HVMTRACE_2D(evt ## 64, (uint32_t)d1, (d1) >> 32)*
->
-> Same for "d1" here.
->
-> Both of these are, btw., indications that you should have dropped Stefano's
-> R-b.
->
-> Ok.
-
-> >* --- a/xen/arch/x86/include/asm/msr-index.h*
-> >* +++ b/xen/arch/x86/include/asm/msr-index.h*
-> >* @@ -30,7 +30,7 @@*
-> >
-> >*  #define MSR_INTEL_CORE_THREAD_COUNT         0x00000035*
-> >*  #define  MSR_CTC_THREAD_MASK                0x0000ffff*
-> >* -#define  MSR_CTC_CORE_MASK                  0xffff0000*
-> >* +#define  MSR_CTC_CORE_MASK                  0xffff0000U*
-> >
-> >*  #define MSR_SPEC_CTRL                       0x00000048*
-> >*  #define  SPEC_CTRL_IBRS                     (_AC(1, ULL) <<  0)*
-> >* @@ -168,7 +168,7 @@*
-> >*  #define MSR_UARCH_MISC_CTRL                 0x00001b01*
-> >*  #define  UARCH_CTRL_DOITM                   (_AC(1, ULL) <<  0)*
-> >
-> >* -#define MSR_EFER                            0xc0000080 /* Extended Feature *
-> >* Enable Register */*
-> >* +#define MSR_EFER                            _AC(0xc0000080, U)  /* Extended *
-> >* Feature Enable Register */*
->
-> I understand you use _AC() here because the constant is used in assembly
-> code. But I don't understand why you use it only here, and not throughout
-> at least the "modern" portion of the file. I wonder what other x86
-> maintainers think about this.
->
-> I've used _AC only when strictly required to avoid errors.
-In v5 I will use _AC on all constants in the "modern" part of the file.
-
-> As a minor aspect, I also don't really see why you insert a 2nd blank
-> ahead of the comment.
->
-> To align the comment with the others below.
-I see that comment aligning is not done in this file, so I will drop the
-change in v5.
-
-> >*  #define  EFER_SCE                           (_AC(1, ULL) <<  0) /* SYSCALL *
-> >* Enable */*
-> >*  #define  EFER_LME                           (_AC(1, ULL) <<  8) /* Long Mode *
-> >* Enable */*
-> >*  #define  EFER_LMA                           (_AC(1, ULL) << 10) /* Long Mode *
-> >* Active */*
-> >* @@ -181,35 +181,35 @@*
-> >*      (EFER_SCE | EFER_LME | EFER_LMA | EFER_NXE | EFER_SVME | EFER_FFXSE | \*
-> >*       EFER_AIBRSE)*
-> >
-> >* -#define MSR_STAR                            0xc0000081 /* legacy mode *
-> >* SYSCALL target */*
-> >* -#define MSR_LSTAR                           0xc0000082 /* long mode SYSCALL *
-> >* target */*
-> >* -#define MSR_CSTAR                           0xc0000083 /* compat mode *
-> >* SYSCALL target */*
-> >* -#define MSR_SYSCALL_MASK                    0xc0000084 /* EFLAGS mask for *
-> >* syscall */*
-> >* -#define MSR_FS_BASE                         0xc0000100 /* 64bit FS base */*
-> >* -#define MSR_GS_BASE                         0xc0000101 /* 64bit GS base */*
-> >* -#define MSR_SHADOW_GS_BASE                  0xc0000102 /* SwapGS GS shadow */*
-> >* -#define MSR_TSC_AUX                         0xc0000103 /* Auxiliary TSC */*
-> >* +#define MSR_STAR                            0xc0000081U /* legacy mode *
-> >* SYSCALL target */*
-> >* +#define MSR_LSTAR                           0xc0000082U /* long mode SYSCALL *
-> >* target */*
-> >* +#define MSR_CSTAR                           0xc0000083U /* compat mode *
-> >* SYSCALL target */*
-> >* +#define MSR_SYSCALL_MASK                    0xc0000084U /* EFLAGS mask for *
-> >* syscall */*
-> >* +#define MSR_FS_BASE                         0xc0000100U /* 64bit FS base */*
-> >* +#define MSR_GS_BASE                         0xc0000101U /* 64bit GS base */*
-> >* +#define MSR_SHADOW_GS_BASE                  0xc0000102U /* SwapGS GS shadow *
-> >* */*
-> >* +#define MSR_TSC_AUX                         0xc0000103U /* Auxiliary TSC */*
-> >
-> >* -#define MSR_K8_SYSCFG                       0xc0010010*
-> >* +#define MSR_K8_SYSCFG                       0xc0010010U*
-> >*  #define  SYSCFG_MTRR_FIX_DRAM_EN            (_AC(1, ULL) << 18)*
-> >*  #define  SYSCFG_MTRR_FIX_DRAM_MOD_EN        (_AC(1, ULL) << 19)*
-> >*  #define  SYSCFG_MTRR_VAR_DRAM_EN            (_AC(1, ULL) << 20)*
-> >*  #define  SYSCFG_MTRR_TOM2_EN                (_AC(1, ULL) << 21)*
-> >*  #define  SYSCFG_TOM2_FORCE_WB               (_AC(1, ULL) << 22)*
-> >
-> >* -#define MSR_K8_IORR_BASE0                   0xc0010016*
-> >* -#define MSR_K8_IORR_MASK0                   0xc0010017*
-> >* -#define MSR_K8_IORR_BASE1                   0xc0010018*
-> >* -#define MSR_K8_IORR_MASK1                   0xc0010019*
-> >* +#define MSR_K8_IORR_BASE0                   0xc0010016U*
-> >* +#define MSR_K8_IORR_MASK0                   0xc0010017U*
-> >* +#define MSR_K8_IORR_BASE1                   0xc0010018U*
-> >* +#define MSR_K8_IORR_MASK1                   0xc0010019U*
-> >
-> >* -#define MSR_K8_TSEG_BASE                    0xc0010112 /* AMD doc: SMMAddr */*
-> >* -#define MSR_K8_TSEG_MASK                    0xc0010113 /* AMD doc: SMMMask */*
-> >* +#define MSR_K8_TSEG_BASE                    0xc0010112U /* AMD doc: SMMAddr *
-> >* */*
-> >* +#define MSR_K8_TSEG_MASK                    0xc0010113U /* AMD doc: SMMMask *
-> >* */*
-> >
-> >* -#define MSR_K8_VM_CR                        0xc0010114*
-> >* +#define MSR_K8_VM_CR                        0xc0010114U*
-> >*  #define  VM_CR_INIT_REDIRECTION             (_AC(1, ULL) <<  1)*
-> >*  #define  VM_CR_SVM_DISABLE                  (_AC(1, ULL) <<  4)*
-> >
-> >* -#define MSR_VIRT_SPEC_CTRL                  0xc001011f /* Layout matches *
-> >* MSR_SPEC_CTRL */*
-> >* +#define MSR_VIRT_SPEC_CTRL                  0xc001011fU /* Layout matches *
-> >* MSR_SPEC_CTRL */*
-> >
-> >*  /**
-> >*   * Legacy MSR constants in need of cleanup.  No new MSRs below this comment.*
->
-> (As to above remark: This is the separator between "modern" [above]
-> and "historic" [below].)
->
-> Jan
->
->
-
+diff --git a/xen/arch/x86/i8259.c b/xen/arch/x86/i8259.c
+index 6b35be10f09a..ed9f55abe51e 100644
+--- a/xen/arch/x86/i8259.c
++++ b/xen/arch/x86/i8259.c
+@@ -37,7 +37,7 @@ static bool _mask_and_ack_8259A_irq(unsigned int irq);
+ 
+ bool bogus_8259A_irq(unsigned int irq)
+ {
+-    return _mask_and_ack_8259A_irq(irq);
++    return !_mask_and_ack_8259A_irq(irq);
+ }
+ 
+ static void cf_check mask_and_ack_8259A_irq(struct irq_desc *desc)
 -- 
-Simone Ballarin, M.Sc.
+2.41.0
 
-Field Application Engineer, BUGSENG (https://bugseng.com
-<http://bugseng.com>)
-
---000000000000994e5e0603f8eb9e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"></div><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr"><pre>On 27 Jul 2023, Jan Beulich wrote:</pre>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr" cl=
-ass=3D"gmail_attr"><pre>On 26.07.2023 13:03, Simone Ballarin wrote:
-&gt;<i> @@ -70,15 +70,15 @@ static const uint8_t sr_mask[8] =3D {</i>
-&gt;<i>  };</i>
-&gt;<i>  </i>
-&gt;<i>  static const uint8_t gr_mask[9] =3D {</i>
-&gt;<i> -    (uint8_t)~0xf0, /* 0x00 */</i>
-&gt;<i> -    (uint8_t)~0xf0, /* 0x01 */</i>
-&gt;<i> -    (uint8_t)~0xf0, /* 0x02 */</i>
-&gt;<i> -    (uint8_t)~0xe0, /* 0x03 */</i>
-&gt;<i> -    (uint8_t)~0xfc, /* 0x04 */</i>
-&gt;<i> -    (uint8_t)~0x84, /* 0x05 */</i>
-&gt;<i> -    (uint8_t)~0xf0, /* 0x06 */</i>
-&gt;<i> -    (uint8_t)~0xf0, /* 0x07 */</i>
-&gt;<i> -    (uint8_t)~0x00, /* 0x08 */</i>
-&gt;<i> +    (uint8_t)~0xf0,</i>
-&gt;<i> +    (uint8_t)~0xf0,</i>
-&gt;<i> +    (uint8_t)~0xf0,</i>
-&gt;<i> +    (uint8_t)~0xe0,</i>
-&gt;<i> +    (uint8_t)~0xfc,</i>
-&gt;<i> +    (uint8_t)~0x84,</i>
-&gt;<i> +    (uint8_t)~0xf0,</i>
-&gt;<i> +    (uint8_t)~0xf0,</i>
-&gt;<i> +    (uint8_t)~0x00,</i>
-&gt;<i>  };</i>
-
-Hmm, this stray change is _still_ there.</pre></div></blockquote><div>Ok. S=
-orry for that. <br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-<div dir=3D"ltr" class=3D"gmail_attr"><pre>&gt;<i> --- a/xen/arch/x86/inclu=
-de/asm/hvm/trace.h</i>
-&gt;<i> +++ b/xen/arch/x86/include/asm/hvm/trace.h</i>
-&gt;<i> @@ -58,7 +58,7 @@</i>
-&gt;<i>  #define DO_TRC_HVM_VLAPIC           DEFAULT_HVM_MISC</i>
-&gt;<i>  </i>
-&gt;<i>  </i>
-&gt;<i> -#define TRC_PAR_LONG(par) ((par)&amp;0xFFFFFFFF),((par)&gt;&gt;32)=
-</i>
-&gt;<i> +#define TRC_PAR_LONG(par) ((uint32_t)par), ((par) &gt;&gt; 32)</i>
-
-You&#39;ve lost parentheses around &quot;par&quot;.
-
-&gt;<i> @@ -93,7 +93,7 @@</i>
-&gt;<i>      HVMTRACE_ND(evt, 0, 0)</i>
-&gt;<i>  </i>
-&gt;<i>  #define HVMTRACE_LONG_1D(evt, d1)                  \</i>
-&gt;<i> -                   HVMTRACE_2D(evt ## 64, (d1) &amp; 0xFFFFFFFF, (=
-d1) &gt;&gt; 32)</i>
-&gt;<i> +                   HVMTRACE_2D(evt ## 64, (uint32_t)d1, (d1) &gt;&=
-gt; 32)</i>
-
-Same for &quot;d1&quot; here.
-
-Both of these are, btw., indications that you should have dropped Stefano&#=
-39;s
-R-b.</pre></div></blockquote><div>Ok. <br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex"><div dir=3D"ltr" class=3D"gmail_attr"><pre>&gt;<i> -=
--- a/xen/arch/x86/include/asm/msr-index.h</i>
-&gt;<i> +++ b/xen/arch/x86/include/asm/msr-index.h</i>
-&gt;<i> @@ -30,7 +30,7 @@</i>
-&gt;<i>  </i>
-&gt;<i>  #define MSR_INTEL_CORE_THREAD_COUNT         0x00000035</i>
-&gt;<i>  #define  MSR_CTC_THREAD_MASK                0x0000ffff</i>
-&gt;<i> -#define  MSR_CTC_CORE_MASK                  0xffff0000</i>
-&gt;<i> +#define  MSR_CTC_CORE_MASK                  0xffff0000U</i>
-&gt;<i>  </i>
-&gt;<i>  #define MSR_SPEC_CTRL                       0x00000048</i>
-&gt;<i>  #define  SPEC_CTRL_IBRS                     (_AC(1, ULL) &lt;&lt; =
- 0)</i>
-&gt;<i> @@ -168,7 +168,7 @@</i>
-&gt;<i>  #define MSR_UARCH_MISC_CTRL                 0x00001b01</i>
-&gt;<i>  #define  UARCH_CTRL_DOITM                   (_AC(1, ULL) &lt;&lt; =
- 0)</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_EFER                            0xc0000080 /* Extended=
- Feature </i>
-&gt;<i> Enable Register */</i>
-&gt;<i> +#define MSR_EFER                            _AC(0xc0000080, U)  /*=
- Extended </i>
-&gt;<i> Feature Enable Register */</i>
-
-I understand you use _AC() here because the constant is used in assembly
-code. But I don&#39;t understand why you use it only here, and not througho=
-ut
-at least the &quot;modern&quot; portion of the file. I wonder what other x8=
-6
-maintainers think about this.</pre></div></blockquote><div>I&#39;ve used _A=
-C only when strictly required to avoid errors.<br></div><div>In v5 I will u=
-se _AC on all constants in the &quot;modern&quot; part of the file.<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr" class=
-=3D"gmail_attr"><pre>As a minor aspect, I also don&#39;t really see why you=
- insert a 2nd blank
-ahead of the comment.</pre></div></blockquote><div>To align the comment wit=
-h the others below.</div><div>I see that comment aligning is not done in th=
-is file, so I will drop the change in v5.<br></div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
-04,204);padding-left:1ex"><div dir=3D"ltr" class=3D"gmail_attr"><pre>&gt;<i=
->  #define  EFER_SCE                           (_AC(1, ULL) &lt;&lt;  0) /*=
- SYSCALL </i>
-&gt;<i> Enable */</i>
-&gt;<i>  #define  EFER_LME                           (_AC(1, ULL) &lt;&lt; =
- 8) /* Long Mode </i>
-&gt;<i> Enable */</i>
-&gt;<i>  #define  EFER_LMA                           (_AC(1, ULL) &lt;&lt; =
-10) /* Long Mode </i>
-&gt;<i> Active */</i>
-&gt;<i> @@ -181,35 +181,35 @@</i>
-&gt;<i>      (EFER_SCE | EFER_LME | EFER_LMA | EFER_NXE | EFER_SVME | EFER_=
-FFXSE | \</i>
-&gt;<i>       EFER_AIBRSE)</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_STAR                            0xc0000081 /* legacy m=
-ode </i>
-&gt;<i> SYSCALL target */</i>
-&gt;<i> -#define MSR_LSTAR                           0xc0000082 /* long mod=
-e SYSCALL </i>
-&gt;<i> target */</i>
-&gt;<i> -#define MSR_CSTAR                           0xc0000083 /* compat m=
-ode </i>
-&gt;<i> SYSCALL target */</i>
-&gt;<i> -#define MSR_SYSCALL_MASK                    0xc0000084 /* EFLAGS m=
-ask for </i>
-&gt;<i> syscall */</i>
-&gt;<i> -#define MSR_FS_BASE                         0xc0000100 /* 64bit FS=
- base */</i>
-&gt;<i> -#define MSR_GS_BASE                         0xc0000101 /* 64bit GS=
- base */</i>
-&gt;<i> -#define MSR_SHADOW_GS_BASE                  0xc0000102 /* SwapGS G=
-S shadow */</i>
-&gt;<i> -#define MSR_TSC_AUX                         0xc0000103 /* Auxiliar=
-y TSC */</i>
-&gt;<i> +#define MSR_STAR                            0xc0000081U /* legacy =
-mode </i>
-&gt;<i> SYSCALL target */</i>
-&gt;<i> +#define MSR_LSTAR                           0xc0000082U /* long mo=
-de SYSCALL </i>
-&gt;<i> target */</i>
-&gt;<i> +#define MSR_CSTAR                           0xc0000083U /* compat =
-mode </i>
-&gt;<i> SYSCALL target */</i>
-&gt;<i> +#define MSR_SYSCALL_MASK                    0xc0000084U /* EFLAGS =
-mask for </i>
-&gt;<i> syscall */</i>
-&gt;<i> +#define MSR_FS_BASE                         0xc0000100U /* 64bit F=
-S base */</i>
-&gt;<i> +#define MSR_GS_BASE                         0xc0000101U /* 64bit G=
-S base */</i>
-&gt;<i> +#define MSR_SHADOW_GS_BASE                  0xc0000102U /* SwapGS =
-GS shadow </i>
-&gt;<i> */</i>
-&gt;<i> +#define MSR_TSC_AUX                         0xc0000103U /* Auxilia=
-ry TSC */</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_K8_SYSCFG                       0xc0010010</i>
-&gt;<i> +#define MSR_K8_SYSCFG                       0xc0010010U</i>
-&gt;<i>  #define  SYSCFG_MTRR_FIX_DRAM_EN            (_AC(1, ULL) &lt;&lt; =
-18)</i>
-&gt;<i>  #define  SYSCFG_MTRR_FIX_DRAM_MOD_EN        (_AC(1, ULL) &lt;&lt; =
-19)</i>
-&gt;<i>  #define  SYSCFG_MTRR_VAR_DRAM_EN            (_AC(1, ULL) &lt;&lt; =
-20)</i>
-&gt;<i>  #define  SYSCFG_MTRR_TOM2_EN                (_AC(1, ULL) &lt;&lt; =
-21)</i>
-&gt;<i>  #define  SYSCFG_TOM2_FORCE_WB               (_AC(1, ULL) &lt;&lt; =
-22)</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_K8_IORR_BASE0                   0xc0010016</i>
-&gt;<i> -#define MSR_K8_IORR_MASK0                   0xc0010017</i>
-&gt;<i> -#define MSR_K8_IORR_BASE1                   0xc0010018</i>
-&gt;<i> -#define MSR_K8_IORR_MASK1                   0xc0010019</i>
-&gt;<i> +#define MSR_K8_IORR_BASE0                   0xc0010016U</i>
-&gt;<i> +#define MSR_K8_IORR_MASK0                   0xc0010017U</i>
-&gt;<i> +#define MSR_K8_IORR_BASE1                   0xc0010018U</i>
-&gt;<i> +#define MSR_K8_IORR_MASK1                   0xc0010019U</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_K8_TSEG_BASE                    0xc0010112 /* AMD doc:=
- SMMAddr */</i>
-&gt;<i> -#define MSR_K8_TSEG_MASK                    0xc0010113 /* AMD doc:=
- SMMMask */</i>
-&gt;<i> +#define MSR_K8_TSEG_BASE                    0xc0010112U /* AMD doc=
-: SMMAddr </i>
-&gt;<i> */</i>
-&gt;<i> +#define MSR_K8_TSEG_MASK                    0xc0010113U /* AMD doc=
-: SMMMask </i>
-&gt;<i> */</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_K8_VM_CR                        0xc0010114</i>
-&gt;<i> +#define MSR_K8_VM_CR                        0xc0010114U</i>
-&gt;<i>  #define  VM_CR_INIT_REDIRECTION             (_AC(1, ULL) &lt;&lt; =
- 1)</i>
-&gt;<i>  #define  VM_CR_SVM_DISABLE                  (_AC(1, ULL) &lt;&lt; =
- 4)</i>
-&gt;<i>  </i>
-&gt;<i> -#define MSR_VIRT_SPEC_CTRL                  0xc001011f /* Layout m=
-atches </i>
-&gt;<i> MSR_SPEC_CTRL */</i>
-&gt;<i> +#define MSR_VIRT_SPEC_CTRL                  0xc001011fU /* Layout =
-matches </i>
-&gt;<i> MSR_SPEC_CTRL */</i>
-&gt;<i>  </i>
-&gt;<i>  /*</i>
-&gt;<i>   * Legacy MSR constants in need of cleanup.  No new MSRs below thi=
-s comment.</i>
-
-(As to above remark: This is the separator between &quot;modern&quot; [abov=
-e]
-and &quot;historic&quot; [below].)
-
-Jan</pre></div></blockquote></div><br clear=3D"all"><br><span class=3D"gmai=
-l_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature=
-"><div dir=3D"ltr">Simone Ballarin, M.Sc.<br><br><div>Field Application Eng=
-ineer, BUGSENG (<a href=3D"http://bugseng.com" target=3D"_blank">https://bu=
-gseng.com</a>)</div></div></div></div>
-
---000000000000994e5e0603f8eb9e--
 
