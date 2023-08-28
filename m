@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750F478B32D
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 16:30:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.591518.923954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE3078B374
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Aug 2023 16:45:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591532.924033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qadFp-0003jO-Oi; Mon, 28 Aug 2023 14:30:09 +0000
+	id 1qadUM-00013S-9c; Mon, 28 Aug 2023 14:45:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 591518.923954; Mon, 28 Aug 2023 14:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 591532.924033; Mon, 28 Aug 2023 14:45:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qadFp-0003g8-M4; Mon, 28 Aug 2023 14:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 591518;
- Mon, 28 Aug 2023 13:20:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qadUM-00011g-6k; Mon, 28 Aug 2023 14:45:10 +0000
+Received: by outflank-mailman (input) for mailman id 591532;
+ Mon, 28 Aug 2023 13:36:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RJ5s=EN=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qacAQ-00031h-3M
- for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 13:20:30 +0000
+ id 1qacPu-0004gK-UA
+ for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 13:36:30 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a78b3136-45a5-11ee-8783-cb3800f73035;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7ca1d81-45a5-11ee-9b0c-b553b5be7939;
  Mon, 28 Aug 2023 15:20:28 +0200 (CEST)
 Received: from beta.station (net-93-66-137-131.cust.vodafonedsl.it
  [93.66.137.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 9381B4EE0738;
- Mon, 28 Aug 2023 15:20:26 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 943794EE073A;
+ Mon, 28 Aug 2023 15:20:27 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,7 +40,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a78b3136-45a5-11ee-8783-cb3800f73035
+X-Inumbo-ID: a7ca1d81-45a5-11ee-9b0c-b553b5be7939
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
@@ -51,81 +51,63 @@ Cc: consulting@bugseng.com,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [XEN PATCH 00/13] address violations of MISRA C:2012 Directive 4.10
-Date: Mon, 28 Aug 2023 15:19:57 +0200
-Message-Id: <cover.1693228255.git.simone.ballarin@bugseng.com>
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH 01/13] misra: add deviation for headers that explicitly avoid guards
+Date: Mon, 28 Aug 2023 15:19:58 +0200
+Message-Id: <9b8165105c28f8e684844f56814726498e34c46e.1693228255.git.simone.ballarin@bugseng.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1693228255.git.simone.ballarin@bugseng.com>
+References: <cover.1693228255.git.simone.ballarin@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add or move inclusion guards to address violations of
-MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
-to prevent the contents of a header file being included more than
-once").
+Some headers, under specific circumstances (documented in a comment at
+the beginning of the file), explicitly avoid inclusion guards: the caller
+is responsible for including them correctly.
 
-Inclusion guards must appear at the beginning of the headers
-(comments are permitted anywhere) and the #if directive cannot
-be used for other checks.
+These files are not supposed to comply with Directive 4.10:
+"Precautions shall be taken in order to prevent the contents of a header
+file being included more than once"
 
-C files, if included somewhere, need to comply with the guideline.
+This patch adds a deviation for all headers that contain the following
+in a comment text:
+"In this case, no inclusion guards apply and the caller is responsible"
 
-Simone Ballarin (13):
-  misra: add deviation for headers that explicitly avoid guards
-  automation/eclair: add text-based deviation for empty headers
-  xen/arm: address violations of MISRA C:2012 Directive 4.10
-  xen/x86: address violations of MISRA C:2012 Directive 4.10
-  automation/eclair: add deviation for usercopy.c
-  x86/EFI: address violations of MISRA C:2012 Directive 4.10
-  x86/asm: address violations of MISRA C:2012 Directive 4.10
-  x86/mm: address violations of MISRA C:2012 Directive 4.10
-  xen/common: address violations of MISRA C:2012 Directive 4.10
-  xen/efi: address violations of MISRA C:2012 Directive 4.10
-  xen/sched: address violations of MISRA C:2012 Directive 4.10
-  xen: address violations of MISRA C:2012 Directive 4.10
-  x86/asm: address violations of MISRA C:2012 Directive 4.10
+Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++++
+ docs/misra/rules.rst                             | 3 ++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
- automation/eclair_analysis/ECLAIR/deviations.ecl | 9 +++++++++
- docs/misra/rules.rst                             | 5 ++++-
- xen/arch/arm/efi/efi-boot.h                      | 6 ++++++
- xen/arch/arm/include/asm/hypercall.h             | 6 +++---
- xen/arch/arm/include/asm/iocap.h                 | 6 +++---
- xen/arch/x86/Makefile                            | 8 ++++----
- xen/arch/x86/cpu/cpu.h                           | 5 +++++
- xen/arch/x86/efi/efi-boot.h                      | 6 ++++++
- xen/arch/x86/efi/runtime.h                       | 5 +++++
- xen/arch/x86/include/asm/compat.h                | 5 +++++
- xen/arch/x86/include/asm/cpufeatures.h           | 4 +---
- xen/arch/x86/include/asm/efibind.h               | 5 +++++
- xen/arch/x86/include/asm/hypercall.h             | 6 +++---
- xen/arch/x86/mm/guest_walk.c                     | 5 +++++
- xen/arch/x86/mm/hap/guest_walk.c                 | 4 ++++
- xen/arch/x86/physdev.c                           | 4 ++++
- xen/arch/x86/platform_hypercall.c                | 5 +++++
- xen/arch/x86/x86_64/compat/mm.c                  | 5 +++++
- xen/arch/x86/x86_64/mmconfig.h                   | 5 +++++
- xen/arch/x86/x86_emulate/private.h               | 5 +++++
- xen/arch/x86/x86_emulate/x86_emulate.c           | 5 +++++
- xen/common/compat/grant_table.c                  | 7 +++++++
- xen/common/coverage/gcc_4_7.c                    | 5 +++++
- xen/common/decompress.h                          | 5 +++++
- xen/common/efi/efi.h                             | 5 +++++
- xen/common/efi/runtime.c                         | 6 ++++++
- xen/common/event_channel.h                       | 5 +++++
- xen/common/multicall.c                           | 5 +++++
- xen/common/sched/compat.c                        | 6 ++++++
- xen/include/xen/err.h                            | 4 +++-
- xen/include/xen/pci_ids.h                        | 5 +++++
- xen/include/xen/softirq.h                        | 4 +++-
- xen/include/xen/unaligned.h                      | 7 ++++---
- xen/include/xen/vmap.h                           | 4 +++-
- xen/tools/compat-xlat-header.py                  | 2 ++
- 35 files changed, 161 insertions(+), 23 deletions(-)
-
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index d8170106b4..5f068377fa 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -91,6 +91,10 @@ conform to the directive."
+ -config=MC3R1.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+ -doc_end
+ 
++-doc_begin="Some headers, under specific circumstances, explicitly avoid inclusion guards."
++-config=MC3R1.D4.10,reports+={safe, "first_area(text(^ \\* In this case, no inclusion guards apply and the caller is responsible.*\\*/$, begin-1))"}
++-doc_end
++
+ #
+ # Series 5.
+ #
+diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+index db30632b93..4b1a7b02b6 100644
+--- a/docs/misra/rules.rst
++++ b/docs/misra/rules.rst
+@@ -60,7 +60,8 @@ maintainers if you want to suggest a change.
+      - Precautions shall be taken in order to prevent the contents of a
+        header file being included more than once
+      - Files that are intended to be included more than once do not need to
+-       conform to the directive
++       conform to the directive. Files that explicitly avoid inclusion guards
++       under specific circumstances do not need to conform the directive.
+ 
+    * - `Dir 4.11 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_11.c>`_
+      - Required
 -- 
 2.34.1
 
