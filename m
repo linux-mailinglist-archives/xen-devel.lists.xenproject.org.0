@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E507578BB1B
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Aug 2023 00:43:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.591861.924414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575ED78BB22
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Aug 2023 00:46:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.591870.924424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qakxB-0007W0-B3; Mon, 28 Aug 2023 22:43:25 +0000
+	id 1qakzZ-0008B5-Qo; Mon, 28 Aug 2023 22:45:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 591861.924414; Mon, 28 Aug 2023 22:43:25 +0000
+Received: by outflank-mailman (output) from mailman id 591870.924424; Mon, 28 Aug 2023 22:45:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qakxB-0007TV-7F; Mon, 28 Aug 2023 22:43:25 +0000
-Received: by outflank-mailman (input) for mailman id 591861;
- Mon, 28 Aug 2023 22:43:24 +0000
+	id 1qakzZ-00089K-NW; Mon, 28 Aug 2023 22:45:53 +0000
+Received: by outflank-mailman (input) for mailman id 591870;
+ Mon, 28 Aug 2023 22:45:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yBR3=EN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qakxA-0007TG-CE
- for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 22:43:24 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1qakzY-00089D-6w
+ for xen-devel@lists.xenproject.org; Mon, 28 Aug 2023 22:45:52 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ab6f29b-45f4-11ee-8783-cb3800f73035;
- Tue, 29 Aug 2023 00:43:23 +0200 (CEST)
+ id a2d22695-45f4-11ee-8783-cb3800f73035;
+ Tue, 29 Aug 2023 00:45:51 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id ED23063A26;
- Mon, 28 Aug 2023 22:43:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1EFC433C8;
- Mon, 28 Aug 2023 22:43:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C043C60FD2;
+ Mon, 28 Aug 2023 22:45:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0550CC433C7;
+ Mon, 28 Aug 2023 22:45:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,75 +44,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ab6f29b-45f4-11ee-8783-cb3800f73035
+X-Inumbo-ID: a2d22695-45f4-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693262601;
-	bh=IDO2rh4H5NU92FmYdt5Zh0gtNUcSG4jcGlt/Mbsp24E=;
+	s=k20201202; t=1693262749;
+	bh=uR5tTBB3do2rM6OfZCuU7OO3bryXas1p0x+ExW6slc8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dfHzenc37vJEgbM0srVy7xAKTnZuQEmVYzkK38jep1LWC1KvQBCCkfVnQ6BBmt0V/
-	 IlTu/XCxkdKKP7g9/t6dwmBvYLe47eBaHEHvDVJKlSnJTK5MPS/Wui/zv+M6wibcVj
-	 QLCc0tM0w+SKDwHZYB7IFCqMsl/LfNpODRLd2gWRKNaQf4fHjEBdHKu4PnA8lUrQKA
-	 KTIGOMPrydawym38YivnRRBWJ8uYX2ZWv2Lqb7Mdxj6eUvSACIvcank3O+mXKZt9qI
-	 Sn3ZRLN4JNVeeJ2tos1Pl/4BioNf70Js6t/42BSDd+zjoRXdixu9ZD2BN/OaY99IqF
-	 Zxx3ZboHJNF8A==
-Date: Mon, 28 Aug 2023 15:43:18 -0700 (PDT)
+	b=H7pFPK2l6L8NUnqrq+w5nBcKkQSy3CH6lox9RKuQOVIU+hlxgsYd8xiz7AGx9X6wu
+	 GR5yiGx5vaM3nS/7zgL6FrEHttDDRhCPZWonFxx4i1N0z0xnr1ScmtJTU8BgGn7wdl
+	 jSg5MS+7wSGqZbzdHsYM7bbrRQi7qw9pCJhTVCml8hflfYxcU2l5hFBLbUNU+zoW20
+	 /KNzt4gY1qKdyL/VBNL2yUOns3EBE2KD60XLQJ0ZKaE6R4v0YnErdw2VysDFj2VyGp
+	 +0JiMuLASBh5p3CcJhhSjeDp5PkUdNPXWGQErBgtL0StFvQzo+glnQUM1LAIdsXnqH
+	 xy1YIG6VSs/4Q==
+Date: Mon, 28 Aug 2023 15:45:45 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    sstabellini@kernel.org, George Dunlap <george.dunlap@citrix.com>, 
-    Dario Faggioli <dfaggioli@suse.com>
-Subject: Re: [XEN PATCH 11/13] xen/sched: address violations of MISRA C:2012
+    sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 13/13] x86/asm: address violations of MISRA C:2012
  Directive 4.10
-In-Reply-To: <8f2179f60335edcf97a04e1c35c7f4bb574c2145.1693228255.git.simone.ballarin@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2308281543120.6458@ubuntu-linux-20-04-desktop>
-References: <cover.1693228255.git.simone.ballarin@bugseng.com> <8f2179f60335edcf97a04e1c35c7f4bb574c2145.1693228255.git.simone.ballarin@bugseng.com>
+In-Reply-To: <7af1f690e486e2872a645463b4ec9d4b07a6c23a.1693228255.git.simone.ballarin@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2308281544040.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1693228255.git.simone.ballarin@bugseng.com> <7af1f690e486e2872a645463b4ec9d4b07a6c23a.1693228255.git.simone.ballarin@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 28 Aug 2023, Simone Ballarin wrote:
-> Add inclusion guards to address violations of
+> Amend generation script to address a violation of
 > MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
 > to prevent the contents of a header file being included more than
 > once").
 > 
-> Mechanical change.
+> This patch adds a special comment to the beginning of the header
+> to make it explicit that the file is generated automatically.
+> 
+> The comment is recognized by ECLAIR and will cause the deviation of
+> the violation.
 > 
 > Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
->  xen/common/sched/compat.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  xen/tools/compat-xlat-header.py | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/xen/common/sched/compat.c b/xen/common/sched/compat.c
-> index a596e3a226..d718e450d4 100644
-> --- a/xen/common/sched/compat.c
-> +++ b/xen/common/sched/compat.c
-> @@ -3,6 +3,10 @@
->   *
->   */
+> diff --git a/xen/tools/compat-xlat-header.py b/xen/tools/compat-xlat-header.py
+> index 2b805b23a8..9e336277ac 100644
+> --- a/xen/tools/compat-xlat-header.py
+> +++ b/xen/tools/compat-xlat-header.py
+> @@ -406,6 +406,8 @@ def main():
+>              line = line.strip()
+>              header_tokens += re_tokenazier.split(line)
 >  
-> +#ifndef __COMMON_SCHED_COMPAT_C__
-> +#define __COMMON_SCHED_COMPAT_C__
-> +
-> +
->  #include <compat/sched.h>
->  
->  #define COMPAT
-> @@ -44,6 +48,8 @@ int compat_set_timer_op(uint32_t lo, int32_t hi)
->      return do_set_timer_op(((s64)hi << 32) | lo);
->  }
->  
-> +#endif /* __COMMON_SCHED_COMPAT_C__ */
-> +
->  /*
->   * Local variables:
->   * mode: C
-> -- 
-> 2.34.1
-> 
+> +    print("/* Generated file, do not edit! */")
+
+I think it might be a good idea regardless of MISRA compliance to add
+this comment.
+
+However for MISRA compliance I think we should document somewhere other
+than ECLAIR config file that "Generated file, do not edit!" is being
+used as a MISRA C deviation marker.
+
+I think we should add a special note to safe.json, or alternatively also
+add the safe.json tag to the comment:
+
+print("/* SAF-1-safe Generated file, do not edit! */")
+
+
+>      with open(sys.argv[2]) as compat_list:
+>          for line in compat_list:
+>              words = re_tokenazier.split(line, maxsplit=1)
+
 
