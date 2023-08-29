@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C3B78C657
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Aug 2023 15:44:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.592243.924940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CCC78C68D
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Aug 2023 15:59:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.592275.924949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaz0p-0005ql-5s; Tue, 29 Aug 2023 13:44:07 +0000
+	id 1qazFO-0000AO-DO; Tue, 29 Aug 2023 13:59:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 592243.924940; Tue, 29 Aug 2023 13:44:07 +0000
+Received: by outflank-mailman (output) from mailman id 592275.924949; Tue, 29 Aug 2023 13:59:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qaz0p-0005nL-2L; Tue, 29 Aug 2023 13:44:07 +0000
-Received: by outflank-mailman (input) for mailman id 592243;
- Tue, 29 Aug 2023 13:44:06 +0000
+	id 1qazFO-00008T-Ac; Tue, 29 Aug 2023 13:59:10 +0000
+Received: by outflank-mailman (input) for mailman id 592275;
+ Tue, 29 Aug 2023 13:59:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mPBx=EO=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qaz0n-0004TH-SU
- for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 13:44:05 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20602.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::602])
+ id 1qazFM-00008N-VR
+ for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 13:59:09 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on061a.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::61a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1da2c62d-4672-11ee-9b0d-b553b5be7939;
- Tue, 29 Aug 2023 15:44:03 +0200 (CEST)
+ id 37ca4c8d-4674-11ee-9b0d-b553b5be7939;
+ Tue, 29 Aug 2023 15:59:06 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PA4PR04MB8016.eurprd04.prod.outlook.com (2603:10a6:102:cb::10)
+ by DB9PR04MB9674.eurprd04.prod.outlook.com (2603:10a6:10:306::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.34; Tue, 29 Aug
- 2023 13:44:01 +0000
+ 2023 13:59:04 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654%5]) with mapi id 15.20.6699.035; Tue, 29 Aug 2023
- 13:44:01 +0000
+ 13:59:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,467 +47,419 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1da2c62d-4672-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 37ca4c8d-4674-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fADXHw09g4fvwGl77vC5dKOMUKagUk9vXecZnpwwxOPovzDot872k4hKcaeMBYA55hGGfu3q+CKm2ZxWV05GqrKW4Arx2f/svb3jMOMvmciOJJQmtC8UE7tAw24xh9JvnVzXcWautuo3MYIIMvTl1xFTl7Eflb0HfumS55WjIfME+VtJ5w9YGJ6HEt1W7zN1goM9J6biREMkC9q9oHlNQvrn337S0+LuD4AfLhoJx+al4J7ebleyWwZ8Q39tkC8pFAryURtnoms1ixtYAlSkiqYz5AvG9EokRh3DCOqDh+yARu/MUMhCVf+f+YX9gBEfYUBECWbIz4pYzMz41BqjFw==
+ b=eS/xSq/N+PlKrEKGqBuKTpvfQISgSd9AHj6wvO1eoGXDK302U3gdd6p6mK3APJQwx0+JzQ3SGQtpMLhjvqjw2AllWRObzRCqjYfgsyetp3Yf3IBTuSBSsQbBomnwfw2ZBGXn8Y15DcbIyzl4SGqmaFU6HLLTNPagLkQQ+aD453fE5y5cN10jZMXpiyiHWajzsXyTTIvKGb4xMplu+8g+NwtXD0WRbVKnox8wtsHY6OdAtEHRYLh4VCAmxnLH/Vb3+P52HrbakL1/eUyqynrp4zPkUpPiMHujl1YXaqOG6O/wzesd0CWN4JI1THaGDKvDWOyF+TlnTMtkzXRuLMaBNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AoXXWUlVS2d4Iiw7y+yEjRosJH3R8CJunVfjrBiz/R4=;
- b=NJiGAsPJEuLdALMvOEH+8CNhgJpwAeYK1s4Yu+4BhKfcY03W/lmLCgwcfPb6CzYLNKlLWNmf0dykVGrF1/Jjl1ln0T4U1gdnP8A7yQ0KHUrlJGgNgr46n+6dX802YLBAJQn+YWFzyxEdKXzBtPm4s3rcO47zxuFq8E+a2GZ08kYqH10vg4BY6lmh3n1dYJqM/mbxOZvYYs7Is/VRalXU5IFQsy10shMF1gxQ+i+kBTm2gC0DnFjSacY3qleJbmc0VF6zvhSg+FlxhoFusUecfaGaaFa6+c3txDRgN8vpUYj2YYTX0JWQ61KVB7vsPmIWAZQ6bhUY+ceDH5injeo7TA==
+ bh=m9PtzEkBtpU7v0tqSiGeA8L6JHWl6y7ZYZ9DwbwhSQY=;
+ b=jsm+PfrtATWKhtP9mH4GmO+CI+EiPKjbJ1bWa+biuvRRcJ0QQCiDJRiffDtUbMPG53fZZre89xXPz4y2883vXlq/xR35OuXnUqXa+jMY8KpZdPalGwnsvVHgHYOQpxaOvHAL26lqZFUROHjKbOlBcgjlqtkzCG5SGaQMoOJQGo8TzW/Mwr1XcmvLfzQab0BLydlw4Wo3OXjxtmQf5wOxNxPV6YEt1GE4i9nrPDfCMJOT3Snts9CIHwVe8vCu5tBoDP9sdNr0FjRQKnpka3MnQhILj0D/4qcahdmRCV+UrujRdgTuAvHUPM2PmhxWLYfuMMg2PPrN32uxaXfHVAbIXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AoXXWUlVS2d4Iiw7y+yEjRosJH3R8CJunVfjrBiz/R4=;
- b=WgYWpFbMA02yTJK300WHX+qVGLodJCmLyXNEz6a9wbAcsrs8sFkYPEKg1Zj8IrWEXkVl4gCEr03Kot34ay4c00rxU7QzEEv6a8AtDZQf4dKLAz1Q918jGwIwjDiABhkJQXjYLXxyN37xweFe+0bZ8VGhyCIIeE0qAagx9+GWnLL0fxcF1NWNez/QoeqV2pkjcVeoHlJkVstmKksZQ8DmSJji7/RitqlaTIrq6qKFQwU1PJTOCqL4EIxvyHpSTFTXfjtmzzW09AwBKM83pZS3SCSQ9F/nD0pw104nz5LNNWJl7lDkXrsM7Xg5K23DgIJ6N5bPAzCrr0fm8BxduQcMOA==
+ bh=m9PtzEkBtpU7v0tqSiGeA8L6JHWl6y7ZYZ9DwbwhSQY=;
+ b=SrheaUFVZ7L8PWjbD0wIJIpYiobhNzU08MPTYc4fVljN/ViFFAjeUoJLMQwgxYFJfx1ItoWBGfL9HeMmW8j4UVn1sFpfz+ggrU2GvUJ3lq/gyfDLka2TU6Exn83MksmWhHwnT40CufFOoVkvv+wfWyfShrssmBZKD7saM4j/4XJpcp7lo0mRDmcyoIcL7A3iGp2oQBKfthsT/PZiXOPyS/B5AdLFILIZ5D+8Rci5/mYd85jSSQ15R3n2GjGo0LS6QT6qRCfmzVsW3aoEyPxpy+xarzfkYPPXOFHSuUp+oIWjhqjzZLKl2wSTm4ivZdIB50mkn/QCJusS5nT+t+zuzg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <257cd320-fe81-f1be-f3e5-ef43e539660a@suse.com>
-Date: Tue, 29 Aug 2023 15:43:59 +0200
+Message-ID: <11f73889-2059-1d6d-6498-1f1907afabaa@suse.com>
+Date: Tue, 29 Aug 2023 15:59:01 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.14.0
-Subject: Re: [PATCH v2 3/8] xen/ppc: Implement atomic.h
+Subject: Re: [PATCH v2 4/8] xen/ppc: Implement bitops.h
 Content-Language: en-US
 To: Shawn Anastasio <sanastasio@raptorengineering.com>
 Cc: Timothy Pearson <tpearson@raptorengineering.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1692816595.git.sanastasio@raptorengineering.com>
- <6d97bdeb1c114026105e72c6ee6e1b024565bf95.1692816595.git.sanastasio@raptorengineering.com>
+ <583ed0d715aa70e777e7aa62a287acafc52d5a24.1692816595.git.sanastasio@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <6d97bdeb1c114026105e72c6ee6e1b024565bf95.1692816595.git.sanastasio@raptorengineering.com>
+In-Reply-To: <583ed0d715aa70e777e7aa62a287acafc52d5a24.1692816595.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0100.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB8016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bd331ff-ab28-4f87-6a62-08dba896007e
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB9674:EE_
+X-MS-Office365-Filtering-Correlation-Id: f56a67cd-18b9-4945-7083-08dba8981ab3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	uE2HC9VVLrlAlwrRKsjhDIEm+GdDbC2brnPOQy0ZjiQLGgMYm19G7zylCgFgQQFJm3bePnFcn7AVyim7bAbKbLqpQkJFtVXjX3qN8/eqtat30UKJI7BV5gvzQVXElboy0JpPLaudiWSbz3KVcdxPokULF3/MPRkd9DgcqK0upctky5gasTQ59+/VriRHB9KZ+Kjjm+r51/McC/2JuK2Z8pzFf9B99nvRhaRTX4Y806zePvD9FwQMOaZv2g1ILoh/FlFUUzAretorZTcWH6EAm4rtZAJAwb9Isn0g92mmcKeTeUcfljW1VP/IDba/nqnPzbsbk5/Cevav6CRWH/ONhcbvZa357AKsTEVbiyXgUl+72x+ldZasBSRXA4cqqRpMYI1mW3OR8zM/XcL04BFLjAFjGIsKA8F7PHGb6aCEgxgbRHCh8WnP3MbZgsvjRVXi+0E0hNgtdMRCvFMdUe9ujo7N1kod/16IIT/Ojjiew6SEeFA/e69j7y5sfGEe2ZbuKHbD3roGp54nsB0k0p/Le7cTOk+tjYL5u/vfY0JJrMd5FmqiyBrpqzyueepVBztVXF419tI59JOIqRMEcd2v+0IiOS7VqvX5F+KA0epaLR1fqpUbizJpr5h35ReQJuwTb412denIDKIr3I0Dham/xL69b/QtknkE3j8v/xyRx0s=
+	i9y8ngKY//64NMPKzKUz2Pwh/z2xB4eWqH4F53mEboarJpzq+d7qz5jvQy4fPs18gVVRsjstNT5+eCbBZawrzbthl5XfF2AI21ya2Tvu3HvFeVqVwQiYN1DDw84xINo6EvElIkDKRYlLK9LUUmZTrzBXoAs/X96TA5Dzauid8DmvherCwqZRWo2Oy1Z6lJjbS4OPgKtvLAPItysqpJb3r1oDBZc6NBWvSeCZ4prRX+ZkcQ+wBTBDhcdfo77KxPeP6L4PqsDzAYZ45Ru/A74xv4En2jd9ugogU0KbjXK4eDsj+EHV4jI63AoA4ATcDFM+p9r9SAOQM2OsMkHjPISvzvN23yqBNzEtIYXeruEyBCi106rPjpfsgOJpHjQllHMRBdpyk4xGXLtdn6p+rad3Xv3GX+AEPSK5FwFgatTzqUJ3CZ/0LdvfFGQhFpmpoi84hhUWemcC0VmR/namkH37WjLs03P7CHOmNGCDjwl6UBjB+IGzRdxmPYkn6Npoj/U+04Uvv20vpOL/pJf8+vnrrDMr7SvmZUMChtbZ+YYVHqKJomeW5j3ApatFq8mvAVCVauPbVzvOK9rOyKahs9h0RLAOz9lDhVq7Spm7I11khpyN0xLkXgmpuTngZmEnwuHbrxgU+F2//PvMxnaJsT3ilA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(136003)(376002)(39860400002)(366004)(451199024)(1800799009)(186009)(8936002)(66946007)(53546011)(31686004)(478600001)(6506007)(66476007)(66556008)(6486002)(6916009)(316002)(38100700002)(41300700001)(6512007)(36756003)(26005)(8676002)(5660300002)(31696002)(83380400001)(2906002)(86362001)(2616005)(4326008)(2004002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(396003)(39860400002)(366004)(376002)(136003)(186009)(1800799009)(451199024)(2906002)(5660300002)(38100700002)(8676002)(4326008)(8936002)(36756003)(31696002)(86362001)(31686004)(26005)(478600001)(2616005)(6506007)(6486002)(6666004)(6512007)(83380400001)(66946007)(41300700001)(66476007)(66556008)(53546011)(6916009)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?am5JQm9RU2FhYmFvTngzdGJqSFR1VWdpdzVrZ2VELzhldlpuN2FlcStpcjNu?=
- =?utf-8?B?ekkvbjlNdGpSd0FPMSt5K0J5aUUzUXVOWVFpejNNZXp2NUcydEdFVXlGazVh?=
- =?utf-8?B?QkdUV1F2dUhmdG1GSVNpUVpkd1k5dW9mbEs3cDlNWnZ3TWNEdXJNMmZkSmZ1?=
- =?utf-8?B?VDY1Q0cwa0xic25BYWhlYkVDcDJFYW90TDNFTEJQS2JFMzlJNGFWUEdRS2Fx?=
- =?utf-8?B?UStERk5DUlVuNlZMeFN0RjBwdHVNREs0RVhhQnJpVURneS9QVEpTcDJFT3RT?=
- =?utf-8?B?M1BydTFlZ0hsQ2JRWlZDVHJzZzM3WHNLbWpkNlZHcUtVT25GSi9PbXpTdEhx?=
- =?utf-8?B?RkhlMzZRcUh0WHBucUZobjgwMTVxUVNUZnBWWFA4TXN2MkxKWXVVcllpY2o4?=
- =?utf-8?B?VWFWVWdSa2Q1Z2pYaHM4STZsa3QvSVhaRnFwOTQxa2grbzQ5Y1hSVW9HRkZV?=
- =?utf-8?B?RGxjVnVhbE1udWN0L1k0VXZaczRzMmZPZCtPN0lzTHg1VGxwNDZvZUFPaDRo?=
- =?utf-8?B?NEs1aHB2eG9GRHBCek5LSWhUT2tKUHcxV0orOS9Na1dlU1pTaEVmNHMrbk9L?=
- =?utf-8?B?V3l6L1E3d2ZXZXAyc1UzMEd2RmdGZDFkR1ZVa0d2bnNScHhGZWFLckJrZnVm?=
- =?utf-8?B?Ynh1N0EvekZzd0dhU04zYXJ4dUJkSkFqSGswR2RCdWY5eUNxUThWVnJBd2l2?=
- =?utf-8?B?RXMvUDdJWFhBZlhZeXBvakszM1piSFlHK1d6a0NoY0JFWlNTZ2tjdTRRbHZv?=
- =?utf-8?B?UXhMYTRqeU96R3NhQSt5TW1IMU5vbVhWZnhaVVQ4aGlKSTZncWhEVVhySHV1?=
- =?utf-8?B?bmd0YXZKZjRJSzZWWG5Iekd1ZkQxTG82Z2twS3p5eE9DWTlrR3J3L0JmRG1M?=
- =?utf-8?B?YTdtdkdIUjZteDN0TFg5bHIvL0NaTEZOcFF6VDI5amp6cWhOcTBUWDkwazhk?=
- =?utf-8?B?M0VERHVTRVZuOTVNRUtPMVlVNWNueGlVWCtESE5qNzdZK1p5dElPUGVMWmx6?=
- =?utf-8?B?YzNVdVhrSUFVUFZ0NUt0Q2NhNUZ6UW42WGpTZUZkTmRQWkQxRlpqbldYU2kx?=
- =?utf-8?B?YzdnVXJmb2puS2lJcE0rcVdaVkNIWE80dDE4OFY1WXZSR3Q1cFJJVDl6M0wv?=
- =?utf-8?B?b3pMeFFyeUxWVGgwY3d3T1lhRnk2bGFVWTc0WW5wWVJPN29xNkdZeGFoQmpZ?=
- =?utf-8?B?cS81YTRiZktDdEJIdmxoV01JdERUbHNxN2hwOGdVWDRRanBnVmdhNTJyOTJi?=
- =?utf-8?B?L1lvTnJqSi9rRmlLM3JiODF1dWRtWUYxNytwZDJtbm1Jck8veUNOc0RBbGc5?=
- =?utf-8?B?WFk1WmRwQUQxeHB5ZXY5L01QeWtKNllwaG9zRGNHcnp1K3ZadnVOMnlpS2gy?=
- =?utf-8?B?RENBZnlDU0ZtVjVMYytVcHAvbUFpL0E1WS94ZnI0ZHBIK0Q4UVpucnZpdEZE?=
- =?utf-8?B?a3llb2xlY0hPei9jTUpGTFE4c2lyZVFzRzZxc1Y3MERaTnRmelpvMzNlSTZJ?=
- =?utf-8?B?R3hCY0RPUHFwcWVUbS9PYWRZSzY0U0h0KzNyT2Z1TE0zV2JhWlJBWnF1Y3Jo?=
- =?utf-8?B?cjk5WkF2TVkzRDNCSTMwQjVrd0h5S21udG1lZW40eE5waFB0NlZUZVhNUCtN?=
- =?utf-8?B?dVZISHBNc3RiWFNIdkxVMTQ0SDhyTnk3bG44MGt5ZExnME5VTDhWTjBLdnBH?=
- =?utf-8?B?VlJ2MHB5RE41N3BYRWovZDY1TXdJbFNmNEdwU1BzQSs0TVJmYlhVVGVPa1dI?=
- =?utf-8?B?OVZtQjFTUlMrWTRoN1haSVNQeE9mb0twSFBxcmFhcUxpSENyc29jTGhmYSt0?=
- =?utf-8?B?czM3OHl3dGE3Z0lic3J5WE5rdVYvSzR2WW1odUI0c1psQTZtZzNLQmU1Yk1r?=
- =?utf-8?B?NTZTYXhBbUxOTUI5NTN1dDJybVdPS1djaXVZdGRZTitIamlKakJNSFUzQUN2?=
- =?utf-8?B?UUVmck9Ba1FXQmtQaGRodW8wQU5aNzFwd211aWxuTVJodzh3Z0xsYmNtVlNO?=
- =?utf-8?B?TjFYcStRL2YwRElTdTFROS81NGU4NSs1bE9PdVRNaUhsMkJLWWp0aEwzUGZL?=
- =?utf-8?B?UHlURWdVN1RHaEhxc1lyaHZPbGcrQkNWaFNtb3NiL3hBY0tqa3k1eS9RZExX?=
- =?utf-8?Q?SSwpkPsDUVa03Pkrc8x6QjYli?=
+	=?utf-8?B?WEhlTHZRVk8xMEtSYXBWM1d6SW9aMzBDRGtxZ3hKY0FEbURBVzFIZjJyajlz?=
+ =?utf-8?B?NnFGWUlNNWpsZjVSeGFBaE5kNlM0bkVGMysvYmFoaHpBRjNTaUZmdm1GK21N?=
+ =?utf-8?B?YUZRbnFqV3o1VnU0bVBvQnU2VUg0cGt6aHRQTUhYbUU2YWxlbklEckFUNm9q?=
+ =?utf-8?B?QkFkSVBnc24yajV6a1JCK2NORHc4ZlhhQndlTHlaU3dySHEzTTYra1d5QmM3?=
+ =?utf-8?B?eTVBdzhmc1JZWWs4ZU04RDg1NWFjM21kVE1vWUpmN21ZWWEzQ09MaE91RzVI?=
+ =?utf-8?B?bHY0NkNpK0ZpUlRxc0MxM1N0L3pjVzNYVDRNbExLVFppUXdxYXVGTjByV2ZK?=
+ =?utf-8?B?YkhBZ0pLVDhoalB4NDNKMGRnZFdtV2kzSFY1a21QS3hCOEZSWDlFbGZoU0Ry?=
+ =?utf-8?B?bHJuaGVmU0VJREtta0J3TXl4ek5xVE1oVk4yQU16WHllZlNwaTM1TERvL2xN?=
+ =?utf-8?B?MWhpZkw0NTR1cG81WmIxaUJyRXFSRlNGbjhDUlNtYVF4Nk5xWlJtTHBpQXBH?=
+ =?utf-8?B?emJQK3BFRzhpb2xHVnE3czFhUlkzWDMwUHliejI4bDhUZUtpcy9zNkxjNjlK?=
+ =?utf-8?B?NWUzWU9UYk9vQTdzakQxZnpyNXlkUUtGck9HWG1LODlGcFJ1M2pqcVUrQkND?=
+ =?utf-8?B?ajBzc051ZGdnczI5c052V2ZGd3dmTmVMNW9zWmMwaFFqWjlzZ1I2ZnU2elhn?=
+ =?utf-8?B?cUFpL3FRSTdtY0pxWVdhZ01LcFdOVmhjSnFBa3VqRHNNOU9LU004RC9MSFJX?=
+ =?utf-8?B?R0R0dFBPV09BWVQ4QkE0WWlNTkdQMVFHZE1oQWFRODU4dlBEcGlDRmo0V1dU?=
+ =?utf-8?B?ZEVtb1daSUtVQktsUFRsbEZrNkFPMWFBdER5Qk1WdzA2cXVBeG1iMVQyR0Nk?=
+ =?utf-8?B?bGNBbkFWR01WcFZ2Y3pER2RuaVJCNnY1MmNwd2t6Y3dma20rWEt5bG9sK0lI?=
+ =?utf-8?B?QlA2N0R5TXczWDVuRGNPTHAzN1RmZ2dtRExIb3JWZ0R4dXlNMTVXeUxJdVl0?=
+ =?utf-8?B?R3B2Z2dqcDgra2wxcE9DOGZYSmVFTWhBU1I2YTU4VWZlOEZpYWFWMk1YNXFX?=
+ =?utf-8?B?NmNJaGgvRE1QQUVObjd4eGhEV05TRkhTK0x3Nzh2MWZHbkYwcy85d2hHNlB5?=
+ =?utf-8?B?Y200NC9zZlI1MVZieGtPUnZtZlpUd0Z1M2Vvd1psaU95NG1Ib0lpb2IxTHJy?=
+ =?utf-8?B?Tkc2S1prM3dlUU8yWWVFeElBSDQyUGZwUERHeXFpT1p3WThUUlc4WG9rR0hl?=
+ =?utf-8?B?c1dNeDNGWmxFMUlNL1ZTYnFNa2lrdU9qcEIvYng0QkdHWURvSGZkZS9lOEpH?=
+ =?utf-8?B?eWFIcXo3WDZkNnQxWlZGaTcwdDlmbktNK2NmT1JwcTI5RmZYLzUzczNsMDN3?=
+ =?utf-8?B?OHdqczRiY2tJSURmT3NjcHhkLzI0TlhRdUhNdDN4VDJYSWRXRTJ6S2ozUDBW?=
+ =?utf-8?B?M3NRb3hxRFd4OUJDYytYZWx5Ylg5RHFTZFR4NGJBT0tjNDBvcEtMbURmajNJ?=
+ =?utf-8?B?bUhZa2d4enRCMVg0MkNobzBHdVJreWxieU5LK1pxN1pxZ0kzTkZBTXU5QUNu?=
+ =?utf-8?B?b2QrLzZUMUN4WFNyR21BaWllK2trRWdqMGdxbTBlVVErTTJ6YlNuQWd6L0JL?=
+ =?utf-8?B?VVFkZkg4MlpNN1d6NFZWcUk2QlZPZGxVMXVya0FSMGhGQ1NCTFNkTVBqbUh6?=
+ =?utf-8?B?dUNLbjdMNG9ON3BQaGEwOU85UUxHOGdGMWRrMjZIQTJtMGF4RUxmeGZPL0p4?=
+ =?utf-8?B?TjBDNXV6QVB3NTNXS3pDcWRZeDROMmlEa28rcHFTc25ybkcva3ozbkNJa0RW?=
+ =?utf-8?B?NGhiS0VDY0UvaUlCMjZhdVBpOTZQZFczaHpzZEYyVzlvVWJyMXNEMVh1QXhi?=
+ =?utf-8?B?UzFKaHlxQVpYcmMxaGcvNHc5cG9ZM0w3dmNZVTZuMFh1MEtVWlFuUmJkSmRG?=
+ =?utf-8?B?TFMxenIyaHhFdkRkOURZY2FXcTRKaXFrdGIyWm05VUlPUkk2cjJRNVl5ZktV?=
+ =?utf-8?B?SG9Ld2JTMS83WmJyMHdsWlVmVVcyb1V1UUtOUmpObnhIZFYzUk05MDdMeGQ2?=
+ =?utf-8?B?SzlOMDhqZjFacFBGOGwzdFNGbXFkMi94eWl5Kzl4S3dzTnBlbjF3aTVhYWJw?=
+ =?utf-8?Q?VEvRqXwb4pvNpfIyVkU3Lb37Z?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bd331ff-ab28-4f87-6a62-08dba896007e
+X-MS-Exchange-CrossTenant-Network-Message-Id: f56a67cd-18b9-4945-7083-08dba8981ab3
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2023 13:44:01.1045
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2023 13:59:04.0830
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bpMqHOQzPv7qJC0vgbRA8YR+Utx+xFP3BU3CQx2yKjGttWwxylmSXelMq9UO2oqFQO7CRtIDXLD7QeuRhEUMdg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8016
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7melHqx1xIvrNRrhBMddljFQj03X8+RRB8pzU+X7hYl3UgOpE843Hn8Xg0qVPULSp8Chob3Mwq3eT5+8amLPPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9674
 
 On 23.08.2023 22:07, Shawn Anastasio wrote:
-> --- /dev/null
-> +++ b/xen/arch/ppc/include/asm/atomic.h
-> @@ -0,0 +1,390 @@
+> Implement bitops.h, based on Linux's implementation as of commit
+> 5321d1b1afb9a17302c6cec79f0cbf823eb0d3fc. Though it is based off of
+> Linux's implementation, this code diverges significantly in a number of
+> ways:
+>   - Bitmap entries changed to 32-bit words to match X86 and Arm on Xen
+>   - PPC32-specific code paths dropped
+>   - Formatting completely re-done to more closely line up with Xen.
+>     Including 4 space indentation.
+
+With this goal, ...
+
+> --- a/xen/arch/ppc/include/asm/bitops.h
+> +++ b/xen/arch/ppc/include/asm/bitops.h
+> @@ -1,9 +1,335 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 > +/*
-> + * PowerPC64 atomic operations
+> + * Adapted from Linux's arch/powerpc/include/asm/bitops.h.
 > + *
-> + * Copyright (C) 2001 Paul Mackerras <paulus@au.ibm.com>, IBM
-> + * Copyright (C) 2001 Anton Blanchard <anton@au.ibm.com>, IBM
-> + * Copyright Raptor Engineering LLC
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
+> + * Merged version by David Gibson <david@gibson.dropbear.id.au>.
+> + * Based on ppc64 versions by: Dave Engebretsen, Todd Inglett, Don
+> + * Reed, Pat McCarthy, Peter Bergner, Anton Blanchard.  They
+> + * originally took it from the ppc32 code.
 > + */
-
-License text again despite the SPDX header?
-
-> +#ifndef _ASM_PPC64_ATOMIC_H_
-> +#define _ASM_PPC64_ATOMIC_H_
-> +
-> +#include <xen/atomic.h>
-> +
+>  #ifndef _ASM_PPC_BITOPS_H
+>  #define _ASM_PPC_BITOPS_H
+> 
 > +#include <asm/memory.h>
-> +#include <asm/system.h>
+> +
+> +#define __set_bit(n,p)            set_bit(n,p)
+> +#define __clear_bit(n,p)          clear_bit(n,p)
 
-I can see that you need memory.h, but I can't spot a need for system.h.
+... you want to add blanks after the commas as well. (You might also
+simply omit parameters altogether.)
 
-> +static inline int atomic_read(const atomic_t *v)
-> +{
-> +    return *(volatile int *)&v->counter;
+> +#define BITOP_BITS_PER_WORD     32
+> +#define BITOP_MASK(nr)          (1UL << ((nr) % BITOP_BITS_PER_WORD))
+> +#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
+> +#define BITS_PER_BYTE           8
+> +
+>  /* PPC bit number conversion */
+> -#define PPC_BITLSHIFT(be)	(BITS_PER_LONG - 1 - (be))
+> -#define PPC_BIT(bit)		(1UL << PPC_BITLSHIFT(bit))
+> -#define PPC_BITMASK(bs, be)	((PPC_BIT(bs) - PPC_BIT(be)) | PPC_BIT(bs))
+> +#define PPC_BITLSHIFT(be)    (BITS_PER_LONG - 1 - (be))
+> +#define PPC_BIT(bit)         (1UL << PPC_BITLSHIFT(bit))
+> +#define PPC_BITMASK(bs, be)  ((PPC_BIT(bs) - PPC_BIT(be)) | PPC_BIT(bs))
+> +
+> +/* Macro for generating the ***_bits() functions */
+> +#define DEFINE_BITOP(fn, op, prefix)                                           \
+> +static inline void fn(unsigned long mask,                                      \
+> +        volatile unsigned int *_p)                                             \
+
+Nit: Style. Either
+
+static inline void fn(unsigned long mask,                                      \
+                      volatile unsigned int *_p)                               \
+
+or
+
+static inline void fn(unsigned long mask,                                      \
+    volatile unsigned int *_p)                                                 \
+
+. Also there's again an underscore-prefixed identifier here.
+
+> +{                                                                              \
+> +    unsigned long old;                                                         \
+> +    unsigned int *p = (unsigned int *)_p;                                      \
+> +    asm volatile (                                                             \
+> +    prefix                                                                     \
+> +"1: lwarx %0,0,%3,0\n"                                                         \
+> +    #op "%I2 %0,%0,%2\n"                                                       \
+> +    "stwcx. %0,0,%3\n"                                                         \
+> +    "bne- 1b\n"                                                                \
+> +    : "=&r" (old), "+m" (*p)                                                   \
+> +    : "rK" (mask), "r" (p)                                                     \
+> +    : "cc", "memory");                                                         \
+
+The asm() body wants indenting by another four blanks (more instances below).
+
 > +}
 > +
-> +static inline int _atomic_read(atomic_t v)
-> +{
-> +    return v.counter;
+> +DEFINE_BITOP(set_bits, or, "")
+> +DEFINE_BITOP(change_bits, xor, "")
+> +
+> +#define DEFINE_CLROP(fn, prefix)                                               \
+> +static inline void fn(unsigned long mask, volatile unsigned int *_p)           \
+> +{                                                                              \
+> +    unsigned long old;                                                         \
+> +    unsigned int *p = (unsigned int *)_p;                                      \
+> +    asm volatile (                                                             \
+> +    prefix                                                                     \
+> +"1: lwarx %0,0,%3,0\n"                                                         \
+> +    "andc %0,%0,%2\n"                                                          \
+> +    "stwcx. %0,0,%3\n"                                                         \
+> +    "bne- 1b\n"                                                                \
+> +    : "=&r" (old), "+m" (*p)                                                   \
+> +    : "r" (mask), "r" (p)                                                      \
+> +    : "cc", "memory");                                                         \
 > +}
 > +
-> +static inline void atomic_set(atomic_t *v, int i)
+> +DEFINE_CLROP(clear_bits, "")
+> +
+> +static inline void set_bit(int nr, volatile void *addr)
 > +{
-> +    v->counter = i;
+> +    set_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
+> +}
+> +static inline void clear_bit(int nr, volatile void *addr)
+> +{
+> +    clear_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
 > +}
 > +
-> +static inline void _atomic_set(atomic_t *v, int i)
-> +{
-> +    v->counter = i;
-> +}
-> +
-> +void __bad_atomic_read(const volatile void *p, void *res);
-> +void __bad_atomic_size(void);
-> +
-> +#define build_atomic_read(name, insn, type)                                    \
-> +    static inline type name(const volatile type *addr)                         \
-> +    {                                                                          \
-> +        type ret;                                                              \
-> +        asm volatile ( insn "%U1%X1 %0,%1" : "=r" (ret) : "m<>" (*addr) );     \
-> +        return ret;                                                            \
-> +    }
-> +
-> +#define build_atomic_write(name, insn, type)                                   \
-> +    static inline void name(volatile type *addr, type val)                     \
-> +    {                                                                          \
-> +        asm volatile ( insn "%U0%X0 %1,%0" : "=m<>" (*addr) : "r" (val) );     \
-> +    }
-> +
-> +#define build_add_sized(name, ldinsn, stinsn, type)                            \
-> +    static inline void name(volatile type *addr, type val)                     \
-> +    {                                                                          \
-> +        type t;                                                                \
-> +        asm volatile ( "1: " ldinsn " %0,0,%3\n"                               \
-> +                       "add%I2 %0,%0,%2\n"                                     \
-> +                       stinsn " %0,0,%3 \n"                                    \
-> +                       "bne- 1b\n"                                             \
-> +                       : "=&r" (t), "+m" (*addr)                               \
-> +                       : "r" (val), "r" (addr)                                 \
-> +                       : "cc" );                                               \
-> +    }
-> +
-> +build_atomic_read(read_u8_atomic, "lbz", uint8_t)
-> +build_atomic_read(read_u16_atomic, "lhz", uint16_t)
-> +build_atomic_read(read_u32_atomic, "lwz", uint32_t)
-> +build_atomic_read(read_u64_atomic, "ldz", uint64_t)
-> +
-> +build_atomic_write(write_u8_atomic, "stb", uint8_t)
-> +build_atomic_write(write_u16_atomic, "sth", uint16_t)
-> +build_atomic_write(write_u32_atomic, "stw", uint32_t)
-> +build_atomic_write(write_u64_atomic, "std", uint64_t)
-> +
-> +build_add_sized(add_u8_sized, "lbarx", "stbcx.",uint8_t)
-> +build_add_sized(add_u16_sized, "lharx", "sthcx.", uint16_t)
-> +build_add_sized(add_u32_sized, "lwarx", "stwcx.", uint32_t)
-> +
-> +#undef build_atomic_read
-> +#undef build_atomic_write
-> +#undef build_add_sized
-> +
-> +static always_inline void read_atomic_size(const volatile void *p, void *res,
-> +                                           unsigned int size)
-> +{
-> +    ASSERT(IS_ALIGNED((vaddr_t) p, size));
-
-Nit: Stray blank before p (several more below).
-
-> +    switch ( size )
-> +    {
-> +    case 1:
-> +        *(uint8_t *)res = read_u8_atomic(p);
-> +        break;
-> +    case 2:
-> +        *(uint16_t *)res = read_u16_atomic(p);
-> +        break;
-> +    case 4:
-> +        *(uint32_t *)res = read_u32_atomic(p);
-> +        break;
-> +    case 8:
-> +        *(uint64_t *)res = read_u64_atomic(p);
-> +        break;
-> +    default:
-> +        __bad_atomic_read(p, res);
-> +        break;
-> +    }
-> +}
-> +
-> +static always_inline void write_atomic_size(volatile void *p, void *val,
-
-const void *val? (But then below also don't cast away constness.)
-
-> +                                            unsigned int size)
-> +{
-> +    ASSERT(IS_ALIGNED((vaddr_t) p, size));
-> +    switch ( size )
-> +    {
-> +    case 1:
-> +        write_u8_atomic(p, *(uint8_t *)val);
-> +        break;
-> +    case 2:
-> +        write_u16_atomic(p, *(uint16_t *)val);
-> +        break;
-> +    case 4:
-> +        write_u32_atomic(p, *(uint32_t *)val);
-> +        break;
-> +    case 8:
-> +        write_u64_atomic(p, *(uint64_t *)val);
-> +        break;
-> +    default:
-> +        __bad_atomic_size();
-> +        break;
-> +    }
-> +}
-> +
-> +#define read_atomic(p)                                                         \
-> +    ({                                                                         \
-> +        union {                                                                \
-> +            typeof(*(p)) val;                                                  \
-> +            char c[0];                                                         \
-
-Using [0] here is likely to set us up for compiler complaints ...
-
-> +        } x_;                                                                  \
-> +        read_atomic_size(p, x_.c, sizeof(*(p)));                               \
-
-... here. Can't this simply be c[sizeof(*(val))]? And do you need
-a union here in the first place, when read_atomic() takes void* as
-its 2nd parameter?
-
-> +        x_.val;                                                                \
-> +    })
-> +
-> +#define write_atomic(p, x)                                                     \
-> +    do                                                                         \
-> +    {                                                                          \
-> +        typeof(*(p)) x_ = (x);                                                 \
-> +        write_atomic_size(p, &x_, sizeof(*(p)));                               \
-> +    } while ( 0 )
-> +
-> +#define add_sized(p, x)                                                        \
-> +    ({                                                                         \
-> +        typeof(*(p)) x_ = (x);                                                \
-> +        switch ( sizeof(*(p)) )                                                \
-> +        {                                                                      \
-> +        case 1:                                                                \
-> +            add_u8_sized((uint8_t *) (p), x_);                                \
-> +            break;                                                             \
-> +        case 2:                                                                \
-> +            add_u16_sized((uint16_t *) (p), x_);                              \
-> +            break;                                                             \
-> +        case 4:                                                                \
-> +            add_u32_sized((uint32_t *) (p), x_);                              \
-> +            break;                                                             \
-> +        default:                                                               \
-> +            __bad_atomic_size();                                               \
-> +            break;                                                             \
-> +        }                                                                      \
-> +    })
-
-Nit: Padding wants to align the backslashes.
-
-> +static inline void atomic_add(int a, atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( "1: lwarx %0,0,%3\n"
-> +                   "add %0,%2,%0\n"
-> +                   "stwcx. %0,0,%3\n"
-> +                   "bne- 1b"
-> +                   : "=&r" (t), "+m" (v->counter)
-
-I notice you use "+m" here, but ...
-
-> +                   : "r" (a), "r" (&v->counter)
-> +                   : "cc" );
-> +}
-> +
-> +static inline int atomic_add_return(int a, atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
-> +                   "1: lwarx %0,0,%2\n"
-> +                   "add %0,%1,%0\n"
-> +                   "stwcx. %0,0,%2\n"
-> +                   "bne- 1b"
-> +                   PPC_ATOMIC_EXIT_BARRIER
-> +                   : "=&r" (t)
-> +                   : "r" (a), "r" (&v->counter)
-> +                   : "cc", "memory" );
-> +
-> +    return t;
-> +}
-> +
-> +static inline void atomic_sub(int a, atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( "1: lwarx %0,0,%3\n"
-> +                   "subf %0,%2,%0\n"
-> +                   "stwcx. %0,0,%3\n"
-> +                   "bne- 1b"
-> +                   : "=&r" (t), "=m" (v->counter)
-> +                   : "r" (a), "r" (&v->counter), "m" (v->counter)
-
-... why not here (and again below)?
-
-> +                   : "cc" );
-> +}
-> +
-> +static inline int atomic_sub_return(int a, atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
-> +                   "1: lwarx %0,0,%2\n"
-> +                   "subf %0,%1,%0\n"
-> +                   "stwcx. %0,0,%2\n"
-> +                   "bne- 1b"
-> +                   PPC_ATOMIC_EXIT_BARRIER
-> +                   : "=&r" (t)
-> +                   : "r" (a), "r" (&v->counter)
-> +                   : "cc", "memory" );
-> +
-> +    return t;
-> +}
-> +
-> +static inline void atomic_inc(atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( "1: lwarx %0,0,%2\n"
-> +                   "addic %0,%0,1\n"
-> +                   "stwcx. %0,0,%2\n"
-> +                   "bne- 1b"
-> +                   : "=&r" (t), "=m" (v->counter)
-> +                   : "r" (&v->counter), "m" (v->counter)
-> +                   : "cc" );
-> +}
-> +
-> +static inline int atomic_inc_return(atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
-> +                   "1: lwarx %0,0,%1\n"
-> +                   "addic %0,%0,1\n"
-> +                   "stwcx. %0,0,%1\n"
-> +                   "bne- 1b"
-> +                   PPC_ATOMIC_EXIT_BARRIER
-> +                   : "=&r" (t)
-> +                   : "r" (&v->counter)
-> +                   : "cc", "memory" );
-> +
-> +    return t;
-> +}
-> +
-> +static inline void atomic_dec(atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( "1: lwarx %0,0,%2\n"
-> +                   "addic %0,%0,-1\n"
-> +                   "stwcx. %0,0,%2\n"
-> +                   "bne- 1b"
-> +                   : "=&r" (t), "=m" (v->counter)
-> +                   : "r" (&v->counter), "m" (v->counter)
-> +                   : "cc" );
-> +}
-> +
-> +static inline int atomic_dec_return(atomic_t *v)
-> +{
-> +    int t;
-> +
-> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
-> +                   "1: lwarx %0,0,%1\n"
-> +                   "addic %0,%0,-1\n"
-> +                   "stwcx. %0,0,%1\n"
-> +                   "bne- 1b"
-> +                   PPC_ATOMIC_EXIT_BARRIER
-> +                   : "=&r" (t)
-> +                   : "r" (&v->counter)
-> +                   : "cc", "memory" );
-> +
-> +    return t;
-> +}
-> +
-> +/*
-> + * Atomically test *v and decrement if it is greater than 0.
-> + * The function returns the old value of *v minus 1.
+> +/**
+> + * test_bit - Determine whether a bit is set
+> + * @nr: bit number to test
+> + * @addr: Address to start counting from
 > + */
-> +static inline int atomic_dec_if_positive(atomic_t *v)
+> +static inline int test_bit(int nr, const volatile void *addr)
 > +{
-> +    int t;
-> +
-> +    asm volatile( PPC_ATOMIC_ENTRY_BARRIER
-> +                  "1: lwarx %0,0,%1 # atomic_dec_if_positive\n"
-> +                  "addic. %0,%0,-1\n"
-> +                  "blt- 2f\n"
-> +                  "stwcx. %0,0,%1\n"
-> +                  "bne- 1b\n"
-> +                  PPC_ATOMIC_EXIT_BARRIER
-> +                  "2:"
-> +                  : "=&r" (t)
-> +                  : "r" (&v->counter)
-> +                  : "cc", "memory" );
-> +
-> +    return t;
-> +}
-> +
-> +static inline atomic_t atomic_compareandswap(atomic_t old, atomic_t new,
-> +                                             atomic_t *v)
-> +{
-> +    atomic_t rc;
-> +    rc.counter = __cmpxchg(&v->counter, old.counter, new.counter, sizeof(int));
-> +    return rc;
-> +}
-> +
-> +#define arch_cmpxchg(ptr, o, n)                                                \
-> +    ({                                                                         \
-> +        __typeof__(*(ptr)) o_ = (o);                                          \
-> +        __typeof__(*(ptr)) n_ = (n);                                          \
-> +        (__typeof__(*(ptr))) __cmpxchg((ptr), (unsigned long) o_,             \
-> +                                       (unsigned long) n_, sizeof(*(ptr)));   \
-> +    })
+> +        const volatile unsigned long *p = (const volatile unsigned long *)addr;
+> +        return 1UL & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD-1)));
 
-Nit: Padding again.
+Nit: Too deep indentation. Plus blanks around - please. I also don't see
+the need for the UL suffix, when the function returns int only (and really
+means to return bool, I assume, but int is in line with x86 and Arm, I
+expect).
+
+> +}
+> +
+> +static inline unsigned long test_and_clear_bits(unsigned long mask, volatile void *_p)
+> +{
+> +    unsigned long old, t;
+> +    unsigned int *p = (unsigned int *)_p;
+> +
+> +    asm volatile (
+> +        PPC_ATOMIC_ENTRY_BARRIER
+> +        "1: lwarx %0,0,%3,0\n"
+> +        "andc %1,%0,%2\n"
+> +        "stwcx. %1,0,%3\n"
+> +        "bne- 1b\n"
+> +        PPC_ATOMIC_EXIT_BARRIER
+> +        : "=&r" (old), "=&r" (t)
+> +        : "r" (mask), "r" (p)
+> +        : "cc", "memory");
+> +
+> +    return (old & mask);
+> +}
+> +
+> +static inline int test_and_clear_bit(unsigned int nr,
+> +                                       volatile void *addr)
+
+Nit: Too deep indentation again.
+
+> +{
+> +    return test_and_clear_bits(BITOP_MASK(nr), addr + BITOP_WORD(nr)) != 0;
+> +}
+> +
+> +#define DEFINE_TESTOP(fn, op, eh)                                              \
+> +static inline unsigned long fn(                                                \
+> +        unsigned long mask,                                                    \
+> +        volatile unsigned int *_p)                                             \
+
+And yet once more (and there are more below).
+
+> +{                                                                              \
+> +    unsigned long old, t;                                                      \
+> +    unsigned int *p = (unsigned int *)_p;                                      \
+> +    __asm__ __volatile__ (                                                     \
+> +    PPC_ATOMIC_ENTRY_BARRIER                                                   \
+> +"1:" "lwarx %0,0,%3,%4\n"                                                      \
+> +    #op "%I2 %1,%0,%2\n"                                                       \
+> +    "stwcx. %1,0,%3\n"                                                         \
+> +    "bne- 1b\n"                                                                \
+> +    PPC_ATOMIC_EXIT_BARRIER                                                    \
+> +    : "=&r" (old), "=&r" (t)                                                   \
+> +    : "rK" (mask), "r" (p), "n" (eh)                                           \
+> +    : "cc", "memory");                                                         \
+> +    return (old & mask);                                                       \
+> +}
+> +
+> +DEFINE_TESTOP(test_and_set_bits, or, 0)
+> +
+> +static inline int test_and_set_bit(unsigned long nr, volatile void *addr)
+> +{
+> +    return test_and_set_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr)) != 0;
+
+Too long line.
+
+> +}
+> +
+> +/**
+> + * __test_and_set_bit - Set a bit and return its old value
+> + * @nr: Bit to set
+> + * @addr: Address to count from
+> + *
+> + * This operation is non-atomic and can be reordered.
+> + * If two examples of this operation race, one can appear to succeed
+> + * but actually fail.  You must protect multiple accesses with a lock.
+> + */
+> +static inline int __test_and_set_bit(int nr, volatile void *addr)
+> +{
+> +        unsigned int mask = BITOP_MASK(nr);
+> +        volatile unsigned int *p =
+> +                ((volatile unsigned int *)addr) + BITOP_WORD(nr);
+> +        unsigned int old = *p;
+> +
+> +        *p = old | mask;
+> +        return (old & mask) != 0;
+> +}
+> +
+> +/**
+> + * __test_and_clear_bit - Clear a bit and return its old value
+> + * @nr: Bit to clear
+> + * @addr: Address to count from
+> + *
+> + * This operation is non-atomic and can be reordered.
+> + * If two examples of this operation race, one can appear to succeed
+> + * but actually fail.  You must protect multiple accesses with a lock.
+> + */
+> +static inline int __test_and_clear_bit(int nr, volatile void *addr)
+> +{
+> +        unsigned int mask = BITOP_MASK(nr);
+> +        volatile unsigned int *p =
+> +                ((volatile unsigned int *)addr) + BITOP_WORD(nr);
+> +        unsigned int old = *p;
+> +
+> +        *p = old & ~mask;
+> +        return (old & mask) != 0;
+> +}
+> +
+> +#define flsl(x) generic_flsl(x)
+> +#define fls(x) generic_fls(x)
+> +#define ffs(x) ({ unsigned int __t = (x); fls(__t & -__t); })
+> +#define ffsl(x) ({ unsigned long __t = (x); flsl(__t & -__t); })
+
+Hmm, here you even have two underscores as prefixes.
+
+> +/* Based on linux/include/asm-generic/bitops/ffz.h */
+> +/*
+> + * ffz - find first zero in word.
+> + * @word: The word to search
+> + *
+> + * Undefined if no zero exists, so code should check against ~0UL first.
+> + */
+> +#define ffz(x)  __ffs(~(x))
+> +
+> +/**
+> + * hweightN - returns the hamming weight of a N-bit word
+> + * @x: the word to weigh
+> + *
+> + * The Hamming Weight of a number is the total number of bits set in it.
+> + */
+> +#define hweight64(x) generic_hweight64(x)
+> +#define hweight32(x) generic_hweight32(x)
+> +#define hweight16(x) generic_hweight16(x)
+> +#define hweight8(x) generic_hweight8(x)
+
+Not using popcnt{b,w,d}, e.g. via a compiler builtin?
+
+> +/* Based on linux/include/asm-generic/bitops/builtin-__ffs.h */
+> +/**
+> + * __ffs - find first bit in word.
+> + * @word: The word to search
+> + *
+> + * Undefined if no bit exists, so code should check against 0 first.
+> + */
+> +static /*__*/always_inline unsigned long __ffs(unsigned long word)
+
+What's this odd comment about here?
+
+> +{
+> +        return __builtin_ctzl(word);
+> +}
+> +
+> +/**
+> + * find_first_set_bit - find the first set bit in @word
+> + * @word: the word to search
+> + *
+> + * Returns the bit-number of the first set bit (first bit being 0).
+> + * The input must *not* be zero.
+> + */
+> +#define find_first_set_bit(x) ({ ffsl(x) - 1; })
+
+Simply
+
+#define find_first_set_bit(x) (ffsl(x) - 1)
+
+without use of any extensions?
+
+> +/*
+> + * Find the first set bit in a memory region.
+> + */
+> +static inline unsigned long find_first_bit(const unsigned long *addr,
+> +                                           unsigned long size)
+> +{
+> +    const unsigned long *p = addr;
+> +    unsigned long result = 0;
+> +    unsigned long tmp;
+> +
+> +    while (size & ~(BITS_PER_LONG-1)) {
+> +        if ((tmp = *(p++)))
+> +            goto found;
+> +        result += BITS_PER_LONG;
+> +        size -= BITS_PER_LONG;
+> +    }
+> +    if (!size)
+> +        return result;
+
+Just using 4-blank indentation isn't enough to make this Xen style.
+(More such elsewhere.)
+
+> +    tmp = (*p) & (~0UL >> (BITS_PER_LONG - size));
+> +    if (tmp == 0UL)        /* Are any bits set? */
+> +        return result + size;    /* Nope. */
+> +found:
+
+Labels indented by at least one blank please. (More elsewhere.)
 
 Jan
 
