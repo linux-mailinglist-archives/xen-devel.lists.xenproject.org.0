@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6648978D046
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 01:20:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.592515.925297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8900878D04F
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 01:20:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.592516.925308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qb80A-0008Et-HU; Tue, 29 Aug 2023 23:20:02 +0000
+	id 1qb80B-00004x-EX; Tue, 29 Aug 2023 23:20:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 592515.925297; Tue, 29 Aug 2023 23:20:02 +0000
+Received: by outflank-mailman (output) from mailman id 592516.925308; Tue, 29 Aug 2023 23:20:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qb80A-0007z6-8O; Tue, 29 Aug 2023 23:20:02 +0000
-Received: by outflank-mailman (input) for mailman id 592515;
- Tue, 29 Aug 2023 23:19:59 +0000
+	id 1qb80B-0008KK-3l; Tue, 29 Aug 2023 23:20:03 +0000
+Received: by outflank-mailman (input) for mailman id 592516;
+ Tue, 29 Aug 2023 23:20:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Y18t=EO=epam.com=prvs=36058b40d2=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1qb807-0007EX-QZ
- for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 23:19:59 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90309ff7-46c2-11ee-8783-cb3800f73035;
- Wed, 30 Aug 2023 01:19:56 +0200 (CEST)
-Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37TFMk9m021983; Tue, 29 Aug 2023 23:19:53 GMT
-Received: from eur05-db8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3ssdvpbm4f-8
+ id 1qb808-0007EX-Qh
+ for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 23:20:00 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 90f7682f-46c2-11ee-8783-cb3800f73035;
+ Wed, 30 Aug 2023 01:19:57 +0200 (CEST)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37TKDecn030691; Tue, 29 Aug 2023 23:19:53 GMT
+Received: from eur05-vi1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2168.outbound.protection.outlook.com [104.47.17.168])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3sshtetfcp-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 29 Aug 2023 23:19:53 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
@@ -53,21 +53,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90309ff7-46c2-11ee-8783-cb3800f73035
+X-Inumbo-ID: 90f7682f-46c2-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c9UUKEApCYiwql8lTUWXWKAUuaIz7NU8X+t5szptPC5c+Q8yBXmLciSGb9Ef3PjuyoAvdkgMHj3oN0PNWj78smzl4cm1AY1q67nnyW3vp8Q4FbZmkWcZjPSshy6DycWJx1jc2AP+SJQ7IlXLcomKRGOfMfjv2uLNnUpuIwjQUNbY14lm5zO73Ja2NuoRCpsDeo5fGuOZH9uxu4rsH9GWp7Q/3xaGUdTk/d2Fmp/UxHuV4biv23Q5eNmpCit1P/qW5bBTY5EkrYO2bnGITS6Pmf4QjX9NEgb+jHpRgn7t6Sr9xdEKnWKh1O2toe9DZxWO6MpLkmF3pnpONdJRVgepvA==
+ b=OSs1iU1bICm52I2iQaMAh65m6EkaSWqIcwr8PG0Arg+X2YXFnVui+h6WKIoJ2Yr2BSGtk6UA0ratFHotlG2DiK2W01yamuyx+cvtpU49qmq4mPpnyMRAeLIwsJa1V1lw3jfM7y6/uxOk/pEIk41J8U5143sg4bIusQP7gBIs3q6ipAc5+bwJ9u6z+wIhfD8xbqRpljh3kQsDWZe/wi5P3HOgtKeoAz62kaIAiz7nRhxwD8rWXgRDkwFvOGUHNNzZooDqQ2/euAVDQkpjL2vJyJnGSEHzbpSF8KqJPyAuIofz4schPikcuIfkX57lLqSGIgF+mKzXqHLL++dV40rWEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q1RqGs20J0sl0wDwsS7HPEyH9aAe+auhvvKSc58OLsk=;
- b=CMt142aESfrpOKZiayOpG3qBmSB6i3PkscmQOWnkvD/z3hqDeE3EGzwmXDiiB0GfuEoostgn1lSQK57s1KejjVH/c8+1fbbhQIjZERnYFyxq9RFSkdFWabLPIIeQ0L4lXxkQbjUzTmjsZmgHLhmAZtiHNknJHuqWFYiLwTDq1/GSJ8stVVc2mSOGDeg6+Pfe3uZTCrQSXPtMTYF2++zvlwBlMq1GUllImyeoivQP/4Cmt1WA2sxTouxmJdDRJl6tqn1Ibmc8zx0jD4EmbvURLo06PPjKPjdxlIPd4kLTWK8Yxxmt6aIMVcwxnK1seXBDP/EBoVfl6Pghq3DPptj49g==
+ bh=+865b/wWNj0EWFhzOYa954eDivbVLOrScndgP/Dydu4=;
+ b=khrAN9NxYaNMj+uPA2BLMfvKVIi+qmmJTw3vjcU9iXpvz7s/zzD0n5fjVkTiJGYn2YSI2jsNogTSp2p/XOyjHcRS5OJNJJXeNxMWU1xHwPc/hWcUj1ioJfGP4TD0kd5cuUTNmK3bvqSwl/XouD8syX4Ff59mH5a91LX5fkrcn9wK+cGZYfpPkhPOIBhmgK9Wqip6rIMYS5Ttb6numMcwL5vIBOJxUOHrs5xDW3W8iW8vEqPIQB0lX3IZqMuVJOkhjBhbQvkhehX4aNqCarAxt2RHlBDLv79vhdvMB0bSZPmOhuvcKiYoQ2bjrLU+vNkyuC+P84rzFTCVf8zbemNwJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q1RqGs20J0sl0wDwsS7HPEyH9aAe+auhvvKSc58OLsk=;
- b=RRvh1NnLsKlJeo3AA7dCmUwDkAnqubY9K+Ixz2jFpPLvVxmdijclT3axfZS+2fuf6DVpssjQXwxDyFjg5pqUs3HqnBnw8nCu11BVfRyaw5OcxhK7HYXVkdYaZ2i0+pkeNbA996YmwMIMchl09IRopo+u3lTs4ZDycc6pYSjJh7NFipoH2s0r0U9l6KXkPJqWliTN+8B+TgeW+/kQaYJetnHY7GwJ0XS/c7ReDmdP/UjQY5CjwOG6y5JJKqDqeZpnfii2qL2OCSu9rUW0lwPIzo86KO7IWWx6W97YnjkOc/sZfpCIlfgF25jga/MD99IF9BcGskX3IdwB8gMft9lVEA==
+ bh=+865b/wWNj0EWFhzOYa954eDivbVLOrScndgP/Dydu4=;
+ b=czxCblDCsHIDI4y4BTYFyTU/I5zNmWYlDcJ57wEHfUVu4nTlX0d8eLEK9Es8a7/pyiUqaQYgu73ehxXYKZhhLEWB3mjpTyDbj9OiZPp/pnCvzQdklhgjCNmIa5PurcBgcnORVi6qYN2/4kYZT+ZrnS3dA/4wNZwNeLgcJ0FOfjdTtakRlHBnyi2e9B0Jq/imoHFddiK5GGtnHW1Yz9X22xqFH2atQmx5ddv13Gkz3AlosMTTr56MvP8xmvnkk/Gj3mo3YKr7pkt3Gh8Z8caFKPeZAMMvAS5UMsTqkZ7McFBk2pp8x23FPiVRT/FMBlDIXstua0yExWMnakpeS3+T4Q==
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
@@ -76,12 +76,11 @@ CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
         =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
 	<roger.pau@citrix.com>,
         Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v9 10/16] vpci/header: emulate PCI_COMMAND register for guests
-Thread-Topic: [PATCH v9 10/16] vpci/header: emulate PCI_COMMAND register for
- guests
-Thread-Index: AQHZ2s9LnsJWfZzJukybwnoLXaXA0g==
+Subject: [PATCH v9 09/16] vpci/header: program p2m with guest BAR view
+Thread-Topic: [PATCH v9 09/16] vpci/header: program p2m with guest BAR view
+Thread-Index: AQHZ2s9LsI9X1QGM2Uq0tBcOyguChw==
 Date: Tue, 29 Aug 2023 23:19:44 +0000
-Message-ID: <20230829231912.4091958-11-volodymyr_babchuk@epam.com>
+Message-ID: <20230829231912.4091958-10-volodymyr_babchuk@epam.com>
 References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
 In-Reply-To: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
 Accept-Language: en-US
@@ -91,45 +90,45 @@ X-MS-TNEF-Correlator:
 x-mailer: git-send-email 2.41.0
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM7PR03MB6371:EE_
-x-ms-office365-filtering-correlation-id: b95024b4-e3e7-4761-70b4-08dba8e66f49
+x-ms-office365-filtering-correlation-id: f4d9b8d0-52ee-471a-affc-08dba8e66f06
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- 0H8MtiKi35+65igUTXRWmr0abA8I4xS+xGE1oMFmAEYwd5y3CiNgKdDApjlXzQsCCROVpq6hnu6QIXVMnn2Uy8C5VgTjYPtYx0cXcFhLSbcLp8OEQvE7mo7X5Hyqv46Wr0juH06bD/XIRRvWogI4SwIT96KQd/vzldZ+weo2qOHb3Yzo28T40xSgoetEClyS4WjIQPGS5P3uZSaKT24wclz0VhW1fltCJ7/ueLDYMtWO3mZi6ZnrmzPxEtDRyybm2hMaI1xFR7oeFa1+cM3HNITUENSFkjHXlqZmQSFAlnGI0kiyFiLtAQAIP75UeO87dfObwviGoVMdXeLmib9rif6PGLaaeBOBwzj5Vv84QFJNO9P3lL7WcrAC5oebDO5sElJXTO1NMsr3DPD40YsDPDlhLLXVqfMTZmtHLREcB0FS8rQl+LCVYioLLVlX71SsqHDufbXrnln4nBD/ywLUlvUpj7mCh5gMDbSh+snr/Zz0CPwp34AE4v98m6jmjoBXXZ+qXb9W9Pt/D9zL7olz4QW7ccZC4uLga0/SNiCnyGBSJefZ3TQy/AYOodYLQVCS5h3MD834PCo0ur8nqalETDSAHmgHAKpm55etKD59Nw2ODTFQuJLdRIHgyyUmN3Fu
+ YW4QNAEyqGD25G/0nRrSv3u7AlwWV1aerxJXyo4moO7ctf/IapAMmKXL+6UabMo3AcsVdeCU2GMraKGDPtmw7emclujwjTIOFLhz00Xodm+sqdknXRlYLLAm4kYwZs88U8yn7JQWNt16bEIHVph+lw9VjU2kD/3QSPvi7TF5Bq4p7Ak51+IOReKHoPJ114JwOyK/2CeGy93al/upfIIOVd1uIiCzSScVddVfqfXFoUJMvcA+ul+TE6SYavAmu2ZS8C9ZkQZYIupIRVtVkixERIBAFK/CMAj8N49UZI5ZPDQxHUMQwZWV7hSk/6ghaCRiEMyHeabfQcCuRXpoDo1rHNvjA9FJroRVseIGKnA9JLQW+mUoRUp+wmxEQUThQdXEMJGVgZh7nHTBQjTML3HasEWf9Hevy82d01SvazqrxQizHT2jqLS9KKTakslCh8+Xo6S58XDHV/hIchlYzVRdjUhDmsWHaqYAO4TrM1BNHM4tETSCdicOTyXHhro/uednz29VWwwjAR0j9ChK2YGZk5DW3Ur4dhjVEhHPcphoFUgIkcVbIcHN043qePC0S+WigOAcB16cb50PawnOs5BIKx+bT8LtxCFRu4/aPntaz9dcz2JMUmvW8x7CQkikVn1g
 x-forefront-antispam-report: 
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(376002)(396003)(136003)(366004)(451199024)(1800799009)(186009)(71200400001)(6512007)(6506007)(6486002)(478600001)(55236004)(76116006)(1076003)(2616005)(107886003)(26005)(2906002)(6916009)(64756008)(66446008)(54906003)(316002)(5660300002)(66476007)(66556008)(91956017)(66946007)(41300700001)(83380400001)(8936002)(4326008)(8676002)(36756003)(38070700005)(38100700002)(86362001)(122000001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?nkJq/1JY300LwirFR1h/kwhhTXUCigEMKTyh6gASctXV2euwAJ8u15RT9U?=
- =?iso-8859-1?Q?OJ6xVMk67gF8khI7epCuHnlYT93WYlf4cEyjuSIuH2xK572EwvRe9CBcad?=
- =?iso-8859-1?Q?tZ5nA4pfhmjCkclAnX/K0DmC3koeyOQNdSJBPr+wDAVBhhY6R3rbxhKjaG?=
- =?iso-8859-1?Q?+cz7T1Z+PXFaQBSv7wIgsHXsEotUWTv45y7Xb055h5NWQnOY5tOmsZQHAH?=
- =?iso-8859-1?Q?5jOVb+4F2BOnqm8DAg6bRiY+0Jmoqu2y4TKw73dD2+LcRh30cu6BWXfs0z?=
- =?iso-8859-1?Q?FCdf/x6JFjesVeu88OIc+hekI4qK5JnZlq0pRxKxRJJwtnOuarW8s6pzv9?=
- =?iso-8859-1?Q?WXi9W+7jGP4SqW12n0nBIL0EbtWlHW9Nu7vc/9AWf12/XbX60NHck3Pa6r?=
- =?iso-8859-1?Q?k9ek1lYGl/3tmfdthIpQRRSpAs8+hKXzn3ISYWpZfb6V8XZA+C0djJEsE9?=
- =?iso-8859-1?Q?7ciKjhgGPEOlQKPY4qKNJlcRJtR+934ekFe3BoCem0hUEbS7xjCgPBGkYc?=
- =?iso-8859-1?Q?bVpKRPhS6ei90SIHakdQIoQm2OE8qmlSyoQa1bIGm4wpqaXwsijAIAI1XC?=
- =?iso-8859-1?Q?s2nKXSDFupPVKL99aNOFeVdCPTwwOlW8VljHKnflk939mxHwwsjOZb8X3U?=
- =?iso-8859-1?Q?YsVKaki5LLwjSmj0kiWiHPHm6fJNJsv94nf6E7xpXnvXqYhCbNxe3jPJ0V?=
- =?iso-8859-1?Q?NAP7C6dplljuCj4ggPSm29xSvboMKWtSrbjNgz5vz2whb+igFbVDafgOOH?=
- =?iso-8859-1?Q?e+LnzDnBTmb7W/fHk48VgE4QnjFg4B8YGKDeLLv0Lr1B3RVhoXSXYyz+g4?=
- =?iso-8859-1?Q?ebbNKSj5pqLp1tPcERteT3Hk3uxzZ9Yj0JRF7fzIO3/u2i6+4DtMlbn/YG?=
- =?iso-8859-1?Q?L/Q9J4T6RqItzK7MSnUZrzx0ZLzaPTuS6dFQ/QXVSnDiIx+YyxsIIyAHch?=
- =?iso-8859-1?Q?0R1SoC1kYlGZDaBiy3cduLmPnUxRSXb5wHGGJDz7FKuLViLBd9NvwWNLYR?=
- =?iso-8859-1?Q?93/4MmZbjVvYP0rQHpn3U3daOtSKQNHR0B+khSf1xmmTxcB6OYW+JxZoLy?=
- =?iso-8859-1?Q?3mNUJ57y1UtM6Vj2P4Lp3LQp4kdeWtbG8DlpzKj03YuoiCWgPPUKeroxDA?=
- =?iso-8859-1?Q?XlGwBfT64QfHbzgW5fRoSllJkM8zR1gM6eHgE5sdi/vtysGNggoTZdrxin?=
- =?iso-8859-1?Q?6xK9jIr+lZcpdakpWm5TqkqBCmvNG/xb1bBBQAtlMvQ+n6OP82uEo4NJiJ?=
- =?iso-8859-1?Q?xoOFLDUQlj5LvtpQKPv5DHwhF2PACXX7LaGp/c9xKj/cPsa7jIIlq83KNc?=
- =?iso-8859-1?Q?hrs3nu10gwNCDVEIR6ZPVz46QTeOs+XiuCf6pHeYF7Uif2JAZWVXpq312r?=
- =?iso-8859-1?Q?imjRkYVCAdFZi4B0RucHFknHD65LzPq3alPRP3j5ky/bPC8Xn6gb+h8Idp?=
- =?iso-8859-1?Q?SwxAZy7YGNn9NwFELeOdd0t74LDyeGVViLXkAlrjrHnWVrcEqc/FgK69lp?=
- =?iso-8859-1?Q?DdAmZY2xxVLYzZg6WQ0VWcXB+RpC7c1oSocVhiBhc+Atim61e7q/cPTPcr?=
- =?iso-8859-1?Q?a67uVH18yEeu2uUZP0LDQfjrLFBhAmfZhc/UZPqGYqO5zscYqtTkIRFJ46?=
- =?iso-8859-1?Q?cSx/OngbmBUYLn47PmzuYFKjoPS8Xm8YsSsxA8EOTgcJmmmDBkMwTPYQ?=
+ =?iso-8859-1?Q?eY4JkfDnITWXPdQcsv+YiWNw8UwDVaYKE/wV1gGXFp+HMhVWF3BcMGscyo?=
+ =?iso-8859-1?Q?KjE9wIK2oFVexxveX/Ln0jDwEVqpWZ4ibSv7s9PoXj+ZonS923IeDK5UCe?=
+ =?iso-8859-1?Q?KrhILFeaxLEhCo9ldmDnnugHDjZ81xjBtHg+BRbnDyq+IRZ+nR/NTsMAdv?=
+ =?iso-8859-1?Q?phj1OTKV3zXhIiUNb3dZlvTz+jGMxFukIM/h6WaSpe/EuF+TNQrk1Rc821?=
+ =?iso-8859-1?Q?lKwvoOsu/rfZt8XLHEHHiHedOIkHwVHnMEvvWy3uyNr1M2zlmUL9AaVQSj?=
+ =?iso-8859-1?Q?yTfFM2Au0kyvLDiicYI+qBuSBgBSb91jx9frhyN2UZOim42JUh8pwKjIGz?=
+ =?iso-8859-1?Q?lqqFsdRR+GeBm2CQKKYFqyplUXMEzLEQMSKRxXHyvAjO+4YsWmFLJIPYWV?=
+ =?iso-8859-1?Q?idbzx8YUuNuydh4qvJRpEqWY6b7PtIEdIxjEYibwCEQgRz7P1rJAnfLaCU?=
+ =?iso-8859-1?Q?BPF9g03QLPswrHLXjJHIy7VGAaBmRRgfj7pUGiSIa6aVwFDjXupEFR4Vwq?=
+ =?iso-8859-1?Q?GPrSDzNrMu/q/FQC5LZiu/6/3A+gdL9/qf4soxfsX4t2jUsBF18t6p7jQk?=
+ =?iso-8859-1?Q?CGtFtTTVeLlr5BOJOfm38aEXwvIMoPFP/uTCfuRfv9EWxhl3XYk9+KdUd3?=
+ =?iso-8859-1?Q?jj5IWa+2FoJe7pnp1gOUQIPbKFesflNxlXh/L5itJhDKJASaILTQvRzspe?=
+ =?iso-8859-1?Q?wBLqGN+aVt8HEtjPjxnt8aDRr8lpWjY9PuAHMJ9Yrp4qpwznYNQIjpSNzy?=
+ =?iso-8859-1?Q?CNqlyYffbjN+VYiaeD5nF4o4G+XskF5xKg3s+CCJH3cCJpnLYrNZMcjuOT?=
+ =?iso-8859-1?Q?jll0xGpdcyDYT08fWY3UMoFByQFyJuytubcWl5cUv3Dj1JuyTl8IZGaczB?=
+ =?iso-8859-1?Q?2/RKhHtt5Oi84o0Oi6e7Nkq1lGB0SW7bKzigh+KW/2iG14GZlPEUQhVOVp?=
+ =?iso-8859-1?Q?VZdlVYPVBo94lxC16Pqcvb9hyd3decEKPjuVyVTQQjZiZYz99kzS4aWIrC?=
+ =?iso-8859-1?Q?gP6vVr7aPvlLP/WNiPDP9eCbqv/D8iX8MQF+nAUDAOEYWXs0JSdB2+ISmv?=
+ =?iso-8859-1?Q?WOP1BHANUOxa+FuNimVGAtK/YbYUOtISjE1bqjYuiTM35/opjhudPceii0?=
+ =?iso-8859-1?Q?LFPrxPWaQmF144P9Jft9QL+zG2ej0gCwEtGemAEPl7Mff4L0Jzi6iSUb0k?=
+ =?iso-8859-1?Q?hn4M/HbXkOy1alrcUFj1yKU8jm3eY+0hxMimhKZMOhagQi5cVeDnE4Tq4c?=
+ =?iso-8859-1?Q?V1ESTe3jTbLjPelkmswFCiBm713OhDl1WwkSFe+Mw6+/kcJ3ulU06/EXlD?=
+ =?iso-8859-1?Q?NiOtuSMQevOJo2h+A291GMqOqjdSCYLRzUlIQGHJ6dgacc5ZnJ5z6f2ESN?=
+ =?iso-8859-1?Q?3Zt/sHy+i3MTlISlJLnsLEYOAj5AHEpcQYwAw0j2bi7Wia/TCGEq08etRn?=
+ =?iso-8859-1?Q?BNaiGQ41tTiPnhBw6sP+NFKpM0Ay3l53VhWumF/qBfiolxGYw5/E4Yell5?=
+ =?iso-8859-1?Q?yoIkAiDrpc43HhDYPAzd05AJV21U/jfGv5SH+PI5A4Ge5MnnHFuaDm9yTQ?=
+ =?iso-8859-1?Q?zg57iegdP2p4/GAeH0usl7cliyb2vIlCscmNbiWoH3p8i5udHaQeaEl0AX?=
+ =?iso-8859-1?Q?kkQoGV1ZCMomM2G6wTnD1cMX7/QpvgrMlxXI8Rv+dLx/1bnXZ/iplnoA?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -137,243 +136,248 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b95024b4-e3e7-4761-70b4-08dba8e66f49
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Aug 2023 23:19:44.9820
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4d9b8d0-52ee-471a-affc-08dba8e66f06
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Aug 2023 23:19:44.6371
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f/k3Xb32J1XaaKVsrs/XVjlpzoQZmW3fOgEoHr4A8moveTnaXHgTvZB0cjHHilS89Bzn2Lvs85DALruECUAUuXognKMXxE3L834HZIThW/U=
+X-MS-Exchange-CrossTenant-userprincipalname: bHeXT79Li8+nP0oKS63u0m826gne51eMqkKhDEzOOgBd9ZKFSTi/UG2q2n6ZDw7H2jJknlD+9lgT7drUmRydVvZwKlag2BcPsooEsWiluNs=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6371
-X-Proofpoint-ORIG-GUID: 6UMa9LcDeC2G7H2Odn-1F9XCLs63wV6Q
-X-Proofpoint-GUID: 6UMa9LcDeC2G7H2Odn-1F9XCLs63wV6Q
+X-Proofpoint-ORIG-GUID: ceyT-8jLF7Qk1-FSkN6pMMDVOko9niTd
+X-Proofpoint-GUID: ceyT-8jLF7Qk1-FSkN6pMMDVOko9niTd
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
  definitions=2023-08-29_16,2023-08-29_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 bulkscore=0
- mlxscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0 mlxlogscore=999
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
+ mlxlogscore=999 priorityscore=1501 mlxscore=0 adultscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2308100000 definitions=main-2308290202
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Xen and/or Dom0 may have put values in PCI_COMMAND which they expect
-to remain unaltered. PCI_COMMAND_SERR bit is a good example: while the
-guest's view of this will want to be zero initially, the host having set
-it to 1 may not easily be overwritten with 0, or else we'd effectively
-imply giving the guest control of the bit. Thus, PCI_COMMAND register needs
-proper emulation in order to honor host's settings.
+Take into account guest's BAR view and program its p2m accordingly:
+gfn is guest's view of the BAR and mfn is the physical BAR value.
+This way hardware domain sees physical BAR values and guest sees
+emulated ones.
 
-According to "PCI LOCAL BUS SPECIFICATION, REV. 3.0", section "6.2.2
-Device Control" the reset state of the command register is typically 0,
-so when assigning a PCI device use 0 as the initial state for the guest's v=
-iew
-of the command register.
-
-Here is the full list of command register bits with notes about
-emulation:
-
-PCI_COMMAND_IO - Allow guest to control it.
-PCI_COMMAND_MEMORY - Already handled.
-PCI_COMMAND_MASTER - Allow guest to control it.
-PCI_COMMAND_SPECIAL - Guest can generate special cycles only if it has
-access to host bridge that supports software generation of special
-cycles. In our case guest has no access to host bridges at all. Value
-after reset is 0.
-PCI_COMMAND_INVALIDATE - Allows "Memory Write and Invalidate" commands
-to be generated. It requires additional configuration via Cacheline
-Size register. We are not emulating this register right now and we
-can't expect guest to properly configure it.
-PCI_COMMAND_VGA_PALETTE - Enable VGA palette snooping. This bit is set
-by firmware and we want to leave it as is.
-PCI_COMMAND_PARITY - Controls how device response to parity
-errors. We want this bit to be set by a hardware domain.
-PCI_COMMAND_WAIT - Reserved. Should be 0.
-PCI_COMMAND_SERR - Controls if device can assert SERR.
-The same as for COMMAND_PARITY.
-PCI_COMMAND_FAST_BACK - Optional bit that allows fast back-to-back
-transactions. It is configured by firmware, so we don't want guest to
-control it.
-PCI_COMMAND_INTX_DISABLE - Disables INTx signals. If MSI(X) is
-enabled, device is prohibited from asserting INTx. Value after reset
-is 0. Guest can control it freely.
+Hardware domain continues getting the BARs identity mapped, while for
+domUs the BARs are mapped at the requested guest address without
+modifying the BAR address in the device PCI config space.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 ---
 Since v9:
-- Reworked guest_cmd_read
-- Added handling for more bits
-Since v6:
-- fold guest's logic into cmd_write
-- implement cmd_read, so we can report emulated INTx state to guests
-- introduce header->guest_cmd to hold the emulated state of the
-  PCI_COMMAND register for guests
+- Extended the commit message
+- Use bar->guest_addr in modify_bars
+- Extended printk error message in map_range
+- Moved map_data initialization so .bar can be initialized during declarati=
+on
 Since v5:
-- add additional check for MSI-X enabled while altering INTX bit
-- make sure INTx disabled while guests enable MSI/MSI-X
+- remove debug print in map_range callback
+- remove "identity" from the debug print
+Since v4:
+- moved start_{gfn|mfn} calculation into map_range
+- pass vpci_bar in the map_data instead of start_{gfn|mfn}
+- s/guest_addr/guest_reg
 Since v3:
-- gate more code on CONFIG_HAS_MSI
-- removed logic for the case when MSI/MSI-X not enabled
+- updated comment (Roger)
+- removed gfn_add(map->start_gfn, rc); which is wrong
+- use v->domain instead of v->vpci.pdev->domain
+- removed odd e.g. in comment
+- s/d%d/%pd in altered code
+- use gdprintk for map/unmap logs
+Since v2:
+- improve readability for data.start_gfn and restructure ?: construct
+Since v1:
+ - s/MSI/MSI-X in comments
 ---
- xen/drivers/vpci/header.c | 54 ++++++++++++++++++++++++++++++++++++---
- xen/drivers/vpci/msi.c    | 10 ++++++++
- xen/drivers/vpci/msix.c   |  4 +++
- xen/include/xen/vpci.h    |  3 +++
- 4 files changed, 67 insertions(+), 4 deletions(-)
+ xen/drivers/vpci/header.c | 52 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 38 insertions(+), 14 deletions(-)
 
 diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index 1e82217200..e351db4620 100644
+index 3cc6a96849..1e82217200 100644
 --- a/xen/drivers/vpci/header.c
 +++ b/xen/drivers/vpci/header.c
-@@ -502,14 +502,37 @@ static int modify_bars(const struct pci_dev *pdev, ui=
-nt16_t cmd, bool rom_only)
-     return 0;
- }
+@@ -33,6 +33,7 @@
 =20
-+/* TODO: Add proper emulation for all bits of the command register. */
- static void cf_check cmd_write(
-     const struct pci_dev *pdev, unsigned int reg, uint32_t cmd, void *data=
-)
- {
-     struct vpci_header *header =3D data;
+ struct map_data {
+     struct domain *d;
++    const struct vpci_bar *bar;
+     bool map;
+ };
 =20
-+    if ( !is_hardware_domain(pdev->domain) )
-+    {
-+        if ( IS_ENABLED(CONFIG_HAS_PCI_MSI) )
-+        {
-+            /* Tell guest that device does not support this */
-+            cmd &=3D ~PCI_COMMAND_FAST_BACK;
-+        }
-+
-+        header->guest_cmd =3D cmd;
-+
-+        if ( IS_ENABLED(CONFIG_HAS_PCI_MSI) )
-+        {
-+            /* Do not touch INVALIDATE, PARITY and SERR */
-+            const uint16_t excluded =3D PCI_COMMAND_INVALIDATE |
-+                PCI_COMMAND_PARITY | PCI_COMMAND_SERR;
-+
-+            cmd &=3D ~excluded;
-+            cmd |=3D pci_conf_read16(pdev->sbdf, reg) & excluded;
-+        }
-+    }
-+
-     /*
--     * Let Dom0 play with all the bits directly except for the memory
--     * decoding one.
-+     * Let guest play with all the bits directly except for the memory
-+     * decoding one. Bits that are not allowed for DomU are already
-+     * handled above.
-      */
-     if ( header->bars_mapped !=3D !!(cmd & PCI_COMMAND_MEMORY) )
-         /*
-@@ -523,6 +546,14 @@ static void cf_check cmd_write(
-         pci_conf_write16(pdev->sbdf, reg, cmd);
- }
+@@ -44,6 +45,12 @@ static int cf_check map_range(
 =20
-+static uint32_t guest_cmd_read(const struct pci_dev *pdev, unsigned int re=
-g,
-+                               void *data)
-+{
-+    const struct vpci_header *header =3D data;
-+
-+    return header->guest_cmd;
-+}
-+
- static void cf_check bar_write(
-     const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data=
-)
- {
-@@ -732,8 +763,12 @@ static int cf_check init_bars(struct pci_dev *pdev)
-     }
-=20
-     /* Setup a handler for the command register. */
--    rc =3D vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write, PCI_CO=
-MMAND,
--                           2, header);
-+    if ( is_hwdom )
-+        rc =3D vpci_add_register(pdev->vpci, vpci_hw_read16, cmd_write, PC=
-I_COMMAND,
-+                               2, header);
-+    else
-+        rc =3D vpci_add_register(pdev->vpci, guest_cmd_read, cmd_write, PC=
-I_COMMAND,
-+                               2, header);
-     if ( rc )
-         return rc;
-=20
-@@ -745,6 +780,17 @@ static int cf_check init_bars(struct pci_dev *pdev)
-     if ( cmd & PCI_COMMAND_MEMORY )
-         pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd & ~PCI_COMMAND_MEMOR=
-Y);
-=20
-+    header->guest_cmd =3D cmd & ~PCI_COMMAND_MEMORY;
-+
-+    /*
-+     * According to "PCI LOCAL BUS SPECIFICATION, REV. 3.0", section "6.2.=
-2
-+     * Device Control" the reset state of the command register is
-+     * typically all 0's, so this is used as initial value for the guests.
-+     */
-+    if ( header->guest_cmd !=3D 0 )
-+        gprintk(XENLOG_WARNING, "%pp: CMD is not zero: %x", &pdev->sbdf,
-+                header->guest_cmd);
-+
-     for ( i =3D 0; i < num_bars; i++ )
+     for ( ; ; )
      {
-         uint8_t reg =3D PCI_BASE_ADDRESS_0 + i * 4;
-diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
-index a0733bb2cb..df0f0199b8 100644
---- a/xen/drivers/vpci/msi.c
-+++ b/xen/drivers/vpci/msi.c
-@@ -70,6 +70,16 @@ static void cf_check control_write(
++        /* Start address of the BAR as seen by the guest. */
++        gfn_t start_gfn =3D _gfn(PFN_DOWN(is_hardware_domain(map->d)
++                                        ? map->bar->addr
++                                        : map->bar->guest_addr));
++        /* Physical start address of the BAR. */
++        mfn_t start_mfn =3D _mfn(PFN_DOWN(map->bar->addr));
+         unsigned long size =3D e - s + 1;
 =20
-         if ( vpci_msi_arch_enable(msi, pdev, vectors) )
-             return;
-+
+         if ( !iomem_access_permitted(map->d, s, e) )
+@@ -63,6 +70,13 @@ static int cf_check map_range(
+             return rc;
+         }
+=20
 +        /*
-+         * Make sure guest doesn't enable INTx while enabling MSI.
-+         * Opposite action (enabling INTx) will be performed in
-+         * vpci_msi_arch_disable call path.
++         * Ranges to be mapped don't always start at the BAR start address=
+, as
++         * there can be holes or partially consumed ranges. Account for th=
+e
++         * offset of the current address from the BAR start.
 +         */
-+        if ( !is_hardware_domain(pdev->domain) )
-+        {
-+            pci_intx(pdev, false);
-+        }
-     }
-     else
-         vpci_msi_arch_disable(msi, pdev);
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index f8c5bd393b..300c671384 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -97,6 +97,10 @@ static void cf_check control_write(
-         for ( i =3D 0; i < msix->max_entries; i++ )
-             if ( !msix->entries[i].masked && msix->entries[i].updated )
-                 update_entry(&msix->entries[i], pdev, i);
-+
-+        /* Make sure guest doesn't enable INTx while enabling MSI-X. */
-+        if ( !is_hardware_domain(pdev->domain) )
-+            pci_intx(pdev, false);
-     }
-     else if ( !new_enabled && msix->enabled )
-     {
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index d77a6f9506..f67d848616 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -87,6 +87,9 @@ struct vpci {
-         } bars[PCI_HEADER_NORMAL_NR_BARS + 1];
-         /* At most 6 BARS + 1 expansion ROM BAR. */
-=20
-+        /* Guest view of the PCI_COMMAND register. */
-+        uint16_t guest_cmd;
++        start_mfn =3D mfn_add(start_mfn, s - gfn_x(start_gfn));
 +
          /*
-          * Store whether the ROM enable bit is set (doesn't imply ROM BAR
-          * is mapped into guest p2m) if there's a ROM BAR on the device.
+          * ARM TODOs:
+          * - On ARM whether the memory is prefetchable or not should be pa=
+ssed
+@@ -72,8 +86,8 @@ static int cf_check map_range(
+          * - {un}map_mmio_regions doesn't support preemption.
+          */
+=20
+-        rc =3D map->map ? map_mmio_regions(map->d, _gfn(s), size, _mfn(s))
+-                      : unmap_mmio_regions(map->d, _gfn(s), size, _mfn(s))=
+;
++        rc =3D map->map ? map_mmio_regions(map->d, _gfn(s), size, start_mf=
+n)
++                      : unmap_mmio_regions(map->d, _gfn(s), size, start_mf=
+n);
+         if ( rc =3D=3D 0 )
+         {
+             *c +=3D size;
+@@ -82,8 +96,9 @@ static int cf_check map_range(
+         if ( rc < 0 )
+         {
+             printk(XENLOG_G_WARNING
+-                   "Failed to identity %smap [%lx, %lx] for d%d: %d\n",
+-                   map->map ? "" : "un", s, e, map->d->domain_id, rc);
++                   "Failed to %smap [%lx (%lx), %lx (%lx)] for %pd: %d\n",
++                   map->map ? "" : "un", s,  mfn_x(start_mfn), e,
++                   mfn_x(start_mfn) + size, map->d, rc);
+             break;
+         }
+         ASSERT(rc < size);
+@@ -162,10 +177,6 @@ static void modify_decoding(const struct pci_dev *pdev=
+, uint16_t cmd,
+ bool vpci_process_pending(struct vcpu *v)
+ {
+     struct pci_dev *pdev =3D v->vpci.pdev;
+-    struct map_data data =3D {
+-        .d =3D v->domain,
+-        .map =3D v->vpci.cmd & PCI_COMMAND_MEMORY,
+-    };
+     struct vpci_header *header =3D NULL;
+     unsigned int i;
+=20
+@@ -177,6 +188,11 @@ bool vpci_process_pending(struct vcpu *v)
+     for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
+     {
+         struct vpci_bar *bar =3D &header->bars[i];
++        struct map_data data =3D {
++            .d =3D v->domain,
++            .map =3D v->vpci.cmd & PCI_COMMAND_MEMORY,
++            .bar =3D bar,
++        };
+         int rc;
+=20
+         if ( rangeset_is_empty(bar->mem) )
+@@ -229,7 +245,6 @@ bool vpci_process_pending(struct vcpu *v)
+ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
+                             uint16_t cmd)
+ {
+-    struct map_data data =3D { .d =3D d, .map =3D true };
+     struct vpci_header *header =3D &pdev->vpci->header;
+     int rc =3D 0;
+     unsigned int i;
+@@ -239,6 +254,7 @@ static int __init apply_map(struct domain *d, const str=
+uct pci_dev *pdev,
+     for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
+     {
+         struct vpci_bar *bar =3D &header->bars[i];
++        struct map_data data =3D { .d =3D d, .map =3D true, .bar =3D bar }=
+;
+=20
+         if ( rangeset_is_empty(bar->mem) )
+             continue;
+@@ -306,12 +322,18 @@ static int modify_bars(const struct pci_dev *pdev, ui=
+nt16_t cmd, bool rom_only)
+      * First fill the rangesets with the BAR of this device or with the RO=
+M
+      * BAR only, depending on whether the guest is toggling the memory dec=
+ode
+      * bit of the command register, or the enable bit of the ROM BAR regis=
+ter.
++     *
++     * For non-hardware domain we use guest physical addresses.
+      */
+     for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
+     {
+         struct vpci_bar *bar =3D &header->bars[i];
+         unsigned long start =3D PFN_DOWN(bar->addr);
+         unsigned long end =3D PFN_DOWN(bar->addr + bar->size - 1);
++        unsigned long start_guest =3D PFN_DOWN(is_hardware_domain(pdev->do=
+main) ?
++                                             bar->addr : bar->guest_addr);
++        unsigned long end_guest =3D PFN_DOWN((is_hardware_domain(pdev->dom=
+ain) ?
++                                  bar->addr : bar->guest_addr) + bar->size=
+ - 1);
+=20
+         if ( !bar->mem )
+             continue;
+@@ -331,11 +353,11 @@ static int modify_bars(const struct pci_dev *pdev, ui=
+nt16_t cmd, bool rom_only)
+             continue;
+         }
+=20
+-        rc =3D rangeset_add_range(bar->mem, start, end);
++        rc =3D rangeset_add_range(bar->mem, start_guest, end_guest);
+         if ( rc )
+         {
+             printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
+-                   start, end, rc);
++                   start_guest, end_guest, rc);
+             return rc;
+         }
+=20
+@@ -352,7 +374,7 @@ static int modify_bars(const struct pci_dev *pdev, uint=
+16_t cmd, bool rom_only)
+             {
+                 gprintk(XENLOG_WARNING,
+                        "%pp: failed to remove overlapping range [%lx, %lx]=
+: %d\n",
+-                        &pdev->sbdf, start, end, rc);
++                        &pdev->sbdf, start_guest, end_guest, rc);
+                 return rc;
+             }
+         }
+@@ -420,8 +442,10 @@ static int modify_bars(const struct pci_dev *pdev, uin=
+t16_t cmd, bool rom_only)
+             for ( i =3D 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
+             {
+                 const struct vpci_bar *remote_bar =3D &tmp->vpci->header.b=
+ars[i];
+-                unsigned long start =3D PFN_DOWN(remote_bar->addr);
+-                unsigned long end =3D PFN_DOWN(remote_bar->addr +
++                unsigned long start =3D PFN_DOWN(is_hardware_domain(pdev->=
+domain) ?
++                                      remote_bar->addr : remote_bar->guest=
+_addr);
++                unsigned long end =3D PFN_DOWN(is_hardware_domain(pdev->do=
+main) ?
++                                    remote_bar->addr : remote_bar->guest_a=
+ddr +
+                                              remote_bar->size - 1);
+=20
+                 if ( !remote_bar->enabled )
 --=20
 2.41.0
 
