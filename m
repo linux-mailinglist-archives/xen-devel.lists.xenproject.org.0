@@ -2,46 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2143378D044
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 01:20:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.592514.925287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCBA278D0CB
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 01:46:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.592631.925407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qb809-0007xg-OL; Tue, 29 Aug 2023 23:20:01 +0000
+	id 1qb8PG-0005ro-VB; Tue, 29 Aug 2023 23:45:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 592514.925287; Tue, 29 Aug 2023 23:20:01 +0000
+Received: by outflank-mailman (output) from mailman id 592631.925407; Tue, 29 Aug 2023 23:45:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qb809-0007qB-Iw; Tue, 29 Aug 2023 23:20:01 +0000
-Received: by outflank-mailman (input) for mailman id 592514;
- Tue, 29 Aug 2023 23:19:59 +0000
+	id 1qb8PG-0005pb-RO; Tue, 29 Aug 2023 23:45:58 +0000
+Received: by outflank-mailman (input) for mailman id 592631;
+ Tue, 29 Aug 2023 23:45:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y18t=EO=epam.com=prvs=36058b40d2=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1qb807-0006kQ-CO
- for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 23:19:59 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 91395310-46c2-11ee-9b0d-b553b5be7939;
- Wed, 30 Aug 2023 01:19:57 +0200 (CEST)
-Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37TFMk9p021983; Tue, 29 Aug 2023 23:19:55 GMT
-Received: from eur05-db8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3ssdvpbm4f-11
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Aug 2023 23:19:55 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
- by AM7PR03MB6371.eurprd03.prod.outlook.com (2603:10a6:20b:1b8::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.35; Tue, 29 Aug
- 2023 23:19:48 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::9d42:8444:f00d:7895]) by VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::9d42:8444:f00d:7895%4]) with mapi id 15.20.6699.034; Tue, 29 Aug 2023
- 23:19:48 +0000
+ <SRS0=Jw1q=EO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qb8PF-0005pV-78
+ for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 23:45:57 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30b93ade-46c6-11ee-9b0d-b553b5be7939;
+ Wed, 30 Aug 2023 01:45:53 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6089F61C41;
+ Tue, 29 Aug 2023 23:45:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B695C433C7;
+ Tue, 29 Aug 2023 23:45:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,135 +44,690 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91395310-46c2-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m+E0+htBOuRqUkOXEOH0PhRZYcgmKQUqttJGKIJRnaonfSlB02lCzplD+ZVXLVVL6442sA88tyBwDqB8OZZvD4wgT5TO3TGh9dLiTXqX5mEgYQ2/U76z9NDfuGavqGNXlEzxa8S0DVT3wETa/fhWAZOenuf776bGcVu9nCHGxjcgjzqLhfzezm9A88DlViR14zIaS0sJAk3hYyaZQ2JI5pg+ifS1negLstRxRMEh7471ye6biLql1UOkbPTXZINFy6v9zeXfJ+ZoAyCivOVoyK668iTuE7CzgRQKqC7VceYFovtBuQl6epUHRCjPWnFYJ42MuZFddX2ZRVJhSBAvQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yi13S8hn57H9+SZArk4saLc0rRHuoOULjXT1oxZYZRk=;
- b=moR5GxUVlhOgAP5lHmGfUM2ihkIhSTVWebcDAvvxgrsDHQGia/sMr/unYTTnpqcEZn6esviCuw+c7x3Pv3lzvfurVADpXaxXWTp+ouaBILzx1hSmwY2A14Jnz1RAaQKZCGVn3IIKlEpW9eOJMFE3w+SFkWlBd/gzIoe2i40LzY1zywSwA2dvI7Lut4HPEq2RvqP4p3uyOHkwVag2lmKY6N0gqOC7J4yKDq4EZ1X2xTA6Cn/YWNALWWXRtjmPtbFhJhzD4MHszRLK5Q0jSPSFE1AQQevaIdDmCsp82BwJb0oGL66gLoDuqV7JkaoRW6KGs93TPIJf1dDgyUcZIAz80A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yi13S8hn57H9+SZArk4saLc0rRHuoOULjXT1oxZYZRk=;
- b=dX3UFhNJRTa68AjCy+w5L8tncG354AUvN5Vye+BsFdWpgjSaadLPtv5AarUOQqldyDh2kuc4NpGgzomx+0rGODc3ZlGxWHJzjx+7xw4c5w5Bxgzq3NZumaJqZCSFOXb/SGWMFymm+8DThMZo1tjuzIAukjS9rY8gZkVMEU0fjrlWDI4xMOiGhEkn1ga2tPqyPJCyn9PI8sAymZK+hclvcNdYboMovXtRvhTV306J5eydca02mvPajSRmHnWp6sDDwSh3dhdwO3bhfkco0eX0Xr2PbYdp5oASyrdbHrwZiuFYgqyBH5ZHfinnCQPJhf944O5T5KoWbY5Syi1+sqSSkg==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-        =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
-Subject: [PATCH v9 15/16] xen/arm: vpci: check guest range
-Thread-Topic: [PATCH v9 15/16] xen/arm: vpci: check guest range
-Thread-Index: AQHZ2s9NAWcA6L4O6U+PqFV61kFyWA==
-Date: Tue, 29 Aug 2023 23:19:47 +0000
-Message-ID: <20230829231912.4091958-16-volodymyr_babchuk@epam.com>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
-In-Reply-To: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: git-send-email 2.41.0
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM7PR03MB6371:EE_
-x-ms-office365-filtering-correlation-id: c40aa71a-dea3-465e-8813-08dba8e67048
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- nce5vjY9Bj7S0RfJjidE5Ey36FrFrSjWBJ8HsoJgONqTUkX/GHNCLXztGOelXZfj7CzMzS24tETH4OD22SWHCIG+dkzxR2yY2JaRHrVvmpbFcTnCJyu/lOIOWfTpT5UpSJPJI06M8u0k8wwLiFZ/fN8g+rkwoEO9VvXyTn/jGc63Gl90gRleaWpPPqvIqjmn5tSk97+XbruNOG3L+tr/rIA2Pq4ixWUufp5+lYrhnnEaoCijuefXRlNIvcZuJZRX0FRcJ5SOnNF3ZQzyxFWNS4+2JBD3o6tpUyKrKqFPCBIjje7I7G+qT1OuiTxz9DjF1yfMuUUjDQAHBAY0UZFDON6nIQOskLgcga5ExiY3SPOugMNLAIy9GVuO6vl5CbkLupL+s+YYZjtKk0+irr5lmmf7GEwypd43K2QPOqjx4byjezu+KBNDj1i71WNNtCeKODHmrCqZdpnaITwiIGl6wq8sUefuXuvSByy6HqAHypsrXpuMWXdi4M0yvTBQ1HB3hTiXZ0E5vKomV/Md1k2yCArLvk2dmodgvwYEfWlTesScw+xXUDiCteeLozbnYzSt/RAv+aJs03jkXg1jyikCsHau6WuOy/A/Q8/Yboo5CBkHz8zTGRdRuJyzBZNqJYg1
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(376002)(396003)(136003)(366004)(451199024)(1800799009)(186009)(71200400001)(6512007)(6506007)(6486002)(478600001)(55236004)(76116006)(1076003)(2616005)(26005)(4744005)(2906002)(6916009)(64756008)(66446008)(54906003)(316002)(5660300002)(66476007)(66556008)(91956017)(66946007)(41300700001)(83380400001)(8936002)(4326008)(8676002)(36756003)(38070700005)(38100700002)(86362001)(122000001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?v3AAlS0/O+hVoALSrmYskDyzgHKG9tnCFfK0g1fMGoPPYIkL4OEv/qZIQL?=
- =?iso-8859-1?Q?wWWvRuQrxj0j8tRA0LbxiPavBlCGPuRBvW002OhWolk6Lszxk4emN5vqlr?=
- =?iso-8859-1?Q?KXP8MxjgW2OxJLA8iVG64VzjaBQc/cznAcMm+347uUm7spITSMvo1Bb+XK?=
- =?iso-8859-1?Q?quKxk3WeGhCbSlT0hOiK0kDQ6mceUsRGW8rCSeI7+R70YVxXbTlAdikQFk?=
- =?iso-8859-1?Q?HZ+Rimd1ksco6RPpfXHyUlc9KdRwv0Dq5j4Y9ctmtXgKG1p8i0OUjglD5K?=
- =?iso-8859-1?Q?hZ03M0Kt8iVwuCF/97m9Sd0ajDtynQN8j97LH632EcP7+aao4MD7+ugHgE?=
- =?iso-8859-1?Q?R2XQmuED2K32MkxcB+BQ6+OpLMIT7UkRte8mlgbanf0lQyV15bWyJ/uaxu?=
- =?iso-8859-1?Q?e8KEQ02EI9w04g+lEBdk2OANAKU4kKPO7e8zXy+bpVf2thlAttQCl5BbqL?=
- =?iso-8859-1?Q?l5/WSX9Eu8AS31TETJSdb3BMqDL5ALaOP1tF3Yi9tuXyCJ0c34uKti6UUP?=
- =?iso-8859-1?Q?lJrHFzMYt4pU/p5tkdvD88dqM5MN/3uSNjz3EIuaYKZ5Gjak8VDk1jvtUn?=
- =?iso-8859-1?Q?m8IAcB0it0W2vTlKTgS/kWPKDhYth6ME/abS7nLo6WmCdvGe6BUpabUC8J?=
- =?iso-8859-1?Q?x08I85BdPzAOH8pW12EaTPDFW5Mjkn/ugqeuACRt3KlcJuKPtK8uUWM/6s?=
- =?iso-8859-1?Q?s+LqNSbJXOkCFF32IbYrpUA4RC7wgO3xPZpjQhWxwMQmJkRhdUx0fAhqU0?=
- =?iso-8859-1?Q?JgSP9kdgB2USpGttJ3HtnrvIBNM0MmhsXO6Vs6FHW7x42FWrYB2R13mLm8?=
- =?iso-8859-1?Q?OVKCFE77BH65BCM/XS6gdRKHy88LhEtk3SVMMhbYaSHAAmU1/O7VtB7+ao?=
- =?iso-8859-1?Q?D8Tvq0o1FFpauF8YdOOwYn9HtY/fc5Ww1MK/eQM+3YRrq1MG47kc5qC4G3?=
- =?iso-8859-1?Q?FLhKF9nVVdFrGloOANaxVnOkVE0CeCr2MV7G87SgbnIwyo+SBHg3FdCfIu?=
- =?iso-8859-1?Q?3XCrZ0zF/pqRMhVocRRhWg3xIaiNuIwmgu50kElRUkxyyHKEySUaMJRL5H?=
- =?iso-8859-1?Q?8c2PGJN8FWu8wH3ZMIahLY59TOcIxuX2AIkYHGpJ73j6LCgnOg5VKnVYgm?=
- =?iso-8859-1?Q?w3t99Rk62Rnf22im7DktL6rdnOB0jI5LOVppJ4m///LudZ9qf90u9G1QUo?=
- =?iso-8859-1?Q?0VIkZkwxkJQXYhlrDyRvqp079r7OxXHztSBmkq8FhbSUvB9IzstcsUmaS6?=
- =?iso-8859-1?Q?GCUW8AxM20W7dauiD8PkRyAxcnVacLy+LXnPPiO4W+TB3MnxRL2e2ca0TZ?=
- =?iso-8859-1?Q?T9/JvIXY4+F8PuR/3ltZv8ywDqHlhc8QFUcqu5t7n8GPvLWUmYSwahn1tx?=
- =?iso-8859-1?Q?7dHNbDrU+ls+uziWB1x0RnklyO17ltZAXsXsvFWF8Rb6r0gq3tWgnwZGiR?=
- =?iso-8859-1?Q?7xWL0C7dN1gsRfdU5mdh6/5b/+csNkMIDXxkZsIKWcU3aKgx1jtrhrcxsN?=
- =?iso-8859-1?Q?BUNtsJ78qwFhC8xS3WhIx3uyJXNNJH6MgiAGEo813WHVdhzLlOKbtkEH5L?=
- =?iso-8859-1?Q?L18HOywf6FH1KiUK0N7SBk3NXneB7ZOoMP8h/pjxWKgJb/iiGmxUZIljUB?=
- =?iso-8859-1?Q?I/H1GkgM5jtazSyFZErIiMYGIG807/lINN75Qw5MQwG4Vvj6Az1SzW2A?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 30b93ade-46c6-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1693352751;
+	bh=sMMFuHlYCVN70oonuWzP4jeZn7P/QwCbAEtpX30ZDsg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JxgXIlqvUK7/DxKphGDis5Ox4FRJTFmaNZHoD5Fpf01XQx5neiHxD7XIcnRDPnc4J
+	 kcZEyLfRYj1MNFbQNEFvhm3B8zaDBBRiKQRXohHWnDbsNIGyHwStGPo6RTYu/8OIC4
+	 YXQHrBNGXNPXXMRI4D0jPFXuxlUDHYxUS+vDiJBGQIeVDwSW1LZ6vMlHEImqMZvoQC
+	 km7jg1KtrPrXtZyaZ7x85y4ANYL/bxj/57rgWUslGtT2JCz1AQIWMuglOwjRzZ/O5G
+	 cH4/RNpAWDpFZpZvTJAUEkQum4lhgRTOL27HVhZG39NrFzlQgwodGPlcoQgbgKr50t
+	 8pHCmVtzgIJcg==
+Date: Tue, 29 Aug 2023 16:45:48 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
+    sstabellini@kernel.org, julien@xen.org, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN][PATCH v10 16/20] xen/arm: Implement device tree node
+ removal functionalities
+In-Reply-To: <20230825080222.14247-17-vikram.garhwal@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2308291638010.6458@ubuntu-linux-20-04-desktop>
+References: <20230825080222.14247-1-vikram.garhwal@amd.com> <20230825080222.14247-17-vikram.garhwal@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c40aa71a-dea3-465e-8813-08dba8e67048
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Aug 2023 23:19:47.1794
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gytcEUZUjVKHGaY2dSVtG+1lgSDsEAeVWo0uaQpqp8wFJWoLkVSXTPav+fygCR/hXkPL4DzN+11mZhDA/mfmu96o/FrtL23coUBEB+OFbUo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6371
-X-Proofpoint-ORIG-GUID: aFHW6Lc_ErMGQ8h4n_X-XZDPu2KyqPqd
-X-Proofpoint-GUID: aFHW6Lc_ErMGQ8h4n_X-XZDPu2KyqPqd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-29_16,2023-08-29_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 bulkscore=0
- mlxscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0 mlxlogscore=999
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2308290202
+Content-Type: text/plain; charset=US-ASCII
 
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+On Fri, 25 Aug 2023, Vikram Garhwal wrote:
+> Introduce sysctl XEN_SYSCTL_dt_overlay to remove device-tree nodes added using
+> device tree overlay.
+> 
+> xl dt-overlay remove file.dtbo:
+>     Removes all the nodes in a given dtbo.
+>     First, removes IRQ permissions and MMIO accesses. Next, it finds the nodes
+>     in dt_host and delete the device node entries from dt_host.
+> 
+>     The nodes get removed only if it is not used by any of dom0 or domio.
+> 
+> Also, added overlay_track struct to keep the track of added node through device
+> tree overlay. overlay_track has dt_host_new which is unflattened form of updated
+> fdt and name of overlay nodes. When a node is removed, we also free the memory
+> used by overlay_track for the particular overlay node.
+> 
+> Nested overlay removal is supported in sequential manner only i.e. if
+> overlay_child nests under overlay_parent, it is assumed that user first removes
+> overlay_child and then removes overlay_parent.
+> Also, this is an experimental feature so it is expected from user to make sure
+> correct device tree overlays are used when adding nodes and making sure devices
+> are not being used by other domain before removing them from Xen tree.
+> Partially added/removed i.e. failures while removing the overlay may cause other
+> failures and might need a system reboot.
+> 
+> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+> 
+> ---
+> Changes from v9:
+>     Remove iommu and IRQ routing as this will not be done while adding the nodes.
 
-Skip mapping the BAR if it is not in a valid range.
+I understand about IRQ routing. But I am confused by the removal of the
+call to iommu_remove_dt_device.
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
----
- xen/drivers/vpci/header.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+handle_device (called by add_nodes) calls iommu_add_dt_device when
+adding the device for dom0 (this is the "own_device" case)
 
-diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index 1d243eeaf9..dbabdcbed2 100644
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -345,6 +345,15 @@ static int modify_bars(const struct pci_dev *pdev, uin=
-t16_t cmd, bool rom_only)
-              bar->enabled =3D=3D !!(cmd & PCI_COMMAND_MEMORY) )
-             continue;
-=20
-+#ifdef CONFIG_ARM
-+        if ( !is_hardware_domain(pdev->domain) )
-+        {
-+            if ( (start_guest < PFN_DOWN(GUEST_VPCI_MEM_ADDR)) ||
-+                 (end_guest >=3D PFN_DOWN(GUEST_VPCI_MEM_ADDR + GUEST_VPCI=
-_MEM_SIZE)) )
-+                continue;
-+        }
-+#endif
-+
-         if ( !pci_check_bar(pdev, _mfn(start), _mfn(end)) )
-         {
-             printk(XENLOG_G_WARNING
---=20
-2.41.0
+So here we need to remove it from the iommu? That seems like a mistake?
+
+
+> Changes from v8:
+>     Remove IRQs and IOMMU entries using rangesets instead of parsing each node.
+> Changes from v7:
+>     Add dt-overlay.c in MAINTAINERS.
+>     Add comments for dt_overlay_remove_node.
+>     Rename handle_remove_irq_iommu() to remove_resources().
+>     Add comment regarding false mapping flag for reason behind not removing the
+>     mapping..
+>     Remove irq_access_premitted() check.
+>     Add error handling for remove_all_descendant_nodes
+>     Change read_lock with write_lock.
+>     Remove check_overlay_fdt() call from handle_remove_overlay_nodes().
+>     Re-organize dt_sysctl and reutnr -EOPNOSTSUPP for error cases. Also, renamed
+>         this function to dt_overlay_sysctl.
+>     Remove unnecessary header includes in dt-overlay.h
+>     Correct indentation and make func   tion inputs const wherever possible.
+>     Make overlay_fdt const_void inside xen_sysctl_dt_overlay{}.
+>     Add comment regarding why we not removing IRQ and MMIO mappings.
+>     Move overlay_node_count() out of this patch as it's not being used here
+>         anymore.
+> Changes from v6:
+>     Add explicit padding for xen_system_dt_overlay{}
+>     Update license.
+>     Rearrange xfree in dt_sysctl()
+>     Update overlay_track struct comment with relevant message.
+>     Fix missing xen/errno.h for builds without CONFIG_OVERLAY_DTB cases.
+>     Fix header formatting.
+> ---
+> ---
+>  MAINTAINERS                  |   1 +
+>  xen/arch/arm/sysctl.c        |  16 +-
+>  xen/common/Makefile          |   1 +
+>  xen/common/dt-overlay.c      | 392 +++++++++++++++++++++++++++++++++++
+>  xen/include/public/sysctl.h  |  24 +++
+>  xen/include/xen/dt-overlay.h |  63 ++++++
+>  6 files changed, 496 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/common/dt-overlay.c
+>  create mode 100644 xen/include/xen/dt-overlay.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a0805d35cd..c41a7c5440 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -301,6 +301,7 @@ M:	Julien Grall <julien@xen.org>
+>  S:	Supported
+>  F:	xen/common/libfdt/
+>  F:	xen/common/device_tree.c
+> +F:	xen/common/dt-overlay.c
+>  F:	xen/include/xen/libfdt/
+>  F:	xen/include/xen/device_tree.h
+>  F:	xen/drivers/passthrough/device_tree.c
+> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
+> index e9a0661146..5cda0dc674 100644
+> --- a/xen/arch/arm/sysctl.c
+> +++ b/xen/arch/arm/sysctl.c
+> @@ -9,6 +9,7 @@
+>  
+>  #include <xen/types.h>
+>  #include <xen/lib.h>
+> +#include <xen/dt-overlay.h>
+>  #include <xen/errno.h>
+>  #include <xen/hypercall.h>
+>  #include <asm/arm64/sve.h>
+> @@ -25,7 +26,20 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>  long arch_do_sysctl(struct xen_sysctl *sysctl,
+>                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>  {
+> -    return -ENOSYS;
+> +    long ret;
+> +
+> +    switch ( sysctl->cmd )
+> +    {
+> +    case XEN_SYSCTL_dt_overlay:
+> +        ret = dt_overlay_sysctl(&sysctl->u.dt_overlay);
+> +        break;
+> +
+> +    default:
+> +        ret = -ENOSYS;
+> +        break;
+> +    }
+> +
+> +    return ret;
+>  }
+>  
+>  /*
+> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> index 46049eac35..e7e96b1087 100644
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
+>  obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
+>  obj-$(CONFIG_IOREQ_SERVER) += dm.o
+>  obj-y += domain.o
+> +obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
+>  obj-y += event_2l.o
+>  obj-y += event_channel.o
+>  obj-y += event_fifo.o
+> diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
+> new file mode 100644
+> index 0000000000..12a3029fee
+> --- /dev/null
+> +++ b/xen/common/dt-overlay.c
+> @@ -0,0 +1,392 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * xen/common/dt-overlay.c
+> + *
+> + * Device tree overlay support in Xen.
+> + *
+> + * Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+> + * Written by Vikram Garhwal <vikram.garhwal@amd.com>
+> + *
+> + */
+> +#include <asm/domain_build.h>
+> +#include <xen/dt-overlay.h>
+> +#include <xen/guest_access.h>
+> +#include <xen/iocap.h>
+> +#include <xen/libfdt/libfdt.h>
+> +#include <xen/xmalloc.h>
+> +
+> +static LIST_HEAD(overlay_tracker);
+> +static DEFINE_SPINLOCK(overlay_lock);
+> +
+> +/* Find last descendants of the device_node. */
+> +static struct dt_device_node *
+> +find_last_descendants_node(const struct dt_device_node *device_node)
+> +{
+> +    struct dt_device_node *child_node;
+> +
+> +    for ( child_node = device_node->child; child_node->sibling != NULL;
+> +          child_node = child_node->sibling );
+> +
+> +    /* If last child_node also have children. */
+> +    if ( child_node->child )
+> +        child_node = find_last_descendants_node(child_node);
+> +
+> +    return child_node;
+> +}
+> +
+> +static int dt_overlay_remove_node(struct dt_device_node *device_node)
+> +{
+> +    struct dt_device_node *np;
+> +    struct dt_device_node *parent_node;
+> +    struct dt_device_node *last_descendant = device_node->child;
+> +
+> +    parent_node = device_node->parent;
+> +
+> +    /* Check if we are trying to remove "/" i.e. root node. */
+> +    if ( parent_node == NULL )
+> +    {
+> +        dt_dprintk("%s's parent node not found\n", device_node->name);
+> +        return -EFAULT;
+> +    }
+> +
+> +    /* Sanity check for linking between parent and child node. */
+> +    np = parent_node->child;
+> +    if ( np == NULL )
+> +    {
+> +        dt_dprintk("parent node %s's not found\n", parent_node->name);
+> +        return -EFAULT;
+> +    }
+> +
+> +    /* If node to be removed is only child node or first child. */
+> +    if ( !dt_node_cmp(np->full_name, device_node->full_name) )
+> +    {
+> +        parent_node->child = np->sibling;
+> +
+> +        /*
+> +         * Iterate over all child nodes of device_node. Given that we are
+> +         * removing a node, we need to remove all it's descendants too.
+> +         * Reason behind finding last_descendant:
+> +         * If device_node has multiple children, device_node->allnext will point
+> +         * to first_child and first_child->allnext will be a sibling. When the
+> +         * device_node and it's all children are removed, parent_node->allnext
+> +         * should point to node next to last children.
+> +         */
+> +        if ( last_descendant )
+> +        {
+> +            last_descendant = find_last_descendants_node(device_node);
+> +            parent_node->allnext = last_descendant->allnext;
+> +        }
+> +        else
+> +            parent_node->allnext = np->allnext;
+> +
+> +        return 0;
+> +    }
+> +
+> +    for ( np = parent_node->child; np->sibling != NULL; np = np->sibling )
+> +    {
+> +        if ( !dt_node_cmp(np->sibling->full_name, device_node->full_name) )
+> +        {
+> +            /* Found the node. Now we remove it. */
+> +            np->sibling = np->sibling->sibling;
+> +
+> +            if ( np->child )
+> +                np = find_last_descendants_node(np);
+> +
+> +            /*
+> +             * Iterate over all child nodes of device_node. Given that we are
+> +             * removing parent node, we need to remove all it's descendants too.
+> +             */
+> +            if ( last_descendant )
+> +                last_descendant = find_last_descendants_node(device_node);
+> +
+> +            if ( last_descendant )
+> +                np->allnext = last_descendant->allnext;
+> +            else
+> +                np->allnext = np->allnext->allnext;
+> +
+> +            break;
+> +        }
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +/* Basic sanity check for the dtbo tool stack provided to Xen. */
+> +static int check_overlay_fdt(const void *overlay_fdt, uint32_t overlay_fdt_size)
+> +{
+> +    if ( (fdt_totalsize(overlay_fdt) != overlay_fdt_size) ||
+> +          fdt_check_header(overlay_fdt) )
+> +    {
+> +        printk(XENLOG_ERR "The overlay FDT is not a valid Flat Device Tree\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +static int irq_remove_cb(unsigned long s, unsigned long e, void *dom,
+> +                         unsigned long *c)
+> +{
+> +    int rc;
+> +    struct domain *d = dom;
+> +
+> +    /*
+> +     * TODO: We don't handle shared IRQs for now. So, it is assumed that
+> +     * the IRQs was not shared with another devices.
+> +     * TODO: Undo the IRQ routing.
+> +     */
+> +    rc = irq_deny_access(d, s);
+> +    if ( rc )
+> +    {
+> +        printk(XENLOG_ERR "unable to revoke access for irq %lu\n", s);
+> +    }
+> +    else
+> +        *c += e - s + 1;
+> +
+> +    return rc;
+> +
+> +}
+> +
+> +static int iomem_remove_cb(unsigned long s, unsigned long e, void *dom,
+> +                           unsigned long *c)
+> +{
+> +    int rc;
+> +    struct domain *d = dom;
+> +
+> +    /*
+> +    * Remove mmio access.
+> +    * TODO: Support for remove/add the mapping in P2M.
+> +    */
+> +    rc = iomem_deny_access(d, s, e);
+> +    if ( rc )
+> +    {
+> +        printk(XENLOG_ERR "Unable to remove dom%d access to"
+> +               " 0x%"PRIx64" - 0x%"PRIx64"\n",
+> +               d->domain_id,
+> +               s & PAGE_MASK, PAGE_ALIGN(e) - 1);
+> +    }
+> +    else
+> +        *c += e - s + 1;
+> +
+> +    return rc;
+> +}
+> +
+> +/* Check if node itself can be removed. */
+> +static bool check_node_removable(struct dt_device_node *device_node)
+> +{
+> +    domid_t domid;
+> +
+> +    domid = dt_device_used_by(device_node);
+> +
+> +    dt_dprintk("Checking if node %s is used by any domain\n",
+> +               device_node->full_name);
+> +
+> +    /* Remove the node if only it's assigned to hardware domain or domain io. */
+> +    if ( domid != hardware_domain->domain_id && domid != DOMID_IO )
+> +    {
+> +        printk(XENLOG_ERR "Device %s is being used by domain %u. Removing nodes failed\n",
+> +               device_node->full_name, domid);
+> +        return false;
+> +    }
+> +
+> +
+> +    return true;
+> +}
+> +
+> +/* Check if all descendants of the given node are removable. */
+> +static bool
+> +check_descendant_nodes_removable(const struct dt_device_node *device_node)
+> +{
+> +    bool rc = true;
+> +    struct dt_device_node *child_node;
+> +
+> +    for ( child_node = device_node->child; child_node != NULL;
+> +         child_node = child_node->sibling )
+> +    {
+> +        if ( child_node->child )
+> +        {
+> +            rc = check_descendant_nodes_removable(child_node);
+> +            if ( !rc )
+> +                return rc;
+> +        }
+> +
+> +        rc = check_node_removable(child_node);
+> +        if ( !rc )
+> +            return rc;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +/* Remove nodes from dt_host. */
+> +static int remove_nodes(const struct overlay_track *tracker)
+> +{
+> +    int rc = 0;
+> +    struct dt_device_node *overlay_node;
+> +    unsigned int j;
+> +    struct domain *d = hardware_domain;
+> +
+> +    for ( j = 0; j < tracker->num_nodes; j++ )
+> +    {
+> +        overlay_node = (struct dt_device_node *)tracker->nodes_address[j];
+> +        if ( overlay_node == NULL )
+> +        {
+> +            printk(XENLOG_ERR "Device %s is not present in the tree. Removing nodes failed\n",
+> +                   overlay_node->full_name);
+> +            return -EINVAL;
+> +        }
+> +
+> +        if ( !check_descendant_nodes_removable(overlay_node) )
+> +            return -EINVAL;
+> +
+> +        if ( !check_node_removable(overlay_node) )
+> +            return -EINVAL;
+> +
+> +        dt_dprintk("Removing node: %s\n", overlay_node->full_name);
+> +
+> +        write_lock(&dt_host_lock);
+> +
+> +        rc = dt_overlay_remove_node(overlay_node);
+> +        if ( rc )
+> +        {
+> +            write_unlock(&dt_host_lock);
+> +            return rc;
+> +        }
+> +
+> +        write_unlock(&dt_host_lock);
+> +    }
+> +
+> +    /* Remove IRQ access. */
+> +    if ( tracker->irq_ranges )
+> +    {
+> +        rc = rangeset_consume_ranges(tracker->irq_ranges, irq_remove_cb, d);
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +   /* Remove mmio access. */
+> +    if ( tracker->iomem_ranges )
+> +    {
+> +        rc = rangeset_consume_ranges(tracker->iomem_ranges, iomem_remove_cb, d);
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * First finds the device node to remove. Check if the device is being used by
+> + * any dom and finally remove it from dt_host. IOMMU is already being taken care
+> + * while destroying the domain.
+> + */
+> +static long handle_remove_overlay_nodes(const void *overlay_fdt,
+> +                                        uint32_t overlay_fdt_size)
+> +{
+> +    int rc;
+> +    struct overlay_track *entry, *temp, *track;
+> +    bool found_entry = false;
+> +
+> +    rc = check_overlay_fdt(overlay_fdt, overlay_fdt_size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    spin_lock(&overlay_lock);
+> +
+> +    /*
+> +     * First check if dtbo is correct i.e. it should one of the dtbo which was
+> +     * used when dynamically adding the node.
+> +     * Limitation: Cases with same node names but different property are not
+> +     * supported currently. We are relying on user to provide the same dtbo
+> +     * as it was used when adding the nodes.
+> +     */
+> +    list_for_each_entry_safe( entry, temp, &overlay_tracker, entry )
+> +    {
+> +        if ( memcmp(entry->overlay_fdt, overlay_fdt, overlay_fdt_size) == 0 )
+> +        {
+> +            track = entry;
+> +            found_entry = true;
+> +            break;
+> +        }
+> +    }
+> +
+> +    if ( !found_entry )
+> +    {
+> +        rc = -EINVAL;
+> +
+> +        printk(XENLOG_ERR "Cannot find any matching tracker with input dtbo."
+> +               " Removing nodes is supported only for prior added dtbo.\n");
+> +        goto out;
+> +
+> +    }
+> +
+> +    rc = remove_nodes(entry);
+> +    if ( rc )
+> +    {
+> +        printk(XENLOG_ERR "Removing node failed\n");
+> +        goto out;
+> +    }
+> +
+> +    list_del(&entry->entry);
+> +
+> +    xfree(entry->dt_host_new);
+> +    xfree(entry->fdt);
+> +    xfree(entry->overlay_fdt);
+> +
+> +    xfree(entry->nodes_address);
+> +
+> +    rangeset_destroy(entry->irq_ranges);
+> +    rangeset_destroy(entry->iomem_ranges);
+> +
+> +    xfree(entry);
+> +
+> + out:
+> +    spin_unlock(&overlay_lock);
+> +    return rc;
+> +}
+> +
+> +long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op)
+> +{
+> +    long ret;
+> +    void *overlay_fdt;
+> +
+> +    if ( op->overlay_op != XEN_SYSCTL_DT_OVERLAY_ADD &&
+> +         op->overlay_op != XEN_SYSCTL_DT_OVERLAY_REMOVE )
+> +        return -EOPNOTSUPP;
+> +
+> +    if ( op->overlay_fdt_size == 0 || op->overlay_fdt_size > KB(500) )
+> +        return -EINVAL;
+> +
+> +    if ( op->pad[0] || op->pad[1] || op->pad[2] )
+> +        return -EINVAL;
+> +
+> +    overlay_fdt = xmalloc_bytes(op->overlay_fdt_size);
+> +
+> +    if ( overlay_fdt == NULL )
+> +        return -ENOMEM;
+> +
+> +    ret = copy_from_guest(overlay_fdt, op->overlay_fdt, op->overlay_fdt_size);
+> +    if ( ret )
+> +    {
+> +        gprintk(XENLOG_ERR, "copy from guest failed\n");
+> +        xfree(overlay_fdt);
+> +
+> +        return -EFAULT;
+> +    }
+> +
+> +    if ( op->overlay_op == XEN_SYSCTL_DT_OVERLAY_REMOVE )
+> +        ret = handle_remove_overlay_nodes(overlay_fdt, op->overlay_fdt_size);
+> +
+> +    xfree(overlay_fdt);
+> +
+> +    return ret;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+> index fa7147de47..900239133a 100644
+> --- a/xen/include/public/sysctl.h
+> +++ b/xen/include/public/sysctl.h
+> @@ -1059,6 +1059,25 @@ typedef struct xen_sysctl_cpu_policy xen_sysctl_cpu_policy_t;
+>  DEFINE_XEN_GUEST_HANDLE(xen_sysctl_cpu_policy_t);
+>  #endif
+>  
+> +#if defined(__arm__) || defined (__aarch64__)
+> +/*
+> + * XEN_SYSCTL_dt_overlay
+> + * Performs addition/removal of device tree nodes under parent node using dtbo.
+> + * This does in three steps:
+> + *  - Adds/Removes the nodes from dt_host.
+> + *  - Adds/Removes IRQ permission for the nodes.
+> + *  - Adds/Removes MMIO accesses.
+> + */
+> +struct xen_sysctl_dt_overlay {
+> +    XEN_GUEST_HANDLE_64(const_void) overlay_fdt;  /* IN: overlay fdt. */
+> +    uint32_t overlay_fdt_size;              /* IN: Overlay dtb size. */
+> +#define XEN_SYSCTL_DT_OVERLAY_ADD                   1
+> +#define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
+> +    uint8_t overlay_op;                     /* IN: Add or remove. */
+> +    uint8_t pad[3];                         /* IN: Must be zero. */
+> +};
+> +#endif
+> +
+>  struct xen_sysctl {
+>      uint32_t cmd;
+>  #define XEN_SYSCTL_readconsole                    1
+> @@ -1089,6 +1108,7 @@ struct xen_sysctl {
+>  #define XEN_SYSCTL_livepatch_op                  27
+>  /* #define XEN_SYSCTL_set_parameter              28 */
+>  #define XEN_SYSCTL_get_cpu_policy                29
+> +#define XEN_SYSCTL_dt_overlay                    30
+>      uint32_t interface_version; /* XEN_SYSCTL_INTERFACE_VERSION */
+>      union {
+>          struct xen_sysctl_readconsole       readconsole;
+> @@ -1119,6 +1139,10 @@ struct xen_sysctl {
+>  #if defined(__i386__) || defined(__x86_64__)
+>          struct xen_sysctl_cpu_policy        cpu_policy;
+>  #endif
+> +
+> +#if defined(__arm__) || defined (__aarch64__)
+> +        struct xen_sysctl_dt_overlay        dt_overlay;
+> +#endif
+>          uint8_t                             pad[128];
+>      } u;
+>  };
+> diff --git a/xen/include/xen/dt-overlay.h b/xen/include/xen/dt-overlay.h
+> new file mode 100644
+> index 0000000000..c0567741ee
+> --- /dev/null
+> +++ b/xen/include/xen/dt-overlay.h
+> @@ -0,0 +1,63 @@
+> + /* SPDX-License-Identifier: GPL-2.0-only */
+> + /*
+> + * xen/dt-overlay.h
+> + *
+> + * Device tree overlay support in Xen.
+> + *
+> + * Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+> + * Written by Vikram Garhwal <vikram.garhwal@amd.com>
+> + *
+> + */
+> +#ifndef __XEN_DT_OVERLAY_H__
+> +#define __XEN_DT_OVERLAY_H__
+> +
+> +#include <xen/device_tree.h>
+> +#include <xen/list.h>
+> +#include <xen/rangeset.h>
+> +
+> +/*
+> + * overlay_track describes information about added nodes through dtbo.
+> + * @entry: List pointer.
+> + * @dt_host_new: Pointer to the updated dt_host_new which is unflattened from
+> +    the 'updated fdt'.
+> + * @fdt: Stores the fdt.
+> + * @overlay_fdt: Stores a copy of input overlay_fdt.
+> + * @nodes_address: Stores each overlay_node's address.
+> + * @num_nodes: Total number of nodes in overlay dtb.
+> + * @iomem_ranges: Range set to keep track of all IOMEMs.
+> + * @irq_ranges: Range set to keep track of all added IRQs.
+> + */
+> +struct overlay_track {
+> +    struct list_head entry;
+> +    struct dt_device_node *dt_host_new;
+> +    void *fdt;
+> +    void *overlay_fdt;
+> +    unsigned long *nodes_address;
+> +    unsigned int num_nodes;
+> +    struct rangeset *iomem_ranges;
+> +    struct rangeset *irq_ranges;
+> +};
+> +
+> +struct xen_sysctl_dt_overlay;
+> +
+> +#ifdef CONFIG_OVERLAY_DTB
+> +long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op);
+> +#else
+> +#include <xen/errno.h>
+> +static inline long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +#endif
+> +
+> +#endif /* __XEN_DT_OVERLAY_H__ */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> -- 
+> 2.17.1
+> 
 
