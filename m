@@ -2,34 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D902E78C758
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Aug 2023 16:22:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.592297.924980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9B8E78C76A
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Aug 2023 16:22:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.592304.924989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qazae-00056x-Md; Tue, 29 Aug 2023 14:21:08 +0000
+	id 1qazbw-0005hD-2F; Tue, 29 Aug 2023 14:22:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 592297.924980; Tue, 29 Aug 2023 14:21:08 +0000
+Received: by outflank-mailman (output) from mailman id 592304.924989; Tue, 29 Aug 2023 14:22:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qazae-000556-Hr; Tue, 29 Aug 2023 14:21:08 +0000
-Received: by outflank-mailman (input) for mailman id 592297;
- Tue, 29 Aug 2023 14:21:07 +0000
+	id 1qazbv-0005ek-Vn; Tue, 29 Aug 2023 14:22:27 +0000
+Received: by outflank-mailman (input) for mailman id 592304;
+ Tue, 29 Aug 2023 14:22:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oK0n=EO=casper.srs.infradead.org=BATV+3a9ed657c5c9a78d2ebc+7310+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qazac-00054i-2E
- for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 14:21:07 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mPBx=EO=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qazbt-0005ea-QE
+ for xen-devel@lists.xenproject.org; Tue, 29 Aug 2023 14:22:25 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2052.outbound.protection.outlook.com [40.107.7.52])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4697b1f2-4677-11ee-9b0d-b553b5be7939;
- Tue, 29 Aug 2023 16:20:59 +0200 (CEST)
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=freeip.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qazaE-0071HI-Cl; Tue, 29 Aug 2023 14:20:42 +0000
+ id 7817ca35-4677-11ee-9b0d-b553b5be7939;
+ Tue, 29 Aug 2023 16:22:22 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DUZPR04MB9983.eurprd04.prod.outlook.com (2603:10a6:10:4d9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.34; Tue, 29 Aug
+ 2023 14:21:54 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654%5]) with mapi id 15.20.6699.035; Tue, 29 Aug 2023
+ 14:21:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,268 +46,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4697b1f2-4677-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=10hotENc6uNLPo+4Aajfu/bvpKSjJAs0JJdmsI4pucU=; b=NFp5nkJbQYsrVrMw8nL2nv7ZPV
-	K48JPtLU+OtAeL+OshHanGvoZUZ/eXphjobjvlwOaRph+h/MXI1KRCi7c5CAbTN1Y4Vft1lGvBP7E
-	qilgKALFxbCwsFgrXvZz5D+Vkfp5ng1hj6nY5WRbA9utzJPu3iqwV9voUw0enyEladllpDgMWaOwF
-	UJIOAD92b7kx/DPGW/Mmy8uB8pm8XCt07YToCPp9HhXMJUMUTDV0amwPT/F43iAYxTiUM4CFZID9e
-	n8F1zoEX6j15vJpBYv+RIPtoyT7/+OciR6XscSM6G/EYSzcwQaVr8dfb+4NF8kTFDuAZeGCkrZq8P
-	vXj4JW5g==;
-Message-ID: <c6e8cfbdbb6449111271ef391d3759ca2cb0c1cb.camel@infradead.org>
-Subject: Re: [PATCH v1 01/23] pc/xen: Xen Q35 support: provide IRQ handling
- for PCI devices
-From: David Woodhouse <dwmw2@infradead.org>
-To: Joel Upham <jupham125@gmail.com>, qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson
- <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-Date: Tue, 29 Aug 2023 15:20:38 +0100
-In-Reply-To: <1c547c5581ce6192b70c68f39de108cdb2c73f7e.1687278381.git.jupham125@gmail.com>
-References: <cover.1687278381.git.jupham125@gmail.com>
-	 <1c547c5581ce6192b70c68f39de108cdb2c73f7e.1687278381.git.jupham125@gmail.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-hh/jFNut+TT/EA4qh4z0"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: 7817ca35-4677-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UCpD/ou05MZ05+LSgAzn5xo1jvapsqqquI9jYnNZUQieox65NoLtFuispmav/dCfMGlrRynrUL1fnKbVcm4NX8OBaN77NiO/HBiPDp5O29HP6apHCO+vm5iBT/LCfp49rpBJh7UWWuVPKUnXn7Vzmd3zSa/wECvT0qV0gkzZvUwDlkl1GlsiiD1l98nHUnCjAoHQbgPAJgqkKXDX1MRduH7QHeEagmC+u3xt7eGr2U4mntDKCIZ7uFjREL+7TzEA20hBfo9lfK2QxLVLpAC7HneHVTwdACD+rhwb3BVjbf6bVDt9JVnqG66F2mU2VPeIDbbB838Z8fPrUNFtBJRPzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fqZQyZrY36izFBLb6hlQzKneQ331m94pD6mWUsh/gkA=;
+ b=fyS92K21tMZjhCEX6qDLtJJr4vUggTwUOmeMKR8SB8KKg60ywhCDaimruelgoA4+5DVDrXiKP7WA4ZtxH7fMebmWhq4X3CrzQVPzTsW7K6nuo1+Eu4oT2RZiTDx3mSSM6eOXqGjHPt5g0UPnm4n0AC+DL7EnnXK6H6wfXuJmfIjjBrFieBEFpG8WBGGY+6vmk5TcM0HRYlsgBaiCY7O4/vJ2Vb5HuZHh29pH2xoyPsIFPP8lA0EMFesuaSu+a712lUQiKlCNsDzxQju+19jrWNBspPNku6DV4HrpdmliLJRjfgI5C3oqpM/34Sita+WOv9f2jFb4CXOgI50GOryYJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fqZQyZrY36izFBLb6hlQzKneQ331m94pD6mWUsh/gkA=;
+ b=Ha9nRyewZD2OwetyLInTz+S4eM0OmDW284f0Sn9fgp9hBtFOhO5CoKw7f2wrp7Dlr6NjWnFe77v/eSO+hEC7crtDBWi72t2ibYa5N9mUyMIkNMc7R+56HL123RVdboKg1zo+0CkRB7wpSiJzK4sFujYPUtGAZebX1gUHgAardPzVtMHNdmuquGSEey3BHg/xa7PrleoT8gQlAmtakXHAk+scQgp1LScFKjhxXk/oDlnVwFznc0aksgVN2fevNzOeJVvgNfjBHqCEUvrIGquHtdQ6wr1KZ3REQOmaQjNDCRcJNhStXK6T82ZaT8ka1Y7gp3iN8KzfG0EniBnbC1VOFQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f5e258e1-5517-2276-6497-4288192cfeaa@suse.com>
+Date: Tue, 29 Aug 2023 16:21:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH 3/3] x86: Fix calculation of %dr6/dr7 reserved bits
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jinoh Kang <jinoh.kang.kr@gmail.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230829134333.3551243-1-andrew.cooper3@citrix.com>
+ <20230829134333.3551243-4-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230829134333.3551243-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0117.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DUZPR04MB9983:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9220f704-2fdc-437f-c7b0-08dba89b4b84
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mKOWnke059JZBKjzy1veKQ3TRRWe1D1ZaSWtNozE0jGk/kLAH15vAIpaOV4eXaAIbVeOBvAiKKpd+Q5r9JAl0+LDAs7fWX5yxDsG2T54Ixkq/TLVt9kbuzhtQNQ71DCDpOOZ7uiX0kLmikdXZfS2MuogRx7d0r1/H4bY6CZJH7Q8ZCIv3mpDifsIPoJgBi++OHToH4HRZwzz/z25mz8EgFYQ2iVPix4ej8rvioqY7lLwYnuGCMAq++P2Ozr/XQxYMSqh/GHHTIPgtiRNf2jEvyMHZX4g24dJgzbzDsOWvJEs56svi03XX2A8eW1+p1NIkTHZBvosXVN2mY3/RghRq7zxa8YdZW+0PpIc0P5tWoFphwtXtYWYdSuYk38Rm5irTvXGnZptMmV4szGSpt2/FX2b+uIlqcyCK4vi6JOw471HFZ1dBu9FRvwAccXTpm8LkM49dujORkWZ7N+FVShgsPi39kA+4Fteh9oLYqYJNzBAzh9od3WhDRBSxfyeZ6/ZY3h9ZMoVDDF5SybHaU8wnDSUDDnxAlCcl+2HRAh7jwIhPhM21ylvIrr++gA4W8VnRKyw0nnoQoU5vaWI+kxBeK/q51AVwFRj53WPwi0zYrH1nDHAlNdrmNEkyEKqfd+2Eux4FUPxbiL3VlQdBcYR9g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(366004)(136003)(346002)(396003)(451199024)(186009)(1800799009)(6512007)(31696002)(6666004)(53546011)(6506007)(2616005)(6486002)(86362001)(2906002)(5660300002)(6916009)(4326008)(8676002)(8936002)(36756003)(54906003)(66556008)(66946007)(316002)(41300700001)(66476007)(38100700002)(478600001)(83380400001)(31686004)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RFVvWHpjMEQ1TzY1a3NybkYwbXBnbmZIdFJ2VTYxNVdwc2VEVEJoRFA5SEtX?=
+ =?utf-8?B?YkcvQ0Erbzk4bk11bHNEeDNOcmEreld2RUJUM3BodmF3aEl3OTZJb3p6TzNl?=
+ =?utf-8?B?U0psVVk3VUFBSmxHRnBzVTBFMGkvUXp2UXIwdXFkSU9FSE9keW53RVY3ekhl?=
+ =?utf-8?B?QXp1bGpkdDQvOTBSdms3Y1RMZEF1QW1IbDZtL1ZSWVFsYlNzOTNvRFYvQ2Vt?=
+ =?utf-8?B?MmR1MGo3bEhKZEFmejlnZ3YvRzlZcHplN2cvdG54Z0dWQlBvT3RCckFvclVt?=
+ =?utf-8?B?cnNxYmZ0WjVBbnRISXd2eEdoK0Q4RHJpRHB1Mjg2ZFJFUERFTHFBb0dNcWF3?=
+ =?utf-8?B?TDFLeThYb3oxd2l1SEhvbUxvOW9aOUJ4S3FUZ1JRUmJiZ3pQaGpPVDRxeVZY?=
+ =?utf-8?B?R0ZYa3E1UHhpWlJsN3ZQdmxMVFVTMFV1MUpaTzBFZ1hZTU1nREdPU0hSWnQw?=
+ =?utf-8?B?WlNDK00rMFk0bjdZUDI4THdaNjNrZnVDdjB1NlVtblNWVjVEczkvSGRiTm1k?=
+ =?utf-8?B?KzdTUkZUTTF1ZCtiMmxKSFdMQnNkOVBSSGZaSUVyRjhheHJGTUQ2Qk1MSEJ2?=
+ =?utf-8?B?MXNSck9razhiMXpSYzlLczhIT3IvSyt6bjgwQzNiK1Npc3Y5OTU2cngvZDF3?=
+ =?utf-8?B?Y0ZXUENKYm1qMFQ1SnVMQ0djQjFscjBENi9kT0x5SGdBMzdRclorS0NKRUVv?=
+ =?utf-8?B?aGpMYkpYTTVsU0Y0ODRKQy9BdVdIVHBZU0Y5S3pTWnd5bEhRdFdQMVRUczQv?=
+ =?utf-8?B?VFFISlg5UVR2eHkzSHE2d3NTbldyOERZd0xVWkxTcjlGSHd1aHpYUC9hWTFO?=
+ =?utf-8?B?ZlF4YkFER085VGRzSXFuV1lLRm9USHBwSXBRZndseWVvZEtZVGZ1WFYwbnpX?=
+ =?utf-8?B?ZThUWC9ZMW85czl4WTRzcWhPaURobEJCRmJyOUNxclNOWU02MkxjQ1VHZXdk?=
+ =?utf-8?B?R1h2amNYa1dIRjZXMldGQVJEL1J3dnNLSnJxaytUVWJWMFFIVnhnZWtxT0tn?=
+ =?utf-8?B?dVd6SGlxUERSRG1kT3l1YW44RHJOcGNHY1IyM1dUYXVmdmkreEswcmNQVXp0?=
+ =?utf-8?B?a0RwUHZNL09jNW5zbmJaUERkK0d3UHJxTktvdHJHd1BFS3lTRXZOa3NWaFpu?=
+ =?utf-8?B?ZHVnWWdmcnVYNnpmcXZZclZ3N1dsczEwaW8vYXliUTdVOGRDNGlpRWVXS01q?=
+ =?utf-8?B?VkE2bVJ5WW1CTTNzZytlVTBRVlNESFRNUGtVZWppNktRYkIvZzZzZy9yVGhG?=
+ =?utf-8?B?VHV2Rmd4T3FycVZaaStwMWhEejQ1UExicUoxbjZITXNaNiszZSsxR2U1R3VU?=
+ =?utf-8?B?WXR5QXJqb1J1OWdPOUpOMExGT1JvUWg0a3dhOWZ6Vy9zYXNvWWZzL2xONDJm?=
+ =?utf-8?B?OEYwSDltS1h2QjZGQy9DUGhDUGozb21iWFhUc3hjdXpyNmNMOUg3MzlTNDl3?=
+ =?utf-8?B?TFdRUmU5RzBkMm1GRytQenE5MDJvKzZ5ZGdabnBmWnJFTkg2QmRtY3Brc0Ry?=
+ =?utf-8?B?OUFDQVZqRStGWk82WDNFSmJBTW9Fc2hYWGRhaVhrbE5rK1JuREhtdEdKSjZH?=
+ =?utf-8?B?dVEwSFE3c05rQmZidERaKy9Nb2l2SkttVWMzeFB0UEdxRzJmK1FrQi9KQ0tE?=
+ =?utf-8?B?cHZYeVpTbVZaY2VLUE9sNVJ1T24rS2xnU0xROThNZjI2OFZEKys1MlhkNldR?=
+ =?utf-8?B?TjJmV1EwRmhNM0FyWTJBWGh1V25UTGFyVWV2NDZNbVdtckZsOWEwSUFVbjFo?=
+ =?utf-8?B?MEFEaTZ1OUlHK2FiQmtCWm9yNUF4MnBLMHZVb3czSVExSi93U093NjBHb0Ux?=
+ =?utf-8?B?QkJ3YzNOZkF2S0tCeDlLWU92NmQvMnM5VmdoTndyalpPUHZ5VjQ0V0lBMzNW?=
+ =?utf-8?B?TTFFMUk4Umg2Q25rVHRWN2l2Y0VmTXdBN2puckRBamI2S0x1SXR5azQrZTMy?=
+ =?utf-8?B?c1ljaEJObnVMRTdVREVFajNUWFk5UmdmcjNTQ3llclBjTDNXbVNtNFpGb0dq?=
+ =?utf-8?B?R2g4TkxNNitUTnp5bG1Rck5mbWNZMHB5ZmJYYXZUc2Q2ODVCSEwrVGJQRXFJ?=
+ =?utf-8?B?dEw3cU5uR0RwV28vNmV2eC84VGZsU2NvRExzYTZkUEZwY0I1OVdDK3VKS1JP?=
+ =?utf-8?Q?ACDNBHqA7QzA5ODuSJp6e+kzv?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9220f704-2fdc-437f-c7b0-08dba89b4b84
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2023 14:21:54.4860
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eIMXKlKe5oRyuAbR911etg88bS/v8KE3CoMy/hTN937pbPSjXxavF3po8sHfNQvEO7J29iA7IywyaTKOZNUc8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9983
 
+On 29.08.2023 15:43, Andrew Cooper wrote:
+> --- a/xen/arch/x86/include/asm/debugreg.h
+> +++ b/xen/arch/x86/include/asm/debugreg.h
+> @@ -1,6 +1,7 @@
+>  #ifndef _X86_DEBUGREG_H
+>  #define _X86_DEBUGREG_H
+>  
+> +#include <asm/x86-defns.h>
+>  
+>  /* Indicate the register numbers for a number of the specific
+>     debug registers.  Registers 0-3 contain the addresses we wish to trap on */
+> @@ -21,7 +22,6 @@
+>  #define DR_STEP         (0x4000)        /* single-step */
+>  #define DR_SWITCH       (0x8000)        /* task switch */
+>  #define DR_NOT_RTM      (0x10000)       /* clear: #BP inside RTM region */
+> -#define DR_STATUS_RESERVED_ZERO (~0xffffefffUL) /* Reserved, read as zero */
 
---=-hh/jFNut+TT/EA4qh4z0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+As you're dropping constants from here, how about the others? Especially
+DR_NOT_RTM would be nice to go away as well (I don't really like its name),
+yet DR_SWITCH looks to also be unused.
 
-On Tue, 2023-06-20 at 13:24 -0400, Joel Upham wrote:
-> The primary difference in PCI device IRQ management between Xen HVM and
-> QEMU is that Xen PCI IRQs are "device-centric" while QEMU PCI IRQs are
-> "chipset-centric". Namely, Xen uses PCI device BDF and INTx as coordinate=
-s
-> to assert IRQ while QEMU finds out to which chipset PIRQ the IRQ is route=
-d
-> through the hierarchy of PCI buses and manages IRQ assertion on chipset
-> side (as PIRQ inputs).
+> --- a/xen/arch/x86/include/asm/x86-defns.h
+> +++ b/xen/arch/x86/include/asm/x86-defns.h
+> @@ -102,13 +102,30 @@
+>  
+>  /*
+>   * Debug status flags in DR6.
+> + *
+> + * For backwards compatibility, status flags which overlap with
+> + * X86_DR6_DEFAULT have inverted polarity.
+>   */
+> -#define X86_DR6_DEFAULT         0xffff0ff0  /* Default %dr6 value. */
+> +#define X86_DR6_B0              (_AC(1, UL) <<  0)   /* Breakpoint 0                */
+> +#define X86_DR6_B1              (_AC(1, UL) <<  1)   /* Breakpoint 1                */
+> +#define X86_DR6_B2              (_AC(1, UL) <<  2)   /* Breakpoint 2                */
+> +#define X86_DR6_B3              (_AC(1, UL) <<  3)   /* Breakpoint 3                */
+> +#define X86_DR6_BLD             (_AC(1, UL) << 11)   /* BusLock detect (INV)        */
+> +#define X86_DR6_BD              (_AC(1, UL) << 13)   /* %dr access                  */
+> +#define X86_DR6_BS              (_AC(1, UL) << 14)   /* Single step                 */
+> +#define X86_DR6_BT              (_AC(1, UL) << 15)   /* Task switch                 */
+> +#define X86_DR6_RTM             (_AC(1, UL) << 16)   /* #DB/#BP in RTM region (INV) */
+> +
+> +#define X86_DR6_ZEROS           _AC(0x00010000, UL)  /* %dr6 bits forced to 0       */
 
-I don't think that's an accurate way of describing it.
+0x00001000?
 
-Let's take the ICH9 as the basic case, and look at how the PIIX3 and
-Xen both differ from it. As far as I understand it...
-
-=E2=80=A2 ICH9
-
-The four INTx pins from each PCI slot (32*4) are multiplexed down to a
-smaller number of PIRQ lines; 8 of them on the ICH9. The mapping for
-each slot is quite complex and depends on chipset registers.
-
-Those 8 PIRQ lines (PIRQ[A-H]) are mapped directly and unconditionally
-to IRQ16-23 on the I/OAPIC.
-
-There is also a set of mapping registers in the chipset which allows
-each PIRQ line to be mapped to the i8259 PIC (as e.g. IRQ5, 10, etc.).
-
-(I think QEMU has a bug here. It should be able to deliver to *both*
-the I/O APIC and the i8259, but it seems not to deliver to the I/O APIC
-when the i8259 routing is enabled.)
-
-
-=E2=80=A2 PIIX3
-
-The PIIX3 only has four PIRQ lines, and the mapping from slot/pin to
-PIRQ line is a *lot* more deterministic; it's basically just a simple
-mask and shift of the slot/pin numbers. And since the PIIX3 also didn't
-have an internal I/O APIC, the chipset registers mapping PIRQ# to IRQ#
-*do* (at least in QEMU's emulation) affect the routing to the I/O APIC
-as well as the i8259.
-
-(I think this is probably a QEMU bug, or at least lack of fidelity in
-its PC platform emulation. Real hardware with a PIIX3 and external I/O
-APIC would have routed PIRQ[A-D] to I/O APIC IRQ16-20, wouldn't it?)
-
-
-=E2=80=A2 Xen
-
-Xen has two *separate* hard-coded rotations from slot/pin down to
-PIRQs. For the I/O APIC it multiplexes down to 32 I/O APIC pins (IRQ16-
-47). But for the i8259 it hard-codes the PIIX3 rotation down to 4 PIRQs
-and expects the device model to provide the i8259 IRQ# for each of them
-(from the chipset registers).
-
-When you say Xen is "device-centric" I think you're saying it's hard-
-coded the pin mappings and that's why it expects to take the actual PCI
-bus/device/function/pin in order to do the mapping for itself, while
-QEMU would normally expect to have done that part "properly" to get a
-faithful emulation of the hardware in question.
-
-(Note the extra fun part I mentioned earlier: Xen can route I/O APIC
-interrupts as PIRQs, and needs the *I/O APIC* IRQ# for that which might
-differ to the i8259 IRQ#. So running with 'noapic' and
-XENFEAT_hvm_pirqs is probably going to *really* confuse your guests
-because the ACPI _PRT table can only tell them one number.
-
-> Two callback functions are used for this purpose: .map_irq and .set_irq
-> (named after corresponding structure fields). Corresponding Xen-specific
-> callback functions are piix3_set_irq() and pci_slot_get_pirq(). In Xen
-> case these functions do not operate on pirq pin numbers. Instead, they us=
-e
-> a specific value to pass BDF/INTx information between .map_irq and
-> .set_irq -- PCI device devfn and INTx pin number are combined into
-> pseudo-PIRQ in pci_slot_get_pirq, which piix3_set_irq later decodes back
-> into devfn and INTx number for passing to *set_pci_intx_level() call.
->=20
-> For Xen on Q35 this scheme is still applicable, with the exception that
-> function names are non-descriptive now and need to be renamed to show
-> their common i440/Q35 nature. Proposed new names are:
->=20
-> xen_pci_slot_get_pirq --> xen_cmn_pci_slot_get_pirq
-> xen_piix3_set_irq=C2=A0=C2=A0=C2=A0=C2=A0 --> xen_cmn_set_irq
->=20
-> Another IRQ-related difference between i440 and Q35 is the number of PIRQ
-> inputs and PIRQ routers (PCI IRQ links in terms of ACPI) available. i440
-> has 4 PCI interrupt links, while Q35 has 8 (PIRQA...PIRQH).
-> Currently Xen have support for only 4 PCI links, so we describe only 4 of
-> 8 PCI links in ACPI tables. Also, hvmloader disables PIRQ routing for
-> PIRQE..PIRQH by writing 80h into corresponding PIRQ[n]_ROUT registers.
->
-> All this PCI interrupt routing stuff is largely an ancient legacy from PI=
-C
-> era. It's hardly worth to extend number of PCI links supported as we
-> normally deal with APIC mode and/or MSI interrupts.
->=20
-> The only useful thing to do with PIRQE..PIRQH routing currently is to
-> check if guest actually attempts to use it for some reason (despite ACPI
-> PCI routing information provided). In this case, a warning is logged.
-
-I don't quite understand how this works. PIRQA-H are supposed to map
-unconditionally to IRQ16-23 on the ICH9 I/OAPIC. But you can't do that
-without fixing Xen. So doesn't the ACPI _PRT table have to reflect
-Xen's hard-coded I/O APIC mapping of slots to IRQ16-47? I don't see
-where you did that?
-
-And there are some devices which are defined to use PIRQ[E-H] by the
-ICH9 datasheet and which *can't* route to PIRQ[A-D], aren't there?
-Those devices just can't be used in i8259 mode unless Xen is fixed to
-handle more PIRQ routings? In fact, Xen doesn't even get the mappings
-to PIRQ[A-D] right for the ICH9, does it? It's just applying its hard-
-coded PIIX3 mappings to PIRQ[A-D] and then the ICH9's mapping to IRQ#
-on top of that?
-
-
---=-hh/jFNut+TT/EA4qh4z0
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwODI5MTQyMDM4WjAvBgkqhkiG9w0BCQQxIgQg7jt9yvyk
-UZbwU86j9uueRrEbIqYpMBQbJUAS69aWy/kwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAo92jN2itrRAmXtdvwqYKqksr/6/flT9A3
-csFCrZ+4p1haGq5lxyst8jAEiXZ8NkT/zDilbmrlq/u/QwtBTq0cx2Cjy6S8VaFlqPDddNIuu5AS
-3ndbU3gQZFoGhWOZBtGADU3PsKyj66de6wI9qKt5mE89Mbys1nT/OxbMbUghEvtOyLX5/iz+7p+p
-MVQhHX5krf3ggD4tebb1qEmCLKLFgXECCKQ2UAJKn3bOFOEdsPWHF50kwnogudIcW7Gwu9kaHWx8
-Axg6lkWc+eYjgshJwnlu0t6P0/ee6zQOf2oDgL2NRjNMyfpIzmeKJ3hHD/BhL6KOc+VSC67gnaYe
-G+OH0PI23A/i9BtQyV8GTiyF6zcOAcyDA8VrpgKXi0U89bF90907jPx2l8RUULHjMxthWfZBt36/
-xcK40907Lg0mtlZ7bAa2DG2qiQ7xXHb3A1XUYvbfNJGTw5IvJTSN/1cvAA4rrCDlmZP9T/PM0BOM
-2RSnOAzDI87A8g0sRURtKFQM8lj9PqmwiwxFsehlD+RiprIX8NVLp0mJz/NQb8O8HKXlPoXTODjh
-5CiMPQ/6aZgsgvMmn28KpFILzAP8QP0YOx6pJ7lqhPwU1IxiSBvrSTWZoGrMJzCeOfodkTqK93Ta
-X7WaJKd06NzaNDpUjFdCE5kPdBUSGGXPSzO4PybvJgAAAAAAAA==
-
-
---=-hh/jFNut+TT/EA4qh4z0--
+Jan
 
