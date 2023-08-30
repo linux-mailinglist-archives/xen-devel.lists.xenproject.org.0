@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAAA578D738
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 17:45:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593108.926025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7548778D751
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 17:53:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593116.926035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbNN7-0003yU-5L; Wed, 30 Aug 2023 15:44:45 +0000
+	id 1qbNVd-000674-Vm; Wed, 30 Aug 2023 15:53:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593108.926025; Wed, 30 Aug 2023 15:44:45 +0000
+Received: by outflank-mailman (output) from mailman id 593116.926035; Wed, 30 Aug 2023 15:53:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbNN7-0003wQ-2M; Wed, 30 Aug 2023 15:44:45 +0000
-Received: by outflank-mailman (input) for mailman id 593108;
- Wed, 30 Aug 2023 15:44:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbNVd-000655-SH; Wed, 30 Aug 2023 15:53:33 +0000
+Received: by outflank-mailman (input) for mailman id 593116;
+ Wed, 30 Aug 2023 15:53:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p4MI=EP=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1qbNN5-0003wF-Qf
- for xen-devel@lists.xenproject.org; Wed, 30 Aug 2023 15:44:43 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2225dc8b-474c-11ee-9b0d-b553b5be7939;
- Wed, 30 Aug 2023 17:44:41 +0200 (CEST)
+ <SRS0=Xver=EP=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1qbNVb-00064j-Ti
+ for xen-devel@lists.xenproject.org; Wed, 30 Aug 2023 15:53:31 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d425d57-474d-11ee-8783-cb3800f73035;
+ Wed, 30 Aug 2023 17:53:29 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-401da71b7c5so15834335e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Aug 2023 08:53:29 -0700 (PDT)
+Received: from localhost.localdomain ([66.81.173.62])
+ by smtp.gmail.com with ESMTPSA id
+ b4-20020adff244000000b0031423a8f4f7sm17000009wrp.56.2023.08.30.08.53.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Aug 2023 08:53:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,171 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2225dc8b-474c-11ee-9b0d-b553b5be7939
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1693410280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to;
-	bh=cdwFmZ7D8mpWU8Hib7GE6FvaHKrWVrWQIDhVrFBfq54=;
-	b=W3YEnGK3P0Vjg6J4XCd4Sgw6m85okpFhPzsHJqX2U92HkGkosXtZMv1pEL3PoWakkFovUU
-	sCCp2P90d4jswYBJgI0cwndirQmb4cqZVNjmfudBwo34fF5Vy89cDYAA9j7CrOMjkOC7Ql
-	mSYHpXLQIgQFc1OvgzkcnIVY7MfsDdJnhBYg0TSL6tlpGcPbORj+9wrWdfpbeF1L+Ypjm5
-	cgV/ntV5X9bllcKe3xBCMf0lNxgYprcQzLEAoSAA2CAcaVcJZkswqCVLxVxO9WTj7UUw4q
-	5Y/kT3nfU7f0UjFLlwHkQJt1l3VOSh0qDREpcf/Qo77sPJe+0ou74fg3yMJDag==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1693410280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to;
-	bh=cdwFmZ7D8mpWU8Hib7GE6FvaHKrWVrWQIDhVrFBfq54=;
-	b=DUYVtX0vgyQOijhXHoPGB3WC2sToK+VSAZQLFb/vrGSkuluHND2mo+Glk8uAxCn3UaiVmO
-	92XLJuZ7WzGzbUAQ==
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Simon
- Gaiser <simon@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-In-Reply-To: <05d7f850-3d56-4a5b-1e0f-ef0f2a7e5a07@suse.com>
-Date: Wed, 30 Aug 2023 17:44:40 +0200
-Message-ID: <87leds5yc7.ffs@tglx>
+X-Inumbo-ID: 5d425d57-474d-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1693410809; x=1694015609; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zgFprSpF684gDhgVue83BunhcMq8nZ7UpRqzRTLCkOY=;
+        b=QfvWPzMIjD+dVulfMtyJ444WFvq6k93ZnU566kne96Po0nppJrO2nVtogN9bx+Vk3c
+         HhzKhnQi1KCk6LHvXU3WbKjZaJ/Qj4Oy8nn35IAPqe7wGPhWtGLk9uDzBw9/eJ5wrDyE
+         HXx5mGoewzTcGOxknMrUraTnrrNexJbNSB88Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693410809; x=1694015609;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zgFprSpF684gDhgVue83BunhcMq8nZ7UpRqzRTLCkOY=;
+        b=kvStSLFTvLaLiZXR9Y0YUTL2vavZsT9jKCMswqZkEPiOIXr/6Dw8HlThV2mjDMNSAz
+         BM2gkjf+nSVUKKx3DuApIcP1EWdcqo3xhnR/K185uYjtV3+TOlVF8fFDbEOy5XRmcSx3
+         9dfmxLvcuv9TKTqL5S0MfhpryaySo+NNF7soD1lEIw8cwGuO+KuTj3u2aSNKTX1m6Z3I
+         IkiWnIBurFjJC7qoQApMmUM5MGN2Fc8YSdVgiC3UDkV411ID3yF2BDwPKm9SMcev/nw4
+         NyZMktseer+f0JBxVPVUxT7bg3bExTszXuULTxOxo91qtCLCZVYJCbG4KB3Vyw57f4to
+         O/0w==
+X-Gm-Message-State: AOJu0Yxq7sRJGVUFxy4fwI0r1LH3Yu4ctYBMCvzPZaKxZwISkQ/JjQQm
+	+RqbJeqSn6rd5w7+1i4Q9XsUB+TTCf0Nnb7sPPU=
+X-Google-Smtp-Source: AGHT+IFddvf2Q+Owe/TEqPTLzef95kwb7kAD0mOciGkW60nUtF5+77cEcNnxjtnHq+vNbtdNOmDeiw==
+X-Received: by 2002:a7b:ca47:0:b0:401:a0b1:aef6 with SMTP id m7-20020a7bca47000000b00401a0b1aef6mr2198039wml.2.1693410809033;
+        Wed, 30 Aug 2023 08:53:29 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v8 0/4] Prevent attempting updates known to fail
+Date: Wed, 30 Aug 2023 16:53:22 +0100
+Message-Id: <20230830155326.10199-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Jan!
+Now that XENLOG_INFO is the default logging level...
 
-On Wed, Aug 30 2023 at 09:20, Jan Beulich wrote:
-> On 30.08.2023 00:54, Thomas Gleixner wrote:
->> On Tue, Aug 29 2023 at 16:25, Roger Pau Monn=C3=A9 wrote:
->>=20
->> Correct. These IDs are invalid independent of any flag value.=20
->
-> What we apparently agree on is these special UID values to be invalid,
-> and that UIDs can't change. But that's not the same for the APIC IDs;
-> see below. (As a side note, Xen range-checks UID against its
-> implementation limit MAX_MADT_ENTRIES, so it's more than just the
-> all-ones values which we'd reject. Not really correct, I know. Looks
-> like Linux has done away with the simple x86_acpiid_to_apicid[]
-> translation mechanism. This being a statically sized array requires
-> this restriction in Xen, for the time being.)
+v8:
+  * Fixed last bits mentioned by Jan in v7/patch1 (v8/patch2)
+  * Rolled back to having new printk as INFO
+  * Added v8/patch1 to ensure the existing early exit from
+    early_cpu_init() has INFO severity as well.
 
-Linux ignores entries too once the the maximum number of CPUs is reached.
+Original cover letter:
 
->>> I think Jan's point (if I understood correctly) is that Processor or
->>> Device objects can have a _MAT method that returns updated MADT
->>> entries, and some ACPI implementations might modify the original
->>> entries on the MADT and return them from that method when CPU
->>> hotplug takes place.
->
-> Just to mention it: It's not just "might". I've seen DSDT code doing
-> so on more than one occasion.
+Under certain conditions a CPU may not be able to perform microcode updates
+even if hardware exists to that effect. In particular:
 
-That does not make it more correct or better.
+ * If Xen runs under certain hypervisors they won't allow microcode
+   updates, and will signal this fact by reporting a microcode revision of
+   -1.
+ * If the DIS_MCU_LOAD bit is set, which is expected in some baremetal
+   clouds where the owner may not trust the tenant, then the CPU is not
+   capable of loading new microcode.
 
-> As stated before, unless putting in place extra restrictions, I can't
-> even see how firmware would be able to up front determine APIC IDs for
-> unpopulated sockets: It simply can't know the topology of a package
-> that's not there yet. Requiring all packages to have identical
-> topology might be a restriction OSes put in place, but I'd be inclined
-> to call firmware buggy if it did (short of me being aware of there
-> being anything in the spec putting in place such a restriction).
+This series adds logic so that in both of these cases we don't needlessly
+attempt updates that are not going to succeed. Patch summary:
 
-The ACPI specification does not care about restrictions which are in the
-realm of hardware. You simply cannot mix random CPUs in a system just as
-you see fit.
+Patch 1 Modifies the severity of the printk statement in
+        early_microcode_init() to be INFO
 
-But that aside. ACPI based hotplug is purely used by virtualization. The
-efforts to support real physical hotplug have never advanced beyond the
-proof of concept state as the required complexity turned out to be just
-not worth the potential benefit.
+Patch 2 Ignores microcode facilities when the current microcode revision is -1
+        (was v7/patch1)
 
-Of course virtualization people might think that everything which is
-imaginable and not explicitly forbidden by some specification is
-something which should be supported. That's just a recipe for disaster
-as it needlessly expands the complexity space for absolutely zero value.
+Patch 3 Moves the MSR_ARCH_CAPS read in tsx_init() to early_cpu_init() and
+        early_microcode_init()
+        (was v7/patch2)
 
-In reality most OSes will require that all possible APIC IDs are
-enumerated during initialization in order to size things correctly and
-to make system wide decisions correctly during boot or they will either
-fail to accept hot-added CPUs later on or end up in a situation where
-after accepting a hot-added CPU it turns out that system wide boot time
-decisions are wrong or data is sized incorrectly, which means it is
-pretty much up a creek without a paddle.
+Patch 4 Adds the logic to detect microcode updates being disabled on Intel.
+        (was v7/patch3)
 
-So in order to avoid these hard to handle, hard to debug and diagnose
-failure cases, it's sensible when OSes mandate enumeration requirements
-which have been omitted from the specification for whatever reason.
+Alejandro Vallejo (4):
+  x86/microcode: WARN->INFO for the "no ucode loading" log message
+  x86/microcode: Ignore microcode loading interface for revision = -1
+  x86: Read MSR_ARCH_CAPS immediately after early_microcode_init()
+  x86/microcode: Disable microcode update handler if DIS_MCU_UPDATE is
+    set
 
-Linux expects this today and in case the expectation is not met it has
-issues due to the non-enforcement, which cause hard to diagnose
-malfunction. Those issues might be fixable by some definition of
-fixable, but the value of doing that is close to zero. In fact it'd be a
-net negative because the increased complexity will just put a
-maintainability burden on the code base which is completely
-unjustifiable.
+ xen/arch/x86/cpu/common.c             | 20 ++++++++++----
+ xen/arch/x86/cpu/microcode/core.c     | 40 +++++++++++++++++++++++----
+ xen/arch/x86/cpu/microcode/intel.c    | 13 +++++++++
+ xen/arch/x86/cpu/microcode/private.h  |  7 +++++
+ xen/arch/x86/include/asm/cpufeature.h |  1 +
+ xen/arch/x86/include/asm/msr-index.h  |  5 ++++
+ xen/arch/x86/include/asm/setup.h      |  2 +-
+ xen/arch/x86/setup.c                  |  2 +-
+ xen/arch/x86/tsx.c                    | 16 +++--------
+ 9 files changed, 82 insertions(+), 24 deletions(-)
 
-Coming back to the specification issues. As of v6.3 the Online Capable
-flag was added with the following rationale (paraphrased):
+-- 
+2.34.1
 
-     Operating systems need to size resources at boot time and therefore
-     they count the APIC IDs which have the enabled flag cleared to size
-     correctly for potential hotplug operations.
-
-     But that has diametral effects on bare metal because the OS is not
-     able to distinguish between hot-plugable APIC ID and truly disabled
-     entries. That results in overallocation or suboptimal distribution
-     of multi-queue devices.
-
-The benefit (verbatim):
-
-     The proposed =E2=80=9COnline Capable=E2=80=9D flag will allow OSPM to =
-unequivocally
-     discern the platform=E2=80=99s intention regarding processors that are=
- not
-     enabled at OS boot-time.
-
-Now look at the outcome:
-
-Enabled:
-
-        If this bit is set the processor is ready for use. If this bit
-        is clear and the Online Capable bit is set, system hardware
-        supports enabling this processor during OS runtime. If this bit
-        is clear and the Online Capable bit is also clear, this
-        processor is unusable, and OSPM shall ignore the contents of the
-        Processor Local APIC Structure.
-
-So while I conceed that this does not expressis verbis mandate that
-hot-pluggable CPUs must be enumerated it's not far fetched to interpret
-it this way. The key is 'OSPM shall ignore the contents...'
-
-As MADT is the only source of information from which an OS can deduce
-sizing and also topology information during early boot, ignoring the
-contents boils down to not allocating resources and if such an APIC ID
-magically surfaces later on via hot-add, then the OS can rightfully
-refuse to add it.
-
-Having that information is simply a correctness requirement and there is
-absolutely no justification to support made up ivory tower
-configurations which try to explore the gaps and bluryness of the ACPI
-specification.
-
-Of course we can't rely on that flag yet if the table is not
-implementing v6.3+, but from my testing there is no fallout from
-refusing to hot-add CPUs which have not been enumerated in MADT during
-early boot. The issue addressed by the Online Capable bit
-vs. overallocation is obviosly still there when the enumerated
-"disabled" APIC IDs can never be hot-added.
-
-Feel free to disagree, but Linux will enforce that _all_ possible APIC
-IDs are enumerated in MADT during early boot in the near future. This
-makes a lot of things correct, simpler and more robust.
-
-Thanks,
-
-        tglx
 
