@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45A4C78D752
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 17:53:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593120.926067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BA6A78D74F
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Aug 2023 17:53:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593119.926062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbNVg-0006pz-5m; Wed, 30 Aug 2023 15:53:36 +0000
+	id 1qbNVf-0006he-VM; Wed, 30 Aug 2023 15:53:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593120.926067; Wed, 30 Aug 2023 15:53:36 +0000
+Received: by outflank-mailman (output) from mailman id 593119.926062; Wed, 30 Aug 2023 15:53:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbNVg-0006hR-2R; Wed, 30 Aug 2023 15:53:36 +0000
-Received: by outflank-mailman (input) for mailman id 593120;
- Wed, 30 Aug 2023 15:53:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbNVf-0006bO-N5; Wed, 30 Aug 2023 15:53:35 +0000
+Received: by outflank-mailman (input) for mailman id 593119;
+ Wed, 30 Aug 2023 15:53:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Xver=EP=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1qbNVd-00064u-TS
+ id 1qbNVd-00064j-C7
  for xen-devel@lists.xenproject.org; Wed, 30 Aug 2023 15:53:33 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e4d1b19-474d-11ee-9b0d-b553b5be7939;
- Wed, 30 Aug 2023 17:53:31 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-3fee5ddc23eso54102605e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Aug 2023 08:53:31 -0700 (PDT)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ef05f5f-474d-11ee-8783-cb3800f73035;
+ Wed, 30 Aug 2023 17:53:32 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-401b0d97850so56354225e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Aug 2023 08:53:32 -0700 (PDT)
 Received: from localhost.localdomain ([66.81.173.62])
  by smtp.gmail.com with ESMTPSA id
- b4-20020adff244000000b0031423a8f4f7sm17000009wrp.56.2023.08.30.08.53.30
+ b4-20020adff244000000b0031423a8f4f7sm17000009wrp.56.2023.08.30.08.53.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Aug 2023 08:53:30 -0700 (PDT)
+ Wed, 30 Aug 2023 08:53:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,33 +45,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e4d1b19-474d-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 5ef05f5f-474d-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1693410811; x=1694015611; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1693410812; x=1694015612; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=R8UgQOatn3NPVJHNw6kasdgFNmIqy5Hk8BBIW+w2Wt0=;
-        b=VTBensWZxsJ8fiJ7iO8Ia0Drr7Azk5kThLIQYEdw6qNUOSgJI517gmvQgeqjKjBvLn
-         L6jo1nRGTh5A17nrjzEHJeoAGYyXtlYqqlMStpLRD5hY55vMOAJj+VVTV+bUnejAj564
-         rexXmaXj53oZGpvAgxt5rBNwZzepKO5Tmr2vU=
+        bh=g/+HKYAhX7EC0gTIYVkMy8jE7q46Uhlaj2+DxM/hBSg=;
+        b=eFUVV1rE+yek0POMoIYAceLhCtv7OTIJbCSUxOShTOQcn1SjFvKGe9oIxbMQyta1PO
+         iFZwEqFenEeHbaaA8Lpko4E/XIeSpbHzyS5vRtcrnoQcQyeFlOp3oPktozYPAkG1jXXC
+         T7xUzbINRZd1JqbKSOY6hcuDlS3aKNhy0WN3s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693410811; x=1694015611;
+        d=1e100.net; s=20221208; t=1693410812; x=1694015612;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=R8UgQOatn3NPVJHNw6kasdgFNmIqy5Hk8BBIW+w2Wt0=;
-        b=EPiAbarz3Fu6MprSPbQzfaNTI79MK2IcbOj8KiAyOuaey9cuw2RoNwxfgLThO36GcR
-         K7KJbseZs9UjVjL6VeVEhDzCxFZ0iYUEkMou0SOMdbhLWJOiUtzi10YZ3N4oHeTRKC2K
-         E1lBG4s2pTUCkA62ieVZDRjMDBrRDRK8vd6hYVQpvFnkSKcUROrHeRfLtU8dwUfwUcAB
-         BzDnFoCyEUdJWIa3DiQDMSB9AD7+Ve/F4c/wv4dPgHtCoN9SmU1wFi68YiG3bB2WLAuQ
-         TMgodX4YCyYpdNfuCv2PbsLSsLiF1DSynBQcj2zN124gWtCt2sDSndYeNyrLKvKuiVEu
-         0P7A==
-X-Gm-Message-State: AOJu0Yx/Zt1ABgLYhcVg/+KuQAJjA4ZGJCagzcHzZda9wphjf7Cjl/Xa
-	6zquL+7hhPbLC/lHtLRN17GypHPlyOgDliHiUU0=
-X-Google-Smtp-Source: AGHT+IGYgQhnwEHlhwfzZkwAAdRNrGsano6Huf/C2z6GFWnt+n4nAo64M8BC5Lw9Qc5DMykRw9H+bQ==
-X-Received: by 2002:a1c:7c19:0:b0:401:6f48:f3b5 with SMTP id x25-20020a1c7c19000000b004016f48f3b5mr2108170wmc.32.1693410810977;
-        Wed, 30 Aug 2023 08:53:30 -0700 (PDT)
+        bh=g/+HKYAhX7EC0gTIYVkMy8jE7q46Uhlaj2+DxM/hBSg=;
+        b=XQr6iiziMrC8jumjwTKVRgPNJdHut1Alxq9S/+I/FVuvwRhYwqTx/dKz+rd/e4uXHm
+         E0apZHqZedO+vFCkAzKDdgVEBaAQNUFKtPZUmByorbL7RlOXgW2MRVpzxl4flBoUTSg+
+         /tTlfMtnwxENNE3E48tM+43umSLJGxiDYqufUDxOBIMF1Vb7ntcEFL0R9TKWHBUXCFjT
+         Z9K6aFHQ7lVRQEbJQBzOjQKLuofHz436OIgB2vt4qqRqyyTplvTfzeHNKjITfXi0YAqZ
+         8cerzegJZQIRkgXfFbhsqdOxYGmgAQNNMb8kOEwuMlt1gWryFsLo/lEffu+LpqB+7n+7
+         rRbw==
+X-Gm-Message-State: AOJu0YxfX4Mur8p9W2xeDWIJ4E/7UF9lKHHTfQ2mF61wHfB2NSviyySg
+	K5sioUzQtuK/6rILkbS0qgcqpS/GVci0Pz0hI9k=
+X-Google-Smtp-Source: AGHT+IF1SdttMLt/Ch8hbVYgE/Ec2G85WpG/mqbpQeA/yTBTBi8Kt9N9c24EpqZu9Q7bYon1FlyHgA==
+X-Received: by 2002:a05:600c:2193:b0:401:b705:ebe6 with SMTP id e19-20020a05600c219300b00401b705ebe6mr2110588wme.32.1693410811934;
+        Wed, 30 Aug 2023 08:53:31 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -79,18 +79,24 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v8 3/4] x86: Read MSR_ARCH_CAPS immediately after early_microcode_init()
-Date: Wed, 30 Aug 2023 16:53:25 +0100
-Message-Id: <20230830155326.10199-4-alejandro.vallejo@cloud.com>
+Subject: [PATCH v8 4/4] x86/microcode: Disable microcode update handler if DIS_MCU_UPDATE is set
+Date: Wed, 30 Aug 2023 16:53:26 +0100
+Message-Id: <20230830155326.10199-5-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230830155326.10199-1-alejandro.vallejo@cloud.com>
 References: <20230830155326.10199-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move MSR_ARCH_CAPS read code from tsx_init() to early_cpu_init(). Because
-microcode updates might make them that MSR to appear/have different values
-we also must reload it after a microcode update in early_microcode_init().
+If IA32_MSR_MCU_CONTROL exists then it's possible a CPU may be unable to
+perform microcode updates. This is controlled through the DIS_MCU_LOAD bit
+and is intended for baremetal clouds where the owner may not trust the
+tenant to choose the microcode version in use. If we notice that bit being
+set then simply disable the "apply_microcode" handler so we can't even try
+to perform update (as it's known to be silently dropped).
+
+While at it, remove the Intel family check, as microcode loading is
+supported on every Intel64 CPU.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
@@ -98,144 +104,133 @@ Reviewed-by: Jan Beulich <jbeulich@suse.com>
 v8:
  * No change
 ---
- xen/arch/x86/cpu/common.c         | 20 +++++++++++++++-----
- xen/arch/x86/cpu/microcode/core.c |  9 +++++++++
- xen/arch/x86/include/asm/setup.h  |  2 +-
- xen/arch/x86/setup.c              |  2 +-
- xen/arch/x86/tsx.c                | 16 ++++------------
- 5 files changed, 30 insertions(+), 19 deletions(-)
+ xen/arch/x86/cpu/microcode/core.c     | 20 ++++++++++++++------
+ xen/arch/x86/cpu/microcode/intel.c    | 13 +++++++++++++
+ xen/arch/x86/cpu/microcode/private.h  |  7 +++++++
+ xen/arch/x86/include/asm/cpufeature.h |  1 +
+ xen/arch/x86/include/asm/msr-index.h  |  5 +++++
+ 5 files changed, 40 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index 6fada384a1..3fd4fd0654 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -299,7 +299,7 @@ static inline u32 phys_pkg_id(u32 cpuid_apic, int index_msb)
- 
-    WARNING: this function is only called on the BP.  Don't add code here
-    that is supposed to run on all CPUs. */
--void __init early_cpu_init(void)
-+void __init early_cpu_init(bool verbose)
- {
- 	struct cpuinfo_x86 *c = &boot_cpu_data;
- 	u32 eax, ebx, ecx, edx;
-@@ -320,6 +320,8 @@ void __init early_cpu_init(void)
- 	case X86_VENDOR_SHANGHAI: this_cpu = &shanghai_cpu_dev; break;
- 	case X86_VENDOR_HYGON:    this_cpu = &hygon_cpu_dev;    break;
- 	default:
-+		if (!verbose)
-+			break;
- 		printk(XENLOG_ERR
- 		       "Unrecognised or unsupported CPU vendor '%.12s'\n",
- 		       c->x86_vendor_id);
-@@ -336,10 +338,13 @@ void __init early_cpu_init(void)
- 	c->x86_capability[FEATURESET_1d] = edx;
- 	c->x86_capability[FEATURESET_1c] = ecx;
- 
--	printk(XENLOG_INFO
--	       "CPU Vendor: %s, Family %u (%#x), Model %u (%#x), Stepping %u (raw %08x)\n",
--	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
--	       c->x86_model, c->x86_model, c->x86_mask, eax);
-+	if (verbose)
-+		printk(XENLOG_INFO
-+		       "CPU Vendor: %s, Family %u (%#x), "
-+		       "Model %u (%#x), Stepping %u (raw %08x)\n",
-+		       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86,
-+		       c->x86, c->x86_model, c->x86_model, c->x86_mask,
-+		       eax);
- 
- 	if (c->cpuid_level >= 7) {
- 		uint32_t max_subleaf;
-@@ -348,6 +353,11 @@ void __init early_cpu_init(void)
- 			    &c->x86_capability[FEATURESET_7c0],
- 			    &c->x86_capability[FEATURESET_7d0]);
- 
-+		if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability))
-+			rdmsr(MSR_ARCH_CAPABILITIES,
-+			      c->x86_capability[FEATURESET_m10Al],
-+			      c->x86_capability[FEATURESET_m10Ah]);
-+
- 		if (max_subleaf >= 1)
- 			cpuid_count(7, 1, &eax, &ebx, &ecx,
- 				    &c->x86_capability[FEATURESET_7d1]);
 diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 01f1dd4710..b3df4d40e6 100644
+index b3df4d40e6..65ebeb50de 100644
 --- a/xen/arch/x86/cpu/microcode/core.c
 +++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -887,5 +887,14 @@ int __init early_microcode_init(unsigned long *module_map,
-     if ( ucode_mod.mod_end || ucode_blob.size )
-         rc = early_microcode_update_cpu();
+@@ -847,17 +847,21 @@ int __init early_microcode_init(unsigned long *module_map,
+ {
+     const struct cpuinfo_x86 *c = &boot_cpu_data;
+     int rc = 0;
++    bool can_load = false;
  
-+    /*
-+     * Some CPUID leaves and MSRs are only present after microcode updates
-+     * on some processors. We take the chance here to make sure what little
-+     * state we have already probed is re-probed in order to ensure we do
-+     * not use stale values. tsx_init() in particular needs to have up to
-+     * date MSR_ARCH_CAPS.
-+     */
-+    early_cpu_init(false);
-+
-     return rc;
- }
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index b0e6a39e23..8350167650 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -15,7 +15,7 @@ extern uint64_t boot_tsc_stamp;
+     switch ( c->x86_vendor )
+     {
+     case X86_VENDOR_AMD:
+         if ( c->x86 >= 0x10 )
++        {
+             ucode_ops = amd_ucode_ops;
++            can_load = true;
++        }
+         break;
  
- extern void *stack_start;
+     case X86_VENDOR_INTEL:
+-        if ( c->x86 >= 6 )
+-            ucode_ops = intel_ucode_ops;
++        ucode_ops = intel_ucode_ops;
++        can_load = intel_can_load_microcode();
+         break;
+     }
  
--void early_cpu_init(void);
-+void early_cpu_init(bool verbose);
- void early_time_init(void);
- 
- void set_nr_cpu_ids(unsigned int max_cpus);
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 3358d9a0ff..3641d5fbac 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1213,7 +1213,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-         panic("Bootloader provided no memory information\n");
- 
-     /* This must come before e820 code because it sets paddr_bits. */
--    early_cpu_init();
-+    early_cpu_init(true);
- 
-     /* Choose shadow stack early, to set infrastructure up appropriately. */
-     if ( !boot_cpu_has(X86_FEATURE_CET_SS) )
-diff --git a/xen/arch/x86/tsx.c b/xen/arch/x86/tsx.c
-index 80c6f4cedd..50d8059f23 100644
---- a/xen/arch/x86/tsx.c
-+++ b/xen/arch/x86/tsx.c
-@@ -39,9 +39,10 @@ void tsx_init(void)
-     static bool __read_mostly once;
+@@ -871,13 +875,17 @@ int __init early_microcode_init(unsigned long *module_map,
  
      /*
--     * This function is first called between microcode being loaded, and CPUID
--     * being scanned generally.  Read into boot_cpu_data.x86_capability[] for
--     * the cpu_has_* bits we care about using here.
-+     * This function is first called between microcode being loaded, and
-+     * CPUID being scanned generally. early_cpu_init() has already prepared
-+     * the feature bits needed here. And early_microcode_init() has ensured
-+     * they are not stale after the microcode update.
+      * Some hypervisors deliberately report a microcode revision of -1 to
+-     * mean that they will not accept microcode updates. We take the hint
+-     * and ignore the microcode interface in that case.
++     * mean that they will not accept microcode updates.
++     *
++     * It's also possible the hardware might have built-in support to disable
++     * updates and someone (e.g: a baremetal cloud provider) disabled them.
++     *
++     * Take the hint in either case and ignore the microcode interface.
       */
-     if ( unlikely(!once) )
+-    if ( this_cpu(cpu_sig).rev == ~0 )
++    if ( this_cpu(cpu_sig).rev == ~0 || !can_load )
      {
-@@ -49,15 +50,6 @@ void tsx_init(void)
+         printk(XENLOG_INFO "Microcode loading disabled due to: %s\n",
+-               "rev = ~0");
++               can_load ? "rev = ~0" : "HW toggle");
+         ucode_ops.apply_microcode = NULL;
+         return -ENODEV;
+     }
+diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
+index 8d4d6574aa..060c529a6e 100644
+--- a/xen/arch/x86/cpu/microcode/intel.c
++++ b/xen/arch/x86/cpu/microcode/intel.c
+@@ -385,6 +385,19 @@ static struct microcode_patch *cf_check cpu_request_microcode(
+     return patch;
+ }
  
-         once = true;
++bool __init intel_can_load_microcode(void)
++{
++    uint64_t mcu_ctrl;
++
++    if ( !cpu_has_mcu_ctrl )
++        return true;
++
++    rdmsrl(MSR_MCU_CONTROL, mcu_ctrl);
++
++    /* If DIS_MCU_LOAD is set applying microcode updates won't work */
++    return !(mcu_ctrl & MCU_CONTROL_DIS_MCU_LOAD);
++}
++
+ const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
+     .cpu_request_microcode            = cpu_request_microcode,
+     .collect_cpu_info                 = collect_cpu_info,
+diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+index 626aeb4d08..d80787205a 100644
+--- a/xen/arch/x86/cpu/microcode/private.h
++++ b/xen/arch/x86/cpu/microcode/private.h
+@@ -60,6 +60,13 @@ struct microcode_ops {
+         const struct microcode_patch *new, const struct microcode_patch *old);
+ };
  
--        if ( boot_cpu_data.cpuid_level >= 7 )
--            boot_cpu_data.x86_capability[FEATURESET_7d0]
--                = cpuid_count_edx(7, 0);
--
--        if ( cpu_has_arch_caps )
--            rdmsr(MSR_ARCH_CAPABILITIES,
--                  boot_cpu_data.x86_capability[FEATURESET_m10Al],
--                  boot_cpu_data.x86_capability[FEATURESET_m10Ah]);
--
-         has_rtm_always_abort = cpu_has_rtm_always_abort;
++/**
++ * Checks whether we can perform microcode updates on this Intel system
++ *
++ * @return True iff the microcode update facilities are enabled
++ */
++bool intel_can_load_microcode(void);
++
+ extern const struct microcode_ops amd_ucode_ops, intel_ucode_ops;
  
-         if ( cpu_has_tsx_ctrl && cpu_has_srbds_ctrl )
+ #endif /* ASM_X86_MICROCODE_PRIVATE_H */
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index 0825343945..213c184b1c 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -201,6 +201,7 @@ static inline bool boot_cpu_has(unsigned int feat)
+ #define cpu_has_if_pschange_mc_no boot_cpu_has(X86_FEATURE_IF_PSCHANGE_MC_NO)
+ #define cpu_has_tsx_ctrl        boot_cpu_has(X86_FEATURE_TSX_CTRL)
+ #define cpu_has_taa_no          boot_cpu_has(X86_FEATURE_TAA_NO)
++#define cpu_has_mcu_ctrl        boot_cpu_has(X86_FEATURE_MCU_CTRL)
+ #define cpu_has_fb_clear        boot_cpu_has(X86_FEATURE_FB_CLEAR)
+ #define cpu_has_rrsba           boot_cpu_has(X86_FEATURE_RRSBA)
+ #define cpu_has_gds_ctrl        boot_cpu_has(X86_FEATURE_GDS_CTRL)
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 11ffed543a..5865611996 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -183,6 +183,11 @@
+ #define MSR_PM_CTL1                         0x00000db1
+ #define  PM_CTL1_HDC_ALLOW_BLOCK            BIT(0, ULL)
+ 
++#define MSR_MCU_CONTROL                     0x00001406
++#define  MCU_CONTROL_LOCK                   (_AC(1, ULL) <<  0)
++#define  MCU_CONTROL_DIS_MCU_LOAD           (_AC(1, ULL) <<  1)
++#define  MCU_CONTROL_EN_SMM_BYPASS          (_AC(1, ULL) <<  2)
++
+ #define MSR_UARCH_MISC_CTRL                 0x00001b01
+ #define  UARCH_CTRL_DOITM                   (_AC(1, ULL) <<  0)
+ 
 -- 
 2.34.1
 
