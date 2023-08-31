@@ -2,40 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8666878F426
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 22:36:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594117.927327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD85278F464
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 23:13:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594125.927338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qboO5-00072u-N9; Thu, 31 Aug 2023 20:35:33 +0000
+	id 1qboxz-0004Yo-Kl; Thu, 31 Aug 2023 21:12:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594117.927327; Thu, 31 Aug 2023 20:35:33 +0000
+Received: by outflank-mailman (output) from mailman id 594125.927338; Thu, 31 Aug 2023 21:12:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qboO5-000711-K5; Thu, 31 Aug 2023 20:35:33 +0000
-Received: by outflank-mailman (input) for mailman id 594117;
- Thu, 31 Aug 2023 20:35:32 +0000
+	id 1qboxz-0004VR-HR; Thu, 31 Aug 2023 21:12:39 +0000
+Received: by outflank-mailman (input) for mailman id 594125;
+ Thu, 31 Aug 2023 21:12:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8b1Y=EQ=nureva.com=anthonychan@srs-se1.protection.inumbo.net>)
- id 1qboO4-00070v-01
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 20:35:32 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20700.outbound.protection.outlook.com
- [2a01:111:f400:7eae::700])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ec425b15-483d-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 22:35:30 +0200 (CEST)
-Received: from DM6PR20MB2779.namprd20.prod.outlook.com (2603:10b6:5:140::30)
- by DM4PR20MB5040.namprd20.prod.outlook.com (2603:10b6:8:89::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.35; Thu, 31 Aug
- 2023 20:35:25 +0000
-Received: from DM6PR20MB2779.namprd20.prod.outlook.com
- ([fe80::c3:998a:f69:190e]) by DM6PR20MB2779.namprd20.prod.outlook.com
- ([fe80::c3:998a:f69:190e%7]) with mapi id 15.20.6745.020; Thu, 31 Aug 2023
- 20:35:25 +0000
+ <SRS0=B/FZ=EQ=epam.com=prvs=3607c767dd=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1qboxx-0004VH-6w
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 21:12:37 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a353fd3-4843-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 23:12:34 +0200 (CEST)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37VIWRE3014146; Thu, 31 Aug 2023 21:12:22 GMT
+Received: from eur05-vi1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2175.outbound.protection.outlook.com [104.47.17.175])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3su07x0awv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Aug 2023 21:12:22 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by PAXPR03MB7764.eurprd03.prod.outlook.com (2603:10a6:102:20a::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.21; Thu, 31 Aug
+ 2023 21:12:16 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::9d42:8444:f00d:7895]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::9d42:8444:f00d:7895%4]) with mapi id 15.20.6745.020; Thu, 31 Aug 2023
+ 21:12:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,226 +53,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec425b15-483d-11ee-8783-cb3800f73035
+X-Inumbo-ID: 1a353fd3-4843-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M0IVlGennfm7UEU4K4tQsDySI3YFq7GkLcBIFhJwZiV6GjmIBef6uCShAIvgNVjWjb2xMTsmAz1RWcJVf1BQWue8mqgOWET0JPpyBF6f3+LnZ3pFHGeJVehgKb8CKlyrloas0WaJqcE/Y6V4DlNMPg4qUG6oIRUJ2WWmw24QMT0CdyIf5bSKKwYDkEMbk6d1QuppvDRizn2inzMLUmMbUBDLo2YwlCbMJEO0uiAN/m5yeO8Cqu3D6SRcMZ9RTpjXS4gJVvRSsPdowcj5FpfoM11Tux4X6ErBJBzGMQlA+NIIxrcnsjdUJYTtXn1VSh0PJYZQ1QM8ldgmPiGzYAaTdg==
+ b=Q3kIpFL4CR+yuEfHDHsetTrRVgIPd3/nS8olpvimRlYQVZXPKOmEoaOGmy/YpFT/DyFJg8eACv+O6vkCMuICkd1skYXXycP0mwBJl9WYHJVAxhKnknfdqU1bz1lsx6Y8GioILUgNIGpWpQXQFFlzXpExUVeo0EBZMtdDmDSAm5bNlIRbqv2K4gtkM+jKWcAQ7EWd7nB2/7tv4zOV3/ftHRX8xvU13zcl4MHJZ16qOTZnp5iR/XB4ENVpGR3yldohVmt8HkUv9NDdT5kiqDGAaFVEpAwExWHNGWBb3tloyIHshcEZtZBYhd7gF4fEdACgF6a2YSDu7trLwFuLsSpqIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZHJfInpEZL0bq02vH/gppcRPaMh9pJFqiaLPiAFdobA=;
- b=aO2LlbU9y8ZnWbNy4qE83wqSyg0JK7QuYgZuqUYIf/gGI0tOA831UTK9SnyZRDgLHWwZ1aA3ScrBFFVjYSsrLzRRElza1bcT5rZuSO/tnisJyMJxU2YtiKDJstjX4ku+1lziPg4/QYZLhqTeNJZneyklA7mF4Y8qZ9Fj4zEUKbp19BU2Oh3N1KcA66Owc+KPfdlBZRDaWVVCRF6Imw589MeziiUqoFgfIWfx/sr2qPkAkqRx3A/1JX7qdFANOv0Nt94BpTs0jaAJWDFZqrzEB60x+MnD0DjUVzzPqTgbBf70SKdJDlp+/n9e19B8XB21838tYue6O42h/lNYQJBOVA==
+ bh=7R1rslfS5/1lQT+mBdLOwI1/cIqMh5UogVigXzhJ4cQ=;
+ b=O9pyvBZ7jJqBIQtjjAxfztHlREhb+i7p62MAf01jDbh/2wsuMaCIsKDfg+XsttYBKmCttLVSMWcEzgYchWiFoMzrA54LQ8juJaS1xLUiZAgETmxb5Cp9+5p3AXw4ak/0JVoIU3kN3ZPxDUCH5fjS0s7FpYF6xG2uE5T+QV3+PYMx697T2EqnHCLm3ug2164TruljZRVovcubkSYUUrfnGGO3Din62Wl47yC3cGmCb8+NoKGWL1trad9SNbpeZrsql1Yp9Z2+2ObA6VemHQ7g+49WamHwKokGgNWMTsALvWp0EtOcq/wX0q7zNID5YS7DH339Vvk51zwM+1dtmeGNFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nureva.com; dmarc=pass action=none header.from=nureva.com;
- dkim=pass header.d=nureva.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nureva.com;
- s=selector1;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZHJfInpEZL0bq02vH/gppcRPaMh9pJFqiaLPiAFdobA=;
- b=prD5BK5+sC1C8UxXGEZEsebgeijYIOxHg0CZXZE2jHsO0ykPL6dXhunw7ZVDupQl9tJapWkqY/CWBxsa/5k7Oq1zmQrI23vHk53Sxm3hVubkI/heu+O4nEfE880e+JdRIoTCMPirfE5gImIrImNNsn8MFVtGjlBnbmYzU2UwmwQ=
-From: Anthony Chan <anthonychan@nureva.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"bertrand.marquis@arm.com" <bertrand.marquis@arm.com>, "julien@xen.org"
-	<julien@xen.org>, "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
-	"michal.orzel@amd.com" <michal.orzel@amd.com>, Dan Waqar
-	<danwaqar@nureva.com>
-Subject: RE: [EXT] Re: xen arm64 low power sleep support
-Thread-Topic: [EXT] Re: xen arm64 low power sleep support
-Thread-Index: AdnanCj70Orzia5aQfSER7H0AUNnzgAKb5uAACL7QIAAFccGAAAoRLpQ
-Date: Thu, 31 Aug 2023 20:35:24 +0000
-Message-ID:
- <DM6PR20MB2779E6DD63DC5CC9A1FE161AC1E5A@DM6PR20MB2779.namprd20.prod.outlook.com>
-References:
- <DM6PR20MB277971712E5415CB231AEB37C1E7A@DM6PR20MB2779.namprd20.prod.outlook.com>
- <alpine.DEB.2.22.394.2308291512271.6458@ubuntu-linux-20-04-desktop>
- <DM6PR20MB27795F4B6C327F7F031BABB0C1E6A@DM6PR20MB2779.namprd20.prod.outlook.com>
- <alpine.DEB.2.22.394.2308301814580.6458@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2308301814580.6458@ubuntu-linux-20-04-desktop>
+ bh=7R1rslfS5/1lQT+mBdLOwI1/cIqMh5UogVigXzhJ4cQ=;
+ b=lTBu8fJgrXHdpP1E5C1PZohsqZLTLlZ2S19mp2PCMQ+FkW3f+vLoqokAiWRT9x8CwuHvzrRYgfo2jPLxNrItuCQZDP7mCWI7Dv2Oh/QZLiZVq9v/XFJTPbAOLCMIlY8zqMmA4An0aLeocGz9mzkKSN/huboJjqR3NjigMtHBiHM75GVoTmzGl1mKrvL8sz2vM5h75HmBtfM47L2sbSKPnvcKJYwy7J3/iYcSh6Zr1RSAXnM9ZmanF4s88IvboZw33BJ4llcIwtjWSSjxg4eH2bx4WGWgUayq7ydUqiJpQAPvCvTUEX3EjMqbGeWoeVDgtMmEIs7ToFVK8vLkCxw2aQ==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+        Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>,
+        =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        George
+ Dunlap <george.dunlap@citrix.com>,
+        Julien Grall <julien@xen.org>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v9 12/16] vpci: add initial support for virtual PCI bus
+ topology
+Thread-Topic: [PATCH v9 12/16] vpci: add initial support for virtual PCI bus
+ topology
+Thread-Index: AQHZ2s9MKcW5IJI1REe00zENuWVyE7ACc/uAgAJ1YAA=
+Date: Thu, 31 Aug 2023 21:12:15 +0000
+Message-ID: <87cyz2apcp.fsf@epam.com>
+References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
+ <20230829231912.4091958-13-volodymyr_babchuk@epam.com>
+ <19e8ce58-67dd-ec2c-1877-fc5b524983b4@suse.com>
+In-Reply-To: <19e8ce58-67dd-ec2c-1877-fc5b524983b4@suse.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nureva.com;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.8.9; emacs 28.2
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR20MB2779:EE_|DM4PR20MB5040:EE_
-x-ms-office365-filtering-correlation-id: e96a2c45-ae1c-45b5-2c18-08dbaa61ce28
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|PAXPR03MB7764:EE_
+x-ms-office365-filtering-correlation-id: acc6f54b-3186-4d42-fc91-08dbaa66f3c0
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- hKbt1dzYlmz4CHmwDpwXyozOApJ1WeDW9KTGPelnO3wGcxCvGDyCM3+Xn6vgEJJ5j0mDHxmOdL4cRuIvPJxte2mug3hf/NxwD7P55DQ5srCuVfZvowNc0Jd5gI8gFI7iMStu7xd381J35xedR283hQ8jamgDFbKFRMNcvMY23v0NLpv5M1Rh9+gWJjsALSvjDA5o9ONmg74z1cQf2mNtxQdXtxyM0rKkVXLjyFZpuftfEZKcj0DN2z09tulek40Xkbfd14PZC7ByHFBRF5EXUossn0MLXrLmtfIUaslb+iHUl4wfXKONICINx2InVAczNH0fx9KxJl98N2wvuVxE/RTVRBF5IQIrrOEvCwXV4CoRNmSffKzgtbzM8+wdyOQAD8jQ9riDZXgpDbZFssmV32qRJx0Cc09r7uBCpECOPR+S6sQmVQuH93UYx9UUTlZklBCiJk9Z7UnH9/Mr3K3ab/uH9SYKB/m+QEpsnn9E7i7LHU+hbjaVQa2A0+UcYEQGpNunJL1uvJdsVX/lvay7LT1/dSv2lWjVlFjxR5WqPTNmay+HHNUZKvQ+xrak3frHq9bWfHKVLv6tY2DI8ZUez7tZ2/G1RQHDgP/hdV98lyehe7yfjotJC4bV80fFVfdP
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR20MB2779.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39850400004)(136003)(396003)(376002)(366004)(346002)(1800799009)(451199024)(186009)(8936002)(6506007)(7696005)(9686003)(71200400001)(4326008)(38100700002)(33656002)(86362001)(38070700005)(2906002)(76116006)(107886003)(122000001)(55016003)(52536014)(8676002)(54906003)(478600001)(83380400001)(41300700001)(64756008)(5660300002)(66556008)(6916009)(66946007)(66446008)(66476007)(316002);DIR:OUT;SFP:1102;
+x-microsoft-antispam-message-info: 
+ 2+af5UKOSS/jwFL3y3k4/YWr4iCXXe13tmUBqJwdpQ20/r7M1kT1PcG/XJX0Xh4717zs2e7g3fVYizTPYT0C9n8yk6jy6Qz3FuKSZmF/axOd7VWPQhpS1l9X+kvlafBS9toIchYw3/upuF5LhluixLBFHRKsfkWpG/uxp5OvA9ZcWt6GoZlUxd4IF5fBBRTs6LCnsSH4zuXdWhpgwNAOZ0pZgolpn7YrMqDtwReHSQGdOGCXD2MamfZD68QR9Clmu0fIWY+VxaVfHFiqLokyrftgtph56i/lCof1+zoLNpC521P0UTLmOCp9gaP6C5T8Y1iKgmNFHklnNIsa7r8ZJfwp1U9XqBp176+nWb2253UdH0hg0uSvrBK6M2fmEmUWxOLue8KQcxIcXkMF6Sb+2CTJJLA0/afUJ7W9m9Xk1yfMBGT27I7nKM8slPkAsP/GjlMXJ7yyQGkesadJo0FnM3wsxM+93gg/TK0xKi6UwgH6IyuPY35M2js/DcILvi78DdY8ICTdSJerTPtLNrEcp9tFFcdUjLteNgLnzyP+FnJ2IKa7GrcXc2OrnG/YYE5eW7vzdNX9tYGexSOa9YJwobQT8T/pWF8IyxkApxPrLy7XAPzbtlHDGWj7nDnVJvfq
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(376002)(136003)(366004)(346002)(1800799009)(451199024)(186009)(36756003)(26005)(86362001)(41300700001)(71200400001)(53546011)(55236004)(6512007)(83380400001)(6506007)(2616005)(6486002)(38070700005)(38100700002)(8676002)(4326008)(5660300002)(8936002)(76116006)(91956017)(316002)(66476007)(54906003)(6916009)(66946007)(66556008)(64756008)(66446008)(2906002)(4744005)(122000001)(478600001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?+vVA1h+9pxxywutG+3EFz8Q+2KKUyB7CsxrKNRKYIfPEx3R6vJDxDUDHxOqf?=
- =?us-ascii?Q?lSVBYmaeGjHacGYWgAe2lM98sCb+6FjkJSZhPP++qX0fysgHWhvGDGe9Ufzw?=
- =?us-ascii?Q?mmjIU+YwufvGeZ+2OO2D+O8u/bonfDD4HOQDwPGQvU8Li9FbL/jf2ajPs9sa?=
- =?us-ascii?Q?bXMITa1QoAaMGwE4SSR44srFZAlFqdAXnXwMZcWnKKwSCJwvKVfDr9DFc5bN?=
- =?us-ascii?Q?vyRTb5sbvO4A/MB3xU5w37WVWHqLCGyQJTSnPKitBH8TmfLoQNrWJLHPUjVO?=
- =?us-ascii?Q?ZMn2aJdsGQs4p9GxKbPKcxcNG4nPceEj6ug3Tg3CIeSL++EnwEfBucxy5cTt?=
- =?us-ascii?Q?AXnCO6phkX7Mbjb+oM4Iau+w32NNJHZeF+M3fyTAb2IW+bMwktAAUoaFJ5IP?=
- =?us-ascii?Q?N5FESCNoBnxHLPHiw+Rrm7nPnpcFlZSPGovLHqr2SbSlm/2Hvm3swQXIhg8D?=
- =?us-ascii?Q?PTk2c5o9rSyK29t0ymEgYUYvWtNJGTz4xqEalUsyNmdVoTrobWSr30UUklvw?=
- =?us-ascii?Q?jpMnBtdlS/BPOzx2cq5R/he5TxZq27D3cTby9zJ5B5x0CCCJbQgeSCCz3gmf?=
- =?us-ascii?Q?iu3+8Eqy5w3gt2RnQ6TRL7yypdbTT7mQbeEFkLM/BkkA7sFDj79DpbCPt1JJ?=
- =?us-ascii?Q?vl1FaL7eF6kVPo3KYxUuyZD9S66lzcSVLVE2Qn5fyrInrT4wFERR79EHYxAN?=
- =?us-ascii?Q?pj/aayHtuCxJ/xYTfPpzTydBC4lgPX5SWhC/7WxCIfn0mIuk+UoK3TIpvgLo?=
- =?us-ascii?Q?GQq1/xS5GBdut69Sm8qFhsZY4h5FqLjDC/pVJPF6jakNNzhZkrSMNnhR3eTS?=
- =?us-ascii?Q?0fzLauCR2v2itLy2/vQkhvLylEhxAAm7Ijl1jWAaanz8VZlnctiPe8d49nk0?=
- =?us-ascii?Q?BqLhIXDqp6aLoU9lUkkR09onP1l1licNqrspEuefsHweAlKOpGNyxs+UylyV?=
- =?us-ascii?Q?3euwrcfT6tEIZ8oQEPeMi3zOYmvHYBCu9AY0m9Za7XDxrEPE5px21ni6sP36?=
- =?us-ascii?Q?vUoLM/zaFKRe5rnFMf+dvZI2aNZBVmQIytVv8xu8VGfSBx4dSsDiX0R5vxom?=
- =?us-ascii?Q?VIy/R60I348cCzNkrHGDEpv48Ht9Pm/fsgdzDkEg7cH5TWEmRHKMPSuk1h/5?=
- =?us-ascii?Q?43sva0bm8eLai6h6c4ctC/85+mbeK7jKTRTc8fZtDI6cWSHnbmnM8K7DLfek?=
- =?us-ascii?Q?vG2FugXLJrqs+q51INkG+ok8/HwfUKqbzqHzw17NHHCiyEd0A1ssbMZV5f7x?=
- =?us-ascii?Q?Fo7a5QTUqtAnniHW0CemFlOyz7uwyAqiMA5mckyX7VrOkvvp5yP2BaAfHH5g?=
- =?us-ascii?Q?ziaDoGGJN3bbfUJBmyN1mY+9to9VrMzIjI9bNA6Ukp6TW19xbzDvrnQOyR7d?=
- =?us-ascii?Q?seK93viH25UMdhz0HbIn6+KdNTJWbsSxyoqqgoBQog463q5gXtfOemzQFRGM?=
- =?us-ascii?Q?Mwn+wXmbu/JvVtviH+Ct7AxPC8QfXwfDi957ee0R6MZea+PS2uzprZ4fFBaK?=
- =?us-ascii?Q?HhnEn6byi+Hvd83VOFW6+9aZYoAF4/jBDHHAXe2wPy8LgJNQdSW71+N/8xbv?=
- =?us-ascii?Q?F9aW/Lf9xtQYYzaOeM2iUJoA5HxYoQjpNTKfUclquSq5+L2QGF+ad0eq4Q3D?=
- =?us-ascii?Q?xBTvF38zsHwvRhS9f3N2oEubbme9Wu8wQfr5Hki8O11F?=
-Content-Type: text/plain; charset="us-ascii"
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?Nv/jIVy/Jk3IisfqXOg7tVbKxzXflqMeE3zWfDty+9CqABBbmHj5ph/+9I?=
+ =?iso-8859-1?Q?+2yt4gpGd1cVmLwFl+5D2zHoUPXv4naVUGbA4b7yLUxgCRjHJ6W8VPFky/?=
+ =?iso-8859-1?Q?nSusvObPNDxSkrrlZPIVhy67e0kP7UqZ3VLmlZUP9ZRbzkIGkCZTt+GpG8?=
+ =?iso-8859-1?Q?dxDJNl0YYDn7kR+IRLg1jRH0PpgxCNGs7tGS8iocBEK/dQSBBmXmM83e6L?=
+ =?iso-8859-1?Q?djdZsBLgyXCJkg74hh86z12gQOxT7xUlcozFcPm5v9/y8nKdQqCopqq1qE?=
+ =?iso-8859-1?Q?7bwr2qY6jGWhF51TjKfRsE7QuCoSbIji18AZGWogTc8YroAGCCFrVNb2FS?=
+ =?iso-8859-1?Q?nRaHmmlIKUFycsSuEuq/IzK+dxg1+g2wfK/rmD5iIG/qeHbSAFVqk0giRA?=
+ =?iso-8859-1?Q?Ig8g2+ZLiVYo81qkqDnl0viLo2d9uJsOIsqV+ecD4LPEBY1A68W9m8L8mU?=
+ =?iso-8859-1?Q?xW+RbFhy+tXP9v6NcRA6/G+nEYOSGfplh3NUD543RDMiHR/JwwEy6cg+2L?=
+ =?iso-8859-1?Q?d+Nusyg5Fqt+RmmlyK34vyVj4ZOmqBDWOVFBp5FKvXaFpBV6unI6po8+xP?=
+ =?iso-8859-1?Q?K8KONZS9aihAxEmYiXvLVwgem3jgz/ODK7e8fAncVctzl9Td6nVYsARcax?=
+ =?iso-8859-1?Q?DktM8uezutwgP7n6hFcv+pxQgnMkoduW47/E7ZmLQcbZfRhRK75xb41SeA?=
+ =?iso-8859-1?Q?WqsmNMS5H1L3l+JpOHuX10aNAFlzEHidP0CTRt+x86osHDIJLXCA3W/a+n?=
+ =?iso-8859-1?Q?Z/9eaywnzRCgV9f3gJ7l6JgUOA20YkHMpbDX5VGXDF7C5gvlC9glVFj8PL?=
+ =?iso-8859-1?Q?qHEt3H0WBO7henls/Y303fPjNOXbXY+6xuOX+F6U7GdcyUYLOV9LafZWfV?=
+ =?iso-8859-1?Q?ndBNe+1LTyhEzZ2Ycv0h1b0Wzr1AiSuWNOIiCPJalWYXTT1RconYUoAqDj?=
+ =?iso-8859-1?Q?ikWCaD4znx/HBtlaxjL274Dkv0v/akldL2WNhb/Vx1e9VLoqZeR1YsjpJ9?=
+ =?iso-8859-1?Q?M7MAZAHlvhhw0v6eJLaY1yghyJ71DdLCehyOHHIyJwwyYoyuT5SQNZuC8H?=
+ =?iso-8859-1?Q?wwZh2Cr1QiaZyH0teIX7IRJSliRFcYc1Jznoc/1Q7v9GnF6yQa5oyMdcLS?=
+ =?iso-8859-1?Q?aKlrrE3aW2Ak22UIo/3g/MppwFiES369zppxixI7G5J2dhy1B8f7982YEw?=
+ =?iso-8859-1?Q?QfPrtjZHmpk8HylNNknZGMNVlPlN3QNto3O8UG6Kx6XXhdE7WJbe9z+gE/?=
+ =?iso-8859-1?Q?zJk7qdHxjEeWImeWLVg5xo/CLzPMfx4kyYiXvn/o+y+TwX2cwg2rZw+QYs?=
+ =?iso-8859-1?Q?DQWSITlxpQ/rUJIqjuUwkuUmFdBUf2uVGeis9QzELJ86dbhZCIMXxUQLYx?=
+ =?iso-8859-1?Q?x6MLoqol3MyBU3VllZE3bUsIlUq9dV/WLycZrSer3+cOfgA/LckMlVLhtz?=
+ =?iso-8859-1?Q?oC/S2Rc9Wa5m0T+pUENaPoyiJBayQxnjroxHd5Pnp75XMcJIS/3f1u6zzr?=
+ =?iso-8859-1?Q?k4uZMqld+iiOOGBL3bu50n3EXGOQmgMH7gz1PzgCz66DU/D8zJaXkA9QtE?=
+ =?iso-8859-1?Q?vbcXNj+z3xvmeyhqPFMxAhTaHHf7u7ys3ow2gQtQtg/qSspC+iohsrja2u?=
+ =?iso-8859-1?Q?f/EPKwzSyUzW09Oxvl/RY80vPBdx/E/MGevfaFQ8aT5VmjJU7BSrAqMg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: nureva.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR20MB2779.namprd20.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e96a2c45-ae1c-45b5-2c18-08dbaa61ce28
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2023 20:35:25.0172
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acc6f54b-3186-4d42-fc91-08dbaa66f3c0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2023 21:12:15.4927
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5aeb77fa-643b-473e-aee0-cb54a11ccba3
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: h0lqDzg9CsVLueoxrjZXDKw55CjkbRuL8DpJ5CeDUt3FN1GSWvkQhFjTuiUSRQr8StDvXJEEjZIiIPKW4c8R7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR20MB5040
+X-MS-Exchange-CrossTenant-userprincipalname: 1cqWVX3DmsSuzV2l2o83V8m09gRbTJ9SBhHGuZXEgM/9YZpmox3830O2ZzAkFiJFczZmdchh2s0uC5KCE3u5dQOisMra9U/YPaJzzlzySFA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7764
+X-Proofpoint-GUID: ZBPhICh9l4EMMLtZyH30r3fMpSxpecHu
+X-Proofpoint-ORIG-GUID: ZBPhICh9l4EMMLtZyH30r3fMpSxpecHu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-31_18,2023-08-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 mlxlogscore=972
+ malwarescore=0 bulkscore=0 clxscore=1015 spamscore=0 adultscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308310189
 
-On Thu, 30 Aug 2023, Stefano Stabellini wrote:
-> On Wed, 30 Aug 2023, Anthony Chan wrote:
-> > On Tue, 29 Aug 2023, Stefano Stabellini wrote:
-> > > On Tue, 29 Aug 2023, Anthony Chan wrote:
-> > > > Hi all,
-> > > >
-> > > > My name is Tony and I've been researching/developing using Xen
-> > > > for potential upcoming uses in our embedded systems.  I started
-> > > > with Xen using Xilinx tools about a year ago and still have lots
-> > > > to learn about what it can to do in the embedded space.  So far,
-> > > > I've managed to integrate Xen and Linux into an existing product
-> > > > that exclusively runs bare-metal code on a ZynqMP SoC and
-> > > > migrate some of the functionality into custom Linux driver/userspac=
-e.
-> > > >
-> > > > I'm now looking at low power support, for now at least between
-> > > > Xen
-> > > > (4.16) and Linux (5.15) dom0.  I've tried a few different Linux
-> > > > kernel configs around power management and each time I try to
-> > > > suspend from linux dom0 (via sysfs or systemctl), Xen will
-> > > > watchdog on
-> > > > dom0 guest.
-> > > > AFAIK, Xen should trap on a 'WFI' from guests, but from what I
-> > > > can tell debugging through the linux suspend process is it's
-> > > > spinning in a 'suspend- to-idle' loop before it can get to
-> > > > issuing a 'WFI' or using PSCI interface to notify Xen.  I'm
-> > > > beginning to suspect that 'low power' support for embedded arm64
-> > > > just isn't quite there yet, or am I missing something in the config=
-s?
-> > > >
-> > > > I realize this could very well be a Linux 'issue' but checking
-> > > > here first.  I know Xen presents a flattened device tree to
-> > > > Linux without CPU idle-state nodes and maybe this is causing the
-> > > > linux guest to only do the suspend- to-idle mode?  I should
-> > > > mention that I'm booting up using dom0less feature if that
-> > > > matters.
-> > >
-> > >
-> > > Hi Anthony,
-> > >
-> > > Assuming you are using the default Xen command line parameters for
-> > > Xilinx boards: sched=3Dnull vwfi=3Dnative, then if the guest uses WFI=
-,
-> > > the CPU will execute WFI directly and go into low power mode.
-> > Yes, using these command line params.
-> >
-> > > Given the issue you are describing, I am suspecting the guest is
-> > > not issuing
-> > > WFI: that is simple and known to work. Instead, I suspect that
-> > > Linux might be trying to use PSCI_suspend in a way that is not
-> > > supported or well- implemented by Xen.
-> > >
-> > > Can you check? You can add a printk in Linux
-> > > drivers/firmware/psci/psci.c:__psci_cpu_suspend or in Xen
-> > > xen/arch/arm/vpsci.c:do_psci_0_2_cpu_suspend
-> > Instrumented both places it doesn't appear to reach there.  In
-> > kernel/power/suspend.c, there's a call to s2idle_loop that it's current=
-ly 'stuck'
-> > in and I think it doesn't get to the psci suspend your referring
-> > till afterwards, when suspend_ops->enter is called.  Unfortunately,
-> > without any idle-states nodes in the FDT, the only suspend state
-> > Linux is defaults to is 'suspend to idle'.
+
+Hi Jan,
+
+Jan Beulich <jbeulich@suse.com> writes:
+
+> On 30.08.2023 01:19, Volodymyr Babchuk wrote:
+>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>=20
+>> Assign SBDF to the PCI devices being passed through with bus 0.
+>> The resulting topology is where PCIe devices reside on the bus 0 of the
+>> root complex itself (embedded endpoints).
+>> This implementation is limited to 32 devices which are allowed on
+>> a single PCI bus.
+>>=20
+>> Please note, that at the moment only function 0 of a multifunction
+>> device can be passed through.
+>>=20
+>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com=
 >
-> The fact that Linux uses "suspend to idle" is not a problem because as
-> I mentioned WFI or PSCI_suspent are not different on Xen. That part is OK=
-.
-What if using "suspend to idle" is preventing a WFI/PSCI_suspend?  Which is
-what I believe I'm currently seeing in my setup.  In kernel/power/suspend.c=
-,
-suspend_devices_and_enter(), it gets into the this s2idle_loop and upon
-resuming from idle, it jumps past the point where I believe a
-WFI/PSCI_suspend can happen.
-if (state =3D=3D PM_SUSPEND_TO_IDLE) {
-                s2idle_loop();
-                goto Platform_wake;
-}
+>> ---
+>> Since v9:
+>> - Lock in add_virtual_device() replaced with ASSERT (thanks, Stewart)
+>
+> Also peeking at a few other patches where similar change remarks exist,
+> I'm slightly confused by them: Is this submission v9 or v10?
 
-> However, if the issue is not PSCI_suspend then I don't have another
-> easy guess. Please post a full stack trace or more information about
-> the error in Linux and I might be able to see where it is coming from.
+Sorry, looks like I was using wrong wording. This is submission
+v9. Under "Since v9" I meant "in v9 and further".
 
-echo mem > /sys/power/state
-[   75.666385] PM: suspend entry (s2idle)
-[   75.685382] Filesystems sync: 0.018 seconds
-[   75.685446] Preparing system for sleep (s2idle)
-[   75.695087] Freezing user space processes ... (elapsed 0.001 seconds) do=
-ne.
-[   75.698339] OOM killer disabled.
-[   75.701618] Freezing remaining freezable tasks ... (elapsed 0.063 second=
-s) done.
-[   75.767215] Suspending system (s2idle)
-[   75.777682] macb ff0e0000.ethernet: gem-ptp-timer ptp clock unregistered=
-.
-[   75.784525] suspend-to-idle
-[   75.784580] CPU: 0 PID: 548 Comm: sh Not tainted 5.15.0-xilinx-v2022.1 #=
-1
-[   75.788626] Hardware name: xlnx,zynqmp (DT)
-
-[   75.792867] Call trace:
-[   75.795373]  dump_backtrace+0x0/0x1a8
-[   75.799094]  show_stack+0x18/0x30
-[   75.802466]  dump_stack_lvl+0x7c/0xa0
-[   75.806186]  dump_stack+0x18/0x34
-[   75.809559]  suspend_devices_and_enter+0x334/0x4cc
-[   75.814403]  pm_suspend+0x1f0/0x248
-[   75.817950]  state_store+0xb8/0x100
-[   75.821497]  kobj_attr_store+0x1c/0x30
-[   75.825302]  sysfs_kf_write+0x40/0x54
-[   75.829022]  kernfs_fop_write_iter+0xb8/0x170
-[   75.833433]  new_sync_write+0x74/0xc8
-[   75.837153]  vfs_write+0x104/0x128
-[   75.840613]  ksys_write+0x70/0xdc
-[   75.843987]  __arm64_sys_write+0x18/0x24
-[   75.847965]  invoke_syscall+0x74/0xfc
-[   75.851684]  el0_svc_common.constprop.0+0xb0/0xdc
-[   75.856442]  do_el0_svc+0x84/0x90
-[   75.859816]  el0_svc+0x20/0x4c
-[   75.862930]  el0t_64_sync_handler+0xbc/0x158
-[   75.867254]  el0t_64_sync+0x1a0/0x1a4
-
-CONFIDENTIALITY NOTICE: This e-mail, including any attachments, may contain=
- information that is confidential and privileged. Any unauthorized disclosu=
-re, reproduction or use of this e-mail is prohibited. If you are not the in=
-tended recipient, please notify the sender by reply e-mail or telephone and=
- permanently delete this e-mail and any reproductions immediately.
+--=20
+WBR, Volodymyr=
 
