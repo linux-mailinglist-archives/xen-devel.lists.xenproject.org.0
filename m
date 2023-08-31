@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE7678E9DE
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 12:04:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593699.926754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5781A78E9EA
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 12:08:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593707.926767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbeWe-0005NS-Ko; Thu, 31 Aug 2023 10:03:44 +0000
+	id 1qbeax-0006Q1-8B; Thu, 31 Aug 2023 10:08:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593699.926754; Thu, 31 Aug 2023 10:03:44 +0000
+Received: by outflank-mailman (output) from mailman id 593707.926767; Thu, 31 Aug 2023 10:08:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbeWe-0005Ll-I3; Thu, 31 Aug 2023 10:03:44 +0000
-Received: by outflank-mailman (input) for mailman id 593699;
- Thu, 31 Aug 2023 10:03:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qbeax-0006Nt-5J; Thu, 31 Aug 2023 10:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 593707;
+ Thu, 31 Aug 2023 10:08:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GYAZ=EQ=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
- id 1qbeWc-0005Lf-Mc
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 10:03:42 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a994ed38-47e5-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 12:03:41 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-50087d47d4dso1266684e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Aug 2023 03:03:41 -0700 (PDT)
+ <SRS0=shXB=EQ=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qbeav-0006Nk-Cc
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 10:08:09 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47ba8211-47e6-11ee-9b0d-b553b5be7939;
+ Thu, 31 Aug 2023 12:08:07 +0200 (CEST)
+Received: from [192.168.8.109] (unknown [151.36.24.215])
+ by support.bugseng.com (Postfix) with ESMTPSA id DF9614EE0738;
+ Thu, 31 Aug 2023 12:08:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,121 +39,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a994ed38-47e5-11ee-8783-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693476221; x=1694081021; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hB33pLaPpLvvdt+D2fH747Y5XKVfL/40nfO6Hfng3FQ=;
-        b=hDKEzP18rYuE/YQHRiIVzS6LGVDskEg6FBeMOgjVxVtRqapPZEBWNd8hHs+ZkTHlQG
-         7OJeN427WZL4wE+ArwqVrn/OI+4vyXOzFkh0eXB6IUoA5nc3MYu+ZsSy1Z0IM0M8doGq
-         bTJ49kmCjkkJ01fsH7l+/l6i2L45up5iDuyZ5ryM1sTV0DEh7MZh5Eer7Op+SaQn0WOk
-         6L8VM5LJsJL0QN0eozT3GqvXAhrblR/Z5QnNHc0mVVNThPdVt7Yy7lirSiJzdlQlsVhM
-         i4nrMdAMjwGWsu8hbxTNVkB/E+C7RCl9KpZlnnnh5Jq18oylMcjBxoIl3HNGNxSetA4N
-         28MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693476221; x=1694081021;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hB33pLaPpLvvdt+D2fH747Y5XKVfL/40nfO6Hfng3FQ=;
-        b=G1+4Zv4uBBvQ1Dso0CW19wLOQJRngUF/zmP7Mq3K/zAAp1Wr0Mmafhfr4jnu8BrQxw
-         2Z5RJM8+camFYwHek/jPbvRodfZX9cnXd+DoQIJv9IaEV+aQGBGP9dIn6eeWwqRp+wW3
-         xjIklLe5XG2EUcCksrIOMDTTmUvwoNBRcLL2iAFvNuI5qNqpqjN85Qs/IcdA6EM+6rJz
-         4/dvePK3Ibc6udNUdRQfr3AQUsbIHkJ5lIkONZyFlwaKHBWQbmg4NatCWAgp52aspzcD
-         zYZdLzGMblRl0+dBkCuaBowae8m5jxkFoBJhZE57LuJAcSPImNWbh/uFJRwtHqgp+oBo
-         NHQA==
-X-Gm-Message-State: AOJu0YyX7xCFUeBXHw7D1cxVHeqeOECaIbzg3DKP5aF6yuc3edTPkyDQ
-	eT7zNvUOITlca8W5jikDItOGQLL+coVUT2mXTRn8+A==
-X-Google-Smtp-Source: AGHT+IFX/1mT0xBVolLvtKiip3l9RctqLyhOc8k7b+Kx7yXW6Ml6LFMZECJTcU1bzt/3GOP5hwm7DtZPrPFwphsqjfg=
-X-Received: by 2002:a19:6914:0:b0:500:b890:fb38 with SMTP id
- e20-20020a196914000000b00500b890fb38mr3118822lfc.24.1693476220885; Thu, 31
- Aug 2023 03:03:40 -0700 (PDT)
+X-Inumbo-ID: 47ba8211-47e6-11ee-9b0d-b553b5be7939
+Message-ID: <be7ba4ea-b5e9-cc00-a8d1-0fec82248b8f@bugseng.com>
+Date: Thu, 31 Aug 2023 12:08:05 +0200
 MIME-Version: 1.0
-References: <87y1hspiyh.fsf@linaro.org> <alpine.DEB.2.22.394.2308301745530.6458@ubuntu-linux-20-04-desktop>
- <CAFEAcA8Ziov9vA9dW+4vzFE=KkSUqfMNNMZOtvQhqCXyjRytzQ@mail.gmail.com> <87cyz3pmgz.fsf@linaro.org>
-In-Reply-To: <87cyz3pmgz.fsf@linaro.org>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 31 Aug 2023 11:03:29 +0100
-Message-ID: <CAFEAcA-m8G1kfTw52kOGPEvQwWPph0NWc0URVY1aQ2WwVeB_OQ@mail.gmail.com>
-Subject: Re: QEMU features useful for Xen development?
-To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>, 
-	Stewart Hildebrand <stewart.hildebrand@amd.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>, 
-	QEMU Developers <qemu-devel@nongnu.org>, Vikram Garhwal <vikram.garhwal@amd.com>, 
-	Stefano Stabellini <stefano.stabellini@amd.com>, 
-	Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>, 
-	Jonathan Cameron <jonathan.cameron@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [XEN PATCH 09/13] xen/common: address violations of MISRA C:2012
+ Directive 4.10
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1693228255.git.simone.ballarin@bugseng.com>
+ <fe1768342df0cd9315af87c83cc6d8d09f61b983.1693228255.git.simone.ballarin@bugseng.com>
+ <00d67696-7895-f4cd-de0d-0c24f937deb9@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <00d67696-7895-f4cd-de0d-0c24f937deb9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 31 Aug 2023 at 10:53, Alex Benn=C3=A9e <alex.bennee@linaro.org> wro=
-te:
->
->
-> Peter Maydell <peter.maydell@linaro.org> writes:
->
-> > On Thu, 31 Aug 2023 at 01:57, Stefano Stabellini <sstabellini@kernel.or=
-g> wrote:
-> >> As Xen is gaining R52 and R82 support, it would be great to be able to
-> >> use QEMU for development and testing there as well, but I don't think
-> >> QEMU can emulate EL2 properly for the Cortex-R architecture. We would
-> >> need EL2 support in the GIC/timer for R52/R82 as well.
-> >
-> > We do actually have a Cortex-R52 model which at least in theory
-> > should include EL2 support, though as usual with newer QEMU
-> > stuff it quite likely has lurking bugs; I'm not sure how much
-> > testing it's had. Also there is currently no board model which
-> > will work with the Cortex-R52 so it's a bit tricky to use in practice.
-> > (What sort of board model would Xen want to use it with?)
->
-> We already model a bunch of the mps2/mps3 images so I'm assuming adding
-> the mps3-an536 would be a fairly simple step to do (mps2tz.c is mostly
-> tweaking config values). The question is would it be a useful target for
-> Xen?
+On 29/08/23 08:50, Jan Beulich wrote:
+> On 28.08.2023 15:20, Simone Ballarin wrote:
+>> Add inclusion guards to address violations of
+>> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
+>> to prevent the contents of a header file being included more than
+>> once").
+>>
+>> Also C files, if included somewhere, need to comply with the guideline.
+>>
+>> Mechanical change.
+>>
+>> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+>> ---
+>>   xen/common/compat/grant_table.c | 7 +++++++
+>>   xen/common/coverage/gcc_4_7.c   | 5 +++++
+>>   xen/common/decompress.h         | 5 +++++
+>>   xen/common/event_channel.h      | 5 +++++
+>>   xen/common/multicall.c          | 5 +++++
+>>   5 files changed, 27 insertions(+)
+> 
+> As already said in reply to another patch, imo .c files shouldn't gain such
+> guards. These are commonly referred to as "header guards" for a reason.
+> 
 
-All our MPS2/MPS3 boards are M-profile. That means we have the
-device models for all the interesting devices on the board, but
-it would be simpler to write the an536 board model separately.
-(In particular, the M-profile boards are wrappers around an
-"ARMSSE" sort-of-like-an-SoC component; there's no equivalent
-for the Cortex-R52.)
+This is the MISRA's definition of "header file" (MISRA C:2012 Revision 
+1, Appendix J):
 
->   https://developer.arm.com/documentation/dai0536/latest/
->
-> > The Cortex-R82 would be more work, because (unlike the R52) it's
-> > AArch64, and we don't have Armv8-R AArch64 support yet, only the AArch3=
-2.
-> >
-> > I haven't looked at whether GIC on R-profile requires any changes
-> > from the A-profile GIC; on A-profile obviously we emulate the
-> > virtualization support already.
-> >
-> >> On Cortex-As, in addition to a PCI root complex and an arbitrary PCI
-> >> device, SMMUv3 emulation (both stages) and GICv3 ITS are needed to be
-> >> able to test PCI Passthrough.
->
-> We have ITS emulation support and it was recently plumbed into the
-> "sbsa-ref" board as it is needed for higher level SBSA compliance.
->
-> >> However, if I recall correctly SMMUv3
-> >> emulation in QEMU might not be complete enough to enable us to use it.
-> >
-> > Yeah, at the moment the SMMU emulation supports stage 1 and stage 2,
-> > but not both at the same time. This is good enough for PCI passthrough
-> > with a Linux guest using KVM to pass a device through to a nested
-> > Linux guest.
->
-> Is this a missing feature for SMMUv3 or something introduced in the
-> later revisions?
+   "A header file is any file that is the subject of a #include
+    directive.
+    Note: the filename extension is not significant."
 
-It's a missing feature. The SMMUv3 spec allows an implementation
-to implement stage 1, stage 2 or both. We started with just a
-stage-1-only implementation because Linux doesn't need any more.
-Stage-2-only just landed recently. Nobody's looked at both-stages yet.
+So, the guards are required if we want to comply with the directive, 
+otherwise we can raise a deviation.
 
-thanks
--- PMM
+The danger of multi-inclusion also exists for .c files, why do you want 
+to avoid guards for them?
+
+>> --- a/xen/common/compat/grant_table.c
+>> +++ b/xen/common/compat/grant_table.c
+>> @@ -3,6 +3,10 @@
+>>    *
+>>    */
+>>   
+>> +
+> 
+> Nit: No double blank lines please.
+> 
+>> +#ifndef __COMMON_COMPAT_GRANT_TABLE_C__
+>> +#define __COMMON_COMPAT_GRANT_TABLE_C__
+>> +
+>>   #include <xen/hypercall.h>
+>>   #include <compat/grant_table.h>
+>>   
+>> @@ -331,6 +335,9 @@ int compat_grant_table_op(
+>>       return rc;
+>>   }
+>>   
+>> +
+> 
+> Again here (at least).
+> 
+> Jan
+
+-- 
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com)
+
 
