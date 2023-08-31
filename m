@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9DAB78EA3D
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 12:33:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593737.926806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 776D578EA46
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 12:37:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593744.926817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbeyh-00083c-03; Thu, 31 Aug 2023 10:32:43 +0000
+	id 1qbf2z-0001Il-HN; Thu, 31 Aug 2023 10:37:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593737.926806; Thu, 31 Aug 2023 10:32:42 +0000
+Received: by outflank-mailman (output) from mailman id 593744.926817; Thu, 31 Aug 2023 10:37:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbeyg-00081r-TM; Thu, 31 Aug 2023 10:32:42 +0000
-Received: by outflank-mailman (input) for mailman id 593737;
- Thu, 31 Aug 2023 10:32:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qbf2z-0001Gt-DY; Thu, 31 Aug 2023 10:37:09 +0000
+Received: by outflank-mailman (input) for mailman id 593744;
+ Thu, 31 Aug 2023 10:37:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hTy1=EQ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qbeyf-00081l-C0
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 10:32:41 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20609.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::609])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b52ff3fa-47e9-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 12:32:39 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by SA0PR12MB4350.namprd12.prod.outlook.com (2603:10b6:806:92::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.20; Thu, 31 Aug
- 2023 10:32:35 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9a2:f8ec:7c75:fe95]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9a2:f8ec:7c75:fe95%6]) with mapi id 15.20.6699.034; Thu, 31 Aug 2023
- 10:32:35 +0000
+ <SRS0=DT0c=EQ=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1qbf2x-0001Gn-St
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 10:37:07 +0000
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [2607:f8b0:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 533a1aff-47ea-11ee-9b0d-b553b5be7939;
+ Thu, 31 Aug 2023 12:37:05 +0200 (CEST)
+Received: by mail-pf1-x431.google.com with SMTP id
+ d2e1a72fcca58-68a520dba33so548920b3a.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Aug 2023 03:37:04 -0700 (PDT)
+Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
+ ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
+ by smtp.gmail.com with ESMTPSA id
+ j15-20020aa78d0f000000b00686ec858fb0sm1051735pfe.190.2023.08.31.03.36.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Aug 2023 03:37:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,190 +46,285 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b52ff3fa-47e9-11ee-8783-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I1LSWwWCr4j2CHjmKryCwTLIC8WFrDLQ+J3s7Ptrcv8h0RWJZVeRTwPpSHfxM2GQkUDk9flMlySFv7kO1wNDS2ZNZXyLpjGN5gZAJRh6bNlCa+bK2K5VdiJqURXbeeeKealpjHvRvpy5ks/sWTgGZiCXvONA1SYb+KQJdm/q83PizAy9eaepUWkL8Xks28FyOZBHuIPEeOLKrvwWUcX2+CO386rgsHfDUgLLE6rRSOuIzHVP7fQi194hcqLEmCOZm5ZG7doi+CT+VVRKpLJ6k63GwQbkWH/CyQJkpgb5eq17Lva23ak9q+BWXUY598GmjSuAkqPT1a3X15ImfTUEpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFPW1HXK22OeEdNPdtNZYqUJCpwGQvBoO+PziOCAtgc=;
- b=Kb3hW6mdT7nPjTdyIZedDnryTOt3cWnc9XvP69K3q116sm67jjRW8iuMjfswAcUTO09ZifGMD013/5QXYFBptGU32QAVkxAUnmXdeyJWQIBFwfHMSpaVvSzUabj2umyLnhfAhPITI1riIu07mQOjBMMzuJUkZK5rAy8avmGFEECwQuGaUJ+k43V76Abblh1m5dKN9AmuBo8bzYReyiGzslQ738r8gxw7bYJFzs8fYMaHbcL+8NI270uWVlvZ63xaU5EU6Nbt4AgNhL6zSpvMMx/3wy63Nn8Z+zE73RTME3+Zq/z1f4kKSdQGTrQiuxNbCF0bVUOxMSWFDU6QSfOTvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFPW1HXK22OeEdNPdtNZYqUJCpwGQvBoO+PziOCAtgc=;
- b=GuNmiRrAnkrik0rn6pI/pwIOSACNWIhtLGKPzsAow4EPJ7iUP0PC5MqkJV5r6iKjLWXk5GzJzRGy736IsC/hPxzk7+Qy9FqkiEsdF1GloSM9QUBLSRADd/D1Y6DJvoxYenYnskTRJ17ghHZHfgbPbjdBeMOLVaXE5K1XbUjGDlQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <799b1754-7529-0538-1b5a-d94a362eb74d@amd.com>
-Date: Thu, 31 Aug 2023 11:32:28 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-Subject: Re: QEMU features useful for Xen development?
-To: Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- QEMU Developers <qemu-devel@nongnu.org>,
- Vikram Garhwal <vikram.garhwal@amd.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>,
- Jonathan Cameron <jonathan.cameron@huawei.com>
-References: <87y1hspiyh.fsf@linaro.org>
- <alpine.DEB.2.22.394.2308301745530.6458@ubuntu-linux-20-04-desktop>
- <CAFEAcA8Ziov9vA9dW+4vzFE=KkSUqfMNNMZOtvQhqCXyjRytzQ@mail.gmail.com>
- <87cyz3pmgz.fsf@linaro.org>
- <CAFEAcA-m8G1kfTw52kOGPEvQwWPph0NWc0URVY1aQ2WwVeB_OQ@mail.gmail.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <CAFEAcA-m8G1kfTw52kOGPEvQwWPph0NWc0URVY1aQ2WwVeB_OQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO6P123CA0017.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:313::7) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 533a1aff-47ea-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1693478223; x=1694083023; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=x1CBF2DbVWJ7MmkNFKmcN6oQhqjuvRQMB9TRzzaFFGM=;
+        b=SlL67vMDMaaUzwTwQVQY9tT+mi29qQPcyFMslarle1eGj0Fm/UKPqkKm1neDtYTnu/
+         7T/2xpcuAcu1/427Zu0v6lwrQ88sPUuM8lQRCOk8fPTVWp2Nrv+viyZQ/XiaODiC949X
+         GyJlWTTyZMbwQE+2Lr1+un2eWfnZ8ftkeYg+anuZsUY+MQbm1gZVI0V86y0XkdVGeuwk
+         uAI+R/F16rB4exIkUoOuXuEbl7EA3xxmUTWhOrrp491j3vPir8EDHievGX/gpkODzfn8
+         GRr4Gjg6oE2eu+Hjqxwnb9HyU1+UT4nPlj+nuwtXxjyvXoF30OpxQbw+V9rGsEAnqOtu
+         0NwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693478223; x=1694083023;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=x1CBF2DbVWJ7MmkNFKmcN6oQhqjuvRQMB9TRzzaFFGM=;
+        b=dZWxq+h3JAD1H55etq3CJGbYdvOEiSG6v23EXZ9w0o+nEnGbG+xVjV/rH2zkL/Rlwl
+         i8C49S3FZKkAo0PJMVowICHpFvZ5SlFtx4P3OUtofczPlow7AXua+tuL9wXkyfyf8ICA
+         HhAuTXfoVoHAuuQpbcS/LpGOT0XlwZvE/7CDoaxuGPFgpm7pkWiNyee3nqg4wBa/rWod
+         WZOUBzcJhRHuZpzTtRqjGH7gdclAIlSdYGT4geex6ySwEHyB8uP3kHqYzgSSMafBtybB
+         hXgv5zyQra/RfdKqeXgOEcoJ69VYKzIoh7ZXJUCNcCvX6TQ7E/WEPLHsT1jF5ITF95H2
+         Ls7Q==
+X-Gm-Message-State: AOJu0YzkwSNxAGhpWsqgZ6tFF8cT3q8nsNCai6PB5kLUs3bP4NhZnOo1
+	eHpcRPH3kYfFjkn1MJmIEMCE0g==
+X-Google-Smtp-Source: AGHT+IEF3CYXtyDqMtjxE7/P7YvpXlrVr0cGJBsDe1GvSRkqCUzQ5Xu2dJo9nxBb6UC77ADxyrv+xw==
+X-Received: by 2002:a05:6a00:22cb:b0:68a:6833:d936 with SMTP id f11-20020a056a0022cb00b0068a6833d936mr5816737pfj.15.1693478223275;
+        Thu, 31 Aug 2023 03:37:03 -0700 (PDT)
+Message-ID: <58a4e81f-b0ce-49db-8a6a-f6b5bdc3d2d6@daynix.com>
+Date: Thu, 31 Aug 2023 19:36:57 +0900
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SA0PR12MB4350:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2812b4ef-6ffd-4cc0-ffc8-08dbaa0d9745
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	mUqIkrgVZJ2j8HWfCSLTFz+PFMdm490frZpGDfvJRO4tBULtLdhu/TQYbkgn5zVSbUzGf28QyX6dFXx9YCp+vGJYSlm7wqby7F2zvhMnvEY6ABjciS5AmzJQm43CKxAEM8drM4lVW7kvcKFJDLeTxKSRDucS03PLZ5LZ+Q5t1LIH04WzptjjSA9iYbwkKLHlIuYNgGxyjyPTsokYqKu8HyJtV9T47F7IWwmMuDF7/xCbc4z2qLJG1mjfnYlyqy4UFa/NoF5X8ApyvyaZ8PQQsUBTZjeeGJ/6y8vfBDnuDpLEpfNbBYn59bGt/bm0Q3NjkO4VuzYg2njI+pl/XK7h2MqB/o1yxZgmZ4cZ688CUFHtmn1MrjRj3MOOtSjGRB+efeNyy1cbzJnS094KeE6ZS5wy4dCb2jmYh0S6SpnY28nFGHpWjR8h1jik9UIXvHK4Hg1f16B6c2MYaZKl3dN49D4ugYY1SRTJQ1yXEGE6LFKvE7SQZqvHp3y4LNUNfD7hDyUwhxEf04EzheZVMqizuHi7l00+WlgNi8Kb3LC7pa5voTV7K6gnKYGyomboEwsxJrpwAX1wiM/YTNk+lMIdNFPNHdpQiWUAKbISUGB+jx+FDefyYEjMyUTIjrQlK4rcJbGXcG1OSWgUASYlDt3G0g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(346002)(396003)(366004)(39860400002)(1800799009)(451199024)(186009)(36756003)(31686004)(83380400001)(6506007)(4326008)(31696002)(5660300002)(53546011)(8936002)(8676002)(6486002)(26005)(6666004)(41300700001)(2616005)(7416002)(66574015)(6512007)(966005)(38100700002)(478600001)(2906002)(66556008)(110136005)(66946007)(66476007)(54906003)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVlTOGhLT0ZxR3NXWExEbXBRSkoxSnhjUnRxUnN6Ym12VDY5QUR5VytFTE5w?=
- =?utf-8?B?VDFneHpBM0FmblNNa1lRZXFyajhaY2M2ak5SU2psWmFwMU1DUVhPc2MwV3Zv?=
- =?utf-8?B?d3JNUFhCaFpRL2thamViNnBoWjUvaWNWNTlFL3hUN0NGRWRLOXBpeXF3OVhP?=
- =?utf-8?B?MWUwa1paL1VlYThqc3plMWNnUmhDR2tZaWVOeFlQWkF5TDdadVB3S3pWUFV1?=
- =?utf-8?B?OE1BSGhPd0hGS2tsMFpZQkVLYzI0WGk2bFdEeHJHNUY0WUFVMzVRam03NCs0?=
- =?utf-8?B?Uk5iUXN6MTQ4R2RkYUZ2OVMxT1k3VVFvYzU0MVVCUHJxSjlTZnNLa1FVVzBQ?=
- =?utf-8?B?RTByVTJ2Z1doUmxsdlo0ZGh4enpZSG9VVFVvKzN2eWovR0gwMndWMGxhQ0cw?=
- =?utf-8?B?M3gzU2NEdk8vSkpDN2xvb3dvNWhzRTdvR3ZRTjJJR3pOdTV0RlFJTkNvOEV0?=
- =?utf-8?B?OXhMWFJLVGljTitWelkzYi9rNmoyTDd5UWtaMVBYb2doN2lmM2w5dlZnTmJz?=
- =?utf-8?B?ZFROSDlSKzdkMkNXNTNQa3c2TUpGR2owek1NODFGcStzdTkvREZEZVc0aHl6?=
- =?utf-8?B?RGZMYkw1dFI0cVBFQXVxNmhiYXNzbmF3ejF5a2pUT0xuZG9TajRDZU5Cbk9C?=
- =?utf-8?B?bDFQZS9rcUs2TW50dDM4RUMxN1BKaXB3dFZOSHpIRkt5RVpGS3liNVNUUm52?=
- =?utf-8?B?QWFMZzBHT3NjeWhGTmdQSlNDd2ZvdzVweFdQeStIbnMvTHF6bmlHNEMwNGlz?=
- =?utf-8?B?bE51cW5GUFlWM1QwZGJtUHZGaVFxWUNicG5INnJJS3l1bkthYk44Qmtyd0Mr?=
- =?utf-8?B?Wm52dFJvRW9FQlZLV0NKQzgxNVBtcFN4RkJnT0VVcGx5Yndxb2JaRUk5MUls?=
- =?utf-8?B?WDNpSm1ROExmNnJmU1pEL2tVYWttUjVDWGlad1hhSGVVRkpWNExtUEZTMjMw?=
- =?utf-8?B?eXFkYklvUEVIMGlnL1krY3V5VjkvRDA0YmF4REpmYXhhSjR1ZkszSWw0cUI0?=
- =?utf-8?B?L3J3WWlhbXg4N0RnamQvdTNaL3FMVGh2akppUEFtTWFESlVsaytlYjYvVXJT?=
- =?utf-8?B?TndUN0ZRclRoWU9kNlExdHFHcW50T1JmQkpXa09ycjdhVjE2NE1EK1BRMmt1?=
- =?utf-8?B?WlJzazVmb1VEeEZhNC94OVRGVXBucmpyYTdobHR4L1hpQ2dkejVESjdveFJ1?=
- =?utf-8?B?dXZvaWNrZDh4VFlERTdCQXd2Sm01bzhRYnJpZ3ByVVNZbDRUMmhZU0x3SStU?=
- =?utf-8?B?TUxGR2tKeExZTnRja213NkJocmNGVDFseE15My9RbFRxMG10TFplNkI5alZE?=
- =?utf-8?B?aEVZNFk2OHkvUnU4TmVLR2p2Q00zOVNIV0t1NHBjK0dxWkNudmh1eFFiejRs?=
- =?utf-8?B?cjNMZzdpRy9lZUw4TmZPSnhVc3VraThNeWUrcmEwa3FERkVxMFNDZ2tNOWhY?=
- =?utf-8?B?MVJJcWhzWmlYR0cvYWpFV1lSZVBDRUN5RlhFN1FRc2EzWEh3WEttOVpKQkNY?=
- =?utf-8?B?NjdYaStVQkhTSEhoVlp0OEIrSDNvejMvQ3pId2dYdUFMTmxGaklRZGpmTDU5?=
- =?utf-8?B?NVhmNC9jaXZPQTRjUFVJUjk0aVdjUFVGUUFaRFVRamtRNGNicEp2a29RbzNT?=
- =?utf-8?B?ais2RzRNTFk5cXBtOFQ2WE9ka0RrZjFlcXFTcGh1dkZqNDFlZTlsSkNkZjBw?=
- =?utf-8?B?OGVsV09JMDZSY3VMU1hDN2ptUjdDSW5GazBOMDFZUVluRnlvR2piZm1jdW9R?=
- =?utf-8?B?b0w2V0dwQ044dWpOZWdQeWR3K1VWWFNZL2s0VGNUdEw5RnQ0c2kvT1pUL1p3?=
- =?utf-8?B?RHVCVlVLMTJFMndyMG1BMW9vb1NWVlRYalVGQUMyaHlobSszY2tJQUNyT1dV?=
- =?utf-8?B?SjBSZENCRXRPZStkWGptd2VaVlJaNlhSYUNwanI0S29JWVlTS3B4REhuZkhJ?=
- =?utf-8?B?K2ZDMHV3cjN6ZjdrR3drN1FvS1UwUDAzczlGWEN0ajYwRHlyWlFsVHh6aURB?=
- =?utf-8?B?K1hpYThja1FuTVdCWDlwTUR4T1hMeU1BUC9DYldFS252WWNDR05LazE5eEtl?=
- =?utf-8?B?WmdwNDBJMzJsYk1CTkxSZ3RJdk5uSWxSN0NYV3UvVmJlS1BhYzBLOTVmQ0Q2?=
- =?utf-8?Q?N4EPwA+pbp6TTVu/424t96Xah?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2812b4ef-6ffd-4cc0-ffc8-08dbaa0d9745
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 10:32:35.4710
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U7ks4y0GAYScPNv6y0By9H+eL6xw229K0gCfYjbsDbsPZhqTCWZfODuGlwRteFWgpwtfAEanY+5+PHQlRQpD/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4350
+User-Agent: Mozilla Thunderbird
+Subject: Re: [QEMU PATCH v4 10/13] virtio-gpu: Resource UUID
+Content-Language: en-US
+To: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <antonio.caggiano@collabora.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20230831093252.2461282-1-ray.huang@amd.com>
+ <20230831093252.2461282-11-ray.huang@amd.com>
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <20230831093252.2461282-11-ray.huang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Peter/Alex,
+On 2023/08/31 18:32, Huang Rui wrote:
+> From: Antonio Caggiano <antonio.caggiano@collabora.com>
+> 
+> Enable resource UUID feature and implement command resource assign UUID.
+> This is done by introducing a hash table to map resource IDs to their
+> UUIDs.
 
-Appreciate your help. :)
+The hash table does not seem to be stored during migration.
 
-On 31/08/2023 11:03, Peter Maydell wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
->
->
-> On Thu, 31 Aug 2023 at 10:53, Alex Bennée <alex.bennee@linaro.org> wrote:
->>
->> Peter Maydell <peter.maydell@linaro.org> writes:
->>
->>> On Thu, 31 Aug 2023 at 01:57, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>> As Xen is gaining R52 and R82 support, it would be great to be able to
->>>> use QEMU for development and testing there as well, but I don't think
->>>> QEMU can emulate EL2 properly for the Cortex-R architecture. We would
->>>> need EL2 support in the GIC/timer for R52/R82 as well.
->>> We do actually have a Cortex-R52 model which at least in theory
->>> should include EL2 support, though as usual with newer QEMU
->>> stuff it quite likely has lurking bugs; I'm not sure how much
->>> testing it's had. Also there is currently no board model which
->>> will work with the Cortex-R52 so it's a bit tricky to use in practice.
->>> (What sort of board model would Xen want to use it with?)
->> We already model a bunch of the mps2/mps3 images so I'm assuming adding
->> the mps3-an536 would be a fairly simple step to do (mps2tz.c is mostly
->> tweaking config values). The question is would it be a useful target for
->> Xen?
-> All our MPS2/MPS3 boards are M-profile. That means we have the
-> device models for all the interesting devices on the board, but
-> it would be simpler to write the an536 board model separately.
-> (In particular, the M-profile boards are wrappers around an
-> "ARMSSE" sort-of-like-an-SoC component; there's no equivalent
-> for the Cortex-R52.)
->
->>    https://developer.arm.com/documentation/dai0536/latest/
+> 
+> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+> 
+> v1->v2:
+>     - Separate declarations from code.
+> 
+>   hw/display/trace-events        |  1 +
+>   hw/display/virtio-gpu-base.c   |  2 ++
+>   hw/display/virtio-gpu-virgl.c  | 21 +++++++++++++++++
+>   hw/display/virtio-gpu.c        | 41 ++++++++++++++++++++++++++++++++++
+>   include/hw/virtio/virtio-gpu.h |  4 ++++
+>   5 files changed, 69 insertions(+)
+> 
+> diff --git a/hw/display/trace-events b/hw/display/trace-events
+> index 2336a0ca15..54d6894c59 100644
+> --- a/hw/display/trace-events
+> +++ b/hw/display/trace-events
+> @@ -41,6 +41,7 @@ virtio_gpu_cmd_res_create_blob(uint32_t res, uint64_t size) "res 0x%x, size %" P
+>   virtio_gpu_cmd_res_unref(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_back_attach(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_back_detach(uint32_t res) "res 0x%x"
+> +virtio_gpu_cmd_res_assign_uuid(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_xfer_toh_2d(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_xfer_toh_3d(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_xfer_fromh_3d(uint32_t res) "res 0x%x"
+> diff --git a/hw/display/virtio-gpu-base.c b/hw/display/virtio-gpu-base.c
+> index 4f2b0ba1f3..f44388715c 100644
+> --- a/hw/display/virtio-gpu-base.c
+> +++ b/hw/display/virtio-gpu-base.c
+> @@ -236,6 +236,8 @@ virtio_gpu_base_get_features(VirtIODevice *vdev, uint64_t features,
+>           features |= (1 << VIRTIO_GPU_F_CONTEXT_INIT);
+>       }
+>   
+> +    features |= (1 << VIRTIO_GPU_F_RESOURCE_UUID);
+> +
+>       return features;
+>   }
+>   
+> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> index 17b634d4ee..1a996a08fc 100644
+> --- a/hw/display/virtio-gpu-virgl.c
+> +++ b/hw/display/virtio-gpu-virgl.c
+> @@ -36,6 +36,7 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
+>   {
+>       struct virtio_gpu_resource_create_2d c2d;
+>       struct virgl_renderer_resource_create_args args;
+> +    struct virtio_gpu_simple_resource *res;
+>   
+>       VIRTIO_GPU_FILL_CMD(c2d);
+>       trace_virtio_gpu_cmd_res_create_2d(c2d.resource_id, c2d.format,
+> @@ -53,6 +54,14 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
+>       args.nr_samples = 0;
+>       args.flags = VIRTIO_GPU_RESOURCE_FLAG_Y_0_TOP;
+>       virgl_renderer_resource_create(&args, NULL, 0);
+> +
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +    if (!res) {
+> +        cmd->error = VIRTIO_GPU_RESP_ERR_OUT_OF_MEMORY;
+> +        return;
 
-Yes, it will be helpful if Qemu can model this board. We have a 
-downstream port of Xen on R52 (upstreaming is in progress).
+virglrenderer thinks the resource is alive in such a situation.
 
-So, we can test the Qemu model with Xen.
+> +    }
+> +    res->resource_id = c2d.resource_id;
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+>   }
+>   
+>   static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+> @@ -60,6 +69,7 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+>   {
+>       struct virtio_gpu_resource_create_3d c3d;
+>       struct virgl_renderer_resource_create_args args;
+> +    struct virtio_gpu_simple_resource *res;
+>   
+>       VIRTIO_GPU_FILL_CMD(c3d);
+>       trace_virtio_gpu_cmd_res_create_3d(c3d.resource_id, c3d.format,
+> @@ -77,6 +87,14 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+>       args.nr_samples = c3d.nr_samples;
+>       args.flags = c3d.flags;
+>       virgl_renderer_resource_create(&args, NULL, 0);
+> +
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +    if (!res) {
+> +        cmd->error = VIRTIO_GPU_RESP_ERR_OUT_OF_MEMORY;
+> +        return;
+> +    }
+> +    res->resource_id = c3d.resource_id;
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+>   }
+>   
+>   static void virgl_resource_destroy(VirtIOGPU *g,
+> @@ -682,6 +700,9 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>           /* TODO add security */
+>           virgl_cmd_ctx_detach_resource(g, cmd);
+>           break;
+> +    case VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID:
+> +        virtio_gpu_resource_assign_uuid(g, cmd);
+> +        break;
+>       case VIRTIO_GPU_CMD_GET_CAPSET_INFO:
+>           virgl_cmd_get_capset_info(g, cmd);
+>           break;
+> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+> index cc4c1f81bb..770e4747e3 100644
+> --- a/hw/display/virtio-gpu.c
+> +++ b/hw/display/virtio-gpu.c
+> @@ -966,6 +966,37 @@ virtio_gpu_resource_detach_backing(VirtIOGPU *g,
+>       virtio_gpu_cleanup_mapping(g, res);
+>   }
+>   
+> +void virtio_gpu_resource_assign_uuid(VirtIOGPU *g,
+> +                                     struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_assign_uuid assign;
+> +    struct virtio_gpu_resp_resource_uuid resp;
+> +    QemuUUID *uuid = NULL;
 
-Also if all works fine, we might consider adding this to the upstream 
-Xen CI docker.
+This initialization is unnecessary.
 
-Out of curiosity, are you planning to add Qemu R52 SoC support to Zephyr ?
+> +
+> +    VIRTIO_GPU_FILL_CMD(assign);
+> +    virtio_gpu_bswap_32(&assign, sizeof(assign));
+> +    trace_virtio_gpu_cmd_res_assign_uuid(assign.resource_id);
+> +
+> +    res = virtio_gpu_find_check_resource(g, assign.resource_id, false, __func__, &cmd->error);
+> +    if (!res) {
+> +        return;
+> +    }
+> +
+> +    memset(&resp, 0, sizeof(resp));
+> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_RESOURCE_UUID;
+> +
+> +    uuid = g_hash_table_lookup(g->resource_uuids, GUINT_TO_POINTER(assign.resource_id));
+> +    if (!uuid) {
+> +        uuid = g_new(QemuUUID, 1);
+> +        qemu_uuid_generate(uuid);
+> +        g_hash_table_insert(g->resource_uuids, GUINT_TO_POINTER(assign.resource_id), uuid);
+> +    }
+> +
+> +    memcpy(resp.uuid, uuid, sizeof(QemuUUID));
+> +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
+> +}
+> +
+>   void virtio_gpu_simple_process_cmd(VirtIOGPU *g,
+>                                      struct virtio_gpu_ctrl_command *cmd)
+>   {
+> @@ -1014,6 +1045,9 @@ void virtio_gpu_simple_process_cmd(VirtIOGPU *g,
+>       case VIRTIO_GPU_CMD_RESOURCE_DETACH_BACKING:
+>           virtio_gpu_resource_detach_backing(g, cmd);
+>           break;
+> +    case VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID:
+> +        virtio_gpu_resource_assign_uuid(g, cmd);
+> +        break;
+>       default:
+>           cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>           break;
+> @@ -1393,12 +1427,15 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+>       QTAILQ_INIT(&g->reslist);
+>       QTAILQ_INIT(&g->cmdq);
+>       QTAILQ_INIT(&g->fenceq);
+> +
+> +    g->resource_uuids = g_hash_table_new_full(NULL, NULL, NULL, g_free);
+>   }
+>   
+>   static void virtio_gpu_device_unrealize(DeviceState *qdev)
+>   {
+>       VirtIOGPU *g = VIRTIO_GPU(qdev);
+>   
+> +    g_hash_table_destroy(g->resource_uuids);
+>       g_clear_pointer(&g->ctrl_bh, qemu_bh_delete);
+>       g_clear_pointer(&g->cursor_bh, qemu_bh_delete);
+>       g_clear_pointer(&g->reset_bh, qemu_bh_delete);
+> @@ -1452,6 +1489,10 @@ void virtio_gpu_reset(VirtIODevice *vdev)
+>           g_free(cmd);
+>       }
+>   
+> +    if (g->resource_uuids) {
 
-- Ayan
+Isn't g->resource_uuids always non-NULL?
 
->>
->>> The Cortex-R82 would be more work, because (unlike the R52) it's
->>> AArch64, and we don't have Armv8-R AArch64 support yet, only the AArch32.
->>>
->>> I haven't looked at whether GIC on R-profile requires any changes
->>> from the A-profile GIC; on A-profile obviously we emulate the
->>> virtualization support already.
->>>
->>>> On Cortex-As, in addition to a PCI root complex and an arbitrary PCI
->>>> device, SMMUv3 emulation (both stages) and GICv3 ITS are needed to be
->>>> able to test PCI Passthrough.
->> We have ITS emulation support and it was recently plumbed into the
->> "sbsa-ref" board as it is needed for higher level SBSA compliance.
->>
->>>> However, if I recall correctly SMMUv3
->>>> emulation in QEMU might not be complete enough to enable us to use it.
->>> Yeah, at the moment the SMMU emulation supports stage 1 and stage 2,
->>> but not both at the same time. This is good enough for PCI passthrough
->>> with a Linux guest using KVM to pass a device through to a nested
->>> Linux guest.
->> Is this a missing feature for SMMUv3 or something introduced in the
->> later revisions?
-> It's a missing feature. The SMMUv3 spec allows an implementation
-> to implement stage 1, stage 2 or both. We started with just a
-> stage-1-only implementation because Linux doesn't need any more.
-> Stage-2-only just landed recently. Nobody's looked at both-stages yet.
->
-> thanks
-> -- PMM
->
+> +        g_hash_table_remove_all(g->resource_uuids);
+> +    }
+> +
+>       virtio_gpu_base_reset(VIRTIO_GPU_BASE(vdev));
+>   }
+>   
+> diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
+> index b9adc28071..aa94b1b697 100644
+> --- a/include/hw/virtio/virtio-gpu.h
+> +++ b/include/hw/virtio/virtio-gpu.h
+> @@ -208,6 +208,8 @@ struct VirtIOGPU {
+>           QTAILQ_HEAD(, VGPUDMABuf) bufs;
+>           VGPUDMABuf *primary[VIRTIO_GPU_MAX_SCANOUTS];
+>       } dmabuf;
+> +
+> +    GHashTable *resource_uuids;
+>   };
+>   
+>   struct VirtIOGPUClass {
+> @@ -285,6 +287,8 @@ void virtio_gpu_cleanup_mapping_iov(VirtIOGPU *g,
+>                                       struct iovec *iov, uint32_t count);
+>   void virtio_gpu_cleanup_mapping(VirtIOGPU *g,
+>                                   struct virtio_gpu_simple_resource *res);
+> +void virtio_gpu_resource_assign_uuid(VirtIOGPU *g,
+> +                                     struct virtio_gpu_ctrl_command *cmd);
+>   void virtio_gpu_process_cmdq(VirtIOGPU *g);
+>   void virtio_gpu_device_realize(DeviceState *qdev, Error **errp);
+>   void virtio_gpu_reset(VirtIODevice *vdev);
 
