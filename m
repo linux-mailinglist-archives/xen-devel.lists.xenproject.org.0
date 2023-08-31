@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F25F378E476
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 03:41:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593307.926288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0396378E487
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 03:46:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593315.926298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbWfy-0006QM-Lr; Thu, 31 Aug 2023 01:40:50 +0000
+	id 1qbWlb-00078m-8B; Thu, 31 Aug 2023 01:46:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593307.926288; Thu, 31 Aug 2023 01:40:50 +0000
+Received: by outflank-mailman (output) from mailman id 593315.926298; Thu, 31 Aug 2023 01:46:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbWfy-0006Of-Ik; Thu, 31 Aug 2023 01:40:50 +0000
-Received: by outflank-mailman (input) for mailman id 593307;
- Thu, 31 Aug 2023 01:40:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbWlb-00075p-50; Thu, 31 Aug 2023 01:46:39 +0000
+Received: by outflank-mailman (input) for mailman id 593315;
+ Thu, 31 Aug 2023 01:46:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IFXE=EQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qbWfw-0006OU-TB
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 01:40:48 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68054525-479f-11ee-9b0d-b553b5be7939;
- Thu, 31 Aug 2023 03:40:46 +0200 (CEST)
+ id 1qbWla-00075j-3c
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 01:46:38 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 38cb0ef9-47a0-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 03:46:36 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 06FC4B82155;
- Thu, 31 Aug 2023 01:40:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8B3C433C8;
- Thu, 31 Aug 2023 01:40:43 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 87221B8216A;
+ Thu, 31 Aug 2023 01:46:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23ADC433C7;
+ Thu, 31 Aug 2023 01:46:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,24 +44,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68054525-479f-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 38cb0ef9-47a0-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693446044;
-	bh=1eXJTQ0SxzUPQPN7rbTLn6SUCm/LszkdLog00ZbbM4w=;
+	s=k20201202; t=1693446395;
+	bh=Ouh9xByWvCFe93wc4MT07/xKVtJ4bxJouZLtUWwGCI0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jR8xKfX4C04nXslObo0pJd5UD9EVDz2D/nzC99HI8Or/kneNY2RBWzfg5Ocg9xaS9
-	 0/VLbbByk9swx5cBWEldAtJlG7rdJVdslNwtW/BPZhEvgU6D8LcXmlxsYRH90Rt7Fb
-	 I2Bbnf8mwmVth1wcK4g+dkHZKLBmekfdoANkLHp8USSidiw0fJCQdd1loJzGd7f5Cd
-	 Z5EFBn1mzlLFN81h7iEUWuM0gtVVPRvOZT5WF0wpF/ZUvGo+iX2Wlhkk8nfo9GTgKH
-	 Pn+4RntbMRYEF3es7oMfPzw5QyIRNrJIdwjjMyhnSc1G4Ozw93V97I3mfT9DfPNoOJ
-	 6xPMiI8vLDbJw==
-Date: Wed, 30 Aug 2023 18:40:41 -0700 (PDT)
+	b=JwbRDbZ8pTmnyRskyj3/Mb4HXnSaowWKdFuv+siHIX3iADpVw3OGemKDa60Qf0C8v
+	 /QxCgxzwzKX6/pcOn/WkVTrJwrQfcw3gNiRFzqgiGSzk66RrDLMREwWs6fXVIOttQ3
+	 q1gVuVN+H0/zOFhrxw/K8NpZ53T1N1GDFLpHWobQgS8xIAHtyEIqE5PmUQE946AI/T
+	 JpgUZO4Ez5AmtbuxoqxVEp9pB6qfQB1bPEt+y9ffU6HXl7eMYqbKWFgiiu9O6mMO9G
+	 ii0Pkm3ciI6JZDI07LPpcPIpdc8kflTKFdf1C8EzdsBcW8TMdszAOPrjD8IOFIHFPW
+	 n81rRkI36Ovbw==
+Date: Wed, 30 Aug 2023 18:46:31 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
     "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     "julien@xen.org" <julien@xen.org>, 
@@ -71,70 +70,47 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
     "roberto.bagnara@bugseng.com" <roberto.bagnara@bugseng.com>, 
     Stefano Stabellini <stefano.stabellini@amd.com>
 Subject: Re: [PATCH] docs/misra: add 14.3 and 14.4
-In-Reply-To: <C2070A06-265A-48EC-9A67-34D820B2F94E@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2308301834400.6458@ubuntu-linux-20-04-desktop>
-References: <20230830005950.305085-1-sstabellini@kernel.org> <C2070A06-265A-48EC-9A67-34D820B2F94E@arm.com>
+In-Reply-To: <64ACA853-E0D3-4B56-B79B-C31BF692A936@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2308301840520.6458@ubuntu-linux-20-04-desktop>
+References: <20230830005950.305085-1-sstabellini@kernel.org> <C2070A06-265A-48EC-9A67-34D820B2F94E@arm.com> <15551c77-95fa-7c7d-6b6b-d5c42a38caac@suse.com> <64ACA853-E0D3-4B56-B79B-C31BF692A936@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 30 Aug 2023, Bertrand Marquis wrote:
-> Hi Stefano,
+> > On 30 Aug 2023, at 09:58, Jan Beulich <jbeulich@suse.com> wrote:
+> > 
+> > On 30.08.2023 09:54, Bertrand Marquis wrote:
+> >>> On 30 Aug 2023, at 02:59, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >>> +   * - `Rule 14.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_04.c>`_
+> >>> +     - Required
+> >>> +     - The controlling expression of an if statement and the controlling
+> >>> +       expression of an iteration-statement shall have essentially
+> >>> +       Boolean type
+> >>> +     - Implicit conversions of integers, pointers, and chars to boolean
+> >>> +       are allowed
+> >> 
+> >> I am a bit wondering here what is remaining after this deviation.
+> > 
+> > Hmm, good point - floating point (and alike) types, which we don't use anyway.
 > 
-> > On 30 Aug 2023, at 02:59, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > From: Stefano Stabellini <stefano.stabellini@amd.com>
-> > 
-> > Add 14.3, with a project-wide deviations on if statements.
-> > Add 14.4, clarifying that implicit conversions of integers, chars and
-> > pointers to bool are allowed.
-> > 
-> > Also take the opportunity to clarify that parameters of function pointer
-> > types are expected to have names (Rule 8.2).
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > ---
-> > docs/misra/rules.rst | 20 +++++++++++++++++++-
-> > 1 file changed, 19 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> > index db30632b93..6cde4feeae 100644
-> > --- a/docs/misra/rules.rst
-> > +++ b/docs/misra/rules.rst
-> > @@ -234,7 +234,7 @@ maintainers if you want to suggest a change.
-> >    * - `Rule 8.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_02.c>`_
-> >      - Required
-> >      - Function types shall be in prototype form with named parameters
-> > -     -
-> > +     - Function pointer types shall have named parameters too.
-> 
-> 
-> I would just modify to Function and Function pointers types shall be ...
+> So we accept the rule but we deviate all cases that would apply.
+> I do not think we should do that.
 
-Sure, I can do that.
+In the past we have been accepting rules that don't apply to Xen because
+it is not much that they don't apply. It is that we have no violations
+and we don't think there is any risk of getting violations in the
+future.
 
+But theoretically they apply, and for example if we end up with floating
+points in Xen at some point in the future we would want rules affecting
+floating points to apply, hence we accepted rules about floating points.
 
-> > 
-> >    * - `Rule 8.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_03.c>`_
-> >      - Required
-> > @@ -332,6 +332,24 @@ maintainers if you want to suggest a change.
-> >      - A loop counter shall not have essentially floating type
-> >      -
-> > 
-> > +   * - `Rule 14.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_03.c>`_
-> > +     - Required
-> > +     - Controlling expressions shall not be invariant
-> > +     - Due to the extensive usage of IS_ENABLED, sizeof compile-time
-> > +       checks, and other constructs that are detected as errors by MISRA
-> > +       C scanners, managing the configuration of a MISRA C scanner for
-> > +       this rule would be unmanageable. Thus, this rule is adopted with
-> > +       a project-wide deviation on 'if' statements. The rule only
-> > +       applies to while, for, do ... while, ?:, and switch statements.
-> 
-> Didn't we also said that we would accept while(0) and while(1) ?
-> Also i agree with Jan, ? is really the same as if so we should not treat it differently.
+This rule is a bit different though: we deviate most of the rule and the
+remaining part is small. In addition, we have no violations and we don't
+think there is any risk of getting violations in the future for what's
+left of the rule.
 
-I took the list of things the rule applies to from the text of the rule
-itself. However, I think you are right about the ?: and it should be
-deviated together with if. I can also add while(0) and while(1).
+So I don't know if it is worth adding the rule or not. I think we should
+ask Roberto next time. For now, I remove it from this patch.
 
