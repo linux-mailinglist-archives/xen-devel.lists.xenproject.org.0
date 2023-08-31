@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E2F78E9CC
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 11:53:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593692.926744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2996478E99E
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 11:40:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593617.926664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbeMK-0002Rv-Nu; Thu, 31 Aug 2023 09:53:04 +0000
+	id 1qbe9R-0002jl-NQ; Thu, 31 Aug 2023 09:39:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593692.926744; Thu, 31 Aug 2023 09:53:04 +0000
+Received: by outflank-mailman (output) from mailman id 593617.926664; Thu, 31 Aug 2023 09:39:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbeMK-0002Q7-Ky; Thu, 31 Aug 2023 09:53:04 +0000
-Received: by outflank-mailman (input) for mailman id 593692;
- Thu, 31 Aug 2023 09:53:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bdNS=EQ=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1qbeMJ-0002Or-4e
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 09:53:03 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c594015-47e4-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 11:53:01 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-401d80f4ef8so5926525e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Aug 2023 02:53:01 -0700 (PDT)
-Received: from zen.linaroharston ([85.9.250.243])
+	id 1qbe9R-0002i5-KU; Thu, 31 Aug 2023 09:39:45 +0000
+Received: by outflank-mailman (input) for mailman id 593617;
+ Thu, 31 Aug 2023 09:39:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nRSd=EQ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1qbe9Q-0002hz-Mg
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 09:39:44 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4fcc2c5a-47e2-11ee-9b0d-b553b5be7939;
+ Thu, 31 Aug 2023 11:39:42 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-52bcd4db4e6so741218a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Aug 2023 02:39:42 -0700 (PDT)
+Received: from [192.168.69.115] ([176.187.199.245])
  by smtp.gmail.com with ESMTPSA id
- 25-20020a05600c22d900b003fe2b6d64c8sm4636032wmg.21.2023.08.31.02.53.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Aug 2023 02:53:01 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 904EA1FFBB;
- Thu, 31 Aug 2023 10:53:00 +0100 (BST)
+ s2-20020a056402164200b00521953ce6e0sm573340edx.93.2023.08.31.02.39.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Aug 2023 02:39:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,122 +45,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c594015-47e4-11ee-8783-cb3800f73035
+X-Inumbo-ID: 4fcc2c5a-47e2-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693475581; x=1694080381; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1KQEJpUTSLCIJkZRuR1n6Y0QrKahsCjCpNkHfDrCi9A=;
-        b=GpDOO2Be45F3z28jtLqVOHghDyQEH3pcKM10Y/lOc9y8Bb9YGTGulg7IdAH6M+GmHC
-         Tl1mneOK+u5uauF1rVTRmxkk7PHYKz3v4Pm0k7VKlntt6ddg1qC3JMdxDUBP7Bkj5UQJ
-         6S6SgMpKHslqJOZCa6SMCy4sGB/UlCaUMrHJ3sG0U1SampsJrKTtd5RWeilcUUSNePP1
-         kVOw7bXcp2ZWUSpT41QOY+WB0WWb6O+jbnqt0LmreXSaw6fM8OvRHpj7kyN//dGy8CT8
-         frUup1f0B4NUwSXxgDrHIpZzFwEGXtY50wrB4Q4roO+rOzT6klq3HSew/3KHvQFZcHWZ
-         mkaw==
+        d=linaro.org; s=google; t=1693474782; x=1694079582; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7JdPg93Ei8hblCCjbAx2Au7bfzurcULcL9LDqSm08Ls=;
+        b=ElPKTW/VKonKLj9qefDP1y3ixxj0E4DMUMgMgBw02V2JjhVWw9mDt7t0Ft133Z9XTH
+         rcUDYc9Cx0ClAi9UyBPq3JcMGjPC5X1k9i6uX9Ra37B6vIkG1h/rc5B9713PKpUlc0fT
+         34vDA+Aa13geCWfA498uNFt+DF5Uiy1r2pi8U/JJW4zA5fgbEo16GT9GKyCqsRS10VNI
+         l07HRD9bvJo+oKBvK+c4rGOKUUu/T5E22IJZrf5bDYjlQdRn8UU/4NFyRsvGZu/CE84Z
+         vWympyLrpunqosripMiu3ADyyTyZnDsKm6BfQMMuNHl4e3nrgLvqZ4diaAC+ajh0ZEZI
+         luaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693475581; x=1694080381;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1KQEJpUTSLCIJkZRuR1n6Y0QrKahsCjCpNkHfDrCi9A=;
-        b=EltwPVnTTJkJLDQxub+Kk9A66emb7V3eFKEVFA1waGdzpJyrkEusEa87abWEYhYWNB
-         5i/+WtY8YmcHitujq1i4k5drsj/AJsAIfW4vZKHw7uUfo5O1YV+Oc3eDcWPIFFxju1SV
-         xRIjzmsdyWTIjRQpkBomQN0UAR/eyDxVErMgCFjBwt7mKN/VWZu33IwKeBUfkMDbB6kp
-         aSNXY+ar5qEtVJCeggQh9fLWkXEXyUzB9jsKkKW7QgDt4KrZ2rLCn4fTT6Pf1gX0y0tF
-         bxLBbuIgiehp7Dqd8QS8cwinKKYgfuV/l8Zd768WeBaUSezNiOTYAmd9EWShQ6HYt+PX
-         /STQ==
-X-Gm-Message-State: AOJu0YxCLilBT6zHNSOVW75FU6uGQdI1oC+7OnQN/t3lxe+UKweONTBk
-	3oYRSQmA9Mhx8Q1/kskvTEg7/Q==
-X-Google-Smtp-Source: AGHT+IH07XYi9G/V7ZKDKpvNx67oTeZV0bcaqcY1+01w/ToDCzJQPEXO+uS/9PRFrQigGwORJtC3rQ==
-X-Received: by 2002:a05:600c:2159:b0:400:c0e8:18c6 with SMTP id v25-20020a05600c215900b00400c0e818c6mr3980512wml.18.1693475581348;
-        Thu, 31 Aug 2023 02:53:01 -0700 (PDT)
-References: <87y1hspiyh.fsf@linaro.org>
- <alpine.DEB.2.22.394.2308301745530.6458@ubuntu-linux-20-04-desktop>
- <CAFEAcA8Ziov9vA9dW+4vzFE=KkSUqfMNNMZOtvQhqCXyjRytzQ@mail.gmail.com>
-User-agent: mu4e 1.11.16; emacs 29.1.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Xen-devel
- <xen-devel@lists.xenproject.org>, Stewart Hildebrand
- <stewart.hildebrand@amd.com>, Viresh Kumar <viresh.kumar@linaro.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Sergiy Kibrik
- <Sergiy_Kibrik@epam.com>, QEMU Developers <qemu-devel@nongnu.org>, Vikram
- Garhwal <vikram.garhwal@amd.com>, Stefano Stabellini
- <stefano.stabellini@amd.com>, Marcin Juszkiewicz
- <marcin.juszkiewicz@linaro.org>, Jonathan Cameron
- <jonathan.cameron@huawei.com>
-Subject: Re: QEMU features useful for Xen development?
-Date: Thu, 31 Aug 2023 10:37:45 +0100
-In-reply-to: <CAFEAcA8Ziov9vA9dW+4vzFE=KkSUqfMNNMZOtvQhqCXyjRytzQ@mail.gmail.com>
-Message-ID: <87cyz3pmgz.fsf@linaro.org>
+        d=1e100.net; s=20221208; t=1693474782; x=1694079582;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7JdPg93Ei8hblCCjbAx2Au7bfzurcULcL9LDqSm08Ls=;
+        b=NaiDeDJKcG+BW74kH8yFH9jY/xDvnTHnmuVgAHJGyEcdXaQDjXe+zpTgxOjL78TOQr
+         xpOfaAJjCGm3NXDWOJQmAnl0Fy4lI6LQhQSoCR5HfEVtL1SkFIiEX3xG3eAw//OPcP92
+         naMOAU9dFZsaQuM6CJZ5LueOaEAXHUjnKRo5mGOjsMclL/uEsmZgm/ouA6mShzrqS88Q
+         gLk3yVE1FT0/PdwKvxYOnQnM6dP4t3O8B8DfG960kJR3+KNEwLz2XSmJkEoJR8weMKJn
+         1to7qBpWASk6nkKv7Iyan60f0BMlp5jlOZpa9jEgb7J9cpf7Od20qR83ibQtncZyuHmC
+         ZpNw==
+X-Gm-Message-State: AOJu0YxdWaH+xVpmcbL890BWPA4ckVB/P2YZHcvms9MILCO28xKkrn4z
+	INoUwzBXiVo2BRr1R6Bc+xMTBQ==
+X-Google-Smtp-Source: AGHT+IFKFcGA55zoP29NL8tSR2n9BKd9iAV/sJ4cWrvrJR59iHHmgQtwvMfn6apItLJAT6m18Ev6sw==
+X-Received: by 2002:aa7:d80f:0:b0:52b:ce21:ad12 with SMTP id v15-20020aa7d80f000000b0052bce21ad12mr3293192edq.4.1693474781845;
+        Thu, 31 Aug 2023 02:39:41 -0700 (PDT)
+Message-ID: <a3ffe20a-db49-5c16-caed-a858ea5dff09@linaro.org>
+Date: Thu, 31 Aug 2023 11:39:38 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.14.0
+Subject: Re: [QEMU PATCH v4 06/13] virtio-gpu: Configure context init for
+ virglrenderer
+Content-Language: en-US
+To: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <antonio.caggiano@collabora.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ Akihiko Odaki <akihiko.odaki@daynix.com>, Alyssa Ross <hi@alyssa.is>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20230831093252.2461282-1-ray.huang@amd.com>
+ <20230831093252.2461282-7-ray.huang@amd.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <20230831093252.2461282-7-ray.huang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 31/8/23 11:32, Huang Rui wrote:
+> Configure context init feature flag for virglrenderer.
+> 
+> Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+> 
+> New patch, result of splitting
+> [RFC QEMU PATCH 04/18] virtio-gpu: CONTEXT_INIT feature
+> 
+>   meson.build | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/meson.build b/meson.build
+> index 98e68ef0b1..ff20d3c249 100644
+> --- a/meson.build
+> +++ b/meson.build
+> @@ -1068,6 +1068,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
+>                                          prefix: '#include <virglrenderer.h>',
+>                                          dependencies: virgl))
+>     endif
+> +  config_host_data.set('HAVE_VIRGL_CONTEXT_INIT',
+> +                       cc.has_function('virgl_renderer_context_create_with_flags',
+> +                                       prefix: '#include <virglrenderer.h>',
+> +                                       dependencies: virgl))
 
-Peter Maydell <peter.maydell@linaro.org> writes:
+Shouldn't this be inverted with previous patch?
 
-> On Thu, 31 Aug 2023 at 01:57, Stefano Stabellini <sstabellini@kernel.org>=
- wrote:
->> As Xen is gaining R52 and R82 support, it would be great to be able to
->> use QEMU for development and testing there as well, but I don't think
->> QEMU can emulate EL2 properly for the Cortex-R architecture. We would
->> need EL2 support in the GIC/timer for R52/R82 as well.
->
-> We do actually have a Cortex-R52 model which at least in theory
-> should include EL2 support, though as usual with newer QEMU
-> stuff it quite likely has lurking bugs; I'm not sure how much
-> testing it's had. Also there is currently no board model which
-> will work with the Cortex-R52 so it's a bit tricky to use in practice.
-> (What sort of board model would Xen want to use it with?)
-
-We already model a bunch of the mps2/mps3 images so I'm assuming adding
-the mps3-an536 would be a fairly simple step to do (mps2tz.c is mostly
-tweaking config values). The question is would it be a useful target for
-Xen?
-
-  https://developer.arm.com/documentation/dai0536/latest/
-
-> The Cortex-R82 would be more work, because (unlike the R52) it's
-> AArch64, and we don't have Armv8-R AArch64 support yet, only the AArch32.
->
-> I haven't looked at whether GIC on R-profile requires any changes
-> from the A-profile GIC; on A-profile obviously we emulate the
-> virtualization support already.
->
->> On Cortex-As, in addition to a PCI root complex and an arbitrary PCI
->> device, SMMUv3 emulation (both stages) and GICv3 ITS are needed to be
->> able to test PCI Passthrough.
-
-We have ITS emulation support and it was recently plumbed into the
-"sbsa-ref" board as it is needed for higher level SBSA compliance.
-
->> However, if I recall correctly SMMUv3
->> emulation in QEMU might not be complete enough to enable us to use it.
->
-> Yeah, at the moment the SMMU emulation supports stage 1 and stage 2,
-> but not both at the same time. This is good enough for PCI passthrough
-> with a Linux guest using KVM to pass a device through to a nested
-> Linux guest.
-
-Is this a missing feature for SMMUv3 or something introduced in the
-later revisions?
-
-We have sketched out the tasks for SMMUv3.2
-(https://linaro.atlassian.net/browse/QEMU-558) with a view to whats
-needed for RME guests to access hardware. However I think there is a lot
-of other stuff needed specifically for RME including what we do about
-modelling things like TDISP. Realistically it will be awhile before we
-get to completing all of that.
-
-
->
-> thanks
-> -- PMM
-
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
 
