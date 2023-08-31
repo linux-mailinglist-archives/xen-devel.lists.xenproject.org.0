@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87D7B78E702
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 09:14:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593385.926394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 690C178E728
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 09:23:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593392.926403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbbsj-0006ho-U4; Thu, 31 Aug 2023 07:14:21 +0000
+	id 1qbc1X-0008TN-Nz; Thu, 31 Aug 2023 07:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593385.926394; Thu, 31 Aug 2023 07:14:21 +0000
+Received: by outflank-mailman (output) from mailman id 593392.926403; Thu, 31 Aug 2023 07:23:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbbsj-0006g8-Qw; Thu, 31 Aug 2023 07:14:21 +0000
-Received: by outflank-mailman (input) for mailman id 593385;
- Thu, 31 Aug 2023 07:14:20 +0000
+	id 1qbc1X-0008Q0-Kw; Thu, 31 Aug 2023 07:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 593392;
+ Thu, 31 Aug 2023 07:23:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xL7T=EQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qbbsh-0006g2-VJ
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 07:14:20 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0617.outbound.protection.outlook.com
- [2a01:111:f400:fe02::617])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P20E=EQ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1qbc1V-0008Pu-Lj
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 07:23:25 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20626.outbound.protection.outlook.com
+ [2a01:111:f400:7e8b::626])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fffeaa28-47cd-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 09:14:18 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PAXPR04MB8335.eurprd04.prod.outlook.com (2603:10a6:102:1c2::10)
+ id 4453130f-47cf-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 09:23:23 +0200 (CEST)
+Received: from SA0PR11CA0162.namprd11.prod.outlook.com (2603:10b6:806:1bb::17)
+ by SA1PR12MB6920.namprd12.prod.outlook.com (2603:10b6:806:258::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.20; Thu, 31 Aug
- 2023 07:14:17 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.021; Thu, 31 Aug 2023
- 07:14:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.21; Thu, 31 Aug
+ 2023 07:23:20 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:1bb:cafe::5a) by SA0PR11CA0162.outlook.office365.com
+ (2603:10b6:806:1bb::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.22 via Frontend
+ Transport; Thu, 31 Aug 2023 07:23:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6745.16 via Frontend Transport; Thu, 31 Aug 2023 07:23:19 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 31 Aug
+ 2023 02:23:19 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 31 Aug
+ 2023 02:23:18 -0500
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Thu, 31 Aug 2023 02:23:17 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,163 +63,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fffeaa28-47cd-11ee-8783-cb3800f73035
+X-Inumbo-ID: 4453130f-47cf-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h2SPc1PmhqmkHcg3yA65aqPrToMN5Vfp4XTHQkvbecUvfVpHvu8Q+jrSXqZVu5j3ZbOkmhB0wQtWH2NqutlCCY7biddshusB9vCokldSKvgUXM1M0Oa+a55NIZwsFuve77inI6hT84VRTH0uGziX8RlNDsqJngwssLjx0C49G/moAr9tno18HPOUTRIc5uS2UDVyfiLAkS8goei8Bd4BPHnRJ+9XZnz4kCiEgmeYnPZKks79WTcXSkLVYK0OmeifN40q0Qi/xnu0vy2NvmDJ1kjo+GdpsVGhjzB2rYW2yNfugcWj7AU54PjFqL4HH+SoVWdmR+mVBWca72u5HN31Og==
+ b=neMvfnmZB3Ep8CkBhliPoR8tA6e8xQXfgwk06BeaLliYXv0Rprp8DZ2KWxza7u0GzL4A7FuU6QGcd/4dwxosQgqPlJkka22p/SOnTSYdEfz9fIe/eMTJz0lzMGeEQMivG1sbVAvtsszWwPchZeBBXc4RyOeu2KAlS2/KoX9CMOjAdxW3w/WYfJhA2kLl7gS/uH2cOu5DMrVcdowiySvb1RSNeMfx4LYHsDkuIOpYOU0SfZqb8pg3kIJ3a2U3zoAXyh4bLPf5DxbX59HaI5WPLX3jV9FsW2mAvjwh6pkbinoUP7QTD7Ay5JitVD+CVBfLSjq5z4T00/ueZ6x7eokSWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=83eCGobUtZzKSOusBp0Da35TwErztEHHH8xzXkDxB2Y=;
- b=ie5gpUySao3npO5fY/mlRpy4uSq37BfcX7177ur7fc+bhI8gPdM5MBsxSIhnYs+Zb88mMOgIgjLks79YWUmHLwvymtwsvm9L6CZaMMWZ77yWJ0ndBusqmY4ELioTLQgmco8YH9ZqKreFfYgZ8fo+SSClUMilT6sNJ4SJsX3Fjdgb25J73oa5wxhUCEh1gWjQ4FTqQUouOnMsQsADCEXxc5LQynatkk7uG4CRzD0D9XD42m24jy4rY9EBuXgVx6cQHV0hdrPlMQxpjAcnR177tlQkBramqMGGPsThPKnRF9Boruv6UTGk7jiawU8VAvH+3l0GJ8f4qeYryh03dd5XMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=gwGVj/VveH0f2rJ23atUszcQDYf9dCmnRpKmhc86X+c=;
+ b=QBsqFODMoLovB7RV/SndS1KMo0wzTibU42eoRFDEjsIe2B7IqH3x/pARYe6TmS9k4BSrUDsasRNiKFrSD5RlIhEQJMBeiRfe0y5rtr7l5C0jk3SSvAiJyIXBCdiiht46QyaidWXsV8cn938q6GWQRGvMMJZey8dCQY2YruNMqoz9X/Zkbn4FXU4kXxZcDQmRjHihDorKujaP/RUVtEEyOu2JqVx1Lkw57lJgIIQil5vw9nDpMNawTPdpRXY33p6bIZESXCPJNreJ7THjO5dYOSZmOt08uv9Q85v57jJFTbLFbbpp4HkQMZ13STE+wO4IW6hgqIkcaewSISQ76i3HxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=83eCGobUtZzKSOusBp0Da35TwErztEHHH8xzXkDxB2Y=;
- b=Qg+t16pIY6CZo4XNW5h+9fcNsJdilT0bNpleQAQ+1pqZUysZLwBXaHdoro5VDhkY3G71ut/fgwbXRK4as/P7+5YPONZNrS+rtrXNpRtafFWj1TL7IiVls0dV7xCyZXs2J/RbgyGeCKzomyQHHmq5Q39cvfGarYU/VjzM2Klw2n1ZTN/Z63vI5PSBcuNL6alITwlIgRkS2Eif+XlLXc9e1SF36/4kbH3AxoEYKF9iROmRR+8C4PXL2eX+F/7/H5EB7KCpFlSzOFCrTKgDDVnxkK+tuoTv1CnEYA0QjvEvn2qdNxY5CwTuBYPWuqDb91hYWcMP99qFW7Oq608niA5xgg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dbefa7f3-5bf3-880f-ba3b-f63659a7ee10@suse.com>
-Date: Thu, 31 Aug 2023 09:14:14 +0200
+ bh=gwGVj/VveH0f2rJ23atUszcQDYf9dCmnRpKmhc86X+c=;
+ b=Mux1NjfrYL5+D/U83SzC7jZfTQmI5PV/3o7NF0B512Q8/CtALud3BGXW4NZsh0EI22sLQwyMoa70xuSAwWiqa0V24dyEKT1bgNiZEhMZViB+6IQeSfPWEqs+v2Lvo3tfwdMc6bBU5k/ee7i54J6suadhY4jTP0ghQdarul33iBA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <7e622077-2062-f2c6-38ac-81196f80d1d2@amd.com>
+Date: Thu, 31 Aug 2023 09:23:11 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.14.0
-Subject: Re: [Xen-devel] [PATCH] x86/HVM: correct hvmemul_map_linear_addr()
- for multi-page case
+Subject: Re: [XEN][PATCH v10 11/20] xen/iommu: Introduce
+ iommu_remove_dt_device()
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+CC: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+	<julien@xen.org>, Jan Beulich <jbeulich@suse.com>, Paul Durrant
+	<paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20230825080222.14247-1-vikram.garhwal@amd.com>
+ <20230825080222.14247-12-vikram.garhwal@amd.com>
+ <079c831a-bf1e-5489-562b-01cf4e3e6b02@amd.com> <ZO-A7ZERxISru9Ug@amd.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <paul.durrant@citrix.com>
-References: <5B98D7CF02000078001E7AEA@prv1-mh.provo.novell.com>
- <ZO9Sj5YDjiKIh1G-@MacBook-Air-de-Roger.local>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZO9Sj5YDjiKIh1G-@MacBook-Air-de-Roger.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0058.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
-MIME-Version: 1.0
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <ZO-A7ZERxISru9Ug@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4df6f2cd-c67c-4cb9-58b2-08dba9f1e34b
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|SA1PR12MB6920:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a6d8ef7-5827-4e19-fad9-08dba9f326c1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	iyDVwhL50xGgJKEc1Tq/FZMTYF9ubOy8ki1yo041E7hyqjKN3eKxHXe1AZTjTXkkKyUlhSGhf9iJtu6/O/i/cvf5+RwOREp0aOsBmQIRx37+n6C+B56gOC0Io29Qo613+l9lxjqN6qQqP7YRcrewXWx1aVE6BUeTwo83E6KmwIGIXkDpKplQZVh/D4flOlH6lTsOegcCNuCwzdQRmogAMsS+z1ICxdzs3BYYxTdrNqXS5aylM/MOoN7z5Fw33NBI003nAVpCoBS32eb4Q9S1vLcq1Om3gpv21n+U9GOQVlY/7c19HGOx8TUY7GFMqOsSfT3x5H28txS2Qo3SMGJhsIy0jvPlQ6fyI1x7xd1qgTdNbHdvcjKKTcriqx/f3icYIslCKRMr/jwXTvtB4ntfVhUwT5D/0d0KJlz99rg7L64k/tU9064uPKwj2ycwOmQ/tDUdSSIKFHlghYXxtt0CEqUnRMKq3bBIw3vfnNRsiP5qpIsdPq/dC9Y+b/keDIwCKFSDY7xgMNSfOKgJ20Mf+RmK4NJu6xpcQ49Kn6fxUVmdGXKXStsk8Ve4WVFIBMbcIxQo9oZMxOhzG/0oVVSHmhu9voqyVi1k8pESV0WhnI/opvS+Qx/81IrB3MJ7577Uuuf52RrbLIwWykCTGOPrqg==
+	BB9c8DWuwJbmYEKnKbjHxDVLU0Mec4mzMmSDnXg95Y0huSYMUZ6tcOtafb+t/ntJUf5UeRImlNMfncyeQGs1HxB/WsRxTVAL90rKgv4NKupLxJSJerpGZUgrPJ3EqLXOwl8Is3GFvfAEFvPrXhwAjIHcWstAyPUXRtvZj6xi69+6G5P6UlRDPADHJJPb3fYs4CX8pksV2T5b0XqtjX4Oma9WlsY+RRaVY8XI6Ogac7cXK3AJOcJLwS/wMNw1cKxdRJs9g9DG4wWMNxNATFB3d22W8ocLhn5+Jq53c23BM7eKgQa5lU/PcmHiJlbxGUmdawouZ4VbUlfcpyVfmZhpyNadOFw4aSjQ9nctukD2cPwcLdCukdC6OH88hy+h2jUVnDjmNgCZCVXWpdFND9QmbKsPp89s9YzPpEXczfWksqNRgbRRxkl4ayAcRRmHXHkJAwKVeiPfqfT4o45OS4l7GTq9hzSGDRzwEzM6fV0ygrhryemCTZfcvsiHuCf1Zcj3E4adrjvMc/IDgXTZ9zOZYwCJrht2tzu1gdDQ/ZQsWEcWYWC6EVEFLY0FZnd0he/h/FP3EhFmow6kGEpYk678Yf3A+lCCr5nNUIJgCRU5uyNUrvcGQgRe2LrfdBlOubXTbnf9kzDaIT8HRpcRk1ThuzdLs+yqgwLQoX69B+T1HStMv5jdX6tJrWmO/QJfOyibzO/o9gyBDpfaR96juji8y4CIa58/nzxxGauDr7apkAoSFq+3ajwzr0IZcRbVs8oIDNo2qtJuv/emzDLXpYtrhpUTgcWFw/MRyeP3NZohB470Icz75uFP3r3eUOIwyy4S
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(366004)(376002)(346002)(39860400002)(1800799009)(186009)(451199024)(31686004)(2906002)(86362001)(31696002)(5660300002)(36756003)(38100700002)(4326008)(8676002)(8936002)(83380400001)(41300700001)(6512007)(6916009)(66556008)(53546011)(316002)(6486002)(6506007)(26005)(2616005)(478600001)(66476007)(6666004)(66946007)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aFVIRGUrWEhxYUVZMlhZZ0k4R0NpMDBpdFRaeEFzOXcza3FybzdIdGFyakFz?=
- =?utf-8?B?R3NycXZ5Qk9UUmViOGJ0Y2NnSi9mMlNFRWUrOHVHeXprVnpqWGU1OG84aDV0?=
- =?utf-8?B?dVlza2tuRnlOV0NvcnRDK2llWXJrandDcGZuVXE1d3ZJR2hkR2crYXlPMVlJ?=
- =?utf-8?B?MzExNnR5ZjJwWkJyVjQvWDVuSHd5d0tFL3BiYXc0Z3RmWnBUMlpySlE1YStC?=
- =?utf-8?B?RlRXa05USjlYZWE5NC9Rc21vcDBvS05VckNXSGpUdllhR0FPY0RQK0I4RmxN?=
- =?utf-8?B?WHNDOC9jSVhUODlxSWQwd0MzWUlEL3dVRWFPMDNrbkM0TjhxQnE4alVVY2dL?=
- =?utf-8?B?SE1qbDFqVCsybVVRY3hqNXNqTDBsNmlqaUd0dEh2QkYzbVBsZUQ4ZVhZT29v?=
- =?utf-8?B?U2sranpOYVNwR2NueG16b2lrMWsrNFAvdU5HTDcyWURBaUFuN3R3SjRXTnFZ?=
- =?utf-8?B?V09TYzUrSU9UOWxJSk4zTmJ1d0d4ZlIxNGJsZWVkYWhDY2ozZmxza0NCMFV4?=
- =?utf-8?B?RlZseURCeExSWGpnL3FpR3lLZVVIVzk2R0ZrQXdDNENjWTlaWENZd25nZ2Zu?=
- =?utf-8?B?V0syT05zZ1hUc2t2UzRUVGd2UysrZ0NRVnR6UVVuSEpadTdyanlPQlFhMjd0?=
- =?utf-8?B?L1VoSTJXT0d3TWR0eUZaTlhENFgvUDNtanIwYlU2ajd4OW4wYnpmQjNqclVB?=
- =?utf-8?B?R1dHOU5uNjRWclFjTTFERzF3di9iWk0waTBFdDE0WmgyVzBRWlVTbGRCaWti?=
- =?utf-8?B?clRsb3lrcHk3Ui9uc0R4bmZtN3hpbTJKN3oyZlVVakVQSFBaZEQ4cmpGRS8w?=
- =?utf-8?B?UTFvakNvNm5vYU1WSzIyNWk2L091NVF1TEl1dlZCeWlQaEo2RnJydy9rTUlG?=
- =?utf-8?B?bVF6cm4vSVY1cGVDWmJWY2p6QjBaa3FJUXRGL1VQcVpsdFZ4eHpqS3pyaTJy?=
- =?utf-8?B?ZzBzb084NnhRS0hQV0s1VHJLYmUwdkFFbjI0RzRDWEd3clNjcGF2dU5kS01q?=
- =?utf-8?B?MTBXTDgwQnVtSnhpdU5WV0NVSmtwNHlLYUlFMEZRUWtnYk1RcEFkS2JkRHhT?=
- =?utf-8?B?am5MYnNhZFBVZ1Y3YklIaWZGbWx0SDd3aHNpRmFFdkVtRUJpQlZ2emo4VGJJ?=
- =?utf-8?B?S29TUWRiQ2s5T05jaVVuTDNUL3pXZzVHcWtlbzZBZ05WT2ZDS1hsSGwyWnB5?=
- =?utf-8?B?MGpsRUVleGR3VXlMNDUvWUxKaFZUMEhXZUFZcFRReFhuNTJaVHg3Y1dxUHg5?=
- =?utf-8?B?YU1DK3psU0tGQkFBbmpIbmlEN3Jxeml0RS9adEZKRVpUbmFRWENqRzRUV3FH?=
- =?utf-8?B?QVAxOTRlMGNCYU1ZWFpJTmpySXlpUThCWG9mK0tTUkRJVXd4aUtFcXpSZkVD?=
- =?utf-8?B?UnE1QXBrWk92SkErVVY3aVl1K0xmbzJwdlBrRHlTdCtRbzFtMFNKb21SdEtp?=
- =?utf-8?B?bEFaUHpUYjVKR2tscUk2aW02K1N1YzM3S1FUMzgzS2dIcDNCb245NlpGak1j?=
- =?utf-8?B?eUZCWjBwVFlNQmxNRmRDTE0vZjdCdFRZTitOMDFZZG5mWEFFdmV3RzFmeUVV?=
- =?utf-8?B?dU1Va0tValcvdmhjTG9qTklFTDA0Nlo4SFJibW5TUm9uSmdSU0tVMTNYeUMy?=
- =?utf-8?B?b2dYa0FLK21Ia3BoRlBRQWtrdFZ0RDN1OXR0NUJHVERSWnVWYkMrdWo4SEhB?=
- =?utf-8?B?bXBreGc1SFZRcDFBN0RjY2VNaXUyUnhnTmQ2dUplcW1zeGFKVU5ObHRkZjJQ?=
- =?utf-8?B?eGZwSC9Tc3lPNnBGUm1pUkFGbFc1bmlMQVVya2dkSTF0ZU13c0d0QnpzalJU?=
- =?utf-8?B?Rk0zYWZkeUhOSU1UaG1VK3h4SHprTnpDeGRpMDBNZDJzbjFjNXVLQXFRZEhE?=
- =?utf-8?B?UzFrbnI2VmJOMno4cTM3dzNza2hxRWE3b2oveEwzR2pwakhkb09PT2NIVSto?=
- =?utf-8?B?UkdGS293b3Vqc3RUZ25ZK3M1RlRXRklMMWZma1ljajJ5dlpuRGJqRmg2NWdV?=
- =?utf-8?B?cmR4QnFQcElmakM3OCtLbWJoL2M5ZEw1UmVnV24wUlVxbGFldURRQzRXL2Ir?=
- =?utf-8?B?VnM5NzdYZ2JrellUVUVadEpHRjZuNlhBNk9PZEx3c3hPTkRWY1Y5T3d5TFBx?=
- =?utf-8?Q?kQo9gwUEeDD7cjoyYiWIrQcBS?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4df6f2cd-c67c-4cb9-58b2-08dba9f1e34b
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 07:14:17.0153
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(346002)(136003)(396003)(82310400011)(451199024)(1800799009)(186009)(36840700001)(40470700004)(46966006)(6666004)(53546011)(478600001)(83380400001)(2616005)(2906002)(336012)(426003)(26005)(37006003)(44832011)(16576012)(6636002)(316002)(54906003)(41300700001)(70206006)(70586007)(5660300002)(8936002)(4326008)(6862004)(8676002)(40460700003)(36756003)(40480700001)(47076005)(36860700001)(86362001)(31696002)(81166007)(82740400003)(356005)(31686004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 07:23:19.4826
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kRW9VJrc9O2me6mbzt4muPhh53MA9Cbpx8uCJ/FqYolkDhAcXcD0ZvECUa0AzT7k2L59ry7sL7D0d55WsKI/6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8335
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a6d8ef7-5827-4e19-fad9-08dba9f326c1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6920
 
-On 30.08.2023 16:30, Roger Pau Monné wrote:
-> On Wed, Sep 12, 2018 at 03:09:35AM -0600, Jan Beulich wrote:
->> The function does two translations in one go for a single guest access.
->> Any failure of the first translation step (guest linear -> guest
->> physical), resulting in #PF, ought to take precedence over any failure
->> of the second step (guest physical -> host physical).
+
+On 30/08/2023 19:48, Vikram Garhwal wrote:
+> Hi Michal,
+> On Tue, Aug 29, 2023 at 10:23:30AM +0200, Michal Orzel wrote:
+>>
+>>
+>> On 25/08/2023 10:02, Vikram Garhwal wrote:
+>>> Remove master device from the IOMMU. This will be helpful when removing the
+>>> overlay nodes using dynamic programming during run time.
+>>>
+>>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> You don't seem to handle Julien remarks for this patch made in v9.
+>> I will forward them here to avoid answering to old version, but for the future, do not carry the exact same patch
+>> if you haven't yet addressed someone's remarks.
+> This got skipped as I cannot find direct email from Julien. The only email reply
+> on this patch is can find is from: xen-devel-bounces@lists.xenproject.org and
+> this got messed up with other larger set of email xen-devel sends.
 > 
-> If my understanding is correct, this is done so that any #PF that
-> would arise from the access is injected to the guest, regardless of
-> whether there might also be gfn -> mfn errors that would otherwise
-> prevent the #PF from being detected.
+> Did you get direct email?
+>>
+>>>
+>>> ---
+>>> Changes from v7:
+>>>     Add check if IOMMU is enabled.
+>>>     Fix indentation of fail.
+>>> ---
+>>> ---
+>>>  xen/drivers/passthrough/device_tree.c | 44 +++++++++++++++++++++++++++
+>>>  xen/include/xen/iommu.h               |  1 +
+>>>  2 files changed, 45 insertions(+)
+>>>
+>>> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
+>>> index 1202eac625..3fad65fb69 100644
+>>> --- a/xen/drivers/passthrough/device_tree.c
+>>> +++ b/xen/drivers/passthrough/device_tree.c
+>>> @@ -128,6 +128,50 @@ int iommu_release_dt_devices(struct domain *d)
+>>>      return 0;
+>>>  }
+>>>  
+>>> +int iommu_remove_dt_device(struct dt_device_node *np)
+>>> +{
+>>> +    const struct iommu_ops *ops = iommu_get_ops();
+>>> +    struct device *dev = dt_to_dev(np);
+>>> +    int rc;
+>>> +
+>>> +    if ( !iommu_enabled )
+>>> +        return 1;
+>> J:
+>> The caller doesn't seem to check if the error code is > 0. So can we 
+>> instead return a -ERRNO?
+> Will change the check in caller. I want to keep this as it as so it looks
+> similar to iommu_add_dt_device().
+>>
+>> If you want to continue to return a value > 0 then I think it should be 
+>> documented in a comment like we did for iommu_add_dt_device().
+>>
+> Will add comment before iommu_remove_dt_device().
+>>> +
+>>> +    if ( !ops )
+>>> +        return -EOPNOTSUPP;
+>>> +
+>>> +    spin_lock(&dtdevs_lock);
+>>> +
+>>> +    if ( iommu_dt_device_is_assigned_locked(np) )
+>>> +    {
+>>> +        rc = -EBUSY;
+>>> +        goto fail;
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * The driver which supports generic IOMMU DT bindings must have this
+>>> +     * callback implemented.
+>>> +     */
+>> J:
+>> I have questioned this message in v7 and I still question it. I guess 
+>> you copied the comment on top of add_device(), this was add there 
+>> because we have a different way to add legacy device.
+>>
+>> But here there are no such requirement. In fact, you are not adding the 
+>> the callback to all the IOMMU drivers... Yet all of them support the 
+>> generic IOMMU DT bindings.
+> Will change this.
+>>
+>>> +    if ( !ops->remove_device )
+>>> +    {
+>>> +        rc = -EOPNOTSUPP;
+>>> +        goto fail;
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Remove master device from the IOMMU if latter is present and available.
+>> J:
+>> I read this as this will not return an error if the device is protected. 
+>> However, AFAICT, the implement in the SMMU driver provided in this 
+>> series will return an error. So I would suggest to replace this sentence 
+>> with:
+>>
+>> de-register the device from the IOMMU driver.
+> Will change the comment.
+>>
+>>> +     * The driver is responsible for removing is_protected flag.
+>> J:
+>> Can you add an assert in the 'if ( !rc )' block to confirm that 
+>> is_protected was effectively removed. Something like:
+>>
+>> ASSERT(!dt_device_is_protected(dev));
+> Is ASSERT really required here. remove callback can return before setting is_protected as false.
+I think Julien wanted to add extra check to make sure driver behaves as expected.
+That said, his suggestion is incorrect since the callback can return before clearing the flag.
+So, if ASSERT is required, this should be:
+ASSERT(rc || !dt_device_is_protected(dev));
+so that we check for is_protected being false only on callback returning success (i.e. 0).
 
-Yes.
-
->> @@ -600,27 +614,28 @@ static void *hvmemul_map_linear_addr(
->>              goto out;
->>  
->>          case HVMTRANS_bad_gfn_to_mfn:
->> -            err = NULL;
->> -            goto out;
->> +            err = update_map_err(err, NULL);
->> +            continue;
->>  
->>          case HVMTRANS_gfn_paged_out:
->>          case HVMTRANS_gfn_shared:
->> -            err = ERR_PTR(~X86EMUL_RETRY);
->> -            goto out;
->> +            err = update_map_err(err, ERR_PTR(~X86EMUL_RETRY));
->> +            continue;
->>  
->>          default:
->> -            goto unhandleable;
->> +            err = update_map_err(err, ERR_PTR(~X86EMUL_UNHANDLEABLE));
->> +            continue;
->>          }
->>  
->>          *mfn++ = page_to_mfn(page);
-> 
-> I have to admit it find it weird that since now we don't exit the loop
-> when HVMTRANS_bad_gfn_to_mfn is returned, the item at mfn[0] might
-> point to the gfn -> mfn translation for the second half of the access.
-> AFAICT that would happen if the first half of the access fails to
-> translate with an error !HVMTRANS_bad_linear_to_gfn and the second
-> half is successful.
-> 
-> I guess it doesn't matter much, because the vmap below will be
-> skipped, might still be worth to add a comment.
-
-I could add one, but as you say it doesn't matter much, plus - I don't
-see a good place where such a comment would go.
-
-> In fact, if the first translation fails the following ones could use
-> the cheaper paging_gva_to_gfn(), as we no longer care to get the
-> underlying page, and just need to figure out whether the access would
-> trigger a #PF?
-
-That would be an option, yes, at the expense of (slightly) more
-complicated logic. Of course going that route would then also address
-your mfn[0] remark above, without the need for any comment.
-
-Jan
+>>
+>> This would help to confirm the driver is respecting what you expect.
+>>
+>>> +     */
+>>> +    rc = ops->remove_device(0, dev);
+>>> +
+>>> +    if ( !rc )
+>>> +        iommu_fwspec_free(dev);
+>>> +
+>>> + fail:
+>>> +    spin_unlock(&dtdevs_lock);
+>>> +    return rc;
+>>> +}
+>>> +
+>>>  int iommu_add_dt_device(struct dt_device_node *np)
+>>>  {
+>>>      const struct iommu_ops *ops = iommu_get_ops();
+>>> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+>>> index 110693c59f..a8e9bc9a2d 100644
+>>> --- a/xen/include/xen/iommu.h
+>>> +++ b/xen/include/xen/iommu.h
+>>> @@ -233,6 +233,7 @@ int iommu_add_dt_device(struct dt_device_node *np);
+>>>  
+>>>  int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+>>>                         XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+>>> +int iommu_remove_dt_device(struct dt_device_node *np);
+>>>  
+>>>  #endif /* HAS_DEVICE_TREE */
+>>>  
+>>
+>> ~Michal
 
