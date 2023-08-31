@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6247278E46F
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 03:39:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593300.926277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F25F378E476
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 03:41:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593307.926288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbWdq-0004n1-9E; Thu, 31 Aug 2023 01:38:38 +0000
+	id 1qbWfy-0006QM-Lr; Thu, 31 Aug 2023 01:40:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593300.926277; Thu, 31 Aug 2023 01:38:38 +0000
+Received: by outflank-mailman (output) from mailman id 593307.926288; Thu, 31 Aug 2023 01:40:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbWdq-0004jt-3s; Thu, 31 Aug 2023 01:38:38 +0000
-Received: by outflank-mailman (input) for mailman id 593300;
- Thu, 31 Aug 2023 01:38:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qbWfy-0006Of-Ik; Thu, 31 Aug 2023 01:40:50 +0000
+Received: by outflank-mailman (input) for mailman id 593307;
+ Thu, 31 Aug 2023 01:40:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IFXE=EQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qbWdo-0004jl-UF
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 01:38:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18ea13fd-479f-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 03:38:34 +0200 (CEST)
+ id 1qbWfw-0006OU-TB
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 01:40:48 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 68054525-479f-11ee-9b0d-b553b5be7939;
+ Thu, 31 Aug 2023 03:40:46 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 10E99622D4;
- Thu, 31 Aug 2023 01:38:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05234C433C7;
- Thu, 31 Aug 2023 01:38:30 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 06FC4B82155;
+ Thu, 31 Aug 2023 01:40:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8B3C433C8;
+ Thu, 31 Aug 2023 01:40:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,61 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18ea13fd-479f-11ee-8783-cb3800f73035
+X-Inumbo-ID: 68054525-479f-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693445912;
-	bh=tcoxmcGMzGWFIKp1sPyXputgzNCIZDeXy14NL2l0W6g=;
+	s=k20201202; t=1693446044;
+	bh=1eXJTQ0SxzUPQPN7rbTLn6SUCm/LszkdLog00ZbbM4w=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QbT2YUtRhFrnX3NV3XM15CusHUymAtlDrW2YxR1GrxWRpxnFpQXgGr8N87gnoPFk3
-	 TV4efrAzsqZLoMPewGmEruH91BpQNK2B05rpeJr6VxaUHiaNKK0ZESqEyfhEAkgwPt
-	 ZKiYpn7aFLoPDKWKF/EEx6wfe/Zy6A+aXsZy7ibjxhNfiy0VjJDZ6C1uPyPvIorPh/
-	 rWuDdu9u+/qPyZDOdbZ0LDJFENyinP0G6RFJ/X64Ormfbknx303f4Iilgob+35c03S
-	 lSeLEF2xqmS5UwyYsQ7OJrQP3S4s7rHTT2dMvr33T3ZlI1w60VCEMakwEfG/1NOL1G
-	 /rWIzb4oBwuow==
-Date: Wed, 30 Aug 2023 18:38:28 -0700 (PDT)
+	b=jR8xKfX4C04nXslObo0pJd5UD9EVDz2D/nzC99HI8Or/kneNY2RBWzfg5Ocg9xaS9
+	 0/VLbbByk9swx5cBWEldAtJlG7rdJVdslNwtW/BPZhEvgU6D8LcXmlxsYRH90Rt7Fb
+	 I2Bbnf8mwmVth1wcK4g+dkHZKLBmekfdoANkLHp8USSidiw0fJCQdd1loJzGd7f5Cd
+	 Z5EFBn1mzlLFN81h7iEUWuM0gtVVPRvOZT5WF0wpF/ZUvGo+iX2Wlhkk8nfo9GTgKH
+	 Pn+4RntbMRYEF3es7oMfPzw5QyIRNrJIdwjjMyhnSc1G4Ozw93V97I3mfT9DfPNoOJ
+	 6xPMiI8vLDbJw==
+Date: Wed, 30 Aug 2023 18:40:41 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    roger.pau@citrix.com, julien@xen.org, george.dunlap@citrix.com, 
-    bertrand.marquis@arm.com, nicola.vetrini@bugseng.com, 
-    roberto.bagnara@bugseng.com, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
-    xen-devel@lists.xenproject.org
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "julien@xen.org" <julien@xen.org>, 
+    "george.dunlap@citrix.com" <george.dunlap@citrix.com>, 
+    "nicola.vetrini@bugseng.com" <nicola.vetrini@bugseng.com>, 
+    "roberto.bagnara@bugseng.com" <roberto.bagnara@bugseng.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>
 Subject: Re: [PATCH] docs/misra: add 14.3 and 14.4
-In-Reply-To: <b15edd2a-9937-ae36-d84e-8dd134cea6b8@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2308301831380.6458@ubuntu-linux-20-04-desktop>
-References: <20230830005950.305085-1-sstabellini@kernel.org> <b15edd2a-9937-ae36-d84e-8dd134cea6b8@suse.com>
+In-Reply-To: <C2070A06-265A-48EC-9A67-34D820B2F94E@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2308301834400.6458@ubuntu-linux-20-04-desktop>
+References: <20230830005950.305085-1-sstabellini@kernel.org> <C2070A06-265A-48EC-9A67-34D820B2F94E@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 30 Aug 2023, Jan Beulich wrote:
-> On 30.08.2023 02:59, Stefano Stabellini wrote:
+On Wed, 30 Aug 2023, Bertrand Marquis wrote:
+> Hi Stefano,
+> 
+> > On 30 Aug 2023, at 02:59, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > 
+> > Add 14.3, with a project-wide deviations on if statements.
+> > Add 14.4, clarifying that implicit conversions of integers, chars and
+> > pointers to bool are allowed.
+> > 
+> > Also take the opportunity to clarify that parameters of function pointer
+> > types are expected to have names (Rule 8.2).
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > ---
+> > docs/misra/rules.rst | 20 +++++++++++++++++++-
+> > 1 file changed, 19 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> > index db30632b93..6cde4feeae 100644
 > > --- a/docs/misra/rules.rst
 > > +++ b/docs/misra/rules.rst
 > > @@ -234,7 +234,7 @@ maintainers if you want to suggest a change.
-> >     * - `Rule 8.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_02.c>`_
-> >       - Required
-> >       - Function types shall be in prototype form with named parameters
+> >    * - `Rule 8.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_02.c>`_
+> >      - Required
+> >      - Function types shall be in prototype form with named parameters
 > > -     -
 > > +     - Function pointer types shall have named parameters too.
 > 
-> This isn't an exception; do we really need to state such? I would have
-> expected something to appear here only if we intended to deviate certain
-> constructs.
+> 
+> I would just modify to Function and Function pointers types shall be ...
 
-Yes, it is not an exception. However, as there was genuine confusion in
-the community about whether the rule should apply or not to function
-pointer types I think it would be good to clarify. To avoid any doubts
-in the future. My preference is to keep this as clarification.
+Sure, I can do that.
 
 
-
+> > 
+> >    * - `Rule 8.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_03.c>`_
+> >      - Required
 > > @@ -332,6 +332,24 @@ maintainers if you want to suggest a change.
-> >       - A loop counter shall not have essentially floating type
-> >       -
-> >  
+> >      - A loop counter shall not have essentially floating type
+> >      -
+> > 
 > > +   * - `Rule 14.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_03.c>`_
 > > +     - Required
 > > +     - Controlling expressions shall not be invariant
@@ -109,29 +131,10 @@ in the future. My preference is to keep this as clarification.
 > > +       a project-wide deviation on 'if' statements. The rule only
 > > +       applies to while, for, do ... while, ?:, and switch statements.
 > 
-> The sizeof() aspect mentioned particularly applies to switch() as well.
-> Furthermore ?: is really only shorthand for simple if(), so I don't see
-> treating it different from if() as helpful.
+> Didn't we also said that we would accept while(0) and while(1) ?
+> Also i agree with Jan, ? is really the same as if so we should not treat it differently.
 
-I'll answer in another email.
-
-
-
-> That said, I'd be a little hesitant to give an ack here anyway. If you'd
-> split 14.3 and 14.4, I'd be happy to ack 14.4's addition.
-> 
-> Jan
-> 
-> > +   * - `Rule 14.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_04.c>`_
-> > +     - Required
-> > +     - The controlling expression of an if statement and the controlling
-> > +       expression of an iteration-statement shall have essentially
-> > +       Boolean type
-> > +     - Implicit conversions of integers, pointers, and chars to boolean
-> > +       are allowed
-> > +
-> >     * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
-> >       - Required
-> >       - A switch-expression shall not have essentially Boolean type
-> 
+I took the list of things the rule applies to from the text of the rule
+itself. However, I think you are right about the ?: and it should be
+deviated together with if. I can also add while(0) and while(1).
 
