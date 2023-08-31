@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56E378F229
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 19:49:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594032.927207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2DBE78F257
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 20:15:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594040.927217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbllv-0005hs-2T; Thu, 31 Aug 2023 17:47:59 +0000
+	id 1qbmBq-0001Dg-8t; Thu, 31 Aug 2023 18:14:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594032.927207; Thu, 31 Aug 2023 17:47:59 +0000
+Received: by outflank-mailman (output) from mailman id 594040.927217; Thu, 31 Aug 2023 18:14:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbllu-0005gB-U2; Thu, 31 Aug 2023 17:47:58 +0000
-Received: by outflank-mailman (input) for mailman id 594032;
- Thu, 31 Aug 2023 17:47:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z9zM=EQ=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qbllu-0005fK-1Q
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 17:47:58 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8347395e-4826-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 19:47:55 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id F35988285183;
- Thu, 31 Aug 2023 12:47:53 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id Wy0MrPEhccYC; Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 832C3828538A;
- Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id qfbLZ-aUquAX; Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 158798285183;
- Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
+	id 1qbmBq-0001BH-6C; Thu, 31 Aug 2023 18:14:46 +0000
+Received: by outflank-mailman (input) for mailman id 594040;
+ Thu, 31 Aug 2023 18:14:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qbmBp-0001B7-5A; Thu, 31 Aug 2023 18:14:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qbmBo-0007ee-Tf; Thu, 31 Aug 2023 18:14:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qbmBo-0004tx-Ev; Thu, 31 Aug 2023 18:14:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qbmBo-00057P-EE; Thu, 31 Aug 2023 18:14:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,439 +42,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8347395e-4826-11ee-8783-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 832C3828538A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1693504072; bh=PbyX2jOG3+u8jIViCmJyyd7ppkGx1yZXtgJiDh0EKAg=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=aN3r4yK6DpDp4tYafq5pmr/Fm+msZpdgk0j/MSsASIpYiRRbq92G59R6ArmGlfoVC
-	 JjySpqUiDgW/6RdRCan4lcIN96WNcFrWgfEryFmIiCXS1CGznZrjy0iF+PWUE4wO2M
-	 j3Qp1lt4V/GVPPNBjK7vHXTzhtC+T+wz71ibQnPc=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <80aa376b-137d-b799-cc3e-4e080abc2500@raptorengineering.com>
-Date: Thu, 31 Aug 2023 12:47:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LQDmv5UN0+29zvexSSjqI03dg20GHNGDsIdF8JUBiQQ=; b=bjidLVBeMmFhslKF+WXLR4W/F1
+	s1QJTOXYM8Dfc8QoTcQQKNf2qR5EIpAenkOWV3UUV41dx0lDenLuN+uXP7Tk+O3VzswQUNnm3Yeqo
+	KW7oj4RJ/xMmoJlH6Uy0tHuuyJFgkehDjJIe2x3UxS6HmXy2t+6R0zdgZ9kDEJYFKUQ4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182576-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v2 3/8] xen/ppc: Implement atomic.h
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1692816595.git.sanastasio@raptorengineering.com>
- <6d97bdeb1c114026105e72c6ee6e1b024565bf95.1692816595.git.sanastasio@raptorengineering.com>
- <257cd320-fe81-f1be-f3e5-ef43e539660a@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <257cd320-fe81-f1be-f3e5-ef43e539660a@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 182576: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=4fb0dacb78c6a041bbd38ddd998df806af5c2c69
+X-Osstest-Versions-That:
+    linux=2dde18cd1d8fac735875f2e4987f11817cc0bc2c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 31 Aug 2023 18:14:44 +0000
 
-On 8/29/23 8:43 AM, Jan Beulich wrote:
-> On 23.08.2023 22:07, Shawn Anastasio wrote:
->> --- /dev/null
->> +++ b/xen/arch/ppc/include/asm/atomic.h
->> @@ -0,0 +1,390 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +/*
->> + * PowerPC64 atomic operations
->> + *
->> + * Copyright (C) 2001 Paul Mackerras <paulus@au.ibm.com>, IBM
->> + * Copyright (C) 2001 Anton Blanchard <anton@au.ibm.com>, IBM
->> + * Copyright Raptor Engineering LLC
->> + *
->> + * This program is free software; you can redistribute it and/or
->> + * modify it under the terms of the GNU General Public License
->> + * as published by the Free Software Foundation; either version
->> + * 2 of the License, or (at your option) any later version.
->> + */
-> 
-> License text again despite the SPDX header?
->
+flight 182576 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182576/
 
-Will fix.
+Regressions :-(
 
->> +#ifndef _ASM_PPC64_ATOMIC_H_
->> +#define _ASM_PPC64_ATOMIC_H_
->> +
->> +#include <xen/atomic.h>
->> +
->> +#include <asm/memory.h>
->> +#include <asm/system.h>
-> 
-> I can see that you need memory.h, but I can't spot a need for system.h.
->
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 182531
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 182531
+ test-amd64-amd64-qemuu-nested-amd  8 xen-boot            fail REGR. vs. 182531
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 182531
+ test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 182531
+ test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 182531
+ test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 182531
+ test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 182531
+ test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 182531
+ test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 182531
+ test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 182531
+ test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 182531
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 182531
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 182531
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 182531
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 182531
+ test-amd64-amd64-freebsd11-amd64  8 xen-boot             fail REGR. vs. 182531
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 182531
+ test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 182531
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 182531
+ test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 182531
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 182531
+ test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 182531
 
-Just confirmed, you're correct. I'll drop it.
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 182531
 
->> +static inline int atomic_read(const atomic_t *v)
->> +{
->> +    return *(volatile int *)&v->counter;
->> +}
->> +
->> +static inline int _atomic_read(atomic_t v)
->> +{
->> +    return v.counter;
->> +}
->> +
->> +static inline void atomic_set(atomic_t *v, int i)
->> +{
->> +    v->counter = i;
->> +}
->> +
->> +static inline void _atomic_set(atomic_t *v, int i)
->> +{
->> +    v->counter = i;
->> +}
->> +
->> +void __bad_atomic_read(const volatile void *p, void *res);
->> +void __bad_atomic_size(void);
->> +
->> +#define build_atomic_read(name, insn, type)                                    \
->> +    static inline type name(const volatile type *addr)                         \
->> +    {                                                                          \
->> +        type ret;                                                              \
->> +        asm volatile ( insn "%U1%X1 %0,%1" : "=r" (ret) : "m<>" (*addr) );     \
->> +        return ret;                                                            \
->> +    }
->> +
->> +#define build_atomic_write(name, insn, type)                                   \
->> +    static inline void name(volatile type *addr, type val)                     \
->> +    {                                                                          \
->> +        asm volatile ( insn "%U0%X0 %1,%0" : "=m<>" (*addr) : "r" (val) );     \
->> +    }
->> +
->> +#define build_add_sized(name, ldinsn, stinsn, type)                            \
->> +    static inline void name(volatile type *addr, type val)                     \
->> +    {                                                                          \
->> +        type t;                                                                \
->> +        asm volatile ( "1: " ldinsn " %0,0,%3\n"                               \
->> +                       "add%I2 %0,%0,%2\n"                                     \
->> +                       stinsn " %0,0,%3 \n"                                    \
->> +                       "bne- 1b\n"                                             \
->> +                       : "=&r" (t), "+m" (*addr)                               \
->> +                       : "r" (val), "r" (addr)                                 \
->> +                       : "cc" );                                               \
->> +    }
->> +
->> +build_atomic_read(read_u8_atomic, "lbz", uint8_t)
->> +build_atomic_read(read_u16_atomic, "lhz", uint16_t)
->> +build_atomic_read(read_u32_atomic, "lwz", uint32_t)
->> +build_atomic_read(read_u64_atomic, "ldz", uint64_t)
->> +
->> +build_atomic_write(write_u8_atomic, "stb", uint8_t)
->> +build_atomic_write(write_u16_atomic, "sth", uint16_t)
->> +build_atomic_write(write_u32_atomic, "stw", uint32_t)
->> +build_atomic_write(write_u64_atomic, "std", uint64_t)
->> +
->> +build_add_sized(add_u8_sized, "lbarx", "stbcx.",uint8_t)
->> +build_add_sized(add_u16_sized, "lharx", "sthcx.", uint16_t)
->> +build_add_sized(add_u32_sized, "lwarx", "stwcx.", uint32_t)
->> +
->> +#undef build_atomic_read
->> +#undef build_atomic_write
->> +#undef build_add_sized
->> +
->> +static always_inline void read_atomic_size(const volatile void *p, void *res,
->> +                                           unsigned int size)
->> +{
->> +    ASSERT(IS_ALIGNED((vaddr_t) p, size));
-> 
-> Nit: Stray blank before p (several more below).
->
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182531
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182531
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-Will fix.
+version targeted for testing:
+ linux                4fb0dacb78c6a041bbd38ddd998df806af5c2c69
+baseline version:
+ linux                2dde18cd1d8fac735875f2e4987f11817cc0bc2c
 
->> +    switch ( size )
->> +    {
->> +    case 1:
->> +        *(uint8_t *)res = read_u8_atomic(p);
->> +        break;
->> +    case 2:
->> +        *(uint16_t *)res = read_u16_atomic(p);
->> +        break;
->> +    case 4:
->> +        *(uint32_t *)res = read_u32_atomic(p);
->> +        break;
->> +    case 8:
->> +        *(uint64_t *)res = read_u64_atomic(p);
->> +        break;
->> +    default:
->> +        __bad_atomic_read(p, res);
->> +        break;
->> +    }
->> +}
->> +
->> +static always_inline void write_atomic_size(volatile void *p, void *val,
-> 
-> const void *val? (But then below also don't cast away constness.)
->
+Last test of basis   182531  2023-08-27 22:41:14 Z    3 days
+Failing since        182544  2023-08-28 20:42:13 Z    2 days    5 attempts
+Testing same since   182576  2023-08-30 23:12:26 Z    0 days    1 attempts
 
-Sure, that's reasonable. Will fix.
+------------------------------------------------------------
+1367 people touched revisions under test,
+not listing them all
 
->> +                                            unsigned int size)
->> +{
->> +    ASSERT(IS_ALIGNED((vaddr_t) p, size));
->> +    switch ( size )
->> +    {
->> +    case 1:
->> +        write_u8_atomic(p, *(uint8_t *)val);
->> +        break;
->> +    case 2:
->> +        write_u16_atomic(p, *(uint16_t *)val);
->> +        break;
->> +    case 4:
->> +        write_u32_atomic(p, *(uint32_t *)val);
->> +        break;
->> +    case 8:
->> +        write_u64_atomic(p, *(uint64_t *)val);
->> +        break;
->> +    default:
->> +        __bad_atomic_size();
->> +        break;
->> +    }
->> +}
->> +
->> +#define read_atomic(p)                                                         \
->> +    ({                                                                         \
->> +        union {                                                                \
->> +            typeof(*(p)) val;                                                  \
->> +            char c[0];                                                         \
-> 
-> Using [0] here is likely to set us up for compiler complaints ...
->
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                fail    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                fail    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-AIUI zero-length members are explicitly permitted as a GNU extension,
-but their usage here wasn't an explicit choice on my part as this macro
-was inherited from arm's atomic.h. See below.
 
->> +        } x_;                                                                  \
->> +        read_atomic_size(p, x_.c, sizeof(*(p)));                               \
-> 
-> ... here. Can't this simply be c[sizeof(*(val))]? And do you need
-> a union here in the first place, when read_atomic() takes void* as
-> its 2nd parameter?
->
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Yes, I should have taken a closer look at this before importing it from
-arm. The type punning does seem entirely redundant given that
-read_atomic_size takes a void* -- I'm not sure why it was written this
-way to begin with.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-In any case, I'll do away with the unnecessary union.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->> +        x_.val;                                                                \
->> +    })
->> +
->> +#define write_atomic(p, x)                                                     \
->> +    do                                                                         \
->> +    {                                                                          \
->> +        typeof(*(p)) x_ = (x);                                                 \
->> +        write_atomic_size(p, &x_, sizeof(*(p)));                               \
->> +    } while ( 0 )
->> +
->> +#define add_sized(p, x)                                                        \
->> +    ({                                                                         \
->> +        typeof(*(p)) x_ = (x);                                                \
->> +        switch ( sizeof(*(p)) )                                                \
->> +        {                                                                      \
->> +        case 1:                                                                \
->> +            add_u8_sized((uint8_t *) (p), x_);                                \
->> +            break;                                                             \
->> +        case 2:                                                                \
->> +            add_u16_sized((uint16_t *) (p), x_);                              \
->> +            break;                                                             \
->> +        case 4:                                                                \
->> +            add_u32_sized((uint32_t *) (p), x_);                              \
->> +            break;                                                             \
->> +        default:                                                               \
->> +            __bad_atomic_size();                                               \
->> +            break;                                                             \
->> +        }                                                                      \
->> +    })
-> 
-> Nit: Padding wants to align the backslashes.
->
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Will fix.
 
->> +static inline void atomic_add(int a, atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( "1: lwarx %0,0,%3\n"
->> +                   "add %0,%2,%0\n"
->> +                   "stwcx. %0,0,%3\n"
->> +                   "bne- 1b"
->> +                   : "=&r" (t), "+m" (v->counter)
-> 
-> I notice you use "+m" here, but ...
-> 
->> +                   : "r" (a), "r" (&v->counter)
->> +                   : "cc" );
->> +}
->> +
->> +static inline int atomic_add_return(int a, atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
->> +                   "1: lwarx %0,0,%2\n"
->> +                   "add %0,%1,%0\n"
->> +                   "stwcx. %0,0,%2\n"
->> +                   "bne- 1b"
->> +                   PPC_ATOMIC_EXIT_BARRIER
->> +                   : "=&r" (t)
->> +                   : "r" (a), "r" (&v->counter)
->> +                   : "cc", "memory" );
->> +
->> +    return t;
->> +}
->> +
->> +static inline void atomic_sub(int a, atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( "1: lwarx %0,0,%3\n"
->> +                   "subf %0,%2,%0\n"
->> +                   "stwcx. %0,0,%3\n"
->> +                   "bne- 1b"
->> +                   : "=&r" (t), "=m" (v->counter)
->> +                   : "r" (a), "r" (&v->counter), "m" (v->counter)
-> 
-> ... why not here (and again below)?
->
+Not pushing.
 
-This has to do with the origin of these functions. The functions taken
-from the original Xen ppc implementation seem to not use +m (as we've
-seen in a few other instances before from the same port). I'll go
-through and update all of these functions to use +m instead.
-
->> +                   : "cc" );
->> +}
->> +
->> +static inline int atomic_sub_return(int a, atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
->> +                   "1: lwarx %0,0,%2\n"
->> +                   "subf %0,%1,%0\n"
->> +                   "stwcx. %0,0,%2\n"
->> +                   "bne- 1b"
->> +                   PPC_ATOMIC_EXIT_BARRIER
->> +                   : "=&r" (t)
->> +                   : "r" (a), "r" (&v->counter)
->> +                   : "cc", "memory" );
->> +
->> +    return t;
->> +}
->> +
->> +static inline void atomic_inc(atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( "1: lwarx %0,0,%2\n"
->> +                   "addic %0,%0,1\n"
->> +                   "stwcx. %0,0,%2\n"
->> +                   "bne- 1b"
->> +                   : "=&r" (t), "=m" (v->counter)
->> +                   : "r" (&v->counter), "m" (v->counter)
->> +                   : "cc" );
->> +}
->> +
->> +static inline int atomic_inc_return(atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
->> +                   "1: lwarx %0,0,%1\n"
->> +                   "addic %0,%0,1\n"
->> +                   "stwcx. %0,0,%1\n"
->> +                   "bne- 1b"
->> +                   PPC_ATOMIC_EXIT_BARRIER
->> +                   : "=&r" (t)
->> +                   : "r" (&v->counter)
->> +                   : "cc", "memory" );
->> +
->> +    return t;
->> +}
->> +
->> +static inline void atomic_dec(atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( "1: lwarx %0,0,%2\n"
->> +                   "addic %0,%0,-1\n"
->> +                   "stwcx. %0,0,%2\n"
->> +                   "bne- 1b"
->> +                   : "=&r" (t), "=m" (v->counter)
->> +                   : "r" (&v->counter), "m" (v->counter)
->> +                   : "cc" );
->> +}
->> +
->> +static inline int atomic_dec_return(atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
->> +                   "1: lwarx %0,0,%1\n"
->> +                   "addic %0,%0,-1\n"
->> +                   "stwcx. %0,0,%1\n"
->> +                   "bne- 1b"
->> +                   PPC_ATOMIC_EXIT_BARRIER
->> +                   : "=&r" (t)
->> +                   : "r" (&v->counter)
->> +                   : "cc", "memory" );
->> +
->> +    return t;
->> +}
->> +
->> +/*
->> + * Atomically test *v and decrement if it is greater than 0.
->> + * The function returns the old value of *v minus 1.
->> + */
->> +static inline int atomic_dec_if_positive(atomic_t *v)
->> +{
->> +    int t;
->> +
->> +    asm volatile( PPC_ATOMIC_ENTRY_BARRIER
->> +                  "1: lwarx %0,0,%1 # atomic_dec_if_positive\n"
->> +                  "addic. %0,%0,-1\n"
->> +                  "blt- 2f\n"
->> +                  "stwcx. %0,0,%1\n"
->> +                  "bne- 1b\n"
->> +                  PPC_ATOMIC_EXIT_BARRIER
->> +                  "2:"
->> +                  : "=&r" (t)
->> +                  : "r" (&v->counter)
->> +                  : "cc", "memory" );
->> +
->> +    return t;
->> +}
->> +
->> +static inline atomic_t atomic_compareandswap(atomic_t old, atomic_t new,
->> +                                             atomic_t *v)
->> +{
->> +    atomic_t rc;
->> +    rc.counter = __cmpxchg(&v->counter, old.counter, new.counter, sizeof(int));
->> +    return rc;
->> +}
->> +
->> +#define arch_cmpxchg(ptr, o, n)                                                \
->> +    ({                                                                         \
->> +        __typeof__(*(ptr)) o_ = (o);                                          \
->> +        __typeof__(*(ptr)) n_ = (n);                                          \
->> +        (__typeof__(*(ptr))) __cmpxchg((ptr), (unsigned long) o_,             \
->> +                                       (unsigned long) n_, sizeof(*(ptr)));   \
->> +    })
-> 
-> Nit: Padding again.
-
-Will fix.
-
-> Jan
-
-Thanks,
-Shawn
+(No revision log; it would be 151966 lines long.)
 
