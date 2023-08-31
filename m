@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ACD578E407
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 02:36:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593279.926248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA7378E412
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 02:57:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593286.926257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbVfD-0002rc-DM; Thu, 31 Aug 2023 00:35:59 +0000
+	id 1qbVz8-0005Ok-Uw; Thu, 31 Aug 2023 00:56:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593279.926248; Thu, 31 Aug 2023 00:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 593286.926257; Thu, 31 Aug 2023 00:56:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbVfD-0002oa-9a; Thu, 31 Aug 2023 00:35:59 +0000
-Received: by outflank-mailman (input) for mailman id 593279;
- Thu, 31 Aug 2023 00:35:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbVz8-0005MM-Rf; Thu, 31 Aug 2023 00:56:34 +0000
+Received: by outflank-mailman (input) for mailman id 593286;
+ Thu, 31 Aug 2023 00:56:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IFXE=EQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qbVfB-0002oU-7O
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 00:35:57 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5758a2d3-4796-11ee-9b0d-b553b5be7939;
- Thu, 31 Aug 2023 02:35:54 +0200 (CEST)
+ id 1qbVz8-0005ME-2o
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 00:56:34 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 38e7f7bb-4799-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 02:56:32 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 610176255B;
- Thu, 31 Aug 2023 00:35:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8B7C433C7;
- Thu, 31 Aug 2023 00:35:50 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D6617B8201C;
+ Thu, 31 Aug 2023 00:56:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D871C433C8;
+ Thu, 31 Aug 2023 00:56:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,192 +44,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5758a2d3-4796-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 38e7f7bb-4799-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693442151;
-	bh=bllm2LouzggmKEkGmGSO7zPjul+HAPjEdYC1RAPUEsA=;
+	s=k20201202; t=1693443388;
+	bh=bdcvKVmYhY6hiG40uNbDrovAdJe/+D6kOb4JuPRDfIA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=M3T/oqNWpc17QGqOGkFhYKiEizCf4ye56jKPMOq34R6nWQT00m4AwsQymxV1CvBoU
-	 C19PTVBc5lUFT5JdYkhVbNlDoYQo2+uCXUg7LLqGG9IgjFwZ3PF1yFkZNM68OgOogA
-	 LjF2BZ8lgXnib4nBGHDB3htw5Q+f6S+z2Gk4Ak/6qzjwkdxAStv8AFg4BgApKt8ULc
-	 kgiuzfFsQVk7uuewzsKR0VlMQQkwVAKzK94joP7ONehGXuyam7Ib8ru6TatDHGhrl2
-	 vLR7gyXJ1COwTnQDLWhgRHGZA7AH4SgKczdSvQeJ5tdTHua7BSfG+a69rCcDuqX9mv
-	 NoznZ5kJL4NUA==
-Date: Wed, 30 Aug 2023 17:35:49 -0700 (PDT)
+	b=unKCL3b1J+IkcuRfRaPrHdsNfYVv14S3zAON+bHi7WLLVjoPbXs98Reo/yGTFeX4T
+	 j2+53Xxwe+lcAk8b9CIuGB46tH5TC1G73LARwrvolRcF0OcxJGkhTlIQrxyRLyBvWq
+	 dQYRmtWPRYMUZK2AItqZQT6dF/aJ32ppq877CbvzbVGepLqx0iCoGYC8hRLuhB4BUy
+	 KsqNSGA9Pj29S9fOSFEzdbMLvq4NBW6BkJWnTBTZoUCb4s4M08ob7rdClfWgYNL9D/
+	 HWLTDDQyLfbOLku2WMjcWYZM1kGkZhy5Rd149sykhlhjIP4jl+NcF5+IHpjyk24+83
+	 MU55ezk62ztyA==
+Date: Wed, 30 Aug 2023 17:56:25 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    sstabellini@kernel.org, julien@xen.org, Jan Beulich <jbeulich@suse.com>, 
-    Paul Durrant <paul@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [XEN][PATCH v10 11/20] xen/iommu: Introduce
- iommu_remove_dt_device()
-In-Reply-To: <ZO-A7ZERxISru9Ug@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2308301730210.6458@ubuntu-linux-20-04-desktop>
-References: <20230825080222.14247-1-vikram.garhwal@amd.com> <20230825080222.14247-12-vikram.garhwal@amd.com> <079c831a-bf1e-5489-562b-01cf4e3e6b02@amd.com> <ZO-A7ZERxISru9Ug@amd.com>
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
+    Viresh Kumar <viresh.kumar@linaro.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Sergiy Kibrik <Sergiy_Kibrik@epam.com>, 
+    QEMU Developers <qemu-devel@nongnu.org>, 
+    Vikram Garhwal <vikram.garhwal@amd.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>, 
+    Jonathan Cameron <jonathan.cameron@huawei.com>
+Subject: Re: QEMU features useful for Xen development?
+In-Reply-To: <87y1hspiyh.fsf@linaro.org>
+Message-ID: <alpine.DEB.2.22.394.2308301745530.6458@ubuntu-linux-20-04-desktop>
+References: <87y1hspiyh.fsf@linaro.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1957996329-1693443387=:6458"
 
-On Wed, 30 Aug 2023, Vikram Garhwal wrote:
-> Hi Michal,
-> On Tue, Aug 29, 2023 at 10:23:30AM +0200, Michal Orzel wrote:
-> > 
-> > 
-> > On 25/08/2023 10:02, Vikram Garhwal wrote:
-> > > Remove master device from the IOMMU. This will be helpful when removing the
-> > > overlay nodes using dynamic programming during run time.
-> > > 
-> > > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> > > Acked-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > You don't seem to handle Julien remarks for this patch made in v9.
-> > I will forward them here to avoid answering to old version, but for the future, do not carry the exact same patch
-> > if you haven't yet addressed someone's remarks.
-> This got skipped as I cannot find direct email from Julien. The only email reply
-> on this patch is can find is from: xen-devel-bounces@lists.xenproject.org and
-> this got messed up with other larger set of email xen-devel sends.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1957996329-1693443387=:6458
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+Hi Alex,
+
+Thanks for reaching out. QEMU is an important development tool for the
+Xen community and we are using QEMU as part of our upstream gitlab-ci
+testing, see automation/scripts/qemu-*.
+
+As Xen is gaining R52 and R82 support, it would be great to be able to
+use QEMU for development and testing there as well, but I don't think
+QEMU can emulate EL2 properly for the Cortex-R architecture. We would
+need EL2 support in the GIC/timer for R52/R82 as well.
+
+On Cortex-As, in addition to a PCI root complex and an arbitrary PCI
+device, SMMUv3 emulation (both stages) and GICv3 ITS are needed to be
+able to test PCI Passthrough. However, if I recall correctly SMMUv3
+emulation in QEMU might not be complete enough to enable us to use it.
+
+For Virtio, using QEMU on target (not develpment/testing, but
+production), it would greatly help if we could improve the build system
+to only build what is strictly necessary for the xenpvh machine to run.
+
+Cheers,
+
+Stefano
+
+
+On Wed, 30 Aug 2023, Alex Bennée wrote:
+> Dear Xen community,
 > 
-> Did you get direct email?
-> > 
-> > > 
-> > > ---
-> > > Changes from v7:
-> > >     Add check if IOMMU is enabled.
-> > >     Fix indentation of fail.
-> > > ---
-> > > ---
-> > >  xen/drivers/passthrough/device_tree.c | 44 +++++++++++++++++++++++++++
-> > >  xen/include/xen/iommu.h               |  1 +
-> > >  2 files changed, 45 insertions(+)
-> > > 
-> > > diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> > > index 1202eac625..3fad65fb69 100644
-> > > --- a/xen/drivers/passthrough/device_tree.c
-> > > +++ b/xen/drivers/passthrough/device_tree.c
-> > > @@ -128,6 +128,50 @@ int iommu_release_dt_devices(struct domain *d)
-> > >      return 0;
-> > >  }
-> > >  
-> > > +int iommu_remove_dt_device(struct dt_device_node *np)
-> > > +{
-> > > +    const struct iommu_ops *ops = iommu_get_ops();
-> > > +    struct device *dev = dt_to_dev(np);
-> > > +    int rc;
-> > > +
-> > > +    if ( !iommu_enabled )
-> > > +        return 1;
-> > J:
-> > The caller doesn't seem to check if the error code is > 0. So can we 
-> > instead return a -ERRNO?
-> Will change the check in caller. I want to keep this as it as so it looks
-> similar to iommu_add_dt_device().
-
-That is OK to me as long as the check on the return value is done
-
-
-> > If you want to continue to return a value > 0 then I think it should be 
-> > documented in a comment like we did for iommu_add_dt_device().
-> >
-> Will add comment before iommu_remove_dt_device().
-> > > +
-> > > +    if ( !ops )
-> > > +        return -EOPNOTSUPP;
-> > > +
-> > > +    spin_lock(&dtdevs_lock);
-> > > +
-> > > +    if ( iommu_dt_device_is_assigned_locked(np) )
-> > > +    {
-> > > +        rc = -EBUSY;
-> > > +        goto fail;
-> > > +    }
-> > > +
-> > > +    /*
-> > > +     * The driver which supports generic IOMMU DT bindings must have this
-> > > +     * callback implemented.
-> > > +     */
-> > J:
-> > I have questioned this message in v7 and I still question it. I guess 
-> > you copied the comment on top of add_device(), this was add there 
-> > because we have a different way to add legacy device.
-> > 
-> > But here there are no such requirement. In fact, you are not adding the 
-> > the callback to all the IOMMU drivers... Yet all of them support the 
-> > generic IOMMU DT bindings.
-> Will change this.
-> > 
-> > > +    if ( !ops->remove_device )
-> > > +    {
-> > > +        rc = -EOPNOTSUPP;
-> > > +        goto fail;
-> > > +    }
-> > > +
-> > > +    /*
-> > > +     * Remove master device from the IOMMU if latter is present and available.
-> > J:
-> > I read this as this will not return an error if the device is protected. 
-> > However, AFAICT, the implement in the SMMU driver provided in this 
-> > series will return an error. So I would suggest to replace this sentence 
-> > with:
-> > 
-> > de-register the device from the IOMMU driver.
-> Will change the comment.
-> > 
-> > > +     * The driver is responsible for removing is_protected flag.
-> > J:
-> > Can you add an assert in the 'if ( !rc )' block to confirm that 
-> > is_protected was effectively removed. Something like:
-> > 
-> > ASSERT(!dt_device_is_protected(dev));
-> Is ASSERT really required here. remove callback can return before setting is_protected as false.
-
-But if ops->remove_device didn't actually set is_protected to false,
-then it should return an error (rc != 0). What Julien is suggesting is
-the following:
-
-    rc = ops->remove_device(0, dev);
-
-    if ( !rc )
-    {
-        ASSERT(!dt_device_is_protected(dev));
-        iommu_fwspec_free(dev);
-    }
-
-Every time remove_device returns rc == 0 then is_protected should be
-false, right?
-
-
-> > 
-> > This would help to confirm the driver is respecting what you expect.
-> > 
-> > > +     */
-> > > +    rc = ops->remove_device(0, dev);
-> > > +
-> > > +    if ( !rc )
-> > > +        iommu_fwspec_free(dev);
-> > > +
-> > > + fail:
-> > > +    spin_unlock(&dtdevs_lock);
-> > > +    return rc;
-> > > +}
-> > > +
-> > >  int iommu_add_dt_device(struct dt_device_node *np)
-> > >  {
-> > >      const struct iommu_ops *ops = iommu_get_ops();
-> > > diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> > > index 110693c59f..a8e9bc9a2d 100644
-> > > --- a/xen/include/xen/iommu.h
-> > > +++ b/xen/include/xen/iommu.h
-> > > @@ -233,6 +233,7 @@ int iommu_add_dt_device(struct dt_device_node *np);
-> > >  
-> > >  int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-> > >                         XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
-> > > +int iommu_remove_dt_device(struct dt_device_node *np);
-> > >  
-> > >  #endif /* HAS_DEVICE_TREE */
-> > >  
-> > 
-> > ~Michal
+> Linaro is significantly invested in QEMU development, with a special
+> focus on Arm-related aspects. We recognize the value of QEMU as a
+> readily available software reference platform for projects that need to
+> test their software well before the availability of real hardware.
 > 
+> The primary focus of our effort is on adding core architectural elements
+> to the CPU emulation. For an overview of the current feature set, please
+> see:
+> 
+>   https://qemu.readthedocs.io/en/master/system/arm/emulation.html
+> 
+> Besides the -cpu max, providing an approximation of a v9.0 baseline CPU,
+> we have also recently added several specific CPU types like the
+> Neoverse-N1 and V1 processor types as well as numerous Cortex CPU
+> models.
+> 
+> Our most utilized machine model is "virt", which is primarily designed
+> for guest operation and therefore has minimal resemblance to actual
+> hardware. "sbsa-ref" was implemented to more closely simulate a real
+> machine that aligns with Arm's SBSA specification.
+> 
+> In our work on VirtIO, we often use QEMU. Most of our rust-vmm
+> vhost-device backends, for instance, were initially tested on QEMU.
+> 
+> Now that everyone is up-to-date, I would welcome any feedback from the
+> Xen community on features that would increase QEMU's usefulness as a
+> development target.
+> 
+> Do you have interest in any upcoming Arm CPU features? For example, we
+> recently added FEAT_RME support for Arm's new confidential computing,
+> but currently do not implement FEAT_NV/NV2.
+> 
+> How about the HW emulation in QEMU? Is the PCI emulation reliable enough
+> to ensure confidence while testing changes to Xen's PCI management? What
+> about the few peripherals that the hypervisor accesses directly?
+> 
+> Are there other development features you consider essential? Have you
+> noticed any limitations with gdbstub? Does anyone use the record/replay
+> or reverse debug functions? Has anyone tried TCG plugins for analysing
+> the behavior of the hypervisor?
+> 
+> While I cannot promise to implement every wish-list item (performance
+> counter emulation, for example, as we are not a uArch simulator), I am
+> eager to gather feedback on how QEMU could be improved to help the Xen
+> community deliver it's roadmap faster.
+> 
+> Thank you for your time and I look forward to any feedback :-)
+> 
+> -- 
+> Alex Bennée
+> Virtualisation Tech Lead @ Linaro
+> 
+--8323329-1957996329-1693443387=:6458--
 
