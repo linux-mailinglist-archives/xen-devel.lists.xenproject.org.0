@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE7F78EE86
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F8578EE88
 	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 15:26:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593897.927033 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.593900.927073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbhgL-00019D-Jq; Thu, 31 Aug 2023 13:25:57 +0000
+	id 1qbhgP-0002D0-4G; Thu, 31 Aug 2023 13:26:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593897.927033; Thu, 31 Aug 2023 13:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 593900.927073; Thu, 31 Aug 2023 13:26:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbhgL-00014r-Fm; Thu, 31 Aug 2023 13:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 593897;
- Thu, 31 Aug 2023 13:25:56 +0000
+	id 1qbhgO-00025s-U0; Thu, 31 Aug 2023 13:26:00 +0000
+Received: by outflank-mailman (input) for mailman id 593900;
+ Thu, 31 Aug 2023 13:25:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=smM9=EQ=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1qbhgK-00011s-22
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 13:25:56 +0000
+ id 1qbhgM-00011s-NN
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 13:25:58 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e93455de-4801-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 15:25:55 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-295-Llrh_6NmMhmdbB-Mj6wUlA-1; Thu, 31 Aug 2023 09:25:49 -0400
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+ id e9e4fe40-4801-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 15:25:56 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-519-w2HM_ChROIqrK6gfwSLG-w-1; Thu, 31 Aug 2023 09:25:50 -0400
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 925DD80CC51;
- Thu, 31 Aug 2023 13:25:48 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B688381495D;
+ Thu, 31 Aug 2023 13:25:49 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.39.192.30])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C0A0640316A;
- Thu, 31 Aug 2023 13:25:47 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 782302166B26;
+ Thu, 31 Aug 2023 13:25:49 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id BEFA621E6936; Thu, 31 Aug 2023 15:25:46 +0200 (CEST)
+ id C204421E6767; Thu, 31 Aug 2023 15:25:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,18 +52,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e93455de-4801-11ee-8783-cb3800f73035
+X-Inumbo-ID: e9e4fe40-4801-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693488353;
+	s=mimecast20190719; t=1693488354;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/fqTkl561vUPRN4wCY4+4zlKemE2JuQ2aeOXAdkttl0=;
-	b=PX+XZV5QSqsUAioazvBZ2vkio4UteDbVaMdMrd4ipqbe2c9PY1q13GTOhmNLK+05JkFgXm
-	DYvqtj0PFEFoGyI8K4p4Nf0AnKevT4FiHYwpawHElwOPc7trWHWqetIjHBVOBw9dqwyjgN
-	8I8qoV6eTp+KJ5SZy6dw7qLmDbxg7ec=
-X-MC-Unique: Llrh_6NmMhmdbB-Mj6wUlA-1
+	bh=BWO795P/eMAN6AGzPBk5U+AjkPgnakPkjKcQ1JjiguM=;
+	b=AS/R9xNAsGXSqWxj5PJ8yi4M760J6PWDTaB1iH51gKVoNPx/n80DQBDYNnhMPy6fsVgJ7z
+	7phzuj6oQPxAfW/UO8b9mIDpgNS1uK6bk0xbQb9oEZ8q6cG8B3AIywWhFhU7iGMZFwRNZQ
+	mbNdpY/kIsVZCz92OeJUf4d/xXmJdog=
+X-MC-Unique: w2HM_ChROIqrK6gfwSLG-w-1
 From: Markus Armbruster <armbru@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: kwolf@redhat.com,
@@ -92,15 +92,15 @@ Cc: kwolf@redhat.com,
 	xen-devel@lists.xenproject.org,
 	alex.bennee@linaro.org,
 	peter.maydell@linaro.org
-Subject: [PATCH 4/7] block/dirty-bitmap: Clean up local variable shadowing
-Date: Thu, 31 Aug 2023 15:25:43 +0200
-Message-ID: <20230831132546.3525721-5-armbru@redhat.com>
+Subject: [PATCH 5/7] block/vdi: Clean up local variable shadowing
+Date: Thu, 31 Aug 2023 15:25:44 +0200
+Message-ID: <20230831132546.3525721-6-armbru@redhat.com>
 In-Reply-To: <20230831132546.3525721-1-armbru@redhat.com>
 References: <20230831132546.3525721-1-armbru@redhat.com>
 MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 
 Local variables shadowing other local variables or parameters make the
 code needlessly hard to understand.  Tracked down with -Wshadow=local.
@@ -109,44 +109,44 @@ else rename variables.
 
 Signed-off-by: Markus Armbruster <armbru@redhat.com>
 ---
- block/monitor/bitmap-qmp-cmds.c | 2 +-
- block/qcow2-bitmap.c            | 3 +--
- 2 files changed, 2 insertions(+), 3 deletions(-)
+ block/vdi.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/block/monitor/bitmap-qmp-cmds.c b/block/monitor/bitmap-qmp-cmds.c
-index 55f778f5af..4d018423d8 100644
---- a/block/monitor/bitmap-qmp-cmds.c
-+++ b/block/monitor/bitmap-qmp-cmds.c
-@@ -276,7 +276,7 @@ BdrvDirtyBitmap *block_dirty_bitmap_merge(const char *node, const char *target,
+diff --git a/block/vdi.c b/block/vdi.c
+index 6c35309e04..c084105b78 100644
+--- a/block/vdi.c
++++ b/block/vdi.c
+@@ -634,7 +634,6 @@ vdi_co_pwritev(BlockDriverState *bs, int64_t offset, int64_t bytes,
+         bmap_entry = le32_to_cpu(s->bmap[block_index]);
+         if (!VDI_IS_ALLOCATED(bmap_entry)) {
+             /* Allocate new block and write to it. */
+-            uint64_t data_offset;
+             qemu_co_rwlock_upgrade(&s->bmap_lock);
+             bmap_entry = le32_to_cpu(s->bmap[block_index]);
+             if (VDI_IS_ALLOCATED(bmap_entry)) {
+@@ -700,7 +699,7 @@ nonallocating_write:
+         /* One or more new blocks were allocated. */
+         VdiHeader *header;
+         uint8_t *base;
+-        uint64_t offset;
++        uint64_t offs;
+         uint32_t n_sectors;
  
-     for (lst = bms; lst; lst = lst->next) {
-         switch (lst->value->type) {
--            const char *name, *node;
-+            const char *name;
-         case QTYPE_QSTRING:
-             name = lst->value->u.local;
-             src = bdrv_find_dirty_bitmap(bs, name);
-diff --git a/block/qcow2-bitmap.c b/block/qcow2-bitmap.c
-index 037fa2d435..ffd5cd3b23 100644
---- a/block/qcow2-bitmap.c
-+++ b/block/qcow2-bitmap.c
-@@ -1555,7 +1555,6 @@ bool qcow2_store_persistent_dirty_bitmaps(BlockDriverState *bs,
-     FOR_EACH_DIRTY_BITMAP(bs, bitmap) {
-         const char *name = bdrv_dirty_bitmap_name(bitmap);
-         uint32_t granularity = bdrv_dirty_bitmap_granularity(bitmap);
--        Qcow2Bitmap *bm;
+         g_free(block);
+@@ -723,11 +722,11 @@ nonallocating_write:
+         bmap_first /= (SECTOR_SIZE / sizeof(uint32_t));
+         bmap_last /= (SECTOR_SIZE / sizeof(uint32_t));
+         n_sectors = bmap_last - bmap_first + 1;
+-        offset = s->bmap_sector + bmap_first;
++        offs = s->bmap_sector + bmap_first;
+         base = ((uint8_t *)&s->bmap[0]) + bmap_first * SECTOR_SIZE;
+         logout("will write %u block map sectors starting from entry %u\n",
+                n_sectors, bmap_first);
+-        ret = bdrv_co_pwrite(bs->file, offset * SECTOR_SIZE,
++        ret = bdrv_co_pwrite(bs->file, offs * SECTOR_SIZE,
+                              n_sectors * SECTOR_SIZE, base, 0);
+     }
  
-         if (!bdrv_dirty_bitmap_get_persistence(bitmap) ||
-             bdrv_dirty_bitmap_inconsistent(bitmap)) {
-@@ -1625,7 +1624,7 @@ bool qcow2_store_persistent_dirty_bitmaps(BlockDriverState *bs,
- 
-     /* allocate clusters and store bitmaps */
-     QSIMPLEQ_FOREACH(bm, bm_list, entry) {
--        BdrvDirtyBitmap *bitmap = bm->dirty_bitmap;
-+        bitmap = bm->dirty_bitmap;
- 
-         if (bitmap == NULL || bdrv_dirty_bitmap_readonly(bitmap)) {
-             continue;
 -- 
 2.41.0
 
