@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD5778F3CE
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 22:17:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594105.927306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66ADE78F3DD
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 22:20:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594110.927317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbo6Z-00038K-0A; Thu, 31 Aug 2023 20:17:27 +0000
+	id 1qbo99-0004Sj-Ds; Thu, 31 Aug 2023 20:20:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594105.927306; Thu, 31 Aug 2023 20:17:26 +0000
+Received: by outflank-mailman (output) from mailman id 594110.927317; Thu, 31 Aug 2023 20:20:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbo6Y-00035p-Tj; Thu, 31 Aug 2023 20:17:26 +0000
-Received: by outflank-mailman (input) for mailman id 594105;
- Thu, 31 Aug 2023 20:17:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbo99-0004R5-AY; Thu, 31 Aug 2023 20:20:07 +0000
+Received: by outflank-mailman (input) for mailman id 594110;
+ Thu, 31 Aug 2023 20:20:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OzwQ=EQ=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1qbo6Y-00035j-5y
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 20:17:26 +0000
+ id 1qbo97-0004MJ-KV
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 20:20:05 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64fca9ec-483b-11ee-9b0d-b553b5be7939;
- Thu, 31 Aug 2023 22:17:23 +0200 (CEST)
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c4823ae3-483b-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 22:20:04 +0200 (CEST)
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-86-45z1k2tDOTi8vMP7DGrV2g-1; Thu, 31 Aug 2023 16:17:19 -0400
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-637948b24bdso3044356d6.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Aug 2023 13:17:19 -0700 (PDT)
+ us-mta-253-i8uwDpJVMje9jm8IJ2GgRQ-1; Thu, 31 Aug 2023 16:20:01 -0400
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-40559875dd1so2520191cf.1
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Aug 2023 13:20:01 -0700 (PDT)
 Received: from x1n (cpe5c7695f3aee0-cm5c7695f3aede.cpe.net.cable.rogers.com.
  [99.254.144.39]) by smtp.gmail.com with ESMTPSA id
- r20-20020a0cb294000000b0063d152e5d9asm879005qve.120.2023.08.31.13.17.16
+ y21-20020ac85255000000b004109928c607sm882603qtn.43.2023.08.31.13.19.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Aug 2023 13:17:18 -0700 (PDT)
+ Thu, 31 Aug 2023 13:20:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,38 +49,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64fca9ec-483b-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: c4823ae3-483b-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693513042;
+	s=mimecast20190719; t=1693513203;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5a/SwKv6GUP+JWqMoj3PY4osU8HvXRNVst9zAGspjno=;
-	b=SVgILnbOJthNxqdjzdnhkb4XOkLKInvpNFIWFKnBL1TO5+W/yWoF9naRBMC2FO4UCqp1Ky
-	W6Wl0J7ZXFtV1ZBl3bvMp5cpDYk7nvKfZ66HMQ/rs8PIwqhZD+2Ic8fnKtap7DAGfCQziN
-	8yt+V7j7qjkdsDUnTODe9iMYHUsnfBY=
-X-MC-Unique: 45z1k2tDOTi8vMP7DGrV2g-1
+	bh=ufk8GCiw/LwQVAZTYLTycpsT48xt2rPVrWRGaQbD81E=;
+	b=S98mnzqerKLbV0+to5cKfrqV690GUHwMR12aMIBk9XenE+loxdLZARqMcXkP+4xwVJw57Y
+	5TWJs5XpV8F/QCu7NF8cE8Z10//ve6pPETvP4KGDL7784Fr1VyISuBSYgszQ50EuDgf/oc
+	qPzT0s1B0/Wb6jEqB+sKj9L+veOQRuM=
+X-MC-Unique: i8uwDpJVMje9jm8IJ2GgRQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693513039; x=1694117839;
+        d=1e100.net; s=20221208; t=1693513201; x=1694118001;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5a/SwKv6GUP+JWqMoj3PY4osU8HvXRNVst9zAGspjno=;
-        b=DnzwDur6QpMYROd/SnFwD1akXy5dTuadhKyAnKVzd1BQt5+tRBS+jeWcgeqy2Qy0jW
-         ruBhZek9yW/PMySTVsKls+KnRhyu1wOH3Zfo+aIuLjbcZmM5ThuUUQ4Kh2tYZsvyGpfj
-         GKYeSQ+pxQGAjULC6fN+/jk+a7I8uPpAC4lcZp4Itcvc8iq/cEqMcOoX9d/Yd/g3Cgpt
-         nd4oMbOo7zZ/y9MJxK6Ov2H0VxlXF8kcbi1scereOb5TsrIQLWk9ipcnbsXpP8/1tLMy
-         FRiJEZg5D7TMV0gxdbwl0hcASBDtU4NbWHfcbGJxfbDGdaTb0J+jToSa7QayF5dciO6d
-         4jfg==
-X-Gm-Message-State: AOJu0YymxUMNPCuoItb/foQPIZNr951UfFEG57iGSydMlggKIqmakMr9
-	mYh456DL6za+tXQv0fsmVt3OEAfNJ35hlk/X04Wwv7X4pcQZALLkflXOcprbmwbl0fLKFmiA4ZZ
-	9wccASct9pjZzRl3CLcCVIe8AgBk=
-X-Received: by 2002:ad4:5e87:0:b0:616:870c:96b8 with SMTP id jl7-20020ad45e87000000b00616870c96b8mr283046qvb.3.1693513038818;
-        Thu, 31 Aug 2023 13:17:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGKsmxbV+DJ7b6GRufNNcqu4EXMeqeuic2S33WKPblsBhfVhu2iLfQSsXd6CNYuiszcB6i/5Q==
-X-Received: by 2002:ad4:5e87:0:b0:616:870c:96b8 with SMTP id jl7-20020ad45e87000000b00616870c96b8mr283012qvb.3.1693513038588;
-        Thu, 31 Aug 2023 13:17:18 -0700 (PDT)
-Date: Thu, 31 Aug 2023 16:17:16 -0400
+        bh=ufk8GCiw/LwQVAZTYLTycpsT48xt2rPVrWRGaQbD81E=;
+        b=OBkZOZtEa3Y8MCz5tqKIAYlJ1gvCVBIMZwmJxtiinFWPGCblFEnodZEE3CiOy8V+zI
+         /0dpJPMGMrS0bspQCTyUfwv86EnUc5WKRoi4toVNiQfZceql6to+nho/BnyIq1r9sXB2
+         nEBmnVz7knwUw6XP4Vr3fos7rvlu4mzPoU5rH873mGfsoyJujVJ8owg8OrpwNQj8/8ER
+         IiwwzHIqJYDPn/+hR9mwabHJ64lq4t8f/OgNO8MWNI4KUif2pTt1EFPZD2fyWO9rRzyr
+         A+/x84k6vP8GihLIwtw1YELOJufOH3yESkj6uPEydbMO0eq89MYkE91DPj4VwzzyCwd2
+         iCIw==
+X-Gm-Message-State: AOJu0Ywq4VBmOEEvaV4yA2b/Ixlk94UprZqQnkMHVZIWrJ3S2diueYzg
+	S+4SmRpbH7zQLZxo8Qe6y72UUidd3woaC8GHos4hb6WXsUgaYDJrYGXsb8ULYojfemNLj6sIuDY
+	gw0J1GmCEjULQWhh9G25OUzZ6XZk=
+X-Received: by 2002:a05:622a:1a95:b0:412:944:542f with SMTP id s21-20020a05622a1a9500b004120944542fmr554598qtc.2.1693513201283;
+        Thu, 31 Aug 2023 13:20:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGFAF781BYCy/7xjebcfDDFV6O9tFD+MwHw2lCzWGRBIbm6hK0VSsMkVUfbwGvnURh5QKA8xg==
+X-Received: by 2002:a05:622a:1a95:b0:412:944:542f with SMTP id s21-20020a05622a1a9500b004120944542fmr554577qtc.2.1693513200985;
+        Thu, 31 Aug 2023 13:20:00 -0700 (PDT)
+Date: Thu, 31 Aug 2023 16:19:58 -0400
 From: Peter Xu <peterx@redhat.com>
 To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org, kwolf@redhat.com, hreitz@redhat.com,
@@ -93,28 +93,23 @@ Cc: qemu-devel@nongnu.org, kwolf@redhat.com, hreitz@redhat.com,
 	leobras@redhat.com, kraxel@redhat.com, qemu-block@nongnu.org,
 	xen-devel@lists.xenproject.org, alex.bennee@linaro.org,
 	peter.maydell@linaro.org
-Subject: Re: [PATCH 1/7] migration/rdma: Fix save_page method to fail on
- polling error
-Message-ID: <ZPD1TPNFFVax067G@x1n>
+Subject: Re: [PATCH 2/7] migration: Clean up local variable shadowing
+Message-ID: <ZPD17rBVIoFgpBWA@x1n>
 References: <20230831132546.3525721-1-armbru@redhat.com>
- <20230831132546.3525721-2-armbru@redhat.com>
+ <20230831132546.3525721-3-armbru@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20230831132546.3525721-2-armbru@redhat.com>
+In-Reply-To: <20230831132546.3525721-3-armbru@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 
-On Thu, Aug 31, 2023 at 03:25:40PM +0200, Markus Armbruster wrote:
-> qemu_rdma_save_page() reports polling error with error_report(), then
-> succeeds anyway.  This is because the variable holding the polling
-> status *shadows* the variable the function returns.  The latter
-> remains zero.
+On Thu, Aug 31, 2023 at 03:25:41PM +0200, Markus Armbruster wrote:
+> Local variables shadowing other local variables or parameters make the
+> code needlessly hard to understand.  Tracked down with -Wshadow=local.
+> Clean up: delete inner declarations when they are actually redundant,
+> else rename variables.
 > 
-> Broken since day one, and duplicated more recently.
-> 
-> Fixes: 2da776db4846 (rdma: core logic)
-> Fixes: b390afd8c50b (migration/rdma: Fix out of order wrid)
 > Signed-off-by: Markus Armbruster <armbru@redhat.com>
 
 Reviewed-by: Peter Xu <peterx@redhat.com>
