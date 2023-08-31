@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA7378E412
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 02:57:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593286.926257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FDC278E446
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 03:19:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593293.926268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbVz8-0005Ok-Uw; Thu, 31 Aug 2023 00:56:34 +0000
+	id 1qbWJl-0001rf-Js; Thu, 31 Aug 2023 01:17:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593286.926257; Thu, 31 Aug 2023 00:56:34 +0000
+Received: by outflank-mailman (output) from mailman id 593293.926268; Thu, 31 Aug 2023 01:17:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbVz8-0005MM-Rf; Thu, 31 Aug 2023 00:56:34 +0000
-Received: by outflank-mailman (input) for mailman id 593286;
- Thu, 31 Aug 2023 00:56:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qbWJl-0001ol-Ge; Thu, 31 Aug 2023 01:17:53 +0000
+Received: by outflank-mailman (input) for mailman id 593293;
+ Thu, 31 Aug 2023 01:17:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IFXE=EQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qbVz8-0005ME-2o
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 00:56:34 +0000
+ id 1qbWJk-0001of-Bd
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 01:17:52 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38e7f7bb-4799-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 02:56:32 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32068f88-479c-11ee-9b0d-b553b5be7939;
+ Thu, 31 Aug 2023 03:17:47 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D6617B8201C;
- Thu, 31 Aug 2023 00:56:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D871C433C8;
- Thu, 31 Aug 2023 00:56:26 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1265AB80B84;
+ Thu, 31 Aug 2023 01:17:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0FE5C433C7;
+ Thu, 31 Aug 2023 01:17:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,125 +44,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38e7f7bb-4799-11ee-8783-cb3800f73035
+X-Inumbo-ID: 32068f88-479c-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693443388;
-	bh=bdcvKVmYhY6hiG40uNbDrovAdJe/+D6kOb4JuPRDfIA=;
+	s=k20201202; t=1693444665;
+	bh=icNpqFJCEV7X9EWTYSuktLYvwdnbF4HWzVQfNNUvFL4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=unKCL3b1J+IkcuRfRaPrHdsNfYVv14S3zAON+bHi7WLLVjoPbXs98Reo/yGTFeX4T
-	 j2+53Xxwe+lcAk8b9CIuGB46tH5TC1G73LARwrvolRcF0OcxJGkhTlIQrxyRLyBvWq
-	 dQYRmtWPRYMUZK2AItqZQT6dF/aJ32ppq877CbvzbVGepLqx0iCoGYC8hRLuhB4BUy
-	 KsqNSGA9Pj29S9fOSFEzdbMLvq4NBW6BkJWnTBTZoUCb4s4M08ob7rdClfWgYNL9D/
-	 HWLTDDQyLfbOLku2WMjcWYZM1kGkZhy5Rd149sykhlhjIP4jl+NcF5+IHpjyk24+83
-	 MU55ezk62ztyA==
-Date: Wed, 30 Aug 2023 17:56:25 -0700 (PDT)
+	b=HPEDj8piWxwBjPOTjSrt3vcA62AdkljS5u0puFiNJDWEDd6g68qZskRtrDvEHqPLC
+	 B+RKIAx74CS3lKiMz6GPflA/QKtYs8eCqHQbm0nt6GfptqHzJ1Ye5FXqBFUJY6ARNV
+	 MuTq4kY+Ni4BbAswU/Ffd1lseWkwszqdK9IY1+OL+YoA0CTr1n3qpanmkQ243RWPov
+	 q5HrSGqf7riAKSU5w6Fo/3dC2cipJ91qo8nwyALzXw0ZX/nNZwHMgIJTZ6GCUWs0LG
+	 jVJtXxQ8FdKxWKXUK/WepeyVTDSEjZB+E2D0WhJxYUden16WrXyhjXDSljEiCsryOU
+	 mSE1VwqhogB/w==
+Date: Wed, 30 Aug 2023 18:17:42 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
-    Viresh Kumar <viresh.kumar@linaro.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Sergiy Kibrik <Sergiy_Kibrik@epam.com>, 
-    QEMU Developers <qemu-devel@nongnu.org>, 
-    Vikram Garhwal <vikram.garhwal@amd.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
-    Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>, 
-    Jonathan Cameron <jonathan.cameron@huawei.com>
-Subject: Re: QEMU features useful for Xen development?
-In-Reply-To: <87y1hspiyh.fsf@linaro.org>
-Message-ID: <alpine.DEB.2.22.394.2308301745530.6458@ubuntu-linux-20-04-desktop>
-References: <87y1hspiyh.fsf@linaro.org>
+To: Anthony Chan <anthonychan@nureva.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>, 
+    "julien@xen.org" <julien@xen.org>, 
+    "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, 
+    "michal.orzel@amd.com" <michal.orzel@amd.com>, 
+    Dan Waqar <danwaqar@nureva.com>
+Subject: RE: [EXT] Re: xen arm64 low power sleep support
+In-Reply-To: <DM6PR20MB27795F4B6C327F7F031BABB0C1E6A@DM6PR20MB2779.namprd20.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2308301814580.6458@ubuntu-linux-20-04-desktop>
+References: <DM6PR20MB277971712E5415CB231AEB37C1E7A@DM6PR20MB2779.namprd20.prod.outlook.com> <alpine.DEB.2.22.394.2308291512271.6458@ubuntu-linux-20-04-desktop> <DM6PR20MB27795F4B6C327F7F031BABB0C1E6A@DM6PR20MB2779.namprd20.prod.outlook.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1957996329-1693443387=:6458"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, 30 Aug 2023, Anthony Chan wrote:
+> On Tue, 29 Aug 2023, Stefano Stabellini wrote:
+> > On Tue, 29 Aug 2023, Anthony Chan wrote:
+> > > Hi all,
+> > >
+> > > My name is Tony and I've been researching/developing using Xen for
+> > potential upcoming uses in our embedded systems.  I started with Xen
+> > using Xilinx tools about a year ago and still have lots to learn about what it
+> > can to do in the embedded space.  So far, I've managed to integrate Xen
+> > and Linux into an existing product that exclusively runs bare-metal code on
+> > a ZynqMP SoC and migrate some of the functionality into custom Linux
+> > driver/userspace.
+> > >
+> > > I'm now looking at low power support, for now at least between Xen
+> > (4.16) and Linux (5.15) dom0.  I've tried a few different Linux kernel
+> > configs around power management and each time I try to suspend from
+> > linux dom0 (via sysfs or systemctl), Xen will watchdog on dom0 guest.
+> > AFAIK, Xen should trap on a 'WFI' from guests, but from what I can tell
+> > debugging through the linux suspend process is it's spinning in a 'suspend-
+> > to-idle' loop before it can get to issuing a 'WFI' or using PSCI interface to
+> > notify Xen.  I'm beginning to suspect that 'low power' support for
+> > embedded arm64 just isn't quite there yet, or am I missing something in
+> > the configs?
+> > >
+> > > I realize this could very well be a Linux 'issue' but checking here first.  I
+> > know Xen presents a flattened device tree to Linux without CPU idle-state
+> > nodes and maybe this is causing the linux guest to only do the suspend-
+> > to-idle mode?  I should mention that I'm booting up using dom0less
+> > feature if that matters.
+> >
+> >
+> > Hi Anthony,
+> >
+> > Assuming you are using the default Xen command line parameters for
+> > Xilinx boards: sched=null vwfi=native, then if the guest uses WFI, the CPU
+> > will execute WFI directly and go into low power mode.
+> Yes, using these command line params.
+> 
+> > Given the issue you are describing, I am suspecting the guest is not issuing
+> > WFI: that is simple and known to work. Instead, I suspect that Linux might
+> > be trying to use PSCI_suspend in a way that is not supported or well-
+> > implemented by Xen.
+> >
+> > Can you check? You can add a printk in Linux
+> > drivers/firmware/psci/psci.c:__psci_cpu_suspend or in Xen
+> > xen/arch/arm/vpsci.c:do_psci_0_2_cpu_suspend
+> Instrumented both places it doesn't appear to reach there.  In kernel/power/suspend.c, there's a call to s2idle_loop that it's currently 'stuck' in and I think it doesn't get to the psci suspend your referring till afterwards, when suspend_ops->enter is called.  Unfortunately, without any idle-states nodes in the FDT, the only suspend state Linux is defaults to is 'suspend to idle'.
+ 
+The fact that Linux uses "suspend to idle" is not a problem because as I
+mentioned WFI or PSCI_suspent are not different on Xen. That part is OK.
 
---8323329-1957996329-1693443387=:6458
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-Hi Alex,
-
-Thanks for reaching out. QEMU is an important development tool for the
-Xen community and we are using QEMU as part of our upstream gitlab-ci
-testing, see automation/scripts/qemu-*.
-
-As Xen is gaining R52 and R82 support, it would be great to be able to
-use QEMU for development and testing there as well, but I don't think
-QEMU can emulate EL2 properly for the Cortex-R architecture. We would
-need EL2 support in the GIC/timer for R52/R82 as well.
-
-On Cortex-As, in addition to a PCI root complex and an arbitrary PCI
-device, SMMUv3 emulation (both stages) and GICv3 ITS are needed to be
-able to test PCI Passthrough. However, if I recall correctly SMMUv3
-emulation in QEMU might not be complete enough to enable us to use it.
-
-For Virtio, using QEMU on target (not develpment/testing, but
-production), it would greatly help if we could improve the build system
-to only build what is strictly necessary for the xenpvh machine to run.
-
-Cheers,
-
-Stefano
-
-
-On Wed, 30 Aug 2023, Alex Bennée wrote:
-> Dear Xen community,
-> 
-> Linaro is significantly invested in QEMU development, with a special
-> focus on Arm-related aspects. We recognize the value of QEMU as a
-> readily available software reference platform for projects that need to
-> test their software well before the availability of real hardware.
-> 
-> The primary focus of our effort is on adding core architectural elements
-> to the CPU emulation. For an overview of the current feature set, please
-> see:
-> 
->   https://qemu.readthedocs.io/en/master/system/arm/emulation.html
-> 
-> Besides the -cpu max, providing an approximation of a v9.0 baseline CPU,
-> we have also recently added several specific CPU types like the
-> Neoverse-N1 and V1 processor types as well as numerous Cortex CPU
-> models.
-> 
-> Our most utilized machine model is "virt", which is primarily designed
-> for guest operation and therefore has minimal resemblance to actual
-> hardware. "sbsa-ref" was implemented to more closely simulate a real
-> machine that aligns with Arm's SBSA specification.
-> 
-> In our work on VirtIO, we often use QEMU. Most of our rust-vmm
-> vhost-device backends, for instance, were initially tested on QEMU.
-> 
-> Now that everyone is up-to-date, I would welcome any feedback from the
-> Xen community on features that would increase QEMU's usefulness as a
-> development target.
-> 
-> Do you have interest in any upcoming Arm CPU features? For example, we
-> recently added FEAT_RME support for Arm's new confidential computing,
-> but currently do not implement FEAT_NV/NV2.
-> 
-> How about the HW emulation in QEMU? Is the PCI emulation reliable enough
-> to ensure confidence while testing changes to Xen's PCI management? What
-> about the few peripherals that the hypervisor accesses directly?
-> 
-> Are there other development features you consider essential? Have you
-> noticed any limitations with gdbstub? Does anyone use the record/replay
-> or reverse debug functions? Has anyone tried TCG plugins for analysing
-> the behavior of the hypervisor?
-> 
-> While I cannot promise to implement every wish-list item (performance
-> counter emulation, for example, as we are not a uArch simulator), I am
-> eager to gather feedback on how QEMU could be improved to help the Xen
-> community deliver it's roadmap faster.
-> 
-> Thank you for your time and I look forward to any feedback :-)
-> 
-> -- 
-> Alex Bennée
-> Virtualisation Tech Lead @ Linaro
-> 
---8323329-1957996329-1693443387=:6458--
+However, if the issue is not PSCI_suspend then I don't have another easy
+guess. Please post a full stack trace or more information about the
+error in Linux and I might be able to see where it is coming from.
 
