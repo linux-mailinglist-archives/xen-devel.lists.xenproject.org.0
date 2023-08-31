@@ -2,46 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD85278F464
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 23:13:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594125.927338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7242D78F48E
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 23:26:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594131.927347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qboxz-0004Yo-Kl; Thu, 31 Aug 2023 21:12:39 +0000
+	id 1qbpAv-0006iU-PG; Thu, 31 Aug 2023 21:26:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594125.927338; Thu, 31 Aug 2023 21:12:39 +0000
+Received: by outflank-mailman (output) from mailman id 594131.927347; Thu, 31 Aug 2023 21:26:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qboxz-0004VR-HR; Thu, 31 Aug 2023 21:12:39 +0000
-Received: by outflank-mailman (input) for mailman id 594125;
- Thu, 31 Aug 2023 21:12:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qbpAv-0006gG-MB; Thu, 31 Aug 2023 21:26:01 +0000
+Received: by outflank-mailman (input) for mailman id 594131;
+ Thu, 31 Aug 2023 21:26:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B/FZ=EQ=epam.com=prvs=3607c767dd=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1qboxx-0004VH-6w
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 21:12:37 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a353fd3-4843-11ee-8783-cb3800f73035;
- Thu, 31 Aug 2023 23:12:34 +0200 (CEST)
-Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37VIWRE3014146; Thu, 31 Aug 2023 21:12:22 GMT
-Received: from eur05-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2175.outbound.protection.outlook.com [104.47.17.175])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3su07x0awv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 31 Aug 2023 21:12:22 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
- by PAXPR03MB7764.eurprd03.prod.outlook.com (2603:10a6:102:20a::23)
+ <SRS0=dUvY=EQ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1qbpAu-0006gA-Ft
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 21:26:00 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20605.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::605])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8c8fb2c-4844-11ee-9b0d-b553b5be7939;
+ Thu, 31 Aug 2023 23:25:57 +0200 (CEST)
+Received: from PH8PR05CA0013.namprd05.prod.outlook.com (2603:10b6:510:2cc::13)
+ by IA0PR12MB7651.namprd12.prod.outlook.com (2603:10b6:208:435::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.21; Thu, 31 Aug
- 2023 21:12:16 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::9d42:8444:f00d:7895]) by VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::9d42:8444:f00d:7895%4]) with mapi id 15.20.6745.020; Thu, 31 Aug 2023
- 21:12:15 +0000
+ 2023 21:25:53 +0000
+Received: from SA2PEPF000015CB.namprd03.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::16) by PH8PR05CA0013.outlook.office365.com
+ (2603:10b6:510:2cc::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.15 via Frontend
+ Transport; Thu, 31 Aug 2023 21:25:52 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF000015CB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6745.16 via Frontend Transport; Thu, 31 Aug 2023 21:25:52 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 31 Aug
+ 2023 16:25:49 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 31 Aug
+ 2023 14:25:49 -0700
+Received: from [192.168.139.126] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Thu, 31 Aug 2023 16:25:48 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,147 +63,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a353fd3-4843-11ee-8783-cb3800f73035
+X-Inumbo-ID: f8c8fb2c-4844-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q3kIpFL4CR+yuEfHDHsetTrRVgIPd3/nS8olpvimRlYQVZXPKOmEoaOGmy/YpFT/DyFJg8eACv+O6vkCMuICkd1skYXXycP0mwBJl9WYHJVAxhKnknfdqU1bz1lsx6Y8GioILUgNIGpWpQXQFFlzXpExUVeo0EBZMtdDmDSAm5bNlIRbqv2K4gtkM+jKWcAQ7EWd7nB2/7tv4zOV3/ftHRX8xvU13zcl4MHJZ16qOTZnp5iR/XB4ENVpGR3yldohVmt8HkUv9NDdT5kiqDGAaFVEpAwExWHNGWBb3tloyIHshcEZtZBYhd7gF4fEdACgF6a2YSDu7trLwFuLsSpqIA==
+ b=bZXgp1CGWv546XmMZyt3danyIQpe91MQ2E1vY/e16YI2kx9vM6b7kIYBoDLjHzEK3QGohzyVB5g3mEN8+EedGACcwYzwPZoW1Trw1Y21yisKJfiwOx+kqUT1WSPqHrFkLeYU3pXj2092l3bBf/tt9EhTSnaDNEt2MkJAsmWSKjC/pM4kTVQAstm7jhECgxy8DAC745Xy5X3p7xptEpQ+hQnWZ72ztHcGYgo6Zx+NWPuIb3cLhxOKMhdkaLYhZeh6U82u2e9ZGvtGBkiNcvAUHtilKVtm00xnEgw+YXA+eaqcU2SWk9jE13iflRMQ0sJXQ/PR8gZGgkI2/2a7Lw8jcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7R1rslfS5/1lQT+mBdLOwI1/cIqMh5UogVigXzhJ4cQ=;
- b=O9pyvBZ7jJqBIQtjjAxfztHlREhb+i7p62MAf01jDbh/2wsuMaCIsKDfg+XsttYBKmCttLVSMWcEzgYchWiFoMzrA54LQ8juJaS1xLUiZAgETmxb5Cp9+5p3AXw4ak/0JVoIU3kN3ZPxDUCH5fjS0s7FpYF6xG2uE5T+QV3+PYMx697T2EqnHCLm3ug2164TruljZRVovcubkSYUUrfnGGO3Din62Wl47yC3cGmCb8+NoKGWL1trad9SNbpeZrsql1Yp9Z2+2ObA6VemHQ7g+49WamHwKokGgNWMTsALvWp0EtOcq/wX0q7zNID5YS7DH339Vvk51zwM+1dtmeGNFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ bh=gaBWwXpf658zMtoukGSiLI8p7aWcUQD9GY28Ew0Ng+0=;
+ b=hRXnjKqCudAY2eS+E1Lq9x74x5MZFaT8YKyDz/cN1eNV4mIdSljgia3tZbbVhFDZlHwfDtw8bKs51G16xSJkB42g30kjspaSXj8eeBcKz3H+2tnmISgVyvFJpUoT2RRHRj/5VytI7hEpfx4EmUhPdoEoKTFPUwU+vwj3nsVWMluxqchGTMTSJKXfNUJWC80jv51rpxKyf1ih7SNtUFPJ9i9nxcnyqRT/62sYLtwcGuWtn03YhW12jaLl91h4qBBUiHv7EQTN61rPGBcw9ozJ3AlQfgxMijJvHqXH0es2//DPM0gf4i7Y3N+sn7FMGvC1DLPs99zMonjEhs4LSBQIvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7R1rslfS5/1lQT+mBdLOwI1/cIqMh5UogVigXzhJ4cQ=;
- b=lTBu8fJgrXHdpP1E5C1PZohsqZLTLlZ2S19mp2PCMQ+FkW3f+vLoqokAiWRT9x8CwuHvzrRYgfo2jPLxNrItuCQZDP7mCWI7Dv2Oh/QZLiZVq9v/XFJTPbAOLCMIlY8zqMmA4An0aLeocGz9mzkKSN/huboJjqR3NjigMtHBiHM75GVoTmzGl1mKrvL8sz2vM5h75HmBtfM47L2sbSKPnvcKJYwy7J3/iYcSh6Zr1RSAXnM9ZmanF4s88IvboZw33BJ4llcIwtjWSSjxg4eH2bx4WGWgUayq7ydUqiJpQAPvCvTUEX3EjMqbGeWoeVDgtMmEIs7ToFVK8vLkCxw2aQ==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>,
-        =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        George
- Dunlap <george.dunlap@citrix.com>,
-        Julien Grall <julien@xen.org>,
-        Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v9 12/16] vpci: add initial support for virtual PCI bus
- topology
-Thread-Topic: [PATCH v9 12/16] vpci: add initial support for virtual PCI bus
- topology
-Thread-Index: AQHZ2s9MKcW5IJI1REe00zENuWVyE7ACc/uAgAJ1YAA=
-Date: Thu, 31 Aug 2023 21:12:15 +0000
-Message-ID: <87cyz2apcp.fsf@epam.com>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
- <20230829231912.4091958-13-volodymyr_babchuk@epam.com>
- <19e8ce58-67dd-ec2c-1877-fc5b524983b4@suse.com>
-In-Reply-To: <19e8ce58-67dd-ec2c-1877-fc5b524983b4@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.8.9; emacs 28.2
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|PAXPR03MB7764:EE_
-x-ms-office365-filtering-correlation-id: acc6f54b-3186-4d42-fc91-08dbaa66f3c0
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 2+af5UKOSS/jwFL3y3k4/YWr4iCXXe13tmUBqJwdpQ20/r7M1kT1PcG/XJX0Xh4717zs2e7g3fVYizTPYT0C9n8yk6jy6Qz3FuKSZmF/axOd7VWPQhpS1l9X+kvlafBS9toIchYw3/upuF5LhluixLBFHRKsfkWpG/uxp5OvA9ZcWt6GoZlUxd4IF5fBBRTs6LCnsSH4zuXdWhpgwNAOZ0pZgolpn7YrMqDtwReHSQGdOGCXD2MamfZD68QR9Clmu0fIWY+VxaVfHFiqLokyrftgtph56i/lCof1+zoLNpC521P0UTLmOCp9gaP6C5T8Y1iKgmNFHklnNIsa7r8ZJfwp1U9XqBp176+nWb2253UdH0hg0uSvrBK6M2fmEmUWxOLue8KQcxIcXkMF6Sb+2CTJJLA0/afUJ7W9m9Xk1yfMBGT27I7nKM8slPkAsP/GjlMXJ7yyQGkesadJo0FnM3wsxM+93gg/TK0xKi6UwgH6IyuPY35M2js/DcILvi78DdY8ICTdSJerTPtLNrEcp9tFFcdUjLteNgLnzyP+FnJ2IKa7GrcXc2OrnG/YYE5eW7vzdNX9tYGexSOa9YJwobQT8T/pWF8IyxkApxPrLy7XAPzbtlHDGWj7nDnVJvfq
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(376002)(136003)(366004)(346002)(1800799009)(451199024)(186009)(36756003)(26005)(86362001)(41300700001)(71200400001)(53546011)(55236004)(6512007)(83380400001)(6506007)(2616005)(6486002)(38070700005)(38100700002)(8676002)(4326008)(5660300002)(8936002)(76116006)(91956017)(316002)(66476007)(54906003)(6916009)(66946007)(66556008)(64756008)(66446008)(2906002)(4744005)(122000001)(478600001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?Nv/jIVy/Jk3IisfqXOg7tVbKxzXflqMeE3zWfDty+9CqABBbmHj5ph/+9I?=
- =?iso-8859-1?Q?+2yt4gpGd1cVmLwFl+5D2zHoUPXv4naVUGbA4b7yLUxgCRjHJ6W8VPFky/?=
- =?iso-8859-1?Q?nSusvObPNDxSkrrlZPIVhy67e0kP7UqZ3VLmlZUP9ZRbzkIGkCZTt+GpG8?=
- =?iso-8859-1?Q?dxDJNl0YYDn7kR+IRLg1jRH0PpgxCNGs7tGS8iocBEK/dQSBBmXmM83e6L?=
- =?iso-8859-1?Q?djdZsBLgyXCJkg74hh86z12gQOxT7xUlcozFcPm5v9/y8nKdQqCopqq1qE?=
- =?iso-8859-1?Q?7bwr2qY6jGWhF51TjKfRsE7QuCoSbIji18AZGWogTc8YroAGCCFrVNb2FS?=
- =?iso-8859-1?Q?nRaHmmlIKUFycsSuEuq/IzK+dxg1+g2wfK/rmD5iIG/qeHbSAFVqk0giRA?=
- =?iso-8859-1?Q?Ig8g2+ZLiVYo81qkqDnl0viLo2d9uJsOIsqV+ecD4LPEBY1A68W9m8L8mU?=
- =?iso-8859-1?Q?xW+RbFhy+tXP9v6NcRA6/G+nEYOSGfplh3NUD543RDMiHR/JwwEy6cg+2L?=
- =?iso-8859-1?Q?d+Nusyg5Fqt+RmmlyK34vyVj4ZOmqBDWOVFBp5FKvXaFpBV6unI6po8+xP?=
- =?iso-8859-1?Q?K8KONZS9aihAxEmYiXvLVwgem3jgz/ODK7e8fAncVctzl9Td6nVYsARcax?=
- =?iso-8859-1?Q?DktM8uezutwgP7n6hFcv+pxQgnMkoduW47/E7ZmLQcbZfRhRK75xb41SeA?=
- =?iso-8859-1?Q?WqsmNMS5H1L3l+JpOHuX10aNAFlzEHidP0CTRt+x86osHDIJLXCA3W/a+n?=
- =?iso-8859-1?Q?Z/9eaywnzRCgV9f3gJ7l6JgUOA20YkHMpbDX5VGXDF7C5gvlC9glVFj8PL?=
- =?iso-8859-1?Q?qHEt3H0WBO7henls/Y303fPjNOXbXY+6xuOX+F6U7GdcyUYLOV9LafZWfV?=
- =?iso-8859-1?Q?ndBNe+1LTyhEzZ2Ycv0h1b0Wzr1AiSuWNOIiCPJalWYXTT1RconYUoAqDj?=
- =?iso-8859-1?Q?ikWCaD4znx/HBtlaxjL274Dkv0v/akldL2WNhb/Vx1e9VLoqZeR1YsjpJ9?=
- =?iso-8859-1?Q?M7MAZAHlvhhw0v6eJLaY1yghyJ71DdLCehyOHHIyJwwyYoyuT5SQNZuC8H?=
- =?iso-8859-1?Q?wwZh2Cr1QiaZyH0teIX7IRJSliRFcYc1Jznoc/1Q7v9GnF6yQa5oyMdcLS?=
- =?iso-8859-1?Q?aKlrrE3aW2Ak22UIo/3g/MppwFiES369zppxixI7G5J2dhy1B8f7982YEw?=
- =?iso-8859-1?Q?QfPrtjZHmpk8HylNNknZGMNVlPlN3QNto3O8UG6Kx6XXhdE7WJbe9z+gE/?=
- =?iso-8859-1?Q?zJk7qdHxjEeWImeWLVg5xo/CLzPMfx4kyYiXvn/o+y+TwX2cwg2rZw+QYs?=
- =?iso-8859-1?Q?DQWSITlxpQ/rUJIqjuUwkuUmFdBUf2uVGeis9QzELJ86dbhZCIMXxUQLYx?=
- =?iso-8859-1?Q?x6MLoqol3MyBU3VllZE3bUsIlUq9dV/WLycZrSer3+cOfgA/LckMlVLhtz?=
- =?iso-8859-1?Q?oC/S2Rc9Wa5m0T+pUENaPoyiJBayQxnjroxHd5Pnp75XMcJIS/3f1u6zzr?=
- =?iso-8859-1?Q?k4uZMqld+iiOOGBL3bu50n3EXGOQmgMH7gz1PzgCz66DU/D8zJaXkA9QtE?=
- =?iso-8859-1?Q?vbcXNj+z3xvmeyhqPFMxAhTaHHf7u7ys3ow2gQtQtg/qSspC+iohsrja2u?=
- =?iso-8859-1?Q?f/EPKwzSyUzW09Oxvl/RY80vPBdx/E/MGevfaFQ8aT5VmjJU7BSrAqMg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=gaBWwXpf658zMtoukGSiLI8p7aWcUQD9GY28Ew0Ng+0=;
+ b=BVwQASuNwbPj+zi5yr8tm9s4GbD5k4CfxfWtHhnXFYcNMwunH7MnuJC4phRh39skW7aMfoQgZG65CTu7CfsH9S0fJRNY7Cbl34HT6eV248KmXVziKc2Ze7Rh29afXFaSW/wcY1IjaDxy+HVyuTMtEKFrUcsMizJwDHZHfR97PKw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <f7457387-e8df-ae80-327b-2a7ba7428266@amd.com>
+Date: Thu, 31 Aug 2023 17:25:44 -0400
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: acc6f54b-3186-4d42-fc91-08dbaa66f3c0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2023 21:12:15.4927
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v4 4/6] xen/vpci: header: status register handler
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20230828175858.30780-1-stewart.hildebrand@amd.com>
+ <20230828175858.30780-5-stewart.hildebrand@amd.com>
+ <4a082785-7da1-caf9-3193-eb0a9a77a7bc@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <4a082785-7da1-caf9-3193-eb0a9a77a7bc@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CB:EE_|IA0PR12MB7651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9646f3e0-5ffa-4a09-c479-08dbaa68da83
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Qkk7ljRqWmlDbL9FuVtDnqMByFhP6FVMpRH8lIuLf0jTjn8LQMizdqmNhWJoowXrz2q61EW8M19lrSncMeCJ+wQ44E3EtWwAA1ViITp762e2h0AZ3bLyntmEYp9ElwdDUMtby3ZSZiUbl+FFeoAeAjiOQ30UOv350Ktq52JyVqACAUJTDGhiIBvEHzfOg7cRSeZuQMM8IqyF7dwkgC056hgUKRLX8FUT22LYehS7bnStbPoVY9EvriwLP/ZN68Tk1QO8HqH5Uy10ayX44FYAvZDY9qnj3Rz08fLVMDm2YhmPHgYiLISkkqUMLzTn14dQlf/jPri+QCsdHZ03QZbQUQ8z6esdosRAAlW21OIpmmNS1eGufF9qJkKdjo7h2fPa4xGvkV0D/7vbBfFooSvQhwVTaA+DvaGTkuGtugHvqdo3MpRC0QBxDi0LCA23Z437hhroU6fVXruc0BXl3ueQlDak4RKt1Gq2hfJKjGwHG4kg3vUaaRA7E9OLY6WNBOCijSDKW1qrlVIiGujMLl8oecyanQeFdqdDzcU6naz6/PRTHpXLptpNsC5ubIFKzZakFyBBjHntlCRz1wFL6dOOGTlKsOpHFv5IAb9cxYlXRP0lJG69ZpugVw24+QK7FMXGh2q2xyEea0XEz5as95V8iio5DUgim2ISgDSpVZjMO+wARhmbAv3R8b8lmu/G90HnHYKgGrVSbEopY8YiKZ2A9e3zJObXtBfmm6ElOi8n1tR3L/fBe+xltIlhY02HP0grR9S8494H8Lkc/Zy2LeVgnz/TCLFpzgSiKwUOws1L2ufN9lRqdfsUyw7kgci2ezGy
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(1800799009)(186009)(451199024)(82310400011)(40470700004)(46966006)(36840700001)(82740400003)(31686004)(356005)(6666004)(40460700003)(36756003)(86362001)(36860700001)(81166007)(40480700001)(47076005)(31696002)(2616005)(2906002)(426003)(336012)(26005)(53546011)(83380400001)(478600001)(70586007)(70206006)(8936002)(54906003)(8676002)(4326008)(5660300002)(44832011)(41300700001)(16576012)(6916009)(316002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 21:25:52.1821
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1cqWVX3DmsSuzV2l2o83V8m09gRbTJ9SBhHGuZXEgM/9YZpmox3830O2ZzAkFiJFczZmdchh2s0uC5KCE3u5dQOisMra9U/YPaJzzlzySFA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7764
-X-Proofpoint-GUID: ZBPhICh9l4EMMLtZyH30r3fMpSxpecHu
-X-Proofpoint-ORIG-GUID: ZBPhICh9l4EMMLtZyH30r3fMpSxpecHu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-31_18,2023-08-31_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 mlxlogscore=972
- malwarescore=0 bulkscore=0 clxscore=1015 spamscore=0 adultscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2308310189
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9646f3e0-5ffa-4a09-c479-08dbaa68da83
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015CB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7651
 
+On 8/30/23 10:05, Jan Beulich wrote:
+> On 28.08.2023 19:56, Stewart Hildebrand wrote:
+>> --- a/xen/drivers/vpci/header.c
+>> +++ b/xen/drivers/vpci/header.c
+>> @@ -413,6 +413,18 @@ static void cf_check cmd_write(
+>>          pci_conf_write16(pdev->sbdf, reg, cmd);
+>>  }
+>>
+>> +static uint32_t cf_check status_read(const struct pci_dev *pdev,
+>> +                                     unsigned int reg, void *data)
+>> +{
+>> +    struct vpci_header *header = data;
+>> +    uint32_t status = pci_conf_read16(pdev->sbdf, reg);
+>> +
+>> +    if ( header->mask_cap_list )
+>> +        status &= ~PCI_STATUS_CAP_LIST;
+>> +
+>> +    return status;
+>> +}
+> 
+> Imo we also cannot validly pass through any of the reserved bits. Doing so
+> is an option only once we know what purpose they might gain.
 
-Hi Jan,
+OK. I think in the long term, having a res_mask in struct vpci_register for the reserved bits will be more flexible.
 
-Jan Beulich <jbeulich@suse.com> writes:
+> (In this
+> context I notice our set of PCI_STATUS_* constants isn't quite up-to-date.)
 
-> On 30.08.2023 01:19, Volodymyr Babchuk wrote:
->> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>=20
->> Assign SBDF to the PCI devices being passed through with bus 0.
->> The resulting topology is where PCIe devices reside on the bus 0 of the
->> root complex itself (embedded endpoints).
->> This implementation is limited to 32 devices which are allowed on
->> a single PCI bus.
->>=20
->> Please note, that at the moment only function 0 of a multifunction
->> device can be passed through.
->>=20
->> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com=
->
->> ---
->> Since v9:
->> - Lock in add_virtual_device() replaced with ASSERT (thanks, Stewart)
->
-> Also peeking at a few other patches where similar change remarks exist,
-> I'm slightly confused by them: Is this submission v9 or v10?
+I'll add these 2 new constants in the next version of the series (in a separate patch):
+#define  PCI_STATUS_IMM_READY  0x01    /* Immediate Readiness */
 
-Sorry, looks like I was using wrong wording. This is submission
-v9. Under "Since v9" I meant "in v9 and further".
+#define  PCI_STATUS_INTERRUPT  0x08    /* Interrupt status */
 
---=20
-WBR, Volodymyr=
+>> @@ -544,6 +556,11 @@ static int cf_check init_bars(struct pci_dev *pdev)
+>>      if ( rc )
+>>          return rc;
+>>
+>> +    rc = vpci_add_rw1c_register(pdev->vpci, status_read, vpci_hw_write16,
+>> +                                PCI_STATUS, 2, header, 0xF900);
+> 
+> Rather than a literal number, imo this wants to be an OR of the respective
+> PCI_STATUS_* constants (which, if you like, could of course be consolidated
+> into a new PCI_STATUS_RW1C_MASK, to help readability).
+
+OK.
+
+>> @@ -167,6 +174,7 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
+>>      r->size = size;
+>>      r->offset = offset;
+>>      r->private = data;
+>> +    r->rw1c_mask = rw1c_mask;
+> 
+> To avoid surprises with ...
+> 
+>> @@ -424,6 +443,7 @@ static void vpci_write_helper(const struct pci_dev *pdev,
+>>          uint32_t val;
+>>
+>>          val = r->read(pdev, r->offset, r->private);
+>> +        val &= ~r->rw1c_mask;
+>>          data = merge_result(val, data, size, offset);
+> 
+> ... the user of this field, should you either assert that no bits beyond
+> the field size are set, or simply mask to the respective number of bits?
+
+Good point, I'll mask it (in add_register()).
+
+Stew
 
