@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED99D78E960
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 11:29:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593562.926564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1BD778E979
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 11:33:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593570.926574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbdyj-0003zB-Sl; Thu, 31 Aug 2023 09:28:41 +0000
+	id 1qbe3I-0005t7-GO; Thu, 31 Aug 2023 09:33:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593562.926564; Thu, 31 Aug 2023 09:28:41 +0000
+Received: by outflank-mailman (output) from mailman id 593570.926574; Thu, 31 Aug 2023 09:33:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbdyj-0003wN-Oa; Thu, 31 Aug 2023 09:28:41 +0000
-Received: by outflank-mailman (input) for mailman id 593562;
- Thu, 31 Aug 2023 09:28:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbe3I-0005pX-Dl; Thu, 31 Aug 2023 09:33:24 +0000
+Received: by outflank-mailman (input) for mailman id 593570;
+ Thu, 31 Aug 2023 09:33:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xL7T=EQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qbdyi-0003wH-5A
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 09:28:40 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2060b.outbound.protection.outlook.com
- [2a01:111:f400:fe16::60b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c3d282a2-47e0-11ee-9b0d-b553b5be7939;
- Thu, 31 Aug 2023 11:28:38 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM9PR04MB8603.eurprd04.prod.outlook.com (2603:10a6:20b:43a::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.21; Thu, 31 Aug
- 2023 09:28:36 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.021; Thu, 31 Aug 2023
- 09:28:36 +0000
+ (envelope-from <SRS0=YD1y=EQ=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
+ id 1qbe3G-0005pR-RB
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 09:33:22 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20621.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::621])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6be56da1-47e1-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 11:33:21 +0200 (CEST)
+Received: from MW2PR2101CA0024.namprd21.prod.outlook.com (2603:10b6:302:1::37)
+ by DM8PR12MB5400.namprd12.prod.outlook.com (2603:10b6:8:3b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.35; Thu, 31 Aug
+ 2023 09:33:17 +0000
+Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
+ (2603:10b6:302:1:cafe::55) by MW2PR2101CA0024.outlook.office365.com
+ (2603:10b6:302:1::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.9 via Frontend
+ Transport; Thu, 31 Aug 2023 09:33:16 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6745.17 via Frontend Transport; Thu, 31 Aug 2023 09:33:16 +0000
+Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 31 Aug
+ 2023 04:33:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,123 +56,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3d282a2-47e0-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 6be56da1-47e1-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n7DF6LsYalU+nuqcyeNaETMtNr2NBDRwRqvygTCnp6AruVGtkn259KevQ4BgRTAJq7wjorlWAPrrHlGf7Ztvvtuwn9iu+zzc1R7nuOhnszGJ5KUYcmYPBOPwlhBAgZJnpP+m41OxrCxXMNE3xrlQjxR+7D7MEhnIbQVmm0ST9DoFBfGzLfKtvBtZ/WigHCJ2ER0P6mHX00GGXKhXeF+j97H2cgknNeEGx9mXn0fNW3Jw/Xfn+9DD9iBjVunLrtyWegMNELynhkgSg7nck0czB0ZXVkO3EkKa3oClsf1cgAgB58zqQYcvYPHjlIhrxnDC1mur61fVGYizMEA5qdi/dQ==
+ b=NWpia6LSni2HH+R19FgEnQYCWCD4FSkSL+exj7E2WwupvwdI6WpCu+j/TiBRCGl0PGcfcF7iChmsjMGXrXubmlGykWXmFh5hot4hQuGy9FZFWnpJLTEytJRRdh8Y9/5jzMWVLKQOGKzG6Qj/+5vhh9x5DIeOdTrbamNgk0zlSzy2Ar/OFbLqijdLP86iyhW86flFS+l5iLD0TPoWHZMnyDKMQWvUZAcvqh2XiwuYw1hTIAzN99HW3bShBzPkMFWS7HD7RCeEoMgDP8TndzjSsmYyB73znR4UULrWoXIPUvVGBiGfyTNAMoyKh7a/44BnBZhkhjW7OroShWlcXE6isg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2QUAgFrJtAGTeOb+9lVw09OYL1UkH/W5XKr1yWb31sU=;
- b=ZsGBjsMFyawXkBdwZYJVJAKZ/H3NvRayY3sIBUkuEOU0Ef5qpJTvkwOJWL+Kl/tHWNykRWsT75udpTr+j5QMSrT3i7uQ51su4/p1sd7UTRm71YecMVl6mFmgA2xJ58GHUvPGwCUCib0tov6XDaJc/faYv5AAVXg37nX4z8zHwks1sCazyCEWsmzIP9XrnnmptahlsKCFl5m9SdDTdFO9lZBK53AGhmDSLyATZaVq7l2n/UDBO3FpgkpLLA4Y8zq39xbmXIor8zyFBXF+yl1KbcSnWYXgNHCzt3LBjUwEm6XSsqBis2qV5kNNTcRRYvwXJJMJkZtsg8EAUoVxwSdkMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=40iM+fZux/xCi4XmCq6hzMQOQ9bUd0OFvX4rrQtY/pc=;
+ b=UU60r8fG+F1JJnuVh3njYnUoA0j36Ri9Ge1O/iRm2NVXokLmvphlFrU7Lps5uy3kdxslZsdyRLZaausYz0bYT15cqjXguzAcuNO/GZcKRlm4TT/1glJOCK/zI6gWzW3Dl6FbFZZjkGruldIrwSNzs8+uAH9gFCEpBm0DuBJVE+bujdJia+ITiS+fO2yfwrI540vvVcvsQoWVSxof9P1DmJw/SZ5hkCypEquXGm9/bWisbFX15b6u7RZHODneIch+7LdbIntSPRutYSfgxaKSuK+IaaUH8UN4XrOW3WHoFst1KvNA/sHyS3PoNwGsUYy7WJar2yixnrMcolUx26y/+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2QUAgFrJtAGTeOb+9lVw09OYL1UkH/W5XKr1yWb31sU=;
- b=eMl4sopjs16ATZePEoiAb4wSCshlVw/OCHUiPqQGumOpkp2rqsWKF+9oqirrEgwTSEmiazdMnqKrlZlqRF14/Ss6CmqjNI9H8egJQrtVObVCgIa6O6k5cSrEbhpsje7bU3344/QlmmgqkQ6OEGnzrUT0cnqHSICTaJWIj2IKr9ERh1vTLEk4lZUD4Ozqa1tx+xe8bcKL1CfWX0f/YG8JLoZtoCMjssQ3TJ9g75tJ1otiGH+lpPkdfCy+8fGBmYtAjrbvk0DJBU9ihg9KOQDsPB/gA8IMVqRc4hDHV4XyE83T1S7zyGdWGGnUEdJ5oiud1CQFpL0O6HmTBSp6FD4iOA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <58f72b39-701f-6f7a-eba7-fa685d35b8cd@suse.com>
-Date: Thu, 31 Aug 2023 11:28:33 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v2] docs/misra: add 14.3
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, julien@xen.org,
- george.dunlap@citrix.com, bertrand.marquis@arm.com,
- roberto.bagnara@bugseng.com, nicola.vetrini@bugseng.com,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20230831015316.531167-1-sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230831015316.531167-1-sstabellini@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0113.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+ bh=40iM+fZux/xCi4XmCq6hzMQOQ9bUd0OFvX4rrQtY/pc=;
+ b=N/oWC1EG6DRzt1lSSUXsSQ9YalQ4H8wUMdaG1Gqx/4XU6WRECl46UOTtK9wEgnryOfMKNP9yZtTM4kGcGbSOBm5+4rYV62A/zPOjhqVAjKIHWwc1E3BYLo+oquOE+yAywVqogH6wfDpJ15kG1Hauaq75LFBUOXufzWeNSjCVhpg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Huang Rui <ray.huang@amd.com>
+To: Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Antonio Caggiano
+	<antonio.caggiano@collabora.com>, "Dr . David Alan Gilbert"
+	<dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>, "Dmitry
+ Osipenko" <dmitry.osipenko@collabora.com>, =?UTF-8?q?Alex=20Benn=C3=A9e?=
+	<alex.bennee@linaro.org>, <qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, Gurchetan Singh
+	<gurchetansingh@chromium.org>, <ernunes@redhat.com>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>, Akihiko Odaki
+	<akihiko.odaki@daynix.com>, Alyssa Ross <hi@alyssa.is>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Alex Deucher
+	<alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+	<christian.koenig@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, "Honglei
+ Huang" <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>, "Chen
+ Jiqian" <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
+Subject: [QEMU PATCH v4 00/13] Support blob memory and venus on qemu
+Date: Thu, 31 Aug 2023 17:32:39 +0800
+Message-ID: <20230831093252.2461282-1-ray.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8603:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1376e15e-85e5-4c6c-86a5-08dbaa04a6dd
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|DM8PR12MB5400:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf3c0d40-ad27-4e8e-874f-08dbaa054e60
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	pH8gFnIBvRRjBlDDr3jc2VBpIF6hIpfrkJfVoaqBNwcTmZOIBLwKxZiiJ9Q5XYO7Z+FfJLd6jFiyY/rYHkI4C8EjpdxWzYkS4vlCihiy8XFjQ/DDXl3Xurr8zx8Ws9/UeOfYFjYsRRrxvS4mF3nhJ6wCpR2cqp0cWBCA9HJ5Ql2GH0KIfoKBPPvAsa9Pn54EXgKwiw+mfA3t0K3NZsPXNyYp/S2dpKCnYjknk+Ge6U8bhfZW+MDcHbhlpXV/8AAZcNDt6vFmRTIdHx3v9v6NVpJyMcBKr/kbI2EwDSxeELRG6E0gpt+wSpyCVPUVcez934el2PvIj9wNCapKOYByfNqeSMqV938pi3QUyKAhVtTpaZsOuX0v59PmHxv7uVeJr+UKtrGYkxW02FuhhlDWcl9G84ftJAruQFI+dIG7kC/u5mseKDvvup2qlfW5g0ujTAuEb8/zjLLYQTzPIrhg21o/wXRJNRzQaNTK3WY6659XmN5YqFkXp+53Hzq0TiryZveuh5gVRUibLD4MwruAiHmDF4N05d3Q+JI+TbQudJVP2m01QVJrhnOU6w4p79tTTDNeCWcRH+/wFN6gbmo/+Inf754ZkEhlU5r4mALaibD+l6vQbZVyKTs2/G/kYrFZQRzA9NtxJ7PVviccI0YSwA==
+	/iHGW0ABY3mH3/L11xmSshoBnuBFKerSyq8+VZw7zz6+m+CjsrIR9MTOBAmZctxICpznEIkv+vCK2EZ2+oPaZmEE5bWvDX4V6c0lkJ6lel278gJITQrFs8ZLYqidcYGvsw5EymjMhrVICA4mWtGKLvu9yw6xJJqQIQkHP89iVywcEw5vLohJ+dQ9GLKIVaGfKFCRIM8Q7kyBECmoD3uDjzP0hzkjTELuVi2HdIwp8tBLiBvpZMqAVfSarMsD9qjr1DosHliR5w5ixpyIqTNBSwKiCz0jTKEHNfKi07M/OrN1s3Fvz4bR1KwiZo3jUIHyFo8xjgKnd7B43vs3s16VvaT/coxurAqol5mDdK1cWU+30Ei5Mk+55T9O3qtzGKtpgrpuEx2X0D6wdnnEgK8coDsAIOpKArtS9ot4HyPr1q8nhfeN77GUCsXLGdixmMplfoBD/V7C4IhbNR9NRBx0qbtyt6hMogr+BaKsZdtkMVgqGqw5IhtcdvsKwxVXz8IaXHPh5T9cLfzygjK+OvPXxKXagAipjbu/0Pwho1e4AKmpgiAHvhhKXIAltZ5L3dMHV7bDBl2Gqg6ng5DALDsxnihiKDUbI+wVpKGJZwGTZ9qizzQoHzvGW8KPoNfPigJT8ta+PFn4iRSm9ixReY48vKBLNh2f5XhQSNEL2KozxSrgbPC7ZE6z6Fx2tQjwe6RQx41BTI5x4oND7b3Gge1mCRrhbP3Hy/oLQtRfnM5XSRt/wl8hf8D6FPewiawwuTL6WBI4dBwuohjB33f/7ZzRAfGsYK5qCeNzCRU9DyivEgWkWDb1LGyUQKSk+BRHHgz6
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(39860400002)(136003)(376002)(396003)(186009)(1800799009)(451199024)(6486002)(6666004)(6506007)(6512007)(53546011)(478600001)(83380400001)(4744005)(2616005)(26005)(2906002)(7416002)(6916009)(66556008)(66476007)(41300700001)(66946007)(4326008)(5660300002)(316002)(8676002)(8936002)(36756003)(86362001)(31696002)(38100700002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eDMxOHNva3hMNytwV1dCd2lJYWhRWlZwQkN3UmkzZEVvamRnaEw2Rld3VDFy?=
- =?utf-8?B?d3FPdWRZV1I1Nk5WNythOXhWQWtZMjNtNHREbjJEaG9wZ2VGYXRZYk9FZHRB?=
- =?utf-8?B?NFA5Vjl6MXp5VTdaRXk3aXlLZzJZRU5aQ2UrU2NrTkxVOHZvd3BiMGFMZHVi?=
- =?utf-8?B?eHZ2TFRCWmlxVHZianAzbTR5NHl4SnR2RjA0TTd5eS82My80QzNUc1RCVlZI?=
- =?utf-8?B?K1JBNC9rbXBSRkhhUGs4dFhVZnh0MDFEZ0VFWG5FVDNrcTFVWE85emJ1eFhm?=
- =?utf-8?B?L0x6UlJ6OGkzT1N1bm50NEdQRGRwc2hTeEhtR3RvdjhEU2YwbzRTaDZiSVZr?=
- =?utf-8?B?SXRzN0dBZWc2cnhzTHlmengxbFkwSW8rbkVHcDdscnBnMnpkWjJlWEErckpT?=
- =?utf-8?B?T1JHY1ZpbUU5alBQdGpWNjNrUldWNndPZWxHbkVpR2VCM0VBTXhFMWpoUW5U?=
- =?utf-8?B?OW9taE5ScndVTUxUWDZtMTloY0RUL21mSDVnOTJLSHh6OFczb085VlA5RTBt?=
- =?utf-8?B?WXZtbTl4d2tHa3gyZmwycHR4ckpoRHJZQVZna2dXMTNrTlp4QWpNVkpGaDJD?=
- =?utf-8?B?dXZwdk1xQUxHTHRtK1dRNDVBMWsxRUFIZ09xU1lrTXVqeHY3aWlEZ3loaFZY?=
- =?utf-8?B?Y0dVTTBlbUtITHdhb0FmWHJUSm1ZdjVONzNyN1U2UE9RaHBrcDdVd3hERW5F?=
- =?utf-8?B?MEJkV2k3dGwwdHhkTkxHMFhxMDZxYUNxeHExaExrSEgvcnB3OWZJbUE1RU9M?=
- =?utf-8?B?S1pnYmsvVGlWSmZjZVd6WWJMdW53OThNLy9pWmpsbSthZnB4bloyUm9BRXU2?=
- =?utf-8?B?MEQwVmF6TnhzWnFrbThEWlRkTkJmY3prM0lKMG4vUXFFampRSE8raytIbHJT?=
- =?utf-8?B?YUhXdFhiK21nTFk3MmhUbG9ZVjNJQUFlay9uRDEzOU1DNkozTFlEa3ExcXF0?=
- =?utf-8?B?QlRhUUNEV1dVb1ZpS1BnQ0NnNkYxRUxuZ0hmTGxNRzNvRG02aGZSeFFveERR?=
- =?utf-8?B?dWlERmhEWkZOMzlMZnRnaGhPTlNwMHdxWm1YNm51S0Q4MDJNOVZDbmhQYjM1?=
- =?utf-8?B?YXNGOEdHb09meEk5ckJvdjNlZVhhWVQvcUlmWmNhQmluWTNocHZJOE05QkVn?=
- =?utf-8?B?VHZuUWlwZFlUdTNPeUFOQTJRWFNSVE1wWllQdlcxeVZkaDN2a1BOVFRJZWla?=
- =?utf-8?B?WmlQOHhOTzZrSFQ5VnBjWVJJa2x2WXZHOEhNdHlFRjM2cXBVRTdKVEVjb0RM?=
- =?utf-8?B?WVZMcURtT09wZExYc2lIK3RJUkpoSmR3U3UvMVBFOVhJbGVweVgzL0pmR2R6?=
- =?utf-8?B?b0xycUJiZllNcE1SWVNONktONXdhRGtUdlppazlGWnR1RUZLKys1VlBheDN3?=
- =?utf-8?B?RXdYQnFWeVlrZ0xpWTdWditibU5xc2F4TDM2V3g0dGxNWUhjanMzOVNPMC9H?=
- =?utf-8?B?cisxRUg1YnhzNjc5YmU1d3RyM3dleHhubDdSMmQ2ZTlQQlNMT3RvZGRmYXN4?=
- =?utf-8?B?ekl4SjVjNzRvdERPdHR5NlFOK00vWEdSVlRUVFVxbTRXaWM3Ym1HbXp3cEdh?=
- =?utf-8?B?bkJQc3JuM2ZoWGlvUG9lL2NYT2J4djhqQjVJd3Z1SzVzaTVid3ROVTkrQnR6?=
- =?utf-8?B?Z0J2SHNKTWtNSWc4aG5ISnQ1aHNScGFnNFhXb1VtQ29wVEljVHpqVE1DajhI?=
- =?utf-8?B?UUZTL1lTUGxRa3hYU0J5dVczZkwvenJhRzU5cmcvaTNKWWk5bGhZTFdWK1pP?=
- =?utf-8?B?eE1OY2ZEVVBrS0pENHEvUzFHRVJZcW5XRmw2Mld2SkhGWHFLcHZ6bmJsUU1o?=
- =?utf-8?B?VE15c05wUWJmWjlVN3JoZXhhcUpKZ0tyeFFSb2N6NXNMUHJEVURqM01WTXAx?=
- =?utf-8?B?Z3JtZjcrQVVnVUlGZFNOMERuZVZZclA1a3ZJU3JHOS9FSXVlRXRrUVJZVnZo?=
- =?utf-8?B?TkNrdDNSZzJzdkh5d3lvNjhCcDZvK2tqbjVQRzVQb2VXTjdTSHNIUm5vYXpm?=
- =?utf-8?B?dTN5bmFBNCtnTElSNDZYdGlFZWwrWmI5NUhHbDdSQkUxa2lVQlhiSnd0RDVW?=
- =?utf-8?B?bklIVndUdzY0dENQS1NaYk5iM2tvZVRmUkFqS3MwRmRhZjJORFZVa2pzL2Vu?=
- =?utf-8?Q?cTyUJxiz4pN1m7qdRN/JNePeV?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1376e15e-85e5-4c6c-86a5-08dbaa04a6dd
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 09:28:36.0314
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(82310400011)(451199024)(1800799009)(186009)(40470700004)(36840700001)(46966006)(426003)(40460700003)(316002)(66899024)(41300700001)(5660300002)(336012)(4326008)(7416002)(8676002)(47076005)(16526019)(83380400001)(2616005)(86362001)(26005)(36756003)(1076003)(36860700001)(2906002)(40480700001)(8936002)(6666004)(356005)(82740400003)(81166007)(921005)(7696005)(966005)(54906003)(70206006)(70586007)(478600001)(110136005)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 09:33:16.8001
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qBdnXI3O4rnX5d8Cu8wShGM0p9WnX8WSI3vzJ8gQD4x0LmOrNYrApfxG1WBSkjOnC9gcVvqbEksrtayQIs+0iA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8603
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf3c0d40-ad27-4e8e-874f-08dbaa054e60
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000989E9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5400
 
-On 31.08.2023 03:53, Stefano Stabellini wrote:
-> @@ -332,6 +333,17 @@ maintainers if you want to suggest a change.
->       - A loop counter shall not have essentially floating type
->       -
->  
-> +   * - `Rule 14.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_03.c>`_
-> +     - Required
-> +     - Controlling expressions shall not be invariant
-> +     - Due to the extensive usage of IS_ENABLED, sizeof compile-time
-> +       checks, and other constructs that are detected as errors by MISRA
-> +       C scanners, managing the configuration of a MISRA C scanner for
-> +       this rule would be unmanageable. Thus, this rule is adopted with
-> +       a project-wide deviation on if and ?: statements.
+Hi all,
 
-As before - switch(sizeof(...)) and alike also wants deviating, imo.
+Antonio Caggiano made the venus with QEMU on KVM platform last
+September[1]. This series are inherited from his original work to support
+the features of context init, hostmem, resource uuid, and blob resources
+for venus.
+At March of this year, we sent out the V1 version[2] for the review. But
+those series are included both xen and virtio gpu. Right now, we would like
+to divide into two parts, one is to continue the Antonio's work to upstream
+virtio-gpu support for blob memory and venus, and another is to upstream
+xen specific patches. This series is focusing on virtio-gpu, so we are
+marking as V4 version here to continue Antonio's patches[1]. And we will
+send xen specific patches separately, because they are hypervisor specific.
+Besides of QEMU, these supports also included virglrenderer[3][4] and
+mesa[5][6] as well. Right now, virglrenderer and mesa parts are all
+accepted by upstream. In this qemu version, we try to address the concerns
+around not proper cleanup during blob resource unmap and unref. Appreciate
+it if you have any commments.
 
-> +       while(0) and while(1) are allowed.
+[1] https://lore.kernel.org/qemu-devel/20220926142422.22325-1-antonio.caggiano@collabora.com/
+[2] V1: https://lore.kernel.org/qemu-devel/20230312092244.451465-1-ray.huang@amd.com
+[3] https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1068
+[4] https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1180
+[5] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22108
+[6] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/23680
 
-... and alike ... (to also cover e.g. while(true)).
+Please note the first 4 patches 1 -> 4 are inlcuded in these series because
+the series depends on them and not because we want them to be reviewed
+since they are already in the process of review through the "rutabaga_gfx +
+gfxstream" series.
+- https://lore.kernel.org/qemu-devel/20230829003629.410-1-gurchetansingh@chromium.org/
 
-Jan
+Changes from V1 to V2 (virtio gpu V4)
+
+- Remove unused #include "hw/virtio/virtio-iommu.h"
+
+- Add a local function, called virgl_resource_destroy(), that is used
+  to release a vgpu resource on error paths and in resource_unref.
+
+- Remove virtio_gpu_virgl_resource_unmap from
+  virtio_gpu_cleanup_mapping(),
+  since this function won't be called on blob resources and also because
+  blob resources are unmapped via virgl_cmd_resource_unmap_blob().
+
+- In virgl_cmd_resource_create_blob(), do proper cleanup in error paths
+  and move QTAILQ_INSERT_HEAD(&g->reslist, res, next) after the resource
+  has been fully initialized.
+
+- Memory region has a different life-cycle from virtio gpu resources
+  i.e. cannot be released synchronously along with the vgpu resource.
+  So, here the field "region" was changed to a pointer and is allocated
+  dynamically when the blob is mapped.
+  Also, since the pointer can be used to indicate whether the blob
+  is mapped, the explicite field "mapped" was removed.
+
+- In virgl_cmd_resource_map_blob(), add check on the value of
+  res->region, to prevent beeing called twice on the same resource.
+
+- Add a patch to enable automatic deallocation of memory regions to resolve
+  use-after-free memory corruption with a reference.
+
+References
+
+Demo with Venus:
+- https://static.sched.com/hosted_files/xen2023/3f/xen_summit_2023_virtgpu_demo.mp4
+QEMU repository:
+- https://gitlab.freedesktop.org/rui/qemu-xen/-/commits/upstream-for-virtio-gpu
+
+Thanks,
+Ray
+
+Antonio Caggiano (6):
+  virtio-gpu: CONTEXT_INIT feature
+  virtio-gpu: blob prep
+  virtio-gpu: Handle resource blob commands
+  virtio-gpu: Resource UUID
+  virtio-gpu: Support Venus capset
+  virtio-gpu: Initialize Venus
+
+Dmitry Osipenko (1):
+  virtio-gpu: Don't require udmabuf when blobs and virgl are enabled
+
+Dr. David Alan Gilbert (1):
+  virtio: Add shared memory capability
+
+Gerd Hoffmann (1):
+  virtio-gpu: hostmem
+
+Huang Rui (3):
+  virtio-gpu: Support context init feature with virglrenderer
+  virtio-gpu: Configure context init for virglrenderer
+  virtio-gpu: Enable virglrenderer render server flag for venus
+
+Xenia Ragiadakou (1):
+  softmmu/memory: enable automatic deallocation of memory regions
+
+ hw/display/trace-events                     |   1 +
+ hw/display/virtio-gpu-base.c                |   5 +
+ hw/display/virtio-gpu-pci.c                 |  14 +
+ hw/display/virtio-gpu-virgl.c               | 270 +++++++++++++++++++-
+ hw/display/virtio-gpu.c                     |  61 ++++-
+ hw/display/virtio-vga.c                     |  33 ++-
+ hw/virtio/virtio-pci.c                      |  18 ++
+ include/hw/virtio/virtio-gpu-bswap.h        |  15 ++
+ include/hw/virtio/virtio-gpu.h              |  22 ++
+ include/hw/virtio/virtio-pci.h              |   4 +
+ include/standard-headers/linux/virtio_gpu.h |   2 +
+ meson.build                                 |   8 +
+ softmmu/memory.c                            |  19 +-
+ 13 files changed, 446 insertions(+), 26 deletions(-)
+
+-- 
+2.34.1
+
 
