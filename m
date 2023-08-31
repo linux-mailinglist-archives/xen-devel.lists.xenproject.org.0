@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D084678F0F3
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 18:11:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594025.927197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56E378F229
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 19:49:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594032.927207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbkGd-00036I-9b; Thu, 31 Aug 2023 16:11:35 +0000
+	id 1qbllv-0005hs-2T; Thu, 31 Aug 2023 17:47:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594025.927197; Thu, 31 Aug 2023 16:11:35 +0000
+Received: by outflank-mailman (output) from mailman id 594032.927207; Thu, 31 Aug 2023 17:47:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbkGd-00033k-6g; Thu, 31 Aug 2023 16:11:35 +0000
-Received: by outflank-mailman (input) for mailman id 594025;
- Thu, 31 Aug 2023 16:11:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xL7T=EQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qbkGc-00033c-3P
- for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 16:11:34 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20603.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::603])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c6e178a-4819-11ee-9b0d-b553b5be7939;
- Thu, 31 Aug 2023 18:11:31 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM8PR04MB7347.eurprd04.prod.outlook.com (2603:10a6:20b:1d0::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.34; Thu, 31 Aug
- 2023 16:11:29 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.021; Thu, 31 Aug 2023
- 16:11:28 +0000
+	id 1qbllu-0005gB-U2; Thu, 31 Aug 2023 17:47:58 +0000
+Received: by outflank-mailman (input) for mailman id 594032;
+ Thu, 31 Aug 2023 17:47:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z9zM=EQ=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qbllu-0005fK-1Q
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 17:47:58 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8347395e-4826-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 19:47:55 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id F35988285183;
+ Thu, 31 Aug 2023 12:47:53 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Wy0MrPEhccYC; Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 832C3828538A;
+ Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id qfbLZ-aUquAX; Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 158798285183;
+ Thu, 31 Aug 2023 12:47:52 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,168 +51,439 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c6e178a-4819-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QnnMsx+wpJhRkj3+ed6mYC0KeVvPmZlKkpbFptfg5htMFV5ki5Mqlmrk9+bMo9VEyJKJoqONYAQhVRcM2jSgvE0WUhuyeRSPNBnnqOLfgEESItlAWKuEO80+A2QY3UaxSU61sMqjaIYXamgBoD0TWPYokM1+P9xNEw0jzcVSsW4aQ5ZoDcrD9UDN6K5qE2UjhdAp8PATskm/gfr27RbW6SEs8BoQ9ljFy9yWLlRbarhT+cDTNyYWdQ9Bqyzzx8m/og4PsJ18hAxOILJbqYEnWBp49ILSBr19Ba1CTMFSmU4tB2I88UpLY4UWNewD2Q1qgWhSa6jxobv4xFJ495FQ3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4secnyOR9xjOEmdLFhXnwxRHt1I72HTXMJCoq5dR7m0=;
- b=c5712NtdKIEb1NRuwSZuGubXdOwzZIGUJmmpYPB8ECh+kSLImiy+TDYpH6Ka3jP8+Z+xaRbLr7Vw+qxeKQ+9RVTKCqUFnWb4yxo+ErDGJUenEzz5vkePXPSmphfkrTGa2a0IpT3Wm6qNajiHh9X4fi7HL5F7htUNakFYX7HOaX+pTEh4Z4sdsOzrdbADJ0QnNMp9zmwqXYMj5/yrissbR56zkjnyffjR6ZArbCuAdarLFf8VKNrFBjntY0MEg++YyWrWVvxurXaaywl8sywFhS7X89JcY+CfhgZsJ7qTBVUPOtAYTElloxqusouhJRT6kt0hPEd1Qjolnr0XCW6JSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4secnyOR9xjOEmdLFhXnwxRHt1I72HTXMJCoq5dR7m0=;
- b=Tr8DrojFAIfy6X7yWqKfI2zMZyEsHpPtwQVsqwS5qT8t+XOCAdfgSmNZewoTRX208khDUzkQTdTmwXRlVqOT0CnkWv6bk/CYaeIf7Dd6gc89yHq1f4K/UgPipYQOaGspUbctnH6fRrCN0Rl82rhZtCaSBMmL0pj40oX1azJGsz4rKbgQjjg+5bPgdsYSkJl59H2pyXtdou+89OZJ8CYdAC8cQAmto41vogYKonTm9VSx0iCkAkbiN7dgJE+qI+Fpm2sza1S6My5lg0056rkLY7SdeAdWQ072/W3ypVW5BPHBH5QxVp2x7gLFbhWq1EgbmBgtZygnXZoA0hf9mAGfKQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <926bf22d-de80-d19f-2b76-1a8eb7d9e26c@suse.com>
-Date: Thu, 31 Aug 2023 18:11:26 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v3 2/2] xen: move arm/include/asm/vm_event.h to
- asm-generic
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1693414172.git.oleksii.kurochko@gmail.com>
- <ee7c3aa566dadd9350f39f5aedbfce3ae72ba663.1693414172.git.oleksii.kurochko@gmail.com>
- <3a165375-0dd2-9a3b-403d-2306acd60b92@suse.com>
- <03d68a602592d9f542936ec7b5fc3b33777720cf.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <03d68a602592d9f542936ec7b5fc3b33777720cf.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0131.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 8347395e-4826-11ee-8783-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 832C3828538A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1693504072; bh=PbyX2jOG3+u8jIViCmJyyd7ppkGx1yZXtgJiDh0EKAg=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=aN3r4yK6DpDp4tYafq5pmr/Fm+msZpdgk0j/MSsASIpYiRRbq92G59R6ArmGlfoVC
+	 JjySpqUiDgW/6RdRCan4lcIN96WNcFrWgfEryFmIiCXS1CGznZrjy0iF+PWUE4wO2M
+	 j3Qp1lt4V/GVPPNBjK7vHXTzhtC+T+wz71ibQnPc=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <80aa376b-137d-b799-cc3e-4e080abc2500@raptorengineering.com>
+Date: Thu, 31 Aug 2023 12:47:51 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM8PR04MB7347:EE_
-X-MS-Office365-Filtering-Correlation-Id: a479f18c-6fba-480d-214a-08dbaa3ceefc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	l7CaBIJEDk+MvqcCJc7HmpBzdwLPLuzY10s2zMcnqweBu5974OZWq+OF7CDqTwPdcttSrLV5WIBWDMv7IPu8jdGC2SeAJrpelFYwyFruvBw/4WtfDkis4SKXzhX3sNTFWUXRTISwulyOwW/B3vXMpt3xcxdMxYVAjysbGRjcYASb0+WzBbZlWqfFyO/mXdSvZ4g+aGf+4n7AlNRCcoXIPQ9WM8UAFYSp+WN32VM6PBxSv2RLYetvmVYJxOI1u8kNt18Lt59HQFddZ6fyU21m6YXTdVQHi67bIyJVR2daj+K0mrQ2tK50bGKyjmlMsAz4rumKt7gyMfVc8ogvBSdkveYhKod2myUA6SIB0Cw7PLVp7TIePXlSq2q3gyvHAGERcxsVGDAiJO7aRj8crqAh4Rr7EyGEq9gF2OKxrRVtS+bISOzXCXzdO0G7Q2EYr8aNAFOhM6UXxwQIJQfJCKiEZFGNI+7KFAr4jxCNRhwqJd0vwUBYUAdjnntIiSYqPShRYRsx9poVU1Z+xtcHzUMLpuR8y3565blu2MMT6/rccpL/9AwywYMhliwvR55xn4LmCdmc2qhGN00zEf72YJyv08l/LRhaXeHF9x0IdHjk2kAuVhwkWahJLuKc1Q/zpHgTVPkBx22VAe50+sYMYJKMafWih5RMH3QoHfQ3SDOrA7Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(136003)(366004)(346002)(39860400002)(186009)(1800799009)(451199024)(478600001)(83380400001)(26005)(31686004)(2616005)(6486002)(31696002)(53546011)(6512007)(6506007)(5660300002)(66556008)(8936002)(54906003)(6916009)(38100700002)(66476007)(2906002)(36756003)(8676002)(86362001)(41300700001)(4326008)(316002)(66946007)(41533002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bndqbkV4NGkxK1F3YThpMWkwcGM0SzZSN09obXUwOHU2TW9pTlBvVlNnbVBC?=
- =?utf-8?B?SllHdzhNN0s2R1lodjNHSndoYVRGNWgzYkJwd3RSUTlvR3BscXg4YnFtWWh0?=
- =?utf-8?B?NmtaSWh4MUV2SVR1U2UzZ2pVeDBEVG1heU85bVV1bERmclUxL2tSTktFMlFi?=
- =?utf-8?B?V2FYY2NLRDRsWlJ5c1hQb2dBTmhCMnJhd3NHaGUyeGZIQUhqd2YrTkJ3NTl6?=
- =?utf-8?B?OXZWN0xkeTA0Tnd1ZkFScE9yTWhYM0NHUDZvMjBjcEIwTWNBdnQ1N3hXZDlC?=
- =?utf-8?B?aVprNGw5MmdrcnhZc0FDbytSVUdQTFdaeDdaRVQrT1MwM0FtaUU2NFFKQk5m?=
- =?utf-8?B?V0ZoMDFrcHB0VlJQYUorWTZnQytTbUZBTGxJeGM3NWFYSThCem1qT1NqcFJz?=
- =?utf-8?B?T2dzVmhxZ2hVeFhZa2NOMllVTENpRWlVUExOUXdkZU1nTWdWb1RHaTc3THFY?=
- =?utf-8?B?WFJrU0VrOWN2aGEvaHRnN3RoNlIyMU1abzJjM1B3cG5mUkQzWXFvakpOcUpW?=
- =?utf-8?B?YXhrejlUQmtSWlk2ckF6VDcvTDNEdUZvQlRwUlRwUFNPQzhPbFhWU3JhNXFD?=
- =?utf-8?B?WCsxaTQyQXYxL0NZQUtkWWVxODdUNFpkTC9adTU4alZHTmN3L2FaSzMzUG1T?=
- =?utf-8?B?eTlkT1dpa2llZC8wUWxudWNEcmRNbzhJQm05eWVGWVdpT3BnWlQ1UGFMaWIz?=
- =?utf-8?B?eWlmVXVGT1M1U25IdGp3LzYwV1hYZkx6Q004QVQ1VlBoeHBVN0UzYlJncUVZ?=
- =?utf-8?B?NnRRSGpBaWQrb3pxY21udkRLM2pwODIzSjN4blh6ekdRa1BOa2J6NXIxd2pv?=
- =?utf-8?B?VjJ5UU1rVjBsLzgwcjJCSG1tNDd2MC9naWJGQ0E2dHVHdkR3d0RkNHFsa29j?=
- =?utf-8?B?dFJzaFUvU2t1OFRnb00xSVNBb3VMbEhBODBoL3VDWHdHS2hvQVVsNDgrYWtM?=
- =?utf-8?B?aUVabnhjMHNtWk9IaG1NSElGTWxFV0orTE4xaVUwUDkzKzE0dnFnZUxmUE9n?=
- =?utf-8?B?NStKdkE1MDVqRy9JVVdUQjRLVGphNDRUYTg1NVIzRFhqVmdLUTQrd1plbFdS?=
- =?utf-8?B?V2J0NUtobU1TNDlHSFFQUUtPaG52Q09FTGFQOEI5MGFVd2NUN1lTbEJJMmJ6?=
- =?utf-8?B?L2RMMjMwQ0ZqdkRGSGNBVGpsSVppRUR3UENMbTcvYXJNVzVVT1dmTVU3R244?=
- =?utf-8?B?MzNETUtMVUxKZ1o2dFRMdG1SQlp3b3hxbjZ5NEhqMHJCbDcvZGhMdUIrMm52?=
- =?utf-8?B?U2tlRElHS3NQNHUwemNVQko1QUJ4L0xBbHJtRHBMTVU2aW9zOVBBR3crbnJM?=
- =?utf-8?B?RXlPQTR5T1RZMnc1SEtWSkFKZGNLQlVSOEY3S1V5NWoxSTJ5QTVPbHN2ME9D?=
- =?utf-8?B?VnFPbmx0OXZTUGc5amNDWEJ5ME9OcURRQ0E0NUYxQWdER1lLVFdkTGhBdmEw?=
- =?utf-8?B?QkVyQnB3SUhhRjRGWVFlVXA5bGhSdGcwWVZ1d01uU1lCZTdMZTlCNlRWZGRN?=
- =?utf-8?B?RVcwU1Z2djk0bytoemh6RGxheXJjUzlhdDN5QVE5akRmcGFUZ09yL0JNK3Ri?=
- =?utf-8?B?ZlZncnJ0VklPNmI5cDZQN0ZTRVhyNW0yMENxQXllN2N2TFVFQXlzdXNMR1JX?=
- =?utf-8?B?SnFuSXNmbFgzL0JyK3djeFpxZFllR3hYZVc1N0h1SExlaVFTWXFXWmpRYktt?=
- =?utf-8?B?NFVFQm9QUTRGc1hhT2Mwekp6clBmd1RlUXQxWVB2b3Z6bld3YjFmbWEyNERU?=
- =?utf-8?B?Tkx3UEZPM0JDT0JUOHdvdFN5cnR0R1B3RXJSYnJyM2xKMDFMR3Rra0VBRFpk?=
- =?utf-8?B?d2ZVNythQk5rNlE1eGlqekMxQXBCcjNwWE14Sm5JWnJBNUE2aC9vQStYcEhx?=
- =?utf-8?B?cjRwcVpqQUhmUUlJcTBmWWJoZ0xqc0tTNUtDQ1BBc3J1MXp6MUFnNUZXdXg4?=
- =?utf-8?B?SFJJaGpUL2xkeUNxWnJDYm55elUzZ1M4RWFoU1RkZU94NTM0UXAvUHBRa3Iy?=
- =?utf-8?B?Ry9zTUo0Sno3Y3FDWjBlOTdDOHZQbUJoYWZva3pPbEx2MGtaUVc0RldxL0Y3?=
- =?utf-8?B?TGdDVEt2MStQdEpzbWFtL3Y4MkRFaEFxOGlZNHg4QkttUUN4VTl0c0VVRkNJ?=
- =?utf-8?Q?dbraeB3Z9uCfiqXZSSSnZdVE+?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a479f18c-6fba-480d-214a-08dbaa3ceefc
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 16:11:28.9355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5AjwpGY7wWJK+i6zDHsI2YIKdUr0KKMg1yMAW4jLISpwM0DwOY5JRijQVCtR7IbEeqJV83Iimj+IikZwDQUoYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7347
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v2 3/8] xen/ppc: Implement atomic.h
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1692816595.git.sanastasio@raptorengineering.com>
+ <6d97bdeb1c114026105e72c6ee6e1b024565bf95.1692816595.git.sanastasio@raptorengineering.com>
+ <257cd320-fe81-f1be-f3e5-ef43e539660a@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <257cd320-fe81-f1be-f3e5-ef43e539660a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 31.08.2023 16:02, Oleksii wrote:
-> On Thu, 2023-08-31 at 11:46 +0200, Jan Beulich wrote:
->> On 30.08.2023 18:57, Oleksii Kurochko wrote:
->>> ---
->>>  xen/arch/arm/include/asm/vm_event.h    | 66 ----------------------
->>> ----
->>>  xen/include/asm-generic/asm/vm_event.h | 55 +++++++++++++++++++++
->>>  2 files changed, 55 insertions(+), 66 deletions(-)
->>>  delete mode 100644 xen/arch/arm/include/asm/vm_event.h
->>>  create mode 100644 xen/include/asm-generic/asm/vm_event.h
->>
->> While it's a comment on the first patch, it's really better making
->> here:
->> Did you look at Linux? They don't put an intermediate asm/ here.
->> Instead
->> see their scripts/Makefile.asm-generic. That way an arch still has
->> control which generic headers it gets access to, without duplicating
->> any
->> of them.
+On 8/29/23 8:43 AM, Jan Beulich wrote:
+> On 23.08.2023 22:07, Shawn Anastasio wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/include/asm/atomic.h
+>> @@ -0,0 +1,390 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +/*
+>> + * PowerPC64 atomic operations
+>> + *
+>> + * Copyright (C) 2001 Paul Mackerras <paulus@au.ibm.com>, IBM
+>> + * Copyright (C) 2001 Anton Blanchard <anton@au.ibm.com>, IBM
+>> + * Copyright Raptor Engineering LLC
+>> + *
+>> + * This program is free software; you can redistribute it and/or
+>> + * modify it under the terms of the GNU General Public License
+>> + * as published by the Free Software Foundation; either version
+>> + * 2 of the License, or (at your option) any later version.
+>> + */
 > 
-> IIUC scripts/Makefile.asm-generic script is needed to generate a
-> wrapper for a header which will contain:
-> #include <asm-generic/some.h>
-> if it is mentioned generic-y += some.h in
-> arch/${ARCH}/include/asm/Kbuild.
+> License text again despite the SPDX header?
+>
+
+Will fix.
+
+>> +#ifndef _ASM_PPC64_ATOMIC_H_
+>> +#define _ASM_PPC64_ATOMIC_H_
+>> +
+>> +#include <xen/atomic.h>
+>> +
+>> +#include <asm/memory.h>
+>> +#include <asm/system.h>
 > 
-> But do we need this generated wrapper header?
-> Do we need all the support of generic-y in Kbuild, etc.?
+> I can see that you need memory.h, but I can't spot a need for system.h.
+>
 
-For a single header we could likely get away without. But vm_event.h is
-only the first example.
+Just confirmed, you're correct. I'll drop it.
 
-> In the previous patch of this patch series, it was added inclusion of
-> $(srctree)/include/asm-generic after the inclusion of
-> $(srctree)/arch/$(SRCARCH)/include so it will first look if the arch-
-> specific header exists, and if not then use generic one.
+>> +static inline int atomic_read(const atomic_t *v)
+>> +{
+>> +    return *(volatile int *)&v->counter;
+>> +}
+>> +
+>> +static inline int _atomic_read(atomic_t v)
+>> +{
+>> +    return v.counter;
+>> +}
+>> +
+>> +static inline void atomic_set(atomic_t *v, int i)
+>> +{
+>> +    v->counter = i;
+>> +}
+>> +
+>> +static inline void _atomic_set(atomic_t *v, int i)
+>> +{
+>> +    v->counter = i;
+>> +}
+>> +
+>> +void __bad_atomic_read(const volatile void *p, void *res);
+>> +void __bad_atomic_size(void);
+>> +
+>> +#define build_atomic_read(name, insn, type)                                    \
+>> +    static inline type name(const volatile type *addr)                         \
+>> +    {                                                                          \
+>> +        type ret;                                                              \
+>> +        asm volatile ( insn "%U1%X1 %0,%1" : "=r" (ret) : "m<>" (*addr) );     \
+>> +        return ret;                                                            \
+>> +    }
+>> +
+>> +#define build_atomic_write(name, insn, type)                                   \
+>> +    static inline void name(volatile type *addr, type val)                     \
+>> +    {                                                                          \
+>> +        asm volatile ( insn "%U0%X0 %1,%0" : "=m<>" (*addr) : "r" (val) );     \
+>> +    }
+>> +
+>> +#define build_add_sized(name, ldinsn, stinsn, type)                            \
+>> +    static inline void name(volatile type *addr, type val)                     \
+>> +    {                                                                          \
+>> +        type t;                                                                \
+>> +        asm volatile ( "1: " ldinsn " %0,0,%3\n"                               \
+>> +                       "add%I2 %0,%0,%2\n"                                     \
+>> +                       stinsn " %0,0,%3 \n"                                    \
+>> +                       "bne- 1b\n"                                             \
+>> +                       : "=&r" (t), "+m" (*addr)                               \
+>> +                       : "r" (val), "r" (addr)                                 \
+>> +                       : "cc" );                                               \
+>> +    }
+>> +
+>> +build_atomic_read(read_u8_atomic, "lbz", uint8_t)
+>> +build_atomic_read(read_u16_atomic, "lhz", uint16_t)
+>> +build_atomic_read(read_u32_atomic, "lwz", uint32_t)
+>> +build_atomic_read(read_u64_atomic, "ldz", uint64_t)
+>> +
+>> +build_atomic_write(write_u8_atomic, "stb", uint8_t)
+>> +build_atomic_write(write_u16_atomic, "sth", uint16_t)
+>> +build_atomic_write(write_u32_atomic, "stw", uint32_t)
+>> +build_atomic_write(write_u64_atomic, "std", uint64_t)
+>> +
+>> +build_add_sized(add_u8_sized, "lbarx", "stbcx.",uint8_t)
+>> +build_add_sized(add_u16_sized, "lharx", "sthcx.", uint16_t)
+>> +build_add_sized(add_u32_sized, "lwarx", "stwcx.", uint32_t)
+>> +
+>> +#undef build_atomic_read
+>> +#undef build_atomic_write
+>> +#undef build_add_sized
+>> +
+>> +static always_inline void read_atomic_size(const volatile void *p, void *res,
+>> +                                           unsigned int size)
+>> +{
+>> +    ASSERT(IS_ALIGNED((vaddr_t) p, size));
 > 
-> Probably I misunderstood you and your suggestion was to have
-> scripts/Makefile.asm-generic which will generate folder asm/ with
-> necessary headers in arch specific folder?
+> Nit: Stray blank before p (several more below).
+>
 
-Yes.
+Will fix.
 
-> So basically it was just a
-> question if asm/ folder should exist in $(srctree)/include/asm-generic
-> or not?
+>> +    switch ( size )
+>> +    {
+>> +    case 1:
+>> +        *(uint8_t *)res = read_u8_atomic(p);
+>> +        break;
+>> +    case 2:
+>> +        *(uint16_t *)res = read_u16_atomic(p);
+>> +        break;
+>> +    case 4:
+>> +        *(uint32_t *)res = read_u32_atomic(p);
+>> +        break;
+>> +    case 8:
+>> +        *(uint64_t *)res = read_u64_atomic(p);
+>> +        break;
+>> +    default:
+>> +        __bad_atomic_read(p, res);
+>> +        break;
+>> +    }
+>> +}
+>> +
+>> +static always_inline void write_atomic_size(volatile void *p, void *val,
+> 
+> const void *val? (But then below also don't cast away constness.)
+>
 
-Not really, no. For "#include <asm/...>" to work, you can't simply omit
-asm/ under asm-generic/. That's where the generated wrapper headers
-come into play.
+Sure, that's reasonable. Will fix.
 
-> One more thing I would like to clarify is the duplicating of the
-> headers you mentioned above.
-> But if the architecture doesn't want to use a generic header, then it
-> still needs to add the header to arch/${ARCH}/include/asm and remove
-> mention of the header from arch/${ARCH}/include/asm/Kbuild.
+>> +                                            unsigned int size)
+>> +{
+>> +    ASSERT(IS_ALIGNED((vaddr_t) p, size));
+>> +    switch ( size )
+>> +    {
+>> +    case 1:
+>> +        write_u8_atomic(p, *(uint8_t *)val);
+>> +        break;
+>> +    case 2:
+>> +        write_u16_atomic(p, *(uint16_t *)val);
+>> +        break;
+>> +    case 4:
+>> +        write_u32_atomic(p, *(uint32_t *)val);
+>> +        break;
+>> +    case 8:
+>> +        write_u64_atomic(p, *(uint64_t *)val);
+>> +        break;
+>> +    default:
+>> +        __bad_atomic_size();
+>> +        break;
+>> +    }
+>> +}
+>> +
+>> +#define read_atomic(p)                                                         \
+>> +    ({                                                                         \
+>> +        union {                                                                \
+>> +            typeof(*(p)) val;                                                  \
+>> +            char c[0];                                                         \
+> 
+> Using [0] here is likely to set us up for compiler complaints ...
+>
 
-But then it's using its own custom header, not a duplication of whatever
-is the (in the case here) stub one.
+AIUI zero-length members are explicitly permitted as a GNU extension,
+but their usage here wasn't an explicit choice on my part as this macro
+was inherited from arm's atomic.h. See below.
 
-Jan
+>> +        } x_;                                                                  \
+>> +        read_atomic_size(p, x_.c, sizeof(*(p)));                               \
+> 
+> ... here. Can't this simply be c[sizeof(*(val))]? And do you need
+> a union here in the first place, when read_atomic() takes void* as
+> its 2nd parameter?
+>
+
+Yes, I should have taken a closer look at this before importing it from
+arm. The type punning does seem entirely redundant given that
+read_atomic_size takes a void* -- I'm not sure why it was written this
+way to begin with.
+
+In any case, I'll do away with the unnecessary union.
+
+>> +        x_.val;                                                                \
+>> +    })
+>> +
+>> +#define write_atomic(p, x)                                                     \
+>> +    do                                                                         \
+>> +    {                                                                          \
+>> +        typeof(*(p)) x_ = (x);                                                 \
+>> +        write_atomic_size(p, &x_, sizeof(*(p)));                               \
+>> +    } while ( 0 )
+>> +
+>> +#define add_sized(p, x)                                                        \
+>> +    ({                                                                         \
+>> +        typeof(*(p)) x_ = (x);                                                \
+>> +        switch ( sizeof(*(p)) )                                                \
+>> +        {                                                                      \
+>> +        case 1:                                                                \
+>> +            add_u8_sized((uint8_t *) (p), x_);                                \
+>> +            break;                                                             \
+>> +        case 2:                                                                \
+>> +            add_u16_sized((uint16_t *) (p), x_);                              \
+>> +            break;                                                             \
+>> +        case 4:                                                                \
+>> +            add_u32_sized((uint32_t *) (p), x_);                              \
+>> +            break;                                                             \
+>> +        default:                                                               \
+>> +            __bad_atomic_size();                                               \
+>> +            break;                                                             \
+>> +        }                                                                      \
+>> +    })
+> 
+> Nit: Padding wants to align the backslashes.
+>
+
+Will fix.
+
+>> +static inline void atomic_add(int a, atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( "1: lwarx %0,0,%3\n"
+>> +                   "add %0,%2,%0\n"
+>> +                   "stwcx. %0,0,%3\n"
+>> +                   "bne- 1b"
+>> +                   : "=&r" (t), "+m" (v->counter)
+> 
+> I notice you use "+m" here, but ...
+> 
+>> +                   : "r" (a), "r" (&v->counter)
+>> +                   : "cc" );
+>> +}
+>> +
+>> +static inline int atomic_add_return(int a, atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
+>> +                   "1: lwarx %0,0,%2\n"
+>> +                   "add %0,%1,%0\n"
+>> +                   "stwcx. %0,0,%2\n"
+>> +                   "bne- 1b"
+>> +                   PPC_ATOMIC_EXIT_BARRIER
+>> +                   : "=&r" (t)
+>> +                   : "r" (a), "r" (&v->counter)
+>> +                   : "cc", "memory" );
+>> +
+>> +    return t;
+>> +}
+>> +
+>> +static inline void atomic_sub(int a, atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( "1: lwarx %0,0,%3\n"
+>> +                   "subf %0,%2,%0\n"
+>> +                   "stwcx. %0,0,%3\n"
+>> +                   "bne- 1b"
+>> +                   : "=&r" (t), "=m" (v->counter)
+>> +                   : "r" (a), "r" (&v->counter), "m" (v->counter)
+> 
+> ... why not here (and again below)?
+>
+
+This has to do with the origin of these functions. The functions taken
+from the original Xen ppc implementation seem to not use +m (as we've
+seen in a few other instances before from the same port). I'll go
+through and update all of these functions to use +m instead.
+
+>> +                   : "cc" );
+>> +}
+>> +
+>> +static inline int atomic_sub_return(int a, atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
+>> +                   "1: lwarx %0,0,%2\n"
+>> +                   "subf %0,%1,%0\n"
+>> +                   "stwcx. %0,0,%2\n"
+>> +                   "bne- 1b"
+>> +                   PPC_ATOMIC_EXIT_BARRIER
+>> +                   : "=&r" (t)
+>> +                   : "r" (a), "r" (&v->counter)
+>> +                   : "cc", "memory" );
+>> +
+>> +    return t;
+>> +}
+>> +
+>> +static inline void atomic_inc(atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( "1: lwarx %0,0,%2\n"
+>> +                   "addic %0,%0,1\n"
+>> +                   "stwcx. %0,0,%2\n"
+>> +                   "bne- 1b"
+>> +                   : "=&r" (t), "=m" (v->counter)
+>> +                   : "r" (&v->counter), "m" (v->counter)
+>> +                   : "cc" );
+>> +}
+>> +
+>> +static inline int atomic_inc_return(atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
+>> +                   "1: lwarx %0,0,%1\n"
+>> +                   "addic %0,%0,1\n"
+>> +                   "stwcx. %0,0,%1\n"
+>> +                   "bne- 1b"
+>> +                   PPC_ATOMIC_EXIT_BARRIER
+>> +                   : "=&r" (t)
+>> +                   : "r" (&v->counter)
+>> +                   : "cc", "memory" );
+>> +
+>> +    return t;
+>> +}
+>> +
+>> +static inline void atomic_dec(atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( "1: lwarx %0,0,%2\n"
+>> +                   "addic %0,%0,-1\n"
+>> +                   "stwcx. %0,0,%2\n"
+>> +                   "bne- 1b"
+>> +                   : "=&r" (t), "=m" (v->counter)
+>> +                   : "r" (&v->counter), "m" (v->counter)
+>> +                   : "cc" );
+>> +}
+>> +
+>> +static inline int atomic_dec_return(atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
+>> +                   "1: lwarx %0,0,%1\n"
+>> +                   "addic %0,%0,-1\n"
+>> +                   "stwcx. %0,0,%1\n"
+>> +                   "bne- 1b"
+>> +                   PPC_ATOMIC_EXIT_BARRIER
+>> +                   : "=&r" (t)
+>> +                   : "r" (&v->counter)
+>> +                   : "cc", "memory" );
+>> +
+>> +    return t;
+>> +}
+>> +
+>> +/*
+>> + * Atomically test *v and decrement if it is greater than 0.
+>> + * The function returns the old value of *v minus 1.
+>> + */
+>> +static inline int atomic_dec_if_positive(atomic_t *v)
+>> +{
+>> +    int t;
+>> +
+>> +    asm volatile( PPC_ATOMIC_ENTRY_BARRIER
+>> +                  "1: lwarx %0,0,%1 # atomic_dec_if_positive\n"
+>> +                  "addic. %0,%0,-1\n"
+>> +                  "blt- 2f\n"
+>> +                  "stwcx. %0,0,%1\n"
+>> +                  "bne- 1b\n"
+>> +                  PPC_ATOMIC_EXIT_BARRIER
+>> +                  "2:"
+>> +                  : "=&r" (t)
+>> +                  : "r" (&v->counter)
+>> +                  : "cc", "memory" );
+>> +
+>> +    return t;
+>> +}
+>> +
+>> +static inline atomic_t atomic_compareandswap(atomic_t old, atomic_t new,
+>> +                                             atomic_t *v)
+>> +{
+>> +    atomic_t rc;
+>> +    rc.counter = __cmpxchg(&v->counter, old.counter, new.counter, sizeof(int));
+>> +    return rc;
+>> +}
+>> +
+>> +#define arch_cmpxchg(ptr, o, n)                                                \
+>> +    ({                                                                         \
+>> +        __typeof__(*(ptr)) o_ = (o);                                          \
+>> +        __typeof__(*(ptr)) n_ = (n);                                          \
+>> +        (__typeof__(*(ptr))) __cmpxchg((ptr), (unsigned long) o_,             \
+>> +                                       (unsigned long) n_, sizeof(*(ptr)));   \
+>> +    })
+> 
+> Nit: Padding again.
+
+Will fix.
+
+> Jan
+
+Thanks,
+Shawn
 
