@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DC478EF7B
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 16:21:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.593977.927138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F07A78EF97
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Aug 2023 16:31:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.593987.927146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbiXn-00012w-FN; Thu, 31 Aug 2023 14:21:11 +0000
+	id 1qbihW-0003Tn-CF; Thu, 31 Aug 2023 14:31:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 593977.927138; Thu, 31 Aug 2023 14:21:11 +0000
+Received: by outflank-mailman (output) from mailman id 593987.927146; Thu, 31 Aug 2023 14:31:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbiXn-0000zs-AK; Thu, 31 Aug 2023 14:21:11 +0000
-Received: by outflank-mailman (input) for mailman id 593977;
- Thu, 31 Aug 2023 14:21:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qbihW-0003RZ-9W; Thu, 31 Aug 2023 14:31:14 +0000
+Received: by outflank-mailman (input) for mailman id 593987;
+ Thu, 31 Aug 2023 14:31:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qbiXl-0000xA-VC; Thu, 31 Aug 2023 14:21:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qbiXk-0001vh-Uk; Thu, 31 Aug 2023 14:21:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qbiXk-0008Ii-8T; Thu, 31 Aug 2023 14:21:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qbiXk-0001vJ-7j; Thu, 31 Aug 2023 14:21:08 +0000
+ (envelope-from <SRS0=5iW9=EQ=redhat.com=eblake@srs-se1.protection.inumbo.net>)
+ id 1qbihV-0003RN-F1
+ for xen-devel@lists.xenproject.org; Thu, 31 Aug 2023 14:31:13 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 07e666be-480b-11ee-8783-cb3800f73035;
+ Thu, 31 Aug 2023 16:31:12 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-662-QwdtIsOgPeiOv6oBBKVjRg-1; Thu, 31 Aug 2023 10:30:40 -0400
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3208C1C06EEB;
+ Thu, 31 Aug 2023 14:30:39 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.67])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FC0F1121315;
+ Thu, 31 Aug 2023 14:30:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,515 +50,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=UTl8sexmQfhv+HLSQr2m15Va3JEv0ow2o9gAK7kiANc=; b=KBngBs2P/GKpl7nSlQjs5vBQC/
-	TPi2HRopJNt4VO5/fmqwZ0RGlfqpQyeM0MFICQG4lAtIl/toykJnMNY0nWSeIjna/hAvW05e9eIrf
-	C7dRcFDym+Dcq0/l7nmcwjOwp/cLcmpsP1x05Un+OrmfIMmPOnQeGomjtEMDsSmxuR4Y=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182575-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 07e666be-480b-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1693492270;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/kFbfLpLhuT7B1TmnESfwEKgRAeWmv+5n/w5vt4fxsA=;
+	b=RMi6w5fSxB0tJSF961mxibZHVLBomdCO4SfB0FHATLak8bP9Yy5c37zgs4PazvXlpnIHnV
+	p0sT/InpIjSSZFRSwddQamVk/9Mw9IcUjr33xFXPhKgN2h03mv4+KuL8a7RjKaXzg0gmVW
+	LUQ7i/Ust0rbM5D1iPWL1b74NWNZSjQ=
+X-MC-Unique: QwdtIsOgPeiOv6oBBKVjRg-1
+Date: Thu, 31 Aug 2023 09:30:33 -0500
+From: Eric Blake <eblake@redhat.com>
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, kwolf@redhat.com, hreitz@redhat.com, 
+	vsementsov@yandex-team.ru, jsnow@redhat.com, idryomov@gmail.com, pl@kamp.de, sw@weilnetz.de, 
+	sstabellini@kernel.org, anthony.perard@citrix.com, paul@xen.org, pbonzini@redhat.com, 
+	marcandre.lureau@redhat.com, berrange@redhat.com, thuth@redhat.com, philmd@linaro.org, 
+	stefanha@redhat.com, fam@euphon.net, quintela@redhat.com, peterx@redhat.com, 
+	leobras@redhat.com, kraxel@redhat.com, qemu-block@nongnu.org, 
+	xen-devel@lists.xenproject.org, alex.bennee@linaro.org, peter.maydell@linaro.org
+Subject: Re: [PATCH 7/7] qobject atomics osdep: Make a few macros more
+ hygienic
+Message-ID: <vfkfi6uld3gbd4urmqdlzkv6djtws6mkbluc5qvwcla6btszhu@ff66zfyd7smm>
+References: <20230831132546.3525721-1-armbru@redhat.com>
+ <20230831132546.3525721-8-armbru@redhat.com>
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 182575: regressions - FAIL
-X-Osstest-Failures:
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start/debian.repeat:fail:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start/debian.repeat:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:guest-start.2:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-arndale:guest-start/debian.repeat:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:hosts-allocate:starved:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    linux=5eb967dd50a5a29952ab6e6b1ef4bf216cf1652c
-X-Osstest-Versions-That:
-    linux=fd2a1d1f32ea37c57a8b46a0857f06fd7274dd2c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 31 Aug 2023 14:21:08 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230831132546.3525721-8-armbru@redhat.com>
+User-Agent: NeoMutt/20230517
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 
-flight 182575 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182575/
+On Thu, Aug 31, 2023 at 03:25:46PM +0200, Markus Armbruster wrote:
 
-Regressions :-(
+[This paragraph written last: Bear with my stream of consciousness
+review below, where I end up duplicating some of the conslusions you
+reached before the point where I saw where the patch was headed]
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-credit1 18 guest-start/debian.repeat fail REGR. vs. 182363
- test-armhf-armhf-xl-multivcpu 18 guest-start/debian.repeat fail in 182569 REGR. vs. 182363
+> Variables declared in macros can shadow other variables.  Much of the
+> time, this is harmless, e.g.:
+> 
+>     #define _FDT(exp)                                                  \
+>         do {                                                           \
+>             int ret = (exp);                                           \
+>             if (ret < 0) {                                             \
+>                 error_report("error creating device tree: %s: %s",   \
+>                         #exp, fdt_strerror(ret));                      \
+>                 exit(1);                                               \
+>             }                                                          \
+>         } while (0)
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 15 guest-start.2 fail pass in 182569
- test-armhf-armhf-xl-multivcpu 14 guest-start               fail pass in 182569
- test-armhf-armhf-xl-arndale  18 guest-start/debian.repeat  fail pass in 182569
+Which is why I've seen some projects require a strict namespace
+separation: if all macro parameters and any identifiers declared in
+macros use either a leading or a trailing _ (I prefer a trailing one,
+to avoid risking conflicts with libc reserved namespace; but leading
+is usually okay), and all other identifiers avoid that namespace, then
+you will never have shadowing by calling a macro from normal code.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-rtds     14 guest-start             fail blocked in 182363
- test-armhf-armhf-xl-rtds 18 guest-start/debian.repeat fail in 182569 blocked in 182363
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check fail in 182569 never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check fail in 182569 never pass
- test-armhf-armhf-xl-rtds    15 migrate-support-check fail in 182569 never pass
- test-armhf-armhf-xl-rtds 16 saverestore-support-check fail in 182569 never pass
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182363
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182363
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 182363
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 182363
- test-armhf-armhf-xl-credit2  18 guest-start/debian.repeat    fail  like 182363
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 182363
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182363
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182363
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 182363
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182363
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 182363
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 182363
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182363
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl           3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-libvirt-xsm  3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-libvirt-raw  3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-xl-credit2   3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-xl-thunderx  3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-xl-xsm       3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-xl-vhd       3 hosts-allocate           starved in 182569 n/a
- test-arm64-arm64-xl-credit1   3 hosts-allocate           starved in 182569 n/a
+> 
+> Harmless shadowing in h_client_architecture_support():
+> 
+>         target_ulong ret;
+> 
+>         [...]
+> 
+>         ret = do_client_architecture_support(cpu, spapr, vec, fdt_bufsize);
+>         if (ret == H_SUCCESS) {
+>             _FDT((fdt_pack(spapr->fdt_blob)));
+>             [...]
+>         }
+> 
+>         return ret;
+> 
+> However, we can get in trouble when the shadowed variable is used in a
+> macro argument:
+> 
+>     #define QOBJECT(obj) ({                                 \
+>         typeof(obj) o = (obj);                              \
+>         o ? container_of(&(o)->base, QObject, base) : NULL; \
+>      })
+> 
+> QOBJECT(o) expands into
+> 
+>     ({
+> --->    typeof(o) o = (o);
+>         o ? container_of(&(o)->base, QObject, base) : NULL;
+>     })
+> 
+> Unintended variable name capture at --->.  We'd be saved by
+> -Winit-self.  But I could certainly construct more elaborate death
+> traps that don't trigger it.
 
-version targeted for testing:
- linux                5eb967dd50a5a29952ab6e6b1ef4bf216cf1652c
-baseline version:
- linux                fd2a1d1f32ea37c57a8b46a0857f06fd7274dd2c
+Indeed, not fully understanding the preprocessor makes for some
+interesting death traps.
 
-Last test of basis   182363  2023-08-16 16:45:54 Z   14 days
-Testing same since   182569  2023-08-30 14:44:38 Z    0 days    2 attempts
+> 
+> To reduce the risk of trapping ourselves, we use variable names in
+> macros that no sane person would use elsewhere.  Here's our actual
+> definition of QOBJECT():
+> 
+>     #define QOBJECT(obj) ({                                         \
+>         typeof(obj) _obj = (obj);                                   \
+>         _obj ? container_of(&(_obj)->base, QObject, base) : NULL;   \
+>     })
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abel Wu <wuyun.abel@bytedance.com>
-  Adrian Hunter <adrian.hunter@intel.com>
-  Alan Liu <haoping.liu@amd.com>
-  Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-  Alessio Igor Bogani <alessio.bogani@elettra.eu>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alexander Aring <aahringo@redhat.com>
-  Alfred Lee <l00g33k@gmail.com>
-  Amir Goldstein <amir73il@gmail.com>
-  Andreas Gruenbacher <agruenba@redhat.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrey Skvortsov <andrej.skvortzov@gmail.com>
-  Andrii Staikov <andrii.staikov@intel.com>
-  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-  Armin Wolf <W_Armin@gmx.de>
-  Arnd Bergmann <arnd@arndb.de>
-  Arpana Arland <arpanax.arland@intel.com> (A Contingent worker at Intel)
-  Atul Dhudase <adhudase@codeaurora.org>
-  Benjamin Coddington <bcodding@redhat.com>
-  Benjamin Gray <bgray@linux.ibm.com>
-  Biju Das <biju.das.jz@bp.renesas.com>
-  Bjorn Helgaas <bhelgaas@google.com>
-  Chengfeng Ye <dg573847474@gmail.com>
-  Christian Brauner <brauner@kernel.org>
-  Christian König <christian.koenig@amd.com>
-  Christian Marangi <ansuelsmth@gmail.com>
-  Chuck Lever <chuck.lever@oracle.com>
-  Clayton Yager <Clayton_Yager@selinc.com>
-  Colin Ian King <colin.i.king@gmail.com>
-  Cosmin Tanislav <cosmin.tanislav@analog.com>
-  Cosmin Tanislav <demonsingur@gmail.com>
-  Daniel Vetter <daniel.vetter@ffwll.ch>
-  Daniel Wheeler <daniel.wheeler@amd.com>
-  Dave Kleikamp <dave.kleikamp@oracle.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  David Teigland <teigland@redhat.com>
-  dengxiang <dengxiang@nfschina.com>
-  Doug Berger <opendmb@gmail.com>
-  Eric Dumazet <edumazet@google.com>
-  Eyal Birger <eyal.birger@gmail.com>
-  Feng Tang <feng.tang@intel.com>
-  Florian Fainelli <florian.fainelli@broadcom.com>
-  Florian Westphal <fw@strlen.de>
-  Fred Eckert <Frede@cmslaser.com>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Geert Uytterhoeven <geert@linux-m68k.org>
-  Georgi Djakov <georgi.djakov@linaro.org>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Gustavo A. R. Silva <gustavoars@kernel.org>
-  hackyzh002 <hackyzh002@gmail.com>
-  Hangbin Liu <liuhangbin@gmail.com>
-  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-  Hariprasad Kelam <hkelam@marvell.com>
-  Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-  Helge Deller <deller@gmx.de>
-  Ido Schimmel <idosch@nvidia.com>
-  Igor Mammedov <imammedo@redhat.com>
-  Immad Mir <mirimmad17@gmail.com>
-  J. Bruce Fields <bfields@redhat.com>
-  Jakob Koschel <jakobkoschel@gmail.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jamal Hadi Salim <jhs@mojatatu.com>
-  Jan Kara <jack@suse.cz>
-  Jani Nikula <jani.nikula@intel.com>
-  Jason Wang <jasowang@redhat.com>
-  Jason Xing <kernelxing@tencent.com>
-  Jay Vosburgh <jay.vosburgh@canonical.com>
-  Jerome Brunet <jbrunet@baylibre.com>
-  Jiaxun Yang <jiaxun.yang@flygoat.com>
-  Jiri Kosina <jkosina@suse.cz>
-  Joel Savitz <jsavitz@redhat.com>
-  Joerg Roedel <jroedel@suse.de>
-  Johan Hovold <johan+linaro@kernel.org>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Josip Pavic <Josip.Pavic@amd.com>
-  Julian Anastasov <ja@ssi.bg>
-  Justin Chen <justin.chen@broadcom.com>
-  Kishon Vijay Abraham I <kvijayab@amd.com>
-  Krishna Kurapati <quic_kriskura@quicinc.com>
-  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-  Kuniyuki Iwashima <kuniyu@amazon.com>
-  Lee Jones <lee@kernel.org>
-  Li Jun <jun.li@nxp.com>
-  Lin Ma <linma@zju.edu.cn>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lu Wei <luwei32@huawei.com>
-  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-  Marc Zyngier <maz@kernel.org>
-  Marco Morandini <marco.morandini@polimi.it>
-  Marek Vasut <marex@denx.de>
-  Mark Brown <broonie@kernel.org>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Martin KaFai Lau <martin.lau@kernel.org>
-  Masami Hiramatsu (Google) <mhiramat@kernel.org>
-  Masami Hiramatsu <mhiramat@kernel.org>
-  Matthieu Baerts <matthieu.baerts@tessares.net>
-  Matus Gajdos <matuszpd@gmail.com>
-  Mauro Carvalho Chehab <mchehab@kernel.org>
-  Maximilian Heyne <mheyne@amazon.de>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael S. Tsirkin <mst@redhat.com>
-  Michal Koutný <mkoutny@suse.com>
-  Michał Mirosław <mirq-linux@rere.qmqm.pl>
-  Mike Snitzer <snitzer@kernel.org>
-  Mike Snitzer <snitzer@redhat.com>
-  Mikulas Patocka <mpatocka@redhat.com>
-  Mimi Zohar <zohar@linux.ibm.com>
-  Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>
-  Nathan Lynch <nathanl@linux.ibm.com>
-  Nicolin Chen <nicoleotsuka@gmail.com>
-  Nikolay Aleksandrov <razor@blackwall.org>
-  Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Paolo Abeni <pabeni@redhat.com>
-  Paulo Alcantara (SUSE) <pc@manguebit.com>
-  Pavle Kotarac <Pavle.Kotarac@amd.com>
-  Peter Chen <peter.chen@kernel.org>
-  Petr Machata <petrm@nvidia.com>
-  Pina Chen <pina.chen@mediatek.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rafael J. Wysocki <rafael@kernel.org>
-  Randy Dunlap <rdunlap@infradead.org>
-  Ray Jui <ray.jui@broadcom.com>
-  Remi Pommarel <repk@triplefau.lt>
-  Rob Clark <robdclark@chromium.org>
-  Ruan Jinjie <ruanjinjie@huawei.com>
-  Russell Harmon <russ@har.mn>
-  Russell Harmon via samba-technical <samba-technical@lists.samba.org>
-  Saeed Mirzamohammadi <saeed.mirzamohammadi@oracle.com>
-  Sakari Ailus <sakari.ailus@linux.intel.com>
-  Sam Ravnborg <sam@ravnborg.org>
-  Sandeep Maheswaram <quic_c_sanm@quicinc.com>
-  Sasha Levin <sashal@kernel.org>
-  Serge Semin <fancer.lancer@gmail.com>
-  Sergey Shtylyov <s.shtylyov@omp.ru>
-  Shakeel Butt <shakeelb@google.com>
-  shanzhulig <shanzhulig@gmail.com>
-  Shawn Guo <shawnguo@kernel.org>
-  Shengjiu Wang <shengjiu.wang@gmail.com>
-  Shengjiu Wang <shengjiu.wang@nxp.com>
-  Sherry Sun <sherry.sun@nxp.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Simon Horman <horms@kernel.org>
-  Simon Wunderlich <sw@simonwunderlich.de>
-  Sishuai Gong <sishuai.system@gmail.com>
-  Stefan Wahren <stefan.wahren@i2se.com>
-  Steffen Klassert <steffen.klassert@secunet.com>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve French <stfrench@microsoft.com>
-  Steven Rostedt (Google) <rostedt@goodmis.org>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Sunil Goutham <sgoutham@marvell.com>
-  Sven Eckelmann <sven@narfation.org>
-  Taimur Hassan <syed.hassan@amd.com>
-  Takashi Iwai <tiwai@suse.de>
-  Tang Bin <tangbin@cmss.chinamobile.com>
-  Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Thomas Gleixner <tglx@linutronix.de>
-  Thomas Zimmermann <tzimmermann@suse.de>
-  Tony Lindgren <tony@atomide.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Tuo Li <islituo@gmail.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-  Victor Nogueira <victor@mojatatu.com>
-  Vijay Khemka <vijaykhemka@fb.com>
-  Vladimir Oltean <vladimir.oltean@nxp.com>
-  Wei Chen <harperchen1110@gmail.com>
-  William Breathitt Gray <william.gray@linaro.org>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
-  Wolfram Sang <wsa@kernel.org>
-  Woody Suwalski <terraluna977@gmail.com>
-  Xiaolei Wang <xiaolei.wang@windriver.com>
-  xiaoshoukui <xiaoshoukui@gmail.com>
-  xiaoshoukui <xiaoshoukui@ruijie.com.cn>
-  Xin Long <lucien.xin@gmail.com>
-  Xu Yang <xu.yang_2@nxp.com>
-  Yang Yingliang <yangyingliang@huawei.com>
-  Yangtao Li <frank.li@vivo.com>
-  Yangtao Li <tiny.windzz@gmail.com>
-  Ye Bin <yebin10@huawei.com>
-  Yibin Ding <yibin.ding@unisoc.com>
-  Yogesh <yogi.kernel@gmail.com>
-  Yuanjun Gong <ruc_gongyuanjun@163.com>
-  Yunfei Dong <yunfei.dong@mediatek.com>
-  Zhang Shurong <zhang_shurong@foxmail.com>
-  Zheng Yejian <zhengyejian1@huawei.com>
-  Zhengchao Shao <shaozhengchao@huawei.com>
-  Zhengping Jiang <jiangzp@google.com>
-  Zhu Wang <wangzhu9@huawei.com>
-  Ziyang Xuan <william.xuanziyang@huawei.com>
+Yep, goes back to the policy I've seen of enforcing naming conventions
+that ensure macros can't shadow normal code.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+> 
+> Works well enough until we nest macro calls.  For instance, with
+> 
+>     #define qobject_ref(obj) ({                     \
+>         typeof(obj) _obj = (obj);                   \
+>         qobject_ref_impl(QOBJECT(_obj));            \
+>         _obj;                                       \
+>     })
+> 
+> the expression qobject_ref(obj) expands into
+> 
+>     ({
+>         typeof(obj) _obj = (obj);
+>         qobject_ref_impl(
+>             ({
+> --->            typeof(_obj) _obj = (_obj);
+>                 _obj ? container_of(&(_obj)->base, QObject, base) : NULL;
+>             }));
+>         _obj;
+>     })
+> 
+> Unintended variable name capture at --->.
 
+Yep, you've just proven how macros calling macros requires care, as we
+no longer have the namespace protections.  If macro calls can only
+form a DAG, it is possible to choose unique intermediate declarations
+for every macro (although remembering to do that, and still keeping
+the macro definition legible, may not be easy).  But if you can have
+macros that form any sort of nesting loop (and we WANT to allow things
+like MIN(MIN(a, b), c) - which is such a loop), dynamic naming becomes
+the only solution.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> 
+> The only reliable way to prevent unintended variable name capture is
+> -Wshadow.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Yes, I would love to have that enabled eventually.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 
+> One blocker for enabling it is shadowing hiding in function-like
+> macros like
+> 
+>      qdict_put(dict, "name", qobject_ref(...))
+> 
+> qdict_put() wraps its last argument in QOBJECT(), and the last
+> argument here contains another QOBJECT().
+> 
+> Use dark preprocessor sorcery to make the macros that give us this
+> problem use different variable names on every call.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Sounds foreboding; hopefully not many macros are affected...
 
+> 
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> ---
+>  include/qapi/qmp/qobject.h |  8 +++++---
+>  include/qemu/atomic.h      | 11 ++++++-----
+>  include/qemu/osdep.h       | 34 +++++++++++++++++++---------------
+>  3 files changed, 30 insertions(+), 23 deletions(-)
 
-Not pushing.
+...okay, the size of the diffstat seems tolerable (good that we don't
+have many macros that expand to a temporary variable declaration and
+which are likely to be heavily reused from nested contexts).
 
-(No revision log; it would be 4971 lines long.)
+> 
+> diff --git a/include/qapi/qmp/qobject.h b/include/qapi/qmp/qobject.h
+> index 9003b71fd3..7b50fc905d 100644
+> --- a/include/qapi/qmp/qobject.h
+> +++ b/include/qapi/qmp/qobject.h
+> @@ -45,10 +45,12 @@ struct QObject {
+>      struct QObjectBase_ base;
+>  };
+>  
+> -#define QOBJECT(obj) ({                                         \
+> -    typeof(obj) _obj = (obj);                                   \
+> -    _obj ? container_of(&(_obj)->base, QObject, base) : NULL;   \
+> +#define QOBJECT_INTERNAL(obj, l) ({                                     \
+> +    typeof(obj) PASTE(_obj, l) = (obj);                                 \
+> +    PASTE(_obj, l)                                                      \
+> +        ? container_of(&(PASTE(_obj, l))->base, QObject, base) : NULL;  \
+>  })
+> +#define QOBJECT(obj) QOBJECT_INTERNAL((obj), __COUNTER__)
+
+Slick!  Every call to QOBJECT() defines a unique temporary variable
+name.  But as written, QOBJECT(o) expands to this (when __COUNTER__ is
+1):
+
+({
+  typeof((o)) _obj1 = ((o));
+  _obj1 ? container_of(&(_obj1)->base, QObject, base) : NULL;
+})
+
+which has three sets of redundant parens that could be elided.  Why do
+you need to add () around obj when forwarding to QOBJECT_INTERNAL()?
+The only way the expansion of the text passed through the 'obj'
+parameter can contain a comma is if the user has already parenthesized
+it on their end (not that I expect a comma expression to be a frequent
+argument to QOBJECT(), but who knows).  Arguing that it is to silence
+a syntax checker is weak; since we must NOT add parens around the
+parameters to QOBJECT_INTERNAL (calling PASTE((_obj), (l)) is
+obviously wrong).
+
+Meanwhile, the repetition of three calls to PASTE() is annoying.  How
+about:
+
+#define QOBJECT_INTERNAL_2(_obj, _tmp) ({ \
+  typeof _obj _tmp = _obj; \
+  _tmp ? container_of(&_tmp->base, QObject, base) : NULL; \
+  )}
+#define QOBJECT_INTERNAL_1(_arg, _tmp) QOBJECT_INTERNAL_2(_arg, _tmp)
+#define QOBJECT_INTERNAL(_arg, _ctr) \
+  QOBJECT_INTERNAL_1(_arg, PASTE(_obj, _ctr))
+#define QOBJECT(obj) QOBJECT_INTERNAL((obj), __COUNTER__)
+
+or:
+
+#define QOBJECT_INTERNAL_2(_obj, _tmp) ({ \
+  typeof(_obj) _tmp = (_obj); \
+  _tmp ? container_of(&_tmp->base, QObject, base) : NULL; \
+  )}
+#define QOBJECT_INTERNAL_1(_arg, _tmp) QOBJECT_INTERNAL_2(_arg, _tmp)
+#define QOBJECT_INTERNAL(_arg, _ctr) \
+  QOBJECT_INTERNAL_1(_arg, PASTE(_obj, _ctr))
+#define QOBJECT(obj) QOBJECT_INTERNAL(obj, __COUNTER__)
+
+where, in either case, QOBJECT(o) should then expand to
+
+({
+  typeof (o) _obj1 = (o);
+  _obj1 ? container_of(&_obj1->base, QObject, base) : NULL;
+})
+
+>  
+>  /* Required for qobject_to() */
+>  #define QTYPE_CAST_TO_QNull     QTYPE_QNULL
+> diff --git a/include/qemu/atomic.h b/include/qemu/atomic.h
+> index d95612f7a0..3f80ffac69 100644
+> --- a/include/qemu/atomic.h
+> +++ b/include/qemu/atomic.h
+> @@ -157,13 +157,14 @@
+>      smp_read_barrier_depends();
+>  #endif
+>  
+> -#define qatomic_rcu_read(ptr)                          \
+> -    ({                                                 \
+> +#define qatomic_rcu_read_internal(ptr, l)               \
+> +    ({                                                  \
+>      qemu_build_assert(sizeof(*ptr) <= ATOMIC_REG_SIZE); \
+> -    typeof_strip_qual(*ptr) _val;                      \
+> -    qatomic_rcu_read__nocheck(ptr, &_val);             \
+> -    _val;                                              \
+> +    typeof_strip_qual(*ptr) PASTE(_val, l);             \
+> +    qatomic_rcu_read__nocheck(ptr, &PASTE(_val, l));    \
+> +    PASTE(_val, l);                                     \
+>      })
+> +#define qatomic_rcu_read(ptr) qatomic_rcu_read_internal((ptr), __COUNTER__)
+
+Same observation about being able to reduce the number of PASTE()
+calls by adding yet another layer of macro invocations.
+
+>  
+>  #define qatomic_rcu_set(ptr, i) do {                   \
+>      qemu_build_assert(sizeof(*ptr) <= ATOMIC_REG_SIZE); \
+> diff --git a/include/qemu/osdep.h b/include/qemu/osdep.h
+> index 21ef8f1699..9c191ebe99 100644
+> --- a/include/qemu/osdep.h
+> +++ b/include/qemu/osdep.h
+> @@ -371,18 +371,21 @@ void QEMU_ERROR("code path is reachable")
+>   * have to open-code it.  Sadly, Coverity is severely confused by the
+>   * constant variants, so we have to dumb things down there.
+>   */
+> +#define PASTE(a, b) a##b
+> +#define MIN_INTERNAL(a, b, l)                                           \
+> +    ({                                                                  \
+> +        typeof(1 ? (a) : (b)) PASTE(_a, l) = (a), PASTE(_b, l) = (b);   \
+> +        PASTE(_a, l) < PASTE(_b, l) ? PASTE(_a, l) : PASTE(_b, l);      \
+> +    })
+
+And again.
+
+I think you are definitely on the right track to have all internal
+variable declarations within a macro definition use multi-layered
+expansion with the help of __COUNTER__ to ensure that the macro's
+temporary variable is globally unique; so if you leave it as written,
+I could live with:
+
+Reviewed-by: Eric Blake <eblake@redhat.com>
+
+But if you respin it to pick up any of my suggestions, I'll definitely
+spend another review cycle on the result.
+
+If it helps, here's what I ended up using in nbdkit:
+
+https://gitlab.com/nbdkit/nbdkit/-/blame/master/common/include/unique-name.h#L36
+/* https://stackoverflow.com/a/1597129
+ * https://stackoverflow.com/a/12711226
+ */
+#define XXUNIQUE_NAME(name, counter) name ## counter
+#define XUNIQUE_NAME(name, counter) XXUNIQUE_NAME (name, counter)
+#define NBDKIT_UNIQUE_NAME(name) XUNIQUE_NAME (name, __COUNTER__)
+
+https://gitlab.com/nbdkit/nbdkit/-/blame/master/common/include/minmax.h#L47
+#include "unique-name.h"
+
+#undef MIN
+#define MIN(x, y) \
+  MIN_1 ((x), (y), NBDKIT_UNIQUE_NAME (_x), NBDKIT_UNIQUE_NAME (_y))
+
+...
+#define MIN_1(x, y, _x, _y) ({                 \
+      __auto_type _x = (x);                    \
+      __auto_type _y = (y);                    \
+      _x < _y ? _x : _y;                       \
+    })
+
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
+
 
