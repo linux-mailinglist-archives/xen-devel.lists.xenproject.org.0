@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2CAC78F7DD
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Sep 2023 07:11:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594297.927628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CEB478F7DE
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Sep 2023 07:12:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594317.927639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbwRd-00051i-Ar; Fri, 01 Sep 2023 05:11:45 +0000
+	id 1qbwRt-00068s-Mg; Fri, 01 Sep 2023 05:12:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594297.927628; Fri, 01 Sep 2023 05:11:45 +0000
+Received: by outflank-mailman (output) from mailman id 594317.927639; Fri, 01 Sep 2023 05:12:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbwRd-0004zh-4o; Fri, 01 Sep 2023 05:11:45 +0000
-Received: by outflank-mailman (input) for mailman id 594297;
- Fri, 01 Sep 2023 05:11:43 +0000
+	id 1qbwRt-00065t-J3; Fri, 01 Sep 2023 05:12:01 +0000
+Received: by outflank-mailman (input) for mailman id 594317;
+ Fri, 01 Sep 2023 05:11:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JvPm=ER=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qbwGY-0000Nr-8t
- for xen-devel@lists.xenproject.org; Fri, 01 Sep 2023 05:00:18 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2061b.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::61b])
+ id 1qbwGZ-0000Nr-4x
+ for xen-devel@lists.xenproject.org; Fri, 01 Sep 2023 05:00:19 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70f13c05-4884-11ee-8783-cb3800f73035;
- Fri, 01 Sep 2023 07:00:17 +0200 (CEST)
-Received: from DM6PR17CA0006.namprd17.prod.outlook.com (2603:10b6:5:1b3::19)
- by CY5PR12MB6406.namprd12.prod.outlook.com (2603:10b6:930:3d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.18; Fri, 1 Sep
- 2023 05:00:13 +0000
-Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
- (2603:10b6:5:1b3:cafe::f1) by DM6PR17CA0006.outlook.office365.com
- (2603:10b6:5:1b3::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.22 via Frontend
- Transport; Fri, 1 Sep 2023 05:00:13 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.211) with Microsoft
+ id 7155dada-4884-11ee-8783-cb3800f73035;
+ Fri, 01 Sep 2023 07:00:18 +0200 (CEST)
+Received: from MW4PR03CA0013.namprd03.prod.outlook.com (2603:10b6:303:8f::18)
+ by CH3PR12MB9024.namprd12.prod.outlook.com (2603:10b6:610:176::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.22; Fri, 1 Sep
+ 2023 05:00:14 +0000
+Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
+ (2603:10b6:303:8f:cafe::2) by MW4PR03CA0013.outlook.office365.com
+ (2603:10b6:303:8f::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.23 via Frontend
+ Transport; Fri, 1 Sep 2023 05:00:14 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.16 via Frontend Transport; Fri, 1 Sep 2023 05:00:13 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6768.2 via Frontend Transport; Fri, 1 Sep 2023 05:00:13 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 1 Sep
- 2023 00:00:10 -0500
+ 2023 00:00:12 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 31 Aug
+ 2023 22:00:11 -0700
 Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Fri, 1 Sep 2023 00:00:10 -0500
+ Transport; Fri, 1 Sep 2023 00:00:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,35 +63,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70f13c05-4884-11ee-8783-cb3800f73035
+X-Inumbo-ID: 7155dada-4884-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mS19cTSXN6/r9Wq3MHKmemP8Tf3XLbO8epJyRe/JM/bn4MPKghtxY5uxoVant/2cdUitBSYM2k3RVQxMI8bea1xSd5o/FV/7xo34JBZsQshikFtgwjcxanxgENtuS3LcJKO4iHiGdI1+N1sPIjA4dGZpMbZLROyrasekLDhslAc6i3qzyXR6rgmH8YdhvzxwzpceRNAxMas0EbR6/bOLP8BOZqkeqCmFSHP8gIr4g0TcqL+rGePv6Sedg6seSEn5zR4QS1Zt81Jxkn+nbclNq7yVMjGM1KUF8R2WtRgeriAPvr2myVq1FaWWaJRfWaIJPMB0riNAxJAAaB0ICcXp5Q==
+ b=CNO8iPyieYQEIv4Pb0LITNx5IHz7P6nm5Ez1dA+zn8SRTuRbGxYAGdyEh4ICZJGvF+w/tYsKr1eCp1I2qyL1HQ3pnjTxazYaxIHvNzXiOLrcJiZZYq58tAqFIoZuh9usv1C+ZwaHqa2g7xU1v6ikFvMBprsn8APMtDoN2h/V4SAYyQnmyaK3J31vQHuqiAjQ7Xw5ZB9HXhToI4M9C/CxuHrw3QFuymFQm+1AedNWcbr7/i+iplMUVaU89YYzA6t8GI4iTBteWLcRysrAUxdMEZf2orA58UvmHrqDSFX/Q1AIa6mp8elGjzexgipT/1JNfFiVs3TSeFw4lSsB5Q8Dng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fgeWijtmTwTyogLk6WxOUL3kuOmYaDdqs1e6E0a1fkw=;
- b=PzOsEMnUeFs40RoROJpd2htayQ5BKj0MQK7aqXRM9PLi+71jSxFpknXr1/XyaUrbhJHZaCw3aDrGUIx0sE1Mcc1VOTkvTCCKZxUEer33cjz/uRxb06nuBwSW2C3PHJPR+0rNcCidvEUPfPAX86t+pV2kWWXdeUI7vUwYN/geRECC/xSix8E0D0E2R+tK8XHuWkNNFPuyArBu57DRwo0OWSpNmrSvvEGhwZiRP7WOApQntn/tg+9ijJsSiEOc/Wa3FRdFqm8GqhQAfapTFZO6hB0fjwY9UwUp92mbp7iS5hPD2/oZLPXEx3chTrxsBhi24ELf9BCQcE48AwNep5APQA==
+ bh=xshnPL3bDlSXz1SSqrZ2OojIbY+USaVA9VSd3/Ty7gY=;
+ b=Gz3v70KIQfqQT43Am88qqO9mc8Nvl8+3g47znZtYLbQ5okhw3ybDNTAqtTlPpC/NPl+xWTIADyFH/mTwcTTcT8qQOH93btctB0D5fEP7ePWrf7aVFaONzQr762AmB0yeW+IsmTER6NRUJKdwcboslT5xJhHJOgOROsW80Si4QIGul63TWPLuNWqDGCHABl/eUU/pFlUEuw+yH7JV2Tq3iAD19gte1w9zCi8Djd4KR/6QZizVDwefLG+dtrLZGx6wWOHV3SYBxKslt5rjNaGt7a9/pTeKhTLN9hODXDmkt0+d1XWog60C693FkdyXVsQ8VNd/F8MllqwuEVSUsOIFQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fgeWijtmTwTyogLk6WxOUL3kuOmYaDdqs1e6E0a1fkw=;
- b=jynGNOCY0JLwrjcg1JHg53n+o3xNSiMrb61xmuBS6oqmm5yu247IEfAW6OyMul2zGVwzrK1FGkyCKraC8zm+rhVAsAYN7Q0qRr2muT9I8XtgqnooFwC4XM2soUINLnq/LMe8KDZT3L7qI1ff/GDS3aiVm1fb4JC4yYEkeQyvUp8=
+ bh=xshnPL3bDlSXz1SSqrZ2OojIbY+USaVA9VSd3/Ty7gY=;
+ b=4AQy9kWpqTd07rF7thjwCaFi52OgeB8G2KLr9eMxLyhYQivjDIgJssvff50f9IzqhhOcZWwejp35WpBggtKZSthES5HPkey2hPajLegvk++RzSPxQ3MjHf48BdiPJRGZyIWcQD81gYb0jqnSd4iWKE2+vb6Z4jQ1aI4DHbGTtD0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Vikram Garhwal <vikram.garhwal@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <vikram.garhwal@amd.com>, <julien@xen.org>, <michal.orzel@amd.com>,
-	<sstabellini@kernel.org>
-Subject: [XEN][PATCH v11 10/20] xen/iommu: protect iommu_add_dt_device() with dtdevs_lock
-Date: Thu, 31 Aug 2023 21:59:37 -0700
-Message-ID: <20230901045947.32351-11-vikram.garhwal@amd.com>
+	<sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>, Paul Durrant
+	<paul@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN][PATCH v11 11/20] xen/iommu: Introduce iommu_remove_dt_device()
+Date: Thu, 31 Aug 2023 21:59:38 -0700
+Message-ID: <20230901045947.32351-12-vikram.garhwal@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230901045947.32351-1-vikram.garhwal@amd.com>
 References: <20230901045947.32351-1-vikram.garhwal@amd.com>
@@ -95,79 +100,120 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|CY5PR12MB6406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2dbcc140-53e8-4f26-2881-08dbaaa85375
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|CH3PR12MB9024:EE_
+X-MS-Office365-Filtering-Correlation-Id: b50ebd9f-22f2-41de-2318-08dbaaa853d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gTFr8QeWxDS82+Ho5lf8reBbi/hfAhBcY4PLg3H/SN78p2cJePkvXwU2vurlPEFj5ICOTQIVsYC7xfXQCiozyyL107I0JyjNL0JaedTbpe4sYmprnociFobA9k2eVUOsfSHjOxlCtqz7rAkbac3PMtTH27UIRVmn9gUYXY92ZBl3+5gbCEbPqKFlvNpYvahtUK4IB+TqAqQ2a95Nhgoi34fhh8aPlEmTXnArIO44rxlx7agFNNHPFrc/BxC74A1POKX87MITN4ZqMJWYLTBdkJp+Xdo6kZ4I4jBRRuU88d86/PBExlvxtu1+vPgM6rF06T+7M2i2yPiNGoO22bn3qdNhUNBytBfiQl0DnU0gooypR+gIAWQTzduGMswwTIoiFoPJGThdmOxZoiqp4kFcvk9zp0NQnuTA9oN9YcfHaVoGVYK7xld8UUQN2OSgJslUh7QKTIfiABTYTv5xN+Q2LJ2OCEitBYT2lqAeJAHw9E91qD1vVApVp9VZxyT5B5CE0VxMHargVqOZGESG9Eez9IOmkRZvoUEOK5aLgc9TNVI2J1FBQ+sta/+F+Jt2Q2IeiUFLo+GuOB2MHY1sgKGrj6jRVWbbef15OuFAQ0Y+XcIGmhz2PiK+biJW/fCnHEf9TIErecRA03BlyOAPVVrpuB7uB9Zl3a6+ICQMAlXlurjTRxOnTAice1keAY2MSB1X6sV6R0rpgq5+/nceecdBJyyx/Lvg7HNxpacic3CMsn8QW95PPnzTqmT4CHCzbizBXoHezALiFCYwlwVcBsdxiA==
+	v5cnateb2uNiAYBoNDWZyKBwTnTHdfPsjbJn3MYnsZfArk/CbLhxQIuEXQr1RJ9w+V+POdMwrXj53o8BTVaoVYmO1lIAQ1+LjJ699VzyrLkubZ7VhRB8dWJ8dG3UC5ODid1jVHgd+4TmlZ67otkEeeZR98arF7eTe3C+iYMitgTSbDE7iArb1yb0kOlH8SZlt+g9BGmeJ7HnKRkhVrH+9pOHMWeiamo3ftJxWouBsPqnni8X6F73sJk0DhJJUwac9c5hGT2q7mxNz8pLS0/t41KFF6brGIFOdSxWWwWicCGSPCsNb9NFSkjlqzMicgO/uOdZebDe7WFvi0RFdvGT7myfl3kXaX5rx3PovLfufKEtewhSh1sNdo7+r9JYpP3ULBKHAhWOQM1yJwYjxT3hHbMy50KQVD9Q6/dCTZ4JbA1GiEqKfb/vDBvJT3aNTUPjs1pCILxgiFMv4Yb5CXn9XAAnVS7UnpNlqqj8DYYoXiuDOU2H4rPFz6vLigJHTF4g/JeCZ3gBipPwTgR9bCIkPxE2CRvx9UfeDHRg6JW9L1u8oZ0yN6RwhhwHTwaz+ZmINcWdj581GRpjENaDHLq/f8pfJkDdIssAgWBmreg6HxagjUdtA9WfS+M4iOx9TuTNJSAxkXQNzRHXoL+2uM4zlCtB9OHL3Q5V7A+8C0fifQX819cKsrims8Ietf6qjlUd49xet/9OfbXocymoI62TzphPgV8iXv2NP+9Che6UjsGHz4WB3nsZw+hKti/ey6Nfd1CCmOAshUVz2ZN+fsmfZw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(396003)(346002)(39860400002)(1800799009)(186009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(81166007)(356005)(82740400003)(8936002)(6666004)(70206006)(478600001)(70586007)(54906003)(316002)(41300700001)(40460700003)(44832011)(1076003)(26005)(83380400001)(5660300002)(36756003)(2616005)(2906002)(86362001)(47076005)(8676002)(36860700001)(40480700001)(6916009)(426003)(336012)(4326008)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(396003)(346002)(376002)(451199024)(1800799009)(82310400011)(186009)(40470700004)(46966006)(36840700001)(6666004)(2906002)(5660300002)(86362001)(316002)(6916009)(478600001)(2616005)(4326008)(47076005)(8676002)(36860700001)(44832011)(8936002)(26005)(40460700003)(1076003)(82740400003)(40480700001)(41300700001)(426003)(336012)(36756003)(356005)(83380400001)(81166007)(54906003)(70206006)(70586007)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 05:00:13.3379
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 05:00:13.8418
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2dbcc140-53e8-4f26-2881-08dbaaa85375
+X-MS-Exchange-CrossTenant-Network-Message-Id: b50ebd9f-22f2-41de-2318-08dbaaa853d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EDD7.namprd03.prod.outlook.com
+	CO1PEPF000044FA.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6406
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9024
 
-Protect iommu_add_dt_device() with dtdevs_lock to prevent concurrent access
-to add/remove/assign/deassign.
-With addition of dynamic programming feature(follow-up patches in this series),
-this function can be concurrently accessed by dynamic node add/remove using
-device tree overlays.
+Remove master device from the IOMMU. This will be helpful when removing the
+overlay nodes using dynamic programming during run time.
 
 Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
 ---
-    Changes from v7:
-        Update commit message and fix indent.
+Changes from v10:
+    Add comment regarding return values of iommu_remove_dt_device().
+    Add ASSERT to check if is_protected is removed or not.
+Changes from v7:
+    Add check if IOMMU is enabled.
+    Fix indentation of fail.
 ---
 ---
- xen/drivers/passthrough/device_tree.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ xen/drivers/passthrough/device_tree.c | 43 +++++++++++++++++++++++++++
+ xen/include/xen/iommu.h               | 10 +++++++
+ 2 files changed, 53 insertions(+)
 
 diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-index a7d86a20a0..687c61e7da 100644
+index 687c61e7da..80f6efc606 100644
 --- a/xen/drivers/passthrough/device_tree.c
 +++ b/xen/drivers/passthrough/device_tree.c
-@@ -147,6 +147,8 @@ int iommu_add_dt_device(struct dt_device_node *np)
-     if ( dev_iommu_fwspec_get(dev) )
-         return 0;
- 
-+    spin_lock(&dtdevs_lock);
-+
-     /*
-      * According to the Documentation/devicetree/bindings/iommu/iommu.txt
-      * from Linux.
-@@ -159,7 +161,10 @@ int iommu_add_dt_device(struct dt_device_node *np)
-          * these callback implemented.
-          */
-         if ( !ops->add_device || !ops->dt_xlate )
--            return -EINVAL;
-+        {
-+            rc = -EINVAL;
-+            goto fail;
-+        }
- 
-         if ( !dt_device_is_available(iommu_spec.np) )
-             break;
-@@ -190,6 +195,8 @@ int iommu_add_dt_device(struct dt_device_node *np)
-     if ( rc < 0 )
-         iommu_fwspec_free(dev);
- 
-+ fail:
-+    spin_unlock(&dtdevs_lock);
-     return rc;
+@@ -127,6 +127,49 @@ int iommu_release_dt_devices(struct domain *d)
+     return 0;
  }
  
++int iommu_remove_dt_device(struct dt_device_node *np)
++{
++    const struct iommu_ops *ops = iommu_get_ops();
++    struct device *dev = dt_to_dev(np);
++    int rc;
++
++    if ( !iommu_enabled )
++        return 1;
++
++    if ( !ops )
++        return -EOPNOTSUPP;
++
++    spin_lock(&dtdevs_lock);
++
++    if ( iommu_dt_device_is_assigned_locked(np) )
++    {
++        rc = -EBUSY;
++        goto fail;
++    }
++
++    if ( !ops->remove_device )
++    {
++        rc = -EOPNOTSUPP;
++        goto fail;
++    }
++
++    /*
++     * De-register the device from the IOMMU driver.
++     * The driver is responsible for removing is_protected flag.
++     */
++    rc = ops->remove_device(0, dev);
++
++    if ( !rc )
++    {
++        ASSERT(!dt_device_is_protected(np));
++        iommu_fwspec_free(dev);
++    }
++
++ fail:
++    spin_unlock(&dtdevs_lock);
++    return rc;
++}
++
+ int iommu_add_dt_device(struct dt_device_node *np)
+ {
+     const struct iommu_ops *ops = iommu_get_ops();
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index a18b68e247..84bd77395e 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -235,6 +235,16 @@ int iommu_add_dt_device(struct dt_device_node *np);
+ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+ 
++/*
++ * Helper to remove master device from the IOMMU.
++ *
++ * Return values:
++ *  0 : device is de-registerd from IOMMU.
++ * <0 : error while removing the device from IOMMU.
++ * >0 : IOMMU is not enabled/present or device is not connected to it.
++ */
++int iommu_remove_dt_device(struct dt_device_node *np);
++
+ #endif /* HAS_DEVICE_TREE */
+ 
+ struct page_info;
 -- 
 2.17.1
 
