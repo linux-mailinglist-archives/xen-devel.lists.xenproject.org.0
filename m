@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E8578F7D7
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Sep 2023 07:11:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594261.927560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F111B78F7F0
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Sep 2023 07:15:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594357.927689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbwR8-0001Sf-JN; Fri, 01 Sep 2023 05:11:14 +0000
+	id 1qbwUj-0001Iz-LA; Fri, 01 Sep 2023 05:14:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594261.927560; Fri, 01 Sep 2023 05:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 594357.927689; Fri, 01 Sep 2023 05:14:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qbwR8-0001Qb-Ca; Fri, 01 Sep 2023 05:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 594261;
- Fri, 01 Sep 2023 05:11:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qbwUj-0001GT-GZ; Fri, 01 Sep 2023 05:14:57 +0000
+Received: by outflank-mailman (input) for mailman id 594357;
+ Fri, 01 Sep 2023 05:14:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JvPm=ER=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qbwGu-0001Hn-FU
- for xen-devel@lists.xenproject.org; Fri, 01 Sep 2023 05:00:40 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f400:fe59::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7bffc160-4884-11ee-9b0d-b553b5be7939;
- Fri, 01 Sep 2023 07:00:35 +0200 (CEST)
-Received: from DS7PR03CA0168.namprd03.prod.outlook.com (2603:10b6:5:3b2::23)
- by MN0PR12MB6126.namprd12.prod.outlook.com (2603:10b6:208:3c6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.21; Fri, 1 Sep
- 2023 05:00:33 +0000
-Received: from CY4PEPF0000EE3C.namprd03.prod.outlook.com
- (2603:10b6:5:3b2:cafe::5a) by DS7PR03CA0168.outlook.office365.com
- (2603:10b6:5:3b2::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.22 via Frontend
- Transport; Fri, 1 Sep 2023 05:00:32 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE3C.mail.protection.outlook.com (10.167.242.16) with Microsoft
+ <SRS0=am4h=ER=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1qbwUi-0001GN-03
+ for xen-devel@lists.xenproject.org; Fri, 01 Sep 2023 05:14:56 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20616.outbound.protection.outlook.com
+ [2a01:111:f400:7e8c::616])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7c2335fe-4886-11ee-8783-cb3800f73035;
+ Fri, 01 Sep 2023 07:14:54 +0200 (CEST)
+Received: from MW4PR04CA0348.namprd04.prod.outlook.com (2603:10b6:303:8a::23)
+ by CH0PR12MB5188.namprd12.prod.outlook.com (2603:10b6:610:bb::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.22; Fri, 1 Sep
+ 2023 05:14:48 +0000
+Received: from CO1PEPF000044FD.namprd21.prod.outlook.com
+ (2603:10b6:303:8a:cafe::7a) by MW4PR04CA0348.outlook.office365.com
+ (2603:10b6:303:8a::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.25 via Frontend
+ Transport; Fri, 1 Sep 2023 05:14:48 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044FD.mail.protection.outlook.com (10.167.241.203) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.17 via Frontend Transport; Fri, 1 Sep 2023 05:00:32 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6768.2 via Frontend Transport; Fri, 1 Sep 2023 05:14:47 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 1 Sep
- 2023 00:00:31 -0500
-Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ 2023 00:14:47 -0500
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Fri, 1 Sep 2023 00:00:31 -0500
+ Transport; Fri, 1 Sep 2023 00:14:45 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,165 +59,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bffc160-4884-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 7c2335fe-4886-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Nf8WcL3qB/lcjeQrNWjnbCxHRKatLQmfford6ksOpyPUlcqya9+6rqLgYHywlsZblr/XqdHW9+2jg1w9yYp3m8RwUQ8a1IzjUXFe1zpVSNpMDHoyIDfeElnLXLfCRiAdMm711eMUs9deU4JNMIos8c2bjyb8LM1DvgkFjvqHyUXaQNxD7020+jlv/GwYuaF2uevF1YznENf02LOymE+zYjppuOmaLJdBA0jLTDIWY6SMHxSm+hyJg4hdvjCZ+CBAtVvLj7TXlTTGr2dtiuOZum8WYtTq+d/Rc7V69LGfIgzpq1KA/f56iIqHAvuTTczPY2sPwpZSBhrg7btHh6izvA==
+ b=YdY06kseYzjerhRqBZ9zVe8f8CFXvHIuLjWaFPOdwwGDjmMHLy8ZUg8Vp7p3hAeb6uEgn0uzg2kvbGNmMCMCnRd7oUIF/g/bhmNs+cES2ubqyxnFFqSkiVIFAiMFbNz86ii4vB+Sq9eSHc1TGS3/26rF1+NR/kKfi+FbZEio6afyXvreGBwxWInI1/LAtnSQH02o1fodIFqQtoJZ8l/4zkMUxUTuhEW2jCT01NxTtAvGsjyy0XKF8y4Y/Gvaml/7cCmDykrXjNyhyz6nwdKyQK5F8/obDKMvjnMkWozlrRs+OWqFRzdrtcqJkbldXCNgyPv1jUc63LHS0+U1ZGQEfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0SOh4yXnAAqd95uGtVLNuRN1JoH4/9uDY70TgG5n3FU=;
- b=Y04HI+23rnClaNfPhIzLPu8Fg9wvbrQvhxVZD5/M7f6mLclgN0/1oOS2z1kWJ95H89ulgddenQqeBei8xnjA/A6BL2z4jSmW3tS29lRaLbMADPbvtvYM4GpV91h86rcJsMLEA8v2JYbibWjc8vVhLOa+pV+vCEpvhrrOg+gEK/B5BuWzMd/jdbml1oD9ZT3MrZWW+q9EKL/5JWsvaZoaAuYOyxaiy6G1b382y5uJ9PAX6uxMmW8E8/XFLE5id3H9bGpl331cHP+EYg32yk4h0uEl1qE60p1WjLGf5PaH8/PdR/49zNHcFfoK5/DqDv23d0UZjJTiPWZejhd1AtrqQQ==
+ bh=EWgrFE1PFgTCu8cgThjyBQIC11fyPr/WMl8soFJau04=;
+ b=FQDOdkseF2A6nt3vS3PI/GTkpz1Dxp8hxd7th1V1cqdduLt39NhQeIJ8+knPy4f2gNe84Er+ICFMCLWlejbqum9Y8hBYvq1j4X9Ch0N63HDIhnElplTQ76HqZvOhkPTCVUNsHzjg77kSEnlNiTRj4+0EI4qb98O4WJm2/rn+Tie87yWSpgvIuH8vlEGfsdxWmzOZj9v8b48PDfQyF7OFKpra5O+Dr/2PmMVAuyMvGQg6kIs/ZhrJwe0t3jAspDT46j4gUeta0sC4Een6+eWO6ZHQoldesso9k5V9mSBdC69B1T/7wnVq98efzWyOnrIK1mz3J6AeshvnyPkCwVjuxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0SOh4yXnAAqd95uGtVLNuRN1JoH4/9uDY70TgG5n3FU=;
- b=eRlDvm2fCP5AReW4gx03Pg8Kf2U02BfUUIIQtpSLJe4eQsaud9OM/x7iDki4adYaP9+ZngKDrI/Xvpp3bgiyaF9J27sBtZMS5Hg1xW7jnUk6qZ/33i+IPVzihyk8joOLOW7hPdvbsYKDzP+6EHN6YEsKGisDn50urLG790xYNrU=
+ bh=EWgrFE1PFgTCu8cgThjyBQIC11fyPr/WMl8soFJau04=;
+ b=J6kdAQjeqLkS7bHW636KUKc3VGkFdw7mFfj0QvoBuiVOu9fFCcoLx+HLHiNjJVL7MTVC2axIPLDCGg//Kt1HKBda6dWgFg2Rz/yx/cnAA/AisHmvP++p+Qg4/gFWr+RI10BW8x/p8Ve3vOB7vZHdrSUYqx9Odh4gI58XQmd0bUA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Vikram Garhwal <vikram.garhwal@amd.com>
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <vikram.garhwal@amd.com>, <julien@xen.org>, <michal.orzel@amd.com>,
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: [XEN][PATCH v11 20/20] tools/xl: Add new xl command overlay for device tree overlay support
-Date: Thu, 31 Aug 2023 21:59:47 -0700
-Message-ID: <20230901045947.32351-21-vikram.garhwal@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20230901045947.32351-1-vikram.garhwal@amd.com>
-References: <20230901045947.32351-1-vikram.garhwal@amd.com>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v5 5/5] xen/vpci: header: filter PCI capabilities
+Date: Fri, 1 Sep 2023 01:13:53 -0400
+Message-ID: <20230901051357.236049-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230901045742.235975-1-stewart.hildebrand@amd.com>
+References: <20230901045742.235975-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3C:EE_|MN0PR12MB6126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a01316f-071a-4814-6833-08dbaaa85f04
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FD:EE_|CH0PR12MB5188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a342d2c-33ef-41eb-8b07-08dbaaaa5ccd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	IKgAg60HDsnCItKCyZIz3/h3CEXHdWo7f3LshDBSsMpz8sM2j6hvobqqtIcVFQgp64BA6iCqOVXUBSTXjl2s8ZjcxNxdzqAPjWPU4L6qH+ubC2jAs+FwiFgKk5+zAedinFu8K6nMp03lf65E0B25JC/p9nqEwE6LYMlBfUxXpYsN04zGTZwiqDdI3pfdcVnNySNJvEewOD0jy87+k6ohbwi8M0Pvb/0bLxgqWlSOt5U3mDs6bdkLTMuSB5yKeO4M9VGMKPO1I0qEcjmiuBSByYduPreVAuAJr4uAJOgwBpIkpl8iNAdFif1oH6wXx6LynkUGWTctN80dxnkLY3qYitQvmrgjJTiFb+jD5oTH9hxPSJE9EjAxDq9KaTQP3ezctCYR6j5Zgr9KBuP3cMI6BNOs9dmfKW9OmYi1UxxukD9jDrzGx0Yw+R/txXg46/X3UwKR0Y/wEFm5HXISvrpkYDubk/ESh3rSbZdxBdgozJ6D8CvRXgyEUwxB2f1UTsRNfJX4qDcqfacFrQiB7z8ybNXbo9Ans4y066VVmKBn4S59IMfMEeBzRT5t2cDniEexEqiJS64j3zu9RmB4amXQiBKjoYIEHyaTz57Naj4iXYFNkvB1PaAuq/LeN72CuZ+5B2Y7B4l0GvqgMn3F15zh8H9MqFAXZZBVA9ZjGaHvLMRVeA52pDv/rB/Z7phzs9zQrgpq0nfa0mvBltnEZG8UDrdNfqj5K18n5W3zCI3sPKmE0EnKTO2ydX1Dwpxp4Z9E2uFdhtPrElO8PTWw6uj6Yg==
+	zQif1+PdSaApbuz2d6GvtRDV5Z6CZ8zj2tvIicfZfaAmSiMWZ/X/VWqVVxu9HcB+SNs5uETERwCd0TLpS6eMdgNaIW4QCqjxBsm90BlT/ZVf5POP3no0Ln86cKs4w/k2hSjShOyLWI5oF/up9b8Yael6E+S1PnW6b/HlGeSas1prQvLMSJcsC/5OCBc0E2M9w2Wi9JHV+Gv0fQPW6dRGH1sU+paGtCcluR9FixbUuMUdhv21EGRo0zE1L/EQXy/MqOeCDVR6vGYM+DhdsWaLwYQ9ZdbDoliseDcr1j9l7t5xcjly1V81iDyQwxRXXsXnUaFtwzyENZ8we2n1C5Fmy/8VdQ4To5xHmWMuwu/ZwCsW9qhWic/Ne12S6e27HQ/AgYa7Ax/NNSWZWuzRTewTOjI18A6LHlerCu3nUNsG5fyikd22XPRviY3smdMbHMH5uEhSiLeVdhEWszkwYz+Gv/LADDWoiaFyK1c5pa7fjcYbJowEEIKcmWMCYgnaYm6gDHtSpNV3AnJSyC0I/2al8b/QrZAW7i0wvxNDjUA8Y7RnQ4WizuImJJll/M1FduXrXz3ppwzguC0hx9qBpQM/CU4gucDYaa2s9I1RTyIIkzn/u3ZxyiFjQtdZa+XHW6EVTCFkRSIvKi7KANvbbCHRtYvNDa85bYBJkvG5h7XcZOq+Gsc5ff/LlqdRvj/+Jwx0BMUJhGhwZbCNoWxAPWnan/sjUi+kSWpLZJsIlgGMX4B1rJv+arhw2TIabPj0pohvYv6/Yonz6/GoeFvCrHIX7w==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(1800799009)(186009)(451199024)(82310400011)(36840700001)(46966006)(40470700004)(356005)(82740400003)(6666004)(36756003)(40460700003)(36860700001)(86362001)(81166007)(47076005)(40480700001)(2616005)(1076003)(2906002)(426003)(336012)(26005)(83380400001)(478600001)(70586007)(70206006)(8936002)(54906003)(8676002)(4326008)(44832011)(5660300002)(41300700001)(6916009)(316002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(136003)(39860400002)(346002)(82310400011)(451199024)(186009)(1800799009)(36840700001)(46966006)(40470700004)(6666004)(36860700001)(82740400003)(356005)(40480700001)(83380400001)(81166007)(478600001)(47076005)(54906003)(316002)(41300700001)(70206006)(70586007)(86362001)(40460700003)(2906002)(5660300002)(426003)(6916009)(36756003)(336012)(2616005)(1076003)(44832011)(26005)(8676002)(8936002)(4326008)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 05:00:32.7315
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 05:14:47.9631
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a01316f-071a-4814-6833-08dbaaa85f04
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a342d2c-33ef-41eb-8b07-08dbaaaa5ccd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3C.namprd03.prod.outlook.com
+	CO1PEPF000044FD.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6126
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5188
 
-Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Currently, Xen vPCI only supports virtualizing the MSI and MSI-X capabilities.
+Hide all other PCI capabilities (including extended capabilities) from domUs for
+now, even though there may be certain devices/drivers that depend on being able
+to discover certain capabilities.
+
+We parse the physical PCI capabilities linked list and add vPCI register
+handlers for the next elements, inserting our own next value, thus presenting a
+modified linked list to the domU.
+
+Introduce helper functions vpci_hw_read8 and vpci_read_val. The vpci_read_val
+helper function returns a fixed value, which may be used for RAZ registers, or
+registers whose value doesn't change.
+
+Introduce pci_find_next_cap_ttl() helper while adapting the logic from
+pci_find_next_cap() to suit our needs, and implement the existing
+pci_find_next_cap() in terms of the new helper.
+
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
- tools/xl/xl.h           |  1 +
- tools/xl/xl_cmdtable.c  |  6 +++++
- tools/xl/xl_vmcontrol.c | 52 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 59 insertions(+)
+v4->v5:
+* use more appropriate types, continued
+* get rid of unnecessary hook function
+* add Jan's R-b
 
-diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-index 72538d6a81..a923daccd3 100644
---- a/tools/xl/xl.h
-+++ b/tools/xl/xl.h
-@@ -138,6 +138,7 @@ int main_shutdown(int argc, char **argv);
- int main_reboot(int argc, char **argv);
- int main_list(int argc, char **argv);
- int main_vm_list(int argc, char **argv);
-+int main_dt_overlay(int argc, char **argv);
- int main_create(int argc, char **argv);
- int main_config_update(int argc, char **argv);
- int main_button_press(int argc, char **argv);
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 67604e9536..2463521156 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -631,6 +631,12 @@ const struct cmd_spec cmd_table[] = {
-       "Issue a qemu monitor command to the device model of a domain",
-       "<Domain> <Command>",
-     },
-+    { "dt-overlay",
-+      &main_dt_overlay, 0, 1,
-+      "Add/Remove a device tree overlay",
-+      "add/remove <.dtbo>"
-+      "-h print this help\n"
-+    },
- };
- 
- const int cmdtable_len = ARRAY_SIZE(cmd_table);
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 03971927e9..cea5b4a88e 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1265,6 +1265,58 @@ int main_create(int argc, char **argv)
+v3->v4:
+* move mask_cap_list setting to this patch
+* leave pci_find_next_cap signature alone
+* use more appropriate types
+
+v2->v3:
+* get rid of > 0 in loop condition
+* implement pci_find_next_cap in terms of new pci_find_next_cap_ttl function so
+  that hypothetical future callers wouldn't be required to pass &ttl.
+* change NULL to (void *)0 for RAZ value passed to vpci_read_val
+* change type of ttl to unsigned int
+* remember to mask off the low 2 bits of next in the initial loop iteration
+* change return type of pci_find_next_cap and pci_find_next_cap_ttl
+* avoid wrapping the PCI_STATUS_CAP_LIST condition by using ! instead of == 0
+
+v1->v2:
+* change type of ttl to int
+* use switch statement instead of if/else
+* adapt existing pci_find_next_cap helper instead of rolling our own
+* pass ttl as in/out
+* "pass through" the lower 2 bits of the next pointer
+* squash helper functions into this patch to avoid transient dead code situation
+* extended capabilities RAZ/WI
+---
+ xen/drivers/pci/pci.c     | 26 +++++++++-----
+ xen/drivers/vpci/header.c | 76 +++++++++++++++++++++++++++++++++++++++
+ xen/drivers/vpci/vpci.c   | 12 +++++++
+ xen/include/xen/pci.h     |  3 ++
+ xen/include/xen/vpci.h    |  5 +++
+ 5 files changed, 113 insertions(+), 9 deletions(-)
+
+diff --git a/xen/drivers/pci/pci.c b/xen/drivers/pci/pci.c
+index 3569ccb24e9e..8799d60c2156 100644
+--- a/xen/drivers/pci/pci.c
++++ b/xen/drivers/pci/pci.c
+@@ -39,31 +39,39 @@ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap)
      return 0;
  }
  
-+int main_dt_overlay(int argc, char **argv)
+-unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+-                               unsigned int cap)
++unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
++                                   bool (*is_match)(unsigned int),
++                                   unsigned int cap, unsigned int *ttl)
+ {
+-    u8 id;
+-    int ttl = 48;
++    unsigned int id;
+ 
+-    while ( ttl-- )
++    while ( (*ttl)-- )
+     {
+         pos = pci_conf_read8(sbdf, pos);
+         if ( pos < 0x40 )
+             break;
+ 
+-        pos &= ~3;
+-        id = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_ID);
++        id = pci_conf_read8(sbdf, (pos & ~3) + PCI_CAP_LIST_ID);
+ 
+         if ( id == 0xff )
+             break;
+-        if ( id == cap )
++        if ( (is_match && is_match(id)) || (!is_match && id == cap) )
+             return pos;
+ 
+-        pos += PCI_CAP_LIST_NEXT;
++        pos = (pos & ~3) + PCI_CAP_LIST_NEXT;
+     }
++
+     return 0;
+ }
+ 
++unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
++                               unsigned int cap)
 +{
-+    const char *overlay_ops = NULL;
-+    const char *overlay_config_file = NULL;
-+    void *overlay_dtb = NULL;
-+    int rc;
-+    uint8_t op;
-+    int overlay_dtb_size = 0;
-+    const int overlay_add_op = 1;
-+    const int overlay_remove_op = 2;
++    unsigned int ttl = 48;
 +
-+    if (argc < 2) {
-+        help("dt_overlay");
-+        return EXIT_FAILURE;
-+    }
-+
-+    overlay_ops = argv[1];
-+    overlay_config_file = argv[2];
-+
-+    if (strcmp(overlay_ops, "add") == 0)
-+        op = overlay_add_op;
-+    else if (strcmp(overlay_ops, "remove") == 0)
-+        op = overlay_remove_op;
-+    else {
-+        fprintf(stderr, "Invalid dt overlay operation\n");
-+        return EXIT_FAILURE;
-+    }
-+
-+    if (overlay_config_file) {
-+        rc = libxl_read_file_contents(ctx, overlay_config_file,
-+                                      &overlay_dtb, &overlay_dtb_size);
-+
-+        if (rc) {
-+            fprintf(stderr, "failed to read the overlay device tree file %s\n",
-+                    overlay_config_file);
-+            free(overlay_dtb);
-+            return ERROR_FAIL;
-+        }
-+    } else {
-+        fprintf(stderr, "overlay dtbo file not provided\n");
-+        return ERROR_FAIL;
-+    }
-+
-+    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
-+
-+    free(overlay_dtb);
-+
-+    if (rc)
-+        return EXIT_FAILURE;
-+
-+    return rc;
++    return pci_find_next_cap_ttl(sbdf, pos, NULL, cap, &ttl) & ~3;
 +}
- /*
-  * Local variables:
-  * mode: C
++
+ /**
+  * pci_find_ext_capability - Find an extended capability
+  * @sbdf: PCI device to query
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index 791791e6c9b6..f7d02a7f7bfa 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -525,6 +525,18 @@ static void cf_check rom_write(
+         rom->addr = val & PCI_ROM_ADDRESS_MASK;
+ }
+ 
++static bool cf_check vpci_cap_supported(unsigned int id)
++{
++    switch ( id )
++    {
++    case PCI_CAP_ID_MSI:
++    case PCI_CAP_ID_MSIX:
++        return true;
++    default:
++        return false;
++    }
++}
++
+ static int cf_check init_bars(struct pci_dev *pdev)
+ {
+     uint16_t cmd;
+@@ -562,6 +574,70 @@ static int cf_check init_bars(struct pci_dev *pdev)
+     if ( rc )
+         return rc;
+ 
++    if ( !is_hardware_domain(pdev->domain) )
++    {
++        if ( !(pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST) )
++        {
++            /* RAZ/WI */
++            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
++                                   PCI_CAPABILITY_LIST, 1, (void *)0);
++            if ( rc )
++                return rc;
++        }
++        else
++        {
++            /* Only expose capabilities to the guest that vPCI can handle. */
++            unsigned int next, ttl = 48;
++
++            next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
++                                         vpci_cap_supported, 0, &ttl);
++
++            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
++                                   PCI_CAPABILITY_LIST, 1,
++                                   (void *)(uintptr_t)next);
++            if ( rc )
++                return rc;
++
++            next &= ~3;
++
++            if ( !next )
++                /*
++                 * If we don't have any supported capabilities to expose to the
++                 * guest, mask the PCI_STATUS_CAP_LIST bit in the status
++                 * register.
++                 */
++                header->mask_cap_list = true;
++
++            while ( next && ttl )
++            {
++                unsigned int pos = next;
++
++                next = pci_find_next_cap_ttl(pdev->sbdf,
++                                             pos + PCI_CAP_LIST_NEXT,
++                                             vpci_cap_supported, 0, &ttl);
++
++                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
++                                       pos + PCI_CAP_LIST_ID, 1, NULL);
++                if ( rc )
++                    return rc;
++
++                rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
++                                       pos + PCI_CAP_LIST_NEXT, 1,
++                                       (void *)(uintptr_t)next);
++                if ( rc )
++                    return rc;
++
++                next &= ~3;
++            }
++        }
++
++        /* Extended capabilities RAZ/WI */
++        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL, 0x100, 4,
++                               (void *)0);
++        if ( rc )
++            return rc;
++    }
++
+     if ( pdev->ignore_bars )
+         return 0;
+ 
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index 6e6ad4b80a0d..94cbae312abe 100644
+--- a/xen/drivers/vpci/vpci.c
++++ b/xen/drivers/vpci/vpci.c
+@@ -136,6 +136,18 @@ static void cf_check vpci_ignored_write(
+ {
+ }
+ 
++uint32_t cf_check vpci_read_val(
++    const struct pci_dev *pdev, unsigned int reg, void *data)
++{
++    return (uintptr_t)data;
++}
++
++uint32_t cf_check vpci_hw_read8(
++    const struct pci_dev *pdev, unsigned int reg, void *data)
++{
++    return pci_conf_read8(pdev->sbdf, reg);
++}
++
+ uint32_t cf_check vpci_hw_read16(
+     const struct pci_dev *pdev, unsigned int reg, void *data)
+ {
+diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+index ea6a4c9abf38..cceac8654f07 100644
+--- a/xen/include/xen/pci.h
++++ b/xen/include/xen/pci.h
+@@ -194,6 +194,9 @@ int pci_mmcfg_read(unsigned int seg, unsigned int bus,
+ int pci_mmcfg_write(unsigned int seg, unsigned int bus,
+                     unsigned int devfn, int reg, int len, u32 value);
+ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap);
++unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
++                                   bool (*is_match)(unsigned int),
++                                   unsigned int cap, unsigned int *ttl);
+ unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+                                unsigned int cap);
+ unsigned int pci_find_ext_capability(pci_sbdf_t sbdf, unsigned int cap);
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index 0a6c9e19b399..866bbf656e2b 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -51,7 +51,12 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size);
+ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+                 uint32_t data);
+ 
++uint32_t cf_check vpci_read_val(
++    const struct pci_dev *pdev, unsigned int reg, void *data);
++
+ /* Passthrough handlers. */
++uint32_t cf_check vpci_hw_read8(
++    const struct pci_dev *pdev, unsigned int reg, void *data);
+ uint32_t cf_check vpci_hw_read16(
+     const struct pci_dev *pdev, unsigned int reg, void *data);
+ uint32_t cf_check vpci_hw_read32(
 -- 
-2.17.1
+2.42.0
 
 
