@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75B578FB7B
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Sep 2023 11:53:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.594562.927920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA71278FC40
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Sep 2023 13:26:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.594575.927936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qc0pB-0003uV-HQ; Fri, 01 Sep 2023 09:52:21 +0000
+	id 1qc2GV-0005Ge-V3; Fri, 01 Sep 2023 11:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 594562.927920; Fri, 01 Sep 2023 09:52:21 +0000
+Received: by outflank-mailman (output) from mailman id 594575.927936; Fri, 01 Sep 2023 11:24:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qc0pB-0003se-Ek; Fri, 01 Sep 2023 09:52:21 +0000
-Received: by outflank-mailman (input) for mailman id 594562;
- Fri, 01 Sep 2023 09:52:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TF5h=ER=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qc0pA-0003sY-6C
- for xen-devel@lists.xenproject.org; Fri, 01 Sep 2023 09:52:20 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ba4d6ea-48ad-11ee-9b0d-b553b5be7939;
- Fri, 01 Sep 2023 11:52:16 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 005044EE0737;
- Fri,  1 Sep 2023 11:52:15 +0200 (CEST)
+	id 1qc2GV-0005EG-SG; Fri, 01 Sep 2023 11:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 594575;
+ Fri, 01 Sep 2023 11:24:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qc2GU-0005E6-2Y; Fri, 01 Sep 2023 11:24:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qc2GT-00060J-RW; Fri, 01 Sep 2023 11:24:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qc2GT-0005sX-H8; Fri, 01 Sep 2023 11:24:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qc2GT-0004bQ-Gi; Fri, 01 Sep 2023 11:24:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,106 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ba4d6ea-48ad-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=nFyYZWE3P8rTb8UkdCjMyXEHauo9HBScdTCFcVsdGug=; b=ZQbaIIPvg2Pm8d8NjHijg7dOFT
+	7Lve3sNMggVg1qQw9BAMF4ixTOnUsMtQ5/gjpN1gmVK87We5itY3a7AwhoQ0AEIWV/JJW5osAlwBC
+	6h7gNUxdrHf2o/rFKIu6Xkm+u9wun1ZFljvu0hE5qO2XGsqoTTYRrJIDRDuzOavjlW9Q=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182596-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Fri, 01 Sep 2023 11:52:15 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] ioreq: include arch-specific ioreq header in
- <xen/ioreq.h>
-In-Reply-To: <9de603f5-d7f9-495d-6f4a-2effe9db901d@suse.com>
-References: <e5f13920dfcb9f828abb4a36dd410d342f4c0939.1692974235.git.nicola.vetrini@bugseng.com>
- <73a78132-a086-5ae1-2617-fb38c51e64e5@suse.com>
- <f96865f3d7a47e4d9d52ee13dea064e3@bugseng.com>
- <15eef072-d7a5-23a9-a7de-3c16fea49dd9@suse.com>
- <cf5f8c126cc6bb5564ac4cf214055df2@bugseng.com>
- <9de603f5-d7f9-495d-6f4a-2effe9db901d@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <b6eb4f217aff3c0cce6c3c4f894ddfe8@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 182596: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=f805cf3e9b87584e16b03b5059b1163fd22bf5a0
+X-Osstest-Versions-That:
+    xen=6621932264e3e86df3913db4249ecd3eb100b13f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 01 Sep 2023 11:24:37 +0000
 
-On 01/09/2023 11:44, Jan Beulich wrote:
-> On 01.09.2023 11:13, Nicola Vetrini wrote:
->> On 01/09/2023 09:36, Jan Beulich wrote:
->>> On 01.09.2023 09:13, Nicola Vetrini wrote:
->>>> On 28/08/2023 09:59, Jan Beulich wrote:
->>>>> On 25.08.2023 17:02, Nicola Vetrini wrote:
->>>>>> The common header file for ioreq should include the arch-specific
->>>>>> one.
->>>>> 
->>>>> To be honest I'm not convinced of "should" here. There are two
->>>>> aspects
->>>>> to consider: On one hand it is good practice to do what you say. 
->>>>> Otoh
->>>>> it
->>>>> introduces a needless dependency, and it'll require new arch-es
->>>>> (RISC-V,
->>>>> PPC at present) to introduce another dummy header just to satisfy 
->>>>> the
->>>>> xen/ioreq.h use in common/memory.c. Therefore, _if_ we want to go
->>>>> this
->>>>> route, besides a wording change here I think ...
->>>>> 
->>>> 
->>>> Since including both <xen/ioreq.h> and the arch-specific one was
->>>> requested to be changed
->>>> in previous series, I was trying to apply the same pattern here.
->>>> If you prefer not to change the current layout then the fix is even
->>>> simpler: I'll just
->>>> include <asm/ioreq.h> in xen/arch/arm/ioreq.c, which is where it's
->>>> missing.
->>>> 
->>>>>> --- a/xen/include/xen/ioreq.h
->>>>>> +++ b/xen/include/xen/ioreq.h
->>>>>> @@ -20,6 +20,7 @@
->>>>>>  #define __XEN_IOREQ_H__
->>>>>> 
->>>>>>  #include <xen/sched.h>
->>>>>> +#include <asm/ioreq.h>
->>>>> 
->>>>> ... this #include wants to be conditional upon CONFIG_IOREQ_SERVER
->>>>> being
->>>>> defined. (I'm actually surprised that there's no respective #ifdef 
->>>>> in
->>>>> that header, meaning types defined there are available even when 
->>>>> the
->>>>> functionality was turned off.)
->>>> 
->>>> The two functions in question are actually guarded by an #ifdef
->>>> CONFIG_IOREQ_SERVER
->>>> in arch/arm/include/asm/ioreq.h (in the #else branch some stubs are
->>>> defined)
->>> 
->>> Well, I don't see how an #ifdef there helps with the aspect mentioned
->>> earlier (new arch-es needing to needlessly provide such a header as
->>> long
->>> as the #include here is unconditional).
->> 
->> As far as I can tell, including the asm header in the arm 
->> implementation
->> file does not imply
->> that new archs will need such an header. Of course, if the solution
->> proposed in the patch is
->> chosen then I agree with you.
-> 
-> Hmm, maybe then I misunderstood your earlier reply: I thought you were
-> arguing against the change I had suggested.
-> 
+flight 182596 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182596/
 
-I'm fine with either way, but since the one proposed in the patch may 
-result in an inconvenience
-for other architectures, then perhaps the other is better.
+Failures :-/ but no regressions.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  f805cf3e9b87584e16b03b5059b1163fd22bf5a0
+baseline version:
+ xen                  6621932264e3e86df3913db4249ecd3eb100b13f
+
+Last test of basis   182577  2023-08-31 03:02:08 Z    1 days
+Testing same since   182596  2023-09-01 08:02:04 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   6621932264..f805cf3e9b  f805cf3e9b87584e16b03b5059b1163fd22bf5a0 -> smoke
 
