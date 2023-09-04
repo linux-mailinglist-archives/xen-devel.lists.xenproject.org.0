@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52BD3791A0D
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Sep 2023 16:52:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.595284.928799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAAB4791A32
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Sep 2023 16:59:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.595291.928810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdAvV-0007Pe-Ak; Mon, 04 Sep 2023 14:51:41 +0000
+	id 1qdB2k-0008L2-3z; Mon, 04 Sep 2023 14:59:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 595284.928799; Mon, 04 Sep 2023 14:51:41 +0000
+Received: by outflank-mailman (output) from mailman id 595291.928810; Mon, 04 Sep 2023 14:59:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdAvV-0007NK-84; Mon, 04 Sep 2023 14:51:41 +0000
-Received: by outflank-mailman (input) for mailman id 595284;
- Mon, 04 Sep 2023 14:51:40 +0000
+	id 1qdB2j-0008IY-W0; Mon, 04 Sep 2023 14:59:09 +0000
+Received: by outflank-mailman (input) for mailman id 595291;
+ Mon, 04 Sep 2023 14:59:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6iaL=EU=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1qdAvU-0007NE-9d
- for xen-devel@lists.xenproject.org; Mon, 04 Sep 2023 14:51:40 +0000
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [2607:f8b0:4864:20::102e])
+ <SRS0=vW96=EU=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1qdB2i-0008IS-OW
+ for xen-devel@lists.xenproject.org; Mon, 04 Sep 2023 14:59:09 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b23a40e-4b32-11ee-9b0d-b553b5be7939;
- Mon, 04 Sep 2023 16:51:36 +0200 (CEST)
-Received: by mail-pj1-x102e.google.com with SMTP id
- 98e67ed59e1d1-26fe4997871so601935a91.3
- for <xen-devel@lists.xenproject.org>; Mon, 04 Sep 2023 07:51:35 -0700 (PDT)
-Received: from leoy-huanghe ([98.98.49.29]) by smtp.gmail.com with ESMTPSA id
- 5-20020a17090a19c500b0026596b8f33asm9857731pjj.40.2023.09.04.07.51.32
+ id 976d12fe-4b33-11ee-9b0d-b553b5be7939;
+ Mon, 04 Sep 2023 16:59:05 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-5007616b756so2628623e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Sep 2023 07:59:05 -0700 (PDT)
+Received: from rayden.urgonet (h-46-59-78-111.A175.priv.bahnhof.se.
+ [46.59.78.111]) by smtp.gmail.com with ESMTPSA id
+ x17-20020ac25dd1000000b004f8555f7aa1sm1776516lfq.52.2023.09.04.07.59.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Sep 2023 07:51:33 -0700 (PDT)
+ Mon, 04 Sep 2023 07:59:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,95 +45,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b23a40e-4b32-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 976d12fe-4b33-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693839094; x=1694443894; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IMXteDfS81V7Qlzz5HpuyJ9OfkKMENRaE66CVAPvD58=;
-        b=lBM8sgRw9+xziQTLTJYti5+yPtZTRNcnFZW3UdlaAzgRlhNhWxKZrKHrso16tTm/wI
-         kGu+j3lwpmTmwdo3KeRVpeBbuzt3rQoAh9ufgB+s7qGs7/J9G/wDwXhVmZl9CTI2a1b9
-         f0KqQrSRmBiNac5byuerut60zEnO4TfGkATaPy0W5tNQ2tceTyUjRY2zuBj6oLstcZQO
-         HP9SKKQlUtTqk5w0gOXJYoEKsmWThJoLSaR7MToilJAZgztNORhYZyGK2mBRG/COfTW4
-         jLDLNY8vIMNjM+/lnif66nn6+er75k/0GTLIyUJpMgEYYbMJoKJXsJVQJsvqBtePJp/h
-         tiuA==
+        d=linaro.org; s=google; t=1693839544; x=1694444344; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DETKmXdreaA56VxK1iMyBUC33tuEXPpiM3LXEY1tnSQ=;
+        b=dfIw89eJJ++Oghgq/vpthtcAKE7NkDWOB1xUJl2RlmbflTtnaXgtdym8weVLtHAnFK
+         QrNeMyffODObwCVrVXfELLA2h5r0KQOpHpcubd7SVybsCiJrpQjL2a8zNCD7A8vaxfQk
+         pVu1bx9+SDcMCKYB4lj+RU/T0wG3w19ChjNSKrE5ns/RPH3h6JbSbTpLI6VaCzaxJLXE
+         3mhpV+25xuQpUku4T242IQ27nRUNvQN/n0MpYkf3hyLyjwlldbGReqnwwuIvh7ZfDF8G
+         ys1MgRX8EeqPgRoIn+jQGZwzJkyGiua3tCBlqa9vHSxUCYTvHppdiqG11BhrH6tnU0a8
+         G2og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693839094; x=1694443894;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IMXteDfS81V7Qlzz5HpuyJ9OfkKMENRaE66CVAPvD58=;
-        b=dwllEyhWYXzqBqU1YsMN+fSKnW143qlW8iqYszuCo0QNMHe8Tl1SW0VR5trBkiqtf5
-         wyR707tMozwvALIig29DuhiGFAS9/3Ndusp+pJ1/7GyLt3/t00YwmGDB86Lnh4z7Wl6z
-         A4Wp9GNxjzgEzNOzTNiZ9bHDt6JxZu/2Qqyt4Z7qYn6tl+ZnxA/BPWXRjk2XgOFekiJv
-         zebs9CUHsC3xdGuGNvs/kHyZgQp3BmUfK7VFD9/gXcihaA7PnSBlgdPDReO5jezE+n8K
-         1w2JserfPSTa50dU//oWnp/6LaaYU8ahbJrVt4Tbq2bLUeB0NFcG5WrHhg6JbJpe1OUG
-         zi+g==
-X-Gm-Message-State: AOJu0YzufMYPiX/yB99O8u2fMram8sjn0DDuPsdkfRpx/PwEtJRPtDqX
-	VYYrAn/LfV3w0fKR45zxc49PvA==
-X-Google-Smtp-Source: AGHT+IHtkuS3ZlkzSMGPsrHQjZV/cG8KYJb1TgngMVovIqfXtTZUYUP8dFm0RLYCaPNsmFpjW1orQg==
-X-Received: by 2002:a17:90b:909:b0:268:2500:b17e with SMTP id bo9-20020a17090b090900b002682500b17emr7508664pjb.23.1693839094310;
-        Mon, 04 Sep 2023 07:51:34 -0700 (PDT)
-Date: Mon, 4 Sep 2023 22:51:30 +0800
-From: Leo Yan <leo.yan@linaro.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+        d=1e100.net; s=20221208; t=1693839544; x=1694444344;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DETKmXdreaA56VxK1iMyBUC33tuEXPpiM3LXEY1tnSQ=;
+        b=deHlLUTrnuqQPP0xlaQmAybdXXGEOL/hhphvqZ7+nV4i9YRykq3eqSDHyEkqv7XqNz
+         GHGgXQczqLcSqKr5qpLA0UuC0iM0MvHprnkYBXGggM/4OcyQ6okKrPE7LN56TAsCBjO+
+         IkZsV0Ac/Sii/SN0ErU7ztOGnFE13RhUizxSLI33j1PXCwBKodLYE6MUEUHIysjBof2M
+         qWPSJyWX3wcYNJDnZdIsfB2Xum9PHm2oF2a62u93EpcFgARj7bVrmy0DJLzLzQe1eP+h
+         mJ56AhnRnquke9BhADX7we09YFjZ6Xfk8vJWBew9whjjSeE0nnTRHET1ah4K5lQ7Tev0
+         hm2Q==
+X-Gm-Message-State: AOJu0Yxz6efxPyRlbnqEj/E1pLWSLDct6Q6E3h486sga3b0cWj/eDUQz
+	DwOE89r820kH3FGmWtMyxp16CZdtSD/rdzijKhM=
+X-Google-Smtp-Source: AGHT+IEhWv35Vh5ZFMbh4tfTmuPJLZjlMeJjdFcjsDT3Qgn/uXG/LGGWSyWfzJZIL4b9dht3XKAsnQ==
+X-Received: by 2002:a05:6512:114d:b0:500:b5db:990c with SMTP id m13-20020a056512114d00b00500b5db990cmr9223219lfg.57.1693839544061;
+        Mon, 04 Sep 2023 07:59:04 -0700 (PDT)
+From: Jens Wiklander <jens.wiklander@linaro.org>
+To: xen-devel@lists.xenproject.org
+Cc: Marc Bonnici <marc.bonnici@arm.com>,
+	Achin Gupta <achin.gupta@arm.com>,
+	Jens Wiklander <jens.wiklander@linaro.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Alexey Klimov <alexey.klimov@linaro.org>
-Subject: Re: [PATCH v1 2/2] xen/arm: Enlarge identity map space to 127TiB
-Message-ID: <20230904145130.GC114383@leoy-huanghe>
-References: <20230831110107.2747633-1-leo.yan@linaro.org>
- <20230831110107.2747633-3-leo.yan@linaro.org>
- <338BB8BD-5B22-4201-8411-4836B5768AF4@arm.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH] xen/arm: ffa: fix guest map RX/TX error code
+Date: Mon,  4 Sep 2023 16:58:14 +0200
+Message-Id: <20230904145814.2534808-1-jens.wiklander@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <338BB8BD-5B22-4201-8411-4836B5768AF4@arm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
+FFA_RXTX_MAP is currently limited to mapping only one 4k page for each
+RX and TX buffer. If a guest tries to map more than one page, an error
+is returned. Until this patch, we have been using FFA_RET_NOT_SUPPORTED.
+However, that error code is reserved in the FF-A specification to report
+that the function is not implemented. Of all the other defined error
+codes, the least bad is FFA_RET_INVALID_PARAMETERS, so use that instead.
 
-On Mon, Sep 04, 2023 at 01:55:12PM +0000, Bertrand Marquis wrote:
-> Hi Leo,
-> 
-> > On 31 Aug 2023, at 13:01, Leo Yan <leo.yan@linaro.org> wrote:
-> > 
-> > On some platforms, the memory regions could be:
-> > 
-> >  (XEN) MODULE[0]: 00000807f6df0000 - 00000807f6f3e000 Xen
-> >  (XEN) MODULE[1]: 00000807f8054000 - 00000807f8056000 Device Tree
-> >  (XEN) MODULE[2]: 00000000fa834000 - 00000000fc5de1d5 Ramdisk
-> >  (XEN) MODULE[3]: 00000000fc5df000 - 00000000ffb3f810 Kernel
-> > 
-> > In this case, the Xen binary is loaded above 2TB, so Xen fails to boot
-> > up due to the out of the identity map space.
-> > 
-> > This patch enlarges identity map space to 127TiB, which can support the
-> > memory space [0x0 .. 0x00007eff_ffff_ffff], thus it has flexibility for
-> > support different platforms.
-> > 
-> > Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable")
-> > Reported-by: Alexey Klimov <alexey.klimov@linaro.org>
-> > Signed-off-by: Leo Yan <leo.yan@linaro.org>
-> 
-> This is not based on the current status of staging where this part of the
-> code was modified.
-> 
-> Currently Xen virtual address is at 2TB and the extension you are making
-> will potentially make it possible to load Xen at 2TB which will clash for the
-> identity mapping handling in Xen.
+Fixes: 38d81e7ccb11 ("xen/arm: ffa: support mapping guest RX/TX buffers")
+Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+---
+ xen/arch/arm/tee/ffa.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I will check the stage code if this patch will introduce any clash
-with the identity mapping handling.
+diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+index 802b2dbb1d36..183528d13388 100644
+--- a/xen/arch/arm/tee/ffa.c
++++ b/xen/arch/arm/tee/ffa.c
+@@ -706,7 +706,7 @@ static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
+     {
+         printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n",
+                page_count, FFA_MAX_RXTX_PAGE_COUNT);
+-        return FFA_RET_NOT_SUPPORTED;
++        return FFA_RET_INVALID_PARAMETERS;
+     }
+ 
+     /* Already mapped */
+-- 
+2.34.1
 
-> Please rebase on the latest staging and check there how you can do as
-> this patch if rebased on staging right now with rightfully end in a compilation
-> error.
-
-Sure, I will rebase on the latest staging branch.
-
-Thank you for suggestions.
-
-Leo
 
