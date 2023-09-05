@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DCFA792FC9
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Sep 2023 22:18:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.595825.929446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 526EE793095
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Sep 2023 23:03:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.595832.929456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdcUL-0001py-O2; Tue, 05 Sep 2023 20:17:29 +0000
+	id 1qddBb-0008FS-1r; Tue, 05 Sep 2023 21:02:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 595825.929446; Tue, 05 Sep 2023 20:17:29 +0000
+Received: by outflank-mailman (output) from mailman id 595832.929456; Tue, 05 Sep 2023 21:02:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdcUL-0001me-KS; Tue, 05 Sep 2023 20:17:29 +0000
-Received: by outflank-mailman (input) for mailman id 595825;
- Tue, 05 Sep 2023 20:17:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qddBa-0008Ct-Ut; Tue, 05 Sep 2023 21:02:10 +0000
+Received: by outflank-mailman (input) for mailman id 595832;
+ Tue, 05 Sep 2023 21:02:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=91v+=EV=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1qdcUK-0001mY-2W
- for xen-devel@lists.xenproject.org; Tue, 05 Sep 2023 20:17:28 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a859cf0-4c29-11ee-9b0d-b553b5be7939;
- Tue, 05 Sep 2023 22:17:25 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-307d20548adso2471018f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Sep 2023 13:17:25 -0700 (PDT)
-Received: from EMEAENG6DZjqCfH.citrite.net
- (cpc92302-cmbg19-2-0-cust781.5-4.cable.virginm.net. [82.1.211.14])
- by smtp.gmail.com with ESMTPSA id
- g7-20020a5d46c7000000b0031accc7228asm18276300wrs.34.2023.09.05.13.17.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Sep 2023 13:17:24 -0700 (PDT)
+ <SRS0=rZRj=EV=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qddBZ-0008Cn-1R
+ for xen-devel@lists.xenproject.org; Tue, 05 Sep 2023 21:02:09 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 780d212b-4c2f-11ee-8783-cb3800f73035;
+ Tue, 05 Sep 2023 23:02:06 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 1F06D8285BDC;
+ Tue,  5 Sep 2023 16:02:05 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 8W3hj5_Mi9xr; Tue,  5 Sep 2023 16:02:04 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id D12D88285BE0;
+ Tue,  5 Sep 2023 16:02:03 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id V-cdS7kxvMfX; Tue,  5 Sep 2023 16:02:03 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 88D098285BDC;
+ Tue,  5 Sep 2023 16:02:03 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,120 +51,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a859cf0-4c29-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 780d212b-4c2f-11ee-8783-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com D12D88285BE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1693945045; x=1694549845; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/KfqP95JahvULL+583DSkWljDAxm9MZrxXWX/SVz384=;
-        b=gYpQcTWLk+LVhj104NK+S4F/M4lnzrzRt7Njio+3M71rVMYo7vFH15x4Eq77dKcpIS
-         a3z/H5KIGiSH4KcrTpnTYbIzfcSbEGzud9AfloTS8bNO2wkXzR2O/UpMrzZWBhtwMGgr
-         VGDwPwpTvFMIqlvDBGXzK7LJCNX5/rmsSObDE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693945045; x=1694549845;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/KfqP95JahvULL+583DSkWljDAxm9MZrxXWX/SVz384=;
-        b=KzZcwpIHaytETluh9WbJNWMcQxudfs2h1gYq/ZGWDAEBr7rxp1Rkc+lNEKO5jtbpLL
-         0eDcDDvksyn12N17WbR/2NDZAFrwOlXneKhD/w/9BIumD8vGjPdpkKU+/kZqbmuuquqp
-         LNh/sFlCNZRbZhymFwYv+MzmTLL5DakxNkt8Q+PmMsgbz6ZU0/lVQ1/pLrYRrzIKqlxo
-         +jBKOTkNR0KBt9JhMAAmO84UDL41fRES0SkgHcHoK3rWknl4mKYrkyFBZEimCEDdzfeQ
-         QmC2LU2ppUQrWQEGNCvw5gH6ueRu2FDMwn9D+yvd2IFjrZOuRbtml/zHle3HUZ+gFLt4
-         b6Rw==
-X-Gm-Message-State: AOJu0YyUgHduQh+qEjNOyBtDZMtA/Ni2pIKCBF4qAIQ+lsw2l3WSJa+m
-	DQIgv86fekFfvmyiVaKVR5uZep+/oi/YdqBRXcA=
-X-Google-Smtp-Source: AGHT+IFBW8XfZ2BPrde/X1D0kHod3Df3PZ/NfMGOJjnw2za8CXKCiQiEHC2toZNLQJs/TIEeFKem7w==
-X-Received: by 2002:adf:ed4e:0:b0:31a:dbd8:95d4 with SMTP id u14-20020adfed4e000000b0031adbd895d4mr650990wro.12.1693945044884;
-        Tue, 05 Sep 2023 13:17:24 -0700 (PDT)
-From: Javi Merino <javi.merino@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Javi Merino <javi.merino@cloud.com>
-Subject: [PATCH v2] tools/misc/xencov_split: Add python 3 compatibility
-Date: Tue,  5 Sep 2023 21:15:37 +0100
-Message-ID: <20230905201653.98425-1-javi.merino@cloud.com>
-X-Mailer: git-send-email 2.41.0
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1693947723; bh=Lmp8MHSPykR1AvCjAK+dRBjgHG6gxgp1d+Fhh3mBe2E=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=eoMy3laRiAXJKGS2Mumcs9ydos1V4t53iXQfYQe1C/isAjRhatAkuFvfAD15vFVgc
+	 4zUoi1Y87wlURpm1dUgxu9cH/ciuGi2a0Oz0PGDjHoFwuGxoo353ZaxtTYhxPFeBJY
+	 jxZQ9+K3AXkokVp/O2PxyhhY63RhsnY/pg41fNFQ=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <7f0582cf-e78b-a62d-3f1e-b446acc82cf6@raptorengineering.com>
+Date: Tue, 5 Sep 2023 16:02:03 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v3 0/5] ppc: Enable full Xen build
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1693590982.git.sanastasio@raptorengineering.com>
+ <332a7462-d0cb-154e-415b-e7f40b9b1421@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <332a7462-d0cb-154e-415b-e7f40b9b1421@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Closes #154
+On 9/5/23 11:07 AM, Jan Beulich wrote:
+> On 01.09.2023 20:25, Shawn Anastasio wrote:
+>> Hello all,
+>>
+>> This patch series performs all of the additions necessary to drop the
+>> build overrides for PPC and enable the full Xen build. Except in cases
+>> where compatibile implementations already exist (e.g. atomic.h and
+>> bitops.h), the newly added definitions are simple, unimplemented stubs
+>> that just call BUG_ON("unimplemented").
+>>
+>> A few miscellaneous changes were also made to non-ppc code as well,
+>> specifically a few missing header fixes in common.
+> 
+> Nit: This is stale now, isn't it?
 
-Signed-off-by: Javi Merino <javi.merino@cloud.com>
----
+Yes, I'll drop that sentence.
 
-Changes since v1:
-  - Don't touch the shebang.
+> But what I really wanted to mention here: Something's odd with how you
+> sent this series. I received 0, 1, and 3 as one thread, 2 and 5 as
+> another one, and 4 entirely standalone. The list archive [1] has all of
+> 2, 4, and 5 as standalone mails.
+>
 
- tools/misc/xencov_split | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+I'm also seeing this in my own inbox -- I'm not sure what happened here
+since I used the same exact git send-email invocation that I used last
+time.
 
-diff --git a/tools/misc/xencov_split b/tools/misc/xencov_split
-index e4f68ebb6e..a921e8ef44 100755
---- a/tools/misc/xencov_split
-+++ b/tools/misc/xencov_split
-@@ -1,5 +1,7 @@
- #!/usr/bin/env python
- 
-+from __future__ import print_function
-+from builtins import str
- import sys, os, os.path as path, struct, errno
- from optparse import OptionParser
- 
-@@ -16,7 +18,7 @@ def xencov_split(opts):
- 
-     input_file = opts.args[0]
- 
--    f = open(input_file)
-+    f = open(input_file, "rb")
- 
-     # Magic number
-     s = f.read(4)
-@@ -31,9 +33,10 @@ def xencov_split(opts):
-     f.close()
- 
-     while content:
--        off = content.find('\x00')
-+        off = content.find(b'\x00')
-         fmt = bo_prefix + str(off) + 's'
-         fn, = struct.unpack_from(fmt, content)
-+        fn = fn.decode('utf-8')
-         content = content[off+1:]
- 
-         fmt = bo_prefix + 'I'
-@@ -51,14 +54,14 @@ def xencov_split(opts):
-         dir = opts.output_dir + path.dirname(fn)
-         try:
-             os.makedirs(dir)
--        except OSError, e:
-+        except OSError as e:
-             if e.errno == errno.EEXIST and os.path.isdir(dir):
-                 pass
-             else:
-                 raise
- 
-         full_path = dir + '/' + path.basename(fn)
--        f = open(full_path, "w")
-+        f = open(full_path, "wb")
-         f.write(payload)
-         f.close()
- 
-@@ -89,8 +92,8 @@ def main():
- if __name__ == "__main__":
-     try:
-         sys.exit(main())
--    except Exception, e:
--        print >>sys.stderr, "Error:", e
-+    except Exception as e:
-+        print("Error:", e, file=sys.stderr)
-         sys.exit(1)
-     except KeyboardInterrupt:
-         sys.exit(1)
--- 
-2.41.0
+> Another thing I wanted to ask: Would it be possible to configure
+> whatever mail client you use for sending patches to send plain ASCII or
+> UTF-8 text, not quoted-printable ones? At least for me, so far having
+> shoveled in most of your patches, that encoding gets in the way of
+> running a pre-apply-test with plain "patch --dry-run -F0" on all
+> patches (from a script I use for committing). I can help myself with
+> plain "git am", but sooner or later some patch will end up having a
+> collision with something else having gone in, and then I'll need to
+> manually clean up after the failed / incomplete command.
+>
+
+If I'm understanding correctly, it looks like git send-email's
+--transfer-encoding=8bit [1] should do what you're asking. I'll do this
+for future submissions.
+
+[1] https://git-scm.com/docs/git-send-email
+
+> Jan
+
+Thanks,
+Shawn
 
 
