@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD83D792EC7
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Sep 2023 21:20:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.595819.929435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DCFA792FC9
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Sep 2023 22:18:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.595825.929446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdbaK-0002jG-Hg; Tue, 05 Sep 2023 19:19:36 +0000
+	id 1qdcUL-0001py-O2; Tue, 05 Sep 2023 20:17:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 595819.929435; Tue, 05 Sep 2023 19:19:36 +0000
+Received: by outflank-mailman (output) from mailman id 595825.929446; Tue, 05 Sep 2023 20:17:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdbaK-0002hZ-Ef; Tue, 05 Sep 2023 19:19:36 +0000
-Received: by outflank-mailman (input) for mailman id 595819;
- Tue, 05 Sep 2023 19:19:35 +0000
+	id 1qdcUL-0001me-KS; Tue, 05 Sep 2023 20:17:29 +0000
+Received: by outflank-mailman (input) for mailman id 595825;
+ Tue, 05 Sep 2023 20:17:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rZRj=EV=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qdbaJ-0002hT-9h
- for xen-devel@lists.xenproject.org; Tue, 05 Sep 2023 19:19:35 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23056259-4c21-11ee-9b0d-b553b5be7939;
- Tue, 05 Sep 2023 21:19:31 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 4335E828588D;
- Tue,  5 Sep 2023 14:19:29 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id vGVnCSTeHm2g; Tue,  5 Sep 2023 14:19:27 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A09D5828589F;
- Tue,  5 Sep 2023 14:19:27 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id b8Q-ddKtp9kd; Tue,  5 Sep 2023 14:19:27 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 322AC828588D;
- Tue,  5 Sep 2023 14:19:27 -0500 (CDT)
+ <SRS0=91v+=EV=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
+ id 1qdcUK-0001mY-2W
+ for xen-devel@lists.xenproject.org; Tue, 05 Sep 2023 20:17:28 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3a859cf0-4c29-11ee-9b0d-b553b5be7939;
+ Tue, 05 Sep 2023 22:17:25 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-307d20548adso2471018f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Sep 2023 13:17:25 -0700 (PDT)
+Received: from EMEAENG6DZjqCfH.citrite.net
+ (cpc92302-cmbg19-2-0-cust781.5-4.cable.virginm.net. [82.1.211.14])
+ by smtp.gmail.com with ESMTPSA id
+ g7-20020a5d46c7000000b0031accc7228asm18276300wrs.34.2023.09.05.13.17.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Sep 2023 13:17:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,77 +46,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23056259-4c21-11ee-9b0d-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A09D5828589F
+X-Inumbo-ID: 3a859cf0-4c29-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1693941567; bh=nl4E7DZVQLWnURdI6KAIDmOWsKZeIcwUKfpaDJdm+0g=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=WH68cvnuXcioT40XevLtFBQFbTb2DErYzC/8rTFmObBGwwkKxuFMQxj/Cs89Zubix
-	 d2wUAdZci4YgQ4F8AGEhztuFS9WZ/4hzEINITMT8xOs/oCDuzYY3JQwXR0mE9xzOCo
-	 qWni2c4Qkie8bcStkDqwbbdIXv8d62bcU+H4NOns=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <df8de9f5-f1d2-61a6-7bc3-e74d5a99270a@raptorengineering.com>
-Date: Tue, 5 Sep 2023 14:19:26 -0500
+        d=cloud.com; s=cloud; t=1693945045; x=1694549845; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/KfqP95JahvULL+583DSkWljDAxm9MZrxXWX/SVz384=;
+        b=gYpQcTWLk+LVhj104NK+S4F/M4lnzrzRt7Njio+3M71rVMYo7vFH15x4Eq77dKcpIS
+         a3z/H5KIGiSH4KcrTpnTYbIzfcSbEGzud9AfloTS8bNO2wkXzR2O/UpMrzZWBhtwMGgr
+         VGDwPwpTvFMIqlvDBGXzK7LJCNX5/rmsSObDE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693945045; x=1694549845;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/KfqP95JahvULL+583DSkWljDAxm9MZrxXWX/SVz384=;
+        b=KzZcwpIHaytETluh9WbJNWMcQxudfs2h1gYq/ZGWDAEBr7rxp1Rkc+lNEKO5jtbpLL
+         0eDcDDvksyn12N17WbR/2NDZAFrwOlXneKhD/w/9BIumD8vGjPdpkKU+/kZqbmuuquqp
+         LNh/sFlCNZRbZhymFwYv+MzmTLL5DakxNkt8Q+PmMsgbz6ZU0/lVQ1/pLrYRrzIKqlxo
+         +jBKOTkNR0KBt9JhMAAmO84UDL41fRES0SkgHcHoK3rWknl4mKYrkyFBZEimCEDdzfeQ
+         QmC2LU2ppUQrWQEGNCvw5gH6ueRu2FDMwn9D+yvd2IFjrZOuRbtml/zHle3HUZ+gFLt4
+         b6Rw==
+X-Gm-Message-State: AOJu0YyUgHduQh+qEjNOyBtDZMtA/Ni2pIKCBF4qAIQ+lsw2l3WSJa+m
+	DQIgv86fekFfvmyiVaKVR5uZep+/oi/YdqBRXcA=
+X-Google-Smtp-Source: AGHT+IFBW8XfZ2BPrde/X1D0kHod3Df3PZ/NfMGOJjnw2za8CXKCiQiEHC2toZNLQJs/TIEeFKem7w==
+X-Received: by 2002:adf:ed4e:0:b0:31a:dbd8:95d4 with SMTP id u14-20020adfed4e000000b0031adbd895d4mr650990wro.12.1693945044884;
+        Tue, 05 Sep 2023 13:17:24 -0700 (PDT)
+From: Javi Merino <javi.merino@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Javi Merino <javi.merino@cloud.com>
+Subject: [PATCH v2] tools/misc/xencov_split: Add python 3 compatibility
+Date: Tue,  5 Sep 2023 21:15:37 +0100
+Message-ID: <20230905201653.98425-1-javi.merino@cloud.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v4 3/3] xen/ppc: Implement initial Radix MMU support
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1692744718.git.sanastasio@raptorengineering.com>
- <7cebc2962002c36ecfe712bf1bcb251e083910b8.1692744718.git.sanastasio@raptorengineering.com>
- <45081782-69cb-1b8e-7925-fd9fb4e3d0c4@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <45081782-69cb-1b8e-7925-fd9fb4e3d0c4@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/5/23 5:01 AM, Jan Beulich wrote:
-> On 23.08.2023 01:03, Shawn Anastasio wrote:
->> Add code to construct early identity-mapped page tables as well as the
->> required process and partition tables to enable the MMU.
->>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-> 
-> Having committed this, something broke in CI. As per the artifacts of
-> https://gitlab.com/xen-project/xen/-/jobs/5017915681 ...
-> 
->> +void __init setup_initial_pagetables(void)
->> +{
->> +    struct lvl1_pd *root = lvl1_pd_pool_alloc();
->> +    unsigned long lpcr;
->> +
->> +    setup_initial_mapping(root, (vaddr_t)_start, (vaddr_t)_end, __pa(_start));
->> +
->> +    /* Enable Radix mode in LPCR */
->> +    lpcr = mfspr(SPRN_LPCR);
->> +    mtspr(SPRN_LPCR, lpcr | LPCR_UPRT | LPCR_HR);
->> +    early_printk("Enabled radix in LPCR\n");
-> 
-> ... this is the first message missing; setup_initial_mapping() appears
-> to be completing fine.
+Closes #154
 
-Ah, yes, this is a side-effect of the CI pipeline using the pseries
-machine type instead of PowerNV. Setting the LPCR directly as we're
-doing here has to be done via a hypercall on the paravirtualized pseries
-platform.
+Signed-off-by: Javi Merino <javi.merino@cloud.com>
+---
 
-I've given it some thought and I think the best path forward would be to
-just drop pseries support. I had originally targeted it for the early
-bringup patches since it has historically been much better supported by
-QEMU, but that's no longer the case with QEMU git. Outside of testing I
-don't think there's much practical value in continuing to support
-pseries.
+Changes since v1:
+  - Don't touch the shebang.
 
-I'll prepare a series to drop pseries support and update the CI
-container to use the PowerNV machine type instead, if there are no
-objections.
+ tools/misc/xencov_split | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-> Jan
+diff --git a/tools/misc/xencov_split b/tools/misc/xencov_split
+index e4f68ebb6e..a921e8ef44 100755
+--- a/tools/misc/xencov_split
++++ b/tools/misc/xencov_split
+@@ -1,5 +1,7 @@
+ #!/usr/bin/env python
+ 
++from __future__ import print_function
++from builtins import str
+ import sys, os, os.path as path, struct, errno
+ from optparse import OptionParser
+ 
+@@ -16,7 +18,7 @@ def xencov_split(opts):
+ 
+     input_file = opts.args[0]
+ 
+-    f = open(input_file)
++    f = open(input_file, "rb")
+ 
+     # Magic number
+     s = f.read(4)
+@@ -31,9 +33,10 @@ def xencov_split(opts):
+     f.close()
+ 
+     while content:
+-        off = content.find('\x00')
++        off = content.find(b'\x00')
+         fmt = bo_prefix + str(off) + 's'
+         fn, = struct.unpack_from(fmt, content)
++        fn = fn.decode('utf-8')
+         content = content[off+1:]
+ 
+         fmt = bo_prefix + 'I'
+@@ -51,14 +54,14 @@ def xencov_split(opts):
+         dir = opts.output_dir + path.dirname(fn)
+         try:
+             os.makedirs(dir)
+-        except OSError, e:
++        except OSError as e:
+             if e.errno == errno.EEXIST and os.path.isdir(dir):
+                 pass
+             else:
+                 raise
+ 
+         full_path = dir + '/' + path.basename(fn)
+-        f = open(full_path, "w")
++        f = open(full_path, "wb")
+         f.write(payload)
+         f.close()
+ 
+@@ -89,8 +92,8 @@ def main():
+ if __name__ == "__main__":
+     try:
+         sys.exit(main())
+-    except Exception, e:
+-        print >>sys.stderr, "Error:", e
++    except Exception as e:
++        print("Error:", e, file=sys.stderr)
+         sys.exit(1)
+     except KeyboardInterrupt:
+         sys.exit(1)
+-- 
+2.41.0
 
-Thanks,
-Shawn
 
