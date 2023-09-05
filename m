@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED8817921B9
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Sep 2023 11:58:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.595533.929130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3F337921BC
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Sep 2023 12:01:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.595539.929140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdSoX-00025p-FS; Tue, 05 Sep 2023 09:57:41 +0000
+	id 1qdSs3-0003tJ-UF; Tue, 05 Sep 2023 10:01:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 595533.929130; Tue, 05 Sep 2023 09:57:41 +0000
+Received: by outflank-mailman (output) from mailman id 595539.929140; Tue, 05 Sep 2023 10:01:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdSoX-00023C-CX; Tue, 05 Sep 2023 09:57:41 +0000
-Received: by outflank-mailman (input) for mailman id 595533;
- Tue, 05 Sep 2023 09:57:40 +0000
+	id 1qdSs3-0003rR-RH; Tue, 05 Sep 2023 10:01:19 +0000
+Received: by outflank-mailman (input) for mailman id 595539;
+ Tue, 05 Sep 2023 10:01:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n/I5=EV=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
- id 1qdSoW-000236-AW
- for xen-devel@lists.xenproject.org; Tue, 05 Sep 2023 09:57:40 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JoEh=EV=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qdSs2-0003rJ-Vu
+ for xen-devel@lists.xenproject.org; Tue, 05 Sep 2023 10:01:18 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20610.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::610])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a51fd4af-4bd2-11ee-9b0d-b553b5be7939;
- Tue, 05 Sep 2023 11:57:38 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-50091b91a83so3823361e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Sep 2023 02:57:38 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- o3-20020a5d4083000000b0031435731dfasm16913703wrp.35.2023.09.05.02.57.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Sep 2023 02:57:37 -0700 (PDT)
+ id 27382ab0-4bd3-11ee-9b0d-b553b5be7939;
+ Tue, 05 Sep 2023 12:01:16 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DB9PR04MB9233.eurprd04.prod.outlook.com (2603:10a6:10:361::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30; Tue, 5 Sep
+ 2023 10:01:14 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
+ 10:01:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +47,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a51fd4af-4bd2-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693907857; x=1694512657; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=AKHR62ul+UyAMBBLZNZLoFrH8efwjpri67YRyIEqGb8=;
-        b=PwDCoPUBD/4seHd+G+LNsZyILf/+Wh3VMPoxn9OO0gwdkwvl++0/jv/qNVmLDnLV3j
-         96ttU+WHrckOEkRkvAidkIuwN5qo5C0+7L4TdhPmGqatpKvmJgQYPnzts7MYqAPDL+dM
-         xxX6HlZteN0VGhVzJUI18X1IUVFjUkiW6TeOAZCbbPct1VCVm97F6+s2mGaPx/iBJ1Xz
-         ylvufRK7a+xVVmeEv3qeVE8c5lRHm4MOnyYhAcTEEwzQwtu3GV3uPpqQ3SxhktwbnMIW
-         qE3KO+qrJponKACU4DLzOAPZxRz0CBqNct5+BNAysJSE/awNSe5EAa8H6lKLAdrZ578u
-         KPeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693907857; x=1694512657;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AKHR62ul+UyAMBBLZNZLoFrH8efwjpri67YRyIEqGb8=;
-        b=hmHACXvDUhNo3BVeg18pLEqJPjOzMcXEhU+g/Kv4he/uepdRoy3FgwNuaVUKmBvfMY
-         ugfCQ5zgX/RHCy2F9d4FM/NT00MUlzm4efmDaWuNFdvu2y8eIqxb15yZzL9qf1bJPgll
-         Iw7ktw4+TAmwoDAZ1s5cvzBuhqKFMHw1znV9o0QnbOn82qpMZsW7EZjkTo2Lhtdd8R+H
-         /Ub8mqMO0wJw8yKr/pcSz1k1MadeY2Sh6clJ3qYvjQe2HNuc9I3FagqRY8PvCiPfAm0F
-         C/7+ftc1xYIHh3c+EIeNydL2sQlf6jiBF5nQzfex/BNztPU6gRF2i/9VGil8VTUlUU2E
-         AZNw==
-X-Gm-Message-State: AOJu0YwfJFJujhfef4rLVbxq7Ee1eHtZlJ6vRV45BzouMUzMZ+sdegJb
-	2FmtJ5vTK6Lc/CxPVsf6I6/hPQ==
-X-Google-Smtp-Source: AGHT+IF/Krv9XoaHXmgTX6hA95PT3mrsyeECELy7hFWygISVfjLi7nO3m0A/foR0u3zSojYLTMDlFA==
-X-Received: by 2002:a19:8c09:0:b0:500:9d6c:913e with SMTP id o9-20020a198c09000000b005009d6c913emr7472258lfd.52.1693907857446;
-        Tue, 05 Sep 2023 02:57:37 -0700 (PDT)
-Date: Tue, 5 Sep 2023 12:57:34 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net,
-	hawk@kernel.org, john.fastabend@gmail.com, jiawenwu@trustnetic.com,
-	mengyuanlou@net-swift.com, yang.lee@linux.alibaba.com,
-	error27@gmail.com, linyunsheng@huawei.com,
-	linux-hyperv@vger.kernel.org, kys@microsoft.com,
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	longli@microsoft.com, shradhagupta@linux.microsoft.com,
-	linux-hwmon@vger.kernel.org, michael.chan@broadcom.com,
-	richardcochran@gmail.com, jdelvare@suse.com, linux@roeck-us.net,
-	yisen.zhuang@huawei.com, salil.mehta@huawei.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, nbd@nbd.name, john@phrozen.org,
-	sean.wang@mediatek.com, Mark-MC.Lee@mediatek.com,
-	lorenzo@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, linux@armlinux.org.uk,
-	linux-rdma@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org,
-	gerhard@engleder-embedded.com, maciej.fijalkowski@intel.com,
-	alexanderduyck@fb.com, wei.fang@nxp.com, shenwei.wang@nxp.com,
-	xiaoning.wang@nxp.com, linux-imx@nxp.com, lgirdwood@gmail.com,
-	broonie@kernel.org, jaswinder.singh@linaro.org,
-	ilias.apalodimas@linaro.org, UNGLinuxDriver@microchip.com,
-	horatiu.vultur@microchip.com, linux-omap@vger.kernel.org,
-	grygorii.strashko@ti.com, simon.horman@corigine.com,
-	vladimir.oltean@nxp.com, aleksander.lobakin@intel.com,
-	linux-stm32@st-md-mailman.stormreply.com,
-	alexandre.torgue@foss.st.com, joabreu@synopsys.com,
-	mcoquelin.stm32@gmail.com, p.zabel@pengutronix.de,
-	thomas.petazzoni@bootlin.com, mw@semihalf.com, sgoutham@marvell.com,
-	gakula@marvell.com, sbhatta@marvell.com, hkelam@marvell.com,
-	xen-devel@lists.xenproject.org, jgross@suse.com,
-	sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
-	linux-wireless@vger.kernel.org, ryder.lee@mediatek.com,
-	shayne.chen@mediatek.com, kvalo@kernel.org, andrii@kernel.org,
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
-	kpsingh@kernel.org, sdf@google.com, haoluo@google.com,
-	jolsa@kernel.org
-Subject: Re: [PATCH v1 net] page_pool: Cap queue size to 32k.
-Message-ID: <75bcd331-9a62-486f-a15f-6aebf4d1838b@kadam.mountain>
-References: <20230814060411.2401817-1-rkannoth@marvell.com>
+X-Inumbo-ID: 27382ab0-4bd3-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IIrQF8pN6xH4lkk3KUSCtH1dGkV9JgMil3CUXhez3CON+BVH0weARSthx0uaNwCCavwbr9upy+Y/MZFkKOfP85WYAiuxHSPKTqcCOqRyciHpq0tn8+DuVGuG/zYl7ut9GHPN+2qmZhh8+2sKwRgJiMZsr9Rlhw+He7Y/cMbPUviazE/0/tDR7++J9ALQvTRA5HM0hTqh8ZDYhGbOqHL0jPmT8vNSeHhhDIuBb7uc9EzyS4bm9nVe7qA0Oa7UvCzUAhy15xY+/yU3P5m3aTm24rFjmN1iRCxSNamCkCi2U8+MHL99LGTqKSnb2W/ZDAxKbV9uk2Jt97wmbdIWjdkzLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8Ct+2GTJx/tV4RjCTobD8cm1WfBCadZ7+XWHPybvZ2Y=;
+ b=X8HsluVbZGp/eNvG6Eupu88CXby6ws+C8NfVutpGOzNzA1VcvV74dxdvPznK/4E0LuOqBtn48ngiRNiJa3dH2BoVAaLK+jhQgAiqC3Qom5uDkm97zUipNd6H1VvleceSllMRrp7OECWe/ddoY/CFvFHVmUJdiqmn/umbxWPDGWoagx/V4EWjgI3LCyO+0LhPO4uJRFayO/swbH5EZs6wUy3MrFnl7jH28/ne0qcLZjGLjmEzGVVw00sDlnZxIpZLHdfuXByw2XOHDTxWREHlGACacuybr/5iZ9VV6uLcr4ugfRGOkBuXImSomkaOdWNywUNtkQpLQ+xjcoMtuDD3jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8Ct+2GTJx/tV4RjCTobD8cm1WfBCadZ7+XWHPybvZ2Y=;
+ b=nuwpqjx6UptAW5dgmVbZXRBYKf6Wcs1KoYT2GL4mQ/Ejdzi/spkxhUHL5mbqg0TMBaNtRn67tnh1e/jkz/cGLzvaw1Ri0bs+Av6FeNkgMPfrADcUumPK39nS60VJXAJjS7n5B1AqXM5HdVjR8TYJxlAiOmzmP43/hdkrhnw0qawrSrGzVp40Us0cc42of+K4DBGs3yoIyQRojeYS6Nz4C/+HXz+adD35ZFH8BvgVtv9ZegU1T/urxK+ncADCC61zN/nbA62nOCUAXVNH2x9EloH8mwXFR1AgjuI82/nazHVfpualkO4U7DkpccD3fVBSONTJ2YJFLp8AfJSBZa22Fg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <45081782-69cb-1b8e-7925-fd9fb4e3d0c4@suse.com>
+Date: Tue, 5 Sep 2023 12:01:11 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [PATCH v4 3/3] xen/ppc: Implement initial Radix MMU support
+Content-Language: en-US
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1692744718.git.sanastasio@raptorengineering.com>
+ <7cebc2962002c36ecfe712bf1bcb251e083910b8.1692744718.git.sanastasio@raptorengineering.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <7cebc2962002c36ecfe712bf1bcb251e083910b8.1692744718.git.sanastasio@raptorengineering.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0113.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230814060411.2401817-1-rkannoth@marvell.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB9233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0212de84-a02a-4b8f-5b79-08dbadf709f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	RlZmMTL8iCnJVXXgXttGzl3KaZKjYW3i4WG79vFg0obdxEjPp2XEbrXpO1GOvA6iSl2Dro2n9SQNGjGz/vIE/s31zHDPBtKiZ19dr6SdYwBh+45wSHNJBRa8KW2C/g+tkQKC+jiPNu4L0a+Itv/RXfycArZ3wBcfGFmeSXOegKAnT7S77EbZ46DGXflXF67558c5aKxxMLSN0CSPdcjyxlmssEXIW3hNv+AhJpEqsb0hDIGGyFXgno3+NOA7KAFKudqltRw9tkVAM6wx6dVxAVU7bvGWBwneThLXZnQeOWXRO+J8cEYjXyCxXGbjwikBOQY56xrcQ/pxnmDQzH4aYbzmUpnfejIKjF2jWki3dnx8qdRNq7P0ssyiy1S+0L9utaaJqUU45J9OaJNN3McFK+5qeS3oMzEMTj3bUe3xdlJRMOLM97AO48PQpcJ00VmahHyGdozOlMJ1mAyF1Q9+oUhei88a45lA/9FG30jTA8KZhryKbS9k6Kohid0wpLIdFxqpGwN/a32BBAtEDsatRVuxGIGLbomv0gQyCiF6qrsOqYnmIev6fFPIAFizpBirg8aFwrq5jmUBwI66m3OXs1pU26se0lUeJE8zNYJ7Iejlbp8T0dtIMQuD9kCtLz0/uWgt2mGVU8Pl9KgljhM6Zw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(346002)(366004)(39860400002)(396003)(451199024)(1800799009)(186009)(2616005)(26005)(31686004)(6666004)(8676002)(8936002)(4326008)(83380400001)(5660300002)(6486002)(53546011)(6506007)(41300700001)(54906003)(66476007)(66946007)(66556008)(38100700002)(86362001)(6512007)(6916009)(31696002)(316002)(478600001)(966005)(36756003)(2906002)(4744005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bmY2a3FEekNpRll5cyt4cjBmcFpNTHg3emR5dXF4ZnFVMytsQ1lXMTdjYjlD?=
+ =?utf-8?B?b3pNNDAwYVhIUGxlQlppeHdSK21qNE5LcHdGeFFoeGw5eFo1TmZ1MUNFQjZV?=
+ =?utf-8?B?SERQcFZUWVlsaGkwcGRRQ3o5eUZVQWNRU1c2WURiTWtpMFdjZmtyaU9KVS9Z?=
+ =?utf-8?B?UTMwMU5KQjdQVStKcnVoK3BSQlVqaURON3A4V2Yyb3dkbDkvMmhsbjBqMC9W?=
+ =?utf-8?B?ZDMxZTVnZmpmWFkreEtvcDhZQ0x2b3I1MDZDSXQrUEtYbllTbW9FaGxVZmxY?=
+ =?utf-8?B?NjY5N1hYd1pXWTdVN1dOY29YS1gyZXM1cVRkUUlya0ExeXZJNzE1SloxSVBi?=
+ =?utf-8?B?UDFxNVI0RmVZV2R1ZktUclI0eUlLWjVpQ3prbFluQklCb1VCYWdFYk1EYlRw?=
+ =?utf-8?B?VzZieW91OGxYdjhYRFUxSU5NbFZPSlNaRW9yckU3elpVc1U5K3lWMndSUUsw?=
+ =?utf-8?B?WVN4eTFGWjZTa1FaYnI0dHYzVURCcDQwaEJNZUpmRzNwVnJ1QTN1VHU0NklC?=
+ =?utf-8?B?NUpCUzE1eXI2Q2xEbHluZ2hnUDJyN2V6dDdCRk1TQW4zaFRBWVBDb2VxdDNH?=
+ =?utf-8?B?RDZkeWUxNE9UVDBVRTBHQ01OeDN1eUN3QWE3ZjRrSnExOVhIaFoybCtPWTNB?=
+ =?utf-8?B?SVIveE4xNlBhRUVOalhnY1JHekdqa0NReklJMWl4R3lQSmVGT1dXcFJUSUxp?=
+ =?utf-8?B?YnpRK1RqZ2N2bk8zRndpWFIwWmdIZWdJUDlsQVZIMGFwc3E3bzA1cVFSSFBp?=
+ =?utf-8?B?N1Z3Nlh0SElxR0doMFlkQW96MmV5d3FSMnIvNERYcU9IbGJ6NFIyczRvcGtW?=
+ =?utf-8?B?eUttMm5oV05lbkJzR1hXRWdaSkxVSFRodUxWZ1V1dlgyMFpQSC9IaFlncGhu?=
+ =?utf-8?B?emtHdHo4L0o3UXB2a2txTWd6dy9TSW5mL1ZGeEF4WE1FeHJMaHlRWXVNQ083?=
+ =?utf-8?B?ZkFmZEVrRnVpY1NNRmlvYUJ5UzMrK1NhOGQyZmh2TWkzZmsxdXQ1NVphdEJP?=
+ =?utf-8?B?d2dGZ3l1N0tkWkx5WDhBOE5QbjNReDAyYnRjeHFxTDlVaW4zcEptSUh0M0xj?=
+ =?utf-8?B?QmU4Zm9VT0ozcU9keFp1MGZzYUcxYVpad1V6Vk55bGxROFN4aFRINUlJNDZR?=
+ =?utf-8?B?ZXB6Z1k2dTJJVHdSRHVyMnZLVDIxbjJDRDMvbGJqUCtRREhNRWp5czJ3RWt0?=
+ =?utf-8?B?Wlo3MzdDZWxMTUZKclp2QVkxTC80Z0JvcmhmaEhoZnRUanZ1WER3ZWxsK3ZH?=
+ =?utf-8?B?UTU0aXFRQ0U5RXpnVjNCazlPY3FLcFZXRDRGbHc2RUZ1R0dBeGMzRko1Y2tn?=
+ =?utf-8?B?Wk85cVhJNktSWC90Wk5ibUYyL0ZVMEtNbmkyTG1jNjNJb2RldFFaWnQrRERU?=
+ =?utf-8?B?UnZQZnkzNTk0c1VHdzFzbzN5cUlFQUNKN1VDSWpDbTFPUEYvSWNIbk92Vms4?=
+ =?utf-8?B?VWVpL1ZJYVZXa3RBUitRMkZSeC9lYi9sd0JhcXJpZTRxY1padVV0SXdLY1Fa?=
+ =?utf-8?B?U0d1NmRpN0EyNks1ZmYrcGE4WkxseFNFSkhjM0NoaFNhR21UN3B6a2J2Y1lG?=
+ =?utf-8?B?UjMvVzF5b2dkSGVXZ0lKczQ4OVdZWUt0NHQ2S2ozWjhISURJVGttUm55OFJx?=
+ =?utf-8?B?Ny8vZlBkOUJIcWx0OFIvMGJhZUs1czdqTXdLenRoOEZSRXQ2ZFkvVzBMTG1w?=
+ =?utf-8?B?TVFRMDlJdGJtejhBNXFNRGhCVnhvRU9VR1N4LzBlbnl2NWdRQ2YyRnZycEtX?=
+ =?utf-8?B?YzVjMG1oalVCaXNaR1hMaW9FRVh1bHhFVjgycm1kSDI2am9xODQ4Q2RPeXhK?=
+ =?utf-8?B?Z002TWprWFdEMVZPVkw4UTFiR1NVT1RUallzUkt0WUV0bnV1clkrNDBwcStF?=
+ =?utf-8?B?dmFNTTVrRSt0WTk1YnFpaFZxRXlZM0VPN1dJSitRZld2Y2VXcm1CcHpqYmQx?=
+ =?utf-8?B?M0FTZTh0enVsd2ptL0x4M0RZWEdJNHFHdlhSUk82SUovY3hIbEtWYnNoL1NC?=
+ =?utf-8?B?TnVWbHVYOWdYK2dSNzlyeEhmWElRK2FDSThmaDB6SENCNHFlakZxSW85RTJt?=
+ =?utf-8?B?Z1hIajBxb1dYTm1ZNzBjSWt0U3RtTlNjTkY1aW1sTEt2Z2JUR0IrYm9QS0dw?=
+ =?utf-8?Q?nPC6r1qf/oQYW4GcJEgvezLds?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0212de84-a02a-4b8f-5b79-08dbadf709f6
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 10:01:14.0266
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qjAplYN7rXtw0NigKZ8jFJfrXgMEMHbFU2KEKMs4v68ZYS3D7DTaL4NCZFxyQouE0uRBcZeH0TT9f8JtDebqRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9233
 
-On Mon, Aug 14, 2023 at 11:34:11AM +0530, Ratheesh Kannoth wrote:
-> Clamp to 32k instead of returning error.
-
-What is the motivation here?  What is the real world impact for the
-users?
-
+On 23.08.2023 01:03, Shawn Anastasio wrote:
+> Add code to construct early identity-mapped page tables as well as the
+> required process and partition tables to enable the MMU.
 > 
-> Please find discussion at
-> https://lore.kernel.org/lkml/
-> CY4PR1801MB1911E15D518A77535F6E51E2D308A@CY4PR1801MB1911.
-> namprd18.prod.outlook.com/T/
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-Please don't break the URL up like this.  I think normally we would just
-write up a normal commit message and use the Link: tag.
+Having committed this, something broke in CI. As per the artifacts of
+https://gitlab.com/xen-project/xen/-/jobs/5017915681 ...
 
-Fixes: ff7d6b27f894 ("page_pool: refurbish version of page_pool code")
-Link: https://lore.kernel.org/lkml/CY4PR1801MB1911E15D518A77535F6E51E2D308A@CY4PR1801MB1911.namprd18.prod.outlook.com/
-Signed-off-by:
-
-> @@ -171,9 +171,10 @@ static int page_pool_init(struct page_pool *pool,
->  	if (pool->p.pool_size)
->  		ring_qsize = pool->p.pool_size;
->  
-> -	/* Sanity limit mem that can be pinned down */
-> +	/* Cap queue size to 32k */
->  	if (ring_qsize > 32768)
-> -		return -E2BIG;
-> +		ring_qsize = 32768;
+> +void __init setup_initial_pagetables(void)
+> +{
+> +    struct lvl1_pd *root = lvl1_pd_pool_alloc();
+> +    unsigned long lpcr;
 > +
->  
->  	/* DMA direction is either DMA_FROM_DEVICE or DMA_BIDIRECTIONAL.
+> +    setup_initial_mapping(root, (vaddr_t)_start, (vaddr_t)_end, __pa(_start));
+> +
+> +    /* Enable Radix mode in LPCR */
+> +    lpcr = mfspr(SPRN_LPCR);
+> +    mtspr(SPRN_LPCR, lpcr | LPCR_UPRT | LPCR_HR);
+> +    early_printk("Enabled radix in LPCR\n");
 
-Don't introduce a blank line here.  Checkpatch will complain if you
-have to blank lines in a row.  It won't complain about the patch but it
-will complain if you apply the patch and then re-run checkpatch -f on
-the file.  (I didn't test this but it's wrong either way. :P).
+... this is the first message missing; setup_initial_mapping() appears
+to be completing fine.
 
-regards,
-dan carpenter
-
+Jan
 
