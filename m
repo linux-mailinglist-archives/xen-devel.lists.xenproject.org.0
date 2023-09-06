@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BF057946D7
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 01:11:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.596902.931019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1A22796DAE
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 01:45:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.596914.931044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe1fJ-0001f7-F8; Wed, 06 Sep 2023 23:10:29 +0000
+	id 1qe2Cq-0005i0-9D; Wed, 06 Sep 2023 23:45:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 596902.931019; Wed, 06 Sep 2023 23:10:29 +0000
+Received: by outflank-mailman (output) from mailman id 596914.931044; Wed, 06 Sep 2023 23:45:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe1fJ-0001bz-CO; Wed, 06 Sep 2023 23:10:29 +0000
-Received: by outflank-mailman (input) for mailman id 596902;
- Wed, 06 Sep 2023 23:10:27 +0000
+	id 1qe2Cq-0005ff-6G; Wed, 06 Sep 2023 23:45:08 +0000
+Received: by outflank-mailman (input) for mailman id 596914;
+ Wed, 06 Sep 2023 23:45:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r+8v=EW=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1qe1fH-0001ZS-Hq
- for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 23:10:27 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c65e70b-4d0a-11ee-9b0d-b553b5be7939;
- Thu, 07 Sep 2023 01:10:21 +0200 (CEST)
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2023 16:10:13 -0700
-Received: from lkp-server01.sh.intel.com (HELO 59b3c6e06877) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 06 Sep 2023 16:10:09 -0700
-Received: from kbuild by 59b3c6e06877 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qe1ew-0000gB-2m;
- Wed, 06 Sep 2023 23:10:06 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hRy5=EW=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qe2Co-0005fZ-6I
+ for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 23:45:06 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 654b9d67-4d0f-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 01:45:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id DECEA82857C4;
+ Wed,  6 Sep 2023 18:45:00 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Lp2Q7wrJlamB; Wed,  6 Sep 2023 18:45:00 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 0BB8782857C5;
+ Wed,  6 Sep 2023 18:45:00 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id vbB6nI-4Z1oK; Wed,  6 Sep 2023 18:44:59 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 92B0282857C4;
+ Wed,  6 Sep 2023 18:44:59 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,129 +51,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c65e70b-4d0a-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694041821; x=1725577821;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fEw9pa/NdSdFIzoYPpsMEnIibMq4wIaQI1Ds5infKOM=;
-  b=LuEXLknw/9cAovSwTeTUhE6AQr0f0/DCe6EDgOzOm/XINphnedE62KkZ
-   UgdRP83HTP6/A0A18QGwzMZB3hhjZeqDTN5Ip2+qEV+i5hi6jofSV+0GU
-   InQkLdiTgdKKYYXTHKcTf6tcwE6HfJB6PYPgQ1sQg/Xs1K0mo5/euYNNP
-   Nnk7ZM/ypOi/bCgc4UIgKs8aTqfES4NqM+NaBkA8NN4qNnmRY4FLpH7EE
-   XCsD5U+Qb9EmfsY2Nkeb8J0ALNzNlUgYXvvhKSvF/CoPApAKvmZ96cu2v
-   jC8BareLHg8bJ0JSQiM6EyVamdnP2+tKa99yzI6Bmejs+mYzf9fPvhESd
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="408215570"
-X-IronPort-AV: E=Sophos;i="6.02,233,1688454000"; 
-   d="scan'208";a="408215570"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="744866586"
-X-IronPort-AV: E=Sophos;i="6.02,233,1688454000"; 
-   d="scan'208";a="744866586"
-Date: Thu, 7 Sep 2023 07:09:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jason Andryuk <jandryuk@gmail.com>, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Roger Pau Monne <roger.pau@citrix.com>,
-	stable@vger.kernel.org, Jason Andryuk <jandryuk@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v2] acpi/processor: sanitize _PDC buffer bits when
- running as Xen dom0
-Message-ID: <202309070625.dJUDcGZg-lkp@intel.com>
-References: <20230906182125.48642-1-jandryuk@gmail.com>
+X-Inumbo-ID: 654b9d67-4d0f-11ee-9b0d-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 0BB8782857C5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1694043900; bh=O4CBTmnG/tOoCAk90JJoYmxdN7o69dDb0AnnPW/APpQ=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=qODHAZoenyRDF5F9EdBGaB6zYNGkkeulH1Zk32rUSScitYjahgTgUB7RJBKpshm/l
+	 5Yi56TomSZSs7xakRDbPqIzBWthaOFnpkGz16bH72dUOLTKODD4ujMVh3KtTmy8Xbn
+	 oMeB4oI+/nON0GHwYLPBGJVoxHyFDa/kC57qfY/w=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <8ca65bea-75a5-369f-8124-d598aa87e24f@raptorengineering.com>
+Date: Wed, 6 Sep 2023 18:44:59 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230906182125.48642-1-jandryuk@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH 2/2] xen/ppc: Drop support for pseries/OpenFirmware
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1693949731.git.sanastasio@raptorengineering.com>
+ <8c09322cff220d4d102d50b2fc45e9290106d109.1693949731.git.sanastasio@raptorengineering.com>
+ <e5fc9fe7-83fa-98a0-02db-8d28fc2b0524@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <e5fc9fe7-83fa-98a0-02db-8d28fc2b0524@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jason,
+On 9/6/23 1:44 AM, Jan Beulich wrote:
+> On 05.09.2023 23:46, Shawn Anastasio wrote:
+>> Since QEMU's PowerNV support has matured to the point where it is
+>> now suitable for development, drop support for booting on the
+>> paravirtualized pseries machine type and its associated interfaces.
+> 
+> I think you want to mention that the pseries functionality was actually
+> broken by the earlier change, both verbally and by means of a Fixes:
+> tag. The breakage actually may also want mentioning in patch 1 as well
+> as the cover letter.
+>
 
-kernel test robot noticed the following build errors:
+Will do. I'll add mentions to the breakage in both patches and add a
+Fixes: tag to this patch specifically.
 
-[auto build test ERROR on tip/x86/core]
-[also build test ERROR on v6.5]
-[cannot apply to rafael-pm/linux-next linus/master next-20230906]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>> --- a/xen/arch/ppc/setup.c
+>> +++ b/xen/arch/ppc/setup.c
+>> @@ -14,17 +14,12 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
+>>  {
+>>      if ( r5 )
+>>      {
+>> -        /* OpenFirmware boot protocol */
+>> -        boot_of_init(r5);
+>> +        /* Unsupported OpenFirmware boot protocol */
+>> +        __builtin_trap();
+>>      }
+>>      else
+>>      {
+>> -        /*
+>> -         * kexec boot protocol
+>> -         *
+>> -         * TODO: This currently assumes an OPAL/PowerNV system, but it's also
+>> -         * possible to be kexec'd on an OF system.
+>> -         */
+>> +        /* kexec boot protocol */
+>>          boot_opal_init((void *)r3);
+> 
+> At least part of the comment may want retaining, as the code only handles
+> the OPAL case?
+>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jason-Andryuk/acpi-processor-sanitize-_PDC-buffer-bits-when-running-as-Xen-dom0/20230907-022235
-base:   tip/x86/core
-patch link:    https://lore.kernel.org/r/20230906182125.48642-1-jandryuk%40gmail.com
-patch subject: [PATCH v2] acpi/processor: sanitize _PDC buffer bits when running as Xen dom0
-config: x86_64-randconfig-r011-20230907 (https://download.01.org/0day-ci/archive/20230907/202309070625.dJUDcGZg-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230907/202309070625.dJUDcGZg-lkp@intel.com/reproduce)
+Since we're now explicitly only supporting Opal/PowerNV I don't think
+there's any need to point out that this code path doesn't properly
+handle the pseries+kexec case. boot_opal_init will gracefully
+fail under that circumstance anyway when it tries to find an /ibm,opal
+device tree node.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309070625.dJUDcGZg-lkp@intel.com/
+> Jan
 
-All errors (new ones prefixed by >>):
+Thanks,
+Shawn
 
-   drivers/acpi/processor_pdc.c: In function 'acpi_processor_eval_pdc':
->> drivers/acpi/processor_pdc.c:147:17: error: implicit declaration of function 'xen_sanitize_pdc' [-Werror=implicit-function-declaration]
-     147 |                 xen_sanitize_pdc(buffer);
-         |                 ^~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
-
-
-vim +/xen_sanitize_pdc +147 drivers/acpi/processor_pdc.c
-
-   116	
-   117	/*
-   118	 * _PDC is required for a BIOS-OS handshake for most of the newer
-   119	 * ACPI processor features.
-   120	 */
-   121	static acpi_status
-   122	acpi_processor_eval_pdc(acpi_handle handle, struct acpi_object_list *pdc_in)
-   123	{
-   124		acpi_status status = AE_OK;
-   125		union acpi_object *obj;
-   126		u32 *buffer = NULL;
-   127	
-   128		obj = pdc_in->pointer;
-   129		buffer = (u32 *)(obj->buffer.pointer);
-   130	
-   131		if (boot_option_idle_override == IDLE_NOMWAIT) {
-   132			/*
-   133			 * If mwait is disabled for CPU C-states, the C2C3_FFH access
-   134			 * mode will be disabled in the parameter of _PDC object.
-   135			 * Of course C1_FFH access mode will also be disabled.
-   136			 */
-   137			buffer[2] &= ~(ACPI_PDC_C_C2C3_FFH | ACPI_PDC_C_C1_FFH);
-   138		}
-   139	
-   140		if (xen_initial_domain()) {
-   141			/*
-   142			 * When Linux is running as Xen dom0, the hypervisor is the
-   143			 * entity in charge of the processor power management, and so
-   144			 * Xen needs to check the OS capabilities reported in the _PDC
-   145			 * buffer matches what the hypervisor driver supports.
-   146			 */
- > 147			xen_sanitize_pdc(buffer);
-   148		}
-   149	
-   150		status = acpi_evaluate_object(handle, "_PDC", pdc_in, NULL);
-   151	
-   152		if (ACPI_FAILURE(status))
-   153			acpi_handle_debug(handle,
-   154			    "Could not evaluate _PDC, using legacy perf control\n");
-   155	
-   156		return status;
-   157	}
-   158	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 
