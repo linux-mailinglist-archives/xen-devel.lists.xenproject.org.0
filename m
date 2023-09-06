@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA947932E4
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Sep 2023 02:28:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.595932.929621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63BB57932E7
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Sep 2023 02:29:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.595938.929632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdgOu-00009U-0P; Wed, 06 Sep 2023 00:28:08 +0000
+	id 1qdgQS-0000j1-CY; Wed, 06 Sep 2023 00:29:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 595932.929621; Wed, 06 Sep 2023 00:28:07 +0000
+Received: by outflank-mailman (output) from mailman id 595938.929632; Wed, 06 Sep 2023 00:29:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdgOt-00006f-U5; Wed, 06 Sep 2023 00:28:07 +0000
-Received: by outflank-mailman (input) for mailman id 595932;
- Wed, 06 Sep 2023 00:28:06 +0000
+	id 1qdgQS-0000fe-9S; Wed, 06 Sep 2023 00:29:44 +0000
+Received: by outflank-mailman (input) for mailman id 595938;
+ Wed, 06 Sep 2023 00:29:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DwRh=EW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qdgOs-00006Z-RE
- for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 00:28:06 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1qdgQQ-0000fT-EH
+ for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 00:29:42 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3eb53efe-4c4c-11ee-8783-cb3800f73035;
- Wed, 06 Sep 2023 02:28:05 +0200 (CEST)
+ id 77b8c3ce-4c4c-11ee-8783-cb3800f73035;
+ Wed, 06 Sep 2023 02:29:41 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 729FC60EE9;
- Wed,  6 Sep 2023 00:28:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20259C433C7;
- Wed,  6 Sep 2023 00:28:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 08A5660EE9;
+ Wed,  6 Sep 2023 00:29:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D11C433C8;
+ Wed,  6 Sep 2023 00:29:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eb53efe-4c4c-11ee-8783-cb3800f73035
+X-Inumbo-ID: 77b8c3ce-4c4c-11ee-8783-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693960083;
-	bh=DJqpuFo8h2Mz2UY/Yq0L1CMErw0s+oQmpLr4GuldxoE=;
+	s=k20201202; t=1693960179;
+	bh=jNulyxO2TVUnYxpacu+NxB/vJ8JD69XG3eZPbh71uKM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nuAcB43W00gkqLA83YCmM7cXkxsslKHbzTK90hHeNemlSMuBeMerk1+t4HYdMJgcB
-	 83P6GFvZZkpGsqEVx9/rELKnS48I2hqPzc0at9rrIqeko2yuxxHPLJQuEFPxW6Cc4B
-	 /55HijsimIBeiEu5C1Tft6SLAROY8PDmgO8Goitpguz44EdGqN78XMoBeN7jrx734P
-	 E5LpPBMQJiY35qiQFUpcbfCG4AWqm0Lm13X5TUA4SHxuO8jrYTi157eFPMjASN5Q98
-	 DtH2G9zotHM9pQWBv90M24K14jss8Wns4KZxiyfHfLUzfZkgq4s2IZIUY5M9GtTmyT
-	 wsFInjKzWlMZA==
-Date: Tue, 5 Sep 2023 17:28:01 -0700 (PDT)
+	b=LsqcVwf9nf6fYU0y51j5sa568wWi3BZW0iv4fHUDwyGHUZnUXH1Ac/ScM2ZcQj8zk
+	 uSdUin68hUe0jrYi/KpeVtYe2mMJIISaBCmAqxiiJGi/cz3j/03+syr7FXs9hF54PL
+	 CaNvXd2Ua/5/3LbRsvqGAiZeNjMpHVWQtY+n2PlEQ1N3VImkDwpsUFKEonmTCDZfVI
+	 I12q2ZKP7j+HiEPTsFLO9mZNCTTrt/WkQyirxOGi6uZCc1zCPdLTpN24GbdmC4cZly
+	 jNcfQf6fc+0OQDvealntQkxcAGRhto2F+MaYIt0CjFDYjZJXUrPWfMU8ebFV2ATsJ2
+	 nLiGz5FEul9ig==
+Date: Tue, 5 Sep 2023 17:29:36 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Vikram Garhwal <vikram.garhwal@amd.com>
 cc: xen-devel@lists.xenproject.org, julien@xen.org, michal.orzel@amd.com, 
     sstabellini@kernel.org
-Subject: Re: [XEN][PATCH v11 09/20] xen/iommu: Move spin_lock from
- iommu_dt_device_is_assigned to caller
-In-Reply-To: <20230901045947.32351-10-vikram.garhwal@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2309051727490.6458@ubuntu-linux-20-04-desktop>
-References: <20230901045947.32351-1-vikram.garhwal@amd.com> <20230901045947.32351-10-vikram.garhwal@amd.com>
+Subject: Re: [XEN][PATCH v11 10/20] xen/iommu: protect iommu_add_dt_device()
+ with dtdevs_lock
+In-Reply-To: <20230901045947.32351-11-vikram.garhwal@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2309051729200.6458@ubuntu-linux-20-04-desktop>
+References: <20230901045947.32351-1-vikram.garhwal@amd.com> <20230901045947.32351-11-vikram.garhwal@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 31 Aug 2023, Vikram Garhwal wrote:
-> Rename iommu_dt_device_is_assigned() to iommu_dt_device_is_assigned_locked().
-> 
-> Moving spin_lock to caller was done to prevent the concurrent access to
-> iommu_dt_device_is_assigned while doing add/remove/assign/deassign. Follow-up
-> patches in this series introduces node add/remove feature.
+> Protect iommu_add_dt_device() with dtdevs_lock to prevent concurrent access
+> to add/remove/assign/deassign.
+> With addition of dynamic programming feature(follow-up patches in this series),
+> this function can be concurrently accessed by dynamic node add/remove using
+> device tree overlays.
 > 
 > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
 > Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
 Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-
 > ---
-> Changes from v10:
->     Move spin_lock before iommu_dt_device_is_assigned_locked() call.
->     Rebase the patch with latest Xen.
-> Changes from v9:
->     Make iommu_dt_device_is_assigned_locked() static and delete header.
->     Move dtdevs_lock before iommu_dt_device_is_assigned_locked().
-> Changes from v7:
->     Update commit message.
->     Add ASSERT().
+>     Changes from v7:
+>         Update commit message and fix indent.
 > ---
 > ---
->  xen/drivers/passthrough/device_tree.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
+>  xen/drivers/passthrough/device_tree.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
 > diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> index 3c0322c797..a7d86a20a0 100644
+> index a7d86a20a0..687c61e7da 100644
 > --- a/xen/drivers/passthrough/device_tree.c
 > +++ b/xen/drivers/passthrough/device_tree.c
-> @@ -83,16 +83,16 @@ fail:
->      return rc;
->  }
->  
-> -static bool iommu_dt_device_is_assigned(const struct dt_device_node *dev)
-> +static bool iommu_dt_device_is_assigned_locked(const struct dt_device_node *dev)
->  {
->      bool assigned = false;
->  
-> +    ASSERT(spin_is_locked(&dtdevs_lock));
-> +
->      if ( !dt_device_is_protected(dev) )
+> @@ -147,6 +147,8 @@ int iommu_add_dt_device(struct dt_device_node *np)
+>      if ( dev_iommu_fwspec_get(dev) )
 >          return 0;
 >  
-> -    spin_lock(&dtdevs_lock);
->      assigned = !list_empty(&dev->domain_list);
-> -    spin_unlock(&dtdevs_lock);
->  
->      return assigned;
->  }
-> @@ -225,12 +225,16 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->  
->          if ( domctl->cmd == XEN_DOMCTL_test_assign_device )
->          {
-> -            if ( iommu_dt_device_is_assigned(dev) )
-> +            spin_lock(&dtdevs_lock);
+> +    spin_lock(&dtdevs_lock);
 > +
-> +            if ( iommu_dt_device_is_assigned_locked(dev) )
->              {
->                  printk(XENLOG_G_ERR "%s already assigned.\n",
->                         dt_node_full_name(dev));
->                  ret = -EINVAL;
->              }
-> +
-> +            spin_unlock(&dtdevs_lock);
+>      /*
+>       * According to the Documentation/devicetree/bindings/iommu/iommu.txt
+>       * from Linux.
+> @@ -159,7 +161,10 @@ int iommu_add_dt_device(struct dt_device_node *np)
+>           * these callback implemented.
+>           */
+>          if ( !ops->add_device || !ops->dt_xlate )
+> -            return -EINVAL;
+> +        {
+> +            rc = -EINVAL;
+> +            goto fail;
+> +        }
+>  
+>          if ( !dt_device_is_available(iommu_spec.np) )
 >              break;
->          }
+> @@ -190,6 +195,8 @@ int iommu_add_dt_device(struct dt_device_node *np)
+>      if ( rc < 0 )
+>          iommu_fwspec_free(dev);
+>  
+> + fail:
+> +    spin_unlock(&dtdevs_lock);
+>      return rc;
+>  }
 >  
 > -- 
 > 2.17.1
