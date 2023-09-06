@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC10E793717
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Sep 2023 10:23:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.596333.930191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48F13793721
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Sep 2023 10:27:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.596340.930201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdnoD-0007Ds-8b; Wed, 06 Sep 2023 08:22:45 +0000
+	id 1qdns9-00085u-OF; Wed, 06 Sep 2023 08:26:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 596333.930191; Wed, 06 Sep 2023 08:22:45 +0000
+Received: by outflank-mailman (output) from mailman id 596340.930201; Wed, 06 Sep 2023 08:26:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdnoD-0007CA-56; Wed, 06 Sep 2023 08:22:45 +0000
-Received: by outflank-mailman (input) for mailman id 596333;
- Wed, 06 Sep 2023 08:22:43 +0000
+	id 1qdns9-00084E-Kz; Wed, 06 Sep 2023 08:26:49 +0000
+Received: by outflank-mailman (input) for mailman id 596340;
+ Wed, 06 Sep 2023 08:26:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SxG1=EW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qdnoB-0007Aq-U5
- for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 08:22:43 +0000
+ id 1qdns7-000845-Jz
+ for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 08:26:47 +0000
 Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20622.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::622])
+ (mail-dbaeur03on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::61e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c9abc74-4c8e-11ee-8783-cb3800f73035;
- Wed, 06 Sep 2023 10:22:42 +0200 (CEST)
+ id 1e0616f3-4c8f-11ee-8783-cb3800f73035;
+ Wed, 06 Sep 2023 10:26:46 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB9209.eurprd04.prod.outlook.com (2603:10a6:10:2f8::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Wed, 6 Sep
- 2023 08:22:40 +0000
+ by DU2PR04MB9212.eurprd04.prod.outlook.com (2603:10a6:10:2fb::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Wed, 6 Sep
+ 2023 08:26:43 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.034; Wed, 6 Sep 2023
- 08:22:40 +0000
+ 08:26:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,185 +47,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c9abc74-4c8e-11ee-8783-cb3800f73035
+X-Inumbo-ID: 1e0616f3-4c8f-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K1g0yLe8eU6/EmBzihQiF68G84NCee6chz2RnUgaDWMm/l41MGsSSLJM3Ottvj3zozTVJs2rrc+161r+QHfaVdGBluXDid4GoazEKf/4X7gNR7uBcnHqLYLjzBUKIozwE2WalBHWE/4w/HsmbwzlyHR/38zCyj42fiN8Ts0cnReRjOAsJ+NRfv5r18ngMYG/xpIUAT/DCQ8Bsfau1OEL8MoLBehl+8nDZxnzjZK3CLt7ynwD8A9q2mrxe68f+i/VGfi3sl6qnxQYAZ4TAXu/xAjfiVSodOaLjh9DN5i//VlGziD/d4LzBDm0k7qQrv718KaWWKjaxw8xtq+8tXhLUg==
+ b=hr2WVE1U1Vktbe4nNcimcHksc58GyP9ZHz1rNHcHLiJkdSD8oy/qYfsTS8blUlGtMloWbIq3AiSFbWyGgUQhuiVYXOwZN/zHObHeVl9Fnf8Q5iS7t33qna5nofsIhLwG6xwHXA/4NKlzhb3MaTghOWz9VM5wD5eEzU6VVeeIlsN2S0s6ZJ0aQflhdtCuyUp0ZlMWZV85xqQU24MB9kCE1teeenXZ+zXwAdRLSEKvj3mbvAnRwvygRt77ZXiofPtsAU7xD7Yj/I6+irzfgs5Q2lrYSVO7CZGqUFDedQnIhmx8ebsyqAvAJPDkpl9211poRJCqnKQ48QFNHUBVaRmXLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OmntcxHuofnsEUjgQ4LYo/WSavnZwuNq5K2lRPcThdI=;
- b=LROPgFAN8FYnvUIiBP40vVbrBtebxLYpRPXJFIC11qZ0j75XwV+fQ5DC0goAqf5r1nwMP2RZiW/WbLYifqw4df21y/YEjogFzijz4PT8TlOmm6/NVzGHvOjMMumy4S2dlRZR4/jNBaRfu2UOPj+jmDsi2DQQ98MiaWLLimv/EB4V+P6ZSl3dBJAmT5ERYqc5VWR/cCe9TRDjyh4xSK6eMX0iUJpI5w/0pdjHZQg9/YbC0x0Zeft93RRhQriIQBrl6pEwgynhoDqfHCS6AZ5a3KZSOOp2pRA/LxfnSxux3nGKIGuxsyFGdYgoY1GN52CMdRWtcBIMsCiER4AyHaEnsw==
+ bh=m9M4gm6WkdVeiHtQFvdsgD3j/V3QgLej0YlSXnMOTKw=;
+ b=Q/JROAbdBMxBEbV8wtMJCN1iq34K1x6490IolyL2Z8t10i6gzvLLlLYCuwxWS2rFldasOnV1JWbAxfu87xLL791/daMOTocuV9u6dGhv7x3hwuxaLbNuEnwGszvZ1OC91BNyljweXSeZVHb2Gah62gVET6heW5Q/Ecy05JEpS1KgWrpqBxtEtNOJhHN7tLL69/CuW9/V4hicaBWRnTAOOc9y6TVkJB7F2VI/djLHB+aGlzBMehYk6s3mhSTWPVaovkvTmz6j3X1Yt6F6gPmWmLpupJ0PxxBkhtfQ6YbWGvrZkvS142tiJwjlS8sBlQ+N6i3nr3+G1TZCUPszd85jig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OmntcxHuofnsEUjgQ4LYo/WSavnZwuNq5K2lRPcThdI=;
- b=pf8McBhRSYsbOjc0gWcJN7Rl6zXqQqxxSHJJOcHQWKl+26ssmfZ1TfkKR4BxZ8UiJI502KZmWCq08uvOmvyFLJuXhB+tGWjOFV7OFjRxM81+eHNlhNJn0J6owoeUuK8qWvpEFKqlUw9y2lrd6yieD3mDCH9geQkogtfhir7CIJYP9FUA4DdMHN/MAwDYfOmRkulax503KoHJQnM0doGszSAJqzOZPw47C/S65mpbzdb8nJdp4btgutsFvOqOuy5lDdfGuhnwIENPUsZ9zuRVJczMCPtCClv52yhmlxUYfXGy20TWWJtFb6z6/OxejYn7fUAsL0BGfXVpmybK0ol7fw==
+ bh=m9M4gm6WkdVeiHtQFvdsgD3j/V3QgLej0YlSXnMOTKw=;
+ b=V4E0/r6rF//QDipq13KsvyBDDP/EtYP9f485oVKWDMmq2juTrfgfWb0xbe6KiPwUwKcO/lbR6Q8Cz3gk6ZPc72Xoo9OvJ/eekhcoA9NwzQWhEnfa8vX+iuJaqXp2jS99wxgzdpY+RRAU00Nj6fj66Tn5VqhtTAD63AI6h0Xat2WFjlYNWdDQrXaPG4+EATYDSocajjO266PcuV7HnUEaHxwoMZNrXVyHfTUJYv6rLZrvqc1ysmeej2MtTk4Jo/zMthv0HD4y71hS2UIiV6aX+qO00AlFr25HUGAn56Kb6wgsLxJZE71oqiFqtXYW8D8vf24TE7rSf1LoYoZavxToAQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3b816ecd-e7a6-c6a9-9b42-b9287deac111@suse.com>
-Date: Wed, 6 Sep 2023 10:22:37 +0200
+Message-ID: <55ee17e5-0e90-4cc5-6168-4230e9e7e6b9@suse.com>
+Date: Wed, 6 Sep 2023 10:26:40 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH v5 4/5] xen/vpci: header: status register handler
+Subject: Re: [XEN][PATCH v12 20/20] tools/xl: Add new xl command overlay for
+ device tree overlay support
 Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230901045742.235975-1-stewart.hildebrand@amd.com>
- <20230901045742.235975-5-stewart.hildebrand@amd.com>
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: julien@xen.org, sstabellini@kernel.org, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Vikram Garhwal <vikram.garhwal@amd.com>
+References: <20230906011631.30310-1-vikram.garhwal@amd.com>
+ <20230906011631.30310-21-vikram.garhwal@amd.com>
+ <3ee81557-50d2-1ae0-e700-9f20672ef15e@suse.com>
+ <6a3bcb64-2416-225e-8a5e-5ea7823d3c29@amd.com>
+ <dd1026ce-8c2b-2198-fc7f-91f7e671e62f@suse.com>
+ <4ce7bcfe-0c32-70f0-7501-451a67ccd26b@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230901045742.235975-5-stewart.hildebrand@amd.com>
+In-Reply-To: <4ce7bcfe-0c32-70f0-7501-451a67ccd26b@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0120.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0220.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ac::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB9209:EE_
-X-MS-Office365-Filtering-Correlation-Id: d21eb668-c7f4-45ad-af4a-08dbaeb26f86
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB9212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d06bbf3-beae-45d1-ada0-08dbaeb3006e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	sYKX7sXYEO2V92iec1Y8BVWEigmJTkQOOzg6yQLDK6HlSzSHYQGON5Rct8c3kPMbwgCFlCpWIYzmM6w6S4h9PWjSgMhjrJ5UlFRzvDPzZ4zwSDtwSWe2d83/rf/Vk9Q1yW1AU3GNdq81jLNlPb1539gwu8Ge1CUtJ8PBAfj2bLe5tIsv6gzvPZhHhfOTaABFlO2KGKkEMI99Q3oHP+ebrKOxka9T8llYaX4BJwQFLbjMXu6/7fENvbwAE9ixFi+M1DOS8xWcD8adhfAuA6B77m6nWbjRtAWx/B5w6RPhzGm5iTFG7X86dalcN1SrS9Qmk2b0lcuGJt1IPKc9ChrzQrN/dV17ol8m5zMCM7v2DjkGQ8MjNk4qFT2j0jBoZiNCez5SQVyBYpMmGFhmewT+EBzQSTREhxuIEEQrk5RabR9yk5lrnNBAgeed2TJ+AGqbS3B6CSLW2KuF/peTw3+5DrAxSplGa/8LV2shaYfIdRjmW/P6e/rzsCNUm0q70dJEsKXZmG71ZS4VenbH9wK36g3Luu96fen1m3nW3MbBoeWbUyZWuq7XZb8s9N1Ys47jh11g2s3700JKeqJy8otV5h+g4+3cBqbS2Q+yzd4Glq4Qdd8sPCL7uEXfUM6uDHk002ETfe9RkQlaGLNM6pD87jutttqZFNPa1Jj4Zhxb/iA=
+	lDM2TKMQzT+ZQGBWU/aUv6uYZWgbNHpxkcIF94RHbP4k9VLvdU1awfVxJUL8H46su7J/wyKc5BaI7IEKM9S5LlkenBeSNDPiNUaqoID8mXlQTo2sjRxSYIVlugH8bz3WsC9ck0w/CqqW8UOhv1F03UPFEuNfJC/wZxT773UDe4smPQ2dq3i4euI6SwpdQh0pOoHjseTt+pw9G9PvXRGJ7db5WmDgxFfAViu2KQJzmpj8tZHtQpK0FSIhyB4FvJE5wl5I5ZcJVQ7BPsF57BJkC6uLsIChudZMGOkW8cRQficS8p3OV7NYQfMIKdbPi8v0wzYyv2DI+URixKr0GdoUN20v9TuECwwL/QoJWhr2X9Cs2MU7JEtKxQPV8vm95t5M1zToLVYIyJ+V0yJC/TzVoRtouM/5hFADapODK92cXI0QKVgzxkq4jhFBuV+2hoKyByy7VlBlNRVNnJiyOozd3pJiDkqAqbXqW9UORc/LOMIK27nCetxMnwyAPcUj5801gyE/1cCuVcn0YrF3oVDuQG9yg9d2oxtVA52CZyS8FKmGFGXNha8uUOFQU24FeGcaVUez9YPubzfIX3Xbvgkn56zHDmeEMVwx6w6MwJipZTHM9LlP32OY92gHk54U6UjfO+YAbDOgW0akyTIGZ9arOg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(376002)(396003)(39850400004)(346002)(186009)(451199024)(1800799009)(31686004)(6666004)(53546011)(6506007)(6486002)(31696002)(38100700002)(86362001)(36756003)(2616005)(2906002)(26005)(6512007)(83380400001)(478600001)(66946007)(316002)(8676002)(8936002)(5660300002)(4326008)(6916009)(41300700001)(54906003)(66476007)(66556008)(45980500001)(43740500002)(357404004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39850400004)(346002)(136003)(396003)(366004)(376002)(1800799009)(186009)(451199024)(66899024)(2906002)(38100700002)(36756003)(31696002)(86362001)(8936002)(4326008)(8676002)(53546011)(26005)(5660300002)(2616005)(66476007)(41300700001)(66556008)(54906003)(66946007)(6916009)(6506007)(6512007)(316002)(6486002)(83380400001)(478600001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QzN1T3MwU2RPRXV3ZUQyajVGV2NqTlVYS2NnZkhCSzdCV0hWUzc1M2diamxy?=
- =?utf-8?B?ODVaMks2ai9zSWN3Q0tFNGFCYjF0ZU5KeitqSDdBZnNJZjBuYVA4aVA5aWpk?=
- =?utf-8?B?UkhuaXUxdWtuNS9sVDVGTGlTVEgybXozUXZaVm9RQjFOUEhRNGF2WWp0TWcv?=
- =?utf-8?B?d1FNTExXcUU4NTZMOU1vczVicjhoRzBCZkcvOW1YeEkrQjl4bTd0T0dFd2FG?=
- =?utf-8?B?RndxdmZRTXZoNEx6YnRYNHpBeFVEdXpmU3lNTC9LRWJKeldwY0szZEpCRXFS?=
- =?utf-8?B?Qy9sZGtlSy8rTVJXczk2K1hMUXVaRG5zMy9aUldud3JCNDRHVUVlaXgxaVRj?=
- =?utf-8?B?RnFnR1hVSkRYYWZHUVFoS1R2eFloZk9NdnB2Yml5cVdrZmVhYjJjTVhpR3Ra?=
- =?utf-8?B?YlRPWnFLMWQ1alV1Q3NEWnRTYjk2UUdlMzVDZ1MwalNMQStHSlF3ZGJiaU5o?=
- =?utf-8?B?elc5YlpkQXhHUkRqUmd6SWhrbFVDMmVSbHpEdTVaSEl6Q05kYjZoSEJvSlpS?=
- =?utf-8?B?NU56Q2o2MXRoT3VPZVFjT2F5NDFnTk1lRHoxV2dOeURaV3NFMHpDK2RtMVZF?=
- =?utf-8?B?M0lRZkszUFkvNk16Rm1KaU1CNEQ1emVPNWxaR0dlYjFuOXhEK3RRSThZcktI?=
- =?utf-8?B?NkVlN1kxbFZVNzE1Q1pjdUNKbXRwYjIwWTNVVkNHM1Q3L2pKQW54RmQ5VXhR?=
- =?utf-8?B?ZTJzalBNMlNVYTV5SmtkTWVCWVQva0NjNXo3aXR5U1dvMzA3RTlKNjdDL014?=
- =?utf-8?B?a3hpdHRMci9WUUxlekg4WHM3OGZ6RitBWWZER29MeHJTNWl4ekZxU0FjODA2?=
- =?utf-8?B?VkRUbWRneFIwK0g4R3hhdE9xSCtBUXBaMzhONEprRlU5bXJhUWRXTDByWkwx?=
- =?utf-8?B?cUJpT25RY2RlcUNiaWpvbVU5SWkxcjRFOFdLV3c3VnhKNmYrQUg0VmdLVEJK?=
- =?utf-8?B?L0YvZVgrbVduUmlXd1hJZU13WEhIeEhqcDFQSFBYRXhuNVlDemU0eXMrekl0?=
- =?utf-8?B?MnJLU3FNaWdYQVRXQjZzQ2ZqVDlkMVVyV3JYYlM5Z2tucFNCOUR4ejBkYVZQ?=
- =?utf-8?B?Uk5POG9jL1Jaek1rck8rQVY0aFBHeko3QzhiRjRwTjFXNDRWS1hveERDcTZR?=
- =?utf-8?B?M3NOQzZjNnFOMCtYNWZUNlA1SVVOdEs3VTYweG13cXJPUjhiSUdjNjhyRU5Z?=
- =?utf-8?B?ZWg1SnpHSU8xSGk3bXZ6eGR4ditzYUFNTVdVTXozWWRXRUtlSEtDTHNXTnc0?=
- =?utf-8?B?eGR1aFBxYk1KTXZOVElZeGw3YXhNWHd0c1M2VEZtV0Vpd3VHckRYRkVORkNv?=
- =?utf-8?B?QTNwSkVDY0RFOHQxOHc1dDNldkdPTEVrQ3I4US9DTkYzUVVuK0txYVAyTjRC?=
- =?utf-8?B?S1NJRWV5RURTWXlIRCtLUHNiVXk1QXFhVThnUE1YU3IrQkhuRDk5WkNFMnBF?=
- =?utf-8?B?WHhCS2w1UnRJTjI5TDlVbm1BL1ZLR3VLSnoyL0c3TzJ3bkdhbWJTQmZIUndo?=
- =?utf-8?B?emR3UHhPZjN4N0lpR3NWcUo4T0Nrc2phVUlWRzlYMlFXK0t6bzh4V0VCbVkv?=
- =?utf-8?B?THJka25Eb3JTRnZZeStlUUdGdmpGc2RHRk1CeTB6R1dHZ3hVdGNpNllUNXZW?=
- =?utf-8?B?Lzd4TzQyaDZoUUZrTE0vODRLQzd1NWJQN3lCWW9iM0xSNVhpeTU3d1ZVUGRa?=
- =?utf-8?B?SzBoWUREVEFRQ1E5UnU0N0Q1Q0NjSjJvYXMrTlB3V09ORU5PUnJIZE4zdytX?=
- =?utf-8?B?MldLZXZJcWxwYVpjYUZJc0RwTlh6eTM5T0QrV0VJTEp1WElBWnJ6cWVlN2lF?=
- =?utf-8?B?Tk5WK1VTQmRMNnRmTnZEUkZ0a3BIaHpTUnQrcldlaDFUclBJLy9mZ2lUNGdS?=
- =?utf-8?B?N0JmQ0VXMERwNnRITlIweG5TTlZvc3ZjeFBmclE5dUo4Q2ZQK2dOVS9kSnNM?=
- =?utf-8?B?SHlqTE8yWWJZWEJ6dTF6ekowRWY3S1BBc0RJYUs0R1p0Q3hwdytCbWVLY3hy?=
- =?utf-8?B?dmZQdTZobTJVMFkrdGhnaHQ0d1BONDdONTVZdEx2ZzlISnJDcEgwYy8zdEx3?=
- =?utf-8?B?TTZPeEVhU05IbzZkUXk1Q0k0K2hSSFRBZXVTMUhFTTR1MFF5V0oxNUo4MW9H?=
- =?utf-8?Q?Ya4mrYmOSha+nNNepKFO9vusN?=
+	=?utf-8?B?NTM4ZVJDbjE4S3lsUkd3OGg5MmYwY3R2YTB3a0tlekNTVlRlSWdBbVBOTVZ6?=
+ =?utf-8?B?Kytxc1RuWExRUnExOXZqY0JHY2VOcSt0NnFyZkgzZDRNaTFQMnlGQkc5ZXE0?=
+ =?utf-8?B?RFBxZVVoYitmdUhzSTBUVFBpYWw0TDVtakZVK00waXVPSHg2ejhObmgxMk1C?=
+ =?utf-8?B?ang2a1o4d0RuUS9HZ3lrRUJLU2tNMmR6ay9EWHZidHJwYzBaakYvdG9BWDBw?=
+ =?utf-8?B?aXdodWRXS0F3N3BoVWtPN3hyMU8ydTNWM3lmdDhiZUhySStnZHBTYlQzZ0JN?=
+ =?utf-8?B?UzYyMU00ZXl4T0VvRm16K2hTMjVlVW1XYSt0bkVNQnZDNHo4eTJ3c1ZLYnhX?=
+ =?utf-8?B?eEdTMUNzWFlpcTR3QXYxbCtlSEVuYklubE1tUjFURlZ1UzR4djNScnJWdkFx?=
+ =?utf-8?B?S3NmTTc5Yy8vL1dOTWgzeUpidmtDTm55MUlaSklPcVVieHR2QzBmUXQ1UFFw?=
+ =?utf-8?B?SnFsczRKekRZRkdwM0pRb21VVWY0Z2V6QmxoZDBSRHVSNFNQcFpzMFA3T0dw?=
+ =?utf-8?B?OU5UcU5kRmQrQWZMWEcram0yOXpsSTNPZG0vd05SdUl6Y3l5bjZ6ZGhyZS9m?=
+ =?utf-8?B?K0dsSnJQY21vc0FFdVBlUUxvS3kreUgzMnlGV25ZUjl6OUlCR2g2SUdXcGE5?=
+ =?utf-8?B?MU1IeXBpSnljNkFucVV5ZURmMGpKSkk3TUw4aVUwZGhpUU9EazFCV3M0bDh0?=
+ =?utf-8?B?TWlOeUN5ZDJqdXA5MzgwV0VwbWMyNWFQdktYSk9YcGIvVDUzZUovcHpCZzI5?=
+ =?utf-8?B?TE44VnpudlZ2Z1dUTzFhT1B0a2lIb0RyUEhXT2lBZURLdDhjZmhMVDh3bnVz?=
+ =?utf-8?B?Z0lxOStJZU9NUGhueEpySHpUb1p3Tk5CYk9RbzZZZ1B6TW41U3lzd2hiT3dS?=
+ =?utf-8?B?ZHZKOVF4WTIvNHIrVEZTT00vOVRyNGNJUk1LN2tKaHgwVUErVXcvT2ZxVzRl?=
+ =?utf-8?B?bmVjbzF3NXBWZlF0ZlJXMDdFZ0ttNzJkRjVOQnYrZDFpdXU1YTFZRFIzaGJr?=
+ =?utf-8?B?WWRRK2J0b1ZWVVJNSFp4amd4N3JUMWs5MjRZTGZoMDhMbktvanVoTVRQVU1h?=
+ =?utf-8?B?NjlJRzhtZUZoQTRicWdDc3ZZZFRxZXZzWTJTR3VqSDdtemdMN0ZmNFVURTZ2?=
+ =?utf-8?B?YWgrdGx0MmJJNUhGd2U0d2g2bzEra2ZJOUNSM0pWUXZxRVBRazMzeWwvdC9t?=
+ =?utf-8?B?eCs4TDVwVmlmUHNraEVCQVV1WjdnaG9hUERJa2IyQnUvVUZ5U2twSXZXZXph?=
+ =?utf-8?B?V2Q4eGdnNWdadG9uSHBFenBFY0pzYzV3VGJ0NTF5L0dNNWk2N1Zwc3FkYXBz?=
+ =?utf-8?B?ck9vMDNyaTNuUytiYk4wbjVXT0hIdzlyQzI4ckpmMUlYYUp1SnNMSjhFTjdp?=
+ =?utf-8?B?d0FjSjlVZTlZcDhnbXdDWmRiVEtPVUJjMUMvNFQxWldvNGt2cmRIeWFJSWlG?=
+ =?utf-8?B?ZU9XYVZ1UE9YMHh0SnhjLzZxMENuTmE3b01XbU1BYlJUZlpFSFh5MFZXYVJp?=
+ =?utf-8?B?cFI2b3JwLy9aYldLQi9Xem5VaXRqdmM0VmNJZmtGUDBEMnkrSzh4cG5hOThj?=
+ =?utf-8?B?RUdGdUxuay9qUUZheDhTTi9Eem1YZVpTcldQVmM0c3dWakhjaS9BUHpObjdm?=
+ =?utf-8?B?OVZwVGpEZkNUbmZDQTRyMDNRZ0VmbldlTm9ycGxwb0ZPWlc1ck0wN0d0enl0?=
+ =?utf-8?B?NEJkOHJSa0NNdmdRYm5xcDlsWDJaY0NGYzAzaEQ0VFAra2Z5NnJvclZkVUdH?=
+ =?utf-8?B?SFdybVNZdEFtdXFyR2toRU9odFJmVnlSbE5LR0NFOGIwOGZURStGWEprZ25M?=
+ =?utf-8?B?eTI5b091OGo2cldZZVo2c1dYVHRpaWV2S2JNOENIZnI4NDc1WE9LU0FKQ1R3?=
+ =?utf-8?B?OFdMb3JRa29BYTJ0THBOTkdMWXFkVjJ4UjVSQUlPS01iQTNLbllORDlLcmFW?=
+ =?utf-8?B?SjRlT3A4NXRwdTVtWVZMSnVIN1FLWTZpT1M1eERsQjB2MityZk5WMW9xRG43?=
+ =?utf-8?B?c1VKaEZnbUt4c2YwV2hwenpiU0JOenJrWDRuM2ZHVncrd2ZXdHIxWUUycEpP?=
+ =?utf-8?B?TGVKVzFoNSttYVd0clgzdTV3cUh0ZXptaHdBWnE4UnluY3pobFo2TlQrU29C?=
+ =?utf-8?Q?UaPfNjKAaAk2N/tasUmg5AG98?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d21eb668-c7f4-45ad-af4a-08dbaeb26f86
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d06bbf3-beae-45d1-ada0-08dbaeb3006e
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 08:22:40.2507
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 08:26:43.3567
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YYbbZODcepWPdYXwcHgWHKiayQqC+4AGxemgWS4BPm/BZXkVEz1L4yC/tj72/BBu9CDjFPsHK4I5X9Q6kJ6vLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9209
+X-MS-Exchange-CrossTenant-UserPrincipalName: aiUWZgkftFd5GOiykm/KsduIRXXq7st5VG0d/Mt+hrUPEUUbXNTnx+kD/dokXAKXENy5S7UKW937PFkrLbKPIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9212
 
-On 01.09.2023 06:57, Stewart Hildebrand wrote:
-> Introduce a handler for the PCI status register, with ability to mask the
-> capabilities bit. The status register contains reserved bits, read-only bits,
-> and write-1-to-clear bits, so introduce bitmasks to handle these in vPCI. If a
-> bit in the bitmask is set, then the special meaning applies:
+On 06.09.2023 10:06, Michal Orzel wrote:
 > 
->   res_mask: read as zero, write ignore
->   ro_mask: read normal, write ignore
->   rw1c_mask: read normal, write 1 to clear
+> 
+> On 06/09/2023 09:57, Jan Beulich wrote:
+>>
+>>
+>> On 06.09.2023 09:32, Michal Orzel wrote:
+>>>
+>>>
+>>> On 06/09/2023 08:55, Jan Beulich wrote:
+>>>>
+>>>>
+>>>> On 06.09.2023 03:16, Vikram Garhwal wrote:
+>>>>> --- a/tools/xl/xl_vmcontrol.c
+>>>>> +++ b/tools/xl/xl_vmcontrol.c
+>>>>> @@ -1265,6 +1265,58 @@ int main_create(int argc, char **argv)
+>>>>>      return 0;
+>>>>>  }
+>>>>>
+>>>>> +int main_dt_overlay(int argc, char **argv)
+>>>>> +{
+>>>>> +    const char *overlay_ops = NULL;
+>>>>> +    const char *overlay_config_file = NULL;
+>>>>> +    void *overlay_dtb = NULL;
+>>>>> +    int rc;
+>>>>> +    uint8_t op;
+>>>>> +    int overlay_dtb_size = 0;
+>>>>> +    const int overlay_add_op = 1;
+>>>>> +    const int overlay_remove_op = 2;
+>>>>> +
+>>>>> +    if (argc < 2) {
+>>>>> +        help("dt_overlay");
+>>>>> +        return EXIT_FAILURE;
+>>>>> +    }
+>>>>> +
+>>>>> +    overlay_ops = argv[1];
+>>>>> +    overlay_config_file = argv[2];
+>>>>> +
+>>>>> +    if (strcmp(overlay_ops, "add") == 0)
+>>>>> +        op = overlay_add_op;
+>>>>> +    else if (strcmp(overlay_ops, "remove") == 0)
+>>>>> +        op = overlay_remove_op;
+>>>>> +    else {
+>>>>> +        fprintf(stderr, "Invalid dt overlay operation\n");
+>>>>> +        return EXIT_FAILURE;
+>>>>> +    }
+>>>>> +
+>>>>> +    if (overlay_config_file) {
+>>>>> +        rc = libxl_read_file_contents(ctx, overlay_config_file,
+>>>>> +                                      &overlay_dtb, &overlay_dtb_size);
+>>>>> +
+>>>>> +        if (rc) {
+>>>>> +            fprintf(stderr, "failed to read the overlay device tree file %s\n",
+>>>>> +                    overlay_config_file);
+>>>>> +            free(overlay_dtb);
+>>>>> +            return ERROR_FAIL;
+>>>>> +        }
+>>>>> +    } else {
+>>>>> +        fprintf(stderr, "overlay dtbo file not provided\n");
+>>>>> +        return ERROR_FAIL;
+>>>>> +    }
+>>>>> +
+>>>>> +    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
+>>>>
+>>>> Because of this being Arm-only (as validly pointed out by osstest), I expect
+>>>> the entire function here as well as its entry in cmd_table[] want to be
+>>>> Arm-specific, too? Of course it would be nice to not key this to __arm__ /
+>>>> __aarch64__, but to something that would not need touching again if the
+>>>> underlying infrastructure was made available to, say, RISC-V as well. But of
+>>>> course - right now the goal needs to be to address the CI and osstest
+>>>> breakage.
+>>> I agree. I would suggest to guard it with LIBXL_HAVE_DT_OVERLAY which is for now
+>>> only defined for arm32/arm64. This way the code will not need to be modified if other
+>>> arch gain support for the feature.
+>>
+>> Ah yes, that ought to work. While there perhaps also replace the conditional
+>> around the declaration of the function in libxl.h. (But of course Anthony
+>> may tell me/us that this isn't the way to go.)
+> Hmm, if we change guards for libxl_dt_overlay(), what about xc_dt_overlay()
+> for which we cannot use LIBXL guard?
 
-With the last one's name being descriptive of what the behavior is, would
-it make sense to name the first one "raz_mask"? (Also a question to Roger
-as the maintainer of this code.)
+I'd key that to some suitable sysctl definition from the public header. If
+need be, the sub-op #define itself could be made conditional and then be
+used for that purpose.
 
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -413,6 +413,18 @@ static void cf_check cmd_write(
->          pci_conf_write16(pdev->sbdf, reg, cmd);
->  }
->  
-> +static uint32_t cf_check status_read(const struct pci_dev *pdev,
-> +                                     unsigned int reg, void *data)
-> +{
-> +    struct vpci_header *header = data;
-> +    uint32_t status = pci_conf_read16(pdev->sbdf, reg);
-> +
-> +    if ( header->mask_cap_list )
-> +        status &= ~PCI_STATUS_CAP_LIST;
-> +
-> +    return status;
-> +}
+> Is it ok in that case or better just focus > on the fix.
 
-Do you actually need this function? Can't you ...
-
-> @@ -544,6 +556,12 @@ static int cf_check init_bars(struct pci_dev *pdev)
->      if ( rc )
->          return rc;
->  
-> +    rc = vpci_add_register_mask(pdev->vpci, status_read, vpci_hw_write16,
-> +                                PCI_STATUS, 2, header, PCI_STATUS_RESERVED_MASK,
-> +                                PCI_STATUS_RO_MASK, PCI_STATUS_RW1C_MASK);
-
-... conditionally OR in PCI_STATUS_CAP_LIST right here? Without
-capabilities the CAP_LIST bit becomes kind of reserved anyway.
-
-> @@ -424,9 +450,13 @@ static void vpci_write_helper(const struct pci_dev *pdev,
->          uint32_t val;
->  
->          val = r->read(pdev, r->offset, r->private);
-> +        val &= ~r->res_mask;
-> +        val &= ~r->rw1c_mask;
-
-Personally I'd fold these two lines into just one (and similarly below).
-
->          data = merge_result(val, data, size, offset);
->      }
->  
-> +    data &= ~r->res_mask;
-> +    data &= ~r->ro_mask;
-
-This seems risky to me. I'd rather see the same value being written back
-for r/o bits, just in case a device doesn't actually implement a bit as
-mandated. For reserved flags it's less clear what's best, because in
-principle they could also become rw1c once defined.
-
-> --- a/xen/include/xen/pci_regs.h
-> +++ b/xen/include/xen/pci_regs.h
-> @@ -66,6 +66,14 @@
->  #define  PCI_STATUS_REC_MASTER_ABORT	0x2000 /* Set on master abort */
->  #define  PCI_STATUS_SIG_SYSTEM_ERROR	0x4000 /* Set when we drive SERR */
->  #define  PCI_STATUS_DETECTED_PARITY	0x8000 /* Set on parity error */
-> +#define  PCI_STATUS_RESERVED_MASK	0x06
-
-I'd recommend separating the "derived" constants by a blank line. I'd
-further like to ask that you add two more padding zeros above.
-
-> +#define  PCI_STATUS_RO_MASK (PCI_STATUS_IMM_READY | PCI_STATUS_INTERRUPT | \
-> +    PCI_STATUS_CAP_LIST | PCI_STATUS_CAP_LIST | PCI_STATUS_66MHZ | \
-
-CAP_LIST twice?
+Personally I'd consider dealing with just the breakage sufficient for the
+moment. The libxc part then of course still wants dealing with later on,
+preferably in time for 4.18.
 
 Jan
 
