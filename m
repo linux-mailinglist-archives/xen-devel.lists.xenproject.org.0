@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7218D793338
+	by mail.lfdr.de (Postfix) with ESMTPS id 766EA793339
 	for <lists+xen-devel@lfdr.de>; Wed,  6 Sep 2023 03:17:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.595989.929702 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.595992.929729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdh9v-0006wk-7b; Wed, 06 Sep 2023 01:16:43 +0000
+	id 1qdh9y-0007Zm-7H; Wed, 06 Sep 2023 01:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 595989.929702; Wed, 06 Sep 2023 01:16:43 +0000
+Received: by outflank-mailman (output) from mailman id 595992.929729; Wed, 06 Sep 2023 01:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qdh9v-0006tx-4H; Wed, 06 Sep 2023 01:16:43 +0000
-Received: by outflank-mailman (input) for mailman id 595989;
- Wed, 06 Sep 2023 01:16:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qdh9x-0007Rd-Vq; Wed, 06 Sep 2023 01:16:45 +0000
+Received: by outflank-mailman (input) for mailman id 595992;
+ Wed, 06 Sep 2023 01:16:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kbfT=EW=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qdh9u-0006tr-8F
- for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 01:16:42 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe59::620])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 082fd43b-4c53-11ee-8783-cb3800f73035;
- Wed, 06 Sep 2023 03:16:41 +0200 (CEST)
-Received: from CY5PR15CA0125.namprd15.prod.outlook.com (2603:10b6:930:68::28)
- by DS7PR12MB6237.namprd12.prod.outlook.com (2603:10b6:8:97::18) with
+ id 1qdh9w-00079K-JO
+ for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 01:16:44 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20622.outbound.protection.outlook.com
+ [2a01:111:f400:7e8b::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 084ec877-4c53-11ee-9b0d-b553b5be7939;
+ Wed, 06 Sep 2023 03:16:40 +0200 (CEST)
+Received: from BL1PR13CA0247.namprd13.prod.outlook.com (2603:10b6:208:2ba::12)
+ by DM6PR12MB4106.namprd12.prod.outlook.com (2603:10b6:5:221::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.28; Wed, 6 Sep
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Wed, 6 Sep
  2023 01:16:36 +0000
-Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
- (2603:10b6:930:68:cafe::28) by CY5PR15CA0125.outlook.office365.com
- (2603:10b6:930:68::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34 via Frontend
+Received: from BL02EPF0001A106.namprd05.prod.outlook.com
+ (2603:10b6:208:2ba:cafe::9a) by BL1PR13CA0247.outlook.office365.com
+ (2603:10b6:208:2ba::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.25 via Frontend
  Transport; Wed, 6 Sep 2023 01:16:36 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.82) with Microsoft
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 01:16:35 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 01:16:36 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 5 Sep
- 2023 20:16:34 -0500
+ 2023 20:16:35 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 5 Sep
- 2023 20:16:34 -0500
+ 2023 20:16:35 -0500
 Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Tue, 5 Sep 2023 20:16:34 -0500
+ Transport; Tue, 5 Sep 2023 20:16:35 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,35 +63,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 082fd43b-4c53-11ee-8783-cb3800f73035
+X-Inumbo-ID: 084ec877-4c53-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cjkzRChznUFsL/Kb4ezMYaOVqHLLgwX8VivHXQTbxdPuksUtLcGHtpYaONAcfrNmLFAk8OIrsn7Zkan9vjH0Xj2cEKu9T0VWvnFsQWVQj+lNQjxiVT15QbaKySHyKEtSsRCZMSuqH5P62r3EkNbC2EBPOOuzRusxVHS2fv/RTpJliKFlHO6/kWSxS61b1D4xNffDRkciO/qoyzKREq8TH5BlAAU8hYhIR+zGlMVaozesk9nyTw4XFECOeO3H9SXU6lL+8NM30NCCjVRS7VC7rE6luPimKTNAurrL0Vbv84wUtOi4TDxjBxTVnL/15sL0Rb1ddliajkwl3luDkUm4GQ==
+ b=OLR2embtpmdoUiozsCHGJZh+jIIsbnREkrK8eI3Z5EKx8FjsfXgnbpql4XNUVb/M18mU83UXMlPa6mYSJG2CvzOlxLy6Uf1pSl73OdxJ4ViGBdhCcy48qrAHLdTSJwrdTTWGNriqcsUAIeM2oz49a6MLettbCB8f4TqFzB8coRrj7M/0yivuv1qIzDHjNX3TYVdbysLkVcP8nWd7D6ba0s4/byUXqzLCkg4mYSFFLEG4Qj/73euJHIWxgPLgYkTH4WQbz9ta3HmEauZHgOy4fAJo62oRNpAAPY0kfXooIOTLfpvbR8QsljsiSXgeAAJ1YUVk3G1GtgyS3ZC34I4yvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=551FbITUy/lX+UFAVwLYLGK11TzVaHOhuLFDvzMcrP0=;
- b=bHnf0id+X79G0TkY80EYj9riKNuFeUQDAhuo5XE34GTtGxWD1aSTa7t5H1PiCBJ1gNsxt5ANp3OsuMFy+s8IDgsve+LtftUSSJdzB37rigHogZOPE3vYgpcD+cphMtKIMLAIf+/Ysk25aSQicBqNiTgYvM1W1s8FL5NhUOnFWZyzFufOCMthqHEArZGTEo9CnXm3FJuqOcAKhOafxyhCMaPE53jVpiopPSSA6dOEF/3+Wac4CoF5VXpFcsofctkbxzxtqW3JVlpWn1MMfQJ/P8YKWEFWJ1Rbn4+rqUhiscyfYEH66PzhfcnKSkgO3F74P7GTKggnFxDax2tkNIqa9Q==
+ bh=cro8idbWK6/j9Apeo95KJGwjFsR6k97QUgTNDxCH+H8=;
+ b=H6WVFilQd4o0lho5Ejcru7/2NbI2L2QGziCT0eOw7VQ5ktuz6cEG09a2YakRzIGDO8TqyZHRdWR1JWbpVk3F6u6uk9rVQX0W9taMoJhfujkOW4nhEnSWtxFhcUiazTyU7u6kfq8RrotRkRWckFc7OJ374+WbGSbia5SKXeFHMIOalhHvpyiL/obavXoxiRXij2L0RXHg3a8LMhnx0df9Xrbp4gttCMXHBurlbBX+4Ktn7CrPL+SPhASy4A/0w/63ty0w5rD8SidYkInErhu/yEf1j25c8GXgUOLWxXOcj2I6wBa2BglGAFnJqi9DZkaevYtJMO1DkJIstYIRaM6jsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=551FbITUy/lX+UFAVwLYLGK11TzVaHOhuLFDvzMcrP0=;
- b=2mStBXeiExRDjGr89TFfTiTBbP2C3BpqTOAcHceDOw6rSPuH6Tvz0PeW74t5QkIrsEVFdNCu1PFndvCA4ZU9v0wNsHkKla97MdjhPBtfn48dfIbhIb9yxd81FcltA7ijOoeLswP/jRqaw7K5BfPGkPtZGy7saElcm/12pGnGc1g=
+ bh=cro8idbWK6/j9Apeo95KJGwjFsR6k97QUgTNDxCH+H8=;
+ b=aJx+zwGQYyF0BkSbDrE83uUW8Wdih6afDgfCegG+gHUHA9o7ZF1PCSD538tP1XV1OsRVT8KfgDXDWbP80O6d3eAYc6M/ilZUOT32kXmxiLeBUh2tWNkQsfA2yG5Fta0zfi4/pNbB6v3nh7eHYvkYqgM42kju4UOrz4DD3rhm/kI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Vikram Garhwal <vikram.garhwal@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <vikram.garhwal@amd.com>, <julien@xen.org>, <michal.orzel@amd.com>,
 	<sstabellini@kernel.org>
-Subject: [XEN][PATCH v12 01/20] common/device_tree: handle memory allocation failure in __unflatten_device_tree()
-Date: Tue, 5 Sep 2023 18:16:11 -0700
-Message-ID: <20230906011631.30310-2-vikram.garhwal@amd.com>
+Subject: [XEN][PATCH v12 02/20] common/device_tree.c: unflatten_device_tree() propagate errors
+Date: Tue, 5 Sep 2023 18:16:12 -0700
+Message-ID: <20230906011631.30310-3-vikram.garhwal@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230906011631.30310-1-vikram.garhwal@amd.com>
 References: <20230906011631.30310-1-vikram.garhwal@amd.com>
@@ -99,94 +99,83 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|DS7PR12MB6237:EE_
-X-MS-Office365-Filtering-Correlation-Id: e08b7899-7037-46fd-e334-08dbae76e9e1
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|DM6PR12MB4106:EE_
+X-MS-Office365-Filtering-Correlation-Id: 716502bd-0a27-4d3a-873a-08dbae76ea24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	wC/e+H7Gv3Aj63UAEApYCrfbJCTghyZDKBvaUE1PGN64/fVJr73Sl1EIQQMVdthUQ2UN/wLdllDqKNKBldarPu8NJMtF/wKZk8xW9kP4G3XlqcYdAZalMuA/WUpIAx9aWtURG4SUCXiW0wUhmz8J9uPThuZiOFszkIMO4aC6C1Tk+Gqn85NnPnaLtIg65xlq7w/WpKDOw56vJz1/qYnReZD8mGpqjVI3c5Rpiv6EWq21UWh5i+xxrWG9TZK2GfoJvdUb63zx+EPOoKpE/R3TVtmg7KgfW/viNjU5QIWBEp1eJqsMEVyfohPS+9IZbhKKzBwyWAA/pwOJj5Rsgc6jxAY6lrxBnoNQHCvlkFBUWUkRsJyNsxBq0eqcnNlz2wMo5vliE7IzOA3zTxPIQskC6N9161vMYMVmJyKBHQF7reoAyGLpe9Eq/lM4jRl4/pM7LdBk2QaX0k4nVY7//1OJZeh6xPMa2bkk8LpUFXXcJ0DVUHhYThfXd41zm1HRF2SSNe8fFHE/w4/Ru21vFclfeeZl37Uw5KQefnHx9YmncgNHerICktk/vEQE5WCwmvIBwbrB0ltH+vi998LmnXa/fEHX0bbYNB9BQpYFtd+plqTwqTxk3A11eKe0ONBKY2Z8zfLr5rcuE7V6BezKRZHzu4GiQMjuujmLb0HyMe7B9DFxJmzKb6E81dI0/bylPQyWNRf01AFwwtnZ208zBjzgowbpHuZ29frhuCKPtuORnXJNwUuqN+nuatYSS7mLdztAZGm5tSyvznHiidf7qMp6aQ==
+	1K+rXODlw3AOuVPQXHJlvvD0fqz2SfwcqwmzgnNZJvtNCnBQ8HwaXUZF/yoj3qxUFHMAW4D42jJEWWx/I4ziZKMy2SbYPdyUAwl4FW+Oen+zzJ28e3Aq2ja7TRu6ZbeX/ezM6ObJxuM72wrnDUm0wHyYLxXR0GO831iJWtO92saLdhJTY0uFMaT4c70B05nIszPpp/0l21RoJCKD0paNCK4GNy4laEBZzluz8c2EMRoRZjQYa3Ei/MK8Bl8cctgyXrDK10RzulUBW5Lng4QHHGHWx9OM1imfQZHGjtELw1VAIL5sYYQF+ESLkhUTycyBkFvAkM3fyKkSWaHQ1bGuxUQsYunH2QVjYcu5E2a5jRAWxICE+kTKEyZ2U8rjNOgtHW3bxVG/xvSy1g70mVkODxpAuXHTgbFWf4hNELr1IV/BueZxG2LTePrjOXFsLgYkVDiqyQnoJmjqFxMx+Dnl7v70d+AtHSXG16Nz496rYlHXH648PgPb2FgPkbcPi9u7J2jjE9ikftMf6f5TcudKw0jEu0++H4x6lCL0bmVFjRb36+qv4naXhoUTLPM93/ic31hB/KGUSgHfDYHTKBD74S6tmvcVAROgzip1npXrmpX1hMJAgjWSGCdrGo0nxeKB5dM5gzfeX/Yg40BMw3FvcjxiUtzoMVXKBi9rOfFYuzkxI4nRZe1TTvyyEYQDETWum0Ty5k8yKhISb4WYLNVLDlXs4JzC86U/7GZTS5qCjecjuFKJmgf+3Hu85vfHHqhigyb5HgnIC3ggmp4RXg1fLw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199024)(1800799009)(186009)(82310400011)(40470700004)(36840700001)(46966006)(41300700001)(8936002)(40480700001)(83380400001)(44832011)(478600001)(6916009)(6666004)(2906002)(5660300002)(70206006)(8676002)(316002)(54906003)(4326008)(70586007)(1076003)(40460700003)(26005)(2616005)(36860700001)(336012)(426003)(356005)(36756003)(47076005)(82740400003)(81166007)(86362001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799009)(186009)(451199024)(82310400011)(36840700001)(46966006)(40470700004)(6916009)(6666004)(70586007)(54906003)(70206006)(40480700001)(316002)(41300700001)(478600001)(44832011)(1076003)(4326008)(8676002)(40460700003)(2616005)(26005)(5660300002)(36860700001)(426003)(36756003)(82740400003)(356005)(81166007)(8936002)(336012)(2906002)(86362001)(83380400001)(47076005)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 01:16:35.5232
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 01:16:36.0224
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e08b7899-7037-46fd-e334-08dbae76e9e1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 716502bd-0a27-4d3a-873a-08dbae76ea24
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9DC.namprd05.prod.outlook.com
+	BL02EPF0001A106.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6237
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4106
 
-Change __unflatten_device_tree() return type to integer so it can propagate
-memory allocation failure. Add panic() in dt_unflatten_host_device_tree() for
-memory allocation failure during boot.
+This will be useful in dynamic node programming when new dt nodes are unflattend
+during runtime. Invalid device tree node related errors should be propagated
+back to the caller.
 
-Fixes: fb97eb614acf ("xen/arm: Create a hierarchical device tree")
 Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-Reviewed-by: Henry Wang <Henry.Wang@arm.com>
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 ---
 Changes from v9:
-    Update comment regarding return value of unflatten_device_tree().
+    Replace __be64 with void.
+Changes from v7:
+    Free allocated memory in case of errors when calling unflatten_dt_node.
 ---
 ---
- xen/common/device_tree.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ xen/common/device_tree.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
 diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 0522fdf976..7c6b41c3b4 100644
+index 7c6b41c3b4..b6d9f018c6 100644
 --- a/xen/common/device_tree.c
 +++ b/xen/common/device_tree.c
-@@ -2091,9 +2091,11 @@ static unsigned long __init unflatten_dt_node(const void *fdt,
-  * can be used.
-  * @fdt: The fdt to expand
-  * @mynodes: The device_node tree created by the call
-+ *
-+ * Returns 0 on success and a negative number on error
-  */
--static void __init __unflatten_device_tree(const void *fdt,
--                                           struct dt_device_node **mynodes)
-+static int __init __unflatten_device_tree(const void *fdt,
-+                                          struct dt_device_node **mynodes)
- {
-     unsigned long start, mem, size;
-     struct dt_device_node **allnextp = mynodes;
-@@ -2114,6 +2116,8 @@ static void __init __unflatten_device_tree(const void *fdt,
+@@ -2110,6 +2110,9 @@ static int __init __unflatten_device_tree(const void *fdt,
+     /* First pass, scan for size */
+     start = ((unsigned long)fdt) + fdt_off_dt_struct(fdt);
+     size = unflatten_dt_node(fdt, 0, &start, NULL, NULL, 0);
++    if ( !size )
++        return -EINVAL;
++
+     size = (size | 3) + 1;
  
-     /* Allocate memory for the expanded device tree */
-     mem = (unsigned long)_xmalloc (size + 4, __alignof__(struct dt_device_node));
-+    if ( !mem )
-+        return -ENOMEM;
- 
-     ((__be32 *)mem)[size / 4] = cpu_to_be32(0xdeadbeefU);
- 
-@@ -2131,6 +2135,8 @@ static void __init __unflatten_device_tree(const void *fdt,
+     dt_dprintk("  size is %#lx allocating...\n", size);
+@@ -2127,11 +2130,21 @@ static int __init __unflatten_device_tree(const void *fdt,
+     start = ((unsigned long)fdt) + fdt_off_dt_struct(fdt);
+     unflatten_dt_node(fdt, mem, &start, NULL, &allnextp, 0);
+     if ( be32_to_cpup((__be32 *)start) != FDT_END )
+-        printk(XENLOG_WARNING "Weird tag at end of tree: %08x\n",
++    {
++        printk(XENLOG_ERR "Weird tag at end of tree: %08x\n",
+                   *((u32 *)start));
++        xfree((void *)mem);
++        return -EINVAL;
++    }
++
+     if ( be32_to_cpu(((__be32 *)mem)[size / 4]) != 0xdeadbeefU )
+-        printk(XENLOG_WARNING "End of tree marker overwritten: %08x\n",
++    {
++        printk(XENLOG_ERR "End of tree marker overwritten: %08x\n",
+                   be32_to_cpu(((__be32 *)mem)[size / 4]));
++        xfree((void *)mem);
++        return -EINVAL;
++    }
++
      *allnextp = NULL;
  
      dt_dprintk(" <- unflatten_device_tree()\n");
-+
-+    return 0;
- }
- 
- static void dt_alias_add(struct dt_alias_prop *ap,
-@@ -2215,7 +2221,11 @@ dt_find_interrupt_controller(const struct dt_device_match *matches)
- 
- void __init dt_unflatten_host_device_tree(void)
- {
--    __unflatten_device_tree(device_tree_flattened, &dt_host);
-+    int error = __unflatten_device_tree(device_tree_flattened, &dt_host);
-+
-+    if ( error )
-+        panic("__unflatten_device_tree failed with error %d\n", error);
-+
-     dt_alias_scan();
- }
- 
 -- 
 2.17.1
 
