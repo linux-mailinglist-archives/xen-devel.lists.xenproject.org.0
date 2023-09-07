@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2947B797CED
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 21:42:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597595.931830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C048B797D2D
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 22:11:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597619.931853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeKsJ-0000fS-5T; Thu, 07 Sep 2023 19:41:11 +0000
+	id 1qeLLC-0006Cn-OL; Thu, 07 Sep 2023 20:11:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597595.931830; Thu, 07 Sep 2023 19:41:11 +0000
+Received: by outflank-mailman (output) from mailman id 597619.931853; Thu, 07 Sep 2023 20:11:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeKsI-0000ZD-WB; Thu, 07 Sep 2023 19:41:11 +0000
-Received: by outflank-mailman (input) for mailman id 597595;
- Thu, 07 Sep 2023 19:41:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qeLLC-0006Ae-Lf; Thu, 07 Sep 2023 20:11:02 +0000
+Received: by outflank-mailman (input) for mailman id 597619;
+ Thu, 07 Sep 2023 20:11:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=myun=EX=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qeKsH-0000X5-4F
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 19:41:09 +0000
+ id 1qeLLB-0006AY-B5
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 20:11:01 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79efca6a-4db6-11ee-8783-cb3800f73035;
- Thu, 07 Sep 2023 21:41:02 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a8a9cfce-4dba-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 22:10:59 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id C4F9082859ED;
- Thu,  7 Sep 2023 14:41:01 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id CF17082856D8;
+ Thu,  7 Sep 2023 15:10:57 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id QNGLP11fAkNX; Thu,  7 Sep 2023 14:41:00 -0500 (CDT)
+ with ESMTP id 1L85qH1Ir2IZ; Thu,  7 Sep 2023 15:10:57 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 6689382857F8;
- Thu,  7 Sep 2023 14:41:00 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 19ADB828641B;
+ Thu,  7 Sep 2023 15:10:57 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id GFKUhbma4seh; Thu,  7 Sep 2023 14:41:00 -0500 (CDT)
-Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 14F4E828596F;
- Thu,  7 Sep 2023 14:41:00 -0500 (CDT)
+ with ESMTP id 57n58737Hecc; Thu,  7 Sep 2023 15:10:56 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id AA24B82856D8;
+ Thu,  7 Sep 2023 15:10:56 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,337 +51,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79efca6a-4db6-11ee-8783-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 6689382857F8
+X-Inumbo-ID: a8a9cfce-4dba-11ee-9b0d-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 19ADB828641B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694115660; bh=ZddRoCQy9wva99e7szlKRNGTsxCR4BnXNupCx5YetZI=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=SeJJOkQxrEkGPX5tTzmdi+g5dcXmbTkBM69tfp4SljfrS1CII2T1Lq6CEpxhpW8Yt
-	 k1o0GNUz07zacDIf0TcvjwTJqH28RQZVOj83lH/pKJAwhJu1HpNVRvJrnC9MGC+VWo
-	 dfounjEboE5lo4p9y7SoGx74whoZB7IM+hqWYI4E=
+	t=1694117457; bh=+RxX6yDDUTKACjmENTarCLYUpvBQ1bdM4UwM2lr0uO4=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=JiPpED9Pnlqahp7vMNcRrr7kKcUAEwexN3hYkuOPFSwYfaL9pPJcvLhy+27kRvqY1
+	 15UZRqy54VNMcvfiQm3BRKY77DnDao11BcHIyezpDmAR0SHc12nqkHgiOAX4LgYHJt
+	 wVCQVzqfRKiwrvn5sNgMoaUr/Jt6WcQeppbYhdCw=
 X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v3 2/2] xen/ppc: Drop support for pseries/OpenFirmware
-Date: Thu,  7 Sep 2023 14:40:48 -0500
-Message-Id: <c190537196f0d1143c7e9af710489201b500f9b9.1694114837.git.sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1694114837.git.sanastasio@raptorengineering.com>
-References: <cover.1694114837.git.sanastasio@raptorengineering.com>
+Message-ID: <63d361c3-4b6a-1e12-db91-8723e3277252@raptorengineering.com>
+Date: Thu, 7 Sep 2023 15:10:56 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v3 1/5] xen/ppc: Implement atomic.h
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1693590982.git.sanastasio@raptorengineering.com>
+ <917dc5517b69657b48e69c4100234383f5c70e0e.1693590982.git.sanastasio@raptorengineering.com>
+ <692dae52-947b-5856-f1b8-5d9f03f78e6a@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <692dae52-947b-5856-f1b8-5d9f03f78e6a@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Since QEMU's PowerNV support has matured to the point where it is
-now suitable for development, drop support for booting on the
-paravirtualized pseries machine type and its associated interfaces.
+On 9/5/23 9:58 AM, Jan Beulich wrote:
+> On 01.09.2023 20:25, Shawn Anastasio wrote:
+>> +static inline atomic_t atomic_compareandswap(atomic_t old, atomic_t new,
+>> +                                             atomic_t *v)
+>> +{
+>> +    atomic_t rc;
+>> +    rc.counter = __cmpxchg(&v->counter, old.counter, new.counter, sizeof(int));
+> 
+> I can't seem to be able to spot where __cmpxchg() is defined. (I really
+> only wanted to check why it needs the 4th argument, which here rather
+> would want to be e.g. sizeof(v->counter). If it can't be omitted.)
+>
 
-Support for booting on pseries was broken by 74b725a64d80 ('xen/ppc:
-Implement initial Radix MMU support'), and since there is little
-practical value in continuing to support pseries as a target, just drop
-support for it entirely.
+As you later saw, it's defined in system.h later in patch 3. This was an
+error I made when splitting up the changes into this patchset. If you're
+fine with it I'll just add a mention in the commit message that the
+definitions in this commit are not yet fully usable.
 
-Fixes: 74b725a64d80 ('xen/ppc: Implement initial Radix MMU support')
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/ppc/Makefile           |   1 -
- xen/arch/ppc/boot-of.c          | 113 --------------------------------
- xen/arch/ppc/include/asm/boot.h |  19 ------
- xen/arch/ppc/ppc64/Makefile     |   1 -
- xen/arch/ppc/ppc64/of-call.S    |  83 -----------------------
- xen/arch/ppc/setup.c            |  11 +---
- 6 files changed, 3 insertions(+), 225 deletions(-)
- delete mode 100644 xen/arch/ppc/boot-of.c
- delete mode 100644 xen/arch/ppc/ppc64/of-call.S
+Also I will change the size parameter to sizeof(v->counter) per your
+suggestion.
 
-diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
-index a059ac4c0a..b3205b8f7a 100644
---- a/xen/arch/ppc/Makefile
-+++ b/xen/arch/ppc/Makefile
-@@ -1,6 +1,5 @@
- obj-$(CONFIG_PPC64) += ppc64/
+>> +    return rc;
+>> +}
+>> +
+>> +#define arch_cmpxchg(ptr, o, n)                                                \
+>> +    ({                                                                         \
+>> +        __typeof__(*(ptr)) o_ = (o);                                           \
+>> +        __typeof__(*(ptr)) n_ = (n);                                           \
+>> +        (__typeof__(*(ptr))) __cmpxchg((ptr), (unsigned long) o_,              \
+>> +                                       (unsigned long) n_, sizeof(*(ptr)));    \
+> 
+> Nit: Stray blanks again after cast specifiers.
+>
 
--obj-y += boot-of.init.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.init.o
- obj-y += mm-radix.o
- obj-y += opal.o
-diff --git a/xen/arch/ppc/boot-of.c b/xen/arch/ppc/boot-of.c
-deleted file mode 100644
-index d6755ccc8e..0000000000
---- a/xen/arch/ppc/boot-of.c
-+++ /dev/null
-@@ -1,113 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * This file was derived from Xen 3.2's xen/arch/powerpc/boot_of.c,
-- * originally licensed under GPL version 2 or later.
-- *
-- * Copyright IBM Corp. 2005, 2006, 2007
-- * Copyright Raptor Engineering, LLC
-- *
-- * Authors: Jimi Xenidis <jimix@watson.ibm.com>
-- *          Hollis Blanchard <hollisb@us.ibm.com>
-- *          Shawn Anastasio <sanastasio@raptorengineering.com>
-- */
--
--#include <xen/init.h>
--#include <xen/macros.h>
--#include <xen/stdarg.h>
--#include <xen/types.h>
--#include <asm/boot.h>
--#include <asm/byteorder.h>
--#include <asm/early_printk.h>
--
--/*
-- * The Open Firmware client interface is called in 32-bit mode with the MMU off,
-- * so any addresses passed to it must be physical addresses under 4GB.
-- *
-- * Since the client interface is only used during early boot before the MMU is on
-- * and Xen itself was loaded by Open Firmware (and therefore resides below 4GB),
-- * we can achieve the desired result with a simple cast to uint32_t.
-- */
--#define ADDR(x) ((uint32_t)(unsigned long)(x))
--
--/* OF entrypoint*/
--static unsigned long __initdata of_vec;
--
--static int __initdata of_out;
--
--static int __init of_call(const char *service, uint32_t nargs, uint32_t nrets,
--                          int32_t rets[], ...)
--{
--    int rc;
--    va_list args;
--    unsigned int i;
--    struct of_service s;
--
--    s.ofs_service = cpu_to_be32(ADDR(service));
--    s.ofs_nargs = cpu_to_be32(nargs);
--    s.ofs_nrets = cpu_to_be32(nrets);
--
--    /* Copy all the params into the args array */
--    va_start(args, rets);
--
--    for ( i = 0; i < nargs; i++ )
--        s.ofs_args[i] = cpu_to_be32(va_arg(args, uint32_t));
--
--    va_end(args);
--
--    rc = enter_of(&s, of_vec);
--
--    /* Copy all return values to the output rets array */
--    for ( i = 0; i < nrets; i++ )
--        rets[i] = be32_to_cpu(s.ofs_args[i + nargs]);
--
--    return rc;
--}
--
--static int __init of_finddevice(const char *devspec)
--{
--    int32_t rets[1] = { OF_FAILURE };
--
--    of_call("finddevice", 1, ARRAY_SIZE(rets), rets, ADDR(devspec));
--    return rets[0];
--}
--
--static int __init of_getprop(int ph, const char *name, void *buf, uint32_t buflen)
--{
--    int32_t rets[1] = { OF_FAILURE };
--
--    of_call("getprop", 4, ARRAY_SIZE(rets), rets, ph, ADDR(name), ADDR(buf),
--            buflen);
--    return rets[0];
--}
--
--int __init of_write(int ih, const char *addr, uint32_t len)
--{
--    int32_t rets[1] = { OF_FAILURE };
--
--    of_call("write", 3, ARRAY_SIZE(rets), rets, ih, ADDR(addr), len);
--    return rets[0];
--}
--
--static void __init of_putchar(char c)
--{
--    if ( c == '\n' )
--    {
--        char buf = '\r';
--        of_write(of_out, &buf, 1);
--    }
--    of_write(of_out, &c, 1);
--}
--
--void __init boot_of_init(unsigned long vec)
--{
--    int bof_chosen;
--
--    of_vec = vec;
--
--    /* Get a handle to the default console */
--    bof_chosen = of_finddevice("/chosen");
--    of_getprop(bof_chosen, "stdout", &of_out, sizeof(of_out));
--    of_out = be32_to_cpu(of_out);
--
--    early_printk_init(of_putchar);
--}
-diff --git a/xen/arch/ppc/include/asm/boot.h b/xen/arch/ppc/include/asm/boot.h
-index 296539cd9e..d62c3ff6e0 100644
---- a/xen/arch/ppc/include/asm/boot.h
-+++ b/xen/arch/ppc/include/asm/boot.h
-@@ -4,25 +4,6 @@
+Will fix.
 
- #include <xen/types.h>
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/include/asm/memory.h
+>> @@ -0,0 +1,21 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +/*
+>> + * Copyright (C) IBM Corp. 2005
+>> + *
+>> + * Authors: Jimi Xenidis <jimix@watson.ibm.com>
+>> + */
+>> +
+>> +#ifndef _ASM_MEMORY_H_
+>> +#define _ASM_MEMORY_H_
+>> +
+>> +#include <xen/config.h>
+> 
+> As mentioned before - no need for this explicit #include.
+>
 
--/*
-- * OpenFirmware boot interfaces
-- */
--
--enum {
--    OF_FAILURE = -1,
--    OF_SUCCESS = 0,
--};
--
--struct of_service {
--    __be32 ofs_service;
--    __be32 ofs_nargs;
--    __be32 ofs_nrets;
--    __be32 ofs_args[10];
--};
--
--int enter_of(struct of_service *args, unsigned long entry);
--void boot_of_init(unsigned long vec);
--
- /*
-  * OPAL boot interfaces
-  */
-diff --git a/xen/arch/ppc/ppc64/Makefile b/xen/arch/ppc/ppc64/Makefile
-index b9a91dc15f..5b88355bb2 100644
---- a/xen/arch/ppc/ppc64/Makefile
-+++ b/xen/arch/ppc/ppc64/Makefile
-@@ -1,3 +1,2 @@
- obj-y += head.o
--obj-y += of-call.o
- obj-y += opal-calls.o
-diff --git a/xen/arch/ppc/ppc64/of-call.S b/xen/arch/ppc/ppc64/of-call.S
-deleted file mode 100644
-index 2a2e308f6b..0000000000
---- a/xen/arch/ppc/ppc64/of-call.S
-+++ /dev/null
-@@ -1,83 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * Adapted from Linux's arch/powerpc/kernel/entry_64.S, with the
-- * following copyright notice:
-- *
-- *  PowerPC version
-- *    Copyright (C) 1995-1996 Gary Thomas (gdt@linuxppc.org)
-- *  Rewritten by Cort Dougan (cort@cs.nmt.edu) for PReP
-- *    Copyright (C) 1996 Cort Dougan <cort@cs.nmt.edu>
-- *  Adapted for Power Macintosh by Paul Mackerras.
-- *  Low-level exception handlers and MMU support
-- *  rewritten by Paul Mackerras.
-- *    Copyright (C) 1996 Paul Mackerras.
-- *  MPC8xx modifications Copyright (C) 1997 Dan Malek (dmalek@jlc.net).
-- */
--
--#include <asm/asm-offsets.h>
--#include <asm/asm-defns.h>
--#include <asm/msr.h>
--
--/* size of minimum stack frame that can hold an entire cpu_user_regs struct */
--#define STACK_SWITCH_FRAME_SIZE UREGS_sizeof
--
--    .section .init.text, "ax", @progbits
--
--ENTRY(enter_of)
--    mflr    %r0
--    std     %r0, 16(%r1)
--    stdu    %r1, -STACK_SWITCH_FRAME_SIZE(%r1) /* Save SP and create stack space */
--
--    /*
--     * Because PROM is running in 32b mode, it clobbers the high order half
--     * of all registers that it saves.  We therefore save those registers
--     * PROM might touch to the stack.  (%r0, %r3-%r13 are caller saved)
--     */
--    SAVE_GPR(2, %r1)
--    SAVE_GPR(13, %r1)
--    SAVE_NVGPRS(%r1)
--    mfcr    %r10
--    mfmsr   %r11
--    std     %r10, UREGS_cr(%r1)
--    std     %r11, UREGS_msr(%r1)
--
--    /* Put PROM address in SRR0 */
--    mtsrr0  %r4
--
--    /* Setup our trampoline return addr in LR */
--    bcl     20, 31, .+4
--0:  mflr    %r4
--    addi    %r4, %r4, 1f - 0b
--    mtlr    %r4
--
--    /* Prepare a 32-bit mode big endian MSR */
--    LOAD_IMM64(%r12, MSR_SF | MSR_LE)
--    andc    %r11, %r11, %r12
--    mtsrr1  %r11
--    rfid
--
--1:  /* Return from OF */
--    FIXUP_ENDIAN
--
--    /* Just make sure that %r1 top 32 bits didn't get corrupt by OF */
--    rldicl  %r1, %r1, 0, 32
--
--    /* Restore the MSR (back to 64 bits) */
--    ld      %r0, UREGS_msr(%r1)
--    mtmsrd  %r0
--    isync
--
--    /* Restore other registers */
--    REST_GPR(2, %r1)
--    REST_GPR(13, %r1)
--    REST_NVGPRS(%r1)
--    ld      %r4, UREGS_cr(%r1)
--    mtcr    %r4
--
--    addi    %r1, %r1, STACK_SWITCH_FRAME_SIZE
--    ld      %r0, 16(%r1)
--    mtlr    %r0
--    blr
--
--    .size enter_of, . - enter_of
--    .type enter_of, %function
-diff --git a/xen/arch/ppc/setup.c b/xen/arch/ppc/setup.c
-index 0106e9c9da..3fc7705d9b 100644
---- a/xen/arch/ppc/setup.c
-+++ b/xen/arch/ppc/setup.c
-@@ -14,17 +14,12 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
- {
-     if ( r5 )
-     {
--        /* OpenFirmware boot protocol */
--        boot_of_init(r5);
-+        /* Unsupported OpenFirmware boot protocol */
-+        __builtin_trap();
-     }
-     else
-     {
--        /*
--         * kexec boot protocol
--         *
--         * TODO: This currently assumes an OPAL/PowerNV system, but it's also
--         * possible to be kexec'd on an OF system.
--         */
-+        /* kexec boot protocol */
-         boot_opal_init((void *)r3);
-     }
+Will drop.
 
---
-2.30.2
+>> +#ifdef CONFIG_SMP
+>> +#define PPC_ATOMIC_ENTRY_BARRIER "sync\n"
+>> +#define PPC_ATOMIC_EXIT_BARRIER  "sync\n"
+>> +#else
+>> +#define PPC_ATOMIC_ENTRY_BARRIER
+>> +#define PPC_ATOMIC_EXIT_BARRIER
+>> +#endif
+> 
+> Is this correct, considering that we have no CONFIG_SMP and assume SMP
+> in all cases?
+> 
+> I'm sorry for not paying attention earlier.
+>
 
+Good observation, and no problem. I will remove the ifdef and the !SMP
+case.
+
+> Jan
+
+Thanks,
+Shawn
 
