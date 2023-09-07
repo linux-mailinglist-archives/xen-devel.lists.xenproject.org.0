@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3BBF797CEB
+	by mail.lfdr.de (Postfix) with ESMTPS id A8289797CEC
 	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 21:42:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597594.931824 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.597596.931839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeKsI-0000Z3-R2; Thu, 07 Sep 2023 19:41:10 +0000
+	id 1qeKsJ-0000px-I3; Thu, 07 Sep 2023 19:41:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597594.931824; Thu, 07 Sep 2023 19:41:10 +0000
+Received: by outflank-mailman (output) from mailman id 597596.931839; Thu, 07 Sep 2023 19:41:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeKsI-0000XM-NH; Thu, 07 Sep 2023 19:41:10 +0000
-Received: by outflank-mailman (input) for mailman id 597594;
- Thu, 07 Sep 2023 19:41:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qeKsJ-0000jC-DN; Thu, 07 Sep 2023 19:41:11 +0000
+Received: by outflank-mailman (input) for mailman id 597596;
+ Thu, 07 Sep 2023 19:41:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=myun=EX=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qeKsG-0000X5-S0
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 19:41:08 +0000
+ id 1qeKsH-0000X6-QO
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 19:41:09 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79c49b3e-4db6-11ee-8783-cb3800f73035;
- Thu, 07 Sep 2023 21:41:02 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 79cb891d-4db6-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 21:41:03 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 22AE7828596F;
+ by mail.rptsys.com (Postfix) with ESMTP id 7EDD982857DA;
  Thu,  7 Sep 2023 14:41:01 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 9sDjNDv_ydZ6; Thu,  7 Sep 2023 14:40:59 -0500 (CDT)
+ with ESMTP id qgNY59Xnq-Qg; Thu,  7 Sep 2023 14:41:00 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A77A682857DA;
- Thu,  7 Sep 2023 14:40:59 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 12933828574A;
+ Thu,  7 Sep 2023 14:41:00 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id vyvxV_GowML7; Thu,  7 Sep 2023 14:40:59 -0500 (CDT)
+ with ESMTP id tGxJ1Orr3EZ4; Thu,  7 Sep 2023 14:40:59 -0500 (CDT)
 Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 2D6C0828574A;
+ by mail.rptsys.com (Postfix) with ESMTPSA id AF40F82857F8;
  Thu,  7 Sep 2023 14:40:59 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,15 +51,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79c49b3e-4db6-11ee-8783-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A77A682857DA
+X-Inumbo-ID: 79cb891d-4db6-11ee-9b0d-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 12933828574A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694115659; bh=1ljCQxuyGxzMiOsk2nIw7/n64VzZIvgNsPTsPQKMrOc=;
+	t=1694115660; bh=FpEWN5XzyDSaed6RXWHy2kOL1gO53wPDtA/kU7OLogE=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=a4RFOg0HKTztE4uqyJvyMdis/ihbypa8Paw57HDBek//iGoWQCDcdFJbQstC0y2lz
-	 exNN+6XlG/BMxqBZ3jGURlXs7K+q1t0sU/JWabPUeFU0aM/QH/9aji3i6M8T/zsZJQ
-	 reIP1BcGAnlXdyOgLGvKMJN4ri7Bex+C+cMHAE1k=
+	b=jfPvwmQNm2R8I7BrXbHb5DhEe5qOdLrck0exjfxMKN0beH7T1pLLP5UdVAuhTKeB1
+	 7c78G2NqxpwY78AiczfHBWtyMHLGuFROCkrjx7KZwZnLN2jXONG/ig+b8EAOjsYmAk
+	 DB0tv/phczgHNJh2AKjgSPnZXxpzKA8kI2FFIegg=
 X-Virus-Scanned: amavisd-new at rptsys.com
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
 To: xen-devel@lists.xenproject.org
@@ -69,59 +69,152 @@ Cc: Timothy Pearson <tpearson@raptorengineering.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 0/2] ppc: Drop support for QEMU pseries
-Date: Thu,  7 Sep 2023 14:40:46 -0500
-Message-Id: <cover.1694114837.git.sanastasio@raptorengineering.com>
+Subject: [PATCH v3 1/2] automation: Switch ppc64le tests to PowerNV machine type
+Date: Thu,  7 Sep 2023 14:40:47 -0500
+Message-Id: <2cfc81f4538d83e822a9410f94fdacac2c1b0ed7.1694114837.git.sanastasio@raptorengineering.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1694114837.git.sanastasio@raptorengineering.com>
+References: <cover.1694114837.git.sanastasio@raptorengineering.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-Hello all,
+Run ppc64le tests with the PowerNV machine type (bare metal) instead of
+the paravirtualized pseries machine. This requires a more modern version
+of QEMU than is present in debian bullseye's repository, so update the
+dockerfile to build QEMU from source.
 
-This small series drops support for the QEMU paravirtualized pseries
-machine type in favor of the bare metal PowerNV platform. pseries
-support was broken by 74b725a64d80 ('xen/ppc: Implement initial Radix
-MMU support'), and instead of maintaining separate code paths to retain
-support for the platform, I think it makes the most sense to drop it
-entirely.
+Support for booting on pseries was broken by 74b725a64d80 ('xen/ppc:
+Implement initial Radix MMU support') which resulted in CI failures. In
+preparation for removing pseries support entirely, switch the CI
+infrastructure to the PowerNV machine type.
 
-pseries was originally targeted for initial bringup since it has
-historically been much better supported by QEMU, but PowerNV support in
-QEMU has recently developed to the point where this is no longer a
-concern.  Since I can think of very little practical use for running Xen
-under pseries, and supporting it requires non-trivial duplication of
-effort, drop support for it entirely.
+Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+---
+v3: Use test-artifact for custom QEMU build
 
-This also requires a change to the ppc64le CI dockerfile to build a
-newer version of QEMU than is available in the bullseye repository.
-
-Thanks,
-Shawn
-
---
-v3: Build QEMU as test-artifact
-v2: Add Fixes: tag to patch 2, add references to broken state of pseries
-
-Shawn Anastasio (2):
-  automation: Switch ppc64le tests to PowerNV machine type
-  xen/ppc: Drop support for pseries/OpenFirmware
-
- .../build/debian/bullseye-ppc64le.dockerfile  |   5 +-
- automation/gitlab-ci/build.yaml               |  14 +++
- automation/gitlab-ci/test.yaml                |   5 +-
- automation/scripts/qemu-smoke-ppc64le.sh      |   3 +-
- .../qemu-system-ppc64/8.1.0-ppc64.dockerfile  |  37 ++++++
- xen/arch/ppc/Makefile                         |   1 -
- xen/arch/ppc/boot-of.c                        | 113 ------------------
- xen/arch/ppc/include/asm/boot.h               |  19 ---
- xen/arch/ppc/ppc64/Makefile                   |   1 -
- xen/arch/ppc/ppc64/of-call.S                  |  83 -------------
- xen/arch/ppc/setup.c                          |  11 +-
- 11 files changed, 62 insertions(+), 230 deletions(-)
+ .../build/debian/bullseye-ppc64le.dockerfile  |  5 ++-
+ automation/gitlab-ci/build.yaml               | 14 +++++++
+ automation/gitlab-ci/test.yaml                |  5 ++-
+ automation/scripts/qemu-smoke-ppc64le.sh      |  3 +-
+ .../qemu-system-ppc64/8.1.0-ppc64.dockerfile  | 37 +++++++++++++++++++
+ 5 files changed, 59 insertions(+), 5 deletions(-)
  create mode 100644 automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile
- delete mode 100644 xen/arch/ppc/boot-of.c
- delete mode 100644 xen/arch/ppc/ppc64/of-call.S
 
+diff --git a/automation/build/debian/bullseye-ppc64le.dockerfile b/automation/build/debian/bullseye-ppc64le.dockerfile
+index 8fad26e903..4de8458445 100644
+--- a/automation/build/debian/bullseye-ppc64le.dockerfile
++++ b/automation/build/debian/bullseye-ppc64le.dockerfile
+@@ -22,8 +22,9 @@ RUN apt-get update && \
+         gcc-powerpc64le-linux-gnu \
+         make \
+         python3-minimal \
+-        # for test phase
+-        qemu-system-ppc \
++        # QEMU runtime dependencies for test phase
++        libglib2.0-0 \
++        libpixman-1-0 \
+         && \
+         apt-get autoremove -y && \
+         apt-get clean && \
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index b633facff4..1619e9a558 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -306,6 +306,20 @@ qemu-system-aarch64-6.0.0-arm32-export:
+   tags:
+     - arm64
+
++# ppc64 test artifacts
++
++qemu-system-ppc64-8.1.0-ppc64-export:
++  extends: .test-jobs-artifact-common
++  image: registry.gitlab.com/xen-project/xen/tests-artifacts/qemu-system-ppc64:8.1.0-ppc64
++  script:
++    - mkdir binaries && cp /qemu-system-ppc64 /skiboot.lid binaries/
++  artifacts:
++    paths:
++      - binaries/qemu-system-ppc64
++      - binaries/skiboot.lid
++  tags:
++    - x86_64
++
+ # x86_64 test artifacts
+
+ alpine-3.18-rootfs-export:
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 9aa8deabea..4b836bf047 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -454,9 +454,10 @@ qemu-smoke-riscv64-gcc:
+   needs:
+     - archlinux-current-gcc-riscv64-debug
+
+-qemu-smoke-ppc64le-pseries-gcc:
++qemu-smoke-ppc64le-powernv9-gcc:
+   extends: .qemu-ppc64le
+   script:
+-    - ./automation/scripts/qemu-smoke-ppc64le.sh pseries-5.2 2>&1 | tee ${LOGFILE}
++    - ./automation/scripts/qemu-smoke-ppc64le.sh powernv9 2>&1 | tee ${LOGFILE}
+   needs:
++    - qemu-system-ppc64-8.1.0-ppc64-export
+     - debian-bullseye-gcc-ppc64le-debug
+diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
+index eb55221221..2adbdac87e 100755
+--- a/automation/scripts/qemu-smoke-ppc64le.sh
++++ b/automation/scripts/qemu-smoke-ppc64le.sh
+@@ -12,7 +12,8 @@ set +e
+ touch smoke.serial
+
+ timeout -k 1 20 \
+-qemu-system-ppc64 \
++binaries/qemu-system-ppc64 \
++    -bios binaries/skiboot.lid \
+     -M $machine \
+     -m 2g \
+     -smp 1 \
+diff --git a/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile b/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile
+new file mode 100644
+index 0000000000..7376ca46ff
+--- /dev/null
++++ b/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile
+@@ -0,0 +1,37 @@
++FROM debian:bullseye-slim
++LABEL maintainer.name="The Xen Project" \
++      maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV DEBIAN_FRONTEND=noninteractive
++ENV QEMU_VERSION=8.1.0
++ENV USER root
++
++RUN mkdir /build
++WORKDIR /build
++
++# build depends
++RUN apt-get update && \
++    apt-get --quiet --yes install \
++        build-essential \
++        curl \
++        python3 \
++        python3-pip \
++        python3-elementpath \
++        ninja-build \
++        pkg-config \
++        libglib2.0-dev \
++        libpixman-1-dev \
++        && \
++    \
++    curl -fsSLO https://download.qemu.org/qemu-"$QEMU_VERSION".tar.xz && \
++    tar xvJf qemu-"$QEMU_VERSION".tar.xz && \
++    cd qemu-"$QEMU_VERSION" && \
++    ./configure --target-list=ppc64-softmmu && \
++    make -j$(nproc) && \
++    cp ./build/qemu-system-ppc64 / && \
++    cp ./build/qemu-bundle/usr/local/share/qemu/skiboot.lid / && \
++    cd /build && \
++    rm -rf qemu-"$QEMU_VERSION"* && \
++    apt-get autoremove -y && \
++    apt-get clean && \
++    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
 --
 2.30.2
 
