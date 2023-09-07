@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6859C797DF1
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 23:31:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597633.931874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F4A797E10
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 23:46:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597642.931884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeMaP-0001BC-UH; Thu, 07 Sep 2023 21:30:49 +0000
+	id 1qeMor-0003Pc-6V; Thu, 07 Sep 2023 21:45:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597633.931874; Thu, 07 Sep 2023 21:30:49 +0000
+Received: by outflank-mailman (output) from mailman id 597642.931884; Thu, 07 Sep 2023 21:45:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeMaP-00018Q-Qq; Thu, 07 Sep 2023 21:30:49 +0000
-Received: by outflank-mailman (input) for mailman id 597633;
- Thu, 07 Sep 2023 21:30:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qeMor-0003Nv-2a; Thu, 07 Sep 2023 21:45:45 +0000
+Received: by outflank-mailman (input) for mailman id 597642;
+ Thu, 07 Sep 2023 21:45:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Shnx=EX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qeMaP-000172-34
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 21:30:49 +0000
+ id 1qeMoq-0003Np-4Q
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 21:45:44 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cebc74a4-4dc5-11ee-8783-cb3800f73035;
- Thu, 07 Sep 2023 23:30:47 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3b33809-4dc7-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 23:45:41 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5F5E76125E;
- Thu,  7 Sep 2023 21:30:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2E4C433C7;
- Thu,  7 Sep 2023 21:30:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3FC8C61387;
+ Thu,  7 Sep 2023 21:45:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A11C433C8;
+ Thu,  7 Sep 2023 21:45:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,89 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cebc74a4-4dc5-11ee-8783-cb3800f73035
+X-Inumbo-ID: e3b33809-4dc7-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694122245;
-	bh=SwYxNPn/Kw5sa+SDdClosy4NFn+p95oz2Z6d8Bky08w=;
+	s=k20201202; t=1694123139;
+	bh=i5qV3ODWpssPlpo/XFzf12AWAWgnlD+O3LKHQu6YMNI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TXQArCRXs2/BzqRjlHhpPQqZUjjbrcGejhK9uOaanZiS2mGGOXwjhO0WCUZuLb0H7
-	 mOtpurgIDqo2j3Dwu+6C6ptTnvAj7usfvrO1I/rCOLmcfjeAlSTMpZO1RHVP4s5DS1
-	 xy84pzn93blENWCVwXRPyBzUX7CNt2+8DV+1WhfpwC2XpgAlgXfI1o4rzWSmg1MZMi
-	 MVgxQAl7elhyBLc4oBe/8nfbq0vOkEi6jVWdfdsEi0Q3XlNCiHshxZc42HAG9t/jkz
-	 Iq4irs18D6mNoFz4Bpm91AA9WhoBATgHSX9o9P+JSJScwA28jkdNB5JrbiYju+PNBz
-	 HSWVqQ+IFYZsA==
-Date: Thu, 7 Sep 2023 14:30:43 -0700 (PDT)
+	b=P69AP3K0ieAo6nUqEzX5ctbBbWcsWJJcR6C080LPXD7Hueykmmvn2e1h0ubC/xwKr
+	 0Fly2dt5Yf50uXpKt1EwZQKnv4B6R9Ubaaz40k5nYRJUO+KgQVY0Qk7TRP2frFlhNZ
+	 zOt3ZqqxtRaMUVGx21vL8Nvd0n7NtHK0CT1a3mEs6YD6uFpdPhNxyz1ujZKFrqehaq
+	 n39OFp6Qc2qADU1OArgTnzVebawQHBZrnVjrAJIlZ5c9DcIPDRPS7iyPuQOEricE4s
+	 LU7x17IvM1//SJOFTo1eLOVGs9mk+21BpYnFcAJrCYn7fHMnT3FX4m1DoKPa2Z0mdn
+	 w+HtpRa1wNq2w==
+Date: Thu, 7 Sep 2023 14:45:36 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Simon Gaiser <simon@invisiblethingslab.com>, 
-    "committers@xenproject.org" <committers@xenproject.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, julien@xen.org, george.dunlap@citrix.com, 
+    bertrand.marquis@arm.com, roberto.bagnara@bugseng.com, 
+    nicola.vetrini@bugseng.com, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
     xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-In-Reply-To: <5364a4af-6447-519f-8a2c-bc1c441b374a@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2309071430350.6458@ubuntu-linux-20-04-desktop>
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com> <fa86cd2b-9670-ace7-3bcb-799f55ca283d@suse.com> <alpine.DEB.2.22.394.2309061346410.6458@ubuntu-linux-20-04-desktop>
- <5364a4af-6447-519f-8a2c-bc1c441b374a@suse.com>
+Subject: Re: [PATCH v2] docs/misra: add 14.3
+In-Reply-To: <36b888b2-e7e3-bf70-f599-d22ca34e2dfe@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2309071441400.6458@ubuntu-linux-20-04-desktop>
+References: <20230907012203.1238090-1-sstabellini@kernel.org> <36b888b2-e7e3-bf70-f599-d22ca34e2dfe@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 7 Sep 2023, Jan Beulich wrote:
-> On 06.09.2023 22:49, Stefano Stabellini wrote:
-> > On Fri, 1 Sep 2023, Jan Beulich wrote:
-> >> On 07.08.2023 11:38, Simon Gaiser wrote:
-> >>> It seems some firmwares put dummy entries in the ACPI MADT table for non
-> >>> existing processors. On my NUC11TNHi5 those have the invalid APIC ID
-> >>> 0xff. Linux already has code to handle those cases both in
-> >>> acpi_parse_lapic [1] as well as in acpi_parse_x2apic [2]. So add the
-> >>> same check to Xen.
-> >>>
-> >>> Note that on some older (2nd gen Core i) laptop of mine I also saw dummy
-> >>> entries with a valid APIC ID. Linux would still ignore those because
-> >>> they have !ACPI_MADT_ENABLED && !ACPI_MADT_ONLINE_CAPABLE. But in Xen
-> >>> this check is only active for madt_revision >= 5. But since this version
-> >>> check seems to be intentionally I leave that alone.
-> >>>
-> >>> Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f3bf1dbe64b62a2058dd1944c00990df203e8e7a # [1]
-> >>> Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=10daf10ab154e31237a8c07242be3063fb6a9bf4 # [2]
-> >>> Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
-> >>
-> >> This patch was committed with unaddressed review comments. The normal action
-> >> in such a case would be to revert, expecting a v2 to arrive. One alternative
-> >> here would be a timely incremental patch submission. Another alternative,
-> >> considering in particular Thomas's most recent reply, would be to properly
-> >> downgrade CPU hotplug support in SUPPORT.md (with a corresponding entry in
-> >> CHANGELOG.md).
-> > 
-> > I am in favor of downgrading physical CPU hotplug support in
-> > SUPPORT.md.
-> > 
-> > I noticed that there is no entry for physical CPU hotplug support in
-> > SUPPORT.md today. Should we assume that it is not supported already as
-> > it is not listed as supported?
+> On 07.09.2023 03:22, Stefano Stabellini wrote:
+> > @@ -385,6 +386,17 @@ maintainers if you want to suggest a change.
+> >       - A loop counter shall not have essentially floating type
+> >       -
+> >  
+> > +   * - `Rule 14.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_03.c>`_
+> > +     - Required
+> > +     - Controlling expressions shall not be invariant
+> > +     - Due to the extensive usage of IS_ENABLED, sizeof compile-time
+> > +       checks, and other constructs that are detected as errors by MISRA
+> > +       C scanners, managing the configuration of a MISRA C scanner for
+> > +       this rule would be unmanageable. Thus, this rule is adopted with
+> > +       a project-wide deviation on if ?: and switch statements.
 > 
-> Hmm, I see
-> 
-> ## Host hardware support
-> 
-> ### Physical CPU Hotplug
-> 
->     Status, x86: Supported
-> 
-> pretty close to the top of the file.
+> Do we want to go as far as permitting this uniformly for all switch()? In
+> my earlier reply I had included sizeof() for a reason.
+ 
+I agree with you that it would be better to restrict it to only some
+switch uses, rather than all of them.
 
-Ops, it must have been the case-sensitive search that failed me
+But if we are going to restrict the deviation to switch(sizeof()), which
+I think is a good idea and I am in favor, wouldn't it be better to
+handle these cases as individual deviations? E.g. docs/misra/safe.json?
+I am assuming there are only few cases like that and adding it here
+makes the rule more complicated.
+
+I am happy either way but I wanted to provide that as an option.
 
 
-> > Specifically, would it be a good idea to add a sentence at the top of
-> > the file saying that anything not explicitly listed is not supported?
-> 
-> Iirc that was the plan to do for 4.18, but then we need to be sure that
-> things don't unintentionally become unsupported. I've no clear idea how
-> this plan was meant to be carried out, though.
+> Also (nit) there's at least a comma missing after "if". To make clear it's
+> keywords that are meant, maybe better use if() / switch()?
 
-it would be interesting to discuss it again
+OK I'll do that
 
