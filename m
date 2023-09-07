@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AADE3796E40
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 02:59:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.596982.931136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A52796E41
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 03:00:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.596989.931146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe3MH-0004nL-3u; Thu, 07 Sep 2023 00:58:57 +0000
+	id 1qe3NO-0007Rt-Ej; Thu, 07 Sep 2023 01:00:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 596982.931136; Thu, 07 Sep 2023 00:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 596989.931146; Thu, 07 Sep 2023 01:00:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe3MH-0004kG-0e; Thu, 07 Sep 2023 00:58:57 +0000
-Received: by outflank-mailman (input) for mailman id 596982;
- Thu, 07 Sep 2023 00:58:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qe3NO-0007PW-AB; Thu, 07 Sep 2023 01:00:06 +0000
+Received: by outflank-mailman (input) for mailman id 596989;
+ Thu, 07 Sep 2023 01:00:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Shnx=EX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qe3MF-0004kA-D2
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 00:58:55 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5f4ace3-4d19-11ee-8783-cb3800f73035;
- Thu, 07 Sep 2023 02:58:53 +0200 (CEST)
+ id 1qe3NN-0006mS-3Q
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 01:00:05 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id df0f1f91-4d19-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 03:00:02 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id EDB9CCE1843;
- Thu,  7 Sep 2023 00:58:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57754C433C8;
- Thu,  7 Sep 2023 00:58:45 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 1012BCE1843;
+ Thu,  7 Sep 2023 01:00:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15692C433C7;
+ Thu,  7 Sep 2023 00:59:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,72 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5f4ace3-4d19-11ee-8783-cb3800f73035
+X-Inumbo-ID: df0f1f91-4d19-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694048327;
-	bh=BGUNHJTXYbUmRxhAX4K3auDJHoBOgYqrC+2uDxN2qMk=;
+	s=k20201202; t=1694048398;
+	bh=OFsA55LpLmg+Z24VmkZpNSJ4scM8gq3ZvDaI4opJXd4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eNv9LC+lzZwECF3ZbhB+6AJfPSIIOY8df0Xa8IwbAfQ7PdrQ5Vrtcn+neYsiTZPvb
-	 7YfXTM//2v64rxbbPet9dxJsUzEEZIE+aKrQeUt8Fb+84t3SwP7nvraVp1p8tKGv0V
-	 Jx3mza/rvCnsPZMeKD7P/DlYJJxSZQtPxO9d8W0vzLnqcxXqI83Qnuv25BiQ/YmtEe
-	 MFaeAUF6NkQz+qX9TklNQfH4qR8701z6+2iljk3uYa10CmH6DU+T5bwhMBQRomLaNb
-	 KlO17nBNXnMJLpntt7Swn87beNtF/OmRnjzMmmiGyQXIp+jRPceaMQt7W8S9yHINll
-	 oJr6QdLV2gzBQ==
-Date: Wed, 6 Sep 2023 17:58:43 -0700 (PDT)
+	b=m7m6/YWyS4Y5Zo6G3Ig5zvwMrDpEeucSsB73FtrROcN38usYK/AgKZcvvZGi3G+zH
+	 mUq9EH0fqeVnua2AbQDA+UfoVSU8A4p7Og+8INeWkzVTdYes7t0HX37Jl8wZ6xfFnP
+	 ewpknfLY6yl3Ljd2bgm75vy7RhAfABUM8KxLWJSbiUalf98zPIO+jRXT1zf23LCVis
+	 wexnalVnZPSSw/TnQjM8Ds5bcKyiexLVNmRvs4D/4eXh2GKFEmt4wHTWVa7sky44aY
+	 w0q1Gb1XLFuTs3utm9GnlshYhRwzizEs4NEeCe1QxJ5cdHTlGHqspjGiSqr/xN19HB
+	 04GqZ+5NN1pYw==
+Date: Wed, 6 Sep 2023 17:59:55 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Jan Beulich <jbeulich@suse.com>, sstabellini@kernel.org, 
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 1/2] xen: apply deviation for Rule 8.4 (asm-only
- definitions)
-In-Reply-To: <babbc14aff87b0d8546f4c617eccac3b@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2309061746190.6458@ubuntu-linux-20-04-desktop>
-References: <cover.1693585223.git.nicola.vetrini@bugseng.com> <a260399a471b84f3c37c15ac735dc7aec6bd33ea.1693585223.git.nicola.vetrini@bugseng.com> <efb3dfa7-0fd0-83a5-67dc-eafad0a2bb57@suse.com> <babbc14aff87b0d8546f4c617eccac3b@bugseng.com>
+    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH 2/2] automation: execute SAF translation before the
+ analysis with ECLAIR
+In-Reply-To: <b766ea02253f76d9aaacf06a1ffba8bab45ca0b8.1693585223.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2309061759330.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1693585223.git.nicola.vetrini@bugseng.com> <b766ea02253f76d9aaacf06a1ffba8bab45ca0b8.1693585223.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 4 Sep 2023, Nicola Vetrini wrote:
-> > Further in the cover letter you say "Deviating variables needs more care,
-> > and
-> > is therefore postponed to another patch", yet then here you annotate a
-> > couple
-> > of variables as well. Could you clarify what the criteria are for "needs
-> > more
-> > care"?
-> > 
+On Fri, 1 Sep 2023, Nicola Vetrini wrote:
+> This allows local MISRA deviation comments to be translated into
+> the format recognized by ECLAIR.
 > 
-> I see. I did not intend for those changes to end up in this patch, although
-> those two are
-> clearly only used by asm code and therefore are excepted.
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-I reviewed the patch checking that every function and variable is
-actually only called/used from asm. Everything checks out, so:
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-However, I think we should drop the change below (could be done on
-commit) because it doesn't make sense to add SAF-1-safe for l1_fixmap_x
-but not for l1_fixmap.  l1_fixmap has a declaration in
-xen/arch/x86/include/asm/page.h but it is not actually used.
-
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 28fdf820ef3b..828786932021 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -143,6 +143,7 @@
- /* Mapping of the fixmap space needed early. */
- l1_pgentry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-     l1_fixmap[L1_PAGETABLE_ENTRIES];
-+/* SAF-1-safe */
- l1_pgentry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-     l1_fixmap_x[L1_PAGETABLE_ENTRIES];
-
+> ---
+>  automation/eclair_analysis/prepare.sh | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+> index 275a1a3f517c..0cac5eba00ae 100755
+> --- a/automation/eclair_analysis/prepare.sh
+> +++ b/automation/eclair_analysis/prepare.sh
+> @@ -38,5 +38,8 @@ fi
+>      cd xen
+>      cp "${CONFIG_FILE}" .config
+>      make clean
+> +    find . -type f -name "*.safparse" -print -delete
+>      make -f ${script_dir}/Makefile.prepare prepare
+> +    # Translate the /* SAF-n-safe */ comments into ECLAIR CBTs
+> +    scripts/xen-analysis.py --run-eclair --no-build --no-clean
+>  )
+> -- 
+> 2.34.1
+> 
 
