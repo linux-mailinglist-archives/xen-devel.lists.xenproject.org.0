@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E230B797320
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 16:43:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597452.931687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBEA7797330
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 17:04:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597460.931697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeGDK-0003Mb-Gm; Thu, 07 Sep 2023 14:42:34 +0000
+	id 1qeGXe-0007ns-1P; Thu, 07 Sep 2023 15:03:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597452.931687; Thu, 07 Sep 2023 14:42:34 +0000
+Received: by outflank-mailman (output) from mailman id 597460.931697; Thu, 07 Sep 2023 15:03:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeGDK-0003KY-Dm; Thu, 07 Sep 2023 14:42:34 +0000
-Received: by outflank-mailman (input) for mailman id 597452;
- Thu, 07 Sep 2023 14:42:33 +0000
+	id 1qeGXd-0007ly-Ug; Thu, 07 Sep 2023 15:03:33 +0000
+Received: by outflank-mailman (input) for mailman id 597460;
+ Thu, 07 Sep 2023 15:03:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+6JM=EX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qeGDJ-0003J9-5T
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 14:42:33 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2070.outbound.protection.outlook.com [40.107.13.70])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3tY2=EX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qeGXc-0007ls-VB
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 15:03:32 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c6adad36-4d8c-11ee-8783-cb3800f73035;
- Thu, 07 Sep 2023 16:42:32 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM9PR04MB8209.eurprd04.prod.outlook.com (2603:10a6:20b:3e4::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Thu, 7 Sep
- 2023 14:42:02 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.034; Thu, 7 Sep 2023
- 14:42:02 +0000
+ id b52febb6-4d8f-11ee-8783-cb3800f73035;
+ Thu, 07 Sep 2023 17:03:31 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2b703a0453fso18225831fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Sep 2023 08:03:31 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ x19-20020a05651c105300b002b9b55fefe0sm3879658ljm.131.2023.09.07.08.03.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Sep 2023 08:03:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,183 +45,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6adad36-4d8c-11ee-8783-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZZrJS4J97EsvkkAQhE6+FKxMYS+7Z0+8IWto9wsir3aPNrDsg2SCJj8xCaaOLypo91MQmjaDIvOWWH2ziPvXx09f36eh4ypw7+6J5LUj9MAhFG+P8SHDXKTUmbeBRjzd8bhrMh+o9LQMHOaycxMa5uogvpthFgzYVCb44KRXNmI9ol4ZSV9AFiX3o0wBRlLJzB/bKO861ic9ecoKHKyOCov7j12bWrEEk6r2JPRnzJ6AqlVZBKqor7B7q43Iyi5rrZpGLfayHPLlbx8E4u9nD6t0cOHpfm4mBRA2if/YUGqA+3W7Hd0zo92aOmR0F2dO/WMzrjXGs/lPJ6HCw0lS3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K8MqWQShLtJZF65BGOTIhLMTvQRDxJAdNyLYZVK8wYM=;
- b=U10HBwkkxKKzM1it4BR931RLXKOaaImxpZICcI3l7lh3D5ptQQmqefQD7ma/PL5LURWyyC6FjxdTIHk4VDgqCzy8Hfof6uCFD5fqh9pWmt3CsU4AG+9hQbxKEFpUh20JJaukC04blJe4ZocFCqY4kFl8ibaO6yOpp06Ob36OEk8TGRZwbncS3EFSUAAtkSLQnk4eiPlhRNXZxuA85Akb1/wisVVoWMOn5yxVAcxlloYsw2ZilBSf5++0KXFK+9mTB6UxH2rH75jcTCS3NsdU+Jd0Tmb/qjp28pJzDclf9O9JLKfJEtc2PjzpWgp6hDqFPsvcmPazkt85zci+n3WHqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K8MqWQShLtJZF65BGOTIhLMTvQRDxJAdNyLYZVK8wYM=;
- b=pkSTp8Qys1y6hDRbc7qt9WuYDexJnEkUDQsqnbUXRzD3w6G6z4BkM2xuU40Pb4/oSG5mX8FvA9wIFWYdZxleaT+PYd58hF01fS4JF56mh8U64OHVvNmS8JBub1VUBDWUMmIH7smtOdcZShDIESufT4qey994M5JrYFf8HK8tOh9FqeKXPTk1rmQkoa06w2smEThu9sdWCt7tnUggI9FSnhKcdjgaeS6zkV1CwUcB7ehDrobKDYYdBQVaFUWaxZZ6gB0BIjJ7sBvoDrmg9X+VT1bNtHdR4+lvOcT61odxQM3wdWkKqPMnh97B2TflKFvgROrJVZXO3sou2ESOGMASmg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ce6e7abd-40ee-dd9e-b17c-10c39ca0e422@suse.com>
-Date: Thu, 7 Sep 2023 16:41:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [PATCH] coverage: update gcov info for newer versions of gcc
-Content-Language: en-US
-To: Javi Merino <javi.merino@cloud.com>, Henry Wang <Henry.Wang@arm.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20230902151351.10325-1-javi.merino@cloud.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230902151351.10325-1-javi.merino@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0152.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::6) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: b52febb6-4d8f-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1694099010; x=1694703810; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=XLtI9Rlf4ItgEYKGf7SkFDtMh8PUunpWlsS4ryoRTws=;
+        b=Bt1IgzoCk4I8Uhuw64A9AhzaKFEC+UctyDKe38Mb8g0ewNdZp+oyTELd+J6nvdWxJy
+         ggtV27NexJNuVJ9DBsS3l3B2qOmtWqvZE+FRFevmGfT0mgh+4kFdG4SDzBOKndAgaZ7M
+         654FslEE5ytz2nht5vCUr/nVeyB1awBAEqqnSjufzW6ErA3DL0tCOLJF9I3F542Pf/3J
+         kzroShVLt+q4xkxR9FjNKDAPtwZ1CQZzmLqc+DCdPAfqHDxC/Lf4jNQqb7spID1uuuCz
+         V5ZA4SjN7S4fYS3mNOj79o5x9wuDmhuNyb8Y64rvwtnjhSr2pooG7rS9wjJ0BuuSRHbb
+         Y8cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1694099010; x=1694703810;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XLtI9Rlf4ItgEYKGf7SkFDtMh8PUunpWlsS4ryoRTws=;
+        b=SHNc/tKhUh2U/TSmLCX9T5D+eSCa+RWVc0WoR6VvBRSsgwFW/+JZdJEcceAo/S62Kv
+         f8d85SDeBArSCwlLpDnz3YOb/DlZ7DG5U/lcw+Qf1Sv4pfPyXeYt9wGOs9m31YXwo+Sk
+         krRP4Fymo1nqzKP9Jdpga1bP2ucrguwBoq7UWvrSK0vTqgiZk+CrCrIee82ui6vxROUK
+         g8yt7M4TLG+kifUSM9yZyz2JJ821e+xhxj+T4F0j0Ph6w9xTaqts6oy3DDQuFWfCCQeK
+         O4MkCTBfjEJSFB7t0MDx3j8+CTDKeGzEo7JIX84cZwOGe+JBIf/MR/gcEziB7Ztk/iOV
+         24+Q==
+X-Gm-Message-State: AOJu0Ywlvz8BPdl7WjgOdtE4G4meNi1tzA7nsJcMq2VLYsXd4MBmFKeH
+	2mn023dVDZB1xNzVaw0nHGbn20Ffs7Q=
+X-Google-Smtp-Source: AGHT+IFaIHJc8dpTkDRwDakfX9J8A4W/UrV5YBAxjxn0OYwNzP292Eh9NzHDRrM8+j/8lrxml4aSUA==
+X-Received: by 2002:a2e:9bd9:0:b0:2b6:bb21:8d74 with SMTP id w25-20020a2e9bd9000000b002b6bb218d74mr5242554ljj.1.1694099010072;
+        Thu, 07 Sep 2023 08:03:30 -0700 (PDT)
+Message-ID: <4b407c9c1ac8b3e0c1952782c7c2fe72781732d2.camel@gmail.com>
+Subject: Re: [PATCH v7 0/2] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Alistair Francis <alistair.francis@wdc.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Connor Davis <connojdavis@gmail.com>
+Date: Thu, 07 Sep 2023 18:03:28 +0300
+In-Reply-To: <cover.1691507564.git.oleksii.kurochko@gmail.com>
+References: <cover.1691507564.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c96f934-4535-4dc1-e719-08dbafb0990c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	YJ7BFMqjRz/jV4H656C4Js1adKzcpdrFC0DB+HOMN5O7S7E6l0oYxblF/63d8hgbNK2FiEeIdv4G2FDY/vq0ABC4WMjY2NaG2BJrBNO34k9VIK78y074aMOKVPrvYiSR8KHuzO43AZZWUSu50w19te/bgWoFGZqwn/sTBL+JauIVZrhmjyWrNzg0/aitw2yrE+M5EWW7T2h6zf5elC43iqUvCcB/VuGsbAvQeTcT+VGCn/d4jyuYQGfdGsH3B5Me8GjiFXTBdgP8Sc/M1hUOqs+fsipFCZjeLt3ArjjaLYcCoT57NrBH/AEtuDTzRt7sqpqJc9uVN8guUkI26ZFH/8hHNBIZ4/+1Zfd90UKx56CFGWKN3hhX8FVHPm5BD+Bpuo+a2irSIBSmMZUj+SsTIA7G08zi301Ov/DUg8c7AX+byoRIasJio08gvLQDkbw1l+X2OkFLQOjm00MtzpEs3/4byKrx05cEgKTtCSt2VBkjdhd25/X/aLYy1V3KGK0o//LR8hSbXru3wJtSg+MXb1+sKlwCpB0j3gDm64hvoxccdAdyOTnL4TZ6WhlDlqqvggnNPvOI7QxW+wT6J2tzO2hsrLbs8yq5qB+KwNU1jN+4vc23kEbctbEEaZ3mOhDhG2b+Xz7M7d7nSRyEmOVSwg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(396003)(346002)(376002)(39860400002)(451199024)(186009)(1800799009)(5660300002)(6486002)(4326008)(8676002)(8936002)(6506007)(66946007)(316002)(66556008)(54906003)(31686004)(66476007)(41300700001)(478600001)(110136005)(2906002)(6666004)(53546011)(6512007)(26005)(2616005)(83380400001)(38100700002)(31696002)(86362001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WVd1akhBMDZsZlVCOE9OUG5GcXJUbjJvdlNIdzU2U0RXK0pON0Q5ZkFVSlRS?=
- =?utf-8?B?WklJY2R5NUJ2ckNKK2Fqekp5RHJuY1QzS2ZEK1JDWUZYaW8rS1JvUk1STi9M?=
- =?utf-8?B?ZkIyaVVtZTMraFJkOVZJOFNEQ2Urc0IwdmJJMGM2cDVWOExxc1RPQ2ZCWVIx?=
- =?utf-8?B?cjY0RHE1eXhRNnZ4emNhZDY5SnRBUVJobHpiQ3luRUtFQW83WlJaazBkTkkx?=
- =?utf-8?B?R0xxUnVIaWdLOFZSNE9abEczMWQrOFhCWE1ydmZVRWtKWnhlL1cxcFpMUldi?=
- =?utf-8?B?UDdnR3NiMEVPMjVLV05rL0RKMkZMMzdiRm11K3VkQXNrNU81c0w4MlBaZEMv?=
- =?utf-8?B?NVRqMmIvL3dTZG9DblEzQXpYcUx2N2d0ZFVCSXpXeG04ZnRrTEN1VzFCa096?=
- =?utf-8?B?Y1dDZEdqWWpBR1RQL0RBOEhSN1REbGdjOU9mUVZ2QzNXdkFoRFI1SlBMSHAy?=
- =?utf-8?B?TkZNZUNiaWUwcXQ1bC9tV3RWQzV0YVdIUGFTbWJnaGFHMXkzbklwb0ZyY2l0?=
- =?utf-8?B?eEhxVktGcnRmelhONmVUNWpEN2QyZVZwUVBvbGYwQU5OcExJWEh0UXkydm1P?=
- =?utf-8?B?dXhNNG5WWjZXU3pqSDU1VGlSN0tscStVanZJNzJnQXFJY2Z3YzNpd0JqUnFa?=
- =?utf-8?B?Lzg5NHRNb1pUY2xTd0U4R2hnZm5SdVEvL1N2cFRRd3gvbnJpNjJCOGl3eG5u?=
- =?utf-8?B?NmtCSWhheTFVVEo4RmFhMnJ6ZWNkZEdSQjdDWmlpdkh0MG12Zmc2Q0hlQ043?=
- =?utf-8?B?a1hDM21EaitjbGFldW1SUWMzWUdaVHh3dlZ5ajRjWnBmMUo1Tmp2eGxZclV1?=
- =?utf-8?B?cENWU1pKcU8wOVhva0F2aU9yMWRnQ2V0WTZ5YVhZZEM2QTZnV3gyY1k4eHRJ?=
- =?utf-8?B?cXVuZXNyd1JPb1lQb2t0YkFuK1VMQ3dzMHQ4MFI3c3NpdkJoZndvT2dEUlBw?=
- =?utf-8?B?b0o2Q1hadFUrZFBnMTlKZXFQR2Z2eWpOT2FVQ1laeGdxbmRZUTUvdkQ3c0J1?=
- =?utf-8?B?OExnZGtIQUhCQkpXWklyOXE3R1V5VWpra0x1UC9NQm1QczFpMUNJMVFzQlFU?=
- =?utf-8?B?TjJ1Q0NsQy9BNjFUcnMyUFgzT3RndDRJM2ZURWRIOWJvRDQ0VTJ5a3hRV05q?=
- =?utf-8?B?ZXMvSkNGMkRkcGdMTmh3azFkdFdmTU9hL2p5OG5KRnZZQVh1eFZEc3pJVzNl?=
- =?utf-8?B?K1dXa3JNc1ZBL1YyblNkVXlldjNtbUFTYW0yQ3hxQ05KS0NEbDhTUVc3UHMr?=
- =?utf-8?B?amN0SFRmRnBNNjR3S3E3cklPYnA5Wk1tZ1NjcW5xQWp0ZHVNc0sycGdGd2dF?=
- =?utf-8?B?Mmk0T3V1RU42RlNyenNUaE03T3JjRkVyeFA0OGZuNm1DT2tpSUZOUnI5Tmt3?=
- =?utf-8?B?bDZvUXpXY1FmMklBOS9LejBHNjJKNXcyYk9GcFZPenowYWtyWk1WbDlFY3BN?=
- =?utf-8?B?QStTN2Vaa25ZcndBZmdEa2M1OGFhdlo5YmZldGwzMFZuMUU2ZXpLL3JyTUlF?=
- =?utf-8?B?a0xRNVhkRURIMk9FV0pzZFBEODBNNDRmK2NqbU96TzAwS0xKcnVFOWxwcjVk?=
- =?utf-8?B?OXdwZjI0Yno2TXk5NWEwU21zdkFyZjlxRmJ6aXNhd3YxbG1CejZsV1FJa2d1?=
- =?utf-8?B?bzNPejBkcVJEa2dySHpYQ0VHajdEUm4yK2U2VXNKQWhhVUxqQWpuN1pUYTFy?=
- =?utf-8?B?d0pmeE14OS9vTWZEUnVtVnE2aHlCekJIWGpWc1YwK0s3dGMxeFFhZ3NacHZy?=
- =?utf-8?B?QzUra0NvRk13clhkZFJtdis3ZUljT1ZEUTljc0ovVml2SUhqMEo4bUc4aTds?=
- =?utf-8?B?bm1rTTg2dnE2U25ERlVYQmxNY0RvS29CMGQvZ2dvZmtpditQK0o4WEpzN3ND?=
- =?utf-8?B?Wmh6OTBtZWlnYlptbFJhdWNHRVpVZS93Z0RackRVb1dXN1NBVjQxVWFWQ0t0?=
- =?utf-8?B?VWI2c0ZHV0RsWGNIa1FpK21XUWxQSUZqU1UxYVZTTFRQMCtkTDZPNjg3VndL?=
- =?utf-8?B?dXRXSzhuSFAzdnE0c1A2Rlp5V1A1bXNUV0NjdEV1dzRGdkVXZ29qeDR4bk1o?=
- =?utf-8?B?MXBXUWZuSGVJVFE2bXBLY1V1SFNnNW5qbHlJY1ArMmp5U0FnYzVERVJMTFhV?=
- =?utf-8?Q?jkNfsIwPUPO6AtZAnK+Piqp+w?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c96f934-4535-4dc1-e719-08dbafb0990c
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 14:42:02.0894
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LsB2IMf18pa7LdHvbI+nGgijddq9CUFRJJpTbgJ2TZFCjPmkMkp6f5zlE1nm56NmXy68Cfn/pSMO/AZsBNpMuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8209
 
-On 02.09.2023 17:11, Javi Merino wrote:
-> --- a/xen/common/coverage/Makefile
-> +++ b/xen/common/coverage/Makefile
-> @@ -5,7 +5,9 @@ obj-y += $(call cc-ifversion,-lt,0407, \
->  		gcc_3_4.o, $(call cc-ifversion,-lt,0409, \
->  		gcc_4_7.o, $(call cc-ifversion,-lt,0500, \
->  		gcc_4_9.o, $(call cc-ifversion,-lt,0700, \
-> -		gcc_5.o, gcc_7.o))))
-> +		gcc_5.o, $(call cc-ifversion,-lt,1000, \
-> +		gcc_7.o,  $(call cc-ifversion,-lt,1200, \
-> +		gcc_10.o, gcc_12.o))))))
+Hello Bobby and Alistair,
 
-This is getting unwieldy, so I think we ought to try to limit the number
-of different files we have. Already gcc_4_9.c and gcc_7.c specify the
-same GCOV_COUNTERS and differ only in the version checks (which could be
-combined). Therefore ...
+Could you kindly take a moment to examine this series of patches?
+Your input would be highly valued.
 
-> --- /dev/null
-> +++ b/xen/common/coverage/gcc_10.c
-> @@ -0,0 +1,31 @@
-> +/*
-> + *  This code provides functions to handle gcc's profiling data format
-> + *  introduced with gcc 10.
-> + *
-> + *  For a better understanding, refer to gcc source:
-> + *  gcc/gcov-io.h
-> + *  libgcc/libgcov.c
-> + *
-> + *  Uses gcc-internal data definitions.
-> + */
-> +
-> +#include "gcov.h"
-> +
-> +#if GCC_VERSION < 100000 || GCC_VERSION > 120000
-> +#error "Wrong version of GCC used to compile gcov"
-> +#endif
-> +
-> +#define GCOV_COUNTERS 8
-> +#define GCOV_UNIT_SIZE 1
-> +
-> +#include "gcc_4_7.c"
+Thanks in advance.
 
-... this could simply re-use gcc_4_7.c directly, with just the version
-check there suitably tweaked.
+~ Oleksii
 
-> --- a/xen/common/coverage/gcc_4_7.c
-> +++ b/xen/common/coverage/gcc_4_7.c
-> @@ -27,6 +27,7 @@
->  #  error "Wrong version of GCC used to compile gcov"
->  # endif
->  #define GCOV_COUNTERS 8
-> +#define GCOV_UNIT_SIZE 1
->  #endif
+On Tue, 2023-08-08 at 18:14 +0300, Oleksii Kurochko wrote:
+> The patch series introduces things necessary to implement identity
+> mapping:
+> =C2=A0 1. Make identity mapping for the entire Xen.
+> =C2=A0 2. Enable MMU.
+> =C2=A0 3. Jump to the virtual address world
+> =C2=A0 4. Remove identity mapping.
+>=20
+> Also current patch series introduces the calculation of physical
+> offset before
+> MMU is enabled as access to physical offset will be calculated wrong
+> after
+> MMU will be enabled because access to phys_off variable is PC-
+> relative and
+> in the case when linker address !=3D load address, it will cause MMU
+> fault.
+>=20
+> The reason for this patch series can be found here:
+> https://lore.kernel.org/xen-devel/4e336121-fc0c-b007-bf7b-430352563d55@ci=
+trix.com/
+>=20
+> ---
+> Changes in V7:
+> =C2=A0- use srli instruction to be consistent with slli instruction in
+> turn_on_mmu()
+> ---
+> Changes in V6:
+> =C2=A0 - Update calc_phys_offset() after rebase.
+> =C2=A0 - Refactor turn_on_mmu() and a way how an argument of turn_on_mmu(=
+)
+> is
+> =C2=A0=C2=A0=C2=A0 calculated.
+> ---
+> Changes in V5:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the algo of iden=
+tity mapping removing.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- introduce IDENT_AREA_SI=
+ZE.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- introduce turn_on_mmu()=
+ function to enable and switch from
+> 1:1 mapping.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- fix typo in PGTBL_INITI=
+AL_COUNT define.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the comment abov=
+e PGTBL_INITIAL_COUNT.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update prototype of cal=
+c_phys_offset(). now it returns
+> phys_offset.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- declare phys_offset as =
+static.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- save returned value of =
+calc_phys_offset to register s2.
+> ---
+> Changes in V4:
+> =C2=A0 - drop patch=C2=A0=C2=A0[PATCH v3 1/3] xen/riscv: add SPDX tag to =
+config.h as
+> it was
+> =C2=A0=C2=A0=C2=A0 merged to staging
+> =C2=A0 - remove definition of ARRAY_SIZE and ROUNDUP as <xen/macors.h> wa=
+s
+> introduced where these macros are located now.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update definition of PG=
+TBL_INITIAL_COUNT
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the commit messa=
+ge for patch 'xen/riscv: introduce
+> identity mapping'
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the comments in =
+head.S
+> =C2=A0 - update the algo of identity mapping removing=20
+> ---
+> Changes in V3:
+> =C2=A0- Update the patch series message.
+> =C2=A0- The following patches were merged to staging so droped from the
+> patch series:
+> =C2=A0=C2=A0 * xen/riscv: add .sbss section to .bss
+> =C2=A0=C2=A0 * xen/riscv: introduce reset_stack() function
+> =C2=A0=C2=A0 * xen/riscv: move extern of cpu0_boot_stack to header
+> =C2=A0=C2=A0 * xen/riscv: add SPDX tags
+> =C2=A0- move save/restore of a0/a1 registers from patch 4 to patch 2 (
+> numbers are
+> =C2=A0=C2=A0 from the previous patch series version )
+> =C2=A0- add SPDX tag in config.h
+> =C2=A0- update definition of PGTBL_INITIAL_COUNT taking into account
+> identity mapping.
+> =C2=A0- refactor remove_identity_mapping() function.
+> =C2=A0- add explanatory comments in xen.lds.S and mm.c.
+> ---
+> Changes in V2:
+> =C2=A0- update the patch series message.
+> =C2=A0- drop patches from the previous version of the patch series:
+> =C2=A0=C2=A0 * xen/riscv: add __ASSEMBLY__ guards". ( merged )
+> =C2=A0=C2=A0 * xen/riscv: make sure that identity mapping isn't bigger th=
+en
+> page size
+> =C2=A0=C2=A0=C2=A0=C2=A0 ( entire Xen is 1:1 mapped so there is no need f=
+or the checks
+> from the patch )
+> =C2=A0- add .sbss.* and put it befor .bss* .
+> =C2=A0- move out reset_stack() to .text section.
+> =C2=A0- add '__ro_after_init' for phys_offset variable.
+> =C2=A0- add '__init' for calc_phys_offset().
+> =C2=A0- declaring variable phys_off as non static as it will be used in
+> head.S.
+> =C2=A0- update definition of PGTBL_INITIAL_COUNT and the comment above.
+> =C2=A0- code style fixes.
+> =C2=A0- remove id_addrs array becase entire Xen is mapped.
+> =C2=A0- reverse condition for cycle inside remove_identity_mapping().
+> =C2=A0- fix page table walk in remove_identity_mapping().
+> =C2=A0- save hart_id and dtb_addr before call MMU related C functions
+> =C2=A0- use phys_offset variable instead of doing calcultations to get
+> phys offset
+> =C2=A0=C2=A0 in head.S file. ( it can be easily done as entire Xen is 1:1
+> mapped now )
+> =C2=A0- declare enable_muu() as __init.
+> =C2=A0- Update SPDX tags.
+> =C2=A0- Add Review-By/Suggested-By for some patches.
+> =C2=A0- code style fixes.
+>=20
+> Oleksii Kurochko (2):
+> =C2=A0 xen/riscv: introduce function for physical offset calculation
+> =C2=A0 xen/riscv: introduce identity mapping
+>=20
+> =C2=A0xen/arch/riscv/include/asm/acpi.h=C2=A0=C2=A0 |=C2=A0=C2=A0 6 ++
+> =C2=A0xen/arch/riscv/include/asm/config.h |=C2=A0=C2=A0 2 +
+> =C2=A0xen/arch/riscv/include/asm/mm.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 7 +-
+> =C2=A0xen/arch/riscv/mm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 109 +++++++++++++++++---=
+------
+> --
+> =C2=A0xen/arch/riscv/riscv64/head.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 44 +++++++++++
+> =C2=A0xen/arch/riscv/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 14 +---
+> =C2=A0xen/arch/riscv/xen.lds.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +++
+> =C2=A07 files changed, 136 insertions(+), 57 deletions(-)
+> =C2=A0create mode 100644 xen/arch/riscv/include/asm/acpi.h
+>=20
 
-If further this became a separate #ifdef, ...
-
-> --- a/xen/common/coverage/gcc_4_9.c
-> +++ b/xen/common/coverage/gcc_4_9.c
-> @@ -19,6 +19,7 @@
->  #endif
->  
->  #define GCOV_COUNTERS 9
-> +#define GCOV_UNIT_SIZE 1
->  
->  #include "gcc_4_7.c"
->  
-> --- a/xen/common/coverage/gcc_5.c
-> +++ b/xen/common/coverage/gcc_5.c
-> @@ -19,6 +19,7 @@
->  #endif
->  
->  #define GCOV_COUNTERS 10
-> +#define GCOV_UNIT_SIZE 1
->  
->  #include "gcc_4_7.c"
->  
-
-... touching these two files could be avoided altogether.
-
-Henry - afaict this was submitted after the feature submission deadline,
-so you may want to consider giving it an exception.
-
-Jan
 
