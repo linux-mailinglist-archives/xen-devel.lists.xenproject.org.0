@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4407797333
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 17:04:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597465.931706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8960797343
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 17:16:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597479.931737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeGYX-00006e-Aa; Thu, 07 Sep 2023 15:04:29 +0000
+	id 1qeGju-0003iJ-Uu; Thu, 07 Sep 2023 15:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597465.931706; Thu, 07 Sep 2023 15:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 597479.931737; Thu, 07 Sep 2023 15:16:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeGYX-0008VT-7R; Thu, 07 Sep 2023 15:04:29 +0000
-Received: by outflank-mailman (input) for mailman id 597465;
- Thu, 07 Sep 2023 15:04:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qeGju-0003em-Rn; Thu, 07 Sep 2023 15:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 597479;
+ Thu, 07 Sep 2023 15:16:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3tY2=EX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qeGYW-0008U0-2K
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 15:04:28 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6b354ca-4d8f-11ee-8783-cb3800f73035;
- Thu, 07 Sep 2023 17:04:27 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50098cc8967so1699183e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Sep 2023 08:04:27 -0700 (PDT)
-Received: from [192.168.201.133] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- y20-20020a197514000000b004fe4811d382sm3198696lfe.85.2023.09.07.08.04.25
+ id 1qeGju-0003AH-6Z
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 15:16:14 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 786b24cb-4d91-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 17:16:08 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2be5e2a3c86so26308231fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Sep 2023 08:16:08 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ x2-20020a2e8802000000b002bbacc6c523sm3944055ljh.49.2023.09.07.08.16.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Sep 2023 08:04:26 -0700 (PDT)
+ Thu, 07 Sep 2023 08:16:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +44,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6b354ca-4d8f-11ee-8783-cb3800f73035
+X-Inumbo-ID: 786b24cb-4d91-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1694099067; x=1694703867; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=PsGeEBZD5fkpPxEuJMHrpoyUlRrVKLXJy2EDOlpQayQ=;
-        b=aXpdvyncDxvQIOttBippaXtDbZ+lQbkezCZ0nAwgx68MuZDFJoaNPaenchdKnqlAnE
-         Wp66K4hutZFF/ccbVVkYOQE8jd32sY4Y29DEZPXOPiRqArlH2iRgLMR3SGxC556htZx4
-         ww8Qcpn1A+63Lgvdzl1M+Ybf/w+GK7agCs4rOakR+W7vuqbHH5fJsOzO+8SPYqISEK8V
-         iHj3mPF1qsg9BcmwW/Q7qewVEA4nM/zBv21zfTvQruPOuiAFP9xZ06r+ba5IbYR5lzuG
-         WoXua6qv5tc1dGccCH34lYJ5wbBYLn9Lw9P3E80t1U62d8gRRFAjT0NYiOv4BbZB9/mw
-         G64w==
+        d=gmail.com; s=20221208; t=1694099767; x=1694704567; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yiHIyQ5Tr9cx6A1jdYsDd7Gaoqb8wHX3d7uubm9fFDQ=;
+        b=KFeW2uYhkjApCMPi28MIqgJ80rw6iXCsTqBU0A+i2N8yHIIRPoaUFar8gGNErlVPoZ
+         qwqdAzWYj2w7ufVUygHrEwHMbl+RTidIK1d7GBEaXNymuO8x3qPSezUrGaHkhmo1kDy4
+         sGeIxyNeYiv3e5dvMq78s3pknty2FOpstDpOeXgLvl4nBxkqBtdUgNga9fh6L3q4Tua8
+         WWX7Pb14zXBnhT6KVll2G34B8ZgTPtKIosBUqX1zDypMJgYZLkv9SdUrcexLY/y/e8X6
+         wiiOenqwUfIEo9muqXnL3ZhIqp+oKNhf8Zvua2l3QX/a9p9SXicijRVl1DXff/cbbpm0
+         uS5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1694099067; x=1694703867;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PsGeEBZD5fkpPxEuJMHrpoyUlRrVKLXJy2EDOlpQayQ=;
-        b=Q/63yI8wQUKs4T2ASpvXwuDYcdK61bZ09DyavvsHzJ7jwHlXgtGl2+ZXBtgjPGI7BU
-         0rdkCfIZ4J0+GhunaQmcGRNUrtcKMslyvce3oiQPwYQ5MpGTPSxxLP6lgA+l2q9ONFfD
-         MLUv7INEZpHoBUJnW1PxhFA9HeXvbe8a+IYoo9UuETtpyHR6+LeMPyjsgBZJ4SikeZIF
-         IOuOFBixLligyPk+IPZ2qufiq2sIaGKsACT1D/p6LPGYwVhlm4o/5vmcJsHVdVqFbezU
-         TzCMWR2RV0MI35s/zxLXOlZftHMjM1TMfFHiEfP5vll3UiMHx0SozP32emeOke56bZNJ
-         7IYQ==
-X-Gm-Message-State: AOJu0Yy+QNciEnYUdln+ocIXiA6D7lnDmFUF5Nm/Rj8nfJM5XoaFsa4Z
-	nNxLSo1N8A6YAiSU9o4zTIs=
-X-Google-Smtp-Source: AGHT+IHNhzwfOxZxBcujRNIWUv5tnC/NYTOz4+OTzaxpf7cQnhWl6EtWoEcQacJuhQK/bC1cJvYjrg==
-X-Received: by 2002:ac2:51ab:0:b0:4ff:8f1b:8ccf with SMTP id f11-20020ac251ab000000b004ff8f1b8ccfmr4401719lfk.21.1694099066676;
-        Thu, 07 Sep 2023 08:04:26 -0700 (PDT)
-Message-ID: <5ae173e2f1e99de589b9d8e3ff93439f03c3d933.camel@gmail.com>
-Subject: Re: [PATCH v6 2/2] xen: move arm/include/asm/vm_event.h to
- asm-generic
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Anthony PERARD
- <anthony.perard@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Wei
- Liu <wl@xen.org>,  xen-devel@lists.xenproject.org
-Date: Thu, 07 Sep 2023 18:04:25 +0300
-In-Reply-To: <CABfawhk00MNJ4nyzfDyoJq9w=3TyHzwDXOosXrOD-n-nrZRnig@mail.gmail.com>
-References: <cover.1694078544.git.oleksii.kurochko@gmail.com>
-	 <47e12756edfefdb5ff1112ae6b78ae95baadbbef.1694078544.git.oleksii.kurochko@gmail.com>
-	 <687a1039-5f8d-bee2-50ce-1fa80ef31f19@suse.com>
-	 <dd922527db03b445d0a2de6113a92ccc1dbb60f1.camel@gmail.com>
-	 <CABfawhk00MNJ4nyzfDyoJq9w=3TyHzwDXOosXrOD-n-nrZRnig@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+        d=1e100.net; s=20221208; t=1694099767; x=1694704567;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yiHIyQ5Tr9cx6A1jdYsDd7Gaoqb8wHX3d7uubm9fFDQ=;
+        b=IKO71ld/99dFdXW04ru6a3nZbIqZEqoGzROtm7Np4II0+uouCTJP6PDUIT3y3ZC/DE
+         UOXPKvDgFzC0/NkOpnDMDykzsf18OIUbpTcJr44B12abWLMBvgzjuZN1jIQjiO7udCoa
+         g9LsXMIoilaL8BZfMIttdpl6IrrWk2RlxLDeViCQfdUbe/oXlD5nvc9lBKDL0xDAK+13
+         QR+S+nbHpVeO9xfjAROlfLgtos+uxbgE8V6rQfUTNqzjEsPqpO70A7Ll84nWAToasyn0
+         6PFzeG6Pk5eRWMO6f4S17IYeaSPt+65um10xyK7mXrE8DMZRthnAkNUi3tMT75cIN9JE
+         WqHg==
+X-Gm-Message-State: AOJu0Yz0cs86mfRU0IYZRlMI1S9594+s8AfdF9rjB+3m2iFJI6/ZESMM
+	vhljrPhaTXMU/nV5d85k+yryMCNswgM=
+X-Google-Smtp-Source: AGHT+IEB1c/IgDOlFuASSTXfyMPbM7kDmoGNZk6jbUQJeDMm2P23+WP5DGc2hk0+xdVQM7uDHioA7A==
+X-Received: by 2002:a2e:9d90:0:b0:2bc:e470:1401 with SMTP id c16-20020a2e9d90000000b002bce4701401mr1224763ljj.24.1694099767105;
+        Thu, 07 Sep 2023 08:16:07 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v7 0/2] introduce stub directory to storing empty/stub headers
+Date: Thu,  7 Sep 2023 18:15:58 +0300
+Message-ID: <cover.1694097564.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2023-09-07 at 10:53 -0400, Tamas K Lengyel wrote:
-> On Thu, Sep 7, 2023 at 9:46=E2=80=AFAM Oleksii <oleksii.kurochko@gmail.co=
-m>
-> wrote:
-> >=20
-> > On Thu, 2023-09-07 at 11:59 +0200, Jan Beulich wrote:
-> > > On 07.09.2023 11:32, Oleksii Kurochko wrote:
-> > > > --- /dev/null
-> > > > +++ b/xen/include/asm-generic/vm_event.h
-> > > > @@ -0,0 +1,55 @@
-> > > > +/* SPDX-License-Identifier:=C2=A0 GPL-2.0-only */
-> > > > +/*
-> > > > + * vm_event.h: stubs for architecture specific vm_event
-> > > > handling
-> > > > routines
-> > > > + *
-> > > > + * Copyright (c) 2015 Tamas K Lengyel (tamas@tklengyel.com)
-> > >=20
-> > > Tamas is the maintainer of these files (no matter where they
-> > > live),
-> > > so
-> > > please make sure to Cc him in order to get his ack.
-> > Thanks. I'll add him to CC.
->=20
-> Sent ack on v5 of the patch.
-Thank you.
+A lot of empty/stub headers should be introduced during the early steps of adding
+support of new architecture.
 
-~ Oleksii
+An example can be found here:
+1. https://lore.kernel.org/xen-devel/cover.1692181079.git.oleksii.kurochko@gmail.com/
+2. https://lore.kernel.org/xen-devel/a92f99e8f697da99d77bfde562a549dbef3760ce.1692816595.git.sanastasio@raptorengineering.com/
+
+As part of the patch series, asm/vm_event.h was moved to the stubs directory because
+It is the same for ARM, PPC, and RISC-V.
+---
+Changes in V7:
+- update warning message in Makefile.asm-generic
+- add Reviewed-by: Anthony PERARD <anthony.perard@citrix.com> for patch 1
+- add Acked-by: Jan Beulich <jbeulich@suse.com> for patch 1
+- update header guards in asm-generic/vm_event.h.
+- add Acked-by: Tamas K Lengyel <tamas@tklengyel.com> for patch 2
+---
+Changes in V6:
+ - introduce $(asm-generic) macro in Kbuild.include.
+ - move "asm-generic" after the rule "__distclean".
+ - update the commit message.
+---
+Changes in V5:
+- Update SPDX license.
+- Remove code related to UML in Makefile.asm-generic.
+- Include $(src)/Makefile instead of $(kbuild-file).
+- Update comment message in Makefile.asm-generic.
+- Update .gitignore.
+- Update path to generated headers in CFLAGS.
+- Use the latest version of Linux's Makefile.asm-generic.
+- Introduce asm-generic's vm_event.h.
+- Switch ARM to use asm-generic/vm_event.h.
+---
+Changes in V4:
+ - add asm-generic support
+ - update path of vm_event.h from include/asm-generic/asm to include/asm-generic
+---
+Changes in V3:
+ - add Acked-by: Stefano Stabellini <sstabellini@kernel.org> for "xen: move arm/include/asm/vm_event.h to asm-generic"
+ - update SPDX tag.
+ - move asm/vm_event.h to asm-generic.
+ - rename stubs dir to asm-generic.
+
+---
+Changes in V2:
+ - change public/domctl.h to public/vm_event.h.
+ - update commit message of [PATCH v2 2/2] xen: move arm/include/asm/vm_event.h to stubs
+
+Oleksii Kurochko (2):
+  xen: asm-generic support
+  xen: move arm/include/asm/vm_event.h to asm-generic
+
+ .gitignore                          |  1 +
+ xen/Makefile                        |  9 +++-
+ xen/arch/arm/include/asm/Makefile   |  2 +
+ xen/arch/arm/include/asm/vm_event.h | 66 -----------------------------
+ xen/include/asm-generic/vm_event.h  | 55 ++++++++++++++++++++++++
+ xen/scripts/Kbuild.include          |  6 +++
+ xen/scripts/Makefile.asm-generic    | 53 +++++++++++++++++++++++
+ 7 files changed, 125 insertions(+), 67 deletions(-)
+ create mode 100644 xen/arch/arm/include/asm/Makefile
+ delete mode 100644 xen/arch/arm/include/asm/vm_event.h
+ create mode 100644 xen/include/asm-generic/vm_event.h
+ create mode 100644 xen/scripts/Makefile.asm-generic
+
+-- 
+2.41.0
+
 
