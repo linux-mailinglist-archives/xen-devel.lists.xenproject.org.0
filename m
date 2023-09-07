@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12E8A797311
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 16:29:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597441.931676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E230B797320
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 16:43:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597452.931687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeG0A-0007H8-8F; Thu, 07 Sep 2023 14:28:58 +0000
+	id 1qeGDK-0003Mb-Gm; Thu, 07 Sep 2023 14:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597441.931676; Thu, 07 Sep 2023 14:28:58 +0000
+Received: by outflank-mailman (output) from mailman id 597452.931687; Thu, 07 Sep 2023 14:42:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeG0A-0007Dl-5O; Thu, 07 Sep 2023 14:28:58 +0000
-Received: by outflank-mailman (input) for mailman id 597441;
- Thu, 07 Sep 2023 14:28:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qeGDK-0003KY-Dm; Thu, 07 Sep 2023 14:42:34 +0000
+Received: by outflank-mailman (input) for mailman id 597452;
+ Thu, 07 Sep 2023 14:42:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+6JM=EX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qeG08-0007Df-7z
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 14:28:56 +0000
+ id 1qeGDJ-0003J9-5T
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 14:42:33 +0000
 Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2079.outbound.protection.outlook.com [40.107.13.79])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df044cbf-4d8a-11ee-9b0d-b553b5be7939;
- Thu, 07 Sep 2023 16:28:54 +0200 (CEST)
+ (mail-he1eur01on2070.outbound.protection.outlook.com [40.107.13.70])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c6adad36-4d8c-11ee-8783-cb3800f73035;
+ Thu, 07 Sep 2023 16:42:32 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB8981.eurprd04.prod.outlook.com (2603:10a6:10:2e0::15)
+ by AM9PR04MB8209.eurprd04.prod.outlook.com (2603:10a6:20b:3e4::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Thu, 7 Sep
- 2023 14:28:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Thu, 7 Sep
+ 2023 14:42:02 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.034; Thu, 7 Sep 2023
- 14:28:24 +0000
+ 14:42:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,180 +46,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df044cbf-4d8a-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: c6adad36-4d8c-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=md5xo0ePuzsX2JAQh+N5hA+MpTxStftUfJbwdYJs5+NhpvFvNlEgTz0MMjKfWi7gfdzuNym3u8pm3r4TBtHLUAAPr8AehvU3Y2TEs5VM80vRv0JMTyiq1h1Biw0nclwxElCk6jVWfx7RVtigqNkWTdi7QUVrZ1hdMM1KKfvdeu75mr6g9GAXt4Mjdv3iM7yHtDvAmYnmJTrVDuGVvWg+Uh9Wc6po2QySmNTeDnPNtlf/e04mwjLf7cgUedwn/iOfXIjTxt+L2lhr6IZG8YRHd83NuBXQtrkpF4NNpDCn+ZyJKaPlkBzryWGngRvDeu8c3c3ZUaa26l4RSyXFMvseRg==
+ b=ZZrJS4J97EsvkkAQhE6+FKxMYS+7Z0+8IWto9wsir3aPNrDsg2SCJj8xCaaOLypo91MQmjaDIvOWWH2ziPvXx09f36eh4ypw7+6J5LUj9MAhFG+P8SHDXKTUmbeBRjzd8bhrMh+o9LQMHOaycxMa5uogvpthFgzYVCb44KRXNmI9ol4ZSV9AFiX3o0wBRlLJzB/bKO861ic9ecoKHKyOCov7j12bWrEEk6r2JPRnzJ6AqlVZBKqor7B7q43Iyi5rrZpGLfayHPLlbx8E4u9nD6t0cOHpfm4mBRA2if/YUGqA+3W7Hd0zo92aOmR0F2dO/WMzrjXGs/lPJ6HCw0lS3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TiCBhD+IhfAN28vO1QAQM86F+nxEnVn+3e3jFJX+R4s=;
- b=bmqYt2ja/p3gQ16U4fCyVz9zQ2zX/UZDdnohPNOGYQID/VzuXBrllCoiHGNwJmPBpFRlkgug2WfmDYXHHWyxMQnS7+soMQUuzvYSngSwX4hf216X2t040KOp0/MJpkzSf+whUQJEGSwDz0vNNkrP4rJCk8jcbtNZ9u4wg+oa4HXavOribzldVt6v9WpkZS048NRn2Lq2yjwcAXXwjgO+vhI2zzFDvegc7Wx9f3vqmIf2F/fxp4dE+BBy2HBiZIBumia1OGC6TF8KDmxMCeKkcaeOwu2XQTJL8mKjW8jNWwtZvEJwG5lH4x+cNTk36FjN3TbO1R3diqyBwpq3YIHKRA==
+ bh=K8MqWQShLtJZF65BGOTIhLMTvQRDxJAdNyLYZVK8wYM=;
+ b=U10HBwkkxKKzM1it4BR931RLXKOaaImxpZICcI3l7lh3D5ptQQmqefQD7ma/PL5LURWyyC6FjxdTIHk4VDgqCzy8Hfof6uCFD5fqh9pWmt3CsU4AG+9hQbxKEFpUh20JJaukC04blJe4ZocFCqY4kFl8ibaO6yOpp06Ob36OEk8TGRZwbncS3EFSUAAtkSLQnk4eiPlhRNXZxuA85Akb1/wisVVoWMOn5yxVAcxlloYsw2ZilBSf5++0KXFK+9mTB6UxH2rH75jcTCS3NsdU+Jd0Tmb/qjp28pJzDclf9O9JLKfJEtc2PjzpWgp6hDqFPsvcmPazkt85zci+n3WHqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TiCBhD+IhfAN28vO1QAQM86F+nxEnVn+3e3jFJX+R4s=;
- b=eY0qYn5jqXMQZ8VUOFcaZN4zmd0VUh/KpX8ifgYrZvKbVlXPbBeyWRRUiOijeHB0ErmMr85Xg17LihIdJJbHA6gWYLGqO3AlZsdZhkI8srOauIEZxIrqcxdHze9OU9mJ7XLDcNCRC1d4jGXl87lbrjJWzMsJLGjQPv5uEehivQqK1Cmuo2i7RVbJTY5Mzw+TOmvREA/ebf8tINxmPYk248MkBLoWYGxVxKUZQPu6jUDlvdY8+vM33Ht0PKh/tJ/hz3Zts9wTBwpjPBMNSIr0K7R/B3ngVOcp6e5R/pNjvQsPGgr5d/HLjPDTgVMsO/dPZrjHDCvaaFG//PzN0LPv6Q==
+ bh=K8MqWQShLtJZF65BGOTIhLMTvQRDxJAdNyLYZVK8wYM=;
+ b=pkSTp8Qys1y6hDRbc7qt9WuYDexJnEkUDQsqnbUXRzD3w6G6z4BkM2xuU40Pb4/oSG5mX8FvA9wIFWYdZxleaT+PYd58hF01fS4JF56mh8U64OHVvNmS8JBub1VUBDWUMmIH7smtOdcZShDIESufT4qey994M5JrYFf8HK8tOh9FqeKXPTk1rmQkoa06w2smEThu9sdWCt7tnUggI9FSnhKcdjgaeS6zkV1CwUcB7ehDrobKDYYdBQVaFUWaxZZ6gB0BIjJ7sBvoDrmg9X+VT1bNtHdR4+lvOcT61odxQM3wdWkKqPMnh97B2TflKFvgROrJVZXO3sou2ESOGMASmg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a198d472-4b1d-1da5-e336-232af98b87aa@suse.com>
-Date: Thu, 7 Sep 2023 16:28:21 +0200
+Message-ID: <ce6e7abd-40ee-dd9e-b17c-10c39ca0e422@suse.com>
+Date: Thu, 7 Sep 2023 16:41:59 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH 2/2] xen/x86: ioapic: Bail out from timer_irq_works() as
- soon as possible
+Subject: Re: [PATCH] coverage: update gcov info for newer versions of gcc
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20230818134441.45586-1-julien@xen.org>
- <20230818134441.45586-3-julien@xen.org>
+To: Javi Merino <javi.merino@cloud.com>, Henry Wang <Henry.Wang@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20230902151351.10325-1-javi.merino@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230818134441.45586-3-julien@xen.org>
+In-Reply-To: <20230902151351.10325-1-javi.merino@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0106.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::18) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0152.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::6) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8981:EE_
-X-MS-Office365-Filtering-Correlation-Id: 085592ec-6b4d-4d4f-7644-08dbafaeb1b1
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8209:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c96f934-4535-4dc1-e719-08dbafb0990c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	UK8WbvGngJJPu57uquy9b+9A/oXFQkYxp9J84eZyUSwy0o336jY4Exol9FMYmqO+PkO0KMCDDEI1yngd3DI6DLcEPXxwjLr2izhW6fnAtXvlXSgpON+CX8LcyDGQq4XghTBKZQzE0mH4LvV+k6nI7eaSuklj9yzDUe2haajASA94i1D+uTJUBHUqZdgUp5lDaPPuduAsIUuPl11gunIy1b84lc2f+A0L7WOBXoiuaFkH7tbqxV5G8Ov+lErZiTmGQ8DiJDMDFX3haagGUuAizo3eE+81NK1J/1LxgXqlkuYVfqmxEnN0/yihEeXTHzfOSxzRdSpkl+dCwxN7PjZgnooqRR28qPZR0973sccYDvTmqSxFwOURRJ87CWYs+8ZuuH8oRx44mA+QjklZjD/31TsVoMzhZQGGQ2YR35J7oD9Fo19KntIfmDmZHK70pyb5u8xe6ecvY3ao9lda0ErjwIV/jF0nN/SpqsPDC//2Kg7YczHn0jthzYltoKhpU+70z8o49oaqPumGGPWk+XbwoUNbnLdvH5cF4H0biICTqkGHWiqSQFruMm0r+xCoHYrHl4nG8rMFC79/PCgFDiv9KnqkERwsGbCObLeu4RFX0dPxDY6iUekJOqsi/3IJAtw3H0ZPd5mwgixbojzx3ZlehQ==
+	YJ7BFMqjRz/jV4H656C4Js1adKzcpdrFC0DB+HOMN5O7S7E6l0oYxblF/63d8hgbNK2FiEeIdv4G2FDY/vq0ABC4WMjY2NaG2BJrBNO34k9VIK78y074aMOKVPrvYiSR8KHuzO43AZZWUSu50w19te/bgWoFGZqwn/sTBL+JauIVZrhmjyWrNzg0/aitw2yrE+M5EWW7T2h6zf5elC43iqUvCcB/VuGsbAvQeTcT+VGCn/d4jyuYQGfdGsH3B5Me8GjiFXTBdgP8Sc/M1hUOqs+fsipFCZjeLt3ArjjaLYcCoT57NrBH/AEtuDTzRt7sqpqJc9uVN8guUkI26ZFH/8hHNBIZ4/+1Zfd90UKx56CFGWKN3hhX8FVHPm5BD+Bpuo+a2irSIBSmMZUj+SsTIA7G08zi301Ov/DUg8c7AX+byoRIasJio08gvLQDkbw1l+X2OkFLQOjm00MtzpEs3/4byKrx05cEgKTtCSt2VBkjdhd25/X/aLYy1V3KGK0o//LR8hSbXru3wJtSg+MXb1+sKlwCpB0j3gDm64hvoxccdAdyOTnL4TZ6WhlDlqqvggnNPvOI7QxW+wT6J2tzO2hsrLbs8yq5qB+KwNU1jN+4vc23kEbctbEEaZ3mOhDhG2b+Xz7M7d7nSRyEmOVSwg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(396003)(39860400002)(376002)(366004)(451199024)(186009)(1800799009)(31686004)(6666004)(53546011)(6486002)(6506007)(38100700002)(86362001)(31696002)(36756003)(2616005)(26005)(6512007)(83380400001)(478600001)(4326008)(8936002)(8676002)(5660300002)(66556008)(66946007)(54906003)(2906002)(6916009)(316002)(66476007)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(396003)(346002)(376002)(39860400002)(451199024)(186009)(1800799009)(5660300002)(6486002)(4326008)(8676002)(8936002)(6506007)(66946007)(316002)(66556008)(54906003)(31686004)(66476007)(41300700001)(478600001)(110136005)(2906002)(6666004)(53546011)(6512007)(26005)(2616005)(83380400001)(38100700002)(31696002)(86362001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YXJpeitjYzRwYy83dUx5dEZRQUQ4bnpYMk1ndXdJZjZlMFhUVTliSTNrdGNU?=
- =?utf-8?B?ZnNlRG1LQ1pQZ2dXR0xFRThUbzlnTmpTcWdHeUg1aU9hMnVqcU1aUWMzcDZR?=
- =?utf-8?B?NzFTR0llcFl6MXR0bnozZFV2QUZhL1NHbVorS2lHWWYyK1YvWE1qS1VwUmYw?=
- =?utf-8?B?Mkp0OHgrMXE0TXVMZG9PVStneTRKaDhlN2Z4VjNPNHN5NDcxc2VINURNdS9o?=
- =?utf-8?B?TlpGNytiekpzVmFEckN4S2c5OEYwZnNoZ3RiNHZyK25pZ0FORlh1L3VXS0Np?=
- =?utf-8?B?cFIyNVRBZmRPd1pNbzdXTHFuMUdXN0Vya0NVVk9VeEV1alJ4TXU1aTllaWEv?=
- =?utf-8?B?cThPTWlmd2tUcng1MjlaZTZTb2t1WnVTVk1Pa01jSHpwU283b0pROXcrK2c4?=
- =?utf-8?B?Y2RWZHhHMnVqbW1EbTNybDZWbXM5N3ZvRUo0REJCV28vWTR0ZTJ3NFlBZGJp?=
- =?utf-8?B?N2pIa1dqdlRYbk5aem9HcnRrdTRtYUVLVVRXK0xpQ0pzQndGelZMNXhmZEF6?=
- =?utf-8?B?Ykc1YlQ2U1VsaHFEdFpUTUkxNjY4ZjRtYUc2cC9XMy9HeS9RREZZQkpYa3cv?=
- =?utf-8?B?VzBMekZLd1RmT1ZreHJ1VkF5akVPZ2hGR2dPWnJBUlovQTMramJRb041ZmFY?=
- =?utf-8?B?bHNRRzhyb3lYbzRlNWJsSDZkMEdoUXAzZmtiaTJITGZOamNINE1BYkMvU3NG?=
- =?utf-8?B?bTYzRVFVZ1hhTlBUQnJ1dzlFUWw5aVVxdWVraFZvZUxaOTRjY3NNYXBxSUM4?=
- =?utf-8?B?bzY5RXpiU1ZxalRpY0pqSndydTIvSlhHUkdMbVluU2o2WnRxOUhNWllNT1Fh?=
- =?utf-8?B?ZWVxUnRUck1mYjhZR2dEaTBSazRSZDcwRFhlQ1ZLTlZrZFF6TmZXYXBiMmNk?=
- =?utf-8?B?ZVE4VG1RL2tidzZUZVE0cWFwOERNUy9PZk8rbnU0NTNZQTJMb09DZXFyTFNJ?=
- =?utf-8?B?bHp0UXNzbXE2NWZCN3ZsU3VzKy9pN2ZaeGZtVzByV01LekVXcWp3aDh3V09N?=
- =?utf-8?B?ckV5ZHc5OStsWk1kbms0UGsrS21TakRNYjVKeHhMT0k0VG8wbUpPZkJLVERz?=
- =?utf-8?B?ZThSRFNnQ3FjNkdLd01jNWNLY1pweE1HUEpKQ09RTlQrb01aZnBnN2thQjdn?=
- =?utf-8?B?ek9TOTZTNFZNODFzRkpZMm9zNG1nOURCTHBPakhzWWVFSS81VlUydjdENTRR?=
- =?utf-8?B?c0FxbWpiU25KaWx0VmlXaGZCTStETFBPMzRyTzJnTmh2UCtYNEhUc1ZUSzdP?=
- =?utf-8?B?ZVBZT0FpNUFKbS9KVmZJZjBwU1lCS2ExUGQwR3A2endzZkNHdmx2QjQwUnlJ?=
- =?utf-8?B?TGtha1dQcXVQZEIxcjFidHdDRXVhZWZzeU5uN3krK0xWT0Y4ZjJaV3J2Njda?=
- =?utf-8?B?UTMrYjBObDFXRExYL0FUVjV6MFhFcFhTOUFUS212R3M1ZEYvMEw5RE0zVmRt?=
- =?utf-8?B?YVdXTTh2WG5HaTQzYTNEMnFQaFg3R3B2RUw2UTZ4aGRKTWlDb2MrSy9WSzMy?=
- =?utf-8?B?ZWE5S2hqS1o4WGxMOG44TTZZb3lSTzBsSkZPcVhsdVlKOVppQkJVN3dEcVI2?=
- =?utf-8?B?aldPb3loMDFCTWpSbGFRWEhuK2xKeXZyb2hpd2U0ZWNOQWRTREJRUXJTbzhq?=
- =?utf-8?B?VVhUM1pHcUZsSGRaYVhpZzNuMDJOdWZpaDRzbmNVbnNGS2lyc3UvTDR3WDdw?=
- =?utf-8?B?OCtVUHBkak5DU3FVaGt3cWFuS3E4aW94QVRUQzV5UzFNU0VORGR5Nm92QkV1?=
- =?utf-8?B?ZCtzdUR1N21wT0RBMFByKzFYMFNERXZzVlU2bTZGT2o2enN1QXBNOGRRVGRa?=
- =?utf-8?B?eWtENmltUXB2VE9uekRGN1MzbTh3ZU1CdDZqOGMwbG5LNlJuQ0VOblUrRUUz?=
- =?utf-8?B?T3ZQbUhLOEJEU0NkZjYraTNoRzd3OGU4KzVRMGYzRDBENEIyU003bHBFREV6?=
- =?utf-8?B?MGF1SHMyMUNhby9HQ1hhTzhEYUR3NjdremZ5THc5RHMxai9QUGhZc0l3cGJ4?=
- =?utf-8?B?aStvdFhxYzlha2tGak1mcUJRQkJ3elFQSmdOTlVPMEoyU0FWVUFiZmlFRksz?=
- =?utf-8?B?SUVRVTlnREpvdHdEc3hMT2xQUTZMTk9zYnhpeEIraUd1Y1VCQ1M0VHRUOTh4?=
- =?utf-8?Q?od3t3Sn762d3jc142R2rm9277?=
+	=?utf-8?B?WVd1akhBMDZsZlVCOE9OUG5GcXJUbjJvdlNIdzU2U0RXK0pON0Q5ZkFVSlRS?=
+ =?utf-8?B?WklJY2R5NUJ2ckNKK2Fqekp5RHJuY1QzS2ZEK1JDWUZYaW8rS1JvUk1STi9M?=
+ =?utf-8?B?ZkIyaVVtZTMraFJkOVZJOFNEQ2Urc0IwdmJJMGM2cDVWOExxc1RPQ2ZCWVIx?=
+ =?utf-8?B?cjY0RHE1eXhRNnZ4emNhZDY5SnRBUVJobHpiQ3luRUtFQW83WlJaazBkTkkx?=
+ =?utf-8?B?R0xxUnVIaWdLOFZSNE9abEczMWQrOFhCWE1ydmZVRWtKWnhlL1cxcFpMUldi?=
+ =?utf-8?B?UDdnR3NiMEVPMjVLV05rL0RKMkZMMzdiRm11K3VkQXNrNU81c0w4MlBaZEMv?=
+ =?utf-8?B?NVRqMmIvL3dTZG9DblEzQXpYcUx2N2d0ZFVCSXpXeG04ZnRrTEN1VzFCa096?=
+ =?utf-8?B?Y1dDZEdqWWpBR1RQL0RBOEhSN1REbGdjOU9mUVZ2QzNXdkFoRFI1SlBMSHAy?=
+ =?utf-8?B?TkZNZUNiaWUwcXQ1bC9tV3RWQzV0YVdIUGFTbWJnaGFHMXkzbklwb0ZyY2l0?=
+ =?utf-8?B?eEhxVktGcnRmelhONmVUNWpEN2QyZVZwUVBvbGYwQU5OcExJWEh0UXkydm1P?=
+ =?utf-8?B?dXhNNG5WWjZXU3pqSDU1VGlSN0tscStVanZJNzJnQXFJY2Z3YzNpd0JqUnFa?=
+ =?utf-8?B?Lzg5NHRNb1pUY2xTd0U4R2hnZm5SdVEvL1N2cFRRd3gvbnJpNjJCOGl3eG5u?=
+ =?utf-8?B?NmtCSWhheTFVVEo4RmFhMnJ6ZWNkZEdSQjdDWmlpdkh0MG12Zmc2Q0hlQ043?=
+ =?utf-8?B?a1hDM21EaitjbGFldW1SUWMzWUdaVHh3dlZ5ajRjWnBmMUo1Tmp2eGxZclV1?=
+ =?utf-8?B?cENWU1pKcU8wOVhva0F2aU9yMWRnQ2V0WTZ5YVhZZEM2QTZnV3gyY1k4eHRJ?=
+ =?utf-8?B?cXVuZXNyd1JPb1lQb2t0YkFuK1VMQ3dzMHQ4MFI3c3NpdkJoZndvT2dEUlBw?=
+ =?utf-8?B?b0o2Q1hadFUrZFBnMTlKZXFQR2Z2eWpOT2FVQ1laeGdxbmRZUTUvdkQ3c0J1?=
+ =?utf-8?B?OExnZGtIQUhCQkpXWklyOXE3R1V5VWpra0x1UC9NQm1QczFpMUNJMVFzQlFU?=
+ =?utf-8?B?TjJ1Q0NsQy9BNjFUcnMyUFgzT3RndDRJM2ZURWRIOWJvRDQ0VTJ5a3hRV05q?=
+ =?utf-8?B?ZXMvSkNGMkRkcGdMTmh3azFkdFdmTU9hL2p5OG5KRnZZQVh1eFZEc3pJVzNl?=
+ =?utf-8?B?K1dXa3JNc1ZBL1YyblNkVXlldjNtbUFTYW0yQ3hxQ05KS0NEbDhTUVc3UHMr?=
+ =?utf-8?B?amN0SFRmRnBNNjR3S3E3cklPYnA5Wk1tZ1NjcW5xQWp0ZHVNc0sycGdGd2dF?=
+ =?utf-8?B?Mmk0T3V1RU42RlNyenNUaE03T3JjRkVyeFA0OGZuNm1DT2tpSUZOUnI5Tmt3?=
+ =?utf-8?B?bDZvUXpXY1FmMklBOS9LejBHNjJKNXcyYk9GcFZPenowYWtyWk1WbDlFY3BN?=
+ =?utf-8?B?QStTN2Vaa25ZcndBZmdEa2M1OGFhdlo5YmZldGwzMFZuMUU2ZXpLL3JyTUlF?=
+ =?utf-8?B?a0xRNVhkRURIMk9FV0pzZFBEODBNNDRmK2NqbU96TzAwS0xKcnVFOWxwcjVk?=
+ =?utf-8?B?OXdwZjI0Yno2TXk5NWEwU21zdkFyZjlxRmJ6aXNhd3YxbG1CejZsV1FJa2d1?=
+ =?utf-8?B?bzNPejBkcVJEa2dySHpYQ0VHajdEUm4yK2U2VXNKQWhhVUxqQWpuN1pUYTFy?=
+ =?utf-8?B?d0pmeE14OS9vTWZEUnVtVnE2aHlCekJIWGpWc1YwK0s3dGMxeFFhZ3NacHZy?=
+ =?utf-8?B?QzUra0NvRk13clhkZFJtdis3ZUljT1ZEUTljc0ovVml2SUhqMEo4bUc4aTds?=
+ =?utf-8?B?bm1rTTg2dnE2U25ERlVYQmxNY0RvS29CMGQvZ2dvZmtpditQK0o4WEpzN3ND?=
+ =?utf-8?B?Wmh6OTBtZWlnYlptbFJhdWNHRVpVZS93Z0RackRVb1dXN1NBVjQxVWFWQ0t0?=
+ =?utf-8?B?VWI2c0ZHV0RsWGNIa1FpK21XUWxQSUZqU1UxYVZTTFRQMCtkTDZPNjg3VndL?=
+ =?utf-8?B?dXRXSzhuSFAzdnE0c1A2Rlp5V1A1bXNUV0NjdEV1dzRGdkVXZ29qeDR4bk1o?=
+ =?utf-8?B?MXBXUWZuSGVJVFE2bXBLY1V1SFNnNW5qbHlJY1ArMmp5U0FnYzVERVJMTFhV?=
+ =?utf-8?Q?jkNfsIwPUPO6AtZAnK+Piqp+w?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 085592ec-6b4d-4d4f-7644-08dbafaeb1b1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c96f934-4535-4dc1-e719-08dbafb0990c
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 14:28:24.4406
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 14:42:02.0894
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QUkBzjSC/oaFrcQko+TjWicXsRntISwVV73KpP8ytAVo4klYHrsPG4TGe3bPK20nlfqIQH3kN6fb1lfzztKX0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8981
+X-MS-Exchange-CrossTenant-UserPrincipalName: LsB2IMf18pa7LdHvbI+nGgijddq9CUFRJJpTbgJ2TZFCjPmkMkp6f5zlE1nm56NmXy68Cfn/pSMO/AZsBNpMuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8209
 
-On 18.08.2023 15:44, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> Currently timer_irq_works() will wait the full 100ms before checking
-> that pit0_ticks has been incremented at least 4 times.
-> 
-> However, the bulk of the BIOS/platform should not have a buggy timer.
-> So waiting for the full 100ms is a bit harsh.
-> 
-> Rework the logic to only wait until 100ms passed or we saw more than
-> 4 ticks. So now, in the good case, this will reduce the wait time
-> to ~50ms.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+On 02.09.2023 17:11, Javi Merino wrote:
+> --- a/xen/common/coverage/Makefile
+> +++ b/xen/common/coverage/Makefile
+> @@ -5,7 +5,9 @@ obj-y += $(call cc-ifversion,-lt,0407, \
+>  		gcc_3_4.o, $(call cc-ifversion,-lt,0409, \
+>  		gcc_4_7.o, $(call cc-ifversion,-lt,0500, \
+>  		gcc_4_9.o, $(call cc-ifversion,-lt,0700, \
+> -		gcc_5.o, gcc_7.o))))
+> +		gcc_5.o, $(call cc-ifversion,-lt,1000, \
+> +		gcc_7.o,  $(call cc-ifversion,-lt,1200, \
+> +		gcc_10.o, gcc_12.o))))))
 
-In principle this is all fine. There's a secondary aspect though which
-may call for a slight rework of the patch.
+This is getting unwieldy, so I think we ought to try to limit the number
+of different files we have. Already gcc_4_9.c and gcc_7.c specify the
+same GCOV_COUNTERS and differ only in the version checks (which could be
+combined). Therefore ...
 
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -1509,6 +1509,8 @@ static void __init setup_ioapic_ids_from_mpc(void)
->  static int __init timer_irq_works(void)
->  {
->      unsigned long t1, flags;
-> +    /* Wait for maximum 10 ticks */
-> +    unsigned long msec = (10 * 1000) / HZ;
-
-(Minor remark: I don't think this needs to be unsigned long; unsigned
-in will suffice.)
-
-> @@ -1517,19 +1519,25 @@ static int __init timer_irq_works(void)
->  
->      local_save_flags(flags);
->      local_irq_enable();
-> -    /* Let ten ticks pass... */
-> -    mdelay((10 * 1000) / HZ);
-> -    local_irq_restore(flags);
->  
-> -    /*
-> -     * Expect a few ticks at least, to be sure some possible
-> -     * glue logic does not lock up after one or two first
-> -     * ticks in a non-ExtINT mode.  Also the local APIC
-> -     * might have cached one ExtINT interrupt.  Finally, at
-> -     * least one tick may be lost due to delays.
-> -     */
-> -    if ( (ACCESS_ONCE(pit0_ticks) - t1) > 4 )
-> +    while ( msec-- )
-> +    {
-> +        mdelay(1);
-> +        /*
-> +         * Expect a few ticks at least, to be sure some possible
-> +         * glue logic does not lock up after one or two first
-> +         * ticks in a non-ExtINT mode.  Also the local APIC
-> +         * might have cached one ExtINT interrupt.  Finally, at
-> +         * least one tick may be lost due to delays.
-> +         */
-> +        if ( (ACCESS_ONCE(pit0_ticks) - t1) <= 4 )
-> +            continue;
+> --- /dev/null
+> +++ b/xen/common/coverage/gcc_10.c
+> @@ -0,0 +1,31 @@
+> +/*
+> + *  This code provides functions to handle gcc's profiling data format
+> + *  introduced with gcc 10.
+> + *
+> + *  For a better understanding, refer to gcc source:
+> + *  gcc/gcov-io.h
+> + *  libgcc/libgcov.c
+> + *
+> + *  Uses gcc-internal data definitions.
+> + */
 > +
-> +        local_irq_restore(flags);
->          return 1;
-> +    }
+> +#include "gcov.h"
 > +
-> +    local_irq_restore(flags);
->  
->      return 0;
->  }
+> +#if GCC_VERSION < 100000 || GCC_VERSION > 120000
+> +#error "Wrong version of GCC used to compile gcov"
+> +#endif
+> +
+> +#define GCOV_COUNTERS 8
+> +#define GCOV_UNIT_SIZE 1
+> +
+> +#include "gcc_4_7.c"
 
-While Andrew has a patch pending (not sure why it didn't go in yet)
-to simplify local_irq_restore(), and while further it shouldn't really
-need using here (local_irq_disable() ought to be fine), I can see that
-you don't want to make such an adjustment here. But then I'd prefer if
-we got away with just a single instance, adjusting the final return
-statement accordingly (easiest would likely be to go from the value of
-"msec").
+... this could simply re-use gcc_4_7.c directly, with just the version
+check there suitably tweaked.
+
+> --- a/xen/common/coverage/gcc_4_7.c
+> +++ b/xen/common/coverage/gcc_4_7.c
+> @@ -27,6 +27,7 @@
+>  #  error "Wrong version of GCC used to compile gcov"
+>  # endif
+>  #define GCOV_COUNTERS 8
+> +#define GCOV_UNIT_SIZE 1
+>  #endif
+
+If further this became a separate #ifdef, ...
+
+> --- a/xen/common/coverage/gcc_4_9.c
+> +++ b/xen/common/coverage/gcc_4_9.c
+> @@ -19,6 +19,7 @@
+>  #endif
+>  
+>  #define GCOV_COUNTERS 9
+> +#define GCOV_UNIT_SIZE 1
+>  
+>  #include "gcc_4_7.c"
+>  
+> --- a/xen/common/coverage/gcc_5.c
+> +++ b/xen/common/coverage/gcc_5.c
+> @@ -19,6 +19,7 @@
+>  #endif
+>  
+>  #define GCOV_COUNTERS 10
+> +#define GCOV_UNIT_SIZE 1
+>  
+>  #include "gcc_4_7.c"
+>  
+
+... touching these two files could be avoided altogether.
+
+Henry - afaict this was submitted after the feature submission deadline,
+so you may want to consider giving it an exception.
 
 Jan
 
