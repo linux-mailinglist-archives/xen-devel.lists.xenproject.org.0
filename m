@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792CE7972F9
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 16:14:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597423.931657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766A07972FF
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 16:17:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597433.931667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeFlT-0002nU-Nu; Thu, 07 Sep 2023 14:13:47 +0000
+	id 1qeFoj-0003q4-6Z; Thu, 07 Sep 2023 14:17:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597423.931657; Thu, 07 Sep 2023 14:13:47 +0000
+Received: by outflank-mailman (output) from mailman id 597433.931667; Thu, 07 Sep 2023 14:17:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeFlT-0002lM-L9; Thu, 07 Sep 2023 14:13:47 +0000
-Received: by outflank-mailman (input) for mailman id 597423;
- Thu, 07 Sep 2023 14:13:46 +0000
+	id 1qeFoj-0003ni-3n; Thu, 07 Sep 2023 14:17:09 +0000
+Received: by outflank-mailman (input) for mailman id 597433;
+ Thu, 07 Sep 2023 14:17:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3tY2=EX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qeFlS-0002jx-8Y
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 14:13:46 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+6JM=EX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qeFoh-0003nc-PZ
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 14:17:07 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2062c.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0de87da-4d88-11ee-9b0d-b553b5be7939;
- Thu, 07 Sep 2023 16:13:44 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-50079d148aeso1655890e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Sep 2023 07:13:44 -0700 (PDT)
-Received: from [192.168.201.133] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- w28-20020ac2443c000000b005009d4a5e6fsm3186941lfl.22.2023.09.07.07.13.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Sep 2023 07:13:43 -0700 (PDT)
+ id 38d5b917-4d89-11ee-9b0d-b553b5be7939;
+ Thu, 07 Sep 2023 16:17:05 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DU2PR04MB8758.eurprd04.prod.outlook.com (2603:10a6:10:2e1::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Thu, 7 Sep
+ 2023 14:17:03 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6745.034; Thu, 7 Sep 2023
+ 14:17:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +47,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0de87da-4d88-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1694096024; x=1694700824; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=y0qTqBIIicRfTU4ngP5GQ7/gnBqhUeRa96W5uqZP3KY=;
-        b=KEjRvpA7cYe85gK57+0cYOQTG/52hMdzTHIvY4RS1dRXyV1PQnaONbVzbQ6GzejyFy
-         po24zzQi2n+kqdpDSdh/iaM0PMSjQZk/MIrkKM2ZEhQtyP8YyL+LblQHBaYdSZ4UUeci
-         anrchTTXEbM1xvh0Xm5HtshcrzEd2B1DKWjVEzsCFuqMYnNiZ3k3gtR1jDB+MElM/ZQ1
-         wUpXvsM0lwGLNZzwikZWKhdVh0Jtqi3+jtK87PWuYusxQshhpIdETtAZYHEsyrU6iz3R
-         99B4F0mj7gGjMTaztGPo3lP59G5r4CKfqPALn6jdtza4g43NfcQ6tXlmlgkowSPycRZr
-         MDpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1694096024; x=1694700824;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=y0qTqBIIicRfTU4ngP5GQ7/gnBqhUeRa96W5uqZP3KY=;
-        b=gbtiLhSYtClVh1shkh0+/8nRqQmCfYzblcbYfgHRgPJyglrtt2i2uBsUndFuw8oxYT
-         HJaZOQ0vzaljQYM5s3eqHRZ0ESWoAXHng7H85H6/yIZg6bkCYYRiDbemg5VTOqOvjMXE
-         Z0QOY/+dnqkoB4Z7PkUkkN3CxFoWDdaYiHkt6vPdKqkST0ayFVWAU8JkUpWyO/Iy0Aml
-         ggegns8kf1cAO60MteD6pgG3bgbmHJ7Ig/2oGscK8FSFTaQUnKqGnf6kFUbRUPsb1/Wl
-         Pas8UVq1cT3k08C+VUc0TsiSeJEeF/8oIlHn24TyQtlH+zHDYDuUh94GpFWIH479qzv2
-         vIwA==
-X-Gm-Message-State: AOJu0Yzrq9Eup3XhoA6YhjXi3RrJh4tTT0ujbP52yS0th6PB6iKmfedQ
-	B6W/4TltJbxvalRSa8Ja3G0=
-X-Google-Smtp-Source: AGHT+IEJY2y60K7joEp275lEJ9EKEkkI9DId1k2yYDKpGYr5Um6t5AGfYbID4qfAiLQMTWRFzXpw1g==
-X-Received: by 2002:a19:9149:0:b0:500:9704:3c9 with SMTP id y9-20020a199149000000b00500970403c9mr4666984lfj.26.1694096023320;
-        Thu, 07 Sep 2023 07:13:43 -0700 (PDT)
-Message-ID: <7e34a9f9d3b60888cb006b3e2e2342a944084783.camel@gmail.com>
-Subject: Re: [PATCH v6 1/2] xen: asm-generic support
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>,  xen-devel@lists.xenproject.org
-Date: Thu, 07 Sep 2023 17:13:42 +0300
-In-Reply-To: <151a04b2-57c8-20f7-0bbf-0bd1c7c73e97@suse.com>
-References: <cover.1694078544.git.oleksii.kurochko@gmail.com>
-	 <cf5f446915bd5c8980beda22718efff32678e16b.1694078544.git.oleksii.kurochko@gmail.com>
-	 <fbc5ea33-22c1-52a5-dc7d-97ba29e06e9d@suse.com>
-	 <39d85cdb68d29cc83743da703539f9c536ce7ded.camel@gmail.com>
-	 <151a04b2-57c8-20f7-0bbf-0bd1c7c73e97@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+X-Inumbo-ID: 38d5b917-4d89-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U6scOsdTB8WSBFSmgAFrE9zOhXv/jnqnGjfgNUcmp/UBK/BBtcRbPi0xU3TddRjGUwTprIQ+9mJ8THLGHWp6ooBXSIzMyCsulsREgaal3QxsR6N/vJ8EEGcf7ZMh0TcwSxJ8AKIF9d2lU1Hu5QRFKCqR6PFcGm3cL/vf/qbgs+QtNr19qtAZtVDtPKEMJ8Tov7M1Z8a/wTWfJoDyi2mdlcf3LFrYwikyCG12vAF3ZT3OItU/gl30s2KhLBbmHE+dIw5UWv2M/omkwp2m5I08ywwqYTEqfMvfsz3oVOHLJbYt2NJf4II350HJQY4bw5SC9H7+FMBB3Sd+1W2v4Q+Bkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=paYr+JUWr2FCvc53Ti1SIkmtPmBwbppM/wPFyDEYQxo=;
+ b=NE0uxGumoAApqMZOul2EVhRWd+dH+9Zh0OLZ5xqqwcLwcgdJ1JvUzLtSMs1iDhQSjGIkJaai6TMbofRRKM/F1q5f48pgg6z1Xd256SUQsJhoq1wRXUMNKjxMEPc8mgqgH6HYCoDjbbw5dVXlFOYaRQ+QrD34DjZucjXxQl05zU4HB3KN7dRpg4l87UNTY7rYvPMePf/ZbSt1/3luvGGNyPxk7jO9lOJ3FotXzLSSjRcRyZ5WjN6Gd2/1Qf8IRZ6p9/rCsjPiGwzfNm22MfApbOcWafHT/H/SzUwEYOreBb1Lmz/TPJLENkYJNA+0d5GP4Jnu+Ojxzsk7fm1MxULLtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=paYr+JUWr2FCvc53Ti1SIkmtPmBwbppM/wPFyDEYQxo=;
+ b=i1QP6tWViNbctsVACZ9fIBLawEw02owWxJKJulajLv8uJrcAf4pimGx0NyH2iDeXJff0iVD5FvQ5uiQflB0Xd12P9+rQPyJq7aepOCfe+XGZHylcFzPZQvdv42HcARQRl6CRMJ6STrqsk0d+LiZ1SlN9bRm9IXAiT1gUYa7nwpwCKlGOMQlaYam3Vu8CWmdxOAaOk0LwzvIfeCtE4eqL3rIXxOC7EcWASgliKwsIcoCW/amLaDTDZ2pQDgsc55CvQSTWg27O/mim+Tst6r8QY3NS+AqD3Xod7xEbjZEyAXWUCXFOAIGpywjUUZ8m9VtgYMZp6tlk+1R1Idb9cfAx8Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <74aa0f95-e059-f6a4-b085-03c7e4b2fceb@suse.com>
+Date: Thu, 7 Sep 2023 16:17:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] cmdline: move irq-max-guests doc entry
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0261.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8758:EE_
+X-MS-Office365-Filtering-Correlation-Id: 328da598-fd20-408b-6541-08dbafad1bd9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	rYi3UsyfrGp/n5eZtw1V4DU2kWBLqfyq9pImQUzwqFg+WW1kdupigE2pl+wksXxbrM3qMOImYhndvagi5ngk73+vluwp0c4jd4Klicpq2xW7ruL2Mvu4AzOVjhrC4WvkoDsIvwH8ka7SnFYbSlUpmLCyKT2bVmVx4nqgd6rPUgiU3c0wYcIof3jAiNkMs43GxPAsmZJ0JgQZZ1DyEeYzzzYtXk0X43dVjZjo1maY2V2Ku8Vbsnw42eoietU6TfSC7C3V8HCVSvvwEAifnMory3Z/XQnUfUzi6WVCosKmkKA0UuPKqkPWdL2qzBQLTF7XmKYY6jcEPvF5m3/EHW949PGcAdFDlEjNL+vKp8lsU1R6ezBxR60KmqXR5ENfg4BNHByP74ZK8lh9uMsK/g7YhCJ51c/COLVcyHC/gRbA6n+Ihpec3XpESKewIRvig1ZnhI3cf+lGLu903Cgd1YD6PJfliCGq0r87ry10xiqYqugKG5PzX+v8/uyi66D3Cbxz0Qbz8mGy36d97hefrSvrWBbdpffmUbgShMtn9eiQmjM/qZ7twHo6UeAdGnCv48wlw8gqjIz1u48xxxMXQpdGVvpRnKodYqv7HSLdqQXRDvBajJQS+y+5JQ1rYapfsAceKb9bl69vCoc7G2sUkZSzYw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(376002)(136003)(346002)(396003)(186009)(451199024)(1800799009)(31686004)(6506007)(6486002)(31696002)(38100700002)(86362001)(36756003)(26005)(2906002)(83380400001)(6512007)(2616005)(478600001)(66946007)(316002)(8936002)(8676002)(4326008)(5660300002)(66556008)(54906003)(41300700001)(66476007)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Sm1vZ3BrM2hObUJDS2hoL21WUk9zL0VNVXVvdjlGakVyK2hqVk5YcjNTV2w4?=
+ =?utf-8?B?TjRHV3VJbE5Pd3YxcUxHMXZTOFRBS3RHbmpJTGpXaGkvbU9ZMUE4N0oyczZH?=
+ =?utf-8?B?RElaQXMzejFzYjdJZWhZVExJaGpLZnVXOXhsaExKVllidmJpR2hwUFpocTBz?=
+ =?utf-8?B?SFFnQldVWDBuemd6TUtIdUVPV1BLL1N4czJDVGdjVEloaWNKS2UvRVJYQXpQ?=
+ =?utf-8?B?TTVkYmtXL0dScVF1VmxPTHpRUmh3b3h0T2g1bmpWQ3FOZkNNUjl4TC83K0pR?=
+ =?utf-8?B?cGRrTmNqNXJxeUx4Vkl6QkNCWG5oaUVVT005OGZvSXVnelg5eG5LbkowTEdX?=
+ =?utf-8?B?QTQzS25NWEdkUW5qemd0dTFCZTBTNXd3RHVickZrbTZoSE9hS3pGbjNWT2gy?=
+ =?utf-8?B?VzB4Y1BvaTFSNEJhc3gwemptRGtwU21Kdnc1a3crMjJFTWxPcERUZzIxMUhJ?=
+ =?utf-8?B?WDcwalJjanE3U1JRNnhva3A1bXF0TlN0d0UySUpsUUZWbjlRWDc4ZVRuemEv?=
+ =?utf-8?B?cGZkZ3Nnem9vZDYzeVg2bWJCVU1XZ0ZjTHdoN0FqVTg0TDlJMk5PVlVVNkp2?=
+ =?utf-8?B?ZkxkSVdPaTJEbVVrNThMMFQrV1pCaGFna0ltdDc3dkNNNUF1YldzbW9WYk1P?=
+ =?utf-8?B?WENkTkJUSGp6SGVrMXZHRmkvbFE5d1NGa1F2K1pWSTdoWDhiY0o0YVVmU0Fq?=
+ =?utf-8?B?bDRQdThKVEZURmx3SmV4RUpQaGV5VDR5VVlkR0JXN2MzZFBITGwyVEFYMkZm?=
+ =?utf-8?B?eFhTaHlPS3pkN0UyekRXSG9SSGQrQndIdGt0a1l1Q0kyWE1pdGx2cnZqdThH?=
+ =?utf-8?B?TmpUYWZjbkMyVThYU09sbkg3b0JPbDdOb3kvN091VDR0TDVoZnFMS3JMc3lC?=
+ =?utf-8?B?TExqbTRpZ1VvTTFMRWtacHN5dUNMWUpPUXRqNG9MNHBEUUZYSFRGdVptdmZE?=
+ =?utf-8?B?SWFEekdUT2phVGdiSWJZRHJ2bWlPb1FlTWZJTTBpL3FaVkxjclluNGRWMDBO?=
+ =?utf-8?B?T1FSN2I5YzhZcTQzYUdWeDEwSkswN2dCTjNxaXQyY0RDNEorSEhaSnpJVWRY?=
+ =?utf-8?B?L2ZnTWcwbmE1b2VtaGhoMTJxOVRzNkhNRjdIdWxkYUlWeVU4eVJiRmUrOTN4?=
+ =?utf-8?B?Z21KSTlMZ0d3WUs4eXhxNHNQQWkwbGpERDFERWhXQkg3NDcxN3RnRnZWZEtP?=
+ =?utf-8?B?YVg0V2QwWVQwQ0JteEJIZ0Y4TTJYa2RBS2p6NWdhYkx4VHdiTjZLSXMvQnc3?=
+ =?utf-8?B?dlZjdVM5WW1Kb2NaREpDRFliQ3l0OGxWS3htUXRpNDhjZE96MHhqREZpb2l1?=
+ =?utf-8?B?SG5janBzSXh3YVhic2dRU2ViUWZka28rZ1JYWEVpV2hGdkNyMnVIc1hjK0lB?=
+ =?utf-8?B?UVFQdjcwc3NHa2VXUkcxL0RWR3c2YXp3c09HaEU2SWVjTG5JSXBBNng1Tm1F?=
+ =?utf-8?B?MVJ4bFNmSUc3SVA5dWVYU1NXZzl0c2lLRVcvN0kxTmJIamtsNmFhby9CUTBL?=
+ =?utf-8?B?dmt2OGNheWhEMGFqSEVqNlhqR3JSZkxFTm1wVDJjZS9jdDhra2VQRjZHaVNC?=
+ =?utf-8?B?MzZXaDI2cEkxSElPUFBkOHhuZzlyZ0JCYVAwdENnS2xMSUFJNDhub0p1Ylcv?=
+ =?utf-8?B?RXRMdm1Vc3p6NjhGVmxjY3pNaWU2QVdwQ24rcVJpaFFBYitOU1JXdExxN0Fo?=
+ =?utf-8?B?YkUvRjB4ak1FcE5Zd0hSdnhQZmdTTXliamN6OHExckRSVHBBcEhETmhSTjdS?=
+ =?utf-8?B?RWZiWjlVTCtoQTdLWWRpQ0hsVUJBT3Y4UndReGk0UjBsRUc0d1o3dVdvVUpQ?=
+ =?utf-8?B?Nm9OQXhreVJIUU0wZGlqaitPWkJSMmtVNHhOVEVXc0Fjbm56L1JDV2oxU0p4?=
+ =?utf-8?B?SmZHTy9hRWwvN1YzKyszRGR2aTNnbzBNK3NpcVJ2clJZMVRIL3EraGNQRUpF?=
+ =?utf-8?B?dDZWUXRKdzUxWU9lUkZSVE5DTUdGb2R2dzhralVJcTZvQ0VDekI4Nkc0emw0?=
+ =?utf-8?B?WVh4WDNaU0NBZ1NvaTJQMUdXTGRUTW5mcVBTODhPR0EzUEFhS3NUcWs4aTFC?=
+ =?utf-8?B?YTRuUUZmSmIwbGQrOC8vMmg1Zmx3bFA4ZHhEbXZiUFNNVnpyYm5qeFNKRVM5?=
+ =?utf-8?Q?ftdZslsR3Ry9BCCBvAfzxCS/2?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 328da598-fd20-408b-6541-08dbafad1bd9
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 14:17:03.5559
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pi2/xfFoPz4VZnIty0oREKkN7Z14g1oD0zql5C1sDdLc9GcktZZROT6J2weN3bEYedgyhIG7A/qLa1UhLSIsuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8758
 
-On Thu, 2023-09-07 at 15:56 +0200, Jan Beulich wrote:
-> On 07.09.2023 15:45, Oleksii wrote:
-> > On Thu, 2023-09-07 at 12:48 +0200, Jan Beulich wrote:
-> > > On 07.09.2023 11:32, Oleksii Kurochko wrote:
-> > > > --- /dev/null
-> > > > +++ b/xen/scripts/Makefile.asm-generic
-> > > > @@ -0,0 +1,53 @@
-> > > > +# SPDX-License-Identifier: GPL-2.0-only
-> > > > +# include/asm-generic contains a lot of files that are used
-> > > > +# verbatim by several architectures.
-> > > > +#
-> > > > +# This Makefile reads the file
-> > > > arch/$(SRCARCH)/include/asm/Makefile
-> > > > +# and for each file listed in this file with generic-y creates
-> > > > +# a small wrapper file in
-> > > > arch/$(SRCARCH)/include/generated/asm.
-> > > > +
-> > > > +PHONY :=3D all
-> > > > +all:
-> > > > +
-> > > > +src :=3D $(subst /generated,,$(obj))
-> > > > +
-> > > > +include $(srctree)/scripts/Kbuild.include
-> > > > +-include $(src)/Makefile
-> > >=20
-> > > With the definition of src above, is this correct for out-of-tree
-> > > builds?
-> > Logically you are right and I think it would be better to use
-> > $(srctree)/$src but it works for out-of-tree builds too.
-> >=20
-> > $ CONTAINER_NO_PULL=3D1 CONTAINER=3Driscv64
-> > ./automation/scripts/containerize make O=3Dxen-build V=3D2
-> > XEN_TARGET_ARCH=3Driscv64 -C xen build
-> >=20
-> > $ ls -la xen/xen-build/arch/riscv/include/generated/asm/vm_event.h
-> > -rw-r--r--. 1 ok ok 34 =D0=B2=D0=B5=D1=80=C2=A0 7 16:27 xen/xen-
-> > build/arch/riscv/include/generated/asm/vm_event.h
->=20
-> Oh, right, aiui because of VPATH being set to $(srctree), and
-> therefore
-> in the absence of a Makefile in $(objtree)/$(src)/ it'll go look for
-> one in $(srctree)/$(src)/. Never mind then:
-> Acked-by: Jan Beulich <jbeulich@suse.com>
->=20
-Thanks for explanation.
+... to adhere to intended sorting.
 
+Fixes: e373bc1bdc59 ("x86/IRQ: make max number of guests for a shared IRQ configurable")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-~ Oleksii
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1630,6 +1630,16 @@ wait descriptor timed out', try increasi
+ **WARNING: This command line option is deprecated, and superseded by
+ _dom0-iommu=map-inclusive_ - using both options in combination is undefined.**
+ 
++### irq-max-guests (x86)
++> `= <integer>`
++
++> Default: `32`
++
++Maximum number of guests any individual IRQ could be shared between,
++i.e. a limit on the number of guests it is possible to start each having
++assigned a device sharing a common interrupt line.  Accepts values between
++1 and 255.
++
+ ### irq_ratelimit (x86)
+ > `= <integer>`
+ 
+@@ -1914,16 +1924,6 @@ This option is ignored in **pv-shim** mo
+ ### nr_irqs (x86)
+ > `= <integer>`
+ 
+-### irq-max-guests (x86)
+-> `= <integer>`
+-
+-> Default: `32`
+-
+-Maximum number of guests any individual IRQ could be shared between,
+-i.e. a limit on the number of guests it is possible to start each having
+-assigned a device sharing a common interrupt line.  Accepts values between
+-1 and 255.
+-
+ ### numa (x86)
+ > `= on | off | fake=<integer> | noacpi`
+ 
 
