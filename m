@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A22796DAE
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 01:45:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.596914.931044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B012A796DD0
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 02:02:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.596921.931054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe2Cq-0005i0-9D; Wed, 06 Sep 2023 23:45:08 +0000
+	id 1qe2TD-0000qC-7i; Thu, 07 Sep 2023 00:02:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 596914.931044; Wed, 06 Sep 2023 23:45:08 +0000
+Received: by outflank-mailman (output) from mailman id 596921.931054; Thu, 07 Sep 2023 00:02:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe2Cq-0005ff-6G; Wed, 06 Sep 2023 23:45:08 +0000
-Received: by outflank-mailman (input) for mailman id 596914;
- Wed, 06 Sep 2023 23:45:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qe2TD-0000nj-4R; Thu, 07 Sep 2023 00:02:03 +0000
+Received: by outflank-mailman (input) for mailman id 596921;
+ Thu, 07 Sep 2023 00:02:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hRy5=EW=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qe2Co-0005fZ-6I
- for xen-devel@lists.xenproject.org; Wed, 06 Sep 2023 23:45:06 +0000
+ <SRS0=myun=EX=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qe2TB-0000nY-HE
+ for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 00:02:01 +0000
 Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 654b9d67-4d0f-11ee-9b0d-b553b5be7939;
- Thu, 07 Sep 2023 01:45:02 +0200 (CEST)
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c3be75c9-4d11-11ee-8783-cb3800f73035;
+ Thu, 07 Sep 2023 02:01:59 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id DECEA82857C4;
- Wed,  6 Sep 2023 18:45:00 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 698B58285370;
+ Wed,  6 Sep 2023 19:01:58 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id Lp2Q7wrJlamB; Wed,  6 Sep 2023 18:45:00 -0500 (CDT)
+ with ESMTP id fkxK2pqL2K1V; Wed,  6 Sep 2023 19:01:57 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 0BB8782857C5;
- Wed,  6 Sep 2023 18:45:00 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 1884F82854B3;
+ Wed,  6 Sep 2023 19:01:57 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id vbB6nI-4Z1oK; Wed,  6 Sep 2023 18:44:59 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 92B0282857C4;
- Wed,  6 Sep 2023 18:44:59 -0500 (CDT)
+ with ESMTP id EzxwkdqI2b7N; Wed,  6 Sep 2023 19:01:56 -0500 (CDT)
+Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 8695C8285370;
+ Wed,  6 Sep 2023 19:01:56 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +51,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 654b9d67-4d0f-11ee-9b0d-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 0BB8782857C5
+X-Inumbo-ID: c3be75c9-4d11-11ee-8783-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 1884F82854B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694043900; bh=O4CBTmnG/tOoCAk90JJoYmxdN7o69dDb0AnnPW/APpQ=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=qODHAZoenyRDF5F9EdBGaB6zYNGkkeulH1Zk32rUSScitYjahgTgUB7RJBKpshm/l
-	 5Yi56TomSZSs7xakRDbPqIzBWthaOFnpkGz16bH72dUOLTKODD4ujMVh3KtTmy8Xbn
-	 oMeB4oI+/nON0GHwYLPBGJVoxHyFDa/kC57qfY/w=
+	t=1694044917; bh=UnbMupveOP6kG7EVQIje5ftaCdc3hMXKtoOphoY0LfE=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=f0EmM/G+L/USnB7KWQDEFtibMxM6jzLXhs4vnGGJ4PzD2Re3cLApeRZ8GcmgcCzOf
+	 9OnFoyp1lqUz5LP/5oCZ2/AtrrtVhDuMCJ3oJgLg8OPc+Vvk+2mhBs+hgzEL5WyzTy
+	 K3Dq2NYPx3wn9rU1/5cScUNl2A2dmuRCBASWrgOc=
 X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <8ca65bea-75a5-369f-8124-d598aa87e24f@raptorengineering.com>
-Date: Wed, 6 Sep 2023 18:44:59 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH 2/2] xen/ppc: Drop support for pseries/OpenFirmware
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1693949731.git.sanastasio@raptorengineering.com>
- <8c09322cff220d4d102d50b2fc45e9290106d109.1693949731.git.sanastasio@raptorengineering.com>
- <e5fc9fe7-83fa-98a0-02db-8d28fc2b0524@suse.com>
 From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <e5fc9fe7-83fa-98a0-02db-8d28fc2b0524@suse.com>
-Content-Type: text/plain; charset=UTF-8
+To: xen-devel@lists.xenproject.org
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/2] ppc: Drop support for QEMU pseries
+Date: Wed,  6 Sep 2023 19:01:44 -0500
+Message-Id: <cover.1694044614.git.sanastasio@raptorengineering.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On 9/6/23 1:44 AM, Jan Beulich wrote:
-> On 05.09.2023 23:46, Shawn Anastasio wrote:
->> Since QEMU's PowerNV support has matured to the point where it is
->> now suitable for development, drop support for booting on the
->> paravirtualized pseries machine type and its associated interfaces.
-> 
-> I think you want to mention that the pseries functionality was actually
-> broken by the earlier change, both verbally and by means of a Fixes:
-> tag. The breakage actually may also want mentioning in patch 1 as well
-> as the cover letter.
->
+Hello all,
 
-Will do. I'll add mentions to the breakage in both patches and add a
-Fixes: tag to this patch specifically.
+This small series drops support for the QEMU paravirtualized pseries
+machine type in favor of the bare metal PowerNV platform. pseries
+support was broken by 74b725a64d80 ('xen/ppc: Implement initial Radix
+MMU support'), and instead of maintaining separate code paths to retain
+support for the platform, I think it makes the most sense to drop it
+entirely.
 
->> --- a/xen/arch/ppc/setup.c
->> +++ b/xen/arch/ppc/setup.c
->> @@ -14,17 +14,12 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
->>  {
->>      if ( r5 )
->>      {
->> -        /* OpenFirmware boot protocol */
->> -        boot_of_init(r5);
->> +        /* Unsupported OpenFirmware boot protocol */
->> +        __builtin_trap();
->>      }
->>      else
->>      {
->> -        /*
->> -         * kexec boot protocol
->> -         *
->> -         * TODO: This currently assumes an OPAL/PowerNV system, but it's also
->> -         * possible to be kexec'd on an OF system.
->> -         */
->> +        /* kexec boot protocol */
->>          boot_opal_init((void *)r3);
-> 
-> At least part of the comment may want retaining, as the code only handles
-> the OPAL case?
->
+pseries was originally targeted for initial bringup since it has
+historically been much better supported by QEMU, but PowerNV support in
+QEMU has recently developed to the point where this is no longer a
+concern.  Since I can think of very little practical use for running Xen
+under pseries, and supporting it requires non-trivial duplication of
+effort, drop support for it entirely.
 
-Since we're now explicitly only supporting Opal/PowerNV I don't think
-there's any need to point out that this code path doesn't properly
-handle the pseries+kexec case. boot_opal_init will gracefully
-fail under that circumstance anyway when it tries to find an /ibm,opal
-device tree node.
-
-> Jan
+This also requires a change to the ppc64le CI dockerfile to build a
+newer version of QEMU than is available in the bullseye repository.
 
 Thanks,
 Shawn
+
+--
+v2: Add Fixes: tag to patch 2, add references to broken state of pseries
+
+Shawn Anastasio (2):
+  automation: Switch ppc64le tests to PowerNV machine type
+  xen/ppc: Drop support for pseries/OpenFirmware
+
+ .../build/debian/bullseye-ppc64le.dockerfile  |  37 +++++-
+ automation/gitlab-ci/test.yaml                |   2 +-
+ xen/arch/ppc/Makefile                         |   1 -
+ xen/arch/ppc/boot-of.c                        | 113 ------------------
+ xen/arch/ppc/include/asm/boot.h               |  19 ---
+ xen/arch/ppc/ppc64/Makefile                   |   1 -
+ xen/arch/ppc/ppc64/of-call.S                  |  83 -------------
+ xen/arch/ppc/setup.c                          |  11 +-
+ 8 files changed, 39 insertions(+), 228 deletions(-)
+ delete mode 100644 xen/arch/ppc/boot-of.c
+ delete mode 100644 xen/arch/ppc/ppc64/of-call.S
+
+--
+2.30.2
 
 
