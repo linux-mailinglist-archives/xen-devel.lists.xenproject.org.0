@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84FE796E90
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 03:34:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597054.931218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E300796EFA
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Sep 2023 04:32:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597066.931232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe3ta-0001pF-GX; Thu, 07 Sep 2023 01:33:22 +0000
+	id 1qe4nA-0006EA-MJ; Thu, 07 Sep 2023 02:30:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597054.931218; Thu, 07 Sep 2023 01:33:22 +0000
+Received: by outflank-mailman (output) from mailman id 597066.931232; Thu, 07 Sep 2023 02:30:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qe3ta-0001n5-Ch; Thu, 07 Sep 2023 01:33:22 +0000
-Received: by outflank-mailman (input) for mailman id 597054;
- Thu, 07 Sep 2023 01:33:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Shnx=EX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qe3tZ-0001mz-F3
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 01:33:21 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85ef1192-4d1e-11ee-9b0d-b553b5be7939;
- Thu, 07 Sep 2023 03:33:18 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 31AE2B81D3A;
- Thu,  7 Sep 2023 01:33:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3967AC433C8;
- Thu,  7 Sep 2023 01:33:15 +0000 (UTC)
+	id 1qe4nA-0006Ar-HW; Thu, 07 Sep 2023 02:30:48 +0000
+Received: by outflank-mailman (input) for mailman id 597066;
+ Thu, 07 Sep 2023 02:30:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qe4n9-0006Ah-7V; Thu, 07 Sep 2023 02:30:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qe4n9-0002zn-2j; Thu, 07 Sep 2023 02:30:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qe4n8-0003Pq-Mh; Thu, 07 Sep 2023 02:30:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qe4n8-000317-MH; Thu, 07 Sep 2023 02:30:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +42,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85ef1192-4d1e-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694050396;
-	bh=vekrOVJM1reQA//pT7fHp9mWSTbAXkLJvPL0GiG3cMQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SzTPpLO7b216HkHoWUqLivUu35tEXDlR83HS5NDBHYNSwG6zQsJJ0vZe1CUfG2HFd
-	 +sMgaCIujslVKAoZI97joRMaFKoP6//JIP49syVV96xK3rBSYmZP9H1+RYm7L2rRL1
-	 F90Jih1UVpdjFCfsA1/ijSE4fG2rfAGB+Ah+CFghmSkePZvMnH4Mjn/AqmqshHQrKC
-	 ZQeI63Ug2HbA3omkyr3lIbaAo82jGZ8L3nEROEl+5MNkjfQRMqiNlAtZTB6rtm4Ofd
-	 olF8GnYYofADRTohEDXbK+M4v4RDLnQIzicRzHS/eJlmOGzDmJxaFU7OrAJaHOAcDX
-	 U+lHE+vd4R55w==
-Date: Wed, 6 Sep 2023 18:33:13 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] xen/types: address Rule 10.1 for macro
- BITS_TO_LONGS
-In-Reply-To: <7937ae31-e511-8e41-9cbb-98d8666e66b8@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2309061828360.6458@ubuntu-linux-20-04-desktop>
-References: <b3aaaf5265c7e7ce6228ba2146f57aaae09f55e6.1693899008.git.nicola.vetrini@bugseng.com> <540ae128-a934-8c4c-6fec-e475dd072c3e@suse.com> <aa2084eb925ade9caa4e1dfbfb425537@bugseng.com> <9b673dec-f391-9948-3ce9-25ddff8c9d7b@suse.com>
- <948c3c6c0b9dff859df58eab419d01f6@bugseng.com> <7937ae31-e511-8e41-9cbb-98d8666e66b8@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0/LiBoDa0+gRqMN0Mg1DCA/SrNMlsHVUwNrGQNtwsT8=; b=E9KJHO5LDPGwqM4kLK6TIA5ArF
+	8fKzCYHHHGXGZSFlQY74TJ7kLiUJACjF3oilcMQvXIw0C/S3fnXBcj8AgFPnJpxF+fA7VRiwdXIfC
+	638DHEja6lRxMbFiKIVi8rquIa7c64DIfnn+EGHuvdgjd3sSL5VT5WHPJj9woeOXcTr8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182642-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [libvirt test] 182642: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=abecd6633e2b5c191080b6838c4c7658af3fddd8
+X-Osstest-Versions-That:
+    libvirt=e95b81c2fd62d700f697349964b8b2f63e44c64b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 07 Sep 2023 02:30:46 +0000
 
-On Wed, 6 Sep 2023, Jan Beulich wrote:
-> On 06.09.2023 17:57, Nicola Vetrini wrote:
-> > On 05/09/2023 10:33, Jan Beulich wrote:
-> >> On 05.09.2023 10:20, Nicola Vetrini wrote:
-> >>> On 05/09/2023 09:46, Jan Beulich wrote:
-> >>>> On 05.09.2023 09:31, Nicola Vetrini wrote:
-> >>>>> Given its use in the declaration
-> >>>>> 'DECLARE_BITMAP(features, IOMMU_FEAT_count)' the argument
-> >>>>> 'bits' has essential type 'enum iommu_feature', which is not
-> >>>>> allowed by the Rule as an operand to the addition operator.
-> >>>>> Given that its value can be represented by a signed integer,
-> >>>>> the explicit cast resolves the violation.
-> >>>>
-> >>>> Wait - why would this lead to a change to BITS_TO_LONGS()? And if 
-> >>>> that
-> >>>> was to be changed, why plain int? I don't think negative input makes
-> >>>> sense there, and in principle I'd expect values beyond 4 billion to
-> >>>> also be permissible (even if likely no such use will ever appear in a
-> >>>> DECLARE_BITMAP(), but elsewhere it may make sense). Even going to
-> >>>> "unsigned long" may be too limiting ...
-> >>>>
-> >>>
-> >>> You have a point. I can think of doing it like this:
-> >>> DECLARE_BITMAP(features, (int)IOMMU_FEAT_count)
+flight 182642 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182642/
 
-I think this is a good solution for this case (even more so if we can't
-find a better implementation of BITS_TO_LONGS)
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182629
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182629
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182629
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ libvirt              abecd6633e2b5c191080b6838c4c7658af3fddd8
+baseline version:
+ libvirt              e95b81c2fd62d700f697349964b8b2f63e44c64b
+
+Last test of basis   182629  2023-09-05 04:18:53 Z    1 days
+Testing same since   182642  2023-09-06 04:20:16 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Dmitry Frolov <frolov@swemel.ru>
+  Michal Privoznik <mprivozn@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
 
-> >>> on the grounds that the enum constant is representable in an int, and 
-> >>> it
-> >>> does not seem likely
-> >>> to get much bigger.
-> >>> Having an unsigned cast requires making the whole expression
-> >>> essentially unsigned, otherwise Rule 10.4 is violated because
-> >>> BITS_PER_LONG is
-> >>> essentially signed. This can be done, but it depends on how
-> >>> BITS_TO_LONGS will be/is used.
-> >>
-> >> It'll need looking closely, yes, but I expect that actually wants to be 
-> >> an
-> >> unsigned constant. I wouldn't be surprised if some use of 
-> >> DECLARE_BITMAP()
-> >> appeared (or already existed) where the 2nd argument involves sizeof() 
-> >> in
-> >> some way.
-> >>
-> > 
-> > I think there's one with ARRAY_SIZE. In my opinion this can be resolved 
-> > as follows:
-> > 
-> > #define BYTES_PER_LONG (1U << LONG_BYTEORDER) // the essential type gets 
-> > from signed to unsigned
-> > 
-> > #define BITS_TO_LONGS(bits) \
-> >          (((unsigned long long)(bits)+BITS_PER_LONG-1U)/BITS_PER_LONG) // 
-> > same here
-> 
-> Except, as said before, I consider any kind of cast on "bits" latently
-> problematic.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Can't we just do this (same but without the cast):
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-#define BYTES_PER_LONG (1U << LONG_BYTEORDER)
-#define BITS_TO_LONGS(bits) \
-         (((bits)+BITS_PER_LONG-1U)/BITS_PER_LONG)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Then we just need to make sure to pass an unsigned to BITS_TO_LONGS. In
-the case above we would do:
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-DECLARE_BITMAP(features, (unsigned int)IOMMU_FEAT_count)
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   e95b81c2fd..abecd6633e  abecd6633e2b5c191080b6838c4c7658af3fddd8 -> xen-tested-master
 
