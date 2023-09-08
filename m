@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C18798A99
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 18:21:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.598078.932592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F2F2798B44
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 19:10:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.598103.932622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeeE5-0006YB-Oe; Fri, 08 Sep 2023 16:20:57 +0000
+	id 1qeeyU-00055e-44; Fri, 08 Sep 2023 17:08:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 598078.932592; Fri, 08 Sep 2023 16:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 598103.932622; Fri, 08 Sep 2023 17:08:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeeE5-0006Vt-Kz; Fri, 08 Sep 2023 16:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 598078;
- Fri, 08 Sep 2023 16:20:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qeeyU-00053v-0s; Fri, 08 Sep 2023 17:08:54 +0000
+Received: by outflank-mailman (input) for mailman id 598103;
+ Fri, 08 Sep 2023 17:08:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8cQz=EY=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1qeeE4-0005vx-Az
- for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 16:20:56 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af5fac43-4e63-11ee-9b0d-b553b5be7939;
- Fri, 08 Sep 2023 18:20:54 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-3fef56f7248so23746055e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 08 Sep 2023 09:20:54 -0700 (PDT)
-Received: from EMEAENG6DZjqCfH.citrite.net
- (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
- by smtp.gmail.com with ESMTPSA id
- m24-20020a7bce18000000b003feee8d8011sm5574352wmc.41.2023.09.08.09.20.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Sep 2023 09:20:53 -0700 (PDT)
+ <SRS0=hmm/=EY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qeeyS-00053n-Gr
+ for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 17:08:52 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 613ee459-4e6a-11ee-8783-cb3800f73035;
+ Fri, 08 Sep 2023 19:08:51 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 679A661529;
+ Fri,  8 Sep 2023 17:08:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0DAC433CA;
+ Fri,  8 Sep 2023 17:08:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,129 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af5fac43-4e63-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1694190054; x=1694794854; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=i6wE+Q6YPhjgRGDUDttaAAhWjDOLXM9ZsbpkHij4TSA=;
-        b=jwk3vVjwzUxByXybHEWPNX/3lDDjDWBjQHyfjz2Ko591E4NpvYTNcskng4EJ3f8EML
-         7dXEfCJ/iKtioFl7sICe8tK6JpBTqREwY/H+ztYOjrUuNPFCF1AUInv9mvPth2E+jUJ3
-         IUATI6QltvbnlzQ/GZYdYdPhoZ7ZY23JM0OrU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694190054; x=1694794854;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=i6wE+Q6YPhjgRGDUDttaAAhWjDOLXM9ZsbpkHij4TSA=;
-        b=ZLkbGo0zOp8aUf6AStWPxdmmCf3a0nW63ei2XJ/uxKyDgYQJTFAfUlhZ5RCr/ZQ4cr
-         RozgQ1rxUwx93E0wpBmOP1tl7BobCv1LIBUyjsrbIQLDuDz8P3JwJjp+cj4vZpBhqudL
-         euuNCe088I6/ger6m1T/iMYMFcIDT7JE4eYd8xRJp43juayk8gEJMF5InJgQuwt8gkN0
-         1+Pi7YKV/Bi/juiX28UgqLhdIJKKbPkg7I/s79VavjKgL+jHQU18ueAOj+RIz6RCmZrP
-         3YVebaDzQohtYL8w5tGU+a6hnImflI/Gazf+eZQ+MYCWb0Y8R+JnEJsIVza/juN1gE8p
-         Z7jQ==
-X-Gm-Message-State: AOJu0YymcUhgsVMPFTo4xukL0ZSH6guCFfbeL/72MdP2ASRYS3j2gchG
-	GZWxhVkFBS4FlXt6diVGlyTdX8lKO/NFkGqgGfihkA==
-X-Google-Smtp-Source: AGHT+IHpKLXmgdlDykh/Lnsr/L+EHgmoX4EoZJ5vI1LnOskXlwZ4GNncyfTrAy2rVtqS5OLbNIXq3g==
-X-Received: by 2002:a7b:c8c4:0:b0:402:8c7e:3fc4 with SMTP id f4-20020a7bc8c4000000b004028c7e3fc4mr2417637wml.30.1694190054134;
-        Fri, 08 Sep 2023 09:20:54 -0700 (PDT)
-From: Javi Merino <javi.merino@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Javi Merino <javi.merino@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 2/2] coverage: update gcov info for newer versions of gcc
-Date: Fri,  8 Sep 2023 17:20:32 +0100
-Message-ID: <f6495eb4c02f6539c5b95d2850d4a834f2ea94e8.1694189143.git.javi.merino@cloud.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1694189143.git.javi.merino@cloud.com>
-References: <cover.1694189143.git.javi.merino@cloud.com>
+X-Inumbo-ID: 613ee459-4e6a-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694192928;
+	bh=zFzcBbCOO3F6g5Lltzo0VkLOTuwvSbIUve2yL6SUFRw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=jf/BOXsNFcP+XFKaKJb5ynuzwM1jZZHhhGo8O/mEoiY7ZwXIb92jZkgOpEW+KlBa9
+	 IZ8edgnNQn8HJ82EH07yey5MVTpms0KLKB752R77Lez8uVEFj4YMPkXRc4Mm/3ijKN
+	 cLvlwYaon4XFiDS6DaiHhAptrKmNRgt5eeBemwkPb0hNxZjS3QWs7sxXXqt+HhXvoj
+	 0jbbHVnhG146PDdQ0w1eGJyQtK/uza+nJ1/kx6jRmSw9VpODBxmRC1bxWFV4U9bPXo
+	 fCUAae/pFil/YyJKOaPSnfbo7mUj75NtIbEWOP0WKT0LBVDt2rga9C6rg1uybAWIkR
+	 7Ids65PajFd0g==
+Date: Fri, 8 Sep 2023 10:08:45 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Henry Wang <Henry.Wang@arm.com>
+cc: Ayan Kumar Halder <ayankuma@amd.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Penny Zheng <Penny.Zheng@arm.com>
+Subject: Re: [PATCH v6 09/13] xen/arm: Extract MMU-specific MM code
+In-Reply-To: <FC26F094-ED04-4E5F-904F-3B09E6605D31@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2309081008060.6458@ubuntu-linux-20-04-desktop>
+References: <20230828013224.669433-1-Henry.Wang@arm.com> <20230828013224.669433-10-Henry.Wang@arm.com> <3e32512e-07d1-34c7-bc51-11dfe061f903@amd.com> <FC26F094-ED04-4E5F-904F-3B09E6605D31@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1814931840-1694192928=:6458"
 
-Shamelessly copy changes to gcov_info structures from linux so that we
-can capture coverage for xen built with newer compilers.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Javi Merino <javi.merino@cloud.com>
----
- xen/common/coverage/gcc_4_7.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
+--8323329-1814931840-1694192928=:6458
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-diff --git a/xen/common/coverage/gcc_4_7.c b/xen/common/coverage/gcc_4_7.c
-index ddbc9f4bb0..8f6e287474 100644
---- a/xen/common/coverage/gcc_4_7.c
-+++ b/xen/common/coverage/gcc_4_7.c
-@@ -24,14 +24,23 @@
- #define GCOV_COUNTERS 9
- #elif GCC_VERSION >= 50000 && GCC_VERSION < 70000
- #define GCOV_COUNTERS 10
--#elif GCC_VERSION >= 70000
-+#elif GCC_VERSION >= 70000 && GCC_VERSION < 100000
- #define GCOV_COUNTERS 9
-+#elif GCC_VERSION >= 100000
-+#define GCOV_COUNTERS 8
- #else
- #error "Wrong version of GCC used to compile gcov"
- #endif
- 
- #define GCOV_TAG_FUNCTION_LENGTH        3
- 
-+#if GCC_VERSION >= 120000
-+/* Since GCC 12.1, sizes are in BYTES and not in WORDS (4B). */
-+#define GCOV_UNIT_SIZE 4
-+#else
-+#define GCOV_UNIT_SIZE 1
-+#endif
-+
- static struct gcov_info *gcov_info_head;
- 
- /**
-@@ -89,6 +98,10 @@ struct gcov_info {
-     unsigned int version;
-     struct gcov_info *next;
-     unsigned int stamp;
-+#if (GCC_VERSION >= 120000)
-+    /*  GCC 12.1 introduced a checksum field */
-+    unsigned int checksum;
-+#endif
-     const char *filename;
-     void (*merge[GCOV_COUNTERS])(gcov_type *, unsigned int);
-     unsigned int n_functions;
-@@ -161,13 +174,18 @@ size_t gcov_info_to_gcda(char *buffer, const struct gcov_info *info)
-     pos += gcov_store_uint32(buffer, pos, info->version);
-     pos += gcov_store_uint32(buffer, pos, info->stamp);
- 
-+#if (GCC_VERSION >= 120000)
-+    /* Use zero as checksum of the compilation unit. */
-+    pos += gcov_store_uint32(buffer, pos, 0);
-+#endif
-+
-     for ( fi_idx = 0; fi_idx < info->n_functions; fi_idx++ )
-     {
-         fi_ptr = info->functions[fi_idx];
- 
-         /* Function record. */
-         pos += gcov_store_uint32(buffer, pos, GCOV_TAG_FUNCTION);
--        pos += gcov_store_uint32(buffer, pos, GCOV_TAG_FUNCTION_LENGTH);
-+        pos += gcov_store_uint32(buffer, pos, GCOV_TAG_FUNCTION_LENGTH * GCOV_UNIT_SIZE);
-         pos += gcov_store_uint32(buffer, pos, fi_ptr->ident);
-         pos += gcov_store_uint32(buffer, pos, fi_ptr->lineno_checksum);
-         pos += gcov_store_uint32(buffer, pos, fi_ptr->cfg_checksum);
-@@ -182,7 +200,7 @@ size_t gcov_info_to_gcda(char *buffer, const struct gcov_info *info)
-             /* Counter record. */
-             pos += gcov_store_uint32(buffer, pos,
-                                      GCOV_TAG_FOR_COUNTER(ct_idx));
--            pos += gcov_store_uint32(buffer, pos, ci_ptr->num * 2);
-+            pos += gcov_store_uint32(buffer, pos, ci_ptr->num * 2 * GCOV_UNIT_SIZE);
- 
-             for ( cv_idx = 0; cv_idx < ci_ptr->num; cv_idx++ )
-                 pos += gcov_store_uint64(buffer, pos, ci_ptr->values[cv_idx]);
--- 
-2.41.0
+On Fri, 8 Sep 2023, Henry Wang wrote:
+> Hi Ayan,
+> 
+> > On Sep 7, 2023, at 19:34, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+> > 
+> > Hi Henry,
+> > 
+> >> +
+> >> +extern mfn_t directmap_mfn_start, directmap_mfn_end;
+> > 
+> > As you are declaring them for MMU specific , you also need this change :-
+> > 
+> > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> > index 89ecb54be2..19b60c5d1b 100644
+> > --- a/xen/arch/arm/setup.c
+> > +++ b/xen/arch/arm/setup.c
+> > @@ -670,7 +670,7 @@ void __init populate_boot_allocator(void)
+> > 
+> >              s = bootinfo.reserved_mem.bank[i].start;
+> >              e = s + bootinfo.reserved_mem.bank[i].size;
+> > -#ifdef CONFIG_ARM_32
+> > +#if (CONFIG_ARM_32 && CONFIG_MMU)
+> >              /* Avoid the xenheap, note that the xenheap cannot across a bank */
+> >              if ( s <= mfn_to_maddr(directmap_mfn_start) &&
+> >                   e >= mfn_to_maddr(directmap_mfn_end) )
+> > @@ -708,7 +708,7 @@ void __init populate_boot_allocator(void)
+> >              if ( e > bank_end )
+> >                  e = bank_end;
+> > 
+> > -#ifdef CONFIG_ARM_32
+> > +#if (CONFIG_ARM_32 && CONFIG_MMU)
+> >              /* Avoid the xenheap */
+> >              if ( s < mfn_to_maddr(directmap_mfn_end) &&
+> >                   mfn_to_maddr(directmap_mfn_start) < e )
+> > 
+> > So that directmap_mfn_end and directmap_mfn_start is used only when MMU is enabled.
+> 
+> I am not 100% sure on this, because currently there is no MPU code at
+> all, indicating all setup.c is MMU specific. In this case adding “&& CONFIG_MMU”
+> seems a little bit redundant to me. But I agree you made a point and it is correct
+> that when the MPU code is in, these “directmap” part should be gated with
+> CONFIG_MMU (or maybe split the code between arm32/arm64 to different helpers
+> to avoid #ifdef). Hence I would prefer doing these change when the MPU code is added.
+> 
+> Let’s see what maintainers will say. I am happy to do the change once we have
+> an agreement.
 
+It might be wiser to add && CONFIG_MMU when the MPU code is added in
+case we decide to move it / shape it differently.
+--8323329-1814931840-1694192928=:6458--
 
