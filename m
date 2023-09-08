@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F88779899E
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 17:10:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.598030.932521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CA867989F8
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 17:26:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.598055.932537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qed76-0002gH-9X; Fri, 08 Sep 2023 15:09:40 +0000
+	id 1qedMu-0005v1-ON; Fri, 08 Sep 2023 15:26:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 598030.932521; Fri, 08 Sep 2023 15:09:40 +0000
+Received: by outflank-mailman (output) from mailman id 598055.932537; Fri, 08 Sep 2023 15:26:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qed76-0002dS-6t; Fri, 08 Sep 2023 15:09:40 +0000
-Received: by outflank-mailman (input) for mailman id 598030;
- Fri, 08 Sep 2023 15:09:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lCyG=EY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qed74-0002dE-GU
- for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 15:09:38 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9fddf6f-4e59-11ee-8783-cb3800f73035;
- Fri, 08 Sep 2023 17:09:37 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 2B1484EE0738;
- Fri,  8 Sep 2023 17:09:37 +0200 (CEST)
+	id 1qedMu-0005sV-L5; Fri, 08 Sep 2023 15:26:00 +0000
+Received: by outflank-mailman (input) for mailman id 598055;
+ Fri, 08 Sep 2023 15:25:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qedMt-0005sJ-D6; Fri, 08 Sep 2023 15:25:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qedMt-00078m-9q; Fri, 08 Sep 2023 15:25:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qedMt-0002NM-0u; Fri, 08 Sep 2023 15:25:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qedMt-0001Gw-0S; Fri, 08 Sep 2023 15:25:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,76 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9fddf6f-4e59-11ee-8783-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TV7lPfIIe+dBl0tycoqDYCEY96BWCJ6L/5ooXgjY7CQ=; b=TiiqYulpUIBHv1ls3O76UaNDss
+	uqoNwcfO6FN4vPfl5VfLjKQhpco7u42d1ofTqBC0rAqQcWJFe+JT5JtAMBDjG4akIIq7VASmwQM9j
+	iC4dor21mMSls2LML0KVDIGwlV3Ez8jjHI1d+NDXYTA5DhdUWU5/9DsspoCImST+0eZs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182753-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Fri, 08 Sep 2023 17:09:37 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] xen/types: address Rule 10.1 for macro BITS_TO_LONGS
-In-Reply-To: <3d44b3b0b185418482ab60a693d930a9@bugseng.com>
-References: <b3aaaf5265c7e7ce6228ba2146f57aaae09f55e6.1693899008.git.nicola.vetrini@bugseng.com>
- <540ae128-a934-8c4c-6fec-e475dd072c3e@suse.com>
- <aa2084eb925ade9caa4e1dfbfb425537@bugseng.com>
- <9b673dec-f391-9948-3ce9-25ddff8c9d7b@suse.com>
- <948c3c6c0b9dff859df58eab419d01f6@bugseng.com>
- <7937ae31-e511-8e41-9cbb-98d8666e66b8@suse.com>
- <alpine.DEB.2.22.394.2309061828360.6458@ubuntu-linux-20-04-desktop>
- <6818e3ac47edca6ba107b8eeff95955a@bugseng.com>
- <a52733a0-ec5a-3b49-ccec-7a7e8e775c4c@suse.com>
- <7d07fc38-14e8-6cc7-2b0c-816bc68c7317@suse.com>
- <3d44b3b0b185418482ab60a693d930a9@bugseng.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <98406cf53192652013d35ee8856df5c0@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 182753: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b74f1f7ab5e956f58ae1771dc4e2a4b92bc51430
+X-Osstest-Versions-That:
+    ovmf=ff7ddc02b273f9159ef46fdb67d99062f8e598d9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 08 Sep 2023 15:25:59 +0000
 
-On 08/09/2023 16:53, Nicola Vetrini wrote:
-> On 08/09/2023 13:59, Jan Beulich wrote:
->> On 08.09.2023 13:57, Jan Beulich wrote:
->>> On 08.09.2023 10:48, Nicola Vetrini wrote:
->>>> There is a build error due to -Werror because of a pointer 
->>>> comparison at
->>>> line 469 of common/numa.c:
->>>> i = min(PADDR_BITS, BITS_PER_LONG - 1);
->>>> where
->>>> #define PADDR_BITS              52
->>>> 
->>>> I guess PADDR_BITS can become unsigned or gain a cast
->>> 
->>> While generally converting constants to unsigned comes with a certain
->>> risk, I think for this (and its siblings) this ought to be okay. As 
->>> to
->>> the alternative of a cast - before considering that, please consider
->>> e.g. adding 0u (as we do elsewhere in the code base to deal with such
->>> cases).
->> 
->> And just after sending I realized that this would still be disliked by
->> Misra's type system. (Much like then aiui the 1 above will need to
->> become 1u. Which is all pretty horrible.)
->> 
->> Jan
-> 
-> I have a proposal: in our tests we enabled an ECLAIR configuration
-> that allows to bypass the
-> constraint imposed by Rule 10.4 that warrants the 1U iff the value is
-> constant and both types
-> can represent it correctly (in this case BITS_PER_LONG -1). This would
-> allow using the proposed
-> solution and documenting why it's ok not to respect R10.4. What do you 
-> think?
+flight 182753 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182753/
 
-And perhaps also use min_t instead of min, so that the typecheck can be 
-avoided.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b74f1f7ab5e956f58ae1771dc4e2a4b92bc51430
+baseline version:
+ ovmf                 ff7ddc02b273f9159ef46fdb67d99062f8e598d9
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Last test of basis   182740  2023-09-08 10:15:07 Z    0 days
+Testing same since   182753  2023-09-08 13:43:09 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Kun Qin <kuqin@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ff7ddc02b2..b74f1f7ab5  b74f1f7ab5e956f58ae1771dc4e2a4b92bc51430 -> xen-tested-master
 
