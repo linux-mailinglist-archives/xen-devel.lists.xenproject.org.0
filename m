@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961A3798496
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 11:10:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597890.932302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0428798497
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 11:10:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597887.932292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeXVf-0006zf-0k; Fri, 08 Sep 2023 09:10:39 +0000
+	id 1qeXVX-0006hh-NY; Fri, 08 Sep 2023 09:10:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597890.932302; Fri, 08 Sep 2023 09:10:38 +0000
+Received: by outflank-mailman (output) from mailman id 597887.932292; Fri, 08 Sep 2023 09:10:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeXVe-0006wr-SJ; Fri, 08 Sep 2023 09:10:38 +0000
-Received: by outflank-mailman (input) for mailman id 597890;
- Fri, 08 Sep 2023 09:10:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qS4c=EY=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qeXVd-0006vo-18
- for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 09:10:37 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 92194897-4e27-11ee-8783-cb3800f73035;
- Fri, 08 Sep 2023 11:10:35 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.160.105.86])
- by support.bugseng.com (Postfix) with ESMTPSA id B95484EE0738;
- Fri,  8 Sep 2023 11:10:33 +0200 (CEST)
+	id 1qeXVX-0006fe-Ki; Fri, 08 Sep 2023 09:10:31 +0000
+Received: by outflank-mailman (input) for mailman id 597887;
+ Fri, 08 Sep 2023 09:10:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qeXVW-0006fU-EI; Fri, 08 Sep 2023 09:10:30 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qeXVW-0007CI-Ba; Fri, 08 Sep 2023 09:10:30 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qeXVV-0001Z8-UH; Fri, 08 Sep 2023 09:10:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qeXVV-00079D-Tl; Fri, 08 Sep 2023 09:10:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92194897-4e27-11ee-8783-cb3800f73035
-From: Federico Serafini <federico.serafini@bugseng.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/WgTd61lMkomF7zJufLAumvpDFs8/cirjsNxko7ChlA=; b=IcToD+XsL/95CGnCRtrsnjB7b0
+	l/0qzeOOoN0pFcozl17L9LXvnlOcVFLbmfcU10LJjYef2sw+mKZD8DoKchKaidOqmioBr5VJeOXFF
+	IKWdU3vchuMTS4KEKI5P6dedbDhtHiJ/9DA+0G207tnOC87HQ9gOwPSJCs+ZUVA1DwwM=;
 To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH] x86: change parameter name in {hap,shadow}_track_dirty_vram()
-Date: Fri,  8 Sep 2023 11:10:27 +0200
-Message-Id: <d9bf20e655cc5940aad21bcf43c53fe2d2e0ca58.1694164086.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Message-ID: <osstest-182732-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 182732: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=2ce5ae43c2166984d20341993c4b9dbb337aad79
+X-Osstest-Versions-That:
+    ovmf=634192665ea22eb610ad54f10bad8143ef77076d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 08 Sep 2023 09:10:29 +0000
 
-Make function declarations consistent with the corresponding
-definitions to address violations of MISRA C:2012 Rule 8.3.
-No functional change.
+flight 182732 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182732/
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
- xen/arch/x86/include/asm/hap.h    | 2 +-
- xen/arch/x86/include/asm/shadow.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 2ce5ae43c2166984d20341993c4b9dbb337aad79
+baseline version:
+ ovmf                 634192665ea22eb610ad54f10bad8143ef77076d
 
-diff --git a/xen/arch/x86/include/asm/hap.h b/xen/arch/x86/include/asm/hap.h
-index 9d12327b12..05e124ad57 100644
---- a/xen/arch/x86/include/asm/hap.h
-+++ b/xen/arch/x86/include/asm/hap.h
-@@ -30,7 +30,7 @@ void  hap_vcpu_init(struct vcpu *v);
- int   hap_track_dirty_vram(struct domain *d,
-                            unsigned long begin_pfn,
-                            unsigned int nr_frames,
--                           XEN_GUEST_HANDLE(void) dirty_bitmap);
-+                           XEN_GUEST_HANDLE(void) guest_dirty_bitmap);
- 
- extern const struct paging_mode *hap_paging_get_mode(struct vcpu *);
- int hap_set_allocation(struct domain *d, unsigned int pages, bool *preempted);
-diff --git a/xen/arch/x86/include/asm/shadow.h b/xen/arch/x86/include/asm/shadow.h
-index ba2b0e170b..20df34d0a8 100644
---- a/xen/arch/x86/include/asm/shadow.h
-+++ b/xen/arch/x86/include/asm/shadow.h
-@@ -65,7 +65,7 @@ int shadow_enable(struct domain *d, u32 mode);
- int shadow_track_dirty_vram(struct domain *d,
-                             unsigned long first_pfn,
-                             unsigned int nr_frames,
--                            XEN_GUEST_HANDLE(void) dirty_bitmap);
-+                            XEN_GUEST_HANDLE(void) guest_dirty_bitmap);
- 
- /* Handler for shadow control ops: operations from user-space to enable
-  * and disable ephemeral shadow modes (test mode and log-dirty mode) and
--- 
-2.34.1
+Last test of basis   182727  2023-09-08 03:42:30 Z    0 days
+Testing same since   182732  2023-09-08 06:40:46 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Dun Tan <dun.tan@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   634192665e..2ce5ae43c2  2ce5ae43c2166984d20341993c4b9dbb337aad79 -> xen-tested-master
 
