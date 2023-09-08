@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7BCA797F1D
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 01:14:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.597662.931904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1F81797F98
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 02:22:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.597670.931915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeOAx-0007nb-GI; Thu, 07 Sep 2023 23:12:39 +0000
+	id 1qePEz-0008WC-J2; Fri, 08 Sep 2023 00:20:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 597662.931904; Thu, 07 Sep 2023 23:12:39 +0000
+Received: by outflank-mailman (output) from mailman id 597670.931915; Fri, 08 Sep 2023 00:20:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeOAx-0007lf-DA; Thu, 07 Sep 2023 23:12:39 +0000
-Received: by outflank-mailman (input) for mailman id 597662;
- Thu, 07 Sep 2023 23:12:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qePEz-0008Tg-F0; Fri, 08 Sep 2023 00:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 597670;
+ Fri, 08 Sep 2023 00:20:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=myun=EX=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qeOAw-0007lZ-Kl
- for xen-devel@lists.xenproject.org; Thu, 07 Sep 2023 23:12:38 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07fb3724-4dd4-11ee-8783-cb3800f73035;
- Fri, 08 Sep 2023 01:12:36 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 2EF968285564;
- Thu,  7 Sep 2023 18:12:35 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id r5v2iUt8Xvrv; Thu,  7 Sep 2023 18:12:33 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 468DB8285A39;
- Thu,  7 Sep 2023 18:12:33 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 6jPOcKuFtz8I; Thu,  7 Sep 2023 18:12:33 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id E63978285564;
- Thu,  7 Sep 2023 18:12:32 -0500 (CDT)
+ <SRS0=hmm/=EY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qePEx-0008TZ-FC
+ for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 00:20:51 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8dfbb1aa-4ddd-11ee-9b0d-b553b5be7939;
+ Fri, 08 Sep 2023 02:20:47 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id BB284CE1AFD;
+ Fri,  8 Sep 2023 00:20:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88321C433C9;
+ Fri,  8 Sep 2023 00:20:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,291 +44,376 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07fb3724-4dd4-11ee-8783-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 468DB8285A39
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694128353; bh=XIuqWwrRxWUn6c/54htO2uK/ZIZSHA4Ps79G85L7VqA=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=iX7VP/7KGbYoamnjpS+ocoEgzghuhzLmJuN0QkUYTqkRQxWhh5zDoj7kUTjI854ED
-	 TtPVTGc4/IJxZF+KkQXK/gFDGxY95ubkx99XhJHsCvJZZiH9o5GQHFbRPFMCHzq74c
-	 MyanoUQ5sKBRIcZecTSyJIQCQUZYytir2orUP+D0=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <09e0f475-627c-1a8a-6175-b8d32f744053@raptorengineering.com>
-Date: Thu, 7 Sep 2023 18:12:32 -0500
+X-Inumbo-ID: 8dfbb1aa-4ddd-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694132443;
+	bh=mzeFucBnOl/LPbkdZc2Z2dr7TPSRTCHhQ+NI/ZgULVU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=YU0ALD3bytPHvsb230gsnXp/qPCCQMFCpVvasD1N0fg7bZPYBhIMmFXivro5hNt9u
+	 4B1hTdX+Vyxe+kwJHial+fNZW/NA8YawK8s3HdZ6a5ycLrM6KnEyoZj/x+kRTrp5Wm
+	 s2aQv3imZlsVWnVH7rlVPoaIN6F2qsCIEh4+NNuU3xdHiuqfhWz9+MZk7xmCOqwgdQ
+	 glADMQ6L16d1KowLQTamelrkfM9tqj8aT6AHDN2mqjlL8P1NObd5KwCjO/e7VsgswZ
+	 v2uZjWlHV/iDVuq1ors84WlpAiNK+elTEvLPUl89gbjp+5Q8a52zq2unne/86FUh50
+	 2lsCYmdAXSVdw==
+Date: Thu, 7 Sep 2023 17:20:40 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 1/3] docs/misra: add documentation skeleton for MISRA
+ C:2012 Dir 4.1
+In-Reply-To: <e74433904abe30e2e9e030f663a7a87813dabd24.1693558913.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2309071659440.6458@ubuntu-linux-20-04-desktop>
+References: <cover.1693558913.git.nicola.vetrini@bugseng.com> <e74433904abe30e2e9e030f663a7a87813dabd24.1693558913.git.nicola.vetrini@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v3 2/5] xen/ppc: Implement bitops.h
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1693591462.git.sanastasio@raptorengineering.com>
- <63e66eed26da8f957315cb1db05693b1799ee7ad.1693591462.git.sanastasio@raptorengineering.com>
- <003690cf-e34b-2e61-1166-86bcfd9da3b7@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <003690cf-e34b-2e61-1166-86bcfd9da3b7@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 9/5/23 10:19 AM, Jan Beulich wrote:
-> On 01.09.2023 20:25, Shawn Anastasio wrote:
->> Implement bitops.h, based on Linux's implementation as of commit
->> 5321d1b1afb9a17302c6cec79f0cbf823eb0d3fc. Though it is based off of
->> Linux's implementation, this code diverges significantly in a number of
->> ways:
->>   - Bitmap entries changed to 32-bit words to match X86 and Arm on Xen
->>   - PPC32-specific code paths dropped
->>   - Formatting completely re-done to more closely line up with Xen.
->>     Including 4 space indentation.
+On Fri, 1 Sep 2023, Nicola Vetrini wrote:
+> The aforementioned directive requires the project to supply documentation
+> on the measures taken towards the minimization of run-time failures.
 > 
-> Isn't ...
+> The actual content of the documentation is yet to be written.
 > 
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> ---
->> v3:
->>   - Fix style of inline asm blocks.
->>   - Fix underscore-prefixed macro parameters/variables
->>   - Use __builtin_popcount for hweight* implementation
+> The 'rules.rst' file is updated accordingly to mention the newly
+> added documentation.
 > 
-> ... this also a divergence worth calling out?
->
-
-Sure, I could mention that. But the hweight implementation from the
-earlier patch diverged from linux's implementation too, for what it's
-worth.
-
->> --- a/xen/arch/ppc/include/asm/bitops.h
->> +++ b/xen/arch/ppc/include/asm/bitops.h
->> @@ -1,9 +1,333 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +/*
->> + * Adapted from Linux's arch/powerpc/include/asm/bitops.h.
->> + *
->> + * Merged version by David Gibson <david@gibson.dropbear.id.au>.
->> + * Based on ppc64 versions by: Dave Engebretsen, Todd Inglett, Don
->> + * Reed, Pat McCarthy, Peter Bergner, Anton Blanchard.  They
->> + * originally took it from the ppc32 code.
->> + */
->>  #ifndef _ASM_PPC_BITOPS_H
->>  #define _ASM_PPC_BITOPS_H
->>
->> +#include <asm/memory.h>
->> +
->> +#define __set_bit(n, p)         set_bit(n, p)
->> +#define __clear_bit(n, p)       clear_bit(n, p)
->> +
->> +#define BITOP_BITS_PER_WORD     32
->> +#define BITOP_MASK(nr)          (1UL << ((nr) % BITOP_BITS_PER_WORD))
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  docs/misra/C-runtime-failures.rst | 239 ++++++++++++++++++++++++++++++
+>  docs/misra/rules.rst              |   7 +-
+>  2 files changed, 245 insertions(+), 1 deletion(-)
+>  create mode 100644 docs/misra/C-runtime-failures.rst
 > 
-> With the switch to 32-bit operations, doesn't this want to be 1U?
->
+> diff --git a/docs/misra/C-runtime-failures.rst b/docs/misra/C-runtime-failures.rst
+> new file mode 100644
+> index 000000000000..0d8d5adce231
+> --- /dev/null
+> +++ b/docs/misra/C-runtime-failures.rst
+> @@ -0,0 +1,239 @@
+> +===================================================================
+> +Measures taken towards the minimization of Run-time failures in Xen
+> +===================================================================
+> +
+> +This document specifies which procedures and techinques are used troughout the
+> +Xen codebase to prevent or minimize the impact of certain classes of run-time
+> +errors that can occurr in the execution of a C program, due to the very minimal
+> +built-in checks that are present in the language.
+> +
+> +The presence of such documentation is requested by MISRA C:2012 Directive 4.1,
+> +whose headline states: "Run-time failures shall be minimized".
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: overflow
+> +________________________________________________
+> +
+> +To be written.
+> +Example: Pervasive use of assertions and extensive test suite.
 
-Sure, I'll make that change.
+Can we just say:
+Pervasive use of assertions and extensive test suite.
 
->> +#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
->> +#define BITS_PER_BYTE           8
->> +
->>  /* PPC bit number conversion */
->> -#define PPC_BITLSHIFT(be)	(BITS_PER_LONG - 1 - (be))
->> -#define PPC_BIT(bit)		(1UL << PPC_BITLSHIFT(bit))
->> -#define PPC_BITMASK(bs, be)	((PPC_BIT(bs) - PPC_BIT(be)) | PPC_BIT(bs))
->> +#define PPC_BITLSHIFT(be)    (BITS_PER_LONG - 1 - (be))
->> +#define PPC_BIT(bit)         (1UL << PPC_BITLSHIFT(bit))
->> +#define PPC_BITMASK(bs, be)  ((PPC_BIT(bs) - PPC_BIT(be)) | PPC_BIT(bs))
->> +
->> +/* Macro for generating the ***_bits() functions */
->> +#define DEFINE_BITOP(fn, op, prefix)                                           \
->> +static inline void fn(unsigned long mask,                                      \
->> +                      volatile unsigned int *p_)                               \
->> +{                                                                              \
->> +    unsigned long old;                                                         \
->> +    unsigned int *p = (unsigned int *)p_;                                      \
->> +    asm volatile ( prefix                                                      \
->> +                   "1: lwarx %0,0,%3,0\n"                                      \
->> +                   #op "%I2 %0,%0,%2\n"                                        \
->> +                   "stwcx. %0,0,%3\n"                                          \
->> +                   "bne- 1b\n"                                                 \
->> +                   : "=&r" (old), "+m" (*p)                                    \
->> +                   : "rK" (mask), "r" (p)                                      \
->> +                   : "cc", "memory" );                                         \
->> +}
->> +
->> +DEFINE_BITOP(set_bits, or, "")
->> +DEFINE_BITOP(change_bits, xor, "")
->> +
->> +#define DEFINE_CLROP(fn, prefix)                                               \
->> +static inline void fn(unsigned long mask, volatile unsigned int *_p)           \
-> 
-> Leftover leading underscore.
->
+Without "Example:" and without "To be written". It is clear that more
+information is needed but we don't need to repeat it every time.
 
-Good catch. Will fix.
 
->> +{                                                                              \
->> +    unsigned long old;                                                         \
->> +    unsigned int *p = (unsigned int *)_p;                                      \
->> +    asm volatile ( prefix                                                      \
->> +                   "1: lwarx %0,0,%3,0\n"                                      \
->> +                   "andc %0,%0,%2\n"                                           \
->> +                   "stwcx. %0,0,%3\n"                                          \
->> +                   "bne- 1b\n"                                                 \
->> +                   : "=&r" (old), "+m" (*p)                                    \
->> +                   : "r" (mask), "r" (p)                                       \
->> +                   : "cc", "memory" );                                         \
->> +}
->> +
->> +DEFINE_CLROP(clear_bits, "")
->> +
->> +static inline void set_bit(int nr, volatile void *addr)
->> +{
->> +    set_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
->> +}
->> +static inline void clear_bit(int nr, volatile void *addr)
->> +{
->> +    clear_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
->> +}
->> +
->> +/**
->> + * test_bit - Determine whether a bit is set
->> + * @nr: bit number to test
->> + * @addr: Address to start counting from
->> + */
->> +static inline int test_bit(int nr, const volatile void *addr)
->> +{
->> +    const volatile unsigned long *p = (const volatile unsigned long *)addr;
->> +    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
->> +}
->> +
->> +static inline unsigned long test_and_clear_bits(unsigned long mask, volatile void *_p)
-> 
-> Again. And there are more. Yet here (and below) ...
->
 
-Will fix all occurrences in this file.
+> +Documentation for MISRA C:2012 Dir 4.1: unexpected wrapping
+> +___________________________________________________________
+> +
+> +To be written.
+> +Example: The only wrapping the is present in the code concerns
+> +unsigned integers and they are all expected.
 
->> +{
->> +    unsigned long old, t;
->> +    unsigned int *p = (unsigned int *)_p;
->> +
->> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
->> +                   "1: lwarx %0,0,%3,0\n"
->> +                   "andc %1,%0,%2\n"
->> +                   "stwcx. %1,0,%3\n"
->> +                   "bne- 1b\n"
->> +                   PPC_ATOMIC_EXIT_BARRIER
->> +                   : "=&r" (old), "=&r" (t)
->> +                   : "r" (mask), "r" (p)
->> +                   : "cc", "memory" );
-> 
-> ... do you actually need the helper variable, when there's no "+m"
-> constraint operand?
->
+Same here, and also below (I won't repeat it every time)
 
-Good point, I'm not sure why the original Linux implementation had it
-this way. This also would apply to the DEFINE_TESTOP macro below.
 
->> +    return (old & mask);
->> +}
->> +
->> +static inline int test_and_clear_bit(unsigned int nr,
->> +                                     volatile void *addr)
->> +{
->> +    return test_and_clear_bits(BITOP_MASK(nr), addr + BITOP_WORD(nr)) != 0;
->> +}
->> +
->> +#define DEFINE_TESTOP(fn, op, eh)                                              \
->> +static inline unsigned long fn(unsigned long mask, volatile unsigned int *_p)  \
->> +{                                                                              \
->> +    unsigned long old, t;                                                      \
->> +    unsigned int *p = (unsigned int *)_p;                                      \
->> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER                                    \
->> +                   "1: lwarx %0,0,%3,%4\n"                                     \
->> +                   #op "%I2 %1,%0,%2\n"                                        \
->> +                   "stwcx. %1,0,%3\n"                                          \
->> +                   "bne- 1b\n"                                                 \
->> +                   PPC_ATOMIC_EXIT_BARRIER                                     \
->> +                   : "=&r" (old), "=&r" (t)                                    \
->> +                   : "rK" (mask), "r" (p), "n" (eh)                            \
->> +                   : "cc", "memory" );                                         \
->> +    return (old & mask);                                                       \
->> +}
->> +
->> +DEFINE_TESTOP(test_and_set_bits, or, 0)
-> 
-> Why can't test_and_clear_bits() not use this macro-ization? And if it
-> can't and hence there's only this single use, wouldn't it make sense
-> to avoid going through a macro here, too?
->
+> +Documentation for MISRA C:2012 Dir 4.1: invalid shift
+> +_____________________________________________________
+> +
+> +To be written.
+> +Example: Pervasive use of assertions and extensive test suite.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: division/remainder by zero
+> +__________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +There division or remainder operations in the project code ensure that
+> +their second argument is never zero.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: unsequenced side effects
+> +________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +No function in this project is meant to be executed from interrupt handlers
+> +or in multi-threading environments.
 
-I've just tried this, but unfortunately the "rK" constraint on the mask
-operand only works when instructions have both a reg/reg/reg as well as
-a reg/reg/imm16 form. This is the case for `or` but not `andc`. I guess
-it would be better to keep the two separate implementations rather than
-try to accomodate both cases in the macro somehow (e.g, by making the
-constraint's type a macro parameter as well).
+This would not be true. We have code that is executed in interrupt
+handlers, but we take care to use spinlocks and/or disable interrupts at
+the right locations to avoid unsequenced side effects
 
-I can also change the macro template into a standard function for just
-test_and_set_bits, given that it's the only user as you pointed out.
 
-As for your previous observation about the superfluous `p` variable, it
-would seem the same applies to the macro here. Other than casting away
-the volatile qualifier on `p_` it doesn't seem to be doing much, so I'm
-inclined to remove it.
 
->> +static inline int test_and_set_bit(unsigned long nr, volatile void *addr)
->> +{
->> +    return test_and_set_bits(BITOP_MASK(nr), (volatile unsigned int *)addr +
->> +                                             BITOP_WORD(nr)) != 0;
-> 
-> This wants wrapping differently, e.g.
-> 
-> static inline int test_and_set_bit(unsigned long nr, volatile void *addr)
-> {
->     return test_and_set_bits(BITOP_MASK(nr),
->                              (volatile unsigned int *)addr +
->                              BITOP_WORD(nr)) != 0;
-> }
-> 
-> or
-> 
-> static inline int test_and_set_bit(unsigned long nr, volatile void *addr)
-> {
->     return test_and_set_bits(
->                BITOP_MASK(nr),
->                (volatile unsigned int *)addr + BITOP_WORD(nr)) != 0;
-> }
-> 
+> +Documentation for MISRA C:2012 Dir 4.1: read from uninitialized automatic object
+> +________________________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Automatic variables are used to store temporary parameters and they
+> +are always initialized to either a default value or a proper value
+> +before usage.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: read from uninitialized allocated object
+> +________________________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +The code does not use dynamically allocated storage.
 
-Will fix to use the former style.
+We do use dynamically allocated storage with xzalloc but xzalloc
+initializes the object to zero
 
->> +#define flsl(x) generic_flsl(x)
->> +#define fls(x) generic_fls(x)
->> +#define ffs(x) ({ unsigned int t_ = (x); fls(t_ & - t_); })
->> +#define ffsl(x) ({ unsigned long t_ = (x); flsl(t_ & - t_); })
-> 
-> Nit: No blanks after unary operators, please.
->
 
-Will fix.
+> +Documentation for MISRA C:2012 Dir 4.1: write to string literal or const object
+> +_______________________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +The toolchain puts every string literal and const object into a read-only
+> +section of memory.  The hardware exception raised when a write is attempted
+> +on such a memory section is correctly handled.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: non-volatile access to volatile object
+> +______________________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Volatile access is limited to registers that are always accessed
+> +through macros or inline functions.
 
->> +/* Based on linux/include/asm-generic/bitops/ffz.h */
->> +/*
->> + * ffz - find first zero in word.
->> + * @word: The word to search
->> + *
->> + * Undefined if no zero exists, so code should check against ~0UL first.
->> + */
->> +#define ffz(x)  __ffs(~(x))
-> 
-> Nit: Stray double padding blank?
->
+Or very specific limited code chucks that are only used to access a
+register
 
-Will fix.
 
-> Jan
+> +Documentation for MISRA C:2012 Dir 4.1: access to dead allocated object
+> +_______________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +The code does not use dynamically allocated storage.
 
-Thanks,
-Shawn
+We do use dynamically allocated storage, but in a safety configuration
+is used only in very limited ways at runtime (it is "almost" only used
+at boot time). We use Coverity regularly to scan the code which I
+believe can detect non-freed allocated objects.
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: access to dead automatic object
+> +_______________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Pointers to automatic variables are never returned, nor stored in
+> +wider-scoped objects.  No function does the same on any pointer
+> +received as a parameter.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: access to dead thread object
+> +____________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +The program does not use per-thread variables.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: access using null pointer
+> +_________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +All possibly null pointers are checked before access.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: access using invalid pointer
+> +____________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Usage of pointers is limited.  Pointers passed as parameters are
+> +always checked for validity.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: access using out-of-bounds pointer
+> +__________________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Pointers are never uses to access arrays: indices are always used
+> +instead.
+
+I am not certain this is true. I would say instead "Pointers are never
+used to access arrays without checking for the array size first"
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: access using unaligned pointer
+> +______________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Pointer conversion that may result in unaligned pointers are never used.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: mistyped access to object
+> +_________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Pointer conversions that may result in mistyped accesses to objects
+> +are never used.
+> +
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: mistyped access to function
+> +___________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +The code never uses function pointers.
+
+We do use function pointers. What does it mean "mistyped access to
+function"? Also wouldn't this class of type error be detected by
+gcc/eclair/cppcheck/coverity?
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: invalid pointer arithmetic
+> +__________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Pointer arithmetic is never used.
+
+I think it might be used sometimes. I would say: "Pointer arithmetic is
+never used without checking object boundaries"
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: invalid pointer comparison
+> +__________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +Arrays are always accessed using indices instead of pointers.  Pointers
+> +are only compared to NULL.
+
+I would say instead that pointers to different objects are never
+compared (expect for pointers that are not really pointers but actually
+linker symbols but they are deviated)
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: overlapping copy
+> +________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +The code never uses memcpy() and does not perform assignment of
+> +overlapping objects (which is doable only via pointers).
+
+We do use memcpy but we never use it to copy overlapping objects.
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: invalid arguments to function
+> +_____________________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +All parameters to functions are checked for validity.
+
+this..
+
+> +Documentation for MISRA C:2012 Dir 4.1: returned function error
+> +_______________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +All functions that may produce an error, do returns a suitable status code
+> +that is checked at each call site.
+
+.. and this are aspirational, in the sense that we wish they were true
+in all cases but they are not today. Is that OK to write it anyway as an
+explanation?
+
+
+> +
+> +Documentation for MISRA C:2012 Dir 4.1: tainted input
+> +_____________________________________________________
+> +
+> +To be written.
+> +Example:
+> +All parameters of all functions in the API are checked before being used.
+
+I would clarify saying "external ABI" instead of API
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: data race
+> +_________________________________________________
+> +
+> +To be written.
+> +Example:
+> +No function in this code is meant to be executed from interrupt handlers or
+> +in a multi-threading environment.
+
+We do have multiple "threads" and code executed from interrupt handlers.
+I would say instead that we protect data using spinlocks and other forms
+of locks appropriately.
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: invariant violation
+> +___________________________________________________________
+> +
+> +To be written.
+
+What's an invariant violation?
+
+
+> +Documentation for MISRA C:2012 Dir 4.1: communication error
+> +___________________________________________________________
+> +
+> +To be written.
+> +Example:
+> +This project does not involve any external communication.
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 34916e266aa5..84bb57c8e908 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -47,7 +47,12 @@ maintainers if you want to suggest a change.
+>     * - `Dir 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_02_01.c>`_
+>       - Required
+>       - All source files shall compile without any compilation errors
+> -     -
+> +
+> +   * - `Dir 4.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_01.c>`_
+> +     - Required
+> +     - Run-time failures shall be minimized
+> +     - The strategies adopted by Xen to prevent certain classes of runtime
+> +       failures will be documented by `C-runtime-failures.rst <docs/misra/C-runtime-failures.rst>`_
+
+I would say "is documented" because we don't want to go back and change
+rules.rst if/when we update C-runtime-failures.rst
+
+Also (nit) you can wrap around at 80 chars to make it easier to read as
+it will still be displayed the same way by gitlab and other RST
+renderers
+
+
+
+>     * - `Dir 4.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_04_07.c>`_
+>       - Required
 
