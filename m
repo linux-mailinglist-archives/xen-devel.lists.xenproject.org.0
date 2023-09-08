@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F2F2798B44
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 19:10:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.598103.932622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55BEE798B4C
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Sep 2023 19:11:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.598109.932633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeeyU-00055e-44; Fri, 08 Sep 2023 17:08:54 +0000
+	id 1qef1D-0006fr-Fq; Fri, 08 Sep 2023 17:11:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 598103.932622; Fri, 08 Sep 2023 17:08:54 +0000
+Received: by outflank-mailman (output) from mailman id 598109.932633; Fri, 08 Sep 2023 17:11:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeeyU-00053v-0s; Fri, 08 Sep 2023 17:08:54 +0000
-Received: by outflank-mailman (input) for mailman id 598103;
- Fri, 08 Sep 2023 17:08:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qef1D-0006dH-C3; Fri, 08 Sep 2023 17:11:43 +0000
+Received: by outflank-mailman (input) for mailman id 598109;
+ Fri, 08 Sep 2023 17:11:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hmm/=EY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qeeyS-00053n-Gr
- for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 17:08:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 613ee459-4e6a-11ee-8783-cb3800f73035;
- Fri, 08 Sep 2023 19:08:51 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 679A661529;
- Fri,  8 Sep 2023 17:08:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0DAC433CA;
- Fri,  8 Sep 2023 17:08:47 +0000 (UTC)
+ <SRS0=lHtp=EY=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qef1B-0006d8-NN
+ for xen-devel@lists.xenproject.org; Fri, 08 Sep 2023 17:11:41 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c6683943-4e6a-11ee-9b0d-b553b5be7939;
+ Fri, 08 Sep 2023 19:11:39 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-522bd411679so3046729a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Sep 2023 10:11:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 613ee459-4e6a-11ee-8783-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694192928;
-	bh=zFzcBbCOO3F6g5Lltzo0VkLOTuwvSbIUve2yL6SUFRw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jf/BOXsNFcP+XFKaKJb5ynuzwM1jZZHhhGo8O/mEoiY7ZwXIb92jZkgOpEW+KlBa9
-	 IZ8edgnNQn8HJ82EH07yey5MVTpms0KLKB752R77Lez8uVEFj4YMPkXRc4Mm/3ijKN
-	 cLvlwYaon4XFiDS6DaiHhAptrKmNRgt5eeBemwkPb0hNxZjS3QWs7sxXXqt+HhXvoj
-	 0jbbHVnhG146PDdQ0w1eGJyQtK/uza+nJ1/kx6jRmSw9VpODBxmRC1bxWFV4U9bPXo
-	 fCUAae/pFil/YyJKOaPSnfbo7mUj75NtIbEWOP0WKT0LBVDt2rga9C6rg1uybAWIkR
-	 7Ids65PajFd0g==
-Date: Fri, 8 Sep 2023 10:08:45 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Henry Wang <Henry.Wang@arm.com>
-cc: Ayan Kumar Halder <ayankuma@amd.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Penny Zheng <Penny.Zheng@arm.com>
-Subject: Re: [PATCH v6 09/13] xen/arm: Extract MMU-specific MM code
-In-Reply-To: <FC26F094-ED04-4E5F-904F-3B09E6605D31@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2309081008060.6458@ubuntu-linux-20-04-desktop>
-References: <20230828013224.669433-1-Henry.Wang@arm.com> <20230828013224.669433-10-Henry.Wang@arm.com> <3e32512e-07d1-34c7-bc51-11dfe061f903@amd.com> <FC26F094-ED04-4E5F-904F-3B09E6605D31@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: c6683943-4e6a-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1694193099; x=1694797899; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZRZZtDSDbQ7ziD6U8enIVKCW6fBD3XLhOHURnTZwm+I=;
+        b=JcGDaA2YkvYBq+O+1ycHNk2BpTgiyYwFXfZ0RB8wKboROqAnYO1qeTfDNHCwo8jVJG
+         MVjQ8ZP2bBp2/jtysrhS5WhE9bnsyk3X9udUiS/6u9iz2FwuAouw00+jrRiR2c7Uwl1r
+         G4NwKCc6ARRxQKxUE+2zmFlI6xmuEYJzTvcCAdETzRCDi+O3d8nGkgg6RetwbkcAjRWf
+         tVea/T0X2dObL/fUbiWc5PKGWzdPblcJJ5EfmzZ2xN6aENAqi3bWIEl0/zZ/H1ZMV5Wx
+         qIYeDyFwzOimi+wmvr71ZJS5Xb0akVPww6sUygSHbL3a7lEE4qmD4bVGj4DSW9+M3uOj
+         WQ+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694193099; x=1694797899;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZRZZtDSDbQ7ziD6U8enIVKCW6fBD3XLhOHURnTZwm+I=;
+        b=afKWI0pYZgYY4O4bcVZ9Q4JC1tmAdKwHrVwL2P1g0gaLQVSrTDC91J0DqX1GaOdaNB
+         0XUeUiilYLHychLvq+uuN1zBRuKuhlKiG1smuk778I+2PqUsA8G3SHwXX5rO6uTM62O3
+         85y27pHxdbrmg15u6Pnakmp9NDUmebVEqf4Db0tmgAKaJ1qTWYyK8LYn+F8ezHgsIBwT
+         dJqo67u9JbiI83w3HcoaZuZgClrrG4J9iwzuwbWY2LTWy9wci2F/OCFjs9++1qFIFOPO
+         Xc1cJVgbAey9gUqNFumJKuSikCHTVpdYEGf5scIOXRiFzdPe+XLCYzwR6hwbe64olaPs
+         Kaaw==
+X-Gm-Message-State: AOJu0Yx00O2+6GVovPGUAGN0cRlH89rzpbBGT7wm0r5xsm+qrYKTl+qT
+	HQjX3aPMH+e4kNcomxJFSXLwoOJeqaCInyYSqAs=
+X-Google-Smtp-Source: AGHT+IE81vOXgV+267Me6pgBsx7NyiALIoCgSFaF5/bhivgWOBvhVj01wJZJAyOS8B2FCfiqobx9r2YWGa9o39w+McA=
+X-Received: by 2002:a05:6402:1219:b0:523:102f:3ce1 with SMTP id
+ c25-20020a056402121900b00523102f3ce1mr2572978edw.10.1694193099037; Fri, 08
+ Sep 2023 10:11:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1814931840-1694192928=:6458"
+References: <20230906182125.48642-1-jandryuk@gmail.com> <24a741a4-b305-c817-e8c3-34b213ad0ee5@intel.com>
+In-Reply-To: <24a741a4-b305-c817-e8c3-34b213ad0ee5@intel.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 8 Sep 2023 13:11:27 -0400
+Message-ID: <CAKf6xpvOG5kunrfQEoDBvrrY+UVUn3+9ovKmqXZo88nh05tt6Q@mail.gmail.com>
+Subject: Re: [PATCH v2] acpi/processor: sanitize _PDC buffer bits when running
+ as Xen dom0
+To: "Wilczynski, Michal" <michal.wilczynski@intel.com>
+Cc: Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Roger Pau Monne <roger.pau@citrix.com>, stable@vger.kernel.org, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org, 
+	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Sep 7, 2023 at 9:20=E2=80=AFAM Wilczynski, Michal
+<michal.wilczynski@intel.com> wrote:
+>
+>
+> Hi,
+>
+> On 9/6/2023 8:21 PM, Jason Andryuk wrote:
+> > From: Roger Pau Monne <roger.pau@citrix.com>
+> >
+> > The Processor _PDC buffer bits notify ACPI of the OS capabilities, and
+> > so ACPI can adjust the return of other Processor methods taking the OS
+> > capabilities into account.
+>
+> _PDC method is deprecated for this purpose, since 2018, and is dropped fr=
+om
+> spec since 6.5
+>
+> We made the switch in linux since 6.6:
+> 95272641338a ("ACPI: processor: Use _OSC to convey OSPM processor support=
+ information")
 
---8323329-1814931840-1694192928=:6458
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Thanks for the heads up, Michal.  The patch pre-dated 6.6 and I based
+this one off of 6.5.
 
-On Fri, 8 Sep 2023, Henry Wang wrote:
-> Hi Ayan,
-> 
-> > On Sep 7, 2023, at 19:34, Ayan Kumar Halder <ayankuma@amd.com> wrote:
-> > 
-> > Hi Henry,
-> > 
-> >> +
-> >> +extern mfn_t directmap_mfn_start, directmap_mfn_end;
-> > 
-> > As you are declaring them for MMU specific , you also need this change :-
-> > 
-> > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> > index 89ecb54be2..19b60c5d1b 100644
-> > --- a/xen/arch/arm/setup.c
-> > +++ b/xen/arch/arm/setup.c
-> > @@ -670,7 +670,7 @@ void __init populate_boot_allocator(void)
-> > 
-> >              s = bootinfo.reserved_mem.bank[i].start;
-> >              e = s + bootinfo.reserved_mem.bank[i].size;
-> > -#ifdef CONFIG_ARM_32
-> > +#if (CONFIG_ARM_32 && CONFIG_MMU)
-> >              /* Avoid the xenheap, note that the xenheap cannot across a bank */
-> >              if ( s <= mfn_to_maddr(directmap_mfn_start) &&
-> >                   e >= mfn_to_maddr(directmap_mfn_end) )
-> > @@ -708,7 +708,7 @@ void __init populate_boot_allocator(void)
-> >              if ( e > bank_end )
-> >                  e = bank_end;
-> > 
-> > -#ifdef CONFIG_ARM_32
-> > +#if (CONFIG_ARM_32 && CONFIG_MMU)
-> >              /* Avoid the xenheap */
-> >              if ( s < mfn_to_maddr(directmap_mfn_end) &&
-> >                   mfn_to_maddr(directmap_mfn_start) < e )
-> > 
-> > So that directmap_mfn_end and directmap_mfn_start is used only when MMU is enabled.
-> 
-> I am not 100% sure on this, because currently there is no MPU code at
-> all, indicating all setup.c is MMU specific. In this case adding “&& CONFIG_MMU”
-> seems a little bit redundant to me. But I agree you made a point and it is correct
-> that when the MPU code is in, these “directmap” part should be gated with
-> CONFIG_MMU (or maybe split the code between arm32/arm64 to different helpers
-> to avoid #ifdef). Hence I would prefer doing these change when the MPU code is added.
-> 
-> Let’s see what maintainers will say. I am happy to do the change once we have
-> an agreement.
+> >
+> > When Linux is running as a Xen dom0, it's the hypervisor the entity
+> > in charge of processor power management, and hence Xen needs to make
+> > sure the capabilities reported in the _PDC buffer match the
+> > capabilities of the driver in Xen.
+>
+> So I guess you would need to sanitize buffer passed to _OSC method instea=
+d ?
 
-It might be wiser to add && CONFIG_MMU when the MPU code is added in
-case we decide to move it / shape it differently.
---8323329-1814931840-1694192928=:6458--
+I think I'll modify the capabilities in arch_acpi_set_proc_cap_bits()
+and that will handle both _OSC and the _PDC fallback.
+
+Regards,
+Jason
 
