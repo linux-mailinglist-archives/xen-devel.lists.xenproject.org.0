@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD360799717
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Sep 2023 11:31:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.598484.933315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86376799776
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Sep 2023 12:54:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.598500.933355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeuIU-0006lH-DZ; Sat, 09 Sep 2023 09:30:34 +0000
+	id 1qevaN-0002XC-AQ; Sat, 09 Sep 2023 10:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 598484.933315; Sat, 09 Sep 2023 09:30:34 +0000
+Received: by outflank-mailman (output) from mailman id 598500.933355; Sat, 09 Sep 2023 10:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qeuIU-0006jb-Al; Sat, 09 Sep 2023 09:30:34 +0000
-Received: by outflank-mailman (input) for mailman id 598484;
- Sat, 09 Sep 2023 09:30:33 +0000
+	id 1qevaN-0002Ue-6A; Sat, 09 Sep 2023 10:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 598500;
+ Sat, 09 Sep 2023 10:53:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JYTu=EZ=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1qeuIT-0006jV-02
- for xen-devel@lists.xenproject.org; Sat, 09 Sep 2023 09:30:33 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061b.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::61b])
+ id 1qevaL-0002UY-QB
+ for xen-devel@lists.xenproject.org; Sat, 09 Sep 2023 10:53:05 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 84aeda14-4ef3-11ee-8783-cb3800f73035;
- Sat, 09 Sep 2023 11:30:31 +0200 (CEST)
+ id 0c659c7d-4eff-11ee-8783-cb3800f73035;
+ Sat, 09 Sep 2023 12:53:03 +0200 (CEST)
 Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
- by MW4PR12MB7166.namprd12.prod.outlook.com (2603:10b6:303:224::6)
+ by IA0PR12MB7776.namprd12.prod.outlook.com (2603:10b6:208:430::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.31; Sat, 9 Sep
- 2023 09:30:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Sat, 9 Sep
+ 2023 10:52:58 +0000
 Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
  ([fe80::da13:5f6:45:fa40]) by SJ2PR12MB8690.namprd12.prod.outlook.com
  ([fe80::da13:5f6:45:fa40%4]) with mapi id 15.20.6768.029; Sat, 9 Sep 2023
- 09:30:24 +0000
+ 10:52:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,26 +47,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84aeda14-4ef3-11ee-8783-cb3800f73035
+X-Inumbo-ID: 0c659c7d-4eff-11ee-8783-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MArb8+60waLeq7ehgCGUYDN05pw6PDkRJbXlifj7EwHMgB9AyQZug9/28n/aNXOOilBjSvLIDFHRoKZJ7WXSiAgrEnqRKAEHGGH8WFzTGLGjUAixl6C1RcptlO6+n6My2d6+2fAPYCPGYPR3g/rPXuA1yqu+OB+ps7RTOnScDvChKvS5obm1MNXzCYvrA05cUVev30ryIFZCBpISgHauTDxIXQm+EDRdeS4+iQSfnVjxqdhfWPM7W5SbEIQnPhm7tNzrMObBjWcVM1TVPYuLehMya6wZeTFgB65J0Wj6wk72VxHZ2aol1GAzTkEeL37AYEILicqCuXkpmRLZdfD2XQ==
+ b=BjBwOdT5jO/+w0Q2dZ6xYkBfWL8J5peGrxmd1r7Sd6FvkFJztYQFF5m2Pp8o9Ha3vybNI8cNu8AP7O6gEQkmwslEdpHs/tZ/iyznFwe3s3ok4NtQb+kkZqgb2al9jWjOAN0iVKav3Erk7MklSv5oaaGB1XQn1eSBGCSnVJvJadITsrROH1GeLuKOHbF+zgMxwa9kJpzdr6veuDLLQClDVVwtRYkLMiRn/KMwwE7gSH+CYqnTZawI1HABk8HWJjWGvGWaYARGxkEEPTfnDArGECU1EDwdEfTeBpT4wOHL8aCHK35Kqik0IwqZPhyoEAbCnRG1WoUtXGDJEZp9ySmV6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zf56A8xo2EV8tGG4DRZO1FfjzNPRkQQhtB+dN1WhCpU=;
- b=Stq2iCeGtfSOo3lOjx6RXzwkrHw0uyjPn/yUBuz40ffjnCzX2/grsvXnkwfliffcFnQ1+HsskJkkU+4ms4a3oWUGXnF238AOSASccguAayKPP+KeQliw6xuFQ0vrA34iLdQN2qU6H/LridhwmAgQNXwFwtWU/YhIWcMBg3SXWPwe6NVm74jlI0tkwVHi7gd50zdJM+kg10DNnpM4opa+xH0LbKPKZZCmTqs4nt7yuEgvAN6pH3gkk9wO0ixy77654NCCkyo1CQ50gpVHtGd/eSG8UA7JCuk4QA6LYa/5ZR64waodRYOG9+bixnjyyx1cSDlKOthrGSNMx9caGeZZ+Q==
+ bh=Wbvq17hlK8xWNP92Lytsx2HHCBc+CPpLZ1Qmhpxj/N4=;
+ b=YQSmGfAtAvbUv5BIf3WSu/6IQZS+yuhWnRLq0Q6z1ZjNdrlLhaAOYdiHU0B6Kr9scJAtKlGTZtkTBQKrwCT32nO2xfVqzJk6jcZ9TW+RtspgixMrJT4LljN2PPbxz2LwcrIhHm0PNcnPjXw2XdO5k4wFUGInTSEXek7mOVDrdqrCR8N/tFhbh5lpohTkbPxLjvX2yudAy+xAObFjQjAocFE0csAaErDoUrjpvlVXOaMg5V0OYZDQA9dElLiQwm4Alf1MSQkbFT0lANjLSezEJiQZjDM3eZu8ywnG71D+FgIYhHIujADNbODC1edVFmpG5BEXJeModyZ9Qz8gntZ0TQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zf56A8xo2EV8tGG4DRZO1FfjzNPRkQQhtB+dN1WhCpU=;
- b=jkYxPXuT7NIDrZ0OcZXnbLP7hei4GFB0zXRMEE6y2Yi92qqumGvKjB4T4oeCQhBNOjY/TT3VTahu41yjyAZ6qWpT6aUzkkKTvFG7fY0u4jgwbTmHhw4IovTrxjFSFdr9jE08f7hICcLbHVmJoaBmqOEErXx/rv4cuVxM++/+mis=
+ bh=Wbvq17hlK8xWNP92Lytsx2HHCBc+CPpLZ1Qmhpxj/N4=;
+ b=iylX7SXOAWZ+LG4HSXPtut0FG/pD5uOo0O+8/p93vdk+bDyyRntKw2Y6ak1XD2U6fVqBnL6zSH77bPTWd89l53+SI6nDxKrqZq8ra5emHo2mXiL9Mblu8+re920sFUu4cxvQCJRZ7ZE7GcDYYIdEDS4V7UypdDvJfkC//4ek0BU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Sat, 9 Sep 2023 17:29:56 +0800
+Date: Sat, 9 Sep 2023 18:52:27 +0800
 From: Huang Rui <ray.huang@amd.com>
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
+To: Antonio Caggiano <quic_acaggian@quicinc.com>
 Cc: Gerd Hoffmann <kraxel@redhat.com>,
 	"Michael S . Tsirkin" <mst@redhat.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
@@ -81,6 +81,7 @@ Cc: Gerd Hoffmann <kraxel@redhat.com>,
 	Gurchetan Singh <gurchetansingh@chromium.org>,
 	"ernunes@redhat.com" <ernunes@redhat.com>,
 	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Akihiko Odaki <akihiko.odaki@daynix.com>,
 	Alyssa Ross <hi@alyssa.is>,
 	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
 	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
@@ -90,154 +91,164 @@ Cc: Gerd Hoffmann <kraxel@redhat.com>,
 	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
 	"Zhang, Julia" <Julia.Zhang@amd.com>,
 	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [QEMU PATCH v4 11/13] virtio-gpu: Support Venus capset
-Message-ID: <ZPw7FIMmykdYtVeM@amd.com>
+Subject: Re: [QEMU PATCH v4 12/13] virtio-gpu: Initialize Venus
+Message-ID: <ZPxOazRKpcMXcUDw@amd.com>
 References: <20230831093252.2461282-1-ray.huang@amd.com>
- <20230831093252.2461282-12-ray.huang@amd.com>
- <fe36e4e1-1198-4da4-b6ee-a6a00a44298a@daynix.com>
+ <20230831093252.2461282-13-ray.huang@amd.com>
+ <ca8bcf9a-2886-aed0-5229-4787808bd39c@quicinc.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fe36e4e1-1198-4da4-b6ee-a6a00a44298a@daynix.com>
-X-ClientProxiedBy: SI2PR02CA0047.apcprd02.prod.outlook.com
- (2603:1096:4:196::14) To SJ2PR12MB8690.namprd12.prod.outlook.com
+In-Reply-To: <ca8bcf9a-2886-aed0-5229-4787808bd39c@quicinc.com>
+X-ClientProxiedBy: SI2PR01CA0005.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::23) To SJ2PR12MB8690.namprd12.prod.outlook.com
  (2603:10b6:a03:540::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|MW4PR12MB7166:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9ed9647-93cf-48ee-ff6a-08dbb11764ea
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|IA0PR12MB7776:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bb3e6ba-1e74-4e6a-7b12-08dbb122ed4f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	KLzcOGZDYf3uhjOK2KKYQ2/VkWi1r2z1uO0ig2nTVNSWajPBKe78X3l2jg7OA5kUJzB2PiikkG7fRrCY4p5RIjJFDCkrVzGN2DNDibdovUf87HMuZMXkTsXeOV2TgeZWsj7+XGrLVOlKbUIyVR4M2lZAXHfT342mEroZTFh/VAJ4A5oN7RkROuQXFCaIlH/nDwf7j5C4MlYmBRAvjEl0QKLCufL/DVbYHM4a6ztp5mOiUtndKFVUxcpsw+cab966QfkqqGV3MUJDa3nFYz+3BdP1piHYHDzFc3wd/xMgAUi2TTt+F4xZE8b+JW8QcT1Gs7mHZ61Yj55PzW5YdYs3ET16y/YKyF4HSlQYZvw9BsKrAl5xKdu8Sh8Yv2/89nZW4QEEZQVzUjK2nJ9Mn4zxUlazcaO3WLn+gR4O6kQGwQxMe5VBY+DUhdAZ+PCDz7pZEUDuxh9+X6SEdy6cS70xSRBoe4thBZrO6LgdbcwtvN31L/mWwgpGGmRb4+7rJ2DyytG2szQo740LxKFE0mF5CsOx7/aUpj9so6upDCNzYSl+X4GD2wozNUWUhQxUzaXQ
+	noAdySwIQTUvNKSPPYgvD/CBoLQHpmB9LAqFgan2rMtLskJJMPO8feXutk5Z6dV4U9MGmwaROamuxQx/hKLw8rCJ2S2PBeBj7HUHrpTJzJt7YsQzJNl78iFFHPqKaeq6EgI4c6YRE/qTdIx5yb9q+fVXQ6BDUmtUcDrgSy/bsyFIptmjTvwuqSLWSQb26kanVPRqLboOv5BmFFeIEztsBTFQ1QurAceWkMzl0VkC5H6VgIDRAtJexxDGjWXopQ4NpQl09QdJaYpbU5szoLNpHFR0+133jWk5SshDTaMg85t3YVRqEog3O60MH7che+uRYwNUZzrXBMSaiPUGO1b0/wA0FYNv6BcZYrec4225RBY45ZZFzUPyIzjuhrlNtGebxG2+UFjSkjBp1zkApOw5a1qQTvu9VX7oABGI0R5qZWQfoktafVu2c9aMubYLqbiLIAr1sxicyKim7NsnSJZ+OOcPtbOX7Zg4t3TUqR4fTsfg39IUWHH2GmMccyA7SEad64+12eC8km+x5FAA1qL4cRAKobunPyA2t08Y9JvXige9qYS4cMQIqdLtMgCV2DP7tw2ZxXEgQiPkbqAxdqCZOA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(39860400002)(366004)(346002)(396003)(186009)(451199024)(1800799009)(6486002)(6666004)(6512007)(6506007)(53546011)(478600001)(83380400001)(2616005)(26005)(2906002)(7416002)(316002)(54906003)(66476007)(66556008)(6916009)(66946007)(5660300002)(8936002)(8676002)(41300700001)(4326008)(38100700002)(36756003)(86362001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(376002)(366004)(346002)(39860400002)(1800799009)(186009)(451199024)(53546011)(6666004)(6486002)(6506007)(36756003)(86362001)(38100700002)(2616005)(2906002)(966005)(478600001)(6512007)(83380400001)(41300700001)(8936002)(8676002)(5660300002)(316002)(4326008)(26005)(66476007)(7416002)(6916009)(54906003)(66946007)(66556008);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?FYjX9yOHciVW4zcgZeR/1W4GC4h7Qb9C2OpuZl8OVObb4kDbvfpuataHeHk0?=
- =?us-ascii?Q?LsqjutXDASqHNn6qOTMsxyZ2l2a+QrmBsNHVN5o9zUZkWzkEWFyPSOPvc8WT?=
- =?us-ascii?Q?u0B/deGNZ0wuklw9NLrw0b/6LerwuZHPKFVatGVqb8NaXd2ux+OfDlODVtZL?=
- =?us-ascii?Q?hkoAb4Rm/HEbCK7TbGYJGnO86LACGpIDv6Xhxy4IAKXUE0YJKFNOBiy7pJp9?=
- =?us-ascii?Q?5IvPiFi3jbmzJg2s7vOP+yXpEOOz8JvVsyCLKMwt+djloi8DpnQ6XzFcdzNH?=
- =?us-ascii?Q?T9jq03uqlr2HCEA4cOoWTLtGwVUFkA5Kgqwm1c5deuThgg000foXiBgYW5fL?=
- =?us-ascii?Q?JPgyklFLgxfvaCX/CEwe2kLcv0A7Ae420fMvax5rfZp/EegE8XUxlYnpYeY6?=
- =?us-ascii?Q?LNtwLEPk2igPAarp77UtFs0s6AU1msbDjG5PGOf3Gvc6oMd0bJ2GlaQnCE+i?=
- =?us-ascii?Q?tKAvbepBZzi8Vr2pBMHM+npva6us/3jQZljhbxnzhqZjrB+aApEV8jMo2V5d?=
- =?us-ascii?Q?mLqmdfoysrTcx0iioTmhKvk6JwUstT54BuZ0smHEYeH5jaLeAE6zWnoVWFB8?=
- =?us-ascii?Q?tqRCqXo+jqZK6yDMghhpDmVVeV4HOKzvRTiL5cc1cH0eKJ9PZu74qwy0wuqF?=
- =?us-ascii?Q?pLEI0V3pD4Ici5CneSvtJ3/CW1TbKIbhJVXg6TJP9HxL/FmfU5RIRTe+pRgy?=
- =?us-ascii?Q?0E1v+SEti0vGUWGIMsrHDbU6jVLDmDtYSLxkNOuuFoI2XV++eW3Yljux5FNB?=
- =?us-ascii?Q?f9lGpU40bCp55UsO7qzL3wMisr29FSZCAcSrgQbtfQeXorZhLAQD4s5k/BOF?=
- =?us-ascii?Q?9UvaXuGdcQqtltosKWEPsyDgJd7m3EH0babJfMF9nPTI3NYaUEoRFUs3zSy0?=
- =?us-ascii?Q?y1WfWRxNSMm86gqJ5r13jN0KEcahmNpX75iyjYRLnt6hA76WRCUN3XqVDsvd?=
- =?us-ascii?Q?vVPCVdzhnVwU/GqMSQv5jGindfiFwq0yeBwL62HeuL+awIAbAKv5Svpioq//?=
- =?us-ascii?Q?5jryWvV96GM6WSNLrINZsSr3ccalwg/rCxp/EpPtyOcfsAuQ/LXmL5gjYRPs?=
- =?us-ascii?Q?58u6xI7+ZEElErQqCnakSXO1duLFthXhTTsYZRaul0I9uQNylMKTP3D0ghph?=
- =?us-ascii?Q?gLx96jibjDR7IrzEOhE2d7HeuVhbBPrLlipALIkH9skEqmH7yXeqbJwY+2Ra?=
- =?us-ascii?Q?AqUnaD7UnxllA/+uv1MyGEJlnoboV9d3fFhrusMy8MnleFkxxBC+EU+1wegl?=
- =?us-ascii?Q?Mtb8GASKH72W1xpDlonR1ZdRVXA/4Z77njuYkKRGu+EHmTLbRDO59K6B0vAG?=
- =?us-ascii?Q?qicLrpeAXWnAJG7AbUXAg+RMhC3fzTvTr5uVKwTafn8tQxYEb8Grx32VWwi8?=
- =?us-ascii?Q?vQXc4b15jN2F0PeheEinWwU4nuVbnyAE4+wN6u84ja9cjiOT9p5Fita2ae0Y?=
- =?us-ascii?Q?R43qCWwBCmoSVdBeURffaO5ZZl3w0WceHZvgFUq107MinbX2kTjKS75TONtF?=
- =?us-ascii?Q?pOeYVQD2mya4cboxTDaW4s1VJTkZcRxSYNZbc3DZN4KVLkMoVCYrfNQNgxvW?=
- =?us-ascii?Q?20+1Hd7s+Zdwutuko/4EceM0e7O3QlXwbuc1GZnU?=
+	=?us-ascii?Q?l0TLh186v1eGHYo7x2vi4egipmwp+Pk+fSWsHrkcYk0cfx/aYUrY3CpLzj8a?=
+ =?us-ascii?Q?COzV+WXDqJW+BK0fucVJcNOTzSveaGXnCJROoY9L4ZNeDIa1R/dJR3Go0rUW?=
+ =?us-ascii?Q?JJ6S/msw0PoQTERX3YmIB0uOirn+0srds/RWYkHq/BuU5HiEqWwB1gnZdHNs?=
+ =?us-ascii?Q?YZtFE6ff6tsJUiAhcXsSTszliaIxvyaAlGXkXegLNJVljWoezQxV8pDVBcGs?=
+ =?us-ascii?Q?4047y9AKw4Tsq25vJ3ILzdFQocUl9o8A+tGNV1l68j2+MWZQdLazwyQtFi4T?=
+ =?us-ascii?Q?pIBgWUSuMqf5iGZtTMmcopb1XwgcbfUHfklA8MFYFefwWoQCj9QLxkV+MWDB?=
+ =?us-ascii?Q?SIzaceoeFKxwNWn/kLzqRdpdk7GTH3MtajskMKuYgVSnHTged6xvjUJwPImA?=
+ =?us-ascii?Q?KBHaJpV5PkphsTwbo6C/Xr2PjBMxajLU6EZu586CxabJ7bhX/TdV48wh7r4b?=
+ =?us-ascii?Q?gm8Be/ct2kH/rRUuADlnBxBq2rUODdoheaJgdcbSJ8sf5k7Ek1S9nJ75HVf8?=
+ =?us-ascii?Q?fktH2qg8rTC/7wJkFqahyImyQIpA4gYf5O8XSZxrpjy0v28ueGPuf8QXx7+K?=
+ =?us-ascii?Q?IseTblbAKebUB/ptLoUwg4RnMjUDzw+F2FPSiW+fquzSwsWpGIs2gHfbrmjk?=
+ =?us-ascii?Q?rZ8Qi/JlMVHGQYDBSz+l0fnDEya53tsQOk5eUQ6GzX2t/Kfn6qwmVffRfbnb?=
+ =?us-ascii?Q?LEE35iFCxo4OndJnDa2s9AhmGgpxW89o8sRyw+KihjZ72pSuTZkYvBPuovkp?=
+ =?us-ascii?Q?1lgQbQNk6Ed5SP9G4wdYCjv/F1bQJOlZjiPs80btVuVesCReAOnbwiZ+rEA0?=
+ =?us-ascii?Q?qpMxhiQ5vz/4AmfW9z0KGgfqzaqkxJp3cWaiPD8GEenaoJFeC2I9Gwx+W+0b?=
+ =?us-ascii?Q?DQytUN97yYeFIyd1OjBBsHNLececwt8GJzm0B7F6+o9lTJ59e9FXyZjpxZF4?=
+ =?us-ascii?Q?HtXDJ/HeevR7J4o86Bma9vzO9PtVJ1cZIFPnK8zffEd6CciXQrzm4hyWqBIe?=
+ =?us-ascii?Q?euBn5pA5Qz7nMClimsKFGbaLkIEf3Jz+Utf+PRFcACEgTQzBnCxJfGxs7tJ6?=
+ =?us-ascii?Q?ee/+3RVKnvhH0vyvsbNH3/YjfA9gvbfSXb9JAJnR5r0I8C93e16b0GgzjkeL?=
+ =?us-ascii?Q?n/oQ7OFxATeVdTWfkea/sV6SkmPHZXPe02qky3hMYJIrArayAwm5iu9CAojG?=
+ =?us-ascii?Q?PtNUTW0znfhGG9D8lbnwmSGrn1Hu1M2XBhhPEbA2U/Un6GbS8C7jTpoaipxR?=
+ =?us-ascii?Q?w6WTDXskpWR6LZ8xXzoJbXAMxp2L+kyvUsdd7o1Sz1e+HFsxbZ18UrAZcj5R?=
+ =?us-ascii?Q?szht34vqkFDuyIaTS41vbWyv4wB3bNz+I8r5HVB0DMWaZzBaMLiCQhiM4Dgl?=
+ =?us-ascii?Q?ErImtxp6z1wgvLeJ1WcOBMZJf61oY7z0IGG1DDQBLVYuPqKea87szSvrxeyQ?=
+ =?us-ascii?Q?oxZrBBnt+lHMEa9y0S1JLgbOmUl+6ff62aE9nNSD+SHf1aApp2VE2zJpFc25?=
+ =?us-ascii?Q?+qppC2/9RO6Q7mlcAmflDGZKIhYN8rwxS2yx1uCakCr3nNcsBkPnfCZvDOSa?=
+ =?us-ascii?Q?UvLvyJ22e9xxsvkSwLOrO0txHOwvYwtpTUN+6sLt?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9ed9647-93cf-48ee-ff6a-08dbb11764ea
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bb3e6ba-1e74-4e6a-7b12-08dbb122ed4f
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2023 09:30:24.0142
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2023 10:52:57.4167
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D3fySWlZ2q1XG7uCIkYgG0aAdTMQDr8rYLjf4wI6C+T6GFFr5YZRR9IwNxJlhEkwpjalvhJDabwc55OavRRs+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7166
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7DsPlIb3U2L4TcfuaHDvm0nsrETfKs9rSM0sy6FSf3wZQsPqwdkhA3c5M3jgAJpJua3PKSqa6Ok5x+cOsFhCfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7776
 
-On Thu, Aug 31, 2023 at 06:43:17PM +0800, Akihiko Odaki wrote:
-> On 2023/08/31 18:32, Huang Rui wrote:
+On Thu, Aug 31, 2023 at 06:40:11PM +0800, Antonio Caggiano wrote:
+> Hi Huang,
+> 
+> Thank you for pushing this forward!
+> 
+
+My pleasure! :-)
+
+> On 31/08/2023 11:32, Huang Rui wrote:
 > > From: Antonio Caggiano <antonio.caggiano@collabora.com>
 > > 
-> > Add support for the Venus capset, which enables Vulkan support through
-> > the Venus Vulkan driver for virtio-gpu.
+> > Request Venus when initializing VirGL.
 > > 
 > > Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
 > > Signed-off-by: Huang Rui <ray.huang@amd.com>
 > > ---
-> >   hw/display/virtio-gpu-virgl.c               | 21 +++++++++++++++++----
-> >   include/standard-headers/linux/virtio_gpu.h |  2 ++
-> >   2 files changed, 19 insertions(+), 4 deletions(-)
+> > 
+> > v1->v2:
+> >      - Rebase to latest version
+> > 
+> >   hw/display/virtio-gpu-virgl.c | 2 ++
+> >   1 file changed, 2 insertions(+)
 > > 
 > > diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
-> > index 1a996a08fc..83cd8c8fd0 100644
+> > index 83cd8c8fd0..c5a62665bd 100644
 > > --- a/hw/display/virtio-gpu-virgl.c
 > > +++ b/hw/display/virtio-gpu-virgl.c
-> > @@ -437,6 +437,11 @@ static void virgl_cmd_get_capset_info(VirtIOGPU *g,
-> >           virgl_renderer_get_cap_set(resp.capset_id,
-> >                                      &resp.capset_max_version,
-> >                                      &resp.capset_max_size);
-> > +    } else if (info.capset_index == 2) {
-> > +        resp.capset_id = VIRTIO_GPU_CAPSET_VENUS;
-> > +        virgl_renderer_get_cap_set(resp.capset_id,
-> > +                                   &resp.capset_max_version,
-> > +                                   &resp.capset_max_size);
-> >       } else {
-> >           resp.capset_max_version = 0;
-> >           resp.capset_max_size = 0;
-> > @@ -901,10 +906,18 @@ int virtio_gpu_virgl_init(VirtIOGPU *g)
+> > @@ -887,6 +887,8 @@ int virtio_gpu_virgl_init(VirtIOGPU *g)
+> >       }
+> >   #endif
 > >   
-> >   int virtio_gpu_virgl_get_num_capsets(VirtIOGPU *g)
-> >   {
-> > -    uint32_t capset2_max_ver, capset2_max_size;
-> > +    uint32_t capset2_max_ver, capset2_max_size, num_capsets;
-> > +    num_capsets = 1;
+> > +    flags |= VIRGL_RENDERER_VENUS;
 > > +
-> >       virgl_renderer_get_cap_set(VIRTIO_GPU_CAPSET_VIRGL2,
-> > -                              &capset2_max_ver,
-> > -                              &capset2_max_size);
-> > +                               &capset2_max_ver,
-> > +                               &capset2_max_size);
-> > +    num_capsets += capset2_max_ver ? 1 : 0;
-> > +
-> > +    virgl_renderer_get_cap_set(VIRTIO_GPU_CAPSET_VENUS,
-> > +                               &capset2_max_ver,
-> > +                               &capset2_max_size);
-> > +    num_capsets += capset2_max_size ? 1 : 0;
-> >   
-> > -    return capset2_max_ver ? 2 : 1;
-> > +    return num_capsets;
-> >   }
-> > diff --git a/include/standard-headers/linux/virtio_gpu.h b/include/standard-headers/linux/virtio_gpu.h
-> > index 2da48d3d4c..2db643ed8f 100644
-> > --- a/include/standard-headers/linux/virtio_gpu.h
-> > +++ b/include/standard-headers/linux/virtio_gpu.h
-> > @@ -309,6 +309,8 @@ struct virtio_gpu_cmd_submit {
-> >   
-> >   #define VIRTIO_GPU_CAPSET_VIRGL 1
-> >   #define VIRTIO_GPU_CAPSET_VIRGL2 2
-> > +/* 3 is reserved for gfxstream */
-> > +#define VIRTIO_GPU_CAPSET_VENUS 4
 > 
-> This file is synced with scripts/update-linux-headers.sh and should not 
-> be modified.
+> VIRGL_RENDERER_VENUS is a symbol only available from virglrenderer 0.9.1 
+> [0] and only if VIRGL_RENDERER_UNSTABLE_APIS is defined.
+> 
+> Luckily for us, VIRGL_RENDERER_UNSTABLE_APIS is defined unconditionally 
+> from virglrenderer 0.9.0 [1], so we could check for that in qemu/meson.build
+> 
+> e.g.
+> 
+> 
+>    if virgl.version().version_compare('>= 0.9.0')
+>      message('Enabling virglrenderer unstable APIs')
+>      virgl = declare_dependency(compile_args: 
+> '-DVIRGL_RENDERER_UNSTABLE_APIS',
+>                                 dependencies: virgl)
+>    endif
+> 
+> 
+> Also, while testing this with various versions of virglrenderer, I 
+> realized there are no guarantees for Venus backend to be available in 
+> the linked library. Virglrenderer should be built with 
+> -Dvenus_experimental=true, and if that is not the case, the following 
+> virgl_renderer_init would fail for previous versions of virglrenderer or 
+> in case it has not been built with venus support.
+> 
+> I would suggest another approach for that which tries initializing Venus 
+> only if VIRGL_RENDERER_VENUS is actually defined. Then, if it fails 
+> cause virglrenderer has not been built with venus support, try again 
+> falling back to virgl only.
+> 
+> e.g.
+> 
+> #ifdef VIRGL_RENDERER_VENUS
+>      ret = virgl_renderer_init(g, VIRGL_RENDERER_VENUS, &virtio_gpu_3d_cbs);
+>      if (ret != 0) {
+>          warn_report("Failed to initialize virglrenderer with venus: 
+> %d", ret);
+>          warn_report("Falling back to virgl only");
+>          ret = virgl_renderer_init(g, 0, &virtio_gpu_3d_cbs);
+>      }
+> #else
+>      ret = virgl_renderer_init(g, 0, &virtio_gpu_3d_cbs);
+> #endif
+> 
 
-Should I add marco in kernel include/uapi/linux/virtio_gpu.h?
-
-They are used at VIRGL_RENDERER_UNSTABLE_APIS in virglrender.
-
-enum virgl_renderer_capset {
-   VIRGL_RENDERER_CAPSET_VIRGL                   = 1,
-   VIRGL_RENDERER_CAPSET_VIRGL2                  = 2,
-   /* 3 is reserved for gfxstream */
-   VIRGL_RENDERER_CAPSET_VENUS                   = 4,
-   /* 5 is reserved for cross-domain */
-   VIRGL_RENDERER_CAPSET_DRM                     = 6,
-};
+Thanks a lot to explain so clearly. Yes, it's reasonable for me. I will
+modify it in the next version. And agree, we should take care of different
+virglrenderer versions.
 
 Thanks,
 Ray
 
 > 
-> >   
-> >   /* VIRTIO_GPU_CMD_GET_CAPSET_INFO */
-> >   struct virtio_gpu_get_capset_info {
+> >       ret = virgl_renderer_init(g, flags, &virtio_gpu_3d_cbs);
+> >       if (ret != 0) {
+> >           error_report("virgl could not be initialized: %d", ret);
+> 
+> [0] 
+> https://gitlab.freedesktop.org/virgl/virglrenderer/-/commit/6c31f85330bb4c5aba8b82eba606971e598c6e25
+> [1] 
+> https://gitlab.freedesktop.org/virgl/virglrenderer/-/commit/491afdc42a49ec6a1b8d7cbc5c97360229002d41
+> 
+> Best regards,
+> Antonio Caggiano
 
