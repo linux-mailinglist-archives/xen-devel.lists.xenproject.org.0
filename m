@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A568799549
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Sep 2023 03:02:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.598322.933040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39476799592
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Sep 2023 03:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.598330.933052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qemLh-00075q-7t; Sat, 09 Sep 2023 01:01:21 +0000
+	id 1qemjE-0005EP-5z; Sat, 09 Sep 2023 01:25:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 598322.933040; Sat, 09 Sep 2023 01:01:21 +0000
+Received: by outflank-mailman (output) from mailman id 598330.933052; Sat, 09 Sep 2023 01:25:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qemLh-00071d-4q; Sat, 09 Sep 2023 01:01:21 +0000
-Received: by outflank-mailman (input) for mailman id 598322;
- Sat, 09 Sep 2023 01:01:20 +0000
+	id 1qemjE-0005B0-2D; Sat, 09 Sep 2023 01:25:40 +0000
+Received: by outflank-mailman (input) for mailman id 598330;
+ Sat, 09 Sep 2023 01:25:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qemLg-0006fP-6P; Sat, 09 Sep 2023 01:01:20 +0000
+ id 1qemjC-0005Aq-P7; Sat, 09 Sep 2023 01:25:38 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qemLg-0001RT-3y; Sat, 09 Sep 2023 01:01:20 +0000
+ id 1qemjC-0006o4-M8; Sat, 09 Sep 2023 01:25:38 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qemLf-0000hY-T3; Sat, 09 Sep 2023 01:01:19 +0000
+ id 1qemjC-0001IA-Dv; Sat, 09 Sep 2023 01:25:38 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qemLf-00057M-Sa; Sat, 09 Sep 2023 01:01:19 +0000
+ id 1qemjC-0002sq-DR; Sat, 09 Sep 2023 01:25:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,64 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4MH1PHkssf2oReLX4S+fZplWUZaKAm/1hHUrQz/4dJU=; b=52/bI0KE7VGy6IpghaQ4Vbm3wC
-	DE9AyXLJTasFPTs9idFQ3BLBID29Y7QJMcpYIMcteS1oetZf4jX8nVL5ZEkV9R/+viEjK9S0aU2gO
-	M7mNywRkFD1LCox4eFcmrK+VJ3AY/tmyI5DlRJcdR++99976R5xsa3rkQjkwpNjeIGW4=;
+	bh=t3Mvhc6asHMDzuCEuH32tmH9Ycqzqa+4wkaGCi5xO3o=; b=LFB2jY1rV5IeQthoG1NCL8431Q
+	W94h8TiuEXT0d/sDNc3CcENgc1vIKPdwS3MEKntbsjbvUrpJcJaHduYqgo9wCXYd2qs6BPjo281jl
+	1/ge/a9n9s1xYOm1FlN172Zm9wwMY5UkPuypSYP4bym/NxmdwSG/+sex4gqY8KENfGt0=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182786-mainreport@xen.org>
+Message-ID: <osstest-182789-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 182786: all pass - PUSHED
+Subject: [xen-unstable-smoke test] 182789: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    ovmf=b240eab03530f063ef5438497d70a731b19a201e
+    xen=49b2d6a529122f10e17a17f807d8d51154b5ba14
 X-Osstest-Versions-That:
-    ovmf=d4ae5df71190148c902942c3462245e97ed2fcc8
+    xen=cba6d44a13d5e25334d164e27cb1b1d7674aa05e
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 09 Sep 2023 01:01:19 +0000
+Date: Sat, 09 Sep 2023 01:25:38 +0000
 
-flight 182786 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182786/
+flight 182789 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182789/
 
-Perfect :-)
-All tests in this flight passed as required
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
 version targeted for testing:
- ovmf                 b240eab03530f063ef5438497d70a731b19a201e
+ xen                  49b2d6a529122f10e17a17f807d8d51154b5ba14
 baseline version:
- ovmf                 d4ae5df71190148c902942c3462245e97ed2fcc8
+ xen                  cba6d44a13d5e25334d164e27cb1b1d7674aa05e
 
-Last test of basis   182779  2023-09-08 20:44:14 Z    0 days
-Testing same since   182786  2023-09-08 22:40:42 Z    0 days    1 attempts
+Last test of basis   182726  2023-09-08 02:00:26 Z    0 days
+Testing same since   182789  2023-09-08 23:00:26 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Andrei Otcheretianski <andrei.otcheretianski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Julien Grall <jgrall@amazon.com>
+  Penny Zheng <penny.zheng@arm.com>
+  Wei Chen <wei.chen@arm.com>
 
 jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
+ build-arm64-xsm                                              pass    
  build-amd64                                                  pass    
- build-i386                                                   pass    
+ build-armhf                                                  pass    
  build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
 ------------------------------------------------------------
@@ -110,6 +123,6 @@ Test harness code can be found at
 
 Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d4ae5df711..b240eab035  b240eab03530f063ef5438497d70a731b19a201e -> xen-tested-master
+To xenbits.xen.org:/home/xen/git/xen.git
+   cba6d44a13..49b2d6a529  49b2d6a529122f10e17a17f807d8d51154b5ba14 -> smoke
 
