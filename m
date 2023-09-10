@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22CF79A08A
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 00:30:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.598837.933968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1E679A0A8
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 01:47:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.598854.934002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfSwV-0000Ab-NX; Sun, 10 Sep 2023 22:30:11 +0000
+	id 1qfU8e-0007gd-Ee; Sun, 10 Sep 2023 23:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 598837.933968; Sun, 10 Sep 2023 22:30:11 +0000
+Received: by outflank-mailman (output) from mailman id 598854.934002; Sun, 10 Sep 2023 23:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfSwV-00008W-K1; Sun, 10 Sep 2023 22:30:11 +0000
-Received: by outflank-mailman (input) for mailman id 598837;
- Sun, 10 Sep 2023 22:30:11 +0000
+	id 1qfU8e-0007ev-Bl; Sun, 10 Sep 2023 23:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 598854;
+ Sun, 10 Sep 2023 23:46:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qfSwV-00008L-1U; Sun, 10 Sep 2023 22:30:11 +0000
+ id 1qfU8c-0007el-UY; Sun, 10 Sep 2023 23:46:46 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qfSwU-0005cf-L2; Sun, 10 Sep 2023 22:30:10 +0000
+ id 1qfU8c-0007LS-Nd; Sun, 10 Sep 2023 23:46:46 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qfSwU-0004zR-9O; Sun, 10 Sep 2023 22:30:10 +0000
+ id 1qfU8c-0006eh-6z; Sun, 10 Sep 2023 23:46:46 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qfSwU-0006C5-8t; Sun, 10 Sep 2023 22:30:10 +0000
+ id 1qfU8c-0003MI-6V; Sun, 10 Sep 2023 23:46:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bdt0FRhgtamdnI26DXz0i9McOh2q1d+3GPQl7VlUyHU=; b=uos0UY4LMT7hbcBss93XJ03s8T
-	eB63bF6rapqZ99/eI0HefZ/HFpJ8tlizvgXN9Wgq2HJuRYt8PVEwepjgHJC/yDYlOWu/m1M6HQfr3
-	Oo5UHmj8Smql/XVbjtfR8+savAopwoMoPfgZc3QfumKUAmx7S2G++4EFzevkY4y7Rjeg=;
+	bh=uftRaj1BraRBuvaEF7YckuHHdqjvgA2sB/Zeg5HMuAA=; b=uPFJD2vLVHi/CYhf5AflSrryMF
+	KMBGxgxf81rDtz4X65zMV5Wr4tWMOy0ldUB0TJNsgxiFUHi1bKtiq/90DXhvgsfN5pIkwzF4T48dw
+	A6wYmMpwVbqJ8IzwOk/AhmwTeVAX1AnlxiSc1+FjRCnWQpHcZf2/ax2hWaHKRtrpeY4U=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182884-mainreport@xen.org>
+Message-ID: <osstest-182900-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 182884: regressions - FAIL
+Subject: [qemu-mainline test] 182900: regressions - FAIL
 X-Osstest-Failures:
     qemu-mainline:build-arm64-xsm:xen-build:fail:regression
     qemu-mainline:build-i386:xen-build:fail:regression
@@ -61,6 +61,7 @@ X-Osstest-Failures:
     qemu-mainline:build-amd64-xsm:xen-build:fail:regression
     qemu-mainline:build-amd64:xen-build:fail:regression
     qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-arm64-pvops:kernel-build:fail:regression
     qemu-mainline:build-armhf:xen-build:fail:regression
     qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
@@ -144,10 +145,10 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     qemuu=c152379422a204109f34ca2b43ecc538c7d738ae
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 10 Sep 2023 22:30:10 +0000
+Date: Sun, 10 Sep 2023 23:46:46 +0000
 
-flight 182884 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182884/
+flight 182900 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182900/
 
 Regressions :-(
 
@@ -159,6 +160,7 @@ including tests which could not be run:
  build-amd64-xsm               6 xen-build                fail REGR. vs. 182707
  build-amd64                   6 xen-build                fail REGR. vs. 182707
  build-i386-xsm                6 xen-build                fail REGR. vs. 182707
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 182707
  build-armhf                   6 xen-build                fail REGR. vs. 182707
 
 Tests which did not succeed, but are not blocking:
@@ -246,8 +248,8 @@ baseline version:
  qemuu                c152379422a204109f34ca2b43ecc538c7d738ae
 
 Last test of basis   182707  2023-09-07 00:28:57 Z    3 days
-Failing since        182723  2023-09-07 18:19:05 Z    3 days   13 attempts
-Testing same since   182770  2023-09-08 17:46:07 Z    2 days   10 attempts
+Failing since        182723  2023-09-07 18:19:05 Z    3 days   14 attempts
+Testing same since   182770  2023-09-08 17:46:07 Z    2 days   11 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
@@ -296,7 +298,7 @@ jobs:
  build-armhf-libvirt                                          blocked 
  build-i386-libvirt                                           blocked 
  build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
  build-armhf-pvops                                            pass    
  build-i386-pvops                                             pass    
  test-amd64-amd64-xl                                          blocked 
