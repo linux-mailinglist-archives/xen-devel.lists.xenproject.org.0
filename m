@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D78B79AAA3
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 19:52:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599698.935233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A2C79AAB2
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 20:07:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599707.935244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfl4v-0007aZ-H0; Mon, 11 Sep 2023 17:52:05 +0000
+	id 1qflIU-00025F-Pa; Mon, 11 Sep 2023 18:06:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599698.935233; Mon, 11 Sep 2023 17:52:05 +0000
+Received: by outflank-mailman (output) from mailman id 599707.935244; Mon, 11 Sep 2023 18:06:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfl4v-0007YF-EJ; Mon, 11 Sep 2023 17:52:05 +0000
-Received: by outflank-mailman (input) for mailman id 599698;
- Mon, 11 Sep 2023 17:52:04 +0000
+	id 1qflIU-00022R-M6; Mon, 11 Sep 2023 18:06:06 +0000
+Received: by outflank-mailman (input) for mailman id 599707;
+ Mon, 11 Sep 2023 18:06:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AVcC=E3=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1qfl4t-0007Y9-Tp
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 17:52:04 +0000
+ id 1qflIT-00022L-Jk
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 18:06:05 +0000
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e73effa5-50cb-11ee-8785-cb3800f73035;
- Mon, 11 Sep 2023 19:52:01 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id DA6475C00C2;
- Mon, 11 Sep 2023 13:51:57 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 11 Sep 2023 13:51:57 -0400
+ id def65325-50cd-11ee-8785-cb3800f73035;
+ Mon, 11 Sep 2023 20:06:04 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 103A05C0115;
+ Mon, 11 Sep 2023 14:06:03 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 11 Sep 2023 14:06:03 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 11 Sep 2023 13:51:54 -0400 (EDT)
+ 11 Sep 2023 14:06:00 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,208 +43,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e73effa5-50cb-11ee-8785-cb3800f73035
+X-Inumbo-ID: def65325-50cd-11ee-8785-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1694454717; x=1694541117; bh=xJM8rof2GKKmeP61VX43KTn7lIDQhIomEcC
-	pgtCeu6g=; b=SmP0A7SVC5+ocEaPbowt6TmHjZB5GhLl69aZB+b/m4dumWBiab+
-	273gH85H5+9brBXnyeCqPqAy31tQ39gFeHkfZLzJrYOs8NpFi7emzWO8BggZ+Exw
-	lcxOrJC1Bsve84fxvZp8k0TJmuqIu70ErO8CeTG1FWxFNU3N+X08Pyefs94JQSy5
-	Vscyd7rdzBU6cPZtoKo6BUWFnZXL1kfJFzJFxJXR9618p7qq13hobm5nD1EQDYGP
-	rt6itmNc/fjasLB5a9Ij32z6SI7CI7jdlo+p/zd8prMNi5UokgAs3IwHKZsDu2Dx
-	oEz+vSq1nKcaof5MsMXgQWS4jiVavYKm/WA==
+	1694455563; x=1694541963; bh=9SwcQiQAtnT2HbkkN+DibVreMXqZZH9zV7u
+	lTaEttQA=; b=0rBYwAhOkc+zzhKCF7guEU1DTqAV49LyQqe9u7QvdawOKP0fdaI
+	4b07bkuETRm1UTXFmNVmZntuU6Dt7sGbqcYwNmojx6sHxb/E0ua5AD1h9DZywVxC
+	D8IEapZgqW/ajMQrI/C3KXcxssEEmmGG7U+zUa1JzOBhlYJty3ZJrG8WyBYIEe34
+	S1XthHMR3x+kdbIKm0nxxj58mazC7M2t/KR0SZ29JQgqaGgo53IkqoHL8HlmlwRS
+	KfXMt16qWm7TFHrEvWbzOO/wMrde9XFxrL3fEQz1peQ+z995IJyQ4oNxbJ6dVR1B
+	vTWhq1bfpgFSfR75kh2Lagrq6TDJK+/3jvg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1694454717; x=1694541117; bh=xJM8rof2GKKme
-	P61VX43KTn7lIDQhIomEcCpgtCeu6g=; b=q093vNvjfwAfQsMgB9LVu5+r6D0PG
-	anlmLnHhm8iYt3fmc55pOXf4GgfVHKyTmX6FaIZoNpnxP26E85TRlyPvE6/7Tzz+
-	IoAi9aSRi7lbQbVIJgDN0aGm9jV3Yue7q04Ho9zYZB8+PQJSf98cAg8p3k3KtoVn
-	aqIWay5UyP99JtSWAfFHtDvoaLvT9x2nIkGAlz3KoiO8dmYD/nwTwjhh0XPxOXXp
-	Z/aZYUba6THkv2uOrd9z4RBLnvwwUv2gtGaMzPLIlQYpL0xhnIYps4MBg7m5VU/C
-	gQiYRfX3fNKXShHCuBeeBGtT6406GlmjJPX0S+nOCaQtHpMIRi+lFjudw==
-X-ME-Sender: <xms:vVP_ZEnnqYblgTvAGlSTZDqsHJiTjx82qABvjn8KT364El-OPWP3eA>
-    <xme:vVP_ZD0sZcnwSo2jZsLB8RlZznl5_O3WrVYjr_ekxVpT42zsHSQioF_rQDQ2GF5zd
-    bf039MR6dLmzss>
-X-ME-Received: <xmr:vVP_ZCr8bkvH7uwMHliTs1YugRL-8zndES47JYfZyO2F_vo1w44FnAljheG_E9j_>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeigedgudduiecutefuodetggdotefrod
+	:x-sasl-enc; s=fm1; t=1694455563; x=1694541963; bh=9SwcQiQAtnT2H
+	bkkN+DibVreMXqZZH9zV7ulTaEttQA=; b=QHIfxT5Qrai1iaLl1wn2wKN14TOEs
+	B7ZzK/ijcHK4gsLumn7D2UfKeWpthR6gPnQzoeioZ8YI/oNDrOHvu7arqGBmdX7u
+	7yDuPdmb59QI+kocRxWMa195ECZyfFRmXa8Byft0yaIAMUiZqBBfSEXdBkSuGNm6
+	AvvVU2Vqkp8OfKLFENEqYPiHk8rYIBdqNclbnQdw+giQWXA5O2CxWgR17RQiB68z
+	yfvqDevwWchPME9heeFJg3v8OFqIc5Zt1uuoy9WwMyBPyY7BVYtqYlHNocLFgt2e
+	W2FhMwTpB1JtYgwHOel9qABIlYtkasl7OwcB8R/PhEQq3QW9P8hnght4g==
+X-ME-Sender: <xms:Clf_ZI9dVtILN--eDUGooX4Vpa6j0tu31RX9cf4j0iYOAgbiSwE7wQ>
+    <xme:Clf_ZAtsnrDJxEtywoWK6QCLCmnsfpo0X13b8SX9P7zKPahZkTmqJ2qNFVRzaC9A4
+    4kufE06Tcucf-M>
+X-ME-Received: <xmr:Clf_ZOA6CqTnPOFc9G3s7A9s6RLSApNOY_nZIZVnjzASD4LqIlJKkTb1SdWW-qQK>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeigedguddulecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
     enucfjughrpefkffgguffvvehfhfgjtgesghdtreertddtjeenucfhrhhomhepufhimhho
     nhcuifgrihhsvghruceoshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
-    gtohhmqeenucggtffrrghtthgvrhhnpeegfeetjedvuefghedtleevgedvtddvffektefg
-    vdejhfdvffehtefgvedujeejfeenucffohhmrghinhepuhgvfhhirdhorhhgpdhkvghrnh
-    gvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:vVP_ZAmGavw6k8w-KZzQYtsu2PMfHujOgrGdly6yhrdqYdPe16qPyg>
-    <xmx:vVP_ZC3sVsgZAZAcawgnZ_HEDFcpRjOS-pOXNaok8fVthr-QENb0iA>
-    <xmx:vVP_ZHuZlaUKCrm36BXFMVYERh01-1wcmIQSZLEyHZpuhllsDAVmvQ>
-    <xmx:vVP_ZHyTC7ybj9Whb6cs-b0HYzinyb6kDPLhXjNIoKOGjsUDcOJOkw>
+    gtohhmqeenucggtffrrghtthgvrhhnpeeftdefudeltdevhfehkeefhfeutdfhffdugeet
+    ffdvgfehfeekhfetgedvuefggfenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuve
+    hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshhimhhonhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:Clf_ZIe9o9RNj8OIFv7gvzrS4LVk-QEjilzAn1FQ3kSGxZePUBTTGw>
+    <xmx:Clf_ZNPAtqwiDxqtLIjetIKqBRMOmrEp67lcuQg1LQC7Bv72SoJ2lg>
+    <xmx:Clf_ZClIePjxKtSpxpUfN_dvqykO1uoQGt8qxFvlWE0au7I7XVbe8A>
+    <xmx:C1f_ZL1SrHSDl0OMKTc6s8Mn0XnSCCNCEW6oSYWBiIudl18k1_FZCQ>
 Feedback-ID: idc5945a3:Fastmail
-Message-ID: <46959668-24b2-bf7e-7535-9fc47fcfc5e0@invisiblethingslab.com>
-Date: Mon, 11 Sep 2023 19:51:24 +0200
+Message-ID: <89f112fd-70c6-c191-ea52-e2caa6495ac6@invisiblethingslab.com>
+Date: Mon, 11 Sep 2023 20:05:32 +0200
 MIME-Version: 1.0
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries marked as unusable when
+Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
  parsing MADT
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20230911101238.18005-1-simon@invisiblethingslab.com>
- <2a19aef4-8bd6-ef8e-de4b-b85135dc7ea4@suse.com>
 Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ "committers@xenproject.org" <committers@xenproject.org>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
+ <fa86cd2b-9670-ace7-3bcb-799f55ca283d@suse.com>
 From: Simon Gaiser <simon@invisiblethingslab.com>
-In-Reply-To: <2a19aef4-8bd6-ef8e-de4b-b85135dc7ea4@suse.com>
+In-Reply-To: <fa86cd2b-9670-ace7-3bcb-799f55ca283d@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------fuPJqSqlgMgfFxJdfAjmvk3x"
+ boundary="------------prctvZUwLxPDk8XzFkNtb0wu"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------fuPJqSqlgMgfFxJdfAjmvk3x
-Content-Type: multipart/mixed; boundary="------------WWBAFW3CNVMXS9nRhqLY2vxl";
+--------------prctvZUwLxPDk8XzFkNtb0wu
+Content-Type: multipart/mixed; boundary="------------p4po0NkY25BskihlcQGncZQi";
  protected-headers="v1"
 From: Simon Gaiser <simon@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+To: Jan Beulich <jbeulich@suse.com>,
+ "committers@xenproject.org" <committers@xenproject.org>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Message-ID: <46959668-24b2-bf7e-7535-9fc47fcfc5e0@invisiblethingslab.com>
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries marked as unusable when
+Message-ID: <89f112fd-70c6-c191-ea52-e2caa6495ac6@invisiblethingslab.com>
+Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
  parsing MADT
-References: <20230911101238.18005-1-simon@invisiblethingslab.com>
- <2a19aef4-8bd6-ef8e-de4b-b85135dc7ea4@suse.com>
-In-Reply-To: <2a19aef4-8bd6-ef8e-de4b-b85135dc7ea4@suse.com>
+References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
+ <fa86cd2b-9670-ace7-3bcb-799f55ca283d@suse.com>
+In-Reply-To: <fa86cd2b-9670-ace7-3bcb-799f55ca283d@suse.com>
 
---------------WWBAFW3CNVMXS9nRhqLY2vxl
+--------------p4po0NkY25BskihlcQGncZQi
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Jan Beulich:
-> On 11.09.2023 12:12, Simon Gaiser wrote:
->> Up to version 6.2 Errata B [2] the ACPI spec only defines
->> ACPI_MADT_ENABLE as:
+> On 07.08.2023 11:38, Simon Gaiser wrote:
+>> It seems some firmwares put dummy entries in the ACPI MADT table for n=
+on
+>> existing processors. On my NUC11TNHi5 those have the invalid APIC ID
+>> 0xff. Linux already has code to handle those cases both in
+>> acpi_parse_lapic [1] as well as in acpi_parse_x2apic [2]. So add the
+>> same check to Xen.
 >>
->>     If zero, this processor is unusable, and the operating system
->>     support will not attempt to use it.
+>> Note that on some older (2nd gen Core i) laptop of mine I also saw dum=
+my
+>> entries with a valid APIC ID. Linux would still ignore those because
+>> they have !ACPI_MADT_ENABLED && !ACPI_MADT_ONLINE_CAPABLE. But in Xen
+>> this check is only active for madt_revision >=3D 5. But since this ver=
+sion
+>> check seems to be intentionally I leave that alone.
 >>
->> The bit that later will be ACPI_MADT_ONLINE_CAPABLE is reserved with
->> "Must be zero".
->>
->> Version 6.3 [3] then adds ACPI_MADT_ONLINE_CAPABLE and changes the
->> meaning of ACPI_MADT_ENABLE:
->>
->>     Enabled
->>         If this bit is set the processor is ready for use. If this bit=
-
->>         is clear and the Online Capable bit is set, system hardware
->>         supports enabling this processor during OS runtime. If this bi=
-t
->>         is clear and the Online Capable bit is also clear, this
->>         processor is unusable, and OSPM shall ignore the contents of t=
-he
->>         Processor Local APIC Structure.
->>
->>     Online Capbable
->>         The information conveyed by this bit depends on the value of t=
-he
->>         Enabled bit. If the Enabled bit is set, this bit is reserved a=
-nd
->>         must be zero. Otherwise, if this this bit is set, system
->>         hardware supports enabling this processor during OS runtime.
->>
->> So with conforming firmwares it should be safe to simply ignore the
->> entry if !ACPI_MADT_ENABLED && !ACPI_MADT_ONLINE_CAPABLE
->>
->> As a precaution against buggy firmwares this change, like Linux [4],
->> ignores ACPI_MADT_ONLINE_CAPABLE completely if MADT revision < 5. Note=
-
->> that the MADT revision was already increased to 5 with spec version 6.=
-2
->> Errata A [1], so before introducing the online capable flag. But it
->> wasn't changed for the new flag, so this is the best we can do here.
->>
->> For previous discussion see thread [5].
->>
->> Link: http://www.uefi.org/sites/default/files/resources/ACPI%206_2_A_S=
-ept29.pdf # [1]
->> Link: https://uefi.org/sites/default/files/resources/ACPI_6_2_B_final_=
-Jan30.pdf # [2]
->> Link: https://uefi.org/sites/default/files/resources/ACPI_6_3_May16.pd=
-f # [3]
->> Link: https://git.kernel.org/torvalds/c/e2869bd7af608c343988429ceb1c2f=
-e99644a01f # [4]
->> Link: https://lore.kernel.org/xen-devel/80bae614-052e-0f90-cf13-0e5e4e=
-d1a5cd@invisiblethingslab.com/ # [5]
+>> Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.g=
+it/commit/?id=3Df3bf1dbe64b62a2058dd1944c00990df203e8e7a # [1]
+>> Link: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.g=
+it/commit/?id=3D10daf10ab154e31237a8c07242be3063fb6a9bf4 # [2]
 >> Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
 >=20
-> Just to avoid misunderstandings: This change addresses a comment from
-> Andrew. I does not attempt to address my feedback on the earlier change=
-,
-> which - as indicated - I intend to revert (timeline extended until mid
-> of the week), unless by then my earlier comments are addressed or the
-> suggested possible alternative is carried out.
+> This patch was committed with unaddressed review comments. The normal a=
+ction
+> in such a case would be to revert, expecting a v2 to arrive. One altern=
+ative
+> here would be a timely incremental patch submission. Another alternativ=
+e,
+> considering in particular Thomas's most recent reply, would be to prope=
+rly
+> downgrade CPU hotplug support in SUPPORT.md (with a corresponding entry=
+ in
+> CHANGELOG.md).
 >=20
-> I think it goes without saying that this patch can't sensibly go in
-> until the earlier one was properly settled upon. In particular, in case=
+> I'll give it until the end of next week for either of the alternatives =
+to be
+> carried out. If nothing appears by then, I'll assume I may rightfully r=
+evert.
+> (This timeline also allows putting this topic on the Community Call age=
+nda,
+> should anyone think this is necessary.)
 
-> of reverting aiui this patch won't even apply anymore.
+To avoid misunderstandings, since you mentioned the above in your
+response to the related patch I submitted today [3]:
 
-It textually conflicts with the other patch [6], and obviously was
-triggered by that discussion, but addresses a slightly different aspect.
-The textual conflict is trivial to resolve. I wasn't sure if it also
-conflicts with the concern you raised there, see below.
+My understanding is that your main concern is that those entries with
+invalid APIC IDs shouldn't be ignored, since some firmwares later update
+them with valid IDs (on hotplug). This fully conflicts with the
+intention of the patch. Resolving the disagreement that followed is
+outside of my control, as being only the submitter of the patch.
 
-The other patch is about ignoring entries with invalid APIC IDs. As the
-discussion there showed the spec isn't very clear on that and there are
-different opinions how they should be handled. Regarding the flags the
-spec is much more concrete although given the response above I assume
-you also interpret "is unusable" of the old version of the
-ACPI_MADT_ENABLE flag as such that Xen should still allocate resources
-for those processors?
-
-If I understood your main concern with the other patch correctly you
-have seen firmwares that later update those invalid APIC IDs with valid
-ones. Do those firmwares make use of the online capable flag? (Given
-above response probably not)
-
-If not, then it indeed doesn't address your concern, and I see no way,
-at least by parsing MADT, how to distinguish those cases from firmwares
-that have dummy entries (the motivation for these patches).
+You also commented about not logging the ignored entries. Until it's
+clear if the change in general is accepted in the end, I considered it
+pointless to address that detail. If you disagree and want a follow up
+for that, just let me know.
 
 Simon
 
-[6]: https://lore.kernel.org/xen-devel/7f158a54548456daba9f2e105d099d2e5e=
-2c2f38.1691399031.git.simon@invisiblethingslab.com/
+[3]: https://lore.kernel.org/xen-devel/20230911101238.18005-1-simon@invis=
+iblethingslab.com/
 
---------------WWBAFW3CNVMXS9nRhqLY2vxl--
+--------------p4po0NkY25BskihlcQGncZQi--
 
---------------fuPJqSqlgMgfFxJdfAjmvk3x
+--------------prctvZUwLxPDk8XzFkNtb0wu
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmT/U58ACgkQkO9xfO/x
-ly/Buw/9H/hszRxHiFdp82YE4gyS0Nn5q4IF2AHgdpJ8B3J1E8dbFWWcUf8A26Za
-Wfi33knuCZ6ofI6Q0w3sDyqbV+rVFrDfPvolird3g9hNstdrJy9OLGJFa7negbnj
-p7NHVLxYUapMJr/08WrFFFI8XzhGJMF7yPx0YqN5hekgVBdM+2ENYoXJQBYyfm2p
-D+2koQ/9tbE2JewVAS0Ea+WUnPKMPorvDL5AtCbUdyeKFdVGJVtNxxL78uOrpx9s
-tICclxDMbaF5PZsDGDqzVU1MboSmBQF1wzugHlp3tvnAUGmwTFw73JbxWVxC3seG
-g6EIFBKWv3vkmhKO37kAmnD2NjeabkRXtMXu7dv7FIo3LoLFWpJaywOo9iyGUZDb
-hQEnh5YnqP5i1EHqM3RCr9+Px5a/2NYuFE3R7bsTRofwyToxCZeNXmMkmuedvHl7
-DQEJVmXHqSQowusI7z2Y6Yn8tx4Eaz6rxzLKId2r3BSkm6XJmwaPm1kEACiG2FBe
-NCnBbNNV0g4M8tFHzn8cU0w3gJ1P/w+alxS93EKwG4ZwY2qRwQynFly5vzEBhwQI
-Vd+uZDSQrvGpBo020d7AUTr6SrKs3ylAlV7D+Vx4Rv4J6EFEYBfpPfIQZ5ju0+WO
-qQ8Go5YR682+8YAUZ3hrRvtNZn9dDivvg5hgFhtxobTmr7RgYrc=
-=PA3q
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmT/Vu8ACgkQkO9xfO/x
+ly+HzxAAuQWx4QZaI6nJt6ZwnqzkC9HrUMLxW0YEA5bVrRD19EmcKvoVH4Kwfz9B
+r5Fx7kpya+3nqd+P9Ur4pH8I2/E78F/kLrqr3iCXZGs+hcGNydmOgf2xOPGvo/Hz
+gC02W7yqFuWDoRHeQUHxaok8wIhxccnoQTcieQo9TRFp4XK4zmdZKT/avgWmcQOq
+VJlmGk7uk4SK6tIPS53+QaNhRzvel8BLcP68YM1VAswVuJYcaGHRzWyzbqUy33Io
+kv/6ldSki20uGc5GIe/KgRbEZklygUjiv8jgGc0AV5u2N3yTSIQIna4R9gwNpdhq
+0skwlv/T28sBC2x+ChwoqOwtVIbXhd/HRl5SmTlxtqmn1U0gjLeKHdAvyrQEOl67
+aYE63ywgp0+vtAUm87t40mDDDSpkhb/2/jo6qx6P7NlDT5SDm5rHCJ8rvFKqmq9M
+UTFBPYDliefRNqc9TNhrQF8z4QLazz0FINnPJAbZcLiUJMgcaC6Gwnx3pO9uAxqp
+QcHXFVmV+z9GkXe9EOnjBEVartoztd90fj+k66cLDO2aX78zMsaWbFg3Ju50647J
+P4s6S6xPqLQG2GNMcSmBEO8SGnuqfo3ex40UeZjPNMdCJAmzRXEdDUuwiVnsTq/q
+kKcQJG4PugvERUGEGCYC88t+iRlPmDkM+Z/jOeaO9/IkmzLDAzk=
+=lXbk
 -----END PGP SIGNATURE-----
 
---------------fuPJqSqlgMgfFxJdfAjmvk3x--
+--------------prctvZUwLxPDk8XzFkNtb0wu--
 
