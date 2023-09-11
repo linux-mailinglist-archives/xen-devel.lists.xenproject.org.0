@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F74779AC0A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 00:39:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599799.935362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F6A79AC7B
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 01:17:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599806.935372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfpXv-0004FT-EI; Mon, 11 Sep 2023 22:38:19 +0000
+	id 1qfq9M-0001Ez-B9; Mon, 11 Sep 2023 23:17:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599799.935362; Mon, 11 Sep 2023 22:38:19 +0000
+Received: by outflank-mailman (output) from mailman id 599806.935372; Mon, 11 Sep 2023 23:17:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfpXv-0004D4-Ao; Mon, 11 Sep 2023 22:38:19 +0000
-Received: by outflank-mailman (input) for mailman id 599799;
- Mon, 11 Sep 2023 22:38:17 +0000
+	id 1qfq9M-0001Bg-8S; Mon, 11 Sep 2023 23:17:00 +0000
+Received: by outflank-mailman (input) for mailman id 599806;
+ Mon, 11 Sep 2023 23:16:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=01Lo=E3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qfpXt-0004Cy-Fc
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 22:38:17 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1qfq9L-0001Ba-86
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 23:16:59 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e479c7af-50f3-11ee-8786-cb3800f73035;
- Tue, 12 Sep 2023 00:38:15 +0200 (CEST)
+ id 4da56427-50f9-11ee-8786-cb3800f73035;
+ Tue, 12 Sep 2023 01:16:57 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 1C27CCE178C;
- Mon, 11 Sep 2023 22:38:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5E4C116AF;
- Mon, 11 Sep 2023 22:38:07 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 331AFB81A26;
+ Mon, 11 Sep 2023 23:16:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B40C116A8;
+ Mon, 11 Sep 2023 23:16:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,77 +44,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e479c7af-50f3-11ee-8786-cb3800f73035
+X-Inumbo-ID: 4da56427-50f9-11ee-8786-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694471888;
-	bh=wFZEt8xGyC/ds1ONEy7QyDUnyXveKEKpVQO0SZ3ZNPo=;
+	s=k20201202; t=1694474216;
+	bh=1+TTipkoBWSKQ3vcyl+J0adqJbSIUKmzOQ0J3kSLWl8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=i4kBJ/oZqPlFPpBezTA6pc2bK7T8zrZunNT2YkbyT+3FJoIKx6yQFCHbzniGNWic9
-	 pAYl80njHsr6uZEG5mupha0hB1yX9sjZfOKjfiWVIIz/qF8FR0t70zauMnFULDXFDE
-	 p1zLJcCY+Mq+hlZhpSKRDcaV/LUYH0djEYD226voUB7vuGLEIeqr7LDZMPZmzJy5Ct
-	 OzMkeWELlm/RT/w15pMnDEojAw07nGZieIro0Up2mNyQR5E0caiIAwfxZ+vQyGojAM
-	 uC86pjDIWvJUK7y3xGteTVIdrGOzeTRiwOFtt2zlTvyg+bm9+880hh8NgjL3Tzy4OE
-	 /0EQtItCJqlqg==
-Date: Mon, 11 Sep 2023 15:38:05 -0700 (PDT)
+	b=kcPwWUGbKEYl+mjGJ0vnXTxN9ZCqf8BqZ2RZU8kS3UOBa+TC3dQmtubpUfDb6q+k8
+	 S1APHe582NdAbWLHI1GKFnQYW1VzROppG7L7HsULjPOD5YtFU8NnUSwBwFzwvYVirj
+	 lQ/xILDZ57FFF23l2/YDiKkO/LUBJiU29EP0wl4dTww/CkoGtZlOuh9zYZfy/Uy3/H
+	 xnqgVoKTdZddqICg5Is5VIQKw3dD8Hf+9W/wIEEnm9U+8Y9106MXxJmkj7rHfIR1nj
+	 lyt2TZbiYDuBKXhdxwmfcmTXUudkRnzFrWMexIIpgOZl9/Fw1Gv+YZBMo54WJlnpDy
+	 /EgbVvVMTryow==
+Date: Mon, 11 Sep 2023 16:16:53 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Simon Gaiser <simon@invisiblethingslab.com>, 
-    "committers@xenproject.org" <committers@xenproject.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-In-Reply-To: <27ae69b6-bc57-dee3-2528-8311a38decda@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2309111534030.1847660@ubuntu-linux-20-04-desktop>
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com> <fa86cd2b-9670-ace7-3bcb-799f55ca283d@suse.com> <alpine.DEB.2.22.394.2309061346410.6458@ubuntu-linux-20-04-desktop>
- <27ae69b6-bc57-dee3-2528-8311a38decda@citrix.com>
+To: Julien Grall <julien@xen.org>
+cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: Skip Xen specific nodes/properties from hwdom
+ /chosen node
+In-Reply-To: <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2309111610410.1847660@ubuntu-linux-20-04-desktop>
+References: <20230911123401.27659-1-michal.orzel@amd.com> <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1063447677-1694471887=:1847660"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1063447677-1694471887=:1847660
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 11 Sep 2023, Andrew Cooper wrote:
-> Physical CPU Hotplug does not pass the bar for being anything more than
-> experimental.  It's absolutely not tech-preview level because the only
-> demo it has had in an environment (admittedly virtual) which does
-> implement the spec in a usable way demonstrates that it doesn't function.
+On Mon, 11 Sep 2023, Julien Grall wrote:
+> On 11/09/2023 13:34, Michal Orzel wrote:
+> > Host device tree nodes under /chosen with compatible string
+> > "xen,evtchn-v1", "xen,domain-shared-memory-v1" are Xen specific and not
+> > meant to be exposed to hardware domain.
 > 
-> The fact no-one has noticed until now shows that the feature isn't used,
-> which comes back around full circle to the fact that Intel never made it
-> work and never shipped it.
+> So, how dom0 is meant to discover the static event channel, shared memory it
+> can use?
 
-So we actually have agreement on how to move forward
+As they are static, they don't necessarily need to be discovered: they
+could be hard-coded. I realize we didn't commit the design doc for the
+static event channel feature, but it had:
+https://marc.info/?l=xen-devel&m=165245272905876
 
 ---
-SUPPORT: downgrade Physical CPU Hotplug to Experimental
++There is no need to describe the static event channel info in the domU device
++tree. Static event channels are only useful in fully static configurations,
++and in those configurations the domU device tree dynamically generated by Xen
++is not needed.
+---
 
-The feature is not commonly used, and we don't have hardware to test it,
-not in OSSTest, not in Gitlab, and not even ad-hoc manually by community
-members.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-
-diff --git a/SUPPORT.md b/SUPPORT.md
-index 3461f5cf2f..02e2f6eaa8 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -48,7 +48,7 @@ For the Cortex A77 r0p0 - r1p0, see Errata 1508412.
- 
- ### Physical CPU Hotplug
- 
--    Status, x86: Supported
-+    Status, x86: Experimental
- 
- ### Physical Memory
- 
---8323329-1063447677-1694471887=:1847660--
+But in any case, even if we wanted to generated/expose the static event
+channels via Device Tree, the information on the host device tree is in
+the "wrong" format. That's meant for Xen and has all the static event
+channels, including the ones not relevant for Dom0. So I think that in
+any case we should filter them out here (and regenerate as necessary).
 
