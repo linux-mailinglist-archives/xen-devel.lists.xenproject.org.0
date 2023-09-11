@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E35279A9FC
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 17:53:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599602.935088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E0E79A9C2
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 17:32:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599589.935068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfjDG-0003co-Ja; Mon, 11 Sep 2023 15:52:34 +0000
+	id 1qfitV-0005yQ-QO; Mon, 11 Sep 2023 15:32:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599602.935088; Mon, 11 Sep 2023 15:52:34 +0000
+Received: by outflank-mailman (output) from mailman id 599589.935068; Mon, 11 Sep 2023 15:32:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfjDG-0003ab-Gp; Mon, 11 Sep 2023 15:52:34 +0000
-Received: by outflank-mailman (input) for mailman id 599602;
- Mon, 11 Sep 2023 15:52:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Yi3=E3=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1qfjDF-0003ZB-7c
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 15:52:33 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37273e7c-50bb-11ee-9b0d-b553b5be7939;
- Mon, 11 Sep 2023 17:52:31 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-3ff7d73a6feso48977625e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Sep 2023 08:52:31 -0700 (PDT)
-Received: from zen.linaroharston ([85.9.250.243])
- by smtp.gmail.com with ESMTPSA id
- v11-20020a1cf70b000000b00401d8810c8bsm13620840wmh.15.2023.09.11.08.52.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Sep 2023 08:52:30 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id A24441FFBB;
- Mon, 11 Sep 2023 16:52:29 +0100 (BST)
+	id 1qfitV-0005wg-NO; Mon, 11 Sep 2023 15:32:09 +0000
+Received: by outflank-mailman (input) for mailman id 599589;
+ Mon, 11 Sep 2023 15:32:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qfitU-0005wa-6W
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 15:32:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qfitT-00026E-5Q; Mon, 11 Sep 2023 15:32:07 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qfitS-0002o1-Vx; Mon, 11 Sep 2023 15:32:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,185 +39,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37273e7c-50bb-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1694447550; x=1695052350; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zb1+wi30CnuBBhAaP6rYq/qdnkDNBGUjT1rxgMg7Os4=;
-        b=F9yz8QXD6hXM8j6DlRhN25sNRT2BpXGWa0edgfO011TT8Y2TRb2Qqi/H5a4zBP3FoR
-         zBBAUSn354d4TCvW0TgpEFkFyxquw1YulTv9YCGqEKU6PKFJGEftPzGkUDIEFf7QMqiN
-         8lJE2iE+yfyrr5XSTawhCltTu6ZkGzdokicSSbLFSFdqjjAA6sOnzVvt2CI8w3kNLRwG
-         trDkd5VxnJerEOvd9AybrJ81kxjRksIDhTSmLNYnuLF602YooRBbkTZkBqj4pqPTMX/7
-         mSKbMh9978QiI1D/zwhfULAjGwzhraLiZ+JTOS1+XqAd0QmVTBrGcf2/KNC9NLVbw/f/
-         NFrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694447550; x=1695052350;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zb1+wi30CnuBBhAaP6rYq/qdnkDNBGUjT1rxgMg7Os4=;
-        b=PqjZZw8TX8dAVG6tuof6WY6nQ+j9SIrxEV4u5PrivmRVytZ0j+cH07p0o6N5ZStwiM
-         uWwpZgCKabFM4TXBASinQc60G7eB3OHMbVXmVPjR3EN1ZvuJCTn1HovFf33b/LXL4JVT
-         FukWxIuV2GUmeYoPGeMCOqyJlzvSZ/ok1PLHTTN4PZ8Qzv7fGH4gOLDd/4iyGlLtCOMF
-         2NFEvejbPd7GJ+oUP1AkWH5L8/etPhPvKgGy+xR2LDD8HFj5Mto4pfY5u95aE1+g4Ggw
-         0H1mp1cdMZQuC62WP+lHJAeGgHO/i3OxriBX0bBBeAKBZwnbnN7YxvqQbDdJsgKqELbJ
-         5gYQ==
-X-Gm-Message-State: AOJu0YzFdBHsTfWcCT1mFoXghk/alcbe9HXB3fkzW7Ei4jLjgyw9pA0Q
-	MhMAn9ZE3d4xkH6c7MOFLq1+rQ==
-X-Google-Smtp-Source: AGHT+IFwVy2Io7j/R9zTW3T811BVaUE+NHklEDhN5YUZ5MT+CJRW5HJcyon+UDrFG1J42TWENVYkZg==
-X-Received: by 2002:a05:600c:2483:b0:401:d2cb:e6f3 with SMTP id 3-20020a05600c248300b00401d2cbe6f3mr9640429wms.1.1694447550469;
-        Mon, 11 Sep 2023 08:52:30 -0700 (PDT)
-References: <20230902151351.10325-1-javi.merino@cloud.com>
- <ce6e7abd-40ee-dd9e-b17c-10c39ca0e422@suse.com>
-User-agent: mu4e 1.11.17; emacs 29.1.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Javi Merino <javi.merino@cloud.com>, Henry Wang <Henry.Wang@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] coverage: update gcov info for newer versions of gcc
-Date: Mon, 11 Sep 2023 16:26:01 +0100
-In-reply-to: <ce6e7abd-40ee-dd9e-b17c-10c39ca0e422@suse.com>
-Message-ID: <87y1hcogg2.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=kwGpUryFMYGxz/FXbkKY3k8Xzbnyxko5a+b6qKzQ2Pc=; b=mmty9ARkZ0P0oJAKtEps7TqrNe
+	MKngnbolcgWqBRExxcDqt5abma+87f8G4UW8K9ApcYzXWCPG7B2n3hG5xQmYtaZkt/mnQaXA3yZXs
+	wFND718h4yornIQ2AOXQvUvKCXL+fpVG9Avu60j1b0bi9sTe81zU/lABW8XRAY5tTB+0=;
+Message-ID: <91d5ea6d-bdfa-45bf-a54b-5acdf1784ec4@xen.org>
+Date: Mon, 11 Sep 2023 16:32:05 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] docs/misra: add rule 2.1 exceptions
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ george.dunlap@citrix.com, bertrand.marquis@arm.com,
+ roberto.bagnara@bugseng.com, nicola.vetrini@bugseng.com,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+References: <20230908230318.1719290-1-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230908230318.1719290-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Stefano,
 
-Jan Beulich <jbeulich@suse.com> writes:
+On 09/09/2023 00:03, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> During the discussions that led to the acceptance of Rule 2.1, we
+> decided on a few exceptions that were not properly recorded in
+> rules.rst. Add them now.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Nicola, does this work with ECLAIR?
+> 
+> I am referring to the locations of the SAF-2-safe tag on top of
+> call_psci_system_off, BUG, etc.
+> 
+> Changes in v3:
+> - added SAF-2-safe to safe.json
+> - added a few SAF-2-safe examples
+> ---
+>   docs/misra/rules.rst    | 13 ++++++++++++-
+>   docs/misra/safe.json    |  8 ++++++++
+>   xen/arch/arm/psci.c     |  1 +
+>   xen/arch/x86/shutdown.c |  1 +
+>   xen/include/xen/bug.h   |  2 ++
+>   5 files changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 34916e266a..82de4c645d 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -107,7 +107,18 @@ maintainers if you want to suggest a change.
+>      * - `Rule 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_01_1.c>`_
+>        - Required
+>        - A project shall not contain unreachable code
+> -     -
+> +     - The following are allowed:
+> +         - Invariantly constant conditions, e.g. if(IS_ENABLED(CONFIG_HVM)) { S; }
+> +         - Switch with a controlling value statically determined not to
+> +           match one or more case statements
+> +         - Functions that are intended to be referenced only from
+> +           assembly code (e.g. 'do_trap_fiq')
+> +         - Deliberate unreachability caused by certain macros/functions,
+> +           e.g. BUG, assert_failed, panic, etc. See safe.json.
+> +         - asm-offsets.c, as they are not linked deliberately, because
+> +           they are used to generate definitions for asm modules
+> +         - Declarations without initializer are safe, as they are not
+> +           executed
+>   
+>      * - `Rule 2.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_06.c>`_
+>        - Advisory
+> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
+> index 39c5c056c7..fc96a99fd5 100644
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -20,6 +20,14 @@
+>           },
+>           {
+>               "id": "SAF-2-safe",
+> +            "analyser": {
+> +                "eclair": "MC3R1.R2.1"
+> +            },
+> +            "name": "Rule 2.1: deliberate unreachability",
+> +            "text": "Macro or function designed to be unreachable."
+> +        },
+> +        {
+> +            "id": "SAF-3-safe",
+>               "analyser": {},
+>               "name": "Sentinel",
+>               "text": "Next ID to be used"
+> diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
+> index 695d2fa1f1..2a8527cacc 100644
+> --- a/xen/arch/arm/psci.c
+> +++ b/xen/arch/arm/psci.c
+> @@ -59,6 +59,7 @@ void call_psci_cpu_off(void)
+>       }
+>   }
+>   
+> +/* SAF-2-safe */
 
-> On 02.09.2023 17:11, Javi Merino wrote:
->> --- a/xen/common/coverage/Makefile
->> +++ b/xen/common/coverage/Makefile
->> @@ -5,7 +5,9 @@ obj-y +=3D $(call cc-ifversion,-lt,0407, \
->>  		gcc_3_4.o, $(call cc-ifversion,-lt,0409, \
+I think any use of SAF-2-safe should be accompanied with an attribute...
 
-This isn't even supported, see below:
+>   void call_psci_system_off(void)
 
->>  		gcc_4_7.o, $(call cc-ifversion,-lt,0500, \
->>  		gcc_4_9.o, $(call cc-ifversion,-lt,0700, \
->> -		gcc_5.o, gcc_7.o))))
->> +		gcc_5.o, $(call cc-ifversion,-lt,1000, \
->> +		gcc_7.o,  $(call cc-ifversion,-lt,1200, \
->> +		gcc_10.o, gcc_12.o))))))
->
-> This is getting unwieldy, so I think we ought to try to limit the number
-> of different files we have. Already gcc_4_9.c and gcc_7.c specify the
-> same GCOV_COUNTERS and differ only in the version checks (which could be
-> combined). Therefore ...
+... noreturn for function or ...
 
-You may want to consider your policy on supported GCC versions. I see
-you still support:
+>   {
+>       if ( psci_ver > PSCI_VERSION(0, 1) )
+> diff --git a/xen/arch/x86/shutdown.c b/xen/arch/x86/shutdown.c
+> index 7619544d14..47e0f59024 100644
+> --- a/xen/arch/x86/shutdown.c
+> +++ b/xen/arch/x86/shutdown.c
+> @@ -118,6 +118,7 @@ static inline void kb_wait(void)
+>               break;
+>   }
+>   
+> +/* SAF-2-safe */
+>   static void noreturn cf_check __machine_halt(void *unused)
+>   {
+>       local_irq_disable();
+> diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
+> index e8a4eea71a..d47c54f034 100644
+> --- a/xen/include/xen/bug.h
+> +++ b/xen/include/xen/bug.h
+> @@ -117,6 +117,7 @@ struct bug_frame {
+>   #endif
+>   
+>   #ifndef BUG
+> +/* SAF-2-safe */
+>   #define BUG() do {                                              \
+>       BUG_FRAME(BUGFRAME_bug,  __LINE__, __FILE__, 0, NULL);      \
+>       unreachable();                                              \
 
-    * C compiler and linker:
-      - For x86:
-        - GCC 4.1.2_20070115 or later
-        - GNU Binutils 2.16.91.0.5 or later
-        or
-        - Clang/LLVM 3.5 or later
-      - For ARM 32-bit:
-        - GCC 4.9 or later
-        - GNU Binutils 2.24 or later
-      - For ARM 64-bit:
-        - GCC 5.1 or later
-        - GNU Binutils 2.24 or later
+... unreachable for macros. But the /* SAF-2-safe */ feels a little bit 
+redundant when a function is marked as 'noreturn'.
 
-While also having some commented out warnings because the base GCC is so ol=
-d:
+Is there any way to teach eclair about noreturn?
 
-  CFLAGS   +=3D -Wmissing-prototypes
-  # (gcc 4.3x and later)   -Wconversion -Wno-sign-conversion
+Cheers,
 
-For reference QEMU's minimum GCC is 7.4
-
-  if compiler.get_id() =3D=3D 'gcc' and compiler.version().version_compare(=
-'>=3D7.4')
-
-and while our support cycle is based off distro LTS releases I have to
-wonder do you actually need to support users building the
-latest/greatest version of the hypervisor on ancient user-spaces with
-old compilers?
-
-I think the oldest distro you have in your CI is jessie (still hanging
-on with extended LTS support) and that uses GCC 4.9.
-
-I see there are various scripts to gather support status into the
-documentation but I couldn't find a general statement on the projects
-overall approach to supported versions of components.
-
->
->> --- /dev/null
->> +++ b/xen/common/coverage/gcc_10.c
->> @@ -0,0 +1,31 @@
->> +/*
->> + *  This code provides functions to handle gcc's profiling data format
->> + *  introduced with gcc 10.
->> + *
->> + *  For a better understanding, refer to gcc source:
->> + *  gcc/gcov-io.h
->> + *  libgcc/libgcov.c
->> + *
->> + *  Uses gcc-internal data definitions.
->> + */
->> +
->> +#include "gcov.h"
->> +
->> +#if GCC_VERSION < 100000 || GCC_VERSION > 120000
->> +#error "Wrong version of GCC used to compile gcov"
->> +#endif
->> +
->> +#define GCOV_COUNTERS 8
->> +#define GCOV_UNIT_SIZE 1
->> +
->> +#include "gcc_4_7.c"
->
-> ... this could simply re-use gcc_4_7.c directly, with just the version
-> check there suitably tweaked.
->
->> --- a/xen/common/coverage/gcc_4_7.c
->> +++ b/xen/common/coverage/gcc_4_7.c
->> @@ -27,6 +27,7 @@
->>  #  error "Wrong version of GCC used to compile gcov"
->>  # endif
->>  #define GCOV_COUNTERS 8
->> +#define GCOV_UNIT_SIZE 1
->>  #endif
->
-> If further this became a separate #ifdef, ...
->
->> --- a/xen/common/coverage/gcc_4_9.c
->> +++ b/xen/common/coverage/gcc_4_9.c
->> @@ -19,6 +19,7 @@
->>  #endif
->>=20=20
->>  #define GCOV_COUNTERS 9
->> +#define GCOV_UNIT_SIZE 1
->>=20=20
->>  #include "gcc_4_7.c"
->>=20=20
->> --- a/xen/common/coverage/gcc_5.c
->> +++ b/xen/common/coverage/gcc_5.c
->> @@ -19,6 +19,7 @@
->>  #endif
->>=20=20
->>  #define GCOV_COUNTERS 10
->> +#define GCOV_UNIT_SIZE 1
->>=20=20
->>  #include "gcc_4_7.c"
->>=20=20
->
-> ... touching these two files could be avoided altogether.
->
-> Henry - afaict this was submitted after the feature submission deadline,
-> so you may want to consider giving it an exception.
->
-> Jan
-
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+-- 
+Julien Grall
 
