@@ -2,56 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59BF79A68C
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 11:04:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599177.934467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1051179A699
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 11:14:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599183.934476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfcqU-0007mD-U7; Mon, 11 Sep 2023 09:04:38 +0000
+	id 1qfczE-0001wI-OJ; Mon, 11 Sep 2023 09:13:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599177.934467; Mon, 11 Sep 2023 09:04:38 +0000
+Received: by outflank-mailman (output) from mailman id 599183.934476; Mon, 11 Sep 2023 09:13:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfcqU-0007jn-RJ; Mon, 11 Sep 2023 09:04:38 +0000
-Received: by outflank-mailman (input) for mailman id 599177;
- Mon, 11 Sep 2023 09:04:37 +0000
+	id 1qfczE-0001uC-Lg; Mon, 11 Sep 2023 09:13:40 +0000
+Received: by outflank-mailman (input) for mailman id 599183;
+ Mon, 11 Sep 2023 09:13:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yA6l=E3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1qfcqT-0007jh-5D
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 09:04:37 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061b.outbound.protection.outlook.com
- [2a01:111:f400:fe59::61b])
+ <SRS0=zO6f=E3=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
+ id 1qfczD-0001u5-Ay
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 09:13:39 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39b16437-5082-11ee-9b0d-b553b5be7939;
- Mon, 11 Sep 2023 11:04:35 +0200 (CEST)
-Received: from DM6PR18CA0026.namprd18.prod.outlook.com (2603:10b6:5:15b::39)
- by CY8PR12MB7730.namprd12.prod.outlook.com (2603:10b6:930:85::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.34; Mon, 11 Sep
- 2023 09:04:30 +0000
-Received: from DS3PEPF000099DE.namprd04.prod.outlook.com
- (2603:10b6:5:15b:cafe::5e) by DM6PR18CA0026.outlook.office365.com
- (2603:10b6:5:15b::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35 via Frontend
- Transport; Mon, 11 Sep 2023 09:04:30 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS3PEPF000099DE.mail.protection.outlook.com (10.167.17.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.11 via Frontend Transport; Mon, 11 Sep 2023 09:04:30 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 04:04:30 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 04:04:29 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Mon, 11 Sep 2023 04:04:28 -0500
+ id 7b94e9d6-5083-11ee-9b0d-b553b5be7939;
+ Mon, 11 Sep 2023 11:13:34 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-3ff7d73a6feso44107655e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Sep 2023 02:13:34 -0700 (PDT)
+Received: from EMEAENG6DZjqCfH.citrite.net
+ (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ n14-20020a5d51ce000000b0031980783d78sm9492336wrv.54.2023.09.11.02.13.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Sep 2023 02:13:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,80 +46,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39b16437-5082-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CtkOrKo/xTyGvBRwey5eIWYYZMmrtH2V3j8S4nkayOOMzOPgAvBOs9dAeJjA8Pe5tdS3xow4GJxCtD6smAQ599sJ2nyzNFrp+lEo7+p/o6VT8M+rbLklAVQUejrycUdwCTp2/kaY3jEMC2C3Fc3cV0zjXwZRBhvagfIP7EIyAM+cx4mDlruEflnd0DxRf0VX37FGcoimeCFexXmg58+u83VxOXIqHUdKcDmJq+TcZgquOhZKpO+zayYBjlnFU1GJYIYt67D+Da+gHJY/LWQF9kByF0CHurPs+omoSE62zFfMRFQ5gWPazb0jq7toAp8O1UnL5y9vvrYgIuZ01VBqgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RJgpPLNQEonIYiUt2PIDQYTvJpB+/ucMbEplRud3raE=;
- b=CDBgQ4JIlQs0Qx8TrUT0Pu7o0CweZNt6YiGrnIGvbtrLY62oGtxWGlRu2AZW2xizzBIYmpmQUMab7RrgFCBfYUWg0apiBpQ7xL5/57q+HPQT4oS/AzNB67xC8jLE7Q6XeCcznjktVgVBGkAN6/5iC2QsQVeB/c3Ux5Wu1vfLlStthh5h9kjMlc2iVjWo3DEUy/IQww4T/IjCuH9KYaptVCj/Hk9AJA4u3URMAZiO/1xKENWRBH9fvFJbn+B7LM5xzPdiEzDZqBhjYdkSAn4X218Op5LLSk7yX353ZsqF3/ftYP9s9IBXl6qQghkfrsm+irHKfDnjfohBiwB/EdaNLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RJgpPLNQEonIYiUt2PIDQYTvJpB+/ucMbEplRud3raE=;
- b=YnnZlW+ECvmIb5MwHj3Vkl+nLqlJ+jeMQDWCNlbyNtTlyNN0sZfpusgxyVUtFRJDlaUoX1lbRhNVYlYNDLNQ6xWPn/VZme3yF2USbu5MbXQ2OYM3OL+JuQ6yrpYHIxVKLE8rY2TWp6UdqQHVgP8A0MIzktATtMkZvkBFEOIBpA8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <f4d9a537-5a87-57b3-3db8-35c6dc564a9e@amd.com>
-Date: Mon, 11 Sep 2023 11:04:27 +0200
+X-Inumbo-ID: 7b94e9d6-5083-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1694423613; x=1695028413; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=PoWc5JY1ED1cULTq0BwZnvQfAeckkndjITPjyIYf8Kw=;
+        b=BPrXXQF6jY1RHedEvL/vs8eWVriVoU3HzXLDlwaSDkup/Vl0mRED2xFV4Rex+OwjMP
+         yvqYCPApPdNveXr8477nY4LfBc1zu1Sx1Nwn6Ru9KTH2oqeWmyFUM12H28a3KDXE2j8M
+         k/uo8vB2+/hUd9l8M57Ml2KoztbpXR2xFsdn8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694423613; x=1695028413;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PoWc5JY1ED1cULTq0BwZnvQfAeckkndjITPjyIYf8Kw=;
+        b=sA9cfprpcyCDL3MyIMS/hLuqUXIZOh7AP4bzm0PkYaaAvoiJ3OTEx8xZdIelV10PC5
+         AzmWpO1e7rH7Md+5lG51jaFmlZE3AVcuMWsRvNoHyXsQyGtTEAfMy7YJTi+jXsAng11c
+         34riK+yZ/9ZfH4eXJB+vXkboOqHFqG51aQDkaa/Kae3NXxO3JDRoTNoBTcpnRWXUWEr0
+         Q0KPbzkyE5rxMVH6AKSS4OeKsVLqEWX+OuuD/6lZ+yPbWmv+U7KpYPgvidLGEeq1NXfv
+         mjRK3ksAU+CcIlpJXNl9YDEsALPzXHi9+3g1LMiBlUNpRAczVNduy06TxkxlpAW8rFoV
+         SwsQ==
+X-Gm-Message-State: AOJu0YxWcglI6UiKFTONVRL56H2Fsqku62N7iWwBk8ZZNx83B92bG7k7
+	IqYPVlbI0Lp3r8GgBRuUef5lXQ==
+X-Google-Smtp-Source: AGHT+IFj61/zFXuPYIfoHyV7goji+RtrCFFpxXGLaZrdiJZuh63ulV7On1/n4Y2Nt+kgC16dwYqCFQ==
+X-Received: by 2002:a05:600c:2249:b0:3fb:f0ef:4669 with SMTP id a9-20020a05600c224900b003fbf0ef4669mr7639296wmm.17.1694423613502;
+        Mon, 11 Sep 2023 02:13:33 -0700 (PDT)
+Date: Mon, 11 Sep 2023 10:13:32 +0100
+From: Javi Merino <javi.merino@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v2 1/2] coverage: simplify the logic of choosing the
+ number of gcov counters depending on the gcc version
+Message-ID: <iuf46ej5funjfyfpspq4vhckealynw6e5slxsrummyowfh4hsp@6d6wj6qk4chl>
+References: <cover.1694189143.git.javi.merino@cloud.com>
+ <f40f16bad7553f63d81574eac39e1fddaeec0be4.1694189143.git.javi.merino@cloud.com>
+ <93c7ff14-2aa8-09a6-f04d-9dbb3969f470@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [PATCH v4 01/10] xen/arm: remove stale addr_cells/size_cells in
- assign_shared_memory
-Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
- Grall" <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230911040442.2541398-1-Penny.Zheng@arm.com>
- <20230911040442.2541398-2-Penny.Zheng@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230911040442.2541398-2-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DE:EE_|CY8PR12MB7730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f187566-b75c-482d-262a-08dbb2a61be5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	UuBFjY3F4ZtAddOanWsF/Qa4qo4FLtvqOrOAqkwXis1ugqUaF23+xFAns1tuVF8wYqn2XXh+kDp3gAiMY1v3+f25ps/e3yJ01oTI+QFMhSrvfTtvdLQD1iJjqtYNDcfhoIuwg3G6ybkeZ/xqzwmmHw3Megm184XKReiRpckDXW0wz2bXme35Saa+soAAXgXnjB0/w5MAToDpWDoDNisCH0tUWI+EmSmnLBCkMo0uXIQ0gUyWgxjyzaOSgMIbdufdfYkBLiJ9+uSMjhNVfo/gRBniJi54+nCPLrnfxoIN2JH/qkxx2Dy0a+WLSaG2le4wEh1NnBRB8ofxcFbbkeCBJTLVra7lAKEl8C/OPAnkajsqKjJKDRz8geGxP7P9PIfS10gqOGk8UVRMNxZAJZqs4diGqwHrglCzrgbDYAQ083MnAANzBXyiiAHhwExqo8+Qp6AAzNybt10JCH1Wuof5ygzjPdJYF8on7qqJ2Di7F5wmgT1KYdL80TpJI0C8JoVFlNaEk1PjDAV3M5qcSVOWaPNyHw0tPMojnbu+nMuIakaMzzm8tq66MdZIZLX/jPBXFeb2QPTPNNlfmXfP/knLNw6WMBBMjH5FSME8bKE3q3yQ02Z8m2doDm2TskkMNUZTSbnqZL8VPS33zelRe5Nv51B9KJfug3EGQ+GT9qZeW2m97xOh5GDT6h3lsItM0jQaqDHLc2Uwp/elTNYpGat0qWDlT05rLqpvhMoFqP6ipy5Ue6KP3q6P8+C7w9DU7n0j0cOGcKf3GxKf+PWkDUMQp40rO6qVovrKkktVePLaYHpSa3Yn8LzQXJ56kh2BF0zE
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(136003)(346002)(396003)(39860400002)(186009)(1800799009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(316002)(54906003)(16576012)(70206006)(70586007)(110136005)(336012)(426003)(26005)(2616005)(47076005)(36756003)(53546011)(81166007)(356005)(86362001)(31696002)(82740400003)(558084003)(36860700001)(40480700001)(478600001)(40460700003)(2906002)(8676002)(31686004)(5660300002)(41300700001)(4326008)(8936002)(44832011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 09:04:30.4437
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f187566-b75c-482d-262a-08dbb2a61be5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7730
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <93c7ff14-2aa8-09a6-f04d-9dbb3969f470@suse.com>
 
-Hi Penny,
-
-On 11/09/2023 06:04, Penny Zheng wrote:
+On Mon, Sep 11, 2023 at 09:54:53AM +0200, Jan Beulich wrote:
+> On 08.09.2023 18:20, Javi Merino wrote:
+> > The current structure of choosing the correct file based on the
+> > compiler version makes us make 33 line files just to define a
+> > constant.  The changes after gcc 4.7 are minimal, just the number of
+> > counters.
+> > 
+> > Fold the changes in gcc_4_9.c, gcc_5.c and gcc_7.c into gcc_4_7.c to
+> > remove a lot of the boilerplate and keep the logic of choosing the
+> > GCOV_COUNTER in gcc_4_7.c.
+> > 
+> > Signed-off-by: Javi Merino <javi.merino@cloud.com>
+> > ---
+> >  xen/common/coverage/Makefile  |  6 +-----
+> >  xen/common/coverage/gcc_4_7.c | 17 +++++++++--------
+> >  xen/common/coverage/gcc_4_9.c | 33 ---------------------------------
+> >  xen/common/coverage/gcc_5.c   | 33 ---------------------------------
+> >  xen/common/coverage/gcc_7.c   | 30 ------------------------------
+> >  5 files changed, 10 insertions(+), 109 deletions(-)
+> >  delete mode 100644 xen/common/coverage/gcc_4_9.c
+> >  delete mode 100644 xen/common/coverage/gcc_5.c
+> >  delete mode 100644 xen/common/coverage/gcc_7.c
+> > 
+> > diff --git a/xen/common/coverage/Makefile b/xen/common/coverage/Makefile
+> > index 63f98c71d6..d729afc9c7 100644
+> > --- a/xen/common/coverage/Makefile
+> > +++ b/xen/common/coverage/Makefile
+> > @@ -1,11 +1,7 @@
+> >  obj-y += coverage.o
+> >  ifneq ($(CONFIG_CC_IS_CLANG),y)
+> >  obj-y += gcov_base.o gcov.o
+> > -obj-y += $(call cc-ifversion,-lt,0407, \
+> > -		gcc_3_4.o, $(call cc-ifversion,-lt,0409, \
+> > -		gcc_4_7.o, $(call cc-ifversion,-lt,0500, \
+> > -		gcc_4_9.o, $(call cc-ifversion,-lt,0700, \
+> > -		gcc_5.o, gcc_7.o))))
+> > +obj-y += $(call cc-ifversion,-lt,0407, gcc_3_4.o, gcc_4_7.o)
+> >  else
+> >  obj-y += llvm.o
+> >  endif
+> > diff --git a/xen/common/coverage/gcc_4_7.c b/xen/common/coverage/gcc_4_7.c
+> > index 25b4a8bcdc..ddbc9f4bb0 100644
+> > --- a/xen/common/coverage/gcc_4_7.c
+> > +++ b/xen/common/coverage/gcc_4_7.c
+> > @@ -18,15 +18,16 @@
+> >  
+> >  #include "gcov.h"
+> >  
+> > -/*
+> > - * GCOV_COUNTERS will be defined if this file is included by other
+> > - * source files.
+> > - */
+> > -#ifndef GCOV_COUNTERS
+> > -# if !(GCC_VERSION >= 40700 && GCC_VERSION < 40900)
+> > -#  error "Wrong version of GCC used to compile gcov"
+> > -# endif
+> > +#if (GCC_VERSION >= 40700 && GCC_VERSION < 40900)
+> >  #define GCOV_COUNTERS 8
+> > +#elif (GCC_VERSION >= 40900 && GCC_VERSION < 50000)
+> > +#define GCOV_COUNTERS 9
+> > +#elif GCC_VERSION >= 50000 && GCC_VERSION < 70000
+> > +#define GCOV_COUNTERS 10
+> > +#elif GCC_VERSION >= 70000
+> > +#define GCOV_COUNTERS 9
+> > +#else
+> > +#error "Wrong version of GCC used to compile gcov"
+> >  #endif
 > 
+> How about inverse order:
 > 
-> Function parameters {addr_cells,size_cells} are stale parameters in
-> assign_shared_memory, so we shall remove them.
+> #if GCC_VERSION >= 70000
+> #define GCOV_COUNTERS 9
+> #elif GCC_VERSION >= 50000
+> #define GCOV_COUNTERS 10
+> #elif GCC_VERSION >= 40900
+> #define GCOV_COUNTERS 9
+> #elif GCC_VERSION >= 40700
+> #define GCOV_COUNTERS 8
+> #else
+> #error "Wrong version of GCC used to compile gcov"
+> #endif
 > 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> Otherwise a nit and a question: Parentheses would want using consistently.
 
-~Michal
+True, the parenthesis are unnecessary and inconsistent in the patch.
 
+> And wouldn't it make sense to combine the two ranges resulting in 9 being
+> chosen? (Imo in the alternative layout that's less desirable.)
+> 
+> Since the adjustment would be easy to make, I'd be fine doing so while
+> committing, and then
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Happy for you to do the changes.  Or I can do it and fix the next
+patch as well.
+
+Cheers,
+Javi
+
+> As an unrelated remark: gcc_3_4.c is clearly outdated as well, simply by
+> its name. Imo it would have wanted to be gcc_4_1.c the latest as of commit
+> 03f22f0070f3 ("README: adjust gcc version requirement"), i.e. for over 10
+> years.
+> 
+> Jan
 
