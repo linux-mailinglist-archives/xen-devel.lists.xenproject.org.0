@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5262A79A8F3
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 16:48:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599523.934978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10BCF79A90A
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 16:51:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599529.934987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfiDD-0005Ja-N7; Mon, 11 Sep 2023 14:48:27 +0000
+	id 1qfiFp-000727-3Q; Mon, 11 Sep 2023 14:51:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599523.934978; Mon, 11 Sep 2023 14:48:27 +0000
+Received: by outflank-mailman (output) from mailman id 599529.934987; Mon, 11 Sep 2023 14:51:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfiDD-0005H7-K5; Mon, 11 Sep 2023 14:48:27 +0000
-Received: by outflank-mailman (input) for mailman id 599523;
- Mon, 11 Sep 2023 14:48:25 +0000
+	id 1qfiFp-0006zp-0h; Mon, 11 Sep 2023 14:51:09 +0000
+Received: by outflank-mailman (input) for mailman id 599529;
+ Mon, 11 Sep 2023 14:51:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qfiDB-0005Fp-PS
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 14:48:25 +0000
+ (envelope-from <julien@xen.org>) id 1qfiFn-0006zh-NF
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 14:51:07 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qfiDB-0001BE-G4; Mon, 11 Sep 2023 14:48:25 +0000
+ id 1qfiFn-0001Eh-96; Mon, 11 Sep 2023 14:51:07 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qfiDB-0001Bs-B2; Mon, 11 Sep 2023 14:48:25 +0000
+ id 1qfiFn-0001FK-3f; Mon, 11 Sep 2023 14:51:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,98 +42,87 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=CSbViKDu4HaFSAdWUxFex4CcIa31b/J+kRzCQER+1do=; b=7KVq4dxiU7/Rs7/DZ+SOcBRh3R
-	LWNhobilXZEC81KWZbyb/zPbg3lVanj0tgQ9QdJH9ZjpkyQb3Gj6bMa1UXTUPtOZ5odfTpBQeBOL1
-	BONPc5qUcuA3rgziAe2WH64in6/CYAr5es7pe7hPVpzPah6pD6twl4dVrhbC7Nocc22M=;
-Message-ID: <e24a7d3a-ca18-474b-bce2-84b97512c58e@xen.org>
-Date: Mon, 11 Sep 2023 15:48:23 +0100
+	bh=E/vGDCnyziZ9DN2/60mAFB/TvQ7v5NzwLeCXU/vy/c8=; b=m4LOUmIjw6jT0qHTGWNkIAu12v
+	SF8LD/FRw52JU+gXARUuEjE4UzeZhMEETsZynxfZh7B7Yim5CciPAcDt8FiQ20J+UoriTBMhfjO5C
+	MI3SxdR8kqmKNQH/AmoR/xVWTRsKL+GrK7LwHf1Id5eXXiDmd1dEQqaeu78W1WU2Nmv4=;
+Message-ID: <ec41bd05-4a25-438b-84cb-ca86d7bf34d8@xen.org>
+Date: Mon, 11 Sep 2023 15:51:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Skip Xen specific nodes/properties from hwdom
- /chosen node
+Subject: Re: [PATCH v6 08/13] xen/arm: Fold mmu_init_secondary_cpu() to head.S
 Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Henry Wang <Henry.Wang@arm.com>, Ayan Kumar Halder <ayankuma@amd.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Penny Zheng <Penny.Zheng@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230911123401.27659-1-michal.orzel@amd.com>
- <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
- <042fae56-e8e2-c079-2686-d27c5469b7fc@amd.com>
+References: <20230828013224.669433-1-Henry.Wang@arm.com>
+ <20230828013224.669433-9-Henry.Wang@arm.com>
+ <19a8b434-3b2d-9e3d-fc05-fc2828d1abbd@amd.com>
+ <CE8AF1AE-8F01-4DD8-86EE-12C4AD18E4A0@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <042fae56-e8e2-c079-2686-d27c5469b7fc@amd.com>
+In-Reply-To: <CE8AF1AE-8F01-4DD8-86EE-12C4AD18E4A0@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 11/09/2023 15:01, Michal Orzel wrote:
-> Hi Julien,
-> 
-> On 11/09/2023 15:14, Julien Grall wrote:
+On 31/08/2023 10:16, Henry Wang wrote:
+>> On Aug 31, 2023, at 17:12, Ayan Kumar Halder <ayankuma@amd.com> wrote:
 >>
+>> Hi Henry,
 >>
->> Hi,
+>> On 28/08/2023 02:32, Henry Wang wrote:
+>>>
+>>> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+>>> index 33b038e7e0..39218cf15f 100644
+>>> --- a/xen/arch/arm/arm32/head.S
+>>> +++ b/xen/arch/arm/arm32/head.S
+>>> @@ -83,6 +83,25 @@
+>>>           isb
+>>>   .endm
+>>>
+>>> +/*
+>>> + * Enforce Xen page-tables do not contain mapping that are both
+>>> + * Writable and eXecutables.
+>>> + *
+>>> + * This should be called on each secondary CPU.
+>>> + */
+>>> +.macro pt_enforce_wxn tmp
+>>> +        mrc   CP32(\tmp, HSCTLR)
+>>> +        orr   \tmp, \tmp, #SCTLR_Axx_ELx_WXN
+>>> +        dsb
+>>> +        mcr   CP32(\tmp, HSCTLR)
+>>> +        /*
+>>> +         * The TLBs may cache SCTLR_EL2.WXN. So ensure it is synchronized
+>>> +         * before flushing the TLBs.
+>>> +         */
+>>> +        isb
+>>> +        flush_xen_tlb_local \tmp
+>>> +.endm
+>>> +
+>>>   /*
+>>>    * Common register usage in this file:
+>>>    *   r0  -
+>>> @@ -254,6 +273,7 @@ secondary_switched:
+>>>           /* Use a virtual address to access the UART. */
+>>>           mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
+>>>   #endif
+>>> +        pt_enforce_wxn
+>>>   
 >>
->> On 11/09/2023 13:34, Michal Orzel wrote:
->>> Host device tree nodes under /chosen with compatible string
->>> "xen,evtchn-v1", "xen,domain-shared-memory-v1" are Xen specific and not
->>> meant to be exposed to hardware domain.
+>> Can you move ^^^ to before "#ifdef CONFIG_EARLY_PRINTK" so that the MMU related functionality are bundled together?
 >>
->> So, how dom0 is meant to discover the static event channel, shared
->> memory it can use?
+>> Also AFAIU, mov_w has not effect on pt_enforce_wxn().
+>>
+>> So that I can create a function "enable_secondary_cpu_mm()" - similar to one you introduced for arm64
 > 
-> For static shared memory:
-> A node with this compatible is only meant for Xen since it contains information like host-guest mapping.
-> Xen creates a different node for guests under /reserved-memory.
-> Linux binding:
-> https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
-> Xen node generation:
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/domain_build.c;hb=HEAD#l1407
+> Sure, I am good with this if other maintainers do not have any objections.
 
-Ah good point. I agree with this one.
-
-> 
-> For static event channels:
-> This is a bit weird so let me put it in a different way.
-> 1) Xen does not create any node for static evtchn for domU.
-> 2) The booting.txt states:
-> There is no need to describe the static event channel info in the domU device
-> tree. Static event channels are only useful in fully static configurations,
-> and in those configurations, the domU device tree dynamically generated by Xen
-> is not needed.
-> 3) The "xen,evtchn" property specifies the local port as well as phandle of domU node.
-> dom0 does not have access to domU nodes, therefore exposing a property with not existing phandle
-> makes me think that:
-
-You have a point for the phandle. Yet, this is the only way dom0 can 
-find the event channel today. As we exposed it, I don't think we can 
-remove it until we have a proper replacement.
-
-We might get away if the feature is not supported it at all. But there 
-is no statement, so it is a little unclear whether the feature is meant 
-to be in technical preview.
-
-In any case, I think the commit message deserve a bit more explanation 
-as hiding "xen,evtchn-v1"/"xen,domain-shared-memory-v1" is not 
-uncontroversial.
-
-> a) point 2) applies to dom0 as well and we should hide this node or > b) there is a missing property for both dom0 and domUs to tell them 
-about static local port in a proper way
-> 
-> Exposing Xen specific evtchn node only to dom0 and not to domU with required information happen to be found as first value
-> in xen,evtchn is definitely not a proper solution.
-
-My concern here is we exposed such information to dom0. So as I said 
-above, I don't think we can simply remove it as there is no other way to 
-find such information today.
-
-It doesn't matter that it wasn't exposed to domU.
-
-> Also, there is no Linux binding for it.
-
-AFAIK the static event channel support was not added in Linux until very 
-recently. Also, I think the kernel doesn't directly use the static event 
-channel. So it is possible, this is just an overlook.
+I am objecting. It would be quite handy to print a message on the 
+console to indicate that we are enforce WXN. So we want to update UART 
+address (stored in r11) before hand.
 
 Cheers,
 
