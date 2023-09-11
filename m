@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E22D979A875
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 16:01:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599446.934908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E18E979A87A
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 16:03:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599468.934928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfhTb-0007N0-Le; Mon, 11 Sep 2023 14:01:19 +0000
+	id 1qfhVy-0000kz-Hc; Mon, 11 Sep 2023 14:03:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599446.934908; Mon, 11 Sep 2023 14:01:19 +0000
+Received: by outflank-mailman (output) from mailman id 599468.934928; Mon, 11 Sep 2023 14:03:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfhTb-0007J3-IG; Mon, 11 Sep 2023 14:01:19 +0000
-Received: by outflank-mailman (input) for mailman id 599446;
- Mon, 11 Sep 2023 14:01:17 +0000
+	id 1qfhVy-0000hx-Dn; Mon, 11 Sep 2023 14:03:46 +0000
+Received: by outflank-mailman (input) for mailman id 599468;
+ Mon, 11 Sep 2023 14:03:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yA6l=E3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1qfhTZ-0005N8-TT
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 14:01:17 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20609.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::609])
+ <SRS0=S94K=E3=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qfhVx-0000hH-Fo
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 14:03:45 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20631.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad46eb0b-50ab-11ee-8784-cb3800f73035;
- Mon, 11 Sep 2023 16:01:17 +0200 (CEST)
-Received: from SN6PR2101CA0015.namprd21.prod.outlook.com
- (2603:10b6:805:106::25) by SA1PR12MB8096.namprd12.prod.outlook.com
- (2603:10b6:806:326::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.31; Mon, 11 Sep
- 2023 14:01:13 +0000
-Received: from SN1PEPF0002529F.namprd05.prod.outlook.com
- (2603:10b6:805:106:cafe::cf) by SN6PR2101CA0015.outlook.office365.com
- (2603:10b6:805:106::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.3 via Frontend
- Transport; Mon, 11 Sep 2023 14:01:12 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF0002529F.mail.protection.outlook.com (10.167.242.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.17 via Frontend Transport; Mon, 11 Sep 2023 14:01:12 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 09:01:12 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Sep
- 2023 07:01:11 -0700
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Mon, 11 Sep 2023 09:01:10 -0500
+ id 042b49cc-50ac-11ee-8784-cb3800f73035;
+ Mon, 11 Sep 2023 16:03:44 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by BN9PR12MB5274.namprd12.prod.outlook.com (2603:10b6:408:11f::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.34; Mon, 11 Sep
+ 2023 14:03:40 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::9a2:f8ec:7c75:fe95]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::9a2:f8ec:7c75:fe95%6]) with mapi id 15.20.6768.029; Mon, 11 Sep 2023
+ 14:03:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,108 +47,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad46eb0b-50ab-11ee-8784-cb3800f73035
+X-Inumbo-ID: 042b49cc-50ac-11ee-8784-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kw36Ht/KL7ayI2K1z6lh7SHEwnWi5qnOucBxnn6QcApxFvBdZRyM7R8Z0NGfvwdqbQk9Lld4f99ZgMdQ3inq4fOrRLuEFGcm0OugyA1cropFGaKss0awcjOQiHy+AgQouZD/I0/zX4m2LUrrs7kUz90K7Us6WOkbvtmRSvXfOxr3PUE4HTsPqngjgpBib1e7uyCo6qRdZHV9f4qto0eK/xbx8R62gIsLlnTr4bRYmFoAyomdUy7fFP5LkK3+uf5L4QnypSGbNsYifAV0FV7VaPcVgeW5nT4/txGpXFYGs+t/DE/82/C5+fSQCl3Lw0vCBX5Pz/OhSboeGbP8Voyh3A==
+ b=XwTWktVUZPwsdhG/OueuOkBAJ/8vHE9VE9kjS5e8xCOiWPX3eXik99TYlARW6vOmxGbZqXFOVGPmhnvGmB1Ko7otk4dNLIZ7itYM3TURrDDgN3day/GzfQdzqG6onxdCwTuzmkhZ9QHWvHKMQLEjj6rm1+hnhDcJ2vsOyf0Zj3b9yAi/U/Vo0/q6Pqgs0XY4FRq77T7tSoegib4X578xQ1AzOWcOi8TwuKAjfsN5j8bJ9wQj1wHUj8DsyIod3HCktU6DYt1ujfpSSoj+SfDLqe9k07NE2+SZ47wzd6ZmZ8/+fKcjpnBNg3Jjsw/OcIfUb85tJaHTJChjdK2Hk7nROw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kjGYVLcBdnVTAOB4ZKotPMviIqusi914qXiDXN+m48Y=;
- b=KzWmMQFo/mGnS0qkWPIGLHbVQREIE3kJiZ6Ai1r7AuhUVlAknUsjvOcY7dJcDKttp4rH0/fMI1MnsGlYGhyEb2sKMZ/eMK9p/RJ52svCJhhgvMv2tzdUjQu0izw5yp8QhRKL9tdFgGJaIl5y87X7VjjjgoIbxda8dCjb7kK9EWhJl14DzraqvaniDEz5MrxsjliYEe8ZeXZ1GO4WiOq5bP0oBTBkvYO6OMp6bjmkTfb+cUCbAxW+gXtIN2tl/6bgDR8pZmwTaa/BmTGYeBDknPFityqUyy79j0ZVIP76QuvPDJBO3eek5UWU7ieeOoXZ3xEoponMxLJDP9a+/hxEOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=5Mefa9bnp9MDt++lQp3ggEEWTzalF96Ef1xjeopKNYk=;
+ b=e4bwP7ptyWAWe0OL2VLOfvrpDs0x0OLAs/96h0i9AGk4S8JUPhPAvx9VVJTJpOWt+caWmZppswhVLksgb9bZTQRcgHsTR2n5AwK51eaBnEzOOuGpCbHo5m9OtyiGOLfi5FFqYZu9x+z+ItlfE2dD2087aXcCpu4+FS+inJAbKwlaQcvGZqbbsLMwnvhM1xATrXuqWYRSNxH8HW6WV6y81rN8MrpRsvCxlRdIKFCXPEuMf5EeVHfMKOPRFD7ir571+WgH2WP1pqV0PyuaHInW8Rl6QAOGpCESpidBOYTAtF62Qy3OzLgQds++K9qplCGUO1jN2cmAp0QSq8MhY/Qvng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kjGYVLcBdnVTAOB4ZKotPMviIqusi914qXiDXN+m48Y=;
- b=ZzmlnlKBkj2I7NU43/XB+X/lyzJnR901TcVsi2yyPJnSTmh4iK/VNhY/ceDqsB/thJCoK4NzYeXAey3qjPo5UcFuSopl3ueXEuU3qAYplDm1gDVK+3jVhZlYQ62svbxEfkXKjqKYZQb/w05YbK/tFoGlLXYhkUFpIFl+At6MAeg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <042fae56-e8e2-c079-2686-d27c5469b7fc@amd.com>
-Date: Mon, 11 Sep 2023 16:01:04 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [PATCH] xen/arm: Skip Xen specific nodes/properties from hwdom
- /chosen node
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230911123401.27659-1-michal.orzel@amd.com>
- <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+ bh=5Mefa9bnp9MDt++lQp3ggEEWTzalF96Ef1xjeopKNYk=;
+ b=mCl9o0NvCRPQ5T8kr9zasYUoRMmUuv6a28fIHracHucBY3QhysWI9zYg2dyfUZaJcX67eJKZqpR06zsHN9/CFA9ZWCj7Crhc1Z/J87GxJDL6tILTGAaSvEeFQZ0jKs5nGzlTb0FX+oLh0MSdts4bphJfg/heIgxmqMYvy9foZQE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <8da354d9-5b80-709d-8b0a-be1ba5694b37@amd.com>
+Date: Mon, 11 Sep 2023 15:03:33 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [PATCH v6 00/13] xen/arm: Split MMU code as the prepration of MPU
+ work
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Henry Wang <Henry.Wang@arm.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
+ Penny Zheng <penny.zheng@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230828013224.669433-1-Henry.Wang@arm.com>
+ <alpine.DEB.2.22.394.2309081515340.6458@ubuntu-linux-20-04-desktop>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2309081515340.6458@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: LO2P265CA0329.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a4::29) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|SA1PR12MB8096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d605722-f2cd-4b78-8914-08dbb2cf8eac
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|BN9PR12MB5274:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0eaffe0-fed4-4c61-913d-08dbb2cfe6ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NPjL8whGNcxVhMs+7BkOnTZivKspiGE0cxiIoSlucRBpgf/DvWOIN+SCGhDP8I+AK7eOObxMPgOGp5OuUYlTY1tIVrWKqpYvt56lJCNuCm1eFPHJeDZlh0GrpNmRji8PbBM8DvQ27EMNLAhJlTeHftMXFHVf7Jci9BRVYKf24cj3vvywH/k8nR9dMIQvEYiq8FXzTLbHJcbDhbySG1ax3urPfV1aKgxJVU5OyIN82uKbCd5ZLfdWUET2PLalk1X+uhr/MF3Hl2+wQ1zKZ/VOx2BJmh8E0g83vokoXUtToEAiOTKlsfLuElkd+pQ+4s+no77L44S98F3KaMOoeaGrwCgrLZ2/KnMiIpEcqMNF6np2ozlPsQi5vqjYKGv3U7B0nFrjF3BOCYkah69WPYtDPDg9wtT+UQbGviauq8PgWNeq2xSm5WsSzOvkaPJd3W96ZqO53jsjRpS0Smm1ixmui2oCMtmsmhqH+pzXz8c0foi4ENYkz4mCuOi8MvTQeJUSvpzBpq8008FOY7PsPPqnwYLMQrGQetcwoqbfPeqFAYPal75J/aFUuIBW5lYA4m4HS8WtV7gYVNQZPnAPv7cz9oWZrKKyg2P3VUW+S7AZ242/vr1WvdNeFDuU7yaQ2XVG6KU5gG1CPw+qAhvY7r4Xs5CHbCDd/oEnaub4ambQWIwl/YsxwFeOk7mhLiJ4TYpRCAWxLK2A2eqwaPWuJ2ksx7bVlCVTKP/dY9ykTgcVRQJ1+W2edzIND1uDoxsTZHVEyEQZ+D8LLTVsW8AFz3NzWlHQesjBSjaEomDF7OXZFhrEg/w7bVq8nd2uInGuFW54/2qqPsIOPbBHuTt3BKraDQ==
+	NjEL/9PENmugN2/1SWPHfor6h+4+wgPPpU0rAYItXXsO/znpTDxzfWjP0glj+dthDUOX8bFRAcD/MNDxI1CXyBbFCatudDKuaW7MianMYKJcLyPguqYpDcuknzngVpBMu1IO8npEoBqdH6qbwKuIc8Q8Rqn2VhiX1+WNjvJhqdoVJvh9P1xRiK9vA1eUbvox68UzUBC3upU909wJDcz4Q1oVV/pXLbpB/GGfuo95NBXaLox4m8Z4pvlaU7YMJtdzbIjTc7LVWuQJDntM/qUmM1Hgn4d4YDhCBCZCMLA7qo/sAGrrC7otTVX2F9Vr2s5tAatc6cyTFLtp9ueOSZKDjyVuOynezqNVrwCvnC2CnSALWT76HQuMwtXb+ii/cwqalorE//z2asgv9+j3rXhLYtZTAavoS/S1Zz2GiYD5xrb2tFtf1YFFUXJm8pRQWl+UotXkZEb0Wt2ZGcOXjWJSDoeGhs5gXEwLWcnudx/myw1sU6BEpJqV9yX8X1mpbTgTyqkEOzNCScoMS/dAsC+d2LkfcJEyGU6M/+DLn7m9ISF4ws+gqayrGATaQVtCSwZqMZ871wFzvenR8AVR9zHkLl31/F9JZ6oFZK7ggeM8BPQ+4UFBB05ic/q0r5xqLTc6Lqy93xBD94/OOaaZob8weawBoiMSF+GG16Uzwf4fgBIeIwIrDwMug7Lr+20TiyME
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(376002)(136003)(396003)(82310400011)(1800799009)(186009)(451199024)(46966006)(40470700004)(36840700001)(6666004)(53546011)(966005)(478600001)(83380400001)(2616005)(426003)(336012)(2906002)(26005)(16576012)(44832011)(54906003)(316002)(70206006)(70586007)(110136005)(5660300002)(4326008)(8936002)(8676002)(40480700001)(36756003)(36860700001)(356005)(47076005)(40460700003)(31696002)(86362001)(82740400003)(81166007)(31686004)(41300700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(366004)(136003)(39860400002)(396003)(186009)(1800799009)(451199024)(6486002)(6506007)(53546011)(6512007)(6666004)(83380400001)(31696002)(38100700002)(36756003)(2616005)(26005)(31686004)(316002)(41300700001)(66946007)(4326008)(8676002)(54906003)(966005)(66476007)(110136005)(2906002)(5660300002)(478600001)(66556008)(45080400002)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NEZxRnVtaVVMcnFUaEZhSXhiYTdoSi9TVFZnMlh2SS8vT3V4RExSNEx2NUtP?=
+ =?utf-8?B?RjU4RGRNL09PeUpZdGdUdjBOOFdQY0ZZMU1rRnl6dHN6WVkzaUJHQ29iSE1w?=
+ =?utf-8?B?cWUzVzhlamhoMHRQYlNyaUN1cG1DWU42bGluRE93K3RQREQ2OVFlSkhmZHFh?=
+ =?utf-8?B?cjJQem91cDZxNmNqR3VGSW1NR1NPWHhONk04dytDOFh1QUVSaXZWQlJFbVhP?=
+ =?utf-8?B?VVJONjBPdmMvZUFYY2NYYjkxZnVGSU92a0tWeFJBcCt4RktPYUdJejQwTXVG?=
+ =?utf-8?B?elhHQ1FsV0diakcxRU96cEhhVHlBRXJEMUgrczR3bjI0aGNRT0tlNjhSQzN5?=
+ =?utf-8?B?VGdWSGNKMHUxSHdKUkFCcGUzQzFwQkN1ZGljNElVVStaTHJlSVUvQ1lKa1My?=
+ =?utf-8?B?UnBXUStyRSsrRmlrOTFmWGR2WGdnYm5WaXI2YnRlbU54akVkZEtaVUp4OGE5?=
+ =?utf-8?B?eUZoYzBPMkEvaW5MYXNObmdzSVpDbGtyTW1sYUN4MEM2V3hsamVhRGlYUkpE?=
+ =?utf-8?B?V2JMSEc5ZTZ2em95OVpRSktLMkdHcFcvempEcHQ5WkZSYkw5Z25JL0pCbDVN?=
+ =?utf-8?B?aWNUMWhUS0c0eHMzbm1PYXVjVjVETE9JRnNCdCtEajZGZTlmT0NjTFV0b0xZ?=
+ =?utf-8?B?Vm83elN0SFRNNncrM2tRamJBbTVFekM2Sk56M2dkVHcyREVEbDJZZmhhV0ZK?=
+ =?utf-8?B?Wmg1bFF1SUx6aUFDWkhOVFFDdEdncjNQRjFWeHNtUDZPK3l4Y0JMNHFVbHJl?=
+ =?utf-8?B?YzREQnFLbnBudW5Ed3o2N2FXWER0RlpWNUcxR2pOVGdmaG9XSHZMdE1Cc05r?=
+ =?utf-8?B?TWhSOXNWSHJwdTBJRU9jMThiNFhDU0xsUHlWNTdqNEdkU1NkWjVMVTBMSTB0?=
+ =?utf-8?B?Ylc3a0RFaDVza3loOWpYWEhYREo2b2F6STUxRXgwbzRDSVNieW1qWW1ha2Zp?=
+ =?utf-8?B?eTZKL2JrdkFZV05USldZbjhnTlJZVVdldW1tUXVLeWVvaW9JdGluMUZENWJW?=
+ =?utf-8?B?dk1SSjVqWUpKVFkyZmszL1AvL2hDWTFEZng3RDNrY3c3QmUzaWxSLzNuT09t?=
+ =?utf-8?B?Vk8wQ21zcFlsSDFaZW10WmwyN1JrbE5McU5jOXIzR0lyYTZYOVcyOG84Y2lr?=
+ =?utf-8?B?MkhSNzBnOW9pTkppdDN2R1ArQ3M2UjNYZlhZZHdKODNLR0hkblk1eWEwM0Zr?=
+ =?utf-8?B?OGpnWkVzRTdVSzZZeE1xOElJa3AzOXd4ajFuSEtjQVdNZEg3eG05ZWxYRHYy?=
+ =?utf-8?B?QzFET1hYYXNURG5kY2huUmdoSGMreXZkU1VUa1dQSlM2bWVIVFFwVUlIYXhn?=
+ =?utf-8?B?RjRLTWV3b1RTMDlLYWVVaEV5b0hMenV0YStPaHBqaHNQaEdvQmxjNU82Q2R1?=
+ =?utf-8?B?YjFMYWJ0eFpBRk1Xd3pHbEpTY1ZNS0xjaHo5WXpBZVh2aTlOajZQTkpyTEhX?=
+ =?utf-8?B?RTZrbmg1ZEFKaGYzU2dnSG5JOWN5VHBLMWFrRndMYWZmdDV4a1hoYzV5UXdo?=
+ =?utf-8?B?ZkZ5MXZ4Q2tUTGkreVRjYTFTbFZCdDgrUGFlU1NlQkZKYnBuRWEzSFJXdzIy?=
+ =?utf-8?B?ajB4YXZ5QkpYbGZaUFA3eGNPTzlnS3k1N2NsbWw3QmNJTGlqSTYvQWZ2eVBI?=
+ =?utf-8?B?VzZJMmI3SW5jNTFGbnRjUlVSM09YTVk1RVVEQlY0ZHUwaXdEdGlYTUNqa3pY?=
+ =?utf-8?B?eE5HYWRVWkZjdG5YNDY4Q2dCVGZ3alYyK2EydU1tTmUxbGNRcWJjMWh5NWpR?=
+ =?utf-8?B?V1U2d01MSUIweG4rN1MxM1gyckpUb3lTTDFMRUVxTzNKQjlSSmRDU1h3S0VZ?=
+ =?utf-8?B?a1B4bjFoeVo2M0RpRUQrMXVPS2l6VlNZK0lKTjFoOXZJMWN5cEtKVXdxMDBB?=
+ =?utf-8?B?VUtKVG80Q1M1bE5RcW1CSUx1OUFkOWVZQ3N0TGdXTFZEc2lJZC9SVWcyWWN2?=
+ =?utf-8?B?R29YdlkrWFcyMER1Z1MyMy9XcHR4b25HMEUzQ1R3QXFYNjZLTFNRYmJ4ZTFR?=
+ =?utf-8?B?MDR4aGxJa1B3SlBTNnIrbFg1RG9yREFvMkFNZURhcEJ0SHk1Mko3Qlh1Kzcz?=
+ =?utf-8?B?b215YXNJdGpXZVF6Q2w0d1FsMnZ6ODExTEh6V3pMQno4Tk01cXVUWlBoZ2JW?=
+ =?utf-8?Q?7sFFG+gCDyMozGsUKPA627Vrx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 14:01:12.4078
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0eaffe0-fed4-4c61-913d-08dbb2cfe6ac
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 14:03:40.2700
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d605722-f2cd-4b78-8914-08dbb2cf8eac
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002529F.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8096
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nyIrVhQsz1Ld0MsbN/fFsnabYTTVbqdC7tBJvAee9R1vAIT1SN3l2oevznNoX3N6k1/YqRSHnlyCUHEmGw2Dcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5274
 
-Hi Julien,
+Hi Henry,
 
-On 11/09/2023 15:14, Julien Grall wrote:
-> 
-> 
-> Hi,
-> 
-> On 11/09/2023 13:34, Michal Orzel wrote:
->> Host device tree nodes under /chosen with compatible string
->> "xen,evtchn-v1", "xen,domain-shared-memory-v1" are Xen specific and not
->> meant to be exposed to hardware domain.
-> 
-> So, how dom0 is meant to discover the static event channel, shared
-> memory it can use?
+On 08/09/2023 23:15, Stefano Stabellini wrote:
+> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
+>
+>
+> I committed patches 1-5
+>
+> On Mon, 28 Aug 2023, Henry Wang wrote:
+>> Based on the discussion in the Xen Summit [1], sending this series out after
+>> addressing the comments in v5 [2] as the preparation work to add MPU support.
+>> The series passed the GitLab CI check in [3].
+>>
+>> Mostly code movement and function folding, with some of Kconfig and build
+>> system (mainly Makefiles) adjustment.
+>>
+>> This series is based on:
+>> ec272d8d4c CI: Always move the bisect build log back
+>>
+>> [1] https://lore.kernel.org/xen-devel/AS8PR08MB799122F8B0CB841DED64F4819226A@AS8PR08MB7991.eurprd08.prod.outlook.com/
+>> [2] https://lore.kernel.org/xen-devel/20230814042536.878720-1-Henry.Wang@arm.com/
+>> [3] https://gitlab.com/xen-project/people/henryw/xen/-/pipelines/982592897
+>>
+>> Henry Wang (9):
+>>    xen/arm: Introduce CONFIG_MMU Kconfig option
+>>    xen/arm64: Split and move MMU-specific head.S to mmu/head.S
+>>    xen/arm64: Fold setup_fixmap() to create_page_tables()
+>>    xen/arm: Split page table related code to mmu/pt.c
+>>    xen/arm: Split MMU system SMP MM bringup code to mmu/smpboot.c
+>>    xen/arm: Fold mmu_init_secondary_cpu() to head.S
+>>    xen/arm: Extract MMU-specific MM code
+>>    xen/arm: Split MMU-specific setup_mm() and related code out
+>>    xen/arm: Fold pmap and fixmap into MMU system
+>>
+>> Penny Zheng (2):
+>>    xen/arm: Rename init_secondary_pagetables() to prepare_secondary_mm()
+>>    xen/arm: mmu: move MMU specific P2M code to mmu/p2m.{c,h}
+>>
+>> Wei Chen (2):
+>>    xen/arm64: head.S: Introduce enable_{boot,secondary}_cpu_mm()
+>>    xen/arm: Move MMU related definitions from config.h to mmu/layout.h
 
-For static shared memory:
-A node with this compatible is only meant for Xen since it contains information like host-guest mapping.
-Xen creates a different node for guests under /reserved-memory.
-Linux binding:
-https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
-Xen node generation:
-https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/domain_build.c;hb=HEAD#l1407
+Except for "[PATCH v6 08/13] xen/arm: Fold mmu_init_secondary_cpu() to 
+head.S " where I have a small comment, I am happy with the current set.
 
-For static event channels:
-This is a bit weird so let me put it in a different way.
-1) Xen does not create any node for static evtchn for domU.
-2) The booting.txt states:
-There is no need to describe the static event channel info in the domU device
-tree. Static event channels are only useful in fully static configurations,
-and in those configurations, the domU device tree dynamically generated by Xen
-is not needed.
-3) The "xen,evtchn" property specifies the local port as well as phandle of domU node.
-dom0 does not have access to domU nodes, therefore exposing a property with not existing phandle
-makes me think that:
-a) point 2) applies to dom0 as well and we should hide this node or
-b) there is a missing property for both dom0 and domUs to tell them about static local port in a proper way
+I have made the corresponding changes for Arm32 MMU (See 
+https://gitlab.com/xen-project/people/ayankuma/xen/-/commits/mmu_arm32_on_arm64?ref_type=heads 
+),
 
-Exposing Xen specific evtchn node only to dom0 and not to domU with required information happen to be found as first value
-in xen,evtchn is definitely not a proper solution. Also, there is no Linux binding for it.
-All that makes me think that the author's idea was not to expose it.
+and triggered the CI. It looks all good (qemu-smoke-ppc64le-pseries-gcc 
+failure seems unrelated).
 
-~Michal
+I have sent out the patches for review so that the maintainers/you can 
+have a look and review them
+
+("[XEN v1 0/4] xen/arm: Split MMU code as the prepration of MPU work 
+form Arm32").
+
+- Ayan
+
+>>
+>>   xen/arch/arm/Kconfig                    |    5 +-
+>>   xen/arch/arm/Makefile                   |    1 +
+>>   xen/arch/arm/arm32/Makefile             |    1 +
+>>   xen/arch/arm/arm32/head.S               |   22 +-
+>>   xen/arch/arm/arm32/mmu/Makefile         |    1 +
+>>   xen/arch/arm/arm32/mmu/mm.c             |  301 ++++
+>>   xen/arch/arm/arm64/Makefile             |    2 +-
+>>   xen/arch/arm/arm64/head.S               |  460 +-----
+>>   xen/arch/arm/arm64/mmu/Makefile         |    2 +
+>>   xen/arch/arm/arm64/mmu/head.S           |  481 ++++++
+>>   xen/arch/arm/arm64/{ => mmu}/mm.c       |   84 ++
+>>   xen/arch/arm/include/asm/arm32/mm.h     |    1 +
+>>   xen/arch/arm/include/asm/arm64/macros.h |   36 +
+>>   xen/arch/arm/include/asm/config.h       |  132 +-
+>>   xen/arch/arm/include/asm/mm.h           |   28 +-
+>>   xen/arch/arm/include/asm/mmu/layout.h   |  146 ++
+>>   xen/arch/arm/include/asm/mmu/mm.h       |   41 +
+>>   xen/arch/arm/include/asm/mmu/p2m.h      |   18 +
+>>   xen/arch/arm/include/asm/p2m.h          |   26 +-
+>>   xen/arch/arm/include/asm/page.h         |   15 -
+>>   xen/arch/arm/include/asm/setup.h        |    5 +
+>>   xen/arch/arm/kernel.c                   |   28 -
+>>   xen/arch/arm/mm.c                       | 1212 ---------------
+>>   xen/arch/arm/mmu/Makefile               |    4 +
+>>   xen/arch/arm/mmu/p2m.c                  | 1736 +++++++++++++++++++++
+>>   xen/arch/arm/mmu/pt.c                   |  743 +++++++++
+>>   xen/arch/arm/mmu/setup.c                |  372 +++++
+>>   xen/arch/arm/mmu/smpboot.c              |  121 ++
+>>   xen/arch/arm/p2m.c                      | 1837 +----------------------
+>>   xen/arch/arm/setup.c                    |  324 +---
+>>   xen/arch/arm/smpboot.c                  |    4 +-
+>>   xen/arch/arm/xen.lds.S                  |    1 +
+>>   32 files changed, 4222 insertions(+), 3968 deletions(-)
+>>   create mode 100644 xen/arch/arm/arm32/mmu/Makefile
+>>   create mode 100644 xen/arch/arm/arm32/mmu/mm.c
+>>   create mode 100644 xen/arch/arm/arm64/mmu/Makefile
+>>   create mode 100644 xen/arch/arm/arm64/mmu/head.S
+>>   rename xen/arch/arm/arm64/{ => mmu}/mm.c (60%)
+>>   create mode 100644 xen/arch/arm/include/asm/mmu/layout.h
+>>   create mode 100644 xen/arch/arm/include/asm/mmu/mm.h
+>>   create mode 100644 xen/arch/arm/include/asm/mmu/p2m.h
+>>   create mode 100644 xen/arch/arm/mmu/Makefile
+>>   create mode 100644 xen/arch/arm/mmu/p2m.c
+>>   create mode 100644 xen/arch/arm/mmu/pt.c
+>>   create mode 100644 xen/arch/arm/mmu/setup.c
+>>   create mode 100644 xen/arch/arm/mmu/smpboot.c
+>>
+>> --
+>> 2.25.1
+>>
 
