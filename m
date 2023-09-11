@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C49979AB6F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 23:06:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599767.935320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9D7A79AB91
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 23:33:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599778.935336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfo67-0000H5-EB; Mon, 11 Sep 2023 21:05:31 +0000
+	id 1qfoWQ-0004Nq-Ah; Mon, 11 Sep 2023 21:32:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599767.935320; Mon, 11 Sep 2023 21:05:31 +0000
+Received: by outflank-mailman (output) from mailman id 599778.935336; Mon, 11 Sep 2023 21:32:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfo67-0000EV-B9; Mon, 11 Sep 2023 21:05:31 +0000
-Received: by outflank-mailman (input) for mailman id 599767;
- Mon, 11 Sep 2023 21:05:29 +0000
+	id 1qfoWQ-0004LX-7V; Mon, 11 Sep 2023 21:32:42 +0000
+Received: by outflank-mailman (input) for mailman id 599778;
+ Mon, 11 Sep 2023 21:32:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qfo65-0000EL-Jq; Mon, 11 Sep 2023 21:05:29 +0000
+ id 1qfoWP-0004LN-11; Mon, 11 Sep 2023 21:32:41 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qfo65-0001ed-ID; Mon, 11 Sep 2023 21:05:29 +0000
+ id 1qfoWO-0002Ds-V0; Mon, 11 Sep 2023 21:32:40 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1qfo65-0006AV-6x; Mon, 11 Sep 2023 21:05:29 +0000
+ id 1qfoWO-0006sx-Jx; Mon, 11 Sep 2023 21:32:40 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qfo65-0007WW-6S; Mon, 11 Sep 2023 21:05:29 +0000
+ id 1qfoWO-00081Q-JD; Mon, 11 Sep 2023 21:32:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +45,64 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=huEv4kRzHHewEKHxiEBXmWYexVtmKJvTZHcUus81SfY=; b=2cwMZjlMuhpPrdhtCeY3PzR8G6
-	wQFLIQCiufSboho4ptmV5verX3QnCvI/BFwgKMbrRkbonMldwUMLM2Lmf+olhYFI9hHOddK5V+ql6
-	CBZU9l+4FlUeHvLXsqXzBwTL2gw14vbBiL0kyLXeCOL9WusX7q2QKzqX1kutVjQYAHZQ=;
+	bh=7vgRpTrZqD/Ne+AL97ZmJRwOC/aO9bQ6EJ7PEbhts58=; b=3Rj17Icm/Q1ATv1BkubpIrDnd9
+	F0izkqeCxqEdojzutPSJrKTVZzTjW+aN4P01+EE1kXbdUroF3IKF0udT7r9sW4NH+M3P08FevPBUZ
+	DVMTfa3CVYmzJmGXaQNkEvxrp/RwFeWrxiCnfgo3/z/w6PjKYdSnmNXoW2s9rINXounI=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182944-mainreport@xen.org>
+Message-ID: <osstest-182948-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [seabios test] 182944: tolerable FAIL - PUSHED
+Subject: [xen-unstable-smoke test] 182948: tolerable all pass - PUSHED
 X-Osstest-Failures:
-    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    seabios=1e1da7a963007d03a4e0e9a9e0ff17990bb1608d
+    xen=f1546c98e06fec6c2d1e15ff8e80547d10365bc3
 X-Osstest-Versions-That:
-    seabios=7a4003be25eae462f3c3d8aad96b57e34dc0c2b8
+    xen=ab4f3e3897ab777f94d44d0450f9b0e844fad830
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 11 Sep 2023 21:05:29 +0000
+Date: Mon, 11 Sep 2023 21:32:40 +0000
 
-flight 182944 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182944/
+flight 182948 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182948/
 
 Failures :-/ but no regressions.
 
 Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 182507
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182507
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 182507
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182507
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 182507
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
 version targeted for testing:
- seabios              1e1da7a963007d03a4e0e9a9e0ff17990bb1608d
+ xen                  f1546c98e06fec6c2d1e15ff8e80547d10365bc3
 baseline version:
- seabios              7a4003be25eae462f3c3d8aad96b57e34dc0c2b8
+ xen                  ab4f3e3897ab777f94d44d0450f9b0e844fad830
 
-Last test of basis   182507  2023-08-24 13:12:45 Z   18 days
-Testing same since   182944  2023-09-11 15:14:00 Z    0 days    1 attempts
+Last test of basis   182945  2023-09-11 16:00:27 Z    0 days
+Testing same since   182948  2023-09-11 19:03:12 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Javi Merino <javi.merino@cloud.com>
+  Jinoh Kang <jinoh.kang.kr@gmail.com>
 
 jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
+ build-arm64-xsm                                              pass    
  build-amd64                                                  pass    
- build-i386                                                   pass    
+ build-armhf                                                  pass    
  build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
  test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
 ------------------------------------------------------------
@@ -144,6 +123,6 @@ Test harness code can be found at
 
 Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   7a4003b..1e1da7a  1e1da7a963007d03a4e0e9a9e0ff17990bb1608d -> xen-tested-master
+To xenbits.xen.org:/home/xen/git/xen.git
+   ab4f3e3897..f1546c98e0  f1546c98e06fec6c2d1e15ff8e80547d10365bc3 -> smoke
 
